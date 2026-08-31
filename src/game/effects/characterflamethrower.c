@@ -4,6 +4,21 @@ extern f32 D_800A8AA4;
 
 void func_1519CDB0(s32 arg0, f32 arg1, s32 arg2);
 
+typedef struct CharacterFlamethrowerState {
+    char pad0[0x148];
+    s32 unk148;
+} CharacterFlamethrowerState;
+
+typedef struct CharacterFlamethrowerActor {
+    char pad0[0x98];
+    CharacterFlamethrowerState *state;
+} CharacterFlamethrowerActor;
+
+typedef struct CharacterFlamethrowerContext {
+    char pad0[0x38];
+    CharacterFlamethrowerActor *actor;
+} CharacterFlamethrowerContext;
+
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
  * Boundary evidence: docs/evidence/effects_characterflamethrower.md
@@ -146,7 +161,11 @@ void func_15198D7C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C09C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C200.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C22C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C258.s")
+void func_1519C258(CharacterFlamethrowerContext *arg0) {
+    void *state = arg0->actor->state;
+
+    ((CharacterFlamethrowerState *)state)->unk148 = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C26C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C4E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C56C.s")

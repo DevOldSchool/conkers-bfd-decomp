@@ -20,7 +20,8 @@ contributions use the same workflow and review standard.
    by Git.
 
 4. Follow [the bootstrap guide](docs/bootstrap.md) until the raw baselines are
-   available. Then use `./conker next` to find available function work.
+   available. Then use `./conker next --one --details` to select the smallest
+   available function and print its bounded local source/assembly context.
 
 Maintainers add game-overlay work with `./conker game-index` followed by
 `./conker register-game`. Review the US assembly body before registering it.
@@ -65,15 +66,17 @@ byte-identical.
 
 ## Function workflow
 
-Claim the related GitHub issue before editing a function. Work in a branch or
-separate Git worktree, and keep a pull request focused on one C source file
-unless a maintainer approves a shared dependency change.
+If the selected inventory record includes issue metadata, claim and read that
+GitHub issue before editing. If `next --one --details` reports `issue: none
+recorded`, no remote issue lookup is required. Work in a branch or separate Git
+worktree, and keep a pull request focused on one C source file unless a
+maintainer approves a shared dependency change.
 
 ```sh
+./conker next --one --details
 ./conker m2c <work-item-id> > /tmp/<work-item-id>.c
 # Replace that function's GLOBAL_ASM pragma with C at the same position.
-./conker diff <work-item-id>
-./conker progress match <work-item-id>
+./conker diff --record <work-item-id>
 # For a raw reviewed unit, integrate once to enter mixed mode.
 # For a mixed unit, integrate only after its final function is matched.
 ./conker progress integrate <work-item-id>  # when one condition above applies
@@ -81,8 +84,12 @@ unless a maintainer approves a shared dependency change.
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
-The focused diff, `progress match`, progress check, and whitespace check are the
-per-function gate. Do not run the full Python test suite or a complete ROM/game
+The recording focused diff, progress check, and whitespace check are the
+per-function gate. `diff --record` prints the ordinary focused comparison when
+the score is nonzero and changes no inventory; when it reaches `CURRENT (0)`,
+that same compilation records the match and regenerates progress. `progress
+match` remains a compatibility alias and should not be run after a successful
+`diff --record`. Do not run the full Python test suite or a complete ROM/game
 build after every small function. Batch those checks after a logical group of
 functions in one source file and before committing or opening a pull request.
 Run them sooner when changing shared headers, build tooling, inventory tooling,
@@ -92,7 +99,8 @@ byte-identical build when a reviewed unit enters mixed mode or becomes complete.
 During the edit loop, `./conker diff --watch <work-item-id>` keeps
 one Docker container and asm-differ process open, detects the registered overlay,
 and rebuilds the candidate whenever its C source or project headers change. Exit
-the watcher before running `progress match` for final machine-readable evidence.
+the watcher before running `diff --record` once for final machine-readable
+evidence and progress recording.
 Ordinary build-tool commands also reuse a repository-scoped warm container;
 `./conker stop` removes it when the session is finished.
 
@@ -105,9 +113,11 @@ diagnosing suspected stale generated state; it is not part of each function's
 focused match loop.
 
 A function is matched for the active target only when its US focused diff
-reports `CURRENT (0)`. Run `./conker progress match <work-item-id>` to
-verify that result again, update the function inventory and any assigned source
-unit, and regenerate the progress files. Focused diff refuses to credit a
+reports `CURRENT (0)`. Prefer `./conker diff --record <work-item-id>` so the
+successful comparison updates the function inventory and any assigned source
+unit, and regenerates the progress files without compiling twice. The legacy
+`./conker progress match <work-item-id>` command performs the same authoritative
+check and update for existing automation. Focused diff refuses to credit a
 function while its own `GLOBAL_ASM` pragma remains. If no reviewed source unit
 is assigned, only the function inventory changes. Do not edit the inventory JSON
 by hand.

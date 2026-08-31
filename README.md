@@ -48,18 +48,20 @@ The normal contributor workflow is:
 
 ```sh
 ./conker build
-./conker next
+./conker next --one --details
 ./conker m2c func_XXXXXXXX > /tmp/func_XXXXXXXX.c
-./conker diff func_XXXXXXXX
-./conker progress match func_XXXXXXXX
+./conker diff --record func_XXXXXXXX
 ./conker progress integrate func_XXXXXXXX
 ```
 
 `./conker next` reports each function's US byte size and orders available work
 from smallest to largest, using the work-item symbol to break equal-size ties.
-It also prints the starter command. `m2c` reads the inventory and automatically
-selects main-ROM or game-overlay input, so contributors do not need to choose a
-different overlay-specific command.
+It also prints the starter command. Add `--one --details` to print only the next
+item plus its local inventory, issue metadata, source context, and generated
+assembly. When the detail view says `issue: none recorded`, no GitHub lookup is
+needed. `m2c` reads the inventory and automatically selects main-ROM or
+game-overlay input, so contributors do not need to choose a different
+overlay-specific command.
 
 US is the default profile for contributor commands. Use `--profile <region>`
 only when intentionally overriding it; explicit `--profile us` remains
@@ -92,8 +94,8 @@ For a faster edit loop, keep a focused diff open in one Docker container:
 
 The watcher detects main versus game-overlay work from the inventory, rebuilds
 only the focused candidate on C or header changes, and preserves the previous
-result as a three-way comparison. Exit it before running `progress match` for
-final evidence.
+result as a three-way comparison. Exit it and run `diff --record` once so the
+authoritative comparison also records progress.
 
 ## RZIP utility
 
@@ -147,11 +149,13 @@ reassemble every unmatched function. `game-diff` remains a compatibility alias.
 Run `./conker game-asm` explicitly whenever you need to refresh that ROM-derived
 reference.
 
-After either `diff` command reports `CURRENT (0)`, run
-`./conker progress match <work-item-id>`. It detects the registered
-overlay, verifies the match, updates the function record (and an assigned source
-unit when one exists), and regenerates the progress report. Contributors should
-not edit the inventory JSON directly.
+Use `./conker diff --record <work-item-id>` for the ordinary one-shot edit loop.
+It detects the registered overlay and compiles the candidate once. A nonzero
+result displays the normal focused diff and leaves progress unchanged; a
+`CURRENT (0)` result updates the function record (and an assigned source unit
+when one exists) and regenerates progress immediately. `./conker progress match
+<work-item-id>` remains a compatibility alias for existing automation.
+Contributors should not edit the inventory JSON directly.
 
 To populate the work queue, review the US proposals, then register an explicitly
 confirmed function. Registration creates matching work only; it deliberately
@@ -163,7 +167,7 @@ does not manufacture a single-function source-unit boundary:
   --id func_15178E50 \
   --us func_15178E50 \
   --source src/game/func_15178E50.c
-./conker next
+./conker next --one --details
 ```
 
 `game-index` is a shortlist, not match evidence. Review the assembly before
@@ -206,7 +210,7 @@ assembly is generated locally from the owned ROM and stays ignored.
 Run `progress integrate` after boundary registration to put that source unit in
 the canonical build immediately. Incomplete units build as one mixed C/ASM
 object through the pinned asm-processor. Replace one pragma at a time with C,
-then use focused diff and `progress match`. Focused diff refuses a target while
+then use `diff --record`. Focused diff refuses a target while
 its pragma is still present. Once every member matches, run `progress integrate`
 again to byte-verify and move the assembly-free unit under `src/game/done/`.
 `./conker progress integrate --all-reviewed` promotes multiple
@@ -217,10 +221,10 @@ verifies every mixed or completed source unit against that same decompressed
 payload. It preserves the prepared split and object cache, so an ordinary source
 edit rebuilds only invalidated objects. Use `./conker game-build --refresh` to
 discard that cache and recreate the split before a pull request, after shared
-build/configuration changes, or while diagnosing stale generated state. Focused
-diffs and `progress match` remain the per-function checks; batch the Python test
-suite and full game build after a logical source-file group rather than after
-every small function.
+build/configuration changes, or while diagnosing stale generated state.
+`diff --record` and the generated-progress/whitespace checks remain the
+per-function checks; batch the Python test suite and full game build after a
+logical source-file group rather than after every small function.
 
 Focused diffs remain independent of that mixed build: their generated reference
 map converts every canonical `c` range back to raw assembly from the owned ROM.

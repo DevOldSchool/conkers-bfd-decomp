@@ -1259,7 +1259,78 @@ def active_function_sizes(
     return sizes
 
 
-def next_function() -> None:
+def print_next_details(entry: dict[str, Any], size_bytes: int) -> None:
+    """Print bounded local context for one work item without network lookups."""
+
+    identifier = entry["symbol"]
+    source = entry.get("source")
+    region = entry["regions"]["us"]
+    print(f"work-item: {identifier}")
+    print(f"overlay: {entry.get('overlay', 'main')}")
+    print(f"source: {source or 'not assigned'}")
+    print(f"us-symbol: {region['symbol']}")
+    print(f"us-vram: {region['vram']}")
+    print(f"size: {size_bytes} bytes")
+    issue = entry.get("issue")
+    print(f"issue: {issue or 'none recorded; do not query GitHub'}")
+    print(f"starter: ./conker m2c {identifier} > /tmp/{identifier}.c")
+    print(f"verify-and-record: ./conker diff --record {identifier}")
+
+    if not source:
+        return
+    source_path = ROOT / source
+    assembly_relative = nonmatching_asm_path(source, region["symbol"])
+    assembly_path = ROOT / assembly_relative
+    print(f"assembly: {assembly_relative}")
+    if assembly_path.is_file():
+        assembly_lines = assembly_path.read_text(encoding="utf-8").splitlines()
+        print("assembly-body:")
+        for line in assembly_lines[:80]:
+            print(f"  {line}")
+        if len(assembly_lines) > 80:
+            print(f"  ... ({len(assembly_lines) - 80} more lines)")
+    else:
+        print("assembly-body: not generated; run the starter command")
+
+    if not source_path.is_file():
+        print("source-context: source file is not present")
+        return
+    source_lines = source_path.read_text(encoding="utf-8").splitlines()
+    pragma = global_asm_pragma(source, identifier)
+    target_index = next(
+        (index for index, line in enumerate(source_lines) if line.strip() == pragma),
+        None,
+    )
+    declaration_end = next(
+        (
+            index
+            for index, line in enumerate(source_lines)
+            if "Reviewed source unit:" in line
+        ),
+        min(len(source_lines), 40),
+    )
+    selected = set(range(min(declaration_end, 40)))
+    if target_index is not None:
+        selected.update(
+            range(max(0, target_index - 2), min(len(source_lines), target_index + 3))
+        )
+        print(f"source-line: {target_index + 1}")
+    else:
+        print("source-line: target pragma not found")
+    print("source-context:")
+    previous = -2
+    for index in sorted(selected):
+        if index > previous + 1:
+            print("  ...")
+        print(f"  {index + 1:>5}  {source_lines[index]}")
+        previous = index
+
+
+def next_function(args: argparse.Namespace | None = None) -> None:
+    one = bool(args and args.one)
+    details = bool(args and args.details)
+    if details and not one:
+        raise ProjectStateError("--details requires --one to keep output bounded")
     _, functions = validate_project()
     source_units = validate_source_units(load_json(SOURCE_UNITS_FILE), functions)
     sizes = active_function_sizes(functions, source_units)
@@ -1281,6 +1352,11 @@ def next_function() -> None:
             + "; register a reviewed source unit or record size_bytes during function registration"
         )
     available.sort(key=lambda entry: (sizes[entry["symbol"]], entry["symbol"]))
+    if one:
+        available = available[:1]
+    if details:
+        print_next_details(available[0], sizes[available[0]["symbol"]])
+        return
     print("# Start any listed work item with:")
     print("# ./conker m2c <work-item-id> > /tmp/<work-item-id>.c")
     for entry in available:
@@ -1309,7 +1385,17 @@ def parse_args() -> argparse.Namespace:
     mark_matched_parser = subparsers.add_parser("mark-matched")
     mark_matched_parser.add_argument("--profile", choices=TARGET_REGIONS, required=True)
     mark_matched_parser.add_argument("symbol")
-    subparsers.add_parser("next")
+    next_parser = subparsers.add_parser("next")
+    next_parser.add_argument(
+        "--one",
+        action="store_true",
+        help="print only the first available work item",
+    )
+    next_parser.add_argument(
+        "--details",
+        action="store_true",
+        help="with --one, print bounded local source and assembly context",
+    )
     subparsers.add_parser("game-index")
     register_game_parser = subparsers.add_parser("register-game")
     register_game_parser.add_argument("--id", dest="identifier", required=True)
@@ -1352,7 +1438,7 @@ def main() -> int:
         elif args.command == "mark-matched":
             mark_matched(args)
         elif args.command == "next":
-            next_function()
+            next_function(args)
         elif args.command == "game-index":
             game_index()
         elif args.command == "register-game":

@@ -7,8 +7,7 @@ Describe the function, tooling, or documentation change.
 For function work, include exact output for the active US target:
 
 ```text
-./conker diff <work-item-id>
-./conker progress match <work-item-id>
+./conker diff --record <work-item-id>
 # Only after reviewed boundary evidence and every source-unit member matches:
 ./conker progress integrate <work-item-id>
 ./conker progress check
@@ -26,4 +25,4 @@ describe the relevant test command instead.
 
 - [ ] This change does not add ROMs, extracted assets, generated assembly, or build output.
 - [ ] I did not copy C sources, symbols, comments, or generated material from another decompilation project.
-- [ ] The linked issue is claimed by me or this work was approved by a maintainer.
+- [ ] Any issue recorded for this work item is claimed by me, or no issue is recorded.

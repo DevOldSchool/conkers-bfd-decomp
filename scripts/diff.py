@@ -259,6 +259,42 @@ def run_asm_diff(command: list[str], directory: Path) -> int:
         return 130
 
 
+def run_required_asm_diff(
+    candidate: Path,
+    reference: Path,
+    symbol: str,
+    directory: Path,
+) -> int:
+    """Verify an exact match, showing the normal diff when verification fails."""
+
+    evidence_command = asm_diff_command(
+        candidate,
+        reference,
+        symbol,
+        require_match=True,
+    )
+    result = subprocess.run(
+        evidence_command,
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        return result.returncode
+    try:
+        require_zero_difference(result.stdout, symbol)
+    except ValueError as error:
+        display_command = asm_diff_command(candidate, reference, symbol)
+        display_result = run_asm_diff(display_command, directory)
+        print(f"error: {error}", file=sys.stderr)
+        return display_result or 1
+    print(f"{symbol}: CURRENT (0)")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("profile", choices=("us", "eu"))
@@ -304,26 +340,14 @@ def main() -> int:
         return 1
 
     directory = write_settings(arguments.profile, source)
+    if arguments.require_match:
+        return run_required_asm_diff(candidate, reference, symbol, directory)
     command = asm_diff_command(
         candidate,
         reference,
         symbol,
-        require_match=arguments.require_match,
         watch=arguments.watch,
     )
-    if arguments.require_match:
-        result = subprocess.run(command, cwd=directory, check=False, capture_output=True, text=True)
-        if result.returncode:
-            sys.stdout.write(result.stdout)
-            sys.stderr.write(result.stderr)
-            return result.returncode
-        try:
-            require_zero_difference(result.stdout, arguments.symbol)
-        except ValueError as error:
-            print(f"error: {error}", file=sys.stderr)
-            return 1
-        print(f"{arguments.symbol}: CURRENT (0)")
-        return 0
     return run_asm_diff(command, directory)
 
 

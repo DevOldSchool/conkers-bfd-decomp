@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib.util
 import os
+import subprocess
 import sys
 import tempfile
 import unittest
@@ -97,6 +98,50 @@ class DiffReferenceTests(unittest.TestCase):
     def test_rejects_nonzero_difference_evidence(self) -> None:
         with self.assertRaisesRegex(ValueError, r"CURRENT \(10\)"):
             diff_helper.require_zero_difference('{"current_score": 10}', "func_test")
+
+    def test_required_diff_displays_normal_diff_on_mismatch(self) -> None:
+        evidence = subprocess.CompletedProcess(
+            args=["asm-differ"],
+            returncode=0,
+            stdout='{"current_score": 10}',
+            stderr="",
+        )
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence),
+            patch.object(diff_helper, "run_asm_diff", return_value=0) as display,
+        ):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+            )
+
+        self.assertEqual(1, result)
+        display_command, display_directory = display.call_args.args
+        self.assertIn("color", display_command)
+        self.assertEqual(Path("build/us/diff"), display_directory)
+
+    def test_required_diff_does_not_render_twice_on_exact_match(self) -> None:
+        evidence = subprocess.CompletedProcess(
+            args=["asm-differ"],
+            returncode=0,
+            stdout='{"current_score": 0}',
+            stderr="",
+        )
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence),
+            patch.object(diff_helper, "run_asm_diff") as display,
+        ):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+            )
+
+        self.assertEqual(0, result)
+        display.assert_not_called()
 
     def test_candidate_object_uses_the_makefile_output_path(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

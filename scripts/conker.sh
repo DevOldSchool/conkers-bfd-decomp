@@ -48,13 +48,15 @@ Getting started
                                  Verify and record a byte-identical source-unit integration.
   progress integrate --all-reviewed
                                  Integrate all incomplete reviewed game units in one build.
-  next                           List functions that are ready to claim.
+  next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
   prepare [--profile us]         Extract generated sources (defaults to US).
   build [--profile us|--all]     Build US by default (`--all` means all active profiles).
   diff [--profile us] <work-item-id>
+  diff --record [--profile us] <work-item-id>
+                                 Show a focused diff and record it immediately when CURRENT (0).
   diff --watch [--profile us] <work-item-id>
                                  Keep an auto-rebuilding focused diff open while editing.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
@@ -322,6 +324,12 @@ parse_game_build_options() {
     require_profile "$selected_profile"
 }
 
+verify_and_record_match() {
+    python3 "$state_tool" setup-check --profile "$selected_profile"
+    run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match
+    python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"
+}
+
 command="${1:-help}"
 shift || true
 
@@ -358,9 +366,7 @@ case "$command" in
             match)
                 shift
                 parse_profile_and_value "usage: ./conker progress match [--profile us] <work-item-id>" "$@"
-                python3 "$state_tool" setup-check --profile "$selected_profile"
-                run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match
-                python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"
+                verify_and_record_match
                 ;;
             integrate)
                 shift
@@ -376,7 +382,7 @@ case "$command" in
         esac
         ;;
     next)
-        python3 "$state_tool" next
+        python3 "$state_tool" next "$@"
         ;;
     stop)
         require_docker
@@ -408,6 +414,10 @@ case "$command" in
             parse_profile_and_value "usage: ./conker diff --watch [--profile us] <work-item-id>" "$@"
             python3 "$state_tool" setup-check --profile "$selected_profile"
             run_in_container_interactive python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --watch
+        elif [[ "${1:-}" == "--record" ]]; then
+            shift
+            parse_profile_and_value "usage: ./conker diff --record [--profile us] <work-item-id>" "$@"
+            verify_and_record_match
         else
             parse_profile_and_value "usage: ./conker diff [--profile us] <work-item-id>" "$@"
             python3 "$state_tool" setup-check --profile "$selected_profile"
