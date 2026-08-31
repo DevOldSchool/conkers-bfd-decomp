@@ -8,6 +8,7 @@ import hashlib
 import json
 import os
 import re
+import subprocess
 import sys
 from collections import Counter
 from pathlib import Path
@@ -1259,7 +1260,95 @@ def active_function_sizes(
     return sizes
 
 
-def print_next_details(entry: dict[str, Any], size_bytes: int) -> None:
+def git_path_dirty(source: str) -> str:
+    """Return yes/no for a repository path, or unknown outside a Git checkout."""
+
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain", "--", source],
+            cwd=ROOT,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError:
+        return "unknown"
+    if result.returncode:
+        return "unknown"
+    return "yes" if result.stdout.strip() else "no"
+
+
+def next_source_unit_guidance(
+    entry: dict[str, Any],
+    functions: list[dict[str, Any]],
+    source_units: list[dict[str, Any]],
+) -> tuple[str, str]:
+    """Return the integration state and required action after this item matches."""
+
+    source = entry.get("source")
+    unit = next(
+        (
+            candidate
+            for candidate in source_units
+            if candidate["source"] == source and entry["symbol"] in candidate["functions"]
+        ),
+        None,
+    )
+    if unit is None:
+        return "not-reviewed", "stop"
+
+    integration = unit["integration"]
+    functions_by_symbol = {function["symbol"]: function for function in functions}
+    unfinished_after_match = [
+        symbol
+        for symbol in unit["functions"]
+        if symbol != entry["symbol"] and not is_complete(functions_by_symbol[symbol])
+    ]
+    if integration == "raw_asm" and (
+        entry.get("overlay", "main") == "game" or not unfinished_after_match
+    ):
+        return integration, "integrate"
+    if integration == "mixed" and not unfinished_after_match:
+        return integration, "integrate"
+    return integration, "stop"
+
+
+def raw_us_call_sites(
+    entry: dict[str, Any], limit: int = 8
+) -> list[tuple[Path, int, list[str]]]:
+    """Return bounded direct-call snippets from the separately generated US assembly."""
+
+    root = (
+        ROOT / "reference" / "game" / "us" / "asm"
+        if entry.get("overlay", "main") == "game"
+        else ROOT / "reference" / "us" / "asm"
+    )
+    if not root.is_dir():
+        return []
+    symbol = entry["regions"]["us"]["symbol"]
+    direct_call = re.compile(rf"\bjal\s+{re.escape(symbol)}(?:\s|$)")
+    results: list[tuple[Path, int, list[str]]] = []
+    for path in sorted(root.rglob("*.s")):
+        try:
+            lines = path.read_text(encoding="utf-8").splitlines()
+        except OSError:
+            continue
+        for index, line in enumerate(lines):
+            if not direct_call.search(line):
+                continue
+            snippet = lines[max(0, index - 3) : min(len(lines), index + 2)]
+            results.append((path.relative_to(ROOT), index + 1, snippet))
+            if len(results) == limit:
+                return results
+    return results
+
+
+def print_next_details(
+    entry: dict[str, Any],
+    size_bytes: int,
+    functions: list[dict[str, Any]],
+    source_units: list[dict[str, Any]],
+) -> None:
     """Print bounded local context for one work item without network lookups."""
 
     identifier = entry["symbol"]
@@ -1268,6 +1357,13 @@ def print_next_details(entry: dict[str, Any], size_bytes: int) -> None:
     print(f"work-item: {identifier}")
     print(f"overlay: {entry.get('overlay', 'main')}")
     print(f"source: {source or 'not assigned'}")
+    print(f"allowed-edit: {source or 'none'}")
+    print(f"target-file-dirty: {git_path_dirty(source) if source else 'unknown'}")
+    source_unit_state, post_match_action = next_source_unit_guidance(
+        entry, functions, source_units
+    )
+    print(f"source-unit-state: {source_unit_state}")
+    print(f"post-match-action: {post_match_action}")
     print(f"us-symbol: {region['symbol']}")
     print(f"us-vram: {region['vram']}")
     print(f"size: {size_bytes} bytes")
@@ -1275,6 +1371,16 @@ def print_next_details(entry: dict[str, Any], size_bytes: int) -> None:
     print(f"issue: {issue or 'none recorded; do not query GitHub'}")
     print(f"standalone-starter: ./conker m2c {identifier} > /tmp/{identifier}.c")
     print(f"finish: ./conker finish {identifier}")
+
+    call_sites = raw_us_call_sites(entry)
+    if call_sites:
+        print("raw-us-call-sites:")
+        for path, line_number, snippet in call_sites:
+            print(f"  {path}:{line_number}")
+            for line in snippet:
+                print(f"    {line}")
+    else:
+        print("raw-us-call-sites: none found")
 
     if not source:
         return
@@ -1365,7 +1471,9 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         print(available[0]["symbol"])
         return
     if details:
-        print_next_details(available[0], sizes[available[0]["symbol"]])
+        print_next_details(
+            available[0], sizes[available[0]["symbol"]], functions, source_units
+        )
         return
     print("# Start any listed work item with:")
     print("# ./conker m2c <work-item-id> > /tmp/<work-item-id>.c")
@@ -1374,6 +1482,27 @@ def next_function(args: argparse.Namespace | None = None) -> None:
             f"{entry['symbol']} ({entry.get('source', 'source not assigned')}; "
             f"us={entry['regions']['us']['symbol']}; size={sizes[entry['symbol']]} bytes)"
         )
+
+
+def batch_plan(symbols: list[str]) -> None:
+    """Validate a matched work-item batch and print the required build overlays."""
+
+    _, functions = validate_project()
+    functions_by_symbol = {entry["symbol"]: entry for entry in functions}
+    unknown = [symbol for symbol in symbols if symbol not in functions_by_symbol]
+    if unknown:
+        raise ProjectStateError(f"unknown work-item ID(s): {', '.join(unknown)}")
+    unfinished = [
+        symbol for symbol in symbols if not is_complete(functions_by_symbol[symbol])
+    ]
+    if unfinished:
+        raise ProjectStateError(
+            "verify-batch requires matched active work items: " + ", ".join(unfinished)
+        )
+    overlays = {
+        functions_by_symbol[symbol].get("overlay", "main") for symbol in symbols
+    }
+    print(" ".join(overlay for overlay in ("main", "game") if overlay in overlays))
 
 
 def parse_args() -> argparse.Namespace:
@@ -1411,6 +1540,8 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help=argparse.SUPPRESS,
     )
+    batch_plan_parser = subparsers.add_parser("batch-plan")
+    batch_plan_parser.add_argument("symbols", nargs="+")
     subparsers.add_parser("game-index")
     register_game_parser = subparsers.add_parser("register-game")
     register_game_parser.add_argument("--id", dest="identifier", required=True)
@@ -1454,6 +1585,8 @@ def main() -> int:
             mark_matched(args)
         elif args.command == "next":
             next_function(args)
+        elif args.command == "batch-plan":
+            batch_plan(args.symbols)
         elif args.command == "game-index":
             game_index()
         elif args.command == "register-game":

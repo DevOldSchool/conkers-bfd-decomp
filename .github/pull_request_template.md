@@ -14,9 +14,11 @@ For function work, include exact output for the active US target:
 ./conker progress check && git -c core.whitespace=cr-at-eol diff --check
 ```
 
-For a logical function batch, also report the test suite once. For game-overlay
-or shared build changes, report one clean `./conker game-build --refresh` result;
-these batch checks are not required after each small function.
+After the final function in a logical batch, report one successful
+`./conker verify-batch <work-item-id> [<work-item-id>...]` result. It performs
+the required overlay builds, test suite, metadata, generated-progress, and
+whitespace checks; these batch checks are not required after each small
+function.
 
 State whether the diff reports `CURRENT (0)`. If this is tooling-only work,
 describe the relevant test command instead.

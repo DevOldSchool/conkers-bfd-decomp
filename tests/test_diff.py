@@ -143,6 +143,71 @@ class DiffReferenceTests(unittest.TestCase):
         self.assertEqual(0, result)
         display.assert_not_called()
 
+    def test_required_diff_classifies_invalid_evidence_as_tooling_failure(self) -> None:
+        evidence = subprocess.CompletedProcess(
+            args=["asm-differ"],
+            returncode=0,
+            stdout="not-json",
+            stderr="",
+        )
+        with patch.object(diff_helper.subprocess, "run", return_value=evidence):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+            )
+
+        self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+
+    def test_main_classifies_candidate_compile_failure(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            source = Path(temporary_directory) / "test.c"
+            source.write_text("void func_test(void) {}\n", encoding="utf-8")
+            with (
+                patch.object(
+                    sys,
+                    "argv",
+                    ["diff.py", "us", "func_test", "--auto-overlay"],
+                ),
+                patch.object(
+                    diff_helper,
+                    "find_work_item_by_id",
+                    return_value=(source, "func_test", True),
+                ),
+                patch.object(
+                    diff_helper,
+                    "ensure_reference_function",
+                    return_value=Path("reference.s"),
+                ),
+                patch.object(diff_helper, "require_c_implementation"),
+                patch.object(
+                    diff_helper,
+                    "compile_candidate",
+                    side_effect=subprocess.CalledProcessError(1, ["cc"]),
+                ),
+            ):
+                result = diff_helper.main()
+
+        self.assertEqual(diff_helper.EXIT_FIX_COMPILE, result)
+
+    def test_main_classifies_resolution_failure_as_tooling(self) -> None:
+        with (
+            patch.object(
+                sys,
+                "argv",
+                ["diff.py", "us", "func_test", "--auto-overlay"],
+            ),
+            patch.object(
+                diff_helper,
+                "find_work_item_by_id",
+                side_effect=ValueError("unknown work item"),
+            ),
+        ):
+            result = diff_helper.main()
+
+        self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+
     def test_candidate_object_uses_the_makefile_output_path(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)

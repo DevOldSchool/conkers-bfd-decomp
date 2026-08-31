@@ -3,6 +3,64 @@
 Use `./conker` from the repository root. It is the supported interface for
 Docker, ROM setup, progress, m2c, and asm diffs.
 
+## Small-agent fast path
+
+For ordinary source-local function work, follow this exact loop:
+
+1. Read `CONTRIBUTING.md` once at the start of the task, then run
+   `git status --short` once and record all pre-existing changes. Do not reread
+   the guide for consecutive functions in the same task unless it changed.
+2. `next --ready` is Docker-backed. In a managed sandbox, request Docker
+   permission on the first `./conker next --ready` call. Run it once; do not
+   separately run `next`, `m2c`, `doctor`, or print the work queue.
+3. Treat the emitted `allowed-edit`, `target-file-dirty`,
+   `source-unit-state`, and `post-match-action` fields as authoritative. If the
+   allowed source has unrelated or overlapping edits whose ownership is
+   unclear, stop and report `blocked` without changing it.
+4. If the output says `issue: none recorded`, do not access GitHub.
+5. Inspect only the declarations printed by `next --ready`, the allowed source,
+   existing declarations in `src/` and `include/`, and the emitted bounded raw
+   US call sites. Perform at most one additional batched lookup before the
+   first candidate unless a compiler error names a missing declaration.
+6. Never paste `M2C_FIELD` into project source. Use the canonical scalar aliases
+   from `types.h`, then prefer an existing project structure. If none exists,
+   use a typed pointer for one naturally aligned field or a source-local partial
+   structure with explicit padding for several fields. Values stored with `sb`
+   or `sh` remain `s32` parameters unless an existing declaration proves
+   otherwise. Do not change a shared header merely to type one function.
+7. Replace only the target `GLOBAL_ASM` pragma, at the same position, then run
+   `./conker finish <work-item-id>` immediately after the first reasonable C
+   candidate.
+8. On `AGENT_ACTION: STOP_MATCHED`, follow the previously emitted
+   `post-match-action`: stop when it is `stop`, or run integration when it is
+   `integrate`. Do not repeat `progress match` or progress rendering.
+9. On `AGENT_ACTION: FIX_COMPILE`, correct only the reported C/declaration
+   problem and rerun `finish`; do not start a diff watcher until the candidate
+   compiles.
+10. On `AGENT_ACTION: CONTINUE_MISMATCH`, try at most three source-only
+    expression or declaration variants. Use `diff --watch` only when both stdin
+    and stdout are attached to an interactive terminal; otherwise edit and
+    rerun `finish`. Never alter assembly, inventory JSON, compiler flags, or
+    shared tooling. If still unmatched, report `candidate`.
+11. On `AGENT_ACTION: BLOCKED_TOOLING`, or when required declarations are
+    unavailable or a match would require unapproved shared changes, stop and
+    report `blocked`.
+12. Do not run the batch gate for one source-local match. After the final
+    function in a requested group, run `./conker verify-batch <id> [<id>...]`
+    once. `AGENT_ACTION: BATCH_COMPLETE` is the successful terminal state.
+
+Use this exact report shape:
+
+```text
+Function/source:
+Changed files:
+Shared dependency required: yes/no
+US focused diff:
+Whitespace:
+Status: matched/candidate/blocked
+Attempts:
+```
+
 ## Source of truth
 
 - `progress/functions.json` is the canonical instruction-match inventory.

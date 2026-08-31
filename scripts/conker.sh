@@ -52,6 +52,8 @@ Getting started
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
+  verify-batch <work-item-id> [<work-item-id>...]
+                                 Run the required end-of-batch builds and repository gates.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
@@ -234,6 +236,10 @@ run_host_mips_to_c() {
 
 run_in_container() {
     ensure_warm_container
+    run_in_warm_container "$@"
+}
+
+run_in_warm_container() {
     docker exec --workdir /workspace "$warm_container_name" "$@"
 }
 
@@ -328,9 +334,20 @@ parse_game_build_options() {
 }
 
 verify_and_record_match() {
-    python3 "$state_tool" setup-check --profile "$selected_profile"
-    run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match
-    python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"
+    if ! python3 "$state_tool" setup-check --profile "$selected_profile"; then
+        return 3
+    fi
+    if ! ensure_warm_container; then
+        return 3
+    fi
+    diff_status=0
+    run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match || diff_status=$?
+    if [[ "$diff_status" -ne 0 ]]; then
+        return "$diff_status"
+    fi
+    if ! python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"; then
+        return 3
+    fi
 }
 
 prepare_next_work() {
@@ -405,10 +422,70 @@ case "$command" in
         ;;
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
-        verify_and_record_match
-        python3 "$state_tool" progress --check
-        git -C "$repo_root" -c core.whitespace=cr-at-eol diff --check
+        match_status=0
+        verify_and_record_match || match_status=$?
+        if [[ "$match_status" -eq 1 ]]; then
+            printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
+            exit 1
+        elif [[ "$match_status" -eq 2 ]]; then
+            printf 'AGENT_ACTION: FIX_COMPILE\n'
+            exit 2
+        elif [[ "$match_status" -ne 0 ]]; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit "$match_status"
+        fi
+        if ! python3 "$state_tool" progress --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! git -C "$repo_root" -c core.whitespace=cr-at-eol diff --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
         printf '%s: per-function gate passed (match, progress, whitespace).\n' "$selected_value"
+        printf 'AGENT_ACTION: STOP_MATCHED\n'
+        ;;
+    verify-batch)
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch <work-item-id> [<work-item-id>...]"
+        batch_overlays=""
+        if ! batch_overlays="$(python3 "$state_tool" batch-plan "$@")"; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! python3 "$state_tool" setup-check --profile us; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if [[ " $batch_overlays " == *" main "* ]]; then
+            if ! run_in_container make --silent --jobs 4 build PROFILE=us; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 1
+            fi
+        fi
+        if [[ " $batch_overlays " == *" game "* ]]; then
+            if ! run_in_container make --silent --jobs 4 game-integrated-refresh GAME_PROFILE=us; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 1
+            fi
+        fi
+        if ! python3 -m unittest discover -s tests -v; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! python3 "$state_tool" validate; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! python3 "$state_tool" progress --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! git -C "$repo_root" -c core.whitespace=cr-at-eol diff --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        printf 'Verified batch: %s\n' "$*"
+        printf 'AGENT_ACTION: BATCH_COMPLETE\n'
         ;;
     stop)
         require_docker
@@ -438,6 +515,11 @@ case "$command" in
         if [[ "${1:-}" == "--watch" ]]; then
             shift
             parse_profile_and_value "usage: ./conker diff --watch [--profile us] <work-item-id>" "$@"
+            if [[ ! -t 0 || ! -t 1 ]]; then
+                printf '%s\n' 'error: diff --watch requires an interactive terminal; use finish for a noninteractive edit loop.' >&2
+                printf 'AGENT_ACTION: USE_FINISH_LOOP\n'
+                exit 2
+            fi
             python3 "$state_tool" setup-check --profile "$selected_profile"
             run_in_container_interactive python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --watch
         elif [[ "${1:-}" == "--record" ]]; then

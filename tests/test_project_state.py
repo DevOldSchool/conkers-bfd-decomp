@@ -386,8 +386,10 @@ class ProjectStateTests(unittest.TestCase):
                 / "test"
                 / "func_small.s"
             )
+            caller = root / "reference" / "game" / "us" / "asm" / "caller.s"
             source.parent.mkdir(parents=True)
             assembly.parent.mkdir(parents=True)
+            caller.parent.mkdir(parents=True)
             source.write_text(
                 '#include "types.h"\n\n'
                 'extern s32 D_test;\n\n'
@@ -395,6 +397,14 @@ class ProjectStateTests(unittest.TestCase):
                 encoding="utf-8",
             )
             assembly.write_text("glabel func_small\n    jr $ra\n", encoding="utf-8")
+            caller.write_text(
+                "    or         $a0, $s0, $zero\n"
+                "    addiu      $a1, $zero, 1\n"
+                "    or         $a2, $zero, $zero\n"
+                "    jal        func_small\n"
+                "     nop\n",
+                encoding="utf-8",
+            )
             output = io.StringIO()
             with (
                 patch.object(project_state, "ROOT", root),
@@ -411,11 +421,103 @@ class ProjectStateTests(unittest.TestCase):
 
         details = output.getvalue()
         self.assertIn("work-item: func_small", details)
+        self.assertIn("allowed-edit: src/game/effects/test.c", details)
+        self.assertIn("target-file-dirty: unknown", details)
+        self.assertIn("source-unit-state: not-reviewed", details)
+        self.assertIn("post-match-action: stop", details)
         self.assertIn("issue: none recorded; do not query GitHub", details)
         self.assertIn("finish: ./conker finish func_small", details)
+        self.assertIn("raw-us-call-sites:\n  reference/game/us/asm/caller.s:4", details)
+        self.assertIn("    jal        func_small", details)
         self.assertIn("assembly-body:\n  glabel func_small", details)
         self.assertIn("source-line: 5", details)
         self.assertIn('extern s32 D_test;', details)
+
+    def test_next_source_unit_guidance_reports_required_integration(self) -> None:
+        target = {
+            "symbol": "func_target",
+            "source": "src/game/test.c",
+            "overlay": "game",
+            "regions": {"us": {"state": "raw_asm"}},
+        }
+        other = {
+            "symbol": "func_other",
+            "source": "src/game/test.c",
+            "overlay": "game",
+            "regions": {"us": {"state": "raw_asm"}},
+        }
+        unit = {
+            "source": "src/game/test.c",
+            "functions": ["func_target", "func_other"],
+            "integration": "raw_asm",
+        }
+
+        self.assertEqual(
+            project_state.next_source_unit_guidance(target, [target, other], [unit]),
+            ("raw_asm", "integrate"),
+        )
+
+        unit["integration"] = "mixed"
+        self.assertEqual(
+            project_state.next_source_unit_guidance(target, [target, other], [unit]),
+            ("mixed", "stop"),
+        )
+        other["regions"]["us"]["state"] = "matched"
+        self.assertEqual(
+            project_state.next_source_unit_guidance(target, [target, other], [unit]),
+            ("mixed", "integrate"),
+        )
+
+    def test_git_path_dirty_reports_porcelain_state(self) -> None:
+        with patch.object(
+            project_state.subprocess,
+            "run",
+            return_value=SimpleNamespace(returncode=0, stdout=" M src/game/test.c\n"),
+        ):
+            self.assertEqual(project_state.git_path_dirty("src/game/test.c"), "yes")
+
+        with patch.object(
+            project_state.subprocess,
+            "run",
+            return_value=SimpleNamespace(returncode=0, stdout=""),
+        ):
+            self.assertEqual(project_state.git_path_dirty("src/game/test.c"), "no")
+
+    def test_batch_plan_resolves_matched_overlays(self) -> None:
+        functions = [
+            {
+                "symbol": "func_main",
+                "regions": {"us": {"state": "matched"}},
+            },
+            {
+                "symbol": "func_game",
+                "overlay": "game",
+                "regions": {"us": {"state": "matched"}},
+            },
+        ]
+        output = io.StringIO()
+        with (
+            patch.object(project_state, "validate_project", return_value=({}, functions)),
+            redirect_stdout(output),
+        ):
+            project_state.batch_plan(["func_game", "func_main"])
+
+        self.assertEqual("main game\n", output.getvalue())
+
+    def test_batch_plan_rejects_unmatched_work_item(self) -> None:
+        function = {
+            "symbol": "func_test",
+            "overlay": "game",
+            "regions": {"us": {"state": "raw_asm"}},
+        }
+        with (
+            patch.object(project_state, "validate_project", return_value=({}, [function])),
+            self.assertRaisesRegex(
+                project_state.ProjectStateError,
+                "verify-batch requires matched active work items",
+            ),
+        ):
+            project_state.batch_plan(["func_test"])
 
     def test_next_one_id_only_prints_only_the_work_item_identifier(self) -> None:
         function = {

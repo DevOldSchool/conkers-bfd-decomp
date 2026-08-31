@@ -73,11 +73,25 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134070.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513416C.s")
+s32 func_1513416C(void *arg0) {
+    short temp_v0;
+
+    temp_v0 = *(short *)((char *)arg0 + 0x1C);
+    if (temp_v0 < 0x20) {
+        *(char *)((char *)arg0 + 0x28) = (char)(temp_v0 * 8);
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513418C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151342BC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151346D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151346EC.s")
+s32 func_151346D0(s32 arg0, void *arg1, s32 arg2) {
+    *((unsigned char *)arg1 + 0x3A) =
+        (unsigned char)(*((unsigned char *)arg1 + 0x3A) & 0xFFEF);
+    return arg0;
+}
+void func_151346EC(void) {
+    func_15169804();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513470C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513472C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513477C.s")
@@ -102,7 +116,10 @@ void func_15134CD4(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135480.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513555C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151355B8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135658.s")
+s32 func_15135658(f32 *arg0) {
+    arg0[0x1D] = 1.0f;
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135670.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151356D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135BF8.s")

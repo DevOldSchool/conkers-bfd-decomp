@@ -76,6 +76,8 @@ maintainer approves a shared dependency change.
 ./conker next --ready
 # Replace that function's GLOBAL_ASM pragma with C at the same position.
 ./conker finish <work-item-id>
+# After the final function in a requested group:
+./conker verify-batch <work-item-id> [<work-item-id>...]
 # For a raw reviewed unit, integrate once to enter mixed mode.
 # For a mixed unit, integrate only after its final function is matched.
 ./conker progress integrate <work-item-id>  # when one condition above applies
@@ -86,26 +88,36 @@ git -c core.whitespace=cr-at-eol diff --check
 
 `next --ready` combines smallest-function selection, bounded local context, m2c
 starter generation, and toolchain prewarming so an agent does not need separate
-selection and m2c tool calls. `finish` combines the recording focused diff,
-progress check, and whitespace check into the per-function gate. It prints the
+selection and m2c tool calls. Its `allowed-edit`, `target-file-dirty`,
+`source-unit-state`, and `post-match-action` fields make the safe edit scope and
+the action after a successful match explicit. It also prints at most eight
+bounded direct-call snippets from the separately generated raw US assembly.
+`finish` combines the recording focused diff, progress check, and whitespace
+check into the per-function gate. It ends with `AGENT_ACTION: STOP_MATCHED`,
+`AGENT_ACTION: FIX_COMPILE`, `AGENT_ACTION: CONTINUE_MISMATCH`, or
+`AGENT_ACTION: BLOCKED_TOOLING` so automated contributors do not need to infer
+the next step from prose. It prints the
 ordinary focused comparison when the score is nonzero and changes no inventory;
 when it reaches `CURRENT (0)`, that same compilation records the match,
-regenerates progress, and validates the generated and whitespace state. `progress
-match` remains a compatibility alias and should not be run after a successful
-`finish`. The standalone `next --one --details`, `m2c`, and `diff --record`
-commands remain available for focused or automated use. Do not run the full
-Python test suite or a complete ROM/game
-build after every small function. Batch those checks after a logical group of
-functions in one source file and before committing or opening a pull request.
+regenerates progress, and validates the generated and whitespace state.
+`progress match` remains a compatibility alias and should not be run after a
+successful `finish`. The standalone `next --one --details`, `m2c`, and
+`diff --record` commands remain available for focused or automated use. Do not
+run the full Python test suite or a complete ROM/game build after every small
+function. Batch those checks after a logical group with `./conker verify-batch
+<id> [<id>...]`; it resolves the selected overlays, performs the required clean
+builds, runs the Python suite, and checks metadata, generated progress, and
+whitespace once. Run it before committing or opening a pull request.
 Run them sooner when changing shared headers, build tooling, inventory tooling,
 or source-unit mappings. `progress integrate` performs the required clean
 byte-identical build when a reviewed unit enters mixed mode or becomes complete.
 
-During the edit loop, `./conker diff --watch <work-item-id>` keeps
+During an interactive-terminal edit loop, `./conker diff --watch <work-item-id>` keeps
 one Docker container and asm-differ process open, detects the registered overlay,
 and rebuilds the candidate whenever its C source or project headers change. Exit
 the watcher before running `finish` once for final machine-readable evidence and
-the complete per-function gate.
+the complete per-function gate. Noninteractive callers receive
+`AGENT_ACTION: USE_FINISH_LOOP` immediately and should edit and rerun `finish`.
 Ordinary build-tool commands also reuse a repository-scoped warm container;
 `next --ready` starts it before the edit begins, and later functions reuse it.
 Do not run `./conker stop` between consecutive functions or follow-up agent

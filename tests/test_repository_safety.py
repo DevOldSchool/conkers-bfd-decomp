@@ -98,6 +98,10 @@ class RepositorySafetyTests(unittest.TestCase):
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
         prepare_body = script.split("prepare_next_work() {", 1)[1].split("\n}", 1)[0]
         finish_case = script.split("    finish)", 1)[1].split("        ;;", 1)[0]
+        watch_case = script.split('if [[ "${1:-}" == "--watch" ]]', 1)[1].split(
+            "        elif", 1
+        )[0]
+        batch_case = script.split("    verify-batch)", 1)[1].split("        ;;", 1)[0]
 
         self.assertIn('next --one --id-only', prepare_body)
         self.assertIn('next --one --details', prepare_body)
@@ -108,6 +112,24 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("verify_and_record_match", finish_case)
         self.assertIn('progress --check', finish_case)
         self.assertIn("core.whitespace=cr-at-eol diff --check", finish_case)
+        self.assertIn("AGENT_ACTION: FIX_COMPILE", finish_case)
+        self.assertIn("AGENT_ACTION: CONTINUE_MISMATCH", finish_case)
+        self.assertIn("AGENT_ACTION: BLOCKED_TOOLING", finish_case)
+        self.assertIn("AGENT_ACTION: STOP_MATCHED", finish_case)
+
+        self.assertIn("! -t 0 || ! -t 1", watch_case)
+        self.assertIn("AGENT_ACTION: USE_FINISH_LOOP", watch_case)
+
+        self.assertIn('batch-plan "$@"', batch_case)
+        self.assertIn("game-integrated-refresh", batch_case)
+        self.assertIn("python3 -m unittest discover -s tests -v", batch_case)
+        self.assertIn("AGENT_ACTION: BATCH_COMPLETE", batch_case)
+
+    def test_canonical_scalar_aliases_cover_m2c_integer_types(self) -> None:
+        types = (ROOT / "include" / "types.h").read_text(encoding="utf-8")
+
+        for alias in ("s8", "u8", "s16", "u16", "s32", "u32", "s64", "u64"):
+            self.assertRegex(types, rf"typedef [^;]+ {alias};")
 
 
 if __name__ == "__main__":

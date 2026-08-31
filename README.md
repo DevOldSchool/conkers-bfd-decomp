@@ -91,7 +91,8 @@ container into ignored `build/host-tools/` cache and run with the existing host
 Python. This avoids amd64 emulation on repeated `m2c` calls without installing
 or downloading a separate host dependency.
 
-For a faster edit loop, keep a focused diff open in one Docker container:
+For a faster interactive-terminal edit loop, keep a focused diff open in one
+Docker container:
 
 ```sh
 ./conker diff --watch <work-item-id>
@@ -101,7 +102,9 @@ The watcher detects main versus game-overlay work from the inventory, rebuilds
 only the focused candidate on C or header changes, and preserves the previous
 result as a three-way comparison. Exit it and run `finish` once so the
 authoritative comparison records progress and runs the remaining per-function
-gates in the same call.
+gates in the same call. Noninteractive callers should edit and rerun `finish`;
+`diff --watch` exits immediately with `AGENT_ACTION: USE_FINISH_LOOP` in that
+environment.
 
 ## RZIP utility
 
@@ -230,7 +233,16 @@ discard that cache and recreate the split before a pull request, after shared
 build/configuration changes, or while diagnosing stale generated state.
 `finish` runs the recording diff and generated-progress/whitespace checks as the
 per-function gate; batch the Python test suite and full game build after a
-logical source-file group rather than after every small function.
+logical source-file group rather than after every small function. Run the
+composed gate once after the final requested function:
+
+```sh
+./conker verify-batch <work-item-id> [<work-item-id>...]
+```
+
+It validates that every listed work item is matched, resolves main versus game
+build requirements, runs the clean builds and Python suite, then checks metadata,
+generated progress, and whitespace.
 
 Focused diffs remain independent of that mixed build: their generated reference
 map converts every canonical `c` range back to raw assembly from the owned ROM.

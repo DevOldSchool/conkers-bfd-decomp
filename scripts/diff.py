@@ -23,6 +23,13 @@ TOOLCHAIN_DEFINITION = ROOT / "Dockerfile"
 GLOBAL_ASM_LINE = re.compile(
     r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\([^\r\n]*\)[ \t]*\r?$", re.MULTILINE
 )
+EXIT_MISMATCH = 1
+EXIT_FIX_COMPILE = 2
+EXIT_BLOCKED_TOOLING = 3
+
+
+class NonzeroDifferenceError(ValueError):
+    """Raised when valid asm-differ evidence reports a nonzero score."""
 
 
 def find_work_item(symbol: str, profile: str, *, overlay: str | None = None) -> tuple[Path, str]:
@@ -197,7 +204,7 @@ def require_zero_difference(output: str, symbol: str) -> None:
 
     current_differences = current_difference_count(output)
     if current_differences != 0:
-        raise ValueError(
+        raise NonzeroDifferenceError(
             f"{symbol} is not matched: CURRENT ({current_differences}); inventory was not changed"
         )
 
@@ -283,14 +290,17 @@ def run_required_asm_diff(
     if result.returncode:
         sys.stdout.write(result.stdout)
         sys.stderr.write(result.stderr)
-        return result.returncode
+        return EXIT_BLOCKED_TOOLING
     try:
         require_zero_difference(result.stdout, symbol)
-    except ValueError as error:
+    except NonzeroDifferenceError as error:
         display_command = asm_diff_command(candidate, reference, symbol)
-        display_result = run_asm_diff(display_command, directory)
+        run_asm_diff(display_command, directory)
         print(f"error: {error}", file=sys.stderr)
-        return display_result or 1
+        return EXIT_MISMATCH
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
     print(f"{symbol}: CURRENT (0)")
     return 0
 
@@ -323,8 +333,18 @@ def main() -> int:
         )
         if not source.is_file():
             raise ValueError(f"candidate source does not exist: {source.relative_to(ROOT)}")
+    except (ValueError, subprocess.CalledProcessError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+
+    try:
         require_c_implementation(source, arguments.symbol)
         candidate = compile_candidate(arguments.profile, source)
+    except (ValueError, subprocess.CalledProcessError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_FIX_COMPILE
+
+    try:
         reference = reference_object(
             arguments.profile,
             symbol,
@@ -335,9 +355,9 @@ def main() -> int:
             raise ValueError(
                 f"reference object does not exist: {reference.relative_to(ROOT)}; run ./conker build --profile {arguments.profile} first"
             )
-    except (ValueError, subprocess.CalledProcessError) as error:
+    except (ValueError, subprocess.CalledProcessError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
-        return 1
+        return EXIT_BLOCKED_TOOLING
 
     directory = write_settings(arguments.profile, source)
     if arguments.require_match:

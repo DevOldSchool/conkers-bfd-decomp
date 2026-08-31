@@ -19,6 +19,12 @@ typedef struct CharacterFlamethrowerContext {
     CharacterFlamethrowerActor *actor;
 } CharacterFlamethrowerContext;
 
+typedef struct CharacterFlamethrowerControl {
+    char pad0[0x12];
+    char unk12;
+    char unk13;
+} CharacterFlamethrowerControl;
+
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
  * Boundary evidence: docs/evidence/effects_characterflamethrower.md
@@ -102,7 +108,12 @@ typedef struct CharacterFlamethrowerContext {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195DD4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195FB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195FF0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196318.s")
+void func_15196318(CharacterFlamethrowerControl *arg0, s32 arg1, s32 arg2) {
+    if (arg0 != 0) {
+        arg0->unk12 = arg1;
+        arg0->unk13 = arg2;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196330.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151963B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196438.s")
