@@ -62,6 +62,21 @@ class RepositorySafetyTests(unittest.TestCase):
             patterns,
         )
 
+    def test_publish_workflow_normalizes_the_ghcr_repository_owner(self) -> None:
+        workflow = (
+            ROOT / ".github" / "workflows" / "publish-toolchain.yml"
+        ).read_text(encoding="utf-8")
+
+        self.assertNotIn("ghcr.io/${{ github.repository_owner }}", workflow)
+        self.assertIn("OWNER: ${{ github.repository_owner }}", workflow)
+        self.assertIn(
+            "tr '[:upper:]' '[:lower:]'", workflow
+        )
+        self.assertIn(
+            "repository=ghcr.io/$owner_lc/conkers-bfd-decomp-toolchain", workflow
+        )
+        self.assertIn("${{ steps.image.outputs.repository }}:latest", workflow)
+
     def test_git_ignores_every_supported_rom_extension(self) -> None:
         patterns = ignore_patterns(ROOT / ".gitignore")
 

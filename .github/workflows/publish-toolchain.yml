@@ -24,11 +24,18 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Normalize image repository
+        id: image
+        env:
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          owner_lc="$(printf '%s' "$OWNER" | tr '[:upper:]' '[:lower:]')"
+          echo "repository=ghcr.io/$owner_lc/conkers-bfd-decomp-toolchain" >> "$GITHUB_OUTPUT"
       - uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           context: .
           platforms: linux/amd64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/conkers-bfd-decomp-toolchain:latest
-            ghcr.io/${{ github.repository_owner }}/conkers-bfd-decomp-toolchain:${{ github.sha }}
+            ${{ steps.image.outputs.repository }}:latest
+            ${{ steps.image.outputs.repository }}:${{ github.sha }}
