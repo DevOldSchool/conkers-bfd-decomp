@@ -1,0 +1,39 @@
+name: Verify protected ROM build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: protected-rom-verification
+  cancel-in-progress: false
+
+jobs:
+  verify-main:
+    runs-on: ubuntu-24.04
+    environment: rom-verification
+    steps:
+      # Always verify protected main. Do not accept a workflow-dispatch ref,
+      # because an untrusted pull-request checkout must never receive ROM access.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Fetch maintainer-owned ROM assets
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: DevOldSchool/conkers-bfd-assets
+          token: ${{ secrets.ROM_ASSETS_READ_TOKEN }}
+          path: .private-rom-assets
+          persist-credentials: false
+      - name: Build and verify active US target
+        env:
+          CONKER_IMAGE: conkers-bfd-decomp-toolchain:verify
+        run: |
+          docker build --platform linux/amd64 --tag "$CONKER_IMAGE" .
+          ./conker setup --us .private-rom-assets/baserom.us.z64
+          ./conker build --all

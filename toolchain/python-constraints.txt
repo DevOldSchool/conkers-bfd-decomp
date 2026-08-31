@@ -1,0 +1,2 @@
+# Required for compatibility with the project's GNU MIPS assembler path.
+spimdisasm==1.33.0

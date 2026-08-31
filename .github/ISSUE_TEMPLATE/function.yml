@@ -1,0 +1,21 @@
+name: Function work
+description: Claim or discuss a single function decompilation task.
+title: "Function: "
+labels: [function]
+body:
+  - type: input
+    id: symbol
+    attributes:
+      label: Symbol
+      description: The exact symbol from progress/functions.json.
+    validations:
+      required: true
+  - type: checkboxes
+    id: readiness
+    attributes:
+      label: Readiness
+      options:
+        - label: I checked that this function is not already claimed or matched for the active US target.
+          required: true
+        - label: I will provide US diff evidence before calling it matched.
+          required: true

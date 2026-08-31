@@ -1,0 +1,7 @@
+# Tooling and project-wide metadata require maintainer review.
+/Dockerfile @DevOldSchool
+/conker @DevOldSchool
+/scripts/ @DevOldSchool
+/config/ @DevOldSchool
+/progress/ @DevOldSchool
+/.github/ @DevOldSchool

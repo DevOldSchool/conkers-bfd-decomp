@@ -1,0 +1,35 @@
+{
+  "container_image": {
+    "digest": "sha256:883d74fd176857e63ee860eba7bddae102a6fcef1a0703533ff5ac4b73fd2474",
+    "repository": "ghcr.io/devoldschool/conkers-bfd-decomp-toolchain"
+  },
+  "ido_static_recomp": {
+    "version": "v1.2",
+    "asset": "ido-5.3-recomp-linux.tar.gz",
+    "sha256": "ab5c741561f80913d58c8b074771f23941a3edd312505a8ebed6d1dfeb65e506",
+    "source": "https://github.com/decompals/ido-static-recomp"
+  },
+  "schema_version": 1,
+  "tools": {
+    "asm-differ": {
+      "repository": "https://github.com/simonlindholm/asm-differ.git",
+      "revision": "c80ea4e3d16ecc8f4c21923633f3f9b1fb534c53"
+    },
+    "asm-processor": {
+      "repository": "https://github.com/simonlindholm/asm-processor.git",
+      "revision": "f3b2f85a5bc7e8ae2030ea5a83ea8aa0bcbede03"
+    },
+    "mips_to_c": {
+      "repository": "https://github.com/matt-kempster/mips_to_c.git",
+      "revision": "09e0e72337804a713e2c3b8d522abe85838470ea"
+    },
+    "n64splat": {
+      "repository": "https://github.com/ethteck/n64splat.git",
+      "revision": "3376e8c1b542d68016d74c685a9b3c64d4e488a1"
+    },
+    "spimdisasm": {
+      "package": "spimdisasm",
+      "version": "1.33.0"
+    }
+  }
+}
