@@ -15,11 +15,9 @@
  * - func_1513472C
  * - func_1513477C
  * - func_151347CC
- * - func_151348F0
  * - func_15134908
  * - func_151349D0
  * - func_15134C98
- * - func_15134CD4
  * - func_15134CEC
  * - func_15134DAC
  * - func_15134E48
@@ -84,11 +82,15 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513472C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513477C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151347CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151348F0.s")
+void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134908.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151349D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134C98.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134CD4.s")
+void func_15134CD4(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134CEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134DAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134E48.s")

@@ -48,20 +48,22 @@ The normal contributor workflow is:
 
 ```sh
 ./conker build
-./conker next --one --details
-./conker m2c func_XXXXXXXX > /tmp/func_XXXXXXXX.c
-./conker diff --record func_XXXXXXXX
+./conker next --ready
+# Replace the selected GLOBAL_ASM pragma with the emitted C starter.
+./conker finish func_XXXXXXXX
 ./conker progress integrate func_XXXXXXXX
 ```
 
 `./conker next` reports each function's US byte size and orders available work
 from smallest to largest, using the work-item symbol to break equal-size ties.
-It also prints the starter command. Add `--one --details` to print only the next
-item plus its local inventory, issue metadata, source context, and generated
-assembly. When the detail view says `issue: none recorded`, no GitHub lookup is
-needed. `m2c` reads the inventory and automatically selects main-ROM or
-game-overlay input, so contributors do not need to choose a different
-overlay-specific command.
+It also prints the starter command. Use `next --ready` for the agent-optimized
+path: it prints only the next item plus its local inventory, issue metadata,
+source context, generated assembly, and m2c C starter while prewarming the
+toolchain container. `--one --details` remains available when only the bounded
+read-only context is wanted. When the detail view says `issue: none recorded`,
+no GitHub lookup is needed. `m2c` reads the inventory and automatically selects
+main-ROM or game-overlay input, so contributors do not need to choose a
+different overlay-specific command.
 
 US is the default profile for contributor commands. Use `--profile <region>`
 only when intentionally overriding it; explicit `--profile us` remains
@@ -77,10 +79,13 @@ assets, build products, and raw-reference output; the next command recreates
 only the generated material it needs.
 
 The first build-tool command starts one repository-scoped, network-disabled
-toolchain container. Later `m2c`, `diff`, and build commands reuse it instead of
-paying Docker's startup cost each time. Source changes are visible immediately
-through the existing workspace mounts. Run `./conker stop` when you want to
-remove the warm container; a changed pinned image is replaced automatically.
+toolchain container. `next --ready` deliberately starts it before editing so the
+first focused diff is warm. Later `m2c`, `diff`, and build commands reuse it
+instead of paying Docker's startup cost each time. Source changes are visible
+immediately through the existing workspace mounts. Keep the container across
+consecutive functions and follow-up work; run `./conker stop` only for explicit
+cleanup or when the broader contribution is finished. A changed pinned image is
+replaced automatically.
 Because `mips_to_c` is pure Python, its pinned files are also copied from that
 container into ignored `build/host-tools/` cache and run with the existing host
 Python. This avoids amd64 emulation on repeated `m2c` calls without installing
@@ -94,8 +99,9 @@ For a faster edit loop, keep a focused diff open in one Docker container:
 
 The watcher detects main versus game-overlay work from the inventory, rebuilds
 only the focused candidate on C or header changes, and preserves the previous
-result as a three-way comparison. Exit it and run `diff --record` once so the
-authoritative comparison also records progress.
+result as a three-way comparison. Exit it and run `finish` once so the
+authoritative comparison records progress and runs the remaining per-function
+gates in the same call.
 
 ## RZIP utility
 
@@ -149,12 +155,12 @@ reassemble every unmatched function. `game-diff` remains a compatibility alias.
 Run `./conker game-asm` explicitly whenever you need to refresh that ROM-derived
 reference.
 
-Use `./conker diff --record <work-item-id>` for the ordinary one-shot edit loop.
-It detects the registered overlay and compiles the candidate once. A nonzero
-result displays the normal focused diff and leaves progress unchanged; a
-`CURRENT (0)` result updates the function record (and an assigned source unit
-when one exists) and regenerates progress immediately. `./conker progress match
-<work-item-id>` remains a compatibility alias for existing automation.
+Use `./conker finish <work-item-id>` for the ordinary one-shot agent loop. It
+detects the registered overlay, compiles the candidate once, records a
+`CURRENT (0)` result, then checks generated progress and whitespace in the same
+command. A nonzero result displays the normal focused diff and leaves progress
+unchanged. `./conker diff --record <work-item-id>` and `./conker progress match
+<work-item-id>` remain compatibility paths for focused and existing automation.
 Contributors should not edit the inventory JSON directly.
 
 To populate the work queue, review the US proposals, then register an explicitly
@@ -167,7 +173,7 @@ does not manufacture a single-function source-unit boundary:
   --id func_15178E50 \
   --us func_15178E50 \
   --source src/game/func_15178E50.c
-./conker next --one --details
+./conker next --ready
 ```
 
 `game-index` is a shortlist, not match evidence. Review the assembly before
@@ -210,7 +216,7 @@ assembly is generated locally from the owned ROM and stays ignored.
 Run `progress integrate` after boundary registration to put that source unit in
 the canonical build immediately. Incomplete units build as one mixed C/ASM
 object through the pinned asm-processor. Replace one pragma at a time with C,
-then use `diff --record`. Focused diff refuses a target while
+then use `finish`. Focused diff refuses a target while
 its pragma is still present. Once every member matches, run `progress integrate`
 again to byte-verify and move the assembly-free unit under `src/game/done/`.
 `./conker progress integrate --all-reviewed` promotes multiple
@@ -222,8 +228,8 @@ payload. It preserves the prepared split and object cache, so an ordinary source
 edit rebuilds only invalidated objects. Use `./conker game-build --refresh` to
 discard that cache and recreate the split before a pull request, after shared
 build/configuration changes, or while diagnosing stale generated state.
-`diff --record` and the generated-progress/whitespace checks remain the
-per-function checks; batch the Python test suite and full game build after a
+`finish` runs the recording diff and generated-progress/whitespace checks as the
+per-function gate; batch the Python test suite and full game build after a
 logical source-file group rather than after every small function.
 
 Focused diffs remain independent of that mixed build: their generated reference

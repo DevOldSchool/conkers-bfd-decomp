@@ -164,7 +164,7 @@
         "us": {
           "end": "0x13B5E0",
           "start": "0x134070",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/effects/blood.c"

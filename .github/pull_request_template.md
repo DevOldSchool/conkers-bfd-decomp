@@ -7,11 +7,11 @@ Describe the function, tooling, or documentation change.
 For function work, include exact output for the active US target:
 
 ```text
-./conker diff --record <work-item-id>
+./conker finish <work-item-id>
 # Only after reviewed boundary evidence and every source-unit member matches:
 ./conker progress integrate <work-item-id>
-./conker progress check
-git -c core.whitespace=cr-at-eol diff --check
+# If integration ran after finish:
+./conker progress check && git -c core.whitespace=cr-at-eol diff --check
 ```
 
 For a logical function batch, also report the test suite once. For game-overlay

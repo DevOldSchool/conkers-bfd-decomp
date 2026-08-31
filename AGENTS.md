@@ -30,50 +30,60 @@ Docker, ROM setup, progress, m2c, and asm diffs.
 
 ## Agent procedure
 
-1. Read `CONTRIBUTING.md`, then use `./conker next --one --details` to select
-   one item and obtain its inventory, source, generated assembly, issue metadata,
-   and nearby declarations in one bounded local call. Read and claim a related
-   issue only when that output records one; `issue: none recorded` means do not
-   query GitHub. Read any additional applicable source/header declarations.
+1. Read `CONTRIBUTING.md`, then use `./conker next --ready` to select one item,
+   prewarm the repository toolchain, and obtain its inventory, source, generated
+   assembly, issue metadata, nearby declarations, and m2c C starter in one
+   bounded call. Read and claim a related issue only when that output records
+   one; `issue: none recorded` means do not query GitHub. Read any additional
+   applicable source/header declarations.
 2. Work in an isolated Git worktree. Do not share a checkout with another
    implementation agent unless the user explicitly directs you to work on their
    current local branch; in that case preserve all unrelated staged and unstaged
    changes.
-3. Use `./conker m2c <work-item-id>` only as a C starting point; add `--profile
-   <region>` only when intentionally overriding the default US profile. Replace
-   guessed types and offsets with project declarations.
-4. Make small changes, run `./conker diff --record <work-item-id>`, and preserve
-   the exact target instruction/register output. In a reviewed mixed unit,
+3. Use the m2c output from `next --ready` only as a C starting point. The
+   standalone `./conker m2c <work-item-id>` command remains available when a
+   specific item is already selected; add `--profile <region>` only when
+   intentionally overriding the default US profile. Replace guessed types and
+   offsets with project declarations.
+4. Make small changes, then run `./conker finish <work-item-id>` to record an
+   exact match and perform the progress and whitespace gates in one call. In a
+   reviewed mixed unit,
    replace only the target function's generated `GLOBAL_ASM` pragma with C at
    the same position. Do not edit target assembly, hand-write assembly bodies,
    or add inline asm.
-   On a mismatch, `diff --record` prints the normal focused diff and leaves the
+   On a mismatch, `finish` prints the normal focused diff and leaves the
    inventory unchanged. On `CURRENT (0)`, the same compilation records the match
-   and regenerates progress; do not repeat it with `progress match`.
+   and regenerates progress before checking generated output and whitespace; do
+   not repeat it with `progress match`.
    Use `./conker diff --watch <work-item-id>` for the persistent edit loop when
    interactive terminal access is available, then exit the watcher and run
-   `diff --record` once for authoritative evidence.
-5. After `diff --record` reports and records `CURRENT (0)`, do not edit the
+   `finish` once for authoritative evidence and the per-function gate.
+5. After `finish` reports and records `CURRENT (0)`, do not edit the
    inventory JSON manually. A reviewed boundary may integrate immediately as
    mixed C/ASM; run integration again to move it to `src/game/done/` only after
-   every function matches. Then run the progress and whitespace checks.
+   every function matches. If integration runs after `finish`, rerun the progress
+   and whitespace checks because integration changes repository state.
 
 ## Fast tool usage
 
-- Batch independent read-only discovery commands into one tool call. Do not
+- Batch independent read-only discovery commands into one tool call. Use
+  `next --ready` and `finish` instead of separate selection/m2c and
+  diff/progress/whitespace calls. Do not
   print the full work queue when selecting one item, scan broad generated trees,
-  or repeat local context already emitted by `next --one --details`.
+  or repeat local context already emitted by `next --ready`.
 - Docker-backed commands are `doctor`, `build`, `m2c` on a cold host cache,
   `diff`, `progress match`, `progress integrate`, and game build/reference
   commands. In a managed sandbox that cannot access the Docker socket, request
   the required Docker permission on the first such command instead of first
   running a known-to-fail sandboxed attempt.
-- Keep the repository-scoped warm container alive during a function or
-  same-source work session. Use `./conker stop` only when the session is finished
-  or the user requests cleanup.
-- `./conker progress match <work-item-id>` remains a compatibility alias for
-  automated callers. New agent work should use `diff --record` so a successful
-  focused diff is not compiled a second time.
+- Keep the repository-scoped warm container alive across consecutive functions
+  and follow-up agent turns. Do not run `./conker stop` merely because one
+  function finished; use it only when the user requests cleanup or the broader
+  contribution is finished with no likely follow-up work.
+- `./conker progress match <work-item-id>` and `diff --record` remain
+  compatibility paths for automated or focused callers. New agent work should
+  use `finish` so a successful focused diff is compiled once and the remaining
+  per-function gates share the same tool call.
 - Follow the per-function gate in `CONTRIBUTING.md`; do not run full builds or
   the full test suite after a small source-local match unless shared tooling,
   headers, configuration, or source-unit integration changed.

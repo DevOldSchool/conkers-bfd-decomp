@@ -20,8 +20,8 @@ contributions use the same workflow and review standard.
    by Git.
 
 4. Follow [the bootstrap guide](docs/bootstrap.md) until the raw baselines are
-   available. Then use `./conker next --one --details` to select the smallest
-   available function and print its bounded local source/assembly context.
+   available. Then use `./conker next --ready` to select the smallest available
+   function, print its bounded local context and starter, and prewarm Docker.
 
 Maintainers add game-overlay work with `./conker game-index` followed by
 `./conker register-game`. Review the US assembly body before registering it.
@@ -67,29 +67,34 @@ byte-identical.
 ## Function workflow
 
 If the selected inventory record includes issue metadata, claim and read that
-GitHub issue before editing. If `next --one --details` reports `issue: none
+GitHub issue before editing. If `next --ready` reports `issue: none
 recorded`, no remote issue lookup is required. Work in a branch or separate Git
 worktree, and keep a pull request focused on one C source file unless a
 maintainer approves a shared dependency change.
 
 ```sh
-./conker next --one --details
-./conker m2c <work-item-id> > /tmp/<work-item-id>.c
+./conker next --ready
 # Replace that function's GLOBAL_ASM pragma with C at the same position.
-./conker diff --record <work-item-id>
+./conker finish <work-item-id>
 # For a raw reviewed unit, integrate once to enter mixed mode.
 # For a mixed unit, integrate only after its final function is matched.
 ./conker progress integrate <work-item-id>  # when one condition above applies
+# If integration ran, repeat these because it changed repository state:
 ./conker progress check
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
-The recording focused diff, progress check, and whitespace check are the
-per-function gate. `diff --record` prints the ordinary focused comparison when
-the score is nonzero and changes no inventory; when it reaches `CURRENT (0)`,
-that same compilation records the match and regenerates progress. `progress
+`next --ready` combines smallest-function selection, bounded local context, m2c
+starter generation, and toolchain prewarming so an agent does not need separate
+selection and m2c tool calls. `finish` combines the recording focused diff,
+progress check, and whitespace check into the per-function gate. It prints the
+ordinary focused comparison when the score is nonzero and changes no inventory;
+when it reaches `CURRENT (0)`, that same compilation records the match,
+regenerates progress, and validates the generated and whitespace state. `progress
 match` remains a compatibility alias and should not be run after a successful
-`diff --record`. Do not run the full Python test suite or a complete ROM/game
+`finish`. The standalone `next --one --details`, `m2c`, and `diff --record`
+commands remain available for focused or automated use. Do not run the full
+Python test suite or a complete ROM/game
 build after every small function. Batch those checks after a logical group of
 functions in one source file and before committing or opening a pull request.
 Run them sooner when changing shared headers, build tooling, inventory tooling,
@@ -99,10 +104,13 @@ byte-identical build when a reviewed unit enters mixed mode or becomes complete.
 During the edit loop, `./conker diff --watch <work-item-id>` keeps
 one Docker container and asm-differ process open, detects the registered overlay,
 and rebuilds the candidate whenever its C source or project headers change. Exit
-the watcher before running `diff --record` once for final machine-readable
-evidence and progress recording.
+the watcher before running `finish` once for final machine-readable evidence and
+the complete per-function gate.
 Ordinary build-tool commands also reuse a repository-scoped warm container;
-`./conker stop` removes it when the session is finished.
+`next --ready` starts it before the edit begins, and later functions reuse it.
+Do not run `./conker stop` between consecutive functions or follow-up agent
+turns. Use it only for explicit cleanup or when the broader contribution is
+finished with no likely follow-up work.
 
 `./conker game-build` preserves the prepared game split and object cache, updates
 generated nonmatching assembly without touching unchanged files, and recompiles
@@ -113,11 +121,12 @@ diagnosing suspected stale generated state; it is not part of each function's
 focused match loop.
 
 A function is matched for the active target only when its US focused diff
-reports `CURRENT (0)`. Prefer `./conker diff --record <work-item-id>` so the
-successful comparison updates the function inventory and any assigned source
-unit, and regenerates the progress files without compiling twice. The legacy
-`./conker progress match <work-item-id>` command performs the same authoritative
-check and update for existing automation. Focused diff refuses to credit a
+reports `CURRENT (0)`. Prefer `./conker finish <work-item-id>` so the successful
+comparison updates the function inventory and any assigned source unit,
+regenerates progress without compiling twice, and completes the per-function
+checks. The legacy `diff --record` and `progress match` commands perform the same
+authoritative match check for focused or existing automation. Focused diff
+refuses to credit a
 function while its own `GLOBAL_ASM` pragma remains. If no reviewed source unit
 is assigned, only the function inventory changes. Do not edit the inventory JSON
 by hand.

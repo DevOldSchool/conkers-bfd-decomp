@@ -94,6 +94,21 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("game-build [--profile us] [--refresh]", script)
         self.assertIn("game_build_target=game-integrated-refresh", script)
 
+    def test_agent_workflow_prewarms_and_composes_the_per_function_gate(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        prepare_body = script.split("prepare_next_work() {", 1)[1].split("\n}", 1)[0]
+        finish_case = script.split("    finish)", 1)[1].split("        ;;", 1)[0]
+
+        self.assertIn('next --one --id-only', prepare_body)
+        self.assertIn('next --one --details', prepare_body)
+        self.assertIn("ensure_warm_container", prepare_body)
+        self.assertIn('run_host_mips_to_c us "$identifier" --auto-overlay', prepare_body)
+        self.assertNotIn("remove_warm_container", prepare_body)
+
+        self.assertIn("verify_and_record_match", finish_case)
+        self.assertIn('progress --check', finish_case)
+        self.assertIn("core.whitespace=cr-at-eol diff --check", finish_case)
+
 
 if __name__ == "__main__":
     unittest.main()

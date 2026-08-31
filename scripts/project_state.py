@@ -1273,8 +1273,8 @@ def print_next_details(entry: dict[str, Any], size_bytes: int) -> None:
     print(f"size: {size_bytes} bytes")
     issue = entry.get("issue")
     print(f"issue: {issue or 'none recorded; do not query GitHub'}")
-    print(f"starter: ./conker m2c {identifier} > /tmp/{identifier}.c")
-    print(f"verify-and-record: ./conker diff --record {identifier}")
+    print(f"standalone-starter: ./conker m2c {identifier} > /tmp/{identifier}.c")
+    print(f"finish: ./conker finish {identifier}")
 
     if not source:
         return
@@ -1329,8 +1329,13 @@ def print_next_details(entry: dict[str, Any], size_bytes: int) -> None:
 def next_function(args: argparse.Namespace | None = None) -> None:
     one = bool(args and args.one)
     details = bool(args and args.details)
+    id_only = bool(args and getattr(args, "id_only", False))
     if details and not one:
         raise ProjectStateError("--details requires --one to keep output bounded")
+    if id_only and not one:
+        raise ProjectStateError("--id-only requires --one")
+    if id_only and details:
+        raise ProjectStateError("--id-only and --details cannot be combined")
     _, functions = validate_project()
     source_units = validate_source_units(load_json(SOURCE_UNITS_FILE), functions)
     sizes = active_function_sizes(functions, source_units)
@@ -1342,6 +1347,8 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         and not entry.get("issue")
     ]
     if not available:
+        if id_only:
+            raise ProjectStateError("no unclaimed raw-ASM functions are registered yet")
         print("No unclaimed raw-ASM functions are registered yet.")
         return
     missing_sizes = [entry["symbol"] for entry in available if entry["symbol"] not in sizes]
@@ -1354,6 +1361,9 @@ def next_function(args: argparse.Namespace | None = None) -> None:
     available.sort(key=lambda entry: (sizes[entry["symbol"]], entry["symbol"]))
     if one:
         available = available[:1]
+    if id_only:
+        print(available[0]["symbol"])
+        return
     if details:
         print_next_details(available[0], sizes[available[0]["symbol"]])
         return
@@ -1395,6 +1405,11 @@ def parse_args() -> argparse.Namespace:
         "--details",
         action="store_true",
         help="with --one, print bounded local source and assembly context",
+    )
+    next_parser.add_argument(
+        "--id-only",
+        action="store_true",
+        help=argparse.SUPPRESS,
     )
     subparsers.add_parser("game-index")
     register_game_parser = subparsers.add_parser("register-game")

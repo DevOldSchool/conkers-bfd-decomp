@@ -412,14 +412,51 @@ class ProjectStateTests(unittest.TestCase):
         details = output.getvalue()
         self.assertIn("work-item: func_small", details)
         self.assertIn("issue: none recorded; do not query GitHub", details)
-        self.assertIn("verify-and-record: ./conker diff --record func_small", details)
+        self.assertIn("finish: ./conker finish func_small", details)
         self.assertIn("assembly-body:\n  glabel func_small", details)
         self.assertIn("source-line: 5", details)
         self.assertIn('extern s32 D_test;', details)
 
+    def test_next_one_id_only_prints_only_the_work_item_identifier(self) -> None:
+        function = {
+            "symbol": "func_small",
+            "source": "src/game/test.c",
+            "overlay": "game",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_small",
+                    "vram": "0x15000000",
+                    "size_bytes": 4,
+                }
+            },
+        }
+        output = io.StringIO()
+        with (
+            patch.object(
+                project_state,
+                "validate_project",
+                return_value=({}, [function]),
+            ),
+            patch.object(project_state, "load_json", return_value={}),
+            patch.object(project_state, "validate_source_units", return_value=[]),
+            redirect_stdout(output),
+        ):
+            project_state.next_function(
+                SimpleNamespace(one=True, details=False, id_only=True)
+            )
+
+        self.assertEqual("func_small\n", output.getvalue())
+
     def test_next_details_requires_one(self) -> None:
         with self.assertRaisesRegex(project_state.ProjectStateError, "requires --one"):
             project_state.next_function(SimpleNamespace(one=False, details=True))
+
+    def test_next_id_only_requires_one(self) -> None:
+        with self.assertRaisesRegex(project_state.ProjectStateError, "requires --one"):
+            project_state.next_function(
+                SimpleNamespace(one=False, details=False, id_only=True)
+            )
 
 
 class GameInventoryTests(unittest.TestCase):

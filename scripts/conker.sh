@@ -49,6 +49,9 @@ Getting started
   progress integrate --all-reviewed
                                  Integrate all incomplete reviewed game units in one build.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
+  next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  finish [--profile us] <work-item-id>
+                                 Record CURRENT (0), then check progress and whitespace.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
@@ -330,6 +333,17 @@ verify_and_record_match() {
     python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"
 }
 
+prepare_next_work() {
+    local identifier
+    identifier="$(python3 "$state_tool" next --one --id-only)"
+    python3 "$state_tool" next --one --details
+    python3 "$state_tool" setup-check --profile us
+    ensure_warm_container
+    printf 'toolchain: warm (%s)\n' "$warm_container_name"
+    printf 'c-starter:\n'
+    run_host_mips_to_c us "$identifier" --auto-overlay
+}
+
 command="${1:-help}"
 shift || true
 
@@ -382,7 +396,19 @@ case "$command" in
         esac
         ;;
     next)
-        python3 "$state_tool" next "$@"
+        if [[ "${1:-}" == "--ready" ]]; then
+            [[ $# -eq 1 ]] || die "usage: ./conker next --ready"
+            prepare_next_work
+        else
+            python3 "$state_tool" next "$@"
+        fi
+        ;;
+    finish)
+        parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
+        verify_and_record_match
+        python3 "$state_tool" progress --check
+        git -C "$repo_root" -c core.whitespace=cr-at-eol diff --check
+        printf '%s: per-function gate passed (match, progress, whitespace).\n' "$selected_value"
         ;;
     stop)
         require_docker
