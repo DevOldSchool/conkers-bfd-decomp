@@ -1,5 +1,9 @@
 #include "types.h"
 
+void func_15163CF8(s32 arg0, s32 arg1);
+void func_1514EDF0(s32 arg0, s32 arg1);
+void func_151617C4();
+
 /*
  * Reviewed source unit: src/game/effects/light.c
  * Boundary evidence: docs/evidence/effects_light.md
@@ -10,8 +14,6 @@
  * - func_151603FC
  * - func_151604A0
  * - func_15160600
- * - func_1516065C
- * - func_15160684
  * - func_151606A8
  * - func_151607A4
  * - func_15160954
@@ -27,19 +29,15 @@
  * - func_15161540
  * - func_151615F8
  * - func_151616D0
- * - func_15161714
  * - func_15161740
  * - func_1516176C
  * - func_15161798
- * - func_151617C4
- * - func_151617E4
  * - func_15161804
  * - func_15161860
  * - func_151618BC
  * - func_151619A0
  * - func_15161A68
  * - func_15161E24
- * - func_15161F2C
  * - func_15161F4C
  * - func_15162034
  * - func_15162110
@@ -67,7 +65,6 @@
  * - func_15163A60
  * - func_15163B98
  * - func_15163BE8
- * - func_15163CD0
  * - func_15163CF8
  * - func_15163DEC
  * - func_15163F50
@@ -78,7 +75,6 @@
  * - func_1516429C
  * - func_1516434C
  * - func_151643A8
- * - func_151643F8
  * - func_1516441C
  * - func_151644A8
  * - func_151644F4
@@ -92,8 +88,14 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151603FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151604A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160600.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516065C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160684.s")
+s32 func_1516065C(s32 arg0) {
+    func_15163CF8(arg0 + 0x18, arg0);
+    return 1;
+}
+s32 func_15160684(s32 arg0) {
+    func_15163DEC(arg0, arg0 + 0x18);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151606A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151607A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160954.s")
@@ -109,21 +111,28 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161540.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151615F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151616D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161714.s")
+void func_15161714(void *arg0) {
+    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_151617C4(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161740.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516176C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161798.s")
 void func_151617C4(void) {
     func_15169804();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151617E4.s")
+void func_151617E4(void) {
+    func_15169824();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161804.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161860.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151618BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151619A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161A68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161E24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161F2C.s")
+void func_15161F2C(s32 arg0) {
+    func_15163F50(arg0, arg0 + 0x18);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161F4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162034.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162110.s")
@@ -151,7 +160,10 @@ void func_151617C4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163A60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163B98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163BE8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163CD0.s")
+s32 func_15163CD0(s32 arg0) {
+    func_15163CF8(arg0 + 0x30, arg0);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163CF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163DEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163F50.s")
@@ -162,7 +174,10 @@ void func_151617C4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516429C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516434C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151643A8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151643F8.s")
+s32 func_151643F8(s32 arg0) {
+    func_1516441C(arg0, arg0 + 0x18);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516441C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151644A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151644F4.s")

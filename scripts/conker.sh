@@ -52,8 +52,8 @@ Getting started
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
-  verify-batch <work-item-id> [<work-item-id>...]
-                                 Run the required end-of-batch builds and repository gates.
+  verify-batch [--incremental] <work-item-id> [<work-item-id>...]
+                                 Run end-of-batch gates; incremental is for local iteration only.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
@@ -92,7 +92,18 @@ EOF
 }
 
 require_docker() {
-    command -v docker >/dev/null 2>&1 || die "Docker is required. Install Docker Desktop or Docker Engine, then rerun ./conker doctor."
+    if ! command -v docker >/dev/null 2>&1; then
+        printf '%s\n' 'error: Docker is required. Install Docker Desktop or Docker Engine, then rerun ./conker doctor.' >&2
+        return 1
+    fi
+}
+
+require_docker_access() {
+    require_docker || return 1
+    if ! docker info --format '{{.ServerVersion}}' >/dev/null 2>&1; then
+        printf '%s\n' 'error: Docker is installed, but this process cannot access the Docker daemon. Start Docker or grant Docker socket permission, then rerun the command.' >&2
+        return 1
+    fi
 }
 
 image_is_healthy() {
@@ -108,10 +119,11 @@ watch_image_is_compatible() {
 }
 
 ensure_image() {
-    require_docker
+    require_docker || return 1
     if docker image inspect "$image_name" >/dev/null 2>&1; then
         return
     fi
+    require_docker_access || return 1
     printf 'Fetching the published toolchain image (%s)...\n' "$image_name"
     if ! docker pull --platform linux/amd64 "$image_name"; then
         printf 'Published image unavailable; building it locally...\n'
@@ -351,14 +363,18 @@ verify_and_record_match() {
 }
 
 prepare_next_work() {
+    local details
+    local first_line
     local identifier
-    identifier="$(python3 "$state_tool" next --one --id-only)"
-    python3 "$state_tool" next --one --details
+    details="$(python3 "$state_tool" next --one --details)"
+    first_line="${details%%$'\n'*}"
+    [[ "$first_line" == "work-item: "* ]] || die "next --one --details did not emit a work-item"
+    identifier="${first_line#work-item: }"
+    printf '%s\n' "$details"
     python3 "$state_tool" setup-check --profile us
     ensure_warm_container
     printf 'toolchain: warm (%s)\n' "$warm_container_name"
-    printf 'c-starter:\n'
-    run_host_mips_to_c us "$identifier" --auto-overlay
+    run_host_mips_to_c us "$identifier" --auto-overlay --ready-output
 }
 
 command="${1:-help}"
@@ -446,7 +462,23 @@ case "$command" in
         printf 'AGENT_ACTION: STOP_MATCHED\n'
         ;;
     verify-batch)
-        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch <work-item-id> [<work-item-id>...]"
+        batch_mode="clean"
+        if [[ "${1:-}" == "--incremental" ]]; then
+            batch_mode="incremental"
+            shift
+        fi
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] <work-item-id> [<work-item-id>...]"
+        batch_failure_stamp="$repo_root/build/verify-batch/clean-integration-failure.sha256"
+        batch_fingerprint="$(python3 "$state_tool" batch-fingerprint)"
+        if [[ "$batch_mode" == "clean" && -f "$batch_failure_stamp" ]]; then
+            previous_batch_fingerprint=""
+            IFS= read -r previous_batch_fingerprint < "$batch_failure_stamp" || true
+            if [[ "$previous_batch_fingerprint" == "$batch_fingerprint" ]]; then
+                printf '%s\n' 'error: this exact worktree already failed clean integration; change the source before rerunning verify-batch.' >&2
+                printf 'AGENT_ACTION: FIX_INTEGRATION\n'
+                exit 1
+            fi
+        fi
         batch_overlays=""
         if ! batch_overlays="$(python3 "$state_tool" batch-plan "$@")"; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
@@ -463,12 +495,26 @@ case "$command" in
             fi
         fi
         if [[ " $batch_overlays " == *" game "* ]]; then
-            if ! run_in_container make --silent --jobs 4 game-integrated-refresh GAME_PROFILE=us; then
-                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            game_batch_target="game-integrated-refresh"
+            if [[ "$batch_mode" == "incremental" ]]; then
+                game_batch_target="game-integrated"
+            fi
+            if ! run_in_container make --silent --jobs 4 "$game_batch_target" GAME_PROFILE=us; then
+                integrated_binary="$repo_root/build/game-integrated/us/conker.game.us.integrated.bin"
+                integrated_reference="$repo_root/build/game-integrated/us/game.code.bin"
+                if [[ -f "$integrated_binary" && -f "$integrated_reference" ]] && ! cmp -s "$integrated_binary" "$integrated_reference"; then
+                    if [[ "$batch_mode" == "clean" ]]; then
+                        mkdir -p "$(dirname "$batch_failure_stamp")"
+                        printf '%s\n' "$batch_fingerprint" > "$batch_failure_stamp"
+                    fi
+                    printf 'AGENT_ACTION: FIX_INTEGRATION\n'
+                else
+                    printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                fi
                 exit 1
             fi
         fi
-        if ! python3 -m unittest discover -s tests -v; then
+        if ! python3 -m unittest discover -s tests -q -b; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1
         fi
@@ -484,11 +530,12 @@ case "$command" in
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1
         fi
-        printf 'Verified batch: %s\n' "$*"
+        rm -f "$batch_failure_stamp"
+        printf 'Verified batch (%s): %s\n' "$batch_mode" "$*"
         printf 'AGENT_ACTION: BATCH_COMPLETE\n'
         ;;
     stop)
-        require_docker
+        require_docker_access
         if docker container inspect "$warm_container_name" >/dev/null 2>&1; then
             remove_warm_container
             printf 'Removed warm toolchain container %s.\n' "$warm_container_name"

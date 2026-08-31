@@ -15,6 +15,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 LABEL_PATTERN = re.compile(r"^glabel\s+([A-Za-z_][A-Za-z0-9_]*)\s*$", re.MULTILINE)
 MIPS_TO_C = Path(os.environ.get("CONKER_MIPS_TO_C", "/opt/tools/mips_to_c/m2c.py"))
+JAL_PATTERN = re.compile(r"\bjal\s+([A-Za-z_][A-Za-z0-9_]*)\b")
+ARGUMENT_REGISTER_PATTERN = re.compile(r"\$a([0-3])\b")
 
 
 def reference_index_path(profile: str, *, game_reference: bool) -> Path:
@@ -265,6 +267,103 @@ def extract_function(source: Path, symbol: str) -> Path:
     return output
 
 
+def callees_with_preserved_a0(assembly: str) -> set[str]:
+    """Find calls whose delay slot derives a1 from an unchanged incoming a0."""
+
+    lines = assembly.splitlines()
+    callees: set[str] = set()
+    for index, line in enumerate(lines[:-1]):
+        call = JAL_PATTERN.search(line)
+        if call is None:
+            continue
+        delay_slot = lines[index + 1].split("*/", 1)[-1]
+        registers = ARGUMENT_REGISTER_PATTERN.findall(delay_slot)
+        if registers and registers[0] == "1" and "0" in registers[1:]:
+            callees.add(call.group(1))
+    return callees
+
+
+def split_arguments(arguments: str) -> list[str]:
+    """Split a C argument list while respecting nested expressions."""
+
+    parts: list[str] = []
+    start = 0
+    depth = 0
+    for index, character in enumerate(arguments):
+        if character in "([{":
+            depth += 1
+        elif character in ")]}":
+            depth -= 1
+        elif character == "," and depth == 0:
+            parts.append(arguments[start:index].strip())
+            start = index + 1
+    tail = arguments[start:].strip()
+    if tail:
+        parts.append(tail)
+    return parts
+
+
+def repair_preserved_call_arguments(starter: str, assembly: str, symbol: str) -> str:
+    """Restore a proven live a0 argument that mips_to_c omitted from a call."""
+
+    signature = re.search(
+        rf"^.*\b{re.escape(symbol)}\(([^)]*)\)\s*\{{",
+        starter,
+        re.MULTILINE,
+    )
+    if signature is None:
+        return starter
+    arg0 = re.search(r"(.+?)\s+arg0\b", signature.group(1))
+    if arg0 is None:
+        return starter
+    arg0_type = arg0.group(1).strip()
+
+    repaired = starter
+    for callee in callees_with_preserved_a0(assembly):
+        call_pattern = re.compile(
+            rf"^(\s*){re.escape(callee)}\((.+)\);\s*$", re.MULTILINE
+        )
+
+        def repair_call(match: re.Match[str]) -> str:
+            arguments = split_arguments(match.group(2))
+            if len(arguments) != 1 or arguments[0] == "arg0":
+                return match.group(0)
+            return f"{match.group(1)}{callee}(arg0, {arguments[0]});"
+
+        previous = repaired
+        repaired = call_pattern.sub(repair_call, repaired)
+        if repaired == previous:
+            continue
+        declaration_pattern = re.compile(
+            rf"^(.*\b{re.escape(callee)}\()([^()\n]*)(\);.*)$", re.MULTILINE
+        )
+
+        def repair_declaration(match: re.Match[str]) -> str:
+            arguments = split_arguments(match.group(2))
+            if len(arguments) != 1:
+                return match.group(0)
+            return f"{match.group(1)}{arg0_type}, {arguments[0]}{match.group(3)}"
+
+        repaired = declaration_pattern.sub(repair_declaration, repaired, count=1)
+    return repaired
+
+
+def ready_output(starter: str, symbol: str) -> str:
+    """Label declarations that must accompany the bounded C starter."""
+
+    definition = re.search(
+        rf"^.*\b{re.escape(symbol)}\([^;\n]*\)\s*\{{", starter, re.MULTILINE
+    )
+    prefix = starter[: definition.start()] if definition is not None else ""
+    declarations = [
+        line.strip()
+        for line in prefix.splitlines()
+        if ";" in line and line.strip().endswith((";", "*/"))
+    ]
+    declaration_block = "\n".join(f"  {line}" for line in declarations) or "  none"
+    return f"required-declarations:\n{declaration_block}\nc-starter:\n{starter}"
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("profile", choices=("us", "eu"))
@@ -276,6 +375,11 @@ def main() -> int:
         "--auto-overlay",
         action="store_true",
         help="resolve the registered work item and prefer existing per-function assembly",
+    )
+    parser.add_argument(
+        "--ready-output",
+        action="store_true",
+        help="label required declarations before printing the complete C starter",
     )
     args = parser.parse_args()
     try:
@@ -304,7 +408,22 @@ def main() -> int:
         symbol,
         str(extracted_source.relative_to(ROOT)),
     ]
-    return subprocess.run(command, cwd=ROOT, check=False).returncode
+    result = subprocess.run(
+        command,
+        cwd=ROOT,
+        check=False,
+        stdout=subprocess.PIPE,
+        text=True,
+    )
+    starter = repair_preserved_call_arguments(
+        result.stdout,
+        extracted_source.read_text(encoding="utf-8"),
+        symbol,
+    )
+    if args.ready_output and result.returncode == 0:
+        starter = ready_output(starter, symbol)
+    print(starter, end="" if starter.endswith("\n") else "\n")
+    return result.returncode
 
 
 if __name__ == "__main__":

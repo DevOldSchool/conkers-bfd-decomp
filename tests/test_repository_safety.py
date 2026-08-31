@@ -103,10 +103,13 @@ class RepositorySafetyTests(unittest.TestCase):
         )[0]
         batch_case = script.split("    verify-batch)", 1)[1].split("        ;;", 1)[0]
 
-        self.assertIn('next --one --id-only', prepare_body)
         self.assertIn('next --one --details', prepare_body)
+        self.assertNotIn('next --one --id-only', prepare_body)
         self.assertIn("ensure_warm_container", prepare_body)
-        self.assertIn('run_host_mips_to_c us "$identifier" --auto-overlay', prepare_body)
+        self.assertIn(
+            'run_host_mips_to_c us "$identifier" --auto-overlay --ready-output',
+            prepare_body,
+        )
         self.assertNotIn("remove_warm_container", prepare_body)
 
         self.assertIn("verify_and_record_match", finish_case)
@@ -122,8 +125,27 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn('batch-plan "$@"', batch_case)
         self.assertIn("game-integrated-refresh", batch_case)
-        self.assertIn("python3 -m unittest discover -s tests -v", batch_case)
+        self.assertIn("game-integrated", batch_case)
+        self.assertIn("python3 -m unittest discover -s tests -q -b", batch_case)
+        self.assertIn("batch-fingerprint", batch_case)
+        self.assertIn("clean-integration-failure.sha256", batch_case)
+        self.assertIn("AGENT_ACTION: FIX_INTEGRATION", batch_case)
         self.assertIn("AGENT_ACTION: BATCH_COMPLETE", batch_case)
+        self.assertLess(
+            batch_case.index("already failed clean integration"),
+            batch_case.index('batch-plan "$@"'),
+        )
+
+    def test_docker_access_is_checked_before_image_download(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        ensure_image = script.split("ensure_image() {", 1)[1].split("\n}", 1)[0]
+
+        self.assertIn("require_docker || return 1", ensure_image)
+        self.assertIn("require_docker_access || return 1", ensure_image)
+        self.assertLess(
+            ensure_image.index("require_docker_access"),
+            ensure_image.index("docker pull"),
+        )
 
     def test_canonical_scalar_aliases_cover_m2c_integer_types(self) -> None:
         types = (ROOT / "include" / "types.h").read_text(encoding="utf-8")

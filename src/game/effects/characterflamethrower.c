@@ -34,7 +34,6 @@ typedef struct CharacterFlamethrowerControl {
  * - func_1519582C
  * - func_15195868
  * - func_15195984
- * - func_15195A84
  * - func_15195AA8
  * - func_15195D00
  * - func_15195DD4
@@ -89,7 +88,6 @@ typedef struct CharacterFlamethrowerControl {
  * - func_1519C4E4
  * - func_1519C56C
  * - func_1519C910
- * - func_1519C970
  * - func_1519C998
  * - func_1519C9C4
  * - func_1519CD64
@@ -102,7 +100,9 @@ typedef struct CharacterFlamethrowerControl {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519582C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195868.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195984.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195A84.s")
+s16 func_15195A84(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    return arg0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195AA8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195D00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195DD4.s")
@@ -185,7 +185,10 @@ s32 func_1519C948(s32 arg0) {
     func_1519CDB0(arg0, 0.25f, 0x1C);
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C970.s")
+s32 func_1519C970(s32 arg0) {
+    func_1519CDB0(arg0, 0.5f, 0x1D);
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C998.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C9C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519CD64.s")

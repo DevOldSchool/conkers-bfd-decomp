@@ -117,6 +117,63 @@ class M2CHelperTests(unittest.TestCase):
                     ".section .text\n\nglabel func_80001050\n    nop\n\n",
                 )
 
+    def test_repairs_proven_preserved_a0_call_argument(self) -> None:
+        assembly = """\
+glabel func_wrapper
+    jal        func_target
+     addiu     $a1, $a0, 0x18
+"""
+        starter = """\
+M2C_UNK func_target(s32); /* extern */
+
+void func_wrapper(s32 arg0) {
+    func_target(arg0 + 0x18);
+}
+"""
+
+        repaired = m2c_helper.repair_preserved_call_arguments(
+            starter, assembly, "func_wrapper"
+        )
+
+        self.assertIn("M2C_UNK func_target(s32, s32);", repaired)
+        self.assertIn("func_target(arg0, arg0 + 0x18);", repaired)
+
+    def test_does_not_guess_a0_when_delay_slot_does_not_prove_it(self) -> None:
+        assembly = """\
+glabel func_wrapper
+    jal        func_target
+     addiu     $a1, $zero, 0x18
+"""
+        starter = """\
+M2C_UNK func_target(s32); /* extern */
+void func_wrapper(s32 arg0) {
+    func_target(0x18);
+}
+"""
+
+        self.assertEqual(
+            starter,
+            m2c_helper.repair_preserved_call_arguments(
+                starter, assembly, "func_wrapper"
+            ),
+        )
+
+    def test_ready_output_labels_required_declarations(self) -> None:
+        starter = """\
+extern s32 D_800DBE38;
+M2C_UNK func_target(s32, s32); /* extern */
+
+void func_wrapper(s32 arg0) {
+    func_target(arg0, D_800DBE38);
+}
+"""
+
+        output = m2c_helper.ready_output(starter, "func_wrapper")
+
+        self.assertIn("required-declarations:\n  extern s32 D_800DBE38;", output)
+        self.assertIn("  M2C_UNK func_target(s32, s32); /* extern */", output)
+        self.assertIn("c-starter:\n" + starter, output)
+
     def test_registered_game_item_prefers_existing_rom_reference(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)

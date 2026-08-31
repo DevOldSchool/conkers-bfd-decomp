@@ -519,6 +519,19 @@ class ProjectStateTests(unittest.TestCase):
         ):
             project_state.batch_plan(["func_test"])
 
+    def test_batch_fingerprint_changes_with_source_content(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("void func_test(void) {}\n", encoding="utf-8")
+            with patch.object(project_state, "ROOT", root):
+                before = project_state.batch_fingerprint()
+                source.write_text("void func_test(void) { return; }\n", encoding="utf-8")
+                after = project_state.batch_fingerprint()
+
+        self.assertNotEqual(before, after)
+
     def test_next_one_id_only_prints_only_the_work_item_identifier(self) -> None:
         function = {
             "symbol": "func_small",
@@ -878,6 +891,42 @@ class GameInventoryTests(unittest.TestCase):
             "Matched for active target: **1**",
             project_state.DOCUMENT_FILE.read_text(encoding="utf-8"),
         )
+
+    def test_mark_matched_removes_the_exact_source_todo(self) -> None:
+        project_state.register_game(
+            SimpleNamespace(
+                identifier="func_game_test",
+                source="src/game/reviewed_unit.c",
+                us="func_15000000",
+            )
+        )
+        project_state.register_source_unit(
+            SimpleNamespace(
+                source="src/game/reviewed_unit.c",
+                functions=None,
+                register_members=True,
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/reviewed.md",
+            )
+        )
+        source_path = self.root / "src/game/reviewed_unit.c"
+        source_path.write_text(
+            source_path.read_text(encoding="utf-8").replace(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/reviewed_unit/func_game_test.s")',
+                "void func_game_test(void) {}",
+            ),
+            encoding="utf-8",
+        )
+
+        project_state.mark_matched(
+            SimpleNamespace(profile="us", symbol="func_game_test")
+        )
+
+        source = source_path.read_text(encoding="utf-8")
+        self.assertNotIn(" * - func_game_test\n", source)
+        self.assertIn("Unmatched members use generated GLOBAL_ASM", source)
 
     def test_mark_matched_rejects_unknown_work_item(self) -> None:
         with self.assertRaises(project_state.ProjectStateError):

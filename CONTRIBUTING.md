@@ -78,6 +78,8 @@ maintainer approves a shared dependency change.
 ./conker finish <work-item-id>
 # After the final function in a requested group:
 ./conker verify-batch <work-item-id> [<work-item-id>...]
+# For repeated local iteration only (still run the clean form before handoff):
+./conker verify-batch --incremental <work-item-id> [<work-item-id>...]
 # For a raw reviewed unit, integrate once to enter mixed mode.
 # For a mixed unit, integrate only after its final function is matched.
 ./conker progress integrate <work-item-id>  # when one condition above applies
@@ -107,7 +109,12 @@ run the full Python test suite or a complete ROM/game build after every small
 function. Batch those checks after a logical group with `./conker verify-batch
 <id> [<id>...]`; it resolves the selected overlays, performs the required clean
 builds, runs the Python suite, and checks metadata, generated progress, and
-whitespace once. Run it before committing or opening a pull request.
+whitespace once. Its `--incremental` mode reuses the prepared integrated game
+build during repeated local iteration; always run the default clean mode before
+committing, handing off, or opening a pull request.
+An integrated binary mismatch ends with `AGENT_ACTION: FIX_INTEGRATION` and
+records the build-input fingerprint. An identical clean retry is rejected
+immediately; change the source or layout before rerunning the batch.
 Run them sooner when changing shared headers, build tooling, inventory tooling,
 or source-unit mappings. `progress integrate` performs the required clean
 byte-identical build when a reviewed unit enters mixed mode or becomes complete.

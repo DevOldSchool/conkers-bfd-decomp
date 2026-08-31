@@ -46,6 +46,17 @@ INSTRUCTION_PATTERN = re.compile(
 SUBSEGMENT_PATTERN = re.compile(
     r"^\s*-\s*\[(0x[0-9A-Fa-f]+),\s*(asm|hasm|c)(?:,\s*([^\]]+))?\]\s*$"
 )
+BATCH_FINGERPRINT_INPUTS = (
+    "Makefile",
+    "config",
+    "include",
+    "lib",
+    "progress",
+    "scripts",
+    "src",
+    "toolchain",
+    "tools",
+)
 
 
 class ProjectStateError(RuntimeError):
@@ -777,6 +788,47 @@ def render_progress(functions: list[dict[str, Any]]) -> None:
     DOCUMENT_FILE.write_text(render_markdown(result), encoding="utf-8")
 
 
+def remove_source_todo(source: str, symbol: str) -> bool:
+    """Remove one exact matched symbol from a reviewed source-unit TODO header."""
+
+    path = ROOT / source
+    if not path.is_file():
+        return False
+    lines = path.read_text(encoding="utf-8").splitlines(keepends=True)
+    todo_start = next(
+        (
+            index
+            for index, line in enumerate(lines)
+            if "TODO: Implement these source-unit functions:" in line
+        ),
+        None,
+    )
+    if todo_start is None:
+        return False
+    todo_end = next(
+        (
+            index
+            for index in range(todo_start + 1, len(lines))
+            if "Unmatched members use generated GLOBAL_ASM placeholders below."
+            in lines[index]
+        ),
+        None,
+    )
+    if todo_end is None:
+        return False
+    expected = f" * - {symbol}"
+    matches = [
+        index
+        for index in range(todo_start + 1, todo_end)
+        if lines[index].rstrip("\r\n") == expected
+    ]
+    if len(matches) != 1:
+        return False
+    del lines[matches[0]]
+    path.write_text("".join(lines), encoding="utf-8")
+    return True
+
+
 def mark_matched(args: argparse.Namespace) -> None:
     """Record independently verified zero-difference evidence for one work item."""
 
@@ -816,6 +868,9 @@ def mark_matched(args: argparse.Namespace) -> None:
 
     validated_functions = validate_functions(functions_data)
     validate_source_units(source_units_data, validated_functions)
+    source_todo_updated = bool(function.get("source")) and remove_source_todo(
+        function["source"], args.symbol
+    )
     write_json(FUNCTIONS_FILE, functions_data)
     if source_unit is not None:
         write_json(SOURCE_UNITS_FILE, source_units_data)
@@ -824,6 +879,7 @@ def mark_matched(args: argparse.Namespace) -> None:
         f"Marked {args.symbol}/{args.profile} as matched; updated "
         f"{FUNCTIONS_FILE.relative_to(ROOT)}, "
         + (f"{SOURCE_UNITS_FILE.relative_to(ROOT)}, " if source_unit is not None else "")
+        + (f"{function['source']}, " if source_todo_updated else "")
         + f"{SUMMARY_FILE.relative_to(ROOT)}, "
         + ", ".join(str(BADGE_FILES[region].relative_to(ROOT)) for region in KNOWN_REGIONS)
         + ", "
@@ -1505,6 +1561,31 @@ def batch_plan(symbols: list[str]) -> None:
     print(" ".join(overlay for overlay in ("main", "game") if overlay in overlays))
 
 
+def batch_fingerprint() -> str:
+    """Hash current build inputs so an unchanged integration failure is not rerun."""
+
+    paths: list[Path] = []
+    for relative in BATCH_FINGERPRINT_INPUTS:
+        candidate = ROOT / relative
+        if candidate.is_file():
+            paths.append(candidate)
+        elif candidate.is_dir():
+            paths.extend(
+                path
+                for path in candidate.rglob("*")
+                if path.is_file()
+                and "__pycache__" not in path.parts
+                and path.suffix != ".pyc"
+            )
+    digest = hashlib.sha256()
+    for path in sorted(paths):
+        digest.update(str(path.relative_to(ROOT)).encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(path.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(add_help=False)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -1542,6 +1623,7 @@ def parse_args() -> argparse.Namespace:
     )
     batch_plan_parser = subparsers.add_parser("batch-plan")
     batch_plan_parser.add_argument("symbols", nargs="+")
+    subparsers.add_parser("batch-fingerprint")
     subparsers.add_parser("game-index")
     register_game_parser = subparsers.add_parser("register-game")
     register_game_parser.add_argument("--id", dest="identifier", required=True)
@@ -1587,6 +1669,8 @@ def main() -> int:
             next_function(args)
         elif args.command == "batch-plan":
             batch_plan(args.symbols)
+        elif args.command == "batch-fingerprint":
+            print(batch_fingerprint())
         elif args.command == "game-index":
             game_index()
         elif args.command == "register-game":

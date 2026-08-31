@@ -22,12 +22,16 @@ For ordinary source-local function work, follow this exact loop:
    existing declarations in `src/` and `include/`, and the emitted bounded raw
    US call sites. Perform at most one additional batched lookup before the
    first candidate unless a compiler error names a missing declaration.
-6. Never paste `M2C_FIELD` into project source. Use the canonical scalar aliases
-   from `types.h`, then prefer an existing project structure. If none exists,
-   use a typed pointer for one naturally aligned field or a source-local partial
-   structure with explicit padding for several fields. Values stored with `sb`
-   or `sh` remain `s32` parameters unless an existing declaration proves
+6. Never paste `M2C_FIELD` or `M2C_UNK` into project source. Use the canonical
+   scalar aliases from `types.h`, then prefer an existing project structure. If
+   none exists, use a typed pointer for one naturally aligned field or a
+   source-local partial structure with explicit padding for several fields.
+   Values stored with `sb` or `sh` remain `s32` parameters unless an existing declaration proves
    otherwise. Do not change a shared header merely to type one function.
+   Copy every concrete C declaration under `required-declarations` that is not
+   already available in the allowed source or its headers before the first
+   `finish` attempt. Resolve `M2C_UNK` declaration hints from existing project
+   declarations instead of copying that placeholder type.
 7. Replace only the target `GLOBAL_ASM` pragma, at the same position, then run
    `./conker finish <work-item-id>` immediately after the first reasonable C
    candidate.
@@ -42,12 +46,21 @@ For ordinary source-local function work, follow this exact loop:
     and stdout are attached to an interactive terminal; otherwise edit and
     rerun `finish`. Never alter assembly, inventory JSON, compiler flags, or
     shared tooling. If still unmatched, report `candidate`.
-11. On `AGENT_ACTION: BLOCKED_TOOLING`, or when required declarations are
-    unavailable or a match would require unapproved shared changes, stop and
-    report `blocked`.
+11. On `AGENT_ACTION: FIX_INTEGRATION`, correct the source/layout problem before
+    running any batch command again. On `AGENT_ACTION: BLOCKED_TOOLING`, or when
+    required declarations are unavailable or a match would require unapproved
+    shared changes, stop and report `blocked`. Terminal actions are
+    authoritative even when a surrounding tool or terminal session also ends.
 12. Do not run the batch gate for one source-local match. After the final
     function in a requested group, run `./conker verify-batch <id> [<id>...]`
-    once. `AGENT_ACTION: BATCH_COMPLETE` is the successful terminal state.
+    exactly once. Never rerun an unchanged failed batch; the command records a
+    clean integration failure and rejects an identical retry.
+    `AGENT_ACTION: BATCH_COMPLETE` is the successful terminal state.
+
+Feedback budget: send one brief start update, then speak only for a failure,
+blocker, or command that runs longer than 60 seconds before the final report.
+Do not narrate successful selection, edits, or per-function matches. This keeps
+user feedback useful without adding avoidable agent/tool round trips.
 
 Use this exact report shape:
 
