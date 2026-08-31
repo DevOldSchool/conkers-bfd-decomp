@@ -1,5 +1,9 @@
 #include "types.h"
 
+extern f32 D_800A8AA4;
+
+void func_1519CDB0(s32 arg0, f32 arg1, s32 arg2);
+
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
  * Boundary evidence: docs/evidence/effects_characterflamethrower.md
@@ -22,9 +26,7 @@
  * - func_15196748
  * - func_15196B4C
  * - func_15197148
- * - func_151979F8
  * - func_15197A0C
- * - func_15197A68
  * - func_15197A7C
  * - func_15197AB4
  * - func_15197BBC
@@ -66,7 +68,6 @@
  * - func_1519C4E4
  * - func_1519C56C
  * - func_1519C910
- * - func_1519C948
  * - func_1519C970
  * - func_1519C998
  * - func_1519C9C4
@@ -93,9 +94,17 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196748.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196B4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197148.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151979F8.s")
+f32 func_151979F8(s32 arg0) {
+    return D_800A8AA4;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197A0C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197A68.s")
+
+extern f32 D_800A8AAC;
+
+f32 func_15197A68(s32 arg0) {
+    return D_800A8AAC;
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197A7C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197AB4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197BBC.s")
@@ -142,7 +151,10 @@ void func_15198D7C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C4E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C56C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C910.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C948.s")
+s32 func_1519C948(s32 arg0) {
+    func_1519CDB0(arg0, 0.25f, 0x1C);
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C970.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C998.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C9C4.s")

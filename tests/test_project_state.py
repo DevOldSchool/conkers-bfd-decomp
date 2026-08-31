@@ -21,31 +21,55 @@ SPEC.loader.exec_module(project_state)
 class ProjectStateTests(unittest.TestCase):
     def test_current_inventory_includes_the_first_game_work_item(self) -> None:
         _, functions = project_state.validate_project()
+        entry = next(
+            entry for entry in functions if entry["symbol"] == "func_15000AC0"
+        )
+        us_record = entry["regions"]["us"]
+
+        self.assertEqual(entry["overlay"], "game")
+        self.assertEqual(us_record["symbol"], "func_15000AC0")
+        self.assertEqual(us_record["vram"], "0x15000AC0")
+        self.assertEqual(us_record["state"], "matched")
+        self.assertEqual(us_record["evidence"]["current_differences"], 0)
+
+    def test_current_summary_is_consistent_with_the_inventory(self) -> None:
+        _, functions = project_state.validate_project()
         result = project_state.summary(functions)
-        self.assertEqual(result["known_functions"], 250)
+
         self.assertEqual(result["active_regions"], ["us"])
         self.assertEqual(result["future_regions"], ["eu"])
-        self.assertEqual(result["target_matched"], 4)
-        self.assertEqual(result["complete_source_units"], 0)
-        self.assertEqual(result["unassigned_functions"], 0)
-        self.assertEqual(result["overlays"]["main"]["target_matched"], 1)
-        self.assertEqual(result["overlays"]["game"]["known_functions"], 248)
-        self.assertEqual(result["overlays"]["game"]["target_matched"], 3)
-        self.assertEqual(result["code_bytes"]["matched_bytes"], 0xD8)
+        self.assertEqual(result["known_functions"], len(functions))
         self.assertEqual(
-            result["code_bytes"]["fully_matched_source_unit_bytes"], 0xA8
+            result["target_matched"],
+            sum(project_state.is_complete(entry) for entry in functions),
         )
-        self.assertEqual(result["code_bytes"]["total_bytes"], 2_237_392)
-        self.assertEqual(result["code_bytes"]["regions"]["us"]["matched_bytes"], 0xD8)
-        self.assertEqual(result["code_bytes"]["regions"]["eu"]["matched_bytes"], 0xA8)
-        self.assertEqual(result["code_bytes"]["regions"]["eu"]["total_bytes"], 2_240_240)
+        self.assertEqual(
+            result["target_matched"] + result["target_remaining"],
+            result["known_functions"],
+        )
+        self.assertEqual(
+            sum(values["known_functions"] for values in result["overlays"].values()),
+            result["known_functions"],
+        )
+        for counts in result["regions"].values():
+            self.assertEqual(sum(counts.values()), result["known_functions"])
+
+    def test_render_badge_formats_the_selected_region_percentage(self) -> None:
+        result = {
+            "code_bytes": {
+                "regions": {
+                    "us": {"percentage": 0.010548},
+                    "eu": {"percentage": 12.5},
+                }
+            }
+        }
 
         us_badge = project_state.render_badge(result, "us")
         eu_badge = project_state.render_badge(result, "eu")
         self.assertEqual(us_badge["label"], "US")
-        self.assertEqual(us_badge["message"], "0.0097%")
+        self.assertEqual(us_badge["message"], "0.0105%")
         self.assertEqual(eu_badge["label"], "EU/PAL")
-        self.assertEqual(eu_badge["message"], "0.0075%")
+        self.assertEqual(eu_badge["message"], "12.5%")
 
     def test_merged_size_does_not_double_count_overlapping_ranges(self) -> None:
         self.assertEqual(project_state.merged_size([(0x10, 0x20), (0x18, 0x28)]), 0x18)

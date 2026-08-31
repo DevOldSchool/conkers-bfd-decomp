@@ -35,7 +35,22 @@ def reference_function_blocks(profile: str) -> dict[str, str]:
     return blocks
 
 
-def materialize(profile: str, source_filter: str | None = None) -> list[Path]:
+def write_if_changed(path: Path, content: str) -> bool:
+    """Write generated assembly only when its bytes changed."""
+
+    if path.is_file() and path.read_text(encoding="utf-8") == content:
+        return False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+    return True
+
+
+def materialize(
+    profile: str,
+    source_filter: str | None = None,
+    *,
+    prune_stale: bool = False,
+) -> list[Path]:
     functions = project_state.validate_functions(project_state.load_json(project_state.FUNCTIONS_FILE))
     units = project_state.validate_source_units(
         project_state.load_json(project_state.SOURCE_UNITS_FILE),
@@ -66,12 +81,11 @@ def materialize(profile: str, source_filter: str | None = None) -> list[Path]:
                     f"missing {regional_symbol} in generated {profile} game reference"
                 )
             output = ROOT / project_state.nonmatching_asm_path(source, member["symbol"])
-            output.parent.mkdir(parents=True, exist_ok=True)
-            output.write_text(body, encoding="utf-8")
+            write_if_changed(output, body)
             expected.add(output)
             written.append(output)
         output_directory = ROOT / project_state.nonmatching_asm_directory(source)
-        if output_directory.is_dir():
+        if prune_stale and output_directory.is_dir():
             for stale in output_directory.glob("*.s"):
                 if stale not in expected:
                     stale.unlink()
@@ -82,8 +96,17 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", choices=project_state.TARGET_REGIONS, required=True)
     parser.add_argument("--source")
+    parser.add_argument(
+        "--prune-stale",
+        action="store_true",
+        help="remove obsolete generated functions after a clean object-cache refresh",
+    )
     arguments = parser.parse_args()
-    written = materialize(arguments.profile, arguments.source)
+    written = materialize(
+        arguments.profile,
+        arguments.source,
+        prune_stale=arguments.prune_stale,
+    )
     print(f"Prepared {len(written)} nonmatching assembly function(s) for {arguments.profile}.")
     return 0
 

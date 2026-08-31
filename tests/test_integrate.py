@@ -149,7 +149,7 @@ class IntegrationTests(unittest.TestCase):
         integrate.integrate("func_test", "us")
 
         run.assert_called_once_with(
-            ["make", "--silent", "--jobs", "4", "game-integrated"],
+            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
             cwd=self.root,
             check=True,
         )
@@ -166,7 +166,7 @@ class IntegrationTests(unittest.TestCase):
 
     @mock.patch.object(integrate.subprocess, "run")
     def test_failed_build_restores_source_map_and_inventories(self, run: mock.Mock) -> None:
-        run.side_effect = subprocess.CalledProcessError(1, ["make", "game-integrated"])
+        run.side_effect = subprocess.CalledProcessError(1, ["make", "game-integrated-refresh"])
         original_map = (self.root / "config/game/us.yaml").read_bytes()
         original_functions = project_state.FUNCTIONS_FILE.read_bytes()
         original_units = project_state.SOURCE_UNITS_FILE.read_bytes()

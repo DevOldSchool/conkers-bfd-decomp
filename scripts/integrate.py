@@ -176,7 +176,7 @@ def integrate(symbol: str, profile: str) -> None:
             unit["integration"] = "mixed"
             unit["regions"][profile]["state"] = project_state.source_unit_work_state(members)
 
-        build_target = "build" if overlay == "main" else "game-integrated"
+        build_target = "build" if overlay == "main" else "game-integrated-refresh"
         command = ["make", "--silent", "--jobs", "4", build_target]
         if overlay == "main":
             command.append(f"PROFILE={profile}")
@@ -279,7 +279,7 @@ def integrate_all_reviewed(profile: str) -> None:
             unit["integration"] = "mixed"
             unit["regions"][profile]["state"] = project_state.source_unit_work_state(members)
         subprocess.run(
-            ["make", "--silent", "--jobs", "4", "game-integrated"],
+            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
             cwd=ROOT,
             check=True,
         )

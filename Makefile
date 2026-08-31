@@ -34,6 +34,11 @@ GAME_REFERENCE_BUILD_DIR := build/game-reference/$(GAME_REFERENCE_PROFILE)
 GAME_REFERENCE_CODE := $(GAME_REFERENCE_BUILD_DIR)/game.code.bin
 GAME_INTEGRATED_BUILD_DIR := build/game-integrated/$(GAME_PROFILE)
 GAME_INTEGRATED_CODE := $(GAME_INTEGRATED_BUILD_DIR)/game.code.bin
+GAME_INTEGRATED_PREPARED := $(GAME_INTEGRATED_BUILD_DIR)/.prepared
+GAME_INTEGRATED_LD_SCRIPT := $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld
+GAME_INTEGRATED_PREPARE_INPUTS := Makefile Dockerfile config/game/us.yaml config/overlays.json \
+	scripts/compile_c.py scripts/create_bootstrap_symbols.py scripts/extract_game_code.py \
+	scripts/normalize_asm.py scripts/prepare_game_integration.py toolchain/tools.lock.json
 GAME_INTEGRATED_ASM_SRCS := $(shell find asm/game_integrated/$(GAME_PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 GAME_INTEGRATED_ASM_OBJS := $(patsubst asm/%.s,$(GAME_INTEGRATED_BUILD_DIR)/asm/%.o,$(GAME_INTEGRATED_ASM_SRCS))
 GAME_INTEGRATED_C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay game --profile $(GAME_PROFILE) 2>/dev/null)
@@ -44,7 +49,7 @@ ULTRALIB_DIR := lib/ultralib
 ULTRALIB_VERSION ?= L
 ULTRALIB_TARGET ?= libultra_rom
 
-.PHONY: help prepare prepare-reference build raw-build diff clean game-asm game-asm-prepare game-integrated game-integrated-prepare game-integrated-raw libultra
+.PHONY: help prepare prepare-reference build raw-build diff clean game-asm game-asm-prepare game-integrated game-integrated-refresh game-integrated-prepare game-integrated-raw libultra
 
 help:
 	@printf '%s\n' 'Use ./conker help for the supported contributor commands.'
@@ -120,14 +125,25 @@ game-asm-prepare:
 game-integrated: game-integrated-prepare
 	$(MAKE) --no-print-directory game-integrated-raw
 
-game-integrated-prepare:
+game-integrated-refresh:
+	rm -f "$(GAME_INTEGRATED_PREPARED)"
+	$(MAKE) --no-print-directory game-integrated GAME_PROFILE="$(GAME_PROFILE)" PRUNE_NONMATCHING=1
+
+game-integrated-prepare: $(GAME_INTEGRATED_PREPARED)
+	@if ! test -d "reference/game/$(GAME_PROFILE)/asm" || ! test -f "$(GAME_INTEGRATED_CODE)" || ! test -f "$(GAME_INTEGRATED_LD_SCRIPT)"; then \
+		rm -f "$(GAME_INTEGRATED_PREPARED)"; \
+		$(MAKE) --no-print-directory "$(GAME_INTEGRATED_PREPARED)" GAME_PROFILE="$(GAME_PROFILE)"; \
+	fi
+	python3 scripts/prepare_nonmatching_asm.py --profile "$(GAME_PROFILE)" $(if $(filter 1,$(PRUNE_NONMATCHING)),--prune-stale,)
+
+$(GAME_INTEGRATED_PREPARED): $(GAME_INTEGRATED_PREPARE_INPUTS)
 	rm -rf "asm/game_integrated/$(GAME_PROFILE)" "$(GAME_INTEGRATED_BUILD_DIR)"
 	@if ! test -d "reference/game/$(GAME_PROFILE)/asm"; then $(MAKE) --no-print-directory game-asm-prepare GAME_REFERENCE_PROFILE=$(GAME_PROFILE); fi
-	python3 scripts/prepare_nonmatching_asm.py --profile "$(GAME_PROFILE)"
 	python3 scripts/extract_game_code.py "$(GAME_PROFILE)" --output "$(GAME_INTEGRATED_CODE)"
 	python3 scripts/prepare_game_integration.py
 	@splat split "build/config/game-integrated.us.yaml" > "$(GAME_INTEGRATED_BUILD_DIR)/splat.log" 2>&1 || { cat "$(GAME_INTEGRATED_BUILD_DIR)/splat.log"; exit 1; }
 	@printf '%s\n' "Integrated game split generated; details: $(GAME_INTEGRATED_BUILD_DIR)/splat.log"
+	@touch "$(GAME_INTEGRATED_PREPARED)"
 
 game-integrated-raw: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin
 	@cmp -s "$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin" "$(GAME_INTEGRATED_CODE)" || { \

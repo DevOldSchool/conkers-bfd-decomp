@@ -84,6 +84,16 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertTrue(any(pattern in patterns for pattern in ("*.n64", "*.n64*")))
         self.assertIn("*.v64", patterns)
 
+    def test_game_build_has_incremental_and_explicit_refresh_paths(self) -> None:
+        makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+
+        self.assertIn("game-integrated-prepare: $(GAME_INTEGRATED_PREPARED)", makefile)
+        self.assertIn("game-integrated-refresh:", makefile)
+        self.assertIn('rm -f "$(GAME_INTEGRATED_PREPARED)"', makefile)
+        self.assertIn("game-build [--profile us] [--refresh]", script)
+        self.assertIn("game_build_target=game-integrated-refresh", script)
+
 
 if __name__ == "__main__":
     unittest.main()

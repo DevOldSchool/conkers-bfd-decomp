@@ -81,12 +81,28 @@ unless a maintainer approves a shared dependency change.
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
+The focused diff, `progress match`, progress check, and whitespace check are the
+per-function gate. Do not run the full Python test suite or a complete ROM/game
+build after every small function. Batch those checks after a logical group of
+functions in one source file and before committing or opening a pull request.
+Run them sooner when changing shared headers, build tooling, inventory tooling,
+or source-unit mappings. `progress integrate` performs the required clean
+byte-identical build when a reviewed unit enters mixed mode or becomes complete.
+
 During the edit loop, `./conker diff --watch <work-item-id>` keeps
 one Docker container and asm-differ process open, detects the registered overlay,
 and rebuilds the candidate whenever its C source or project headers change. Exit
 the watcher before running `progress match` for final machine-readable evidence.
 Ordinary build-tool commands also reuse a repository-scoped warm container;
 `./conker stop` removes it when the session is finished.
+
+`./conker game-build` preserves the prepared game split and object cache, updates
+generated nonmatching assembly without touching unchanged files, and recompiles
+only invalidated objects before the final byte comparison. Use `./conker
+game-build --refresh` for a clean cache rebuild. A refresh is appropriate before
+a pull request, after build-tool or shared configuration changes, or when
+diagnosing suspected stale generated state; it is not part of each function's
+focused match loop.
 
 A function is matched for the active target only when its US focused diff
 reports `CURRENT (0)`. Run `./conker progress match <work-item-id>` to

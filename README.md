@@ -212,9 +212,15 @@ again to byte-verify and move the assembly-free unit under `src/game/done/`.
 `./conker progress integrate --all-reviewed` promotes multiple
 reviewed incomplete units in one transactional build.
 
-`./conker game-build` rebuilds the canonical game-overlay map and
+`./conker game-build` incrementally rebuilds the canonical game overlay and
 verifies every mixed or completed source unit against that same decompressed
-payload.
+payload. It preserves the prepared split and object cache, so an ordinary source
+edit rebuilds only invalidated objects. Use `./conker game-build --refresh` to
+discard that cache and recreate the split before a pull request, after shared
+build/configuration changes, or while diagnosing stale generated state. Focused
+diffs and `progress match` remain the per-function checks; batch the Python test
+suite and full game build after a logical source-file group rather than after
+every small function.
 
 Focused diffs remain independent of that mixed build: their generated reference
 map converts every canonical `c` range back to raw assembly from the owned ROM.

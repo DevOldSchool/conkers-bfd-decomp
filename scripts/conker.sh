@@ -71,7 +71,8 @@ After the raw base split map is available
                                  Compatibility alias for the auto-detecting m2c command.
   game-diff [--profile us] <work-item-id>
                                  Compatibility alias for the auto-detecting diff command.
-  game-build [--profile us]      Build and byte-verify mixed and completed game units.
+  game-build [--profile us] [--refresh]
+                                 Incrementally build and byte-verify game units; --refresh rebuilds the cache.
   rzip-extract [--profile us|debug|ects] [--rom <path>] [--output <dir>]
                                  Separate game code/data and indexed asset files.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
@@ -299,6 +300,28 @@ parse_profile_only() {
     require_profile "$selected_profile"
 }
 
+parse_game_build_options() {
+    local usage_text="$1"
+    shift
+    selected_profile=us
+    refresh_game_build=false
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --profile)
+                [[ $# -ge 2 ]] || die "$usage_text"
+                selected_profile="$2"
+                shift 2
+                ;;
+            --refresh)
+                refresh_game_build=true
+                shift
+                ;;
+            *) die "$usage_text" ;;
+        esac
+    done
+    require_profile "$selected_profile"
+}
+
 command="${1:-help}"
 shift || true
 
@@ -437,9 +460,13 @@ case "$command" in
         run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay
         ;;
     game-build)
-        parse_profile_only "usage: ./conker game-build [--profile us]" "$@"
+        parse_game_build_options "usage: ./conker game-build [--profile us] [--refresh]" "$@"
         python3 "$state_tool" setup-check --profile "$selected_profile"
-        run_in_container make --silent --jobs 4 game-integrated GAME_PROFILE="$selected_profile"
+        game_build_target=game-integrated
+        if [[ "$refresh_game_build" == "true" ]]; then
+            game_build_target=game-integrated-refresh
+        fi
+        run_in_container make --silent --jobs 4 "$game_build_target" GAME_PROFILE="$selected_profile"
         ;;
     rzip-extract)
         profile_supplied=false
