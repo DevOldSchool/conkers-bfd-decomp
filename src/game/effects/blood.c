@@ -92,7 +92,9 @@ s32 func_151346D0(s32 arg0, void *arg1, s32 arg2) {
 void func_151346EC(void) {
     func_15169804();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513470C.s")
+void func_1513470C(void) {
+    func_15169824();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513472C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513477C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151347CC.s")
@@ -108,8 +110,12 @@ void func_15134CD4(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134CEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134DAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134E48.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151352EC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513530C.s")
+void func_151352EC(void) {
+    func_15169804();
+}
+void func_1513530C(void) {
+    func_15169824();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513532C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151353A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135424.s")

@@ -113,7 +113,9 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161740.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516176C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161798.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151617C4.s")
+void func_151617C4(void) {
+    func_15169804();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151617E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161804.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161860.s")

@@ -262,7 +262,7 @@
         "us": {
           "end": "0x164780",
           "start": "0x1602C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/effects/light.c"
