@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "overlays": {
+    "main": {
+      "code_ranges": {
+        "eu": {
+          "end": "0x29620",
+          "start": "0x1050"
+        },
+        "us": {
+          "end": "0x292F0",
+          "start": "0x1050"
+        }
+      }
+    },
+    "game": {
+      "code_ranges": {
+        "eu": {
+          "end": "0x1FA920",
+          "start": "0x0"
+        },
+        "us": {
+          "end": "0x1FA130",
+          "start": "0x0"
+        }
+      },
+      "vram": "0x15000000",
+      "profiles": {
+        "eu": {
+          "code_end": "0x143CA4",
+          "end": "0x19EDE8",
+          "sha1": "e79369f8c0cad22892728a3db723092bc6856f07",
+          "start": "0x427B0"
+        },
+        "us": {
+          "code_end": "0x144700",
+          "end": "0x19EA88",
+          "sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+          "start": "0x42450"
+        }
+      }
+    }
+  }
+}

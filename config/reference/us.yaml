@@ -1,0 +1,221 @@
+name: Conker's Bad Fur Day (North America reference)
+sha1: 4cbadd3c4e0729dec46af64ad018050eada4f47a
+options:
+  basename: conker.us.reference
+  target_path: "__ROM_PATH__"
+  elf_path: build/reference/us/conker.us.elf
+  base_path: ../../..
+  platform: n64
+  compiler: IDO
+  asm_path: reference/us/asm
+  src_path: src
+  build_path: build/reference/us
+  ld_script_path: build/reference/us/conker.us.ld
+  ld_dependencies: true
+  find_file_boundaries: true
+  header_encoding: ASCII
+  o_as_suffix: true
+  use_legacy_include_asm: false
+  mips_abi_float_regs: o32
+  asm_function_macro: glabel
+  asm_jtbl_label_macro: jlabel
+  asm_data_macro: dlabel
+  symbol_addrs_path:
+    - config/symbols/us.txt
+  reloc_addrs_path:
+    - config/relocs/us.txt
+  rodata_string_guesser_level: 2
+  data_string_guesser_level: 2
+segments:
+  - name: header
+    type: header
+    start: 0x0
+  - name: boot
+    type: bin
+    start: 0x40
+  - name: entry
+    type: code
+    start: 0x1000
+    vram: 0x80001000
+    subsegments:
+      - [0x1000, hasm]
+  - name: main
+    type: code
+    start: 0x1050
+    vram: 0x80001050
+    follows_vram: entry
+    bss_size: 0x16690
+    subsegments:
+      # Legacy boundary hypotheses confirmed at current regional instruction starts.
+      # These raw-ASM splits are navigation aids, not match evidence.
+      - [0x1050, asm]
+      - [0x1420, asm]
+      - [0x2070, asm]
+      - [0x2DB0, asm]
+      - [0x2E50, asm]
+      - [0x30A0, asm]
+      - [0x3220, asm]
+      - [0x34E0, asm]
+      - [0x37F0, asm]
+      - [0x38C0, asm]
+      - [0x38E0, asm]
+      - [0x3920, asm]
+      - [0x3930, asm]
+      - [0x39B0, asm]
+      - [0x39C0, asm]
+      - [0x3BD0, asm]
+      - [0x3C40, asm]
+      - [0x4470, asm]
+      - [0x49E0, asm]
+      - [0x50A0, asm]
+      - [0x5570, asm]
+      - [0x57E0, asm]
+      - [0x5AB0, asm]
+      - [0x6240, asm]
+      - [0x71D0, asm]
+      - [0x8120, asm]
+      - [0x8180, asm]
+      - [0x8F90, asm]
+      - [0xA420, asm]
+      - [0xB1B0, asm]
+      - [0xEB00, asm]
+      - [0x11FA0, asm]
+      - [0x12560, asm]
+      - [0x12820, asm]
+      - [0x128D0, asm]
+      - [0x13320, asm]
+      - [0x15550, asm]
+      - [0x17870, asm]
+      - [0x17A80, asm]
+      - [0x17AA0, asm]
+      - [0x17AF0, asm]
+      - [0x17C00, asm]
+      - [0x17D80, asm]
+      - [0x17DF0, asm]
+      - [0x17EC0, asm]
+      - [0x17F10, asm]
+      - [0x17F80, asm]
+      - [0x18C60, asm]
+      - [0x18CB0, asm]
+      - [0x18D00, asm]
+      - [0x18D50, asm]
+      - [0x18DA0, asm]
+      - [0x18E60, asm]
+      - [0x19AB0, asm]
+      - [0x19B50, asm]
+      - [0x1AAE0, asm]
+      - [0x1C060, asm]
+      - [0x1C690, asm]
+      - [0x1C770, asm]
+      - [0x1C810, asm]
+      - [0x1C910, asm]
+      - [0x1C9E0, asm]
+      - [0x1CA90, asm]
+      - [0x1CB40, asm]
+      - [0x1CBF0, asm]
+      - [0x1D900, asm]
+      - [0x1DBA0, asm]
+      - [0x1DC80, asm]
+      - [0x1E170, asm]
+      - [0x1E2A0, asm]
+      - [0x1E350, asm]
+      - [0x1E400, asm]
+      - [0x1E480, asm]
+      - [0x1E4A0, asm]
+      - [0x1E530, asm]
+      - [0x1FB40, asm]
+      - [0x1FFE0, asm]
+      - [0x20000, asm]
+      - [0x210C0, asm]
+      - [0x214F0, asm]
+      - [0x22040, asm]
+      - [0x22460, asm]
+      - [0x226F0, asm]
+      - [0x22790, asm]
+      - [0x22A30, asm]
+      - [0x22A40, asm]
+      - [0x22A50, asm]
+      - [0x22A60, asm]
+      - [0x22BB0, asm]
+      - [0x22C90, asm]
+      - [0x22D10, asm]
+      - [0x22DC0, asm]
+      - [0x22E00, asm]
+      - [0x22EC0, asm]
+      - [0x22F60, asm]
+      - [0x23060, asm]
+      - [0x230F0, asm]
+      - [0x23390, asm]
+      - [0x233C0, asm]
+      - [0x23440, asm]
+      - [0x23580, asm]
+      - [0x236D0, asm]
+      - [0x23790, asm]
+      - [0x237C0, asm]
+      - [0x23830, asm]
+      - [0x23850, asm]
+      - [0x23930, asm]
+      - [0x23A10, asm]
+      - [0x23D20, asm]
+      - [0x23DA0, asm]
+      - [0x23DB0, asm]
+      - [0x23DF0, asm]
+      - [0x23E80, asm]
+      - [0x23EB0, asm]
+      - [0x242B0, asm]
+      - [0x24400, asm]
+      - [0x24410, asm]
+      - [0x24770, asm]
+      - [0x24780, asm]
+      - [0x247C0, asm]
+      - [0x24830, asm]
+      - [0x24880, asm]
+      - [0x24920, asm]
+      - [0x24A30, asm]
+      - [0x24A40, asm]
+      - [0x24B20, asm]
+      - [0x24BA0, asm]
+      - [0x24BC0, asm]
+      - [0x24E20, asm]
+      - [0x24E60, asm]
+      - [0x24EA0, asm]
+      - [0x24F10, asm]
+      - [0x24F40, asm]
+      - [0x24FD0, asm]
+      - [0x25340, asm]
+      - [0x25700, asm]
+      - [0x257C0, asm]
+      - [0x25870, asm]
+      - [0x25C20, asm]
+      - [0x25FD0, asm]
+      - [0x26150, asm]
+      - [0x26250, asm]
+      - [0x262C0, asm]
+      - [0x262D0, asm]
+      - [0x26310, asm]
+      - [0x263D0, asm]
+      - [0x26530, asm]
+      - [0x26540, asm]
+      - [0x26700, asm]
+      - [0x26750, asm]
+      - [0x267A0, asm]
+      - [0x26800, asm]
+      - [0x26AC0, asm]
+      - [0x26B10, asm]
+      - [0x273D0, asm]
+      - [0x27490, asm]
+      - [0x274A0, asm]
+      - [0x275F0, asm]
+      - [0x27620, asm]
+      - [0x27630, asm]
+      - [0x27660, asm]
+      - [0x27820, asm]
+      - [0x27910, asm]
+      - [0x28670, asm]
+      - [0x291A0, asm]
+      - [0x292F0, data]
+      - { type: bss, vram: 0x8002D4B0 }
+  - type: bin
+    start: 0x2D4B0
+    follows_vram: main
+  - [0x4000000]

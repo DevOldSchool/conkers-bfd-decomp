@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "profiles": {
+    "eu": {
+      "display_name": "Europe/PAL",
+      "sha1": "ee7bc6656fd1e1d9ffb3d19add759f28b88df710",
+      "size_bytes": 67108864,
+      "status": "future"
+    },
+    "us": {
+      "display_name": "North America",
+      "sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "size_bytes": 67108864,
+      "status": "active"
+    }
+  }
+}

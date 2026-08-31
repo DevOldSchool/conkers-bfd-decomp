@@ -1,0 +1,8 @@
+# Keep the build context limited to the two inputs used by Dockerfile. This is
+# an allowlist so ignored ROMs, generated reference output, editor state, and
+# future local-only files never become visible to a local or remote builder.
+**
+!Dockerfile
+!.dockerignore
+!toolchain/
+!toolchain/python-constraints.txt

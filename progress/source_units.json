@@ -1,0 +1,411 @@
+{
+  "schema_version": 1,
+  "source_units": [
+    {
+      "functions": [
+        "func_bootstrap_clear_region"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "eu": {
+          "end": "0x14D4",
+          "start": "0x14B0",
+          "state": "in_progress"
+        },
+        "us": {
+          "end": "0x1444",
+          "start": "0x1420",
+          "state": "in_progress"
+        }
+      },
+      "source": "src/main/bootstrap_memory.c"
+    },
+    {
+      "functions": [
+        "func_80001050"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "eu": {
+          "end": "0x10F8",
+          "start": "0x1050",
+          "state": "candidate"
+        },
+        "us": {
+          "end": "0x10F8",
+          "start": "0x1050",
+          "state": "candidate"
+        }
+      },
+      "source": "src/game/bootstrap.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_2DF70.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15000AC0",
+        "func_15000AD0",
+        "func_15001460",
+        "func_15001970",
+        "func_15001A08",
+        "func_15001B10",
+        "func_15001B5C",
+        "func_15001B8C",
+        "func_15001BC8",
+        "func_15001CEC",
+        "func_15001DE0",
+        "func_15002008",
+        "func_15002248",
+        "func_15002560",
+        "func_150025FC",
+        "func_150026C4",
+        "func_150026E8",
+        "func_15002724",
+        "func_15002754",
+        "func_150027F8",
+        "func_15002878",
+        "func_150028BC",
+        "func_15002F40",
+        "func_15002FA0",
+        "func_15002FB4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x3120",
+          "start": "0xAC0",
+          "state": "in_progress"
+        }
+      },
+      "source": "src/game/game_2DF70.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/effects_blood.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15134070",
+        "func_1513416C",
+        "func_1513418C",
+        "func_151342BC",
+        "func_151346D0",
+        "func_151346EC",
+        "func_1513470C",
+        "func_1513472C",
+        "func_1513477C",
+        "func_151347CC",
+        "func_151348F0",
+        "func_15134908",
+        "func_151349D0",
+        "func_15134C98",
+        "func_15134CD4",
+        "func_15134CEC",
+        "func_15134DAC",
+        "func_15134E48",
+        "func_151352EC",
+        "func_1513530C",
+        "func_1513532C",
+        "func_151353A8",
+        "func_15135424",
+        "func_15135480",
+        "func_1513555C",
+        "func_151355B8",
+        "func_15135658",
+        "func_15135670",
+        "func_151356D4",
+        "func_15135BF8",
+        "func_15135DD0",
+        "func_15136404",
+        "func_15136698",
+        "func_151368A8",
+        "func_15136918",
+        "func_15136A1C",
+        "func_15136A50",
+        "func_15136AE4",
+        "func_15136C3C",
+        "func_15136F50",
+        "func_15137610",
+        "func_1513783C",
+        "func_15137C64",
+        "func_15137E10",
+        "func_15137E60",
+        "func_15137F30",
+        "func_151380B4",
+        "func_15138120",
+        "func_151382E0",
+        "func_15138424",
+        "func_151389A8",
+        "func_15138BC0",
+        "func_15138C80",
+        "func_15138E98",
+        "func_15139578",
+        "func_15139768",
+        "func_15139D74",
+        "func_1513A24C",
+        "func_1513A48C",
+        "func_1513A594",
+        "func_1513A5E0",
+        "func_1513A6E0",
+        "func_1513ABB8",
+        "func_1513B0B8",
+        "func_1513B0F8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x13B5E0",
+          "start": "0x134070",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/effects/blood.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/effects_light.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151602C0",
+        "func_1516037C",
+        "func_151603FC",
+        "func_151604A0",
+        "func_15160600",
+        "func_1516065C",
+        "func_15160684",
+        "func_151606A8",
+        "func_151607A4",
+        "func_15160954",
+        "func_15160A58",
+        "func_15160B74",
+        "func_15160CDC",
+        "func_15160E30",
+        "func_15161238",
+        "func_1516127C",
+        "func_15161334",
+        "func_15161408",
+        "func_15161494",
+        "func_15161540",
+        "func_151615F8",
+        "func_151616D0",
+        "func_15161714",
+        "func_15161740",
+        "func_1516176C",
+        "func_15161798",
+        "func_151617C4",
+        "func_151617E4",
+        "func_15161804",
+        "func_15161860",
+        "func_151618BC",
+        "func_151619A0",
+        "func_15161A68",
+        "func_15161E24",
+        "func_15161F2C",
+        "func_15161F4C",
+        "func_15162034",
+        "func_15162110",
+        "func_151621B8",
+        "func_151623F4",
+        "func_15162510",
+        "func_15162740",
+        "func_1516284C",
+        "func_1516295C",
+        "func_15162B28",
+        "func_15162EF8",
+        "func_15162F50",
+        "func_15162FAC",
+        "func_151630F4",
+        "func_15163414",
+        "func_15163504",
+        "func_151635A8",
+        "func_15163604",
+        "func_15163704",
+        "func_1516381C",
+        "func_1516387C",
+        "func_151638E0",
+        "func_151639D0",
+        "func_15163A18",
+        "func_15163A60",
+        "func_15163B98",
+        "func_15163BE8",
+        "func_15163CD0",
+        "func_15163CF8",
+        "func_15163DEC",
+        "func_15163F50",
+        "func_15163FEC",
+        "func_151640C0",
+        "func_15164134",
+        "func_15164208",
+        "func_1516429C",
+        "func_1516434C",
+        "func_151643A8",
+        "func_151643F8",
+        "func_1516441C",
+        "func_151644A8",
+        "func_151644F4",
+        "func_151645C4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x164780",
+          "start": "0x1602C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/effects/light.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/effects_pipeexplode.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B2740",
+        "func_150B2EB4",
+        "func_150B3188",
+        "func_150B36AC",
+        "func_150B378C",
+        "func_150B37C8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB3AB0",
+          "start": "0xB2740",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/effects_colourframebuffer.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1515FDA0",
+        "func_1515FF74",
+        "func_1515FFEC",
+        "func_15160090",
+        "func_151600D8",
+        "func_15160274"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1602C0",
+          "start": "0x15FDA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/effects_characterflamethrower.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151957B0",
+        "func_1519582C",
+        "func_15195868",
+        "func_15195984",
+        "func_15195A84",
+        "func_15195AA8",
+        "func_15195D00",
+        "func_15195DD4",
+        "func_15195FB0",
+        "func_15195FF0",
+        "func_15196318",
+        "func_15196330",
+        "func_151963B4",
+        "func_15196438",
+        "func_15196748",
+        "func_15196B4C",
+        "func_15197148",
+        "func_151979F8",
+        "func_15197A0C",
+        "func_15197A68",
+        "func_15197A7C",
+        "func_15197AB4",
+        "func_15197BBC",
+        "func_15197C10",
+        "func_15198054",
+        "func_15198110",
+        "func_15198570",
+        "func_151987CC",
+        "func_1519897C",
+        "func_15198C60",
+        "func_15198C90",
+        "func_15198D40",
+        "func_15198D7C",
+        "func_15198D88",
+        "func_151990AC",
+        "func_151993B4",
+        "func_151993E4",
+        "func_1519944C",
+        "func_151994B8",
+        "func_15199834",
+        "func_1519986C",
+        "func_15199928",
+        "func_15199954",
+        "func_15199980",
+        "func_15199A10",
+        "func_15199C34",
+        "func_1519A9A4",
+        "func_1519B4B8",
+        "func_1519BE1C",
+        "func_1519BEB8",
+        "func_1519BF20",
+        "func_1519BF8C",
+        "func_1519BFBC",
+        "func_1519C06C",
+        "func_1519C09C",
+        "func_1519C200",
+        "func_1519C22C",
+        "func_1519C258",
+        "func_1519C26C",
+        "func_1519C4E4",
+        "func_1519C56C",
+        "func_1519C910",
+        "func_1519C948",
+        "func_1519C970",
+        "func_1519C998",
+        "func_1519C9C4",
+        "func_1519CD64",
+        "func_1519CDB0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x19CF70",
+          "start": "0x1957B0",
+          "state": "in_progress"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "profiles": {
+    "debug": {
+      "asset_table": "0xABBD00",
+      "default_rom": "roms/baserom.us.beta.v64",
+      "game_data_vram": "0x8005B0F0",
+      "game_end": "0x189840",
+      "game_format": "rzip",
+      "game_start": "0x22240",
+      "game_vram": "0x15000000",
+      "normalized_sha1": [
+        "3b99222ee76f6277a963142cd807b3df25d5174f",
+        "8ebfdc519445dcfbb3d836c1d1504efee8e5f312"
+      ]
+    },
+    "ects": {
+      "asset_table": "0xB802E0",
+      "default_rom": "roms/baserom.us.beta.ects.v64",
+      "flat_assets_end": "0xB802DF",
+      "flat_assets_start": "0x246E10",
+      "game_code_end": "0x20FB10",
+      "game_data_vram": "0x80068F80",
+      "game_end": "0x23DA50",
+      "game_format": "raw",
+      "game_start": "0x26040",
+      "game_vram": "0x15000000",
+      "normalized_sha1": [
+        "06597dc935651f8995bfacc30fde6e621d44c3e1"
+      ]
+    },
+    "us": {
+      "asset_table": "0xAB1950",
+      "default_rom": "roms/baserom.us.z64",
+      "game_data_vram": "0x80082B20",
+      "game_end": "0x19EA88",
+      "game_format": "rzip",
+      "game_start": "0x42450",
+      "game_vram": "0x15000000",
+      "normalized_sha1": [
+        "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+      ]
+    }
+  },
+  "schema_version": 1
+}

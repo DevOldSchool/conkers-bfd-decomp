@@ -1,0 +1,3043 @@
+{
+  "functions": [
+    {
+      "regions": {
+        "eu": {
+          "state": "in_progress",
+          "symbol": "func_800014B0",
+          "vram": "0x800014B0"
+        },
+        "us": {
+          "state": "in_progress",
+          "symbol": "func_80001420",
+          "vram": "0x80001420"
+        }
+      },
+      "source": "src/main/bootstrap_memory.c",
+      "symbol": "func_bootstrap_clear_region"
+    },
+    {
+      "regions": {
+        "eu": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "ee7bc6656fd1e1d9ffb3d19add759f28b88df710",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
+          "symbol": "func_80001050",
+          "vram": "0x80001050"
+        },
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
+          "symbol": "func_80001050",
+          "vram": "0x80001050"
+        }
+      },
+      "source": "src/game/bootstrap.c",
+      "symbol": "func_80001050"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "eu": {
+          "state": "raw_asm",
+          "symbol": "func_15000AC0",
+          "vram": "0x15000AC0"
+        },
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
+          "symbol": "func_15000AC0",
+          "vram": "0x15000AC0"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15000AC0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15000AD0",
+          "vram": "0x15000AD0"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15000AD0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001460",
+          "vram": "0x15001460"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001460"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001970",
+          "vram": "0x15001970"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001970"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001A08",
+          "vram": "0x15001A08"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001A08"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001B10",
+          "vram": "0x15001B10"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001B10"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001B5C",
+          "vram": "0x15001B5C"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001B5C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001B8C",
+          "vram": "0x15001B8C"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001B8C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001BC8",
+          "vram": "0x15001BC8"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001BC8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001CEC",
+          "vram": "0x15001CEC"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001CEC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15001DE0",
+          "vram": "0x15001DE0"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15001DE0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002008",
+          "vram": "0x15002008"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002008"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002248",
+          "vram": "0x15002248"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002248"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002560",
+          "vram": "0x15002560"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002560"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150025FC",
+          "vram": "0x150025FC"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_150025FC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150026C4",
+          "vram": "0x150026C4"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_150026C4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150026E8",
+          "vram": "0x150026E8"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_150026E8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002724",
+          "vram": "0x15002724"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002724"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002754",
+          "vram": "0x15002754"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002754"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150027F8",
+          "vram": "0x150027F8"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_150027F8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002878",
+          "vram": "0x15002878"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002878"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150028BC",
+          "vram": "0x150028BC"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_150028BC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002F40",
+          "vram": "0x15002F40"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002F40"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
+          "symbol": "func_15002FA0",
+          "vram": "0x15002FA0"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002FA0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15002FB4",
+          "vram": "0x15002FB4"
+        }
+      },
+      "source": "src/game/game_2DF70.c",
+      "symbol": "func_15002FB4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134070",
+          "vram": "0x15134070"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134070"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513416C",
+          "vram": "0x1513416C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513416C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513418C",
+          "vram": "0x1513418C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513418C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151342BC",
+          "vram": "0x151342BC"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151342BC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151346D0",
+          "vram": "0x151346D0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151346D0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151346EC",
+          "vram": "0x151346EC"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151346EC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513470C",
+          "vram": "0x1513470C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513470C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513472C",
+          "vram": "0x1513472C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513472C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513477C",
+          "vram": "0x1513477C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513477C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151347CC",
+          "vram": "0x151347CC"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151347CC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151348F0",
+          "vram": "0x151348F0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151348F0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134908",
+          "vram": "0x15134908"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134908"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151349D0",
+          "vram": "0x151349D0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151349D0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134C98",
+          "vram": "0x15134C98"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134C98"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134CD4",
+          "vram": "0x15134CD4"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134CD4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134CEC",
+          "vram": "0x15134CEC"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134CEC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134DAC",
+          "vram": "0x15134DAC"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134DAC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15134E48",
+          "vram": "0x15134E48"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15134E48"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151352EC",
+          "vram": "0x151352EC"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151352EC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513530C",
+          "vram": "0x1513530C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513530C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513532C",
+          "vram": "0x1513532C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513532C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151353A8",
+          "vram": "0x151353A8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151353A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15135424",
+          "vram": "0x15135424"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15135424"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15135480",
+          "vram": "0x15135480"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15135480"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513555C",
+          "vram": "0x1513555C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513555C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151355B8",
+          "vram": "0x151355B8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151355B8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15135658",
+          "vram": "0x15135658"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15135658"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15135670",
+          "vram": "0x15135670"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15135670"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151356D4",
+          "vram": "0x151356D4"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151356D4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15135BF8",
+          "vram": "0x15135BF8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15135BF8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15135DD0",
+          "vram": "0x15135DD0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15135DD0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136404",
+          "vram": "0x15136404"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136404"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136698",
+          "vram": "0x15136698"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136698"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151368A8",
+          "vram": "0x151368A8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151368A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136918",
+          "vram": "0x15136918"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136918"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136A1C",
+          "vram": "0x15136A1C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136A1C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136A50",
+          "vram": "0x15136A50"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136A50"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136AE4",
+          "vram": "0x15136AE4"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136AE4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136C3C",
+          "vram": "0x15136C3C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136C3C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15136F50",
+          "vram": "0x15136F50"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15136F50"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15137610",
+          "vram": "0x15137610"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15137610"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513783C",
+          "vram": "0x1513783C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513783C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15137C64",
+          "vram": "0x15137C64"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15137C64"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15137E10",
+          "vram": "0x15137E10"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15137E10"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15137E60",
+          "vram": "0x15137E60"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15137E60"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15137F30",
+          "vram": "0x15137F30"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15137F30"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151380B4",
+          "vram": "0x151380B4"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151380B4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15138120",
+          "vram": "0x15138120"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15138120"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151382E0",
+          "vram": "0x151382E0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151382E0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15138424",
+          "vram": "0x15138424"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15138424"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151389A8",
+          "vram": "0x151389A8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_151389A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15138BC0",
+          "vram": "0x15138BC0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15138BC0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15138C80",
+          "vram": "0x15138C80"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15138C80"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15138E98",
+          "vram": "0x15138E98"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15138E98"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15139578",
+          "vram": "0x15139578"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15139578"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15139768",
+          "vram": "0x15139768"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15139768"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15139D74",
+          "vram": "0x15139D74"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_15139D74"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513A24C",
+          "vram": "0x1513A24C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513A24C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513A48C",
+          "vram": "0x1513A48C"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513A48C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513A594",
+          "vram": "0x1513A594"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513A594"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513A5E0",
+          "vram": "0x1513A5E0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513A5E0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513A6E0",
+          "vram": "0x1513A6E0"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513A6E0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513ABB8",
+          "vram": "0x1513ABB8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513ABB8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513B0B8",
+          "vram": "0x1513B0B8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513B0B8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1513B0F8",
+          "vram": "0x1513B0F8"
+        }
+      },
+      "source": "src/game/effects/blood.c",
+      "symbol": "func_1513B0F8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151602C0",
+          "vram": "0x151602C0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151602C0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516037C",
+          "vram": "0x1516037C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516037C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151603FC",
+          "vram": "0x151603FC"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151603FC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151604A0",
+          "vram": "0x151604A0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151604A0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160600",
+          "vram": "0x15160600"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160600"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516065C",
+          "vram": "0x1516065C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516065C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160684",
+          "vram": "0x15160684"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160684"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151606A8",
+          "vram": "0x151606A8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151606A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151607A4",
+          "vram": "0x151607A4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151607A4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160954",
+          "vram": "0x15160954"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160954"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160A58",
+          "vram": "0x15160A58"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160A58"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160B74",
+          "vram": "0x15160B74"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160B74"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160CDC",
+          "vram": "0x15160CDC"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160CDC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160E30",
+          "vram": "0x15160E30"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15160E30"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161238",
+          "vram": "0x15161238"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161238"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516127C",
+          "vram": "0x1516127C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516127C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161334",
+          "vram": "0x15161334"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161334"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161408",
+          "vram": "0x15161408"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161408"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161494",
+          "vram": "0x15161494"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161494"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161540",
+          "vram": "0x15161540"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161540"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151615F8",
+          "vram": "0x151615F8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151615F8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151616D0",
+          "vram": "0x151616D0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151616D0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161714",
+          "vram": "0x15161714"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161714"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161740",
+          "vram": "0x15161740"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161740"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516176C",
+          "vram": "0x1516176C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516176C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161798",
+          "vram": "0x15161798"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161798"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151617C4",
+          "vram": "0x151617C4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151617C4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151617E4",
+          "vram": "0x151617E4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151617E4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161804",
+          "vram": "0x15161804"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161804"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161860",
+          "vram": "0x15161860"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161860"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151618BC",
+          "vram": "0x151618BC"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151618BC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151619A0",
+          "vram": "0x151619A0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151619A0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161A68",
+          "vram": "0x15161A68"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161A68"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161E24",
+          "vram": "0x15161E24"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161E24"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161F2C",
+          "vram": "0x15161F2C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161F2C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15161F4C",
+          "vram": "0x15161F4C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15161F4C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162034",
+          "vram": "0x15162034"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162034"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162110",
+          "vram": "0x15162110"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162110"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151621B8",
+          "vram": "0x151621B8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151621B8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151623F4",
+          "vram": "0x151623F4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151623F4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162510",
+          "vram": "0x15162510"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162510"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162740",
+          "vram": "0x15162740"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162740"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516284C",
+          "vram": "0x1516284C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516284C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516295C",
+          "vram": "0x1516295C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516295C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162B28",
+          "vram": "0x15162B28"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162B28"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162EF8",
+          "vram": "0x15162EF8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162EF8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162F50",
+          "vram": "0x15162F50"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162F50"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15162FAC",
+          "vram": "0x15162FAC"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15162FAC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151630F4",
+          "vram": "0x151630F4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151630F4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163414",
+          "vram": "0x15163414"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163414"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163504",
+          "vram": "0x15163504"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163504"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151635A8",
+          "vram": "0x151635A8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151635A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163604",
+          "vram": "0x15163604"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163604"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163704",
+          "vram": "0x15163704"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163704"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516381C",
+          "vram": "0x1516381C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516381C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516387C",
+          "vram": "0x1516387C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516387C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151638E0",
+          "vram": "0x151638E0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151638E0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151639D0",
+          "vram": "0x151639D0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151639D0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163A18",
+          "vram": "0x15163A18"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163A18"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163A60",
+          "vram": "0x15163A60"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163A60"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163B98",
+          "vram": "0x15163B98"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163B98"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163BE8",
+          "vram": "0x15163BE8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163BE8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163CD0",
+          "vram": "0x15163CD0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163CD0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163CF8",
+          "vram": "0x15163CF8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163CF8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163DEC",
+          "vram": "0x15163DEC"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163DEC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163F50",
+          "vram": "0x15163F50"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163F50"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15163FEC",
+          "vram": "0x15163FEC"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15163FEC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151640C0",
+          "vram": "0x151640C0"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151640C0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15164134",
+          "vram": "0x15164134"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15164134"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15164208",
+          "vram": "0x15164208"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_15164208"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516429C",
+          "vram": "0x1516429C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516429C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516434C",
+          "vram": "0x1516434C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516434C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151643A8",
+          "vram": "0x151643A8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151643A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151643F8",
+          "vram": "0x151643F8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151643F8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1516441C",
+          "vram": "0x1516441C"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_1516441C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151644A8",
+          "vram": "0x151644A8"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151644A8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151644F4",
+          "vram": "0x151644F4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151644F4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151645C4",
+          "vram": "0x151645C4"
+        }
+      },
+      "source": "src/game/effects/light.c",
+      "symbol": "func_151645C4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150B2740",
+          "vram": "0x150B2740"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c",
+      "symbol": "func_150B2740"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150B2EB4",
+          "vram": "0x150B2EB4"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c",
+      "symbol": "func_150B2EB4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150B3188",
+          "vram": "0x150B3188"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c",
+      "symbol": "func_150B3188"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150B36AC",
+          "vram": "0x150B36AC"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c",
+      "symbol": "func_150B36AC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150B378C",
+          "vram": "0x150B378C"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c",
+      "symbol": "func_150B378C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_150B37C8",
+          "vram": "0x150B37C8"
+        }
+      },
+      "source": "src/game/effects/pipeexplode.c",
+      "symbol": "func_150B37C8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1515FDA0",
+          "vram": "0x1515FDA0"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c",
+      "symbol": "func_1515FDA0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1515FF74",
+          "vram": "0x1515FF74"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c",
+      "symbol": "func_1515FF74"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1515FFEC",
+          "vram": "0x1515FFEC"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c",
+      "symbol": "func_1515FFEC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160090",
+          "vram": "0x15160090"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c",
+      "symbol": "func_15160090"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151600D8",
+          "vram": "0x151600D8"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c",
+      "symbol": "func_151600D8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15160274",
+          "vram": "0x15160274"
+        }
+      },
+      "source": "src/game/effects/colourframebuffer.c",
+      "symbol": "func_15160274"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151957B0",
+          "vram": "0x151957B0"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151957B0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519582C",
+          "vram": "0x1519582C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519582C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195868",
+          "vram": "0x15195868"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195868"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195984",
+          "vram": "0x15195984"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195984"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195A84",
+          "vram": "0x15195A84"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195A84"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195AA8",
+          "vram": "0x15195AA8"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195AA8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195D00",
+          "vram": "0x15195D00"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195D00"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195DD4",
+          "vram": "0x15195DD4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195DD4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195FB0",
+          "vram": "0x15195FB0"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195FB0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15195FF0",
+          "vram": "0x15195FF0"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15195FF0"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15196318",
+          "vram": "0x15196318"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15196318"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15196330",
+          "vram": "0x15196330"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15196330"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151963B4",
+          "vram": "0x151963B4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151963B4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15196438",
+          "vram": "0x15196438"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15196438"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15196748",
+          "vram": "0x15196748"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15196748"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15196B4C",
+          "vram": "0x15196B4C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15196B4C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197148",
+          "vram": "0x15197148"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197148"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151979F8",
+          "vram": "0x151979F8"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151979F8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197A0C",
+          "vram": "0x15197A0C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197A0C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197A68",
+          "vram": "0x15197A68"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197A68"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197A7C",
+          "vram": "0x15197A7C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197A7C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197AB4",
+          "vram": "0x15197AB4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197AB4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197BBC",
+          "vram": "0x15197BBC"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197BBC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15197C10",
+          "vram": "0x15197C10"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15197C10"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198054",
+          "vram": "0x15198054"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198054"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198110",
+          "vram": "0x15198110"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198110"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198570",
+          "vram": "0x15198570"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198570"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151987CC",
+          "vram": "0x151987CC"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151987CC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519897C",
+          "vram": "0x1519897C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519897C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198C60",
+          "vram": "0x15198C60"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198C60"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198C90",
+          "vram": "0x15198C90"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198C90"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198D40",
+          "vram": "0x15198D40"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198D40"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
+          "symbol": "func_15198D7C",
+          "vram": "0x15198D7C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198D7C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15198D88",
+          "vram": "0x15198D88"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15198D88"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151990AC",
+          "vram": "0x151990AC"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151990AC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151993B4",
+          "vram": "0x151993B4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151993B4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151993E4",
+          "vram": "0x151993E4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151993E4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519944C",
+          "vram": "0x1519944C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519944C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_151994B8",
+          "vram": "0x151994B8"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_151994B8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15199834",
+          "vram": "0x15199834"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15199834"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519986C",
+          "vram": "0x1519986C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519986C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15199928",
+          "vram": "0x15199928"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15199928"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15199954",
+          "vram": "0x15199954"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15199954"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15199980",
+          "vram": "0x15199980"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15199980"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15199A10",
+          "vram": "0x15199A10"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15199A10"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_15199C34",
+          "vram": "0x15199C34"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_15199C34"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519A9A4",
+          "vram": "0x1519A9A4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519A9A4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519B4B8",
+          "vram": "0x1519B4B8"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519B4B8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519BE1C",
+          "vram": "0x1519BE1C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519BE1C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519BEB8",
+          "vram": "0x1519BEB8"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519BEB8"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519BF20",
+          "vram": "0x1519BF20"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519BF20"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519BF8C",
+          "vram": "0x1519BF8C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519BF8C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519BFBC",
+          "vram": "0x1519BFBC"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519BFBC"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C06C",
+          "vram": "0x1519C06C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C06C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C09C",
+          "vram": "0x1519C09C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C09C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C200",
+          "vram": "0x1519C200"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C200"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C22C",
+          "vram": "0x1519C22C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C22C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C258",
+          "vram": "0x1519C258"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C258"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C26C",
+          "vram": "0x1519C26C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C26C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C4E4",
+          "vram": "0x1519C4E4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C4E4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C56C",
+          "vram": "0x1519C56C"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C56C"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C910",
+          "vram": "0x1519C910"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C910"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C948",
+          "vram": "0x1519C948"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C948"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C970",
+          "vram": "0x1519C970"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C970"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C998",
+          "vram": "0x1519C998"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C998"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519C9C4",
+          "vram": "0x1519C9C4"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519C9C4"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519CD64",
+          "vram": "0x1519CD64"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519CD64"
+    },
+    {
+      "overlay": "game",
+      "regions": {
+        "us": {
+          "state": "raw_asm",
+          "symbol": "func_1519CDB0",
+          "vram": "0x1519CDB0"
+        }
+      },
+      "source": "src/game/effects/characterflamethrower.c",
+      "symbol": "func_1519CDB0"
+    }
+  ],
+  "schema_version": 1
+}

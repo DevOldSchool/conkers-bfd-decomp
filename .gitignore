@@ -53,3 +53,24 @@ dkms.conf
 
 # debug information files
 *.dwo
+
+# Project-local ROM configuration and generated game material
+.conker/
+.private-rom-assets/
+asm/
+assets/
+build/
+expected/
+/reference/
+.splache
+undefined_funcs_auto.txt
+undefined_syms_auto.txt
+baserom.*
+*.z64
+*.n64*
+*.v64
+
+# Local editor state
+.idea/
+.DS_Store
+__pycache__/
