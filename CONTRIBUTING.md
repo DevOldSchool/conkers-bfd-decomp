@@ -105,7 +105,24 @@ regenerates progress, and validates the generated and whitespace state.
 `progress match` remains a compatibility alias and should not be run after a
 successful `finish`. The standalone `next --one --details`, `m2c`, and
 `diff --record` commands remain available for focused or automated use. Do not
-run the full Python test suite or a complete ROM/game build after every small
+discard a useful nonzero candidate merely to keep a mixed unit byte-identical.
+With explicit agreement to move past it, use:
+
+```sh
+./conker defer <work-item-id> --reason "CURRENT (<score>): <remaining mismatch>"
+./conker next --ready
+# Later:
+./conker resume <work-item-id>
+```
+
+`defer` keeps the exact C body in its source file inside a named disabled block,
+restores the function's canonical `GLOBAL_ASM` pragma, and excludes the item
+from automatic selection. `resume` removes the pragma and restores that C body
+byte-for-byte. Both commands update the canonical inventory; do not reproduce
+their changes by manually editing JSON or moving candidates into untracked
+scratch files.
+
+Do not run the full Python test suite or a complete ROM/game build after every small
 function. Batch those checks after a logical group with `./conker verify-batch
 <id> [<id>...]`; it resolves the selected overlays, performs the required clean
 builds, runs the Python suite, and checks metadata, generated progress, and

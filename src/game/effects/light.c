@@ -3,6 +3,7 @@
 void func_15163CF8(s32 arg0, s32 arg1);
 void func_1514EDF0(s32 arg0, s32 arg1);
 void func_151617C4();
+void func_151617E4();
 
 /*
  * Reviewed source unit: src/game/effects/light.c
@@ -29,9 +30,6 @@ void func_151617C4();
  * - func_15161540
  * - func_151615F8
  * - func_151616D0
- * - func_15161740
- * - func_1516176C
- * - func_15161798
  * - func_15161804
  * - func_15161860
  * - func_151618BC
@@ -115,9 +113,18 @@ void func_15161714(void *arg0) {
     func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
     func_151617C4(arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161740.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516176C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161798.s")
+void func_15161740(void *arg0) {
+    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_151617E4(arg0);
+}
+void func_1516176C(void *arg0) {
+    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_151617C4(arg0);
+}
+void func_15161798(void *arg0) {
+    func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_151617E4(arg0);
+}
 void func_151617C4(void) {
     func_15169804();
 }

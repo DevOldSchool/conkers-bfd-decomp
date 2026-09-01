@@ -57,6 +57,7 @@ BATCH_FINGERPRINT_INPUTS = (
     "toolchain",
     "tools",
 )
+DEFERRED_CANDIDATE_TAG = "CONKER_DEFERRED_CANDIDATE"
 
 
 class ProjectStateError(RuntimeError):
@@ -167,6 +168,140 @@ def nonmatching_asm_path(source: str, symbol: str) -> Path:
 
 def global_asm_pragma(source: str, symbol: str) -> str:
     return f'#pragma GLOBAL_ASM("{nonmatching_asm_path(source, symbol)}")'
+
+
+def matching_delimiter(content: str, start: int, opening: str, closing: str) -> int:
+    """Find a balanced C delimiter while ignoring comments and literals."""
+
+    depth = 0
+    index = start
+    state = "code"
+    while index < len(content):
+        char = content[index]
+        following = content[index + 1] if index + 1 < len(content) else ""
+        if state == "code":
+            if char == "/" and following == "*":
+                state = "block_comment"
+                index += 2
+                continue
+            if char == "/" and following == "/":
+                state = "line_comment"
+                index += 2
+                continue
+            if char == '"':
+                state = "string"
+            elif char == "'":
+                state = "character"
+            elif char == opening:
+                depth += 1
+            elif char == closing:
+                depth -= 1
+                if depth == 0:
+                    return index
+        elif state == "block_comment" and char == "*" and following == "/":
+            state = "code"
+            index += 2
+            continue
+        elif state == "line_comment" and char == "\n":
+            state = "code"
+        elif state in {"string", "character"}:
+            if char == "\\":
+                index += 2
+                continue
+            if (state == "string" and char == '"') or (
+                state == "character" and char == "'"
+            ):
+                state = "code"
+        index += 1
+    raise ProjectStateError("unterminated C delimiter while preserving deferred candidate")
+
+
+def c_function_span(content: str, symbol: str) -> tuple[int, int]:
+    """Locate one ordinary source-level C definition by symbol."""
+
+    matches: list[tuple[int, int]] = []
+    for match in re.finditer(rf"\b{re.escape(symbol)}\s*\(", content):
+        opening_parenthesis = content.find("(", match.start())
+        closing_parenthesis = matching_delimiter(
+            content, opening_parenthesis, "(", ")"
+        )
+        body_start = closing_parenthesis + 1
+        while body_start < len(content) and content[body_start].isspace():
+            body_start += 1
+        if body_start >= len(content) or content[body_start] != "{":
+            continue
+        body_end = matching_delimiter(content, body_start, "{", "}") + 1
+        line_start = content.rfind("\n", 0, match.start()) + 1
+        if not content[line_start:match.start()].strip():
+            raise ProjectStateError(
+                f"cannot preserve multiline return declaration for {symbol}"
+            )
+        if body_end < len(content) and content[body_end] == "\n":
+            body_end += 1
+        matches.append((line_start, body_end))
+    if len(matches) != 1:
+        raise ProjectStateError(
+            f"expected exactly one C definition for {symbol}; found {len(matches)}"
+        )
+    return matches[0]
+
+
+def deferred_candidate_markers(symbol: str) -> tuple[str, str]:
+    return (
+        f"#if 0 /* {DEFERRED_CANDIDATE_TAG} {symbol} */",
+        f"#endif /* {DEFERRED_CANDIDATE_TAG} {symbol} */",
+    )
+
+
+def preserve_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str]:
+    """Disable the best C candidate in place and restore its raw-ASM pragma."""
+
+    path = ROOT / source
+    content = path.read_text(encoding="utf-8")
+    pragma = global_asm_pragma(source, symbol)
+    start_marker, end_marker = deferred_candidate_markers(symbol)
+    if start_marker in content or end_marker in content:
+        raise ProjectStateError(f"{symbol} already has a preserved deferred candidate")
+    if pragma in content:
+        raise ProjectStateError(
+            f"{symbol} still uses GLOBAL_ASM; add the best C candidate before deferring it"
+        )
+    start, end = c_function_span(content, symbol)
+    candidate = content[start:end].rstrip("\n")
+    replacement = (
+        f"{start_marker}\n{candidate}\n{end_marker}\n{pragma}\n"
+    )
+    return path, content, content[:start] + replacement + content[end:]
+
+
+def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str]:
+    """Restore a preserved C candidate and remove its raw-ASM pragma."""
+
+    path = ROOT / source
+    content = path.read_text(encoding="utf-8")
+    pragma = global_asm_pragma(source, symbol)
+    start_marker, end_marker = deferred_candidate_markers(symbol)
+    start = content.find(start_marker)
+    if start < 0:
+        raise ProjectStateError(f"{symbol} lacks a preserved deferred candidate")
+    candidate_start = start + len(start_marker)
+    if content[candidate_start:candidate_start + 1] == "\n":
+        candidate_start += 1
+    marker_start = content.find(end_marker, candidate_start)
+    if marker_start < 0:
+        raise ProjectStateError(f"{symbol} has an unterminated deferred candidate")
+    candidate = content[candidate_start:marker_start].rstrip("\n")
+    block_end = marker_start + len(end_marker)
+    if content[block_end:block_end + 1] == "\n":
+        block_end += 1
+    if content[block_end:block_end + len(pragma)] != pragma:
+        raise ProjectStateError(
+            f"{symbol} deferred candidate is not followed by its GLOBAL_ASM pragma"
+        )
+    block_end += len(pragma)
+    if content[block_end:block_end + 1] == "\n":
+        block_end += 1
+    return path, content, content[:start] + candidate + "\n" + content[block_end:]
 
 
 def file_sha1(path: Path) -> str:
@@ -350,6 +485,24 @@ def validate_functions(data: dict[str, Any]) -> list[dict[str, Any]]:
                 for key in ("rom_sha1", "verified_revision"):
                     if not isinstance(evidence.get(key), str) or not evidence[key]:
                         raise ProjectStateError(f"{identifier}/{region} evidence needs {key}")
+        deferred = entry.get("deferred")
+        if deferred is not None:
+            if not isinstance(deferred, dict):
+                raise ProjectStateError(f"{identifier} deferred metadata must be an object")
+            reason = deferred.get("reason")
+            if not isinstance(reason, str) or not reason.strip():
+                raise ProjectStateError(f"{identifier} deferred metadata needs a reason")
+            revision = deferred.get("recorded_revision")
+            if not isinstance(revision, str) or not revision:
+                raise ProjectStateError(
+                    f"{identifier} deferred metadata needs recorded_revision"
+                )
+            if deferred.get("candidate_preserved") is not True:
+                raise ProjectStateError(
+                    f"{identifier} deferred metadata must confirm candidate_preserved"
+                )
+            if is_complete(entry):
+                raise ProjectStateError(f"matched function {identifier} cannot be deferred")
     return functions
 
 
@@ -440,12 +593,32 @@ def validate_source_units(data: dict[str, Any], functions: list[dict[str, Any]])
     return units
 
 
+def validate_deferred_candidate_sources(functions: list[dict[str, Any]]) -> None:
+    """Require every deferred inventory record to retain a resumable source block."""
+
+    for function in functions:
+        if not function.get("deferred"):
+            continue
+        source = function.get("source")
+        if not isinstance(source, str) or not source:
+            raise ProjectStateError(
+                f"deferred function {function['symbol']} needs an assigned source"
+            )
+        try:
+            restore_deferred_candidate(source, function["symbol"])
+        except FileNotFoundError as error:
+            raise ProjectStateError(
+                f"deferred function {function['symbol']} source does not exist: {source}"
+            ) from error
+
+
 def validate_project() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     roms = load_json(ROMS_FILE)
     functions = load_json(FUNCTIONS_FILE)
     validate_rom_config(roms)
     validate_code_ranges(load_json(OVERLAYS_FILE))
     validated_functions = validate_functions(functions)
+    validate_deferred_candidate_sources(validated_functions)
     validate_source_units(load_json(SOURCE_UNITS_FILE), validated_functions)
     return roms, validated_functions
 
@@ -859,6 +1032,7 @@ def mark_matched(args: argparse.Namespace) -> None:
         "rom_sha1": roms["profiles"][args.profile]["sha1"],
         "verified_revision": "working-tree",
     }
+    function.pop("deferred", None)
     if source_unit is not None:
         unit_region = source_unit["regions"][args.profile]
         unit_members = [
@@ -884,6 +1058,76 @@ def mark_matched(args: argparse.Namespace) -> None:
         + ", ".join(str(BADGE_FILES[region].relative_to(ROOT)) for region in KNOWN_REGIONS)
         + ", "
         + f"and {DOCUMENT_FILE.relative_to(ROOT)}."
+    )
+
+
+def defer_function(args: argparse.Namespace) -> None:
+    """Temporarily remove a stubborn raw-ASM item from automatic selection."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if is_complete(function):
+        raise ProjectStateError(f"matched function {args.symbol} cannot be deferred")
+    if not all(
+        function["regions"][region]["state"] == "raw_asm" for region in TARGET_REGIONS
+    ):
+        raise ProjectStateError(
+            f"{args.symbol} must be raw_asm in every active region before it can be deferred"
+        )
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("defer requires a non-empty reason")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source before deferral")
+    source_path, old_source, deferred_source = preserve_deferred_candidate(
+        source, args.symbol
+    )
+    function["deferred"] = {
+        "reason": reason,
+        "recorded_revision": "working-tree",
+        "candidate_preserved": True,
+    }
+    validate_functions(functions_data)
+    source_path.write_text(deferred_source, encoding="utf-8")
+    try:
+        write_json(FUNCTIONS_FILE, functions_data)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(f"Deferred {args.symbol}; preserved its C candidate in {source}: {reason}")
+
+
+def resume_function(args: argparse.Namespace) -> None:
+    """Return a deferred item to automatic selection."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if "deferred" not in function:
+        raise ProjectStateError(f"{args.symbol} is not deferred")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source before resume")
+    source_path, old_source, resumed_source = restore_deferred_candidate(
+        source, args.symbol
+    )
+    function.pop("deferred")
+    validate_functions(functions_data)
+    source_path.write_text(resumed_source, encoding="utf-8")
+    try:
+        write_json(FUNCTIONS_FILE, functions_data)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Resumed {args.symbol}; restored its C candidate and made it eligible "
+        "for next --ready again."
     )
 
 
@@ -1507,6 +1751,7 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         if not is_complete(entry)
         and all(entry["regions"][region]["state"] == "raw_asm" for region in TARGET_REGIONS)
         and not entry.get("issue")
+        and not entry.get("deferred")
     ]
     if not available:
         if id_only:
@@ -1605,6 +1850,11 @@ def parse_args() -> argparse.Namespace:
     mark_matched_parser = subparsers.add_parser("mark-matched")
     mark_matched_parser.add_argument("--profile", choices=TARGET_REGIONS, required=True)
     mark_matched_parser.add_argument("symbol")
+    defer_parser = subparsers.add_parser("defer")
+    defer_parser.add_argument("symbol")
+    defer_parser.add_argument("--reason", required=True)
+    resume_parser = subparsers.add_parser("resume")
+    resume_parser.add_argument("symbol")
     next_parser = subparsers.add_parser("next")
     next_parser.add_argument(
         "--one",
@@ -1665,6 +1915,10 @@ def main() -> int:
             progress(args)
         elif args.command == "mark-matched":
             mark_matched(args)
+        elif args.command == "defer":
+            defer_function(args)
+        elif args.command == "resume":
+            resume_function(args)
         elif args.command == "next":
             next_function(args)
         elif args.command == "batch-plan":

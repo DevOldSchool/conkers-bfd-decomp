@@ -176,6 +176,23 @@ class ProjectStateTests(unittest.TestCase):
         }
         self.assertTrue(project_state.is_complete(entry))
 
+    def test_deferred_function_requires_a_reason_and_revision(self) -> None:
+        entry = {
+            "symbol": "func_12345678",
+            "deferred": {"reason": "", "recorded_revision": "working-tree"},
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_12345678",
+                    "vram": "0x80000000",
+                }
+            },
+        }
+        with self.assertRaisesRegex(project_state.ProjectStateError, "needs a reason"):
+            project_state.validate_functions(
+                {"schema_version": 1, "functions": [entry]}
+            )
+
     def test_completed_source_requires_an_exact_c_map_entry(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -562,6 +579,168 @@ class ProjectStateTests(unittest.TestCase):
             )
 
         self.assertEqual("func_small\n", output.getvalue())
+
+    def test_next_skips_deferred_work_items(self) -> None:
+        functions = []
+        for symbol, size in (("func_deferred", 4), ("func_ready", 8)):
+            functions.append(
+                {
+                    "symbol": symbol,
+                    "source": "src/game/test.c",
+                    "overlay": "game",
+                    "regions": {
+                        "us": {
+                            "state": "raw_asm",
+                            "symbol": symbol,
+                            "vram": "0x15000000",
+                            "size_bytes": size,
+                        }
+                    },
+                }
+            )
+        functions[0]["deferred"] = {
+            "reason": "register allocation",
+            "recorded_revision": "working-tree",
+            "candidate_preserved": True,
+        }
+        output = io.StringIO()
+        with (
+            patch.object(project_state, "validate_project", return_value=({}, functions)),
+            patch.object(project_state, "load_json", return_value={}),
+            patch.object(project_state, "validate_source_units", return_value=[]),
+            redirect_stdout(output),
+        ):
+            project_state.next_function(
+                SimpleNamespace(one=True, details=False, id_only=True)
+            )
+
+        self.assertEqual("func_ready\n", output.getvalue())
+
+    def test_defer_preserves_and_resume_restores_the_best_c_candidate(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            original_source = (
+                "void func_test(void) {\n"
+                "    const char *brace = \"}\";\n"
+                "    if (brace[0]) { /* ignored } */\n"
+                "        return;\n"
+                "    }\n"
+                "}\n"
+            )
+            source.write_text(original_source, encoding="utf-8")
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.defer_function(
+                    SimpleNamespace(symbol="func_test", reason="register allocation")
+                )
+                deferred = json.loads(inventory.read_text(encoding="utf-8"))
+                deferred_source = source.read_text(encoding="utf-8")
+                self.assertEqual(
+                    "register allocation",
+                    deferred["functions"][0]["deferred"]["reason"],
+                )
+                self.assertTrue(
+                    deferred["functions"][0]["deferred"]["candidate_preserved"]
+                )
+                self.assertIn(
+                    "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test */",
+                    deferred_source,
+                )
+                self.assertIn(original_source.rstrip(), deferred_source)
+                self.assertIn(
+                    '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")',
+                    deferred_source,
+                )
+                project_state.resume_function(SimpleNamespace(symbol="func_test"))
+                resumed = json.loads(inventory.read_text(encoding="utf-8"))
+                self.assertEqual(original_source, source.read_text(encoding="utf-8"))
+
+        self.assertNotIn("deferred", resumed["functions"][0])
+
+    def test_defer_rejects_a_function_that_still_uses_global_asm(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+                self.assertRaisesRegex(
+                    project_state.ProjectStateError, "add the best C candidate"
+                ),
+            ):
+                project_state.defer_function(
+                    SimpleNamespace(symbol="func_test", reason="register allocation")
+                )
+
+    def test_validation_rejects_deferred_inventory_without_source_candidate(self) -> None:
+        function = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "deferred": {
+                "reason": "register allocation",
+                "recorded_revision": "working-tree",
+                "candidate_preserved": True,
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            with (
+                patch.object(project_state, "ROOT", root),
+                self.assertRaisesRegex(
+                    project_state.ProjectStateError,
+                    "lacks a preserved deferred candidate",
+                ),
+            ):
+                project_state.validate_deferred_candidate_sources([function])
 
     def test_next_details_requires_one(self) -> None:
         with self.assertRaisesRegex(project_state.ProjectStateError, "requires --one"):

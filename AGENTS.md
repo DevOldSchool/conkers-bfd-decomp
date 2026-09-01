@@ -45,7 +45,13 @@ For ordinary source-local function work, follow this exact loop:
     expression or declaration variants. Use `diff --watch` only when both stdin
     and stdout are attached to an interactive terminal; otherwise edit and
     rerun `finish`. Never alter assembly, inventory JSON, compiler flags, or
-    shared tooling. If still unmatched, report `candidate`.
+    shared tooling. If still unmatched, report `candidate`. When the user
+    explicitly authorizes moving past it, run
+    `./conker defer <work-item-id> --reason <text>`; this preserves the current C
+    under a disabled source block, restores the exact `GLOBAL_ASM` pragma, and
+    removes the item from automatic selection. Use
+    `./conker resume <work-item-id>` to restore that candidate before trying it
+    again.
 11. On `AGENT_ACTION: FIX_INTEGRATION`, correct the source/layout problem before
     running any batch command again. On `AGENT_ACTION: BLOCKED_TOOLING`, or when
     required declarations are unavailable or a match would require unapproved

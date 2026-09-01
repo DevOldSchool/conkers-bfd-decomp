@@ -3,14 +3,24 @@
 extern f32 D_800A8AA4;
 
 void func_1519CDB0(s32 arg0, f32 arg1, s32 arg2);
+void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+void func_151478F4(s32 arg0);
+void func_15147928(s32 arg0);
+void func_15199980(s32 arg0);
 
 typedef struct CharacterFlamethrowerState {
-    char pad0[0x148];
+    char pad0[0x6];
+    u8 flags6;
+    char pad7[0x141];
     s32 unk148;
 } CharacterFlamethrowerState;
 
 typedef struct CharacterFlamethrowerActor {
-    char pad0[0x98];
+    char pad0[0x1E];
+    u16 flags1E;
+    char pad20[0x10];
+    s8 unk30;
+    char pad31[0x67];
     CharacterFlamethrowerState *state;
 } CharacterFlamethrowerActor;
 
@@ -24,6 +34,10 @@ typedef struct CharacterFlamethrowerControl {
     char unk12;
     char unk13;
 } CharacterFlamethrowerControl;
+
+void func_151617C4();
+void func_151617E4();
+void func_1519C258(CharacterFlamethrowerContext *arg0);
 
 /*
  * Reviewed source unit: src/game/effects/characterflamethrower.c
@@ -56,19 +70,15 @@ typedef struct CharacterFlamethrowerControl {
  * - func_15198570
  * - func_151987CC
  * - func_1519897C
- * - func_15198C60
  * - func_15198C90
  * - func_15198D40
  * - func_15198D88
  * - func_151990AC
- * - func_151993B4
  * - func_151993E4
  * - func_1519944C
  * - func_151994B8
  * - func_15199834
  * - func_1519986C
- * - func_15199928
- * - func_15199954
  * - func_15199980
  * - func_15199A10
  * - func_15199C34
@@ -77,18 +87,14 @@ typedef struct CharacterFlamethrowerControl {
  * - func_1519BE1C
  * - func_1519BEB8
  * - func_1519BF20
- * - func_1519BF8C
  * - func_1519BFBC
  * - func_1519C06C
  * - func_1519C09C
- * - func_1519C200
- * - func_1519C22C
  * - func_1519C258
  * - func_1519C26C
  * - func_1519C4E4
  * - func_1519C56C
  * - func_1519C910
- * - func_1519C998
  * - func_1519C9C4
  * - func_1519CD64
  * - func_1519CDB0
@@ -140,7 +146,9 @@ f32 func_15197A68(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198570.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151987CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519897C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198C60.s")
+void func_15198C60(void) {
+    func_10010F30(0x1AA, 0x7FFF, 0x40, 0, 0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198C90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198D40.s")
 
@@ -150,14 +158,27 @@ void func_15198D7C(s32 arg0) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198D88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151990AC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151993B4.s")
+void func_151993B4(CharacterFlamethrowerActor *arg0) {
+    CharacterFlamethrowerState *state = arg0->state;
+
+    arg0->unk30 = 0;
+    arg0->flags1E &= 0xFFFD;
+    state->flags6 |= 1;
+    state->flags6 |= 4;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151993E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519944C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151994B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199834.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519986C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199928.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199954.s")
+void func_15199928(s32 arg0) {
+    func_15199980(arg0);
+    func_151478F4(arg0);
+}
+void func_15199954(s32 arg0) {
+    func_15199980(arg0);
+    func_15147928(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199980.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199A10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199C34.s")
@@ -166,12 +187,20 @@ void func_15198D7C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BE1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BEB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BF20.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BF8C.s")
+void func_1519BF8C(void) {
+    func_10010F30(0x1AA, 0x7FFF, 0x40, 0, 0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BFBC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C06C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C09C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C200.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C22C.s")
+void func_1519C200(CharacterFlamethrowerContext *arg0) {
+    func_1519C258(arg0);
+    func_151617C4(arg0);
+}
+void func_1519C22C(CharacterFlamethrowerContext *arg0) {
+    func_1519C258(arg0);
+    func_151617E4(arg0);
+}
 void func_1519C258(CharacterFlamethrowerContext *arg0) {
     void *state = arg0->actor->state;
 
@@ -189,7 +218,10 @@ s32 func_1519C970(s32 arg0) {
     func_1519CDB0(arg0, 0.5f, 0x1D);
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C998.s")
+s32 func_1519C998(s32 arg0) {
+    func_1519CDB0(arg0, 0.2f, 0x1D);
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C9C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519CD64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519CDB0.s")

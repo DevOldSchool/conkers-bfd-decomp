@@ -50,6 +50,9 @@ Getting started
                                  Integrate all incomplete reviewed game units in one build.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  defer <work-item-id> --reason <text>
+                                 Preserve its C candidate, restore GLOBAL_ASM, and skip selection.
+  resume <work-item-id>          Restore its C candidate and return it to automatic selection.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] <work-item-id> [<work-item-id>...]
@@ -435,6 +438,13 @@ case "$command" in
         else
             python3 "$state_tool" next "$@"
         fi
+        ;;
+    defer)
+        python3 "$state_tool" defer "$@"
+        ;;
+    resume)
+        [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
+        python3 "$state_tool" resume "$1"
         ;;
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
