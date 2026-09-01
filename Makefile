@@ -92,6 +92,10 @@ $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 	@mkdir -p "$(@D)"
 	$(AS) $(ASFLAGS) -o $@ $<
 
+$(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
+	@mkdir -p "$(@D)"
+	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
+
 $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
