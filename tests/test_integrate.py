@@ -146,6 +146,15 @@ class IntegrationTests(unittest.TestCase):
 
     @mock.patch.object(integrate.subprocess, "run")
     def test_integrates_matched_game_source_after_byte_identical_build(self, run: mock.Mock) -> None:
+        def assert_build_sees_finalized_project(*args: object, **kwargs: object) -> None:
+            functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+            units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+            self.assertEqual("src/game/done/func_test.c", functions["functions"][0]["source"])
+            self.assertEqual("src/game/done/func_test.c", units["source_units"][0]["source"])
+            self.assertEqual("c", units["source_units"][0]["integration"])
+            self.assertTrue((self.root / "src/game/done/func_test.c").is_file())
+
+        run.side_effect = assert_build_sees_finalized_project
         integrate.integrate("func_test", "us")
 
         run.assert_called_once_with(

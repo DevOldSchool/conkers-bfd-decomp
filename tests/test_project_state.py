@@ -652,7 +652,9 @@ class ProjectStateTests(unittest.TestCase):
                 patch.object(project_state, "FUNCTIONS_FILE", inventory),
             ):
                 project_state.defer_function(
-                    SimpleNamespace(symbol="func_test", reason="register allocation")
+                    SimpleNamespace(
+                        symbol="func_test", reason="register allocation", score=30
+                    )
                 )
                 deferred = json.loads(inventory.read_text(encoding="utf-8"))
                 deferred_source = source.read_text(encoding="utf-8")
@@ -663,8 +665,11 @@ class ProjectStateTests(unittest.TestCase):
                 self.assertTrue(
                     deferred["functions"][0]["deferred"]["candidate_preserved"]
                 )
+                self.assertEqual(
+                    30, deferred["functions"][0]["deferred"]["current_score"]
+                )
                 self.assertIn(
-                    "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test */",
+                    "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (30) */",
                     deferred_source,
                 )
                 self.assertIn(original_source.rstrip(), deferred_source)
@@ -677,6 +682,38 @@ class ProjectStateTests(unittest.TestCase):
                 self.assertEqual(original_source, source.read_text(encoding="utf-8"))
 
         self.assertNotIn("deferred", resumed["functions"][0])
+
+    def test_normalizes_reviewed_source_unit_header_below_includes(self) -> None:
+        header = (
+            "/*\n"
+            " * Reviewed source unit: src/game/test.c\n"
+            " * Boundary evidence: docs/evidence/test.md\n"
+            " */\n"
+        )
+        content = (
+            '#include "types.h"\n\n'
+            "typedef struct Test { s32 value; } Test;\n\n"
+            f"{header}\n"
+            "void func_test(void) {}\n"
+        )
+
+        normalized = project_state.normalize_source_unit_header(content)
+
+        self.assertTrue(
+            normalized.startswith('#include "types.h"\n\n' + header + "\n")
+        )
+        self.assertEqual(1, normalized.count("Reviewed source unit:"))
+        self.assertTrue(project_state.source_unit_header_follows_includes(normalized))
+        self.assertLess(normalized.index(header), normalized.index("typedef struct Test"))
+
+    def test_detects_reviewed_source_unit_header_below_declarations(self) -> None:
+        content = (
+            '#include "types.h"\n\n'
+            "extern s32 D_80000000;\n\n"
+            "/*\n * Reviewed source unit: src/game/test.c\n */\n"
+        )
+
+        self.assertFalse(project_state.source_unit_header_follows_includes(content))
 
     def test_defer_rejects_a_function_that_still_uses_global_asm(self) -> None:
         entry = {
@@ -712,7 +749,9 @@ class ProjectStateTests(unittest.TestCase):
                 ),
             ):
                 project_state.defer_function(
-                    SimpleNamespace(symbol="func_test", reason="register allocation")
+                    SimpleNamespace(
+                        symbol="func_test", reason="register allocation", score=30
+                    )
                 )
 
     def test_validation_rejects_deferred_inventory_without_source_candidate(self) -> None:
@@ -970,6 +1009,11 @@ class GameInventoryTests(unittest.TestCase):
         self.assertTrue(skeleton.is_file())
         skeleton_content = skeleton.read_text(encoding="utf-8")
         self.assertIn('#include "types.h"', skeleton_content)
+        self.assertTrue(
+            skeleton_content.startswith(
+                '#include "types.h"\n\n/*\n * Reviewed source unit:'
+            )
+        )
         self.assertIn("Boundary evidence: review/object-map.txt", skeleton_content)
         self.assertIn("TODO: Implement these source-unit functions", skeleton_content)
         self.assertIn(" * - func_game_first", skeleton_content)
@@ -1071,7 +1115,7 @@ class GameInventoryTests(unittest.TestCase):
             project_state.DOCUMENT_FILE.read_text(encoding="utf-8"),
         )
 
-    def test_mark_matched_removes_the_exact_source_todo(self) -> None:
+    def test_mark_matched_removes_completed_source_todo_block(self) -> None:
         project_state.register_game(
             SimpleNamespace(
                 identifier="func_game_test",
@@ -1105,7 +1149,24 @@ class GameInventoryTests(unittest.TestCase):
 
         source = source_path.read_text(encoding="utf-8")
         self.assertNotIn(" * - func_game_test\n", source)
+        self.assertIn(" * - func_15000004\n", source)
         self.assertIn("Unmatched members use generated GLOBAL_ASM", source)
+        source_path.write_text(
+            source.replace(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/reviewed_unit/func_15000004.s")',
+                "void func_15000004(void) {}",
+            ),
+            encoding="utf-8",
+        )
+
+        project_state.mark_matched(
+            SimpleNamespace(profile="us", symbol="func_15000004")
+        )
+
+        source = source_path.read_text(encoding="utf-8")
+        self.assertNotIn("TODO: Implement these source-unit functions", source)
+        self.assertNotIn("Unmatched members use generated GLOBAL_ASM", source)
+        self.assertIn("Boundary evidence: docs/evidence/reviewed.md", source)
 
     def test_mark_matched_rejects_unknown_work_item(self) -> None:
         with self.assertRaises(project_state.ProjectStateError):

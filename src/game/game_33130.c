@@ -6,10 +6,11 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15005C80
- * - func_15005CF0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33130/func_15005C80.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_33130/func_15005CF0.s")
+void func_15005CF0(s32 arg0) {
+
+}

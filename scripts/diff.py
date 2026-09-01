@@ -305,6 +305,33 @@ def run_required_asm_diff(
     return 0
 
 
+def run_score_only_diff(
+    candidate: Path,
+    reference: Path,
+    symbol: str,
+    directory: Path,
+) -> int:
+    """Print only the machine-readable focused-diff score for shell callers."""
+
+    result = subprocess.run(
+        asm_diff_command(candidate, reference, symbol, require_match=True),
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        return EXIT_BLOCKED_TOOLING
+    try:
+        print(current_difference_count(result.stdout))
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("profile", choices=("us", "eu"))
@@ -313,10 +340,13 @@ def main() -> int:
     mode.add_argument("--game", action="store_true", help="compare a registered game-overlay candidate")
     mode.add_argument("--auto-overlay", action="store_true", help="resolve the overlay from the work-item ID")
     parser.add_argument("--require-match", action="store_true", help="fail unless asm-differ reports CURRENT (0)")
+    parser.add_argument("--score-only", action="store_true", help="print only the focused-diff score")
     parser.add_argument("--watch", action="store_true", help="watch the candidate source and rebuild inside this container")
     arguments = parser.parse_args()
-    if arguments.watch and arguments.require_match:
-        parser.error("--watch and --require-match cannot be combined")
+    if arguments.watch and (arguments.require_match or arguments.score_only):
+        parser.error("--watch cannot be combined with --require-match or --score-only")
+    if arguments.require_match and arguments.score_only:
+        parser.error("--require-match and --score-only cannot be combined")
 
     try:
         if arguments.auto_overlay:
@@ -360,6 +390,8 @@ def main() -> int:
         return EXIT_BLOCKED_TOOLING
 
     directory = write_settings(arguments.profile, source)
+    if arguments.score_only:
+        return run_score_only_diff(candidate, reference, symbol, directory)
     if arguments.require_match:
         return run_required_asm_diff(candidate, reference, symbol, directory)
     command = asm_diff_command(

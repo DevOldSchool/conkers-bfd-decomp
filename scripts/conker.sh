@@ -48,10 +48,12 @@ Getting started
                                  Verify and record a byte-identical source-unit integration.
   progress integrate --all-reviewed
                                  Integrate all incomplete reviewed game units in one build.
+  normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
   defer <work-item-id> --reason <text>
-                                 Preserve its C candidate, restore GLOBAL_ASM, and skip selection.
+                                 Measure and record its score, preserve its C candidate,
+                                 restore GLOBAL_ASM, and skip selection.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
@@ -431,6 +433,10 @@ case "$command" in
             *) die "usage: ./conker progress [render|check] | ./conker progress match [--profile us] <work-item-id> | ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" ;;
         esac
         ;;
+    normalize-source-headers)
+        [[ $# -eq 0 ]] || die "usage: ./conker normalize-source-headers"
+        python3 "$state_tool" normalize-source-headers
+        ;;
     next)
         if [[ "${1:-}" == "--ready" ]]; then
             [[ $# -eq 1 ]] || die "usage: ./conker next --ready"
@@ -440,7 +446,14 @@ case "$command" in
         fi
         ;;
     defer)
-        python3 "$state_tool" defer "$@"
+        [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"
+        deferred_symbol="$1"
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        deferred_score="$(run_in_warm_container python3 scripts/diff.py us "$deferred_symbol" --auto-overlay --score-only)"
+        [[ "$deferred_score" =~ ^[0-9]+$ ]] || die "focused diff did not return a numeric score"
+        [[ "$deferred_score" -gt 0 ]] || die "cannot defer an exact CURRENT (0) candidate; run finish instead"
+        python3 "$state_tool" defer "$@" --score "$deferred_score"
         ;;
     resume)
         [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"

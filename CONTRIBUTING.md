@@ -64,6 +64,11 @@ us <symbol>` to map the reviewed unit into the real build as one mixed C/ASM
 object. The transaction is retained only when the complete build remains
 byte-identical.
 
+Keep the reviewed source-unit comment at the top of every assigned C file,
+immediately below its contiguous `#include` block and before declarations or
+definitions. Project validation rejects reviewed headers that drift lower in a
+file.
+
 ## Function workflow
 
 If the selected inventory record includes issue metadata, claim and read that
@@ -109,18 +114,19 @@ discard a useful nonzero candidate merely to keep a mixed unit byte-identical.
 With explicit agreement to move past it, use:
 
 ```sh
-./conker defer <work-item-id> --reason "CURRENT (<score>): <remaining mismatch>"
+./conker defer <work-item-id> --reason "<remaining mismatch>"
 ./conker next --ready
 # Later:
 ./conker resume <work-item-id>
 ```
 
-`defer` keeps the exact C body in its source file inside a named disabled block,
-restores the function's canonical `GLOBAL_ASM` pragma, and excludes the item
-from automatic selection. `resume` removes the pragma and restores that C body
-byte-for-byte. Both commands update the canonical inventory; do not reproduce
-their changes by manually editing JSON or moving candidates into untracked
-scratch files.
+`defer` measures the candidate's current focused US diff itself, records that
+score as `CURRENT (<score>)` in the disabled block's source comment, keeps the
+exact C body in place, restores the function's canonical `GLOBAL_ASM` pragma,
+and excludes the item from automatic selection. `resume` removes the pragma and
+score marker and restores that C body byte-for-byte. Both commands update the
+canonical inventory; do not reproduce their changes by manually editing JSON
+or moving candidates into untracked scratch files.
 
 Do not run the full Python test suite or a complete ROM/game build after every small
 function. Batch those checks after a logical group with `./conker verify-batch

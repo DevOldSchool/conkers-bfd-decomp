@@ -246,21 +246,27 @@ def c_function_span(content: str, symbol: str) -> tuple[int, int]:
     return matches[0]
 
 
-def deferred_candidate_markers(symbol: str) -> tuple[str, str]:
+def deferred_candidate_markers(
+    symbol: str, current_score: int | None = None
+) -> tuple[str, str]:
+    score = f" CURRENT ({current_score})" if current_score is not None else ""
     return (
-        f"#if 0 /* {DEFERRED_CANDIDATE_TAG} {symbol} */",
+        f"#if 0 /* {DEFERRED_CANDIDATE_TAG} {symbol}{score} */",
         f"#endif /* {DEFERRED_CANDIDATE_TAG} {symbol} */",
     )
 
 
-def preserve_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str]:
+def preserve_deferred_candidate(
+    source: str, symbol: str, current_score: int
+) -> tuple[Path, str, str]:
     """Disable the best C candidate in place and restore its raw-ASM pragma."""
 
     path = ROOT / source
     content = path.read_text(encoding="utf-8")
     pragma = global_asm_pragma(source, symbol)
-    start_marker, end_marker = deferred_candidate_markers(symbol)
-    if start_marker in content or end_marker in content:
+    start_marker, end_marker = deferred_candidate_markers(symbol, current_score)
+    marker_prefix = f"#if 0 /* {DEFERRED_CANDIDATE_TAG} {symbol}"
+    if marker_prefix in content or end_marker in content:
         raise ProjectStateError(f"{symbol} already has a preserved deferred candidate")
     if pragma in content:
         raise ProjectStateError(
@@ -280,11 +286,16 @@ def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str
     path = ROOT / source
     content = path.read_text(encoding="utf-8")
     pragma = global_asm_pragma(source, symbol)
-    start_marker, end_marker = deferred_candidate_markers(symbol)
-    start = content.find(start_marker)
-    if start < 0:
+    _, end_marker = deferred_candidate_markers(symbol)
+    marker_pattern = re.compile(
+        rf"#if 0 /\* {re.escape(DEFERRED_CANDIDATE_TAG)} "
+        rf"{re.escape(symbol)}(?: CURRENT \(\d+\))? \*/"
+    )
+    marker_match = marker_pattern.search(content)
+    if marker_match is None:
         raise ProjectStateError(f"{symbol} lacks a preserved deferred candidate")
-    candidate_start = start + len(start_marker)
+    start = marker_match.start()
+    candidate_start = marker_match.end()
     if content[candidate_start:candidate_start + 1] == "\n":
         candidate_start += 1
     marker_start = content.find(end_marker, candidate_start)
@@ -302,6 +313,77 @@ def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str
     if content[block_end:block_end + 1] == "\n":
         block_end += 1
     return path, content, content[:start] + candidate + "\n" + content[block_end:]
+
+
+def source_unit_header_span(content: str) -> tuple[int, int] | None:
+    """Locate the reviewed-source-unit block comment, if present."""
+
+    marker = content.find("Reviewed source unit:")
+    if marker < 0:
+        return None
+    start = content.rfind("/*", 0, marker)
+    end = content.find("*/", marker)
+    if start < 0 or end < 0:
+        raise ProjectStateError("reviewed source-unit header is not a complete block comment")
+    return start, end + 2
+
+
+def source_unit_header_follows_includes(content: str) -> bool:
+    """Return whether the reviewed-source-unit block immediately follows includes."""
+
+    span = source_unit_header_span(content)
+    if span is None:
+        return True
+    lines = content.splitlines(keepends=True)
+    header_line = content.count("\n", 0, span[0])
+    include_lines = [
+        index for index, line in enumerate(lines) if line.startswith("#include ")
+    ]
+    if not include_lines:
+        return header_line == 0
+    last_include = include_lines[-1]
+    return (
+        header_line == last_include + 2
+        and lines[last_include + 1].strip() == ""
+    )
+
+
+def normalize_source_unit_header(content: str) -> str:
+    """Move a reviewed-source-unit block directly below the include block."""
+
+    span = source_unit_header_span(content)
+    if span is None or source_unit_header_follows_includes(content):
+        return content
+    lines = content.splitlines(keepends=True)
+    start_line = content.count("\n", 0, span[0])
+    end_line = content.count("\n", 0, span[1] - 1) + 1
+    header = lines[start_line:end_line]
+    del lines[start_line:end_line]
+    while start_line < len(lines) and not lines[start_line].strip():
+        del lines[start_line]
+
+    include_lines = [
+        index for index, line in enumerate(lines) if line.startswith("#include ")
+    ]
+    insertion = include_lines[-1] + 1 if include_lines else 0
+    while insertion < len(lines) and not lines[insertion].strip():
+        del lines[insertion]
+    lines[insertion:insertion] = ["\n", *header, "\n"] if include_lines else [*header, "\n"]
+    return "".join(lines)
+
+
+def normalize_source_unit_headers() -> None:
+    """Normalize every reviewed C source header without changing its contents."""
+
+    changed: list[Path] = []
+    for path in sorted((ROOT / "src").rglob("*.c")):
+        content = path.read_text(encoding="utf-8")
+        normalized = normalize_source_unit_header(content)
+        if normalized == content:
+            continue
+        path.write_text(normalized, encoding="utf-8")
+        changed.append(path)
+    print(f"Normalized reviewed source-unit headers in {len(changed)} file(s).")
 
 
 def file_sha1(path: Path) -> str:
@@ -501,6 +583,15 @@ def validate_functions(data: dict[str, Any]) -> list[dict[str, Any]]:
                 raise ProjectStateError(
                     f"{identifier} deferred metadata must confirm candidate_preserved"
                 )
+            current_score = deferred.get("current_score")
+            if current_score is not None and (
+                not isinstance(current_score, int)
+                or isinstance(current_score, bool)
+                or current_score <= 0
+            ):
+                raise ProjectStateError(
+                    f"{identifier} deferred metadata current_score must be a positive integer"
+                )
             if is_complete(entry):
                 raise ProjectStateError(f"matched function {identifier} cannot be deferred")
     return functions
@@ -579,6 +670,10 @@ def validate_source_units(data: dict[str, Any], functions: list[dict[str, Any]])
         source_path = ROOT / source
         if source_path.is_file():
             source_content = source_path.read_text(encoding="utf-8")
+            if not source_unit_header_follows_includes(source_content):
+                raise ProjectStateError(
+                    f"{source} reviewed source-unit header must immediately follow its includes"
+                )
             stale_placeholders = [
                 member["symbol"]
                 for member in members
@@ -998,6 +1093,20 @@ def remove_source_todo(source: str, symbol: str) -> bool:
     if len(matches) != 1:
         return False
     del lines[matches[0]]
+    todo_end = next(
+        index
+        for index in range(todo_start + 1, len(lines))
+        if "Unmatched members use generated GLOBAL_ASM placeholders below."
+        in lines[index]
+    )
+    if not any(
+        lines[index].startswith(" * - ")
+        for index in range(todo_start + 1, todo_end)
+    ):
+        block_start = todo_start
+        if todo_start > 0 and lines[todo_start - 1].rstrip("\r\n") == " *":
+            block_start -= 1
+        del lines[block_start : todo_end + 1]
     path.write_text("".join(lines), encoding="utf-8")
     return True
 
@@ -1080,14 +1189,17 @@ def defer_function(args: argparse.Namespace) -> None:
     reason = args.reason.strip()
     if not reason:
         raise ProjectStateError("defer requires a non-empty reason")
+    if args.score <= 0:
+        raise ProjectStateError("defer requires a positive nonzero focused-diff score")
     source = function.get("source")
     if not isinstance(source, str) or not source:
         raise ProjectStateError(f"{args.symbol} needs an assigned source before deferral")
     source_path, old_source, deferred_source = preserve_deferred_candidate(
-        source, args.symbol
+        source, args.symbol, args.score
     )
     function["deferred"] = {
         "reason": reason,
+        "current_score": args.score,
         "recorded_revision": "working-tree",
         "candidate_preserved": True,
     }
@@ -1835,6 +1947,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(add_help=False)
     subparsers = parser.add_subparsers(dest="command", required=True)
     subparsers.add_parser("validate")
+    subparsers.add_parser("normalize-source-headers")
     rom_info_parser = subparsers.add_parser("rom-info")
     rom_info_parser.add_argument("path")
     setup_parser = subparsers.add_parser("setup")
@@ -1853,6 +1966,7 @@ def parse_args() -> argparse.Namespace:
     defer_parser = subparsers.add_parser("defer")
     defer_parser.add_argument("symbol")
     defer_parser.add_argument("--reason", required=True)
+    defer_parser.add_argument("--score", required=True, type=int)
     resume_parser = subparsers.add_parser("resume")
     resume_parser.add_argument("symbol")
     next_parser = subparsers.add_parser("next")
@@ -1903,6 +2017,8 @@ def main() -> int:
         if args.command == "validate":
             validate_project()
             print("Project metadata is valid.")
+        elif args.command == "normalize-source-headers":
+            normalize_source_unit_headers()
         elif args.command == "rom-info":
             rom_info(args.path)
         elif args.command == "setup":

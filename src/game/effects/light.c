@@ -1,10 +1,5 @@
 #include "types.h"
 
-void func_15163CF8(s32 arg0, s32 arg1);
-void func_1514EDF0(s32 arg0, s32 arg1);
-void func_151617C4();
-void func_151617E4();
-
 /*
  * Reviewed source unit: src/game/effects/light.c
  * Boundary evidence: docs/evidence/effects_light.md
@@ -22,7 +17,6 @@ void func_151617E4();
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
- * - func_15161238
  * - func_1516127C
  * - func_15161334
  * - func_15161408
@@ -81,6 +75,23 @@ void func_151617E4();
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_15163CF8(s32 arg0, s32 arg1);
+void func_1514EDF0(s32 arg0, s32 arg1);
+void func_151617C4();
+void func_151617E4();
+void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3);
+
+typedef struct LightEntry {
+    s32 unk0;
+    u8 unk4;
+} LightEntry;
+
+typedef struct LightCallData {
+    u8 value;
+    u8 pad1[3];
+    s32 arg2;
+} LightCallData;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151602C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516037C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151603FC.s")
@@ -101,14 +112,38 @@ s32 func_15160684(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160B74.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160CDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15160E30.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161238.s")
+
+s32 func_15161238(LightEntry *arg0, LightEntry *arg1) {
+    if (arg0->unk0 == 0) {
+        return 0;
+    }
+    if (arg0->unk4 == 0xFF) {
+        return 0;
+    }
+    if (arg0 == arg1) {
+        return 0;
+    }
+    return 1;
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516127C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161334.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161408.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161494.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161540.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151615F8.s")
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151616D0 CURRENT (510) */
+void func_151616D0(s32 arg0, u8 arg1, s32 arg2) {
+    LightCallData data;
+
+    data.value = arg0;
+    data.arg2 = arg2;
+    func_1516944C(0x35, (s8 *)&data, arg1, arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151616D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151616D0.s")
+
 void func_15161714(void *arg0) {
     func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));
     func_151617C4(arg0);

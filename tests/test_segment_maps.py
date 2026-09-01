@@ -64,8 +64,8 @@ class SegmentMapTests(unittest.TestCase):
         names = {offset: name for offset, _, name in entries if name is not None}
         self.assertEqual("game_3BFD0", names[0xEB20])
         self.assertEqual("game_1765E0", names[0x149130])
-        self.assertEqual("game_1A6300", names[0x178E50])
-        self.assertEqual("game_1BFC70", names[0x1927C0])
+        self.assertEqual("game/game_1A6300", names[0x178E50])
+        self.assertEqual("game/game_1BFC70", names[0x1927C0])
 
 
 if __name__ == "__main__":

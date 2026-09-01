@@ -18,7 +18,6 @@
  * - func_15002248
  * - func_15002560
  * - func_150025FC
- * - func_150026E8
  * - func_15002754
  * - func_150027F8
  * - func_15002878
@@ -46,6 +45,13 @@ void func_15001B5C(u8 arg0) {
     *D_800B0DE0 = arg0;
     D_800B0DE0 += 1;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001B8C */
+void func_15001B8C(u16 arg0) {
+    D_800B0DE0[0] = arg0 >> 8;
+    D_800B0DE0[1] = arg0;
+    D_800B0DE0 += 2;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15001B8C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001B8C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001BC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15001CEC.s")
@@ -55,18 +61,47 @@ void func_15001B5C(u8 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002560.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150025FC.s")
 extern s32 D_800DBE38;
+extern s32 D_800B0DE4;
+extern s32 D_800DBE18[];
+extern s32 D_800DBE1C;
+extern s32 D_800DBE28;
+extern s32 D_800DBE4C;
 
 void func_150026C4(void) {
     D_800DBE38 = 0;
     func_1510F800();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150026E8.s")
+void func_150026E8(s32 arg0) {
+    D_800DBE18[arg0] = D_800DBE38;
+    D_800DBE4C = D_800DBE38;
+    D_800B0DE4 += D_800DBE38;
+}
 void func_15002724(void) {
     D_800DBE38 += func_150027F8();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002754.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150027F8.s")
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15002878 */
+s32 func_15002878(void) {
+    u8 *current;
+    s32 value;
+    s32 maximum;
+
+    maximum = D_800DBE18[0];
+    current = (u8 *)&D_800DBE1C;
+    do {
+        value = *(s32 *)current;
+        current += 4;
+        if (maximum < value) {
+            maximum = value;
+        }
+    } while (current != (u8 *)&D_800DBE28);
+    return maximum;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15002878 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002878.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150028BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002F40.s")
 

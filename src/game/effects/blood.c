@@ -17,7 +17,6 @@
  * - func_151347CC
  * - func_15134908
  * - func_151349D0
- * - func_15134C98
  * - func_15134CEC
  * - func_15134DAC
  * - func_15134E48
@@ -38,7 +37,6 @@
  * - func_15136698
  * - func_151368A8
  * - func_15136918
- * - func_15136A1C
  * - func_15136A50
  * - func_15136AE4
  * - func_15136C3C
@@ -66,11 +64,23 @@
  * - func_1513A5E0
  * - func_1513A6E0
  * - func_1513ABB8
- * - func_1513B0B8
  * - func_1513B0F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct BloodState {
+    u8 pad0[0x1C];
+    s16 unk1C;
+    u8 pad1E[0xA];
+    u8 unk28;
+    u8 pad29[0x37];
+    s32 flags60;
+    u8 pad64[0x10C];
+    s32 unk170;
+} BloodState;
+
+void func_151BC5A4(BloodState *arg0, s32 arg1, u8 arg2);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134070.s")
 s32 func_1513416C(void *arg0) {
@@ -103,7 +113,11 @@ void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134908.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151349D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134C98.s")
+void func_15134C98(BloodState *arg0, s32 arg1, u8 arg2) {
+    if (arg0->unk28 == 1) {
+        func_151BC5A4(arg0, arg1, arg2);
+    }
+}
 void func_15134CD4(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 
 }
@@ -134,7 +148,17 @@ s32 func_15135658(f32 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136698.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151368A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136918.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136A1C.s")
+s32 func_15136A1C(BloodState *arg0) {
+    s16 temp_v0 = arg0->unk1C;
+
+    if (temp_v0 < 0x20) {
+        s32 temp_v1 = temp_v0 * 8;
+        if (temp_v1 < arg0->unk28) {
+            arg0->unk28 = temp_v1;
+        }
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136A50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136AE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136C3C.s")
@@ -162,5 +186,15 @@ s32 func_15135658(f32 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A5E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A6E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513ABB8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513B0B8.s")
+
+void func_1513B0B8(BloodState *arg0, s32 arg1, u8 arg2) {
+    s32 *counter = &arg0->unk170;
+
+    if (arg2 == 0x45) {
+        if (--*counter < 0) {
+            arg0->flags60 |= 0x80;
+        }
+    }
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513B0F8.s")

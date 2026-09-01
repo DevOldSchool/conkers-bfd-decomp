@@ -6,6 +6,8 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from contextlib import redirect_stdout
+from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
 
@@ -98,6 +100,28 @@ class DiffReferenceTests(unittest.TestCase):
     def test_rejects_nonzero_difference_evidence(self) -> None:
         with self.assertRaisesRegex(ValueError, r"CURRENT \(10\)"):
             diff_helper.require_zero_difference('{"current_score": 10}', "func_test")
+
+    def test_score_only_diff_prints_current_score(self) -> None:
+        evidence = subprocess.CompletedProcess(
+            args=["asm-differ"],
+            returncode=0,
+            stdout='{"current_score": 45}',
+            stderr="",
+        )
+        output = StringIO()
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence),
+            redirect_stdout(output),
+        ):
+            result = diff_helper.run_score_only_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+            )
+
+        self.assertEqual(0, result)
+        self.assertEqual("45\n", output.getvalue())
 
     def test_required_diff_displays_normal_diff_on_mismatch(self) -> None:
         evidence = subprocess.CompletedProcess(
