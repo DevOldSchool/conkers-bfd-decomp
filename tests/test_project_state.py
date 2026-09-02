@@ -51,8 +51,8 @@ class ProjectStateTests(unittest.TestCase):
             sum(values["known_functions"] for values in result["overlays"].values()),
             result["known_functions"],
         )
-        self.assertEqual(result["code_bytes"]["library_text_bytes"], 26_752)
-        self.assertEqual(result["code_bytes"]["matched_bytes"], 31_012)
+        self.assertEqual(result["code_bytes"]["library_text_bytes"], 27_376)
+        self.assertEqual(result["code_bytes"]["matched_bytes"], 31_636)
         for counts in result["regions"].values():
             self.assertEqual(sum(counts.values()), result["known_functions"])
 

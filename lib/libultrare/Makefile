@@ -11,6 +11,11 @@ CFLAGS := -c -Wab,-r4300_mul -non_shared -G 0 -Xcpluscomm \
 	-mips2 -32 -O1
 
 SOURCES := \
+	src/libultra/libc/xldtob_data.c \
+	src/libultra/libc/xprintf_data.c \
+	src/libultra/libc/xprintf_rodata.c \
+	src/libultra/os/exceptasm_data.c \
+	src/libultra/os/syncputchars_data.c \
 	src/libultrare/io/contramread.c \
 	src/libultrare/io/contramwrite.c \
 	src/libultrare/io/contreaddata.c \
@@ -20,6 +25,8 @@ SOURCES := \
 	src/libultrare/io/leointerrupt.c \
 	src/libultrare/io/pfsinit.c \
 	src/libultrare/io/pfsisplug.c \
+	src/libultrare/io/vi.c \
+	src/libultrare/io/vimodepallan1.c \
 	src/libultrare/os/destroythread.c \
 	src/libultrare/os/initialize.c
 OBJECTS := $(patsubst src/%.c,$(BUILD_DIR)/%.o,$(SOURCES))

@@ -53,9 +53,10 @@ ULTRALIB_BUILD_DIR := $(ULTRALIB_DIR)/build/$(ULTRALIB_VERSION)/$(ULTRALIB_TARGE
 ULTRALIB_MODERN_LD_STAMP := $(ULTRALIB_BUILD_DIR)/.conker-modern-ld
 PROFILE_LIB_DIR_us := build/us/lib
 PROFILE_LIB_L_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L.a
+PROFILE_LIB_LD_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L_d.a
 PROFILE_LIB_I_us := $(PROFILE_LIB_DIR_us)/libultra_2_0I.a
 PROFILE_LIB_RARE_us := $(PROFILE_LIB_DIR_us)/libultrare.a
-PROFILE_LIB_DEPS_us := $(PROFILE_LIB_L_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us)
+PROFILE_LIB_DEPS_us := $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us)
 PROFILE_LIB_DEPS_eu :=
 PROFILE_LIB_DEPS := $(PROFILE_LIB_DEPS_$(PROFILE))
 # Linked SDK objects retain their original symbol names. Bind references to
@@ -67,16 +68,16 @@ PROFILE_LIB_LDFLAGS_us := \
 	--defsym=__osDispatchThread=0x80007A38 \
 	--defsym=__osExceptionPreamble=0x100071D0 \
 	--defsym=osMapTLBRdb=0x80008120 \
+	--defsym=osTvType=0x80000300 \
 	--defsym=osRomBase=0x80000308 \
 	--defsym=osResetType=0x8000030C \
 	--defsym=osAppNMIBuffer=0x8000031C \
 	--defsym=__osPiDevMgr=0x8002AB50 \
 	--defsym=__osPiTable=0x8002AB6C \
 	--defsym=__osHwIntTable=0x8002AC70 \
-	--defsym=__osViCurr=0x8002BDE0 \
-	--defsym=__osViNext=0x8002BDE4 \
-	--defsym=osViClock=0x8002BDE8 \
 	--defsym=__osLeoInterruptPhysical=0x10026B10 \
+	--defsym=.L1001EDF4_main=0x1001EDF4 \
+	--defsym=.L1002078C_main=0x1002078C \
 	-u _bzero \
 	-u osInvalICache \
 	-u osInvalDCache \
@@ -118,7 +119,7 @@ PROFILE_LIB_LDFLAGS_us := \
 	-u __osSetCompare \
 	-u osJamMesg
 PROFILE_LIB_LDFLAGS_eu :=
-PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_L_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
+PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
 PROFILE_LIB_INPUTS_eu :=
 PROFILE_LIB_INPUTS := $(PROFILE_LIB_INPUTS_$(PROFILE))
 LDFLAGS += $(PROFILE_LIB_LDFLAGS_$(PROFILE))
@@ -200,6 +201,7 @@ libultrare:
 profile-libs:
 	@test "$(PROFILE)" = us
 	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=L
+	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=L ULTRALIB_TARGET=libultra_d
 	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=I
 	$(MAKE) --no-print-directory libultrare
 	@mkdir -p "$(PROFILE_LIB_DIR_us)"
@@ -210,9 +212,12 @@ profile-libs:
 		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/gu/,$(addsuffix .o,libm_vals sinf sqrtf)) \
 		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/os/,$(addsuffix .o,createmesgqueue getcount getsr getthreadpri gettime invaldcache invalicache jammesg maptlb probetlb recvmesg sendmesg setcompare setfpccsr setintmask setsr setthreadpri startthread stopthread thread unmaptlb virtualtophysical writebackdcache writebackdcacheall)) \
 		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/vimodes/,$(addsuffix .o,vimodempallan1 vimodentsclan1))
+	rm -f "$(PROFILE_LIB_LD_us)"
+	$(AR) crs "$(PROFILE_LIB_LD_us)" \
+		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_d/src/audio/,$(addsuffix .o,cents2ratio cspgetstate cspgettempo))
 	rm -f "$(PROFILE_LIB_I_us)"
 	$(AR) crs "$(PROFILE_LIB_I_us)" \
-		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/io/,$(addsuffix .o,ai aisetfreq contpfs crc pfschecker pidma pigetcmdq pirawdma pirawread si sirawdma sirawread sirawwrite sp sprawdma spsetpc sptaskyielded viblack vigetcurrframebuf vigetnextframebuf visetevent visetmode viswapbuf viswapcontext)) \
+		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/io/,$(addsuffix .o,ai aisetfreq contpfs crc pfschecker pidma pigetcmdq pirawdma pirawread si sirawdma sirawread sirawwrite sp sprawdma spsetpc sptaskyielded viblack vigetcurrcontext vigetcurrframebuf vigetnextframebuf visetevent visetmode viswapbuf viswapcontext)) \
 		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/libc/,$(addsuffix .o,ldiv string)) \
 		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/os/,$(addsuffix .o,interrupt seteventmesg sethwinterrupt settimer timerintr))
 	@mkdir -p "$(PROFILE_LIB_DIR_us)/libultrare-members"
@@ -221,7 +226,9 @@ profile-libs:
 		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
 	rm -f "$(PROFILE_LIB_RARE_us)"
 	$(AR) crs "$(PROFILE_LIB_RARE_us)" \
-		$(addprefix lib/libultrare/build/libultrare/io/,$(addsuffix .o,contramread contramwrite contreaddata controller epirawdma leodiskinit leointerrupt pfsinit pfsisplug)) \
+		$(addprefix lib/libultrare/build/libultra/libc/,$(addsuffix .o,xldtob_data xprintf_data xprintf_rodata)) \
+		$(addprefix lib/libultrare/build/libultra/os/,$(addsuffix .o,exceptasm_data syncputchars_data)) \
+		$(addprefix lib/libultrare/build/libultrare/io/,$(addsuffix .o,contramread contramwrite contreaddata controller epirawdma leodiskinit leointerrupt pfsinit pfsisplug vi vimodepallan1)) \
 		lib/libultrare/build/libultrare/os/destroythread.o \
 		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
 

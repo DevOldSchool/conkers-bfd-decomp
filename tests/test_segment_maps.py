@@ -38,7 +38,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertFalse((ROOT / "src" / "fixtures").exists())
 
     def test_working_maps_preserve_reference_main_boundaries(self) -> None:
-        expected_counts = {"us": (179, 167), "eu": (119, 119)}
+        expected_counts = {"us": (187, 167), "eu": (119, 119)}
         for region, (working_count, reference_count) in expected_counts.items():
             working = segment_subsegments(ROOT / "config" / "profiles" / f"{region}.yaml", "main")
             reference = segment_subsegments(ROOT / "config" / "reference" / f"{region}.yaml", "main")
@@ -209,6 +209,43 @@ class SegmentMapTests(unittest.TestCase):
         self.assertEqual(("libultra_2_0I", "seteventmesg"), linked_bss[0x80042910])
         self.assertEqual(("libultra_2_0I", "timerintr"), linked_bss[0x80042990])
 
+    def test_us_debug_audio_objects_link_from_archive_and_keep_raw_reference(self) -> None:
+        working = {
+            offset: (kind, name)
+            for offset, kind, name in segment_subsegments(
+                ROOT / "config/profiles/us.yaml", "main"
+            )
+        }
+        reference = {
+            offset: (kind, name)
+            for offset, kind, name in segment_subsegments(
+                ROOT / "config/reference/us.yaml", "main"
+            )
+        }
+        linked_text = {
+            0x17A80: "cspgetstate",
+            0x17EC0: "cspgettempo",
+            0x19AB0: "cents2ratio",
+        }
+        for offset, object_name in linked_text.items():
+            self.assertEqual(
+                ("lib", f"libultra_2_0L_d, {object_name}, .text"),
+                working[offset],
+            )
+            self.assertEqual(("asm", None), reference[offset])
+
+        self.assertEqual(
+            ("lib", "libultra_2_0L_d, cents2ratio, .rodata"),
+            working[0x2C760],
+        )
+        self.assertNotIn(0x2C760, reference)
+
+        profile = yaml.safe_load(
+            (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
+        )
+        main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
+        self.assertIn([0x2C770, "rodata"], main["subsegments"])
+
     def test_us_libultrare_objects_link_from_archive_and_keep_raw_reference(self) -> None:
         expected = {
             0x22790: "libultrare/os/initialize",
@@ -242,8 +279,33 @@ class SegmentMapTests(unittest.TestCase):
             )
             self.assertEqual(("asm", name), reference[offset])
 
+        self.assertEqual(("lib", "libultrare, vi, .text"), working[0x242B0])
+        self.assertEqual(("asm", None), reference[0x242B0])
         self.assertEqual(("lib", "libultrare, initialize, .data"), working[0x2BD10])
+        self.assertEqual(("lib", "libultrare, vi, .data"), working[0x2BD80])
         self.assertEqual(("lib", "libultrare, controller, .data"), working[0x2BE10])
+        self.assertEqual(
+            ("lib", "libultrare, vimodepallan1, .data"), working[0x2BE30]
+        )
+        self.assertEqual(
+            ("lib", "libultrare, xprintf_data, .data"), working[0x2AAF0]
+        )
+        self.assertEqual(
+            ("lib", "libultrare, syncputchars_data, .data"), working[0x2B9D0]
+        )
+        self.assertEqual(
+            ("lib", "libultrare, xldtob_data, .data"), working[0x2BF20]
+        )
+        self.assertEqual(
+            ("lib", "libultrare, xprintf_rodata, .data"), working[0x2BF80]
+        )
+        self.assertEqual(
+            ("lib", "libultrare, exceptasm_data, .data"), working[0x2C1B0]
+        )
+        self.assertNotIn(0x2BD80, reference)
+        self.assertNotIn(0x2BE30, reference)
+        for offset in (0x2AAF0, 0x2B9D0, 0x2BF80, 0x2C1B0):
+            self.assertNotIn(offset, reference)
         profile = yaml.safe_load(
             (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
         )

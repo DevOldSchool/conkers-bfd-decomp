@@ -92,6 +92,7 @@ After the raw base split map is available
   rzip-extract [--profile us|debug|ects] [--rom <path>] [--output <dir>]
                                  Separate game code/data and indexed asset files.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
+  library-audit [--json]        Scan raw US main ranges for complete I-L libultra sections.
   rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
   libultra [--version I|J|K|L]  Build a pinned 2.0 libultra ROM archive (default: L).
   libultrare                    Build and verify the pinned Rare-modified archive.
@@ -707,6 +708,10 @@ case "$command" in
     beta-index)
         [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--refresh" ) ]] || die "usage: ./conker beta-index [--refresh]"
         run_in_container python3 scripts/beta_index.py "$@"
+        ;;
+    library-audit)
+        [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--json" ) ]] || die "usage: ./conker library-audit [--json]"
+        python3 scripts/audit_library_boundaries.py "$@"
         ;;
     rareunzip)
         [[ $# -eq 2 ]] || die "usage: ./conker rareunzip <input> <output>"

@@ -101,10 +101,12 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("MODERN_LD=1", makefile)
         self.assertIn("run_in_container_libultra make profile-libs PROFILE=us", script)
         self.assertIn("PROFILE_LIB_L_us", makefile)
+        self.assertIn("PROFILE_LIB_LD_us", makefile)
         self.assertIn("PROFILE_LIB_I_us", makefile)
         self.assertIn("PROFILE_LIB_RARE_us", makefile)
         self.assertIn("--whole-archive", makefile)
         self.assertIn("$(MAKE) --no-print-directory libultrare", makefile)
+        self.assertIn("ULTRALIB_TARGET=libultra_d", makefile)
         for forced_symbol in (
             "_bzero",
             "osInvalICache",
@@ -142,6 +144,14 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn('"--version"', libultra_case)
         self.assertIn('I|J|K|L)', libultra_case)
         self.assertIn('ULTRALIB_VERSION="$libultra_version"', libultra_case)
+
+    def test_library_audit_has_a_bounded_supported_command(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        audit_case = script.split("    library-audit)", 1)[1].split("        ;;", 1)[0]
+
+        self.assertIn("library-audit [--json]", script)
+        self.assertIn('[[ $# -eq 0 || ( $# -eq 1 && "$1" == "--json" ) ]]', audit_case)
+        self.assertIn("python3 scripts/audit_library_boundaries.py", audit_case)
 
     def test_library_owned_sources_do_not_remain_as_generic_source_units(self) -> None:
         libultra_sources = sorted(

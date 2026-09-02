@@ -3,10 +3,10 @@
     "us"
   ],
   "code_bytes": {
-    "fully_matched_source_unit_bytes": 28424,
-    "fully_matched_source_unit_percentage": 1.270408,
-    "library_text_bytes": 26752,
-    "matched_bytes": 31012,
+    "fully_matched_source_unit_bytes": 29048,
+    "fully_matched_source_unit_percentage": 1.298297,
+    "library_text_bytes": 27376,
+    "matched_bytes": 31636,
     "overlays": {
       "game": {
         "fully_matched_source_unit_bytes": 1504,
@@ -35,11 +35,11 @@
         "total_bytes": 2072880
       },
       "main": {
-        "fully_matched_source_unit_bytes": 26920,
-        "fully_matched_source_unit_percentage": 16.363548,
-        "library_text_bytes": 26752,
-        "matched_bytes": 26920,
-        "percentage": 16.363548,
+        "fully_matched_source_unit_bytes": 27544,
+        "fully_matched_source_unit_percentage": 16.742852,
+        "library_text_bytes": 27376,
+        "matched_bytes": 27544,
+        "percentage": 16.742852,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 168,
@@ -50,18 +50,18 @@
             "total_bytes": 165328
           },
           "us": {
-            "fully_matched_source_unit_bytes": 26920,
-            "fully_matched_source_unit_percentage": 16.363548,
-            "library_text_bytes": 26752,
-            "matched_bytes": 26920,
-            "percentage": 16.363548,
+            "fully_matched_source_unit_bytes": 27544,
+            "fully_matched_source_unit_percentage": 16.742852,
+            "library_text_bytes": 27376,
+            "matched_bytes": 27544,
+            "percentage": 16.742852,
             "total_bytes": 164512
           }
         },
         "total_bytes": 164512
       }
     },
-    "percentage": 1.386078,
+    "percentage": 1.413968,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 168,
@@ -72,11 +72,11 @@
         "total_bytes": 2240240
       },
       "us": {
-        "fully_matched_source_unit_bytes": 28424,
-        "fully_matched_source_unit_percentage": 1.270408,
-        "library_text_bytes": 26752,
-        "matched_bytes": 31012,
-        "percentage": 1.386078,
+        "fully_matched_source_unit_bytes": 29048,
+        "fully_matched_source_unit_percentage": 1.298297,
+        "library_text_bytes": 27376,
+        "matched_bytes": 31636,
+        "percentage": 1.413968,
         "total_bytes": 2237392
       }
     },

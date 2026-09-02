@@ -25,7 +25,7 @@ linked US word and confirming the named call/data target and addend. A candidate
 was retained only when its start and end were existing raw instruction
 boundaries and its complete object membership agreed with the raw assembly.
 
-Twenty-nine of the 31 registered objects have only a non-empty `.text`
+Thirty of the 32 registered objects have only a non-empty `.text`
 allocatable section. `seteventmesg.o` additionally owns `.bss=0x80`, while
 `timerintr.o` owns `.data=0x10` and `.bss=0x40`; their exact non-text placements
 are recorded below.
@@ -56,6 +56,7 @@ link. The archive's `os/interrupt.o` is assembled from `interrupt.s`.
 | `0x23DF0:0x23E80` | `0x80023DF0:0x80023E80` | `0x90` | `lib/ultralib/src/io/sprawdma.c` | `__osSpRawStartDma` | relocation-resolved |
 | `0x23E80:0x23EB0` | `0x80023E80:0x80023EB0` | `0x30` | `lib/ultralib/src/io/sp.c` | `__osSpDeviceBusy` | exact |
 | `0x23EB0:0x242B0` | `0x80023EB0:0x800242B0` | `0x400` | `lib/ultralib/src/os/timerintr.c` | `__osTimerServicesInit`, `__osTimerInterrupt`, `__osSetTimerIntr`, `__osInsertTimer` | relocation-and-section-resolved |
+| `0x24400:0x24410` | `0x80024400:0x80024410` | `0x10` | `lib/ultralib/src/io/vigetcurrcontext.c` | `__osViGetCurrentContext` | relocation-and-order-resolved |
 | `0x24410:0x24770` | `0x80024410:0x80024770` | `0x360` | `lib/ultralib/src/io/viswapcontext.c` | `__osViSwapContext` | relocation-resolved |
 | `0x247C0:0x24830` | `0x800247C0:0x80024830` | `0x70` | `lib/ultralib/src/io/visetmode.c` | `osViSetMode` | relocation-resolved |
 | `0x24830:0x24880` | `0x80024830:0x80024880` | `0x50` | `lib/ultralib/src/io/viswapbuf.c` | `osViSwapBuffer` | relocation-resolved |
@@ -103,12 +104,18 @@ The two objects with non-text allocations are also complete-section matches:
   `0x20`), `__osCurrentTime=+0x20`, `__osBaseCounter=+0x28`,
   `__osViIntrCount=+0x2C`, and `__osTimerCounter=+0x30`.
 
-Together the 31 registered 2.0I objects cover `0x2DE0` (11,744) text bytes
-and contain 48 functions.
+The 16-byte current-context member is no longer treated as an isolated return
+stub. Its two relocations both resolve to `__osViCurr=0x8002BDE0`, and its
+placement is the canonical VI sequence between the reviewed `vi.o` boundary
+and the already linked `viswapcontext.o`. Linking the complete archive member
+at that location makes the full US ROM byte-identical.
+
+Together the 32 registered 2.0I objects cover `0x2DF0` (11,760) text bytes
+and contain 49 functions.
 
 ## Integration result
 
-The working US map now assigns all 31 text sections, `timerintr.o .data`, and
+The working US map now assigns all 32 text sections, `timerintr.o .data`, and
 the two reviewed BSS allocations to `libultra_2_0I`. The build stages only
 these members from the pinned 2.0I `libultra_rom` archive and links the trimmed
 archive as a complete unit. `config/reference/us.yaml` retains the same text
@@ -146,7 +153,7 @@ was at `9db90a003fff15d13d29505d571aff2543b50383`.
 |---|---|---|
 | `0x26700:0x26750` | `io/sprawread.o` | Same unrelocated template as `sirawread.o`; rejected because the linked call targets `__osSiDeviceBusy`, not `__osSpDeviceBusy`. |
 | `0x26750:0x267A0` | `io/sprawwrite.o` | Same unrelocated template as `sirawwrite.o`; rejected for the same SI dependency evidence. |
-| Many 16-byte return/padding stubs | `pigettype.o`, `viextendvstart.o`, `vigetcurrcontext.o`, `vigetnextcontext.o`, `getactivequeue.o`, `getcurrfaultthread.o` | Weak lookalikes: the masked text occurs at more than 50 unrelated locations and carries no distinctive relocation, call, or data evidence. |
+| Many 16-byte return/padding stubs | `pigettype.o`, `viextendvstart.o`, `vigetnextcontext.o`, `getactivequeue.o`, `getcurrfaultthread.o` | Weak lookalikes: the masked text occurs at more than 50 unrelated locations and carries no distinctive relocation, call, or data evidence. `vigetcurrcontext.o` was promoted separately only after VI order and a complete archive link supplied the missing evidence. |
 
 Alignment alone was not used for any promotion. The rejected rows remain
 speculative and are not registered as their proposed alternative identities.

@@ -56,10 +56,17 @@ The final recovered extent in each source unit includes any compiler-emitted
 tail padding before the next reviewed object boundary. Focused matching still
 stops at the function return.
 
+The corresponding complete `xldtob` and `xprintf` initialized/read-only data
+sections are now archive-backed at `0x2AAF0:0x2AB40` and
+`0x2BF20:0x2C080`. Their separate build representation and exact checksums are
+recorded in
+[`libultra_us_data_object_bounds.md`](libultra_us_data_object_bounds.md).
+
 ## Limits
 
-The identities and boundaries are strong structural evidence, not a byte-exact
-archive match. GoldenEye supplies the closest Rare source lineage, but its
-compiled helper order and some instruction details differ. These units must
-remain raw assembly until their C implementations reach `CURRENT (0)` and the
-complete US build remains byte-identical.
+The text identities and boundaries are strong structural evidence, not a
+byte-exact archive match. GoldenEye supplies the closest Rare source lineage,
+but its compiled helper order and some instruction details differ. These text
+units must remain raw assembly until their C implementations reach `CURRENT
+(0)` and the complete US build remains byte-identical. Their exact data
+sections do not imply that the text already matches.
