@@ -21,10 +21,13 @@ that the output is type-correct or matched. `./conker diff <work-item-id>`
 compiles the registered C candidate with the pinned IDO
 compiler and compares it with the generated reference object.
 
-Once the focused diff reports `CURRENT (0)`, use `./conker progress match
-<work-item-id>`. The command verifies the match, updates the canonical
-function inventory and any separately assigned source unit, and refreshes
-generated progress. Do not edit those JSON inventories manually.
+Use `./conker finish <work-item-id>` for the ordinary focused gate. A nonzero
+result displays the normal diff and changes no inventory. When it reports
+`CURRENT (0)`, it updates the canonical function inventory and any separately
+assigned source unit, refreshes generated progress without a second compilation,
+then checks progress and whitespace. `./conker diff --record` and `./conker
+progress match` remain compatibility paths. Do not edit those JSON inventories
+manually.
 
 Function registration does not imply a C-file boundary. Use `./conker
 register-source-unit` only after recording reviewed linker-map, object-symbol,
@@ -44,6 +47,8 @@ changes only if the complete ROM or game overlay remains byte-identical.
 Use `./conker diff --watch <work-item-id>` while iterating. It keeps
 the pinned Docker environment and asm-differ process alive, automatically
 chooses the registered overlay, and recompiles after source or header changes.
+Exit the watcher and run `finish` once for authoritative evidence and the full
+per-function gate.
 
 Do not copy C sources, function names, comments, symbols, or generated files
 from another decompilation repository. Reviewed raw-assembly boundary maps are

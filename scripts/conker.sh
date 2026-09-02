@@ -48,13 +48,25 @@ Getting started
                                  Verify and record a byte-identical source-unit integration.
   progress integrate --all-reviewed
                                  Integrate all incomplete reviewed game units in one build.
-  next                           List functions that are ready to claim.
+  normalize-source-headers       Move reviewed source-unit comments below includes.
+  next [--one [--details]]       List functions ready to claim; optionally show one with local context.
+  next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  defer <work-item-id> --reason <text>
+                                 Measure and record its score, preserve its C candidate,
+                                 restore GLOBAL_ASM, and skip selection.
+  resume <work-item-id>          Restore its C candidate and return it to automatic selection.
+  finish [--profile us] <work-item-id>
+                                 Record CURRENT (0), then check progress and whitespace.
+  verify-batch [--incremental] <work-item-id> [<work-item-id>...]
+                                 Run end-of-batch gates; incremental is for local iteration only.
   stop                           Stop and remove this checkout's warm toolchain container.
 
 After the raw base split map is available
   prepare [--profile us]         Extract generated sources (defaults to US).
   build [--profile us|--all]     Build US by default (`--all` means all active profiles).
   diff [--profile us] <work-item-id>
+  diff --record [--profile us] <work-item-id>
+                                 Show a focused diff and record it immediately when CURRENT (0).
   diff --watch [--profile us] <work-item-id>
                                  Keep an auto-rebuilding focused diff open while editing.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
@@ -64,19 +76,26 @@ After the raw base split map is available
   game-index                     List reviewable US game-function proposals.
   register-game --id <id> --us <symbol> --source <path>
                                  Register one US game-overlay function for matching work.
-  register-source-unit --source <path> (--function <id>...|--register-members) --us-start <offset>
+  register-main --id <id> --us <symbol> --source <path>
+                                 Register one US main-executable function for matching work.
+  register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
-                                 Register a separately reviewed game source/object boundary.
+                                 Register a separately reviewed source/object boundary.
+  retire-library-units --evidence-reference <path>
+                                 Remove untouched raw-ASM units after exact archive mapping.
   game-m2c [--profile us] <work-item-id>
                                  Compatibility alias for the auto-detecting m2c command.
   game-diff [--profile us] <work-item-id>
                                  Compatibility alias for the auto-detecting diff command.
-  game-build [--profile us]      Build and byte-verify mixed and completed game units.
+  game-build [--profile us] [--refresh]
+                                 Incrementally build and byte-verify game units; --refresh rebuilds the cache.
   rzip-extract [--profile us|debug|ects] [--rom <path>] [--output <dir>]
                                  Separate game code/data and indexed asset files.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
+  library-audit [--json]        Scan raw US main ranges for complete I-L libultra sections.
   rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
-  libultra                       Build the pinned 2.0L libultra ROM archive.
+  libultra [--version I|J|K|L]  Build a pinned 2.0 libultra ROM archive (default: L).
+  libultrare                    Build and verify the pinned Rare-modified archive.
 
 All build commands run inside the pinned linux/amd64 Docker environment.
 US is the default profile; pass --profile explicitly only to override it.
@@ -84,7 +103,18 @@ EOF
 }
 
 require_docker() {
-    command -v docker >/dev/null 2>&1 || die "Docker is required. Install Docker Desktop or Docker Engine, then rerun ./conker doctor."
+    if ! command -v docker >/dev/null 2>&1; then
+        printf '%s\n' 'error: Docker is required. Install Docker Desktop or Docker Engine, then rerun ./conker doctor.' >&2
+        return 1
+    fi
+}
+
+require_docker_access() {
+    require_docker || return 1
+    if ! docker info --format '{{.ServerVersion}}' >/dev/null 2>&1; then
+        printf '%s\n' 'error: Docker is installed, but this process cannot access the Docker daemon. Start Docker or grant Docker socket permission, then rerun the command.' >&2
+        return 1
+    fi
 }
 
 image_is_healthy() {
@@ -100,10 +130,11 @@ watch_image_is_compatible() {
 }
 
 ensure_image() {
-    require_docker
+    require_docker || return 1
     if docker image inspect "$image_name" >/dev/null 2>&1; then
         return
     fi
+    require_docker_access || return 1
     printf 'Fetching the published toolchain image (%s)...\n' "$image_name"
     if ! docker pull --platform linux/amd64 "$image_name"; then
         printf 'Published image unavailable; building it locally...\n'
@@ -228,6 +259,10 @@ run_host_mips_to_c() {
 
 run_in_container() {
     ensure_warm_container
+    run_in_warm_container "$@"
+}
+
+run_in_warm_container() {
     docker exec --workdir /workspace "$warm_container_name" "$@"
 }
 
@@ -299,6 +334,60 @@ parse_profile_only() {
     require_profile "$selected_profile"
 }
 
+parse_game_build_options() {
+    local usage_text="$1"
+    shift
+    selected_profile=us
+    refresh_game_build=false
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --profile)
+                [[ $# -ge 2 ]] || die "$usage_text"
+                selected_profile="$2"
+                shift 2
+                ;;
+            --refresh)
+                refresh_game_build=true
+                shift
+                ;;
+            *) die "$usage_text" ;;
+        esac
+    done
+    require_profile "$selected_profile"
+}
+
+verify_and_record_match() {
+    if ! python3 "$state_tool" setup-check --profile "$selected_profile"; then
+        return 3
+    fi
+    if ! ensure_warm_container; then
+        return 3
+    fi
+    diff_status=0
+    run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match || diff_status=$?
+    if [[ "$diff_status" -ne 0 ]]; then
+        return "$diff_status"
+    fi
+    if ! python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"; then
+        return 3
+    fi
+}
+
+prepare_next_work() {
+    local details
+    local first_line
+    local identifier
+    details="$(python3 "$state_tool" next --one --details)"
+    first_line="${details%%$'\n'*}"
+    [[ "$first_line" == "work-item: "* ]] || die "next --one --details did not emit a work-item"
+    identifier="${first_line#work-item: }"
+    printf '%s\n' "$details"
+    python3 "$state_tool" setup-check --profile us
+    ensure_warm_container
+    printf 'toolchain: warm (%s)\n' "$warm_container_name"
+    run_host_mips_to_c us "$identifier" --auto-overlay --ready-output
+}
+
 command="${1:-help}"
 shift || true
 
@@ -335,9 +424,7 @@ case "$command" in
             match)
                 shift
                 parse_profile_and_value "usage: ./conker progress match [--profile us] <work-item-id>" "$@"
-                python3 "$state_tool" setup-check --profile "$selected_profile"
-                run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match
-                python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"
+                verify_and_record_match
                 ;;
             integrate)
                 shift
@@ -352,11 +439,132 @@ case "$command" in
             *) die "usage: ./conker progress [render|check] | ./conker progress match [--profile us] <work-item-id> | ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" ;;
         esac
         ;;
+    normalize-source-headers)
+        [[ $# -eq 0 ]] || die "usage: ./conker normalize-source-headers"
+        python3 "$state_tool" normalize-source-headers
+        ;;
     next)
-        python3 "$state_tool" next
+        if [[ "${1:-}" == "--ready" ]]; then
+            [[ $# -eq 1 ]] || die "usage: ./conker next --ready"
+            prepare_next_work
+        else
+            python3 "$state_tool" next "$@"
+        fi
+        ;;
+    defer)
+        [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"
+        deferred_symbol="$1"
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        deferred_score="$(run_in_warm_container python3 scripts/diff.py us "$deferred_symbol" --auto-overlay --score-only)"
+        [[ "$deferred_score" =~ ^[0-9]+$ ]] || die "focused diff did not return a numeric score"
+        [[ "$deferred_score" -gt 0 ]] || die "cannot defer an exact CURRENT (0) candidate; run finish instead"
+        python3 "$state_tool" defer "$@" --score "$deferred_score"
+        ;;
+    resume)
+        [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
+        python3 "$state_tool" resume "$1"
+        ;;
+    finish)
+        parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
+        match_status=0
+        verify_and_record_match || match_status=$?
+        if [[ "$match_status" -eq 1 ]]; then
+            printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
+            exit 1
+        elif [[ "$match_status" -eq 2 ]]; then
+            printf 'AGENT_ACTION: FIX_COMPILE\n'
+            exit 2
+        elif [[ "$match_status" -ne 0 ]]; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit "$match_status"
+        fi
+        if ! python3 "$state_tool" progress --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! git -C "$repo_root" -c core.whitespace=cr-at-eol diff --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        printf '%s: per-function gate passed (match, progress, whitespace).\n' "$selected_value"
+        printf 'AGENT_ACTION: STOP_MATCHED\n'
+        ;;
+    verify-batch)
+        batch_mode="clean"
+        if [[ "${1:-}" == "--incremental" ]]; then
+            batch_mode="incremental"
+            shift
+        fi
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-batch [--incremental] <work-item-id> [<work-item-id>...]"
+        batch_failure_stamp="$repo_root/build/verify-batch/clean-integration-failure.sha256"
+        batch_fingerprint="$(python3 "$state_tool" batch-fingerprint)"
+        if [[ "$batch_mode" == "clean" && -f "$batch_failure_stamp" ]]; then
+            previous_batch_fingerprint=""
+            IFS= read -r previous_batch_fingerprint < "$batch_failure_stamp" || true
+            if [[ "$previous_batch_fingerprint" == "$batch_fingerprint" ]]; then
+                printf '%s\n' 'error: this exact worktree already failed clean integration; change the source before rerunning verify-batch.' >&2
+                printf 'AGENT_ACTION: FIX_INTEGRATION\n'
+                exit 1
+            fi
+        fi
+        batch_overlays=""
+        if ! batch_overlays="$(python3 "$state_tool" batch-plan "$@")"; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! python3 "$state_tool" setup-check --profile us; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if [[ " $batch_overlays " == *" main "* ]]; then
+            if ! run_in_container make --silent --jobs 4 build PROFILE=us; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 1
+            fi
+        fi
+        if [[ " $batch_overlays " == *" game "* ]]; then
+            game_batch_target="game-integrated-refresh"
+            if [[ "$batch_mode" == "incremental" ]]; then
+                game_batch_target="game-integrated"
+            fi
+            if ! run_in_container make --silent --jobs 4 "$game_batch_target" GAME_PROFILE=us; then
+                integrated_binary="$repo_root/build/game-integrated/us/conker.game.us.integrated.bin"
+                integrated_reference="$repo_root/build/game-integrated/us/game.code.bin"
+                if [[ -f "$integrated_binary" && -f "$integrated_reference" ]] && ! cmp -s "$integrated_binary" "$integrated_reference"; then
+                    if [[ "$batch_mode" == "clean" ]]; then
+                        mkdir -p "$(dirname "$batch_failure_stamp")"
+                        printf '%s\n' "$batch_fingerprint" > "$batch_failure_stamp"
+                    fi
+                    printf 'AGENT_ACTION: FIX_INTEGRATION\n'
+                else
+                    printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                fi
+                exit 1
+            fi
+        fi
+        if ! python3 -m unittest discover -s tests -q -b; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! python3 "$state_tool" validate; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! python3 "$state_tool" progress --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        if ! git -C "$repo_root" -c core.whitespace=cr-at-eol diff --check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 1
+        fi
+        rm -f "$batch_failure_stamp"
+        printf 'Verified batch (%s): %s\n' "$batch_mode" "$*"
+        printf 'AGENT_ACTION: BATCH_COMPLETE\n'
         ;;
     stop)
-        require_docker
+        require_docker_access
         if docker container inspect "$warm_container_name" >/dev/null 2>&1; then
             remove_warm_container
             printf 'Removed warm toolchain container %s.\n' "$warm_container_name"
@@ -367,10 +575,16 @@ case "$command" in
     prepare|build)
         if [[ $# -eq 1 && "$1" == "--all" ]]; then
             python3 "$state_tool" setup-check --all
+            if [[ "$command" == "build" ]]; then
+                run_in_container_libultra make profile-libs PROFILE=us
+            fi
             run_in_container make "$command" PROFILE=us
         else
             parse_profile_only "usage: ./conker $command [--profile us|--all]" "$@"
             python3 "$state_tool" setup-check --profile "$selected_profile"
+            if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
+                run_in_container_libultra make profile-libs PROFILE=us
+            fi
             run_in_container make "$command" PROFILE="$selected_profile"
         fi
         ;;
@@ -383,8 +597,17 @@ case "$command" in
         if [[ "${1:-}" == "--watch" ]]; then
             shift
             parse_profile_and_value "usage: ./conker diff --watch [--profile us] <work-item-id>" "$@"
+            if [[ ! -t 0 || ! -t 1 ]]; then
+                printf '%s\n' 'error: diff --watch requires an interactive terminal; use finish for a noninteractive edit loop.' >&2
+                printf 'AGENT_ACTION: USE_FINISH_LOOP\n'
+                exit 2
+            fi
             python3 "$state_tool" setup-check --profile "$selected_profile"
             run_in_container_interactive python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --watch
+        elif [[ "${1:-}" == "--record" ]]; then
+            shift
+            parse_profile_and_value "usage: ./conker diff --record [--profile us] <work-item-id>" "$@"
+            verify_and_record_match
         else
             parse_profile_and_value "usage: ./conker diff [--profile us] <work-item-id>" "$@"
             python3 "$state_tool" setup-check --profile "$selected_profile"
@@ -413,13 +636,37 @@ case "$command" in
         run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
         python3 "$state_tool" register-game "$@"
         ;;
-    register-source-unit)
-        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>"
+    register-main)
+        [[ $# -eq 6 ]] || die "usage: ./conker register-main --id <id> --us <symbol> --source <path>"
         python3 "$state_tool" setup-check --profile us
-        if [[ ! -d "$repo_root/reference/game/us/asm" ]]; then
+        if [[ ! -d "$repo_root/reference/us/asm" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        fi
+        python3 "$state_tool" register-main "$@"
+        ;;
+    register-source-unit)
+        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>"
+        python3 "$state_tool" setup-check --profile us
+        registration_overlay=game
+        previous_argument=""
+        for argument in "$@"; do
+            if [[ "$previous_argument" == "--overlay" ]]; then
+                registration_overlay="$argument"
+                break
+            fi
+            previous_argument="$argument"
+        done
+        if [[ "$registration_overlay" == "main" && ! -d "$repo_root/reference/us/asm" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        elif [[ "$registration_overlay" == "game" && ! -d "$repo_root/reference/game/us/asm" ]]; then
             run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
         fi
         python3 "$state_tool" register-source-unit "$@"
+        ;;
+    retire-library-units)
+        [[ $# -eq 2 && "$1" == "--evidence-reference" ]] || die "usage: ./conker retire-library-units --evidence-reference <path>"
+        python3 "$state_tool" setup-check --profile us
+        python3 "$state_tool" retire-library-units "$@"
         ;;
     game-m2c)
         parse_profile_and_value "usage: ./conker game-m2c [--profile us] <work-item-id>" "$@"
@@ -437,9 +684,13 @@ case "$command" in
         run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay
         ;;
     game-build)
-        parse_profile_only "usage: ./conker game-build [--profile us]" "$@"
+        parse_game_build_options "usage: ./conker game-build [--profile us] [--refresh]" "$@"
         python3 "$state_tool" setup-check --profile "$selected_profile"
-        run_in_container make --silent --jobs 4 game-integrated GAME_PROFILE="$selected_profile"
+        game_build_target=game-integrated
+        if [[ "$refresh_game_build" == "true" ]]; then
+            game_build_target=game-integrated-refresh
+        fi
+        run_in_container make --silent --jobs 4 "$game_build_target" GAME_PROFILE="$selected_profile"
         ;;
     rzip-extract)
         profile_supplied=false
@@ -458,13 +709,30 @@ case "$command" in
         [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--refresh" ) ]] || die "usage: ./conker beta-index [--refresh]"
         run_in_container python3 scripts/beta_index.py "$@"
         ;;
+    library-audit)
+        [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--json" ) ]] || die "usage: ./conker library-audit [--json]"
+        python3 scripts/audit_library_boundaries.py "$@"
+        ;;
     rareunzip)
         [[ $# -eq 2 ]] || die "usage: ./conker rareunzip <input> <output>"
         run_in_container python3 tools/third_party/rareunzip.py "$@"
         ;;
     libultra)
-        [[ $# -eq 0 ]] || die "usage: ./conker libultra"
-        run_in_container_libultra make libultra
+        libultra_version=L
+        if [[ $# -eq 2 && "$1" == "--version" ]]; then
+            libultra_version="$2"
+        elif [[ $# -ne 0 ]]; then
+            die "usage: ./conker libultra [--version I|J|K|L]"
+        fi
+        case "$libultra_version" in
+            I|J|K|L) ;;
+            *) die "libultra version must be I, J, K, or L" ;;
+        esac
+        run_in_container_libultra make libultra ULTRALIB_VERSION="$libultra_version"
+        ;;
+    libultrare)
+        [[ $# -eq 0 ]] || die "usage: ./conker libultrare"
+        run_in_container_libultra make libultrare
         ;;
     *)
         die "unknown command '$command'. Run ./conker help."

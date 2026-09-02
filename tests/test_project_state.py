@@ -21,31 +21,57 @@ SPEC.loader.exec_module(project_state)
 class ProjectStateTests(unittest.TestCase):
     def test_current_inventory_includes_the_first_game_work_item(self) -> None:
         _, functions = project_state.validate_project()
+        entry = next(
+            entry for entry in functions if entry["symbol"] == "func_15000AC0"
+        )
+        us_record = entry["regions"]["us"]
+
+        self.assertEqual(entry["overlay"], "game")
+        self.assertEqual(us_record["symbol"], "func_15000AC0")
+        self.assertEqual(us_record["vram"], "0x15000AC0")
+        self.assertEqual(us_record["state"], "matched")
+        self.assertEqual(us_record["evidence"]["current_differences"], 0)
+
+    def test_current_summary_is_consistent_with_the_inventory(self) -> None:
+        _, functions = project_state.validate_project()
         result = project_state.summary(functions)
-        self.assertEqual(result["known_functions"], 250)
+
         self.assertEqual(result["active_regions"], ["us"])
         self.assertEqual(result["future_regions"], ["eu"])
-        self.assertEqual(result["target_matched"], 4)
-        self.assertEqual(result["complete_source_units"], 0)
-        self.assertEqual(result["unassigned_functions"], 0)
-        self.assertEqual(result["overlays"]["main"]["target_matched"], 1)
-        self.assertEqual(result["overlays"]["game"]["known_functions"], 248)
-        self.assertEqual(result["overlays"]["game"]["target_matched"], 3)
-        self.assertEqual(result["code_bytes"]["matched_bytes"], 0xD8)
+        self.assertEqual(result["known_functions"], len(functions))
         self.assertEqual(
-            result["code_bytes"]["fully_matched_source_unit_bytes"], 0xA8
+            result["target_matched"],
+            sum(project_state.is_complete(entry) for entry in functions),
         )
-        self.assertEqual(result["code_bytes"]["total_bytes"], 2_237_392)
-        self.assertEqual(result["code_bytes"]["regions"]["us"]["matched_bytes"], 0xD8)
-        self.assertEqual(result["code_bytes"]["regions"]["eu"]["matched_bytes"], 0xA8)
-        self.assertEqual(result["code_bytes"]["regions"]["eu"]["total_bytes"], 2_240_240)
+        self.assertEqual(
+            result["target_matched"] + result["target_remaining"],
+            result["known_functions"],
+        )
+        self.assertEqual(
+            sum(values["known_functions"] for values in result["overlays"].values()),
+            result["known_functions"],
+        )
+        self.assertEqual(result["code_bytes"]["library_text_bytes"], 27_376)
+        self.assertEqual(result["code_bytes"]["matched_bytes"], 31_636)
+        for counts in result["regions"].values():
+            self.assertEqual(sum(counts.values()), result["known_functions"])
+
+    def test_render_badge_formats_the_selected_region_percentage(self) -> None:
+        result = {
+            "code_bytes": {
+                "regions": {
+                    "us": {"percentage": 0.010548},
+                    "eu": {"percentage": 12.5},
+                }
+            }
+        }
 
         us_badge = project_state.render_badge(result, "us")
         eu_badge = project_state.render_badge(result, "eu")
         self.assertEqual(us_badge["label"], "US")
-        self.assertEqual(us_badge["message"], "0.0097%")
+        self.assertEqual(us_badge["message"], "0.0105%")
         self.assertEqual(eu_badge["label"], "EU/PAL")
-        self.assertEqual(eu_badge["message"], "0.0075%")
+        self.assertEqual(eu_badge["message"], "12.5%")
 
     def test_merged_size_does_not_double_count_overlapping_ranges(self) -> None:
         self.assertEqual(project_state.merged_size([(0x10, 0x20), (0x18, 0x28)]), 0x18)
@@ -119,6 +145,99 @@ class ProjectStateTests(unittest.TestCase):
         self.assertEqual(result["fully_matched_source_unit_bytes"], 0)
         self.assertEqual(result["overlays"]["game"]["matched_bytes"], 0x10)
 
+    def test_code_progress_counts_archive_text_in_both_byte_metrics(self) -> None:
+        functions = [
+            {
+                "overlay": "game",
+                "symbol": "func_test",
+                "regions": {"us": {"state": "matched", "vram": "0x15000010"}},
+            }
+        ]
+        units = [
+            {
+                "source": "src/game/func_test.c",
+                "functions": ["func_test"],
+                "regions": {"us": {"start": "0x10", "end": "0x20"}},
+            }
+        ]
+        ranges = {
+            "main": {"us": (0, 0x100), "eu": (0, 0x100)},
+            "game": {"us": (0, 0x100), "eu": (0, 0x100)},
+        }
+        library_ranges = {"main": {"us": [(0x20, 0x40)]}}
+
+        result = project_state.code_progress(
+            functions, units, ranges, library_ranges
+        )
+
+        self.assertEqual(result["matched_bytes"], 0x30)
+        self.assertEqual(result["fully_matched_source_unit_bytes"], 0x30)
+        self.assertEqual(result["library_text_bytes"], 0x20)
+        self.assertEqual(result["overlays"]["main"]["matched_bytes"], 0x20)
+
+    def test_code_progress_rejects_archive_overlap_with_a_source_unit(self) -> None:
+        functions = [
+            {
+                "overlay": "main",
+                "symbol": "func_test",
+                "regions": {"us": {"state": "matched", "vram": "0x80000010"}},
+            }
+        ]
+        units = [
+            {
+                "source": "src/main/func_test.c",
+                "functions": ["func_test"],
+                "regions": {"us": {"start": "0x10", "end": "0x30"}},
+            }
+        ]
+        ranges = {
+            "main": {"us": (0, 0x100), "eu": (0, 0x100)},
+            "game": {"us": (0, 0x100), "eu": (0, 0x100)},
+        }
+
+        with self.assertRaisesRegex(project_state.ProjectStateError, "overlaps"):
+            project_state.code_progress(
+                functions,
+                units,
+                ranges,
+                {"main": {"us": [(0x20, 0x40)]}},
+            )
+
+    def test_mapped_library_text_ranges_use_the_next_map_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            profile_us = root / "config" / "profiles" / "us.yaml"
+            profile_us.parent.mkdir(parents=True)
+            profile_us.write_text(
+                "      - [0x10, asm]\n"
+                "      - [0x20, lib, library, object, .text]\n"
+                "      - [0x30, lib, library, object, .data]\n"
+                "      - [0x40, asm]\n",
+                encoding="utf-8",
+            )
+            (root / "config" / "profiles" / "eu.yaml").write_text(
+                "      - [0x10, asm]\n", encoding="utf-8"
+            )
+            game_maps = root / "config" / "game"
+            game_maps.mkdir(parents=True)
+            for region in project_state.KNOWN_REGIONS:
+                (game_maps / f"{region}.yaml").write_text(
+                    "      - [0x0, asm]\n", encoding="utf-8"
+                )
+            original_root = project_state.ROOT
+            try:
+                project_state.ROOT = root
+                ranges = project_state.mapped_library_text_ranges(
+                    {
+                        "main": {"us": (0x10, 0x50), "eu": (0x10, 0x50)},
+                        "game": {"us": (0, 0x50), "eu": (0, 0x50)},
+                    }
+                )
+            finally:
+                project_state.ROOT = original_root
+
+        self.assertEqual(ranges["main"]["us"], [(0x20, 0x30)])
+
     def test_rejects_unknown_overlay(self) -> None:
         entry = {
             "overlay": "unknown",
@@ -151,6 +270,23 @@ class ProjectStateTests(unittest.TestCase):
             },
         }
         self.assertTrue(project_state.is_complete(entry))
+
+    def test_deferred_function_requires_a_reason_and_revision(self) -> None:
+        entry = {
+            "symbol": "func_12345678",
+            "deferred": {"reason": "", "recorded_revision": "working-tree"},
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_12345678",
+                    "vram": "0x80000000",
+                }
+            },
+        }
+        with self.assertRaisesRegex(project_state.ProjectStateError, "needs a reason"):
+            project_state.validate_functions(
+                {"schema_version": 1, "functions": [entry]}
+            )
 
     def test_completed_source_requires_an_exact_c_map_entry(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
@@ -337,6 +473,419 @@ class ProjectStateTests(unittest.TestCase):
         self.assertIn("size=4 bytes", lines[1])
         self.assertIn("size=8 bytes", lines[2])
 
+    def test_next_one_details_prints_bounded_local_context(self) -> None:
+        function = {
+            "symbol": "func_small",
+            "source": "src/game/effects/test.c",
+            "overlay": "game",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_small",
+                    "vram": "0x15000000",
+                    "size_bytes": 20,
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "src" / "game" / "effects" / "test.c"
+            assembly = (
+                root
+                / "asm"
+                / "nonmatchings"
+                / "effects"
+                / "test"
+                / "func_small.s"
+            )
+            caller = root / "reference" / "game" / "us" / "asm" / "caller.s"
+            source.parent.mkdir(parents=True)
+            assembly.parent.mkdir(parents=True)
+            caller.parent.mkdir(parents=True)
+            source.write_text(
+                '#include "types.h"\n\n'
+                'extern s32 D_test;\n\n'
+                '#pragma GLOBAL_ASM("asm/nonmatchings/effects/test/func_small.s")\n',
+                encoding="utf-8",
+            )
+            assembly.write_text("glabel func_small\n    jr $ra\n", encoding="utf-8")
+            caller.write_text(
+                "    or         $a0, $s0, $zero\n"
+                "    addiu      $a1, $zero, 1\n"
+                "    or         $a2, $zero, $zero\n"
+                "    jal        func_small\n"
+                "     nop\n",
+                encoding="utf-8",
+            )
+            output = io.StringIO()
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(
+                    project_state,
+                    "validate_project",
+                    return_value=({}, [function]),
+                ),
+                patch.object(project_state, "load_json", return_value={}),
+                patch.object(project_state, "validate_source_units", return_value=[]),
+                redirect_stdout(output),
+            ):
+                project_state.next_function(SimpleNamespace(one=True, details=True))
+
+        details = output.getvalue()
+        self.assertIn("work-item: func_small", details)
+        self.assertIn("allowed-edit: src/game/effects/test.c", details)
+        self.assertIn("target-file-dirty: unknown", details)
+        self.assertIn("source-unit-state: not-reviewed", details)
+        self.assertIn("post-match-action: stop", details)
+        self.assertIn("issue: none recorded; do not query GitHub", details)
+        self.assertIn("finish: ./conker finish func_small", details)
+        self.assertIn("raw-us-call-sites:\n  reference/game/us/asm/caller.s:4", details)
+        self.assertIn("    jal        func_small", details)
+        self.assertIn("assembly-body:\n  glabel func_small", details)
+        self.assertIn("source-line: 5", details)
+        self.assertIn('extern s32 D_test;', details)
+
+    def test_next_source_unit_guidance_reports_required_integration(self) -> None:
+        target = {
+            "symbol": "func_target",
+            "source": "src/game/test.c",
+            "overlay": "game",
+            "regions": {"us": {"state": "raw_asm"}},
+        }
+        other = {
+            "symbol": "func_other",
+            "source": "src/game/test.c",
+            "overlay": "game",
+            "regions": {"us": {"state": "raw_asm"}},
+        }
+        unit = {
+            "source": "src/game/test.c",
+            "functions": ["func_target", "func_other"],
+            "integration": "raw_asm",
+        }
+
+        self.assertEqual(
+            project_state.next_source_unit_guidance(target, [target, other], [unit]),
+            ("raw_asm", "integrate"),
+        )
+
+        unit["integration"] = "mixed"
+        self.assertEqual(
+            project_state.next_source_unit_guidance(target, [target, other], [unit]),
+            ("mixed", "stop"),
+        )
+        other["regions"]["us"]["state"] = "matched"
+        self.assertEqual(
+            project_state.next_source_unit_guidance(target, [target, other], [unit]),
+            ("mixed", "integrate"),
+        )
+
+    def test_git_path_dirty_reports_porcelain_state(self) -> None:
+        with patch.object(
+            project_state.subprocess,
+            "run",
+            return_value=SimpleNamespace(returncode=0, stdout=" M src/game/test.c\n"),
+        ):
+            self.assertEqual(project_state.git_path_dirty("src/game/test.c"), "yes")
+
+        with patch.object(
+            project_state.subprocess,
+            "run",
+            return_value=SimpleNamespace(returncode=0, stdout=""),
+        ):
+            self.assertEqual(project_state.git_path_dirty("src/game/test.c"), "no")
+
+    def test_batch_plan_resolves_matched_overlays(self) -> None:
+        functions = [
+            {
+                "symbol": "func_main",
+                "regions": {"us": {"state": "matched"}},
+            },
+            {
+                "symbol": "func_game",
+                "overlay": "game",
+                "regions": {"us": {"state": "matched"}},
+            },
+        ]
+        output = io.StringIO()
+        with (
+            patch.object(project_state, "validate_project", return_value=({}, functions)),
+            redirect_stdout(output),
+        ):
+            project_state.batch_plan(["func_game", "func_main"])
+
+        self.assertEqual("main game\n", output.getvalue())
+
+    def test_batch_plan_rejects_unmatched_work_item(self) -> None:
+        function = {
+            "symbol": "func_test",
+            "overlay": "game",
+            "regions": {"us": {"state": "raw_asm"}},
+        }
+        with (
+            patch.object(project_state, "validate_project", return_value=({}, [function])),
+            self.assertRaisesRegex(
+                project_state.ProjectStateError,
+                "verify-batch requires matched active work items",
+            ),
+        ):
+            project_state.batch_plan(["func_test"])
+
+    def test_batch_fingerprint_changes_with_source_content(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("void func_test(void) {}\n", encoding="utf-8")
+            with patch.object(project_state, "ROOT", root):
+                before = project_state.batch_fingerprint()
+                source.write_text("void func_test(void) { return; }\n", encoding="utf-8")
+                after = project_state.batch_fingerprint()
+
+        self.assertNotEqual(before, after)
+
+    def test_next_one_id_only_prints_only_the_work_item_identifier(self) -> None:
+        function = {
+            "symbol": "func_small",
+            "source": "src/game/test.c",
+            "overlay": "game",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_small",
+                    "vram": "0x15000000",
+                    "size_bytes": 4,
+                }
+            },
+        }
+        output = io.StringIO()
+        with (
+            patch.object(
+                project_state,
+                "validate_project",
+                return_value=({}, [function]),
+            ),
+            patch.object(project_state, "load_json", return_value={}),
+            patch.object(project_state, "validate_source_units", return_value=[]),
+            redirect_stdout(output),
+        ):
+            project_state.next_function(
+                SimpleNamespace(one=True, details=False, id_only=True)
+            )
+
+        self.assertEqual("func_small\n", output.getvalue())
+
+    def test_next_skips_deferred_work_items(self) -> None:
+        functions = []
+        for symbol, size in (("func_deferred", 4), ("func_ready", 8)):
+            functions.append(
+                {
+                    "symbol": symbol,
+                    "source": "src/game/test.c",
+                    "overlay": "game",
+                    "regions": {
+                        "us": {
+                            "state": "raw_asm",
+                            "symbol": symbol,
+                            "vram": "0x15000000",
+                            "size_bytes": size,
+                        }
+                    },
+                }
+            )
+        functions[0]["deferred"] = {
+            "reason": "register allocation",
+            "recorded_revision": "working-tree",
+            "candidate_preserved": True,
+        }
+        output = io.StringIO()
+        with (
+            patch.object(project_state, "validate_project", return_value=({}, functions)),
+            patch.object(project_state, "load_json", return_value={}),
+            patch.object(project_state, "validate_source_units", return_value=[]),
+            redirect_stdout(output),
+        ):
+            project_state.next_function(
+                SimpleNamespace(one=True, details=False, id_only=True)
+            )
+
+        self.assertEqual("func_ready\n", output.getvalue())
+
+    def test_defer_preserves_and_resume_restores_the_best_c_candidate(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            original_source = (
+                "void func_test(void) {\n"
+                "    const char *brace = \"}\";\n"
+                "    if (brace[0]) { /* ignored } */\n"
+                "        return;\n"
+                "    }\n"
+                "}\n"
+            )
+            source.write_text(original_source, encoding="utf-8")
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.defer_function(
+                    SimpleNamespace(
+                        symbol="func_test", reason="register allocation", score=30
+                    )
+                )
+                deferred = json.loads(inventory.read_text(encoding="utf-8"))
+                deferred_source = source.read_text(encoding="utf-8")
+                self.assertEqual(
+                    "register allocation",
+                    deferred["functions"][0]["deferred"]["reason"],
+                )
+                self.assertTrue(
+                    deferred["functions"][0]["deferred"]["candidate_preserved"]
+                )
+                self.assertEqual(
+                    30, deferred["functions"][0]["deferred"]["current_score"]
+                )
+                self.assertIn(
+                    "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (30) */",
+                    deferred_source,
+                )
+                self.assertIn(original_source.rstrip(), deferred_source)
+                self.assertIn(
+                    '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")',
+                    deferred_source,
+                )
+                project_state.resume_function(SimpleNamespace(symbol="func_test"))
+                resumed = json.loads(inventory.read_text(encoding="utf-8"))
+                self.assertEqual(original_source, source.read_text(encoding="utf-8"))
+
+        self.assertNotIn("deferred", resumed["functions"][0])
+
+    def test_normalizes_reviewed_source_unit_header_below_includes(self) -> None:
+        header = (
+            "/*\n"
+            " * Reviewed source unit: src/game/test.c\n"
+            " * Boundary evidence: docs/evidence/test.md\n"
+            " */\n"
+        )
+        content = (
+            '#include "types.h"\n\n'
+            "typedef struct Test { s32 value; } Test;\n\n"
+            f"{header}\n"
+            "void func_test(void) {}\n"
+        )
+
+        normalized = project_state.normalize_source_unit_header(content)
+
+        self.assertTrue(
+            normalized.startswith('#include "types.h"\n\n' + header + "\n")
+        )
+        self.assertEqual(1, normalized.count("Reviewed source unit:"))
+        self.assertTrue(project_state.source_unit_header_follows_includes(normalized))
+        self.assertLess(normalized.index(header), normalized.index("typedef struct Test"))
+
+    def test_detects_reviewed_source_unit_header_below_declarations(self) -> None:
+        content = (
+            '#include "types.h"\n\n'
+            "extern s32 D_80000000;\n\n"
+            "/*\n * Reviewed source unit: src/game/test.c\n */\n"
+        )
+
+        self.assertFalse(project_state.source_unit_header_follows_includes(content))
+
+    def test_defer_rejects_a_function_that_still_uses_global_asm(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+                self.assertRaisesRegex(
+                    project_state.ProjectStateError, "add the best C candidate"
+                ),
+            ):
+                project_state.defer_function(
+                    SimpleNamespace(
+                        symbol="func_test", reason="register allocation", score=30
+                    )
+                )
+
+    def test_validation_rejects_deferred_inventory_without_source_candidate(self) -> None:
+        function = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "deferred": {
+                "reason": "register allocation",
+                "recorded_revision": "working-tree",
+                "candidate_preserved": True,
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            with (
+                patch.object(project_state, "ROOT", root),
+                self.assertRaisesRegex(
+                    project_state.ProjectStateError,
+                    "lacks a preserved deferred candidate",
+                ),
+            ):
+                project_state.validate_deferred_candidate_sources([function])
+
+    def test_next_details_requires_one(self) -> None:
+        with self.assertRaisesRegex(project_state.ProjectStateError, "requires --one"):
+            project_state.next_function(SimpleNamespace(one=False, details=True))
+
+    def test_next_id_only_requires_one(self) -> None:
+        with self.assertRaisesRegex(project_state.ProjectStateError, "requires --one"):
+            project_state.next_function(
+                SimpleNamespace(one=False, details=False, id_only=True)
+            )
+
 
 class GameInventoryTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -369,6 +918,7 @@ class GameInventoryTests(unittest.TestCase):
         self.write_inventory()
         self.write_assembly("us", "func_15000000", "func_15000004")
         self.write_assembly("eu", "func_15001000", "func_15001004")
+        self.write_main_assembly("us", "func_80001000", "func_80001004")
 
     def tearDown(self) -> None:
         for name, value in self.original_paths.items():
@@ -427,6 +977,14 @@ class GameInventoryTests(unittest.TestCase):
             "      - [0x10, asm]\n",
             encoding="utf-8",
         )
+        main_map = self.root / "config" / "profiles" / "us.yaml"
+        main_map.parent.mkdir(parents=True, exist_ok=True)
+        main_map.write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm]\n"
+            "      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
 
     def write_assembly(self, region: str, first_symbol: str, second_symbol: str) -> None:
         assembly = self.root / "reference" / "game" / region / "asm" / "sample.s"
@@ -446,11 +1004,174 @@ class GameInventoryTests(unittest.TestCase):
             encoding="utf-8",
         )
 
+    def write_main_assembly(self, region: str, first_symbol: str, second_symbol: str) -> None:
+        assembly = self.root / "reference" / region / "asm" / "sample.s"
+        assembly.parent.mkdir(parents=True, exist_ok=True)
+        assembly.write_text(
+            "\n".join(
+                (
+                    f"glabel {first_symbol}",
+                    "    /* 0 80001000 00000000 */  nop",
+                    f"glabel {second_symbol}",
+                    "    /* 4 80001004 03E00008 */  jr         $ra",
+                    "    /* 8 80001008 00000000 */   nop",
+                    "",
+                )
+            ),
+            encoding="utf-8",
+        )
+
+    def register_main_library_unit(self) -> tuple[str, str]:
+        source = "src/libultra/os/interrupt.c"
+        evidence = "docs/evidence/libultra.md"
+        for identifier, symbol in (
+            ("__osDisableInt", "func_80001000"),
+            ("__osRestoreInt", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["__osDisableInt", "__osRestoreInt"],
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="object_symbols",
+                evidence_reference=evidence,
+            )
+        )
+        (self.root / "config/profiles/us.yaml").write_text(
+            "    subsegments:\n"
+            "      - [0x0, lib, libultra_2_0I, interrupt, .text]\n"
+            "      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
+        reference_map = self.root / "config/reference/us.yaml"
+        reference_map.parent.mkdir(parents=True, exist_ok=True)
+        reference_map.write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm, libultra/os/interrupt]\n"
+            "      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
+        return source, evidence
+
     def test_parses_sorted_game_functions_with_ranges(self) -> None:
         functions = project_state.parse_game_functions("us")
         self.assertEqual(["func_15000000", "func_15000004"], [function.symbol for function in functions])
         self.assertEqual((0, 4), (functions[0].offset, functions[0].end))
         self.assertEqual((4, 12), (functions[1].offset, functions[1].end))
+
+    def test_parses_sorted_main_functions_with_ranges(self) -> None:
+        functions = project_state.parse_main_functions("us")
+        self.assertEqual(
+            ["func_80001000", "func_80001004"],
+            [function.symbol for function in functions],
+        )
+        self.assertEqual((0, 4), (functions[0].offset, functions[0].end))
+        self.assertEqual((4, 12), (functions[1].offset, functions[1].end))
+
+    def test_register_main_and_reviewed_source_unit(self) -> None:
+        source = "src/libultrare/libc/xprintf.c"
+        for identifier, symbol in (
+            ("_Printf", "func_80001000"),
+            ("_Putfld", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["_Printf", "_Putfld"],
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/libultrare.md",
+            )
+        )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            ["main", "main"],
+            [entry["overlay"] for entry in functions["functions"]],
+        )
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(["_Printf", "_Putfld"], units["source_units"][0]["functions"])
+        skeleton = self.root / source
+        self.assertIn(
+            '#pragma GLOBAL_ASM("asm/nonmatchings/libultrare/libc/xprintf/_Printf.s")',
+            skeleton.read_text(encoding="utf-8"),
+        )
+
+    def test_register_main_source_unit_accepts_adjacent_lib_endpoint(self) -> None:
+        source = "src/libultra/os/interrupt.c"
+        for identifier, symbol in (
+            ("__osDisableInt", "func_80001000"),
+            ("__osRestoreInt", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+        (self.root / "config/profiles/us.yaml").write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm, libultra/os/interrupt]\n"
+            "      - [0x10, lib, libultra_rom, stopthread, .text]\n",
+            encoding="utf-8",
+        )
+
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["__osDisableInt", "__osRestoreInt"],
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="object_symbols",
+                evidence_reference="docs/evidence/libultra.md",
+            )
+        )
+
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(source, units["source_units"][0]["source"])
+
+    def test_retire_library_units_removes_only_archive_backed_raw_skeletons(self) -> None:
+        source, evidence = self.register_main_library_unit()
+
+        project_state.retire_library_units(
+            SimpleNamespace(evidence_reference=evidence)
+        )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual([], functions["functions"])
+        self.assertEqual([], units["source_units"])
+        self.assertFalse((self.root / source).exists())
+
+    def test_retire_library_units_preserves_modified_source(self) -> None:
+        source, evidence = self.register_main_library_unit()
+        source_path = self.root / source
+        source_path.write_text(
+            source_path.read_text(encoding="utf-8") + "/* local work */\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(
+            project_state.ProjectStateError, "refusing to remove modified"
+        ):
+            project_state.retire_library_units(
+                SimpleNamespace(evidence_reference=evidence)
+            )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(2, len(functions["functions"]))
+        self.assertEqual(1, len(units["source_units"]))
+        self.assertTrue(source_path.is_file())
 
     def test_register_game_registers_function_without_source_unit(self) -> None:
         arguments = SimpleNamespace(
@@ -555,6 +1276,11 @@ class GameInventoryTests(unittest.TestCase):
         self.assertTrue(skeleton.is_file())
         skeleton_content = skeleton.read_text(encoding="utf-8")
         self.assertIn('#include "types.h"', skeleton_content)
+        self.assertTrue(
+            skeleton_content.startswith(
+                '#include "types.h"\n\n/*\n * Reviewed source unit:'
+            )
+        )
         self.assertIn("Boundary evidence: review/object-map.txt", skeleton_content)
         self.assertIn("TODO: Implement these source-unit functions", skeleton_content)
         self.assertIn(" * - func_game_first", skeleton_content)
@@ -655,6 +1381,59 @@ class GameInventoryTests(unittest.TestCase):
             "Matched for active target: **1**",
             project_state.DOCUMENT_FILE.read_text(encoding="utf-8"),
         )
+
+    def test_mark_matched_removes_completed_source_todo_block(self) -> None:
+        project_state.register_game(
+            SimpleNamespace(
+                identifier="func_game_test",
+                source="src/game/reviewed_unit.c",
+                us="func_15000000",
+            )
+        )
+        project_state.register_source_unit(
+            SimpleNamespace(
+                source="src/game/reviewed_unit.c",
+                functions=None,
+                register_members=True,
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/reviewed.md",
+            )
+        )
+        source_path = self.root / "src/game/reviewed_unit.c"
+        source_path.write_text(
+            source_path.read_text(encoding="utf-8").replace(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/reviewed_unit/func_game_test.s")',
+                "void func_game_test(void) {}",
+            ),
+            encoding="utf-8",
+        )
+
+        project_state.mark_matched(
+            SimpleNamespace(profile="us", symbol="func_game_test")
+        )
+
+        source = source_path.read_text(encoding="utf-8")
+        self.assertNotIn(" * - func_game_test\n", source)
+        self.assertIn(" * - func_15000004\n", source)
+        self.assertIn("Unmatched members use generated GLOBAL_ASM", source)
+        source_path.write_text(
+            source.replace(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/reviewed_unit/func_15000004.s")',
+                "void func_15000004(void) {}",
+            ),
+            encoding="utf-8",
+        )
+
+        project_state.mark_matched(
+            SimpleNamespace(profile="us", symbol="func_15000004")
+        )
+
+        source = source_path.read_text(encoding="utf-8")
+        self.assertNotIn("TODO: Implement these source-unit functions", source)
+        self.assertNotIn("Unmatched members use generated GLOBAL_ASM", source)
+        self.assertIn("Boundary evidence: docs/evidence/reviewed.md", source)
 
     def test_mark_matched_rejects_unknown_work_item(self) -> None:
         with self.assertRaises(project_state.ProjectStateError):

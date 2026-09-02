@@ -146,10 +146,19 @@ class IntegrationTests(unittest.TestCase):
 
     @mock.patch.object(integrate.subprocess, "run")
     def test_integrates_matched_game_source_after_byte_identical_build(self, run: mock.Mock) -> None:
+        def assert_build_sees_finalized_project(*args: object, **kwargs: object) -> None:
+            functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+            units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+            self.assertEqual("src/game/done/func_test.c", functions["functions"][0]["source"])
+            self.assertEqual("src/game/done/func_test.c", units["source_units"][0]["source"])
+            self.assertEqual("c", units["source_units"][0]["integration"])
+            self.assertTrue((self.root / "src/game/done/func_test.c").is_file())
+
+        run.side_effect = assert_build_sees_finalized_project
         integrate.integrate("func_test", "us")
 
         run.assert_called_once_with(
-            ["make", "--silent", "--jobs", "4", "game-integrated"],
+            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
             cwd=self.root,
             check=True,
         )
@@ -166,7 +175,7 @@ class IntegrationTests(unittest.TestCase):
 
     @mock.patch.object(integrate.subprocess, "run")
     def test_failed_build_restores_source_map_and_inventories(self, run: mock.Mock) -> None:
-        run.side_effect = subprocess.CalledProcessError(1, ["make", "game-integrated"])
+        run.side_effect = subprocess.CalledProcessError(1, ["make", "game-integrated-refresh"])
         original_map = (self.root / "config/game/us.yaml").read_bytes()
         original_functions = project_state.FUNCTIONS_FILE.read_bytes()
         original_units = project_state.SOURCE_UNITS_FILE.read_bytes()

@@ -23,6 +23,13 @@ TOOLCHAIN_DEFINITION = ROOT / "Dockerfile"
 GLOBAL_ASM_LINE = re.compile(
     r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\([^\r\n]*\)[ \t]*\r?$", re.MULTILINE
 )
+EXIT_MISMATCH = 1
+EXIT_FIX_COMPILE = 2
+EXIT_BLOCKED_TOOLING = 3
+
+
+class NonzeroDifferenceError(ValueError):
+    """Raised when valid asm-differ evidence reports a nonzero score."""
 
 
 def find_work_item(symbol: str, profile: str, *, overlay: str | None = None) -> tuple[Path, str]:
@@ -197,7 +204,7 @@ def require_zero_difference(output: str, symbol: str) -> None:
 
     current_differences = current_difference_count(output)
     if current_differences != 0:
-        raise ValueError(
+        raise NonzeroDifferenceError(
             f"{symbol} is not matched: CURRENT ({current_differences}); inventory was not changed"
         )
 
@@ -259,6 +266,72 @@ def run_asm_diff(command: list[str], directory: Path) -> int:
         return 130
 
 
+def run_required_asm_diff(
+    candidate: Path,
+    reference: Path,
+    symbol: str,
+    directory: Path,
+) -> int:
+    """Verify an exact match, showing the normal diff when verification fails."""
+
+    evidence_command = asm_diff_command(
+        candidate,
+        reference,
+        symbol,
+        require_match=True,
+    )
+    result = subprocess.run(
+        evidence_command,
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        return EXIT_BLOCKED_TOOLING
+    try:
+        require_zero_difference(result.stdout, symbol)
+    except NonzeroDifferenceError as error:
+        display_command = asm_diff_command(candidate, reference, symbol)
+        run_asm_diff(display_command, directory)
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_MISMATCH
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+    print(f"{symbol}: CURRENT (0)")
+    return 0
+
+
+def run_score_only_diff(
+    candidate: Path,
+    reference: Path,
+    symbol: str,
+    directory: Path,
+) -> int:
+    """Print only the machine-readable focused-diff score for shell callers."""
+
+    result = subprocess.run(
+        asm_diff_command(candidate, reference, symbol, require_match=True),
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        return EXIT_BLOCKED_TOOLING
+    try:
+        print(current_difference_count(result.stdout))
+    except ValueError as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("profile", choices=("us", "eu"))
@@ -267,10 +340,13 @@ def main() -> int:
     mode.add_argument("--game", action="store_true", help="compare a registered game-overlay candidate")
     mode.add_argument("--auto-overlay", action="store_true", help="resolve the overlay from the work-item ID")
     parser.add_argument("--require-match", action="store_true", help="fail unless asm-differ reports CURRENT (0)")
+    parser.add_argument("--score-only", action="store_true", help="print only the focused-diff score")
     parser.add_argument("--watch", action="store_true", help="watch the candidate source and rebuild inside this container")
     arguments = parser.parse_args()
-    if arguments.watch and arguments.require_match:
-        parser.error("--watch and --require-match cannot be combined")
+    if arguments.watch and (arguments.require_match or arguments.score_only):
+        parser.error("--watch cannot be combined with --require-match or --score-only")
+    if arguments.require_match and arguments.score_only:
+        parser.error("--require-match and --score-only cannot be combined")
 
     try:
         if arguments.auto_overlay:
@@ -287,8 +363,18 @@ def main() -> int:
         )
         if not source.is_file():
             raise ValueError(f"candidate source does not exist: {source.relative_to(ROOT)}")
+    except (ValueError, subprocess.CalledProcessError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+
+    try:
         require_c_implementation(source, arguments.symbol)
         candidate = compile_candidate(arguments.profile, source)
+    except (ValueError, subprocess.CalledProcessError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_FIX_COMPILE
+
+    try:
         reference = reference_object(
             arguments.profile,
             symbol,
@@ -299,31 +385,21 @@ def main() -> int:
             raise ValueError(
                 f"reference object does not exist: {reference.relative_to(ROOT)}; run ./conker build --profile {arguments.profile} first"
             )
-    except (ValueError, subprocess.CalledProcessError) as error:
+    except (ValueError, subprocess.CalledProcessError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
-        return 1
+        return EXIT_BLOCKED_TOOLING
 
     directory = write_settings(arguments.profile, source)
+    if arguments.score_only:
+        return run_score_only_diff(candidate, reference, symbol, directory)
+    if arguments.require_match:
+        return run_required_asm_diff(candidate, reference, symbol, directory)
     command = asm_diff_command(
         candidate,
         reference,
         symbol,
-        require_match=arguments.require_match,
         watch=arguments.watch,
     )
-    if arguments.require_match:
-        result = subprocess.run(command, cwd=directory, check=False, capture_output=True, text=True)
-        if result.returncode:
-            sys.stdout.write(result.stdout)
-            sys.stderr.write(result.stderr)
-            return result.returncode
-        try:
-            require_zero_difference(result.stdout, arguments.symbol)
-        except ValueError as error:
-            print(f"error: {error}", file=sys.stderr)
-            return 1
-        print(f"{arguments.symbol}: CURRENT (0)")
-        return 0
     return run_asm_diff(command, directory)
 
 

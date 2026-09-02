@@ -84,6 +84,156 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertTrue(any(pattern in patterns for pattern in ("*.n64", "*.n64*")))
         self.assertIn("*.v64", patterns)
 
+    def test_game_build_has_incremental_and_explicit_refresh_paths(self) -> None:
+        makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+
+        self.assertIn("game-integrated-prepare: $(GAME_INTEGRATED_PREPARED)", makefile)
+        self.assertIn("game-integrated-refresh:", makefile)
+        self.assertIn('rm -f "$(GAME_INTEGRATED_PREPARED)"', makefile)
+        self.assertIn("game-build [--profile us] [--refresh]", script)
+        self.assertIn("game_build_target=game-integrated-refresh", script)
+
+    def test_us_build_prepares_libultra_through_the_writable_mount(self) -> None:
+        makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+
+        self.assertIn("MODERN_LD=1", makefile)
+        self.assertIn("run_in_container_libultra make profile-libs PROFILE=us", script)
+        self.assertIn("PROFILE_LIB_L_us", makefile)
+        self.assertIn("PROFILE_LIB_LD_us", makefile)
+        self.assertIn("PROFILE_LIB_I_us", makefile)
+        self.assertIn("PROFILE_LIB_RARE_us", makefile)
+        self.assertIn("--whole-archive", makefile)
+        self.assertIn("$(MAKE) --no-print-directory libultrare", makefile)
+        self.assertIn("ULTRALIB_TARGET=libultra_d", makefile)
+        for forced_symbol in (
+            "_bzero",
+            "osInvalICache",
+            "osInvalDCache",
+            "_Litob",
+            "__osPiCreateAccessQueue",
+            "_bcopy",
+            "osWritebackDCache",
+            "osSetIntMask",
+            "osWritebackDCacheAll",
+            "__osSiCreateAccessQueue",
+            "osMapTLB",
+            "__sinf",
+            "__ll_div",
+            "__osProbeTLB",
+            "osViModeMpalLan1",
+            "osViModeNtscLan1",
+            "__libm_qnan_f",
+        ):
+            self.assertIn(f"-u {forced_symbol}", makefile)
+        self.assertNotIn("--defsym=__osProbeTLB", makefile)
+        for archive_defined_symbol in (
+            "__osThreadTail",
+            "__osRunQueue",
+            "__osRunningThread",
+            "__libm_qnan_f",
+        ):
+            self.assertNotIn(f"--defsym={archive_defined_symbol}", makefile)
+
+    def test_libultra_research_command_limits_supported_versions(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        libultra_case = script.split("    libultra)", 1)[1].split("\n    *)", 1)[0]
+
+        self.assertIn('libultra_version=L', libultra_case)
+        self.assertIn('"--version"', libultra_case)
+        self.assertIn('I|J|K|L)', libultra_case)
+        self.assertIn('ULTRALIB_VERSION="$libultra_version"', libultra_case)
+
+    def test_library_audit_has_a_bounded_supported_command(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        audit_case = script.split("    library-audit)", 1)[1].split("        ;;", 1)[0]
+
+        self.assertIn("library-audit [--json]", script)
+        self.assertIn('[[ $# -eq 0 || ( $# -eq 1 && "$1" == "--json" ) ]]', audit_case)
+        self.assertIn("python3 scripts/audit_library_boundaries.py", audit_case)
+
+    def test_library_owned_sources_do_not_remain_as_generic_source_units(self) -> None:
+        libultra_sources = sorted(
+            path.relative_to(ROOT).as_posix()
+            for path in (ROOT / "src" / "libultra").rglob("*")
+            if path.is_file()
+        )
+        libultrare_sources = sorted(
+            path.relative_to(ROOT).as_posix()
+            for path in (ROOT / "src" / "libultrare").rglob("*")
+            if path.is_file()
+        )
+
+        self.assertEqual([], libultra_sources)
+        self.assertEqual(
+            [
+                "src/libultrare/libc/syncprintf.c",
+                "src/libultrare/libc/xldtob.c",
+                "src/libultrare/libc/xprintf.c",
+            ],
+            libultrare_sources,
+        )
+
+    def test_agent_workflow_prewarms_and_composes_the_per_function_gate(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        prepare_body = script.split("prepare_next_work() {", 1)[1].split("\n}", 1)[0]
+        finish_case = script.split("    finish)", 1)[1].split("        ;;", 1)[0]
+        watch_case = script.split('if [[ "${1:-}" == "--watch" ]]', 1)[1].split(
+            "        elif", 1
+        )[0]
+        batch_case = script.split("    verify-batch)", 1)[1].split("        ;;", 1)[0]
+
+        self.assertIn('next --one --details', prepare_body)
+        self.assertNotIn('next --one --id-only', prepare_body)
+        self.assertIn("ensure_warm_container", prepare_body)
+        self.assertIn(
+            'run_host_mips_to_c us "$identifier" --auto-overlay --ready-output',
+            prepare_body,
+        )
+        self.assertNotIn("remove_warm_container", prepare_body)
+
+        self.assertIn("verify_and_record_match", finish_case)
+        self.assertIn('progress --check', finish_case)
+        self.assertIn("core.whitespace=cr-at-eol diff --check", finish_case)
+        self.assertIn("AGENT_ACTION: FIX_COMPILE", finish_case)
+        self.assertIn("AGENT_ACTION: CONTINUE_MISMATCH", finish_case)
+        self.assertIn("AGENT_ACTION: BLOCKED_TOOLING", finish_case)
+        self.assertIn("AGENT_ACTION: STOP_MATCHED", finish_case)
+
+        self.assertIn("! -t 0 || ! -t 1", watch_case)
+        self.assertIn("AGENT_ACTION: USE_FINISH_LOOP", watch_case)
+
+        self.assertIn('batch-plan "$@"', batch_case)
+        self.assertIn("game-integrated-refresh", batch_case)
+        self.assertIn("game-integrated", batch_case)
+        self.assertIn("python3 -m unittest discover -s tests -q -b", batch_case)
+        self.assertIn("batch-fingerprint", batch_case)
+        self.assertIn("clean-integration-failure.sha256", batch_case)
+        self.assertIn("AGENT_ACTION: FIX_INTEGRATION", batch_case)
+        self.assertIn("AGENT_ACTION: BATCH_COMPLETE", batch_case)
+        self.assertLess(
+            batch_case.index("already failed clean integration"),
+            batch_case.index('batch-plan "$@"'),
+        )
+
+    def test_docker_access_is_checked_before_image_download(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        ensure_image = script.split("ensure_image() {", 1)[1].split("\n}", 1)[0]
+
+        self.assertIn("require_docker || return 1", ensure_image)
+        self.assertIn("require_docker_access || return 1", ensure_image)
+        self.assertLess(
+            ensure_image.index("require_docker_access"),
+            ensure_image.index("docker pull"),
+        )
+
+    def test_canonical_scalar_aliases_cover_m2c_integer_types(self) -> None:
+        types = (ROOT / "include" / "types.h").read_text(encoding="utf-8")
+
+        for alias in ("s8", "u8", "s16", "u16", "s32", "u32", "s64", "u64"):
+            self.assertRegex(types, rf"typedef [^;]+ {alias};")
+
 
 if __name__ == "__main__":
     unittest.main()

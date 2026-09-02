@@ -176,16 +176,21 @@ def integrate(symbol: str, profile: str) -> None:
             unit["integration"] = "mixed"
             unit["regions"][profile]["state"] = project_state.source_unit_work_state(members)
 
-        build_target = "build" if overlay == "main" else "game-integrated"
+        # The build validates the on-disk project state. Publish the transactional
+        # inventory changes before invoking it so finalized units point at the
+        # source after it has moved into src/game/done/. The snapshots above
+        # restore these files if validation or the build fails.
+        validated_functions = project_state.validate_functions(functions_data)
+        project_state.validate_source_units(units_data, validated_functions)
+        project_state.write_json(project_state.FUNCTIONS_FILE, functions_data)
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, units_data)
+
+        build_target = "build" if overlay == "main" else "game-integrated-refresh"
         command = ["make", "--silent", "--jobs", "4", build_target]
         if overlay == "main":
             command.append(f"PROFILE={profile}")
         subprocess.run(command, cwd=ROOT, check=True)
 
-        validated_functions = project_state.validate_functions(functions_data)
-        project_state.validate_source_units(units_data, validated_functions)
-        project_state.write_json(project_state.FUNCTIONS_FILE, functions_data)
-        project_state.write_json(project_state.SOURCE_UNITS_FILE, units_data)
         project_state.render_progress(validated_functions)
     except BaseException:
         for path, content in snapshots.items():
@@ -279,7 +284,7 @@ def integrate_all_reviewed(profile: str) -> None:
             unit["integration"] = "mixed"
             unit["regions"][profile]["state"] = project_state.source_unit_work_state(members)
         subprocess.run(
-            ["make", "--silent", "--jobs", "4", "game-integrated"],
+            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
             cwd=ROOT,
             check=True,
         )
