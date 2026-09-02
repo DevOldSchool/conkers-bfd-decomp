@@ -22,6 +22,8 @@ jobs:
           ./conker progress check
           git -c core.whitespace=cr-at-eol diff --check
           bash -n conker scripts/conker.sh
+      - name: Install test dependencies
+        run: python3 -m pip install PyYAML
       - name: Test project tooling
         run: python3 -m unittest discover -s tests -v
       - name: Build the public toolchain image
