@@ -94,6 +94,77 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("game-build [--profile us] [--refresh]", script)
         self.assertIn("game_build_target=game-integrated-refresh", script)
 
+    def test_us_build_prepares_libultra_through_the_writable_mount(self) -> None:
+        makefile = (ROOT / "Makefile").read_text(encoding="utf-8")
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+
+        self.assertIn("MODERN_LD=1", makefile)
+        self.assertIn("run_in_container_libultra make profile-libs PROFILE=us", script)
+        self.assertIn("PROFILE_LIB_L_us", makefile)
+        self.assertIn("PROFILE_LIB_I_us", makefile)
+        self.assertIn("PROFILE_LIB_RARE_us", makefile)
+        self.assertIn("--whole-archive", makefile)
+        self.assertIn("$(MAKE) --no-print-directory libultrare", makefile)
+        for forced_symbol in (
+            "_bzero",
+            "osInvalICache",
+            "osInvalDCache",
+            "_Litob",
+            "__osPiCreateAccessQueue",
+            "_bcopy",
+            "osWritebackDCache",
+            "osSetIntMask",
+            "osWritebackDCacheAll",
+            "__osSiCreateAccessQueue",
+            "osMapTLB",
+            "__sinf",
+            "__ll_div",
+            "__osProbeTLB",
+            "osViModeMpalLan1",
+            "osViModeNtscLan1",
+            "__libm_qnan_f",
+        ):
+            self.assertIn(f"-u {forced_symbol}", makefile)
+        self.assertNotIn("--defsym=__osProbeTLB", makefile)
+        for archive_defined_symbol in (
+            "__osThreadTail",
+            "__osRunQueue",
+            "__osRunningThread",
+            "__libm_qnan_f",
+        ):
+            self.assertNotIn(f"--defsym={archive_defined_symbol}", makefile)
+
+    def test_libultra_research_command_limits_supported_versions(self) -> None:
+        script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        libultra_case = script.split("    libultra)", 1)[1].split("\n    *)", 1)[0]
+
+        self.assertIn('libultra_version=L', libultra_case)
+        self.assertIn('"--version"', libultra_case)
+        self.assertIn('I|J|K|L)', libultra_case)
+        self.assertIn('ULTRALIB_VERSION="$libultra_version"', libultra_case)
+
+    def test_library_owned_sources_do_not_remain_as_generic_source_units(self) -> None:
+        libultra_sources = sorted(
+            path.relative_to(ROOT).as_posix()
+            for path in (ROOT / "src" / "libultra").rglob("*")
+            if path.is_file()
+        )
+        libultrare_sources = sorted(
+            path.relative_to(ROOT).as_posix()
+            for path in (ROOT / "src" / "libultrare").rglob("*")
+            if path.is_file()
+        )
+
+        self.assertEqual([], libultra_sources)
+        self.assertEqual(
+            [
+                "src/libultrare/libc/syncprintf.c",
+                "src/libultrare/libc/xldtob.c",
+                "src/libultrare/libc/xprintf.c",
+            ],
+            libultrare_sources,
+        )
+
     def test_agent_workflow_prewarms_and_composes_the_per_function_gate(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
         prepare_body = script.split("prepare_next_work() {", 1)[1].split("\n}", 1)[0]

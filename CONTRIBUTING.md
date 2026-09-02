@@ -24,7 +24,8 @@ contributions use the same workflow and review standard.
    function, print its bounded local context and starter, and prewarm Docker.
 
 Maintainers add game-overlay work with `./conker game-index` followed by
-`./conker register-game`. Review the US assembly body before registering it.
+`./conker register-game`. Main-executable functions use `./conker register-main`.
+Review the US assembly body before registering either kind of work.
 Function registration updates the function inventory and generated progress;
 it does not claim that one function equals one original C source file.
 
@@ -34,6 +35,7 @@ already-registered function explicitly:
 
 ```sh
 ./conker register-source-unit \
+  --overlay game \
   --source src/game/<unit>.c \
   --function <first-id> --function <second-id> \
   --us-start <offset> --us-end <offset> \
@@ -46,6 +48,7 @@ range:
 
 ```sh
 ./conker register-source-unit \
+  --overlay game \
   --source src/game/<unit>.c \
   --register-members \
   --us-start <offset> --us-end <offset> \
@@ -53,7 +56,9 @@ range:
   --evidence-reference docs/evidence/<unit>.md
 ```
 
-Accepted evidence kinds are `linker_map`, `object_symbols`, and
+`--overlay game` is the default for compatibility; use `--overlay main` with
+main-executable sources registered through `register-main`. Accepted evidence
+kinds are `linker_map`, `object_symbols`, and
 `structural_analysis`. Sixteen-byte alignment or a successful standalone build
 does not by itself prove an original source-file boundary. Successful source-unit
 registration creates a minimal C skeleton if the path does not exist and never

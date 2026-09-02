@@ -76,9 +76,13 @@ After the raw base split map is available
   game-index                     List reviewable US game-function proposals.
   register-game --id <id> --us <symbol> --source <path>
                                  Register one US game-overlay function for matching work.
-  register-source-unit --source <path> (--function <id>...|--register-members) --us-start <offset>
+  register-main --id <id> --us <symbol> --source <path>
+                                 Register one US main-executable function for matching work.
+  register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
-                                 Register a separately reviewed game source/object boundary.
+                                 Register a separately reviewed source/object boundary.
+  retire-library-units --evidence-reference <path>
+                                 Remove untouched raw-ASM units after exact archive mapping.
   game-m2c [--profile us] <work-item-id>
                                  Compatibility alias for the auto-detecting m2c command.
   game-diff [--profile us] <work-item-id>
@@ -89,7 +93,8 @@ After the raw base split map is available
                                  Separate game code/data and indexed asset files.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
   rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
-  libultra                       Build the pinned 2.0L libultra ROM archive.
+  libultra [--version I|J|K|L]  Build a pinned 2.0 libultra ROM archive (default: L).
+  libultrare                    Build and verify the pinned Rare-modified archive.
 
 All build commands run inside the pinned linux/amd64 Docker environment.
 US is the default profile; pass --profile explicitly only to override it.
@@ -569,10 +574,16 @@ case "$command" in
     prepare|build)
         if [[ $# -eq 1 && "$1" == "--all" ]]; then
             python3 "$state_tool" setup-check --all
+            if [[ "$command" == "build" ]]; then
+                run_in_container_libultra make profile-libs PROFILE=us
+            fi
             run_in_container make "$command" PROFILE=us
         else
             parse_profile_only "usage: ./conker $command [--profile us|--all]" "$@"
             python3 "$state_tool" setup-check --profile "$selected_profile"
+            if [[ "$command" == "build" && "$selected_profile" == "us" ]]; then
+                run_in_container_libultra make profile-libs PROFILE=us
+            fi
             run_in_container make "$command" PROFILE="$selected_profile"
         fi
         ;;
@@ -624,13 +635,37 @@ case "$command" in
         run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
         python3 "$state_tool" register-game "$@"
         ;;
-    register-source-unit)
-        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>"
+    register-main)
+        [[ $# -eq 6 ]] || die "usage: ./conker register-main --id <id> --us <symbol> --source <path>"
         python3 "$state_tool" setup-check --profile us
-        if [[ ! -d "$repo_root/reference/game/us/asm" ]]; then
+        if [[ ! -d "$repo_root/reference/us/asm" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        fi
+        python3 "$state_tool" register-main "$@"
+        ;;
+    register-source-unit)
+        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>"
+        python3 "$state_tool" setup-check --profile us
+        registration_overlay=game
+        previous_argument=""
+        for argument in "$@"; do
+            if [[ "$previous_argument" == "--overlay" ]]; then
+                registration_overlay="$argument"
+                break
+            fi
+            previous_argument="$argument"
+        done
+        if [[ "$registration_overlay" == "main" && ! -d "$repo_root/reference/us/asm" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        elif [[ "$registration_overlay" == "game" && ! -d "$repo_root/reference/game/us/asm" ]]; then
             run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
         fi
         python3 "$state_tool" register-source-unit "$@"
+        ;;
+    retire-library-units)
+        [[ $# -eq 2 && "$1" == "--evidence-reference" ]] || die "usage: ./conker retire-library-units --evidence-reference <path>"
+        python3 "$state_tool" setup-check --profile us
+        python3 "$state_tool" retire-library-units "$@"
         ;;
     game-m2c)
         parse_profile_and_value "usage: ./conker game-m2c [--profile us] <work-item-id>" "$@"
@@ -678,8 +713,21 @@ case "$command" in
         run_in_container python3 tools/third_party/rareunzip.py "$@"
         ;;
     libultra)
-        [[ $# -eq 0 ]] || die "usage: ./conker libultra"
-        run_in_container_libultra make libultra
+        libultra_version=L
+        if [[ $# -eq 2 && "$1" == "--version" ]]; then
+            libultra_version="$2"
+        elif [[ $# -ne 0 ]]; then
+            die "usage: ./conker libultra [--version I|J|K|L]"
+        fi
+        case "$libultra_version" in
+            I|J|K|L) ;;
+            *) die "libultra version must be I, J, K, or L" ;;
+        esac
+        run_in_container_libultra make libultra ULTRALIB_VERSION="$libultra_version"
+        ;;
+    libultrare)
+        [[ $# -eq 0 ]] || die "usage: ./conker libultrare"
+        run_in_container_libultra make libultrare
         ;;
     *)
         die "unknown command '$command'. Run ./conker help."

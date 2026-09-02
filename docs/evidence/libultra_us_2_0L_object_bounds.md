@@ -1,8 +1,10 @@
 # US libultra 2.0L object-boundary evidence
 
-This note records the first independently reviewed libultra object boundaries
-in the US main executable. It does not mark any function as matched and does
-not yet link the library archive into the ROM.
+This note records the independently reviewed libultra object boundaries in the
+US main executable, their archive-backed integration, and the first
+cross-version libc comparisons. Function identities and archive-placement
+claims are kept separate because an individually matching function can still
+occur in the wrong order inside an archive member.
 
 ## Inputs
 
@@ -13,6 +15,9 @@ not yet link the library archive into the ROM.
 - archive: `lib/ultralib/build/L/libultra_rom/libultra_rom.a`
 
 The archive was rebuilt through `./conker libultra` before comparison.
+Comparable 2.0I, 2.0J, and 2.0K objects can be built with
+`./conker libultra --version <I|J|K>`; every build uses the same pinned source,
+IDO toolchain, `TARGET=libultra_rom`, and `MODERN_LD=1` normalization.
 
 ## Method
 
@@ -35,6 +40,17 @@ The scan covered 402 archive members with non-empty text. It produced 35 unique
 complete-text candidates: 21 exact and 14 relocation-masked. The two identical
 access-queue candidates add two dependency-resolved objects. These 37 object
 ranges cover `0x19C0` (6,592) bytes.
+
+## Current archive-backed integration
+
+The active US profile now links all 37 reviewed `.text` ranges from the pinned
+2.0L archive. Required non-text placement adds six `.data`, three `.rodata`,
+and two `.bss` mappings. In total, the profile contains 48 archive-backed
+section mappings from 40 unique objects. `config/reference/us.yaml` remains raw
+assembly, and the complete US ROM comparison is byte-identical.
+With `ll.o` active, `__ull_rem` and `__ull_div` now resolve from that archive
+member at their reviewed US addresses; the former raw `--defsym` aliases were
+removed and the complete ROM comparison remained byte-identical.
 
 ## Reviewed US object ranges
 
@@ -78,17 +94,73 @@ ranges cover `0x19C0` (6,592) bytes.
 | `0x274A0` | `0x275F0` | `0x150` | `os/jammesg.o` | `osJamMesg` | relocation-masked |
 | `0x27620` | `0x27630` | `0x10` | `io/spgetstat.o` | `__osSpGetStatus` | exact |
 
+## Cross-version standard-library comparison
+
+Five raw functions have exact instruction bodies when compared with the
+corresponding libc function slices. The current 2.0L-based link already uses
+verified aliases for two linker dependencies, but that version's object layout
+prevents either complete member from replacing the raw ranges.
+
+| US address | Identity | 2.0L object/function offset | Current use |
+|---:|---|---:|---|
+| `0x80022EC0` | `memcpy` | `string.o + 0x68` | verified linker alias |
+| `0x80022EEC` | `strlen` | `string.o + 0x40` | exact identity only |
+| `0x80022F14` | `strchr` | `string.o + 0x00` | exact identity only |
+| `0x80022F60` | `lldiv` | `ldiv.o + 0x84` | verified linker alias |
+| `0x80023060` | `ldiv` | `ldiv.o + 0x00` | exact identity only |
+
+The US order is `memcpy`, `strlen`, `strchr`, then `lldiv`, `ldiv`. Versions
+2.0J, 2.0K, and 2.0L place the functions in the opposite order inside their
+single `.text` sections. Version 2.0I is different: its complete members use
+the US order and match at the reviewed ranges.
+
+| Archive member | 2.0I layout | 2.0I US comparison | 2.0J/K/L US comparison |
+|---|---|---|---|
+| `string.o` | `memcpy +0x00`, `strlen +0x2C`, `strchr +0x54`; `.text = 0xA0` | exact, 0 differing words | same functions, wrong member order; 36 differing words |
+| `ldiv.o` | `lldiv +0x00`, `ldiv +0x100`; `.text = 0x190` | all non-relocated words exact | same functions, wrong member order; 94 differing non-relocated words |
+
+The two 2.0I `ldiv.o` relocation words call `__ll_div` and `__ll_mul`. At a
+placement of `0x80022F60`, they resolve to `0x8002690C` and `0x80026968`, which
+are the targets encoded in the US ROM. This makes 2.0I `string.o` and `ldiv.o`
+strong whole-object candidates. They are now registered as raw-ASM source
+units, alongside 29 additional complete 2.0I object boundaries documented in
+[`libultra_us_2_0I_additional_object_bounds.md`](libultra_us_2_0I_additional_object_bounds.md).
+They are not archive-backed in the active profile: that profile has one
+`lib_path`, currently pointing at the 2.0L archive. Integrating a second
+versioned archive must preserve the raw reference map and pass the complete
+byte-identical US build before promotion.
+
+The nearby formatting block is now separated into three reviewed Rare-library
+source units. None matches a tested stock archive version. Counts below are
+differing unrelocated 32-bit words across the complete stock `.text` section at
+the candidate US address; relocation words are excluded rather than treated as
+matches.
+
+| Candidate US address | Likely identity/member | 2.0I | 2.0J | 2.0K | 2.0L |
+|---:|---|---:|---:|---:|---:|
+| `0x80001550` | `_Ldtob` / `xldtob.o` | 668 | 682 | 682 | 682 |
+| `0x800020D0` | `_Printf` / `xprintf.o` | 795 | 388 | 388 | 388 |
+
+`0x80002070` and `0x80002088` were initially compared with `sprintf.o`, but
+their call shape disproves that lead: they are `proutSyncPrintf` and
+`osSyncPrintf`. The complete identities, helper functions, and reviewed object
+boundaries are recorded in
+[`libultrare_us_formatting_boundaries.md`](libultrare_us_formatting_boundaries.md).
+They remain raw ASM until the new source work reaches exact focused matches and
+passes full-ROM verification.
+
 ## Validation and limits
 
 - Every recorded start and end is already a US instruction boundary.
 - No two recorded ranges overlap.
-- These are archive-object boundary candidates, not function-match claims.
-- Relocation-masked and dependency-resolved candidates still require a real
-  link at their recorded positions and a byte-identical full-ROM comparison.
+- The reviewed 2.0L ranges have now passed real archive linking at their
+  recorded positions and a byte-identical full-ROM comparison.
+- The registered 2.0I results remain raw ASM rather than active archive
+  mappings; a second archive input and another byte-identical full-ROM
+  comparison are still required before archive-backed promotion.
 - The scan did not promote the other 363 archive members: most are not linked
   by Conker, while others may differ by SDK variant, compile flags, or local
   modification. Absence from this list is not evidence that a range is
   game-specific.
 - The two 16-byte `ackramromread.o` and `ackramromwrite.o` bodies were rejected:
   their text appears at many return stubs and does not identify a unique range.
-

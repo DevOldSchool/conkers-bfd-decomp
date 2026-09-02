@@ -44,7 +44,7 @@ INSTRUCTION_PATTERN = re.compile(
     r"^\s*/\*\s*([0-9A-Fa-f]+)\s+([0-9A-Fa-f]+)\s+([0-9A-Fa-f]{8})\s*\*/\s*([A-Za-z.][A-Za-z0-9._]*)"
 )
 SUBSEGMENT_PATTERN = re.compile(
-    r"^\s*-\s*\[(0x[0-9A-Fa-f]+),\s*(asm|hasm|c)(?:,\s*([^\]]+))?\]\s*$"
+    r"^\s*-\s*\[(0x[0-9A-Fa-f]+),\s*(asm|hasm|c|lib)(?:,\s*([^\]]+))?\]\s*$"
 )
 BATCH_FINGERPRINT_INPUTS = (
     "Makefile",
@@ -65,7 +65,7 @@ class ProjectStateError(RuntimeError):
 
 
 class AssemblyFunction(NamedTuple):
-    """A bounded function recovered from generated game-overlay assembly."""
+    """A bounded function recovered from generated raw assembly."""
 
     symbol: str
     offset: int
@@ -90,17 +90,32 @@ def write_json(path: Path, data: dict[str, Any]) -> None:
     path.write_text(content, encoding="utf-8")
 
 
+def assembly_root(region: str, overlay: str) -> Path:
+    """Return the independently generated raw-assembly root for one overlay."""
+
+    if overlay == "main":
+        return ROOT / "reference" / region / "asm"
+    if overlay == "game":
+        return ROOT / "reference" / "game" / region / "asm"
+    raise ProjectStateError(f"unknown overlay: {overlay}")
+
+
 def game_assembly_root(region: str) -> Path:
-    return ROOT / "reference" / "game" / region / "asm"
+    return assembly_root(region, "game")
 
 
-def parse_game_functions(region: str) -> list[AssemblyFunction]:
-    """Return game functions in file-offset order from generated assembly."""
+def parse_assembly_functions(region: str, overlay: str) -> list[AssemblyFunction]:
+    """Return functions in file-offset order from generated raw assembly."""
 
-    root = game_assembly_root(region)
+    root = assembly_root(region, overlay)
     if not root.is_dir():
+        preparation = (
+            f"./conker _prepare-reference --profile {region}"
+            if overlay == "main"
+            else f"./conker game-asm --profile {region}"
+        )
         raise ProjectStateError(
-            f"missing {root.relative_to(ROOT)}; run ./conker game-asm --profile {region} first"
+            f"missing {root.relative_to(ROOT)}; run {preparation} first"
         )
 
     discovered: list[tuple[str, int, int, list[str]]] = []
@@ -152,13 +167,28 @@ def parse_game_functions(region: str) -> list[AssemblyFunction]:
     return functions
 
 
+def parse_game_functions(region: str) -> list[AssemblyFunction]:
+    """Return game-overlay functions in file-offset order."""
+
+    return parse_assembly_functions(region, "game")
+
+
+def parse_main_functions(region: str) -> list[AssemblyFunction]:
+    """Return main-executable functions in file-offset order."""
+
+    return parse_assembly_functions(region, "main")
+
+
 def format_range(start: int, end: int) -> str:
     return f"0x{start:X}:0x{end:X}"
 
 
 def nonmatching_asm_directory(source: str) -> Path:
     source_path = Path(source)
-    relative = source_path.relative_to("src/game").with_suffix("")
+    try:
+        relative = source_path.relative_to("src/game").with_suffix("")
+    except ValueError:
+        relative = source_path.relative_to("src").with_suffix("")
     return Path("asm/nonmatchings") / relative
 
 
@@ -483,6 +513,61 @@ def mapped_subsegments(region: str, overlay: str) -> list[tuple[int, str, str | 
     return entries
 
 
+def mapped_library_text_ranges(
+    code_ranges: dict[str, dict[str, tuple[int, int]]],
+) -> dict[str, dict[str, list[tuple[int, int]]]]:
+    """Return executable ranges supplied by archives in the canonical build map."""
+
+    ranges: dict[str, dict[str, list[tuple[int, int]]]] = {
+        overlay: {region: [] for region in KNOWN_REGIONS} for overlay in OVERLAYS
+    }
+    for overlay in OVERLAYS:
+        for region in KNOWN_REGIONS:
+            code_start, code_end = code_ranges[overlay][region]
+            directory = "profiles" if overlay == "main" else "game"
+            map_path = ROOT / "config" / directory / f"{region}.yaml"
+            if not map_path.is_file():
+                continue
+            entries = mapped_subsegments(region, overlay)
+            for index, (start, kind, name) in enumerate(entries):
+                if kind != "lib" or name is None:
+                    continue
+                fields = [field.strip() for field in name.split(",")]
+                if len(fields) < 3 or fields[-1] != ".text":
+                    continue
+                if start < code_start or start >= code_end:
+                    raise ProjectStateError(
+                        f"{overlay}/{region} library .text start 0x{start:X} falls outside "
+                        f"the tracked code range {format_range(code_start, code_end)}"
+                    )
+                end = code_end
+                for next_start, _, _ in entries[index + 1 :]:
+                    if next_start > start:
+                        end = min(next_start, code_end)
+                        break
+                if end <= start:
+                    raise ProjectStateError(
+                        f"{overlay}/{region} library .text at 0x{start:X} has no positive range"
+                    )
+                ranges[overlay][region].append((start, end))
+    return ranges
+
+
+def reference_subsegments(region: str, overlay: str) -> list[tuple[int, str, str | None]]:
+    """Read the immutable raw-reference map for a main executable."""
+
+    if overlay != "main":
+        raise ProjectStateError("library retirement currently supports only the main executable")
+    path = ROOT / "config" / "reference" / f"{region}.yaml"
+    entries: list[tuple[int, str, str | None]] = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        match = SUBSEGMENT_PATTERN.match(line)
+        if match:
+            name = match.group(3).strip() if match.group(3) else None
+            entries.append((int(match.group(1), 0), match.group(2), name))
+    return entries
+
+
 def validate_integrated_source_mapping(
     source: str,
     unit_regions: dict[str, Any],
@@ -745,10 +830,15 @@ def code_progress(
     functions: list[dict[str, Any]],
     source_units: list[dict[str, Any]],
     code_ranges: dict[str, dict[str, tuple[int, int]]],
+    library_ranges: dict[str, dict[str, list[tuple[int, int]]]] | None = None,
 ) -> dict[str, Any]:
-    """Count matched functions and fully matched units against executable bytes."""
+    """Count matched functions, source units, and archive text against executable bytes."""
 
     functions_by_symbol = {entry["symbol"]: entry for entry in functions}
+    library_ranges = library_ranges or {}
+    source_unit_ranges: dict[str, dict[str, list[tuple[int, int]]]] = {
+        overlay: {region: [] for region in KNOWN_REGIONS} for overlay in OVERLAYS
+    }
     complete_unit_ranges: dict[str, dict[str, list[tuple[int, int]]]] = {
         overlay: {region: [] for region in KNOWN_REGIONS} for overlay in OVERLAYS
     }
@@ -769,12 +859,36 @@ def code_progress(
                     f"{unit['source']}/{region} range {format_range(start, end)} falls outside "
                     f"the {overlay} code range {format_range(range_start, range_end)}"
                 )
+            source_unit_ranges[overlay][region].append((start, end))
             region_matched = all(
                 member.get("regions", {}).get(region, {}).get("state") == "matched"
                 for member in members
             )
             if region_matched:
                 complete_unit_ranges[overlay][region].append((start, end))
+
+    library_text_bytes: dict[str, dict[str, int]] = {
+        overlay: {region: 0 for region in KNOWN_REGIONS} for overlay in OVERLAYS
+    }
+    for overlay in OVERLAYS:
+        for region in KNOWN_REGIONS:
+            range_start, range_end = code_ranges[overlay][region]
+            archive_ranges = library_ranges.get(overlay, {}).get(region, [])
+            for start, end in archive_ranges:
+                if start < range_start or end > range_end or end <= start:
+                    raise ProjectStateError(
+                        f"{overlay}/{region} library range {format_range(start, end)} falls "
+                        f"outside the tracked code range {format_range(range_start, range_end)}"
+                    )
+                if any(
+                    start < unit_end and unit_start < end
+                    for unit_start, unit_end in source_unit_ranges[overlay][region]
+                ):
+                    raise ProjectStateError(
+                        f"{overlay}/{region} library range {format_range(start, end)} overlaps "
+                        "a tracked source unit"
+                    )
+            library_text_bytes[overlay][region] = merged_size(archive_ranges)
 
     matched_function_bytes: dict[str, dict[str, int]] = {
         overlay: {region: 0 for region in KNOWN_REGIONS} for overlay in OVERLAYS
@@ -798,6 +912,7 @@ def code_progress(
         region: {
             "matched_bytes": 0,
             "fully_matched_source_unit_bytes": 0,
+            "library_text_bytes": 0,
             "total_bytes": 0,
         }
         for region in KNOWN_REGIONS
@@ -813,11 +928,12 @@ def code_progress(
         for region in KNOWN_REGIONS:
             start, end = code_ranges[overlay][region]
             total = end - start
-            matched = matched_function_bytes[overlay][region]
-            complete_units = merged_size(complete_unit_ranges[overlay][region])
-            if matched > total:
+            archive_bytes = library_text_bytes[overlay][region]
+            matched = matched_function_bytes[overlay][region] + archive_bytes
+            complete_units = merged_size(complete_unit_ranges[overlay][region]) + archive_bytes
+            if matched > total or complete_units > total:
                 raise ProjectStateError(
-                    f"matched {overlay}/{region} function bytes exceed the tracked code range"
+                    f"matched {overlay}/{region} bytes exceed the tracked code range"
                 )
             if region in TARGET_REGIONS:
                 overlay_matched += matched
@@ -825,10 +941,12 @@ def code_progress(
                 overlay_total += total
             region_results[region]["matched_bytes"] += matched
             region_results[region]["fully_matched_source_unit_bytes"] += complete_units
+            region_results[region]["library_text_bytes"] += archive_bytes
             region_results[region]["total_bytes"] += total
             overlay_regions[region] = {
                 "matched_bytes": matched,
                 "fully_matched_source_unit_bytes": complete_units,
+                "library_text_bytes": archive_bytes,
                 "total_bytes": total,
                 "percentage": percentage(matched, total),
                 "fully_matched_source_unit_percentage": percentage(complete_units, total),
@@ -836,6 +954,9 @@ def code_progress(
         overlay_results[overlay] = {
             "matched_bytes": overlay_matched,
             "fully_matched_source_unit_bytes": overlay_complete_units,
+            "library_text_bytes": sum(
+                library_text_bytes[overlay][region] for region in TARGET_REGIONS
+            ),
             "total_bytes": overlay_total,
             "percentage": percentage(overlay_matched, overlay_total),
             "fully_matched_source_unit_percentage": percentage(
@@ -855,6 +976,11 @@ def code_progress(
     return {
         "matched_bytes": matched_total,
         "fully_matched_source_unit_bytes": complete_unit_total,
+        "library_text_bytes": sum(
+            library_text_bytes[overlay][region]
+            for overlay in OVERLAYS
+            for region in TARGET_REGIONS
+        ),
         "total_bytes": byte_total,
         "percentage": percentage(matched_total, byte_total),
         "fully_matched_source_unit_percentage": percentage(
@@ -875,10 +1001,12 @@ def summary(functions: list[dict[str, Any]]) -> dict[str, Any]:
     assigned_functions = {
         identifier for unit in source_units for identifier in unit["functions"]
     }
+    code_ranges = validate_code_ranges(load_json(OVERLAYS_FILE))
     bytes_result = code_progress(
         functions,
         source_units,
-        validate_code_ranges(load_json(OVERLAYS_FILE)),
+        code_ranges,
+        mapped_library_text_ranges(code_ranges),
     )
     complete_units = sum(
         all(unit["regions"][region]["state"] == "complete" for region in TARGET_REGIONS)
@@ -932,6 +1060,8 @@ def render_markdown(result: dict[str, Any]) -> str:
         f"**{result['code_bytes']['fully_matched_source_unit_bytes']:,} / "
         f"{result['code_bytes']['total_bytes']:,} "
         f"({result['code_bytes']['fully_matched_source_unit_percentage']:.4f}%)**",
+        "- Archive-backed library text bytes included above: "
+        f"**{result['code_bytes']['library_text_bytes']:,}**",
         "",
         "| Region | Raw ASM | In progress | Candidate | Matched | Blocked |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
@@ -981,9 +1111,9 @@ def render_markdown(result: dict[str, Any]) -> str:
     lines.extend(
         [
             "",
-            "A function is matched when its US record has zero-difference evidence.",
-            "Each regional byte total credits functions with independent zero-difference evidence for that region, including C functions in mixed C/`GLOBAL_ASM` source units.",
-            "Fully matched source-unit bytes credit a reviewed regional range only after every function in that unit matches.",
+            "A function inventory entry is matched when its US record has zero-difference evidence.",
+            "Each regional byte total credits functions with independent zero-difference evidence for that region, including C functions in mixed C/`GLOBAL_ASM` source units, plus executable `.text` ranges supplied by verified archives in the canonical build map.",
+            "Fully matched source-unit bytes credit a reviewed regional range only after every function in that unit matches, and also include those archive-backed `.text` ranges as complete source objects.",
             "EU/PAL configuration, badge, and regional byte total are informational for the future target and do not affect current completion.",
             "A source unit is complete only after reviewed boundary evidence, every listed US function is matched, and the unit is integrated as C under `src/game/done/`.",
             "",
@@ -1256,24 +1386,44 @@ def game_index() -> None:
         print(f"{index:03d} | {detail}")
 
 
-def find_game_function(region: str, symbol: str) -> AssemblyFunction:
-    for function in parse_game_functions(region):
+def find_assembly_function(region: str, overlay: str, symbol: str) -> AssemblyFunction:
+    for function in parse_assembly_functions(region, overlay):
         if function.symbol == symbol:
             return function
+    preparation = (
+        f"./conker _prepare-reference --profile {region}"
+        if overlay == "main"
+        else f"./conker game-asm --profile {region}"
+    )
     raise ProjectStateError(
-        f"{symbol} is not present in generated {region} game-overlay assembly; "
-        f"run ./conker game-asm --profile {region} and choose a listed symbol"
+        f"{symbol} is not present in generated {region} {overlay} assembly; "
+        f"run {preparation} and choose a listed symbol"
     )
 
 
-def register_game(args: argparse.Namespace) -> None:
-    """Register one explicitly reviewed US game function."""
+def find_game_function(region: str, symbol: str) -> AssemblyFunction:
+    return find_assembly_function(region, "game", symbol)
+
+
+def validate_registration_source(source: str, overlay: str) -> None:
+    """Require a safe C source path appropriate for the selected overlay."""
+
+    parts = Path(source).parts
+    if not source.startswith("src/") or not source.endswith(".c") or ".." in parts:
+        raise ProjectStateError("--source must be a C path below src/")
+    if overlay == "game" and not source.startswith("src/game/"):
+        raise ProjectStateError("game --source must be a C path below src/game/")
+    if overlay == "main" and source.startswith("src/game/"):
+        raise ProjectStateError("main --source must not be below src/game/")
+
+
+def register_function(args: argparse.Namespace, overlay: str) -> None:
+    """Register one explicitly reviewed US function for an executable overlay."""
 
     source = args.source
-    if not source.startswith("src/game/") or not source.endswith(".c") or ".." in Path(source).parts:
-        raise ProjectStateError("--source must be a C path below src/game/")
+    validate_registration_source(source, overlay)
 
-    selected = {"us": find_game_function("us", args.us)}
+    selected = {"us": find_assembly_function("us", overlay, args.us)}
     functions_data = load_json(FUNCTIONS_FILE)
     source_units_data = load_json(SOURCE_UNITS_FILE)
     functions = validate_functions(functions_data)
@@ -1288,7 +1438,7 @@ def register_game(args: argparse.Namespace) -> None:
             raise ProjectStateError(f"{region} function already registered: {selected[region].symbol}")
 
     function = {
-        "overlay": "game",
+        "overlay": overlay,
         "source": source,
         "symbol": args.identifier,
         "regions": {
@@ -1308,8 +1458,48 @@ def register_game(args: argparse.Namespace) -> None:
     write_json(FUNCTIONS_FILE, updated_functions)
     render_progress(validated_functions)
     print(
-        f"Registered function work {args.identifier}: us={selected['us'].symbol}; source={source}; "
+        f"Registered {overlay} function work {args.identifier}: "
+        f"us={selected['us'].symbol}; source={source}; "
         "source-unit boundary remains unassigned"
+    )
+
+
+def register_game(args: argparse.Namespace) -> None:
+    """Register one explicitly reviewed US game-overlay function."""
+
+    register_function(args, "game")
+
+
+def register_main(args: argparse.Namespace) -> None:
+    """Register one explicitly reviewed US main-executable function."""
+
+    register_function(args, "main")
+
+
+def source_unit_skeleton_content(
+    source: str,
+    evidence_reference: str,
+    pending_functions: list[str],
+) -> str:
+    """Return the canonical unmodified raw-ASM source-unit skeleton."""
+
+    safe_reference = evidence_reference.replace("*/", "* /")
+    pending_lines = "".join(f" * - {identifier}\n" for identifier in pending_functions)
+    pragma_lines = "".join(
+        f"{global_asm_pragma(source, identifier)}\n" for identifier in pending_functions
+    )
+    return (
+        '#include "types.h"\n\n'
+        "/*\n"
+        f" * Reviewed source unit: {source}\n"
+        f" * Boundary evidence: {safe_reference}\n"
+        " *\n"
+        " * TODO: Implement these source-unit functions:\n"
+        f"{pending_lines}"
+        " *\n"
+        " * Unmatched members use generated GLOBAL_ASM placeholders below.\n"
+        " */\n\n"
+        f"{pragma_lines}"
     )
 
 
@@ -1326,24 +1516,7 @@ def create_source_unit_skeleton(
             raise ProjectStateError(f"source-unit path exists but is not a file: {source}")
         return False
     source_path.parent.mkdir(parents=True, exist_ok=True)
-    safe_reference = evidence_reference.replace("*/", "* /")
-    pending_lines = "".join(f" * - {identifier}\n" for identifier in pending_functions)
-    pragma_lines = "".join(
-        f"{global_asm_pragma(source, identifier)}\n" for identifier in pending_functions
-    )
-    content = (
-        '#include "types.h"\n\n'
-        "/*\n"
-        f" * Reviewed source unit: {source}\n"
-        f" * Boundary evidence: {safe_reference}\n"
-        " *\n"
-        " * TODO: Implement these source-unit functions:\n"
-        f"{pending_lines}"
-        " *\n"
-        " * Unmatched members use generated GLOBAL_ASM placeholders below.\n"
-        " */\n\n"
-        f"{pragma_lines}"
-    )
+    content = source_unit_skeleton_content(source, evidence_reference, pending_functions)
     try:
         with source_path.open("x", encoding="utf-8") as output:
             output.write(content)
@@ -1354,12 +1527,132 @@ def create_source_unit_skeleton(
     return True
 
 
-def register_source_unit(args: argparse.Namespace) -> None:
-    """Register one separately reviewed US game-overlay source/object boundary."""
+def retire_library_units(args: argparse.Namespace) -> None:
+    """Remove raw-ASM work items after their complete objects become archive-backed."""
 
+    evidence_reference = args.evidence_reference
+    functions_data = load_json(FUNCTIONS_FILE)
+    source_units_data = load_json(SOURCE_UNITS_FILE)
+    functions = validate_functions(functions_data)
+    units = validate_source_units(source_units_data, functions)
+    selected = [
+        unit
+        for unit in units
+        if unit.get("boundary_evidence", {}).get("us", {}).get("reference")
+        == evidence_reference
+    ]
+    if not selected:
+        raise ProjectStateError(
+            f"no source units use boundary evidence {evidence_reference}"
+        )
+
+    functions_by_id = {entry["symbol"]: entry for entry in functions}
+    working = mapped_subsegments("us", "main")
+    reference = reference_subsegments("us", "main")
+    working_by_offset = {offset: (kind, name) for offset, kind, name in working}
+    reference_by_offset = {offset: (kind, name) for offset, kind, name in reference}
+    working_offsets = sorted(working_by_offset)
+    source_contents: dict[Path, str] = {}
+    retired_ids: set[str] = set()
+
+    for unit in selected:
+        source = unit["source"]
+        members = [functions_by_id[identifier] for identifier in unit["functions"]]
+        if unit.get("integration") != "raw_asm" or any(
+            unit["regions"][region]["state"] != "raw_asm"
+            for region in TARGET_REGIONS
+        ):
+            raise ProjectStateError(f"{source} is not an untouched raw-ASM source unit")
+        if any(
+            member.get("overlay", "main") != "main"
+            or member.get("deferred") is not None
+            or any(
+                member["regions"][region]["state"] != "raw_asm"
+                for region in TARGET_REGIONS
+            )
+            for member in members
+        ):
+            raise ProjectStateError(f"{source} has active or completed function work")
+
+        start = int(unit["regions"]["us"]["start"], 0)
+        end = int(unit["regions"]["us"]["end"], 0)
+        if working_by_offset.get(start, (None, None))[0] != "lib":
+            raise ProjectStateError(
+                f"{source} is not library-backed at working-map offset 0x{start:X}"
+            )
+        following = next((offset for offset in working_offsets if offset > start), None)
+        if following != end:
+            raise ProjectStateError(
+                f"{source} library map does not own exact range 0x{start:X}:0x{end:X}"
+            )
+        if reference_by_offset.get(start, (None, None))[0] != "asm":
+            raise ProjectStateError(
+                f"{source} raw reference is not ASM at offset 0x{start:X}"
+            )
+
+        source_path = ROOT / source
+        if not source_path.is_file():
+            raise ProjectStateError(f"raw-ASM source-unit skeleton is missing: {source}")
+        content = source_path.read_text(encoding="utf-8")
+        expected = source_unit_skeleton_content(
+            source,
+            evidence_reference,
+            unit["functions"],
+        )
+        if content != expected:
+            raise ProjectStateError(
+                f"refusing to remove modified source-unit skeleton: {source}"
+            )
+        source_contents[source_path] = content
+        retired_ids.update(unit["functions"])
+
+    updated_functions = {
+        **functions_data,
+        "functions": [
+            entry for entry in functions if entry["symbol"] not in retired_ids
+        ],
+    }
+    selected_sources = {unit["source"] for unit in selected}
+    updated_units = {
+        **source_units_data,
+        "source_units": [
+            unit for unit in units if unit["source"] not in selected_sources
+        ],
+    }
+    validated_functions = validate_functions(updated_functions)
+    validate_source_units(updated_units, validated_functions)
+
+    original_functions = FUNCTIONS_FILE.read_text(encoding="utf-8")
+    original_units = SOURCE_UNITS_FILE.read_text(encoding="utf-8")
+    try:
+        write_json(FUNCTIONS_FILE, updated_functions)
+        write_json(SOURCE_UNITS_FILE, updated_units)
+        render_progress(validated_functions)
+        for source_path in source_contents:
+            source_path.unlink()
+    except Exception:
+        FUNCTIONS_FILE.write_text(original_functions, encoding="utf-8")
+        SOURCE_UNITS_FILE.write_text(original_units, encoding="utf-8")
+        for source_path, content in source_contents.items():
+            if not source_path.exists():
+                source_path.parent.mkdir(parents=True, exist_ok=True)
+                source_path.write_text(content, encoding="utf-8")
+        render_progress(functions)
+        raise
+
+    print(
+        f"Retired {len(selected)} library-backed source units and "
+        f"{len(retired_ids)} raw-ASM function work items; "
+        f"evidence={evidence_reference}"
+    )
+
+
+def register_source_unit(args: argparse.Namespace) -> None:
+    """Register one separately reviewed US source/object boundary."""
+
+    overlay = getattr(args, "overlay", "game")
     source = args.source
-    if not source.startswith("src/game/") or not source.endswith(".c") or ".." in Path(source).parts:
-        raise ProjectStateError("--source must be a C path below src/game/")
+    validate_registration_source(source, overlay)
     try:
         start = int(args.us_start, 0)
         end = int(args.us_end, 0)
@@ -1375,16 +1668,20 @@ def register_source_unit(args: argparse.Namespace) -> None:
     if any(unit["source"] == source for unit in units):
         raise ProjectStateError(f"source unit already registered: {source}")
 
-    entries = mapped_subsegments("us", "game")
+    entries = mapped_subsegments("us", overlay)
     offsets = {offset for offset, _, _ in entries}
-    _, code_end = validate_code_ranges(load_json(OVERLAYS_FILE))["game"]["us"]
+    _, code_end = validate_code_ranges(load_json(OVERLAYS_FILE))[overlay]["us"]
     if start not in offsets or (end != code_end and end not in offsets):
+        map_directory = "profiles" if overlay == "main" else "game"
         raise ProjectStateError(
-            f"reviewed range 0x{start:X}:0x{end:X} must already exist in config/game/us.yaml"
+            f"reviewed range 0x{start:X}:0x{end:X} must already exist in "
+            f"config/{map_directory}/us.yaml"
         )
 
     functions_in_range = [
-        function for function in parse_game_functions("us") if start <= function.offset < end
+        function
+        for function in parse_assembly_functions("us", overlay)
+        if start <= function.offset < end
     ]
     explicit_ids = list(getattr(args, "functions", None) or [])
     register_members = bool(getattr(args, "register_members", False))
@@ -1418,7 +1715,7 @@ def register_source_unit(args: argparse.Namespace) -> None:
                         f"cannot use {function.symbol} as a work-item ID because it is already registered"
                     )
                 member = {
-                    "overlay": "game",
+                    "overlay": overlay,
                     "source": source,
                     "symbol": function.symbol,
                     "regions": {
@@ -1436,8 +1733,8 @@ def register_source_unit(args: argparse.Namespace) -> None:
                 continue
 
             identifier = member["symbol"]
-            if member.get("overlay", "main") != "game":
-                raise ProjectStateError(f"{identifier} is not a game-overlay function")
+            if member.get("overlay", "main") != overlay:
+                raise ProjectStateError(f"{identifier} is not a {overlay} function")
             owner = assigned_to_unit.get(identifier)
             if owner is not None:
                 raise ProjectStateError(f"{identifier} is already assigned to source unit {owner}")
@@ -1467,8 +1764,10 @@ def register_source_unit(args: argparse.Namespace) -> None:
     if unknown:
         raise ProjectStateError(f"unknown work-item IDs: {', '.join(unknown)}")
     members = [functions_by_id[identifier] for identifier in requested_ids]
-    if any(member.get("overlay", "main") != "game" for member in members):
-        raise ProjectStateError("register-source-unit currently supports game-overlay functions only")
+    if any(member.get("overlay", "main") != overlay for member in members):
+        raise ProjectStateError(
+            f"every source-unit member must use the {overlay} overlay"
+        )
     if any(member.get("source") != source for member in members):
         raise ProjectStateError("every source-unit member must use the same --source path")
     already_assigned = {
@@ -1993,7 +2292,14 @@ def parse_args() -> argparse.Namespace:
     register_game_parser.add_argument("--id", dest="identifier", required=True)
     register_game_parser.add_argument("--us", required=True)
     register_game_parser.add_argument("--source", required=True)
+    register_main_parser = subparsers.add_parser("register-main")
+    register_main_parser.add_argument("--id", dest="identifier", required=True)
+    register_main_parser.add_argument("--us", required=True)
+    register_main_parser.add_argument("--source", required=True)
     register_unit_parser = subparsers.add_parser("register-source-unit")
+    register_unit_parser.add_argument(
+        "--overlay", choices=sorted(OVERLAYS), default="game"
+    )
     register_unit_parser.add_argument("--source", required=True)
     membership = register_unit_parser.add_mutually_exclusive_group(required=True)
     membership.add_argument("--function", dest="functions", action="append")
@@ -2008,6 +2314,8 @@ def parse_args() -> argparse.Namespace:
         "--evidence-kind", choices=sorted(BOUNDARY_EVIDENCE_KINDS), required=True
     )
     register_unit_parser.add_argument("--evidence-reference", required=True)
+    retire_library_parser = subparsers.add_parser("retire-library-units")
+    retire_library_parser.add_argument("--evidence-reference", required=True)
     return parser.parse_args()
 
 
@@ -2045,8 +2353,12 @@ def main() -> int:
             game_index()
         elif args.command == "register-game":
             register_game(args)
+        elif args.command == "register-main":
+            register_main(args)
         elif args.command == "register-source-unit":
             register_source_unit(args)
+        elif args.command == "retire-library-units":
+            retire_library_units(args)
     except ProjectStateError as error:
         print(f"error: {error}", file=sys.stderr)
         return 1

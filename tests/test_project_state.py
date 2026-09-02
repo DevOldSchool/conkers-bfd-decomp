@@ -51,6 +51,8 @@ class ProjectStateTests(unittest.TestCase):
             sum(values["known_functions"] for values in result["overlays"].values()),
             result["known_functions"],
         )
+        self.assertEqual(result["code_bytes"]["library_text_bytes"], 26_752)
+        self.assertEqual(result["code_bytes"]["matched_bytes"], 31_012)
         for counts in result["regions"].values():
             self.assertEqual(sum(counts.values()), result["known_functions"])
 
@@ -142,6 +144,99 @@ class ProjectStateTests(unittest.TestCase):
         self.assertEqual(result["matched_bytes"], 0x10)
         self.assertEqual(result["fully_matched_source_unit_bytes"], 0)
         self.assertEqual(result["overlays"]["game"]["matched_bytes"], 0x10)
+
+    def test_code_progress_counts_archive_text_in_both_byte_metrics(self) -> None:
+        functions = [
+            {
+                "overlay": "game",
+                "symbol": "func_test",
+                "regions": {"us": {"state": "matched", "vram": "0x15000010"}},
+            }
+        ]
+        units = [
+            {
+                "source": "src/game/func_test.c",
+                "functions": ["func_test"],
+                "regions": {"us": {"start": "0x10", "end": "0x20"}},
+            }
+        ]
+        ranges = {
+            "main": {"us": (0, 0x100), "eu": (0, 0x100)},
+            "game": {"us": (0, 0x100), "eu": (0, 0x100)},
+        }
+        library_ranges = {"main": {"us": [(0x20, 0x40)]}}
+
+        result = project_state.code_progress(
+            functions, units, ranges, library_ranges
+        )
+
+        self.assertEqual(result["matched_bytes"], 0x30)
+        self.assertEqual(result["fully_matched_source_unit_bytes"], 0x30)
+        self.assertEqual(result["library_text_bytes"], 0x20)
+        self.assertEqual(result["overlays"]["main"]["matched_bytes"], 0x20)
+
+    def test_code_progress_rejects_archive_overlap_with_a_source_unit(self) -> None:
+        functions = [
+            {
+                "overlay": "main",
+                "symbol": "func_test",
+                "regions": {"us": {"state": "matched", "vram": "0x80000010"}},
+            }
+        ]
+        units = [
+            {
+                "source": "src/main/func_test.c",
+                "functions": ["func_test"],
+                "regions": {"us": {"start": "0x10", "end": "0x30"}},
+            }
+        ]
+        ranges = {
+            "main": {"us": (0, 0x100), "eu": (0, 0x100)},
+            "game": {"us": (0, 0x100), "eu": (0, 0x100)},
+        }
+
+        with self.assertRaisesRegex(project_state.ProjectStateError, "overlaps"):
+            project_state.code_progress(
+                functions,
+                units,
+                ranges,
+                {"main": {"us": [(0x20, 0x40)]}},
+            )
+
+    def test_mapped_library_text_ranges_use_the_next_map_boundary(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            profile_us = root / "config" / "profiles" / "us.yaml"
+            profile_us.parent.mkdir(parents=True)
+            profile_us.write_text(
+                "      - [0x10, asm]\n"
+                "      - [0x20, lib, library, object, .text]\n"
+                "      - [0x30, lib, library, object, .data]\n"
+                "      - [0x40, asm]\n",
+                encoding="utf-8",
+            )
+            (root / "config" / "profiles" / "eu.yaml").write_text(
+                "      - [0x10, asm]\n", encoding="utf-8"
+            )
+            game_maps = root / "config" / "game"
+            game_maps.mkdir(parents=True)
+            for region in project_state.KNOWN_REGIONS:
+                (game_maps / f"{region}.yaml").write_text(
+                    "      - [0x0, asm]\n", encoding="utf-8"
+                )
+            original_root = project_state.ROOT
+            try:
+                project_state.ROOT = root
+                ranges = project_state.mapped_library_text_ranges(
+                    {
+                        "main": {"us": (0x10, 0x50), "eu": (0x10, 0x50)},
+                        "game": {"us": (0, 0x50), "eu": (0, 0x50)},
+                    }
+                )
+            finally:
+                project_state.ROOT = original_root
+
+        self.assertEqual(ranges["main"]["us"], [(0x20, 0x30)])
 
     def test_rejects_unknown_overlay(self) -> None:
         entry = {
@@ -823,6 +918,7 @@ class GameInventoryTests(unittest.TestCase):
         self.write_inventory()
         self.write_assembly("us", "func_15000000", "func_15000004")
         self.write_assembly("eu", "func_15001000", "func_15001004")
+        self.write_main_assembly("us", "func_80001000", "func_80001004")
 
     def tearDown(self) -> None:
         for name, value in self.original_paths.items():
@@ -881,6 +977,14 @@ class GameInventoryTests(unittest.TestCase):
             "      - [0x10, asm]\n",
             encoding="utf-8",
         )
+        main_map = self.root / "config" / "profiles" / "us.yaml"
+        main_map.parent.mkdir(parents=True, exist_ok=True)
+        main_map.write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm]\n"
+            "      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
 
     def write_assembly(self, region: str, first_symbol: str, second_symbol: str) -> None:
         assembly = self.root / "reference" / "game" / region / "asm" / "sample.s"
@@ -900,11 +1004,174 @@ class GameInventoryTests(unittest.TestCase):
             encoding="utf-8",
         )
 
+    def write_main_assembly(self, region: str, first_symbol: str, second_symbol: str) -> None:
+        assembly = self.root / "reference" / region / "asm" / "sample.s"
+        assembly.parent.mkdir(parents=True, exist_ok=True)
+        assembly.write_text(
+            "\n".join(
+                (
+                    f"glabel {first_symbol}",
+                    "    /* 0 80001000 00000000 */  nop",
+                    f"glabel {second_symbol}",
+                    "    /* 4 80001004 03E00008 */  jr         $ra",
+                    "    /* 8 80001008 00000000 */   nop",
+                    "",
+                )
+            ),
+            encoding="utf-8",
+        )
+
+    def register_main_library_unit(self) -> tuple[str, str]:
+        source = "src/libultra/os/interrupt.c"
+        evidence = "docs/evidence/libultra.md"
+        for identifier, symbol in (
+            ("__osDisableInt", "func_80001000"),
+            ("__osRestoreInt", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["__osDisableInt", "__osRestoreInt"],
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="object_symbols",
+                evidence_reference=evidence,
+            )
+        )
+        (self.root / "config/profiles/us.yaml").write_text(
+            "    subsegments:\n"
+            "      - [0x0, lib, libultra_2_0I, interrupt, .text]\n"
+            "      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
+        reference_map = self.root / "config/reference/us.yaml"
+        reference_map.parent.mkdir(parents=True, exist_ok=True)
+        reference_map.write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm, libultra/os/interrupt]\n"
+            "      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
+        return source, evidence
+
     def test_parses_sorted_game_functions_with_ranges(self) -> None:
         functions = project_state.parse_game_functions("us")
         self.assertEqual(["func_15000000", "func_15000004"], [function.symbol for function in functions])
         self.assertEqual((0, 4), (functions[0].offset, functions[0].end))
         self.assertEqual((4, 12), (functions[1].offset, functions[1].end))
+
+    def test_parses_sorted_main_functions_with_ranges(self) -> None:
+        functions = project_state.parse_main_functions("us")
+        self.assertEqual(
+            ["func_80001000", "func_80001004"],
+            [function.symbol for function in functions],
+        )
+        self.assertEqual((0, 4), (functions[0].offset, functions[0].end))
+        self.assertEqual((4, 12), (functions[1].offset, functions[1].end))
+
+    def test_register_main_and_reviewed_source_unit(self) -> None:
+        source = "src/libultrare/libc/xprintf.c"
+        for identifier, symbol in (
+            ("_Printf", "func_80001000"),
+            ("_Putfld", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["_Printf", "_Putfld"],
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/libultrare.md",
+            )
+        )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(
+            ["main", "main"],
+            [entry["overlay"] for entry in functions["functions"]],
+        )
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(["_Printf", "_Putfld"], units["source_units"][0]["functions"])
+        skeleton = self.root / source
+        self.assertIn(
+            '#pragma GLOBAL_ASM("asm/nonmatchings/libultrare/libc/xprintf/_Printf.s")',
+            skeleton.read_text(encoding="utf-8"),
+        )
+
+    def test_register_main_source_unit_accepts_adjacent_lib_endpoint(self) -> None:
+        source = "src/libultra/os/interrupt.c"
+        for identifier, symbol in (
+            ("__osDisableInt", "func_80001000"),
+            ("__osRestoreInt", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+        (self.root / "config/profiles/us.yaml").write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm, libultra/os/interrupt]\n"
+            "      - [0x10, lib, libultra_rom, stopthread, .text]\n",
+            encoding="utf-8",
+        )
+
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["__osDisableInt", "__osRestoreInt"],
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="object_symbols",
+                evidence_reference="docs/evidence/libultra.md",
+            )
+        )
+
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(source, units["source_units"][0]["source"])
+
+    def test_retire_library_units_removes_only_archive_backed_raw_skeletons(self) -> None:
+        source, evidence = self.register_main_library_unit()
+
+        project_state.retire_library_units(
+            SimpleNamespace(evidence_reference=evidence)
+        )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual([], functions["functions"])
+        self.assertEqual([], units["source_units"])
+        self.assertFalse((self.root / source).exists())
+
+    def test_retire_library_units_preserves_modified_source(self) -> None:
+        source, evidence = self.register_main_library_unit()
+        source_path = self.root / source
+        source_path.write_text(
+            source_path.read_text(encoding="utf-8") + "/* local work */\n",
+            encoding="utf-8",
+        )
+
+        with self.assertRaisesRegex(
+            project_state.ProjectStateError, "refusing to remove modified"
+        ):
+            project_state.retire_library_units(
+                SimpleNamespace(evidence_reference=evidence)
+            )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(2, len(functions["functions"]))
+        self.assertEqual(1, len(units["source_units"]))
+        self.assertTrue(source_path.is_file())
 
     def test_register_game_registers_function_without_source_unit(self) -> None:
         arguments = SimpleNamespace(

@@ -5949,6 +5949,97 @@
       },
       "source": "src/game/game_3E890.c",
       "symbol": "func_15011A78"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1184,
+          "state": "raw_asm",
+          "symbol": "func_80001550",
+          "vram": "0x80001550"
+        }
+      },
+      "source": "src/libultrare/libc/xldtob.c",
+      "symbol": "_Ldtob"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 184,
+          "state": "raw_asm",
+          "symbol": "func_800019F0",
+          "vram": "0x800019F0"
+        }
+      },
+      "source": "src/libultrare/libc/xldtob.c",
+      "symbol": "_Ldunscale"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1480,
+          "state": "raw_asm",
+          "symbol": "func_80001AA8",
+          "vram": "0x80001AA8"
+        }
+      },
+      "source": "src/libultrare/libc/xldtob.c",
+      "symbol": "_Genld"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 24,
+          "state": "raw_asm",
+          "symbol": "func_80002070",
+          "vram": "0x80002070"
+        }
+      },
+      "source": "src/libultrare/libc/syncprintf.c",
+      "symbol": "proutSyncPrintf"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_80002088",
+          "vram": "0x80002088"
+        }
+      },
+      "source": "src/libultrare/libc/syncprintf.c",
+      "symbol": "osSyncPrintf"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1608,
+          "state": "raw_asm",
+          "symbol": "func_800020D0",
+          "vram": "0x800020D0"
+        }
+      },
+      "source": "src/libultrare/libc/xprintf.c",
+      "symbol": "_Printf"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1688,
+          "state": "raw_asm",
+          "symbol": "func_80002718",
+          "vram": "0x80002718"
+        }
+      },
+      "source": "src/libultrare/libc/xprintf.c",
+      "symbol": "_Putfld"
     }
   ],
   "schema_version": 1

@@ -4,6 +4,7 @@ PROFILE_CONFIG := config/profiles/$(PROFILE).yaml
 MATERIALIZED_CONFIG := build/config/$(PROFILE).yaml
 BUILD_DIR := build/$(PROFILE)
 AS := mips-linux-gnu-as
+AR := mips-linux-gnu-ar
 CC := /opt/ido/cc
 LD := mips-linux-gnu-ld
 OBJCOPY := mips-linux-gnu-objcopy
@@ -48,8 +49,81 @@ GAME_INTEGRATED_BOOTSTRAP_SYMBOLS := $(GAME_INTEGRATED_BUILD_DIR)/bootstrap-symb
 ULTRALIB_DIR := lib/ultralib
 ULTRALIB_VERSION ?= L
 ULTRALIB_TARGET ?= libultra_rom
+ULTRALIB_BUILD_DIR := $(ULTRALIB_DIR)/build/$(ULTRALIB_VERSION)/$(ULTRALIB_TARGET)
+ULTRALIB_MODERN_LD_STAMP := $(ULTRALIB_BUILD_DIR)/.conker-modern-ld
+PROFILE_LIB_DIR_us := build/us/lib
+PROFILE_LIB_L_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L.a
+PROFILE_LIB_I_us := $(PROFILE_LIB_DIR_us)/libultra_2_0I.a
+PROFILE_LIB_RARE_us := $(PROFILE_LIB_DIR_us)/libultrare.a
+PROFILE_LIB_DEPS_us := $(PROFILE_LIB_L_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us)
+PROFILE_LIB_DEPS_eu :=
+PROFILE_LIB_DEPS := $(PROFILE_LIB_DEPS_$(PROFILE))
+# Linked SDK objects retain their original symbol names. Bind references to
+# raw-only code and data at the independently verified US ROM addresses.
+PROFILE_LIB_LDFLAGS_us := \
+	--defsym=__osEnqueueAndYield=0x800078B4 \
+	--defsym=__osEnqueueThread=0x800079D8 \
+	--defsym=__osPopThread=0x80007A24 \
+	--defsym=__osDispatchThread=0x80007A38 \
+	--defsym=__osExceptionPreamble=0x100071D0 \
+	--defsym=osMapTLBRdb=0x80008120 \
+	--defsym=osRomBase=0x80000308 \
+	--defsym=osResetType=0x8000030C \
+	--defsym=osAppNMIBuffer=0x8000031C \
+	--defsym=__osPiDevMgr=0x8002AB50 \
+	--defsym=__osPiTable=0x8002AB6C \
+	--defsym=__osHwIntTable=0x8002AC70 \
+	--defsym=__osViCurr=0x8002BDE0 \
+	--defsym=__osViNext=0x8002BDE4 \
+	--defsym=osViClock=0x8002BDE8 \
+	--defsym=__osLeoInterruptPhysical=0x10026B10 \
+	-u _bzero \
+	-u osInvalICache \
+	-u osInvalDCache \
+	-u _Litob \
+	-u __osPiCreateAccessQueue \
+	-u _bcopy \
+	-u osWritebackDCache \
+	-u osSetIntMask \
+	-u osWritebackDCacheAll \
+	-u __osSiCreateAccessQueue \
+	-u osMapTLB \
+	-u __sinf \
+	-u __ll_div \
+	-u __osProbeTLB \
+	-u osViModeMpalLan1 \
+	-u osViModeNtscLan1 \
+	-u __libm_qnan_f \
+	-u __osSetSR \
+	-u __osGetSR \
+	-u __osSetFpcCsr \
+	-u osStartThread \
+	-u osSetThreadPri \
+	-u osStopThread \
+	-u osVirtualToPhysical \
+	-u osRecvMesg \
+	-u osSendMesg \
+	-u osCreateMesgQueue \
+	-u osGetThreadPri \
+	-u __osSpSetStatus \
+	-u osGetCount \
+	-u __osDequeueThread \
+	-u __osSpGetStatus \
+	-u osAiGetStatus \
+	-u osSpTaskYield \
+	-u osGetTime \
+	-u osPiGetStatus \
+	-u osUnmapTLB \
+	-u sqrtf \
+	-u __osSetCompare \
+	-u osJamMesg
+PROFILE_LIB_LDFLAGS_eu :=
+PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_L_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
+PROFILE_LIB_INPUTS_eu :=
+PROFILE_LIB_INPUTS := $(PROFILE_LIB_INPUTS_$(PROFILE))
+LDFLAGS += $(PROFILE_LIB_LDFLAGS_$(PROFILE))
 
-.PHONY: help prepare prepare-reference build raw-build diff clean game-asm game-asm-prepare game-integrated game-integrated-refresh game-integrated-prepare game-integrated-raw libultra
+.PHONY: help prepare prepare-reference build raw-build diff clean game-asm game-asm-prepare game-integrated game-integrated-refresh game-integrated-prepare game-integrated-raw libultra libultrare profile-libs
 
 help:
 	@printf '%s\n' 'Use ./conker help for the supported contributor commands.'
@@ -82,8 +156,8 @@ $(BUILD_DIR)/$(ROM_NAME): $(BUILD_DIR)/conker.$(PROFILE).elf
 $(BOOTSTRAP_SYMBOLS): $(ASM_SRCS) $(C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/$(PROFILE) src/game/done
 
-$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS)
-	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS)
+$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS)
+	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@
@@ -113,8 +187,43 @@ diff:
 
 libultra:
 	@test -f "$(ULTRALIB_DIR)/Makefile" || { printf '%s\n' 'lib/ultralib is missing; run git submodule update --init --recursive' >&2; exit 1; }
-	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) COMPARE=0 setup
-	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) COMPARE=0
+	@if test -d "$(ULTRALIB_BUILD_DIR)" && test ! -f "$(ULTRALIB_MODERN_LD_STAMP)"; then \
+		$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) clean; \
+	fi
+	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) COMPARE=0 MODERN_LD=1 setup
+	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) COMPARE=0 MODERN_LD=1
+	@test -f "$(ULTRALIB_MODERN_LD_STAMP)" || touch "$(ULTRALIB_MODERN_LD_STAMP)"
+
+libultrare:
+	$(MAKE) --no-print-directory -C lib/libultrare verify
+
+profile-libs:
+	@test "$(PROFILE)" = us
+	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=L
+	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=I
+	$(MAKE) --no-print-directory libultrare
+	@mkdir -p "$(PROFILE_LIB_DIR_us)"
+	rm -f "$(PROFILE_LIB_L_us)"
+	$(AR) crs "$(PROFILE_LIB_L_us)" \
+		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/io/,$(addsuffix .o,aigetstat piacs pigetstat siacs spgetstat spsetstat sptaskyield)) \
+		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/libc/,$(addsuffix .o,bcopy bzero ll xlitob)) \
+		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/gu/,$(addsuffix .o,libm_vals sinf sqrtf)) \
+		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/os/,$(addsuffix .o,createmesgqueue getcount getsr getthreadpri gettime invaldcache invalicache jammesg maptlb probetlb recvmesg sendmesg setcompare setfpccsr setintmask setsr setthreadpri startthread stopthread thread unmaptlb virtualtophysical writebackdcache writebackdcacheall)) \
+		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/vimodes/,$(addsuffix .o,vimodempallan1 vimodentsclan1))
+	rm -f "$(PROFILE_LIB_I_us)"
+	$(AR) crs "$(PROFILE_LIB_I_us)" \
+		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/io/,$(addsuffix .o,ai aisetfreq contpfs crc pfschecker pidma pigetcmdq pirawdma pirawread si sirawdma sirawread sirawwrite sp sprawdma spsetpc sptaskyielded viblack vigetcurrframebuf vigetnextframebuf visetevent visetmode viswapbuf viswapcontext)) \
+		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/libc/,$(addsuffix .o,ldiv string)) \
+		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/os/,$(addsuffix .o,interrupt seteventmesg sethwinterrupt settimer timerintr))
+	@mkdir -p "$(PROFILE_LIB_DIR_us)/libultrare-members"
+	$(OBJCOPY) --redefine-sym __osLeoInterrupt=__osLeoInterruptPhysical \
+		lib/libultrare/build/libultrare/os/initialize.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
+	rm -f "$(PROFILE_LIB_RARE_us)"
+	$(AR) crs "$(PROFILE_LIB_RARE_us)" \
+		$(addprefix lib/libultrare/build/libultrare/io/,$(addsuffix .o,contramread contramwrite contreaddata controller epirawdma leodiskinit leointerrupt pfsinit pfsisplug)) \
+		lib/libultrare/build/libultrare/os/destroythread.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
 
 game-asm: game-asm-prepare
 	@printf '%s\n' "$(GAME_REFERENCE_PROFILE) game reference assembly: reference/game/$(GAME_REFERENCE_PROFILE)/asm"

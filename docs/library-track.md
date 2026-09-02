@@ -1,44 +1,71 @@
 # Library track
 
 The project builds Nintendo 64 library code from `lib/` separately from
-Conker-specific `src/` code. This keeps standard SDK functions and headers
-separate from game code.
+Conker-specific `src/` code. Stock SDK objects come from the pinned ultralib
+submodule, while verified Rare variants live in a bounded Rare source snapshot.
 
-## Current status
+## Current US integration
 
 `lib/ultralib` is pinned to commit
-`e24c836796df4bf520ff8b11a5c9d2cea3a66cbd` of the decompals/ultralib project.
-Build its default 2.0L `libultra_rom` archive with:
+`e24c836796df4bf520ff8b11a5c9d2cea3a66cbd` of decompals/ultralib. The US
+profile links two trimmed archives built from that checkout:
 
-```sh
-./conker libultra
-```
+- `libultra_2_0L`: 40 unique objects and 48 mapped sections.
+- `libultra_2_0I`: 31 unique objects and 34 mapped sections.
 
-It is not linked into the active US ROM yet. The profile map keeps the early
-executable as raw assembly until a complete library-object boundary is
-identified. EU/PAL mapping remains a future goal.
+The 2.0L survey covers 6,592 text bytes; see
+[`evidence/libultra_us_2_0L_object_bounds.md`](evidence/libultra_us_2_0L_object_bounds.md).
+The 2.0I survey covers `0x2DE0` (11,744) text bytes and 48 functions; see
+[`evidence/libultra_us_2_0I_additional_object_bounds.md`](evidence/libultra_us_2_0I_additional_object_bounds.md).
+Those ranges are archive-owned and therefore no longer appear as generic
+`src/libultra` source units or function work items.
 
-The first US comparison against the pinned 2.0L archive identified 37 reviewed
-object-range candidates covering 6,592 text bytes. See
-[`evidence/libultra_us_2_0L_object_bounds.md`](evidence/libultra_us_2_0L_object_bounds.md)
-for the byte-comparison method, exact ranges, and integration limits.
+`lib/libultrare` is a bounded snapshot of eleven Rare-modified objects from
+n64decomp/007 revision `c4356466796c697dfd298010b9bed261f9ed8c6a`. Its
+accepted US IDO 5.3 object MD5s are checked before the `libultrare` archive is
+staged. The archive contributes 18 mapped sections, covers `0x20E0` (8,416)
+text bytes, and owns 22 member functions. See
+[`evidence/libultrare_us_additional_object_bounds.md`](evidence/libultrare_us_additional_object_bounds.md).
+These eleven objects likewise no longer have generic `src/libultrare` work
+items.
 
-## Using it in the game build
+Together, the active US profile links 82 unique library objects through 100
+mapped `.text`, `.data`, `.rodata`, and `.bss` sections. The independently
+generated US comparison map in `config/reference/us.yaml` remains raw assembly.
+The complete rebuilt US ROM is byte-identical. EU/PAL mapping remains future
+work.
 
-Keep the archive separate while we map library objects out of the US ROM.
-When a candidate is ready, choose the matching ultralib version and object,
-record its US boundaries in the profile map, and add that object to the build.
-A successful byte-for-byte US rebuild is the practical check that the
-integration is correct.
+The formatting block remains tracked separately as three structural
+Rare-library candidates: `xldtob`, `syncprintf`, and `xprintf`. GoldenEye
+provides the closest source lineage, but no tested object is an exact archive
+replacement. These are the only remaining `src/libultrare` source units; see
+[`evidence/libultrare_us_formatting_boundaries.md`](evidence/libultrare_us_formatting_boundaries.md).
 
 ## Contributor commands
 
-Generate the immutable assembly targets before investigating a candidate:
+Build complete pinned stock archives for SDK-version research with:
 
 ```sh
-./conker build --all
-./conker m2c <work-item-id>
+./conker libultra
+./conker libultra --version I
+./conker libultra --version J
+./conker libultra --version K
 ```
 
-`m2c` assists with control-flow recovery only; use the rebuilt ROM to check
-an actual library-object integration.
+Build the bounded Rare snapshot and verify every object checksum with:
+
+```sh
+./conker libultrare
+```
+
+Regenerate the raw target and validate the actual library integration with:
+
+```sh
+./conker _prepare-reference --profile us
+./conker build --profile us
+```
+
+A candidate should move into a library archive only after its complete object
+boundary, section ownership, symbols, and relocations are reviewed. Keep the
+same range as raw assembly in `config/reference/us.yaml`; a relocation-masked
+object resemblance is not a substitute for a byte-identical US rebuild.

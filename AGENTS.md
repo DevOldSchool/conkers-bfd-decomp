@@ -102,8 +102,10 @@ Attempts:
 - `./conker game-index` proposes US game-overlay functions. It is a review aid
   only. Use `./conker register-game` with an explicitly reviewed US function to
   create a `raw_asm` work item without claiming a source-unit boundary. Use
-  `./conker register-source-unit` separately only after recording reviewed
-  boundary evidence and registering every function in that range.
+  `./conker register-main` for an explicitly reviewed main-executable function.
+  Use `./conker register-source-unit --overlay <main|game>` separately only
+  after recording reviewed boundary evidence and registering every function in
+  that range. The overlay defaults to `game` for compatibility.
 
 ## Agent procedure
 
