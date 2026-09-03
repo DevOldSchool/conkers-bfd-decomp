@@ -46,6 +46,30 @@ GAME_INTEGRATED_C_SRCS := $(shell python3 scripts/list_integrated_sources.py --o
 GAME_INTEGRATED_C_OBJS := $(patsubst src/%.c,$(GAME_INTEGRATED_BUILD_DIR)/src/%.o,$(GAME_INTEGRATED_C_SRCS))
 GAME_INTEGRATED_NORMALIZED_ASM_DIR := $(GAME_INTEGRATED_BUILD_DIR)/normalized-asm
 GAME_INTEGRATED_BOOTSTRAP_SYMBOLS := $(GAME_INTEGRATED_BUILD_DIR)/bootstrap-symbols.ld
+GAME_LIB_DIR := build/game-libs/us
+GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0I.a
+GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
+GAME_LIB_SYMBOLS := config/game/us-sdk.ld
+GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/I/libultra_rom/src/,\
+	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
+	io/visetspecial.o io/piread.o io/sirawdma.o io/crc.o \
+	os/settimer.o os/gettime.o libc/sprintf.o io/contpfs.o io/pfschecker.o)
+GAME_RARE_OBJECTS := $(addprefix lib/libultrare/build/libultrare/io/,\
+	pfsisplug.o contramread.o contramwrite.o controller.o pfsinit.o contreaddata.o) \
+	lib/libultrare/build/libultrare/gu/mtxutil.o \
+	lib/libultrare/build/libultrare/gu/rotate.o \
+	lib/libultrare/build/libultrare/gu/cosf.o \
+	lib/libultrare/build/libultrare/gu/sinf.o \
+	lib/libultrare/build/libultrare/gu/perspective.o \
+	lib/libultrare/build/libultrare/gu/expf.o \
+	lib/libultrare/build/libultrare/gu/logf.o \
+	lib/libultrare/build/libultrare/io/siacs_game.o \
+	lib/libultrare/build/libultrare/mp3/playback.o \
+	lib/libultrare/build/libultrare/mp3/main.o \
+	lib/libultrare/build/libultrare/mp3/util.o \
+	lib/libultrare/build/libultrare/mp3/decoder.o \
+	lib/libultrare/build/libultrare/mp3/lib_46650.o \
+	lib/libultrare/build/libultrare/mp3/lib_47550.o
 ULTRALIB_DIR := lib/ultralib
 ULTRALIB_VERSION ?= L
 ULTRALIB_TARGET ?= libultra_rom
@@ -56,11 +80,14 @@ PROFILE_LIB_L_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L.a
 PROFILE_LIB_LD_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L_d.a
 PROFILE_LIB_I_us := $(PROFILE_LIB_DIR_us)/libultra_2_0I.a
 PROFILE_LIB_RARE_us := $(PROFILE_LIB_DIR_us)/libultrare.a
-PROFILE_LIB_DEPS_us := $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us)
+PROFILE_LIB_RSP_us := $(PROFILE_LIB_DIR_us)/librsp.a
+PROFILE_LIB_DEPS_us := $(PROFILE_LIB_RSP_us) $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us)
 PROFILE_LIB_DEPS_eu :=
 PROFILE_LIB_DEPS := $(PROFILE_LIB_DEPS_$(PROFILE))
 # Linked SDK objects retain their original symbol names. Bind references to
 # raw-only code and data at the independently verified US ROM addresses.
+# Overlay JAL aliases use the main link PC region (0x8); runtime execution in
+# the 0x1 mapping selects the corresponding 0x15 overlay addresses.
 PROFILE_LIB_LDFLAGS_us := \
 	--defsym=__osEnqueueAndYield=0x800078B4 \
 	--defsym=__osEnqueueThread=0x800079D8 \
@@ -76,8 +103,53 @@ PROFILE_LIB_LDFLAGS_us := \
 	--defsym=__osPiTable=0x8002AB6C \
 	--defsym=__osHwIntTable=0x8002AC70 \
 	--defsym=__osLeoInterruptPhysical=0x10026B10 \
-	--defsym=.L1001EDF4_main=0x1001EDF4 \
-	--defsym=.L1002078C_main=0x1002078C \
+	--defsym=__conker_print_state=0x80035500 \
+	--defsym=__conker_runtime_proutSyncPrintf=0x10002070 \
+	--defsym=func_800020D0=_Printf \
+	--defsym=func_80002718=_Putfld \
+	--defsym=func_80022EC0=memcpy \
+	--defsym=func_80023060=ldiv \
+	--defsym=func_80022F14=strchr \
+	--defsym=func_80022EEC=strlen \
+	--defsym=func_800230F0=_Litob \
+	--defsym=__conker_audio_fault=0x8003C8E0 \
+	--defsym=__conker_audio_1263C=0x8001263C \
+	--defsym=n_alSynAddSeqPlayer=__conker_audio_add_player_2 \
+	--defsym=__conker_runtime_CSPVoiceHandler=__n_CSPVoiceHandler-0x70000000 \
+	--defsym=__conker_runtime_cspVolume=__n_cspVolume-0x70000000 \
+	--defsym=__conker_runtime_cspPan=__n_cspPan-0x70000000 \
+	--defsym=__conker_runtime_cspPriority=__n_cspPriority-0x70000000 \
+	--defsym=__conker_runtime_cspNotify=__n_cspNotify-0x70000000 \
+	--defsym=__conker_runtime_cspInstrumentMajor=__n_cspInstrumentMajor-0x70000000 \
+	--defsym=__conker_runtime_cspFilterEnable=__n_cspFilterEnable-0x70000000 \
+	--defsym=__conker_runtime_cspFilterPitch=__n_cspFilterPitch-0x70000000 \
+	--defsym=__conker_runtime_cspFilter11=__n_cspFilter11-0x70000000 \
+	--defsym=__conker_runtime_cspSustain=__n_cspSustain-0x70000000 \
+	--defsym=__conker_runtime_cspSurround=__n_cspSurround-0x70000000 \
+	--defsym=__conker_runtime_cspFXMix=__n_cspFXMix-0x70000000 \
+	--defsym=__conker_runtime_cspFXBus=__n_cspFXBus-0x70000000 \
+	--defsym=__conker_runtime_cspMP3Major=__n_cspMP3Major-0x70000000 \
+	--defsym=__conker_runtime_cspMP3Trigger=__n_cspMP3Trigger-0x70000000 \
+	--defsym=__conker_runtime_cspFadeStart=__n_cspFadeStart-0x70000000 \
+	--defsym=__conker_runtime_cspFadeUpdate=__n_cspFadeUpdate-0x70000000 \
+	--defsym=__conker_runtime_cspFadeRate=__n_cspFadeRate-0x70000000 \
+	--defsym=__conker_runtime_cspFadeVolume=__n_cspFadeVolume-0x70000000 \
+	--defsym=__conker_osc_sinf=0x85047D60 \
+	--defsym=__conker_runtime_osc_init=0x10012E04 \
+	--defsym=__conker_runtime_osc_update=0x10012F94 \
+	--defsym=__conker_runtime_osc_stop=0x100131D8 \
+	--defsym=__conker_runtime_sndpVoiceHandler=_n_sndpVoiceHandler-0x70000000 \
+	--defsym=__conker_sound_player_storage=0x80042850 \
+	--defsym=g_SndpVolumeTable=0x800428B8 \
+	--defsym=__conker_audio_fault_handler=0x80007DA0 \
+	--defsym=__conker_game_atan2f=0x850484A0 \
+	--defsym=__conker_default_fx_params=0x8002BBE0 \
+	--defsym=__conker_mp3_enabled=0x800E0E04 \
+	--defsym=__conker_mp3_make_samples=0x851F2E88 \
+	--defsym=__conker_audio_fx_pull=0x1001E530 \
+	--defsym=__conker_audio_surround=0x800428C0 \
+	--defsym=__conker_audio_mono=0x800428C1 \
+	--defsym=__conker_audio_headphone=0x800428C2 \
 	-u _bzero \
 	-u osInvalICache \
 	-u osInvalDCache \
@@ -119,12 +191,12 @@ PROFILE_LIB_LDFLAGS_us := \
 	-u __osSetCompare \
 	-u osJamMesg
 PROFILE_LIB_LDFLAGS_eu :=
-PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
+PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_RSP_us) $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
 PROFILE_LIB_INPUTS_eu :=
 PROFILE_LIB_INPUTS := $(PROFILE_LIB_INPUTS_$(PROFILE))
 LDFLAGS += $(PROFILE_LIB_LDFLAGS_$(PROFILE))
 
-.PHONY: help prepare prepare-reference build raw-build diff clean game-asm game-asm-prepare game-integrated game-integrated-refresh game-integrated-prepare game-integrated-raw libultra libultrare profile-libs
+.PHONY: help prepare prepare-reference build raw-build diff clean game-asm game-asm-prepare game-integrated game-integrated-refresh game-integrated-prepare game-integrated-raw libultra libultrare profile-libs game-libs
 
 help:
 	@printf '%s\n' 'Use ./conker help for the supported contributor commands.'
@@ -191,7 +263,7 @@ libultra:
 	@if test -d "$(ULTRALIB_BUILD_DIR)" && test ! -f "$(ULTRALIB_MODERN_LD_STAMP)"; then \
 		$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) clean; \
 	fi
-	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) COMPARE=0 MODERN_LD=1 setup
+	# The container supplies IDO and binutils; upstream setup downloads unused tools.
 	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=$(ULTRALIB_VERSION) TARGET=$(ULTRALIB_TARGET) COMPARE=0 MODERN_LD=1
 	@test -f "$(ULTRALIB_MODERN_LD_STAMP)" || touch "$(ULTRALIB_MODERN_LD_STAMP)"
 
@@ -224,13 +296,74 @@ profile-libs:
 	$(OBJCOPY) --redefine-sym __osLeoInterrupt=__osLeoInterruptPhysical \
 		lib/libultrare/build/libultrare/os/initialize.o \
 		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
+	python3 scripts/prepare_main_library_object.py \
+		lib/libultrare/build/libultrare/audio/n_reverb.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_reverb.o" \
+		--delta=-0x70000000 --expected-relocations 8
+	python3 scripts/prepare_main_library_object.py \
+		lib/libultrare/build/libultrare/audio/n_env.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_env.o" \
+		--delta=-0x70000000 --expected-relocations 17
+	python3 scripts/prepare_main_library_object.py \
+		lib/libultrare/build/libultrare/audio/n_csplayer.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_csplayer.o" \
+		--delta=-0x70000000 --expected-relocations 145
+	python3 scripts/prepare_main_library_object.py \
+		lib/libultrare/build/libultrare/audio/n_sndplayer.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_sndplayer.o" \
+		--delta=-0x70000000 --expected-relocations 16
+	python3 scripts/prepare_main_library_object.py \
+		lib/libultrare/build/libultrare/libc/xprintf.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/xprintf.o" \
+		--delta=-0x70000000 --expected-relocations 52
 	rm -f "$(PROFILE_LIB_RARE_us)"
 	$(AR) crs "$(PROFILE_LIB_RARE_us)" \
-		$(addprefix lib/libultrare/build/libultra/libc/,$(addsuffix .o,xldtob_data xprintf_data xprintf_rodata)) \
+		lib/libultrare/build/libultrare/libc/syncprintf.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/xprintf.o" \
+		lib/libultrare/build/libultrare/audio/n_synthesizer.o \
+		lib/libultrare/build/libultrare/audio/n_drvrNew.o \
+		lib/libultrare/build/libultrare/audio/n_mainbus.o \
+		lib/libultrare/build/libultrare/audio/n_load.o \
+		lib/libultrare/build/libultrare/audio/alsurround.o \
+		lib/libultrare/build/libultrare/audio/n_csq.o \
+		lib/libultrare/build/libultrare/audio/n_seqplayer.o \
+		lib/libultrare/build/libultrare/audio/n_cspctrl.o \
+		lib/libultrare/build/libultrare/audio/n_cspsetbank.o \
+		lib/libultrare/build/libultrare/audio/heap.o \
+		lib/libultrare/build/libultrare/audio/bnkf.o \
+		lib/libultrare/build/libultrare/audio/osc.o \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_reverb.o" \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_env.o" \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_csplayer.o" \
+		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_sndplayer.o" \
+		lib/libultrare/build/libultrare/audio/n_cspchan.o \
+		lib/libultrare/build/libultrare/audio/n_cspsetfxmix.o \
+		lib/libultrare/build/libultrare/audio/n_cspsetfxparam.o \
+		lib/libultrare/build/libultrare/audio/n_cspevent12.o \
+		lib/libultrare/build/libultrare/audio/n_auxbus.o \
+		lib/libultrare/build/libultrare/audio/n_resample.o \
+		lib/libultrare/build/libultrare/audio/n_resample2.o \
+		lib/libultrare/build/libultrare/libc/xldtob.o \
 		$(addprefix lib/libultrare/build/libultra/os/,$(addsuffix .o,exceptasm_data syncputchars_data)) \
 		$(addprefix lib/libultrare/build/libultrare/io/,$(addsuffix .o,contramread contramwrite contreaddata controller epirawdma leodiskinit leointerrupt pfsinit pfsisplug vi vimodepallan1)) \
+		$(addprefix lib/libultrare/build/libultrare/audio/,$(addsuffix .o,n_synaddplayer n_synsetpriority n_cspplay n_cspstop n_synstopvoice n_synfreevoice n_synsetvol n_synsetpitch n_cspsetpan n_cspsetseq n_cspsetvol n_syndelete n_sl n_cspsendmidi n_synallocfx n_synfx n_synfilter11 n_synfilter12 n_synfilter13 n_synsetpan n_synstartvoiceparam n_event n_synallocvoice n_cseqnextdelta)) \
 		lib/libultrare/build/libultrare/os/destroythread.o \
 		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
+
+game-libs:
+	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=I ULTRALIB_TARGET=libultra_rom
+	$(MAKE) --no-print-directory libultrare
+	$(MAKE) --no-print-directory "$(GAME_LIB)" "$(GAME_RARE_LIB)"
+
+$(GAME_LIB): $(GAME_LIB_OBJECTS) Makefile
+	@mkdir -p "$(@D)"
+	rm -f "$@"
+	$(AR) crs "$@" $(GAME_LIB_OBJECTS)
+
+$(GAME_RARE_LIB): $(GAME_RARE_OBJECTS) Makefile
+	@mkdir -p "$(@D)"
+	rm -f "$@"
+	$(AR) crs "$@" $(GAME_RARE_OBJECTS)
 
 game-asm: game-asm-prepare
 	@printf '%s\n' "$(GAME_REFERENCE_PROFILE) game reference assembly: reference/game/$(GAME_REFERENCE_PROFILE)/asm"
@@ -277,8 +410,8 @@ $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin: $(GAME_INTEGRATED_BU
 $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRATED_C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/game_integrated/$(GAME_PROFILE) src/game
 
-$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS)
-	$(LD) -m elf32btsmip -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS)
+$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB) $(GAME_LIB_SYMBOLS)
+	$(LD) -m elf32btsmip -T $(GAME_LIB_SYMBOLS) -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
 
 $(GAME_INTEGRATED_BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
@@ -292,3 +425,12 @@ $(GAME_INTEGRATED_BUILD_DIR)/asm/%.o: $(GAME_INTEGRATED_NORMALIZED_ASM_DIR)/%.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
 -include $(C_OBJS:.o=.asmproc.d) $(GAME_INTEGRATED_C_OBJS:.o=.asmproc.d)
+
+# RSP source is assembled independently of the R4300 compiler. Verification is
+# mandatory before the archive is replaced, including on an incremental build.
+.PHONY: rsp
+rsp:
+	python3 scripts/build_rsp.py
+
+$(PROFILE_LIB_RSP_us): $(wildcard src/rsp/*.s) scripts/build_rsp.py config/rsp/us.json toolchain/tools.lock.json
+	python3 scripts/build_rsp.py

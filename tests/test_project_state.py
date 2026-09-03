@@ -51,8 +51,8 @@ class ProjectStateTests(unittest.TestCase):
             sum(values["known_functions"] for values in result["overlays"].values()),
             result["known_functions"],
         )
-        self.assertEqual(result["code_bytes"]["library_text_bytes"], 27_376)
-        self.assertEqual(result["code_bytes"]["matched_bytes"], 31_636)
+        self.assertEqual(result["code_bytes"]["library_text_bytes"], 146_304)
+        self.assertEqual(result["code_bytes"]["matched_bytes"], 150_564)
         for counts in result["regions"].values():
             self.assertEqual(sum(counts.values()), result["known_functions"])
 
@@ -1021,8 +1021,9 @@ class GameInventoryTests(unittest.TestCase):
             encoding="utf-8",
         )
 
-    def register_main_library_unit(self) -> tuple[str, str]:
-        source = "src/libultra/os/interrupt.c"
+    def register_main_library_unit(
+        self, source: str = "src/libultra/os/interrupt.c", library: str = "libultra_2_0I"
+    ) -> tuple[str, str]:
         evidence = "docs/evidence/libultra.md"
         for identifier, symbol in (
             ("__osDisableInt", "func_80001000"),
@@ -1044,7 +1045,7 @@ class GameInventoryTests(unittest.TestCase):
         )
         (self.root / "config/profiles/us.yaml").write_text(
             "    subsegments:\n"
-            "      - [0x0, lib, libultra_2_0I, interrupt, .text]\n"
+            f"      - [0x0, lib, {library}, interrupt, .text]\n"
             "      - [0x10, asm]\n",
             encoding="utf-8",
         )
@@ -1172,6 +1173,177 @@ class GameInventoryTests(unittest.TestCase):
         self.assertEqual(2, len(functions["functions"]))
         self.assertEqual(1, len(units["source_units"]))
         self.assertTrue(source_path.is_file())
+
+    def prepare_matched_rare_library_copy(self) -> tuple[SimpleNamespace, bytes]:
+        source, evidence = self.register_main_library_unit(
+            "src/libultrare/os/interrupt.c", "libultrare"
+        )
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text())
+        for entry in functions["functions"]:
+            entry["regions"]["us"].update(
+                state="matched",
+                evidence={"current_differences": 0, "rom_sha1": "test", "verified_revision": "test"},
+            )
+        project_state.FUNCTIONS_FILE.write_text(json.dumps(functions))
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text())
+        units["source_units"][0]["regions"]["us"]["state"] = "candidate"
+        project_state.SOURCE_UNITS_FILE.write_text(json.dumps(units))
+        # Preserve bytes, including line endings, when retiring completed work.
+        content = b'/* matched source */\r\nvoid first(void) {}\r\nvoid second(void) {}\r\n'
+        (self.root / source).write_bytes(content)
+        preserved = f"lib/libultrare/{source}"
+        (self.root / preserved).parent.mkdir(parents=True, exist_ok=True)
+        (self.root / preserved).write_bytes(content)
+        return SimpleNamespace(
+            evidence_reference=evidence, sources=[source], preserved_source=preserved
+        ), content
+
+    def test_retire_preserved_matched_source_keeps_exact_archive_copy(self) -> None:
+        args, content = self.prepare_matched_rare_library_copy()
+        project_state.retire_library_units(args)
+        self.assertFalse((self.root / args.sources[0]).exists())
+        self.assertEqual(content, (self.root / args.preserved_source).read_bytes())
+        self.assertEqual([], json.loads(project_state.FUNCTIONS_FILE.read_text())["functions"])
+        self.assertEqual([], json.loads(project_state.SOURCE_UNITS_FILE.read_text())["source_units"])
+
+    def test_retire_preserved_source_rejects_different_copy_without_mutation(self) -> None:
+        args, content = self.prepare_matched_rare_library_copy()
+        before = project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()
+        (self.root / args.preserved_source).write_bytes(content.replace(b"\r\n", b"\n"))
+        with self.assertRaisesRegex(project_state.ProjectStateError, "byte-identical"):
+            project_state.retire_library_units(args)
+        self.assertEqual(content, (self.root / args.sources[0]).read_bytes())
+        self.assertEqual(before, (project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()))
+
+    def test_retire_preserved_source_requires_all_functions_matched(self) -> None:
+        args, content = self.prepare_matched_rare_library_copy()
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text())
+        functions["functions"][0]["regions"]["us"]["state"] = "raw_asm"
+        project_state.FUNCTIONS_FILE.write_text(json.dumps(functions))
+        with self.assertRaisesRegex(project_state.ProjectStateError, "every active function matched"):
+            project_state.retire_library_units(args)
+        self.assertEqual(content, (self.root / args.sources[0]).read_bytes())
+
+    def test_retire_preserved_source_rejects_unrelated_destination(self) -> None:
+        args, content = self.prepare_matched_rare_library_copy()
+        args.preserved_source = "lib/libultrare/src/libultrare/os/other.c"
+        (self.root / args.preserved_source).write_bytes(content)
+        with self.assertRaisesRegex(project_state.ProjectStateError, "matching Rare archive"):
+            project_state.retire_library_units(args)
+        self.assertEqual(content, (self.root / args.sources[0]).read_bytes())
+
+    def test_retire_preserved_source_restores_original_bytes_after_failure(self) -> None:
+        args, content = self.prepare_matched_rare_library_copy()
+        before = project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()
+        views = {
+            path: path.read_bytes()
+            for path in (project_state.SUMMARY_FILE, *project_state.BADGE_FILES.values(), project_state.DOCUMENT_FILE)
+        }
+        unlink = Path.unlink
+
+        def fail_after_unlink(path: Path, *positional, **keywords) -> None:
+            unlink(path, *positional, **keywords)
+            raise OSError("injected retirement failure")
+
+        with patch.object(Path, "unlink", fail_after_unlink):
+            with self.assertRaisesRegex(OSError, "injected retirement failure"):
+                project_state.retire_library_units(args)
+        self.assertEqual(content, (self.root / args.sources[0]).read_bytes())
+        self.assertEqual(content, (self.root / args.preserved_source).read_bytes())
+        self.assertEqual(before, (project_state.FUNCTIONS_FILE.read_bytes(), project_state.SOURCE_UNITS_FILE.read_bytes()))
+        self.assertEqual(views, {path: path.read_bytes() for path in views})
+
+    def register_game_library_unit(self) -> tuple[str, str]:
+        source = "src/game/sdk/example.c"
+        evidence = "docs/evidence/game-sdk.md"
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="game", source=source, register_members=True,
+                us_start="0x0", us_end="0x10", evidence_kind="object_symbols",
+                evidence_reference=evidence,
+            )
+        )
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text())
+        units["source_units"][0]["integration"] = "mixed"
+        project_state.SOURCE_UNITS_FILE.write_text(json.dumps(units))
+        (self.root / "config/game/us.yaml").write_text(
+            "      - [0x0, lib, sdk, example, .text]\n      - [0x10, asm]\n"
+        )
+        return source, evidence
+
+    def test_retire_mixed_game_library_unit(self) -> None:
+        source, evidence = self.register_game_library_unit()
+        project_state.retire_library_units(SimpleNamespace(evidence_reference=evidence))
+        self.assertFalse((self.root / source).exists())
+        self.assertEqual([], json.loads(project_state.FUNCTIONS_FILE.read_text())["functions"])
+        self.assertEqual([], json.loads(project_state.SOURCE_UNITS_FILE.read_text())["source_units"])
+
+    def test_retire_source_filter_preserves_other_units_sharing_evidence(self) -> None:
+        source, evidence = self.register_game_library_unit()
+        other_source = "src/game/other.c"
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text())
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text())
+        other_members = []
+        for index, original in enumerate(list(functions["functions"])):
+            member = json.loads(json.dumps(original))
+            member["source"] = other_source
+            member["symbol"] = f"func_150000{0x20 + index * 4:02X}"
+            member["regions"]["us"]["symbol"] = member["symbol"]
+            member["regions"]["us"]["vram"] = hex(0x15000020 + index * 4)
+            functions["functions"].append(member)
+            other_members.append(member["symbol"])
+        other = json.loads(json.dumps(units["source_units"][0]))
+        other.update(source=other_source, functions=other_members, integration="raw_asm")
+        other["regions"]["us"].update(start="0x20", end="0x30")
+        units["source_units"].append(other)
+        project_state.FUNCTIONS_FILE.write_text(json.dumps(functions))
+        project_state.SOURCE_UNITS_FILE.write_text(json.dumps(units))
+        other_path = self.root / other_source
+        content = project_state.source_unit_skeleton_content(other_source, evidence, other_members)
+        other_path.write_text(content)
+        (self.root / "config/game/us.yaml").write_text(
+            "      - [0x0, lib, sdk, example, .text]\n      - [0x10, asm]\n"
+            "      - [0x20, asm]\n      - [0x30, asm]\n"
+        )
+        project_state.retire_library_units(
+            SimpleNamespace(evidence_reference=evidence, sources=[source])
+        )
+        self.assertFalse((self.root / source).exists())
+        self.assertEqual(content, other_path.read_text())
+        self.assertEqual(
+            [other_source],
+            [u["source"] for u in json.loads(project_state.SOURCE_UNITS_FILE.read_text())["source_units"]],
+        )
+
+    def test_retire_source_filter_rejects_unknown_source_without_changes(self) -> None:
+        source, evidence = self.register_game_library_unit()
+        before = project_state.FUNCTIONS_FILE.read_bytes()
+        with self.assertRaisesRegex(project_state.ProjectStateError, "requested sources"):
+            project_state.retire_library_units(
+                SimpleNamespace(evidence_reference=evidence, sources=["src/game/missing.c"])
+            )
+        self.assertEqual(before, project_state.FUNCTIONS_FILE.read_bytes())
+        self.assertTrue((self.root / source).exists())
+
+    def test_retire_mixed_game_library_unit_preserves_modified_source(self) -> None:
+        source, evidence = self.register_game_library_unit()
+        path = self.root / source
+        path.write_text(path.read_text() + "/* contributor work */\n")
+        before = project_state.FUNCTIONS_FILE.read_bytes()
+        with self.assertRaisesRegex(project_state.ProjectStateError, "refusing to remove modified"):
+            project_state.retire_library_units(SimpleNamespace(evidence_reference=evidence))
+        self.assertEqual(before, project_state.FUNCTIONS_FILE.read_bytes())
+        self.assertTrue(path.exists())
+
+    def test_retire_game_library_unit_rejects_wrong_section_or_extent(self) -> None:
+        source, evidence = self.register_game_library_unit()
+        for entry in ("[0x0, lib, sdk, example, .data]\n      - [0x10, asm]",
+                      "[0x0, lib, sdk, example, .text]\n      - [0x20, asm]"):
+            with self.subTest(entry=entry):
+                (self.root / "config/game/us.yaml").write_text("      - " + entry + "\n")
+                with self.assertRaises(project_state.ProjectStateError):
+                    project_state.retire_library_units(SimpleNamespace(evidence_reference=evidence))
+                self.assertTrue((self.root / source).exists())
 
     def test_register_game_registers_function_without_source_unit(self) -> None:
         arguments = SimpleNamespace(

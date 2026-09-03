@@ -30,6 +30,11 @@
     "spimdisasm": {
       "package": "spimdisasm",
       "version": "1.33.0"
+    },
+    "armips": {
+      "repository": "https://github.com/Kingcom/armips.git",
+      "revision": "156f78f6bccfc07498578ac491ce7fe2a1e807a6",
+      "version": "v0.11.0"
     }
   }
 }

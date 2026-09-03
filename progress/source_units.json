@@ -2964,28 +2964,6 @@
       "boundary_evidence": {
         "us": {
           "kind": "structural_analysis",
-          "reference": "docs/evidence/game_final_compact_units.md",
-          "reviewed": true
-        }
-      },
-      "functions": [
-        "func_151F0140",
-        "func_151F01E0"
-      ],
-      "integration": "mixed",
-      "regions": {
-        "us": {
-          "end": "0x1F0350",
-          "start": "0x1F0140",
-          "state": "raw_asm"
-        }
-      },
-      "source": "src/game/game_21D5F0.c"
-    },
-    {
-      "boundary_evidence": {
-        "us": {
-          "kind": "structural_analysis",
           "reference": "docs/evidence/game_3E890.md",
           "reviewed": true
         }
@@ -3004,73 +2982,6 @@
         }
       },
       "source": "src/game/game_3E890.c"
-    },
-    {
-      "boundary_evidence": {
-        "us": {
-          "kind": "structural_analysis",
-          "reference": "docs/evidence/libultrare_us_formatting_boundaries.md",
-          "reviewed": true
-        }
-      },
-      "functions": [
-        "_Ldtob",
-        "_Ldunscale",
-        "_Genld"
-      ],
-      "integration": "raw_asm",
-      "regions": {
-        "us": {
-          "end": "0x2070",
-          "start": "0x1550",
-          "state": "raw_asm"
-        }
-      },
-      "source": "src/libultrare/libc/xldtob.c"
-    },
-    {
-      "boundary_evidence": {
-        "us": {
-          "kind": "structural_analysis",
-          "reference": "docs/evidence/libultrare_us_formatting_boundaries.md",
-          "reviewed": true
-        }
-      },
-      "functions": [
-        "proutSyncPrintf",
-        "osSyncPrintf"
-      ],
-      "integration": "raw_asm",
-      "regions": {
-        "us": {
-          "end": "0x20D0",
-          "start": "0x2070",
-          "state": "raw_asm"
-        }
-      },
-      "source": "src/libultrare/libc/syncprintf.c"
-    },
-    {
-      "boundary_evidence": {
-        "us": {
-          "kind": "structural_analysis",
-          "reference": "docs/evidence/libultrare_us_formatting_boundaries.md",
-          "reviewed": true
-        }
-      },
-      "functions": [
-        "_Printf",
-        "_Putfld"
-      ],
-      "integration": "raw_asm",
-      "regions": {
-        "us": {
-          "end": "0x2DB0",
-          "start": "0x20D0",
-          "state": "raw_asm"
-        }
-      },
-      "source": "src/libultrare/libc/xprintf.c"
     }
   ]
 }

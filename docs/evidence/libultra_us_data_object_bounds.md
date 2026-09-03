@@ -1,8 +1,13 @@
 # US libultra initialized-data object boundaries
 
-This note records five complete stock-library data sections found by extending
-the I-L residual scan beyond `.text`. All five are built from C in the bounded
-`libultrare` snapshot and are byte-identical in the complete US ROM.
+This note records the original five complete stock-library data sections found
+by extending the I-L residual scan beyond `.text`. The two `xprintf` data
+members and the `xldtob_data` member below are now superseded by complete
+compiler-produced formatter objects, including the generated switch table and
+floating-point constants; see [main formatter](libultrare_us_xprintf_reconstruction.md)
+and [floating-point formatter](libultrare_us_formatting_boundaries.md). The table
+retains the historical separate-member hashes and source names. All five
+payloads remain byte-identical in the complete US ROM.
 
 ## Evidence and boundaries
 
@@ -22,8 +27,8 @@ section before integration.
 The `xprintf` initialized strings are the 32-character space and zero pads.
 Its read-only section contains the qualifier/flag tables and the complete
 `_Putfld` switch table. The latter is relocated to Conker's `0x10000000`
-execution aliases, so the local source records the target values while the
-nonmatching Rare formatting text stays raw.
+execution aliases, so the initial data-only source recorded the target values while the
+formatting text was raw. The final complete formatter now generates this table.
 
 The `exceptasm` section contains the 32-byte interrupt-offset table followed
 by the nine-entry handler table. Its handler addresses likewise use the target
@@ -34,11 +39,13 @@ the initialized debugger state words `__osRdbSendMessage` and
 ## Build representation
 
 The original SDK classifications are shown in the table. The three original
-`.rodata` payloads are emitted as dedicated initialized-data archive members in
-this project because Conker interleaves them with a larger raw data block;
+`.rodata` payloads were initially emitted as dedicated initialized-data archive members
+in this project because Conker interleaves them with a larger raw data block;
 placing them in the linker's later aggregate `.rodata` output would move the
 bytes. This is a build-layout adaptation, not a claim that the stock objects
-used a different section.
+used a different section. The completed formatters now retain real `.rodata`
+inputs with an explicit `.data` link-order override; `exceptasm_data` retains
+its separate initialized-data representation.
 
 Every reconstructed section was compared directly with the target range before
 linking. `lib/libultrare/object-md5s.txt` pins each complete build object, and

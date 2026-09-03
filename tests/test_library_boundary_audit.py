@@ -12,6 +12,22 @@ find_occurrences = audit["find_occurrences"]
 
 
 class LibraryBoundaryAuditTests(unittest.TestCase):
+    def test_dictionary_rodata_mapping_excludes_owned_bytes_from_raw_scan(self) -> None:
+        subsegments = [
+            [0, "asm"],
+            [0x10, "lib", "libultrare", "formatter", ".text"],
+            [0x20, "data"],
+            {"start": 0x30, "type": "lib", "name": "libultrare", "object": "formatter",
+             "section": ".rodata", "linker_section_order": ".data"},
+            [0x40, "data"],
+            {"start": 0x50, "type": "lib", "name": "libultrare", "object": "state",
+             "section": ".bss", "vram": 0x80010000},
+        ]
+        ranges = audit["mapped_section_ranges"](subsegments, 0x50)
+        self.assertEqual({".text": [(0x10, 0x20)], ".rodata": [(0x30, 0x40)]}, ranges)
+        self.assertTrue(audit["overlaps"](ranges[".rodata"], 0x30, 0x40))
+        self.assertFalse(audit["overlaps"](ranges[".rodata"], 0x20, 0x30))
+
     def test_hi16_relocation_masks_the_immediate_but_preserves_the_opcode(self) -> None:
         template = TextTemplate(
             text=bytes.fromhex("3c01800403e00008"),

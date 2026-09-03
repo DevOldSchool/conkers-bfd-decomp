@@ -13,6 +13,13 @@ SPEC.loader.exec_module(prepare_game_reference)
 
 
 class PrepareGameReferenceTests(unittest.TestCase):
+    def test_archive_ranges_remain_independent_raw_references(self) -> None:
+        source = "      - [0x100, lib, sdk, random, .text]\n      - [0x130, asm]\n"
+        self.assertEqual(
+            prepare_game_reference.raw_reference_map(source),
+            "      - [0x100, asm]\n      - [0x130, asm]\n",
+        )
+
     def test_raw_reference_map_replaces_named_c_ranges_only(self) -> None:
         source = (
             "      - [0x0, asm]\n"

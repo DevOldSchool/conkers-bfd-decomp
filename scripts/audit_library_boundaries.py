@@ -178,15 +178,14 @@ def mapped_section_ranges(
     }
     result: dict[str, list[tuple[int, int]]] = defaultdict(list)
     for entry in subsegments:
-        if (
-            isinstance(entry, list)
-            and len(entry) >= 5
-            and entry[1] == "lib"
-            and entry[0] < scan_end
-        ):
-            result[entry[4]].append(
-                (entry[0], min(next_boundary[entry[0]], scan_end))
-            )
+        if isinstance(entry, list) and len(entry) >= 5 and entry[1] == "lib":
+            start, section = entry[0], entry[4]
+        elif isinstance(entry, dict) and entry.get("type") == "lib":
+            start, section = entry.get("start"), entry.get("section")
+        else:
+            continue
+        if isinstance(start, int) and start < scan_end and section in LOADABLE_SECTION_NAMES:
+            result[section].append((start, min(next_boundary[start], scan_end)))
     return dict(result)
 
 

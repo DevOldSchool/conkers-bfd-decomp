@@ -186,6 +186,18 @@ whose every function is matched, it verifies again and moves the source to
 object boundaries. Do not edit generated nonmatching assembly, move completed
 files, or edit progress JSON by hand.
 
+For a complete Rare library reconstruction, first verify the whole object's
+text, relocations, data/rodata and BSS ownership, then link its archive mapping
+and pass the full US image comparison. After that gate, retire its old work
+items with `./conker retire-library-units --evidence-reference <path> --source
+<src/libultrare/path.c> --preserved-source <lib/libultrare/src/libultrare/path.c>`.
+This mode requires every active function to be matched, an exact archive text
+range and an independent raw reference, and a byte-identical C copy at the
+corresponding library path. It keeps that library copy and removes the duplicate
+source and inventory entries. The command does not run the full-image gate for
+you. Without `--preserved-source`, retirement still only accepts untouched raw
+skeletons; it cannot discard modified source work.
+
 The focused diff's target object always comes from a separately generated raw
 assembly map. The reference generator converts canonical `c` ranges back to
 `asm`; do not point comparison tooling at the mixed build object.

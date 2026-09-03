@@ -533,6 +533,9 @@ def mapped_library_text_ranges(
                 if kind != "lib" or name is None:
                     continue
                 fields = [field.strip() for field in name.split(",")]
+                # RSP has a separate ISA and payload ledger; preserve CPU progress.
+                if fields[0] == "librsp":
+                    continue
                 if len(fields) < 3 or fields[-1] != ".text":
                     continue
                 if start < code_start or start >= code_end:
@@ -554,13 +557,19 @@ def mapped_library_text_ranges(
 
 
 def reference_subsegments(region: str, overlay: str) -> list[tuple[int, str, str | None]]:
-    """Read the immutable raw-reference map for a main executable."""
+    """Read the independent raw map, materializing game C/archive ranges as ASM."""
 
-    if overlay != "main":
-        raise ProjectStateError("library retirement currently supports only the main executable")
-    path = ROOT / "config" / "reference" / f"{region}.yaml"
+    if overlay == "game":
+        return [
+            (offset, "asm", None) if kind in {"c", "lib"} else (offset, kind, name)
+            for offset, kind, name in mapped_subsegments(region, overlay)
+        ]
+    elif overlay == "main":
+        content = (ROOT / "config" / "reference" / f"{region}.yaml").read_text(encoding="utf-8")
+    else:
+        raise ProjectStateError(f"unknown overlay: {overlay}")
     entries: list[tuple[int, str, str | None]] = []
-    for line in path.read_text(encoding="utf-8").splitlines():
+    for line in content.splitlines():
         match = SUBSEGMENT_PATTERN.match(line)
         if match:
             name = match.group(3).strip() if match.group(3) else None
@@ -682,7 +691,12 @@ def validate_functions(data: dict[str, Any]) -> list[dict[str, Any]]:
     return functions
 
 
-def validate_source_units(data: dict[str, Any], functions: list[dict[str, Any]]) -> list[dict[str, Any]]:
+def validate_source_units(
+    data: dict[str, Any],
+    functions: list[dict[str, Any]],
+    *,
+    archive_replacements: frozenset[str] = frozenset(),
+) -> list[dict[str, Any]]:
     if data.get("schema_version") != 1 or not isinstance(data.get("source_units"), list):
         raise ProjectStateError("progress/source_units.json must use schema_version 1 and a source_units array")
     functions_by_symbol = {entry["symbol"]: entry for entry in functions}
@@ -751,7 +765,10 @@ def validate_source_units(data: dict[str, Any], functions: list[dict[str, Any]])
                     f"{source} is integrated but lacks reviewed boundary evidence for "
                     f"{', '.join(missing_evidence)}"
                 )
-            validate_integrated_source_mapping(source, regions, members)
+            # Retirement validates the exact archive extent and untouched source
+            # below; its map has already transitioned from C to a library entry.
+            if source not in archive_replacements:
+                validate_integrated_source_mapping(source, regions, members)
         source_path = ROOT / source
         if source_path.is_file():
             source_content = source_path.read_text(encoding="utf-8")
@@ -1528,18 +1545,38 @@ def create_source_unit_skeleton(
 
 
 def retire_library_units(args: argparse.Namespace) -> None:
-    """Remove raw-ASM work items after their complete objects become archive-backed."""
+    """Retire archive-backed work, preserving completed source in the library."""
 
+    validate_rom_config(load_json(ROMS_FILE))
+    validate_code_ranges(load_json(OVERLAYS_FILE))
     evidence_reference = args.evidence_reference
     functions_data = load_json(FUNCTIONS_FILE)
     source_units_data = load_json(SOURCE_UNITS_FILE)
     functions = validate_functions(functions_data)
-    units = validate_source_units(source_units_data, functions)
+    validate_deferred_candidate_sources(functions)
+    requested_sources = set(getattr(args, "sources", None) or [])
+    preserved_source = getattr(args, "preserved_source", None)
+    if preserved_source and len(requested_sources) != 1:
+        raise ProjectStateError("--preserved-source requires exactly one --source")
+    replacements = frozenset(
+        unit["source"]
+        for unit in source_units_data.get("source_units", [])
+        if unit.get("boundary_evidence", {}).get("us", {}).get("reference")
+        == evidence_reference
+        and (not requested_sources or unit["source"] in requested_sources)
+    )
+    if requested_sources - replacements:
+        raise ProjectStateError(
+            "requested sources do not use this boundary evidence: "
+            + ", ".join(sorted(requested_sources - replacements))
+        )
+    units = validate_source_units(
+        source_units_data, functions, archive_replacements=replacements
+    )
     selected = [
         unit
         for unit in units
-        if unit.get("boundary_evidence", {}).get("us", {}).get("reference")
-        == evidence_reference
+        if unit["source"] in replacements
     ]
     if not selected:
         raise ProjectStateError(
@@ -1547,36 +1584,47 @@ def retire_library_units(args: argparse.Namespace) -> None:
         )
 
     functions_by_id = {entry["symbol"]: entry for entry in functions}
-    working = mapped_subsegments("us", "main")
-    reference = reference_subsegments("us", "main")
-    working_by_offset = {offset: (kind, name) for offset, kind, name in working}
-    reference_by_offset = {offset: (kind, name) for offset, kind, name in reference}
-    working_offsets = sorted(working_by_offset)
-    source_contents: dict[Path, str] = {}
+    source_contents: dict[Path, bytes] = {}
     retired_ids: set[str] = set()
 
     for unit in selected:
         source = unit["source"]
         members = [functions_by_id[identifier] for identifier in unit["functions"]]
-        if unit.get("integration") != "raw_asm" or any(
-            unit["regions"][region]["state"] != "raw_asm"
-            for region in TARGET_REGIONS
-        ):
-            raise ProjectStateError(f"{source} is not an untouched raw-ASM source unit")
-        if any(
-            member.get("overlay", "main") != "main"
-            or member.get("deferred") is not None
-            or any(
-                member["regions"][region]["state"] != "raw_asm"
+        overlays = {member.get("overlay", "main") for member in members}
+        if len(overlays) != 1:
+            raise ProjectStateError(f"{source} cannot span multiple overlays")
+        overlay = overlays.pop()
+        working = mapped_subsegments("us", overlay)
+        reference = reference_subsegments("us", overlay)
+        working_by_offset = {offset: (kind, name) for offset, kind, name in working}
+        reference_by_offset = {offset: (kind, name) for offset, kind, name in reference}
+        working_offsets = sorted(working_by_offset)
+        if preserved_source:
+            if unit.get("integration") not in {"raw_asm", "mixed"} or not all(
+                is_complete(member) and member.get("deferred") is None
+                for member in members
+            ):
+                raise ProjectStateError(f"{source} must have every active function matched before source preservation")
+        else:
+            if unit.get("integration") not in {"raw_asm", "mixed"} or any(
+                unit["regions"][region]["state"] != "raw_asm"
                 for region in TARGET_REGIONS
-            )
-            for member in members
-        ):
-            raise ProjectStateError(f"{source} has active or completed function work")
+            ):
+                raise ProjectStateError(f"{source} is not an untouched raw-ASM source unit")
+            if any(
+                member.get("deferred") is not None
+                or any(
+                    member["regions"][region]["state"] != "raw_asm"
+                    for region in TARGET_REGIONS
+                )
+                for member in members
+            ):
+                raise ProjectStateError(f"{source} has active or completed function work")
 
         start = int(unit["regions"]["us"]["start"], 0)
         end = int(unit["regions"]["us"]["end"], 0)
-        if working_by_offset.get(start, (None, None))[0] != "lib":
+        mapped_kind, mapped_name = working_by_offset.get(start, (None, None))
+        if mapped_kind != "lib" or not mapped_name or mapped_name.split(",")[-1].strip() != ".text":
             raise ProjectStateError(
                 f"{source} is not library-backed at working-map offset 0x{start:X}"
             )
@@ -1593,16 +1641,35 @@ def retire_library_units(args: argparse.Namespace) -> None:
         source_path = ROOT / source
         if not source_path.is_file():
             raise ProjectStateError(f"raw-ASM source-unit skeleton is missing: {source}")
-        content = source_path.read_text(encoding="utf-8")
-        expected = source_unit_skeleton_content(
-            source,
-            evidence_reference,
-            unit["functions"],
-        )
-        if content != expected:
-            raise ProjectStateError(
-                f"refusing to remove modified source-unit skeleton: {source}"
+        content = source_path.read_bytes()
+        if preserved_source:
+            archive_path = ROOT / preserved_source
+            archive, member, _ = [part.strip() for part in mapped_name.split(",")]
+            if (
+                not source.startswith("src/libultrare/")
+                or preserved_source != f"lib/libultrare/{source}"
+                or archive != "libultrare"
+                or member != source_path.stem
+                or source_path.is_symlink()
+                or archive_path.is_symlink()
+                or not source_path.resolve().is_relative_to(ROOT.resolve() / "src/libultrare")
+                or not archive_path.resolve().is_relative_to(ROOT.resolve() / "lib/libultrare")
+            ):
+                raise ProjectStateError("preserved source must use the matching Rare archive source path and member")
+            if not archive_path.is_file() or archive_path.read_bytes() != content:
+                raise ProjectStateError("preserved library source must be a byte-identical copy")
+            if b"GLOBAL_ASM" in content:
+                raise ProjectStateError("preserved matched library source must not contain GLOBAL_ASM")
+        else:
+            expected = source_unit_skeleton_content(
+                source,
+                evidence_reference,
+                unit["functions"],
             )
+            if content != expected.encode("utf-8"):
+                raise ProjectStateError(
+                    f"refusing to remove modified source-unit skeleton: {source}"
+                )
         source_contents[source_path] = content
         retired_ids.update(unit["functions"])
 
@@ -1622,8 +1689,10 @@ def retire_library_units(args: argparse.Namespace) -> None:
     validated_functions = validate_functions(updated_functions)
     validate_source_units(updated_units, validated_functions)
 
-    original_functions = FUNCTIONS_FILE.read_text(encoding="utf-8")
-    original_units = SOURCE_UNITS_FILE.read_text(encoding="utf-8")
+    original_files = {
+        path: path.read_bytes() if path.is_file() else None
+        for path in (FUNCTIONS_FILE, SOURCE_UNITS_FILE, SUMMARY_FILE, *BADGE_FILES.values(), DOCUMENT_FILE)
+    }
     try:
         write_json(FUNCTIONS_FILE, updated_functions)
         write_json(SOURCE_UNITS_FILE, updated_units)
@@ -1631,18 +1700,23 @@ def retire_library_units(args: argparse.Namespace) -> None:
         for source_path in source_contents:
             source_path.unlink()
     except Exception:
-        FUNCTIONS_FILE.write_text(original_functions, encoding="utf-8")
-        SOURCE_UNITS_FILE.write_text(original_units, encoding="utf-8")
+        # The map already names an archive. Rendering the restored old inventory
+        # would reject its overlap with that map, masking the original failure.
+        for path, original in original_files.items():
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(original)
         for source_path, content in source_contents.items():
             if not source_path.exists():
                 source_path.parent.mkdir(parents=True, exist_ok=True)
-                source_path.write_text(content, encoding="utf-8")
-        render_progress(functions)
+                source_path.write_bytes(content)
         raise
 
     print(
         f"Retired {len(selected)} library-backed source units and "
-        f"{len(retired_ids)} raw-ASM function work items; "
+        f"{len(retired_ids)} function work items; "
         f"evidence={evidence_reference}"
     )
 
@@ -2316,6 +2390,11 @@ def parse_args() -> argparse.Namespace:
     register_unit_parser.add_argument("--evidence-reference", required=True)
     retire_library_parser = subparsers.add_parser("retire-library-units")
     retire_library_parser.add_argument("--evidence-reference", required=True)
+    retire_library_parser.add_argument("--source", dest="sources", action="append")
+    retire_library_parser.add_argument(
+        "--preserved-source",
+        help="retire one fully matched Rare unit only when an identical source copy exists in its archive path",
+    )
     return parser.parse_args()
 
 

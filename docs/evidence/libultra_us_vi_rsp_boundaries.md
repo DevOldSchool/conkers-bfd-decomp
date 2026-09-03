@@ -98,7 +98,38 @@ Banjo-Kazooie, and Banjo-Tooie independently name the related Rare binary
   `libultrare` snapshot. Their text/data placements, relocations, complete
   object MD5s, and the full-ROM checksum all pass; the `0x150` VI text bytes
   therefore contribute to archive-backed progress.
-- `rspboot` has an exact external source/checksum match, while `n_aspMain` is a
-  Conker/Rare microcode variant. Neither should be counted as decompiled source
-  merely by relabelling the existing ROM bytes; they need build-produced RSP
-  objects before archive/source-backed progress is claimed.
+- `rspboot` and Conker's `n_aspMain` now assemble from `src/rsp/` into
+  `librsp.a`; CPU function progress excludes these RSP payloads.
+
+## Current-branch integration (2026-09-03)
+
+The independently developed reconstruction from the isolated library worktree
+was reviewed and brought onto the active branch without copying its unrelated
+CPU, formatting or inventory edits. Source provenance and Conker-specific
+instruction and data changes are documented in `src/rsp/README.md`; the upstream
+MIT notice is retained in `src/rsp/LICENSE`.
+
+armips v0.11.0 is pinned at `156f78f6bccfc07498578ac491ce7fe2a1e807a6`.
+The child Docker image retains the existing CPU compiler and adds that assembler.
+Its source build supplies the standard `<limits>` header needed by current
+libstdc++, without changing the instruction encoder. The cache key includes the
+base image ID, recipe and assembler revision.
+
+`./conker rsp` assembles without reading the ROM, then independently verifies
+its SHA-1, every payload's reviewed MD5, exact byte equality and complete output
+ownership before replacing the archive. The four freshly generated payloads
+match the ranges and MD5s in the table above: 6,656 code bytes and 2,896 initialized
+data bytes. No payload is made by wrapping bytes extracted from the ROM.
+
+`./conker build --profile us` then passes for the complete 67,108,864-byte ROM,
+SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, with all four generated members
+linked from `librsp.a`. Unlike a text-only comparison, this includes both audio
+microcode overlays and their entire initialized data. The raw comparison map
+stays unchanged, including its historical CPU split inside RSP code at `0x292F0`.
+The active map follows complete RSP payload boundaries instead.
+
+All 164 Python tests pass. RSP regression coverage rejects wrong reference hashes,
+byte changes, truncation, extra assembler output, gaps or overlaps in payload
+ownership, ROM incbins and accidental credit to CPU progress. The extra-output
+check runs before same-named member slicing and preserves a previous archive
+on verification failure. Progress output is current and whitespace checks pass.
