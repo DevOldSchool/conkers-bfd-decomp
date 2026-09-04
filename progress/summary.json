@@ -86,11 +86,11 @@
   "future_regions": [
     "eu"
   ],
-  "known_functions": 426,
-  "mixed_source_units": 92,
+  "known_functions": 4066,
+  "mixed_source_units": 457,
   "overlays": {
     "game": {
-      "known_functions": 424,
+      "known_functions": 4064,
       "target_matched": 109
     },
     "main": {
@@ -104,12 +104,12 @@
       "candidate": 0,
       "in_progress": 1,
       "matched": 110,
-      "raw_asm": 315
+      "raw_asm": 3955
     }
   },
   "schema_version": 1,
-  "source_units": 128,
+  "source_units": 493,
   "target_matched": 110,
-  "target_remaining": 316,
-  "unassigned_functions": 0
+  "target_remaining": 3956,
+  "unassigned_functions": 4
 }

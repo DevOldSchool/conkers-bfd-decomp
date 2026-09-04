@@ -1,0 +1,20 @@
+// US game callbacks recovered from retail function-pointer tables.
+// Evidence: docs/evidence/game_return_callback_symbols.md
+// These names describe addresses only; all bodies remain ROM-derived ASM.
+
+func_150407A0 = 0x150407A0; // type:func size:0x8
+func_1506B070 = 0x1506B070; // type:func size:0x8
+func_1506B368 = 0x1506B368; // type:func size:0x8
+func_1506B3B0 = 0x1506B3B0; // type:func size:0x8
+func_1506B5A4 = 0x1506B5A4; // type:func size:0x8
+func_1506B5AC = 0x1506B5AC; // type:func size:0x8
+func_1506D4EC = 0x1506D4EC; // type:func size:0x8
+func_1506D950 = 0x1506D950; // type:func size:0x8
+func_1506DCF8 = 0x1506DCF8; // type:func size:0x8
+func_1506DDB8 = 0x1506DDB8; // type:func size:0x8
+func_1507304C = 0x1507304C; // type:func size:0x8
+func_15073C48 = 0x15073C48; // type:func size:0x8
+func_15073F54 = 0x15073F54; // type:func size:0x8
+func_15076600 = 0x15076600; // type:func size:0x8
+func_15076E48 = 0x15076E48; // type:func size:0x8
+func_1507735C = 0x1507735C; // type:func size:0x8

@@ -81,6 +81,8 @@ After the raw base split map is available
   register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
                                  Register a separately reviewed source/object boundary.
+  withdraw-source-unit --source <path>
+                                 Withdraw a raw game boundary while retaining function work.
   retire-library-units --evidence-reference <path> [--source <path>...]
                                  Remove untouched raw-ASM units after exact archive mapping.
       --source <path> --preserved-source <library-path>
@@ -689,6 +691,10 @@ case "$command" in
             run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2
         fi
         python3 "$state_tool" register-source-unit "$@"
+        ;;
+    withdraw-source-unit)
+        [[ $# -eq 2 ]] || die "usage: ./conker withdraw-source-unit --source <path>"
+        python3 "$state_tool" withdraw-source-unit "$@"
         ;;
     retire-library-units)
         [[ $# -gt 0 ]] || die "usage: ./conker retire-library-units --evidence-reference <path> [--source <path>...]"

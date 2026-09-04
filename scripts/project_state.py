@@ -1721,6 +1721,64 @@ def retire_library_units(args: argparse.Namespace) -> None:
     )
 
 
+def withdraw_source_unit(args: argparse.Namespace) -> None:
+    """Withdraw a game boundary while preserving its untouched function work."""
+    functions = validate_functions(load_json(FUNCTIONS_FILE))
+    data = load_json(SOURCE_UNITS_FILE)
+    units = validate_source_units(data, functions)
+    unit = next((unit for unit in units if unit["source"] == args.source), None)
+    if unit is None:
+        raise ProjectStateError(f"source unit not registered: {args.source}")
+    members = [entry for entry in functions if entry["symbol"] in unit["functions"]]
+    if unit.get("integration") not in {"raw_asm", "mixed"} or any(
+        entry.get("overlay", "main") != "game"
+        or entry.get("deferred") is not None
+        or any(record["state"] != "raw_asm" for record in entry["regions"].values())
+        for entry in members
+    ):
+        raise ProjectStateError("withdrawal requires untouched raw-ASM game functions")
+    source_path = ROOT / args.source
+    expected = source_unit_skeleton_content(
+        args.source, unit["boundary_evidence"]["us"]["reference"], unit["functions"]
+    )
+    if source_path.is_symlink() or source_path.read_text() != expected:
+        raise ProjectStateError("refusing to withdraw a modified source skeleton")
+    map_path = ROOT / "config/game/us.yaml"
+    map_text = map_path.read_text()
+    start = int(unit["regions"]["us"]["start"], 0)
+    end = int(unit["regions"]["us"]["end"], 0)
+    entries = mapped_subsegments("us", "game")
+    position = next(i for i, entry in enumerate(entries) if entry[0] == start)
+    if position + 1 >= len(entries) or entries[position + 1][0] != end:
+        raise ProjectStateError("withdrawal requires the exact mapped source interval")
+    kind, name = entries[position][1:]
+    mapped_source = args.source.removeprefix("src/").removesuffix(".c")
+    if (kind, name) not in {("c", mapped_source), ("asm", None)}:
+        raise ProjectStateError("working map does not name the source being withdrawn")
+    if kind == "c":
+        pattern = rf"(?m)^(\s*- \[0x{start:X}, )c, {re.escape(mapped_source)}(\]\s*)$"
+        map_text, count = re.subn(pattern, r"\1asm\2", map_text)
+        if count != 1:
+            raise ProjectStateError("could not identify one exact source mapping")
+    updated = {**data, "source_units": [item for item in units if item is not unit]}
+    paths = (SOURCE_UNITS_FILE, map_path, source_path, SUMMARY_FILE, DOCUMENT_FILE, *BADGE_FILES.values())
+    originals = {path: path.read_bytes() if path.exists() else None for path in paths}
+    try:
+        write_json(SOURCE_UNITS_FILE, updated)
+        map_path.write_text(map_text)
+        source_path.write_text(expected.replace("Reviewed source unit:", "Raw function collection (boundary withdrawn):"))
+        validate_source_units(updated, functions)
+        render_progress(functions)
+    except Exception:
+        for path, original in originals.items():
+            if original is None:
+                path.unlink(missing_ok=True)
+            else:
+                path.write_bytes(original)
+        raise
+    print(f"Withdrew boundary {args.source}; retained {len(members)} raw function work items.")
+
+
 def register_source_unit(args: argparse.Namespace) -> None:
     """Register one separately reviewed US source/object boundary."""
 
@@ -2388,6 +2446,8 @@ def parse_args() -> argparse.Namespace:
         "--evidence-kind", choices=sorted(BOUNDARY_EVIDENCE_KINDS), required=True
     )
     register_unit_parser.add_argument("--evidence-reference", required=True)
+    withdraw_unit_parser = subparsers.add_parser("withdraw-source-unit")
+    withdraw_unit_parser.add_argument("--source", required=True)
     retire_library_parser = subparsers.add_parser("retire-library-units")
     retire_library_parser.add_argument("--evidence-reference", required=True)
     retire_library_parser.add_argument("--source", dest="sources", action="append")
@@ -2436,6 +2496,8 @@ def main() -> int:
             register_main(args)
         elif args.command == "register-source-unit":
             register_source_unit(args)
+        elif args.command == "withdraw-source-unit":
+            withdraw_source_unit(args)
         elif args.command == "retire-library-units":
             retire_library_units(args)
     except ProjectStateError as error:

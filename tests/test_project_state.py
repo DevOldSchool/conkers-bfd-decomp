@@ -1383,6 +1383,52 @@ class GameInventoryTests(unittest.TestCase):
         functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
         self.assertEqual(1, len(functions["functions"]))
 
+    def register_withdrawable_game_unit(self) -> str:
+        source = "src/game/withdraw_test.c"
+        project_state.register_source_unit(SimpleNamespace(
+            source=source, register_members=True, functions=None,
+            us_start="0x0", us_end="0x10", evidence_kind="structural_analysis",
+            evidence_reference="review/boundary.md",
+        ))
+        return source
+
+    def test_withdraw_boundary_preserves_function_inventory(self) -> None:
+        source = self.register_withdrawable_game_unit()
+        original = project_state.FUNCTIONS_FILE.read_bytes()
+        project_state.withdraw_source_unit(SimpleNamespace(source=source))
+        self.assertEqual(original, project_state.FUNCTIONS_FILE.read_bytes())
+        self.assertEqual([], json.loads(project_state.SOURCE_UNITS_FILE.read_text())["source_units"])
+        self.assertIn("boundary withdrawn", (self.root / source).read_text())
+
+    def test_withdraw_boundary_restores_mixed_map_to_raw(self) -> None:
+        source = self.register_withdrawable_game_unit()
+        data = json.loads(project_state.SOURCE_UNITS_FILE.read_text())
+        data["source_units"][0]["integration"] = "mixed"
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, data)
+        map_path = self.root / "config/game/us.yaml"
+        map_path.write_text(map_path.read_text().replace("[0x0, asm]", "[0x0, c, game/withdraw_test]"))
+        project_state.withdraw_source_unit(SimpleNamespace(source=source))
+        self.assertIn("[0x0, asm]", map_path.read_text())
+        self.assertNotIn("game/withdraw_test", map_path.read_text())
+
+    def test_withdraw_boundary_rejects_modified_source(self) -> None:
+        source = self.register_withdrawable_game_unit()
+        path = self.root / source
+        path.write_text(path.read_text() + "void new_work(void) {}\n")
+        before = project_state.SOURCE_UNITS_FILE.read_bytes()
+        with self.assertRaisesRegex(project_state.ProjectStateError, "modified source"):
+            project_state.withdraw_source_unit(SimpleNamespace(source=source))
+        self.assertEqual(before, project_state.SOURCE_UNITS_FILE.read_bytes())
+
+    def test_withdraw_boundary_rolls_back_render_failure(self) -> None:
+        source = self.register_withdrawable_game_unit()
+        paths = (project_state.SOURCE_UNITS_FILE, self.root / source, self.root / "config/game/us.yaml")
+        before = {path: path.read_bytes() for path in paths}
+        with patch.object(project_state, "render_progress", side_effect=RuntimeError("render failed")):
+            with self.assertRaisesRegex(RuntimeError, "render failed"):
+                project_state.withdraw_source_unit(SimpleNamespace(source=source))
+        self.assertEqual(before, {path: path.read_bytes() for path in paths})
+
     def test_register_source_unit_requires_every_function_in_reviewed_range(self) -> None:
         project_state.register_game(
             SimpleNamespace(

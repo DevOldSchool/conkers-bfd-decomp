@@ -144,6 +144,42 @@ class IntegrationTests(unittest.TestCase):
             encoding="utf-8",
         )
 
+    def test_map_range_ending_at_library_preserves_library_boundary(self) -> None:
+        game_map = self.root / "config/game/us.yaml"
+        game_map.write_text(
+            "    subsegments:\n"
+            "      - [0x10, asm]\n"
+            "      - [0x20, lib, libultrare, cosf, .text]\n",
+            encoding="utf-8",
+        )
+
+        integrate.replace_map_range(game_map, 0x10, 0x20, "game/func_test")
+
+        self.assertEqual(
+            "    subsegments:\n"
+            "      - [0x10, c, game/func_test]\n"
+            "      - [0x20, lib, libultrare, cosf, .text]\n",
+            game_map.read_text(encoding="utf-8"),
+        )
+
+    def test_map_range_cannot_cross_library_boundary(self) -> None:
+        game_map = self.root / "config/game/us.yaml"
+        game_map.write_text(
+            "    subsegments:\n"
+            "      - [0x10, asm]\n"
+            "      - [0x20, lib, libultrare, cosf, .text]\n"
+            "      - [0x30, asm]\n",
+            encoding="utf-8",
+        )
+        original_map = game_map.read_bytes()
+
+        with self.assertRaisesRegex(
+            project_state.ProjectStateError, "crosses an existing map boundary"
+        ):
+            integrate.replace_map_range(game_map, 0x10, 0x30, "game/func_test")
+
+        self.assertEqual(original_map, game_map.read_bytes())
+
     @mock.patch.object(integrate.subprocess, "run")
     def test_integrates_matched_game_source_after_byte_identical_build(self, run: mock.Mock) -> None:
         def assert_build_sees_finalized_project(*args: object, **kwargs: object) -> None:

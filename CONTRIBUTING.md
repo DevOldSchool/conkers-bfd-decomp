@@ -69,6 +69,11 @@ us <symbol>` to map the reviewed unit into the real build as one mixed C/ASM
 object. The transaction is retained only when the complete build remains
 byte-identical.
 
+If later evidence invalidates a game boundary, use
+`./conker withdraw-source-unit --source src/game/<unit>.c`. This restores the
+range to raw ASM and retains the function work items; it rejects modified
+skeletons and any active or matched C work.
+
 Keep the reviewed source-unit comment at the top of every assigned C file,
 immediately below its contiguous `#include` block and before declarations or
 definitions. Project validation rejects reviewed headers that drift lower in a

@@ -11,6 +11,10 @@ roms/baserom.us.beta.v64
 roms/baserom.us.beta.ects.v64
 ```
 
+The ECTS raw code/data boundaries come from its executable ROM loader. See
+[ECTS game layout](evidence/ects_game_layout.md) for the correction to the
+older upstream offsets and the resulting evidence-address changes.
+
 Run the index through the pinned toolchain:
 
 ```sh

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import re
 import unittest
 from pathlib import Path
@@ -426,13 +427,27 @@ class SegmentMapTests(unittest.TestCase):
             "us": (544, 0x0, 0x1F9BF0),
             "eu": (537, 0x0, 0x1FA3E0),
         }
+        units = json.loads((ROOT / "progress/source_units.json").read_text())["source_units"]
+        functions = {
+            item["symbol"]: item
+            for item in json.loads((ROOT / "progress/functions.json").read_text())["functions"]
+        }
         for region, (count, first, last) in expected.items():
             entries = segment_subsegments(ROOT / "config" / "game" / f"{region}.yaml", "game")
             offsets = [offset for offset, _, _ in entries]
-            self.assertEqual(count, len(entries))
+            self.assertGreaterEqual(len(entries), count)
             self.assertEqual(first, offsets[0])
             self.assertEqual(last, offsets[-1])
             self.assertEqual(sorted(set(offsets)), offsets)
+            for unit in units:
+                if not unit.get("boundary_evidence", {}).get(region, {}).get("reviewed"):
+                    continue
+                if any(functions[symbol].get("overlay", "main") != "game" for symbol in unit["functions"]):
+                    continue
+                bounds = unit["regions"][region]
+                with self.subTest(region=region, source=unit["source"]):
+                    self.assertIn(int(bounds["start"], 0), offsets)
+                    self.assertIn(int(bounds["end"], 0), offsets)
 
     def test_mp3_libraries_preserve_their_raw_comparison(self) -> None:
         entries = segment_subsegments(ROOT / "config/game/us.yaml", "game")
@@ -484,13 +499,21 @@ class SegmentMapTests(unittest.TestCase):
                 self.assertEqual((end, "lib", f"{archive}, {member}, .text"), ranges[start])
         self.assertEqual((0x1F3DE0, "lib", "libultrare, playback, .text"), ranges[0x1F2960])
 
-    def test_existing_named_us_reference_splits_are_preserved(self) -> None:
+    def test_named_us_splits_keep_identity_after_source_integration(self) -> None:
         entries = segment_subsegments(ROOT / "config" / "game" / "us.yaml", "game")
         names = {offset: name for offset, _, name in entries if name is not None}
         self.assertEqual("game_3BFD0", names[0xEB20])
-        self.assertEqual("game_1765E0", names[0x149130])
+        self.assertEqual("game/game_1765E0", names[0x149130])
         self.assertEqual("game/game_1A6300", names[0x178E50])
         self.assertEqual("game/game_1BFC70", names[0x1927C0])
+        self.assertIn((0x149130, "c", "game/game_1765E0"), entries)
+
+        from scripts.prepare_game_reference import raw_reference_map
+        profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))
+        reference = next(segment for segment in profile["segments"] if segment.get("name") == "game")
+        self.assertIn([0xEB20, "asm", "game_3BFD0"], reference["subsegments"])
+        self.assertIn([0x149130, "asm"], reference["subsegments"])
+        self.assertIn([0x149550, "asm"], reference["subsegments"])
 
 
 if __name__ == "__main__":

@@ -37,7 +37,7 @@ GAME_INTEGRATED_BUILD_DIR := build/game-integrated/$(GAME_PROFILE)
 GAME_INTEGRATED_CODE := $(GAME_INTEGRATED_BUILD_DIR)/game.code.bin
 GAME_INTEGRATED_PREPARED := $(GAME_INTEGRATED_BUILD_DIR)/.prepared
 GAME_INTEGRATED_LD_SCRIPT := $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld
-GAME_INTEGRATED_PREPARE_INPUTS := Makefile Dockerfile config/game/us.yaml config/overlays.json \
+GAME_INTEGRATED_PREPARE_INPUTS := Makefile Dockerfile config/game/us.yaml config/symbols/game-us.txt config/overlays.json \
 	scripts/compile_c.py scripts/create_bootstrap_symbols.py scripts/extract_game_code.py \
 	scripts/normalize_asm.py scripts/prepare_game_integration.py toolchain/tools.lock.json
 GAME_INTEGRATED_ASM_SRCS := $(shell find asm/game_integrated/$(GAME_PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
