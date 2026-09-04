@@ -29,8 +29,12 @@ The following ranges receive no new boundary credit:
 - `0xA6210:0xA6360`, `0xAA9A0:0xAB1F0`, `0x15BAE0:0x15BE50` and `0xAC9C0:0xAD770` disagree with the independent function CSV. Their raw-only or index-only entries must be reconciled first.
 - `0xBF760:0xBFFE0` was removed from the pointer-table batch because an owned pointer selected a function outside the proposed two-member range.
 - `0xD8A20:0xD8B10` was removed because both functions already belong to the reviewed `game_105D90` source range.
-- `0xEB20:0xEB30` was withdrawn after the repository identity gate confirmed that the existing named `game_3BFD0` raw split must remain ASM in the comparison map. Its raw function work item is retained.
-- `0x1DD140:0x1DD3A0` remains a possible Rare EEPROM library override and is not assigned to game code.
+- `0xEB20:0xEB30` was initially withdrawn to preserve the existing named
+  `game_3BFD0` identity. It was later assigned to the same-named existing C
+  source after reconciliation; the raw reference remains the comparison input.
+- `0x1DD140:0x1DD3A0` was later assigned to the Rare
+  `libultrare/io/conteepread` source boundary; see
+  `docs/evidence/game_libultrare_eeprom_variant_boundaries.md`.
 - `0x183D0:0x186D0` contains unusual Huffman-like routines and labels; its direct call alone is insufficient to distinguish game ownership from a library-derived unit.
 - The remaining raw groups contain unselected members or relationships that do not establish a complete source family. Similar neighbors, shared constants or beta-version resemblance alone are insufficient boundary evidence.
 

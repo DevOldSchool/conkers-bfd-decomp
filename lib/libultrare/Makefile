@@ -80,6 +80,9 @@ SOURCES := \
 	src/libultrare/io/contramwrite.c \
 	src/libultrare/io/contreaddata.c \
 	src/libultrare/io/controller.c \
+	src/libultrare/io/conteepread.c \
+	src/libultrare/io/conteeplongread.c \
+	src/libultrare/io/conteepprobe.c \
 	src/libultrare/io/epirawdma.c \
 	src/libultrare/io/leodiskinit.c \
 	src/libultrare/io/leointerrupt.c \
@@ -119,6 +122,7 @@ $(BUILD_DIR)/%.o: src/%.S $(HEADERS) src/libultrare/mp3/macros.inc
 $(BUILD_DIR)/libultrare/gu/mtxutil.o: CFLAGS := $(filter-out -O1,$(CFLAGS)) -O3
 $(BUILD_DIR)/libultrare/gu/rotate.o: CFLAGS := $(filter-out -O1,$(CFLAGS)) -O2 -g3
 $(BUILD_DIR)/libultrare/gu/cosf.o $(BUILD_DIR)/libultrare/gu/sinf.o $(BUILD_DIR)/libultrare/gu/perspective.o $(addprefix $(BUILD_DIR)/libultrare/gu/,expf.o logf.o): CFLAGS := $(filter-out -O1,$(CFLAGS)) -O2 -g3
+$(addprefix $(BUILD_DIR)/libultrare/io/,conteepread.o conteeplongread.o conteepprobe.o): CFLAGS := $(filter-out -O1,$(CFLAGS)) -O2 -g3
 $(BUILD_DIR)/libultrare/audio/%.o $(BUILD_DIR)/libultrare/mp3/%.o: CFLAGS += -g2
 $(BUILD_DIR)/libultrare/libc/syncprintf.o $(BUILD_DIR)/libultrare/libc/xprintf.o $(BUILD_DIR)/libultrare/libc/xldtob.o: CFLAGS := $(filter-out -O1,$(CFLAGS)) -O2 -g3
 
@@ -126,6 +130,7 @@ $(BUILD_DIR)/libultrare/libc/syncprintf.o $(BUILD_DIR)/libultrare/libc/xprintf.o
 # scheduling effects of -g2/-g3, but omit this non-runtime section from the
 # reconstructed objects before recording reproducible object checksums.
 RECONSTRUCTED_DEBUG_OBJECTS := $(BUILD_DIR)/libultrare/libc/syncprintf.o $(BUILD_DIR)/libultrare/libc/xprintf.o $(BUILD_DIR)/libultrare/libc/xldtob.o $(addprefix $(BUILD_DIR)/libultrare/gu/,rotate.o cosf.o sinf.o perspective.o expf.o logf.o) \
+	$(addprefix $(BUILD_DIR)/libultrare/io/,conteepread.o conteeplongread.o conteepprobe.o) \
 	$(filter $(BUILD_DIR)/libultrare/audio/% $(BUILD_DIR)/libultrare/mp3/%,$(OBJECTS))
 $(RECONSTRUCTED_DEBUG_OBJECTS): REMOVE_MDEBUG := 1
 $(RECONSTRUCTED_DEBUG_OBJECTS): Makefile

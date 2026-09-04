@@ -10,6 +10,10 @@ import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 SUBSEGMENT_PATTERN = re.compile(r"\s+- \[(0x[0-9A-Fa-f]+),\s*(asm|hasm|c|lib)(?:,\s*([^\]]+))?\]")
+DICT_DATA_SUBSEGMENT_PATTERN = re.compile(
+    r"\s+- \{[^}]*start:\s*(0x[0-9A-Fa-f]+),\s*type:\s*(data)"
+    r"(?:,\s*name:\s*([^,}]+))?[^}]*\}"
+)
 
 
 def segment_subsegments(path: Path, name: str) -> list[tuple[int, str, str | None]]:
@@ -28,7 +32,7 @@ def segment_subsegments(path: Path, name: str) -> list[tuple[int, str, str | Non
     for line in lines[subsegments + 1 :]:
         if line.startswith("  - ") and not line.startswith("      - "):
             break
-        match = SUBSEGMENT_PATTERN.fullmatch(line)
+        match = SUBSEGMENT_PATTERN.fullmatch(line) or DICT_DATA_SUBSEGMENT_PATTERN.fullmatch(line)
         if match:
             result.append((int(match.group(1), 16), match.group(2), match.group(3)))
     return result
@@ -454,7 +458,7 @@ class SegmentMapTests(unittest.TestCase):
         ranges = {a: (b, kind, name) for (a, kind, name), (b, _, _) in zip(entries, entries[1:])}
         self.assertEqual((0x1F8870, "lib", "libultrare, main, .text"), ranges[0x1F7F60])
         self.assertEqual((0x1F7F60, "lib", "libultrare, decoder, .text"), ranges[0x1F3DE0])
-        self.assertEqual((0x4A5E0, "asm", None), ranges[0x4A400])
+        self.assertEqual((0x4A5E0, "c", "game/game_778B0"), ranges[0x4A400])
         self.assertEqual((0x1F9BF0, "lib", "libultrare, lib_46650, .text"), ranges[0x1F8CF0])
         from scripts.prepare_game_reference import raw_reference_map
         profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))
@@ -462,6 +466,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertIn([0x1F3DE0, "asm"], reference["subsegments"])
         self.assertIn([0x1F2960, "asm"], reference["subsegments"])
         self.assertIn([0x4A2B0, "asm"], reference["subsegments"])
+        self.assertIn([0x4A400, "asm"], reference["subsegments"])
         self.assertIn([0x4A620, "asm"], reference["subsegments"])
         self.assertIn([0x4A730, "asm"], reference["subsegments"])
         self.assertIn([0x1F7F60, "asm"], reference["subsegments"])
@@ -502,7 +507,7 @@ class SegmentMapTests(unittest.TestCase):
     def test_named_us_splits_keep_identity_after_source_integration(self) -> None:
         entries = segment_subsegments(ROOT / "config" / "game" / "us.yaml", "game")
         names = {offset: name for offset, _, name in entries if name is not None}
-        self.assertEqual("game_3BFD0", names[0xEB20])
+        self.assertEqual("game/done/game_3BFD0", names[0xEB20])
         self.assertEqual("game/game_1765E0", names[0x149130])
         self.assertEqual("game/game_1A6300", names[0x178E50])
         self.assertEqual("game/game_1BFC70", names[0x1927C0])
@@ -511,7 +516,7 @@ class SegmentMapTests(unittest.TestCase):
         from scripts.prepare_game_reference import raw_reference_map
         profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))
         reference = next(segment for segment in profile["segments"] if segment.get("name") == "game")
-        self.assertIn([0xEB20, "asm", "game_3BFD0"], reference["subsegments"])
+        self.assertIn([0xEB20, "asm"], reference["subsegments"])
         self.assertIn([0x149130, "asm"], reference["subsegments"])
         self.assertIn([0x149550, "asm"], reference["subsegments"])
 

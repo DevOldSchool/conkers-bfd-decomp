@@ -10,7 +10,6 @@
  * - func_1512D238
  * - func_1512D2E4
  * - func_1512D2F8
- * - func_1512D368
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -20,4 +19,6 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_159940/func_1512D238.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_159940/func_1512D2E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_159940/func_1512D2F8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_159940/func_1512D368.s")
+void func_1512D368(s32 arg0) {
+
+}

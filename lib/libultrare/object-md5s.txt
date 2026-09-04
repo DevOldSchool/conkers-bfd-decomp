@@ -79,3 +79,7 @@ d945c0c3356a429bd20ab7dcf4a40cc2  build/libultrare/mp3/playback.o
 61e7376510f0cec3e80b1d60d7eda4f2  build/libultrare/libc/xprintf.o
 46e57720ef652c900db76749598e2065  build/libultrare/libc/xldtob.o
 efc9a90b037447be21c91d61b61b1fe0  build/libultrare/mp3/util.o
+# Conker Rare EEPROM reconstructions; complete O2/g3 text objects.
+e14bcc9fc7a6fc1ca98fd2912b101c2d  build/libultrare/io/conteepread.o
+d1dcffbfd94bfb3cdbe9a29e146e65f2  build/libultrare/io/conteeplongread.o
+57261b07854ed6940277f6d705224536  build/libultrare/io/conteepprobe.o

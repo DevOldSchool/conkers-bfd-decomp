@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151150B0
  * - func_151150BC
  * - func_1511515C
  * - func_151151FC
@@ -16,7 +15,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_151150B0.s")
+void func_151150B0(s32 arg0) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_151150BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_1511515C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_151151FC.s")

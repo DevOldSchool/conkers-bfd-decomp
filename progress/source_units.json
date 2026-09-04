@@ -3043,7 +3043,7 @@
         "us": {
           "end": "0x1287E0",
           "start": "0x122AE0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/camera/camera_camera.c"
@@ -3080,7 +3080,7 @@
         "us": {
           "end": "0x1B4CD0",
           "start": "0x1B30B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/effects/holtenrope.c"
@@ -3174,7 +3174,7 @@
         "us": {
           "end": "0x1CD2C0",
           "start": "0x1C71A0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/effects/effects_sight.c"
@@ -3352,7 +3352,7 @@
         "us": {
           "end": "0x141970",
           "start": "0x1407D0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_16DC80.c"
@@ -3461,7 +3461,7 @@
         "us": {
           "end": "0x146890",
           "start": "0x141970",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_16EE20.c"
@@ -3523,7 +3523,7 @@
         "us": {
           "end": "0x169900",
           "start": "0x167010",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1944C0.c"
@@ -3552,7 +3552,7 @@
         "us": {
           "end": "0x39E0",
           "start": "0x3120",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_305D0.c"
@@ -3815,7 +3815,7 @@
         "us": {
           "end": "0xEB20",
           "start": "0xE5C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_3BA70.c"
@@ -4810,7 +4810,7 @@
         "us": {
           "end": "0x412C0",
           "start": "0x40D90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_6E240.c"
@@ -4975,7 +4975,7 @@
         "us": {
           "end": "0x948C0",
           "start": "0x8F060",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_BC510.c"
@@ -5040,7 +5040,7 @@
         "us": {
           "end": "0x9DF20",
           "start": "0x9DD10",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CB1C0.c"
@@ -5106,7 +5106,7 @@
         "us": {
           "end": "0xC4120",
           "start": "0xC1F60",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_EF410.c"
@@ -5216,7 +5216,7 @@
         "us": {
           "end": "0x149550",
           "start": "0x149130",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1765E0.c"
@@ -5283,7 +5283,7 @@
         "us": {
           "end": "0x1D3480",
           "start": "0x1D2AB0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1FFF60.c"
@@ -5365,7 +5365,7 @@
         "us": {
           "end": "0x1DC6A0",
           "start": "0x1D8E20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_2062D0.c"
@@ -5422,7 +5422,7 @@
         "us": {
           "end": "0x107FE0",
           "start": "0x105CE0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_133190.c"
@@ -5520,7 +5520,7 @@
         "us": {
           "end": "0x14F640",
           "start": "0x14CA80",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_179F30.c"
@@ -5575,7 +5575,7 @@
         "us": {
           "end": "0x15FDA0",
           "start": "0x15D440",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_18A8F0.c"
@@ -5668,7 +5668,7 @@
         "us": {
           "end": "0x1C2050",
           "start": "0x1BFC40",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1ED0F0.c"
@@ -5703,7 +5703,7 @@
         "us": {
           "end": "0x3DDD0",
           "start": "0x3CF20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_6A3D0.c"
@@ -5774,7 +5774,7 @@
         "us": {
           "end": "0x80200",
           "start": "0x7EB80",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_AC030.c"
@@ -5817,7 +5817,7 @@
         "us": {
           "end": "0x19E970",
           "start": "0x19CF70",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1CA420.c"
@@ -6592,7 +6592,7 @@
         "us": {
           "end": "0xD0650",
           "start": "0xCFD20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_FD1D0.c"
@@ -6675,7 +6675,7 @@
         "us": {
           "end": "0x1321D0",
           "start": "0x130280",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_15D730.c"
@@ -6763,7 +6763,7 @@
         "us": {
           "end": "0xA34B0",
           "start": "0xA09D0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CDE80.c"
@@ -6813,7 +6813,7 @@
         "us": {
           "end": "0x170B90",
           "start": "0x16D400",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_19A8B0.c"
@@ -6875,7 +6875,7 @@
         "us": {
           "end": "0x9F800",
           "start": "0x9EFF0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CC4A0.c"
@@ -6965,7 +6965,7 @@
         "us": {
           "end": "0x10FEA0",
           "start": "0x10E670",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_13BB20.c"
@@ -7108,7 +7108,7 @@
         "us": {
           "end": "0x158BD0",
           "start": "0x1580B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_185560.c"
@@ -7214,7 +7214,7 @@
         "us": {
           "end": "0x1580B0",
           "start": "0x157010",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1844C0.c"
@@ -7243,7 +7243,7 @@
         "us": {
           "end": "0x1B2950",
           "start": "0x1B2060",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1DF510.c"
@@ -7286,7 +7286,7 @@
         "us": {
           "end": "0x1D87E0",
           "start": "0x1D71B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_204660.c"
@@ -7409,7 +7409,7 @@
         "us": {
           "end": "0x134070",
           "start": "0x1321D0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_15F680.c"
@@ -7445,7 +7445,7 @@
         "us": {
           "end": "0xDAE70",
           "start": "0xD8B10",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_105FC0.c"
@@ -7584,7 +7584,7 @@
         "us": {
           "end": "0x1AE6B0",
           "start": "0x1ACA60",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1D9F10.c"
@@ -7633,7 +7633,7 @@
         "us": {
           "end": "0x12D380",
           "start": "0x12C490",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_159940.c"
@@ -7690,7 +7690,7 @@
         "us": {
           "end": "0xE5AE0",
           "start": "0xE41C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_111670.c"
@@ -7873,7 +7873,7 @@
         "us": {
           "end": "0x1D8E20",
           "start": "0x1D87E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_205C90.c"
@@ -8133,7 +8133,7 @@
         "us": {
           "end": "0x1927C0",
           "start": "0x191BE0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1BF090.c"
@@ -8164,7 +8164,7 @@
         "us": {
           "end": "0x1A8B20",
           "start": "0x1A7950",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1D4E00.c"
@@ -8296,7 +8296,7 @@
         "us": {
           "end": "0x17ABB0",
           "start": "0x179FE0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1A7490.c"
@@ -8328,7 +8328,7 @@
         "us": {
           "end": "0x15BAE0",
           "start": "0x15AF90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_188440.c"
@@ -8361,7 +8361,7 @@
         "us": {
           "end": "0x191BE0",
           "start": "0x190770",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1BDC20.c"
@@ -8392,7 +8392,7 @@
         "us": {
           "end": "0x147DA0",
           "start": "0x147740",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_174BF0.c"
@@ -8499,7 +8499,7 @@
         "us": {
           "end": "0xD2450",
           "start": "0xD2110",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_FF5C0.c"
@@ -8530,7 +8530,7 @@
         "us": {
           "end": "0x80D20",
           "start": "0x80500",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_AD9B0.c"
@@ -8592,7 +8592,7 @@
         "us": {
           "end": "0x9D180",
           "start": "0x9CA10",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_C9EC0.c"
@@ -8683,7 +8683,7 @@
         "us": {
           "end": "0xC5DC0",
           "start": "0xC5370",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_F2820.c"
@@ -8775,7 +8775,7 @@
         "us": {
           "end": "0xD5440",
           "start": "0xD3360",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_100810.c"
@@ -8991,7 +8991,7 @@
         "us": {
           "end": "0xB10F0",
           "start": "0xB0A60",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_DDF10.c"
@@ -9047,7 +9047,7 @@
         "us": {
           "end": "0xB58F0",
           "start": "0xB53D0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E2880.c"
@@ -9074,7 +9074,7 @@
         "us": {
           "end": "0xC1260",
           "start": "0xC09B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_EDE60.c"
@@ -9100,7 +9100,7 @@
         "us": {
           "end": "0xC4BF0",
           "start": "0xC4120",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_F15D0.c"
@@ -9131,7 +9131,7 @@
         "us": {
           "end": "0x149130",
           "start": "0x147DA0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_175250.c"
@@ -9184,7 +9184,7 @@
         "us": {
           "end": "0xF7470",
           "start": "0xF6DB0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_124260.c"
@@ -9404,7 +9404,7 @@
         "us": {
           "end": "0xD2110",
           "start": "0xD1C30",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_FF0E0.c"
@@ -9561,7 +9561,7 @@
         "us": {
           "end": "0xC8730",
           "start": "0xC8350",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_F5800.c"
@@ -9584,7 +9584,7 @@
         "us": {
           "end": "0xBA930",
           "start": "0xBA4C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E7970.c"
@@ -10698,7 +10698,7 @@
         "us": {
           "end": "0x1B660",
           "start": "0x1B320",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_487D0.c"
@@ -10971,7 +10971,7 @@
         "us": {
           "end": "0xF02C0",
           "start": "0xF0260",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_11D710.c"
@@ -11039,7 +11039,7 @@
         "us": {
           "end": "0x1B3040",
           "start": "0x1B2FD0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1E0480.c"
@@ -11062,7 +11062,7 @@
         "us": {
           "end": "0x1B8400",
           "start": "0x1B8370",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1E5820.c"
@@ -11431,7 +11431,7 @@
         "us": {
           "end": "0x1AB930",
           "start": "0x1A99D0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1D6E80.c"
@@ -11676,7 +11676,7 @@
         "us": {
           "end": "0xED1D0",
           "start": "0xEC520",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1199D0.c"
@@ -11698,7 +11698,7 @@
         "us": {
           "end": "0xF5340",
           "start": "0xF52B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_122760.c"
@@ -11774,7 +11774,7 @@
         "us": {
           "end": "0x157010",
           "start": "0x156190",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_183640.c"
@@ -11990,7 +11990,7 @@
         "us": {
           "end": "0xD8590",
           "start": "0xD82B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_105760.c"
@@ -12035,7 +12035,7 @@
         "us": {
           "end": "0xE0300",
           "start": "0xDFDD0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_10D280.c"
@@ -12082,7 +12082,7 @@
         "us": {
           "end": "0x10AEE0",
           "start": "0x10AA20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_137ED0.c"
@@ -12130,7 +12130,7 @@
         "us": {
           "end": "0x1B2FD0",
           "start": "0x1B2950",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1DFE00.c"
@@ -12370,7 +12370,7 @@
         "us": {
           "end": "0xF33B0",
           "start": "0xF2A60",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_11FF10.c"
@@ -12393,7 +12393,7 @@
         "us": {
           "end": "0xF56B0",
           "start": "0xF5590",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_122A40.c"
@@ -12416,7 +12416,7 @@
         "us": {
           "end": "0xF6890",
           "start": "0xF64B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_123960.c"
@@ -12477,7 +12477,7 @@
         "us": {
           "end": "0x1155C0",
           "start": "0x1150B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_142560.c"
@@ -12738,7 +12738,7 @@
         "us": {
           "end": "0x1BFC40",
           "start": "0x1BFBD0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1ED080.c"
@@ -13918,6 +13918,5630 @@
         }
       },
       "source": "src/game/game_1F3740.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_reconciled_pointer_singleton_15bae0.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1515BAE0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x15BBF0",
+          "start": "0x15BAE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_188F90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_complete_11ef40.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1511EF40",
+        "func_1511F31C",
+        "func_1511F3E8",
+        "func_1511F4D0",
+        "func_1511F768",
+        "func_1511F788",
+        "func_1511F92C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x11F980",
+          "start": "0x11EF40",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_14C3F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F02C0",
+        "func_150F02EC",
+        "func_150F0318",
+        "func_150F0328",
+        "func_150F0354"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF0380",
+          "start": "0xF02C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_11D770.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F6420",
+        "func_150F644C",
+        "func_150F6478",
+        "func_150F6484"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF64B0",
+          "start": "0xF6420",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1238D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FC930",
+        "func_150FC974",
+        "func_150FC9A4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFC9D0",
+          "start": "0xFC930",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_129DE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FDBA0",
+        "func_150FDC2C",
+        "func_150FDCAC",
+        "func_150FDCD8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFDD10",
+          "start": "0xFDBA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_12B050.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1511A410",
+        "func_1511A494",
+        "func_1511A6FC",
+        "func_1511A738"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x11A7C0",
+          "start": "0x11A410",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1478C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1514BF50",
+        "func_1514BF7C",
+        "func_1514BF9C",
+        "func_1514C258",
+        "func_1514C288",
+        "func_1514C2B8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x14C2F0",
+          "start": "0x14BF50",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_179400.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15158D00",
+        "func_15158D2C",
+        "func_15158FA4",
+        "func_15159084"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x159120",
+          "start": "0x158D00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1861B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1518E4A0",
+        "func_1518E4CC",
+        "func_1518E4F8",
+        "func_1518E524",
+        "func_1518E5D8",
+        "func_1518E66C",
+        "func_1518E6D4",
+        "func_1518E73C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x18EB10",
+          "start": "0x18E4A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BB950.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15190400",
+        "func_15190454",
+        "func_15190464"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x190490",
+          "start": "0x190400",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BD8B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A6B10",
+        "func_151A6B3C",
+        "func_151A6B68",
+        "func_151A6BD8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A6C90",
+          "start": "0x1A6B10",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D3FC0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151BEB20",
+        "func_151BEC94",
+        "func_151BECB8",
+        "func_151BEE94"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BEEE0",
+          "start": "0x1BEB20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1EBFD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F85A0",
+        "func_150F884C",
+        "func_150F887C",
+        "func_150F892C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF9720",
+          "start": "0xF85A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_125A50.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FCA30",
+        "func_150FCBC0",
+        "func_150FCF1C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFCFB0",
+          "start": "0xFCA30",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_129EE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151163C0",
+        "func_1511650C",
+        "func_15116888",
+        "func_15116924"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x116930",
+          "start": "0x1163C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_143870.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151174F0",
+        "func_15117518",
+        "func_15117770",
+        "func_15117798"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1177C0",
+          "start": "0x1174F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1449A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151177C0",
+        "func_151179BC",
+        "func_15117D3C",
+        "func_15117DA4",
+        "func_15117F3C",
+        "func_1511896C",
+        "func_1511898C",
+        "func_151189AC",
+        "func_15118F24",
+        "func_151193AC",
+        "func_151193F4",
+        "func_151194D4",
+        "func_151196D4",
+        "func_15119938"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x119FC0",
+          "start": "0x1177C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_144C70.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A6C90",
+        "func_151A6F00",
+        "func_151A73EC",
+        "func_151A743C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A7610",
+          "start": "0x1A6C90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D4140.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151BE210",
+        "func_151BE4B8",
+        "func_151BE558",
+        "func_151BE604",
+        "func_151BE644",
+        "func_151BE674",
+        "func_151BE6A0",
+        "func_151BE6CC",
+        "func_151BE788",
+        "func_151BE7C8",
+        "func_151BE7F8",
+        "func_151BE824"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BE850",
+          "start": "0x1BE210",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1EB6C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_final.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151D15D0",
+        "func_151D197C",
+        "func_151D1C98",
+        "func_151D223C",
+        "func_151D2258",
+        "func_151D2284"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1D22B0",
+          "start": "0x1D15D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1FEA80.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_code_selected_callback_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150DDED0",
+        "func_150DDF88",
+        "func_150DDFAC",
+        "func_150DE12C",
+        "func_150DE2A4",
+        "func_150DE2C4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xDE310",
+          "start": "0xDDED0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10B380.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_code_selected_callback_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150DE320",
+        "func_150DE32C",
+        "func_150DE458",
+        "func_150DE6D8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xDE7C0",
+          "start": "0xDE320",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10B7D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_code_selected_callback_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150EA8E0",
+        "func_150EA904",
+        "func_150EA944"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xEAB10",
+          "start": "0xEA8E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_117D90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_code_selected_callback_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151155C0",
+        "func_1511575C",
+        "func_15115E0C",
+        "func_15115EDC",
+        "func_15115F68",
+        "func_15116058"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x116110",
+          "start": "0x1155C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_142A70.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_code_selected_callback_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1518D1C0",
+        "func_1518D6E0",
+        "func_1518E298",
+        "func_1518E308",
+        "func_1518E37C",
+        "func_1518E3C4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x18E4A0",
+          "start": "0x18D1C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BA670.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_code_selected_callback_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151DDBA0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1DDC20",
+          "start": "0x1DDBA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_20B050.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_beta_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1504CA60",
+        "func_1504CB98",
+        "func_150511E8",
+        "func_15051558",
+        "func_1505210C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x52260",
+          "start": "0x4CA60",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_79F10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_beta_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15085B70",
+        "func_15085BE8",
+        "func_15085DA8",
+        "func_15085DF8",
+        "func_15086098",
+        "func_15086364"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x86BD0",
+          "start": "0x85B70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_B3020.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_beta_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A0E40",
+        "func_151A0F28",
+        "func_151A1010",
+        "func_151A11CC",
+        "func_151A11E4",
+        "func_151A175C",
+        "func_151A18DC",
+        "func_151A1998",
+        "func_151A1E34",
+        "func_151A1EE8",
+        "func_151A1FB4",
+        "func_151A24A8",
+        "func_151A25E0",
+        "func_151A26EC",
+        "func_151A2960",
+        "func_151A2A14",
+        "func_151A2AD4",
+        "func_151A2B84",
+        "func_151A2BD0",
+        "func_151A2C24",
+        "func_151A2F0C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A3150",
+          "start": "0x1A0E40",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1CE2F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dispatch_controller_core.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151DE8F0",
+        "func_151DF1BC",
+        "func_151DF574",
+        "func_151DFF38",
+        "func_151E0424",
+        "func_151E09DC",
+        "func_151E0B70",
+        "func_151E1214",
+        "func_151E1744",
+        "func_151E2284",
+        "func_151E22BC",
+        "func_151E2404"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1E24F0",
+          "start": "0x1DE8F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_20BDA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_extended_code_selected_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15103690",
+        "func_151036B4",
+        "func_151037DC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x103800",
+          "start": "0x103690",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_130B40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_extended_code_selected_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A8B20",
+        "func_151A8CEC",
+        "func_151A8F1C",
+        "func_151A8F6C",
+        "func_151A9024"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A9060",
+          "start": "0x1A8B20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D5FD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_extended_code_selected_groups.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151E24F0",
+        "func_151E2834",
+        "func_151E30C4",
+        "func_151E327C",
+        "func_151E3344",
+        "func_151E4264",
+        "func_151E4314",
+        "func_151E43DC",
+        "func_151E4BD8",
+        "func_151E4DC4",
+        "func_151E4DD8",
+        "func_151E4E00",
+        "func_151E4E64",
+        "func_151E4EE8",
+        "func_151E5034",
+        "func_151E50C8",
+        "func_151E51EC",
+        "func_151E530C",
+        "func_151E53E8",
+        "func_151E557C",
+        "func_151E55A8",
+        "func_151E562C",
+        "func_151E564C",
+        "func_151E565C",
+        "func_151E5F64",
+        "func_151E5FAC",
+        "func_151E5FF4",
+        "func_151E6964",
+        "func_151E6BFC",
+        "func_151E6C1C",
+        "func_151E7DC0",
+        "func_151E7E9C",
+        "func_151E7EF8",
+        "func_151E7F60",
+        "func_151E81EC",
+        "func_151E8214",
+        "func_151E82B8",
+        "func_151E83E8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1E84B0",
+          "start": "0x1E24F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_20F9A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_complete_code_selected_segments.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150EB430",
+        "func_150EB484",
+        "func_150EB614",
+        "func_150EB8C4",
+        "func_150EBC80"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xEBEC0",
+          "start": "0xEB430",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1188E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_complete_code_selected_segments.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15112520",
+        "func_15112A80",
+        "func_15113180",
+        "func_15113218",
+        "func_151135C4",
+        "func_151137D4",
+        "func_15113C88",
+        "func_15113E54",
+        "func_15114050",
+        "func_151140C4",
+        "func_15114188",
+        "func_15114348",
+        "func_1511473C",
+        "func_151148A8",
+        "func_1511490C",
+        "func_151149AC",
+        "func_15114A1C",
+        "func_15114B94",
+        "func_15114CC4",
+        "func_15114D24",
+        "func_15114F04",
+        "func_15114F44"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1150B0",
+          "start": "0x112520",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_13F9D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_complete_code_selected_segments.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B9F00",
+        "func_151BA084",
+        "func_151BA468",
+        "func_151BA518",
+        "func_151BB044",
+        "func_151BB0E0",
+        "func_151BB61C",
+        "func_151BBA9C",
+        "func_151BBEE4",
+        "func_151BBFBC",
+        "func_151BC074",
+        "func_151BC104"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BC370",
+          "start": "0x1B9F00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E73B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15190490",
+        "func_151904BC",
+        "func_15190518"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x190550",
+          "start": "0x190490",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BD940.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150DFBD0",
+        "func_150DFCA8",
+        "func_150DFDA4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xDFDD0",
+          "start": "0xDFBD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10D080.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1506AAE0",
+        "func_1506AB7C",
+        "func_1506ABC4",
+        "func_1506AC0C",
+        "func_1506AC58",
+        "func_1506AC8C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x6AD30",
+          "start": "0x6AAE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_97F90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15100340",
+        "func_15100464"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x100600",
+          "start": "0x100340",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_12D7F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150D8590",
+        "func_150D85AC",
+        "func_150D88AC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xD88E0",
+          "start": "0xD8590",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_105A40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150EA500",
+        "func_150EA5CC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xEA8E0",
+          "start": "0xEA500",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1179B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A0A10",
+        "func_151A0AF8",
+        "func_151A0C0C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A0E40",
+          "start": "0x1A0A10",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1CDEC0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E9FE0",
+        "func_150EA10C",
+        "func_150EA11C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xEA490",
+          "start": "0xE9FE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_117490.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15192920",
+        "func_151929A4",
+        "func_15192D48"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x192DF0",
+          "start": "0x192920",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BFDD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150D0E90",
+        "func_150D10E4",
+        "func_150D11B4",
+        "func_150D1204"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xD13A0",
+          "start": "0xD0E90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_FE340.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150C4D20",
+        "func_150C4E9C",
+        "func_150C522C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xC5280",
+          "start": "0xC4D20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_F21D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15193660",
+        "func_151937F4",
+        "func_151938E4",
+        "func_151938FC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x193CA0",
+          "start": "0x193660",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1C0B10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15102D90",
+        "func_15102EB8",
+        "func_15103254"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x103430",
+          "start": "0x102D90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_130240.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150CF530",
+        "func_150CF578",
+        "func_150CF5E8",
+        "func_150CF680",
+        "func_150CF800",
+        "func_150CFBEC",
+        "func_150CFC38"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xCFC60",
+          "start": "0xCF530",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_FC9E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A5660",
+        "func_151A5CAC",
+        "func_151A5CEC",
+        "func_151A5D2C",
+        "func_151A5D58"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A5F70",
+          "start": "0x1A5660",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D2B10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A90C0",
+        "func_151A91AC",
+        "func_151A931C",
+        "func_151A9390",
+        "func_151A9634",
+        "func_151A9834"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A99D0",
+          "start": "0x1A90C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D6570.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150EEE00",
+        "func_150EEF40",
+        "func_150EEF80",
+        "func_150EF38C",
+        "func_150EF784"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xEF7B0",
+          "start": "0xEEE00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_11C2B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15149550",
+        "func_15149838",
+        "func_15149A94",
+        "func_15149BF4",
+        "func_15149C58",
+        "func_15149D18",
+        "func_15149EC4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x149FD0",
+          "start": "0x149550",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_176A00.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15116930",
+        "func_15116984",
+        "func_151169B4",
+        "func_15116BAC",
+        "func_15116D7C",
+        "func_15116EA4",
+        "func_151172D8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1174A0",
+          "start": "0x116930",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_143DE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150D7630",
+        "func_150D765C",
+        "func_150D7790",
+        "func_150D7928"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xD82B0",
+          "start": "0xD7630",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_104AE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150CCEB0",
+        "func_150CD17C",
+        "func_150CD59C",
+        "func_150CD7F8",
+        "func_150CDB6C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xCDBB0",
+          "start": "0xCCEB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_FA360.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F56B0",
+        "func_150F5A54",
+        "func_150F5C08",
+        "func_150F5C98",
+        "func_150F6138",
+        "func_150F6178",
+        "func_150F631C",
+        "func_150F6368",
+        "func_150F6394"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF63C0",
+          "start": "0xF56B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_122B60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FB8C0",
+        "func_150FC368",
+        "func_150FC438",
+        "func_150FC614",
+        "func_150FC818"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFC930",
+          "start": "0xFB8C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_128D70.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E76D0",
+        "func_150E7994",
+        "func_150E7C9C",
+        "func_150E7FEC",
+        "func_150E81A8",
+        "func_150E83AC",
+        "func_150E8470",
+        "func_150E8824",
+        "func_150E8854"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE88C0",
+          "start": "0xE76D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_114B80.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15109410",
+        "func_151094FC",
+        "func_15109848",
+        "func_15109C20",
+        "func_15109ED4",
+        "func_15109FB8",
+        "func_1510A344",
+        "func_1510A40C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x10A870",
+          "start": "0x109410",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1368C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_pointer_selected_segments_extended.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1514A6A0",
+        "func_1514AB5C",
+        "func_1514AD9C",
+        "func_1514AF74",
+        "func_1514B034",
+        "func_1514B364",
+        "func_1514B844",
+        "func_1514B87C",
+        "func_1514B8B0",
+        "func_1514B8E4",
+        "func_1514BC08"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x14BE00",
+          "start": "0x14A6A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_177B50.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150412C0",
+        "func_150413FC",
+        "func_15041480",
+        "func_15041508"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x415E0",
+          "start": "0x412C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_6E770.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1507BDB0",
+        "func_1507C22C",
+        "func_1507C324"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x7C370",
+          "start": "0x7BDB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_A9260.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15170B90",
+        "func_15170EC4",
+        "func_15170F4C",
+        "func_151711C4",
+        "func_15171200"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x171600",
+          "start": "0x170B90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_19E040.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1510B690",
+        "func_1510B7B4",
+        "func_1510B958",
+        "func_1510B9D0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x10BF60",
+          "start": "0x10B690",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_138B40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1510CB10",
+        "func_1510CDB8",
+        "func_1510CE60",
+        "func_1510D0EC",
+        "func_1510D374",
+        "func_1510D404",
+        "func_1510D608"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x10D630",
+          "start": "0x10CB10",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_139FC0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_call_connected_segments_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15084D00",
+        "func_15084D70",
+        "func_15085410",
+        "func_15085420",
+        "func_15085430",
+        "func_15085710",
+        "func_150859AC",
+        "func_15085ABC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x85B70",
+          "start": "0x84D00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_B21B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15159120",
+        "func_15159184",
+        "func_15159230",
+        "func_151592B8",
+        "func_15159370",
+        "func_1515942C",
+        "func_15159594",
+        "func_151596BC",
+        "func_15159890",
+        "func_15159BB0",
+        "func_15159C08",
+        "func_1515A11C",
+        "func_1515A238",
+        "func_1515A60C",
+        "func_1515A78C",
+        "func_1515A920",
+        "func_1515A974",
+        "func_1515AA84",
+        "func_1515AB88"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x15AF90",
+          "start": "0x159120",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1865D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1511AF30",
+        "func_1511B07C",
+        "func_1511B51C",
+        "func_1511B7D4",
+        "func_1511BA24",
+        "func_1511BB04",
+        "func_1511BDF4",
+        "func_1511BE5C",
+        "func_1511BEBC",
+        "func_1511C540",
+        "func_1511C548",
+        "func_1511C638",
+        "func_1511CB2C",
+        "func_1511CB44",
+        "func_1511D394",
+        "func_1511D7BC",
+        "func_1511D9E4",
+        "func_1511DBC4",
+        "func_1511DD98",
+        "func_1511DF6C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x11E780",
+          "start": "0x11AF30",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1483E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15101F50",
+        "func_151022AC",
+        "func_151025F4",
+        "func_151026BC",
+        "func_151027E8",
+        "func_1510281C",
+        "func_15102884",
+        "func_151028AC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x102920",
+          "start": "0x101F50",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_12F400.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151BC580",
+        "func_151BC5A4",
+        "func_151BC64C",
+        "func_151BC794",
+        "func_151BCA90",
+        "func_151BD21C",
+        "func_151BD2BC",
+        "func_151BD2F8",
+        "func_151BD42C",
+        "func_151BD43C",
+        "func_151BD750",
+        "func_151BD79C",
+        "func_151BD7F4",
+        "func_151BD828",
+        "func_151BDD8C",
+        "func_151BE0AC",
+        "func_151BE138",
+        "func_151BE1B8",
+        "func_151BE1E4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BE210",
+          "start": "0x1BC580",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E9A30.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151CF380",
+        "func_151CF844",
+        "func_151CF898",
+        "func_151CFA4C",
+        "func_151D0024",
+        "func_151D0058",
+        "func_151D0128",
+        "func_151D014C",
+        "func_151D08F0",
+        "func_151D09A8",
+        "func_151D0ED8",
+        "func_151D0F08",
+        "func_151D0F34",
+        "func_151D0F60",
+        "func_151D1074",
+        "func_151D10A4",
+        "func_151D10C4",
+        "func_151D10E4",
+        "func_151D1138",
+        "func_151D1328",
+        "func_151D1368",
+        "func_151D1388",
+        "func_151D13B4",
+        "func_151D13E0",
+        "func_151D1448"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1D15D0",
+          "start": "0x1CF380",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1FC830.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1518F1A0",
+        "func_1518F384",
+        "func_1518F45C",
+        "func_1518F49C",
+        "func_1518F51C",
+        "func_1518F5D0",
+        "func_1518F7C4",
+        "func_1518F858",
+        "func_1518F89C",
+        "func_1518F8E0",
+        "func_1518FC04",
+        "func_1518FC44",
+        "func_1518FC84",
+        "func_1518FDC4",
+        "func_1519003C",
+        "func_1519021C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1903D0",
+          "start": "0x18F1A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BC650.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F0380",
+        "func_150F0390",
+        "func_150F03BC",
+        "func_150F03E8",
+        "func_150F03F8",
+        "func_150F07E4",
+        "func_150F088C",
+        "func_150F0938",
+        "func_150F0A24",
+        "func_150F0BEC",
+        "func_150F0E48",
+        "func_150F1020",
+        "func_150F10D4",
+        "func_150F1170",
+        "func_150F15F8",
+        "func_150F1684",
+        "func_150F16DC",
+        "func_150F1A00",
+        "func_150F1B48",
+        "func_150F1CB0",
+        "func_150F1D10"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF20F0",
+          "start": "0xF0380",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_11D830.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F9BB0",
+        "func_150FA1B8",
+        "func_150FA468",
+        "func_150FA520",
+        "func_150FAA40",
+        "func_150FAAEC",
+        "func_150FACE4",
+        "func_150FAD28",
+        "func_150FAD78",
+        "func_150FADC8",
+        "func_150FAE18",
+        "func_150FB188",
+        "func_150FB1E8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFB240",
+          "start": "0xF9BB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_127060.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B8400",
+        "func_151B85AC",
+        "func_151B863C",
+        "func_151B8668",
+        "func_151B86F4",
+        "func_151B8908"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B8B40",
+          "start": "0x1B8400",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E58B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151D3480",
+        "func_151D3D50",
+        "func_151D3E04",
+        "func_151D3E6C",
+        "func_151D3F14",
+        "func_151D3FF4",
+        "func_151D40D4",
+        "func_151D42E8",
+        "func_151D4408",
+        "func_151D4668",
+        "func_151D469C",
+        "func_151D4794",
+        "func_151D4C38",
+        "func_151D4D04",
+        "func_151D4D58",
+        "func_151D4DAC",
+        "func_151D5148",
+        "func_151D5174",
+        "func_151D5334",
+        "func_151D5404",
+        "func_151D5514",
+        "func_151D5648",
+        "func_151D5714",
+        "func_151D57F8",
+        "func_151D5A18",
+        "func_151D5B6C",
+        "func_151D5D60",
+        "func_151D5E30"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1D5E90",
+          "start": "0x1D3480",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_200930.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150536D0",
+        "func_150536E8",
+        "func_1505371C",
+        "func_15053750",
+        "func_15053894",
+        "func_150538CC",
+        "func_150548D8",
+        "func_150548E4",
+        "func_15054A0C",
+        "func_15054A5C",
+        "func_15054A94",
+        "func_15054F74",
+        "func_15055260",
+        "func_1505528C",
+        "func_15055A2C",
+        "func_15055B0C",
+        "func_15055B64",
+        "func_15055BF8",
+        "func_15055C88",
+        "func_15055D48"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x55E50",
+          "start": "0x536D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_80B80.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151C2050",
+        "func_151C229C",
+        "func_151C2734",
+        "func_151C2AD0",
+        "func_151C2E4C",
+        "func_151C2E94",
+        "func_151C2EF0",
+        "func_151C2F48",
+        "func_151C329C",
+        "func_151C36D8",
+        "func_151C3B0C",
+        "func_151C436C",
+        "func_151C43E0",
+        "func_151C4510",
+        "func_151C455C",
+        "func_151C4644"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1C4820",
+          "start": "0x1C2050",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1EF500.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B6320",
+        "func_151B6420",
+        "func_151B65D4",
+        "func_151B6928",
+        "func_151B70B4",
+        "func_151B7144",
+        "func_151B7328",
+        "func_151B7678",
+        "func_151B76CC",
+        "func_151B77F4",
+        "func_151B7998",
+        "func_151B7C38",
+        "func_151B82CC",
+        "func_151B8318"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B8370",
+          "start": "0x1B6320",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E37D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AF200",
+        "func_150AF2E0",
+        "func_150AF328",
+        "func_150AF6E4",
+        "func_150AF738",
+        "func_150AF790",
+        "func_150AF7C4",
+        "func_150AFBF4",
+        "func_150AFC68",
+        "func_150AFDB0",
+        "func_150AFE64",
+        "func_150B003C",
+        "func_150B0094",
+        "func_150B02C0",
+        "func_150B02F0",
+        "func_150B031C",
+        "func_150B0348",
+        "func_150B060C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB06B0",
+          "start": "0xAF200",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DC6B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151CD2C0",
+        "func_151CD35C",
+        "func_151CD394",
+        "func_151CD3CC",
+        "func_151CD4C0",
+        "func_151CD674",
+        "func_151CD7BC",
+        "func_151CDB94",
+        "func_151CDE20",
+        "func_151CE47C",
+        "func_151CE49C",
+        "func_151CE4DC",
+        "func_151CE51C",
+        "func_151CE634"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1CE6D0",
+          "start": "0x1CD2C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1FA770.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B0050",
+        "func_151B01B8",
+        "func_151B03B8",
+        "func_151B09BC",
+        "func_151B0B88",
+        "func_151B118C",
+        "func_151B1478",
+        "func_151B14AC",
+        "func_151B1828",
+        "func_151B1918",
+        "func_151B19A4",
+        "func_151B1A58",
+        "func_151B1A84"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B1AB0",
+          "start": "0x1B0050",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1DD500.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1504A730",
+        "func_1504ADD0",
+        "func_1504AEF4",
+        "func_1504AF10",
+        "func_1504B0FC",
+        "func_1504BA38",
+        "func_1504BAF0",
+        "func_1504BB88",
+        "func_1504BC38",
+        "func_1504BE2C",
+        "func_1504C078",
+        "func_1504C0B8",
+        "func_1504C0E8",
+        "func_1504C854",
+        "func_1504C8BC",
+        "func_1504C9E4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x4CA60",
+          "start": "0x4A730",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_77BE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150D5440",
+        "func_150D54C8",
+        "func_150D596C",
+        "func_150D5A2C",
+        "func_150D5A4C",
+        "func_150D5A6C",
+        "func_150D6388",
+        "func_150D6434",
+        "func_150D64E8",
+        "func_150D65F0",
+        "func_150D66A4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xD6730",
+          "start": "0xD5440",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1028F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1512A390",
+        "func_1512ABF8",
+        "func_1512AD54",
+        "func_1512B100",
+        "func_1512B1B8",
+        "func_1512B53C",
+        "func_1512B5FC",
+        "func_1512B630",
+        "func_1512B730",
+        "func_1512BB10",
+        "func_1512C068",
+        "func_1512C150",
+        "func_1512C200",
+        "func_1512C20C",
+        "func_1512C47C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12C490",
+          "start": "0x12A390",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_157840.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150BEF70",
+        "func_150BEF7C",
+        "func_150BF0F4",
+        "func_150BF21C",
+        "func_150BF760",
+        "func_150BFA7C",
+        "func_150BFFE0",
+        "func_150C01DC",
+        "func_150C04C0",
+        "func_150C0648"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xC09B0",
+          "start": "0xBEF70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_EC420.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F7470",
+        "func_150F78B4",
+        "func_150F7E20",
+        "func_150F7F58",
+        "func_150F7F8C",
+        "func_150F802C",
+        "func_150F81BC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF85A0",
+          "start": "0xF7470",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_124920.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E8A80",
+        "func_150E8B1C",
+        "func_150E8D5C",
+        "func_150E90DC",
+        "func_150E9178",
+        "func_150E93DC",
+        "func_150E971C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE9890",
+          "start": "0xE8A80",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_115F30.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150BB760",
+        "func_150BBB5C",
+        "func_150BC488",
+        "func_150BCBBC",
+        "func_150BCFB8",
+        "func_150BD070",
+        "func_150BD740",
+        "func_150BD954",
+        "func_150BDB3C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xBDB70",
+          "start": "0xBB760",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_E8C10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_dense_pointer_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B9560",
+        "func_150B95FC",
+        "func_150B961C",
+        "func_150B963C",
+        "func_150B9D14",
+        "func_150B9D8C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB9ED0",
+          "start": "0xB9560",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_E6A10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151C5280",
+        "func_151C5588",
+        "func_151C56A4",
+        "func_151C577C",
+        "func_151C5E74",
+        "func_151C5F44",
+        "func_151C61A0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1C6290",
+          "start": "0x1C5280",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1F2730.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E0300",
+        "func_150E0348",
+        "func_150E03F8",
+        "func_150E05F8",
+        "func_150E06D8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE0870",
+          "start": "0xE0300",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10D7B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1519E970",
+        "func_1519EA04",
+        "func_1519EA78",
+        "func_1519EB8C",
+        "func_1519ED24",
+        "func_1519ED84",
+        "func_1519EF04"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x19EF70",
+          "start": "0x19E970",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1CBE20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15104170",
+        "func_151041E4",
+        "func_1510448C",
+        "func_151044F4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x104520",
+          "start": "0x104170",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_131620.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FCFB0",
+        "func_150FCFD4",
+        "func_150FD514",
+        "func_150FDB0C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFDBA0",
+          "start": "0xFCFB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_12A460.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F9720",
+        "func_150F9788",
+        "func_150F9794",
+        "func_150F97C0",
+        "func_150F97EC",
+        "func_150F9950"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF9A20",
+          "start": "0xF9720",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_126BD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150DAE70",
+        "func_150DB114",
+        "func_150DB2D8",
+        "func_150DB518"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xDB630",
+          "start": "0xDAE70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_108320.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15052260",
+        "func_15052408",
+        "func_15052458",
+        "func_15052464",
+        "func_15052490",
+        "func_1505250C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x52590",
+          "start": "0x52260",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_7F710.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151BEEE0",
+        "func_151BF0C8",
+        "func_151BF340",
+        "func_151BF81C",
+        "func_151BFB2C",
+        "func_151BFBA4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BFBD0",
+          "start": "0x1BEEE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1EC390.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151ABE40",
+        "func_151AC078",
+        "func_151AC3CC",
+        "func_151AC408"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1AC550",
+          "start": "0x1ABE40",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D92F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151749A0",
+        "func_151749F8",
+        "func_15174AA4",
+        "func_15174B48"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x174BF0",
+          "start": "0x1749A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1A1E50.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150EFB80",
+        "func_150EFEC8",
+        "func_150F00EC",
+        "func_150F0198"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF0260",
+          "start": "0xEFB80",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_11D030.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B9ED0",
+        "func_150BA35C",
+        "func_150BA37C",
+        "func_150BA424"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xBA4C0",
+          "start": "0xB9ED0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_E7380.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B6450",
+        "func_150B648C",
+        "func_150B66DC",
+        "func_150B6754"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB67E0",
+          "start": "0xB6450",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_E3900.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151D6970",
+        "func_151D69B4",
+        "func_151D6BFC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1D6E60",
+          "start": "0x1D6970",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_203E20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1511FC60",
+        "func_15120158",
+        "func_15121490",
+        "func_151216F8",
+        "func_151218C4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1219D0",
+          "start": "0x11FC60",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_14D110.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151045E0",
+        "func_151045F4",
+        "func_15104608",
+        "func_15104620",
+        "func_15104634"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x104A80",
+          "start": "0x1045E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_131A90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151DD970",
+        "func_151DD9E4",
+        "func_151DDB94"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1DDBA0",
+          "start": "0x1DD970",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_20AE20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151CEA20",
+        "func_151CEAAC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1CEC10",
+          "start": "0x1CEA20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1FBED0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151A6600",
+        "func_151A6AB8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1A6B10",
+          "start": "0x1A6600",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D3AB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151718F0",
+        "func_15171BF4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x171CA0",
+          "start": "0x1718F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_19EDA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15129C30",
+        "func_1512A360"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12A390",
+          "start": "0x129C30",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1570E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151220D0",
+        "func_15122170"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x122440",
+          "start": "0x1220D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_14F580.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151219D0",
+        "func_15121C00",
+        "func_15121C64"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x121C80",
+          "start": "0x1219D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_14EE80.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150DECC0",
+        "func_150DF334",
+        "func_150DF4B8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xDF820",
+          "start": "0xDECC0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10C170.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150D7120",
+        "func_150D728C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xD7420",
+          "start": "0xD7120",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1045D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150BABE0",
+        "func_150BAFEC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xBB260",
+          "start": "0xBABE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_E8090.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AD900",
+        "func_150AD930"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAD960",
+          "start": "0xAD900",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DADB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150497E0",
+        "func_150498A4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x499A0",
+          "start": "0x497E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_76C90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150495B0",
+        "func_15049688"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x497E0",
+          "start": "0x495B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_76A60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150344A0",
+        "func_1503453C",
+        "func_150345E4",
+        "func_15034728",
+        "func_150347E8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x34860",
+          "start": "0x344A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_61950.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_structural_families_continued.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150183D0",
+        "func_15018500"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x186D0",
+          "start": "0x183D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_45880.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151C4AB0",
+        "func_151C4B0C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1C5280",
+          "start": "0x1C4AB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1F1F60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B8DB0",
+        "func_151B9214"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B9310",
+          "start": "0x1B8DB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E6260.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151906E0",
+        "func_1519072C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x190770",
+          "start": "0x1906E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BDB90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1518BA90",
+        "func_1518BBF4",
+        "func_1518BCD0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x18BD60",
+          "start": "0x18BA90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1B8F40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15177F90",
+        "func_15178268"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x178750",
+          "start": "0x177F90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1A5440.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15158BD0",
+        "func_15158CD4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x158D00",
+          "start": "0x158BD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_186080.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FB2E0",
+        "func_150FB324"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFB4C0",
+          "start": "0xFB2E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_128790.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F33B0",
+        "func_150F33F8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF34A0",
+          "start": "0xF33B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_120860.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150EBEC0",
+        "func_150EC3D4",
+        "func_150EC45C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xEC4B0",
+          "start": "0xEBEC0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_119370.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150DBD70",
+        "func_150DC558"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xDCEA0",
+          "start": "0xDBD70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_109220.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15052EF0",
+        "func_15052F58",
+        "func_15052F9C",
+        "func_1505327C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x53430",
+          "start": "0x52EF0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_803A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_isolated_selectors_and_calls.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1503F4B0",
+        "func_1503F5B8",
+        "func_1503F62C",
+        "func_1503F7B8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x3F800",
+          "start": "0x3F4B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_6C960.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_recovered_pointer_helper_groups_final.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15178750",
+        "func_151787A4",
+        "func_151787AC",
+        "func_15178B98",
+        "func_15178BE4",
+        "func_15178C34",
+        "func_15178C9C",
+        "func_15178DA4",
+        "func_15178E14"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x178E50",
+          "start": "0x178750",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1A5C00.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_reconciled_empty_stub_splits.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151DDC20",
+        "func_151DE6CC",
+        "func_151DE6D4",
+        "func_151DE7D4",
+        "func_151DE81C",
+        "func_151DE85C",
+        "func_151DE8E8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1DE8F0",
+          "start": "0x1DDC20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_20B0D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_reconciled_empty_stub_splits.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B5BF0",
+        "func_151B5E8C",
+        "func_151B5E94",
+        "func_151B5FCC"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B6010",
+          "start": "0x1B5BF0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E30A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_reconciled_empty_stub_splits.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1515BBF0",
+        "func_1515BE48",
+        "func_1515BE50",
+        "func_1515BF50",
+        "func_1515BF7C",
+        "func_1515BFA8",
+        "func_1515C0B8",
+        "func_1515C0F8",
+        "func_1515C158",
+        "func_1515C1A0",
+        "func_1515C244"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x15C2F0",
+          "start": "0x15BBF0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1890A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_reconciled_empty_stub_splits.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1516AA70",
+        "func_1516B6BC",
+        "func_1516C878",
+        "func_1516C934",
+        "func_1516CC58",
+        "func_1516D0CC",
+        "func_1516D2D8",
+        "func_1516D2E0",
+        "func_1516D328",
+        "func_1516D378",
+        "func_1516D3C4"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x16D400",
+          "start": "0x16AA70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_197F20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_reconciled_empty_stub_splits.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15086BD0",
+        "func_15086C68",
+        "func_15086C70",
+        "func_15086CBC",
+        "func_15086D48",
+        "func_15086D94",
+        "func_150870D0",
+        "func_15087350",
+        "func_15087CC0",
+        "func_15087DCC",
+        "func_15087E54",
+        "func_15087EF0",
+        "func_15087FC4",
+        "func_15087FEC",
+        "func_1508802C",
+        "func_150880F8",
+        "func_150881CC",
+        "func_15088218",
+        "func_15088270",
+        "func_150882B0",
+        "func_150882E4",
+        "func_150883B0",
+        "func_1508855C",
+        "func_150885EC",
+        "func_1508868C",
+        "func_15088780",
+        "func_150887F8",
+        "func_15088824",
+        "func_150888A8",
+        "func_15088A08",
+        "func_15088D58",
+        "func_15088F30",
+        "func_1508907C",
+        "func_150891E8",
+        "func_150896EC",
+        "func_15089BB0",
+        "func_15089BC0",
+        "func_15089F9C",
+        "func_1508A1BC",
+        "func_1508A6FC",
+        "func_1508B194",
+        "func_1508B1D4",
+        "func_1508B20C",
+        "func_1508B2A8",
+        "func_1508B3F8",
+        "func_1508B9BC",
+        "func_1508BC20",
+        "func_1508BF14",
+        "func_1508C194",
+        "func_1508C1A4",
+        "func_1508C5B8",
+        "func_1508C9CC",
+        "func_1508CA88",
+        "func_1508CAD8",
+        "func_1508D850",
+        "func_1508DA1C",
+        "func_1508DAEC",
+        "func_1508DC24",
+        "func_1508E6C8",
+        "func_1508E6D0",
+        "func_1508E780",
+        "func_1508E89C",
+        "func_1508EB90",
+        "func_1508EBF8",
+        "func_1508EC5C",
+        "func_1508ECC0",
+        "func_1508EDBC",
+        "func_1508EE0C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x8EF80",
+          "start": "0x86BD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_B4080.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_reconciled_empty_stub_splits.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150948C0",
+        "func_1509499C",
+        "func_15094AB8",
+        "func_15094E98"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x94EA0",
+          "start": "0x948C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_C1D70.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_exception_entry_family.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150ADAF0",
+        "func_150AE280",
+        "func_150AE35C",
+        "func_150AE36C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAE5B0",
+          "start": "0xADAF0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DAFA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1510D720",
+        "func_1510D7AC",
+        "func_1510D864",
+        "func_1510D874",
+        "func_1510D8C0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x10D970",
+          "start": "0x10D720",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_13ABD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15128CB0",
+        "func_151298C0",
+        "func_15129934"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x129C30",
+          "start": "0x128CB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_156160.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15000090",
+        "func_150000B0",
+        "func_150006E0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x940",
+          "start": "0x90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_2D540.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15102920",
+        "func_15102B38"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x102D50",
+          "start": "0x102920",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_12FDD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15122440",
+        "func_15122980"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x122AE0",
+          "start": "0x122440",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_14F8F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A7790"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA7960",
+          "start": "0xA7790",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D4C40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1501C730"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1C860",
+          "start": "0x1C730",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_49BE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A7BC0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA7C10",
+          "start": "0xA7BC0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D5070.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150CCD90"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xCCEB0",
+          "start": "0xCCD90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_FA240.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AD960"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAD9A0",
+          "start": "0xAD960",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DAE10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1512E140"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12E4B0",
+          "start": "0x12E140",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_15B5F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AD8B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAD900",
+          "start": "0xAD8B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DAD60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151287E0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x128CB0",
+          "start": "0x1287E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_155C90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15103E40"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x104170",
+          "start": "0x103E40",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1312F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151BE850"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BEB20",
+          "start": "0x1BE850",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1EBD00.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1510AEE0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x10B070",
+          "start": "0x10AEE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_138390.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151ABE00"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1ABE40",
+          "start": "0x1ABE00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1D92B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150C1260"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xC1660",
+          "start": "0xC1260",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_EE710.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1518B6B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x18BA90",
+          "start": "0x18B6B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1B8B60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E0870"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE0BE0",
+          "start": "0xE0870",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10DD20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E1570"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE1800",
+          "start": "0xE1570",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_10EA20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F5420"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF5590",
+          "start": "0xF5420",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1228D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1514BE20"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x14BF50",
+          "start": "0x14BE20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1792D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_directly_called_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F6400"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF6420",
+          "start": "0xF6400",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1238B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15100600"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x101090",
+          "start": "0x100600",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_12DAB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151AECA0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1AF270",
+          "start": "0x1AECA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1DC150.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E5AE0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE5FD0",
+          "start": "0xE5AE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_112F90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1501B660"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1BB20",
+          "start": "0x1B660",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_48B10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1518CD20"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x18D1C0",
+          "start": "0x18CD20",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1BA1D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15121C80"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1220D0",
+          "start": "0x121C80",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_14F130.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151D22B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1D26C0",
+          "start": "0x1D22B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1FF760.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150FB4C0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xFB8C0",
+          "start": "0xFB4C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_128970.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B06B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB0A60",
+          "start": "0xB06B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DDB60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15172F70"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1732E0",
+          "start": "0x172F70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1A0420.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15165C80"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x165F70",
+          "start": "0x165C80",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_193130.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1512E5F0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12E8E0",
+          "start": "0x12E5F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_15BAA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150499A0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x49C40",
+          "start": "0x499A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_76E50.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150E5FD0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xE6230",
+          "start": "0xE5FD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_113480.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A7DF0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA8050",
+          "start": "0xA7DF0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D52A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15036310"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x36570",
+          "start": "0x36310",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_637C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15179DB0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x179FE0",
+          "start": "0x179DB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1A7260.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1504A400"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x4A5E0",
+          "start": "0x4A400",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_778B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1512D390"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12D560",
+          "start": "0x12D390",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_15A840.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15108120"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1082D0",
+          "start": "0x108120",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1355D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1512E4B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12E5F0",
+          "start": "0x12E4B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_15B960.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150163D0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x16500",
+          "start": "0x163D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_43880.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151DCDE0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1DCEF0",
+          "start": "0x1DCDE0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_20A290.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151AF4D0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1AF5C0",
+          "start": "0x1AF4D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1DC980.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1510A930"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x10AA20",
+          "start": "0x10A930",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_137DE0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151AE7B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1AE890",
+          "start": "0x1AE7B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1DBC60.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F5340"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF5420",
+          "start": "0xF5340",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1227F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15015E80"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x15F40",
+          "start": "0x15E80",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_43330.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150F2230"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xF22D0",
+          "start": "0xF2230",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_11F6E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1503DDD0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x3DE70",
+          "start": "0x3DDD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_6B280.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B1DB0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB1E20",
+          "start": "0xB1DB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DF260.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150C1660"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xC16C0",
+          "start": "0xC1660",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_EEB10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150B58F0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xB5950",
+          "start": "0xB58F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_E2DA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B5BA0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B5BF0",
+          "start": "0x1B5BA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E3050.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15130230"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x130280",
+          "start": "0x130230",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_15D6E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15012F90"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x12FE0",
+          "start": "0x12F90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_40440.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150CF040"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xCF080",
+          "start": "0xCF040",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_FC4F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B9660"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B9690",
+          "start": "0x1B9660",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E6B10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_direct_call_singletons.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_15015910"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x15920",
+          "start": "0x15910",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_42DC0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_preserved_singleton_1b3040.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_151B3040"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0x1B30B0",
+          "start": "0x1B3040",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_1E04F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A3A70",
+        "func_150A3FC4",
+        "func_150A43E0",
+        "func_150A44F0",
+        "func_150A4B04",
+        "func_150A4FA0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA50C0",
+          "start": "0xA3A70",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D0F20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A50C0",
+        "func_150A515C",
+        "func_150A5378",
+        "func_150A5708",
+        "func_150A5AB8"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA5B90",
+          "start": "0xA50C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D2570.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A6210",
+        "func_150A6354",
+        "func_150A6360",
+        "func_150A6500",
+        "func_150A6760"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA6860",
+          "start": "0xA6210",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D36C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A6FA0",
+        "func_150A70C0",
+        "func_150A71C8",
+        "func_150A7360",
+        "func_150A751C",
+        "func_150A76F0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA7770",
+          "start": "0xA6FA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D4450.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A7960",
+        "func_150A7A00",
+        "func_150A7A14",
+        "func_150A7A48"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA7B80",
+          "start": "0xA7960",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D4E10.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A7C10"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA7CB0",
+          "start": "0xA7C10",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D50C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150A81A0",
+        "func_150A81D0",
+        "func_150A94DC",
+        "func_150A9984",
+        "func_150A9B0C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xA9C40",
+          "start": "0xA81A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D5650.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AA4D0",
+        "func_150AA5A8",
+        "func_150AA644",
+        "func_150AA814",
+        "func_150AA9A0",
+        "func_150AAA20",
+        "func_150AAD98"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAB1F0",
+          "start": "0xAA4D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D7980.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AB1F0",
+        "func_150AC3E4",
+        "func_150AC9B0"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAC9C0",
+          "start": "0xAB1F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D86A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AC9C0",
+        "func_150AD364"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAD770",
+          "start": "0xAC9C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D9E70.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AD770"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAD780",
+          "start": "0xAD770",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DAC20.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_raw_handwritten_entry_families.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AD780",
+        "func_150AD78C"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAD8B0",
+          "start": "0xAD780",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_DAC30.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_reconciled_named_singleton_3bfd0.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_1500EB20"
+      ],
+      "integration": "c",
+      "regions": {
+        "us": {
+          "end": "0xEB30",
+          "start": "0xEB20",
+          "state": "complete"
+        }
+      },
+      "source": "src/game/done/game_3BFD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/game_reconciled_text_data_tail_aa470.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_150AA470"
+      ],
+      "integration": "mixed",
+      "regions": {
+        "us": {
+          "end": "0xAA4D0",
+          "start": "0xAA470",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/game/game_D7920.c"
     }
   ]
 }

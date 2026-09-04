@@ -144,9 +144,11 @@ sequences and final padding, rather than silently dropping the discrepant bytes.
 
 The older raw filenames `game_3BFD0` and `game_1765E0` explain why an initial
 numeric-file lookup missed those ranges. The latter has twelve substantial
-related members and is reviewed here. The isolated sixteen-byte
-`game_3BFD0` remains unassigned because its no-op body has insufficient source
-ownership evidence. This distinction does not import upstream completion status.
+related members and is reviewed here. The isolated sixteen-byte `game_3BFD0`
+was later assigned to its existing same-named source path after its exact C
+match and adjacent reviewed endpoints supplied the missing integration evidence;
+see `docs/evidence/game_reconciled_named_singleton_3bfd0.md`. This distinction
+does not import upstream completion status.
 
 Runtime relationships, conserved order and the prior explicit C grouping
 support working boundaries together; neither padding alignment nor successful

@@ -14,7 +14,6 @@
  * - func_1510F720
  * - func_1510F800
  * - func_1510F820
- * - func_1510F8CC
  * - func_1510F8D8
  * - func_1510FC34
  * - func_1510FD20
@@ -32,7 +31,9 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F720.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F800.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F820.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F8CC.s")
+s32 func_1510F8CC(s32 arg0) {
+    return arg0 & 0x1F;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F8D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FC34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FD20.s")

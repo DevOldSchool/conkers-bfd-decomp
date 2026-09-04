@@ -11,24 +11,31 @@ ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "config" / "game" / "us.yaml"
 OUTPUT = ROOT / "build" / "config" / "game-integrated.us.yaml"
 SUBSEGMENT_PATTERN = re.compile(
-    r"^\s*-\s*\[(?:0x[0-9A-Fa-f]+),\s*(?P<kind>asm|hasm|c|lib)(?:,\s*[^\]]+)?\]\s*$"
+    r"^\s*-\s*\[(?:0x[0-9A-Fa-f]+),\s*(?P<kind>asm|hasm|c|lib|data)(?:,\s*[^\]]+)?\]\s*$"
+)
+DICT_SUBSEGMENT_PATTERN = re.compile(
+    r"^\s*-\s*\{[^}]*\btype:\s*(?P<kind>asm|hasm|c|lib|data)\b[^}]*\}\s*$"
 )
 
 
+def match_subsegment(line: str) -> re.Match[str] | None:
+    return SUBSEGMENT_PATTERN.match(line) or DICT_SUBSEGMENT_PATTERN.match(line)
+
+
 def collapse_raw_assembly_boundaries(content: str) -> str:
-    """Keep C/archive boundaries while coalescing navigation-only ASM ranges."""
+    """Keep C/archive/data boundaries while coalescing navigation-only ASM ranges."""
 
     lines = content.splitlines()
-    entry_indexes = [index for index, line in enumerate(lines) if SUBSEGMENT_PATTERN.match(line)]
+    entry_indexes = [index for index, line in enumerate(lines) if match_subsegment(line)]
     if not entry_indexes:
         raise RuntimeError("game integration template has no code subsegments")
     keep: set[int] = set()
     previous_kind: str | None = None
     for position, index in enumerate(entry_indexes):
-        match = SUBSEGMENT_PATTERN.match(lines[index])
+        match = match_subsegment(lines[index])
         assert match is not None
         kind = match.group("kind")
-        if kind in {"c", "lib"} or position == 0 or previous_kind in {"c", "lib"}:
+        if kind in {"c", "lib", "data"} or position == 0 or previous_kind in {"c", "lib", "data"}:
             keep.add(index)
         previous_kind = kind
     return "\n".join(line for index, line in enumerate(lines) if index not in entry_indexes or index in keep) + "\n"

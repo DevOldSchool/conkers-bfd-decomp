@@ -18,9 +18,9 @@ Evidence kind: `structural_analysis`. These are working source families with gen
 
 `151001B4` constructs an eight-byte custom object through `15149130`, choosing update `0x4E` and event `0x3B`. Owned slots `8008A620/8008A9C4` point to local `151002BC/15100230`. The custom state retains an owner pointer and type byte; the update checks those values against the owner. `15100180` broadcasts event `0x48` with that same pointer/type payload. `15100230` explicitly handles event `0x48` by comparing the payload and deleting the corresponding object. The broadcast, constructor and two callbacks form one lifecycle.
 
-## Withdrawn candidate: `0x1B5BF0:0x1B6010`
+## Initially withdrawn candidate: `0x1B5BF0:0x1B6010`
 
-The constructor, update and audio cleanup are related, but independent CSV review identifies an additional eight-byte empty entry at `151B5E8C`. The raw assembly index folds its `jr ra; nop` words into the constructor. No owned pointer to that entry was found, so its membership remains unproved. The boundary was withdrawn through `./conker withdraw-source-unit`; the map is raw ASM again. The three previously registered raw work items remain available without a reviewed source-unit claim. This range contributes no newly mapped bytes.
+The constructor, update and audio cleanup are related, but independent CSV review identified an additional eight-byte empty entry at `151B5E8C`. The initial raw assembly index folded its `jr ra; nop` words into the constructor, so the boundary was withdrawn through `./conker withdraw-source-unit`. The stub was later regenerated independently and the four-entry range was integrated; current evidence is recorded in `docs/evidence/game_raw_reconciled_empty_stub_splits.md`.
 
 ## Reference-counted resource pair: `0x18C900:0x18CA80`
 

@@ -4,7 +4,10 @@ Evidence kind: `structural_analysis`. These minimal working units isolate game-o
 
 The parent raw groups have exact agreement with the independent function CSV and no review errors or escaping branches at their outer endpoints. The singleton bounds use the indexed function start and raw span, and both endpoints are 16-byte aligned. Neighboring unselected functions receive no source-boundary credit.
 
-The `0xeb20:0xeb30` singleton was reviewed but withdrawn because the existing named raw split `game_3BFD0` must retain its identity in the comparison map.
+The `0xEB20:0xEB30` singleton was initially withdrawn to preserve the existing
+named raw split `game_3BFD0`. It was later assigned to the existing
+`src/game/game_3BFD0.c` source path, preserving that identity; see
+`docs/evidence/game_reconciled_named_singleton_3bfd0.md`.
 
 | Source | US range | Bytes | Function | Owned selections | Parent raw group |
 | --- | --- | ---: | --- | --- | --- |

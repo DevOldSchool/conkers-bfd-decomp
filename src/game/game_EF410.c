@@ -21,7 +21,6 @@
  * - func_150C3230
  * - func_150C3574
  * - func_150C3994
- * - func_150C3D48
  * - func_150C3D5C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -43,5 +42,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3230.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3574.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3994.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3D48.s")
+s32 func_150C3D48(s32 arg0) {
+    return arg0 + 0xEDCBA988;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3D5C.s")

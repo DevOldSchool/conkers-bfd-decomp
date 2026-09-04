@@ -1,0 +1,17 @@
+#include "types.h"
+
+/*
+ * Reviewed source unit: src/game/game_20AE20.c
+ * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
+ *
+ * TODO: Implement these source-unit functions:
+ * - func_151DD970
+ * - func_151DD9E4
+ * - func_151DDB94
+ *
+ * Unmatched members use generated GLOBAL_ASM placeholders below.
+ */
+
+#pragma GLOBAL_ASM("asm/nonmatchings/game_20AE20/func_151DD970.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_20AE20/func_151DD9E4.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_20AE20/func_151DDB94.s")

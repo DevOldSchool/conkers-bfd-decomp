@@ -193,6 +193,7 @@ def extract(profile: str, rom_path: Path, output: Path, keep_rzip: bool, manifes
                     "rom_start": f"0x{flat_start + entry.start:X}",
                     "rom_end": f"0x{flat_start + entry.end:X}",
                     "decoded_size": len(entry.data),
+                    "decoded_sha1": hashlib.sha1(entry.data).hexdigest(),
                     "file": str(relative) if not manifest_only else None,
                 }
             )
@@ -219,8 +220,10 @@ def extract(profile: str, rom_path: Path, output: Path, keep_rzip: bool, manifes
         }
         if bank.flags:
             raw_name = f"raw-{bank.index:02X}.bin"
-            write_bytes(output / "assets" / raw_name, normalized[bank.start : bank.end], manifest_only)
+            raw_block = normalized[bank.start : bank.end]
+            write_bytes(output / "assets" / raw_name, raw_block, manifest_only)
             bank_record["raw_file"] = raw_name if not manifest_only else None
+            bank_record["raw_sha1"] = hashlib.sha1(raw_block).hexdigest()
             bank_manifests.append(bank_record)
             continue
 
@@ -243,6 +246,7 @@ def extract(profile: str, rom_path: Path, output: Path, keep_rzip: bool, manifes
                     "type_flags": entry.type_flags,
                     "compressed": entry.compressed,
                     "decoded_size": len(decoded),
+                    "decoded_sha1": hashlib.sha1(decoded).hexdigest(),
                     "file": str(relative) if not manifest_only else None,
                 }
             )

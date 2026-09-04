@@ -375,3 +375,7 @@ and 138,272 bytes. Every accepted batch passed the complete US game-overlay comp
 
 The [search report ending at 23:30 Brisbane](evidence/game_mapping_search_2026_09_03_2330.md) records this pass and remaining leads.
 The [usage-bounded continuation report](evidence/game_mapping_search_until_3_percent.md) records the later pointer and call evidence, exclusions and final coverage.
+The [mapping completion record](evidence/game_mapping_residual_frontier.md)
+documents the final text-resident data classification and exact Rare EEPROM
+objects. The canonical US game-overlay map now has 100% byte ownership and no
+raw `asm`/`hasm` subsegment entries.

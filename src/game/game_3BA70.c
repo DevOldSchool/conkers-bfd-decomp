@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1500E5C0
- * - func_1500E70C
  * - func_1500E738
  * - func_1500E890
  * - func_1500E8C0
@@ -16,7 +15,11 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E5C0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E70C.s")
+void func_1500E70C(s32 arg0) {
+    if (arg0 == 0x2B) {
+        func_15011C70();
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E738.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E890.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E8C0.s")
