@@ -118,7 +118,7 @@ void n_alSndpNew(ConkerSoundConfig *config)
 	void *ptr;
 	ConkerSoundMessage evt;
 
-	
+
 	g_SndPlayer->maxSounds = config->maxSounds;
 	g_SndPlayer->target = NULL;
     g_SndPlayer->drvr = n_syn;
@@ -128,7 +128,7 @@ void n_alSndpNew(ConkerSoundConfig *config)
 	g_SndPlayer->sndState = ptr;
     g_SndPlayer->waveBase = config->waveBase;
 
-	
+
 	ptr = alHeapAlloc(config->heap, config->maxEvents, sizeof(ConkerSoundEventItem));
 	n_alEvtqNew(&g_SndPlayer->evtq, ptr, config->maxEvents);
 
@@ -146,14 +146,14 @@ void n_alSndpNew(ConkerSoundConfig *config)
 		g_SndpVolumeTable[i] = 32767;
 	}
 
-	
+
 	g_SndPlayer->node.next = NULL;
 	g_SndPlayer->node.handler = (ALVoiceHandler) __conker_runtime_sndpVoiceHandler;
 	g_SndPlayer->node.clientData = g_SndPlayer;
 
 	__conker_audio_add_player_1(&g_SndPlayer->node);
 
-	
+
 	evt.type = AL_SNDP_API_EVT;
 
 	n_alEvtqPostEvent(&g_SndPlayer->evtq, (ALEvent *)&evt, g_SndPlayer->frameTime, 3);
@@ -215,7 +215,7 @@ void _n_handleEvent(ConkerSoundEvent *event)
 		state = (struct sndstate *)event->common.state;
 
 		if (state == NULL) {
-			
+
 		}
 
 		sound = state->sound;
@@ -296,7 +296,7 @@ void _n_handleEvent(ConkerSoundEvent *event)
 				return;
 			}
 
-			
+
 			state->flags |= SNDSTATEFLAG_HAS_VOICE;
 			state->envvol = sound->envelope->attackVolume;
 			state->fxbus = config.standard.fxBus;
@@ -348,7 +348,7 @@ void _n_handleEvent(ConkerSoundEvent *event)
 			}
 			break;
 
-			
+
 		case AL_SNDP_STOP_EVT:
 		case AL_SNDP_STOP2_EVT:
 		case AL_SNDP_STOPALL_EVT:
@@ -511,7 +511,7 @@ void sndp_free_state(struct sndstate *state)
 
 	sndp_free_state2(state);
 
-	
+
 	_removeEvents(&g_SndPlayer->evtq, (struct sndstate *)state, 0xffff);
 }
 

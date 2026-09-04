@@ -61,5 +61,3 @@ void guPerspective(Mtx *m, u16 *perspNorm, float fovy, float fovx, float near, f
 
 	__conker_game_guMtxF2L(mf, m);
 }
-
-

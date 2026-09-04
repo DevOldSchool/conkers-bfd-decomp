@@ -59,4 +59,3 @@ Acmd *n_alResamplePull(ConkerNAudioPVoice *e, s16 *outp, Acmd *p)
 
 	return ptr;
 }
-

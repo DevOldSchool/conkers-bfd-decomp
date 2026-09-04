@@ -27,7 +27,7 @@ glabel mp3util000461c0
 	add    $t2, $t3, $t2
 	lbu    $t2, 0x0($t2)
 	beqz   $t2, .L00046238
- 	nop
+	nop
 	add    $t0, $t0, $t2
 	add    $t4, $t4, $t2
 	srl    $t4, $t4, 0x3
@@ -126,17 +126,17 @@ glabel mp3util000462f8
 	add    $a0, $a0, $t1
 	sub    $t1, $s2, $a3
 	blez   $t1, .L00046458
- 	nop
+	nop
 .L00046370:
 	jal    mp3util000461c0
- 	nop
+	nop
 	beqz   $s1, .L00046398
 	add    $s6, $zero, $t1
 	li     $t2, 0xf
 	bne    $v0, $t2, .L00046398
- 	nop
+	nop
 	jal    mp3util00046290
- 	nop
+	nop
 	addi   $v0, $v0, 0xf
 .L00046398:
 	beqzl  $v0, .L000463d8
@@ -160,9 +160,9 @@ glabel mp3util000462f8
 	add    $s7, $zero, $v0
 	li     $t2, 0xf
 	bne    $s6, $t2, .L000463fc
- 	nop
+	nop
 	jal    mp3util00046290
- 	nop
+	nop
 	addi   $s6, $v0, 0xf
 	add    $v0, $zero, $s7
 .L000463fc:
@@ -243,13 +243,13 @@ glabel mp3util000464a8
 	add    $a0, $a0, $t1
 	sub    $t1, $s2, $t0
 	blez   $t1, .L000465f4
- 	nop
+	nop
 	addi   $t1, $a3, -576
 	bgez   $t1, .L000465f4
- 	nop
+	nop
 .L00046528:
 	jal    mp3util000461c0
- 	nop
+	nop
 	srl    $t3, $v0, 0x3
 	andi   $t3, $t3, 0x1
 	srl    $t4, $v0, 0x2
@@ -303,7 +303,7 @@ glabel mp3util000464a8
 	bgez   $t1, .L000465f4
 	sub    $t1, $s2, $t0
 	bgtz   $t1, .L00046528
- 	nop
+	nop
 .L000465f4:
 	sw     $t0, 0x0($a1)
 	lw     $t0, 0x44($sp)

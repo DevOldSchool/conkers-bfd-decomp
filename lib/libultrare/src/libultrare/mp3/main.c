@@ -104,7 +104,7 @@ s32 mp3main_read_frame(struct asistream *stream, s32 arg1)
 	stream->isoriginal = mp3util_get_bits(stream->buffer, &stream->offset, 1);
 	stream->emphasis = mp3util_get_bits(stream->buffer, &stream->offset, 2);
 
-	if (stream->bitrateindex == 15 || stream->samplerateindex == 3) { 
+	if (stream->bitrateindex == 15 || stream->samplerateindex == 3) {
 		return mp3main_read_frame(stream, -1);
 	}
 
@@ -207,7 +207,7 @@ s32 mp3main_continue_file(struct asistream *streamptr, u16 **arg1, s32 *numchann
 	result = stream->decodeframefunc(stream);
 
 	if (!result) {
-		
+
 	} else {
 		*arg1 = stream->unk2070[stream->unk3ba0];
 		*numchannels = stream->numchannels;

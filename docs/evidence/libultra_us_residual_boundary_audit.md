@@ -183,11 +183,9 @@ The target hashes remain:
 The stock revision remains `e24c836796df4bf520ff8b11a5c9d2cea3a66cbd`.
 The supplemental scans reuse the repository ELF reader and relocation masks,
 match entire sections at their required alignment, and compare all unmasked
-bytes rather than strings or instruction mnemonics. Detailed local reports are
-`/private/tmp/conker-library-goal-stock-main-final.json`,
-`/private/tmp/conker-library-goal-residual-text.json`, and
-`/private/tmp/conker-library-goal-residual-data.json`; their read-only scripts
-are alongside them. The SDK command above reruns the main scan.
+bytes rather than strings or instruction mnemonics. Detailed scan reports were
+temporary JSON outputs produced by the same repository readers and relocation
+masks. The SDK command above reruns the main scan.
 
 All 170 Python tests pass, generated progress is current and whitespace checks
 pass. This audit changes no runtime source, archive membership or ROM map;

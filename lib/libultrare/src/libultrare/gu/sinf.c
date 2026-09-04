@@ -148,4 +148,3 @@ int	ix, xpt;
 
 	return ( zero.f );
 }
-
