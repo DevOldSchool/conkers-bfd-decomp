@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1502AAF0
  * - func_1502AAF8
  * - func_1502AB04
  * - func_1502AC88
@@ -24,7 +23,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AAF0.s")
+void func_1502AAF0(void) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AAF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AB04.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AC88.s")

@@ -3,6 +3,17 @@
 Use `./conker` from the repository root. It is the supported interface for
 Docker, ROM setup, progress, m2c, and asm diffs.
 
+## Unchanged-m2c automation
+
+For a bounded batch that should try only m2c output requiring no manual edits,
+run `./conker automate-simple --limit <matches> --max-attempts <candidates>`.
+The command owns selection, source replacement, `finish`, restoration of every
+failed candidate, and the final clean `verify-batch`. It skips dirty sources,
+source-unit integration transitions, guessed declarations, and `M2C_*`
+placeholder bodies. Do not manually rerun its per-function or batch gates after
+it completes successfully. Use the ordinary fast path below for candidates that
+need declaration work, type recovery, expression changes, or integration.
+
 ## Small-agent fast path
 
 For ordinary source-local function work, follow this exact loop:

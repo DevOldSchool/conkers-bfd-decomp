@@ -51,6 +51,8 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  automate-simple [--limit N] [--max-attempts N]
+                                 Keep unchanged, placeholder-free m2c bodies only when CURRENT (0).
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
@@ -475,6 +477,9 @@ case "$command" in
         else
             python3 "$state_tool" next "$@"
         fi
+        ;;
+    automate-simple)
+        python3 scripts/automate_simple_m2c.py "$@"
         ;;
     defer)
         [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"
