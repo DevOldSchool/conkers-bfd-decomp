@@ -3,17 +3,17 @@
     "us"
   ],
   "code_bytes": {
-    "fully_matched_source_unit_bytes": 29048,
-    "fully_matched_source_unit_percentage": 1.298297,
-    "library_text_bytes": 27376,
-    "matched_bytes": 31636,
+    "fully_matched_source_unit_bytes": 147976,
+    "fully_matched_source_unit_percentage": 6.613772,
+    "library_text_bytes": 146304,
+    "matched_bytes": 150564,
     "overlays": {
       "game": {
-        "fully_matched_source_unit_bytes": 1504,
-        "fully_matched_source_unit_percentage": 0.072556,
-        "library_text_bytes": 0,
-        "matched_bytes": 4092,
-        "percentage": 0.197407,
+        "fully_matched_source_unit_bytes": 49296,
+        "fully_matched_source_unit_percentage": 2.378141,
+        "library_text_bytes": 47792,
+        "matched_bytes": 51884,
+        "percentage": 2.502991,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -24,22 +24,22 @@
             "total_bytes": 2074912
           },
           "us": {
-            "fully_matched_source_unit_bytes": 1504,
-            "fully_matched_source_unit_percentage": 0.072556,
-            "library_text_bytes": 0,
-            "matched_bytes": 4092,
-            "percentage": 0.197407,
+            "fully_matched_source_unit_bytes": 49296,
+            "fully_matched_source_unit_percentage": 2.378141,
+            "library_text_bytes": 47792,
+            "matched_bytes": 51884,
+            "percentage": 2.502991,
             "total_bytes": 2072880
           }
         },
         "total_bytes": 2072880
       },
       "main": {
-        "fully_matched_source_unit_bytes": 27544,
-        "fully_matched_source_unit_percentage": 16.742852,
-        "library_text_bytes": 27376,
-        "matched_bytes": 27544,
-        "percentage": 16.742852,
+        "fully_matched_source_unit_bytes": 98680,
+        "fully_matched_source_unit_percentage": 59.983466,
+        "library_text_bytes": 98512,
+        "matched_bytes": 98680,
+        "percentage": 59.983466,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 168,
@@ -50,18 +50,18 @@
             "total_bytes": 165328
           },
           "us": {
-            "fully_matched_source_unit_bytes": 27544,
-            "fully_matched_source_unit_percentage": 16.742852,
-            "library_text_bytes": 27376,
-            "matched_bytes": 27544,
-            "percentage": 16.742852,
+            "fully_matched_source_unit_bytes": 98680,
+            "fully_matched_source_unit_percentage": 59.983466,
+            "library_text_bytes": 98512,
+            "matched_bytes": 98680,
+            "percentage": 59.983466,
             "total_bytes": 164512
           }
         },
         "total_bytes": 164512
       }
     },
-    "percentage": 1.413968,
+    "percentage": 6.729442,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 168,
@@ -72,11 +72,11 @@
         "total_bytes": 2240240
       },
       "us": {
-        "fully_matched_source_unit_bytes": 29048,
-        "fully_matched_source_unit_percentage": 1.298297,
-        "library_text_bytes": 27376,
-        "matched_bytes": 31636,
-        "percentage": 1.413968,
+        "fully_matched_source_unit_bytes": 147976,
+        "fully_matched_source_unit_percentage": 6.613772,
+        "library_text_bytes": 146304,
+        "matched_bytes": 150564,
+        "percentage": 6.729442,
         "total_bytes": 2237392
       }
     },
@@ -86,15 +86,15 @@
   "future_regions": [
     "eu"
   ],
-  "known_functions": 435,
-  "mixed_source_units": 93,
+  "known_functions": 4066,
+  "mixed_source_units": 457,
   "overlays": {
     "game": {
-      "known_functions": 426,
+      "known_functions": 4064,
       "target_matched": 109
     },
     "main": {
-      "known_functions": 9,
+      "known_functions": 2,
       "target_matched": 1
     }
   },
@@ -104,12 +104,12 @@
       "candidate": 0,
       "in_progress": 1,
       "matched": 110,
-      "raw_asm": 324
+      "raw_asm": 3955
     }
   },
   "schema_version": 1,
-  "source_units": 132,
+  "source_units": 493,
   "target_matched": 110,
-  "target_remaining": 325,
-  "unassigned_functions": 0
+  "target_remaining": 3956,
+  "unassigned_functions": 4
 }

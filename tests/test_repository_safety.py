@@ -168,11 +168,16 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual([], libultra_sources)
         self.assertEqual(
             [
-                "src/libultrare/libc/syncprintf.c",
-                "src/libultrare/libc/xldtob.c",
-                "src/libultrare/libc/xprintf.c",
+                "src/libultrare/gu/powf.c",
             ],
             libultrare_sources,
+        )
+        # A non-exact Rare reconstruction must remain outside the archive.
+        candidate = (ROOT / "src/libultrare/gu/powf.c").read_text(encoding="utf-8")
+        self.assertIn("#if 0\n", candidate)
+        self.assertNotIn(
+            "src/libultrare/gu/powf.c",
+            (ROOT / "lib/libultrare/Makefile").read_text(encoding="utf-8"),
         )
 
     def test_agent_workflow_prewarms_and_composes_the_per_function_gate(self) -> None:
@@ -219,7 +224,7 @@ class RepositorySafetyTests(unittest.TestCase):
 
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
-        ensure_image = script.split("ensure_image() {", 1)[1].split("\n}", 1)[0]
+        ensure_image = script.split("ensure_cpu_image() {", 1)[1].split("\n}", 1)[0]
 
         self.assertIn("require_docker || return 1", ensure_image)
         self.assertIn("require_docker_access || return 1", ensure_image)
@@ -227,6 +232,9 @@ class RepositorySafetyTests(unittest.TestCase):
             ensure_image.index("require_docker_access"),
             ensure_image.index("docker pull"),
         )
+        ensure_rsp = script.split("ensure_image() {", 1)[1].split("\n}", 1)[0]
+        self.assertLess(ensure_rsp.index("ensure_cpu_image || return 1"),
+                        ensure_rsp.index("docker build"))
 
     def test_canonical_scalar_aliases_cover_m2c_integer_types(self) -> None:
         types = (ROOT / "include" / "types.h").read_text(encoding="utf-8")

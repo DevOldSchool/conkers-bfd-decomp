@@ -89,8 +89,16 @@ class BetaIndexTests(unittest.TestCase):
         self.assertEqual("1.33.0", identity["spimdisasm"]["version"])
         self.assertIn("--compiler", identity["options"])
 
-    def test_ects_data_vram_matches_reviewed_runtime_addresses(self) -> None:
-        self.assertEqual(0x80068F80, load_layout("ects")["game_data_vram"])
+    def test_ects_layout_matches_reviewed_loader_addresses(self) -> None:
+        # Owned ROM loader at 0x1214:0x124C and page loader at 0x467C:0x4684.
+        # See docs/evidence/ects_game_layout.md for the instruction evidence.
+        layout = load_layout("ects")
+        self.assertEqual(0x21A30, layout["game_start"])
+        self.assertEqual(
+            0x151EE0F0,
+            layout["game_vram"] + layout["game_code_end"] - layout["game_start"],
+        )
+        self.assertEqual(0x80068F90, layout["game_data_vram"])
 
     def test_finds_lui_addiu_address_reference(self) -> None:
         address = 0x80012345

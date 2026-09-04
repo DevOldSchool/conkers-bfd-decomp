@@ -25,3 +25,8 @@ evidence.
 
 No upstream C implementation, type, or comment was copied. Function matching
 still requires a US `CURRENT (0)` focused diff.
+
+The `game_21D5F0.c` hypothesis has since been superseded by a complete exact
+`mtxcatf.o` match and archive integration. Its untouched source skeleton and
+two raw work items were retired; the other rows remain active. See
+[the SDK object evidence](game_sdk_additional_objects.md).

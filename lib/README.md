@@ -21,6 +21,19 @@ Build the default 2.0L `libultra_rom` archive inside the pinned Docker image:
 ./conker libultra
 ```
 
-The archive is not linked into either ROM yet. Library objects move into the
-profile maps only after their US and EU/PAL boundaries have been identified.
-See `docs/library-track.md` for the current candidates.
+The US main profile links verified 2.0L, 2.0I, debug-audio, and Rare objects.
+The game overlay separately links exact 2.0I objects and Conker variants from
+`libultrare`. Each mapping requires complete text and non-text ownership,
+resolved relocations, and a byte-identical image. EU/PAL remains future work.
+See `docs/library-track.md` for the current evidence and integration totals.
+
+## libultrare
+
+`libultrare` keeps the bounded Rare snapshot and reviewed Conker reconstructions
+separate from the stock SDK checkout. Build and verify all member checksums with:
+
+```sh
+./conker libultrare
+```
+
+See `libultrare/README.md` for source lineage and the individual evidence notes.

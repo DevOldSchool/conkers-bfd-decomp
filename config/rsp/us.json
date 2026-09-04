@@ -1,0 +1,57 @@
+{
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "sources": [
+    {
+      "path": "src/rsp/rspboot.s",
+      "code": "rspboot.bin"
+    },
+    {
+      "path": "src/rsp/asp.s",
+      "code": "asp.bin",
+      "data": "asp_data.bin"
+    }
+  ],
+  "payloads": [
+    {
+      "name": "rspboot",
+      "file": "rspboot.bin",
+      "offset": 0,
+      "start": 168144,
+      "end": 168352,
+      "md5": "9414dd746eddee59ce6bf97eca16853e",
+      "section": ".text",
+      "kind": "code"
+    },
+    {
+      "name": "asp_overlay0",
+      "file": "asp.bin",
+      "offset": 0,
+      "start": 168352,
+      "end": 172304,
+      "md5": "6864e8310f25c15951984eb993d41aca",
+      "section": ".text",
+      "kind": "code"
+    },
+    {
+      "name": "asp_overlay1",
+      "file": "asp.bin",
+      "offset": 3952,
+      "start": 172304,
+      "end": 174800,
+      "md5": "303b874b553871857297f5ba830841e7",
+      "section": ".text",
+      "kind": "code"
+    },
+    {
+      "name": "asp_data",
+      "file": "asp_data.bin",
+      "offset": 0,
+      "start": 182624,
+      "end": 185520,
+      "md5": "442fc9d7c4428c46e3ad08757c1524b3",
+      "section": ".rodata",
+      "kind": "data"
+    }
+  ]
+}

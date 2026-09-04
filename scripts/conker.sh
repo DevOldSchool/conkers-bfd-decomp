@@ -81,8 +81,12 @@ After the raw base split map is available
   register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
                                  Register a separately reviewed source/object boundary.
-  retire-library-units --evidence-reference <path>
+  withdraw-source-unit --source <path>
+                                 Withdraw a raw game boundary while retaining function work.
+  retire-library-units --evidence-reference <path> [--source <path>...]
                                  Remove untouched raw-ASM units after exact archive mapping.
+      --source <path> --preserved-source <library-path>
+                                 Retire matched Rare work only after verifying an identical library source copy.
   game-m2c [--profile us] <work-item-id>
                                  Compatibility alias for the auto-detecting m2c command.
   game-diff [--profile us] <work-item-id>
@@ -95,6 +99,7 @@ After the raw base split map is available
   library-audit [--json]        Scan raw US main ranges for complete I-L libultra sections.
   rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
   libultra [--version I|J|K|L]  Build a pinned 2.0 libultra ROM archive (default: L).
+  rsp                          Assemble and byte-verify the configured US RSP payloads.
   libultrare                    Build and verify the pinned Rare-modified archive.
 
 All build commands run inside the pinned linux/amd64 Docker environment.
@@ -129,7 +134,7 @@ watch_image_is_compatible() {
     [[ "$(docker image inspect --format '{{ index .Config.Labels "org.devoldschool.conker.diff-watch" }}' "$image_name" 2>/dev/null)" == "1" ]]
 }
 
-ensure_image() {
+ensure_cpu_image() {
     require_docker || return 1
     if docker image inspect "$image_name" >/dev/null 2>&1; then
         return
@@ -147,6 +152,25 @@ ensure_image() {
         image_name="$local_image_name"
         image_is_healthy || die "toolchain image failed the IDO compilation smoke test"
     fi
+}
+
+ensure_image() {
+    if [[ "${rsp_image_ready:-0}" == 1 ]]; then return; fi
+    ensure_cpu_image || return 1
+    local armips_revision
+    local rsp_image
+    local rsp_key
+    armips_revision="$(python3 -c 'import json, sys; print(json.load(open(sys.argv[1]))["tools"]["armips"]["revision"])' "$toolchain_lock")"
+    [[ "$armips_revision" =~ ^[0-9a-f]{40}$ ]] || die "invalid pinned armips revision"
+    rsp_key="$(python3 -c 'import hashlib, pathlib, sys; print(hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes() + sys.argv[2].encode() + sys.argv[3].encode()).hexdigest()[:16])' "$repo_root/toolchain/rsp.Dockerfile" "$(docker image inspect --format '{{.Id}}' "$image_name")" "$armips_revision")"
+    rsp_image="conkers-bfd-rsp:$rsp_key"
+    if ! docker image inspect "$rsp_image" >/dev/null 2>&1; then
+        docker build --platform linux/amd64 --tag "$rsp_image" \
+            --build-arg "BASE_IMAGE=$image_name" --build-arg "ARMIPS_REV=$armips_revision" \
+            -f "$repo_root/toolchain/rsp.Dockerfile" "$repo_root/toolchain"
+    fi
+    image_name="$rsp_image"
+    rsp_image_ready=1
 }
 
 add_workspace_mount() {
@@ -430,6 +454,7 @@ case "$command" in
                 shift
                 parse_profile_and_value "usage: ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" "$@"
                 python3 "$state_tool" setup-check --profile "$selected_profile"
+                run_in_container_libultra make --silent game-libs
                 if [[ "$selected_value" == "--all-reviewed" ]]; then
                     run_in_container_integrating python3 scripts/integrate.py --profile "$selected_profile" --all-reviewed
                 else
@@ -524,6 +549,10 @@ case "$command" in
             fi
         fi
         if [[ " $batch_overlays " == *" game "* ]]; then
+            if ! run_in_container_libultra make --silent game-libs; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 1
+            fi
             game_batch_target="game-integrated-refresh"
             if [[ "$batch_mode" == "incremental" ]]; then
                 game_batch_target="game-integrated"
@@ -663,9 +692,14 @@ case "$command" in
         fi
         python3 "$state_tool" register-source-unit "$@"
         ;;
+    withdraw-source-unit)
+        [[ $# -eq 2 ]] || die "usage: ./conker withdraw-source-unit --source <path>"
+        python3 "$state_tool" withdraw-source-unit "$@"
+        ;;
     retire-library-units)
-        [[ $# -eq 2 && "$1" == "--evidence-reference" ]] || die "usage: ./conker retire-library-units --evidence-reference <path>"
-        python3 "$state_tool" setup-check --profile us
+        [[ $# -gt 0 ]] || die "usage: ./conker retire-library-units --evidence-reference <path> [--source <path>...]"
+        # The guarded migration validates metadata against the new archive map;
+        # ordinary setup-check still expects the old mixed units to map as C.
         python3 "$state_tool" retire-library-units "$@"
         ;;
     game-m2c)
@@ -686,6 +720,7 @@ case "$command" in
     game-build)
         parse_game_build_options "usage: ./conker game-build [--profile us] [--refresh]" "$@"
         python3 "$state_tool" setup-check --profile "$selected_profile"
+        run_in_container_libultra make --silent game-libs
         game_build_target=game-integrated
         if [[ "$refresh_game_build" == "true" ]]; then
             game_build_target=game-integrated-refresh
@@ -729,6 +764,11 @@ case "$command" in
             *) die "libultra version must be I, J, K, or L" ;;
         esac
         run_in_container_libultra make libultra ULTRALIB_VERSION="$libultra_version"
+        ;;
+    rsp)
+        [[ $# -eq 0 ]] || die "usage: ./conker rsp"
+        python3 "$state_tool" setup-check --profile us
+        run_in_container make rsp
         ;;
     libultrare)
         [[ $# -eq 0 ]] || die "usage: ./conker libultrare"

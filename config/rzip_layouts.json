@@ -18,11 +18,11 @@
       "default_rom": "roms/baserom.us.beta.ects.v64",
       "flat_assets_end": "0xB802DF",
       "flat_assets_start": "0x246E10",
-      "game_code_end": "0x20FB10",
-      "game_data_vram": "0x80068F80",
+      "game_code_end": "0x20FB20",
+      "game_data_vram": "0x80068F90",
       "game_end": "0x23DA50",
       "game_format": "raw",
-      "game_start": "0x26040",
+      "game_start": "0x21A30",
       "game_vram": "0x15000000",
       "normalized_sha1": [
         "06597dc935651f8995bfacc30fde6e621d44c3e1"

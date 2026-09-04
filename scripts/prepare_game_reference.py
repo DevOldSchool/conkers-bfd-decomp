@@ -10,13 +10,13 @@ import re
 
 ROOT = Path(__file__).resolve().parent.parent
 CODE_SUBSEGMENT = re.compile(
-    r"^(?P<indent>\s*)-\s*\[(?P<offset>0x[0-9A-Fa-f]+),\s*c(?:,\s*[^\]]+)?\]\s*$",
+    r"^(?P<indent>\s*)-\s*\[(?P<offset>0x[0-9A-Fa-f]+),\s*(?:c|lib)(?:,\s*[^\]]+)?\]\s*$",
     re.MULTILINE,
 )
 
 
 def raw_reference_map(content: str) -> str:
-    """Make every integrated C range a raw-assembly reference range."""
+    """Make every integrated C/archive range an independent raw ASM range."""
 
     return CODE_SUBSEGMENT.sub(
         lambda match: f"{match.group('indent')}- [{match.group('offset')}, asm]",

@@ -69,6 +69,11 @@ us <symbol>` to map the reviewed unit into the real build as one mixed C/ASM
 object. The transaction is retained only when the complete build remains
 byte-identical.
 
+If later evidence invalidates a game boundary, use
+`./conker withdraw-source-unit --source src/game/<unit>.c`. This restores the
+range to raw ASM and retains the function work items; it rejects modified
+skeletons and any active or matched C work.
+
 Keep the reviewed source-unit comment at the top of every assigned C file,
 immediately below its contiguous `#include` block and before declarations or
 definitions. Project validation rejects reviewed headers that drift lower in a
@@ -185,6 +190,18 @@ whose every function is matched, it verifies again and moves the source to
 `src/game/done/`. Source-unit ranges must start and end on reviewed 16-byte IDO
 object boundaries. Do not edit generated nonmatching assembly, move completed
 files, or edit progress JSON by hand.
+
+For a complete Rare library reconstruction, first verify the whole object's
+text, relocations, data/rodata and BSS ownership, then link its archive mapping
+and pass the full US image comparison. After that gate, retire its old work
+items with `./conker retire-library-units --evidence-reference <path> --source
+<src/libultrare/path.c> --preserved-source <lib/libultrare/src/libultrare/path.c>`.
+This mode requires every active function to be matched, an exact archive text
+range and an independent raw reference, and a byte-identical C copy at the
+corresponding library path. It keeps that library copy and removes the duplicate
+source and inventory entries. The command does not run the full-image gate for
+you. Without `--preserved-source`, retirement still only accepts untouched raw
+skeletons; it cannot discard modified source work.
 
 The focused diff's target object always comes from a separately generated raw
 assembly map. The reference generator converts canonical `c` ranges back to

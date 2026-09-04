@@ -11,12 +11,12 @@ ROOT = Path(__file__).resolve().parent.parent
 TEMPLATE = ROOT / "config" / "game" / "us.yaml"
 OUTPUT = ROOT / "build" / "config" / "game-integrated.us.yaml"
 SUBSEGMENT_PATTERN = re.compile(
-    r"^\s*-\s*\[(?:0x[0-9A-Fa-f]+),\s*(?P<kind>asm|hasm|c)(?:,\s*[^\]]+)?\]\s*$"
+    r"^\s*-\s*\[(?:0x[0-9A-Fa-f]+),\s*(?P<kind>asm|hasm|c|lib)(?:,\s*[^\]]+)?\]\s*$"
 )
 
 
 def collapse_raw_assembly_boundaries(content: str) -> str:
-    """Keep C boundaries while coalescing navigation-only raw assembly ranges."""
+    """Keep C/archive boundaries while coalescing navigation-only ASM ranges."""
 
     lines = content.splitlines()
     entry_indexes = [index for index, line in enumerate(lines) if SUBSEGMENT_PATTERN.match(line)]
@@ -28,7 +28,7 @@ def collapse_raw_assembly_boundaries(content: str) -> str:
         match = SUBSEGMENT_PATTERN.match(lines[index])
         assert match is not None
         kind = match.group("kind")
-        if kind == "c" or position == 0 or previous_kind == "c":
+        if kind in {"c", "lib"} or position == 0 or previous_kind in {"c", "lib"}:
             keep.add(index)
         previous_kind = kind
     return "\n".join(line for index, line in enumerate(lines) if index not in entry_indexes or index in keep) + "\n"

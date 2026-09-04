@@ -15,6 +15,21 @@ SPEC.loader.exec_module(prepare_game_integration)
 
 
 class PrepareGameIntegrationTests(unittest.TestCase):
+    def test_preserves_adjacent_archives_and_the_following_raw_boundary(self) -> None:
+        source = (
+            "      - [0x0, asm]\n"
+            "      - [0x10, asm]\n"
+            "      - [0x20, lib, sdk, first, .text]\n"
+            "      - [0x30, lib, sdk, second, .text]\n"
+            "      - [0x40, asm]\n"
+            "      - [0x50, asm]\n"
+            "      - [0x60, c, game/test]\n"
+        )
+        self.assertEqual(
+            prepare_game_integration.collapse_raw_assembly_boundaries(source),
+            source.replace("      - [0x10, asm]\n", "").replace("      - [0x50, asm]\n", ""),
+        )
+
     def test_keeps_only_boundaries_needed_by_c_units(self) -> None:
         source = (
             "    subsegments:\n"

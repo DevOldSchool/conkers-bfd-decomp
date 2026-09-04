@@ -1,0 +1,17 @@
+#include "types.h"
+
+/*
+ * Raw function collection (boundary withdrawn): src/game/game_1E30A0.c
+ * Boundary evidence: docs/evidence/game_raw_selected_particle_resource_groups.md
+ *
+ * TODO: Implement these source-unit functions:
+ * - func_151B5BF0
+ * - func_151B5E94
+ * - func_151B5FCC
+ *
+ * Unmatched members use generated GLOBAL_ASM placeholders below.
+ */
+
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1E30A0/func_151B5BF0.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1E30A0/func_151B5E94.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1E30A0/func_151B5FCC.s")

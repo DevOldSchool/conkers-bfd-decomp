@@ -21,7 +21,7 @@ def replace_map_range(path: Path, start: int, end: int, mapped_name: str) -> Non
     lines = path.read_text(encoding="utf-8").splitlines()
     entry_pattern = re.compile(
         r"^(?P<indent>\s*)-\s*\[(?P<offset>0x[0-9A-Fa-f]+),\s*"
-        r"(?P<kind>asm|hasm|c)(?:,\s*(?P<name>[^\]]+))?\]\s*$"
+        r"(?P<kind>asm|hasm|c|lib)(?:,\s*(?P<name>[^\]]+))?\]\s*$"
     )
     matches: list[tuple[int, re.Match[str]]] = []
     offsets: set[int] = set()
