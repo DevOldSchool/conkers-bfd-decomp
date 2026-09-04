@@ -42,7 +42,6 @@
  * - func_151CBBE0
  * - func_151CBC60
  * - func_151CC1D4
- * - func_151CC290
  * - func_151CC2BC
  * - func_151CC524
  * - func_151CC77C
@@ -92,7 +91,12 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBBE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBC60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC1D4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC290.s")
+void func_151CC290(s32 arg0) {
+    s32 sp1C;
+
+    sp1C = arg0;
+    func_1515572C(&sp1C, 0x46, arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC2BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC524.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC77C.s")

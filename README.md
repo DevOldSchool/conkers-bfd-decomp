@@ -251,14 +251,114 @@ the same source.
 
 ## RZIP and assets
 
-`./conker rzip-extract` separates the default US game archive into executable
-code, game data, padding, and the ROM's indexed asset-bank entries. The renamed
-debug beta is available as `--profile debug`; `--profile ects` handles its raw
-game overlay, 8,427-entry flat RZIP stream, and indexed asset banks.
+`./conker rzip-extract` separates the selected ROM into executable game code,
+game data, padding, its flat RZIP asset stream, and its indexed asset banks.
+The retail US stream contains 7,760 entries, the renamed debug beta contains
+7,808, and the ECTS beta contains 8,427. The betas are available through
+`--profile debug` and `--profile ects`; ECTS also uses a raw game overlay.
 Use `--manifest-only` for a fast validation/index pass or `--keep-rzip` to retain
 the original compressed chunks beside decoded assets. See the
 [RZIP and asset extraction guide](docs/rzip-assets.md) for the two-level index
 and output layout.
+
+The separate grayscale font table has a byte-identical decoder and packer:
+
+```sh
+./conker font-assets verify --profile us
+./conker font-assets extract --profile us
+./conker font-assets pack --input build/fonts/us --output build/fonts/us.bin
+```
+
+Extraction writes generated PGM glyphs and metadata below `build/fonts/`; none
+of the ROM-derived output belongs in Git.
+
+The US MP3 loader streams playable audio from indexed bank `0x16` and uses bank
+`0x17` entries 4, 5, and 6 for its Huffman offsets, combined lookup tables, and
+Huffman data. They have a separate round-trip workflow:
+
+```sh
+./conker mp3-assets verify
+./conker mp3-assets extract
+./conker mp3-assets pack \
+  --input build/assets/mp3/us \
+  --output build/assets/mp3/us-packed
+```
+
+Extraction writes 453 sparse-indexed `.mp3` files below `streams/` plus the
+three decoder assets. The pack output reproduces all 456 bank-entry payloads
+byte-identically. Whole-bank or whole-ROM insertion remains a later integration
+step.
+
+The first visual family covers 704 US flat-archive payloads consumed by the
+texture cache: 64x64 CI4 pixels followed by a 16-color RGBA5551 palette. The
+extractor converts the ROM's odd-row TMEM ordering to ordinary PNG scanlines
+(while preserving the two known linear particle textures); packing applies the
+inverse layout. It also converts the engine's bottom-left image origin to PNG's
+top-left origin. Palette order and pixel indices are preserved exactly:
+
+```sh
+./conker texture-assets verify
+./conker texture-assets extract
+./conker texture-assets pack \
+  --input build/assets/textures/us \
+  --output build/assets/textures/us-packed
+```
+
+A separate runtime survey proves 13 standalone rectangular CI4 textures within
+the 1,056-byte decoded-size group (64x32 or 32x64) and records 12 direct
+256-entry-TLUT uses. It also verifies the `func_15000AD0` preload path and the
+`func_15111AF4` / `func_15110CFC` consumer. That renderer assembles five
+360x360 views per group from column-major 60x30 visible tiles. The 1,056-byte
+members have a proven 64x32 CI4 storage contract with a 16-entry palette at
+`+0x400`: 1,816 candidates are reached by the ordinary grids and another four
+by the renderer's conditional six-entry override block. None remain
+preload-only, and only five have no recovered runtime reference. The tiled-view
+extractor emits 35 assembled 360x360 RGBA previews. It retains 2,526
+runtime-selected payloads and the context required by the continuous stream
+phase, for 2,534 reversible tiles in total (1,822 CI4, 707 full-width CI8, and
+five compact CI8 records):
+
+```sh
+./conker texture-assets survey
+./conker texture-assets verify --family 1056-proven
+./conker texture-assets extract --family 1056-proven
+./conker texture-assets verify --family tiled-views
+./conker texture-assets extract --family tiled-views
+./conker texture-assets pack \
+  --input build/assets/textures/us-tiled-views \
+  --output build/assets/textures/us-tiled-views-packed
+```
+
+The assembled files under `views/` are previews because each view mixes
+per-tile palettes. The renderer's two-entry vertical phase continues across
+column and view boundaries; it is not an independent wrap inside every column.
+The five compact 32x32 CI8 records are runtime tail records outside the 35
+assembled previews. Edit the indexed files under `tiles/`; packing reconstructs
+those flat payloads byte-identically.
+
+Generated PNGs live below `build/assets/textures/` and are not tracked. Packing
+rebuilds decoded flat payloads. Insert those payloads into a generated ROM with:
+
+```sh
+./conker rzip-pack \
+  --profile us \
+  --input build/assets/textures/us-packed \
+  --output build/rzip/us-packed.z64
+```
+
+Unchanged RZIP chunks are copied byte-for-byte; only edited payloads are
+recompressed. The packer preserves the fixed asset-table boundary, rejects an
+oversized stream, recalculates the US CIC-6105 header checksum after edits, and
+never overwrites the source ROM.
+
+Cross-version asset movement can be surveyed without retaining decoded files:
+
+```sh
+./conker asset-correlate
+```
+
+The generated `build/assets/correlation.json` groups every shared decoded SHA-1
+with all of its US/debug/ECTS locations, including duplicate occurrences.
 
 `./conker beta-index` builds a cached, relocation-insensitive correlation report
 for retail US, the debug beta, and the ECTS beta. It records direct and

@@ -44,7 +44,11 @@ INSTRUCTION_PATTERN = re.compile(
     r"^\s*/\*\s*([0-9A-Fa-f]+)\s+([0-9A-Fa-f]+)\s+([0-9A-Fa-f]{8})\s*\*/\s*([A-Za-z.][A-Za-z0-9._]*)"
 )
 SUBSEGMENT_PATTERN = re.compile(
-    r"^\s*-\s*\[(0x[0-9A-Fa-f]+),\s*(asm|hasm|c|lib)(?:,\s*([^\]]+))?\]\s*$"
+    r"^\s*-\s*\[(0x[0-9A-Fa-f]+),\s*(asm|hasm|c|lib|data)(?:,\s*([^\]]+))?\]\s*$"
+)
+DICT_SUBSEGMENT_PATTERN = re.compile(
+    r"^\s*-\s*\{[^}]*\bstart:\s*(0x[0-9A-Fa-f]+),\s*"
+    r"type:\s*(asm|hasm|c|lib|data)(?:,\s*name:\s*([^,}]+))?[^}]*\}\s*$"
 )
 BATCH_FINGERPRINT_INPUTS = (
     "Makefile",
@@ -506,7 +510,7 @@ def mapped_subsegments(region: str, overlay: str) -> list[tuple[int, str, str | 
     path = ROOT / "config" / directory / f"{region}.yaml"
     entries: list[tuple[int, str, str | None]] = []
     for line in path.read_text(encoding="utf-8").splitlines():
-        match = SUBSEGMENT_PATTERN.match(line)
+        match = SUBSEGMENT_PATTERN.match(line) or DICT_SUBSEGMENT_PATTERN.match(line)
         if match:
             name = match.group(3).strip() if match.group(3) else None
             entries.append((int(match.group(1), 0), match.group(2), name))
@@ -570,7 +574,7 @@ def reference_subsegments(region: str, overlay: str) -> list[tuple[int, str, str
         raise ProjectStateError(f"unknown overlay: {overlay}")
     entries: list[tuple[int, str, str | None]] = []
     for line in content.splitlines():
-        match = SUBSEGMENT_PATTERN.match(line)
+        match = SUBSEGMENT_PATTERN.match(line) or DICT_SUBSEGMENT_PATTERN.match(line)
         if match:
             name = match.group(3).strip() if match.group(3) else None
             entries.append((int(match.group(1), 0), match.group(2), name))

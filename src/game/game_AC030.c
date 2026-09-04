@@ -11,7 +11,6 @@
  * - func_1507EE58
  * - func_1507EEB8
  * - func_1507EEF4
- * - func_1507EFA0
  * - func_1507EFD0
  * - func_1507F454
  * - func_1507F4C0
@@ -31,7 +30,24 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EE58.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEF4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EFA0.s")
+void func_1507EFA0(s32 arg0, s32 arg1) {
+    s32 var_v0;
+    u8 *var_v1;
+
+    var_v0 = 4;
+    var_v1 = arg1 + 4;
+loop_1:
+    var_v0 -= 1;
+    if (arg0 == *var_v1) {
+        *var_v1 = 0;
+        return;
+    }
+    var_v1 -= 1;
+    if (var_v0 < 0) {
+        return;
+    }
+    goto loop_1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EFD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F454.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F4C0.s")

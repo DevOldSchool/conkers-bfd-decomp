@@ -222,6 +222,25 @@ class RepositorySafetyTests(unittest.TestCase):
             batch_case.index('batch-plan "$@"'),
         )
 
+    def test_simple_m2c_automation_uses_public_authoritative_gates(self) -> None:
+        dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        automation_case = dispatch.split("    automate-simple)", 1)[1].split(
+            "        ;;", 1
+        )[0]
+        automation = (ROOT / "scripts" / "automate_simple_m2c.py").read_text(
+            encoding="utf-8"
+        )
+        agent_guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+        self.assertIn("automate-simple [--limit N] [--max-attempts N]", dispatch)
+        self.assertIn('python3 scripts/automate_simple_m2c.py "$@"', automation_case)
+        self.assertIn('"m2c", identifier', automation)
+        self.assertIn('"finish", candidate.identifier', automation)
+        self.assertIn('"verify-batch", *matched', automation)
+        self.assertIn("source_path.write_bytes(original)", automation)
+        self.assertIn("PLACEHOLDER_PATTERN", automation)
+        self.assertIn("./conker automate-simple --limit <matches>", agent_guide)
+
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
         ensure_image = script.split("ensure_cpu_image() {", 1)[1].split("\n}", 1)[0]

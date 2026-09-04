@@ -51,6 +51,8 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  automate-simple [--limit N] [--max-attempts N]
+                                 Keep unchanged, placeholder-free m2c bodies only when CURRENT (0).
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
@@ -95,6 +97,16 @@ After the raw base split map is available
                                  Incrementally build and byte-verify game units; --refresh rebuilds the cache.
   rzip-extract [--profile us|debug|ects] [--rom <path>] [--output <dir>]
                                  Separate game code/data and indexed asset files.
+  rzip-pack --profile us --input <packed-assets> [--output <rom>] [--force]
+                                 Rebuild the fixed US flat RZIP region into a ROM.
+  font-assets <extract|pack|verify> [options]
+                                 Extract, rebuild, or byte-verify the RLE font table.
+  mp3-assets <extract|pack|verify> [options]
+                                 Extract, rebuild, or byte-verify US MP3 streams and tables.
+  texture-assets <extract|pack|verify|survey> [options]
+                                 Survey, extract, rebuild, or verify proven US CI4 textures.
+  asset-correlate [--base us] [--compare debug|ects] [--output <path>] [--force]
+                                 Correlate manifest-only asset fingerprints across profiles.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
   library-audit [--json]        Scan raw US main ranges for complete I-L libultra sections.
   rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
@@ -476,6 +488,9 @@ case "$command" in
             python3 "$state_tool" next "$@"
         fi
         ;;
+    automate-simple)
+        python3 scripts/automate_simple_m2c.py "$@"
+        ;;
     defer)
         [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"
         deferred_symbol="$1"
@@ -739,6 +754,24 @@ case "$command" in
             set -- --profile us "$@"
         fi
         python3 scripts/rzip_extract.py "$@"
+        ;;
+    rzip-pack)
+        python3 scripts/rzip_pack.py "$@"
+        ;;
+    font-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker font-assets <extract|pack|verify> [options]"
+        python3 scripts/font_assets.py "$@"
+        ;;
+    mp3-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <extract|pack|verify> [options]"
+        python3 scripts/mp3_assets.py "$@"
+        ;;
+    texture-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|verify|survey> [options]"
+        python3 scripts/texture_assets.py "$@"
+        ;;
+    asset-correlate)
+        python3 scripts/asset_correlate.py "$@"
         ;;
     beta-index)
         [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--refresh" ) ]] || die "usage: ./conker beta-index [--refresh]"

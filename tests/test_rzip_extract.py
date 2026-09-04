@@ -17,6 +17,21 @@ def chunk(data: bytes) -> bytes:
 
 
 class RzipExtractTests(unittest.TestCase):
+    def test_retail_profiles_include_reviewed_flat_asset_streams(self) -> None:
+        expected = {
+            "debug": (0x199BA0, 0xABBCFD, 0xABBD00),
+            "us": (0x1A37E0, 0xAB1941, 0xAB1950),
+        }
+
+        for profile, (start, end, table) in expected.items():
+            with self.subTest(profile=profile):
+                layout = rzip_extract.load_layout(profile)
+                self.assertEqual(start, layout["flat_assets_start"])
+                self.assertEqual(end, layout["flat_assets_end"])
+                self.assertEqual(table, layout["asset_table"])
+                self.assertLess(layout["game_end"], start)
+                self.assertLess(end, table)
+
     def test_extracts_raw_game_and_flat_assets(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -80,6 +95,14 @@ class RzipExtractTests(unittest.TestCase):
             self.assertEqual(1, manifest["assets"]["file_count"])
             self.assertEqual(3, manifest["assets"]["total_file_count"])
             self.assertEqual(3, manifest["assets"]["total_compressed_file_count"])
+            self.assertEqual(
+                hashlib.sha1(b"flat-one").hexdigest(),
+                manifest["assets"]["flat"]["files"][0]["decoded_sha1"],
+            )
+            self.assertEqual(
+                hashlib.sha1(b"indexed").hexdigest(),
+                manifest["assets"]["banks"][0]["entries"][0]["decoded_sha1"],
+            )
             self.assertEqual(b"flat-one", (output / "assets" / "flat" / "0000.bin").read_bytes())
             self.assertEqual(b"indexed", (output / "assets" / "bank-00" / "0000.bin").read_bytes())
 

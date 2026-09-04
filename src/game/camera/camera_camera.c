@@ -47,7 +47,6 @@
  * - func_151283B8
  * - func_151284C4
  * - func_15128540
- * - func_15128680
  * - func_1512868C
  * - func_15128774
  *
@@ -96,6 +95,8 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151283B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151284C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128540.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128680.s")
+void func_15128680(s32 arg0) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_1512868C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128774.s")

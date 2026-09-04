@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_core_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150238D0
  * - func_150238D8
  * - func_15023BB0
  * - func_15023DE0
@@ -20,7 +19,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150238D0.s")
+void func_150238D0(void) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150238D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_15023BB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_15023DE0.s")

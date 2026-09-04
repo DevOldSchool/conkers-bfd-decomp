@@ -21,14 +21,14 @@ At the start, reviewed source intervals and exact library text covered 1,343,024
 | [Timed actor emitter](game_raw_timed_actor_emitter.md) | 1 | 2 | 1,296 |
 | Total | 58 | 181 | 107,760 |
 
-One extra candidate boundary at `0x1B5BF0:0x1B6010` was withdrawn when independent indexing revealed an unaccounted eight-byte entry. Its three raw function work items remain available without boundary credit. The guarded `withdraw-source-unit` CLI preserves work and restores raw map ownership; its tests cover inventory preservation, mixed-map restoration, modified-source rejection and rollback.
+One extra candidate boundary at `0x1B5BF0:0x1B6010` was initially withdrawn when independent indexing revealed an unaccounted eight-byte entry. That stub was later regenerated independently and the complete four-entry range integrated under `docs/evidence/game_raw_reconciled_empty_stub_splits.md`. The guarded `withdraw-source-unit` CLI preserved the original work during reconciliation.
 
 ## Remaining leads
 
 The deadline ends this pass, not candidate exhaustion. These ranges remain unregistered and receive no coverage credit:
 
 - `0xAC9C0:0xAD770`: connected transform processing, but the independent function CSV omits the raw entry `150AC9C0`. Reconcile that disagreement first.
-- `0x1DD140:0x1DD3A0`: apparent EEPROM-read library lineage. No complete masked object match was found among I/J/K/L normal, debug and ROM variants. Keep this as a possible Rare library override, rather than assigning it to game code.
+- `0x1DD140:0x1DD3A0`: apparent EEPROM-read library lineage. No complete masked object match was found among I/J/K/L normal, debug and ROM variants. It was later assigned to the Rare `libultrare/io/conteepread` source boundary; see `docs/evidence/game_libultrare_eeprom_variant_boundaries.md`.
 - `0x1082D0:0x108850`: update, child and event pointers exist at `8008A580`, `800897C0` and `8008A968`. Establish the factory selectors and complete membership before grouping them.
 - `0xEAF50:0xEB1C0`: action callbacks at `8008A0A0` and `8008A11C`; the relationship still needs dispatcher evidence.
 - `0x193660:0x193CA0`: two factories and two emitter callbacks; determine whether they form one connected family or two independent pairs.

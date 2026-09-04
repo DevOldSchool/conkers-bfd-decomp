@@ -53,6 +53,12 @@ __osPfsGetStatus = 0x10027714;
 __osContAddressCrc = 0x10025FD0;
 __osContDataCrc = 0x10026080;
 
+/* Rare EEPROM overrides reuse the game's status helper, PIF RAM, and
+ * asynchronous transaction waiter. */
+__osEepStatus = 0x151DD710;
+__conker_game_eepPifRam = 0x800E0A30;
+__conker_eeprom_wait = 0x151DCFD8;
+
 /* Controller objects: docs/evidence/game_sdk_controller_objects.md. */
 osGetTime = 0x10024F40;
 osClockRate = 0x8002BD10;

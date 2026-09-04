@@ -55,7 +55,8 @@ GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/I/libultra_rom/src/,\
 	io/visetspecial.o io/piread.o io/sirawdma.o io/crc.o \
 	os/settimer.o os/gettime.o libc/sprintf.o io/contpfs.o io/pfschecker.o)
 GAME_RARE_OBJECTS := $(addprefix lib/libultrare/build/libultrare/io/,\
-	pfsisplug.o contramread.o contramwrite.o controller.o pfsinit.o contreaddata.o) \
+	pfsisplug.o contramread.o contramwrite.o controller.o pfsinit.o contreaddata.o \
+	conteepread.o conteeplongread.o conteepprobe.o) \
 	lib/libultrare/build/libultrare/gu/mtxutil.o \
 	lib/libultrare/build/libultrare/gu/rotate.o \
 	lib/libultrare/build/libultrare/gu/cosf.o \

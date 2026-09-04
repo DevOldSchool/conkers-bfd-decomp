@@ -8,31 +8,9 @@
  * - func_15040350
  * - func_150403C8
  * - func_1504072C
- * - func_15040748
  * - func_15040754
- * - func_150407A0
- * - func_150407A8
- * - func_150407B4
- * - func_150407C0
- * - func_150407CC
- * - func_150407D8
- * - func_150407E4
- * - func_150407F0
- * - func_150407FC
- * - func_15040808
- * - func_15040814
- * - func_15040820
  * - func_1504082C
- * - func_1504086C
- * - func_15040878
- * - func_15040884
- * - func_15040890
- * - func_1504089C
- * - func_150408A8
- * - func_150408B4
- * - func_150408C0
  * - func_150408CC
- * - func_150408F0
  * - func_150408FC
  * - func_15040908
  * - func_15040914
@@ -76,31 +54,55 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040350.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150403C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_1504072C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040748.s")
+void func_15040748(s32 arg0) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040754.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407A8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407B4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407C0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407D8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407E4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407F0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150407FC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040808.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040814.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040820.s")
+void func_150407A0(void) {
+
+}
+void func_150407A8(s32 arg0) {
+}
+void func_150407B4(s32 arg0) {
+}
+void func_150407C0(s32 arg0) {
+}
+void func_150407CC(s32 arg0) {
+}
+void func_150407D8(s32 arg0) {
+}
+void func_150407E4(s32 arg0) {
+}
+void func_150407F0(s32 arg0) {
+}
+void func_150407FC(s32 arg0) {
+}
+void func_15040808(s32 arg0) {
+}
+void func_15040814(s32 arg0) {
+}
+void func_15040820(s32 arg0) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_1504082C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_1504086C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040878.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040884.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040890.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_1504089C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150408A8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150408B4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150408C0.s")
+void func_1504086C(s32 arg0) {
+}
+void func_15040878(s32 arg0) {
+}
+void func_15040884(s32 arg0) {
+}
+void func_15040890(s32 arg0) {
+}
+void func_1504089C(s32 arg0) {
+}
+void func_150408A8(s32 arg0) {
+}
+void func_150408B4(s32 arg0) {
+}
+void func_150408C0(s32 arg0) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150408CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150408F0.s")
+void func_150408F0(s32 arg0) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_150408FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040908.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040914.s")

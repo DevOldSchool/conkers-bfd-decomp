@@ -117,6 +117,19 @@ the next step from prose. It prints the
 ordinary focused comparison when the score is nonzero and changes no inventory;
 when it reaches `CURRENT (0)`, that same compilation records the match,
 regenerates progress, and validates the generated and whitespace state.
+For the narrow subset whose m2c function body needs no edits or generated
+placeholder types, the conservative batch helper can try those candidates and
+retain only exact matches:
+
+```sh
+./conker automate-simple --limit 5 --max-attempts 20
+```
+
+It skips dirty sources and work requiring source-unit integration, discards
+m2c's guessed declarations, rejects `M2C_*` placeholders, restores every
+compile failure or nonzero diff byte-for-byte, and runs one clean
+`verify-batch` gate for the matches it keeps. The defaults keep at most one
+match and inspect at most ten clean candidates.
 `progress match` remains a compatibility alias and should not be run after a
 successful `finish`. The standalone `next --one --details`, `m2c`, and
 `diff --record` commands remain available for focused or automated use. Do not

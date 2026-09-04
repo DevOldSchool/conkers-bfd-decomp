@@ -20,7 +20,6 @@
  * - func_151B4A14
  * - func_151B4B78
  * - func_151B4C1C
- * - func_151B4C6C
  * - func_151B4C98
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -41,5 +40,8 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4A14.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4B78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4C1C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4C6C.s")
+void func_151B4C6C(s32 arg0) {
+    func_151B4C1C(arg0);
+    func_15169824(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4C98.s")
