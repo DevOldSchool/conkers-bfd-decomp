@@ -1680,3 +1680,63 @@ class GameInventoryTests(unittest.TestCase):
     def test_mark_matched_rejects_unknown_work_item(self) -> None:
         with self.assertRaises(project_state.ProjectStateError):
             project_state.mark_matched(SimpleNamespace(profile="us", symbol="missing"))
+
+    def test_reopen_match_restores_pragma_and_preserves_candidate(self) -> None:
+        project_state.register_game(
+            SimpleNamespace(
+                identifier="func_game_test",
+                source="src/game/reviewed_unit.c",
+                us="func_15000000",
+            )
+        )
+        project_state.register_source_unit(
+            SimpleNamespace(
+                source="src/game/reviewed_unit.c",
+                functions=None,
+                register_members=True,
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/reviewed.md",
+            )
+        )
+        source_path = self.root / "src/game/reviewed_unit.c"
+        source_path.write_text(
+            source_path.read_text(encoding="utf-8").replace(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/reviewed_unit/func_game_test.s")',
+                "void func_game_test(void) {}",
+            ),
+            encoding="utf-8",
+        )
+        project_state.mark_matched(
+            SimpleNamespace(profile="us", symbol="func_game_test")
+        )
+
+        project_state.reopen_match(
+            SimpleNamespace(
+                profile="us",
+                symbol="func_game_test",
+                reason="mixed object shifted its successor",
+            )
+        )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        entry = next(
+            item for item in functions["functions"] if item["symbol"] == "func_game_test"
+        )
+        self.assertEqual("raw_asm", entry["regions"]["us"]["state"])
+        self.assertNotIn("evidence", entry["regions"]["us"])
+        self.assertEqual(
+            "mixed object shifted its successor", entry["deferred"]["reason"]
+        )
+        source = source_path.read_text(encoding="utf-8")
+        self.assertIn("CONKER_DEFERRED_CANDIDATE func_game_test", source)
+        self.assertIn(
+            '#pragma GLOBAL_ASM("asm/nonmatchings/reviewed_unit/func_game_test.s")',
+            source,
+        )
+        self.assertIn(" * - func_game_test\n", source)
+        self.assertLess(
+            source.index(" * - func_game_test\n"),
+            source.index(" * - func_15000004\n"),
+        )

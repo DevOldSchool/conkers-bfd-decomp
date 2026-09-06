@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15012FE0
  * - func_15013000
  * - func_150130B4
  * - func_1501370C
@@ -20,7 +19,6 @@
  * - func_15013FC4
  * - func_15014004
  * - func_15014040
- * - func_1501407C
  * - func_15014094
  * - func_15014144
  * - func_15014220
@@ -41,7 +39,15 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15012FE0.s")
+extern s32 D_800BE570;
+extern s8 D_800BE574;
+extern s8 D_800BE575;
+
+void func_15012FE0(void) {
+    D_800BE570 = 0;
+    D_800BE574 = 0;
+    D_800BE575 = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013000.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150130B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501370C.s")
@@ -97,7 +103,12 @@ s32 func_15013C38(Game40490CallbackState *state) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013FC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014004.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014040.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501407C.s")
+extern s8 D_800D987C;
+
+s32 func_1501407C(s32 arg0) {
+    D_800D987C = 0;
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014094.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014144.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014220.s")

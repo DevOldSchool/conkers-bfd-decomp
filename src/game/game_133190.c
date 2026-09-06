@@ -43,6 +43,25 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game133190Subobject {
+    u8 pad0[8];
+    s32 field_8;
+} Game133190Subobject;
+
+typedef struct Game133190Target {
+    u8 pad0[0x28];
+    Game133190Subobject subobject;
+} Game133190Target;
+
+typedef struct Game133190Holder {
+    Game133190Target *target;
+} Game133190Holder;
+
+typedef struct Game133190Object {
+    u8 pad0[0x60];
+    Game133190Holder *holder;
+} Game133190Object;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15105CE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_1510608C.s")
 s32 func_151061E0(s32 arg0) {
@@ -71,6 +90,15 @@ f32 func_151065EC(f32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107604 CURRENT (20) */
+Game133190Holder *func_15107604(Game133190Object *arg0) {
+    Game133190Holder *holder = arg0->holder;
+    Game133190Subobject *subobject = &holder->target->subobject;
+
+    subobject->field_8 = 0;
+    return holder;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15107604 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107604.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_1510761C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_1510764C.s")

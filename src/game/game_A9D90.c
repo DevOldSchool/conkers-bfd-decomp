@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507C8E0
  * - func_1507C8FC
  * - func_1507CD0C
  * - func_1507CD64
@@ -24,7 +23,22 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507C8E0.s")
+typedef struct GameA9D90Inner {
+    u8 pad0[0x120];
+    u8 field_120;
+    u8 pad121[3];
+    s16 field_124;
+} GameA9D90Inner;
+
+typedef struct GameA9D90Object {
+    u8 pad0[0x31C];
+    GameA9D90Inner *field_31C;
+} GameA9D90Object;
+
+void func_1507C8E0(GameA9D90Object *arg0, s32 arg1) {
+    arg0->field_31C->field_120 = 2;
+    arg0->field_31C->field_124 = arg1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507C8FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507CD0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507CD64.s")

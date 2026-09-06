@@ -15,6 +15,10 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6210.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6354 CURRENT (300) */
+void func_150A6354(void) {
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A6354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6354.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6360.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6500.s")

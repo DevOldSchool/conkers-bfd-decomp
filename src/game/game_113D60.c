@@ -11,7 +11,6 @@
  * - func_150E6ED8
  * - func_150E6F18
  * - func_150E6FAC
- * - func_150E70CC
  * - func_150E70EC
  * - func_150E71E4
  *
@@ -24,6 +23,10 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6ED8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6F18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6FAC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E70CC.s")
+void func_150E70CC(f32 *arg0, f32 *arg1) {
+    arg0[0] = arg1[5];
+    arg0[1] = arg1[6];
+    arg0[2] = arg1[7];
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E70EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E71E4.s")

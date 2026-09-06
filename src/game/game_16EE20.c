@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_state_callback_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15141970
  * - func_151419D0
  * - func_15141A7C
  * - func_15141C0C
@@ -15,9 +14,6 @@
  * - func_15141F78
  * - func_151420F8
  * - func_15142180
- * - func_151422C0
- * - func_151422DC
- * - func_151422F8
  * - func_15142314
  * - func_151423D8
  * - func_15142444
@@ -48,7 +44,6 @@
  * - func_151438D8
  * - func_15143D18
  * - func_15143DA8
- * - func_15143E08
  * - func_15143E24
  * - func_15143E64
  * - func_15143E94
@@ -96,12 +91,16 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141970.s")
-void func_15141990(void) {
-    func_15141970();
+void func_1514EDF0(s32 arg0, s32 arg1);
+
+void func_15141970(s32 *arg0) {
+    func_1514EDF0((s32)arg0, arg0[0xB]);
 }
-void func_151419B0(void) {
-    func_15141970();
+void func_15141990(s32 *arg0) {
+    func_15141970(arg0);
+}
+void func_151419B0(s32 *arg0) {
+    func_15141970(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151419D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141A7C.s")
@@ -112,9 +111,15 @@ void func_151419B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141F78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151420F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15142180.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151422C0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151422DC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151422F8.s")
+s32 func_151422C0(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    return (arg3 + arg2) >> 1;
+}
+s32 func_151422DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    return arg4;
+}
+s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    return arg4;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15142314.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151423D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15142444.s")
@@ -145,7 +150,9 @@ void func_151419B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151438D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143D18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143DA8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143E08.s")
+s32 func_15143E08(u16 *arg0) {
+    return (((s32)arg0[0x3D] >> 8) + 0x40) & 0xFF;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143E24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143E64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143E94.s")

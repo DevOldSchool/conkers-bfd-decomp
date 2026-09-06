@@ -93,6 +93,42 @@ class DiffReferenceTests(unittest.TestCase):
     def test_reads_zero_difference_json_evidence(self) -> None:
         self.assertEqual(0, diff_helper.current_difference_count('{"current_score": 0}'))
 
+    def test_activates_a_deferred_candidate_without_editing_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            source = temporary_root / "src" / "game" / "test.c"
+            content = (
+                "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (35) */\n"
+                "void func_test(void) {}\n"
+                "#endif /* CONKER_DEFERRED_CANDIDATE func_test */\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n'
+            )
+            with patch.object(diff_helper, "ROOT", temporary_root):
+                activated = diff_helper.activate_deferred_candidate(
+                    content, source, "func_test"
+                )
+
+            self.assertEqual("void func_test(void) {}\n", activated)
+
+    def test_classifies_register_only_diff_rows(self) -> None:
+        rows = [
+            {
+                "key": None,
+                "base": {"mnemonic": "or", "text": [{"text": "or t8,t7,at"}]},
+                "current": {"mnemonic": "or", "text": [{"text": "or t7,t6,at"}]},
+            },
+            {
+                "key": None,
+                "base": {"mnemonic": "beq", "text": [{"text": "beq t0,zero,10"}]},
+                "current": {"mnemonic": "bne", "text": [{"text": "bne t0,zero,10"}]},
+            },
+        ]
+
+        counts = diff_helper.classify_diff_rows(rows)
+
+        self.assertEqual(1, counts["register_only"])
+        self.assertEqual(1, counts["opcode_or_control_flow"])
+
     def test_rejects_invalid_json_evidence(self) -> None:
         with self.assertRaises(ValueError):
             diff_helper.current_difference_count('{"current_score": "0"}')

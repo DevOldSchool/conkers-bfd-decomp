@@ -218,6 +218,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertNotIn("remove_warm_container", prepare_body)
 
         self.assertIn("verify_and_record_match", finish_case)
+        self.assertIn("scripts/layout_check.py", script)
         self.assertIn('progress --check', finish_case)
         self.assertIn("core.whitespace=cr-at-eol diff --check", finish_case)
         self.assertIn("AGENT_ACTION: FIX_COMPILE", finish_case)
@@ -241,6 +242,13 @@ class RepositorySafetyTests(unittest.TestCase):
             batch_case.index('batch-plan "$@"'),
         )
 
+        self.assertIn("diagnose-diff <work-item-id>", script)
+        self.assertIn("permute <work-item-id> [--budget N]", script)
+        self.assertIn(
+            "automate-permute [--limit N] [--max-attempts N] [--budget N]", script
+        )
+        self.assertIn("reopen-match <work-item-id> --reason <text>", script)
+
     def test_simple_m2c_automation_uses_public_authoritative_gates(self) -> None:
         dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
         automation_case = dispatch.split("    automate-simple)", 1)[1].split(
@@ -259,6 +267,23 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("source_path.write_bytes(original)", automation)
         self.assertIn("PLACEHOLDER_PATTERN", automation)
         self.assertIn("./conker automate-simple --limit <matches>", agent_guide)
+
+    def test_permutation_automation_uses_public_authoritative_gates(self) -> None:
+        dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
+        automation_case = dispatch.split("    automate-permute)", 1)[1].split(
+            "        ;;", 1
+        )[0]
+        automation = (ROOT / "scripts" / "automate_permute.py").read_text(
+            encoding="utf-8"
+        )
+        agent_guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+
+        self.assertIn('python3 scripts/automate_permute.py "$@"', automation_case)
+        self.assertIn('"diagnose-diff", candidate.identifier', automation)
+        self.assertIn('"permute",', automation)
+        self.assertIn('"verify-batch", *matched', automation)
+        self.assertIn("source_path.write_bytes(original)", automation)
+        self.assertIn("./conker automate-permute --limit <matches>", agent_guide)
 
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")

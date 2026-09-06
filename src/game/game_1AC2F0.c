@@ -31,7 +31,6 @@
  * - func_15181E18
  * - func_15181EE0
  * - func_15182670
- * - func_15182748
  * - func_15182768
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -63,5 +62,16 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181E18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181EE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15182670.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15182748.s")
+typedef struct Game1AC2F0Object {
+    u8 pad0[0xE];
+    s16 field_E;
+    u8 pad10[0x1B];
+    s8 field_2B;
+    u8 pad2C[2];
+    s16 field_2E;
+} Game1AC2F0Object;
+
+void func_15182748(Game1AC2F0Object *arg0) {
+    arg0->field_2B = arg0->field_2E * arg0->field_E;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15182768.s")

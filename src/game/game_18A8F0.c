@@ -27,7 +27,6 @@
  * - func_1515F10C
  * - func_1515F170
  * - func_1515F1B0
- * - func_1515F25C
  * - func_1515F270
  * - func_1515F2B8
  * - func_1515F2E8
@@ -42,6 +41,11 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct Game18A8F0Node {
+    u8 pad0[0xC];
+    struct Game18A8F0Node *next;
+} Game18A8F0Node;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D440.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D480.s")
@@ -68,7 +72,10 @@ void func_1515D6C8(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F10C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F170.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F1B0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F25C.s")
+void func_1515F25C(Game18A8F0Node **arg0, Game18A8F0Node *arg1) {
+    arg1->next = *arg0;
+    *arg0 = arg1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F270.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F2B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F2E8.s")

@@ -51,7 +51,10 @@ void func_test(void *arg0) {
 }
 """
 
-        with self.assertRaisesRegex(automation.AutomationError, "M2C placeholder"):
+        with self.assertRaisesRegex(
+            automation.AutomationError,
+            r"unresolved placeholder\(s\): M2C_FIELD",
+        ):
             automation.extract_simple_definition(starter, "func_test")
 
     def test_replaces_only_the_canonical_pragma_and_preserves_crlf(self) -> None:
@@ -99,7 +102,6 @@ void func_test(void *arg0) {
 
             with (
                 patch.object(automation, "ROOT", root),
-                patch.object(automation, "source_dirty", return_value=False),
                 patch.object(
                     automation,
                     "generate_starter",
@@ -128,7 +130,6 @@ void func_test(void *arg0) {
 
             with (
                 patch.object(automation, "ROOT", root),
-                patch.object(automation, "source_dirty", return_value=False),
                 patch.object(automation, "generate_starter", return_value=starter),
                 patch.object(automation, "run_command", return_value=(0, "")),
                 redirect_stdout(io.StringIO()),
@@ -137,6 +138,45 @@ void func_test(void *arg0) {
 
             self.assertEqual(
                 "void func_test(void) {\n    return;\n}\n",
+                source.read_text(encoding="utf-8"),
+            )
+
+    def test_exact_matches_accumulate_in_an_already_changed_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / self.SOURCE
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "void existing_change(void) {}\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_one.s")\n'
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_two.s")\n',
+                encoding="utf-8",
+            )
+            candidates = (
+                automation.Candidate("func_one", "func_one", self.SOURCE, 8),
+                automation.Candidate("func_two", "func_two", self.SOURCE, 8),
+            )
+
+            with (
+                patch.object(automation, "ROOT", root),
+                patch.object(
+                    automation,
+                    "generate_starter",
+                    side_effect=(
+                        "void func_one(void) {}\n",
+                        "void func_two(void) {}\n",
+                    ),
+                ),
+                patch.object(automation, "run_command", return_value=(0, "")),
+                redirect_stdout(io.StringIO()),
+            ):
+                self.assertTrue(automation.try_candidate(candidates[0]))
+                self.assertTrue(automation.try_candidate(candidates[1]))
+
+            self.assertEqual(
+                "void existing_change(void) {}\n"
+                "void func_one(void) {}\n"
+                "void func_two(void) {}\n",
                 source.read_text(encoding="utf-8"),
             )
 

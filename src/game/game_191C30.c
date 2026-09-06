@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15164780
- * - func_15164888
  * - func_1516489C
  * - func_15164EE4
  * - func_15164F0C
@@ -19,7 +18,9 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164780.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164888.s")
+void func_15164888(u8 *arg0) {
+    arg0[0x10] |= 2;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_1516489C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164EE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164F0C.s")

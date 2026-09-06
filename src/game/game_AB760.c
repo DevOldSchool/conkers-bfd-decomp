@@ -14,11 +14,9 @@
  * - func_1507E7E4
  * - func_1507E908
  * - func_1507E968
- * - func_1507E9E8
  * - func_1507E9F8
  * - func_1507EA44
  * - func_1507EABC
- * - func_1507EB2C
  * - func_1507EB4C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -33,9 +31,14 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E7E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E908.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E968.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E9E8.s")
+void func_1507E9E8(s32 arg0, s32 arg1) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E9F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EA44.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EABC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EB2C.s")
+void func_1507EB4C(void *arg0, s32 arg1);
+
+void func_1507EB2C(void *arg0) {
+    func_1507EB4C(arg0, 0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EB4C.s")

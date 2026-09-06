@@ -5,10 +5,7 @@
  * Boundary evidence: docs/evidence/game_raw_resource_dependency_core.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509CA10
- * - func_1509CA30
  * - func_1509CA50
- * - func_1509CA78
  * - func_1509CA98
  * - func_1509CB68
  * - func_1509CBD4
@@ -23,10 +20,33 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA10.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA30.s")
+typedef struct GameC9EC0Entry {
+    s32 field_0;
+    u8 pad4[4];
+    u16 field_8;
+    u8 padA[0xA];
+} GameC9EC0Entry;
+
+extern GameC9EC0Entry D_80087430[];
+extern GameC9EC0Entry D_80087434[];
+
+typedef struct GameC9EC0HalfwordEntry {
+    u16 field_0;
+    u8 pad2[0x12];
+} GameC9EC0HalfwordEntry;
+
+extern GameC9EC0HalfwordEntry D_80087438[];
+
+s32 func_1509CA10(s32 arg0) {
+    return D_80087430[arg0].field_0;
+}
+u16 func_1509CA30(s32 arg0) {
+    return D_80087438[arg0].field_0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA50.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA78.s")
+s32 func_1509CA78(s32 arg0) {
+    return D_80087434[arg0].field_0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CB68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CBD4.s")

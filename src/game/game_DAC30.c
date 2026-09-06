@@ -11,6 +11,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD780 CURRENT (7200) */
+void func_150AD780(f32 arg0) {
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AD780 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DAC30/func_150AD780.s")
 extern f32 D_8009F714;
 extern f32 D_8009F718;

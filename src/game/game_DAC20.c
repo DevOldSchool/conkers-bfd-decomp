@@ -10,4 +10,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD770 CURRENT (300) */
+void func_150AD770(void) {
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AD770 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DAC20/func_150AD770.s")

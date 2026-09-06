@@ -115,8 +115,10 @@ same compilation records the match and performs the per-function generated and
 whitespace checks. Do not edit progress JSON or generated nonmatching assembly
 by hand.
 
-For clean candidates whose m2c bodies require no manual changes or placeholder
-declarations, the conservative automation may be used:
+For candidates whose m2c bodies require no manual changes or placeholder
+declarations, the conservative automation may be used. Existing changes in a
+source file are preserved; each attempt replaces only its canonical pragma and
+restores the complete pre-attempt file if the candidate does not match:
 
 ```sh
 ./conker automate-simple --limit 5 --max-attempts 20
@@ -136,6 +138,36 @@ explicit agreement to move past it, use the supported deferral flow:
 
 `defer` and `resume` preserve the candidate and update the inventory
 transactionally. Do not reproduce their changes manually.
+
+Use `./conker diagnose-diff <work-item-id>` to classify a live or preserved
+candidate before spending manual attempts. When the remaining differences are
+primarily compiler register allocation, `./conker permute <work-item-id>
+--budget <variants>` performs a deterministic, bounded search over
+semantics-preserving declaration order and first-assignment lifetime variants.
+It writes the best nonzero result below `build/<profile>/permute/` without
+changing project source. It restores and finishes the candidate automatically
+only after finding `CURRENT (0)`.
+
+To apply that search to a bounded deferred backlog, use:
+
+```sh
+./conker automate-permute --limit 5 --max-attempts 20 --budget 250
+```
+
+The automation runs `diagnose-diff` first and permutes only candidates whose
+classified differences are exclusively register allocation. It preserves
+pre-existing source changes, restores every failed attempt, skips source-unit
+integration transitions, retains only exact results through `finish`, and runs
+one clean `verify-batch` for the resulting group. The existing
+`automate-simple` behavior remains unchanged.
+
+`finish` also compiles the complete reviewed mixed source object and verifies
+every member offset plus the aligned object extent before recording a match.
+This catches missing post-return instructions or padding that a focused
+`--stop-at-ret` comparison cannot see. If older zero-difference evidence is
+invalidated by this layout gate, use `./conker reopen-match <work-item-id>
+--reason <text>` to preserve its C body, restore `GLOBAL_ASM`, and update
+inventory/progress atomically.
 
 Batch the full build and Python checks after a logical group rather than after
 every small function. Run the default clean `verify-batch` before committing,

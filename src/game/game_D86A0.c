@@ -14,4 +14,11 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D86A0/func_150AB1F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D86A0/func_150AC3E4.s")
+s32 func_150AC2D8(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AC9B0 CURRENT (800) */
+s32 func_150AC9B0(void) {
+    return func_150AC2D8();
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AC9B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D86A0/func_150AC9B0.s")

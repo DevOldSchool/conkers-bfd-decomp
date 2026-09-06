@@ -36,7 +36,7 @@ class Candidate:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
-            "Try m2c output verbatim for clean, source-local work items. "
+            "Try m2c output verbatim for source-local work items. "
             "Only exact CURRENT (0) matches are retained."
         )
     )
@@ -111,19 +111,6 @@ def available_candidates() -> list[Candidate]:
     )
 
 
-def source_dirty(source: str) -> bool:
-    result = subprocess.run(
-        ["git", "status", "--porcelain", "--", source],
-        cwd=ROOT,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
-    if result.returncode:
-        raise AutomationError(f"could not inspect Git state for {source}")
-    return bool(result.stdout.strip())
-
-
 def extract_simple_definition(starter: str, identifier: str) -> str:
     """Strip m2c's guessed declarations and return one placeholder-free definition."""
 
@@ -131,8 +118,11 @@ def extract_simple_definition(starter: str, identifier: str) -> str:
     if len(definitions) != 1 or definitions[0].group("symbol") != identifier:
         raise AutomationError(f"m2c did not emit exactly one {identifier} definition")
     definition = starter[definitions[0].start() :].strip()
-    if PLACEHOLDER_PATTERN.search(definition):
-        raise AutomationError("m2c body contains an M2C placeholder")
+    placeholders = sorted(set(PLACEHOLDER_PATTERN.findall(definition)))
+    if placeholders:
+        raise AutomationError(
+            "m2c body contains unresolved placeholder(s): " + ", ".join(placeholders)
+        )
     if not definition.endswith("}"):
         raise AutomationError("m2c emitted content after the function definition")
     return definition + "\n"
@@ -200,9 +190,6 @@ def entry_is_complete(identifier: str) -> bool:
 
 def try_candidate(candidate: Candidate) -> bool:
     source_path = ROOT / candidate.source
-    if source_dirty(candidate.source):
-        print(f"SKIP {candidate.identifier}: {candidate.source} already has Git changes")
-        return False
     if not source_path.is_file():
         print(f"SKIP {candidate.identifier}: source file is missing")
         return False
@@ -258,9 +245,6 @@ def main() -> int:
         for candidate in candidates:
             if len(matched) >= args.limit or attempts >= args.max_attempts:
                 break
-            if source_dirty(candidate.source):
-                print(f"SKIP {candidate.identifier}: {candidate.source} already has Git changes")
-                continue
             attempts += 1
             if try_candidate(candidate):
                 matched.append(candidate.identifier)

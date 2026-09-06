@@ -53,6 +53,15 @@ The output is a starting point, not type-correct or match evidence. Replace
 guessed declarations and placeholder types with project declarations before
 testing the candidate.
 
+The command also generates a preprocessed context from `include/types.h` and
+the work item's canonical source file, then supplies it to `mips_to_c`. Context
+and parser caches remain under ignored `build/m2c/context/` output. Keep private
+or partial structures in their owning C file; promote them to a real header only
+when recovered cross-source use requires one. This improves starter field names
+and type propagation without creating a second maintained copy of declarations.
+Sources with unsupported conditional preprocessing safely fall back to an
+untyped starter. Context-informed output is still not match evidence.
+
 ## Match one function
 
 Replace only the selected function's `GLOBAL_ASM` pragma, at the same source
@@ -62,10 +71,11 @@ position, then run the authoritative focused gate:
 ./conker finish <work-item-id>
 ```
 
-`finish` compiles the candidate once. A nonzero result prints the focused US
-diff and leaves the inventories unchanged. `CURRENT (0)` records the match,
-regenerates progress, and checks generated output and whitespace in the same
-command.
+`finish` compiles the focused candidate, then compiles its complete reviewed
+mixed source object and checks every member offset plus the aligned object
+extent. A nonzero focused result or a shifted mixed layout leaves the
+inventories unchanged. Only `CURRENT (0)` with preserved layout records the
+match, regenerates progress, and checks generated output and whitespace.
 
 The terminal action states describe the next step:
 
@@ -116,6 +126,45 @@ use the supported deferral flow after agreeing to move past it:
 `defer` measures and records the current score, preserves the C in a disabled
 source block, restores the canonical pragma, and excludes the item from
 automatic selection. `resume` restores the candidate byte-for-byte.
+
+Two bounded helpers reduce blind source-shaping work:
+
+```sh
+./conker diagnose-diff <work-item-id>
+./conker permute <work-item-id> --budget 250
+```
+
+`diagnose-diff` works with active and preserved deferred candidates and reports
+register-only, operand/constant, control-flow, and missing/extra categories.
+`permute` searches deterministic declaration-order and first-assignment
+lifetime variants with the pinned compiler. A nonzero best result is written
+below `build/us/permute/` while project source remains untouched. An exact
+variant is restored to source and immediately sent through `finish`.
+
+For a bounded backlog pass over preserved candidates, use:
+
+```sh
+./conker automate-permute --limit 5 --max-attempts 20 --budget 250
+```
+
+It diagnoses at most `--max-attempts` deferred candidates, admits only pure
+register-allocation differences, and gives each admitted candidate at most
+`--budget` deterministic variants. Failed attempts restore project source
+byte-for-byte; exact matches still pass through `finish` and the mixed-object
+layout check. After reaching the match or attempt limit, it runs one clean
+`verify-batch` for all retained matches. Candidates requiring an immediate
+source-unit integration transition are skipped.
+
+If an older focused match is invalidated by mixed-object layout evidence, do
+not edit progress JSON. Reopen it transactionally:
+
+```sh
+./conker reopen-match <work-item-id> --reason "<layout evidence>"
+```
+
+The command preserves the old C body as a deferred candidate, restores its
+canonical `GLOBAL_ASM` pragma and TODO entry, removes invalid match evidence,
+and regenerates progress.
 
 For the narrow subset of clean candidates whose m2c bodies need no manual
 changes or generated placeholder declarations, use the conservative automation:

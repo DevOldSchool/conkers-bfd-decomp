@@ -14,7 +14,6 @@
  * - func_151E4314
  * - func_151E43DC
  * - func_151E4BD8
- * - func_151E4DC4
  * - func_151E4DD8
  * - func_151E4E00
  * - func_151E4E64
@@ -26,14 +25,11 @@
  * - func_151E53E8
  * - func_151E557C
  * - func_151E55A8
- * - func_151E562C
- * - func_151E564C
  * - func_151E565C
  * - func_151E5F64
  * - func_151E5FAC
  * - func_151E5FF4
  * - func_151E6964
- * - func_151E6BFC
  * - func_151E6C1C
  * - func_151E7DC0
  * - func_151E7E9C
@@ -56,7 +52,11 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4314.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E43DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4BD8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4DC4.s")
+extern s8 D_800E0B94;
+
+void func_151E4DC4(void) {
+    D_800E0B94 = 0xA;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4DD8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4E00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4E64.s")
@@ -68,14 +68,32 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E53E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E557C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E55A8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E562C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E564C.s")
+extern u8 D_800E0A8C;
+
+void func_151E562C(void) {
+    if (D_800E0A8C != 0) {
+        D_800E0A8C = 0;
+    }
+}
+extern s8 D_8008FDC8;
+
+s8 func_151E564C(void) {
+    return D_8008FDC8;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E565C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E5F64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E5FAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E5FF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E6964.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E6BFC.s")
+extern s32 D_8008FDD8;
+extern s8 D_800E0BD3;
+extern s32 D_800E0BD4;
+
+void func_151E6BFC(void) {
+    D_800E0BD3 = 0;
+    D_800E0BD4 = 0;
+    D_8008FDD8 = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E6C1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7DC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7E9C.s")

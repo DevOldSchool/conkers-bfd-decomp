@@ -14,7 +14,6 @@
  * - func_150380C0
  * - func_15038468
  * - func_15038620
- * - func_15039A54
  * - func_15039A78
  * - func_15039CC8
  * - func_15039ED0
@@ -37,7 +36,15 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150380C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15038468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15038620.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039A54.s")
+typedef struct Game64120Entry {
+    u8 data[0x18];
+} Game64120Entry;
+
+extern Game64120Entry D_80098068[];
+
+Game64120Entry *func_15039A54(s32 arg0, s32 arg1) {
+    return &D_80098068[arg1];
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039A78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039CC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039ED0.s")

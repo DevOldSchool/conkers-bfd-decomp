@@ -30,7 +30,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EE58.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEF4.s")
-void func_1507EFA0(s32 arg0, s32 arg1) {
+void func_1507EFA0(s32 arg0, u8 *arg1) {
     s32 var_v0;
     u8 *var_v1;
 

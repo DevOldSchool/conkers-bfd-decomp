@@ -291,7 +291,7 @@ def deferred_candidate_markers(
 
 
 def preserve_deferred_candidate(
-    source: str, symbol: str, current_score: int
+    source: str, symbol: str, current_score: int | None
 ) -> tuple[Path, str, str]:
     """Disable the best C candidate in place and restore its raw-ASM pragma."""
 
@@ -312,6 +312,52 @@ def preserve_deferred_candidate(
         f"{start_marker}\n{candidate}\n{end_marker}\n{pragma}\n"
     )
     return path, content, content[:start] + replacement + content[end:]
+
+
+def add_source_todo(
+    content: str, symbol: str, ordered_symbols: list[str] | None = None
+) -> str:
+    """Return source text with a reopened function restored to its TODO header."""
+
+    span = source_unit_header_span(content)
+    if span is None:
+        return content
+    header = content[span[0] : span[1]]
+    todo_line = f" * - {symbol}\n"
+    if todo_line in header:
+        return content
+    unmatched_marker = " * Unmatched members use generated GLOBAL_ASM placeholders below.\n"
+    if " * TODO: Implement these source-unit functions:\n" in header:
+        marker = header.find(unmatched_marker)
+        if marker < 0:
+            raise ProjectStateError("reviewed source-unit TODO block lacks unmatched marker")
+        insertion = marker
+        if insertion >= 3 and header[insertion - 3 : insertion] == " *\n":
+            insertion -= 3
+        if ordered_symbols is not None and symbol in ordered_symbols:
+            symbol_index = ordered_symbols.index(symbol)
+            for match in re.finditer(r"^ \* - (\S+)\n", header, re.MULTILINE):
+                existing = match.group(1)
+                if (
+                    existing in ordered_symbols
+                    and ordered_symbols.index(existing) > symbol_index
+                ):
+                    insertion = match.start()
+                    break
+        header = header[:insertion] + todo_line + header[insertion:]
+    else:
+        closing = header.rfind(" */")
+        if closing < 0:
+            raise ProjectStateError("reviewed source-unit header lacks closing delimiter")
+        block = (
+            " *\n"
+            " * TODO: Implement these source-unit functions:\n"
+            f"{todo_line}"
+            " *\n"
+            f"{unmatched_marker}"
+        )
+        header = header[:closing] + block + header[closing:]
+    return content[: span[0]] + header + content[span[1] :]
 
 
 def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str]:
@@ -1394,6 +1440,74 @@ def resume_function(args: argparse.Namespace) -> None:
     )
 
 
+def reopen_match(args: argparse.Namespace) -> None:
+    """Return a layout-invalidated focused match to raw ASM without losing its C."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    source_units_data = load_json(SOURCE_UNITS_FILE)
+    functions = validate_functions(functions_data)
+    units = validate_source_units(source_units_data, functions)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    region = function["regions"].get(args.profile)
+    if region is None or region["state"] != "matched":
+        raise ProjectStateError(
+            f"{args.symbol}/{args.profile} must be matched before it can be reopened"
+        )
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source before reopening")
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("reopen-match requires a non-empty reason")
+
+    source_unit = next(
+        (
+            unit
+            for unit in units
+            if unit["source"] == source and args.symbol in unit["functions"]
+        ),
+        None,
+    )
+    source_path, old_source, deferred_source = preserve_deferred_candidate(
+        source, args.symbol, None
+    )
+    deferred_source = add_source_todo(
+        deferred_source,
+        args.symbol,
+        source_unit["functions"] if source_unit is not None else None,
+    )
+    region["state"] = "raw_asm"
+    region.pop("evidence", None)
+    function["deferred"] = {
+        "reason": reason,
+        "recorded_revision": "working-tree",
+        "candidate_preserved": True,
+    }
+    if source_unit is not None:
+        members = [
+            entry for entry in functions if entry["symbol"] in source_unit["functions"]
+        ]
+        source_unit["regions"][args.profile]["state"] = source_unit_work_state(members)
+
+    validated_functions = validate_functions(functions_data)
+    validate_source_units(source_units_data, validated_functions)
+    source_path.write_text(deferred_source, encoding="utf-8")
+    try:
+        write_json(FUNCTIONS_FILE, functions_data)
+        if source_unit is not None:
+            write_json(SOURCE_UNITS_FILE, source_units_data)
+        render_progress(validated_functions)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Reopened {args.symbol}/{args.profile}; preserved its C candidate, restored "
+        f"GLOBAL_ASM in {source}, and regenerated progress: {reason}"
+    )
+
+
 def game_index() -> None:
     """Print US game functions as review candidates."""
 
@@ -2404,6 +2518,10 @@ def parse_args() -> argparse.Namespace:
     defer_parser.add_argument("--score", required=True, type=int)
     resume_parser = subparsers.add_parser("resume")
     resume_parser.add_argument("symbol")
+    reopen_parser = subparsers.add_parser("reopen-match")
+    reopen_parser.add_argument("--profile", choices=TARGET_REGIONS, default="us")
+    reopen_parser.add_argument("symbol")
+    reopen_parser.add_argument("--reason", required=True)
     next_parser = subparsers.add_parser("next")
     next_parser.add_argument(
         "--one",
@@ -2486,6 +2604,8 @@ def main() -> int:
             defer_function(args)
         elif args.command == "resume":
             resume_function(args)
+        elif args.command == "reopen-match":
+            reopen_match(args)
         elif args.command == "next":
             next_function(args)
         elif args.command == "batch-plan":

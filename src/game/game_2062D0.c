@@ -25,7 +25,6 @@
  * - func_151D99C8
  * - func_151D9A20
  * - func_151D9A68
- * - func_151D9AC0
  * - func_151D9ADC
  * - func_151D9B34
  * - func_151D9B8C
@@ -103,7 +102,19 @@ s32 func_151D8FD4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D99C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9A20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9A68.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9AC0.s")
+typedef union Game2062D0Word {
+    s32 value;
+    u8 bytes[4];
+} Game2062D0Word;
+
+extern s32 D_800AB3C8;
+
+u8 func_151D9AC0(void) {
+    Game2062D0Word word;
+
+    word.value = D_800AB3C8;
+    return word.bytes[3];
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9ADC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9B34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9B8C.s")

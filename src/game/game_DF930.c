@@ -5,13 +5,14 @@
  * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B2480
  * - func_150B2494
  * - func_150B2570
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DF930/func_150B2480.s")
+s32 func_150B2480(s32 arg0, s32 arg1) {
+    return 0xA;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DF930/func_150B2494.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DF930/func_150B2570.s")

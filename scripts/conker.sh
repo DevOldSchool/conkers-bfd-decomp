@@ -53,10 +53,17 @@ Getting started
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
   automate-simple [--limit N] [--max-attempts N]
                                  Keep unchanged, placeholder-free m2c bodies only when CURRENT (0).
+  automate-permute [--limit N] [--max-attempts N] [--budget N]
+                                 Search deferred register-only candidates and keep CURRENT (0) only.
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
+  reopen-match <work-item-id> --reason <text>
+                                 Preserve an invalidated match and restore its GLOBAL_ASM safely.
+  diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
+  permute <work-item-id> [--budget N]
+                                 Search safe declaration/lifetime variants and finish only CURRENT (0).
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] <work-item-id> [<work-item-id>...]
@@ -411,6 +418,9 @@ verify_and_record_match() {
     if [[ "$diff_status" -ne 0 ]]; then
         return "$diff_status"
     fi
+    if ! run_in_warm_container python3 scripts/layout_check.py "$selected_profile" "$selected_value"; then
+        return 1
+    fi
     if ! python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"; then
         return 3
     fi
@@ -499,6 +509,9 @@ case "$command" in
     automate-simple)
         python3 scripts/automate_simple_m2c.py "$@"
         ;;
+    automate-permute)
+        python3 scripts/automate_permute.py "$@"
+        ;;
     defer)
         [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"
         deferred_symbol="$1"
@@ -512,6 +525,39 @@ case "$command" in
     resume)
         [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
         python3 "$state_tool" resume "$1"
+        ;;
+    reopen-match)
+        [[ $# -ge 3 ]] || die "usage: ./conker reopen-match <work-item-id> --reason <text>"
+        reopened_symbol="$1"
+        python3 "$state_tool" reopen-match "$@"
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        run_in_warm_container python3 scripts/prepare_nonmatching_asm.py \
+            --profile us --identifier "$reopened_symbol"
+        ;;
+    diagnose-diff)
+        parse_profile_and_value "usage: ./conker diagnose-diff [--profile us] <work-item-id>" "$@"
+        python3 "$state_tool" setup-check --profile "$selected_profile"
+        ensure_warm_container
+        run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --diagnose
+        ;;
+    permute)
+        [[ $# -ge 1 ]] || die "usage: ./conker permute <work-item-id> [--budget N]"
+        permute_symbol="$1"
+        shift
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        permute_status=0
+        run_in_warm_container python3 scripts/permute.py us "$permute_symbol" "$@" || permute_status=$?
+        if [[ "$permute_status" -eq 0 ]]; then
+            "$repo_root/conker" finish "$permute_symbol"
+        elif [[ "$permute_status" -eq 1 ]]; then
+            printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
+            exit 1
+        else
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit "$permute_status"
+        fi
         ;;
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
