@@ -23,6 +23,21 @@
       "repository": "https://github.com/matt-kempster/mips_to_c.git",
       "revision": "09e0e72337804a713e2c3b8d522abe85838470ea"
     },
+    "mupen64plus-core": {
+      "repository": "https://github.com/mupen64plus/mupen64plus-core.git",
+      "revision": "b0d68c20f49b8f833afa21450e0e8874c87c13c4",
+      "version": "2.6.0"
+    },
+    "mupen64plus-rsp-hle": {
+      "repository": "https://github.com/mupen64plus/mupen64plus-rsp-hle.git",
+      "revision": "2798e65d6fc89d89aace0b0d779af6406809b940",
+      "version": "2.6.0"
+    },
+    "mupen64plus-ui-console": {
+      "repository": "https://github.com/mupen64plus/mupen64plus-ui-console.git",
+      "revision": "1a68327fddda71f1acbad8a63ef04288b1887d19",
+      "version": "2.6.0"
+    },
     "n64splat": {
       "repository": "https://github.com/ethteck/n64splat.git",
       "revision": "3376e8c1b542d68016d74c685a9b3c64d4e488a1"

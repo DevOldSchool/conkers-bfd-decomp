@@ -42,6 +42,9 @@ SUPPORTED_TEXTURE_PACKS = frozenset(
         (3, TEXTURE_FAMILY),
         (4, RECTANGULAR_TEXTURE_FAMILY),
         (5, TILED_VIEWS_TEXTURE_FAMILY),
+        (6, "flat-ci8-direct-proven-rgba5551"),
+        (7, "flat-rgba16-direct-proven"),
+        (8, "flat-native-direct-proven"),
     )
 )
 

@@ -5,4 +5,5 @@
 !Dockerfile
 !.dockerignore
 !toolchain/
+!toolchain/mupen64plus-debug.sh
 !toolchain/python-constraints.txt

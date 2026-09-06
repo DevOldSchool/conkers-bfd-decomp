@@ -47,6 +47,22 @@ class RepositorySafetyTests(unittest.TestCase):
             self.assertIn(f"add_workspace_mount {protected_path}", script)
         for protected_path in ("config", "include", "scripts", "src", "toolchain"):
             self.assertIn(protected_path, script)
+        for tool in (
+            "mupen64plus-core",
+            "mupen64plus-ui-console",
+            "mupen64plus-rsp-hle",
+        ):
+            self.assertRegex(lock["tools"][tool]["revision"], re.compile(r"^[0-9a-f]{40}$"))
+        dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+        for tool in (
+            "mupen64plus-core",
+            "mupen64plus-ui-console",
+            "mupen64plus-rsp-hle",
+        ):
+            self.assertIn(lock["tools"][tool]["revision"], dockerfile)
+        self.assertIn("DEBUGGER=1", dockerfile)
+        self.assertIn("Mupen64Plus debugger smoke test: OK", script)
+        self.assertNotIn("$HOME/Development/mupen64plus-debug", script)
 
     def test_docker_build_context_is_a_minimal_allowlist(self) -> None:
         patterns = ignore_patterns(ROOT / ".dockerignore")
@@ -57,6 +73,7 @@ class RepositorySafetyTests(unittest.TestCase):
                 "!Dockerfile",
                 "!.dockerignore",
                 "!toolchain/",
+                "!toolchain/mupen64plus-debug.sh",
                 "!toolchain/python-constraints.txt",
             ],
             patterns,
@@ -76,6 +93,8 @@ class RepositorySafetyTests(unittest.TestCase):
             "repository=ghcr.io/$owner_lc/conkers-bfd-decomp-toolchain", workflow
         )
         self.assertIn("${{ steps.image.outputs.repository }}:latest", workflow)
+        self.assertIn("toolchain/mupen64plus-debug.sh", workflow)
+        self.assertIn("toolchain/tools.lock.json", workflow)
 
     def test_git_ignores_every_supported_rom_extension(self) -> None:
         patterns = ignore_patterns(ROOT / ".gitignore")

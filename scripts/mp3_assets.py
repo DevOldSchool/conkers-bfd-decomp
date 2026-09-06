@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 import struct
@@ -44,6 +45,18 @@ OFFSET_COUNT = 36
 OFFSET_TABLE_SIZE = OFFSET_COUNT * 4
 LOOKUP_TABLE_SIZE = 0x4400
 HUFFMAN_TABLE_SIZE = 0xA410
+MPEG_LAYER_3 = 1
+MPEG_VERSION_SAMPLE_RATES = {
+    0: (11025, 12000, 8000),
+    2: (22050, 24000, 16000),
+    3: (44100, 48000, 32000),
+}
+MPEG1_LAYER3_BITRATES = (
+    0, 32, 40, 48, 56, 64, 80, 96, 112, 128, 160, 192, 224, 256, 320, 0
+)
+MPEG2_LAYER3_BITRATES = (
+    0, 8, 16, 24, 32, 40, 48, 56, 64, 80, 96, 112, 128, 144, 160, 0
+)
 
 
 @dataclass(frozen=True)
@@ -67,6 +80,157 @@ class Mp3AssetFamily:
     offsets: Mp3Asset
     lookup: Mp3Asset
     huffman: Mp3Asset
+
+
+@dataclass(frozen=True)
+class MpegLayer3Header:
+    version: int
+    bitrate_kbps: int
+    sample_rate: int
+    frame_size: int
+    samples_per_frame: int
+    copyright: bool
+
+
+@dataclass(frozen=True)
+class Mp3CueStream:
+    frame_count: int
+    sample_rate: int
+    sample_count: int
+    bitrate_counts: dict[int, int]
+    cues: tuple[dict[str, Any], ...]
+    trailing_offset: int
+    trailing_size: int
+    trailing_sha1: str
+    id3v1: dict[str, Any] | None
+
+
+def parse_mpeg_layer3_header(data: bytes, offset: int) -> MpegLayer3Header | None:
+    """Parse the exact four-byte MPEG Layer III header used by a stream frame."""
+
+    if offset < 0 or offset + 4 > len(data):
+        return None
+    first, second, third, fourth = data[offset : offset + 4]
+    if first != 0xFF or second & 0xE0 != 0xE0:
+        return None
+    version = (second >> 3) & 3
+    layer = (second >> 1) & 3
+    bitrate_index = third >> 4
+    sample_rate_index = (third >> 2) & 3
+    if (
+        version not in MPEG_VERSION_SAMPLE_RATES
+        or layer != MPEG_LAYER_3
+        or bitrate_index in (0, 15)
+        or sample_rate_index == 3
+    ):
+        return None
+
+    sample_rate = MPEG_VERSION_SAMPLE_RATES[version][sample_rate_index]
+    bitrate_table = MPEG1_LAYER3_BITRATES if version == 3 else MPEG2_LAYER3_BITRATES
+    bitrate_kbps = bitrate_table[bitrate_index]
+    padding = (third >> 1) & 1
+    coefficient = 144000 if version == 3 else 72000
+    frame_size = coefficient * bitrate_kbps // sample_rate + padding
+    return MpegLayer3Header(
+        version=version,
+        bitrate_kbps=bitrate_kbps,
+        sample_rate=sample_rate,
+        frame_size=frame_size,
+        samples_per_frame=1152 if version == 3 else 576,
+        copyright=bool(fourth & 0x08),
+    )
+
+
+def decode_id3v1(data: bytes, offset: int) -> dict[str, Any] | None:
+    """Decode a source tag only when it begins at the runtime audio boundary."""
+
+    if offset < 0 or offset + 128 > len(data) or data[offset : offset + 3] != b"TAG":
+        return None
+    tag = data[offset : offset + 128]
+
+    def field(start: int, end: int) -> str:
+        return tag[start:end].rstrip(b"\0 ").decode("latin-1")
+
+    return {
+        "offset": offset,
+        "title": field(3, 33),
+        "artist": field(33, 63),
+        "album": field(63, 93),
+        "year": field(93, 97),
+        "comment": field(97, 127),
+        "genre": tag[127],
+        "raw_sha1": hashlib.sha1(tag).hexdigest(),
+    }
+
+
+def parse_mp3_cue_stream(data: bytes) -> Mp3CueStream:
+    """Walk runtime MPEG frames and retain Conker's post-frame `L:` records."""
+
+    offset = 0
+    frame_index = 0
+    sample_count = 0
+    sample_rate: int | None = None
+    bitrate_counts: Counter[int] = Counter()
+    cues: list[dict[str, Any]] = []
+
+    while True:
+        header = parse_mpeg_layer3_header(data, offset)
+        if header is None:
+            break
+        if sample_rate is None:
+            sample_rate = header.sample_rate
+        elif header.sample_rate != sample_rate:
+            raise ValueError("MP3 stream changes sample rate between frames")
+
+        frame_start = offset
+        frame_end = frame_start + header.frame_size
+        if frame_end > len(data):
+            raise ValueError(f"MP3 frame {frame_index} extends beyond the stream")
+        offset = frame_end
+        sample_count += header.samples_per_frame
+        bitrate_counts[header.bitrate_kbps] += 1
+
+        if header.copyright:
+            terminator = data.find(b"\0", offset, min(len(data), offset + 256))
+            if terminator < 0:
+                raise ValueError(f"MP3 frame {frame_index} cue has no terminator")
+            payload = data[offset:terminator]
+            if len(payload) != 8 or payload[:2] != b"L:":
+                raise ValueError(
+                    f"MP3 frame {frame_index} has unsupported embedded cue "
+                    f"{payload.hex()}"
+                )
+            cues.append(
+                {
+                    "cue_index": len(cues),
+                    "frame_index": frame_index,
+                    "frame_offset": frame_start,
+                    "record_offset": offset,
+                    "record_size": len(payload) + 1,
+                    "sample_offset": sample_count,
+                    "time_seconds": round(sample_count / header.sample_rate, 6),
+                    "marker": "L:",
+                    "payload_hex": payload.hex(),
+                    "payload_bytes": list(payload[2:]),
+                }
+            )
+            offset = terminator + 1
+        frame_index += 1
+
+    if frame_index == 0 or sample_rate is None:
+        raise ValueError("MP3 stream contains no supported MPEG Layer III frames")
+    trailing = data[offset:]
+    return Mp3CueStream(
+        frame_count=frame_index,
+        sample_rate=sample_rate,
+        sample_count=sample_count,
+        bitrate_counts=dict(sorted(bitrate_counts.items())),
+        cues=tuple(cues),
+        trailing_offset=offset,
+        trailing_size=len(trailing),
+        trailing_sha1=hashlib.sha1(trailing).hexdigest(),
+        id3v1=decode_id3v1(data, offset),
+    )
 
 
 def decode_huffman_offsets(data: bytes, huffman_size: int) -> list[int]:
@@ -470,6 +634,134 @@ def verify_mp3_assets(profile: str, rom_argument: Path | None) -> tuple[int, int
     return len(family.streams) + 3, size
 
 
+def extract_mp3_cues(
+    profile: str, rom_argument: Path | None, output: Path, force: bool
+) -> dict[str, Any]:
+    rom_path, normalized, source_order, family = load_profile_mp3_assets(
+        profile, rom_argument
+    )
+    prepare_output(output, force)
+    cues_dir = output / "cues"
+    cues_dir.mkdir()
+
+    streams: list[dict[str, Any]] = []
+    total_frames = 0
+    total_samples = 0
+    summed_duration = 0.0
+    total_cues = 0
+    cue_streams = 0
+    tagged_streams = 0
+    payload_variant_counts: Counter[int] = Counter()
+    bitrate_counts: Counter[int] = Counter()
+
+    for stream in family.streams:
+        parsed = parse_mp3_cue_stream(stream.data)
+        total_frames += parsed.frame_count
+        total_samples += parsed.sample_count
+        summed_duration += parsed.sample_count / parsed.sample_rate
+        total_cues += len(parsed.cues)
+        cue_streams += bool(parsed.cues)
+        tagged_streams += parsed.id3v1 is not None
+        bitrate_counts.update(parsed.bitrate_counts)
+        payload_variant_counts.update(cue["payload_bytes"][0] for cue in parsed.cues)
+
+        cue_file: str | None = None
+        if parsed.cues:
+            cue_file = f"cues/{stream.entry_index:04d}.json"
+            (output / cue_file).write_text(
+                json.dumps(
+                    {
+                        "schema_version": 1,
+                        "profile": profile,
+                        "stream_entry_index": stream.entry_index,
+                        "source_file": f"../../../mp3/us/streams/{stream.entry_index:04d}.mp3",
+                        "timing_basis": {
+                            "sample_rate": parsed.sample_rate,
+                            "samples_per_frame": 576,
+                            "event_point": "after decoded frame",
+                        },
+                        "cue_count": len(parsed.cues),
+                        "cues": parsed.cues,
+                    },
+                    indent=2,
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+
+        streams.append(
+            {
+                "entry_index": stream.entry_index,
+                "rom_start": f"0x{stream.rom_start:X}",
+                "rom_end": f"0x{stream.rom_end:X}",
+                "frame_count": parsed.frame_count,
+                "sample_rate": parsed.sample_rate,
+                "sample_count": parsed.sample_count,
+                "duration_seconds": round(parsed.sample_count / parsed.sample_rate, 6),
+                "bitrate_frame_counts": {
+                    str(key): value for key, value in parsed.bitrate_counts.items()
+                },
+                "cue_count": len(parsed.cues),
+                "first_cue_seconds": (
+                    parsed.cues[0]["time_seconds"] if parsed.cues else None
+                ),
+                "last_cue_seconds": (
+                    parsed.cues[-1]["time_seconds"] if parsed.cues else None
+                ),
+                "cue_file": cue_file,
+                "trailing_offset": parsed.trailing_offset,
+                "trailing_size": parsed.trailing_size,
+                "trailing_sha1": parsed.trailing_sha1,
+                "id3v1": parsed.id3v1,
+            }
+        )
+
+    manifest = {
+        "schema_version": 1,
+        "profile": profile,
+        "source_rom": manifest_source(rom_path),
+        "source_byte_order": source_order,
+        "normalized_sha1": hashlib.sha1(normalized).hexdigest(),
+        "semantic_status": {
+            "record_marker": "L:",
+            "runtime_transport": "MPEG Layer III copyright-bit post-frame callback",
+            "payload": "six opaque bytes; lip purpose is not yet runtime-confirmed",
+            "speaker_ids": "not present in the extracted records",
+        },
+        "stream_count": len(streams),
+        "cue_stream_count": cue_streams,
+        "cue_count": total_cues,
+        "frame_count": total_frames,
+        "sample_count": total_samples,
+        "summed_duration_seconds": round(summed_duration, 6),
+        "id3v1_stream_count": tagged_streams,
+        "bitrate_frame_counts": {
+            str(key): value for key, value in sorted(bitrate_counts.items())
+        },
+        "payload_variant_counts": {
+            f"0x{key:02X}": value for key, value in sorted(payload_variant_counts.items())
+        },
+        "streams": streams,
+    }
+    (output / "manifest.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+    )
+    return manifest
+
+
+def verify_mp3_cues(
+    profile: str, rom_argument: Path | None
+) -> tuple[int, int, int, int]:
+    _, _, _, family = load_profile_mp3_assets(profile, rom_argument)
+    parsed = [parse_mp3_cue_stream(stream.data) for stream in family.streams]
+    return (
+        len(parsed),
+        sum(bool(stream.cues) for stream in parsed),
+        sum(len(stream.cues) for stream in parsed),
+        sum(stream.frame_count for stream in parsed),
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -488,6 +780,16 @@ def parse_args() -> argparse.Namespace:
     verify_parser = subparsers.add_parser("verify")
     verify_parser.add_argument("--profile", choices=("us",), default="us")
     verify_parser.add_argument("--rom", type=Path)
+
+    cue_extract_parser = subparsers.add_parser("cue-extract")
+    cue_extract_parser.add_argument("--profile", choices=("us",), default="us")
+    cue_extract_parser.add_argument("--rom", type=Path)
+    cue_extract_parser.add_argument("--output", type=Path)
+    cue_extract_parser.add_argument("--force", action="store_true")
+
+    cue_verify_parser = subparsers.add_parser("cue-verify")
+    cue_verify_parser.add_argument("--profile", choices=("us",), default="us")
+    cue_verify_parser.add_argument("--rom", type=Path)
     return parser.parse_args()
 
 
@@ -511,9 +813,27 @@ def main() -> int:
             count = sum(len(bank) for bank in packed.values())
             size = sum(len(data) for bank in packed.values() for data in bank.values())
             print(f"Packed {count} US MP3 bank entries ({size} bytes) to {display_path(output)}")
-        else:
+        elif args.command == "verify":
             count, size = verify_mp3_assets(args.profile, args.rom)
             print(f"Verified US MP3 assets: {count} entries, {size} bytes, byte-identical")
+        elif args.command == "cue-extract":
+            output = args.output or (ROOT / "build" / "assets" / "dialogue" / args.profile)
+            if not output.is_absolute():
+                output = ROOT / output
+            manifest = extract_mp3_cues(args.profile, args.rom, output, args.force)
+            print(
+                f"Extracted {manifest['cue_count']} embedded L: cues from "
+                f"{manifest['cue_stream_count']}/{manifest['stream_count']} US MP3 streams "
+                f"to {display_path(output)}"
+            )
+        else:
+            streams, cue_streams, cues, frames = verify_mp3_cues(
+                args.profile, args.rom
+            )
+            print(
+                f"Verified US MP3 cues: {cues} L: records across "
+                f"{cue_streams}/{streams} streams and {frames} MPEG frames"
+            )
     except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError) as error:
         print(f"error: {error}")
         return 1
