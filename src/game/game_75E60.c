@@ -23,6 +23,24 @@ void func_15048A40(u8 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15048A40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75E60/func_15048A40.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048A70 CURRENT (230) */
+f32 func_15048A70(f32 arg0, f32 arg1) {
+    f32 var_fa0;
+    f32 var_fa1;
+
+    var_fa0 = arg0;
+    var_fa1 = arg1;
+    {
+        f32 temp_fv0 = var_fa0 - var_fa1;
+    if (temp_fv0 > 180.0f) {
+        var_fa0 -= 360.0f;
+    } else if (temp_fv0 <= -180.0f) {
+        var_fa1 -= 360.0f;
+    }
+    return var_fa1 - var_fa0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15048A70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75E60/func_15048A70.s")
 
 s32 func_15048AD0(s32 arg0, s32 arg1) {

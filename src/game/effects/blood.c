@@ -44,7 +44,6 @@
  * - func_15137610
  * - func_1513783C
  * - func_15137C64
- * - func_15137E10
  * - func_15137E60
  * - func_15137F30
  * - func_151380B4
@@ -146,6 +145,25 @@ s32 func_15135658(f32 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135DD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136404.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136698.s")
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151368A8 CURRENT (1500) */
+s32 func_151368A8(void *arg0) {
+    s16 temp_v0;
+    s32 temp_v1;
+
+    temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C);
+    if (temp_v0 < 0x20) {
+        temp_v1 = temp_v0 * 8;
+        if (temp_v1 < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
+            *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v1;
+        }
+    }
+    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)arg0 + 0x2C) + (*(f32 *)((u8 *)arg0 + 0x128) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + (*(f32 *)((u8 *)arg0 + 0x128) * D_800BE9A4));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151368A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151368A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136918.s")
 s32 func_15136A1C(BloodState *arg0) {
@@ -166,7 +184,13 @@ s32 func_15136A1C(BloodState *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513783C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137C64.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137E10.s")
+f32 func_150ADA68();                                /* extern */
+extern f32 D_800A4828;
+
+s32 func_15137E10(void *arg0) {
+    *(f32 *)((u8 *)arg0 + 0x74) = (f32) (((func_150ADA68() * 50.0f) + 580.0f) * D_800A4828);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137E60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137F30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151380B4.s")

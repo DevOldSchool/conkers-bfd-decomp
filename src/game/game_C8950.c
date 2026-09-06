@@ -21,7 +21,6 @@
  * - func_1509C228
  * - func_1509C2A4
  * - func_1509C3A0
- * - func_1509C414
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -42,4 +41,8 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C228.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C2A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C3A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C414.s")
+extern void *D_800D2E4C;
+
+s32 func_1509C414(s32 arg0) {
+    return ((*(u8 *)((u8 *)D_800D2E4C + 3) & 1) << 0xA) + arg0 + 0x1400;
+}

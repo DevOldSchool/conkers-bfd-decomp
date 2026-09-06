@@ -57,6 +57,19 @@ class PermuteTests(unittest.TestCase):
 
         self.assertEqual(3, len(permute_helper.declaration_variants(function, 3)))
 
+    def test_source_variants_include_expression_and_assignment_forms(self) -> None:
+        function = (
+            "void func_test(void) {\n"
+            "    value = value | mask;\n"
+            "}\n"
+        )
+
+        variants = permute_helper.source_variants(function, 10)
+
+        self.assertTrue(any("value |= mask;" in variant for variant in variants))
+        self.assertTrue(any("mask | value" in variant for variant in variants))
+        self.assertLessEqual(len(variants), 10)
+
 
 if __name__ == "__main__":
     unittest.main()

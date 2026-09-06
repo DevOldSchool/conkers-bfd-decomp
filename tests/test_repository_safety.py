@@ -244,46 +244,29 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn("diagnose-diff <work-item-id>", script)
         self.assertIn("permute <work-item-id> [--budget N]", script)
-        self.assertIn(
-            "automate-permute [--limit N] [--max-attempts N] [--budget N]", script
-        )
+        self.assertIn("automate [--limit N | --all]", script)
         self.assertIn("reopen-match <work-item-id> --reason <text>", script)
 
-    def test_simple_m2c_automation_uses_public_authoritative_gates(self) -> None:
+    def test_unified_automation_uses_public_authoritative_gates(self) -> None:
         dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
-        automation_case = dispatch.split("    automate-simple)", 1)[1].split(
+        automation_case = dispatch.split("    automate)", 1)[1].split(
             "        ;;", 1
         )[0]
-        automation = (ROOT / "scripts" / "automate_simple_m2c.py").read_text(
+        automation = (ROOT / "scripts" / "automate.py").read_text(
             encoding="utf-8"
         )
         agent_guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
-        self.assertIn("automate-simple [--limit N] [--max-attempts N]", dispatch)
-        self.assertIn('python3 scripts/automate_simple_m2c.py "$@"', automation_case)
-        self.assertIn('"m2c", identifier', automation)
+        self.assertIn("automate [--limit N | --all]", dispatch)
+        self.assertIn('python3 scripts/automate.py "$@"', automation_case)
+        self.assertIn("generate_starter(candidate.identifier)", automation)
         self.assertIn('"finish", candidate.identifier', automation)
         self.assertIn('"verify-batch", *matched', automation)
-        self.assertIn("source_path.write_bytes(original)", automation)
-        self.assertIn("PLACEHOLDER_PATTERN", automation)
-        self.assertIn("./conker automate-simple --limit <matches>", agent_guide)
-
-    def test_permutation_automation_uses_public_authoritative_gates(self) -> None:
-        dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
-        automation_case = dispatch.split("    automate-permute)", 1)[1].split(
-            "        ;;", 1
-        )[0]
-        automation = (ROOT / "scripts" / "automate_permute.py").read_text(
-            encoding="utf-8"
-        )
-        agent_guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
-
-        self.assertIn('python3 scripts/automate_permute.py "$@"', automation_case)
         self.assertIn('"diagnose-diff", candidate.identifier', automation)
         self.assertIn('"permute",', automation)
-        self.assertIn('"verify-batch", *matched', automation)
-        self.assertIn("source_path.write_bytes(original)", automation)
-        self.assertIn("./conker automate-permute --limit <matches>", agent_guide)
+        self.assertIn("source.write_bytes(original)", automation)
+        self.assertIn("write_report(", automation)
+        self.assertIn("./conker automate --all --defer-best", agent_guide)
 
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")

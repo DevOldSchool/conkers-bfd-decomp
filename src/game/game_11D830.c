@@ -77,5 +77,21 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F16DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1A00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1B48.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1CB0 CURRENT (460) */
+void func_150F1CB0(void *arg0) {
+    if (*(u16 *)((u8 *)arg0 + 0x84) == 0x14) {
+        *(s8 *)((u8 *)arg0 + 0x68) = 0x1B;
+    } else {
+        *(s8 *)((u8 *)arg0 + 0x68) = 0xC;
+    }
+    *(s8 *)((u8 *)arg0 + 0x69) = 0x13;
+    if ((*(s32 *)((u8 *)arg0 + 0x2E4) & 3) == 3) {
+        *(s8 *)((u8 *)arg0 + 0x69) = 0x14;
+    }
+    if ((*(s32 *)((u8 *)arg0 + 0x2E4) & 0xC) == 0xC) {
+        *(s8 *)((u8 *)arg0 + 0x69) = 0x17;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F1CB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1CB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1D10.s")

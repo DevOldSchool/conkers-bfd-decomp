@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151036B4
- * - func_151037DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -15,4 +14,6 @@ void func_15103690(s32 arg0) {
     func_15103828();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130B40/func_151036B4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130B40/func_151037DC.s")
+s32 func_151037DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    return 0;
+}

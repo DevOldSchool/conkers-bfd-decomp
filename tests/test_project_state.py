@@ -802,6 +802,81 @@ class ProjectStateTests(unittest.TestCase):
 
         self.assertNotIn("deferred", resumed["functions"][0])
 
+    def test_update_deferred_replaces_only_with_a_strictly_better_candidate(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "deferred": {
+                "reason": "old candidate",
+                "current_score": 30,
+                "recorded_revision": "working-tree",
+                "candidate_preserved": True,
+            },
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (30) */\n"
+                "void func_test(void) {\n    old_value();\n}\n"
+                "#endif /* CONKER_DEFERRED_CANDIDATE func_test */\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            best = root / "build" / "us" / "permute" / "func_test" / "best.c"
+            best.parent.mkdir(parents=True)
+            best.write_text(
+                "void func_test(void) {\n    better_value();\n}\n",
+                encoding="utf-8",
+            )
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.update_deferred_function(
+                    SimpleNamespace(
+                        symbol="func_test",
+                        candidate=str(best),
+                        reason="improved permutation",
+                        score=10,
+                    )
+                )
+                with self.assertRaisesRegex(
+                    project_state.ProjectStateError, "must improve"
+                ):
+                    project_state.update_deferred_function(
+                        SimpleNamespace(
+                            symbol="func_test",
+                            candidate=str(best),
+                            reason="not better",
+                            score=10,
+                        )
+                    )
+
+            updated = json.loads(inventory.read_text(encoding="utf-8"))
+            updated_source = source.read_text(encoding="utf-8")
+            self.assertEqual(10, updated["functions"][0]["deferred"]["current_score"])
+            self.assertEqual(
+                "improved permutation", updated["functions"][0]["deferred"]["reason"]
+            )
+            self.assertIn("CURRENT (10)", updated_source)
+            self.assertIn("better_value();", updated_source)
+            self.assertNotIn("old_value();", updated_source)
+
     def test_normalizes_reviewed_source_unit_header_below_includes(self) -> None:
         header = (
             "/*\n"

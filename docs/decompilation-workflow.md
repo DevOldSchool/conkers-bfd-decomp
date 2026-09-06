@@ -140,20 +140,9 @@ register-only, operand/constant, control-flow, and missing/extra categories.
 lifetime variants with the pinned compiler. A nonzero best result is written
 below `build/us/permute/` while project source remains untouched. An exact
 variant is restored to source and immediately sent through `finish`.
-
-For a bounded backlog pass over preserved candidates, use:
-
-```sh
-./conker automate-permute --limit 5 --max-attempts 20 --budget 250
-```
-
-It diagnoses at most `--max-attempts` deferred candidates, admits only pure
-register-allocation differences, and gives each admitted candidate at most
-`--budget` deterministic variants. Failed attempts restore project source
-byte-for-byte; exact matches still pass through `finish` and the mixed-object
-layout check. After reaching the match or attempt limit, it runs one clean
-`verify-batch` for all retained matches. Candidates requiring an immediate
-source-unit integration transition are skipped.
+When `automate` applies this search to deferred work, a strictly lower nonzero
+score replaces the disabled candidate and inventory score transactionally;
+equal or worse results preserve the existing source block.
 
 If an older focused match is invalidated by mixed-object layout evidence, do
 not edit progress JSON. Reopen it transactionally:
@@ -166,15 +155,42 @@ The command preserves the old C body as a deferred candidate, restores its
 canonical `GLOBAL_ASM` pragma and TODO entry, removes invalid match evidence,
 and regenerates progress.
 
-For the narrow subset of clean candidates whose m2c bodies need no manual
-changes or generated placeholder declarations, use the conservative automation:
+Use the unified automation for raw m2c starters and preserved deferred
+candidates:
 
 ```sh
-./conker automate-simple --limit 5 --max-attempts 20
+./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
 ```
 
-It restores every failed candidate, retains only exact matches, and runs one
-clean batch verification for the matches it keeps.
+The scheduler alternates between size-ordered raw work and score-ordered
+deferred work. Raw starters use evidence-backed declaration recovery, aligned
+scalar field cleanup, and bounded source-shape rewrites. Deferred candidates
+must diagnose as pure register-allocation differences before permutation. The
+command restores unsuccessful source attempts and retains only `CURRENT (0)`
+results through `finish`. With explicit authorization, `--defer-best` preserves
+the best compiling nonzero raw candidate through the ordinary transactional
+`defer` path.
+
+Add `--skip-final-build` for a quick local automation experiment. This skips
+only the concluding clean `verify-batch`; each retained function still passes
+its focused diff, mixed-object layout, progress, and whitespace checks through
+`finish`. The command prints the exact batch command still required. Until it
+succeeds, the result is intentionally not commit-ready or handoff-ready.
+
+To consider every function in the active US inventory, use:
+
+```sh
+./conker automate --all --defer-best
+```
+
+Full mode has no attempt or match cap but keeps the same safety exclusions. It
+does not guess ambiguous declarations or cross source-unit integration
+transitions. `build/us/automate/all-report.json` is replaced atomically after
+each attempt and classifies every inventory entry, including already matched
+and explicitly excluded functions. A complete traversal sets `full_scan` and
+`scan_complete` to true and leaves no `not_attempted` entries. Do not combine
+`--all` with `--max-attempts`. An interrupted run resumes completed outcomes
+from the report; add `--restart` when changed automation should reconsider them.
 
 ## Game reference assembly and work registration
 

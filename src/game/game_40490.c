@@ -18,7 +18,6 @@
  * - func_15013F9C
  * - func_15013FC4
  * - func_15014004
- * - func_15014040
  * - func_15014094
  * - func_15014144
  * - func_15014220
@@ -102,7 +101,21 @@ s32 func_15013C38(Game40490CallbackState *state) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013F9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013FC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014004.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014040.s")
+extern void *D_800D9A20;
+extern void *D_800D9A24;
+
+s32 func_15014040(void *arg0) {
+    s32 temp_v0;
+
+    temp_v0 = *(s32 *)((u8 *)arg0 + 0x18);
+    *(u8 *)((u8 *)arg0 + 0x16) = (u8) (*(u8 *)((u8 *)arg0 + 0x16) | 4);
+    if (temp_v0 == 0) {
+        D_800D9A20 = arg0;
+    } else if (temp_v0 == 1) {
+        D_800D9A24 = arg0;
+    }
+    return 1;
+}
 extern s8 D_800D987C;
 
 s32 func_1501407C(s32 arg0) {

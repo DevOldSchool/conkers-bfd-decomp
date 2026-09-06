@@ -12,4 +12,17 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CBAF0/func_1509E640.s")
+s32 func_151F2CDC();                                /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509E6F0 CURRENT (415) */
+s32 func_1509E6F0(s32 arg0, s32 arg1, s32 arg2) {
+    s32 var_v0;
+
+    var_v0 = 0;
+    if (arg1 == 3) {
+        var_v0 = func_151F2CDC() == 1;
+    }
+    return var_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509E6F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CBAF0/func_1509E6F0.s")

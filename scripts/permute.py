@@ -12,6 +12,7 @@ import sys
 from pathlib import Path
 
 import compile_c
+import candidate_rewrites
 import diff
 import project_state
 
@@ -133,6 +134,14 @@ def declaration_variants(function: str, budget: int) -> list[str]:
     return variants
 
 
+def source_variants(function: str, budget: int) -> list[str]:
+    """Combine lifetime permutations with bounded expression-form rewrites."""
+
+    declaration_budget = max(1, (budget + 1) // 2)
+    seeds = declaration_variants(function, declaration_budget)
+    return candidate_rewrites.rewrite_variants(seeds, budget)
+
+
 def score_candidate(
     profile: str,
     symbol: str,
@@ -178,7 +187,7 @@ def main() -> int:
             active_content, symbol
         )
         original_function = active_content[function_start:function_end].rstrip("\n")
-        variants = declaration_variants(original_function, args.budget)
+        variants = source_variants(original_function, args.budget)
         reference_assembly = diff.ensure_reference_function(
             args.profile,
             symbol,
@@ -213,7 +222,11 @@ def main() -> int:
                 skipped += 1
                 continue
             attempted += 1
-            if best_score is None or score < best_score:
+            if best_score is None:
+                best_score = score
+                best_function = variant
+                print(f"{args.identifier}: baseline CURRENT ({score}) at variant {attempted}")
+            elif score < best_score:
                 best_score = score
                 best_function = variant
                 print(f"{args.identifier}: improved CURRENT ({score}) at variant {attempted}")

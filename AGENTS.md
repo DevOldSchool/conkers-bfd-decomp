@@ -16,30 +16,42 @@ The default graphics, audio, and input plugins are deliberately dummy plugins;
 the HLE RSP is real so startup code can advance beyond the dummy-RSP boundary.
 Record whether a result is a positive runtime hit or a bounded negative trace.
 
-## Unchanged-m2c automation
+## ASM-to-C automation
 
-For a bounded batch that should try only m2c output requiring no manual edits,
-run `./conker automate-simple --limit <matches> --max-attempts <candidates>`.
-The command owns selection, source replacement, `finish`, restoration of every
-failed candidate, and the final clean `verify-batch`. It preserves pre-existing
-source changes, replaces only the target pragma, and skips source-unit
-integration transitions, guessed declarations, and `M2C_*` placeholder bodies.
-Do not manually rerun its per-function or batch gates after it completes
-successfully. Use the ordinary fast path below for candidates that need
-declaration work, type recovery, expression changes, or integration.
+Use the single automation entry point for both new raw-assembly work and
+preserved deferred candidates:
 
-## Register-allocation permutation automation
+```sh
+./conker automate --limit <matches> --max-attempts <candidates> \
+  --rewrite-budget <variants>
+```
 
-For a bounded batch over preserved candidates whose remaining focused diff is
-strictly register allocation, run `./conker automate-permute --limit <matches>
---max-attempts <candidates> --budget <variants-per-candidate>`. The command
-diagnoses each deferred candidate before searching, skips every mixed
-operand/control-flow/layout diagnosis, restores failed source attempts, retains
-only authoritative `CURRENT (0)` results through `finish`, and runs one final
-clean `verify-batch`. It skips candidates whose match would immediately require
-a source-unit integration transition. Do not manually rerun its gates after a
-successful completion; use `./conker permute` directly for a specifically
-chosen candidate.
+It starts raw work from m2c, resolves only unique compatible declarations,
+sanitizes aligned scalar field accesses, searches bounded safe source forms,
+and diagnoses deferred candidates before permuting pure register-only diffs.
+The two pools are interleaved so neither starves. It restores every unsafe or
+nonmatching source attempt, retains exact results only through `finish`, and
+runs one final clean `verify-batch` for all matches.
+For an already deferred function, a strictly lower nonzero permutation replaces
+the canonical disabled candidate and recorded score transactionally; equal or
+worse results leave the existing candidate untouched.
+
+Add `--defer-best` only with explicit authorization to preserve a compiling
+nonzero candidate under the canonical disabled source block with its measured
+`CURRENT (N)` score. Add `--skip-final-build` only for local iteration; the
+printed `verify-batch` command remains mandatory before commit or handoff.
+
+Use `./conker automate --all --defer-best` to consider the entire active US
+inventory without match or attempt limits. This mode still excludes recorded
+issues, missing source mappings, ambiguous declarations, unsupported regional
+states, and source-unit integration transitions rather than guessing. It writes
+`build/us/automate/all-report.json` atomically after every candidate. The report
+classifies every inventory function as already matched, attempted, not yet
+attempted, or excluded, making interrupted and completed coverage auditable.
+An interrupted `--all` run resumes completed outcomes from that report; use
+`--restart` to intentionally reconsider them with changed tooling.
+Do not claim complete coverage unless `full_scan` and `scan_complete` are both
+true and no function remains `not_attempted` in that report.
 
 ## Small-agent fast path
 

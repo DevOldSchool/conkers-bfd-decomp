@@ -31,6 +31,20 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FACE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAD28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAD78.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FADC8 CURRENT (639) */
+void func_150FADC8(void *arg0, s32 arg1, s32 arg2) {
+    s32 temp_t6;
+
+    temp_t6 = arg2 & 0xFF;
+    if (temp_t6 == 0x53) {
+        *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) | 2);
+        return;
+    }
+    if (temp_t6 == 0x54) {
+        *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) & ~2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FADC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FADC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FB188.s")

@@ -395,6 +395,53 @@ def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str
     return path, content, content[:start] + candidate + "\n" + content[block_end:]
 
 
+def replace_deferred_candidate(
+    source: str, symbol: str, candidate: str, current_score: int
+) -> tuple[Path, str, str]:
+    """Replace one preserved candidate and its score without activating it."""
+
+    if current_score <= 0:
+        raise ProjectStateError("deferred candidate score must be positive")
+    candidate = candidate.strip() + "\n"
+    function_start, function_end = c_function_span(candidate, symbol)
+    if candidate[:function_start].strip() or candidate[function_end:].strip():
+        raise ProjectStateError(
+            f"replacement for {symbol} must contain exactly one C definition"
+        )
+
+    path = ROOT / source
+    content = path.read_text(encoding="utf-8")
+    pragma = global_asm_pragma(source, symbol)
+    _, end_marker = deferred_candidate_markers(symbol)
+    marker_pattern = re.compile(
+        rf"#if 0 /\* {re.escape(DEFERRED_CANDIDATE_TAG)} "
+        rf"{re.escape(symbol)}(?: CURRENT \(\d+\))? \*/"
+    )
+    marker_match = marker_pattern.search(content)
+    if marker_match is None:
+        raise ProjectStateError(f"{symbol} lacks a preserved deferred candidate")
+    old_end_marker = content.find(end_marker, marker_match.end())
+    if old_end_marker < 0:
+        raise ProjectStateError(f"{symbol} has an unterminated deferred candidate")
+    block_end = old_end_marker + len(end_marker)
+    after = content[block_end:]
+    newline = "\r\n" if "\r\n" in content else "\n"
+    if not after.startswith(newline + pragma):
+        raise ProjectStateError(
+            f"{symbol} deferred candidate is not followed by its GLOBAL_ASM pragma"
+        )
+    normalized_candidate = candidate.rstrip("\n").replace("\n", newline)
+    start_marker, new_end_marker = deferred_candidate_markers(symbol, current_score)
+    replacement = (
+        start_marker + newline + normalized_candidate + newline + new_end_marker
+    )
+    return (
+        path,
+        content,
+        content[: marker_match.start()] + replacement + content[block_end:],
+    )
+
+
 def source_unit_header_span(content: str) -> tuple[int, int] | None:
     """Locate the reviewed-source-unit block comment, if present."""
 
@@ -1437,6 +1484,62 @@ def resume_function(args: argparse.Namespace) -> None:
     print(
         f"Resumed {args.symbol}; restored its C candidate and made it eligible "
         "for next --ready again."
+    )
+
+
+def update_deferred_function(args: argparse.Namespace) -> None:
+    """Transactionally retain a strictly better measured deferred candidate."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    deferred = function.get("deferred")
+    if not isinstance(deferred, dict):
+        raise ProjectStateError(f"{args.symbol} is not deferred")
+    old_score = deferred.get("current_score")
+    if not isinstance(old_score, int) or isinstance(old_score, bool):
+        raise ProjectStateError(f"{args.symbol} has no recorded deferred score")
+    if args.score <= 0 or args.score >= old_score:
+        raise ProjectStateError(
+            f"replacement score must improve CURRENT ({old_score}); got CURRENT ({args.score})"
+        )
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("update-deferred requires a non-empty reason")
+    candidate_path = Path(args.candidate)
+    if not candidate_path.is_absolute():
+        candidate_path = ROOT / candidate_path
+    candidate_path = candidate_path.resolve()
+    if not candidate_path.is_relative_to(ROOT.resolve()) or not candidate_path.is_file():
+        raise ProjectStateError("update-deferred candidate must be a file inside the repository")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source")
+    source_path, old_source, updated_source = replace_deferred_candidate(
+        source,
+        args.symbol,
+        candidate_path.read_text(encoding="utf-8"),
+        args.score,
+    )
+    function["deferred"] = {
+        "reason": reason,
+        "current_score": args.score,
+        "recorded_revision": "working-tree",
+        "candidate_preserved": True,
+    }
+    validate_functions(functions_data)
+    source_path.write_text(updated_source, encoding="utf-8")
+    try:
+        validate_deferred_candidate_sources(functions)
+        write_json(FUNCTIONS_FILE, functions_data)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Updated deferred {args.symbol} from CURRENT ({old_score}) to "
+        f"CURRENT ({args.score}); preserved the better candidate in {source}."
     )
 
 
@@ -2518,6 +2621,11 @@ def parse_args() -> argparse.Namespace:
     defer_parser.add_argument("--score", required=True, type=int)
     resume_parser = subparsers.add_parser("resume")
     resume_parser.add_argument("symbol")
+    update_deferred_parser = subparsers.add_parser("update-deferred")
+    update_deferred_parser.add_argument("symbol")
+    update_deferred_parser.add_argument("--candidate", required=True)
+    update_deferred_parser.add_argument("--reason", required=True)
+    update_deferred_parser.add_argument("--score", required=True, type=int)
     reopen_parser = subparsers.add_parser("reopen-match")
     reopen_parser.add_argument("--profile", choices=TARGET_REGIONS, default="us")
     reopen_parser.add_argument("symbol")
@@ -2604,6 +2712,8 @@ def main() -> int:
             defer_function(args)
         elif args.command == "resume":
             resume_function(args)
+        elif args.command == "update-deferred":
+            update_deferred_function(args)
         elif args.command == "reopen-match":
             reopen_match(args)
         elif args.command == "next":

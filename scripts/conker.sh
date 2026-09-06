@@ -51,10 +51,10 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
-  automate-simple [--limit N] [--max-attempts N]
-                                 Keep unchanged, placeholder-free m2c bodies only when CURRENT (0).
-  automate-permute [--limit N] [--max-attempts N] [--budget N]
-                                 Search deferred register-only candidates and keep CURRENT (0) only.
+  automate [--limit N | --all] [--max-attempts N] [--rewrite-budget N]
+           [--defer-best] [--skip-final-build] [--report PATH] [--restart]
+                                 Process raw and deferred ASM-to-C candidates. --all considers the
+                                 complete active US inventory and writes an auditable coverage report.
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
@@ -63,7 +63,7 @@ Getting started
                                  Preserve an invalidated match and restore its GLOBAL_ASM safely.
   diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
   permute <work-item-id> [--budget N]
-                                 Search safe declaration/lifetime variants and finish only CURRENT (0).
+                                 Search safe declaration/lifetime and expression-form variants.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] <work-item-id> [<work-item-id>...]
@@ -506,11 +506,8 @@ case "$command" in
             python3 "$state_tool" next "$@"
         fi
         ;;
-    automate-simple)
-        python3 scripts/automate_simple_m2c.py "$@"
-        ;;
-    automate-permute)
-        python3 scripts/automate_permute.py "$@"
+    automate)
+        python3 scripts/automate.py "$@"
         ;;
     defer)
         [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"

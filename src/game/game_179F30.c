@@ -23,7 +23,6 @@
  * - func_1514DC5C
  * - func_1514DCAC
  * - func_1514DCF4
- * - func_1514DE50
  * - func_1514DE94
  * - func_1514DFD0
  * - func_1514E00C
@@ -130,7 +129,13 @@ void func_1514DE38(s32 arg0) {
 void func_1514DE44(s32 arg0) {
 
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514DE50.s")
+extern void *D_800D2E4C;
+
+void func_1514DE50(void) {
+    if (*(u8 *)((u8 *)D_800D2E4C + 0x11) & 8) {
+        func_1514DCAC();
+    }
+}
 void func_1514DE88(s32 arg0) {
 
 }

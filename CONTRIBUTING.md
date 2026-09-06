@@ -115,19 +115,25 @@ same compilation records the match and performs the per-function generated and
 whitespace checks. Do not edit progress JSON or generated nonmatching assembly
 by hand.
 
-For candidates whose m2c bodies require no manual changes or placeholder
-declarations, the conservative automation may be used. Existing changes in a
-source file are preserved; each attempt replaces only its canonical pragma and
-restores the complete pre-attempt file if the candidate does not match:
+The automation entry point processes both raw m2c starters and preserved
+deferred candidates. Existing changes in a source file are preserved; each
+attempt replaces only its canonical pragma and restores the complete
+pre-attempt file when it cannot safely retain a result:
 
 ```sh
-./conker automate-simple --limit 5 --max-attempts 20
+./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
 ```
 
-It skips dirty or integration-sensitive sources, rejects `M2C_*` placeholders,
-restores failed candidates, and retains only exact matches. Do not discard a
-useful nonzero candidate merely to keep a mixed unit byte-identical. With
-explicit agreement to move past it, use the supported deferral flow:
+It resolves placeholder declarations only from unique compatible active
+declarations or definitions under `src/` and `include/`, sanitizes naturally
+aligned scalar fields, searches bounded semantics-preserving source forms, and
+diagnoses deferred candidates before permuting pure register-only differences.
+Raw and deferred candidates are interleaved. Exact matches pass through
+`finish`; the retained group receives one final clean `verify-batch`.
+
+Do not discard a useful nonzero candidate merely to keep a mixed unit
+byte-identical. With explicit agreement to move past it, add `--defer-best` or
+use the supported deferral flow:
 
 ```sh
 ./conker defer <work-item-id> --reason "<remaining mismatch>"
@@ -146,20 +152,31 @@ primarily compiler register allocation, `./conker permute <work-item-id>
 semantics-preserving declaration order and first-assignment lifetime variants.
 It writes the best nonzero result below `build/<profile>/permute/` without
 changing project source. It restores and finishes the candidate automatically
-only after finding `CURRENT (0)`.
+only after finding `CURRENT (0)`. When unified automation finds a strictly
+better nonzero permutation for an already deferred function, it replaces the
+canonical disabled candidate and its recorded score transactionally; an equal
+or worse result leaves the existing block untouched.
 
-To apply that search to a bounded deferred backlog, use:
+For quick local experiments, `--skip-final-build` omits only that concluding
+clean build and prints the exact `verify-batch` command that remains required
+before committing or handing off the changes. It does not bypass any
+per-function `finish` gate.
+
+To consider the complete active US inventory, run:
 
 ```sh
-./conker automate-permute --limit 5 --max-attempts 20 --budget 250
+./conker automate --all --defer-best
 ```
 
-The automation runs `diagnose-diff` first and permutes only candidates whose
-classified differences are exclusively register allocation. It preserves
-pre-existing source changes, restores every failed attempt, skips source-unit
-integration transitions, retains only exact results through `finish`, and runs
-one clean `verify-batch` for the resulting group. The existing
-`automate-simple` behavior remains unchanged.
+This removes the match and attempt limits but retains all safety exclusions.
+It atomically updates `build/us/automate/all-report.json` after every candidate.
+The report includes already matched functions and explicit exclusion reasons,
+so a completed run proves every inventory entry was considered even when some
+functions still require manual work. An interrupted run has `scan_complete:
+false`; rerunning is safe because exact matches and deferred candidates are
+selected from their current inventory states and completed attempts are resumed
+from the report. Add `--restart` to deliberately reconsider prior outcomes
+after changing the automation. Do not combine `--all` with `--max-attempts`.
 
 `finish` also compiles the complete reviewed mixed source object and verifies
 every member offset plus the aligned object extent before recording a match.

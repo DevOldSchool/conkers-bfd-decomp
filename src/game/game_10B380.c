@@ -9,7 +9,6 @@
  * - func_150DDF88
  * - func_150DDFAC
  * - func_150DE12C
- * - func_150DE2C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -34,4 +33,10 @@ s32 func_150DE2A4(Game10B380Object *arg0) {
 
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DE2C4.s")
+void func_150DE2C4(void *arg0) {
+    *(s16 *)((u8 *)arg0 + 0x34) = (s16) (*(s16 *)((u8 *)arg0 + 0x34) - 0x1A);
+    *(s16 *)((u8 *)arg0 + 0x36) = (s16) (*(s16 *)((u8 *)arg0 + 0x36) - 0x1A);
+    if ((*(s16 *)((u8 *)arg0 + 0x34) < 0xA) || (*(s16 *)((u8 *)arg0 + 0x36) < 0xA)) {
+        *(s16 *)((u8 *)arg0 + 0x38) = 0;
+    }
+}
