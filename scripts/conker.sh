@@ -72,6 +72,7 @@ After the raw base split map is available
   diff --watch [--profile us] <work-item-id>
                                  Keep an auto-rebuilding focused diff open while editing.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
+  mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
   m2c [--profile us] <work-item-id>
                                  Generate a C starter; auto-detects main versus game overlay.
   game-asm [--profile us]        Export decompressed game-code reference assembly.
@@ -101,10 +102,16 @@ After the raw base split map is available
                                  Rebuild the fixed US flat RZIP region into a ROM.
   font-assets <extract|pack|verify> [options]
                                  Extract, rebuild, or byte-verify the RLE font table.
-  mp3-assets <extract|pack|verify> [options]
-                                 Extract, rebuild, or byte-verify US MP3 streams and tables.
+  mp3-assets <extract|pack|verify|cue-extract|cue-verify> [options]
+                                 Extract or verify US MP3 streams, tables, and embedded cues.
+  audio-assets <survey|extract|preview|sample-preview|verify> [options]
+                                 Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|verify|survey> [options]
-                                 Survey, extract, rebuild, or verify proven US CI4 textures.
+                                 Survey, extract, rebuild, or verify proven US textures.
+  model-assets <survey|extract|preview|verify> [options]
+                                 Survey, export, preview, or verify proven US model banks.
+  hud-assets <survey|extract|preview|verify> [options]
+                                 Extract, preview, or verify US HUD/menu metadata and sprites.
   asset-correlate [--base us] [--compare debug|ects] [--output <path>] [--force]
                                  Correlate manifest-only asset fingerprints across profiles.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
@@ -138,7 +145,7 @@ image_is_healthy() {
     docker run --rm "${container_run_args[@]}" \
         --mount "type=bind,source=$repo_root/tests/fixtures/ido_smoke.c,target=/tmp/ido-smoke.c,readonly" \
         "$image_name" sh -c \
-        'test -x /opt/ido/cc && test -f /opt/tools/asm-processor/build.py && command -v wget >/dev/null && command -v less >/dev/null && /opt/ido/cc -c -32 -G 0 -non_shared -O2 -mips2 -o /tmp/ido-smoke.o /tmp/ido-smoke.c && test -s /tmp/ido-smoke.o' \
+        'test -x /opt/ido/cc && test -f /opt/tools/asm-processor/build.py && test -x /usr/local/bin/conker-mupen64plus && test -f /opt/mupen64plus/lib/libmupen64plus.so.2 && test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-rsp-hle.so && command -v wget >/dev/null && command -v less >/dev/null && /usr/local/bin/conker-mupen64plus --help 2>&1 | grep -q "Console User-Interface Version 2.6.0" && /opt/ido/cc -c -32 -G 0 -non_shared -O2 -mips2 -o /tmp/ido-smoke.o /tmp/ido-smoke.c && test -s /tmp/ido-smoke.o' \
         >/dev/null 2>&1
 }
 
@@ -434,14 +441,15 @@ case "$command" in
     doctor)
         ensure_image
         if ! image_is_healthy; then
-            printf 'Toolchain image failed its IDO smoke test; rebuilding it locally...\n'
+            printf 'Toolchain image failed its smoke tests; rebuilding it locally...\n'
             docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
             image_name="$local_image_name"
-            image_is_healthy || die "toolchain image failed the IDO compilation smoke test"
+            image_is_healthy || die "toolchain image failed its smoke tests"
         fi
         docker version --format 'Docker client: {{.Client.Version}}'
         printf 'Required container platform: linux/amd64\n'
         printf 'IDO compilation smoke test: OK\n'
+        printf 'Mupen64Plus debugger smoke test: OK\n'
         python3 "$state_tool" validate
         ;;
     rom-info)
@@ -663,6 +671,22 @@ case "$command" in
         python3 "$state_tool" setup-check --profile "$selected_profile"
         run_in_container python3 scripts/first_diff.py "$selected_profile"
         ;;
+    mupen)
+        if [[ $# -eq 1 && "$1" == "--help" ]]; then
+            run_in_container /usr/local/bin/conker-mupen64plus --help || {
+                status=$?
+                # Mupen64Plus 2.6.0 reports help with status 1.
+                [[ $status -eq 1 ]] || exit "$status"
+            }
+            exit 0
+        fi
+        [[ -t 0 && -t 1 ]] || die "mupen requires an interactive terminal"
+        python3 "$state_tool" setup-check --profile us
+        run_in_container_interactive /usr/local/bin/conker-mupen64plus \
+            --noosd --nospeedlimit --debug --emumode 1 \
+            --gfx dummy --audio dummy --input dummy --rsp mupen64plus-rsp-hle \
+            "$@" roms/baserom.us.z64
+        ;;
     game-asm)
         parse_profile_only "usage: ./conker game-asm [--profile us]" "$@"
         python3 "$state_tool" setup-check --profile "$selected_profile"
@@ -763,12 +787,24 @@ case "$command" in
         python3 scripts/font_assets.py "$@"
         ;;
     mp3-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <extract|pack|verify> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker mp3-assets <extract|pack|verify|cue-extract|cue-verify> [options]"
         python3 scripts/mp3_assets.py "$@"
+        ;;
+    audio-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <survey|extract|preview|sample-preview|verify> [options]"
+        python3 scripts/audio_assets.py "$@"
         ;;
     texture-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker texture-assets <extract|pack|verify|survey> [options]"
         python3 scripts/texture_assets.py "$@"
+        ;;
+    model-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <survey|extract|preview|verify> [options]"
+        python3 scripts/model_assets.py "$@"
+        ;;
+    hud-assets)
+        [[ $# -ge 1 ]] || die "usage: ./conker hud-assets <survey|extract|preview|verify> [options]"
+        python3 scripts/hud_assets.py "$@"
         ;;
     asset-correlate)
         python3 scripts/asset_correlate.py "$@"

@@ -6,6 +6,8 @@ on:
     paths:
       - Dockerfile
       - .dockerignore
+      - toolchain/mupen64plus-debug.sh
+      - toolchain/tools.lock.json
       - .github/workflows/publish-toolchain.yml
   workflow_dispatch:
 

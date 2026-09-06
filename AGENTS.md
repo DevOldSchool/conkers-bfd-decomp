@@ -3,6 +3,19 @@
 Use `./conker` from the repository root. It is the supported interface for
 Docker, ROM setup, progress, m2c, and asm diffs.
 
+## Optional runtime tracing
+
+Use `./conker mupen` when static ROM or display-list evidence cannot establish
+which runtime consumer reaches an asset or code path. It launches the pinned,
+debugger-enabled Mupen64Plus interpreter and HLE RSP from the Docker toolchain,
+using the checksum-validated US ROM and an ephemeral container configuration.
+It requires an interactive terminal. Pass additional Mupen64Plus options
+directly, for example `./conker mupen --savestate build/trace.st`.
+
+The default graphics, audio, and input plugins are deliberately dummy plugins;
+the HLE RSP is real so startup code can advance beyond the dummy-RSP boundary.
+Record whether a result is a positive runtime hit or a bounded negative trace.
+
 ## Unchanged-m2c automation
 
 For a bounded batch that should try only m2c output requiring no manual edits,

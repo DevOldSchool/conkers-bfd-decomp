@@ -4,6 +4,28 @@ The project intentionally begins without imported C sources, symbols, or
 extracted assets. The bootstrap goal is a raw-assembly rebuild of the active US
 ROM before any C function is promoted.
 
+## Local ROM setup
+
+The reviewed regional revisions are pinned in `config/roms.json`:
+
+| Release | Status | SHA-1 |
+| --- | --- | --- |
+| North America | Active target | `4cbadd3c4e0729dec46af64ad018050eada4f47a` |
+| Europe/PAL | Future target | `ee7bc6656fd1e1d9ffb3d19add759f28b88df710` |
+
+Copy an owned US ROM into the ignored `roms/` directory and record it through
+the supported setup command:
+
+```sh
+cp /path/to/your-us-rom.z64 roms/baserom.us.z64
+./conker setup --us roms/baserom.us.z64
+```
+
+`setup` validates the checksum and stores the local state used by build tools.
+It also accepts a ROM held elsewhere. Use `./conker rom-info <path>` to inspect
+a ROM before setup. Maintainers may record the future ROM with `--eu`, but it is
+not required by active contributor commands or progress.
+
 ## Established baseline
 
 1. The reviewed US ROM SHA-1 is pinned as the active target in `config/roms.json`.

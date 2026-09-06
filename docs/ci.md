@@ -23,5 +23,12 @@ metadata or local setup. Source and ROM inputs are read-only; only generated
 output directories are normally writable. Integration and libultra commands
 receive their explicitly required additional writable directories.
 `CONKER_IMAGE` remains an explicit override for locally built CI images. Docker
-builds use an allowlisted context containing only the Dockerfile and its Python
-constraint input.
+builds use an allowlisted context containing only the Dockerfile and its
+explicit toolchain inputs.
+
+Runtime research uses the same image. Mupen64Plus core, console UI, and HLE RSP
+are built from the immutable revisions in `toolchain/tools.lock.json`; the core
+is compiled with `DEBUG=1`, `DEBUGGER=1`, and interpreter support. The
+repository wrapper mounts only the already validated ROM and project paths,
+keeps container networking disabled, and stores emulator configuration in the
+container's temporary filesystem.

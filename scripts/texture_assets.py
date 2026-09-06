@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Extract and byte-identically rebuild loader-proven US CI4 texture families."""
+"""Extract and byte-identically rebuild loader-proven US textures."""
 
 from __future__ import annotations
 
@@ -65,6 +65,12 @@ TILED_VIEWS_FAMILY = "flat-tiled-views-mixed-ci-rgba5551"
 SQUARE_FAMILY_NAME = "64x64"
 RECTANGULAR_FAMILY_NAME = "1056-proven"
 TILED_VIEWS_FAMILY_NAME = "tiled-views"
+CI8_FAMILY = "flat-ci8-direct-proven-rgba5551"
+CI8_FAMILY_NAME = "ci8-proven"
+RGBA16_FAMILY = "flat-rgba16-direct-proven"
+RGBA16_FAMILY_NAME = "rgba16-proven"
+NATIVE_FAMILY = "flat-native-direct-proven"
+NATIVE_FAMILY_NAME = "native-proven"
 
 # These two particle textures are passed to the 64-pixel sprite path in their
 # linear source order. The other 2,080-byte entries use the TMEM-ready ordering
@@ -416,6 +422,7 @@ def unfilter_rows(
     width: int = WIDTH,
     height: int = HEIGHT,
     bytes_per_row: int | None = None,
+    bytes_per_pixel: int = 1,
 ) -> bytes:
     row_size = bytes_per_row if bytes_per_row is not None else width // 2
     if len(data) != height * (row_size + 1):
@@ -429,9 +436,9 @@ def unfilter_rows(
         offset += row_size + 1
         row = bytearray(row_size)
         for column, value in enumerate(encoded):
-            left = row[column - 1] if column else 0
+            left = row[column - bytes_per_pixel] if column >= bytes_per_pixel else 0
             above = previous[column]
-            upper_left = previous[column - 1] if column else 0
+            upper_left = previous[column - bytes_per_pixel] if column >= bytes_per_pixel else 0
             if filter_type == 0:
                 predictor = 0
             elif filter_type == 1:
@@ -448,6 +455,54 @@ def unfilter_rows(
         output.extend(row)
         previous = bytes(row)
     return bytes(output)
+
+
+def decode_rgba_png_pixels(data: bytes, width: int, height: int) -> bytes:
+    if not data.startswith(PNG_SIGNATURE):
+        raise ValueError("texture file is not a PNG")
+    chunks: dict[bytes, list[bytes]] = {}
+    offset = len(PNG_SIGNATURE)
+    while offset < len(data):
+        if offset + 12 > len(data):
+            raise ValueError("PNG chunk is truncated")
+        length = struct.unpack_from(">I", data, offset)[0]
+        kind = data[offset + 4 : offset + 8]
+        end = offset + 12 + length
+        if end > len(data):
+            raise ValueError("PNG chunk payload is truncated")
+        payload = data[offset + 8 : offset + 8 + length]
+        expected_crc = struct.unpack_from(">I", data, offset + 8 + length)[0]
+        if zlib.crc32(kind + payload) & 0xFFFFFFFF != expected_crc:
+            raise ValueError("PNG chunk CRC is invalid")
+        chunks.setdefault(kind, []).append(payload)
+        offset = end
+        if kind == b"IEND":
+            break
+    if offset != len(data):
+        raise ValueError("PNG has trailing data")
+    if len(chunks.get(b"IHDR", [])) != 1:
+        raise ValueError("PNG must contain exactly one IHDR")
+    header = chunks[b"IHDR"][0]
+    if len(header) != 13:
+        raise ValueError("PNG IHDR has an invalid size")
+    png_width, png_height, depth, color_type, compression, filtering, interlace = (
+        struct.unpack(">IIBBBBB", header)
+    )
+    if (png_width, png_height, depth, color_type) != (width, height, 8, 6):
+        raise ValueError(f"texture PNG must be {width}x{height} RGBA at eight bits")
+    if compression or filtering or interlace:
+        raise ValueError("texture PNG uses unsupported encoding options")
+    try:
+        filtered = zlib.decompress(b"".join(chunks[b"IDAT"]))
+    except (KeyError, zlib.error) as error:
+        raise ValueError("PNG IDAT data is missing or invalid") from error
+    return unfilter_rows(
+        filtered,
+        width,
+        height,
+        bytes_per_row=width * 4,
+        bytes_per_pixel=4,
+    )
 
 
 def decode_indexed_png(
@@ -1655,8 +1710,10 @@ def extract_tiled_views(
         "runtime_tail_tile_count": len(runtime_indices - preview_indices),
         "format_counts": format_counts,
         "editing_contract": (
-            "Edit indexed files under tiles/. The assembled RGBA views are "
-            "preview-only because each logical view uses per-tile palettes. "
+            "Edit indexed files under tiles/ and pack normally, or edit RGBA "
+            "files under views/ and pack with --views using original indexed "
+            "tiles as palette and padding references. View edits must use "
+            "each tile's existing colors. "
             "The assembled previews apply the renderer stream's two-entry "
             "phase continuously across column and view boundaries. Runtime "
             "tail records that spill into unselected faces remain reversible "
@@ -1671,10 +1728,16 @@ def extract_tiled_views(
     return manifest
 
 
-def pack_textures(input_dir: Path, output: Path, force: bool) -> dict[int, bytes]:
+def pack_textures(
+    input_dir: Path, output: Path, force: bool, views: bool = False
+) -> dict[int, bytes]:
+    if output.resolve() == input_dir.resolve() or output.resolve() in input_dir.resolve().parents:
+        raise ValueError("pack output must not replace the extraction directory or its parent")
     manifest = json.loads((input_dir / "manifest.json").read_text(encoding="utf-8"))
     schema_family = (manifest.get("schema_version"), manifest.get("family"))
     tiled_family = schema_family == (5, TILED_VIEWS_FAMILY)
+    if views and not tiled_family:
+        raise ValueError("--views requires a tiled-views extraction")
     records = manifest.get("tiles" if tiled_family else "textures")
     if (
         schema_family
@@ -1682,6 +1745,9 @@ def pack_textures(input_dir: Path, output: Path, force: bool) -> dict[int, bytes
             (3, SQUARE_FAMILY),
             (4, RECTANGULAR_FAMILY),
             (5, TILED_VIEWS_FAMILY),
+            (6, CI8_FAMILY),
+            (7, RGBA16_FAMILY),
+            (8, NATIVE_FAMILY),
         )
         or manifest.get("profile") != "us"
         or manifest.get("source_origin") != SOURCE_ORIGIN
@@ -1729,6 +1795,46 @@ def pack_textures(input_dir: Path, output: Path, force: bool) -> dict[int, bytes
                 width,
                 height,
             )
+        elif schema_family == (6, CI8_FAMILY):
+            render_width, render_height = int(record["width"]), int(record["height"])
+            width = int(record.get("preview_width", render_width))
+            height = int(record.get("preview_height", render_height))
+            if width <= 0 or width % 8 or height <= 0 or width * height > 2048:
+                raise ValueError(f"texture {flat_index} has unsupported CI8 dimensions")
+            if width * height != render_width * render_height:
+                raise ValueError(
+                    f"texture {flat_index} preview geometry changes the pixel count"
+                )
+            packed[flat_index] = decode_ci8_png(
+                safe_manifest_file(input_dir, record["file"]).read_bytes(),
+                row_layout, width, height,
+            )
+        elif schema_family == (7, RGBA16_FAMILY):
+            try:
+                from scripts import texture_rgba16
+            except ModuleNotFoundError:
+                import texture_rgba16
+            width, height = int(record["width"]), int(record["height"])
+            packed[flat_index] = texture_rgba16.decode_png(
+                safe_manifest_file(input_dir, record["file"]).read_bytes(),
+                row_layout,
+                width,
+                height,
+            )
+        elif schema_family == (8, NATIVE_FAMILY):
+            try:
+                from scripts import texture_native
+            except ModuleNotFoundError:
+                import texture_native
+            width, height = int(record["width"]), int(record["height"])
+            packed[flat_index] = texture_native.decode_png(
+                safe_manifest_file(input_dir, record["file"]).read_bytes(),
+                str(record["format"]),
+                row_layout,
+                width,
+                height,
+            )
+            packed_formats[flat_index] = str(record["format"])
         else:
             width, height = int(record["width"]), int(record["height"])
             if (width, height) not in ((32, 64), (64, 32)):
@@ -1745,6 +1851,16 @@ def pack_textures(input_dir: Path, output: Path, force: bool) -> dict[int, bytes
         packed_layouts[flat_index] = row_layout
     if list(packed) != sorted(packed):
         raise ValueError("texture manifest flat indices are not ordered")
+    changed_view_tiles = []
+    if views:
+        try:
+            from scripts.texture_view_edit import apply_view_edits
+        except ModuleNotFoundError:
+            from texture_view_edit import apply_view_edits
+
+        edited = apply_view_edits(input_dir, manifest, packed)
+        changed_view_tiles = [i for i in packed if packed[i] != edited[i]]
+        packed = edited
     prepare_output(output, force)
     payload_dir = output / "flat"
     payload_dir.mkdir()
@@ -1756,13 +1872,31 @@ def pack_textures(input_dir: Path, output: Path, force: bool) -> dict[int, bytes
             "size": len(payload),
             "sha1": hashlib.sha1(payload).hexdigest(),
             "row_layout": packed_layouts[index],
-            **({"format": packed_formats[index]} if tiled_family else {}),
+            **(
+                {"format": packed_formats[index]}
+                if tiled_family or schema_family == (8, NATIVE_FAMILY)
+                else {}
+            ),
             **(
                 {
                     "width": int(records[position]["width"]),
                     "height": int(records[position]["height"]),
+                    **(
+                        {
+                            "preview_width": int(records[position]["preview_width"]),
+                            "preview_height": int(records[position]["preview_height"]),
+                        }
+                        if "preview_width" in records[position]
+                        or "preview_height" in records[position]
+                        else {}
+                    ),
                 }
-                if schema_family == (4, RECTANGULAR_FAMILY)
+                if schema_family in (
+                    (4, RECTANGULAR_FAMILY),
+                    (6, CI8_FAMILY),
+                    (7, RGBA16_FAMILY),
+                    (8, NATIVE_FAMILY),
+                )
                 else {}
             ),
             "file": f"flat/{index:04d}.bin",
@@ -1770,6 +1904,7 @@ def pack_textures(input_dir: Path, output: Path, force: bool) -> dict[int, bytes
         for position, (index, payload) in enumerate(packed.items())
     ]
     packed_manifest = {
+        **({"view_editing": True, "changed_view_tile_indices": changed_view_tiles} if views else {}),
         "schema_version": manifest["schema_version"],
         "profile": "us",
         "family": manifest["family"],
@@ -1885,6 +2020,9 @@ def parse_args() -> argparse.Namespace:
             SQUARE_FAMILY_NAME,
             RECTANGULAR_FAMILY_NAME,
             TILED_VIEWS_FAMILY_NAME,
+            CI8_FAMILY_NAME,
+            RGBA16_FAMILY_NAME,
+            NATIVE_FAMILY_NAME,
         ),
         default=SQUARE_FAMILY_NAME,
     )
@@ -1895,6 +2033,10 @@ def parse_args() -> argparse.Namespace:
     pack_parser.add_argument("--input", type=Path, required=True)
     pack_parser.add_argument("--output", type=Path, required=True)
     pack_parser.add_argument("--force", action="store_true")
+    pack_parser.add_argument(
+        "--views", action="store_true",
+        help="pack edited RGBA views using the original tile palettes and padding",
+    )
     verify_parser = subparsers.add_parser("verify")
     verify_parser.add_argument("--profile", choices=("us",), default="us")
     verify_parser.add_argument(
@@ -1903,11 +2045,23 @@ def parse_args() -> argparse.Namespace:
             SQUARE_FAMILY_NAME,
             RECTANGULAR_FAMILY_NAME,
             TILED_VIEWS_FAMILY_NAME,
+            CI8_FAMILY_NAME,
+            RGBA16_FAMILY_NAME,
+            NATIVE_FAMILY_NAME,
         ),
         default=SQUARE_FAMILY_NAME,
     )
     verify_parser.add_argument("--rom", type=Path)
     survey_parser = subparsers.add_parser("survey")
+    survey_parser.add_argument(
+        "--family", choices=(
+            RECTANGULAR_FAMILY_NAME,
+            CI8_FAMILY_NAME,
+            RGBA16_FAMILY_NAME,
+            NATIVE_FAMILY_NAME,
+        ),
+        default=RECTANGULAR_FAMILY_NAME,
+    )
     survey_parser.add_argument("--profile", choices=("us",), default="us")
     survey_parser.add_argument("--rom", type=Path)
     survey_parser.add_argument("--output", type=Path)
@@ -1916,6 +2070,21 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
+    if getattr(args, "family", None) == CI8_FAMILY_NAME:
+        try:
+            from scripts import texture_ci8
+        except ModuleNotFoundError:
+            import texture_ci8
+    if getattr(args, "family", None) == RGBA16_FAMILY_NAME:
+        try:
+            from scripts import texture_rgba16
+        except ModuleNotFoundError:
+            import texture_rgba16
+    if getattr(args, "family", None) == NATIVE_FAMILY_NAME:
+        try:
+            from scripts import texture_native
+        except ModuleNotFoundError:
+            import texture_native
     try:
         if args.command == "extract":
             default_name = args.profile
@@ -1930,6 +2099,18 @@ def main() -> int:
                 manifest = extract_rectangular_textures(
                     args.profile, args.rom, output, args.force
                 )
+            elif args.family == CI8_FAMILY_NAME:
+                manifest = texture_ci8.extract(
+                    args.profile, args.rom, output, args.force
+                )
+            elif args.family == RGBA16_FAMILY_NAME:
+                manifest = texture_rgba16.extract(
+                    args.profile, args.rom, output, args.force
+                )
+            elif args.family == NATIVE_FAMILY_NAME:
+                manifest = texture_native.extract(
+                    args.profile, args.rom, output, args.force
+                )
             else:
                 manifest = extract_tiled_views(
                     args.profile, args.rom, output, args.force
@@ -1942,13 +2123,15 @@ def main() -> int:
                 )
             else:
                 print(
-                    f"Extracted {manifest['texture_count']} US {args.family} CI4 "
+                    f"Extracted {manifest['texture_count']} US {args.family} "
                     f"textures to {display_path(output)}"
                 )
+                if args.family == CI8_FAMILY_NAME:
+                    print("Storage contracts verified; runtime visual validation is incomplete.")
         elif args.command == "pack":
             input_dir = args.input if args.input.is_absolute() else ROOT / args.input
             output = args.output if args.output.is_absolute() else ROOT / args.output
-            packed = pack_textures(input_dir, output, args.force)
+            packed = pack_textures(input_dir, output, args.force, views=args.views)
             print(
                 f"Packed {len(packed)} US texture payloads "
                 f"({sum(map(len, packed.values()))} bytes) to {display_path(output)}"
@@ -1959,6 +2142,15 @@ def main() -> int:
                 description = f"{count} entries, {size} bytes"
             elif args.family == RECTANGULAR_FAMILY_NAME:
                 count, size = verify_rectangular_textures(args.profile, args.rom)
+                description = f"{count} entries, {size} bytes"
+            elif args.family == CI8_FAMILY_NAME:
+                count, size = texture_ci8.verify(args.profile, args.rom)
+                description = f"{count} entries, {size} bytes"
+            elif args.family == RGBA16_FAMILY_NAME:
+                count, size = texture_rgba16.verify(args.profile, args.rom)
+                description = f"{count} entries, {size} bytes"
+            elif args.family == NATIVE_FAMILY_NAME:
+                count, size = texture_native.verify(args.profile, args.rom)
                 description = f"{count} entries, {size} bytes"
             else:
                 count, view_count, edge_count = verify_tiled_views(
@@ -1979,15 +2171,57 @@ def main() -> int:
                 / "assets"
                 / "textures"
                 / args.profile
-                / "1056-contracts.json"
+                / (
+                    "ci8-contracts.json"
+                    if args.family == CI8_FAMILY_NAME
+                    else "rgba16-contracts.json"
+                    if args.family == RGBA16_FAMILY_NAME
+                    else "native-contracts.json"
+                    if args.family == NATIVE_FAMILY_NAME
+                    else "1056-contracts.json"
+                )
             )
             if not output.is_absolute():
                 output = ROOT / output
-            manifest = survey_rectangular_textures(args.profile, args.rom)
+            if args.family == CI8_FAMILY_NAME:
+                manifest, _ = texture_ci8.survey(args.profile, args.rom)
+            elif args.family == RGBA16_FAMILY_NAME:
+                manifest, _ = texture_rgba16.survey(args.profile, args.rom)
+            elif args.family == NATIVE_FAMILY_NAME:
+                manifest, _ = texture_native.survey(args.profile, args.rom)
+            else:
+                manifest = survey_rectangular_textures(args.profile, args.rom)
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_text(
                 json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
             )
+            if args.family == CI8_FAMILY_NAME:
+                print(
+                    f"Surveyed {manifest['referenced_texture_count']} directly "
+                    f"referenced US CI8 candidates: {manifest['texture_count']} "
+                    f"consistent storage contracts, {manifest['excluded_texture_count']} "
+                    f"excluded; visual validation incomplete; wrote {display_path(output)}"
+                )
+                return 0
+            if args.family == RGBA16_FAMILY_NAME:
+                print(
+                    f"Surveyed {manifest['referenced_texture_count']} directly "
+                    f"referenced US RGBA16 candidates: {manifest['texture_count']} "
+                    f"consistent full-payload contracts, "
+                    f"{manifest['excluded_texture_count']} excluded; wrote "
+                    f"{display_path(output)}"
+                )
+                return 0
+            if args.family == NATIVE_FAMILY_NAME:
+                print(
+                    f"Surveyed {manifest['referenced_texture_count']} directly "
+                    f"referenced US native-format candidates: "
+                    f"{manifest['texture_count']} consistent full-payload contracts "
+                    f"{manifest['format_counts']}, "
+                    f"{manifest['excluded_texture_count']} excluded; wrote "
+                    f"{display_path(output)}"
+                )
+                return 0
             print(
                 f"Surveyed {manifest['candidate_count']} US 1,056-byte payloads: "
                 f"{manifest['proven_ci4_texture_count']} have direct CI4 dimension "
