@@ -222,24 +222,26 @@ def integrate(symbol: str, profile: str) -> None:
 
 
 def integrate_all_reviewed(profile: str) -> None:
-    """Integrate every incomplete reviewed game unit in one transactional build."""
+    """Integrate or finalize every pending reviewed game unit in one build."""
 
     functions_data = project_state.load_json(project_state.FUNCTIONS_FILE)
     units_data = project_state.load_json(project_state.SOURCE_UNITS_FILE)
     functions = project_state.validate_functions(functions_data)
     units = project_state.validate_source_units(units_data, functions)
     functions_by_id = {entry["symbol"]: entry for entry in functions}
-    candidates: list[tuple[dict, list[dict], Path, int, int, str]] = []
+    candidates: list[tuple[dict, list[dict], Path, int, int, str, bool]] = []
     map_path = ROOT / "config" / "game" / f"{profile}.yaml"
 
     for unit in units:
-        if unit["integration"] != "raw_asm":
+        integration = unit["integration"]
+        if integration not in {"raw_asm", "mixed"}:
             continue
         members = [functions_by_id[identifier] for identifier in unit["functions"]]
         if any(member.get("overlay", "main") != "game" for member in members):
             continue
         unfinished = [member["symbol"] for member in members if not project_state.is_complete(member)]
-        if not unfinished:
+        finalizing = not unfinished
+        if integration == "mixed" and not finalizing:
             continue
         source = unit["source"]
         evidence = unit.get("boundary_evidence", {}).get(profile)
@@ -251,23 +253,36 @@ def integrate_all_reviewed(profile: str) -> None:
         if not source_path.is_file():
             raise project_state.ProjectStateError(f"candidate source does not exist: {source}")
         content = source_path.read_text(encoding="utf-8")
-        missing = [
-            identifier
-            for identifier in unfinished
-            if project_state.global_asm_pragma(source, identifier) not in content
-        ]
-        if missing:
-            raise project_state.ProjectStateError(
-                f"{source} lacks GLOBAL_ASM placeholders for: {', '.join(missing)}"
-            )
+        if finalizing:
+            if "GLOBAL_ASM" in content:
+                raise project_state.ProjectStateError(
+                    f"completed source unit still contains GLOBAL_ASM placeholders: {source}"
+                )
+            done_source = f"src/game/done/{source_path.name}"
+            if (ROOT / done_source).exists():
+                raise project_state.ProjectStateError(
+                    f"integration destination already exists: {done_source}"
+                )
+        else:
+            missing = [
+                identifier
+                for identifier in unfinished
+                if project_state.global_asm_pragma(source, identifier) not in content
+            ]
+            if missing:
+                raise project_state.ProjectStateError(
+                    f"{source} lacks GLOBAL_ASM placeholders for: {', '.join(missing)}"
+                )
         region = unit["regions"][profile]
         start = int(region["start"], 0)
         end = int(region["end"], 0)
         mapped_name = source.removeprefix("src/").removesuffix(".c")
-        candidates.append((unit, members, source_path, start, end, mapped_name))
+        candidates.append(
+            (unit, members, source_path, start, end, mapped_name, finalizing)
+        )
 
     if not candidates:
-        print("No incomplete reviewed game source units are awaiting mixed integration.")
+        print("No reviewed game source units are awaiting integration or finalization.")
         return
 
     tracked_paths = (
@@ -278,19 +293,40 @@ def integrate_all_reviewed(profile: str) -> None:
         project_state.DOCUMENT_FILE,
     )
     snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked_paths}
+    moved_sources: list[tuple[Path, Path, bool]] = []
     try:
-        for unit, members, _, start, end, mapped_name in candidates:
-            replace_map_range(map_path, start, end, mapped_name)
-            unit["integration"] = "mixed"
-            unit["regions"][profile]["state"] = project_state.source_unit_work_state(members)
+        for unit, members, source_path, start, end, mapped_name, finalizing in candidates:
+            if finalizing:
+                done_source = f"src/game/done/{source_path.name}"
+                done_path = ROOT / done_source
+                done_directory_existed = done_path.parent.exists()
+                done_path.parent.mkdir(parents=True, exist_ok=True)
+                source_path.rename(done_path)
+                moved_sources.append((source_path, done_path, done_directory_existed))
+                done_mapped_name = done_source.removeprefix("src/").removesuffix(".c")
+                if unit["integration"] == "mixed":
+                    replace_c_mapping(map_path, start, mapped_name, done_mapped_name)
+                else:
+                    replace_map_range(map_path, start, end, done_mapped_name)
+                for member in members:
+                    member["source"] = done_source
+                unit["source"] = done_source
+                unit["integration"] = "c"
+                unit["regions"][profile]["state"] = "complete"
+            else:
+                replace_map_range(map_path, start, end, mapped_name)
+                unit["integration"] = "mixed"
+                unit["regions"][profile]["state"] = project_state.source_unit_work_state(members)
+
+        validated_functions = project_state.validate_functions(functions_data)
+        project_state.validate_source_units(units_data, validated_functions)
+        project_state.write_json(project_state.FUNCTIONS_FILE, functions_data)
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, units_data)
         subprocess.run(
             ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
             cwd=ROOT,
             check=True,
         )
-        validated_functions = project_state.validate_functions(functions_data)
-        project_state.validate_source_units(units_data, validated_functions)
-        project_state.write_json(project_state.SOURCE_UNITS_FILE, units_data)
         project_state.render_progress(validated_functions)
     except BaseException:
         for path, content in snapshots.items():
@@ -299,11 +335,22 @@ def integrate_all_reviewed(profile: str) -> None:
             else:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_bytes(content)
+        for source_path, done_path, done_directory_existed in reversed(moved_sources):
+            if done_path.exists() and not source_path.exists():
+                source_path.parent.mkdir(parents=True, exist_ok=True)
+                done_path.rename(source_path)
+            if not done_directory_existed and done_path.parent.exists():
+                try:
+                    done_path.parent.rmdir()
+                except OSError:
+                    pass
         raise
 
+    finalized = sum(finalizing for *_, finalizing in candidates)
+    mixed = len(candidates) - finalized
     print(
-        f"Integrated {len(candidates)} reviewed game source units as mixed C/ASM; "
-        "the US game build is byte-identical."
+        f"Integrated {mixed} reviewed game source unit(s) as mixed C/ASM and "
+        f"finalized {finalized} complete unit(s); the {profile.upper()} game build is byte-identical."
     )
 
 

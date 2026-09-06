@@ -47,7 +47,7 @@ Getting started
   progress integrate <work-item-id>
                                  Verify and record a byte-identical source-unit integration.
   progress integrate --all-reviewed
-                                 Integrate all incomplete reviewed game units in one build.
+                                 Integrate or finalize all pending reviewed game units in one build.
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.

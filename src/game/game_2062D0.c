@@ -7,15 +7,10 @@
  * TODO: Implement these source-unit functions:
  * - func_151D8E20
  * - func_151D8E6C
- * - func_151D8EBC
  * - func_151D8EC8
  * - func_151D8EFC
  * - func_151D8F30
  * - func_151D8F7C
- * - func_151D8FB0
- * - func_151D8FBC
- * - func_151D8FC8
- * - func_151D8FD4
  * - func_151D8FE0
  * - func_151D9014
  * - func_151D93F4
@@ -75,15 +70,25 @@
 s32 func_151D8EB0(void) {
     return 0x75;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8EBC.s")
+s32 func_151D8EBC(void) {
+    return 0x1D;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8EC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8EFC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8F30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8F7C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8FB0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8FBC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8FC8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8FD4.s")
+s32 func_151D8FB0(void) {
+    return 0x95;
+}
+s32 func_151D8FBC(void) {
+    return 0x9F;
+}
+s32 func_151D8FC8(void) {
+    return 0xB3;
+}
+s32 func_151D8FD4(void) {
+    return 0x75;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8FE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D93F4.s")

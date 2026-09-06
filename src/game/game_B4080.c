@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15086BD0
- * - func_15086C68
  * - func_15086C70
  * - func_15086CBC
  * - func_15086D48
@@ -53,7 +52,6 @@
  * - func_1508B9BC
  * - func_1508BC20
  * - func_1508BF14
- * - func_1508C194
  * - func_1508C1A4
  * - func_1508C5B8
  * - func_1508C9CC
@@ -63,7 +61,6 @@
  * - func_1508DA1C
  * - func_1508DAEC
  * - func_1508DC24
- * - func_1508E6C8
  * - func_1508E6D0
  * - func_1508E780
  * - func_1508E89C
@@ -78,7 +75,9 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086BD0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086C68.s")
+void func_15086C68(void) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086C70.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086CBC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D48.s")
@@ -125,7 +124,9 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B9BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508BC20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508BF14.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C194.s")
+s32 func_1508C194(s32 arg0) {
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C1A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C5B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508C9CC.s")
@@ -135,7 +136,9 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508DA1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508DAEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508DC24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E6C8.s")
+void func_1508E6C8(void) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E6D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E780.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E89C.s")

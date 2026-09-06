@@ -117,6 +117,41 @@ class M2CHelperTests(unittest.TestCase):
                     ".section .text\n\nglabel func_80001050\n    nop\n\n",
                 )
 
+    def test_extracts_internal_global_entry_until_next_registered_function(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            source = temporary_root / "asm" / "us" / "game.s"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                ".section .text\n\n"
+                "glabel func_start\n"
+                "    b func_return\n"
+                "     nop\n\n"
+                "  glabel func_return\n"
+                "    jr $ra\n"
+                "     nop\n\n"
+                "glabel func_next\n"
+                "    break\n",
+                encoding="utf-8",
+            )
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                extracted = m2c_helper.extract_function(
+                    source,
+                    "func_start",
+                    boundary_symbols={"func_start", "func_next"},
+                )
+
+            self.assertEqual(
+                extracted.read_text(encoding="utf-8"),
+                ".section .text\n\n"
+                "glabel func_start\n"
+                "    b .Lfunc_return\n"
+                "     nop\n\n"
+                "  .Lfunc_return:\n"
+                "    jr $ra\n"
+                "     nop\n\n",
+            )
+
     def test_repairs_proven_preserved_a0_call_argument(self) -> None:
         assembly = """\
 glabel func_wrapper

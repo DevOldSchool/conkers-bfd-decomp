@@ -225,6 +225,66 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(original_functions, project_state.FUNCTIONS_FILE.read_bytes())
         self.assertEqual(original_units, project_state.SOURCE_UNITS_FILE.read_bytes())
 
+    @mock.patch.object(integrate.subprocess, "run")
+    def test_all_reviewed_finalizes_complete_raw_unit(self, run: mock.Mock) -> None:
+        integrate.integrate_all_reviewed("us")
+
+        run.assert_called_once_with(
+            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
+            cwd=self.root,
+            check=True,
+        )
+        self.assertFalse((self.root / "src/game/func_test.c").exists())
+        self.assertTrue((self.root / "src/game/done/func_test.c").is_file())
+        game_map = (self.root / "config/game/us.yaml").read_text(encoding="utf-8")
+        self.assertIn("- [0x10, c, game/done/func_test]", game_map)
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual("src/game/done/func_test.c", functions["functions"][0]["source"])
+        self.assertEqual("c", units["source_units"][0]["integration"])
+        self.assertEqual("complete", units["source_units"][0]["regions"]["us"]["state"])
+
+    @mock.patch.object(integrate.subprocess, "run")
+    def test_all_reviewed_finalizes_complete_mixed_unit(self, run: mock.Mock) -> None:
+        game_map = self.root / "config/game/us.yaml"
+        game_map.write_text(
+            "    subsegments:\n"
+            "      - [0x0, asm]\n"
+            "      - [0x10, c, game/func_test]\n"
+            "      - [0x20, asm]\n"
+            "      - [0x30, asm]\n",
+            encoding="utf-8",
+        )
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        units["source_units"][0]["integration"] = "mixed"
+        project_state.SOURCE_UNITS_FILE.write_text(json.dumps(units) + "\n", encoding="utf-8")
+
+        integrate.integrate_all_reviewed("us")
+
+        self.assertTrue((self.root / "src/game/done/func_test.c").is_file())
+        self.assertIn(
+            "- [0x10, c, game/done/func_test]",
+            game_map.read_text(encoding="utf-8"),
+        )
+
+    @mock.patch.object(integrate.subprocess, "run")
+    def test_failed_all_reviewed_finalization_restores_project(self, run: mock.Mock) -> None:
+        run.side_effect = subprocess.CalledProcessError(
+            1, ["make", "game-integrated-refresh"]
+        )
+        original_map = (self.root / "config/game/us.yaml").read_bytes()
+        original_functions = project_state.FUNCTIONS_FILE.read_bytes()
+        original_units = project_state.SOURCE_UNITS_FILE.read_bytes()
+
+        with self.assertRaises(subprocess.CalledProcessError):
+            integrate.integrate_all_reviewed("us")
+
+        self.assertTrue((self.root / "src/game/func_test.c").is_file())
+        self.assertFalse((self.root / "src/game/done/func_test.c").exists())
+        self.assertEqual(original_map, (self.root / "config/game/us.yaml").read_bytes())
+        self.assertEqual(original_functions, project_state.FUNCTIONS_FILE.read_bytes())
+        self.assertEqual(original_units, project_state.SOURCE_UNITS_FILE.read_bytes())
+
     def test_integration_rejects_source_unit_without_reviewed_boundary_evidence(self) -> None:
         units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
         del units["source_units"][0]["boundary_evidence"]
