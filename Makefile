@@ -47,17 +47,17 @@ GAME_INTEGRATED_C_OBJS := $(patsubst src/%.c,$(GAME_INTEGRATED_BUILD_DIR)/src/%.
 GAME_INTEGRATED_NORMALIZED_ASM_DIR := $(GAME_INTEGRATED_BUILD_DIR)/normalized-asm
 GAME_INTEGRATED_BOOTSTRAP_SYMBOLS := $(GAME_INTEGRATED_BUILD_DIR)/bootstrap-symbols.ld
 GAME_LIB_DIR := build/game-libs/us
-GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0I.a
+GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0G.a
 GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
 GAME_LIB_SYMBOLS := config/game/us-sdk.ld
-GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/I/libultra_rom/src/,\
+GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/G/libultra_rom/src/,\
 	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
-	io/visetspecial.o io/piread.o io/sirawdma.o io/crc.o \
+	gu/mtxutil.o \
+	io/visetspecial.o io/piread.o io/sirawdma.o io/crc.o io/controller.o \
+	io/pfsinit.o io/contreaddata.o io/pfsisplug.o io/contramread.o io/contramwrite.o \
 	os/settimer.o os/gettime.o libc/sprintf.o io/contpfs.o io/pfschecker.o)
 GAME_RARE_OBJECTS := $(addprefix lib/libultrare/build/libultrare/io/,\
-	pfsisplug.o contramread.o contramwrite.o controller.o pfsinit.o contreaddata.o \
 	conteepread.o conteeplongread.o conteepprobe.o) \
-	lib/libultrare/build/libultrare/gu/mtxutil.o \
 	lib/libultrare/build/libultrare/gu/rotate.o \
 	lib/libultrare/build/libultrare/gu/cosf.o \
 	lib/libultrare/build/libultrare/gu/sinf.o \
@@ -77,12 +77,11 @@ ULTRALIB_TARGET ?= libultra_rom
 ULTRALIB_BUILD_DIR := $(ULTRALIB_DIR)/build/$(ULTRALIB_VERSION)/$(ULTRALIB_TARGET)
 ULTRALIB_MODERN_LD_STAMP := $(ULTRALIB_BUILD_DIR)/.conker-modern-ld
 PROFILE_LIB_DIR_us := build/us/lib
-PROFILE_LIB_L_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L.a
-PROFILE_LIB_LD_us := $(PROFILE_LIB_DIR_us)/libultra_2_0L_d.a
-PROFILE_LIB_I_us := $(PROFILE_LIB_DIR_us)/libultra_2_0I.a
+PROFILE_LIB_G_us := $(PROFILE_LIB_DIR_us)/libultra_2_0G.a
+PROFILE_LIB_GD_us := $(PROFILE_LIB_DIR_us)/libultra_2_0G_d.a
 PROFILE_LIB_RARE_us := $(PROFILE_LIB_DIR_us)/libultrare.a
 PROFILE_LIB_RSP_us := $(PROFILE_LIB_DIR_us)/librsp.a
-PROFILE_LIB_DEPS_us := $(PROFILE_LIB_RSP_us) $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us)
+PROFILE_LIB_DEPS_us := $(PROFILE_LIB_RSP_us) $(PROFILE_LIB_G_us) $(PROFILE_LIB_GD_us) $(PROFILE_LIB_RARE_us)
 PROFILE_LIB_DEPS_eu :=
 PROFILE_LIB_DEPS := $(PROFILE_LIB_DEPS_$(PROFILE))
 # Linked SDK objects retain their original symbol names. Bind references to
@@ -192,7 +191,7 @@ PROFILE_LIB_LDFLAGS_us := \
 	-u __osSetCompare \
 	-u osJamMesg
 PROFILE_LIB_LDFLAGS_eu :=
-PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_RSP_us) $(PROFILE_LIB_L_us) $(PROFILE_LIB_LD_us) $(PROFILE_LIB_I_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
+PROFILE_LIB_INPUTS_us := --whole-archive $(PROFILE_LIB_RSP_us) $(PROFILE_LIB_G_us) $(PROFILE_LIB_GD_us) $(PROFILE_LIB_RARE_us) --no-whole-archive
 PROFILE_LIB_INPUTS_eu :=
 PROFILE_LIB_INPUTS := $(PROFILE_LIB_INPUTS_$(PROFILE))
 LDFLAGS += $(PROFILE_LIB_LDFLAGS_$(PROFILE))
@@ -273,30 +272,27 @@ libultrare:
 
 profile-libs:
 	@test "$(PROFILE)" = us
-	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=L
-	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=L ULTRALIB_TARGET=libultra_d
-	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=I
+	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=G
+	$(MAKE) --no-print-directory -C "$(ULTRALIB_DIR)" COMPILER_DIR=/opt/ido VERSION=G TARGET=libultra_d COMPARE=0 MODERN_LD=1 \
+		$(addprefix build/G/libultra_d/src/audio/,$(addsuffix .marker,cents2ratio cspgetstate cspgettempo))
 	$(MAKE) --no-print-directory libultrare
 	@mkdir -p "$(PROFILE_LIB_DIR_us)"
-	rm -f "$(PROFILE_LIB_L_us)"
-	$(AR) crs "$(PROFILE_LIB_L_us)" \
-		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/io/,$(addsuffix .o,aigetstat piacs pigetstat siacs spgetstat spsetstat sptaskyield)) \
-		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/libc/,$(addsuffix .o,bcopy bzero ll xlitob)) \
-		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/gu/,$(addsuffix .o,libm_vals sinf sqrtf)) \
-		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/os/,$(addsuffix .o,createmesgqueue getcount getsr getthreadpri gettime invaldcache invalicache jammesg maptlb probetlb recvmesg sendmesg setcompare setfpccsr setintmask setsr setthreadpri startthread stopthread thread unmaptlb virtualtophysical writebackdcache writebackdcacheall)) \
-		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_rom/src/vimodes/,$(addsuffix .o,vimodempallan1 vimodentsclan1))
-	rm -f "$(PROFILE_LIB_LD_us)"
-	$(AR) crs "$(PROFILE_LIB_LD_us)" \
-		$(addprefix $(ULTRALIB_DIR)/build/L/libultra_d/src/audio/,$(addsuffix .o,cents2ratio cspgetstate cspgettempo))
-	rm -f "$(PROFILE_LIB_I_us)"
-	$(AR) crs "$(PROFILE_LIB_I_us)" \
-		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/io/,$(addsuffix .o,ai aisetfreq contpfs crc pfschecker pidma pigetcmdq pirawdma pirawread si sirawdma sirawread sirawwrite sp sprawdma spsetpc sptaskyielded viblack vigetcurrcontext vigetcurrframebuf vigetnextframebuf visetevent visetmode viswapbuf viswapcontext)) \
-		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/libc/,$(addsuffix .o,ldiv string)) \
-		$(addprefix $(ULTRALIB_DIR)/build/I/libultra_rom/src/os/,$(addsuffix .o,interrupt seteventmesg sethwinterrupt settimer timerintr))
-	@mkdir -p "$(PROFILE_LIB_DIR_us)/libultrare-members"
+	@mkdir -p "$(PROFILE_LIB_DIR_us)/libultra-members"
 	$(OBJCOPY) --redefine-sym __osLeoInterrupt=__osLeoInterruptPhysical \
-		lib/libultrare/build/libultrare/os/initialize.o \
-		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
+		$(ULTRALIB_DIR)/build/G/libultra_rom/src/os/initialize.o \
+		"$(PROFILE_LIB_DIR_us)/libultra-members/initialize.o"
+	rm -f "$(PROFILE_LIB_G_us)"
+	$(AR) crs "$(PROFILE_LIB_G_us)" \
+		$(addprefix $(ULTRALIB_DIR)/build/G/libultra_rom/src/io/,$(addsuffix .o,ai aigetstat aisetfreq contpfs contramread contramwrite contreaddata controller crc epirawdma leodiskinit leointerrupt pfschecker pfsinit pfsisplug piacs pidma pigetcmdq pigetstat pirawdma pirawread si siacs sirawdma sirawread sirawwrite sp spgetstat sprawdma spsetpc spsetstat sptaskyield sptaskyielded vi viblack vigetcurrcontext vigetcurrframebuf vigetnextframebuf visetevent visetmode viswapbuf viswapcontext)) \
+		$(addprefix $(ULTRALIB_DIR)/build/G/libultra_rom/src/libc/,$(addsuffix .o,bcopy bzero ldiv ll string xlitob)) \
+		$(addprefix $(ULTRALIB_DIR)/build/G/libultra_rom/src/gu/,$(addsuffix .o,libm_vals sinf sqrtf)) \
+		$(addprefix $(ULTRALIB_DIR)/build/G/libultra_rom/src/os/,$(addsuffix .o,createmesgqueue destroythread getcount getsr getthreadpri gettime interrupt invaldcache invalicache jammesg maptlb probetlb recvmesg sendmesg setcompare seteventmesg setfpccsr sethwinterrupt setintmask setsr setthreadpri settimer startthread stopthread thread timerintr unmaptlb virtualtophysical writebackdcache writebackdcacheall)) \
+		$(addprefix $(ULTRALIB_DIR)/build/G/libultra_rom/src/vimodes/,$(addsuffix .o,vimodepallan1 vimodempallan1 vimodentsclan1)) \
+		"$(PROFILE_LIB_DIR_us)/libultra-members/initialize.o"
+	rm -f "$(PROFILE_LIB_GD_us)"
+	$(AR) crs "$(PROFILE_LIB_GD_us)" \
+		$(addprefix $(ULTRALIB_DIR)/build/G/libultra_d/src/audio/,$(addsuffix .o,cents2ratio cspgetstate cspgettempo))
+	@mkdir -p "$(PROFILE_LIB_DIR_us)/libultrare-members"
 	python3 scripts/prepare_main_library_object.py \
 		lib/libultrare/build/libultrare/audio/n_reverb.o \
 		"$(PROFILE_LIB_DIR_us)/libultrare-members/n_reverb.o" \
@@ -346,13 +342,10 @@ profile-libs:
 		lib/libultrare/build/libultrare/audio/n_resample2.o \
 		lib/libultrare/build/libultrare/libc/xldtob.o \
 		$(addprefix lib/libultrare/build/libultra/os/,$(addsuffix .o,exceptasm_data syncputchars_data)) \
-		$(addprefix lib/libultrare/build/libultrare/io/,$(addsuffix .o,contramread contramwrite contreaddata controller epirawdma leodiskinit leointerrupt pfsinit pfsisplug vi vimodepallan1)) \
-		$(addprefix lib/libultrare/build/libultrare/audio/,$(addsuffix .o,n_synaddplayer n_synsetpriority n_cspplay n_cspstop n_synstopvoice n_synfreevoice n_synsetvol n_synsetpitch n_cspsetpan n_cspsetseq n_cspsetvol n_syndelete n_sl n_cspsendmidi n_synallocfx n_synfx n_synfilter11 n_synfilter12 n_synfilter13 n_synsetpan n_synstartvoiceparam n_event n_synallocvoice n_cseqnextdelta)) \
-		lib/libultrare/build/libultrare/os/destroythread.o \
-		"$(PROFILE_LIB_DIR_us)/libultrare-members/initialize.o"
+		$(addprefix lib/libultrare/build/libultrare/audio/,$(addsuffix .o,n_synaddplayer n_synsetpriority n_cspplay n_cspstop n_synstopvoice n_synfreevoice n_synsetvol n_synsetpitch n_cspsetpan n_cspsetseq n_cspsetvol n_syndelete n_sl n_cspsendmidi n_synallocfx n_synfx n_synfilter11 n_synfilter12 n_synfilter13 n_synsetpan n_synstartvoiceparam n_event n_synallocvoice n_cseqnextdelta))
 
 game-libs:
-	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=I ULTRALIB_TARGET=libultra_rom
+	$(MAKE) --no-print-directory libultra ULTRALIB_VERSION=G ULTRALIB_TARGET=libultra_rom
 	$(MAKE) --no-print-directory libultrare
 	$(MAKE) --no-print-directory "$(GAME_LIB)" "$(GAME_RARE_LIB)"
 

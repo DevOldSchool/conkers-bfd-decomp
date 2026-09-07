@@ -90,7 +90,7 @@ SECTIONS
      */
     .sdk_random_data 0x80091970 (NOLOAD) :
     {
-        build/game-libs/us/libultra_2_0I.a:random.o(.data);
+        build/game-libs/us/libultra_2_0G.a:random.o(.data);
     }
     ASSERT(SIZEOF(.sdk_random_data) == 0x10, "unexpected SDK random data size")
 
@@ -137,7 +137,7 @@ SECTIONS
      */
     .sdk_pfs_bss 0x800429D0 (NOLOAD) :
     {
-        build/game-libs/us/libultrare.a:pfsisplug.o(.bss);
+        build/game-libs/us/libultra_2_0G.a:pfsisplug.o(.bss);
     }
     ASSERT(SIZEOF(.sdk_pfs_bss) == 0x40, "unexpected SDK PIF RAM size")
 
@@ -146,12 +146,12 @@ SECTIONS
      */
     .sdk_controller_data 0x8002BE10 (NOLOAD) :
     {
-        build/game-libs/us/libultrare.a:controller.o(.data);
+        build/game-libs/us/libultra_2_0G.a:controller.o(.data);
     }
     ASSERT(SIZEOF(.sdk_controller_data) == 0x10, "unexpected SDK controller data size")
     .sdk_controller_bss 0x80042A10 (NOLOAD) :
     {
-        build/game-libs/us/libultrare.a:controller.o(.bss);
+        build/game-libs/us/libultra_2_0G.a:controller.o(.bss);
     }
     ASSERT(SIZEOF(.sdk_controller_bss) == 0x90, "unexpected SDK controller BSS size")
 }

@@ -143,6 +143,12 @@ variant is restored to source and immediately sent through `finish`.
 When `automate` applies this search to deferred work, a strictly lower nonzero
 score replaces the disabled candidate and inventory score transactionally;
 equal or worse results preserve the existing source block.
+The permutation search writes each improved `best.c` immediately. If the
+subprocess is killed with exit 137/SIGKILL, `automate` restores or preserves
+project source, records the interrupted candidate, and advances rather than
+terminating an `--all` traversal. With `--defer-best`, a completed positive
+best score can still be preserved before advancing; if no permutation finished,
+the previously measured initial C candidate is preserved instead.
 
 If an older focused match is invalidated by mixed-object layout evidence, do
 not edit progress JSON. Reopen it transactionally:

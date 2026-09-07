@@ -119,13 +119,13 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn("MODERN_LD=1", makefile)
         self.assertIn("run_in_container_libultra make profile-libs PROFILE=us", script)
-        self.assertIn("PROFILE_LIB_L_us", makefile)
-        self.assertIn("PROFILE_LIB_LD_us", makefile)
-        self.assertIn("PROFILE_LIB_I_us", makefile)
+        self.assertIn("PROFILE_LIB_G_us", makefile)
+        self.assertIn("PROFILE_LIB_GD_us", makefile)
         self.assertIn("PROFILE_LIB_RARE_us", makefile)
         self.assertIn("--whole-archive", makefile)
         self.assertIn("$(MAKE) --no-print-directory libultrare", makefile)
-        self.assertIn("ULTRALIB_TARGET=libultra_d", makefile)
+        self.assertIn("TARGET=libultra_d", makefile)
+        self.assertIn("build/G/libultra_d/src/audio/", makefile)
         for forced_symbol in (
             "_bzero",
             "osInvalICache",
@@ -161,7 +161,7 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn('libultra_version=L', libultra_case)
         self.assertIn('"--version"', libultra_case)
-        self.assertIn('I|J|K|L)', libultra_case)
+        self.assertIn('G|I|J|K|L)', libultra_case)
         self.assertIn('ULTRALIB_VERSION="$libultra_version"', libultra_case)
 
     def test_library_audit_has_a_bounded_supported_command(self) -> None:
@@ -246,6 +246,13 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("permute <work-item-id> [--budget N]", script)
         self.assertIn("automate [--limit N | --all]", script)
         self.assertIn("reopen-match <work-item-id> --reason <text>", script)
+
+        permute_case = script.split("    permute)", 1)[1].split("        ;;", 1)[0]
+        self.assertIn('apply-permutation "$permute_symbol"', permute_case)
+        self.assertIn('"$repo_root/conker" finish "$permute_symbol"', permute_case)
+        self.assertLess(
+            permute_case.index("apply-permutation"), permute_case.index("finish")
+        )
 
     def test_unified_automation_uses_public_authoritative_gates(self) -> None:
         dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")

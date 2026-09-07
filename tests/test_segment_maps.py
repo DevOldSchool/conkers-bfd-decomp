@@ -39,6 +39,18 @@ def segment_subsegments(path: Path, name: str) -> list[tuple[int, str, str | Non
 
 
 class SegmentMapTests(unittest.TestCase):
+    def test_us_stock_libultra_mappings_use_2_0g(self) -> None:
+        main_map = (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
+        game_map = (ROOT / "config/game/us.yaml").read_text(encoding="utf-8")
+
+        for old_version in ("I", "L"):
+            self.assertNotIn(f"libultra_2_0{old_version}", main_map)
+            self.assertNotIn(f"libultra_2_0{old_version}", game_map)
+        self.assertEqual(104, main_map.count("libultra_2_0G,"))
+        self.assertEqual(4, main_map.count("libultra_2_0G_d,"))
+        self.assertEqual(22, game_map.count("libultra_2_0G,"))
+        self.assertEqual(16, game_map.count("libultrare,"))
+
     def test_main_initialized_sections_follow_linker_group_order(self) -> None:
         profile = yaml.safe_load((ROOT / "config/profiles/us.yaml").read_text())
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
@@ -142,19 +154,19 @@ class SegmentMapTests(unittest.TestCase):
             0x273D0: ("probetlb", "libultra/os/probetlb"),
         }
         for offset, (object_name, reference_name) in linked_objects.items():
-            self.assertEqual(("lib", f"libultra_2_0L, {object_name}, .text"), working[offset])
+            self.assertEqual(("lib", f"libultra_2_0G, {object_name}, .text"), working[offset])
             self.assertEqual(("asm", reference_name), reference[offset])
 
         linked_sections = {
-            0x2BD30: "libultra_2_0L, xlitob, .data",
-            0x2BD60: "libultra_2_0L, piacs, .data",
-            0x2BE20: "libultra_2_0L, siacs, .data",
-            0x2BDF0: "libultra_2_0L, thread, .data",
-            0x2BE80: "libultra_2_0L, vimodempallan1, .data",
-            0x2BED0: "libultra_2_0L, vimodentsclan1, .data",
-            0x2C850: "libultra_2_0L, setintmask, .rodata",
-            0x2C8D0: "libultra_2_0L, sinf, .rodata",
-            0x2C920: "libultra_2_0L, libm_vals, .rodata",
+            0x2BD30: "libultra_2_0G, xlitob, .data",
+            0x2BD60: "libultra_2_0G, piacs, .data",
+            0x2BE20: "libultra_2_0G, siacs, .data",
+            0x2BDF0: "libultra_2_0G, thread, .data",
+            0x2BE80: "libultra_2_0G, vimodempallan1, .data",
+            0x2BED0: "libultra_2_0G, vimodentsclan1, .data",
+            0x2C850: "libultra_2_0G, setintmask, .rodata",
+            0x2C8D0: "libultra_2_0G, sinf, .rodata",
+            0x2C920: "libultra_2_0G, libm_vals, .rodata",
         }
         for offset, section in linked_sections.items():
             self.assertEqual(("lib", section), working[offset])
@@ -167,18 +179,25 @@ class SegmentMapTests(unittest.TestCase):
             for entry in main["subsegments"]
             if isinstance(entry, dict)
             and entry.get("type") == "lib"
-            and entry.get("name") == "libultra_2_0L"
+            and entry.get("name") == "libultra_2_0G"
             and entry.get("section") == ".bss"
         ]
         self.assertEqual(
             [
+                (0x800428E0, "initialize"),
                 (0x800428F0, "piacs"),
+                (0x80042910, "seteventmesg"),
+                (0x80042990, "timerintr"),
+                (0x800429D0, "pfsisplug"),
+                (0x80042A10, "controller"),
                 (0x80042AA0, "siacs"),
+                (0x80042AC0, "leointerrupt"),
+                (0x80043AC0, "leodiskinit"),
             ],
             [(entry["vram"], entry["object"]) for entry in linked_bss],
         )
 
-    def test_us_2_0i_objects_link_from_archive_and_keep_raw_reference(self) -> None:
+    def test_us_2_0g_objects_link_from_archive_and_keep_raw_reference(self) -> None:
         expected = {
             0x22DC0: "libultra/os/interrupt",
             0x22EC0: "libultra/libc/string",
@@ -227,7 +246,7 @@ class SegmentMapTests(unittest.TestCase):
         for offset, name in expected.items():
             object_name = name.rsplit("/", 1)[1]
             self.assertEqual(
-                ("lib", f"libultra_2_0I, {object_name}, .text"), working[offset]
+                ("lib", f"libultra_2_0G, {object_name}, .text"), working[offset]
             )
             self.assertEqual(("asm", name), reference[offset])
         self.assertEqual(("lib", "librsp, rspboot, .text"), working[0x290D0])
@@ -236,7 +255,7 @@ class SegmentMapTests(unittest.TestCase):
         self.assertNotIn(0x23060, reference)
 
         self.assertEqual(
-            ("lib", "libultra_2_0I, timerintr, .data"), working[0x2BD70]
+            ("lib", "libultra_2_0G, timerintr, .data"), working[0x2BD70]
         )
         profile = yaml.safe_load(
             (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
@@ -247,8 +266,8 @@ class SegmentMapTests(unittest.TestCase):
             for entry in main["subsegments"]
             if isinstance(entry, dict) and entry.get("type") == "lib" and entry.get("section") == ".bss"
         }
-        self.assertEqual(("libultra_2_0I", "seteventmesg"), linked_bss[0x80042910])
-        self.assertEqual(("libultra_2_0I", "timerintr"), linked_bss[0x80042990])
+        self.assertEqual(("libultra_2_0G", "seteventmesg"), linked_bss[0x80042910])
+        self.assertEqual(("libultra_2_0G", "timerintr"), linked_bss[0x80042990])
 
     def test_us_debug_audio_objects_link_from_archive_and_keep_raw_reference(self) -> None:
         working = {
@@ -270,13 +289,13 @@ class SegmentMapTests(unittest.TestCase):
         }
         for offset, object_name in linked_text.items():
             self.assertEqual(
-                ("lib", f"libultra_2_0L_d, {object_name}, .text"),
+                ("lib", f"libultra_2_0G_d, {object_name}, .text"),
                 working[offset],
             )
             self.assertEqual(("asm", None), reference[offset])
 
         self.assertEqual(
-            ("lib", "libultra_2_0L_d, cents2ratio, .rodata"),
+            ("lib", "libultra_2_0G_d, cents2ratio, .rodata"),
             working[0x2C760],
         )
         self.assertNotIn(0x2C760, reference)
@@ -287,7 +306,7 @@ class SegmentMapTests(unittest.TestCase):
         main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
         self.assertIn([0x2C770, "lib", "libultrare", "n_drvrNew", ".rodata"], main["subsegments"])
 
-    def test_us_libultrare_objects_link_from_archive_and_keep_raw_reference(self) -> None:
+    def test_us_reclassified_g_objects_keep_raw_reference(self) -> None:
         expected = {
             0x22790: "libultrare/os/initialize",
             0x23930: "libultrare/io/epirawdma",
@@ -316,17 +335,17 @@ class SegmentMapTests(unittest.TestCase):
         for offset, name in expected.items():
             object_name = name.rsplit("/", 1)[1]
             self.assertEqual(
-                ("lib", f"libultrare, {object_name}, .text"), working[offset]
+                ("lib", f"libultra_2_0G, {object_name}, .text"), working[offset]
             )
             self.assertEqual(("asm", name), reference[offset])
 
-        self.assertEqual(("lib", "libultrare, vi, .text"), working[0x242B0])
+        self.assertEqual(("lib", "libultra_2_0G, vi, .text"), working[0x242B0])
         self.assertEqual(("asm", None), reference[0x242B0])
-        self.assertEqual(("lib", "libultrare, initialize, .data"), working[0x2BD10])
-        self.assertEqual(("lib", "libultrare, vi, .data"), working[0x2BD80])
-        self.assertEqual(("lib", "libultrare, controller, .data"), working[0x2BE10])
+        self.assertEqual(("lib", "libultra_2_0G, initialize, .data"), working[0x2BD10])
+        self.assertEqual(("lib", "libultra_2_0G, vi, .data"), working[0x2BD80])
+        self.assertEqual(("lib", "libultra_2_0G, controller, .data"), working[0x2BE10])
         self.assertEqual(
-            ("lib", "libultrare, vimodepallan1, .data"), working[0x2BE30]
+            ("lib", "libultra_2_0G, vimodepallan1, .data"), working[0x2BE30]
         )
         self.assertEqual(
             ("lib", "libultrare, xprintf, .data"), working[0x2AAF0]
@@ -366,13 +385,13 @@ class SegmentMapTests(unittest.TestCase):
             for entry in main["subsegments"]
             if isinstance(entry, dict) and entry.get("type") == "lib" and entry.get("section") == ".bss"
         }
-        self.assertEqual(("libultrare", "initialize"), linked_bss[0x800428E0])
+        self.assertEqual(("libultra_2_0G", "initialize"), linked_bss[0x800428E0])
         self.assertEqual(("libultrare", "n_csplayer"), linked_bss[0x80042810])
         self.assertIn({"type": "bss", "name": 42850, "vram": 0x80042850}, main["subsegments"])
-        self.assertEqual(("libultrare", "pfsisplug"), linked_bss[0x800429D0])
-        self.assertEqual(("libultrare", "controller"), linked_bss[0x80042A10])
-        self.assertEqual(("libultrare", "leointerrupt"), linked_bss[0x80042AC0])
-        self.assertEqual(("libultrare", "leodiskinit"), linked_bss[0x80043AC0])
+        self.assertEqual(("libultra_2_0G", "pfsisplug"), linked_bss[0x800429D0])
+        self.assertEqual(("libultra_2_0G", "controller"), linked_bss[0x80042A10])
+        self.assertEqual(("libultra_2_0G", "leointerrupt"), linked_bss[0x80042AC0])
+        self.assertEqual(("libultra_2_0G", "leodiskinit"), linked_bss[0x80043AC0])
 
     def test_conker_audio_library_sections_preserve_raw_reference(self) -> None:
         entries = segment_subsegments(ROOT / "config/profiles/us.yaml", "main")
@@ -486,19 +505,19 @@ class SegmentMapTests(unittest.TestCase):
             (0x48190, 0x48360, "libultrare", "rotate"),
             (0x4A2B0, 0x4A400, "libultrare", "expf"),
             (0x4A620, 0x4A730, "libultrare", "logf"),
-            (0x1EF040, 0x1EF080, "libultra_2_0I", "piread"),
-            (0x1EF080, 0x1EF090, "libultra_2_0I", "sqrtf"),
-            (0x1EF090, 0x1EF450, "libultrare", "controller"),
-            (0x1EF450, 0x1EF610, "libultrare", "pfsinit"),
-            (0x1EFAA0, 0x1EFD00, "libultrare", "contreaddata"),
-            (0x1EFD00, 0x1EFF70, "libultrare", "mtxutil"),
-            (0x1F0140, 0x1F0350, "libultra_2_0I", "mtxcatf"),
+            (0x1EF040, 0x1EF080, "libultra_2_0G", "piread"),
+            (0x1EF080, 0x1EF090, "libultra_2_0G", "sqrtf"),
+            (0x1EF090, 0x1EF450, "libultra_2_0G", "controller"),
+            (0x1EF450, 0x1EF610, "libultra_2_0G", "pfsinit"),
+            (0x1EFAA0, 0x1EFD00, "libultra_2_0G", "contreaddata"),
+            (0x1EFD00, 0x1EFF70, "libultra_2_0G", "mtxutil"),
+            (0x1F0140, 0x1F0350, "libultra_2_0G", "mtxcatf"),
             (0x1F0350, 0x1F0410, "libultrare", "siacs_game"),
-            (0x1F0410, 0x1F04C0, "libultra_2_0I", "sirawdma"),
-            (0x1F1D10, 0x1F2080, "libultrare", "pfsisplug"),
-            (0x1F2080, 0x1F2430, "libultrare", "contramread"),
-            (0x1F2430, 0x1F27E0, "libultrare", "contramwrite"),
-            (0x1F27E0, 0x1F2960, "libultra_2_0I", "crc"),
+            (0x1F0410, 0x1F04C0, "libultra_2_0G", "sirawdma"),
+            (0x1F1D10, 0x1F2080, "libultra_2_0G", "pfsisplug"),
+            (0x1F2080, 0x1F2430, "libultra_2_0G", "contramread"),
+            (0x1F2430, 0x1F27E0, "libultra_2_0G", "contramwrite"),
+            (0x1F27E0, 0x1F2960, "libultra_2_0G", "crc"),
         ):
             with self.subTest(member=member):
                 self.assertEqual((end, "lib", f"{archive}, {member}, .text"), ranges[start])

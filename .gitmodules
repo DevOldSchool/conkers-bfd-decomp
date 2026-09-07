@@ -1,3 +1,4 @@
 [submodule "lib/ultralib"]
 	path = lib/ultralib
-	url = https://github.com/decompals/ultralib.git
+	url = https://github.com/DevOldSchool/ultralib.git
+	branch = codex/libultra-2.0g

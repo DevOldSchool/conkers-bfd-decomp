@@ -156,6 +156,13 @@ only after finding `CURRENT (0)`. When unified automation finds a strictly
 better nonzero permutation for an already deferred function, it replaces the
 canonical disabled candidate and its recorded score transactionally; an equal
 or worse result leaves the existing block untouched.
+If a permutation subprocess is externally killed (exit 137/SIGKILL), unified
+automation restores or preserves the candidate, records the outcome in its
+coverage report, and continues with the next function instead of aborting the
+complete scan. Any best score completed before the kill is written
+incrementally and may be deferred when `--defer-best` is active. If the kill
+occurs before the first permutation completes, the already measured initial C
+candidate is deferred instead.
 
 For quick local experiments, `--skip-final-build` omits only that concluding
 clean build and prints the exact `verify-batch` command that remains required

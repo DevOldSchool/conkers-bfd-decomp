@@ -92,14 +92,27 @@ counterpart and receives no mapping credit.
 ## Current US integration
 
 `lib/ultralib` is pinned to commit
-`e24c836796df4bf520ff8b11a5c9d2cea3a66cbd` of decompals/ultralib. The US
-profile links three trimmed archives built from that checkout:
+`5739036361b6ec5f606b5cdd077d684673339361` on DevOldSchool/ultralib's
+`codex/libultra-2.0g` branch. That fork adds 2.0G as a stock SDK research
+target. Every stock libultra section currently mapped in the US profile matches
+the corresponding source-derived 2.0G object at its existing boundary, and the
+resulting main ROM passes the complete byte-for-byte comparison. The US profile
+therefore links two trimmed 2.0G archives built from that checkout:
 
-- `libultra_2_0L`: 40 unique objects and 48 mapped sections.
-- `libultra_2_0I`: 32 unique objects and 35 mapped sections.
-- `libultra_2_0L_d`: three unique audio objects and four mapped sections.
+- `libultra_2_0G`: 85 unique objects and 104 mapped sections.
+- `libultra_2_0G_d`: three unique audio objects and four mapped sections.
 
-The 2.0L survey covers 6,592 text bytes; see
+Only the three mapped debug audio objects are built for `libultra_2_0G_d`.
+The upstream full G debug target currently reaches unrelated Voice SDK sources
+whose later-version response-code declaration is unavailable in the recovered
+G headers; that does not affect these three archive members. All 22 stock game
+objects are byte-identical to their mapped game ranges. After two
+stale focused matches were reopened because mixed-unit compilation changed
+their register allocation, the complete G-linked game overlay also passes its
+byte-for-byte comparison.
+
+The earlier I/L surveys established the object boundaries that the G remap now
+preserves. The 2.0L survey covers 6,592 text bytes; see
 [`evidence/libultra_us_2_0L_object_bounds.md`](evidence/libultra_us_2_0L_object_bounds.md).
 The 2.0I survey covers `0x2DF0` (11,760) text bytes and 49 functions; see
 [`evidence/libultra_us_2_0I_additional_object_bounds.md`](evidence/libultra_us_2_0I_additional_object_bounds.md).
@@ -108,13 +121,18 @@ The exhaustive I-L ROM/debug survey adds 272 standard audio text bytes; see
 Those ranges are archive-owned and therefore no longer appear as generic
 `src/libultra` source units or function work items.
 
-`lib/libultrare` started with a bounded snapshot of eleven Rare-modified objects
-from n64decomp/007 revision `c4356466796c697dfd298010b9bed261f9ed8c6a`
-plus two Conker-specific VI objects and five initialized-data reconstruction
-objects. Every complete object MD5 is checked before the archive is staged.
-That initial snapshot contributes 26 mapped sections, covers `0x2230` (8,752) text
-bytes, and owns 23 member functions. See
+`lib/libultrare` started with a bounded snapshot of eleven objects then
+classified as Rare-modified, from n64decomp/007 revision
+`c4356466796c697dfd298010b9bed261f9ed8c6a`, plus two VI objects then classified
+as Conker-specific and five initialized-data reconstruction objects. Every
+complete object MD5 is checked before the archive is staged. That initial
+snapshot contributed 26 mapped sections, covered `0x2230` (8,752) text bytes,
+and owned 23 member functions. See
 [`evidence/libultrare_us_additional_object_bounds.md`](evidence/libultrare_us_additional_object_bounds.md).
+The later 2.0G reconstruction proved that its thirteen main SDK objects are
+stock G output rather than Rare modifications. Those objects now link from
+`libultra_2_0G`; the staged Rare archive retains only the genuinely modified
+and Conker-specific members.
 The VI-family and complete RSP blob/overlay boundaries are detailed in
 [`evidence/libultra_us_vi_rsp_boundaries.md`](evidence/libultra_us_vi_rsp_boundaries.md).
 The five standard initialized-data ranges are detailed in
@@ -178,12 +196,17 @@ scope conclusion are recorded in
 
 ## US game-overlay libraries
 
-The game map links 15 complete stock 2.0I objects (9,024 text bytes) and 20
-Rare/Conker objects (38,768 text bytes). All 35 text mappings retain their raw
+The game map links 22 complete stock 2.0G objects (14,432 text bytes) and 16
+Rare/Conker objects (34,288 text bytes). All 38 text mappings retain their raw
 comparison counterparts. Complete game data/rodata/BSS bindings are recorded
 in `config/game/us-sdk.ld`, including separate engine and tail helper targets.
-The complete code payload remains byte-identical, and existing compressed
-game-data allocations are preserved.
+The previously reviewed I-based map produced a byte-identical complete code
+payload. The original 15 stock mappings are byte-identical between I and G.
+Seven more objects previously attributed to the Rare snapshot match G directly,
+and the G-linked integrated payload now independently matches the
+2,072,880-byte reference with SHA-1
+`90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5`. Existing compressed game-data
+allocations remain unchanged.
 
 The boundary evidence is collected in:
 
@@ -194,6 +217,7 @@ The boundary evidence is collected in:
 - [`game_sdk_rotation_variant.md`](evidence/game_sdk_rotation_variant.md)
 - [`game_sdk_trig_perspective_variants.md`](evidence/game_sdk_trig_perspective_variants.md)
 - [`game_sdk_si_access_variant.md`](evidence/game_sdk_si_access_variant.md)
+- [`libultra_2_0G_rare_reclassification.md`](evidence/libultra_2_0G_rare_reclassification.md)
 
 The main and game maps together account for 146,304 exact CPU library text bytes.
 This counts each placement once; it is separate from registered handwritten C
@@ -237,6 +261,7 @@ Build complete pinned stock archives for SDK-version research with:
 
 ```sh
 ./conker libultra
+./conker libultra --version G
 ./conker libultra --version I
 ./conker libultra --version J
 ./conker libultra --version K
