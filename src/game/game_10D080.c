@@ -53,7 +53,7 @@ extern f32 D_800A0FB0;
 void func_150DFDA4(void *arg0) {
     void *temp_v0;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x1D4) + 0x40;
+    temp_v0 = (void *)(*(s32 *)((u8 *)arg0 + 0x1D4) + 0x40);
     *(f32 *)((u8 *)temp_v0 + 0x30) = (f32) *(f32 *)((u8 *)arg0 + 0x14);
     *(f32 *)((u8 *)temp_v0 + 0x34) = (f32) D_800A0FB0;
     *(f32 *)((u8 *)temp_v0 + 0x38) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);

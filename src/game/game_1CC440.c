@@ -36,7 +36,7 @@
 void func_151A0928(void *arg0) {
     void *temp_v0;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x28) + 0x58;
+    temp_v0 = (void *)(*(s32 *)((u8 *)arg0 + 0x28) + 0x58);
     if (*(u8 *)((u8 *)arg0 + 0x2C) == 6) {
         *(s32 *)((u8 *)temp_v0 + 4) = 0;
         return;

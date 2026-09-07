@@ -9021,7 +9021,7 @@
         "us": {
           "end": "0xB53D0",
           "start": "0xB3DD0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E1280.c"

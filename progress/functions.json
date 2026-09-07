@@ -19031,8 +19031,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 40,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15072E98",
           "vram": "0x15072E98"
         }
@@ -47869,8 +47874,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 82,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (82)",
+        "current_score": 74,
+        "reason": "Unified deferred permutation improved CURRENT (82) to CURRENT (74) with a 250-variant budget",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -48144,8 +48149,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 40,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B5060",
           "vram": "0x150B5060"
         }
@@ -50921,7 +50931,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "reason": "Preserved CURRENT (10) candidate with explicit integer-backed address casts to avoid IDO pointer/integer warnings",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -64052,6 +64062,12 @@
       "symbol": "func_151028AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 80,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (80)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

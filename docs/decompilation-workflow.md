@@ -170,8 +170,10 @@ candidates:
 
 The scheduler alternates between size-ordered raw work and score-ordered
 deferred work. Raw starters use evidence-backed declaration recovery, aligned
-scalar field cleanup, and bounded source-shape rewrites. Deferred candidates
-must diagnose as pure register-allocation differences before permutation. The
+scalar or pointer field cleanup with expression bases and signed offsets,
+explicit integer-backed address casts for IDO, and bounded source-shape
+rewrites. Deferred candidates must diagnose as pure register-allocation
+differences before permutation. The
 command restores unsuccessful source attempts and retains only `CURRENT (0)`
 results through `finish`. With explicit authorization, `--defer-best` preserves
 the best compiling nonzero raw candidate through the ordinary transactional
@@ -196,7 +198,10 @@ each attempt and classifies every inventory entry, including already matched
 and explicitly excluded functions. A complete traversal sets `full_scan` and
 `scan_complete` to true and leaves no `not_attempted` entries. Do not combine
 `--all` with `--max-attempts`. An interrupted run resumes completed outcomes
-from the report; add `--restart` when changed automation should reconsider them.
+from the report. Pending exact matches are reconciled against the current
+inventory both on resume and before the final batch gate, so functions reopened
+or deferred by later mixed-source integration are not sent to `verify-batch`.
+Add `--restart` when changed automation should reconsider prior outcomes.
 
 ## Game reference assembly and work registration
 

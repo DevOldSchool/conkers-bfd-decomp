@@ -23,10 +23,9 @@ extern void *D_80088A3C;
 extern void *D_80088A40;
 extern f32 D_800A130C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6E34 CURRENT (82) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6E34 CURRENT (74) */
 void func_150E6E34(void *arg0) {
     void *sp1C;
-    f32 temp_fa1;
     f32 temp_fv0;
     f32 temp_fv1;
     void *var_v0;
@@ -43,8 +42,10 @@ void func_150E6E34(void *arg0) {
     {
         f32 temp_fa0 = *(f32 *)((u8 *)var_v0 + 4);
     *(f32 *)((u8 *)arg0 + 4) = (f32) (((*(f32 *)((u8 *)var_v0 + 0x10) - temp_fa0) * temp_fv0) + temp_fa0);
-    temp_fa1 = *(f32 *)((u8 *)var_v0 + 8);
+    {
+        f32 temp_fa1 = *(f32 *)((u8 *)var_v0 + 8);
     *(f32 *)((u8 *)arg0 + 8) = (f32) (((*(f32 *)((u8 *)var_v0 + 0x14) - temp_fa1) * temp_fv0) + temp_fa1);
+    }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E6E34 */

@@ -125,9 +125,11 @@ pre-attempt file when it cannot safely retain a result:
 ```
 
 It resolves placeholder declarations only from unique compatible active
-declarations or definitions under `src/` and `include/`, sanitizes naturally
-aligned scalar fields, searches bounded semantics-preserving source forms, and
-diagnoses deferred candidates before permuting pure register-only differences.
+declarations or definitions under `src/` and `include/`, sanitizes scalar and
+pointer fields with expression bases or signed offsets, makes integer-backed
+address assignments explicit for IDO, searches bounded semantics-preserving
+source forms, and diagnoses deferred candidates before permuting pure
+register-only differences.
 Raw and deferred candidates are interleaved. Exact matches pass through
 `finish`; the retained group receives one final clean `verify-batch`.
 
@@ -182,8 +184,12 @@ so a completed run proves every inventory entry was considered even when some
 functions still require manual work. An interrupted run has `scan_complete:
 false`; rerunning is safe because exact matches and deferred candidates are
 selected from their current inventory states and completed attempts are resumed
-from the report. Add `--restart` to deliberately reconsider prior outcomes
-after changing the automation. Do not combine `--all` with `--max-attempts`.
+from the report. Before resuming or running the final batch gate, automation
+reconciles its pending match list with the authoritative inventory. A function
+reopened or deferred by a later mixed-source integration is dropped from that
+batch instead of being passed to `verify-batch`. Add `--restart` to deliberately
+reconsider prior outcomes after changing the automation. Do not combine `--all`
+with `--max-attempts`.
 
 `finish` also compiles the complete reviewed mixed source object and verifies
 every member offset plus the aligned object extent before recording a match.

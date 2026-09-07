@@ -14,12 +14,27 @@ DEFINITION = re.compile(
     r"^[A-Za-z_][^;\n{}]*\b(?P<symbol>[A-Za-z_][A-Za-z0-9_]*)\([^;\n]*\)\s*\{",
     re.MULTILINE,
 )
-M2C_FIELD = re.compile(
-    r"M2C_FIELD\(\s*(?P<base>[A-Za-z_]\w*)\s*,\s*"
-    r"(?P<type>(?:s|u)(?:8|16|32)|f(?:32|64)|char|int)(?:\s*\*)?\s*,\s*"
-    r"(?P<offset>(?:0x[0-9A-Fa-f]+|\d+))\s*\)"
+M2C_FIELD_START = re.compile(r"\bM2C_FIELD\s*\(")
+FIELD_TYPE = re.compile(
+    r"^(?P<scalar>(?:s|u)(?:8|16|32)|f(?:32|64)|char|int|void)"
+    r"(?P<pointers>(?:\s*\*){0,2})$"
 )
+FIELD_OFFSET = re.compile(r"^-?(?:0x[0-9A-Fa-f]+|\d+)$")
 PLACEHOLDER = re.compile(r"\bM2C_[A-Za-z0-9_]+\b")
+VOID_POINTER_DECLARATION = re.compile(
+    r"(?m)^\s*void\s*\*\s*(?P<name>[A-Za-z_]\w*)\s*;\s*$"
+)
+POINTER_INTEGER_ASSIGNMENT = re.compile(
+    r"(?m)^(?P<indent>\s*)(?P<name>[A-Za-z_]\w*)\s*=\s*"
+    r"(?P<rhs>(?:"
+    r"\*\(\s*[su]32\s*\*\s*\)\s*"
+    r"\(\s*\(u8\s*\*\s*\)\s*[A-Za-z_]\w*\s*\+\s*"
+    r"(?:0x[0-9A-Fa-f]+|\d+)\s*\)\s*\+\s*"
+    r"(?:0x[0-9A-Fa-f]+|\d+)"
+    r"|\(\s*[A-Za-z_]\w*\s*<<\s*\d+\s*\)\s*\+\s*[A-Za-z_]\w*"
+    r"|[A-Za-z_]\w*\s*\+\s*\(\s*[A-Za-z_]\w*\s*<<\s*\d+\s*\)"
+    r"))\s*;\s*$"
+)
 SIMPLE_OPERAND = r"(?:[A-Za-z_]\w*|(?:0x[0-9A-Fa-f]+|\d+)(?:[uUlL]+)?)"
 COMMUTATIVE = re.compile(
     rf"(?P<left>{SIMPLE_OPERAND})\s*(?P<op>[|&^+*])\s*(?P<right>{SIMPLE_OPERAND})"
@@ -48,13 +63,63 @@ class PreparedCandidate:
 def sanitize_fields(definition: str) -> str:
     """Replace aligned scalar M2C_FIELD uses with explicit byte-offset accesses."""
 
-    def replace(match: re.Match[str]) -> str:
-        type_name = match.group("type")
-        base = match.group("base")
-        offset = match.group("offset")
-        return f"*({type_name} *)((u8 *){base} + {offset})"
+    def matching_parenthesis(opening: int) -> int | None:
+        depth = 0
+        for index in range(opening, len(definition)):
+            if definition[index] == "(":
+                depth += 1
+            elif definition[index] == ")":
+                depth -= 1
+                if depth == 0:
+                    return index
+        return None
 
-    return M2C_FIELD.sub(replace, definition)
+    def arguments(payload: str) -> list[str]:
+        parts: list[str] = []
+        start = 0
+        depth = 0
+        for index, character in enumerate(payload):
+            if character == "(":
+                depth += 1
+            elif character == ")":
+                depth -= 1
+            elif character == "," and depth == 0:
+                parts.append(payload[start:index].strip())
+                start = index + 1
+        parts.append(payload[start:].strip())
+        return parts
+
+    output: list[str] = []
+    cursor = 0
+    while match := M2C_FIELD_START.search(definition, cursor):
+        output.append(definition[cursor : match.start()])
+        opening = definition.find("(", match.start(), match.end())
+        closing = matching_parenthesis(opening)
+        if closing is None:
+            output.append(definition[match.start() :])
+            cursor = len(definition)
+            break
+        original = definition[match.start() : closing + 1]
+        parts = arguments(definition[opening + 1 : closing])
+        if len(parts) != 3:
+            output.append(original)
+            cursor = closing + 1
+            continue
+        base, type_text, offset = parts
+        type_match = FIELD_TYPE.fullmatch(type_text)
+        if not base or type_match is None or FIELD_OFFSET.fullmatch(offset) is None:
+            output.append(original)
+            cursor = closing + 1
+            continue
+        pointers = type_match.group("pointers")
+        if pointers:
+            cast_type = type_match.group("scalar") + pointers
+        else:
+            cast_type = type_match.group("scalar") + " *"
+        output.append(f"*({cast_type})((u8 *){base} + {offset})")
+        cursor = closing + 1
+    output.append(definition[cursor:])
+    return "".join(output)
 
 
 def sanitize_unused_parameters(definition: str) -> str:
@@ -76,6 +141,24 @@ def sanitize_unused_parameters(definition: str) -> str:
     return unknown.sub(replace, header) + definition[opening:]
 
 
+def sanitize_pointer_integer_assignments(definition: str) -> str:
+    """Make m2c's integer-backed address assignments explicit for IDO."""
+
+    pointer_names = {
+        match.group("name") for match in VOID_POINTER_DECLARATION.finditer(definition)
+    }
+
+    def replace(match: re.Match[str]) -> str:
+        if match.group("name") not in pointer_names:
+            return match.group(0)
+        return (
+            f"{match.group('indent')}{match.group('name')} = "
+            f"(void *)({match.group('rhs')});"
+        )
+
+    return POINTER_INTEGER_ASSIGNMENT.sub(replace, definition)
+
+
 def prepare_starter(
     starter: str,
     symbol: str,
@@ -89,7 +172,9 @@ def prepare_starter(
     match = definitions[0]
     prefix = starter[: match.start()]
     definition = sanitize_unused_parameters(
-        sanitize_fields(starter[match.start() :].strip())
+        sanitize_pointer_integer_assignments(
+            sanitize_fields(starter[match.start() :].strip())
+        )
     )
     if not definition.endswith("}"):
         raise CandidateError("m2c emitted content after the function definition")

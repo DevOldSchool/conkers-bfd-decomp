@@ -211,7 +211,6 @@
  * - func_15072B44
  * - func_15072DD8
  * - func_15072E38
- * - func_15072E98
  * - func_15072EC0
  * - func_15072F10
  * - func_15073078
@@ -720,7 +719,14 @@ void func_15072DA0(void) {
 void func_15072E7C(void) {
     *(s16 *)(D_800D154C + 0x10C) = (s16)D_800D1580;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15072E98.s")
+extern f32 D_800D1874;
+
+void func_15072E98(void) {
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)D_800D154C + 0x2D0);
+    *(f32 *)((u8 *)temp_v0 + 0x10) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x10) * D_800D1874);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15072EC0.s")
 void func_15072EF4(void) {
     D_800D154C[0x104] = (s8)D_800D1580;

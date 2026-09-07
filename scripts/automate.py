@@ -522,6 +522,23 @@ def write_report(
     temporary.replace(path)
 
 
+def reconcile_pending_batch(
+    pending: list[str], authoritative_entries: dict[str, AttemptResult]
+) -> tuple[list[str], list[str]]:
+    """Keep only unique pending IDs that remain matched in current inventory."""
+
+    currently_matched = {
+        symbol
+        for symbol, result in authoritative_entries.items()
+        if result.outcome == "already_matched"
+    }
+    unique = list(dict.fromkeys(pending))
+    return (
+        [symbol for symbol in unique if symbol in currently_matched],
+        [symbol for symbol in unique if symbol not in currently_matched],
+    )
+
+
 def resume_report(
     path: Path, entries: dict[str, AttemptResult]
 ) -> tuple[dict[str, AttemptResult], list[str]]:
@@ -544,7 +561,8 @@ def resume_report(
         raise automation_common.AutomationError(
             f"cannot resume incompatible coverage report {path}; use --restart"
         )
-    resumable = {"matched", "deferred", "skipped", "restored", "preserved"}
+    authoritative_entries = dict(entries)
+    resumable = {"deferred", "skipped", "restored", "preserved"}
     for saved in payload["functions"]:
         if not isinstance(saved, dict) or saved.get("outcome") not in resumable:
             continue
@@ -554,11 +572,16 @@ def resume_report(
             continue
         if saved.get("source") != current.source:
             continue
+        saved_pool = str(saved.get("pool", current.pool))
+        if saved_pool != current.pool and not (
+            saved.get("outcome") == "deferred" and current.pool == "deferred"
+        ):
+            continue
         try:
             entries[symbol] = AttemptResult(
                 symbol=symbol,
                 source=current.source,
-                pool=str(saved.get("pool", current.pool)),
+                pool=current.pool,
                 outcome=str(saved["outcome"]),
                 detail="resumed: " + str(saved.get("detail", "completed attempt")),
                 score=saved.get("score") if isinstance(saved.get("score"), int) else None,
@@ -567,12 +590,18 @@ def resume_report(
             continue
     pending = payload.get("pending_batch", [])
     if not isinstance(pending, list) or not all(
-        isinstance(symbol, str) and symbol in entries for symbol in pending
+        isinstance(symbol, str) for symbol in pending
     ):
         raise automation_common.AutomationError(
             f"cannot resume invalid pending batch in {path}; use --restart"
         )
-    return entries, list(dict.fromkeys(pending))
+    reconciled, dropped = reconcile_pending_batch(pending, authoritative_entries)
+    if dropped:
+        print(
+            "Ignored stale pending batch ID(s) that are no longer matched: "
+            + " ".join(dropped)
+        )
+    return entries, reconciled
 
 
 def main(arguments: list[str] | None = None) -> int:
@@ -611,6 +640,7 @@ def main(arguments: list[str] | None = None) -> int:
             else:
                 result = try_deferred_candidate(candidate, budget=args.rewrite_budget)
             entries[result.symbol] = result
+            matched = [symbol for symbol in matched if symbol != result.symbol]
             if result.outcome == "matched":
                 matched.append(result.symbol)
             elif result.outcome == "deferred":
@@ -625,6 +655,16 @@ def main(arguments: list[str] | None = None) -> int:
                 pending_batch=matched,
             )
         scan_complete = args.all or attempts == len(candidates)
+
+        if args.all and matched:
+            matched, dropped = reconcile_pending_batch(
+                matched, initial_report_entries()
+            )
+            if dropped:
+                print(
+                    "Dropped stale pending batch ID(s) that changed state during "
+                    "the scan: " + " ".join(dropped)
+                )
 
         if matched and args.skip_final_build:
             command = "./conker verify-batch " + " ".join(matched)
