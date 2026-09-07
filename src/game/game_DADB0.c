@@ -11,5 +11,22 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD900 CURRENT (760) */
+f32 func_150AD900(void *arg0, void *arg1) {
+    return (*(f32 *)((u8 *)arg0 + 0) * *(f32 *)((u8 *)arg1 + 0)) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4)) + (*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AD900 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DADB0/func_150AD900.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD930 CURRENT (1165) */
+f32 func_150AD930(void *arg0) {
+    f32 temp_ft0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0);
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 4);
+    temp_ft0 = *(f32 *)((u8 *)arg0 + 8);
+    return sqrtf((temp_fv0 * temp_fv0) + (temp_fv1 * temp_fv1) + (temp_ft0 * temp_ft0));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AD930 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DADB0/func_150AD930.s")

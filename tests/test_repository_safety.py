@@ -119,13 +119,13 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn("MODERN_LD=1", makefile)
         self.assertIn("run_in_container_libultra make profile-libs PROFILE=us", script)
-        self.assertIn("PROFILE_LIB_L_us", makefile)
-        self.assertIn("PROFILE_LIB_LD_us", makefile)
-        self.assertIn("PROFILE_LIB_I_us", makefile)
+        self.assertIn("PROFILE_LIB_G_us", makefile)
+        self.assertIn("PROFILE_LIB_GD_us", makefile)
         self.assertIn("PROFILE_LIB_RARE_us", makefile)
         self.assertIn("--whole-archive", makefile)
         self.assertIn("$(MAKE) --no-print-directory libultrare", makefile)
-        self.assertIn("ULTRALIB_TARGET=libultra_d", makefile)
+        self.assertIn("TARGET=libultra_d", makefile)
+        self.assertIn("build/G/libultra_d/src/audio/", makefile)
         for forced_symbol in (
             "_bzero",
             "osInvalICache",
@@ -161,7 +161,7 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn('libultra_version=L', libultra_case)
         self.assertIn('"--version"', libultra_case)
-        self.assertIn('I|J|K|L)', libultra_case)
+        self.assertIn('G|I|J|K|L)', libultra_case)
         self.assertIn('ULTRALIB_VERSION="$libultra_version"', libultra_case)
 
     def test_library_audit_has_a_bounded_supported_command(self) -> None:
@@ -218,6 +218,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertNotIn("remove_warm_container", prepare_body)
 
         self.assertIn("verify_and_record_match", finish_case)
+        self.assertIn("scripts/layout_check.py", script)
         self.assertIn('progress --check', finish_case)
         self.assertIn("core.whitespace=cr-at-eol diff --check", finish_case)
         self.assertIn("AGENT_ACTION: FIX_COMPILE", finish_case)
@@ -241,24 +242,39 @@ class RepositorySafetyTests(unittest.TestCase):
             batch_case.index('batch-plan "$@"'),
         )
 
-    def test_simple_m2c_automation_uses_public_authoritative_gates(self) -> None:
+        self.assertIn("diagnose-diff <work-item-id>", script)
+        self.assertIn("permute <work-item-id> [--budget N]", script)
+        self.assertIn("automate [--limit N | --all]", script)
+        self.assertIn("reopen-match <work-item-id> --reason <text>", script)
+
+        permute_case = script.split("    permute)", 1)[1].split("        ;;", 1)[0]
+        self.assertIn('apply-permutation "$permute_symbol"', permute_case)
+        self.assertIn('"$repo_root/conker" finish "$permute_symbol"', permute_case)
+        self.assertLess(
+            permute_case.index("apply-permutation"), permute_case.index("finish")
+        )
+
+    def test_unified_automation_uses_public_authoritative_gates(self) -> None:
         dispatch = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
-        automation_case = dispatch.split("    automate-simple)", 1)[1].split(
+        automation_case = dispatch.split("    automate)", 1)[1].split(
             "        ;;", 1
         )[0]
-        automation = (ROOT / "scripts" / "automate_simple_m2c.py").read_text(
+        automation = (ROOT / "scripts" / "automate.py").read_text(
             encoding="utf-8"
         )
         agent_guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
 
-        self.assertIn("automate-simple [--limit N] [--max-attempts N]", dispatch)
-        self.assertIn('python3 scripts/automate_simple_m2c.py "$@"', automation_case)
-        self.assertIn('"m2c", identifier', automation)
+        self.assertIn("automate [--limit N | --all]", dispatch)
+        self.assertIn('python3 scripts/automate.py "$@"', automation_case)
+        self.assertIn("generate_starter(candidate.identifier)", automation)
         self.assertIn('"finish", candidate.identifier', automation)
         self.assertIn('"verify-batch", *matched', automation)
-        self.assertIn("source_path.write_bytes(original)", automation)
-        self.assertIn("PLACEHOLDER_PATTERN", automation)
-        self.assertIn("./conker automate-simple --limit <matches>", agent_guide)
+        self.assertIn('"diagnose-diff", candidate.identifier', automation)
+        self.assertIn('"permute",', automation)
+        self.assertIn("source.write_bytes(original)", automation)
+        self.assertIn("write_report(", automation)
+        self.assertIn("reconcile_pending_batch(", automation)
+        self.assertIn("./conker automate --all --defer-best", agent_guide)
 
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")

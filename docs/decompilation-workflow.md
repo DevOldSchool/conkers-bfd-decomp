@@ -53,6 +53,15 @@ The output is a starting point, not type-correct or match evidence. Replace
 guessed declarations and placeholder types with project declarations before
 testing the candidate.
 
+The command also generates a preprocessed context from `include/types.h` and
+the work item's canonical source file, then supplies it to `mips_to_c`. Context
+and parser caches remain under ignored `build/m2c/context/` output. Keep private
+or partial structures in their owning C file; promote them to a real header only
+when recovered cross-source use requires one. This improves starter field names
+and type propagation without creating a second maintained copy of declarations.
+Sources with unsupported conditional preprocessing safely fall back to an
+untyped starter. Context-informed output is still not match evidence.
+
 ## Match one function
 
 Replace only the selected function's `GLOBAL_ASM` pragma, at the same source
@@ -62,10 +71,11 @@ position, then run the authoritative focused gate:
 ./conker finish <work-item-id>
 ```
 
-`finish` compiles the candidate once. A nonzero result prints the focused US
-diff and leaves the inventories unchanged. `CURRENT (0)` records the match,
-regenerates progress, and checks generated output and whitespace in the same
-command.
+`finish` compiles the focused candidate, then compiles its complete reviewed
+mixed source object and checks every member offset plus the aligned object
+extent. A nonzero focused result or a shifted mixed layout leaves the
+inventories unchanged. Only `CURRENT (0)` with preserved layout records the
+match, regenerates progress, and checks generated output and whitespace.
 
 The terminal action states describe the next step:
 
@@ -117,15 +127,81 @@ use the supported deferral flow after agreeing to move past it:
 source block, restores the canonical pragma, and excludes the item from
 automatic selection. `resume` restores the candidate byte-for-byte.
 
-For the narrow subset of clean candidates whose m2c bodies need no manual
-changes or generated placeholder declarations, use the conservative automation:
+Two bounded helpers reduce blind source-shaping work:
 
 ```sh
-./conker automate-simple --limit 5 --max-attempts 20
+./conker diagnose-diff <work-item-id>
+./conker permute <work-item-id> --budget 250
 ```
 
-It restores every failed candidate, retains only exact matches, and runs one
-clean batch verification for the matches it keeps.
+`diagnose-diff` works with active and preserved deferred candidates and reports
+register-only, operand/constant, control-flow, and missing/extra categories.
+`permute` searches deterministic declaration-order and first-assignment
+lifetime variants with the pinned compiler. A nonzero best result is written
+below `build/us/permute/` while project source remains untouched. An exact
+variant is restored to source and immediately sent through `finish`.
+When `automate` applies this search to deferred work, a strictly lower nonzero
+score replaces the disabled candidate and inventory score transactionally;
+equal or worse results preserve the existing source block.
+The permutation search writes each improved `best.c` immediately. If the
+subprocess is killed with exit 137/SIGKILL, `automate` restores or preserves
+project source, records the interrupted candidate, and advances rather than
+terminating an `--all` traversal. With `--defer-best`, a completed positive
+best score can still be preserved before advancing; if no permutation finished,
+the previously measured initial C candidate is preserved instead.
+
+If an older focused match is invalidated by mixed-object layout evidence, do
+not edit progress JSON. Reopen it transactionally:
+
+```sh
+./conker reopen-match <work-item-id> --reason "<layout evidence>"
+```
+
+The command preserves the old C body as a deferred candidate, restores its
+canonical `GLOBAL_ASM` pragma and TODO entry, removes invalid match evidence,
+and regenerates progress.
+
+Use the unified automation for raw m2c starters and preserved deferred
+candidates:
+
+```sh
+./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
+```
+
+The scheduler alternates between size-ordered raw work and score-ordered
+deferred work. Raw starters use evidence-backed declaration recovery, aligned
+scalar or pointer field cleanup with expression bases and signed offsets,
+explicit integer-backed address casts for IDO, and bounded source-shape
+rewrites. Deferred candidates must diagnose as pure register-allocation
+differences before permutation. The
+command restores unsuccessful source attempts and retains only `CURRENT (0)`
+results through `finish`. With explicit authorization, `--defer-best` preserves
+the best compiling nonzero raw candidate through the ordinary transactional
+`defer` path.
+
+Add `--skip-final-build` for a quick local automation experiment. This skips
+only the concluding clean `verify-batch`; each retained function still passes
+its focused diff, mixed-object layout, progress, and whitespace checks through
+`finish`. The command prints the exact batch command still required. Until it
+succeeds, the result is intentionally not commit-ready or handoff-ready.
+
+To consider every function in the active US inventory, use:
+
+```sh
+./conker automate --all --defer-best
+```
+
+Full mode has no attempt or match cap but keeps the same safety exclusions. It
+does not guess ambiguous declarations or cross source-unit integration
+transitions. `build/us/automate/all-report.json` is replaced atomically after
+each attempt and classifies every inventory entry, including already matched
+and explicitly excluded functions. A complete traversal sets `full_scan` and
+`scan_complete` to true and leaves no `not_attempted` entries. Do not combine
+`--all` with `--max-attempts`. An interrupted run resumes completed outcomes
+from the report. Pending exact matches are reconciled against the current
+inventory both on resume and before the final batch gate, so functions reopened
+or deferred by later mixed-source integration are not sent to `verify-batch`.
+Add `--restart` when changed automation should reconsider prior outcomes.
 
 ## Game reference assembly and work registration
 

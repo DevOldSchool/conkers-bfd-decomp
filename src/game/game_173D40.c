@@ -8,8 +8,6 @@
  * - func_15146890
  * - func_15146970
  * - func_15146A98
- * - func_15146BB8
- * - func_15146BD8
  * - func_15146BF8
  * - func_15146D60
  * - func_15146E84
@@ -25,8 +23,14 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146890.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146970.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146A98.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146BB8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146BD8.s")
+void func_15146BF8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+
+void func_15146BB8(s32 arg0, s32 arg1, s32 arg2) {
+    func_15146BF8(arg0, arg1, arg2, 0);
+}
+void func_15146BD8(s32 arg0, s32 arg1, s32 arg2) {
+    func_15146BF8(arg0, arg1, arg2, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146BF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146D60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15146E84.s")

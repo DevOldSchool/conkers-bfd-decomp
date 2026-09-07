@@ -14,8 +14,6 @@
  * - func_151A9FC8
  * - func_151AA09C
  * - func_151AA17C
- * - func_151AA1D0
- * - func_151AA1F0
  * - func_151AA210
  * - func_151AA264
  * - func_151AA30C
@@ -26,7 +24,6 @@
  * - func_151AAABC
  * - func_151AAB50
  * - func_151AAB78
- * - func_151AABA0
  * - func_151AABC4
  * - func_151AADBC
  * - func_151AADF8
@@ -40,7 +37,6 @@
  * - func_151AB7D8
  * - func_151AB828
  * - func_151AB854
- * - func_151AB920
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -57,8 +53,12 @@ void func_151AA170(s32 arg0) {
 
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA17C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA1D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA1F0.s")
+void func_151AA1D0(void) {
+    func_1519F400();
+}
+void func_151AA1F0(void) {
+    func_1519F400();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA210.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA264.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA30C.s")
@@ -69,7 +69,16 @@ void func_151AA170(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAABC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAB50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AAB78.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AABA0.s")
+s32 func_151AABA0(void *arg0) {
+    s32 var_v1;
+
+    var_v1 = 1;
+    if (*(u8 *)((u8 *)arg0 + 0x84) == 0) {
+        var_v1 = 0;
+    }
+    *(u8 *)((u8 *)arg0 + 0x84) = 0U;
+    return var_v1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AABC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AADBC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AADF8.s")
@@ -83,4 +92,5 @@ void func_151AA170(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB7D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB828.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB854.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB920.s")
+void func_151AB920(s32 arg0, s32 arg1) {
+}

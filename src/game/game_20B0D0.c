@@ -6,20 +6,32 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151DDC20
- * - func_151DE6CC
  * - func_151DE6D4
  * - func_151DE7D4
- * - func_151DE81C
  * - func_151DE85C
- * - func_151DE8E8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DDC20.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE6CC.s")
+void func_151DE6CC(void) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE6D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE7D4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE81C.s")
+void func_1500764C(void);
+extern s8 D_8008FD74;
+extern s8 D_8008FE30;
+extern s8 D_800E0B96;
+
+void func_151DE81C(void) {
+    D_8008FD74 = 4;
+    D_800E0B96 = 0;
+    if (D_8008FE30 == 0) {
+        func_1500764C();
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE85C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE8E8.s")
+void func_151DE8E8(void) {
+
+}

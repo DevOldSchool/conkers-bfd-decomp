@@ -215,6 +215,24 @@ s32 func_15163CD0(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164208.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516429C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516434C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151643A8 CURRENT (759) */
+void func_151643A8(s32 arg0, s32 arg1, s32 arg2) {
+    s32 temp_t6;
+    void *temp_v0;
+    void *temp_v0_2;
+
+    temp_t6 = arg2 & 0xFF;
+    if (temp_t6 == 0x40) {
+        temp_v0 = arg0 + 0x18;
+        *(u8 *)((u8 *)temp_v0 + 0x24) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x24) | 1);
+        return;
+    }
+    temp_v0_2 = arg0 + 0x18;
+    if (temp_t6 == 0x41) {
+        *(u8 *)((u8 *)temp_v0_2 + 0x24) = (u8) (*(u8 *)((u8 *)temp_v0_2 + 0x24) & 0xFFFE);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151643A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151643A8.s")
 s32 func_151643F8(s32 arg0) {
     func_1516441C(arg0, arg0 + 0x18);

@@ -117,6 +117,41 @@ class M2CHelperTests(unittest.TestCase):
                     ".section .text\n\nglabel func_80001050\n    nop\n\n",
                 )
 
+    def test_extracts_internal_global_entry_until_next_registered_function(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            source = temporary_root / "asm" / "us" / "game.s"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                ".section .text\n\n"
+                "glabel func_start\n"
+                "    b func_return\n"
+                "     nop\n\n"
+                "  glabel func_return\n"
+                "    jr $ra\n"
+                "     nop\n\n"
+                "glabel func_next\n"
+                "    break\n",
+                encoding="utf-8",
+            )
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                extracted = m2c_helper.extract_function(
+                    source,
+                    "func_start",
+                    boundary_symbols={"func_start", "func_next"},
+                )
+
+            self.assertEqual(
+                extracted.read_text(encoding="utf-8"),
+                ".section .text\n\n"
+                "glabel func_start\n"
+                "    b .Lfunc_return\n"
+                "     nop\n\n"
+                "  .Lfunc_return:\n"
+                "    jr $ra\n"
+                "     nop\n\n",
+            )
+
     def test_repairs_proven_preserved_a0_call_argument(self) -> None:
         assembly = """\
 glabel func_wrapper
@@ -173,6 +208,85 @@ void func_wrapper(s32 arg0) {
         self.assertIn("required-declarations:\n  extern s32 D_800DBE38;", output)
         self.assertIn("  M2C_UNK func_target(s32, s32); /* extern */", output)
         self.assertIn("c-starter:\n" + starter, output)
+
+    def test_prepares_source_local_context_under_ignored_build_output(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            types = temporary_root / "include" / "types.h"
+            types.parent.mkdir(parents=True)
+            types.write_text(
+                "#ifndef TYPES_H\n#define TYPES_H\ntypedef signed int s32;\n#endif\n",
+                encoding="utf-8",
+            )
+            source = temporary_root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                '#include "types.h"\n\n'
+                "typedef struct Test { s32 value; } Test;\n\n"
+                "#if 0 /* preserved candidate */\n"
+                "void func_test(Test *arg0) { arg0->value = 1; }\n"
+                "#endif\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                context = m2c_helper.prepare_m2c_context(source)
+
+            self.assertEqual(
+                temporary_root / "build" / "m2c" / "context" / "game" / "test.c",
+                context,
+            )
+            assert context is not None
+            generated = context.read_text(encoding="utf-8")
+            self.assertIn("typedef signed int s32;", generated)
+            self.assertIn("typedef struct Test", generated)
+            self.assertIn("void func_test(Test *arg0)", generated)
+            self.assertNotIn("#include", generated)
+            self.assertNotIn("#if", generated)
+            self.assertNotIn("#pragma", generated)
+
+    def test_mips_to_c_command_uses_source_context_when_available(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            extracted = temporary_root / "build" / "m2c" / "game" / "func_test.s"
+            extracted.parent.mkdir(parents=True)
+            extracted.write_text("glabel func_test\n", encoding="utf-8")
+            source = temporary_root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "typedef struct Test { s32 value; } Test;\n", encoding="utf-8"
+            )
+
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                command = m2c_helper.mips_to_c_command(
+                    extracted, "func_test", source
+                )
+
+            self.assertIn("--context", command)
+            self.assertIn("build/m2c/context/game/test.c", command)
+            self.assertEqual("build/m2c/game/func_test.s", command[-1])
+
+    def test_mips_to_c_command_skips_unsupported_source_directives(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            extracted = temporary_root / "build" / "m2c" / "game" / "func_test.s"
+            extracted.parent.mkdir(parents=True)
+            extracted.write_text("glabel func_test\n", encoding="utf-8")
+            source = temporary_root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "#if PROFILE_US\nvoid func_test(void);\n#endif\n",
+                encoding="utf-8",
+            )
+
+            with patch.object(m2c_helper, "ROOT", temporary_root):
+                command = m2c_helper.mips_to_c_command(
+                    extracted, "func_test", source
+                )
+
+            self.assertNotIn("--context", command)
+            self.assertEqual("build/m2c/game/func_test.s", command[-1])
 
     def test_registered_game_item_prefers_existing_rom_reference(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

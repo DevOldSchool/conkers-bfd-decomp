@@ -291,7 +291,7 @@ def deferred_candidate_markers(
 
 
 def preserve_deferred_candidate(
-    source: str, symbol: str, current_score: int
+    source: str, symbol: str, current_score: int | None
 ) -> tuple[Path, str, str]:
     """Disable the best C candidate in place and restore its raw-ASM pragma."""
 
@@ -312,6 +312,52 @@ def preserve_deferred_candidate(
         f"{start_marker}\n{candidate}\n{end_marker}\n{pragma}\n"
     )
     return path, content, content[:start] + replacement + content[end:]
+
+
+def add_source_todo(
+    content: str, symbol: str, ordered_symbols: list[str] | None = None
+) -> str:
+    """Return source text with a reopened function restored to its TODO header."""
+
+    span = source_unit_header_span(content)
+    if span is None:
+        return content
+    header = content[span[0] : span[1]]
+    todo_line = f" * - {symbol}\n"
+    if todo_line in header:
+        return content
+    unmatched_marker = " * Unmatched members use generated GLOBAL_ASM placeholders below.\n"
+    if " * TODO: Implement these source-unit functions:\n" in header:
+        marker = header.find(unmatched_marker)
+        if marker < 0:
+            raise ProjectStateError("reviewed source-unit TODO block lacks unmatched marker")
+        insertion = marker
+        if insertion >= 3 and header[insertion - 3 : insertion] == " *\n":
+            insertion -= 3
+        if ordered_symbols is not None and symbol in ordered_symbols:
+            symbol_index = ordered_symbols.index(symbol)
+            for match in re.finditer(r"^ \* - (\S+)\n", header, re.MULTILINE):
+                existing = match.group(1)
+                if (
+                    existing in ordered_symbols
+                    and ordered_symbols.index(existing) > symbol_index
+                ):
+                    insertion = match.start()
+                    break
+        header = header[:insertion] + todo_line + header[insertion:]
+    else:
+        closing = header.rfind(" */")
+        if closing < 0:
+            raise ProjectStateError("reviewed source-unit header lacks closing delimiter")
+        block = (
+            " *\n"
+            " * TODO: Implement these source-unit functions:\n"
+            f"{todo_line}"
+            " *\n"
+            f"{unmatched_marker}"
+        )
+        header = header[:closing] + block + header[closing:]
+    return content[: span[0]] + header + content[span[1] :]
 
 
 def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str]:
@@ -347,6 +393,53 @@ def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str
     if content[block_end:block_end + 1] == "\n":
         block_end += 1
     return path, content, content[:start] + candidate + "\n" + content[block_end:]
+
+
+def replace_deferred_candidate(
+    source: str, symbol: str, candidate: str, current_score: int
+) -> tuple[Path, str, str]:
+    """Replace one preserved candidate and its score without activating it."""
+
+    if current_score <= 0:
+        raise ProjectStateError("deferred candidate score must be positive")
+    candidate = candidate.strip() + "\n"
+    function_start, function_end = c_function_span(candidate, symbol)
+    if candidate[:function_start].strip() or candidate[function_end:].strip():
+        raise ProjectStateError(
+            f"replacement for {symbol} must contain exactly one C definition"
+        )
+
+    path = ROOT / source
+    content = path.read_text(encoding="utf-8")
+    pragma = global_asm_pragma(source, symbol)
+    _, end_marker = deferred_candidate_markers(symbol)
+    marker_pattern = re.compile(
+        rf"#if 0 /\* {re.escape(DEFERRED_CANDIDATE_TAG)} "
+        rf"{re.escape(symbol)}(?: CURRENT \(\d+\))? \*/"
+    )
+    marker_match = marker_pattern.search(content)
+    if marker_match is None:
+        raise ProjectStateError(f"{symbol} lacks a preserved deferred candidate")
+    old_end_marker = content.find(end_marker, marker_match.end())
+    if old_end_marker < 0:
+        raise ProjectStateError(f"{symbol} has an unterminated deferred candidate")
+    block_end = old_end_marker + len(end_marker)
+    after = content[block_end:]
+    newline = "\r\n" if "\r\n" in content else "\n"
+    if not after.startswith(newline + pragma):
+        raise ProjectStateError(
+            f"{symbol} deferred candidate is not followed by its GLOBAL_ASM pragma"
+        )
+    normalized_candidate = candidate.rstrip("\n").replace("\n", newline)
+    start_marker, new_end_marker = deferred_candidate_markers(symbol, current_score)
+    replacement = (
+        start_marker + newline + normalized_candidate + newline + new_end_marker
+    )
+    return (
+        path,
+        content,
+        content[: marker_match.start()] + replacement + content[block_end:],
+    )
 
 
 def source_unit_header_span(content: str) -> tuple[int, int] | None:
@@ -1394,6 +1487,210 @@ def resume_function(args: argparse.Namespace) -> None:
     )
 
 
+def update_deferred_function(args: argparse.Namespace) -> None:
+    """Transactionally retain a strictly better measured deferred candidate."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    deferred = function.get("deferred")
+    if not isinstance(deferred, dict):
+        raise ProjectStateError(f"{args.symbol} is not deferred")
+    old_score = deferred.get("current_score")
+    if not isinstance(old_score, int) or isinstance(old_score, bool):
+        raise ProjectStateError(f"{args.symbol} has no recorded deferred score")
+    if args.score <= 0 or args.score >= old_score:
+        raise ProjectStateError(
+            f"replacement score must improve CURRENT ({old_score}); got CURRENT ({args.score})"
+        )
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("update-deferred requires a non-empty reason")
+    candidate_path = Path(args.candidate)
+    if not candidate_path.is_absolute():
+        candidate_path = ROOT / candidate_path
+    candidate_path = candidate_path.resolve()
+    if not candidate_path.is_relative_to(ROOT.resolve()) or not candidate_path.is_file():
+        raise ProjectStateError("update-deferred candidate must be a file inside the repository")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source")
+    source_path, old_source, updated_source = replace_deferred_candidate(
+        source,
+        args.symbol,
+        candidate_path.read_text(encoding="utf-8"),
+        args.score,
+    )
+    function["deferred"] = {
+        "reason": reason,
+        "current_score": args.score,
+        "recorded_revision": "working-tree",
+        "candidate_preserved": True,
+    }
+    validate_functions(functions_data)
+    source_path.write_text(updated_source, encoding="utf-8")
+    try:
+        validate_deferred_candidate_sources(functions)
+        write_json(FUNCTIONS_FILE, functions_data)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Updated deferred {args.symbol} from CURRENT ({old_score}) to "
+        f"CURRENT ({args.score}); preserved the better candidate in {source}."
+    )
+
+
+def apply_permutation_function(args: argparse.Namespace) -> None:
+    """Apply a container-generated exact permutation from the writable build tree."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if is_complete(function):
+        raise ProjectStateError(f"matched function {args.symbol} cannot be permuted")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source")
+
+    candidate_path = Path(args.candidate)
+    if not candidate_path.is_absolute():
+        candidate_path = ROOT / candidate_path
+    candidate_path = candidate_path.resolve()
+    if not candidate_path.is_relative_to(ROOT.resolve()) or not candidate_path.is_file():
+        raise ProjectStateError(
+            "apply-permutation candidate must be a file inside the repository"
+        )
+    candidate = candidate_path.read_text(encoding="utf-8").strip() + "\n"
+    candidate_start, candidate_end = c_function_span(candidate, args.symbol)
+    if candidate[:candidate_start].strip() or candidate[candidate_end:].strip():
+        raise ProjectStateError(
+            f"permutation for {args.symbol} must contain exactly one C definition"
+        )
+
+    was_deferred = isinstance(function.get("deferred"), dict)
+    if was_deferred:
+        source_path, old_source, active_source = restore_deferred_candidate(
+            source, args.symbol
+        )
+        function.pop("deferred")
+        validate_functions(functions_data)
+    else:
+        source_path = ROOT / source
+        old_source = source_path.read_text(encoding="utf-8")
+        active_source = old_source
+    newline = "\r\n" if "\r\n" in active_source else "\n"
+    normalized_candidate = candidate.rstrip("\n").replace("\n", newline)
+    pragma = global_asm_pragma(source, args.symbol)
+    if not was_deferred and pragma in active_source:
+        pragma_pattern = re.compile(rf"(?m)^[ \t]*{re.escape(pragma)}(?:\r?\n|$)")
+        pragma_matches = list(pragma_pattern.finditer(active_source))
+        if len(pragma_matches) != 1:
+            raise ProjectStateError(
+                f"expected exactly one GLOBAL_ASM pragma for {args.symbol}; "
+                f"found {len(pragma_matches)}"
+            )
+        pragma_match = pragma_matches[0]
+        updated_source = (
+            active_source[: pragma_match.start()]
+            + normalized_candidate
+            + newline
+            + active_source[pragma_match.end() :]
+        )
+    else:
+        function_start, function_end = c_function_span(active_source, args.symbol)
+        updated_source = (
+            active_source[:function_start]
+            + normalized_candidate
+            + newline
+            + active_source[function_end:]
+        )
+    source_path.write_text(updated_source, encoding="utf-8")
+    try:
+        if was_deferred:
+            validate_deferred_candidate_sources(functions)
+            write_json(FUNCTIONS_FILE, functions_data)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Applied exact permutation for {args.symbol} to {source} on the host"
+        + (" and removed its deferred marker." if was_deferred else ".")
+    )
+
+
+def reopen_match(args: argparse.Namespace) -> None:
+    """Return a layout-invalidated focused match to raw ASM without losing its C."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    source_units_data = load_json(SOURCE_UNITS_FILE)
+    functions = validate_functions(functions_data)
+    units = validate_source_units(source_units_data, functions)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    region = function["regions"].get(args.profile)
+    if region is None or region["state"] != "matched":
+        raise ProjectStateError(
+            f"{args.symbol}/{args.profile} must be matched before it can be reopened"
+        )
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source before reopening")
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("reopen-match requires a non-empty reason")
+
+    source_unit = next(
+        (
+            unit
+            for unit in units
+            if unit["source"] == source and args.symbol in unit["functions"]
+        ),
+        None,
+    )
+    source_path, old_source, deferred_source = preserve_deferred_candidate(
+        source, args.symbol, None
+    )
+    deferred_source = add_source_todo(
+        deferred_source,
+        args.symbol,
+        source_unit["functions"] if source_unit is not None else None,
+    )
+    region["state"] = "raw_asm"
+    region.pop("evidence", None)
+    function["deferred"] = {
+        "reason": reason,
+        "recorded_revision": "working-tree",
+        "candidate_preserved": True,
+    }
+    if source_unit is not None:
+        members = [
+            entry for entry in functions if entry["symbol"] in source_unit["functions"]
+        ]
+        source_unit["regions"][args.profile]["state"] = source_unit_work_state(members)
+
+    validated_functions = validate_functions(functions_data)
+    validate_source_units(source_units_data, validated_functions)
+    source_path.write_text(deferred_source, encoding="utf-8")
+    try:
+        write_json(FUNCTIONS_FILE, functions_data)
+        if source_unit is not None:
+            write_json(SOURCE_UNITS_FILE, source_units_data)
+        render_progress(validated_functions)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Reopened {args.symbol}/{args.profile}; preserved its C candidate, restored "
+        f"GLOBAL_ASM in {source}, and regenerated progress: {reason}"
+    )
+
+
 def game_index() -> None:
     """Print US game functions as review candidates."""
 
@@ -2404,6 +2701,18 @@ def parse_args() -> argparse.Namespace:
     defer_parser.add_argument("--score", required=True, type=int)
     resume_parser = subparsers.add_parser("resume")
     resume_parser.add_argument("symbol")
+    update_deferred_parser = subparsers.add_parser("update-deferred")
+    update_deferred_parser.add_argument("symbol")
+    update_deferred_parser.add_argument("--candidate", required=True)
+    update_deferred_parser.add_argument("--reason", required=True)
+    update_deferred_parser.add_argument("--score", required=True, type=int)
+    apply_permutation_parser = subparsers.add_parser("apply-permutation")
+    apply_permutation_parser.add_argument("symbol")
+    apply_permutation_parser.add_argument("--candidate", required=True)
+    reopen_parser = subparsers.add_parser("reopen-match")
+    reopen_parser.add_argument("--profile", choices=TARGET_REGIONS, default="us")
+    reopen_parser.add_argument("symbol")
+    reopen_parser.add_argument("--reason", required=True)
     next_parser = subparsers.add_parser("next")
     next_parser.add_argument(
         "--one",
@@ -2486,6 +2795,12 @@ def main() -> int:
             defer_function(args)
         elif args.command == "resume":
             resume_function(args)
+        elif args.command == "update-deferred":
+            update_deferred_function(args)
+        elif args.command == "apply-permutation":
+            apply_permutation_function(args)
+        elif args.command == "reopen-match":
+            reopen_match(args)
         elif args.command == "next":
             next_function(args)
         elif args.command == "batch-plan":

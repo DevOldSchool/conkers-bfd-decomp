@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1504A730
  * - func_1504ADD0
- * - func_1504AEF4
  * - func_1504AF10
  * - func_1504B0FC
  * - func_1504BA38
@@ -16,7 +15,6 @@
  * - func_1504BC38
  * - func_1504BE2C
  * - func_1504C078
- * - func_1504C0B8
  * - func_1504C0E8
  * - func_1504C854
  * - func_1504C8BC
@@ -27,7 +25,12 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504A730.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504ADD0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504AEF4.s")
+s32 func_1504AEF4(s32 arg0, s32 arg1) {
+    if (arg0 == 0) {
+        return 0;
+    }
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504AF10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504B0FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BA38.s")
@@ -36,8 +39,39 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BC38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BE2C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C078.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C0B8.s")
+extern s32 D_800BE9F0;
+
+s32 func_1504C0B8(void) {
+    if ((D_800BE9F0 == 0x1B) || (D_800BE9F0 == 0x1E)) {
+        return 0x18B;
+    }
+    return 0x1B;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C0E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C854.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C8BC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 CURRENT (810) */
+void func_1504C9E4(void *arg0, s8 arg1, s32 arg2) {
+    s32 temp_t8;
+    s32 var_a2;
+    s8 temp_v1;
+
+    temp_v1 = *(s8 *)((u8 *)arg0 + 0x1D1);
+    temp_t8 = (temp_v1 - arg1) & 0xFF;
+    if (temp_t8 != 0) {
+        var_a2 = 3;
+        if ((arg2 & 0xFF) == 0x10) {
+            var_a2 = 6;
+        }
+        if (temp_t8 >= 0x80) {
+            *(s8 *)((u8 *)arg0 + 0x1D1) = (s8) (temp_v1 + var_a2);
+        } else {
+            *(s8 *)((u8 *)arg0 + 0x1D1) = (s8) (temp_v1 - var_a2);
+        }
+        if ((temp_t8 ^ (*(s8 *)((u8 *)arg0 + 0x1D1) - arg1)) & 0x80) {
+            *(s8 *)((u8 *)arg0 + 0x1D1) = arg1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C9E4.s")

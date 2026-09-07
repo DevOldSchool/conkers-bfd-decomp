@@ -24,7 +24,6 @@
  * - func_1513CBA4
  * - func_1513CBF0
  * - func_1513CF9C
- * - func_1513CFD0
  * - func_1513CFE4
  * - func_1513D2F0
  * - func_1513D4B8
@@ -34,7 +33,6 @@
  * - func_1513D6FC
  * - func_1513DB00
  * - func_1513DF9C
- * - func_1513E070
  * - func_1513E084
  * - func_1513E13C
  * - func_1513E2AC
@@ -49,7 +47,6 @@
  * - func_1513F4E4
  * - func_1513F680
  * - func_1513F6C0
- * - func_1513F6E8
  * - func_1513F728
  * - func_1513FA2C
  * - func_1513FA70
@@ -87,7 +84,8 @@ void func_1513CA48(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CF9C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CFD0.s")
+void func_1513CFD0(s32 arg0, s32 arg1, s32 arg2) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CFE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D2F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D4B8.s")
@@ -97,7 +95,8 @@ void func_1513CA48(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D6FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DB00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DF9C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E070.s")
+void func_1513E070(s32 arg0, s32 arg1, s32 arg2) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E084.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E13C.s")
 void func_1513E2A4(void) {
@@ -113,9 +112,32 @@ void func_1513E2A4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F114.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F4B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F4E4.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F680 CURRENT (900) */
+void func_1513F680(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4) {
+    *(s8 *)((u8 *)arg0 + 0x70) = (s8) (arg1 & 0xFF);
+    *(s8 *)((u8 *)arg0 + 0x71) = (s8) (arg2 & 0xFF);
+    *(s8 *)((u8 *)arg0 + 0x72) = (s8) (arg3 & 0xFF);
+    *(u8 *)((u8 *)arg0 + 0x73) = arg4;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513F680 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F680.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F6C0 CURRENT (600) */
+void func_1513F6C0(void *arg0, s32 arg1, s32 arg2) {
+    *(s8 *)((u8 *)arg0 + 0x80) = (s8) (arg1 & 0xFF);
+    *(s8 *)((u8 *)arg0 + 0x81) = (s8) (arg2 & 0xFF);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513F6C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F6C0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F6E8.s")
+extern f32 D_800BE9A4;
+
+s32 func_1513F6E8(void *arg0) {
+    f32 temp_fv0;
+
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x128);
+    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)arg0 + 0x2C) + (temp_fv0 * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + (temp_fv0 * D_800BE9A4));
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F728.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513FA2C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513FA70.s")

@@ -27,4 +27,14 @@
 void func_150039B0(s32 arg0) {
 
 }
+extern s32 D_800DBE5C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150039BC CURRENT (25) */
+void func_150039BC(s32 arg0) {
+    D_800DBE5C = arg0;
+    if (arg0 != 0) {
+        D_800DBE5C = arg0 + 8;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150039BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150039BC.s")

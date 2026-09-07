@@ -47,16 +47,23 @@ Getting started
   progress integrate <work-item-id>
                                  Verify and record a byte-identical source-unit integration.
   progress integrate --all-reviewed
-                                 Integrate all incomplete reviewed game units in one build.
+                                 Integrate or finalize all pending reviewed game units in one build.
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
-  automate-simple [--limit N] [--max-attempts N]
-                                 Keep unchanged, placeholder-free m2c bodies only when CURRENT (0).
+  automate [--limit N | --all] [--max-attempts N] [--rewrite-budget N]
+           [--defer-best] [--skip-final-build] [--report PATH] [--restart]
+                                 Process raw and deferred ASM-to-C candidates. --all considers the
+                                 complete active US inventory and writes an auditable coverage report.
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
+  reopen-match <work-item-id> --reason <text>
+                                 Preserve an invalidated match and restore its GLOBAL_ASM safely.
+  diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
+  permute <work-item-id> [--budget N]
+                                 Search safe declaration/lifetime and expression-form variants.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
   verify-batch [--incremental] <work-item-id> [<work-item-id>...]
@@ -73,6 +80,8 @@ After the raw base split map is available
                                  Keep an auto-rebuilding focused diff open while editing.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
+  mupen-trace --spec <path> --output <build-path> [options]
+                                 Record versioned model draw-state evidence from debugger stops.
   m2c [--profile us] <work-item-id>
                                  Generate a C starter; auto-detects main versus game overlay.
   game-asm [--profile us]        Export decompressed game-code reference assembly.
@@ -108,7 +117,7 @@ After the raw base split map is available
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <survey|extract|preview|verify> [options]
+  model-assets <survey|extract|preview|atlas|materials|collision|verify> [options]
                                  Survey, export, preview, or verify proven US model banks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -117,7 +126,8 @@ After the raw base split map is available
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
   library-audit [--json]        Scan raw US main ranges for complete I-L libultra sections.
   rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
-  libultra [--version I|J|K|L]  Build a pinned 2.0 libultra ROM archive (default: L).
+  libultra [--version G|I|J|K|L]
+                                 Build a pinned 2.0 libultra ROM archive (default: L).
   rsp                          Assemble and byte-verify the configured US RSP payloads.
   libultrare                    Build and verify the pinned Rare-modified archive.
 
@@ -190,6 +200,27 @@ ensure_image() {
     fi
     image_name="$rsp_image"
     rsp_image_ready=1
+}
+
+ensure_mupen_image() {
+    ensure_image
+    if image_is_healthy; then
+        return
+    fi
+    if docker image inspect "$local_image_name" >/dev/null 2>&1; then
+        image_name="$local_image_name"
+        rsp_image_ready=0
+        ensure_image
+        if image_is_healthy; then
+            return
+        fi
+    fi
+    printf 'Toolchain image predates pinned Mupen tracing; rebuilding it locally...\n'
+    docker build --platform linux/amd64 --tag "$local_image_name" "$repo_root"
+    image_name="$local_image_name"
+    rsp_image_ready=0
+    ensure_image
+    image_is_healthy || die "toolchain image failed the Mupen debugger smoke test"
 }
 
 add_workspace_mount() {
@@ -411,6 +442,9 @@ verify_and_record_match() {
     if [[ "$diff_status" -ne 0 ]]; then
         return "$diff_status"
     fi
+    if ! run_in_warm_container python3 scripts/layout_check.py "$selected_profile" "$selected_value"; then
+        return 1
+    fi
     if ! python3 "$state_tool" mark-matched --profile "$selected_profile" "$selected_value"; then
         return 3
     fi
@@ -496,8 +530,8 @@ case "$command" in
             python3 "$state_tool" next "$@"
         fi
         ;;
-    automate-simple)
-        python3 scripts/automate_simple_m2c.py "$@"
+    automate)
+        python3 scripts/automate.py "$@"
         ;;
     defer)
         [[ $# -ge 3 ]] || die "usage: ./conker defer <work-item-id> --reason <text>"
@@ -512,6 +546,44 @@ case "$command" in
     resume)
         [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
         python3 "$state_tool" resume "$1"
+        ;;
+    reopen-match)
+        [[ $# -ge 3 ]] || die "usage: ./conker reopen-match <work-item-id> --reason <text>"
+        reopened_symbol="$1"
+        python3 "$state_tool" reopen-match "$@"
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        run_in_warm_container python3 scripts/prepare_nonmatching_asm.py \
+            --profile us --identifier "$reopened_symbol"
+        ;;
+    diagnose-diff)
+        parse_profile_and_value "usage: ./conker diagnose-diff [--profile us] <work-item-id>" "$@"
+        python3 "$state_tool" setup-check --profile "$selected_profile"
+        ensure_warm_container
+        run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --diagnose
+        ;;
+    permute)
+        [[ $# -ge 1 ]] || die "usage: ./conker permute <work-item-id> [--budget N]"
+        permute_symbol="$1"
+        shift
+        python3 "$state_tool" setup-check --profile us
+        ensure_warm_container
+        permute_status=0
+        run_in_warm_container python3 scripts/permute.py us "$permute_symbol" "$@" || permute_status=$?
+        if [[ "$permute_status" -eq 0 ]]; then
+            if ! python3 "$state_tool" apply-permutation "$permute_symbol" \
+                --candidate "build/us/permute/$permute_symbol/best.c"; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 2
+            fi
+            "$repo_root/conker" finish "$permute_symbol"
+        elif [[ "$permute_status" -eq 1 ]]; then
+            printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
+            exit 1
+        else
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit "$permute_status"
+        fi
         ;;
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
@@ -672,6 +744,7 @@ case "$command" in
         run_in_container python3 scripts/first_diff.py "$selected_profile"
         ;;
     mupen)
+        ensure_mupen_image
         if [[ $# -eq 1 && "$1" == "--help" ]]; then
             run_in_container /usr/local/bin/conker-mupen64plus --help || {
                 status=$?
@@ -686,6 +759,13 @@ case "$command" in
             --noosd --nospeedlimit --debug --emumode 1 \
             --gfx dummy --audio dummy --input dummy --rsp mupen64plus-rsp-hle \
             "$@" roms/baserom.us.z64
+        ;;
+    mupen-trace)
+        [[ $# -ge 1 ]] || die "usage: ./conker mupen-trace --spec <path> --output <build-path> [options]"
+        python3 "$state_tool" setup-check --profile us
+        ensure_mupen_image
+        ensure_warm_container
+        run_in_warm_container python3 scripts/mupen_trace.py record "$@"
         ;;
     game-asm)
         parse_profile_only "usage: ./conker game-asm [--profile us]" "$@"
@@ -799,7 +879,7 @@ case "$command" in
         python3 scripts/texture_assets.py "$@"
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <survey|extract|preview|verify> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <survey|extract|preview|atlas|materials|collision|verify> [options]"
         python3 scripts/model_assets.py "$@"
         ;;
     hud-assets)
@@ -826,11 +906,11 @@ case "$command" in
         if [[ $# -eq 2 && "$1" == "--version" ]]; then
             libultra_version="$2"
         elif [[ $# -ne 0 ]]; then
-            die "usage: ./conker libultra [--version I|J|K|L]"
+            die "usage: ./conker libultra [--version G|I|J|K|L]"
         fi
         case "$libultra_version" in
-            I|J|K|L) ;;
-            *) die "libultra version must be I, J, K, or L" ;;
+            G|I|J|K|L) ;;
+            *) die "libultra version must be G, I, J, K, or L" ;;
         esac
         run_in_container_libultra make libultra ULTRALIB_VERSION="$libultra_version"
         ;;

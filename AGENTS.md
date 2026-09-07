@@ -16,16 +16,43 @@ The default graphics, audio, and input plugins are deliberately dummy plugins;
 the HLE RSP is real so startup code can advance beyond the dummy-RSP boundary.
 Record whether a result is a positive runtime hit or a bounded negative trace.
 
-## Unchanged-m2c automation
+## ASM-to-C automation
 
-For a bounded batch that should try only m2c output requiring no manual edits,
-run `./conker automate-simple --limit <matches> --max-attempts <candidates>`.
-The command owns selection, source replacement, `finish`, restoration of every
-failed candidate, and the final clean `verify-batch`. It skips dirty sources,
-source-unit integration transitions, guessed declarations, and `M2C_*`
-placeholder bodies. Do not manually rerun its per-function or batch gates after
-it completes successfully. Use the ordinary fast path below for candidates that
-need declaration work, type recovery, expression changes, or integration.
+Use the single automation entry point for both new raw-assembly work and
+preserved deferred candidates:
+
+```sh
+./conker automate --limit <matches> --max-attempts <candidates> \
+  --rewrite-budget <variants>
+```
+
+It starts raw work from m2c, resolves only unique compatible declarations,
+sanitizes scalar and pointer field accesses plus integer-backed address
+assignments, searches bounded safe source forms, and diagnoses deferred
+candidates before permuting pure register-only diffs.
+The two pools are interleaved so neither starves. It restores every unsafe or
+nonmatching source attempt, retains exact results only through `finish`, and
+runs one final clean `verify-batch` for all matches.
+For an already deferred function, a strictly lower nonzero permutation replaces
+the canonical disabled candidate and recorded score transactionally; equal or
+worse results leave the existing candidate untouched.
+
+Add `--defer-best` only with explicit authorization to preserve a compiling
+nonzero candidate under the canonical disabled source block with its measured
+`CURRENT (N)` score. Add `--skip-final-build` only for local iteration; the
+printed `verify-batch` command remains mandatory before commit or handoff.
+
+Use `./conker automate --all --defer-best` to consider the entire active US
+inventory without match or attempt limits. This mode still excludes recorded
+issues, missing source mappings, ambiguous declarations, unsupported regional
+states, and source-unit integration transitions rather than guessing. It writes
+`build/us/automate/all-report.json` atomically after every candidate. The report
+classifies every inventory function as already matched, attempted, not yet
+attempted, or excluded, making interrupted and completed coverage auditable.
+An interrupted `--all` run resumes completed outcomes from that report; use
+`--restart` to intentionally reconsider them with changed tooling.
+Do not claim complete coverage unless `full_scan` and `scan_complete` are both
+true and no function remains `not_attempted` in that report.
 
 ## Small-agent fast path
 
@@ -69,13 +96,21 @@ For ordinary source-local function work, follow this exact loop:
     expression or declaration variants. Use `diff --watch` only when both stdin
     and stdout are attached to an interactive terminal; otherwise edit and
     rerun `finish`. Never alter assembly, inventory JSON, compiler flags, or
-    shared tooling. If still unmatched, report `candidate`. When the user
+    shared tooling. `./conker diagnose-diff <work-item-id>` may classify a live
+    or deferred candidate without changing it. For a register-allocation-only
+    candidate, `./conker permute <work-item-id> --budget <variants>` may search
+    bounded declaration/lifetime variants; it changes source only for
+    `CURRENT (0)` and then runs `finish`. If still unmatched, report
+    `candidate`. When the user
     explicitly authorizes moving past it, run
     `./conker defer <work-item-id> --reason <text>`; this preserves the current C
     under a disabled source block, restores the exact `GLOBAL_ASM` pragma, and
     removes the item from automatic selection. Use
     `./conker resume <work-item-id>` to restore that candidate before trying it
     again.
+    If mixed-object layout later invalidates older focused evidence, use
+    `./conker reopen-match <work-item-id> --reason <text>` instead of editing
+    inventory JSON; it preserves the C body and restores `GLOBAL_ASM`.
 11. On `AGENT_ACTION: FIX_INTEGRATION`, correct the source/layout problem before
     running any batch command again. On `AGENT_ACTION: BLOCKED_TOOLING`, or when
     required declarations are unavailable or a match would require unapproved

@@ -23,6 +23,14 @@ void func_151B220C(void) {
     func_151B222C();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B222C.s")
+void func_1514933C(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B229C CURRENT (200) */
+void func_151B229C(s32 arg0) {
+    func_151B220C();
+    func_1514933C(arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B229C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B229C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B22C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B22F4.s")

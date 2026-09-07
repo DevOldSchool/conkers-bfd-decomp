@@ -59,6 +59,46 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C7E98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C82D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8674.s")
+s32 func_151C87E0(s32, void *, s32, void *);
+void func_151C899C();
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C86AC CURRENT (1931) */
+void func_151C86AC(void *arg0, void *arg1, s32 arg2) {
+    s32 temp_t6;
+    u8 temp_v1;
+    u8 *temp_v0;
+    u8 *temp_v0_2;
+
+    temp_t6 = arg2 & 0xFF;
+    switch (temp_t6) {
+    case 0x20:
+        temp_v0 = (u8 *)arg0 + 0x110;
+        if ((temp_v0[0x86] & 0x10) &&
+            (*(s32 *)(temp_v0 + 0x28) == *(s32 *)((u8 *)arg1 + 4)) &&
+            (func_151C87E0(*(s32 *)arg1, arg0, temp_t6, arg1) != 0)) {
+            func_151C899C(*(s32 *)arg1, arg0);
+        }
+        return;
+    case 0x3A:
+        temp_v0_2 = (u8 *)arg0 + 0x110;
+        if (*(s32 *)((u8 *)arg0 + 0x138) == *(s32 *)arg1) {
+            temp_v1 = *((u8 *)arg1 + 4);
+            switch (temp_v1) {
+            case 0:
+                temp_v0_2[0x86] |= 2;
+                return;
+            case 1:
+                temp_v0_2[0x86] &= 0xFFFD;
+                return;
+            case 2:
+                func_151C899C(0, arg0);
+                break;
+            }
+        }
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C86AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C86AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C87AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C87E0.s")

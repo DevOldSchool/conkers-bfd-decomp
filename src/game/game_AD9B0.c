@@ -14,7 +14,6 @@
  * - func_15080828
  * - func_15080BE8
  * - func_15080C64
- * - func_15080CF4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -32,4 +31,11 @@ void func_15080718(s32 arg0, s32 *arg1, s32 *arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080828.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080BE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080C64.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080CF4.s")
+extern u8 D_800D1941;
+
+s32 func_15080CF4(void) {
+    if (D_800D1941 == 0) {
+        return 1;
+    }
+    return 0;
+}

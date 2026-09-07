@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150F6420
  * - func_150F644C
- * - func_150F6478
  * - func_150F6484
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -15,5 +14,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1238D0/func_150F6420.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1238D0/func_150F644C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1238D0/func_150F6478.s")
+void func_150F6478(s32 arg0) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1238D0/func_150F6484.s")

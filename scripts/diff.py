@@ -23,6 +23,9 @@ TOOLCHAIN_DEFINITION = ROOT / "Dockerfile"
 GLOBAL_ASM_LINE = re.compile(
     r"^[ \t]*#pragma[ \t]+GLOBAL_ASM\([^\r\n]*\)[ \t]*\r?$", re.MULTILINE
 )
+MIPS_REGISTER = re.compile(
+    r"\b(?:zero|at|v[01]|a[0-3]|t[0-9]|s[0-8]|k[01]|gp|sp|fp|ra|f(?:[0-9]|[12][0-9]|3[01])|f[vt][0-9])\b"
+)
 EXIT_MISMATCH = 1
 EXIT_FIX_COMPILE = 2
 EXIT_BLOCKED_TOOLING = 3
@@ -55,6 +58,17 @@ def find_work_item_by_id(identifier: str, profile: str) -> tuple[Path, str, bool
     raise ValueError(f"unknown work-item ID: {identifier}")
 
 
+def work_item_is_deferred(identifier: str) -> bool:
+    inventory = json.loads((ROOT / "progress" / "functions.json").read_text(encoding="utf-8"))
+    entry = next(
+        (function for function in inventory["functions"] if function["symbol"] == identifier),
+        None,
+    )
+    if entry is None:
+        raise ValueError(f"unknown work-item ID: {identifier}")
+    return "deferred" in entry
+
+
 def candidate_object(profile: str, source: Path) -> Path:
     try:
         source_relative = source.relative_to(ROOT)
@@ -66,12 +80,44 @@ def candidate_object(profile: str, source: Path) -> Path:
     return output
 
 
-def focused_candidate_source(profile: str, source: Path) -> Path:
+def activate_deferred_candidate(content: str, source: Path, symbol: str) -> str:
+    """Restore one preserved candidate in memory without changing the worktree."""
+
+    start_pattern = re.compile(
+        rf"#if 0 /\* {re.escape(project_state.DEFERRED_CANDIDATE_TAG)} "
+        rf"{re.escape(symbol)}(?: CURRENT \(\d+\))? \*/\n"
+    )
+    start = start_pattern.search(content)
+    end_marker = f"#endif /* {project_state.DEFERRED_CANDIDATE_TAG} {symbol} */"
+    if start is None:
+        raise ValueError(f"{symbol} lacks a preserved deferred candidate")
+    end = content.find(end_marker, start.end())
+    if end < 0:
+        raise ValueError(f"{symbol} has an unterminated deferred candidate")
+    candidate = content[start.end() : end].rstrip("\n")
+    block_end = end + len(end_marker)
+    if content[block_end : block_end + 1] == "\n":
+        block_end += 1
+    source_relative = source.relative_to(ROOT).as_posix()
+    pragma = project_state.global_asm_pragma(source_relative, symbol)
+    if content[block_end : block_end + len(pragma)] != pragma:
+        raise ValueError(f"{symbol} deferred candidate is not followed by its GLOBAL_ASM pragma")
+    block_end += len(pragma)
+    if content[block_end : block_end + 1] == "\n":
+        block_end += 1
+    return content[: start.start()] + candidate + "\n" + content[block_end:]
+
+
+def focused_candidate_source(
+    profile: str, source: Path, *, deferred_symbol: str | None = None
+) -> Path:
     """Create a focused source without unrelated mixed-unit assembly members."""
 
     content = source.read_text(encoding="utf-8")
+    if deferred_symbol is not None:
+        content = activate_deferred_candidate(content, source, deferred_symbol)
     focused_content = GLOBAL_ASM_LINE.sub("", content)
-    if focused_content == content:
+    if focused_content == content and deferred_symbol is None:
         return source
     source_relative = source.relative_to(ROOT)
     output = ROOT / "build" / profile / "diff-source" / source_relative
@@ -81,9 +127,13 @@ def focused_candidate_source(profile: str, source: Path) -> Path:
     return output
 
 
-def compile_candidate(profile: str, source: Path) -> Path:
+def compile_candidate(
+    profile: str, source: Path, *, deferred_symbol: str | None = None
+) -> Path:
     output = candidate_object(profile, source)
-    compile_source = focused_candidate_source(profile, source)
+    compile_source = focused_candidate_source(
+        profile, source, deferred_symbol=deferred_symbol
+    )
     subprocess.run(
         compile_c.compile_command(
             profile,
@@ -332,6 +382,99 @@ def run_score_only_diff(
     return 0
 
 
+def instruction_text(row: dict, side: str) -> str | None:
+    entry = row.get(side)
+    if not isinstance(entry, dict):
+        return None
+    fragments = entry.get("text")
+    if not isinstance(fragments, list):
+        return None
+    return "".join(
+        fragment.get("text", "") if isinstance(fragment, dict) else str(fragment)
+        for fragment in fragments
+    ).strip()
+
+
+def classify_diff_rows(rows: list[dict]) -> dict[str, int]:
+    """Summarize asm-differ rows into actionable source-shaping categories."""
+
+    counts = {
+        "register_only": 0,
+        "operand_or_constant": 0,
+        "opcode_or_control_flow": 0,
+        "missing_or_extra": 0,
+    }
+    for row in rows:
+        formats = {
+            fragment.get("format")
+            for side in ("base", "current")
+            for fragment in row.get(side, {}).get("text", [])
+            if isinstance(fragment, dict) and fragment.get("format")
+        }
+        if "rotation" in formats or "register" in formats:
+            counts["register_only"] += 1
+            continue
+        if row.get("key") is not None and not any(
+            str(value).startswith("diff_") for value in formats
+        ):
+            continue
+        base = instruction_text(row, "base")
+        current = instruction_text(row, "current")
+        if not base or not current:
+            counts["missing_or_extra"] += 1
+            continue
+        base_mnemonic = row.get("base", {}).get("mnemonic")
+        current_mnemonic = row.get("current", {}).get("mnemonic")
+        if base_mnemonic != current_mnemonic:
+            counts["opcode_or_control_flow"] += 1
+            continue
+        normalized_base = MIPS_REGISTER.sub("REG", base)
+        normalized_current = MIPS_REGISTER.sub("REG", current)
+        if normalized_base == normalized_current:
+            counts["register_only"] += 1
+        else:
+            counts["operand_or_constant"] += 1
+    return counts
+
+
+def run_diagnose_diff(
+    candidate: Path, reference: Path, symbol: str, directory: Path
+) -> int:
+    result = subprocess.run(
+        asm_diff_command(candidate, reference, symbol, require_match=True),
+        cwd=directory,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    if result.returncode:
+        sys.stdout.write(result.stdout)
+        sys.stderr.write(result.stderr)
+        return EXIT_BLOCKED_TOOLING
+    try:
+        evidence = json.loads(result.stdout)
+        score = current_difference_count(result.stdout)
+        rows = evidence.get("rows")
+        if not isinstance(rows, list):
+            raise ValueError("asm-differ JSON lacks rows")
+        counts = classify_diff_rows(rows)
+    except (json.JSONDecodeError, ValueError) as error:
+        print(f"error: asm-differ returned invalid diagnostic evidence: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+    print(f"{symbol}: CURRENT ({score})")
+    for category, count in counts.items():
+        print(f"{category.replace('_', '-')}: {count}")
+    if score and counts["register_only"] and not (
+        counts["opcode_or_control_flow"] or counts["missing_or_extra"]
+    ):
+        print("recommendation: bounded declaration/lifetime permutation")
+    elif score:
+        print("recommendation: recover expression or control-flow structure before permutation")
+    else:
+        print("recommendation: run finish")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("profile", choices=("us", "eu"))
@@ -341,12 +484,15 @@ def main() -> int:
     mode.add_argument("--auto-overlay", action="store_true", help="resolve the overlay from the work-item ID")
     parser.add_argument("--require-match", action="store_true", help="fail unless asm-differ reports CURRENT (0)")
     parser.add_argument("--score-only", action="store_true", help="print only the focused-diff score")
+    parser.add_argument("--diagnose", action="store_true", help="classify focused differences, including a preserved deferred candidate")
     parser.add_argument("--watch", action="store_true", help="watch the candidate source and rebuild inside this container")
     arguments = parser.parse_args()
-    if arguments.watch and (arguments.require_match or arguments.score_only):
+    if arguments.watch and (arguments.require_match or arguments.score_only or arguments.diagnose):
         parser.error("--watch cannot be combined with --require-match or --score-only")
     if arguments.require_match and arguments.score_only:
         parser.error("--require-match and --score-only cannot be combined")
+    if arguments.diagnose and (arguments.require_match or arguments.score_only):
+        parser.error("--diagnose cannot be combined with --require-match or --score-only")
 
     try:
         if arguments.auto_overlay:
@@ -368,8 +514,16 @@ def main() -> int:
         return EXIT_BLOCKED_TOOLING
 
     try:
-        require_c_implementation(source, arguments.symbol)
-        candidate = compile_candidate(arguments.profile, source)
+        deferred_symbol = (
+            arguments.symbol
+            if arguments.diagnose and work_item_is_deferred(arguments.symbol)
+            else None
+        )
+        if deferred_symbol is None:
+            require_c_implementation(source, arguments.symbol)
+        candidate = compile_candidate(
+            arguments.profile, source, deferred_symbol=deferred_symbol
+        )
     except (ValueError, subprocess.CalledProcessError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
         return EXIT_FIX_COMPILE
@@ -392,6 +546,8 @@ def main() -> int:
     directory = write_settings(arguments.profile, source)
     if arguments.score_only:
         return run_score_only_diff(candidate, reference, symbol, directory)
+    if arguments.diagnose:
+        return run_diagnose_diff(candidate, reference, symbol, directory)
     if arguments.require_match:
         return run_required_asm_diff(candidate, reference, symbol, directory)
     command = asm_diff_command(

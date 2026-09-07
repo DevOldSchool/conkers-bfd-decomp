@@ -5,13 +5,9 @@
  * Boundary evidence: docs/evidence/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150536D0
- * - func_150536E8
- * - func_1505371C
  * - func_15053750
  * - func_15053894
  * - func_150538CC
- * - func_150548D8
  * - func_150548E4
  * - func_15054A0C
  * - func_15054A5C
@@ -29,13 +25,30 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_150536D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_150536E8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_1505371C.s")
+typedef struct Game80B80Object {
+    s32 field_0;
+    u8 pad4[0xE0];
+    s16 field_E4;
+    s16 field_E6;
+} Game80B80Object;
+
+void func_150536D0(Game80B80Object *arg0) {
+    arg0->field_0 = 0xD;
+    arg0->field_E4 = 0;
+    arg0->field_E6 = 0;
+}
+void func_150536E8(void *arg0) {
+    *(f32 *)((u8 *)arg0 + 0x40) = (f32) ((f32) (s16) (*(u16 *)((u8 *)arg0 + 0x7A) + 0x4000) * 0.005493164f);
+}
+void func_1505371C(void *arg0) {
+    *(f32 *)((u8 *)arg0 + 0x40) = (f32) ((f32) (s16) (*(u16 *)((u8 *)arg0 + 0x7A) + 0x4000) * 0.005493164f);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15053750.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15053894.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_150538CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_150548D8.s")
+void func_150548D8(s32 arg0) {
+
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_150548E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15054A0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_80B80/func_15054A5C.s")

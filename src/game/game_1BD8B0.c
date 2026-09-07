@@ -6,12 +6,26 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15190400
- * - func_15190454
  * - func_15190464
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1BD8B0Inner {
+    u8 pad0[0x84];
+    s32 field_84;
+} Game1BD8B0Inner;
+
+typedef struct Game1BD8B0Object {
+    u8 pad0[0x40];
+    Game1BD8B0Inner *inner;
+} Game1BD8B0Object;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BD8B0/func_15190400.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BD8B0/func_15190454.s")
+Game1BD8B0Inner *func_15190454(Game1BD8B0Object *arg0) {
+    Game1BD8B0Inner *inner = arg0->inner;
+
+    inner->field_84 = 0;
+    return inner;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BD8B0/func_15190464.s")

@@ -95,16 +95,40 @@ def materialize(
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--profile", choices=project_state.TARGET_REGIONS, required=True)
-    parser.add_argument("--source")
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument("--source")
+    selection.add_argument("--identifier")
     parser.add_argument(
         "--prune-stale",
         action="store_true",
         help="remove obsolete generated functions after a clean object-cache refresh",
     )
     arguments = parser.parse_args()
+    source_filter = arguments.source
+    if arguments.identifier is not None:
+        functions = project_state.validate_functions(
+            project_state.load_json(project_state.FUNCTIONS_FILE)
+        )
+        entry = next(
+            (
+                function
+                for function in functions
+                if function["symbol"] == arguments.identifier
+            ),
+            None,
+        )
+        if entry is None:
+            raise project_state.ProjectStateError(
+                f"unknown work-item ID: {arguments.identifier}"
+            )
+        source_filter = entry.get("source")
+        if not isinstance(source_filter, str) or not source_filter:
+            raise project_state.ProjectStateError(
+                f"{arguments.identifier} has no assigned source"
+            )
     written = materialize(
         arguments.profile,
-        arguments.source,
+        source_filter,
         prune_stale=arguments.prune_stale,
     )
     print(f"Prepared {len(written)} nonmatching assembly function(s) for {arguments.profile}.")
