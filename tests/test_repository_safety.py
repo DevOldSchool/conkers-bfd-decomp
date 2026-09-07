@@ -273,6 +273,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn('"permute",', automation)
         self.assertIn("source.write_bytes(original)", automation)
         self.assertIn("write_report(", automation)
+        self.assertIn("reconcile_pending_batch(", automation)
         self.assertIn("./conker automate --all --defer-best", agent_guide)
 
     def test_docker_access_is_checked_before_image_download(self) -> None:

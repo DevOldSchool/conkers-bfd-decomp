@@ -27,8 +27,9 @@ preserved deferred candidates:
 ```
 
 It starts raw work from m2c, resolves only unique compatible declarations,
-sanitizes aligned scalar field accesses, searches bounded safe source forms,
-and diagnoses deferred candidates before permuting pure register-only diffs.
+sanitizes scalar and pointer field accesses plus integer-backed address
+assignments, searches bounded safe source forms, and diagnoses deferred
+candidates before permuting pure register-only diffs.
 The two pools are interleaved so neither starves. It restores every unsafe or
 nonmatching source attempt, retains exact results only through `finish`, and
 runs one final clean `verify-batch` for all matches.

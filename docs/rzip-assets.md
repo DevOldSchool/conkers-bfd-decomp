@@ -446,7 +446,8 @@ structural contracts are proven:
 All 183 bank-01 entries satisfy the runtime character-model container contract.
 Their 56-byte headers bound 56,412 vertices, 62,073 faces, primary and secondary
 display-list pointer tables, 3,518 sixteen-byte joint records, 1,772 twelve-byte
-texture descriptor records, and two still-unresolved auxiliary regions.
+texture descriptor records, 182,714 bytes of custom-MoveMem auxiliary data, 43 alternate
+display-list pointers, and 208 procedural animation joint-index slots.
 `func_1503CF20` proves those container regions. `func_1503DC3C` proves each
 texture record as a runtime pointer slot initialized with its flat texture index,
 followed by stored width and height; every display-list flat texture reference
@@ -456,15 +457,67 @@ render tile and a same-index mode-two or mode-one TLUT. The extractor records
 the exact load commands and identifies the effective render formats as CI4 and
 CI8 without mistaking the transfer-image format for the sampled format.
 `func_150A81D0` proves the joint parent-matrix, matrix-slot, animation-slot,
-local-translation and 64-byte runtime matrix layout, while `DA380003`
+parent-relative translation and 64-byte runtime matrix layout, while `DA380003`
 display-list commands assign each rigid face run to one of those matrices. The
-bank-01 glTF files therefore include a joint hierarchy and skin, using the
-runtime translation hierarchy to position the native bone-local parts.
-Entry `0000` additionally decodes the first pose from exact bank-02 pair `0006`.
-The three stored values are quaternion half-angles, matching the sine/cosine
-consumer in `func_150A8918`; applying them assembles Conker's tail and limbs.
-Remaining compressed animation timelines are preserved separately and remain
-unapplied.
+bank-01 glTF files therefore include a joint hierarchy and skin. A pinned trace
+shows all 28 Conker local matrix translations initially equal their table values
+bit-for-bit. The submitted-task matrices then prove that the separate runtime
+loop composes each child with its selected parent. The exporter uses those table
+values directly as local node offsets, accumulates their model-space pivots,
+and bakes the accumulated pivot into the joint-local ROM vertices before
+emitting the inverse-bind translation. Treating each stored local translation
+as an absolute pivot separated child parts from their parents. Every animated glTF
+therefore has a paired animation-free `*-bind.gltf` for deterministic geometry
+inspection in Blender.
+Entry `0000` additionally decodes the first pose from bank-02 pair `0025` and
+retains it as an Action and manifest reference; it does not silently alter the
+default bind nodes.
+A pinned Mupen trace reaches `func_150A81D0` with the exact 28-joint Conker
+table and that live frame. Comparing every local matrix proves the stored
+channels are signed full Euler angles. Transposing the runtime row-vector
+matrices for glTF preserves that sign and converts each channel to a quaternion
+half-angle before applying the existing runtime order.
+`func_1505E0C4` copies each descriptor into a zeroed runtime state, and
+`func_1502D824` reads descriptor byte `5` as the fixed source-frame stride.
+`func_150A8A18` consumes optional masked joint translations followed by packed
+root-translation, rotation, and per-axis scale channels; any bytes between the
+decoded channels and the next declared stride are preserved per frame. The
+extractor now parses all 2,621 nonempty clip layouts and 57,732 source frames.
+Duration-aware bounds separate 7,177 zero alignment bytes across 1,796 clips
+from real source frames. Thirty-nine empty streams remain preserved as empty.
+Entry `0082` pair `0000`
+requires the same two zero bytes supplied by the runtime's zeroed descriptor
+destination and has six preserved tail bytes per frame. Its duration and
+keyframe-spacing fields select 10 source frames; the remaining 1,110 bytes in
+the odd segment are preserved and hashed as companion data rather than decoded
+as another 65 frames. Entry `0083` pair `0018` has two preserved tail bytes per
+frame. Neither layout is guessed. The bank-01 previews emit all 2,621 nonempty
+clips and 57,732 source frames as glTF rotation, root-motion, and masked
+joint-translation channels. `func_150A9400` applies decoded root translation at
+`1/1024` scale, which the glTF export reproduces on the root joint.
+`func_150A81D0` applies each masked `s16` translation as a `1/16` adjustment to
+that joint's local matrix before parent composition. The exporter applies it
+directly to the matching glTF node, without adding a compensating channel to an
+otherwise-unmasked child. Rotation
+descriptor bit `0x10` marks a following scale descriptor rather than
+contributing to the angle. `func_150A81D0` treats a missing or zero scale as
+unit and otherwise multiplies that axis by the unsigned value over `16384`; the
+glTF animations reproduce that behavior.
+One Conker descriptor supplies 32 channels to a joint table that references
+only the first 28; the four unused channels are retained in the manifest while
+all referenced channels are exported. Descriptor-relative source-frame timing
+is retained in glTF, including the shortened final interval. `func_1503D660`
+and `func_1503D5F0` select the bank-15 route table, while `func_1505E650` maps
+logical animation IDs to even bank-02 descriptor segments. All 3,021 route
+records are preserved; Conker animation ID `0` selects pair `0025`, and every
+routed glTF Action records its logical IDs. `func_1505E0C4` leaves the generic
+`0xFF` duration at `255` ticks and reads the four character `0x92` overrides
+from `D_800993F8`, resolving all five cases. Three post-duration companion
+tails totalling 1,845 bytes remain preserved and hashed. The exact runtime tick
+rate is 30 Hz: `func_1507BDB0` advances animation state from
+`D_800BE9A4`, and a pinned interpreter trace at `func_1502D824` measured that
+float delta as `1.0` alongside the scheduler's `D_800BE9E4` value of two NTSC
+video retraces. The glTF time accessors use that runtime clock.
 
 `func_1503D984` counts the character display-list triangle opcodes using the
 same one-, two-, and four-triangle command sizes decoded by the exporter. It
@@ -476,14 +529,58 @@ The same runtime path selects bank-02 by character-model index for animation
 companions. Extraction preserves all 145 entries and 4,051,200 decoded bytes.
 Of those, 123 are exact even paired-segment tables containing 2,660 even/odd
 segment pairs; 22 remain direct companion payloads. Their bytes, boundaries,
-hashes and pair order are proven. Pair roles, compressed animation channels,
-and the unconsumed bank-01 auxiliary regions remain unresolved instead of being
-assigned unsupported skinning or animation semantics. Character-material
-texture resolution and complete RDP state are still runtime concerns. In
-particular,
-the null fifth argument to `func_1510CE60` does not select the trailing CI8
-palette used by the standalone reversible PNGs, so current bank-01 glTF previews
-intentionally have no guessed diffuse PNGs.
+hashes and pair order are proven. Of the 2,660 pairs, all 2,621 nonempty pairs
+now have proven fixed-stride frame/channel layouts and 39 have empty odd
+segments. Same-index compatible rotation, scale, root-motion, and masked
+joint-translation channels and emulator-validated CBFD normals are exported to
+glTF on the runtime-proven 30 Hz clock. Runtime light records are now captured;
+the supplied scene has no directly translatable character combiner, so its
+character lighting remains metadata-only rather than being baked through an
+unsupported RDP formula.
+Character-material
+texture resolution and complete RDP state are still runtime concerns. The
+initial model-slot load uses a null fifth argument to `func_1510CE60`, but the
+render-time `func_1518C900` and `func_15183ACC` paths pass a non-null rewrite
+table. Mode one then selects the trailing `0x200`-byte CI8 TLUT and mode two the
+first 16 entries at the same payload-end-minus-`0x200` address for CI4. The
+preview exporter applies that exact pointer
+rule only to single-`TEXEL0` materials whose nominal pixel span does not overlap
+the palette, linking 1,338 drawable runs and 26,395 preview faces to 408
+generated PNGs. It also
+records every `F5` mip-tile command and TMEM offset, but leaves
+`TEXEL0`/`TEXEL1` materials unlinked until their RDP LOD blend and dynamic
+primitive/environment colours can be reproduced faithfully.
+
+Those colours are demonstrably runtime state. `func_1502CCFC` emits
+`FA00F200` primitive colour and `FB000000` environment colour commands before
+the character display list. `func_1502CC34` obtains their three-byte RGB values
+from `D_800D9B68` and `D_800D9B78`, alpha comes from the render caller, and
+`func_1502EC34` can modify channels for character effects. The exporter records
+that dependency in glTF extras and does not bake a single guessed colour.
+
+The remaining character header pairs now have bounded roles. The sixth pair is
+an alternate display-list pointer table selected by `func_1502CCFC`. The final
+pair is an optional two-byte procedural animation joint-index table read by
+`func_1503DA3C`; its callers use `0xFF` as the absent sentinel and pass valid
+indices to `func_15034860` to build joint-channel overrides. The fifth pair is
+referenced directly by 2,937 `DC38000E` display-list commands in 181 models.
+`func_1503D368` recognizes that exact opcode and selector, and
+`func_1503D438` relocates the command argument by the model base. Every pointer
+is 32-byte aligned relative to the pair; 2,932 begin inside it and five at its
+end where the procedural table begins. Although the opcode matches the standard
+F3DEX2 MoveMem matrix selector, Conker's dedicated microcode gives it a different
+role. GLideN64's F3DEX2CBFD handler sets the vertex-normal base, then reads signed
+X/Y bytes at `base + cache_slot * 2`; signed Z is the low byte of the vertex
+flag. Replaying this rule matches the complete decoded triangle order. glTF
+receives normalized source normals, with an explicitly recorded geometric
+preview fallback for 2,575 zero and 111 unavailable face corners.
+
+`func_150911F4` independently proves that display-list texture segments `6`,
+`7`, `10`, and `11` are character-state slots. It reads four `u16` texture IDs
+from `D_800D24C8` offsets `0xB0` through `0xB6`, resolves them with
+`func_1510D0EC`, and writes the corresponding segment-base commands. Those
+facial/character-state references remain dynamic rather than receiving one
+guessed static PNG.
 
 Every one of the 59 decoded files in US bank `04` starts with a variable-length
 table of big-endian `(offset, size)` pairs. The first offset equals the table
@@ -499,6 +596,14 @@ are counted as 16-byte vertices. The display-list consumer proves the ordinary
 vertex-load and triangle commands plus Conker's packed four-triangle opcodes
 `0x10` through `0x1f`.
 
+The same consumer also uses Conker's `DC38000E` vertex-normal-base command in
+bank `04`, not only in character containers. Replaying the dedicated CBFD rule
+finds 342 commands across 107 models and produces 11,634 nonzero source-normal
+corners plus 5,643 explicit zero vectors. glTF now receives the nonzero source
+normals and a recorded geometric fallback for only those zero vectors. Bank
+`03` uses the same contract in 79 commands across 28 models, producing 3,884
+nonzero and 415 zero source-normal corners.
+
 This exports 765 primary meshes containing 209,274 source vertices, 147,723
 direct triangles, and 204,493 material-local UV coordinates. OBJ files are written to
 `build/assets/models/us-bank-04/geometry/`. Their native signed positions are
@@ -510,11 +615,28 @@ The other header offsets now have explicit extraction boundaries. There are 23
 secondary and 190 tertiary regions, written without reinterpretation below
 `build/assets/models/us-bank-04/regions/`. The loader retains the first model's
 tertiary pointer and skips its eight-byte header; runtime consumers then index
-the remaining four-byte values by 12-byte collision/surface records. All 58
-present first-model tables have the same second header word, `5`. The manifest
-therefore identifies those values as runtime surface metadata while retaining
-the two header words verbatim. Tertiary regions on later model slots and all
-secondary regions remain semantically unresolved.
+the remaining four-byte values by 12-byte collision records. All 58 present
+first-model tables have the same second header word, `5`, and contain exactly
+one surface word for each of their 97,071 primary faces. There are 176 distinct
+surface values. `func_15003668` passes those same primary display lists to
+`func_15001460`, which creates the runtime records as triples of relocated
+vertex pointers; `func_15002754` allocates that array and separate bounds
+arrays. `model-assets collision` therefore writes the four-byte surface values
+byte-identically and represents each generated pointer triple portably as three
+big-endian model-relative vertex offsets. Segment three supplies the second
+static-terrain collision layer: 38 models and 1,408 more triangle records
+without an installed per-face surface table. All 96 static collision glTFs
+import in Blender 5.2.1 with 98,291 nonzero-area faces, while all 188 zero-area
+source records remain in the binary inventory. The third collision array is
+also reproduced as transformed placement scenes. `func_150039E0` copies source
+byte `0x32` to runtime byte `0x4F`, and `func_15003668` excludes exactly
+`(flags & 0x60) == 0x20`: 1,055 included records with available model sources
+assemble into 98 files, 172 records are deliberately excluded, and eleven
+included records remain unresolved only because scenes 17 and 62 have no
+bank-04 bundle. All 194 static and placement glTFs import in Blender 5.2.1 with
+the expected 141,176 visible polygon instances. The meaning of each surface
+value, later model-slot tertiary regions, and all secondary regions remain
+semantically unresolved.
 
 Five models also contain a sentinel-terminated table of 14 twelve-byte
 descriptors. The loader rebases each descriptor's first two pointers, and
@@ -548,27 +670,53 @@ does not yet have a proven standalone image extraction.
 writes self-contained OBJ/MTL and glTF previews under
 `build/assets/models/us-bank-04-preview/`. It verifies every generated file and
 relative texture reference. The current boundary links 1,346 material runs and
-36,800 faces to 442 compatible PNGs. It deliberately leaves 2,713 CI8 runs and
-70,475 faces unlinked because the initial-slot call at `0x150033f4` and the
+36,800 faces to 442 compatible PNGs. After source-authentic zero-area triangles
+are omitted from interchange output, that becomes 1,345 drawable runs and
+36,775 preview faces. It deliberately leaves 2,713 CI8 runs and 70,348 preview
+faces unlinked because the initial-slot call at `0x150033f4` and the
 object-model call at `0x150041f0` both invoke `func_1510CE60` with a null fifth
 argument. Its mode-one palette references remain at the payload base and do not
 select the trailing palette used by the reversible CI8 storage PNGs. Another
 122 runs covering 2,650 faces use `native-proven` storage images whose RDP
 combiner and primitive/environment colors are not represented yet. They remain
-unlinked rather than being shown as generic diffuse textures. Another 894 runs
-covering 32,319 flat-textured faces have no proven standalone image contract;
-61 scene-dependent runs covering 1,021 faces also remain unlinked.
+unlinked rather than being shown as generic diffuse textures. Another 989 runs
+covering 32,292 preview faces have no proven standalone image contract; 63
+scene-dependent runs covering 1,021 faces also remain unlinked.
 
 The glTF export includes normalized vertex RGBA and material-local UVs. Blender
 therefore applies the vertex-color multiply used by the common RDP combine mode.
 OBJ/MTL remains available as geometry interchange, but MTL cannot encode that
 combiner and is not the recommended material preview path.
 
+`model-assets materials` converts one or more correlated `mupen-trace` JSONL
+captures into a ROM-hash-checked runtime material manifest. Passing that file to
+`model-assets preview --runtime-materials` embeds all observed variants and
+applies only unanimous glTF sampler and alpha-mode translations. Runtime-lit
+`SHADE`, explicit RDP mip LOD, and unsupported alpha or colour formulas remain
+exact extras rather than being collapsed into a misleading diffuse material.
+The graphics-task trace also captures Conker's 48-byte extended light records,
+its `/ 48` light count, coordinate modifiers, and basic/advanced-lighting
+switch. It separately retains the active model-view matrix and 32-slot signed
+XY normal stream for each observed context. When a texture-times-shade variant
+has one complete context, the exporter replays GLideN64's directional transform,
+point attenuation, coordinate modifiers, and signed-flag behavior into
+floating-point glTF vertex colours. The supplied scene bakes all 27 eligible
+lit runs, covering 2,267 vertices; unsupported combiners remain metadata-only.
+The result is GLideN64-equivalent, not an independent hardware-microcode proof.
+
 The 60 `DE` commands select offsets `0`, `0x40`, `0x100`, and `0x110` in
 renderer-provided segment 8. The eleven possible bases from `0x80082FC0` through
 `0x80083EC0` each contain 24 sixteen-byte lists consisting only of an `EF`
 OtherMode command and `DF` EndDL. These calls therefore change render state and
-do not hide more model geometry. Their active base, model names, semantic
+do not hide more model geometry. Nested-list capture now replays segment-base
+changes in call order. In the supplied OpenEmu state this resolves all ten live
+segment-8 calls to five distinct lists at `0x80083140`, `0x80083180`,
+`0x800831B0`, `0x80083240`, and `0x800832C0`; the complete task has 36 resolved
+nested calls and none left unresolved. The runtime-material manifest preserves
+those counts and addresses. Inlining the five lists corrects 34 of the 75
+captured material records, covering 541 correlated draws across bank-01 entries
+`0001` and `0004` and bank-04 entries `0045` and `0060`. Active bases in other
+scenes, model names, semantic
 material names, and transforms remain runtime-dependent. The exports are
 individual, structurally complete primary-model previews rather than complete
 scene reconstructions. Bank `04` is not claimed to be the only model-bearing
@@ -591,8 +739,11 @@ copied from offset `0x20`. `func_1511490C`, `func_151148A8`, and `func_150A8050`
 prove position at `0x00`, Euler degrees at `0x06`, scale at `0x20`, YZX rotation
 order, and the runtime matrix convention. Preview extraction therefore assembles
 all 511 direct records into 48 nonempty bank-12 scene glTF files. Bank-11's
-nonzero-dispatch records remain preserved but are not falsely interpreted as
-direct model placements.
+nonzero-dispatch records instead index the scene's bank-04 model table loaded
+by `func_150031EC`. This resolves 716 records to 570 segments and assembles 52
+additional scene glTF files; all 52 import successfully in Blender 5.2.1.
+Eleven records in scenes 17 and 62 remain unassembled because the corresponding
+bank-04 entries have zero length, so no replacement model is inferred.
 
 A complete-bank scan finds six further payloads, bank-09 entries 426 through
 431, which independently satisfy the same header, vertex, display-list, and
@@ -602,6 +753,12 @@ partial signature. A complete indexed-bank scan finds no other payload matching
 the complete character, direct, or segmented model contracts. The proven US
 geometry total is therefore 1,031 model records (1,029 with faces), 271,002
 vertices, and 213,946 faces.
+
+The preview exporters preserve that source inventory in their manifests but
+omit 380 zero-area triangles from OBJ/glTF geometry: 121 repeat a vertex index,
+136 use distinct indices with duplicate positions, and 123 are collinear. Each
+omission records its source face index, display-list offset, and triangle opcode.
+The resulting cross-bank interchange set contains 213,566 drawable faces.
 
 ### Flat RZIP reconstruction evidence
 

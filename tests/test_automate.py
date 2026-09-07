@@ -555,6 +555,99 @@ void func_test(void) { func_missing(1); }
             self.assertTrue(payload["batch_verified"])
             self.assertEqual([], payload["pending_batch"])
 
+    def test_resume_drops_a_pending_match_reopened_as_deferred(self) -> None:
+        current = {
+            "func_stale": automation.AttemptResult(
+                "func_stale",
+                self.SOURCE,
+                "deferred",
+                "not_attempted",
+                "eligible deferred candidate",
+            )
+        }
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            report = Path(temporary_directory) / "all.json"
+            automation.write_report(
+                report,
+                {
+                    "func_stale": automation.AttemptResult(
+                        "func_stale",
+                        self.SOURCE,
+                        "raw",
+                        "matched",
+                        "exact finish gate passed",
+                        0,
+                    )
+                },
+                full_scan=True,
+                scan_complete=True,
+                attempts=1,
+                batch_verified=False,
+                pending_batch=["func_stale"],
+            )
+
+            output = io.StringIO()
+            with redirect_stdout(output):
+                resumed, pending = automation.resume_report(report, current)
+
+            self.assertEqual([], pending)
+            self.assertEqual("not_attempted", resumed["func_stale"].outcome)
+            self.assertIn("no longer matched: func_stale", output.getvalue())
+
+    def test_full_scan_rechecks_pending_matches_before_batch(self) -> None:
+        candidate = self.raw_candidate("func_stale")
+        initial = {
+            "func_stale": automation.AttemptResult(
+                "func_stale", self.SOURCE, "raw", "not_attempted", "eligible"
+            )
+        }
+        reopened = {
+            "func_stale": automation.AttemptResult(
+                "func_stale",
+                self.SOURCE,
+                "deferred",
+                "not_attempted",
+                "reopened after integration",
+            )
+        }
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            report = Path(temporary_directory) / "all.json"
+            with (
+                patch.object(
+                    automation,
+                    "initial_report_entries",
+                    side_effect=(initial, reopened),
+                ),
+                patch.object(
+                    automation.automation_common,
+                    "available_raw_candidates",
+                    return_value=[candidate],
+                ),
+                patch.object(
+                    automation.automation_common,
+                    "available_deferred_candidates",
+                    return_value=[],
+                ),
+                patch.object(
+                    automation,
+                    "try_raw_candidate",
+                    return_value=automation.AttemptResult(
+                        "func_stale", self.SOURCE, "raw", "matched", "exact", 0
+                    ),
+                ),
+                patch.object(automation.automation_common, "run_command") as run_command,
+                redirect_stdout(io.StringIO()),
+            ):
+                self.assertEqual(
+                    0,
+                    automation.main(["--all", "--report", str(report)]),
+                )
+
+            run_command.assert_not_called()
+            payload = json.loads(report.read_text(encoding="utf-8"))
+            self.assertTrue(payload["batch_verified"])
+            self.assertEqual([], payload["pending_batch"])
+
 
 if __name__ == "__main__":
     unittest.main()

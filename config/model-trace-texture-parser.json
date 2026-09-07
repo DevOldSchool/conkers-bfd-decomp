@@ -1,0 +1,105 @@
+{
+  "schema_version": 1,
+  "name": "model-texture-parser-resolution",
+  "target": {
+    "bank": null,
+    "entry": null,
+    "segment": null,
+    "material_run": null
+  },
+  "max_events": 8,
+  "max_breakpoint_hits": 1000,
+  "timeout_seconds": 120,
+  "breakpoints": [
+    {
+      "name": "texture-command-resolved",
+      "address": "0x1510D010",
+      "flags": 8,
+      "memory": [
+        {
+          "name": "command",
+          "address": "$t0",
+          "length": 8
+        },
+        {
+          "name": "payload-size",
+          "address": "$sp+0x424",
+          "length": 4
+        },
+        {
+          "name": "rewrite-table",
+          "address": "$sp+0x440",
+          "length": 4
+        },
+        {
+          "name": "command-stream",
+          "address": "$sp+0x430",
+          "length": 4
+        }
+      ],
+      "when": [
+        {
+          "source": "memory",
+          "name": "command",
+          "offset": 0,
+          "size": 1,
+          "endian": "big",
+          "equals": "0xFD"
+        }
+      ],
+      "fields": {
+        "texture.command_opcode": {
+          "source": "memory",
+          "name": "command",
+          "offset": 0,
+          "size": 1,
+          "endian": "big"
+        },
+        "texture.flat_id": {
+          "source": "register",
+          "name": "s0",
+          "mask": "0x003FFFFF"
+        },
+        "texture.mode": {
+          "source": "register",
+          "name": "s0",
+          "shift": 22,
+          "mask": "0x3F"
+        },
+        "texture.resolved_command_word": {
+          "source": "memory",
+          "name": "command",
+          "offset": 4,
+          "size": 4,
+          "endian": "big"
+        },
+        "texture.resolved_source_address": {
+          "source": "memory",
+          "name": "command",
+          "offset": 4,
+          "size": 4,
+          "endian": "big",
+          "mask": "0xF0FFFFFF"
+        },
+        "texture.payload_size": {
+          "source": "memory",
+          "name": "payload-size",
+          "size": 4,
+          "endian": "big"
+        },
+        "texture.rewrite_table_pointer": {
+          "source": "memory",
+          "name": "rewrite-table",
+          "size": 4,
+          "endian": "big"
+        },
+        "texture.command_stream_pointer": {
+          "source": "memory",
+          "name": "command-stream",
+          "size": 4,
+          "endian": "big"
+        }
+      }
+    }
+  ]
+}
