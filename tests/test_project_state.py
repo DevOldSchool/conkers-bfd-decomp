@@ -877,6 +877,150 @@ class ProjectStateTests(unittest.TestCase):
             self.assertIn("better_value();", updated_source)
             self.assertNotIn("old_value();", updated_source)
 
+    def test_apply_permutation_activates_exact_deferred_candidate_on_host(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "deferred": {
+                "reason": "register allocation",
+                "current_score": 10,
+                "recorded_revision": "working-tree",
+                "candidate_preserved": True,
+            },
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (10) */\n"
+                "void func_test(void) {\n    old_value();\n}\n"
+                "#endif /* CONKER_DEFERRED_CANDIDATE func_test */\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            best = root / "build" / "us" / "permute" / "func_test" / "best.c"
+            best.parent.mkdir(parents=True)
+            best.write_text(
+                "void func_test(void) {\n    exact_value();\n}\n",
+                encoding="utf-8",
+            )
+
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.apply_permutation_function(
+                    SimpleNamespace(symbol="func_test", candidate=str(best))
+                )
+
+            updated = json.loads(inventory.read_text(encoding="utf-8"))
+            updated_source = source.read_text(encoding="utf-8")
+            self.assertNotIn("deferred", updated["functions"][0])
+            self.assertEqual(
+                "void func_test(void) {\n    exact_value();\n}\n", updated_source
+            )
+
+    def test_apply_permutation_replaces_an_active_candidate_without_inventory_edits(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            original_inventory = json.dumps(
+                {"schema_version": 1, "functions": [entry]}
+            )
+            inventory.write_text(original_inventory, encoding="utf-8")
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "void func_test(void) {\n    old_value();\n}\n", encoding="utf-8"
+            )
+            best = root / "build" / "us" / "permute" / "func_test" / "best.c"
+            best.parent.mkdir(parents=True)
+            best.write_text(
+                "void func_test(void) {\n    exact_value();\n}\n", encoding="utf-8"
+            )
+
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.apply_permutation_function(
+                    SimpleNamespace(symbol="func_test", candidate=str(best))
+                )
+
+            self.assertEqual(original_inventory, inventory.read_text(encoding="utf-8"))
+            self.assertIn("exact_value();", source.read_text(encoding="utf-8"))
+
+    def test_apply_permutation_recovers_a_restored_raw_asm_candidate(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+            best = root / "build" / "us" / "permute" / "func_test" / "best.c"
+            best.parent.mkdir(parents=True)
+            best.write_text(
+                "void func_test(void) {\n    exact_value();\n}\n", encoding="utf-8"
+            )
+
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.apply_permutation_function(
+                    SimpleNamespace(symbol="func_test", candidate=str(best))
+                )
+
+            self.assertEqual(
+                "void func_test(void) {\n    exact_value();\n}\n",
+                source.read_text(encoding="utf-8"),
+            )
+
     def test_normalizes_reviewed_source_unit_header_below_includes(self) -> None:
         header = (
             "/*\n"

@@ -1543,6 +1543,86 @@ def update_deferred_function(args: argparse.Namespace) -> None:
     )
 
 
+def apply_permutation_function(args: argparse.Namespace) -> None:
+    """Apply a container-generated exact permutation from the writable build tree."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if is_complete(function):
+        raise ProjectStateError(f"matched function {args.symbol} cannot be permuted")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source")
+
+    candidate_path = Path(args.candidate)
+    if not candidate_path.is_absolute():
+        candidate_path = ROOT / candidate_path
+    candidate_path = candidate_path.resolve()
+    if not candidate_path.is_relative_to(ROOT.resolve()) or not candidate_path.is_file():
+        raise ProjectStateError(
+            "apply-permutation candidate must be a file inside the repository"
+        )
+    candidate = candidate_path.read_text(encoding="utf-8").strip() + "\n"
+    candidate_start, candidate_end = c_function_span(candidate, args.symbol)
+    if candidate[:candidate_start].strip() or candidate[candidate_end:].strip():
+        raise ProjectStateError(
+            f"permutation for {args.symbol} must contain exactly one C definition"
+        )
+
+    was_deferred = isinstance(function.get("deferred"), dict)
+    if was_deferred:
+        source_path, old_source, active_source = restore_deferred_candidate(
+            source, args.symbol
+        )
+        function.pop("deferred")
+        validate_functions(functions_data)
+    else:
+        source_path = ROOT / source
+        old_source = source_path.read_text(encoding="utf-8")
+        active_source = old_source
+    newline = "\r\n" if "\r\n" in active_source else "\n"
+    normalized_candidate = candidate.rstrip("\n").replace("\n", newline)
+    pragma = global_asm_pragma(source, args.symbol)
+    if not was_deferred and pragma in active_source:
+        pragma_pattern = re.compile(rf"(?m)^[ \t]*{re.escape(pragma)}(?:\r?\n|$)")
+        pragma_matches = list(pragma_pattern.finditer(active_source))
+        if len(pragma_matches) != 1:
+            raise ProjectStateError(
+                f"expected exactly one GLOBAL_ASM pragma for {args.symbol}; "
+                f"found {len(pragma_matches)}"
+            )
+        pragma_match = pragma_matches[0]
+        updated_source = (
+            active_source[: pragma_match.start()]
+            + normalized_candidate
+            + newline
+            + active_source[pragma_match.end() :]
+        )
+    else:
+        function_start, function_end = c_function_span(active_source, args.symbol)
+        updated_source = (
+            active_source[:function_start]
+            + normalized_candidate
+            + newline
+            + active_source[function_end:]
+        )
+    source_path.write_text(updated_source, encoding="utf-8")
+    try:
+        if was_deferred:
+            validate_deferred_candidate_sources(functions)
+            write_json(FUNCTIONS_FILE, functions_data)
+    except Exception:
+        source_path.write_text(old_source, encoding="utf-8")
+        raise
+    print(
+        f"Applied exact permutation for {args.symbol} to {source} on the host"
+        + (" and removed its deferred marker." if was_deferred else ".")
+    )
+
+
 def reopen_match(args: argparse.Namespace) -> None:
     """Return a layout-invalidated focused match to raw ASM without losing its C."""
 
@@ -2626,6 +2706,9 @@ def parse_args() -> argparse.Namespace:
     update_deferred_parser.add_argument("--candidate", required=True)
     update_deferred_parser.add_argument("--reason", required=True)
     update_deferred_parser.add_argument("--score", required=True, type=int)
+    apply_permutation_parser = subparsers.add_parser("apply-permutation")
+    apply_permutation_parser.add_argument("symbol")
+    apply_permutation_parser.add_argument("--candidate", required=True)
     reopen_parser = subparsers.add_parser("reopen-match")
     reopen_parser.add_argument("--profile", choices=TARGET_REGIONS, default="us")
     reopen_parser.add_argument("symbol")
@@ -2714,6 +2797,8 @@ def main() -> int:
             resume_function(args)
         elif args.command == "update-deferred":
             update_deferred_function(args)
+        elif args.command == "apply-permutation":
+            apply_permutation_function(args)
         elif args.command == "reopen-match":
             reopen_match(args)
         elif args.command == "next":

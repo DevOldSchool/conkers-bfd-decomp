@@ -1,9 +1,13 @@
 from __future__ import annotations
 
 import importlib.util
+import io
 import sys
+import tempfile
 import unittest
+from contextlib import redirect_stdout
 from pathlib import Path
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -69,6 +73,51 @@ class PermuteTests(unittest.TestCase):
         self.assertTrue(any("value |= mask;" in variant for variant in variants))
         self.assertTrue(any("mask | value" in variant for variant in variants))
         self.assertLessEqual(len(variants), 10)
+
+    def test_improved_best_is_persisted_before_a_later_process_failure(self) -> None:
+        function = "void func_test(void) {\n    value = value | mask;\n}\n"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(function, encoding="utf-8")
+            with (
+                patch.object(permute_helper, "ROOT", root),
+                patch.object(
+                    permute_helper, "work_item", return_value=({}, "func_test")
+                ),
+                patch.object(
+                    permute_helper,
+                    "active_candidate_content",
+                    return_value=(source, function),
+                ),
+                patch.object(
+                    permute_helper.diff,
+                    "ensure_reference_function",
+                    return_value=root / "reference.s",
+                ),
+                patch.object(
+                    permute_helper.diff,
+                    "reference_object",
+                    return_value=root / "reference.o",
+                ),
+                patch.object(
+                    permute_helper,
+                    "score_candidate",
+                    side_effect=(20, RuntimeError("killed")),
+                ),
+                patch.object(
+                    sys,
+                    "argv",
+                    ["permute.py", "us", "func_test", "--budget", "2"],
+                ),
+                redirect_stdout(io.StringIO()),
+                self.assertRaisesRegex(RuntimeError, "killed"),
+            ):
+                permute_helper.main()
+
+            best = root / "build" / "us" / "permute" / "func_test" / "best.c"
+            self.assertEqual(function, best.read_text(encoding="utf-8"))
 
 
 if __name__ == "__main__":

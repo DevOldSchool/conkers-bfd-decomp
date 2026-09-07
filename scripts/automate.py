@@ -31,6 +31,7 @@ DIFF_CATEGORIES = (
     "opcode-or-control-flow",
     "missing-or-extra",
 )
+RESOURCE_KILL_STATUSES = frozenset((-9, 137))
 
 
 @dataclass(frozen=True)
@@ -233,7 +234,8 @@ def try_raw_candidate(
         raise automation_common.AutomationError(
             f"{candidate.identifier} was recorded matched, but permutation later failed"
         )
-    if permutation_status != 1:
+    resource_killed = permutation_status in RESOURCE_KILL_STATUSES
+    if permutation_status != 1 and not resource_killed:
         source.write_bytes(original)
         raise automation_common.AutomationError(
             f"permutation failed for {candidate.identifier} with exit {permutation_status}"
@@ -242,19 +244,41 @@ def try_raw_candidate(
     best = ROOT / "build" / "us" / "permute" / candidate.identifier / "best.c"
     best_score = score_from_output(permutation_output)
     retained_score = best_score if best_score is not None else initial_score
-    if not defer_best or not best.is_file() or best_score in (None, 0):
+    saved_positive_best = best.is_file() and best_score not in (None, 0)
+    killed_with_scored_source = resource_killed and initial_score > 0
+    if not defer_best or (not saved_positive_best and not killed_with_scored_source):
         source.write_bytes(original)
+        if resource_killed:
+            detail = (
+                f"permutation process was killed with exit {permutation_status}; "
+                "source restored"
+            )
+            print(f"SKIP {candidate.identifier}: {detail}")
+            return AttemptResult(
+                candidate.identifier,
+                candidate.source,
+                "raw",
+                "skipped",
+                detail,
+                retained_score,
+            )
         detail = f"no exact match; best CURRENT ({retained_score})"
         print(f"RESTORED {candidate.identifier}: {detail}")
         return AttemptResult(
             candidate.identifier, candidate.source, "raw", "restored", detail, retained_score
         )
 
-    apply_best_function(source, candidate.c_symbol, best)
+    if saved_positive_best:
+        apply_best_function(source, candidate.c_symbol, best)
+        deferred_score = best_score
+    else:
+        deferred_score = initial_score
     reason = (
         f"Unified automated m2c and bounded {budget}-variant source search; "
-        f"best candidate remains CURRENT ({best_score})"
+        f"best candidate remains CURRENT ({deferred_score})"
     )
+    if resource_killed:
+        reason += f" after permutation was killed with exit {permutation_status}"
     defer_status, _ = automation_common.run_command(
         [str(ROOT / "conker"), "defer", candidate.identifier, "--reason", reason]
     )
@@ -263,10 +287,15 @@ def try_raw_candidate(
         raise automation_common.AutomationError(
             f"could not preserve {candidate.identifier} best candidate"
         )
-    detail = f"best CURRENT ({best_score}) preserved"
+    detail = f"best CURRENT ({deferred_score}) preserved"
     print(f"DEFERRED {candidate.identifier}: {detail}")
     return AttemptResult(
-        candidate.identifier, candidate.source, "raw", "deferred", detail, best_score
+        candidate.identifier,
+        candidate.source,
+        "raw",
+        "deferred",
+        detail,
+        deferred_score,
     )
 
 
@@ -332,9 +361,23 @@ def try_deferred_candidate(
             f"{candidate.identifier} was recorded matched, but a later gate failed; "
             "the exact source was retained for manual recovery"
         )
-    if status == 1:
+    if status == 1 or status in RESOURCE_KILL_STATUSES:
         if source.read_bytes() != original:
             source.write_bytes(original)
+        if status in RESOURCE_KILL_STATUSES:
+            detail = (
+                f"permutation process was killed with exit {status}; existing "
+                f"CURRENT ({diagnosis.current_score}) disabled candidate preserved"
+            )
+            print(f"PRESERVED {candidate.identifier}: {detail}")
+            return AttemptResult(
+                candidate.identifier,
+                candidate.source,
+                "deferred",
+                "preserved",
+                detail,
+                diagnosis.current_score,
+            )
         best = ROOT / "build" / "us" / "permute" / candidate.identifier / "best.c"
         best_score = score_from_output(output)
         if (

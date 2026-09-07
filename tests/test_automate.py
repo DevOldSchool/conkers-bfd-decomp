@@ -122,6 +122,86 @@ void func_test(void) { func_missing(1); }
             self.assertEqual("skipped", result.outcome)
             self.assertEqual(self.PRAGMA, source.read_text(encoding="utf-8"))
 
+    def test_killed_raw_permutation_restores_source_and_does_not_block(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / self.SOURCE
+            source.parent.mkdir(parents=True)
+            source.write_text(self.PRAGMA, encoding="utf-8")
+            starter = "void func_test(void) {\n    value += 1;\n}\n"
+
+            with (
+                patch.object(automation, "ROOT", root),
+                patch.object(
+                    automation.automation_common,
+                    "generate_starter",
+                    return_value=starter,
+                ),
+                patch.object(
+                    automation.automation_common,
+                    "run_command",
+                    side_effect=(
+                        (1, "func_test: CURRENT (40)\n"),
+                        (137, "AGENT_ACTION: BLOCKED_TOOLING\n"),
+                    ),
+                ),
+                patch.object(
+                    automation.automation_common, "entry_is_complete", return_value=False
+                ),
+                redirect_stdout(io.StringIO()),
+            ):
+                result = automation.try_raw_candidate(
+                    self.raw_candidate(), budget=20, defer_best=False
+                )
+
+            self.assertEqual("skipped", result.outcome)
+            self.assertIn("exit 137", result.detail)
+            self.assertEqual(self.PRAGMA, source.read_text(encoding="utf-8"))
+
+    def test_killed_raw_permutation_defers_the_measured_initial_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / self.SOURCE
+            source.parent.mkdir(parents=True)
+            source.write_text(self.PRAGMA, encoding="utf-8")
+            starter = "void func_test(void) {\n    value += 1;\n}\n"
+            active_at_defer: list[str] = []
+
+            def run_command(arguments: list[str]) -> tuple[int, str]:
+                if "finish" in arguments:
+                    return 1, "func_test: CURRENT (40)\n"
+                if "permute" in arguments:
+                    return 137, "AGENT_ACTION: BLOCKED_TOOLING\n"
+                if "defer" in arguments:
+                    active_at_defer.append(source.read_text(encoding="utf-8"))
+                    return 0, "deferred\n"
+                raise AssertionError(arguments)
+
+            with (
+                patch.object(automation, "ROOT", root),
+                patch.object(
+                    automation.automation_common,
+                    "generate_starter",
+                    return_value=starter,
+                ),
+                patch.object(
+                    automation.automation_common,
+                    "run_command",
+                    side_effect=run_command,
+                ),
+                patch.object(
+                    automation.automation_common, "entry_is_complete", return_value=False
+                ),
+                redirect_stdout(io.StringIO()),
+            ):
+                result = automation.try_raw_candidate(
+                    self.raw_candidate(), budget=20, defer_best=True
+                )
+
+            self.assertEqual("deferred", result.outcome)
+            self.assertEqual(40, result.score)
+            self.assertEqual([starter], active_at_defer)
+
     def test_non_register_deferred_candidate_is_not_permuted(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)
@@ -218,6 +298,35 @@ void func_test(void) { func_missing(1); }
 
             self.assertEqual("preserved", result.outcome)
             self.assertEqual(35, result.score)
+
+    def test_killed_deferred_permutation_preserves_existing_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / self.SOURCE
+            source.parent.mkdir(parents=True)
+            original = b"preserved candidate\n"
+            source.write_bytes(original)
+            candidate = automation.automation_common.DeferredCandidate(
+                "func_test", self.SOURCE, 35
+            )
+
+            with (
+                patch.object(automation, "ROOT", root),
+                patch.object(
+                    automation.automation_common,
+                    "run_command",
+                    side_effect=((0, self.diagnosis()), (137, "killed\n")),
+                ),
+                patch.object(
+                    automation.automation_common, "entry_is_complete", return_value=False
+                ),
+                redirect_stdout(io.StringIO()),
+            ):
+                result = automation.try_deferred_candidate(candidate, budget=20)
+
+            self.assertEqual("preserved", result.outcome)
+            self.assertIn("exit 137", result.detail)
+            self.assertEqual(original, source.read_bytes())
 
     def test_bounded_run_uses_one_final_batch_and_writes_report(self) -> None:
         candidate = self.raw_candidate()

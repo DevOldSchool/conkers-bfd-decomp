@@ -201,6 +201,8 @@ def main() -> int:
         )
         directory = ROOT / "build" / args.profile / "permute" / args.identifier
         directory.mkdir(parents=True, exist_ok=True)
+        best_path = directory / "best.c"
+        best_path.unlink(missing_ok=True)
 
         best_score: int | None = None
         best_function = original_function
@@ -225,33 +227,29 @@ def main() -> int:
             if best_score is None:
                 best_score = score
                 best_function = variant
+                best_path.write_text(best_function + "\n", encoding="utf-8")
                 print(f"{args.identifier}: baseline CURRENT ({score}) at variant {attempted}")
             elif score < best_score:
                 best_score = score
                 best_function = variant
+                best_path.write_text(best_function + "\n", encoding="utf-8")
                 print(f"{args.identifier}: improved CURRENT ({score}) at variant {attempted}")
             if score == 0:
                 exact_function = variant
                 break
 
-        (directory / "best.c").write_text(best_function + "\n", encoding="utf-8")
         if exact_function is None:
             print(
                 f"{args.identifier}: no exact match in {attempted} variant(s); "
-                f"best CURRENT ({best_score}) saved to {directory.relative_to(ROOT) / 'best.c'}"
+                f"best CURRENT ({best_score}) saved to {best_path.relative_to(ROOT)}"
                 + (f"; {skipped} invalid variant(s) skipped" if skipped else "")
             )
             return 1
 
-        exact_content = (
-            active_content[:function_start]
-            + exact_function
-            + "\n"
-            + active_content[function_end:]
-        )
-        source.write_text(exact_content, encoding="utf-8")
         print(
-            f"{args.identifier}: applied exact variant {attempted}; authoritative finish required"
+            f"{args.identifier}: exact variant {attempted} saved to "
+            f"{best_path.relative_to(ROOT)}; host application and "
+            "authoritative finish required"
         )
         return 0
     except (
