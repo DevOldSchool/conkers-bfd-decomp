@@ -27,4 +27,31 @@ void func_15164888(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165628.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_151658DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165B80.s")
+f32 func_15143E64(f32 *, void *);                   /* extern */
+void *func_15144B34(u8, void *);                    /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15165BB0 CURRENT (1233) */
+f32 func_15165BB0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {
+    f32 sp28;
+    f32 sp20;
+    f32 sp24;
+    f32 temp_fv0;
+    f32 var_fv1;
+    void *temp_v0;
+
+    temp_v0 = func_15144B34(*(u8 *)((u8 *)arg0 + 0x16), arg0);
+    sp20 = *(f32 *)((u8 *)arg1 + 0) - *(f32 *)((u8 *)temp_v0 + 0);
+    sp24 = *(f32 *)((u8 *)arg1 + 4) - *(f32 *)((u8 *)temp_v0 + 4);
+    sp28 = *(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)temp_v0 + 8);
+    temp_fv0 = func_15143E64(&sp20, arg1);
+    if (temp_fv0 < arg2) {
+        var_fv1 = 1.0f;
+    } else if ((arg2 + arg3) < temp_fv0) {
+        var_fv1 = 0.0f;
+    } else {
+        var_fv1 = 1.0f - ((temp_fv0 - arg2) * arg4);
+    }
+    return var_fv1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15165BB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165BB0.s")

@@ -84,6 +84,38 @@ void func_15124AB4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15124AB4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15124B18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15124C38.s")
+f32 func_150484A0(f32, f32);                        /* extern */
+extern f32 D_800A351C;
+extern f32 D_800A3520;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512523C CURRENT (1740) */
+void func_1512523C(void *arg0) {
+    f32 temp_fa0;
+    f32 temp_fv1;
+    f32 temp_fv1_2;
+    f32 var_fa1;
+
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x2BC) - *(f32 *)((u8 *)arg0 + 0x2F8);
+    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x2C4) - *(f32 *)((u8 *)arg0 + 0x300);
+    {
+        f32 temp_fv0 = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0));
+    if (temp_fv0 < 0.0f) {
+        var_fa1 = -temp_fv0;
+    } else {
+        var_fa1 = temp_fv0;
+    }
+    temp_fv1_2 = func_150484A0(*(f32 *)((u8 *)arg0 + 0x2FC) - *(f32 *)((u8 *)arg0 + 0x2C0), var_fa1) * D_800A351C;
+    *(f32 *)((u8 *)arg0 + 0x388) = temp_fv1_2;
+    if (temp_fv1_2 > 180.0f) {
+        *(f32 *)((u8 *)arg0 + 0x388) = (f32) (*(f32 *)((u8 *)arg0 + 0x388) - 360.0f);
+    }
+    *(f32 *)((u8 *)arg0 + 0x388) = (f32) -*(f32 *)((u8 *)arg0 + 0x388);
+    *(f32 *)((u8 *)arg0 + 0x388) = (f32) (*(f32 *)((u8 *)arg0 + 0x388) - *(f32 *)((u8 *)arg0 + 0x3A8));
+    *(f32 *)((u8 *)arg0 + 0x388) = (f32) (*(f32 *)((u8 *)arg0 + 0x388) + *(f32 *)((u8 *)arg0 + 0x38C));
+    *(f32 *)((u8 *)arg0 + 0x398) = (f32) (*(f32 *)((u8 *)arg0 + 0x388) * D_800A3520);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1512523C */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_1512523C.s")
 f32 func_15048FC8(f32 *, void *);                   /* extern */
 extern f32 D_800A3524;

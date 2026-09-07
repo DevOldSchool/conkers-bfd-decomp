@@ -177,5 +177,54 @@ s32 func_15185DAC(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15185F24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_1518652C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15186794.s")
+extern s32 D_800DE01C;
+extern s32 D_800DE020;
+extern s32 D_800DE024;
+extern s32 D_800DE030;
+extern s32 D_800DE034;
+extern s32 D_800DE038;
+extern f32 D_800DE03C;
+extern s8 D_800DE040;
+extern s8 D_800DE041;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151872B0 CURRENT (135) */
+void func_151872B0(s32 arg0) {
+    D_800DE01C = 0x258;
+    D_800DE020 = 0xB4;
+    D_800DE024 = 0x5A;
+    D_800DE030 = 0x3F8;
+    D_800DE034 = 0;
+    D_800DE038 = 1;
+    D_800DE03C = 1.0f;
+    D_800DE040 = 1;
+    D_800DE041 = 1;
+    switch (arg0) {                                 /* irregular */
+    case 33:
+        D_800DE01C = 0x12C0;
+        D_800DE020 = 0x12BF;
+        D_800DE024 = 0x12BE;
+        D_800DE030 = 0x3F2;
+        D_800DE034 = 1;
+        D_800DE038 = 4;
+        D_800DE040 = 0;
+        return;
+    case 34:
+        D_800DE01C = 0x960;
+        D_800DE020 = 0x95F;
+        D_800DE024 = 0x95E;
+        D_800DE038 = 4;
+        D_800DE040 = 0;
+        return;
+    case 20:
+        D_800DE041 = 0;
+        return;
+    case 41:
+        D_800DE01C = 0x4B0;
+        D_800DE020 = 0x258;
+        D_800DE024 = 0x12C;
+        return;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151872B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_151872B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_151873E4.s")

@@ -36,6 +36,39 @@ void func_15004574(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15004574 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004574.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150045C4.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150049A4 CURRENT (2920) */
+void func_150049A4(s8 *arg0, s32 arg1, s32 arg2) {
+    s32 var_t8;
+    s32 var_v0;
+    s8 *var_a1;
+    s8 var_a2;
+
+    var_v0 = 0;
+    var_a1 = arg0;
+    if (*arg0 != -0x21) {
+        var_a2 = *arg0;
+        do {
+            var_v0 += 1;
+            if (var_a2 != -0x24) {
+                if (var_a2 != 1) {
+                    if (var_a2 == -0x22) {
+                        var_t8 = *(s32 *)((u8 *)var_a1 + 4) + arg1;
+                        goto block_9;
+                    }
+                } else {
+                    *(s32 *)((u8 *)var_a1 + 4) = (s32) (*(s32 *)((u8 *)var_a1 + 4) + arg1);
+                }
+            } else if (*(u8 *)((u8 *)var_a1 + 3) == 0xE) {
+                var_t8 = *(s32 *)((u8 *)var_a1 + 4) + arg2;
+block_9:
+                *(s32 *)((u8 *)var_a1 + 4) = var_t8;
+            }
+            var_a1 = (var_v0 * 8) + arg0;
+            var_a2 = *var_a1;
+        } while (var_a2 != -0x21);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150049A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150049A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004A4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004AAC.s")

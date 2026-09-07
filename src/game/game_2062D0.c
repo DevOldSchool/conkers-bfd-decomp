@@ -36,14 +36,8 @@
  * - func_151DAB58
  * - func_151DADA0
  * - func_151DAE28
- * - func_151DB0CC
- * - func_151DB15C
- * - func_151DB1EC
  * - func_151DB27C
  * - func_151DB2A8
- * - func_151DB330
- * - func_151DB43C
- * - func_151DB4CC
  * - func_151DB5D0
  * - func_151DB97C
  * - func_151DBAA8
@@ -190,9 +184,30 @@ void func_151DB068(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x18) = temp_v1_2;
     *(s8 *)((u8 *)arg0 + 0x1A) = 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB0CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB15C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB1EC.s")
+void func_151DB0CC(void *arg0) {
+    *(s8 *)((u8 *)arg0 + 0x14) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x15) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x16) = 0;
+    *(s8 *)((u8 *)arg0 + 0x18) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x1A) = 0;
+}
+void func_151DB15C(void *arg0) {
+    *(s8 *)((u8 *)arg0 + 0x14) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x15) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x16) = 0;
+    *(s8 *)((u8 *)arg0 + 0x18) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x1A) = 0;
+}
+void func_151DB1EC(void *arg0) {
+    *(s8 *)((u8 *)arg0 + 0x14) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x15) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x16) = 0;
+    *(s8 *)((u8 *)arg0 + 0x18) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x1A) = 0;
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151DB27C CURRENT (15) */
 void func_151DB27C(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x14) = 0xFF;
@@ -223,7 +238,14 @@ void func_151DB2CC(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20(arg0) % 46U) + 0xB4);
     *(s8 *)((u8 *)arg0 + 0x1A) = 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB330.s")
+void func_151DB330(void *arg0) {
+    *(s8 *)((u8 *)arg0 + 0x14) = (s8) ((func_150ADA20() % 21U) + 0x5F);
+    *(s8 *)((u8 *)arg0 + 0x15) = (s8) ((func_150ADA20() % 21U) + 0x5F);
+    *(s8 *)((u8 *)arg0 + 0x16) = (s8) ((func_150ADA20() % 11U) + 0x2D);
+    *(s8 *)((u8 *)arg0 + 0x18) = (s8) ((func_150ADA20() & 0xF) + 0x3A);
+    *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() & 0xF) + 0x3C);
+    *(s8 *)((u8 *)arg0 + 0x1A) = (s8) ((func_150ADA20() % 11U) + 0x19);
+}
 void func_151DB3D8(void *arg0) {
     s8 temp_v1;
     s8 temp_v1_2;
@@ -237,8 +259,22 @@ void func_151DB3D8(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x1A) = temp_v1_2;
     *(s8 *)((u8 *)arg0 + 0x19) = temp_v1_2;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB43C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB4CC.s")
+void func_151DB43C(void *arg0) {
+    *(s8 *)((u8 *)arg0 + 0x14) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x15) = 0;
+    *(s8 *)((u8 *)arg0 + 0x16) = (s8) ((func_150ADA20() % 56U) + 0x50);
+    *(s8 *)((u8 *)arg0 + 0x18) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+    *(s8 *)((u8 *)arg0 + 0x19) = 0;
+    *(s8 *)((u8 *)arg0 + 0x1A) = (s8) ((func_150ADA20() % 46U) + 0xB4);
+}
+void func_151DB4CC(void *arg0) {
+    *(s8 *)((u8 *)arg0 + 0x14) = (s8) ((func_150ADA20() % 56U) + 0xC8);
+    *(s8 *)((u8 *)arg0 + 0x15) = (s8) ((func_150ADA20() % 56U) + 0xC8);
+    *(s8 *)((u8 *)arg0 + 0x16) = (s8) ((func_150ADA20() % 56U) + 0xC8);
+    *(s8 *)((u8 *)arg0 + 0x18) = (s8) ((func_150ADA20() % 56U) + 0xC8);
+    *(s8 *)((u8 *)arg0 + 0x19) = (s8) ((func_150ADA20() % 56U) + 0xC8);
+    *(s8 *)((u8 *)arg0 + 0x1A) = (s8) ((func_150ADA20() % 56U) + 0xC8);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB5D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB97C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBAA8.s")

@@ -20,6 +20,32 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E4A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E4CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E4F8.s")
+s32 func_150ADA20();                                /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E524 CURRENT (5) */
+void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, s8 *arg5, s16 *arg6) {
+    s32 temp_v1;
+
+    *arg1 = 2;
+    if (func_150ADA20() & 1) {
+        *arg1 |= 1;
+    }
+    temp_v1 = func_150ADA20() & 1;
+    switch (temp_v1) {                              /* irregular */
+    case 0:
+        *arg0 = 0x13;
+        break;
+    case 1:
+        *arg0 = 0x14;
+        break;
+    }
+    *arg2 = 0;
+    *arg3 = 0;
+    *arg4 = 0;
+    *arg5 = 0xFF;
+    *arg6 = 0x301;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518E524 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E524.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E5D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E66C.s")

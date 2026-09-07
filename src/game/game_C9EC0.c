@@ -47,6 +47,34 @@ u16 func_1509CA30(s32 arg0) {
 s32 func_1509CA78(s32 arg0) {
     return D_80087434[arg0].field_0;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CA98 CURRENT (60) */
+s32 func_1509CA98(s32 arg0) {
+    GameC9EC0Entry *var_v0;
+    s32 var_v1;
+
+    var_v1 = 0;
+    var_v0 = D_80087430;
+loop_1:
+    if ((var_v0->field_0 != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 4) & 0x1FFFFFFF) + 1))) {
+        return var_v1;
+    }
+    if ((*(s32 *)((u8 *)var_v0 + 0x14) != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 0x18) & 0x1FFFFFFF) + 1))) {
+        return var_v1 + 1;
+    }
+    if ((*(s32 *)((u8 *)var_v0 + 0x28) != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 0x2C) & 0x1FFFFFFF) + 1))) {
+        return var_v1 + 2;
+    }
+    if ((*(s32 *)((u8 *)var_v0 + 0x3C) != 0) && (arg0 == ((*(s32 *)((u8 *)var_v0 + 0x40) & 0x1FFFFFFF) + 1))) {
+        return var_v1 + 3;
+    }
+    var_v1 += 4;
+    var_v0 += 0x50;
+    if (var_v1 == 0xCC) {
+        return 0xCC;
+    }
+    goto loop_1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509CA98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CB68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CBD4.s")

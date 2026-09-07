@@ -13,6 +13,28 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+extern f32 D_8009FDD4;
+extern f32 D_8009FDD8;
+extern f32 D_8009FDDC;
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B9560 CURRENT (2445) */
+s32 func_150B9560(void *arg0) {
+    if (*(s16 *)((u8 *)arg0 + 0x1C) < 0x50) {
+        *(f32 *)((u8 *)arg0 + 0x110) = (f32) (*(f32 *)((u8 *)arg0 + 0x110) + (D_8009FDD4 * D_800BE9A4));
+        *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) - *(f32 *)((u8 *)arg0 + 0x110));
+    }
+    if (*(s16 *)((u8 *)arg0 + 0x1C) >= 0x73) {
+        *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)arg0 + 0x2C) * D_8009FDD8);
+        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) * D_8009FDD8);
+        return 1;
+    }
+    if (*(s16 *)((u8 *)arg0 + 0x1C) < 0x41) {
+        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + D_8009FDDC);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B9560 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E6A10/func_150B9560.s")
 typedef struct GameE6A10Object {
     u8 pad0[0x1C];

@@ -198,6 +198,32 @@ void func_15197A7C(CharacterFlamethrowerActor *arg0) {
         func_15147D64(&sp18, 8, arg0);
     }
 }
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15197AB4 CURRENT (990) */
+s32 func_15197AB4(void *arg0) {
+    f32 temp_fa0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x15C);
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x158);
+    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x160);
+    *(f32 *)((u8 *)arg0 + 0x140) = (f32) (*(f32 *)((u8 *)arg0 + 0x140) * temp_fv0);
+    *(f32 *)((u8 *)arg0 + 0x148) = (f32) (*(f32 *)((u8 *)arg0 + 0x148) * temp_fv0);
+    *(f32 *)((u8 *)arg0 + 0x144) = (f32) (*(f32 *)((u8 *)arg0 + 0x144) + (temp_fv1 * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x14C) = (f32) (*(f32 *)((u8 *)arg0 + 0x14C) * temp_fa0);
+    *(f32 *)((u8 *)arg0 + 0x154) = (f32) (*(f32 *)((u8 *)arg0 + 0x154) * temp_fa0);
+    *(f32 *)((u8 *)arg0 + 0x150) = (f32) (*(f32 *)((u8 *)arg0 + 0x150) + (temp_fv1 * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)arg0 + 0x34) + (*(f32 *)((u8 *)arg0 + 0x140) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + (*(f32 *)((u8 *)arg0 + 0x144) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + (*(f32 *)((u8 *)arg0 + 0x148) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)arg0 + 0x40) + (*(f32 *)((u8 *)arg0 + 0x14C) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)arg0 + 0x44) + (*(f32 *)((u8 *)arg0 + 0x150) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x48) = (f32) (*(f32 *)((u8 *)arg0 + 0x48) + (*(f32 *)((u8 *)arg0 + 0x154) * D_800BE9A4));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15197AB4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15197AB4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15197BBC CURRENT (10) */
 s32 func_15197BBC(void *arg0) {

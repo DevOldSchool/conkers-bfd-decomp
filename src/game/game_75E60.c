@@ -14,6 +14,20 @@
 
 void func_150489B0(s32 arg0, s32 arg1);
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150489B0 CURRENT (2929) */
+void func_150489B0(s32 arg0, s32 arg1) {
+    s32 temp_t6;
+
+    temp_t6 = arg0 & 0xFF;
+    if (temp_t6 >= 0x41) {
+        if (temp_t6 >= 0x81) {
+            if (temp_t6 >= 0xC1) {
+
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150489B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75E60/func_150489B0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15048A40 */
 void func_15048A40(u8 arg0) {
