@@ -1,0 +1,27 @@
+ARG CONKER_BASE_IMAGE
+FROM ${CONKER_BASE_IMAGE}
+
+# Optional software graphics tracing executes the ROM's RSP microcode and RDP
+# commands. Xvfb provides only the presentation surface; Angrylion rasterizes
+# on the CPU. Keep these independently pinned and out of the default trace mode.
+ARG MUPEN64PLUS_RSP_CXD4_REV=00906a92641c540a64e4e7505012157315314810
+ARG ANGRYLION_RDP_PLUS_REV=9c8b9ed3e7d7f00dff8bc872ccdd3fba1a3673fc
+RUN apt-get update \
+    && apt-get install --yes --no-install-recommends \
+        cmake freeglut3-dev libgl1-mesa-dri libglx-mesa0 xvfb xauth \
+    && rm -rf /var/lib/apt/lists/* \
+    && git clone https://github.com/mupen64plus/mupen64plus-rsp-cxd4.git /tmp/mupen64plus-rsp-cxd4 \
+    && git -C /tmp/mupen64plus-rsp-cxd4 checkout --detach "$MUPEN64PLUS_RSP_CXD4_REV" \
+    && make --directory /tmp/mupen64plus-rsp-cxd4/projects/unix --jobs "$(nproc)" \
+        PREFIX=/opt/mupen64plus APIDIR=/opt/mupen64plus/include/mupen64plus all \
+    && make --directory /tmp/mupen64plus-rsp-cxd4/projects/unix \
+        PREFIX=/opt/mupen64plus APIDIR=/opt/mupen64plus/include/mupen64plus \
+        PLUGINDIR=/opt/mupen64plus/lib/mupen64plus install \
+    && git clone https://github.com/ata4/angrylion-rdp-plus.git /tmp/angrylion-rdp-plus \
+    && git -C /tmp/angrylion-rdp-plus checkout --detach "$ANGRYLION_RDP_PLUS_REV" \
+    && cmake -S /tmp/angrylion-rdp-plus -B /tmp/angrylion-rdp-plus/build \
+        -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/opt/mupen64plus \
+        -DCMAKE_INSTALL_LIBDIR=lib -DBUILD_PROJECT64=OFF \
+    && cmake --build /tmp/angrylion-rdp-plus/build --parallel "$(nproc)" \
+    && cmake --install /tmp/angrylion-rdp-plus/build \
+    && rm -rf /tmp/mupen64plus-rsp-cxd4 /tmp/angrylion-rdp-plus

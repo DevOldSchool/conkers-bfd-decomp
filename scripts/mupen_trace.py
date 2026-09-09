@@ -7,6 +7,7 @@ import argparse
 import base64
 import hashlib
 import json
+import math
 import os
 import re
 import selectors
@@ -21,6 +22,13 @@ from typing import Any
 
 SCHEMA = "conker.model-draw-state-trace/v1"
 MODEL_BANKS = (0x01, 0x03, 0x04, 0x09)
+CHARACTER_POOL_ADDRESS = 0x800CC2D0
+CHARACTER_POOL_RECORD_SIZE = 0x32C
+CHARACTER_POOL_RECORD_COUNT = 25
+CHARACTER_POOL_SIZE = CHARACTER_POOL_RECORD_SIZE * CHARACTER_POOL_RECORD_COUNT
+CHARACTER_PART_TABLE_RECORD_COUNT = 188
+CHARACTER_PART_POINTER_TABLE_SIZE = CHARACTER_PART_TABLE_RECORD_COUNT * 4
+CHARACTER_PART_COUNT_TABLE_SIZE = CHARACTER_PART_TABLE_RECORD_COUNT * 2
 PROMPT = b"(dbg) "
 REGISTER_RE = re.compile(
     r"(?:\$)?(?P<name>r0|at|v[01]|a[0-3]|t[0-9]|s[0-7]|sB|k[01]|gp|sp|ra)\s+"
@@ -144,6 +152,23 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
         flags = parse_int(breakpoint.get("flags", 8), f"{breakpoint_name}.flags")
         if flags <= 0 or flags & ~0xE:
             raise TraceError(f"{breakpoint_name}.flags must use debugger READ/WRITE/EXEC bits")
+        if not isinstance(breakpoint.get("stop_after_capture", False), bool):
+            raise TraceError(f"{breakpoint_name}.stop_after_capture must be boolean")
+        stop_after_capture_count = breakpoint.get("stop_after_capture_count")
+        if stop_after_capture_count is not None:
+            stop_after_capture_count = parse_int(
+                stop_after_capture_count,
+                f"{breakpoint_name}.stop_after_capture_count",
+            )
+            if not 1 <= stop_after_capture_count <= 100000:
+                raise TraceError(
+                    f"{breakpoint_name}.stop_after_capture_count must be between 1 and 100000"
+                )
+            if breakpoint.get("stop_after_capture", False):
+                raise TraceError(
+                    f"{breakpoint_name} cannot combine stop_after_capture with "
+                    "stop_after_capture_count"
+                )
         probes = breakpoint.get("memory", [])
         if not isinstance(probes, list):
             raise TraceError(f"{breakpoint_name}.memory must be an array")
@@ -205,7 +230,7 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
             sources.append((f"{breakpoint_name}.when[{condition_index}]", condition))
         for destination, source in sources:
             if not isinstance(destination, str) or not re.fullmatch(
-                r"(?:segments|texture|rdp|colours|joint_matrices)(?:\.[A-Za-z0-9_-]+)+",
+                r"(?:segments|texture|rdp|colours|joint_matrices|model)(?:\.[A-Za-z0-9_-]+)+",
                 destination,
             ) and not destination.startswith(f"{breakpoint_name}.when["):
                 raise TraceError(f"unsupported state field path: {destination!r}")
@@ -242,10 +267,76 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
                     raise TraceError(f"{destination} reads outside memory probe {source_name}")
         decoder = breakpoint.get("decoder")
         if decoder is not None:
-            if not isinstance(decoder, dict) or decoder.get("format") != "f3dex2-cbfd":
+            if not isinstance(decoder, dict) or decoder.get("format") not in {
+                "f3dex2-cbfd",
+                "cbfd-character-pool",
+                "cbfd-character-draw-range",
+            }:
                 raise TraceError(f"{breakpoint_name}.decoder format is unsupported")
-            if decoder.get("memory") not in probe_names:
+            decoder_format = decoder["format"]
+            decoder_memory = decoder.get("memory")
+            if decoder_format == "cbfd-character-draw-range":
+                if not isinstance(decoder_memory, str) or not re.fullmatch(
+                    r"[A-Za-z0-9_-]+", decoder_memory
+                ):
+                    raise TraceError(
+                        f"{breakpoint_name}.decoder memory name is invalid"
+                    )
+                if decoder_memory in probe_names:
+                    raise TraceError(
+                        f"{breakpoint_name}.decoder dynamic memory name conflicts with a probe"
+                    )
+                entry_breakpoint = decoder.get("entry_breakpoint")
+                if not isinstance(entry_breakpoint, str) or not entry_breakpoint:
+                    raise TraceError(
+                        f"{breakpoint_name}.decoder entry_breakpoint is required"
+                    )
+                max_bytes = parse_int(
+                    decoder.get("max_bytes", 0x10000),
+                    f"{breakpoint_name}.decoder.max_bytes",
+                )
+                if not 8 <= max_bytes <= 0x10000 or max_bytes % 8:
+                    raise TraceError(
+                        f"{breakpoint_name}.decoder.max_bytes must be an 8-byte multiple up to 65536"
+                    )
+            elif decoder_memory not in probe_names:
                 raise TraceError(f"{breakpoint_name}.decoder uses an unknown memory probe")
+            if decoder.get("format") == "cbfd-character-pool":
+                source_name = decoder["memory"]
+                if probe_max_lengths[source_name] != CHARACTER_POOL_SIZE:
+                    raise TraceError(
+                        f"{breakpoint_name}.decoder requires a {CHARACTER_POOL_SIZE}-byte "
+                        "character-pool probe"
+                    )
+                capture_part_tables = decoder.get(
+                    "capture_character_part_tables", False
+                )
+                if not isinstance(capture_part_tables, bool):
+                    raise TraceError(
+                        f"{breakpoint_name}.decoder.capture_character_part_tables "
+                        "must be boolean"
+                    )
+                if capture_part_tables:
+                    for option, expected_size in (
+                        ("part_pointer_table", CHARACTER_PART_POINTER_TABLE_SIZE),
+                        ("part_count_table", CHARACTER_PART_COUNT_TABLE_SIZE),
+                        (
+                            "extra_part_pointer_table",
+                            CHARACTER_PART_POINTER_TABLE_SIZE,
+                        ),
+                    ):
+                        probe_name = decoder.get(option)
+                        if probe_name not in probe_max_lengths:
+                            raise TraceError(
+                                f"{breakpoint_name}.decoder.{option} uses an unknown "
+                                "memory probe"
+                            )
+                        if probe_max_lengths[probe_name] != expected_size:
+                            raise TraceError(
+                                f"{breakpoint_name}.decoder.{option} requires an "
+                                f"exactly {expected_size}-byte probe"
+                            )
+                continue
             walk = decoder.get("walk_nested", False)
             if not isinstance(walk, bool):
                 raise TraceError(f"{breakpoint_name}.decoder.walk_nested must be boolean")
@@ -270,6 +361,12 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
                 raise TraceError(
                     f"{breakpoint_name}.decoder.capture_matrices must be boolean"
                 )
+            matrix_format = decoder.get("matrix_format", "n64-mtx")
+            if matrix_format not in {"n64-mtx", "cbfd-character-f32"}:
+                raise TraceError(
+                    f"{breakpoint_name}.decoder.matrix_format must be "
+                    "n64-mtx or cbfd-character-f32"
+                )
             max_matrices = parse_int(
                 decoder.get("max_matrices", 128),
                 f"{breakpoint_name}.decoder.max_matrices",
@@ -279,6 +376,10 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
                     f"{breakpoint_name}.decoder.max_matrices must be between 1 and 1024"
                 )
             capture_lights = decoder.get("capture_lights", False)
+            if not isinstance(decoder.get("capture_vertices", False), bool):
+                raise TraceError(f"{breakpoint_name}.decoder.capture_vertices must be boolean")
+            if not 1 <= parse_int(decoder.get("max_vertex_blocks", 512), "max_vertex_blocks") <= 4096:
+                raise TraceError("max_vertex_blocks must be between 1 and 4096")
             if not isinstance(capture_lights, bool):
                 raise TraceError(
                     f"{breakpoint_name}.decoder.capture_lights must be boolean"
@@ -317,6 +418,8 @@ def validate_spec(spec: dict[str, Any]) -> dict[str, Any]:
         raise TraceError("max_breakpoint_hits must cover max_events and cannot exceed 1000000")
     if not isinstance(spec.get("model_correlation", False), bool):
         raise TraceError("model_correlation must be boolean")
+    if not isinstance(spec.get("model_inventory_digest", False), bool):
+        raise TraceError("model_inventory_digest must be boolean")
     return spec
 
 
@@ -421,6 +524,7 @@ def default_state() -> dict[str, Any]:
             "tiles": [],
             "tmem": [],
             "combine_mode": None,
+            "convert_mode": None,
             "other_mode": None,
             "geometry_mode": 0,
         },
@@ -429,10 +533,77 @@ def default_state() -> dict[str, Any]:
             "environment": None,
             "alpha": None,
         },
+        "model": {},
         "joint_matrices": [],
         "rsp_lights": [],
         "rsp_normal_streams": [],
+        "rdp_texture_images": [],
     }
+
+
+def decode_cbfd_character_pool(data: bytes) -> dict[str, Any]:
+    """Decode the 25 live 0x32C-byte character records rooted at D_800CC2D0."""
+
+    if len(data) != CHARACTER_POOL_SIZE:
+        raise TraceError(
+            f"CBFD character pool must be exactly {CHARACTER_POOL_SIZE} bytes"
+        )
+    active_records: list[dict[str, Any]] = []
+    for slot in range(CHARACTER_POOL_RECORD_COUNT):
+        offset = slot * CHARACTER_POOL_RECORD_SIZE
+        record = data[offset : offset + CHARACTER_POOL_RECORD_SIZE]
+        owner_address = int.from_bytes(record[0:4], "big")
+        if owner_address == 0:
+            continue
+        active_records.append(
+            {
+                "slot": slot,
+                "record_offset": offset,
+                "record_address": CHARACTER_POOL_ADDRESS + offset,
+                "owner_address": owner_address,
+                "entry": record[4],
+                "flags": record[0xAC],
+                "animation_state_address": int.from_bytes(record[0x144:0x148], "big"),
+            }
+        )
+    return {
+        "character_pool_address": CHARACTER_POOL_ADDRESS,
+        "record_size": CHARACTER_POOL_RECORD_SIZE,
+        "record_count": CHARACTER_POOL_RECORD_COUNT,
+        "active_record_count": len(active_records),
+        "active_entries": sorted({record["entry"] for record in active_records}),
+        "active_records": active_records,
+    }
+
+
+def decode_cbfd_character_part_table_headers(
+    pointer_data: bytes,
+    count_data: bytes,
+    extra_pointer_data: bytes,
+) -> list[dict[str, Any]]:
+    """Decode the renderer's 188 model-indexed part-table headers."""
+
+    if len(pointer_data) != CHARACTER_PART_POINTER_TABLE_SIZE:
+        raise TraceError("CBFD character part pointer table has the wrong size")
+    if len(count_data) != CHARACTER_PART_COUNT_TABLE_SIZE:
+        raise TraceError("CBFD character part count table has the wrong size")
+    if len(extra_pointer_data) != CHARACTER_PART_POINTER_TABLE_SIZE:
+        raise TraceError("CBFD character extra-part pointer table has the wrong size")
+    pointers = struct.unpack(f">{CHARACTER_PART_TABLE_RECORD_COUNT}I", pointer_data)
+    counts = struct.unpack(f">{CHARACTER_PART_TABLE_RECORD_COUNT}H", count_data)
+    extra_pointers = struct.unpack(
+        f">{CHARACTER_PART_TABLE_RECORD_COUNT}I", extra_pointer_data
+    )
+    return [
+        {
+            "model_index": index,
+            "part_count": counts[index],
+            "part_pointer_table_address": pointers[index] or None,
+            "extra_part_pointer_table_address": extra_pointers[index] or None,
+        }
+        for index in range(CHARACTER_PART_TABLE_RECORD_COUNT)
+        if counts[index] or pointers[index] or extra_pointers[index]
+    ]
 
 
 def state_hash(state: dict[str, Any]) -> str:
@@ -482,6 +653,24 @@ def triangle_count(opcode: int) -> int:
     return 0
 
 
+def triangle_cache_indices(command: int, argument: int) -> list[list[int]]:
+    """Decode the cache slots consumed by supported CBFD triangle commands."""
+
+    opcode = command >> 24
+    if opcode in (0x05, 0x06):
+        words = [command] if opcode == 0x05 else [command, argument]
+        return [[(word >> shift) & 0x7F for shift in (17, 9, 1)] for word in words]
+    if 0x10 <= opcode <= 0x1F:
+        return [
+            [(command >> 23) & 31, (command >> 18) & 31,
+             ((command >> 15) & 7) * 4 + (argument >> 30)],
+            [(command >> shift) & 31 for shift in (10, 5, 0)],
+            [(argument >> shift) & 31 for shift in (25, 20, 15)],
+            [(argument >> shift) & 31 for shift in (10, 5, 0)],
+        ]
+    return []
+
+
 def resolve_runtime_matrix_address(
     address: int,
     segments: dict[str, int] | None = None,
@@ -526,7 +715,8 @@ def geometry_clusters(data: bytes) -> list[dict[str, Any]]:
         count = triangle_count(opcode)
         if not count:
             finish()
-            vertex_command = None
+            # State commands and returning from a called display list do not
+            # invalidate the RSP vertex cache. Triangles can resume without VTX.
             continue
         if active is None:
             if vertex_command is None:
@@ -534,11 +724,13 @@ def geometry_clusters(data: bytes) -> list[dict[str, Any]]:
                 continue
             active = {
                 "command_offset": vertex_command[0],
+                "triangle_command_offset": command_index * 8,
                 "commands": [[vertex_command[1], vertex_command[2]]],
                 "first_face": face_index,
                 "triangle_count": 0,
             }
         active["commands"].append([command, argument])
+        active["triangle_end_offset"] = (command_index + 1) * 8
         active["triangle_count"] += count
         face_index += count
     finish()
@@ -548,6 +740,8 @@ def geometry_clusters(data: bytes) -> list[dict[str, Any]]:
 def public_geometry_cluster(cluster: dict[str, Any]) -> dict[str, Any]:
     return {
         "command_offset": cluster["command_offset"],
+        "triangle_command_offset": cluster["triangle_command_offset"],
+        "triangle_end_offset": cluster["triangle_end_offset"],
         "command_count": len(cluster["commands"]),
         "first_face": cluster["first_face"],
         "triangle_count": cluster["triangle_count"],
@@ -664,17 +858,12 @@ def correlate_model_clusters(
                 continue
             candidates.append(
                 {
-                    key: candidate[key]
-                    for key in (
-                        "bank",
-                        "entry",
-                        "segment",
-                        "model_sha1",
-                        "static_cluster_index",
-                        "static_first_face",
-                        "triangle_count",
-                        "material_run",
-                    )
+                    **{key: candidate[key] for key in (
+                        "bank", "entry", "segment", "model_sha1",
+                        "static_cluster_index", "static_first_face", "material_run",
+                    )},
+                    # A matched prefix proves only the captured triangles.
+                    "triangle_count": cluster["triangle_count"],
                 }
             )
         unique_models = {candidate["model_sha1"] for candidate in candidates}
@@ -712,8 +901,11 @@ def correlate_material_runs(
 
     results: list[dict[str, Any]] = []
     for correlation in model_correlations:
-        start = correlation["command_offset"] + 8
-        end = correlation["command_offset"] + correlation["command_count"] * 8
+        start = correlation.get("triangle_command_offset", correlation["command_offset"] + 8)
+        end = correlation.get(
+            "triangle_end_offset",
+            correlation["command_offset"] + correlation["command_count"] * 8,
+        )
         draw_run_indices = [
             index
             for index, draw_run in enumerate(draw_runs)
@@ -811,24 +1003,32 @@ def decode_f3dex2_cbfd(
         raise TraceError("F3DEX2 CBFD command buffer must be a non-empty multiple of 8 bytes")
     segments: dict[str, int] = {}
     tiles: dict[int, dict[str, int]] = {}
+    tile_bounds: dict[int, list[int]] = {}
     tmem: list[dict[str, Any]] = []
     nested_display_lists: list[dict[str, int]] = []
     matrix_commands: list[dict[str, int]] = []
     light_commands: list[dict[str, int | None]] = []
     normal_commands: list[dict[str, int | None]] = []
     draw_runs: list[dict[str, Any]] = []
+    vertex_loads: list[dict[str, Any]] = []
+    vertex_cache: dict[int, int] = {}
+    model_view_stack: list[list[dict[str, Any]] | None] = [None]
+    projection_chain: list[dict[str, Any]] | None = None
+    color_image: dict[str, Any] | None = None
     opcode_counts: dict[str, int] = {}
     texture_enabled = False
     texture_scale: list[int] | None = None
-    pending_image: dict[str, int] | None = None
-    pixel_image: dict[str, int] | None = None
-    palette_image: dict[str, int] | None = None
+    pending_image: dict[str, Any] | None = None
+    pixel_image: dict[str, Any] | None = None
+    palette_image: dict[str, Any] | None = None
     combine_mode: list[int] | None = None
+    convert_mode: list[int] | None = None
     other_mode: list[int] | None = None
     primitive: dict[str, Any] | None = None
     environment: dict[str, Any] | None = None
     matrix: dict[str, int] | None = None
     geometry_mode = 0
+    geometry_mode_known_bits = 0
     num_lights: int | None = None
     num_lights_raw: int | None = None
     light_slots: dict[int, dict[str, int | None]] = {}
@@ -836,6 +1036,24 @@ def decode_f3dex2_cbfd(
     coord_mod: list[float | None] = [None] * 16
     advanced_lighting = False
     end_count = 0
+
+    def vertex_state() -> dict[str, Any]:
+        return {
+            "matrix": matrix,
+            "model_view_chain": model_view_stack[-1],
+            "projection_chain": projection_chain,
+            "geometry_mode": geometry_mode,
+            "lighting_enabled": bool(geometry_mode & 0x00020000),
+            "lighting_enabled_known": bool(geometry_mode_known_bits & 0x00020000),
+            "lights": {
+                "num_lights": num_lights,
+                "num_lights_raw": num_lights_raw,
+                "advanced_lighting": advanced_lighting,
+                "coordinate_modifiers": list(coord_mod),
+                "slots": [dict(light_slots[i]) for i in sorted(light_slots)],
+            },
+            "normal_base": dict(normal_base) if normal_base is not None else None,
+        }
 
     for command_index, (command, argument) in enumerate(struct.iter_unpack(">II", data)):
         opcode = command >> 24
@@ -864,7 +1082,7 @@ def decode_f3dex2_cbfd(
                     ),
                 }
             )
-        elif opcode == 0xDA and command == 0xDA380003:
+        elif opcode == 0xDA:
             encoded_segment = argument >> 24
             segmented = (
                 argument < 0x80000000
@@ -872,20 +1090,81 @@ def decode_f3dex2_cbfd(
                 and str(encoded_segment) in segments
             )
             segment_offset = argument & 0xFFFFFF if segmented else None
-            matrix = {
+            segment_base_address = (
+                segments[str(encoded_segment)] if segmented else None
+            )
+            segment_relative_matrix_slot = (
+                segment_offset // 0x40
+                if segment_offset is not None and segment_offset % 0x40 == 0
+                else None
+            )
+            matrix_command = {
                 "command_offset": command_offset,
                 "command": command,
                 "address": argument,
                 "resolved_address": resolve_runtime_matrix_address(argument, segments),
                 "segment": encoded_segment if segmented else None,
                 "segment_offset": segment_offset,
-                "matrix_slot": (
-                    segment_offset // 0x40
-                    if segment_offset is not None and segment_offset % 0x40 == 0
-                    else None
-                ),
+                "segment_base_address": segment_base_address,
+                "segment_relative_matrix_slot": segment_relative_matrix_slot,
+                # Compatibility alias. This is relative to the segment base in
+                # force when the command executes, not necessarily to a whole
+                # character matrix palette: segment 3 may be rebound to an
+                # interior palette address between display-list calls.
+                "matrix_slot": segment_relative_matrix_slot,
             }
-            matrix_commands.append(matrix)
+            matrix_commands.append(matrix_command)
+            # F3DEX2 flips the encoded PUSH bit before interpreting the flags.
+            parameters = (command & 0xFF) ^ 1
+            if parameters & ~7 or (command & 0xFFFFFF00) != 0xDA380000:
+                model_view_stack = [None]
+                projection_chain = None
+                matrix = None
+            elif parameters & 4:
+                projection_chain = (
+                    [matrix_command] if parameters & 2
+                    else projection_chain + [matrix_command]
+                    if projection_chain is not None else None
+                )
+            else:
+                if parameters & 1:
+                    model_view_stack.append(model_view_stack[-1])
+                previous = model_view_stack[-1]
+                model_view_stack[-1] = (
+                    [matrix_command] if parameters & 2
+                    else previous + [matrix_command] if previous is not None else None
+                )
+                matrix = matrix_command
+        elif opcode == 0xD8:
+            count = argument // 64
+            if command == 0xD8380002 and argument % 64 == 0 and 0 < count < len(model_view_stack):
+                del model_view_stack[-count:]
+                chain = model_view_stack[-1]
+                matrix = chain[-1] if chain else None
+            else:
+                model_view_stack = [None]
+                matrix = None
+        elif opcode == 0x01:
+            count = (command >> 12) & 0xFF
+            first = ((command >> 1) & 0x7F) - count
+            if count and 0 <= first < first + count <= 128:
+                load_index = len(vertex_loads)
+                vertex_loads.append({
+                    "command_offset": command_offset,
+                    "command": command,
+                    "address": argument,
+                    "resolved_address": resolve_runtime_matrix_address(argument, segments),
+                    "first_cache_index": first,
+                    "vertex_count": count,
+                    "state": vertex_state(),
+                })
+                for slot in range(first, first + count):
+                    vertex_cache[slot] = load_index
+            else:
+                vertex_cache.clear()
+        elif opcode == 0x02:
+            # A cached vertex modification is not a fresh source vertex load.
+            vertex_cache.pop((command & 0xFFFF) // 2, None)
         elif opcode == 0xDC and (command & 0xFF) == 0x0A:
             cbfd_offset = (command >> 5) & 0x3FFF
             cbfd_index = cbfd_offset // 48 if cbfd_offset % 48 == 0 else None
@@ -935,11 +1214,30 @@ def decode_f3dex2_cbfd(
             geometry_mode = (
                 geometry_mode & (command & 0x00FFFFFF)
             ) | argument
+            geometry_mode_known_bits = (
+                (geometry_mode_known_bits & command) | (~command & 0x00FFFFFF) | argument
+            )
         elif opcode == 0xD7:
             texture_enabled = bool(command & 2)
             texture_scale = [command, argument]
         elif opcode == 0xFD:
-            pending_image = {"command": command, "address": argument}
+            pending_image = {
+                "command": command,
+                "address": argument,
+                "resolved_address": resolve_runtime_matrix_address(
+                    argument, segments
+                ),
+            }
+        elif opcode == 0xFF:
+            color_image = {
+                "command_offset": command_offset,
+                "command": command,
+                "address": argument,
+                "resolved_address": resolve_runtime_matrix_address(argument, segments),
+                "format": (command >> 21) & 7,
+                "size": (command >> 19) & 3,
+                "width": (command & 0xFFF) + 1,
+            }
         elif opcode == 0xF5:
             tile_index = (argument >> 24) & 7
             tiles[tile_index] = {
@@ -948,28 +1246,36 @@ def decode_f3dex2_cbfd(
                 "argument": argument,
                 "tmem_word": (command >> 9) & 0x1FF,
             }
+        elif opcode == 0xF2:
+            tile_bounds[(argument >> 24) & 7] = [command, argument]
         elif opcode == 0xF3:
-            pixel_image = pending_image
+            pixel_image = runtime_texture_image_record(
+                pending_image, command, argument, "pixels"
+            )
             tmem.append(
                 {
                     "command_offset": command_offset,
                     "role": "pixels",
-                    "image": pending_image,
+                    "image": pixel_image,
                     "load_command": [command, argument],
                 }
             )
         elif opcode == 0xF0:
-            palette_image = pending_image
+            palette_image = runtime_texture_image_record(
+                pending_image, command, argument, "tlut"
+            )
             tmem.append(
                 {
                     "command_offset": command_offset,
                     "role": "tlut",
-                    "image": pending_image,
+                    "image": palette_image,
                     "load_command": [command, argument],
                 }
             )
         elif opcode == 0xFC:
             combine_mode = [command, argument]
+        elif opcode == 0xEC:
+            convert_mode = [command, argument]
         elif opcode == 0xEF:
             other_mode = [command, argument]
         elif opcode == 0xFA:
@@ -984,6 +1290,7 @@ def decode_f3dex2_cbfd(
         command_triangle_count = triangle_count(opcode)
         if command_triangle_count:
             material_state = {
+                "color_image": color_image,
                 "segments": dict(segments),
                 "texture": {
                     "enabled": texture_enabled,
@@ -992,7 +1299,9 @@ def decode_f3dex2_cbfd(
                     "palette_image": palette_image,
                 },
                 "tiles": [tiles[index] for index in sorted(tiles)],
+                "tile_bounds": {str(index): bounds for index, bounds in tile_bounds.items()},
                 "combine_mode": combine_mode,
+                "convert_mode": convert_mode,
                 "other_mode": other_mode,
                 "geometry_mode": geometry_mode,
                 "lighting_enabled": bool(geometry_mode & 0x00020000),
@@ -1020,6 +1329,11 @@ def decode_f3dex2_cbfd(
                     "triangle_count": command_triangle_count,
                     "material_state_hash": state_hash(material_state),
                     "state": material_state,
+                    "vertex_cache_indices": triangle_cache_indices(command, argument),
+                    "vertex_load_indices": [
+                        [vertex_cache.get(slot) for slot in face]
+                        for face in triangle_cache_indices(command, argument)
+                    ],
                 }
             )
 
@@ -1030,14 +1344,17 @@ def decode_f3dex2_cbfd(
         "end_count": end_count,
         "nested_display_lists": nested_display_lists,
         "matrix_commands": matrix_commands,
+        "vertex_loads": vertex_loads,
         "light_commands": light_commands,
         "normal_commands": normal_commands,
+        "color_image": color_image,
         "geometry_clusters": [
             public_geometry_cluster(cluster) for cluster in runtime_clusters
         ],
         "tiles": [tiles[index] for index in sorted(tiles)],
         "tmem": tmem,
         "combine_mode": combine_mode,
+        "convert_mode": convert_mode,
         "other_mode": other_mode,
         "geometry_mode": geometry_mode,
         "lighting_enabled": bool(geometry_mode & 0x00020000),
@@ -1064,10 +1381,10 @@ def decode_f3dex2_cbfd(
         "segments": segments,
         "texture": {
             "resolved_pixel_address": (
-                pixel_image["address"] if pixel_image is not None else None
+                pixel_image["resolved_address"] if pixel_image is not None else None
             ),
             "resolved_tlut_address": (
-                palette_image["address"] if palette_image is not None else None
+                palette_image["resolved_address"] if palette_image is not None else None
             ),
         },
         "rdp": rdp,
@@ -1077,6 +1394,40 @@ def decode_f3dex2_cbfd(
             "alpha": primitive["rgba"][3] if primitive is not None else None,
         },
     }
+
+
+def runtime_texture_image_record(
+    pending_image: dict[str, Any] | None,
+    load_command: int,
+    load_argument: int,
+    role: str,
+) -> dict[str, Any] | None:
+    """Describe the exact RDRAM span consumed by an RDP texture load."""
+
+    if pending_image is None:
+        return None
+    image = dict(pending_image)
+    image_size = (int(image["command"]) >> 19) & 3
+    bits_per_texel = (4, 8, 16, 32)[image_size]
+    opcode = load_command >> 24
+    if opcode == 0xF3:
+        texel_count = ((load_argument >> 12) & 0xFFF) + 1
+        byte_length = (texel_count * bits_per_texel + 7) // 8
+    elif opcode == 0xF0:
+        texel_count = ((load_argument >> 14) & 0x3FF) + 1
+        byte_length = texel_count * 2
+    else:
+        raise TraceError(f"unsupported runtime texture load opcode 0x{opcode:02X}")
+    image.update(
+        {
+            "role": role,
+            "image_size": image_size,
+            "bits_per_texel": bits_per_texel,
+            "texel_count": texel_count,
+            "byte_length": byte_length,
+        }
+    )
+    return image
 
 
 def decode_rsp_matrix(data: bytes) -> dict[str, Any]:
@@ -1097,13 +1448,52 @@ def decode_rsp_matrix(data: bytes) -> dict[str, Any]:
     }
 
 
+def decode_cbfd_character_matrix(data: bytes) -> dict[str, Any]:
+    """Decode the float matrix array addressed through character segment 3."""
+
+    if len(data) != 64:
+        raise TraceError("CBFD character matrix must contain exactly 64 bytes")
+    values = struct.unpack(">16f", data)
+    relevant = [values[row * 4 + column] for row in range(4) for column in range(3)]
+    rotation = [values[row * 4 + column] for row in range(3) for column in range(3)]
+    valid = (
+        all(math.isfinite(value) for value in relevant)
+        and max(abs(value) for value in rotation) <= 64.0
+        and max(abs(value) for value in relevant[9:12]) <= 10000000.0
+    )
+    if not valid:
+        return {
+            "layout": "cbfd-character-row-major-f32",
+            "status": "invalid-or-uninitialized-at-capture",
+            "rows": None,
+            "translation": None,
+        }
+    rows = [
+        [
+            float(values[row * 4 + 0]),
+            float(values[row * 4 + 1]),
+            float(values[row * 4 + 2]),
+            0.0 if row < 3 else 1.0,
+        ]
+        for row in range(4)
+    ]
+    return {
+        "layout": "cbfd-character-row-major-f32",
+        "status": "decoded-affine-components",
+        "rows": rows,
+        "translation": rows[3][:3],
+        "ignored_column_status": "canonicalized-to-zero-zero-zero-one",
+    }
+
+
 def capture_runtime_matrices(
     debugger: "MupenDebugger",
     matrix_commands: list[dict[str, int]],
     max_matrices: int,
+    matrix_format: str,
     timeout: int,
 ) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[int]]:
-    """Capture unique direct model-view matrices referenced by the task."""
+    """Capture unique model-view and projection matrices referenced by the task."""
 
     addresses: list[int] = []
     references_by_address: dict[int, list[dict[str, int | None]]] = {}
@@ -1119,7 +1509,15 @@ def capture_runtime_matrices(
             addresses.append(address)
         reference = {
             key: matrix_command[key]
-            for key in ("address", "segment", "segment_offset", "matrix_slot")
+            for key in (
+                "address",
+                "segment",
+                "segment_offset",
+                "segment_base_address",
+                "segment_relative_matrix_slot",
+                "matrix_slot",
+                "command",
+            )
         }
         references = references_by_address.setdefault(address, [])
         if reference not in references:
@@ -1136,12 +1534,23 @@ def capture_runtime_matrices(
         data = parse_memory_bytes(output, 64)
         digest = hashlib.sha256(data).hexdigest()
         name = f"runtime-matrix-{index:04d}"
+        references = references_by_address[address]
+        projection = any(int(ref["command"]) & 4 for ref in references)
+        if projection and matrix_format == "cbfd-character-f32" and any(
+            not (int(ref["command"]) & 4) for ref in references
+        ):
+            raise TraceError("one captured address has conflicting matrix layouts")
+        decoder = (
+            decode_cbfd_character_matrix
+            if matrix_format == "cbfd-character-f32" and not projection
+            else decode_rsp_matrix
+        )
         matrices.append(
             {
                 "address": address,
                 "sha256": digest,
-                "references": references_by_address[address],
-                **decode_rsp_matrix(data),
+                "references": references,
+                **decoder(data),
             }
         )
         evidence.append(
@@ -1157,6 +1566,37 @@ def capture_runtime_matrices(
     return matrices, evidence, unresolved
 
 
+def capture_runtime_vertices(
+    debugger: "MupenDebugger", loads: list[dict[str, Any]], max_blocks: int, timeout: int
+) -> list[dict[str, Any]]:
+    """Retain source bytes actually read by VTX, including CPU-updated colours."""
+
+    spans: dict[int, int] = {}
+    for load in loads:
+        address = load.get("resolved_address")
+        if address is None:
+            continue
+        size = int(load["vertex_count"]) * 16
+        if (not 16 <= size <= 2048 or not 0x80000000 <= address < 0xC0000000
+                or (address & 0x1FFFFFFF) + size > 0x800000):
+            raise TraceError("runtime vertex span is outside RDRAM")
+        spans[address] = max(spans.get(address, 0), size)
+    if len(spans) > max_blocks:
+        raise TraceError(f"graphics task references {len(spans)} vertex blocks, limit is {max_blocks}")
+    evidence = []
+    for address, size in sorted(spans.items()):
+        data = parse_memory_bytes(debugger.command(f"mem /{size}b 0x{address:08X}", timeout), size)
+        evidence.append({
+            "name": f"runtime-vertex-block-{len(evidence):04d}",
+            "resolved_address": f"0x{address:08X}",
+            "address_expression": {"vertex_load": f"0x{address:08X}"},
+            "length": size,
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "data_base64": base64.b64encode(data).decode("ascii"),
+        })
+    return evidence
+
+
 def attach_runtime_matrices(
     decoded: dict[str, Any],
     matrices: list[dict[str, Any]],
@@ -1165,7 +1605,51 @@ def attach_runtime_matrices(
         matrix["address"]: (index, matrix)
         for index, matrix in enumerate(matrices)
     }
-    for draw_run in decoded["rdp"]["draw_runs"]:
+    def multiply(left: list, right: list) -> list:
+        return [[sum(left[i][k] * right[k][j] for k in range(4))
+                 for j in range(4)] for i in range(4)]
+
+    def resolve_chain(chain: list | None) -> tuple[list | None, list[str]]:
+        if not chain:
+            return None, []
+        rows = None
+        hashes = []
+        for reference in chain:
+            captured = matrix_by_address.get(reference.get("resolved_address"))
+            if captured is None:
+                return None, hashes
+            value = captured[1]
+            current = value.get("rows")
+            if (
+                value.get("status") == "invalid-or-uninitialized-at-capture"
+                or not isinstance(current, list) or len(current) != 4
+                or any(not isinstance(row, list) or len(row) != 4 for row in current)
+                or any(not math.isfinite(float(v)) for row in current for v in row)
+            ):
+                return None, hashes
+            hashes.append(value["sha256"])
+            # GLideN64 MultMatrix2 pre-multiplies in this row-vector layout.
+            rows = current if rows is None else multiply(current, rows)
+        if any(not math.isfinite(v) for row in rows for v in row):
+            return None, hashes
+        return rows, hashes
+
+    for load in decoded["rdp"].get("vertex_loads", []):
+        model_view, model_hashes = resolve_chain(load["state"].get("model_view_chain"))
+        projection, projection_hashes = resolve_chain(load["state"].get("projection_chain"))
+        combined = (
+            multiply(model_view, projection)
+            if model_view is not None and projection is not None else None
+        )
+        load["processing_matrices"] = {
+            "model_view_rows": model_view,
+            "projection_rows": projection,
+            "combined_rows": combined,
+            "model_view_sha256": model_hashes,
+            "projection_sha256": projection_hashes,
+        }
+
+    for draw_run in [*decoded["rdp"]["draw_runs"], *decoded["rdp"].get("vertex_loads", [])]:
         matrix_state = draw_run["state"].get("matrix")
         if (
             matrix_state is None
@@ -1270,7 +1754,7 @@ def attach_runtime_lights(
     light_by_address = {
         light["address"]: (index, light) for index, light in enumerate(lights)
     }
-    for draw_run in decoded["rdp"]["draw_runs"]:
+    for draw_run in [*decoded["rdp"]["draw_runs"], *decoded["rdp"].get("vertex_loads", [])]:
         run_state = draw_run["state"]
         for slot in run_state["lights"]["slots"]:
             captured = light_by_address.get(slot["resolved_address"])
@@ -1361,7 +1845,7 @@ def attach_runtime_normal_streams(
     stream_by_address = {
         stream["address"]: (index, stream) for index, stream in enumerate(streams)
     }
-    for draw_run in decoded["rdp"]["draw_runs"]:
+    for draw_run in [*decoded["rdp"]["draw_runs"], *decoded["rdp"].get("vertex_loads", [])]:
         run_state = draw_run["state"]
         normal_base = run_state.get("normal_base")
         if not isinstance(normal_base, dict):
@@ -1375,6 +1859,106 @@ def attach_runtime_normal_streams(
         normal_base["layout"] = stream["layout"]
         normal_base["normal_xy_s8"] = stream["normal_xy_s8"]
         draw_run["material_state_hash"] = state_hash(run_state)
+
+
+def capture_runtime_texture_images(
+    debugger: "MupenDebugger",
+    tmem_commands: list[dict[str, Any]],
+    max_images: int,
+    max_bytes: int,
+    timeout: int,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]], list[int]]:
+    """Capture unique RDRAM pixel and TLUT spans loaded by one graphics task."""
+
+    unique: list[tuple[int, int]] = []
+    references: dict[tuple[int, int], list[dict[str, Any]]] = {}
+    unresolved: list[int] = []
+    for tmem in tmem_commands:
+        image = tmem.get("image")
+        if not isinstance(image, dict):
+            continue
+        encoded_address = int(image["address"])
+        resolved_address = image.get("resolved_address")
+        byte_length = int(image.get("byte_length", 0))
+        if resolved_address is None or byte_length <= 0 or byte_length > max_bytes:
+            if encoded_address not in unresolved:
+                unresolved.append(encoded_address)
+            continue
+        key = (int(resolved_address), byte_length)
+        if key not in unique:
+            unique.append(key)
+        reference = {
+            "command_offset": tmem["command_offset"],
+            "role": tmem["role"],
+            "encoded_address": encoded_address,
+            "byte_length": byte_length,
+        }
+        if reference not in references.setdefault(key, []):
+            references[key].append(reference)
+    if len(unique) > max_images:
+        raise TraceError(
+            f"graphics task references {len(unique)} runtime texture images, "
+            f"limit is {max_images}"
+        )
+
+    images: list[dict[str, Any]] = []
+    evidence: list[dict[str, Any]] = []
+    for index, (address, byte_length) in enumerate(unique):
+        data = bytearray()
+        while len(data) < byte_length:
+            length = min(0x400, byte_length - len(data))
+            chunk_address = address + len(data)
+            output = debugger.command(
+                f"mem /{length}b 0x{chunk_address:08X}", timeout
+            )
+            data.extend(parse_memory_bytes(output, length))
+        payload = bytes(data)
+        digest = hashlib.sha256(payload).hexdigest()
+        name = f"runtime-texture-image-{index:04d}"
+        record = {
+            "address": address,
+            "byte_length": byte_length,
+            "sha256": digest,
+            "references": references[(address, byte_length)],
+        }
+        images.append(record)
+        evidence.append(
+            {
+                "name": name,
+                "address_expression": {
+                    "runtime_texture_image": f"0x{address:08X}"
+                },
+                "resolved_address": f"0x{address:08X}",
+                "length": byte_length,
+                "sha256": digest,
+                "data_base64": base64.b64encode(payload).decode("ascii"),
+            }
+        )
+    return images, evidence, unresolved
+
+
+def attach_runtime_texture_images(
+    decoded: dict[str, Any], images: list[dict[str, Any]]
+) -> None:
+    """Attach content hashes to texture state without duplicating raw payloads."""
+
+    image_by_key = {
+        (image["address"], image["byte_length"]): (index, image)
+        for index, image in enumerate(images)
+    }
+    for tmem in decoded["rdp"]["tmem"]:
+        image_state = tmem.get("image")
+        if not isinstance(image_state, dict):
+            continue
+        key = (image_state.get("resolved_address"), image_state.get("byte_length"))
+        captured = image_by_key.get(key)
+        if captured is None:
+            continue
+        index, image = captured
+        image_state["captured_texture_image_index"] = index
+        image_state["sha256"] = image["sha256"]
+    for draw_run in decoded["rdp"]["draw_runs"]:
+        draw_run["material_state_hash"] = state_hash(draw_run["state"])
 
 
 def merge_state(destination: dict[str, Any], observed: dict[str, Any]) -> None:
@@ -1425,34 +2009,58 @@ def resolve_display_list_address(argument: int, segments: dict[int, int]) -> int
 def flatten_display_lists(
     root_data: bytes,
     nested_data: dict[int, bytes],
+    *,
+    root_address: int = 0,
+    origins: list[list[int]] | None = None,
 ) -> tuple[bytes, list[int]]:
     """Inline captured G_DL calls in execution order for effective-state decoding."""
 
     segments: dict[int, int] = {}
     unresolved: list[int] = []
 
-    def walk(data: bytes, active: set[int]) -> bytes:
+    def walk(data: bytes, address: int, active: set[int], parents: list[int]) -> bytes:
         flattened = bytearray()
-        for command, argument in struct.iter_unpack(">II", data):
+        for index, (command, argument) in enumerate(struct.iter_unpack(">II", data)):
             opcode = command >> 24
             flattened.extend(struct.pack(">II", command, argument))
+            command_address = address + index * 8
+            if origins is not None:
+                origins.append([*parents, command_address])
             if opcode == 0xDB and (command >> 16) & 0xFF == 0x06:
                 segment = (command & 0xFFFF) // 4
                 if segment < 16:
                     segments[segment] = argument
             elif opcode == 0xDE:
-                address = resolve_display_list_address(argument, segments)
-                if address is None or address not in nested_data or address in active:
+                target = resolve_display_list_address(argument, segments)
+                if target is None or target not in nested_data or target in active:
                     unresolved.append(argument)
                 else:
-                    flattened.extend(walk(nested_data[address], active | {address}))
+                    flattened.extend(walk(nested_data[target], target, active | {target},
+                                          [*parents, command_address]))
                 if command & 0x00010000:
                     break
             elif opcode == 0xDF:
                 break
         return bytes(flattened)
 
-    return walk(root_data, set()), unresolved
+    return walk(root_data, root_address, {root_address}, []), unresolved
+
+
+def captured_task_type(event: dict[str, Any]) -> int | None:
+    """Read OSTask.type from verified task bytes; renderer subranges have none."""
+
+    probes = [probe for probe in event.get("evidence", {}).get("memory", [])
+              if probe.get("name") == "task"]
+    if not probes:
+        return None
+    if len(probes) != 1:
+        raise TraceError("captured task header is ambiguous")
+    probe = probes[0]
+    data = base64.b64decode(probe["data_base64"], validate=True)
+    if (len(data) != 64 or probe.get("length") != 64
+            or hashlib.sha256(data).hexdigest() != probe.get("sha256")):
+        raise TraceError("captured task header identity changed")
+    return int.from_bytes(data[:4], "big")
 
 
 def read_display_list(
@@ -1568,8 +2176,173 @@ def summarize_nested_display_lists(
     return summaries
 
 
+def replay_face_culling(
+    data: bytes, origins: list[list[int]] | None = None
+) -> dict[int, dict[str, int | None]]:
+    """Replay culling knowledge across a checked, optionally flattened stream."""
+
+    if len(data) % 8 or (origins is not None and len(origins) != len(data) // 8):
+        raise TraceError("culling replay command/origin span is invalid")
+    if any(data[offset] in (0x03, 0x04) for offset in range(0, len(data), 8)):
+        # Flattening expands unconditional calls only. A conditional return or
+        # branch can bypass geometry-mode writes, including in a caller after
+        # a callee returns. Do not infer execution from linear captured bytes.
+        return {offset: {"mode": None, "known_bits": 0}
+                for offset in range(0, len(data), 8) if triangle_count(data[offset])}
+    value = known = 0
+    states = {}
+    for index, (command, argument) in enumerate(struct.iter_unpack(">II", data)):
+        opcode = command >> 24
+        if opcode == 0xD9:
+            preserve = command & 0xFFFFFF
+            value = (value & preserve) | argument
+            known = (known & preserve) | (~preserve & 0xFFFFFF) | argument
+        elif opcode == 0xDE:
+            # A following descendant origin proves that this call was expanded
+            # from captured bytes. An unresolved callee may change either bit.
+            resolved = (origins is not None and index + 1 < len(origins)
+                        and len(origins[index + 1]) > len(origins[index])
+                        and origins[index + 1][:len(origins[index])] == origins[index])
+            if not resolved:
+                known = 0
+        if triangle_count(opcode):
+            states[index * 8] = {
+                "mode": value & 0x600 if known & 0x600 == 0x600 else None,
+                "known_bits": known & 0x600,
+            }
+    return states
+
+
+def refresh_trace_model_correlations(
+    event: dict[str, Any], model_cluster_index: list[dict[str, Any]]
+) -> bool:
+    """Refresh derived correlations from hash-checked captured command bytes.
+
+    Keep recorded RDP state, matrix/texture captures, and the source JSONL
+    untouched. Add replayed tile bounds and vertex-processing inputs separately
+    from the recorded state. This permits corrected decoding without a new run.
+    """
+
+    if captured_task_type(event) not in (None, 1):
+        return False
+    rdp = event.get("state", {}).get("rdp", {})
+    if "model_correlations" not in rdp:
+        return False
+    probes = event.get("evidence", {}).get("memory", [])
+
+    def payload(probe: dict[str, Any]) -> bytes:
+        data = base64.b64decode(probe["data_base64"], validate=True)
+        if len(data) != probe["length"] or hashlib.sha256(data).hexdigest() != probe["sha256"]:
+            raise TraceError("captured display-list payload identity changed")
+        return data
+
+    roots = [probe for probe in probes if probe.get("name") in {
+        "character-command-buffer", "command-buffer"
+    }]
+    if len(roots) != 1:
+        raise TraceError("correlation refresh requires one captured command buffer")
+    root_data = payload(roots[0])
+    nested_data = {
+        parse_int(probe["resolved_address"], "resolved_address"): payload(probe)
+        for probe in probes
+        if probe.get("name", "").startswith("nested-display-list-")
+    }
+
+    def refresh(target: dict[str, Any], data: bytes, origins: list[list[int]] | None = None) -> None:
+        clusters = geometry_clusters(data)
+        target["geometry_clusters"] = [public_geometry_cluster(c) for c in clusters]
+        target["model_correlations"] = correlate_model_clusters(clusters, model_cluster_index)
+        if "draw_runs" in target:
+            replayed = decode_f3dex2_cbfd(data)
+            attach_runtime_matrices(replayed, replay_matrices)
+            attach_runtime_lights(replayed, replay_lights)
+            attach_runtime_normal_streams(replayed, replay_normals)
+            replayed_draws = replayed["rdp"]["draw_runs"]
+            replayed_vertex_loads = replayed["rdp"]["vertex_loads"]
+            replayed_culling = replay_face_culling(data, origins)
+            if [(draw["command_offset"], draw["triangle_count"]) for draw in replayed_draws] != [
+                (draw["command_offset"], draw["triangle_count"]) for draw in target["draw_runs"]
+            ]:
+                raise TraceError("captured triangle command identity changed during replay")
+            for draw, replayed in zip(target["draw_runs"], replayed_draws):
+                draw["replayed_tile_bounds"] = replayed["state"]["tile_bounds"]
+                draw["replayed_face_culling"] = replayed_culling[draw["command_offset"]]
+                draw["replayed_vertex_load_indices"] = replayed["vertex_load_indices"]
+                draw["replayed_vertex_cache_indices"] = replayed["vertex_cache_indices"]
+            target["replayed_vertex_loads"] = replayed_vertex_loads
+            target["material_run_correlations"] = correlate_material_runs(
+                target["draw_runs"], target["model_correlations"]
+            )
+
+    # Rebuild derived vertex inputs from captured bytes. Do not silently trust
+    # decoded rows/light values in an older trace, or invent uncaptured inputs.
+    replay_matrices: list[dict[str, Any]] = []
+    replay_lights: list[dict[str, Any]] = []
+    replay_normals: list[dict[str, Any]] = []
+    for prefix, state_key, output in (
+        ("runtime-matrix-", "joint_matrices", replay_matrices),
+        ("runtime-light-", "rsp_lights", replay_lights),
+        ("runtime-normal-stream-", "rsp_normal_streams", replay_normals),
+    ):
+        records = {record["address"]: record for record in event.get("state", {}).get(state_key, [])}
+        for probe in probes:
+            if not probe.get("name", "").startswith(prefix):
+                continue
+            data = payload(probe)
+            address = parse_int(probe["resolved_address"], "resolved_address")
+            record = records.get(address)
+            if record is None or record.get("sha256") != probe["sha256"]:
+                raise TraceError("captured vertex-processing input identity changed")
+            if state_key == "joint_matrices":
+                layout = record.get("layout")
+                if layout == "cbfd-character-row-major-f32":
+                    decoded_input = decode_cbfd_character_matrix(data)
+                elif layout == "n64-mtx-row-major-4x4-s16.16-split":
+                    decoded_input = decode_rsp_matrix(data)
+                else:
+                    raise TraceError("captured vertex-processing matrix layout is unknown")
+            elif state_key == "rsp_lights":
+                decoded_input = decode_cbfd_light(data)
+            else:
+                if len(data) != 64:
+                    raise TraceError("captured CBFD normal stream size changed")
+                decoded_input = {
+                    "layout": "f3dex2-cbfd-normal-xy-s8-32",
+                    "normal_xy_s8": [list(pair) for pair in struct.iter_unpack(">bb", data)],
+                }
+            output.append({"address": address, "sha256": probe["sha256"], **decoded_input})
+
+    effective_data = root_data
+    command_origins: list[list[int]] = []
+    root_address = (parse_int(roots[0]["resolved_address"], "resolved_address")
+                    if "resolved_address" in roots[0] else None)
+    if "submitted_buffer" in rdp:
+        effective_data, unresolved = flatten_display_lists(
+            root_data, nested_data, root_address=root_address or 0,
+            origins=command_origins if root_address is not None else None,
+        )
+        if unresolved != rdp.get("unresolved_display_list_targets", []):
+            raise TraceError("captured display-list traversal changed during refresh")
+        refresh(rdp["submitted_buffer"], root_data)
+    if len(effective_data) // 8 != rdp.get("effective_command_count", rdp["command_count"]):
+        raise TraceError("captured effective command count changed during refresh")
+    refresh(rdp, effective_data, command_origins or None)
+    if root_address is not None:
+        rdp["replayed_command_origins"] = command_origins or [
+            [root_address + offset] for offset in range(0, len(effective_data), 8)
+        ]
+    for record in rdp.get("walked_display_lists", []):
+        data = nested_data.get(int(record["address"]))
+        if data is None or hashlib.sha256(data).hexdigest() != record["sha256"]:
+            raise TraceError("walked display list is absent from captured evidence")
+        refresh(record["rdp"], data)
+    return True
+
+
 class MupenDebugger:
-    def __init__(self, command: list[str]) -> None:
+    def __init__(
+        self, command: list[str], session_timeout: int | None = None
+    ) -> None:
         master, slave = os.openpty()
         self.master = master
         self.selector = selectors.DefaultSelector()
@@ -1584,6 +2357,17 @@ class MupenDebugger:
         )
         os.close(slave)
         self.buffer = b""
+        self.session_deadline = (
+            time.monotonic() + session_timeout
+            if session_timeout is not None
+            else None
+        )
+
+    def wait_deadline(self, timeout: int) -> float:
+        deadline = time.monotonic() + timeout
+        if self.session_deadline is not None:
+            deadline = min(deadline, self.session_deadline)
+        return deadline
 
     def _read(self, timeout: float) -> bytes:
         events = self.selector.select(timeout)
@@ -1595,7 +2379,7 @@ class MupenDebugger:
             return b""
 
     def wait_for_prompt(self, timeout: int) -> str:
-        deadline = time.monotonic() + timeout
+        deadline = self.wait_deadline(timeout)
         while PROMPT not in self.buffer:
             if self.process.poll() is not None:
                 raise TraceError(f"Mupen exited with status {self.process.returncode}")
@@ -1607,7 +2391,7 @@ class MupenDebugger:
         return output.decode("utf-8", errors="replace")
 
     def wait_for_breakpoint(self, timeout: int) -> tuple[int, str]:
-        deadline = time.monotonic() + timeout
+        deadline = self.wait_deadline(timeout)
         transcript = bytearray(self.buffer)
         self.buffer = b""
         while True:
@@ -1638,6 +2422,19 @@ class MupenDebugger:
 
     def send(self, command: str) -> None:
         os.write(self.master, command.encode("ascii") + b"\n")
+
+    def resume(self) -> None:
+        # Mupen 2.6.0 can emit a second debugger prompt just after the prompt
+        # consumed by `regs` or `mem`. If `run` is sent into that transition it
+        # is occasionally lost, which makes replay skips nondeterministic.
+        # Drain only already-arriving prompt bytes before resuming execution.
+        deadline = time.monotonic() + 0.25
+        while time.monotonic() < deadline:
+            ready = self._read(0.05)
+            if not ready:
+                break
+        self.buffer = b""
+        self.send("run")
 
     def command(self, command: str, timeout: int) -> str:
         self.send(command)
@@ -1707,7 +2504,8 @@ def load_tool_revisions() -> dict[str, str]:
     return {
         name: value["revision"]
         for name, value in lock.get("tools", {}).items()
-        if name.startswith("mupen64plus-") and isinstance(value, dict) and "revision" in value
+        if (name.startswith("mupen64plus-") or name == "angrylion-rdp-plus")
+        and isinstance(value, dict) and "revision" in value
     }
 
 
@@ -1737,6 +2535,41 @@ def identity_from(spec: dict[str, Any], args: argparse.Namespace) -> dict[str, i
     return identity
 
 
+def runtime_command(args: argparse.Namespace) -> list[str]:
+    """Select a reproducible backend without changing the default trace mode."""
+
+    if args.software_renderer and any(
+        argument.split("=", 1)[0] in {"--gfx", "--rsp", "--emumode"}
+        for argument in args.mupen_args
+    ):
+        raise TraceError("--software-renderer cannot be combined with CPU/GFX/RSP overrides")
+    command = [
+        "/usr/local/bin/conker-mupen64plus",
+        "--noosd",
+        "--nospeedlimit",
+        "--debug",
+        "--emumode",
+        "1",
+        "--gfx",
+        "mupen64plus-video-angrylion-plus" if args.software_renderer else "dummy",
+        "--audio",
+        "dummy",
+        "--input",
+        "dummy",
+        "--rsp",
+        "mupen64plus-rsp-cxd4-sse2" if args.software_renderer else "mupen64plus-rsp-hle",
+    ]
+    if args.software_renderer:
+        command = ["xvfb-run", "--auto-servernum", "--server-args=-screen 0 640x480x24 -nolisten tcp",
+                   "env", "LIBGL_ALWAYS_SOFTWARE=1", *command]
+    if args.savestate:
+        command.extend(["--savestate", args.savestate])
+    command.extend(args.mupen_args)
+    command.append("roms/baserom.us.z64")
+
+    return command
+
+
 def record(args: argparse.Namespace) -> int:
     spec = validate_spec(json.loads(Path(args.spec).read_text(encoding="utf-8")))
     destination = output_path(args.output)
@@ -1749,9 +2582,12 @@ def record(args: argparse.Namespace) -> int:
         spec.get("max_breakpoint_hits", max_events * 1000), "max_breakpoint_hits"
     )
     timeout = args.timeout or parse_int(spec.get("timeout_seconds", 120), "timeout_seconds")
+    session_timeout = args.session_timeout
     model_cluster_index = load_model_cluster_index() if spec.get("model_correlation") else None
     model_inventory_digest = (
-        load_model_inventory_digest() if model_cluster_index is not None else None
+        load_model_inventory_digest()
+        if model_cluster_index is not None or spec.get("model_inventory_digest")
+        else None
     )
     if not 1 <= max_events <= 100000:
         raise TraceError("--max-events must be between 1 and 100000")
@@ -1759,32 +2595,17 @@ def record(args: argparse.Namespace) -> int:
         raise TraceError("max_breakpoint_hits must be at least --max-events")
     if not 1 <= timeout <= 3600:
         raise TraceError("--timeout must be between 1 and 3600 seconds")
+    if session_timeout is not None and not 1 <= session_timeout <= 86400:
+        raise TraceError("--session-timeout must be between 1 and 86400 seconds")
 
-    command = [
-        "/usr/local/bin/conker-mupen64plus",
-        "--noosd",
-        "--nospeedlimit",
-        "--debug",
-        "--emumode",
-        "1",
-        "--gfx",
-        "dummy",
-        "--audio",
-        "dummy",
-        "--input",
-        "dummy",
-        "--rsp",
-        "mupen64plus-rsp-hle",
-    ]
-    if args.savestate:
-        command.extend(["--savestate", args.savestate])
-    command.extend(args.mupen_args)
-    command.append("roms/baserom.us.z64")
+    command = runtime_command(args)
 
     mode = "a" if args.append else "w"
-    debugger = MupenDebugger(command)
+    debugger = MupenDebugger(command, session_timeout)
     captured_count = 0
     breakpoint_hits = 0
+    breakpoint_capture_counts: dict[str, int] = {}
+    pending_character_draws: list[dict[str, Any]] = []
     try:
         debugger.wait_for_prompt(timeout)
         breakpoints_by_address: dict[int, dict[str, Any]] = {}
@@ -1803,7 +2624,15 @@ def record(args: argparse.Namespace) -> int:
                     "spec_name": spec["name"],
                     "identity": identity,
                     "tool_revisions": load_tool_revisions(),
+                    "emulation": {
+                        "default_cpu": "interpreter",
+                        "default_graphics": "angrylion-rdp-plus" if args.software_renderer else "dummy",
+                        "default_rsp": "cxd4" if args.software_renderer else "hle",
+                        "requested_backend": "software" if args.software_renderer else "headless",
+                        "additional_arguments": args.mupen_args,
+                    },
                     "normalized_sha1": model_inventory_digest,
+                    "session_timeout_seconds": session_timeout,
                 }
                 stream.write(json.dumps(header, sort_keys=True) + "\n")
                 stream.flush()
@@ -1836,7 +2665,7 @@ def record(args: argparse.Namespace) -> int:
                     == parse_int(condition["equals"], "condition.equals")
                     for condition in register_conditions
                 ):
-                    debugger.send("run")
+                    debugger.resume()
                     continue
                 condition_probe_names = {
                     condition["name"]
@@ -1857,7 +2686,7 @@ def record(args: argparse.Namespace) -> int:
                     == parse_int(condition["equals"], "condition.equals")
                     for condition in breakpoint.get("when", [])
                 ):
-                    debugger.send("run")
+                    debugger.resume()
                     continue
                 remaining_probes = [
                     probe for probe in probes if probe["name"] not in condition_probe_names
@@ -1872,6 +2701,64 @@ def record(args: argparse.Namespace) -> int:
                 memory = remaining_memory
                 memory_evidence.extend(remaining_evidence)
                 decoder = breakpoint.get("decoder")
+                draw_context_for_event: dict[str, Any] | None = None
+                if decoder is not None and decoder.get("format") == (
+                    "cbfd-character-draw-range"
+                ):
+                    stack_pointer = registers["sp"] & 0xFFFFFFFF
+                    matching_contexts = [
+                        index
+                        for index, context in enumerate(pending_character_draws)
+                        if context["entry_breakpoint"]
+                        == decoder["entry_breakpoint"]
+                        and context["return_stack_pointer"] == stack_pointer
+                    ]
+                    if not matching_contexts:
+                        raise TraceError(
+                            f"{breakpoint['name']} has no matching character draw entry"
+                        )
+                    draw_context = pending_character_draws.pop(matching_contexts[-1])
+                    start = draw_context["command_buffer_start"]
+                    end = registers["v0"] & 0xFFFFFFFF
+                    max_bytes = parse_int(
+                        decoder.get("max_bytes", 0x10000),
+                        f"{breakpoint['name']}.decoder.max_bytes",
+                    )
+                    length = end - start
+                    if length < 8 or length > max_bytes or length % 8:
+                        raise TraceError(
+                            f"{breakpoint['name']} emitted invalid command range "
+                            f"0x{start:08X}:0x{end:08X}"
+                        )
+                    memory_name = decoder["memory"]
+                    output = debugger.command(
+                        f"mem /{length}b 0x{start:08X}", timeout
+                    )
+                    command_data = parse_memory_bytes(output, length)
+                    memory[memory_name] = command_data
+                    memory_evidence.append(
+                        {
+                            "name": memory_name,
+                            "address_expression": {
+                                "source": "prior-breakpoint",
+                                "name": decoder["entry_breakpoint"],
+                                "field": "model.command_buffer_start",
+                            },
+                            "resolved_address": f"0x{start:08X}",
+                            "length": length,
+                            "sha256": hashlib.sha256(command_data).hexdigest(),
+                            "data_base64": base64.b64encode(command_data).decode(
+                                "ascii"
+                            ),
+                        }
+                    )
+                    draw_context_for_event = {
+                        **draw_context["model"],
+                        "command_buffer_start": start,
+                        "command_buffer_end": end,
+                        "command_byte_count": length,
+                    }
+                    decoder = {**decoder, "format": "f3dex2-cbfd"}
                 nested_display_lists: list[dict[str, Any]] = []
                 if decoder is not None and decoder.get("walk_nested"):
                     nested_display_lists, nested_evidence = capture_nested_display_lists(
@@ -1885,7 +2772,9 @@ def record(args: argparse.Namespace) -> int:
                 state = default_state()
                 for destination_path, source in breakpoint.get("fields", {}).items():
                     set_path(state, destination_path, extract_value(source, registers, memory))
-                if decoder is not None:
+                if draw_context_for_event is not None:
+                    state["model"].update(draw_context_for_event)
+                if decoder is not None and decoder["format"] == "f3dex2-cbfd":
                     effective_data = memory[decoder["memory"]]
                     root_decoded = decode_f3dex2_cbfd(
                         effective_data,
@@ -1911,6 +2800,7 @@ def record(args: argparse.Namespace) -> int:
                                 "geometry_clusters",
                                 "model_correlations",
                             )
+                            if key in root_decoded["rdp"]
                         }
                         decoded["rdp"]["effective_command_count"] = len(flattened) // 8
                         decoded["rdp"]["unresolved_display_list_targets"] = unresolved
@@ -1929,6 +2819,7 @@ def record(args: argparse.Namespace) -> int:
                                 decoder.get("max_matrices", 128),
                                 "max_matrices",
                             ),
+                            decoder.get("matrix_format", "n64-mtx"),
                             timeout,
                         )
                         attach_runtime_matrices(decoded, matrices)
@@ -1950,6 +2841,12 @@ def record(args: argparse.Namespace) -> int:
                             f"0x{address:08X}" for address in unresolved_lights
                         ]
                         memory_evidence.extend(light_evidence)
+                    if decoder.get("capture_vertices"):
+                        memory_evidence.extend(capture_runtime_vertices(
+                            debugger, decoded["rdp"]["vertex_loads"],
+                            parse_int(decoder.get("max_vertex_blocks", 512), "max_vertex_blocks"),
+                            timeout,
+                        ))
                     if decoder.get("capture_normals"):
                         (
                             normal_streams,
@@ -1970,6 +2867,68 @@ def record(args: argparse.Namespace) -> int:
                             f"0x{address:08X}" for address in unresolved_normals
                         ]
                         memory_evidence.extend(normal_evidence)
+                    if decoder.get("capture_textures"):
+                        (
+                            texture_images,
+                            texture_evidence,
+                            unresolved_textures,
+                        ) = capture_runtime_texture_images(
+                            debugger,
+                            decoded["rdp"]["tmem"],
+                            parse_int(
+                                decoder.get("max_texture_images", 512),
+                                "max_texture_images",
+                            ),
+                            parse_int(
+                                decoder.get("max_texture_bytes", 0x4000),
+                                "max_texture_bytes",
+                            ),
+                            timeout,
+                        )
+                        attach_runtime_texture_images(decoded, texture_images)
+                        state["rdp_texture_images"] = texture_images
+                        state["rdp"]["unresolved_texture_addresses"] = [
+                            f"0x{address:08X}" for address in unresolved_textures
+                        ]
+                        memory_evidence.extend(texture_evidence)
+                elif decoder is not None:
+                    character_model = decode_cbfd_character_pool(
+                        memory[decoder["memory"]]
+                    )
+                    if decoder.get("capture_character_part_tables"):
+                        character_model["part_tables"] = (
+                            decode_cbfd_character_part_table_headers(
+                                memory[decoder["part_pointer_table"]],
+                                memory[decoder["part_count_table"]],
+                                memory[decoder["extra_part_pointer_table"]],
+                            )
+                        )
+                    merge_state(state, {"model": character_model})
+                dynamic_entry_breakpoints = {
+                    candidate["decoder"]["entry_breakpoint"]
+                    for candidate in spec["breakpoints"]
+                    if isinstance(candidate.get("decoder"), dict)
+                    and candidate["decoder"].get("format")
+                    == "cbfd-character-draw-range"
+                }
+                if breakpoint["name"] in dynamic_entry_breakpoints:
+                    stack_pointer = registers["sp"] & 0xFFFFFFFF
+                    pending_character_draws.append(
+                        {
+                            "entry_breakpoint": breakpoint["name"],
+                            "return_stack_pointer": (stack_pointer - 0x150)
+                            & 0xFFFFFFFF,
+                            "command_buffer_start": int(
+                                state["model"]["command_buffer_start"]
+                            )
+                            & 0xFFFFFFFF,
+                            "model": {
+                                key: value
+                                for key, value in state["model"].items()
+                                if key != "active_records"
+                            },
+                        }
+                    )
                 event = {
                     "schema": SCHEMA,
                     "record_type": "draw_state",
@@ -1989,8 +2948,23 @@ def record(args: argparse.Namespace) -> int:
                 stream.write(json.dumps(event, sort_keys=True) + "\n")
                 stream.flush()
                 captured_count += 1
+                breakpoint_capture_counts[breakpoint["name"]] = (
+                    breakpoint_capture_counts.get(breakpoint["name"], 0) + 1
+                )
+                if breakpoint.get("stop_after_capture"):
+                    break
+                stop_after_capture_count = breakpoint.get("stop_after_capture_count")
+                if (
+                    stop_after_capture_count is not None
+                    and breakpoint_capture_counts[breakpoint["name"]]
+                    >= parse_int(
+                        stop_after_capture_count,
+                        f"{breakpoint['name']}.stop_after_capture_count",
+                    )
+                ):
+                    break
                 if captured_count < max_events:
-                    debugger.send("run")
+                    debugger.resume()
     finally:
         debugger.close()
     print(f"Recorded {captured_count} draw-state event(s) in {destination.relative_to(Path.cwd())}.")
@@ -2009,7 +2983,16 @@ def build_parser() -> argparse.ArgumentParser:
     record_parser.add_argument("--material-run", dest="material_run", type=int)
     record_parser.add_argument("--max-events", type=int)
     record_parser.add_argument("--timeout", type=int, help="seconds to wait for each debugger stop")
+    record_parser.add_argument(
+        "--session-timeout",
+        type=int,
+        help="maximum wall-clock seconds for the complete trace session",
+    )
     record_parser.add_argument("--savestate", help="optional savestate path under the mounted workspace")
+    record_parser.add_argument(
+        "--software-renderer", action="store_true",
+        help="execute ROM RSP microcode and RDP rasterization with CXD4/Angrylion under Xvfb",
+    )
     output_mode = record_parser.add_mutually_exclusive_group()
     output_mode.add_argument("--force", action="store_true")
     output_mode.add_argument("--append", action="store_true")

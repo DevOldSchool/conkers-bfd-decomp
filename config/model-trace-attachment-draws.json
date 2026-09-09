@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "name": "character-attachment-draw-ranges",
+  "model_correlation": true,
+  "model_inventory_digest": true,
+  "target": {
+    "bank": 9,
+    "entry": null,
+    "segment": null,
+    "material_run": null
+  },
+  "max_events": 64,
+  "max_breakpoint_hits": 10000,
+  "timeout_seconds": 180,
+  "breakpoints": [
+    {
+      "name": "attachment-part-selected",
+      "address": "0x15031870",
+      "flags": 8,
+      "memory": [
+        {
+          "name": "attachment-record",
+          "address": "$s1",
+          "length": 92
+        },
+        {
+          "name": "parent-character",
+          "address": "$s2",
+          "length": 812
+        },
+        {
+          "name": "attachment-stack",
+          "address": "$sp+0xB4",
+          "length": 100
+        },
+        {
+          "name": "attachment-list-head",
+          "address": "$t3",
+          "length": 64
+        }
+      ],
+      "fields": {
+        "model.attachment_address": {
+          "source": "register",
+          "name": "s1"
+        },
+        "model.parent_character_address": {
+          "source": "register",
+          "name": "s2"
+        },
+        "rdp.selected_display_list": {
+          "source": "register",
+          "name": "t3"
+        },
+        "rdp.call_command_address": {
+          "source": "register",
+          "name": "v0"
+        }
+      }
+    },
+    {
+      "name": "attachment-draw-return",
+      "address": "0x15031914",
+      "flags": 8,
+      "memory": [
+        {
+          "name": "attachment-record",
+          "address": "$s1",
+          "length": 92
+        },
+        {
+          "name": "parent-character",
+          "address": "$s2",
+          "length": 812
+        },
+        {
+          "name": "attachment-stack",
+          "address": "$sp+0xB4",
+          "length": 100
+        }
+      ],
+      "fields": {
+        "rdp.command_buffer_end": {
+          "source": "register",
+          "name": "v0"
+        }
+      }
+    },
+    {
+      "name": "character-draws-at-graphics-submit",
+      "address": "0x10023DF0",
+      "flags": 8,
+      "decoder": {
+        "format": "f3dex2-cbfd",
+        "memory": "command-buffer",
+        "walk_nested": true,
+        "max_nested_lists": 512,
+        "max_nested_bytes": 65536,
+        "capture_matrices": true,
+        "max_matrices": 512,
+        "matrix_format": "n64-mtx",
+        "capture_textures": true,
+        "max_texture_images": 512,
+        "max_texture_bytes": 16384,
+        "capture_normals": true,
+        "max_normal_streams": 512,
+        "capture_lights": true,
+        "max_lights": 512,
+        "capture_vertices": true,
+        "max_vertex_blocks": 512
+      },
+      "memory": [
+        {
+          "name": "task",
+          "address": "$a2",
+          "length": 64
+        },
+        {
+          "name": "command-buffer",
+          "address": {
+            "source": "memory",
+            "name": "task",
+            "offset": 48,
+            "size": 4,
+            "endian": "big",
+            "map": "kseg0"
+          },
+          "length": {
+            "source": "memory",
+            "name": "task",
+            "offset": 52,
+            "size": 4,
+            "endian": "big",
+            "max": 65536
+          }
+        }
+      ],
+      "stop_after_capture_count": 2,
+      "when": [
+        {
+          "source": "register",
+          "name": "a0",
+          "equals": 1
+        },
+        {
+          "source": "register",
+          "name": "a1",
+          "mask": "0xFFFFFFFF",
+          "equals": "0x04000FC0"
+        },
+        {
+          "source": "register",
+          "name": "a3",
+          "equals": 64
+        },
+        {
+          "source": "memory",
+          "name": "task",
+          "offset": 0,
+          "size": 4,
+          "endian": "big",
+          "equals": 1
+        }
+      ],
+      "fields": {
+        "rdp.task_command_buffer_address": {
+          "source": "memory",
+          "name": "task",
+          "offset": 48,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.task_command_buffer_size": {
+          "source": "memory",
+          "name": "task",
+          "offset": 52,
+          "size": 4,
+          "endian": "big"
+        }
+      }
+    }
+  ]
+}

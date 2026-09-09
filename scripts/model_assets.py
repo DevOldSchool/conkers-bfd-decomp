@@ -4,9 +4,12 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import copy
 import hashlib
 import json
 import math
+import re
 import shutil
 import struct
 from colorsys import hsv_to_rgb
@@ -16,9 +19,13 @@ from statistics import median
 from typing import Any
 
 try:
+    from scripts.model_attachment_format import (
+        is_attachment_model, parse_attachment_model, encode_attachment_model,
+    )
     from scripts.rzip_archive import (
         decode_rzip_chunk,
         iter_flat_rzip_entries,
+        iter_indexed_flat_rzip_entries,
         normalize_rom,
         parse_asset_banks,
         parse_asset_entries,
@@ -36,10 +43,31 @@ try:
         encode_indexed_png,
         encode_rgba_png,
     )
+    from scripts.texture_native import encode_png as encode_native_texture_png
+    from scripts.texture_native import packed_row_size
+    from scripts.mupen_trace import (
+        CHARACTER_POOL_ADDRESS,
+        CHARACTER_POOL_RECORD_COUNT,
+        CHARACTER_POOL_RECORD_SIZE,
+        CHARACTER_PART_COUNT_TABLE_SIZE,
+        CHARACTER_PART_POINTER_TABLE_SIZE,
+        decode_cbfd_character_part_table_headers,
+        decode_f3dex2_cbfd,
+        decode_rsp_matrix,
+        flatten_display_lists,
+        captured_task_type,
+        geometry_clusters,
+        load_model_cluster_index,
+        refresh_trace_model_correlations,
+    )
 except ModuleNotFoundError:
+    from model_attachment_format import (  # type: ignore[no-redef]
+        is_attachment_model, parse_attachment_model, encode_attachment_model,
+    )
     from rzip_archive import (  # type: ignore[no-redef]
         decode_rzip_chunk,
         iter_flat_rzip_entries,
+        iter_indexed_flat_rzip_entries,
         normalize_rom,
         parse_asset_banks,
         parse_asset_entries,
@@ -57,10 +85,29 @@ except ModuleNotFoundError:
         encode_indexed_png,
         encode_rgba_png,
     )
+    from texture_native import encode_png as encode_native_texture_png
+    from texture_native import packed_row_size
+    from mupen_trace import (  # type: ignore[no-redef]
+        CHARACTER_POOL_ADDRESS,
+        CHARACTER_POOL_RECORD_COUNT,
+        CHARACTER_POOL_RECORD_SIZE,
+        CHARACTER_PART_COUNT_TABLE_SIZE,
+        CHARACTER_PART_POINTER_TABLE_SIZE,
+        decode_cbfd_character_part_table_headers,
+        decode_f3dex2_cbfd,
+        decode_rsp_matrix,
+        flatten_display_lists,
+        captured_task_type,
+        geometry_clusters,
+        load_model_cluster_index,
+        refresh_trace_model_correlations,
+    )
 
 
 BANK_INDICES = (0x01, 0x03, 0x04, 0x09)
 DEFAULT_BANK_INDEX = 0x04
+RUNTIME_FLAT_ASSET_COUNT = 0x1E52
+RUNTIME_FLAT_SIZE_TABLE = 0x80091D20
 # Runtime-proven poses are retained as references, but the glTF's default node
 # transforms remain the neutral bind hierarchy. Every decoded pose is exposed
 # as a separate Action so importing the model does not silently deform it.
@@ -96,6 +143,17 @@ CHARACTER_RUNTIME_COLOR_STATE = {
     "environment_command": "0xFB000000",
     "alpha_source": "runtime-caller-parameter",
     "effect_override": "func_1502EC34",
+}
+CHARACTER_RUNTIME_MATRIX_STATE = {
+    "status": "runtime-conversion-chain-proven",
+    "renderer": "func_1502CCFC",
+    "segment": 3,
+    "renderer_layout": "cbfd-character-row-major-f32",
+    "finalizer": "func_1502E474",
+    "in_place_converter": "func_150A9984",
+    "submitted_layout": "n64-split-signed-16.16-mtx",
+    "palette_identity": "renderer-root-plus-absolute-address-delta",
+    "segment_relative_slot_status": "not-palette-global-after-interior-rebase",
 }
 COLOR_AB_MUX = {
     0: "COMBINED",
@@ -225,7 +283,7 @@ class ModelTextureBinding:
 class ModelMaterialRun:
     first_face: int
     face_count: int
-    texture_enabled: bool
+    texture_enabled: bool | None
     pixel: ModelTextureBinding | None
     palette: ModelTextureBinding | None
     render_tile: tuple[int, int] | None
@@ -237,6 +295,7 @@ class ModelMaterialRun:
     runtime_render_state_offset: int | None
     texture_coordinates_proven: bool = True
     matrix_index: int | None = None
+    texture_dimensions: tuple[int, int] | None = None
 
 
 @dataclass(frozen=True)
@@ -269,7 +328,22 @@ class ModelGeometry:
     face_command_offsets: tuple[int, ...] = ()
     face_command_opcodes: tuple[int, ...] = ()
     face_cache_indices: tuple[tuple[int, int, int], ...] = ()
+    # RSP transforms a vertex when VTX loads it, not when a triangle draws it.
+    # A cache can retain corners loaded under several different joint matrices.
+    face_matrix_indices: tuple[
+        tuple[int | None, int | None, int | None], ...
+    ] = ()
     custom_normal_command_count: int = 0
+    # Interchange normals transformed with a baked pose, separate from the
+    # signed source bytes consumed by CBFD lighting.
+    face_preview_normals: tuple[
+        tuple[tuple[float, float, float] | None, ...], ...
+    ] = ()
+    # Original face within this run's source model, through merges/filtering.
+    face_source_indices: tuple[int, ...] = ()
+    # F3DEX2 cull bits at each triangle. None means at least one bit is
+    # inherited or was invalidated by an unresolved display-list call.
+    face_cull_modes: tuple[int | None, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -680,7 +754,10 @@ def parse_vertex_color_animation(
 
 
 def parse_model_geometry(
-    data: bytes, *, allow_external_texture: bool = False
+    data: bytes,
+    *,
+    allow_external_texture: bool = False,
+    independent_display_lists: bool = False,
 ) -> ModelGeometry:
     """Decode the proven vertex and triangle portions of one bank-04 model."""
 
@@ -733,10 +810,14 @@ def parse_model_geometry(
         )
 
     cache: dict[int, int] = {}
+    matrix_cache: dict[int, int | None] = {}
     faces = []
     face_command_offsets = []
     face_command_opcodes = []
     face_cache_indices = []
+    face_matrix_indices = []
+    face_cull_modes = []
+    geometry_mode = geometry_mode_known_bits = 0
     vertex_load_count = 0
     segment_8_display_list_offsets = []
     texture_references = []
@@ -744,10 +825,9 @@ def parse_model_geometry(
     pending_texture: ModelTextureBinding | None = None
     pixel_texture: ModelTextureBinding | None = None
     palette_texture: ModelTextureBinding | None = None
-    texture_enabled = False
-    render_tile: tuple[int, int] | None = None
+    texture_enabled = None if independent_display_lists else False
     render_tiles: dict[int, tuple[int, int]] = {}
-    tile_bounds: tuple[int, int] | None = None
+    render_tile_bounds: dict[int, tuple[int, int]] = {}
     texture_scale: tuple[int, int] | None = None
     combine_mode: tuple[int, int] | None = None
     other_mode: tuple[int, int] | None = None
@@ -775,11 +855,16 @@ def parse_model_geometry(
                 )
             faces.append(tuple(cache[cache_index] for cache_index in triangle))
             face_cache_indices.append(tuple(triangle))
+            face_matrix_indices.append(tuple(matrix_cache[index] for index in triangle))
             face_normal_bytes.append(
                 tuple(normal_cache.get(cache_index) for cache_index in triangle)
             )
             face_command_offsets.append(command_offset)
             face_command_opcodes.append(data[command_offset])
+            face_cull_modes.append(
+                geometry_mode & 0x600
+                if geometry_mode_known_bits & 0x600 == 0x600 else None
+            )
         face_count = len(faces) - first_face
         nonlocal pixel_texture
         if texture_enabled and pixel_texture is None:
@@ -789,6 +874,12 @@ def parse_model_geometry(
                 )
             pixel_texture = ModelTextureBinding(image_command=0, external=True)
         active_pixel = pixel_texture if texture_enabled else None
+        # G_TEXTURE selects the base tile independently of SetTile order. In
+        # particular, character facial lists select tile 4 after defining a
+        # different-sized tile 0 and its mip chain in the same callable list.
+        tile_index = (texture_scale[0] >> 8) & 7 if texture_scale else 0
+        render_tile = render_tiles.get(tile_index)
+        tile_bounds = render_tile_bounds.get(tile_index)
         render_format = (
             (render_tile[0] >> 21) & 7 if render_tile is not None else None
         )
@@ -880,6 +971,7 @@ def parse_model_geometry(
                 cache_index = cache_start + local_index
                 vertex_index = vertex_start + local_index
                 cache[cache_index] = vertex_index
+                matrix_cache[cache_index] = matrix_index
                 if normal_base is not None:
                     normal_offset = normal_base + cache_index * 2
                     if normal_offset + 2 <= len(data):
@@ -923,6 +1015,13 @@ def parse_model_geometry(
             segment_8_display_list_offsets.append(argument & 0xFFFFFF)
             runtime_render_state_offset = argument & 0xFFFFFF
             other_mode = None
+            geometry_mode_known_bits = 0
+        elif opcode == 0xD9:
+            preserve = command & 0xFFFFFF
+            geometry_mode = (geometry_mode & preserve) | argument
+            geometry_mode_known_bits = (
+                (geometry_mode_known_bits & preserve) | (~preserve & 0xFFFFFF) | argument
+            )
         elif opcode == 0xDA:
             if command != 0xDA380003 or argument >> 24 != 0x03 or argument & 0x3F:
                 raise ValueError(f"unsupported matrix command at offset 0x{offset:X}")
@@ -968,13 +1067,10 @@ def parse_model_geometry(
                 if pending_texture is not None
                 else None
             )
-        elif opcode == 0xF5 and (argument >> 24) & 7 == 0:
-            render_tile = (command, argument)
-            render_tiles[0] = (command, argument)
         elif opcode == 0xF5:
             render_tiles[(argument >> 24) & 7] = (command, argument)
-        elif opcode == 0xF2 and (argument >> 24) & 7 == 0:
-            tile_bounds = (command, argument)
+        elif opcode == 0xF2:
+            render_tile_bounds[(argument >> 24) & 7] = (command, argument)
         elif opcode == 0xD7:
             texture_enabled = bool(command & 2)
             texture_scale = (command, argument)
@@ -983,6 +1079,23 @@ def parse_model_geometry(
         elif opcode == 0xEF:
             other_mode = (command, argument)
             runtime_render_state_offset = None
+        elif opcode == 0xDF and independent_display_lists:
+            # Character pointer-table entries are separately callable. The
+            # renderer selects their order; physical adjacency in the model
+            # does not prove inherited RDP state for the next entry.
+            cache.clear()
+            matrix_cache.clear()
+            normal_cache.clear()
+            normal_base = None
+            matrix_index = None
+            pending_texture = pixel_texture = palette_texture = None
+            texture_scale = None
+            render_tiles = {}
+            render_tile_bounds = {}
+            texture_enabled = None
+            combine_mode = other_mode = None
+            runtime_render_state_offset = None
+            geometry_mode = geometry_mode_known_bits = 0
 
     if not faces and not allow_external_texture:
         raise ValueError("model candidate display list contains no triangles")
@@ -994,6 +1107,31 @@ def parse_model_geometry(
     vertex_color_animation_descriptors = parse_vertex_color_animation(
         data, header_words[8], vertex_color_animation_table_size, len(vertices)
     )
+    decoded_material_runs = tuple(
+        ModelMaterialRun(
+            first_face=run[0],
+            face_count=run[1],
+            texture_enabled=run[2],
+            pixel=run[3],
+            palette=run[4],
+            render_tile=run[5],
+            render_tiles=run[6],
+            tile_bounds=run[7],
+            texture_scale=run[8],
+            combine_mode=run[9],
+            other_mode=run[10],
+            runtime_render_state_offset=run[11],
+            matrix_index=run[12],
+        )
+        for run in material_runs
+    )
+    proven_material_runs = []
+    for run in decoded_material_runs:
+        try:
+            texture_coordinate_state(run)
+        except ValueError:
+            run = replace(run, texture_coordinates_proven=False)
+        proven_material_runs.append(run)
     return ModelGeometry(
         vertices=tuple(vertices),
         faces=tuple(faces),
@@ -1010,24 +1148,7 @@ def parse_model_geometry(
         runtime_segment_texture_addresses=tuple(
             runtime_segment_texture_addresses
         ),
-        material_runs=tuple(
-            ModelMaterialRun(
-                first_face=run[0],
-                face_count=run[1],
-                texture_enabled=run[2],
-                pixel=run[3],
-                palette=run[4],
-                render_tile=run[5],
-                render_tiles=run[6],
-                tile_bounds=run[7],
-                texture_scale=run[8],
-                combine_mode=run[9],
-                other_mode=run[10],
-                runtime_render_state_offset=run[11],
-                matrix_index=run[12],
-            )
-            for run in material_runs
-        ),
+        material_runs=tuple(proven_material_runs),
         face_normal_bytes=(
             tuple(face_normal_bytes) if custom_normal_command_count else ()
         ),
@@ -1035,6 +1156,8 @@ def parse_model_geometry(
         face_command_offsets=tuple(face_command_offsets),
         face_command_opcodes=tuple(face_command_opcodes),
         face_cache_indices=tuple(face_cache_indices),
+        face_matrix_indices=tuple(face_matrix_indices),
+        face_cull_modes=tuple(face_cull_modes),
         custom_normal_command_count=custom_normal_command_count,
     )
 
@@ -1275,7 +1398,9 @@ def parse_character_model_geometry(
         + vertex_data
         + display_data
     )
-    geometry = parse_model_geometry(synthetic, allow_external_texture=True)
+    geometry = parse_model_geometry(
+        synthetic, allow_external_texture=True, independent_display_lists=True
+    )
     face_normal_bytes = parse_character_face_normal_bytes(
         data,
         display_offset,
@@ -1313,6 +1438,8 @@ def parse_character_model_geometry(
         ),
         face_command_opcodes=geometry.face_command_opcodes,
         face_cache_indices=geometry.face_cache_indices,
+        face_matrix_indices=geometry.face_matrix_indices,
+        face_cull_modes=geometry.face_cull_modes,
         custom_normal_command_count=len(custom_movemem_commands),
     )
     section_names = (
@@ -1386,6 +1513,10 @@ def parse_character_model_geometry(
     used_matrix_indices = {
         run.matrix_index for run in geometry.material_runs if run.matrix_index is not None
     }
+    used_matrix_indices.update(
+        matrix for face in geometry.face_matrix_indices for matrix in face
+        if matrix is not None
+    )
     if used_matrix_indices.difference(matrix_indices):
         raise ValueError("bank-01 display list references an absent joint matrix")
 
@@ -1552,6 +1683,8 @@ def parse_character_model_geometry(
 def parse_geometry_for_bank(data: bytes, bank_index: int) -> ModelGeometry:
     if bank_index == 0x01:
         return parse_character_model_geometry(data)[0]
+    if bank_index == 0x09 and is_attachment_model(data):
+        return parse_attachment_model(data, parse_model_geometry)[0]
     return parse_model_geometry(data)
 
 
@@ -1563,6 +1696,42 @@ def validation_color(index: int) -> tuple[int, int, int, int]:
     return (round(red * 255), round(green * 255), round(blue * 255), 255)
 
 
+def face_vertex_matrix_indices(
+    geometry: ModelGeometry, run: ModelMaterialRun, face_index: int
+) -> tuple[int, int, int]:
+    """Return each corner's matrix at its most recent vertex-cache load."""
+
+    if not geometry.face_matrix_indices:
+        # Compatibility for synthetic test geometry and already baked positions.
+        return (run.matrix_index if run.matrix_index is not None else 0,) * 3
+    if len(geometry.face_matrix_indices) != len(geometry.faces):
+        raise ValueError("vertex-load matrix records do not cover every face")
+    return tuple(
+        matrix if matrix is not None else 0
+        for matrix in geometry.face_matrix_indices[face_index]
+    )
+
+
+def geometry_vertex_matrix_indices(geometry: ModelGeometry) -> set[int]:
+    return {
+        matrix
+        for run in geometry.material_runs
+        for face_index in range(run.first_face, run.first_face + run.face_count)
+        for matrix in face_vertex_matrix_indices(geometry, run, face_index)
+    }
+
+
+def vertex_matrix_mismatch_face_count(geometry: ModelGeometry) -> int:
+    return sum(
+        any(
+            matrix != (run.matrix_index or 0)
+            for matrix in face_vertex_matrix_indices(geometry, run, face_index)
+        )
+        for run in geometry.material_runs
+        for face_index in range(run.first_face, run.first_face + run.face_count)
+    )
+
+
 def validation_face_records(
     geometry: ModelGeometry,
     character_joints: tuple[dict[str, Any], ...] | None = None,
@@ -1570,9 +1739,6 @@ def validation_face_records(
 ) -> list[dict[str, Any]]:
     """Expand faces into bind-space positions and validation colour groups."""
 
-    joint_by_matrix = {
-        joint["matrix_index"]: joint for joint in character_joints or ()
-    }
     global_bind_pivots = (
         character_global_bind_pivots(character_joints)
         if character_joints
@@ -1581,46 +1747,44 @@ def validation_face_records(
     records = []
     for run_index, run in enumerate(geometry.material_runs):
         matrix_index = run.matrix_index if run.matrix_index is not None else 0
-        pivot = (0.0, 0.0, 0.0)
-        if character_joints:
-            joint = joint_by_matrix.get(matrix_index)
-            if joint is None:
-                pivot = (math.nan, math.nan, math.nan)
-            else:
-                pivot = global_bind_pivots[matrix_index]
         group_index = matrix_index if character_joints else run_index
         for face_offset, face in enumerate(
             geometry.faces[run.first_face : run.first_face + run.face_count]
         ):
-            if matrix_rows_by_index is None:
-                positions = tuple(
-                    (
-                        float(geometry.vertices[index].x) + pivot[0],
-                        float(geometry.vertices[index].y) + pivot[1],
-                        float(geometry.vertices[index].z) + pivot[2],
+            vertex_matrices = face_vertex_matrix_indices(
+                geometry, run, run.first_face + face_offset
+            )
+            positions = []
+            for index, vertex_matrix in zip(face, vertex_matrices):
+                vertex = geometry.vertices[index]
+                if matrix_rows_by_index is None:
+                    pivot = (
+                        global_bind_pivots.get(
+                            vertex_matrix, (math.nan, math.nan, math.nan)
+                        ) if character_joints else (0.0, 0.0, 0.0)
                     )
-                    for index in face
-                )
-            else:
-                rows = matrix_rows_by_index.get(matrix_index)
-                if rows is None:
-                    positions = ((math.nan, math.nan, math.nan),) * 3
+                    position = (
+                        float(vertex.x) + pivot[0],
+                        float(vertex.y) + pivot[1],
+                        float(vertex.z) + pivot[2],
+                    )
                 else:
-                    positions = tuple(
-                        tuple(
-                            float(geometry.vertices[index].x) * rows[0][axis]
-                            + float(geometry.vertices[index].y) * rows[1][axis]
-                            + float(geometry.vertices[index].z) * rows[2][axis]
-                            + rows[3][axis]
-                            for axis in range(3)
-                        )
-                        for index in face
-                    )
+                    rows = matrix_rows_by_index.get(vertex_matrix)
+                    position = tuple(
+                        float(vertex.x) * rows[0][axis]
+                        + float(vertex.y) * rows[1][axis]
+                        + float(vertex.z) * rows[2][axis]
+                        + rows[3][axis]
+                        for axis in range(3)
+                    ) if rows is not None else (math.nan, math.nan, math.nan)
+                positions.append(position)
+            positions = tuple(positions)
             records.append(
                 {
                     "face_index": run.first_face + face_offset,
                     "run_index": run_index,
                     "matrix_index": matrix_index if character_joints else None,
+                    "vertex_matrix_indices": vertex_matrices if character_joints else (),
                     "source_indices": face,
                     "component_keys": positions,
                     "positions": positions,
@@ -1655,10 +1819,14 @@ def omit_zero_area_preview_faces(
     """Remove source-authentic no-op triangles from interchange previews only."""
 
     retained_faces = []
+    retained_source_indices = []
     retained_normals = []
+    retained_preview_normals = []
     retained_offsets = []
     retained_opcodes = []
     retained_cache_indices = []
+    retained_matrix_indices = []
+    retained_cull_modes = []
     omitted_faces = []
     omitted_by_run = []
     preview_runs = []
@@ -1677,19 +1845,33 @@ def omit_zero_area_preview_faces(
                 for index in face
             )
             cross = _triangle_cross(positions)
-            if sum(value * value for value in cross) == 0.0:
+            # Equal local positions can separate under different joint matrices.
+            # Only reject these faces after bind/pose transforms are evaluated.
+            one_matrix = len(set(
+                face_vertex_matrix_indices(geometry, run, face_index)
+            )) == 1
+            if sum(value * value for value in cross) == 0.0 and one_matrix:
                 omitted_faces.append(face_index)
                 omitted_count += 1
                 continue
             retained_faces.append(face)
+            retained_source_indices.append(
+                geometry.face_source_indices[face_index] if geometry.face_source_indices else face_index
+            )
             if geometry.face_normal_bytes:
                 retained_normals.append(geometry.face_normal_bytes[face_index])
+            if geometry.face_preview_normals:
+                retained_preview_normals.append(geometry.face_preview_normals[face_index])
             if geometry.face_command_offsets:
                 retained_offsets.append(geometry.face_command_offsets[face_index])
             if geometry.face_command_opcodes:
                 retained_opcodes.append(geometry.face_command_opcodes[face_index])
             if has_face_cache_indices:
                 retained_cache_indices.append(geometry.face_cache_indices[face_index])
+            if geometry.face_matrix_indices:
+                retained_matrix_indices.append(geometry.face_matrix_indices[face_index])
+            if geometry.face_cull_modes:
+                retained_cull_modes.append(geometry.face_cull_modes[face_index])
         omitted_by_run.append(omitted_count)
         preview_runs.append(
             replace(
@@ -1701,12 +1883,16 @@ def omit_zero_area_preview_faces(
     return (
         replace(
             geometry,
+            face_source_indices=tuple(retained_source_indices),
             faces=tuple(retained_faces),
             material_runs=tuple(preview_runs),
             face_normal_bytes=tuple(retained_normals),
+            face_preview_normals=tuple(retained_preview_normals),
             face_command_offsets=tuple(retained_offsets),
             face_command_opcodes=tuple(retained_opcodes),
             face_cache_indices=tuple(retained_cache_indices),
+            face_matrix_indices=tuple(retained_matrix_indices),
+            face_cull_modes=tuple(retained_cull_modes),
         ),
         tuple(omitted_faces),
         tuple(omitted_by_run),
@@ -1790,9 +1976,10 @@ def validate_model_geometry(
                 )
         invalid_joint_assignments = sorted(
             {
-                face["matrix_index"]
+                matrix
                 for face in faces
-                if face["matrix_index"] not in matrix_set
+                for matrix in face["vertex_matrix_indices"]
+                if matrix not in matrix_set
             }
         )
 
@@ -2007,7 +2194,9 @@ def render_validation_strip(
 
 
 def material_name(run: ModelMaterialRun) -> str:
-    if not run.texture_enabled:
+    if run.texture_enabled is None:
+        name = "runtime_texture_state_unknown"
+    elif not run.texture_enabled:
         name = "untextured"
     else:
         if run.pixel is None:
@@ -2139,6 +2328,28 @@ def decode_combine_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
     }
 
 
+def decode_convert_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
+    """Decode the six signed nine-bit coefficients written by SetConvert."""
+
+    if pair is None:
+        return None
+    command, argument = pair
+    if command >> 24 != 0xEC:
+        raise ValueError("convert-mode command does not use opcode 0xEC")
+    values = [
+        (command >> 13) & 0x1FF,
+        (command >> 4) & 0x1FF,
+        ((command & 0xF) << 5) | ((argument >> 27) & 0x1F),
+        (argument >> 18) & 0x1FF,
+        (argument >> 9) & 0x1FF,
+        argument & 0x1FF,
+    ]
+    return {
+        "coefficients": [value - 0x200 if value & 0x100 else value for value in values],
+        "raw": command_pair_record(pair),
+    }
+
+
 def decode_other_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
     """Decode the RDP fields that materially affect an interchange preview."""
 
@@ -2150,6 +2361,7 @@ def decode_other_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
     mode_high = command & 0x00FFFFFF
     cycle_type = (mode_high >> 20) & 3
     texture_lod = (mode_high >> 16) & 1
+    texture_detail = (mode_high >> 17) & 3
     texture_filter = (mode_high >> 12) & 3
     texture_lut = (mode_high >> 14) & 3
     alpha_compare = argument & 3
@@ -2167,6 +2379,11 @@ def decode_other_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
         "mode_low": f"0x{argument:08X}",
         "cycle_type": ("one-cycle", "two-cycle", "copy", "fill")[cycle_type],
         "texture_lod": ("tile", "lod")[texture_lod],
+        "texture_detail": {
+            0: "clamp",
+            1: "sharpen",
+            2: "detail",
+        }.get(texture_detail, f"reserved-{texture_detail}"),
         "texture_filter": {
             0: "point",
             2: "bilinear",
@@ -2204,8 +2421,10 @@ def translate_runtime_material_state(state: dict[str, Any]) -> dict[str, Any]:
     """Classify the captured RDP state against glTF's base-colour product."""
 
     combine_pair = tuple(state["combine_mode"]) if state.get("combine_mode") else None
+    convert_pair = tuple(state["convert_mode"]) if state.get("convert_mode") else None
     other_pair = tuple(state["other_mode"]) if state.get("other_mode") else None
     combine = decode_combine_mode(combine_pair)
+    convert = decode_convert_mode(convert_pair)
     other = decode_other_mode(other_pair)
     if combine is None:
         return {
@@ -2213,6 +2432,7 @@ def translate_runtime_material_state(state: dict[str, Any]) -> dict[str, Any]:
             "baseColorFactor": None,
             "alphaMode": other["gltf_alpha_mode"] if other else None,
             "sampler": other["gltf_sampler"] if other else None,
+            "convertMode": convert,
         }
     cycle_index = 1 if other and other["cycle_type"] == "two-cycle" else 0
     cycle = combine["cycles"][cycle_index]
@@ -2230,9 +2450,180 @@ def translate_runtime_material_state(state: dict[str, Any]) -> dict[str, Any]:
     ):
         color_product = True
     alpha_product = alpha == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
-    needs_mipmap = "TEXEL1" in combine["inputs"] or "LOD_FRACTION" in combine[
-        "inputs"
-    ]
+    # A common CBFD two-cycle material first places TEXEL0 in COMBINED, then
+    # evaluates (SHADE - ENVIRONMENT) * COMBINED + PRIMITIVE.  With the exact
+    # captured zero RGB colours this reduces to TEXEL0 * SHADE.  Its alpha path
+    # likewise carries TEXEL0 * SHADE through COMBINED and multiplies it by an
+    # opaque environment alpha.  Recognize the complete two-cycle expression;
+    # inspecting only cycle two makes this family look unsupported.
+    two_cycle_texture_product = bool(
+        other
+        and other["cycle_type"] == "two-cycle"
+        and combine["cycles"][0]["color"]
+        == ["ZERO", "ZERO", "ZERO", "TEXEL0"]
+        and combine["cycles"][0]["alpha"]
+        == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
+        and color == ["SHADE", "ENVIRONMENT", "COMBINED", "PRIMITIVE"]
+        and alpha == ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]
+        and primitive is not None
+        and environment is not None
+        and primitive[:3] == [0, 0, 0]
+        and environment[:3] == [0, 0, 0]
+    )
+    if two_cycle_texture_product:
+        color_product = True
+        alpha_product = True
+    first_cycle = combine["cycles"][0]
+    first_color_product = first_cycle["color"] == [
+        "TEXEL0",
+        "ZERO",
+        "SHADE",
+        "ZERO",
+    ] or bool(
+        first_cycle["color"]
+        == ["TEXEL0", "ENVIRONMENT", "SHADE", "PRIMITIVE"]
+        and primitive is not None
+        and environment is not None
+        and primitive[:3] == [0, 0, 0]
+        and environment[:3] == [0, 0, 0]
+    )
+    two_cycle_combined_product = bool(
+        other
+        and other["cycle_type"] == "two-cycle"
+        and first_color_product
+        and first_cycle["alpha"]
+        == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
+        and color == ["ZERO", "ZERO", "ZERO", "COMBINED"]
+        and alpha == ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]
+        and environment is not None
+    )
+    if two_cycle_combined_product:
+        color_product = True
+        alpha_product = True
+    two_cycle_rgb_vertex_alpha_texture = bool(
+        other
+        and other["cycle_type"] == "two-cycle"
+        and first_cycle["color"]
+        == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
+        and first_cycle["alpha"]
+        == ["ZERO", "ZERO", "ZERO", "TEXEL0"]
+        and color == ["ZERO", "ZERO", "ZERO", "COMBINED"]
+        and alpha == ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]
+        and environment is not None
+    )
+    # Several one-cycle character materials use vertex lighting only for RGB,
+    # while alpha comes directly from TEXEL0 (optionally scaled by ENV alpha).
+    # glTF can represent that exactly by forcing the vertex alpha component to
+    # one and carrying the RDP alpha scale in baseColorFactor.
+    separate_texture_alpha_product = bool(
+        color_product
+        and (
+            alpha == ["ZERO", "ZERO", "ZERO", "TEXEL0"]
+            or (
+                alpha == ["TEXEL0", "ZERO", "ENVIRONMENT", "ZERO"]
+                and environment is not None
+            )
+        )
+    )
+    convert_coefficients = convert["coefficients"] if convert is not None else None
+    k5_vertex_product = bool(
+        other
+        and other["cycle_type"] == "two-cycle"
+        and combine["cycles"][0]["color"]
+        == ["ZERO", "ZERO", "ZERO", "ZERO"]
+        and combine["cycles"][0]["alpha"]
+        == ["ZERO", "ZERO", "ZERO", "SHADE"]
+        and color == ["SHADE", "ENVIRONMENT", "K5", "PRIMITIVE"]
+        and alpha == ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]
+        and primitive is not None
+        and environment is not None
+        and primitive[:3] == [0, 0, 0]
+        and environment[:3] == [0, 0, 0]
+        and environment[3] == 255
+        and convert_coefficients is not None
+        and 0 <= convert_coefficients[5] <= 255
+    )
+    primitive_texture_alpha_product = bool(
+        color == ["ZERO", "ZERO", "ZERO", "PRIMITIVE"]
+        and alpha == ["TEXEL0", "ZERO", "PRIMITIVE", "ZERO"]
+        and primitive is not None
+        and primitive[:3] == [0, 0, 0]
+    )
+    environment_texture_alpha_product = bool(
+        color == ["ENVIRONMENT", "ZERO", "SHADE", "ZERO"]
+        and alpha == ["TEXEL0", "ZERO", "ENVIRONMENT", "ZERO"]
+        and environment is not None
+        and environment[:3] == [0, 0, 0]
+    )
+    texture_only_product = bool(
+        color == ["TEXEL0", "ZERO", "ENVIRONMENT", "ZERO"]
+        and alpha == ["ENVIRONMENT", "ZERO", "TEXEL0", "ZERO"]
+        and environment == [255, 255, 255, 255]
+    )
+    shade_alpha_product = bool(
+        color == ["ZERO", "ZERO", "ZERO", "SHADE"]
+        and (
+            alpha == ["ZERO", "ZERO", "ZERO", "SHADE"]
+            or (
+                alpha == ["SHADE", "ZERO", "ENVIRONMENT", "ZERO"]
+                and environment is not None
+            )
+        )
+    )
+    shade_primitive_alpha_product = bool(
+        color == ["SHADE", "ENVIRONMENT", "PRIMITIVE_ALPHA", "PRIMITIVE"]
+        and alpha == ["ZERO", "ZERO", "ZERO", "SHADE"]
+        and primitive is not None
+        and environment is not None
+        and primitive[:3] == [0, 0, 0]
+        and primitive[3] == 255
+        and environment[:3] == [0, 0, 0]
+    )
+    vertex_color_product = shade_alpha_product or shade_primitive_alpha_product
+    constant_texture_alpha_product = (
+        primitive_texture_alpha_product or environment_texture_alpha_product
+    )
+    gltf_product = (
+        color_product and alpha_product
+        or k5_vertex_product
+        or constant_texture_alpha_product
+        or texture_only_product
+        or vertex_color_product
+        or two_cycle_rgb_vertex_alpha_texture
+        or separate_texture_alpha_product
+    )
+    base_color_factor = (
+        [1.0, 1.0, 1.0, environment[3] / 255.0]
+        if (
+            (two_cycle_texture_product or two_cycle_combined_product)
+            and environment is not None
+        )
+        else [1.0, 1.0, 1.0, environment[3] / 255.0]
+        if two_cycle_rgb_vertex_alpha_texture and environment is not None
+        else [1.0, 1.0, 1.0, environment[3] / 255.0]
+        if separate_texture_alpha_product
+        and alpha == ["TEXEL0", "ZERO", "ENVIRONMENT", "ZERO"]
+        and environment is not None
+        else [component / 255.0 for component in primitive]
+        if primitive_texture_alpha_product and primitive is not None
+        else [component / 255.0 for component in environment]
+        if environment_texture_alpha_product and environment is not None
+        else [1.0, 1.0, 1.0, environment[3] / 255.0]
+        if shade_alpha_product
+        and alpha == ["SHADE", "ZERO", "ENVIRONMENT", "ZERO"]
+        and environment is not None
+        else [convert_coefficients[5] / 256.0] * 3 + [1.0]
+        if k5_vertex_product and convert_coefficients is not None
+        else [1.0, 1.0, 1.0, 1.0]
+        if color_product or texture_only_product or vertex_color_product
+        else None
+    )
+    needs_mipmap = "LOD_FRACTION" in combine["inputs"] or bool(
+        "TEXEL1" in combine["inputs"]
+        and other
+        and other["texture_lod"] == "lod"
+    )
+    needs_multiple_textures = "TEXEL1" in combine["inputs"] and not needs_mipmap
     lighting_enabled = bool(state.get("lighting_enabled"))
     light_state = state.get("lights")
     captured_lights = bool(
@@ -2244,27 +2635,56 @@ def translate_runtime_material_state(state: dict[str, Any]) -> dict[str, Any]:
     )
     if needs_mipmap:
         status = "unsupported-explicit-rdp-mipmap"
-    elif color_product and alpha_product and lighting_enabled:
+    elif needs_multiple_textures:
+        status = "unsupported-rdp-multitexture"
+    elif constant_texture_alpha_product:
+        status = "exact-runtime-color-times-texture-alpha"
+    elif texture_only_product:
+        status = "exact-texture-without-vertex-color"
+    elif gltf_product and lighting_enabled:
         status = (
             "requires-runtime-lighting-replay"
             if captured_lights
             else "requires-runtime-lighting"
         )
-    elif color_product and alpha_product:
-        status = "exact-texture-times-vertex-color"
+    elif gltf_product:
+        status = (
+            "exact-vertex-color-times-factor"
+            if k5_vertex_product or vertex_color_product
+            else "exact-texture-times-vertex-color"
+        )
     elif color_product:
         status = "rgb-only-alpha-combiner-unsupported"
     else:
         status = "unsupported-rdp-combiner"
     return {
         "status": status,
-        "baseColorFactor": [1.0, 1.0, 1.0, 1.0] if color_product else None,
+        "baseColorFactor": base_color_factor,
         "alphaMode": other["gltf_alpha_mode"] if other else None,
         "sampler": other["gltf_sampler"] if other else None,
         "lightingEnabled": lighting_enabled,
         "runtimeLightsCaptured": captured_lights,
+        "usesTexture": (
+            color_product
+            or constant_texture_alpha_product
+            or texture_only_product
+            or two_cycle_rgb_vertex_alpha_texture
+        ),
+        "usesVertexColor": (
+            not (constant_texture_alpha_product or texture_only_product)
+            if gltf_product
+            else None
+        ),
+        "vertexAlphaMode": (
+            "one"
+            if two_cycle_rgb_vertex_alpha_texture or separate_texture_alpha_product
+            else "source"
+            if gltf_product
+            else None
+        ),
         "combineCycle": cycle_index + 1,
         "combineFormula": combine,
+        "convertMode": convert,
         "otherMode": other,
     }
 
@@ -2280,6 +2700,8 @@ def runtime_lighting_context(
     matrix = matrices[matrix_index]
     if draw.get("matrix_sha256") != matrix.get("sha256"):
         raise ValueError("runtime draw matrix hash changed")
+    if matrix.get("status") == "invalid-or-uninitialized-at-capture":
+        return None
     rows = matrix.get("rows")
     if (
         not isinstance(rows, list)
@@ -2309,6 +2731,74 @@ def runtime_lighting_context(
     return context
 
 
+def runtime_segment_8_resolution(
+    run: ModelMaterialRun | None,
+    draw_state: dict[str, Any],
+    nested_calls: list[dict[str, Any]],
+    payloads_by_address: dict[int, dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Resolve one static segment-8 state reference through captured runtime state."""
+
+    if run is None:
+        return None
+    offset = run.runtime_render_state_offset
+    if offset is None:
+        return None
+    segmented_address = 0x08000000 | int(offset)
+    segments = draw_state.get("segments", {})
+    base = segments.get("8", segments.get(8))
+    result: dict[str, Any] = {
+        "segment": 8,
+        "offset": f"0x{int(offset):X}",
+        "segmented_address": f"0x{segmented_address:08X}",
+        "segment_base": f"0x{int(base):08X}" if isinstance(base, int) else None,
+        "resolved_address": None,
+        "payload_sha256": None,
+        "payload_length": None,
+        "other_mode": None,
+        "matches_effective_other_mode": None,
+    }
+    if not isinstance(base, int):
+        result["status"] = "segment-base-unavailable"
+        return result
+    resolved_address = (base + int(offset)) & 0xFFFFFFFF
+    result["resolved_address"] = f"0x{resolved_address:08X}"
+    matches = [
+        call
+        for call in nested_calls
+        if int(call.get("address", -1)) == segmented_address
+        and int(call.get("resolved_address", -1)) == resolved_address
+    ]
+    if not matches:
+        result["status"] = "segment-base-only-no-matching-call"
+        return result
+    payload = payloads_by_address.get(resolved_address)
+    if payload is None:
+        result["status"] = "resolved-call-without-payload"
+        return result
+    encoded = payload.get("data_base64")
+    if not isinstance(encoded, str):
+        raise ValueError("runtime segment-8 payload has no encoded bytes")
+    data = base64.b64decode(encoded)
+    if len(data) % 8 or hashlib.sha256(data).hexdigest() != payload.get("sha256"):
+        raise ValueError("runtime segment-8 payload identity changed")
+    commands = list(struct.iter_unpack(">II", data))
+    result["payload_sha256"] = payload["sha256"]
+    result["payload_length"] = len(data)
+    if commands and commands[0][0] >> 24 == 0xEF:
+        other_mode = [commands[0][0], commands[0][1]]
+        result["other_mode"] = other_mode
+        result["matches_effective_other_mode"] = (
+            draw_state.get("other_mode") == other_mode
+        )
+    result["status"] = (
+        "exact-runtime-list-effective-state"
+        if result["matches_effective_other_mode"] is True
+        else "exact-runtime-list-state-later-overridden"
+    )
+    return result
+
+
 def replay_cbfd_vertex_lighting(
     vertex: ModelVertex,
     normal: tuple[int, int, int] | None,
@@ -2323,6 +2813,9 @@ def replay_cbfd_vertex_lighting(
     """
 
     if not state.get("lighting_enabled"):
+        return tuple(component / 255.0 for component in vertex.color)
+    # CBFD deliberately leaves vertices with a negative signed flag unlit.
+    if vertex.flag & 0x8000:
         return tuple(component / 255.0 for component in vertex.color)
     lights = state.get("lights")
     if not isinstance(lights, dict):
@@ -2343,10 +2836,6 @@ def replay_cbfd_vertex_lighting(
     if any(slot not in slots for slot in required_slots):
         return None
 
-    # CBFD deliberately leaves vertices with a negative signed flag unlit.
-    if vertex.flag & 0x8000:
-        return tuple(component / 255.0 for component in vertex.color)
-
     modifiers = lights.get("coordinate_modifiers")
     if (
         not isinstance(modifiers, list)
@@ -2354,10 +2843,22 @@ def replay_cbfd_vertex_lighting(
         or any(modifiers[index] is None for index in (8, 9, 10, 12, 13, 14))
     ):
         return None
+    rows = context.get("combined_rows") if isinstance(context, dict) else None
+    if (not isinstance(rows, list) or len(rows) != 4
+            or any(not isinstance(row, list) or len(row) != 4 for row in rows)
+            or any(not math.isfinite(float(v)) for row in rows for v in row)):
+        return None
+    # gSPProcessVertex transforms XYZ before CBFD point-light attenuation.
+    # Perspective division happens later and must not be applied here.
+    transformed_position = [
+        sum(float(value) * float(rows[row][axis])
+            for row, value in enumerate((vertex.x, vertex.y, vertex.z, 1)))
+        for axis in range(3)
+    ]
     vertex_position = [
         (coordinate + float(modifiers[8 + axis]))
         * float(modifiers[12 + axis])
-        for axis, coordinate in enumerate((vertex.x, vertex.y, vertex.z))
+        for axis, coordinate in enumerate(transformed_position)
     ]
 
     ambient = slots[num_lights]
@@ -2437,6 +2938,209 @@ def replay_cbfd_vertex_lighting(
     )
 
 
+def captured_vertex_sources(event: dict[str, Any]) -> list[tuple[int, bytes, str]]:
+    """Read hash-checked memory spans covering the event's actual VTX inputs."""
+
+    probes = event.get("evidence", {}).get("memory", [])
+    tasks = [probe for probe in probes if probe.get("name") == "task"]
+    roots = [probe for probe in probes if probe.get("name") == "command-buffer"]
+    # CBFD resets its basic/advanced lighting mode at the task boundary.
+    # A renderer-return subrange cannot establish that inherited initial state.
+    if len(tasks) != 1 or len(roots) != 1:
+        return []
+    task, root = tasks[0], roots[0]
+    task_bytes = base64.b64decode(task["data_base64"], validate=True)
+    if len(task_bytes) != 64 or hashlib.sha256(task_bytes).hexdigest() != task.get("sha256"):
+        raise ValueError("captured graphics task bytes changed")
+    if (int.from_bytes(task_bytes[:4], "big") != 1
+            or (int.from_bytes(task_bytes[48:52], "big") & 0x1FFFFFFF)
+            != (int(root["resolved_address"], 0) & 0x1FFFFFFF)
+            or int.from_bytes(task_bytes[52:56], "big") != root["length"]):
+        return []
+    loads = event.get("state", {}).get("rdp", {}).get("replayed_vertex_loads", [])
+    spans = [(load["resolved_address"], 16 * load["vertex_count"])
+             for load in loads if isinstance(load.get("resolved_address"), int)]
+    result = []
+    for probe in probes:
+        address = probe.get("resolved_address")
+        if not isinstance(address, str):
+            continue
+        base = int(address, 0)
+        size = probe.get("length", 0)
+        if not any(base <= start and start + length <= base + size for start, length in spans):
+            continue
+        data = base64.b64decode(probe["data_base64"], validate=True)
+        if len(data) != size or hashlib.sha256(data).hexdigest() != probe.get("sha256"):
+            raise ValueError("captured vertex bytes changed")
+        result.append((base, data, probe["sha256"]))
+    return result
+
+
+def captured_draw_vertices(
+    draw: dict[str, Any], loads: list[dict[str, Any]],
+    sources: list[tuple[int, bytes, str]], geometry: ModelGeometry, first_face: int,
+) -> list[list[tuple[ModelVertex, dict[str, Any], int, list[str]]]] | None:
+    """Match captured VTX bytes to source corners, independently of lighting."""
+
+    indices = draw.get("replayed_vertex_load_indices", [])
+    cache_indices = draw.get("replayed_vertex_cache_indices", [])
+    if len(indices) != draw.get("triangle_count") or len(cache_indices) != len(indices):
+        return None
+    # The archive's stable face ordering for TRI4 differs from GLideN64's
+    # emitted triangle ordering. Join the three cache slots, not array position.
+    ordered = []
+    for face_index in range(first_face, first_face + len(indices)):
+        if not 0 <= face_index < len(geometry.face_cache_indices):
+            return None
+        matches = [(face_loads, slots) for face_loads, slots in zip(indices, cache_indices)
+                   if tuple(slots) == geometry.face_cache_indices[face_index]]
+        if not matches or len({tuple(face_loads) for face_loads, _ in matches}) != 1:
+            return None
+        ordered.append(matches[0])
+    faces = []
+    for face_offset, (face_loads, slots) in enumerate(ordered):
+        face_index = first_face + face_offset
+        if not 0 <= face_index < len(geometry.faces) or len(face_loads) != 3 or len(slots) != 3:
+            return None
+        if geometry.face_cache_indices and tuple(slots) != geometry.face_cache_indices[face_index]:
+            return None
+        corners = []
+        for source_index, load_index, slot in zip(geometry.faces[face_index], face_loads, slots):
+            if not isinstance(load_index, int) or not 0 <= load_index < len(loads):
+                return None
+            load = loads[load_index]
+            local_index = slot - load["first_cache_index"]
+            address = load.get("resolved_address")
+            if not isinstance(address, int) or not 0 <= local_index < load["vertex_count"]:
+                return None
+            address += 16 * local_index
+            matches = [(data[address-base:address-base+16], digest)
+                       for base, data, digest in sources if base <= address and address+16 <= base+len(data)]
+            if not matches or len({data for data, _ in matches}) != 1:
+                return None
+            raw = matches[0][0]
+            x, y, z, flag, s, t, r, g, b, a = struct.unpack(">hhhHhh4B", raw)
+            source_vertex = geometry.vertices[source_index]
+            if (x, y, z) != (source_vertex.x, source_vertex.y, source_vertex.z):
+                return None
+            vertex = ModelVertex(x, y, z, flag, s, t, (r, g, b, a))
+            corners.append((vertex, load, slot, [digest for _, digest in matches]))
+        faces.append(corners)
+    return faces
+
+
+def replay_draw_vertex_colours(
+    draw: dict[str, Any], loads: list[dict[str, Any]],
+    sources: list[tuple[int, bytes, str]], geometry: ModelGeometry, first_face: int,
+) -> dict[str, Any] | None:
+    """Replay captured VTX colours only after proving the exact source corners."""
+
+    faces = captured_draw_vertices(draw, loads, sources, geometry, first_face)
+    if faces is None:
+        return None
+    colours = []
+    input_hashes = set()
+    for face in faces:
+        face_colours = []
+        for vertex, load, slot, digests in face:
+            state = load["state"]
+            context = load.get("processing_matrices", {})
+            if not state.get("lighting_enabled_known") or context.get("combined_rows") is None:
+                return None
+            normal_xy = (state.get("normal_base") or {}).get("normal_xy_s8", [])
+            flag = vertex.flag
+            normal = (*normal_xy[slot], (flag & 255) - (256 if flag & 128 else 0)) if slot < len(normal_xy) else None
+            colour = replay_cbfd_vertex_lighting(vertex, normal, state, context)
+            if colour is None or any(not math.isfinite(v) or not 0 <= v <= 1 for v in colour):
+                return None
+            face_colours.append(list(colour))
+            input_hashes.update(digests)
+            input_hashes.add(hashlib.sha256(json.dumps(
+                {"state": state, "processing_matrices": context}, sort_keys=True,
+                separators=(",", ":"),
+            ).encode()).hexdigest())
+        colours.append(face_colours)
+    result = {"status": "captured-cbfd-vertex-load-colours", "source_first_face": first_face,
+              "face_colours": colours, "input_sha256": sorted(input_hashes)}
+    result["sha256"] = hashlib.sha256(json.dumps(result, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
+    return result
+
+
+def validate_vertex_lighting_sample(sample: dict[str, Any], first: int, count: int) -> None:
+    payload = {key: value for key, value in sample.items() if key != "sha256"}
+    if hashlib.sha256(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode()).hexdigest() != sample.get("sha256"):
+        raise ValueError("runtime vertex lighting sample hash changed")
+    colours = sample.get("face_colours")
+    hashes = sample.get("input_sha256")
+    if (sample.get("status") != "captured-cbfd-vertex-load-colours"
+            or sample.get("source_first_face") != first
+            or not isinstance(colours, list) or len(colours) != count
+            or any(not isinstance(face, list) or len(face) != 3 for face in colours)
+            or any(not isinstance(colour, list) or len(colour) != 4
+                   or any(not isinstance(v, (int, float)) or not math.isfinite(v) or not 0 <= v <= 1 for v in colour)
+                   for face in colours for colour in face)
+            or not isinstance(hashes, list) or not hashes
+            or any(not isinstance(digest, str) or re.fullmatch(r"[0-9a-f]{64}", digest) is None for digest in hashes)):
+        raise ValueError("runtime vertex lighting sample shape changed")
+
+
+def runtime_vertex_colour_map(record: dict[str, Any] | None) -> dict[int, tuple]:
+    """Require matching colour evidence from every observation of each face."""
+
+    if record is None or len(record.get("variants", [])) != 1:
+        return {}
+    colours: dict[int, tuple | None] = {}
+    for evidence in record["variants"][0].get("evidence", []):
+        first, count = evidence.get("source_first_face"), evidence.get("source_face_count")
+        if not isinstance(first, int) or not isinstance(count, int):
+            return {}
+        if not record["source_first_face"] <= first < first + count <= record["source_first_face"] + record["source_face_count"]:
+            raise ValueError("runtime vertex lighting observation exceeds source material")
+        sample = evidence.get("vertex_lighting")
+        if isinstance(sample, dict):
+            validate_vertex_lighting_sample(sample, first, count)
+        values = sample.get("face_colours", []) if isinstance(sample, dict) else []
+        for offset in range(count):
+            value = tuple(tuple(c) for c in values[offset]) if len(values) == count else None
+            index = first + offset
+            if index not in colours:
+                colours[index] = value
+            elif colours[index] != value:
+                colours[index] = None
+    return {index: value for index, value in colours.items() if value is not None}
+
+
+def runtime_face_culling_map(record: dict[str, Any] | None) -> dict[int, int | None]:
+    """Require consistent checked draw evidence for each observed source face."""
+
+    if record is None:
+        return {}
+    observations: dict[int, set[int | None]] = {}
+    for variant in record.get("variants", []):
+        for evidence in variant.get("evidence", []):
+            if evidence.get("material_correlation_status") == "equivalent-material-aliases":
+                # Shared triangle/material patterns do not identify which
+                # source list supplied its inherited geometry state.
+                return {}
+            state = evidence.get("face_culling")
+            first, count = evidence.get("source_first_face"), evidence.get("source_face_count")
+            if not isinstance(state, dict) or not isinstance(first, int) or not isinstance(count, int):
+                # Legacy or unbounded observations cannot establish a face's
+                # complete set of captured states. Retain its static evidence.
+                return {}
+            if not record["source_first_face"] <= first < first + count <= record["source_first_face"] + record["source_face_count"]:
+                raise ValueError("runtime culling observation exceeds source material")
+            mode, known = state.get("mode"), state.get("known_bits")
+            if (not isinstance(known, int) or known & ~0x600
+                    or (known == 0x600 and mode not in (0, 0x200, 0x400, 0x600))
+                    or (known != 0x600 and mode is not None)):
+                raise ValueError("runtime culling observation has invalid known bits")
+            for index in range(first, first + count):
+                observations.setdefault(index, set()).add(mode)
+    return {index: next(iter(values)) if len(values) == 1 else None
+            for index, values in observations.items()}
+
+
 def texture_coordinate_state(run: ModelMaterialRun) -> dict | None:
     if not run.texture_enabled:
         return None
@@ -2447,7 +3151,12 @@ def texture_coordinate_state(run: ModelMaterialRun) -> dict | None:
     shift_t = (tile_argument >> 10) & 0xF
     mask_s = (tile_argument >> 4) & 0xF
     shift_s = tile_argument & 0xF
-    if run.tile_bounds is not None:
+    if run.texture_dimensions is not None:
+        width, height = run.texture_dimensions
+        uls = (run.tile_bounds[0] >> 12) & 0xFFF if run.tile_bounds else 0
+        ult = run.tile_bounds[0] & 0xFFF if run.tile_bounds else 0
+        dimension_evidence = "runtime-load-block-tile-masks"
+    elif run.tile_bounds is not None:
         upper, lower = run.tile_bounds
         uls, ult = (upper >> 12) & 0xFFF, upper & 0xFFF
         lrs, lrt = (lower >> 12) & 0xFFF, lower & 0xFFF
@@ -2462,6 +3171,14 @@ def texture_coordinate_state(run: ModelMaterialRun) -> dict | None:
         dimension_evidence = "tile-masks"
     else:
         raise ValueError("textured material run has no bounded texture dimensions")
+    if run.texture_dimensions is None:
+        mask_dimensions = direct_ci4_mask_dimensions(run)
+        if mask_dimensions is not None:
+            # Unclamped tiles wrap at their mask period, even when SetTileSize
+            # describes smaller bounds. Use the same complete image extent
+            # for decoding and UV normalization; retain the tile's origin.
+            width, height = mask_dimensions
+            dimension_evidence = "direct-load-block-tile-masks"
     _, scale_argument = run.texture_scale
     format_id = (tile_command >> 21) & 7
     size_id = (tile_command >> 19) & 3
@@ -2497,6 +3214,44 @@ def texture_coordinate_state(run: ModelMaterialRun) -> dict | None:
         "format_evidence": format_evidence,
         "dimension_evidence": dimension_evidence,
     }
+
+
+def direct_ci4_mask_dimensions(run: ModelMaterialRun) -> tuple[int, int] | None:
+    """Prove a complete repeating CI4 image from its masks and LoadBlock."""
+
+    if run.render_tile is None or run.pixel is None or run.palette is None:
+        return None
+    command, argument = run.render_tile
+    mask_s, mask_t = (argument >> 4) & 15, (argument >> 14) & 15
+    other = decode_other_mode(run.other_mode)
+    if (
+        (command >> 21) & 7 != 2 or (command >> 19) & 3 != 0
+        or command & 0x1FF
+        or argument & ((2 << 8) | (2 << 18))
+        or not mask_s or not mask_t
+        or run.pixel.image_command != 0xFD500000 or run.pixel.mode != 0
+        or run.palette.image_command != 0xFD100000 or run.palette.mode != 2
+        or run.pixel.flat_index is None
+        or run.pixel.flat_index != run.palette.flat_index
+        or run.pixel.load_command is None
+        or other is None or other["texture_lut"] != "rgba16"
+    ):
+        return None
+    load_command, load_argument = run.pixel.load_command
+    if load_command != 0xF3000000 or load_argument & 0xFFF:
+        return None
+    tiles = {index: value for index, value, _ in run.render_tiles}
+    load_tile = tiles.get((load_argument >> 24) & 7)
+    if load_tile is None or load_tile & 0x1FF:
+        return None
+    width, height = 1 << mask_s, 1 << mask_t
+    stride = ((command >> 9) & 0x1FF) * 8
+    loaded_bytes = (((load_argument >> 12) & 0xFFF) + 1) * 2
+    # Nonzero masks give even dimensions. The final odd row's word swap
+    # requires its entire stride to be loaded, not just the visible pixels.
+    if stride < width // 2 or height * stride > min(loaded_bytes, 2048):
+        return None
+    return width, height
 
 
 def shifted_texture_coordinate(value: float, shift: int) -> float:
@@ -2647,11 +3402,34 @@ def encode_mtl(
     return ("\n".join(lines) + "\n").encode("ascii")
 
 
+def face_culling_spans(
+    geometry: ModelGeometry, run: ModelMaterialRun,
+    runtime_modes: dict[int, int | None] | None = None,
+) -> list[tuple[int, int, int | None]]:
+    """Partition a source material without changing its identity or face order."""
+
+    if geometry.face_cull_modes and len(geometry.face_cull_modes) != len(geometry.faces):
+        raise ValueError("culling state does not cover every source face")
+    spans = []
+    start = run.first_face
+    end = start + run.face_count
+    for index in range(start, end):
+        mode = geometry.face_cull_modes[index] if geometry.face_cull_modes else None
+        if runtime_modes is not None and index in runtime_modes:
+            mode = runtime_modes[index]
+        if spans and spans[-1][2] == mode:
+            first, count, _ = spans[-1]
+            spans[-1] = (first, count + 1, mode)
+        else:
+            spans.append((index, 1, mode))
+    return spans
+
+
 def encode_gltf(
     bundle_index: int,
     segment_index: int,
     geometry: ModelGeometry,
-    texture_files: dict[str, str] | None = None,
+    texture_files: dict[str | int, str] | None = None,
     bank_index: int = DEFAULT_BANK_INDEX,
     character_joints: tuple[dict[str, Any], ...] | None = None,
     character_rotations: tuple[tuple[float, float, float, float], ...] | None = None,
@@ -2725,25 +3503,13 @@ def encode_gltf(
             return None
         return tuple(float(value) / length for value in values)
 
-    def geometric_face_normal(face: tuple[int, int, int]):
-        left, middle, right = (geometry.vertices[index] for index in face)
-        first = (
-            middle.x - left.x,
-            middle.y - left.y,
-            middle.z - left.z,
-        )
-        second = (
-            right.x - left.x,
-            right.y - left.y,
-            right.z - left.z,
-        )
-        result = normalized(
-            (
-                first[1] * second[2] - first[2] * second[1],
-                first[2] * second[0] - first[0] * second[2],
-                first[0] * second[1] - first[1] * second[0],
-            )
-        )
+    def geometric_face_normal(face: tuple[int, int, int], matrices: tuple[int, int, int]):
+        positions = []
+        for index, matrix in zip(face, matrices):
+            vertex = geometry.vertices[index]
+            pivot = character_global_pivots.get(matrix, (0.0, 0.0, 0.0))
+            positions.append((vertex.x + pivot[0], vertex.y + pivot[1], vertex.z + pivot[2]))
+        result = normalized(_triangle_cross(tuple(positions)))
         return result or (0.0, 0.0, 1.0)
 
     for run_index, run in enumerate(geometry.material_runs):
@@ -2752,83 +3518,107 @@ def encode_gltf(
         runtime_material = (
             runtime_materials.get(run_index) if runtime_materials is not None else None
         )
-        replay_choice = runtime_lighting_replay_choice(runtime_material)
-        replay_normal_base = (
-            replay_choice[1].get("normal_stream")
-            if replay_choice is not None
-            else None
-        )
-        replay_normal_xy = (
-            replay_normal_base.get("normal_xy_s8")
-            if isinstance(replay_normal_base, dict)
-            else None
+        runtime_consensus = runtime_material_consensus(runtime_material)
+        face_colours = runtime_vertex_colour_map(runtime_material)
+        source_faces = [geometry.face_source_indices[i] if geometry.face_source_indices else i
+                        for i in range(run.first_face, run.first_face + run.face_count)]
+        captured_culling = runtime_face_culling_map(runtime_material)
+        runtime_culling = {}
+        conflicting_culling_faces = set()
+        for offset, source_face in enumerate(source_faces):
+            if source_face not in captured_culling:
+                continue
+            face = run.first_face + offset
+            source_mode = geometry.face_cull_modes[face] if geometry.face_cull_modes else None
+            captured_mode = captured_culling[source_face]
+            if source_mode is not None and captured_mode != source_mode:
+                # Command-pattern correlations alone do not prove a runtime
+                # rewrite of an explicit ROM geometry-mode command.
+                conflicting_culling_faces.add(face)
+            else:
+                runtime_culling[face] = captured_mode
+        has_replayed_colours = all(index in face_colours for index in source_faces)
+        force_vertex_alpha_one = is_character_trilinear_base(run) or bool(
+            runtime_consensus
+            and runtime_consensus["baseColorFactor"] is not None
+            and runtime_consensus["vertexAlphaMode"] == "one"
+            and (
+                has_replayed_colours
+                or not any(
+                    status.startswith("requires-runtime-lighting")
+                    for status in runtime_consensus["statuses"]
+                )
+            )
         )
         source_vertex_indices = []
+        source_matrix_indices = []
         source_normals = []
-        source_normal_bytes: list[tuple[int, int, int] | None] = []
+        source_replayed_colours = []
         local_vertex_indices = {}
         local_faces = []
         for face_offset, face in enumerate(
             geometry.faces[run.first_face : run.first_face + run.face_count]
         ):
             face_index = run.first_face + face_offset
+            vertex_matrices = face_vertex_matrix_indices(geometry, run, face_index)
             raw_normals = (
                 geometry.face_normal_bytes[face_index]
                 if geometry.face_normal_bytes
                 else None
             )
-            has_normal_evidence = bool(raw_normals) or isinstance(
-                replay_normal_xy, list
+            preview_normals = (
+                geometry.face_preview_normals[face_index]
+                if geometry.face_preview_normals else None
             )
+            has_normal_evidence = bool(raw_normals or preview_normals)
             fallback_normal = (
-                geometric_face_normal(face) if has_normal_evidence else None
+                geometric_face_normal(face, vertex_matrices) if has_normal_evidence else None
             )
             local_face = []
             for corner, source_index in enumerate(face):
                 raw_normal = raw_normals[corner] if raw_normals else None
-                if (
-                    raw_normal is None
-                    and isinstance(replay_normal_xy, list)
-                    and geometry.face_cache_indices
-                ):
-                    cache_index = geometry.face_cache_indices[face_index][corner]
-                    if cache_index < len(replay_normal_xy):
-                        z = geometry.vertices[source_index].flag & 0xFF
-                        raw_normal = (
-                            int(replay_normal_xy[cache_index][0]),
-                            int(replay_normal_xy[cache_index][1]),
-                            z - 0x100 if z >= 0x80 else z,
-                )
                 decoded_source_normal = normalized(raw_normal) if raw_normal else None
-                source_normal = decoded_source_normal
-                if has_normal_evidence and decoded_source_normal is None:
+                source_normal = (
+                    normalized(preview_normals[corner])
+                    if preview_normals and preview_normals[corner] is not None
+                    else None if preview_normals else decoded_source_normal
+                )
+                normal_defined = source_normal is not None
+                if has_normal_evidence and source_normal is None:
                     source_normal = fallback_normal
                 vertex_key = (
                     (
                         source_index,
-                        raw_normal
-                        if decoded_source_normal is not None
+                        (source_normal if preview_normals else raw_normal)
+                        if normal_defined
                         else ("fallback", face_index),
                     )
                     if has_normal_evidence
                     else source_index
                 )
+                if character_joints:
+                    vertex_key = (vertex_key, vertex_matrices[corner])
+                replay_colour = face_colours[source_faces[face_offset]][corner] if has_replayed_colours else None
+                if replay_colour is not None:
+                    vertex_key = (vertex_key, replay_colour)
                 if vertex_key not in local_vertex_indices:
                     local_vertex_indices[vertex_key] = len(source_vertex_indices)
                     source_vertex_indices.append(source_index)
-                    source_normal_bytes.append(raw_normal)
+                    source_matrix_indices.append(vertex_matrices[corner])
+                    source_replayed_colours.append(replay_colour)
                     if source_normal is not None:
                         source_normals.append(source_normal)
                 local_face.append(local_vertex_indices[vertex_key])
             local_faces.append(tuple(local_face))
         vertices = [geometry.vertices[index] for index in source_vertex_indices]
         if character_joints:
-            joint_index = run.matrix_index if run.matrix_index is not None else 0
             try:
-                bind_pivot = character_global_pivots[joint_index]
+                bind_pivots = [
+                    character_global_pivots[index] for index in source_matrix_indices
+                ]
             except KeyError as error:
                 raise ValueError(
-                    f"character material run references absent joint {joint_index}"
+                    f"character vertex load references absent joint {error.args[0]}"
                 ) from error
             positions = [
                 (
@@ -2836,7 +3626,7 @@ def encode_gltf(
                     float(vertex.y) + float(bind_pivot[1]),
                     float(vertex.z) + float(bind_pivot[2]),
                 )
-                for vertex in vertices
+                for vertex, bind_pivot in zip(vertices, bind_pivots)
             ]
         else:
             positions = [
@@ -2860,19 +3650,12 @@ def encode_gltf(
                 for axis in range(3)
             ],
         )
-        replayed_colors = (
-            [
-                replay_cbfd_vertex_lighting(
-                    vertex,
-                    source_normal_bytes[index],
-                    replay_choice[0]["state"],
-                    replay_choice[1],
-                )
-                for index, vertex in enumerate(vertices)
+        replayed_colors = source_replayed_colours if has_replayed_colours else []
+        if force_vertex_alpha_one:
+            replayed_colors = [
+                (*color[:3], 1.0) if color is not None else None
+                for color in replayed_colors
             ]
-            if replay_choice is not None
-            else []
-        )
         lighting_replayed = bool(replayed_colors) and all(
             color is not None for color in replayed_colors
         )
@@ -2890,7 +3673,12 @@ def encode_gltf(
             )
         else:
             color_accessor = append_accessor(
-                b"".join(bytes(vertex.color) for vertex in vertices),
+                b"".join(
+                    bytes((*vertex.color[:3], 255))
+                    if force_vertex_alpha_one
+                    else bytes(vertex.color)
+                    for vertex in vertices
+                ),
                 5121,
                 "VEC4",
                 len(vertices),
@@ -2913,7 +3701,8 @@ def encode_gltf(
         if character_joints:
             attributes["JOINTS_0"] = append_accessor(
                 b"".join(
-                    struct.pack("<4H", joint_index, 0, 0, 0) for _ in vertices
+                    struct.pack("<4H", joint_index, 0, 0, 0)
+                    for joint_index in source_matrix_indices
                 ),
                 5123,
                 "VEC4",
@@ -2950,7 +3739,12 @@ def encode_gltf(
             [max(local_indices)],
         )
         name = material_name(run)
-        runtime_consensus = runtime_material_consensus(runtime_material)
+        if (
+            runtime_consensus
+            and runtime_consensus["exact"]
+            and runtime_consensus["usesVertexColor"] is False
+        ):
+            attributes.pop("COLOR_0", None)
         material = {
             "name": name,
             "doubleSided": True,
@@ -2972,6 +3766,7 @@ def encode_gltf(
                     else None
                 ),
                 "textureAddressMode": texture_address_mode(run),
+                "vertexLoadMatrixIndices": sorted(set(source_matrix_indices)),
             },
         }
         if character_joints:
@@ -2997,22 +3792,37 @@ def encode_gltf(
             }
             material["extras"]["runtimeMaterial"]["lightingReplay"] = {
                 "status": (
-                    "gliden64-equivalent-observed-draw"
+                    "captured-cbfd-vertex-load-colours"
                     if lighting_replayed
                     else "not-baked-ambiguous-or-incomplete"
                 ),
-                "contextHash": (
-                    replay_choice[1]["lighting_context_hash"]
-                    if replay_choice is not None
-                    else None
-                ),
+                "sourceFaceCount": run.face_count if lighting_replayed else 0,
             }
             if runtime_consensus and runtime_consensus["baseColorFactor"] is not None:
                 material["pbrMetallicRoughness"]["baseColorFactor"] = (
                     runtime_consensus["baseColorFactor"]
                 )
-        texture_file = texture_files.get(name) if texture_files is not None else None
+        texture_file = (
+            texture_files.get(run_index, texture_files.get(name))
+            if texture_files is not None
+            else None
+        )
+        if runtime_consensus and runtime_consensus["referencesTexels"] is False:
+            texture_file = None
         if texture_file is not None:
+            static_material = None
+            if runtime_material is None and run.other_mode is not None:
+                # Filtering and blend state belong to the draw, independently
+                # of the texture's storage format. Keep colour/lighting limits
+                # explicit while preserving these known ROM fields.
+                static_material = translate_runtime_material_state({
+                    "combine_mode": run.combine_mode, "other_mode": run.other_mode,
+                })
+                material["extras"]["staticMaterialPreview"] = {
+                    "source": "ROM-display-list",
+                    "colourStatus": static_material["status"],
+                    "nativeRasterParity": "unverified",
+                }
             address_mode = texture_address_mode(run)
             if address_mode is None:
                 raise ValueError("linked texture material lacks render-tile state")
@@ -3021,6 +3831,8 @@ def encode_gltf(
             sampler_state = (
                 runtime_consensus["sampler"]
                 if runtime_consensus and runtime_consensus["sampler"] is not None
+                else static_material["sampler"]
+                if static_material and static_material["sampler"] is not None
                 else {"magFilter": 9729, "minFilter": 9987}
             )
             mag_filter = sampler_state["magFilter"]
@@ -3058,24 +3870,70 @@ def encode_gltf(
             material["pbrMetallicRoughness"]["baseColorTexture"] = {
                 "index": texture_index
             }
-            material["alphaMode"] = "MASK"
-            material["alphaCutoff"] = 0.5
+            if is_character_trilinear_base(run):
+                material["extras"]["textureLodPreview"] = {
+                    "source": "stored-highest-resolution-TEXEL0",
+                    "combiner": "G_CC_TRILERP-at-zero-LOD-fraction",
+                    "minification": "glTF-consumer-generated-mipmaps",
+                    "nativeDistanceDependentLodParity": "unverified",
+                    "vertexAlpha": "ignored-by-proven-combiner",
+                }
+            material["alphaMode"] = (
+                static_material["alphaMode"]
+                if static_material and static_material["alphaMode"] is not None
+                else "MASK"
+            )
+            if material["alphaMode"] == "MASK":
+                material["alphaCutoff"] = 0.5
         if runtime_consensus and runtime_consensus["alphaMode"] is not None:
             material["alphaMode"] = runtime_consensus["alphaMode"]
             if material["alphaMode"] == "MASK":
                 material["alphaCutoff"] = 0.5
             else:
                 material.pop("alphaCutoff", None)
-        material_index = len(materials)
-        materials.append(material)
-        primitive = {
+        if lighting_replayed:
+            material["extensions"] = {"KHR_materials_unlit": {}}
+        culling_spans = face_culling_spans(geometry, run, runtime_culling)
+        for span_index, (first, count, cull_mode) in enumerate(culling_spans):
+            span_material = copy.deepcopy(material)
+            span_material["doubleSided"] = cull_mode != 0x400
+            span_material["extras"]["faceCulling"] = {
+                "source": "ROM-display-list-analysis",
+                "mode": {None: "inherited-unresolved", 0: "disabled", 0x400: "back",
+                         0x200: "front-unresolved", 0x600: "both-unresolved"}[cull_mode],
+                "sourceBits": f"0x{cull_mode:03X}" if cull_mode is not None else None,
+            }
+            observed_culling_faces = sum(index in runtime_culling for index in range(first, first + count))
+            if observed_culling_faces:
+                span_material["extras"]["faceCulling"].update(
+                    source=("captured-command-replay" if observed_culling_faces == count
+                            else "ROM-and-captured-command-analysis"),
+                    runtimeObservedFaceCount=observed_culling_faces,
+                )
+            conflict_count = sum(index in conflicting_culling_faces for index in range(first, first + count))
+            if conflict_count:
+                span_material["extras"]["faceCulling"]["runtimeConflictFaceCount"] = conflict_count
+            span_material["extras"]["firstFace"] = first
+            span_material["extras"]["faceCount"] = count
+            span_indices = index_accessor
+            if len(culling_spans) > 1:
+                span_material["name"] += f"_cull_span_{span_index}"
+                indices = [index for face in local_faces[first - run.first_face:first - run.first_face + count]
+                           for index in face]
+                span_indices = append_accessor(
+                    b"".join(struct.pack("<H", index) for index in indices),
+                    5123, "SCALAR", len(indices), 34963, [min(indices)], [max(indices)],
+                )
+            material_index = len(materials)
+            materials.append(span_material)
+            primitive = {
                 "attributes": attributes,
-                "indices": index_accessor,
+                "indices": span_indices,
                 "material": material_index,
                 "mode": 4,
-                "extras": {"matrixIndex": run.matrix_index},
+                "extras": {"matrixIndex": run.matrix_index, "firstFace": first, "faceCount": count},
             }
-        primitives.append(primitive)
+            primitives.append(primitive)
     stem = output_stem or f"{bundle_index:04d}-{segment_index:02d}"
     animations = []
     if not character_joints:
@@ -3379,11 +4237,22 @@ def encode_gltf(
         "bufferViews": buffer_views,
         "accessors": accessors,
     }
+    if not primitives:
+        # glTF forbids empty mesh/material arrays. Preserve the source record
+        # and its hierarchy as nodes, without inventing drawable geometry.
+        document.pop("meshes")
+        document.pop("materials")
+        for node in nodes:
+            node.pop("mesh", None)
+            node.pop("skin", None)
+        if not binary:
+            for field in ("buffers", "bufferViews", "accessors"):
+                document.pop(field)
     if skins is not None:
         document["skins"] = skins
         document["extras"] = {
             "characterJointHierarchy": "runtime-proven-func_150A81D0",
-            "skinningStatus": "rigid-display-matrix-assignment-proven",
+            "skinningStatus": "rigid-vertex-load-matrix-assignment-proven",
             "bindPivotStatus": (
                 "runtime-proven-parent-relative-translations-with-accumulated-"
                 "global-pivots-and-explicit-"
@@ -3400,6 +4269,7 @@ def encode_gltf(
                 "unavailable-preview-corners"
             ),
             "characterColorState": CHARACTER_RUNTIME_COLOR_STATE,
+            "characterMatrixState": CHARACTER_RUNTIME_MATRIX_STATE,
             "previewPose": character_pose_source
             or "neutral-bind-pose-no-semantic-action-selected",
             "coordinateConversion": "none-native-axes",
@@ -3409,8 +4279,30 @@ def encode_gltf(
                 else "no-compatible-nonempty-bank-02-clips"
             ),
         }
+        if bank_index == 0x09:
+            extras = document["extras"]
+            extras.pop("characterColorState")
+            extras.pop("characterMatrixState")
+            extras["attachmentColorState"] = {
+                "renderer": "func_150311C4", "status": "runtime-capture-required",
+            }
+            extras["attachmentMatrixState"] = {
+                "renderer": "func_150311C4", "selector": "func_15031070",
+                "pose_builder": "func_150A81D0", "converter": "func_150A9984",
+                "segment": 3, "parent_transform": "runtime-capture-required",
+            }
+            extras["animationStatus"] = "attachment-animation-not-recovered"
     if animations:
         document["animations"] = animations
+    if geometry.face_preview_normals:
+        document.setdefault("extras", {})["characterNormalStatus"] = (
+            "source-normal-inverse-transpose-per-vertex-load-matrix-with-geometric-fallback"
+        )
+    if any("KHR_materials_unlit" in material.get("extensions", {}) for material in materials):
+        document["extensionsUsed"] = ["KHR_materials_unlit"]
+    if not primitives:
+        document.setdefault("extras", {}).update(
+            geometryStatus="empty-drawable-geometry", drawableFaceCount=0)
     if images:
         document["samplers"] = samplers
         document["images"] = images
@@ -3809,7 +4701,8 @@ def _validated_preview_source(family_root: Path, relative_file: str) -> Path:
 
 
 def load_preview_texture_catalog(
-    texture_root: Path, normalized_sha1: str
+    texture_root: Path, normalized_sha1: str,
+    runtime_flat_indices: tuple[int, ...] | None = None,
 ) -> dict[tuple[int, int, int], tuple[PreviewTexture, ...]]:
     catalog: dict[tuple[int, int, int], list[PreviewTexture]] = {}
     fixed_formats = {
@@ -3865,7 +4758,11 @@ def load_preview_texture_catalog(
             texture = PreviewTexture(
                 family=family,
                 source=source,
-                flat_index=record["flat_index"],
+                flat_index=(
+                    runtime_flat_indices[record["flat_index"]]
+                    if runtime_flat_indices is not None
+                    else record["flat_index"]
+                ),
                 format=format_id,
                 size=size_id,
                 width=width,
@@ -3894,7 +4791,7 @@ def load_preview_texture_catalog(
 def load_flat_asset_payloads(
     profile: str, rom_argument: Path | None, normalized_sha1: str
 ) -> dict[int, bytes]:
-    """Load the exact decoded flat payloads referenced by character display lists."""
+    """Load flat payloads by the runtime loader's IDs, including empty slots."""
 
     rom_path, layout = resolve_rom(profile, rom_argument)
     normalized, _ = normalize_rom(rom_path.read_bytes())
@@ -3902,9 +4799,32 @@ def load_flat_asset_payloads(
     if digest != normalized_sha1 or digest not in layout["normalized_sha1"]:
         raise ValueError("character texture payloads are from a different ROM")
     start, end = layout["flat_assets_start"], layout["flat_assets_end"]
+    if profile != "us":
+        raise ValueError("runtime flat asset size table is only proven for US")
+    game = parse_game_archive(normalized[layout["game_start"] : layout["game_end"]])
+    # func_1510D374 sums D_80091D20[0:asset_id]; func_1510D0EC
+    # returns the empty-asset sentinel for a zero table entry. These two US
+    # slots have no deflate stream and must not renumber every later texture.
+    compressed_sizes = struct.unpack_from(
+        f">{RUNTIME_FLAT_ASSET_COUNT}H",
+        game.data, RUNTIME_FLAT_SIZE_TABLE - layout["game_data_vram"]
+    )
     return {
         entry.index: entry.data
-        for entry in iter_flat_rzip_entries(normalized[start:end])
+        for entry in iter_indexed_flat_rzip_entries(normalized[start:end], compressed_sizes)
+    }
+
+
+def flat_asset_identity(payloads: dict[int, bytes] | None) -> dict[str, Any] | None:
+    if payloads is None:
+        return None
+    return {
+        "model_reference_ids": "runtime-compressed-size-table",
+        "size_table_address": f"0x{RUNTIME_FLAT_SIZE_TABLE:08X}",
+        "runtime_slot_count": RUNTIME_FLAT_ASSET_COUNT,
+        "physical_stream_count": len(payloads),
+        "empty_runtime_slots": sorted(set(range(RUNTIME_FLAT_ASSET_COUNT)) - payloads.keys()),
+        "source_texture_manifest_ids": "physical-stream-ordinal-remapped-through-size-table",
     }
 
 
@@ -3915,10 +4835,10 @@ def character_runtime_preview_texture(
 
     Character display lists load a flat payload into TMEM through an RGBA16
     transfer tile, then reinterpret the selected TMEM span as CI4/CI8. The
-    render-time callers pass the parser's non-null rewrite table. At
-    ``func_1510CE60+0x16C`` that path places every nonzero-mode reference at
-    payload end minus 0x200; mode one loads all 256 CI8 entries while mode two
-    loads the first 16 entries there as a CI4 TLUT. This function mirrors that
+    loader tests mode bit 0 at ``0x1510CFBC`` and mode bit 1 at
+    ``0x1510CFE8``: mode one selects payload end minus 0x200, while mode two
+    selects payload end minus 0x20. The fifth argument only controls the
+    reference bookkeeping table. This function mirrors that
     pointer selection without claiming that the resulting PNG is a reversible
     representation of the flat asset.
     """
@@ -3969,7 +4889,7 @@ def character_runtime_preview_texture(
         return None, "character-indexed-payload-span-unresolved"
 
     palette_size = 0x20 if state["size"] == 0 else 0x200
-    palette_byte_offset = len(payload) - 0x200
+    palette_byte_offset = len(payload) - palette_size
     if palette_byte_offset < 0:
         return None, "character-indexed-palette-pointer-unresolved"
     if pixel_byte_offset + pixel_storage_size > palette_byte_offset:
@@ -4032,24 +4952,22 @@ def character_runtime_preview_texture(
     )
 
 
-def direct_runtime_ci8_preview_texture(
+def direct_runtime_indexed_preview_texture(
     run: ModelMaterialRun, payload: bytes
 ) -> tuple[PreviewTexture | None, str]:
-    """Compose a direct CI8 image for a proven non-null parser consumer.
+    """Compose a direct CI4/CI8 tile from a packed LoadBlock image and TLUT.
 
-    The ordinary model display lists load the CI8 indices through an RGBA16
-    transfer image and select the same flat asset again with mode one for the
-    256-entry TLUT. When the fifth argument to ``func_1510CE60`` is non-null,
-    that second pointer is rebased to ``payload_end - 0x200``. Bank 09's
-    loaders prove this path. Banks 03 and 04 use a null fifth argument and are
-    deliberately rejected by ``choose_preview_texture`` before reaching here.
+    The command-derived image can occupy a prefix of a payload containing
+    multiple mip levels. The shared loader selects the trailing 32-byte CI4
+    or 512-byte CI8 palette independently of the reference bookkeeping table.
+    This exports the selected base image, not native distance-dependent LOD.
     """
 
     state = texture_coordinate_state(run)
     if (
         state is None
         or state["format"] != 2
-        or state["size"] != 1
+        or state["size"] not in (0, 1)
         or run.pixel is None
         or run.palette is None
         or run.render_tile is None
@@ -4058,18 +4976,39 @@ def direct_runtime_ci8_preview_texture(
         or run.pixel.image_command != 0xFD500000
         or run.pixel.mode != 0
         or run.palette.image_command != 0xFD100000
-        or run.palette.mode != 1
+        or run.palette.mode != (2 if state["size"] == 0 else 1)
     ):
-        raise ValueError("material run is not a direct same-index CI8 load")
+        raise ValueError("material run is not a direct same-index indexed load")
+    label = "direct-ci4" if state["size"] == 0 else "direct-ci8"
     if run.pixel.load_command is None or run.palette.load_command is None:
-        return None, "direct-ci8-load-command-unresolved"
+        return None, f"{label}-load-command-unresolved"
 
     pixel_load_command, pixel_load_argument = run.pixel.load_command
     palette_load_command, palette_load_argument = run.palette.load_command
     if pixel_load_command >> 24 != 0xF3 or palette_load_command >> 24 != 0xF0:
-        return None, "direct-ci8-load-command-unresolved"
-    if ((palette_load_argument >> 14) & 0x3FF) + 1 != 256:
-        return None, "direct-ci8-tlut-size-unresolved"
+        return None, f"{label}-load-command-unresolved"
+    palette_entries = 16 if state["size"] == 0 else 256
+    if ((palette_load_argument >> 14) & 0x3FF) + 1 != palette_entries:
+        return None, f"{label}-tlut-size-unresolved"
+
+    if state["size"] == 0:
+        if state["width"] & 1:
+            return None, f"{label}-odd-width-unresolved"
+        if pixel_load_command & 0xFFFFFF or pixel_load_argument & 0xFFF:
+            return None, f"{label}-load-row-conversion-unresolved"
+        tiles = {index: (command, argument) for index, command, argument in run.render_tiles}
+        pixel_tile = tiles.get((pixel_load_argument >> 24) & 7)
+        palette_tile = tiles.get((palette_load_argument >> 24) & 7)
+        if pixel_tile is None or pixel_tile[0] & 0x1FF:
+            return None, f"{label}-load-tmem-origin-unresolved"
+        # A 16-entry upload at TMEM word 0x100 populates palette bank zero.
+        # Other palette destinations/banks require their own address mapping.
+        if (palette_tile is None or palette_tile[0] & 0x1FF != 0x100
+                or (run.render_tile[1] >> 20) & 0xF):
+            return None, f"{label}-tlut-bank-unresolved"
+        other = decode_other_mode(run.other_mode)
+        if other is None or other["texture_lut"] != "rgba16":
+            return None, f"{label}-lookup-mode-unresolved"
 
     transfer_size = (run.pixel.image_command >> 19) & 3
     transfer_bytes_per_texel = (1, 1, 2, 4)[transfer_size]
@@ -4078,21 +5017,29 @@ def direct_runtime_ci8_preview_texture(
     ) * transfer_bytes_per_texel
     render_tile_command, _ = run.render_tile
     if render_tile_command & 0x1FF:
-        return None, "direct-ci8-tmem-offset-unresolved"
-    row_size = state["width"]
+        return None, f"{label}-tmem-offset-unresolved"
+    row_size = state["width"] // 2 if state["size"] == 0 else state["width"]
     line_words = (render_tile_command >> 9) & 0x1FF
     row_stride = line_words * 8 if line_words else row_size
     if row_stride < row_size:
-        return None, "direct-ci8-row-stride-unresolved"
+        return None, f"{label}-row-stride-unresolved"
+    if state["size"] == 0 and state["height"] > 1 and (not line_words or row_stride % 8):
+        return None, f"{label}-row-stride-unresolved"
     pixel_storage_size = (state["height"] - 1) * row_stride + row_size
+    if state["size"] == 0:
+        if state["height"] % 2 == 0:
+            # The odd-row swap reads a complete eight-byte-aligned row.
+            pixel_storage_size = state["height"] * row_stride
+        if pixel_storage_size > 2048:
+            return None, f"{label}-tmem-span-unresolved"
     if pixel_storage_size > transfer_size_bytes:
-        return None, "direct-ci8-tmem-span-unresolved"
+        return None, f"{label}-tmem-span-unresolved"
     if pixel_storage_size > len(payload):
-        return None, "direct-ci8-payload-span-unresolved"
+        return None, f"{label}-payload-span-unresolved"
 
-    palette_byte_offset = len(payload) - 0x200
+    palette_byte_offset = len(payload) - palette_entries * 2
     if palette_byte_offset < pixel_storage_size:
-        return None, "direct-ci8-pixel-palette-overlap-unresolved"
+        return None, f"{label}-pixel-palette-overlap-unresolved"
 
     rows = []
     for row_index in range(state["height"]):
@@ -4103,7 +5050,7 @@ def direct_runtime_ci8_preview_texture(
         rows.append(row[:row_size])
     linear_pixels = b"".join(rows)
     palette = payload[palette_byte_offset:]
-    png_data = encode_ci8_png(
+    png_data = (encode_indexed_png if state["size"] == 0 else encode_ci8_png)(
         linear_pixels + palette,
         "linear",
         state["width"],
@@ -4123,17 +5070,152 @@ def direct_runtime_ci8_preview_texture(
             pixel_byte_offset=0,
             palette_byte_offset=palette_byte_offset,
         ),
-        "runtime-composed-direct-ci8-texture",
+        f"runtime-composed-{label}-texture",
     )
+
+
+def is_character_trilinear_base(run: ModelMaterialRun) -> bool:
+    """Recognize G_CC_TRILERP followed by the ordinary character colour stage.
+
+    At LOD fraction zero the first cycle is exactly TEXEL0, for both RGB and
+    alpha. The stored highest-resolution image is therefore a valid diffuse
+    preview; this does not emulate distance-dependent N64 mip selection.
+    """
+
+    combine = decode_combine_mode(run.combine_mode)
+    return bool(combine and combine["cycles"] == [
+        {"color": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"],
+         "alpha": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"]},
+        {"color": ["SHADE", "ENVIRONMENT", "COMBINED", "PRIMITIVE"],
+         "alpha": ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]},
+    ])
+
+
+def direct_rgba32_preview_texture(
+    run: ModelMaterialRun, payload: bytes
+) -> tuple[PreviewTexture | None, str]:
+    """Decode a ROM-backed RGBA32 base image from a proven LoadBlock prefix."""
+
+    state = texture_coordinate_state(run)
+    if (state is None or (state["format"], state["size"]) != (0, 3)
+            or run.pixel is None or run.pixel.image_command != 0xFD180000
+            or run.pixel.mode != 0 or run.pixel.flat_index is None):
+        raise ValueError("material run is not a direct RGBA32 load")
+    other = decode_other_mode(run.other_mode)
+    if other is None or other["texture_lut"] != "none":
+        return None, "direct-rgba32-lookup-mode-unresolved"
+    combine = decode_combine_mode(run.combine_mode)
+    inputs = set(combine["inputs"]) & {"TEXEL0", "TEXEL1"} if combine else set()
+    if inputs != {"TEXEL0"} and not (
+        is_character_trilinear_base(run)
+        and any(index == 1 for index, _, _ in run.render_tiles)
+    ):
+        return None, "direct-rgba32-combiner-inputs-unresolved"
+    load = run.pixel.load_command
+    if load is None or load[0] != 0xF3000000 or load[1] & 0xFFF:
+        return None, "direct-rgba32-load-row-conversion-unresolved"
+    tiles = {index: command for index, command, _ in run.render_tiles}
+    load_tile = tiles.get((load[1] >> 24) & 7)
+    if load_tile is None or load_tile & 0x1FF:
+        return None, "direct-rgba32-load-tmem-origin-unresolved"
+    width, height = state["width"], state["height"]
+    command, _ = run.render_tile
+    if command & 0x1FF or width % 4 or ((command >> 9) & 0x1FF) * 8 != width * 2:
+        return None, "direct-rgba32-row-stride-unresolved"
+    size_bytes = width * height * 4
+    loaded_bytes = (((load[1] >> 12) & 0xFFF) + 1) * 4
+    if not size_bytes <= loaded_bytes <= 4096:
+        return None, "direct-rgba32-tmem-span-unresolved"
+    if loaded_bytes > len(payload):
+        return None, "direct-rgba32-payload-span-unresolved"
+    # RGBA32 pairs the two TMEM banks. Its line field counts two bytes per
+    # texel; the ROM's zero-DXT layout swaps eight-byte halves on odd rows.
+    # Following mip levels/padding are preserved in the source, not the PNG.
+    png_data = encode_native_texture_png(payload[:size_bytes], "rgba32",
+        "tmem-odd-row-32bit-swap", width, height)
+    return PreviewTexture(family="us-direct-runtime-composed", source=None,
+        flat_index=run.pixel.flat_index, format=0, size=3, width=width, height=height,
+        sha1=hashlib.sha1(png_data).hexdigest(), png_data=png_data,
+        pixel_byte_offset=0), "runtime-composed-direct-rgba32-texture"
+
+
+def direct_intensity_preview_texture(
+    run: ModelMaterialRun, payload: bytes
+) -> tuple[PreviewTexture | None, str]:
+    """Decode a selected IA/I base image with explicit load and sampling state.
+
+    Conker transfers these payloads as 16-bit texels with zero DXT. Narrow
+    render tiles reinterpret the pre-swapped rows. Following mip/padding bytes
+    stay in the source; this helper exports only the complete selected image.
+    """
+
+    state = texture_coordinate_state(run)
+    formats = {(3, 1): "ia8", (3, 2): "ia16", (4, 0): "i4", (4, 1): "i8"}
+    name = formats.get((state["format"], state["size"])) if state else None
+    if name is None:
+        raise ValueError("material run is not a supported intensity render tile")
+    label = f"direct-{name}"
+    image_command = {3: 0xFD700000, 4: 0xFD900000}[state["format"]]
+    if (run.pixel is None or run.pixel.mode != 0 or run.pixel.flat_index is None
+            or run.pixel.image_command != image_command):
+        return None, f"{label}-source-unresolved"
+    other = decode_other_mode(run.other_mode)
+    if other is None or other["texture_lut"] != "none":
+        return None, f"{label}-lookup-mode-unresolved"
+    combine = decode_combine_mode(run.combine_mode)
+    inputs = set(combine["inputs"]) & {"TEXEL0", "TEXEL1"} if combine else set()
+    if inputs != {"TEXEL0"}:
+        return None, f"{label}-combiner-inputs-unresolved"
+    if other["cycle_type"] not in ("one-cycle", "two-cycle"):
+        return None, f"{label}-cycle-mode-unresolved"
+    # IA stores separate alpha, while I repeats intensity into alpha. Binding
+    # either to a transparent glTF material requires its actual alpha formula.
+    if other["gltf_alpha_mode"] != "OPAQUE" and not (
+        other["cycle_type"] == "one-cycle"
+        and all(cycle["alpha"] == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
+                for cycle in combine["cycles"])
+    ):
+        return None, f"{label}-alpha-expression-unresolved"
+    load = run.pixel.load_command
+    if load is None or load[0] != 0xF3000000 or load[1] & 0xFFF:
+        return None, f"{label}-load-row-conversion-unresolved"
+    tiles = {index: command for index, command, _ in run.render_tiles}
+    load_tile = tiles.get((load[1] >> 24) & 7)
+    if load_tile is None or load_tile & 0x1FF:
+        return None, f"{label}-load-tmem-origin-unresolved"
+    if (load_tile >> 19) & 31 != (image_command >> 19) & 31:
+        return None, f"{label}-load-format-unresolved"
+    width, height = state["width"], state["height"]
+    if name == "i4" and width % 2:
+        return None, f"{label}-row-stride-unresolved"
+    row_bytes = packed_row_size(name, width)
+    command, _ = run.render_tile
+    if command & 0x1FF or row_bytes % 8 or ((command >> 9) & 0x1FF) * 8 != row_bytes:
+        return None, f"{label}-row-stride-unresolved"
+    size_bytes = row_bytes * height
+    loaded_bytes = (((load[1] >> 12) & 0xFFF) + 1) * 2
+    if not size_bytes <= loaded_bytes <= 4096:
+        return None, f"{label}-tmem-span-unresolved"
+    if loaded_bytes > len(payload):
+        return None, f"{label}-payload-span-unresolved"
+    png_data = encode_native_texture_png(
+        payload[:size_bytes], name, "tmem-odd-row-32bit-swap", width, height
+    )
+    return PreviewTexture(
+        family="us-direct-runtime-composed", source=None,
+        flat_index=run.pixel.flat_index, format=state["format"], size=state["size"],
+        width=width, height=height, sha1=hashlib.sha1(png_data).hexdigest(),
+        png_data=png_data, pixel_byte_offset=0,
+    ), f"runtime-composed-{label}-texture"
 
 
 def choose_preview_texture(
     run: ModelMaterialRun,
     catalog: dict[tuple[int, int, int], tuple[PreviewTexture, ...]],
     flat_payloads: dict[int, bytes] | None = None,
-    *,
-    mode_one_ci8_palette_policy: str | None = None,
 ) -> tuple[PreviewTexture | None, str]:
+    if run.texture_enabled is None:
+        return None, "runtime-texture-enable-state-unresolved"
     if not run.texture_enabled:
         return None, "untextured"
     if run.pixel is None:
@@ -4156,12 +5238,8 @@ def choose_preview_texture(
             if texture_inputs == {"TEXEL0", "TEXEL1"}:
                 if not any(tile_index == 1 for tile_index, _, _ in run.render_tiles):
                     return None, "character-indexed-mipmap-state-unresolved"
-                # The complete tile ladder is now preserved, but glTF cannot
-                # represent the RDP's TEXEL0/TEXEL1 LOD interpolation together
-                # with its dynamic primitive/environment colour formula. A
-                # base-level diffuse binding makes several valid mask textures
-                # look like corrupt colour images, so keep these runs unbound.
-                return None, "character-indexed-mipmap-combiner-unresolved"
+                if not is_character_trilinear_base(run):
+                    return None, "character-indexed-mipmap-combiner-unresolved"
             elif texture_inputs != {"TEXEL0"}:
                 # Colour-only runs depend on dynamic primitive/environment
                 # state and must not be assigned the nearest texture.
@@ -4171,7 +5249,10 @@ def choose_preview_texture(
         payload = flat_payloads.get(run.pixel.flat_index)
         if payload is None:
             return None, "character-indexed-flat-payload-missing"
-        return character_runtime_preview_texture(run, payload)
+        texture, status = character_runtime_preview_texture(run, payload)
+        if texture is not None and is_character_trilinear_base(run):
+            status = "runtime-composed-character-trilinear-base"
+        return texture, status
     if state["format"] == 2:
         if (
             run.palette is None
@@ -4181,16 +5262,32 @@ def choose_preview_texture(
         if state["size"] == 1:
             if run.palette.mode != 1:
                 return None, "unresolved-ci-palette"
-            if mode_one_ci8_palette_policy == "payload-base":
-                return None, "mode-one-ci8-palette-overlaps-pixels"
-            if mode_one_ci8_palette_policy == "payload-end-minus-0x200":
-                if flat_payloads is None:
-                    return None, "direct-ci8-flat-payload-missing"
-                payload = flat_payloads.get(run.pixel.flat_index)
-                if payload is None:
-                    return None, "direct-ci8-flat-payload-missing"
-                return direct_runtime_ci8_preview_texture(run, payload)
-            return None, "mode-one-ci8-palette-runtime-unresolved"
+            if flat_payloads is None:
+                return None, "direct-ci8-flat-payload-missing"
+            payload = flat_payloads.get(run.pixel.flat_index)
+            if payload is None:
+                return None, "direct-ci8-flat-payload-missing"
+            return direct_runtime_indexed_preview_texture(run, payload)
+    if (state["format"] == 2 and state["size"] == 0 and run.palette is not None
+            and run.palette.mode == 2 and run.pixel.image_command == 0xFD500000
+            and flat_payloads is not None):
+        payload = flat_payloads.get(run.pixel.flat_index)
+        if payload is None:
+            return None, "direct-ci4-flat-payload-missing"
+        # A reversible standalone PNG does not resolve a particular draw's
+        # unknown lookup state or incompatible image geometry.
+        return direct_runtime_indexed_preview_texture(run, payload)
+    if ((state["format"], state["size"]) == (0, 3)
+            and run.pixel.image_command == 0xFD180000 and flat_payloads is not None):
+        payload = flat_payloads.get(run.pixel.flat_index)
+        if payload is None:
+            return None, "direct-rgba32-flat-payload-missing"
+        return direct_rgba32_preview_texture(run, payload)
+    if (state["format"], state["size"]) in ((3, 1), (3, 2), (4, 0), (4, 1)):
+        payload = flat_payloads.get(run.pixel.flat_index) if flat_payloads is not None else None
+        if payload is None:
+            return None, "direct-intensity-flat-payload-missing"
+        return direct_intensity_preview_texture(run, payload)
     candidates = catalog.get(
         (run.pixel.flat_index, state["format"], state["size"]), ()
     )
@@ -4226,6 +5323,39 @@ def preview_texture_filename(texture: PreviewTexture) -> str:
     )
 
 
+def verify_gltf_material_spans(gltf: dict[str, Any], runs: list[dict[str, Any]]) -> None:
+    """Require ordered, complete source-run coverage after culling partitions."""
+
+    boundaries = []
+    total = 0
+    for run in runs:
+        boundaries.append((total, total + run["face_count"]))
+        total += run["face_count"]
+    cursor = 0
+    used_materials = set()
+    for mesh in gltf.get("meshes", []):
+        for primitive in mesh["primitives"]:
+            material_index = primitive["material"]
+            used_materials.add(material_index)
+            material = gltf["materials"][material_index]
+            extras = material["extras"]
+            run_index = extras.get("materialRun")
+            first, count = extras.get("firstFace"), extras.get("faceCount")
+            if (not isinstance(run_index, int) or not 0 <= run_index < len(runs)
+                    or first != cursor or not isinstance(count, int) or count <= 0
+                    or not boundaries[run_index][0] <= first < first + count <= boundaries[run_index][1]
+                    or gltf["accessors"][primitive["indices"]]["count"] != count * 3):
+                raise ValueError("preview glTF material spans do not partition source runs")
+            if ("runtimeMaterial" in extras) != (runs[run_index]["runtime_material"] is not None):
+                raise ValueError("preview glTF runtime material span changed")
+            culling = extras.get("faceCulling", {})
+            if culling and material["doubleSided"] != (culling["mode"] != "back"):
+                raise ValueError("preview glTF material culling flag disagrees with source state")
+            cursor += count
+    if cursor != total or used_materials != set(range(len(gltf.get("materials", [])))):
+        raise ValueError("preview glTF material spans leave missing or unused source data")
+
+
 def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
     instructions_path = output / manifest["instructions_file"]
     if not instructions_path.is_file():
@@ -4233,6 +5363,8 @@ def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
     texture_files = {
         texture["file"]: texture["png_sha1"] for texture in manifest["textures"]
     }
+    runtime_mip_files = set()
+    runtime_multitexture_files = set()
     if manifest["bank_index"] == 1 and (
         manifest["animation_clip_count"] != 2621
         or manifest["animation_frame_count"] != 57732
@@ -4325,29 +5457,38 @@ def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
         gltf = json.loads(gltf_path.read_text(encoding="utf-8"))
         if gltf.get("asset", {}).get("version") != "2.0":
             raise ValueError(f"preview glTF has an invalid version: {gltf_path.name}")
-        if gltf["buffers"][0]["byteLength"] != binary_path.stat().st_size:
+        if (gltf.get("buffers", [{}])[0].get("byteLength", 0)
+                != binary_path.stat().st_size):
             raise ValueError(f"preview glTF buffer size mismatch: {gltf_path.name}")
         primitives = [
             primitive
-            for mesh in gltf["meshes"]
+            for mesh in gltf.get("meshes", [])
             for primitive in mesh["primitives"]
         ]
-        if len(primitives) != sum(
-            run["face_count"] > 0 for run in model["material_runs"]
-        ):
-            raise ValueError(f"preview glTF material-run mismatch: {gltf_path.name}")
-        expected_runtime_materials = sum(
-            run["face_count"] > 0 and run["runtime_material"] is not None
-            for run in model["material_runs"]
-        )
-        actual_runtime_materials = sum(
-            "runtimeMaterial" in material.get("extras", {})
-            for material in gltf.get("materials", [])
-        )
-        if actual_runtime_materials != expected_runtime_materials:
-            raise ValueError(
-                f"preview glTF runtime material count mismatch: {gltf_path.name}"
-            )
+        verify_gltf_material_spans(gltf, model["material_runs"])
+        for material in gltf.get("materials", []):
+            runtime_material = material.get("extras", {}).get("runtimeMaterial", {})
+            for variant in runtime_material.get("variants", []):
+                captured = variant.get("captured_texture")
+                if not isinstance(captured, dict):
+                    continue
+                texture1_image = captured.get("texture1_image")
+                for level in runtime_captured_auxiliary_textures(captured):
+                    preview_file = level.get("preview_file")
+                    if not isinstance(preview_file, str):
+                        raise ValueError("preview glTF omits a captured mip path")
+                    mapped = (gltf_path.parent / preview_file).resolve()
+                    if (
+                        not mapped.is_relative_to(output.resolve())
+                        or not mapped.is_file()
+                        or hashlib.sha1(mapped.read_bytes()).hexdigest()
+                        != level["png_sha1"]
+                    ):
+                        raise ValueError("preview glTF captured mip failed verification")
+                    if level is texture1_image:
+                        runtime_multitexture_files.add(mapped.name)
+                    else:
+                        runtime_mip_files.add(mapped.name)
         replay_by_run = {
             material.get("extras", {}).get("materialRun"): material.get(
                 "extras", {}
@@ -4418,10 +5559,10 @@ def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
                         raise ValueError(
                             f"preview glTF has an invalid animation node: {gltf_path.name}"
                         )
-        for accessor in gltf["accessors"]:
+        for accessor in gltf.get("accessors", []):
             if not 0 <= accessor["bufferView"] < len(gltf["bufferViews"]):
                 raise ValueError(f"preview glTF has an invalid accessor: {gltf_path.name}")
-        for view in gltf["bufferViews"]:
+        for view in gltf.get("bufferViews", []):
             if view.get("byteOffset", 0) + view["byteLength"] > binary_path.stat().st_size:
                 raise ValueError(f"preview glTF view exceeds its buffer: {gltf_path.name}")
         for image in gltf.get("images", []):
@@ -4450,11 +5591,17 @@ def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
                 )
     if manifest.get("runtime_lighting_replay_run_count") != sum(
         run.get("runtime_lighting_replay", {}).get("status")
-        == "gliden64-equivalent-observed-draw"
+        == "captured-cbfd-vertex-load-colours"
         for model in manifest["models"]
         for run in model["material_runs"]
     ):
         raise ValueError("preview runtime lighting replay count changed")
+    if manifest.get("copied_runtime_mip_texture_count") != len(runtime_mip_files):
+        raise ValueError("preview runtime mip texture count changed")
+    if manifest.get("copied_runtime_multitexture_count") != len(
+        runtime_multitexture_files
+    ):
+        raise ValueError("preview runtime secondary texture count changed")
     if manifest.get("assembled_scene_count", 0) != len(
         manifest.get("assembled_scenes", [])
     ):
@@ -4574,13 +5721,12 @@ def load_model_bundles(
         if bank_index == 0x04:
             segments = parse_model_bundle(data)
         else:
-            # Banks 01 and 03 consist entirely of character/direct model
-            # payloads. Bank 09 is a mixed runtime display-list bank, but entries
-            # 426--431 use the same self-contained 40-byte geometry header.
+            # Bank 09 includes three-pair attachment containers and a direct
+            # model subset. Other runtime list formats remain unclassified.
             try:
                 parse_geometry_for_bank(data, bank_index)
             except ValueError as error:
-                if bank_index == 0x09:
+                if bank_index == 0x09 and not is_attachment_model(data):
                     continue
                 raise ValueError(
                     f"bank-{bank_index:02X} entry {entry.index}: {error}"
@@ -5756,6 +6902,11 @@ def make_manifest(
                     "display_list_offset": f"0x{geometry.display_list_offset:X}",
                     "display_list_size": geometry.display_list_size,
                     "vertex_load_count": geometry.vertex_load_count,
+                    "vertex_load_matrix_corner_count": sum(
+                        matrix is not None
+                        for face in geometry.face_matrix_indices for matrix in face
+                    ),
+                    "faces_differing_from_draw_matrix": vertex_matrix_mismatch_face_count(geometry),
                     "segment_8_display_list_count": len(
                         geometry.segment_8_display_list_offsets
                     ),
@@ -5800,6 +6951,12 @@ def make_manifest(
                         if section["file"] is not None:
                             section["file"] = section["file"].format(entry=bundle.index)
                     geometry_record["character_layout"] = character_layout
+                elif bank_index == 0x09 and is_attachment_model(segment.data):
+                    _, attachment_layout = parse_attachment_model(segment.data, parse_model_geometry)
+                    for section in attachment_layout["sections"]:
+                        if section["file"] is not None:
+                            section["file"] = section["file"].format(entry=bundle.index) if include_files else None
+                    geometry_record["attachment_layout"] = attachment_layout
                 for name, region in (
                     ("secondary_region", geometry.secondary_region),
                     ("tertiary_region", geometry.tertiary_region),
@@ -5946,6 +7103,11 @@ def make_manifest(
                             else None
                         ),
                         "matrix_index": run.matrix_index,
+                        "vertex_load_matrix_indices": sorted({
+                            matrix
+                            for face_index in range(run.first_face, run.first_face + run.face_count)
+                            for matrix in face_vertex_matrix_indices(geometry, run, face_index)
+                        }),
                         "texture_coordinates": (
                             texture_coordinate_state(run)
                             if run.texture_coordinates_proven
@@ -6039,7 +7201,7 @@ def make_manifest(
             0x01: "indexed-bank-01-rigged-character-model-geometry",
             0x03: "indexed-bank-03-object-model-geometry",
             0x04: "indexed-bank-04-segmented-model-geometry",
-            0x09: "indexed-bank-09-direct-model-subset",
+            0x09: "indexed-bank-09-attachment-and-direct-model-geometry",
         }[bank_index],
         "profile": "us",
         "source_rom": manifest_source(rom_path),
@@ -6058,9 +7220,17 @@ def make_manifest(
                 "normal-stream-proven-runtime-segment-8-render-state-family-proven-"
                 "selection-unresolved"
                 if bank_index in (0x03, 0x04)
-                else "primary-geometry-material-and-uv-proven-runtime-material-"
-                "selection-unresolved"
+                else "attachment-and-direct-geometry-proven-available-uv-and-normal-"
+                "state-preserved-parent-transform-animation-and-inherited-material-state-runtime-dependent"
             )
+        ),
+        "attachment_model_count": sum(
+            "attachment_layout" in segment.get("geometry", {})
+            for record in records for segment in record["segments"]
+        ),
+        "jointed_attachment_model_count": sum(
+            bool(segment.get("geometry", {}).get("attachment_layout", {}).get("joints"))
+            for record in records for segment in record["segments"]
         ),
         "face_normal_model_count": sum(
             bool(segment.get("geometry", {}).get("face_normal_corner_count"))
@@ -6206,6 +7376,7 @@ def make_manifest(
                         "GLideN64/src/uCodes/F3DEX2CBFD.cpp-and-src/gSP.cpp"
                     ),
                     "material_color_state": CHARACTER_RUNTIME_COLOR_STATE,
+                    "runtime_matrix_state": CHARACTER_RUNTIME_MATRIX_STATE,
                     "secondary_display_list_consumer": "func_1502CCFC",
                     "procedural_joint_lookup": "func_1503DA3C",
                     "procedural_joint_caller": "func_15033FE0",
@@ -6237,7 +7408,9 @@ def make_manifest(
                     ],
                     "bank_path": [9, "runtime-index"],
                     "payload_shape": "display-list-pointer-table",
-                    "selected_subset": "direct-model-header-compatible",
+                    "selected_subset": "three-pair-attachment-and-direct-model-header-compatible",
+                    "attachment_renderer": "func_150311C4",
+                    "attachment_pose_builder": "func_150A81D0",
                 }
             ),
             "outer_relocator": {
@@ -6487,15 +7660,17 @@ def make_manifest(
             for record in records
             for segment in record["segments"]
             for run in segment.get("geometry", {}).get("material_runs", [])
-            if run["pixel"] is not None
-            and run["pixel"]["source"] == "external-runtime-state"
+            if run["texture_enabled"] is None or (
+                run["pixel"] is not None
+                and run["pixel"]["source"] == "external-runtime-state"
+            )
         ),
         "untextured_face_count": sum(
             run["face_count"]
             for record in records
             for segment in record["segments"]
             for run in segment.get("geometry", {}).get("material_runs", [])
-            if not run["texture_enabled"]
+            if run["texture_enabled"] is False
         ),
         "decoded_size": sum(record["decoded_size"] for record in records),
         "bundles": records,
@@ -6545,6 +7720,15 @@ def extract_models(
                         region_path.write_bytes(
                             segment.data[offset : offset + section["size"]]
                         )
+                elif bank_index == 0x09 and is_attachment_model(segment.data):
+                    _, attachment_layout = parse_attachment_model(segment.data, parse_model_geometry)
+                    for section in attachment_layout["sections"]:
+                        if not section["size"]:
+                            continue
+                        region_path = output / section["file"].format(entry=bundle.index)
+                        region_path.parent.mkdir(parents=True, exist_ok=True)
+                        offset = section["offset"]
+                        region_path.write_bytes(segment.data[offset:offset + section["size"]])
                 for name, region in (
                     ("secondary", geometry.secondary_region),
                     ("tertiary", geometry.tertiary_region),
@@ -7129,10 +8313,394 @@ def runtime_material_inventory(
                         "first_face": run.first_face,
                         "face_count": run.face_count,
                         "matrix_index": run.matrix_index,
+                        "_run": run,
+                        "_geometry": geometry,
                     }
     if digest is None:
         raise ValueError("runtime material inventory is empty")
     return digest, inventory
+
+
+def runtime_captured_preview_texture(
+    run: ModelMaterialRun | None,
+    material_state: dict[str, Any] | None,
+    payloads: dict[int, bytes],
+) -> dict[str, Any] | None:
+    """Compose a PNG using the task's actual tile format and palette mode."""
+
+    if run is None or not isinstance(material_state, dict) or run.render_tile is None:
+        return None
+    texture = material_state.get("texture")
+    if not isinstance(texture, dict) or texture.get("enabled") is False:
+        return None
+    pixel_image = texture.get("pixel_image")
+    palette_image = texture.get("palette_image")
+    if not isinstance(pixel_image, dict):
+        return None
+    pixel_index = pixel_image.get("captured_texture_image_index")
+    palette_index = (
+        palette_image.get("captured_texture_image_index")
+        if isinstance(palette_image, dict) else None
+    )
+    if not isinstance(pixel_index, int):
+        return None
+    pixel_data = payloads.get(pixel_index)
+    palette_data = payloads.get(palette_index)
+    if pixel_data is None:
+        return None
+    try:
+        state = texture_coordinate_state(run)
+    except ValueError:
+        return None
+    if state is None or state["size"] not in (0, 1, 3):
+        return None
+    render_tile_command, render_tile_argument = run.render_tile
+    other = decode_other_mode(material_state.get("other_mode"))
+    if other is None:
+        # A retained palette load alone does not prove that lookup is enabled.
+        return None
+    runtime_tiles = {
+        int(tile["index"]): tile
+        for tile in material_state.get("tiles", []) or []
+        if isinstance(tile, dict) and isinstance(tile.get("index"), int)
+    }
+    texture_scale = texture.get("scale")
+    base_tile = (
+        (texture_scale[0] >> 8) & 7
+        if isinstance(texture_scale, list) and len(texture_scale) == 2 else 0
+    )
+    runtime_base = runtime_tiles.get(base_tile)
+    if runtime_base is not None:
+        runtime_command, runtime_argument = runtime_base["command"], runtime_base["argument"]
+        # Exported UVs still use the stored geometry's coordinate contract.
+        # Different sizes or addressing require a separate runtime UV replay.
+        coordinate_mask = 0xFFFFF
+        if (
+            ((runtime_command >> 19) & 3) != state["size"]
+            or (runtime_argument & coordinate_mask) != (render_tile_argument & coordinate_mask)
+            or (isinstance(texture_scale, list) and texture_scale[1] != run.texture_scale[1])
+        ):
+            return None
+        render_tile_command, render_tile_argument = runtime_command, runtime_argument
+    bounds = material_state.get("tile_bounds", {}).get(str(base_tile))
+    coordinate_run = replace(
+        run,
+        render_tile=(render_tile_command, render_tile_argument),
+        tile_bounds=tuple(bounds) if bounds is not None else run.tile_bounds,
+    )
+    if bounds is not None and run.pixel is not None and run.pixel.load_command is not None:
+        mask_s = (render_tile_argument >> 4) & 0xF
+        mask_t = (render_tile_argument >> 14) & 0xF
+        clamps = render_tile_argument & ((2 << 8) | (2 << 18))
+        mask_row_bytes = ((1 << mask_s) * (4 << state["size"]) + 7) // 8
+        mask_row_stride = ((render_tile_command >> 9) & 0x1FF) * 8 or mask_row_bytes
+        mask_end = ((render_tile_command & 0x1FF) * 8
+                    + ((1 << mask_t) - 1) * mask_row_stride + mask_row_bytes)
+        # For an unclamped LoadBlock tile, masks define the repeating image;
+        # SetTileSize's origin can scroll fractionally or wrap through 0xFFF.
+        # Admit only a complete mask image fitting the lower 2 KiB of TMEM.
+        if (
+            state["size"] in (0, 1)
+            and run.pixel.load_command[0] >> 24 == 0xF3 and not clamps
+            and mask_s and mask_t
+            and (1 << (mask_s + mask_t)) * (4 << state["size"]) <= 2048 * 8
+            and mask_end <= 2048
+        ):
+            coordinate_run = replace(coordinate_run, texture_dimensions=(1 << mask_s, 1 << mask_t))
+    try:
+        state = texture_coordinate_state(coordinate_run)
+    except ValueError:
+        return None
+    width, height = state["width"], state["height"]
+    if state["size"] == 0 and width & 1:
+        # The reversible CI4 PNG contract does not yet preserve row-end nibbles.
+        return None
+
+    def effective_format(tile_command: int) -> str | None:
+        size = (tile_command >> 19) & 3
+        format_id = (tile_command >> 21) & 7
+        if size == 3 and format_id == 0 and other["texture_lut"] == "none":
+            return "rgba32"
+        if size not in (0, 1):
+            return None
+        if other["texture_lut"] == "rgba16" and format_id in (0, 2, 3, 4):
+            return "ci4" if size == 0 else "ci8"
+        if other["texture_lut"] != "none":
+            return None
+        # GLideN64's G_TT_NONE table reads RGBA4/8 as intensity, and IA8
+        # directly. Do not feed those bytes through an unrelated retained TLUT.
+        if format_id in (0, 4) or (format_id == 2 and size == 1):
+            return "i4" if size == 0 else "i8"
+        if format_id == 3 and size == 1:
+            return "ia8"
+        return None
+
+    format_name = effective_format(render_tile_command)
+    if format_name is None or (format_name.startswith("ci") and palette_data is None):
+        return None
+    static_tiles = {
+        tile_index: (command, argument)
+        for tile_index, command, argument in run.render_tiles
+    }
+    load_tmem = 0
+    if run.pixel is not None and run.pixel.load_command is not None:
+        load_tile_index = (run.pixel.load_command[1] >> 24) & 0x7
+        load_tile = static_tiles.get(load_tile_index)
+        if load_tile is not None:
+            load_tmem = load_tile[0] & 0x1FF
+
+    def encode_level(
+        level: int,
+        tile_command: int,
+        tile_argument: int,
+        level_width: int,
+        level_height: int,
+        source_byte_offset: int,
+        level_size: int,
+    ) -> dict[str, Any] | None:
+        if level_size == 3:
+            # Match texture_native's complete RGBA32 LoadBlock contract. A
+            # zero DXT stream is already arranged for paired TMEM banks: line
+            # stride counts two bytes per texel; odd rows swap 8-byte halves.
+            # Partial loads and nonzero TMEM origins need separate replay.
+            load = run.pixel.load_command if run.pixel is not None else None
+            size_bytes = level_width * level_height * 4
+            if (level != 0 or source_byte_offset or load_tmem or tile_command & 0x1FF
+                    or effective_format(tile_command) != "rgba32"
+                    or pixel_image.get("command") != 0xFD180000
+                    or load is None or load[0] >> 24 != 0xF3 or load[1] & 0xFFF
+                    or (((load[1] >> 12) & 0xFFF) + 1) * 4 != size_bytes
+                    or len(pixel_data) != size_bytes or size_bytes > 4096
+                    or ((tile_command >> 9) & 0x1FF) * 8 != level_width * 2
+                    or level_width % 4):
+                return None
+            png_data = encode_native_texture_png(
+                pixel_data, "rgba32", "tmem-odd-row-32bit-swap", level_width, level_height
+            )
+            digest = hashlib.sha1(png_data).hexdigest()
+            return {"level": level, "format": "rgba32", "width": level_width,
+                    "height": level_height, "tmem_byte_offset": 0, "source_byte_offset": 0,
+                    "png_sha1": digest,
+                    "file": f"textures/runtime-rgba32-{level_width}x{level_height}-{digest[:12]}.png",
+                    "png_data": png_data}
+        if level_size == 0 and level_width & 1:
+            return None
+        row_size = (level_width + 1) // 2 if level_size == 0 else level_width
+        row_stride = ((tile_command >> 9) & 0x1FF) * 8 or row_size
+        if row_stride < row_size or source_byte_offset < 0:
+            return None
+        if level_height > 1 and row_stride % 8:
+            return None
+        pixel_size = (
+            source_byte_offset + (level_height - 1) * row_stride + row_size
+        )
+        if pixel_size > len(pixel_data):
+            return None
+        rows = []
+        for row_index in range(level_height):
+            row_start = source_byte_offset + row_index * row_stride
+            row = pixel_data[row_start : row_start + row_stride]
+            if row_index & 1:
+                if len(row) != row_stride:
+                    return None
+                row = bytes(row[index ^ 4] for index in range(row_stride))
+            rows.append(row[:row_size])
+        pixels = b"".join(rows)
+        level_format_name = effective_format(tile_command)
+        if level_format_name is None:
+            return None
+        if level_format_name in ("i4", "i8", "ia8"):
+            png_data = encode_native_texture_png(
+                pixels, level_format_name, "linear", level_width, level_height
+            )
+        elif level_size == 0:
+            palette_bank = (tile_argument >> 20) & 0xF
+            palette_start = palette_bank * 0x20
+            palette = palette_data[palette_start : palette_start + 0x20]
+            if len(palette) != 0x20:
+                return None
+            png_data = encode_indexed_png(
+                pixels + palette, "linear", level_width, level_height
+            )
+        else:
+            palette = palette_data[:0x200]
+            if len(palette) != 0x200:
+                return None
+            png_data = encode_ci8_png(
+                pixels + palette, "linear", level_width, level_height
+            )
+        digest = hashlib.sha1(png_data).hexdigest()
+        return {
+            "level": level,
+            "format": level_format_name,
+            "width": level_width,
+            "height": level_height,
+            "tmem_byte_offset": (tile_command & 0x1FF) * 8,
+            "source_byte_offset": source_byte_offset,
+            "png_sha1": digest,
+            "file": (
+                f"textures/runtime-{level_format_name}-{level_width}x{level_height}-"
+                f"{digest[:12]}.png"
+            ),
+            "png_data": png_data,
+        }
+
+    base_source_offset = ((render_tile_command & 0x1FF) - load_tmem) * 8
+    base = encode_level(
+        0,
+        render_tile_command,
+        render_tile_argument,
+        width,
+        height,
+        base_source_offset,
+        state["size"],
+    )
+    if base is None:
+        return None
+    result = {
+        "status": (
+            "runtime-captured-indexed-texture" if format_name.startswith("ci")
+            else "runtime-captured-native-texture"
+        ),
+        "format": format_name,
+        "width": width,
+        "height": height,
+        "pixel_sha256": pixel_image.get("sha256"),
+        "palette_sha256": (
+            palette_image.get("sha256") if format_name.startswith("ci") else None
+        ),
+        "texture_lut": other["texture_lut"],
+        "png_sha1": base["png_sha1"],
+        "file": base["file"],
+        "png_data": base["png_data"],
+        "tmem_byte_offset": base["tmem_byte_offset"],
+        "source_byte_offset": base["source_byte_offset"],
+        "coordinate_state": {
+            "render_tile": list(coordinate_run.render_tile),
+            "tile_bounds": list(coordinate_run.tile_bounds) if coordinate_run.tile_bounds else None,
+            "texture_scale": list(coordinate_run.texture_scale),
+            "texture_dimensions": list(coordinate_run.texture_dimensions) if coordinate_run.texture_dimensions else None,
+            "bounds_evidence": "captured-command-replay" if bounds is not None else "source-display-list",
+        },
+        "mip_levels": [],
+        "texture1_mip_levels": [],
+        "texture1_image": None,
+    }
+    if (
+        isinstance(texture_scale, list)
+        and len(texture_scale) == 2
+        and all(isinstance(value, int) for value in texture_scale)
+    ):
+        max_level = (texture_scale[0] >> 11) & 0x7
+        base_tile = (texture_scale[0] >> 8) & 0x7
+        combine_pair = material_state.get("combine_mode")
+        combine = (
+            decode_combine_mode(tuple(combine_pair))
+            if isinstance(combine_pair, list) and len(combine_pair) == 2
+            else None
+        )
+        runtime_base = runtime_tiles.get(base_tile)
+        if runtime_base is not None:
+            for level in range(1, max_level + 1):
+                tile = runtime_tiles.get(base_tile + level)
+                if tile is None:
+                    break
+                command = int(tile["command"])
+                if ((command >> 19) & 0x3) != state["size"]:
+                    break
+                mip = encode_level(
+                    level,
+                    command,
+                    int(tile["argument"]),
+                    max(1, width >> level),
+                    max(1, height >> level),
+                    ((command & 0x1FF) - load_tmem) * 8,
+                    state["size"],
+                )
+                if mip is None:
+                    break
+                result["mip_levels"].append(mip)
+            if (
+                not result["mip_levels"]
+                and max_level
+                and other is not None
+                and other["texture_detail"] == "detail"
+            ):
+                detail_base_tile = runtime_tiles.get(base_tile + 1)
+                if detail_base_tile is not None:
+                    detail_command = int(detail_base_tile["command"])
+                    detail_size = (detail_command >> 19) & 0x3
+                    detail_argument = int(detail_base_tile["argument"])
+                    mask_s = (detail_argument >> 4) & 0xF
+                    mask_t = (detail_argument >> 14) & 0xF
+                    if detail_size in (0, 1) and mask_s and mask_t:
+                        detail_width, detail_height = 1 << mask_s, 1 << mask_t
+                        for level in range(max_level + 1):
+                            tile = runtime_tiles.get(base_tile + 1 + level)
+                            if tile is None:
+                                break
+                            command = int(tile["command"])
+                            if ((command >> 19) & 0x3) != detail_size:
+                                break
+                            mip = encode_level(
+                                level,
+                                command,
+                                int(tile["argument"]),
+                                max(1, detail_width >> level),
+                                max(1, detail_height >> level),
+                                ((command & 0x1FF) - load_tmem) * 8,
+                                detail_size,
+                            )
+                            if mip is None:
+                                break
+                            result["texture1_mip_levels"].append(mip)
+            if (
+                max_level == 0
+                and combine is not None
+                and "TEXEL1" in combine["inputs"]
+                and other is not None
+                and other["texture_lod"] == "tile"
+            ):
+                texture1_tile = runtime_tiles.get(base_tile + 1)
+                if texture1_tile is not None:
+                    command = int(texture1_tile["command"])
+                    texture1_size = (command >> 19) & 0x3
+                    argument = int(texture1_tile["argument"])
+                    mask_s = (argument >> 4) & 0xF
+                    mask_t = (argument >> 14) & 0xF
+                    if texture1_size in (0, 1) and mask_s and mask_t:
+                        texture1 = encode_level(
+                            0,
+                            command,
+                            argument,
+                            1 << mask_s,
+                            1 << mask_t,
+                            ((command & 0x1FF) - load_tmem) * 8,
+                            texture1_size,
+                        )
+                        if texture1 is not None:
+                            texture1["role"] = "TEXEL1"
+                            result["texture1_image"] = texture1
+    result["mip_level_count"] = 1 + len(result["mip_levels"])
+    result["texture1_mip_level_count"] = len(result["texture1_mip_levels"])
+    return result
+
+
+def runtime_captured_mip_levels(captured: dict[str, Any]) -> list[dict[str, Any]]:
+    return [
+        *captured.get("mip_levels", []),
+        *captured.get("texture1_mip_levels", []),
+    ]
+
+
+def runtime_captured_auxiliary_textures(
+    captured: dict[str, Any]
+) -> list[dict[str, Any]]:
+    texture1 = captured.get("texture1_image")
+    return [
+        *runtime_captured_mip_levels(captured),
+        *([texture1] if isinstance(texture1, dict) else []),
+    ]
 
 
 def verify_runtime_material_output(output: Path, manifest: dict[str, Any]) -> None:
@@ -7175,6 +8743,44 @@ def verify_runtime_material_output(output: Path, manifest: dict[str, Any]) -> No
                 "gltf_translation"
             ]:
                 raise ValueError("runtime material glTF translation changed")
+            captured_texture = variant.get("captured_texture")
+            if captured_texture is not None:
+                primary_levels = [
+                    captured_texture,
+                    *captured_texture.get("mip_levels", []),
+                ]
+                texture1_levels = captured_texture.get("texture1_mip_levels", [])
+                texture1_image = captured_texture.get("texture1_image")
+                if captured_texture.get("mip_level_count") != len(primary_levels):
+                    raise ValueError("runtime captured mip level count changed")
+                if captured_texture.get("texture1_mip_level_count") != len(
+                    texture1_levels
+                ):
+                    raise ValueError("runtime captured TEXEL1 mip count changed")
+                for level_index, level in enumerate(primary_levels):
+                    if level_index and level.get("level") != level_index:
+                        raise ValueError("runtime captured mip level order changed")
+                for level_index, level in enumerate(texture1_levels):
+                    if level.get("level") != level_index:
+                        raise ValueError("runtime captured TEXEL1 mip order changed")
+                for level in [
+                    *primary_levels,
+                    *texture1_levels,
+                    *([texture1_image] if isinstance(texture1_image, dict) else []),
+                ]:
+                    relative = Path(level["file"])
+                    texture_path = (output / relative).resolve()
+                    if (
+                        relative.is_absolute()
+                        or ".." in relative.parts
+                        or not texture_path.is_relative_to(output.resolve())
+                        or not texture_path.is_file()
+                    ):
+                        raise ValueError("runtime captured texture path is invalid")
+                    if hashlib.sha1(texture_path.read_bytes()).hexdigest() != level[
+                        "png_sha1"
+                    ]:
+                        raise ValueError("runtime captured texture PNG hash changed")
             contexts = variant.get("lighting_contexts", [])
             if variant.get("lighting_context_count") != len(contexts):
                 raise ValueError("runtime lighting context count changed")
@@ -7196,12 +8802,78 @@ def verify_runtime_material_output(output: Path, manifest: dict[str, Any]) -> No
                 ).hexdigest()
                 if digest != context.get("lighting_context_hash"):
                     raise ValueError("runtime lighting context hash changed")
+            for evidence in variant.get("evidence", []):
+                sample = evidence.get("vertex_lighting")
+                if isinstance(sample, dict):
+                    first, count = evidence.get("source_first_face"), evidence.get("source_face_count")
+                    if (not isinstance(first, int) or not isinstance(count, int)
+                            or not record["source_first_face"] <= first < first + count <= record["source_first_face"] + record["source_face_count"]):
+                        raise ValueError("runtime vertex lighting sample exceeds source material")
+                    validate_vertex_lighting_sample(sample, first, count)
     if manifest.get("lighting_context_count") != sum(
         variant.get("lighting_context_count", 0)
         for record in materials
         for variant in record["variants"]
     ):
         raise ValueError("runtime lighting context total changed")
+    convert_modes = [
+        tuple(variant["state"]["convert_mode"])
+        for record in materials
+        for variant in record["variants"]
+        if variant["state"].get("convert_mode") is not None
+    ]
+    if (
+        manifest.get("convert_mode_variant_count") != len(convert_modes)
+        or manifest.get("missing_convert_mode_variant_count")
+        != manifest["variant_count"] - len(convert_modes)
+        or manifest.get("convert_mode_count") != len(set(convert_modes))
+    ):
+        raise ValueError("runtime material convert-mode inventory changed")
+    mip_levels = [
+        level
+        for record in materials
+        for variant in record["variants"]
+        for level in runtime_captured_mip_levels(
+            variant.get("captured_texture") or {}
+        )
+    ]
+    if (
+        manifest.get("captured_mip_variant_count")
+        != sum(
+            bool(runtime_captured_mip_levels(variant.get("captured_texture") or {}))
+            for record in materials
+            for variant in record["variants"]
+        )
+        or manifest.get("captured_mip_level_count") != len(mip_levels)
+        or manifest.get("captured_mip_png_count")
+        != len({level["file"] for level in mip_levels})
+    ):
+        raise ValueError("runtime captured mip inventory changed")
+    multitextures = [
+        captured["texture1_image"]
+        for record in materials
+        for variant in record["variants"]
+        if isinstance((captured := variant.get("captured_texture")), dict)
+        and isinstance(captured.get("texture1_image"), dict)
+    ]
+    if (
+        manifest.get("captured_multitexture_variant_count")
+        != len(multitextures)
+        or manifest.get("captured_multitexture_png_count")
+        != len({texture["file"] for texture in multitextures})
+    ):
+        raise ValueError("runtime captured secondary texture inventory changed")
+    appearances = manifest.get("appearances", [])
+    if manifest.get("appearance_count") != len(appearances):
+        raise ValueError("runtime material appearance count changed")
+    appearance_ids = [appearance["id"] for appearance in appearances]
+    if len(appearance_ids) != len(set(appearance_ids)):
+        raise ValueError("runtime material appearance identities are not unique")
+    if manifest["material_assignment_observation_count"] != sum(
+        appearance["material_assignment_observation_count"]
+        for appearance in appearances
+    ):
+        raise ValueError("runtime material appearance observation count changed")
     source_traces = manifest.get("source_traces", [])
     for field in (
         "nested_display_list_call_count",
@@ -7230,9 +8902,2642 @@ def verify_runtime_material_output(output: Path, manifest: dict[str, Any]) -> No
         != len(segment_8_addresses)
     ):
         raise ValueError("runtime material segment-8 address inventory changed")
+    segment_8_resolutions = [
+        resolution
+        for record in materials
+        for variant in record["variants"]
+        for evidence in variant.get("evidence", [])
+        if isinstance(
+            (resolution := evidence.get("runtime_segment_8_resolution")), dict
+        )
+    ]
+    segment_8_status_counts: dict[str, int] = {}
+    for resolution in segment_8_resolutions:
+        status = resolution.get("status")
+        if not isinstance(status, str):
+            raise ValueError("runtime segment-8 resolution status changed")
+        segment_8_status_counts[status] = segment_8_status_counts.get(status, 0) + 1
+    if (
+        manifest.get("runtime_segment_8_material_assignment_observation_count")
+        != len(segment_8_resolutions)
+        or manifest.get("runtime_segment_8_resolution_status_counts")
+        != dict(sorted(segment_8_status_counts.items()))
+    ):
+        raise ValueError("runtime material segment-8 resolution inventory changed")
+    payload_hashes = sorted(
+        {
+            resolution["payload_sha256"]
+            for resolution in segment_8_resolutions
+            if isinstance(resolution.get("payload_sha256"), str)
+        }
+    )
+    effective_payload_hashes = sorted(
+        {
+            resolution["payload_sha256"]
+            for resolution in segment_8_resolutions
+            if resolution.get("status")
+            == "exact-runtime-list-effective-state"
+            and isinstance(resolution.get("payload_sha256"), str)
+        }
+    )
+    if (
+        manifest.get("runtime_segment_8_payload_count") != len(payload_hashes)
+        or manifest.get("runtime_segment_8_payload_sha256") != payload_hashes
+        or manifest.get("runtime_segment_8_effective_payload_count")
+        != len(effective_payload_hashes)
+        or manifest.get("runtime_segment_8_effective_payload_sha256")
+        != effective_payload_hashes
+    ):
+        raise ValueError("runtime material segment-8 payload inventory changed")
     written = json.loads((output / "manifest.json").read_text(encoding="utf-8"))
     if written != manifest:
         raise ValueError("runtime material manifest did not round-trip through JSON")
+
+
+def backfill_runtime_convert_modes(event: dict[str, Any]) -> None:
+    """Replay retained command evidence to upgrade traces made before EC capture."""
+
+    draw_runs = event.get("state", {}).get("rdp", {}).get("draw_runs", [])
+    if not draw_runs or all(
+        "convert_mode" in run.get("state", {}) for run in draw_runs
+    ):
+        return
+    root_data = None
+    nested_data: dict[int, bytes] = {}
+    for item in event.get("evidence", {}).get("memory", []):
+        name = item.get("name", "")
+        encoded = item.get("data_base64")
+        if not isinstance(encoded, str):
+            continue
+        if name == "command-buffer":
+            root_data = base64.b64decode(encoded)
+        elif name.startswith("nested-display-list-"):
+            resolved = item.get("resolved_address")
+            if isinstance(resolved, str):
+                nested_data[int(resolved, 16)] = base64.b64decode(encoded)
+    # Synthetic tests and older minimal traces may not retain the raw task.
+    if root_data is None:
+        return
+    flattened, unresolved = flatten_display_lists(root_data, nested_data)
+    if unresolved:
+        raise ValueError("runtime trace convert-state replay has unresolved display lists")
+    replayed = decode_f3dex2_cbfd(flattened)["rdp"]["draw_runs"]
+    if len(replayed) != len(draw_runs):
+        raise ValueError("runtime trace convert-state replay draw count changed")
+    for original, refreshed in zip(draw_runs, replayed):
+        identity = ("command_offset", "opcode", "triangle_count")
+        if any(original.get(key) != refreshed.get(key) for key in identity):
+            raise ValueError("runtime trace convert-state replay draw identity changed")
+        original.setdefault("state", {})["convert_mode"] = refreshed["state"].get(
+            "convert_mode"
+        )
+
+
+def load_character_activity_trace(
+    path: Path,
+    expected_digest: str,
+    valid_entries: set[int],
+) -> dict[str, Any]:
+    """Validate one character-pool snapshot trace and return stable evidence."""
+
+    data = path.read_bytes()
+    lines = [json.loads(line) for line in data.splitlines() if line.strip()]
+    if not lines or lines[0].get("record_type") != "session":
+        raise ValueError(f"character activity trace has no session record: {path}")
+    if lines[0].get("spec_name") != "character-model-activity":
+        raise ValueError(f"character activity trace uses the wrong spec: {path}")
+    if any(line.get("schema") != "conker.model-draw-state-trace/v1" for line in lines):
+        raise ValueError(f"character activity trace schema changed: {path}")
+    trace_digest = lines[0].get("normalized_sha1")
+    if trace_digest is not None and trace_digest != expected_digest:
+        raise ValueError(f"character activity trace belongs to a different ROM: {path}")
+    events = [line for line in lines if line.get("record_type") == "draw_state"]
+    if not events:
+        raise ValueError(f"character activity trace has no snapshot event: {path}")
+    snapshots = []
+    for event_index, event in enumerate(events):
+        pool = event.get("state", {}).get("model", {})
+        records = pool.get("active_records")
+        if (
+            pool.get("character_pool_address") != CHARACTER_POOL_ADDRESS
+            or pool.get("record_size") != CHARACTER_POOL_RECORD_SIZE
+            or pool.get("record_count") != CHARACTER_POOL_RECORD_COUNT
+            or not isinstance(records, list)
+            or pool.get("active_record_count") != len(records)
+        ):
+            raise ValueError(f"character activity pool contract changed: {path}")
+        seen_slots = set()
+        entries = []
+        for record in records:
+            slot = int(record["slot"])
+            entry = int(record["entry"])
+            offset = slot * CHARACTER_POOL_RECORD_SIZE
+            if (
+                not 0 <= slot < CHARACTER_POOL_RECORD_COUNT
+                or slot in seen_slots
+                or int(record["record_offset"]) != offset
+                or int(record["record_address"]) != CHARACTER_POOL_ADDRESS + offset
+                or int(record["owner_address"]) == 0
+            ):
+                raise ValueError(f"character activity record identity changed: {path}")
+            if entry not in valid_entries:
+                raise ValueError(
+                    f"character activity references absent bank-01 entry {entry}: {path}"
+                )
+            seen_slots.add(slot)
+            entries.append(entry)
+        if sorted(set(entries)) != pool.get("active_entries"):
+            raise ValueError(f"character activity entry summary changed: {path}")
+        snapshots.append(
+            {
+                "event_index": event_index,
+                "hit_index": event.get("hit_index"),
+                "render_state_hash": event.get("render_state_hash"),
+                "active_record_count": len(records),
+                "active_entries": sorted(set(entries)),
+                "active_records": records,
+            }
+        )
+    return {
+        "file": display_path(path),
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "normalized_sha1": trace_digest,
+        "tool_revisions": lines[0].get("tool_revisions"),
+        "snapshot_count": len(snapshots),
+        "snapshots": snapshots,
+    }
+
+
+def load_character_part_table_trace(
+    path: Path,
+    expected_digest: str,
+) -> dict[str, Any]:
+    """Validate one graphics-boundary snapshot of the renderer part headers."""
+
+    data = path.read_bytes()
+    lines = [json.loads(line) for line in data.splitlines() if line.strip()]
+    if not lines or lines[0].get("record_type") != "session":
+        raise ValueError(f"character part-table trace has no session record: {path}")
+    if lines[0].get("spec_name") != "character-model-part-tables":
+        raise ValueError(f"character part-table trace uses the wrong spec: {path}")
+    if any(line.get("schema") != "conker.model-draw-state-trace/v1" for line in lines):
+        raise ValueError(f"character part-table trace schema changed: {path}")
+    trace_digest = lines[0].get("normalized_sha1")
+    if trace_digest is not None and trace_digest != expected_digest:
+        raise ValueError(f"character part-table trace belongs to a different ROM: {path}")
+    events = [line for line in lines if line.get("record_type") == "draw_state"]
+    if len(events) != 1 or events[0].get("breakpoint") != (
+        "character-part-tables-at-graphics-submit"
+    ):
+        raise ValueError(f"character part-table trace event changed: {path}")
+    event = events[0]
+    probes = {
+        probe["name"]: probe
+        for probe in event.get("evidence", {}).get("memory", [])
+    }
+    table_inputs = []
+    for name, address, length in (
+        ("character-part-pointer-table", 0x800C4488, CHARACTER_PART_POINTER_TABLE_SIZE),
+        ("character-part-count-table", 0x800C4778, CHARACTER_PART_COUNT_TABLE_SIZE),
+        (
+            "character-extra-part-pointer-table",
+            0x800C48F0,
+            CHARACTER_PART_POINTER_TABLE_SIZE,
+        ),
+    ):
+        probe = probes.get(name)
+        if (
+            probe is None
+            or int(probe["resolved_address"], 0) != address
+            or int(probe["length"]) != length
+        ):
+            raise ValueError(f"character part-table probe changed: {path}")
+        payload = base64.b64decode(probe["data_base64"], validate=True)
+        if len(payload) != length or hashlib.sha256(payload).hexdigest() != probe["sha256"]:
+            raise ValueError(f"character part-table payload changed: {path}")
+        table_inputs.append(payload)
+    decoded_tables = decode_cbfd_character_part_table_headers(*table_inputs)
+    if decoded_tables != event.get("state", {}).get("model", {}).get("part_tables"):
+        raise ValueError(f"character part-table decode changed: {path}")
+    return {
+        "file": display_path(path),
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "normalized_sha1": trace_digest,
+        "tool_revisions": lines[0].get("tool_revisions"),
+        "table_record_count": len(decoded_tables),
+        "part_tables": decoded_tables,
+    }
+
+
+def character_display_list_topology(
+    bundles: list[ModelBundle],
+) -> dict[tuple[int, str, int], dict[str, Any]]:
+    """Map renderer part-table slots to exact ROM display-list clusters."""
+
+    topology: dict[tuple[int, str, int], dict[str, Any]] = {}
+    table_names = {"primary": "normal", "secondary": "extra"}
+    for bundle in bundles:
+        if len(bundle.segments) != 1 or bundle.segments[0].index != 0:
+            raise ValueError("bank-01 character bundle topology changed")
+        segment = bundle.segments[0]
+        geometry, layout = parse_character_model_geometry(segment.data)
+        display = segment.data[
+            geometry.display_list_offset :
+            geometry.display_list_offset + geometry.display_list_size
+        ]
+        clusters = geometry_clusters(display)
+        assigned_clusters: set[int] = set()
+        for table in layout["display_list_pointer_tables"]:
+            renderer_table = table_names[table["name"]]
+            for part_index, encoded_pointer in enumerate(table["pointers"]):
+                pointer = int(encoded_pointer, 0)
+                relative_start = pointer - geometry.display_list_offset
+                relative_end = None
+                for offset in range(relative_start, len(display), 8):
+                    command, argument = struct.unpack_from(">II", display, offset)
+                    if command == 0xDF000000 and argument == 0:
+                        relative_end = offset + 8
+                        break
+                if relative_end is None:
+                    raise ValueError(
+                        f"bank-01 entry {bundle.index} part list has no EndDL"
+                    )
+                cluster_indices = {
+                    index
+                    for index, cluster in enumerate(clusters)
+                    if relative_start <= int(cluster["command_offset"]) < relative_end
+                }
+                overlap = assigned_clusters.intersection(cluster_indices)
+                if overlap:
+                    raise ValueError(
+                        f"bank-01 entry {bundle.index} part lists overlap clusters"
+                    )
+                assigned_clusters.update(cluster_indices)
+                topology[(bundle.index, renderer_table, part_index)] = {
+                    "static_pointer_offset": pointer,
+                    "static_cluster_indices": cluster_indices,
+                }
+        if assigned_clusters != set(range(len(clusters))):
+            raise ValueError(
+                f"bank-01 entry {bundle.index} part lists do not cover all clusters"
+            )
+    return topology
+
+
+def character_palette_matrix_slot(root_address: int, matrix_address: int) -> int | None:
+    """Resolve a palette-global slot from absolute character matrix addresses.
+
+    F3DEX2CBFD may rebind segment 3 to an interior palette address, so a
+    display-list command's segment-relative offset is not a stable palette
+    index. The renderer-provided root address and captured absolute matrix
+    address are.
+    """
+
+    delta = (int(matrix_address) - int(root_address)) & 0xFFFFFFFF
+    if delta > 0xFFFFFF or delta % 0x40:
+        return None
+    return delta // 0x40
+
+
+def character_render_pass(caller_return_address: int | None, draw_mode: int) -> dict[str, Any]:
+    """Classify the proven US render-to-texture call without guessing by model ID."""
+
+    if caller_return_address == 0x15185154:
+        if draw_mode != 3:
+            raise ValueError("US render-to-texture callsite no longer passes draw mode 3")
+        # func_15184FA4 emits FF48003F to *D_800DF088 before this call,
+        # then samples that buffer as I8. Its geometry is not a body overlay.
+        return {
+            "kind": "render-to-texture",
+            "evidence": "us-caller-0x15184FA4-call-0x1518514C",
+            "caller_return_address": "0x15185154",
+            "draw_mode": 3,
+            "color_image_command": "0xFF48003F",
+            "color_buffer_pointer_address": "0x800DF088",
+            "width": 64,
+            "storage_bits_per_pixel": 8,
+            "subsequent_sample_format": "i8",
+        }
+    return {"kind": "caller-managed-target", "evidence": "not-classified-as-render-to-texture"}
+
+
+def link_character_graphics_submission(
+    events: list[dict[str, Any]], draw_call: dict[str, Any]
+) -> dict[str, Any] | None:
+    """Prove a renderer range executes once in the next captured graphics task."""
+
+    return_index = int(draw_call["return_event_index"])
+    following = [(index, event) for index, event in enumerate(events)
+                 if index > return_index and captured_task_type(event) == 1]
+    if not following:
+        return None
+    submit_index, submitted = following[0]
+    returned = events[return_index]
+    start, end = draw_call["command_buffer_start"], draw_call["command_buffer_end"]
+    roots = [probe for probe in returned.get("evidence", {}).get("memory", [])
+             if probe.get("name") == "character-command-buffer" and "data_base64" in probe]
+    if len(roots) != 1:
+        return None
+
+    def payload(probe):
+        raw = base64.b64decode(probe["data_base64"], validate=True)
+        if len(raw) != probe["length"] or hashlib.sha256(raw).hexdigest() != probe["sha256"]:
+            raise ValueError("character submission memory identity changed")
+        return raw
+
+    raw = payload(roots[0])
+    if len(raw) != end - start or int(roots[0]["resolved_address"], 0) != start:
+        raise ValueError("character submission range identity changed")
+    probes = submitted.get("evidence", {}).get("memory", [])
+    tasks = [probe for probe in probes if probe.get("name") == "task"]
+    submitted_roots = [probe for probe in probes if probe.get("name") == "command-buffer"]
+    if len(tasks) != 1 or len(submitted_roots) != 1:
+        return None
+    task = payload(tasks[0])
+    task_root = submitted_roots[0]
+    if ((int.from_bytes(task[48:52], "big") & 0x1FFFFFFF)
+            != (int(task_root["resolved_address"], 0) & 0x1FFFFFFF)
+            or int.from_bytes(task[52:56], "big") != task_root["length"]):
+        return None
+    command_probes = [probe for probe in probes if probe.get("name") == "command-buffer"
+                      or probe.get("name", "").startswith("nested-display-list-")]
+    if not any(
+        int(probe["resolved_address"], 0) <= start
+        and end <= int(probe["resolved_address"], 0) + probe["length"]
+        and payload(probe)[start-int(probe["resolved_address"], 0):end-int(probe["resolved_address"], 0)] == raw
+        for probe in command_probes
+    ):
+        return None
+    rdp = submitted.get("state", {}).get("rdp", {})
+    origins = rdp.get("replayed_command_origins", [])
+    counts: dict[int, int] = {}
+    for path in origins:
+        counts[path[-1]] = counts.get(path[-1], 0) + 1
+    if any(counts.get(address) != 1 for address in range(start, end, 8)):
+        return None
+    scoped_draws = [draw for draw in rdp.get("draw_runs", [])
+                    if any(start <= address < end
+                           for address in origins[draw["command_offset"] // 8])]
+    return_rdp = returned.get("state", {}).get("rdp", {})
+    if sum(draw["triangle_count"] for draw in scoped_draws) != sum(
+        draw["triangle_count"] for draw in return_rdp.get("draw_runs", [])
+    ):
+        return None
+    # Geometry-bearing lists must retain their bytes. Inherited material lists
+    # may be visible only from the enclosing task, so they are not guessed here.
+    submitted_lists = {int(probe["resolved_address"], 0): payload(probe)
+                       for probe in command_probes}
+    for record in return_rdp.get("walked_display_lists", []):
+        if record.get("rdp", {}).get("model_correlations"):
+            data = submitted_lists.get(record["address"])
+            if data is None or hashlib.sha256(data).hexdigest() != record["sha256"]:
+                return None
+    matrix_probes = {int(probe["resolved_address"], 0): probe for probe in probes
+                     if probe.get("name", "").startswith("runtime-matrix-")}
+    matrices = []
+    changed_slots = []
+    for matrix in draw_call.get("runtime_matrices", []):
+        probe = matrix_probes.get(matrix["address"])
+        if probe is None:
+            return None
+        decoded = decode_rsp_matrix(payload(probe))
+        rows = decoded["rows"]
+        if any(rows[row][3] != float(row == 3) for row in range(4)):
+            return None
+        if any(abs(rows[row][column] - matrix["rows"][row][column]) > 1 / 65536
+               for row in range(4) for column in range(3)):
+            changed_slots.append(matrix["matrix_slot"])
+        matrices.append({**matrix, **decoded, "sha256": probe["sha256"],
+                         "status": "decoded-affine-components"})
+    if not matrices:
+        return None
+    return {"status": "captured-range-executed-once-in-next-graphics-task",
+            "event_index": submit_index, "command_buffer_start": start,
+            "command_buffer_end": end, "command_sha256": roots[0]["sha256"],
+            "triangle_count": sum(draw["triangle_count"] for draw in scoped_draws),
+            "matrices_changed_after_return": sorted(changed_slots),
+            "runtime_matrices": matrices}
+
+
+def load_character_draw_trace(
+    path: Path,
+    expected_digest: str,
+    valid_entries: set[int],
+    display_list_topology: dict[
+        tuple[int, str, int], dict[str, Any]
+    ] | None = None,
+    model_cluster_index: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
+    """Validate paired character-renderer entry/return events from one state."""
+
+    data = path.read_bytes()
+    lines = [json.loads(line) for line in data.splitlines() if line.strip()]
+    if not lines or lines[0].get("record_type") != "session":
+        raise ValueError(f"character draw trace has no session record: {path}")
+    if lines[0].get("spec_name") != "character-model-draw-ranges":
+        raise ValueError(f"character draw trace uses the wrong spec: {path}")
+    if any(line.get("schema") != "conker.model-draw-state-trace/v1" for line in lines):
+        raise ValueError(f"character draw trace schema changed: {path}")
+    trace_digest = lines[0].get("normalized_sha1")
+    if trace_digest is not None and trace_digest != expected_digest:
+        raise ValueError(f"character draw trace belongs to a different ROM: {path}")
+
+    pending: list[dict[str, Any]] = []
+    draw_calls = []
+    boundary_count = 0
+    task_type_counts: dict[int | None, int] = {}
+    events = [line for line in lines if line.get("record_type") == "draw_state"]
+    for event_index, event in enumerate(events):
+        if model_cluster_index is not None:
+            refresh_trace_model_correlations(event, model_cluster_index)
+        breakpoint = event.get("breakpoint")
+        model = event.get("state", {}).get("model", {})
+        registers = event.get("evidence", {}).get("registers", {})
+        try:
+            stack_pointer = int(registers["sp"], 0) & 0xFFFFFFFF
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError(f"character draw stack evidence changed: {path}") from error
+        if breakpoint == "character-model-draw-enter":
+            slot = int(model["draw_character_slot"])
+            records = model.get("active_records", [])
+            selected = [record for record in records if int(record["slot"]) == slot]
+            if len(selected) != 1:
+                raise ValueError(f"character draw slot is not active: {path}")
+            entry = int(selected[0]["entry"])
+            if entry not in valid_entries:
+                raise ValueError(
+                    f"character draw references absent bank-01 entry {entry}: {path}"
+                )
+            start = int(model["command_buffer_start"]) & 0xFFFFFFFF
+            if start & 7:
+                raise ValueError(f"character draw start is not aligned: {path}")
+            caller_return_address = (
+                int(registers["ra"], 0) & 0xFFFFFFFF if "ra" in registers else None
+            )
+            pending.append(
+                {
+                    "event_index": event_index,
+                    "hit_index": event.get("hit_index"),
+                    "slot": slot,
+                    "entry": entry,
+                    "task_submission_index": boundary_count,
+                    "command_buffer_start": start,
+                    "return_stack_pointer": (stack_pointer - 0x150) & 0xFFFFFFFF,
+                    "root_matrix_address": int(model["root_matrix_address"])
+                    & 0xFFFFFFFF,
+                    "part_selections": [],
+                    "caller_return_address": (
+                        f"0x{caller_return_address:08X}" if caller_return_address is not None else None
+                    ),
+                    "render_pass": character_render_pass(
+                        caller_return_address, int(model["draw_argument_6"])
+                    ),
+                    "arguments": [
+                        int(model[f"draw_argument_{index}"])
+                        for index in range(4, 8)
+                    ],
+                }
+            )
+        elif breakpoint in {
+            "character-normal-part-selected",
+            "character-extra-part-selected",
+        }:
+            matches = [
+                index
+                for index, record in enumerate(pending)
+                if record["return_stack_pointer"] == stack_pointer
+            ]
+            if not matches:
+                raise ValueError(
+                    f"character part selection has no matching draw entry: {path}"
+                )
+            record = pending[matches[-1]]
+            character_record_address = int(model["character_record_address"]) & 0xFFFFFFFF
+            expected_record_address = (
+                CHARACTER_POOL_ADDRESS
+                + int(record["slot"]) * CHARACTER_POOL_RECORD_SIZE
+            )
+            if character_record_address != expected_record_address:
+                raise ValueError(
+                    f"character part selection record address changed: {path}"
+                )
+            record["part_selections"].append(
+                {
+                    "event_index": event_index,
+                    "hit_index": event.get("hit_index"),
+                    "table": (
+                        "normal"
+                        if breakpoint == "character-normal-part-selected"
+                        else "extra"
+                    ),
+                    "display_model_index": int(model["display_model_index"]),
+                    "secondary_model_index": int(model["secondary_model_index"]),
+                    "draw_mode": int(model["draw_mode"]),
+                    "part_index": int(model["part_index"]),
+                    "part_table_slot_address": int(
+                        model["part_table_slot_address"]
+                    )
+                    & 0xFFFFFFFF,
+                    "selected_display_list": int(model["selected_display_list"])
+                    & 0xFFFFFFFF,
+                }
+            )
+        elif breakpoint == "character-model-draw-return":
+            matches = [
+                index
+                for index, record in enumerate(pending)
+                if record["return_stack_pointer"] == stack_pointer
+            ]
+            if not matches:
+                raise ValueError(f"character draw return has no matching entry: {path}")
+            record = pending.pop(matches[-1])
+            end = int(model["command_buffer_end"]) & 0xFFFFFFFF
+            if end < record["command_buffer_start"] or end & 7:
+                raise ValueError(f"character draw command range changed: {path}")
+            record.pop("return_stack_pointer")
+            record.update(
+                {
+                    "return_event_index": event_index,
+                    "return_hit_index": event.get("hit_index"),
+                    "command_buffer_end": end,
+                    "command_byte_count": end - record["command_buffer_start"],
+                }
+            )
+            command_probe = next(
+                (
+                    probe
+                    for probe in event.get("evidence", {}).get("memory", [])
+                    if probe.get("name") == "character-command-buffer"
+                ),
+                None,
+            )
+            if command_probe is not None:
+                if (
+                    int(command_probe["resolved_address"], 0)
+                    != record["command_buffer_start"]
+                    or int(command_probe["length"]) != record["command_byte_count"]
+                ):
+                    raise ValueError(
+                        f"character draw command evidence changed: {path}"
+                    )
+                rdp = event.get("state", {}).get("rdp", {})
+                correlations = rdp.get("model_correlations", [])
+                material_correlations = rdp.get(
+                    "material_run_correlations", []
+                )
+                model_sequence = resolve_character_model_sequence(correlations)
+                walked_lists_by_address = {
+                    int(item["address"]): item
+                    for item in rdp.get("walked_display_lists", [])
+                }
+                for selection in record["part_selections"]:
+                    selected_list = walked_lists_by_address.get(
+                        selection["selected_display_list"]
+                    )
+                    if selected_list is None:
+                        raise ValueError(
+                            "character selected part list was not captured: "
+                            f"{path}"
+                        )
+                    selected_correlations = selected_list.get("rdp", {}).get(
+                        "model_correlations", []
+                    )
+                    selection["display_list_sha256"] = selected_list["sha256"]
+                    selection["display_list_byte_count"] = int(
+                        selected_list["length"]
+                    )
+                    selection["model_correlation_count"] = len(
+                        selected_correlations
+                    )
+                    selection["_model_correlations"] = selected_correlations
+                    topology = (
+                        display_list_topology.get(
+                            (
+                                int(selection["display_model_index"]),
+                                selection["table"],
+                                int(selection["part_index"]),
+                            )
+                        )
+                        if display_list_topology is not None
+                        else None
+                    )
+                    if display_list_topology is not None and topology is None:
+                        raise ValueError(
+                            "character selected part is absent from the ROM pointer "
+                            f"table: {path}"
+                        )
+                    if topology is not None:
+                        static_pointer = int(topology["static_pointer_offset"])
+                        selection["static_display_list_offset"] = static_pointer
+                        selection["model_runtime_base"] = (
+                            int(selection["selected_display_list"]) - static_pointer
+                        ) & 0xFFFFFFFF
+                    selection_resolution = resolve_character_model_sequence(
+                        selected_correlations,
+                        expected_bank_entry=(
+                            0x01,
+                            int(selection["display_model_index"]),
+                        ),
+                        expected_static_cluster_indices=(
+                            set(topology["static_cluster_indices"])
+                            if topology is not None
+                            else None
+                        ),
+                    )
+                    if (
+                        topology is not None
+                        and selection_resolution.get("status") == "resolved"
+                    ):
+                        selection_resolution["resolution_basis"] = (
+                            "renderer-model-header-pointer-table"
+                        )
+                    selection["model_sequence_resolution"] = selection_resolution
+                runtime_bases: dict[int, set[int]] = {}
+                for selection in record["part_selections"]:
+                    runtime_base = selection.get("model_runtime_base")
+                    if runtime_base is not None:
+                        runtime_bases.setdefault(
+                            int(selection["display_model_index"]), set()
+                        ).add(int(runtime_base))
+                if any(len(bases) != 1 for bases in runtime_bases.values()):
+                    raise ValueError(
+                        f"character selected parts disagree on model base: {path}"
+                    )
+                resolve_character_part_selection_sequence(record["part_selections"])
+                part_sequence = resolve_character_call_from_part_selections(
+                    record["part_selections"]
+                )
+                if (
+                    model_sequence.get("status") != "resolved"
+                    and part_sequence is not None
+                ):
+                    model_sequence = part_sequence
+                runtime_matrices_by_slot: dict[int, dict[str, Any]] = {}
+                for matrix in event.get("state", {}).get("joint_matrices", []):
+                    references = matrix.get("references", [])
+                    if not any(reference.get("segment") == 3 for reference in references):
+                        continue
+                    matrix_slot = character_palette_matrix_slot(
+                        record["root_matrix_address"], matrix["address"]
+                    )
+                    if matrix_slot is None:
+                        raise ValueError(
+                            "character runtime matrix address changed: "
+                            f"{path}"
+                        )
+                    candidate = {
+                        "matrix_slot": matrix_slot,
+                        "address": int(matrix["address"]),
+                        "sha256": matrix["sha256"],
+                        "layout": matrix.get("layout"),
+                        "status": matrix.get("status"),
+                        "rows": matrix.get("rows"),
+                        "translation": matrix.get("translation"),
+                    }
+                    previous = runtime_matrices_by_slot.get(matrix_slot)
+                    if previous is not None and previous != candidate:
+                        raise ValueError(
+                            "character runtime matrix slot has conflicting "
+                            f"captures: {path}"
+                        )
+                    runtime_matrices_by_slot[matrix_slot] = candidate
+                record.update(
+                    {
+                        "command_sha256": command_probe["sha256"],
+                        "decoded_command_count": int(
+                            rdp.get("effective_command_count", 0)
+                        ),
+                        "nested_display_list_call_count": len(
+                            rdp.get("nested_display_lists", [])
+                        ),
+                        "model_correlation_count": len(correlations),
+                        "model_correlations": correlations,
+                        "model_sequence_resolution": model_sequence,
+                        "material_run_correlation_count": len(
+                            material_correlations
+                        ),
+                        "material_run_correlations": material_correlations,
+                        "part_selection_count": len(record["part_selections"]),
+                        "runtime_matrix_count": len(
+                            event.get("state", {}).get("joint_matrices", [])
+                        ),
+                        "runtime_matrices": [
+                            runtime_matrices_by_slot[slot]
+                            for slot in sorted(runtime_matrices_by_slot)
+                        ],
+                    }
+                )
+            draw_calls.append(record)
+        elif breakpoint == "character-draws-at-graphics-submit":
+            task_type = captured_task_type(event)
+            task_type_counts[task_type] = task_type_counts.get(task_type, 0) + 1
+            # Preserve the historical RSP-boundary index used by stored poses.
+            # Older specs also captured audio; this is not proof of a draw's
+            # inclusion in a submitted graphics command buffer.
+            boundary_count += 1
+        else:
+            raise ValueError(f"character draw trace breakpoint changed: {path}")
+    if pending:
+        raise ValueError(f"character draw trace has unterminated calls: {path}")
+    if boundary_count < 1 or not events or events[-1].get("breakpoint") != (
+        "character-draws-at-graphics-submit"
+    ):
+        raise ValueError(f"character draw trace has no terminal graphics boundary: {path}")
+    for draw_call in draw_calls:
+        submission = link_character_graphics_submission(events, draw_call)
+        if submission is not None:
+            draw_call["renderer_return_matrices"] = draw_call["runtime_matrices"]
+            draw_call["runtime_matrices"] = submission.pop("runtime_matrices")
+            draw_call["submitted_graphics"] = submission
+    return {
+        "file": display_path(path),
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "normalized_sha1": trace_digest,
+        "tool_revisions": lines[0].get("tool_revisions"),
+        "event_count": len(events),
+        "task_submission_count": boundary_count,
+        "graphics_task_submission_count": task_type_counts.get(1, 0),
+        "non_graphics_task_submission_count": sum(
+            count for kind, count in task_type_counts.items() if kind not in (None, 1)
+        ),
+        "untyped_task_submission_count": task_type_counts.get(None, 0),
+        "draw_call_count": len(draw_calls),
+        "submitted_graphics_draw_call_count": sum("submitted_graphics" in call for call in draw_calls),
+        "draw_calls": draw_calls,
+    }
+
+
+def resolve_character_model_sequence(
+    correlations: list[dict[str, Any]],
+    expected_bank_entry: tuple[int, int] | None = None,
+    expected_static_cluster_indices: set[int] | None = None,
+) -> dict[str, Any]:
+    """Resolve one renderer call by its shared model and static cluster order."""
+
+    if not correlations:
+        return {"status": "no-model-correlations", "resolved_clusters": []}
+
+    def candidate_allowed(candidate: dict[str, Any]) -> bool:
+        return bool(
+            (
+                expected_bank_entry is None
+                or (
+                    int(candidate["bank"]),
+                    int(candidate["entry"]),
+                )
+                == expected_bank_entry
+            )
+            and (
+                expected_static_cluster_indices is None
+                or int(candidate["static_cluster_index"])
+                in expected_static_cluster_indices
+            )
+        )
+
+    identity_sets = [
+        {
+            (
+                int(candidate["bank"]),
+                int(candidate["entry"]),
+                int(candidate["segment"]),
+                candidate["model_sha1"],
+            )
+            for candidate in correlation.get("candidates", [])
+            if candidate_allowed(candidate)
+        }
+        for correlation in correlations
+    ]
+    common_identities = set.intersection(*identity_sets)
+    if len(common_identities) != 1:
+        return {
+            "status": "no-unique-common-model",
+            "common_model_count": len(common_identities),
+            "resolved_clusters": [],
+        }
+    identity = next(iter(common_identities))
+    layers = []
+    for correlation in correlations:
+        candidates_by_cluster = {
+            int(candidate["static_cluster_index"]): candidate
+            for candidate in correlation.get("candidates", [])
+            if (
+                int(candidate["bank"]),
+                int(candidate["entry"]),
+                int(candidate["segment"]),
+                candidate["model_sha1"],
+            )
+            == identity
+            and candidate_allowed(candidate)
+        }
+        if not candidates_by_cluster:
+            return {
+                "status": "common-model-missing-cluster",
+                "common_model_count": 1,
+                "resolved_clusters": [],
+            }
+        layers.append(
+            [candidates_by_cluster[index] for index in sorted(candidates_by_cluster)]
+        )
+
+    paths = [
+        (candidate, 1, [candidate])
+        for candidate in layers[0]
+    ]
+    for layer in layers[1:]:
+        next_paths = []
+        for candidate in layer:
+            compatible = [
+                (count, path)
+                for previous, count, path in paths
+                if count
+                and int(previous["static_cluster_index"])
+                < int(candidate["static_cluster_index"])
+            ]
+            count = min(2, sum(item[0] for item in compatible))
+            path = compatible[0][1] + [candidate] if compatible else []
+            next_paths.append((candidate, count, path))
+        paths = next_paths
+    path_count = min(2, sum(count for _, count, _ in paths))
+    if path_count != 1:
+        return {
+            "status": "ambiguous-static-cluster-order",
+            "common_model_count": 1,
+            "candidate_path_count": path_count,
+            "source_model": {
+                "bank": identity[0],
+                "entry": identity[1],
+                "segment": identity[2],
+                "model_sha1": identity[3],
+            },
+            "resolved_clusters": [],
+        }
+    selected = next(path for _, count, path in paths if count == 1)
+    return {
+        "status": "resolved",
+        "common_model_count": 1,
+        "candidate_path_count": 1,
+        "source_model": {
+            "bank": identity[0],
+            "entry": identity[1],
+            "segment": identity[2],
+            "model_sha1": identity[3],
+        },
+        "resolved_cluster_count": len(selected),
+        "resolved_face_count": sum(
+            int(candidate["triangle_count"]) for candidate in selected
+        ),
+        "resolved_clusters": [
+            {
+                "static_cluster_index": int(candidate["static_cluster_index"]),
+                "first_face": int(candidate["static_first_face"]),
+                "face_count": int(candidate["triangle_count"]),
+                "material_run": int(candidate["material_run"]["index"]),
+                "matrix_index": candidate["material_run"].get("matrix_index"),
+            }
+            for candidate in selected
+        ],
+    }
+
+
+def resolve_character_part_selection_sequence(
+    selections: list[dict[str, Any]],
+) -> None:
+    """Use renderer part order to resolve aliases spanning sibling part lists."""
+
+    display_model_indices = {
+        int(selection["display_model_index"]) for selection in selections
+    }
+    all_correlations = [
+        correlation
+        for selection in selections
+        for correlation in selection.get("_model_correlations", [])
+    ]
+    if len(display_model_indices) == 1 and all_correlations:
+        display_model_index = next(iter(display_model_indices))
+        combined = resolve_character_model_sequence(
+            all_correlations,
+            expected_bank_entry=(0x01, display_model_index),
+        )
+        if combined.get("status") == "resolved":
+            offset = 0
+            for selection in selections:
+                count = int(selection["model_correlation_count"])
+                clusters = combined["resolved_clusters"][offset : offset + count]
+                offset += count
+                ordered_resolution = {
+                    "status": "resolved",
+                    "resolution_basis": "renderer-model-index-and-part-order",
+                    "common_model_count": 1,
+                    "candidate_path_count": 1,
+                    "source_model": combined["source_model"],
+                    "resolved_cluster_count": len(clusters),
+                    "resolved_face_count": sum(
+                        int(cluster["face_count"]) for cluster in clusters
+                    ),
+                    "resolved_clusters": clusters,
+                }
+                previous = selection.get("model_sequence_resolution", {})
+                if previous.get("status") == "resolved":
+                    if previous.get("resolved_clusters") != clusters:
+                        raise ValueError(
+                            "renderer part-list and sibling-order resolutions disagree"
+                        )
+                else:
+                    selection["model_sequence_resolution"] = ordered_resolution
+            if offset != len(combined["resolved_clusters"]):
+                raise ValueError("renderer part cluster partition changed")
+    for selection in selections:
+        selection.pop("_model_correlations", None)
+
+
+def resolve_character_call_from_part_selections(
+    selections: list[dict[str, Any]],
+) -> dict[str, Any] | None:
+    """Combine exact renderer-selected ROM part lists into one model sequence."""
+
+    if not selections:
+        return None
+    sequences = [
+        selection.get("model_sequence_resolution", {}) for selection in selections
+    ]
+    if any(sequence.get("status") != "resolved" for sequence in sequences):
+        return None
+    if any(
+        not isinstance(sequence.get("source_model"), dict) for sequence in sequences
+    ):
+        return None
+    source_models = {
+        (
+            int(sequence["source_model"]["bank"]),
+            int(sequence["source_model"]["entry"]),
+            int(sequence["source_model"]["segment"]),
+            sequence["source_model"]["model_sha1"],
+        )
+        for sequence in sequences
+    }
+    if len(source_models) != 1:
+        return None
+    clusters = [
+        cluster
+        for sequence in sequences
+        for cluster in sequence.get("resolved_clusters", [])
+    ]
+    if len(clusters) != sum(
+        int(selection.get("model_correlation_count", 0)) for selection in selections
+    ):
+        return None
+    cluster_indices = [int(cluster["static_cluster_index"]) for cluster in clusters]
+    if any(
+        previous >= current
+        for previous, current in zip(cluster_indices, cluster_indices[1:])
+    ):
+        return None
+    source = next(iter(source_models))
+    return {
+        "status": "resolved",
+        "resolution_basis": "renderer-model-header-pointer-table",
+        "common_model_count": 1,
+        "candidate_path_count": 1,
+        "source_model": {
+            "bank": source[0],
+            "entry": source[1],
+            "segment": source[2],
+            "model_sha1": source[3],
+        },
+        "resolved_cluster_count": len(clusters),
+        "resolved_face_count": sum(
+            int(cluster["face_count"]) for cluster in clusters
+        ),
+        "resolved_clusters": clusters,
+    }
+
+
+def extract_character_activity(
+    profile: str,
+    rom_argument: Path | None,
+    trace_paths: tuple[Path, ...],
+    runtime_material_path: Path | None,
+    output: Path,
+    force: bool,
+    draw_trace_paths: tuple[Path, ...] = (),
+    part_table_trace_paths: tuple[Path, ...] = (),
+) -> dict[str, Any]:
+    """Aggregate active bank-01 entries across reproducible savestate snapshots."""
+
+    if not trace_paths:
+        raise ValueError("at least one --trace JSONL file is required")
+    _, _, digest, bundles, _ = load_model_bundles(profile, rom_argument, 0x01)
+    valid_entries = {bundle.index for bundle in bundles}
+    material_catalog = (
+        load_runtime_material_catalog(runtime_material_path, digest)
+        if runtime_material_path is not None
+        else {}
+    )
+    material_entries = {key[1] for key in material_catalog if key[0] == 0x01}
+    source_traces = []
+    entry_states: dict[int, set[str]] = {}
+    entry_observations: dict[int, int] = {}
+    active_record_observation_count = 0
+    for source_path in trace_paths:
+        path = source_path if source_path.is_absolute() else ROOT / source_path
+        trace = load_character_activity_trace(path, digest, valid_entries)
+        state_name = path.stem
+        source_traces.append({"state": state_name, **trace})
+        for snapshot in trace["snapshots"]:
+            active_record_observation_count += snapshot["active_record_count"]
+            for record in snapshot["active_records"]:
+                entry = int(record["entry"])
+                entry_states.setdefault(entry, set()).add(state_name)
+                entry_observations[entry] = entry_observations.get(entry, 0) + 1
+    source_part_table_traces = []
+    renderer_part_table_records: dict[int, dict[str, Any]] = {}
+    for source_path in part_table_trace_paths:
+        path = source_path if source_path.is_absolute() else ROOT / source_path
+        trace = load_character_part_table_trace(path, digest)
+        state_name = path.stem
+        source_part_table_traces.append({"state": state_name, **trace})
+        for table in trace["part_tables"]:
+            model_index = int(table["model_index"])
+            record = renderer_part_table_records.setdefault(
+                model_index,
+                {
+                    "model_index": model_index,
+                    "states": set(),
+                    "part_counts": set(),
+                    "part_pointer_table_addresses": set(),
+                    "extra_part_pointer_table_addresses": set(),
+                },
+            )
+            record["states"].add(state_name)
+            record["part_counts"].add(int(table["part_count"]))
+            if table["part_pointer_table_address"] is not None:
+                record["part_pointer_table_addresses"].add(
+                    int(table["part_pointer_table_address"])
+                )
+            if table["extra_part_pointer_table_address"] is not None:
+                record["extra_part_pointer_table_addresses"].add(
+                    int(table["extra_part_pointer_table_address"])
+                )
+    source_draw_traces = []
+    drawn_entry_states: dict[int, set[str]] = {}
+    drawn_entry_observations: dict[int, int] = {}
+    composition_records: dict[tuple[str, int], dict[str, Any]] = {}
+    composition_instance_records: dict[
+        tuple[str, int, int, int, int, str], dict[str, Any]
+    ] = {}
+    display_list_topology = character_display_list_topology(bundles)
+
+    def new_composition_record(render_pass: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "render_pass": render_pass,
+            "call_count": 0,
+            "command_hashes": set(),
+            "command_byte_counts": set(),
+            "runtime_matrix_counts": set(),
+            "status_counts": {},
+            "parts": {},
+            "model_sequence_status_counts": {},
+            "sequence_source_models": set(),
+            "resolved_clusters": {},
+            "runtime_matrix_observations": {},
+            "renderer_part_selections": {},
+        }
+
+    def add_runtime_matrices(
+        composition: dict[str, Any], draw_call: dict[str, Any]
+    ) -> None:
+        for matrix in draw_call.get("runtime_matrices", []):
+            slot = int(matrix["matrix_slot"])
+            observations = composition["runtime_matrix_observations"].setdefault(
+                slot, {}
+            )
+            key = (
+                matrix.get("status"),
+                matrix["sha256"],
+            )
+            observation = observations.setdefault(
+                key,
+                {
+                    **matrix,
+                    "observation_count": 0,
+                },
+            )
+            observation["observation_count"] += 1
+
+    def add_composition_correlation(
+        composition: dict[str, Any], correlation: dict[str, Any]
+    ) -> None:
+        status = correlation.get("status", "unknown")
+        composition["status_counts"][status] = (
+            composition["status_counts"].get(status, 0) + 1
+        )
+        resolved = correlation.get("resolved")
+        if not isinstance(resolved, dict):
+            return
+        material_run = resolved.get("material_run") or {}
+        key = (
+            int(resolved["bank"]),
+            int(resolved["entry"]),
+            int(resolved["segment"]),
+            int(material_run["index"]),
+        )
+        part = composition["parts"].setdefault(
+            key,
+            {
+                "bank": key[0],
+                "entry": key[1],
+                "segment": key[2],
+                "material_run": key[3],
+                "first_face": int(material_run["first_face"]),
+                "face_count": int(material_run["face_count"]),
+                "model_sha1": resolved["model_sha1"],
+                "observation_count": 0,
+                "runtime_matrix_slots": set(),
+            },
+        )
+        part["observation_count"] += 1
+        matrix_slot = correlation.get("matrix_slot", {}).get("runtime")
+        if isinstance(matrix_slot, int):
+            part["runtime_matrix_slots"].add(matrix_slot)
+
+    def add_renderer_part_selections(
+        composition: dict[str, Any], draw_call: dict[str, Any]
+    ) -> None:
+        for selection in draw_call.get("part_selections", []):
+            sequence = selection.get("model_sequence_resolution", {})
+            source_model = sequence.get("source_model")
+            resolved_clusters = tuple(
+                int(cluster["static_cluster_index"])
+                for cluster in sequence.get("resolved_clusters", [])
+            )
+            source_identity = (
+                (
+                    int(source_model["bank"]),
+                    int(source_model["entry"]),
+                    int(source_model["segment"]),
+                    source_model["model_sha1"],
+                )
+                if isinstance(source_model, dict)
+                else None
+            )
+            key = (
+                selection["table"],
+                int(selection["display_model_index"]),
+                int(selection["part_index"]),
+                source_identity,
+                resolved_clusters,
+            )
+            record = composition["renderer_part_selections"].setdefault(
+                key,
+                {
+                    "table": selection["table"],
+                    "display_model_index": int(selection["display_model_index"]),
+                    "part_index": int(selection["part_index"]),
+                    "source_model": source_model,
+                    "resolved_clusters": list(
+                        sequence.get("resolved_clusters", [])
+                    ),
+                    "model_sequence_status": sequence.get("status", "absent"),
+                    "observation_count": 0,
+                    "draw_modes": set(),
+                    "secondary_model_indices": set(),
+                    "display_list_addresses": set(),
+                    "display_list_sha256s": set(),
+                    "display_list_byte_counts": set(),
+                    "static_display_list_offsets": set(),
+                    "model_runtime_bases": set(),
+                },
+            )
+            record["observation_count"] += 1
+            record["draw_modes"].add(int(selection["draw_mode"]))
+            record["secondary_model_indices"].add(
+                int(selection["secondary_model_index"])
+            )
+            record["display_list_addresses"].add(
+                int(selection["selected_display_list"])
+            )
+            record["display_list_sha256s"].add(
+                selection["display_list_sha256"]
+            )
+            record["display_list_byte_counts"].add(
+                int(selection["display_list_byte_count"])
+            )
+            if selection.get("static_display_list_offset") is not None:
+                record["static_display_list_offsets"].add(
+                    int(selection["static_display_list_offset"])
+                )
+            if selection.get("model_runtime_base") is not None:
+                record["model_runtime_bases"].add(
+                    int(selection["model_runtime_base"])
+                )
+
+    model_cluster_index = load_model_cluster_index() if draw_trace_paths else None
+    for draw_trace_index, source_path in enumerate(draw_trace_paths):
+        path = source_path if source_path.is_absolute() else ROOT / source_path
+        trace = load_character_draw_trace(
+            path,
+            digest,
+            valid_entries,
+            display_list_topology,
+            model_cluster_index,
+        )
+        state_name = path.stem
+        source_draw_traces.append(
+            {"trace_index": draw_trace_index, "state": state_name, **trace}
+        )
+        for draw_call in trace["draw_calls"]:
+            entry = int(draw_call["entry"])
+            render_pass = draw_call["render_pass"]
+            pass_kind = render_pass["kind"]
+            drawn_entry_states.setdefault(entry, set()).add(state_name)
+            drawn_entry_observations[entry] = (
+                drawn_entry_observations.get(entry, 0) + 1
+            )
+            composition = composition_records.setdefault(
+                (pass_kind, entry), new_composition_record(render_pass)
+            )
+            instance_key = (
+                state_name,
+                int(draw_call["task_submission_index"]),
+                int(draw_call["slot"]),
+                entry,
+                int(draw_call["root_matrix_address"]),
+                pass_kind,
+            )
+            instance = composition_instance_records.setdefault(
+                instance_key, new_composition_record(render_pass)
+            )
+            for target in (composition, instance):
+                target["call_count"] += 1
+                if draw_call.get("command_sha256") is not None:
+                    target["command_hashes"].add(draw_call["command_sha256"])
+                target["command_byte_counts"].add(
+                    int(draw_call["command_byte_count"])
+                )
+                if draw_call.get("runtime_matrix_count") is not None:
+                    target["runtime_matrix_counts"].add(
+                        int(draw_call["runtime_matrix_count"])
+                    )
+                sequence = draw_call.get("model_sequence_resolution", {})
+                sequence_status = sequence.get("status", "absent")
+                target["model_sequence_status_counts"][sequence_status] = (
+                    target["model_sequence_status_counts"].get(
+                        sequence_status, 0
+                    )
+                    + 1
+                )
+                source_model = sequence.get("source_model")
+                if isinstance(source_model, dict):
+                    source_key = (
+                        int(source_model["bank"]),
+                        int(source_model["entry"]),
+                        int(source_model["segment"]),
+                        source_model["model_sha1"],
+                    )
+                    target["sequence_source_models"].add(source_key)
+                    for cluster in sequence.get("resolved_clusters", []):
+                        cluster_key = (
+                            source_key[0],
+                            source_key[1],
+                            source_key[2],
+                            int(cluster["static_cluster_index"]),
+                        )
+                        resolved_cluster = target["resolved_clusters"].setdefault(
+                            cluster_key,
+                            {
+                                "bank": source_key[0],
+                                "entry": source_key[1],
+                                "segment": source_key[2],
+                                "model_sha1": source_key[3],
+                                **cluster,
+                                "observation_count": 0,
+                                "runtime_appearance_observations": set(),
+                            },
+                        )
+                        resolved_cluster["observation_count"] += 1
+                        resolved_cluster["runtime_appearance_observations"].add(
+                            (
+                                draw_trace_index,
+                                trace["sha256"],
+                                trace["file"],
+                                int(draw_call["return_event_index"]),
+                                draw_call.get("submitted_graphics", {}).get("event_index", -1),
+                                int(draw_call["command_buffer_start"]),
+                                int(draw_call["command_buffer_end"]),
+                            )
+                        )
+            add_runtime_matrices(instance, draw_call)
+            for target in (composition, instance):
+                add_renderer_part_selections(target, draw_call)
+            for correlation in draw_call.get("material_run_correlations", []):
+                add_composition_correlation(composition, correlation)
+                add_composition_correlation(instance, correlation)
+    active_entries = sorted(entry_states)
+    coverage = [
+        {
+            "entry": entry,
+            "state_count": len(entry_states[entry]),
+            "states": sorted(entry_states[entry]),
+            "active_record_observation_count": entry_observations[entry],
+            "runtime_material_covered": entry in material_entries,
+            "draw_call_count": drawn_entry_observations.get(entry, 0),
+            "draw_states": sorted(drawn_entry_states.get(entry, set())),
+        }
+        for entry in active_entries
+    ]
+    def composition_summary(
+        composition: dict[str, Any], include_runtime_matrices: bool = False
+    ) -> dict[str, Any]:
+        parts = []
+        for key in sorted(composition["parts"]):
+            part = composition["parts"][key]
+            parts.append(
+                {
+                    **{
+                        field: value
+                        for field, value in part.items()
+                        if field != "runtime_matrix_slots"
+                    },
+                    "runtime_matrix_slots": sorted(part["runtime_matrix_slots"]),
+                }
+            )
+        renderer_part_selections = []
+        for key in sorted(
+            composition["renderer_part_selections"], key=lambda value: repr(value)
+        ):
+            selection = composition["renderer_part_selections"][key]
+            renderer_part_selections.append(
+                {
+                    **{
+                        field: value
+                        for field, value in selection.items()
+                        if field
+                        not in {
+                            "draw_modes",
+                            "secondary_model_indices",
+                            "display_list_addresses",
+                            "display_list_sha256s",
+                            "display_list_byte_counts",
+                            "static_display_list_offsets",
+                            "model_runtime_bases",
+                        }
+                    },
+                    "draw_modes": sorted(selection["draw_modes"]),
+                    "secondary_model_indices": sorted(
+                        selection["secondary_model_indices"]
+                    ),
+                    "display_list_addresses": [
+                        f"0x{address:08X}"
+                        for address in sorted(selection["display_list_addresses"])
+                    ],
+                    "display_list_sha256s": sorted(
+                        selection["display_list_sha256s"]
+                    ),
+                    "display_list_byte_counts": sorted(
+                        selection["display_list_byte_counts"]
+                    ),
+                    "static_display_list_offsets": [
+                        f"0x{offset:X}"
+                        for offset in sorted(selection["static_display_list_offsets"])
+                    ],
+                    "model_runtime_bases": [
+                        f"0x{address:08X}"
+                        for address in sorted(selection["model_runtime_bases"])
+                    ],
+                }
+            )
+        resolved_clusters = []
+        for key in sorted(composition["resolved_clusters"]):
+            cluster = composition["resolved_clusters"][key]
+            appearances = [
+                {
+                    "draw_trace_index": appearance[0],
+                    "draw_trace_sha256": appearance[1],
+                    "draw_trace": appearance[2],
+                    "event_index": appearance[3],
+                    **({"submitted_graphics": {
+                        "event_index": appearance[4],
+                        "command_buffer_start": appearance[5],
+                        "command_buffer_end": appearance[6],
+                    }} if appearance[4] >= 0 else {}),
+                }
+                for appearance in sorted(
+                    cluster["runtime_appearance_observations"]
+                )
+            ]
+            resolved_clusters.append(
+                {
+                    **{
+                        field: value
+                        for field, value in cluster.items()
+                        if field != "runtime_appearance_observations"
+                    },
+                    "runtime_appearance_count": len(appearances),
+                    "runtime_appearances": appearances,
+                }
+            )
+        summary = {
+            "render_pass": composition["render_pass"],
+            "call_count": composition["call_count"],
+            "command_variant_count": len(composition["command_hashes"]),
+            "command_hashes": sorted(composition["command_hashes"]),
+            "command_byte_counts": sorted(composition["command_byte_counts"]),
+            "runtime_matrix_counts": sorted(
+                composition["runtime_matrix_counts"]
+            ),
+            "material_correlation_status_counts": dict(
+                sorted(composition["status_counts"].items())
+            ),
+            "model_sequence_status_counts": dict(
+                sorted(composition["model_sequence_status_counts"].items())
+            ),
+            "resolved_correlation_count": sum(
+                count
+                for status, count in composition["status_counts"].items()
+                if status in ("unique", "equivalent-material-aliases")
+            ),
+            "unresolved_correlation_count": sum(
+                count
+                for status, count in composition["status_counts"].items()
+                if status not in ("unique", "equivalent-material-aliases")
+            ),
+            "resolved_part_count": len(parts),
+            "resolved_face_count": sum(part["face_count"] for part in parts),
+            "resolved_source_entries": sorted({part["entry"] for part in parts}),
+            "resolved_parts": parts,
+            "sequence_source_models": [
+                {
+                    "bank": source[0],
+                    "entry": source[1],
+                    "segment": source[2],
+                    "model_sha1": source[3],
+                }
+                for source in sorted(composition["sequence_source_models"])
+            ],
+            "resolved_cluster_count": len(resolved_clusters),
+            "resolved_cluster_face_count": sum(
+                cluster["face_count"] for cluster in resolved_clusters
+            ),
+            "resolved_clusters": resolved_clusters,
+            "renderer_part_selection_variant_count": len(
+                renderer_part_selections
+            ),
+            "renderer_part_selection_observation_count": sum(
+                selection["observation_count"]
+                for selection in renderer_part_selections
+            ),
+            "renderer_part_selections": renderer_part_selections,
+        }
+        if include_runtime_matrices:
+            runtime_matrices = []
+            for slot in sorted(composition["runtime_matrix_observations"]):
+                observations = list(
+                    composition["runtime_matrix_observations"][slot].values()
+                )
+                decoded = [
+                    item
+                    for item in observations
+                    if item.get("status") == "decoded-affine-components"
+                    and item.get("rows") is not None
+                ]
+                if len(observations) == 1 and len(decoded) == 1:
+                    runtime_matrices.append(decoded[0])
+                else:
+                    runtime_matrices.append(
+                        {
+                            "matrix_slot": slot,
+                            "status": "conflicting-or-invalid-observations",
+                            "observation_variant_count": len(observations),
+                            "observations": observations,
+                        }
+                    )
+            summary["runtime_matrices"] = runtime_matrices
+        return summary
+
+    all_compositions = [
+        {"entry": key[1], **composition_summary(composition_records[key])}
+        for key in sorted(composition_records)
+    ]
+    all_composition_instances = [
+        {
+            "state": key[0],
+            "task_submission_index": key[1],
+            "slot": key[2],
+            "entry": key[3],
+            "root_matrix_address": f"0x{key[4]:08X}",
+            **composition_summary(
+                composition_instance_records[key], include_runtime_matrices=True
+            ),
+        }
+        for key in sorted(composition_instance_records)
+    ]
+    character_compositions = [c for c in all_compositions if c["render_pass"]["kind"] != "render-to-texture"]
+    render_texture_compositions = [c for c in all_compositions if c["render_pass"]["kind"] == "render-to-texture"]
+    character_composition_instances = [c for c in all_composition_instances if c["render_pass"]["kind"] != "render-to-texture"]
+    render_texture_composition_instances = [c for c in all_composition_instances if c["render_pass"]["kind"] == "render-to-texture"]
+    material_path = (
+        runtime_material_path
+        if runtime_material_path is None or runtime_material_path.is_absolute()
+        else ROOT / runtime_material_path
+    )
+    renderer_part_selections = [
+        selection
+        for trace in source_draw_traces
+        for draw_call in trace["draw_calls"]
+        for selection in draw_call.get("part_selections", [])
+    ]
+    renderer_part_tables = [
+        {
+            "model_index": model_index,
+            "state_count": len(record["states"]),
+            "states": sorted(record["states"]),
+            "part_counts": sorted(record["part_counts"]),
+            "part_pointer_table_addresses": [
+                f"0x{address:08X}"
+                for address in sorted(record["part_pointer_table_addresses"])
+            ],
+            "extra_part_pointer_table_addresses": [
+                f"0x{address:08X}"
+                for address in sorted(
+                    record["extra_part_pointer_table_addresses"]
+                )
+            ],
+        }
+        for model_index, record in sorted(renderer_part_table_records.items())
+    ]
+    renderer_part_table_indices = set(renderer_part_table_records)
+    manifest = {
+        "schema_version": 1,
+        "family": "runtime-character-model-activity",
+        "profile": profile,
+        "normalized_sha1": digest,
+        "bank_index": 1,
+        "source_traces": source_traces,
+        "trace_file_count": len(source_traces),
+        "source_draw_traces": source_draw_traces,
+        "draw_trace_file_count": len(source_draw_traces),
+        "source_part_table_traces": source_part_table_traces,
+        "part_table_trace_file_count": len(source_part_table_traces),
+        "renderer_part_table_model_count": len(renderer_part_tables),
+        "renderer_part_table_model_indices": sorted(renderer_part_table_indices),
+        "renderer_part_table_bank_entry_count": len(
+            renderer_part_table_indices & valid_entries
+        ),
+        "renderer_part_table_bank_entries": sorted(
+            renderer_part_table_indices & valid_entries
+        ),
+        "renderer_part_table_special_indices": sorted(
+            renderer_part_table_indices - valid_entries
+        ),
+        "bank_entries_without_renderer_part_table_count": len(
+            valid_entries - renderer_part_table_indices
+        ),
+        "bank_entries_without_renderer_part_tables": sorted(
+            valid_entries - renderer_part_table_indices
+        ),
+        "renderer_part_tables": renderer_part_tables,
+        "character_draw_task_submission_count": sum(
+            trace["task_submission_count"] for trace in source_draw_traces
+        ),
+        "character_draw_graphics_task_submission_count": sum(
+            trace["graphics_task_submission_count"] for trace in source_draw_traces
+        ),
+        "character_draw_non_graphics_task_submission_count": sum(
+            trace["non_graphics_task_submission_count"] for trace in source_draw_traces
+        ),
+        "character_draw_untyped_task_submission_count": sum(
+            trace["untyped_task_submission_count"] for trace in source_draw_traces
+        ),
+        "character_draw_call_count": sum(drawn_entry_observations.values()),
+        "submitted_graphics_draw_call_count": sum(
+            trace["submitted_graphics_draw_call_count"] for trace in source_draw_traces
+        ),
+        "renderer_part_selection_count": len(renderer_part_selections),
+        "resolved_renderer_part_selection_count": sum(
+            selection.get("model_sequence_resolution", {}).get("status")
+            == "resolved"
+            for selection in renderer_part_selections
+        ),
+        "renderer_display_model_indices": sorted(
+            {
+                int(selection["display_model_index"])
+                for selection in renderer_part_selections
+            }
+        ),
+        "drawn_entry_count": len(drawn_entry_states),
+        "drawn_entries": sorted(drawn_entry_states),
+        "drawn_runtime_material_covered_entry_count": len(
+            set(drawn_entry_states) & material_entries
+        ),
+        "drawn_runtime_material_covered_entries": sorted(
+            set(drawn_entry_states) & material_entries
+        ),
+        "character_composition_count": len(character_compositions),
+        "character_compositions": character_compositions,
+        "character_composition_instance_count": len(
+            character_composition_instances
+        ),
+        "character_composition_instances": character_composition_instances,
+        "render_texture_composition_count": len(render_texture_compositions),
+        "render_texture_compositions": render_texture_compositions,
+        "render_texture_composition_instance_count": len(render_texture_composition_instances),
+        "render_texture_composition_instances": render_texture_composition_instances,
+        "render_texture_draw_call_count": sum(c["call_count"] for c in render_texture_compositions),
+        "snapshot_count": sum(trace["snapshot_count"] for trace in source_traces),
+        "active_record_observation_count": active_record_observation_count,
+        "active_entry_count": len(active_entries),
+        "active_entries": active_entries,
+        "runtime_material_manifest": (
+            display_path(material_path) if material_path is not None else None
+        ),
+        "runtime_material_covered_entry_count": len(
+            set(active_entries) & material_entries
+        ),
+        "runtime_material_covered_entries": sorted(
+            set(active_entries) & material_entries
+        ),
+        "active_without_runtime_material_count": len(
+            set(active_entries) - material_entries
+        ),
+        "active_without_runtime_material_entries": sorted(
+            set(active_entries) - material_entries
+        ),
+        "unobserved_bank_entry_count": len(valid_entries - set(active_entries)),
+        "unobserved_bank_entries": sorted(valid_entries - set(active_entries)),
+        "coverage": coverage,
+        "limitations": [
+            "an active character record proves model selection but not visibility or a submitted draw",
+            "a character draw range proves renderer emission before the captured task boundary but not final raster visibility",
+            "a boundary-only draw trace may resume from a savestate whose command buffer was already built and is not negative evidence",
+            "runtime materials remain assigned only by display-list and material-run correlation",
+            "save-state snapshots do not prove characters or variants absent from the supplied states",
+        ],
+    }
+    prepare_output(output, force)
+    (output / "manifest.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+    )
+    if json.loads((output / "manifest.json").read_text(encoding="utf-8")) != manifest:
+        raise ValueError("character activity manifest did not round-trip through JSON")
+    return manifest
+
+
+def merge_character_composition_geometry(
+    source_models: dict[tuple[int, int, int, str], ModelGeometry],
+    clusters: list[dict[str, Any]],
+) -> ModelGeometry:
+    """Assemble the exact ROM face clusters reached by a traced character call."""
+
+    vertices: list[ModelVertex] = []
+    faces: list[tuple[int, int, int]] = []
+    material_runs: list[ModelMaterialRun] = []
+    face_normal_bytes = []
+    face_command_offsets = []
+    face_command_opcodes = []
+    face_cache_indices = []
+    face_matrix_indices = []
+    face_source_indices = []
+    face_cull_modes = []
+    vertex_bases: dict[tuple[int, int, int, str], int] = {}
+    for cluster in sorted(
+        clusters,
+        key=lambda item: (
+            int(item["bank"]),
+            int(item["entry"]),
+            int(item["segment"]),
+            int(item["static_cluster_index"]),
+        ),
+    ):
+        source_key = (
+            int(cluster["bank"]),
+            int(cluster["entry"]),
+            int(cluster["segment"]),
+            cluster["model_sha1"],
+        )
+        geometry = source_models[source_key]
+        if source_key not in vertex_bases:
+            vertex_bases[source_key] = len(vertices)
+            vertices.extend(geometry.vertices)
+        vertex_base = vertex_bases[source_key]
+        first_face = int(cluster["first_face"])
+        face_count = int(cluster["face_count"])
+        end_face = first_face + face_count
+        run_index = int(cluster["material_run"])
+        run = geometry.material_runs[run_index]
+        if (
+            first_face < run.first_face
+            or end_face > run.first_face + run.face_count
+            or end_face > len(geometry.faces)
+        ):
+            raise ValueError("resolved character cluster exceeds its material run")
+        output_first_face = len(faces)
+        faces.extend(
+            tuple(vertex_base + vertex for vertex in face)
+            for face in geometry.faces[first_face:end_face]
+        )
+        material_runs.append(
+            replace(run, first_face=output_first_face, face_count=face_count)
+        )
+        face_normal_bytes.extend(geometry.face_normal_bytes[first_face:end_face])
+        face_source_indices.extend(range(first_face, end_face))
+        face_command_offsets.extend(geometry.face_command_offsets[first_face:end_face])
+        face_command_opcodes.extend(geometry.face_command_opcodes[first_face:end_face])
+        face_cache_indices.extend(geometry.face_cache_indices[first_face:end_face])
+        face_cull_modes.extend(
+            geometry.face_cull_modes[first_face:end_face]
+            if geometry.face_cull_modes else (None,) * face_count
+        )
+        face_matrix_indices.extend(
+            face_vertex_matrix_indices(geometry, run, face_index)
+            for face_index in range(first_face, end_face)
+        )
+    return ModelGeometry(
+        vertices=tuple(vertices),
+        faces=tuple(faces),
+        display_list_offset=0,
+        display_list_size=0,
+        vertex_load_count=0,
+        segment_8_display_list_offsets=(),
+        secondary_region=None,
+        tertiary_region=None,
+        vertex_color_animation_offset=None,
+        vertex_color_animation_table_size=0,
+        vertex_color_animation_descriptors=(),
+        texture_references=(),
+        runtime_segment_texture_addresses=(),
+        material_runs=tuple(material_runs),
+        face_normal_bytes=tuple(face_normal_bytes),
+        header_words=(),
+        face_command_offsets=tuple(face_command_offsets),
+        face_command_opcodes=tuple(face_command_opcodes),
+        face_cache_indices=tuple(face_cache_indices),
+        face_matrix_indices=tuple(face_matrix_indices),
+        custom_normal_command_count=0,
+        face_source_indices=tuple(face_source_indices),
+        face_cull_modes=tuple(face_cull_modes),
+    )
+
+
+def transform_preview_normal(
+    normal: tuple[int, int, int] | None, rows: list[list[float]]
+) -> tuple[float, float, float] | None:
+    """Transform a surface normal by the row-vector matrix's inverse transpose."""
+
+    if normal is None or not any(normal):
+        return None
+    a, b, c = [row[:3] for row in rows[:3]]
+
+    def cross(u, v):
+        return (u[1] * v[2] - u[2] * v[1],
+                u[2] * v[0] - u[0] * v[2],
+                u[0] * v[1] - u[1] * v[0])
+
+    cofactors = (cross(b, c), cross(c, a), cross(a, b))
+    determinant = sum(x * y for x, y in zip(a, cofactors[0]))
+    if determinant == 0 or not math.isfinite(determinant):
+        return None
+    transformed = tuple(
+        sum(normal[row] * cofactors[row][axis] for row in range(3)) / determinant
+        for axis in range(3)
+    )
+    length = math.sqrt(sum(value * value for value in transformed))
+    if length == 0 or not math.isfinite(length):
+        return None
+    return tuple(value / length for value in transformed)
+
+
+def bake_character_runtime_pose(
+    geometry: ModelGeometry,
+    matrix_rows_by_index: dict[int, list[list[float]]],
+    root_translation: list[float],
+) -> ModelGeometry:
+    """Bake one captured character matrix palette into preview geometry."""
+
+    if len(root_translation) != 3 or not all(
+        math.isfinite(float(value)) for value in root_translation
+    ):
+        raise ValueError("character runtime root translation is invalid")
+    vertices: list[ModelVertex] = []
+    faces: list[tuple[int, int, int]] = []
+    material_runs = []
+    preview_normals = []
+    normal_cache = {}
+    for matrix_index in geometry_vertex_matrix_indices(geometry):
+        rows = matrix_rows_by_index.get(matrix_index)
+        if rows is None:
+            raise ValueError(f"character runtime matrix {matrix_index} is absent")
+        if (
+            len(rows) != 4
+            or any(len(row) != 4 for row in rows)
+            or not all(
+                math.isfinite(float(value)) for row in rows for value in row
+            )
+        ):
+            raise ValueError(f"character runtime matrix {matrix_index} is invalid")
+    for run in geometry.material_runs:
+        output_first_face = len(faces)
+        run_vertex_indices: dict[tuple[int, int], int] = {}
+        for face_offset, face in enumerate(geometry.faces[
+            run.first_face : run.first_face + run.face_count
+        ]):
+            vertex_matrices = face_vertex_matrix_indices(
+                geometry, run, run.first_face + face_offset
+            )
+            if geometry.face_normal_bytes:
+                transformed_normals = []
+                for normal, matrix_index in zip(
+                    geometry.face_normal_bytes[run.first_face + face_offset], vertex_matrices
+                ):
+                    key = (normal, matrix_index)
+                    if key not in normal_cache:
+                        normal_cache[key] = transform_preview_normal(
+                            normal, matrix_rows_by_index[matrix_index]
+                        )
+                    transformed_normals.append(normal_cache[key])
+                preview_normals.append(tuple(transformed_normals))
+            output_face = []
+            for source_index, matrix_index in zip(face, vertex_matrices):
+                rows = matrix_rows_by_index[matrix_index]
+                key = (source_index, matrix_index)
+                output_index = run_vertex_indices.get(key)
+                if output_index is None:
+                    vertex = geometry.vertices[source_index]
+                    position = (float(vertex.x), float(vertex.y), float(vertex.z))
+                    transformed = tuple(
+                        sum(position[row] * float(rows[row][axis]) for row in range(3))
+                        + float(rows[3][axis])
+                        - float(root_translation[axis])
+                        for axis in range(3)
+                    )
+                    output_index = len(vertices)
+                    vertices.append(
+                        replace(
+                            vertex,
+                            x=transformed[0],
+                            y=transformed[1],
+                            z=transformed[2],
+                        )
+                    )
+                    run_vertex_indices[key] = output_index
+                output_face.append(output_index)
+            faces.append(tuple(output_face))
+        material_runs.append(
+            replace(
+                run,
+                first_face=output_first_face,
+                face_count=len(faces) - output_first_face,
+            )
+        )
+    return replace(
+        geometry,
+        vertices=tuple(vertices),
+        faces=tuple(faces),
+        material_runs=tuple(material_runs),
+        # Transformed normals are for interchange shading. Keep them distinct
+        # from CBFD's source normal bytes and unquantized until glTF encoding.
+        face_normal_bytes=(),
+        face_preview_normals=tuple(preview_normals),
+        face_matrix_indices=(),
+        custom_normal_command_count=0,
+    )
+
+
+def load_runtime_material_appearance_lookup(
+    path: Path | None,
+    expected_digest: str,
+) -> dict[tuple[str, int], tuple[int, int]]:
+    """Index exact runtime appearances by source trace content and event."""
+
+    if path is None:
+        return {}
+    source = path if path.is_absolute() else ROOT / path
+    manifest = json.loads(source.read_text(encoding="utf-8"))
+    if (
+        manifest.get("schema_version") != 1
+        or manifest.get("family") != "runtime-correlated-model-materials"
+    ):
+        raise ValueError("runtime material manifest has an unsupported schema")
+    if manifest.get("normalized_sha1") != expected_digest:
+        raise ValueError("runtime material manifest belongs to a different ROM")
+    traces = {
+        int(trace["trace_index"]): trace
+        for trace in manifest.get("source_traces", [])
+    }
+    lookup: dict[tuple[str, int], tuple[int, int]] = {}
+    for appearance in manifest.get("appearances", []):
+        trace_index = int(appearance["trace_index"])
+        event_index = int(appearance["event_index"])
+        trace = traces.get(trace_index)
+        if trace is None:
+            raise ValueError("runtime appearance references an absent source trace")
+        key = (trace["sha256"], event_index)
+        candidate = (trace_index, event_index)
+        previous = lookup.get(key)
+        if previous is None or candidate < previous:
+            lookup[key] = candidate
+    return lookup
+
+
+def extract_character_composition_previews(
+    profile: str,
+    rom_argument: Path | None,
+    activity_manifest_path: Path,
+    output: Path,
+    force: bool,
+    texture_root: Path | None = None,
+    runtime_material_path: Path | None = None,
+    task_runtime_material_path: Path | None = None,
+    attachment_trace_paths: tuple[Path, ...] = (),
+) -> dict[str, Any]:
+    """Export neutral and captured-pose trace-resolved character previews."""
+
+    _, _, digest, bundles, _ = load_model_bundles(profile, rom_argument, 0x01)
+    path = (
+        activity_manifest_path
+        if activity_manifest_path.is_absolute()
+        else ROOT / activity_manifest_path
+    )
+    activity = json.loads(path.read_text(encoding="utf-8"))
+    if (
+        activity.get("family") != "runtime-character-model-activity"
+        or activity.get("normalized_sha1") != digest
+    ):
+        raise ValueError("character composition manifest identity changed")
+    bundle_by_entry = {bundle.index: bundle for bundle in bundles}
+    flat_payloads = (
+        load_flat_asset_payloads(profile, rom_argument, digest)
+        if texture_root is not None
+        else None
+    )
+    preview_texture_catalog = (
+        load_preview_texture_catalog(texture_root, digest, tuple(flat_payloads))
+        if texture_root is not None and flat_payloads is not None
+        else {}
+    )
+    runtime_material_catalog = load_runtime_material_catalog(
+        runtime_material_path, digest
+    )
+    task_material_path = task_runtime_material_path or runtime_material_path
+    runtime_appearance_lookup = load_runtime_material_appearance_lookup(
+        task_material_path, digest
+    )
+    runtime_appearance_catalogs: dict[
+        tuple[tuple[int, int], tuple[int, int] | None],
+        dict[tuple[int, int, int, int], dict[str, Any]]
+    ] = {}
+    prepare_output(output, force)
+    geometry_dir = output / "geometry"
+    geometry_dir.mkdir(parents=True, exist_ok=True)
+    posed_dir = output / "posed"
+    posed_dir.mkdir(parents=True, exist_ok=True)
+    copied_textures: dict[PreviewTexture, str] = {}
+    texture_status_counts: dict[str, int] = {}
+    source_model_cache: dict[tuple[int, int, int, str], ModelGeometry] = {}
+
+    def source_models_for(composition: dict[str, Any]):
+        source_models = {}
+        for source in composition.get("sequence_source_models", []):
+            source_key = (
+                int(source["bank"]),
+                int(source["entry"]),
+                int(source["segment"]),
+                source["model_sha1"],
+            )
+            if source_key[0] != 1 or source_key[2] != 0:
+                raise ValueError(
+                    "character composition references a non-character model"
+                )
+            if source_key not in source_model_cache:
+                bundle = bundle_by_entry[source_key[1]]
+                segment = bundle.segments[0]
+                if hashlib.sha1(segment.data).hexdigest() != source_key[3]:
+                    raise ValueError("character composition source hash changed")
+                geometry, _ = parse_character_model_geometry(segment.data)
+                source_model_cache[source_key] = geometry
+            source_models[source_key] = source_model_cache[source_key]
+        return source_models
+
+    def material_maps_for(
+        geometry: ModelGeometry,
+        clusters: list[dict[str, Any]],
+        task_local: bool = False,
+    ) -> tuple[
+        dict[int, str],
+        dict[str, str],
+        dict[int, dict[str, Any]],
+        int,
+        int,
+    ]:
+        ordered_clusters = sorted(
+            clusters,
+            key=lambda item: (
+                int(item["bank"]),
+                int(item["entry"]),
+                int(item["segment"]),
+                int(item["static_cluster_index"]),
+            ),
+        )
+        if len(ordered_clusters) != len(geometry.material_runs):
+            raise ValueError("character composition material identity changed")
+        gltf_texture_files = {}
+        mtl_texture_files = {}
+        runtime_materials = {}
+        linked_face_count = 0
+        task_local_runtime_material_run_count = 0
+        conflicting_mtl_materials: set[str] = set()
+        for run_index, (run, cluster) in enumerate(
+            zip(geometry.material_runs, ordered_clusters)
+        ):
+            source_key = (
+                int(cluster["bank"]),
+                int(cluster["entry"]),
+                int(cluster["segment"]),
+                int(cluster["material_run"]),
+            )
+            runtime_material = None
+            if task_local:
+                appearances = cluster.get("runtime_appearances", [])
+                if len(appearances) == 1:
+                    appearance = appearances[0]
+                    submission = appearance.get("submitted_graphics")
+                    command_range = ((int(submission["command_buffer_start"]),
+                                      int(submission["command_buffer_end"]))
+                                     if submission is not None else None)
+                    selector = runtime_appearance_lookup.get(
+                        (
+                            appearance["draw_trace_sha256"],
+                            int(submission["event_index"] if submission else appearance["event_index"]),
+                        )
+                    )
+                    if selector is not None:
+                        cache_key = (selector, command_range)
+                        catalog = runtime_appearance_catalogs.get(cache_key)
+                        if catalog is None:
+                            catalog = load_runtime_material_catalog(
+                                task_material_path, digest, selector, command_range=command_range
+                            )
+                            runtime_appearance_catalogs[cache_key] = catalog
+                        runtime_material = catalog.get(source_key)
+                        if runtime_material is not None:
+                            task_local_runtime_material_run_count += 1
+            else:
+                runtime_material = runtime_material_catalog.get(source_key)
+            if runtime_material is not None:
+                runtime_materials[run_index] = runtime_material
+                copy_runtime_captured_auxiliary_textures(runtime_material, output)
+            texture = runtime_captured_texture_choice(runtime_material)
+            if texture is not None:
+                captured_status = runtime_material["variants"][0]["captured_texture"]["status"]
+                status = (
+                    f"task-local-{captured_status}"
+                    if task_local
+                    else captured_status
+                )
+            elif texture_root is not None:
+                texture, status = choose_preview_texture(
+                    run,
+                    preview_texture_catalog,
+                    flat_payloads,
+                )
+            else:
+                texture, status = None, "texture-catalog-not-requested"
+            if runtime_material_references_texels(runtime_material) is False:
+                texture, status = None, "runtime-combiner-does-not-use-texture"
+            if texture is not None and (
+                not run.texture_enabled or not run.texture_coordinates_proven
+            ):
+                texture, status = None, "runtime-texture-observed-coordinate-state-unresolved"
+            texture_status_counts[status] = texture_status_counts.get(status, 0) + 1
+            if texture is None or not run.face_count:
+                continue
+            filename = copied_textures.get(texture)
+            if filename is None:
+                filename = preview_texture_filename(texture)
+                destination = output / "textures" / filename
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                if texture.png_data is not None:
+                    destination.write_bytes(texture.png_data)
+                else:
+                    if texture.source is None:
+                        raise ValueError("composition texture has no PNG source")
+                    shutil.copyfile(texture.source, destination)
+                copied_textures[texture] = filename
+            relative_texture = f"../textures/{filename}"
+            gltf_texture_files[run_index] = relative_texture
+            material = material_name(run)
+            previous = mtl_texture_files.get(material)
+            if material in conflicting_mtl_materials:
+                pass
+            elif previous is None:
+                mtl_texture_files[material] = relative_texture
+            elif previous != relative_texture:
+                mtl_texture_files.pop(material, None)
+                conflicting_mtl_materials.add(material)
+            linked_face_count += run.face_count
+        return (
+            gltf_texture_files,
+            mtl_texture_files,
+            runtime_materials,
+            linked_face_count,
+            task_local_runtime_material_run_count,
+        )
+
+    records = []
+    for composition in (
+        activity.get("character_compositions", [])
+        + activity.get("render_texture_compositions", [])
+    ):
+        render_pass = composition.get("render_pass", {"kind": "caller-managed-target"})
+        offscreen = render_pass["kind"] == "render-to-texture"
+        clusters = composition.get("resolved_clusters", [])
+        if not clusters:
+            continue
+        entry = int(composition["entry"])
+        source_models = source_models_for(composition)
+        geometry = merge_character_composition_geometry(source_models, clusters)
+        source_face_count = len(geometry.faces)
+        geometry, omitted_faces, _ = omit_zero_area_preview_faces(geometry)
+        (
+            gltf_texture_files,
+            mtl_texture_files,
+            runtime_materials,
+            linked_face_count,
+            _,
+        ) = material_maps_for(geometry, clusters)
+        geometry = apply_runtime_texture_coordinates(geometry, runtime_materials)
+        base_bundle = bundle_by_entry[entry]
+        _, base_layout = parse_character_model_geometry(base_bundle.segments[0].data)
+        joints = tuple(base_layout["joints"])
+        if not geometry_vertex_matrix_indices(geometry).issubset(
+            {joint["matrix_index"] for joint in joints}
+        ):
+            raise ValueError("character composition exceeds its live joint hierarchy")
+        stem = f"{entry:04d}-00"
+        if offscreen:
+            stem = f"render-texture-{stem}"
+        gltf_stem = f"{stem}-composed"
+        obj_data = encode_obj(entry, 0, geometry, 0x01)
+        mtl_data = encode_mtl(
+            entry,
+            0,
+            geometry,
+            texture_files=mtl_texture_files,
+            bank_index=0x01,
+        )
+        gltf_data, binary = encode_gltf(
+            entry,
+            0,
+            geometry,
+            bank_index=0x01,
+            character_joints=joints,
+            character_pose_source="trace-resolved-composition-neutral-bind-pose",
+            output_stem=gltf_stem,
+            texture_files=gltf_texture_files,
+            runtime_materials=runtime_materials,
+        )
+        gltf = json.loads(gltf_data)
+        gltf.setdefault("extras", {})["renderPass"] = render_pass
+        gltf_data = (json.dumps(gltf, indent=2) + "\n").encode("utf-8")
+        (geometry_dir / f"{stem}.obj").write_bytes(obj_data)
+        (geometry_dir / f"{stem}.mtl").write_bytes(mtl_data)
+        (geometry_dir / f"{gltf_stem}.gltf").write_bytes(gltf_data)
+        (geometry_dir / f"{gltf_stem}.bin").write_bytes(binary)
+        gltf = json.loads(gltf_data)
+        if gltf["buffers"][0]["byteLength"] != len(binary):
+            raise ValueError("character composition glTF buffer size changed")
+        records.append(
+            {
+                "entry": entry,
+                "render_pass": render_pass,
+                "source_models": composition["sequence_source_models"],
+                "source_cluster_count": len(clusters),
+                "source_face_count": source_face_count,
+                "face_count": len(geometry.faces),
+                "omitted_zero_area_face_count": len(omitted_faces),
+                "joint_count": len(joints),
+                "linked_texture_run_count": len(gltf_texture_files),
+                "linked_texture_face_count": linked_face_count,
+                "model_sequence_status_counts": composition[
+                    "model_sequence_status_counts"
+                ],
+                "object_file": f"geometry/{stem}.obj",
+                "material_file": f"geometry/{stem}.mtl",
+                "gltf_file": f"geometry/{gltf_stem}.gltf",
+                "gltf_binary_file": f"geometry/{gltf_stem}.bin",
+            }
+        )
+    posed_records = []
+    skipped_pose_records = []
+    for instance in (
+        activity.get("character_composition_instances", [])
+        + activity.get("render_texture_composition_instances", [])
+    ):
+        render_pass = instance.get("render_pass", {"kind": "caller-managed-target"})
+        offscreen = render_pass["kind"] == "render-to-texture"
+        clusters = instance.get("resolved_clusters", [])
+        unresolved_calls = sum(
+            count
+            for status, count in instance.get(
+                "model_sequence_status_counts", {}
+            ).items()
+            if status != "resolved"
+        )
+        if not clusters or unresolved_calls:
+            skipped_pose_records.append(
+                {
+                    "render_pass": render_pass,
+                    "state": instance["state"],
+                    "task_submission_index": instance["task_submission_index"],
+                    "slot": instance["slot"],
+                    "entry": instance["entry"],
+                    "reason": (
+                        "no-resolved-clusters"
+                        if not clusters
+                        else "renderer-call-sequence-not-fully-resolved"
+                    ),
+                }
+            )
+            continue
+        matrices = {
+            int(matrix["matrix_slot"]): matrix
+            for matrix in instance.get("runtime_matrices", [])
+            if matrix.get("status") == "decoded-affine-components"
+            and matrix.get("rows") is not None
+        }
+        entry = int(instance["entry"])
+        source_models = source_models_for(instance)
+        geometry = merge_character_composition_geometry(source_models, clusters)
+        required_slots = sorted(geometry_vertex_matrix_indices(geometry))
+        missing_slots = [slot for slot in required_slots if slot not in matrices]
+        if missing_slots:
+            skipped_pose_records.append(
+                {
+                    "render_pass": render_pass,
+                    "state": instance["state"],
+                    "task_submission_index": instance["task_submission_index"],
+                    "slot": instance["slot"],
+                    "entry": instance["entry"],
+                    "reason": "missing-or-conflicting-runtime-matrices",
+                    "required_matrix_slots": required_slots,
+                    "missing_matrix_slots": missing_slots,
+                }
+            )
+            continue
+        source_face_count = len(geometry.faces)
+        geometry, omitted_faces, _ = omit_zero_area_preview_faces(geometry)
+        (
+            gltf_texture_files,
+            _,
+            runtime_materials,
+            linked_face_count,
+            task_local_runtime_material_run_count,
+        ) = material_maps_for(geometry, clusters, task_local=True)
+        geometry = apply_runtime_texture_coordinates(geometry, runtime_materials)
+        geometry = bake_character_runtime_pose(
+            geometry,
+            {slot: matrices[slot]["rows"] for slot in required_slots},
+            matrices[0 if 0 in matrices else required_slots[0]]["translation"],
+        )
+        geometry, runtime_omitted_faces, _ = omit_zero_area_preview_faces(geometry)
+        origin_matrix_slot = 0 if 0 in matrices else required_slots[0]
+        state = instance["state"]
+        task_index = int(instance["task_submission_index"])
+        slot = int(instance["slot"])
+        stem = f"{state}-task-{task_index:03d}-slot-{slot:02d}-entry-{entry:04d}"
+        if offscreen:
+            stem = f"render-texture-{stem}"
+        gltf_data, binary = encode_gltf(
+            entry,
+            0,
+            geometry,
+            bank_index=0x01,
+            character_pose_source="captured-runtime-matrix-palette-centered-on-slot-0",
+            output_stem=stem,
+            texture_files=gltf_texture_files,
+            runtime_materials=runtime_materials,
+        )
+        gltf = json.loads(gltf_data)
+        gltf.setdefault("extras", {})["renderPass"] = render_pass
+        gltf_data = (json.dumps(gltf, indent=2) + "\n").encode("utf-8")
+        (posed_dir / f"{stem}.gltf").write_bytes(gltf_data)
+        (posed_dir / f"{stem}.bin").write_bytes(binary)
+        gltf = json.loads(gltf_data)
+        if gltf["buffers"][0]["byteLength"] != len(binary):
+            raise ValueError("posed character composition glTF buffer size changed")
+        posed_records.append(
+            {
+                "state": state,
+                "render_pass": render_pass,
+                "task_submission_index": task_index,
+                "slot": slot,
+                "entry": entry,
+                "root_matrix_address": instance["root_matrix_address"],
+                "transformed_normal_corner_count": sum(
+                    normal is not None for face in geometry.face_preview_normals for normal in face
+                ),
+                "geometric_normal_fallback_corner_count": sum(
+                    normal is None for face in geometry.face_preview_normals for normal in face
+                ),
+                "source_models": instance["sequence_source_models"],
+                "source_cluster_count": len(clusters),
+                "source_face_count": source_face_count,
+                "face_count": len(geometry.faces),
+                "omitted_zero_area_face_count": (
+                    len(omitted_faces) + len(runtime_omitted_faces)
+                ),
+                "source_zero_area_face_count": len(omitted_faces),
+                "runtime_pose_zero_area_face_count": len(runtime_omitted_faces),
+                "required_matrix_slots": required_slots,
+                "origin_matrix_slot": origin_matrix_slot,
+                "linked_texture_run_count": len(gltf_texture_files),
+                "linked_texture_face_count": linked_face_count,
+                "task_local_runtime_material_run_count": (
+                    task_local_runtime_material_run_count
+                ),
+                "gltf_file": f"posed/{stem}.gltf",
+                "gltf_binary_file": f"posed/{stem}.bin",
+            }
+        )
+    offscreen_records = [r for r in records if r["render_pass"]["kind"] == "render-to-texture"]
+    offscreen_posed_records = [r for r in posed_records if r["render_pass"]["kind"] == "render-to-texture"]
+    records = [r for r in records if r["render_pass"]["kind"] != "render-to-texture"]
+    posed_records = [r for r in posed_records if r["render_pass"]["kind"] != "render-to-texture"]
+    try:
+        from scripts.model_attachment_runtime import attach_composition_previews
+    except ModuleNotFoundError:
+        from model_attachment_runtime import attach_composition_previews
+    attachment_report = attach_composition_previews(
+        profile, rom_argument, digest, attachment_trace_paths, activity, posed_records,
+        output, task_material_path, copied_textures,
+    )
+    manifest = {
+        "schema_version": 1,
+        "family": "runtime-character-model-composition-preview",
+        **attachment_report,
+        "render_texture_model_count": len(offscreen_records),
+        "render_texture_models": offscreen_records,
+        "render_texture_posed_model_count": len(offscreen_posed_records),
+        "render_texture_posed_models": offscreen_posed_records,
+        "render_texture_source_face_count": sum(r["source_face_count"] for r in offscreen_records),
+        "profile": profile,
+        "normalized_sha1": digest,
+        "flat_asset_identity": flat_asset_identity(flat_payloads),
+        "source_activity_manifest": display_path(path),
+        "aggregate_runtime_material_manifest": (
+            display_path(
+                runtime_material_path
+                if runtime_material_path.is_absolute()
+                else ROOT / runtime_material_path
+            )
+            if runtime_material_path is not None
+            else None
+        ),
+        "task_runtime_material_manifest": (
+            display_path(
+                task_material_path
+                if task_material_path.is_absolute()
+                else ROOT / task_material_path
+            )
+            if task_material_path is not None
+            else None
+        ),
+        "model_count": len(records),
+        "source_cluster_count": sum(
+            record["source_cluster_count"] for record in records
+        ),
+        "source_face_count": sum(record["source_face_count"] for record in records),
+        "face_count": sum(record["face_count"] for record in records),
+        "models": records,
+        "posed_model_count": len(posed_records),
+        "posed_models": posed_records,
+        "skipped_pose_count": len(skipped_pose_records),
+        "skipped_poses": skipped_pose_records,
+        "copied_texture_count": len(copied_textures),
+        "texture_status_counts": dict(sorted(texture_status_counts.items())),
+        "neutral_linked_texture_run_count": sum(
+            record["linked_texture_run_count"] for record in records
+        ),
+        "neutral_linked_texture_face_count": sum(
+            record["linked_texture_face_count"] for record in records
+        ),
+        "posed_linked_texture_run_count": sum(
+            record["linked_texture_run_count"] for record in posed_records
+        ),
+        "posed_linked_texture_face_count": sum(
+            record["linked_texture_face_count"] for record in posed_records
+        ),
+        "posed_task_local_runtime_material_run_count": sum(
+            record["task_local_runtime_material_run_count"]
+            for record in posed_records
+        ),
+        "runtime_matrix_state": CHARACTER_RUNTIME_MATRIX_STATE,
+        "vertex_transform_assignment": "matrix-at-each-cached-vertex-load",
+        "display_list_material_scope": "independently-callable-pointer-table-entry",
+        "limitations": [
+            "only exact source-model and monotonic static-cluster resolutions are exported",
+            "aggregate previews use the live entry's neutral bind hierarchy",
+            "posed previews require a fully resolved task-local call sequence and every referenced runtime matrix",
+            "posed previews are centered on matrix slot 0 when captured, otherwise the lowest required slot, while retaining runtime orientation and scale",
+            "posed vertex positions follow the proven row-vector float-palette to split-fixed RSP conversion chain; normals and exact N64 raster output remain diagnostic",
+            "posed preview materials use the proven submitted graphics range when available, otherwise the exact renderer-return event; absent body correlations fall back to proven static textures",
+            "attachments require matching parent identity, submitted commands and matrices; unobserved attachments are not inferred from a character name or neutral bone pose",
+            "attachment captures preserve runtime UV, colour and normal attributes, but changed source XYZ requires additional deformation evidence",
+            "separately callable lists do not inherit static material state from their stored neighbors; missing texture or coordinate state leaves diagnostic plain surfaces",
+            "unobserved character entries require additional runtime states",
+        ],
+    }
+    (output / "manifest.json").write_text(
+        json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
+    )
+    return manifest
+
+
+def load_character_activity_manifest(
+    path: Path | None,
+    expected_digest: str,
+) -> tuple[dict[str, Any] | None, dict[str, set[int]]]:
+    """Load per-state active bank-01 entries for conservative correlation."""
+
+    if path is None:
+        return None, {}
+    source = path if path.is_absolute() else ROOT / path
+    data = source.read_bytes()
+    manifest = json.loads(data)
+    if (
+        manifest.get("schema_version") != 1
+        or manifest.get("family") != "runtime-character-model-activity"
+    ):
+        raise ValueError("character activity manifest has an unsupported schema")
+    if manifest.get("normalized_sha1") != expected_digest:
+        raise ValueError("character activity manifest belongs to a different ROM")
+    state_entries: dict[str, set[int]] = {}
+    for trace in manifest.get("source_traces", []):
+        state = trace.get("state")
+        snapshots = trace.get("snapshots")
+        if not isinstance(state, str) or not state or not isinstance(snapshots, list):
+            raise ValueError("character activity manifest trace identity changed")
+        entries = state_entries.setdefault(state, set())
+        for snapshot in snapshots:
+            active_entries = snapshot.get("active_entries")
+            if not isinstance(active_entries, list) or any(
+                not isinstance(entry, int) or entry < 0 for entry in active_entries
+            ):
+                raise ValueError("character activity manifest entries changed")
+            entries.update(active_entries)
+    if set(manifest.get("active_entries", [])) != {
+        entry for entries in state_entries.values() for entry in entries
+    }:
+        raise ValueError("character activity manifest summary changed")
+    return (
+        {
+            "file": display_path(source),
+            "sha256": hashlib.sha256(data).hexdigest(),
+            "state_count": len(state_entries),
+            "active_entry_count": len(
+                {entry for entries in state_entries.values() for entry in entries}
+            ),
+        },
+        state_entries,
+    )
+
+
+def runtime_material_candidate_key(
+    candidate: dict[str, Any],
+    inventory: dict[tuple[int, int, int, int], dict[str, Any]],
+) -> tuple[int, int, int, int]:
+    """Validate one static material candidate and return its stable identity."""
+
+    material = candidate.get("material_run") or {}
+    key = (
+        int(candidate["bank"]),
+        int(candidate["entry"]),
+        int(candidate["segment"]),
+        int(material["index"]),
+    )
+    current = inventory.get(key)
+    if current is None:
+        raise ValueError(f"runtime material identity is absent: {key}")
+    candidate_sha1 = candidate.get("model_sha1")
+    if candidate_sha1 is not None and candidate_sha1 != current["model_sha1"]:
+        raise ValueError(f"runtime material model hash changed: {key}")
+    if any(
+        material.get(field) != current[field]
+        for field in ("first_face", "face_count", "matrix_index")
+    ):
+        raise ValueError(f"runtime material run boundary changed: {key}")
+    return key
+
+
+def refine_character_material_candidates(
+    candidates: list[dict[str, Any]],
+    draw: dict[str, Any],
+    active_entries: set[int] | None,
+    inventory: dict[tuple[int, int, int, int], dict[str, Any]],
+) -> set[tuple[int, int, int, int]]:
+    """Resolve one ambiguous draw only with active-entry and matrix evidence."""
+
+    if active_entries is None:
+        return set()
+    validated = [
+        (candidate, runtime_material_candidate_key(candidate, inventory))
+        for candidate in candidates
+    ]
+    active_bank_1 = [
+        (candidate, key)
+        for candidate, key in validated
+        if key[0] == 1 and key[1] in active_entries
+    ]
+    if not active_bank_1:
+        return set()
+    matrix = draw.get("state", {}).get("matrix") or {}
+    matrix_slot = matrix.get("matrix_slot")
+    if matrix_slot is None:
+        # The character pool cannot disprove object/level candidates. Without an
+        # exact matrix slot, active-entry evidence is sufficient only when every
+        # original candidate is already a character-bank candidate.
+        if any(key[0] != 1 for _, key in validated):
+            return set()
+        filtered = active_bank_1
+    else:
+        filtered = [
+            (candidate, key)
+            for candidate, key in active_bank_1
+            if candidate.get("material_run", {}).get("matrix_index")
+            == int(matrix_slot)
+        ]
+    keys = {key for _, key in filtered}
+    return keys if len(keys) == 1 else set()
+
+
+def refine_captured_material_candidate(
+    correlation: dict[str, Any], geometry_correlation: dict[str, Any],
+    draws: list[dict[str, Any]], loads: list[dict[str, Any]],
+    sources: list[tuple[int, bytes, str]],
+    inventory: dict[tuple[int, int, int, int], dict[str, Any]],
+) -> tuple[tuple[int, int, int, int], int] | None:
+    """Resolve an ambiguous command cluster only with one exact vertex match."""
+
+    if not sources or not correlation.get("draw_run_indices"):
+        return None
+    matches = set()
+    for candidate in geometry_correlation.get("candidates", []):
+        key = runtime_material_candidate_key(candidate, inventory)
+        geometry = inventory[key].get("_geometry")
+        first = candidate.get("static_first_face")
+        if geometry is None or not isinstance(first, int):
+            continue
+        offset = 0
+        for draw_index in correlation["draw_run_indices"]:
+            draw = draws[int(draw_index)]
+            if captured_draw_vertices(draw, loads, sources, geometry, first + offset) is None:
+                break
+            offset += int(draw["triangle_count"])
+        else:
+            matches.add((key, first))
+    # Identical geometry in several models or source spans remains ambiguous.
+    return next(iter(matches)) if len(matches) == 1 else None
+
+
+def selected_part_material_candidates(
+    trace: dict[str, Any],
+    inventory: dict[tuple[int, int, int, int], dict[str, Any]],
+) -> dict[int, dict[int, dict[str, Any]]]:
+    """Join validated renderer part sequences to exact return-event clusters."""
+
+    result = {}
+    for call in trace.get("draw_calls", []):
+        sequence = resolve_character_call_from_part_selections(call.get("part_selections", []))
+        if sequence is None:
+            continue
+        correlations = call.get("model_correlations", [])
+        clusters = sequence["resolved_clusters"]
+        if len(correlations) != len(clusters):
+            raise ValueError("selected part sequence does not cover the renderer command range")
+        selected = {}
+        for correlation, cluster in zip(correlations, clusters):
+            matches = [candidate for candidate in correlation.get("candidates", [])
+                       if all(candidate.get(key) == value for key, value in sequence["source_model"].items())
+                       and candidate.get("static_cluster_index") == cluster["static_cluster_index"]
+                       and candidate.get("static_first_face") == cluster["first_face"]
+                       and candidate.get("triangle_count") == cluster["face_count"]
+                       and (candidate.get("material_run") or {}).get("index") == cluster["material_run"]]
+            if len(matches) != 1:
+                raise ValueError("selected part cluster has no exact renderer correlation")
+            candidate = matches[0]
+            runtime_material_candidate_key(candidate, inventory)
+            index = correlation["runtime_cluster_index"]
+            if index in selected:
+                raise ValueError("selected part runtime cluster identity is duplicated")
+            selected[index] = {"candidate": candidate, "evidence": {
+                "command_sha256": call["command_sha256"],
+                "return_event_index": call["return_event_index"],
+                "static_cluster_index": cluster["static_cluster_index"],
+                "part_selection_event_indices": [part["event_index"] for part in call["part_selections"]],
+            }}
+        if call["return_event_index"] in result:
+            raise ValueError("selected part renderer return identity is duplicated")
+        result[call["return_event_index"]] = selected
+    return result
 
 
 def extract_runtime_materials(
@@ -7241,26 +11546,56 @@ def extract_runtime_materials(
     trace_paths: tuple[Path, ...],
     output: Path,
     force: bool,
+    activity_manifest_path: Path | None = None,
 ) -> dict[str, Any]:
     """Aggregate correlated draw states into reusable static material variants."""
 
     if not trace_paths:
         raise ValueError("at least one --trace JSONL file is required")
     digest, inventory = runtime_material_inventory(profile, rom_argument)
-    prepare_output(output, force)
+    activity_source, activity_by_state = load_character_activity_manifest(
+        activity_manifest_path, digest
+    )
+    if output.exists():
+        if not force:
+            raise ValueError(
+                f"output already exists: {display_path(output)}; "
+                "pass --force to replace it"
+            )
+        if not output.is_dir():
+            raise ValueError(
+                f"refusing to replace non-directory output: {display_path(output)}"
+            )
     records: dict[tuple[int, int, int, int], dict[str, Any]] = {}
     trace_records = []
     correlation_count = 0
     correlated_draw_observation_count = 0
     assignment_observation_count = 0
+    activity_refined_correlation_count = 0
+    activity_refined_draw_observation_count = 0
+    activity_refined_assignment_observation_count = 0
+    vertex_refined_correlation_count = 0
+    vertex_refined_draw_observation_count = 0
+    vertex_unproven_assignment_count = 0
+    selected_part_correlation_count = 0
+    selected_part_draw_observation_count = 0
+    character_topology = None
     nested_display_list_call_count = 0
     resolved_display_list_call_count = 0
     unresolved_display_list_call_count = 0
     segment_8_display_list_call_count = 0
     resolved_segment_8_display_list_call_count = 0
     resolved_segment_8_display_list_addresses: set[int] = set()
-    for source_path in trace_paths:
+    runtime_segment_8_resolution_status_counts: dict[str, int] = {}
+    runtime_segment_8_payload_hashes: set[str] = set()
+    runtime_segment_8_effective_payload_hashes: set[str] = set()
+    appearance_records: dict[tuple[int, int], dict[str, Any]] = {}
+    captured_texture_pngs: dict[str, bytes] = {}
+    model_cluster_index = None
+    refreshed_correlation_event_count = 0
+    for trace_index, source_path in enumerate(trace_paths):
         path = source_path if source_path.is_absolute() else ROOT / source_path
+        active_entries = activity_by_state.get(path.stem)
         data = path.read_bytes()
         lines = [json.loads(line) for line in data.splitlines() if line.strip()]
         if not lines or lines[0].get("record_type") != "session":
@@ -7271,9 +11606,30 @@ def extract_runtime_materials(
         if trace_digest is not None and trace_digest != digest:
             raise ValueError(f"runtime material trace belongs to a different ROM: {path}")
         events = [line for line in lines if line.get("record_type") == "draw_state"]
+        graphics_events = [event for event in events if captured_task_type(event) in (None, 1)]
+        for event in graphics_events:
+            if any(probe.get("name") in {"character-command-buffer", "command-buffer"}
+                   for probe in event.get("evidence", {}).get("memory", [])):
+                if model_cluster_index is None:
+                    model_cluster_index = load_model_cluster_index()
+                refreshed_correlation_event_count += refresh_trace_model_correlations(
+                    event, model_cluster_index
+                )
+        part_candidates = {}
+        if lines[0].get("spec_name") == "character-model-draw-ranges":
+            if character_topology is None:
+                _, _, character_digest, character_bundles, _ = load_model_bundles(profile, rom_argument, 1)
+                if character_digest != digest:
+                    raise ValueError("selected part topology belongs to a different ROM")
+                character_topology = character_display_list_topology(character_bundles)
+            validated_trace = load_character_draw_trace(
+                path, digest, {key[1] for key in inventory if key[0] == 1},
+                character_topology, model_cluster_index,
+            )
+            part_candidates = selected_part_material_candidates(validated_trace, inventory)
         trace_nested_calls = [
             call
-            for event in events
+            for event in graphics_events
             for call in event.get("state", {})
             .get("rdp", {})
             .get("nested_display_lists", [])
@@ -7284,7 +11640,7 @@ def extract_runtime_materials(
                 .get("rdp", {})
                 .get("unresolved_display_list_targets", [])
             )
-            for event in events
+            for event in graphics_events
         )
         trace_segment_8_calls = [
             call
@@ -7315,12 +11671,14 @@ def extract_runtime_materials(
         )
         trace_records.append(
             {
+                "trace_index": trace_index,
                 "file": display_path(path),
                 "sha256": hashlib.sha256(data).hexdigest(),
                 "spec_name": lines[0].get("spec_name"),
                 "normalized_sha1": trace_digest,
                 "tool_revisions": lines[0].get("tool_revisions"),
                 "event_count": len(events),
+                "ignored_non_graphics_task_count": len(events) - len(graphics_events),
                 "nested_display_list_call_count": len(trace_nested_calls),
                 "resolved_address_display_list_call_count": trace_resolved_calls,
                 "decoder_unresolved_display_list_call_count": trace_unresolved_calls,
@@ -7335,53 +11693,147 @@ def extract_runtime_materials(
             }
         )
         for event_index, event in enumerate(events):
+            if captured_task_type(event) not in (None, 1):
+                continue
+            backfill_runtime_convert_modes(event)
             event_state = event.get("state", {})
             rdp = event_state.get("rdp", {})
             matrices = event_state.get("joint_matrices", [])
             draw_runs = rdp.get("draw_runs", [])
+            vertex_sources = captured_vertex_sources(event)
+            vertex_loads = rdp.get("replayed_vertex_loads", [])
+            geometry_correlations = {
+                item["runtime_cluster_index"]: item
+                for item in rdp.get("model_correlations", [])
+            }
+            nested_payloads_by_address = {
+                int(item["resolved_address"], 0): item
+                for item in event.get("evidence", {}).get("memory", [])
+                if item.get("name", "").startswith("nested-display-list-")
+                and isinstance(item.get("resolved_address"), str)
+            }
+            texture_payloads = {
+                int(item["name"].rsplit("-", 1)[1]): base64.b64decode(
+                    item["data_base64"]
+                )
+                for item in event.get("evidence", {}).get("memory", [])
+                if item.get("name", "").startswith("runtime-texture-image-")
+            }
             for correlation_index, correlation in enumerate(
                 rdp.get("material_run_correlations", [])
             ):
-                if correlation.get("status") not in (
+                correlation_status = correlation.get("status")
+                if correlation_status not in (
                     "unique",
                     "equivalent-material-aliases",
+                    "ambiguous",
                 ):
                     continue
                 draw_indices = correlation.get("draw_run_indices", [])
-                correlation_count += 1
-                correlated_draw_observation_count += len(draw_indices)
-                candidate_keys = set()
-                for candidate in correlation.get("candidates", []):
-                    material = candidate.get("material_run") or {}
-                    key = (
-                        int(candidate["bank"]),
-                        int(candidate["entry"]),
-                        int(candidate["segment"]),
-                        int(material["index"]),
+                selected_part = part_candidates.get(event_index, {}).get(correlation.get("runtime_cluster_index"))
+                part_candidate = selected_part["candidate"] if selected_part is not None else None
+                if part_candidate is not None:
+                    geometry_correlation = geometry_correlations.get(correlation.get("runtime_cluster_index"), {})
+                    if part_candidate not in geometry_correlation.get("candidates", []):
+                        raise ValueError("selected part geometry changed during material replay")
+                    part_key = runtime_material_candidate_key(part_candidate, inventory)
+                    if part_key not in {runtime_material_candidate_key(c, inventory) for c in correlation.get("candidates", [])}:
+                        raise ValueError("selected part material is absent from its draw correlation")
+                    selected_part_correlation_count += 1
+                vertex_candidate = (
+                    refine_captured_material_candidate(
+                        correlation,
+                        geometry_correlations.get(correlation.get("runtime_cluster_index"), {}),
+                        draw_runs, vertex_loads, vertex_sources, inventory,
                     )
-                    current = inventory.get(key)
-                    if current is None:
-                        raise ValueError(f"runtime material identity is absent: {key}")
-                    candidate_sha1 = candidate.get("model_sha1")
-                    if candidate_sha1 is not None and candidate_sha1 != current[
-                        "model_sha1"
-                    ]:
-                        raise ValueError(f"runtime material model hash changed: {key}")
-                    if any(
-                        material.get(field) != current[field]
-                        for field in ("first_face", "face_count", "matrix_index")
-                    ):
-                        raise ValueError(f"runtime material run boundary changed: {key}")
-                    candidate_keys.add(key)
-                for draw_index in draw_indices:
+                    if correlation_status == "ambiguous" and part_candidate is None else None
+                )
+                vertex_refined_correlation_count += vertex_candidate is not None
+                accepted_draw_count = 0
+                for draw_position, draw_index in enumerate(draw_indices):
                     if not 0 <= int(draw_index) < len(draw_runs):
                         raise ValueError("runtime material draw index is out of range")
                     draw = draw_runs[int(draw_index)]
-                    source_state = draw.get("state", {})
+                    if part_candidate is not None:
+                        candidate_keys = {part_key}
+                        evidence_status = "renderer-selected-part-sequence"
+                    elif correlation_status in (
+                        "unique",
+                        "equivalent-material-aliases",
+                    ):
+                        candidate_keys = {
+                            runtime_material_candidate_key(candidate, inventory)
+                            for candidate in correlation.get("candidates", [])
+                        }
+                        evidence_status = correlation_status
+                    elif vertex_candidate is not None:
+                        candidate_keys = {vertex_candidate[0]}
+                        evidence_status = "captured-vertex-bytes-and-command-cluster"
+                        vertex_refined_draw_observation_count += 1
+                    else:
+                        candidate_keys = refine_character_material_candidates(
+                            correlation.get("candidates", []),
+                            draw,
+                            active_entries,
+                            inventory,
+                        )
+                        if not candidate_keys:
+                            continue
+                        evidence_status = "runtime-active-character-matrix"
+                        activity_refined_draw_observation_count += 1
+                        activity_refined_assignment_observation_count += len(
+                            candidate_keys
+                        )
+                    verified_first_faces = {}
+                    if vertex_sources:
+                        # A unique triangle pattern can still be coincidental.
+                        # Captured coordinates must support each assignment,
+                        # including unique and equivalent command candidates.
+                        draw_face_offset = sum(int(draw_runs[int(i)]["triangle_count"])
+                                               for i in draw_indices[:draw_position])
+                        for key in candidate_keys:
+                            first_faces = {
+                                int(candidate["static_first_face"]) + draw_face_offset
+                                for candidate in geometry_correlations.get(
+                                    correlation.get("runtime_cluster_index"), {}
+                                ).get("candidates", [])
+                                if "static_first_face" in candidate
+                                and runtime_material_candidate_key(candidate, inventory) == key
+                            }
+                            if part_candidate is not None:
+                                first_faces = {part_candidate["static_first_face"] + draw_face_offset}
+                            elif vertex_candidate is not None:
+                                first_faces = {vertex_candidate[1] + draw_face_offset}
+                            geometry = inventory[key].get("_geometry")
+                            matching = [first for first in first_faces if geometry is not None
+                                        and captured_draw_vertices(draw, vertex_loads, vertex_sources,
+                                                                   geometry, first) is not None]
+                            if len(matching) == 1:
+                                verified_first_faces[key] = matching[0]
+                            else:
+                                vertex_unproven_assignment_count += 1
+                        candidate_keys = set(verified_first_faces)
+                        if not candidate_keys:
+                            continue
+                        evidence_status = "captured-vertex-bytes-and-command-cluster"
+                    accepted_draw_count += 1
+                    if part_candidate is not None:
+                        selected_part_draw_observation_count += 1
+                    source_state = dict(draw.get("state", {}))
+                    if "replayed_tile_bounds" in draw:
+                        source_state["tile_bounds"] = draw["replayed_tile_bounds"]
+                    texture_state = copy.deepcopy(source_state.get("texture"))
+                    if isinstance(texture_state, dict):
+                        for image_name in ("pixel_image", "palette_image"):
+                            image = texture_state.get(image_name)
+                            if isinstance(image, dict):
+                                image.pop("captured_texture_image_index", None)
                     material_state = {
-                        "texture": source_state.get("texture"),
+                        "texture": texture_state,
                         "tiles": source_state.get("tiles"),
+                        "tile_bounds": source_state.get("tile_bounds", {}),
                         "combine_mode": source_state.get("combine_mode"),
+                        "convert_mode": source_state.get("convert_mode"),
                         "other_mode": source_state.get("other_mode"),
                         "colours": source_state.get("colours"),
                         "geometry_mode": source_state.get("geometry_mode"),
@@ -7402,6 +11854,21 @@ def extract_runtime_materials(
                     for key in candidate_keys:
                         assignment_observation_count += 1
                         current = inventory[key]
+                        captured_texture = runtime_captured_preview_texture(
+                            current.get("_run"),
+                            source_state,
+                            texture_payloads,
+                        )
+                        if captured_texture is not None:
+                            for level in [
+                                captured_texture,
+                                *runtime_captured_auxiliary_textures(
+                                    captured_texture
+                                ),
+                            ]:
+                                captured_texture_pngs.setdefault(
+                                    level["file"], level.pop("png_data")
+                                )
                         record = records.setdefault(
                             key,
                             {
@@ -7423,6 +11890,7 @@ def extract_runtime_materials(
                                 "observation_count": 0,
                                 "state": material_state,
                                 "gltf_translation": translation,
+                                "captured_texture": captured_texture,
                                 "lighting_contexts": {},
                                 "evidence": [],
                             },
@@ -7440,17 +11908,126 @@ def extract_runtime_materials(
                             context["observation_count"] += 1
                         evidence = {
                             "trace": display_path(path),
+                            "trace_index": trace_index,
                             "event_index": event_index,
                             "hit_index": event.get("hit_index"),
                             "event_render_state_hash": event.get("render_state_hash"),
                             "material_correlation_index": correlation_index,
+                            "material_correlation_status": evidence_status,
                             "draw_run_index": int(draw_index),
                             "source_material_state_hash": draw.get(
                                 "material_state_hash"
                             ),
+                            "lighting_context_hash": (
+                                lighting_context["lighting_context_hash"]
+                                if lighting_context is not None
+                                else None
+                            ),
                         }
+                        origins = rdp.get("replayed_command_origins", [])
+                        command_index = int(draw.get("command_offset", -8)) // 8
+                        if 0 <= command_index < len(origins):
+                            evidence["command_path"] = origins[command_index]
+                        if "replayed_face_culling" in draw:
+                            evidence["face_culling"] = draw["replayed_face_culling"]
+                        if selected_part is not None:
+                            evidence["renderer_part_sequence"] = selected_part["evidence"]
+                        source_faces = {
+                            int(candidate["static_first_face"]) + sum(
+                                int(draw_runs[int(i)]["triangle_count"])
+                                for i in draw_indices[:draw_position]
+                            )
+                            for candidate in geometry_correlations.get(
+                                correlation.get("runtime_cluster_index"), {}
+                            ).get("candidates", [])
+                            if "static_first_face" in candidate
+                            and runtime_material_candidate_key(candidate, inventory) == key
+                        }
+                        if vertex_candidate is not None:
+                            source_faces = {vertex_candidate[1] + sum(
+                                int(draw_runs[int(i)]["triangle_count"])
+                                for i in draw_indices[:draw_position]
+                            )}
+                        if part_candidate is not None:
+                            source_faces = {part_candidate["static_first_face"] + sum(
+                                int(draw_runs[int(i)]["triangle_count"])
+                                for i in draw_indices[:draw_position]
+                            )}
+                        if key in verified_first_faces:
+                            source_faces = {verified_first_faces[key]}
+                        if len(source_faces) == 1:
+                            first_face = next(iter(source_faces))
+                            count = int(draw["triangle_count"])
+                            if not current["first_face"] <= first_face < first_face + count <= current["first_face"] + current["face_count"]:
+                                raise ValueError("runtime draw exceeds its source material face range")
+                            evidence["source_first_face"] = first_face
+                            evidence["source_face_count"] = count
+                            if vertex_sources and "_geometry" in current:
+                                sample = replay_draw_vertex_colours(
+                                    draw, vertex_loads, vertex_sources, current["_geometry"], first_face
+                                )
+                                if sample is not None:
+                                    evidence["vertex_lighting"] = sample
+                        segment_8_resolution = runtime_segment_8_resolution(
+                            current.get("_run"),
+                            source_state,
+                            rdp.get("nested_display_lists", []),
+                            nested_payloads_by_address,
+                        )
+                        if segment_8_resolution is not None:
+                            evidence["runtime_segment_8_resolution"] = (
+                                segment_8_resolution
+                            )
+                            resolution_status = segment_8_resolution["status"]
+                            runtime_segment_8_resolution_status_counts[
+                                resolution_status
+                            ] = (
+                                runtime_segment_8_resolution_status_counts.get(
+                                    resolution_status, 0
+                                )
+                                + 1
+                            )
+                            payload_hash = segment_8_resolution.get(
+                                "payload_sha256"
+                            )
+                            if isinstance(payload_hash, str):
+                                runtime_segment_8_payload_hashes.add(payload_hash)
+                                if resolution_status == (
+                                    "exact-runtime-list-effective-state"
+                                ):
+                                    runtime_segment_8_effective_payload_hashes.add(
+                                        payload_hash
+                                    )
                         if evidence not in variant["evidence"]:
                             variant["evidence"].append(evidence)
+                        appearance = appearance_records.setdefault(
+                            (trace_index, event_index),
+                            {
+                                "id": f"trace-{trace_index:03d}-event-{event_index:03d}",
+                                "trace_index": trace_index,
+                                "trace": display_path(path),
+                                "event_index": event_index,
+                                "hit_index": event.get("hit_index"),
+                                "event_render_state_hash": event.get(
+                                    "render_state_hash"
+                                ),
+                                "material_assignment_observation_count": 0,
+                                "material_keys": set(),
+                                "variant_keys": set(),
+                                "bank_entries": {},
+                            },
+                        )
+                        appearance["material_assignment_observation_count"] += 1
+                        appearance["material_keys"].add(key)
+                        appearance["variant_keys"].add((*key, material_hash))
+                        appearance["bank_entries"].setdefault(key[0], set()).add(
+                            key[1]
+                        )
+                if accepted_draw_count:
+                    correlation_count += 1
+                    correlated_draw_observation_count += accepted_draw_count
+                    if correlation_status == "ambiguous" and vertex_candidate is None:
+                        activity_refined_correlation_count += 1
     material_records = []
     status_counts: dict[str, int] = {}
     for key in sorted(records):
@@ -7472,6 +12049,27 @@ def extract_runtime_materials(
             variant["observation_count"] for variant in variants
         )
         material_records.append(record)
+    appearances = []
+    for key in sorted(appearance_records):
+        appearance = appearance_records[key]
+        appearances.append(
+            {
+                **{
+                    field: value
+                    for field, value in appearance.items()
+                    if field not in ("material_keys", "variant_keys", "bank_entries")
+                },
+                "material_record_count": len(appearance["material_keys"]),
+                "variant_count": len(appearance["variant_keys"]),
+                "bank_entries": [
+                    {
+                        "bank": bank,
+                        "entries": sorted(entries),
+                    }
+                    for bank, entries in sorted(appearance["bank_entries"].items())
+                ],
+            }
+        )
     manifest = {
         "schema_version": 1,
         "family": "runtime-correlated-model-materials",
@@ -7479,6 +12077,10 @@ def extract_runtime_materials(
         "normalized_sha1": digest,
         "source_traces": trace_records,
         "trace_file_count": len(trace_records),
+        "refreshed_correlation_event_count": refreshed_correlation_event_count,
+        "correlation_basis": "hash-checked-captured-commands-current-vertex-cache-clusters",
+        "appearances": appearances,
+        "appearance_count": len(appearances),
         "nested_display_list_call_count": nested_display_list_call_count,
         "resolved_address_display_list_call_count": (
             resolved_display_list_call_count
@@ -7497,9 +12099,38 @@ def extract_runtime_materials(
             f"0x{address:08X}"
             for address in sorted(resolved_segment_8_display_list_addresses)
         ],
+        "runtime_segment_8_material_assignment_observation_count": sum(
+            runtime_segment_8_resolution_status_counts.values()
+        ),
+        "runtime_segment_8_resolution_status_counts": dict(
+            sorted(runtime_segment_8_resolution_status_counts.items())
+        ),
+        "runtime_segment_8_payload_count": len(
+            runtime_segment_8_payload_hashes
+        ),
+        "runtime_segment_8_payload_sha256": sorted(
+            runtime_segment_8_payload_hashes
+        ),
+        "runtime_segment_8_effective_payload_count": len(
+            runtime_segment_8_effective_payload_hashes
+        ),
+        "runtime_segment_8_effective_payload_sha256": sorted(
+            runtime_segment_8_effective_payload_hashes
+        ),
         "correlation_count": correlation_count,
         "correlated_draw_observation_count": correlated_draw_observation_count,
         "material_assignment_observation_count": assignment_observation_count,
+        "character_activity_manifest": activity_source,
+        "vertex_refined_correlation_count": vertex_refined_correlation_count,
+        "vertex_refined_draw_observation_count": vertex_refined_draw_observation_count,
+        "vertex_unproven_assignment_count": vertex_unproven_assignment_count,
+        "activity_refined_correlation_count": activity_refined_correlation_count,
+        "activity_refined_draw_observation_count": (
+            activity_refined_draw_observation_count
+        ),
+        "activity_refined_assignment_observation_count": (
+            activity_refined_assignment_observation_count
+        ),
         "material_record_count": len(material_records),
         "variant_count": sum(record["variant_count"] for record in material_records),
         "lighting_context_count": sum(
@@ -7507,16 +12138,85 @@ def extract_runtime_materials(
             for record in material_records
             for variant in record["variants"]
         ),
+        "convert_mode_variant_count": sum(
+            variant["state"].get("convert_mode") is not None
+            for record in material_records
+            for variant in record["variants"]
+        ),
+        "missing_convert_mode_variant_count": sum(
+            variant["state"].get("convert_mode") is None
+            for record in material_records
+            for variant in record["variants"]
+        ),
+        "convert_mode_count": len(
+            {
+                tuple(variant["state"]["convert_mode"])
+                for record in material_records
+                for variant in record["variants"]
+                if variant["state"].get("convert_mode") is not None
+            }
+        ),
+        "captured_mip_variant_count": sum(
+            bool(runtime_captured_mip_levels(variant.get("captured_texture") or {}))
+            for record in material_records
+            for variant in record["variants"]
+        ),
+        "captured_mip_level_count": sum(
+            len(runtime_captured_mip_levels(variant.get("captured_texture") or {}))
+            for record in material_records
+            for variant in record["variants"]
+        ),
+        "captured_mip_png_count": len(
+            {
+                level["file"]
+                for record in material_records
+                for variant in record["variants"]
+                for level in runtime_captured_mip_levels(
+                    variant.get("captured_texture") or {}
+                )
+            }
+        ),
+        "captured_multitexture_variant_count": sum(
+            isinstance(
+                (variant.get("captured_texture") or {}).get("texture1_image"),
+                dict,
+            )
+            for record in material_records
+            for variant in record["variants"]
+        ),
+        "captured_multitexture_png_count": len(
+            {
+                texture1["file"]
+                for record in material_records
+                for variant in record["variants"]
+                if isinstance(
+                    (texture1 := (variant.get("captured_texture") or {}).get(
+                        "texture1_image"
+                    )),
+                    dict,
+                )
+            }
+        ),
         "gltf_translation_status_counts": dict(sorted(status_counts.items())),
         "limitations": [
             "runtime correlations cover only models visible in the supplied traces",
+            "character-pool refinement promotes only a unique active bank-01 material identity with compatible matrix evidence",
             "equivalent model payload aliases retain every candidate identity",
             "RDP coverage and blender state are approximated by glTF alpha modes",
             "explicit TEXEL0/TEXEL1 LOD blending remains metadata-only",
+            "draws before a task-local SetConvert retain an unresolved inherited conversion state",
             "captured CBFD lights and model-view matrices are retained per material variant for deterministic vertex-lighting replay",
         ],
         "materials": material_records,
     }
+    if selected_part_correlation_count:
+        manifest["renderer_part_sequence_correlation_count"] = selected_part_correlation_count
+        manifest["renderer_part_sequence_draw_observation_count"] = selected_part_draw_observation_count
+    prepare_output(output, force)
+    for relative, data in sorted(captured_texture_pngs.items()):
+        destination = output / relative
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_bytes(data)
     (output / "manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
     )
@@ -7525,10 +12225,18 @@ def extract_runtime_materials(
 
 
 def load_runtime_material_catalog(
-    path: Path | None, expected_digest: str
+    path: Path | None,
+    expected_digest: str,
+    appearance: tuple[int, int] | None = None,
+    *,
+    command_range: tuple[int, int] | None = None,
 ) -> dict[tuple[int, int, int, int], dict[str, Any]]:
     if path is None:
         return {}
+    if command_range is not None and (appearance is None or len(command_range) != 2
+                                     or not command_range[0] < command_range[1]
+                                     or any(address & 7 for address in command_range)):
+        raise ValueError("runtime command range requires an appearance and aligned bounds")
     source = path if path.is_absolute() else ROOT / path
     manifest = json.loads(source.read_text(encoding="utf-8"))
     if (
@@ -7546,9 +12254,75 @@ def load_runtime_material_catalog(
         )
         if key in catalog:
             raise ValueError(f"duplicate runtime material record: {key}")
-        catalog[key] = record
+        if appearance is None:
+            record = copy.deepcopy(record)
+            record["_source_root"] = source.parent
+            catalog[key] = record
+            continue
+        selected = copy.deepcopy(record)
+        selected_variants = []
+        for variant in selected.get("variants", []):
+            evidence = [
+                item
+                for item in variant.get("evidence", [])
+                if (
+                    int(item.get("trace_index", -1)),
+                    int(item.get("event_index", -1)),
+                )
+                == appearance
+                and (command_range is None or any(
+                    command_range[0] <= address < command_range[1]
+                    for address in item.get("command_path", [])
+                ))
+            ]
+            if not evidence:
+                continue
+            context_hashes = {
+                item.get("lighting_context_hash")
+                for item in evidence
+                if item.get("lighting_context_hash") is not None
+            }
+            context_observations = {
+                context_hash: sum(
+                    item.get("lighting_context_hash") == context_hash
+                    for item in evidence
+                )
+                for context_hash in context_hashes
+            }
+            variant["evidence"] = evidence
+            variant["observation_count"] = len(evidence)
+            variant["lighting_contexts"] = [
+                {
+                    **context,
+                    "observation_count": context_observations[
+                        context["lighting_context_hash"]
+                    ],
+                }
+                for context in variant.get("lighting_contexts", [])
+                if context.get("lighting_context_hash") in context_hashes
+            ]
+            variant["lighting_context_count"] = len(variant["lighting_contexts"])
+            selected_variants.append(variant)
+        if selected_variants:
+            selected["variants"] = selected_variants
+            selected["variant_count"] = len(selected_variants)
+            selected["observation_count"] = sum(
+                variant["observation_count"] for variant in selected_variants
+            )
+            selected["_source_root"] = source.parent
+            catalog[key] = selected
     if len(catalog) != manifest.get("material_record_count"):
-        raise ValueError("runtime material manifest count changed")
+        if appearance is None:
+            raise ValueError("runtime material manifest count changed")
+        available = {
+            (int(item["trace_index"]), int(item["event_index"]))
+            for item in manifest.get("appearances", [])
+        }
+        if appearance not in available:
+            raise ValueError(
+                "runtime material appearance is absent: "
+                f"{appearance[0]}:{appearance[1]}"
+            )
     return catalog
 
 
@@ -7569,34 +12343,154 @@ def runtime_material_consensus(record: dict[str, Any] | None) -> dict[str, Any] 
         return values[0] if len(encoded) == 1 else None
 
     statuses = sorted({translation["status"] for translation in translations})
-    exact = all(status == "exact-texture-times-vertex-color" for status in statuses)
+    exact_statuses = {
+        "exact-texture-times-vertex-color",
+        "exact-vertex-color-times-factor",
+        "exact-runtime-color-times-texture-alpha",
+        "exact-texture-without-vertex-color",
+    }
+    base_color_factor = unanimous("baseColorFactor")
+    exact = (
+        all(status in exact_statuses for status in statuses)
+        and base_color_factor is not None
+    )
     return {
         "variantCount": len(variants),
         "observationCount": record.get("observation_count"),
         "statuses": statuses,
         "alphaMode": unanimous("alphaMode"),
         "sampler": unanimous("sampler"),
-        "baseColorFactor": unanimous("baseColorFactor") if exact else None,
+        "baseColorFactor": base_color_factor,
+        "usesVertexColor": unanimous("usesVertexColor"),
+        "referencesTexels": runtime_material_references_texels(record),
+        "vertexAlphaMode": unanimous("vertexAlphaMode"),
         "exact": exact,
     }
 
 
-def runtime_lighting_replay_choice(
-    record: dict[str, Any] | None,
-) -> tuple[dict[str, Any], dict[str, Any]] | None:
-    """Choose only an unambiguous captured lighting state and matrix."""
+def runtime_material_references_texels(record: dict[str, Any] | None) -> bool | None:
+    """Prove texture absence independently of unresolved lighting or constants.
 
-    if record is None or len(record.get("variants", [])) != 1:
+    Inspect both cycles conservatively. A reference in an inactive or algebraically
+    cancelled term keeps the texture eligible; missing state never proves absence.
+    A loaded image alone does not mean the combiner samples it.
+    """
+
+    variants = record.get("variants", []) if record is not None else []
+    if not variants:
         return None
-    variant = record["variants"][0]
-    if variant.get("gltf_translation", {}).get("status") != (
-        "requires-runtime-lighting-replay"
-    ):
+    referenced = False
+    for variant in variants:
+        state = variant.get("state", {})
+        other = decode_other_mode(state.get("other_mode"))
+        if other is None or other["cycle_type"] == "fill":
+            return None
+        if other["cycle_type"] == "copy":
+            referenced = True
+            continue
+        pair = state.get("combine_mode")
+        if not isinstance(pair, (list, tuple)) or len(pair) != 2:
+            return None
+        formula = decode_combine_mode(tuple(pair))
+        if formula is None:
+            return None
+        referenced |= bool({"TEXEL0", "TEXEL1"}.intersection(formula["inputs"]))
+    return referenced
+
+
+def runtime_captured_texture_choice(
+    record: dict[str, Any] | None,
+) -> PreviewTexture | None:
+    """Return one task-local captured texture only when selection is unambiguous."""
+
+    if (record is None or len(record.get("variants", [])) != 1
+            or runtime_material_references_texels(record) is False):
         return None
-    contexts = variant.get("lighting_contexts", [])
-    if len(contexts) != 1:
+    captured = record["variants"][0].get("captured_texture")
+    source_root = record.get("_source_root")
+    if not isinstance(captured, dict) or not isinstance(source_root, Path):
         return None
-    return variant, contexts[0]
+    source = _validated_preview_source(source_root, captured["file"])
+    if hashlib.sha1(source.read_bytes()).hexdigest() != captured["png_sha1"]:
+        raise ValueError("runtime captured texture PNG hash changed")
+    format_id, size_id = {
+        "ci4": (2, 0), "ci8": (2, 1), "i4": (4, 0),
+        "i8": (4, 1), "ia8": (3, 1), "rgba32": (0, 3),
+    }[captured["format"]]
+    return PreviewTexture(
+        family="us-runtime-captured",
+        source=source,
+        flat_index=0,
+        format=format_id,
+        size=size_id,
+        width=int(captured["width"]),
+        height=int(captured["height"]),
+        sha1=captured["png_sha1"],
+    )
+
+
+def apply_runtime_texture_coordinates(
+    geometry: ModelGeometry, runtime_materials: dict[int, dict[str, Any]]
+) -> ModelGeometry:
+    """Keep captured image dimensions, tile origins and exported UVs together."""
+
+    runs = list(geometry.material_runs)
+    for index, record in runtime_materials.items():
+        variants = record.get("variants", [])
+        if len(variants) != 1:
+            continue
+        captured = variants[0].get("captured_texture") or {}
+        coordinates = captured.get("coordinate_state")
+        if coordinates is None:
+            continue
+        run = replace(
+            runs[index],
+            render_tile=tuple(coordinates["render_tile"]),
+            tile_bounds=tuple(coordinates["tile_bounds"]) if coordinates["tile_bounds"] else None,
+            texture_scale=tuple(coordinates["texture_scale"]),
+            texture_dimensions=tuple(coordinates["texture_dimensions"]) if coordinates.get("texture_dimensions") else None,
+        )
+        state = texture_coordinate_state(run)
+        if state is None or (state["width"], state["height"]) != (
+            captured["width"], captured["height"]
+        ):
+            raise ValueError("captured texture dimensions disagree with its coordinate state")
+        runs[index] = run
+    return replace(geometry, material_runs=tuple(runs))
+
+
+def copy_runtime_captured_auxiliary_textures(
+    record: dict[str, Any], output: Path
+) -> tuple[set[str], set[str]]:
+    """Copy secondary captured textures beside a self-contained preview."""
+
+    source_root = record.get("_source_root")
+    if not isinstance(source_root, Path):
+        return set(), set()
+    copied_mips = set()
+    copied_multitextures = set()
+    for variant in record.get("variants", []):
+        captured = variant.get("captured_texture")
+        if not isinstance(captured, dict):
+            continue
+        texture1_image = captured.get("texture1_image")
+        for level in runtime_captured_auxiliary_textures(captured):
+            source = _validated_preview_source(source_root, level["file"])
+            data = source.read_bytes()
+            if hashlib.sha1(data).hexdigest() != level["png_sha1"]:
+                raise ValueError("runtime captured mip PNG hash changed")
+            filename = source.name
+            destination = output / "textures" / filename
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            if destination.exists() and destination.read_bytes() != data:
+                raise ValueError("runtime captured mip filename collision")
+            destination.write_bytes(data)
+            level["preview_file"] = f"../textures/{filename}"
+            if level is texture1_image:
+                copied_multitextures.add(filename)
+            else:
+                copied_mips.add(filename)
+    return copied_mips, copied_multitextures
 
 
 def extract_model_preview(
@@ -7607,21 +12501,22 @@ def extract_model_preview(
     force: bool,
     bank_index: int = DEFAULT_BANK_INDEX,
     runtime_material_path: Path | None = None,
+    runtime_appearance: tuple[int, int] | None = None,
 ) -> dict[str, Any]:
+    if runtime_appearance is not None and runtime_material_path is None:
+        raise ValueError("--runtime-appearance requires --runtime-materials")
     rom_path, source_order, digest, bundles, render_state_tables = load_model_bundles(
         profile, rom_argument, bank_index
     )
-    catalog = load_preview_texture_catalog(texture_root, digest)
+    flat_payloads = load_flat_asset_payloads(profile, rom_argument, digest)
+    catalog = load_preview_texture_catalog(texture_root, digest, tuple(flat_payloads))
     runtime_material_catalog = load_runtime_material_catalog(
-        runtime_material_path, digest
-    )
-    flat_payloads = (
-        load_flat_asset_payloads(profile, rom_argument, digest)
-        if bank_index in (0x01, 0x09)
-        else None
+        runtime_material_path, digest, runtime_appearance
     )
     prepare_output(output, force)
     copied_textures: dict[PreviewTexture, str] = {}
+    copied_runtime_mip_textures: set[str] = set()
+    copied_runtime_multitextures: set[str] = set()
     model_records = []
     model_gltfs: dict[int, tuple[dict[str, Any], bytes]] = {}
     segmented_model_gltfs: dict[
@@ -7701,6 +12596,10 @@ def extract_model_preview(
                             key=lambda clip: clip.pair_index != pose_pair,
                         )
                     )
+            elif bank_index == 0x09 and is_attachment_model(segment.data):
+                geometry, attachment_layout = parse_attachment_model(segment.data, parse_model_geometry)
+                character_joints = tuple(attachment_layout["joints"]) or None
+                character_pose_source = "neutral-attachment-joint-hierarchy-parent-transform-unobserved"
             else:
                 geometry = parse_geometry_for_bank(segment.data, bank_index)
             source_geometry = geometry
@@ -7708,15 +12607,9 @@ def extract_model_preview(
                 omit_zero_area_preview_faces(source_geometry)
             )
             texture_files: dict[str, str] = {}
+            gltf_texture_files: dict[str | int, str] = {}
             model_runtime_materials: dict[int, dict[str, Any]] = {}
             run_records = []
-            mode_one_ci8_palette_policy = (
-                "payload-base"
-                if bank_index in (0x03, 0x04)
-                else "payload-end-minus-0x200"
-                if bank_index == 0x09
-                else None
-            )
             for run_index, run in enumerate(geometry.material_runs):
                 runtime_material = runtime_material_catalog.get(
                     (bank_index, bundle.index, segment.index, run_index)
@@ -7727,13 +12620,29 @@ def extract_model_preview(
                         raise ValueError(
                             "runtime material record model hash does not match preview"
                         )
+                    copied_mips, copied_multitextures = (
+                        copy_runtime_captured_auxiliary_textures(
+                            runtime_material, output
+                        )
+                    )
+                    copied_runtime_mip_textures.update(copied_mips)
+                    copied_runtime_multitextures.update(copied_multitextures)
                     model_runtime_materials[run_index] = runtime_material
-                texture, status = choose_preview_texture(
-                    run,
-                    catalog,
-                    flat_payloads,
-                    mode_one_ci8_palette_policy=mode_one_ci8_palette_policy,
-                )
+                texture = runtime_captured_texture_choice(runtime_material)
+                if texture is not None:
+                    status = runtime_material["variants"][0]["captured_texture"]["status"]
+                else:
+                    texture, status = choose_preview_texture(
+                        run,
+                        catalog,
+                        flat_payloads,
+                    )
+                if runtime_material_references_texels(runtime_material) is False:
+                    texture, status = None, "runtime-combiner-does-not-use-texture"
+                if texture is not None and (
+                    not run.texture_enabled or not run.texture_coordinates_proven
+                ):
+                    texture, status = None, "runtime-texture-observed-coordinate-state-unresolved"
                 reason_counts[status] = reason_counts.get(status, 0) + 1
                 reason_face_counts[status] = (
                     reason_face_counts.get(status, 0) + run.face_count
@@ -7793,11 +12702,20 @@ def extract_model_preview(
                         copied_textures[texture] = filename
                     material = material_name(run)
                     relative_texture = f"../textures/{filename}"
-                    previous = texture_files.setdefault(material, relative_texture)
+                    texture_key: str | int = (
+                        run_index
+                        if texture.family == "us-runtime-captured"
+                        else material
+                    )
+                    previous = gltf_texture_files.setdefault(
+                        texture_key, relative_texture
+                    )
                     if previous != relative_texture:
                         raise ValueError(
                             f"material {material} resolves to multiple preview textures"
                         )
+                    if isinstance(texture_key, str):
+                        texture_files[material] = relative_texture
                     record["texture"] = {
                         "flat_index": texture.flat_index,
                         "format": texture.format,
@@ -7811,6 +12729,7 @@ def extract_model_preview(
                         "palette_byte_offset": texture.palette_byte_offset,
                     }
                 run_records.append(record)
+            geometry = apply_runtime_texture_coordinates(geometry, model_runtime_materials)
             stem = f"{bundle.index:04d}-{segment.index:02d}"
             geometry_dir = output / "geometry"
             geometry_dir.mkdir(parents=True, exist_ok=True)
@@ -7830,7 +12749,7 @@ def extract_model_preview(
                 bundle.index,
                 segment.index,
                 geometry,
-                texture_files,
+                gltf_texture_files,
                 bank_index,
                 character_joints,
                 character_rotations,
@@ -7854,7 +12773,7 @@ def extract_model_preview(
                     bundle.index,
                     segment.index,
                     geometry,
-                    texture_files,
+                    gltf_texture_files,
                     bank_index,
                     character_joints,
                     None,
@@ -7921,7 +12840,7 @@ def extract_model_preview(
                         character_pose_source
                         or "neutral-translation-hierarchy-no-semantic-action-selected"
                     )
-                    if bank_index == 0x01 else None,
+                    if character_pose_source is not None or bank_index == 0x01 else None,
                     "runtime_reference_pose": (
                         character_reference_pose_source
                         if bank_index == 0x01
@@ -8023,6 +12942,7 @@ def extract_model_preview(
         "source_rom": manifest_source(rom_path),
         "source_byte_order": source_order,
         "normalized_sha1": digest,
+        "flat_asset_identity": flat_asset_identity(flat_payloads),
         "bank_index": bank_index,
         "source_texture_root": display_path(texture_root),
         "runtime_render_state_tables": list(render_state_tables),
@@ -8037,6 +12957,14 @@ def extract_model_preview(
             if runtime_material_path is not None
             else None
         ),
+        "runtime_material_appearance": (
+            {
+                "trace_index": runtime_appearance[0],
+                "event_index": runtime_appearance[1],
+            }
+            if runtime_appearance is not None
+            else None
+        ),
         "runtime_material_record_count": sum(
             run["runtime_material"] is not None
             for model in model_records
@@ -8044,7 +12972,7 @@ def extract_model_preview(
         ),
         "runtime_lighting_replay_run_count": sum(
             run.get("runtime_lighting_replay", {}).get("status")
-            == "gliden64-equivalent-observed-draw"
+            == "captured-cbfd-vertex-load-colours"
             for model in model_records
             for run in model["material_runs"]
         ),
@@ -8089,6 +13017,8 @@ def extract_model_preview(
         "linked_material_run_count": linked_run_count,
         "linked_face_count": linked_face_count,
         "copied_texture_count": len(copied_textures),
+        "copied_runtime_mip_texture_count": len(copied_runtime_mip_textures),
+        "copied_runtime_multitexture_count": len(copied_runtime_multitextures),
         "status_run_counts": dict(sorted(reason_counts.items())),
         "status_face_counts": dict(sorted(reason_face_counts.items())),
         "ci8_palette_runtime_evidence": (
@@ -8106,7 +13036,7 @@ def extract_model_preview(
                     },
                 ],
                 "mode_one_effect": "256-entry-palette-starts-at-payload-end-minus-0x200",
-                "mode_two_effect": "16-entry-palette-starts-at-payload-end-minus-0x200",
+                "mode_two_effect": "16-entry-palette-starts-at-payload-end-minus-0x20",
             }
             if bank_index == 0x01
             else
@@ -8123,8 +13053,8 @@ def extract_model_preview(
                 },
                 "parser": "func_1510CE60",
                 "effect": (
-                    "mode-one palette pointers remain at the decoded payload base; "
-                    "they do not select payload_end_minus_0x200"
+                    "mode-one palettes select payload end minus 0x200; "
+                    "mode-two palettes select payload end minus 0x20"
                 ),
             }
             if bank_index == 0x03
@@ -8134,7 +13064,7 @@ def extract_model_preview(
                     "call": "0x150033F4",
                     "segment_indices": [0, 1, 2, 3],
                     "fifth_argument": 0,
-                    "effect": "mode-one palette remains at payload base",
+                    "effect": "mode-one palette selects payload end minus 0x200",
                 },
                 "object_model_instances": {
                     "function": "func_150039E0",
@@ -8143,7 +13073,7 @@ def extract_model_preview(
                     "fifth_argument": 0,
                     "effect": (
                         "new placement instances select any bundle model by index and "
-                        "leave mode-one palettes at payload base"
+                        "select mode-one palettes at payload end minus 0x200"
                     ),
                 },
                 "parser": "func_1510CE60",
@@ -8195,7 +13125,8 @@ def extract_model_preview(
         "limitations": [
             (
                 "character texture segments 6, 7, 10, and 11 are selected from "
-                "four runtime character-state texture IDs and are not linked"
+                "four runtime character-state texture IDs and remain unlinked unless "
+                "the selected runtime appearance includes exact captured pixel/TLUT spans"
                 if bank_index == 0x01
                 else "runtime-segment textures are scene-dependent and are not linked"
             ),
@@ -8210,21 +13141,20 @@ def extract_model_preview(
                 "standalone PNG contract and remains unlinked"
             ),
             (
-                "bank-01 render loaders pass a non-null rewrite table, placing both "
-                "CI8 and CI4 TLUT references at payload end minus 0x200; TEXEL0/TEXEL1 "
+                "the loader places CI8 TLUTs at payload end minus 0x200 and CI4 "
+                "TLUTs at payload end minus 0x20; TEXEL0/TEXEL1 "
                 "mipmapped runs preserve their complete render-tile ladders but remain "
                 "unlinked until their LOD blend and dynamic colours can be reproduced"
                 if bank_index == 0x01
-                else "bank-03's model loader passes a null fifth parser argument, so "
-                "mode-one CI8 palette pointers remain at payload base, overlap the "
-                "pixel indices, and are not linked to trailing-palette PNGs"
+                else "bank-03 mode-one CI8 palettes use the trailing 0x200 bytes; "
+                "the fifth parser argument only controls reference bookkeeping"
                 if bank_index == 0x03
-                else "bank-04's initial slots and indexed placement instances pass the "
-                "same null fifth parser argument, so mode-one CI8 palette pointers "
-                "remain at payload base and are not linked to trailing-palette PNGs"
+                else "bank-04 initial slots and placement instances use the shared "
+                "mode-one trailing 0x200-byte palette contract; source image spans "
+                "still require complete display-list load evidence"
                 if bank_index == 0x04
-                else "bank-09 loaders pass a non-null rewrite table, so mode-one CI8 "
-                "palettes are composed from payload end minus 0x200"
+                else "bank-09 mode-one CI8 palettes use payload end minus 0x200, "
+                "independently of the parser's reference bookkeeping table"
             ),
             "native-proven PNGs prove reversible pixel storage, not the RDP combiner "
             "and primitive/environment colors needed for a faithful material; they "
@@ -8347,7 +13277,9 @@ def extract_model_preview(
         "represented. "
         + (
             "Character facial textures in runtime segments 6, 7, 10, and 11 are "
-            "selected from live character state and therefore remain unlinked. "
+            "selected from live character state. They remain unlinked without a "
+            "task-local runtime capture; an appearance-specific manifest may supply "
+            "their exact pixel and TLUT spans. "
             if bank_index == 0x01
             else ""
         )
@@ -8355,9 +13287,19 @@ def extract_model_preview(
         + (
             f"This preview embeds {manifest['runtime_material_record_count']} "
             "ROM-validated runtime material records. Unanimous sampler and alpha "
-            "state is translated to glTF. Unambiguous supported lit runs use "
-            "GLideN64-equivalent floating-point vertex colours; unsupported or "
-            "ambiguous combiner, lighting, and mip state remains in material extras. "
+            "state is translated to glTF. Unambiguous lit runs use GLideN64-equivalent "
+            "floating-point vertex colours. Every observed non-mipmap combiner is "
+            "classified; explicit mip and second-texture images are copied beside the "
+            "preview and referenced from material extras, while standard glTF displays "
+            "only the base texture. Ambiguous lighting remains unbaked. "
+            + (
+                "Those records are filtered to runtime appearance "
+                f"{runtime_appearance[0]}:{runtime_appearance[1]}; unobserved runs "
+                "do not inherit another task's state. "
+                if runtime_appearance is not None
+                else "The embedded aggregate catalogs multiple observed appearances; "
+                "it does not claim that every variant occurred simultaneously. "
+            )
             if runtime_material_catalog
             else ""
         )
@@ -8373,7 +13315,8 @@ def extract_model_preview(
             "using descriptor-relative keyframe spacing on the runtime-proven 30 Hz "
             "animation clock. Bank-15 route tables attach logical game animation IDs to "
             "those Actions, and all five character-state duration overrides are resolved. "
-            "Runtime material/lighting state remains unresolved.\n"
+            "Character appearances absent from the supplied runtime traces remain "
+            "unresolved.\n"
             if bank_index == 0x01
             else (
                 "Bank-03 scene previews cover direct bank-12 object placements only; "
@@ -8452,6 +13395,9 @@ def extract_validation_atlas(
                 if bank_index == 0x01:
                     geometry, layout = parse_character_model_geometry(segment.data)
                     character_joints = tuple(layout["joints"])
+                elif bank_index == 0x09 and is_attachment_model(segment.data):
+                    geometry, layout = parse_attachment_model(segment.data, parse_model_geometry)
+                    character_joints = tuple(layout["joints"]) or None
                 else:
                     geometry = parse_model_geometry(segment.data)
                 validation = validate_model_geometry(geometry, character_joints)
@@ -8671,6 +13617,11 @@ def verify_models(
             if bank_index == 0x04
             else bundle.segments[0].data
         )
+        if bank_index == 0x09 and is_attachment_model(bundle.data):
+            geometry, attachment_layout = parse_attachment_model(bundle.data, parse_model_geometry)
+            regions = {section["name"]: bundle.data[section["offset"]:section["offset"] + section["size"]]
+                       for section in attachment_layout["sections"]}
+            rebuilt = encode_attachment_model(geometry, attachment_layout, regions)
         if rebuilt != bundle.data:
             raise ValueError(
                 f"bank-{bank_index:02X} entry {bundle.index} did not round-trip"
@@ -8704,7 +13655,9 @@ def verify_models(
             )
             material_run_count += len(geometry.material_runs)
             for run in geometry.material_runs:
-                if not run.texture_enabled:
+                if run.texture_enabled is None:
+                    external_runtime_texture_face_count += run.face_count
+                elif not run.texture_enabled:
                     untextured_face_count += run.face_count
                 elif run.pixel is not None and run.pixel.external:
                     external_runtime_texture_face_count += run.face_count
@@ -8738,6 +13691,25 @@ def verify_models(
     )
 
 
+def parse_runtime_appearance(value: str) -> tuple[int, int]:
+    fields = value.split(":")
+    if len(fields) != 2:
+        raise argparse.ArgumentTypeError(
+            "runtime appearance must be TRACE_INDEX:EVENT_INDEX"
+        )
+    try:
+        trace_index, event_index = (int(field, 10) for field in fields)
+    except ValueError as error:
+        raise argparse.ArgumentTypeError(
+            "runtime appearance indices must be decimal integers"
+        ) from error
+    if trace_index < 0 or event_index < 0:
+        raise argparse.ArgumentTypeError(
+            "runtime appearance indices must be non-negative"
+        )
+    return trace_index, event_index
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
@@ -8747,9 +13719,15 @@ def parse_args() -> argparse.Namespace:
             "extract",
             "preview",
             "atlas",
+            "activity",
+            "compose",
             "materials",
             "collision",
+            "coverage",
+            "scene-consumers",
             "verify",
+            "validate",
+            "inspect",
         ),
     )
     parser.add_argument("--profile", choices=("us",), default="us")
@@ -8765,9 +13743,44 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output", type=Path)
     parser.add_argument("--textures", type=Path)
     parser.add_argument(
+        "--model-root", type=Path, help="existing model outputs for coverage"
+    )
+    parser.add_argument(
+        "--blender-validation", type=Path,
+        help="per-file Blender validation report for coverage",
+    )
+    parser.add_argument(
+        "--scene-manifest", type=Path,
+        help="additional proven scene consumers for coverage",
+    )
+    parser.add_argument(
         "--runtime-materials",
         type=Path,
         help="runtime-correlated material manifest to embed in preview glTF files",
+    )
+    parser.add_argument(
+        "--task-runtime-materials",
+        type=Path,
+        help=(
+            "renderer-return material manifest used for exact per-cluster "
+            "character composition appearances"
+        ),
+    )
+    parser.add_argument(
+        "--activity-manifest",
+        type=Path,
+        help=(
+            "character activity manifest used to conservatively refine ambiguous "
+            "bank-01 material correlations"
+        ),
+    )
+    parser.add_argument(
+        "--runtime-appearance",
+        type=parse_runtime_appearance,
+        help=(
+            "limit a preview material manifest to one captured graphics task, "
+            "formatted TRACE_INDEX:EVENT_INDEX"
+        ),
     )
     parser.add_argument(
         "--trace",
@@ -8775,7 +13788,32 @@ def parse_args() -> argparse.Namespace:
         action="append",
         help="runtime draw-state JSONL input (repeatable for materials)",
     )
+    parser.add_argument(
+        "--draw-trace",
+        type=Path,
+        action="append",
+        help="character renderer entry/return JSONL input (repeatable for activity)",
+    )
+    parser.add_argument(
+        "--attachment-trace", type=Path, action="append",
+        help="attachment renderer selected-part/return JSONL input (repeatable for compose)",
+    )
+    parser.add_argument(
+        "--part-table-trace",
+        type=Path,
+        action="append",
+        help="character renderer part-table JSONL input (repeatable for activity)",
+    )
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--validation-config", type=Path,
+                        help="batch validation corpus and regression render cases")
+    parser.add_argument("--inspection-config", type=Path,
+                        help="named model selection for self-contained Blender inspection files")
+    parser.add_argument("--blender", type=Path, help="Blender executable for batch validation")
+    parser.add_argument("--skip-blender", action="store_true",
+                        help="leave Blender evidence incomplete in batch validation")
+    parser.add_argument("--skip-renders", action="store_true",
+                        help="leave visual regression evidence incomplete in batch validation")
     return parser.parse_args()
 
 
@@ -8783,7 +13821,128 @@ def main() -> int:
     args = parse_args()
     bank_index = int(args.bank or "04", 16)
     try:
-        if args.action == "materials":
+        if args.action == "inspect":
+            try:
+                from scripts.model_inspection import publish_inspection
+            except ModuleNotFoundError:
+                from model_inspection import publish_inspection
+            output = (args.output or ROOT / "build/assets/models/inspect").resolve()
+            manifest = publish_inspection(
+                (args.inspection_config or ROOT / "config/model-inspection.json").resolve(), output)
+            print(f"Prepared {len(manifest['models'])} self-contained inspection models: {display_path(output)}")
+            return 0
+        elif args.action == "validate":
+            try:
+                from scripts.model_validation import validate_batch
+            except ModuleNotFoundError:
+                from model_validation import validate_batch
+            output = (args.output or ROOT / "build/assets/models/validation").resolve()
+            report = validate_batch(
+                (args.validation_config or ROOT / "config/model-validation.json").resolve(), output,
+                blender=args.blender, skip_blender=args.skip_blender, skip_renders=args.skip_renders)
+            print(f"Validation: {report['status']}; report: {display_path(output / 'report.json')}")
+            print(f"Review: {display_path(output / 'review.html')}")
+            return 1 if report["status"] == "failed" else 0
+        elif args.action == "scene-consumers":
+            try:
+                from scripts.model_scene_consumers import extract_scene_consumers
+            except ModuleNotFoundError:
+                from model_scene_consumers import extract_scene_consumers
+            output = (
+                args.output or ROOT / "build/assets/models/us-scene-consumers.json"
+            ).resolve()
+            manifest = extract_scene_consumers(args.profile, args.rom, output)
+            print(
+                f"Resolved {manifest['initial_slot_model_count']} initial scene slots and "
+                f"{manifest['resolved_placement_count']} placements to "
+                f"{manifest['model_association_count']} models"
+            )
+            print(f"Manifest: {display_path(output)}")
+        elif args.action == "coverage":
+            try:
+                from scripts.model_coverage import extract_coverage
+            except ModuleNotFoundError:
+                from model_coverage import extract_coverage
+            root = (args.model_root or ROOT / "build/assets/models").resolve()
+            output = (args.output or root / "us-coverage.json").resolve()
+            manifest = extract_coverage(
+                args.profile,
+                args.rom,
+                root,
+                (args.textures or ROOT / "build/assets/textures").resolve(),
+                output,
+                tuple(
+                    path.resolve()
+                    for path in (args.runtime_materials, args.task_runtime_materials)
+                    if path
+                ),
+                args.activity_manifest.resolve() if args.activity_manifest else None,
+                (args.blender_validation or root / "blender-validation.json").resolve(),
+                args.scene_manifest.resolve() if args.scene_manifest else None,
+            )
+            summary = manifest["summary"]
+            print(
+                f"Audited {summary['model_count']} models, "
+                f"{summary['material_run_count']} material runs, "
+                f"{summary['source_face_count']} source faces"
+            )
+            print(f"Coverage: {display_path(output)}")
+        elif args.action == "activity":
+            output = args.output or ROOT / "build/assets/models/us-character-activity"
+            if not output.is_absolute():
+                output = ROOT / output
+            manifest = extract_character_activity(
+                args.profile,
+                args.rom,
+                tuple(args.trace or ()),
+                args.runtime_materials,
+                output,
+                args.force,
+                tuple(args.draw_trace or ()),
+                tuple(args.part_table_trace or ()),
+            )
+            print(
+                f"Recorded {manifest['active_entry_count']} active bank-01 entries "
+                f"across {manifest['snapshot_count']} character-pool snapshots; "
+                f"{manifest['active_without_runtime_material_count']} active entries "
+                "still lack runtime-correlated materials"
+            )
+            print(f"Manifest: {display_path(output / 'manifest.json')}")
+        elif args.action == "compose":
+            if args.activity_manifest is None:
+                raise ValueError("compose requires --activity-manifest")
+            output = (
+                args.output
+                or ROOT / "build/assets/models/us-character-compositions"
+            )
+            if not output.is_absolute():
+                output = ROOT / output
+            texture_root = args.textures or ROOT / "build/assets/textures"
+            if not texture_root.is_absolute():
+                texture_root = ROOT / texture_root
+            manifest = extract_character_composition_previews(
+                args.profile,
+                args.rom,
+                args.activity_manifest,
+                output,
+                args.force,
+                texture_root,
+                args.runtime_materials,
+                args.task_runtime_materials,
+                tuple(args.attachment_trace or ()),
+            )
+            print(
+                f"Prepared {manifest['model_count']} trace-resolved character "
+                f"composition previews from {manifest['source_cluster_count']} "
+                f"exact static clusters and {manifest['face_count']} drawable faces"
+            )
+            print(
+                f"Linked {manifest['neutral_linked_texture_run_count']} neutral and "
+                f"{manifest['posed_linked_texture_run_count']} posed material runs to "
+                f"{manifest['copied_texture_count']} proven texture PNGs"
+            )
+            print(f"Manifest: {display_path(output / 'manifest.json')}")
+        elif args.action == "materials":
             output = args.output or ROOT / "build/assets/models/us-runtime-materials"
             if not output.is_absolute():
                 output = ROOT / output
@@ -8793,11 +13952,13 @@ def main() -> int:
                 tuple(args.trace or ()),
                 output,
                 args.force,
+                args.activity_manifest,
             )
             print(
                 f"Prepared {manifest['material_record_count']} runtime-correlated "
                 f"materials with {manifest['variant_count']} variants from "
-                f"{manifest['correlated_draw_observation_count']} draw observations"
+                f"{manifest['correlated_draw_observation_count']} draw observations "
+                f"across {manifest['appearance_count']} captured appearances"
             )
             print(f"Manifest: {display_path(output / 'manifest.json')}")
         elif args.action == "survey":
@@ -8896,6 +14057,7 @@ def main() -> int:
                 args.force,
                 bank_index,
                 args.runtime_materials,
+                args.runtime_appearance,
             )
             print(
                 f"Prepared and verified {manifest['model_count']} model previews with "
@@ -8913,6 +14075,12 @@ def main() -> int:
                 f"{manifest['linked_face_count']} faces to "
                 f"{manifest['copied_texture_count']} proven texture PNGs"
             )
+            if args.runtime_appearance is not None:
+                print(
+                    "Runtime material appearance: "
+                    f"{args.runtime_appearance[0]}:{args.runtime_appearance[1]} "
+                    f"({manifest['runtime_material_record_count']} assigned runs)"
+                )
             print(f"Preview manifest: {display_path(output / 'manifest.json')}")
         elif args.action == "atlas":
             output = args.output or ROOT / "build/assets/models/us-validation-atlas"

@@ -117,6 +117,29 @@ def iter_flat_rzip_entries(blob: bytes) -> Iterator[FlatRzipEntry]:
         index += 1
 
 
+def iter_indexed_flat_rzip_entries(
+    blob: bytes, compressed_sizes: tuple[int, ...]
+) -> Iterator[FlatRzipEntry]:
+    """Decode loader IDs, preserving empty slots in the compressed-size table.
+
+    A physical stream ordinal is not a runtime asset ID when the table has
+    zero-sized entries. Validate every nonempty table extent against deflate.
+    """
+
+    if any(size < 0 for size in compressed_sizes) or sum(compressed_sizes) != len(blob):
+        raise ValueError("flat asset size table does not cover its archive")
+    offset = 0
+    for index, size in enumerate(compressed_sizes):
+        if not size:
+            continue
+        end = offset + size
+        decoded = decode_rzip_chunk(blob[offset:end])
+        if decoded.consumed != size:
+            raise ValueError(f"flat asset {index} does not fill its table extent")
+        yield FlatRzipEntry(index=index, start=offset, end=end, data=decoded.data)
+        offset = end
+
+
 def game_code_offsets(payload: bytes, key: int = OFFSET_XOR) -> tuple[int, ...]:
     offsets: list[int] = []
     for index in range(1, len(payload) // 4):

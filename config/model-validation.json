@@ -1,0 +1,141 @@
+{
+  "schema_version": 1,
+  "textures": "build/assets/textures",
+  "activity": "build/assets/models/us-character-activity/manifest.json",
+  "scenes": "build/assets/models/us-scene-consumers.json",
+  "runtime_draw_cases": [
+    {
+      "id": "tediz-submitted-rig",
+      "target": [
+        1,
+        90,
+        0
+      ],
+      "event_index": 0,
+      "expected_instances": 2,
+      "palette_roots": [
+        "0x8012F180",
+        "0x8012F880"
+      ],
+      "source": "build/assets/models/us-bank-01-preview/geometry/0090-00.gltf",
+      "trace": "build/assets/models/reference/tediz-vertex-lighting/save-game-14.jsonl",
+      "materials": "build/assets/models/reference/tediz-vertex-lighting/materials/manifest.json"
+    }
+  ],
+  "corpora": [
+    {
+      "name": "main",
+      "root": "build/assets/models",
+      "compositions": "build/assets/models/us-character-compositions"
+    },
+    {
+      "name": "captured-colour",
+      "root": "build/assets/models/reference/vertex-light-export"
+    }
+  ],
+  "runtime_catalogs": [
+    "build/assets/models/us-runtime-materials-all-states-with-textures/manifest.json",
+    "build/assets/models/us-runtime-materials-character-draws/manifest.json",
+    "build/assets/models/us-runtime-materials-vertex-light-export/manifest.json"
+  ],
+  "render_cases": [
+    {
+      "id": "tediz-front",
+      "source": "build/assets/models/us-bank-01-preview/geometry/0090-00.gltf",
+      "reference": "build/assets/models/validation/baselines/tediz-front.png",
+      "view": "front"
+    },
+    {
+      "id": "tediz-three-quarter",
+      "source": "build/assets/models/us-bank-01-preview/geometry/0090-00.gltf",
+      "reference": "build/assets/models/validation/baselines/tediz-three-quarter.png"
+    },
+    {
+      "id": "haybot",
+      "source": "build/assets/models/us-bank-01-preview/geometry/0075-00.gltf",
+      "reference": "build/assets/models/validation/baselines/haybot.png"
+    },
+    {
+      "id": "conker-neutral",
+      "source": "build/assets/models/us-character-compositions/geometry/0000-00-composed.gltf",
+      "reference": "build/assets/models/validation/baselines/conker-neutral.png"
+    },
+    {
+      "id": "entry-0094",
+      "source": "build/assets/models/us-character-compositions/geometry/0094-00-composed.gltf",
+      "reference": "build/assets/models/validation/baselines/entry-0094.png"
+    },
+    {
+      "id": "entry-0130-neutral",
+      "source": "build/assets/models/us-character-compositions/geometry/0130-00-composed.gltf",
+      "reference": "build/assets/models/validation/baselines/entry-0130-neutral.png"
+    },
+    {
+      "id": "conker-submitted",
+      "source": "build/assets/models/us-character-compositions/posed/save-game-13-task-001-slot-00-entry-0000.gltf",
+      "reference": "build/assets/models/validation/baselines/conker-submitted.png"
+    },
+    {
+      "id": "entry-0130-submitted",
+      "source": "build/assets/models/us-character-compositions/posed/save-game-26-task-000-slot-00-entry-0130.gltf",
+      "reference": "build/assets/models/validation/baselines/entry-0130-submitted.png"
+    },
+    {
+      "id": "scene-0004",
+      "source": "build/assets/models/us-bank-04-preview/geometry/0004-00.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-0004.png"
+    },
+    {
+      "id": "scene-0024-02",
+      "source": "build/assets/models/us-bank-04-preview/geometry/0024-02.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-0024-02.png"
+    },
+    {
+      "id": "object-0003",
+      "source": "build/assets/models/us-bank-03-preview/geometry/0003-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-0003.png"
+    },
+    {
+      "id": "helmet-0133",
+      "source": "build/assets/models/us-bank-09-preview/geometry/0133-00.gltf",
+      "reference": "build/assets/models/validation/baselines/helmet-0133.png"
+    },
+    {
+      "id": "conker-geometry",
+      "source": "build/assets/models/us-character-compositions/geometry/0000-00-composed.gltf",
+      "reference": "build/assets/models/validation/baselines/conker-geometry.png",
+      "shading": "vertex"
+    },
+    {
+      "id": "conker-offscreen-geometry",
+      "source": "build/assets/models/us-character-compositions/geometry/render-texture-0000-00-composed.gltf",
+      "reference": "build/assets/models/validation/baselines/conker-offscreen-geometry.png",
+      "shading": "vertex"
+    },
+    {
+      "id": "conker-captured-colours",
+      "source": "build/assets/models/reference/vertex-light-export/us-bank-01-preview/geometry/0000-00-bind.gltf",
+      "reference": "build/assets/models/validation/baselines/conker-captured-colours.png"
+    },
+    {
+      "id": "intensity-ia8",
+      "source": "build/assets/models/us-bank-04-preview/geometry/0060-15.gltf",
+      "reference": "build/assets/models/validation/baselines/intensity-ia8.png"
+    },
+    {
+      "id": "intensity-i4-i8",
+      "source": "build/assets/models/us-bank-04-preview/geometry/0049-00.gltf",
+      "reference": "build/assets/models/validation/baselines/intensity-i4-i8.png"
+    },
+    {
+      "id": "intensity-ia16",
+      "source": "build/assets/models/us-bank-04-preview/geometry/0049-11.gltf",
+      "reference": "build/assets/models/validation/baselines/intensity-ia16.png"
+    },
+    {
+      "id": "intensity-attachment",
+      "source": "build/assets/models/us-bank-09-preview/geometry/0431-00.gltf",
+      "reference": "build/assets/models/validation/baselines/intensity-attachment.png"
+    }
+  ]
+}

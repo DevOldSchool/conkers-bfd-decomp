@@ -88,7 +88,9 @@ f32 func_150484A0(f32, f32);                        /* extern */
 extern f32 D_800A351C;
 extern f32 D_800A3520;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512523C CURRENT (1740) */
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512523C CURRENT (685) */
 void func_1512523C(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv1;

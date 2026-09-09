@@ -1,0 +1,20 @@
+{
+  "validation_report": "build/assets/models/validation/report.json",
+  "previews": "build/assets/models/previews",
+  "models": [
+    {"name": "conker-captured-neutral", "label": "Conker — captured neutral", "render_case": "conker-captured-colours", "note": "Resolved eyes and captured colours; neutral rig, no animation Actions."},
+    {"name": "conker-helmet-captured-pose", "label": "Conker — helmet and captured pose", "render_case": "conker-submitted", "note": "Save-Game-13 pose with selected attachments; no animation Actions."},
+    {"name": "tediz-animated", "label": "Tediz", "render_case": "tediz-three-quarter", "note": "Rig and decoded animation Actions; geometry verified against two captured instances."},
+    {"name": "haybot-animated", "label": "Haybot", "render_case": "haybot", "note": "Rig and decoded animation Actions; appearance remains under review."},
+    {"name": "character-0094-neutral", "label": "Character 0094 — neutral", "render_case": "entry-0094", "note": "Neutral composition; appearance remains under review."},
+    {"name": "character-0130-captured-pose", "label": "Character 0130 — captured pose", "render_case": "entry-0130-submitted", "note": "Save-Game-26 selected materials, visor and attachments."},
+    {"name": "scene-0004-segment-00", "label": "Scene 0004 / 00", "render_case": "scene-0004", "note": "Scene segment; some runtime-dependent materials remain unresolved."},
+    {"name": "scene-0024-segment-02", "label": "Scene 0024 / 02", "render_case": "scene-0024-02", "note": "Current render includes the intensity texture correction."},
+    {"name": "scene-0049-segment-00", "label": "Scene 0049 / 00", "render_case": "intensity-i4-i8", "note": "Corrected I4/I8 intensity textures."},
+    {"name": "scene-0049-segment-11", "label": "Scene 0049 / 11", "render_case": "intensity-ia16", "note": "Corrected IA16 intensity and alpha texture."},
+    {"name": "scene-0060-segment-15", "label": "Scene 0060 / 15", "render_case": "intensity-ia8", "note": "Corrected IA8 intensity and alpha texture."},
+    {"name": "object-bank03-0003", "label": "Object bank 03 / 0003", "render_case": "object-0003", "note": "Standalone object geometry."},
+    {"name": "helmet-bank09-0133", "label": "Helmet bank 09 / 0133", "render_case": "helmet-0133", "note": "Standalone attachment; inspect placement in the Conker posed file."},
+    {"name": "attachment-bank09-0431", "label": "Attachment bank 09 / 0431", "render_case": "intensity-attachment", "note": "Corrected intensity texture."}
+  ]
+}
