@@ -11,13 +11,13 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151906E0 CURRENT (215) */
-void func_151906E0(s32 arg0, void *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151906E0 CURRENT (205) */
+void func_151906E0(u8 *arg0, u8 *arg1, s32 arg2) {
     s32 temp_a2;
     s32 temp_v1;
-    void *temp_v0;
+    u8 *temp_v0;
 
-    temp_v0 = arg0 + 0x90;
+    temp_v0 = (void *)(arg0 + 0x90);
     if ((arg2 & 0xFF) == 0x2D) {
         temp_v1 = *(s32 *)((u8 *)arg1 + 0);
         temp_a2 = *(s32 *)((u8 *)temp_v0 + 8);

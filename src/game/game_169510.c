@@ -110,6 +110,13 @@ void func_1513E2A4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EDE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EE14.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F114.s")
+s32 func_15140410(s32, s32, s16);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F4B0 CURRENT (135) */
+void func_1513F4B0(s32 arg0, s16 arg1) {
+    func_15140410(arg0 + 0x110, arg0 + 0x11C, arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513F4B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F4B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F4E4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F680 CURRENT (900) */

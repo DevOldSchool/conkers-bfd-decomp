@@ -6,14 +6,14 @@
     "fully_matched_source_unit_bytes": 151816,
     "fully_matched_source_unit_percentage": 6.7854,
     "library_text_bytes": 147232,
-    "matched_bytes": 177180,
+    "matched_bytes": 179624,
     "overlays": {
       "game": {
         "fully_matched_source_unit_bytes": 53136,
         "fully_matched_source_unit_percentage": 2.56339,
         "library_text_bytes": 48720,
-        "matched_bytes": 78500,
-        "percentage": 3.787002,
+        "matched_bytes": 80944,
+        "percentage": 3.904905,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -27,8 +27,8 @@
             "fully_matched_source_unit_bytes": 53136,
             "fully_matched_source_unit_percentage": 2.56339,
             "library_text_bytes": 48720,
-            "matched_bytes": 78500,
-            "percentage": 3.787002,
+            "matched_bytes": 80944,
+            "percentage": 3.904905,
             "total_bytes": 2072880
           }
         },
@@ -61,7 +61,7 @@
         "total_bytes": 164512
       }
     },
-    "percentage": 7.919041,
+    "percentage": 8.028276,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 168,
@@ -75,8 +75,8 @@
         "fully_matched_source_unit_bytes": 151816,
         "fully_matched_source_unit_percentage": 6.7854,
         "library_text_bytes": 147232,
-        "matched_bytes": 177180,
-        "percentage": 7.919041,
+        "matched_bytes": 179624,
+        "percentage": 8.028276,
         "total_bytes": 2237392
       }
     },
@@ -91,7 +91,7 @@
   "overlays": {
     "game": {
       "known_functions": 5224,
-      "target_matched": 707
+      "target_matched": 747
     },
     "main": {
       "known_functions": 2,
@@ -103,13 +103,13 @@
       "blocked": 0,
       "candidate": 0,
       "in_progress": 1,
-      "matched": 708,
-      "raw_asm": 4517
+      "matched": 748,
+      "raw_asm": 4477
     }
   },
   "schema_version": 1,
   "source_units": 716,
-  "target_matched": 708,
-  "target_remaining": 4518,
+  "target_matched": 748,
+  "target_remaining": 4478,
   "unassigned_functions": 0
 }

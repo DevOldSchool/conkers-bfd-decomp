@@ -13,7 +13,6 @@
  * - func_150BD070
  * - func_150BD740
  * - func_150BD954
- * - func_150BDB3C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -52,4 +51,14 @@ s32 func_150BCFB8(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD070.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD740.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD954.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BDB3C.s")
+s32 func_150BDB3C(void *arg0) {
+    s32 temp_t6;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    temp_t6 = *(s16 *)((u8 *)arg0 + 0x1C) * 8;
+    if (temp_t6 < (s32) *(u8 *)((u8 *)temp_v0 + 0x1B)) {
+        *(u8 *)((u8 *)temp_v0 + 0x1B) = (u8) temp_t6;
+    }
+    return 1;
+}

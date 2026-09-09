@@ -17,7 +17,9 @@ f32 func_150AD900(void *arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AD900 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DADB0/func_150AD900.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD930 CURRENT (1165) */
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD930 CURRENT (420) */
 f32 func_150AD930(void *arg0) {
     f32 temp_ft0;
     f32 temp_fv0;

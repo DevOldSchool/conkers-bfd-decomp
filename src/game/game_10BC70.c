@@ -28,4 +28,16 @@ s32 func_150DEACC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DEACC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10BC70/func_150DEACC.s")
+s32 func_15140410(s32, s32, s16);                   /* extern */
+extern s32 D_80082FA0;
+extern s32 D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DEB58 CURRENT (255) */
+s32 func_150DEB58(s32 arg0, s16 arg1) {
+    if (*(f32 *)((u8 *)(D_800DBFF0 + (D_80082FA0 * 0x9A0)) + 0x388) < 5.0f) {
+        return 0;
+    }
+    return func_15140410(arg0 + 0x120, arg0 + 0x12C, arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150DEB58 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10BC70/func_150DEB58.s")

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import re
+import candidate_syntax
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -208,6 +209,8 @@ def resolve_required_declarations(
 
     declarations: list[Declaration] = []
     unresolved: list[str] = []
+    if any(token.text in ("{", "}") for token in candidate_syntax.tokens(prefix)):
+        raise DeclarationError("unresolved composite declaration in m2c context; refusing partial fields")
     for line in prefix.splitlines():
         stripped = line.strip()
         if not stripped or not stripped.endswith((";", "*/")):
@@ -252,3 +255,70 @@ def resolve_required_declarations(
         names = ", ".join(sorted(set(unresolved)))
         raise DeclarationError(f"no unique project declaration evidence for: {names}")
     return insert, evidence
+
+
+def later_function_declarations(definition: str, source: str, visible: str) -> tuple[list[str], list[str]]:
+    """Repeat a proven later prototype before the candidate's first use."""
+
+    tokens = candidate_syntax.tokens(definition)
+    calls = {token.text for index, token in enumerate(tokens[:-1]) if tokens[index + 1].text == "("}
+    declarations: dict[str, set[str]] = {}
+    for match in FUNCTION_EVIDENCE.finditer(active_text(source)):
+        symbol = match.group("symbol")
+        if symbol not in calls:
+            continue
+        arguments = argument_types(match.group("args"))
+        if arguments is None:
+            continue
+        text = f"{normalize_type(match.group('return'))} {symbol}({', '.join(arguments) if arguments else 'void'});"
+        declarations.setdefault(symbol, set()).add(text)
+    needed: list[str] = []
+    evidence: list[str] = []
+    for symbol, choices in sorted(declarations.items()):
+        if len(choices) != 1:
+            raise DeclarationError(f"no unique project declaration evidence for: {symbol}")
+        declaration = Declaration(next(iter(choices)), symbol, ())
+        if not declaration_already_present(visible, declaration):
+            needed.append(declaration.text)
+            evidence.append(f"{symbol}: later active declaration in the allowed source")
+    return needed, evidence
+
+
+def later_object_declarations(definition: str, source: str, visible: str) -> tuple[list[str], list[str]]:
+    """Repeat a unique active file-scope extern before its first use."""
+
+    pattern = re.compile(
+        rf"(?m)^[ \t]*extern\s+(?P<type>{TYPE_TEXT})(?:\s+|(?<=\*))"
+        r"(?P<symbol>[A-Za-z_]\w*)(?P<array>(?:\[\s*\w*\s*\])*)\s*;"
+    )
+
+    def declarations(text: str) -> dict[str, set[str]]:
+        active = active_text(text)
+        depth = 0
+        top_level = set()
+        for token in candidate_syntax.tokens(active):
+            if depth == 0:
+                top_level.add(token.start)
+            depth += (token.text == "{") - (token.text == "}")
+        found: dict[str, set[str]] = {}
+        for match in pattern.finditer(active):
+            if active.index("extern", match.start(), match.end()) not in top_level:
+                continue
+            symbol = match.group("symbol")
+            declaration = f"extern {normalize_type(match.group('type'))} {symbol}{match.group('array')};"
+            found.setdefault(symbol, set()).add(declaration)
+        return found
+
+    used = {token.text for token in candidate_syntax.tokens(definition)}
+    present = declarations(visible)
+    needed, evidence = [], []
+    for symbol, choices in sorted(declarations(source).items()):
+        if symbol not in used:
+            continue
+        if len(choices) != 1:
+            raise DeclarationError(f"no unique project declaration evidence for: {symbol}")
+        if choices == present.get(symbol):
+            continue
+        needed.append(next(iter(choices)))
+        evidence.append(f"{symbol}: later active file-scope extern in the allowed source")
+    return needed, evidence

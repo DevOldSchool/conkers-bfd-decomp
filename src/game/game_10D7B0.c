@@ -21,7 +21,9 @@ extern f32 D_800A0FD0;
 extern f32 D_800A0FD4;
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E05F8 CURRENT (2505) */
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E05F8 CURRENT (970) */
 void func_150E05F8(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;

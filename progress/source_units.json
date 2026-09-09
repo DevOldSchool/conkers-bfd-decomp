@@ -3283,7 +3283,7 @@
         "us": {
           "end": "0x63390",
           "start": "0x55E50",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_83300.c"
@@ -6842,7 +6842,7 @@
         "us": {
           "end": "0x184150",
           "start": "0x183290",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1B0740.c"
@@ -7178,7 +7178,7 @@
         "us": {
           "end": "0x96970",
           "start": "0x94EA0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_C2350.c"
@@ -8238,7 +8238,7 @@
         "us": {
           "end": "0x156190",
           "start": "0x155780",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_182C30.c"
@@ -9465,7 +9465,7 @@
         "us": {
           "end": "0x189900",
           "start": "0x188810",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1B5CC0.c"
@@ -10158,7 +10158,7 @@
         "us": {
           "end": "0x1D2AB0",
           "start": "0x1D26C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1FFB70.c"
@@ -11196,7 +11196,7 @@
         "us": {
           "end": "0xFB2E0",
           "start": "0xFB240",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1286F0.c"
@@ -16523,7 +16523,7 @@
         "us": {
           "end": "0xBDB70",
           "start": "0xBB760",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E8C10.c"
@@ -16628,7 +16628,7 @@
         "us": {
           "end": "0x19EF70",
           "start": "0x19E970",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1CBE20.c"
@@ -16652,7 +16652,7 @@
         "us": {
           "end": "0x104520",
           "start": "0x104170",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_131620.c"

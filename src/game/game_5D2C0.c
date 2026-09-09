@@ -124,7 +124,52 @@ s32 func_15033E00(s32 arg0, void *arg1) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033E28.s")
+extern void *D_800C3EE0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15033E84 CURRENT (360) */
+void *func_15033E84(void *arg0) {
+    void *temp_v0;
+    void *var_v1;
+
+    var_v1 = D_800C3EE0;
+    if (var_v1 != 0) {
+loop_2:
+        temp_v0 = *(void **)((u8 *)var_v1 + 0x54);
+        if (*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)((u8 *)var_v1 + 0)) {
+            return var_v1;
+        }
+        var_v1 = temp_v0;
+        if (temp_v0 == 0) {
+            /* Duplicate return node #5. Try simplifying control flow for better match */
+            return 0;
+        }
+        goto loop_2;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15033E84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033E84.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15033EC4 CURRENT (1545) */
+void func_15033EC4(u8 arg0, u8 arg1) {
+    u8 temp_a1;
+    void *temp_v1;
+    void *var_v0;
+
+    var_v0 = D_800C3EE0;
+    if (var_v0 != 0) {
+        do {
+            temp_a1 = *(u8 *)((u8 *)var_v0 + 0);
+            temp_v1 = *(void **)((u8 *)var_v0 + 0x54);
+            if (arg0 == temp_a1) {
+                *(u8 *)((u8 *)var_v0 + 0) = arg1;
+            } else if (arg1 == temp_a1) {
+                *(u8 *)((u8 *)var_v0 + 0) = arg0;
+            }
+            var_v0 = temp_v1;
+        } while (temp_v1 != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15033EC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033EC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033F0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033F70.s")

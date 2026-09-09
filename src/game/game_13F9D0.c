@@ -74,6 +74,37 @@ void func_15113180(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511473C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151148A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511490C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151149AC CURRENT (410) */
+s32 func_151149AC(s32 arg0) {
+    s32 temp_t6;
+    s32 var_a2;
+    s32 var_a3;
+    s32 var_v1;
+
+    temp_t6 = arg0 & 0xFF;
+    if (temp_t6 == 0) {
+        return 0;
+    }
+    var_v1 = 0;
+    if (D_800DBEF0 > 0) {
+        var_a2 = 0;
+        var_a3 = D_800DBEF4;
+loop_4:
+        var_v1 += 1;
+        var_a3 += 0xA0;
+        if (temp_t6 == *(u8 *)((u8 *)var_a3 + 0x72)) {
+            return var_a2 + D_800DBEF4;
+        }
+        var_a2 += 0xA0;
+        if (var_v1 >= D_800DBEF0) {
+            /* Duplicate return node #7. Try simplifying control flow for better match */
+            return 0;
+        }
+        goto loop_4;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151149AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151149AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114A1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114B94.s")

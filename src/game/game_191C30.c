@@ -26,6 +26,11 @@ void func_15164888(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164F0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165628.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_151658DC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15165B80 CURRENT (1296) */
+void func_15165B80(u8 *arg0) {
+    func_15165BB0(arg0, arg0 + 0x108, *(f32 *)((u8 *)arg0 + 0x114), *(f32 *)((u8 *)arg0 + 0x118), *(f32 *)((u8 *)arg0 + 0x11C));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15165B80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165B80.s")
 f32 func_15143E64(f32 *, void *);                   /* extern */
 void *func_15144B34(u8, void *);                    /* extern */

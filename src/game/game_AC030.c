@@ -30,6 +30,20 @@ extern s32 D_800BE9F0;
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EBB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EE58.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 CURRENT (525) */
+void func_1507EEB8(s32 arg0, u8 *arg1) {
+    u8 temp_t7;
+    u8 *temp_v0;
+
+    temp_v0 = (void *)(arg1 + 4);
+    temp_t7 = *(u8 *)((u8 *)temp_v0 + -1);
+    *(u8 *)((u8 *)temp_v0 + -1) = (u8) *(u8 *)((u8 *)temp_v0 + -2);
+    *(u8 *)((u8 *)temp_v0 + -2) = (u8) *(u8 *)((u8 *)temp_v0 + -3);
+    *(u8 *)((u8 *)temp_v0 + -3) = (u8) *(u8 *)((u8 *)temp_v0 + -4);
+    *(u8 *)((u8 *)arg1 + 4) = temp_t7;
+    *(s8 *)((u8 *)arg1 + 0) = (s8) (arg0 & 0xFF);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEF4.s")
 void func_1507EFA0(s32 arg0, u8 *arg1) {

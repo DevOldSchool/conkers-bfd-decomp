@@ -61,6 +61,11 @@ typedef struct Game133190Object {
 s32 func_151061E0(s32 arg0) {
     return arg0 + 0x88;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151061EC CURRENT (75) */
+void *func_151061EC(u8 *arg0) {
+    return arg0 + (*(s32 *)((u8 *)arg0 + 0x48) * 0x34) + 0x88;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151061EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151061EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106214.s")
 f32 func_151064B4(f32 arg0) {

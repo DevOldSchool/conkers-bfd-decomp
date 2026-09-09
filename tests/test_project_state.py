@@ -934,6 +934,104 @@ class ProjectStateTests(unittest.TestCase):
                 "void func_test(void) {\n    exact_value();\n}\n", updated_source
             )
 
+    def test_failed_permutation_rolls_back_source_and_deferred_inventory(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "deferred": {
+                "reason": "layout tail",
+                "recorded_revision": "working-tree",
+                "candidate_preserved": True,
+            },
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            original_inventory = json.dumps(
+                {"schema_version": 1, "functions": [entry]}
+            )
+            inventory.write_text(original_inventory, encoding="utf-8")
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            original_source = (
+                "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (0) */\n"
+                "void func_test(void) {}\n"
+                "#endif /* CONKER_DEFERRED_CANDIDATE func_test */\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n'
+            )
+            source.write_text(original_source, encoding="utf-8")
+            best = root / "build" / "us" / "permute" / "func_test" / "best.c"
+            best.parent.mkdir(parents=True)
+            best.write_text("void func_test(void) {}\n", encoding="utf-8")
+
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.apply_permutation_function(
+                    SimpleNamespace(symbol="func_test", candidate=str(best))
+                )
+                project_state.rollback_permutation_function(
+                    SimpleNamespace(symbol="func_test")
+                )
+                transaction = project_state.permutation_transaction_path("func_test")
+
+            self.assertEqual(original_inventory, inventory.read_text(encoding="utf-8"))
+            self.assertEqual(original_source, source.read_text(encoding="utf-8"))
+            self.assertFalse(transaction.exists())
+
+    def test_recovers_missing_deferred_metadata_from_disabled_candidate(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/game/test.c",
+            "regions": {
+                "us": {
+                    "state": "raw_asm",
+                    "symbol": "func_test",
+                    "vram": "0x15000000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "#if 0 /* CONKER_DEFERRED_CANDIDATE func_test CURRENT (0) */\n"
+                "void func_test(void) {}\n"
+                "#endif /* CONKER_DEFERRED_CANDIDATE func_test */\n"
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n',
+                encoding="utf-8",
+            )
+
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.recover_deferred_function(
+                    SimpleNamespace(symbol="func_test", reason="layout tail")
+                )
+
+            deferred = json.loads(inventory.read_text(encoding="utf-8"))[
+                "functions"
+            ][0]["deferred"]
+            self.assertEqual("layout tail", deferred["reason"])
+            self.assertNotIn("current_score", deferred)
+
     def test_apply_permutation_replaces_an_active_candidate_without_inventory_edits(self) -> None:
         entry = {
             "symbol": "func_test",

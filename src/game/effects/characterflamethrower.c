@@ -52,7 +52,6 @@
  * - func_1519C4E4
  * - func_1519C56C
  * - func_1519C9C4
- * - func_1519CD64
  * - func_1519CDB0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -365,5 +364,13 @@ s32 func_1519C998(s32 arg0) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C9C4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519CD64.s")
+void func_1519CD64(void *arg0) {
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x28);
+    if ((*(s32 *)((u8 *)temp_v0 + 0) == 0) || (*(u8 *)((u8 *)temp_v0 + 4) == 0xFF) || (*(u8 *)((u8 *)arg0 + 0x2C) != *(u8 *)((u8 *)temp_v0 + 0x3B))) {
+        *(s16 *)((u8 *)arg0 + 0xE) = -1;
+        ((u8 *)arg0)[0xD] |= 1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519CDB0.s")

@@ -19,6 +19,29 @@ SPEC.loader.exec_module(facts)
 
 
 class DeclarationFactsTests(unittest.TestCase):
+    def test_rejects_composite_declarations_as_a_whole(self) -> None:
+        with self.assertRaisesRegex(facts.DeclarationError, 'partial fields'):
+            facts.resolve_required_declarations('typedef struct State {\n s32 field;\n} State;', '')
+
+    def test_later_global_pointer_and_array_declarations_are_visible_before_use(self) -> None:
+        definition = "void func_test(void) { *D_pointer = D_array[0]; }"
+        source = "extern s32 *D_pointer;\nextern s32 D_array[4];\n"
+        found, _ = facts.later_object_declarations(definition, source, "")
+        self.assertEqual(["extern s32 D_array[4];", "extern s32 * D_pointer;"], found)
+        self.assertEqual([], facts.later_object_declarations(definition, source, source)[0])
+
+    def test_later_global_conflict_is_rejected(self) -> None:
+        with self.assertRaises(facts.DeclarationError):
+            facts.later_object_declarations("void f(void) { D_value = 1; }",
+                                           "extern s32 D_value;\nextern f32 D_value;\n", "")
+
+    def test_comment_disabled_and_function_local_externs_are_not_hoisted(self) -> None:
+        definition = "void f(void) { D_value = 1; }"
+        for source in ("/*\nextern s32 D_value;\n*/",
+                       "#if 0\nextern s32 D_value;\n#endif\n",
+                       "void other(void) {\nextern s32 D_value;\n}"):
+            self.assertEqual([], facts.later_object_declarations(definition, source, "")[0])
+
     def test_resolves_placeholder_return_type_from_matching_project_definition(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

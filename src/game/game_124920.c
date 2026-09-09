@@ -19,6 +19,13 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F7470.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F78B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F7E20.s")
+s32 func_15140410(s32, s32, s16);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F7F58 CURRENT (135) */
+void func_150F7F58(s32 arg0, s16 arg1) {
+    func_15140410(arg0 + 0x110, arg0 + 0x11C, arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F7F58 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F7F58.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F7F8C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124920/func_150F802C.s")

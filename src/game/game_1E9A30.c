@@ -11,7 +11,6 @@
  * - func_151BC794
  * - func_151BCA90
  * - func_151BD21C
- * - func_151BD2BC
  * - func_151BD2F8
  * - func_151BD43C
  * - func_151BD750
@@ -40,8 +39,48 @@ s32 func_151BC580(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC64C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC794.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BCA90.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD21C CURRENT (1285) */
+void func_151BD21C(void *arg0, void *arg1, s32 arg2) {
+    s32 temp_a3;
+    s32 temp_t6;
+    s32 temp_v1;
+    void *temp_v0;
+
+    temp_t6 = arg2 & 0xFF;
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    temp_a3 = *(s32 *)((u8 *)temp_v0 + 0);
+    if (temp_t6 == 0) {
+        if ((temp_a3 == *(s32 *)((u8 *)arg1 + 0)) || (*(u8 *)((u8 *)temp_v0 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            *(s8 *)((u8 *)arg0 + 0x30) = 0;
+            *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) | 8);
+        }
+    } else if (temp_t6 == 0x2D) {
+        temp_v1 = *(s32 *)((u8 *)arg1 + 0);
+        if (temp_v1 == temp_a3) {
+            *(s32 *)((u8 *)temp_v0 + 0) = (s32) *(u8 *)((u8 *)arg1 + 4);
+            *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
+            return;
+        }
+        if ((s32) *(u8 *)((u8 *)arg1 + 4) == temp_a3) {
+            *(s32 *)((u8 *)temp_v0 + 0) = temp_v1;
+            *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BD21C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD21C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD2BC.s")
+s32 func_151BD2BC(void *arg0) {
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x28);
+    if (*(s32 *)((u8 *)temp_v0 + 0) == 0) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)arg0 + 0x2C) != *(u8 *)((u8 *)temp_v0 + 0x3B)) {
+        return 0;
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD2F8.s")
 s32 func_151BD42C(u8 *arg0) {
     *(s16 *)(arg0 + 0x80) = 0;

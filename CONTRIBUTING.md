@@ -124,14 +124,33 @@ pre-attempt file when it cannot safely retain a result:
 ./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
 ```
 
+Use `--function <work-item-id>` instead of `--limit` to exercise one eligible
+raw or deferred candidate without waiting for scheduler order. For example:
+
+```sh
+./conker automate --function func_15012C84 --rewrite-budget 25 \
+  --defer-best --skip-final-build
+```
+
 It resolves placeholder declarations only from unique compatible active
 declarations or definitions under `src/` and `include/`, sanitizes scalar and
 pointer fields with expression bases or signed offsets, makes integer-backed
 address assignments explicit for IDO, searches bounded semantics-preserving
 source forms, and diagnoses deferred candidates before permuting pure
-register-only differences.
+register-only differences. A raw compile warning or error gets up to three
+diagnostic-guided, target-function-only repairs for proven mechanical cases
+such as undefined `NULL` and byte-address pointer arithmetic. An already
+deferred `CURRENT (0)` candidate goes directly through the authoritative
+permutation/`finish` recovery path instead of being rejected as non-register-only.
+If that focused match is shorter than its reviewed raw span, automation
+preserves it as a `finish`/`layout_gate` result with the exact offset delta.
+This commonly identifies intentionally retained unlabeled return or padding
+words that cannot be credited as ordinary C without stronger boundary evidence.
 Raw and deferred candidates are interleaved. Exact matches pass through
-`finish`; the retained group receives one final clean `verify-batch`.
+an initial warning-free `diff` preflight and then `finish`; the retained group
+receives one final clean `verify-batch`. Compiler failures and warnings retain
+the complete proposed source, log, and structured diagnostics under
+`build/us/automate/artifacts/<work-item-id>/` while restoring project source.
 
 Do not discard a useful nonzero candidate merely to keep a mixed unit
 byte-identical. With explicit agreement to move past it, add `--defer-best` or
@@ -154,7 +173,10 @@ primarily compiler register allocation, `./conker permute <work-item-id>
 semantics-preserving declaration order and first-assignment lifetime variants.
 It writes the best nonzero result below `build/<profile>/permute/` without
 changing project source. It restores and finishes the candidate automatically
-only after finding `CURRENT (0)`. When unified automation finds a strictly
+only after finding `CURRENT (0)`. Applying an exact permutation and running
+`finish` is transactional: if the layout gate fails before a match is recorded,
+both source and deferred inventory metadata are rolled back together. When
+unified automation finds a strictly
 better nonzero permutation for an already deferred function, it replaces the
 canonical disabled candidate and its recorded score transactionally; an equal
 or worse result leaves the existing block untouched.
@@ -179,6 +201,11 @@ To consider the complete active US inventory, run:
 
 This removes the match and attempt limits but retains all safety exclusions.
 It atomically updates `build/us/automate/all-report.json` after every candidate.
+To avoid terminal backpressure during a full scan, detailed subprocess output
+is written to `build/us/automate/logs/<work-item-id>.log`; stdout is limited to
+important events and one progress summary every 50 candidates. Each attempted
+report entry records its `command_log` when one exists. Add `--verbose` only
+when the complete live command stream is useful.
 The report includes already matched functions and explicit exclusion reasons,
 so a completed run proves every inventory entry was considered even when some
 functions still require manual work. An interrupted run has `scan_complete:
@@ -190,6 +217,22 @@ reopened or deferred by a later mixed-source integration is dropped from that
 batch instead of being passed to `verify-batch`. Add `--restart` to deliberately
 reconsider prior outcomes after changing the automation. Do not combine `--all`
 with `--max-attempts`.
+
+Each attempted result records its pipeline stage, blocker code, applied repair
+actions, and a fingerprint of the target source and canonical raw assembly plus
+only that stage's relevant tools and options. A later full run resumes an
+outcome only while that stage fingerprint still matches; changing declaration,
+compile-repair, or permutation tooling selectively requeues its own frontier.
+Legacy entries without stage metadata are safely retried once.
+
+Use `./conker automate --all --analyze` for a non-mutating preparation pass. It
+generates and sanitizes raw starters, checks that each candidate can replace
+exactly one canonical pragma, classifies deferred candidates, and writes
+`build/us/automate/analysis-report.json`. It may update ignored m2c caches and
+the report, but does not edit tracked source/inventory, compile candidates,
+permute, defer, finish, or run the batch gate. Analysis results use the same
+fingerprints and resume unchanged work; add `--restart` to recompute all of
+them.
 
 `finish` also compiles the complete reviewed mixed source object and verifies
 every member offset plus the aligned object extent before recording a match.

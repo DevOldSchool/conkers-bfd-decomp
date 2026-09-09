@@ -24,6 +24,23 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AF74.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B034.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B364.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B844 CURRENT (30) */
+s32 func_1514B844(void *arg0) {
+    s16 temp_v1;
+    s32 temp_a0;
+    void *temp_v0;
+
+    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    if (temp_v1 < 0x10) {
+        temp_a0 = temp_v1 * 0x10;
+        if (temp_a0 < (s32) *(u8 *)((u8 *)temp_v0 + 0x1B)) {
+            *(u8 *)((u8 *)temp_v0 + 0x1B) = (u8) temp_a0;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514B844 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B844.s")
 extern f32 D_800BE9A4;
 

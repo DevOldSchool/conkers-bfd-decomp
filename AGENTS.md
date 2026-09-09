@@ -26,6 +26,10 @@ preserved deferred candidates:
   --rewrite-budget <variants>
 ```
 
+Use `./conker automate --function <work-item-id> --skip-final-build` for a
+targeted local test. It runs exactly one eligible raw or deferred candidate and
+prints any required final `verify-batch` command.
+
 It starts raw work from m2c, resolves only unique compatible declarations,
 sanitizes scalar and pointer field accesses plus integer-backed address
 assignments, searches bounded safe source forms, and diagnoses deferred
@@ -33,6 +37,16 @@ candidates before permuting pure register-only diffs.
 The two pools are interleaved so neither starves. It restores every unsafe or
 nonmatching source attempt, retains exact results only through `finish`, and
 runs one final clean `verify-batch` for all matches.
+Raw candidates receive a warning-free focused `diff` preflight before `finish`.
+Compiler diagnostics and the proposed source are retained under ignored build
+artifacts while tracked source is restored. Before restoring, automation may
+make up to three diagnostic-guided repairs confined to the target function for
+proven mechanical cases such as undefined `NULL` and byte-address pointer
+arithmetic. Deferred `CURRENT (0)` candidates proceed directly to authoritative
+permutation/`finish` recovery. If the reviewed raw span contains trailing
+unlabeled instructions and the mixed-object layout remains short, preserve the
+candidate and report the `finish`/`layout_gate` blocker rather than claiming a
+match or inventing a function boundary.
 For an already deferred function, a strictly lower nonzero permutation replaces
 the canonical disabled candidate and recorded score transactionally; equal or
 worse results leave the existing candidate untouched.
@@ -49,10 +63,22 @@ states, and source-unit integration transitions rather than guessing. It writes
 `build/us/automate/all-report.json` atomically after every candidate. The report
 classifies every inventory function as already matched, attempted, not yet
 attempted, or excluded, making interrupted and completed coverage auditable.
+Full scans keep terminal output bounded: detailed subprocess output is written
+to `build/us/automate/logs/<work-item-id>.log`, while stdout contains important
+events and a progress line every 50 attempts. Add `--verbose` only when the
+complete live command stream is required.
 An interrupted `--all` run resumes completed outcomes from that report; use
 `--restart` to intentionally reconsider them with changed tooling.
 Do not claim complete coverage unless `full_scan` and `scan_complete` are both
 true and no function remains `not_attempted` in that report.
+
+Attempted outcomes carry a pipeline stage, blocker code, repair actions, and a
+stage-specific source/raw-assembly/tool/options fingerprint. Resume
+automatically reconsiders only the affected stage frontier when its relevant
+inputs change. Use
+`./conker automate --all --analyze` for a non-mutating starter/preparation
+inventory; it writes a separate analysis report and does not compile or edit
+tracked project state.
 
 ## Small-agent fast path
 
@@ -100,7 +126,9 @@ For ordinary source-local function work, follow this exact loop:
     or deferred candidate without changing it. For a register-allocation-only
     candidate, `./conker permute <work-item-id> --budget <variants>` may search
     bounded declaration/lifetime variants; it changes source only for
-    `CURRENT (0)` and then runs `finish`. If still unmatched, report
+    `CURRENT (0)` and then runs `finish`. Exact permutation application is
+    transactional: a pre-match `finish` failure restores both source and
+    inventory. If still unmatched, report
     `candidate`. When the user
     explicitly authorizes moving past it, run
     `./conker defer <work-item-id> --reason <text>`; this preserves the current C

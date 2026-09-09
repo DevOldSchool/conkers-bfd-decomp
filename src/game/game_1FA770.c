@@ -30,6 +30,57 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD4C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD674.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD7BC.s")
+extern f32 D_800AAFE4;
+extern f32 D_800AAFE8;
+extern f32 D_800AAFEC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CDB94 CURRENT (7501) */
+s32 func_151CDB94(void *arg0) {
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_fv0;
+    s32 temp_v0;
+    s32 var_v1;
+    s8 temp_a2;
+    s8 var_v1_2;
+    void *temp_a1;
+    void *temp_a2_2;
+
+    temp_v0 = *(s32 *)((u8 *)arg0 + 0x94);
+    if (*(s8 *)((u8 *)arg0 + 0x2C) <= 0) {
+
+    } else {
+        var_v1 = *(s8 *)((u8 *)arg0 + 0x2E) - 1;
+        if (var_v1 < 0) {
+            var_v1 = *(u8 *)((u8 *)arg0 + 0x25) - 1;
+        }
+        temp_a2 = *(s8 *)((u8 *)arg0 + 0x2D);
+        temp_a1 = (temp_a2 * 0x1C) + temp_v0;
+        temp_fv0 = fabsf(*(f32 *)((u8 *)((var_v1 * 0x1C) + temp_v0) + 4) - *(f32 *)((u8 *)temp_a1 + 4));
+        if (temp_fv0 == 0.0f) {
+
+        } else {
+            temp_fa1 = 1.0f / temp_fv0;
+            var_v1_2 = temp_a2;
+            do {
+                temp_a2_2 = (var_v1_2 * 0x1C) + temp_v0;
+                *(s16 *)((u8 *)temp_a2_2 + 0x14) = 0xFF;
+                temp_fa0 = *(f32 *)((u8 *)temp_a2_2 + 4) - *(f32 *)((u8 *)temp_a1 + 4);
+                if (temp_fa0 < (temp_fv0 * D_800AAFE4)) {
+                    *(s16 *)((u8 *)temp_a2_2 + 0x14) = (s16) ((u32) (temp_fa0 * (temp_fa1 * D_800AAFEC) * 255.0f) & 0xFF);
+                } else if ((temp_fv0 - (temp_fv0 * D_800AAFE8)) < temp_fa0) {
+                    *(s16 *)((u8 *)temp_a2_2 + 0x14) = (s16) ((u32) ((temp_fv0 - temp_fa0) * (temp_fa1 * 10.0f) * 255.0f) & 0xFF);
+                }
+                var_v1_2 += 1;
+                if (var_v1_2 >= (s32) *(u8 *)((u8 *)arg0 + 0x25)) {
+                    var_v1_2 = 0;
+                }
+            } while (var_v1_2 != *(s8 *)((u8 *)arg0 + 0x2E));
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CDB94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CDB94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CDE20.s")
 typedef struct Game1FA770Object {

@@ -34,4 +34,11 @@ void func_150B5060(void *arg0) {
     *(u8 *)((u8 *)temp_v0 + 0x1C) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x1C) | 1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B5088.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B538C CURRENT (295) */
+void func_150B538C(void *arg0, s32 arg1, s32 arg2) {
+    if ((arg2 & 0xFF) == 5) {
+        func_150B5060(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B538C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B538C.s")
