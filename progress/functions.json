@@ -45246,6 +45246,12 @@
       "symbol": "func_151C7038"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 675,
+        "reason": "Improved to CURRENT (675); remaining mismatch is one extra temporary move plus register and spill allocation",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45261,8 +45267,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 700,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (700)",
+        "current_score": 40,
+        "reason": "CURRENT (40) register-only mismatch; exhaustive 224-variant permutation found no exact match",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45340,6 +45346,12 @@
       "symbol": "func_1517BBAC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 105,
+        "reason": "CURRENT (105); initialization schedule mismatch remained after three source-only variants",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45366,6 +45378,12 @@
       "symbol": "func_1517D074"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 40,
+        "reason": "CURRENT (40) register-only mismatch after three source variants and bounded permutation",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45382,8 +45400,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517D5FC",
           "vram": "0x1517D5FC"
         }
@@ -45392,6 +45415,12 @@
       "symbol": "func_1517D5FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 669,
+        "reason": "Improved to CURRENT (669); multiply semantics match, remaining differences are long-lived register and global-address allocation",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45434,8 +45463,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1517E05C",
           "vram": "0x1517E05C"
         }
