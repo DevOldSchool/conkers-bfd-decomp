@@ -64,9 +64,8 @@ s32 func_1517B7A8(void *arg0, void *arg1, s32 *arg2, s32 arg3) {
     return 0;
 }
 s32 func_1517B7F8(void *arg0, void *arg1, s32 *arg2, s32 arg3) {
-    s32 temp_v0;
-    s32 temp_v0_2;
     s32 temp_v1;
+    s32 temp_v0;
 
     temp_v0 = *arg2;
     if (temp_v0 >= 0xD00) {
@@ -74,11 +73,12 @@ s32 func_1517B7F8(void *arg0, void *arg1, s32 *arg2, s32 arg3) {
     }
     temp_v1 = temp_v0 - 0x600;
     if (temp_v0 >= 0x100) {
-        *(s16 *)((u8 *)arg1 + 2) = (s16) (*(s16 *)((u8 *)arg0 + 2) + ((s32) (0x190000 - (temp_v1 * temp_v1)) / 7680));
-        temp_v0_2 = *arg2;
-        if (temp_v0_2 >= 0x200) {
-            if (temp_v0_2 >= 0xA01) {
-                *arg2 = temp_v0_2 - 0x800;
+        temp_v1 = 0x190000 - (temp_v1 * temp_v1);
+        *(s16 *)((u8 *)arg1 + 2) = (s16) (*(s16 *)((u8 *)arg0 + 2) + (temp_v1 / 7680));
+        temp_v0 = *arg2;
+        if (temp_v0 >= 0x200) {
+            if (temp_v0 >= 0xA01) {
+                *arg2 = temp_v0 - 0x800;
             } else {
                 *arg2 = 0x200;
             }

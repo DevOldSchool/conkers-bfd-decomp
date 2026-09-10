@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1515BBF0
  * - func_1515BE50
- * - func_1515BF50
  * - func_1515BF7C
  * - func_1515BFA8
  * - func_1515C0B8
@@ -24,7 +23,15 @@ void func_1515BE48(void) {
 
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BE50.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BF50.s")
+/* Call context: func_1514EDF0: unique active project prototype */
+/* Call context: func_15169804: unique active project prototype */
+void func_1514EDF0(s32, s32);
+void func_15169804(s32);
+
+void func_1515BF50(void *arg0) {
+    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_15169804((s32) arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BF7C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BFA8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515C0B8.s")

@@ -23,9 +23,7 @@
  * - func_1519E6BC
  * - func_1519E754
  * - func_1519E818
- * - func_1519E8CC
  * - func_1519E8F8
- * - func_1519E924
  * - func_1519E948
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -46,7 +44,28 @@ void func_1519CFA0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519CFA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519CFA0.s")
+/* Call context: func_151478F4: unique active project prototype */
+/* Call context: func_1514EDF0: unique active project prototype */
+void func_151478F4(s32);
+void func_1514EDF0(s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519CFD0 CURRENT (10) */
+void func_1519CFD0(void *arg0) {
+    func_1514EDF0((s32) arg0, **(s32 **)((u8 *)arg0 + 0x98));
+    func_151478F4((s32) arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519CFD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519CFD0.s")
+/* Call context: func_15147928: unique active project prototype */
+/* Call context: func_1514EDF0: unique active project prototype */
+void func_15147928(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519D000 CURRENT (10) */
+void func_1519D000(void *arg0) {
+    func_1514EDF0((s32) arg0, **(s32 **)((u8 *)arg0 + 0x98));
+    func_15147928((s32) arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519D000 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519D000.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519D030.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519D240.s")
@@ -102,7 +121,22 @@ void func_1519E65C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E6BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E754.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E818.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E8CC.s")
+/* Call context: func_1514933C: unique active project prototype */
+/* Call context: func_1514EDF0: unique active project prototype */
+void func_1514933C(s32);
+void func_1514EDF0(s32, s32);
+
+void func_1519E8CC(void *arg0) {
+    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x28));
+    func_1514933C((s32) arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E8F8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E924.s")
+/* Call context: func_1514933C: unique active project prototype */
+void func_1514933C(s32);
+extern s32 D_800E0920;
+
+void func_1519E924(s32 arg0) {
+    D_800E0920 = 0;
+    func_1514933C(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CA420/func_1519E948.s")

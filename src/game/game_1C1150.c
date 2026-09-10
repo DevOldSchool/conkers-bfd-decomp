@@ -21,8 +21,6 @@
  * - func_15194B1C
  * - func_15194B94
  * - func_15194BF0
- * - func_15194D80
- * - func_15194DA4
  * - func_15194DC8
  * - func_15194E54
  * - func_15194EA8
@@ -55,8 +53,17 @@ void func_151949E0(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194B1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194B94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194BF0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194D80.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194DA4.s")
+/* Call context: func_15194FF4: raw o32 argument homes in asm/nonmatchings/game_1C1150/func_15194FF4.s; pointer uses in entry block; caller discards result */
+void func_15194FF4(s32, s32, s32); /* CONKER_ABI_DISCARDED_RETURN */
+
+void func_15194D80(s32 arg0, s32 arg1, s32 arg2) {
+    func_15194FF4(arg0, arg1, 0);
+}
+/* Call context: func_15194FF4: raw o32 argument homes in asm/nonmatchings/game_1C1150/func_15194FF4.s; pointer uses in entry block; caller discards result */
+
+void func_15194DA4(s32 arg0, s32 arg1, s32 arg2) {
+    func_15194FF4(arg0, arg1, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194DC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194E54.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194EA8.s")

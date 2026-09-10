@@ -75,6 +75,19 @@ class DeclarationFactsTests(unittest.TestCase):
                     "M2C_UNK func_target(u8); /* extern */\n", "", root=root
                 )
 
+    def test_resolves_unknown_parameter_types_without_inventing_argument_count(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "src" / "callee.c"
+            source.parent.mkdir()
+            source.write_text("s32 func_target(void *arg0, s32 arg1);\n")
+            declarations, _ = facts.resolve_required_declarations(
+                "M2C_UNK func_target(M2C_UNK, M2C_UNK);", "", root=root)
+            self.assertEqual(["s32 func_target(void *, s32);"], declarations)
+            with self.assertRaises(facts.DeclarationError):
+                facts.resolve_required_declarations(
+                    "M2C_UNK func_target(M2C_UNK);", "", root=root)
+
     def test_ignores_preserved_disabled_candidate_as_declaration_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             root = Path(temporary_directory)

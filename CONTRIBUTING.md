@@ -152,6 +152,24 @@ receives one final clean `verify-batch`. Compiler failures and warnings retain
 the complete proposed source, log, and structured diagnostics under
 `build/us/automate/artifacts/<work-item-id>/` while restoring project source.
 
+Before generating a starter, m2c imports unique, self-contained active project
+prototypes for direct callees. For a straight-line wrapper with one direct call
+and a discarded result, it can also recover forwarded integer-register
+arguments from a validated raw callee's contiguous o32 argument-home stores.
+Pointer use in the callee entry block supplies pointer arguments; other word
+arguments remain `s32`. It regenerates m2c with this context and emits the
+required declarations with the starter. Evidence is retained under
+`build/m2c/calls/<symbol>.json`.
+
+Raw call-site declarations carry `CONKER_ABI_DISCARDED_RETURN`: they describe
+only calls that discard the result and are excluded from general return-type
+evidence. Conflicting declarations, unsupported types, stack arguments,
+variadic register-save areas, and unsupported wrapper control flow remain
+blocked. Prototype and raw-callee changes invalidate affected resume
+fingerprints automatically. This recovery is enabled by default in `m2c`,
+`next --ready`, and `automate`; the normal focused, layout, and batch gates
+still apply.
+
 Do not discard a useful nonzero candidate merely to keep a mixed unit
 byte-identical. With explicit agreement to move past it, add `--defer-best` or
 use the supported deferral flow:

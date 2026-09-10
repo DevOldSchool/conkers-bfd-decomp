@@ -141,26 +141,20 @@ def function_declaration(
     expected = argument_types(expected_arguments)
     if expected is None:
         return None
-    returns: dict[str, set[str]] = {}
-    for path in evidence_files(root):
-        try:
-            text = active_text(path.read_text(encoding="utf-8"))
-        except (OSError, UnicodeDecodeError):
-            continue
-        for match in FUNCTION_EVIDENCE.finditer(text):
-            if match.group("symbol") != symbol:
-                continue
-            actual = argument_types(match.group("args"))
-            if actual != expected:
-                continue
-            return_type = normalize_type(match.group("return"))
-            returns.setdefault(return_type, set()).add(str(path.relative_to(root)))
-    if len(returns) != 1:
+    # Resolve unknown parameter types as well as unknown returns, but never
+    # repair argument count here: omitted register arguments require fresh m2c
+    # output generated with a complete prototype.
+    from call_signatures import signature_index
+    signature = signature_index(root, {symbol}).get(symbol)
+    if signature is None or len(signature.arguments) != len(expected):
         return None
-    return_type, paths = next(iter(returns.items()))
-    arguments = ", ".join(expected) if expected else "void"
+    if any(want != "M2C_UNK" and normalize_type(actual) != want
+           for want, actual in zip(expected, signature.arguments)):
+        return None
+    paths = [str(path.relative_to(root)) for path in evidence_files(root)
+             if re.search(rf"\b{re.escape(symbol)}\s*\(", active_text(path.read_text(encoding="utf-8")))]
     return Declaration(
-        f"{return_type} {symbol}({arguments});",
+        signature.declaration(symbol),
         symbol,
         tuple(sorted(paths)),
     )

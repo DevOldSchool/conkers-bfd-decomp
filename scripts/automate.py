@@ -16,6 +16,7 @@ from pathlib import Path
 import automation_common
 import candidate_rewrites
 import project_state
+import call_signatures
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -46,6 +47,7 @@ FINGERPRINT_INPUTS = (
     "scripts/candidate_lifetimes.py",
     "scripts/declaration_facts.py",
     "scripts/m2c.py",
+    "scripts/call_signatures.py",
     "toolchain/tools.lock.json",
 )
 STAGE_INPUTS = {
@@ -80,6 +82,13 @@ STAGE_INPUTS = {
 STAGE_VERSIONS = {stage: 1 for stage in STAGE_INPUTS}
 # Small register/missing-instruction differences now receive a bounded probe.
 STAGE_VERSIONS["diff"] = 2
+# A changed starter can fix any later raw-stage failure, including declaration
+# blockers saved before compilation. Keep the upstream recovery inputs in each
+# relevant stage instead of requiring users to restart a saved scan.
+CALL_CONTEXT_INPUTS = ("scripts/m2c.py", "scripts/call_signatures.py", "scripts/declaration_facts.py")
+for _stage in STAGE_INPUTS:
+    if _stage != "inventory":
+        STAGE_INPUTS[_stage] = tuple(dict.fromkeys(STAGE_INPUTS[_stage] + CALL_CONTEXT_INPUTS))
 CFE_DIAGNOSTIC = re.compile(
     r"(?m)^cfe: (?P<severity>Warning|Error)(?: (?P<code>\d+))?: "
     r"(?:(?P<path>.+), line (?P<line>\d+): )?(?P<message>.+)$"
@@ -269,6 +278,8 @@ def run_fingerprint(tool_fingerprint: str, args: argparse.Namespace) -> str:
 def candidate_fingerprint(
     candidate: automation_common.RawCandidate | automation_common.DeferredCandidate,
     tool_fingerprint: str,
+    *,
+    prototypes: dict[str, call_signatures.Signature | None] | None = None,
 ) -> str:
     """Hash candidate-local inputs used to decide whether a result is reusable."""
 
@@ -289,6 +300,10 @@ def candidate_fingerprint(
         digest.update(b"\0")
         digest.update(path.read_bytes() if path.is_file() else b"<missing>")
         digest.update(b"\0")
+    if isinstance(candidate, automation_common.RawCandidate):
+        raw = ROOT / project_state.nonmatching_asm_path(candidate.source, candidate.identifier)
+        if raw.is_file():
+            digest.update(call_signatures.dependency_digest(ROOT, raw.read_text(), prototypes).encode())
     return digest.hexdigest()
 
 
@@ -1647,6 +1662,9 @@ def main(arguments: list[str] | None = None) -> int:
             automation_common.available_raw_candidates(),
             automation_common.available_deferred_candidates(),
         )
+        # Share a read-only signature snapshot across resume fingerprints; a
+        # candidate hashes only its callees, not unrelated newly matched C.
+        prototypes = call_signatures.signature_index(ROOT)
         if args.target:
             selected = next(
                 (
@@ -1670,7 +1688,7 @@ def main(arguments: list[str] | None = None) -> int:
         if args.all and not args.restart:
             current_fingerprints = {
                 candidate.identifier: {
-                    stage: candidate_fingerprint(candidate, seed)
+                    stage: candidate_fingerprint(candidate, seed, prototypes=prototypes)
                     for stage, seed in stage_seeds.items()
                 }
                 for candidate in candidates
@@ -1720,7 +1738,7 @@ def main(arguments: list[str] | None = None) -> int:
             result_stage = result.stage or "prepare"
             result = replace(
                 result,
-                fingerprint=candidate_fingerprint(candidate, stage_seeds[result_stage]),
+                fingerprint=candidate_fingerprint(candidate, stage_seeds[result_stage], prototypes=prototypes),
                 stage_fingerprint=stage_seeds[result_stage],
                 previous_score=(candidate.current_score if isinstance(candidate, automation_common.DeferredCandidate) else None),
                 command_log=(

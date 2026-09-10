@@ -34,6 +34,50 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15037880.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150379DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150380C0.s")
+/* Call context: func_150484A0: unique active project prototype */
+f32 func_150484A0(f32, f32);
+extern f32 D_80098648;
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15038468 CURRENT (3799) */
+void func_15038468(f32 *arg0, f32 *arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) {
+    f32 temp_fv0;
+    f32 temp_fv0_2;
+    f32 var_fv0;
+
+    switch (arg5) {                                 /* irregular */
+    case 0:
+        *arg0 = func_150484A0(arg2, arg4);
+        var_fv0 = func_150484A0(arg3, sqrtf((arg2 * arg2) + (arg4 * arg4)));
+block_9:
+        *arg1 = var_fv0;
+        break;
+    case 1:
+        *arg0 = func_150484A0(-arg4, arg2);
+        var_fv0 = func_150484A0(arg3, sqrtf((arg2 * arg2) + (arg4 * arg4)));
+        goto block_9;
+    case 2:
+        *arg0 = func_150484A0(arg4, -arg2);
+        var_fv0 = func_150484A0(arg3, sqrtf((arg2 * arg2) + (arg4 * arg4)));
+        goto block_9;
+    case 3:
+        *arg0 = func_150484A0(arg4, -arg3);
+        var_fv0 = func_150484A0(-arg2, sqrtf((arg3 * arg3) + (arg4 * arg4)));
+        goto block_9;
+    }
+    *arg0 *= D_80098648;
+    *arg1 *= D_80098648;
+    temp_fv0 = *arg0;
+    if (temp_fv0 > 180.0f) {
+        *arg0 = temp_fv0 - 360.0f;
+    }
+    temp_fv0_2 = *arg1;
+    if (temp_fv0_2 > 180.0f) {
+        *arg1 = temp_fv0_2 - 360.0f;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15038468 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15038468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15038620.s")
 typedef struct Game64120Entry {

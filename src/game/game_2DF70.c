@@ -127,6 +127,34 @@ void func_15002724(void) {
     D_800DBE38 += func_150027F8();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002754.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150027F8 CURRENT (5) */
+s32 func_150027F8(s8 *arg0) {
+    s32 var_v0;
+    s32 var_v1;
+    s8 var_a1;
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    var_a1 = *arg0;
+    var_v0 = 0;
+    var_v1 = 0;
+    if (var_a1 != -0x21) {
+        do {
+            var_v0 += 1;
+            if ((var_a1 >> 4) == 1) {
+                var_v1 += 4;
+            } else if (var_a1 == 6) {
+                var_v1 += 2;
+            } else if (var_a1 == 5) {
+                var_v1 += 1;
+            }
+            var_a1 = *((var_v0 * 8) + arg0);
+        } while (var_a1 != -0x21);
+    }
+    return var_v1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150027F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_150027F8.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15002878 */

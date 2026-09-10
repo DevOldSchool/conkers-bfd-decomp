@@ -19,6 +19,21 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE5B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE790.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AEB9C.s")
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AECCC CURRENT (30) */
+void func_150AECCC(void *arg0) {
+    *(s16 *)((u8 *)arg0 + 0x96) = (s16) (*(s16 *)((u8 *)arg0 + 0x96) + (*(s16 *)((u8 *)arg0 + 0x94) * D_800BE9E4));
+    if (*(s16 *)((u8 *)arg0 + 0x96) >= 0x1401) {
+        *(s16 *)((u8 *)arg0 + 0x96) = 0x1400;
+    }
+    *(s16 *)((u8 *)arg0 + 0x9E) = (s16) (*(s16 *)((u8 *)arg0 + 0x9E) - (*(s16 *)((u8 *)arg0 + 0x96) >> 8));
+    *(s16 *)((u8 *)arg0 + 0xA4) = (s16) (*(s16 *)((u8 *)arg0 + 0xA4) + D_800BE9E4);
+    if (*(s16 *)((u8 *)arg0 + 0xA4) >= 0x1A) {
+        *(s16 *)((u8 *)arg0 + 0xA4) = 0x19;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AECCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AECCC.s")
 extern s32 D_800BE9E4;
 

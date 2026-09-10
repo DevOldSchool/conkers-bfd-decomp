@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150DDED0
- * - func_150DDF88
  * - func_150DDFAC
  * - func_150DE12C
  *
@@ -14,7 +13,11 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDED0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDF88.s")
+extern void func_150DBD70(u8, void *);
+
+void func_150DDF88(void *arg0) {
+    func_150DBD70(*(u8 *)((u8 *)arg0 + 0x28), arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDFAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DE12C.s")
 typedef struct Game10B380Object {

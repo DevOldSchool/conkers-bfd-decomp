@@ -11,7 +11,6 @@
  * - func_150E6ED8
  * - func_150E6F18
  * - func_150E6FAC
- * - func_150E70EC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -61,7 +60,31 @@ void func_150E70CC(f32 *arg0, f32 *arg1) {
     arg0[1] = arg1[6];
     arg0[2] = arg1[7];
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E70EC.s")
+/* Call context: func_150484A0: unique active project prototype */
+f32 func_150484A0(f32, f32);
+extern f32 D_800A1310;
+extern f32 D_800A1314;
+extern f32 D_800A1318;
+extern f32 D_800A131C;
+extern f32 D_800A1320;
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+void func_150E70EC(s32 arg0, s32 arg1, void *arg2, void *arg3) {
+    f32 temp_ft4;
+    f32 temp_fv1;
+
+    *(f32 *)((u8 *)arg3 + 0) = func_150484A0(*(f32 *)((u8 *)arg2 + 0), *(f32 *)((u8 *)arg2 + 8));
+    *(f32 *)((u8 *)arg3 + 8) = (f32) (func_150ADA68() * D_800A1310);
+    *(f32 *)((u8 *)arg3 + 0x10) = (f32) (func_150ADA68() * D_800A1314);
+    *(f32 *)((u8 *)arg3 + 0x18) = (f32) (func_150ADA68() * 0.5f);
+    temp_fv1 = *(f32 *)((u8 *)arg2 + 0);
+    temp_ft4 = *(f32 *)((u8 *)arg2 + 8);
+    *(f32 *)((u8 *)arg3 + 4) = (f32) (func_150484A0(sqrtf((temp_fv1 * temp_fv1) + (temp_ft4 * temp_ft4)), *(f32 *)((u8 *)arg2 + 4)) - D_800A1318);
+    *(f32 *)((u8 *)arg3 + 0xC) = (f32) (func_150ADA68() * D_800A131C);
+    *(f32 *)((u8 *)arg3 + 0x14) = (f32) (func_150ADA68() * D_800A1320);
+    *(f32 *)((u8 *)arg3 + 0x1C) = (f32) (func_150ADA68() * 0.5f);
+}
 f32 func_150484A0(f32, f32);                        /* extern */
 extern f32 D_800A1324;
 extern f32 D_800A1328;

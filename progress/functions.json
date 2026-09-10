@@ -318,6 +318,12 @@
       "symbol": "func_15002754"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -620,6 +626,12 @@
       "symbol": "func_15134CD4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 140,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (140)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -803,6 +815,12 @@
       "symbol": "func_151356D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6876,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6876)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -3241,6 +3259,12 @@
       "symbol": "func_1519C26C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 440,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (440)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -4859,6 +4883,12 @@
       "symbol": "func_15004E00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 555,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (555)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5724,8 +5754,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150103E0",
           "vram": "0x150103E0"
         }
@@ -6926,6 +6961,12 @@
       "symbol": "func_151B3A34"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 21743,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (21743)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -6939,6 +6980,12 @@
       "symbol": "func_151B3A7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9877,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (9877)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -6965,6 +7012,12 @@
       "symbol": "func_151B3F28"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 13877,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13877)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7004,6 +7057,12 @@
       "symbol": "func_151B47D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1405,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1405)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7048,6 +7107,12 @@
       "symbol": "func_151B4A14"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2035,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2035)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7630,6 +7695,12 @@
       "symbol": "func_151CB5FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 215,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (215)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7643,6 +7714,12 @@
       "symbol": "func_151CB918"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 677,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (677)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7682,6 +7759,12 @@
       "symbol": "func_151CBBE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2370,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2370)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -7817,6 +7900,12 @@
       "symbol": "func_151CCF08"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 281,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (281)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8069,6 +8158,12 @@
       "symbol": "func_150597FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2780,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2780)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8509,8 +8604,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505E060",
           "vram": "0x1505E060"
         }
@@ -8603,6 +8703,12 @@
       "symbol": "func_1505EEB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 420,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (420)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8616,6 +8722,12 @@
       "symbol": "func_1505EEF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 420,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (420)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8629,6 +8741,12 @@
       "symbol": "func_1505EFD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 420,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (420)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8842,6 +8960,12 @@
       "symbol": "func_150615DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1990,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1990)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9278,6 +9402,12 @@
       "symbol": "func_1513BBFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 919,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (919)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9405,6 +9535,12 @@
       "symbol": "func_1514143C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2297,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2297)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9418,6 +9554,12 @@
       "symbol": "func_15141478"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 73,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (73)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9431,6 +9573,12 @@
       "symbol": "func_15141564"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 685,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (685)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9771,6 +9919,12 @@
       "symbol": "func_151423D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1354,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1354)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9826,8 +9980,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 204,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142914",
           "vram": "0x15142914"
         }
@@ -9852,8 +10011,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15142A5C",
           "vram": "0x15142A5C"
         }
@@ -9953,6 +10117,12 @@
       "symbol": "func_15142B7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2870,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2870)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9966,6 +10136,12 @@
       "symbol": "func_15142C10"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3067,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3067)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9997,6 +10173,12 @@
       "symbol": "func_15142E24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1600,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1600)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10068,6 +10250,12 @@
       "symbol": "func_151432BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1233,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1233)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10100,6 +10288,12 @@
       "symbol": "func_1514373C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2025,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2025)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10413,8 +10607,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15144AA8",
           "vram": "0x15144AA8"
         }
@@ -10618,6 +10817,12 @@
       "symbol": "func_151454BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3785,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3785)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10660,8 +10865,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15145974",
           "vram": "0x15145974"
         }
@@ -11338,6 +11548,12 @@
       "symbol": "func_151695F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1300,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1300)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -11465,6 +11681,12 @@
       "symbol": "func_15169850"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2105,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2105)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13208,8 +13430,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 48,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500E890",
           "vram": "0x1500E890"
         }
@@ -13234,8 +13461,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500EAA0",
           "vram": "0x1500EAA0"
         }
@@ -13304,8 +13536,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501370C",
           "vram": "0x1501370C"
         }
@@ -13317,8 +13554,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501374C",
           "vram": "0x1501374C"
         }
@@ -13343,8 +13585,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501396C",
           "vram": "0x1501396C"
         }
@@ -13427,8 +13674,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15013FC4",
           "vram": "0x15013FC4"
         }
@@ -13440,8 +13692,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 60,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15014004",
           "vram": "0x15014004"
         }
@@ -13798,6 +14055,12 @@
       "symbol": "func_1501A39C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2115,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2115)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13824,6 +14087,12 @@
       "symbol": "func_1501A680"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2375,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2375)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -15874,6 +16143,12 @@
       "symbol": "func_1506BBA8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 700,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (700)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -16563,8 +16838,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506DD6C",
           "vram": "0x1506DD6C"
         }
@@ -16932,8 +17212,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506EC50",
           "vram": "0x1506EC50"
         }
@@ -17146,8 +17431,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506EEAC",
           "vram": "0x1506EEAC"
         }
@@ -17402,8 +17692,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 48,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506F8C0",
           "vram": "0x1506F8C0"
         }
@@ -17654,8 +17949,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506FEF8",
           "vram": "0x1506FEF8"
         }
@@ -17667,8 +17967,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506FF24",
           "vram": "0x1506FF24"
         }
@@ -19290,8 +19595,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 104,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150739C0",
           "vram": "0x150739C0"
         }
@@ -19396,8 +19706,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 60,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15073CB8",
           "vram": "0x15073CB8"
         }
@@ -19409,8 +19724,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15073CF4",
           "vram": "0x15073CF4"
         }
@@ -19422,8 +19742,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15073D34",
           "vram": "0x15073D34"
         }
@@ -20037,6 +20362,12 @@
       "symbol": "func_15075400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 325,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (325)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -20102,6 +20433,12 @@
       "symbol": "func_15075938"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (20)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -20188,8 +20525,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 124,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15075C24",
           "vram": "0x15075C24"
         }
@@ -20341,8 +20683,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15075EB4",
           "vram": "0x15075EB4"
         }
@@ -20354,8 +20701,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15075F00",
           "vram": "0x15075F00"
         }
@@ -20377,6 +20729,12 @@
       "symbol": "func_15075F40"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 585,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (585)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -20468,8 +20826,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150762B0",
           "vram": "0x150762B0"
         }
@@ -20494,8 +20857,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15076340",
           "vram": "0x15076340"
         }
@@ -20656,6 +21024,12 @@
       "symbol": "func_15076608"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1140,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1140)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -20669,6 +21043,12 @@
       "symbol": "func_15076624"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 675,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (675)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -20981,6 +21361,12 @@
       "symbol": "func_15076F78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 735,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (735)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -21121,8 +21507,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15077364",
           "vram": "0x15077364"
         }
@@ -21131,6 +21522,12 @@
       "symbol": "func_15077364"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1405,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1405)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -21201,6 +21598,12 @@
       "symbol": "func_150779A8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 105,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (105)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -21235,8 +21638,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15077ABC",
           "vram": "0x15077ABC"
         }
@@ -21350,6 +21758,12 @@
       "symbol": "func_15077C1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3508,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3508)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -21515,8 +21929,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150781A4",
           "vram": "0x150781A4"
         }
@@ -21559,8 +21978,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150782E8",
           "vram": "0x150782E8"
         }
@@ -21662,6 +22086,12 @@
       "symbol": "func_15078874"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 90,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (90)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -21776,6 +22206,12 @@
       "symbol": "func_150790C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2735,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2735)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22001,8 +22437,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15079988",
           "vram": "0x15079988"
         }
@@ -22112,6 +22553,12 @@
       "symbol": "func_15079F50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 150,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (150)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22151,6 +22598,12 @@
       "symbol": "func_1507A100"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 740,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (740)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22800,6 +23253,12 @@
       "symbol": "func_1507B15C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 50,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (50)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -23080,8 +23539,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507B8F4",
           "vram": "0x1507B8F4"
         }
@@ -23645,6 +24109,12 @@
       "symbol": "func_1513E084"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3972,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3972)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -23689,6 +24159,12 @@
       "symbol": "func_1513E2AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1465,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1465)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -23933,6 +24409,12 @@
       "symbol": "func_1513FFF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1055,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1055)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -24636,6 +25118,12 @@
       "symbol": "func_15043B70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 905,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (905)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -25775,6 +26263,12 @@
       "symbol": "func_150AEB9C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (30)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26013,6 +26507,12 @@
       "symbol": "func_150C308C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 720,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (720)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26122,6 +26622,12 @@
       "symbol": "func_15103828"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1437,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1437)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26304,6 +26810,12 @@
       "symbol": "func_15105C24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5856,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5856)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26795,8 +27307,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D3308",
           "vram": "0x151D3308"
         }
@@ -27355,6 +27872,12 @@
       "symbol": "func_151DA368"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4880,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (4880)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27420,6 +27943,12 @@
       "symbol": "func_151DAB58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 680,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (680)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27677,6 +28206,12 @@
       "symbol": "func_151DB5D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1870,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1870)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27844,6 +28379,12 @@
       "symbol": "func_151061EC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1386,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1386)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -28302,8 +28843,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15107F54",
           "vram": "0x15107F54"
         }
@@ -28564,8 +29110,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514DC38",
           "vram": "0x1514DC38"
         }
@@ -28899,8 +29450,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 60,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514DFD0",
           "vram": "0x1514DFD0"
         }
@@ -29217,6 +29773,12 @@
       "symbol": "func_1514EC1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 920,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (920)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29230,6 +29792,12 @@
       "symbol": "func_1514ECE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 920,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (920)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29246,8 +29814,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514ED8C",
           "vram": "0x1514ED8C"
         }
@@ -29256,6 +29829,12 @@
       "symbol": "func_1514ED8C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 310,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (310)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29534,6 +30113,12 @@
       "symbol": "func_1515D5AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 999,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (999)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30175,6 +30760,12 @@
       "symbol": "func_1517F814"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1645,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1645)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30336,6 +30927,12 @@
       "symbol": "func_15182748"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 264,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (264)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30511,6 +31108,12 @@
       "symbol": "func_151C0698"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31147,6 +31750,12 @@
       "symbol": "func_1507EC38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 644,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (644)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31179,6 +31788,12 @@
       "symbol": "func_1507EEB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 875,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (875)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31364,6 +31979,12 @@
       "symbol": "func_1519CFA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31377,6 +31998,12 @@
       "symbol": "func_1519CFD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31599,8 +32226,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519E8CC",
           "vram": "0x1519E8CC"
         }
@@ -31625,8 +32257,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519E924",
           "vram": "0x1519E924"
         }
@@ -33195,6 +33832,12 @@
       "symbol": "func_15030D54"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2824,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2824)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33260,6 +33903,12 @@
       "symbol": "func_1503192C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 110,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (110)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33273,6 +33922,12 @@
       "symbol": "func_1503195C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 255,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (255)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33380,8 +34035,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033328",
           "vram": "0x15033328"
         }
@@ -33393,8 +34053,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150333A8",
           "vram": "0x150333A8"
         }
@@ -33422,6 +34087,12 @@
       "symbol": "func_15033440"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1760,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1760)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33603,8 +34274,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033F0C",
           "vram": "0x15033F0C"
         }
@@ -33616,8 +34292,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033F70",
           "vram": "0x15033F70"
         }
@@ -33657,6 +34338,12 @@
       "symbol": "func_15044380"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6172,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6172)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34329,6 +35016,12 @@
       "symbol": "func_15082A44"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 830,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (830)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34471,6 +35164,12 @@
       "symbol": "func_15083E0C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 410,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (410)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34723,6 +35422,12 @@
       "symbol": "func_15049CB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2254,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2254)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34820,6 +35525,12 @@
       "symbol": "func_1512D560"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 630,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (630)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35267,6 +35978,12 @@
       "symbol": "func_150380C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3799,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3799)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35945,6 +36662,12 @@
       "symbol": "func_151E8620"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6320,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6320)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36618,6 +37341,12 @@
       "symbol": "func_1511172C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 14900,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (14900)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36882,6 +37611,12 @@
       "symbol": "func_15131814"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 770,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (770)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36983,8 +37718,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15131AFC",
           "vram": "0x15131AFC"
         }
@@ -36996,8 +37736,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15131B3C",
           "vram": "0x15131B3C"
         }
@@ -37038,6 +37783,12 @@
       "symbol": "func_15131C2C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 530,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (530)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37573,6 +38324,12 @@
       "symbol": "func_150A2864"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1215,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1215)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37670,6 +38427,12 @@
       "symbol": "func_150A2EE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1653,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1653)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37882,6 +38645,12 @@
       "symbol": "func_1516E8CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1540,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1540)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -38444,6 +39213,12 @@
       "symbol": "func_1509F4E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 40,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (40)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -38489,6 +39264,12 @@
       "symbol": "func_1509F660"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (120)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -38570,8 +39351,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FF288",
           "vram": "0x150FF288"
         }
@@ -38819,6 +39605,12 @@
       "symbol": "func_1510F648"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1595,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1595)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -38881,6 +39673,12 @@
       "symbol": "func_1510F8CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1925,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1925)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -38907,6 +39705,12 @@
       "symbol": "func_1510FC34"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2625,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2625)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39195,6 +39999,12 @@
       "symbol": "func_15165628"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8265,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8265)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39475,8 +40285,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15194D80",
           "vram": "0x15194D80"
         }
@@ -39488,8 +40303,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15194DA4",
           "vram": "0x15194DA4"
         }
@@ -39801,6 +40621,12 @@
       "symbol": "func_15158B3C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6001,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6001)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39879,6 +40705,12 @@
       "symbol": "func_1519F400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 140,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (140)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39931,6 +40763,12 @@
       "symbol": "func_1519FE6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1389,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1389)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40092,6 +40930,12 @@
       "symbol": "func_15095760"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3885,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3885)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40323,6 +41167,12 @@
       "symbol": "func_15157898"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 840,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (840)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40701,6 +41551,12 @@
       "symbol": "func_151D75C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 635,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (635)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40858,8 +41714,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D8780",
           "vram": "0x151D8780"
         }
@@ -40871,8 +41732,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D87AC",
           "vram": "0x151D87AC"
         }
@@ -40933,6 +41799,12 @@
       "symbol": "func_15184FA4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1460,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1460)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40965,6 +41837,12 @@
       "symbol": "func_15185554"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2295,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2295)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40997,6 +41875,12 @@
       "symbol": "func_1518567C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1425,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1425)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41029,6 +41913,12 @@
       "symbol": "func_151857B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1695,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1695)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41061,6 +41951,12 @@
       "symbol": "func_151858D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 855,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (855)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41093,6 +41989,12 @@
       "symbol": "func_151859FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 855,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (855)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41125,6 +42027,12 @@
       "symbol": "func_15185B28"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1645,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1645)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41157,6 +42065,12 @@
       "symbol": "func_15185C44"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1645,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1645)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41782,6 +42696,12 @@
       "symbol": "func_15133EEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1545,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1545)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42071,6 +42991,12 @@
       "symbol": "func_1514C858"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 42,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (42)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42474,6 +43400,12 @@
       "symbol": "func_151541B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 425,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (425)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42513,6 +43445,12 @@
       "symbol": "func_15154884"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1560,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1560)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42933,8 +43871,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150ED1D0",
           "vram": "0x150ED1D0"
         }
@@ -43360,8 +44303,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 48,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B60E0",
           "vram": "0x150B60E0"
         }
@@ -43427,6 +44375,12 @@
       "symbol": "func_150D6E60"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 893,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (893)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44283,6 +45237,12 @@
       "symbol": "func_15108850"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1084,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1084)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44315,6 +45275,12 @@
       "symbol": "func_15108B80"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 115,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (115)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44328,6 +45294,12 @@
       "symbol": "func_15108BC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1339,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1339)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44380,6 +45352,12 @@
       "symbol": "func_15108FFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 455,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (455)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44510,6 +45488,12 @@
       "symbol": "func_151A4638"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 510,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (510)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44523,6 +45507,12 @@
       "symbol": "func_151A483C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 80,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (80)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45122,6 +46112,12 @@
       "symbol": "func_15155EF8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (15)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45244,6 +46240,12 @@
       "symbol": "func_1517E4A8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1140,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1140)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45653,6 +46655,12 @@
       "symbol": "func_15190898"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 917,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (917)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45937,6 +46945,12 @@
       "symbol": "func_150E3020"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (100)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -46451,6 +47465,12 @@
       "symbol": "func_15096970"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 345,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (345)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47054,6 +48074,12 @@
       "symbol": "func_150C54C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 360,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (360)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47067,6 +48093,12 @@
       "symbol": "func_150C5510"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 360,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (360)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47197,6 +48229,12 @@
       "symbol": "func_150C5DC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1097,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1097)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47332,6 +48370,12 @@
       "symbol": "func_150C66F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1097,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1097)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48300,8 +49344,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 248,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E70EC",
           "vram": "0x150E70EC"
         }
@@ -48350,8 +49399,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B0C34",
           "vram": "0x150B0C34"
         }
@@ -48912,8 +49966,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15148EF8",
           "vram": "0x15148EF8"
         }
@@ -49530,6 +50589,12 @@
       "symbol": "func_150CBF80"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 775,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (775)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -49729,6 +50794,12 @@
       "symbol": "func_150D2D6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1600,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1600)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50031,6 +51102,12 @@
       "symbol": "func_1510E634"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 13508,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13508)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50044,6 +51121,12 @@
       "symbol": "func_151D5E90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6796,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6796)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50057,6 +51140,12 @@
       "symbol": "func_151D61B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 13204,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13204)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51509,6 +52598,12 @@
       "symbol": "func_15100230"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 35,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (35)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51548,6 +52643,12 @@
       "symbol": "func_151B5E94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 125,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (125)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53127,6 +54228,12 @@
       "symbol": "func_150D758C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 455,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (455)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53140,6 +54247,12 @@
       "symbol": "func_1510A870"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 455,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (455)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53453,6 +54566,12 @@
       "symbol": "func_151AA6D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 900,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (900)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53568,6 +54687,12 @@
       "symbol": "func_151AADF8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1097,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1097)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53646,6 +54771,12 @@
       "symbol": "func_151AB6B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 690,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (690)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53659,6 +54790,12 @@
       "symbol": "func_151AB788"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 690,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (690)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53924,8 +55061,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150C7D7C",
           "vram": "0x150C7D7C"
         }
@@ -54126,8 +55268,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 48,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D146C",
           "vram": "0x150D146C"
         }
@@ -54438,6 +55585,12 @@
       "symbol": "func_151082D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1991,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1991)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54820,6 +55973,12 @@
       "symbol": "func_151AFBD4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 775,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (775)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54930,6 +56089,12 @@
       "symbol": "func_150B19E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1029,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1029)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54943,6 +56108,12 @@
       "symbol": "func_150F23E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 844,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (844)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55370,6 +56541,12 @@
       "symbol": "func_151B2EC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 780,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (780)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56454,6 +57631,12 @@
       "symbol": "func_15149FD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2245,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2245)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56628,6 +57811,12 @@
       "symbol": "func_1518EB10"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1285,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1285)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56755,6 +57944,12 @@
       "symbol": "func_151A7610"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 240,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (240)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56768,6 +57963,12 @@
       "symbol": "func_151A77C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 155,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (155)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -57844,8 +59045,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511F92C",
           "vram": "0x1511F92C"
         }
@@ -57968,6 +59174,12 @@
       "symbol": "func_150F6478"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 500,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (500)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58025,6 +59237,12 @@
       "symbol": "func_150FC9A4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 470,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (470)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58494,6 +59712,12 @@
       "symbol": "func_151A6BD8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1690,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1690)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59042,6 +60266,12 @@
       "symbol": "func_151A743C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2235,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2235)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59224,6 +60454,12 @@
       "symbol": "func_151787AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 815,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (815)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59362,8 +60598,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2258",
           "vram": "0x151D2258"
         }
@@ -59375,8 +60616,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2284",
           "vram": "0x151D2284"
         }
@@ -59401,8 +60647,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150DDF88",
           "vram": "0x150DDF88"
         }
@@ -59722,8 +60973,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518E298",
           "vram": "0x1518E298"
         }
@@ -59932,6 +61188,12 @@
       "symbol": "func_15051558"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3769,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3769)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60099,6 +61361,12 @@
       "symbol": "func_151A11E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1900,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1900)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60138,6 +61406,12 @@
       "symbol": "func_151A1998"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 815,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (815)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60177,6 +61451,12 @@
       "symbol": "func_151A1FB4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1050,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1050)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60190,6 +61470,12 @@
       "symbol": "func_151A24A8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 975,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (975)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60810,6 +62096,12 @@
       "symbol": "func_151E51EC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 25,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (25)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61435,8 +62727,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15114CC4",
           "vram": "0x15114CC4"
         }
@@ -61666,6 +62963,12 @@
       "symbol": "func_151904BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 613,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (613)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62249,6 +63552,12 @@
       "symbol": "func_150CF578"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 575,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (575)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62288,6 +63597,12 @@
       "symbol": "func_150CF800"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 385,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (385)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62332,6 +63647,12 @@
       "symbol": "func_151A5660"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 435,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (435)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62358,6 +63679,12 @@
       "symbol": "func_151A5CEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 319,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (319)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63308,6 +64635,12 @@
       "symbol": "func_1514AD9C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 465,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (465)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63473,6 +64806,12 @@
       "symbol": "func_15041480"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2290,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2290)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63515,8 +64854,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 76,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507C324",
           "vram": "0x1507C324"
         }
@@ -63968,6 +65312,12 @@
       "symbol": "func_15159594"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3184,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3184)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64020,6 +65370,12 @@
       "symbol": "func_15159C08"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1972,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1972)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64046,6 +65402,12 @@
       "symbol": "func_1515A238"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1615,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1615)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64372,6 +65734,12 @@
       "symbol": "func_1511D9E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 308,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (308)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64437,6 +65805,12 @@
       "symbol": "func_151022AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2343,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2343)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64565,6 +65939,12 @@
       "symbol": "func_151BC64C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5435,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5435)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64694,8 +66074,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151BD79C",
           "vram": "0x151BD79C"
         }
@@ -65146,6 +66531,12 @@
       "symbol": "func_151D1448"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2240,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2240)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65494,6 +66885,12 @@
       "symbol": "func_150F0BEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 533,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (533)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65507,6 +66904,12 @@
       "symbol": "func_150F0E48"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2723,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2723)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65831,6 +67234,12 @@
       "symbol": "func_151B8400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 105,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (105)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65909,6 +67318,12 @@
       "symbol": "func_151D3480"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 739,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (739)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65922,6 +67337,12 @@
       "symbol": "func_151D3D50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 373,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (373)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -66786,6 +68207,12 @@
       "symbol": "func_151B6420"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7417,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (7417)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67039,6 +68466,12 @@
       "symbol": "func_150AF7C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 469,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (469)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67169,6 +68602,12 @@
       "symbol": "func_150B0348"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 309,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (309)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67260,6 +68699,12 @@
       "symbol": "func_151CD674"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8548,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8548)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67485,6 +68930,12 @@
       "symbol": "func_151B14AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 917,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (917)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68316,6 +69767,12 @@
       "symbol": "func_150F78B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 784,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (784)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69065,6 +70522,12 @@
       "symbol": "func_150FD514"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 580,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (580)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69179,6 +70642,12 @@
       "symbol": "func_150DAE70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2465,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2465)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69532,6 +71001,12 @@
       "symbol": "func_150EFEC8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1860,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1860)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70433,6 +71908,12 @@
       "symbol": "func_151B8DB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2686,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2686)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70559,8 +72040,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15158CD4",
           "vram": "0x15158CD4"
         }
@@ -70897,8 +72383,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515BF50",
           "vram": "0x1515BF50"
         }
@@ -71075,6 +72566,12 @@
       "symbol": "func_1516CC58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5643,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5643)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71132,6 +72629,12 @@
       "symbol": "func_1516D328"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 15,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (15)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71245,6 +72748,12 @@
       "symbol": "func_15086D48"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9527,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (9527)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71594,6 +73103,12 @@
       "symbol": "func_15088824"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2887,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2887)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71633,6 +73148,12 @@
       "symbol": "func_15088D58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2635,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2635)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71863,6 +73384,12 @@
       "symbol": "func_1508BC20"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 11632,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (11632)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72171,6 +73698,12 @@
       "symbol": "func_150948C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7820,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (7820)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72184,6 +73717,12 @@
       "symbol": "func_1509499C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 19612,
+        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (19612)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

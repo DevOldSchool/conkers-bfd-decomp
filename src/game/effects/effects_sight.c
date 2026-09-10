@@ -125,10 +125,112 @@ void func_151C86AC(void *arg0, void *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB49C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB510.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB5FC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB918 CURRENT (215) */
+void func_151CB918(u8 *arg0, u8 *arg1, s32 arg2) {
+    u8 *temp_v0;
+
+    temp_v0 = (void *)(arg0 + 0x70);
+    if (((arg2 & 0xFF) == 0x37) && (*(u8 *)((u8 *)arg1 + 0) == *(u8 *)((u8 *)temp_v0 + 0xE)) && (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)arg0 + 0x70))) {
+        *(f32 *)((u8 *)temp_v0 + 0x10) = 0.0f;
+        *(u8 *)((u8 *)temp_v0 + 0xC) = (u8) (*(u8 *)((u8 *)temp_v0 + 0xC) | 1);
+        *(f32 *)((u8 *)temp_v0 + 0x14) = 0.0f;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CB918 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB918.s")
+/* Call context: func_15047D60: unique active project prototype */
+f32 func_15047D60(f32);
+extern f32 D_800AAEAC;
+extern f32 D_800AAEB0;
+extern f32 D_800AAEB4;
+extern f32 D_800BE9A4;
+f32 func_151CC1D4(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB970 CURRENT (677) */
+s32 func_151CB970(u8 *arg0) {
+    f32 sp28;
+    void *sp1C;
+    f32 temp_fa0;
+    f32 temp_fv0;
+    s8 temp_t2;
+    f32 temp_fv1;
+    u8 *temp_v1;
+
+    temp_v1 = (void *)(arg0 + 0x70);
+    temp_fv1 = (1.0f - ((func_151CC1D4() - *(f32 *)((u8 *)temp_v1 + 0x18)) * *(f32 *)((u8 *)temp_v1 + 0x20))) * 75.0f;
+    if (*(u8 *)((u8 *)temp_v1 + 0xC) & 1) {
+        sp28 = temp_fv1;
+        sp1C = temp_v1;
+        temp_fa0 = 91.0f + temp_fv1;
+        *(f32 *)((u8 *)arg0 + 0x14) = (f32) ((func_15047D60(*(f32 *)((u8 *)temp_v1 + 0x10)) * ((112.0f + temp_fv1) - temp_fa0)) + temp_fa0);
+        *(f32 *)((u8 *)temp_v1 + 0x10) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x10) + (D_800AAEAC * D_800BE9A4));
+        if (D_800AAEB0 <= *(f32 *)((u8 *)temp_v1 + 0x10)) {
+            *(f32 *)((u8 *)arg0 + 0x14) = temp_fa0;
+            *(u8 *)((u8 *)temp_v1 + 0xC) = (u8) (*(u8 *)((u8 *)temp_v1 + 0xC) & 0xFFFE);
+        }
+    } else {
+        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (91.0f + temp_fv1);
+    }
+    if (*(u8 *)((u8 *)temp_v1 + 0xD) == 2) {
+        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) - 20.0f);
+    }
+    temp_t2 = (u32) *(f32 *)((u8 *)temp_v1 + 0x14) & 0xFF;
+    if (*(u8 *)((u8 *)arg0 + 0x20) == 0x7C) {
+        *(s8 *)((u8 *)arg0 + 0x2E) = (s8) (0xFF - temp_t2);
+    } else {
+        *(s8 *)((u8 *)arg0 + 0x2E) = temp_t2;
+    }
+    temp_fv0 = *(f32 *)((u8 *)temp_v1 + 0x14);
+    *(f32 *)((u8 *)temp_v1 + 0x14) = (f32) (temp_fv0 + ((255.0f - temp_fv0) * D_800AAEB4));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CB970 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB970.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBB6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBBE0.s")
+extern f32 D_800AAEBC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBC60 CURRENT (2370) */
+s32 func_151CBC60(u8 *arg0) {
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_ft5;
+    f32 temp_fv0;
+    f32 temp_fv0_2;
+    f32 temp_fv1;
+    f32 temp_fv1_2;
+    u8 *temp_v0;
+
+    temp_fv0 = func_151CC1D4();
+    temp_v0 = (void *)(arg0 + 0x70);
+    if (temp_fv0 != *(f32 *)((u8 *)temp_v0 + 0x28)) {
+        temp_fv1 = *(f32 *)((u8 *)temp_v0 + 0x4C);
+        *(f32 *)((u8 *)temp_v0 + 0x28) = temp_fv0;
+        *(f32 *)((u8 *)arg0 + 0x1C) = (f32) ((temp_fv1 - ((temp_fv0 - *(f32 *)((u8 *)temp_v0 + 0x18)) * *(f32 *)((u8 *)temp_v0 + 0x20) * temp_fv1)) + 1.0f);
+    }
+    if (*(u8 *)((u8 *)temp_v0 + 0xC) & 2) {
+        *(f32 *)((u8 *)temp_v0 + 0x50) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x50) - D_800BE9A4);
+        temp_ft5 = *(f32 *)((u8 *)temp_v0 + 0x50);
+        if (temp_ft5 <= 0.0f) {
+            *(s8 *)((u8 *)arg0 + 0x2B) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x3C);
+            *(s8 *)((u8 *)arg0 + 0x2C) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x40);
+            *(s8 *)((u8 *)arg0 + 0x2D) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x44);
+            *(s8 *)((u8 *)arg0 + 0x2E) = (s8) (u32) *(f32 *)((u8 *)temp_v0 + 0x48);
+            *(u8 *)((u8 *)temp_v0 + 0xC) = (u8) (*(u8 *)((u8 *)temp_v0 + 0xC) & 0xFFFD);
+        } else {
+            temp_fv0_2 = *(f32 *)((u8 *)temp_v0 + 0x3C);
+            *(s8 *)((u8 *)arg0 + 0x2B) = (s8) (u32) (temp_fv0_2 + ((*(f32 *)((u8 *)temp_v0 + 0x2C) - temp_fv0_2) * (temp_ft5 * D_800AAEBC)));
+            temp_fv1_2 = *(f32 *)((u8 *)temp_v0 + 0x40);
+            *(s8 *)((u8 *)arg0 + 0x2C) = (s8) (u32) (temp_fv1_2 + ((*(f32 *)((u8 *)temp_v0 + 0x30) - temp_fv1_2) * (*(f32 *)((u8 *)temp_v0 + 0x50) * D_800AAEBC)));
+            temp_fa0 = *(f32 *)((u8 *)temp_v0 + 0x44);
+            *(s8 *)((u8 *)arg0 + 0x2D) = (s8) (u32) (temp_fa0 + ((*(f32 *)((u8 *)temp_v0 + 0x34) - temp_fa0) * (*(f32 *)((u8 *)temp_v0 + 0x50) * D_800AAEBC)));
+            temp_fa1 = *(f32 *)((u8 *)temp_v0 + 0x48);
+            *(s8 *)((u8 *)arg0 + 0x2E) = (s8) (u32) (temp_fa1 + ((*(f32 *)((u8 *)temp_v0 + 0x38) - temp_fa1) * (*(f32 *)((u8 *)temp_v0 + 0x50) * D_800AAEBC)));
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CBC60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBC60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC1D4.s")
 void func_151CC290(s32 arg0) {
@@ -144,4 +246,25 @@ void func_151CC290(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCD1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCE94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCF08.s")
+f32 func_151CC1D4();                                /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (281) */
+void func_151CD224(u8 *arg0) {
+    u8 temp_v1;
+    u8 *temp_v0;
+
+    temp_v0 = (void *)(arg0 + 0x70);
+    temp_v1 = *(u8 *)((u8 *)temp_v0 + 0xD);
+    {
+        f32 temp_fv1 = (1.0f - ((func_151CC1D4() - *(f32 *)((u8 *)temp_v0 + 0x18)) * *(f32 *)((u8 *)temp_v0 + 0x20))) * 75.0f;
+    if (temp_v1 == 5) {
+        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (92.0f + temp_fv1);
+        return;
+    }
+    if (temp_v1 == 4) {
+        *(f32 *)((u8 *)arg0 + 0x14) = (f32) (-92.0f - temp_fv1);
+    }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CD224 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CD224.s")

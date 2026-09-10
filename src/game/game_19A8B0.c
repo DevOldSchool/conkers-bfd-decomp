@@ -89,6 +89,38 @@ void func_1516D400(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516DB90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516E778.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516E8CC.s")
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516ECAC CURRENT (1540) */
+s32 func_1516ECAC(void *arg0) {
+    s32 temp_t4;
+    u8 var_v1;
+
+    var_v1 = *(u8 *)((u8 *)arg0 + 0x1F);
+    if (*(u8 *)((u8 *)arg0 + 0x24) != 0) {
+        if (var_v1 != 0xFF) {
+            var_v1 += D_800BE9E4 << 7;
+            if ((s32) var_v1 >= 0x100) {
+                var_v1 = 0xFF;
+            }
+            *(u8 *)((u8 *)arg0 + 0x1F) = var_v1;
+        }
+    } else if (var_v1 != 0) {
+        var_v1 -= D_800BE9E4 * *(u8 *)((u8 *)arg0 + 0x26);
+        if ((s32) var_v1 < 0) {
+            var_v1 = 0;
+        }
+        *(u8 *)((u8 *)arg0 + 0x1F) = var_v1;
+    }
+    if ((*(u8 *)((u8 *)arg0 + 0x24) == 0) && (var_v1 == 0)) {
+        return 1;
+    }
+    temp_t4 = (s32) (((*(u8 *)((u8 *)arg0 + 0x2C) << 8) | *(u8 *)((u8 *)arg0 + 0x2D)) * var_v1) >> 7;
+    *(s16 *)((u8 *)arg0 + 0x16) = (s16) temp_t4;
+    *(s16 *)((u8 *)arg0 + 0x14) = (s16) temp_t4;
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516ECAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516ECAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516ED68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516EED4.s")

@@ -10,7 +10,6 @@
  * - func_1511F3E8
  * - func_1511F4D0
  * - func_1511F788
- * - func_1511F92C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -186,4 +185,16 @@ void func_1511F788(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511F788 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F788.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F92C.s")
+/* Call context: func_151149AC: unique active project prototype */
+s32 func_151149AC(u8);
+
+void func_1511F92C(void *arg0) {
+    s32 temp_v0;
+
+    temp_v0 = func_151149AC(*(u8 *)((u8 *)arg0 + 0x3F));
+    if (temp_v0 != 0) {
+        *(s16 *)((u8 *)arg0 + 0x10) = (s16) *(s16 *)((u8 *)temp_v0 + 0x10);
+        *(s16 *)((u8 *)arg0 + 0x12) = (s16) *(s16 *)((u8 *)temp_v0 + 0x12);
+        *(s16 *)((u8 *)arg0 + 0x14) = (s16) *(s16 *)((u8 *)temp_v0 + 0x14);
+    }
+}

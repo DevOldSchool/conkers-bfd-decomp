@@ -51,6 +51,33 @@ typedef struct Game18A8F0Node {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D4D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D5AC.s")
+void *func_1515D520();                              /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D5F8 CURRENT (999) */
+void *func_1515D5F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, u8 arg9) {
+    void *temp_v0;
+
+    temp_v0 = func_1515D520();
+    if (temp_v0 != 0) {
+        *(s8 *)((u8 *)temp_v0 + 4) = 0;
+        *(s8 *)((u8 *)temp_v0 + 5) = (s8) arg4;
+        *(s8 *)((u8 *)temp_v0 + 6) = (s8) arg5;
+        *(s8 *)((u8 *)temp_v0 + 7) = (s8) arg6;
+        *(s8 *)((u8 *)temp_v0 + 8) = (s8) arg7;
+        *(s8 *)((u8 *)temp_v0 + 9) = (s8) arg8;
+        *(s8 *)((u8 *)temp_v0 + 0xA) = 0;
+        *(u8 *)((u8 *)temp_v0 + 0xB) = arg9;
+        *(s16 *)((u8 *)temp_v0 + 0xE) = (s16) arg0;
+        *(s16 *)((u8 *)temp_v0 + 0x10) = (s16) arg1;
+        *(s16 *)((u8 *)temp_v0 + 0x12) = (s16) arg2;
+        *(s8 *)((u8 *)temp_v0 + 0x2C) = 0x7F;
+        *(s8 *)((u8 *)temp_v0 + 0x2D) = 0;
+        *(s8 *)((u8 *)temp_v0 + 0x2E) = 0;
+        *(s8 *)((u8 *)temp_v0 + 0x2F) = (s8) arg3;
+    }
+    return temp_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515D5F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D5F8.s")
 extern void *D_800DCD78;
 

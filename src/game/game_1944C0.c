@@ -195,6 +195,19 @@ void func_15168F84(s32 arg0, s32 *arg1, s32 *arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15169260.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516944C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151695F0.s")
+/* Call context: func_1516944C: unique active project prototype */
+void func_1516944C(s32, s8 *, u8, u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516962C CURRENT (1300) */
+void func_1516962C(s32 arg0, void *arg1, s32 arg2) {
+    u8 sp1C;
+    void *sp18;
+
+    sp18 = arg1;
+    sp1C = *(u8 *)((u8 *)arg1 + 0x3B);
+    func_1516944C(arg0, (s8 *) &sp18, arg2 & 0xFF, (u8) arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516962C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516962C.s")
 extern s8 D_800D2DAB;
 
