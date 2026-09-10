@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15103800
  * - func_15103828
  * - func_15103910
  * - func_15103AA0
@@ -14,7 +13,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103800.s")
+void func_100226F0(void *arg0, s32 arg1);
+extern u8 D_800D9AB0;
+
+void func_15103800(void) {
+    func_100226F0(&D_800D9AB0, 8);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103828.s")
 /* Call context: func_10010344: unique active project prototype */
 /* Call context: func_100111C8: unique active project prototype */

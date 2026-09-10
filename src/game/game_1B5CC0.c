@@ -14,8 +14,6 @@
  * - func_15188E48
  * - func_15188F84
  * - func_15189118
- * - func_151895A4
- * - func_151895CC
  * - func_151895F4
  * - func_151897A4
  *
@@ -69,8 +67,14 @@ void func_15188A9C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188E48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188F84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15189118.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_151895A4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_151895CC.s")
+void func_100043B4(s32 arg0, s32 arg1, void *arg2);
+
+void func_151895A4(u8 *arg0) {
+    func_100043B4(*(s32 *)(arg0 + 8), 2, arg0);
+}
+void func_151895CC(u8 *arg0) {
+    func_100043B4(*(s32 *)(arg0 + 8), 2, arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_151895F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_151897A4.s")
 void func_151898C0(s32 arg0, s32 arg1) {

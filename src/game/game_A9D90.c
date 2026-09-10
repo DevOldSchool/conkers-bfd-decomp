@@ -12,7 +12,6 @@
  * - func_1507D1D8
  * - func_1507D4F8
  * - func_1507D754
- * - func_1507DB44
  * - func_1507DB6C
  * - func_1507DE4C
  * - func_1507DF10
@@ -46,7 +45,14 @@ void func_1507C8E0(GameA9D90Object *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D1D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DB44.s")
+void func_1503DE70(void *arg0, s32 arg1, s32 arg2);
+
+void func_1507DB44(void *arg0, s32 arg1) {
+    func_1503DE70(arg0, arg1, -1);
+}
+
+void func_1507DB64(void) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DB6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DE4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DF10.s")

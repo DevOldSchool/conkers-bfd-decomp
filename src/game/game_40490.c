@@ -12,7 +12,6 @@
  * - func_15013C38
  * - func_15013D38
  * - func_15013DE8
- * - func_15013F9C
  * - func_15014094
  * - func_15014144
  * - func_15014220
@@ -124,7 +123,12 @@ s32 func_15013C38(Game40490CallbackState *state) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013D38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013DE8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013F9C.s")
+void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);
+
+s32 func_15013F9C(s32 arg0) {
+    func_151CD2C0(arg0, 0xFF, 1);
+    return 1;
+}
 s32 func_15013FC4(u8 *arg0) {
     Game40490SimpleCallback callback;
     s32 index;

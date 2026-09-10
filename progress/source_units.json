@@ -5131,7 +5131,7 @@
         "us": {
           "end": "0x103E40",
           "start": "0x103800",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_130CB0.c"
@@ -12184,7 +12184,7 @@
         "us": {
           "end": "0x6AAE0",
           "start": "0x6A5F0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_97AA0.c"
@@ -12450,7 +12450,7 @@
         "us": {
           "end": "0x101F50",
           "start": "0x101090",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_12E540.c"
@@ -12522,7 +12522,7 @@
         "us": {
           "end": "0x1174F0",
           "start": "0x1174A0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_144950.c"
@@ -14326,7 +14326,7 @@
         "us": {
           "end": "0x1177C0",
           "start": "0x1174F0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1449A0.c"
@@ -15690,7 +15690,7 @@
         "us": {
           "end": "0x10D630",
           "start": "0x10CB10",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_139FC0.c"

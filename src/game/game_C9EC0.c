@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_resource_dependency_core.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509CA50
  * - func_1509CA98
  * - func_1509CB68
  * - func_1509CBD4
@@ -36,6 +35,7 @@ typedef struct GameC9EC0HalfwordEntry {
 } GameC9EC0HalfwordEntry;
 
 extern GameC9EC0HalfwordEntry D_80087438[];
+extern GameC9EC0HalfwordEntry D_8008743A[];
 
 s32 func_1509CA10(s32 arg0) {
     return D_80087430[arg0].field_0;
@@ -43,7 +43,9 @@ s32 func_1509CA10(s32 arg0) {
 u16 func_1509CA30(s32 arg0) {
     return D_80087438[arg0].field_0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA50.s")
+s32 func_1509CA50(s32 arg0) {
+    return D_8008743A[arg0].field_0 & 0xFFF;
+}
 s32 func_1509CA78(s32 arg0) {
     return D_80087434[arg0].field_0;
 }

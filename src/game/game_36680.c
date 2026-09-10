@@ -8,19 +8,11 @@
  * - func_150091D0
  * - func_150092DC
  * - func_15009334
- * - func_150095D8
- * - func_15009600
  * - func_15009628
- * - func_1500969C
  * - func_150096C4
- * - func_15009740
  * - func_15009768
- * - func_150097A4
  * - func_150097CC
- * - func_15009818
- * - func_15009844
  * - func_15009894
- * - func_150098D0
  * - func_150098F8
  * - func_15009944
  * - func_15009990
@@ -37,7 +29,6 @@
  * - func_15009DFC
  * - func_15009E48
  * - func_15009E84
- * - func_15009EC8
  * - func_15009EF4
  * - func_15009F30
  * - func_15009F74
@@ -83,7 +74,6 @@
  * - func_1500B8F4
  * - func_1500BAB8
  * - func_1500BC7C
- * - func_1500BE40
  * - func_1500BE68
  * - func_1500BEC0
  *
@@ -93,24 +83,54 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150091D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150092DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009334.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150095D8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009600.s")
+void func_1516127C(s32 arg0, s32 arg1, s32 arg2);
+
+void func_150095D8(s32 arg0, u8 arg1) {
+    func_1516127C(arg0, 0xFF, 1);
+}
+void func_15161334(s32 arg0, s32 arg1, s32 arg2);
+
+void func_15009600(s32 arg0, u8 arg1) {
+    func_15161334(arg0, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009628.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500969C.s")
+void func_15161408(s32 arg0, s32 arg1, s32 arg2);
+
+void func_1500969C(s32 arg0, u8 arg1) {
+    func_15161408(arg0, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150096C4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009740.s")
+void func_15161494(s32 arg0, s32 arg1, s32 arg2);
+
+void func_15009740(s32 arg0, u8 arg1) {
+    func_15161494(arg0, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009768.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150097A4.s")
+void func_15161540(s32 arg0, s32 arg1, s32 arg2);
+
+void func_150097A4(s32 arg0, u8 arg1) {
+    func_15161540(arg0, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150097CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009818.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009844.s")
+void func_151B8DB0(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+
+void func_15009818(void *arg0, u8 arg1) {
+    func_151B8DB0(arg0, 0, 0xFF, 1);
+}
+void func_15009844(void *arg0, u8 arg1) {
+    func_151B8DB0(arg0, 1, 0xFF, 1);
+}
 void func_15108850(s32 arg0);
 
 void func_15009870(s32 arg0, s32 arg1) {
     func_15108850(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009894.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150098D0.s")
+void func_15162034(s32 arg0, s32 arg1, s32 arg2);
+
+void func_150098D0(s32 arg0, u8 arg1) {
+    func_15162034(arg0, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150098F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009944.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009990.s")
@@ -127,7 +147,11 @@ void func_15009870(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009DFC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009E48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009E84.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009EC8.s")
+void func_1516381C(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+
+void func_15009EC8(void *arg0, u8 arg1) {
+    func_1516381C(arg0, 0x20, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009EF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009F30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009F74.s")
@@ -173,6 +197,13 @@ void func_15009870(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B8F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BAB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BC7C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BE40.s")
+extern s32 D_800DDD0C;
+extern s32 D_800DDD10[];
+
+void func_1500BE40(s32 arg0) {
+    D_800DDD10[0] = 0;
+    D_800DDD10[1] = 0;
+    D_800DDD0C = 0x6E;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BE68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BEC0.s")
