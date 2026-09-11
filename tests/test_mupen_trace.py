@@ -16,6 +16,34 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class MupenTraceTests(unittest.TestCase):
+    def test_model_clusters_read_verified_shared_effect_geometry(self):
+        draw = struct.pack('>6I', 0x01003006, 0x01000000, 0x05000204, 0, 0xDF000000, 0)
+        payload = bytes(32) + draw
+        geometry = {'display_list_offset': '0x20', 'display_list_size': len(draw),
+                    'effect_layout': {'family': 'bank-09-four-pair-effect-model',
+                                      'geometry_source_entry': 173,
+                                      'geometry_source_sha1': hashlib.sha1(payload).hexdigest()}}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'bundles/0173/segment-00.bin'
+            source.parent.mkdir(parents=True)
+            source.write_bytes(payload)
+            actual = mupen_trace.model_cluster_display_bytes(root, 9, 0, bytes(32), geometry)
+            self.assertEqual(draw, actual)
+            self.assertEqual(1, mupen_trace.geometry_clusters(actual)[0]['triangle_count'])
+            source.write_bytes(payload + b'changed')
+            with self.assertRaisesRegex(mupen_trace.TraceError, 'hash changed'):
+                mupen_trace.model_cluster_display_bytes(root, 9, 0, bytes(32), geometry)
+            source.unlink()
+            with self.assertRaisesRegex(mupen_trace.TraceError, 'requires shared'):
+                mupen_trace.model_cluster_display_bytes(root, 9, 0, bytes(32), geometry)
+
+    def test_model_clusters_reject_invalid_direct_bounds(self):
+        for offset, size in ((1, 8), (0, 9), (8, 16), (-8, 8), (0, 0)):
+            with self.subTest(offset=offset, size=size), self.assertRaises(mupen_trace.TraceError):
+                mupen_trace.model_cluster_display_bytes(Path('.'), 3, 0, bytes(16),
+                    {'display_list_offset': offset, 'display_list_size': size})
+
     def test_tracks_render_targets_across_character_passes(self) -> None:
         data = b"".join(struct.pack(">II", command, argument) for command, argument in (
             (0xFF48003F, 0x800DE080),

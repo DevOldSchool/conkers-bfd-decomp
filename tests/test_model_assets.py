@@ -14,6 +14,7 @@ from unittest import mock
 
 from scripts import model_assets
 from scripts import texture_assets
+from scripts import texture_rgba16
 from scripts import validate_model_previews_blender
 
 
@@ -271,6 +272,28 @@ def character_model_payload() -> bytes:
         + bytes((127, 0, 0, 127, 129, 0, 0, 0))
         + bytes((0, 0xFF))
     )
+
+
+class DirectRelativeModelTests(unittest.TestCase):
+    def test_model_relative_and_segmented_addresses_decode_identically(self):
+        original = model_payload()
+        data = bytearray(original)
+        display = struct.unpack_from('>I', data)[0]
+        struct.pack_into('>I', data, display + 12, 0x28)
+        expected = model_assets.parse_model_geometry(original)
+        geometry = model_assets.parse_geometry_for_bank(bytes(data), 9)
+        self.assertEqual(expected, geometry)
+        self.assertEqual(bytes(data), model_assets.rebuild_direct_model(bytes(data), geometry))
+        with self.assertRaises(ValueError):
+            model_assets.parse_geometry_for_bank(bytes(data), 3)
+        for address in (0, 0x18, 0x29, 0x38, 0x02000028, 0x80000028):
+            struct.pack_into('>I', data, display + 12, address)
+            with self.assertRaises(ValueError):
+                model_assets.parse_geometry_for_bank(bytes(data), 9)
+
+    def test_direct_consumer_guard_rejects_unknown_code(self):
+        with self.assertRaises(ValueError):
+            model_assets.verify_direct_model_consumers(bytes(0x190000), 0x15000000)
 
 
 class ModelAssetTests(unittest.TestCase):
@@ -675,6 +698,23 @@ class ModelAssetTests(unittest.TestCase):
         gltf_data, _ = model_assets.encode_gltf(0, 0, geometry, bank_index=4)
         primitive = json.loads(gltf_data)["meshes"][0]["primitives"][0]
         self.assertIn("NORMAL", primitive["attributes"])
+
+    def test_retains_explicit_segmented_facial_palette(self):
+        payload = bytearray(character_model_payload())
+        pointer_table = struct.unpack_from('>I', payload, 8)[0]
+        display = struct.unpack_from('>I', payload, pointer_table)[0]
+        for offset in range(display, len(payload) - 7, 8):
+            command, argument = struct.unpack_from('>II', payload, offset)
+            if command == 0xDF000000:
+                break
+            if command == 0xFD100000:
+                struct.pack_into('>I', payload, offset + 4,
+                                 0x06000800 if argument >> 22 else 0x06000000)
+        geometry, _ = model_assets.parse_character_model_geometry(bytes(payload))
+        run = geometry.material_runs[0]
+        self.assertEqual((6, 0), (run.pixel.segment, run.pixel.offset))
+        self.assertEqual((6, 0x800), (run.palette.segment, run.palette.offset))
+        self.assertEqual((0xF0000000, 0x063FC000), run.palette.load_command)
 
     def test_parses_bank_01_character_geometry_and_bind_hierarchy(self):
         payload = character_model_payload()
@@ -2680,6 +2720,17 @@ class ModelAssetTests(unittest.TestCase):
         self.assertEqual(candidates[0], selected[8][5]["candidate"])
         self.assertEqual([7], selected[8][5]["evidence"]["part_selection_event_indices"])
         self.assertEqual(3, selected[8][5]["evidence"]["static_cluster_index"])
+        call['submitted_graphics'] = {
+            'status': 'captured-range-executed-once-in-next-graphics-task', 'event_index': 9,
+            'command_buffer_start': 0x80100000, 'command_buffer_end': 0x80100080,
+            'cluster_correspondence': {5: 23}}
+        submitted = model_assets.selected_part_material_candidates(trace, inventory)
+        self.assertEqual(candidates[0], submitted[9][23]['candidate'])
+        self.assertEqual(9, submitted[9][23]['evidence']['submitted_event_index'])
+        call['submitted_graphics']['cluster_correspondence'] = {}
+        with self.assertRaisesRegex(ValueError, 'mapping is incomplete'):
+            model_assets.selected_part_material_candidates(trace, inventory)
+        call.pop('submitted_graphics')
         schema = "conker.model-draw-state-trace/v1"
         session = {"schema": schema, "record_type": "session", "normalized_sha1": "rom",
                    "spec_name": "character-model-draw-ranges"}
@@ -2717,6 +2768,22 @@ class ModelAssetTests(unittest.TestCase):
         inventory[(1, 130, 0, 3)]["model_sha1"] = "changed"
         with self.assertRaisesRegex(ValueError, "model hash changed"):
             model_assets.selected_part_material_candidates(trace, inventory)
+
+    def test_submitted_cluster_join_rejects_partial_reordered_or_changed_clusters(self):
+        source = {'model_correlations': [
+            {'runtime_cluster_index': 0, 'signature': 'a', 'triangle_count': 2},
+            {'runtime_cluster_index': 1, 'signature': 'b', 'triangle_count': 1}]}
+        target = {'model_correlations': [
+            {'runtime_cluster_index': 20, 'signature': 'a', 'triangle_count': 2},
+            {'runtime_cluster_index': 21, 'signature': 'b', 'triangle_count': 1}]}
+        draws = [{'runtime_cluster_index': i, 'triangle_count': 1} for i in (20, 20, 21)]
+        mapping = model_assets.submitted_character_cluster_map(source, target, draws)
+        self.assertEqual({'0': 20, '1': 21}, mapping)
+        self.assertEqual(mapping, json.loads(json.dumps(mapping)))
+        for changed in (draws[1:], draws[::-1], draws + draws[:1]):
+            self.assertIsNone(model_assets.submitted_character_cluster_map(source, target, changed))
+        target['model_correlations'][0]['signature'] = 'changed'
+        self.assertIsNone(model_assets.submitted_character_cluster_map(source, target, draws))
 
     def test_character_call_sequence_combines_exact_part_lists(self):
         def sequence(*clusters):
@@ -3090,6 +3157,96 @@ class ModelAssetTests(unittest.TestCase):
         self.assertEqual(1, record["variant_count"])
         self.assertEqual("state-a", record["variants"][0]["material_state_hash"])
         self.assertEqual([context_a], record["variants"][0]["lighting_contexts"])
+
+    def test_material_draw_selection_separates_same_frame_lighting(self):
+        evidence = [{"trace_index": 0, "event_index": event, "draw_run_index": draw,
+                     "lighting_context_hash": context}
+                    for event, draw, context in ((7, 12, "a"), (7, 13, "b"), (8, 12, "c"))]
+        manifest = {"schema_version": 1, "family": "runtime-correlated-model-materials",
+            "normalized_sha1": "rom", "material_record_count": 1,
+            "appearances": [{"trace_index": 0, "event_index": 7}],
+            "materials": [{"bank": 1, "entry": 90, "segment": 0, "material_run": 0,
+                "variants": [{"evidence": evidence, "lighting_contexts": [
+                    {"lighting_context_hash": context} for context in ("a", "b", "c")]}]}]}
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "manifest.json"
+            path.write_text(json.dumps(manifest))
+            result = model_assets.load_runtime_material_catalog(path, "rom", (0, 7), draw_indices={12})
+            variant = result[(1, 90, 0, 0)]["variants"][0]
+            self.assertEqual([evidence[0]], variant["evidence"])
+            self.assertEqual([{"lighting_context_hash": "a", "observation_count": 1}], variant["lighting_contexts"])
+            self.assertEqual(1, variant["observation_count"])
+            for appearance, draws in ((None, {12}), ((0, 7), set()), ((0, 7), {-1})):
+                with self.assertRaises(ValueError):
+                    model_assets.load_runtime_material_catalog(path, "rom", appearance, draw_indices=draws)
+
+    def test_submitted_pose_checker_rejects_changed_positions_colours_and_state(self):
+        from scripts import model_submitted_pose as submitted
+        geometry = model_assets.parse_model_geometry(model_payload())
+        run = replace(geometry.material_runs[0], matrix_index=1)
+        geometry = replace(geometry, material_runs=(run,), face_matrix_indices=((1, 1, 1),))
+        matrix = [[0, 2, 0, 0], [-3, 0, 0, 0], [0, 0, 4, 0], [100, 200, 300, 1]]
+        source_corners = [{'xyz': (v.x, v.y, v.z), 'st': (v.s, v.t), 'matrix': matrix}
+                          for v in geometry.vertices]
+        state = {"combine_mode": [0xFCFFFE8F, 0xF517F8FF],
+                 "convert_mode": [0xEC000000, 0x000000FF],
+                 "other_mode": [0xEF182C3F, 0x04D12078], "lighting_enabled": False,
+                 "colours": {"primitive": {"rgba": [0, 0, 0, 0]},
+                             "environment": {"rgba": [0, 0, 0, 255]}}}
+        sample = {'status': 'captured-cbfd-vertex-load-colours', 'source_first_face': 0,
+                  'face_colours': [[[0.2, 0.3, 0.4, 1], [0.5, 0.6, 0.7, 1], [0.8, 0.9, 1, 1]]],
+                  'input_sha256': ['0' * 64]}
+        sample['sha256'] = hashlib.sha256(json.dumps(sample, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+        culling = {'mode': 0x400, 'known_bits': 0x600}
+        material = {"model_sha1": "model", "source_first_face": 0, "source_face_count": 1,
+                    "variant_count": 1, "observation_count": 1, "variants": [{
+                        "state": state, "gltf_translation": model_assets.translate_runtime_material_state(state),
+                        "evidence": [{"source_first_face": 0, "source_face_count": 1,
+                                      "vertex_lighting": sample, "face_culling": culling}]}]}
+        reference = {'faces': {0: {'corners': [{'joint': 1}] * 3}},
+                     'instances': {1000: [{'face': 0, 'draw': 0, 'rotation': 1,
+                                           'corners': source_corners[1:] + source_corners[:1]}]},
+                     'event': {'state': {'rdp': {'draw_runs': [{'state': state, 'replayed_face_culling': culling}]}}}}
+        self.assertEqual({1: matrix}, submitted.instance_palette(reference, 1000))
+        posed = model_assets.bake_character_runtime_pose(geometry, {1: matrix}, matrix[3][:3])
+        gltf, binary = model_assets.encode_gltf(0, 0, posed, runtime_materials={0: material})
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            path = root / '0000-00.gltf'
+            path.write_bytes(gltf)
+            path.with_suffix('.bin').write_bytes(binary)
+            checked = submitted.compare_pose(path, reference, 1000, geometry, {0: material})
+            self.assertEqual((1, 3), (checked['face_count'], checked['colour_corner_count']))
+            with mock.patch.object(model_assets, 'runtime_material_references_texels', return_value=True):
+                with self.assertRaisesRegex(ValueError, 'texture binding is absent'):
+                    submitted.compare_pose(path, reference, 1000, geometry, {0: material})
+                partial = submitted.compare_pose(path, reference, 1000, geometry, {0: material},
+                                                 require_captured_images=False)
+                self.assertEqual('incomplete', partial['captured_texture_status'])
+                self.assertEqual(1, partial['unresolved_texture_face_count'])
+                self.assertEqual(3, partial['colour_corner_count'])
+            document = json.loads(gltf)
+            for attribute in ('POSITION', 'COLOR_0'):
+                changed = bytearray(binary)
+                index = document['meshes'][0]['primitives'][0]['attributes'][attribute]
+                offset = document['bufferViews'][document['accessors'][index]['bufferView']]['byteOffset']
+                struct.pack_into('<f', changed, offset, 99.0)
+                path.with_suffix('.bin').write_bytes(changed)
+                with self.assertRaises(ValueError):
+                    submitted.compare_pose(path, reference, 1000, geometry, {0: material})
+                path.with_suffix('.bin').write_bytes(binary)
+            for mutate in (lambda d: d['materials'][0].update(doubleSided=True),
+                           lambda d: d['materials'][0].pop('extensions'),
+                           lambda d: d['nodes'][0].update(translation=[1, 0, 0]),
+                           lambda d: d['materials'][0]['pbrMetallicRoughness'].update(baseColorFactor=[0, 0, 0, 1])):
+                changed = json.loads(gltf)
+                mutate(changed)
+                path.write_text(json.dumps(changed))
+                with self.assertRaises(ValueError):
+                    submitted.compare_pose(path, reference, 1000, geometry, {0: material})
+            source_corners[1]['matrix'] = [[1, 0, 0, 0]] * 4
+            with self.assertRaisesRegex(ValueError, 'changes a joint matrix'):
+                submitted.instance_palette(reference, 1000)
 
     def test_runtime_material_manifest_indexes_captured_appearances(self):
         session = {
@@ -4036,7 +4193,7 @@ class ModelAssetTests(unittest.TestCase):
             (replace(run, other_mode=None), "direct-ci4-lookup-mode-unresolved"),
             (replace(run, palette=replace(run.palette, load_command=(0xF0000000, 0x063FC000))),
              "direct-ci4-tlut-size-unresolved"),
-            (replace(run, texture_dimensions=(33, 32)), "direct-ci4-odd-width-unresolved"),
+            (replace(run, texture_dimensions=(33, 32)), "direct-ci4-row-stride-unresolved"),
             (replace(run, texture_dimensions=(4, 2), render_tile=(0xF5400000, run.render_tile[1])),
              "direct-ci4-row-stride-unresolved"),
         )
@@ -4045,6 +4202,45 @@ class ModelAssetTests(unittest.TestCase):
                 self.assertEqual((None, reason), model_assets.choose_preview_texture(candidate, {}, {42: payload}))
         self.assertEqual((None, "direct-ci4-payload-span-unresolved"),
                          model_assets.choose_preview_texture(run, {}, {42: bytes(511)}))
+
+    def test_direct_ci4_odd_width_crops_after_row_swap_and_preserves_palette_alpha(self):
+        from scripts.texture_rgba16 import decode_png
+        run = replace(self.direct_ci4_run(), texture_dimensions=(15, 3))
+        # Distinct rows, nonzero hidden low nibbles, and alternating palette alpha.
+        visible = [bytes.fromhex(value) for value in (
+            "0123456789ABCDEf", "FEDCBA987654321f", "111122223333444f")]
+        stored = []
+        for y, row in enumerate(visible):
+            padded = row + bytes.fromhex("A5") * 8
+            stored.append(bytes(padded[x ^ (4 if y & 1 else 0)] for x in range(16)))
+        palette = b"".join(struct.pack(">H", (i << 11) | (i << 6) | (i << 1) | (i & 1))
+                           for i in range(16))
+        payload = b"".join(stored) + bytes(704 - 48) + palette
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual("runtime-composed-direct-ci4-texture", status)
+        self.assertEqual((15, 3, 704), (texture.width, texture.height, texture.palette_byte_offset))
+        expected_indices = list(range(15)) + list(range(15, 0, -1)) + [1]*4 + [2]*4 + [3]*4 + [4]*3
+        expected = b"".join(palette[i*2:i*2+2] for i in expected_indices)
+        self.assertEqual(expected, decode_png(texture.png_data, "linear", 15, 3))
+        # Changing each cropped low nibble or padding must not change visible pixels.
+        changed = bytearray(payload)
+        for y in range(3):
+            changed[y*16 + (7 ^ (4 if y & 1 else 0))] ^= 15
+            changed[y*16 + (8 ^ (4 if y & 1 else 0))] ^= 255
+        variant, _ = model_assets.choose_preview_texture(run, {}, {42: bytes(changed)})
+        self.assertEqual(texture.png_data, variant.png_data)
+
+    def test_direct_ci4_odd_width_keeps_tmem_and_payload_guards(self):
+        run = replace(self.direct_ci4_run(), texture_dimensions=(15, 2))
+        short_load = replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x0700D000)))
+        payload = bytes(704) + bytes.fromhex("0001") * 16
+        self.assertEqual((None, "direct-ci4-tmem-span-unresolved"),
+                         model_assets.choose_preview_texture(short_load, {}, {42: payload}))
+        self.assertEqual((None, "direct-ci4-pixel-palette-overlap-unresolved"),
+                         model_assets.choose_preview_texture(run, {}, {42: bytes(31) + bytes(32)}))
+        oversized = replace(run, texture_dimensions=(63, 65), render_tile=(0xF5400800, run.render_tile[1]))
+        self.assertEqual((None, "direct-ci4-tmem-span-unresolved"),
+                         model_assets.choose_preview_texture(oversized, {}, {42: payload}))
 
     def test_direct_ci4_prefers_command_geometry_to_storage_preview(self):
         run = self.direct_ci4_run()
@@ -4090,6 +4286,168 @@ class ModelAssetTests(unittest.TestCase):
         state = model_assets.texture_coordinate_state(replace(run, texture_dimensions=(16, 16)))
         self.assertEqual((16, 16), (state["width"], state["height"]))
 
+    def detail_indexed_run(self, size):
+        run = self.direct_ci4_run()
+        base = 0xF5400200 | (size << 19)
+        tiles = ((0, 0xF560020C, 0x0000FC2F),
+                 (1, base, 0x0100C030), (2, base + 8, 0x02008421),
+                 (6, 0xF5600100, 0x06000000), (7, 0xF5500000, 0x07000000))
+        def bounds(i, origin, w, h):
+            return (i, 0xF2000000 | (origin << 12) | origin,
+                    (i << 24) | ((origin + 4 * (w - 1)) << 12) | (origin + 4 * (h - 1)))
+        sizes = (bounds(0, 64, 4, 8), bounds(1, 32, 8, 8), bounds(2, 16, 4, 4))
+        entries = 256 if size else 16
+        return replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x0704F000)),
+            palette=replace(run.palette, mode=2-size,
+                            load_command=(0xF0000000, 0x06000000 | ((entries-1) << 14))),
+            render_tile=tiles[0][1:], render_tiles=tiles, tile_bounds=sizes[0][1:],
+            texture_dimensions=None, texture_scale=(0xD7000802, 0xFFFFFFFF),
+            other_mode=(0xEF1DAC3F, 0x0C192230), combine_mode=(0xFC26A004, 0x151092FF),
+            detail_tile_bounds=sizes)
+
+    def test_detail_indexed_base_decodes_both_sizes_and_preserves_original_uv_state(self):
+        for size in (0, 1):
+            run = self.detail_indexed_run(size)
+            entries = 256 if size else 16
+            palette = b''.join(struct.pack('>H', (i * 127) | 1) for i in range(entries))
+            pixels = bytes(range(160))
+            texture, status = model_assets.choose_preview_texture(run, {}, {42: pixels + palette})
+            self.assertEqual('direct-detail-indexed-base', status)
+            indices = []
+            for y in range(8):
+                for x in range(8):
+                    v = pixels[y * 8 + ((x if size else x // 2) ^ (4 if y & 1 else 0))]
+                    indices.append(v if size else (v >> (0 if x & 1 else 4)) & 15)
+            decoder = texture_assets.decode_ci8_png if size else texture_assets.decode_indexed_png
+            decoded = decoder(texture.png_data, 'linear', 8, 8)
+            expected = bytes(indices) if size else bytes((indices[i] << 4) | indices[i+1] for i in range(0, 64, 2))
+            self.assertEqual(expected + palette, decoded)
+            variant = pixels[:64] + bytes(96) + palette
+            self.assertEqual(texture.png_data, model_assets.choose_preview_texture(run, {}, {42: variant})[0].png_data)
+            geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
+            vertex = replace(geometry.vertices[0], s=0, t=0)
+            selected = replace(run, preview_coordinate_state=texture.preview_coordinate_state)
+            self.assertEqual((-4.0, 3.0), model_assets.texture_coordinates(vertex, run))
+            self.assertEqual((-1.0, 2.0), model_assets.texture_coordinates(vertex, selected))
+            self.assertEqual(model_assets.material_name(run), model_assets.material_name(selected))
+            candidate = replace(geometry, material_runs=(selected,) + geometry.material_runs[1:])
+            doc, binary = model_assets.encode_gltf(0, 0, candidate, {0: 'base.png'})
+            doc = json.loads(doc)
+            self.assertEqual(1, doc['materials'][0]['extras']['romDetailTexturePreview']['preview_tile'])
+            accessor = doc['accessors'][doc['meshes'][0]['primitives'][0]['attributes']['TEXCOORD_0']]
+            view = doc['bufferViews'][accessor['bufferView']]
+            self.assertEqual(model_assets.texture_coordinates(geometry.vertices[0], selected),
+                             struct.unpack_from('<2f', binary, view['byteOffset']))
+
+    def test_detail_indexed_rejects_missing_mip_origins_and_unproven_layouts(self):
+        run = self.detail_indexed_run(1)
+        payload = bytes(160) + bytes.fromhex('0001') * 256
+        candidates = (
+            replace(run, detail_tile_bounds=run.detail_tile_bounds[:2]),
+            replace(run, detail_tile_bounds=run.detail_tile_bounds[1:], tile_bounds=None),
+            replace(run, detail_tile_bounds=(run.detail_tile_bounds[0],
+                (1, run.detail_tile_bounds[1][1] + 0x4000, run.detail_tile_bounds[1][2] + 0x4000), run.detail_tile_bounds[2])),
+            replace(run, render_tiles=run.render_tiles[:2] + run.render_tiles[3:]),
+            replace(run, render_tiles=(run.render_tiles[0], run.render_tiles[1],
+                (2, run.render_tiles[2][1]-1, run.render_tiles[2][2])) + run.render_tiles[3:]),
+            replace(run, render_tiles=run.render_tiles[:-1] + ((7, 0xF5500001, 0x07000000),)),
+            replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x0702F000))),
+            replace(run, palette=replace(run.palette, flat_index=43)),
+            replace(run, palette=replace(run.palette, load_command=(0xF0000000, 0x063F8000))),
+            replace(run, combine_mode=(0xFC26A004, 0x151092FE)),
+            replace(run, other_mode_partial=(0, 0, 0, 0)),
+        )
+        for candidate in candidates:
+            with self.subTest(candidate=candidate):
+                self.assertIsNone(model_assets.direct_detail_indexed_preview_texture(candidate, payload)[0])
+        self.assertIsNone(model_assets.direct_detail_indexed_preview_texture(run, payload[:150])[0])
+
+    def test_detail_indexed_keeps_authored_half_texel_bias_at_every_mip(self):
+        run = self.detail_indexed_run(1)
+        shifted = tuple((i, c + 0x2002, a + 0x2002) for i, c, a in run.detail_tile_bounds)
+        biased = replace(run, detail_tile_bounds=shifted, tile_bounds=shifted[0][1:])
+        payload = bytes(range(160)) + bytes.fromhex('0001') * 256
+        texture, status = model_assets.choose_preview_texture(biased, {}, {42: payload})
+        self.assertEqual('direct-detail-indexed-base', status)
+        self.assertEqual(model_assets.choose_preview_texture(run, {}, {42: payload})[0].png_data, texture.png_data)
+        geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
+        vertex = replace(geometry.vertices[0], s=0, t=0)
+        self.assertEqual((-1.0625, 2.0625), model_assets.texture_coordinates(vertex,
+            replace(biased, preview_coordinate_state=texture.preview_coordinate_state)))
+
+    def test_detail_indexed_accepts_the_explicit_shade_product_combiner(self):
+        run = self.detail_indexed_run(1)
+        payload = bytes(range(160)) + bytes.fromhex('0001') * 256
+        expected = model_assets.choose_preview_texture(run, {}, {42: payload})[0]
+        candidate = replace(run, combine_mode=(0xFC26A004, 0x1F1093FF))
+        texture, status = model_assets.choose_preview_texture(candidate, {}, {42: payload})
+        self.assertEqual('direct-detail-indexed-base', status)
+        self.assertEqual(expected.png_data, texture.png_data)
+        self.assertEqual(expected.preview_coordinate_state, texture.preview_coordinate_state)
+        self.assertIsNone(model_assets.choose_preview_texture(
+            replace(candidate, combine_mode=(0xFC26A004, 0x1F1093FE)), {}, {42: payload})[0])
+
+    def test_parser_preserves_distinct_detail_mip_origins_at_each_draw(self):
+        data = bytearray(model_payload_with_material_runs())
+        off, length = struct.unpack_from('>II', data)
+        words = [struct.unpack_from('>II', data, i) for i in range(off, off+length, 8)]
+        words[3] = (0xEF1DAC3F, 0x0C192230)
+        words[11:13] = [(0xF2020020, 0x0103C03C), (0x05000204, 0),
+                        (0xF2040040, 0x0105C05C)]
+        commands = b''.join(struct.pack('>II', *pair) for pair in words)
+        struct.pack_into('>I', data, 4, len(commands))
+        geometry = model_assets.parse_model_geometry(bytes(data[:off])+commands)
+        self.assertEqual(2, len(geometry.material_runs))
+        self.assertEqual((1, 0xF2020020, 0x0103C03C), geometry.material_runs[0].detail_tile_bounds[1])
+        self.assertEqual((1, 0xF2040040, 0x0105C05C), geometry.material_runs[1].detail_tile_bounds[1])
+        self.assertEqual(geometry.material_runs[0].render_tile, geometry.material_runs[1].render_tile)
+
+    def direct_rgba16_mipmap_run(self):
+        run = self.direct_ci4_run()
+        tiles = ((0, 0xF5101000, 0x00094250), (1, 0xF5100900, 0x01090641),
+                 (2, 0xF5100540, 0x0208CA32), (3, 0xF5100350, 0x03088E23),
+                 (4, 0xF5100354, 0x04085214), (7, 0xF5100000, 0x07000000))
+        return replace(run, palette=None,
+            pixel=replace(run.pixel, image_command=0xFD100000,
+                          load_command=(0xF3000000, 0x07000000 | ((2752 // 2 - 1) << 12))),
+            render_tile=tiles[0][1:], render_tiles=tiles, texture_dimensions=(32, 32),
+            texture_scale=(0xD7002002, 0xFFFFFFFF),
+            other_mode=(0xEF192C3F, 0x0C192230), combine_mode=(0xFC26A004, 0x151092FF))
+
+    def test_direct_rgba16_mipmap_checks_complete_chain_and_preserves_base_alpha(self):
+        from scripts.texture_rgba16 import decode_png
+        run = self.direct_rgba16_mipmap_run()
+        base = bytes(range(256)) * 8
+        payload = base + bytes(2752 - len(base))
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual("runtime-composed-direct-rgba16-trilinear-base", status)
+        self.assertEqual((32, 32), (texture.width, texture.height))
+        self.assertEqual(base, decode_png(texture.png_data, "tmem-odd-row-32bit-swap", 32, 32))
+        # Lower mip contents do not affect the selected LOD-zero image.
+        variant, _ = model_assets.choose_preview_texture(run, {}, {42: base + bytes([255]) * 704})
+        self.assertEqual(texture.png_data, variant.png_data)
+
+    def test_direct_rgba16_mipmap_rejects_unproven_lower_levels_and_modes(self):
+        run = self.direct_rgba16_mipmap_run()
+        cases = (
+            (replace(run, render_tiles=tuple(t for t in run.render_tiles if t[0] != 3)), "tiles"),
+            (replace(run, render_tiles=tuple((i, c, a ^ 1) if i == 4 else (i, c, a)
+                                            for i, c, a in run.render_tiles)), "layout"),
+            (replace(run, render_tiles=tuple((i, 0xF5100340, a) if i == 4 else (i, c, a)
+                                            for i, c, a in run.render_tiles)), "layout"),
+            (replace(run, other_mode=(0xEF082C3F, 0x00504A50)), "other-mode"),
+            (replace(run, other_mode_partial=(0, 0, 0, 0)), "other-mode"),
+            (replace(run, combine_mode=(0xFC121824, 0xFF33FFFF)), "combiner"),
+            (replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x0755F001))), "load"),
+            (replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x077FF000))), "payload-span"),
+        )
+        for candidate, reason in cases:
+            with self.subTest(reason=reason):
+                self.assertEqual((None, f"direct-rgba16-mipmap-{reason}-unresolved"),
+                    model_assets.direct_rgba16_mipmap_preview_texture(candidate, bytes(2752)))
+        self.assertEqual((None, "direct-rgba16-mipmap-payload-span-unresolved"),
+            model_assets.direct_rgba16_mipmap_preview_texture(run, bytes(2048)))
+
     def direct_rgba32_run(self):
         run = self.direct_ci4_run()
         return replace(run, palette=None,
@@ -4117,6 +4475,190 @@ class ModelAssetTests(unittest.TestCase):
         self.assertEqual(texture.png_data,
                          model_assets.choose_preview_texture(full, {}, {42: payload[:32]})[0].png_data)
 
+    def test_rom_texture_consensus_requires_every_table_and_keeps_pass_unknown(self):
+        run = replace(self.direct_rgba32_run(), other_mode=None, runtime_render_state_offset=0x30)
+        tables = [{'base_address': hex(base), 'entries': [
+            {'offset': '0x30', 'other_mode': ['0xEF082C3F', hex(low)]}]} for base, low in
+            zip(model_assets.RUNTIME_RENDER_STATE_TABLE_BASES, range(11))]
+        texture, status, evidence = model_assets.rom_render_state_preview_texture(run, {}, {42: bytes(range(48))}, tables)
+        self.assertEqual('rom-state-consensus-runtime-composed-direct-rgba32-texture', status)
+        self.assertEqual('us-rom-state-consensus', texture.family)
+        self.assertEqual(11, len(evidence['tables']))
+        self.assertIsNone(run.other_mode)
+        self.assertEqual(0x30, run.runtime_render_state_offset)
+        with self.assertRaisesRegex(ValueError, 'every verified table'):
+            model_assets.rom_render_state_preview_texture(run, {}, {42: bytes(48)}, tables[:-1])
+        tables[0]['entries'][0]['other_mode'][0] = '0xEF08AC3F'
+        self.assertEqual((None, 'rom-state-consensus-texture-unresolved', None),
+                         model_assets.rom_render_state_preview_texture(run, {}, {42: bytes(48)}, tables))
+
+    def test_rom_texture_consensus_does_not_replace_explicit_or_partial_state(self):
+        run = self.direct_rgba32_run()
+        self.assertEqual((None, 'rom-state-consensus-unavailable', None),
+                         model_assets.rom_render_state_preview_texture(run, {}, {}, []))
+        partial = replace(run, other_mode=None, other_mode_partial=(0, 0, 0xC000, 0),
+                          runtime_render_state_offset=0)
+        self.assertEqual((None, 'rom-state-consensus-unavailable', None),
+                         model_assets.rom_render_state_preview_texture(partial, {}, {}, []))
+
+    def test_object_texture_requires_placement_context_and_retains_unknown_pass(self):
+        run = replace(self.direct_rgba32_run(), other_mode=None, runtime_render_state_offset=0x30)
+        payloads = {42: bytes(range(48))}
+        tables = [{'base_address': hex(base), 'entries': [
+            {'offset': '0x30', 'other_mode': ['0xEF082C3F', hex(low)]}]} for base, low in
+            zip(model_assets.RUNTIME_RENDER_STATE_TABLE_BASES, range(11))]
+        self.assertEqual((None, 'rom-object-renderer-unresolved', None),
+                         model_assets.rom_object_preview_texture(run, {}, payloads, tables, None))
+        context = {'bank': 3, 'entry': 58, 'segment': 0, 'renderer': 'func_151137D4',
+                   'segment_8_bases': ['0x80083D40', '0x80083EC0'], 'scope': 'ordinary placement draw'}
+        texture, _, evidence = model_assets.rom_object_preview_texture(run, {}, payloads, tables, context)
+        self.assertIsNotNone(texture)
+        self.assertEqual(context, evidence['object_renderer_context'])
+        self.assertIsNone(run.other_mode)
+        tables[-1]['entries'][0]['other_mode'][0] = '0xEF08AC3F'
+        self.assertEqual((None, 'rom-state-consensus-texture-unresolved', None),
+                         model_assets.rom_object_preview_texture(run, {}, payloads, tables, context))
+
+    def character_intensity_mip_run(self, fmt=4, size=1):
+        run = self.direct_intensity_run(fmt, size if size else 1)
+        command = 0xF5000200 | fmt << 21 | size << 19
+        return replace(run, texture_scale=(0xD7001002, 0xFFFFFFFF),
+            texture_dimensions=(8, 8), tile_bounds=(0xF2000000, 0x0001C01C),
+            render_tile=(command, 0xC030),
+            render_tiles=((0, command, 0xC030), (1, command | 8, 0x01008421),
+                          (2, command | 12, 0x02004812), (7, 0xF5100000, 0x07000000)),
+            pixel=replace(run.pixel, load_command=(0xF3000000, 0x07037000)),
+            other_mode=(0xEF192C3F, 0), combine_mode=(0xFC26A080, 0x151492FF))
+
+    def test_character_intensity_colour_does_not_supply_draw_alpha(self):
+        run = self.direct_intensity_run(4, 1)
+        run = replace(run, other_mode=(0xEF182C3F, 0),
+                      combine_mode=(0xFCFFFE80, 0xF514F8FF),
+                      render_tiles=((0, run.render_tile[0], run.render_tile[1]),
+                                    (7, 0xF5100000, 0x07000000)))
+        payload = bytes(range(24))
+        texture, status = model_assets.character_intensity_shade_alpha_preview_texture(run, payload)
+        self.assertEqual('character-intensity-shade-alpha-i8', status)
+        pixels = texture_assets.decode_rgba_png_pixels(texture.png_data, 8, 2)
+        self.assertEqual(bytes((12, 12, 12, 255, 13, 13, 13, 255)), pixels[:8])
+        self.assertEqual({255}, set(pixels[3::4]))
+        self.assertEqual(bytes(range(24)), payload)
+        # Changing just the first alpha expression to TEXEL0 invalidates the
+        # proof, even though the RGB expression and source bytes are unchanged.
+        changed = replace(run, combine_mode=(run.combine_mode[0], run.combine_mode[1] & ~(7 << 9) | 1 << 9))
+        self.assertIsNone(model_assets.character_intensity_shade_alpha_preview_texture(changed, payload)[0])
+        self.assertIsNone(model_assets.character_intensity_shade_alpha_preview_texture(run, bytes(15))[0])
+        self.assertIsNone(model_assets.character_intensity_shade_alpha_preview_texture(
+            replace(run, other_mode=(0xEF082C3F, 0)), payload)[0])
+
+    def test_character_intensity_mips_decode_base_and_preserve_source(self):
+        payload = bytes(range(112))
+        for fmt, size, name in ((4, 1, 'i8'), (3, 0, 'ia4')):
+            run = self.character_intensity_mip_run(fmt, size)
+            texture, status = model_assets.character_intensity_mipmap_preview_texture(run, payload)
+            self.assertEqual('character-intensity-mipmap-base-' + name, status)
+            self.assertEqual((8, 8, 0), (texture.width, texture.height, texture.pixel_byte_offset))
+            pixels = texture_assets.decode_rgba_png_pixels(texture.png_data, 8, 8)
+            # The first output row is source row seven after the four-byte swap.
+            if name == 'i8':
+                self.assertEqual(bytes((60, 60, 60, 60)), pixels[:4])
+                self.assertEqual(bytes((59, 59, 59, 59)), pixels[28:32])
+            else:
+                # Source byte 60 is 0x3C: IA4 nibbles 3 and C, alpha 1 and 0.
+                self.assertEqual(bytes((36, 36, 36, 255, 219, 219, 219, 0)), pixels[:8])
+            self.assertEqual(bytes(range(112)), payload)
+
+    def test_character_intensity_mips_reject_incomplete_lower_levels(self):
+        run = self.character_intensity_mip_run()
+        cases = (replace(run, render_tiles=run.render_tiles[:2] + run.render_tiles[3:]),
+                 replace(run, render_tiles=run.render_tiles[:2] + ((2, 0xF5880208, 0x02004812),) + run.render_tiles[3:]),
+                 replace(run, other_mode=(0xEF182C3F, 0)),
+                 replace(run, combine_mode=None),
+                 replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07036000))))
+        for candidate in cases:
+            with self.subTest(candidate=candidate):
+                self.assertIsNone(model_assets.character_intensity_mipmap_preview_texture(candidate, bytes(112))[0])
+        self.assertIsNone(model_assets.character_intensity_mipmap_preview_texture(run, bytes(111))[0])
+
+    def test_explicit_intensity_mips_use_the_verified_chain_decoder(self):
+        run = self.character_intensity_mip_run(3, 1)
+        payload = bytes(range(112))
+        expected = model_assets.character_intensity_mipmap_preview_texture(run, payload)
+        self.assertIsNotNone(expected[0])
+        self.assertEqual(expected, model_assets.choose_preview_texture(run, {}, {42: payload}))
+        # An explicit render state must not bypass lower-level or LOD checks.
+        for candidate in (replace(run, render_tiles=run.render_tiles[:2] + run.render_tiles[3:]),
+                          replace(run, other_mode=(0xEF182C3F, 0))):
+            self.assertIsNone(model_assets.choose_preview_texture(candidate, {}, {42: payload})[0])
+
+    def test_direct_ia4_mips_preserve_pixels_for_both_alpha_formulas(self):
+        source = self.character_intensity_mip_run(3, 0)
+        payload = bytes(range(112))
+        expected = model_assets.choose_preview_texture(source, {}, {42: payload})[0]
+        for alpha_word in (0x151092FF, 0x15FC92F8):
+            run = replace(source, combine_mode=(0xFC26A004, alpha_word),
+                render_tiles=source.render_tiles[:-1] + ((7, 0xF5700000, 0x07000000),))
+            texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+            self.assertEqual('direct-ia4-mipmap-base', status)
+            self.assertEqual(expected.png_data, texture.png_data)
+            changed_lower_levels = payload[:64] + bytes(48)
+            self.assertEqual(texture.png_data, model_assets.choose_preview_texture(
+                run, {}, {42: changed_lower_levels})[0].png_data)
+
+    def test_direct_ia4_mips_reject_incomplete_loads_and_incompatible_state(self):
+        run = replace(self.character_intensity_mip_run(3, 0),
+                      combine_mode=(0xFC26A004, 0x151092FF))
+        candidates = (
+            replace(run, render_tiles=run.render_tiles[:2] + run.render_tiles[3:]),
+            replace(run, render_tile=(run.render_tile[0] + 1, run.render_tile[1])),
+            replace(run, render_tiles=(run.render_tiles[0],
+                (1, run.render_tiles[1][1] - 8, run.render_tiles[1][2])) + run.render_tiles[2:]),
+            replace(run, render_tiles=run.render_tiles[:-1] + ((7, 0xF5700001, 0x07000000),)),
+            replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07037001))),
+            replace(run, other_mode_partial=(0, 0, 0, 0)),
+            replace(run, other_mode=(0xEF1DAC3F, 0)),
+            replace(run, combine_mode=(0xFC26A004, 0x151092FE)),
+        )
+        for candidate in candidates:
+            with self.subTest(candidate=candidate):
+                self.assertIsNone(model_assets.choose_preview_texture(candidate, {}, {42: bytes(112)})[0])
+        self.assertIsNone(model_assets.choose_preview_texture(run, {}, {42: bytes(111)})[0])
+
+    def test_direct_ia8_mipmaps_preserve_intensity_and_alpha(self):
+        from scripts.texture_native import decode_png
+        run = replace(self.character_intensity_mip_run(3, 1),
+            combine_mode=(0xFC26A004, 0x1F1093FF), other_mode=(0xEF192C3F, 0x0C184A50))
+        payload = bytes(range(112))
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual('direct-ia8-mipmap-base', status)
+        self.assertEqual(payload[:64], decode_png(texture.png_data, 'ia8', 'tmem-odd-row-32bit-swap', 8, 8))
+        changed_mips = payload[:64] + bytes(48)
+        self.assertEqual(texture.png_data, model_assets.choose_preview_texture(run, {}, {42: changed_mips})[0].png_data)
+
+    def test_direct_ia8_mipmaps_reject_unknown_modes_and_incomplete_chains(self):
+        run = replace(self.character_intensity_mip_run(3, 1),
+            combine_mode=(0xFC26A004, 0x1F1093FF), other_mode=(0xEF192C3F, 0x0C184A50))
+        for candidate in (replace(run, other_mode_partial=(0, 0, 0, 0)),
+                          replace(run, combine_mode=(0xFC26A004, 0x1F1093FE)),
+                          replace(run, render_tiles=run.render_tiles[:2] + run.render_tiles[3:]),
+                          replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x0701F000)))):
+            self.assertIsNone(model_assets.choose_preview_texture(candidate, {}, {42: bytes(112)})[0])
+
+    def test_direct_ia4_texture_only_alpha_ignores_vertex_alpha_in_gltf(self):
+        geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
+        vertices = tuple(replace(v, color=(*v.color[:3], 37)) for v in geometry.vertices)
+        source = self.character_intensity_mip_run(3, 0)
+        for alpha_word, expected_alpha in ((0x151092FF, 37), (0x15FC92F8, 255)):
+            run = replace(source, combine_mode=(0xFC26A004, alpha_word))
+            candidate = replace(geometry, vertices=vertices,
+                material_runs=(run,) + geometry.material_runs[1:])
+            encoded, binary = model_assets.encode_gltf(0, 0, candidate, {0: 'source.png'})
+            document = json.loads(encoded)
+            accessor = document['accessors'][document['meshes'][0]['primitives'][0]['attributes']['COLOR_0']]
+            view = document['bufferViews'][accessor['bufferView']]
+            start = view.get('byteOffset', 0) + accessor.get('byteOffset', 0)
+            self.assertEqual({expected_alpha}, set(binary[start + 3:start + accessor['count'] * 4:4]))
+
     def test_direct_rgba32_rejects_unknown_lookup_and_incomplete_transfers(self):
         run = self.direct_rgba32_run()
         cases = (
@@ -4134,6 +4676,69 @@ class ModelAssetTests(unittest.TestCase):
         self.assertEqual((None, "direct-rgba32-payload-span-unresolved"),
                          model_assets.choose_preview_texture(run, {}, {42: bytes(47)}))
 
+    def test_partial_other_mode_writes_preserve_only_proven_bits(self):
+        apply = model_assets.apply_other_mode_write
+        pair, partial = apply(None, None, 0xE3001001, 0)  # Texture LUT bits 14..15.
+        self.assertIsNone(pair)
+        self.assertEqual((0, 0, 0xC000, 0), partial)
+        run = replace(self.direct_rgba32_run(), other_mode=pair, other_mode_partial=partial)
+        self.assertEqual(0, model_assets.known_other_mode_bits(run, 0, 0xC000))
+        self.assertIsNone(model_assets.known_other_mode_bits(run, 0, 0x300000))
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: bytes(48)})
+        self.assertIsNotNone(texture)
+        self.assertEqual("runtime-composed-direct-rgba32-texture", status)
+        pair, partial = apply(None, partial, 0xE200001F, 0x00504A50)
+        self.assertEqual((0, 0x00504A50, 0xC000, 0xFFFFFFFF), partial)
+        pair, partial = apply(None, partial, 0xE3000817, 0x082CAF)
+        self.assertEqual((0xEF082CAF, 0x00504A50), pair)
+        self.assertIsNone(partial)
+        pair, partial = apply(pair, partial, 0xE3001001, 0x8000)
+        self.assertEqual((0xEF08ACAF, 0x00504A50), pair)
+        self.assertIsNone(partial)
+        for command, argument in ((0xE3001001, 1), (0xE300001F, 0),
+                                  (0xE200201F, 0), (0xE201001F, 0), (0xE7000000, 0)):
+            with self.subTest(command=command):
+                with self.assertRaises(ValueError):
+                    apply(None, None, command, argument)
+
+    def test_partial_other_mode_creates_distinct_material_runs(self):
+        data = bytearray(model_payload())
+        offset = struct.unpack_from(">I", data)[0]
+        commands = ((0xD7000000, 0xFFFFFFFF), (0x01003006, 0x01000000),
+                    (0xE3001001, 0), (0x05000204, 0),
+                    (0xE3001001, 0x8000), (0x05000204, 0),
+                    (0xEF082CAF, 0x00504A50), (0x05000204, 0), (0xDF000000, 0))
+        struct.pack_into(">I", data, 4, len(commands) * 8)
+        geometry = model_assets.parse_model_geometry(bytes(data[:offset]) + b"".join(
+            struct.pack(">II", *pair) for pair in commands))
+        self.assertEqual([1, 1, 1], [run.face_count for run in geometry.material_runs])
+        self.assertEqual([0, 0x8000, None],
+                         [run.other_mode_partial[0] if run.other_mode_partial else None
+                          for run in geometry.material_runs])
+        self.assertEqual((0xEF082CAF, 0x00504A50), geometry.material_runs[-1].other_mode)
+
+    def test_direct_rgba16_requires_full_transfer_and_known_lookup(self):
+        run = self.direct_rgba32_run()
+        run = replace(run, pixel=replace(run.pixel, image_command=0xFD100000,
+                                         load_command=(0xF3000000, 0x07007000)),
+                      render_tile=(0xF5100200, 0),
+                      render_tiles=((0, 0xF5100200, 0), (7, 0xF5100000, 0x07000000)))
+        payload = bytes.fromhex("F80107C1003FFFFFFFFE0000F8000001")
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual("runtime-composed-direct-rgba16-texture", status)
+        self.assertEqual((4, 2), (texture.width, texture.height))
+        self.assertEqual(payload, texture_rgba16.decode_png(texture.png_data,
+                         "tmem-odd-row-32bit-swap", 4, 2))
+        for changed, reason in ((replace(run, other_mode=None), "lookup-mode"),
+                                (replace(run, render_tile=(0xF5100400, 0)), "row-stride"),
+                                (replace(run, render_tiles=run.render_tiles[:-1]), "load-tile"),
+                                (replace(run, combine_mode=None), "combiner-inputs")):
+            with self.subTest(reason=reason):
+                result, status = model_assets.choose_preview_texture(changed, {}, {42: payload})
+                self.assertIsNone(result)
+                self.assertIn(reason, status)
+        self.assertIsNone(model_assets.choose_preview_texture(run, {}, {42: payload + b'xx'})[0])
+
     def test_static_rgba32_preview_retains_source_blend_state(self):
         run = self.direct_rgba32_run()
         geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
@@ -4149,7 +4754,7 @@ class ModelAssetTests(unittest.TestCase):
     def direct_intensity_run(self, fmt=3, size=1):
         run = self.direct_rgba32_run()
         # Each fixture has eight bytes per row and a 16-bit transfer tile.
-        width = {(3, 1): 8, (3, 2): 4, (4, 0): 16, (4, 1): 8}[(fmt, size)]
+        width = {(3, 0): 16, (3, 1): 8, (3, 2): 4, (4, 0): 16, (4, 1): 8}[(fmt, size)]
         tile = 0xF5000200 | (fmt << 21) | (size << 19)
         return replace(run,
             pixel=replace(run.pixel, image_command=0xFD100000 | (fmt << 21)),
@@ -4188,6 +4793,53 @@ class ModelAssetTests(unittest.TestCase):
                 self.assertEqual(texture.png_data, model_assets.choose_preview_texture(
                     full, {}, {42: payload[:16]})[0].png_data)
 
+    def test_direct_ia4_preserves_three_bit_intensity_and_one_bit_alpha(self):
+        run = self.direct_intensity_run(3, 0)
+        payload = bytes.fromhex("0123456789abcdef1032547698badcfe") + b"padding!"
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual("runtime-composed-direct-ia4-texture", status)
+        linear = payload[12:16] + payload[8:12] + payload[:8]
+        levels = (0, 36, 73, 109, 146, 182, 219, 255)
+        expected = bytes(c for byte in linear for n in (byte >> 4, byte & 15)
+                         for c in (levels[n >> 1],) * 3 + ((n & 1) * 255,))
+        self.assertEqual(expected, texture_assets.decode_rgba_png_pixels(texture.png_data, 16, 2))
+        odd = replace(run, texture_dimensions=(15, 2))
+        self.assertEqual((None, "direct-ia4-row-stride-unresolved"),
+                         model_assets.choose_preview_texture(odd, {}, {42: payload}))
+        lookup = replace(run, other_mode=(0xEF08AC3F, run.other_mode[1]))
+        self.assertEqual((None, "direct-ia4-lookup-mode-unresolved"),
+                         model_assets.choose_preview_texture(lookup, {}, {42: payload}))
+
+    def test_direct_intensity_shade_alpha_keeps_dark_texels_opaque(self):
+        payload = bytes.fromhex("0123456789abcdef1032547698badcfe") + b"padding!"
+        linear = payload[12:16] + payload[8:12] + payload[:8]
+        for size, name, width in [(0, "i4", 16), (1, "i8", 8)]:
+            with self.subTest(format=name):
+                run = replace(self.direct_intensity_run(4, size), combine_mode=(0xFC127E24, 0x55FDF8FC))
+                texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+                self.assertEqual(f"runtime-composed-direct-{name}-shade-alpha-texture", status)
+                values = ([v*17 for b in linear for v in (b >> 4, b & 15)] if size == 0 else linear)
+                expected = b"".join(bytes((v, v, v, 255)) for v in values)
+                self.assertEqual(expected, texture_assets.decode_rgba_png_pixels(texture.png_data, width, 2))
+                rgba_load = replace(run, render_tiles=(run.render_tiles[0], (7, 0xF5100000, 0x07000000)))
+                self.assertEqual(texture.png_data,
+                    model_assets.choose_preview_texture(rgba_load, {}, {42: payload})[0].png_data)
+                opaque = replace(run, other_mode=(0xEF082C3F, 0x00552230))
+                self.assertEqual(f"runtime-composed-direct-{name}-texture",
+                    model_assets.choose_preview_texture(opaque, {}, {42: payload})[1])
+
+    def test_direct_intensity_shade_alpha_rejects_unknown_or_texture_alpha(self):
+        run = replace(self.direct_intensity_run(4, 1), combine_mode=(0xFC127E24, 0x55FDF8FC))
+        for candidate in (replace(run, other_mode_partial=(0, 0, 0, 0)),
+                          replace(run, other_mode=(0xEF182C3F, 0x00504A50)),
+                          replace(run, other_mode=(0xEF092C3F, 0x00504A50))):
+            self.assertEqual((None, "direct-i8-alpha-expression-unresolved"),
+                model_assets.choose_preview_texture(candidate, {}, {42: bytes(24)}))
+        # A texture-alpha product must keep intensity in alpha as before.
+        texture, status = model_assets.choose_preview_texture(self.direct_intensity_run(4, 1), {}, {42: bytes(24)})
+        self.assertEqual("runtime-composed-direct-i8-texture", status)
+        self.assertEqual(bytes(8*2*4), texture_assets.decode_rgba_png_pixels(texture.png_data, 8, 2))
+
     def test_direct_intensity_rejects_unproven_source_and_material_state(self):
         run = self.direct_intensity_run()
         alpha_changed = (run.combine_mode[0], run.combine_mode[1] & ~7)
@@ -4214,6 +4866,59 @@ class ModelAssetTests(unittest.TestCase):
         self.assertEqual((None, "direct-intensity-flat-payload-missing"),
                          model_assets.choose_preview_texture(run, {}, {}))
 
+    def test_direct_intensity_two_cycle_alpha_and_rgba16_transfer(self):
+        # The two-cycle character path carries IA alpha through COMBINED,
+        # then multiplies by runtime environment alpha. Neither stage drops
+        # the texture's transparent texels. The transfer tile is RGBA16.
+        run = self.direct_intensity_run()
+        run = replace(run, combine_mode=(0xFCFF9880, 0xF514FEFF),
+                      other_mode=(0xEF182C3F, 0x04D049D8),
+                      render_tiles=(run.render_tiles[0], (7, 0xF5100000, 0x07000000)))
+        payload = bytes.fromhex('f0f1f2f3f4f5f6f7f8f9fafbfcfdfeff') + b'padding!'
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual('runtime-composed-direct-ia8-texture', status)
+        rgba = texture_assets.decode_rgba_png_pixels(texture.png_data, 8, 2)
+        self.assertEqual([204, 221, 238, 255, 136, 153, 170, 187,
+                          0, 17, 34, 51, 68, 85, 102, 119], list(rgba[3::4]))
+        self.assertEqual({255}, set(rgba[0::4]))
+        geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
+        geometry = replace(geometry, material_runs=(run,) + geometry.material_runs[1:])
+        encoded, _ = model_assets.encode_gltf(0, 0, geometry, {0: 'hay.png'})
+        material = json.loads(encoded)['materials'][0]
+        self.assertEqual('BLEND', material['alphaMode'])
+        self.assertIn('baseColorTexture', material['pbrMetallicRoughness'])
+        self.assertNotIn('alphaCutoff', material)
+
+    def test_direct_intensity_two_cycle_rejects_alpha_replacement(self):
+        run = replace(self.direct_intensity_run(),
+                      combine_mode=(0xFCFF9880, 0xF514FEFF),
+                      other_mode=(0xEF182C3F, 0x04D049D8))
+        # Replace cycle-one texture alpha with SHADE, or cycle-two COMBINED
+        # with SHADE; neither is the supported multiplicative chain.
+        for pair in (((run.combine_mode[0] & ~(7 << 12)) | (4 << 12), run.combine_mode[1]),
+                     (run.combine_mode[0], (run.combine_mode[1] & ~(7 << 21)) | (4 << 21))):
+            with self.subTest(combiner=pair):
+                self.assertEqual((None, 'direct-ia8-alpha-expression-unresolved'),
+                    model_assets.choose_preview_texture(replace(run, combine_mode=pair), {}, {42: bytes(24)}))
+        for tile in (0xF5080000, 0xF5180000):
+            with self.subTest(load_tile=tile):
+                candidate = replace(run, render_tiles=(run.render_tiles[0], (7, tile, 0x07000000)))
+                self.assertEqual((None, 'direct-ia8-load-format-unresolved'),
+                                 model_assets.choose_preview_texture(candidate, {}, {42: bytes(24)}))
+
+    def test_direct_rgba_transfer_leaves_shade_only_alpha_to_its_decoder(self):
+        run = self.direct_intensity_run(4, 1)
+        run = replace(run, combine_mode=(0xFCFFFFFF, 0xFFFDF6FB),
+                      other_mode=(0xEF182C3F, 0),
+                      render_tiles=(run.render_tiles[0], (7, 0xF5100000, 0x07000000)))
+        # Use the exact character colour expression, but SHADE alone for
+        # first-cycle alpha. Opaque/translucent table variants must agree on
+        # the specialised decoder instead of choosing inconsistent PNG alpha.
+        run = replace(run, combine_mode=((0xFCFF9880 & ~((7 << 12) | (7 << 9))) | (7 << 12) | (7 << 9),
+                                         (0xF514FEFF & ~(7 << 9)) | (4 << 9)))
+        self.assertEqual((None, 'direct-i8-load-format-unresolved'),
+                         model_assets.choose_preview_texture(run, {}, {42: bytes(24)}))
+
     def test_direct_intensity_rejects_incomplete_or_ambiguous_transfers(self):
         run = self.direct_intensity_run()
         cases = (
@@ -4224,8 +4929,7 @@ class ModelAssetTests(unittest.TestCase):
             (replace(run, render_tiles=((7, 0xF5700001, 0x07000000),)), "load-tmem-origin"),
             (replace(run, render_tiles=((7, 0xF5680000, 0x07000000),)), "load-format"),
             (replace(run, render_tile=(0xF5680201, 0)), "row-stride"),
-            (replace(run, render_tile=(0xF5680400, 0)), "row-stride"),
-            (replace(run, tile_bounds=(0xF2000000, 0x00018004)), "row-stride"),
+            (replace(run, render_tile=(0xF5680400, 0)), "tmem-span"),
             (replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07003000))), "tmem-span"),
             (replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07800000))), "tmem-span"),
         )
@@ -4238,6 +4942,62 @@ class ModelAssetTests(unittest.TestCase):
         odd = replace(self.direct_intensity_run(4, 0), tile_bounds=(0xF2000000, 0x00038004))
         self.assertEqual((None, "direct-i4-row-stride-unresolved"),
                          model_assets.choose_preview_texture(odd, {}, {42: bytes(24)}))
+
+    def test_direct_intensity_crops_padded_rows_after_odd_row_swapping(self):
+        run = replace(self.direct_intensity_run(), tile_bounds=(0xF2000000, 0x00018004))
+        payload = bytes.fromhex('0123456789abcdef1032547698badcfe') + b'padding!'
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+        self.assertEqual('runtime-composed-direct-ia8-texture', status)
+        self.assertEqual((7, 2), (texture.width, texture.height))
+        # Independent byte addresses: row 1 is flipped to PNG's first row,
+        # and its last visible texel comes from source byte 10, not byte 14.
+        addresses = (12, 13, 14, 15, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6)
+        expected = b''.join(bytes(((payload[i] >> 4) * 17,) * 3 + ((payload[i] & 15) * 17,))
+                            for i in addresses)
+        self.assertEqual(expected, texture_assets.decode_rgba_png_pixels(texture.png_data, 7, 2))
+        short = replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07006000)))
+        self.assertEqual((None, 'direct-ia8-tmem-span-unresolved'),
+                         model_assets.choose_preview_texture(short, {}, {42: payload}))
+
+    def test_captured_ia16_retains_distinct_intensity_and_alpha(self):
+        run = self.direct_intensity_run(3, 2)
+        run = replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07007000)))
+        payload = bytes.fromhex('10ff2040300030804099508851776288')
+        state = {'other_mode': list(run.other_mode), 'texture': {'enabled': True,
+                 'pixel_image': {'captured_texture_image_index': 0, 'command': 0xFD700000}}}
+        image = model_assets.runtime_captured_preview_texture(run, state, {0: payload})
+        self.assertEqual('ia16', image['format'])
+        # Four pairs in the swapped bottom row precede the top row in PNG.
+        pairs = ((0x51, 0x77), (0x62, 0x88), (0x40, 0x99), (0x50, 0x88),
+                 (0x10, 0xff), (0x20, 0x40), (0x30, 0), (0x30, 0x80))
+        expected = b''.join(bytes((i, i, i, a)) for i, a in pairs)
+        self.assertEqual(expected, texture_assets.decode_rgba_png_pixels(image['png_data'], 4, 2))
+        self.assertIsNone(model_assets.runtime_captured_preview_texture(run, state, {0: payload[:-1]}))
+        for candidate in (replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07007001))),
+                          replace(run, render_tile=(run.render_tile[0] | 1, 0))):
+            self.assertIsNone(model_assets.runtime_captured_preview_texture(candidate, state, {0: payload}))
+        state['other_mode'][0] = 0xEF08AC3F
+        self.assertIsNone(model_assets.runtime_captured_preview_texture(run, state, {0: payload}))
+
+    def test_captured_ia4_decodes_nibbles_without_retained_palette(self):
+        run = self.direct_intensity_run(3, 0)
+        run = replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07007000)))
+        payload = bytes.fromhex('0123456789abcdef1032547698badcfe')
+        state = {'other_mode': list(run.other_mode), 'texture': {'enabled': True,
+                 'pixel_image': {'captured_texture_image_index': 0, 'command': 0xFD700000},
+                 'palette_image': {'captured_texture_image_index': 1}}}
+        image = model_assets.runtime_captured_preview_texture(run, state, {0: payload, 1: bytes(512)})
+        self.assertEqual('ia4', image['format'])
+        self.assertIsNone(image['palette_sha256'])
+        linear = payload[12:16] + payload[8:12] + payload[:8]
+        intensities = (0, 36, 73, 109, 146, 182, 219, 255)
+        expected = bytes(c for byte in linear for n in (byte >> 4, byte & 15)
+                         for c in (intensities[n >> 1],) * 3 + ((n & 1) * 255,))
+        self.assertEqual(expected, texture_assets.decode_rgba_png_pixels(image['png_data'], 16, 2))
+        self.assertIsNone(model_assets.runtime_captured_preview_texture(run, state, {0: payload[:-1]}))
+        for changed in (replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x07007001))),
+                        replace(run, render_tile=(run.render_tile[0] | 1, 0))):
+            self.assertIsNone(model_assets.runtime_captured_preview_texture(changed, state, {0: payload}))
 
     def test_direct_intensity_export_preserves_blend_and_opaque_source_modes(self):
         geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
@@ -4331,6 +5091,53 @@ class ModelAssetTests(unittest.TestCase):
         colors = document["accessors"][document["meshes"][0]["primitives"][0]["attributes"]["COLOR_0"]]
         view = document["bufferViews"][colors["bufferView"]]
         self.assertEqual([255] * colors["count"], list(binary[view["byteOffset"] + 3: view["byteOffset"] + view["byteLength"]:4]))
+
+    def rgb_mipmap_run(self, size=1):
+        return model_assets.ModelMaterialRun(0, 1, True,
+            model_assets.ModelTextureBinding(0xFD100000, flat_index=42, mode=0,
+                load_command=(0xF3000000, 0x07017000)),
+            model_assets.ModelTextureBinding(0xFD100000, flat_index=42, mode=1 if size else 2,
+                load_command=(0xF0000000, 0x063FC000 if size else 0x0603C000)),
+            (0xF5000200 | size << 19, 0x00008030),
+            ((0, 0xF5000200 | size << 19, 0x00008030),
+             (1, 0xF5000204 | size << 19, 0x01004421),
+             (6, 0xF5000100, 0x06000000), (7, 0xF5100000, 0x07000000)),
+            (0xF2000000, 0x0001C00C), (0xD7000802, 0xFFFFFFFF),
+            (0xFC269880, 0x1514FEFF), (0xEF19AC3F, 0x04D04DD8), None)
+
+    def test_rgb_mipmap_base_preserves_source_alpha_and_validates_lower_levels(self):
+        for size in (0, 1):
+            run = self.rgb_mipmap_run(size)
+            palette = b''.join(struct.pack('>H', (i << 1) | 1) for i in range(256 if size else 16))
+            payload = bytes(range(48)) + palette
+            texture, status = model_assets.choose_preview_texture(run, {}, {42: payload})
+            self.assertEqual('runtime-composed-character-rgb-trilinear-base', status)
+            rows = b''.join(bytes(payload[y * 8 + (x ^ 4 if y & 1 else x)]
+                                  for x in range(8 if size else 4)) for y in range(4))
+            encoder = texture_assets.encode_ci8_png if size else texture_assets.encode_indexed_png
+            self.assertEqual(encoder(rows + palette, 'linear', 8, 4), texture.png_data)
+            for changed in (
+                    replace(run, other_mode=None),
+                    replace(run, other_mode=(0xEF18AC3F, 0x04D04DD8)),
+                    replace(run, combine_mode=(0xFC26A280, 0x151492FF)),
+                    replace(run, render_tiles=tuple(t for t in run.render_tiles if t[0] != 1)),
+                    replace(run, render_tiles=tuple((i, c - 4, a) if i == 1 else (i, c, a)
+                                                   for i, c, a in run.render_tiles)),
+                    replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x0700F000)))):
+                with self.subTest(size=size, changed=changed):
+                    self.assertIsNone(model_assets.choose_preview_texture(changed, {}, {42: payload})[0])
+            self.assertIsNone(model_assets.choose_preview_texture(run, {}, {42: payload[:-1]})[0])
+        geometry, _ = model_assets.parse_character_model_geometry(character_model_payload())
+        actual = replace(geometry.material_runs[0], combine_mode=(0xFC269880, 0x1514FEFF))
+        source = replace(geometry, material_runs=(actual,),
+                         vertices=tuple(replace(v, color=(*v.color[:3], 17)) for v in geometry.vertices))
+        encoded, binary = model_assets.encode_gltf(0, 0, source, {0: 'base.png'})
+        document = json.loads(encoded)
+        self.assertEqual('preserved-for-texture-times-shade-alpha',
+                         document['materials'][0]['extras']['textureLodPreview']['vertexAlpha'])
+        colors = document['accessors'][document['meshes'][0]['primitives'][0]['attributes']['COLOR_0']]
+        view = document['bufferViews'][colors['bufferView']]
+        self.assertEqual([17] * colors['count'], list(binary[view['byteOffset'] + 3:view['byteOffset'] + view['byteLength']:4]))
 
     def test_translates_n64_texture_address_modes_to_gltf(self):
         geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())

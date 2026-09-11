@@ -276,6 +276,14 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                 geometry, layout = models.parse_attachment_model(bundle.data, models.parse_model_geometry)
                 regions = {part["name"]: bundle.data[part["offset"]:part["offset"] + part["size"]] for part in layout["sections"]}
                 rebuilt = models.encode_attachment_model(geometry, layout, regions)
+            elif bank == 9 and bundle.segments[0].effect_source is not None:
+                geometry, layout = models.parse_effect_model(bundle.data, models.parse_model_geometry,
+                                                             bundle.segments[0].effect_source)
+                regions = {part['name']: bundle.data[part['offset']:part['offset'] + part['size']]
+                           for part in layout['sections']}
+                rebuilt = models.encode_effect_model(geometry, layout, regions)
+            elif bank == 9:
+                rebuilt = models.rebuild_direct_model(bundle.data, models.parse_geometry_for_bank(bundle.data, bank))
             if rebuilt != bundle.data:
                 raise ValueError("coverage model bundle did not rebuild byte-identically")
             for segment in bundle.segments:
@@ -283,7 +291,7 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                     continue
                 key = (bank, bundle.index, segment.index)
                 model_hash = hashlib.sha1(segment.data).hexdigest()
-                geometry = models.parse_geometry_for_bank(segment.data, bank)
+                geometry = models.parse_segment_geometry(segment, bank)
                 is_attachment = bank == 9 and models.is_attachment_model(segment.data)
                 attached_faces, attached_owners, attached_bones = (attachment_source_faces(segment.data, attachment_records[key])
                     if is_attachment else (set(), set(), set()))

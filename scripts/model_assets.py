@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import base64
 import copy
 import hashlib
@@ -19,6 +20,11 @@ from statistics import median
 from typing import Any
 
 try:
+    from scripts import model_character_defaults, model_morphs, model_emission_points, model_character_parts, model_object_materials, model_bank09_materials
+    from scripts.model_effect_format import (
+        EffectModelSource, is_effect_model, parse_effect_model, encode_effect_model,
+        verify_effect_consumers, resolve_effect_sources,
+    )
     from scripts.model_attachment_format import (
         is_attachment_model, parse_attachment_model, encode_attachment_model,
     )
@@ -45,6 +51,7 @@ try:
     )
     from scripts.texture_native import encode_png as encode_native_texture_png
     from scripts.texture_native import packed_row_size
+    from scripts.texture_rgba16 import encode_png as encode_rgba16_texture_png
     from scripts.mupen_trace import (
         CHARACTER_POOL_ADDRESS,
         CHARACTER_POOL_RECORD_COUNT,
@@ -61,6 +68,16 @@ try:
         refresh_trace_model_correlations,
     )
 except ModuleNotFoundError:
+    import model_character_defaults
+    import model_morphs
+    import model_emission_points
+    import model_character_parts
+    import model_object_materials
+    import model_bank09_materials
+    from model_effect_format import (
+        EffectModelSource, is_effect_model, parse_effect_model, encode_effect_model,
+        verify_effect_consumers, resolve_effect_sources,
+    )
     from model_attachment_format import (  # type: ignore[no-redef]
         is_attachment_model, parse_attachment_model, encode_attachment_model,
     )
@@ -87,6 +104,7 @@ except ModuleNotFoundError:
     )
     from texture_native import encode_png as encode_native_texture_png
     from texture_native import packed_row_size
+    from texture_rgba16 import encode_png as encode_rgba16_texture_png
     from mupen_trace import (  # type: ignore[no-redef]
         CHARACTER_POOL_ADDRESS,
         CHARACTER_POOL_RECORD_COUNT,
@@ -224,6 +242,7 @@ class ModelSegment:
     size: int
     final_flag: bool
     data: bytes
+    effect_source: EffectModelSource | None = None
 
 
 @dataclass(frozen=True)
@@ -296,6 +315,12 @@ class ModelMaterialRun:
     texture_coordinates_proven: bool = True
     matrix_index: int | None = None
     texture_dimensions: tuple[int, int] | None = None
+    # Values and known-bit masks for partial E2/E3 writes without a full EF.
+    other_mode_partial: tuple[int, int, int, int] | None = None
+    # Detail LOD selects a tile after G_TEXTURE's declared base. Preserve its
+    # own SetTileSize state, rather than inferring an origin from another tile.
+    detail_tile_bounds: tuple[tuple[int, int, int], ...] = ()
+    preview_coordinate_state: tuple[tuple[int, int], tuple[int, int], tuple[int, int]] | None = None
 
 
 @dataclass(frozen=True)
@@ -359,6 +384,7 @@ class PreviewTexture:
     png_data: bytes | None = None
     pixel_byte_offset: int | None = None
     palette_byte_offset: int | None = None
+    preview_coordinate_state: tuple[tuple[int, int], tuple[int, int], tuple[int, int]] | None = None
 
 
 @dataclass(frozen=True)
@@ -758,6 +784,7 @@ def parse_model_geometry(
     *,
     allow_external_texture: bool = False,
     independent_display_lists: bool = False,
+    model_relative_vertices: bool = False,
 ) -> ModelGeometry:
     """Decode the proven vertex and triangle portions of one bank-04 model."""
 
@@ -831,6 +858,7 @@ def parse_model_geometry(
     texture_scale: tuple[int, int] | None = None
     combine_mode: tuple[int, int] | None = None
     other_mode: tuple[int, int] | None = None
+    other_mode_partial: tuple[int, int, int, int] | None = None
     runtime_render_state_offset: int | None = None
     matrix_index: int | None = None
     material_runs: list[list[Any]] = []
@@ -901,6 +929,11 @@ def parse_model_geometry(
             and (
                 active_pixel.image_command == 0xFD500000
                 or uses_character_tlut_load
+                or (
+                    active_pixel.segment is not None
+                    and palette_texture is not None
+                    and palette_texture.segment == active_pixel.segment
+                )
             )
             else None
         )
@@ -915,6 +948,9 @@ def parse_model_geometry(
         )
         active_tile_bounds = tile_bounds if texture_enabled else None
         active_texture_scale = texture_scale if texture_enabled else None
+        detail_bounds = (tuple((i, c, a) for i, (c, a) in sorted(render_tile_bounds.items()))
+                         if texture_enabled and other_mode is not None
+                         and ((other_mode[0] >> 17) & 3) == 2 else ())
         key = (
             texture_enabled,
             active_pixel,
@@ -927,6 +963,8 @@ def parse_model_geometry(
             other_mode,
             runtime_render_state_offset,
             matrix_index,
+            other_mode_partial,
+            detail_bounds,
         )
         if material_runs and tuple(material_runs[-1][2:]) == key:
             material_runs[-1][1] += face_count
@@ -946,6 +984,8 @@ def parse_model_geometry(
                     other_mode,
                     runtime_render_state_offset,
                     matrix_index,
+                    other_mode_partial,
+                    detail_bounds,
                 ]
             )
 
@@ -957,9 +997,16 @@ def parse_model_geometry(
             cache_end = (command >> 1) & 0x7F
             cache_start = cache_end - count
             vertex_byte_offset = argument & 0xFFFFFF
+            # Bank-09's direct loader passes the model base to func_15168E54.
+            # func_15168E34 adds it only to unsegmented addresses; these include
+            # the 0x28-byte native header. Segment-1 addresses are unchanged.
+            relative_address = model_relative_vertices and argument >> 24 == 0
+            if relative_address:
+                vertex_byte_offset -= 0x28
             vertex_start = vertex_byte_offset // 16
             if (
-                argument >> 24 != 0x01
+                (argument >> 24 != 0x01 and not relative_address)
+                or vertex_byte_offset < 0
                 or count == 0
                 or cache_start < 0
                 or cache_end > 32
@@ -1015,6 +1062,7 @@ def parse_model_geometry(
             segment_8_display_list_offsets.append(argument & 0xFFFFFF)
             runtime_render_state_offset = argument & 0xFFFFFF
             other_mode = None
+            other_mode_partial = None
             geometry_mode_known_bits = 0
         elif opcode == 0xD9:
             preserve = command & 0xFFFFFF
@@ -1078,6 +1126,12 @@ def parse_model_geometry(
             combine_mode = (command, argument)
         elif opcode == 0xEF:
             other_mode = (command, argument)
+            other_mode_partial = None
+            runtime_render_state_offset = None
+        elif opcode in (0xE2, 0xE3):
+            other_mode, other_mode_partial = apply_other_mode_write(
+                other_mode, other_mode_partial, command, argument)
+            # A later partial write is no longer the unchanged segment-8 state.
             runtime_render_state_offset = None
         elif opcode == 0xDF and independent_display_lists:
             # Character pointer-table entries are separately callable. The
@@ -1094,6 +1148,7 @@ def parse_model_geometry(
             render_tile_bounds = {}
             texture_enabled = None
             combine_mode = other_mode = None
+            other_mode_partial = None
             runtime_render_state_offset = None
             geometry_mode = geometry_mode_known_bits = 0
 
@@ -1122,6 +1177,8 @@ def parse_model_geometry(
             other_mode=run[10],
             runtime_render_state_offset=run[11],
             matrix_index=run[12],
+            other_mode_partial=run[13],
+            detail_tile_bounds=run[14],
         )
         for run in material_runs
     )
@@ -1685,7 +1742,39 @@ def parse_geometry_for_bank(data: bytes, bank_index: int) -> ModelGeometry:
         return parse_character_model_geometry(data)[0]
     if bank_index == 0x09 and is_attachment_model(data):
         return parse_attachment_model(data, parse_model_geometry)[0]
-    return parse_model_geometry(data)
+    if bank_index == 0x09 and is_effect_model(data):
+        return parse_effect_model(data, parse_model_geometry)[0]
+    return parse_model_geometry(data, model_relative_vertices=bank_index == 0x09)
+
+
+def parse_segment_geometry(segment: ModelSegment, bank_index: int) -> ModelGeometry:
+    if segment.effect_source is not None:
+        if bank_index != 9:
+            raise ValueError("effect source belongs to bank 09")
+        return parse_effect_model(segment.data, parse_model_geometry, segment.effect_source)[0]
+    return parse_geometry_for_bank(segment.data, bank_index)
+
+
+def verify_direct_model_consumers(code: bytes, base: int) -> None:
+    """Pin the US bank-09 loader and conditional pointer relocation contract."""
+    for start, size, sha1 in (
+        (0x1518C900, 260, '38d05a33437a0f688bda1b2cf2ac6299b9aede8e'),
+        (0x15168E54, 180, 'cbc1245a3f5d3846756b7c360d39675df6521c34'),
+        (0x15168E34, 32, 'edfbe5742959d43dfa06d389f8a448dd015aa75f'),
+    ):
+        offset = start - base
+        if offset < 0 or hashlib.sha1(code[offset:offset + size]).hexdigest() != sha1:
+            raise ValueError(f'ROM direct-model consumer changed at 0x{start:08X}')
+
+
+def rebuild_direct_model(data: bytes, geometry: ModelGeometry) -> bytes:
+    """Re-encode decoded header/vertices; preserve native lists and opaque data."""
+    vertices = b''.join(struct.pack('>hhhHhh4B', v.x, v.y, v.z, v.flag, v.s, v.t, *v.color)
+                        for v in geometry.vertices)
+    if len(vertices) != geometry.display_list_offset - 0x28 or len(geometry.header_words) != 10:
+        raise ValueError('direct model reconstruction extent changed')
+    return (struct.pack('>10I', *geometry.header_words) + vertices
+            + data[geometry.display_list_offset:])
 
 
 def validation_color(index: int) -> tuple[int, int, int, int]:
@@ -2237,6 +2326,8 @@ def material_name(run: ModelMaterialRun) -> str:
         name += f"_combine_{run.combine_mode[0]:08x}_{run.combine_mode[1]:08x}"
     if run.other_mode is not None:
         name += f"_other_{run.other_mode[0]:08x}_{run.other_mode[1]:08x}"
+    if run.other_mode_partial is not None:
+        name += "_partial_" + "_".join(f"{word:08x}" for word in run.other_mode_partial)
     elif run.runtime_render_state_offset is not None:
         name += f"_runtime_other_{run.runtime_render_state_offset:04x}"
     return name
@@ -2348,6 +2439,39 @@ def decode_convert_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
         "coefficients": [value - 0x200 if value & 0x100 else value for value in values],
         "raw": command_pair_record(pair),
     }
+
+
+def apply_other_mode_write(
+    pair: tuple[int, int] | None, partial: tuple[int, int, int, int] | None,
+    command: int, argument: int,
+) -> tuple[tuple[int, int] | None, tuple[int, int, int, int] | None]:
+    """Apply F3DEX2's reversed shift encoding without inventing inherited bits."""
+    opcode = command >> 24
+    length = (command & 0xFF) + 1
+    shift = 32 - ((command >> 8) & 0xFF) - length
+    if opcode not in (0xE2, 0xE3) or command & 0x00FF0000 or not 0 <= shift < 32 or length > 32:
+        raise ValueError("invalid partial other-mode write")
+    mask = ((1 << length) - 1) << shift
+    if argument & ~mask or (opcode == 0xE3 and mask & 0xFF000000):
+        raise ValueError("partial other-mode write exceeds its declared bits")
+    values = list((pair[0] & 0xFFFFFF, pair[1], 0xFFFFFF, 0xFFFFFFFF)
+                  if pair is not None else partial or (0, 0, 0, 0))
+    word = 0 if opcode == 0xE3 else 1
+    values[word] = (values[word] & ~mask) | argument
+    values[word + 2] |= mask
+    if values[2:] == [0xFFFFFF, 0xFFFFFFFF]:
+        return (0xEF000000 | values[0], values[1]), None
+    return None, tuple(values)
+
+
+def known_other_mode_bits(run: ModelMaterialRun, word: int, mask: int) -> int | None:
+    if word not in (0, 1):
+        raise ValueError("other-mode word must be high or low")
+    if run.other_mode is not None:
+        return run.other_mode[word] & mask
+    if run.other_mode_partial is not None and run.other_mode_partial[word + 2] & mask == mask:
+        return run.other_mode_partial[word] & mask
+    return None
 
 
 def decode_other_mode(pair: tuple[int, int] | None) -> dict[str, Any] | None:
@@ -3261,6 +3385,10 @@ def shifted_texture_coordinate(value: float, shift: int) -> float:
 
 
 def texture_coordinates(vertex: ModelVertex, run: ModelMaterialRun) -> tuple[float, float]:
+    if run.preview_coordinate_state is not None:
+        tile, bounds, dimensions = run.preview_coordinate_state
+        run = replace(run, render_tile=tile, tile_bounds=bounds, texture_dimensions=dimensions,
+                      preview_coordinate_state=None)
     state = texture_coordinate_state(run)
     if state is None:
         raise ValueError("untextured material run has no texture coordinates")
@@ -3280,7 +3408,8 @@ def texture_address_mode(run: ModelMaterialRun) -> dict[str, Any] | None:
 
     if run.render_tile is None:
         return None
-    _, argument = run.render_tile
+    _, argument = (run.preview_coordinate_state[0]
+                   if run.preview_coordinate_state is not None else run.render_tile)
     modes = {"s": (argument >> 8) & 3, "t": (argument >> 18) & 3}
 
     def gltf_wrap(mode: int) -> int:
@@ -3437,6 +3566,8 @@ def encode_gltf(
     character_animation_clips: tuple[CharacterAnimationClip, ...] = (),
     output_stem: str | None = None,
     runtime_materials: dict[int, dict[str, Any]] | None = None,
+    character_morphs: dict[str, Any] | None = None,
+    character_draw_pass: dict[str, Any] | None = None,
 ) -> tuple[bytes, bytes]:
     binary = bytearray()
     buffer_views = []
@@ -3488,6 +3619,9 @@ def encode_gltf(
     texture_indices: dict[tuple[str, int, int, int, int], int] = {}
     materials = []
     primitives = []
+    if character_morphs is not None and (bank_index != 1 or bundle_index != character_morphs["character_entry"]):
+        raise ValueError("morph targets belong to a different character model")
+    morph_deltas = model_morphs.target_deltas(character_morphs, geometry) if character_morphs else []
     character_joint_by_matrix = {
         joint["matrix_index"]: joint for joint in character_joints or ()
     }
@@ -3539,6 +3673,10 @@ def encode_gltf(
                 runtime_culling[face] = captured_mode
         has_replayed_colours = all(index in face_colours for index in source_faces)
         force_vertex_alpha_one = is_character_trilinear_base(run) or bool(
+            is_direct_ia4_trilinear_base(run)
+            and decode_combine_mode(run.combine_mode)["cycles"][1]["alpha"]
+            == ["ZERO", "ZERO", "ZERO", "COMBINED"]
+        ) or bool(
             runtime_consensus
             and runtime_consensus["baseColorFactor"] is not None
             and runtime_consensus["vertexAlphaMode"] == "one"
@@ -3760,12 +3898,15 @@ def encode_gltf(
                 "combineMode": command_pair_record(run.combine_mode),
                 "combineFormula": decode_combine_mode(run.combine_mode),
                 "otherMode": command_pair_record(run.other_mode),
+                **({"otherModePartial": list(run.other_mode_partial)} if run.other_mode_partial is not None else {}),
                 "runtimeRenderStateOffset": (
                     f"0x{run.runtime_render_state_offset:X}"
                     if run.runtime_render_state_offset is not None
                     else None
                 ),
                 "textureAddressMode": texture_address_mode(run),
+                **({"romDetailTexturePreview": detail_texture_preview_record(run)}
+                   if run.preview_coordinate_state is not None else {}),
                 "vertexLoadMatrixIndices": sorted(set(source_matrix_indices)),
             },
         }
@@ -3878,6 +4019,14 @@ def encode_gltf(
                     "nativeDistanceDependentLodParity": "unverified",
                     "vertexAlpha": "ignored-by-proven-combiner",
                 }
+            elif is_character_rgb_trilinear_base(run):
+                material["extras"]["textureLodPreview"] = {
+                    "source": "stored-highest-resolution-TEXEL0",
+                    "combiner": "RGB-trilerp-at-zero-LOD-fraction; alpha=TEXEL0*SHADE*ENVIRONMENT",
+                    "minification": "glTF-consumer-generated-mipmaps",
+                    "nativeDistanceDependentLodParity": "unverified",
+                    "vertexAlpha": "preserved-for-texture-times-shade-alpha",
+                }
             material["alphaMode"] = (
                 static_material["alphaMode"]
                 if static_material and static_material["alphaMode"] is not None
@@ -3894,6 +4043,15 @@ def encode_gltf(
         if lighting_replayed:
             material["extensions"] = {"KHR_materials_unlit": {}}
         culling_spans = face_culling_spans(geometry, run, runtime_culling)
+        morph_accessors = []
+        for deltas in morph_deltas:
+            positions = [deltas.get(index, (0, 0, 0)) for index in source_vertex_indices]
+            morph_accessors.append({"POSITION": append_accessor(
+                b"".join(struct.pack("<3f", *position) for position in positions),
+                5126, "VEC3", len(positions), 34962,
+                [min(position[axis] for position in positions) for axis in range(3)],
+                [max(position[axis] for position in positions) for axis in range(3)],
+            )})
         for span_index, (first, count, cull_mode) in enumerate(culling_spans):
             span_material = copy.deepcopy(material)
             span_material["doubleSided"] = cull_mode != 0x400
@@ -3933,6 +4091,8 @@ def encode_gltf(
                 "mode": 4,
                 "extras": {"matrixIndex": run.matrix_index, "firstFace": first, "faceCount": count},
             }
+            if morph_accessors:
+                primitive["targets"] = morph_accessors
             primitives.append(primitive)
     stem = output_stem or f"{bundle_index:04d}-{segment_index:02d}"
     animations = []
@@ -4294,6 +4454,24 @@ def encode_gltf(
             extras["animationStatus"] = "attachment-animation-not-recovered"
     if animations:
         document["animations"] = animations
+    if character_morphs is not None:
+        for mesh in meshes:
+            mesh["weights"] = [0.0] * len(morph_deltas)
+            mesh["extras"] = {"targetNames": [target["name"] for target in character_morphs["targets"]]}
+        document.setdefault("extras", {})["romMorphTargets"] = {
+            "bank": 0x13, "entry": character_morphs["bank_entry"],
+            "sourceSha1": character_morphs["source_sha1"],
+            "modelSha1": character_morphs["model_sha1"],
+            "shapeCount": len(morph_deltas), "vertexStarts": character_morphs["vertex_starts"],
+            "partVertexCounts": character_morphs["part_vertex_counts"],
+            "basisStatus": character_morphs["basis_status"],
+            "interpolation": "stored-endpoints; runtime shape selection and timing not inferred",
+            "nativeQuantization": "runtime truncates intermediate XYZ to s16; glTF uses floating point",
+        }
+    if character_draw_pass is not None:
+        if bank_index != 1:
+            raise ValueError('character draw-pass selection belongs to bank 01')
+        document.setdefault('extras', {})['romCharacterDrawPass'] = character_draw_pass
     if geometry.face_preview_normals:
         document.setdefault("extras", {})["characterNormalStatus"] = (
             "source-normal-inverse-transpose-per-vertex-load-matrix-with-geometric-fallback"
@@ -4992,8 +5170,6 @@ def direct_runtime_indexed_preview_texture(
         return None, f"{label}-tlut-size-unresolved"
 
     if state["size"] == 0:
-        if state["width"] & 1:
-            return None, f"{label}-odd-width-unresolved"
         if pixel_load_command & 0xFFFFFF or pixel_load_argument & 0xFFF:
             return None, f"{label}-load-row-conversion-unresolved"
         tiles = {index: (command, argument) for index, command, argument in run.render_tiles}
@@ -5018,7 +5194,7 @@ def direct_runtime_indexed_preview_texture(
     render_tile_command, _ = run.render_tile
     if render_tile_command & 0x1FF:
         return None, f"{label}-tmem-offset-unresolved"
-    row_size = state["width"] // 2 if state["size"] == 0 else state["width"]
+    row_size = (state["width"] + 1) // 2 if state["size"] == 0 else state["width"]
     line_words = (render_tile_command >> 9) & 0x1FF
     row_stride = line_words * 8 if line_words else row_size
     if row_stride < row_size:
@@ -5050,12 +5226,23 @@ def direct_runtime_indexed_preview_texture(
         rows.append(row[:row_size])
     linear_pixels = b"".join(rows)
     palette = payload[palette_byte_offset:]
-    png_data = (encode_indexed_png if state["size"] == 0 else encode_ci8_png)(
-        linear_pixels + palette,
-        "linear",
-        state["width"],
-        state["height"],
-    )
+    if state["size"] == 0 and state["width"] & 1:
+        # An odd visible width still occupies a whole final CI4 byte per row.
+        # Expand only visible texels through the exact RGBA5551 palette. This
+        # avoids changing the reversible even-width CI4 PNG storage contract;
+        # row padding and the unused low nibble remain in the source payload.
+        colors = [palette[index:index + 2] for index in range(0, 32, 2)]
+        rgba16 = b"".join(colors[(row[x // 2] >> (0 if x & 1 else 4)) & 15]
+                          for row in rows for x in range(state["width"]))
+        png_data = encode_rgba16_texture_png(
+            rgba16, "linear", state["width"], state["height"])
+    else:
+        png_data = (encode_indexed_png if state["size"] == 0 else encode_ci8_png)(
+            linear_pixels + palette,
+            "linear",
+            state["width"],
+            state["height"],
+        )
     return (
         PreviewTexture(
             family="us-direct-runtime-composed",
@@ -5091,6 +5278,126 @@ def is_character_trilinear_base(run: ModelMaterialRun) -> bool:
     ])
 
 
+def is_direct_ia4_trilinear_base(run: ModelMaterialRun) -> bool:
+    """Recognize explicit IA4 trilerp with shade or texture-only draw alpha."""
+    if not run.texture_enabled or run.render_tile is None or run.texture_scale is None:
+        return False
+    state, other = texture_coordinate_state(run), decode_other_mode(run.other_mode)
+    combine = decode_combine_mode(run.combine_mode)
+    return bool(state and (state["format"], state["size"]) == (3, 0)
+        and other and run.other_mode_partial is None
+        and (other["texture_lut"], other["texture_lod"], other["texture_detail"], other["cycle_type"])
+        == ("none", "lod", "clamp", "two-cycle")
+        and combine and combine["cycles"][0] == {
+            "color": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"],
+            "alpha": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"]}
+        and combine["cycles"][1]["color"] == ["COMBINED", "ENVIRONMENT", "SHADE", "PRIMITIVE"]
+        and combine["cycles"][1]["alpha"] in (
+            ["COMBINED", "ZERO", "SHADE", "ZERO"],
+            ["ZERO", "ZERO", "ZERO", "COMBINED"]))
+
+
+def is_direct_ia8_shade_mipmap_base(run: ModelMaterialRun) -> bool:
+    if not run.texture_enabled or run.render_tile is None or run.texture_scale is None:
+        return False
+    state, other = texture_coordinate_state(run), decode_other_mode(run.other_mode)
+    combine = decode_combine_mode(run.combine_mode)
+    return bool(state and (state["format"], state["size"]) == (3, 1)
+        and other and run.other_mode_partial is None
+        and (other["texture_lut"], other["texture_lod"], other["texture_detail"], other["cycle_type"])
+        == ("none", "lod", "clamp", "two-cycle")
+        and combine and combine["cycles"] == [
+            {"color": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"],
+             "alpha": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"]},
+            {"color": ["COMBINED", "ZERO", "SHADE", "ZERO"],
+             "alpha": ["COMBINED", "ZERO", "SHADE", "ZERO"]},
+        ])
+
+
+def is_character_rgb_trilinear_base(run: ModelMaterialRun) -> bool:
+    """The RGB-only trilerp variant retains vertex alpha in both cycles."""
+    combine = decode_combine_mode(run.combine_mode)
+    return bool(combine and combine['cycles'] == [
+        {'color': ['TEXEL1', 'TEXEL0', 'LOD_FRACTION', 'TEXEL0'],
+         'alpha': ['TEXEL0', 'ZERO', 'SHADE', 'ZERO']},
+        {'color': ['SHADE', 'ENVIRONMENT', 'COMBINED', 'PRIMITIVE'],
+         'alpha': ['COMBINED', 'ZERO', 'ENVIRONMENT', 'ZERO']},
+    ])
+
+
+def character_rgb_mipmap_preview_texture(run, payload):
+    """Validate the full indexed mip chain before selecting its RGB base."""
+    state = texture_coordinate_state(run)
+    other = decode_other_mode(run.other_mode)
+    if (not is_character_rgb_trilinear_base(run) or state is None
+            or state['format_evidence'] != 'character-same-index-tlut-load'):
+        return None, 'character-rgb-mipmap-combiner-unresolved'
+    if (other is None or run.other_mode_partial is not None
+            or (other['texture_lut'], other['texture_lod'], other['texture_detail'], other['cycle_type'])
+            != ('rgba16', 'lod', 'clamp', 'two-cycle')):
+        return None, 'character-rgb-mipmap-other-mode-unresolved'
+    pixel, palette = run.pixel, run.palette
+    if (pixel is None or palette is None or pixel.mode != 0
+            or pixel.image_command != 0xFD100000 or palette.image_command != 0xFD100000
+            or pixel.flat_index is None or pixel.flat_index != palette.flat_index
+            or pixel.load_command is None or palette.load_command is None
+            or pixel.load_command[0] != 0xF3000000 or pixel.load_command[1] & 0xFFF
+            or palette.load_command[0] != 0xF0000000 or run.texture_scale is None):
+        return None, 'character-rgb-mipmap-load-unresolved'
+    tiles = {i: (c, a) for i, c, a in run.render_tiles}
+    load_tile = tiles.get((pixel.load_command[1] >> 24) & 7)
+    tlut_tile = tiles.get((palette.load_command[1] >> 24) & 7)
+    base = (run.texture_scale[0] >> 8) & 7
+    count = (run.texture_scale[0] >> 11) & 7
+    if (load_tile is None or load_tile[0] != 0xF5100000
+            or tlut_tile is None or tlut_tile[0] & 0x1FF != 0x100
+            or base != 0 or not count or base + count >= 6):
+        return None, 'character-rgb-mipmap-tiles-unresolved'
+    loaded = (((pixel.load_command[1] >> 12) & 0xFFF) + 1) * 2
+    palette_size = 32 if state['size'] == 0 else 512
+    if loaded > min(2048, len(payload) - palette_size):
+        return None, 'character-rgb-mipmap-payload-span-unresolved'
+    previous_end = 0
+    for level in range(count + 1):
+        tile = tiles.get(base + level)
+        if tile is None:
+            return None, 'character-rgb-mipmap-tiles-unresolved'
+        c, a = tile
+        width, height = max(1, state['width'] >> level), max(1, state['height'] >> level)
+        stride, start = ((c >> 9) & 0x1FF) * 8, (c & 0x1FF) * 8
+        row_bytes = (width * (4 << state['size']) + 7) // 8
+        if ((c >> 21) & 7 != (run.render_tile[0] >> 21) & 7
+                or (c >> 19) & 3 != state['size']
+                or (1 << ((a >> 4) & 15), 1 << ((a >> 14) & 15)) != (width, height)
+                or (a & 15, (a >> 10) & 15) != (level, level)
+                or stride < row_bytes or start < previous_end
+                or start + stride * height > min(loaded, 2048, len(payload) - palette_size)):
+            return None, 'character-rgb-mipmap-layout-unresolved'
+        previous_end = start + stride * height
+    texture, status = character_runtime_preview_texture(run, payload)
+    return texture, 'runtime-composed-character-rgb-trilinear-base' if texture else status
+
+
+def zero_alpha_texture_is_invisible(run: ModelMaterialRun) -> bool:
+    """Prove that an all-zero texture alpha cannot contribute visible colour.
+
+    The second-cycle blender must be IN*A_IN + MEM*(1-A_IN), with no
+    coverage-alpha replacement or depth write. Bit layouts are defined by
+    GBL_c2 and the render-mode flags in libultra's PR/gbi.h.
+    """
+    combine, other = decode_combine_mode(run.combine_mode), decode_other_mode(run.other_mode)
+    if (combine is None or other is None or run.other_mode_partial is not None
+            or other['cycle_type'] != 'two-cycle'
+            or [cycle['alpha'] for cycle in combine['cycles']] != [
+                ['TEXEL0', 'ZERO', 'SHADE', 'ZERO'],
+                ['COMBINED', 'ZERO', 'ENVIRONMENT', 'ZERO']]):
+        return False
+    low = run.other_mode[1]
+    return (low & 0x33330000 == 0x00100000  # GBL_c2(IN, A_IN, MEM, 1MA)
+            and low & 0x4040 == 0x4040      # FORCE_BL and IM_RD
+            and low & 0x3023 == 0)          # No coverage replacement, Z_UPD or alpha compare.
+
+
 def direct_rgba32_preview_texture(
     run: ModelMaterialRun, payload: bytes
 ) -> tuple[PreviewTexture | None, str]:
@@ -5101,8 +5408,7 @@ def direct_rgba32_preview_texture(
             or run.pixel is None or run.pixel.image_command != 0xFD180000
             or run.pixel.mode != 0 or run.pixel.flat_index is None):
         raise ValueError("material run is not a direct RGBA32 load")
-    other = decode_other_mode(run.other_mode)
-    if other is None or other["texture_lut"] != "none":
+    if known_other_mode_bits(run, 0, 3 << 14) != 0:
         return None, "direct-rgba32-lookup-mode-unresolved"
     combine = decode_combine_mode(run.combine_mode)
     inputs = set(combine["inputs"]) & {"TEXEL0", "TEXEL1"} if combine else set()
@@ -5139,6 +5445,101 @@ def direct_rgba32_preview_texture(
         pixel_byte_offset=0), "runtime-composed-direct-rgba32-texture"
 
 
+def direct_rgba16_mipmap_preview_texture(
+    run: ModelMaterialRun, payload: bytes
+) -> tuple[PreviewTexture | None, str]:
+    """Validate a direct RGBA16 mip chain and export its LOD-zero base."""
+    label = "direct-rgba16-mipmap"
+    state, other = texture_coordinate_state(run), decode_other_mode(run.other_mode)
+    combine = decode_combine_mode(run.combine_mode)
+    if (state is None or (state["format"], state["size"]) != (0, 2)
+            or combine is None or combine["cycles"] != [
+                {"color": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"],
+                 "alpha": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"]},
+                {"color": ["COMBINED", "ENVIRONMENT", "SHADE", "PRIMITIVE"],
+                 "alpha": ["COMBINED", "ZERO", "SHADE", "ZERO"]}]):
+        return None, f"{label}-combiner-unresolved"
+    if (other is None or run.other_mode_partial is not None
+            or (other["texture_lut"], other["texture_lod"], other["texture_detail"], other["cycle_type"])
+            != ("none", "lod", "clamp", "two-cycle")):
+        return None, f"{label}-other-mode-unresolved"
+    pixel = run.pixel
+    if (pixel is None or pixel.image_command != 0xFD100000 or pixel.mode != 0
+            or pixel.flat_index is None or pixel.load_command is None
+            or pixel.load_command[0] != 0xF3000000 or pixel.load_command[1] & 0xFFF
+            or run.texture_scale is None):
+        return None, f"{label}-load-unresolved"
+    tiles = {i: (c, a) for i, c, a in run.render_tiles}
+    base, last = (run.texture_scale[0] >> 8) & 7, (run.texture_scale[0] >> 11) & 7
+    load_tile = tiles.get((pixel.load_command[1] >> 24) & 7)
+    if (load_tile is None or load_tile[0] != 0xF5100000 or base != 0
+            or tiles.get(base) != run.render_tile or not 0 < last < 6):
+        return None, f"{label}-tiles-unresolved"
+    loaded = (((pixel.load_command[1] >> 12) & 0xFFF) + 1) * 2
+    if loaded > min(4096, len(payload)):
+        return None, f"{label}-payload-span-unresolved"
+    previous_end = 0
+    for level in range(last + 1):
+        tile = tiles.get(level)
+        if tile is None:
+            return None, f"{label}-tiles-unresolved"
+        command, argument = tile
+        width, height = max(1, state["width"] >> level), max(1, state["height"] >> level)
+        stride, start = ((command >> 9) & 0x1FF) * 8, (command & 0x1FF) * 8
+        if ((command >> 19) & 31 != 2
+                or (1 << ((argument >> 4) & 15), 1 << ((argument >> 14) & 15)) != (width, height)
+                or (argument & 15, (argument >> 10) & 15) != (level, level)
+                or stride < width * 2 or start < previous_end
+                or (level == 0 and (start != 0 or stride != width * 2))
+                or start + stride * height > loaded):
+            return None, f"{label}-layout-unresolved"
+        previous_end = start + stride * height
+    width, height = state["width"], state["height"]
+    png = encode_rgba16_texture_png(
+        payload[:width * height * 2], "tmem-odd-row-32bit-swap", width, height)
+    return PreviewTexture(family="us-direct-runtime-composed", source=None,
+        flat_index=pixel.flat_index, format=0, size=2, width=width, height=height,
+        sha1=hashlib.sha1(png).hexdigest(), png_data=png, pixel_byte_offset=0), \
+        "runtime-composed-direct-rgba16-trilinear-base"
+
+
+def direct_rgba16_preview_texture(
+    run: ModelMaterialRun, payload: bytes
+) -> tuple[PreviewTexture | None, str]:
+    """Recover a complete RGBA5551 image using the draw's native flat index."""
+    state = texture_coordinate_state(run)
+    if (state is None or (state["format"], state["size"]) != (0, 2)
+            or run.pixel is None or run.pixel.image_command != 0xFD100000
+            or run.pixel.mode != 0 or run.pixel.flat_index is None):
+        return None, "direct-rgba16-source-unresolved"
+    if known_other_mode_bits(run, 0, 3 << 14) != 0:
+        return None, "direct-rgba16-lookup-mode-unresolved"
+    combine = decode_combine_mode(run.combine_mode)
+    if combine and {"TEXEL0", "TEXEL1"}.issubset(combine["inputs"]):
+        return direct_rgba16_mipmap_preview_texture(run, payload)
+    if not combine or set(combine["inputs"]) & {"TEXEL0", "TEXEL1"} != {"TEXEL0"}:
+        return None, "direct-rgba16-combiner-inputs-unresolved"
+    load = run.pixel.load_command
+    if load is None or load[0] != 0xF3000000 or load[1] & 0xFFF:
+        return None, "direct-rgba16-load-row-conversion-unresolved"
+    tiles = {index: command for index, command, _ in run.render_tiles}
+    if tiles.get((load[1] >> 24) & 7) != 0xF5100000:
+        return None, "direct-rgba16-load-tile-unresolved"
+    width, height = state["width"], state["height"]
+    command, _ = run.render_tile
+    if command & 0x1FF or width % 4 or ((command >> 9) & 0x1FF) * 8 != width * 2:
+        return None, "direct-rgba16-row-stride-unresolved"
+    size_bytes = width * height * 2
+    loaded_bytes = (((load[1] >> 12) & 0xFFF) + 1) * 2
+    if not size_bytes == loaded_bytes == len(payload) or size_bytes > 4096:
+        return None, "direct-rgba16-full-payload-unresolved"
+    png_data = encode_rgba16_texture_png(payload, "tmem-odd-row-32bit-swap", width, height)
+    return PreviewTexture(family="us-direct-runtime-composed", source=None,
+        flat_index=run.pixel.flat_index, format=0, size=2, width=width, height=height,
+        sha1=hashlib.sha1(png_data).hexdigest(), png_data=png_data,
+        pixel_byte_offset=0), "runtime-composed-direct-rgba16-texture"
+
+
 def direct_intensity_preview_texture(
     run: ModelMaterialRun, payload: bytes
 ) -> tuple[PreviewTexture | None, str]:
@@ -5150,7 +5551,7 @@ def direct_intensity_preview_texture(
     """
 
     state = texture_coordinate_state(run)
-    formats = {(3, 1): "ia8", (3, 2): "ia16", (4, 0): "i4", (4, 1): "i8"}
+    formats = {(3, 0): "ia4", (3, 1): "ia8", (3, 2): "ia16", (4, 0): "i4", (4, 1): "i8"}
     name = formats.get((state["format"], state["size"])) if state else None
     if name is None:
         raise ValueError("material run is not a supported intensity render tile")
@@ -5162,6 +5563,13 @@ def direct_intensity_preview_texture(
     other = decode_other_mode(run.other_mode)
     if other is None or other["texture_lut"] != "none":
         return None, f"{label}-lookup-mode-unresolved"
+    if (is_character_trilinear_base(run) or is_direct_ia4_trilinear_base(run)
+            or is_direct_ia8_shade_mipmap_base(run)):
+        # Explicit OtherMode draws need the same complete mip-chain checks
+        # as segment-8 consensus draws. Export only the proven LOD-zero base.
+        texture, status = character_intensity_mipmap_preview_texture(run, payload)
+        if texture is not None:
+            return texture, status
     combine = decode_combine_mode(run.combine_mode)
     inputs = set(combine["inputs"]) & {"TEXEL0", "TEXEL1"} if combine else set()
     if inputs != {"TEXEL0"}:
@@ -5170,11 +5578,25 @@ def direct_intensity_preview_texture(
         return None, f"{label}-cycle-mode-unresolved"
     # IA stores separate alpha, while I repeats intensity into alpha. Binding
     # either to a transparent glTF material requires its actual alpha formula.
-    if other["gltf_alpha_mode"] != "OPAQUE" and not (
+    texture_alpha_product = (
         other["cycle_type"] == "one-cycle"
         and all(cycle["alpha"] == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
                 for cycle in combine["cycles"])
-    ):
+    ) or (
+        other["cycle_type"] == "two-cycle"
+        and combine["cycles"][0]["alpha"] == ["TEXEL0", "ZERO", "SHADE", "ZERO"]
+        and combine["cycles"][1]["alpha"] == ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]
+    )
+    # The second form retains texture alpha through COMBINED, then scales it
+    # by environment alpha. Export its IA/I alpha unchanged; the unknown
+    # runtime environment factor remains outside the static preview.
+    shade_alpha = (name in ("i4", "i8") and run.other_mode_partial is None
+                   and other["gltf_alpha_mode"] != "OPAQUE"
+                   and other["cycle_type"] == "one-cycle"
+                   and other["texture_lod"] == "tile"
+                   and all(cycle["alpha"] == ["ZERO", "ZERO", "ZERO", "SHADE"]
+                           for cycle in combine["cycles"]))
+    if other["gltf_alpha_mode"] != "OPAQUE" and not (texture_alpha_product or shade_alpha):
         return None, f"{label}-alpha-expression-unresolved"
     load = run.pixel.load_command
     if load is None or load[0] != 0xF3000000 or load[1] & 0xFFF:
@@ -5183,24 +5605,49 @@ def direct_intensity_preview_texture(
     load_tile = tiles.get((load[1] >> 24) & 7)
     if load_tile is None or load_tile & 0x1FF:
         return None, f"{label}-load-tmem-origin-unresolved"
-    if (load_tile >> 19) & 31 != (image_command >> 19) & 31:
+    # Character lists also use the ordinary RGBA16 transfer tile for IA/I
+    # bytes. Both are 16-bit LoadBlock transfers; the selected render tile
+    # supplies the final format. Zero DXT and TMEM origin are required above.
+    # Admit that path only for a supported alpha expression. An explicit
+    # one-cycle shade-only draw receives an opaque RGB intensity texture;
+    # inherited character modes remain covered by their separate decoder.
+    load_format = (load_tile >> 19) & 31
+    if load_format != (image_command >> 19) & 31 and not (
+        load_format == 2 and (texture_alpha_product or shade_alpha)
+    ):
         return None, f"{label}-load-format-unresolved"
     width, height = state["width"], state["height"]
-    if name == "i4" and width % 2:
+    if name in ("i4", "ia4") and width % 2:
         return None, f"{label}-row-stride-unresolved"
     row_bytes = packed_row_size(name, width)
     command, _ = run.render_tile
-    if command & 0x1FF or row_bytes % 8 or ((command >> 9) & 0x1FF) * 8 != row_bytes:
+    row_stride = ((command >> 9) & 0x1FF) * 8
+    if command & 0x1FF or row_stride < row_bytes:
         return None, f"{label}-row-stride-unresolved"
-    size_bytes = row_bytes * height
+    # SetTileSize can expose fewer texels than a complete TMEM row. The
+    # line field still advances by whole eight-byte words. Swap each stored
+    # row before cropping its visible columns, including on the final row.
+    size_bytes = row_stride * height
     loaded_bytes = (((load[1] >> 12) & 0xFFF) + 1) * 2
     if not size_bytes <= loaded_bytes <= 4096:
         return None, f"{label}-tmem-span-unresolved"
     if loaded_bytes > len(payload):
         return None, f"{label}-payload-span-unresolved"
-    png_data = encode_native_texture_png(
-        payload[:size_bytes], name, "tmem-odd-row-32bit-swap", width, height
-    )
+    rows = []
+    for y in range(height):
+        row = payload[y * row_stride:(y + 1) * row_stride]
+        rows.append(bytes(row[x ^ (4 if y & 1 else 0)] for x in range(row_bytes)))
+    if shade_alpha:
+        # The draw takes alpha solely from SHADE, so intensity is colour only.
+        # Preserve the independent vertex alpha without multiplying it by I.
+        intensities = ([(v >> shift & 15) * 17 for row in reversed(rows) for v in row
+                        for shift in (4, 0)] if name == "i4"
+                       else [v for row in reversed(rows) for v in row])
+        png_data = encode_rgba_png(width, height,
+            b"".join(bytes((v, v, v, 255)) for v in intensities))
+        label += "-shade-alpha"
+    else:
+        png_data = encode_native_texture_png(b"".join(rows), name, "linear", width, height)
     return PreviewTexture(
         family="us-direct-runtime-composed", source=None,
         flat_index=run.pixel.flat_index, format=state["format"], size=state["size"],
@@ -5229,6 +5676,14 @@ def choose_preview_texture(
     state = texture_coordinate_state(run)
     if state is None:
         raise ValueError("textured material run has no coordinate state")
+    if ((state["format"], state["size"]) == (3, 0)
+            and run.pixel.image_command == 0xFD500000
+            and run.other_mode is not None
+            and decode_other_mode(run.other_mode)["texture_detail"] == "detail"):
+        payload = (flat_payloads or {}).get(run.pixel.flat_index)
+        if payload is None:
+            return None, "direct-detail-indexed-flat-payload-missing"
+        return direct_detail_indexed_preview_texture(run, payload)
     if state["format_evidence"] == "character-same-index-tlut-load":
         combine = decode_combine_mode(run.combine_mode)
         if combine is not None:
@@ -5238,7 +5693,7 @@ def choose_preview_texture(
             if texture_inputs == {"TEXEL0", "TEXEL1"}:
                 if not any(tile_index == 1 for tile_index, _, _ in run.render_tiles):
                     return None, "character-indexed-mipmap-state-unresolved"
-                if not is_character_trilinear_base(run):
+                if not (is_character_trilinear_base(run) or is_character_rgb_trilinear_base(run)):
                     return None, "character-indexed-mipmap-combiner-unresolved"
             elif texture_inputs != {"TEXEL0"}:
                 # Colour-only runs depend on dynamic primitive/environment
@@ -5249,6 +5704,8 @@ def choose_preview_texture(
         payload = flat_payloads.get(run.pixel.flat_index)
         if payload is None:
             return None, "character-indexed-flat-payload-missing"
+        if is_character_rgb_trilinear_base(run):
+            return character_rgb_mipmap_preview_texture(run, payload)
         texture, status = character_runtime_preview_texture(run, payload)
         if texture is not None and is_character_trilinear_base(run):
             status = "runtime-composed-character-trilinear-base"
@@ -5283,7 +5740,9 @@ def choose_preview_texture(
         if payload is None:
             return None, "direct-rgba32-flat-payload-missing"
         return direct_rgba32_preview_texture(run, payload)
-    if (state["format"], state["size"]) in ((3, 1), (3, 2), (4, 0), (4, 1)):
+    if ((state["format"], state["size"]) in ((3, 1), (3, 2), (4, 0), (4, 1))
+            or ((state["format"], state["size"]) == (3, 0)
+                and run.pixel.image_command == 0xFD700000)):
         payload = flat_payloads.get(run.pixel.flat_index) if flat_payloads is not None else None
         if payload is None:
             return None, "direct-intensity-flat-payload-missing"
@@ -5292,6 +5751,10 @@ def choose_preview_texture(
         (run.pixel.flat_index, state["format"], state["size"]), ()
     )
     if not candidates:
+        if (state["format"], state["size"]) == (0, 2) and flat_payloads is not None:
+            payload = flat_payloads.get(run.pixel.flat_index)
+            if payload is not None:
+                return direct_rgba16_preview_texture(run, payload)
         return None, "no-proven-texture"
     material_candidates = tuple(
         texture for texture in candidates if texture.family != "us-native-proven"
@@ -5314,6 +5777,135 @@ def choose_preview_texture(
             str(texture.source),
         ),
     ), "proven-texture"
+
+
+def detail_texture_preview_record(run: ModelMaterialRun) -> dict:
+    tile, bounds, dimensions = run.preview_coordinate_state
+    return {
+        "source": "ROM-display-list-and-flat-payload",
+        "scope": "detail-mode non-magnified first mip at LOD fraction zero",
+        "declared_base_tile": (run.texture_scale[0] >> 8) & 7,
+        "preview_tile": ((run.texture_scale[0] >> 8) & 7) + 1,
+        "preview_render_tile": list(tile), "preview_tile_bounds": list(bounds),
+        "preview_dimensions": list(dimensions),
+        "source_tile_bounds": [list(row) for row in run.detail_tile_bounds],
+        "native_distance_blending": "unverified",
+    }
+
+
+def direct_detail_indexed_preview_texture(run: ModelMaterialRun, payload: bytes):
+    """Export the first ordinary mip of a fully bounded ROM detail texture.
+
+    In RDP detail mode, non-magnified LOD zero selects base+1/base+2.
+    At zero LOD fraction the proven lerp selects base+1, including that tile's
+    own UV shift and origin. Keep the declared detail tile as source state.
+    """
+    def reject(reason):
+        return None, "direct-detail-indexed-" + reason + "-unresolved"
+    other, combine = decode_other_mode(run.other_mode), decode_combine_mode(run.combine_mode)
+    expected = [
+        {"color": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"],
+         "alpha": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"]},
+        {"color": ["COMBINED", "ENVIRONMENT", "SHADE", "PRIMITIVE"],
+         "alpha": ["COMBINED", "ZERO", "SHADE", "ZERO"]},
+    ]
+    if (not run.texture_enabled or not run.texture_coordinates_proven
+            or run.texture_scale is None or run.other_mode_partial is not None
+            or other is None or combine is None or combine["cycles"][0] != expected[0]
+            or combine["cycles"][1] not in (expected[1], {
+                "color": ["COMBINED", "ZERO", "SHADE", "ZERO"],
+                "alpha": ["COMBINED", "ZERO", "SHADE", "ZERO"],
+            })
+            or (other["texture_lut"], other["texture_lod"], other["texture_detail"], other["cycle_type"])
+            != ("rgba16", "lod", "detail", "two-cycle")):
+        return reject("mode")
+    pixel, palette = run.pixel, run.palette
+    if (pixel is None or palette is None or pixel.flat_index is None
+            or pixel.flat_index != palette.flat_index or pixel.mode != 0
+            or pixel.image_command != 0xFD500000 or palette.image_command != 0xFD100000
+            or palette.mode not in (1, 2) or pixel.load_command is None
+            or palette.load_command is None):
+        return reject("binding")
+    pc, pa = pixel.load_command
+    tc, ta = palette.load_command
+    entries = 256 if palette.mode == 1 else 16
+    tiles = {i: (c, a) for i, c, a in run.render_tiles}
+    bounds = {i: (c, a) for i, c, a in run.detail_tile_bounds}
+    load, tlut = tiles.get((pa >> 24) & 7), tiles.get((ta >> 24) & 7)
+    if (pc != 0xF3000000 or pa & 0xFFF or tc != 0xF0000000
+            or ((ta >> 14) & 0x3FF) + 1 != entries or load is None
+            or load[0] != 0xF5500000 or tlut is None or tlut[0] != 0xF5600100):
+        return reject("load")
+    declared = (run.texture_scale[0] >> 8) & 7
+    maximum = (run.texture_scale[0] >> 11) & 7
+    first = declared + 1
+    loaded = (((pa >> 12) & 0xFFF) + 1) * 2
+    palette_start = len(payload) - entries * 2
+    if (not maximum or first + maximum >= 6 or palette_start < 0
+            or loaded > min(len(payload), 4096) or tiles.get(declared) != run.render_tile
+            or declared not in bounds or bounds.get(declared) != run.tile_bounds):
+        return reject("span")
+    detail, base = tiles.get(declared), tiles.get(first)
+    if detail is None or base is None or first not in bounds:
+        return reject("tiles")
+    base_run = replace(run, render_tile=base, tile_bounds=bounds[first], texture_dimensions=None)
+    try:
+        state = texture_coordinate_state(base_run)
+    except ValueError:
+        return reject("coordinates")
+    size = state["size"]
+    if state["format"] != 2 or size != 2 - palette.mode or (size == 0 and state["width"] & 1):
+        return reject("format")
+    previous_end = 0
+    for level in range(maximum + 1):
+        tile, bound = tiles.get(first + level), bounds.get(first + level)
+        if tile is None or bound is None:
+            return reject("tiles")
+        c, a = tile
+        w, h = max(1, state["width"] >> level), max(1, state["height"] >> level)
+        stride, start = ((c >> 9) & 0x1FF) * 8, (c & 0x1FF) * 8
+        if (((c >> 21) & 7, (c >> 19) & 3) != (2, size)
+                or (1 << ((a >> 4) & 15), 1 << ((a >> 14) & 15)) != (w, h)
+                or (a & 15, (a >> 10) & 15) != (level, level)
+                or a & ((3 << 8) | (3 << 18) | (15 << 20))
+                or stride < (w * (4 << size) + 7) // 8 or start < previous_end
+                or start + stride * h > min(loaded, palette_start, 2048)):
+            return reject("mip-layout")
+        try:
+            level_state = texture_coordinate_state(replace(base_run, render_tile=tile, tile_bounds=bound))
+        except ValueError:
+            return reject("coordinates")
+        # Some authored chains add a half-texel (two quarter units) at
+        # every level. Scale the integer origin while retaining that bias.
+        origins = (state["uls"], state["ult"])
+        biases = tuple(origin & 3 for origin in origins)
+        if ((level_state["width"], level_state["height"]) != (w, h)
+                or any(bias not in (0, 2) for bias in biases)
+                or (level_state["uls"], level_state["ult"]) != tuple(
+                    ((origin - bias) >> level) + bias for origin, bias in zip(origins, biases))):
+            return reject("coordinates")
+        previous_end = start + stride * h
+    c, a = detail
+    detail_state = texture_coordinate_state(run)
+    dw, dh = detail_state["width"], detail_state["height"]
+    stride, start = ((c >> 9) & 0x1FF) * 8, (c & 0x1FF) * 8
+    if (((c >> 21) & 7, (c >> 19) & 3) != (3, 0)
+            or dw & 1 or (a & 15, (a >> 10) & 15) != (15, 15)
+            or (1 << ((a >> 4) & 15), 1 << ((a >> 14) & 15)) != (dw, dh)
+            or a & ((3 << 8) | (3 << 18) | (15 << 20)) or stride < dw // 2
+            or start < previous_end or start + stride * dh > min(loaded, palette_start, 2048)):
+        return reject("detail-layout")
+    width, height = state["width"], state["height"]
+    row_bytes = (width * (4 << size) + 7) // 8
+    stride, start = ((base[0] >> 9) & 0x1FF) * 8, (base[0] & 0x1FF) * 8
+    rows = [bytes(payload[start + y * stride + (x ^ (4 if y & 1 else 0))]
+                  for x in range(row_bytes)) for y in range(height)]
+    encoder = encode_ci8_png if size else encode_indexed_png
+    png = encoder(b"".join(rows) + payload[palette_start:], "linear", width, height)
+    coordinates = (base, bounds[first], (width, height))
+    return PreviewTexture("us-direct-detail-indexed-base", None, pixel.flat_index, 2, size,
+                          width, height, hashlib.sha1(png).hexdigest(), png, start,
+                          palette_start, coordinates), "direct-detail-indexed-base"
 
 
 def preview_texture_filename(texture: PreviewTexture) -> str:
@@ -5714,19 +6306,38 @@ def load_model_bundles(
             f"US indexed asset bank {bank_index:02X} is not an ordinary indexed bank"
         )
 
+    entries = parse_asset_entries(normalized, bank)
+    payloads = {}
+    for entry in entries:
+        raw = normalized[entry.start:entry.end]
+        payloads[entry.index] = decode_rzip_chunk(raw).data if entry.compressed else raw
+    if layout.get("game_format") != "rzip":
+        raise ValueError("US runtime render-state evidence requires the RZIP game archive")
+    game = parse_game_archive(normalized[layout["game_start"]:layout["game_end"]])
+    effect_sources = {}
+    if bank_index == 0x09:
+        verify_direct_model_consumers(game.code, int(layout['game_vram']))
+        types = verify_effect_consumers(game.code, int(layout['game_vram']),
+                                        game.data, int(layout['game_data_vram']))
+        effect_sources = resolve_effect_sources(payloads, types)
     bundles = []
-    for entry in parse_asset_entries(normalized, bank):
-        raw = normalized[entry.start : entry.end]
-        data = decode_rzip_chunk(raw).data if entry.compressed else raw
+    for entry in entries:
+        data = payloads[entry.index]
+        effect_source = effect_sources.get(entry.index)
+        if bank_index == 9 and is_effect_model(data) and effect_source is None:
+            raise ValueError(f"bank-09 entry {entry.index} lacks a verified effect consumer")
         if bank_index == 0x04:
             segments = parse_model_bundle(data)
         else:
-            # Bank 09 includes three-pair attachment containers and a direct
-            # model subset. Other runtime list formats remain unclassified.
+            # Bank 09 has attachment, effect, and direct models. Remaining
+            # point-record assets are not silently promoted to meshes.
             try:
-                parse_geometry_for_bank(data, bank_index)
+                if effect_source is not None:
+                    parse_effect_model(data, parse_model_geometry, effect_source)
+                else:
+                    parse_geometry_for_bank(data, bank_index)
             except ValueError as error:
-                if bank_index == 0x09 and not is_attachment_model(data):
+                if bank_index == 0x09 and not (is_attachment_model(data) or is_effect_model(data)):
                     continue
                 raise ValueError(
                     f"bank-{bank_index:02X} entry {entry.index}: {error}"
@@ -5738,6 +6349,7 @@ def load_model_bundles(
                     size=len(data),
                     final_flag=True,
                     data=data,
+                    effect_source=effect_source,
                 ),
             )
         bundles.append(
@@ -5751,13 +6363,42 @@ def load_model_bundles(
         )
     if not bundles:
         raise ValueError(f"US indexed asset bank {bank_index:02X} contains no models")
-    if layout.get("game_format") != "rzip":
-        raise ValueError("US runtime render-state evidence requires the RZIP game archive")
-    game = parse_game_archive(normalized[layout["game_start"] : layout["game_end"]])
     render_state_tables = parse_runtime_render_state_tables(
         game.data, int(layout["game_data_vram"])
     )
     return rom_path, source_order, digest, bundles, render_state_tables
+
+
+def load_character_morph_manifest(profile: str, rom_argument: Path | None,
+                                  bundles: list[ModelBundle] | None = None) -> dict:
+    rom_path, layout = resolve_rom(profile, rom_argument)
+    rom, _ = normalize_rom(rom_path.read_bytes())
+    if profile != "us" or hashlib.sha1(rom).hexdigest() not in layout["normalized_sha1"]:
+        raise ValueError("character morphs require the checksum-validated US ROM")
+    if bundles is None:
+        _, _, _, bundles, _ = load_model_bundles(profile, rom_argument, 1)
+    models = {bundle.index: (bundle.data, parse_character_model_geometry(bundle.data)[0])
+              for bundle in bundles if bundle.index in (0, 58)}
+    return model_morphs.load_manifest(rom, layout, models)
+
+
+def load_emission_point_manifest(profile: str, rom_argument: Path | None) -> dict:
+    rom_path, layout = resolve_rom(profile, rom_argument)
+    rom, _ = normalize_rom(rom_path.read_bytes())
+    digest = hashlib.sha1(rom).hexdigest()
+    if profile != 'us' or digest not in layout['normalized_sha1']:
+        raise ValueError('emission points require the checksum-validated US ROM')
+    game = parse_game_archive(rom[layout['game_start']:layout['game_end']])
+    bank = next(bank for bank in parse_asset_banks(rom, layout['asset_table']) if bank.index == 9)
+    if bank.flags:
+        raise ValueError('emission-point bank has unsupported flags')
+    payloads = {}
+    for entry in parse_asset_entries(rom, bank):
+        if entry.index in model_emission_points.ENTRIES:
+            raw = rom[entry.start:entry.end]
+            payloads[entry.index] = decode_rzip_chunk(raw).data if entry.compressed else raw
+    return model_emission_points.make_manifest(payloads, game.code, layout['game_vram'],
+                                               game.data, layout['game_data_vram'], digest)
 
 
 def load_object_placement_manifest(
@@ -6894,7 +7535,7 @@ def make_manifest(
                 "model_status": "empty" if not segment.data else "geometry-proven",
             }
             if segment.data:
-                geometry = parse_geometry_for_bank(segment.data, bank_index)
+                geometry = parse_segment_geometry(segment, bank_index)
                 geometry_record = {
                     "vertex_count": len(geometry.vertices),
                     "face_count": len(geometry.faces),
@@ -6957,6 +7598,19 @@ def make_manifest(
                         if section["file"] is not None:
                             section["file"] = section["file"].format(entry=bundle.index) if include_files else None
                     geometry_record["attachment_layout"] = attachment_layout
+                elif segment.effect_source is not None:
+                    _, effect_layout = parse_effect_model(segment.data, parse_model_geometry, segment.effect_source)
+                    for section in effect_layout["sections"]:
+                        if section["file"] is not None:
+                            section["file"] = section["file"].format(entry=bundle.index) if include_files else None
+                    geometry_record["effect_layout"] = effect_layout
+                elif bank_index == 0x09:
+                    geometry_record['vertex_addressing'] = {
+                        'unsegmented': 'model-relative-including-0x28-header',
+                        'segment_01': 'vertex-array-relative',
+                        'loader': 'func_1518C900', 'relocator': 'func_15168E34',
+                        'relocation_dispatch': 'func_15168E54',
+                    }
                 for name, region in (
                     ("secondary_region", geometry.secondary_region),
                     ("tertiary_region", geometry.tertiary_region),
@@ -7097,6 +7751,7 @@ def make_manifest(
                         "combine_mode": command_pair_record(run.combine_mode),
                         "combine_formula": decode_combine_mode(run.combine_mode),
                         "other_mode": command_pair_record(run.other_mode),
+                        **({"other_mode_partial": list(run.other_mode_partial)} if run.other_mode_partial is not None else {}),
                         "runtime_render_state_offset": (
                             f"0x{run.runtime_render_state_offset:X}"
                             if run.runtime_render_state_offset is not None
@@ -7226,6 +7881,10 @@ def make_manifest(
         ),
         "attachment_model_count": sum(
             "attachment_layout" in segment.get("geometry", {})
+            for record in records for segment in record["segments"]
+        ),
+        "effect_model_count": sum(
+            "effect_layout" in segment.get("geometry", {})
             for record in records for segment in record["segments"]
         ),
         "jointed_attachment_model_count": sum(
@@ -7408,7 +8067,7 @@ def make_manifest(
                     ],
                     "bank_path": [9, "runtime-index"],
                     "payload_shape": "display-list-pointer-table",
-                    "selected_subset": "three-pair-attachment-and-direct-model-header-compatible",
+                    "selected_subset": "three-pair-attachment-four-pair-effect-and-direct-models",
                     "attachment_renderer": "func_150311C4",
                     "attachment_pose_builder": "func_150A81D0",
                 }
@@ -7694,7 +8353,7 @@ def extract_models(
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(segment.data)
             if segment.data:
-                geometry = parse_geometry_for_bank(segment.data, bank_index)
+                geometry = parse_segment_geometry(segment, bank_index)
                 obj_path = output / f"geometry/{bundle.index:04d}-{segment.index:02d}.obj"
                 obj_path.parent.mkdir(parents=True, exist_ok=True)
                 obj_path.write_bytes(
@@ -7729,6 +8388,14 @@ def extract_models(
                         region_path.parent.mkdir(parents=True, exist_ok=True)
                         offset = section["offset"]
                         region_path.write_bytes(segment.data[offset:offset + section["size"]])
+                if segment.effect_source is not None:
+                    _, effect_layout = parse_effect_model(segment.data, parse_model_geometry, segment.effect_source)
+                    for section in effect_layout["sections"]:
+                        if section["size"]:
+                            region_path = output / section["file"].format(entry=bundle.index)
+                            region_path.parent.mkdir(parents=True, exist_ok=True)
+                            offset = section["offset"]
+                            region_path.write_bytes(segment.data[offset:offset + section["size"]])
                 for name, region in (
                     ("secondary", geometry.secondary_region),
                     ("tertiary", geometry.tertiary_region),
@@ -7773,6 +8440,19 @@ def extract_models(
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_bytes(data)
         manifest["character_animations"] = animations
+        morphs = load_character_morph_manifest(profile, rom_argument, bundles)
+        (output / "character-morphs.json").write_text(json.dumps(morphs, indent=2) + "\n")
+        manifest["character_morphs"] = {key: value for key, value in morphs.items() if key != "models"}
+        manifest["character_morphs"]["file"] = "character-morphs.json"
+        expressions = load_character_expression_manifest(profile, rom_argument, digest)
+        (output / 'character-expressions.json').write_text(json.dumps(expressions, indent=2) + '\n')
+        manifest['character_expressions'] = {key: value for key, value in expressions.items() if key != 'models'}
+        manifest['character_expressions']['file'] = 'character-expressions.json'
+    elif bank_index == 0x09:
+        points = load_emission_point_manifest(profile, rom_argument)
+        (output / "emission-points.json").write_text(json.dumps(points, indent=2) + "\n")
+        manifest["emission_points"] = {key: value for key, value in points.items() if key != "records"}
+        manifest["emission_points"]["file"] = "emission-points.json"
     (output / "manifest.json").write_text(
         json.dumps(manifest, indent=2) + "\n", encoding="utf-8"
     )
@@ -8305,7 +8985,7 @@ def runtime_material_inventory(
             for segment in bundle.segments:
                 if not segment.data:
                     continue
-                geometry = parse_geometry_for_bank(segment.data, bank_index)
+                geometry = parse_segment_geometry(segment, bank_index)
                 model_sha1 = hashlib.sha1(segment.data).hexdigest()
                 for run_index, run in enumerate(geometry.material_runs):
                     inventory[(bank_index, bundle.index, segment.index, run_index)] = {
@@ -8352,7 +9032,7 @@ def runtime_captured_preview_texture(
         state = texture_coordinate_state(run)
     except ValueError:
         return None
-    if state is None or state["size"] not in (0, 1, 3):
+    if state is None or state["size"] not in (0, 1, 2, 3):
         return None
     render_tile_command, render_tile_argument = run.render_tile
     other = decode_other_mode(material_state.get("other_mode"))
@@ -8400,7 +9080,7 @@ def runtime_captured_preview_texture(
         # SetTileSize's origin can scroll fractionally or wrap through 0xFFF.
         # Admit only a complete mask image fitting the lower 2 KiB of TMEM.
         if (
-            state["size"] in (0, 1)
+            state["size"] in (0, 1, 2)
             and run.pixel.load_command[0] >> 24 == 0xF3 and not clamps
             and mask_s and mask_t
             and (1 << (mask_s + mask_t)) * (4 << state["size"]) <= 2048 * 8
@@ -8421,6 +9101,8 @@ def runtime_captured_preview_texture(
         format_id = (tile_command >> 21) & 7
         if size == 3 and format_id == 0 and other["texture_lut"] == "none":
             return "rgba32"
+        if size == 2 and format_id == 3 and other["texture_lut"] == "none":
+            return "ia16"
         if size not in (0, 1):
             return None
         if other["texture_lut"] == "rgba16" and format_id in (0, 2, 3, 4):
@@ -8433,6 +9115,8 @@ def runtime_captured_preview_texture(
             return "i4" if size == 0 else "i8"
         if format_id == 3 and size == 1:
             return "ia8"
+        if format_id == 3 and size == 0:
+            return "ia4"
         return None
 
     format_name = effective_format(render_tile_command)
@@ -8485,7 +9169,17 @@ def runtime_captured_preview_texture(
                     "png_data": png_data}
         if level_size == 0 and level_width & 1:
             return None
-        row_size = (level_width + 1) // 2 if level_size == 0 else level_width
+        if level_size == 2 or effective_format(tile_command) == "ia4":
+            load = run.pixel.load_command if run.pixel is not None else None
+            if (effective_format(tile_command) not in ("ia4", "ia16") or level != 0
+                    or source_byte_offset or load_tmem or tile_command & 0x1FF
+                    or pixel_image.get("command") != 0xFD700000
+                    or load is None or load[0] != 0xF3000000 or load[1] & 0xFFF
+                    or len(pixel_data) > 4096
+                    or (((load[1] >> 12) & 0xFFF) + 1) * 2 != len(pixel_data)):
+                return None
+        row_size = ((level_width + 1) // 2 if level_size == 0
+                    else level_width * 2 if level_size == 2 else level_width)
         row_stride = ((tile_command >> 9) & 0x1FF) * 8 or row_size
         if row_stride < row_size or source_byte_offset < 0:
             return None
@@ -8509,7 +9203,7 @@ def runtime_captured_preview_texture(
         level_format_name = effective_format(tile_command)
         if level_format_name is None:
             return None
-        if level_format_name in ("i4", "i8", "ia8"):
+        if level_format_name in ("i4", "i8", "ia4", "ia8", "ia16"):
             png_data = encode_native_texture_png(
                 pixels, level_format_name, "linear", level_width, level_height
             )
@@ -9221,6 +9915,28 @@ def character_render_pass(caller_return_address: int | None, draw_mode: int) -> 
     return {"kind": "caller-managed-target", "evidence": "not-classified-as-render-to-texture"}
 
 
+def submitted_character_cluster_map(returned: dict, submitted: dict, scoped_draws: list) -> dict | None:
+    """Join complete ordered clusters inside an already byte-verified call range."""
+    indices = list(dict.fromkeys(draw.get('runtime_cluster_index') for draw in scoped_draws))
+    source = returned.get('model_correlations', [])
+    if None in indices or not source or len(indices) != len(source):
+        return None
+    target = {row['runtime_cluster_index']: row for row in submitted.get('model_correlations', [])}
+    if len(target) != len(submitted.get('model_correlations', [])):
+        return None
+    mapping = {}
+    for old, index in zip(source, indices):
+        new = target.get(index)
+        count = sum(draw['triangle_count'] for draw in scoped_draws if draw['runtime_cluster_index'] == index)
+        if (new is None or old.get('signature') is None or new.get('signature') != old['signature']
+                or old['triangle_count'] != count or new['triangle_count'] != count
+                or str(old['runtime_cluster_index']) in mapping):
+            return None
+        # This mapping is also embedded in the JSON activity manifest.
+        mapping[str(old['runtime_cluster_index'])] = index
+    return mapping
+
+
 def link_character_graphics_submission(
     events: list[dict[str, Any]], draw_call: dict[str, Any]
 ) -> dict[str, Any] | None:
@@ -9316,6 +10032,7 @@ def link_character_graphics_submission(
             "command_buffer_end": end, "command_sha256": roots[0]["sha256"],
             "triangle_count": sum(draw["triangle_count"] for draw in scoped_draws),
             "matrices_changed_after_return": sorted(changed_slots),
+            "cluster_correspondence": submitted_character_cluster_map(return_rdp, rdp, scoped_draws),
             "runtime_matrices": matrices}
 
 
@@ -11502,7 +12219,7 @@ def selected_part_material_candidates(
     trace: dict[str, Any],
     inventory: dict[tuple[int, int, int, int], dict[str, Any]],
 ) -> dict[int, dict[int, dict[str, Any]]]:
-    """Join validated renderer part sequences to exact return-event clusters."""
+    """Join validated part sequences to returns and byte-verified submissions."""
 
     result = {}
     for call in trace.get("draw_calls", []):
@@ -11537,6 +12254,28 @@ def selected_part_material_candidates(
         if call["return_event_index"] in result:
             raise ValueError("selected part renderer return identity is duplicated")
         result[call["return_event_index"]] = selected
+        submission = call.get('submitted_graphics', {})
+        mapping = submission.get('cluster_correspondence')
+        if mapping is None:
+            continue
+        normalized_mapping = {int(index): value for index, value in mapping.items()}
+        if len(normalized_mapping) != len(mapping):
+            raise ValueError('selected part submission cluster mapping repeats an index')
+        mapping = normalized_mapping
+        if (submission.get('status') != 'captured-range-executed-once-in-next-graphics-task'
+                or set(mapping) != set(selected) or len(set(mapping.values())) != len(mapping)):
+            raise ValueError('selected part submission cluster mapping is incomplete or duplicated')
+        submitted = result.setdefault(submission['event_index'], {})
+        for old_index, new_index in mapping.items():
+            if new_index in submitted:
+                raise ValueError('selected part submitted cluster identity is duplicated')
+            record = selected[old_index]
+            submitted[new_index] = {'candidate': record['candidate'], 'evidence': {
+                **record['evidence'], 'submitted_event_index': submission['event_index'],
+                'submitted_command_buffer_start': submission['command_buffer_start'],
+                'submitted_command_buffer_end': submission['command_buffer_end'],
+                'submission_status': submission['status'],
+            }}
     return result
 
 
@@ -12230,9 +12969,13 @@ def load_runtime_material_catalog(
     appearance: tuple[int, int] | None = None,
     *,
     command_range: tuple[int, int] | None = None,
+    draw_indices: set[int] | None = None,
 ) -> dict[tuple[int, int, int, int], dict[str, Any]]:
     if path is None:
         return {}
+    if draw_indices is not None and (appearance is None or not draw_indices
+                                     or any(not isinstance(i, int) or i < 0 for i in draw_indices)):
+        raise ValueError("runtime draw selection requires an appearance and nonnegative indices")
     if command_range is not None and (appearance is None or len(command_range) != 2
                                      or not command_range[0] < command_range[1]
                                      or any(address & 7 for address in command_range)):
@@ -12270,6 +13013,7 @@ def load_runtime_material_catalog(
                     int(item.get("event_index", -1)),
                 )
                 == appearance
+                and (draw_indices is None or item.get("draw_run_index") in draw_indices)
                 and (command_range is None or any(
                     command_range[0] <= address < command_range[1]
                     for address in item.get("command_path", [])
@@ -12415,7 +13159,7 @@ def runtime_captured_texture_choice(
         raise ValueError("runtime captured texture PNG hash changed")
     format_id, size_id = {
         "ci4": (2, 0), "ci8": (2, 1), "i4": (4, 0),
-        "i8": (4, 1), "ia8": (3, 1), "rgba32": (0, 3),
+        "i8": (4, 1), "ia4": (3, 0), "ia8": (3, 1), "ia16": (3, 2), "rgba32": (0, 3),
     }[captured["format"]]
     return PreviewTexture(
         family="us-runtime-captured",
@@ -12493,6 +13237,476 @@ def copy_runtime_captured_auxiliary_textures(
     return copied_mips, copied_multitextures
 
 
+def character_intensity_shade_alpha_preview_texture(run, payload):
+    """Recover I8 colour when the complete combiner excludes texture alpha."""
+    state = texture_coordinate_state(run)
+    combine = decode_combine_mode(run.combine_mode)
+    other = decode_other_mode(run.other_mode)
+    formula = [
+        {'color': ['ZERO', 'ZERO', 'ZERO', 'TEXEL0'],
+         'alpha': ['ZERO', 'ZERO', 'ZERO', 'SHADE']},
+        {'color': ['SHADE', 'ENVIRONMENT', 'COMBINED', 'PRIMITIVE'],
+         'alpha': ['COMBINED', 'ZERO', 'ENVIRONMENT', 'ZERO']},
+    ]
+    if (state is None or (state['format'], state['size']) != (4, 1)
+            or combine is None or combine['cycles'] != formula):
+        return None, 'character-intensity-shade-alpha-combiner-unresolved'
+    if (other is None or other['texture_lut'] != 'none' or other['cycle_type'] != 'two-cycle'
+            or other['texture_lod'] != 'tile' or run.texture_scale is None
+            or (run.texture_scale[0] >> 11) & 7):
+        return None, 'character-intensity-shade-alpha-other-mode-unresolved'
+    pixel = run.pixel
+    if (pixel is None or pixel.flat_index is None or pixel.mode != 0
+            or pixel.image_command != 0xFD900000 or pixel.load_command is None
+            or pixel.load_command[0] != 0xF3000000 or pixel.load_command[1] & 0xFFF):
+        return None, 'character-intensity-shade-alpha-load-unresolved'
+    tiles = {i: c for i, c, _ in run.render_tiles}
+    if tiles.get((pixel.load_command[1] >> 24) & 7) != 0xF5100000:
+        return None, 'character-intensity-shade-alpha-load-tile-unresolved'
+    stride = ((run.render_tile[0] >> 9) & 0x1FF) * 8
+    start = (run.render_tile[0] & 0x1FF) * 8
+    loaded = (((pixel.load_command[1] >> 12) & 0xFFF) + 1) * 2
+    if (stride < state['width'] or start + stride * state['height'] > loaded
+            or loaded > min(len(payload), 4096)):
+        return None, 'character-intensity-shade-alpha-span-unresolved'
+    rows = []
+    for y in range(state['height']):
+        row = payload[start + y * stride:start + (y + 1) * stride]
+        rows.append(bytes(row[x ^ (4 if y & 1 else 0)] for x in range(state['width'])))
+    # Source I8 intensity is not the alpha input of this draw. A preview RGB
+    # texture therefore carries alpha one; vertex/environment alpha is separate.
+    rgba = b''.join(bytes((v, v, v, 255)) for row in reversed(rows) for v in row)
+    png = encode_rgba_png(state['width'], state['height'], rgba)
+    return PreviewTexture('us-character-intensity-shade-alpha', None, pixel.flat_index,
+                          4, 1, state['width'], state['height'], hashlib.sha1(png).hexdigest(),
+                          png, start), 'character-intensity-shade-alpha-i8'
+
+
+def character_intensity_mipmap_preview_texture(run, payload):
+    """Decode a supported IA/I mip base after validating every declared level."""
+    state = texture_coordinate_state(run)
+    formats = {(3, 0): 'ia4', (3, 1): 'ia8', (3, 2): 'ia16', (4, 0): 'i4', (4, 1): 'i8'}
+    name = formats.get((state['format'], state['size'])) if state else None
+    direct_mip = is_direct_ia4_trilinear_base(run) or is_direct_ia8_shade_mipmap_base(run)
+    if name is None or not (is_character_trilinear_base(run) or direct_mip):
+        return None, 'character-intensity-mipmap-combiner-unresolved'
+    other = decode_other_mode(run.other_mode)
+    if (other is None or other['texture_lut'] != 'none' or other['texture_lod'] != 'lod'
+            or other['texture_detail'] != 'clamp' or other['cycle_type'] != 'two-cycle'):
+        return None, 'character-intensity-mipmap-other-mode-unresolved'
+    pixel = run.pixel
+    if (pixel is None or pixel.flat_index is None or pixel.mode != 0
+            or pixel.image_command != {3: 0xFD700000, 4: 0xFD900000}[state['format']]
+            or pixel.load_command is None or pixel.load_command[0] != 0xF3000000
+            or pixel.load_command[1] & 0xFFF or run.texture_scale is None):
+        return None, 'character-intensity-mipmap-load-unresolved'
+    tiles = {i: (c, a) for i, c, a in run.render_tiles}
+    load = tiles.get((pixel.load_command[1] >> 24) & 7)
+    # SetTextureImage and the LoadBlock tile both transfer sixteen-bit units.
+    # The latter uses the game's RGBA16 transfer tile; render tiles supply IA/I.
+    if load is None or load[0] not in ((0xF5100000, 0xF5700000) if direct_mip else (0xF5100000,)):
+        return None, 'character-intensity-mipmap-load-tile-unresolved'
+    base_tile = (run.texture_scale[0] >> 8) & 7
+    if direct_mip and tiles.get(base_tile) != run.render_tile:
+        return None, 'direct-' + name + '-mipmap-base-tile-unresolved'
+    maximum = (run.texture_scale[0] >> 11) & 7
+    loaded = (((pixel.load_command[1] >> 12) & 0xFFF) + 1) * 2
+    if not maximum or base_tile + maximum >= 6 or loaded > min(len(payload), 4096):
+        return None, 'character-intensity-mipmap-span-unresolved'
+    previous_end = 0
+    first_stride = first_start = None
+    for level in range(maximum + 1):
+        tile = tiles.get(base_tile + level)
+        if tile is None:
+            return None, 'character-intensity-mipmap-tiles-unresolved'
+        command, argument = tile
+        width, height = max(1, state['width'] >> level), max(1, state['height'] >> level)
+        if state['size'] == 0 and width % 2:
+            return None, 'character-intensity-mipmap-width-unresolved'
+        stride = ((command >> 9) & 0x1FF) * 8
+        start = (command & 0x1FF) * 8
+        if (((command >> 21) & 7, (command >> 19) & 3) != (state['format'], state['size'])
+                or (1 << ((argument >> 4) & 15), 1 << ((argument >> 14) & 15)) != (width, height)
+                or (argument & 15, (argument >> 10) & 15) != (level, level)
+                or stride < packed_row_size(name, width) or start < previous_end
+                or start + stride * height > loaded):
+            return None, 'character-intensity-mipmap-layout-unresolved'
+        if level == 0:
+            first_stride, first_start = stride, start
+        previous_end = start + stride * height
+    row_bytes = packed_row_size(name, state['width'])
+    rows = []
+    for y in range(state['height']):
+        start = first_start + y * first_stride
+        row = payload[start:start + first_stride]
+        rows.append(bytes(row[x ^ (4 if y & 1 else 0)] for x in range(row_bytes)))
+    png = encode_native_texture_png(b''.join(rows), name, 'linear', state['width'], state['height'])
+    family = 'us-direct-' + name + '-mipmap-base' if direct_mip else 'us-character-intensity-mipmap-base'
+    status = 'direct-' + name + '-mipmap-base' if direct_mip else 'character-intensity-mipmap-base-' + name
+    return PreviewTexture(family, None, pixel.flat_index,
+                          state['format'], state['size'], state['width'], state['height'],
+                          hashlib.sha1(png).hexdigest(), png, first_start), status
+
+
+def rom_render_state_preview_texture(run, catalog, payloads, tables):
+    """Resolve a texture only when every ROM segment-8 variant agrees.
+
+    The effective render pass remains unknown. No selected OtherMode is
+    propagated into geometry or glTF blending from this texture-only proof.
+    """
+    if run.other_mode is not None or run.other_mode_partial is not None or run.runtime_render_state_offset is None:
+        return None, 'rom-state-consensus-unavailable', None
+    if tuple(int(table['base_address'], 0) for table in tables) != RUNTIME_RENDER_STATE_TABLE_BASES:
+        raise ValueError('ROM render-state consensus requires every verified table')
+    modes = []
+    for table in tables:
+        entries = [entry for entry in table['entries']
+                   if int(entry['offset'], 0) == run.runtime_render_state_offset]
+        if len(entries) != 1:
+            raise ValueError('ROM render-state consensus has an absent or repeated offset')
+        mode = tuple(int(word, 0) for word in entries[0]['other_mode'])
+        decode_other_mode(mode)
+        modes.append(mode)
+    choices = []
+    for mode in modes:
+        candidate_run = replace(run, other_mode=mode, runtime_render_state_offset=None)
+        texture, status = choose_preview_texture(candidate_run, catalog, payloads)
+        if texture is None and run.pixel is not None and run.pixel.flat_index in payloads:
+            texture, status = character_intensity_shade_alpha_preview_texture(candidate_run, payloads[run.pixel.flat_index])
+        if texture is None and run.pixel is not None and run.pixel.flat_index in payloads:
+            texture, status = character_intensity_mipmap_preview_texture(candidate_run, payloads[run.pixel.flat_index])
+        choices.append((texture, status))
+    texture, status = choices[0]
+    if texture is None or any(candidate != texture or reason != status for candidate, reason in choices):
+        return None, 'rom-state-consensus-texture-unresolved', None
+    evidence = {'segment_8_offset': run.runtime_render_state_offset,
+                'tables': [{'base_address': table['base_address'], 'other_mode': list(mode)}
+                           for table, mode in zip(tables, modes)],
+                'texture_png_sha1': texture.sha1, 'texture_status': status,
+                'scope': 'Texture agrees for every ROM segment-8 table. Effective render pass, blending and colours remain unresolved.'}
+    if status == 'character-intensity-shade-alpha-i8':
+        evidence['texture_alpha'] = 'one; combiner alpha is SHADE times ENVIRONMENT and never samples texture alpha'
+    return replace(texture, family='us-rom-state-consensus'), 'rom-state-consensus-' + status, evidence
+
+
+def load_object_material_context(profile: str, rom_argument: Path | None, digest: str, bank_index: int = 3) -> dict:
+    rom_path, layout = resolve_rom(profile, rom_argument)
+    rom, _ = normalize_rom(rom_path.read_bytes())
+    if profile != 'us' or hashlib.sha1(rom).hexdigest() != digest or digest not in layout['normalized_sha1']:
+        raise ValueError('object materials require the same validated US ROM')
+    game = parse_game_archive(rom[layout['game_start']:layout['game_end']])
+    if bank_index == 9:
+        return {'normalized_sha1': digest, **model_bank09_materials.material_context(
+            game.code, layout['game_vram'], game.data, layout['game_data_vram'])}
+    if bank_index not in (3, 4):
+        raise ValueError('object materials require bank 03, 04 or 09')
+    consumers = model_object_materials.verify_consumers(game.code, layout['game_vram'], game.data)
+    placements, _ = load_object_placement_manifest(profile, rom_argument, include_files=False)
+    if placements['normalized_sha1'] != digest:
+        raise ValueError('object placement ROM changed while reading material context')
+    return {'normalized_sha1': digest, 'consumers': consumers,
+            'segment_override_call_sites': [f'0x{address:08X}' for address in model_object_materials.OVERRIDE_CALLS],
+            'segment_override_destinations': [4, 5, 6, 7],
+            'models': model_object_materials.placement_contexts(placements, game.data, layout['game_data_vram']),
+            'capture_inputs': []}
+
+
+def rom_object_preview_texture(run, catalog, payloads, tables, context):
+    if context is None:
+        return None, 'rom-object-renderer-unresolved', None
+    texture, status, evidence = rom_render_state_preview_texture(run, catalog, payloads, tables)
+    if evidence is not None:
+        evidence['object_renderer_context'] = {
+            key: context[key] for key in ('bank', 'entry', 'segment', 'renderer', 'segment_8_bases', 'scope')}
+    return texture, status, evidence
+
+
+def add_rom_texture_state_evidence(encoded: bytes, run_records: list[dict]) -> bytes:
+    if not any(record.get('rom_texture_state_consensus') for record in run_records):
+        return encoded
+    document = json.loads(encoded)
+    for material in document.get('materials', []):
+        extras = material.get('extras', {})
+        index = extras.get('materialRun')
+        if isinstance(index, int) and run_records[index].get('rom_texture_state_consensus'):
+            extras['romTextureStateConsensus'] = run_records[index]['rom_texture_state_consensus']
+    return (json.dumps(document, indent=2) + '\n').encode()
+
+
+def load_character_defaults(profile: str, rom_argument: Path | None, digest: str, *, include_expressions: bool = False) -> dict:
+    """Resolve ordinary character defaults using only validated ROM bytes."""
+    rom_path, layout = resolve_rom(profile, rom_argument)
+    normalized, _ = normalize_rom(rom_path.read_bytes())
+    if hashlib.sha1(normalized).hexdigest() != digest or digest not in layout['normalized_sha1']:
+        raise ValueError('character defaults require the same validated ROM')
+    game = parse_game_archive(normalized[layout['game_start']:layout['game_end']])
+    consumers = model_character_defaults.verify_consumers(game.code, layout['game_vram'])
+    draw_tables = model_character_parts.verify_consumers(game.code, layout['game_vram'])
+    expression_consumers = model_character_defaults.verify_expression_consumers(game.code, layout['game_vram']) if include_expressions else None
+    expression_programs = model_character_defaults.parse_expression_animation_programs(game.data, layout['game_data_vram']) if include_expressions else None
+    expression_texture_consumers = model_character_defaults.expression_texture_consumers(
+        game.code, layout['game_vram'])
+    bank = next(bank for bank in parse_asset_banks(normalized, layout['asset_table']) if bank.index == 0x11)
+    if bank.flags:
+        raise ValueError('character-default bank has unsupported flags')
+    entries = {}
+    for entry in parse_asset_entries(normalized, bank):
+        raw = normalized[entry.start:entry.end]
+        data = decode_rzip_chunk(raw).data if entry.compressed else raw
+        entries[entry.index] = {
+            **model_character_defaults.parse_defaults(data),
+            'rom_start': f'0x{entry.start:X}', 'rom_end': f'0x{entry.end:X}',
+            'compressed': entry.compressed,
+        }
+        if include_expressions or entry.index in model_character_defaults.EXPRESSION_PREVIEW_PRESETS:
+            entries[entry.index]['expression_presets'] = model_character_defaults.parse_expression_presets(data)
+        if include_expressions:
+            for preset in entries[entry.index]['expression_presets']:
+                selector = preset['animation_selector']
+                if selector and (entry.index != 0 or selector > len(expression_programs)):
+                    raise ValueError('expression references an unsupported native action selector')
+                preset['native_action'] = expression_programs[selector - 1]['native_action'] if selector else None
+    return {'bank_index': 0x11, 'consumer_words': consumers, 'entries': entries,
+            'draw_table_selection': draw_tables,
+            'instance_texture_presets': model_character_defaults.instance_texture_presets(game.code, layout['game_vram']),
+            'renderer_texture_presets': model_character_defaults.renderer_texture_presets(game.code, layout['game_vram']),
+            'expression_preview_presets': {
+                entry: {'index': index, 'consumer_sha1': expression_texture_consumers}
+                for entry, index in model_character_defaults.EXPRESSION_PREVIEW_PRESETS.items()},
+            **({'expression_consumers': expression_consumers, 'expression_animation_programs': expression_programs} if include_expressions else {}),
+            'capture_inputs': [], 'normalized_sha1': digest}
+
+
+def load_character_expression_manifest(profile: str, rom_argument: Path | None, digest: str) -> dict:
+    source = load_character_defaults(profile, rom_argument, digest, include_expressions=True)
+    records = [{'character_entry': entry, 'bundle_sha1': record['sha1'],
+                'default_header_sha1': record['header_sha1'],
+                'source_offset': record['expression_offset'], 'decoded_size': record['expression_size'],
+                'presets': record['expression_presets']}
+               for entry, record in source['entries'].items() if record['expression_presets']]
+    return {'schema_version': 1, 'family': 'ROM-character-expression-presets',
+            'normalized_sha1': digest, 'bank_index': 0x11,
+            'source_bundle_count': len(source['entries']), 'model_count': len(records),
+            'preset_count': sum(len(record['presets']) for record in records),
+            'decoded_size': sum(record['decoded_size'] for record in records),
+            'consumer_sha1': source['expression_consumers'], 'models': records,
+            'animation_programs': source['expression_animation_programs'],
+            'scope': 'Native ten-byte expression presets. Morph duration may be overridden by the caller; zero texture overrides select the initializer defaults. Nonzero animation selectors resolve to native action programs, not direct clip indices. Expression names, triggers and complete playback timelines remain unresolved.',
+            'capture_inputs': []}
+
+
+def rom_default_preview_texture(run, defaults, descriptors, payloads, render_state_tables):
+    """Decode a ROM-selected face image with its explicit load and format."""
+    evidence = {'preset': defaults['preset'], 'default_header_sha1': defaults['header_sha1']}
+    if defaults.get('instance_texture_selection'):
+        evidence['instance_texture_selection'] = defaults['instance_texture_selection']
+    if defaults.get('expression_texture_selection'):
+        evidence['expression_texture_selection'] = defaults['expression_texture_selection']
+    if defaults.get('renderer_texture_selection'):
+        evidence['renderer_texture_selection'] = defaults['renderer_texture_selection']
+
+    def unresolved(reason):
+        return None, 'rom-default-' + reason, evidence
+
+    combine = decode_combine_mode(run.combine_mode)
+    if combine is None:
+        return unresolved('combiner-unresolved')
+    texels = set(combine['inputs']).intersection(('TEXEL0', 'TEXEL1'))
+    if not texels:
+        return unresolved('combiner-does-not-use-texture')
+    trilinear = is_character_trilinear_base(run)
+    if texels != {'TEXEL0'} and not trilinear:
+        return unresolved('multitexture-unresolved')
+    if not run.texture_enabled or not run.texture_coordinates_proven:
+        return unresolved('coordinate-state-unresolved')
+    pixel, palette = run.pixel, run.palette
+    state = texture_coordinate_state(run)
+    direct_format = {(3, 1): 'ia8', (0, 3): 'rgba32'}.get(
+        (state['format'], state['size'])) if state else None
+    if direct_format:
+        if pixel is None or palette is not None or pixel.offset != 0:
+            return unresolved('direct-binding-unresolved')
+        descriptor = model_character_defaults.select_descriptor(defaults, descriptors, pixel.segment)
+        if descriptor is None:
+            return unresolved('descriptor-unresolved')
+        evidence.update(segment=pixel.segment, descriptor=descriptor)
+        if (descriptor['width'], descriptor['height']) != (state['width'], state['height']):
+            return unresolved('descriptor-dimensions-differ')
+        other = decode_other_mode(run.other_mode)
+        if (other is None or run.other_mode_partial is not None
+                or other['texture_lut'] != 'none'
+                or other['cycle_type'] not in ('one-cycle', 'two-cycle')):
+            return unresolved('direct-other-mode-unresolved')
+        if trilinear:
+            return unresolved('direct-multitexture-unresolved')
+        alpha = [cycle['alpha'] for cycle in combine['cycles']]
+        product = (alpha[0] == ['TEXEL0', 'ZERO', 'SHADE', 'ZERO']
+                   and (other['cycle_type'] == 'one-cycle'
+                        or alpha[1] == ['COMBINED', 'ZERO', 'ENVIRONMENT', 'ZERO']))
+        if other['gltf_alpha_mode'] != 'OPAQUE' and not product:
+            return unresolved('direct-alpha-expression-unresolved')
+        if pixel.image_command != {'ia8': 0xFD700000, 'rgba32': 0xFD180000}[direct_format]:
+            return unresolved('direct-load-format-unresolved')
+        payload = payloads.get(descriptor['flat_index'])
+        if payload is None:
+            return unresolved('payload-missing')
+        # Reuse the direct-format transfer decoder after resolving the native
+        # segmented selector. The original binding stays in the model record.
+        selected = replace(run, pixel=replace(pixel, mode=0, flat_index=descriptor['flat_index']))
+        decoder = direct_intensity_preview_texture if direct_format == 'ia8' else direct_rgba32_preview_texture
+        texture, status = decoder(selected, payload)
+        if texture is None:
+            return unresolved(status)
+        evidence.update(flat_payload_sha1=hashlib.sha1(payload).hexdigest(),
+                        render_dimensions=[state['width'], state['height']],
+                        dimension_evidence=state['dimension_evidence'],
+                        source_format=direct_format, pixel_byte_offset=0,
+                        palette_byte_offset=None, lookup_evidence='explicit-other-mode',
+                        decoder_status=status, png_sha1=texture.sha1)
+        return replace(texture, family='us-rom-default-direct'), 'rom-default-direct-' + direct_format, evidence
+    if pixel is None or palette is None or pixel.segment != palette.segment:
+        return unresolved('palette-binding-unresolved')
+    descriptor = model_character_defaults.select_descriptor(defaults, descriptors, pixel.segment)
+    if descriptor is None:
+        return unresolved('descriptor-unresolved')
+    evidence.update(segment=pixel.segment, descriptor=descriptor)
+    if state is None or (state['format'], state['size']) not in ((0, 0), (0, 1), (2, 0), (2, 1)):
+        return unresolved('format-unresolved')
+    if ((descriptor['width'], descriptor['height']) != (state['width'], state['height'])
+            and state['dimension_evidence'] != 'tile-bounds'):
+        return unresolved('descriptor-dimensions-differ')
+    # Renderer variants differ in blending. Only infer their unanimous TLUT
+    # setting; do not select a runtime pass or bake its colours into the model.
+    modes = []
+    if run.other_mode is not None:
+        modes = [run.other_mode]
+    elif run.runtime_render_state_offset is not None:
+        for table in render_state_tables:
+            matches = [e for e in table['entries'] if int(e['offset'], 0) == run.runtime_render_state_offset]
+            if len(matches) != 1:
+                return unresolved('lookup-state-unresolved')
+            modes.append(tuple(int(word, 0) for word in matches[0]['other_mode']))
+    if not modes or any(decode_other_mode(mode)['texture_lut'] != 'rgba16' for mode in modes):
+        return unresolved('lookup-state-unresolved')
+    if (pixel.image_command != 0xFD100000 or palette.image_command != 0xFD100000
+            or pixel.load_command is None or palette.load_command is None
+            or pixel.offset is None or palette.offset is None):
+        return unresolved('load-command-unresolved')
+    pc, pa = pixel.load_command
+    tc, ta = palette.load_command
+    entries = 16 if state['size'] == 0 else 256
+    if pc != 0xF3000000 or pa & 0xFFF or tc != 0xF0000000 or ((ta >> 14) & 0x3FF) + 1 != entries:
+        return unresolved('load-layout-unresolved')
+    tiles = {i: (c, a) for i, c, a in run.render_tiles}
+    load_tile = tiles.get((pa >> 24) & 7)
+    tlut_tile = tiles.get((ta >> 24) & 7)
+    if load_tile is None or tlut_tile is None or (tlut_tile[0] & 0x1FF) != 0x100:
+        return unresolved('load-tile-unresolved')
+    if trilinear:
+        if any(decode_other_mode(mode)['texture_lod'] != 'lod'
+               or decode_other_mode(mode)['texture_detail'] != 'clamp'
+               or decode_other_mode(mode)['cycle_type'] != 'two-cycle' for mode in modes):
+            return unresolved('mipmap-other-mode-unresolved')
+        base_tile = (run.texture_scale[0] >> 8) & 7
+        max_level = (run.texture_scale[0] >> 11) & 7
+        if not max_level or base_tile + max_level >= 6:
+            return unresolved('mipmap-tiles-unresolved')
+        # Require the complete ROM mip chain, including its TMEM extents and
+        # halving masks/shifts. The glTF diffuse image represents LOD zero;
+        # distance-dependent native interpolation remains outside this preview.
+        levels = []
+        loaded = (((pa >> 12) & 0xFFF) + 1) * 2
+        previous_end = 0
+        for level in range(max_level + 1):
+            tile = tiles.get(base_tile + level)
+            if tile is None:
+                return unresolved('mipmap-tiles-unresolved')
+            c, a = tile
+            width, height = max(1, state['width'] >> level), max(1, state['height'] >> level)
+            stride = ((c >> 9) & 0x1FF) * 8
+            start = ((c & 0x1FF) - (load_tile[0] & 0x1FF)) * 8
+            row_bytes = (width * (4 if state['size'] == 0 else 8) + 7) // 8
+            if (((c >> 19) & 3) != state['size'] or ((c >> 21) & 7) != state['format']
+                    or (1 << ((a >> 4) & 15), 1 << ((a >> 14) & 15)) != (width, height)
+                    or (a & 15, (a >> 10) & 15) != (level, level)
+                    or stride < row_bytes or start < previous_end
+                    or start + stride * height > min(loaded, 2048)):
+                return unresolved('mipmap-layout-unresolved')
+            levels.append({'level': level, 'width': width, 'height': height,
+                           'pixel_byte_offset': pixel.offset + start, 'row_stride': stride})
+            previous_end = start + stride * height
+        evidence.update(preview_scope='trilinear-base-at-LOD-fraction-zero', mip_levels=levels)
+    if state['size'] == 0 and (run.render_tile[1] >> 20) & 15:
+        return unresolved('palette-bank-unresolved')
+    payload = payloads.get(descriptor['flat_index'])
+    if payload is None:
+        return unresolved('payload-missing')
+    row_bytes = state['width'] if state['size'] == 1 else (state['width'] + 1) // 2
+    stride = ((run.render_tile[0] >> 9) & 0x1FF) * 8
+    relative = ((run.render_tile[0] & 0x1FF) - (load_tile[0] & 0x1FF)) * 8
+    loaded = (((pa >> 12) & 0xFFF) + 1) * 2
+    extent = stride * state['height']
+    # CI lookup reads indices from the lower 2 KiB of TMEM, wrapping the
+    # address before applying the odd-row word swap. A complete CI8 image
+    # can cross that boundary even though the later TLUT occupies upper TMEM.
+    # Admit only a zero-origin, non-mip RGBA16 transfer fully backed by ROM.
+    wrapped_ci8 = (extent > 2048 and state['size'] == 1 and not trilinear
+                   and run.other_mode_partial is None and relative == 0
+                   and load_tile[0] == 0xF5100000
+                   and not (run.render_tile[0] & 0x1FF)
+                   and extent <= loaded <= 4096)
+    if (stride < row_bytes or stride % 8 or relative < 0
+            or (relative + extent > min(loaded, 2048) and not wrapped_ci8)):
+        return unresolved('tmem-span-unresolved')
+    start, palette_start = pixel.offset + relative, palette.offset
+    if (start < 0 or start + extent > len(payload) or palette_start < start + extent
+            or palette_start + entries * 2 > len(payload)):
+        return unresolved('payload-span-unresolved')
+    if trilinear and (pixel.offset + previous_end > palette_start or pixel.offset < 0):
+        return unresolved('mipmap-payload-span-unresolved')
+    rows = []
+    for y in range(state['height']):
+        if wrapped_ci8:
+            rows.append(bytes(payload[start + (((y * stride + x) & 0x7FF) ^ (4 if y & 1 else 0))]
+                              for x in range(row_bytes)))
+        else:
+            row = payload[start + y * stride:start + (y + 1) * stride]
+            rows.append(bytes(row[x ^ 4 if y & 1 else x] for x in range(row_bytes)))
+    if wrapped_ci8:
+        evidence['tmem_addressing'] = {
+            'index_address_mask': '0x7FF', 'load_tmem_byte_offset': 0,
+            'loaded_bytes': loaded, 'logical_image_span': extent,
+            'row_stride': stride, 'odd_row_xor': 4,
+            'scope': 'CI8 index reads wrap in lower TMEM; the explicit TLUT supplies palette colours.',
+        }
+    indices = b''.join(rows)
+    colors = payload[palette_start:palette_start + entries * 2]
+    if not any(value & 1 for (value,) in struct.iter_unpack('>H', colors)):
+        if not zero_alpha_texture_is_invisible(run):
+            return unresolved('transparent-combiner-unresolved')
+        evidence['zero_alpha_preview'] = {
+            'source': 'unchanged-ROM-palette-alpha',
+            'combiner_alpha': 'TEXEL0 * SHADE * ENVIRONMENT',
+            'blender_cycle_2': 'IN * A_IN + MEM * (1 - A_IN)',
+            'coverage_alpha_replacement': False, 'depth_write': False,
+            'scope': 'zero visible colour contribution; geometry retained',
+        }
+    encoder = encode_ci8_png if state['size'] == 1 else encode_indexed_png
+    png = encoder(indices + colors, 'linear', state['width'], state['height'])
+    evidence.update(flat_payload_sha1=hashlib.sha1(payload).hexdigest(),
+                    render_dimensions=[state['width'], state['height']],
+                    dimension_evidence=state['dimension_evidence'],
+                    pixel_byte_offset=start, palette_byte_offset=palette_start,
+                    pixel_sha256=hashlib.sha256(indices).hexdigest(),
+                    palette_sha256=hashlib.sha256(colors).hexdigest(),
+                    lookup_evidence='explicit-other-mode' if run.other_mode else 'all-ROM-segment-8-variants',
+                    lookup_variant_count=len(modes))
+    texture = PreviewTexture('us-rom-default', None, descriptor['flat_index'], 2, state['size'],
+                             state['width'], state['height'], hashlib.sha1(png).hexdigest(), png,
+                             start, palette_start)
+    return texture, 'rom-default-indexed-trilinear-base' if trilinear else 'rom-default-indexed', evidence
+
+
 def extract_model_preview(
     profile: str,
     rom_argument: Path | None,
@@ -12502,13 +13716,22 @@ def extract_model_preview(
     bank_index: int = DEFAULT_BANK_INDEX,
     runtime_material_path: Path | None = None,
     runtime_appearance: tuple[int, int] | None = None,
+    rom_defaults: bool = False,
 ) -> dict[str, Any]:
+    if rom_defaults and (bank_index != 0x01 or runtime_material_path is not None or runtime_appearance is not None):
+        raise ValueError('--rom-defaults requires bank 01 and excludes runtime material inputs')
     if runtime_appearance is not None and runtime_material_path is None:
         raise ValueError("--runtime-appearance requires --runtime-materials")
     rom_path, source_order, digest, bundles, render_state_tables = load_model_bundles(
         profile, rom_argument, bank_index
     )
     flat_payloads = load_flat_asset_payloads(profile, rom_argument, digest)
+    default_manifest = load_character_defaults(profile, rom_argument, digest) if rom_defaults else None
+    object_material_context = load_object_material_context(profile, rom_argument, digest, bank_index) if bank_index in (3, 4, 9) else None
+    object_contexts = {(record['bank'], record['entry'], record['segment']): record
+                       for record in object_material_context['models']} if object_material_context else {}
+    morph_manifest = load_character_morph_manifest(profile, rom_argument, bundles) if rom_defaults else None
+    morph_models = {record["character_entry"]: record for record in morph_manifest["models"]} if morph_manifest else {}
     catalog = load_preview_texture_catalog(texture_root, digest, tuple(flat_payloads))
     runtime_material_catalog = load_runtime_material_catalog(
         runtime_material_path, digest, runtime_appearance
@@ -12541,6 +13764,7 @@ def extract_model_preview(
             character_rotations = None
             character_pose_source = None
             character_reference_pose_source = None
+            character_draw_pass = None
             character_animation_clips: tuple[CharacterAnimationClip, ...] = ()
             incompatible_animation_clip_count = 0
             if bank_index == 0x01:
@@ -12548,6 +13772,9 @@ def extract_model_preview(
                     segment.data
                 )
                 character_joints = tuple(character_layout["joints"])
+                if rom_defaults:
+                    geometry, character_draw_pass = model_character_parts.primary_preview(
+                        segment.data, geometry, character_layout)
                 if character_animation_manifest is None:
                     raise ValueError("bank-01 character animation manifest is absent")
                 (
@@ -12601,7 +13828,7 @@ def extract_model_preview(
                 character_joints = tuple(attachment_layout["joints"]) or None
                 character_pose_source = "neutral-attachment-joint-hierarchy-parent-transform-unobserved"
             else:
-                geometry = parse_geometry_for_bank(segment.data, bank_index)
+                geometry = parse_segment_geometry(segment, bank_index)
             source_geometry = geometry
             geometry, omitted_zero_area_faces, omitted_zero_area_by_run = (
                 omit_zero_area_preview_faces(source_geometry)
@@ -12609,8 +13836,11 @@ def extract_model_preview(
             texture_files: dict[str, str] = {}
             gltf_texture_files: dict[str | int, str] = {}
             model_runtime_materials: dict[int, dict[str, Any]] = {}
+            detail_preview_coordinates = {}
             run_records = []
             for run_index, run in enumerate(geometry.material_runs):
+                default_evidence = None
+                state_consensus_evidence = None
                 runtime_material = runtime_material_catalog.get(
                     (bank_index, bundle.index, segment.index, run_index)
                 )
@@ -12637,12 +13867,34 @@ def extract_model_preview(
                         catalog,
                         flat_payloads,
                     )
+                if rom_defaults and texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+                    candidate, candidate_status, evidence = rom_render_state_preview_texture(
+                        run, catalog, flat_payloads, render_state_tables)
+                    if candidate is not None:
+                        texture, status, state_consensus_evidence = candidate, candidate_status, evidence
+                if runtime_material is None and texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+                    candidate, candidate_status, evidence = rom_object_preview_texture(
+                        run, catalog, flat_payloads, render_state_tables,
+                        object_contexts.get((bank_index, bundle.index, segment.index)))
+                    if candidate is not None:
+                        texture, status, state_consensus_evidence = candidate, candidate_status, evidence
                 if runtime_material_references_texels(runtime_material) is False:
                     texture, status = None, "runtime-combiner-does-not-use-texture"
+                if default_manifest is not None and run.pixel is not None and run.pixel.segment in (6, 7, 10, 11):
+                    defaults = model_character_defaults.preview_defaults(default_manifest, bundle.index)
+                    if defaults is None:
+                        texture, status = None, 'rom-default-header-missing'
+                    else:
+                        texture, status, default_evidence = rom_default_preview_texture(
+                            run, defaults, character_layout['texture_descriptors'], flat_payloads, render_state_tables)
                 if texture is not None and (
                     not run.texture_enabled or not run.texture_coordinates_proven
                 ):
                     texture, status = None, "runtime-texture-observed-coordinate-state-unresolved"
+                if character_draw_pass is not None and not source_geometry.material_runs[run_index].face_count:
+                    texture, status = None, 'excluded-secondary-draw-pass'
+                    default_evidence = None
+                    state_consensus_evidence = None
                 reason_counts[status] = reason_counts.get(status, 0) + 1
                 reason_face_counts[status] = (
                     reason_face_counts.get(status, 0) + run.face_count
@@ -12659,6 +13911,8 @@ def extract_model_preview(
                     ],
                     "matrix_index": run.matrix_index,
                     "status": status,
+                    "rom_default_texture": default_evidence,
+                    **({"rom_texture_state_consensus": state_consensus_evidence} if state_consensus_evidence else {}),
                     "runtime_material": (
                         runtime_material_consensus(runtime_material)
                         if runtime_material is not None
@@ -12678,6 +13932,7 @@ def extract_model_preview(
                         for tile_index, command, argument in run.render_tiles
                     ],
                     "other_mode": command_pair_record(run.other_mode),
+                    **({"other_mode_partial": list(run.other_mode_partial)} if run.other_mode_partial is not None else {}),
                     "runtime_render_state_offset": (
                         f"0x{run.runtime_render_state_offset:X}"
                         if run.runtime_render_state_offset is not None
@@ -12686,6 +13941,10 @@ def extract_model_preview(
                     "texture": None,
                 }
                 if texture is not None and run.face_count:
+                    if texture.preview_coordinate_state is not None:
+                        detail_preview_coordinates[run_index] = texture.preview_coordinate_state
+                        record["rom_detail_texture_preview"] = detail_texture_preview_record(
+                            replace(run, preview_coordinate_state=texture.preview_coordinate_state))
                     linked_run_count += 1
                     linked_face_count += run.face_count
                     filename = copied_textures.get(texture)
@@ -12730,6 +13989,11 @@ def extract_model_preview(
                     }
                 run_records.append(record)
             geometry = apply_runtime_texture_coordinates(geometry, model_runtime_materials)
+            if detail_preview_coordinates:
+                geometry = replace(geometry, material_runs=tuple(
+                    replace(run, preview_coordinate_state=detail_preview_coordinates[i])
+                    if i in detail_preview_coordinates else run
+                    for i, run in enumerate(geometry.material_runs)))
             stem = f"{bundle.index:04d}-{segment.index:02d}"
             geometry_dir = output / "geometry"
             geometry_dir.mkdir(parents=True, exist_ok=True)
@@ -12756,14 +14020,28 @@ def extract_model_preview(
                 character_pose_source,
                 character_animation_clips,
                 runtime_materials=model_runtime_materials,
+                character_morphs=morph_models.get(bundle.index),
+                character_draw_pass=character_draw_pass,
             )
             gltf_document = json.loads(gltf_data)
+            if segment.effect_source is not None:
+                _, effect_layout = parse_effect_model(segment.data, parse_model_geometry, segment.effect_source)
+                gltf_document.setdefault("extras", {})["romEffectModel"] = {
+                    key: effect_layout[key] for key in (
+                        "family", "geometry_source_entry", "geometry_source_sha1",
+                        "material_source_entry", "material_source_sha1", "effect_type",
+                        "preview_vertex_buffer", "vertex_buffers_identical", "appearance_status",
+                        "draw_setup_commands",
+                    )
+                }
+                gltf_data = (json.dumps(gltf_document, indent=2) + "\n").encode()
             for material in gltf_document.get("materials", []):
                 extras = material.get("extras", {})
                 run_index = extras.get("materialRun")
                 replay = extras.get("runtimeMaterial", {}).get("lightingReplay")
                 if isinstance(run_index, int) and replay is not None:
                     run_records[run_index]["runtime_lighting_replay"] = replay
+            gltf_data = add_rom_texture_state_evidence(gltf_data, run_records)
             (geometry_dir / f"{stem}.gltf").write_bytes(gltf_data)
             (geometry_dir / f"{stem}.bin").write_bytes(gltf_binary)
             bind_gltf_file = bind_binary_file = None
@@ -12781,7 +14059,10 @@ def extract_model_preview(
                     (),
                     bind_stem,
                     model_runtime_materials,
+                    morph_models.get(bundle.index),
+                    character_draw_pass,
                 )
+                bind_gltf_data = add_rom_texture_state_evidence(bind_gltf_data, run_records)
                 (geometry_dir / f"{bind_stem}.gltf").write_bytes(bind_gltf_data)
                 (geometry_dir / f"{bind_stem}.bin").write_bytes(bind_binary)
                 bind_gltf_file = f"geometry/{bind_stem}.gltf"
@@ -12798,6 +14079,9 @@ def extract_model_preview(
                     "bank_entry": bundle.index,
                     "segment": segment.index,
                     "object_file": f"geometry/{stem}.obj",
+                    **({"morph_target_count": morph_models[bundle.index]["shape_count"]}
+                       if bundle.index in morph_models else {}),
+                    **({'character_draw_pass': character_draw_pass} if character_draw_pass is not None else {}),
                     "material_file": f"geometry/{stem}.mtl",
                     "gltf_file": f"geometry/{stem}.gltf",
                     "gltf_binary_file": f"geometry/{stem}.bin",
@@ -12945,6 +14229,8 @@ def extract_model_preview(
         "flat_asset_identity": flat_asset_identity(flat_payloads),
         "bank_index": bank_index,
         "source_texture_root": display_path(texture_root),
+        "rom_character_defaults": default_manifest,
+        **({'rom_object_material_context': object_material_context} if object_material_context else {}),
         "runtime_render_state_tables": list(render_state_tables),
         "runtime_render_state_table_count": len(render_state_tables),
         "runtime_material_manifest": (
@@ -13091,16 +14377,13 @@ def extract_model_preview(
         ),
         "runtime_segment_texture_evidence": (
             {
-                "draw_function": "func_150911F4",
+                "draw_function": "func_1502F01C",
                 "resolver": "func_1510D0EC",
-                "state": "D_800D24C8",
-                "slots": [
-                    {"segment": 6, "state_u16_offset": "0xB0"},
-                    {"segment": 7, "state_u16_offset": "0xB2"},
-                    {"segment": 10, "state_u16_offset": "0xB4"},
-                    {"segment": 11, "state_u16_offset": "0xB6"},
-                ],
-                "status": "character-state-selected-not-model-static",
+                "descriptor_table": "D_800C5338",
+                "default_header_table": "D_800D1C90",
+                "default_bank": "0x11",
+                "status": "ROM-default-preset" if rom_defaults else "runtime-selection",
+                "special_renderer": "func_150911F4 separately selects flat IDs from D_800D24C8",
             }
             if bank_index == 0x01
             else None
@@ -13124,9 +14407,9 @@ def extract_model_preview(
         ),
         "limitations": [
             (
-                "character texture segments 6, 7, 10, and 11 are selected from "
-                "four runtime character-state texture IDs and remain unlinked unless "
-                "the selected runtime appearance includes exact captured pixel/TLUT spans"
+                "character texture segments 6, 7, 10, and 11 use a ROM default preset "
+                "when --rom-defaults is selected; runtime expressions, blink changes, "
+                "part visibility and native colour/combiner parity are not reproduced"
                 if bank_index == 0x01
                 else "runtime-segment textures are scene-dependent and are not linked"
             ),
@@ -13200,6 +14483,10 @@ def extract_model_preview(
             for key, value in character_animations.items()
             if key != "entries"
         }
+        if morph_manifest is not None:
+            manifest["character_morphs"] = {key: value for key, value in morph_manifest.items() if key != "models"}
+            (output / "character-morphs.json").write_text(json.dumps(morph_manifest, indent=2) + "\n")
+            manifest["character_morphs"]["file"] = "character-morphs.json"
     if bank_index == 0x03:
         manifest["assembled_scene_count"] = len(assembled_scenes)
         manifest["assembled_scene_placement_count"] = sum(
@@ -13255,7 +14542,7 @@ def extract_model_preview(
                 "Start with geometry/0002-04.gltf (40 faces, fully linked) before loading "
                 "larger level models. "
             ),
-            0x09: "Start with geometry/0426-00.gltf before loading larger models. ",
+            0x09: "Start with geometry/0258-00.gltf for a directly ROM-backed object. ",
         }[bank_index]
         + (
             "The scenes/ directory contains the 48 nonempty bank-12 direct-model "
@@ -13276,10 +14563,15 @@ def extract_model_preview(
         "not linked until their RDP combiner and primitive/environment colors are "
         "represented. "
         + (
-            "Character facial textures in runtime segments 6, 7, 10, and 11 are "
-            "selected from live character state. They remain unlinked without a "
-            "task-local runtime capture; an appearance-specific manifest may supply "
-            "their exact pixel and TLUT spans. "
+            (
+                "This corpus uses ROM default facial selectors for segments 6, 7, 10, "
+                "and 11, with zero blink selectors and no expression override. Pixel "
+                "and TLUT offsets come from ROM display lists; no captures are inputs. "
+                if rom_defaults else
+                "Character facial segments 6, 7, 10, and 11 depend on character state. "
+                "Use --rom-defaults for their ROM default preset, or an appearance-specific "
+                "runtime manifest for captured pixel and TLUT spans. "
+            )
             if bank_index == 0x01
             else ""
         )
@@ -13315,7 +14607,7 @@ def extract_model_preview(
             "using descriptor-relative keyframe spacing on the runtime-proven 30 Hz "
             "animation clock. Bank-15 route tables attach logical game animation IDs to "
             "those Actions, and all five character-state duration overrides are resolved. "
-            "Character appearances absent from the supplied runtime traces remain "
+            "Dynamic appearances outside the selected ROM preset or captured state remain "
             "unresolved.\n"
             if bank_index == 0x01
             else (
@@ -13399,7 +14691,7 @@ def extract_validation_atlas(
                     geometry, layout = parse_attachment_model(segment.data, parse_model_geometry)
                     character_joints = tuple(layout["joints"]) or None
                 else:
-                    geometry = parse_model_geometry(segment.data)
+                    geometry = parse_segment_geometry(segment, bank_index)
                 validation = validate_model_geometry(geometry, character_joints)
                 bank_diagonals[bank_index].append(validation["bounds"]["diagonal"])
                 pending.append(
@@ -13557,7 +14849,11 @@ def extract_validation_atlas(
 def verify_models(
     profile: str, rom_argument: Path | None, bank_index: int = DEFAULT_BANK_INDEX
 ) -> tuple[int, ...]:
-    _, _, _, bundles, _ = load_model_bundles(profile, rom_argument, bank_index)
+    _, _, digest, bundles, _ = load_model_bundles(profile, rom_argument, bank_index)
+    if bank_index == 0x09:
+        points = load_emission_point_manifest(profile, rom_argument)
+        if (points['asset_count'], points['point_count'], points['decoded_size']) != (20, 1963, 31408):
+            raise ValueError('US bank-09 emission-point inventory changed')
     if bank_index in (0x03, 0x04):
         placements, payloads = load_object_placement_manifest(
             profile, rom_argument, include_files=False
@@ -13573,6 +14869,15 @@ def verify_models(
         ):
             raise ValueError("US bank-11 dispatched placement resolution changed")
     elif bank_index == 0x01:
+        morphs = load_character_morph_manifest(profile, rom_argument, bundles)
+        if (morphs["model_count"], morphs["shape_count"], morphs["part_payload_count"], morphs["decoded_size"]) != (2, 23, 69, 41792):
+            raise ValueError("US bank-13 character morph inventory changed")
+        expressions = load_character_expression_manifest(profile, rom_argument, digest)
+        if (expressions['source_bundle_count'], expressions['model_count'], expressions['preset_count'], expressions['decoded_size']) != (186, 22, 258, 2580):
+            raise ValueError('US bank-11 character expression inventory changed')
+        programs = expressions['animation_programs']
+        if (len(programs), sum(p['record_count'] for p in programs), sum(p['decoded_size'] for p in programs)) != (5, 6, 96):
+            raise ValueError('US expression action-program inventory changed')
         animations, _ = load_character_animation_manifest(
             profile, rom_argument, include_files=False
         )
@@ -13622,6 +14927,13 @@ def verify_models(
             regions = {section["name"]: bundle.data[section["offset"]:section["offset"] + section["size"]]
                        for section in attachment_layout["sections"]}
             rebuilt = encode_attachment_model(geometry, attachment_layout, regions)
+        elif bank_index == 0x09 and bundle.segments[0].effect_source is not None:
+            geometry, effect_layout = parse_effect_model(bundle.data, parse_model_geometry, bundle.segments[0].effect_source)
+            regions = {section["name"]: bundle.data[section["offset"]:section["offset"] + section["size"]]
+                       for section in effect_layout["sections"]}
+            rebuilt = encode_effect_model(geometry, effect_layout, regions)
+        elif bank_index == 0x09:
+            rebuilt = rebuild_direct_model(bundle.data, parse_geometry_for_bank(bundle.data, bank_index))
         if rebuilt != bundle.data:
             raise ValueError(
                 f"bank-{bank_index:02X} entry {bundle.index} did not round-trip"
@@ -13629,7 +14941,7 @@ def verify_models(
         for segment in bundle.segments:
             if not segment.data:
                 continue
-            geometry = parse_geometry_for_bank(segment.data, bank_index)
+            geometry = parse_segment_geometry(segment, bank_index)
             if (
                 bank_index == 0x04
                 and segment.index == 0
@@ -13728,6 +15040,8 @@ def parse_args() -> argparse.Namespace:
             "verify",
             "validate",
             "inspect",
+            "submitted",
+            "discover-submitted",
         ),
     )
     parser.add_argument("--profile", choices=("us",), default="us")
@@ -13742,6 +15056,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--rom", type=Path)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--textures", type=Path)
+    parser.add_argument(
+        "--rom-defaults", action="store_true",
+        help="bank-01 preview with ROM default facial selectors, without capture inputs",
+    )
     parser.add_argument(
         "--model-root", type=Path, help="existing model outputs for coverage"
     )
@@ -13814,14 +15132,43 @@ def parse_args() -> argparse.Namespace:
                         help="leave Blender evidence incomplete in batch validation")
     parser.add_argument("--skip-renders", action="store_true",
                         help="leave visual regression evidence incomplete in batch validation")
-    return parser.parse_args()
+    args = parser.parse_args()
+    if args.rom_defaults and args.action != 'preview':
+        parser.error('--rom-defaults applies only to preview')
+    return args
 
 
 def main() -> int:
     args = parse_args()
     bank_index = int(args.bank or "04", 16)
     try:
-        if args.action == "inspect":
+        if args.action == "discover-submitted":
+            try:
+                from scripts.model_submitted_pose import discover_cases
+            except ModuleNotFoundError:
+                from model_submitted_pose import discover_cases
+            if len(args.trace or []) != 1 or args.runtime_materials is None:
+                raise ValueError("discover-submitted requires one --trace and --runtime-materials")
+            result = discover_cases(args.trace[0].resolve(), args.runtime_materials.resolve(),
+                                    (args.model_root or ROOT / "build/assets/models").resolve())
+            output = (args.output or ROOT / "build/assets/models/submitted-discovery.json").resolve()
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_text(json.dumps(result, indent=2) + "\n")
+            counts = Counter(row['status'] for row in result['candidates'])
+            print(f"Submitted candidates: {dict(counts)}; report: {display_path(output)}")
+            return 0
+        elif args.action == "submitted":
+            try:
+                from scripts.model_submitted_pose import export_cases
+            except ModuleNotFoundError:
+                from model_submitted_pose import export_cases
+            manifest = export_cases((args.validation_config or ROOT / "config/model-validation.json").resolve())
+            output = (args.output or ROOT / "build/assets/models/us-submitted-poses/manifest.json").resolve()
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_text(json.dumps(manifest, indent=2) + "\n")
+            print(f"Exported {len(manifest['models'])} verified submitted poses: {display_path(output)}")
+            return 0
+        elif args.action == "inspect":
             try:
                 from scripts.model_inspection import publish_inspection
             except ModuleNotFoundError:
@@ -14058,6 +15405,7 @@ def main() -> int:
                 bank_index,
                 args.runtime_materials,
                 args.runtime_appearance,
+                args.rom_defaults,
             )
             print(
                 f"Prepared and verified {manifest['model_count']} model previews with "

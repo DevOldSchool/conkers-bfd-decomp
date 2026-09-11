@@ -99,23 +99,100 @@ def float32(values) -> tuple:
     return struct.unpack('<' + 'f' * len(values), struct.pack('<' + 'f' * len(values), *values))
 
 
-def compare_geometry(path: Path, geometry, joints, run_records: list[dict]) -> dict:
+def verified_detail_preview_geometry(geometry, run_records: list[dict], flat: dict,
+                                     runtime: dict, directory: Path):
+    """Recompute a detail preview selection from ROM before accepting its UVs."""
+    runs = []
+    for index, run in enumerate(geometry.material_runs):
+        record = run_records[index]
+        evidence = record.get('rom_detail_texture_preview')
+        expected = None
+        captured = models.runtime_captured_texture_choice(runtime.get(index))
+        if (captured is None and models.runtime_material_references_texels(runtime.get(index)) is not False
+                and run.pixel is not None and run.pixel.image_command == 0xFD500000
+                and run.detail_tile_bounds and run.face_count):
+            payload = flat.get(run.pixel.flat_index)
+            texture, status = (models.direct_detail_indexed_preview_texture(run, payload)
+                               if payload is not None else (None, None))
+            if texture is not None:
+                run = models.replace(run, preview_coordinate_state=texture.preview_coordinate_state)
+                expected = models.detail_texture_preview_record(run)
+                source = record.get('texture')
+                if (record.get('status') != status or not source
+                        or source.get('source_family') != texture.family
+                        or (source.get('width'), source.get('height')) != (texture.width, texture.height)
+                        or models._validated_preview_source(directory, source['file']).read_bytes() != texture.png_data):
+                    raise ValueError(f'ROM detail texture differs for run {index}')
+        if evidence != expected:
+            raise ValueError(f'ROM detail preview selection differs for run {index}')
+        if record.get('status') == 'direct-detail-indexed-base' and expected is None:
+            raise ValueError(f'ROM detail preview has no source proof for run {index}')
+        runs.append(run)
+    return models.replace(geometry, material_runs=tuple(runs))
+
+
+def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morph_record: dict | None = None,
+                     draw_pass: dict | None = None, *, flat_payloads: dict | None = None,
+                     runtime_materials: dict | None = None, preview_root: Path | None = None) -> dict:
     """Compare emitted corner order/positions/UVs/joints with decoded source data.
 
     This is exporter consistency, not an independent proof of the ROM decoder.
     It reads the actual glTF buffers, never a second call to encode_gltf.
     """
     document = read(path)
+    if flat_payloads is not None:
+        geometry = verified_detail_preview_geometry(geometry, run_records, flat_payloads,
+                                                   runtime_materials or {}, preview_root or path.parent)
+        geometry = models.apply_runtime_texture_coordinates(geometry, runtime_materials or {})
+    if document.get('extras', {}).get('romCharacterDrawPass') != draw_pass:
+        raise ValueError('exported character draw-pass selection differs from ROM')
     preview_fingerprint(path)  # Validate dependency locality before opening buffers.
     buffers = [(path.parent / unquote(b['uri'])).read_bytes() for b in document.get('buffers', [])]
     models.verify_gltf_material_spans(document, run_records)
+    for material in document.get('materials', []):
+        extras = material.get('extras', {})
+        index = extras.get('materialRun')
+        if isinstance(index, int) and extras.get('romTextureStateConsensus') != run_records[index].get('rom_texture_state_consensus'):
+            raise ValueError('exported ROM texture-state evidence differs from source')
+        if isinstance(index, int):
+            run = geometry.material_runs[index]
+            detail = (models.detail_texture_preview_record(run)
+                      if run.preview_coordinate_state is not None else None)
+            if extras.get('romDetailTexturePreview') != detail:
+                raise ValueError('exported ROM detail preview evidence differs from source')
+            if detail is not None:
+                texture_index = material['pbrMetallicRoughness']['baseColorTexture']['index']
+                image = document['images'][document['textures'][texture_index]['source']]
+                actual = (path.parent / unquote(image['uri'])).resolve()
+                source = models._validated_preview_source(preview_root or path.parent, run_records[index]['texture']['file'])
+                if actual != source.resolve():
+                    raise ValueError('exported ROM detail image binding differs from source')
     expected = models.validation_face_records(geometry, joints)
-    cursor = uv_corners = joint_corners = 0
+    morph_deltas = models.model_morphs.target_deltas(morph_record, geometry) if morph_record else []
+    morph_info = document.get('extras', {}).get('romMorphTargets')
+    if morph_record:
+        if not morph_info or any(morph_info.get(key) != value for key, value in {
+                'sourceSha1': morph_record['source_sha1'], 'modelSha1': morph_record['model_sha1'],
+                'shapeCount': len(morph_deltas), 'vertexStarts': morph_record['vertex_starts'],
+                'partVertexCounts': morph_record['part_vertex_counts']}.items()):
+            raise ValueError('exported morph provenance differs from ROM')
+    elif morph_info:
+        raise ValueError('unexpected morph targets without a ROM source record')
+    cursor = uv_corners = joint_corners = morph_corners = 0
     for mesh in document.get('meshes', []):
+        if morph_record and (mesh.get('weights') != [0.0] * len(morph_deltas)
+                or mesh.get('extras', {}).get('targetNames') != [target['name'] for target in morph_record['targets']]):
+            raise ValueError('morph names or neutral default weights changed')
         for primitive in mesh['primitives']:
             if primitive.get('mode', 4) != 4:
                 raise ValueError('source triangle export changed primitive mode')
             attrs = {name: accessor(document, i, buffers) for name, i in primitive['attributes'].items()}
+            targets = primitive.get('targets', [])
+            if len(targets) != len(morph_deltas) or any(set(target) != {'POSITION'} for target in targets):
+                raise ValueError('morph target count or attributes changed')
+            morph_values = [accessor(document, target['POSITION'], buffers) for target in targets]
+            if any(len(values) != len(attrs['POSITION']) for values in morph_values):
+                raise ValueError('morph accessor does not cover the base vertices')
             indices = [v[0] for v in accessor(document, primitive['indices'], buffers)]
             if len(indices) % 3:
                 raise ValueError('incomplete exported triangle')
@@ -130,6 +207,11 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict]) -> d
                         raise ValueError(f'face {cursor}: invalid vertex index {index}')
                     if attrs['POSITION'][index] != float32(face['positions'][corner]):
                         raise ValueError(f'face {cursor} corner {corner}: position differs from ROM bind geometry')
+                    for deltas, values in zip(morph_deltas, morph_values):
+                        wanted = float32(deltas.get(face['source_indices'][corner], (0, 0, 0)))
+                        if values[index] != wanted:
+                            raise ValueError(f'face {cursor} corner {corner}: morph delta differs from ROM')
+                        morph_corners += 1
                     if 'TEXCOORD_0' in attrs:
                         vertex = geometry.vertices[face['source_indices'][corner]]
                         uv = float32(models.texture_coordinates(vertex, run))
@@ -147,6 +229,7 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict]) -> d
     if cursor != len(expected):
         raise ValueError('exported triangle count differs from decoded source')
     return {'faces': cursor, 'uv_corners': uv_corners, 'joint_corners': joint_corners,
+            'morph_target_count': len(morph_deltas), 'morph_corners': morph_corners,
             'scope': 'ROM-decoder-to-export consistency; native rendering unverified'}
 
 
@@ -320,6 +403,119 @@ def evidence_checks(model: dict, runs: list[dict]) -> dict:
     return result
 
 
+def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime: dict) -> dict:
+    manifest = read(path)
+    bank = manifest['bank_index']
+    if bank not in (3, 4, 9):
+        raise ValueError('object material proof requires bank 03, 04 or 09')
+    _, _, digest_rom, bundles, tables = models.load_model_bundles('us', None, bank)
+    context = models.load_object_material_context('us', None, digest_rom, bank)
+    if manifest.get('rom_object_material_context') != context:
+        raise ValueError('exported object material provenance differs from ROM')
+    contexts = {(r['bank'], r['entry'], r['segment']): r for r in context['models']}
+    records = {(r['bank_entry'], r['segment']): r for r in manifest['models']}
+    linked = faces = 0
+    for bundle in bundles:
+        for segment in bundle.segments:
+            if not segment.data:
+                continue
+            geometry = models.parse_segment_geometry(segment, bank)
+            geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
+            key = (bank, bundle.index, segment.index)
+            for index, run in enumerate(geometry.material_runs):
+                record = records[key[1:]]['material_runs'][index]
+                if (*key, index) in runtime:
+                    if record.get('rom_texture_state_consensus'):
+                        raise ValueError('captured material was replaced with ROM object consensus')
+                    continue
+                texture, status = models.choose_preview_texture(run, catalog, flat)
+                evidence = None
+                if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+                    texture, status, evidence = models.rom_object_preview_texture(
+                        run, catalog, flat, tables, contexts.get(key))
+                if evidence is not None or record.get('rom_texture_state_consensus'):
+                    if (texture is None or evidence is None or record['status'] != status
+                            or record.get('rom_texture_state_consensus') != evidence
+                            or not record.get('texture')
+                            or models._validated_preview_source(path.parent, record['texture']['file']).read_bytes() != texture.png_data):
+                        raise ValueError(f'ROM object texture differs for {key}:{index}')
+                    linked += 1
+                    faces += run.face_count
+    return {'consensus_texture_runs': linked, 'consensus_texture_faces': faces,
+            'export_capture_inputs': [], 'scope': 'Texture bytes on reviewed initial object draw paths; native appearance incomplete'}
+
+
+def compare_rom_defaults(path: Path, captures: list[dict], flat: dict, catalog: dict) -> dict:
+    manifest = read(path)
+    if manifest.get('runtime_material_manifest') or manifest.get('runtime_material_record_count'):
+        raise ValueError('ROM-only corpus contains runtime material inputs')
+    _, _, digest_rom, bundles, tables = models.load_model_bundles('us', None, 1)
+    defaults = models.load_character_defaults('us', None, digest_rom)
+    if identity(json.loads(json.dumps(defaults))) != identity(manifest['rom_character_defaults']):
+        raise ValueError('exported default provenance differs from ROM')
+    records = {r['bank_entry']: r for r in manifest['models']}
+    linked = faces = consensus_runs = consensus_faces = 0
+    for bundle in bundles:
+        geometry, layout = models.parse_character_model_geometry(bundle.data)
+        geometry, selection = models.model_character_parts.primary_preview(bundle.data, geometry, layout)
+        if records[bundle.index].get('character_draw_pass') != selection:
+            raise ValueError('exported primary draw-table provenance differs from ROM')
+        geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
+        for i, run in enumerate(geometry.material_runs):
+            if not run.face_count:
+                continue
+            if run.pixel is None or run.pixel.segment not in (6, 7, 10, 11):
+                record = records[bundle.index]['material_runs'][i]
+                texture, status = models.choose_preview_texture(run, catalog, flat)
+                evidence = None
+                if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+                    texture, status, evidence = models.rom_render_state_preview_texture(run, catalog, flat, tables)
+                if evidence is not None or record.get('rom_texture_state_consensus'):
+                    if (texture is None or evidence is None or record['status'] != status
+                            or record['rom_texture_state_consensus'] != evidence
+                            or not record.get('texture')
+                            or models._validated_preview_source(path.parent, record['texture']['file']).read_bytes() != texture.png_data):
+                        raise ValueError(f'ROM texture-state consensus differs for {bundle.index}:{i}')
+                    consensus_runs += 1
+                    consensus_faces += run.face_count
+                continue
+            texture, status, evidence = models.rom_default_preview_texture(
+                run, models.model_character_defaults.preview_defaults(defaults, bundle.index),
+                layout['texture_descriptors'], flat, tables)
+            record = records[bundle.index]['material_runs'][i]
+            if record['status'] != status or record['rom_default_texture'] != evidence:
+                raise ValueError(f'ROM default resolution changed for {bundle.index}:{i}')
+            if texture is not None:
+                png = models._validated_preview_source(path.parent, record['texture']['file']).read_bytes()
+                if png != texture.png_data:
+                    raise ValueError(f'ROM default PNG differs for {bundle.index}:{i}')
+                linked += 1
+                faces += run.face_count
+            elif record.get('texture'):
+                raise ValueError('unresolved ROM default was assigned an image')
+    compared = 0
+    for case in captures:
+        capture_path = ROOT / case['materials']
+        capture = read(capture_path)
+        if capture['normalized_sha1'] != digest_rom:
+            raise ValueError('comparison capture uses a different ROM')
+        for run_index in case['runs']:
+            record = records[case['entry']]['material_runs'][run_index]
+            if record['status'] != 'rom-default-indexed':
+                raise ValueError('capture comparison requires a resolved ROM default')
+            png = models._validated_preview_source(path.parent, record['texture']['file']).read_bytes()
+            variants = [v['captured_texture'] for r in capture['materials']
+                        if (r['bank'], r['entry'], r['segment'], r['material_run']) == (1, case['entry'], 0, run_index)
+                        for v in r['variants'] if v.get('captured_texture')]
+            matching = [v for v in variants if v.get('png_sha1') == hashlib.sha1(png).hexdigest()]
+            if not matching or any(models._validated_preview_source(capture_path.parent, v['file']).read_bytes() != png for v in matching):
+                raise ValueError(f'ROM default pixels differ from capture for {case["entry"]}:{run_index}')
+            compared += 1
+    return {'resolved_runs': linked, 'resolved_faces': faces, 'capture_compared_runs': compared,
+            'consensus_texture_runs': consensus_runs, 'consensus_texture_faces': consensus_faces,
+            'export_capture_inputs': [], 'scope': 'ROM default texture bytes; expressions and native raster parity incomplete'}
+
+
 def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = None,
                    skip_blender: bool = False, skip_renders: bool = False) -> dict:
     config = read(config_path)
@@ -410,10 +606,41 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                 return result
             report['checks']['runtime-draw:' + case['id']] = checked(compare_case)
 
+    if config.get('submitted_composition_cases'):
+        from scripts.model_runtime_validation import runtime_inputs
+        from scripts.model_submitted_pose import compare_composition
+        cluster_index = models.load_model_cluster_index()
+        for case in config['submitted_composition_cases']:
+            def compare_selected(case=case):
+                hashes = {row['model_sha1'] for key, row in inventory.items()
+                          if key[:3] == tuple(case['target'])}
+                if len(hashes) != 1:
+                    raise ValueError('submitted composition does not identify one ROM model')
+                model_sha1 = next(iter(hashes))
+                input_case = {**case, 'exports': [{'path': case['path']}]}
+                inputs = runtime_inputs(input_case, model_sha1, cluster_index)
+                result = stage('submitted-composition', {'rom': rom_key, **inputs},
+                    lambda: compare_composition(case, rom_digest, inventory, cluster_index))
+                if runtime_inputs(input_case, model_sha1, cluster_index) != inputs:
+                    raise ValueError('submitted composition inputs changed during comparison')
+                return result
+            report['checks']['submitted-composition:' + case['id']] = checked(compare_selected)
+            result = report['checks']['submitted-composition:' + case['id']]
+            if result['status'] == 'passed':
+                report['checks']['submitted-composition-textures:' + case['id']] = {
+                    'status': result['captured_texture_status'],
+                    'unresolved_face_count': result['unresolved_texture_face_count'],
+                    'scope': 'captured texture pixels only; native raster parity incomplete'}
+
     # Actual ROM geometry is shared between corpora; the emitted buffers differ.
     source_geometry = {}
+    source_primary_geometry = {}
+    source_morphs = {}
     for bank in models.BANK_INDICES:
         _, _, _, bundles, _ = models.load_model_bundles('us', None, bank)
+        if bank == 1:
+            morph_manifest = models.load_character_morph_manifest('us', None, bundles)
+            source_morphs = {record['character_entry']: record for record in morph_manifest['models']}
         for bundle in bundles:
             for segment in bundle.segments:
                 if not segment.data:
@@ -422,46 +649,113 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                 if bank == 1:
                     geometry, layout = models.parse_character_model_geometry(segment.data)
                     joints = tuple(layout['joints'])
+                    source_primary_geometry[(bank, bundle.index, segment.index)] = models.model_character_parts.primary_preview(
+                        segment.data, geometry, layout)
                 elif bank == 9 and models.is_attachment_model(segment.data):
                     geometry, layout = models.parse_attachment_model(segment.data, models.parse_model_geometry)
                     joints = tuple(layout['joints']) or None
                 else:
-                    geometry = models.parse_geometry_for_bank(segment.data, bank)
+                    geometry = models.parse_segment_geometry(segment, bank)
                 source_geometry[(bank, bundle.index, segment.index)] = (geometry, joints)
 
     records = []
     for corpus in config['corpora']:
         root = ROOT / corpus['root']
-        collected = collect_preview_records(root)
+        banks = tuple(corpus.get('banks', models.BANK_INDICES))
+        collected = collect_preview_records(root, banks=banks)
         if corpus.get('compositions'):
             collected += collect_composition_records(ROOT / corpus['compositions'])
         for record in collected:
             records.append({**record, 'path': str(record['path'].resolve()), 'corpus': corpus['name']})
-        for bank in models.BANK_INDICES:
+        for bank in banks:
             directory = root / f'us-bank-{bank:02x}-preview'
             manifest_path = directory / 'manifest.json'
             manifest = read(manifest_path)
             manifest_digest = digest(manifest_path)
+            if bank == 1 and manifest.get('rom_character_defaults') is not None:
+                morph_path = models._validated_preview_source(directory, manifest['character_morphs']['file'])
+                if identity(read(morph_path)) != identity(morph_manifest):
+                    raise ValueError('exported character morph manifest differs from ROM')
+            if manifest.get('rom_character_defaults') is not None:
+                captures = corpus.get('default_texture_captures', [])
+                dependencies = {str(manifest_path): manifest_digest}
+                for r in manifest['models']:
+                    for run in r['material_runs']:
+                        if run.get('texture') and (run.get('rom_default_texture') or run.get('rom_texture_state_consensus')):
+                            image = models._validated_preview_source(directory, run['texture']['file'])
+                            dependencies[str(image)] = digest(image)
+                for case in captures:
+                    capture_path = ROOT / case['materials']
+                    dependencies[str(capture_path)] = digest(capture_path)
+                    for r in read(capture_path)['materials']:
+                        if r['entry'] == case['entry'] and r['material_run'] in case['runs']:
+                            for variant in r['variants']:
+                                if variant.get('captured_texture'):
+                                    image = models._validated_preview_source(capture_path.parent, variant['captured_texture']['file'])
+                                    dependencies[str(image)] = digest(image)
+                report['checks']['rom-defaults:' + corpus['name']] = stage(
+                    'rom-defaults', {'rom': rom_key, 'dependencies': dependencies, 'captures': captures},
+                    lambda: compare_rom_defaults(manifest_path, captures, flat, catalog))
             runtime_path = manifest.get('runtime_material_manifest')
             runtime = runtime_catalogs.get(str((ROOT / runtime_path).resolve()), {}) if runtime_path else {}
+            if bank in (3, 4, 9):
+                dependencies = {str(manifest_path): manifest_digest}
+                if runtime_path:
+                    dependencies[runtime_path] = digest(ROOT / runtime_path)
+                for record in manifest['models']:
+                    for run in record['material_runs']:
+                        if run.get('texture') and run.get('rom_texture_state_consensus'):
+                            image = models._validated_preview_source(directory, run['texture']['file'])
+                            dependencies[str(image)] = digest(image)
+                report['checks'][f'rom-objects:{corpus["name"]}:{bank:02x}'] = stage(
+                    'rom-objects', {'rom': rom_key, 'dependencies': dependencies},
+                    lambda: compare_rom_object_materials(manifest_path, flat, catalog, runtime))
             for record in manifest['models']:
                 key = (bank, record['bank_entry'], record['segment'])
                 geometry, joints = source_geometry[key]
+                draw_pass = None
+                if bank == 1 and manifest.get('rom_character_defaults') is not None:
+                    geometry, draw_pass = source_primary_geometry[key]
+                    if record.get('character_draw_pass') != draw_pass:
+                        raise ValueError('preview character draw-pass selection differs from ROM')
                 geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
                 material_records = {index: runtime[(*key, index)] for index in range(len(geometry.material_runs))
                                     if (*key, index) in runtime}
-                geometry = models.apply_runtime_texture_coordinates(geometry, material_records)
                 path = directory / (record.get('bind_gltf_file') or record['gltf_file'])
                 model_key = f'{bank:02x}:{key[1]:04d}:{key[2]:02d}'
                 inputs = {'rom': rom_key, 'fingerprint': preview_fingerprint(path),
                           'manifest': manifest_digest, 'model': model_key}
-                comparison = stage('geometry', inputs, lambda p=path, g=geometry, j=joints, r=record:
-                                   compare_geometry(p, g, j, r['material_runs']))
+                morph = source_morphs.get(key[1]) if bank == 1 and manifest.get('rom_character_defaults') is not None else None
+                comparison = stage('geometry', inputs, lambda p=path, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records:
+                                   compare_geometry(p, g, j, r['material_runs'], m, d,
+                                                    flat_payloads=flat, runtime_materials=rm, preview_root=directory))
+                if morph or draw_pass or any(run.get('rom_texture_state_consensus') for run in record['material_runs']):
+                    animated = directory / record['gltf_file']
+                    report['checks'][f'animated-geometry:{corpus["name"]}:{model_key}'] = stage(
+                        'geometry', {**inputs, 'fingerprint': preview_fingerprint(animated)},
+                        lambda p=animated, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records:
+                            compare_geometry(p, g, j, r['material_runs'], m, d,
+                                             flat_payloads=flat, runtime_materials=rm, preview_root=directory))
                 report['models'].append({'key': model_key, 'corpus': corpus['name'],
                     'checks': {'export_geometry': comparison,
                                'native_visual_parity': {'status': 'incomplete', 'reason': 'no-complete-aligned-runtime-reference'}}})
             if digest(manifest_path) != manifest_digest:
                 raise ValueError(f'preview manifest changed during validation: {manifest_path}')
+
+    for case in config.get('runtime_draw_cases', []):
+        for export in case.get('exports', []):
+            records.append({'path': str((ROOT / export['path']).resolve()), 'bank': case['target'][0],
+                            'kind': 'submitted-character-pose', 'corpus': 'submitted'})
+    for case in config.get('submitted_composition_cases', []):
+        records.append({'path': str((ROOT / case['path']).resolve()), 'bank': case['target'][0],
+                        'kind': 'submitted-character-composition', 'corpus': 'submitted'})
+    recorded_paths = {record['path'] for record in records}
+    for directory in config.get('additional_compositions', []):
+        for record in collect_composition_records(ROOT / directory):
+            path = str(record['path'].resolve())
+            if path not in recorded_paths:
+                records.append({**record, 'path': path, 'corpus': 'submitted-compositions'})
+                recorded_paths.add(path)
 
     node = shutil.which('node')
     package = ROOT / 'build/tools/model-validation/node_modules/gltf-validator'
@@ -613,6 +907,8 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
     report['summary']['fresh_gltf_checks'] = len(pending_gltf)
     report['summary']['runtime_draw_cases'] = dict(Counter(
         row['status'] for key, row in report['checks'].items() if key.startswith('runtime-draw:')))
+    report['summary']['submitted_composition_cases'] = dict(Counter(
+        row['status'] for key, row in report['checks'].items() if key.startswith('submitted-composition:')))
     if code_identity() != codes or digest(config_path) != report['config_sha256'] or digest(rom_path) != rom_key:
         report['checks']['input-stability'] = {'status': 'failed', 'error': 'code, configuration or ROM changed during validation'}
     for name, result in report['checks'].items():

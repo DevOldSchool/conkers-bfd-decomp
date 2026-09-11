@@ -1,0 +1,301 @@
+{
+  "schema_version": 1,
+  "name": "character-model-draw-ranges",
+  "model_correlation": true,
+  "model_inventory_digest": true,
+  "target": {
+    "bank": 1,
+    "entry": null,
+    "segment": null,
+    "material_run": null
+  },
+  "max_events": 1024,
+  "max_breakpoint_hits": 10000,
+  "timeout_seconds": 180,
+  "breakpoints": [
+    {
+      "name": "character-model-draw-enter",
+      "address": "0x1502CCFC",
+      "flags": 8,
+      "decoder": {
+        "format": "cbfd-character-pool",
+        "memory": "character-pool"
+      },
+      "memory": [
+        {
+          "name": "character-pool",
+          "address": "0x800CC2D0",
+          "length": 20300
+        },
+        {
+          "name": "stack-arguments",
+          "address": "$sp+0x10",
+          "length": 16
+        }
+      ],
+      "fields": {
+        "model.draw_character_slot": {
+          "source": "register",
+          "name": "a1"
+        },
+        "model.command_buffer_start": {
+          "source": "register",
+          "name": "a0"
+        },
+        "model.root_matrix_address": {
+          "source": "register",
+          "name": "a3"
+        },
+        "model.draw_argument_4": {
+          "source": "memory",
+          "name": "stack-arguments",
+          "offset": 0,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.draw_argument_5": {
+          "source": "memory",
+          "name": "stack-arguments",
+          "offset": 4,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.draw_argument_6": {
+          "source": "memory",
+          "name": "stack-arguments",
+          "offset": 8,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.draw_argument_7": {
+          "source": "memory",
+          "name": "stack-arguments",
+          "offset": 12,
+          "size": 4,
+          "endian": "big"
+        }
+      }
+    },
+    {
+      "name": "character-normal-part-selected",
+      "address": "0x1502D494",
+      "flags": 8,
+      "memory": [
+        {
+          "name": "character-render-stack",
+          "address": "$sp+0x140",
+          "length": 48
+        }
+      ],
+      "fields": {
+        "model.display_model_index": {
+          "source": "memory",
+          "name": "character-render-stack",
+          "offset": 0,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.secondary_model_index": {
+          "source": "memory",
+          "name": "character-render-stack",
+          "offset": 4,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.draw_mode": {
+          "source": "memory",
+          "name": "character-render-stack",
+          "offset": 40,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.character_record_address": {
+          "source": "register",
+          "name": "s5"
+        },
+        "model.part_index": {
+          "source": "register",
+          "name": "s1"
+        },
+        "model.part_table_slot_address": {
+          "source": "register",
+          "name": "s4"
+        },
+        "model.selected_display_list": {
+          "source": "register",
+          "name": "t7"
+        }
+      }
+    },
+    {
+      "name": "character-extra-part-selected",
+      "address": "0x1502D404",
+      "flags": 8,
+      "memory": [
+        {
+          "name": "character-render-stack",
+          "address": "$sp+0x140",
+          "length": 48
+        }
+      ],
+      "fields": {
+        "model.display_model_index": {
+          "source": "memory",
+          "name": "character-render-stack",
+          "offset": 0,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.secondary_model_index": {
+          "source": "memory",
+          "name": "character-render-stack",
+          "offset": 4,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.draw_mode": {
+          "source": "memory",
+          "name": "character-render-stack",
+          "offset": 40,
+          "size": 4,
+          "endian": "big"
+        },
+        "model.character_record_address": {
+          "source": "register",
+          "name": "s5"
+        },
+        "model.part_index": {
+          "source": "register",
+          "name": "s1"
+        },
+        "model.part_table_slot_address": {
+          "source": "register",
+          "name": "v1"
+        },
+        "model.selected_display_list": {
+          "source": "register",
+          "name": "t9"
+        }
+      }
+    },
+    {
+      "name": "character-model-draw-return",
+      "address": "0x1502D544",
+      "flags": 8,
+      "decoder": {
+        "format": "cbfd-character-draw-range",
+        "entry_breakpoint": "character-model-draw-enter",
+        "memory": "character-command-buffer",
+        "max_bytes": 4096,
+        "walk_nested": true,
+        "max_nested_lists": 64,
+        "max_nested_bytes": 65536,
+        "capture_matrices": true,
+        "max_matrices": 128,
+        "matrix_format": "cbfd-character-f32",
+        "capture_textures": true,
+        "max_texture_images": 512,
+        "max_texture_bytes": 16384
+      },
+      "fields": {
+        "model.command_buffer_end": {
+          "source": "register",
+          "name": "v0"
+        }
+      }
+    },
+    {
+      "name": "character-draws-at-graphics-submit",
+      "address": "0x10023DF0",
+      "flags": 8,
+      "decoder": {
+        "format": "f3dex2-cbfd",
+        "memory": "command-buffer",
+        "walk_nested": true,
+        "max_nested_lists": 64,
+        "max_nested_bytes": 65536,
+        "capture_matrices": true,
+        "capture_vertices": true,
+        "max_vertex_blocks": 512,
+        "max_matrices": 512,
+        "matrix_format": "n64-mtx",
+        "capture_lights": true,
+        "max_lights": 512,
+        "capture_normals": true,
+        "max_normal_streams": 512,
+        "capture_textures": true,
+        "max_texture_images": 1024,
+        "max_texture_bytes": 16384
+      },
+      "memory": [
+        {
+          "name": "task",
+          "address": "$a2",
+          "length": 64
+        },
+        {
+          "name": "command-buffer",
+          "address": {
+            "source": "memory",
+            "name": "task",
+            "offset": 48,
+            "size": 4,
+            "endian": "big",
+            "map": "kseg0"
+          },
+          "length": {
+            "source": "memory",
+            "name": "task",
+            "offset": 52,
+            "size": 4,
+            "endian": "big",
+            "max": 65536
+          }
+        }
+      ],
+      "stop_after_capture_count": 2,
+      "when": [
+        {
+          "source": "register",
+          "name": "a0",
+          "equals": 1
+        },
+        {
+          "source": "register",
+          "name": "a1",
+          "mask": "0xFFFFFFFF",
+          "equals": "0x04000FC0"
+        },
+        {
+          "source": "register",
+          "name": "a3",
+          "equals": 64
+        },
+        {
+          "source": "memory",
+          "name": "task",
+          "offset": 0,
+          "size": 4,
+          "endian": "big",
+          "equals": 1
+        }
+      ],
+      "fields": {
+        "rdp.task_command_buffer_address": {
+          "source": "memory",
+          "name": "task",
+          "offset": 48,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.task_command_buffer_size": {
+          "source": "memory",
+          "name": "task",
+          "offset": 52,
+          "size": 4,
+          "endian": "big"
+        }
+      }
+    }
+  ]
+}

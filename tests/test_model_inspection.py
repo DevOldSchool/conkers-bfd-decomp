@@ -75,14 +75,82 @@ class ModelInspectionTests(unittest.TestCase):
                                    'check': {'current_sha256': inspection.digest(PNG)}}]}
             (root / 'report.json').write_text(json.dumps(report))
             config = {'validation_report': 'report.json', 'previews': 'previews',
-                      'models': [{'name': 'conker-test', 'label': 'Conker', 'note': 'Fixture', 'render_case': 'test'}]}
+                      'models': [{'name': 'conker-test', 'label': 'Conker', 'note': 'Fixture',
+                                  'category': 'characters', 'render_case': 'test'}]}
             (root / 'config.json').write_text(json.dumps(config))
             with mock.patch.object(inspection, 'ROOT', root):
                 manifest = inspection.publish_inspection(root / 'config.json', root / 'inspect')
                 output = root / 'inspect/conker-test.glb'
                 before = output.read_bytes()
                 self.assertEqual('ready-for-inspection', manifest['models'][0]['status'])
+                # Renaming and regrouping cannot alter the model or preview bytes.
+                config['models'][0].update(label='Conker renamed', category='scene-items', aliases=['Conker'])
+                (root / 'config.json').write_text(json.dumps(config))
+                renamed = inspection.publish_inspection(root / 'config.json', root / 'inspect')
+                self.assertEqual('scene-items', renamed['models'][0]['category'])
+                self.assertEqual(before, output.read_bytes())
+                self.assertEqual(PNG, (root / 'previews/conker-test.png').read_bytes())
                 (root / 'model.bin').write_bytes(b'bad input')
                 with self.assertRaisesRegex(ValueError, 'stale or unvalidated'):
                     inspection.publish_inspection(root / 'config.json', root / 'inspect')
                 self.assertEqual(before, output.read_bytes())
+
+    def test_gallery_metadata_rejects_uncategorized_models_and_unsafe_references(self):
+        model = {'name': 'test', 'category': 'characters', 'aliases': ['old name']}
+        inspection.validate_gallery_metadata([model])
+        for bad in ({'category': 'character-bank'}, {'category': None}, {'aliases': 'name'},
+                    {'identification': {'basis': 'visual-reference', 'reference_label': 'Wiki',
+                                        'reference_url': 'javascript:alert(1)'}}):
+            with self.subTest(bad=bad), self.assertRaises(ValueError):
+                inspection.validate_gallery_metadata([{**model, **bad}])
+
+    def test_gallery_escapes_names_aliases_and_reference_labels(self):
+        record = {'label': 'Test <model>', 'file': 'test.glb', 'category': 'characters',
+                  'preview': 'preview.png', 'note': '<b>Note</b>', 'aliases': ['" onclick="bad()'],
+                  'preview_sha256': inspection.digest(PNG), 'glb_sha256': inspection.digest(b'glb'),
+                  'identification': {'basis': 'visual-reference', 'reference_label': '<Wiki>',
+                                     'reference_url': 'https://example.com/?a=1&b=2'}}
+        page = inspection.gallery_page([record], inspection.ROOT / 'inspect')
+        self.assertIn('Test &lt;model&gt;', page)
+        self.assertIn('&quot; onclick=&quot;bad()', page)
+        self.assertIn('&lt;Wiki&gt;', page)
+        self.assertNotIn('<b>Note</b>', page)
+        self.assertNotIn('{{CARDS}}', page)
+
+    def test_rom_source_gate_checks_selected_model_in_mixed_corpus(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            geometry = root / 'geometry'
+            geometry.mkdir()
+            source, document, _ = self.fixture(geometry)
+            row = {'bank_entry': 173, 'segment': 0, 'gltf_file': 'geometry/model.gltf',
+                   'material_runs': [{'runtime_material': None}]}
+            manifest = {'profile': 'us', 'bank_index': 9,
+                        'family': 'indexed-bank-09-model-preview', 'models': [row,
+                        {'gltf_file': 'geometry/other.gltf', 'material_runs': [{'runtime_material': {'observed': True}}]}]}
+            path = root / 'manifest.json'
+            path.write_text(json.dumps(manifest))
+            self.assertEqual([], inspection.rom_source_evidence(source)['capture_inputs'])
+            row['material_runs'][0]['runtime_material'] = {'observed': True}
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, 'captured runtime materials'):
+                inspection.rom_source_evidence(source)
+            row['material_runs'][0]['runtime_material'] = None
+            path.write_text(json.dumps(manifest))
+            document['materials'][0]['extras'] = {'runtimeMaterial': {}}
+            source.write_text(json.dumps(document))
+            with self.assertRaisesRegex(ValueError, 'captured runtime material evidence'):
+                inspection.rom_source_evidence(source)
+
+    def test_rom_source_gate_rejects_captured_compositions_and_nondefault_characters(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            geometry = root / 'geometry'
+            geometry.mkdir()
+            source, _, _ = self.fixture(geometry)
+            for bank, family, message in [(1, 'indexed-bank-01-model-preview', 'ROM-default corpus'),
+                                          (1, 'submitted-character-poses', 'captured composition')]:
+                (root / 'manifest.json').write_text(json.dumps({'profile': 'us', 'bank_index': bank,
+                                                                'family': family, 'models': []}))
+                with self.assertRaisesRegex(ValueError, message):
+                    inspection.rom_source_evidence(source)

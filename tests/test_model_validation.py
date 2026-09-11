@@ -25,6 +25,143 @@ def geometry():
 
 
 class ModelValidationTests(unittest.TestCase):
+    def detail_fixture(self, root):
+        def bounds(i, origin, w, h):
+            return (i, 0xF2000000 | (origin << 12) | origin,
+                    (i << 24) | ((origin+4*(w-1)) << 12) | (origin+4*(h-1)))
+        sizes = (bounds(0, 64, 4, 8), bounds(1, 32, 8, 8), bounds(2, 16, 4, 4))
+        tiles = ((0, 0xF560020C, 0x0000FC2F), (1, 0xF5480200, 0x0100C030),
+                 (2, 0xF5480208, 0x02008421), (6, 0xF5600100, 0x06000000),
+                 (7, 0xF5500000, 0x07000000))
+        run = models.ModelMaterialRun(0, 1, True,
+            models.ModelTextureBinding(0xFD500000, 42, 0, load_command=(0xF3000000, 0x0704F000)),
+            models.ModelTextureBinding(0xFD100000, 42, 1, load_command=(0xF0000000, 0x063FC000)),
+            tiles[0][1:], tiles, sizes[0][1:], (0xD7000802, 0xFFFFFFFF),
+            (0xFC26A004, 0x151092FF), (0xEF1DAC3F, 0x0C192230), None,
+            detail_tile_bounds=sizes)
+        flat = {42: bytes(range(160)) + bytes.fromhex('0001') * 256}
+        texture, status = models.choose_preview_texture(run, {}, flat)
+        selected = replace(run, preview_coordinate_state=texture.preview_coordinate_state)
+        source = replace(geometry(), material_runs=(run,))
+        output = replace(source, material_runs=(selected,))
+        record = {'face_count': 1, 'runtime_material': None, 'status': status,
+                  'rom_detail_texture_preview': models.detail_texture_preview_record(selected),
+                  'texture': {'file': 'base.png', 'source_family': texture.family, 'width': 8, 'height': 8}}
+        (root/'base.png').write_bytes(texture.png_data)
+        document, binary = models.encode_gltf(0, 0, output, {0: 'base.png'}, output_stem='model')
+        path = root/'model.gltf';path.write_bytes(document);path.with_suffix('.bin').write_bytes(binary)
+        return path, source, [record], flat
+
+    def test_detail_validation_recomputes_pixels_and_uv_selection_from_rom(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory);path, source, runs, flat = self.detail_fixture(root)
+            result = validation.compare_geometry(path, source, None, runs, flat_payloads=flat)
+            self.assertEqual(3, result['uv_corners'])
+            runs[0]['rom_detail_texture_preview']['preview_tile'] = 0
+            with self.assertRaisesRegex(ValueError, 'ROM detail preview selection differs'):
+                validation.compare_geometry(path, source, None, runs, flat_payloads=flat)
+            runs[0]['rom_detail_texture_preview']['preview_tile'] = 1
+            (root/'base.png').write_bytes(b'changed')
+            with self.assertRaisesRegex(ValueError, 'ROM detail texture differs'):
+                validation.compare_geometry(path, source, None, runs, flat_payloads=flat)
+
+    def test_detail_validation_rejects_forged_gltf_binding_metadata_and_coordinates(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory);path, source, runs, flat = self.detail_fixture(root)
+            document = validation.read(path)
+            saved = json.loads(json.dumps(document))
+            document['materials'][0]['extras']['romDetailTexturePreview']['preview_tile'] = 0
+            validation.write(path, document)
+            with self.assertRaisesRegex(ValueError, 'exported ROM detail preview evidence differs'):
+                validation.compare_geometry(path, source, None, runs, flat_payloads=flat)
+            document = json.loads(json.dumps(saved));(root/'wrong.png').write_bytes((root/'base.png').read_bytes())
+            document['images'][0]['uri'] = 'wrong.png';validation.write(path, document)
+            with self.assertRaisesRegex(ValueError, 'exported ROM detail image binding differs'):
+                validation.compare_geometry(path, source, None, runs, flat_payloads=flat)
+            validation.write(path, saved)
+            accessor = saved['accessors'][saved['meshes'][0]['primitives'][0]['attributes']['TEXCOORD_0']]
+            offset = saved['bufferViews'][accessor['bufferView']]['byteOffset']
+            binary = bytearray(path.with_suffix('.bin').read_bytes());struct.pack_into('<f',binary,offset,123.0);path.with_suffix('.bin').write_bytes(binary)
+            with self.assertRaisesRegex(ValueError, 'UV differs from selected coordinate state'):
+                validation.compare_geometry(path, source, None, runs, flat_payloads=flat)
+
+    def test_rom_direct_defaults_reject_forged_selection_and_changed_pixels(self):
+        pixel = models.ModelTextureBinding(0xFD180000, segment=6, offset=0,
+                                           load_command=(0xF3000000, 0x07007000))
+        run = models.ModelMaterialRun(0, 1, True, pixel, None, (0xF5180200, 0),
+            ((0, 0xF5180200, 0), (7, 0xF5180000, 0x07000000)),
+            (0xF2000000, 0x0000C004), (0xD7000002, 0xFFFFFFFF),
+            (0xFCFF9880, 0xF514FEFF), (0xEF182C3F, 0x04D04DD8), None)
+        source = replace(geometry(), material_runs=(run,))
+        defaults = {'entries': {23: {'preset': 'fixture', 'header_sha1': 'header',
+                                     'descriptor_indices': {'6': 0}}}}
+        descriptors = [{'record_index': 0, 'flat_index': 42, 'width': 4, 'height': 2}]
+        payloads = {42: bytes(range(32))}
+        texture, status, evidence = models.rom_default_preview_texture(
+            run, defaults['entries'][23], descriptors, payloads, [])
+        record = {'status': status, 'rom_default_texture': evidence,
+                  'texture': {'file': 'face.png'}}
+        manifest = {'rom_character_defaults': defaults,
+                    'models': [{'bank_entry': 23, 'character_draw_pass': {}, 'material_runs': [record]}]}
+        bundle = SimpleNamespace(index=23, data=b'model')
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'manifest.json'
+            (root / 'face.png').write_bytes(texture.png_data)
+            validation.write(path, manifest)
+            with mock.patch.object(models, 'load_model_bundles', return_value=(None, None, 'rom', [bundle], [])), \
+                 mock.patch.object(models, 'load_character_defaults', return_value=defaults), \
+                 mock.patch.object(models, 'parse_character_model_geometry', return_value=(source, {'texture_descriptors': descriptors})), \
+                 mock.patch.object(models.model_character_parts, 'primary_preview', return_value=(source, {})):
+                result = validation.compare_rom_defaults(path, [], payloads, {})
+                self.assertEqual((1, 1), (result['resolved_runs'], result['resolved_faces']))
+                (root / 'face.png').write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError, 'ROM default PNG differs'):
+                    validation.compare_rom_defaults(path, [], payloads, {})
+                (root / 'face.png').write_bytes(texture.png_data)
+                record['rom_default_texture'] = {**evidence, 'segment': 7}
+                validation.write(path, manifest)
+                with self.assertRaisesRegex(ValueError, 'ROM default resolution changed'):
+                    validation.compare_rom_defaults(path, [], payloads, {})
+
+    def test_object_material_validation_rejects_forged_provenance_pixels_and_capture_mix(self):
+        for bank in (3, 4, 9):
+            with self.subTest(bank=bank):
+                self.check_object_material_validation(bank)
+
+    def check_object_material_validation(self, bank):
+        source = geometry()
+        segment = SimpleNamespace(index=0, data=b'model')
+        bundle = SimpleNamespace(index=58, segments=[segment])
+        context = {'models': [{'bank': bank, 'entry': 58, 'segment': 0}]}
+        evidence = {'object_renderer_context': {'bank': bank, 'entry': 58, 'segment': 0}}
+        png = texture_assets.encode_rgba_png(1, 1, bytes((10, 20, 30, 255)))
+        record = {'status': 'rom-state-consensus-ci4', 'rom_texture_state_consensus': evidence,
+                  'texture': {'file': 'texture.png'}}
+        manifest = {'bank_index': bank, 'rom_object_material_context': context,
+                    'models': [{'bank_entry': 58, 'segment': 0, 'material_runs': [record]}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'manifest.json'
+            (root / 'texture.png').write_bytes(png)
+            validation.write(path, manifest)
+            with mock.patch.object(models, 'load_model_bundles', return_value=(None, None, 'rom', [bundle], [])), \
+                 mock.patch.object(models, 'load_object_material_context', return_value=context), \
+                 mock.patch.object(models, 'parse_segment_geometry', return_value=source), \
+                 mock.patch.object(models, 'choose_preview_texture', return_value=(None, 'no-proven-texture')), \
+                 mock.patch.object(models, 'rom_object_preview_texture', return_value=(SimpleNamespace(png_data=png), record['status'], evidence)):
+                result = validation.compare_rom_object_materials(path, {}, {}, {})
+                self.assertEqual((1, 1), (result['consensus_texture_runs'], result['consensus_texture_faces']))
+                with self.assertRaisesRegex(ValueError, 'captured material was replaced'):
+                    validation.compare_rom_object_materials(path, {}, {}, {(bank, 58, 0, 0): {}})
+                (root / 'texture.png').write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError, 'texture differs'):
+                    validation.compare_rom_object_materials(path, {}, {}, {})
+                manifest['rom_object_material_context'] = {'models': []}
+                validation.write(path, manifest)
+                with self.assertRaisesRegex(ValueError, 'provenance differs'):
+                    validation.compare_rom_object_materials(path, {}, {}, {})
+
     def export(self, root, source):
         document, binary = models.encode_gltf(0, 0, source, output_stem='model')
         path = root / 'model.gltf'

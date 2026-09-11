@@ -18,10 +18,12 @@ BANKS = (1, 3, 4, 9)
 
 
 def collect_preview_records(
-    model_root: Path, include_animated: bool = True
+    model_root: Path, include_animated: bool = True, banks: tuple[int, ...] = BANKS,
 ) -> list[dict[str, Any]]:
+    if not banks or len(set(banks)) != len(banks) or any(bank not in BANKS for bank in banks):
+        raise ValueError('preview bank selection must contain unique supported banks')
     records: list[dict[str, Any]] = []
-    for bank in BANKS:
+    for bank in banks:
         preview_root = model_root / f"us-bank-{bank:02x}-preview"
         manifest_path = preview_root / "manifest.json"
         if not manifest_path.is_file():
@@ -195,6 +197,23 @@ def main(argv: list[str] | None = None) -> int:
         mesh_count = len(meshes)
         polygon_count = sum(len(item.data.polygons) for item in meshes)
         action_count = len(bpy.data.actions)
+        morph_info = source_document.get("extras", {}).get("romMorphTargets")
+        morph_shape_count = 0
+        if morph_info is not None:
+            expected_names = source_document["meshes"][0]["extras"]["targetNames"]
+            morph_meshes = [item for item in meshes if item.data.shape_keys is not None]
+            if len(morph_meshes) != 1 or len(expected_names) != morph_info["shapeCount"]:
+                raise ValueError(f"imported morph mesh count changed: {record['path']}")
+            item = morph_meshes[0]
+            blocks = list(item.data.shape_keys.key_blocks)
+            if [block.name for block in blocks[1:]] != expected_names:
+                raise ValueError(f"imported shape-key names changed: {record['path']}")
+            for index, block in enumerate(blocks):
+                if len(block.data) != len(item.data.vertices) or not math.isfinite(block.value) or (index > 0 and block.value != 0):
+                    raise ValueError(f"imported shape-key extent/default changed: {record['path']}")
+                if any(not all(math.isfinite(value) for value in vertex.co) for vertex in block.data):
+                    raise ValueError(f"non-finite morph position imported: {record['path']}")
+            morph_shape_count = len(blocks) - 1
         expected_culling_materials = sum(
             "faceCulling" in material.get("extras", {})
             for material in source_document.get("materials", [])
@@ -221,6 +240,7 @@ def main(argv: list[str] | None = None) -> int:
             "mesh_count": mesh_count,
             "polygon_count": polygon_count,
             "action_count": action_count,
+            "morph_shape_count": morph_shape_count,
             "culling_materials": culling_materials,
         })
         totals["mesh_count"] += mesh_count

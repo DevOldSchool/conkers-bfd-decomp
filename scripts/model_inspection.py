@@ -20,6 +20,64 @@ except ModuleNotFoundError:
     from model_preview_evidence import preview_fingerprint
 
 ROOT = Path(__file__).resolve().parents[1]
+CATEGORIES = {
+    'characters': ('Characters', 'Characters, creatures and living objects.'),
+    'collectables': ('Collectables', 'Cash, keys, food and multiplayer objectives.'),
+    'scene-items': ('Scene items', 'Scenery, props, vehicles, weapons and equipment.'),
+    'parts-effects': ('Parts & effects', 'Detached parts, attachments, debris and effects.'),
+}
+
+
+def validate_gallery_metadata(models: list[dict]) -> None:
+    """Require deliberate categorization without treating labels as ROM evidence."""
+    for model in models:
+        if model.get('category') not in CATEGORIES:
+            raise ValueError(f'invalid or missing inspection category: {model["name"]}')
+        aliases = model.get('aliases', [])
+        if not isinstance(aliases, list) or any(not isinstance(alias, str) for alias in aliases):
+            raise ValueError(f'invalid inspection aliases: {model["name"]}')
+        identification = model.get('identification')
+        if identification is not None:
+            reference = urlsplit(identification.get('reference_url', ''))
+            if (identification.get('basis') != 'visual-reference'
+                    or reference.scheme != 'https' or not reference.hostname
+                    or not identification.get('reference_label')):
+                raise ValueError(f'invalid visual identification reference: {model["name"]}')
+
+
+def gallery_page(records: list[dict], output: Path) -> str:
+    """Render a standalone, offline gallery with category and alias filtering."""
+    cards = []
+    for record in records:
+        image_link = os.path.relpath(ROOT / record['preview'], output)
+        image_link += '?v=' + record['preview_sha256']
+        model_link = record['file'] + '?v=' + record['glb_sha256']
+        search_text = ' '.join([record['label'], record['file'], *record.get('aliases', [])])
+        identification = record.get('identification')
+        reference = ''
+        if identification:
+            reference = (f'<p>Visual identification: <a href="{html.escape(identification["reference_url"], quote=True)}">'
+                         f'{html.escape(identification["reference_label"])}</a>. '
+                         'The name is inferred from appearance; the bank and entry identify the ROM asset.</p>')
+        title = record['label'].split(' — ROM', 1)[0]
+        cards.append(
+            f'<article data-category="{record["category"]}" data-search="{html.escape(search_text, quote=True)}">'
+            f'<a href="{html.escape(model_link, quote=True)}">'
+            f'<img loading="lazy" width="512" height="512" src="{html.escape(image_link, quote=True)}" alt="{html.escape(title, quote=True)}">'
+            f'<h2>{html.escape(title)}</h2></a><code>{html.escape(record["file"])}</code>'
+            f'<details><summary>Export details</summary><p>{html.escape(record["note"])}</p>{reference}</details></article>')
+    categories = {**CATEGORIES, 'all': ('All models', 'Every model currently extracted and published for inspection.')}
+    tabs = []
+    for category, (label, description) in categories.items():
+        count = sum(category == 'all' or row['category'] == category for row in records)
+        tabs.append(f'<button type="button" role="tab" id="tab-{category}" data-category="{category}" '
+                    f'data-description="{html.escape(description, quote=True)}" data-label="{label}" '
+                    f'aria-controls="model-panel" aria-selected="false" tabindex="-1">'
+                    f'{html.escape(label)} <span class="tab-count">{count}</span></button>')
+    template = Path(__file__).with_name('model_inspection.html').read_text()
+    # Substitute only template tokens, never tokens inside user-facing metadata.
+    values = {'TABS': ''.join(tabs), 'CARDS': ''.join(cards), 'COUNT': str(len(records))}
+    return re.sub(r'\{\{(TABS|CARDS|COUNT)\}\}', lambda match: values[match[1]], template)
 
 
 def digest(data: bytes) -> str:
@@ -129,8 +187,39 @@ def write_if_changed(path: Path, data: bytes) -> None:
     name.replace(path)
 
 
+def rom_source_evidence(source: Path) -> dict:
+    """Require a selected ROM model, even in a corpus with other captured rows."""
+    source = source.resolve()
+    root = source.parent.parent
+    manifest_path = root / 'manifest.json'
+    manifest_bytes = manifest_path.read_bytes()
+    manifest = json.loads(manifest_bytes)
+    bank = manifest.get('bank_index')
+    if (bank not in (1, 3, 4, 9) or manifest.get('profile') != 'us'
+            or manifest.get('family') != f'indexed-bank-{bank:02x}-model-preview'):
+        raise ValueError('inspection requires a ROM model preview, not a captured composition')
+    if bank == 1 and not manifest.get('rom_character_defaults'):
+        raise ValueError('character inspection requires the ROM-default corpus')
+    relative = str(source.relative_to(root))
+    records = [record for record in manifest['models']
+               if relative in (record.get('gltf_file'), record.get('bind_gltf_file'))]
+    if len(records) != 1 or not isinstance(records[0].get('material_runs'), list):
+        raise ValueError('inspection source lacks a unique ROM model record')
+    record = records[0]
+    if any(run.get('runtime_material') is not None for run in record['material_runs']):
+        raise ValueError('inspection model uses captured runtime materials')
+    document = json.loads(source.read_bytes())
+    if any('runtimeMaterial' in material.get('extras', {})
+           for material in document.get('materials', [])):
+        raise ValueError('inspection glTF contains captured runtime material evidence')
+    return {'manifest_sha256': digest(manifest_bytes), 'bank': bank,
+            'entry': record['bank_entry'], 'segment': record['segment'],
+            'source': 'ROM', 'capture_inputs': []}
+
+
 def publish_inspection(config_path: Path, output: Path) -> dict:
     config = json.loads(config_path.read_text())
+    validate_gallery_metadata(config['models'])
     report_path = ROOT / config['validation_report']
     report = json.loads(report_path.read_text())
     if not report.get('summary', {}).get('completed') or report.get('status') == 'failed':
@@ -155,10 +244,12 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
         image = Path(render['image'])
         if digest(image.read_bytes()) != render['check']['current_sha256']:
             raise ValueError(f'stale inspection image: {image}')
+        rom_evidence = rom_source_evidence(source) if config.get('rom_only') else None
         glb, evidence = pack_glb(source)
         if evidence['source_fingerprint'] != current:
             raise ValueError(f'source changed since validation: {source}')
         record = {**case, 'source': str(source.relative_to(ROOT)), **evidence,
+                  **({'rom_source': rom_evidence} if rom_evidence is not None else {}),
                   'file': name + '.glb', 'preview': str((previews / (name + '.png')).relative_to(ROOT)),
                   'preview_sha256': digest(image.read_bytes()), 'status': 'ready-for-inspection',
                   'native_visual_parity': 'incomplete'}
@@ -168,26 +259,26 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
     for record in records:
         if preview_fingerprint(ROOT / record['source']) != record['source_fingerprint']:
             raise ValueError('an inspection input changed before publication')
+        if config.get('rom_only') and rom_source_evidence(ROOT / record['source']) != record['rom_source']:
+            raise ValueError('ROM inspection provenance changed before publication')
     manifest = {'schema_version': 1, 'family': 'model-inspection-set', 'models': records,
+                'rom_only': bool(config.get('rom_only')),
+                'categories': [{'id': key, 'label': value[0], 'description': value[1]}
+                               for key, value in CATEGORIES.items()],
                 'validation_report': str(report_path.relative_to(ROOT)),
                 'scope': 'Self-contained copies preserve source geometry, rigs, animations and image bytes; native visual parity remains incomplete.'}
+    start_file = records[0]['file'] if records else ''
     lines = ['# Models to inspect', '', 'Import a named `.glb` into Blender and use Material Preview. Each file embeds its textures.',
-             'Start with **conker-captured-neutral.glb** for Conker with eyes.', '',
+             f'Start with **{start_file}**.', '',
              'Previews show the neutral pose for animated rigs. Native appearance is still under investigation.', '',
-             '| Model | Blender file | Preview | Notes |', '| --- | --- | --- | --- |']
-    cards = []
+             '| Model | Category | Blender file | Preview | Notes |', '| --- | --- | --- | --- | --- |']
     for record in records:
         image_path = ROOT / record['preview']
         image_link = os.path.relpath(image_path, output)
-        lines.append(f"| {record['label']} | [{record['file']}]({record['file']}) | [Preview]({image_link}) | {record['note']} |")
-        cards.append(f'<article><a href="{html.escape(record["file"], quote=True)}"><img src="{html.escape(image_link, quote=True)}" alt="{html.escape(record["label"], quote=True)}"><h2>{html.escape(record["label"])}</h2></a><p>{html.escape(record["note"])}</p><code>{html.escape(record["file"])}</code></article>')
+        lines.append(f"| {record['label']} | {CATEGORIES[record['category']][0]} | [{record['file']}]({record['file']}) | [Preview]({image_link}) | {record['note']} |")
     lines += ['', 'Refresh after validation: `./conker model-assets inspect`.',
               'The manifest records the original paths and content hashes. Packaging does not modify those sources.', '']
-    page = ('<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">'
-            '<title>Conker models to inspect</title><style>body{font:16px system-ui;margin:32px;background:#171b20;color:#eee}a{color:#a7d9ff}main{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}article{padding:16px;background:#252b33;border-radius:8px}img{width:100%}h2{font-size:20px}code{overflow-wrap:anywhere}</style>'
-            '<h1>Models to inspect</h1><p>Import these self-contained GLB files into Blender using Material Preview. Start with Conker captured neutral.</p>'
-            '<p>Native appearance remains under investigation. Animated model previews show the neutral pose.</p><main>'
-            + ''.join(cards) + '</main><p>Refresh: <code>./conker model-assets inspect</code></p></html>\n')
+    page = gallery_page(records, output)
     pending += [(output / 'README.md', '\n'.join(lines).encode()), (output / 'index.html', page.encode())]
     for path, data in pending:
         write_if_changed(path, data)

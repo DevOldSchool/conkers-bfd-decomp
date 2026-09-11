@@ -124,7 +124,8 @@ def match_cluster(faces: dict, triangles: list, first: int, count: int) -> list 
 
 
 def instance_coverage(matches: list, face_count: int, expected_instances: int,
-                      expected_roots: set[int] | None = None) -> dict:
+                      expected_roots: set[int] | None = None,
+                      source_faces: set[int] | None = None) -> dict:
     instances = defaultdict(list)
     for match in matches:
         instances[match['root']].append(match)
@@ -134,7 +135,10 @@ def instance_coverage(matches: list, face_count: int, expected_instances: int,
         raise ValueError('inferred palettes differ from the captured reference roots')
     for root, rows in instances.items():
         counts = Counter(row['face'] for row in rows)
-        if counts != Counter(range(face_count)):
+        expected_faces = set(range(face_count)) if source_faces is None else source_faces
+        if not expected_faces or not expected_faces.issubset(range(face_count)):
+            raise ValueError('submitted source face selection is invalid')
+        if counts != Counter(expected_faces):
             raise ValueError(f'palette {root:#x}: submitted/exported face coverage differs')
     return instances
 
@@ -155,19 +159,99 @@ def runtime_inputs(case: dict, expected_sha1: str, cluster_index: list) -> dict:
         for variant in record['variants']:
             image = variant.get('captured_texture')
             if image:
-                path = models._validated_preview_source(catalog.parent, image['file'])
-                dependencies[str(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
-    return {'case': case, 'gltf': preview_fingerprint(source), 'dependencies': dependencies,
+                for item in [image, *models.runtime_captured_auxiliary_textures(image)]:
+                    path = models._validated_preview_source(catalog.parent, item['file'])
+                    dependencies[str(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
+    exports = {export['path']: preview_fingerprint(ROOT / export['path']) for export in case.get('exports', [])}
+    return {'case': case, 'gltf': preview_fingerprint(source), 'exports': exports, 'dependencies': dependencies,
             'model_sha1': expected_sha1, 'clusters': clusters}
 
 
-def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dict:
-    from scripts.model_validation import rgba
+def draw_call_selector(call: dict) -> dict:
+    """Stable, JSON-safe identity; the active entry may differ from the source."""
+    return {**{key: call[key] for key in ('return_event_index', 'entry', 'slot', 'task_submission_index')},
+            'render_pass': call['render_pass']['kind']}
+
+
+def load_submitted_call_context(path: Path, digest: str, inventory: dict | None = None,
+                                clusters: list | None = None) -> dict:
+    if inventory is None:
+        actual_digest, inventory = models.runtime_material_inventory('us', None)
+        if actual_digest != digest:
+            raise ValueError('submitted call ROM identity changed')
+    if clusters is None:
+        clusters = models.load_model_cluster_index()
+    _, _, _, bundles, _ = models.load_model_bundles('us', None, 1)
+    validated = models.load_character_draw_trace(
+        path, digest, {key[1] for key in inventory if key[0] == 1},
+        models.character_display_list_topology(bundles), clusters)
+    return {'trace': validated, 'parts': models.selected_part_material_candidates(validated, inventory)}
+
+
+def select_submitted_call(case: dict, model_sha1: str, context: dict) -> dict:
+    """Select only ROM parts positively byte-paired with this graphics task."""
+    selector = case['draw_call']
+    calls = [call for call in context['trace']['draw_calls'] if draw_call_selector(call) == selector]
+    if len(calls) != 1:
+        raise ValueError('submitted selector does not identify exactly one renderer call')
+    call = calls[0]
+    submission = call.get('submitted_graphics', {})
+    if (submission.get('status') != 'captured-range-executed-once-in-next-graphics-task'
+            or submission.get('event_index') != case['event_index']):
+        raise ValueError('selected renderer call lacks a positive matching graphics submission')
+    sequence = models.resolve_character_call_from_part_selections(call.get('part_selections', []))
+    if sequence is None:
+        raise ValueError('selected renderer call has unresolved ROM parts')
+    source = sequence['source_model']
+    if ([source[key] for key in ('bank', 'entry', 'segment')] != case['target']
+            or source['model_sha1'] != model_sha1):
+        raise ValueError('selected renderer call belongs to another source model')
+    selected = {index: record['candidate'] for index, record in context['parts'].get(case['event_index'], {}).items()
+                if record['evidence']['return_event_index'] == call['return_event_index']}
+    expected = Counter((c['static_cluster_index'], c['first_face'], c['face_count'], c['material_run'])
+                       for c in sequence['resolved_clusters'])
+    actual = Counter((c['static_cluster_index'], c['static_first_face'], c['triangle_count'], c['material_run']['index'])
+                     for c in selected.values())
+    if not selected or actual != expected or any(
+            any(c.get(key) != value for key, value in source.items()) for c in selected.values()):
+        raise ValueError('selected renderer parts do not cover their submitted clusters exactly')
+    faces = [i for c in selected.values() for i in range(c['static_first_face'], c['static_first_face'] + c['triangle_count'])]
+    if len(faces) != len(set(faces)):
+        raise ValueError('selected renderer call repeats source faces')
+    root = call['root_matrix_address']
+    if case.get('expected_instances', 1) != 1 or (case.get('palette_roots') is not None
+            and {int(value, 0) for value in case['palette_roots']} != {root}):
+        raise ValueError('selected renderer call differs from the expected instance or palette')
+    return {'clusters': selected, 'source_faces': set(faces), 'root': root,
+            'evidence': {'selector': selector, 'source_model': source,
+                         'submitted_event_index': case['event_index'],
+                         'command_sha256': call['command_sha256'],
+                         'palette_root': f'0x{root:08X}', 'selected_cluster_count': len(selected),
+                         'selected_face_count': len(faces), 'submission_status': submission['status']}}
+
+
+def require_complete_call_faces(selection: dict, faces: dict) -> None:
+    if selection['source_faces'] != set(faces):
+        raise ValueError('selected renderer call is a partial composition, not a complete source rig')
+
+
+def submitted_rig_reference(case: dict, normalized_sha1: str, inputs: dict,
+                            selection: dict | None = None, *, call_context: dict | None = None) -> dict:
+    """Resolve each source face to captured vertex inputs in one submission."""
 
     path = ROOT / case['source']
     document, faces = load_rig(path)
+    call_evidence = None
+    if 'draw_call' in case:
+        if selection is not None:
+            raise ValueError('submitted case cannot combine a call selector and an explicit face selection')
+        context = call_context if call_context is not None else load_submitted_call_context(
+            ROOT / case['trace'], normalized_sha1)
+        selection = select_submitted_call(case, inputs['model_sha1'], context)
+        require_complete_call_faces(selection, faces)
+        call_evidence = selection['evidence']
     lines = [json.loads(line) for line in (ROOT / case['trace']).read_text().splitlines() if line.strip()]
-    if lines[0].get('record_type') != 'session' or lines[0].get('normalized_sha1') != normalized_sha1:
+    if not lines or lines[0].get('record_type') != 'session' or lines[0].get('normalized_sha1') != normalized_sha1:
         raise ValueError('submitted rig trace does not identify the active ROM')
     events = [line for line in lines if line.get('record_type') == 'draw_state']
     event = events[case['event_index']]
@@ -184,8 +268,17 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
         draws_by_cluster[draw.get('runtime_cluster_index')].append((draw_index, draw))
     matches = []
     unmatched = []
+    matched_clusters = set()
     for correlation in rdp['model_correlations']:
-        if not correlation['candidates']:
+        candidates = correlation['candidates']
+        if selection is not None:
+            candidate = selection['clusters'].get(correlation['runtime_cluster_index'])
+            if candidate is None:
+                continue
+            if candidate not in candidates:
+                raise ValueError('selected part candidate is absent from submitted command replay')
+            candidates = [candidate]
+        if not candidates:
             continue
         triangles = []
         for draw_index, draw in draws_by_cluster[correlation['runtime_cluster_index']]:
@@ -213,6 +306,8 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
                         raise ValueError('rig comparison requires a single captured load matrix')
                     corners.append({'xyz': struct.unpack_from('>hhh', raw),
                                     'st': struct.unpack_from('>hh', raw, 8),
+                                    'vertex_hex': raw.hex(),
+                                    'load_index': load_index, 'cache_index': cache_index,
                                     'matrix_address': load['state']['matrix']['resolved_address'],
                                     'matrix_segment': load['state']['matrix'].get('segment'),
                                     'segment_base': load['state']['matrix'].get('segment_base_address'),
@@ -220,15 +315,26 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
                 if len(corners) != 3:
                     raise ValueError('captured triangle does not have three corners')
                 triangles.append((draw_index, corners))
-        candidates = [match for candidate in correlation['candidates']
+        candidates = [match for candidate in candidates
                       if (match := match_cluster(faces, triangles, candidate['static_first_face'],
                                                  correlation['triangle_count'])) is not None]
         if len(candidates) != 1:
             unmatched.append(correlation['runtime_cluster_index'])
         else:
             matches.extend(candidates[0])
-    expected_roots = {int(value, 0) for value in case['palette_roots']}
-    instances = instance_coverage(matches, len(faces), case['expected_instances'], expected_roots)
+            matched_clusters.add(correlation['runtime_cluster_index'])
+    if selection is not None and matched_clusters != set(selection['clusters']):
+        raise ValueError('selected submitted clusters are missing, ambiguous or disagree with the rig')
+    expected_roots = ({int(value, 0) for value in case['palette_roots']}
+                      if case.get('palette_roots') else None)
+    if call_evidence is not None:
+        expected_roots = {selection['root']}
+    # Discovery may infer the number of instances, but still requires every
+    # face exactly once per palette and positive segment-base evidence. Saved
+    # validation cases additionally pin their expected count and roots.
+    expected_instances = case.get('expected_instances', len({row['root'] for row in matches}))
+    instances = instance_coverage(matches, len(faces), expected_instances, expected_roots,
+                                  selection['source_faces'] if selection else None)
     for root, rows in instances.items():
         corners = [corner for row in rows for corner in row['corners']]
         bases = {corner['segment_base'] for corner in corners}
@@ -238,6 +344,19 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
     if unmatched:
         raise ValueError(f'{len(unmatched)} target command clusters remain ambiguous or disagree with the rig')
 
+    return {'document': document, 'faces': faces, 'event': event,
+            'matches': matches, 'instances': instances, 'matched_cluster_count': len(matched_clusters),
+            'selected_call': call_evidence}
+
+
+def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict, *, call_context: dict | None = None) -> dict:
+    from scripts.model_validation import rgba
+
+    reference = submitted_rig_reference(case, normalized_sha1, inputs, call_context=call_context)
+    document, faces = reference['document'], reference['faces']
+    matches, instances = reference['matches'], reference['instances']
+    rdp = reference['event']['state']['rdp']
+    path = ROOT / case['source']
     material_path = ROOT / case['materials']
     manifest = json.loads(material_path.read_text())
     models.verify_runtime_material_output(material_path.parent, manifest)
@@ -247,6 +366,7 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
     if source_trace['sha256'] != hashlib.sha256((ROOT / case['trace']).read_bytes()).hexdigest():
         raise ValueError('rig material catalog belongs to another capture')
     images_by_draw = {}
+    matched_draws = {row['draw'] for row in matches}
     for record in manifest['materials']:
         if [record[k] for k in ('bank', 'entry', 'segment')] != case['target']:
             continue
@@ -257,6 +377,8 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
                 if evidence['event_index'] != case['event_index']:
                     continue
                 index = evidence['draw_run_index']
+                if index not in matched_draws:
+                    continue
                 if evidence['source_material_state_hash'] != rdp['draw_runs'][index]['material_state_hash']:
                     raise ValueError('rig material observation does not match the submitted draw')
                 if index in images_by_draw and images_by_draw[index] != variant.get('captured_texture'):
@@ -298,11 +420,24 @@ def compare_submitted_rig(case: dict, normalized_sha1: str, inputs: dict) -> dic
             except ValueError:
                 image_cache[key] = False
         comparisons['texture_faces_match' if image_cache[key] else 'texture_faces_incomplete'] += 1
-    return {'status': 'passed', 'scope': 'rig evaluated under captured vertex-load matrices; not an aligned posed export or raster proof',
+    export_checks = []
+    if case.get('exports'):
+        from scripts.model_submitted_pose import instance_materials, compare_pose
+        bank, entry, segment = case['target']
+        payload = ROOT / f'build/assets/models/us-bank-{bank:02x}/bundles/{entry:04d}/segment-{segment:02d}.bin'
+        geometry = models.parse_character_model_geometry(payload.read_bytes())[0]
+        for export in case['exports']:
+            root = int(export['palette_root'], 0)
+            selected = instance_materials(case, normalized_sha1, reference, root, geometry)
+            textured = models.apply_runtime_texture_coordinates(geometry, selected)
+            export_checks.append({**export, **compare_pose(ROOT / export['path'], reference, root, textured, selected)})
+    scope = ('rig and posed exports checked against the same submitted vertex inputs; native raster parity incomplete'
+             if export_checks else 'rig evaluated under captured vertex-load matrices; not an aligned posed export or raster proof')
+    return {'status': 'passed', 'submitted_exports': export_checks, 'scope': scope,
+            'selected_call': reference['selected_call'],
             'model_sha1': inputs['model_sha1'], 'source_face_count': len(faces),
             'submitted_instance_count': len(instances), 'submitted_face_count': len(matches),
-            'submitted_corner_count': len(matches) * 3, 'matched_cluster_count': len(rdp['model_correlations']) - sum(
-                not c['candidates'] for c in rdp['model_correlations']),
+            'submitted_corner_count': len(matches) * 3, 'matched_cluster_count': reference['matched_cluster_count'],
             'max_local_coordinate_error': max(row['local_error'] for row in matches),
             'local_coordinate_tolerance': LOCAL_TOLERANCE,
             'max_world_coordinate_error': max(row['world_error'] for row in matches),

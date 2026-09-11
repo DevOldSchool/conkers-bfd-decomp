@@ -5,7 +5,7 @@ packages the selection in `config/model-inspection.json` into clearly named,
 self-contained GLB files under `build/assets/models/inspect/`, with a browsable
 index and source/dependency hashes. Geometry buffers, rigs, animation Actions,
 material definitions, and image bytes are preserved. Conker's recommended neutral
-copy uses the captured-colour export with resolved eyes. The command rejects stale
+copy uses the ROM-default export with resolved eyes. The command rejects stale
 source fingerprints or missing successful glTF/Blender import checks.
 
 `build/assets/models/previews/` contains current inspection images. Regression
@@ -28,8 +28,8 @@ and configured regression images. It does not rewrite those references,
 regenerate model exports, or launch a new emulator capture.
 
 The default configuration is `config/model-validation.json`: both the main
-and captured-colour preview corpora, character compositions, three runtime
-catalogs and nineteen representative render cases. Use `--validation-config`
+and captured-colour preview corpora, character compositions, runtime
+catalogs and representative render cases. Use `--validation-config`
 and `--output` for a separate corpus/report. `--blender` selects an executable;
 otherwise the command checks PATH and the standard macOS application path.
 
@@ -71,6 +71,12 @@ Blender/rendering produces incomplete evidence. `--skip-blender` and
    submitted VTX bytes and vertex-load matrices. The first case covers two
    complete Tediz instances, with separate material and native-appearance
    evidence. See [submitted-rig validation](us_tediz_submitted_rig_validation.md).
+   Optional exports and `submitted_composition_cases` additionally check baked
+   poses, per-instance lighting and available captured texture pixels from that
+   same task. See [submitted poses and selected parts](us_submitted_model_poses.md).
+   `additional_compositions` includes supporting composition directories in the
+   per-file Khronos and Blender checks, even when only one pose is selected for
+   a numeric runtime comparison or the curated inspection set.
 
 The report keeps static textures, observed runtime material state, segment-8
 state, composition, scene association, semantic naming and native visual
@@ -157,3 +163,48 @@ adds four pre-change render references to exercise IA8, IA16, I4 and I8 image
 selection. These bring the current configuration to nineteen cases. Deliberate
 appearance changes remain visible as differences; an earlier cached regression
 pass is not carried forward across changed glTF or image inputs.
+
+## ROM-default materials and bank-09 expansion
+
+The [ROM-default material decoder](us_rom_character_defaults.md) now resolves
+215 runs across the 183-character ROM-only corpus, including 12 verified
+trilinear base images. The [bank-09 address extension](us_bank09_relative_models.md)
+adds 290 direct models and parts, bringing source coverage to 1,476 models.
+The completed batch validates 3,980 glTF files across the comparison corpora:
+all Khronos and Blender checks pass, as do all four ROM bank checks, six
+submitted-rig cases, one selected-composition case and 12 ROM/capture facial
+texture comparisons. This run performs 612 fresh file checks and four renders.
+
+Of 33 regression renders, 27 pass. The five earlier intensity/scene differences
+are unchanged; Haybot's recovered ROM texture adds one deliberate difference
+of 378 pixels. Existing baselines remain intact. All 677 Python tests and scoped
+whitespace checks pass. That checkpoint published 24 self-contained inspection GLBs;
+only Haybot changes among its previous 21 files. The three new GLBs and updated
+Haybot also pass separate packaged-file Khronos and Blender checks, including
+exact embedded-image bytes and expected polygon/Action counts. Evidence is in
+`build/assets/models/reference/rom-material-expansion/verification-summary.json`.
+Native appearance remains incomplete; 22 ROM-default facial material runs and
+32 unclassified bank-09 entries are explicit remaining gaps.
+
+The first ROM-only inspection selection contained nine models
+or parts without captured materials, colours, poses or compositions. Captured
+comparisons remain validation references and must not be added to
+`config/model-inspection.json`. Former inspection copies and the superseded
+Haybot preview are preserved under
+`build/assets/models/reference/inspection-comparisons/2026-09-10/` with original
+paths and hashes. The underlying exports and validation references are unchanged.
+
+## Placed-object texture checks
+
+The [placed-object material extension](us_object_material_consensus.md) recovers
+22 texture runs on 521 faces across 17 additional inspection models. Validation
+now reconstructs the ROM consumer and placement context for banks 03 and 04,
+then compares every new texture and its glTF evidence. Captured materials stay
+separate and cannot be replaced by this consensus path. That pass brought the gallery
+to 65 ROM-derived models; all earlier image references are retained.
+
+The [bank-09 constructor extension](us_bank09_object_materials.md) adds eleven
+texture runs on 105 faces. The independent object-material checks now cover
+bank 09 in both comparison corpora and reject missing or forged constructor
+provenance. Eleven new render cases and inspection models bring the gallery
+to 76 entries; all prior image baselines remain unchanged.

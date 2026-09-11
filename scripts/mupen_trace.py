@@ -749,6 +749,29 @@ def public_geometry_cluster(cluster: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def model_cluster_display_bytes(root: Path, bank: int, segment_index: int,
+                                payload: bytes, geometry: dict) -> bytes:
+    """Select the native draw-list owner, including shared effect geometry."""
+    effect = geometry.get('effect_layout')
+    if effect is not None:
+        if bank != 9 or effect.get('family') != 'bank-09-four-pair-effect-model':
+            raise TraceError('unsupported shared effect geometry family')
+        entry = parse_int(effect.get('geometry_source_entry'), 'effect.geometry_source_entry')
+        if entry < 0:
+            raise TraceError('negative shared effect geometry entry')
+        source = root / 'bundles' / f'{entry:04d}' / f'segment-{segment_index:02d}.bin'
+        if not source.is_file():
+            raise TraceError(f'model correlation requires shared effect geometry {source}')
+        payload = source.read_bytes()
+        if hashlib.sha1(payload).hexdigest() != effect.get('geometry_source_sha1'):
+            raise TraceError('shared effect geometry hash changed')
+    offset = parse_int(geometry.get('display_list_offset'), 'geometry.display_list_offset')
+    size = parse_int(geometry.get('display_list_size'), 'geometry.display_list_size')
+    if offset < 0 or size <= 0 or size % 8 or offset % 8 or offset + size > len(payload):
+        raise TraceError('invalid model correlation display-list bounds')
+    return payload[offset:offset + size]
+
+
 def load_model_cluster_index() -> list[dict[str, Any]]:
     index: list[dict[str, Any]] = []
     for bank in MODEL_BANKS:
@@ -770,19 +793,10 @@ def load_model_cluster_index() -> list[dict[str, Any]]:
                 if not payload_path.is_file():
                     raise TraceError(f"model correlation requires {payload_path}")
                 payload = payload_path.read_bytes()
-                display_offset = parse_int(
-                    geometry.get("display_list_offset"),
-                    "geometry.display_list_offset",
-                )
-                display_size = parse_int(
-                    geometry.get("display_list_size"),
-                    "geometry.display_list_size",
-                )
-                if display_offset < 0 or display_size <= 0 or display_offset + display_size > len(payload):
-                    raise TraceError(f"invalid display-list bounds in {payload_path}")
+                display_bytes = model_cluster_display_bytes(root, bank, segment_index, payload, geometry)
                 material_runs = geometry.get("material_runs", [])
                 for cluster_index, cluster in enumerate(
-                    geometry_clusters(payload[display_offset : display_offset + display_size])
+                    geometry_clusters(display_bytes)
                 ):
                     cluster_end = cluster["first_face"] + cluster["triangle_count"]
                     material_run = next(

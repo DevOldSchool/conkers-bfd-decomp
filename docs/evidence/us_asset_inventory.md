@@ -430,7 +430,9 @@ list; a larger external Conker mesh is therefore not evidence that ROM geometry
 was omitted.
 
 `func_1503D774`, called from the same character setup path, loads indexed path
-`[02, character-model-index]`. Extraction preserves all 145 present bank-02
+`[0x11, character-model-index]` for the
+[ordinary renderer's appearance defaults](us_rom_character_defaults.md).
+The separate animation extraction preserves all 145 present bank-02
 entries and 4,051,200 decoded bytes. Exactly 123 entries round-trip as indexed
 tables with an even number of segments, totalling 5,320 segments or 2,660
 even/odd pairs. The remaining 22 are preserved as direct companion payloads.
@@ -757,7 +759,7 @@ remaining eleven records belong to scenes 17 and 62, whose matching bank-04
 entries have zero length. They remain explicit unresolved records rather than
 being assigned substitute models.
 
-## Bank-09 direct-model subset
+## Initial bank-09 direct-model subset
 
 Bank 09 is loaded as a mixed runtime display-list pointer-table family by
 `func_1502FE10` and `func_1518C900`. A complete scan nevertheless finds exactly
@@ -768,10 +770,20 @@ and nine flat-textured material runs. All 7,088 bytes verify byte-identically.
 Other bank-09 payloads remain in their broader family rather than being
 classified as models.
 
-A complete scan of every indexed bank finds no further payload satisfying the
+The initial scan of every indexed bank found no further payload satisfying the
 character-model, direct-model, or segmented-model contracts. Banks 01, 03, 04,
 and the proven bank-09 subset contain 1,031 model records (1,029 with faces),
 271,002 vertices, and 213,946 primary faces.
+
+The later [model-relative address expansion](us_bank09_relative_models.md)
+adds 290 direct models after proving the native relocation convention. Together
+with the 155 three-pair attachment models, that pass reached 451 decoded
+bank-09 models. [Eleven four-pair effect meshes](us_bank09_effect_models.md)
+then bring bank 09 to 462 and the four-bank inventory to 1,487. Twenty remaining
+bank-09 records are skeletal particle-emission point sets; entry 447 remains
+unclassified. [Bank-13 morph extraction](us_character_morph_targets.md) adds
+23 stored shapes for two characters without inflating the model count. The initial scan above
+accepted only segment-1 vertex addresses and is not the current coverage limit.
 
 Cross-bank validation proves that 380 of those source faces have exactly zero
 area: 121 repeat a vertex index, 136 use distinct vertices at duplicate
