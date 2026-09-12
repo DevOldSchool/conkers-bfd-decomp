@@ -86,6 +86,24 @@ void func_1517F448(s32 arg0) {
         D_800DDDB0[arg0] += D_800BE9E4;
     }
 }
+extern s8 D_800DDD90;
+extern s8 D_800DDD9C;
+extern u16 D_800DDE10;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F488 CURRENT (115) */
+void func_1517F488(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+    s8 *temp_v0;
+    s32 temp_t9;
+
+    temp_v0 = &(&D_800DDD90)[arg5 * 3];
+    temp_t9 = arg5;
+    temp_v0[0] = arg0;
+    temp_v0[1] = arg1;
+    temp_v0[2] = arg2;
+    (&D_800DDD9C)[temp_t9] = arg3;
+    (&D_800DDE10)[temp_t9] = arg4;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517F488 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F488.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F4D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F564.s")
@@ -250,6 +268,27 @@ s32 func_15181CC8(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181D00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181D70.s")
+typedef struct {
+    f32 field_0;
+    f32 field_4;
+} Game1AC2F0Vector;
+
+extern f32 D_800DDDD8[];
+extern Game1AC2F0Vector D_800DDDE8[];
+extern s8 D_800DDE20[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15181DC8 CURRENT (105) */
+void func_15181DC8(s32 arg0) {
+    f32 temp_ft0;
+
+    temp_ft0 = 0.0f;
+    D_800DDDD8[arg0] = temp_ft0;
+    D_800DDDC8[arg0] = 0.0f;
+    D_800DDDE8[arg0].field_0 = 0.0f;
+    D_800DDDE8[arg0].field_4 = 0.0f;
+    D_800DDE20[arg0] = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15181DC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181DC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181E18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181EE0.s")

@@ -233,6 +233,7 @@ typedef struct {
     s16 field_18;
     u8 pad_1A[0x1E];
     s32 field_38;
+    s32 field_3C;
 } Game5D2C0State;
 
 extern s32 D_800902BC[];
@@ -403,6 +404,23 @@ s32 func_1503378C(void *arg0, void *arg1) {
     }
     return 1;
 }
+extern s32 D_800BE9E4;
+extern s32 D_800902FC[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150337E4 CURRENT (85) */
+s32 func_150337E4(Game5D2C0State *arg0, s32 arg1) {
+    s32 temp_t8;
+
+    temp_t8 = arg0->field_38 + D_800BE9E4;
+    arg0->field_38 = temp_t8;
+    if (temp_t8 >= 0x10) {
+        arg0->field_38 = 0;
+        arg0->field_3C ^= 1;
+    }
+    arg0->field_18 = D_800902FC[arg0->field_3C];
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150337E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150337E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033838.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150339C8.s")

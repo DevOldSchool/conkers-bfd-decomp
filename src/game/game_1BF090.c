@@ -8,7 +8,6 @@
  * - func_15191BE0
  * - func_15191D54
  * - func_1519203C
- * - func_15192308
  * - func_15192358
  * - func_151925C4
  *
@@ -18,7 +17,27 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15191BE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15191D54.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_1519203C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15192308.s")
+typedef struct {
+    u8 pad_0[0x38];
+    s32 field_38;
+    s32 field_3C;
+    u8 pad_40[0x68];
+    s32 field_A8;
+    s16 field_AC;
+    s16 field_AE;
+    s32 field_B0;
+} Game1BF090State;
+
+void func_15131C84(s16 *, s16 *, s32, s32 *, s32 *, s32 *);
+
+s32 func_15192308(s32 arg0, s32 arg1) {
+    Game1BF090State *state;
+
+    state = (Game1BF090State *)arg0;
+    func_15131C84(&state->field_AC, &state->field_AE, state->field_A8, &state->field_B0,
+                  &state->field_38, &state->field_3C);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15192358.s")
 s32 func_15192308(s32, s32);                        /* extern */
 s32 func_15192358(s32, s32);                        /* extern */

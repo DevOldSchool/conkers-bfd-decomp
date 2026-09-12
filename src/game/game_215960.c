@@ -169,4 +169,13 @@ s32 func_151EB930(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDF4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEBE8.s")
+extern s32 D_800E9D00;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 CURRENT (505) */
+void func_151EEFF0(void) {
+    volatile s32 zero = 0;
+
+    D_800E9D00 = zero;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151EEFF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEFF0.s")

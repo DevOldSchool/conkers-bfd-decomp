@@ -24,7 +24,6 @@
  * - func_150150A4
  * - func_15015104
  * - func_150151D4
- * - func_15015300
  * - func_15015354
  * - func_15015644
  * - func_150156F4
@@ -205,7 +204,27 @@ s32 func_150142AC(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150150A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015104.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150151D4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015300.s")
+typedef struct {
+    u8 pad_0[0x1C];
+    s32 field_1C;
+} Game40490State;
+
+extern void (*D_80082F70[])(void);
+
+s32 func_15015300(Game40490State *arg0) {
+    void (*temp_v1)(void);
+    s32 temp_v0;
+
+    temp_v0 = arg0->field_1C;
+    if ((temp_v0 < 0) || (temp_v0 >= 2)) {
+        return 1;
+    }
+    temp_v1 = D_80082F70[temp_v0];
+    if (temp_v1 != 0) {
+        temp_v1();
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015644.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150156F4.s")

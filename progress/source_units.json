@@ -9230,7 +9230,7 @@
         "us": {
           "end": "0x1B5240",
           "start": "0x1B4FE0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1E2490.c"
@@ -14384,7 +14384,7 @@
         "us": {
           "end": "0x1A7610",
           "start": "0x1A6C90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1D4140.c"
@@ -14760,7 +14760,7 @@
         "us": {
           "end": "0x1A9060",
           "start": "0x1A8B20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1D5FD0.c"

@@ -16,7 +16,6 @@
  * - func_151B48DC
  * - func_151B4A14
  * - func_151B4B78
- * - func_151B4C1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -572,7 +571,23 @@ s32 func_151B4B78(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B4B78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4B78.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4C1C.s")
+typedef struct {
+    u8 pad_0[0x44];
+    u8 field_44;
+} HoltenRopeState;
+
+void func_151D5E30(s32, s32);
+extern void (*D_8008FB70[])(s32);
+
+void func_151B4C1C(s32 arg0) {
+    void (*temp_v0)(s32);
+
+    func_151D5E30(arg0 + 0x140, arg0);
+    temp_v0 = D_8008FB70[((HoltenRopeState *)arg0)->field_44];
+    if (temp_v0 != 0) {
+        temp_v0(arg0);
+    }
+}
 void func_151B4C1C(s32 arg0);
 void func_15169824(s32 arg0);
 

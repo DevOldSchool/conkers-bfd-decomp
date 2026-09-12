@@ -43,6 +43,26 @@ void *func_1509B570(s16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B704.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B764.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B810.s")
+typedef struct {
+    u16 field_0;
+    s16 field_2;
+} GameC8950Data;
+
+GameC8950Data *func_1502B5C8(void *, s32, s32, s16);
+void func_1509B950(void *);
+extern s32 D_800BE9F0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B8FC CURRENT (5) */
+void func_1509B8FC(s16 arg0) {
+    s16 sp18;
+    GameC8950Data *temp_v0;
+
+    temp_v0 = func_1502B5C8(&sp18, 2, 0x14, arg0);
+    temp_v0->field_0 |= arg0;
+    temp_v0->field_2 = D_800BE9F0;
+    func_1509B950(temp_v0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509B8FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B8FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B950.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BA04.s")
