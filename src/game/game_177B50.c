@@ -21,9 +21,51 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514A6A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AB5C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AD9C.s")
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AF74 CURRENT (465) */
+s32 func_1514AF74(void *arg0) {
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_ft5;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x150);
+    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x30);
+    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x50);
+    temp_ft5 = *(f32 *)((u8 *)arg0 + 0x4C);
+    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
+    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + ((temp_fa1 * D_800BE9A4) + (0.5f * temp_ft5 * D_800BE9A4 * D_800BE9A4)));
+    *(f32 *)((u8 *)arg0 + 0x50) = (f32) (temp_fa1 + (temp_ft5 * D_800BE9A4));
+    if ((*(f32 *)((u8 *)arg0 + 0x2C) < 10.0f) || (*(f32 *)((u8 *)arg0 + 0x30) < 10.0f)) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514AF74 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AF74.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B034.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B364.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514B844 CURRENT (30) */
+s32 func_1514B844(void *arg0) {
+    s16 temp_v1;
+    s32 temp_a0;
+    void *temp_v0;
+
+    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    if (temp_v1 < 0x10) {
+        temp_a0 = temp_v1 * 0x10;
+        if (temp_a0 < (s32) *(u8 *)((u8 *)temp_v0 + 0x1B)) {
+            *(u8 *)((u8 *)temp_v0 + 0x1B) = (u8) temp_a0;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514B844 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514B844.s")
 extern f32 D_800BE9A4;
 

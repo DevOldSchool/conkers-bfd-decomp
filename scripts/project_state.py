@@ -1546,6 +1546,7 @@ def update_deferred_function(args: argparse.Namespace) -> None:
 def apply_permutation_function(args: argparse.Namespace) -> None:
     """Apply a container-generated exact permutation from the writable build tree."""
 
+    original_functions_content = FUNCTIONS_FILE.read_text(encoding="utf-8")
     functions_data = load_json(FUNCTIONS_FILE)
     functions = validate_functions(functions_data)
     function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
@@ -1609,6 +1610,17 @@ def apply_permutation_function(args: argparse.Namespace) -> None:
             + newline
             + active_source[function_end:]
         )
+    transaction_path = permutation_transaction_path(args.symbol)
+    write_json(
+        transaction_path,
+        {
+            "schema_version": 1,
+            "symbol": args.symbol,
+            "source": source,
+            "source_content": old_source,
+            "functions_content": original_functions_content,
+        },
+    )
     source_path.write_text(updated_source, encoding="utf-8")
     try:
         if was_deferred:
@@ -1616,11 +1628,122 @@ def apply_permutation_function(args: argparse.Namespace) -> None:
             write_json(FUNCTIONS_FILE, functions_data)
     except Exception:
         source_path.write_text(old_source, encoding="utf-8")
+        FUNCTIONS_FILE.write_text(original_functions_content, encoding="utf-8")
+        transaction_path.unlink(missing_ok=True)
         raise
     print(
         f"Applied exact permutation for {args.symbol} to {source} on the host"
         + (" and removed its deferred marker." if was_deferred else ".")
     )
+
+
+def permutation_transaction_path(symbol: str) -> Path:
+    return ROOT / "build" / "us" / "permute" / symbol / "apply-transaction.json"
+
+
+def rollback_permutation_function(args: argparse.Namespace) -> None:
+    """Restore host source and inventory after an exact permutation fails finish."""
+
+    path = permutation_transaction_path(args.symbol)
+    transaction = load_json(path)
+    if transaction.get("schema_version") != 1 or transaction.get("symbol") != args.symbol:
+        raise ProjectStateError(f"invalid permutation transaction for {args.symbol}")
+    source = transaction.get("source")
+    old_source = transaction.get("source_content")
+    old_functions = transaction.get("functions_content")
+    if not all(isinstance(value, str) for value in (source, old_source, old_functions)):
+        raise ProjectStateError(f"incomplete permutation transaction for {args.symbol}")
+    assert isinstance(source, str)
+    assert isinstance(old_source, str)
+    assert isinstance(old_functions, str)
+    source_path = (ROOT / source).resolve()
+    if not source.startswith("src/") or not source_path.is_relative_to(ROOT.resolve()):
+        raise ProjectStateError(f"invalid rollback source for {args.symbol}")
+
+    current_functions = validate_functions(load_json(FUNCTIONS_FILE))
+    current = next(
+        (entry for entry in current_functions if entry["symbol"] == args.symbol), None
+    )
+    if current is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if is_complete(current):
+        path.unlink(missing_ok=True)
+        print(
+            f"Retained matched permutation for {args.symbol}; "
+            "later finish gate requires manual recovery."
+        )
+        return
+
+    try:
+        old_functions_data = json.loads(old_functions)
+    except json.JSONDecodeError as error:
+        raise ProjectStateError(
+            f"invalid saved inventory for {args.symbol}: {error}"
+        ) from error
+    validated_old = validate_functions(old_functions_data)
+    old_entry = next(
+        (entry for entry in validated_old if entry["symbol"] == args.symbol), None
+    )
+    if old_entry is None or old_entry.get("source") != source:
+        raise ProjectStateError(f"saved permutation state does not match {args.symbol}")
+
+    current_source = source_path.read_text(encoding="utf-8")
+    source_path.write_text(old_source, encoding="utf-8")
+    try:
+        FUNCTIONS_FILE.write_text(old_functions, encoding="utf-8")
+    except Exception:
+        source_path.write_text(current_source, encoding="utf-8")
+        raise
+    path.unlink(missing_ok=True)
+    print(f"Rolled back failed permutation for {args.symbol}; source and inventory restored.")
+
+
+def clear_permutation_transaction(args: argparse.Namespace) -> None:
+    """Discard the rollback snapshot after finish succeeds."""
+
+    permutation_transaction_path(args.symbol).unlink(missing_ok=True)
+
+
+def recover_deferred_function(args: argparse.Namespace) -> None:
+    """Recreate deferred inventory metadata from an intact disabled source block."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if function.get("deferred") is not None:
+        raise ProjectStateError(f"{args.symbol} is already deferred")
+    if is_complete(function):
+        raise ProjectStateError(f"matched function {args.symbol} cannot be deferred")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source")
+    restore_deferred_candidate(source, args.symbol)
+    content = (ROOT / source).read_text(encoding="utf-8")
+    marker = re.search(
+        rf"#if 0 /\* {re.escape(DEFERRED_CANDIDATE_TAG)} "
+        rf"{re.escape(args.symbol)}(?: CURRENT \((?P<score>\d+)\))? \*/",
+        content,
+    )
+    if marker is None:
+        raise ProjectStateError(f"{args.symbol} lacks a preserved deferred candidate")
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("recover-deferred requires a non-empty reason")
+    deferred: dict[str, Any] = {
+        "reason": reason,
+        "recorded_revision": "working-tree",
+        "candidate_preserved": True,
+    }
+    score_text = marker.group("score")
+    if score_text is not None and int(score_text) > 0:
+        deferred["current_score"] = int(score_text)
+    function["deferred"] = deferred
+    validate_functions(functions_data)
+    validate_deferred_candidate_sources(functions)
+    write_json(FUNCTIONS_FILE, functions_data)
+    print(f"Recovered deferred inventory metadata for {args.symbol} from {source}.")
 
 
 def reopen_match(args: argparse.Namespace) -> None:
@@ -2709,6 +2832,13 @@ def parse_args() -> argparse.Namespace:
     apply_permutation_parser = subparsers.add_parser("apply-permutation")
     apply_permutation_parser.add_argument("symbol")
     apply_permutation_parser.add_argument("--candidate", required=True)
+    rollback_permutation_parser = subparsers.add_parser("rollback-permutation")
+    rollback_permutation_parser.add_argument("symbol")
+    clear_permutation_parser = subparsers.add_parser("clear-permutation")
+    clear_permutation_parser.add_argument("symbol")
+    recover_deferred_parser = subparsers.add_parser("recover-deferred")
+    recover_deferred_parser.add_argument("symbol")
+    recover_deferred_parser.add_argument("--reason", required=True)
     reopen_parser = subparsers.add_parser("reopen-match")
     reopen_parser.add_argument("--profile", choices=TARGET_REGIONS, default="us")
     reopen_parser.add_argument("symbol")
@@ -2799,6 +2929,12 @@ def main() -> int:
             update_deferred_function(args)
         elif args.command == "apply-permutation":
             apply_permutation_function(args)
+        elif args.command == "rollback-permutation":
+            rollback_permutation_function(args)
+        elif args.command == "clear-permutation":
+            clear_permutation_transaction(args)
+        elif args.command == "recover-deferred":
+            recover_deferred_function(args)
         elif args.command == "reopen-match":
             reopen_match(args)
         elif args.command == "next":

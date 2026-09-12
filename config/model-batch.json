@@ -1,0 +1,26 @@
+{
+  "schema_version": 1,
+  "rom": "roms/baserom.us.z64",
+  "textures": "build/assets/textures",
+  "rom_root": "build/assets/models/rom-only",
+  "validation_config": "config/model-validation.json",
+  "inspection_config": "config/model-inspection.json",
+  "reviews": "config/model-batch-reviews.json",
+  "corpora": [
+    {
+      "name": "rom-only",
+      "root": "build/assets/models/rom-only",
+      "rom_defaults": true
+    },
+    {
+      "name": "main",
+      "root": "build/assets/models",
+      "runtime_materials": "build/assets/models/us-runtime-materials-all-states-with-textures/manifest.json"
+    },
+    {
+      "name": "captured-colour",
+      "root": "build/assets/models/reference/vertex-light-export",
+      "runtime_materials": "build/assets/models/us-runtime-materials-vertex-light-export/manifest.json"
+    }
+  ]
+}

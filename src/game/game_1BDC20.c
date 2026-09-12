@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15190770
- * - func_1519086C
  * - func_15190898
  * - func_15190F9C
  * - func_1519108C
@@ -26,8 +25,41 @@ void func_15190840(s32 arg0) {
     func_15191400(arg0);
     func_15169804(arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_1519086C.s")
+void func_15169824(s32 arg0);
+
+void func_1519086C(s32 arg0) {
+    func_15191400(arg0);
+    func_15169824(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190898.s")
+/* Call context: func_151423D8: unique active project prototype */
+f32 func_151423D8(u8);
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15190F9C CURRENT (917) */
+s32 func_15190F9C(u8 *arg0) {
+    f32 sp24;
+    void *sp1C;
+    f32 temp_fa0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    u8 temp_a0;
+    u8 *temp_v1;
+
+    temp_a0 = *(u8 *)((u8 *)arg0 + 0x131) + (*(s8 *)((u8 *)arg0 + 0x133) * D_800BE9E4);
+    *(u8 *)((u8 *)arg0 + 0x131) = temp_a0;
+    *(u8 *)((u8 *)arg0 + 0x132) = (u8) (*(u8 *)((u8 *)arg0 + 0x132) + (*(s8 *)((u8 *)arg0 + 0x134) * D_800BE9E4));
+    sp24 = func_151423D8((temp_a0 - 0x40) & 0xFF);
+    temp_v1 = (void *)(arg0 + 0x110);
+    sp1C = temp_v1;
+    temp_fv0 = func_151423D8((*(u8 *)((u8 *)temp_v1 + 0x22) - 0x40) & 0xFF);
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x2C);
+    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x30);
+    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv1 + (((*(f32 *)((u8 *)temp_v1 + 0x28) + (*(f32 *)((u8 *)temp_v1 + 0x30) * sp24)) - temp_fv1) * 0.5f));
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fa0 + (((*(f32 *)((u8 *)temp_v1 + 0x2C) + (*(f32 *)((u8 *)temp_v1 + 0x34) * temp_fv0)) - temp_fa0) * 0.5f));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15190F9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190F9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_1519108C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191400.s")

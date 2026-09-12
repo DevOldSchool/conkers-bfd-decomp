@@ -18,15 +18,51 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_15189FF0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A094.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A214.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A2E8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A324.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A360 CURRENT (215) */
-void func_1518A360(s32 arg0, void *arg1, s32 arg2) {
-    s32 temp_a2;
-    s32 temp_v1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A2E8 CURRENT (245) */
+s32 func_1518A2E8(void *arg0, s8 *arg1) {
+    s32 var_v0;
+    u8 temp_t0;
     void *temp_v0;
 
-    temp_v0 = arg0 + 0x170;
+    temp_v0 = *(void **)((u8 *)arg0 + 0x188);
+    temp_t0 = 1;
+    var_v0 = 1;
+    if (*(u8 *)((u8 *)temp_v0 + 0x6A) != 0) {
+        *(s32 *)((u8 *)arg0 + 0x58) = *(s32 *)((u8 *)arg0 + 0x58) & ~2;
+        *arg1 = 0;
+    } else {
+        *arg1 = temp_t0;
+    }
+    return var_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518A2E8 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A2E8.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A324 CURRENT (820) */
+s32 func_1518A324(void *arg0, s8 *arg1) {
+    s32 var_v0;
+    s32 temp_t0;
+    void *temp_v0;
+
+    var_v0 = 1;
+    temp_t0 = 1;
+    temp_v0 = *(void **)((u8 *)arg0 + 0x188);
+    if (*(u8 *)((u8 *)temp_v0 + 0x6F) != 0) {
+        *arg1 = temp_t0;
+    } else {
+        *(s32 *)((u8 *)arg0 + 0x58) = *(s32 *)((u8 *)arg0 + 0x58) & ~2;
+        *arg1 = 0;
+    }
+    return var_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518A324 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1B74A0/func_1518A324.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A360 CURRENT (205) */
+void func_1518A360(u8 *arg0, u8 *arg1, s32 arg2) {
+    s32 temp_a2;
+    s32 temp_v1;
+    u8 *temp_v0;
+
+    temp_v0 = (void *)(arg0 + 0x170);
     if ((arg2 & 0xFF) == 0x2D) {
         temp_v1 = *(s32 *)((u8 *)arg1 + 0);
         temp_a2 = *(s32 *)((u8 *)temp_v0 + 0x18);

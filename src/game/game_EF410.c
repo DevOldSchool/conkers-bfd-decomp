@@ -29,6 +29,27 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2290.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2424.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C251C CURRENT (255) */
+s32 func_150C251C(void *arg0) {
+    s16 temp_v1;
+    s32 temp_t6;
+    s32 var_v1;
+    void *temp_v0;
+
+    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    temp_t6 = temp_v1 * 8;
+    var_v1 = temp_t6;
+    if (temp_t6 >= 0x100) {
+        var_v1 = 0xFF;
+    }
+    *(s8 *)((u8 *)temp_v0 + 0x1B) = var_v1;
+    if ((var_v1 & 0xFF) < 0) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C251C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C251C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2558.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2700.s")
@@ -63,6 +84,32 @@ s32 func_150C2FCC(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2FCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2FCC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C308C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C3160 CURRENT (720) */
+void *func_150C3160(u8 *arg0, u8 *arg1) {
+    f32 var_fv0;
+    s32 temp_ft3;
+    s32 temp_v0;
+    s32 var_a0;
+
+    temp_v0 = *(s32 *)((u8 *)arg1 + 0x2E8);
+    if (temp_v0 != 0) {
+        var_fv0 = (f32) *(s32 *)((u8 *)arg1 + 0x2E4) / (f32) temp_v0;
+    } else {
+        var_fv0 = 1.0f;
+    }
+    var_a0 = 2 - *(s32 *)((u8 *)arg1 + 0x2EC);
+    temp_ft3 = (s32) ((500.0f * (1.0f - var_fv0)) + 2.0f);
+    *(s32 *)((u8 *)arg1 + 0x2EC) = (s32) (temp_ft3 / 3);
+    if (var_a0 < 0) {
+        do {
+            var_a0 += 0x40;
+        } while (var_a0 < 0);
+    }
+    *(s32 *)((u8 *)arg0 + 0) = (s32) (((temp_ft3 & 0xFFF) << 0xC) | 0xF2000000 | (var_a0 & 0xFFF));
+    *(s32 *)((u8 *)arg0 + 4) = 0x041FE03E;
+    return arg0 + 8;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C3160 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3160.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3230.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3574.s")

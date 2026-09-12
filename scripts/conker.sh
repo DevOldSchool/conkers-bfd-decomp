@@ -51,10 +51,13 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
-  automate [--limit N | --all] [--max-attempts N] [--rewrite-budget N]
+  automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
+           [--exhaustive] (disable plateau stopping)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart]
-                                 Process raw and deferred ASM-to-C candidates. --all considers the
-                                 complete active US inventory and writes an auditable coverage report.
+           [--analyze] [--verbose]
+                                 Process raw and deferred ASM-to-C candidates. --function runs one
+                                 eligible work item; --all considers the complete active US inventory
+                                 with compact output. --analyze performs a non-mutating preflight.
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
@@ -62,7 +65,7 @@ Getting started
   reopen-match <work-item-id> --reason <text>
                                  Preserve an invalidated match and restore its GLOBAL_ASM safely.
   diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
-  permute <work-item-id> [--budget N]
+  permute <work-item-id> [--budget N] [--exhaustive]
                                  Search safe declaration/lifetime and expression-form variants.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.
@@ -117,8 +120,8 @@ After the raw base split map is available
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <survey|extract|preview|atlas|materials|collision|verify> [options]
-                                 Survey, export, preview, or verify proven US model banks.
+  model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|verify|validate|inspect|submitted|discover-submitted> [options]
+                                 Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
   asset-correlate [--base us] [--compare debug|ects] [--output <path>] [--force]
@@ -202,6 +205,11 @@ ensure_image() {
     rsp_image_ready=1
 }
 
+image_has_mupen_software_renderer() {
+    docker run --rm --platform linux/amd64 --network none --entrypoint /bin/sh "$image_name" -c \
+        'test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-rsp-cxd4-sse2.so && test -f /opt/mupen64plus/lib/mupen64plus/mupen64plus-video-angrylion-plus.so && command -v xvfb-run >/dev/null'
+}
+
 ensure_mupen_image() {
     ensure_image
     if image_is_healthy; then
@@ -221,6 +229,25 @@ ensure_mupen_image() {
     rsp_image_ready=0
     ensure_image
     image_is_healthy || die "toolchain image failed the Mupen debugger smoke test"
+}
+
+ensure_mupen_software_image() {
+    local software_base_image="$image_name"
+    local software_key
+    software_key="$(python3 -c 'import hashlib, pathlib, sys; print(hashlib.sha256(pathlib.Path(sys.argv[1]).read_bytes() + sys.argv[2].encode()).hexdigest()[:16])' "$repo_root/toolchain/Dockerfile.mupen-software" "$(docker image inspect --format '{{.Id}}' "$software_base_image")")"
+    local software_image_name="conkers-bfd-mupen-software:$software_key"
+    if docker image inspect "$software_image_name" >/dev/null 2>&1; then
+        image_name="$software_image_name"
+        if image_has_mupen_software_renderer; then
+            return
+        fi
+    fi
+    printf 'Building the optional software graphics tracing image...\n'
+    docker build --platform linux/amd64 --file toolchain/Dockerfile.mupen-software \
+        --build-arg "CONKER_BASE_IMAGE=$software_base_image" \
+        --tag "$software_image_name" "$repo_root"
+    image_name="$software_image_name"
+    image_has_mupen_software_renderer || die "software tracing image lacks its renderer plugins"
 }
 
 add_workspace_mount() {
@@ -338,6 +365,15 @@ run_in_container() {
 
 run_in_warm_container() {
     docker exec --workdir /workspace "$warm_container_name" "$@"
+}
+
+run_in_ephemeral_container() {
+    ensure_image
+    workspace_mount_args
+    docker run --rm "${container_run_args[@]}" \
+        "${workspace_mounts[@]}" \
+        --workdir /workspace \
+        "$image_name" "$@"
 }
 
 run_in_container_integrating() {
@@ -576,7 +612,17 @@ case "$command" in
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 2
             fi
-            "$repo_root/conker" finish "$permute_symbol"
+            finish_status=0
+            "$repo_root/conker" finish "$permute_symbol" || finish_status=$?
+            if [[ "$finish_status" -eq 0 ]]; then
+                python3 "$state_tool" clear-permutation "$permute_symbol"
+            else
+                if ! python3 "$state_tool" rollback-permutation "$permute_symbol"; then
+                    printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                    exit 2
+                fi
+                exit "$finish_status"
+            fi
         elif [[ "$permute_status" -eq 1 ]]; then
             printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
             exit 1
@@ -763,9 +809,16 @@ case "$command" in
     mupen-trace)
         [[ $# -ge 1 ]] || die "usage: ./conker mupen-trace --spec <path> --output <build-path> [options]"
         python3 "$state_tool" setup-check --profile us
+        trace_software_renderer=0
+        for trace_argument in "$@"; do
+            [[ "$trace_argument" == -- ]] && break
+            [[ "$trace_argument" == --software-renderer ]] && trace_software_renderer=1
+        done
         ensure_mupen_image
-        ensure_warm_container
-        run_in_warm_container python3 scripts/mupen_trace.py record "$@"
+        if [[ "$trace_software_renderer" == 1 ]]; then
+            ensure_mupen_software_image
+        fi
+        run_in_ephemeral_container python3 scripts/mupen_trace.py record "$@"
         ;;
     game-asm)
         parse_profile_only "usage: ./conker game-asm [--profile us]" "$@"
@@ -879,7 +932,7 @@ case "$command" in
         python3 scripts/texture_assets.py "$@"
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <survey|extract|preview|atlas|materials|collision|verify> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|verify|validate|inspect|submitted|discover-submitted> [options]"
         python3 scripts/model_assets.py "$@"
         ;;
     hud-assets)

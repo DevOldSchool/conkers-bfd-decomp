@@ -9,8 +9,6 @@
  * - func_151D7264
  * - func_151D73A8
  * - func_151D7424
- * - func_151D7450
- * - func_151D747C
  * - func_151D74B0
  * - func_151D7538
  * - func_151D75C4
@@ -24,8 +22,6 @@
  * - func_151D7CD0
  * - func_151D80C4
  * - func_151D8718
- * - func_151D8780
- * - func_151D87AC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -33,7 +29,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D71B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7264.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D73A8.s")
-void func_151D7404(void) {
+void func_151D7404() {
     func_151D77C8();
 }
 void func_1514933C(s32);
@@ -45,13 +41,73 @@ void func_151D7424(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7424 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7424.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7450.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D747C.s")
+void func_15149368(s32 arg0);
+
+void func_151D7450(s32 arg0) {
+    func_151D7404(arg0);
+    func_15149368(arg0);
+}
+void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
+
+void func_151D747C(void *arg0) {
+    struct {
+        void *sp18;
+        volatile u8 sp1C;
+    } sp;
+
+    sp.sp18 = arg0;
+    sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
+    func_151494E0((s32 *)&sp, 0x3D, (s32)arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D74B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7538.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D75C4.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7724 CURRENT (635) */
+s32 func_151D7724(u8 *arg0) {
+    u16 temp_v1;
+    u8 *temp_v0;
+    u8 *temp_v0_2;
+
+    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x40));
+    if ((*(s32 *)((u8 *)temp_v0 + 0x94) & 2) || (temp_v1 = *(u16 *)((u8 *)temp_v0 + 0x84), (temp_v1 == 4)) || (temp_v1 == 0xA) || (temp_v1 == 0xC)) {
+        temp_v0_2 = (void *)(arg0 + 0x28);
+        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8) (*(u8 *)((u8 *)temp_v0_2 + 5) & 0xFFFE);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D7724 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7724.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7770 CURRENT (20) */
+s32 func_151D7770(void *arg0) {
+    u8 *temp_v0;
+    u8 *temp_v0_2;
+    s32 temp_t7;
+
+    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x40));
+    temp_v0_2 = (void *)((u8 *)arg0 + 0x28);
+    if (*(u16 *)((u8 *)temp_v0 + 0x84) == 0) {
+        temp_t7 = *(u8 *)((u8 *)temp_v0_2 + 5);
+        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8)(temp_t7 & 0xFFFE);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D7770 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7770.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D779C CURRENT (20) */
+s32 func_151D779C(void *arg0) {
+    u8 *temp_v0;
+    u8 *temp_v0_2;
+    u8 temp_t7;
+
+    temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x40));
+    temp_v0_2 = (void *)((u8 *)arg0 + 0x28);
+    if (*(u8 *)((u8 *)temp_v0 + 0xAD) != 0) {
+        temp_t7 = *(u8 *)((u8 *)temp_v0_2 + 5);
+        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8)(temp_t7 & 0xFFFE);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D779C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D779C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D77C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7830.s")
@@ -80,5 +136,19 @@ void func_151D8764(void *arg0) {
         *(s32 *)((u8 *)leaf + 0x28) = 0;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D8780.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D87AC.s")
+/* Call context: func_151478F4: unique active project prototype */
+/* Call context: func_151D8764: unique active project prototype */
+void func_151478F4(s32);
+
+void func_151D8780(void *arg0) {
+    func_151D8764(arg0);
+    func_151478F4((s32) arg0);
+}
+/* Call context: func_15147928: unique active project prototype */
+/* Call context: func_151D8764: unique active project prototype */
+void func_15147928(s32);
+
+void func_151D87AC(void *arg0) {
+    func_151D8764(arg0);
+    func_15147928((s32) arg0);
+}

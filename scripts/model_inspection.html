@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Conker models to inspect</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font: 16px/1.5 system-ui; margin: 32px; background: #171b20; color: #eee; }
+    a { color: #a7d9ff; }
+    header, .controls { max-width: 1200px; }
+    h1 { margin-bottom: 8px; }
+    header p { color: #bcc7d0; margin: 8px 0; }
+    .controls { margin: 28px 0 20px; }
+    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+    button, input { font: inherit; color: inherit; border: 1px solid #677580; border-radius: 6px; }
+    button { padding: 10px 14px; background: #252b33; cursor: pointer; }
+    button:hover { border-color: #a7d9ff; }
+    [aria-selected="true"] { background: #a7d9ff; border-color: #a7d9ff; color: #14202c; }
+    .tab-count { display: inline-block; margin-left: 6px; font-size: 14px; font-variant-numeric: tabular-nums; }
+    label { display: block; margin-bottom: 8px; }
+    input { width: 100%; max-width: 620px; padding: 12px; background: #252b33; }
+    :focus-visible { outline: 2px solid #a7d9ff; outline-offset: 3px; }
+    #category-description { color: #bcc7d0; margin-bottom: 4px; }
+    #model-count { margin-top: 4px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(260px,100%),1fr)); gap: 24px; }
+    article { padding: 16px; background: #252b33; border-radius: 8px; min-width: 0; }
+    article > a { text-decoration: none; }
+    article > a:hover h2 { text-decoration: underline; }
+    img { width: 100%; height: auto; display: block; border-radius: 4px; }
+    h2 { font-size: 20px; line-height: 1.35; margin: 16px 0 8px; }
+    code { overflow-wrap: anywhere; font-size: 13px; color: #c5d0da; }
+    details { margin-top: 16px; color: #bcc7d0; font-size: 14px; }
+    summary { cursor: pointer; }
+    [hidden] { display: none !important; }
+    #no-models { padding: 24px; background: #252b33; border-radius: 8px; }
+    footer { margin-top: 32px; color: #bcc7d0; }
+    @media (max-width: 600px) { body { margin: 20px 16px; } h1 { font-size: 28px; } .tabs { gap: 6px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Models to inspect</h1>
+    <p>Choose a model to open its self-contained GLB in Blender, then use Material Preview.</p>
+    <p>These are ROM exports. Native appearance remains under investigation; animated previews show the neutral pose.</p>
+  </header>
+  <div class="controls">
+    <div class="tabs" role="tablist" aria-label="Model categories" hidden>{{TABS}}</div>
+    <form role="search">
+      <label for="model-search">Find models</label>
+      <input id="model-search" type="search" placeholder="Search name, original description, bank or filename" autocomplete="off">
+    </form>
+  </div>
+  <main id="model-panel" tabindex="0">
+    <p id="category-description">Every model currently extracted and published for inspection.</p>
+    <p id="model-count" role="status" aria-live="polite">{{COUNT}} models</p>
+    <div id="no-models" hidden>
+      <p>No models match in this category. Try another tab, or clear the filters to see every model.</p>
+      <button type="button" id="reset-filters">Show all models</button>
+    </div>
+    <div class="grid">{{CARDS}}</div>
+  </main>
+  <footer>
+    <p>Names linked in Export details are visual identifications using reference material. Bank and entry numbers remain the ROM identifiers.</p>
+    <p>Refresh exports: <code>./conker model-assets inspect</code></p>
+  </footer>
+  <script>
+    const search = document.getElementById('model-search');
+    const cards = Array.from(document.querySelectorAll('article'));
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panel = document.getElementById('model-panel');
+    const normalize = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+    const names = cards.map(card => normalize(card.dataset.search));
+    let selected = tabs.find(tab => tab.dataset.category === 'characters');
+
+    function filterModels() {
+      const terms = normalize(search.value).trim().split(/\s+/).filter(Boolean);
+      const matches = names.map(name => terms.every(term => name.includes(term)));
+      const category = selected.dataset.category;
+      let count = 0;
+      let total = 0;
+      cards.forEach((card, index) => {
+        const inCategory = category === 'all' || card.dataset.category === category;
+        if (inCategory) total++;
+        card.hidden = !inCategory || !matches[index];
+        if (!card.hidden) count++;
+      });
+      tabs.forEach(tab => {
+        const active = tab === selected;
+        tab.setAttribute('aria-selected', String(active));
+        tab.tabIndex = active ? 0 : -1;
+        const matching = cards.filter((card, index) => matches[index] &&
+          (tab.dataset.category === 'all' || card.dataset.category === tab.dataset.category)).length;
+        tab.querySelector('.tab-count').textContent = matching;
+      });
+      panel.setAttribute('aria-labelledby', selected.id);
+      document.getElementById('category-description').textContent = selected.dataset.description;
+      document.getElementById('model-count').textContent =
+        (terms.length ? count + ' of ' + total : count) + ' models · ' + selected.dataset.label;
+      document.getElementById('no-models').hidden = count !== 0;
+    }
+
+    tabs.forEach((tab, index) => {
+      tab.addEventListener('click', () => { selected = tab; filterModels(); });
+      tab.addEventListener('keydown', event => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index + tabs.length - 1) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+        event.preventDefault();
+        selected = tabs[next];
+        filterModels();
+        selected.focus();
+      });
+    });
+    search.form.addEventListener('submit', event => event.preventDefault());
+    search.addEventListener('input', filterModels);
+    document.getElementById('reset-filters').addEventListener('click', () => {
+      search.value = '';
+      selected = tabs.find(tab => tab.dataset.category === 'all');
+      filterModels();
+      search.focus();
+    });
+    panel.setAttribute('role', 'tabpanel');
+    document.querySelector('[role="tablist"]').hidden = false;
+    filterModels();
+  </script>
+</body>
+</html>

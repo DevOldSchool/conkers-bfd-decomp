@@ -84,6 +84,22 @@ class RzipArchiveTests(unittest.TestCase):
         self.assertEqual((len(first), len(first) + len(second)), (entries[1].start, entries[1].end))
         self.assertEqual(b"second", entries[1].data)
 
+    def test_indexed_flat_stream_preserves_empty_runtime_ids(self) -> None:
+        first, second = chunk(b"first"), chunk(b"second")
+        entries = list(rzip_archive.iter_indexed_flat_rzip_entries(
+            first + second, (len(first), 0, 0, len(second))
+        ))
+        self.assertEqual([0, 3], [entry.index for entry in entries])
+        self.assertEqual([b"first", b"second"], [entry.data for entry in entries])
+        self.assertEqual(len(first), entries[1].start)
+
+    def test_indexed_flat_stream_rejects_changed_extents(self) -> None:
+        first, second = chunk(b"first"), chunk(b"second")
+        for sizes in ((len(first), len(second) - 1),
+                      (len(first) + 1, len(second) - 1)):
+            with self.subTest(sizes=sizes), self.assertRaises(ValueError):
+                list(rzip_archive.iter_indexed_flat_rzip_entries(first + second, sizes))
+
 
 if __name__ == "__main__":
     unittest.main()

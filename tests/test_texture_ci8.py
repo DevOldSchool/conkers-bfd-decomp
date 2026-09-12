@@ -80,15 +80,15 @@ class CI8Tests(unittest.TestCase):
             ci8.preview_contract(3560, 32, 64),
         )
 
-    def test_runtime_incompatible_palette_contract_is_not_extracted(self):
+    def test_cache_watchpoint_does_not_override_final_palette_relocation(self):
         refs = scan(commands(index=3358, width=32, height=32), size=1536, index=3358)
         self.assertEqual(refs, ci8.consistent_contracts(refs))
-        self.assertEqual([], ci8.extractable_contracts(3358, refs))
+        self.assertEqual(refs, ci8.extractable_contracts(3358, refs))
         self.assertEqual(
-            "excluded-runtime-base-palette-overlaps-pixels",
+            "cache-load-observed-final-palette-not-captured",
             ci8.RUNTIME_CONSUMER_EVIDENCE[3358]["status"],
         )
-        self.assertEqual(0, ci8.RUNTIME_CONSUMER_EVIDENCE[3358]["palette_offset"])
+        self.assertEqual(-512, ci8.RUNTIME_CONSUMER_EVIDENCE[3358]["palette_offset_from_payload_end"])
 
         ordinary = scan(
             commands(index=3357, width=32, height=32), size=1536, index=3357

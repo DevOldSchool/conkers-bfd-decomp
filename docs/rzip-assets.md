@@ -313,16 +313,14 @@ only zero-DXT full loads of at most 2,048 pixel bytes. Missing or contradictory
 contracts remain in the generated survey rather than becoming textures.
 
 The palette reference `0x00400000 | flat_index` is verified against
-`func_1510CE60`, but its mode-bit-one branch rewrites the pointer to decoded
-payload end minus `0x200` only when the parser's fifth argument is non-null.
-The local command contract proves a same-index 256-entry TLUT; it does not prove
-that every embedded display list is reached through that non-null runtime
-consumer. Schema 6 records this boundary as `palette_consumer_status`. Index
-3358 is excluded because the runtime trace contradicts the trailing-palette
-storage contract; the remaining extracted records keep all 256 candidate
-RGBA5551 words reversible. The manifest also records dimensions per texture,
-allowing non-square and non-power-of-two dimensions such as 40x40 and 48x42
-without size-only guessing.
+`func_1510CE60`. Mode bit 0 selects decoded payload end minus `0x200`,
+independently of the fifth argument. At `0x1510CFBC`, `$t9` is overwritten
+with `mode & 1` before the branch; the earlier fifth-argument value is no
+longer live. The bookkeeping pointer does not select the palette. The local
+command contract proves a same-index 256-entry TLUT, while final runtime
+appearance still requires the selected draw state. Index 3358 is included
+again because its cache-store observation preceded palette relocation.
+The manifest retains all 256 RGBA5551 words and dimensions per texture.
 
 ```sh
 ./conker texture-assets survey --family ci8-proven
@@ -330,8 +328,8 @@ without size-only guessing.
 ./conker texture-assets verify --family ci8-proven
 ```
 
-The current set contains 527 textures, 1,245,216 decoded bytes. Its PNG round
-trip and full-ROM no-op pack are byte-identical. That is a storage guarantee,
+The current set contains 528 textures, 1,246,752 decoded bytes. Its PNG round
+trip is byte-identical; the earlier full-ROM no-op pack covered the 527-entry set. That is a storage guarantee,
 not complete visual validation. The current previews default to the TMEM-ready
 odd-row conversion and bottom-left source origin. Human review currently marks
 56 payloads whose preview geometry is the transpose of the render-tile bounds.
@@ -356,13 +354,11 @@ image content;
 `preview_status` explicitly retain the evidence boundary. The listed examples
 are not an exhaustive classification.
 An LLDB hardware watchpoint on `D_800B0E58[3358]` captured its cache slot moving
-from `-1` to `0x80134040` at guest PC `0x1510D2E8`. The loader returned to
-`func_1510CE60` at `0x1510CF54`; the parser's fifth argument was zero. The
-display list contained both `FD500000 00000D1E` and
-`FD100000 00400D1E`, so both pixel and palette commands resolve to the payload
-base. Its first 512 bytes consequently serve as both indices and TLUT data,
-which is incompatible with the reversible pixels-plus-trailing-palette PNG
-contract. Index 3358 remains in survey evidence but is excluded from extraction.
+from `-1` to `0x80134040` at guest PC `0x1510D2E8`. That proves the payload
+base only. Returning to the parser at `0x1510CF54` precedes the relocation at
+`0x1510CFD4–0x1510CFE4`; the null fifth argument does not suppress that code.
+The earlier claim that pixel and palette pointers overlap was incorrect.
+See [the corrected control-flow and captured-image evidence](evidence/us_model_palette_relocation.md).
 
 ### Direct RGBA16 storage contracts
 
@@ -386,8 +382,7 @@ truecolor RGBA PNGs, preserving every RGBA5551 color including RGB channels on
 transparent pixels. Packing and verification reverse the bottom-left origin
 and odd-row TMEM ordering byte-identically.
 
-This family has no separate palette and therefore does not inherit the CI8
-fifth-argument ambiguity. Its local commands prove the storage and rendering
+This family has no separate palette or palette relocation. Its local commands prove the storage and rendering
 format, not semantic names or that each isolated preview should look like
 finished artwork.
 
@@ -537,19 +532,13 @@ glTF on the runtime-proven 30 Hz clock. Runtime light records are now captured;
 the supplied scene has no directly translatable character combiner, so its
 character lighting remains metadata-only rather than being baked through an
 unsupported RDP formula.
-Character-material
-texture resolution and complete RDP state are still runtime concerns. The
-initial model-slot load uses a null fifth argument to `func_1510CE60`, but the
-render-time `func_1518C900` and `func_15183ACC` paths pass a non-null rewrite
-table. Mode one then selects the trailing `0x200`-byte CI8 TLUT and mode two the
-first 16 entries at the same payload-end-minus-`0x200` address for CI4. The
-preview exporter applies that exact pointer
-rule only to single-`TEXEL0` materials whose nominal pixel span does not overlap
-the palette, linking 1,338 drawable runs and 26,395 preview faces to 408
-generated PNGs. It also
-records every `F5` mip-tile command and TMEM offset, but leaves
-`TEXEL0`/`TEXEL1` materials unlinked until their RDP LOD blend and dynamic
-primitive/environment colours can be reproduced faithfully.
+Character-material texture resolution and complete RDP state are still runtime
+concerns. The shared loader selects the trailing `0x200` bytes for mode-one
+CI8 TLUTs and the trailing `0x20` bytes for mode-two CI4 TLUTs. The fifth
+argument controls reference bookkeeping only. The preview exporter now uses
+those offsets with proven image spans and supported base-texture combiner
+forms. Runtime captures retain mip levels separately; complete RDP LOD
+interpolation and dynamic primitive/environment colours remain open.
 
 Those colours are demonstrably runtime state. `func_1502CCFC` emits
 `FA00F200` primitive colour and `FB000000` environment colour commands before
@@ -669,31 +658,37 @@ does not yet have a proven standalone image extraction.
 `model-assets preview` consumes all six generated proven texture manifests and
 writes self-contained OBJ/MTL and glTF previews under
 `build/assets/models/us-bank-04-preview/`. It verifies every generated file and
-relative texture reference. The current boundary links 1,346 material runs and
-36,800 faces to 442 compatible PNGs. After source-authentic zero-area triangles
-are omitted from interchange output, that becomes 1,345 drawable runs and
-36,775 preview faces. It deliberately leaves 2,713 CI8 runs and 70,348 preview
-faces unlinked because the initial-slot call at `0x150033f4` and the
-object-model call at `0x150041f0` both invoke `func_1510CE60` with a null fifth
-argument. Its mode-one palette references remain at the payload base and do not
-select the trailing palette used by the reversible CI8 storage PNGs. Another
-122 runs covering 2,650 faces use `native-proven` storage images whose RDP
-combiner and primitive/environment colors are not represented yet. They remain
-unlinked rather than being shown as generic diffuse textures. Another 989 runs
-covering 32,292 preview faces have no proven standalone image contract; 63
-scene-dependent runs covering 1,021 faces also remain unlinked.
+relative texture reference. The refreshed aggregate preview links 4,337 drawable material runs and 113,535
+faces to 1,962 PNGs. The shared loader correction resolves the former 2,713
+mode-one CI8 runs covering 70,475 source faces. Both null and non-null fifth
+arguments select the trailing palette; the earlier payload-base claim was a
+control-flow error. Exact load spans, source geometry and unsupported material
+states remain explicit. A texture binding alone does not prove full RDP
+combiner, LOD or raster appearance.
 
 The glTF export includes normalized vertex RGBA and material-local UVs. Blender
 therefore applies the vertex-color multiply used by the common RDP combine mode.
 OBJ/MTL remains available as geometry interchange, but MTL cannot encode that
 combiner and is not the recommended material preview path.
 
+For an exhaustive Blender-side import check, run
+`blender --background --factory-startup --python
+scripts/validate_model_previews_blender.py -- --model-root
+build/assets/models`. The validator follows the generated manifests and checks
+all bind, animated, direct-model, and assembled-scene files. The complete
+Blender 5.2.1 pass imports 1,314 glTF files, 2,807 meshes, 358,652 polygons, and
+all 2,621 bank-01 Actions with finite geometry.
+
 `model-assets materials` converts one or more correlated `mupen-trace` JSONL
 captures into a ROM-hash-checked runtime material manifest. Passing that file to
 `model-assets preview --runtime-materials` embeds all observed variants and
 applies only unanimous glTF sampler and alpha-mode translations. Runtime-lit
-`SHADE`, explicit RDP mip LOD, and unsupported alpha or colour formulas remain
-exact extras rather than being collapsed into a misleading diffuse material.
+`SHADE` is replayed when its captured context is unique; explicit RDP mip LOD
+remains exact metadata rather than being collapsed into a misleading diffuse
+material. Across the 1,442 observed variants, 281 are direct glTF base-colour
+products, 921 require the captured lighting replay, 238 use explicit
+`TEXEL0`/`TEXEL1` mip blending, and two multiply two texture tiles without LOD.
+No generic colour/alpha combiner remains unclassified.
 The graphics-task trace also captures Conker's 48-byte extended light records,
 its `/ 48` light count, coordinate modifiers, and basic/advanced-lighting
 switch. It separately retains the active model-view matrix and 32-slot signed
@@ -701,8 +696,47 @@ XY normal stream for each observed context. When a texture-times-shade variant
 has one complete context, the exporter replays GLideN64's directional transform,
 point attenuation, coordinate modifiers, and signed-flag behavior into
 floating-point glTF vertex colours. The supplied scene bakes all 27 eligible
-lit runs, covering 2,267 vertices; unsupported combiners remain metadata-only.
+lit runs, covering 2,267 vertices; explicit mip combiners remain metadata-only.
 The result is GLideN64-equivalent, not an independent hardware-microcode proof.
+The trace path now also captures `SetConvert` (`EC`) and material extraction
+backfills it by replaying retained command buffers and resolved nested lists.
+It recovers task-local conversion state for 1,028 variants, including all 156 K5
+lighting variants. The remaining 414 variants occur before a task-local
+`SetConvert`, so their inherited coefficient state is recorded as unresolved.
+The texture snapshots contain the packed source spans for the explicit ladders.
+Material extraction decodes all 238 mip variants into 753 mip-chain images and
+213 distinct PNGs, retaining the level, dimensions, source offset, TMEM byte
+offset, and hash. Self-contained preview banks copy 41 of those PNGs for bank 01
+and 172 for bank 04 and reference them from glTF extras. Six detail-mode
+variants are split into their CI4 `TEXEL0` detail tile and CI8 `TEXEL1` mip
+chain, correcting the previous interpretation of the chain's first bytes as
+the detail tile. Standard glTF continues to render only the base texture rather
+than claiming N64 LOD equivalence.
+The two non-LOD variants also export their shared second 64x32 CI4 image from
+source offset `0x400`; glTF extras retain the exact `TEXEL0 * TEXEL1` formula.
+The manifest also indexes each captured graphics task as a stable
+`TRACE_INDEX:EVENT_INDEX` appearance. Add, for example,
+`--runtime-appearance 1:0` to `model-assets preview` to exclude material
+variants observed only in other scenes. Unobserved runs deliberately fall back
+to their static extraction state; they are not filled from another character or
+room.
+With texture capture enabled, the graphics-task recorder snapshots the resolved
+RDRAM spans consumed by `F3` pixel and `F0` TLUT loads. The Save-Game-13 task
+contains 98 unique spans and 110,824 captured bytes with no unresolved texture
+address. Material extraction converts the supported indexed combinations into
+23 distinct PNGs and assigns them to 32 task-local variants. Its bank-01 preview
+links 1,355 runs and 26,913 faces; Conker receives 21 captured-texture runs,
+including the segment-10/11 64x32 CI4 facial image selected by the live task.
+The same capture was then repeated for all 19 positive OpenEmu tasks. In the
+combined manifest, 1,281 of 1,442 variants and 348 of 368 material records carry
+exact captured-image evidence, deduplicated to 233 PNGs. Regenerating the
+default aggregate previews raises bank 01 to 1,364 linked runs, 27,261 faces,
+and 420 copied textures, and bank 04 to 1,434 linked runs, 42,078 faces, and 538
+copied textures. Bank 03 remains at 25 linked runs and 240 faces with 16 copied
+textures; bank 09 remains at four linked runs and 52 faces with two copied
+textures. Aggregate output only selects a captured image where the material
+run has one unambiguous captured choice; appearance-specific output remains the
+correct way to inspect mutually exclusive runtime states.
 
 The 60 `DE` commands select offsets `0`, `0x40`, `0x100`, and `0x110` in
 renderer-provided segment 8. The eleven possible bases from `0x80082FC0` through
@@ -721,6 +755,65 @@ material names, and transforms remain runtime-dependent. The exports are
 individual, structurally complete primary-model previews rather than complete
 scene reconstructions. Bank `04` is not claimed to be the only model-bearing
 bank.
+
+The broader supplied OpenEmu corpus contributes 19 positive one-task traces
+and seven bounded negatives. Its 1,772 nested calls all resolve, including 742
+segment-8 calls to 22 distinct runtime lists. The combined material manifest
+contains 368 ROM-correlated records and 1,442 variants from 11,619 draw
+observations across 73 models and 16,233 source faces. This expands evidence to
+ten bank-01 entries, three bank-03 entries, and 60 bank-04 model segments while
+leaving ambiguous and unobserved models explicit. At assignment granularity,
+8,070 observations in 138 records resolve the static segment-8 offset through
+the captured base, verify the exact list payload, and match its `EF` command to
+the effective draw OtherMode. Thirteen unique payloads are tied to correlated
+materials and 11 are proven effective at the draw. Thirty-eight bank-03 assignments execute the
+resolved list but then override it before drawing, while five Save-Game-4
+bank-03 assignments have no captured segment base. Both cases remain distinct
+from an exact final-state match.
+The companion character-activity trace snapshots all 25 runtime character
+records at that same first-task boundary. Across the 26 supplied states it
+observes 31 active bank-01 entries. `model-assets materials
+--activity-manifest ...` promotes an ambiguous character candidate only when it
+is active in the same state and uniquely agrees with the draw's matrix slot (or
+all original candidates are already bank-01 candidates). This resolves 107
+ambiguous correlation groups and 896 draw observations without using character
+activity to reject object or level candidates. Entry `0115` gains two material
+runs; 22 active entries and 152 entries absent from these snapshots remain open.
+The paired `func_1502CCFC` entry/return trace records 71 exact character
+renderer command ranges while following 16 graphics-task submissions in each
+of the 26 states. They cover entries `0000`, `0001`, `0067`, `0090`, `0094`,
+`0115`, `0127`, `0130`, and `0140`, all already covered by runtime materials.
+Whole-call candidate intersection and monotonic static-cluster order resolve 69
+of those calls. Two entry-`0130` calls remain same-model aliases. This also
+proves that entries `0000` and `0001` use a second pass sourced from entry
+`0004`; the composition exporter preserves 245 resolved clusters across nine
+neutral-bind previews rather than treating one bank record as a complete
+runtime character. The character segment-3 palette is 16 big-endian floats per
+matrix, distinct from the split fixed-point direct RSP layout. The 26-state
+replay validates 1,415 of 1,721 captured character matrices and confines all
+306 invalid snapshots to six Save-Game-24 calls. Forty-four task-local posed
+glTFs now cover all nine drawn entries; only those six invalid/conflicting
+instances remain excluded. Source-material linkage adds
+24 proven static or uniquely captured PNGs to 110 neutral and 478 posed runs
+when only the aggregate catalog is supplied. A texture-enabled replay of the
+same renderer returns captures 744 referenced images with no unresolved address
+and indexes all 71 calls as exact appearances. The separate task-local catalog
+assigns exact runtime material state to 1,320 posed runs, links 1,311 posed runs
+to 79 copied PNGs, and selects an event-local captured indexed image for 1,024
+runs. The remaining preview limitations are N64 raster-state translation and
+state coverage, not a cross-task material guess.
+
+Two renderer-internal trace hooks additionally record the exact normal or extra
+part table, display-model index, part index, and selected display-list address
+before each part call. The 26-state corpus contains 128 selections across ten
+display-model indices. Restricting aliases to that bank-01 model and preserving
+sibling part order resolves 122 selections. For the remaining six entry-`0130`
+observations, the selected runtime addresses subtract to the same loaded-model
+base from their exact ROM primary/secondary pointers, resolving all 128. The
+companion 188-slot header trace observes part-count and table-address records
+for 147 of the 183 non-empty bank-01 entries. It does not dereference inactive
+tables as though they were current part lists; 36 bank records remain
+unobserved in this state corpus.
 
 The same direct 40-byte model header is present in all 77 nonempty bank-03
 entries. Runtime object setup loads these through `[03, model-index]`; extracting
@@ -745,20 +838,23 @@ additional scene glTF files; all 52 import successfully in Blender 5.2.1.
 Eleven records in scenes 17 and 62 remain unassembled because the corresponding
 bank-04 entries have zero length, so no replacement model is inferred.
 
-A complete-bank scan finds six further payloads, bank-09 entries 426 through
-431, which independently satisfy the same header, vertex, display-list, and
-exact-boundary checks. They add 254 vertices and 256 faces. Bank 09 is otherwise
-a mixed runtime pointer-table family, so no other entry is promoted based on a
-partial signature. A complete indexed-bank scan finds no other payload matching
-the complete character, direct, or segmented model contracts. The proven US
-geometry total is therefore 1,031 model records (1,029 with faces), 271,002
-vertices, and 213,946 faces.
+Bank-09 entries 426 through 431 independently satisfy the direct model header,
+vertex, display-list and exact-boundary checks, adding 254 vertices and 256
+faces. The attachment consumer `func_1502FE10` establishes a second contract:
+three offset/size pairs, vertices at `+0x18`, a callable part-pointer table,
+optional 16-byte joint records and a CBFD normal region. Extraction includes
+155 such models (120 rigid and 35 jointed), adding 10,235 vertices and 8,896
+faces. All reconstruct byte-exactly from parsed fields and hash-checked native
+regions. The remaining 322 nonempty bank-09 entries are unclassified.
 
-The preview exporters preserve that source inventory in their manifests but
-omit 380 zero-area triangles from OBJ/glTF geometry: 121 repeat a vertex index,
-136 use distinct indices with duplicate positions, and 123 are collinear. Each
-omission records its source face index, display-list offset, and triangle opcode.
-The resulting cross-bank interchange set contains 213,566 drawable faces.
+The proven US geometry inventory is 1,186 model records (1,184 with faces),
+281,237 vertices and 222,842 source faces. Every previously extracted model
+remains present with unchanged source geometry counts. Preview manifests retain
+those source counts while omitting the same 380 source-local zero-area triangles:
+121 repeat a vertex index, 136 use duplicate positions and 123 are collinear.
+Each omission retains its source index, command offset and opcode. Standalone
+interchange previews contain 222,462 drawable faces. Runtime pose collapse is
+recorded separately in captured compositions.
 
 ### Flat RZIP reconstruction evidence
 

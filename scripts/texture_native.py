@@ -32,9 +32,9 @@ IMAGE_COMMANDS = {
 
 
 def packed_row_size(texture_format: str, width: int) -> int:
-    if texture_format == "i4":
+    if texture_format in ("i4", "ia4"):
         if width % 2:
-            raise ValueError("I4 texture width must be even")
+            raise ValueError(f"{texture_format.upper()} texture width must be even")
         return width // 2
     if texture_format in ("ia8", "i8"):
         return width
@@ -98,6 +98,10 @@ def payload_to_rgba(payload: bytes, texture_format: str) -> bytes:
             bytes(((value >> 4) * 17,) * 3 + ((value & 0xF) * 17,))
             for value in payload
         )
+    if texture_format == "ia4":
+        levels = (0, 36, 73, 109, 146, 182, 219, 255)
+        return b"".join(bytes((levels[nibble >> 1],) * 3 + ((nibble & 1) * 255,))
+                        for value in payload for nibble in (value >> 4, value & 15))
     if texture_format == "i8":
         return b"".join(bytes((value,) * 4) for value in payload)
     if texture_format == "i4":
@@ -120,6 +124,11 @@ def rgba_to_payload(rgba: bytes, texture_format: str) -> bytes:
             if red % 17 or alpha % 17:
                 raise ValueError("IA8 PNG channels must be multiples of 17")
             values.append(((red // 17) << 4) | (alpha // 17))
+        elif texture_format == "ia4":
+            levels = (0, 36, 73, 109, 146, 182, 219, 255)
+            if red not in levels or alpha not in (0, 255):
+                raise ValueError("IA4 PNG requires three-bit intensity and one-bit alpha")
+            values.append((levels.index(red) << 1) | (alpha // 255))
         elif texture_format == "i8":
             if alpha != red:
                 raise ValueError("I8 PNG alpha must equal its intensity")
@@ -130,7 +139,7 @@ def rgba_to_payload(rgba: bytes, texture_format: str) -> bytes:
             values.append(red // 17)
         else:
             raise ValueError(f"unsupported native texture format: {texture_format}")
-    if texture_format == "i4":
+    if texture_format in ("i4", "ia4"):
         return bytes((values[index] << 4) | values[index + 1] for index in range(0, len(values), 2))
     return bytes(values)
 

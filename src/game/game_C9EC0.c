@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_resource_dependency_core.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1509CA50
  * - func_1509CA98
  * - func_1509CB68
  * - func_1509CBD4
@@ -36,6 +35,7 @@ typedef struct GameC9EC0HalfwordEntry {
 } GameC9EC0HalfwordEntry;
 
 extern GameC9EC0HalfwordEntry D_80087438[];
+extern GameC9EC0HalfwordEntry D_8008743A[];
 
 s32 func_1509CA10(s32 arg0) {
     return D_80087430[arg0].field_0;
@@ -43,7 +43,9 @@ s32 func_1509CA10(s32 arg0) {
 u16 func_1509CA30(s32 arg0) {
     return D_80087438[arg0].field_0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA50.s")
+s32 func_1509CA50(s32 arg0) {
+    return D_8008743A[arg0].field_0 & 0xFFF;
+}
 s32 func_1509CA78(s32 arg0) {
     return D_80087434[arg0].field_0;
 }
@@ -78,13 +80,36 @@ loop_1:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CB68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CBD4.s")
+extern s32 D_8008743C[];
+extern void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2);
+void func_1509CCB4();
+
 void func_1509CC94(void) {
     func_1509CCB4();
 }
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CCB4 CURRENT (10) */
+void func_1509CCB4(s32 arg0) {
+    func_1509CE64(D_8008743C[arg0 * 5], func_1509CCB4, arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509CCB4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CCB4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CCF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CDDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CE64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CF28.s")
+void func_10004074(s32 arg0);
+extern s32 D_800D2FB0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D054 CURRENT (220) */
+void func_1509D054(void) {
+    s32 temp_v0;
+
+    if ((temp_v0 = D_800D2FB0) != 0) {
+        func_10004074(temp_v0);
+        D_800D2FB0 = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509D054 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509D054.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509D08C.s")

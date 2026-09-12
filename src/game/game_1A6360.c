@@ -47,7 +47,9 @@ void func_15178EB0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_15179B14.s")
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15179CB0 CURRENT (2515) */
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15179CB0 CURRENT (10) */
 void func_15179CB0(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv1;

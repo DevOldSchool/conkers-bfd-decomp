@@ -12,7 +12,6 @@
  * - func_15040A40
  * - func_15040A78
  * - func_15040CC8
- * - func_15040D78
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -202,9 +201,6 @@ void func_15040D60(s32 arg0) {
 void func_15040D6C(s32 arg0) {
 
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15040D78 CURRENT (0) */
 void func_15040D78(s32 arg0) {
 
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15040D78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040D78.s")

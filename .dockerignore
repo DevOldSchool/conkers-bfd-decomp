@@ -1,5 +1,5 @@
-# Keep the build context limited to the two inputs used by Dockerfile. This is
-# an allowlist so ignored ROMs, generated reference output, editor state, and
+# Keep the build context limited to Dockerfiles and explicit toolchain inputs.
+# This allowlist keeps ignored ROMs, generated reference output, editor state, and
 # future local-only files never become visible to a local or remote builder.
 **
 !Dockerfile
@@ -7,3 +7,4 @@
 !toolchain/
 !toolchain/mupen64plus-debug.sh
 !toolchain/python-constraints.txt
+!toolchain/Dockerfile.mupen-software

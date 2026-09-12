@@ -1,8 +1,11 @@
 from __future__ import annotations
 
 import json
+import base64
+import hashlib
 import struct
 import tempfile
+import time
 import unittest
 from pathlib import Path
 
@@ -13,14 +16,86 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 class MupenTraceTests(unittest.TestCase):
+    def test_model_clusters_read_verified_shared_effect_geometry(self):
+        draw = struct.pack('>6I', 0x01003006, 0x01000000, 0x05000204, 0, 0xDF000000, 0)
+        payload = bytes(32) + draw
+        geometry = {'display_list_offset': '0x20', 'display_list_size': len(draw),
+                    'effect_layout': {'family': 'bank-09-four-pair-effect-model',
+                                      'geometry_source_entry': 173,
+                                      'geometry_source_sha1': hashlib.sha1(payload).hexdigest()}}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / 'bundles/0173/segment-00.bin'
+            source.parent.mkdir(parents=True)
+            source.write_bytes(payload)
+            actual = mupen_trace.model_cluster_display_bytes(root, 9, 0, bytes(32), geometry)
+            self.assertEqual(draw, actual)
+            self.assertEqual(1, mupen_trace.geometry_clusters(actual)[0]['triangle_count'])
+            source.write_bytes(payload + b'changed')
+            with self.assertRaisesRegex(mupen_trace.TraceError, 'hash changed'):
+                mupen_trace.model_cluster_display_bytes(root, 9, 0, bytes(32), geometry)
+            source.unlink()
+            with self.assertRaisesRegex(mupen_trace.TraceError, 'requires shared'):
+                mupen_trace.model_cluster_display_bytes(root, 9, 0, bytes(32), geometry)
+
+    def test_model_clusters_reject_invalid_direct_bounds(self):
+        for offset, size in ((1, 8), (0, 9), (8, 16), (-8, 8), (0, 0)):
+            with self.subTest(offset=offset, size=size), self.assertRaises(mupen_trace.TraceError):
+                mupen_trace.model_cluster_display_bytes(Path('.'), 3, 0, bytes(16),
+                    {'display_list_offset': offset, 'display_list_size': size})
+
+    def test_tracks_render_targets_across_character_passes(self) -> None:
+        data = b"".join(struct.pack(">II", command, argument) for command, argument in (
+            (0xFF48003F, 0x800DE080),
+            (0x05000204, 0),
+            (0xDF000000, 0),
+            (0x05000204, 0),
+            (0xFF100123, 0x803D6300),
+            (0x05000204, 0),
+        ))
+        decoded = mupen_trace.decode_f3dex2_cbfd(data)
+        targets = [run["state"]["color_image"] for run in decoded["rdp"]["draw_runs"]]
+        self.assertEqual([0x800DE080, 0x800DE080, 0x803D6300], [t["resolved_address"] for t in targets])
+        self.assertEqual((2, 1, 64), tuple(targets[0][k] for k in ("format", "size", "width")))
+        self.assertEqual((0, 2, 292), tuple(targets[2][k] for k in ("format", "size", "width")))
+
     def test_public_command_uses_pinned_container_recorder(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
         trace_case = script.split("    mupen-trace)", 1)[1].split("        ;;", 1)[0]
 
         self.assertIn("ensure_mupen_image", trace_case)
-        self.assertIn("ensure_warm_container", trace_case)
+        self.assertIn("run_in_ephemeral_container", trace_case)
+        self.assertNotIn("run_in_warm_container", trace_case)
         self.assertIn("scripts/mupen_trace.py record", trace_case)
         self.assertIn("mupen-trace --spec <path> --output <build-path>", script)
+
+    def test_replays_per_tile_bounds_without_rewriting_recorded_state(self) -> None:
+        commands = (
+            (0xF2002002, 0x0407E07E), (0x05000204, 0),
+            (0xDF000000, 0), (0xF2004004, 0x00080080),
+            (0x05000204, 0), (0xF2006006, 0x04082082), (0x05000204, 0),
+        )
+        data = b"".join(struct.pack(">II", *pair) for pair in commands)
+        state = mupen_trace.decode_f3dex2_cbfd(data)
+        state["rdp"]["model_correlations"] = []
+        draws = state["rdp"]["draw_runs"]
+        self.assertEqual([0xF2002002, 0xF2002002, 0xF2006006],
+                         [d["state"]["tile_bounds"]["4"][0] for d in draws])
+        # Older captures did not record SetTileSize; replay adds evidence next
+        # to the old state and preserves its hash and captured pixel references.
+        for draw in draws:
+            draw["state"].pop("tile_bounds")
+        original_states = json.dumps([d["state"] for d in draws], sort_keys=True)
+        original_hashes = [d["material_state_hash"] for d in draws]
+        probe = {"name": "command-buffer", "length": len(data),
+                 "sha256": hashlib.sha256(data).hexdigest(),
+                 "data_base64": base64.b64encode(data).decode("ascii")}
+        event = {"state": state, "evidence": {"memory": [probe]}}
+        self.assertTrue(mupen_trace.refresh_trace_model_correlations(event, []))
+        self.assertEqual(original_states, json.dumps([d["state"] for d in draws], sort_keys=True))
+        self.assertEqual(original_hashes, [d["material_state_hash"] for d in draws])
+        self.assertEqual([0xF2002002, 0xF2002002, 0xF2006006],
+                         [d["replayed_tile_bounds"]["4"][0] for d in draws])
 
     def test_checked_in_texture_parser_spec_is_valid(self) -> None:
         spec = json.loads(
@@ -40,8 +115,256 @@ class MupenTraceTests(unittest.TestCase):
         self.assertEqual("0x10023DF0", breakpoint["address"])
         self.assertEqual("command-buffer", breakpoint["memory"][1]["name"])
         self.assertIs(True, breakpoint["decoder"]["capture_matrices"])
+        self.assertEqual("n64-mtx", breakpoint["decoder"]["matrix_format"])
         self.assertIs(True, breakpoint["decoder"]["capture_lights"])
         self.assertIs(True, breakpoint["decoder"]["capture_normals"])
+        self.assertIs(True, breakpoint["decoder"]["capture_textures"])
+        self.assertEqual(512, breakpoint["decoder"]["max_matrices"])
+        self.assertEqual(512, breakpoint["decoder"]["max_lights"])
+        self.assertEqual(512, breakpoint["decoder"]["max_normal_streams"])
+        self.assertEqual(1024, breakpoint["decoder"]["max_texture_images"])
+        self.assertEqual(16384, breakpoint["decoder"]["max_texture_bytes"])
+
+    def test_all_graphics_submission_hooks_require_a_graphics_task_header(self):
+        for filename in ("model-trace-gfx-task.json", "model-trace-character-draws.json",
+                         "model-trace-character-activity.json", "model-trace-character-part-tables.json"):
+            spec = json.loads((ROOT / "config" / filename).read_text())
+            for breakpoint in spec["breakpoints"]:
+                if breakpoint["address"] != "0x10023DF0":
+                    continue
+                self.assertIn({"source": "memory", "name": "task", "offset": 0,
+                               "size": 4, "endian": "big", "equals": 1}, breakpoint["when"])
+                self.assertIn({"name": "task", "address": "$a2", "length": 64}, breakpoint["memory"])
+
+    def test_checked_in_character_activity_spec_is_valid(self) -> None:
+        spec = json.loads(
+            (ROOT / "config" / "model-trace-character-activity.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        self.assertIs(spec, mupen_trace.validate_spec(spec))
+        self.assertEqual("character-model-activity", spec["name"])
+        self.assertIs(True, spec["model_inventory_digest"])
+        self.assertEqual(1, spec["target"]["bank"])
+        breakpoint = spec["breakpoints"][0]
+        self.assertEqual("0x10023DF0", breakpoint["address"])
+        self.assertEqual("cbfd-character-pool", breakpoint["decoder"]["format"])
+        self.assertEqual(0x4F4C, breakpoint["memory"][0]["length"])
+
+    def test_checked_in_character_draw_spec_is_valid(self) -> None:
+        spec = json.loads(
+            (ROOT / "config" / "model-trace-character-draws.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        self.assertIs(spec, mupen_trace.validate_spec(spec))
+        self.assertEqual("character-model-draw-ranges", spec["name"])
+        breakpoints = {item["name"]: item for item in spec["breakpoints"]}
+        self.assertEqual(
+            "0x1502CCFC", breakpoints["character-model-draw-enter"]["address"]
+        )
+        self.assertEqual(
+            "0x1502D494", breakpoints["character-normal-part-selected"]["address"]
+        )
+        self.assertEqual(
+            "0x1502D404", breakpoints["character-extra-part-selected"]["address"]
+        )
+        self.assertEqual(
+            "0x1502D544", breakpoints["character-model-draw-return"]["address"]
+        )
+        self.assertEqual(
+            "cbfd-character-draw-range",
+            breakpoints["character-model-draw-return"]["decoder"]["format"],
+        )
+        self.assertIs(
+            True, breakpoints["character-model-draw-return"]["decoder"]["walk_nested"]
+        )
+        self.assertEqual(
+            "cbfd-character-f32",
+            breakpoints["character-model-draw-return"]["decoder"]["matrix_format"],
+        )
+        self.assertEqual(
+            "n64-mtx",
+            breakpoints["character-draws-at-graphics-submit"]["decoder"][
+                "matrix_format"
+            ],
+        )
+        self.assertEqual(
+            16,
+            breakpoints["character-draws-at-graphics-submit"][
+                "stop_after_capture_count"
+            ],
+        )
+        self.assertIn(
+            {"source": "memory", "name": "task", "offset": 0,
+             "size": 4, "endian": "big", "equals": 1},
+            breakpoints["character-draws-at-graphics-submit"]["when"],
+        )
+
+    def test_checked_in_character_part_table_spec_is_valid(self) -> None:
+        spec = json.loads(
+            (ROOT / "config" / "model-trace-character-part-tables.json").read_text(
+                encoding="utf-8"
+            )
+        )
+
+        self.assertIs(spec, mupen_trace.validate_spec(spec))
+        breakpoint = spec["breakpoints"][0]
+        self.assertEqual("0x10023DF0", breakpoint["address"])
+        self.assertIs(True, breakpoint["stop_after_capture"])
+        self.assertIs(True, breakpoint["decoder"]["capture_character_part_tables"])
+
+    def test_stop_after_capture_requires_boolean(self) -> None:
+        spec = {
+            "schema_version": 1,
+            "name": "bad-stop",
+            "breakpoints": [
+                {
+                    "name": "stop",
+                    "address": "0x1000",
+                    "stop_after_capture": 1,
+                }
+            ],
+        }
+
+        with self.assertRaisesRegex(mupen_trace.TraceError, "must be boolean"):
+            mupen_trace.validate_spec(spec)
+
+    def test_stop_after_capture_count_is_bounded(self) -> None:
+        spec = {
+            "schema_version": 1,
+            "name": "bad-stop-count",
+            "breakpoints": [
+                {
+                    "name": "stop",
+                    "address": "0x1000",
+                    "stop_after_capture_count": 0,
+                }
+            ],
+        }
+
+        with self.assertRaisesRegex(mupen_trace.TraceError, "between 1 and 100000"):
+            mupen_trace.validate_spec(spec)
+
+    def test_matrix_format_is_explicitly_bounded(self) -> None:
+        spec = {
+            "schema_version": 1,
+            "name": "bad-matrix-format",
+            "breakpoints": [
+                {
+                    "name": "capture",
+                    "address": "0x1000",
+                    "memory": [
+                        {"name": "commands", "address": "$a0", "length": 8}
+                    ],
+                    "decoder": {
+                        "format": "f3dex2-cbfd",
+                        "memory": "commands",
+                        "capture_matrices": True,
+                        "matrix_format": "guess",
+                    },
+                }
+            ],
+        }
+
+        with self.assertRaisesRegex(mupen_trace.TraceError, "matrix_format"):
+            mupen_trace.validate_spec(spec)
+
+    def test_default_trace_state_has_model_namespace(self) -> None:
+        self.assertEqual({}, mupen_trace.default_state()["model"])
+
+    def test_character_pool_decoder_preserves_active_model_records(self) -> None:
+        data = bytearray(mupen_trace.CHARACTER_POOL_SIZE)
+        offset = 3 * mupen_trace.CHARACTER_POOL_RECORD_SIZE
+        struct.pack_into(">I", data, offset, 0x80123400)
+        data[offset + 4] = 127
+        data[offset + 0xAC] = 5
+        struct.pack_into(">I", data, offset + 0x144, 0x80246800)
+
+        decoded = mupen_trace.decode_cbfd_character_pool(bytes(data))
+
+        self.assertEqual(1, decoded["active_record_count"])
+        self.assertEqual([127], decoded["active_entries"])
+        self.assertEqual(
+            {
+                "slot": 3,
+                "record_offset": offset,
+                "record_address": mupen_trace.CHARACTER_POOL_ADDRESS + offset,
+                "owner_address": 0x80123400,
+                "entry": 127,
+                "flags": 5,
+                "animation_state_address": 0x80246800,
+            },
+            decoded["active_records"][0],
+        )
+
+    def test_character_part_table_headers_preserve_counts_and_addresses(self) -> None:
+        pointers = bytearray(mupen_trace.CHARACTER_PART_POINTER_TABLE_SIZE)
+        counts = bytearray(mupen_trace.CHARACTER_PART_COUNT_TABLE_SIZE)
+        extra_pointers = bytearray(mupen_trace.CHARACTER_PART_POINTER_TABLE_SIZE)
+        struct.pack_into(">I", pointers, 4 * 7, 0x80123400)
+        struct.pack_into(">H", counts, 2 * 7, 3)
+        struct.pack_into(">I", extra_pointers, 4 * 7, 0x80246800)
+
+        decoded = mupen_trace.decode_cbfd_character_part_table_headers(
+            bytes(pointers), bytes(counts), bytes(extra_pointers)
+        )
+
+        self.assertEqual(
+            [
+                {
+                    "model_index": 7,
+                    "part_count": 3,
+                    "part_pointer_table_address": 0x80123400,
+                    "extra_part_pointer_table_address": 0x80246800,
+                }
+            ],
+            decoded,
+        )
+
+    def test_session_timeout_caps_each_debugger_wait(self) -> None:
+        debugger = object.__new__(mupen_trace.MupenDebugger)
+        debugger.session_deadline = time.monotonic() + 2.0
+
+        deadline = debugger.wait_deadline(300)
+
+        self.assertLessEqual(deadline, debugger.session_deadline)
+        self.assertGreater(deadline, time.monotonic())
+
+    def test_session_timeout_is_exposed_by_record_parser(self) -> None:
+        args = mupen_trace.build_parser().parse_args(
+            [
+                "record",
+                "--spec",
+                "config/model-trace-gfx-task.json",
+                "--output",
+                "build/trace.jsonl",
+                "--session-timeout",
+                "45",
+            ]
+        )
+
+        self.assertEqual(45, args.session_timeout)
+
+    def test_software_backend_executes_lle_graphics_without_changing_default(self):
+        parser = mupen_trace.build_parser()
+        common = ["record", "--spec", "spec.json", "--output", "build/trace.jsonl"]
+        ordinary = parser.parse_args(common)
+        command = mupen_trace.runtime_command(ordinary)
+        self.assertEqual("dummy", command[command.index("--gfx") + 1])
+        self.assertEqual("mupen64plus-rsp-hle", command[command.index("--rsp") + 1])
+        software = parser.parse_args([*common, "--software-renderer", "--savestate", "build/frame.st"])
+        command = mupen_trace.runtime_command(software)
+        self.assertEqual("xvfb-run", command[0])
+        self.assertIn("LIBGL_ALWAYS_SOFTWARE=1", command)
+        self.assertEqual("mupen64plus-video-angrylion-plus", command[command.index("--gfx") + 1])
+        self.assertEqual("mupen64plus-rsp-cxd4-sse2", command[command.index("--rsp") + 1])
+        self.assertEqual("build/frame.st", command[command.index("--savestate") + 1])
+        software.mupen_args = ["--gfx=dummy"]
+        with self.assertRaises(mupen_trace.TraceError):
+            mupen_trace.runtime_command(software)
 
     def test_register_parser_accepts_debugger_format_and_ansi(self) -> None:
         names = [
@@ -199,6 +522,7 @@ class MupenTraceTests(unittest.TestCase):
             (0xFD100000, 0x80123140),
             (0xF5101000, 0x00018050),
             (0xF3000000, 0x077FF000),
+            (0xEC15FDF0, 0x3B78E42A),
             (0xFC121824, 0xFF33FFFF),
             (0xEF082C3F, 0x00552078),
             (0xFA00F200, 0x11223344),
@@ -229,6 +553,7 @@ class MupenTraceTests(unittest.TestCase):
         run = decoded["rdp"]["draw_runs"][0]
         self.assertEqual(4, run["triangle_count"])
         self.assertEqual([0xFC121824, 0xFF33FFFF], run["state"]["combine_mode"])
+        self.assertEqual([0xEC15FDF0, 0x3B78E42A], run["state"]["convert_mode"])
         self.assertEqual(0x80123140, run["state"]["texture"]["pixel_image"]["address"])
         self.assertEqual(0x80124000, run["state"]["matrix"]["address"])
         self.assertEqual(0x00020400, run["state"]["geometry_mode"])
@@ -308,6 +633,62 @@ class MupenTraceTests(unittest.TestCase):
         self.assertEqual("normal-digest", normal["sha256"])
         self.assertEqual([31, -31], normal["normal_xy_s8"][31])
 
+    def test_runtime_texture_load_resolves_and_captures_segmented_image(self) -> None:
+        commands = b"".join(
+            struct.pack(">II", command, argument)
+            for command, argument in (
+                (0xDB06002C, 0x00140000),
+                (0xFD100000, 0x0B000000),
+                (0xF5101000, 0x00018050),
+                (0xF3000000, 0x007FF000),
+                (0x05000204, 0),
+                (0xDF000000, 0),
+            )
+        )
+        decoded = mupen_trace.decode_f3dex2_cbfd(commands)
+        image = decoded["rdp"]["tmem"][0]["image"]
+
+        self.assertEqual(0x80140000, image["resolved_address"])
+        self.assertEqual(2048, image["texel_count"])
+        self.assertEqual(4096, image["byte_length"])
+
+        payload = bytes(index & 0xFF for index in range(4096))
+
+        class MemoryDebugger:
+            def command(self, command: str, timeout: int) -> str:
+                del timeout
+                _, length_token, address_token = command.split()
+                length = int(length_token[1:-1])
+                address = int(address_token, 16)
+                offset = address - 0x80140000
+                return payload[offset : offset + length].hex(" ")
+
+        images, evidence, unresolved = mupen_trace.capture_runtime_texture_images(
+            MemoryDebugger(), decoded["rdp"]["tmem"], 4, 0x4000, 1
+        )
+        mupen_trace.attach_runtime_texture_images(decoded, images)
+
+        self.assertEqual([], unresolved)
+        self.assertEqual(1, len(images))
+        self.assertEqual(4096, evidence[0]["length"])
+        run_image = decoded["rdp"]["draw_runs"][0]["state"]["texture"][
+            "pixel_image"
+        ]
+        self.assertEqual(0, run_image["captured_texture_image_index"])
+        self.assertEqual(images[0]["sha256"], run_image["sha256"])
+
+    def test_runtime_tlut_load_length_uses_rgba16_entries(self) -> None:
+        image = mupen_trace.runtime_texture_image_record(
+            {"command": 0xFD100000, "address": 0x80100000},
+            0xF0000000,
+            0x073FC000,
+            "tlut",
+        )
+
+        self.assertIsNotNone(image)
+        self.assertEqual(256, image["texel_count"])
+        self.assertEqual(512, image["byte_length"])
+
     def test_rsp_matrix_decoder_combines_split_fixed_point_values(self) -> None:
         data = bytearray(64)
         values = (
@@ -325,6 +706,53 @@ class MupenTraceTests(unittest.TestCase):
 
         self.assertEqual([list(row) for row in values], decoded["rows"])
         self.assertEqual([10.5, 11.25, -12.75], decoded["translation"])
+
+    def test_character_matrix_decoder_reads_float_affine_components(self) -> None:
+        data = struct.pack(
+            ">16f",
+            0.5,
+            0.0,
+            0.0,
+            123.0,
+            0.0,
+            0.5,
+            0.0,
+            float("nan"),
+            0.0,
+            0.0,
+            0.5,
+            -999.0,
+            10.0,
+            20.0,
+            30.0,
+            0.0,
+        )
+
+        decoded = mupen_trace.decode_cbfd_character_matrix(data)
+
+        self.assertEqual("decoded-affine-components", decoded["status"])
+        self.assertEqual(
+            [
+                [0.5, 0.0, 0.0, 0.0],
+                [0.0, 0.5, 0.0, 0.0],
+                [0.0, 0.0, 0.5, 0.0],
+                [10.0, 20.0, 30.0, 1.0],
+            ],
+            decoded["rows"],
+        )
+        self.assertEqual([10.0, 20.0, 30.0], decoded["translation"])
+
+    def test_character_matrix_decoder_rejects_invalid_affine_components(self) -> None:
+        values = [0.0] * 16
+        values[0] = float("nan")
+
+        decoded = mupen_trace.decode_cbfd_character_matrix(
+            struct.pack(">16f", *values)
+        )
+
+        self.assertEqual("invalid-or-uninitialized-at-capture", decoded["status"])
+        self.assertIsNone(decoded["rows"])
+        self.assertIsNone(decoded["translation"])
 
     def test_runtime_matrix_capture_is_attached_to_draw_run(self) -> None:
         commands = b"".join(
@@ -352,6 +780,183 @@ class MupenTraceTests(unittest.TestCase):
         self.assertEqual("matrix-digest", run["matrix_sha256"])
         self.assertEqual([1.0, 2.0, 3.0], run["matrix_translation"])
         self.assertIn("pose_state_hash", run)
+
+    def test_vertex_lighting_keeps_load_state_across_later_draw_changes(self) -> None:
+        commands = (
+            (0xDA380007, 0x80100000),  # Projection LOAD.
+            (0xDA380003, 0x80100100),  # Model-view LOAD.
+            (0xD9FFFFFF, 0x20000),
+            (0xDB020000, 96),
+            (0xDC280C0A, 0x80101000),
+            (0xDC38000E, 0x80102000),
+            (0x01003006, 0x80103000),  # Load slots 0..2.
+            (0xDA380003, 0x80100200),
+            (0xDC280C0A, 0x80101100),
+            (0xDC38000E, 0x80102100),
+            (0xDD000000, 0),
+            (0x01001006, 0x80103030),  # Replace only slot 2.
+            (0xDA380003, 0x80100300),
+            (0x05000204, 0),
+            (0x02000002, 0),  # Modify slot 1; source load no longer sufficient.
+            (0x06000204, 0x00000402),
+        )
+        decoded = mupen_trace.decode_f3dex2_cbfd(b"".join(
+            struct.pack(">II", *pair) for pair in commands
+        ))
+        loads = decoded["rdp"]["vertex_loads"]
+        draws = decoded["rdp"]["draw_runs"]
+        self.assertEqual([[0, 0, 1]], draws[0]["vertex_load_indices"])
+        self.assertEqual([[0, None, 1], [0, 1, None]], draws[1]["vertex_load_indices"])
+        self.assertEqual(0x80100100, loads[0]["state"]["matrix"]["address"])
+        self.assertEqual(0x80100200, loads[1]["state"]["matrix"]["address"])
+        self.assertEqual(0x80100300, draws[0]["state"]["matrix"]["address"])
+        self.assertFalse(loads[0]["state"]["lights"]["advanced_lighting"])
+        self.assertTrue(loads[1]["state"]["lights"]["advanced_lighting"])
+        lights = [{"address": addr, "sha256": str(addr), **mupen_trace.decode_cbfd_light(bytes(48))}
+                  for addr in (0x80101000, 0x80101100)]
+        normals = [{"address": addr, "sha256": str(addr), "layout": "test",
+                    "normal_xy_s8": [[value, 0]] * 32}
+                   for addr, value in ((0x80102000, 1), (0x80102100, 2))]
+        mupen_trace.attach_runtime_lights(decoded, lights)
+        mupen_trace.attach_runtime_normal_streams(decoded, normals)
+        self.assertEqual(str(0x80101000), loads[0]["state"]["lights"]["slots"][0]["sha256"])
+        self.assertEqual(str(0x80101100), loads[1]["state"]["lights"]["slots"][0]["sha256"])
+        self.assertEqual([1, 0], loads[0]["state"]["normal_base"]["normal_xy_s8"][0])
+        self.assertEqual([2, 0], loads[1]["state"]["normal_base"]["normal_xy_s8"][0])
+
+    def test_projection_multiply_and_model_view_stack_use_row_vector_order(self) -> None:
+        commands = (
+            (0xDA380007, 0x80100000),  # Projection LOAD translation.
+            (0xDA380005, 0x80100100),  # Projection MUL scale.
+            (0xDA380003, 0x80100200),  # Model-view LOAD translation.
+            (0xDA380000, 0x80100300),  # Model-view PUSH and MUL scale.
+            (0x01003006, 0x80110000),
+            (0xD8380002, 64),
+            (0x01003006, 0x80110000),
+        )
+        decoded = mupen_trace.decode_f3dex2_cbfd(b"".join(
+            struct.pack(">II", *pair) for pair in commands
+        ))
+        identity = [[float(i == j) for j in range(4)] for i in range(4)]
+        matrices = []
+        for address, scale, translation in (
+            (0x80100000, 1, 10), (0x80100100, 2, 0),
+            (0x80100200, 1, 3), (0x80100300, 4, 0),
+        ):
+            rows = [row[:] for row in identity]
+            rows[0][0] = scale
+            rows[3][0] = translation
+            matrices.append({"address": address, "rows": rows, "sha256": str(address),
+                             "translation": rows[3][:3]})
+        mupen_trace.attach_runtime_matrices(decoded, matrices)
+        first, second = [load["processing_matrices"] for load in decoded["rdp"]["vertex_loads"]]
+        # x=1 -> model-view 4*x+3=7 -> projection 2*x+10=24.
+        self.assertEqual(24, first["combined_rows"][0][0] + first["combined_rows"][3][0])
+        self.assertEqual(18, second["combined_rows"][0][0] + second["combined_rows"][3][0])
+        self.assertEqual([str(0x80100000), str(0x80100100)], first["projection_sha256"])
+        self.assertEqual(4, len(decoded["rdp"]["matrix_commands"]))
+        mupen_trace.attach_runtime_matrices(decoded, matrices[1:])
+        self.assertIsNone(decoded["rdp"]["vertex_loads"][0]["processing_matrices"]["combined_rows"])
+
+    def test_vertex_processing_does_not_invent_initial_projection_or_stack(self) -> None:
+        commands = (
+            (0xDA380003, 0x80100000),
+            (0x01003006, 0x80110000),
+            (0xDA380005, 0x80100000),  # MUL cannot establish unknown projection.
+            (0xD8380002, 64),  # Pop underflow cannot establish a model-view.
+            (0x01003006, 0x80110000),
+        )
+        decoded = mupen_trace.decode_f3dex2_cbfd(b"".join(
+            struct.pack(">II", *pair) for pair in commands
+        ))
+        mupen_trace.attach_runtime_matrices(decoded, [{
+            "address": 0x80100000, "sha256": "identity", "translation": [0, 0, 0],
+            "rows": [[float(i == j) for j in range(4)] for i in range(4)],
+        }])
+        first, second = decoded["rdp"]["vertex_loads"]
+        self.assertIsNotNone(first["processing_matrices"]["model_view_rows"])
+        self.assertIsNone(first["processing_matrices"]["combined_rows"])
+        self.assertIsNone(second["processing_matrices"]["model_view_rows"])
+        self.assertIsNone(second["processing_matrices"]["projection_rows"])
+
+    def test_cbfd_tri4_cache_indices_preserve_all_corners(self) -> None:
+        faces = [[0, 1, 18], [3, 4, 5], [6, 7, 8], [9, 10, 11]]
+        command = 0x10000000 | (1 << 18) | (4 << 15) | (3 << 10) | (4 << 5) | 5
+        argument = (2 << 30) | (6 << 25) | (7 << 20) | (8 << 15) | (9 << 10) | (10 << 5) | 11
+        self.assertEqual(faces, mupen_trace.triangle_cache_indices(command, argument))
+
+    def test_vertex_processing_refresh_uses_verified_matrix_bytes(self) -> None:
+        data = b"".join(struct.pack(">II", *pair) for pair in (
+            (0xDA380007, 0x80100000), (0xDA380003, 0x80100000),
+            (0x01003006, 0x80110000), (0x05000204, 0),
+        ))
+        state = mupen_trace.decode_f3dex2_cbfd(data)
+        state["rdp"]["model_correlations"] = []
+        integers = [int(i == j) for i in range(4) for j in range(4)]
+        matrix_data = struct.pack(">16h16H", *integers, *([0] * 16))
+        matrix_digest = hashlib.sha256(matrix_data).hexdigest()
+        state["joint_matrices"] = [{
+            "address": 0x80100000, "sha256": matrix_digest,
+            "layout": "n64-mtx-row-major-4x4-s16.16-split",
+            "rows": [[999] * 4] * 4,  # Derived values cannot override captured bytes.
+        }]
+        probes = [{"name": name, "length": len(payload),
+                   "resolved_address": address,
+                   "sha256": hashlib.sha256(payload).hexdigest(),
+                   "data_base64": base64.b64encode(payload).decode("ascii")}
+                  for name, address, payload in (
+                      ("command-buffer", "0x80120000", data),
+                      ("runtime-matrix-0000", "0x80100000", matrix_data),
+                  )]
+        event = {"state": state, "evidence": {"memory": probes}}
+        original = json.dumps(state["rdp"]["draw_runs"][0]["state"], sort_keys=True)
+        mupen_trace.refresh_trace_model_correlations(event, [])
+        processing = state["rdp"]["replayed_vertex_loads"][0]["processing_matrices"]
+        self.assertEqual([[float(i == j) for j in range(4)] for i in range(4)],
+                         processing["combined_rows"])
+        self.assertEqual(original, json.dumps(state["rdp"]["draw_runs"][0]["state"], sort_keys=True))
+        probes[1]["data_base64"] = base64.b64encode(bytes(64)).decode("ascii")
+        with self.assertRaisesRegex(mupen_trace.TraceError, "identity changed"):
+            mupen_trace.refresh_trace_model_correlations(event, [])
+
+    def test_runtime_vertex_capture_deduplicates_spans_and_enforces_bounds(self) -> None:
+        commands = []
+
+        class MemoryDebugger:
+            def command(self, command: str, timeout: int) -> str:
+                commands.append(command)
+                return bytes(48).hex(" ")
+
+        loads = [{"resolved_address": 0x80100000, "vertex_count": count} for count in (2, 3)]
+        probes = mupen_trace.capture_runtime_vertices(MemoryDebugger(), loads, 1, 1)
+        self.assertEqual(["mem /48b 0x80100000"], commands)
+        self.assertEqual(48, probes[0]["length"])
+        self.assertEqual(hashlib.sha256(bytes(48)).hexdigest(), probes[0]["sha256"])
+        with self.assertRaisesRegex(mupen_trace.TraceError, "outside RDRAM"):
+            mupen_trace.capture_runtime_vertices(MemoryDebugger(), [{"resolved_address": 0x807FFFF0, "vertex_count": 2}], 1, 1)
+        with self.assertRaisesRegex(mupen_trace.TraceError, "limit is 1"):
+            mupen_trace.capture_runtime_vertices(MemoryDebugger(), [*loads, {"resolved_address": 0x80200000, "vertex_count": 2}], 1, 1)
+
+    def test_projection_capture_keeps_n64_layout_with_float_character_palette(self) -> None:
+        data = b"".join(struct.pack(">II", *pair) for pair in (
+            (0xDA380007, 0x80100000), (0xDA380003, 0x80100100),
+        ))
+        decoded = mupen_trace.decode_f3dex2_cbfd(data)
+        integers = [int(i == j) for i in range(4) for j in range(4)]
+        split_matrix = struct.pack(">16h16H", *integers, *([0] * 16))
+        float_matrix = struct.pack(">16f", *integers)
+
+        class MemoryDebugger:
+            def command(self, command: str, timeout: int) -> str:
+                return (split_matrix if command.endswith("0x80100000") else float_matrix).hex(" ")
+
+        matrices, _, unresolved = mupen_trace.capture_runtime_matrices(
+            MemoryDebugger(), decoded["rdp"]["matrix_commands"], 2, "cbfd-character-f32", 1
+        )
+        self.assertEqual([], unresolved)
+        self.assertEqual("n64-mtx-row-major-4x4-s16.16-split", matrices[0]["layout"])
+        self.assertEqual("cbfd-character-row-major-f32", matrices[1]["layout"])
+        self.assertEqual(matrices[0]["rows"], matrices[1]["rows"])
 
     def test_runtime_matrix_address_maps_physical_but_not_segmented_values(self) -> None:
         self.assertEqual(
@@ -389,10 +994,65 @@ class MupenTraceTests(unittest.TestCase):
         self.assertEqual(0x80125680, matrix["resolved_address"])
         self.assertEqual(3, matrix["segment"])
         self.assertEqual(0x680, matrix["segment_offset"])
+        self.assertEqual(0x80125000, matrix["segment_base_address"])
+        self.assertEqual(26, matrix["segment_relative_matrix_slot"])
         self.assertEqual(26, matrix["matrix_slot"])
         self.assertEqual(
             0x80125680,
             decoded["rdp"]["draw_runs"][0]["state"]["matrix"]["resolved_address"],
+        )
+
+    def test_cbfd_matrix_identity_preserves_interior_segment_rebases(self) -> None:
+        commands = b"".join(
+            struct.pack(">II", command, argument)
+            for command, argument in (
+                (0xDB06000C, 0x80125000),
+                (0xDA380003, 0x03000300),
+                (0xDB06000C, 0x80125300),
+                (0xDA380003, 0x03000000),
+                (0xDF000000, 0),
+            )
+        )
+
+        decoded = mupen_trace.decode_f3dex2_cbfd(commands)
+        first, second = decoded["rdp"]["matrix_commands"]
+
+        self.assertEqual(0x80125300, first["resolved_address"])
+        self.assertEqual(0x80125300, second["resolved_address"])
+        self.assertEqual(0x80125000, first["segment_base_address"])
+        self.assertEqual(0x80125300, second["segment_base_address"])
+        self.assertEqual(12, first["segment_relative_matrix_slot"])
+        self.assertEqual(0, second["segment_relative_matrix_slot"])
+        self.assertEqual(12, first["matrix_slot"])
+        self.assertEqual(0, second["matrix_slot"])
+
+        class MemoryDebugger:
+            def command(self, command: str, timeout: int) -> str:
+                del command, timeout
+                return bytes(64).hex(" ")
+
+        matrices, _, unresolved = mupen_trace.capture_runtime_matrices(
+            MemoryDebugger(),
+            decoded["rdp"]["matrix_commands"],
+            4,
+            "n64-mtx",
+            1,
+        )
+        self.assertEqual([], unresolved)
+        self.assertEqual(1, len(matrices))
+        self.assertEqual(
+            [0x80125000, 0x80125300],
+            [
+                reference["segment_base_address"]
+                for reference in matrices[0]["references"]
+            ],
+        )
+        self.assertEqual(
+            [12, 0],
+            [
+                reference["segment_relative_matrix_slot"]
+                for reference in matrices[0]["references"]
+            ],
         )
 
     def test_geometry_clusters_normalize_vertex_addresses_and_correlate_prefixes(self) -> None:
@@ -445,7 +1105,89 @@ class MupenTraceTests(unittest.TestCase):
         self.assertEqual(2, correlations[0]["candidate_count"])
         self.assertEqual(1, correlations[0]["unique_model_count"])
         self.assertEqual([5, 8], [item["entry"] for item in correlations[0]["candidates"]])
+        self.assertEqual([8, 8], [item["triangle_count"] for item in correlations[0]["candidates"]])
         self.assertEqual(runtime_clusters[0]["signature"], correlations[0]["signature"])
+
+    def test_geometry_clusters_keep_cached_vertices_across_render_state(self) -> None:
+        commands = (
+            (0x01003006, 0x01000000),
+            (0xDC38000E, 0x01000100),
+            (0x05000204, 0),
+            (0xDA380003, 0x03000040),
+            (0xFCFFFFFF, 0xFFFFFFFF),
+            (0x05040200, 0),
+            (0xDF000000, 0),
+            (0x05000204, 0),
+        )
+        clusters = mupen_trace.geometry_clusters(b"".join(
+            struct.pack(">II", *pair) for pair in commands
+        ))
+        self.assertEqual([0, 1, 2], [c["first_face"] for c in clusters])
+        self.assertEqual([16, 40, 56], [c["triangle_command_offset"] for c in clusters])
+        self.assertEqual([24, 48, 64], [c["triangle_end_offset"] for c in clusters])
+        self.assertEqual(3, sum(c["triangle_count"] for c in clusters))
+        self.assertEqual([[0x01003006, 0]] * 3, [c["commands"][0] for c in clusters])
+
+    def test_refresh_correlations_replays_checked_command_evidence(self) -> None:
+        data = b"".join(struct.pack(">II", *pair) for pair in (
+            (0x01003006, 0x01000000), (0x05000204, 0),
+            (0xFCFFFFFF, 0xFFFFFFFF), (0x05040200, 0), (0xDF000000, 0),
+        ))
+        state = mupen_trace.decode_f3dex2_cbfd(data)
+        state["rdp"]["model_correlations"] = []
+        state["rdp"]["geometry_clusters"] = []
+        probe = {"name": "command-buffer", "resolved_address": "0x80100000",
+                 "length": len(data), "sha256": hashlib.sha256(data).hexdigest(),
+                 "data_base64": base64.b64encode(data).decode("ascii")}
+        event = {"state": state, "evidence": {"memory": [probe]}}
+        self.assertTrue(mupen_trace.refresh_trace_model_correlations(event, []))
+        self.assertEqual(2, len(state["rdp"]["geometry_clusters"]))
+        self.assertEqual([[0], [1]], [
+            c["draw_run_indices"] for c in state["rdp"]["material_run_correlations"]
+        ])
+        self.assertEqual([{"mode": None, "known_bits": 0}] * 2,
+                         [draw["replayed_face_culling"] for draw in state["rdp"]["draw_runs"]])
+        probe["sha256"] = "changed"
+        with self.assertRaisesRegex(mupen_trace.TraceError, "identity changed"):
+            mupen_trace.refresh_trace_model_correlations(event, [])
+
+    def test_culling_replay_requires_resolved_call_ancestry(self) -> None:
+        root = b"".join(struct.pack(">II", *pair) for pair in (
+            (0xD9FFF9FF, 0x400), (0xDE000000, 0x80002000),
+            (0x05000204, 0), (0xDE000000, 0x80003000),
+            (0x05000204, 0), (0xD9FFFFFF, 0x400),
+            (0x05000204, 0), (0xD9FFFDFF, 0), (0x05000204, 0), (0xDF000000, 0),
+        ))
+        nested = b"".join(struct.pack(">II", *pair) for pair in (
+            (0xEF082C3F, 0x00552230), (0xDF000000, 0),
+        ))
+        origins = []
+        flattened, unresolved = mupen_trace.flatten_display_lists(
+            root, {0x80002000: nested}, root_address=0x80001000, origins=origins,
+        )
+        self.assertEqual([0x80003000], unresolved)
+        states = list(mupen_trace.replay_face_culling(flattened, origins).values())
+        self.assertEqual([0x400, None, None, 0x400], [state["mode"] for state in states])
+        self.assertEqual([0x600, 0, 0x400, 0x600], [state["known_bits"] for state in states])
+        self.assertIsNone(next(iter(mupen_trace.replay_face_culling(flattened).values()))["mode"])
+        with self.assertRaisesRegex(mupen_trace.TraceError, "origin span"):
+            mupen_trace.replay_face_culling(flattened, origins[:-1])
+
+    def test_culling_replay_declines_unexecuted_conditional_flow(self) -> None:
+        for conditional in (0x03000000, 0x04000000):
+            root = b"".join(struct.pack(">II", *pair) for pair in (
+                (0xD9FFF9FF, 0x400), (0xDE000000, 0x80002000),
+                (0x05000204, 0), (0xDF000000, 0),
+            ))
+            nested = b"".join(struct.pack(">II", *pair) for pair in (
+                (conditional, 0), (0xD9FFF9FF, 0), (0xDF000000, 0),
+            ))
+            origins = []
+            flattened, _ = mupen_trace.flatten_display_lists(
+                root, {0x80002000: nested}, root_address=0x80001000, origins=origins,
+            )
+            self.assertEqual([{"mode": None, "known_bits": 0}],
+                             list(mupen_trace.replay_face_culling(flattened, origins).values()))
 
     def test_material_correlation_joins_runtime_address_to_static_flat_id(self) -> None:
         draw_runs = [
@@ -631,6 +1373,29 @@ class MupenTraceTests(unittest.TestCase):
         draw_state = decoded["rdp"]["draw_runs"][0]["state"]
         self.assertEqual([0x11, 0x22, 0x33, 0x44], draw_state["colours"]["primitive"]["rgba"])
         self.assertEqual([0x55, 0x66, 0x77, 0x88], draw_state["colours"]["environment"]["rgba"])
+
+    def test_command_origins_distinguish_repeated_instance_calls(self):
+        nested = struct.pack(">4I", 0x05000204, 0, 0xDF000000, 0)
+        root = struct.pack(">6I", 0xDE000000, 0x80110000,
+                           0xDE000000, 0x80110000, 0xDF000000, 0)
+        origins = []
+        flat, missing = mupen_trace.flatten_display_lists(
+            root, {0x80110000: nested}, root_address=0x80100000, origins=origins)
+        self.assertEqual([], missing)
+        self.assertEqual(len(flat) // 8, len(origins))
+        self.assertEqual([0x80100000, 0x80110000], origins[1])
+        self.assertEqual([0x80100008, 0x80110000], origins[4])
+
+    def test_audio_task_is_not_replayed_as_graphics(self):
+        raw = struct.pack(">I", 2) + bytes(60)
+        event = {"evidence": {"memory": [{"name": "task", "length": 64,
+                 "data_base64": base64.b64encode(raw).decode(),
+                 "sha256": hashlib.sha256(raw).hexdigest()}]}}
+        self.assertEqual(2, mupen_trace.captured_task_type(event))
+        self.assertFalse(mupen_trace.refresh_trace_model_correlations(event, []))
+        event["evidence"]["memory"][0]["sha256"] = "0" * 64
+        with self.assertRaises(mupen_trace.TraceError):
+            mupen_trace.captured_task_type(event)
 
     def test_output_is_confined_to_build(self) -> None:
         with self.assertRaises(mupen_trace.TraceError):

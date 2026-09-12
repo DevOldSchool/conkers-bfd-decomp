@@ -4,6 +4,9 @@
 from __future__ import annotations
 
 import re
+import os
+import signal
+import shlex
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -159,23 +162,65 @@ def replace_target_pragma(
     return original[: matches[0].start()] + replacement + original[matches[0].end() :]
 
 
-def run_command(arguments: list[str]) -> tuple[int, str]:
-    """Run a public conker command, echoing and retaining combined output."""
+def run_command(
+    arguments: list[str],
+    *,
+    echo: bool = True,
+    log_path: Path | None = None,
+) -> tuple[int, str]:
+    """Run a public command, optionally logging instead of echoing its output."""
 
-    process = subprocess.Popen(
-        arguments,
-        cwd=ROOT,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.STDOUT,
-        text=True,
-        bufsize=1,
-    )
-    assert process.stdout is not None
-    lines: list[str] = []
-    for line in process.stdout:
-        print(line, end="")
-        lines.append(line)
-    return process.wait(), "".join(lines)
+    log = None
+    if log_path is not None:
+        log_path.parent.mkdir(parents=True, exist_ok=True)
+        log = log_path.open("a", encoding="utf-8", buffering=1)
+        log.write("$ " + shlex.join(arguments) + "\n")
+
+    process = None
+    try:
+        process = subprocess.Popen(
+            arguments,
+            cwd=ROOT,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            bufsize=1,
+            start_new_session=True,
+        )
+        assert process.stdout is not None
+        lines: list[str] = []
+        with process.stdout:
+            for line in process.stdout:
+                if echo:
+                    print(line, end="")
+                if log is not None:
+                    log.write(line)
+                lines.append(line)
+        status = process.wait()
+        if log is not None:
+            log.write(f"[exit {status}]\n\n")
+        return status, "".join(lines)
+    except KeyboardInterrupt:
+        if process is not None and process.poll() is None:
+            # Forward Ctrl-C to the public command and its host subprocesses,
+            # then reap it before the caller restores candidate source.
+            for sig in (signal.SIGINT, signal.SIGTERM, signal.SIGKILL):
+                try:
+                    os.killpg(process.pid, sig)
+                except ProcessLookupError:
+                    break
+                try:
+                    process.wait(timeout=2)
+                    break
+                except subprocess.TimeoutExpired:
+                    continue
+            process.wait()
+        if log is not None:
+            log.write("[interrupted]\n\n")
+        raise
+    finally:
+        if log is not None:
+            log.close()
 
 
 def generate_starter(identifier: str) -> str:

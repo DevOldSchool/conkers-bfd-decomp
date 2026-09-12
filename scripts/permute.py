@@ -9,19 +9,22 @@ import json
 import re
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import compile_c
 import candidate_rewrites
+import candidate_syntax
+import candidate_lifetimes
 import diff
 import project_state
 
 
 ROOT = Path(__file__).resolve().parent.parent
 DECLARATION = re.compile(
-    r"^(?P<indent>[ \t]+)(?P<type>(?:const\s+)?(?:signed\s+|unsigned\s+)?"
-    r"(?:s32|u32|s16|u16|s8|u8|f32|f64|int|unsigned|float|double)"
-    r"(?:\s*\*)?)[ \t]+(?P<name>[A-Za-z_]\w*)[ \t]*;[ \t]*$",
+    r"^(?P<indent>[ \t]+)(?P<type>(?:(?:const|signed|unsigned)\s+)*"
+    r"(?:struct\s+[A-Za-z_]\w*|[A-Za-z_]\w*)(?:[ \t]*\*)*)"
+    r"(?:(?<=\*)[ \t]*|[ \t]+)(?P<name>[A-Za-z_]\w*)[ \t]*;[ \t]*$",
     re.MULTILINE,
 )
 
@@ -64,7 +67,18 @@ def active_candidate_content(entry: dict, identifier: str) -> tuple[Path, str]:
 def declaration_variants(function: str, budget: int) -> list[str]:
     """Vary declaration order and first-assignment scope without changing behavior."""
 
-    declarations = list(DECLARATION.finditer(function))
+    # Only the initial, top-level declaration block is eligible. Nested block
+    # declarations and expression statements must never become type evidence.
+    opening = function.find("{")
+    declarations = []
+    cursor = opening + 1
+    for declaration in DECLARATION.finditer(function, cursor):
+        if function[cursor:declaration.start()].strip():
+            break
+        if declaration.group("type") in ("return", "goto", "volatile"):
+            break
+        declarations.append(declaration)
+        cursor = declaration.end()
     if not declarations:
         return [function]
     start = declarations[0].start()
@@ -85,20 +99,15 @@ def declaration_variants(function: str, budget: int) -> list[str]:
             seen.add(candidate)
             variants.append(candidate)
 
-    retain(function)
-    for order in itertools.permutations(declaration_lines):
-        retain(function[:start] + "\n".join(order) + function[end:])
-        if len(variants) >= budget:
-            return variants
-
-    ordered_snapshot = list(variants)
-    for base in ordered_snapshot:
+    def lifetimes(base: str):
+        if re.search(r"\bgoto\b|(?m:^[ \t]*[A-Za-z_]\w*\s*:)", base):
+            return
         for declaration in declarations:
             name = declaration.group("name")
             type_name = declaration.group("type")
             indent = declaration.group("indent")
             declaration_pattern = re.compile(
-                rf"^{re.escape(indent)}{re.escape(type_name)}[ \t]+{re.escape(name)}[ \t]*;[ \t]*\n?",
+                rf"^{re.escape(declaration.group(0))}\n?",
                 re.MULTILINE,
             )
             without_declaration, removed = declaration_pattern.subn("", base, count=1)
@@ -112,7 +121,21 @@ def declaration_variants(function: str, budget: int) -> list[str]:
             if match is None:
                 continue
             prefix = without_declaration[: match.start()]
-            if re.search(rf"\b{re.escape(name)}\b", prefix):
+            prefix_tokens = candidate_syntax.tokens(prefix)
+            if not prefix_tokens or prefix_tokens[-1].text not in ("{", ";", "}"):
+                # An unbraced if/else/loop body must not acquire a scope that
+                # swallows the rest of the function.
+                continue
+            preceding = candidate_syntax.tokens(prefix + match.group("expr"))
+            if any(
+                token.text == name and (index == 0 or preceding[index - 1].text not in (".", "->"))
+                for index, token in enumerate(preceding)
+            ):
+                continue
+            brace_depth = 0
+            for token in prefix_tokens:
+                brace_depth += (token.text == "{") - (token.text == "}")
+            if brace_depth != 1:
                 continue
             initialized = (
                 f"{match.group('indent')}{{\n"
@@ -122,15 +145,30 @@ def declaration_variants(function: str, budget: int) -> list[str]:
             closing = without_declaration.rfind("}")
             if closing < match.end():
                 continue
-            retain(
+            yield (
                 without_declaration[: match.start()]
                 + initialized
                 + without_declaration[match.end() : closing]
                 + f"{match.group('indent')}}}\n"
                 + without_declaration[closing:]
             )
-            if len(variants) >= budget:
-                return variants
+    retain(function)
+    # Interleave declaration order and first-assignment scope variants.
+    orders = (
+        function[:start] + "\n".join(order) + function[end:]
+        for order in itertools.permutations(declaration_lines)
+    )
+    families = [iter(candidate_lifetimes.lifetime_variants(function, declarations)),
+                iter(lifetimes(function)), iter(orders)]
+    while families and len(variants) < budget:
+        remaining = []
+        for family in families:
+            try:
+                retain(next(family))
+                remaining.append(family)
+            except StopIteration:
+                pass
+        families = remaining
     return variants
 
 
@@ -176,6 +214,8 @@ def main() -> int:
     parser.add_argument("profile", choices=("us", "eu"))
     parser.add_argument("identifier")
     parser.add_argument("--budget", type=int, default=250)
+    parser.add_argument("--exhaustive", action="store_true",
+                        help="use the full variant budget instead of stopping after 32 attempts without improvement")
     args = parser.parse_args()
     if args.budget < 1 or args.budget > 5000:
         parser.error("--budget must be between 1 and 5000")
@@ -207,9 +247,16 @@ def main() -> int:
         best_score: int | None = None
         best_function = original_function
         exact_function: str | None = None
+        started = time.monotonic()
         attempted = 0
         skipped = 0
+        last_improvement = 0
+        improvements = 0
+        stop_reason = "variants_exhausted"
         for variant in variants:
+            if not args.exhaustive and attempted + skipped >= max(32, last_improvement + 32):
+                stop_reason = "plateau"
+                break
             candidate_content = (
                 active_content[:function_start]
                 + variant
@@ -233,16 +280,30 @@ def main() -> int:
                 best_score = score
                 best_function = variant
                 best_path.write_text(best_function + "\n", encoding="utf-8")
+                last_improvement = attempted + skipped
+                improvements += 1
                 print(f"{args.identifier}: improved CURRENT ({score}) at variant {attempted}")
             if score == 0:
                 exact_function = variant
+                stop_reason = "exact"
                 break
 
+        summary = {
+            "budget": args.budget, "exhaustive": args.exhaustive,
+            "generated": len(variants), "compiled": attempted, "invalid": skipped,
+            "improvements": improvements, "best_score": best_score,
+            "stop_reason": stop_reason, "elapsed_seconds": time.monotonic() - started,
+        }
+        report = directory / "search-report.json"
+        temporary = report.with_suffix(".json.tmp")
+        temporary.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
+        temporary.replace(report)
         if exact_function is None:
             print(
                 f"{args.identifier}: no exact match in {attempted} variant(s); "
                 f"best CURRENT ({best_score}) saved to {best_path.relative_to(ROOT)}"
                 + (f"; {skipped} invalid variant(s) skipped" if skipped else "")
+                + ("; plateau reached (use --exhaustive for the full budget)" if stop_reason == "plateau" else "")
             )
             return 1
 

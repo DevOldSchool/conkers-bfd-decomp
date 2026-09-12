@@ -39,25 +39,20 @@ CUSTOM_PREVIEW_GEOMETRY = {
 
 UNRESOLVED_PREVIEW_INDICES = frozenset({2795, 3560, 4423})
 
-# A hardware watchpoint on D_800B0E58[3358] captured the real loader write at
-# guest PC 0x1510D2E8. The caller returned to func_1510CE60 at 0x1510CF54 with
-# a null fifth argument, so the mode-one FD10 reference remained at the payload
-# base instead of being rebased to payload_end - 0x200. That makes the first
-# 512 bytes both CI8 indices and the TLUT, and leaves the final 512 bytes outside
-# the reversible pixels-plus-trailing-palette contract used by this extractor.
-# Keep the runtime-incompatible record in survey evidence, but do not emit a
-# misleading standalone PNG for it.
-RUNTIME_INCOMPATIBLE_INDICES = frozenset({3358})
+# The earlier cache-store watchpoint proves the loaded payload base only.
+# It precedes the parser's mode-dependent relocation and cannot establish the
+# final FD palette address. At 0x1510CFBC, t9 is overwritten with mode & 1;
+# the fifth-argument value loaded earlier no longer controls that branch.
 RUNTIME_CONSUMER_EVIDENCE = {
     3358: {
-        "status": "excluded-runtime-base-palette-overlaps-pixels",
+        "status": "cache-load-observed-final-palette-not-captured",
         "cache_slot_physical": "0x000B42D0",
         "loaded_pointer": "0x80134040",
         "guest_pc_after_cache_store": "0x1510D2E8",
         "parser_return_address": "0x1510CF54",
         "parser_fifth_argument": 0,
-        "palette_offset": 0,
-        "pixel_palette_overlap_bytes": 512,
+        "palette_offset_from_payload_end": -512,
+        "palette_offset_evidence": "reviewed-mode-bit-branch-independent-of-fifth-argument",
     }
 }
 
@@ -177,8 +172,6 @@ def consistent_contracts(references: list[dict]) -> list[dict]:
 
 
 def extractable_contracts(flat_index: int, references: list[dict]) -> list[dict]:
-    if flat_index in RUNTIME_INCOMPATIBLE_INDICES:
-        return []
     return consistent_contracts(references)
 
 
@@ -231,7 +224,7 @@ def survey(profile: str, rom_argument: Path | None):
             "decoded_size": len(entry.data),
             "decoded_sha1": hashlib.sha1(entry.data).hexdigest(),
             "palette_offset": width * height, "palette_size": 512,
-            "palette_consumer_status": "runtime-fifth-argument-unverified",
+            "palette_consumer_status": "mode-one-trailing-tlut-loader-proven",
             "row_layout": row_layout,
             "row_layout_evidence": "default-tmem-ready-preview-assumption",
             "preview_geometry_evidence": evidence,
@@ -251,19 +244,16 @@ def survey(profile: str, rom_argument: Path | None):
         "reference_status_counts": dict(Counter(r["status"] for r in references)),
         "survey_references": references,
         "classification": (
-            "Direct local CI8 command contracts; ambiguous command contracts excluded, "
-            "known runtime-incompatible palette consumers excluded; remaining "
-            "runtime palette-consumer arguments not yet verified"
+            "Direct local CI8 command contracts with mode-one trailing palette "
+            "relocation; ambiguous command contracts excluded"
         ),
         "palette_pointer_contract": {
             "parser": "func_1510CE60",
             "mode": 1,
             "palette_offset_from_payload_end": -512,
-            "requires_non_null_fifth_argument": True,
-            "runtime_consumer_status": "captured-null-for-flat-index-3358",
-            "runtime_incompatible_flat_indices": sorted(
-                RUNTIME_INCOMPATIBLE_INDICES
-            ),
+            "requires_non_null_fifth_argument": False,
+            "mode_bit_test_address": "0x1510CFBC",
+            "runtime_consumer_status": "loader-proven-final-appearance-needs-draw-evidence",
             "runtime_evidence": RUNTIME_CONSUMER_EVIDENCE,
         },
         "visual_validation": {
@@ -271,10 +261,9 @@ def survey(profile: str, rom_argument: Path | None):
             "note": (
                 "Proven describes the local CI8 render dimensions, full load and "
                 "same-index 256-entry TLUT command. The parser rebases a mode-1 "
-                "pointer to payload_end-512 only when its fifth argument is non-null. "
-                "A real load of 3358 used a null fifth argument, making its TLUT "
-                "overlap the first 512 pixel bytes, so that index is excluded from "
-                "this reversible trailing-palette family. Remaining PNGs default to "
+                "pointer to payload_end-512 independently of its fifth argument. "
+                "The earlier cache-store watchpoint on 3358 precedes that relocation "
+                "and does not contradict the trailing-palette contract. PNGs default to "
                 "the reversible TMEM-ready row interpretation. "
                 "Fifty-six indices have explicit human-reviewed transposed preview "
                 "geometry, including 3091 where the command-derived 64x32 view "

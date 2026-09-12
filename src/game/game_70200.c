@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15042D50
  * - func_15042D94
  * - func_15042E3C
  * - func_15042ECC
@@ -21,7 +20,13 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15042D50.s")
+void func_15043384(s32 arg0);
+extern s32 D_800CBD64;
+
+void func_15042D50(void) {
+    D_800CBD64 = 0;
+    func_15043384(0);
+}
 extern s8 D_800CBD74;
 
 void func_15042D78(u8 arg0) {
@@ -114,6 +119,42 @@ s32 func_15043B70(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15043B70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15043B70.s")
+s32 func_15043A20(s32, s32, s32, s32 *, s32);       /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15043BB8 CURRENT (905) */
+s32 func_15043BB8(void *arg0, s32 *arg1, s32 arg2) {
+    s32 temp_a2;
+    s32 temp_t0;
+    s32 temp_t8;
+    s32 temp_v0;
+
+    if (arg2 != 0) {
+        temp_t8 = arg2 + 4;
+        if (arg1 != 0) {
+            arg2 = temp_t8;
+            temp_t0 = (temp_t8 + 3) & ~3;
+            arg2 = temp_t0;
+            temp_a2 = *(s32 *)((u8 *)arg0 + 0xC);
+            temp_v0 = *(s32 *)((u8 *)arg0 + 8);
+            if (temp_a2 < temp_v0) {
+                if ((temp_a2 + temp_t0) >= temp_v0) {
+                    return 1;
+                }
+                goto block_7;
+            }
+            if (((temp_a2 + arg2) - *(s32 *)((u8 *)arg0 + 4)) >= temp_v0) {
+                return 1;
+            }
+block_7:
+            arg2 -= 4;
+            *(s32 *)((u8 *)arg0 + 0xC) = func_15043A20(*(s32 *)((u8 *)arg0 + 0), *(s32 *)((u8 *)arg0 + 4), func_15043A20(*(s32 *)((u8 *)arg0 + 0), *(s32 *)((u8 *)arg0 + 4), temp_a2, &arg2, 4), arg1, arg2);
+            goto block_8;
+        }
+    }
+block_8:
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15043BB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15043BB8.s")
 s32 func_15043AC8(s32, s32, s32, s32 *, s32);       /* extern */
 

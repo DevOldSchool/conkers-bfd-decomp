@@ -11,6 +11,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import call_signatures
+
 
 ROOT = Path(__file__).resolve().parent.parent
 LABEL_PATTERN = re.compile(r"^glabel\s+([A-Za-z_][A-Za-z0-9_]*)\s*$", re.MULTILINE)
@@ -439,6 +442,8 @@ def flattened_source_context(source: Path) -> str | None:
     lines: list[str] = []
     disabled_depth = 0
     for line in source.read_text(encoding="utf-8").splitlines(keepends=True):
+        if call_signatures.ABI_MARKER in line:
+            continue
         if TYPES_INCLUDE_PATTERN.match(line) or GLOBAL_ASM_PATTERN.match(line):
             continue
         if DISABLED_BLOCK_START_PATTERN.match(line):
@@ -502,6 +507,53 @@ def mips_to_c_command(
     return command
 
 
+def call_context_command(command: list[str], recovery: call_signatures.Recovery, symbol: str) -> list[str]:
+    """Add recovered prototypes to ignored, per-function m2c context."""
+    if not recovery.declarations:
+        return command
+    command = list(command)
+    if "--context" in command:
+        index = command.index("--context") + 1
+        context = (ROOT / command[index]).read_text(encoding="utf-8")
+    else:
+        context = flattened_types_header()
+        command[-1:-1] = ["--context", ""]
+        index = command.index("--context") + 1
+    path = ROOT / "build/m2c/calls" / f"{symbol}.c"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(context + "\n" + "\n".join(recovery.declarations) + "\n", encoding="utf-8")
+    command[index] = str(path.relative_to(ROOT))
+    return command
+
+
+def generate_with_call_context(command: list[str], assembly: str, symbol: str,
+                               source: Path | None, profile: str) -> tuple[str, int]:
+    source_text = source.read_text(encoding="utf-8") if source else ""
+    recovery = call_signatures.recover(assembly, source_text, root=ROOT, profile=profile)
+    result = subprocess.run(call_context_command(command, recovery, symbol), cwd=ROOT,
+                            check=False, stdout=subprocess.PIPE, text=True)
+    wrapper = call_signatures.wrapper_call(assembly)
+    if result.returncode == 0 and wrapper and call_signatures.discarded_call(result.stdout, symbol, wrapper[0]):
+        augmented = call_signatures.recover(assembly, source_text, root=ROOT,
+                                            profile=profile, allow_raw=True)
+        if augmented != recovery:
+            recovery = augmented
+            result = subprocess.run(call_context_command(command, recovery, symbol), cwd=ROOT,
+                                    check=False, stdout=subprocess.PIPE, text=True)
+    starter = result.stdout
+    if result.returncode == 0 and recovery.declarations:
+        # m2c suppresses declarations supplied through --context. Keep them in
+        # its public output so automate/next can insert them with the candidate.
+        notes = "\n".join(f"/* Call context: {note} */" for note in recovery.evidence)
+        starter = notes + "\n" + "\n".join(recovery.declarations) + "\n\n" + starter
+    evidence_path = ROOT / "build/m2c/calls" / f"{symbol}.json"
+    evidence_path.parent.mkdir(parents=True, exist_ok=True)
+    evidence_path.write_text(json.dumps({"symbol": symbol, "profile": profile,
+        "declarations": recovery.declarations, "evidence": recovery.evidence,
+        "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly)}, indent=2) + "\n")
+    return starter, result.returncode
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("profile", choices=("us", "eu"))
@@ -542,22 +594,17 @@ def main() -> int:
     )
 
     command = mips_to_c_command(extracted_source, symbol, context_source)
-    result = subprocess.run(
-        command,
-        cwd=ROOT,
-        check=False,
-        stdout=subprocess.PIPE,
-        text=True,
-    )
+    assembly = extracted_source.read_text(encoding="utf-8")
+    output, returncode = generate_with_call_context(command, assembly, symbol, context_source, args.profile)
     starter = repair_preserved_call_arguments(
-        result.stdout,
-        extracted_source.read_text(encoding="utf-8"),
+        output,
+        assembly,
         symbol,
     )
-    if args.ready_output and result.returncode == 0:
+    if args.ready_output and returncode == 0:
         starter = ready_output(starter, symbol)
     print(starter, end="" if starter.endswith("\n") else "\n")
-    return result.returncode
+    return returncode
 
 
 if __name__ == "__main__":

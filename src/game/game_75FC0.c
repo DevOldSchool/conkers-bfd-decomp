@@ -69,7 +69,9 @@ f32 func_15048FC8(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048FC8.s")
 f32 func_15048864(f32, f32);                        /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150490A8 CURRENT (1513) */
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150490A8 CURRENT (35) */
 s32 func_150490A8(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;

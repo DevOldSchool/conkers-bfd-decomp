@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E0300
  * - func_150E0348
  * - func_150E03F8
  * - func_150E05F8
@@ -14,14 +13,26 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E0300.s")
+extern void func_1515F170(s32 arg0, s32 arg1);
+extern void func_1513BAE8(void);
+extern u8 D_80088980;
+
+void func_150E0300(void) {
+    if (D_80088980 == 0) {
+        func_1515F170(6, 0);
+        func_1513BAE8();
+        D_80088980 = 1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E0348.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E03F8.s")
 extern f32 D_800A0FD0;
 extern f32 D_800A0FD4;
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E05F8 CURRENT (2505) */
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E05F8 CURRENT (970) */
 void func_150E05F8(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;

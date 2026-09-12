@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FB240
- * - func_150FB29C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -21,4 +20,7 @@ void func_150FB240(s8 *arg0, s16 arg1, s16 arg2, s16 arg3, s16 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FB240 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1286F0/func_150FB240.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1286F0/func_150FB29C.s")
+s32 func_150FB29C(u8 *arg0) {
+    func_150FB240(arg0 + 0x43, *(s16 *)((u8 *)arg0 + 0x16), *(s16 *)((u8 *)arg0 + 0x120), *(s16 *)((u8 *)arg0 + 0x64), (s16) (s32) *(s16 *)((u8 *)arg0 + 0x66));
+    return 1;
+}

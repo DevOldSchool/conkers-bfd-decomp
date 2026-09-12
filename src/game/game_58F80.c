@@ -47,6 +47,25 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502BD84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502BEE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C1A4.s")
+extern u8 D_800BE9C0;
+extern s16 D_800C3E7A;
+extern void *D_800C3E80[];
+typedef struct {
+    s32 field_0;
+} Game58F80Word;
+extern Game58F80Word D_800C3E88;
+extern s32 D_800C3E8C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C380 CURRENT (360) */
+void func_1502C380(void) {
+    void *temp_t8;
+
+    temp_t8 = D_800C3E80[D_800BE9C0];
+    D_800C3E88.field_0 = (s32)temp_t8;
+    D_800C3E8C = (s32)temp_t8;
+    D_800C3E7A = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502C380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C380.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C3BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C408.s")

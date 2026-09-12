@@ -17,7 +17,6 @@
  * - func_1507E9F8
  * - func_1507EA44
  * - func_1507EABC
- * - func_1507EB4C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -67,4 +66,11 @@ void func_1507EB4C(void *arg0, s32 arg1);
 void func_1507EB2C(void *arg0) {
     func_1507EB4C(arg0, 0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EB4C.s")
+void func_1507EABC(void);
+
+void func_1507EB4C(void *arg0, s32 arg1) {
+    if (arg1 != *(u8 *)((u8 *)arg0 + 0x70)) {
+        *(u8 *)((u8 *)arg0 + 0x70) = (u8)arg1;
+        func_1507EABC();
+    }
+}

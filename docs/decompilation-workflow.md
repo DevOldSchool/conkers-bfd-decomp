@@ -168,16 +168,37 @@ candidates:
 ./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
 ```
 
+Target one eligible raw or deferred function without waiting for scheduler
+order with:
+
+```sh
+./conker automate --function func_15012C84 --rewrite-budget 25 \
+  --defer-best --skip-final-build
+```
+
 The scheduler alternates between size-ordered raw work and score-ordered
 deferred work. Raw starters use evidence-backed declaration recovery, aligned
 scalar or pointer field cleanup with expression bases and signed offsets,
 explicit integer-backed address casts for IDO, and bounded source-shape
 rewrites. Deferred candidates must diagnose as pure register-allocation
 differences before permutation. The
-command restores unsuccessful source attempts and retains only `CURRENT (0)`
-results through `finish`. With explicit authorization, `--defer-best` preserves
-the best compiling nonzero raw candidate through the ordinary transactional
-`defer` path.
+command first runs a warning-free focused `diff`, restores unsuccessful source
+attempts, and retains only `CURRENT (0)` results through `finish`. Compiler
+failures retain the proposed source, complete output, and structured diagnostics
+under `build/us/automate/artifacts/<work-item-id>/`. Before restoration, up to
+three compiler-guided target-function repairs cover proven mechanical failures
+such as undefined `NULL` and byte-address pointer arithmetic. A deferred
+`CURRENT (0)` candidate is sent directly through authoritative recovery rather
+than being classified as a structural mismatch. A focused exact candidate that
+still fails mixed-object layout is preserved with a `finish`/`layout_gate`
+blocker and the measured offset delta; retained unlabeled instructions are not
+silently claimed as C or promoted to a new function boundary. With explicit authorization,
+`--defer-best` preserves the best compiling nonzero raw candidate through the
+ordinary transactional `defer` path.
+
+The exact-permutation handoff is also transactional. If `finish` rejects the
+mixed-object layout before recording a match, the source file and deferred
+inventory metadata are restored from the same host-side snapshot.
 
 Add `--skip-final-build` for a quick local automation experiment. This skips
 only the concluding clean `verify-batch`; each retained function still passes
@@ -202,6 +223,26 @@ from the report. Pending exact matches are reconciled against the current
 inventory both on resume and before the final batch gate, so functions reopened
 or deferred by later mixed-source integration are not sent to `verify-batch`.
 Add `--restart` when changed automation should reconsider prior outcomes.
+
+Full scans use compact output to avoid terminal backpressure. Detailed
+subprocess output is written to
+`build/us/automate/logs/<work-item-id>.log`, and the corresponding report entry
+records that path. Stdout contains important events and a progress summary
+every 50 candidates. Add `--verbose` to restore the complete live stream.
+
+Attempted report entries include the terminal pipeline stage, a blocker code,
+repair actions, and a fingerprint over the candidate source, canonical
+assembly, and only that stage's relevant tooling and options. Resume skips only
+entries whose stage fingerprint still matches, so preparation, compilation,
+or search changes selectively requeue the affected frontier. Legacy entries
+without stage metadata are retried once.
+
+Run `./conker automate --all --analyze` to measure preparation coverage without
+editing tracked source or inventory and without compiling, permuting, deferring,
+finishing, or running the batch gate. It writes the separately resumable
+`build/us/automate/analysis-report.json`; ignored m2c caches and that report are
+the only outputs. Use `--restart` to intentionally rebuild the complete
+analysis report.
 
 ## Game reference assembly and work registration
 

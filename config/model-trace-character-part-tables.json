@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "name": "character-model-part-tables",
+  "model_correlation": true,
+  "model_inventory_digest": true,
+  "target": {
+    "bank": 1,
+    "entry": null,
+    "segment": null,
+    "material_run": null
+  },
+  "max_events": 1,
+  "max_breakpoint_hits": 10000,
+  "timeout_seconds": 30,
+  "breakpoints": [
+    {
+      "name": "character-part-tables-at-graphics-submit",
+      "address": "0x10023DF0",
+      "flags": 8,
+      "stop_after_capture": true,
+      "decoder": {
+        "format": "cbfd-character-pool",
+        "memory": "character-pool",
+        "capture_character_part_tables": true,
+        "part_pointer_table": "character-part-pointer-table",
+        "part_count_table": "character-part-count-table",
+        "extra_part_pointer_table": "character-extra-part-pointer-table"
+      },
+      "memory": [
+        {
+          "name": "character-pool",
+          "address": "0x800CC2D0",
+          "length": 20300
+        },
+        {
+          "name": "character-part-pointer-table",
+          "address": "0x800C4488",
+          "length": 752
+        },
+        {
+          "name": "character-part-count-table",
+          "address": "0x800C4778",
+          "length": 376
+        },
+        {
+          "name": "character-extra-part-pointer-table",
+          "address": "0x800C48F0",
+          "length": 752
+        },
+        {
+          "name": "task",
+          "address": "$a2",
+          "length": 64
+        }
+      ],
+      "when": [
+        {
+          "source": "register",
+          "name": "a0",
+          "equals": 1
+        },
+        {
+          "source": "register",
+          "name": "a1",
+          "mask": "0xFFFFFFFF",
+          "equals": "0x04000FC0"
+        },
+        {
+          "source": "register",
+          "name": "a3",
+          "equals": 64
+        },
+        {
+          "source": "memory",
+          "name": "task",
+          "offset": 0,
+          "size": 4,
+          "endian": "big",
+          "equals": 1
+        }
+      ]
+    }
+  ]
+}

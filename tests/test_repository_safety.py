@@ -51,13 +51,17 @@ class RepositorySafetyTests(unittest.TestCase):
             "mupen64plus-core",
             "mupen64plus-ui-console",
             "mupen64plus-rsp-hle",
+            "mupen64plus-rsp-cxd4",
+            "angrylion-rdp-plus",
         ):
             self.assertRegex(lock["tools"][tool]["revision"], re.compile(r"^[0-9a-f]{40}$"))
-        dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8")
+        dockerfile = (ROOT / "Dockerfile").read_text(encoding="utf-8") + (ROOT / "toolchain/Dockerfile.mupen-software").read_text(encoding="utf-8")
         for tool in (
             "mupen64plus-core",
             "mupen64plus-ui-console",
             "mupen64plus-rsp-hle",
+            "mupen64plus-rsp-cxd4",
+            "angrylion-rdp-plus",
         ):
             self.assertIn(lock["tools"][tool]["revision"], dockerfile)
         self.assertIn("DEBUGGER=1", dockerfile)
@@ -75,6 +79,7 @@ class RepositorySafetyTests(unittest.TestCase):
                 "!toolchain/",
                 "!toolchain/mupen64plus-debug.sh",
                 "!toolchain/python-constraints.txt",
+                "!toolchain/Dockerfile.mupen-software",
             ],
             patterns,
         )
@@ -244,14 +249,19 @@ class RepositorySafetyTests(unittest.TestCase):
 
         self.assertIn("diagnose-diff <work-item-id>", script)
         self.assertIn("permute <work-item-id> [--budget N]", script)
-        self.assertIn("automate [--limit N | --all]", script)
+        self.assertIn("automate [--limit N | --all | --function ID]", script)
         self.assertIn("reopen-match <work-item-id> --reason <text>", script)
 
         permute_case = script.split("    permute)", 1)[1].split("        ;;", 1)[0]
         self.assertIn('apply-permutation "$permute_symbol"', permute_case)
         self.assertIn('"$repo_root/conker" finish "$permute_symbol"', permute_case)
+        self.assertIn('rollback-permutation "$permute_symbol"', permute_case)
+        self.assertIn('clear-permutation "$permute_symbol"', permute_case)
         self.assertLess(
             permute_case.index("apply-permutation"), permute_case.index("finish")
+        )
+        self.assertLess(
+            permute_case.index("finish"), permute_case.index("rollback-permutation")
         )
 
     def test_unified_automation_uses_public_authoritative_gates(self) -> None:
@@ -262,19 +272,27 @@ class RepositorySafetyTests(unittest.TestCase):
         automation = (ROOT / "scripts" / "automate.py").read_text(
             encoding="utf-8"
         )
-        agent_guide = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        contribution_guide = (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
 
-        self.assertIn("automate [--limit N | --all]", dispatch)
+        self.assertIn("automate [--limit N | --all | --function ID]", dispatch)
         self.assertIn('python3 scripts/automate.py "$@"', automation_case)
         self.assertIn("generate_starter(candidate.identifier)", automation)
         self.assertIn('"finish", candidate.identifier', automation)
         self.assertIn('"verify-batch", *matched', automation)
+        self.assertIn('"diff", candidate.identifier', automation)
         self.assertIn('"diagnose-diff", candidate.identifier', automation)
         self.assertIn('"permute",', automation)
         self.assertIn("source.write_bytes(original)", automation)
         self.assertIn("write_report(", automation)
         self.assertIn("reconcile_pending_batch(", automation)
-        self.assertIn("./conker automate --all --defer-best", agent_guide)
+        self.assertIn("candidate_fingerprint(", automation)
+        self.assertIn("save_failure_artifacts(", automation)
+        self.assertIn("--analyze", automation)
+        self.assertIn("--verbose", automation)
+        self.assertIn("command_log", automation)
+        self.assertIn("repair_compile_diagnostics", automation)
+        self.assertIn("stage_fingerprint", automation)
+        self.assertIn("./conker automate --all --defer-best", contribution_guide)
 
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")

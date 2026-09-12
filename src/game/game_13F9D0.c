@@ -23,9 +23,7 @@
  * - func_151149AC
  * - func_15114A1C
  * - func_15114B94
- * - func_15114CC4
  * - func_15114D24
- * - func_15114F04
  * - func_15114F44
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -74,10 +72,57 @@ void func_15113180(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511473C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151148A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511490C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151149AC CURRENT (410) */
+s32 func_151149AC(s32 arg0) {
+    s32 temp_t6;
+    s32 var_a2;
+    s32 var_a3;
+    s32 var_v1;
+
+    temp_t6 = arg0 & 0xFF;
+    if (temp_t6 == 0) {
+        return 0;
+    }
+    var_v1 = 0;
+    if (D_800DBEF0 > 0) {
+        var_a2 = 0;
+        var_a3 = D_800DBEF4;
+loop_4:
+        var_v1 += 1;
+        var_a3 += 0xA0;
+        if (temp_t6 == *(u8 *)((u8 *)var_a3 + 0x72)) {
+            return var_a2 + D_800DBEF4;
+        }
+        var_a2 += 0xA0;
+        if (var_v1 >= D_800DBEF0) {
+            /* Duplicate return node #7. Try simplifying control flow for better match */
+            return 0;
+        }
+        goto loop_4;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151149AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151149AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114A1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114B94.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114CC4.s")
+s32 func_15114CC4(void *arg0, s32 arg1, s32 *arg2, s32 arg3) {
+    void *temp_v1;
+
+    temp_v1 = *(void **)((u8 *)arg0 + 0x18);
+    if ((temp_v1 != 0) && ((*arg2 != 0) || (*(s32 *)((u8 *)arg0 + 0x1C) == 0))) {
+        *(s32 *)((u8 *)arg0 + 0x1C) = 1;
+        *(s16 *)((u8 *)arg0 + 2) = (s16) *(s16 *)((u8 *)temp_v1 + 0x10);
+        *(s16 *)((u8 *)arg0 + 4) = (s16) *(s16 *)((u8 *)temp_v1 + 0x12);
+        *(s16 *)((u8 *)arg0 + 6) = (s16) *(s16 *)((u8 *)temp_v1 + 0x14);
+        return 0;
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114D24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114F04.s")
+extern s32 func_1001001C(s32 (*arg0)(void *, s32, s32 *, s32), s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+
+void func_15114F04(s32 arg0, s32 arg1, s32 arg2) {
+    func_1001001C(func_15114CC4, arg0, 0, arg1, arg2);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114F44.s")

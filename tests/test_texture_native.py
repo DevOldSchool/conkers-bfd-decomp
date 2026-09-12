@@ -48,6 +48,20 @@ def sample_payload(texture_format: str, width: int, height: int) -> bytes:
 
 
 class NativeTextureTests(unittest.TestCase):
+    def test_ia4_all_nibbles_and_lossless_tmem_round_trip(self):
+        payload = bytes(range(256))
+        levels = (0, 36, 73, 109, 146, 182, 219, 255)
+        expected = bytes(channel for byte in payload for nibble in (byte >> 4, byte & 15)
+                         for channel in (levels[nibble >> 1],) * 3 + ((nibble & 1) * 255,))
+        self.assertEqual(expected, native.payload_to_rgba(payload, 'ia4'))
+        png = native.encode_png(payload, 'ia4', t.ROW_LAYOUT_TMEM, 32, 16)
+        self.assertEqual(payload, native.decode_png(png, 'ia4', t.ROW_LAYOUT_TMEM, 32, 16))
+        for rgba in (bytes([35, 35, 35, 255]), bytes([36, 36, 36, 1])):
+            with self.assertRaisesRegex(ValueError, 'three-bit intensity'):
+                native.rgba_to_payload(rgba, 'ia4')
+        with self.assertRaisesRegex(ValueError, 'width must be even'):
+            native.encode_png(bytes(4), 'ia4', t.ROW_LAYOUT_LINEAR, 3, 2)
+
     def test_rgba32_tmem_rows_swap_eight_byte_halves(self):
         even = bytes(range(16))
         odd = bytes(range(16, 32))

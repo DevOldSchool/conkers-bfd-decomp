@@ -8,8 +8,6 @@
  * - func_151D15D0
  * - func_151D197C
  * - func_151D1C98
- * - func_151D2258
- * - func_151D2284
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -35,5 +33,17 @@ void func_151D223C(Game1FEA80Object *arg0) {
         leaf->field_30 = 0;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D2258.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FEA80/func_151D2284.s")
+/* Call context: func_151478F4: unique active project prototype */
+void func_151478F4(s32);
+
+void func_151D2258(Game1FEA80Object *arg0) {
+    func_151D223C(arg0);
+    func_151478F4((s32) arg0);
+}
+/* Call context: func_15147928: unique active project prototype */
+void func_15147928(s32);
+
+void func_151D2284(Game1FEA80Object *arg0) {
+    func_151D223C(arg0);
+    func_15147928((s32) arg0);
+}

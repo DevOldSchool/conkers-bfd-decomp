@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "name": "complete-submitted-model-inputs",
+  "model_correlation": true,
+  "target": {
+    "bank": null,
+    "entry": null,
+    "segment": null,
+    "material_run": null
+  },
+  "max_events": 1,
+  "max_breakpoint_hits": 10000,
+  "timeout_seconds": 120,
+  "breakpoints": [
+    {
+      "name": "graphics-task-submitted",
+      "address": "0x10023DF0",
+      "flags": 8,
+      "decoder": {
+        "format": "f3dex2-cbfd",
+        "memory": "command-buffer",
+        "walk_nested": true,
+        "max_nested_lists": 64,
+        "max_nested_bytes": 65536,
+        "capture_matrices": true,
+        "capture_vertices": true,
+        "max_vertex_blocks": 512,
+        "max_matrices": 512,
+        "matrix_format": "n64-mtx",
+        "capture_lights": true,
+        "max_lights": 512,
+        "capture_normals": true,
+        "max_normal_streams": 512,
+        "capture_textures": true,
+        "max_texture_images": 1024,
+        "max_texture_bytes": 16384
+      },
+      "memory": [
+        {
+          "name": "task",
+          "address": "$a2",
+          "length": 64
+        },
+        {
+          "name": "command-buffer",
+          "address": {
+            "source": "memory",
+            "name": "task",
+            "offset": 48,
+            "size": 4,
+            "endian": "big",
+            "map": "kseg0"
+          },
+          "length": {
+            "source": "memory",
+            "name": "task",
+            "offset": 52,
+            "size": 4,
+            "endian": "big",
+            "max": 65536
+          }
+        }
+      ],
+      "when": [
+        {
+          "source": "register",
+          "name": "a0",
+          "equals": 1
+        },
+        {
+          "source": "register",
+          "name": "a1",
+          "mask": "0xFFFFFFFF",
+          "equals": "0x04000FC0"
+        },
+        {
+          "source": "register",
+          "name": "a3",
+          "equals": 64
+        },
+        {
+          "source": "memory",
+          "name": "task",
+          "offset": 0,
+          "size": 4,
+          "endian": "big",
+          "equals": 1
+        }
+      ],
+      "fields": {
+        "rdp.task_type": {
+          "source": "memory",
+          "name": "task",
+          "offset": 0,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.task_flags": {
+          "source": "memory",
+          "name": "task",
+          "offset": 4,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.ucode_address": {
+          "source": "memory",
+          "name": "task",
+          "offset": 16,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.ucode_data_address": {
+          "source": "memory",
+          "name": "task",
+          "offset": 24,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.command_buffer_address": {
+          "source": "memory",
+          "name": "task",
+          "offset": 48,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.command_buffer_size": {
+          "source": "memory",
+          "name": "task",
+          "offset": 52,
+          "size": 4,
+          "endian": "big"
+        }
+      }
+    }
+  ]
+}

@@ -23,11 +23,17 @@
         "max_nested_lists": 64,
         "max_nested_bytes": 65536,
         "capture_matrices": true,
-        "max_matrices": 128,
+        "capture_vertices": true,
+        "max_vertex_blocks": 512,
+        "max_matrices": 512,
+        "matrix_format": "n64-mtx",
         "capture_lights": true,
-        "max_lights": 128,
+        "max_lights": 512,
         "capture_normals": true,
-        "max_normal_streams": 128
+        "max_normal_streams": 512,
+        "capture_textures": true,
+        "max_texture_images": 1024,
+        "max_texture_bytes": 16384
       },
       "memory": [
         {

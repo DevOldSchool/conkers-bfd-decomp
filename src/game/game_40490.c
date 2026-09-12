@@ -7,17 +7,11 @@
  * TODO: Implement these source-unit functions:
  * - func_15013000
  * - func_150130B4
- * - func_1501370C
- * - func_1501374C
  * - func_15013778
- * - func_1501396C
  * - func_150139AC
  * - func_15013C38
  * - func_15013D38
  * - func_15013DE8
- * - func_15013F9C
- * - func_15013FC4
- * - func_15014004
  * - func_15014094
  * - func_15014144
  * - func_15014220
@@ -42,6 +36,13 @@ extern s32 D_800BE570;
 extern s8 D_800BE574;
 extern s8 D_800BE575;
 
+typedef s32 (*Game40490SimpleCallback)(u8 *);
+
+extern Game40490SimpleCallback D_80082EA0[];
+extern Game40490SimpleCallback D_80082ECC[];
+extern Game40490SimpleCallback D_80082F40[];
+extern void *func_1515D088(u8 *);
+
 void func_15012FE0(void) {
     D_800BE570 = 0;
     D_800BE574 = 0;
@@ -49,10 +50,34 @@ void func_15012FE0(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013000.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150130B4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501370C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501374C.s")
+s32 func_1501370C(u8 *arg0) {
+    Game40490SimpleCallback callback;
+    s32 index;
+
+    index = arg0[0x17];
+    callback = D_80082EA0[index];
+    if (callback != 0) {
+        callback(arg0);
+    }
+    return 1;
+}
+s32 func_1501374C(u8 *arg0) {
+    arg0[0x16] |= 4;
+    func_1515D088(arg0);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013778.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501396C.s")
+s32 func_1501396C(u8 *arg0) {
+    Game40490SimpleCallback callback;
+    s32 index;
+
+    index = arg0[0x17];
+    callback = D_80082ECC[index];
+    if (callback != 0) {
+        callback(arg0);
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150139AC.s")
 typedef struct Game40490CallbackState {
     u8 pad0[0x16];
@@ -98,9 +123,38 @@ s32 func_15013C38(Game40490CallbackState *state) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013D38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013DE8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013F9C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013FC4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014004.s")
+void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);
+
+s32 func_15013F9C(s32 arg0) {
+    func_151CD2C0(arg0, 0xFF, 1);
+    return 1;
+}
+s32 func_15013FC4(u8 *arg0) {
+    Game40490SimpleCallback callback;
+    s32 index;
+
+    index = arg0[0x1B];
+    callback = D_80082F40[index];
+    if (callback != 0) {
+        callback(arg0);
+    }
+    return 1;
+}
+extern void *D_800E0900[];
+
+s32 func_15014004(void *arg0) {
+    s32 index;
+
+    index = *(s32 *)((u8 *)arg0 + 0x1C);
+    if (index < 0) {
+        return 1;
+    }
+    if (index >= 6) {
+        return 1;
+    }
+    D_800E0900[index] = arg0;
+    return 1;
+}
 extern void *D_800D9A20;
 extern void *D_800D9A24;
 
@@ -125,6 +179,23 @@ s32 func_1501407C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014094.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014144.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014220.s")
+extern void *D_800D9AA0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150142AC CURRENT (245) */
+s32 func_150142AC(void *arg0) {
+    u8 temp_t6;
+    u8 temp_v1;
+
+    temp_t6 = *(u8 *)((u8 *)arg0 + 0x16);
+    temp_v1 = *(u8 *)((u8 *)arg0 + 0x1B);
+    *(u8 *)((u8 *)arg0 + 0x16) = temp_t6 | 4;
+    if (((s8) temp_v1 < 0) || (temp_v1 >= 3)) {
+        return 1;
+    }
+    D_800D9AA0[temp_v1] = arg0;
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150142AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150142AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150142EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150144B8.s")
