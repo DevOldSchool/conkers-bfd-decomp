@@ -51,6 +51,25 @@ void func_150AED4C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AED4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AED4C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED9C CURRENT (480) */
+s32 func_150AED9C(void *arg0) {
+    s32 temp_t6;
+    s32 var_v1;
+    void *temp_v0;
+
+    temp_t6 = *(s16 *)((u8 *)arg0 + 0x1C) * 8;
+    var_v1 = temp_t6;
+    if (temp_t6 >= 0x100) {
+        var_v1 = 0xFF;
+    }
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    *(s8 *)((u8 *)temp_v0 + 0x1B) = var_v1;
+    if ((var_v1 & 0xFF) < 0) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AED9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AED9C.s")
 typedef struct GameDBA60Object {
     u8 pad0[0x1C];

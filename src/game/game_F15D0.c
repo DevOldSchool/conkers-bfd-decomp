@@ -7,19 +7,30 @@
  * TODO: Implement these source-unit functions:
  * - func_150C4120
  * - func_150C44A4
- * - func_150C4AD8
- * - func_150C4B34
  * - func_150C4B60
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_150C4AD8(void *arg0);
+void func_1516972C(void *arg0, void *arg1);
+void func_15149368(s32 arg0);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4120.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C44A4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4AD8.s")
+void func_150C4AD8(void *arg0) {
+    volatile void **field_34 = (volatile void **)((u8 *)arg0 + 0x34);
+
+    if (*field_34 != 0) {
+        func_1516972C(*field_34, arg0);
+    }
+}
 void func_150C4B08(s32 arg0) {
     func_150C4AD8(arg0);
     func_1514933C(arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4B34.s")
+void func_150C4B34(s32 arg0) {
+    func_150C4AD8(arg0);
+    func_15149368(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F15D0/func_150C4B60.s")

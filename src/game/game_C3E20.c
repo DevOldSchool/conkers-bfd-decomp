@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_record_command_controller.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15096970
  * - func_150969A0
  * - func_15096A68
  * - func_15096D78
@@ -15,8 +14,14 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_15096970.s")
+void func_100226F0(void *arg0, s32 arg1);
 extern u8 D_800D2DC0;
+extern s32 D_800D2DB4;
+
+void func_15096970(void) {
+    func_100226F0(&D_800D2DC0, 0x6C);
+    D_800D2DB4 = 0;
+}
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150969A0 CURRENT (345) */
 s32 func_150969A0(s32 arg0) {

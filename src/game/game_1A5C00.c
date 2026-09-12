@@ -49,4 +49,13 @@ loop_1:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178C34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178C9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178DA4.s")
+void *func_15178B98(s32);
+void func_15178DA4(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15178E14 CURRENT (269) */
+void func_15178E14(s32 arg0) {
+    arg0 = arg0 & 0xFF;
+    func_15178DA4(func_15178B98(arg0));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15178E14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178E14.s")

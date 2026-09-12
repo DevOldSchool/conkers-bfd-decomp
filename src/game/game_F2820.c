@@ -62,5 +62,18 @@ void func_150C5C74(void *arg0) {
 void func_150C5C9C(void *arg0) {
     func_1514D3B0(arg0, 0x15, 2, 0);
 }
+extern void (*D_800887C8[])(void *, void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5CC4 CURRENT (237) */
+void func_150C5CC4(void *arg0, void *arg1, s32 arg2) {
+    void (*temp_v0)(void *, void *, s32);
+
+    arg2 &= 0xFF;
+    temp_v0 = D_800887C8[((u8 *)arg0)[0x38]];
+    if (temp_v0 != 0) {
+        temp_v0(arg0, arg1, arg2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C5CC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5CC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5D0C.s")

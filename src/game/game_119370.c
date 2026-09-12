@@ -13,5 +13,23 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_119370/func_150EBEC0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_119370/func_150EC3D4.s")
+s32 func_150EC3D4(void *arg0, void *arg1) {
+    u8 temp_v0;
+
+    if (arg0 == arg1) {
+        return 0;
+    }
+    if (*(s32 *)((u8 *)arg0 + 0) == 0) {
+        return 0;
+    }
+    temp_v0 = *(u8 *)((u8 *)arg0 + 4);
+    if (temp_v0 == 0xFF) {
+        return 0;
+    }
+    if ((temp_v0 == 0) || (temp_v0 == 1) || (temp_v0 == 2) || (temp_v0 == 3) ||
+        (temp_v0 == 4) || (temp_v0 == 0x28) || (temp_v0 == 0x77)) {
+        return 1;
+    }
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_119370/func_150EC45C.s")

@@ -5,8 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F0390
- * - func_150F03BC
  * - func_150F03F8
  * - func_150F07E4
  * - func_150F088C
@@ -54,8 +52,18 @@ Game11D830Inner *func_150F0380(Game11D830Object *arg0) {
     inner->field_138 = 0;
     return inner;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0390.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F03BC.s")
+Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0);
+void func_151617C4(Game11D830AltObject *arg0);
+void func_151617E4(Game11D830AltObject *arg0);
+
+void func_150F0390(Game11D830AltObject *arg0) {
+    func_150F03E8(arg0);
+    func_151617C4(arg0);
+}
+void func_150F03BC(Game11D830AltObject *arg0) {
+    func_150F03E8(arg0);
+    func_151617E4(arg0);
+}
 Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
     Game11D830AltInner *inner = arg0->inner;
 

@@ -5,14 +5,19 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15190490
  * - func_151904BC
  * - func_15190518
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BD940/func_15190490.s")
+void func_15190454(s32 arg0);
+void func_151617E4(s32 arg0);
+
+void func_15190490(s32 arg0) {
+    func_15190454(arg0);
+    func_151617E4(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BD940/func_151904BC.s")
 /* Call context: func_1516944C: unique active project prototype */
 void func_1516944C(s32, s8 *, u8, u8);

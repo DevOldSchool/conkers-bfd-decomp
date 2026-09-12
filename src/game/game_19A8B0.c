@@ -165,8 +165,8 @@ void func_1516F91C(void *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516F91C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516F91C.s")
 void func_1516F94C(s32 arg0, s32 arg1) {
-    func_1516F8EC(arg0, arg1);
-    func_1516F91C(arg0, arg1);
+    func_1516F8EC((void *)arg0, arg1);
+    func_1516F91C((void *)arg0, arg1);
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516F984 CURRENT (40) */
 void func_1516F984(s32 arg0, s32 arg1) {

@@ -21,6 +21,24 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_151557FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
+extern void func_1515F10C(void *arg0);
+extern void func_15169804(s32 arg0);
+extern void func_1518CA04(s32 arg0);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155EF8 CURRENT (40) */
+void func_15155EF8(void *arg0) {
+    void *temp_a1;
+    void *temp_a2;
+
+    temp_a1 = arg0;
+    temp_a2 = *(void **)((u8 *) temp_a1 + 0x14);
+    if (temp_a2 != 0) {
+        func_1515F10C(temp_a2);
+    }
+    func_15169804((s32) temp_a1);
+    func_1518CA04(0xA6);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15155EF8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155EF8.s")
 /* Call context: func_15155FD4: unique active project prototype */
 void * func_15155FD4(u8);

@@ -32,7 +32,6 @@
  * - func_151436B4
  * - func_1514373C
  * - func_15143794
- * - func_15143834
  * - func_15143874
  * - func_151438D8
  * - func_15143D18
@@ -59,7 +58,6 @@
  * - func_15145548
  * - func_1514563C
  * - func_15145740
- * - func_15145A0C
  * - func_15145A50
  * - func_15145AD8
  * - func_15145C90
@@ -69,7 +67,6 @@
  * - func_15146078
  * - func_151462C8
  * - func_151464B8
- * - func_15146508
  * - func_1514654C
  * - func_1514672C
  * - func_151467A4
@@ -423,7 +420,11 @@ void func_15143794(u8 arg0, u8 arg1, f32 arg2, void *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15143794 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143794.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15143834.s")
+extern void func_15143794(s16 arg0, s16 arg1, f32 arg2, void *arg3);
+
+void func_15143834(s16 arg0, s16 arg1, f32 arg2, void *arg3) {
+    func_15143794(arg0, arg1, arg2, arg3);
+}
 f32 func_151423D8(u8);                              /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15143874 CURRENT (535) */
@@ -811,7 +812,11 @@ void func_15145974(void *arg0, f32 *arg1, f32 *arg2) {
         *arg2 = (func_150484A0(sqrtf((temp_fv1 * temp_fv1) + (temp_ft4 * temp_ft4)), *(f32 *)((u8 *)arg0 + 4)) * D_800A56C0) - 90.0f;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145A0C.s")
+extern f32 D_800A548C[];
+
+f32 func_15145A0C(f32 arg0, f32 arg1, f32 arg2) {
+    return D_800A548C[(s32) (arg0 * arg2 * 100.0f)] * arg1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145A50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145AD8.s")
 extern s32 D_800DBEF4;
@@ -851,7 +856,22 @@ s32 func_151464B8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151464B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151464B8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15146508.s")
+extern void func_15169040(s32 arg0, u8 arg1);
+
+void func_15146508(void *arg0, void *arg1) {
+    struct {
+        void *field0;
+        void *field4;
+        u8 field8;
+        u8 field9;
+    } sp1C;
+
+    sp1C.field0 = arg0;
+    sp1C.field4 = arg1;
+    sp1C.field8 = *(u8 *)((u8 *) arg0 + 0x3B);
+    sp1C.field9 = *(u8 *)((u8 *) arg1 + 0x3B);
+    func_15169040((s32) &sp1C, 0x2D);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514654C.s")
 extern f32 D_800A56C4;
 extern f32 D_800A56C8;

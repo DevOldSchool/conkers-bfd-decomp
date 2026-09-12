@@ -6,12 +6,9 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15193CA0
- * - func_151942B0
- * - func_151942E8
  * - func_15194320
  * - func_15194394
  * - func_15194408
- * - func_15194588
  * - func_151945CC
  * - func_15194794
  * - func_15194810
@@ -36,12 +33,24 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15193CA0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151942B0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151942E8.s")
+void func_15193CA0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+
+void func_151942B0(s32 arg0, s32 arg1, s32 arg2) {
+    func_15193CA0(arg1, 0, 0xFF, 1);
+}
+void func_151942E8(s32 arg0, s32 arg1, s32 arg2) {
+    func_15193CA0(arg1, 1, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194320.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194394.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194408.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194588.s")
+extern void func_150C7020(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern void func_15194408(s32 arg0, s32 arg1);
+
+void func_15194588(s32 arg0, s32 arg1, s32 arg2) {
+    func_150C7020(arg0, 0x1F4, 0xFF, 1);
+    func_15194408(arg0, arg1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151945CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194794.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194810.s")

@@ -5,9 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_recovered_pointer_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518E4A0
- * - func_1518E4CC
- * - func_1518E4F8
  * - func_1518E524
  * - func_1518E5D8
  * - func_1518E66C
@@ -17,9 +14,23 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E4A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E4CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E4F8.s")
+void func_1514EDF0(s32 arg0, s32 arg1);
+void func_1518E308(void *arg0);
+void func_15169804(s32 arg0);
+void func_15169824(s32 arg0);
+
+void func_1518E4A0(void *arg0) {
+    func_1518E308(arg0);
+    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
+}
+void func_1518E4CC(void *arg0) {
+    func_1518E4A0(arg0);
+    func_15169804((s32) arg0);
+}
+void func_1518E4F8(void *arg0) {
+    func_1518E4A0(arg0);
+    func_15169824((s32) arg0);
+}
 s32 func_150ADA20();                                /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E524 CURRENT (5) */

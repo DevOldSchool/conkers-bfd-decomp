@@ -9,7 +9,6 @@
  * - func_151022AC
  * - func_151025F4
  * - func_151026BC
- * - func_151027E8
  * - func_1510281C
  * - func_151028AC
  *
@@ -43,7 +42,18 @@ s32 func_151025F4(u8 *arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151025F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151025F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151026BC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151027E8.s")
+void func_151403A8(void **arg0, s32 arg1, void *arg2);
+
+void func_151027E8(void *arg0) {
+    struct {
+        void *sp18;
+        volatile u8 sp1C;
+    } sp;
+
+    sp.sp18 = arg0;
+    sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
+    func_151403A8(&sp.sp18, 0x1A, arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_1510281C.s")
 s32 func_15102884(void *arg0, s32 arg1) {
     if (!(*(u8 *)((u8 *)arg0 + 0xAC) & 1)) {

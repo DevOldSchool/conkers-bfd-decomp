@@ -29,6 +29,27 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2290.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2424.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C251C CURRENT (255) */
+s32 func_150C251C(void *arg0) {
+    s16 temp_v1;
+    s32 temp_t6;
+    s32 var_v1;
+    void *temp_v0;
+
+    temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    temp_t6 = temp_v1 * 8;
+    var_v1 = temp_t6;
+    if (temp_t6 >= 0x100) {
+        var_v1 = 0xFF;
+    }
+    *(s8 *)((u8 *)temp_v0 + 0x1B) = var_v1;
+    if ((var_v1 & 0xFF) < 0) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C251C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C251C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2558.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2700.s")

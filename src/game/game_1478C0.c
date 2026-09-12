@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1511A410
  * - func_1511A494
- * - func_1511A6FC
  * - func_1511A738
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -44,5 +43,13 @@ loop_2:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511A410 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1478C0/func_1511A410.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1478C0/func_1511A494.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1478C0/func_1511A6FC.s")
+void func_15116110(void);
+void func_1511A494(void *, void *, void *);
+
+void func_1511A6FC(void *arg0) {
+    if (*(s32 *)((u8 *)arg0 + 0x3C) != 0) {
+        func_15116110();
+    }
+    func_1511A494(arg0, (u8 *)arg0 + 0x80, (u8 *)arg0 + 0x84);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1478C0/func_1511A738.s")

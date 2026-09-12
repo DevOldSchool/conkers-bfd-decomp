@@ -76,6 +76,28 @@ block_5:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150BB260 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8710/func_150BB260.s")
+typedef struct {
+    u8 pad000[0x18];
+    s32 field18;
+    s16 field1C;
+    u8 pad01E[0x81 - 0x1E];
+    u8 field81;
+    u8 pad082[0xB0 - 0x82];
+    s16 fieldB0;
+    s16 fieldB2;
+} Func150BB408State;
+
+extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BB408 CURRENT (50) */
+void func_150BB408(Func150BB408State *arg0) {
+    arg0->field1C = 0x32;
+    arg0->field18 |= 1;
+    arg0->fieldB2 = 5;
+    arg0->fieldB0 = arg0->field1C;
+    func_1513F6C0(arg0, 6, arg0->field81);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BB408 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8710/func_150BB408.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BB450 CURRENT (10) */
 s32 func_150BB450(void *arg0) {

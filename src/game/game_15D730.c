@@ -30,6 +30,16 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130280.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130374.s")
+void func_15130374(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151303BC CURRENT (510) */
+void func_151303BC(s32 arg0, s32 arg1, s32 arg2) {
+    s32 temp_a1;
+
+    temp_a1 = arg1;
+    func_15130374(arg0, temp_a1 & 0xFF, arg2, 0xFF, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151303BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151303BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151303EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130A9C.s")

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507EB80
  * - func_1507EBB8
  * - func_1507EC38
  * - func_1507EE58
@@ -26,7 +25,17 @@
 u32 func_150ADA20(u32);
 extern s32 D_800BE9F0;
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EB80.s")
+void func_1507EB80(u8 *arg0, s32 *arg1, u8 arg2) {
+    s32 temp_v0;
+    u8 *temp_v1;
+
+    temp_v0 = *arg1;
+    if ((temp_v0 + 1) < 0x28) {
+        temp_v1 = arg0 + temp_v0;
+        *temp_v1 = arg2;
+        *arg1 += 1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EBB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EE58 CURRENT (644) */
@@ -141,5 +150,21 @@ block_7:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F640.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FC2C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FEA0.s")
+extern void func_15191B8C(u8 *arg0, s32 arg1, void *arg2);
+extern void func_151494E0(s32 *arg0, s32 arg1);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FF94 CURRENT (560) */
+void func_1507FF94(void *arg0) {
+    u8 sp24;
+    void *sp20;
+    void **sp1C;
+
+    sp20 = arg0;
+    sp1C = &sp20;
+    sp24 = *(u8 *)((u8 *)arg0 + 0x3B);
+    func_15191B8C((u8 *) &sp20, 0xD, arg0);
+    func_151494E0((s32 *) sp1C, 0xD);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507FF94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FF94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FFD8.s")

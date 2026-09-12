@@ -9,8 +9,6 @@
  * - func_151C229C
  * - func_151C2734
  * - func_151C2AD0
- * - func_151C2E4C
- * - func_151C2E94
  * - func_151C2EF0
  * - func_151C2F48
  * - func_151C329C
@@ -29,8 +27,33 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C229C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2734.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2AD0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2E4C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2E94.s")
+s32 func_151C2E4C(void *arg0, void *arg1) {
+    if (arg0 == arg1) {
+        return 0;
+    }
+    if (*(s32 *)((u8 *)arg0 + 0) == 0) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)arg0 + 4) == 0xFF) {
+        return 0;
+    }
+    return 1;
+}
+s32 func_151C2E94(void *arg0, void *arg1) {
+    if (arg0 == arg1) {
+        return 0;
+    }
+    if (*(s32 *)((u8 *)arg0 + 0) == 0) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)arg0 + 4) == 0xFF) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)arg0 + 0x127) == 0xFF) {
+        return 0;
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2EF0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2F48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C329C.s")

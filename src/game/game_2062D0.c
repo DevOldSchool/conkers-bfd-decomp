@@ -6,9 +6,7 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151D8E20
- * - func_151D8E6C
  * - func_151D8F30
- * - func_151D8FE0
  * - func_151D9014
  * - func_151D93F4
  * - func_151D9450
@@ -52,7 +50,20 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8E20.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8E6C.s")
+typedef struct {
+    u8 field0;
+    u8 field1;
+    u8 field2;
+} Func151D8E6CBytes;
+extern Func151D8E6CBytes D_800AB340;
+extern s32 func_150ADA20();
+
+u8 func_151D8E6C(void) {
+    Func151D8E6CBytes sp1C;
+
+    sp1C = D_800AB340;
+    return ((u8 *)&sp1C)[func_150ADA20() % 3U];
+}
 s32 func_151D8EB0(void) {
     return 0x75;
 }
@@ -104,7 +115,13 @@ s32 func_151D8FC8(void) {
 s32 func_151D8FD4(void) {
     return 0x75;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8FE0.s")
+extern s32 D_800AB34C;
+s32 func_151D8FE0(void) {
+    s32 sp1C;
+
+    sp1C = D_800AB34C;
+    return ((u8 *)&sp1C)[func_150ADA20() & 3];
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9014.s")
 s32 func_151D9450(s32, s32);                        /* extern */
 s32 func_151D9534(s32, s32);                        /* extern */

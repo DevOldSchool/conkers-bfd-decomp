@@ -17,7 +17,6 @@
  * - func_15030F94
  * - func_15031070
  * - func_150311C4
- * - func_1503192C
  * - func_1503195C
  * - func_150319CC
  * - func_15031A50
@@ -113,7 +112,16 @@ block_19:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030F94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031070.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150311C4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_1503192C.s")
+void *func_1503195C(void *arg0, s32 arg1, s32 arg2);
+
+void func_1503192C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    void *temp_v0;
+
+    temp_v0 = func_1503195C(arg0, arg1, arg3);
+    if (temp_v0 != 0) {
+        *(u8 *)((u8 *)temp_v0 + 3) = (u8) arg2;
+    }
+}
 extern void * D_800C3EE0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503195C CURRENT (110) */

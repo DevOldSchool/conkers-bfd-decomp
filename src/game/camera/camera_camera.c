@@ -26,7 +26,6 @@
  * - func_15125490
  * - func_151254F4
  * - func_15125628
- * - func_15125690
  * - func_151256BC
  * - func_15125924
  * - func_15125A6C
@@ -38,7 +37,6 @@
  * - func_151277B0
  * - func_151279A0
  * - func_15127EB8
- * - func_15127FEC
  * - func_15128030
  * - func_151283B8
  * - func_151284C4
@@ -219,7 +217,16 @@ void func_15125608(f32 *arg0) {
     arg0[0x94] = 2.5f;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125628.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125690.s")
+extern u8 D_800DBFF4[];
+
+void func_15125690(void *arg0, s32 arg1) {
+    u8 *temp_v0;
+
+    temp_v0 = &D_800DBFF4[*(u8 *)((u8 *)arg0 + 0x23D)];
+    if ((s32) *temp_v0 < arg1) {
+        *temp_v0 = (u8) arg1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151256BC.s")
 s32 func_15123934(void *, s32, s32, s32, s32);
 void func_151239CC(void *, s32);
@@ -358,7 +365,15 @@ void func_1512623C(u8 *arg0, u8 *arg1, s32 arg2, f32 *arg3, f32 *arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151277B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151279A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15127EB8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15127FEC.s")
+extern void func_1512A390(void);
+
+void func_15127FEC(void *arg0, void *arg1, void *arg2) {
+    *(s16 *)((u8 *) arg0 + 0x7F4) = 1;
+    *(f32 *)((u8 *) arg0 + 0x7F8) = *(f32 *)((u8 *) arg0 + 0x2A4);
+    *(f32 *)((u8 *) arg0 + 0x7FC) = *(f32 *)((u8 *) arg0 + 0x2A8);
+    *(f32 *)((u8 *) arg0 + 0x800) = *(f32 *)((u8 *) arg0 + 0x2AC);
+    func_1512A390();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128030.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151283B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151284C4.s")

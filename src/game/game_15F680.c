@@ -9,10 +9,8 @@
  * - func_151323AC
  * - func_151323F8
  * - func_15132444
- * - func_1513259C
  * - func_151325C8
  * - func_1513264C
- * - func_15132A4C
  * - func_15132A88
  * - func_15132B80
  * - func_15132DDC
@@ -31,8 +29,6 @@
  * - func_15133D20
  * - func_15133DE8
  * - func_15133E3C
- * - func_15133E84
- * - func_15133EB8
  * - func_15133EEC
  * - func_15133FD8
  *
@@ -43,14 +39,24 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151323AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151323F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132444.s")
+void func_15132444(s32 arg0);
+void func_15169824(s32 arg0);
+
 void func_15132570(s32 arg0) {
     func_15132444(arg0);
     func_15169804(arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_1513259C.s")
+void func_1513259C(s32 arg0) {
+    func_15132444(arg0);
+    func_15169824(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151325C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_1513264C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132A4C.s")
+void func_1513264C(s32, s32, s32, s32, s32, u8, s32);
+
+void func_15132A4C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
+    func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132A88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
@@ -142,8 +148,17 @@ s32 func_15133B98(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133D20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133DE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133E3C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133E84.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133EB8.s")
+/* Call context: func_15133EEC: unique active project prototype */
+s32 func_15133EEC(s32, u16, u8, s32);
+
+void func_15133E84(s32 arg0, void *arg1, s32 arg2) {
+    func_15133EEC(arg0, *(u16 *)((u8 *)arg1 + 0x170), *(u8 *)((u8 *)arg1 + 0x172), *(s32 *)((u8 *)arg1 + 0x174));
+}
+/* Call context: func_15133EEC: unique active project prototype */
+
+void func_15133EB8(s32 arg0, void *arg1, s32 arg2) {
+    func_15133EEC(arg0, *(u16 *)((u8 *)arg1 + 0x174), *(u8 *)((u8 *)arg1 + 0x176), *(s32 *)((u8 *)arg1 + 0x178));
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133EEC.s")
 s32 func_15133EEC(s32, u16, u8, s32);               /* extern */
 

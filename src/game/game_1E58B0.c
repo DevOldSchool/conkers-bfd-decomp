@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B8400
  * - func_151B85AC
- * - func_151B863C
  * - func_151B8668
  * - func_151B86F4
  * - func_151B8908
@@ -37,7 +36,11 @@ s32 func_151B85AC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B85AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B85AC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B863C.s")
+void func_1513FA70(s32 arg0, s16 arg1);
+
+void func_151B863C(s32 arg0, s16 arg1) {
+    func_1513FA70(arg0, arg1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8668.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B86F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8908.s")

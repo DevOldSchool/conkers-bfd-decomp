@@ -27,6 +27,22 @@ void func_151A5CAC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A5CAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5CAC.s")
+extern void func_151A5D2C(s32 arg0, u16 arg1);
+extern void func_15149368(void *arg0, void *arg1);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5CEC CURRENT (545) */
+void func_151A5CEC(void *arg0) {
+    void *temp_a1;
+    u16 temp_v0;
+
+    temp_a1 = arg0;
+    temp_v0 = *(u16 *)((u8 *)temp_a1 + 0x6C);
+    if (temp_v0 != 0) {
+        func_151A5D2C(temp_v0, (u16) temp_a1);
+    }
+    func_15149368(temp_a1, temp_a1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A5CEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5CEC.s")
 /* Call context: func_100111C8: unique active project prototype */
 void func_100111C8(s32, u16);

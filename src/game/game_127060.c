@@ -11,7 +11,6 @@
  * - func_150FA520
  * - func_150FAA40
  * - func_150FAAEC
- * - func_150FACE4
  * - func_150FAD28
  * - func_150FAD78
  * - func_150FADC8
@@ -28,7 +27,13 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAA40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAAEC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FACE4.s")
+extern void func_1516972C(s32 arg0);
+
+void func_150FACE4(s32 arg0, s32 arg1, u8 arg2) {
+    if ((arg2 == 0x4E) || (arg2 == 0x4F)) {
+        func_1516972C(arg0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAD28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAD78.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FADC8 CURRENT (639) */

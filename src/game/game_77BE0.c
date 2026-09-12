@@ -14,7 +14,6 @@
  * - func_1504BB88
  * - func_1504BC38
  * - func_1504BE2C
- * - func_1504C078
  * - func_1504C0E8
  * - func_1504C854
  * - func_1504C8BC
@@ -38,7 +37,19 @@ s32 func_1504AEF4(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BB88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BC38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BE2C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C078.s")
+void func_1507F640(void);
+extern void *D_800D154C;
+
+s32 func_1504C078(void) {
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)D_800D154C + 0x31C);
+    if (*(u8 *)((u8 *)temp_v0 + 0x58) != 1) {
+        *(s8 *)((u8 *)temp_v0 + 0x59) = 0;
+        func_1507F640();
+    }
+    return 0x3E7;
+}
 extern s32 D_800BE9F0;
 
 s32 func_1504C0B8(void) {

@@ -7,9 +7,7 @@
  * TODO: Implement these source-unit functions:
  * - func_1515BBF0
  * - func_1515BE50
- * - func_1515BF7C
  * - func_1515BFA8
- * - func_1515C0B8
  * - func_1515C0F8
  * - func_1515C158
  * - func_1515C1A0
@@ -27,14 +25,22 @@ void func_1515BE48(void) {
 /* Call context: func_15169804: unique active project prototype */
 void func_1514EDF0(s32, s32);
 void func_15169804(s32);
+void func_15169824(s32);
 
 void func_1515BF50(void *arg0) {
     func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
     func_15169804((s32) arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BF7C.s")
+void func_1515BF7C(void *arg0) {
+    func_1514EDF0((s32) arg0, *(s32 *)((u8 *)arg0 + 0x18));
+    func_15169824((s32) arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BFA8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515C0B8.s")
+extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+
+void func_1515C0B8(s32 arg0, s32 arg1, u8 arg2) {
+    func_15169850(arg1, (s32) arg2, arg0 + 0x18, arg0 + 0x1C, arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515C0F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515C158.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C1A0 CURRENT (25) */

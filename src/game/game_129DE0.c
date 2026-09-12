@@ -3,12 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_129DE0.c
  * Boundary evidence: docs/evidence/game_raw_recovered_pointer_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150FC974
- * - func_150FC9A4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_150FC930(void *arg0, s32 arg1, s32 arg2) {
@@ -20,5 +14,18 @@ s32 func_150FC930(void *arg0, s32 arg1, s32 arg2) {
     }
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_129DE0/func_150FC974.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_129DE0/func_150FC9A4.s")
+void func_150FC974(void *arg0);
+void func_1516972C(void *arg0, void *arg1);
+void func_1514933C(s32 arg0);
+
+void func_150FC974(void *arg0) {
+    volatile void **field_38 = (volatile void **)((u8 *)arg0 + 0x38);
+
+    if (*field_38 != 0) {
+        func_1516972C(*field_38, arg0);
+    }
+}
+void func_150FC9A4(s32 arg0) {
+    func_150FC974(arg0);
+    func_1514933C(arg0);
+}

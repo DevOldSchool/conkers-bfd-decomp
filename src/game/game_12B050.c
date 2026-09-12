@@ -7,13 +7,14 @@
  * TODO: Implement these source-unit functions:
  * - func_150FDBA0
  * - func_150FDC2C
- * - func_150FDCAC
- * - func_150FDCD8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void *func_1513EDE4(s16);                           /* extern */
+void func_150FDC2C(s32 arg0);
+void func_1513CA6C(s32 arg0);
+void func_1513CAA0(s32 arg0);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FDBA0 CURRENT (470) */
 void *func_150FDBA0(void *arg0, s16 arg1) {
@@ -31,5 +32,11 @@ void *func_150FDBA0(void *arg0, s16 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FDBA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12B050/func_150FDBA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12B050/func_150FDC2C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12B050/func_150FDCAC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12B050/func_150FDCD8.s")
+void func_150FDCAC(s32 arg0) {
+    func_150FDC2C(arg0);
+    func_1513CA6C(arg0);
+}
+void func_150FDCD8(s32 arg0) {
+    func_150FDC2C(arg0);
+    func_1513CAA0(arg0);
+}

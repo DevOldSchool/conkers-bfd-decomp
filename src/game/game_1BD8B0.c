@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15190400
- * - func_15190464
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -28,4 +27,9 @@ Game1BD8B0Inner *func_15190454(Game1BD8B0Object *arg0) {
     inner->field_84 = 0;
     return inner;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BD8B0/func_15190464.s")
+void func_151617C4(Game1BD8B0Object *arg0);
+
+void func_15190464(Game1BD8B0Object *arg0) {
+    func_15190454(arg0);
+    func_151617C4(arg0);
+}

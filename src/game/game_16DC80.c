@@ -33,6 +33,32 @@ void func_151411C4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151411E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_15141250.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151412BC.s")
+typedef struct Game16DC80Inner {
+    u8 pad0[0x44];
+    void *field_44;
+} Game16DC80Inner;
+
+typedef struct Game16DC80Object {
+    u8 pad0[0x110];
+    Game16DC80Inner inner;
+} Game16DC80Object;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514143C CURRENT (160) */
+void func_1514143C(Game16DC80Object *arg0) {
+    Game16DC80Inner *temp_v0;
+    void *temp_v1;
+
+    if (*(s32 *)((u8 *)arg0 + 0x154) != 0) {
+        temp_v0 = &arg0->inner;
+        temp_v1 = temp_v0->field_44;
+        *(f32 *)((u8 *)temp_v1 + 0) = *(f32 *)((u8 *)arg0 + 0x34);
+        temp_v1 = temp_v0->field_44;
+        *(f32 *)((u8 *)temp_v1 + 4) = *(f32 *)((u8 *)arg0 + 0x38);
+        temp_v1 = temp_v0->field_44;
+        *(f32 *)((u8 *)temp_v1 + 8) = *(f32 *)((u8 *)arg0 + 0x3C);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514143C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_1514143C.s")
 s32 func_150ADA20();                                /* extern */
 f32 func_150ADA68();                                /* extern */

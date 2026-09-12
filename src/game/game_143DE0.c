@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15116930
- * - func_15116984
  * - func_151169B4
  * - func_15116BAC
  * - func_15116D7C
@@ -16,8 +15,35 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116930 CURRENT (245) */
+void func_15116930(void *arg0, void *arg1) {
+    void *temp_t0;
+    s32 temp_t3;
+    s32 temp_t4;
+    u8 temp_v0;
+
+    if (*(u8 *)((u8 *)arg0 + 0x4F) & 4) {
+        temp_v0 = *(u8 *)((u8 *)arg0 + 0x73);
+        if (!(temp_v0 & 3) && !(temp_v0 & 4)) {
+            temp_t3 = temp_v0 & 0xFFFC;
+            temp_t4 = temp_t3 | 2;
+            temp_t0 = *(void **)((u8 *)arg1 + 0x31C);
+            if (*(u8 *)((u8 *)temp_t0 + 0x57) == 1) {
+                *(u8 *)((u8 *)arg0 + 0x73) = temp_t3;
+                *(u8 *)((u8 *)arg0 + 0x73) = temp_t4;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15116930 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116930.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116984.s")
+void func_151169B4(void);
+
+void func_15116984(void *arg0) {
+    if (*(u8 *)((u8 *)arg0 + 0x73) & 2) {
+        func_151169B4();
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_151169B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116BAC.s")
 extern s32 D_800BE9E4;

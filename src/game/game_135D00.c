@@ -150,5 +150,20 @@ void func_15109064(u8 *arg0, u8 *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109064 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109064.s")
+extern s32 D_80088C58[];
+extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, s32 arg3);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151090DC CURRENT (780) */
+void func_151090DC(void) {
+    struct {
+        s32 field0;
+        s32 field4;
+    } sp18;
+
+    sp18.field0 = D_80088C58[0];
+    sp18.field4 = D_80088C58[1];
+    func_15169260((s32 *) &sp18, 2, 0, 0x1E);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151090DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_151090DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109120.s")
