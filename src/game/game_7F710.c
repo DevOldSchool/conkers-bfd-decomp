@@ -6,14 +6,53 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15052260
- * - func_15052408
  * - func_15052490
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_7F710/func_15052260.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_7F710/func_15052408.s")
+typedef struct {
+    u8 pad_0[0x95];
+    s8 field_95;
+} Game7F710Nested;
+
+typedef struct {
+    u8 pad_0[0x24];
+    f32 field_24;
+    u8 pad_28[0x14];
+    f32 field_3C;
+    u8 pad_40[0x41];
+    s8 field_81;
+    u8 pad_82[1];
+    s8 field_83;
+    u8 pad_84[5];
+    s8 field_89;
+    u8 pad_8A[0x23];
+    s8 field_AD;
+    u8 pad_AE[4];
+    s16 field_B2;
+    u8 pad_B4[4];
+    f32 field_B8;
+    u8 pad_BC[0x10E];
+    u8 field_1CA;
+    u8 pad_1CB[0x151];
+    Game7F710Nested *field_31C;
+} Game7F710State;
+
+void func_15052408(Game7F710State *arg0) {
+    arg0->field_B2 = 0;
+    arg0->field_31C->field_95 = 0;
+    if (arg0->field_1CA != 0) {
+        arg0->field_81 = 0;
+        arg0->field_83 = 0;
+        arg0->field_89 = 6;
+    }
+    arg0->field_AD = 0;
+    arg0->field_24 = 4.0f;
+    arg0->field_B8 = 0.0f;
+    arg0->field_3C = 15.0f;
+}
 void func_15052458(s32 arg0) {
 
 }

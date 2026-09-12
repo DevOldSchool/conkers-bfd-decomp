@@ -14,7 +14,6 @@
  * - func_15123934
  * - func_151239CC
  * - func_15123A54
- * - func_15124770
  * - func_151247C0
  * - func_15124AB4
  * - func_15124B18
@@ -66,7 +65,24 @@ void func_15123508(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15123934.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151239CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15123A54.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15124770.s")
+typedef struct {
+    u8 pad_0[0x244];
+    s16 field_244;
+    u8 pad_246[2];
+    void *field_248;
+} CameraCameraState;
+
+extern u8 D_800CC2D0[];
+
+void func_15124770(CameraCameraState *arg0, s32 arg1) {
+    if (arg1 != 0) {
+        arg0->field_244 = arg1;
+        arg0->field_248 = D_800CC2D0 + (arg1 * 0x32C);
+    } else {
+        arg0->field_244 = 0;
+        arg0->field_248 = 0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151247C0.s")
 f32 func_15047C00(f32);                             /* extern */
 f32 func_15047D60(f32);                             /* extern */

@@ -65,6 +65,34 @@ void func_15168A2C(s32 arg0) {
 void func_15168A4C(s32 arg0, s32 arg1);
 void func_15168A9C(s32 arg0);
 
+typedef struct Game1944C0Node {
+    s8 field_0;
+    u8 field_1;
+    u8 pad_2[2];
+    struct Game1944C0Node *field_4;
+    struct Game1944C0Node *field_8;
+} Game1944C0Node;
+
+extern Game1944C0Node *D_800DCE50[][104];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168A4C CURRENT (145) */
+void func_15168A4C(s32 arg0, s32 arg1) {
+    Game1944C0Node **temp_v1;
+    Game1944C0Node *temp_t0;
+    Game1944C0Node *node;
+
+    node = (Game1944C0Node *)arg0;
+    temp_v1 = &D_800DCE50[node->field_1][arg1];
+    temp_t0 = *temp_v1;
+    node->field_8 = temp_t0;
+    if (temp_t0 != 0) {
+        temp_t0->field_4 = node;
+    }
+    node->field_0 = arg1;
+    node->field_4 = 0;
+    *temp_v1 = node;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15168A4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168A4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168A9C.s")
 void func_15168B10(s32 arg0, s32 arg1) {
@@ -248,6 +276,26 @@ void func_1516968C(void *arg0, u8 *arg1, u8 arg2) {
         func_1516972C(arg0);
     }
 }
+extern s8 D_800DD190;
+extern Game1944C0Node *D_800DD198[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151696DC CURRENT (475) */
+void func_151696DC(void *arg0) {
+    Game1944C0Node **temp_a1;
+    s8 temp_v0;
+
+    temp_v0 = 0;
+    if (D_800DD190 > 0) {
+        do {
+            temp_a1 = &D_800DD198[temp_v0];
+            temp_v0++;
+            if (arg0 == *temp_a1) {
+                *temp_a1 = ((Game1944C0Node *)arg0)->field_8;
+            }
+        } while (temp_v0 < D_800DD190);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151696DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151696DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516972C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516979C.s")

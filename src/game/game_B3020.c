@@ -17,6 +17,27 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15085B70.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15085BE8.s")
+extern f32 D_800D2360;
+extern u8 D_800D237C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15085DA8 CURRENT (540) */
+u8 func_15085DA8(f32 arg0) {
+    f32 *var_v0;
+    f32 temp_ft1;
+    s32 var_v1;
+
+    var_v1 = 0;
+    if (D_800D2360 <= arg0) {
+        var_v0 = &D_800D2360;
+        do {
+            temp_ft1 = var_v0[1];
+            var_v1 += 1;
+            var_v0 += 1;
+        } while (temp_ft1 <= arg0);
+    }
+    return D_800D237C[var_v1];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15085DA8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15085DA8.s")
 f32 func_15086D94(f32, f32, f32, f32, f32);         /* extern */
 extern s16 D_80087290;

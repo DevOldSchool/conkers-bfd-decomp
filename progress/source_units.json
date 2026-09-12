@@ -1619,15 +1619,15 @@
       "functions": [
         "func_150CEF10"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xCEF60",
           "start": "0xCEF10",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_FC3C0.c"
+      "source": "src/game/done/game_FC3C0.c"
     },
     {
       "boundary_evidence": {
@@ -19104,7 +19104,7 @@
         "us": {
           "end": "0x130280",
           "start": "0x130230",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_15D6E0.c"

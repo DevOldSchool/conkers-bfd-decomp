@@ -12,8 +12,6 @@
  * - func_151346D0
  * - func_151346EC
  * - func_1513470C
- * - func_1513472C
- * - func_1513477C
  * - func_151347CC
  * - func_15134908
  * - func_151349D0
@@ -73,7 +71,9 @@ typedef struct BloodState {
     s16 unk1C;
     u8 pad1E[0xA];
     u8 unk28;
-    u8 pad29[0x37];
+    u8 pad29[0x14];
+    u8 field3D;
+    u8 pad3E[0x22];
     s32 flags60;
     u8 pad64[0x10C];
     s32 unk170;
@@ -105,8 +105,34 @@ void func_151346EC(void) {
 void func_1513470C(void) {
     func_15169824();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513472C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513477C.s")
+extern void (*D_80089AAC[])(void);
+
+void func_1513472C(BloodState *arg0) {
+    s32 temp_v0;
+
+    temp_v0 = arg0->field3D;
+    if (temp_v0 < 0) {
+        temp_v0 = 0;
+    }
+    if (temp_v0 >= 0xA) {
+        temp_v0 = 0;
+    }
+    D_80089AAC[temp_v0]();
+}
+extern void (*D_80089AD4[])(void);
+
+void func_1513477C(BloodState *arg0) {
+    s32 temp_v0;
+
+    temp_v0 = arg0->field3D;
+    if (temp_v0 < 0) {
+        temp_v0 = 0;
+    }
+    if (temp_v0 >= 0xA) {
+        temp_v0 = 0;
+    }
+    D_80089AD4[temp_v0]();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151347CC.s")
 void func_151348F0(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 

@@ -26,7 +26,38 @@ void func_150C5430(void) {
 void func_150C5450(void) {
     func_15169824();
 }
+typedef struct {
+    u8 pad_0[0x38];
+    u8 field_38;
+} GameF2820State;
+
+extern void (*D_800887B8[])(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5470 CURRENT (400) */
+void func_150C5470(GameF2820State *arg0) {
+    u8 temp_v0;
+
+    temp_v0 = arg0->field_38;
+    if ((s32)temp_v0 < 0 || (s32)temp_v0 >= 2) {
+        temp_v0 = 0;
+    }
+    D_800887B8[temp_v0]();
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C5470 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5470.s")
+extern void (*D_800887C0[])(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C54C0 CURRENT (400) */
+void func_150C54C0(GameF2820State *arg0) {
+    u8 temp_v0;
+
+    temp_v0 = arg0->field_38;
+    if ((s32)temp_v0 < 0 || (s32)temp_v0 >= 2) {
+        temp_v0 = 0;
+    }
+    D_800887C0[temp_v0]();
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C54C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C54C0.s")
 /* Call context: func_150C5430: unique active project prototype */
 /* Call context: func_1514EDF0: unique active project prototype */

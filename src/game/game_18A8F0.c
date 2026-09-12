@@ -24,7 +24,6 @@
  * - func_1515F10C
  * - func_1515F170
  * - func_1515F1B0
- * - func_1515F2E8
  * - func_1515F338
  * - func_1515F5C4
  * - func_1515F850
@@ -196,7 +195,28 @@ void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 void func_1515F2B8(void *arg0, s32 arg1) {
     func_1505D024((s32)arg0, 0x6001D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F2E8.s")
+typedef struct {
+    u8 pad_0[0x3B];
+    u8 field_3B;
+} Game18A8F0State;
+
+typedef struct {
+    u8 pad_0[0x1C];
+    s32 field_1C;
+} Game18A8F0Selection;
+
+extern void (*D_8008B0C0[])(void);
+
+void func_1515F2E8(Game18A8F0State *arg0, Game18A8F0Selection *arg1) {
+    s32 temp_v0;
+
+    if (arg0->field_3B == 1) {
+        temp_v0 = arg1->field_1C;
+        if ((temp_v0 >= 0) && (temp_v0 < 3)) {
+            D_8008B0C0[temp_v0]();
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F338.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F5C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F850.s")

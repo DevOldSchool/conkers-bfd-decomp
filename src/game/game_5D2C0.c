@@ -228,6 +228,35 @@ loop_8:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150319CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031A50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031C14.s")
+typedef struct {
+    u8 pad_0[0x18];
+    s16 field_18;
+    u8 pad_1A[0x1E];
+    s32 field_38;
+} Game5D2C0State;
+
+extern s32 D_800902BC[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E2C CURRENT (50) */
+s32 func_15031E2C(Game5D2C0State *arg0, s16 arg1) {
+    s32 temp_v1;
+    s32 var_v0;
+    s32 temp_t9;
+
+    temp_v1 = arg0->field_38;
+    var_v0 = temp_v1;
+    if (temp_v1 >= 3) {
+        var_v0 = 5 - var_v0;
+    }
+    arg0->field_18 = (s16)D_800902BC[var_v0];
+    temp_t9 = temp_v1 + 1;
+    arg0->field_38 = temp_t9;
+    if (temp_t9 >= 6) {
+        arg0->field_38 = 0;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15031E2C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031E2C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031E7C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031FC8.s")

@@ -19,7 +19,6 @@
  * - func_15131C2C
  * - func_15131C84
  * - func_15131D4C
- * - func_15131D9C
  * - func_15131DEC
  * - func_15131EE4
  *
@@ -211,8 +210,44 @@ void func_15131C84(void *arg0, void *arg1, f32 arg2, void *arg3, f32 *arg4, f32 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15131C84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131C84.s")
+typedef struct {
+    s32 field_0;
+    s32 field_4;
+    s32 field_8;
+} Game15D730Args;
+
+extern Game15D730Args D_800A37F0;
+void func_15169260(Game15D730Args *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131D4C CURRENT (260) */
+void func_15131D4C(s32 arg0, s32 arg1) {
+    Game15D730Args sp1C;
+    u8 temp_a3;
+
+    temp_a3 = arg1;
+    sp1C = D_800A37F0;
+    func_15169260(&sp1C, 3, arg0, temp_a3);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15131D4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131D4C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131D9C.s")
+typedef struct {
+    u8 pad_0[0x38];
+    s32 field_38;
+    s32 field_3C;
+    u8 pad_40[0x68];
+    s16 field_A8;
+    s16 field_AA;
+    s32 field_AC;
+    s32 field_B0;
+} Game15D730State;
+
+void func_15131C84(s16 *, s16 *, s32, s32 *, s32 *, s32 *);
+
+s32 func_15131D9C(Game15D730State *arg0, s32 arg1) {
+    func_15131C84(&arg0->field_A8, &arg0->field_AA, arg0->field_AC, &arg0->field_B0,
+                  &arg0->field_38, &arg0->field_3C);
+    return 1;
+}
 extern f32 D_800BE9A4;
 
 f32 sqrtf(f32);

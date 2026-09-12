@@ -218,6 +218,29 @@ void func_15163A18(void *arg0, s32 arg1, u8 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163A60.s")
+typedef struct {
+    u8 pad_0[0x6E];
+    u8 field_6E;
+} LightStateData;
+
+typedef struct {
+    u8 pad_0[0x28];
+    LightStateData *field_28;
+} LightState;
+
+s32 func_1516065C(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163B98 CURRENT (80) */
+s32 func_15163B98(s32 arg0) {
+    if (func_1516065C(arg0) == 0) {
+        return 0;
+    }
+    if (((LightState *)arg0)->field_28->field_6E == 1) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15163B98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163B98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163BE8.s")
 s32 func_15163CD0(s32 arg0) {
