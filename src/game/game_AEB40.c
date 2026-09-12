@@ -202,6 +202,23 @@ loop_9:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15083E90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083E90.s")
+/* Call context: func_15083E90: unique active project prototype */
+void *func_15083E90(u8 arg0);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083FB0 CURRENT (474) */
+s32 func_15083FB0(s32 arg0) {
+    s32 temp_a0;
+    void *temp_v0;
+
+    temp_a0 = arg0;
+    temp_a0 &= 0xFF;
+    temp_v0 = func_15083E90(temp_a0);
+    if (temp_v0 != 0) {
+        return (s32) ((u8 *)temp_v0 - (u8 *)&D_800CC2D0) / 0x32C;
+    }
+    return -1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15083FB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083FB0.s")
 extern s32 *func_1505EEF4(s32 arg0);
 

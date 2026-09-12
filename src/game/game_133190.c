@@ -25,7 +25,6 @@
  * - func_15107B78
  * - func_15107C1C
  * - func_15107E48
- * - func_15107F98
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -195,6 +194,19 @@ void func_15106F24(s32 arg0) {
     func_15106E78(arg0);
     func_15169824(arg0);
 }
+extern void (*D_80088C28[])(void *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106F50 CURRENT (237) */
+void func_15106F50(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    void (*temp_v0)(void *, s32, s32, s32);
+
+    arg2 &= 0xFF;
+    temp_v0 = D_80088C28[*(u8 *)((u8 *)arg0 + 0x5C)];
+    if (temp_v0 != 0) {
+        temp_v0(arg0, arg1, arg2, arg3);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15106F50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
@@ -209,21 +221,21 @@ Game133190Holder *func_15107604(Game133190Object *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15107604 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107604.s")
-void func_1516972C(void *arg0, void *arg1);
+void func_1516972C(void *arg0);
 
 void func_1510761C(void *arg0) {
     volatile void **field_30 = (volatile void **)((u8 *)arg0 + 0x30);
 
     if (*field_30 != 0) {
-        func_1516972C(*field_30, arg0);
+        func_1516972C((void *)*field_30);
     }
 }
 void func_1510764C(s32 arg0) {
-    func_1510761C(arg0);
+    func_1510761C((void *)arg0);
     func_1514933C(arg0);
 }
 void func_15107678(s32 arg0) {
-    func_1510761C(arg0);
+    func_1510761C((void *)arg0);
     func_15149368(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151076A4.s")
@@ -271,4 +283,9 @@ void func_15143134(f32 *, f32 *, s32);
 void func_15107F54(void *arg0, u8 arg1, f32 *arg2, f32 *arg3) {
     func_15143134(arg2, arg3, *(s32 *)((u8 *)arg0 + 0x1D4) + (arg1 << 6));
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107F98.s")
+void func_15107F98(void *arg0, s32 arg1, u8 arg2) {
+    s32 temp_a2;
+
+    temp_a2 = *(s32 *)((u8 *)arg0 + 0x60);
+    func_15169850(arg1, (s32) arg2, temp_a2, temp_a2 + 4, (s32) arg0);
+}

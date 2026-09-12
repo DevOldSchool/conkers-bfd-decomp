@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151580B0
- * - func_151581D8
  * - func_15158224
  * - func_151582C8
  * - func_1515858C
@@ -22,9 +21,12 @@
 void func_15158A20(s32 arg0);
 void func_15169804(s32 arg0);
 void func_15169824(s32 arg0);
+void func_151580B0(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4, u8 arg5, s32 arg6);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_151580B0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_151581D8.s")
+void func_151581D8(void *arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
+    func_151580B0(arg0, 0, 0, arg1, arg2, arg3, arg4);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158224.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_151582C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_1515858C.s")

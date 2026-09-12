@@ -18,7 +18,6 @@
  * - func_151D4794
  * - func_151D4C38
  * - func_151D4D04
- * - func_151D4D58
  * - func_151D4DAC
  * - func_151D5174
  * - func_151D5334
@@ -105,7 +104,13 @@ void func_151D4668(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4794.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4D04.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4D58.s")
+/* Call context: func_151D469C: unique active project prototype */
+void func_151D469C(u8 *, s32, s32, s32, s32);
+
+void func_151D4D58(u8 *arg0) {
+    func_151D469C(arg0, 0, 0x50, 0xFF, 1);
+    func_151D469C(arg0, 1, 0x50, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4DAC.s")
 void func_151D5148(void *arg0) {
     void *temp_v0;

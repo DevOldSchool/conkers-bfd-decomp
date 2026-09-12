@@ -12,6 +12,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_1516972C(void *arg0);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FF0E0/func_150D1C30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FF0E0/func_150D1F6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FF0E0/func_150D2054.s")

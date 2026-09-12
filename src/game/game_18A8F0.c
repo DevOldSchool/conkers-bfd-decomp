@@ -24,7 +24,6 @@
  * - func_1515F10C
  * - func_1515F170
  * - func_1515F1B0
- * - func_1515F270
  * - func_1515F2E8
  * - func_1515F338
  * - func_1515F5C4
@@ -51,7 +50,41 @@ void *func_1515D440(void) {
     func_100226F0(temp_v0, 0x10);
     return temp_v0;
 }
+/* Call context: func_10003C40: unique active project prototype */
+void * func_10003C40(s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D480 CURRENT (58) */
+void *func_1515D480(s32 arg0) {
+    void *sp1C;
+    s32 sp18;
+    s32 temp_a0;
+    void *temp_v0;
+
+    temp_a0 = arg0 * 0x60;
+    sp18 = temp_a0;
+    temp_v0 = func_10003C40(temp_a0, 1, 2, 0);
+    sp1C = temp_v0;
+    func_100226F0(temp_v0, sp18);
+    return temp_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515D480 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D480.s")
+extern s8 D_800DCD20[];
+extern u8 D_800DCD27;
+extern s32 D_800DCD7C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D4D4 CURRENT (450) */
+void func_1515D4D4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    arg3 = arg3 & 0xFF;
+    if (arg3 >= (s32)D_800DCD27) {
+        D_800DCD20[0] = arg0;
+        D_800DCD20[1] = arg1;
+        D_800DCD20[2] = arg2;
+        D_800DCD7C = 1;
+        D_800DCD27 = (u8)arg3;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515D4D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D4D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D520.s")
 void func_1515D5AC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, u8 arg9) {
@@ -144,7 +177,20 @@ void func_1515F25C(Game18A8F0Node **arg0, Game18A8F0Node *arg1) {
     arg1->next = *arg0;
     *arg0 = arg1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F270.s")
+extern void (*D_8008B090[])(void *, void *);
+
+void func_1515F270(void *arg0, void *arg1) {
+    void (*temp_v1)(void *, void *);
+    s32 temp_v0;
+
+    temp_v0 = *(s32 *)((u8 *)arg1 + 0x18);
+    if ((temp_v0 >= 0) && (temp_v0 < 0xC)) {
+        temp_v1 = D_8008B090[temp_v0];
+        if (temp_v1 != 0) {
+            temp_v1(arg0, arg1);
+        }
+    }
+}
 void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1515F2B8(void *arg0, s32 arg1) {

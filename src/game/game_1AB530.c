@@ -18,6 +18,40 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E080.s")
+/* Call context: func_10004074: unique active project prototype */
+void func_10004074(s32);
+extern void *D_800DDD64;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517E134 CURRENT (50) */
+void func_1517E134(void *arg0) {
+    void *var_v0;
+    void *var_v1;
+
+    if (arg0 == D_800DDD64) {
+        D_800DDD64 = *(void **)((u8 *)arg0 + 0x24);
+        goto block_8;
+    }
+    var_v1 = D_800DDD64;
+    if (D_800DDD64 != 0) {
+        var_v0 = *(void **)((u8 *)D_800DDD64 + 0x24);
+        if (arg0 != var_v0) {
+loop_4:
+            var_v1 = var_v0;
+            if (var_v0 != 0) {
+                var_v0 = *(void **)((u8 *)var_v0 + 0x24);
+                if (arg0 != var_v0) {
+                    goto loop_4;
+                }
+            }
+        }
+    }
+    if (var_v1 != 0) {
+        *(void **)((u8 *)var_v1 + 0x24) = (void *) *(void **)((u8 *)arg0 + 0x24);
+block_8:
+        func_10004074((s32) arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517E134 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E134.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E1AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E28C.s")

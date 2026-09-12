@@ -176,5 +176,18 @@ void func_151B70B4(void *arg0, void *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B77F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7998.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7C38.s")
+extern void (*D_8008FB98[])(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B82CC CURRENT (455) */
+void func_151B82CC(void *arg0, s32 arg1, s32 arg2) {
+    void (*temp_v1)(s32);
+
+    arg2 &= 0xFF;
+    temp_v1 = D_8008FB98[*(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x98) + 8)];
+    if (temp_v1 != 0) {
+        temp_v1(arg2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B82CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B82CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B8318.s")

@@ -53,7 +53,6 @@
  * - func_1516387C
  * - func_151638E0
  * - func_151639D0
- * - func_15163A18
  * - func_15163A60
  * - func_15163B98
  * - func_15163BE8
@@ -68,7 +67,6 @@
  * - func_1516434C
  * - func_151643A8
  * - func_1516441C
- * - func_151644A8
  * - func_151644F4
  * - func_151645C4
  *
@@ -197,8 +195,28 @@ void func_15161F2C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516381C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516387C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151638E0.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151639D0 CURRENT (224) */
+void func_151639D0(void *arg0, s32 arg1, s32 arg2) {
+    arg2 &= 0xFF;
+    if (arg2 == 0x27) {
+        *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 1;
+        return;
+    }
+    if (arg2 == 0x28) {
+        *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151639D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151639D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163A18.s")
+void func_15163A18(void *arg0, s32 arg1, u8 arg2) {
+    if (arg2 == 0x27) {
+        *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 0;
+        return;
+    }
+    if (arg2 == 0x28) {
+        *(s8 *)(*(u8 **)((u8 *)arg0 + 0x14) + 9) = 1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163A60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163B98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163BE8.s")
@@ -239,6 +257,16 @@ s32 func_151643F8(s32 arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516441C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151644A8.s")
+void func_151644F4(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4);
+
+s32 func_151644A8(void *arg0) {
+    f32 temp_fv0;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x20);
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x1C);
+    func_151644F4(arg0, (u8 *)arg0 + 0x24, *(s32 *)((u8 *)arg0 + 0x18), *(f32 *)((u8 *)temp_v0 + 0) * temp_fv0, *(f32 *)((u8 *)temp_v0 + 8) * temp_fv0);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151644F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151645C4.s")

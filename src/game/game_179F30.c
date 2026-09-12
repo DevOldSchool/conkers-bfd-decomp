@@ -16,7 +16,6 @@
  * - func_1514DA38
  * - func_1514DAA4
  * - func_1514DBB8
- * - func_1514DCAC
  * - func_1514DE94
  * - func_1514E00C
  * - func_1514E194
@@ -109,9 +108,17 @@ void func_1514DC84(u8 *arg0) {
 void func_1514DC98(u8 *arg0) {
     *(u32 *)(arg0 + 0x94) |= 0x710;
 }
-s32 func_1514DCAC(void);
+void func_1514DCAC();
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514DCAC.s")
+void func_15083568(void *, s32, s32, s32);
+
+void func_1514DCAC(arg0)
+void *arg0;
+{
+    *(s32 *)((u8 *)arg0 + 0x9C) = 0x6000;
+    func_15083568(arg0, 0x23, 0x3F800000, 0);
+    func_15083568(arg0, 0x44, 0x3F800000, 0);
+}
 void func_15083568(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_1514DCF4(void *arg0) {

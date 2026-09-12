@@ -33,7 +33,6 @@
  * - func_1516944C
  * - func_151695F0
  * - func_1516962C
- * - func_1516968C
  * - func_151696DC
  * - func_1516972C
  * - func_1516979C
@@ -237,12 +236,18 @@ void func_1516962C(s32 arg0, void *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516962C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516962C.s")
 extern s8 D_800D2DAB;
+void func_1516972C(void *arg0);
 
 s32 func_15169668(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_800D2DAB = 1;
     return arg0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516968C.s")
+void func_1516968C(void *arg0, u8 *arg1, u8 arg2) {
+    if (((arg2 == 0xF) || (arg2 == 0x10)) &&
+        (*arg1 == *(u8 *)((u8 *)arg0 + 0xC))) {
+        func_1516972C(arg0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151696DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516972C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516979C.s")

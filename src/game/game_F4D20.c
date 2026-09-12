@@ -16,6 +16,18 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7870.s")
+/* Call context: func_151150BC: unique active project prototype */
+void func_151150BC(void);
+extern void * D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C78E0 CURRENT (175) */
+void func_150C78E0(void *arg0) {
+    if (!(*(u8 *)((u8 *)arg0 + 0x73) & 4)) {
+        *(s32 *)((u8 *)arg0 + 0x3C) = (s32) (-(*(s32 *)((u8 *)D_800DBEF4 + 0x21C) & 0xFFFF0000) & 0xFFFF0000);
+        func_151150BC();
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C78E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C78E0.s")
 void func_151150BC(void);
 extern void *D_800DBEF4;

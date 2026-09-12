@@ -10,7 +10,6 @@
  * - func_1502BEE4
  * - func_1502C1A4
  * - func_1502C380
- * - func_1502C3BC
  * - func_1502C408
  * - func_1502C608
  * - func_1502C6E8
@@ -23,7 +22,6 @@
  * - func_1502DB20
  * - func_1502DB84
  * - func_1502DF38
- * - func_1502E474
  * - func_1502E4C4
  * - func_1502EA0C
  * - func_1502EA98
@@ -50,6 +48,7 @@
 extern u8 D_800BE9C0;
 extern s16 D_800C3E7A;
 extern void *D_800C3E80[];
+void func_150A9984(void *, u16);
 typedef struct {
     s32 field_0;
 } Game58F80Word;
@@ -67,7 +66,17 @@ void func_1502C380(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502C380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C380.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C3BC.s")
+extern u8 D_800CC406[];
+
+u8 func_1502C3BC(s32 arg0) {
+    u8 var_v1;
+
+    var_v1 = D_800CC406[arg0 * 0x32C];
+    if ((s32)var_v1 >= 0x46) {
+        var_v1 = 0xB;
+    }
+    return var_v1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C408.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C608.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C6E8.s")
@@ -80,7 +89,14 @@ void func_1502C380(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DB20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DB84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DF38.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502E474.s")
+extern s8 D_800C3E90;
+
+void func_1502E474(void) {
+    if ((u16)D_800C3E7A != 0) {
+        func_150A9984(D_800C3E80[D_800BE9C0], (u16)D_800C3E7A);
+    }
+    D_800C3E90 = 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502E4C4.s")
 void func_1502E9FC(s32 arg0, s32 arg1) {
 }

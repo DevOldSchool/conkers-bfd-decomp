@@ -58,6 +58,22 @@ block_9:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E968.s")
 void func_1507E9E8(s32 arg0, s32 arg1) {
 }
+extern u8 D_8009D910[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E9F8 CURRENT (100) */
+void *func_1507E9F8(void *arg0, s32 *arg1) {
+    if (func_150849A0() == 0) {
+        if (arg1 != 0) {
+            *arg1 = 5;
+        }
+        return D_8009D910;
+    }
+    if (arg1 != 0) {
+        *arg1 = 0;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507E9F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E9F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EA44.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EABC.s")

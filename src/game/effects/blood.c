@@ -80,6 +80,7 @@ typedef struct BloodState {
 } BloodState;
 
 void func_151BC5A4(BloodState *arg0, s32 arg1, u8 arg2);
+void func_1513A5E0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134070.s")
 s32 func_1513416C(void *arg0) {
@@ -297,6 +298,17 @@ void func_15137F30(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139D74.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A24C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A48C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A594 CURRENT (924) */
+void func_1513A594(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    s32 temp_t6;
+
+    temp_t6 = arg3 & 0xFF;
+    func_1513A5E0(arg1, temp_t6 & 0xFF, arg4, temp_t6);
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) == 0) {
+        return;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513A594 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A594.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A5E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A6E0.s")

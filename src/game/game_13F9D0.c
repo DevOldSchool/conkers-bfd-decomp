@@ -104,6 +104,58 @@ loop_4:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151149AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151149AC.s")
+/* Call context: func_10004074: unique active project prototype */
+void func_10004074(s32);
+extern s32 D_800DBEF8;
+extern s32 D_800DBEFC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114A1C CURRENT (2263) */
+void func_15114A1C(void) {
+    s32 temp_a1;
+    s32 temp_s1;
+    s32 var_a0;
+    s32 var_s0;
+    s32 var_s4;
+    u8 *temp_v0_2;
+    u8 temp_v1;
+    u8 *temp_v0;
+
+    var_a0 = D_800DBEF0;
+    var_s0 = 0;
+    var_s4 = 0;
+    if (var_a0 > 0) {
+        do {
+            temp_v0 = (void *)(D_800DBEF4 + var_s4);
+            if ((*(u8 *)((u8 *)temp_v0 + 0x70) & 1) != 1) {
+                temp_s1 = var_s0 * 4;
+                temp_a1 = *(u8 *)(D_800DBEF8 + temp_s1);
+                if (temp_a1 != 0) {
+                    if ((*(u8 *)((u8 *)temp_v0 + 0x4E) != 3) && !(*(u8 *)((u8 *)temp_v0 + 0x6F) & 0x80)) {
+                        func_10004074(temp_a1);
+                        *(u8 *)(D_800DBEF8 + temp_s1) = 0;
+                    } else {
+                        temp_v0_2 = (void *)(D_800DBEFC + var_s0);
+                        temp_v1 = *temp_v0_2;
+                        if (temp_v1 != 0) {
+                            *temp_v0_2 = temp_v1 - 1;
+                        } else {
+                            func_10004074(temp_a1);
+                            *(u8 *)(D_800DBEF8 + temp_s1) = 0;
+                        }
+                    }
+                    goto block_12;
+                }
+            } else if (!(*(u8 *)((u8 *)temp_v0 + 0x6F) & 0x80)) {
+                *(u8 *)(D_800DBEF8 + (var_s0 * 4)) = 0;
+block_12:
+                var_a0 = D_800DBEF0;
+            }
+            var_s0 += 1;
+            var_s4 += 0xA0;
+        } while (var_s0 < var_a0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15114A1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114A1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114B94.s")
 s32 func_15114CC4(void *arg0, s32 arg1, s32 *arg2, s32 arg3) {

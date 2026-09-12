@@ -36,6 +36,23 @@ void func_150AF2E0(void *arg0, void *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF2E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF328.s")
+/* Call context: func_15131828: unique active project prototype */
+/* Call context: func_15131958: unique active project prototype */
+void func_15131828(s32, s32, s32, s32);
+void func_15131958(void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 CURRENT (10) */
+s32 func_150AF6E4(s32 arg0, s32 arg1) {
+    s32 sp20[2];
+    s32 temp_a2;
+
+    temp_a2 = arg0 + 0xA8;
+    sp20[0] = temp_a2;
+    func_15131828(arg0, arg0 + 0xAC, temp_a2, arg0 + 0xAA);
+    func_15131958((void *)(arg0 + 0x58), *(f32 *)((u8 *)sp20[0] + 0xC));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AF6E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF6E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF738.s")
 void func_150B1DB0(s32 arg0, s32 arg1, s32 arg2);
@@ -70,7 +87,7 @@ s32 func_150AFBF4(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AFE64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B003C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0094.s")
-void func_1516972C(void *arg0, void *arg1);
+void func_1516972C(void *arg0);
 void func_150B02C0(void *arg0);
 void func_15132570(s32 arg0);
 void func_1513259C(s32 arg0);
@@ -79,16 +96,16 @@ void func_150B02C0(void *arg0) {
     volatile void **field_170 = (volatile void **)((u8 *)arg0 + 0x170);
 
     if (*field_170 != 0) {
-        func_1516972C(*field_170, arg0);
+        func_1516972C((void *)*field_170);
     }
 }
 
 void func_150B02F0(s32 arg0) {
-    func_150B02C0(arg0);
+    func_150B02C0((void *)arg0);
     func_15132570(arg0);
 }
 void func_150B031C(s32 arg0) {
-    func_150B02C0(arg0);
+    func_150B02C0((void *)arg0);
     func_1513259C(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0348.s")

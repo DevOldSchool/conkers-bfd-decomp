@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151321D0
- * - func_151323AC
- * - func_151323F8
  * - func_15132444
  * - func_151325C8
  * - func_1513264C
@@ -36,8 +34,30 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151321D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151323AC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151323F8.s")
+extern void (*D_800899B0[])(void);
+
+void func_151323AC(void *arg0) {
+    u8 var_v0;
+
+    if (*(s32 *)((u8 *)arg0 + 0x60) & 0x100) {
+        var_v0 = *(u8 *)((u8 *)arg0 + 0x68);
+    } else {
+        var_v0 = 0;
+    }
+    D_800899B0[var_v0]();
+}
+extern void (*D_800899D4[])(void);
+
+void func_151323F8(void *arg0) {
+    u8 var_v0;
+
+    if (*(s32 *)((u8 *)arg0 + 0x60) & 0x100) {
+        var_v0 = *(u8 *)((u8 *)arg0 + 0x68);
+    } else {
+        var_v0 = 0;
+    }
+    D_800899D4[var_v0]();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132444.s")
 void func_15132444(s32 arg0);
 void func_15169824(s32 arg0);
@@ -146,7 +166,33 @@ s32 func_15133B98(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133B98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133C58.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133D20.s")
+void func_1516972C(void *arg0);
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133DE8 CURRENT (40) */
+void func_15133DE8(void *arg0, s32 *arg1, u8 arg2) {
+    if (arg2 == 0) {
+        if ((*arg1 == *(s32 *)((u8 *)arg0 + 0x7C)) ||
+            (*((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x80))) {
+            func_1516972C(arg0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15133DE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133DE8.s")
+void func_15169260(void *, s32, s32, s32);
+typedef struct {
+    s32 field0;
+    s32 field4;
+} Func15133E3CData;
+extern Func15133E3CData D_800A3860;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133E3C CURRENT (460) */
+void func_15133E3C(s32 arg0, s32 arg1) {
+    Func15133E3CData sp18;
+
+    sp18 = D_800A3860;
+    func_15169260(&sp18, 2, arg0, arg1 & 0xFF);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15133E3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133E3C.s")
 /* Call context: func_15133EEC: unique active project prototype */
 s32 func_15133EEC(s32, u16, u8, s32);

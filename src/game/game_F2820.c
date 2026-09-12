@@ -12,7 +12,6 @@
  * - func_150C553C
  * - func_150C5568
  * - func_150C56A4
- * - func_150C5B88
  * - func_150C5BD4
  * - func_150C5CC4
  * - func_150C5D0C
@@ -52,7 +51,18 @@ void func_150C553C(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C553C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5568.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C56A4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5B88.s")
+s32 func_150C5B88(void *arg0) {
+    void **temp_v1;
+
+    temp_v1 = (void **)((u8 *)arg0 + 0xC8);
+    if (*(s32 *)*(void **)((u8 *)arg0 + 0xC8) == 0) {
+        return 0;
+    }
+    *(f32 *)((u8 *)arg0 + 0x24) = *(f32 *)((u8 *)*temp_v1 + 0x14);
+    *(f32 *)((u8 *)arg0 + 0x28) = *(f32 *)((u8 *)*temp_v1 + 0x18);
+    *(f32 *)((u8 *)arg0 + 0x2C) = *(f32 *)((u8 *)*temp_v1 + 0x1C);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F2820/func_150C5BD4.s")
 void func_1514D3B0(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 

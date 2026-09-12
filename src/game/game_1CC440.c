@@ -9,7 +9,6 @@
  * - func_1519F108
  * - func_1519F168
  * - func_1519F1C8
- * - func_1519F3B8
  * - func_1519F400
  * - func_1519F48C
  * - func_1519F4F0
@@ -91,7 +90,17 @@ s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F108.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F1C8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F3B8.s")
+s32 func_1519F1C8(void *, u8, ...);
+
+void func_1519F3B8(void *arg0) {
+    void *temp_v1;
+
+    temp_v1 = (u8 *)arg0 + 0x58;
+    *(s32 *)temp_v1 = func_1519F1C8(arg0, 6);
+    *(s32 *)((u8 *)temp_v1 + 4) = 0;
+    *(s32 *)((u8 *)temp_v1 + 8) = func_1519F1C8(arg0, 7);
+    *(s32 *)((u8 *)temp_v1 + 0xC) = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F400.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F48C CURRENT (140) */
 void func_1519F48C(u8 *arg0) {
@@ -120,7 +129,7 @@ void func_1519F48C(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519FE6C.s")
 /* Call context: func_151A0928: unique active project prototype */
 void func_151A0928(void *);
-s32 func_1519F1C8(void *, u8, void *, void *);      /* extern */
+s32 func_1519F1C8(void *, u8, ...);                 /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A084C CURRENT (1389) */
 void func_151A084C(u8 *arg0) {

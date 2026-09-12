@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B3184
  * - func_151B32C8
- * - func_151B3A34
  * - func_151B3A7C
  * - func_151B3CF0
  * - func_151B3F28
@@ -112,7 +111,16 @@ void func_151B3184(HoltenRopeEffect *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B3184 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B32C8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3A34.s")
+extern void (*D_8008FB68[])(void *, s32, u8);
+
+void func_151B3A34(void *arg0, s32 arg1, u8 arg2) {
+    void (*temp_v0)(void *, s32, u8);
+
+    temp_v0 = D_8008FB68[*(u8 *)((u8 *)arg0 + 0x44)];
+    if (temp_v0 != 0) {
+        temp_v0(arg0, arg1, arg2);
+    }
+}
 extern f32 D_800AA394;
 extern f32 D_800AA398;
 extern f32 D_800AA39C;

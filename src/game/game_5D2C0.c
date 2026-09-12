@@ -109,6 +109,34 @@ block_19:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15030E08 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030E08.s")
+/* Call context: func_150311C4: unique active project prototype */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030F94 CURRENT (2340) */
+s32 func_15030F94(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
+    s32 var_s3;
+    void *temp_s1;
+    void *var_s0;
+
+    var_s3 = arg0;
+    if ((arg1 == 0) || (*(s32 *)((u8 *)arg1 + 0x1D4) == 0) || (*(u8 *)((u8 *)arg1 + 0x3B) == 0)) {
+
+    } else {
+        var_s0 = D_800C3EE0;
+        if (var_s0 != 0) {
+            do {
+                temp_s1 = *(void **)((u8 *)var_s0 + 0x54);
+                if ((*(u8 *)((u8 *)arg1 + 0x3B) != *(u8 *)((u8 *)var_s0 + 0)) || (*(u8 *)((u8 *)var_s0 + 3) == 0)) {
+
+                } else {
+                    var_s3 = func_150311C4(var_s3, var_s0, arg1, arg2, arg3);
+                }
+                var_s0 = temp_s1;
+            } while (var_s0 != 0);
+        }
+    }
+    return var_s3;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15030F94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030F94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031070.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150311C4.s")

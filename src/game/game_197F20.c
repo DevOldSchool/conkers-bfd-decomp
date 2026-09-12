@@ -11,7 +11,6 @@
  * - func_1516C934
  * - func_1516CC58
  * - func_1516D0CC
- * - func_1516D2E0
  * - func_1516D328
  * - func_1516D378
  *
@@ -95,7 +94,15 @@ void func_1516D0CC(void *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
 void func_1516D2D8(void) {
 
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516D2E0.s")
+void func_1516972C(void *);
+
+void func_1516D2E0(void *arg0) {
+    if ((arg0 != 0) && (*(u8 *)((u8 *)arg0 + 0) == 0x51)) {
+        *(s8 *)(*(u8 **)((u8 *)arg0 + 0x10) + 8) = 0;
+        func_1516972C(arg0);
+        *(s8 *)((u8 *)arg0 + 0x15) = 0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516D328.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D378 CURRENT (15) */
 void *func_1516D378(void *arg0) {

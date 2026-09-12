@@ -58,7 +58,6 @@
  * - func_15145548
  * - func_1514563C
  * - func_15145740
- * - func_15145A50
  * - func_15145AD8
  * - func_15145C90
  * - func_15145CD0
@@ -817,7 +816,26 @@ extern f32 D_800A548C[];
 f32 func_15145A0C(f32 arg0, f32 arg1, f32 arg2) {
     return D_800A548C[(s32) (arg0 * arg2 * 100.0f)] * arg1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145A50.s")
+/* Call context: func_15053694: unique active project prototype */
+void func_15053694(u8 *);
+
+void func_15145A50(u8 *arg0) {
+    s32 temp_v0;
+    void *temp_v0_2;
+
+    *(s8 *)((u8 *)arg0 + 5) = 3;
+    if (D_800BE9F0 != 0x33) {
+        if ((D_800BE616 != 0) || (temp_v0 = *(s32 *)((u8 *)arg0 + 0), (temp_v0 == 5)) || (temp_v0 == 1) || (temp_v0 == 0x15)) {
+            temp_v0_2 = *(void **)((u8 *)arg0 + 0x31C);
+            *(s32 *)((u8 *)arg0 + 0) = 5;
+            if (temp_v0_2 != 0) {
+                *(s8 *)((u8 *)temp_v0_2 + 0x78) = 0;
+            }
+        } else {
+            func_15053694(arg0);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145AD8.s")
 extern s32 D_800DBEF4;
 

@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151CF380
- * - func_151CF844
  * - func_151CF898
  * - func_151CFA4C
  * - func_151D0058
@@ -24,7 +23,16 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF380.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF844.s")
+void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+
+void func_151CF844(void *arg0, s32 arg1, u8 arg2) {
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    if (*(s32 *)temp_v0 != 0) {
+        func_15169850(arg1, (s32) arg2, (s32) temp_v0, (s32) temp_v0 + 4, (s32) arg0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CF898.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151CFA4C.s")
 void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
@@ -51,23 +59,23 @@ void func_151D0128(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D014C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D08F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D09A8.s")
-void func_1516972C(void *arg0, void *arg1);
+void func_1516972C(void *arg0);
 void func_151D0ED8(void *arg0) {
     volatile void **field_A8 = (volatile void **)((u8 *)arg0 + 0xA8);
 
     if (*field_A8 != 0) {
-        func_1516972C(*field_A8, arg0);
+        func_1516972C((void *)*field_A8);
     }
 }
 void func_1513173C();
 void func_1513175C();
 
 void func_151D0F08(s32 arg0) {
-    func_151D0ED8(*(s32 *)&arg0);
+    func_151D0ED8((void *)*(s32 *)&arg0);
     func_1513173C(arg0);
 }
 void func_151D0F34(s32 arg0) {
-    func_151D0ED8(arg0);
+    func_151D0ED8((void *)arg0);
     func_1513175C(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D0F60.s")
@@ -87,8 +95,6 @@ void func_151D10C4(s32 arg0, s32 arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D10E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D1138.s")
-extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-
 void func_151D1328(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
 }

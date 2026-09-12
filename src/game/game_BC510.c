@@ -17,7 +17,6 @@
  * - func_15091534
  * - func_150916B4
  * - func_150918EC
- * - func_15093818
  * - func_150938BC
  * - func_15093B58
  *
@@ -69,7 +68,20 @@ void func_1508F9C4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15091534.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150916B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_150918EC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_BC510/func_15093818.s")
+/* Call context: func_15093878: unique active project prototype */
+void func_15093878(void);
+extern u8 D_800D2458;
+
+void func_15093818(s32 arg0) {
+    if ((arg0 != 0) && (D_800D2458 == 0)) {
+        D_800D2458 = 1;
+        func_15093878();
+        return;
+    }
+    if ((arg0 == 0) && (D_800D2458 != 0)) {
+        D_800D2458 = 0;
+    }
+}
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern s32 func_1518C900(s32 arg0);
 extern s32 D_800D2448;

@@ -8,7 +8,6 @@
  * - func_151A4FD0
  * - func_151A5070
  * - func_151A5170
- * - func_151A55D4
  * - func_151A561C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -23,7 +22,16 @@ void func_151A5130(s32 arg0, void *arg1, s16 arg2, s32 arg3) {
     D_8008F900[((u8 *) arg1)[0x14]](arg0, arg1, arg2, arg3);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2480/func_151A5170.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2480/func_151A55D4.s")
+extern void (*D_8008F904[])(void *, s32, u8);
+
+void func_151A55D4(void *arg0, s32 arg1, u8 arg2) {
+    void (*temp_v0)(void *, s32, u8);
+
+    temp_v0 = D_8008F904[*(u8 *)((u8 *)arg0 + 0x19)];
+    if (temp_v0 != 0) {
+        temp_v0(arg0, arg1, arg2);
+    }
+}
 extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern s32 D_800A8D70;
 

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D8E20
  * - func_151D8F30
  * - func_151D9014
  * - func_151D93F4
@@ -49,7 +48,18 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8E20.s")
+s32 func_150A29C8(s32 arg0, s32 arg1);
+extern s32 D_800BE9F0;
+extern u8 D_800E0A10;
+extern u8 D_800AB344[];
+extern s32 func_150ADA20();
+
+u8 func_151D8E20(void) {
+    if ((D_800BE9F0 == 0) && (func_150A29C8(0, 0x1C) == 0)) {
+        return 0xA;
+    }
+    return D_800E0A10;
+}
 typedef struct {
     u8 field0;
     u8 field1;
@@ -92,6 +102,17 @@ s32 func_151D8EFC(void) {
     }
     return var_v1 & 0xFF;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8F30 CURRENT (425) */
+u8 func_151D8F30(void) {
+    u8 sp20[8];
+    u8 *temp_t7;
+
+    temp_t7 = D_800AB344;
+    *(s32 *)(sp20 + 0) = *(s32 *)(temp_t7 + 0);
+    *(u8 *)(sp20 + 4) = *(u8 *)(temp_t7 + 4);
+    return sp20[func_150ADA20() % 5U];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D8F30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D8F30.s")
 s32 func_151D8F7C(void) {
     s32 var_v1;
@@ -147,10 +168,55 @@ s32 func_151D93F4(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D97A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9820.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9878.s")
+extern s32 func_150ADA20();
+extern s32 D_800AB384[2];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D98D0 CURRENT (245) */
+u8 func_151D98D0(void) {
+    struct {
+        u8 pad[8];
+        s32 values[2];
+    } sp20;
+
+    sp20.values[0] = D_800AB384[0];
+    sp20.values[1] = D_800AB384[1];
+    return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D98D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D98D0.s")
+extern s32 func_150ADA20();
+extern s32 D_800AB38C[2];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9918 CURRENT (245) */
+u8 func_151D9918(void) {
+    struct {
+        u8 pad[8];
+        s32 values[2];
+    } sp20;
+
+    sp20.values[0] = D_800AB38C[0];
+    sp20.values[1] = D_800AB38C[1];
+    return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D9918 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9918.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9960.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D99C8.s")
+extern s32 func_150ADA20();
+extern s32 D_800AB3B4[2];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9A20 CURRENT (245) */
+u8 func_151D9A20(void) {
+    struct {
+        u8 pad[8];
+        s32 values[2];
+    } sp20;
+
+    sp20.values[0] = D_800AB3B4[0];
+    sp20.values[1] = D_800AB3B4[1];
+    return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D9A20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9A20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9A68.s")
 typedef union Game2062D0Word {

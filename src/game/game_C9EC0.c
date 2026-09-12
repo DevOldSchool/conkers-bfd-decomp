@@ -79,6 +79,40 @@ loop_1:
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509CA98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CA98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CB68.s")
+extern s32 D_800D2E4C;
+extern s32 D_8008743C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CBD4 CURRENT (1491) */
+s32 func_1509CBD4(u16 arg0) {
+    s32 temp_v0_2;
+    u16 *temp_v0;
+    u16 *var_s1;
+    u16 temp_s0;
+    u16 temp_t7;
+    u16 var_s0;
+
+    temp_v0 = (void *)(*(u8 *)(D_8008743C + (arg0 * 0x14)));
+    temp_t7 = *temp_v0;
+    var_s1 = temp_v0;
+    var_s0 = temp_t7 & 0xFFFF;
+    if (temp_t7 != 0xFFFF) {
+loop_1:
+        temp_v0_2 = func_1509CBD4(var_s0);
+        temp_s0 = *(u16 *)((u8 *)var_s1 + 0);
+        if (!((1 << (temp_s0 & 7)) & *(u8 *)(D_800D2E4C + ((s32) temp_s0 >> 3))) || (temp_v0_2 == 0)) {
+            return 0;
+        }
+        var_s0 = *(u16 *)((u8 *)var_s1 + 2);
+        var_s1 += 2;
+        if (var_s0 == 0xFFFF) {
+            goto block_5;
+        }
+        goto loop_1;
+    }
+block_5:
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509CBD4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CBD4.s")
 extern s32 D_8008743C[];
 extern void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2);

@@ -68,7 +68,7 @@ segments:
       - [0x61B0, c, game/game_33660]
       - [0x64E0, c, game/game_33990]
       - [0x7830, c, game/entrypoint]
-      - [0x7A20, c, game/game_34ED0]
+      - [0x7A20, c, game/done/game_34ED0]
       - [0x7A70, c, game/game_34F20]
       - [0x8340, c, game/game_357F0]
       - [0x8840, c, game/done/game_35CF0]

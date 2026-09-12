@@ -314,7 +314,7 @@
         "us": {
           "end": "0x1602C0",
           "start": "0x15FDA0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/effects/colourframebuffer.c"
@@ -1556,15 +1556,15 @@
       "functions": [
         "func_15007A20"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x7A70",
           "start": "0x7A20",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_34ED0.c"
+      "source": "src/game/done/game_34ED0.c"
     },
     {
       "boundary_evidence": {
@@ -2208,7 +2208,7 @@
         "us": {
           "end": "0x8B90",
           "start": "0x8A10",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_35EC0.c"
@@ -4786,7 +4786,7 @@
         "us": {
           "end": "0x1A220",
           "start": "0x186D0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_45B80.c"
@@ -7524,7 +7524,7 @@
         "us": {
           "end": "0x154C90",
           "start": "0x14F640",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_17CAF0.c"
@@ -7550,7 +7550,7 @@
         "us": {
           "end": "0x155780",
           "start": "0x154C90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_182140.c"
@@ -12646,7 +12646,7 @@
         "us": {
           "end": "0x1A7950",
           "start": "0x1A7610",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1D4AC0.c"
