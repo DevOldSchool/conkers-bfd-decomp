@@ -162,6 +162,44 @@ class ModelValidationTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'provenance differs'):
                     validation.compare_rom_object_materials(path, {}, {}, {})
 
+    def test_scene_material_validation_rejects_forged_provenance_pixels_and_capture_mix(self):
+        for bank in (4,):
+            with self.subTest(bank=bank):
+                self.check_scene_material_validation(bank)
+
+    def check_scene_material_validation(self, bank):
+        source = geometry()
+        segment = SimpleNamespace(index=0, data=b'model')
+        bundle = SimpleNamespace(index=58, segments=[segment])
+        context = {'models': [{'bank': bank, 'entry': 58, 'segment': 0}]}
+        evidence = {'object_renderer_context': {'bank': bank, 'entry': 58, 'segment': 0}}
+        png = texture_assets.encode_rgba_png(1, 1, bytes((10, 20, 30, 255)))
+        record = {'status': 'rom-scene-texture-state', 'rom_scene_texture_state': evidence,
+                  'texture': {'file': 'texture.png'}}
+        manifest = {'bank_index': bank, 'rom_object_material_context': context,
+                    'models': [{'bank_entry': 58, 'segment': 0, 'material_runs': [record]}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'manifest.json'
+            (root / 'texture.png').write_bytes(png)
+            validation.write(path, manifest)
+            with mock.patch.object(models, 'load_model_bundles', return_value=(None, None, 'rom', [bundle], [])), \
+                 mock.patch.object(models, 'load_object_material_context', return_value=context), \
+                 mock.patch.object(models, 'parse_segment_geometry', return_value=source), \
+                 mock.patch.object(models, 'choose_preview_texture', return_value=(None, 'runtime-segment')), \
+                 mock.patch.object(models, 'rom_scene_preview_texture', return_value=(SimpleNamespace(png_data=png), record['status'], evidence)):
+                result = validation.compare_rom_object_materials(path, {}, {}, {})
+                self.assertEqual((1, 1), (result['consensus_texture_runs'], result['consensus_texture_faces']))
+                with self.assertRaisesRegex(ValueError, 'captured material was replaced'):
+                    validation.compare_rom_object_materials(path, {}, {}, {(bank, 58, 0, 0): {}})
+                (root / 'texture.png').write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError, 'texture state differs'):
+                    validation.compare_rom_object_materials(path, {}, {}, {})
+                manifest['rom_object_material_context'] = {'models': []}
+                validation.write(path, manifest)
+                with self.assertRaisesRegex(ValueError, 'provenance differs'):
+                    validation.compare_rom_object_materials(path, {}, {}, {})
+
     def export(self, root, source):
         document, binary = models.encode_gltf(0, 0, source, output_stem='model')
         path = root / 'model.gltf'

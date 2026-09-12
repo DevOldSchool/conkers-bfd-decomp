@@ -1,0 +1,3055 @@
+{
+  "models": {
+    "01:0066:00": {
+      "decision": "appearance-blocked",
+      "fingerprint": "7bb9551a6aa9706673702ebe38f735c01a4ea6ba7bdfc6146f1fde572699d01f",
+      "reason": "Stationary tank helmet/body/pack appearance remains unresolved; the renderer already selects the exported descriptor."
+    },
+    "03:0049:00": {
+      "decision": "review-deferred",
+      "fingerprint": "d9f467d140ac831adee42be888d93998d8c6da2574c6d2693d7bfe394ae0a5e4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0051:00": {
+      "decision": "review-deferred",
+      "fingerprint": "c9692898fca17551ba14db448631b1af0e917eb0680123e7cdb40b09f68fd832",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0064:00": {
+      "decision": "review-deferred",
+      "fingerprint": "aca7d5774a46e49fbd079fc41d9990ac3b96c9490490f215fa009637b46c28f5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0065:00": {
+      "decision": "review-deferred",
+      "fingerprint": "225e95c046cf458dd94598d4f544b5f6c206bf01bea766bdbc93d1263e695f00",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0067:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a420840df9dd230c8ec60d7ac2f1d08d7d7fe566815128410b2c10ef2916d46e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0097:00": {
+      "decision": "review-deferred",
+      "fingerprint": "da989aa5b459adb59a6209597b3bd32de3b41d261db08e9c0c7b338779b69db1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0104:00": {
+      "decision": "review-deferred",
+      "fingerprint": "8adbcf059c41211974a9465a0446080793932f71d6ea26e1290ded2c48c8812b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0105:00": {
+      "decision": "review-deferred",
+      "fingerprint": "1b71f362db4286d177331e26f40cfb2b4b2c1001377a8d2913ffa4c1fc6b5396",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "03:0113:00": {
+      "decision": "review-deferred",
+      "fingerprint": "9c8971cbacd445a3dc36dc5724b0857f674fa37cc8cf07d8c44fc93cdd991f67",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:01": {
+      "decision": "review-deferred",
+      "fingerprint": "0c0c5e84eb7b3bd307e1d8bb02536ee533715121eb37d84768d162bf754eb856",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:03": {
+      "decision": "review-deferred",
+      "fingerprint": "bba6b0069f437228984d10ca8f8648f3a54a29750218c31a4d84952d20ba4928",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:06": {
+      "decision": "review-deferred",
+      "fingerprint": "2ba727955b0b9db3130fd012cebba0e676070ca4b193d294b720ccc93cfd543e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:07": {
+      "decision": "review-deferred",
+      "fingerprint": "50bd88ab860d066765bb8913cd5d60585e6078b36db273e4d7288e7f8487d90b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:10": {
+      "decision": "review-deferred",
+      "fingerprint": "99ebf66be509471f537c21098f1a92295930f46fda33bacfba59ee4f52dd3410",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:11": {
+      "decision": "review-deferred",
+      "fingerprint": "1ac0fc0de0c6ee4a6599a92097324f45ff6cf3850b046de0c2e7e216657fd8ac",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:13": {
+      "decision": "review-deferred",
+      "fingerprint": "d53d995990983789c483bc72ca55b50caaaeac68ef134e633d698bac40e83e55",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0000:14": {
+      "decision": "review-deferred",
+      "fingerprint": "eb576da578bd156f7e84e38735623fbfaa780958ac81832ef9ec09544f1bd4fc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:01": {
+      "decision": "review-deferred",
+      "fingerprint": "4a9281d9313940bc19e8b446bd36821108b8c5a1bfe669b941ca33717d005f73",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:02": {
+      "decision": "review-deferred",
+      "fingerprint": "57a4e54eb44485362cbd2016b36c0062f51eca28361cf37f35f8109790f20b41",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:03": {
+      "decision": "review-deferred",
+      "fingerprint": "582186b216e81d33a1a3039e317f9930a93509173d3be191a2aa03b06d2c56fa",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:04": {
+      "decision": "review-deferred",
+      "fingerprint": "5fc623a3e675de314db6d8ed33aca01a4b2b37a69bfbf8523ca59c59f0a750e9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:06": {
+      "decision": "review-deferred",
+      "fingerprint": "5c7f86cd6fefe9bf9ffc211789fa9bd2f586928e40c38fcde2e0e1c82505fa41",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:07": {
+      "decision": "review-deferred",
+      "fingerprint": "75998e5b17dd4b35128f910da7ed9cc4afe281d76b6b4faa760d69621d4900e7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:08": {
+      "decision": "review-deferred",
+      "fingerprint": "097ce1e295b3fe308f3f707c120200dd2fe0cb530d2d51ed5afa4be7f822a645",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:11": {
+      "decision": "review-deferred",
+      "fingerprint": "ded04e8b4b99cdd4f8da65da4fc265ec737396354abbc9646b09e800626594e6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:13": {
+      "decision": "review-deferred",
+      "fingerprint": "b378ded5bdd19547882d3140031b6a4cd3bb2c4c2a83532072a72c8824363a44",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:19": {
+      "decision": "review-deferred",
+      "fingerprint": "983620732da086d0652d3c3ff1cae4edb126f4419bc5b69d52946396b7d0aa03",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0001:20": {
+      "decision": "review-deferred",
+      "fingerprint": "8cb10f63669e5cb634e7c1543fb0e9194d7db165c3fbb9b3b53aae49b796ced0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:01": {
+      "decision": "review-deferred",
+      "fingerprint": "b0221eda967c269d92456bdfc382a730447546541e9d89af61bcc5da965fc736",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:03": {
+      "decision": "review-deferred",
+      "fingerprint": "5da764032c432079cbfcde8956df2cf313b3185657dc0059fbdd1ec93d5e88f9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:05": {
+      "decision": "review-deferred",
+      "fingerprint": "00268d794b62de450ff73e2c5bc7ce6519ec995eb0cfc7edc3de95c6bd9f529a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:06": {
+      "decision": "review-deferred",
+      "fingerprint": "ef16f516a222fffa0bed490092a22a6b315ea09e8fd065aee8b6abcad8c310d7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:07": {
+      "decision": "review-deferred",
+      "fingerprint": "2f243c45549c1e9ebb775387b209d433503edbb48f23f48e78b44e057825925f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:08": {
+      "decision": "review-deferred",
+      "fingerprint": "2b5c16db3845b6ff352b36850131c742307d227389336073286e57335117d67b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:09": {
+      "decision": "review-deferred",
+      "fingerprint": "c7e686dd73361d746e4a71af1fac69b1072b0cf6e920a356f333440037189264",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:11": {
+      "decision": "review-deferred",
+      "fingerprint": "6143c97d7888562d6a75d90f1486b7d90cf010a065853d6e57139ecd0e60fa38",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:12": {
+      "decision": "review-deferred",
+      "fingerprint": "ff2b06ae67dd812e8115c049c867e90156f09e82c66fe45df11ee67c27b6044d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:14": {
+      "decision": "review-deferred",
+      "fingerprint": "29e984497646e31c2ce12caf5bb7518c978c755faa194ebf70304cb79be03cda",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:17": {
+      "decision": "review-deferred",
+      "fingerprint": "4fcd37ee0453dfaed2d77919256013dde48380be9a8cd75a28b5fbc47264df99",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:18": {
+      "decision": "review-deferred",
+      "fingerprint": "8480858b9f328ef51f294e109db5ccfb7a89eb59999891f0c99e6a060555b711",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:19": {
+      "decision": "review-deferred",
+      "fingerprint": "19378aa64fb4b9dd0cfa86224eab8e614c29a599d8eb6e4c0560cf4ec451a425",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:21": {
+      "decision": "review-deferred",
+      "fingerprint": "be28416808e33d34724c966ce73c985221e21e414ba5704fe31e97f1df38d1bf",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:22": {
+      "decision": "review-deferred",
+      "fingerprint": "239f3818edf2194479530bf1f8aa9435f3f12dc231af145b0993371e5854d6de",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:24": {
+      "decision": "review-deferred",
+      "fingerprint": "fdb799713cd7dbc120bd541c03ebda72e61835bb73c9c403e409499b247f5741",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:28": {
+      "decision": "review-deferred",
+      "fingerprint": "d76bcaf903cf84ef8e87cdbe4cc2c75ba8d5b1007e012a08e419ccfa34510d03",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:31": {
+      "decision": "review-deferred",
+      "fingerprint": "99358baa7798988bda2c94f2443f730e4f4112a25ed03353bdb4e71902147f41",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:32": {
+      "decision": "review-deferred",
+      "fingerprint": "6ea5b8c2bfea1c126fa38876e04a77f87ce3dcb6c7950596f34ecc3d91efc001",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:33": {
+      "decision": "review-deferred",
+      "fingerprint": "5aa986ed4d4bd5c89465ad6814aa5e8ad77b70165d27b12dda17298c6187c46b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:34": {
+      "decision": "review-deferred",
+      "fingerprint": "b110820dd4387cc9d8be9593bfeed3902a2f0d030e0227bdecf595e0b355dc3d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:35": {
+      "decision": "review-deferred",
+      "fingerprint": "0cd4b8e237ba6a8b7148f07b74afde2ce0a5fee80d7d24ce6fac87738373da3c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:36": {
+      "decision": "review-deferred",
+      "fingerprint": "25d4029eb281b7f559c8f42e50c79eba79314fd9e03f141a7f81b1b0ad67a951",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0002:37": {
+      "decision": "review-deferred",
+      "fingerprint": "7d941f135e3d1029df79c1e0bda06f5ddf6275bc6c8a270ca70616239e75f8fa",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:01": {
+      "decision": "review-deferred",
+      "fingerprint": "ac976fb4c4d38bb9f864030fdaf65fd0599cae3875b9b094ace286ba43affe2f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:02": {
+      "decision": "review-deferred",
+      "fingerprint": "8d5c6e3eedcdfd658e9678ca1f05dd62f747e2c1569a4c1a1f93efbe3fa52500",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:03": {
+      "decision": "review-deferred",
+      "fingerprint": "6ebedddb85761a6d3f228b3d2111fece3bc59932e667dc6f5841f9b0dd5daf8b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:04": {
+      "decision": "review-deferred",
+      "fingerprint": "39e0a7c03f8fae6f20f9a7d68e79e51a1784923fe966b5d5c7170df163ce3ed2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:05": {
+      "decision": "review-deferred",
+      "fingerprint": "d581b706f6e68f4edc33d6fb44240ddfd1d474fb42597170cd13604a3acde9b4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:06": {
+      "decision": "review-deferred",
+      "fingerprint": "d30045e540f5da11709ff7f93c58018a7b27e59f73f97b7d86fc8c43efc14643",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:09": {
+      "decision": "review-deferred",
+      "fingerprint": "b9517477de8f353eff99c0ce59e0ffba1658957c4baf29f74bf95c2523075b45",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:10": {
+      "decision": "review-deferred",
+      "fingerprint": "c529fac8bcce27a9c8ea289846674578429e00159a77718832be33a85ab970b4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:11": {
+      "decision": "review-deferred",
+      "fingerprint": "27baddd806a04ea403f6d7cc6b23e3b1e3f69f676e068346d263cd8df144108f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:13": {
+      "decision": "review-deferred",
+      "fingerprint": "6f3b0a0b0ecd5ec36aaf2fc0d1a5c3e44dbc4d80ef0293b785aafd2c51f9f49b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:14": {
+      "decision": "review-deferred",
+      "fingerprint": "5399af1446a16d41bb5c78a7735f835148e9a64ee1fb0e51492a28ccdd8d3698",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:15": {
+      "decision": "review-deferred",
+      "fingerprint": "b2c74b96cd2d188b410fc4e1a94bfe64bb8ab9f0ee857a22ce451b4d216b0380",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:18": {
+      "decision": "review-deferred",
+      "fingerprint": "72533a03fcc99a8aa30ee77fd26515ab801fa6dedb806ba6bc3f65b8b5871b54",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:21": {
+      "decision": "review-deferred",
+      "fingerprint": "85c46ac899f5e9b5c22f05621d70974484b0b36e6215533ff21a389adbc53d15",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:22": {
+      "decision": "review-deferred",
+      "fingerprint": "7147354e2a9114f1c466fd84a3c8f883b01d8b7b8acfe51e82bbed338ecb8432",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0004:23": {
+      "decision": "review-deferred",
+      "fingerprint": "4b821e83fb18d2cf90990091af0fac59664153573b6e8b68dec6036ebd3c4162",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:01": {
+      "decision": "review-deferred",
+      "fingerprint": "b3778f9d6d2924c94d533b57ae293f1e8782a7b37504e3f664d1c5a34e15847c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:03": {
+      "decision": "review-deferred",
+      "fingerprint": "dfdfd73592ed6da8ad41d6541bd4e6ceb0c621e1bf4f079344e2147dbb1efdb2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:06": {
+      "decision": "review-deferred",
+      "fingerprint": "4df6ec439ac64a9d6428f12313fa1b3e134f2b2b99eebcaef32781614f71c992",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:10": {
+      "decision": "review-deferred",
+      "fingerprint": "6ad3e1bc2ceb720fdbac6c725ffa0c446bcf59d118887b6e4685abdcd44221b3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:11": {
+      "decision": "review-deferred",
+      "fingerprint": "8fe3de643b0ff2edd8edadb140a167d0928df47329d6522d79bdff1c4ea50f51",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:18": {
+      "decision": "review-deferred",
+      "fingerprint": "721b55feb59dec4b6c905670f3fd47526ddc36539307cddde31ed20feda71271",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:19": {
+      "decision": "review-deferred",
+      "fingerprint": "5808757fb7746ee87678f0f0d10ab93e499072bf6a42a0424239804e53bac93c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:20": {
+      "decision": "review-deferred",
+      "fingerprint": "f57dd98175779967405e4d4333de529bb53443228eb64a0e26b83115612b092d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:21": {
+      "decision": "review-deferred",
+      "fingerprint": "e3ecd3a422f5565ef2c2064622c7b60664381b9f95804f595aabbfc5c8163568",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:22": {
+      "decision": "review-deferred",
+      "fingerprint": "fa75373d2760abdeb323563c011df8e24538425494aed6938bd6d338a9e54551",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:23": {
+      "decision": "review-deferred",
+      "fingerprint": "c24d3bd6467cfb84d7aba3501363540c943af40603ffc54855eba282b00ecc94",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0006:29": {
+      "decision": "review-deferred",
+      "fingerprint": "c463a341e043a184832d20e9b0bbfe8aaf62819d03f680c2c470449d5556f837",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0007:01": {
+      "decision": "review-deferred",
+      "fingerprint": "c3d67f09f5fcb55fe0fe14ce284d252fc7acd50070ccbbba02e4f8c762a24bf1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0007:04": {
+      "decision": "review-deferred",
+      "fingerprint": "591dcd62400b549584b3232d07ab8c310ea3d880b1015e03b19bd0fa75f0df72",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0007:06": {
+      "decision": "review-deferred",
+      "fingerprint": "5516bc8ff956badc9ab43d70fa1f46cd19e1acce0bda7dc9eeebdb909bcb0d82",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0007:12": {
+      "decision": "review-deferred",
+      "fingerprint": "b59ad866447bf26fa502441f4f53a075ada6965a623119e04405004cf68a6c9c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0007:13": {
+      "decision": "review-deferred",
+      "fingerprint": "0d8ed8734a5a58759663444d4f21fa87c4a908436f8213c37015f48f16c9fcbb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0010:03": {
+      "decision": "review-deferred",
+      "fingerprint": "fad6ca5cdb82426d77c596a7e689f43786b467795085966a91b6ca5eb7c55527",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0010:05": {
+      "decision": "review-deferred",
+      "fingerprint": "0ee8324197af1c4b864f49f5e615b7a5b4a2abb023e5ea9711cba33f8729f50e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0010:08": {
+      "decision": "review-deferred",
+      "fingerprint": "60969575592896f791d680668590060fc3d5f39fd39f66a974263ad428eab1de",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0010:13": {
+      "decision": "review-deferred",
+      "fingerprint": "bef8d8fd88f27028a6eed0fb8be54088981bdd9c76e57755adf1824b9466a712",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0010:21": {
+      "decision": "review-deferred",
+      "fingerprint": "d5ba2bafe5623149551eae661db31a3e92a4bc7139a4cbe9028e7d7e34d8c3fa",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0010:22": {
+      "decision": "review-deferred",
+      "fingerprint": "b053382284494469aab867761c5e84e47369b4900f90237f47eb354cc28db612",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:01": {
+      "decision": "review-deferred",
+      "fingerprint": "5c822e037b8d088484b4dcd6d9fcae4bcbf2fe67963d9324dd3536db8a11dcb8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:02": {
+      "decision": "review-deferred",
+      "fingerprint": "6ecde01f337a00f2bcc75e6e211a3bc70309e2332292db7ad01d6fe92777213a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:03": {
+      "decision": "review-deferred",
+      "fingerprint": "d596f1badd33218e17b96f2b405bf252f7d0e6d83e1bc686a9d9b4270d4ee3ac",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:04": {
+      "decision": "review-deferred",
+      "fingerprint": "eaa51410fc88a722e889d206a21d1d18950e41ae840df47617de663654142379",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:05": {
+      "decision": "review-deferred",
+      "fingerprint": "ce5a499eed51107cb7c49f2f4ffb67b4c5d3f6e2344aeec010f7889f03f1240a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:07": {
+      "decision": "review-deferred",
+      "fingerprint": "8c5f031f8c0f961134f4b4d104c59c6ebf5da2c18ecbe5864bf944682edd304f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:12": {
+      "decision": "review-deferred",
+      "fingerprint": "7889c667bb0d8799e76383e96c2b173cc6eef4a34561aa91daec0433570bd55d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:13": {
+      "decision": "review-deferred",
+      "fingerprint": "9095f4e2c6b585b90c54f828b98f5791aac4a5f0ba761473c2010ed05435d3b1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:14": {
+      "decision": "review-deferred",
+      "fingerprint": "1ec1b3055747e7cac1fb7cd782d24ed0bff2a61eea910226dc52bc15f9992288",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0011:15": {
+      "decision": "review-deferred",
+      "fingerprint": "9cbb844c6f79d98af927d046e9ce70f5010aee0742dd2a95d06267f6229ceba2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:01": {
+      "decision": "review-deferred",
+      "fingerprint": "1d1ea8e56a43d7cfec9012764a5969a48ba43a67c7a0376829df0788bed08698",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:03": {
+      "decision": "review-deferred",
+      "fingerprint": "98e9a686555cacb683b18902624c8a2179ab548c21840af9d56bc75b6dbaffd9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:04": {
+      "decision": "review-deferred",
+      "fingerprint": "adcaa3f6c93bc446ed5f681d93991cae27e3dd1dc31bd56d519d8bb209384b62",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:06": {
+      "decision": "review-deferred",
+      "fingerprint": "789b4c5a3f3f5e43bfb05aff11a0a43bc5427813fad040a2462a8fe775ea3ba5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:10": {
+      "decision": "review-deferred",
+      "fingerprint": "47add292625a21f6db91b12c92e12c4cbfc53f4603f2593dd609e62c1348ba1f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:12": {
+      "decision": "review-deferred",
+      "fingerprint": "b90450646fd1e55b732050035854bdb607bc6e66151038b512512416eef7dfc1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:13": {
+      "decision": "review-deferred",
+      "fingerprint": "b2cc2e1dc77f71c77715cce74f58a47ea4df79f619361b4c8b428cee493b10e5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:14": {
+      "decision": "review-deferred",
+      "fingerprint": "59c2651179d6b22de3b1c6ebcfdbb661770bcd4a7e468a39f2958c2142e4858d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:15": {
+      "decision": "review-deferred",
+      "fingerprint": "a169aede3cd5502a087d35e89eceda2876a92ffc29b5015fb57c6caae1c6c63e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:16": {
+      "decision": "review-deferred",
+      "fingerprint": "d33514b3dbf308c40213b2d6ea5bcbd601c39c8dac3bf695d3c461ec6720a2f9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:17": {
+      "decision": "review-deferred",
+      "fingerprint": "4944119b7941ae901617771fd959a5a5fe75457214ce46e48dd7f8df5dfb51f1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:18": {
+      "decision": "review-deferred",
+      "fingerprint": "d1118f73ca189577e5f2432c24da08d97916f7a1c67209aad7750d327fc539c6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:19": {
+      "decision": "review-deferred",
+      "fingerprint": "8dcce61bed2f564e3ffd10a0c9c960f6f542b11e48969061745d6bcaad09dfe8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:20": {
+      "decision": "review-deferred",
+      "fingerprint": "a3c7763e5cf4b3eff79516d45d1bc30cec0a73de31df6868d677481e7142cd94",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:21": {
+      "decision": "review-deferred",
+      "fingerprint": "ee8be8526614d231b7555b69fefe98efbf9e400541288b40fe35f88571283187",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:22": {
+      "decision": "review-deferred",
+      "fingerprint": "386a69c14961e63ef67dcd350b73da2f2a8348b8333ee2cc8f8c04ecd030f1ac",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:23": {
+      "decision": "review-deferred",
+      "fingerprint": "880a58442a5a0ce94429fa15fc42e2960de42c91d5e84a4dd953ea7fd9f30429",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:24": {
+      "decision": "review-deferred",
+      "fingerprint": "1022f775551c96ee0a7a3a34f57c2648f9f67a3bc9e13ace45bdbf504f0a20de",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0012:28": {
+      "decision": "review-deferred",
+      "fingerprint": "b2537949aebb11d69a3a8ab4a191639a3f9b084506cacf5ffd81ab40a187e491",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:01": {
+      "decision": "review-deferred",
+      "fingerprint": "76f53287d03366cfa37fc6ee0837f55f80c02d165959df4c94879c9cbf1df0b6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:03": {
+      "decision": "review-deferred",
+      "fingerprint": "8a0fc229cbc163be31acc3e943dad90f7103d8bc7e2a3b216697d3fa1f8d4326",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:05": {
+      "decision": "review-deferred",
+      "fingerprint": "5643fc744108654bcab0cdd65b469e5efa4cd56ac3eec367888575ed2c505d3f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:08": {
+      "decision": "review-deferred",
+      "fingerprint": "db6973f1ccfe9fcab2a9642ee294ed3c61aa11c8d3cb621773f560a10bec0014",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:12": {
+      "decision": "review-deferred",
+      "fingerprint": "94c6bc046b2efe9fdda3e17405427afd180d85ec6c0b42bfab73479428363af5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:13": {
+      "decision": "review-deferred",
+      "fingerprint": "8dc503d3dff6fd26072ee437684ebf5a2f19f5555eb1f90f6f2762301a4d2b87",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0014:14": {
+      "decision": "review-deferred",
+      "fingerprint": "34d967801c88326a1455798db0775d05944c2d374ac466df230882bed0aec109",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:01": {
+      "decision": "review-deferred",
+      "fingerprint": "1cd09b5a5272e94560e33c6c459c2616aae6afe832dbe2eff3f151a62f146f36",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:03": {
+      "decision": "review-deferred",
+      "fingerprint": "c081f1eadd90e6ec541c4c1364c9b0ea69b7f0f806ee314483c68f8b7d21f8b7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:04": {
+      "decision": "review-deferred",
+      "fingerprint": "5c3c382dcaade16f3e1a2adc3464dca7bc588eaacf1b994b9cfbea05f3f302c1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:05": {
+      "decision": "review-deferred",
+      "fingerprint": "b3794e61c502b82fa0f5cc9e08029c1299684c7f06a86b7c90370f1fa4b3b415",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:06": {
+      "decision": "review-deferred",
+      "fingerprint": "48375068f6e3d03a9ca663db7157dcc8656e62f9910ca57e055a405d9756fb48",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:07": {
+      "decision": "review-deferred",
+      "fingerprint": "92afe00c859567c88ee43084597389de23690bbb61147053f8e51e625d0aebe5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:08": {
+      "decision": "review-deferred",
+      "fingerprint": "3b2d2c7ced7c2ea39d1e165057469a2566427c241d831364c6ccc3ae8817ff5e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:09": {
+      "decision": "review-deferred",
+      "fingerprint": "92775cf56802b541af1d21c4c513f36df2ee574b51b5026fd99e779a2392b0f8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:10": {
+      "decision": "review-deferred",
+      "fingerprint": "a560a078996b2286a96cadee8c1c1ef09069f6a1f0b36416cb16ea746bc39418",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:11": {
+      "decision": "review-deferred",
+      "fingerprint": "9df891f66e901604e80a0a4b84690b1b325f8db322e4f54a6747d76bc56af2f7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:15": {
+      "decision": "review-deferred",
+      "fingerprint": "c2943af93480b388288325ace2b6885cf91734eb5585f314119335ba5a0be0b1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0016:19": {
+      "decision": "review-deferred",
+      "fingerprint": "2782bd3edc8c6267138984abd13b663bf1bfe034b260d0408d838c4eec255dd1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0018:02": {
+      "decision": "review-deferred",
+      "fingerprint": "62f302b5bcc9b1dcbb39b2601920a60b729e72cff837cc4df9fbeeb10d09adcc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0018:04": {
+      "decision": "review-deferred",
+      "fingerprint": "04fb1f4d2700522caa3c96ea861e3338bcb4c6d0fc3e1130fa5d7a156fa79697",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0018:11": {
+      "decision": "review-deferred",
+      "fingerprint": "b18514fc8291cc2bc9f74d46a1c6f7114fad93254680f29a20b707864ef05bcc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0018:12": {
+      "decision": "review-deferred",
+      "fingerprint": "56f5e5e175c5c7c68b7f2f4d7890d2778b1f99df48aaa8ecc6a73f764094924a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:01": {
+      "decision": "review-deferred",
+      "fingerprint": "713214653118a262f97806cf90966121c3c2e39685d373ee573c0d76e60ef6a3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:02": {
+      "decision": "review-deferred",
+      "fingerprint": "f8cd80b5f703005f8fd4e24b00be28f603fd636c40a981b5b3b7daf704dfe5a9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:03": {
+      "decision": "review-deferred",
+      "fingerprint": "59cfb3e0a6049704c1d277e51dfc8be783e4dd64d15f668ed726253810799209",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:04": {
+      "decision": "review-deferred",
+      "fingerprint": "83dfefc29c09316459d70dc89897aa4c4b0f981fc4fc7792a5d5f60294b095e6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:05": {
+      "decision": "review-deferred",
+      "fingerprint": "ac9c1016b1ba48bd966387bf63817b4f162e691e321e3c5d1f41e2645c97013f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:06": {
+      "decision": "review-deferred",
+      "fingerprint": "69f61ad8e12619b0800852a5b951c93f0b2734f2fe7047ce2eff16b8a34342f0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:07": {
+      "decision": "review-deferred",
+      "fingerprint": "ca2e09b086aa6e88fe5ab407d37aac2e3b9a0a65a425489d4492c57506da88f7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:09": {
+      "decision": "review-deferred",
+      "fingerprint": "0b2edfdd10082d1a73e1a2e767e320d0777c8cb429d5e8696bab05a1c61bdd8a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:10": {
+      "decision": "review-deferred",
+      "fingerprint": "e51244e933763226f34531ca1d3da9277430e7836e659b4a3ed5d15d86fe3787",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:15": {
+      "decision": "review-deferred",
+      "fingerprint": "f2f2cf2d742f4e76e3c10bfcc9205b77e1b88c3cb756c4ab8e0b31c507e2a0f9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:19": {
+      "decision": "review-deferred",
+      "fingerprint": "510a36febb8ffc98753778b8162c6f8194628ba9e44f6fd44c62368d1f0aad8e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:20": {
+      "decision": "review-deferred",
+      "fingerprint": "32fa996e5ebd0fbd8fa5f688093c200d68f599edba5728f2adc3668e10e066f1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:21": {
+      "decision": "review-deferred",
+      "fingerprint": "66f3a6ed9f508ef721caeb3c01f1870b33c155863e79082e857df0e45c584e21",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0019:22": {
+      "decision": "review-deferred",
+      "fingerprint": "74bfb92a8c19d6b69cad373d3399673177bedc9b2ab7a0029b8e965de9d9edfd",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0020:01": {
+      "decision": "review-deferred",
+      "fingerprint": "5c4efb83d735b35781f52b7211eb8cb617077498e4e224a04d04de8aced9f89a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0020:03": {
+      "decision": "review-deferred",
+      "fingerprint": "6970577c5ffb1ad9b850f31ac78a8980e4045adaa661a6d01bca24a763c9c442",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0020:07": {
+      "decision": "review-deferred",
+      "fingerprint": "b187cd3b6d078238813cd9225ee294fa3954af970deec196355341df081f07bc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0023:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7a7e4a8b29e066bab3a930385edac24e251941041a43013fb2000362a76a26d1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0023:01": {
+      "decision": "review-deferred",
+      "fingerprint": "be30dc4a66252d3477943613f8165e9249ad74edd7fba19743aa06079707c711",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0023:06": {
+      "decision": "review-deferred",
+      "fingerprint": "c04eafc8b05718738ca089a925fdeb2b083ed275c29a61fe6a708e452ab812ec",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0023:07": {
+      "decision": "review-deferred",
+      "fingerprint": "e9258e8036c04046792bfe3ed241e2c71d1a811c7e21a335f156c618e6414514",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0023:09": {
+      "decision": "review-deferred",
+      "fingerprint": "724bd5cadf755b1c4202cb5413462b5838c20b64d2a83c1560ec8279b6cca503",
+      "reason": "Byte-identical model and identical stored-frame image to the published scene 18 / 9; retain scene provenance without a duplicate gallery card."
+    },
+    "04:0023:10": {
+      "decision": "review-deferred",
+      "fingerprint": "92f51c7fb49e7046cbae1174df449b0a1e6b9846fa9ff399afeef2dd21899908",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:11": {
+      "decision": "review-deferred",
+      "fingerprint": "14ea5a6c312663598d227672a39e49639e601a8daa1e22106cab9b3d227d29a9",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:12": {
+      "decision": "review-deferred",
+      "fingerprint": "cd484cb0ad6faf8e0c232a9339a93bbb2064ab352ba6cfaee1630b143fde6491",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:13": {
+      "decision": "review-deferred",
+      "fingerprint": "5d29d9bfea870362a2ce40fd703445444e9849ece96003c4d085e2480e465223",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:14": {
+      "decision": "review-deferred",
+      "fingerprint": "52e1ba172e16edf71e49f8938456d09e2e758814f96ba263c9c137a459f08163",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:15": {
+      "decision": "review-deferred",
+      "fingerprint": "e21367e352950220461c868e024d5ae702fb42eb45e4703e8e38b4cdedd50c89",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:16": {
+      "decision": "review-deferred",
+      "fingerprint": "be7a383fa9145aaa993cf922e5149f6c19124d663c29506d69a90782db6aa930",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:17": {
+      "decision": "review-deferred",
+      "fingerprint": "2e9a8b2b683a8cad3d7fc524481c661b8998884c5eddaf9fb3b58861e12e2040",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:18": {
+      "decision": "review-deferred",
+      "fingerprint": "3664d4eeeed099c116c6e705a6e6e72c9607b713cca295da3c2b9f82f2f9620f",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:19": {
+      "decision": "review-deferred",
+      "fingerprint": "1a4260ac784495ba502bc3774b7a7ab5b22e52272630b87a018f6062d3b2fa47",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:20": {
+      "decision": "review-deferred",
+      "fingerprint": "1578332b14857c2c59f96dcfae85b88b3da48c25bb5b022efe2a6b250b27af13",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0023:21": {
+      "decision": "review-deferred",
+      "fingerprint": "bafb7c1d8d1adb0aba5dd74ec261db5248fec1ad7d404dc82b902931faab3759",
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+    },
+    "04:0024:07": {
+      "decision": "review-deferred",
+      "fingerprint": "89201fb973fb4490b7d022e6dabfa86f98e480dcd463441d2be94f835ef12df6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0024:08": {
+      "decision": "review-deferred",
+      "fingerprint": "a9062f939ea266fe9bd3322902767d139ce95630558bab598e49769eea3368e5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0024:11": {
+      "decision": "review-deferred",
+      "fingerprint": "d20846bc83d4696bd1df6d6b1ee74249f037756ab6aa8eed50216bcc3f25fdb2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0024:15": {
+      "decision": "review-deferred",
+      "fingerprint": "807a96c7b1307f756f41f6e88a5c6d7c4c9d31bd907bf53e438e674372599c20",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:01": {
+      "decision": "review-deferred",
+      "fingerprint": "333676a2288ac075595b5ad34d9c6f5abfa595ec89b56a350fe73e0125eebc80",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:03": {
+      "decision": "review-deferred",
+      "fingerprint": "2b34f40b1cd8d116a5814d1c9d8b8d40357de978dd4afb8a41a3d680699fe51a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:04": {
+      "decision": "review-deferred",
+      "fingerprint": "ba842f8aac6f120663e6f608d341f5847fb2b42e4564b204dd270c00488bcf56",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:05": {
+      "decision": "review-deferred",
+      "fingerprint": "fb9139a1fbc2df4fead29c6b318e28e5e8fdec450964cc2ef212934a03f35677",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:07": {
+      "decision": "review-deferred",
+      "fingerprint": "0fc349b5f65f48d05bc5ae817e2ddcf097a1045314b09fefa15ffdf2e9ab7868",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:08": {
+      "decision": "review-deferred",
+      "fingerprint": "7ec3571374e3abc6b8569cf613db2db3452503e027721278a7c8d591d2f562d6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:09": {
+      "decision": "review-deferred",
+      "fingerprint": "d1677915e9ab68600353b029c34b64d89034afcb168b4ce222aa5319f004c05d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:10": {
+      "decision": "review-deferred",
+      "fingerprint": "1406911f49cb186f964f7dbb32cb8d7098bd4dc2c2e34111a68e572d379fb49c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0025:12": {
+      "decision": "review-deferred",
+      "fingerprint": "5c2ed99fd6f6d9b5ba5656986465c68a0f3c2929ae502f928b102a8416dbc4cd",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0026:01": {
+      "decision": "review-deferred",
+      "fingerprint": "b7b34e9a79bea8e7abfc2c8995892c13c24278b6ee8e4865e72d6a8b8bd84857",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0026:03": {
+      "decision": "review-deferred",
+      "fingerprint": "3afc4047f92fd95d661bae877c1090e68be8d01e679a6f470cae43d64e4208c0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0026:04": {
+      "decision": "review-deferred",
+      "fingerprint": "b38410f28ae67cacf67cf1b0b48ff1d7b1219a48b2690578ae3eedc43c72f85d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0027:02": {
+      "decision": "review-deferred",
+      "fingerprint": "e12b4f48e440bb86b6cfdff7b1edd656f13148e1f46629f4530327a6508b7119",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0027:03": {
+      "decision": "review-deferred",
+      "fingerprint": "ea8908d0d55f1ab22b0b03d24c3b1dbc7f64f0368bbda559779d3cdfdd560833",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0027:04": {
+      "decision": "review-deferred",
+      "fingerprint": "3677f4f138e37c5e054a8a37681b66a3b7ca89542ade1aaa583dc54e3f9fa099",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0027:06": {
+      "decision": "review-deferred",
+      "fingerprint": "055d048c764fd6821d32dc86a43473dc5e6c3d83781110db7e0138b89e8469a6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0027:07": {
+      "decision": "review-deferred",
+      "fingerprint": "45c52c427543a28b3893ad01b8ac4e6170d374d419656969ee526b6e15be4687",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0027:09": {
+      "decision": "review-deferred",
+      "fingerprint": "6b1de03f4cd59d633719e610d8f795a59b3326e5e30f0f064d079d1a4f015843",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:01": {
+      "decision": "review-deferred",
+      "fingerprint": "70e63315edc791c5ee0b0f8d6cd09d10f2ca95c7a99780a81a6f9ed5b67c3e3c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:02": {
+      "decision": "review-deferred",
+      "fingerprint": "adfd57a9f7446bfbe656a3713b113fd593950cb08da77cb667807d18135ced46",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:03": {
+      "decision": "review-deferred",
+      "fingerprint": "00c9a3225bc9d88a732467daaec770ebeb3afe690be37d8c06ae248586ddceed",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:05": {
+      "decision": "review-deferred",
+      "fingerprint": "7430f820cce9d93c0043c246687afe3a67924209d0884dc09a56367bb565db2b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:06": {
+      "decision": "review-deferred",
+      "fingerprint": "1ef0d4b9924804f282595306078c0d578819bf1995b31a071e8bd9b55b2a1722",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:07": {
+      "decision": "review-deferred",
+      "fingerprint": "d322a99ec8f5172fda015425dd068bd3ad2c2363f8a94d50fc7339c4dcc3f034",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:08": {
+      "decision": "review-deferred",
+      "fingerprint": "5fb19fb81428289ee8b61f8e4bb6136553b7d4ec8fea387b479aafacb5b8f586",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:10": {
+      "decision": "review-deferred",
+      "fingerprint": "66895dea085266522713ed4cbb6210c59f8976575b21441c0003ac7bafba494d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:11": {
+      "decision": "review-deferred",
+      "fingerprint": "983c467eb0477633eb2f491bcb43a373f2cd3ff048ab4054e24189790227581c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:15": {
+      "decision": "review-deferred",
+      "fingerprint": "a3f05e5d75bef1c790c84b72f44e2ba965627ef6bda5017af9adc89f25f66bce",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:17": {
+      "decision": "review-deferred",
+      "fingerprint": "41b2a5ea7c67c644dd214d75519bc279274fde691466041a2b0704ee7bdfe4cf",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:18": {
+      "decision": "review-deferred",
+      "fingerprint": "941e92a9ef741147964bac0ab54a33d7ee1856d7a7451d9ee4fd65ebce50f138",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:19": {
+      "decision": "review-deferred",
+      "fingerprint": "32cba8212b6aa27b5664f363954833bbe4e4ee38a2781d00924b2485229fa46e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:20": {
+      "decision": "review-deferred",
+      "fingerprint": "e96fbf0083493cf8ab9ce7e3477854ef9587d7ff18c2a72da939f0ea513e33bb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:21": {
+      "decision": "review-deferred",
+      "fingerprint": "242b8ab4f9632475f40a62305c7124e00f6f6b6d314719b431e1cf4bbe6d1b5a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:22": {
+      "decision": "review-deferred",
+      "fingerprint": "b5f30ed32ecec2d0689d333bfbedfe75bb5a3bb4535a65b88b462f814c8db723",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:23": {
+      "decision": "review-deferred",
+      "fingerprint": "ccc2398f2d529b101364fcc38875b02f569cd8c6a41bd1bf28286a55858b5523",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:25": {
+      "decision": "review-deferred",
+      "fingerprint": "4318d54c8533cd7a2887edc46805b079ad6d2f4fc307627759da3bca0589ca33",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:26": {
+      "decision": "review-deferred",
+      "fingerprint": "e723751764a2b06266c26595b227b1d89d6f84c2752c03c10cea68a5456b6e74",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:27": {
+      "decision": "review-deferred",
+      "fingerprint": "f49062540f7e5a7f20528a2a40225e87097132ab347d14ea4c7b39608d18b821",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:28": {
+      "decision": "review-deferred",
+      "fingerprint": "2a6bbb63ff47b73061b0887c425183b30e62399b237d03eabf1712ad6bd12c6f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:31": {
+      "decision": "review-deferred",
+      "fingerprint": "27d68f19237cdb1f303222529ed89c05cf2aea2a3ef16aeb006c61f39b0c5e44",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:32": {
+      "decision": "review-deferred",
+      "fingerprint": "eca9dbb3a01d050e730d17a27b1d888dc5f2070598e4f6cd3a65ebdbad3c825d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:33": {
+      "decision": "review-deferred",
+      "fingerprint": "b34218d211d9b5f19e6620eaa6f1b354db452f93d288e317c73d92082e8723f7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0028:34": {
+      "decision": "review-deferred",
+      "fingerprint": "d38c725a3b66e2cfc9f967ab3917f1d2fdba98abd27c9ab098ea3b5d53b3f534",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0029:00": {
+      "decision": "review-deferred",
+      "fingerprint": "66fef226b3e68a9a71ec73dcc5986bfa24f3dd19b593ce816e795cfe73cb3e00",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0029:08": {
+      "decision": "review-deferred",
+      "fingerprint": "46f448a415077875fb681eb82d420727e349e180526e57803b1f5f441b184bd6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0029:09": {
+      "decision": "review-deferred",
+      "fingerprint": "5edc506203af198dbef0f2ad48c4eba4d8f7486116792cab98f9458cb4f2c311",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0029:10": {
+      "decision": "review-deferred",
+      "fingerprint": "ca3638c7d7ee1eabc48a0476a93832486e78bdf2253c243a3eeb82e94f0cf4ec",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0030:03": {
+      "decision": "review-deferred",
+      "fingerprint": "1d4a11885e78077757d974b267ada9211f478193bc4b925158432cd123730aed",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0030:04": {
+      "decision": "review-deferred",
+      "fingerprint": "3606792ba08c7ce67f68b25a54fdfa90a57c06996d6d66b1968b7e30c9a34676",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0030:05": {
+      "decision": "review-deferred",
+      "fingerprint": "cb79c2d4d931ed4419073ee1bae714590c1b70a38091d9bfe4f61558b052d19a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0030:06": {
+      "decision": "review-deferred",
+      "fingerprint": "8c2f36e5eb188174f5092e29241ba4436d6054bd818b56c912d6879ace716a6b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0030:07": {
+      "decision": "review-deferred",
+      "fingerprint": "d565fc34de676743480e09f080c5c51812fc0bb14e01be4fbffb3d137cee3291",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0033:00": {
+      "decision": "review-deferred",
+      "fingerprint": "e7448c516ad3b0a35a8ed7699327310540eead44f886faea6ed99134ba83cf5a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0034:03": {
+      "decision": "review-deferred",
+      "fingerprint": "837f8079f1ee540b79689695d7db002006fe012d24559d5ccc78283343b96d2a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0034:04": {
+      "decision": "review-deferred",
+      "fingerprint": "a60bcc08b40de13c2383811fc94b44ca378886d68322321a4c9c3c89bac8dfb5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0034:05": {
+      "decision": "review-deferred",
+      "fingerprint": "2ea1f363ecd1fc74a08984aa39a145f1bb83fddfdb2a3d82869778f4d004c393",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0035:01": {
+      "decision": "review-deferred",
+      "fingerprint": "7048006b8f722ef275f356bde02f37c8b0db62b328b670613c69dc69c515c172",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0035:03": {
+      "decision": "review-deferred",
+      "fingerprint": "c922d979043faee3d0349e6a98340142d7daeac7ff0076e3480d5531b0abf5f5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0035:04": {
+      "decision": "review-deferred",
+      "fingerprint": "07188624c6e29f2ac1b4f3b12faa0de0c3bbc71d4184af017bb054f0abfc9459",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0035:16": {
+      "decision": "review-deferred",
+      "fingerprint": "8bab477b9d1d5059afb2eb83857609fe70b1870897d7541ef3f23263ae085f39",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0036:04": {
+      "decision": "review-deferred",
+      "fingerprint": "51de010bc5cd17cd092d5fa8551f9488188ed702b496583f2c686a7f62df8fa9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0038:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7a81c678df7a47a5e2ff3df1ee412baea878728525c09aba70895eec2fda7c2e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0038:01": {
+      "decision": "review-deferred",
+      "fingerprint": "cd3170de4e6ec5dafcab0d7b0fe5463a8c5a22575674077dbb45a617a1e52701",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0038:03": {
+      "decision": "review-deferred",
+      "fingerprint": "7f6349606a02e8a8113394e379679cd55adef958049f0e11a591e0011aa6625e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0039:01": {
+      "decision": "review-deferred",
+      "fingerprint": "a6120858c6ddafed9500b9489cd7fad131044a2cb9374f515ea613240529bb1f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0040:05": {
+      "decision": "review-deferred",
+      "fingerprint": "99cd2b5f0a34b216f81250f786dbaaa36290c81cbf8d0d7d7872d11a23bd3b0e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0040:07": {
+      "decision": "review-deferred",
+      "fingerprint": "a054d615ffe21be51f226b2c16cd76e10ce02cc495a6874e2b05d21be1dd6669",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:01": {
+      "decision": "review-deferred",
+      "fingerprint": "18a4b11b9845c4b1a782b2922179a4b1dd4fd431a7298cebd482ca8c3c49f578",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:02": {
+      "decision": "review-deferred",
+      "fingerprint": "2f116348c158001273ecc418ed59afd8d473b200c4ecc9e3d79b91c623850042",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:03": {
+      "decision": "review-deferred",
+      "fingerprint": "25e58fba5a6f7a915c14e9c5bd296eaee5f34ae45429f9332cfe35806979cabd",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:05": {
+      "decision": "review-deferred",
+      "fingerprint": "ccf5ad040f339ca7036bc32ce50b9d66e756ab6c54930646872845c9dbc209f2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:06": {
+      "decision": "review-deferred",
+      "fingerprint": "bc58afad0823356d69108f173d024cb18ec8e251124f48ce4eb75277ac4e9713",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:07": {
+      "decision": "review-deferred",
+      "fingerprint": "2ac3b2613c5551ed18fdfbaab45fc65e1c8f16070a92b23d1d637af8ca68681b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:08": {
+      "decision": "review-deferred",
+      "fingerprint": "246ad2abddd67ebc767065ad20ca35d8ef9045f6b27e6a5aa9f3f5254f146f9a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:09": {
+      "decision": "review-deferred",
+      "fingerprint": "6b5184891876768933de567880057385ffab06f123821030ee6f35793b5e890c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:14": {
+      "decision": "review-deferred",
+      "fingerprint": "accbe43a43e5a03d13f0b1879320d40967a30946972d3c70f97c941268a156fb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:17": {
+      "decision": "review-deferred",
+      "fingerprint": "7a59d98967f202df436b62cbe2a783965e87eb99a84f80677a9c3b0bd9f587eb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:18": {
+      "decision": "review-deferred",
+      "fingerprint": "e57ceb76d594d870db574df49ec6cb52ec6214c89b7a03fd437b906b4118d13c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0041:22": {
+      "decision": "review-deferred",
+      "fingerprint": "1195aee06d55a4c80c3798e8f6e8ff3c42867247d504c651af911eff82ce65c2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0043:03": {
+      "decision": "review-deferred",
+      "fingerprint": "c42f7290d7963a12ce8fa382f470fac2500c2398d6fc3b580b3702e3af788371",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0043:09": {
+      "decision": "review-deferred",
+      "fingerprint": "016ebaa0155632399cdc9fdb79fe58d393133ef2549cce0448b8f3b4d917e6cc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:01": {
+      "decision": "review-deferred",
+      "fingerprint": "1ac7d62e5ccb11755507817851081bbed9a3e5169aee453952c3fae07fb2afd6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:02": {
+      "decision": "review-deferred",
+      "fingerprint": "742efeb319c18ff2b1228946622af2a62a287a551de90b03c4e21b00df9c708c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:03": {
+      "decision": "review-deferred",
+      "fingerprint": "cbf47d5c22c50671c79903dabc2f1c96e371871de0a8be9b00ff942db6a5abb9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:04": {
+      "decision": "review-deferred",
+      "fingerprint": "a499b1b6502f6663e30760708c2867dde33f8e2a303d96c6c82ec7373eccd2ef",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:05": {
+      "decision": "review-deferred",
+      "fingerprint": "1d22b93fcbdeb54f32193d01a267fc93712a2f64edc4350b69dd9a5b2537899f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:07": {
+      "decision": "review-deferred",
+      "fingerprint": "6cc334e1b890a42579bc4f1708133acadf4d7344fae5822da3aae9bbf3e537e9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:08": {
+      "decision": "review-deferred",
+      "fingerprint": "04b6d9b3632a187bae5f81d3733c0b3306a6215cc3d6a28356e3a7e4beaeef58",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:09": {
+      "decision": "review-deferred",
+      "fingerprint": "6fc01dfb8705889e593cdf00b563fd158b88f2045355d36d8f452191d1e60d3f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:10": {
+      "decision": "review-deferred",
+      "fingerprint": "75b8506827e15f4bb681da00ea32e5f3792746ab45fcdb8206661cc50e8a716d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:12": {
+      "decision": "review-deferred",
+      "fingerprint": "1612872a71aa02d5fb9275d4e36958f539c77d04f352a9c74c82029b55b2d773",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0044:13": {
+      "decision": "review-deferred",
+      "fingerprint": "40f4e581a15cce7968647a51611cc40be6f04a7ed14263665a555ee917c02efe",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:01": {
+      "decision": "review-deferred",
+      "fingerprint": "2a2b88e37bf502c14c15c38ac414dbf4f699eba628a278508cd9794c3303b84d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:03": {
+      "decision": "review-deferred",
+      "fingerprint": "7318dcc6013a752d6d3f2a7df2b75c4cfeb81c83fb7c73a3fd012c8d4deca987",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:05": {
+      "decision": "review-deferred",
+      "fingerprint": "485b62c6b5c61dfa98b39940ddfbf9d69aad2bd58a23d0c576b3b214b12995ce",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:06": {
+      "decision": "review-deferred",
+      "fingerprint": "86b399edb749fa93f0970c8af7cfb3018c7b56e598da1c98e65088897b4a0e28",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:07": {
+      "decision": "review-deferred",
+      "fingerprint": "009aad339990f484a76ca5f2767daf3035ceddb6411492444e1977b2bf6677c4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:08": {
+      "decision": "review-deferred",
+      "fingerprint": "445a74df793021bbedf75252440faff8e41ac7a0c279a7268c636a811fce2a78",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:09": {
+      "decision": "review-deferred",
+      "fingerprint": "fdca4672597bcfba6476e7236923ab8590479378ce81dd3d357641fc2c33bf25",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:10": {
+      "decision": "review-deferred",
+      "fingerprint": "19bb66d371ce3ed6bf192072cad4393afaf9c9d93cb0bec48fb0a98bf37a7266",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0045:11": {
+      "decision": "review-deferred",
+      "fingerprint": "ff9546d9771c84a7a079f815c06085717bcc0600a7b36dccd0f3d0a258b074f9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0046:01": {
+      "decision": "review-deferred",
+      "fingerprint": "894d565b21f2e68fb1ff41ec361574405672ce2745081b7177d27d781bdb665e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0046:04": {
+      "decision": "review-deferred",
+      "fingerprint": "e11793dee04a66ba6514c1860244146f72b49b99a907b713474f719ef937be66",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0046:05": {
+      "decision": "review-deferred",
+      "fingerprint": "5d2881ee631bc6631f9d5edb86a43f98e96a29d1c8364eb3f71f4b6297a45035",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0047:01": {
+      "decision": "review-deferred",
+      "fingerprint": "337aff8bda2ededb4f495e234e304625712917e946f4599346b0d5e12a9af604",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0047:03": {
+      "decision": "review-deferred",
+      "fingerprint": "04a975c06065bab7a2d7410464b2ee34b17c43ba9f02909b915373b44f2ec9c2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0047:05": {
+      "decision": "review-deferred",
+      "fingerprint": "46074ca78679bc12a8113e3e5d6bf354ba38b81e8eeeae3384db2049730b8895",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0047:07": {
+      "decision": "review-deferred",
+      "fingerprint": "43401c83dc8e132c66f67f7ad68e4c22214e60e405aaeb244b4986d6d3da664a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0047:09": {
+      "decision": "review-deferred",
+      "fingerprint": "b8cc2073614a96eab4db7ebdd8aa595769fc12ede64949b19be966909e27c5c8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0048:01": {
+      "decision": "review-deferred",
+      "fingerprint": "e4a078b42a43d0b9ef718a35f319d822700013465feacbd708b4e6927fd35dc0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0048:03": {
+      "decision": "review-deferred",
+      "fingerprint": "4b4cf4d406f74512fc0974b25743064d7252b337cecaf90a1e47b210523653c4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0048:04": {
+      "decision": "review-deferred",
+      "fingerprint": "4bf7986780c0b26aa739344ce5155a6083b3965a941c7cc9f5841df503004a7c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0048:05": {
+      "decision": "review-deferred",
+      "fingerprint": "3af3e2cfd59a2cef21a56d766b44bc6d44150fe5b5cad6eea509dd26bbc37456",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:01": {
+      "decision": "review-deferred",
+      "fingerprint": "8062b40ed1cc4a0956d72f25fa253f44c127dc16f4cc570dfaaee745c003d87b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:03": {
+      "decision": "review-deferred",
+      "fingerprint": "6ddea4a5bb7f67751e9c4a8a18d811c46eea9349ea6e797d17df302d39665342",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:04": {
+      "decision": "review-deferred",
+      "fingerprint": "041dea5803a51e5a7bfebb247a2e9fbe02fda309c29d99b6aba631c22c9d7096",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:05": {
+      "decision": "review-deferred",
+      "fingerprint": "a3e4cb107f3eb2304c64d1b082c0551dd4d7eb6c4f3b72f567d94432acaff0a9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:06": {
+      "decision": "review-deferred",
+      "fingerprint": "cff1c543a7d3937c05238039799bde46d69bce207de899b7bfc19d6d71313e3a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:10": {
+      "decision": "review-deferred",
+      "fingerprint": "07cc2092c8c6341625f47797f2d0361b0b86fda92a64bdf854c2109cc2aa513d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:12": {
+      "decision": "review-deferred",
+      "fingerprint": "cbcff70ebb2984f779cee6f14a67f62e70e4716e6fcabab65246114c4edd5c00",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:14": {
+      "decision": "review-deferred",
+      "fingerprint": "be7f3cd8be50e5fd8fa3204c135b589d6e47979e5dcff99dc62a066f4b65d114",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:15": {
+      "decision": "review-deferred",
+      "fingerprint": "d366538f9b600b946ed638905a16d6e2d825926c53d4d6ef4343afb24d26baa5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0049:16": {
+      "decision": "review-deferred",
+      "fingerprint": "6697fabc7ae256ec09b90fd279c93f0ac01715c262555de0168d4608697f331f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:01": {
+      "decision": "review-deferred",
+      "fingerprint": "51dc5ed91decb8db595753b4cca7078a25a15c509d9f5a96e760a5bdbd3c10c8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:02": {
+      "decision": "review-deferred",
+      "fingerprint": "49c7e613dc2d3f87d95fcc2b834b09f44c3cf08898c120c9879a9c6d6732ba73",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:03": {
+      "decision": "review-deferred",
+      "fingerprint": "2a99296f59600b5ec005034e18e11d0f99fc6cc951fcbcff8b26a7f314f35849",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:04": {
+      "decision": "review-deferred",
+      "fingerprint": "4db3ea8150d3f95e0b5df3e7638e7ca28158ddba29757069288f008ac50e0901",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:05": {
+      "decision": "review-deferred",
+      "fingerprint": "7a09e7544ed385dd78d7c798d4820fe68439ba81a61a51699b369b0fa0150ff1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:06": {
+      "decision": "review-deferred",
+      "fingerprint": "d55480850596ec562c50e89fe25a279c63a17517320f0c62b98c7163e6b6c53f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:07": {
+      "decision": "review-deferred",
+      "fingerprint": "1d49d36437931fb0d584cca6aa8c6c8a5fb72d7533b70a65906f616032b08ad5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0050:10": {
+      "decision": "review-deferred",
+      "fingerprint": "89fc61201630c92e522da5cb9b25da9c5951fdb1d4efb3858934bda477f79840",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0051:01": {
+      "decision": "review-deferred",
+      "fingerprint": "f9a9f27d3b1f6e29c64055903528871b373a7392971fc113f540c6fef3198253",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0051:03": {
+      "decision": "review-deferred",
+      "fingerprint": "33d54f95ceae9834e07ee5890e9abf5a72225fc2c8264d23d0220e19c518cfb6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0051:04": {
+      "decision": "review-deferred",
+      "fingerprint": "e1b23c87bd1d65d1e0de33530e1ed820390114048e2babc89b56cf845c8f7b5c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0051:05": {
+      "decision": "review-deferred",
+      "fingerprint": "20ba1044392da7a2d04e10cfd11fb4b4aa8d0535ecf86889e86dd1aa643ec468",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0052:03": {
+      "decision": "review-deferred",
+      "fingerprint": "8ae45bcad671509ead758132fa1fc41b507f3c78951165c5ec5b34d2e2d3579d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0052:05": {
+      "decision": "review-deferred",
+      "fingerprint": "8997b7e36a7f93e9bfccada39307c4938a35a8e0857884b9d3f5be90f1c8f2a3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0052:08": {
+      "decision": "review-deferred",
+      "fingerprint": "1928507d30050af43d2af48404f63a915845de8f7aaab793debff8e8061e4777",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0052:09": {
+      "decision": "review-deferred",
+      "fingerprint": "a9d1ad202b1ea9018c0dc0a31b619f8a91f90d1b84693978e5ca92d2875c0f60",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0052:10": {
+      "decision": "review-deferred",
+      "fingerprint": "e1feb327d9c4824f7975b2b0664cd680f74e54cbe6e63e1064c827b0c882c7e6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:01": {
+      "decision": "review-deferred",
+      "fingerprint": "a6fe8aac8650c1ee8dcb34fbf56341bb862904c42d35fa69375df1f5243cd98b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:06": {
+      "decision": "review-deferred",
+      "fingerprint": "1a5d692e139a58ff7a62d95ff7f6579328157e0fb1d3991e51bbe4240f238d46",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:10": {
+      "decision": "review-deferred",
+      "fingerprint": "5950aa833528590edbb006c7b3b851f0d9bcda9017f3cb6cd63add745212d8ed",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:11": {
+      "decision": "review-deferred",
+      "fingerprint": "67cd56ea6ceec78892ab84dd52ea709ea8f6ced0a61884bff3ec767366b49ab1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:12": {
+      "decision": "review-deferred",
+      "fingerprint": "c5ef60fb5ce7405c324cbe71aa58da97d9351e3fe891908aec1a85a890824500",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:13": {
+      "decision": "review-deferred",
+      "fingerprint": "4ce15c065d858b7b99878e0de2b793fb16041cc9cd560427ff5c74b77b6a51b4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:14": {
+      "decision": "review-deferred",
+      "fingerprint": "ee267dce9e7db8ac173b00a0c5c1c8e3c4e12cd982b18b3ec329d6447733269e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:15": {
+      "decision": "review-deferred",
+      "fingerprint": "b1182471a4f4e8e1e9d1402ce51a8959e339aa924a3c79f368b77b698304ffc6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:16": {
+      "decision": "review-deferred",
+      "fingerprint": "c67025703c099ac4aa46b85bb0471b2c9cc8fde50efd50c402ab4e8cc682b0a2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:17": {
+      "decision": "review-deferred",
+      "fingerprint": "bc3c31b433d7c7764391cc34cee393eebf5bfdf920be7eeffbc8cfdae5b28245",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:19": {
+      "decision": "review-deferred",
+      "fingerprint": "27533ff49bb700207f55f8e8aca875d56606c8526a0f6ce8a29c0645710a0526",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:20": {
+      "decision": "review-deferred",
+      "fingerprint": "045fbabb98d604ea9e8354fe9dea108d3ad7081ab13a2ec3047d511cc613b013",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0053:21": {
+      "decision": "review-deferred",
+      "fingerprint": "0b5123312951ebdfa10a379bf0a583fd071b8bd9b3f88dd39179c0deed301651",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:00": {
+      "decision": "review-deferred",
+      "fingerprint": "fb980efd32e46fe57a7882cc8f5613703124a03bec41eab4997690bac34d94e2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:03": {
+      "decision": "review-deferred",
+      "fingerprint": "8b20544b9487767f83063b873921b9e9988b7f96b48db8f04be8d5e937c39dab",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:04": {
+      "decision": "review-deferred",
+      "fingerprint": "6ab0709e137f22d1a83787dca767b963ae8df03212e1b3ac34d6a3dd27c95d31",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:14": {
+      "decision": "review-deferred",
+      "fingerprint": "b35d37998d9697141884cb4b5da0ac683088b2f87c4c4d3390f54a4d1bd59ca6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:15": {
+      "decision": "review-deferred",
+      "fingerprint": "247ea1398fbf9030d85d1af0a77b4a881d1babefd46c761a333ac5286705e829",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:16": {
+      "decision": "review-deferred",
+      "fingerprint": "4d8d927be2f373d15e4e9931249fde2a426b1fc2c64f05e1fcdd91374b7fc8c8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:17": {
+      "decision": "review-deferred",
+      "fingerprint": "67391313136f7dc409e8ed9bf2f9b0b4b03c755523cf3d56d512a3092962aa61",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:18": {
+      "decision": "review-deferred",
+      "fingerprint": "3e6da70ad404b62233b37250e1e9214cfb84f5382b7db77b9e5e2aca817c88ed",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:19": {
+      "decision": "review-deferred",
+      "fingerprint": "fbda783bcc51a4f7567fd3c1dd67a9c0b735da4d0770eebb121911d51bc8ade5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:20": {
+      "decision": "review-deferred",
+      "fingerprint": "a6bb7165c14351d99e33512549f992086c513ec539294e8b58993d14604ddf05",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0054:21": {
+      "decision": "review-deferred",
+      "fingerprint": "5431b0b8f5bdce05adbde8aa17c5bfbf03adda7b9bd71b167bc7941ca2c308f0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0055:01": {
+      "decision": "review-deferred",
+      "fingerprint": "2ac7075e7beeb223efbd21788f878c7ddad9a04233ffad7b3c2e793e0910d039",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0055:03": {
+      "decision": "review-deferred",
+      "fingerprint": "5cbaedd2e322933a4274c01366188c2b5b811ebb86e7bea3f3bcf3366f3451b4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0055:09": {
+      "decision": "review-deferred",
+      "fingerprint": "e3a14e6a9bb46e039a88c1a7c3f0580734fb1eb8b2b56431dee4b92ad4ca4c8f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0055:10": {
+      "decision": "review-deferred",
+      "fingerprint": "8584c64a61a8bf0483a16f9679510327a9b65a450ca90d95cf0d68c6e9966f4b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0056:10": {
+      "decision": "review-deferred",
+      "fingerprint": "5b4bd936f85e26bc170f41e5a09c54d9f389cd4d24fdb6ca8d8f411e82242eda",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0057:01": {
+      "decision": "review-deferred",
+      "fingerprint": "25fccee66943a5f6987bd4ab50766b69fdb08360e0550ce8d1f728d0ec7da013",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0057:05": {
+      "decision": "review-deferred",
+      "fingerprint": "afc0aba76fc56e2cf7d4b1f9da9c803a022562214bbf6bad366af30c610342ce",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0057:08": {
+      "decision": "review-deferred",
+      "fingerprint": "abd3684edc273149513b851e0d9b7ca3bd392d601043dd15790fba45b1784acf",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0057:10": {
+      "decision": "review-deferred",
+      "fingerprint": "186235c4d3aaa1c7cb05089bae80e25b96cf63b88edb1bb29d0228f526e5e20b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0058:01": {
+      "decision": "review-deferred",
+      "fingerprint": "b99b365ab08f6b8443ff347b69765926239c988284f815723c02181de525ce71",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0058:04": {
+      "decision": "review-deferred",
+      "fingerprint": "ce2f788b437a02997a303601751139ac3115d4da0e1b71ebbfff8c18f6616c00",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:00": {
+      "decision": "review-deferred",
+      "fingerprint": "499e92835ff1ee8cf3b8e6ba5933a2afd77c61427c3776ab2a4f44610f44ce35",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:01": {
+      "decision": "review-deferred",
+      "fingerprint": "4003010bb130214a3156ab3c410be2c2383b0439d5f43788445f5357c998d463",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:03": {
+      "decision": "review-deferred",
+      "fingerprint": "c2f91404e0da786aafab4f5ad220261e0e37ec7ad25d5d465d1ba33dc6ccb332",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:04": {
+      "decision": "review-deferred",
+      "fingerprint": "e69ed9c299133e3874c0b74b37c50c297cbd6b417d6f171dd4d9ac85102707ae",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:05": {
+      "decision": "review-deferred",
+      "fingerprint": "7e1f8d8bde08dbc80ac851de115920ae062378b1d5c099f49a0945be9e198dbc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:06": {
+      "decision": "review-deferred",
+      "fingerprint": "4a83d49674995c6d240e2a3bcee2d0e9ab1683f24d61717cc2521d86f5423234",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:07": {
+      "decision": "review-deferred",
+      "fingerprint": "d1d0b64ffa1698babdba4518323578885e74d6df198ddf0ae334c19f1ac01338",
+      "reason": "Byte-identical model and identical stored-frame image to the published scene 6 / 7; retain scene provenance without a duplicate gallery card."
+    },
+    "04:0059:08": {
+      "decision": "review-deferred",
+      "fingerprint": "42ebab667797d6838e273e4c51f74fda5e90295a22bde37c070fab895bee981d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:09": {
+      "decision": "review-deferred",
+      "fingerprint": "f6b0c96d181da4ef11edfbf5f131551959f7b0b37b60b22b44db3adbd86411ab",
+      "reason": "Byte-identical model and identical stored-frame image to the published scene 6 / 9; retain scene provenance without a duplicate gallery card."
+    },
+    "04:0059:10": {
+      "decision": "review-deferred",
+      "fingerprint": "d0c229290c83e2597a5600290d91e8f4d7ac7415274716e550fde10d33035819",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:11": {
+      "decision": "review-deferred",
+      "fingerprint": "3d62fe1c8a0a3ab67ac64627b6000c4141223cc2081eb91657a294248e0d715e",
+      "reason": "Byte-identical model and identical stored-frame image to the published scene 6 / 12; retain scene provenance without a duplicate gallery card."
+    },
+    "04:0059:12": {
+      "decision": "review-deferred",
+      "fingerprint": "00ba46d813eab491b0e2acaf44629eb8c0064f124636f4a3b5fb03ed28806e95",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:13": {
+      "decision": "review-deferred",
+      "fingerprint": "7f6f50ff50bd1daf1b79afa5aa20a532338f01f901d30aa3b3eb39dc2fff8bdd",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:14": {
+      "decision": "review-deferred",
+      "fingerprint": "9459d79fc6578994935238bb114759c8c0d3edca3b9e2a972f57a6bd7e041a1d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:15": {
+      "decision": "review-deferred",
+      "fingerprint": "b48dc8eec996ca082954dafca85274cf0fe7f3b4dacb2487fdc38ed7f6aad6ae",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:16": {
+      "decision": "review-deferred",
+      "fingerprint": "968d37c414e083df28d3206093a8b1ecbe817715e344e4fc69c444392e9422d5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:17": {
+      "decision": "review-deferred",
+      "fingerprint": "a4d7e97119e63911bf43ed754f3748e8cddc91eef5814e3b70d7c844d70ec419",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:18": {
+      "decision": "review-deferred",
+      "fingerprint": "672c6f2eb009732da89a1609c7d413249cb1993705ca201afffed07ab4898fab",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:19": {
+      "decision": "review-deferred",
+      "fingerprint": "10fd8f1df85b22e307306fe107d07a2f66767136e3eb70983282f3dd29c462b7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:21": {
+      "decision": "review-deferred",
+      "fingerprint": "41c3a5dcbb33687d567a33fb46845524ec7a1657a819ef9a302d126d618bba4c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:22": {
+      "decision": "review-deferred",
+      "fingerprint": "b18a6884455662d89145a183671828ebc0cabf17f859e95efe78bd4267f723c5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:24": {
+      "decision": "review-deferred",
+      "fingerprint": "619c206cc5df84e087a8b9a5fd8094f1c95bc54f5bf0a609f85063e25a7c2b7f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:25": {
+      "decision": "review-deferred",
+      "fingerprint": "7a15e8633173842581628fa0f0aba0a66a86bc4a266740dd8a62092b3c1d09da",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:26": {
+      "decision": "review-deferred",
+      "fingerprint": "eba8f01a1bdbe330585010651762cfcbb1e4726e65d714421d807a44ed3f0c05",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:27": {
+      "decision": "review-deferred",
+      "fingerprint": "55b0aae85a27fbb50ec1381b9439087fb9cc2f75aa438e7d2337674d66cbc38d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:28": {
+      "decision": "review-deferred",
+      "fingerprint": "a9280d610c9b9cc17c7a160440d183d06dfbc0001702e48e506e27abafc1b22d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:29": {
+      "decision": "review-deferred",
+      "fingerprint": "cc95867dee8eae60c4880c165e3e8fd50632f9149fb263e2a2a499fe3dc942bb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:30": {
+      "decision": "review-deferred",
+      "fingerprint": "83c435cc774e5fc25f10b901aef3e8c221d622c610ed76bac8b88c4a66e31a48",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0059:31": {
+      "decision": "review-deferred",
+      "fingerprint": "26ffc266568eb71793997e70e1e46152ae17b8a8a83dced33763ed738c8488df",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:01": {
+      "decision": "review-deferred",
+      "fingerprint": "b837f30476bc6b42d7d238d149ab8f53befab4bcacc75d87544cac44a5fc07b8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:02": {
+      "decision": "review-deferred",
+      "fingerprint": "2c57692d47af9bd2d203bfa3ca5dc6ab55d5f592b69c36298396ec83f8db831a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:03": {
+      "decision": "review-deferred",
+      "fingerprint": "0bc5f5971474dc1fc35cd91bca398bacf396bf3768b1ae46b8b5d9aabe12498e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:07": {
+      "decision": "review-deferred",
+      "fingerprint": "c19cb634b7ee63289a0b07e88032fa8f141ab1a8f69d667767c5aefbea06aee2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:10": {
+      "decision": "review-deferred",
+      "fingerprint": "d741aa294461d29db04a73efc03b951842c06dd3ad6a6e69c8b8508723f4bb7a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:11": {
+      "decision": "review-deferred",
+      "fingerprint": "2919d8e28ed41be0ba9320b0006a87c2702c384840afcc05578cf141bc3535c6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:12": {
+      "decision": "review-deferred",
+      "fingerprint": "09289e7b38a90be56537039398fa790f87dbb3a3772450c85cddaf686d227d3c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:13": {
+      "decision": "review-deferred",
+      "fingerprint": "fdece5da59e91e53f9b51029216e1f6cf1f96a6ea85dbddd63523d132b9e9003",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:14": {
+      "decision": "review-deferred",
+      "fingerprint": "a0ee07666728427f6b3faceae4b682475db8fcce57e05237794b000438da3b0f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:15": {
+      "decision": "review-deferred",
+      "fingerprint": "0907fe9754cc9033e57560a5633b6bb6a4faa54346a867c231bec4296d51cc46",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0060:16": {
+      "decision": "review-deferred",
+      "fingerprint": "f3fa0816fca65ef1c30ab331aae008219d0e73e4f4665d4e8cd7f02c883985f7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0061:01": {
+      "decision": "review-deferred",
+      "fingerprint": "76805c4de101379da8a2861dbdc4851360a725bc32a4e697c538b1a7b71ae9af",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0063:03": {
+      "decision": "review-deferred",
+      "fingerprint": "97b6b4aedbc1c0b93c8a65804bc9fab388bf371ba70a56d02ac0c1be6198c105",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:03": {
+      "decision": "review-deferred",
+      "fingerprint": "c855712b554d3c1b060d900c0cf2499f1656c42fdac71c9273159c31706958e0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:04": {
+      "decision": "review-deferred",
+      "fingerprint": "8568328e68a68617fead0cc4dc936107246cc2a990c910e3c1374429a80421a3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:05": {
+      "decision": "review-deferred",
+      "fingerprint": "ed8512af38e4660c1f7672df09abf1fda1be539a268e335a51ca65926a778fcb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:06": {
+      "decision": "review-deferred",
+      "fingerprint": "ff9744f67e9a51c151d339476d7b36fbd65865ded8988559b49ab2cc90d12137",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:07": {
+      "decision": "review-deferred",
+      "fingerprint": "a969cfc48fcccccc65afaa0e8932fa0d7b7fa6eb1b36be32d5a2f0a93bfb04c1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:09": {
+      "decision": "review-deferred",
+      "fingerprint": "a0bc63c27c931080a664ef33cd16ffc13272f0a8113bb24a3e4ae3621bf2806a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:10": {
+      "decision": "review-deferred",
+      "fingerprint": "91970881f1c3035e5480c7d0001aab0016f468417c7e8b954796bd456808cfcf",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:14": {
+      "decision": "review-deferred",
+      "fingerprint": "fee8aadbe13e080a49f0d04c943256d1ee020a9b7b857c2e5cfcc0bbe94ea31b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:15": {
+      "decision": "review-deferred",
+      "fingerprint": "db35610775e05f826d829f840c6a87078afa39a2639ea306b10d5cef3061bbe4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:16": {
+      "decision": "review-deferred",
+      "fingerprint": "05a313d45fb413aaa76b5d000bebe2a92caf25b102d467d98f4a4fc675830254",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:17": {
+      "decision": "review-deferred",
+      "fingerprint": "80df184f7ffedcf24fc55219f0e4bffea2fbc77127778465f90416867f418fbb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:18": {
+      "decision": "review-deferred",
+      "fingerprint": "11bc34bb86ef1ce1e2877abd111656f2d429bae4b7aff6196ee6ce40ca917e50",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:19": {
+      "decision": "review-deferred",
+      "fingerprint": "233a461cb7258d8662b10945992cdb8ff02c2d42d7a7eb71a81b8f01bf9dc33c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0064:21": {
+      "decision": "review-deferred",
+      "fingerprint": "c5daed726804b50fcf55faa9ae1b2d822a9ee7ed617878d770a99358276d7402",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:01": {
+      "decision": "review-deferred",
+      "fingerprint": "981cfb3022548e5cfcdd6a74b1368eb81771f8acb2aef3d2b247480818b38511",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:03": {
+      "decision": "review-deferred",
+      "fingerprint": "97bcb8960ee1b7aa1b0c38977482692c0ff6c844d1a415070d6a170bbf0d87ae",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:06": {
+      "decision": "review-deferred",
+      "fingerprint": "1197cde500ac35f4f693fdc263ddfeb389defa084cc9351eec07c707a4f66ce5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:08": {
+      "decision": "review-deferred",
+      "fingerprint": "4c06e7766011845376512f63f638732448f8dc08e1d0ffbe8d415f6a62c5a8cb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:15": {
+      "decision": "review-deferred",
+      "fingerprint": "d830912835bc90ca62564c426d0c4efb75f85e6dc5067d2c47f0c108934fb948",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:16": {
+      "decision": "review-deferred",
+      "fingerprint": "d12b388b697003ceaea672fa2b5d758c921bfaa06153ada2126897785ceed90e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:17": {
+      "decision": "review-deferred",
+      "fingerprint": "76d05a25cee81ebe795b18eb671ca2a788a6455be394f20506ae0bb2be3ee3e1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:18": {
+      "decision": "review-deferred",
+      "fingerprint": "88be0784f703c69bcd0658d062509095a493cdc3b67e2a4b064924012bb2766b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0065:19": {
+      "decision": "review-deferred",
+      "fingerprint": "21755fbf84372b2c1c372a0a63870a3a34270b88f8ef583a012758752170aac2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0066:01": {
+      "decision": "review-deferred",
+      "fingerprint": "a0266561c4d93f464709e49d6bc9f394f5e62e9a862297bf4298396d38fb8ddb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0067:01": {
+      "decision": "review-deferred",
+      "fingerprint": "4e9ee7504f1f70d1d41aeefe455a7ebd3f4cd9fb1cdec7f8bdfb2986ff99966a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0067:05": {
+      "decision": "review-deferred",
+      "fingerprint": "51a27d1db6eebe57e76bdf11c9809464901b69fd8973943d5824e2a14a12cf91",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0067:08": {
+      "decision": "review-deferred",
+      "fingerprint": "b976f6cd3c27de9232f48f29292b5b1c9d0d4b23828e9644cbde57f82f27161b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0067:10": {
+      "decision": "review-deferred",
+      "fingerprint": "55afc1c417834ac5830dad142297fc42600ab3065fe7eb8b09d34d2168ada071",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0067:11": {
+      "decision": "review-deferred",
+      "fingerprint": "c12012317055efa11d3a6087997658a4d4c6812d1089ab97829cdad174b9eb7c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:00": {
+      "decision": "review-deferred",
+      "fingerprint": "22aa9bc91928c90979506eb26dad135e2630dfa9edf6f8643105b25df02f602e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:01": {
+      "decision": "review-deferred",
+      "fingerprint": "d79aafa417ab75a97eced3446d4f3a0aa69621cd43ee8e3b05c0f792353825a9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:03": {
+      "decision": "review-deferred",
+      "fingerprint": "d19c5b1bd5568c26540744677cb0600f63754e8117d527796f1d86893b1d40be",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:04": {
+      "decision": "review-deferred",
+      "fingerprint": "b654a074e8cd904816dbb7efbd3a70cbf6e3c6bc06327f3e917d37b32fccc173",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:05": {
+      "decision": "review-deferred",
+      "fingerprint": "e9ed54b4f797c2ce34d4868df34991c82b4caf44fc3e3c7f245acaec657303c6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:06": {
+      "decision": "review-deferred",
+      "fingerprint": "9e1c19fa7b593f240439bb03b630344ec8ebc63e268f3dbc047b1ae6d5751009",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:09": {
+      "decision": "review-deferred",
+      "fingerprint": "aa54cc7d0632c49c50708c3c013550de5c643d87c0f45e9db1f3c0b665c84450",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "04:0068:10": {
+      "decision": "review-deferred",
+      "fingerprint": "b7e7e4029147e7396482eaf2a256519beed2baf630339e7a6434ca4457f9a3a1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0000:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3f2c4b31c7c017efef291be22a875d105ffe1c3dbdfa381fb4bc9fc0796a1a8f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0001:00": {
+      "decision": "review-deferred",
+      "fingerprint": "59a3737f8ca4a0c034082c81c4486a8d6f3d2575fc98fc72c496d312c464b212",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0002:00": {
+      "decision": "review-deferred",
+      "fingerprint": "bf0b990f7df5bd75ff95ea7f5069f79f1fb531e136945941cbf730bbc888e744",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0003:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ef6530b5d5d3f79ca7d3824ba3efe017a585f8e2da4cf322facdfb4dbe748f0e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0004:00": {
+      "decision": "review-deferred",
+      "fingerprint": "914a839e6661a538ca0f4540ddf2d48f86b39fda3d5c0218b57b833349f75a39",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0005:00": {
+      "decision": "review-deferred",
+      "fingerprint": "c22e85e1fb7984a213a5f73527da8f004740cf503cb902e57524a15c36f48be1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0006:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b214eebb7d25163aca125903c47dfb2acdc531619db4235dec1883adf2bca0e0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0007:00": {
+      "decision": "review-deferred",
+      "fingerprint": "9d50fb897c69668ed2ee3733c774a3cf8787ac53022853f155b0a8ce565a83e7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0008:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b39835f704053b7734f612bb66f6d1a983e152c0a0db6a9c1f83b93db316081f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0009:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7c65b6777796f2b4c7ed96f38b83f2f843ca27c4ce955b47e8847bfcf7b43d7f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0010:00": {
+      "decision": "review-deferred",
+      "fingerprint": "18f17339ed6d63de5200626670238930fa34b2f3a10fc137dc4c3d5db97dc32d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0011:00": {
+      "decision": "review-deferred",
+      "fingerprint": "9fe2a1ad856c7e6e66b0281ac6bf37f12f9e427ad8f868c881e9a7ddce25c69b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0012:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7156a628dbec991b393d0f119c57dd3cd75a381aee674ec04a4d1ba284d5ffb5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0014:00": {
+      "decision": "review-deferred",
+      "fingerprint": "9ed8cb31e87f39ae70c0175bfa7eb81f2af12e8f995647ede887545fb772dca9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0016:00": {
+      "decision": "review-deferred",
+      "fingerprint": "2c53e184347d7b86c297ab1b18fb54529829e36afb19e4c2377e2365e92eb5a3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0018:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5b348af885689bb0b152befc4b42ecdba725b03ef64a0b4813adcc3417ac2b68",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0029:00": {
+      "decision": "review-deferred",
+      "fingerprint": "fa569b6ec6e89d2ebebac32cb7b7adc41131518bc748883c7276a0343677f36d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0030:00": {
+      "decision": "review-deferred",
+      "fingerprint": "6035c4e00bccb958506296a9fcd76a5650084c7235a6dac7eaf3e8bbf5c7869d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0033:00": {
+      "decision": "review-deferred",
+      "fingerprint": "2217e2e3de9e59dc11f5a84407cefc387cf51e5c2639fe2911124b606ee77004",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0035:00": {
+      "decision": "review-deferred",
+      "fingerprint": "cc3f628baf73922ad60bb463d1948fae03f0fe8ad4dafae0f2cf03da12b62752",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0037:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b5ed01dc73d15748592e72ccd889ab27d1c178175a2bf147b026c745e3294dd0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0038:00": {
+      "decision": "review-deferred",
+      "fingerprint": "6ba04130ef19a72b662b02a0f63091bb3b143ae85281b6e3f304c6e4c0e5c242",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0042:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ba97a310c2ebc0bc38073ee403127d16894f27fd8d2849293500f343f659b485",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0046:00": {
+      "decision": "review-deferred",
+      "fingerprint": "733ca74e006ff615d92f0469481f6c40c8b44b3147b01e2d02c90af315c63409",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0052:00": {
+      "decision": "review-deferred",
+      "fingerprint": "45501ab03ae23ae9354b7bb7c5af0b500ddba44092f88bbe6ea77fce06d90d38",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0054:00": {
+      "decision": "review-deferred",
+      "fingerprint": "1d5987efd1c71223c2660f1ebcf0fd490c39e143cdfffdd94719e8678e8a1c7c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0057:00": {
+      "decision": "review-deferred",
+      "fingerprint": "07c752c4ba96ac47002ab230790ebc3cfdec48806a53a5e180ebcc2bc4872875",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0067:00": {
+      "decision": "review-deferred",
+      "fingerprint": "c09553caf96470c505615047d0b9cec5d2f57189299ec68d39bb5f2c79d0c5eb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0068:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5e941e42e1dd51a49e7379b96958dabaeed6f4f94a31ecbff257842d49ea9be1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0072:00": {
+      "decision": "review-deferred",
+      "fingerprint": "af2943f3e384edc789fcb0c69ea085291963c6d0bb4d80c4113c5909e6b51abb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0075:00": {
+      "decision": "review-deferred",
+      "fingerprint": "e5c89b3422f69a84bd87d8ac10a4f3976041adcac5b0bfd3a8d3363a43f0652c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0076:00": {
+      "decision": "review-deferred",
+      "fingerprint": "4851b51cb4252599c786ff467280babd9bbee6fcdc6e9f21946d88d3b89301b9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0078:00": {
+      "decision": "review-deferred",
+      "fingerprint": "996872c73e45c5275bc62124c624824e8a3c57fdfd1894ea628bc019df452893",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0083:00": {
+      "decision": "review-deferred",
+      "fingerprint": "c0b659dd305e03d71390ea2ac930c72b820e96d9f0de6c80b90d3afffa9abb4e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0088:00": {
+      "decision": "review-deferred",
+      "fingerprint": "e9b003934e40569f542910011e03555b5775447647ad28d1c950b3c7af55b763",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0089:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ec626a157b02ae49af54d72e0564119ac9060cdc6481316143cfb456b85427a3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0108:00": {
+      "decision": "review-deferred",
+      "fingerprint": "95beee2b582152079af1e0259b4acd1cac2f833a996666e7ef9451db3cf73992",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0109:00": {
+      "decision": "review-deferred",
+      "fingerprint": "76cc5a4cb1d4f515fcad47707791e87ac95b283df4702835e6a89ab5f6ca38d9",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0112:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a0288b7e897c104c75c2a7efdab50fba0047d8b8cfe1a49c0f697655b5431e81",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0118:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7c4820e6943bc75c89b96f8c4ffc8c3f0452776e1a51862dee5c6af1ff847c86",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0126:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b4d402e0dd113759aea15bba13021c84771de2ee3e02ba3aedea091544068a47",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0129:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a0aa30093ba1fbd16a05e3f3cee5d85fc06665e9dc21f93e1750a5cf51a6ae06",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0130:00": {
+      "decision": "review-deferred",
+      "fingerprint": "99eeb74ddb8b3036c8a3b3e41e1c40994f22cacf72462b0020615c0ddd4a7f74",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0151:00": {
+      "decision": "review-deferred",
+      "fingerprint": "f74e4b07bf5ca94e46feb88d03cd975a5fc47ad5e33b9a07f3982e53f76a9675",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0154:00": {
+      "decision": "review-deferred",
+      "fingerprint": "12757b051ebf073985f353ef2584ae936bfc2a4893c3d3776f700d586079f93c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0161:00": {
+      "decision": "review-deferred",
+      "fingerprint": "48e426db731c87980d68aa49e335bba0665963e102709acaa0b4d6e4e997462f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0163:00": {
+      "decision": "review-deferred",
+      "fingerprint": "78f1fd3c3bd56bcb20bf5f0779296c964439a97034eb34939b9aa31b4edbb3ba",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0168:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3c6e6dc4d1bb44c22ec748b9059719571e15a2c6429afd13990e1b58bf497c26",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0169:00": {
+      "decision": "review-deferred",
+      "fingerprint": "eed36f7f96bd5188caae69c0062c9c5163dc23dee73edc41ac622e5ca04c8038",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0184:00": {
+      "decision": "review-deferred",
+      "fingerprint": "074890b8a4d2062c0ccb34c7fa896735334f6cc7e8658228a5a7a214bb775c1a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0193:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a07df4401864a908640cbf533308dd7c2b46561e8b29a4e171aef4879d81f2ae",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0195:00": {
+      "decision": "review-deferred",
+      "fingerprint": "24ad8941a2d89912e752e9f52cbeddae9cdee63e6a0f8dc122f2b77ba24ea616",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0196:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ccf5d8864fb9546bf40768918553eabc660a6214194b428ba2591f0c5edce078",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0197:00": {
+      "decision": "review-deferred",
+      "fingerprint": "55a4a9b4392654611421b1560fd380150e3b62f4a5753a07f13633660fa207b1",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0201:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ae3f075cca4d99c4dde9bdceffa0def983ea900b67afdd38a343dc1bb5f0709e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0202:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ce0aa924493752e78eb926bf04627560b148329f207195718fe5b82ab73febf6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0203:00": {
+      "decision": "review-deferred",
+      "fingerprint": "43db3005d9253e8104ba43a0ddb21af63154adcdbce13ef2adc8249562b822c4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0208:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5d1698cc88a5340f17316b557318f1dd732185d44906be5728578309474b3d73",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0209:00": {
+      "decision": "review-deferred",
+      "fingerprint": "1ca4529bcc9a34f1e0fd7f24f749b93f9cad5de46b126300d991c4707d61f57f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0222:00": {
+      "decision": "review-deferred",
+      "fingerprint": "6a77bc7cadbe052e9dac65cce319eb6676cdd320adb389ed48528375e38e19c4",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0225:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7f15ea01ad1927f5113600060430771beb915b7f406816691249b869b34bbb07",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0227:00": {
+      "decision": "review-deferred",
+      "fingerprint": "93ac7275e534f67f539a431077117026b4c5a75d2ecae822cabbb2f270e85797",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0228:00": {
+      "decision": "review-deferred",
+      "fingerprint": "bf13c9af20ab5b4d23cde1d51e46fd6bab0fce2286b654544edcdf994d1dbe2f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0231:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3efaf23469467bea7c4e2e4e247b3f569d7add0dc7eb14964ced67a2240db231",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0233:00": {
+      "decision": "review-deferred",
+      "fingerprint": "cbfc41e0681dbe89a6f967b9ff746aa78fa0d262c348080a1a0355fd2ccf8e8a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0235:00": {
+      "decision": "review-deferred",
+      "fingerprint": "434acdf1237d0d7c301101cd06f697d42b39d99e46d73af6356bef83cc245b5f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0236:00": {
+      "decision": "review-deferred",
+      "fingerprint": "115739e1dc9a4ed697a0febe6a27e998f375227a2d5540a9ce842ccd0975509e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0239:00": {
+      "decision": "review-deferred",
+      "fingerprint": "39215657e495bbd921c45c6a71214000f61fb84a196b5fc5b45ba81b54add6b7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0241:00": {
+      "decision": "review-deferred",
+      "fingerprint": "db1ec8773c4ad78f3ecb3cce49644053a5bfa748acd99ba1451d9abb1d087b89",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0243:00": {
+      "decision": "review-deferred",
+      "fingerprint": "1eb140d0772758a82b9c97aff26134e8efc43d59be3766977d6fcb96aaaf8b41",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0247:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b47f33f4ac761b17d97dbf26577207dc26699ba72e1de8e0a3294e441d049999",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0251:00": {
+      "decision": "review-deferred",
+      "fingerprint": "61384ed71de9fe91381ebbe8ae76d7e25914e98a59893205ec1e2b111023785f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0253:00": {
+      "decision": "review-deferred",
+      "fingerprint": "fafeb7fdd0ef3366c1f9789dd69c1dd08511aacdd929d44a92791c2b3439e43b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0259:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3b8e89e7e99551d1b82b57e4c94a7f904ddfb1ae54855a436f4a8db590b6c0aa",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0262:00": {
+      "decision": "review-deferred",
+      "fingerprint": "221b5ec8e36f055ee28223db8a0650e77de68bee3e31c1b0220e8759328d8dff",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0265:00": {
+      "decision": "review-deferred",
+      "fingerprint": "2c530c5da3343b73d9b4b85468338caf15cd80be991bf076fddd7cf2b67c8c48",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0266:00": {
+      "decision": "review-deferred",
+      "fingerprint": "324b2121648600beb11ed695b1f84667e2ac85f6722e4f76066bef71c4490d83",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0267:00": {
+      "decision": "review-deferred",
+      "fingerprint": "29dfe7bdf0e3ad68ad2a6172c69c7cad7ed3821f59612a3e90d237f2c06cde6f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0268:00": {
+      "decision": "review-deferred",
+      "fingerprint": "c56cded67161a70fc82d11367c079e1159dbebd7247fc99d2523da17f3c9267f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0271:00": {
+      "decision": "review-deferred",
+      "fingerprint": "2b75498eb4eab4b1189cc5bb6cf8db8119214204e30c651fdf572c923730eb13",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0272:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3214eb94dffe813cb1ba8809ab66aafef793574f11898b0172864b740fbfade8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0278:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5c4e01736ab31b3adb2c3d9081685c97eeab02d5e0af86517d215ed43adf0b81",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0279:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ca8618672b563c637e1647e8529fff62cb07e4a9d85e4c44f4adfb6f449cc8e0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0280:00": {
+      "decision": "review-deferred",
+      "fingerprint": "60488c861fc038e03ee3ea1ba196c6f66c90760d9e60813631faa6348110a5ad",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0281:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b6b7a5600b03783da0b65fc9b881f217a55858ccad50bc82fad4e6df22d8498e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0287:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5f6789dab706df62f88cf053689e2c2f68520ca09d335933dbe433e0953b4836",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0288:00": {
+      "decision": "review-deferred",
+      "fingerprint": "8f891b3218964bf471065d47095c1dbc1fd5945e671aea53af9fe468b2500127",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0289:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a7dd5b8f94f6aa56599c9b6b0c331ede0199db38a9a28fc16c8035fd4fe84af3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0290:00": {
+      "decision": "review-deferred",
+      "fingerprint": "358c31b8db46e44fe5f7baabb8229d76e78a31c87b960f01450f42e13468611b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0292:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7f8cb5508918b6b97160ea739973c562a34947d1ab649e6edbf7830d86833036",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0293:00": {
+      "decision": "review-deferred",
+      "fingerprint": "cf70b696c16cd8912b79cbe602f5d8b712657a2d73c170fd081e4c983126e292",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0295:00": {
+      "decision": "review-deferred",
+      "fingerprint": "8dbf3a3f46477f8e2f861a6b7dd50e076568c473b2a83063971be671d43d2dc7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0296:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5c07ef76e7aa474c20efaed8e9812c98aff27292b4499efcc86876598f6eadba",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0297:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5587dd67c8bf1b97e0260783ce08e7e4883c25adc006d0de6dbf32b3b9fff7ef",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0298:00": {
+      "decision": "review-deferred",
+      "fingerprint": "6cabd64e804cb19ba6a2c3938ba0b51dc07183b88a40c4b6f8f21ae5b95b2be6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0299:00": {
+      "decision": "review-deferred",
+      "fingerprint": "2f576f0cb4506361df95eec40b06163ec2d2ca1de253364814bac326891df65b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0300:00": {
+      "decision": "review-deferred",
+      "fingerprint": "4de52e0c910aaf01cce50b0ed5b91d05f9de00778d35985d7539de8a24a5d250",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0301:00": {
+      "decision": "review-deferred",
+      "fingerprint": "cfee185abf9e2392c900317fe3670a72f0ad90721302efe9d414ef16091df7ff",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0302:00": {
+      "decision": "review-deferred",
+      "fingerprint": "f73713d13801b4c6baa57fae6860de9124fea3d776a43246a6693a741acd4a1d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0303:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a74714e140f7528310023c2bfc8bd3c29809c43ff1385b4634bf404d85e819ec",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0306:00": {
+      "decision": "review-deferred",
+      "fingerprint": "45a7cc005f552cdf24678e4d30e65446d871d1cc3a51711c14b368a1aa351b6a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0311:00": {
+      "decision": "review-deferred",
+      "fingerprint": "669736598852fa952be3a0122dfd2b53da4f87148a4acd5c0fa44f91f9acaffb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0315:00": {
+      "decision": "review-deferred",
+      "fingerprint": "f5684727deb97f8698002961a6acac012327122dfcb2b8609ac5b9a44d4c49cb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0318:00": {
+      "decision": "review-deferred",
+      "fingerprint": "4fcf854ca01ae617e3e0c653fca0cb590eda807716a3303f6cd0c169d6fe35fc",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0319:00": {
+      "decision": "review-deferred",
+      "fingerprint": "69d320fc45db249518e0804923d2124d16d4f2d09b628301a2bdcb86f2cc0c58",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0321:00": {
+      "decision": "review-deferred",
+      "fingerprint": "fe8f443d06589d1da16e8d9f9cc22d3eaa106791abe24c4b146cf83bd3b611be",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0322:00": {
+      "decision": "review-deferred",
+      "fingerprint": "318fbd395023e09c2d365110c43e05e07a0ed217c7882f43568cf345cbbf96e6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0323:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ecf8c930d79f2b0777250b7a3732f5e67b4566287f104514f345ab36277eec91",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0324:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3314d1298104f8a12337a309799db25ac4f5bf1321a6f5f78ed505d3d6897362",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0325:00": {
+      "decision": "review-deferred",
+      "fingerprint": "66b366cf43d733dc62a32a8deeff4110a61fbfb07e18deba68e78e40a5d56e8a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0328:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b1df600744def14ef0f44019f1821514909902e0394529c8910100a2ae7b8b3b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0329:00": {
+      "decision": "review-deferred",
+      "fingerprint": "121f28d60c54270c5e79982136a85b1f0612fc5b1f721d2ef89ff0428aa5e62d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0330:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a811ea69ea995c1a1f5e7b9054141510c0ed31124c40519c7b80c046e411fdb7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0331:00": {
+      "decision": "review-deferred",
+      "fingerprint": "049f8121be5d5721beba76226fce40e16e41ae3730a4df97f7af82f099e153cb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0332:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5d18488599150819cacae51cd2d0051f8628c979962557597124fdd91dbb3f9f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0334:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b007bdfdec5f4616cee61221163a631a0f3bc39dbf8300ae8c5923b3e420782c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0338:00": {
+      "decision": "review-deferred",
+      "fingerprint": "95fb823d977f496b282eb60eb6f36e67e5c680b0643c219182533ac015c4c242",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0339:00": {
+      "decision": "review-deferred",
+      "fingerprint": "8bd0528aa465ed3e926a4a3e37b2aaae08ef58ec6242b95de6e1fffce686efe5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0340:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a271be20cca0ff6ded0fd58c46dbe625af6a4da60642e271833619e9c2a87713",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0341:00": {
+      "decision": "review-deferred",
+      "fingerprint": "f1da483071b017cbd7c180d8bff71b40d78ef8a73e25a9e4c69f289f11cc5c13",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0346:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5f5581f7c7048048fa35452073f7b34106abb13a4ee00feb2393c02cca98482c",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0347:00": {
+      "decision": "review-deferred",
+      "fingerprint": "9e0b32f5f5b93d8420a0b440a9c6ef245b0dfde4db30b42b842a66b7d42cffe8",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0349:00": {
+      "decision": "review-deferred",
+      "fingerprint": "292715400ac04c5a76c6df4c8da1d797b7316f404d82324a212a7554176a4ec3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0350:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b9d113f48a5dffbded2ec7e954d23177247b0a297eb90158c5cbf98b81c1c4fe",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0351:00": {
+      "decision": "review-deferred",
+      "fingerprint": "473c4371c09138bcc433b2bfcbb4b7f70177dc6b0f7ddaf7bfe08e33138054f6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0352:00": {
+      "decision": "review-deferred",
+      "fingerprint": "f6c92e124bdb75076b0bcd894b8187398d38e871ebfe83bebd2c2a904c333fa3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0353:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ea716966290b00bfcae74ee846078c7893b895050ae2c2198c91971bd570d1b5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0355:00": {
+      "decision": "review-deferred",
+      "fingerprint": "22382256a0593f8713fbd6a1dcc041a80a8073af6ac785a0fac5adc2b24acd3b",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0356:00": {
+      "decision": "review-deferred",
+      "fingerprint": "57cd846d4e2ad8aa40db6346711943a9d8e9403dd0f864db372d87f1c636deda",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0357:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ca4fd5006abd674055e91c54165d1d977f0f25bfbc9887535b10c76d421b6bcb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0358:00": {
+      "decision": "review-deferred",
+      "fingerprint": "bc77f7251a1c2d9fa0abb4d6b922678c93022887af70224059328454c9b4a1a0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0359:00": {
+      "decision": "review-deferred",
+      "fingerprint": "92bbe79da28ac8b571d35c6e0609e268e78b74b4a3902308c1e6b4117ca81943",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0360:00": {
+      "decision": "review-deferred",
+      "fingerprint": "bc60208bcadad4d9f178335a17a6040e08ee3255304a28b2f59b4647c13a4032",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0362:00": {
+      "decision": "review-deferred",
+      "fingerprint": "3fea26777643dacfab66c64db01ffb7766b5268f85ecca147a29df4f366a3429",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0363:00": {
+      "decision": "review-deferred",
+      "fingerprint": "6a33e00d3be87b742d14f08aea1fdb2ef12bf51240ff98d8692f32ddf599708e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0364:00": {
+      "decision": "review-deferred",
+      "fingerprint": "0a4df3a2dfd08c347839d9df626d1c65eedb0811a59783db14b820a2f6712b60",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0365:00": {
+      "decision": "review-deferred",
+      "fingerprint": "1beb880b6fe0441ce63fda8014e27e1e93f655e82b2e2bc3ab947b133e9e820f",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0366:00": {
+      "decision": "review-deferred",
+      "fingerprint": "d7799f3251d329359da57df9d685903c5cdee93ce336ecc3d58f56bd899a67eb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0367:00": {
+      "decision": "review-deferred",
+      "fingerprint": "b2d6817f621f8f1f5363c554e00bd4bc7f3d15e3ccb55be97f49e807c67b6572",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0368:00": {
+      "decision": "review-deferred",
+      "fingerprint": "773bd57c26a196131df3c15c441b1cb3bdf38621d3ceb40e5d883894b7cee041",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0370:00": {
+      "decision": "review-deferred",
+      "fingerprint": "511e56c11f1854004fddd593aeb5afc57aa87768dccbf7af055f78e5c8c207c0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0371:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7091acbc569a7482ec1bec85f422e4da5ccae21bf3bc133511f47b44888429f7",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0372:00": {
+      "decision": "review-deferred",
+      "fingerprint": "23e328ff0a00f1bfb9bc0113849ea04fe7f5ac0011dcddeb4e2dd97f84fd48fa",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0373:00": {
+      "decision": "review-deferred",
+      "fingerprint": "1ef86c83bac555829f30837cabaa95e7d45088ecee18eb59c2f277f21bfbc6e3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0374:00": {
+      "decision": "review-deferred",
+      "fingerprint": "dc2f046a90ea303b2608db89a2e3522d912c4dce6b042cbcb5e7f8589a6291e3",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0375:00": {
+      "decision": "review-deferred",
+      "fingerprint": "84eaaafd2469ecdbf76797780e8a25bd70922fe9ba586717b997d2e8025b0d80",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0376:00": {
+      "decision": "review-deferred",
+      "fingerprint": "39bcde42dec345fffc2f4f92025db436dfa2db9346bbf333573e472871544344",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0378:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5ce8eadaffe558632b8947f62176f332c07cfa6da05805cf3aae95dbeb5715c2",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0379:00": {
+      "decision": "review-deferred",
+      "fingerprint": "57c57d5d380acce3d8f61dcd3f9f4fce2b09ecbd5b6469352c0ba63b00dfea48",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0380:00": {
+      "decision": "review-deferred",
+      "fingerprint": "d3be5b663c6a44416ba75cdf7f3ad37db5f423707ce7ea1a220dea50cd26a182",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0382:00": {
+      "decision": "review-deferred",
+      "fingerprint": "33cbd683e6bf051cb1b9859c0fe2f34e03348e306546808d0241f1b7b5adfad0",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0383:00": {
+      "decision": "review-deferred",
+      "fingerprint": "5cdbfffa63d982a38b1d05359005d37bab9de0fc9b060915beec6013e193ec39",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0392:00": {
+      "decision": "review-deferred",
+      "fingerprint": "40e41eedc7fdf7d10a4afd87ff178beb20c0e578bf642d0a2c6331458dfd1121",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0395:00": {
+      "decision": "review-deferred",
+      "fingerprint": "832cd411d33091a801b4d50c8b18198653b0cb28d3bb08624488f0719915119e",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0396:00": {
+      "decision": "review-deferred",
+      "fingerprint": "ef9bf6410e31f6a2739acbf8365a1b7b82b05ab015a92509d461a425ccb7f7fd",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0399:00": {
+      "decision": "review-deferred",
+      "fingerprint": "a209f56f581ed53946f9b69dff8bbf9c85d80fcf0d5b684b23ef080e1d96daeb",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0401:00": {
+      "decision": "review-deferred",
+      "fingerprint": "c7d771fb62903de96fe871788b78dc014b8c25f0846e8e70b55e72ce20be4d83",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0402:00": {
+      "decision": "review-deferred",
+      "fingerprint": "e34662a3f88ff6e0ffffadba02389fb7ebdff9b8480084dddba325fc7c05b00d",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0403:00": {
+      "decision": "review-deferred",
+      "fingerprint": "adff94723dabe4956e2670679c9366cf2d4ec270846c5c57585278fb9979a5cf",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0404:00": {
+      "decision": "review-deferred",
+      "fingerprint": "34fba4a1a51c105503553b57870addc539bc54807b2da8d817844e6149069269",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0405:00": {
+      "decision": "review-deferred",
+      "fingerprint": "68c38f691a5351000c57c6dce04790aa170cde9d3bef001c27a1e27e3b9a365a",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0406:00": {
+      "decision": "review-deferred",
+      "fingerprint": "cb5c0b166fa373f6f8bdc92e344bcf29743feb24edcf9a49f4577200fcb18478",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0413:00": {
+      "decision": "review-deferred",
+      "fingerprint": "cdf1832cb49c5b72bed5d36f83cfd5325f306b65f70e356de688f4eede693a60",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0414:00": {
+      "decision": "review-deferred",
+      "fingerprint": "e7cbea31eba54756d47e83a282084bf1176500a30aef8be8808a8ad8540b82d5",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0415:00": {
+      "decision": "review-deferred",
+      "fingerprint": "babb52aaad5f68e7d47e8b6ad3eccbaeba98c248c6b1502dadafa7626c3c85ab",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0416:00": {
+      "decision": "review-deferred",
+      "fingerprint": "7754caea354b39af5d03abc80b4b7e8cfa33d805328ce97b4bfa072d150fe155",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0418:00": {
+      "decision": "review-deferred",
+      "fingerprint": "76840104406a3ad70328a67d671b327e1e8f0620eaa31c043af6f97f3e720174",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0420:00": {
+      "decision": "review-deferred",
+      "fingerprint": "2e1c144a5e826399779f04c93391ffe0cd315c729f9f10450591dc213c344525",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0421:00": {
+      "decision": "review-deferred",
+      "fingerprint": "67be1eda7dceb91a5daf6a39351e29606b2c8714f91b9b1c500f8ede472a2733",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0423:00": {
+      "decision": "review-deferred",
+      "fingerprint": "280a07374cbb17d463e74c09cf1ced0d0df643ca7451844bf8a0f2af20b577b6",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0424:00": {
+      "decision": "review-deferred",
+      "fingerprint": "80684f7d5e28d12f12903f95e41c69254cda4f1812e5669958a3c19a42f965ad",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0425:00": {
+      "decision": "review-deferred",
+      "fingerprint": "e78110cc628e06b3d336c2a1d8b42f62dedc0329a4c8dba7ce17406b2144c787",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0428:00": {
+      "decision": "review-deferred",
+      "fingerprint": "6d200eb539b0179b4255889fe36911b8fa50889d579c5f1284a550f0b2c50628",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    },
+    "09:0429:00": {
+      "decision": "review-deferred",
+      "fingerprint": "f6ca3c92d6e0beafda4ac05d70bf4a5388c154f35d90e5d287bbc63e24acbf31",
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+    }
+  },
+  "schema_version": 1
+}

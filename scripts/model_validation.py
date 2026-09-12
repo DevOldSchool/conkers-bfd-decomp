@@ -154,6 +154,10 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morp
         index = extras.get('materialRun')
         if isinstance(index, int) and extras.get('romTextureStateConsensus') != run_records[index].get('rom_texture_state_consensus'):
             raise ValueError('exported ROM texture-state evidence differs from source')
+        if isinstance(index, int) and extras.get('romObjectTextureAnimation') != run_records[index].get('rom_object_texture_animation'):
+            raise ValueError('exported ROM texture-animation evidence differs from source')
+        if isinstance(index, int) and extras.get('romSceneTextureState') != run_records[index].get('rom_scene_texture_state'):
+            raise ValueError('exported ROM scene texture evidence differs from source')
         if isinstance(index, int):
             run = geometry.material_runs[index]
             detail = (models.detail_texture_preview_record(run)
@@ -425,7 +429,7 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
             for index, run in enumerate(geometry.material_runs):
                 record = records[key[1:]]['material_runs'][index]
                 if (*key, index) in runtime:
-                    if record.get('rom_texture_state_consensus'):
+                    if record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state'):
                         raise ValueError('captured material was replaced with ROM object consensus')
                     continue
                 texture, status = models.choose_preview_texture(run, catalog, flat)
@@ -433,6 +437,32 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
                 if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
                     texture, status, evidence = models.rom_object_preview_texture(
                         run, catalog, flat, tables, contexts.get(key))
+                animation_evidence = None
+                if texture is None and status == 'runtime-segment':
+                    texture, animation_status, animation_evidence = models.rom_object_animation_preview_texture(
+                        run, catalog, flat, tables, contexts.get(key))
+                    if texture is not None:
+                        status = animation_status
+                if animation_evidence is not None or record.get('rom_object_texture_animation'):
+                    if (texture is None or animation_evidence is None or record['status'] != status
+                            or record.get('rom_object_texture_animation') != animation_evidence
+                            or not record.get('texture')
+                            or models._validated_preview_source(path.parent, record['texture']['file']).read_bytes() != texture.png_data):
+                        raise ValueError(f'ROM object texture animation differs for {key}:{index}')
+                    linked += 1
+                    faces += run.face_count
+                scene_evidence = None
+                if texture is None and status == 'runtime-segment':
+                    texture, status, scene_evidence = models.rom_scene_preview_texture(
+                        run, catalog, flat, contexts.get(key))
+                if scene_evidence is not None or record.get('rom_scene_texture_state'):
+                    if (texture is None or scene_evidence is None or record['status'] != status
+                            or record.get('rom_scene_texture_state') != scene_evidence
+                            or not record.get('texture')
+                            or models._validated_preview_source(path.parent, record['texture']['file']).read_bytes() != texture.png_data):
+                        raise ValueError(f'ROM scene texture state differs for {key}:{index}')
+                    linked += 1
+                    faces += run.face_count
                 if evidence is not None or record.get('rom_texture_state_consensus'):
                     if (texture is None or evidence is None or record['status'] != status
                             or record.get('rom_texture_state_consensus') != evidence
@@ -442,7 +472,7 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
                     linked += 1
                     faces += run.face_count
     return {'consensus_texture_runs': linked, 'consensus_texture_faces': faces,
-            'export_capture_inputs': [], 'scope': 'Texture bytes on reviewed initial object draw paths; native appearance incomplete'}
+            'export_capture_inputs': [], 'scope': 'Texture bytes on reviewed object and scene draw paths with explicit preview states; native appearance incomplete'}
 
 
 def compare_rom_defaults(path: Path, captures: list[dict], flat: dict, catalog: dict) -> dict:
@@ -704,7 +734,7 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                     dependencies[runtime_path] = digest(ROOT / runtime_path)
                 for record in manifest['models']:
                     for run in record['material_runs']:
-                        if run.get('texture') and run.get('rom_texture_state_consensus'):
+                        if run.get('texture') and (run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state')):
                             image = models._validated_preview_source(directory, run['texture']['file'])
                             dependencies[str(image)] = digest(image)
                 report['checks'][f'rom-objects:{corpus["name"]}:{bank:02x}'] = stage(
@@ -729,7 +759,7 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                 comparison = stage('geometry', inputs, lambda p=path, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records:
                                    compare_geometry(p, g, j, r['material_runs'], m, d,
                                                     flat_payloads=flat, runtime_materials=rm, preview_root=directory))
-                if morph or draw_pass or any(run.get('rom_texture_state_consensus') for run in record['material_runs']):
+                if morph or draw_pass or any(run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state') for run in record['material_runs']):
                     animated = directory / record['gltf_file']
                     report['checks'][f'animated-geometry:{corpus["name"]}:{model_key}'] = stage(
                         'geometry', {**inputs, 'fingerprint': preview_fingerprint(animated)},

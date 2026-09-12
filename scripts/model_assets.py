@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import sys
 from collections import Counter
 import base64
 import copy
@@ -3883,6 +3884,11 @@ def encode_gltf(
             and runtime_consensus["usesVertexColor"] is False
         ):
             attributes.pop("COLOR_0", None)
+        if (runtime_material is None and is_direct_rgba32_texture_mipmap_base(run)
+                and texture_files is not None and name in texture_files):
+            # The explicit second cycle has no SHADE input in either channel.
+            # Preserve source colours without applying an unused SHADE multiplier.
+            attributes["_SOURCE_COLOR_0"] = attributes.pop("COLOR_0")
         material = {
             "name": name,
             "doubleSided": True,
@@ -5398,6 +5404,71 @@ def zero_alpha_texture_is_invisible(run: ModelMaterialRun) -> bool:
             and low & 0x3023 == 0)          # No coverage replacement, Z_UPD or alpha compare.
 
 
+RGBA32_TEXTURE_MIP_CYCLES = [
+    {"color": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"],
+     "alpha": ["TEXEL1", "TEXEL0", "LOD_FRACTION", "TEXEL0"]},
+    {"color": ["ZERO", "ZERO", "ZERO", "COMBINED"],
+     "alpha": ["COMBINED", "ZERO", "ENVIRONMENT", "ZERO"]},
+]
+
+
+def is_direct_rgba32_texture_mipmap_base(run: ModelMaterialRun) -> bool:
+    if (not run.texture_enabled or run.render_tile is None or run.texture_scale is None
+            or (run.render_tile[0] >> 19) & 31 != 3):
+        return False
+    state, other = texture_coordinate_state(run), decode_other_mode(run.other_mode)
+    combine = decode_combine_mode(run.combine_mode)
+    return bool(run.texture_enabled and state and (state["format"], state["size"]) == (0, 3)
+        and other and run.other_mode_partial is None
+        and (other["texture_lut"], other["texture_lod"], other["texture_detail"], other["cycle_type"])
+        == ("none", "lod", "clamp", "two-cycle")
+        and combine and combine["cycles"] == RGBA32_TEXTURE_MIP_CYCLES)
+
+
+def direct_rgba32_mipmap_preview_texture(run: ModelMaterialRun, payload: bytes):
+    label = "direct-rgba32-mipmap"
+    if not is_direct_rgba32_texture_mipmap_base(run):
+        return None, label + "-mode-unresolved"
+    state, pixel = texture_coordinate_state(run), run.pixel
+    if (pixel is None or pixel.image_command != 0xFD180000 or pixel.mode != 0
+            or pixel.flat_index is None or pixel.load_command is None
+            or pixel.load_command[0] != 0xF3000000 or pixel.load_command[1] & 0xFFF
+            or run.texture_scale is None):
+        return None, label + "-load-unresolved"
+    tiles = {i: (c, a) for i, c, a in run.render_tiles}
+    base, last = (run.texture_scale[0] >> 8) & 7, (run.texture_scale[0] >> 11) & 7
+    load_tile = tiles.get((pixel.load_command[1] >> 24) & 7)
+    loaded = (((pixel.load_command[1] >> 12) & 0xFFF) + 1) * 4
+    if (load_tile is None or load_tile[0] != 0xF5180000 or base != 0
+            or tiles.get(base) != run.render_tile or not 0 < last < 6
+            or loaded > min(4096, len(payload))):
+        return None, label + "-tiles-or-payload-unresolved"
+    previous_end = 0
+    for level in range(last + 1):
+        tile = tiles.get(level)
+        if tile is None:
+            return None, label + "-layout-unresolved"
+        command, argument = tile
+        width, height = max(1, state["width"] >> level), max(1, state["height"] >> level)
+        stride, start = ((command >> 9) & 511) * 8, (command & 511) * 8
+        # RGBA32 has two bytes per texel in each TMEM bank. Source offsets
+        # and row spans cover both banks; lower levels cannot overlap either.
+        if ((command >> 19) & 31 != 3
+                or (1 << ((argument >> 4) & 15), 1 << ((argument >> 14) & 15)) != (width, height)
+                or (argument & 15, (argument >> 10) & 15) != (level, level)
+                or stride < width * 2 or start < previous_end
+                or (level == 0 and (start != 0 or stride != width * 2 or width % 4))
+                or (start + stride * height) * 2 > loaded):
+            return None, label + "-layout-unresolved"
+        previous_end = start + stride * height
+    width, height = state["width"], state["height"]
+    png = encode_native_texture_png(payload[:width * height * 4], "rgba32",
+                                    "tmem-odd-row-32bit-swap", width, height)
+    return PreviewTexture(family="us-direct-rgba32-mipmap-base", source=None,
+        flat_index=pixel.flat_index, format=0, size=3, width=width, height=height,
+        sha1=hashlib.sha1(png).hexdigest(), png_data=png, pixel_byte_offset=0), label + "-base"
+
+
 def direct_rgba32_preview_texture(
     run: ModelMaterialRun, payload: bytes
 ) -> tuple[PreviewTexture | None, str]:
@@ -5410,6 +5481,8 @@ def direct_rgba32_preview_texture(
         raise ValueError("material run is not a direct RGBA32 load")
     if known_other_mode_bits(run, 0, 3 << 14) != 0:
         return None, "direct-rgba32-lookup-mode-unresolved"
+    if is_direct_rgba32_texture_mipmap_base(run):
+        return direct_rgba32_mipmap_preview_texture(run, payload)
     combine = decode_combine_mode(run.combine_mode)
     inputs = set(combine["inputs"]) & {"TEXEL0", "TEXEL1"} if combine else set()
     if inputs != {"TEXEL0"} and not (
@@ -5948,6 +6021,43 @@ def verify_gltf_material_spans(gltf: dict[str, Any], runs: list[dict[str, Any]])
         raise ValueError("preview glTF material spans leave missing or unused source data")
 
 
+def verify_gltf_vertex_colors(gltf: dict[str, Any], runs: list[dict[str, Any]]) -> None:
+    """Retain source colours; allow only the proven RGBA32 texture-only draw."""
+
+    for mesh in gltf.get("meshes", []):
+        for primitive in mesh["primitives"]:
+            attributes = primitive["attributes"]
+            if "COLOR_0" in attributes:
+                continue
+            material = gltf["materials"][primitive["material"]]
+            extras = material.get("extras", {})
+            run = runs[extras["materialRun"]]
+            texture = run.get("texture") or {}
+            combine = decode_combine_mode(tuple(int(x, 16) for x in run["combine_mode"])) if run.get("combine_mode") else None
+            other = decode_other_mode(tuple(int(x, 16) for x in run["other_mode"])) if run.get("other_mode") else None
+            source = attributes.get("_SOURCE_COLOR_0")
+            if (run.get("status") != "direct-rgba32-mipmap-base"
+                    or run.get("runtime_material") is not None
+                    or run.get("other_mode_partial") is not None
+                    or not combine or combine["cycles"] != RGBA32_TEXTURE_MIP_CYCLES
+                    or not other or tuple(other[k] for k in ("texture_lut", "texture_lod", "texture_detail", "cycle_type"))
+                    != ("none", "lod", "clamp", "two-cycle")
+                    or extras.get("combineMode") != run["combine_mode"]
+                    or extras.get("otherMode") != run["other_mode"]
+                    or texture.get("source_family") != "us-direct-rgba32-mipmap-base"
+                    or (texture.get("format"), texture.get("size")) != (0, 3)
+                    or not isinstance(source, int) or not 0 <= source < len(gltf["accessors"])
+                    or "TEXCOORD_0" not in attributes):
+                raise ValueError("preview glTF omits required vertex colors")
+            accessor = gltf["accessors"][source]
+            if (accessor.get("type"), accessor.get("componentType"), accessor.get("normalized"), accessor.get("count")) != (
+                    "VEC4", 5121, True, gltf["accessors"][attributes["POSITION"]]["count"]):
+                raise ValueError("preview glTF source colors are invalid")
+            binding = material.get("pbrMetallicRoughness", {}).get("baseColorTexture")
+            if not binding or gltf["images"][gltf["textures"][binding["index"]]["source"]].get("uri") != "../" + texture["file"]:
+                raise ValueError("preview glTF texture-only color binding changed")
+
+
 def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
     instructions_path = output / manifest["instructions_file"]
     if not instructions_path.is_file():
@@ -6102,8 +6212,7 @@ def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
             for material in gltf.get("materials", [])
         ):
             raise ValueError(f"preview glTF has an invalid alpha mode: {gltf_path.name}")
-        if any("COLOR_0" not in primitive["attributes"] for primitive in primitives):
-            raise ValueError(f"preview glTF omits vertex colors: {gltf_path.name}")
+        verify_gltf_vertex_colors(gltf, model["material_runs"])
         if model.get("joint_count", 0):
             if len(gltf.get("skins", [])) != 1:
                 raise ValueError(f"preview glTF omits its character skin: {gltf_path.name}")
@@ -13400,19 +13509,103 @@ def load_object_material_context(profile: str, rom_argument: Path | None, digest
             game.code, layout['game_vram'], game.data, layout['game_data_vram'])}
     if bank_index not in (3, 4):
         raise ValueError('object materials require bank 03, 04 or 09')
+    try:
+        from scripts import model_object_texture_animation as animation
+    except ModuleNotFoundError:
+        import model_object_texture_animation as animation
     consumers = model_object_materials.verify_consumers(game.code, layout['game_vram'], game.data)
     placements, _ = load_object_placement_manifest(profile, rom_argument, include_files=False)
     if placements['normalized_sha1'] != digest:
         raise ValueError('object placement ROM changed while reading material context')
+    contexts = model_object_materials.placement_contexts(placements, game.data, layout['game_data_vram'])
+    if bank_index == 4:
+        rows = animation.animation_table(game.code, layout['game_vram'], game.data, layout['game_data_vram'])
+        animations = animation.placement_animations(placements, rows)
+        for context in contexts:
+            key = (context['bank'], context['entry'], context['segment'])
+            if key in animations:
+                context['texture_animation'] = animations[key]
+        try:
+            from scripts import model_scene_texture_bindings as scene_textures
+        except ModuleNotFoundError:
+            import model_scene_texture_bindings as scene_textures
+        contexts.extend(scene_textures.scene_contexts(
+            game.code, layout['game_vram'], game.data, layout['game_data_vram']))
     return {'normalized_sha1': digest, 'consumers': consumers,
             'segment_override_call_sites': [f'0x{address:08X}' for address in model_object_materials.OVERRIDE_CALLS],
             'segment_override_destinations': [4, 5, 6, 7],
-            'models': model_object_materials.placement_contexts(placements, game.data, layout['game_data_vram']),
+            'models': contexts,
             'capture_inputs': []}
 
 
+def rom_object_animation_preview_texture(run, catalog, payloads, tables, context):
+    animation = (context or {}).get('texture_animation')
+    pixel, palette = run.pixel, run.palette
+    if (not animation or not run.texture_enabled or not run.texture_coordinates_proven
+            or pixel is None or pixel.segment != 4 or pixel.offset != 0
+            or pixel.flat_index is not None or pixel.external
+            or (palette is not None and (palette.segment != 5 or palette.offset != 0
+                or palette.flat_index is not None or palette.external))):
+        return None, 'rom-object-animation-binding-unresolved', None
+    textures, frames = [], []
+    for flat in animation['frames']:
+        mapped = replace(run,
+            pixel=replace(pixel, flat_index=flat, mode=0, segment=None, offset=None),
+            palette=replace(palette, flat_index=flat, mode=2, segment=None, offset=None) if palette else None)
+        texture, status = choose_preview_texture(mapped, catalog, payloads)
+        state_evidence = None
+        if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+            texture, status, state_evidence = rom_object_preview_texture(mapped, catalog, payloads, tables, context)
+        if texture is None or (palette is not None and texture.palette_byte_offset != len(payloads[flat]) - 32):
+            return None, 'rom-object-animation-frame-unresolved', None
+        textures.append(texture)
+        frames.append({'flat_index': flat, 'png_sha1': texture.sha1, 'texture_status': status,
+                       'render_state_consensus': state_evidence})
+    if not textures or animation['preview_frame'] != 0:
+        return None, 'rom-object-animation-frame-unresolved', None
+    first = textures[0]
+    if any((t.width, t.height, t.format, t.size) != (first.width, first.height, first.format, first.size)
+           for t in textures):
+        return None, 'rom-object-animation-layout-unresolved', None
+    evidence = {'binding': animation, 'frames': frames,
+                'scope': 'First stored ROM texture frame; frame timing, current phase, lighting and native appearance remain unverified.'}
+    return replace(first, family='us-rom-object-animation'), 'rom-object-animation-frame', evidence
+
+
+def rom_scene_preview_texture(run, catalog, payloads, context):
+    state = (context or {}).get('scene_texture_state')
+    pixel = run.pixel
+    if (not state or not run.texture_enabled or not run.texture_coordinates_proven
+            or pixel is None or pixel.external or pixel.flat_index is not None
+            or pixel.offset != 0 or run.palette is not None):
+        return None, 'rom-scene-binding-unresolved', None
+    binding = state['bindings'].get(str(pixel.segment))
+    if not binding or binding['pixel_segment'] != pixel.segment:
+        return None, 'rom-scene-binding-unresolved', None
+    frames, textures = [], []
+    for flat in binding['frames']:
+        mapped = replace(run, pixel=replace(pixel, flat_index=flat, mode=0,
+                                           segment=None, offset=None))
+        texture, status = choose_preview_texture(mapped, catalog, payloads)
+        if texture is None:
+            return None, 'rom-scene-frame-unresolved', None
+        textures.append(texture)
+        frames.append({'flat_index': flat, 'png_sha1': texture.sha1, 'texture_status': status})
+    selected = binding['selected_index']
+    if (not textures or not isinstance(selected, int) or not 0 <= selected < len(textures)
+            or binding['frames'][selected] != binding['selected_flat']):
+        return None, 'rom-scene-selector-unresolved', None
+    texture = textures[selected]
+    if any((t.width, t.height, t.format, t.size) !=
+           (texture.width, texture.height, texture.format, texture.size) for t in textures):
+        return None, 'rom-scene-layout-unresolved', None
+    evidence = {'scene': context['entry'], 'renderer': context['renderer'],
+                'state': state, 'decoded_frames': frames, 'scope': context['scope']}
+    return replace(texture, family='us-rom-scene-state'), 'rom-scene-texture-state', evidence
+
+
 def rom_object_preview_texture(run, catalog, payloads, tables, context):
-    if context is None:
+    if context is None or 'scene_texture_state' in context:
         return None, 'rom-object-renderer-unresolved', None
     texture, status, evidence = rom_render_state_preview_texture(run, catalog, payloads, tables)
     if evidence is not None:
@@ -13422,7 +13615,7 @@ def rom_object_preview_texture(run, catalog, payloads, tables, context):
 
 
 def add_rom_texture_state_evidence(encoded: bytes, run_records: list[dict]) -> bytes:
-    if not any(record.get('rom_texture_state_consensus') for record in run_records):
+    if not any(record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state') for record in run_records):
         return encoded
     document = json.loads(encoded)
     for material in document.get('materials', []):
@@ -13430,6 +13623,10 @@ def add_rom_texture_state_evidence(encoded: bytes, run_records: list[dict]) -> b
         index = extras.get('materialRun')
         if isinstance(index, int) and run_records[index].get('rom_texture_state_consensus'):
             extras['romTextureStateConsensus'] = run_records[index]['rom_texture_state_consensus']
+        if isinstance(index, int) and run_records[index].get('rom_object_texture_animation'):
+            extras['romObjectTextureAnimation'] = run_records[index]['rom_object_texture_animation']
+        if isinstance(index, int) and run_records[index].get('rom_scene_texture_state'):
+            extras['romSceneTextureState'] = run_records[index]['rom_scene_texture_state']
     return (json.dumps(document, indent=2) + '\n').encode()
 
 
@@ -13878,6 +14075,20 @@ def extract_model_preview(
                         object_contexts.get((bank_index, bundle.index, segment.index)))
                     if candidate is not None:
                         texture, status, state_consensus_evidence = candidate, candidate_status, evidence
+                animation_evidence = None
+                if runtime_material is None and texture is None and status == 'runtime-segment':
+                    texture, animation_status, animation_evidence = rom_object_animation_preview_texture(
+                        run, catalog, flat_payloads, render_state_tables,
+                        object_contexts.get((bank_index, bundle.index, segment.index)))
+                    if texture is not None:
+                        status = animation_status
+                scene_evidence = None
+                if runtime_material is None and texture is None and status == 'runtime-segment':
+                    texture, scene_status, scene_evidence = rom_scene_preview_texture(
+                        run, catalog, flat_payloads,
+                        object_contexts.get((bank_index, bundle.index, segment.index)))
+                    if texture is not None:
+                        status = scene_status
                 if runtime_material_references_texels(runtime_material) is False:
                     texture, status = None, "runtime-combiner-does-not-use-texture"
                 if default_manifest is not None and run.pixel is not None and run.pixel.segment in (6, 7, 10, 11):
@@ -13912,6 +14123,8 @@ def extract_model_preview(
                     "matrix_index": run.matrix_index,
                     "status": status,
                     "rom_default_texture": default_evidence,
+                    **({"rom_object_texture_animation": animation_evidence} if animation_evidence else {}),
+                    **({"rom_scene_texture_state": scene_evidence} if scene_evidence else {}),
                     **({"rom_texture_state_consensus": state_consensus_evidence} if state_consensus_evidence else {}),
                     "runtime_material": (
                         runtime_material_consensus(runtime_material)
@@ -15027,6 +15240,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "action",
         choices=(
+            "batch",
             "survey",
             "extract",
             "preview",
@@ -15139,6 +15353,12 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    if len(sys.argv) > 1 and sys.argv[1] == "batch":
+        try:
+            from scripts.model_batch import main as batch_main
+        except ModuleNotFoundError:
+            from model_batch import main as batch_main
+        return batch_main(sys.argv[2:])
     args = parse_args()
     bank_index = int(args.bank or "04", 16)
     try:

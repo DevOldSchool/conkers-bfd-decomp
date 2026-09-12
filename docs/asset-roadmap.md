@@ -31,27 +31,28 @@ drawable geometry.
 | Bank | Proven model family | Extracted records | In gallery | Outside gallery |
 | --- | --- | ---: | ---: | ---: |
 | `01` | Rigged characters and animated props | 183 | 177 | 6 |
-| `03` | Direct object models | 77 | 65 | 12 |
-| `04` | Segmented level/model bundles | 765 | 305 | 460 |
+| `03` | Direct object models | 77 | 66 | 11 |
+| `04` | Segmented level/model bundles | 765 | 326 | 439 |
 | `09` | Direct, relative-address, attachment and effect models | 462 | 233 | 229 |
-| **Total** | | **1,487** | **780** | **707** |
+| **Total** | | **1,487** | **802** | **685** |
 
 All records outside the gallery are already extracted. Their current status is:
 
 | Unpublished status | Records | Next action |
 | --- | ---: | --- |
-| Material blocked | 111 | Prove missing texture bindings, layouts or render state |
+| Material blocked | 75 | Prove missing texture bindings, layouts or render state |
 | Appearance blocked | 1 | Resolve stationary tank part visibility and colour state |
-| Reviewed fragments and variants | 593 | Retain as diagnostics; revisit with scene or effect context |
+| Reviewed fragments and variants | 607 | Retain as diagnostics; revisit with scene or effect context |
 | No drawable faces | 2 | Preserve source records for completeness |
 
-Every currently material-complete candidate has been reviewed. The **705
-unpublished drawable records** are not a count of missing characters or a
+Every currently material-complete candidate has been reviewed. Missing
+combiner state is classified as unresolved, even when texture use is unknown.
+The **683 unpublished drawable records** are not a count of missing characters or a
 requirement to display every fragment. Published models can still need
 appearance fixes.
 
 The gallery at `build/assets/models/inspect/index.html` contains only
-ROM-derived exports, split into **106 characters, ten collectables, 527 scene
+ROM-derived exports, split into **106 characters, ten collectables, 549 scene
 items and 137 parts/effects**. Open its self-contained GLBs in Blender using
 Material Preview. Animation-free `*-bind.gltf` sources remain available for
 geometry diagnostics.
@@ -75,10 +76,18 @@ remain the ROM identities.
   Preserve unsupported inherited state as unresolved metadata.
 - [x] Decode supported CI4/CI8, RGBA16/RGBA32, IA4/IA8/IA16 and I4/I8 images
   under checked palette, tile, TMEM and payload contracts. Supported paths
-  include odd-width CI4, wrapped CI8 addressing, RGBA16/IA4/IA8 mip chains and
+  include odd-width CI4, wrapped CI8 addressing, RGBA16/RGBA32/IA4/IA8 mip chains and
   shade-only intensity alpha. Detail-texture previews record the selected
   ordinary mip and its own UV state. glTF does not reproduce native N64 LOD
   or detail blending.
+- [x] Resolve the reviewed scene/object texture-animation table through its
+  placement updater and renderer. Preserve all stored frame indices and decode
+  every frame; show the first stored frame as an explicit inspection preset.
+  Current bindings cover water surfaces, waterfalls, animated B-pad sides and
+  glowing fragments. Gameplay phase and UV animation remain separate.
+- [x] Resolve primary terrain texture selectors for four scenes, preserving
+  their frame alternatives, texture type groups and per-segment phase offsets.
+  Inspection states remain explicit; current gameplay state is not inferred.
 - [x] Resolve ordinary character facial textures from ROM defaults, with
   separately labelled expression, instance and renderer-state presets.
   Current coverage includes Wise Guys shirts, Birdy's transparent hay, Carl's
@@ -102,21 +111,24 @@ Evidence: [ROM character defaults](evidence/us_rom_character_defaults.md),
 [submitted poses](evidence/us_submitted_model_poses.md),
 [odd-width CI4](evidence/us_direct_odd_width_ci4.md),
 [RGBA16 mipmaps](evidence/us_direct_rgba16_mipmaps.md),
+[RGBA32 mipmaps](evidence/us_direct_rgba32_mipmaps.md),
 [intensity materials and mipmaps](evidence/us_direct_intensity_materials.md),
 [CI8 TMEM wrapping](evidence/us_ci8_tmem_wrapping.md), and
-[scene detail textures](evidence/us_detail_indexed_textures.md).
+[scene detail textures](evidence/us_detail_indexed_textures.md), and
+[object texture animation](evidence/us_object_texture_animation.md), and
+[scene texture bindings](evidence/us_scene_texture_bindings.md).
 
 ### Current validation
 
 - All four model banks pass byte-identical reconstruction.
-- The completed batch has **5,406 passed file entries** and **804 render cases**:
-  **796 passed; eight remain incomplete**.
+- The completed batch has **5,406 passed file entries** and **826 render cases**:
+  **818 passed; eight remain incomplete**.
 - Six runtime-draw cases and one submitted-composition case pass as separate
   comparison evidence.
 - ROM-only source audits and packed Blender/Khronos checks support gallery
   publication. File entries include multiple exports of a model; they are not
   additional model identities.
-- **All 759 Python tests pass.**
+- **All 788 Python tests pass.**
 
 The batch still reports incomplete native appearance. Import success and
 reproducible preview baselines do not prove original-game lighting, filtering,
@@ -129,8 +141,10 @@ Current local reports:
   `build/assets/models/validation/review.html`.
 - Publication: `build/assets/models/inspect/manifest.json`.
 - ROM-only and packed-file audits:
-  `build/assets/models/reference/expansion-20260910-usage-budget/`.
-- Full Python suite: `build/assets/models/reference/expansion-20260910-usage-budget/full-tests-final.log`.
+  `build/assets/models/reference/expansion-20260910-usage-budget/` and
+  `build/assets/models/reference/blocked-batch-20260911/` and
+  `build/assets/models/reference/scene-bindings-20260911/`.
+- Full Python suite: `build/assets/models/batch/logs/tests.log`.
 
 The [batch validation guide](evidence/us_model_batch_validation.md) documents
 cache fingerprints, comparison boundaries and reproduction.
@@ -139,18 +153,33 @@ scene association and naming separately. Its results depend on the selected
 corpus and supplied evidence; regenerate it before quoting a material backlog,
 and use the batch report for current per-file validation.
 
+### Resumable batch workflow
+
+`./conker model-assets batch` writes a compact blocker report and review queue.
+`./conker model-assets batch --run` runs tests, verifies and refreshes the four
+banks across the configured corpora, then validates and refreshes approved
+inspection entries. Successful export steps resume only when their inputs and
+outputs match. Changed visual-review inputs and decoder changes reopen the
+corresponding deferred work. New render exceptions stop publication for review.
+
+See [resumable model batches](model-batches.md) for bank selection, deferrals,
+logs and the boundary between automated checks and visual approval. The current
+triage report is `build/assets/models/batch/report.json`; review decisions live
+in `config/model-batch-reviews.json`.
+
 ### Next model work
 
-1. Resolve the **111 material-blocked records** using ROM consumer evidence.
-   Prioritize dynamic segment bindings in bank-04 entries `0019`, `0020`,
-   `0026` and `0051`, then bank-09 object/effect material callbacks. Keep
+1. Resolve the **75 material-blocked records** using ROM consumer evidence.
+   The runtime-segment group contains 18 records: three bank-04 object
+   segments and fifteen bank-09 object/effect models. Prioritize their
+   object/attachment consumers, then the 20 CI4 lookup-state records. Keep
    caller-selected variants explicit instead of inventing a default.
 2. Resolve the four unpublished drawable bank-01 records. Entry `0066` has
    white helmet/body/pack surfaces despite selecting the proven stationary
    renderer descriptor; investigate part visibility and colour state. Entries
    `0154`, `0155` and `0162` use zero-alpha CI4 palettes whose effective alpha
    and render modes remain unresolved. Do not force them opaque.
-3. Assemble and identify the **593 reviewed fragments and variants** through
+3. Assemble and identify the **607 reviewed fragments and variants** through
    scene placements and effect consumers. Promote a fragment only when that
    context makes it useful to inspect; avoid duplicate gallery entries.
 4. Extend independent native comparisons for published characters and objects:

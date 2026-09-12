@@ -6136,6 +6136,160 @@
       "render_case": "object-bank04-0004-27-rom",
       "category": "parts-effects",
       "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+    },
+    {
+      "name": "object-bank03-0085-00-rom",
+      "label": "Green hanging canister \u2014 ROM 03 / 0085 / 00",
+      "render_case": "object-bank03-0085-00-rom",
+      "category": "scene-items",
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. The ring uses the proven RGBA32 mip base. Native LOD blending, environment alpha and full gameplay appearance remain unverified. No capture inputs."
+    },
+    {
+      "name": "object-bank04-0006-07-rom",
+      "label": "Curved water channel \u2014 ROM 04 / 0006 / 07",
+      "render_case": "object-bank04-0006-07-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0006-09-rom",
+      "label": "Sloping water surface \u2014 ROM 04 / 0006 / 09",
+      "render_case": "object-bank04-0006-09-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0006-12-rom",
+      "label": "Water basin and rim \u2014 ROM 04 / 0006 / 12",
+      "render_case": "object-bank04-0006-12-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0006-13-rom",
+      "label": "Water pool \u2014 ROM 04 / 0006 / 13",
+      "render_case": "object-bank04-0006-13-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0007-05-rom",
+      "label": "Forked waterfall \u2014 ROM 04 / 0007 / 05",
+      "render_case": "object-bank04-0007-05-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0007-07-rom",
+      "label": "Narrow water channel \u2014 ROM 04 / 0007 / 07",
+      "render_case": "object-bank04-0007-07-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0007-09-rom",
+      "label": "Water pool \u2014 ROM 04 / 0007 / 09",
+      "render_case": "object-bank04-0007-09-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0007-10-rom",
+      "label": "Horizontal water strip \u2014 ROM 04 / 0007 / 10",
+      "render_case": "object-bank04-0007-10-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0018-09-rom",
+      "label": "B pad with animated side panels \u2014 ROM 04 / 0018 / 09",
+      "render_case": "object-bank04-0018-09-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0041-10-rom",
+      "label": "Water junction \u2014 ROM 04 / 0041 / 10",
+      "render_case": "object-bank04-0041-10-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0041-11-rom",
+      "label": "Waterfall wall \u2014 ROM 04 / 0041 / 11",
+      "render_case": "object-bank04-0041-11-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0041-12-rom",
+      "label": "Water pool \u2014 ROM 04 / 0041 / 12",
+      "render_case": "object-bank04-0041-12-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0065-09-rom",
+      "label": "Water surface patch \u2014 ROM 04 / 0065 / 09",
+      "render_case": "object-bank04-0065-09-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0065-10-rom",
+      "label": "Water cascade and bank \u2014 ROM 04 / 0065 / 10",
+      "render_case": "object-bank04-0065-10-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0065-11-rom",
+      "label": "Water bend \u2014 ROM 04 / 0065 / 11",
+      "render_case": "object-bank04-0065-11-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0065-12-rom",
+      "label": "Water channel and bank \u2014 ROM 04 / 0065 / 12",
+      "render_case": "object-bank04-0065-12-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0065-13-rom",
+      "label": "Curved waterfall \u2014 ROM 04 / 0065 / 13",
+      "render_case": "object-bank04-0065-13-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and texture-animation table. Preview shows the first stored texture frame, not a sampled gameplay state. All stored frames decode; native timing, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0019-00-rom",
+      "label": "Stone courtyard and sand pits \u2014 ROM 04 / 0019 / 00",
+      "render_case": "object-bank04-0019-00-rom",
+      "category": "scene-items",
+      "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0020-00-rom",
+      "label": "Circular lava chamber \u2014 ROM 04 / 0020 / 00",
+      "render_case": "object-bank04-0020-00-rom",
+      "category": "scene-items",
+      "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0026-00-rom",
+      "label": "Industrial hub and passages \u2014 ROM 04 / 0026 / 00",
+      "render_case": "object-bank04-0026-00-rom",
+      "category": "scene-items",
+      "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0051-00-rom",
+      "label": "Lava channels and bridges \u2014 ROM 04 / 0051 / 00",
+      "render_case": "object-bank04-0051-00-rom",
+      "category": "scene-items",
+      "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
     }
   ]
 }

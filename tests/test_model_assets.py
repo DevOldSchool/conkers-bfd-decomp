@@ -4166,6 +4166,71 @@ class ModelAssetTests(unittest.TestCase):
             other_mode=(0xEF19AC3F, 0x0C192230),
         )
 
+    def test_scene_binding_uses_selected_frame_and_checks_all_alternatives(self):
+        run = self.direct_rgba32_run()
+        run = replace(run, pixel=replace(run.pixel, image_command=0xFD100000,
+            load_command=(0xF3000000, 0x07007000), flat_index=None, mode=None, segment=2, offset=0),
+            render_tile=(0xF5100200, 0),
+            render_tiles=((0, 0xF5100200, 0), (7, 0xF5100000, 0x07000000)))
+        context = {'entry': 26, 'renderer': 'scene', 'scope': 'inspection state',
+            'scene_texture_state': {'bindings': {'2': {'pixel_segment': 2,
+                'frames': [42, 43], 'selected_index': 1, 'selected_flat': 43}}}}
+        payloads = {42: bytes.fromhex('ffff') * 8, 43: bytes.fromhex('f801') * 8}
+        texture, status, proof = model_assets.rom_scene_preview_texture(run, {}, payloads, context)
+        self.assertEqual('rom-scene-texture-state', status)
+        self.assertEqual('us-rom-scene-state', texture.family)
+        self.assertEqual([42, 43], [r['flat_index'] for r in proof['decoded_frames']])
+        self.assertEqual(payloads[43], texture_rgba16.decode_png(texture.png_data,
+                         'tmem-odd-row-32bit-swap', 4, 2))
+        self.assertIsNone(run.pixel.flat_index)
+        self.assertEqual(2, run.pixel.segment)
+        for candidate in (replace(run, pixel=replace(run.pixel, segment=9)),
+                          replace(run, pixel=replace(run.pixel, offset=4)),
+                          replace(run, pixel=replace(run.pixel, flat_index=42)),
+                          replace(run, texture_enabled=False)):
+            self.assertIsNone(model_assets.rom_scene_preview_texture(candidate, {}, payloads, context)[0])
+        self.assertIsNone(model_assets.rom_scene_preview_texture(run, {}, {43: payloads[43]}, context)[0])
+        context['scene_texture_state']['bindings']['2']['selected_index'] = -1
+        self.assertIsNone(model_assets.rom_scene_preview_texture(run, {}, payloads, context)[0])
+
+    def test_scene_binding_has_distinct_material_provenance(self):
+        proof = {'scene': 26, 'state': {'preview_state': {'phase': 0}}}
+        raw = json.dumps({'materials': [{'extras': {'materialRun': 0}}]}).encode()
+        doc = json.loads(model_assets.add_rom_texture_state_evidence(raw, [{'rom_scene_texture_state': proof}]))
+        extras = doc['materials'][0]['extras']
+        self.assertEqual(proof, extras['romSceneTextureState'])
+        self.assertNotIn('romTextureStateConsensus', extras)
+        self.assertNotIn('romObjectTextureAnimation', extras)
+
+    def test_rom_object_animation_checks_every_frame_and_retains_source_binding(self):
+        run = self.direct_ci4_run()
+        run = replace(run, pixel=replace(run.pixel, flat_index=None, mode=None, segment=4, offset=0),
+                      palette=replace(run.palette, flat_index=None, mode=None, segment=5, offset=0))
+        payload = bytes(range(256)) * 2 + bytes(192) + bytes.fromhex('ffff') * 16
+        context = {'texture_animation': {'frames': [42, 43], 'preview_frame': 0}}
+        texture, status, proof = model_assets.rom_object_animation_preview_texture(
+            run, {}, {42: payload, 43: payload}, [], context)
+        self.assertEqual('rom-object-animation-frame', status)
+        self.assertEqual('us-rom-object-animation', texture.family)
+        self.assertEqual([42, 43], [r['flat_index'] for r in proof['frames']])
+        self.assertEqual(4, run.pixel.segment)
+        self.assertIsNone(run.pixel.flat_index)
+        self.assertIsNone(model_assets.rom_object_animation_preview_texture(
+            run, {}, {42: payload, 43: b'short'}, [], context)[0])
+        for candidate in (replace(run, pixel=replace(run.pixel, segment=6)),
+                          replace(run, palette=replace(run.palette, offset=32)),
+                          replace(run, texture_coordinates_proven=False)):
+            self.assertIsNone(model_assets.rom_object_animation_preview_texture(
+                candidate, {}, {42: payload, 43: payload}, [], context)[0])
+        self.assertIsNone(model_assets.rom_object_animation_preview_texture(run, {}, {}, [], None)[0])
+
+    def test_rom_object_animation_evidence_uses_distinct_gltf_metadata(self):
+        raw = json.dumps({'materials': [{'extras': {'materialRun': 0}}]}).encode()
+        proof = {'binding': {'frames': [42], 'preview_frame': 0}}
+        doc = json.loads(model_assets.add_rom_texture_state_evidence(raw, [{'rom_object_texture_animation': proof}]))
+        self.assertEqual(proof, doc['materials'][0]['extras']['romObjectTextureAnimation'])
+        self.assertNotIn('romTextureStateConsensus', doc['materials'][0]['extras'])
+
     def test_direct_ci4_uses_base_image_and_tail_palette_from_mip_payload(self):
         run = self.direct_ci4_run()
         base = bytes(range(256)) * 2
@@ -4447,6 +4512,79 @@ class ModelAssetTests(unittest.TestCase):
                     model_assets.direct_rgba16_mipmap_preview_texture(candidate, bytes(2752)))
         self.assertEqual((None, "direct-rgba16-mipmap-payload-span-unresolved"),
             model_assets.direct_rgba16_mipmap_preview_texture(run, bytes(2048)))
+
+    def direct_rgba32_mipmap_run(self):
+        run = self.direct_rgba32_run()
+        tiles = ((0, 0xF5181000, 0x00090250), (1, 0xF5180880, 0x0108C641),
+                 (2, 0xF51804A0, 0x02088A32), (3, 0xF51802A8, 0x03084E23),
+                 (7, 0xF5180000, 0x07000000))
+        return replace(run, render_tile=tiles[0][1:], render_tiles=tiles,
+            texture_scale=(0xD7001802, 0xFFFFFFFF), tile_bounds=(0xF2000000, 0x0007C03C),
+            combine_mode=(0xFC26A1FF, 0x1F14923F), other_mode=(0xEF192C3F, 0x0C184A50),
+            pixel=replace(run.pixel, load_command=(0xF3000000, 0x072A7000)))
+
+    def test_direct_rgba32_mipmaps_preserve_paired_base_pixels(self):
+        from scripts.texture_native import decode_png
+        run = self.direct_rgba32_mipmap_run(); base = bytes(range(256)) * 8
+        texture, status = model_assets.choose_preview_texture(run, {}, {42: base + bytes(768)})
+        self.assertEqual('direct-rgba32-mipmap-base', status)
+        self.assertEqual(base, decode_png(texture.png_data, 'rgba32', 'tmem-odd-row-32bit-swap', 32, 16))
+        other = model_assets.choose_preview_texture(run, {}, {42: base + bytes([255]) * 768})[0]
+        self.assertEqual(texture.png_data, other.png_data)
+
+    def test_direct_rgba32_mipmaps_reject_incomplete_or_unsupported_state(self):
+        run = self.direct_rgba32_mipmap_run()
+        self.assertFalse(model_assets.is_direct_rgba32_texture_mipmap_base(replace(run, render_tile=None)))
+        self.assertFalse(model_assets.is_direct_rgba32_texture_mipmap_base(replace(run, texture_scale=None)))
+        for candidate in (replace(run, other_mode_partial=(0, 0, 0, 0)),
+                          replace(run, combine_mode=(0xFC26A1FF, 0x1F14923E)),
+                          replace(run, render_tiles=run.render_tiles[:2]+run.render_tiles[3:]),
+                          replace(run, pixel=replace(run.pixel, load_command=(0xF3000000, 0x072A6000))),
+                          replace(run, render_tiles=tuple((i, c-1, a) if i==3 else (i,c,a) for i,c,a in run.render_tiles))):
+            self.assertIsNone(model_assets.choose_preview_texture(candidate, {}, {42: bytes(2816)})[0])
+        self.assertIsNone(model_assets.choose_preview_texture(run, {}, {42: bytes(2048)})[0])
+
+    def test_direct_rgba32_texture_only_mip_omits_shade_multiplier(self):
+        geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
+        run = replace(self.direct_rgba32_mipmap_run(), first_face=0, face_count=len(geometry.faces))
+        geometry = replace(geometry, material_runs=(run,))
+        name = model_assets.material_name(run)
+        raw, _ = model_assets.encode_gltf(0, 0, geometry, {name:'texture.png'})
+        document = json.loads(raw)
+        self.assertNotIn('COLOR_0', document['meshes'][0]['primitives'][0]['attributes'])
+
+    def test_rgba32_texture_only_verifier_requires_source_colors_and_exact_binding(self):
+        import copy
+        geometry = model_assets.parse_model_geometry(model_payload_with_material_runs())
+        run = replace(self.direct_rgba32_mipmap_run(), first_face=0, face_count=len(geometry.faces))
+        geometry = replace(geometry, material_runs=(run,))
+        raw, binary = model_assets.encode_gltf(0, 0, geometry,
+            {model_assets.material_name(run): '../textures/test.png'})
+        document = json.loads(raw)
+        records = [{"status": "direct-rgba32-mipmap-base", "runtime_material": None,
+            "combine_mode": model_assets.command_pair_record(run.combine_mode),
+            "other_mode": model_assets.command_pair_record(run.other_mode),
+            "texture": {"source_family": "us-direct-rgba32-mipmap-base", "format": 0,
+                        "size": 3, "file": "textures/test.png"}}]
+        model_assets.verify_gltf_vertex_colors(document, records)
+        primitive = document['meshes'][0]['primitives'][0]
+        accessor = document['accessors'][primitive['attributes']['_SOURCE_COLOR_0']]
+        view = document['bufferViews'][accessor['bufferView']]
+        start = view.get('byteOffset', 0) + accessor.get('byteOffset', 0)
+        self.assertEqual(b''.join(bytes(v.color) for v in geometry.vertices),
+                         binary[start:start + accessor['count'] * 4])
+        for mutation in ('source', 'binding', 'formula', 'status', 'partial', 'family', 'format'):
+            doc, runs = copy.deepcopy(document), copy.deepcopy(records)
+            if mutation == 'source':
+                del doc['meshes'][0]['primitives'][0]['attributes']['_SOURCE_COLOR_0']
+            elif mutation == 'binding': doc['images'][0]['uri'] = '../textures/wrong.png'
+            elif mutation == 'formula': runs[0]['combine_mode'][1] = '0x1F14923E'
+            elif mutation == 'status': runs[0]['status'] = 'no-proven-texture'
+            elif mutation == 'partial': runs[0]['other_mode_partial'] = [0, 0, 0, 0]
+            elif mutation == 'family': runs[0]['texture']['source_family'] = 'other'
+            elif mutation == 'format': runs[0]['texture']['size'] = 2
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                model_assets.verify_gltf_vertex_colors(doc, runs)
 
     def direct_rgba32_run(self):
         run = self.direct_ci4_run()
