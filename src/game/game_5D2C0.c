@@ -34,7 +34,6 @@
  * - func_150339C8
  * - func_15033AD8
  * - func_15033BDC
- * - func_15033E28
  * - func_15033E84
  * - func_15033EC4
  *
@@ -432,8 +431,30 @@ s32 func_15033E00(s32 arg0, void *arg1) {
     }
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033E28.s")
 extern void *D_800C3EE0;
+
+s32 func_15033E28(void *arg0, void **arg1) {
+    s32 var_v1;
+    void *temp_v0;
+    void *var_a0;
+
+    var_v1 = 0;
+    if (D_800C3EE0 == 0) {
+        return 0;
+    }
+    var_a0 = D_800C3EE0;
+    if (D_800C3EE0 != 0) {
+        do {
+            temp_v0 = *(void **)((u8 *)var_a0 + 0x54);
+            if (*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)var_a0) {
+                arg1[var_v1] = var_a0;
+                var_v1 += 1;
+            }
+            var_a0 = temp_v0;
+        } while (temp_v0 != 0);
+    }
+    return var_v1;
+}
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15033E84 CURRENT (360) */
 void *func_15033E84(void *arg0) {

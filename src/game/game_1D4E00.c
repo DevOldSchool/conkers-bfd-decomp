@@ -66,5 +66,24 @@ void func_151A85D4(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A85D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8624.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A87F8.s")
+typedef void (*Game1D4E00Callback)(void *, s32, s32);
+
+extern Game1D4E00Callback D_8008F964[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8A20 CURRENT (442) */
+void func_151A8A20(void *arg0, s32 arg1, s32 arg2) {
+    Game1D4E00Callback temp_v1;
+    u8 var_v0;
+
+    var_v0 = *(u8 *)((u8 *)arg0 + 0x5C);
+    if (var_v0 >= 3) {
+        var_v0 = 0;
+    }
+    temp_v1 = D_8008F964[var_v0];
+    if (temp_v1 != 0) {
+        temp_v1(arg0, arg1, arg2 & 0xFF);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A8A20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8A20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8A78.s")

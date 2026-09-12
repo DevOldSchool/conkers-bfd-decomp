@@ -17,7 +17,6 @@
  * - func_15194B94
  * - func_15194BF0
  * - func_15194DC8
- * - func_15194E54
  * - func_15194EA8
  * - func_15194F48
  * - func_15194FF4
@@ -100,7 +99,21 @@ void func_15194DA4(s32 arg0, s32 arg1, s32 arg2) {
     func_15194FF4(arg0, arg1, 1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194DC8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194E54.s")
+typedef struct {
+    u8 pad_0[4];
+    u8 field_4;
+} Game1C1150Data;
+
+void func_150B06B0(void *, s32, s32, s32);
+
+void func_15194E54(s32 arg0, Game1C1150Data *arg1, s32 arg2) {
+    u8 temp_v0;
+
+    temp_v0 = arg1->field_4;
+    if ((temp_v0 == 0x3E) || (temp_v0 == 0xA6)) {
+        func_150B06B0(arg1, arg0, 0xFF, 1);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194EA8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194F48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194FF4.s")

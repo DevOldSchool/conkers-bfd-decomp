@@ -154,6 +154,26 @@ block_7:
 #endif /* CONKER_DEFERRED_CANDIDATE func_151415D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151415D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151416E8.s")
+typedef struct {
+    s32 field_0;
+    s32 field_4;
+} Game16DC80Pair;
+
+void func_15169260(Game16DC80Pair *, s32, u8 *, s32);
+extern Game16DC80Pair D_8008A074;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151417C4 CURRENT (460) */
+void func_151417C4(s32 arg0, s32 arg1) {
+    s32 sp24;
+    Game16DC80Pair sp1C;
+    s32 temp_a3;
+
+    temp_a3 = arg1 & 0xFF;
+    sp1C = D_8008A074;
+    *(u8 *)&sp24 = arg1;
+    func_15169260(&sp1C, 2, (u8 *)&sp24, temp_a3);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151417C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151417C4.s")
 s32 func_15141818(s32 arg0, s32 arg1) {
     return 0;

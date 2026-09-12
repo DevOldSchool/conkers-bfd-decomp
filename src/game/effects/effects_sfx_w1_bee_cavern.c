@@ -62,5 +62,19 @@ void func_150BE2E8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150BE2E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE2E8.s")
+extern u8 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE438 CURRENT (580) */
+void *func_150BE438(void *arg0, s32 arg1) {
+    u8 *temp_v1;
+
+    *(s16 *)arg0 = 0x68;
+    temp_v1 = (arg1 * 0x32C) + &D_800CC2D0;
+    *(s16 *)((u8 *)arg0 + 4) = 0xE;
+    *(s16 *)((u8 *)arg0 + 2) = *(s32 *)((u8 *)temp_v1 + 0x2E8);
+    *(s16 *)((u8 *)arg0 + 6) = *(s32 *)((u8 *)temp_v1 + 0x2E4);
+    return (u8 *)arg0 + 8;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BE438 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE438.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE494.s")

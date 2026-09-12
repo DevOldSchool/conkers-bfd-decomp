@@ -94,6 +94,18 @@ s32 func_150CFDB8(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFDB8.s")
+void func_10022EC0(void *, void *, s32, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (140) */
+void func_150CFE3C(void *arg0) {
+    s32 temp_v0;
+
+    func_10022EC0(*(void **)((u8 *)arg0 + (*(u8 *)((u8 *)arg0 + 0x3D) * 4) + 0x40),
+                   *(void **)((u8 *)arg0 + 0x34), *(u8 *)((u8 *)arg0 + 0x3C), arg0);
+    temp_v0 = (s32)arg0 + 0x28;
+    *(*(u8 **)(temp_v0 + (*(u8 *)(temp_v0 + 0x15) * 4) + 0x18) + *(u8 *)(temp_v0 + 0x14)) = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CFE3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE3C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFF10.s")

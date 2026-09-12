@@ -24,7 +24,6 @@
  * - func_1514E5B8
  * - func_1514E668
  * - func_1514E718
- * - func_1514E7C8
  * - func_1514E89C
  * - func_1514E920
  * - func_1514EA1C
@@ -39,7 +38,6 @@
  * - func_1514F194
  * - func_1514F308
  * - func_1514F3CC
- * - func_1514F44C
  * - func_1514F5CC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -188,7 +186,15 @@ void func_1514DFD0(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514E5B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514E668.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514E718.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514E7C8.s")
+void *func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+extern u8 D_800A5920;
+
+void func_1514E7C8(s32 arg0) {
+    void *temp_v0;
+
+    temp_v0 = func_1518D1C0(arg0, 7, 0, 1, 0xFF, 1, &D_800A5920);
+    func_1514EC1C((s32)temp_v0, arg0, 0xF);
+}
 void func_1514E824(s32 arg0) {
 
 }
@@ -318,6 +324,26 @@ void func_1514EDF0(s32 arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514EDF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EDF0.s")
+void *func_1515BE50(void *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514EE70 CURRENT (185) */
+void func_1514EE70(s32 arg0) {
+    struct {
+        void *field_0;
+        u8 field_4;
+        u8 field_5;
+        s16 field_6;
+    } sp20;
+    void *temp_v0;
+
+    sp20.field_0 = (void *)arg0;
+    sp20.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
+    sp20.field_5 = 0;
+    sp20.field_6 = 0x12C;
+    temp_v0 = func_1515BE50(&sp20, 0, 0xFF, 1);
+    func_1514EC1C((s32)temp_v0, arg0, 0x16);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514EE70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EE70.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EECC.s")
 void func_1514F110(void) {
@@ -327,7 +353,14 @@ void func_1514F110(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F194.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F308.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F3CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F44C.s")
+extern u8 D_800A5988;
+
+void func_1514F44C(s32 arg0) {
+    void *temp_v0;
+
+    temp_v0 = func_1518D1C0(arg0, 5, 0, 1, 0xFF, 1, &D_800A5988);
+    func_1514EC1C((s32)temp_v0, arg0, 0xD);
+}
 void func_151D74B0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_1514F4A8(s32 arg0) {

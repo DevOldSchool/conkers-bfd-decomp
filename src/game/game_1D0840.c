@@ -133,4 +133,27 @@ void func_151A4E9C(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4E9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4ECC.s")
+typedef struct {
+    s32 field_0;
+    u8 field_4;
+} Game1D0840Data;
+
+typedef struct {
+    u8 pad_0[0x28];
+    Game1D0840Data field_28;
+} Game1D0840State;
+
+void func_1516972C(Game1D0840State *, Game1D0840Data *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4F7C CURRENT (647) */
+void func_151A4F7C(Game1D0840State *arg0, Game1D0840Data *arg1, s32 arg2) {
+    s32 temp_t6;
+
+    temp_t6 = arg2 & 0xFF;
+    if ((temp_t6 == 0) && ((arg0->field_28.field_0 == arg1->field_0) ||
+        (arg0->field_28.field_4 == arg1->field_4))) {
+        func_1516972C(arg0, arg1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4F7C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4F7C.s")

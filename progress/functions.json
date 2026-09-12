@@ -739,7 +739,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15135424",
           "vram": "0x15135424"
         }
@@ -763,7 +768,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1513555C",
           "vram": "0x1513555C"
         }
@@ -1347,7 +1357,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15160600",
           "vram": "0x15160600"
         }
@@ -1683,6 +1698,12 @@
       "symbol": "func_151617E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 240,
+        "reason": "Manual callback-dispatch candidate recovers helper and callback semantics; CURRENT 240 is limited to IDO caller-saved argument register allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -1695,6 +1716,12 @@
       "symbol": "func_15161804"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 240,
+        "reason": "Manual callback-dispatch candidate recovers helper and callback semantics; CURRENT 240 is limited to IDO caller-saved argument register allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -1892,6 +1919,12 @@
       "symbol": "func_15162B28"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 50,
+        "reason": "CURRENT (50): recovered the light-state flag update and byte callback; remaining mismatch is local stack-frame layout only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -1907,7 +1940,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15162F50",
           "vram": "0x15162F50"
         }
@@ -1964,6 +2002,12 @@
       "symbol": "func_15163504"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 605,
+        "reason": "Manual callback-table candidate recovers forwarded arguments and null guard but retains table-address materialization/reload differences (CURRENT 605).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -2229,7 +2273,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1516434C",
           "vram": "0x1516434C"
         }
@@ -7390,6 +7439,12 @@
       "symbol": "func_150BE2E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 580,
+        "reason": "Manual candidate recovers the record construction and return semantics but retains compiler register/scheduling differences (CURRENT 580).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9554,8 +9609,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513BA78",
           "vram": "0x1513BA78"
         }
@@ -9817,6 +9877,12 @@
       "symbol": "func_151416E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 460,
+        "reason": "CURRENT (460): recovered aggregate copy and byte callback setup; only argument scheduling differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -11323,6 +11389,12 @@
       "symbol": "func_151467A4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 424,
+        "reason": "Manual callback-loop candidate recovers all callbacks and bounds; CURRENT 424 is limited to end-pointer/global materialization and callee-saved register allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -11336,6 +11408,12 @@
       "symbol": "func_15167010"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "CURRENT (30): recovered callback cleanup loop; only global address-materialization order differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -12344,8 +12422,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150076BC",
           "vram": "0x150076BC"
         }
@@ -12523,8 +12606,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150092DC",
           "vram": "0x150092DC"
         }
@@ -19632,8 +19720,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150714E8",
           "vram": "0x150714E8"
         }
@@ -19753,8 +19846,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15071690",
           "vram": "0x15071690"
         }
@@ -19848,8 +19946,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15071888",
           "vram": "0x15071888"
         }
@@ -23617,8 +23720,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15078A08",
           "vram": "0x15078A08"
         }
@@ -23697,8 +23805,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150790C4",
           "vram": "0x150790C4"
         }
@@ -27162,6 +27275,12 @@
       "symbol": "func_1507C8FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 35,
+        "reason": "CURRENT (35): recovered the indexed state update, range gate, and callback; remaining mismatch is register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -28567,8 +28686,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15105BC8",
           "vram": "0x15105BC8"
         }
@@ -28754,8 +28878,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15149434",
           "vram": "0x15149434"
         }
@@ -28942,6 +29071,12 @@
       "symbol": "func_151D2AB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "CURRENT (30): recovered the countdown and expiration callback; remaining mismatch is temporary register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29533,8 +29668,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9820",
           "vram": "0x151D9820"
         }
@@ -29546,8 +29686,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9878",
           "vram": "0x151D9878"
         }
@@ -29610,8 +29755,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D99C8",
           "vram": "0x151D99C8"
         }
@@ -29642,8 +29792,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9A68",
           "vram": "0x151D9A68"
         }
@@ -29673,8 +29828,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D9ADC",
           "vram": "0x151D9ADC"
         }
@@ -29683,6 +29843,12 @@
       "symbol": "func_151D9ADC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Manual aggregate-copy candidate is semantically exact but retains a 20-instruction stack-frame alignment mismatch under IDO.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30637,6 +30803,12 @@
       "symbol": "func_15107678"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 605,
+        "reason": "Manual callback-table candidate recovers forwarded arguments and null guard but retains table-address materialization/reload differences (CURRENT 605).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31519,8 +31691,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514E7C8",
           "vram": "0x1514E7C8"
         }
@@ -31813,6 +31990,12 @@
       "symbol": "func_1514EDF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 185,
+        "reason": "Manual local-record wrapper is semantically recovered; best CURRENT 185 retains only IDO register scheduling around the local record address.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31912,8 +32095,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514F44C",
           "vram": "0x1514F44C"
         }
@@ -32916,8 +33104,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15181D70",
           "vram": "0x15181D70"
         }
@@ -33158,8 +33351,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C05F0",
           "vram": "0x151C05F0"
         }
@@ -33171,8 +33369,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C0644",
           "vram": "0x151C0644"
         }
@@ -34868,8 +35071,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15022190",
           "vram": "0x15022190"
         }
@@ -35150,6 +35358,12 @@
       "symbol": "func_150233BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Manual loop candidate recovers semantics and all loop instructions; best CURRENT (20) differs only in global-address materialization order.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36441,8 +36655,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033E28",
           "vram": "0x15033E28"
         }
@@ -36661,8 +36880,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15044CE4",
           "vram": "0x15044CE4"
         }
@@ -39406,6 +39630,12 @@
       "symbol": "func_150CFDB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 140,
+        "reason": "Manual candidate recovers both call and post-call buffer update semantics; CURRENT 140 remains from IDO pointer-expression reuse/order.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40130,6 +40360,12 @@
       "symbol": "func_15131B7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 467,
+        "reason": "CURRENT (467): recovered the three-register callback dispatch and table gate; remaining mismatch is ABI/register scheduling around the byte argument.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41906,8 +42142,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FFD2C",
           "vram": "0x150FFD2C"
         }
@@ -42766,8 +43007,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15194E54",
           "vram": "0x15194E54"
         }
@@ -43867,6 +44113,12 @@
       "symbol": "func_151B22C8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 780,
+        "reason": "CURRENT (780): recovered pointer stride, state fields, and return semantics; remaining mismatch is branch-likely selection and register allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45495,6 +45747,12 @@
       "symbol": "func_150DA5EC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 18,
+        "reason": "CURRENT (18): recovered paired setup calls; only saved-temporary stack slot and reload register differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -46126,6 +46384,12 @@
       "symbol": "func_151555AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 260,
+        "reason": "CURRENT (260): recovered aggregate dispatch with byte argument; only argument timing differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -46276,8 +46540,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151AE264",
           "vram": "0x151AE264"
         }
@@ -46570,8 +46839,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EEDA8",
           "vram": "0x150EEDA8"
         }
@@ -47010,6 +47284,12 @@
       "symbol": "func_150D7068"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5195,
+        "reason": "CURRENT (5195): recovered the paired 16-byte range initialization and final selector store; compiler unrolled the fixed loop differently.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47039,8 +47319,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15172D28",
           "vram": "0x15172D28"
         }
@@ -47506,6 +47791,12 @@
       "symbol": "func_151797B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 25,
+        "reason": "Manual reverse-scan candidate recovers the full flag-setting behavior; CURRENT 25 is limited to equivalent temporary a0/a1 allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48314,6 +48605,12 @@
       "symbol": "func_151A4ECC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 647,
+        "reason": "CURRENT (647): recovered two-argument helper call and comparison semantics; parameter sanitization and field-load ordering differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48674,6 +48971,12 @@
       "symbol": "func_151A87F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 442,
+        "reason": "CURRENT (442): recovered the clamped table callback and forwarded state; remaining mismatch is byte-argument ABI scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48873,6 +49176,12 @@
       "symbol": "func_15155F90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 35,
+        "reason": "CURRENT (35): recovered block traversal and node lookup; only global traversal-pointer register allocation differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -49544,8 +49853,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15191B8C",
           "vram": "0x15191B8C"
         }
@@ -53240,6 +53554,12 @@
       "symbol": "func_151B4CD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 669,
+        "reason": "CURRENT (669): recovered the vector and byte forwarding; remaining mismatch is floating-argument stack scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53771,6 +54091,12 @@
       "symbol": "func_150D1F6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 435,
+        "reason": "Manual candidate recovers the six-child cleanup loop; best CURRENT 435 retains IDO loop-counter and address-expression scheduling differences.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54983,8 +55309,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1512D6F0",
           "vram": "0x1512D6F0"
         }
@@ -55358,8 +55689,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D26C0",
           "vram": "0x151D26C0"
         }
@@ -57597,6 +57933,12 @@
       "symbol": "func_151AA170"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 516,
+        "reason": "CURRENT (516): recovered the local state, callback sequence, and byte load; remaining mismatch is compiler stack-slot and prologue scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -57646,6 +57988,12 @@
       "symbol": "func_151AA1F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 516,
+        "reason": "CURRENT (516): exact duplicate of deferred func_151AA17C; retained the recovered state/callback candidate, with only compiler stack-slot and prologue scheduling remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58457,8 +58805,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D1410",
           "vram": "0x150D1410"
         }
@@ -58540,8 +58893,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E411C",
           "vram": "0x150E411C"
         }
@@ -63078,6 +63436,12 @@
       "symbol": "func_1518E73C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 272,
+        "reason": "CURRENT (272): recovered conditional callback dispatch; only parameter-home and load-order scheduling differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63965,8 +64329,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15178750",
           "vram": "0x15178750"
         }
@@ -66017,8 +66386,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EB430",
           "vram": "0x150EB430"
         }
@@ -69058,6 +69432,12 @@
       "symbol": "func_15159890"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 889,
+        "reason": "CURRENT (889): recovered the vector setup and byte-selected callback; remaining mismatch is floating-local stack layout and scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69148,6 +69528,12 @@
       "symbol": "func_1515A78C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "CURRENT (30): recovered helper result propagation; only final temporary register allocation differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70186,6 +70572,12 @@
       "symbol": "func_151D10C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1150,
+        "reason": "CURRENT (1150): recovered the null-gated table-slot callback and return semantics; remaining mismatch is byte lifetime and register scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71054,6 +71446,12 @@
       "symbol": "func_150FB188"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 452,
+        "reason": "CURRENT (452): recovered both forwarded calls and the omitted leading argument; remaining mismatch is call-argument scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71342,6 +71740,12 @@
       "symbol": "func_151D4C38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "CURRENT (10): recovered both calls, argument layout, and state lifetime; only the post-call reload register differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71957,8 +72361,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C2EF0",
           "vram": "0x151C2EF0"
         }
@@ -72199,6 +72608,12 @@
       "symbol": "func_151B7328"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 75,
+        "reason": "CURRENT (75): recovered the full pointer traversal, branch-likely float-copy path, and return semantics; remaining difference is register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72283,6 +72698,12 @@
       "symbol": "func_151B82CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 487,
+        "reason": "CURRENT (487): recovered the conditional state callback; remaining mismatch is parameter-home and register scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72360,6 +72781,12 @@
       "symbol": "func_150AF6E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 766,
+        "reason": "CURRENT (766): recovered the packed callback arguments; remaining mismatch is compiler elimination and stack-layout scheduling of the local byte record.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72465,8 +72892,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B003C",
           "vram": "0x150B003C"
         }
@@ -75461,8 +75893,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A6AB8",
           "vram": "0x151A6AB8"
         }
@@ -76184,8 +76621,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EC45C",
           "vram": "0x150EC45C"
         }

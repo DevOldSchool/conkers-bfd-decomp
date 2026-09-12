@@ -72,13 +72,10 @@
  * - func_15070F60
  * - func_150712AC
  * - func_15071360
- * - func_150714E8
- * - func_15071690
  * - func_150716EC
  * - func_15071764
  * - func_150717E0
  * - func_15071830
- * - func_15071888
  * - func_150718E4
  * - func_15071A34
  * - func_15071A64
@@ -1086,7 +1083,14 @@ void func_15071470(s32 arg0) {
 void func_150714AC(s32 arg0) {
     func_150FF840(D_800D154C, 0, 1, 0xFF, 1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_150714E8.s")
+void func_151D5714(u8 *, void *, void *, u8, f32, s32, s32);
+extern u8 D_80088BB0;
+extern u8 D_800A2148;
+extern u8 D_800A2154;
+
+void func_150714E8(s32 arg0) {
+    func_151D5714(D_800D154C, &D_800A2148, &D_800A2154, D_80088BB0, 1.0f, 0xFF, 1);
+}
 extern void func_151D4668(void *arg0);
 extern void func_151D469C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
@@ -1115,7 +1119,17 @@ void func_151D0024(u8 *arg0);
 void func_15071668(s32 arg0) {
     func_151D0024(D_800D154C);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15071690.s")
+void func_150B60E0(void *, f32 *);
+void func_150B5C38(f32 *, s32, s32);
+
+void func_15071690(s32 arg0) {
+    f32 sp1C[3];
+
+    if ((*(s32 *)((u8 *)D_800D154C + 0x1D4) != 0) && ((*(u8 *)((u8 *)D_800D154C + 0x74) & 0xF) != 0xF)) {
+        func_150B60E0(D_800D154C, &sp1C[0]);
+        func_150B5C38(&sp1C[0], 0xFF, 1);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_150716EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15071764.s")
 void *func_15083E90(u8);
@@ -1157,7 +1171,14 @@ void func_1519072C(u8 *arg0);
 void func_15071860(s32 arg0) {
     func_1519072C(D_800D154C);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15071888.s")
+extern u8 D_80088B90;
+extern f32 D_80099F30;
+extern u8 D_800A1FB0;
+extern u8 D_800A1FBC;
+
+void func_15071888(s32 arg0) {
+    func_151D5714(D_800D154C, &D_800A1FB0, &D_800A1FBC, D_80088B90, D_80099F30, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_150718E4.s")
 void func_150FA520(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 

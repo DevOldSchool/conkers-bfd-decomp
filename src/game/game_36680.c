@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150091D0
- * - func_150092DC
  * - func_15009334
  * - func_15009628
  * - func_150096C4
@@ -37,7 +36,20 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150091D0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150092DC.s")
+void func_15009334(u32);
+extern u32 D_800D3094;
+
+void func_150092DC(void) {
+    u32 var_s0;
+
+    var_s0 = 0;
+    if (D_800D3094 != 0) {
+        do {
+            func_15009334(var_s0);
+            var_s0 += 1;
+        } while (var_s0 < D_800D3094);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009334.s")
 void func_1516127C(s32 arg0, s32 arg1, s32 arg2);
 

@@ -65,4 +65,12 @@ void func_150FADC8(void *arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FADC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FB188.s")
+void func_15157F80(s32, s32, s32, s32, s32);
+s32 func_151D710C(s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB1E8 CURRENT (452) */
+void func_150FB1E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    func_15157F80(func_151D710C(arg1, arg2, arg3, arg4), arg1, arg2, arg3, arg4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FB1E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FB1E8.s")

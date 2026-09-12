@@ -8,7 +8,6 @@
  * - func_15149130
  * - func_151491F4
  * - func_15149264
- * - func_15149434
  * - func_151494E0
  * - func_15149514
  *
@@ -65,7 +64,19 @@ void func_151493E4(Game1765E0State *arg0) {
     }
     D_8008A7B0[temp_v0]();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1765E0/func_15149434.s")
+extern void (*D_8008A8D8[])(void *, void *, u8);
+
+void func_15149434(void *arg0, void *arg1, u8 arg2) {
+    s32 var_v0;
+
+    var_v0 = *(u8 *)((u8 *)arg0 + 0x13);
+    if ((var_v0 < 0) || (var_v0 >= 0x4A)) {
+        var_v0 = 0;
+    }
+    if (D_8008A8D8[var_v0] != 0) {
+        D_8008A8D8[var_v0](arg0, arg1, arg2);
+    }
+}
 typedef struct {
     u8 pad_0[0x12];
     s8 field_12;

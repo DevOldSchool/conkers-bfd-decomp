@@ -12,7 +12,6 @@
  * - func_15044964
  * - func_15044A28
  * - func_15044B78
- * - func_15044CE4
  * - func_15044D40
  * - func_15044DA0
  * - func_15044DE8
@@ -109,7 +108,22 @@ void func_15044658(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044964.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044A28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044B78.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044CE4.s")
+void func_15044B78(void);
+
+void func_15044CE4(void *arg0) {
+    s32 temp_t0;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x18);
+    *(s16 *)((u8 *)arg0 + 6) = *(s16 *)temp_v0;
+    *(s16 *)((u8 *)arg0 + 8) = *(s16 *)((u8 *)temp_v0 + 2);
+    *(s16 *)((u8 *)arg0 + 0xA) = *(s16 *)((u8 *)temp_v0 + 4);
+    temp_t0 = *(s16 *)*(void **)((u8 *)arg0 + 0x1C) / 32;
+    *(s16 *)((u8 *)arg0 + 0x10) = temp_t0;
+    *(s16 *)((u8 *)arg0 + 0x12) = temp_t0;
+    *(s16 *)((u8 *)arg0 + 0x14) = temp_t0;
+    func_15044B78();
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044D40.s")
 extern void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern u8 D_800CC2D0[];

@@ -11,7 +11,6 @@
  * - func_1513B968
  * - func_1513B9A8
  * - func_1513B9DC
- * - func_1513BA78
  * - func_1513BAE8
  * - func_1513BBFC
  * - func_1513BEB0
@@ -65,7 +64,19 @@ extern Func_1513BA10 D_80089C54[];
 void func_1513BA44(void *arg0) {
     D_80089C54[*(u8 *)((u8 *)arg0 + 0x48)]();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513BA78.s")
+void func_15109064(void *, void *, u8);
+void func_151BA468(void *, void *, u8);
+
+void func_1513BA78(void *arg0, void *arg1, u8 arg2) {
+    switch (*(u8 *)((u8 *)arg0 + 0x48)) {
+    case 1:
+        func_15109064(arg0, arg1, arg2);
+        return;
+    case 2:
+        func_151BA468(arg0, arg1, arg2);
+        return;
+    }
+}
 s32 func_1513BAD4(s32 arg0, s32 arg1) {
     return 0;
 }

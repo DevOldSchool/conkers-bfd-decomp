@@ -13,7 +13,6 @@
  * - func_151AD92C
  * - func_151AE06C
  * - func_151AE0E4
- * - func_151AE264
  * - func_151AE2BC
  * - func_151AE3A8
  * - func_151AE590
@@ -56,7 +55,22 @@ void func_151ACB94(s32 arg0, s32 arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AD92C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE06C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE0E4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE264.s")
+extern f32 D_800A9294;
+
+void func_151AE264(void *arg0) {
+    f32 temp_fv0;
+    void *temp_v0;
+
+    temp_v0 = *(void **)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x9C);
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x3C) * D_800A9294;
+    *(f32 *)((u8 *)temp_v0 + 0x4C) = temp_fv0;
+    *(s8 *)((u8 *)temp_v0 + 0x50) = *(u16 *)((u8 *)arg0 + 0x76) >> 8;
+    *(u8 *)((u8 *)temp_v0 + 0x51) = *(u8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xAE);
+    *(s16 *)((u8 *)temp_v0 + 0x52) = 0x14;
+    *(s32 *)((u8 *)temp_v0 + 0x44) = 0;
+    *(s8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x98) = 0;
+    *(void **)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x9C) = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE2BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE3A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE590.s")

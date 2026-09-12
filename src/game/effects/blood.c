@@ -22,9 +22,7 @@
  * - func_1513530C
  * - func_1513532C
  * - func_151353A8
- * - func_15135424
  * - func_15135480
- * - func_1513555C
  * - func_151355B8
  * - func_15135658
  * - func_15135670
@@ -181,9 +179,28 @@ void func_1513530C(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513532C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151353A8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135424.s")
+void func_15145EA4(s32 *, s32 *, s32, s32);
+
+void func_15135424(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    s32 sp20[2];
+    s32 sp18[2];
+
+    sp20[0] = arg1;
+    sp20[1] = arg2;
+    sp18[0] = arg3;
+    sp18[1] = arg4;
+    func_15145EA4(sp20, sp18, arg0, 2);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135480.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513555C.s")
+void func_1516972C(void *);
+
+void func_1513555C(void *arg0, void *arg1, u8 arg2) {
+    if (((arg2 == 0) || (arg2 == 0x12)) &&
+        ((*(void **)arg1 == *(void **)((u8 *)arg0 + 0x1C)) ||
+         (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x18)))) {
+        func_1516972C(arg0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151355B8.s")
 s32 func_15135658(f32 *arg0) {
     arg0[0x1D] = 1.0f;

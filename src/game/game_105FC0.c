@@ -101,5 +101,20 @@ void func_150DA5EC(void *arg0, f32 arg1, s32 arg2, void *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DA5EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150DA5EC.s")
+void func_15131828(s32, s32, s32, s32);
+void func_15131958(void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DA628 CURRENT (18) */
+s32 func_150DA628(s32 arg0, s32 arg1) {
+    s32 sp20;
+    s32 temp_a2;
+
+    temp_a2 = arg0 + 0xA8;
+    sp20 = temp_a2;
+    func_15131828(arg0, arg0 + 0xAC, temp_a2, arg0 + 0xAA);
+    func_15131958((void *)(arg0 + 0x58), *(f32 *)(sp20 + 0xC));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150DA628 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150DA628.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150DA67C.s")

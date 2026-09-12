@@ -103,6 +103,21 @@ void func_151D4668(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D469C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4794.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4C38.s")
+void func_15131828(s32, s32, s32, s32);
+void func_15131958(void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D4D04 CURRENT (10) */
+s32 func_151D4D04(s32 arg0, s32 arg1) {
+    s32 sp20;
+    s32 temp_a2;
+
+    temp_a2 = arg0 + 0xA8;
+    sp20 = temp_a2;
+    func_15131828(arg0, arg0 + 0xAC, temp_a2, arg0 + 0xAA);
+    func_15131958((void *)(arg0 + 0x58), *(f32 *)(temp_a2 + 0xC));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D4D04 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4D04.s")
 /* Call context: func_151D469C: unique active project prototype */
 void func_151D469C(u8 *, s32, s32, s32, s32);

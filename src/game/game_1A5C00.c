@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_recovered_pointer_helper_groups_final.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15178750
  * - func_151787AC
  * - func_15178B98
  * - func_15178BE4
@@ -17,7 +16,19 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178750.s")
+s32 func_15168118(s32, void *, s16);
+
+s32 func_15178750(s32 arg0, void *arg1, s16 arg2) {
+    s32 temp_t0;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg1 + 0x14);
+    temp_t0 = 1 << arg2;
+    if (*(u8 *)((u8 *)temp_v0 + 0x36) & temp_t0) {
+        return func_15168118(arg0, arg1, arg2);
+    }
+    return arg0;
+}
 void func_151787A4(void) {
 
 }
