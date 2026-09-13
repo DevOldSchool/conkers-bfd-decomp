@@ -100,6 +100,32 @@ class DiffReferenceTests(unittest.TestCase):
 
             self.assertEqual(12, size)
 
+    def test_expected_size_uses_reviewed_source_unit_when_record_is_legacy(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            progress = temporary_root / "progress"
+            progress.mkdir(parents=True)
+            (progress / "functions.json").write_text(
+                '{"functions":['
+                '{"symbol":"func_target","overlay":"game","regions":{"us":'
+                '{"symbol":"func_15000000","vram":"0x15000000"}}},'
+                '{"symbol":"func_tail","overlay":"game","regions":{"us":'
+                '{"symbol":"func_15000060","vram":"0x15000060","size_bytes":4}}}'
+                "]}",
+                encoding="utf-8",
+            )
+            (progress / "source_units.json").write_text(
+                '{"source_units":[{"source":"src/game/test.c",'
+                '"functions":["func_target","func_tail"],'
+                '"regions":{"us":{"start":"0x100","end":"0x164"}}}]}',
+                encoding="utf-8",
+            )
+
+            with patch.object(diff_helper, "ROOT", temporary_root):
+                size = diff_helper.expected_function_size("us", "func_15000000")
+
+            self.assertEqual(96, size)
+
     def test_resolves_game_overlay_from_work_item_id(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)

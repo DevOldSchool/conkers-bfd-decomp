@@ -74,7 +74,24 @@ def expected_function_size(profile: str, symbol: str) -> int:
         raise ValueError(f"{symbol} resolves to multiple {profile} work items")
 
     function, region = matches[0]
-    size = int(region["size_bytes"])
+    recorded_size = region.get("size_bytes")
+    if recorded_size is None:
+        source_units_path = ROOT / "progress" / "source_units.json"
+        if not source_units_path.is_file():
+            raise ValueError(
+                f"{symbol} lacks size_bytes and has no reviewed source-unit span"
+            )
+        source_units_data = json.loads(source_units_path.read_text(encoding="utf-8"))
+        sizes = project_state.active_function_sizes(
+            inventory["functions"], source_units_data.get("source_units", []), profile
+        )
+        size = sizes.get(function["symbol"])
+        if size is None:
+            raise ValueError(
+                f"{symbol} lacks size_bytes and has no reviewed source-unit span"
+            )
+    else:
+        size = int(recorded_size)
     start = int(region["vram"], 16)
     overlay = function.get("overlay", "main")
     following = [
