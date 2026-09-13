@@ -18,7 +18,6 @@
  * - func_15114188
  * - func_15114348
  * - func_1511473C
- * - func_151148A8
  * - func_1511490C
  * - func_151149AC
  * - func_15114A1C
@@ -70,7 +69,30 @@ void func_15113180(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114348.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511473C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151148A8.s")
+typedef struct {
+    u8 transform[0x30];
+    f32 position_x;
+    f32 position_y;
+    f32 position_z;
+    u8 pad_3C[4];
+} Game13F9D0Transform;
+
+typedef struct {
+    f32 field_0;
+    f32 field_4;
+    f32 field_8;
+} Game13F9D0TransformArgs;
+
+void func_150A7A48(void *, void *, void *);
+void func_150A8050(void *, f32, f32, f32);
+
+void func_151148A8(Game13F9D0Transform *arg0, Game13F9D0TransformArgs *arg1) {
+    Game13F9D0Transform sp18;
+
+    func_150A8050(arg0, 0.0f, arg1->field_4, 0.0f);
+    func_150A8050(&sp18, arg1->field_0, 0.0f, arg1->field_8);
+    func_150A7A48(&sp18, arg0, arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511490C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151149AC CURRENT (410) */
 s32 func_151149AC(s32 arg0) {

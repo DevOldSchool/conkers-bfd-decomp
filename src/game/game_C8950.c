@@ -24,8 +24,22 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct GameC8950Node {
+    u16 key;
+    u8 pad2[0x16];
+    struct GameC8950Node *next;
+} GameC8950Node;
+
+typedef struct GameC8950List {
+    u16 count;
+    u8 pad2[2];
+    GameC8950Node *head;
+} GameC8950List;
+
+extern GameC8950List D_800D2F48;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B4A0.s")
-void *func_1509B704(s16, s16);                      /* extern */
+GameC8950Node *func_1509B704(s16);                  /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B570 CURRENT (454) */
 void *func_1509B570(s16 arg0) {
@@ -40,6 +54,27 @@ void *func_1509B570(s16 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509B570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B570.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B5AC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B704 CURRENT (220) */
+GameC8950Node *func_1509B704(s16 arg0) {
+    s32 index;
+    s32 mask;
+    GameC8950Node *node;
+
+    node = D_800D2F48.head;
+    mask = 0xFFFF03FF;
+    index = 0;
+    if ((s32) D_800D2F48.count > 0) {
+        do {
+            index += 1;
+            if (arg0 == (node->key & mask)) {
+                return node;
+            }
+            node = node->next;
+        } while (index < (s32) D_800D2F48.count);
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509B704 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B704.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B764.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B810.s")

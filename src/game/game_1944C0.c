@@ -24,7 +24,6 @@
  * - func_15168A4C
  * - func_15168A9C
  * - func_15168B44
- * - func_15168BE4
  * - func_15168C4C
  * - func_15168E54
  * - func_15168F08
@@ -35,7 +34,6 @@
  * - func_1516962C
  * - func_151696DC
  * - func_1516972C
- * - func_1516979C
  * - func_15169850
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -173,7 +171,29 @@ void func_15168BAC(void *arg0) {
         D_8008CA20[temp_v0]();
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168BE4.s")
+typedef struct Game1944C0State {
+    u8 pad0[0x40];
+    void *active_effect;
+} Game1944C0State;
+
+typedef struct Game1944C0Effect {
+    u8 pad0[0x90];
+    u8 payload[0x60];
+} Game1944C0Effect;
+
+Game1944C0Effect *func_15167A68(s32, s32, s32, s32, s32, s32);
+void func_10023A10(void *, void *, s32);
+
+void func_15168BE4(Game1944C0State *arg0, u8 arg1, s32 arg2) {
+    Game1944C0Effect *effect;
+
+    if (arg0->active_effect != 0) {
+        effect = func_15167A68(0x10, arg2, 0xF0, 1, arg1, 1);
+        if (effect != 0) {
+            func_10023A10(arg0, effect->payload, sizeof(effect->payload));
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168C4C.s")
 void func_15168E34(s32 *arg0, s32 arg1) {
     s32 temp_v0;
@@ -333,7 +353,28 @@ void func_151696DC(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151696DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151696DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516972C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516979C.s")
+typedef void (*Game1944C0DestroyCallback)(u8 *);
+
+typedef struct Game1944C0DestroyRecord {
+    Game1944C0DestroyCallback callback;
+    u8 pad4[0x30];
+} Game1944C0DestroyRecord;
+
+extern Game1944C0DestroyRecord D_8008B4D4[];
+void func_151696DC(void *);
+void func_15169824(s32);
+
+void func_1516979C(u8 *arg0) {
+    Game1944C0DestroyCallback callback;
+
+    func_151696DC(arg0);
+    callback = D_8008B4D4[*arg0].callback;
+    if (callback != 0) {
+        callback(arg0);
+        return;
+    }
+    func_15169824((s32)arg0);
+}
 void func_15169804(s32 arg0) {
     func_15168B10(arg0, 1);
 }

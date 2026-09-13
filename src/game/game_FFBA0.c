@@ -46,4 +46,35 @@ s32 func_150D317C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D317C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D317C.s")
+typedef struct {
+    s32 field_0;
+    u8 pad_4[0xC];
+    u8 field_10[0x41];
+    u8 field_51;
+} GameFFBA0Child;
+
+typedef struct {
+    u8 pad_0;
+    u8 field_1;
+    u8 pad_2[0xA];
+    u8 field_C;
+    u8 pad_D[0x1B];
+    GameFFBA0Child child;
+} GameFFBA0State;
+
+void func_150D278C(s32, void *, u8, u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D32FC CURRENT (565) */
+void func_150D32FC(GameFFBA0State *arg0, u8 *arg1, u8 arg2) {
+    void *temp_v0;
+
+    if (arg2 == 0x34) {
+        temp_v0 = (void *)((u8 *)arg0 + 0x28);
+        if (*arg1 == *(u8 *)((u8 *)temp_v0 + 0x51)) {
+            func_150D278C(*(s32 *)temp_v0, (u8 *)temp_v0 + 0x10,
+                          arg0->field_C, arg0->field_1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D32FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D32FC.s")

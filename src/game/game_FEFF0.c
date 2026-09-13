@@ -6,10 +6,23 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D1B40
- * - func_150D1BD0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct GameFEFF0State {
+    u8 pad0[0x84];
+    s32 flags;
+} GameFEFF0State;
+
+s32 func_1509BE40(s32, ...);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FEFF0/func_150D1B40.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FEFF0/func_150D1BD0.s")
+
+void func_150D1BD0(GameFEFF0State *arg0) {
+    if (func_1509BE40(1, 0x402C, 6, 0x2000) != 0) {
+        arg0->flags |= 0x10;
+    } else {
+        arg0->flags &= ~0x10;
+    }
+}

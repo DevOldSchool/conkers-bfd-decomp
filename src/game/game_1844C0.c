@@ -109,6 +109,34 @@ s32 func_15157DC8(s32 arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157DEC.s")
+typedef struct Game1844C0DisplayCommand {
+    u32 word0;
+    void *word1;
+} Game1844C0DisplayCommand;
+
+typedef struct Game1844C0Matrix {
+    u8 bytes[0x40];
+} Game1844C0Matrix;
+
+extern u8 D_80089470;
+extern Game1844C0Matrix D_800DCC10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157F80 CURRENT (1235) */
+Game1844C0DisplayCommand *func_15157F80(Game1844C0DisplayCommand *arg0, s32 arg1,
+                                       s32 arg2, s32 arg3, u8 *arg4) {
+    Game1844C0DisplayCommand *temp_v1;
+    Game1844C0DisplayCommand *temp_a1;
+
+    temp_v1 = arg0++;
+    temp_v1->word0 = 0xDA380003;
+    temp_v1->word1 = &D_80089470;
+    temp_a1 = arg0++;
+    temp_a1->word0 = 0xDA380007;
+    temp_a1->word1 = &D_800DCC10[arg2];
+    *arg4 = 1;
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15157F80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157F80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157FE8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15158078 CURRENT (260) */

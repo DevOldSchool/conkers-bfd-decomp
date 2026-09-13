@@ -15,7 +15,6 @@
  * - func_1504BC38
  * - func_1504BE2C
  * - func_1504C0E8
- * - func_1504C854
  * - func_1504C8BC
  * - func_1504C9E4
  *
@@ -59,7 +58,44 @@ s32 func_1504C0B8(void) {
     return 0x1B;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C0E8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C854.s")
+typedef struct {
+    u8 pad_0[0x8A];
+    s16 field_8A;
+    u16 field_8C;
+    s8 field_8E;
+    s8 field_8F;
+} Game77BE0TimerState;
+
+typedef struct {
+    u8 pad_0[0x31C];
+    Game77BE0TimerState *field_31C;
+} Game77BE0State;
+
+extern u8 D_800BE9A0;
+extern s32 D_800CC288;
+
+void func_1504C854(Game77BE0State *arg0) {
+    s8 temp_v1;
+    s8 temp_v1_2;
+    Game77BE0TimerState *temp_v0;
+    Game77BE0TimerState *temp_v0_2;
+
+    D_800CC288 = arg0->field_31C->field_8C;
+    temp_v0 = arg0->field_31C;
+    temp_v1 = temp_v0->field_8E;
+    if (temp_v1 > 0) {
+        temp_v0->field_8E = temp_v1 - D_800BE9A0;
+    } else {
+        temp_v0->field_8A = 0;
+    }
+    temp_v0_2 = arg0->field_31C;
+    temp_v1_2 = temp_v0_2->field_8F;
+    if (temp_v1_2 > 0) {
+        temp_v0_2->field_8F = temp_v1_2 - D_800BE9A0;
+        return;
+    }
+    temp_v0_2->field_8C = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C8BC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 CURRENT (810) */
 void func_1504C9E4(void *arg0, s8 arg1, s32 arg2) {

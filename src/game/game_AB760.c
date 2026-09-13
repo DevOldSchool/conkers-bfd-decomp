@@ -54,6 +54,30 @@ block_9:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E6B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E73C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E7E4.s")
+typedef struct GameAB760ValueRecord {
+    s32 value;
+    s32 pad4;
+} GameAB760ValueRecord;
+
+extern GameAB760ValueRecord *D_800D1C90[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E908 CURRENT (1129) */
+s32 func_1507E908(void *arg0, s32 arg1) {
+    s32 value;
+    s32 result;
+    GameAB760ValueRecord *record;
+
+    record = D_800D1C90[func_150849A0()];
+    result = 0;
+    if (record != 0) {
+        value = record[-1].value;
+        if (value != 0) {
+            result = (arg1 * 0xA) + value;
+        }
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507E908 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E908.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E968.s")
 void func_1507E9E8(s32 arg0, s32 arg1) {

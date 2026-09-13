@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1510FEA0
  * - func_151102CC
- * - func_15110360
  * - func_151103C8
  * - func_15110544
  * - func_15110600
@@ -23,7 +22,19 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_1510FEA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151102CC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110360.s")
+typedef struct Game13D350Record {
+    u8 pad0[0xBC];
+    u8 payload[0xC4];
+} Game13D350Record;
+
+extern Game13D350Record *D_800BE628;
+void func_151102CC(void *, f32, f32, f32);
+void func_150A7A48(void *, void *, void *);
+
+void func_15110360(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {
+    func_151102CC(arg1, arg2, arg3, arg4);
+    func_150A7A48(arg1, D_800BE628[arg0].payload, arg1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151103C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110544.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110600.s")

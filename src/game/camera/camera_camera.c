@@ -209,6 +209,43 @@ s32 func_151253CC(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151253CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151253CC.s")
+typedef struct {
+    u8 pad_0[0x18];
+    f32 field_18;
+    u8 pad_1C[0x91];
+    u8 field_AD;
+    u8 pad_AE[0x6A];
+    f32 field_118;
+} CameraCameraTarget;
+
+typedef struct {
+    u8 pad_0[0x3D0];
+    CameraCameraTarget *field_3D0;
+} CameraCameraTargetState;
+
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15125490 CURRENT (560) */
+void *func_15125490(CameraCameraTargetState *arg0) {
+    s32 difference;
+    CameraCameraTarget *var_v0;
+
+    var_v0 = arg0->field_3D0;
+    if (var_v0->field_AD == 1) {
+        difference = (s32)fabsf(var_v0->field_18 - var_v0->field_118);
+        if (difference < 100) {
+            return 0;
+        }
+        if (difference >= 301) {
+            return (void *)1;
+        }
+        return var_v0;
+    }
+    var_v0 = 0;
+    return var_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15125490 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125490.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151254F4.s")
 extern f32 D_800A3530;
@@ -232,8 +269,33 @@ void func_15125608(f32 *arg0) {
     arg0[0x93] = 3.0f;
     arg0[0x94] = 2.5f;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125628.s")
 extern u8 D_800DBFF4[];
+extern u8 D_800DBFF5;
+extern u8 D_800DBFF6[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15125628 CURRENT (1100) */
+void func_15125628(void) {
+    u8 value;
+
+    value = D_800DBFF4[0];
+    if (value != 0) {
+        D_800DBFF4[0] = value - 1;
+    }
+    value = D_800DBFF5;
+    if (value != 0) {
+        D_800DBFF5 = value - 1;
+    }
+    value = D_800DBFF6[0];
+    if (value != 0) {
+        D_800DBFF6[0] = value - 1;
+    }
+    value = D_800DBFF6[1];
+    if (value != 0) {
+        D_800DBFF6[1] = value - 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15125628 */
+#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125628.s")
 
 void func_15125690(void *arg0, s32 arg1) {
     u8 *temp_v0;
@@ -247,7 +309,6 @@ void func_15125690(void *arg0, s32 arg1) {
 s32 func_15123934(void *, s32, s32, s32, s32);
 void func_151239CC(void *, s32);
 void func_15124B18(void *);
-s32 func_15125490(void *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15125924 CURRENT (450) */
 void func_15125924(u8 *arg0) {

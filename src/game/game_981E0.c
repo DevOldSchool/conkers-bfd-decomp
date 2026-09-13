@@ -63,7 +63,6 @@
  * - func_150701F4
  * - func_15070224
  * - func_15070300
- * - func_150706F8
  * - func_150707C8
  * - func_15070830
  * - func_15070898
@@ -114,7 +113,6 @@
  * - func_15074C00
  * - func_15074C80
  * - func_15074E04
- * - func_15074E80
  * - func_15074F30
  * - func_15074F48
  * - func_15074FD4
@@ -1005,7 +1003,28 @@ void func_150EEF40(u8 *arg0, s32 arg1, s32 arg2);
 void func_150706C4(s32 arg0) {
     func_150EEF40(D_800D154C, (arg0 - 0x3E) & 0xFF, arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_150706F8.s")
+typedef struct {
+    u8 pad_0[0x94];
+    s32 flags_94;
+} Game981E0ActionState;
+
+void *func_150F03F8(Game981E0ActionState *, s32, s32, s32);
+
+void func_150706F8(s32 arg0) {
+    s32 var_v0;
+    Game981E0ActionState *temp_a0;
+
+    temp_a0 = (Game981E0ActionState *)D_800D154C;
+    var_v0 = temp_a0->flags_94;
+    if (!(var_v0 & 0x10)) {
+        func_150F03F8(temp_a0, 0, 0xFF, 1);
+        temp_a0 = (Game981E0ActionState *)D_800D154C;
+        var_v0 = temp_a0->flags_94;
+    }
+    if (!(var_v0 & 8)) {
+        func_150F03F8(temp_a0, 1, 0xFF, 1);
+    }
+}
 void func_150EBEC0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 void func_15070760(s32 arg0) {
@@ -1866,8 +1885,25 @@ void func_15074DEC(u8 *arg0, s32 arg1, s32 arg2) {
     *(s32 *)(arg0 + 0x2E8) = 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15074E04.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15074E80.s")
-extern void func_15072740(void);
+typedef struct Game981E0EventObject {
+    s32 kind;
+    u8 pad4[0x121];
+    u8 field125;
+} Game981E0EventObject;
+
+void func_15194794(Game981E0EventObject *, Game981E0EventObject *, s8 *);
+
+void func_15074E80(Game981E0EventObject *arg0, Game981E0EventObject *arg1, s32 arg2) {
+    s8 sp1F = 0;
+
+    func_15194794(arg0, arg1, &sp1F);
+    if (arg1->kind == 1) {
+        arg0->field125 = 0xFF;
+        arg1->field125 = 0xC8;
+        D_800D1580 = 0x60000;
+        func_15072740();
+    }
+}
 
 void func_15074EE8(u8 *arg0, u8 *arg1, s32 arg2) {
     if (*(s32 *)arg1 == 1) {

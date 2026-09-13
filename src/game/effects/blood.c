@@ -25,7 +25,6 @@
  * - func_15135480
  * - func_151355B8
  * - func_15135658
- * - func_15135670
  * - func_151356D4
  * - func_15135BF8
  * - func_15135DD0
@@ -206,7 +205,15 @@ s32 func_15135658(f32 *arg0) {
     arg0[0x1D] = 1.0f;
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135670.s")
+s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
+extern u8 D_800A3FB4;
+extern u8 D_800A3FBC;
+extern f32 D_800A45B4;
+
+f32 func_15135670(s32 arg0) {
+    return (f32)func_151422DC(0, &D_800A3FB4, 0, 0x7D0, 0x3E8,
+                             &D_800A3FBC, 0xB7A) * D_800A45B4;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151356D4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15135BF8 CURRENT (6876) */
 s32 func_15135BF8(u8 *arg0) {

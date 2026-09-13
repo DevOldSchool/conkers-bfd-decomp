@@ -7,8 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1518E524
  * - func_1518E5D8
- * - func_1518E66C
- * - func_1518E6D4
  * - func_1518E73C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -59,6 +57,33 @@ void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, s8 *arg5, s
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518E524 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E524.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E5D8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E66C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E6D4.s")
+typedef struct Game1BB950State {
+    u8 pad0;
+    u8 variant;
+    u8 pad2[0xA];
+    u8 intensity;
+    u8 padD[0xB];
+    s32 owner;
+    u8 pad1C[2];
+    s16 timer;
+    u8 pad20;
+    s8 callback;
+} Game1BB950State;
+
+void *func_1518D1C0(s32, s32, s32, s32, s32, s32, void *);
+extern u8 D_800A7460;
+extern u8 D_800A749C;
+
+s32 func_1518E66C(Game1BB950State *arg0) {
+    func_1518D1C0(arg0->owner, 3, 0, 0, arg0->intensity, arg0->variant, &D_800A7460);
+    arg0->timer = 0x80;
+    arg0->callback = -1;
+    return 0;
+}
+s32 func_1518E6D4(Game1BB950State *arg0) {
+    func_1518D1C0(arg0->owner, 4, 0, 0, arg0->intensity, arg0->variant, &D_800A749C);
+    arg0->timer = 0x80;
+    arg0->callback = -1;
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E73C.s")

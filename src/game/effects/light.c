@@ -48,7 +48,6 @@
  * - func_15163604
  * - func_15163704
  * - func_1516381C
- * - func_1516387C
  * - func_151638E0
  * - func_151639D0
  * - func_15163A60
@@ -69,6 +68,15 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct GameLightDescriptor {
+    s8 field0;
+    s8 field1;
+    s16 field2;
+    u8 field4;
+} GameLightDescriptor;
+
+void *func_1516037C(GameLightDescriptor *, s32, void *, u8, s32);
 
 void func_15163CF8(s32 arg0, s32 arg1);
 void func_1514EDF0(s32 arg0, s32 arg1);
@@ -256,8 +264,28 @@ void func_151635A8(void *arg0, void *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151635A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163604.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163704.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516381C CURRENT (100) */
+void func_1516381C(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
+    GameLightDescriptor sp20;
+
+    sp20.field0 = 0;
+    sp20.field1 = -1;
+    sp20.field2 = 0x12C;
+    sp20.field4 = arg1;
+    func_1516037C(&sp20, arg0, 0, arg2, arg3);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516381C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516381C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516387C.s")
+void func_1516387C(s32 arg0, u8 arg1, s8 arg2, s16 arg3, u8 arg4,
+                   void *arg5, u8 arg6, s32 arg7) {
+    GameLightDescriptor sp20;
+
+    sp20.field0 = arg1;
+    sp20.field1 = arg2;
+    sp20.field2 = arg3;
+    sp20.field4 = arg4;
+    func_1516037C(&sp20, arg0, arg5, arg6, arg7);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151638E0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151639D0 CURRENT (224) */
 void func_151639D0(void *arg0, s32 arg1, s32 arg2) {

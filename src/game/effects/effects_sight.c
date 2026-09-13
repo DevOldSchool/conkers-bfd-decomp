@@ -189,6 +189,24 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9BA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9DE8.s")
+void func_15160274(void *, u8);
+void func_1515572C();
+void func_151A561C(void *, u8);
+void func_151494E0(void *, u8);
+extern s8 D_8008CD00;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 CURRENT (1434) */
+void func_151C9ED4(void *arg0) {
+    void *sp24;
+
+    sp24 = arg0;
+    func_15160274(&sp24, 0x21);
+    func_1515572C(&sp24, 0x21);
+    func_151A561C(&sp24, 0x21);
+    func_151494E0(&sp24, 0x21);
+    D_8008CD00 = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9ED4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")

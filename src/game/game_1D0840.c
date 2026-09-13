@@ -117,6 +117,40 @@ void func_151A4CE0(void *arg0, void *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4CE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4CE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4D88.s")
+typedef struct Game1D0840TransformSource {
+    u8 pad0[0x74];
+    u8 flags;
+    u8 pad75[0x15F];
+    u8 *transformBase;
+} Game1D0840TransformSource;
+
+typedef struct Game1D0840TransformRequest {
+    Game1D0840TransformSource *source;
+    u8 pad4;
+    u8 transformIndex;
+    u8 pad6[2];
+    f32 input[3];
+} Game1D0840TransformRequest;
+
+void func_15143134(f32 *, f32 *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4E34 CURRENT (10) */
+s32 func_151A4E34(Game1D0840TransformRequest *arg0, f32 *arg1) {
+    u8 *temp_v1;
+    Game1D0840TransformSource *temp_v0;
+
+    temp_v0 = arg0->source;
+    temp_v1 = temp_v0->transformBase;
+    if (temp_v1 == 0) {
+        return 0;
+    }
+    if ((temp_v0->flags & 0xF) == 0xF) {
+        return 0;
+    }
+    func_15143134(arg0->input, arg1, (s32)(temp_v1 + (arg0->transformIndex << 6)));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4E34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E34.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4E9C CURRENT (220) */
 void func_151A4E9C(void *arg0) {

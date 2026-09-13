@@ -16,6 +16,18 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1890A0State {
+    u8 pad0[0x2F4];
+    s32 field2F4;
+} Game1890A0State;
+
+typedef struct Game1890A0Node {
+    u8 pad0[0x10];
+    u8 *field10;
+} Game1890A0Node;
+
+s32 func_1514ECE0(s32, s32, void **, void *);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BBF0.s")
 void func_1515BE48(void) {
 
@@ -41,6 +53,20 @@ extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 void func_1515C0B8(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x18, arg0 + 0x1C, arg0);
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C0F8 CURRENT (30) */
+s32 func_1515C0F8(Game1890A0State *arg0, u8 **arg1) {
+    Game1890A0Node *sp1C;
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    if (func_1514ECE0(arg0->field2F4, 0x16, (void **) &sp1C, arg0) != 0) {
+        *arg1 = sp1C->field10 + 0x38;
+        return 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515C0F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515C0F8.s")
 extern u8 D_800DCE50[];
 extern u8 D_800DD190[];

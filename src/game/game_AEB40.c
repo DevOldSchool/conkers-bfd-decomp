@@ -39,6 +39,15 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct GameAEB40State {
+    u8 pad0[0x1C9];
+    u8 field_1C9;
+    u8 pad1CA[0xFA];
+    u8 *field_2C4;
+    u8 field_2C8;
+    u8 field_2C9;
+} GameAEB40State;
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081690.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081C20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15081E0C.s")
@@ -232,6 +241,26 @@ s32 func_15084000(s32 arg0) {
     return -1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084044.s")
+void func_150843AC(GameAEB40State *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508434C CURRENT (100) */
+void func_1508434C(GameAEB40State *arg0) {
+    s32 index;
+    s32 count;
+
+    count = arg0->field_2C9;
+    if (count == 0) {
+        count = 1;
+    }
+    index = 0;
+    if (count > 0) {
+        do {
+            func_150843AC(arg0, index);
+            index += 1;
+        } while (index != count);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1508434C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_1508434C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150843AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084488.s")

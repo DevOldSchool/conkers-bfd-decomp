@@ -10,7 +10,6 @@
  * - func_15009628
  * - func_150096C4
  * - func_15009990
- * - func_15009A38
  * - func_15009BD0
  * - func_15009C7C
  * - func_15009F74
@@ -125,7 +124,25 @@ void func_15009944(s32 arg0, u8 arg1) {
     func_15162740(arg0, 1, 6, 0, 0x12C, 2, 0xFF, 1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009990.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009A38.s")
+typedef struct {
+    s8 field_0;
+    s8 field_1;
+    s16 field_2;
+    u8 field_4;
+} Game36680LightDescriptor;
+
+void *func_1516037C(Game36680LightDescriptor *, s32, void *, u8, s32);
+extern u8 D_80095B27[];
+
+void func_15009A38(s32 arg0, s32 arg1) {
+    Game36680LightDescriptor sp20;
+
+    sp20.field_0 = 2;
+    sp20.field_1 = -1;
+    sp20.field_2 = 0x12C;
+    sp20.field_4 = D_80095B27[arg1];
+    func_1516037C(&sp20, arg0, 0, 0xFF, 1);
+}
 void func_15162FAC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
 
 void func_15009AA0(s32 arg0, u8 arg1) {

@@ -65,7 +65,6 @@
  * - func_1506045C
  * - func_15060778
  * - func_15060A30
- * - func_15060A9C
  * - func_15060B04
  * - func_15060BA4
  * - func_15060BE0
@@ -599,6 +598,31 @@ block_7:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A9AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505B5F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505B9C4.s")
+typedef struct {
+    u8 pad_0[0x14];
+    f32 field_14;
+    u8 pad_18[4];
+    f32 field_1C;
+    u8 pad_20[0x5A];
+    u16 field_7A;
+} Game83300Position;
+
+s32 func_1505A630(f32, f32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505C140 CURRENT (75) */
+s32 func_1505C140(Game83300Position *arg0, Game83300Position *arg1) {
+    s16 temp_v1;
+    s32 var_v1;
+
+    temp_v1 = func_1505A630(arg0->field_14 - arg1->field_14,
+                           arg1->field_1C - arg0->field_1C, 0) - arg1->field_7A;
+    var_v1 = temp_v1;
+    if (temp_v1 < 0) {
+        var_v1 = (s16)-temp_v1;
+    }
+    return var_v1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505C140 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505C140.s")
 extern s32 D_8009A9F8;
 extern void *D_800D1588[];
@@ -970,7 +994,21 @@ void func_1505F188(u32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1506045C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060A30.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060A9C.s")
+typedef struct {
+    u8 pad_0[0x318];
+    void *field_318;
+} Game83300DispatchState;
+
+void func_10010630(u16, Game83300DispatchState *, s32, s32, s32);
+void func_15060778(s32, Game83300DispatchState *, s32, s32, s32, s32, s32);
+
+void func_15060A9C(s32 arg0, Game83300DispatchState *arg1) {
+    if (arg1->field_318 == 0) {
+        func_10010630((u16)arg0, arg1, 0x5DC0, 0x1F4, 0x9C4);
+        return;
+    }
+    func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060B04.s")
 void func_10010154(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 

@@ -34,6 +34,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game200930ResourceSlots {
+    s32 entries[4];
+} Game200930ResourceSlots;
+
+void func_100043B4(s32, s32);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D3480.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
@@ -149,4 +155,19 @@ void func_151D5148(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5A18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5B6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5D60.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5E30 CURRENT (405) */
+void func_151D5E30(Game200930ResourceSlots *arg0) {
+    register s32 resource;
+    s32 index;
+
+    index = 0;
+    do {
+        resource = arg0->entries[index];
+        if (resource != 0) {
+            func_100043B4(resource, 3);
+        }
+        index = (index + 1) & 0xFF;
+    } while (index < 4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D5E30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5E30.s")

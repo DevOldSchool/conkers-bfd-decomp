@@ -120,6 +120,8 @@ s32 func_151D10E4(s32 arg0, s32 arg1, s32 arg2) {
 void func_151D1328(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
 }
+void func_151D13E0();
+
 void func_151D1368() {
     func_151D13E0();
 }
@@ -138,5 +140,54 @@ void func_151D13B4(s32 arg0) {
     func_151D1368(arg0);
     func_15149368(arg0);
 }
+typedef struct Game1FC830ActorState {
+    s32 active;
+} Game1FC830ActorState;
+
+typedef struct Game1FC830Actor {
+    u8 pad0[0x1C];
+    s16 timer;
+    u16 flags;
+    u8 pad20[0x10];
+    s8 mode;
+    u8 pad31[0x67];
+    Game1FC830ActorState * volatile state;
+} Game1FC830Actor;
+
+typedef struct Game1FC830ActorLink {
+    u8 pad0[8];
+    Game1FC830Actor *actor;
+} Game1FC830ActorLink;
+
+typedef struct Game1FC830ActorContext {
+    u8 pad0[0x28];
+    Game1FC830ActorLink link;
+} Game1FC830ActorContext;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D13E0 CURRENT (70) */
+void func_151D13E0(Game1FC830ActorContext *arg0) {
+    Game1FC830Actor *temp_a1;
+    Game1FC830ActorLink *temp_v0;
+    Game1FC830ActorState *temp_v1;
+    s32 temp_t3;
+
+    temp_v0 = &arg0->link;
+    if (temp_v0->actor != 0) {
+        temp_a1 = temp_v0->actor;
+        temp_t3 = 0x28;
+        temp_v1 = temp_a1->state;
+        temp_a1->mode = 0;
+        temp_a1 = temp_v0->actor;
+        temp_a1->flags &= 0xFFFD;
+        temp_a1 = temp_v0->actor;
+        temp_a1->flags |= 8;
+        temp_a1 = temp_v0->actor;
+        temp_a1->flags |= 1;
+        temp_v0->actor->timer = temp_t3;
+        temp_v1->active = 0;
+        temp_v0->actor = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D13E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D13E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D1448.s")

@@ -108,7 +108,12 @@ typedef struct GameA28B0State {
     s32 field_0;
     u8 pad4;
     u8 field_5;
-    u8 pad6[0x70];
+    u8 pad6[0x69];
+    u8 field_6F;
+    u8 field_70;
+    u8 field_71;
+    u16 field_72;
+    u8 pad74[2];
     u16 field_76;
     u16 field_78;
     u16 field_7A;
@@ -993,6 +998,21 @@ void func_150798F8(void) {
     D_800D1891 = D_800D154C->field_21E;
     func_150781F4();
 }
+void func_1507E7E4(GameA28B0State *, u8, u8, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15079928 CURRENT (650) */
+void func_15079928(void) {
+    s32 value;
+    s32 argument;
+
+    value = ((D_800D1891 << 0x10) + D_800D1892) & 0xFFFF;
+    argument = value;
+    if (value == 0) {
+        argument = 0xFFFF;
+    }
+    func_1507E7E4(D_800D154C, D_800D1890, D_800D1893, argument, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15079928 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15079928.s")
 /* Call context: func_1507EB4C: unique active project prototype */
 void func_1507EB4C(void *, s32);
@@ -1037,6 +1057,22 @@ void func_15079F6C(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15079F6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15079F6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15079FBC.s")
+typedef struct {
+    u8 pad_0[8];
+    s16 values[1][4];
+} GameA28B0ValueGrid;
+
+extern GameA28B0ValueGrid **D_800D2104;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A100 CURRENT (220) */
+void func_1507A100(void) {
+    s16 value;
+
+    value = ((s8)D_800D1892 << 8) | D_800D1893;
+    D_800D2104[D_800D154C->pad10F[0x30]]->values[D_800D1890][D_800D1891] =
+        value;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507A100 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A100.s")
 extern f32 D_800CC30C;
 

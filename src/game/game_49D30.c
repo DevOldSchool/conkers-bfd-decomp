@@ -43,7 +43,6 @@
  * - func_15022528
  * - func_15022640
  * - func_150226BC
- * - func_15022754
  * - func_150227BC
  * - func_15022848
  * - func_150228E4
@@ -52,13 +51,24 @@
  * - func_15022BA4
  * - func_15023264
  * - func_150233E4
- * - func_15023440
  * - func_150234A4
  * - func_150235DC
  * - func_1502378C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct Game49D30Resource Game49D30Resource;
+
+typedef struct Game49D30Record {
+    s16 active;
+    u8 pad2[0xA];
+    u8 flagC;
+    u8 padD[0x27];
+    Game49D30Resource *resource34;
+} Game49D30Record;
+
+void func_1516D328(Game49D30Resource *);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501C880.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CC3C.s")
@@ -160,7 +170,21 @@ void func_15022248(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022528.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022640.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150226BC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022754.s")
+void func_150226BC(s32, s32);
+
+void func_15022754(s32 arg0) {
+    s32 var_s0;
+    u8 *temp_s1;
+
+    temp_s1 = &D_800C363A[arg0];
+    var_s0 = 0;
+    if (*temp_s1 > 0) {
+        do {
+            func_150226BC(var_s0, arg0);
+            var_s0++;
+        } while (var_s0 < *temp_s1);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150227BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022848.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150228E4.s")
@@ -188,7 +212,7 @@ extern u8 D_800C3CA0;
 void func_150233BC(void) {
     func_100226F0(&D_800C3CA0, 0xA8);
 }
-void func_1516D2E0(void *);
+void func_1516D2E0(Game49D30Resource *);
 extern u8 D_800C3D48;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150233E4 CURRENT (20) */
@@ -209,7 +233,17 @@ void func_150233E4(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150233E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150233E4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15023440.s")
+void func_15023440(Game49D30Record *arg0, s32 arg1) {
+    if (arg1 != 0) {
+        func_1516D2E0(arg0->resource34);
+        arg0->resource34 = 0;
+    } else if (arg0->flagC != 0) {
+        func_1516D328(arg0->resource34);
+    } else {
+        arg0->resource34 = 0;
+    }
+    arg0->active = 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150234A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150235DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1502378C.s")

@@ -47,6 +47,8 @@ void func_151D2B4C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2B4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2BA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2C40.s")
+void func_151D3354();
+
 void func_151D2DAC(void) {
     func_151D3354();
 }
@@ -118,6 +120,48 @@ void func_151D3308(void *arg0) {
         *(void **)((u8 *)arg0 + 0x30) = temp_v0;
     }
 }
+typedef struct Game1FFF60Node Game1FFF60Node;
+
+typedef struct {
+    u8 pad_0[0x20];
+    s16 count;
+    u8 pad_22[2];
+    Game1FFF60Node *head;
+    Game1FFF60Node *tail;
+} Game1FFF60List;
+
+struct Game1FFF60Node {
+    u8 pad_0[0x30];
+    Game1FFF60List *list;
+    u8 pad_34[0xC];
+    Game1FFF60Node *next;
+    Game1FFF60Node *prev;
+};
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3354 CURRENT (250) */
+void func_151D3354(Game1FFF60Node *arg0) {
+    Game1FFF60Node *temp_a1;
+    Game1FFF60List *temp_v0;
+    Game1FFF60Node *temp_v0_2;
+
+    temp_v0 = arg0->list;
+    if (temp_v0 != 0) {
+        temp_a1 = arg0->prev;
+        if (temp_a1 != 0) {
+            temp_a1->next = arg0->next;
+        } else {
+            temp_v0->head = arg0->next;
+        }
+        temp_v0_2 = arg0->next;
+        if (temp_v0_2 != 0) {
+            temp_v0_2->prev = arg0->prev;
+        } else {
+            temp_v0->tail = arg0->prev;
+        }
+        temp_v0->count--;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D3354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3354.s")
 extern void func_1516972C();
 

@@ -93,6 +93,34 @@ void func_1511BA24(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511BA24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BA24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BB04.s")
+typedef struct Game1483E0Reference {
+    u8 pad0[0x14];
+    f32 x;
+    u8 pad18[4];
+    f32 z;
+} Game1483E0Reference;
+
+typedef struct Game1483E0State {
+    u8 pad0[0x3F];
+    u8 reference_id;
+    u8 pad40[0x40];
+    Game1483E0Reference *reference;
+} Game1483E0State;
+
+Game1483E0Reference *func_15083E90(u8);
+void func_1511BB04(Game1483E0State *, f32, f32, f32, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511BDF4 CURRENT (605) */
+void func_1511BDF4(Game1483E0State *arg0) {
+    Game1483E0Reference *reference;
+
+    reference = arg0->reference;
+    reference = (reference != 0) ? reference : func_15083E90(arg0->reference_id);
+    if (reference != 0) {
+        func_1511BB04(arg0, reference->x, reference->z, 1.0f, 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1511BDF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BDF4.s")
 f32 func_150484A0(f32, f32);                        /* extern */
 extern f32 D_800A31E0;

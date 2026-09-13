@@ -32,7 +32,6 @@
  * - func_15198D40
  * - func_15198D88
  * - func_151990AC
- * - func_151993E4
  * - func_1519944C
  * - func_151994B8
  * - func_1519986C
@@ -42,7 +41,6 @@
  * - func_1519A9A4
  * - func_1519B4B8
  * - func_1519BE1C
- * - func_1519BEB8
  * - func_1519BF20
  * - func_1519BFBC
  * - func_1519C09C
@@ -77,9 +75,16 @@ typedef struct CharacterFlamethrowerDispatch {
 } CharacterFlamethrowerDispatch;
 
 typedef struct CharacterFlamethrowerIdentity {
-    char pad0[0x84];
+    char pad0[0x3B];
+    u8 unk3B;
+    char pad3C[0x48];
     u16 unk84;
 } CharacterFlamethrowerIdentity;
+
+typedef struct CharacterFlamethrowerSlot {
+    char pad0[0x14];
+    u8 active;
+} CharacterFlamethrowerSlot;
 
 typedef struct CharacterFlamethrowerState {
     CharacterFlamethrowerIdentity *identity;
@@ -289,7 +294,35 @@ void func_151993B4(CharacterFlamethrowerActor *arg0) {
     state->flags6 |= 1;
     state->flags6 |= 4;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151993E4.s")
+extern u8 D_800A8A9C;
+extern CharacterFlamethrowerSlot *D_800E0900[];
+
+void func_151993E4(CharacterFlamethrowerActor *arg0) {
+    CharacterFlamethrowerState *temp_v0;
+    CharacterFlamethrowerIdentity *temp_v1;
+    s32 var_a1;
+    s32 var_a2;
+    u8 *var_t0;
+    s32 temp_a3;
+
+    temp_v0 = arg0->state;
+    temp_v1 = temp_v0->identity;
+    var_a1 = 0;
+    var_a2 = 0;
+    temp_a3 = temp_v1->unk3B;
+    var_t0 = &D_800A8A9C;
+    do {
+        if (temp_a3 == *var_t0) {
+            var_a2 = 1;
+        } else {
+            var_a1++;
+            var_t0++;
+        }
+    } while ((var_a2 == 0) && (var_a1 < 6));
+    if (var_a2 != 0) {
+        D_800E0900[var_a1]->active = 0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519944C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151994B8.s")
 void func_15199834(CharacterFlamethrowerActor *arg0) {
@@ -316,7 +349,32 @@ void func_15199954(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519A9A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519B4B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BE1C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BEB8.s")
+void func_1519BEB8(CharacterFlamethrowerActor *arg0) {
+    CharacterFlamethrowerState *temp_v0;
+    CharacterFlamethrowerIdentity *temp_v1;
+    s32 var_a1;
+    s32 var_a2;
+    u8 *var_t0;
+    s32 temp_a3;
+
+    temp_v0 = arg0->state;
+    temp_v1 = temp_v0->identity;
+    var_a1 = 0;
+    var_a2 = 0;
+    temp_a3 = temp_v1->unk3B;
+    var_t0 = &D_800A8A9C;
+    do {
+        if (temp_a3 == *var_t0) {
+            var_a2 = 1;
+        } else {
+            var_a1++;
+            var_t0++;
+        }
+    } while ((var_a2 == 0) && (var_a1 < 6));
+    if (var_a2 != 0) {
+        D_800E0900[var_a1]->active = 0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BF20.s")
 void func_1519BF8C(void) {
     func_10010F30(0x1AA, 0x7FFF, 0x40, 0, 0);

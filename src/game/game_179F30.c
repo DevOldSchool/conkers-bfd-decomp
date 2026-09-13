@@ -34,7 +34,6 @@
  * - func_1514EDF0
  * - func_1514EE70
  * - func_1514EECC
- * - func_1514F130
  * - func_1514F194
  * - func_1514F308
  * - func_1514F3CC
@@ -349,7 +348,31 @@ void func_1514EE70(s32 arg0) {
 void func_1514F110(void) {
     func_1514F194();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F130.s")
+typedef struct {
+    u8 pad_0[9];
+    u8 field_9;
+} Game179F30Mode;
+
+typedef struct {
+    u8 pad_0[0x14];
+    Game179F30Mode *field_14;
+} Game179F30ModeState;
+
+s32 func_1514E89C(Game179F30ModeState *, s32, s32);
+
+s32 func_1514F130(Game179F30ModeState *arg0, s32 arg1, s32 arg2) {
+    switch (arg1) {
+        case 0xD:
+            arg0->field_14->field_9 = 0;
+            break;
+        case 0xE:
+            arg0->field_14->field_9 = 1;
+            break;
+        default:
+            return func_1514E89C(arg0, arg1, arg2);
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F194.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F308.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F3CC.s")

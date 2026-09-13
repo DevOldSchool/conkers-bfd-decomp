@@ -54,6 +54,48 @@ void func_151027E8(void *arg0) {
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
     func_151403A8(&sp.sp18, 0x1A, arg0);
 }
+typedef struct Game12F400DeepState {
+    u8 pad0[0x197];
+    u8 active;
+} Game12F400DeepState;
+
+typedef struct Game12F400LinkedState {
+    u8 pad0[0x31C];
+    Game12F400DeepState *deep;
+} Game12F400LinkedState;
+
+typedef struct Game12F400ControlState {
+    u8 pad0[0x110];
+    Game12F400LinkedState *linked;
+    u8 pad114[0x1E];
+    u8 selector;
+} Game12F400ControlState;
+
+typedef struct Game12F400State {
+    u8 pad0[0xD0];
+    Game12F400ControlState *control;
+    u8 flags;
+} Game12F400State;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510281C CURRENT (65) */
+s32 func_1510281C(Game12F400State *arg0, s16 arg1) {
+    Game12F400ControlState *temp_v0;
+    Game12F400LinkedState *temp_v1;
+
+    temp_v0 = arg0->control;
+    if (arg1 == temp_v0->selector) {
+        temp_v0 = (Game12F400ControlState *)((u8 *)temp_v0 + 0x110);
+        temp_v1 = *(Game12F400LinkedState **)temp_v0;
+        if ((temp_v1 == 0) || (temp_v1->deep->active != 0)) {
+            return 0;
+        }
+    }
+    if (!(arg0->flags & 1)) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510281C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_1510281C.s")
 s32 func_15102884(void *arg0, s32 arg1) {
     if (!(*(u8 *)((u8 *)arg0 + 0xAC) & 1)) {
