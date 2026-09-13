@@ -10,8 +10,8 @@ the glTF preview.
 The runs use explicit OtherMode `EF192C3F / 0C192230`: two cycles, LOD enabled,
 clamped detail and no texture lookup table. `D7002002 / FFFFFFFF` selects base
 tile zero and four lower levels. The first combiner cycle interpolates TEXEL0
-and TEXEL1 by LOD fraction; the second applies shade, environment and primitive
-colour. The first cycle's alpha follows the same interpolation and the second
+and TEXEL1 by LOD fraction. The second accepts either `(COMBINED -
+ENVIRONMENT) * SHADE + PRIMITIVE` or `COMBINED * SHADE` colour. The first cycle's alpha follows the same interpolation and the second
 multiplies it by shade alpha. At LOD fraction zero, the selected source is the
 base image with its stored RGBA5551 alpha.
 
@@ -31,8 +31,11 @@ Lower-level data and padding remain in the original payload.
 ## Supported exports
 
 The contract binds 234 faces in bank `04 / 0035 / 00` and 95 faces in segment
-`01`: 329 faces across eight material runs. Other parts in the bundle retain
-unresolved mode metadata where their state does not satisfy this contract.
+`01`. The standard shaded formula also binds segments `08`, `10`, `11`, `12`
+and `13`: 34 faces across eight runs. Both formulas retain identical source
+RGBA5551 image bytes and the same complete load/mipmap gates. The covered
+material runs total 363 faces across 16 runs. Other material state remains
+unresolved where it does not satisfy the contract.
 
 Tests preserve the base image and palette-independent RGBA alpha, verify that
 lower-level image changes do not alter the selected base, and reject missing
@@ -46,3 +49,11 @@ that isolated export includes both this contract and the odd-width CI4 decoder.
 Use the normal model validation and packed-GLB gates for publication. Dynamic
 colour state, native filtering and complete scene appearance remain separate
 verification work.
+
+The shaded formula is checked with three focused tests covering both accepted
+formulas, pixel identity, missing levels, changed alpha formulas, partial
+OtherMode and short payloads. Its five model exports and four independently
+decoded RGBA5551 base images are included in
+`build/assets/models/reference/callback-cohort-20260912/`. The dark surface
+panels use descriptive labels; their scene placement and secondary-pass
+appearance are not established by this texture proof.

@@ -176,7 +176,59 @@ class ModelBatchTests(unittest.TestCase):
         for c in previews[1:]:
             self.assertIn('--runtime-materials',c);self.assertNotIn('--rom-defaults',c)
         calls.clear();batch.run(self.root,config,self.output,state,[1],runner=runner)
+        self.assertEqual(['validate','inspect'],[c[2]for c in calls])
+        # Gallery naming changes need current tests/validation, not new exports.
+        inspection = batch.read(self.root/self.config['inspection_config'])
+        batch.write(self.root/self.config['inspection_config'], {**inspection, 'title': 'new label'})
+        calls.clear();batch.run(self.root,config,self.output,state,[1],runner=runner)
         self.assertEqual(['unittest','validate','inspect'],[c[2]for c in calls])
+
+    def test_scene_assemblies_refresh_after_exports_before_validation(self):
+        (self.root / 'rom').write_bytes(b'rom')
+        (self.root / 'textures').mkdir()
+        config = {**self.config, 'rom': 'rom', 'textures': 'textures',
+                  'corpora': [{'name': 'rom-only', 'root': self.config['rom_root']}]}
+        destination = 'build/assets/models/rom-scene-assemblies'
+        batch.write(self.root / self.config['validation_config'], {'scene_assemblies': [destination]})
+        path = self.output / 'report.json'
+        batch.write(self.root / self.config['inspection_config'],
+                    {'models': [], 'validation_report': str(path.relative_to(self.root))})
+        complete = {'status': 'incomplete', 'summary': {'completed': True}, 'renders': []}
+        batch.write(path, complete)
+        calls, state = [], {}
+        def runner(command, *args):
+            calls.append(command[2])
+            if command[2] in ('preview', 'scene-assemblies'):
+                target = Path(command[command.index('--output') + 1])
+                target.mkdir(parents=True, exist_ok=True)
+                (target / 'manifest.json').write_text('{}')
+            if command[2] == 'validate':
+                batch.write(path, complete)
+            return 0
+        batch.run(self.root, config, self.output, state, [4], runner=runner)
+        self.assertEqual(['unittest', 'verify', 'preview', 'scene-assemblies', 'validate', 'inspect'], calls)
+        calls.clear()
+        batch.run(self.root, config, self.output, state, [4], runner=runner)
+        self.assertEqual(['scene-assemblies', 'validate', 'inspect'], calls)
+
+    def test_constructor_journal_reuses_only_intact_current_evidence(self):
+        (self.root/'rom').write_bytes(b'rom')
+        (self.root/'scripts/model_assets.py').write_text('from scripts import model_constructor_analysis\n')
+        (self.root/'scripts/model_constructor_analysis.py').write_text('version = 1\n')
+        config = {**self.config, 'rom': 'rom'}
+        calls = []; state = {}
+        def runner(command, *args):
+            calls.append(command)
+            batch.write(Path(command[-1]), {'counts': {}, 'argument_analysis': {'counts': {}}, 'target_queue': []})
+            return 0
+        def invoke():return batch.constructor_stage(self.root,config,self.output,state,[9],runner=runner)
+        self.assertIn('9', invoke());invoke();self.assertEqual(1,len(calls))
+        (self.root/'scripts/unrelated.py').write_text('x = 1\n')
+        invoke();self.assertEqual(1,len(calls))
+        (self.output/'constructors-bank09.json').write_text('{}')
+        invoke();self.assertEqual(2,len(calls))
+        (self.root/'scripts/model_constructor_analysis.py').write_text('version = 2\n')
+        invoke();self.assertEqual(3,len(calls))
 
     def test_failed_validation_report_blocks_inspection_even_with_zero_process_exit(self):
         (self.root/'rom').write_bytes(b'rom');(self.root/'textures').mkdir()

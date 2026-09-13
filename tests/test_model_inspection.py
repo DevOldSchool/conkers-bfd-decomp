@@ -98,11 +98,90 @@ class ModelInspectionTests(unittest.TestCase):
     def test_gallery_metadata_rejects_uncategorized_models_and_unsafe_references(self):
         model = {'name': 'test', 'category': 'characters', 'aliases': ['old name']}
         inspection.validate_gallery_metadata([model])
+        inspection.validate_gallery_metadata([{**model, 'preview_rotation': [180, 0, 0]}])
         for bad in ({'category': 'character-bank'}, {'category': None}, {'aliases': 'name'},
+                    {'preview_rotation': [180, 0]}, {'preview_rotation': [0, float('nan'), 0]},
+                    {'preview_rotation': [0, True, 0]}, {'preview_rotation': '180,0,0'},
                     {'identification': {'basis': 'visual-reference', 'reference_label': 'Wiki',
                                         'reference_url': 'javascript:alert(1)'}}):
             with self.subTest(bad=bad), self.assertRaises(ValueError):
                 inspection.validate_gallery_metadata([{**model, **bad}])
+
+    def test_publication_discards_preparation_provenance_cache_before_final_gate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source, _, _ = self.fixture(root)
+            component = root / 'component.bin'
+            component.write_bytes(b'original component')
+            (root / 'preview.png').write_bytes(PNG)
+            report = {'status': 'incomplete', 'summary': {'completed': True},
+                'files': [{'path': str(source), 'input_fingerprint': inspection.preview_fingerprint(source),
+                    'checks': {'gltf': {'status': 'passed'}, 'blender': {'status': 'passed'}}}],
+                'renders': [{'id': 'test', 'source': str(source), 'image': str(root / 'preview.png'),
+                    'check': {'current_sha256': inspection.digest(PNG)}}]}
+            (root / 'report.json').write_text(json.dumps(report))
+            (root / 'config.json').write_text(json.dumps({'rom_only': True,
+                'validation_report': 'report.json', 'previews': 'previews', 'models': [
+                    {'name': 'first', 'label': 'First', 'note': 'Fixture', 'category': 'scene-items', 'render_case': 'test'},
+                    {'name': 'second', 'label': 'Second', 'note': 'Fixture', 'category': 'scene-items', 'render_case': 'test'}]}))
+            phases = []
+
+            def provenance(path, *, assembly_cache):
+                phases.append(assembly_cache)
+                if 'component' not in assembly_cache:
+                    assembly_cache['component'] = inspection.digest(component.read_bytes())
+                return {'source': 'ROM', 'component': assembly_cache['component']}
+
+            original_pack = inspection.pack_glb
+            calls = 0
+
+            def pack(path):
+                nonlocal calls
+                result = original_pack(path)
+                calls += 1
+                if calls == 2:
+                    component.write_bytes(b'changed while packaging')
+                return result
+
+            with mock.patch.object(inspection, 'ROOT', root), \
+                    mock.patch.object(inspection, 'rom_source_evidence', side_effect=provenance), \
+                    mock.patch.object(inspection, 'pack_glb', side_effect=pack):
+                with self.assertRaisesRegex(ValueError, 'provenance changed'):
+                    inspection.publish_inspection(root / 'config.json', root / 'inspect')
+            self.assertIs(phases[0], phases[1])
+            self.assertIsNot(phases[0], phases[2])
+            self.assertFalse((root / 'inspect/first.glb').exists())
+
+    def test_oriented_thumbnail_cache_checks_rotation_image_and_source(self):
+        from scripts import model_inspection_preview as preview
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source, _, _ = self.fixture(root)
+            fingerprint = inspection.preview_fingerprint(source)
+            blender = root / 'blender'
+            blender.write_bytes(b'blender fixture')
+
+            def render(args, **kwargs):
+                request = json.loads(Path(args[-1]).read_text())
+                Path(request['output']).write_bytes(PNG)
+
+            with mock.patch.object(preview.shutil, 'which', return_value=str(blender)), \
+                    mock.patch.object(preview.subprocess, 'run', side_effect=render) as worker:
+                args = (source, fingerprint, [180, 0, 0], {}, root / 'cache')
+                image, evidence = preview.oriented_preview(*args)
+                self.assertEqual([180, 0, 0], evidence['inputs']['camera_rotation_degrees'])
+                self.assertEqual((image, evidence), preview.oriented_preview(*args))
+                self.assertEqual(1, worker.call_count)
+                other, _ = preview.oriented_preview(source, fingerprint, [0, 180, 0], {}, root / 'cache')
+                self.assertNotEqual(image, other)
+                self.assertEqual(2, worker.call_count)
+                image.write_bytes(b'corrupt image')
+                preview.oriented_preview(*args)
+                self.assertEqual(3, worker.call_count)
+                (root / 'model.bin').write_bytes(b'changed geometry')
+                with self.assertRaisesRegex(ValueError, 'source changed'):
+                    preview.oriented_preview(*args)
+                self.assertEqual(3, worker.call_count)
 
     def test_gallery_escapes_names_aliases_and_reference_labels(self):
         record = {'label': 'Test <model>', 'file': 'test.glb', 'category': 'characters',

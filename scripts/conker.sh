@@ -120,7 +120,7 @@ After the raw base split map is available
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|verify|validate|inspect|submitted|discover-submitted> [options]
+  model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -932,7 +932,7 @@ case "$command" in
         python3 scripts/texture_assets.py "$@"
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|verify|validate|inspect|submitted|discover-submitted> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
         python3 scripts/model_assets.py "$@"
         ;;
     hud-assets)

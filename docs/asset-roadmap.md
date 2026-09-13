@@ -1,6 +1,6 @@
 # Asset extraction roadmap
 
-Current US roadmap. Model inventory and validation checked **11 September 2026**.
+Current US roadmap. Model inventory and validation checked **13 September 2026**.
 This tracks what is supported and what remains to do; detailed byte and consumer
 evidence lives in the linked documents.
 
@@ -28,34 +28,67 @@ All **7,121,632 decoded model bytes** reconstruct against the US ROM. The
 inventory contains **232,162 source faces**; 1,485 of its 1,487 records have
 drawable geometry.
 
-| Bank | Proven model family | Extracted records | In gallery | Outside gallery |
+| Bank | Proven model family | Extracted records | Curated standalone entries | Extracted review tab |
 | --- | --- | ---: | ---: | ---: |
 | `01` | Rigged characters and animated props | 183 | 177 | 6 |
-| `03` | Direct object models | 77 | 66 | 11 |
-| `04` | Segmented level/model bundles | 765 | 326 | 439 |
-| `09` | Direct, relative-address, attachment and effect models | 462 | 233 | 229 |
-| **Total** | | **1,487** | **802** | **685** |
+| `03` | Direct object models | 77 | 68 | 9 |
+| `04` | Segmented level/model bundles | 765 | 341 | 424 |
+| `09` | Direct, relative-address, attachment and effect models | 462 | 277 | 185 |
+| **Total** | | **1,487** | **863** | **624** |
 
-All records outside the gallery are already extracted. Their current status is:
+All remaining records are available in the **Extracted review** tab. Their current status is:
 
-| Unpublished status | Records | Next action |
+| Review status | Records | Next action |
 | --- | ---: | --- |
-| Material blocked | 75 | Prove missing texture bindings, layouts or render state |
+| Material blocked | 27 | Prove missing texture bindings, layouts or render state |
 | Appearance blocked | 1 | Resolve stationary tank part visibility and colour state |
-| Reviewed fragments and variants | 607 | Retain as diagnostics; revisit with scene or effect context |
+| Reviewed fragments and variants | 594 | Identify useful standalone exports and inspect variants in scene or effect context |
 | No drawable faces | 2 | Preserve source records for completeness |
 
-Every currently material-complete candidate has been reviewed. Missing
+Material-complete deferrals remain eligible for further standalone review. Missing
 combiner state is classified as unresolved, even when texture use is unknown.
-The **683 unpublished drawable records** are not a count of missing characters or a
+The **622 drawable review records** are not a count of missing characters or a
 requirement to display every fragment. Published models can still need
 appearance fixes.
 
-The gallery at `build/assets/models/inspect/index.html` contains only
-ROM-derived exports, split into **106 characters, ten collectables, 549 scene
-items and 137 parts/effects**. Open its self-contained GLBs in Blender using
+The gallery at `build/assets/models/inspect/index.html` contains **1,505 entries**:
+**881 curated exports** and **624 extracted review records**. The curated set
+contains 863 standalone models and 18 static scene assemblies, split into
+**106 characters, ten collectables, 588 scene items and 177 parts/effects**.
+The assemblies expose **115 otherwise deferred components** in scene context;
+they do not increase the extracted source-record inventory. Open the self-contained GLBs in Blender using
 Material Preview. Animation-free `*-bind.gltf` sources remain available for
 geometry diagnostics.
+
+**Extracted review** shows the remaining exports with status and bank filters,
+current cached thumbnails and downloadable GLBs. Two records with no drawable
+faces have explicit placeholder cards. Material and appearance blockers remain
+labelled, and inclusion here does not change their acceptance state. Review
+files live under `inspect/review/` and `previews/review/`; the manifest keeps
+`review_models` separate from the curated `models` list.
+
+Current [standalone review selections](evidence/us_model_review_selections.md)
+include coherent props, explicit barrier variants, a chair and two terrain/room
+segments. The review notes identify **31 records with the same exported glTF
+presentation** as a curated entry and distinguish other similar props from
+proven matching exports. Runtime roles remain separate questions.
+
+Scenes **11, 23, 25–28, 30, 35, 41, 44, 46, 47, 49, 50, 53, 54, 67 and 68**
+combine 211 distinct ROM models in 310 instances using recovered loader slots
+and placement records.
+They include lava chambers, walkways, industrial shafts, a tiled room and a
+mossy chamber. Deferred source notes link back to their assembled scene context.
+Scene 54 explicitly selects intact walls and unlit indicators, omitting
+overlapping alternatives, untextured effect planes and collision-only slot 3.
+Other selections also omit identified effect planes and untextured surfaces
+whose appearance needs runtime state; each omission is recorded.
+Scenes 28 and 41 omit colocated debris pending fracture/visibility state; scenes
+49 and 53 use explicit surface alternatives. Candidate assemblies 57 and 60
+remain unpublished because detached elevated geometry needs visibility or
+placement investigation.
+These are static inspection selections; native visibility, animation, lighting
+and fog remain unresolved. See [the assembly evidence](evidence/us_static_scene_assemblies.md)
+and [the reproducible selections](../config/model-scene-assemblies.json).
 
 [The inspection configuration](../config/model-inspection.json) controls the
 published models, categories and searchable labels. Names supported only by
@@ -80,6 +113,12 @@ remain the ROM identities.
   shade-only intensity alpha. Detail-texture previews record the selected
   ordinary mip and its own UV state. glTF does not reproduce native N64 LOD
   or detail blending.
+- [x] Replay partial RGBA16 and split-bank RGBA32 LoadBlocks within a
+  single callable list. Every sampled byte must come from a bounded ROM load;
+  later tile definitions do not change earlier load destinations. CI8 uses the
+  selected trailing palette; RGBA8 without TLUT expands each byte into colour
+  and alpha. Attachments `09:0026`, `0027`, `0098`, `0107` and `0157` have
+  complete texture coverage and are published with descriptive labels.
 - [x] Resolve the reviewed scene/object texture-animation table through its
   placement updater and renderer. Preserve all stored frame indices and decode
   every frame; show the first stored frame as an explicit inspection preset.
@@ -88,6 +127,34 @@ remain the ROM identities.
 - [x] Resolve primary terrain texture selectors for four scenes, preserving
   their frame alternatives, texture type groups and per-segment phase offsets.
   Inspection states remain explicit; current gameplay state is not inferred.
+- [x] Resolve the two reviewed ordinary-object CI8 selector paths, preserving
+  their segment pairs, trailing palettes and explicit loader-selector presets.
+- [x] Resolve reviewed bank-09 attachment action/updater texture bindings,
+  checking inline CI4/CI8 palette offsets and all retained screen frames.
+  The lit cigarette, yellow handheld console and faceted grey attachment have
+  complete texture coverage; dynamic colours and attachment poses remain
+  separate appearance work.
+- [x] Resolve the two complementary four-selector loops in bank-09 constructor
+  `1513A6E0`, preserving their six ROM selection masks and full 32-bit flags.
+  Eight orange-fur fragments and surface variants have complete texture links;
+  effect assembly and motion remain separate work.
+- [x] Decode all 20 constructor descriptors selected by the reviewed actor-type
+  switch, two-entry mask loops and static attachment actions. Apply shared
+  I8/IA mip and shade-alpha handling under complete payload bounds. A ROM-only
+  constructor report separates missing renderer proof from decoder failures;
+  discovery alone never grants export eligibility.
+- [x] Resolve type-selected fragment arrays through the signed `-1` callback
+  sentinel, preserving callback-enabled type exclusions and full selector bounds.
+  Support the standard shaded RGBA16 mipmap formula under the existing complete
+  mip-chain and payload checks.
+- [x] Resolve two reviewed object callbacks through their constructor payloads
+  and CI8 descriptor tables. Two clothing fragments and two effect surfaces
+  have complete texture links. Preserve correlated texture alternatives and
+  label the selected constructor state as an inspection preset.
+- [x] Resolve direct pixel segments for the four-digit timer and a kind-2
+  animated attachment. The timer displays an explicit 00:00 preset and retains
+  all ten IA4 glyphs; the attachment retains both RGBA32 frames. Parent pose,
+  animation playback and current gameplay state remain separate.
 - [x] Resolve ordinary character facial textures from ROM defaults, with
   separately labelled expression, instance and renderer-state presets.
   Current coverage includes Wise Guys shirts, Birdy's transparent hay, Carl's
@@ -116,19 +183,33 @@ Evidence: [ROM character defaults](evidence/us_rom_character_defaults.md),
 [CI8 TMEM wrapping](evidence/us_ci8_tmem_wrapping.md), and
 [scene detail textures](evidence/us_detail_indexed_textures.md), and
 [object texture animation](evidence/us_object_texture_animation.md), and
-[scene texture bindings](evidence/us_scene_texture_bindings.md).
+[scene texture bindings](evidence/us_scene_texture_bindings.md), and
+[object texture selectors](evidence/us_object_texture_bindings.md), and
+[attachment texture selectors](evidence/us_attachment_texture_bindings.md), and
+[object callback texture selectors](evidence/us_object_callback_texture_bindings.md), and
+[direct pixel-segment selectors](evidence/us_direct_segment_texture_bindings.md), and
+[attachment texture and UV updates](evidence/us_attachment_uv_updates.md), and
+[constructor tables and cohort diagnosis](evidence/us_model_constructor_tables.md), and
+[partial texture-memory loads](evidence/us_partial_tmem_loads.md), and
+[remaining material evidence](evidence/us_model_material_frontier.md).
 
 ### Current validation
 
 - All four model banks pass byte-identical reconstruction.
-- The completed batch has **5,406 passed file entries** and **826 render cases**:
-  **818 passed; eight remain incomplete**.
+- The current validation has **5,424 passed file entries** and **905 render cases**:
+  **897 passed; eight remain incomplete**.
 - Six runtime-draw cases and one submitted-composition case pass as separate
   comparison evidence.
 - ROM-only source audits and packed Blender/Khronos checks support gallery
   publication. File entries include multiple exports of a model; they are not
   additional model identities.
-- **All 788 Python tests pass.**
+- **Eight focused texture-memory replay tests** cover CI8 partial loads,
+  RGBA32 bank separation, RGBA8 alpha, byte ownership and rejection of
+  unsupported or missing inputs. Reuse their successful evidence until the
+  relevant extractor or validation code changes.
+- An independent ROM audit verifies all 8,192 pixels in the four recovered
+  RGBA8 textures. The four-bank comparison preserves all 1,487 parsed geometry
+  records and the exact images of 9,163 previously linked material runs.
 
 The batch still reports incomplete native appearance. Import success and
 reproducible preview baselines do not prove original-game lighting, filtering,
@@ -143,8 +224,16 @@ Current local reports:
 - ROM-only and packed-file audits:
   `build/assets/models/reference/expansion-20260910-usage-budget/` and
   `build/assets/models/reference/blocked-batch-20260911/` and
-  `build/assets/models/reference/scene-bindings-20260911/`.
-- Full Python suite: `build/assets/models/batch/logs/tests.log`.
+  `build/assets/models/reference/scene-bindings-20260911/` and
+  `build/assets/models/reference/attachment-bindings-20260912/` and
+  `build/assets/models/reference/ci4-array-bindings-20260912/` and
+  `build/assets/models/reference/material-cohort-20260912/` and
+  `build/assets/models/reference/callback-cohort-20260912/` and
+  `build/assets/models/reference/runtime-bindings-20260912/` and
+  `build/assets/models/reference/timer-model-20260912/` and
+  `build/assets/models/reference/attachment80-20260913/` and
+  `build/assets/models/batch/rgba8-replay/`.
+- Focused tests: `build/assets/models/reference/timer-model-20260912/test-proof.json`.
 
 The [batch validation guide](evidence/us_model_batch_validation.md) documents
 cache fingerprints, comparison boundaries and reproduction.
@@ -161,6 +250,18 @@ banks across the configured corpora, then validates and refreshes approved
 inspection entries. Successful export steps resume only when their inputs and
 outputs match. Changed visual-review inputs and decoder changes reopen the
 corresponding deferred work. New render exceptions stop publication for review.
+Run tests when extractor or validation code changes; reuse successful test
+evidence for export-only batches. Check the affected sources, previews and final
+packed files without repeating unchanged, already-passed checks.
+
+`./conker model-assets batch --constructors --bank 09` resumes bounded argument
+and initial ROM-table analysis in the same journal. It records candidate calls
+and unsupported paths without granting renderer evidence. Validation reuses
+unchanged dependencies and hashes shared files once per phase, including an
+independent final stability check. Unrelated ASM automation edits do not
+invalidate model export evidence; unchanged Python suite results are reusable.
+Regression-image comparisons also resume from image and comparison-code hashes;
+changed inputs and missing difference images are checked again.
 
 See [resumable model batches](model-batches.md) for bank selection, deferrals,
 logs and the boundary between automated checks and visual approval. The current
@@ -169,18 +270,42 @@ in `config/model-batch-reviews.json`.
 
 ### Next model work
 
-1. Resolve the **75 material-blocked records** using ROM consumer evidence.
-   The runtime-segment group contains 18 records: three bank-04 object
-   segments and fifteen bank-09 object/effect models. Prioritize their
-   object/attachment consumers, then the 20 CI4 lookup-state records. Keep
-   caller-selected variants explicit instead of inventing a default.
+1. Resolve the **27 material-blocked records** using ROM consumer evidence.
+   The constructor diagnosis identifies **seven bank-09 models with consistent
+   texture decoding but missing renderer proof**. Follow their shared helpers,
+   callback state and descriptor/placement paths as a group (entry 213 and
+   entries 407–412). The bounded constant/table pass has no submission candidate
+   for these seven; the bounded reverse-reference pass also found no sufficient
+   consumer. Investigate unresolved indirect or runtime-selected consumers
+   instead of repeating the unchanged scan. The five short RGBA16 records
+   request 4,096 bytes from 2,560-byte assets; four are exact copies of one
+   surface. Their reviewed loaders do not convert the texture or repair the
+   load commands. Reopen them only with a concrete conversion, command rewrite
+   or complete ROM-backed source-span proof, not a permissive decoder change.
+   See [the current material frontier](evidence/us_model_material_frontier.md).
+   Three I8 models
+   have proven renderers but request 368 bytes from 352-byte payloads; establish
+   the complete load source before changing the decoder. Entry 203 still needs
+   combiner and inherited-state evidence. The wider runtime-segment group has
+   four records: scene `04:0059:23` and bank-09 attachments 47, 165 and 185.
+   The [animation-event lookup](evidence/us_attachment_animation_events.md)
+   identifies parent/action references for 45 attachments. It establishes
+   attachment 47's SHC Soldier parent: animation 24 creates action 74, and
+   animation 25 removes it. Its last eight faces need inherited segments 6/7;
+   the parent's default 40 x 40 eyes do not match their 32 x 32 layout.
+   Follow the expression/texture state and segment lifetime for animation 24.
+   Attachments 165 and 185 have no references in this event protocol.
+   Keep caller-selected variants explicit instead of inventing a default.
 2. Resolve the four unpublished drawable bank-01 records. Entry `0066` has
    white helmet/body/pack surfaces despite selecting the proven stationary
    renderer descriptor; investigate part visibility and colour state. Entries
    `0154`, `0155` and `0162` use zero-alpha CI4 palettes whose effective alpha
    and render modes remain unresolved. Do not force them opaque.
-3. Assemble and identify the **607 reviewed fragments and variants** through
-   scene placements and effect consumers. Promote a fragment only when that
+3. Assemble and identify the **594 reviewed fragments and variants** through
+   scene placements and effect consumers. The 18 scene assemblies already
+   expose 115 of these components in context. Extend the same explicit selection
+   process to other material-complete bundles, reviewing overlapping variants
+   and effect planes before publication. Promote a standalone fragment only when that
    context makes it useful to inspect; avoid duplicate gallery entries.
 4. Extend independent native comparisons for published characters and objects:
    vertex-load lighting, projection, dynamic materials, attachment state,
@@ -200,6 +325,7 @@ Use the repository interface from the root:
 ./conker model-assets verify --bank 03
 ./conker model-assets verify --bank 04
 ./conker model-assets verify --bank 09
+./conker model-assets constructors --bank 09
 ./conker model-assets preview --bank 01 --rom-defaults \
   --output build/assets/models/rom-only/us-bank-01-preview --force
 ./conker model-assets validate

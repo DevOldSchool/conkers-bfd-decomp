@@ -5080,6 +5080,590 @@
       "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0051-00.gltf",
       "reference": "build/assets/models/validation/baselines/object-bank04-0051-00-rom.png",
       "size": 512
+    },
+    {
+      "id": "object-bank04-0007-15-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0007-15.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0007-15-rom.png",
+      "size": 512,
+      "view": "rear"
+    },
+    {
+      "id": "object-bank04-0028-12-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0028-12.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0028-12-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0025-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0025-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0025-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0049-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0049-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0049-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0019-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0019-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0019-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0384-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0384-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0384-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0385-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0385-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0385-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0386-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0386-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0386-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0387-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0387-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0387-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0388-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0388-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0388-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0389-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0389-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0389-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0390-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0390-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0390-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0391-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0391-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0391-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-bank04-0018-10-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0018-10.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-bank04-0018-10-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0121-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0121-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0121-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0128-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0128-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0128-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0307-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0307-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0307-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0232-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0232-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0232-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0246-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0246-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0246-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0254-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0254-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0254-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0273-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0273-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0273-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0274-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0274-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0274-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0275-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0275-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0275-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0276-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0276-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0276-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0277-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0277-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0277-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0309-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0309-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0309-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0312-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0312-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0312-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0313-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0313-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0313-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0314-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0314-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0314-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-bank04-0035-08-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0035-08.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-bank04-0035-08-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-bank04-0035-10-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0035-10.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-bank04-0035-10-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-bank04-0035-11-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0035-11.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-bank04-0035-11-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-bank04-0035-12-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0035-12.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-bank04-0035-12-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-bank04-0035-13-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0035-13.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-bank04-0035-13-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0269-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0269-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0269-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0270-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0270-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0270-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0304-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0304-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0304-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0305-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0305-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0305-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0186-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0186-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0186-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0153-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0153-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0153-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0141-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0141-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0141-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0147-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0147-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0147-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0080-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0080-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0080-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0098-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0098-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0098-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0026-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0026-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0026-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0027-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0027-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0027-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0107-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0107-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0107-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "object-bank09-0157-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0157-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0157-rom.png",
+      "size": 512,
+      "view": "three-quarter"
+    },
+    {
+      "id": "scene-23-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-23.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-23-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-54-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-54.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-54-assembly-rom.png",
+      "size": 768,
+      "view": "left",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank03-0064-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-03-preview/geometry/0064-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank03-0064-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank03-0065-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-03-preview/geometry/0065-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank03-0065-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank09-0042-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0042-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0042-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank09-0075-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0075-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0075-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank09-0083-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0083-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0083-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank09-0118-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-09-preview/geometry/0118-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank09-0118-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0019-15-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0019-15.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0019-15-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0004-11-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0004-11.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0004-11-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0004-13-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0004-13.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0004-13-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0004-14-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0004-14.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0004-14-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0064-21-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0064-21.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0064-21-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0059-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0059-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0059-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "object-bank04-0038-00-rom",
+      "source": "build/assets/models/rom-only/us-bank-04-preview/geometry/0038-00.gltf",
+      "reference": "build/assets/models/validation/baselines/object-bank04-0038-00-rom.png",
+      "size": 384,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-25-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-25.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-25-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-44-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-44.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-44-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-27-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-27.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-27-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-50-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-50.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-50-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-47-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-47.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-47-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-30-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-30.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-30-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-68-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-68.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-68-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-46-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-46.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-46-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-28-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-28.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-28-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-53-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-53.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-53-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-41-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-41.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-41-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-11-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-11.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-11-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-49-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-49.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-49-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-67-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-67.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-67-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-26-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-26.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-26-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
+    },
+    {
+      "id": "scene-35-assembly-rom",
+      "source": "build/assets/models/rom-scene-assemblies/geometry/scene-35.gltf",
+      "reference": "build/assets/models/validation/baselines/scene-35-assembly-rom.png",
+      "size": 768,
+      "view": "three-quarter",
+      "shading": "material"
     }
   ],
   "submitted_composition_cases": [
@@ -5107,5 +5691,8 @@
   ],
   "additional_compositions": [
     "build/assets/models/us-submitted-compositions"
+  ],
+  "scene_assemblies": [
+    "build/assets/models/rom-scene-assemblies"
   ]
 }

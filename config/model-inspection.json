@@ -1221,10 +1221,19 @@
     },
     {
       "name": "character-bank01-0120-rom",
-      "label": "Green horned creature \u2014 ROM bank 01 / 0120",
+      "label": "Wasp Larva — ROM bank 01 / 0120",
       "render_case": "character-bank01-0120-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 4 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Green horned creature",
+        "Wasp Larvae"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Wasp Larva — N64 appearance",
+        "reference_url": "https://conker.fandom.com/wiki/Wasp_Larvae"
+      }
     },
     {
       "name": "character-bank01-0122-rom",
@@ -1314,17 +1323,36 @@
     },
     {
       "name": "character-bank01-0142-rom",
-      "label": "Stone creature \u2014 ROM bank 01 / 0142",
+      "label": "The Grotesque (Gargoyle) — ROM bank 01 / 0142",
       "render_case": "character-bank01-0142-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 20 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Stone creature",
+        "Gargoyle",
+        "The Grotesque"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "The Grotesque (Gargoyle) — N64 appearance",
+        "reference_url": "https://conker.fandom.com/wiki/The_Grotesque"
+      }
     },
     {
       "name": "character-bank01-0147-rom",
-      "label": "Yellow rounded character \u2014 ROM bank 01 / 0147",
+      "label": "Sweet Corn — ROM bank 01 / 0147",
       "render_case": "character-bank01-0147-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 14 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Yellow rounded character",
+        "Sweetcorn"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Sweet Corn — N64 appearance",
+        "reference_url": "https://conker.fandom.com/wiki/Sweet_Corn"
+      }
     },
     {
       "name": "character-bank01-0148-rom",
@@ -2201,10 +2229,19 @@
     },
     {
       "name": "character-bank01-0049-rom",
-      "label": "Turtle character \u2014 ROM bank 01 / 0049",
+      "label": "Monk Gobling — ROM bank 01 / 0049",
       "render_case": "character-bank01-0049-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 13 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Turtle character",
+        "Monk Goblin"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Monk Gobling — N64 appearance",
+        "reference_url": "https://conker.fandom.com/wiki/Monk_Gobling"
+      }
     },
     {
       "name": "character-bank01-0052-rom",
@@ -2694,10 +2731,19 @@
     },
     {
       "name": "character-bank01-0181-rom",
-      "label": "Muscular squirrel \u2014 ROM bank 01 / 0181",
+      "label": "Bartender — ROM bank 01 / 0181",
       "render_case": "character-bank01-0181-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 56 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Muscular squirrel",
+        "Barman"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Bartender — N64 appearance",
+        "reference_url": "https://conker.fandom.com/wiki/Bartender"
+      }
     },
     {
       "name": "character-bank01-0183-rom",
@@ -4151,10 +4197,10 @@
     },
     {
       "name": "object-bank09-0150-00-rom",
-      "label": "Green-handled pointed tool \u2014 ROM 09 / 0150 / 00",
+      "label": "Walkie-talkie \u2014 ROM 09 / 0150 / 00",
       "render_case": "object-bank09-0150-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Identified from the supplied unused walkie-talkie reference, whose model selector 0x96 matches bank-09 entry 150. Reference-based name and unused-content classification; no recovered source name or proof of runtime absence is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
     },
     {
       "name": "object-bank09-0187-00-rom",
@@ -6290,6 +6336,659 @@
       "render_case": "object-bank04-0051-00-rom",
       "category": "scene-items",
       "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0007-15-rom",
+      "label": "Wrong sign panel \u2014 ROM 04 / 0007 / 15",
+      "render_case": "object-bank04-0007-15-rom",
+      "category": "scene-items",
+      "note": "Single-sided sign surface. Loader selector preset 0; stationary alternate texture retained in metadata. Rear camera shows the authored face. ROM geometry and textures; current gameplay appearance, visibility and lighting remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank04-0028-12-rom",
+      "label": "Stone panel with red center \u2014 ROM 04 / 0028 / 12",
+      "render_case": "object-bank04-0028-12-rom",
+      "category": "scene-items",
+      "note": "Loader selector preset 0 binds the first ROM texture pair. Later puzzle or object states remain unverified. ROM geometry and textures; current gameplay appearance, visibility and lighting remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0025-rom",
+      "label": "Yellow handheld console \u2014 ROM 09 / 0025",
+      "render_case": "object-bank09-0025-rom",
+      "category": "parts-effects",
+      "note": "First ROM texture frame; all three screen frames are decoded and recorded. Current playback phase is unverified. ROM geometry and textures; attachment pose, visibility, lighting and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0049-rom",
+      "label": "Faceted grey attachment \u2014 ROM 09 / 0049",
+      "render_case": "object-bank09-0049-rom",
+      "category": "parts-effects",
+      "note": "Explicit updater preset: animation pointer present, actor state 0, texture table index 6. Later animation phases remain unverified. ROM geometry and textures; attachment pose, visibility, lighting and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0019-rom",
+      "label": "Lit cigarette \u2014 ROM 09 / 0019",
+      "render_case": "object-bank09-0019-rom",
+      "category": "parts-effects",
+      "note": "Explicit updater preset: animation pointer present and actor state 0. Texture comes directly from the ROM; the other surface uses shade, environment, primitive and K5 with no texture input. Its dynamic colours, attachment pose and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0384-rom",
+      "label": "Orange fur fragment 1 \u2014 ROM 09 / 0384",
+      "render_case": "object-bank09-0384-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0385-rom",
+      "label": "Orange fur fragment 2 \u2014 ROM 09 / 0385",
+      "render_case": "object-bank09-0385-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0386-rom",
+      "label": "Orange fur fragment 3 \u2014 ROM 09 / 0386",
+      "render_case": "object-bank09-0386-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0387-rom",
+      "label": "Orange fur fragment 4 \u2014 ROM 09 / 0387",
+      "render_case": "object-bank09-0387-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0388-rom",
+      "label": "Orange fur fragment 1 variant \u2014 ROM 09 / 0388",
+      "render_case": "object-bank09-0388-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0389-rom",
+      "label": "Orange fur fragment 2 variant \u2014 ROM 09 / 0389",
+      "render_case": "object-bank09-0389-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0390-rom",
+      "label": "Orange fur fragment 3 variant \u2014 ROM 09 / 0390",
+      "render_case": "object-bank09-0390-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "object-bank09-0391-rom",
+      "label": "Orange fur fragment 4 variant \u2014 ROM 09 / 0391",
+      "render_case": "object-bank09-0391-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures; one of two separately stored surface variants. Fragment assembly, motion, dynamic colours and native appearance remain unverified. Descriptive label; no capture inputs."
+    },
+    {
+      "name": "scene-bank04-0018-10-rom",
+      "label": "Lettered circular plate \u2014 ROM 04 / 0018 / 10",
+      "render_case": "scene-bank04-0018-10-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and flat textures, with a pinned renderer context. Descriptive label; attachment pose, assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0121-rom",
+      "label": "Black sunglasses \u2014 ROM 09 / 0121",
+      "render_case": "object-bank09-0121-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned renderer context. Descriptive label; attachment pose, assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0128-rom",
+      "label": "Pointed dark attachment \u2014 ROM 09 / 0128",
+      "render_case": "object-bank09-0128-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned renderer context. Descriptive label; attachment pose, assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0307-rom",
+      "label": "Conker head with bloodshot eyes \u2014 ROM 09 / 0307",
+      "render_case": "object-bank09-0307-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned renderer context. Descriptive label; attachment pose, assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0232-rom",
+      "label": "Dark sleeve with pale hand \u2014 ROM 09 / 0232",
+      "render_case": "object-bank09-0232-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0246-rom",
+      "label": "Skeletal forearm and hand \u2014 ROM 09 / 0246",
+      "render_case": "object-bank09-0246-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0254-rom",
+      "label": "Black bat head \u2014 ROM 09 / 0254",
+      "render_case": "object-bank09-0254-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0273-rom",
+      "label": "Dark limb with brown tip \u2014 ROM 09 / 0273",
+      "render_case": "object-bank09-0273-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0274-rom",
+      "label": "Black boot fragment \u2014 ROM 09 / 0274",
+      "render_case": "object-bank09-0274-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0275-rom",
+      "label": "Dark clothing fragment \u2014 ROM 09 / 0275",
+      "render_case": "object-bank09-0275-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0276-rom",
+      "label": "Dark helmet with chin strap \u2014 ROM 09 / 0276",
+      "render_case": "object-bank09-0276-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0277-rom",
+      "label": "Single-eye gun turret \u2014 ROM 09 / 0277",
+      "render_case": "object-bank09-0277-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0309-rom",
+      "label": "Orange leg and trainer fragment \u2014 ROM 09 / 0309",
+      "render_case": "object-bank09-0309-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0312-rom",
+      "label": "Dark sleeve with white glove \u2014 ROM 09 / 0312",
+      "render_case": "object-bank09-0312-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0313-rom",
+      "label": "Black boot and exposed bone \u2014 ROM 09 / 0313",
+      "render_case": "object-bank09-0313-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0314-rom",
+      "label": "Black trouser leg fragment \u2014 ROM 09 / 0314",
+      "render_case": "object-bank09-0314-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
+    },
+    {
+      "name": "scene-bank04-0035-08-rom",
+      "label": "Dark surface panel 08 \u2014 ROM 04 / 0035 / 08",
+      "render_case": "scene-bank04-0035-08-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and RGBA16 base textures with a complete checked mip chain. Descriptive label; scene placement, lighting, distance filtering and native appearance remain unverified."
+    },
+    {
+      "name": "scene-bank04-0035-10-rom",
+      "label": "Dark surface panel 10 \u2014 ROM 04 / 0035 / 10",
+      "render_case": "scene-bank04-0035-10-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and RGBA16 base textures with a complete checked mip chain. Descriptive label; scene placement, lighting, distance filtering and native appearance remain unverified."
+    },
+    {
+      "name": "scene-bank04-0035-11-rom",
+      "label": "Dark surface panel 11 \u2014 ROM 04 / 0035 / 11",
+      "render_case": "scene-bank04-0035-11-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and RGBA16 base textures with a complete checked mip chain. Descriptive label; scene placement, lighting, distance filtering and native appearance remain unverified."
+    },
+    {
+      "name": "scene-bank04-0035-12-rom",
+      "label": "Dark surface panel 12 \u2014 ROM 04 / 0035 / 12",
+      "render_case": "scene-bank04-0035-12-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and RGBA16 base textures with a complete checked mip chain. Descriptive label; scene placement, lighting, distance filtering and native appearance remain unverified."
+    },
+    {
+      "name": "scene-bank04-0035-13-rom",
+      "label": "Dark surface panel 13 \u2014 ROM 04 / 0035 / 13",
+      "render_case": "scene-bank04-0035-13-rom",
+      "category": "scene-items",
+      "note": "ROM geometry and RGBA16 base textures with a complete checked mip chain. Descriptive label; scene placement, lighting, distance filtering and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0269-rom",
+      "label": "Red-and-white clothing fragment A",
+      "render_case": "object-bank09-0269-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures through a checked constructor callback. The first retained selector preset is displayed; all correlated texture alternatives are preserved in the material evidence. Descriptive label only. Assembly, later state changes, visibility, lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0270-rom",
+      "label": "Red-and-white clothing fragment B",
+      "render_case": "object-bank09-0270-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures through a checked constructor callback. The first retained selector preset is displayed; all correlated texture alternatives are preserved in the material evidence. Descriptive label only. Assembly, later state changes, visibility, lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0304-rom",
+      "label": "Blue effect surface A",
+      "render_case": "object-bank09-0304-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures through a checked constructor callback. The first retained selector preset is displayed; all correlated texture alternatives are preserved in the material evidence. Descriptive label only. Assembly, later state changes, visibility, lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0305-rom",
+      "label": "Blue effect surface B",
+      "render_case": "object-bank09-0305-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures through a checked constructor callback. The first retained selector preset is displayed; all correlated texture alternatives are preserved in the material evidence. Descriptive label only. Assembly, later state changes, visibility, lighting and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0186-rom",
+      "label": "Digital timer \u2014 00:00 preset",
+      "render_case": "object-bank09-0186-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry with renderer-selected IA4 digits. Explicit 00:00 inspection preset; all ten digit glyphs are retained in the material evidence. Gameplay timer state, visibility, projection and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0153-rom",
+      "label": "Unused military laptop \u2014 first screen frame",
+      "render_case": "object-bank09-0153-rom",
+      "preview_rotation": [
+        180,
+        0,
+        0
+      ],
+      "category": "parts-effects",
+      "note": "ROM geometry with two RGBA32 screen frames selected by the animated attachment updater. The keyboard, screen surround and LOOK SAD PEOPLE GET A LIFE NOW texture identify the laptop shown in the supplied unused-content reference. First-frame texture preset with the stored neutral joint hierarchy. Reference-based name and unused-content classification; parent pose, animation, visibility and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0141-rom",
+      "label": "Gold pocket watch \u2014 stored parts",
+      "render_case": "object-bank09-0141-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry with two inline-palette texture alternatives. Explicit initializer or parent-field texture preset, with stored neutral joints. Descriptive label; parent ownership, assembly, animation, visibility and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0147-rom",
+      "label": "Black weapon attachment \u2014 first texture preset",
+      "render_case": "object-bank09-0147-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry with two inline-palette texture alternatives. Explicit initializer or parent-field texture preset, with stored neutral joints. Descriptive label; parent ownership, assembly, animation, visibility and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0080-rom",
+      "label": "Translucent tube effect \u2014 initial texture and UV preset",
+      "render_case": "object-bank09-0080-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and RGBA32 textures with the attachment updater\u2019s initial tile-origin change. The 16 affected faces use the full 8\u00d764 image and shifted UVs; 44 other faces retain their stored state. Descriptive label; parent ownership, later animation, visibility and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0098-rom",
+      "label": "Pink canister attachment \u2014 ROM 09 / 0098",
+      "render_case": "object-bank09-0098-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and CI8 textures reconstructed by replaying partial texture-memory loads within the stored display list. All 30 faces have texture coverage. Descriptive label; parent ownership, runtime colours, attachment pose and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0026-rom",
+      "label": "Black weapon attachment A \u2014 ROM 09 / 0026",
+      "render_case": "object-bank09-0026-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0027-rom",
+      "label": "Black weapon attachment B \u2014 ROM 09 / 0027",
+      "render_case": "object-bank09-0027-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0107-rom",
+      "label": "Horizontal black weapon attachment \u2014 ROM 09 / 0107",
+      "render_case": "object-bank09-0107-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+    },
+    {
+      "name": "object-bank09-0157-rom",
+      "label": "Helium canister attachment \u2014 ROM 09 / 0157",
+      "render_case": "object-bank09-0157-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+    },
+    {
+      "name": "scene-23-assembly-rom",
+      "label": "Industrial shafts \u2014 static ROM scene 23",
+      "render_case": "scene-23-assembly-rom",
+      "note": "Twenty ROM model components assembled at the scene 23 loader slots and 18 placement transforms. Includes the first exported texture frames. Conditional visibility, dynamic effects, lighting and fog are not reproduced.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 23",
+        "bank04 0023",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-54-assembly-rom",
+      "label": "Stone corridor \u2014 intact walls \u2014 static ROM scene 54",
+      "render_case": "scene-54-assembly-rom",
+      "note": "Nine ROM model components in 18 instances, using both bank 0B and bank 0C placements. Static review selection uses intact walls and unlit indicators. Alternative damage/light states, untextured effect planes and collision-only slot 3 are omitted. Native visibility, lighting and effects remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 54",
+        "bank04 0054",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "object-bank03-0064-00-rom",
+      "label": "Dark wooden door panel \u2014 first leaf",
+      "render_case": "object-bank03-0064-00-rom",
+      "note": "A separate door-panel mesh; inspect alongside bank 03 entry 65. The label describes its shape and does not establish its in-game room. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank03-0065-00-rom",
+      "label": "Dark wooden door panel \u2014 second leaf",
+      "render_case": "object-bank03-0065-00-rom",
+      "note": "A separate door-panel mesh; inspect alongside bank 03 entry 64. The label describes its shape and does not establish its in-game room. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank09-0042-00-rom",
+      "label": "Toilet-paper roll",
+      "render_case": "object-bank09-0042-00-rom",
+      "note": "Coherent low-poly roll with a textured paper surface and dark core. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank09-0075-00-rom",
+      "label": "Flashlight",
+      "render_case": "object-bank09-0075-00-rom",
+      "note": "Coherent handheld shape with a wide lamp end. Identified from the extracted appearance; its parent and gameplay use remain unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank09-0083-00-rom",
+      "label": "Scalpel",
+      "render_case": "object-bank09-0083-00-rom",
+      "note": "Slim metal handle and blue-grey blade. Identified from the extracted appearance; attachment pose remains unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank09-0118-00-rom",
+      "label": "Bloodied scalpel",
+      "render_case": "object-bank09-0118-00-rom",
+      "note": "Red-tipped blade variant of the scalpel-shaped prop. The selected ROM surface is retained; attachment pose remains unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0019-15-rom",
+      "label": "Circular metal dish",
+      "render_case": "object-bank04-0019-15-rom",
+      "note": "Circular dish-like surface with a central fitting. Descriptive identification only; its room, orientation and function remain unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0004-11-rom",
+      "label": "Crossed steel barrier \u2014 variant 11",
+      "render_case": "object-bank04-0004-11-rom",
+      "note": "Three crossed rusty beams form a coherent obstacle. Retained as an explicit geometry variant alongside segments 13 and 14; placement and runtime visibility remain unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0004-13-rom",
+      "label": "Crossed steel barrier \u2014 variant 13",
+      "render_case": "object-bank04-0004-13-rom",
+      "note": "Three crossed rusty beams form a coherent obstacle. Retained as an explicit geometry variant alongside segments 11 and 14; placement and runtime visibility remain unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0004-14-rom",
+      "label": "Crossed steel barrier \u2014 variant 14",
+      "render_case": "object-bank04-0004-14-rom",
+      "note": "Three crossed rusty beams form a coherent obstacle. Retained as an explicit geometry variant alongside segments 11 and 13; placement and runtime visibility remain unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0064-21-rom",
+      "label": "Red padded chair",
+      "render_case": "object-bank04-0064-21-rom",
+      "note": "Padded red back, wooden frame and carved feet form a recognizable chair. Descriptive identification only; scene placement and runtime assembly remain unverified. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0059-00-rom",
+      "label": "Cavern terrain \u2014 base geometry",
+      "render_case": "object-bank04-0059-00-rom",
+      "note": "Large coherent terrain shell from scene 59. This is one ROM segment, not a complete scene assembly; props, placements and other segments are separate. Scene 59 segment 23 still has unresolved materials. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "object-bank04-0038-00-rom",
+      "label": "Curved room section \u2014 base geometry",
+      "render_case": "object-bank04-0038-00-rom",
+      "note": "Connected curved room geometry from scene 38. This is one ROM segment, not a complete scene assembly; props, placements and other segments are separate. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
+      "category": "scene-items"
+    },
+    {
+      "name": "scene-25-assembly-rom",
+      "label": "Domed lava chamber \u2014 static ROM scene 25",
+      "render_case": "scene-25-assembly-rom",
+      "note": "11 ROM model components in 11 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Untextured surfaces needing runtime state are omitted. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 25",
+        "bank04 0025",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-44-assembly-rom",
+      "label": "Industrial shafts and tunnels \u2014 static ROM scene 44",
+      "render_case": "scene-44-assembly-rom",
+      "note": "11 ROM model components in 22 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Untextured surfaces needing runtime state are omitted. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 44",
+        "bank04 0044",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-27-assembly-rom",
+      "label": "Stone walkway network \u2014 static ROM scene 27",
+      "render_case": "scene-27-assembly-rom",
+      "note": "11 ROM model components in 22 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Untextured surfaces needing runtime state are omitted. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 27",
+        "bank04 0027",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-50-assembly-rom",
+      "label": "Lava course with rock platforms \u2014 static ROM scene 50",
+      "render_case": "scene-50-assembly-rom",
+      "note": "11 ROM model components in 19 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Untextured surfaces needing runtime state are omitted. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 50",
+        "bank04 0050",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-47-assembly-rom",
+      "label": "Tiled room interior \u2014 static ROM scene 47",
+      "render_case": "scene-47-assembly-rom",
+      "note": "8 ROM model components in 11 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Untextured surfaces needing runtime state are omitted. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 47",
+        "bank04 0047",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-30-assembly-rom",
+      "label": "Branching walkway network \u2014 static ROM scene 30",
+      "render_case": "scene-30-assembly-rom",
+      "note": "6 ROM model components in 23 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 30",
+        "bank04 0030",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-68-assembly-rom",
+      "label": "Lava chamber with platforms \u2014 static ROM scene 68",
+      "render_case": "scene-68-assembly-rom",
+      "note": "7 ROM model components in 7 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 68",
+        "bank04 0068",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-46-assembly-rom",
+      "label": "Mossy chamber with doors \u2014 static ROM scene 46",
+      "render_case": "scene-46-assembly-rom",
+      "note": "4 ROM model components in 4 instances, using recovered initial slots and placement records. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 46",
+        "bank04 0046",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-28-assembly-rom",
+      "label": "Wooden bridge and fortified doorway \u2014 static ROM scene 28",
+      "render_case": "scene-28-assembly-rom",
+      "note": "22 ROM model components in 31 instances, using recovered initial slots and placement records. Colocated metal-panel fragments await fracture/visibility state and are omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 28",
+        "bank04 0028",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-53-assembly-rom",
+      "label": "Stone cavern with circular platforms \u2014 static ROM scene 53",
+      "render_case": "scene-53-assembly-rom",
+      "note": "20 ROM model components in 28 instances, using recovered initial slots and placement records. Selects the plain-faced panel; the overlapping patterned panel is omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 53",
+        "bank04 0053",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-41-assembly-rom",
+      "label": "Forest cliffs with bridge and waterfall \u2014 static ROM scene 41",
+      "render_case": "scene-41-assembly-rom",
+      "note": "17 ROM model components in 18 instances, using recovered initial slots and placement records. Colocated rock fragments await fracture/visibility state and are omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 41",
+        "bank04 0041",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-11-assembly-rom",
+      "label": "Stone tower and surrounding platforms \u2014 static ROM scene 11",
+      "render_case": "scene-11-assembly-rom",
+      "note": "13 ROM model components in 14 instances, using recovered initial slots and placement records. Small overlapping surface layers and an untextured triangle are omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 11",
+        "bank04 0011",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-49-assembly-rom",
+      "label": "Stone chamber with steps \u2014 static ROM scene 49",
+      "render_case": "scene-49-assembly-rom",
+      "note": "15 ROM model components in 20 instances, using recovered initial slots and placement records. Selects surface variant 14; overlapping variants 15 and 16 are omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 49",
+        "bank04 0049",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-67-assembly-rom",
+      "label": "Lava chamber with central platform \u2014 static ROM scene 67",
+      "render_case": "scene-67-assembly-rom",
+      "note": "8 ROM model components in 8 instances, using recovered initial slots and placement records. The textured head is retained; untextured ring and wall surfaces are omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 67",
+        "bank04 0067",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-26-assembly-rom",
+      "label": "Industrial hub and passages \u2014 static ROM scene 26",
+      "render_case": "scene-26-assembly-rom",
+      "note": "9 ROM model components in 15 instances, using recovered initial slots and placement records. Untextured effect surfaces are omitted. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 26",
+        "bank04 0026",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-35-assembly-rom",
+      "label": "Circular plaza with vine-covered columns \u2014 static ROM scene 35",
+      "render_case": "scene-35-assembly-rom",
+      "note": "17 ROM model components in 19 instances, using recovered initial slots and placement records. Uses all recovered visible-slot and object-placement components. Collision-only initial slot 3 is excluded. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 35",
+        "bank04 0035",
+        "scene assembly"
+      ]
     }
-  ]
+  ],
+  "extracted_review": {
+    "model_root": "build/assets/models/rom-only",
+    "reviews": "config/model-batch-reviews.json",
+    "cache": "build/assets/models/inspection-review-cache"
+  }
 }

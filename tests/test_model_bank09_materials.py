@@ -25,6 +25,9 @@ class Bank09MaterialTests(unittest.TestCase):
         stack.enter_context(patch.object(objects, 'SETUPS', ((code_base, code_base + 16, 0x20,
             (code_base, code_base + 4), ((code_base + 8, code_base + 12),)),)))
         stack.enter_context(patch.object(objects, 'ARRAY_SETUPS', ()))
+        stack.enter_context(patch.object(objects, 'LOOP_SETUPS', ()))
+        stack.enter_context(patch.object(objects, 'descriptor_contexts', return_value={}))
+        stack.enter_context(patch.object(objects, 'fragment_array_contexts', return_value={}))
         self.addCleanup(stack.close)
         return code, code_base, data, data_base
 
@@ -114,6 +117,144 @@ class Bank09MaterialTests(unittest.TestCase):
                 objects.array_selectors(struct.pack('>5I', *changed), 0, raw, 0x8000FFF0, setup)
         with self.assertRaisesRegex(ValueError, 'selector array changed'):
             objects.array_selectors(code, 0, bytes(len(raw)), 0x8000FFF0, setup)
+
+    def loop_fixture(self, setup):
+        cb = setup.get('function', 0x1513A6E0)
+        db = setup.get('mask', objects.LOOP_MASK)[0]
+        code = bytearray(0x600)
+        for pc, word in setup['guards']:
+            struct.pack_into('>I', code, pc - cb, word)
+        reg = 8
+        for pc, word in zip(setup['flags'], (0x3C080010, 0x350839E9,
+                                           0xAFA80000 | (setup['frame'] + 0x50))):
+            struct.pack_into('>I', code, pc - cb, word)
+        data = bytearray(64)
+        if setup.get('count') == 2:
+            data[:3] = bytes((0, 1, 2))
+            selectors = (227, 229) if setup['mask_set'] else (228, 230)
+        else:
+            data[:6] = bytes((4, 12, 6, 7, 13, 0))
+            selectors = (122, 123, 124, 125) if setup['mask_set'] else (118, 119, 120, 121)
+        struct.pack_into(f'>{len(selectors)}I', data, setup['address'] - db, *selectors)
+        return code, cb, data, db
+
+    def test_mask_loops_preserve_complementary_selection_rows(self):
+        expected = (([3, 4], [2, 3], [0, 1, 2, 3, 4], [1, 4]),
+                    ([0, 1, 2, 5], [0, 1, 4, 5], [5], [0, 2, 3, 5]),
+                    ([1], [2]), ([0, 2], [0, 1]))
+        for setup, rows in zip(objects.LOOP_SETUPS, expected):
+            args = self.loop_fixture(setup)
+            result = objects.loop_array_contexts(*args, setup, tuple(range(233)))
+            self.assertEqual(setup.get('count', 4), len(result))
+            for index, proofs in enumerate(result.values()):
+                self.assertEqual(rows[index], proofs[0]['selection_mask']['enabled_rows'])
+                self.assertEqual(0x1039E9, proofs[0]['initial_flags']['value'])
+
+    def test_mask_loops_reject_changed_instructions_arrays_masks_and_callback_flags(self):
+        for setup in objects.LOOP_SETUPS:
+            code, cb, data, db = self.loop_fixture(setup)
+            for pc, word in setup['guards']:
+                changed = bytearray(code)
+                struct.pack_into('>I', changed, pc - cb, word ^ 1)
+                with self.subTest(pc=hex(pc)), self.assertRaisesRegex(ValueError, 'instruction differs'):
+                    objects.loop_array_contexts(changed, cb, data, db, setup, tuple(range(233)))
+            for offset in (0, setup['address'] - db):
+                changed = bytearray(data); changed[offset] ^= 1
+                with self.assertRaises(ValueError):
+                    objects.loop_array_contexts(code, cb, changed, db, setup, tuple(range(233)))
+            changed = bytearray(code)
+            struct.pack_into('>I', changed, setup['flags'][0] - cb, 0x3C080011)
+            with self.assertRaisesRegex(ValueError, 'texture callback'):
+                objects.loop_array_contexts(changed, cb, data, db, setup, tuple(range(233)))
+            with self.assertRaisesRegex(ValueError, 'exceeds lookup'):
+                objects.loop_array_contexts(code, cb, data, db, setup, tuple(range(118)))
+
+    def test_descriptor_switch_proves_only_reachable_table_entries(self):
+        cb, db = 0x15134000, 0x800A0000
+        code, data = bytearray(0x5000), bytearray(128)
+        struct.pack_into('>4I', code, 0, 0x03E00008, 0x24020000, 0x03E00008, 0x24020001)
+        struct.pack_into('>I', code, 0x151384F4 - cb, 0x240B39E9)
+        struct.pack_into('>I', code, 0x15138510 - cb, 0xAFAB0118)
+        switch = struct.pack('>2I', cb, cb + 8)
+        data[:8] = switch
+        table = bytearray(32)
+        struct.pack_into('>H', table, 12, 1)
+        struct.pack_into('>H', table, 28, 2)
+        data[32:64] = table
+        with patch.object(objects, 'DESCRIPTOR_SWITCHES', ((db, 2, hashlib.sha1(switch).hexdigest()),)), \
+             patch.object(objects, 'DESCRIPTOR_TABLE', (db + 32, 2, 16, hashlib.sha1(table).hexdigest())):
+            result = objects.descriptor_contexts(code, cb, data, db, (999, 307, 230))
+            self.assertEqual({307, 230}, set(result))
+            for offset in (0, 32 + 12):
+                changed = bytearray(data); changed[offset] ^= 1
+                with self.assertRaises(ValueError):
+                    objects.descriptor_contexts(code, cb, changed, db, (999, 307, 230))
+            for offset in (0, 4, 0x15138510 - cb):
+                changed = bytearray(code); changed[offset] ^= 1
+                with self.assertRaises(ValueError):
+                    objects.descriptor_contexts(changed, cb, data, db, (999, 307, 230))
+
+    def test_word_literal_retains_high_bits_and_rejects_wrong_register_or_field(self):
+        good = (0x3C080010, 0x350839E9, 0xAFA800F4)
+        self.assertEqual(0x1039E9, objects.word_literal_store(struct.pack('>3I', *good), 0,
+                                                           (0, 4, 8), 0xF4)['value'])
+        for index, word in ((0, 0x24080010), (0, 0x3C000010), (1, 0x350939E9),
+                            (1, 0x352839E9), (2, 0xAFA900F4), (2, 0xAFA800F8)):
+            changed = list(good); changed[index] = word
+            with self.assertRaises(ValueError):
+                objects.word_literal_store(struct.pack('>3I', *changed), 0, (0, 4, 8), 0xF4)
+
+    def fragment_fixture(self):
+        cb, db = 0x150F1D00, 0x80089A20
+        code = bytearray(0x15150D00 - cb)
+        data = bytearray(0x800A3F64 - db)
+        for pc, word in objects.FRAGMENT_GUARDS:
+            struct.pack_into('>I', code, pc - cb, word)
+        base = objects.FRAGMENT_TABLES[2][0]
+        pointers = [base] * 20
+        pointers[1] = base + 12  # Only callback-enabled type 1 reaches selector 9.
+        spans = [struct.pack('>20I', *pointers), struct.pack('>20I', *([3] * 20)),
+                 struct.pack('>6I', 1, 2, 3, 9, 9, 9), struct.pack('>3I', 4, 5, 6)]
+        tables = []
+        for (address, _, _), raw in zip(objects.FRAGMENT_TABLES, spans):
+            data[address - db:address - db + len(raw)] = raw
+            tables.append((address, len(raw), hashlib.sha1(raw).hexdigest()))
+        return code, cb, data, db, tuple(tables)
+
+    def test_fragment_arrays_exclude_callback_type_and_preserve_selector_alternatives(self):
+        code, cb, data, db, tables = self.fragment_fixture()
+        with patch.object(objects, 'FRAGMENT_TABLES', tables):
+            rows = objects.fragment_array_contexts(code, cb, data, db, tuple(range(10)))
+        self.assertEqual(set(range(1, 7)), set(rows))
+        self.assertNotIn(9, rows)
+        self.assertEqual(19, len(rows[1]))
+        self.assertEqual([1, 3], rows[1][0]['selector_array']['count_variants'])
+        self.assertEqual(-1, rows[4][0]['callback_index']['value'])
+        self.assertEqual('func_150F1D10', rows[4][0]['selector_array']['caller'])
+
+    def test_fragment_guards_tables_and_lookup_fail_closed(self):
+        code, cb, data, db, tables = self.fragment_fixture()
+        with patch.object(objects, 'FRAGMENT_TABLES', tables):
+            for pc, _ in objects.FRAGMENT_GUARDS:
+                changed = bytearray(code)
+                changed[pc - cb] ^= 1
+                with self.subTest(pc=hex(pc)), self.assertRaisesRegex(ValueError, 'callback protocol'):
+                    objects.fragment_array_contexts(changed, cb, data, db, tuple(range(10)))
+            for address, _, _ in tables:
+                changed = bytearray(data)
+                changed[address - db] ^= 1
+                with self.assertRaisesRegex(ValueError, 'selector table'):
+                    objects.fragment_array_contexts(code, cb, changed, db, tuple(range(10)))
+            with self.assertRaisesRegex(ValueError, 'exceeds model lookup'):
+                objects.fragment_array_contexts(code, cb, data, db, tuple(range(3)))
+
+    def test_fragment_pointer_cannot_escape_its_pinned_array_span(self):
+        code, cb, data, db, tables = self.fragment_fixture()
+        struct.pack_into('>I', data, tables[0][0] - db, tables[2][0] - 4)
+        pointer_bytes = data[tables[0][0] - db:tables[0][0] - db + 80]
+        tables = ((tables[0][0], 80, hashlib.sha1(pointer_bytes).hexdigest()),) + tables[1:]
+        with patch.object(objects, 'FRAGMENT_TABLES', tables), self.assertRaisesRegex(ValueError, 'pinned span'):
+            objects.fragment_array_contexts(code, cb, data, db, tuple(range(10)))
 
 
 if __name__ == '__main__':

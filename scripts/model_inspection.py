@@ -7,6 +7,7 @@ import copy
 import hashlib
 import html
 import json
+import math
 import os
 import re
 import struct
@@ -25,6 +26,7 @@ CATEGORIES = {
     'collectables': ('Collectables', 'Cash, keys, food and multiplayer objectives.'),
     'scene-items': ('Scene items', 'Scenery, props, vehicles, weapons and equipment.'),
     'parts-effects': ('Parts & effects', 'Detached parts, attachments, debris and effects.'),
+    'extracted-review': ('Extracted review', 'Remaining ROM exports for review. Includes unfinished materials, fragments, variants and records with no drawable faces.'),
 }
 
 
@@ -36,6 +38,11 @@ def validate_gallery_metadata(models: list[dict]) -> None:
         aliases = model.get('aliases', [])
         if not isinstance(aliases, list) or any(not isinstance(alias, str) for alias in aliases):
             raise ValueError(f'invalid inspection aliases: {model["name"]}')
+        rotation = model.get('preview_rotation')
+        if rotation is not None and (not isinstance(rotation, list) or len(rotation) != 3
+                or any(isinstance(v, bool) or not isinstance(v, (int, float))
+                       or not math.isfinite(v) or abs(v) > 360 for v in rotation)):
+            raise ValueError(f'invalid inspection camera rotation: {model["name"]}')
         identification = model.get('identification')
         if identification is not None:
             reference = urlsplit(identification.get('reference_url', ''))
@@ -49,10 +56,15 @@ def gallery_page(records: list[dict], output: Path) -> str:
     """Render a standalone, offline gallery with category and alias filtering."""
     cards = []
     for record in records:
-        image_link = os.path.relpath(ROOT / record['preview'], output)
-        image_link += '?v=' + record['preview_sha256']
+        if record.get('preview'):
+            image_link = os.path.relpath(ROOT / record['preview'], output)
+            image_link += '?v=' + record['preview_sha256']
+            preview = (f'<img loading="lazy" width="512" height="512" src="{html.escape(image_link, quote=True)}" '
+                       f'alt="{html.escape(record["label"], quote=True)}">')
+        else:
+            preview = '<div class="preview-placeholder">No drawable faces</div>'
         model_link = record['file'] + '?v=' + record['glb_sha256']
-        search_text = ' '.join([record['label'], record['file'], *record.get('aliases', [])])
+        search_text = ' '.join([record['label'], record['file'], record.get('review_label', ''), *record.get('aliases', [])])
         identification = record.get('identification')
         reference = ''
         if identification:
@@ -60,11 +72,15 @@ def gallery_page(records: list[dict], output: Path) -> str:
                          f'{html.escape(identification["reference_label"])}</a>. '
                          'The name is inferred from appearance; the bank and entry identify the ROM asset.</p>')
         title = record['label'].split(' — ROM', 1)[0]
+        badge = (f'<p class="review-badge" data-status="{html.escape(record["review_status"], quote=True)}">'
+                 f'{html.escape(record["review_label"])}</p>' if record.get('review_status') else '')
+        bank = f'{record["bank"]:02x}' if 'bank' in record else ''
         cards.append(
-            f'<article data-category="{record["category"]}" data-search="{html.escape(search_text, quote=True)}">'
+            f'<article data-category="{record["category"]}" data-bank="{bank}" '
+            f'data-review-status="{html.escape(record.get("review_status", ""), quote=True)}" '
+            f'data-search="{html.escape(search_text, quote=True)}">'
             f'<a href="{html.escape(model_link, quote=True)}">'
-            f'<img loading="lazy" width="512" height="512" src="{html.escape(image_link, quote=True)}" alt="{html.escape(title, quote=True)}">'
-            f'<h2>{html.escape(title)}</h2></a><code>{html.escape(record["file"])}</code>'
+            f'{preview}<h2>{html.escape(title)}</h2></a>{badge}<code>{html.escape(record["file"])}</code>'
             f'<details><summary>Export details</summary><p>{html.escape(record["note"])}</p>{reference}</details></article>')
     categories = {**CATEGORIES, 'all': ('All models', 'Every model currently extracted and published for inspection.')}
     tabs = []
@@ -187,13 +203,19 @@ def write_if_changed(path: Path, data: bytes) -> None:
     name.replace(path)
 
 
-def rom_source_evidence(source: Path) -> dict:
+def rom_source_evidence(source: Path, *, assembly_cache=None) -> dict:
     """Require a selected ROM model, even in a corpus with other captured rows."""
     source = source.resolve()
     root = source.parent.parent
     manifest_path = root / 'manifest.json'
     manifest_bytes = manifest_path.read_bytes()
     manifest = json.loads(manifest_bytes)
+    if manifest.get('family') == 'rom-static-scene-assemblies':
+        try:
+            from scripts.model_scene_assemblies import inspection_evidence
+        except ModuleNotFoundError:
+            from model_scene_assemblies import inspection_evidence
+        return inspection_evidence(source, verification_cache=assembly_cache)
     bank = manifest.get('bank_index')
     if (bank not in (1, 3, 4, 9) or manifest.get('profile') != 'us'
             or manifest.get('family') != f'indexed-bank-{bank:02x}-model-preview'):
@@ -229,6 +251,7 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
     files = {row['path']: row for row in report['files']}
     renders = {row['id']: row for row in report['renders']}
     records, pending, names = [], [], set()
+    assembly_cache = {}
     for case in config['models']:
         name = case['name']
         if not re.fullmatch(r'[a-z0-9]+(?:-[a-z0-9]+)*', name) or name in names:
@@ -244,24 +267,52 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
         image = Path(render['image'])
         if digest(image.read_bytes()) != render['check']['current_sha256']:
             raise ValueError(f'stale inspection image: {image}')
-        rom_evidence = rom_source_evidence(source) if config.get('rom_only') else None
+        presentation = None
+        if case.get('preview_rotation') is not None:
+            try:
+                from scripts.model_inspection_preview import oriented_preview
+            except ModuleNotFoundError:
+                from model_inspection_preview import oriented_preview
+            image, presentation = oriented_preview(
+                source, current, case['preview_rotation'], render.get('settings', {}),
+                ROOT / 'build/assets/models/inspection-preview-cache')
+        rom_evidence = rom_source_evidence(source, assembly_cache=assembly_cache) if config.get('rom_only') else None
+        if rom_evidence and rom_evidence.get('kind') == 'static-scene-assembly':
+            check = report.get('checks', {}).get('scene-assemblies:' + str(source.parent.parent.relative_to(ROOT)), {})
+            if check.get('status') != 'passed' or check.get('manifest_sha256') != rom_evidence['manifest_sha256']:
+                raise ValueError('scene assembly lacks current ROM placement validation')
         glb, evidence = pack_glb(source)
         if evidence['source_fingerprint'] != current:
             raise ValueError(f'source changed since validation: {source}')
         record = {**case, 'source': str(source.relative_to(ROOT)), **evidence,
+                  **({'preview_presentation': presentation} if presentation is not None else {}),
                   **({'rom_source': rom_evidence} if rom_evidence is not None else {}),
                   'file': name + '.glb', 'preview': str((previews / (name + '.png')).relative_to(ROOT)),
                   'preview_sha256': digest(image.read_bytes()), 'status': 'ready-for-inspection',
                   'native_visual_parity': 'incomplete'}
         records.append(record)
         pending.extend(((output / record['file'], glb), (previews / (name + '.png'), image.read_bytes())))
+    review_records = []
+    if config.get('extracted_review'):
+        try:
+            from scripts.model_inspection_review import prepare_review
+        except ModuleNotFoundError:
+            from model_inspection_review import prepare_review
+        review_records, review_files = prepare_review(config['extracted_review'], records, report, output, previews)
+        pending.extend(review_files)
     # Validate the complete set before updating any published file.
-    for record in records:
+    # Never reuse preparation evidence here: component/placement changes during
+    # packaging must trigger fresh whole-set recomposition before publication.
+    assembly_cache = {}
+    for record in records + review_records:
         if preview_fingerprint(ROOT / record['source']) != record['source_fingerprint']:
             raise ValueError('an inspection input changed before publication')
-        if config.get('rom_only') and rom_source_evidence(ROOT / record['source']) != record['rom_source']:
+        if config.get('rom_only') and rom_source_evidence(
+                ROOT / record['source'], assembly_cache=assembly_cache) != record['rom_source']:
             raise ValueError('ROM inspection provenance changed before publication')
     manifest = {'schema_version': 1, 'family': 'model-inspection-set', 'models': records,
+                'review_models': review_records,
+                'curated_count': len(records), 'review_count': len(review_records),
                 'rom_only': bool(config.get('rom_only')),
                 'categories': [{'id': key, 'label': value[0], 'description': value[1]}
                                for key, value in CATEGORIES.items()],
@@ -272,13 +323,13 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
              f'Start with **{start_file}**.', '',
              'Previews show the neutral pose for animated rigs. Native appearance is still under investigation.', '',
              '| Model | Category | Blender file | Preview | Notes |', '| --- | --- | --- | --- | --- |']
-    for record in records:
-        image_path = ROOT / record['preview']
-        image_link = os.path.relpath(image_path, output)
-        lines.append(f"| {record['label']} | {CATEGORIES[record['category']][0]} | [{record['file']}]({record['file']}) | [Preview]({image_link}) | {record['note']} |")
+    for record in records + review_records:
+        image_link = (f"[Preview]({os.path.relpath(ROOT / record['preview'], output)})"
+                      if record.get('preview') else 'No drawable faces')
+        lines.append(f"| {record['label']} | {CATEGORIES[record['category']][0]} | [{record['file']}]({record['file']}) | {image_link} | {record['note']} |")
     lines += ['', 'Refresh after validation: `./conker model-assets inspect`.',
               'The manifest records the original paths and content hashes. Packaging does not modify those sources.', '']
-    page = gallery_page(records, output)
+    page = gallery_page(records + review_records, output)
     pending += [(output / 'README.md', '\n'.join(lines).encode()), (output / 'index.html', page.encode())]
     for path, data in pending:
         write_if_changed(path, data)
