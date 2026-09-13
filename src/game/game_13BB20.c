@@ -16,7 +16,6 @@
  * - func_1510F8D8
  * - func_1510FC34
  * - func_1510FD20
- * - func_1510FE30
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -27,7 +26,14 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E8BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E950.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F648.s")
-extern void *D_800DBE48;
+typedef struct Game13BB20Node {
+    u8 pad0[4];
+    s16 sibling_offset_4;
+    u8 pad6[6];
+    s16 child_offset_C;
+} Game13BB20Node;
+
+extern Game13BB20Node *D_800DBE48;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F720 CURRENT (1595) */
 s32 func_1510F720(s32 arg0, s32 arg1, s32 arg2, void **arg3) {
@@ -256,4 +262,29 @@ block_22:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510FD20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FD20.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FE30.s")
+s32 func_1510FE30(Game13BB20Node *arg0) {
+    s16 offset;
+    s32 index;
+    Game13BB20Node *node;
+
+    node = D_800DBE48;
+    index = 0;
+    while (node != 0) {
+        if (node == arg0) {
+            return index;
+        }
+        offset = node->child_offset_C;
+        if (offset != 0) {
+            node = (Game13BB20Node *)((u8 *)node + offset);
+        } else {
+            offset = node->sibling_offset_4;
+            node = (Game13BB20Node *)((u8 *)node + offset);
+            if (offset != 0) {
+                index++;
+            } else {
+                node = 0;
+            }
+        }
+    }
+    return 0;
+}

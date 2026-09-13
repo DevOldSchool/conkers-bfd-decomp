@@ -88,9 +88,46 @@ void func_15178C34(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15178C34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178C34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178C9C.s")
+typedef struct Game1A5C00Owner {
+    u8 pad0[0x2E];
+    u16 field_2E;
+} Game1A5C00Owner;
+
+typedef struct Game1A5C00Node {
+    u8 pad0[8];
+    struct Game1A5C00Node *next_8;
+    u8 padC[8];
+    Game1A5C00Owner *owner_14;
+} Game1A5C00Node;
+
+void func_100111C8(s32, Game1A5C00Node *);
+void func_1516972C(u8 *);
+void func_15169824(s32);
+extern Game1A5C00Node *D_800DCF3C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15178DA4 CURRENT (575) */
+void func_15178DA4(Game1A5C00Owner *arg0) {
+    Game1A5C00Node *sp20;
+    Game1A5C00Node *next;
+    Game1A5C00Node *node;
+
+    node = D_800DCF3C;
+    sp20 = node;
+    func_100111C8(arg0->field_2E, node);
+    node = sp20;
+    while (node != 0) {
+        next = node->next_8;
+        if (arg0 == node->owner_14) {
+            func_1516972C((u8 *)node);
+        }
+        node = next;
+    }
+    func_15169824((s32)arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15178DA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178DA4.s")
 void *func_15178B98(s32);
-void func_15178DA4(void *);
+void func_15178DA4(Game1A5C00Owner *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15178E14 CURRENT (269) */
 void func_15178E14(s32 arg0) {

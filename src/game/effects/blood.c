@@ -41,7 +41,6 @@
  * - func_15137C64
  * - func_15137E60
  * - func_15137F30
- * - func_151380B4
  * - func_15138120
  * - func_151382E0
  * - func_15138424
@@ -70,7 +69,11 @@ typedef struct BloodState {
     u8 unk28;
     u8 pad29[0x14];
     u8 field3D;
-    u8 pad3E[0x22];
+    u8 pad3E[0x6];
+    u16 field44;
+    u8 pad46[0xA];
+    u8 field50;
+    u8 pad51[0xF];
     s32 flags60;
     u8 pad64[0x10C];
     s32 unk170;
@@ -176,7 +179,52 @@ void func_151352EC(void) {
 void func_1513530C(void) {
     func_15169824();
 }
+void func_100111C8(u16, BloodState *); /* extern */
+extern void (*D_80089B70[])(BloodState *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513532C CURRENT (468) */
+void func_1513532C(BloodState *arg0) {
+    s32 index;
+    u16 handle;
+
+    index = arg0->field50;
+    if (index < 0) {
+        index = 0;
+    }
+    if (index >= 6) {
+        index = 0;
+    }
+    handle = arg0->field44;
+    if (handle != 0) {
+        func_100111C8(handle, arg0);
+        arg0->field44 = 0;
+    }
+    D_80089B70[index](arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513532C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513532C.s")
+extern void (*D_80089B88[])(BloodState *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151353A8 CURRENT (468) */
+void func_151353A8(BloodState *arg0) {
+    s32 index;
+    u16 handle;
+
+    index = arg0->field50;
+    if (index < 0) {
+        index = 0;
+    }
+    if (index >= 6) {
+        index = 0;
+    }
+    handle = arg0->field44;
+    if (handle != 0) {
+        func_100111C8(handle, arg0);
+        arg0->field44 = 0;
+    }
+    D_80089B88[index](arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151353A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151353A8.s")
 void func_15145EA4(s32 *, s32 *, s32, s32);
 
@@ -335,7 +383,33 @@ void func_15137F30(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4, voi
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15137F30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137F30.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151380B4.s")
+typedef struct {
+    u8 pad_0[0x74];
+    u8 field_74;
+    u8 pad_75[0x15F];
+    u8 *field_1D4;
+} Blood1380B4State;
+
+typedef struct {
+    f32 values[4];
+} Blood1380B4Vector;
+
+void func_15143134(f32 *, f32 *, s32);
+extern Blood1380B4Vector D_800A3FD8[];
+
+s32 func_151380B4(Blood1380B4State *arg0, s32 arg1, f32 *arg2) {
+    u8 *temp_v0;
+
+    temp_v0 = arg0->field_1D4;
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    if ((arg0->field_74 & 0xF) == 0xF) {
+        return 0;
+    }
+    func_15143134(D_800A3FD8[arg1].values, arg2, (s32)(temp_v0 + 0x300));
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138120.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151382E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138424.s")

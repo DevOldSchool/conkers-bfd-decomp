@@ -127,7 +127,7 @@ void func_15002724(void) {
     D_800DBE38 += func_150027F8();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2DF70/func_15002754.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150027F8 CURRENT (5) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150027F8 CURRENT (855) */
 s32 func_150027F8(s8 *arg0) {
     s32 var_v0;
     s32 var_v1;

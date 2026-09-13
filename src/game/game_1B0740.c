@@ -19,6 +19,30 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183290.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151838B0.s")
+typedef struct {
+    void *field0;
+    u8 pad4[8];
+    s32 fieldC;
+    u8 pad10[4];
+} Game1B0740Slot;
+
+extern Game1B0740Slot D_800DDE80[];
+void func_15183ACC(s32); /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15183974 CURRENT (16) */
+void func_15183974(s32 arg0) {
+    Game1B0740Slot *slot;
+
+    slot = &D_800DDE80[arg0];
+    if (slot->field0 == 0) {
+        func_15183ACC(arg0);
+    }
+    if (slot[1].field0 == 0) {
+        func_15183ACC(arg0 + 1);
+        slot[1].fieldC = slot->fieldC;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15183974 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183974.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151839F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183ACC.s")

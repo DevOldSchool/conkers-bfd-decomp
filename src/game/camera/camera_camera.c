@@ -38,7 +38,6 @@
  * - func_15127EB8
  * - func_15128030
  * - func_151283B8
- * - func_151284C4
  * - func_15128540
  * - func_1512868C
  * - func_15128774
@@ -210,17 +209,29 @@ s32 func_151253CC(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151253CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151253CC.s")
 typedef struct {
-    u8 pad_0[0x18];
+    u8 pad_0[0x14];
+    f32 field_14;
     f32 field_18;
-    u8 pad_1C[0x91];
+    f32 field_1C;
+    u8 pad_20[0x8D];
     u8 field_AD;
     u8 pad_AE[0x6A];
     f32 field_118;
 } CameraCameraTarget;
 
 typedef struct {
-    u8 pad_0[0x3D0];
+    u8 pad_0[0x84];
+    u32 field_84;
+    u8 pad_88[0x1B4];
+    u8 field_23C;
+    u8 pad_23D[0x73];
+    f32 field_2B0;
+    f32 field_2B4;
+    f32 field_2B8;
+    u8 pad_2BC[0x114];
     CameraCameraTarget *field_3D0;
+    u8 pad_3D4[0x22A];
+    s16 field_5FE;
 } CameraCameraTargetState;
 
 f32 fabsf(f32);
@@ -453,10 +464,80 @@ void func_15127FEC(void *arg0, void *arg1, void *arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128030.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151283B8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151284C4.s")
+void func_15128774(CameraCameraTargetState *, CameraCameraTarget *); /* extern */
+
+void func_151284C4(CameraCameraTargetState *arg0) {
+    u8 temp_v1;
+    CameraCameraTarget *target;
+
+    func_1512C490(arg0);
+    target = arg0->field_3D0;
+    temp_v1 = arg0->field_23C;
+    arg0->field_2B0 = target->field_14;
+    arg0->field_2B4 = target->field_18;
+    arg0->field_2B8 = target->field_1C;
+    if (temp_v1 != 0) {
+        arg0->field_23C = temp_v1 - 1;
+    }
+    if ((arg0->field_84 & 8) && (arg0->field_5FE <= 0)) {
+        arg0->field_5FE = 0x3C;
+        func_15128774(arg0, arg0->field_3D0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128540.s")
 void func_15128680(s32 arg0) {
 
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_1512868C.s")
+typedef struct {
+    u8 pad_0[0x40];
+    f32 field_40;
+} Camera128774Source;
+
+typedef struct {
+    u8 pad_0[0x18C];
+    f32 field_18C;
+} Camera128774TargetState;
+
+typedef struct {
+    u8 pad_0[0x23C];
+    u8 field_23C;
+    u8 pad_23D[0xBB];
+    f32 field_2F8;
+    f32 field_2FC;
+    f32 field_300;
+    f32 field_304;
+    f32 field_308;
+    f32 field_30C;
+    u8 pad_310[0x4C];
+    f32 field_35C;
+    u8 pad_360[0x1C];
+    f32 field_37C;
+    u8 pad_380[0x50];
+    Camera128774Source *field_3D0;
+    Camera128774TargetState *field_3D4;
+} Camera128774State;
+
+typedef struct {
+    u8 pad_0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad_20[0x160];
+    f32 field_180;
+} Camera128774Object;
+
+extern f32 D_800A35AC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15128774 CURRENT (300) */
+void func_15128774(Camera128774State *arg0, Camera128774Object *arg1) {
+    arg0->field_35C = arg1->field_180;
+    arg0->field_304 = arg0->field_2F8 = arg1->x;
+    arg0->field_308 = arg0->field_2FC = arg1->y;
+    arg0->field_30C = arg0->field_300 = arg1->z;
+    arg0->field_37C = arg0->field_3D0->field_40 - 180.0f;
+    arg0->field_3D4->field_18C = D_800A35AC;
+    arg0->field_23C = 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15128774 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128774.s")

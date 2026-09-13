@@ -16,11 +16,45 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1DF510EffectSlots {
+    u8 pad0[0x10];
+    void *effects[3];
+    void *field_1C;
+} Game1DF510EffectSlots;
+
+typedef struct Game1DF510EffectOwner {
+    u8 pad0[0x28];
+    Game1DF510EffectSlots slots;
+} Game1DF510EffectOwner;
+
+void func_1516972C(void *);
+void func_151B222C();
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2060.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2100.s")
 void func_151B220C() {
     func_151B222C();
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B222C CURRENT (100) */
+void func_151B222C(Game1DF510EffectOwner *arg0) {
+    u8 i = 0;
+    Game1DF510EffectSlots *slots = &arg0->slots;
+    void *effect;
+
+    do {
+        effect = slots->effects[i];
+        if (effect != 0) {
+            func_1516972C(effect);
+        }
+        i++;
+    } while (i < 3);
+
+    effect = slots->field_1C;
+    if (effect != 0) {
+        func_1516972C(effect);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B222C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B222C.s")
 void func_1514933C(s32);
 void func_15149368(s32);

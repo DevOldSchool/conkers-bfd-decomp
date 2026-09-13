@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150B9560
  * - func_150B963C
- * - func_150B9D14
  * - func_150B9D8C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -64,5 +63,27 @@ s32 func_150B961C(GameE6A10Object *arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E6A10/func_150B963C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E6A10/func_150B9D14.s")
+typedef struct {
+    u8 pad0[0x18];
+    s32 field_18;
+    s32 field_1C;
+    f32 field_20;
+    f32 field_24;
+    f32 field_28;
+    s32 field_2C;
+    f32 field_30;
+    f32 field_34;
+    f32 field_38;
+    f32 field_3C;
+    f32 field_40;
+} GameE6A10TransformCommand;
+
+void func_15142600(void *, s32, s32, s32, f32, f32, f32, f32, f32, f32, f32, f32);
+
+s32 func_150B9D14(void *arg0, GameE6A10TransformCommand *arg1) {
+    func_15142600(arg0, arg1->field_18, arg1->field_1C, arg1->field_2C,
+        arg1->field_30, arg1->field_34, arg1->field_38, arg1->field_3C,
+        arg1->field_40, arg1->field_20, arg1->field_24, arg1->field_28);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E6A10/func_150B9D8C.s")

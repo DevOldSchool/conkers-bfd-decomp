@@ -12,6 +12,36 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1435C0State {
+    u8 pad0[0x3C];
+    s32 packed;
+    u8 pad40[0x3C];
+    s32 handle;
+} Game1435C0State;
+
+s32 func_15195FB0(Game1435C0State *, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116110 CURRENT (844) */
+void func_15116110(Game1435C0State *arg0) {
+    s32 packed;
+    s32 low;
+    s32 high;
+    s32 middle;
+
+    if (arg0->handle == 0) {
+        packed = arg0->packed;
+        low = packed;
+        high = packed >> 24;
+        middle = packed >> 16;
+        low &= 0x7FFF;
+        middle &= 0xFF;
+        high &= 0xFF;
+        arg0->handle = func_15195FB0(arg0, low, packed >> 15, -1, 0, high,
+                                      middle);
+        arg0->packed = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15116110 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1435C0/func_15116110.s")
 f32 func_1510F648(f32, f32, f32);                   /* extern */
 extern f32 D_800A2FA8;

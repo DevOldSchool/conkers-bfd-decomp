@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B8B40
- * - func_151B8BE0
  * - func_151B8C54
  * - func_151B8CFC
  *
@@ -14,7 +13,7 @@
  */
 
 f32 func_15047D60(f32);                             /* extern */
-f32 func_15144B68(f32, void *);                     /* extern */
+f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B8B40 CURRENT (110) */
@@ -28,6 +27,24 @@ s32 func_151B8B40(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B8B40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E5FF0/func_151B8B40.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E5FF0/func_151B8BE0.s")
+typedef struct Game1E5FF0MotionState {
+    u8 pad0[0x44];
+    f32 field_44;
+    u8 pad48[0x10];
+    f32 field_58;
+    f32 field_5C;
+    f32 field_60;
+    f32 field_64;
+} Game1E5FF0MotionState;
+
+s32 func_151D9450(s32, s32);
+
+void func_151B8BE0(Game1E5FF0MotionState *arg0, s32 arg1) {
+    arg0->field_44 = (func_15047D60(arg0->field_58) * arg0->field_64) +
+                     arg0->field_5C;
+    arg0->field_58 += arg0->field_60 * D_800BE9A4;
+    arg0->field_58 = func_15144B68(arg0->field_58);
+    func_151D9450((s32)arg0, arg1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E5FF0/func_151B8C54.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E5FF0/func_151B8CFC.s")

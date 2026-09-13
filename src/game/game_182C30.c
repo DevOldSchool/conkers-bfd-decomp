@@ -9,14 +9,41 @@
  * - func_151557FC
  * - func_1515589C
  * - func_15155CFC
- * - func_15155EF8
- * - func_15155F3C
  * - func_15155FD4
  * - func_15156028
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    u8 pad0[0x10];
+    s8 field10;
+    u8 field11;
+    u8 pad12[2];
+    s32 field14;
+    u8 pad18[0x80];
+    f32 field98;
+} Game182C30Effect;
+
+s32 func_1518C900(s32); /* extern */
+Game182C30Effect *func_15167A68(s32, s32, s32, s32, s32, s32); /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155780 CURRENT (245) */
+Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
+    Game182C30Effect *effect;
+
+    effect = func_15167A68(0x50, 0, 0xA0, 1, arg1, 1);
+    if (effect == 0) {
+        return effect;
+    }
+    effect->field11 = 0;
+    effect->field14 = 0;
+    effect->field10 = arg0;
+    effect->field98 = 0.0f;
+    func_1518C900(0xA6);
+    return effect;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15155780 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155780.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_151557FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
@@ -25,44 +52,34 @@ extern void func_1515F10C(void *arg0);
 extern void func_15169804(s32 arg0);
 extern void func_1518CA04(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155EF8 CURRENT (40) */
 void func_15155EF8(void *arg0) {
     void *temp_a1;
-    void *temp_a2;
 
     temp_a1 = arg0;
-    temp_a2 = *(void **)((u8 *) temp_a1 + 0x14);
-    if (temp_a2 != 0) {
-        func_1515F10C(temp_a2);
+    if (*(void **)((u8 *)temp_a1 + 0x14) != 0) {
+        func_1515F10C(*(void **)((u8 *)temp_a1 + 0x14));
     }
     func_15169804((s32) temp_a1);
     func_1518CA04(0xA6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15155EF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155EF8.s")
 /* Call context: func_15155FD4: unique active project prototype */
 void * func_15155FD4(s32);
 extern u8 D_800C3E78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155F3C CURRENT (15) */
 void func_15155F3C(void) {
-    u8 temp_v1;
-    void *temp_v0;
+    Game182C30Effect *effect;
 
-    temp_v0 = func_15155FD4(D_800C3E78);
-    if (temp_v0 != 0) {
-        temp_v1 = *(u8 *)((u8 *)temp_v0 + 0x11);
-        if (temp_v1 == 2) {
-            *(u8 *)((u8 *)temp_v0 + 0x11) = 0U;
+    effect = func_15155FD4(D_800C3E78);
+    if (effect != 0) {
+        if (effect->field11 == 2) {
+            effect->field11 = 0;
             return;
         }
-        if (temp_v1 == 3) {
-            *(u8 *)((u8 *)temp_v0 + 0x11) = 2U;
+        if (effect->field11 == 3) {
+            effect->field11 = 2;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15155F3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155F3C.s")
 void *func_15155FD4(s32);                           /* extern */
 extern u8 D_800C3E78;
 
@@ -90,10 +107,10 @@ typedef struct {
 extern Game182C30Block D_800DCE50;
 extern Game182C30Block D_800DD190;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155FD4 CURRENT (35) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155FD4 CURRENT (50) */
 void *func_15155FD4(s32 arg0) {
-    Game182C30Block *var_a1;
     Game182C30Node *var_v1;
+    Game182C30Block *var_a1;
 
     var_a1 = &D_800DCE50;
     do {

@@ -12,7 +12,6 @@
  * - func_15167310
  * - func_151674F8
  * - func_15167A68
- * - func_15167AD8
  * - func_15167B44
  * - func_15167C58
  * - func_15167D84
@@ -22,7 +21,6 @@
  * - func_15168800
  * - func_15168870
  * - func_15168A4C
- * - func_15168A9C
  * - func_15168B44
  * - func_15168C4C
  * - func_15168E54
@@ -82,24 +80,87 @@ void func_1516706C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151671E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167310.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151674F8.s")
+typedef struct Game1944C0AllocatedEffect {
+    s8 field_0;
+    s8 field_1;
+    u8 pad2[0xA];
+    u8 field_C;
+} Game1944C0AllocatedEffect;
+
+Game1944C0AllocatedEffect *func_10003C6C(s32, s32, s32, s32, u8);
+void func_15168A4C(s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15167A68 CURRENT (108) */
+void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
+    Game1944C0AllocatedEffect *sp24;
+    Game1944C0AllocatedEffect *effect;
+    Game1944C0AllocatedEffect *result;
+
+    effect = func_10003C6C(arg2, 1, arg3, 0, arg5);
+    result = effect;
+    if (effect != 0) {
+        effect->field_1 = arg1;
+        sp24 = effect;
+        func_15168A4C((s32)result, arg0);
+        result = sp24;
+        result->field_C = arg4;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15167A68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167A68.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167AD8.s")
+
+typedef struct Game1944C0Effect28 {
+    u8 pad0[0x10];
+    u8 payload[0x18];
+} Game1944C0Effect28;
+
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void func_10023A10(void *, void *, s32);
+
+void func_15167AD8(void *arg0, u8 arg1, s32 arg2) {
+    Game1944C0Effect28 *effect;
+
+    effect = func_15167A68(3, arg2, sizeof(*effect), 0, arg1, 1);
+    if (effect != 0) {
+        func_10023A10(arg0, effect->payload, sizeof(effect->payload));
+        effect->payload[0x13] = 0xFF;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167B44.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167C58.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167D84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167E0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168118.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516865C.s")
+typedef struct Game1944C0EffectB8 {
+    u8 pad0[0x10];
+    u8 payload[0xA8];
+} Game1944C0EffectB8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168800 CURRENT (100) */
+Game1944C0EffectB8 *func_15168800(void *arg0, u8 arg1, s32 arg2) {
+    Game1944C0EffectB8 *effect;
+    Game1944C0EffectB8 *sp24;
+
+    effect = func_15167A68(0xE, arg2, sizeof(*effect), 1, arg1, 1);
+    if (effect == 0) {
+        return 0;
+    }
+    sp24 = effect;
+    func_10023A10(arg0, effect->payload, sizeof(effect->payload));
+    return sp24;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15168800 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168800.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168870.s")
 void func_15168A2C(s32 arg0) {
     func_15168B10(arg0, 0);
 }
-void func_15168A4C(s32 arg0, s32 arg1);
 void func_15168A9C(s32 arg0);
 
 typedef struct Game1944C0Node {
-    s8 field_0;
+    u8 field_0;
     u8 field_1;
     u8 pad_2[2];
     struct Game1944C0Node *field_4;
@@ -127,7 +188,29 @@ void func_15168A4C(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15168A4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168A4C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168A9C.s")
+void func_15168A9C(s32 arg0) {
+    u8 row;
+    u8 column;
+    Game1944C0Node **head;
+    Game1944C0Node *next;
+    Game1944C0Node *node;
+
+    node = (Game1944C0Node *)arg0;
+    row = node->field_1;
+    column = node->field_0;
+    head = &D_800DCE50[row][column];
+    if (node == *head) {
+        *head = node->field_8;
+    }
+    next = node->field_8;
+    if (next != 0) {
+        next->field_4 = node->field_4;
+    }
+    next = node->field_4;
+    if (next != 0) {
+        next->field_8 = node->field_8;
+    }
+}
 void func_15168B10(s32 arg0, s32 arg1) {
     func_15168A9C(arg0);
     func_15168A4C(arg0, arg1);
@@ -181,7 +264,7 @@ typedef struct Game1944C0Effect {
     u8 payload[0x60];
 } Game1944C0Effect;
 
-Game1944C0Effect *func_15167A68(s32, s32, s32, s32, s32, s32);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_10023A10(void *, void *, s32);
 
 void func_15168BE4(Game1944C0State *arg0, u8 arg1, s32 arg2) {
@@ -319,7 +402,7 @@ void func_1516962C(s32 arg0, void *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516962C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516962C.s")
 extern s8 D_800D2DAB;
-void func_1516972C(void *arg0);
+void func_1516972C(u8 *arg0);
 
 s32 func_15169668(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     D_800D2DAB = 1;
@@ -352,7 +435,6 @@ void func_151696DC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151696DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151696DC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516972C.s")
 typedef void (*Game1944C0DestroyCallback)(u8 *);
 
 typedef struct Game1944C0DestroyRecord {
@@ -360,9 +442,30 @@ typedef struct Game1944C0DestroyRecord {
     u8 pad4[0x30];
 } Game1944C0DestroyRecord;
 
+extern Game1944C0DestroyRecord D_8008B4D0[];
 extern Game1944C0DestroyRecord D_8008B4D4[];
 void func_151696DC(void *);
+void func_15169804(s32);
 void func_15169824(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516972C CURRENT (100) */
+void func_1516972C(u8 *arg0) {
+    Game1944C0DestroyCallback callback;
+    u8 type;
+
+    func_151696DC(arg0);
+    type = *arg0;
+    if (type >= 2) {
+        callback = D_8008B4D0[type].callback;
+        if (callback != 0) {
+            callback(arg0);
+            return;
+        }
+        func_15169804((s32)arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516972C */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516972C.s")
 
 void func_1516979C(u8 *arg0) {
     Game1944C0DestroyCallback callback;

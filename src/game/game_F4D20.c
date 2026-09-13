@@ -15,6 +15,31 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct GameF4D20GlobalState {
+    u8 pad0[0xA];
+    u8 field_A;
+} GameF4D20GlobalState;
+
+typedef struct GameF4D20Flags {
+    u8 pad0[0x73];
+    u8 field_73;
+} GameF4D20Flags;
+
+void func_1511650C(void *, s32, s32, f32);
+extern GameF4D20GlobalState *D_800D2E4C;
+extern void *D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7870 CURRENT (100) */
+void func_150C7870(void *arg0) {
+    if (!(D_800D2E4C->field_A & 8)) {
+        if (!(((GameF4D20Flags *)D_800DBEF4)->field_73 & 4)) {
+            func_1511650C(arg0, 1, 0x353, 1000.0f);
+            return;
+        }
+        func_1511650C(arg0, 1, 0x43, 400.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C7870 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7870.s")
 /* Call context: func_151150BC: unique active project prototype */
 void func_151150BC(void);

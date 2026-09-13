@@ -42,7 +42,6 @@
  * - func_1504715C
  * - func_150472C0
  * - func_15047390
- * - func_15047688
  * - func_15047700
  * - func_15047B80
  *
@@ -211,6 +210,21 @@ s32 func_1504530C(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_1504530C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045384.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_1504554C.s")
+typedef struct Game71820XZ {
+    f32 x;
+    u8 pad4[4];
+    f32 z;
+} Game71820XZ;
+
+s32 func_150A6500(s16, s16, s32, u16);
+void func_1510F800(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045714 CURRENT (100) */
+void func_15045714(Game71820XZ *arg0, u16 arg1, s32 *arg2, s32 arg3) {
+    func_1510F800(2);
+    *arg2 = func_150A6500((s16)(s32)arg0->x, (s16)(s32)arg0->z, arg3, arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15045714 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045714.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045780.s")
 s32 func_15045780(s32, u16, s32, s32);              /* extern */
@@ -308,7 +322,19 @@ s32 func_15046F84(s32 arg0, u16 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_1504715C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_150472C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15047390.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15047688.s")
+typedef struct {
+    f32 elements[16];
+} Game71820Matrix;
+
+void func_15047390(Game71820Matrix *, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_150A7790(void *, s32);
+
+void func_15047688(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+    Game71820Matrix matrix;
+
+    func_15047390(&matrix, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+    func_150A7790(&matrix, arg0);
+}
 /* Call context: func_150A7BC0: unique active project prototype */
 void func_150A7BC0(s32, s32);
 f32 sqrtf(f32);

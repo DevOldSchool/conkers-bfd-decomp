@@ -8,7 +8,6 @@
  * - func_1503DE70
  * - func_1503DF0C
  * - func_1503DF48
- * - func_1503E1F4
  * - func_1503E260
  * - func_1503E3C4
  * - func_1503E5F8
@@ -54,7 +53,26 @@ void func_1503DF0C(s32 arg0, s8 arg1, s32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503DF0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DF0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DF48.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E1F4.s")
+typedef struct Game6B320MaskColumn {
+    u32 bits;
+    u8 pad4[0xC];
+} Game6B320MaskColumn;
+
+extern Game6B320MaskColumn D_800C6664[];
+extern Game6B320MaskColumn D_800C6668[];
+
+s32 func_1503E1F4(s32 arg0, s32 arg1) {
+    if (arg0 < 0x20) {
+        if (D_800C6664[arg1].bits & (1U << arg0)) {
+            return 1;
+        }
+    } else {
+        if (D_800C6668[arg1].bits & (1U << arg0)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E260.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E3C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E5F8.s")
@@ -66,6 +84,32 @@ void func_1503EEB8(void) {
 
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EEC0.s")
+typedef struct Game6B320MaskPair {
+    u32 first;
+    u32 second;
+} Game6B320MaskPair;
+
+extern Game6B320MaskPair *D_8008446C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EF4C CURRENT (20) */
+s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
+    Game6B320MaskPair *base;
+    Game6B320MaskPair *pair;
+    u32 first;
+    u32 second;
+
+    base = D_8008446C[arg0];
+    pair = (Game6B320MaskPair *)((u8 *)base + (arg1 * sizeof(*pair)));
+    first = pair->first;
+    if (((first == 0) ||
+         (first & D_800C6664[arg2].bits)) &&
+        ((second = pair->second, (second == 0)) ||
+         (second & D_800C6668[arg2].bits))) {
+        return 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503EF4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EF4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EFC4.s")
 /* Call context: func_1503EB78: unique active project prototype */

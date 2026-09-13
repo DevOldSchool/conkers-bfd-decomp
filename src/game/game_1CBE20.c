@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1519E970
- * - func_1519EA04
  * - func_1519EA78
  * - func_1519EB8C
  * - func_1519ED24
@@ -16,7 +15,43 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519E970.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EA04.s")
+typedef struct Game1CBE20Owner {
+    u8 pad0[0x30];
+    s32 effect;
+} Game1CBE20Owner;
+
+typedef struct Game1CBE20Effect {
+    u8 pad0[0x10];
+    u32 flags;
+    u8 pad14[0xC];
+    s16 timer;
+    u8 pad22[2];
+    Game1CBE20Owner *owner;
+    u8 field_28;
+} Game1CBE20Effect;
+
+extern s32 D_800BE9E4;
+void func_1516972C(void *);
+
+void func_1519EA04(Game1CBE20Effect *arg0) {
+    Game1CBE20Owner *owner;
+    s32 expired;
+
+    if (arg0->flags & 1) {
+        expired = 0;
+        arg0->timer = (s16)(arg0->timer - D_800BE9E4);
+        if (arg0->timer < 0) {
+            expired = 1;
+        }
+        if (expired != 0) {
+            if (arg0->field_28 == 0) {
+                owner = arg0->owner;
+                owner->effect = 0;
+            }
+            func_1516972C(arg0);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EA78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EB8C.s")
 extern f32 D_800A8CD8;

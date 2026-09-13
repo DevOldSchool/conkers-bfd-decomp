@@ -32,7 +32,6 @@
  * - func_15198D40
  * - func_15198D88
  * - func_151990AC
- * - func_1519944C
  * - func_151994B8
  * - func_1519986C
  * - func_15199980
@@ -41,7 +40,6 @@
  * - func_1519A9A4
  * - func_1519B4B8
  * - func_1519BE1C
- * - func_1519BF20
  * - func_1519BFBC
  * - func_1519C09C
  * - func_1519C258
@@ -136,6 +134,39 @@ void func_151617C4();
 void func_151617E4();
 void func_1519C258(CharacterFlamethrowerContext *arg0);
 
+typedef struct CharacterFlamethrowerListNode {
+    struct CharacterFlamethrowerListNode *next;
+    struct CharacterFlamethrowerListNode *previous;
+} CharacterFlamethrowerListNode;
+
+void *func_10003C40(s32, s32, s32, s32); /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151957B0 CURRENT (400) */
+CharacterFlamethrowerListNode *func_151957B0(
+    s32 arg0,
+    CharacterFlamethrowerListNode **arg1,
+    CharacterFlamethrowerListNode **arg2
+) {
+    CharacterFlamethrowerListNode *node;
+    CharacterFlamethrowerListNode *head;
+
+    node = func_10003C40(arg0, 1, 0, 0);
+    if (node != 0) {
+        node->previous = 0;
+        head = *arg2;
+        if (head != 0) {
+            node->next = head;
+            (*arg2)->previous = node;
+            *arg2 = node;
+        } else {
+            node->next = 0;
+            *arg2 = node;
+            *arg1 = node;
+        }
+    }
+    return node;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151957B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151957B0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519582C CURRENT (450) */
 void func_1519582C(void) {
@@ -323,7 +354,32 @@ void func_151993E4(CharacterFlamethrowerActor *arg0) {
         D_800E0900[var_a1]->active = 0;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519944C.s")
+void func_1519944C(CharacterFlamethrowerActor *arg0) {
+    CharacterFlamethrowerState *temp_v0;
+    CharacterFlamethrowerIdentity *temp_v1;
+    s32 var_a1;
+    s32 var_a2;
+    u8 *var_t0;
+    s32 temp_a3;
+
+    temp_v0 = arg0->state;
+    temp_v1 = temp_v0->identity;
+    var_a1 = 0;
+    var_a2 = 0;
+    temp_a3 = temp_v1->unk3B;
+    var_t0 = &D_800A8A9C;
+    do {
+        if (temp_a3 == *var_t0) {
+            var_a2 = 1;
+        } else {
+            var_a1++;
+            var_t0++;
+        }
+    } while ((var_a2 == 0) && (var_a1 < 6));
+    if (var_a2 != 0) {
+        D_800E0900[var_a1]->active = 1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151994B8.s")
 void func_15199834(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerLocal sp18;
@@ -375,7 +431,32 @@ void func_1519BEB8(CharacterFlamethrowerActor *arg0) {
         D_800E0900[var_a1]->active = 0;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BF20.s")
+void func_1519BF20(CharacterFlamethrowerActor *arg0) {
+    CharacterFlamethrowerState *temp_v0;
+    CharacterFlamethrowerIdentity *temp_v1;
+    s32 var_a1;
+    s32 var_a2;
+    u8 *var_t0;
+    s32 temp_a3;
+
+    temp_v0 = arg0->state;
+    temp_v1 = temp_v0->identity;
+    var_a1 = 0;
+    var_a2 = 0;
+    temp_a3 = temp_v1->unk3B;
+    var_t0 = &D_800A8A9C;
+    do {
+        if (temp_a3 == *var_t0) {
+            var_a2 = 1;
+        } else {
+            var_a1++;
+            var_t0++;
+        }
+    } while ((var_a2 == 0) && (var_a1 < 6));
+    if (var_a2 != 0) {
+        D_800E0900[var_a1]->active = 1;
+    }
+}
 void func_1519BF8C(void) {
     func_10010F30(0x1AA, 0x7FFF, 0x40, 0, 0);
 }

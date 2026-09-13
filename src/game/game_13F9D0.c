@@ -13,7 +13,6 @@
  * - func_151137D4
  * - func_15113C88
  * - func_15113E54
- * - func_15114050
  * - func_151140C4
  * - func_15114188
  * - func_15114348
@@ -64,7 +63,27 @@ void func_15113180(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151137D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113C88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113E54.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114050.s")
+
+typedef struct Game13F9D0Entry {
+    u8 pad0[0x4F];
+    u8 flags;
+    u8 pad50[0x50];
+} Game13F9D0Entry;
+
+extern u32 *D_800DBF94;
+
+s32 func_15114050(Game13F9D0Entry *arg0, s32 arg1) {
+    if (arg0->flags & 0x80) {
+        if (arg1 == -1) {
+            return 1;
+        }
+        if (D_800DBF94[arg0 - (Game13F9D0Entry *)D_800DBEF4] &
+            (1 << arg1)) {
+            return 1;
+        }
+    }
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151140C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114348.s")

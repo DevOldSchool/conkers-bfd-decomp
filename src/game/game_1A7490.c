@@ -40,6 +40,36 @@ s32 func_1517A958(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517A958 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A958.s")
+typedef struct {
+    u32 data;
+    u8 field_4;
+    u8 pad5;
+    u16 field_6;
+    u16 field_8;
+    u8 field_A;
+    u8 field_B;
+} Game1A7490Input;
+
+typedef struct {
+    u8 pad0[0x10];
+    void *output;
+} Game1A7490Owner;
+
+s32 func_15094F70(s32, Game1A7490Input *, s32, Game1A7490Owner *, s32, s32, s32, s32, s32);
+extern Game1A7490Input D_80090614;
+extern s32 D_800DD1B0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A9A8 CURRENT (440) */
+s32 func_1517A9A8(s32 arg0, s32 arg1) {
+    Game1A7490Owner owner;
+
+    if (arg1 != D_800DD1B0) {
+        arg0 = func_15094F70(arg0, &D_80090614, arg1 << 8, &owner, 0, 0, 0, 2, 3);
+        D_800DD1B0 = arg1;
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517A9A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A9A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517AA20.s")
 void func_1510B7B4(s32 arg0, s32 arg1);

@@ -9,7 +9,6 @@
  * - func_151571C4
  * - func_151572D0
  * - func_15157420
- * - func_15157860
  * - func_15157898
  * - func_15157918
  * - func_15157AA8
@@ -45,13 +44,10 @@ void func_1515728C(void *arg0) {
 extern u8 D_800BE9C0;
 void func_150A7BC0(s32 arg0, s32 arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157860 CURRENT (10) */
 s32 func_15157860(s32 arg0) {
-    func_150A7BC0((D_800BE9C0 << 6) + arg0 + 0x7C, arg0);
+    func_150A7BC0((s32)((u8 *)arg0 + (D_800BE9C0 << 6) + 0x7C), arg0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157860 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157860.s")
 void func_15169260(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern u8 D_800A6060;
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157898.s")

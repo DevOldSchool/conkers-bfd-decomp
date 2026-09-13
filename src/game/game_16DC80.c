@@ -7,8 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151407D0
  * - func_151408A4
- * - func_151411E4
- * - func_15141250
  * - func_151412BC
  * - func_1514143C
  * - func_15141478
@@ -29,8 +27,33 @@ void func_151411A4(void) {
 void func_151411C4(void) {
     func_1513CAA0();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151411E4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_15141250.s")
+typedef struct Game1411E4State {
+    u8 pad_0[0x154];
+    void *volatile field_154;
+    u8 pad_158[0x10];
+    u8 field_168;
+} Game1411E4State;
+
+void func_1517E134(void *);
+extern u8 D_80089F9C[];
+extern s32 D_800DC9F0;
+
+void func_151411E4(Game1411E4State *arg0) {
+    if (arg0->field_154 != 0) {
+        func_1517E134(arg0->field_154);
+    }
+    D_800DC9F0 -= 1;
+    (*(void (**)(Game1411E4State *))(D_80089F9C + (arg0->field_168 * 4)))(arg0);
+}
+extern u8 D_80089FE4[];
+
+void func_15141250(Game1411E4State *arg0) {
+    if (arg0->field_154 != 0) {
+        func_1517E134(arg0->field_154);
+    }
+    D_800DC9F0 -= 1;
+    (*(void (**)(Game1411E4State *))(D_80089FE4 + (arg0->field_168 * 4)))(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151412BC.s")
 typedef struct Game16DC80Inner {
     u8 pad0[0x44];

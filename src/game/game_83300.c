@@ -64,8 +64,6 @@
  * - func_1505F298
  * - func_1506045C
  * - func_15060778
- * - func_15060A30
- * - func_15060B04
  * - func_15060BA4
  * - func_15060BE0
  * - func_15060D54
@@ -993,14 +991,23 @@ void func_1505F188(u32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F298.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1506045C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060A30.s")
 typedef struct {
     u8 pad_0[0x318];
     void *field_318;
 } Game83300DispatchState;
 
+/* Call context: func_10010344: unique active project prototype */
+s32 func_10010344(s32, s32, u32, s16, s32);
 void func_10010630(u16, Game83300DispatchState *, s32, s32, s32);
 void func_15060778(s32, Game83300DispatchState *, s32, s32, s32, s32, s32);
+
+void func_15060A30(s32 arg0, Game83300DispatchState *arg1) {
+    if (arg1->field_318 == 0) {
+        func_10010344((u16)arg0, (s32)arg1, 0x6D60U, 0x1F4, 0x9C4);
+        return;
+    }
+    func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 1);
+}
 
 void func_15060A9C(s32 arg0, Game83300DispatchState *arg1) {
     if (arg1->field_318 == 0) {
@@ -1009,7 +1016,13 @@ void func_15060A9C(s32 arg0, Game83300DispatchState *arg1) {
     }
     func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060B04.s")
+void func_15060B04(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
+    if (arg1->field_318 == 0) {
+        func_10010630((u16)arg0, arg1, arg2, 0x1F4, 0x9C4);
+        return;
+    }
+    func_15060778(arg0, arg1, (u16)arg2, 0, 0x1F4, 0x9C4, 0);
+}
 void func_10010154(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_15060B70(u16 arg0, s32 arg1) {

@@ -24,7 +24,6 @@
  * - func_15152190
  * - func_15152520
  * - func_15152874
- * - func_15152ABC
  * - func_15152B38
  * - func_15152F70
  * - func_15153298
@@ -114,7 +113,28 @@ void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152190.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152874.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152ABC.s")
+typedef struct {
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 alpha;
+} Game17CAF0Color;
+
+u32 func_150ADA20(); /* extern */
+extern u8 D_800A5FE0[];
+
+void func_15152ABC(Game17CAF0Color *arg0) {
+    struct {
+        u8 *color;
+        u8 *unused;
+    } locals;
+
+    locals.color = (((func_150ADA20() % 5U) & 0xFF) * 3) + D_800A5FE0;
+    arg0->alpha = (func_150ADA20() % 101U) + 0x9B;
+    arg0->red = locals.color[0];
+    arg0->green = locals.color[1];
+    arg0->blue = locals.color[2];
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152B38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152F70.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153298.s")

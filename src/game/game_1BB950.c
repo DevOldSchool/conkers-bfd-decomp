@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_recovered_pointer_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518E524
  * - func_1518E5D8
  * - func_1518E73C
  *
@@ -31,8 +30,7 @@ void func_1518E4F8(void *arg0) {
 }
 s32 func_150ADA20();                                /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E524 CURRENT (5) */
-void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, s8 *arg5, s16 *arg6) {
+void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, u8 *arg5, s16 *arg6) {
     s32 temp_v1;
 
     *arg1 = 2;
@@ -54,8 +52,6 @@ void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, s8 *arg5, s
     *arg5 = 0xFF;
     *arg6 = 0x301;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518E524 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E524.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E5D8.s")
 typedef struct Game1BB950State {
     u8 pad0;

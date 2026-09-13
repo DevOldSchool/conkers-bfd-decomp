@@ -7,8 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150091D0
  * - func_15009334
- * - func_15009628
- * - func_150096C4
  * - func_15009990
  * - func_15009BD0
  * - func_15009C7C
@@ -18,7 +16,6 @@
  * - func_1500A6D8
  * - func_1500A7E8
  * - func_1500A990
- * - func_1500ABA0
  * - func_1500AC14
  * - func_1500AD84
  * - func_1500AF08
@@ -60,13 +57,52 @@ void func_15161334(s32 arg0, s32 arg1, s32 arg2);
 void func_15009600(s32 arg0, u8 arg1) {
     func_15161334(arg0, 0xFF, 1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009628.s")
+typedef struct {
+    s8 field_0;
+    s8 field_1;
+    s16 field_2;
+    u8 field_4;
+} Game36680LightDescriptor;
+
+typedef struct {
+    u8 bytes[4];
+} Game36680PackedLightIndices;
+
+void *func_1516037C(Game36680LightDescriptor *, s32, void *, u8, s32);
+extern Game36680PackedLightIndices D_80082BE0;
+
+void func_15009628(s32 arg0, s32 arg1) {
+    Game36680LightDescriptor descriptor;
+    Game36680PackedLightIndices packed = D_80082BE0;
+
+    descriptor.field_0 = 0;
+    descriptor.field_1 = -1;
+    descriptor.field_2 = 0x12C;
+    descriptor.field_4 = packed.bytes[arg1 - 3];
+    func_1516037C(&descriptor, arg0, 0, 0xFF, 1);
+}
 void func_15161408(s32 arg0, s32 arg1, s32 arg2);
 
 void func_1500969C(s32 arg0, u8 arg1) {
     func_15161408(arg0, 0xFF, 1);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_150096C4.s")
+typedef struct {
+    u8 bytes[5];
+} Game36680PackedLightIndices5;
+
+extern Game36680PackedLightIndices5 D_80082BE4;
+
+void func_150096C4(s32 arg0, s32 arg1) {
+    Game36680LightDescriptor descriptor;
+    Game36680PackedLightIndices5 packed = D_80082BE4;
+
+    descriptor.field_0 = 0;
+    descriptor.field_1 = -1;
+    descriptor.field_2 = 0x12C;
+    descriptor.field_4 = packed.bytes[arg1 - 8];
+    func_1516037C(&descriptor, arg0, 0, 0xFF, 1);
+}
+
 void func_15161494(s32 arg0, s32 arg1, s32 arg2);
 
 void func_15009740(s32 arg0, u8 arg1) {
@@ -124,14 +160,6 @@ void func_15009944(s32 arg0, u8 arg1) {
     func_15162740(arg0, 1, 6, 0, 0x12C, 2, 0xFF, 1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_15009990.s")
-typedef struct {
-    s8 field_0;
-    s8 field_1;
-    s16 field_2;
-    u8 field_4;
-} Game36680LightDescriptor;
-
-void *func_1516037C(Game36680LightDescriptor *, s32, void *, u8, s32);
 extern u8 D_80095B27[];
 
 void func_15009A38(s32 arg0, s32 arg1) {
@@ -318,7 +346,19 @@ void func_1500AB5C(s32 arg0) {
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500ABA0.s")
+
+void func_100226F0(void *, s32);
+void func_1502B8E0(void *, s32, s32, s32, s32, s32);
+extern u8 D_800BE4A0[0x3C];
+extern u8 D_800DD478[0x618];
+extern u8 D_800DDA90[0xF0];
+
+void func_1500ABA0(s32 arg0) {
+    func_100226F0(D_800BE4A0, sizeof(D_800BE4A0));
+    func_1502B8E0(D_800BE4A0, sizeof(D_800BE4A0), 3, 0xC, arg0, 0xA);
+    func_100226F0(D_800DDA90, sizeof(D_800DDA90));
+    func_100226F0(D_800DD478, sizeof(D_800DD478));
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AC14.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AD84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500AF08.s")

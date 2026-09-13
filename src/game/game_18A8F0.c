@@ -151,6 +151,27 @@ f32 func_1515F008(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515F008 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F008.s")
+extern f32 D_800A6520;
+extern s32 D_800DCD10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F040 CURRENT (860) */
+void func_1515F040(f32 arg0, s32 arg1) {
+    f32 var_fa0;
+    f32 var_fv0;
+
+    var_fa0 = arg0;
+    var_fv0 = D_800A6520;
+    if (var_fv0 <= var_fa0) {
+        goto block_3;
+    }
+    var_fv0 = -32768.0f;
+    if (var_fa0 < -32768.0f) {
+block_3:
+        var_fa0 = var_fv0;
+    }
+    D_800DCD10[arg1] = (s32) (var_fa0 * 65536.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515F040 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F040.s")
 extern f32 D_800A6524;
 extern s32 D_800DCD10[];
@@ -270,6 +291,41 @@ void func_1515FB70(void *arg0, void *arg1) {
 void func_1515FB94(void *arg0, s32 arg1) {
     func_1505D024((s32)arg0, 0x6002D, *(u16 *)((u8 *)arg0 + 0x7A), -1);
 }
+typedef struct Game18A8F0Actor {
+    u8 pad0[0x7A];
+    u16 field_7A;
+    u8 pad7C[0x2B0];
+} Game18A8F0Actor;
+
+typedef struct Game18A8F0LookupResult {
+    u8 pad0[0x98];
+    Game18A8F0Actor *actor_98;
+} Game18A8F0LookupResult;
+
+Game18A8F0LookupResult *func_15105C24(s32);
+extern Game18A8F0Actor D_800CC2D0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FBC4 CURRENT (382) */
+void func_1515FBC4(Game18A8F0Actor *arg0, s32 arg1) {
+    Game18A8F0Actor * volatile sp18;
+    Game18A8F0Actor *actor;
+    Game18A8F0LookupResult *result;
+    s32 actor_index;
+
+    sp18 = 0;
+    result = func_15105C24(arg1);
+    actor = sp18;
+    if (result != 0) {
+        actor = result->actor_98;
+    }
+    if (actor != 0) {
+        actor_index = actor - D_800CC2D0;
+    } else {
+        actor_index = -1;
+    }
+    func_1505D024((s32)arg0, 0x6002E, arg0->field_7A, actor_index);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515FBC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515FBC4.s")
 void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 

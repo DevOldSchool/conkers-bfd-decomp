@@ -56,4 +56,33 @@ loop_9:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15034728 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_15034728.s")
+typedef struct Game61950Actor {
+    s32 field_0;
+    u8 pad4[0x98];
+    s32 field_9C;
+    u8 padA0[0x28C];
+} Game61950Actor;
+
+extern u8 D_800BEAC0;
+extern Game61950Actor D_800CC2D0[];
+extern Game61950Actor D_800D121C;
+void func_15034728(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150347E8 CURRENT (400) */
+void func_150347E8(void) {
+    Game61950Actor *actor;
+    Game61950Actor *end;
+
+    actor = D_800CC2D0;
+    if (D_800BEAC0 == 0) {
+        end = &D_800D121C;
+        do {
+            if ((actor->field_0 != 0) && (actor->field_9C != 0)) {
+                func_15034728(actor);
+            }
+            actor++;
+        } while (actor != end);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150347E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_150347E8.s")

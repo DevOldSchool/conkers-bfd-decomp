@@ -421,7 +421,7 @@ segments:
       - [0xEB1C0, c, game/game_118670]
       - [0xEB430, c, game/game_1188E0]
       - [0xEBEC0, c, game/game_119370]
-      - [0xEC4B0, c, game/game_119960]
+      - [0xEC4B0, c, game/done/game_119960]
       - [0xEC520, c, game/game_1199D0]
       - [0xED1D0, c, game/game_11A680]
       - [0xEEE00, c, game/game_11C2B0]

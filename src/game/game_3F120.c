@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_3F120.c
  * Boundary evidence: docs/evidence/game_small_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15011CC0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15103800(void);
@@ -22,4 +17,13 @@ void func_15011C70(void) {
 void func_15011CA0(void) {
     func_15103800();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_3F120/func_15011CC0.s")
+void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
+
+extern s32 D_800902E4;
+extern s32 D_800B0E00;
+extern s32 D_800B0E04;
+
+void func_15011CC0(void) {
+    func_15195AA8(D_800B0E00, D_800902E4, 0, -1, 0, 0, 0, 4);
+    func_15195AA8(D_800B0E04, D_800902E4, 0, -1, 0, 1, 0, 4);
+}

@@ -5,14 +5,21 @@
  * Boundary evidence: docs/evidence/game_compact_multi_function_units.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15049260
  * - func_150492CC
  * - func_15049350
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_76710/func_15049260.s")
+typedef struct Game76710CallArgs {
+    s32 words[9];
+} Game76710CallArgs;
+
+s32 func_150AAD98(Game76710CallArgs);
+
+s32 func_15049260(Game76710CallArgs arg0) {
+    return func_150AAD98(arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_76710/func_150492CC.s")
 extern f32 D_800CC210;
 extern f32 D_800CC214;

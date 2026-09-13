@@ -18,7 +18,6 @@
  * - func_151C1180
  * - func_151C1570
  * - func_151C1654
- * - func_151C1798
  * - func_151C1814
  * - func_151C1860
  * - func_151C196C
@@ -169,7 +168,40 @@ void func_151C1628(s32 arg0) {
     func_1513259C(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1654.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1798.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1ED0F0Vector;
+
+typedef struct {
+    u8 pad0[4];
+    u8 type;
+    u8 pad5[0x1CF];
+    s32 transform;
+} Game1ED0F0Object;
+
+void func_15143134(f32 *, f32 *, s32); /* extern */
+extern u8 D_800AA954[];
+extern Game1ED0F0Vector D_800AA958[];
+
+void func_151C1798(Game1ED0F0Object *arg0, f32 *arg1) {
+    s32 index;
+    u8 type;
+
+    type = arg0->type;
+    if (type != 0x28) {
+        if (type != 0x77) {
+            index = 0;
+        } else {
+            index = 1;
+        }
+    } else {
+        index = 2;
+    }
+    func_15143134(&D_800AA958[index].x, arg1,
+                  (D_800AA954[index] << 6) + arg0->transform);
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1814 CURRENT (205) */
 void func_151C1814(u8 *arg0, u8 *arg1, s32 arg2) {
     s32 temp_a2;

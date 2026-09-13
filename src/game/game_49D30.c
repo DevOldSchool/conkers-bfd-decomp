@@ -103,6 +103,22 @@ s32 func_1501CFF8(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CFF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D044.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D1D4.s")
+u64 func_100268A4(s32, s32, s32, s32);
+extern u8 D_800C3670;
+extern u64 D_800C3A60[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501D258 CURRENT (950) */
+void func_1501D258(s32 arg0, s32 arg1) {
+    u64 temp_ret;
+    u64 *temp_a0;
+
+    if (D_800C3670 == 0) {
+        temp_ret = func_100268A4(0, 1, arg1 >> 31, arg1);
+        temp_a0 = &D_800C3A60[arg0];
+        *temp_a0 |= temp_ret;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501D258 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D258.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D2C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501D348.s")
@@ -168,7 +184,38 @@ void func_15022248(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150222E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022398.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022528.s")
+extern u8 D_800C3550[][0x1E];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15022640 CURRENT (2155) */
+void func_15022640(s32 arg0, s32 arg1) {
+    s32 i;
+    u8 *count_ptr;
+    u8 *entry;
+    u8 count;
+
+    count_ptr = &D_800C354A[arg1];
+    count = *count_ptr;
+    i = 0;
+    if ((s32)count > 0) {
+        entry = (arg1 * 0x1E) + &D_800C3550[0][0];
+loop:
+        i++;
+        if (arg0 != *entry) {
+            entry++;
+            if (i >= (s32)count) {
+                goto append;
+            }
+            goto loop;
+        }
+    } else {
+append:
+        *(&D_800C3550[0][0] + ((arg1 * 0x1E) + count)) = arg0;
+        *count_ptr = count + 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15022640 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15022640.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150226BC.s")
 void func_150226BC(s32, s32);
 

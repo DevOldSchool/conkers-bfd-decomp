@@ -103,4 +103,30 @@ s32 func_15102884(void *arg0, s32 arg1) {
     }
     return 1;
 }
+
+typedef struct Game12F400WideState {
+    u8 pad0[0x170];
+    Game12F400ControlState *control;
+    u8 flags;
+} Game12F400WideState;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151028AC CURRENT (460) */
+s32 func_151028AC(Game12F400WideState *arg0, s16 arg1) {
+    Game12F400ControlState *control = arg0->control;
+    Game12F400LinkedState *linked;
+    u8 selector = control->selector;
+
+    control = (Game12F400ControlState *)((u8 *)control + 0x110);
+    if (arg1 == selector) {
+        linked = *(Game12F400LinkedState **)control;
+        if ((linked == 0) || (linked->deep->active != 0)) {
+            return 0;
+        }
+    }
+    if (!(arg0->flags & 1)) {
+        return 0;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151028AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151028AC.s")

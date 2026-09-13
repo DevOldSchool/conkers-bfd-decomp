@@ -7,9 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15094EA0
  * - func_15094F40
- * - func_15094F70
- * - func_15094FE8
- * - func_15095060
  * - func_150950D4
  * - func_1509563C
  * - func_15095760
@@ -40,9 +37,67 @@ void *func_15094F40(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15094F40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15094F40.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15094F70.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15094FE8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095060.s")
+struct GameC2350Input;
+struct GameC2350Output;
+struct GameC2350Owner;
+
+void func_15095060(struct GameC2350Input *, s32, struct GameC2350Owner *);
+void func_150950D4(s32, struct GameC2350Output *, s32, s32, s32, s32, s32, s32, s32, s32);
+extern struct GameC2350Output D_800D2C90;
+
+void func_15094F70(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
+    func_15095060(arg1, arg2, arg3);
+    func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, 0x100, 0x100, arg8);
+}
+void func_15094FE8(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    func_15095060(arg1, arg2, arg3);
+    func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, arg8, arg9, arg10);
+}
+
+typedef struct GameC2350Input {
+    u32 data;
+    u8 field_4;
+    u8 pad5;
+    u16 field_6;
+    u16 field_8;
+    u8 field_A;
+    u8 field_B;
+} GameC2350Input;
+
+typedef struct GameC2350Output {
+    u32 data;
+    u16 field_4;
+    u16 field_6;
+    u8 field_8;
+    u8 field_9;
+    u8 field_A;
+} GameC2350Output;
+
+typedef struct GameC2350Owner {
+    u8 pad0[0x10];
+    GameC2350Output *field_10;
+} GameC2350Owner;
+
+extern GameC2350Output D_800D2C90;
+
+void func_15095060(GameC2350Input *arg0, s32 arg1, GameC2350Owner *arg2) {
+    u32 data;
+
+    if (arg2 != 0) {
+        arg2->field_10 = &D_800D2C90;
+    }
+    data = arg0->data;
+    if (data < 0x10000000U) {
+        D_800D2C90.data = data;
+    } else {
+        D_800D2C90.data = ((u32 *)data)[arg1 >> 8];
+    }
+    D_800D2C90.field_4 = arg0->field_6;
+    D_800D2C90.field_6 = arg0->field_8;
+    D_800D2C90.field_8 = arg0->field_A;
+    D_800D2C90.field_9 = arg0->field_B;
+    D_800D2C90.field_A = arg0->field_4;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_150950D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_1509563C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095760.s")

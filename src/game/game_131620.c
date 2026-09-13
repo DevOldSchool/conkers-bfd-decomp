@@ -5,14 +5,38 @@
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15104170
  * - func_151041E4
  * - func_1510448C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_131620/func_15104170.s")
+typedef struct Game131620Effect {
+    u8 pad0[0x10];
+    s32 field_10;
+    s32 field_14;
+    s16 field_18;
+    s8 field_1A;
+    s8 field_1B;
+    s8 field_1C;
+    u8 pad1D[3];
+} Game131620Effect;
+
+Game131620Effect *func_15167A68(s32, s32, s32, s32, u8, u8);
+
+void func_15104170(s32 arg0, s32 arg1, s32 arg2) {
+    Game131620Effect *effect;
+
+    effect = func_15167A68(0x64, 0, sizeof(*effect), 0, 0xFF, 1);
+    if (effect != 0) {
+        effect->field_18 = 0xF;
+        effect->field_1A = 0;
+        effect->field_1B = 0;
+        effect->field_10 = arg1;
+        effect->field_14 = arg2;
+        effect->field_1C = arg0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131620/func_151041E4.s")
 typedef struct Game131620ScaleState {
     u8 pad0[0x1B];

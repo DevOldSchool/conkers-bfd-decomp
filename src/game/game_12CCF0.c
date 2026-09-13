@@ -25,6 +25,32 @@ extern u8 D_80088BB0;
 extern s32 D_800A2130;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FF840.s")
+typedef struct Game12CCF0Vec3f {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game12CCF0Vec3f;
+
+typedef struct Game12CCF0Actor {
+    u8 pad0[0x7A];
+    u16 field_7A;
+    u8 pad7C[0x2B0];
+} Game12CCF0Actor;
+
+s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
+extern u8 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FFB6C CURRENT (100) */
+void func_150FFB6C(Game12CCF0Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32 arg3) {
+    s32 actor_index;
+    u16 actor_id;
+
+    actor_index = ((u8 *)arg2 - &D_800CC2D0) / 0x32C;
+    actor_id = arg2->field_7A;
+    func_1505D1C4(arg0->x, arg0->y, arg0->z, arg3 | 0x60000,
+                  actor_index, actor_id, 0, (s32)arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FFB6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFB6C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FFBDC CURRENT (100) */
 void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {

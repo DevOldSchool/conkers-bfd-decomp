@@ -18,8 +18,6 @@
  * - func_1509BE40
  * - func_1509BFB0
  * - func_1509C120
- * - func_1509C228
- * - func_1509C3A0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -105,7 +103,24 @@ void func_1509B8FC(s16 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BE40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BFB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C120.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C228.s")
+typedef struct {
+    u8 pad0[0xF];
+    u8 flags_F;
+} GameC8950GlobalState;
+
+void func_1509BFB0(s32, s32, s32, s32, s32);
+extern void *D_800D2E4C;
+extern u8 D_800D2E68;
+
+void func_1509C228(void) {
+    if ((D_800D2E68 & 8) ||
+        (((GameC8950GlobalState *)D_800D2E4C)->flags_F & 1)) {
+        func_1509BFB0(2, 0x2000, 0x36, 0, 1);
+        return;
+    }
+    func_1509BFB0(2, 0x2000, 0x36, 1, 1);
+}
+
 extern s32 D_800BE9F0;
 extern u8 D_800D2E44;
 
@@ -115,9 +130,23 @@ s32 func_1509C2A4(void) {
     }
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C3A0.s")
-extern void *D_800D2E4C;
+void func_15007718(s8);
+extern s8 D_8008FDA8;
+extern s8 D_800BE3DF;
+extern s32 D_800BE9F4;
+extern u8 D_800C35C4;
+extern u8 D_800D2E43;
 
+void func_1509C3A0(void) {
+    if ((D_800D2E43 != 0) && (D_800D2E44 == 0) &&
+        (func_1509C2A4() != 0)) {
+        D_800BE3DF = D_800BE9F4;
+        if (D_800C35C4 == 0) {
+            func_15007718(D_8008FDA8);
+        }
+        D_800D2E43 = 0;
+    }
+}
 s32 func_1509C414(s32 arg0) {
     return ((*(u8 *)((u8 *)D_800D2E4C + 3) & 1) << 0xA) + arg0 + 0x1400;
 }

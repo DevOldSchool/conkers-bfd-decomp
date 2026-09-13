@@ -343,6 +343,47 @@ s32 func_15163CD0(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163DEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163F50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163FEC.s")
+typedef struct LightActor {
+    u8 pad0[0x3B];
+    u8 type;
+} LightActor;
+
+typedef struct LightOwnerRecord {
+    LightActor *owner;
+    u8 type;
+} LightOwnerRecord;
+
+typedef struct LightEffectState {
+    u8 pad0[0x18];
+    LightOwnerRecord owner_record;
+} LightEffectState;
+
+typedef struct LightEvent {
+    u8 pad0[4];
+    LightOwnerRecord *owner_record;
+} LightEvent;
+
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151640C0 CURRENT (978) */
+void func_151640C0(void *volatile arg0, void *volatile arg1, u8 arg2) {
+    u8 state_type;
+    u8 record_type;
+    LightActor *owner;
+    LightOwnerRecord *record;
+
+    if ((arg2 == 0x29) &&
+        ((record = ((LightEvent *)arg1)->owner_record,
+          owner = ((LightEffectState *)arg0)->owner_record.owner,
+          record_type = record->type,
+          state_type = ((LightEffectState *)arg0)->owner_record.type,
+          (owner == record->owner)) ||
+         (record_type == state_type) ||
+         (record_type == owner->type))) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151640C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151640C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164134.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164208.s")

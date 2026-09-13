@@ -9,7 +9,6 @@
  * - func_1517EF00
  * - func_1517EFDC
  * - func_1517F08C
- * - func_1517F3A0
  * - func_1517F488
  * - func_1517F4D8
  * - func_1517F564
@@ -69,7 +68,28 @@ s32 func_1517EFDC(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517EFDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517EFDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F08C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F3A0.s")
+
+typedef struct Game1AC2F0Color {
+    u8 red;
+    u8 green;
+    u8 blue;
+} Game1AC2F0Color;
+
+extern Game1AC2F0Color D_800DDDA0[];
+s32 func_1517F08C(s32, s32, s32, s32, s32, s32);
+
+s32 func_1517F3A0(s32 arg0, s32 arg1) {
+    s32 intensity;
+    Game1AC2F0Color *color;
+
+    intensity = func_1517EF00(arg1);
+    if (intensity == 0) {
+        return arg0;
+    }
+    color = &D_800DDDA0[arg1];
+    return func_1517F08C(arg0, intensity, color->red, color->green,
+                          color->blue, arg1);
+}
 extern s32 D_800DDDB0[];
 extern s32 D_800DDE28[];
 extern s32 D_800BE9E4;
@@ -265,6 +285,32 @@ s32 func_15181CC8(s32 arg0) {
     }
     return 0;
 }
+typedef struct Game1AC2F0Vector {
+    f32 field_0;
+    f32 field_4;
+} Game1AC2F0Vector;
+
+extern f32 D_800A72AC;
+extern f32 D_800DDDD8[];
+extern u8 D_800DDDE8[];
+extern s8 D_800DDE1C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15181D00 CURRENT (100) */
+void func_15181D00(s32 arg0, s32 arg1) {
+    Game1AC2F0Vector *vector;
+
+    if (arg1 == 0) {
+        D_800DDDC8[arg0] = 0.0f;
+    } else {
+        D_800DDDD8[arg0] = 0.0f;
+        vector = (Game1AC2F0Vector *)(D_800DDDE8 + (arg0 * 8));
+        D_800DDDC8[arg0] = D_800A72AC;
+        vector->field_0 = 0.0f;
+        vector->field_4 = 0.0f;
+    }
+    D_800DDE1C[arg0] = arg1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15181D00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181D00.s")
 extern f32 D_800A72B0;
 extern f32 D_800DDDD8[];
@@ -282,11 +328,6 @@ void func_15181D70(s32 arg0) {
     *(f32 *)((u8 *)temp_v1 + 4) = 0.0f;
     D_800DDE20[arg0] = 1;
 }
-typedef struct {
-    f32 field_0;
-    f32 field_4;
-} Game1AC2F0Vector;
-
 extern f32 D_800DDDD8[];
 extern u8 D_800DDDE8[];
 extern s8 D_800DDE20[];
@@ -319,7 +360,7 @@ typedef struct Game1AC2F0Object {
 void func_15182748(Game1AC2F0Object *arg0) {
     arg0->field_2B = arg0->field_2E * arg0->field_E;
 }
-s32 func_1517F08C(u8, u8, u8, s32, s32);            /* extern */
+s32 func_1517F08C(s32, s32, s32, s32, s32, s32);  /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15182768 CURRENT (264) */
 s32 func_15182768(s32 arg0, u8 *arg1, s16 arg2) {

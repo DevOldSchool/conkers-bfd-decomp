@@ -12,8 +12,6 @@
  * - func_1514D4B8
  * - func_1514D564
  * - func_1514D64C
- * - func_1514D978
- * - func_1514DA38
  * - func_1514DAA4
  * - func_1514DBB8
  * - func_1514DE94
@@ -27,7 +25,6 @@
  * - func_1514E89C
  * - func_1514E920
  * - func_1514EA1C
- * - func_1514EBA4
  * - func_1514EC1C
  * - func_1514ECE0
  * - func_1514ED3C
@@ -52,16 +49,98 @@
 void func_1514D96C(s32 arg0) {
 
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514D978.s")
-extern void func_1514D978(s32 arg0);
-extern s32 func_151ACA60(s32 arg0, s32 arg1, s32 arg2);
+typedef struct {
+    s32 field_0;
+    s32 field_4;
+    s32 field_8;
+    s32 field_C;
+    f32 field_10;
+    s32 field_14;
+    s32 field_18;
+    s32 field_1C;
+} Game179F30LargePacket;
+
+void func_10022EC0(void *, void *, s32);
+extern s32 func_15158BD0(s32, s32, s32);
 extern void func_1514EC1C(s32 arg0, s32 arg1, s32 arg2);
+
+void func_1514D978(s32 arg0) {
+    Game179F30LargePacket packet;
+    s32 object;
+
+    packet.field_0 = 0;
+    packet.field_4 = 0;
+    packet.field_8 = 0;
+    packet.field_C = 0;
+    packet.field_10 = 12.0f;
+    packet.field_14 = 0;
+    packet.field_18 = 0;
+    packet.field_1C = 0;
+    object = func_15158BD0(arg0, 1, sizeof(packet));
+    if (object != 0) {
+        func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
+        func_1514EC1C(object, arg0, 0x13);
+    }
+}
+extern s32 func_151ACA60(s32 arg0, s32 arg1, s32 arg2);
 
 void func_1514D9F4(s32 arg0) {
     func_1514D978(arg0);
     func_1514EC1C(func_151ACA60(arg0, 0x41A00000, 0), arg0, 0x14);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514DA38.s")
+
+typedef struct Game179F30Packet {
+    s32 field_0;
+    s32 field_4;
+    s32 field_8;
+    s32 field_C;
+    u8 pad10[4];
+    s32 field_14;
+    s32 field_18;
+} Game179F30Packet;
+
+void func_1514DA38(s32 arg0) {
+    s32 object;
+    Game179F30Packet packet;
+
+    packet.field_14 = 0;
+    packet.field_18 = 0;
+    packet.field_0 = 0;
+    packet.field_4 = 0;
+    packet.field_8 = 0;
+    packet.field_C = 0;
+    object = func_15158BD0(arg0, 1, sizeof(packet));
+    if (object != 0) {
+        func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
+        func_1514EC1C(object, arg0, 0x13);
+    }
+}
+
+typedef struct Game179F30State {
+    u8 pad0[0x94];
+    u32 flags;
+} Game179F30State;
+
+typedef struct Game179F30SmallPacket {
+    s32 field_0;
+    s32 field_4;
+} Game179F30SmallPacket;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514DAA4 CURRENT (120) */
+void func_1514DAA4(s32 arg0) {
+    s32 object;
+    Game179F30SmallPacket packet;
+
+    ((Game179F30State *)arg0)->flags |= 2;
+    packet.field_0 = 0;
+    packet.field_4 = 0;
+    object = func_15158BD0(arg0, 1, sizeof(packet));
+    if (object != 0) {
+        func_10022EC0((void *)(object + 0x58), &packet, sizeof(packet));
+        func_1514EC1C(object, arg0, 0x13);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514DAA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514DAA4.s")
 extern s32 func_15158BD0(s32 arg0, s32 arg1, s32 arg2);
 
@@ -230,7 +309,30 @@ void func_1514EB6C(void) {
 s32 func_1514EB8C(s32 arg0, s32 arg1, s32 arg2) {
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EBA4.s")
+typedef struct {
+    u8 pad0[0x10];
+    void *owner;
+    void *field_14;
+    void *field_18;
+    s16 id;
+    u8 pad1E[2];
+} Game179F30Effect;
+
+Game179F30Effect *func_15167A68(s32, s32, s32, s32, u8, u8);
+
+Game179F30Effect *func_1514EBA4(void *arg0, s16 arg1, s32 arg2) {
+    Game179F30Effect *effect;
+
+    effect = func_15167A68(0x24, 1, arg2 + sizeof(Game179F30Effect), 1, 0xFF, 1);
+    if (effect == 0) {
+        return 0;
+    }
+    effect->owner = arg0;
+    effect->field_14 = 0;
+    effect->field_18 = 0;
+    effect->id = arg1;
+    return effect;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EC1C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514ECE0 CURRENT (920) */
 s32 func_1514ECE0(void *arg0, s16 arg1, void **arg2) {
@@ -410,4 +512,39 @@ void func_1514F590(s32 arg0) {
     func_1501175C(arg0, 0xFF, 1);
     func_15011A78(arg0, 0xFF, 1);
 }
+typedef struct Game179F30Actor {
+    u8 pad0[0x3B];
+    u8 type;
+} Game179F30Actor;
+
+typedef struct Game179F30EffectPacket {
+    s32 field_0;
+    f32 field_4;
+    Game179F30Actor *actor;
+    u8 type;
+    u8 padD[3];
+    f32 field_10;
+    s16 field_14;
+    s16 field_16;
+    u8 field_18;
+} Game179F30EffectPacket;
+
+extern f32 D_800A5E5C;
+void func_150C0AC0(Game179F30EffectPacket *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F5CC CURRENT (400) */
+void func_1514F5CC(Game179F30Actor *arg0) {
+    Game179F30EffectPacket packet;
+
+    packet.field_0 = 0;
+    packet.actor = arg0;
+    packet.field_4 = 0.0f;
+    packet.type = arg0->type;
+    packet.field_10 = D_800A5E5C;
+    packet.field_14 = 0x14;
+    packet.field_16 = 0x12C;
+    packet.field_18 = 4;
+    func_150C0AC0(&packet, 0xFF, 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514F5CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514F5CC.s")

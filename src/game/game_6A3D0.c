@@ -54,6 +54,46 @@ void func_1503D45C(s32 *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D45C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D484.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D510.s")
+extern u8 *D_80084410[];
+extern u8 D_80098888[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D5F0 CURRENT (2240) */
+s32 func_1503D5F0(s32 arg0) {
+    s32 group_index;
+    s32 entry_index;
+    u8 *group;
+    u8 *count;
+    u8 *entry;
+    u8 group_size;
+
+    count = D_80098888;
+    group_index = 0;
+loop_groups:
+    group_size = *count;
+    entry_index = 0;
+    if ((s32) group_size > 0) {
+        group = D_80084410[group_index];
+        entry = group;
+loop_entries:
+        entry_index++;
+        if (arg0 == *entry) {
+            return *group;
+        }
+        entry++;
+        if (entry_index >= (s32) group_size) {
+            goto next_group;
+        }
+        goto loop_entries;
+    }
+next_group:
+    group_index++;
+    count++;
+    if (group_index == 5) {
+        return arg0;
+    }
+    goto loop_groups;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503D5F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D5F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D660.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D774.s")

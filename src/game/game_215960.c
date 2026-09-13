@@ -155,7 +155,36 @@ s32 func_151EB930(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB96C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EBB50.s")
+
+typedef struct {
+    u8 pad0[0x1D0];
+    s32 field_1D0;
+} Game215960State;
+
+void func_15042D94(s32, s32, s32, s32);
+void func_1504332C(s32, s32, s32, s32);
+extern s32 D_800E0A90;
+extern Game215960State *D_800E0BD8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EC178 CURRENT (230) */
+s32 func_151EC178(s32 arg0) {
+    s32 scaled;
+    s32 alpha;
+
+    if (D_800E0A90 >= 0x5DD) {
+        scaled = (D_800E0A90 - 0x5DC) << 3;
+        alpha = scaled;
+        if (scaled >= 0x100) {
+            alpha = 0xFF;
+        }
+        func_1504332C(0xFF, 0xFF, 0xFF, alpha & 0xFF);
+        func_15042D94(0xDC, 0x130, 1, D_800E0BD8->field_1D0);
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151EC178 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC178.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC1F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC3E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC648.s")

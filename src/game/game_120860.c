@@ -13,7 +13,7 @@
 
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F33B0 CURRENT (5) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F33B0 CURRENT (25) */
 void func_150F33B0(void *arg0) {
     if (*(f32 *)((u8 *)D_800DBFF0 + 0x300) < -2000.0f) {
         *(u8 *)((u8 *)arg0 + 0x4F) = (u8) (*(u8 *)((u8 *)arg0 + 0x4F) & 0xFFFE);

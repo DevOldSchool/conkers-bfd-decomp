@@ -13,7 +13,6 @@
  * - func_15132B80
  * - func_15132DDC
  * - func_151332DC
- * - func_15133510
  * - func_15133588
  * - func_151336A8
  * - func_15133760
@@ -40,7 +39,9 @@ typedef struct Game15F680TransformState {
     f32 field20;
     f32 field24;
     f32 field28;
-    u8 pad2C[0xC];
+    f32 field2C;
+    f32 field30;
+    f32 field34;
     f32 field38;
     f32 field3C;
     f32 field40;
@@ -96,7 +97,14 @@ void func_15132A4C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151332DC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133510.s")
+void func_151424F4(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+
+s32 func_15133510(s32 arg0, Game15F680TransformState *arg1) {
+    func_151424F4(arg0, arg1->field18, arg1->field1C, arg1->field20,
+        arg1->field24, arg1->field28, arg1->field2C, arg1->field30,
+        arg1->field34, arg1->field38, arg1->field3C, arg1->field40);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133588.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151336A8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15133760 CURRENT (100) */

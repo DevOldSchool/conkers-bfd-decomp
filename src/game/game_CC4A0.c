@@ -8,7 +8,6 @@
  * - func_1509EFF0
  * - func_1509F284
  * - func_1509F354
- * - func_1509F47C
  * - func_1509F4E8
  * - func_1509F5A8
  * - func_1509F5F4
@@ -71,11 +70,20 @@ u32 func_1509F354(s32 arg0, s32 arg1, u32 arg2, u32 arg3, s32 arg4, s16 arg5, s3
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509F354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F354.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F47C.s")
+s32 func_1000F568(s32, s32);
+s32 func_151149AC();
+void func_15114D24(s32, s32, s32, s16, s32, s32);
+
+void func_1509F47C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s32 arg5) {
+    s32 sp24;
+
+    sp24 = func_151149AC(arg3 & 0xFF);
+    func_15114D24(sp24, func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF),
+                  arg2, arg4, arg5, 0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F4E8.s")
 /* Call context: func_10010F30: unique active project prototype */
 void func_10010F30(s32, s32, s32, s32, s32);
-s32 func_1000F568(s32, s32);                        /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F5A8 CURRENT (40) */
 void func_1509F5A8(s32 arg0, s32 arg1, u16 arg2) {
