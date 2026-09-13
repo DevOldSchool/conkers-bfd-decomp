@@ -124,6 +124,19 @@ void func_15044CE4(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x14) = temp_t0;
     func_15044B78();
 }
+s32 func_1505D1C4(f32, f32, f32, s16, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044D40 CURRENT (220) */
+s32 func_15044D40(void *arg0) {
+    s32 sp1C;
+
+    sp1C = 0;
+    func_1505D1C4((f32)*(s16 *)((u8 *)arg0 + 6), (f32)*(s16 *)((u8 *)arg0 + 8),
+                  (f32)*(s16 *)((u8 *)arg0 + 0xA), *(s16 *)((u8 *)arg0 + 0x10),
+                  0xFF, 0, 0, sp1C);
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15044D40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044D40.s")
 extern void func_1505D024(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern u8 D_800CC2D0[];

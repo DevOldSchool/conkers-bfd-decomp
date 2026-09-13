@@ -13,11 +13,29 @@
 
 void func_15190454(s32 arg0);
 void func_151617E4(s32 arg0);
+void func_1000FD38(void *, void *, s32);
+void func_1516972C(s32, void *);
+void func_151D2B4C(s32);
+void func_1518E298(void);
 
 void func_15190490(s32 arg0) {
     func_15190454(arg0);
     func_151617E4(arg0);
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151904BC CURRENT (146) */
+void func_151904BC(void *arg0) {
+    volatile s32 *field84;
+    volatile void *sp18;
+
+    field84 = (volatile s32 *)((u8 *)arg0 + 0x84);
+    if (*field84 != 0) {
+        func_1516972C(*field84, arg0);
+    }
+    sp18 = (u8 *)arg0 + 0x30;
+    func_1000FD38(&func_1518E298, arg0, *(s32 *)((u8 *)arg0 + 0x10));
+    func_151D2B4C(*(s32 *)((u8 *)(void *)sp18 + 0x48));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151904BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BD940/func_151904BC.s")
 /* Call context: func_1516944C: unique active project prototype */
 void func_1516944C(s32, s8 *, u8, u8);

@@ -2786,7 +2786,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15197A0C",
           "vram": "0x15197A0C"
         }
@@ -3626,16 +3631,27 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15005B70",
           "vram": "0x15005B70"
         }
       },
-      "source": "src/game/game_33020.c",
+      "source": "src/game/done/game_33020.c",
       "symbol": "func_15005B70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 65,
+        "reason": "Manual state-initialization candidate recovers every load, store, helper call, and intermediate volatile state write; CURRENT 65 is IDO temporary-register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -3699,6 +3715,12 @@
       "symbol": "func_15005CF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 65,
+        "reason": "Manual duplicate state-initialization candidate recovers every load, store, helper call, and intermediate volatile state write; CURRENT 65 is IDO temporary-register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -3893,6 +3915,12 @@
       "symbol": "func_15005FA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 65,
+        "reason": "Manual duplicate state-initialization candidate recovers every load, store, helper call, and intermediate volatile state write; CURRENT 65 is IDO temporary-register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -4594,6 +4622,12 @@
       "symbol": "func_150CEF10"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 160,
+        "reason": "Manual per-entry reset-loop candidate recovers the count gate, stride, field stores, and branch-likely loop; CURRENT 160 is register allocation only.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -14539,6 +14573,12 @@
       "symbol": "func_15014F6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 133,
+        "reason": "Manual allocation-and-accumulation candidate recovers null return, list insertion, float accumulation, and return value; CURRENT 133 remains in local stack-slot and global-address materialization.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22356,6 +22396,12 @@
       "symbol": "func_15076220"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 310,
+        "reason": "Best manual candidate reaches CURRENT (310), but global-byte load order and final stack argument scheduling remain different.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22983,6 +23029,12 @@
       "symbol": "func_15077174"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 180,
+        "reason": "Best manual candidate reaches CURRENT (180), but branch-delay and call-argument load scheduling remain different.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26376,8 +26428,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15004A4C",
           "vram": "0x15004A4C"
         }
@@ -26995,6 +27052,12 @@
       "symbol": "func_15043D90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4562,
+        "reason": "Three bounded manual ABI and stack-structure variants; best semantic candidate remains CURRENT (4562).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33747,6 +33810,12 @@
       "symbol": "func_1503D984"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 115,
+        "reason": "Full-span focused diff exposes final-block branch and register differences after the early return; best manual candidate is CURRENT (115).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36895,6 +36964,12 @@
       "symbol": "func_15044CE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 220,
+        "reason": "Three bounded manual variants; only the final zero stack-argument delay-slot scheduling remains, CURRENT (220).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37862,8 +37937,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503F904",
           "vram": "0x1503F904"
         }
@@ -42929,6 +43009,12 @@
       "symbol": "func_15194B1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 170,
+        "reason": "Manual dispatch candidate recovers both branches and all callee arguments; CURRENT 170 is limited to IDO branch-delay argument scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -43514,8 +43600,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A09B4",
           "vram": "0x151A09B4"
         }
@@ -44187,8 +44278,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D73A8",
           "vram": "0x151D73A8"
         }
@@ -47891,6 +47987,12 @@
       "symbol": "func_151C69A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 380,
+        "reason": "Manual selector-table candidate recovers byte selector, vector table lookup, state offset, and helper call; CURRENT 380 remains in IDO parameter-home and temporary register scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52499,8 +52601,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503B95C",
           "vram": "0x1503B95C"
         }
@@ -62327,13 +62434,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15023870",
           "vram": "0x15023870"
         }
       },
-      "source": "src/game/game_50D20.c",
+      "source": "src/game/done/game_50D20.c",
       "symbol": "func_15023870"
     },
     {
@@ -66283,8 +66395,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 92,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E7E9C",
           "vram": "0x151E7E9C"
         }
@@ -66941,6 +67058,12 @@
       "symbol": "func_15190490"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 146,
+        "reason": "Manual standard-C three-argument call-context candidate preserves the implicit a3 ABI and volatile field reloads; CURRENT 146 remains in local-pointer lifetime/scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

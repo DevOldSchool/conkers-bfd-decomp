@@ -85,6 +85,18 @@ void func_15194AB4(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194B1C.s")
+void func_15194B1C(void *, void *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194B94 CURRENT (170) */
+void func_15194B94(s32 arg0, void *arg1, s32 arg2) {
+    if (*(u8 *)((u8 *)arg1 + 4) == 0x53) {
+        func_151942B0(arg0, (s32)arg1, arg2);
+        return;
+    }
+    func_15194B1C(arg1, arg1, (void *)arg2);
+    func_151949F4(1, arg0, (s32)arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15194B94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194B94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194BF0.s")
 /* Call context: func_15194FF4: raw o32 argument homes in asm/nonmatchings/game_1C1150/func_15194FF4.s; pointer uses in entry block; caller discards result */

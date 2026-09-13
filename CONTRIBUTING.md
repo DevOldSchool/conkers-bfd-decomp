@@ -252,11 +252,11 @@ permute, defer, finish, or run the batch gate. Analysis results use the same
 fingerprints and resume unchanged work; add `--restart` to recompute all of
 them.
 
-`finish` also compiles the complete reviewed mixed source object and verifies
-every member offset plus the aligned object extent before recording a match.
-This catches missing post-return instructions or padding that a focused
-`--stop-at-ret` comparison cannot see. If older zero-difference evidence is
-invalidated by this layout gate, use `./conker reopen-match <work-item-id>
+`finish` compares the complete non-overlapping registered instruction span,
+including relocation evidence after early returns. It also compiles the complete
+reviewed mixed source object and verifies every member offset plus the aligned
+object extent before recording a match. If older zero-difference evidence is
+invalidated by either gate, use `./conker reopen-match <work-item-id>
 --reason <text>` to preserve its C body, restore `GLOBAL_ASM`, and update
 inventory/progress atomically.
 

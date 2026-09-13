@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D71B0
  * - func_151D7264
- * - func_151D73A8
  * - func_151D7424
  * - func_151D74B0
  * - func_151D7538
@@ -28,7 +27,16 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D71B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7264.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D73A8.s")
+extern void (*volatile D_8008FCA4[])(void *, s32, u8);
+
+void func_151D73A8(void *arg0, s32 arg1, u8 arg2) {
+    volatile u8 *selector;
+
+    selector = (volatile u8 *)((u8 *)arg0 + 0x2C);
+    if (D_8008FCA4[*selector] != 0) {
+        D_8008FCA4[*selector](arg0, arg1, arg2);
+    }
+}
 void func_151D7404() {
     func_151D77C8();
 }

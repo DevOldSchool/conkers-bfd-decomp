@@ -9,7 +9,6 @@
  * - func_15004574
  * - func_150045C4
  * - func_150049A4
- * - func_15004A4C
  * - func_15004AAC
  * - func_15004BF0
  * - func_15004CE0
@@ -70,7 +69,25 @@ block_9:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150049A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150049A4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004A4C.s")
+extern s32 D_800DBEF0;
+extern s32 D_800DBEF8;
+extern s32 D_800DBEFC;
+
+void func_15004A4C(void) {
+    s32 var_v0;
+    s32 var_v1;
+
+    var_v0 = 0;
+    var_v1 = 0;
+    if (D_800DBEF0 > 0) {
+        do {
+            *(s32 *)(D_800DBEF8 + var_v1) = 0;
+            var_v1 += 4;
+            *(u8 *)(D_800DBEFC + var_v0) = 0;
+            var_v0 += 1;
+        } while (var_v0 < D_800DBEF0);
+    }
+}
 extern u16 D_800BE2A0;
 extern u16 D_800BE2A2;
 extern u16 D_800BE2A4;

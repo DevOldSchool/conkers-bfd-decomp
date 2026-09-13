@@ -51,12 +51,16 @@ IDO_O32_FPRS = {
 ALIAS_PATTERN = re.compile(
     r"\$(" + "|".join(sorted(IDO_O32_FPRS, key=len, reverse=True)) + r")\b"
 )
+GLABEL_PATTERN = re.compile(r"^[ \t]*glabel[ \t]+([A-Za-z_][A-Za-z0-9_]*)[ \t]*$", re.MULTILINE)
 
 
 def normalize(source: str) -> str:
     """Return *source* with IDO-only floating-point aliases replaced."""
 
-    return ALIAS_PATTERN.sub(lambda match: f"$f{IDO_O32_FPRS[match.group(1)]}", source)
+    normalized = ALIAS_PATTERN.sub(
+        lambda match: f"$f{IDO_O32_FPRS[match.group(1)]}", source
+    )
+    return GLABEL_PATTERN.sub(r".globl \1\n\1:", normalized)
 
 
 def main() -> int:

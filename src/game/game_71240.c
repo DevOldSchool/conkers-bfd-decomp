@@ -15,6 +15,27 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71240/func_15043D90.s")
+void func_150A8050(void *, f32, f32, s32);
+void func_150A7790(void *, s32);
+
+typedef struct {
+    u8 unk0[0x30];
+    f32 unk30;
+    f32 unk34;
+    f32 unk38;
+} Game71240Work;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15043E68 CURRENT (4562) */
+void func_15043E68(s32 arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+    Game71240Work sp18;
+
+    func_150A8050(&sp18, arg1, arg2, arg3);
+    sp18.unk30 = arg4;
+    sp18.unk34 = arg5;
+    sp18.unk38 = arg6;
+    func_150A7790(&sp18, arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15043E68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71240/func_15043E68.s")
 void func_15043EC8(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     *(f32 *)((u8 *)arg0 + 0x30) = arg4;

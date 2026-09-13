@@ -151,6 +151,7 @@ class PermuteTests(unittest.TestCase):
                   patch.object(permute_helper, "source_variants", return_value=variants),
                   patch.object(permute_helper.diff, "ensure_reference_function", return_value=root / "reference.s"),
                   patch.object(permute_helper.diff, "reference_object", return_value=root / "reference.o"),
+                  patch.object(permute_helper.diff, "expected_function_size", return_value=4),
                   patch.object(permute_helper, "score_candidate", side_effect=scores) as scorer,
                   patch.object(sys, "argv", argv), redirect_stdout(io.StringIO())):
                 status = permute_helper.main()
@@ -199,6 +200,11 @@ class PermuteTests(unittest.TestCase):
                     permute_helper.diff,
                     "reference_object",
                     return_value=root / "reference.o",
+                ),
+                patch.object(
+                    permute_helper.diff,
+                    "expected_function_size",
+                    return_value=4,
                 ),
                 patch.object(
                     permute_helper,
