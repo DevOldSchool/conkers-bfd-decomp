@@ -58,10 +58,10 @@ s32 func_151EF610();
 s32 func_1517D074(s32, s16, s16, s16, f32, s32, s32, s32, s32, s32);
 void func_1517D578(s16, s16, s16, f32, s32, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B500 CURRENT (611) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517B500 CURRENT (595) */
 s32 func_1517B500(Game1A89B0Position *arg0, Game1A89B0Position *arg1, s32 *arg2, s16 arg3) {
-    s32 temp_t1;
     s32 temp_v1;
+    s32 temp_t1;
     s32 sp24;
     s32 temp_t8;
 

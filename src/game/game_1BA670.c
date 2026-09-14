@@ -28,6 +28,58 @@ s32 func_1518E298(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return 1;
 }
+typedef struct Game1BA670Slot {
+    void *effect;
+    u8 pad4[0x14];
+} Game1BA670Slot;
+
+typedef struct Game1BA670State {
+    u8 pad0[0x24];
+    f32 field_24;
+    s32 field_28;
+    u8 pad2C[0x1C];
+    Game1BA670Slot slots[100];
+} Game1BA670State;
+
+void func_1516972C(void *);
+void func_100226F0(void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E308 CURRENT (8) */
+void func_1518E308(Game1BA670State *arg0) {
+    Game1BA670Slot *first;
+    Game1BA670Slot *slot;
+    s32 i;
+
+    slot = arg0->slots;
+    first = slot;
+    arg0->field_28 = 0;
+    i = 0;
+    arg0->field_24 = 0.0f;
+    do {
+        if (slot->effect != 0) {
+            func_1516972C(slot->effect);
+        }
+        i++;
+        slot++;
+    } while (i != 100);
+    func_100226F0(first, sizeof(arg0->slots));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518E308 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BA670/func_1518E308.s")
+/* Call context: func_1518E308: unique active project prototype */
+void func_1518E308(Game1BA670State *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E37C CURRENT (846) */
+void func_1518E37C(void *arg0, u8 arg1) {
+    u8 temp_t6;
+
+    temp_t6 = arg1 & 0xFF;
+    if (temp_t6 != *(u8 *)((u8 *)arg0 + 0x22)) {
+        arg1 = temp_t6;
+        func_1518E308(arg0);
+        *(u8 *)((u8 *)arg0 + 0x22) = arg1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518E37C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BA670/func_1518E37C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BA670/func_1518E3C4.s")

@@ -156,6 +156,43 @@ s32 func_150A2FA4(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A2FA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3058.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3194.s")
+typedef struct {
+    u8 pad0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[0xC];
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+    u8 pad38[0x148];
+    f32 field180;
+    u8 pad184[0x1A8];
+} GameCDE80Actor;
+
+s32 func_150A1DA0(GameCDE80Actor *, s32, s32); /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A32B4 CURRENT (70) */
+s32 func_150A32B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    GameCDE80Actor actor;
+    f32 temp;
+
+    temp = (f32) arg3;
+    actor.z = temp;
+    actor.field34 = temp;
+    temp = (f32) arg2;
+    actor.y = temp;
+    actor.field180 = temp;
+    actor.field30 = temp;
+    temp = (f32) arg1;
+    actor.x = temp;
+    actor.field2C = temp;
+    if (func_150A1DA0(&actor, arg0, 0) == 0) {
+        return 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A32B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A32B4.s")
 extern s32 D_800D3098;
 
@@ -188,4 +225,14 @@ void func_150A3398(s32 arg0, s32 arg1, s8 arg2, s32 arg3, s32 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A3398 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3398.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A3444 CURRENT (100) */
+void func_150A3444(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
+    s32 offset;
+
+    offset = arg0 * 0x34;
+    *(s16 *)(D_800D3098 + offset) = arg1;
+    *(s16 *)(D_800D3098 + offset + 2) = arg2;
+    *(s16 *)(D_800D3098 + offset + 4) = arg3;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A3444 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3444.s")

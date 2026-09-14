@@ -21,10 +21,54 @@ typedef struct GameB21B0Inner {
 } GameB21B0Inner;
 
 typedef struct GameB21B0Object {
-    u8 pad0[0x31C];
+    u8 pad0[4];
+    u8 field_4;
+    u8 pad5[0x317];
     GameB21B0Inner *inner;
 } GameB21B0Object;
 
+extern s32 D_80087240;
+extern u8 D_8009D954;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084D00 CURRENT (1665) */
+s32 func_15084D00(GameB21B0Object *arg0) {
+    s32 entry_index;
+    s32 group_index;
+    u8 *count;
+    u8 *entry;
+    u8 *group;
+    s32 group_size;
+    s32 value;
+
+    value = arg0->field_4;
+    count = &D_8009D954;
+    group_index = 0;
+loop_groups:
+    group_size = *count;
+    entry_index = 0;
+    if (group_size > 0) {
+        group = *(u8 **)((u8 *)&D_80087240 + (group_index * 4));
+        entry = group;
+loop_entries:
+        entry_index++;
+        if (value == *entry) {
+            return *group;
+        }
+        entry++;
+        if (entry_index >= group_size) {
+            goto next_group;
+        }
+        goto loop_entries;
+    }
+next_group:
+    group_index++;
+    count++;
+    if (group_index == 7) {
+        return value;
+    }
+    goto loop_groups;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15084D00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15084D00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15084D70.s")
 void func_15085410(GameB21B0Object *arg0, s32 arg1) {
@@ -36,4 +80,24 @@ u8 func_15085420(GameB21B0Object *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085430.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085710.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_150859AC.s")
+void func_15085710(s16, s32, u8);
+extern u8 D_800CC2D0[];
+extern u8 D_800D18A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15085ABC CURRENT (200) */
+void func_15085ABC(s16 arg0) {
+    s32 var_s0;
+
+    var_s0 = 0;
+    if (D_800D18A8 != 0) {
+        return;
+    }
+    do {
+        if ((1 << var_s0) & arg0) {
+            func_15085710(var_s0, 5, *(u8 *)(D_800CC2D0 + (var_s0 * 0x32C) + 0x1CA));
+        }
+        var_s0 += 1;
+    } while (var_s0 != 4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15085ABC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085ABC.s")

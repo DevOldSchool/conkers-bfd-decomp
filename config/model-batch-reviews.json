@@ -15,20 +15,10 @@
       "fingerprint": "c9692898fca17551ba14db448631b1af0e917eb0680123e7cdb40b09f68fd832",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
-    "03:0064:00": {
-      "decision": "review-deferred",
-      "fingerprint": "aca7d5774a46e49fbd079fc41d9990ac3b96c9490490f215fa009637b46c28f5",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "03:0065:00": {
-      "decision": "review-deferred",
-      "fingerprint": "225e95c046cf458dd94598d4f544b5f6c206bf01bea766bdbc93d1263e695f00",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
     "03:0067:00": {
       "decision": "review-deferred",
       "fingerprint": "a420840df9dd230c8ec60d7ac2f1d08d7d7fe566815128410b2c10ef2916d46e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Untextured grey fixture-like mesh. Front and rear views show separate thin surfaces, but its function and intended assembly remain unidentified."
     },
     "03:0097:00": {
       "decision": "review-deferred",
@@ -38,12 +28,12 @@
     "03:0104:00": {
       "decision": "review-deferred",
       "fingerprint": "8adbcf059c41211974a9465a0446080793932f71d6ea26e1290ded2c48c8812b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-54-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "03:0105:00": {
       "decision": "review-deferred",
       "fingerprint": "1b71f362db4286d177331e26f40cfb2b4b2c1001377a8d2913ffa4c1fc6b5396",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-54-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "03:0113:00": {
       "decision": "review-deferred",
@@ -193,7 +183,7 @@
     "04:0002:14": {
       "decision": "review-deferred",
       "fingerprint": "29e984497646e31c2ce12caf5bb7518c978c755faa194ebf70304cb79be03cda",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking grey boulder closely resembles published scene 02 segment 15. Retain for placement or state comparison; exported data is not identical."
     },
     "04:0002:17": {
       "decision": "review-deferred",
@@ -213,17 +203,17 @@
     "04:0002:21": {
       "decision": "review-deferred",
       "fingerprint": "be28416808e33d34724c966ce73c985221e21e414ba5704fe31e97f1df38d1bf",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Red cut-out surface, paired with scene 02 segment 22. Front and rear views do not establish the intended object or assembly."
     },
     "04:0002:22": {
       "decision": "review-deferred",
       "fingerprint": "239f3818edf2194479530bf1f8aa9435f3f12dc231af145b0993371e5854d6de",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Red cut-out surface, paired with scene 02 segment 21. Front and rear views do not establish the intended object or assembly."
     },
     "04:0002:24": {
       "decision": "review-deferred",
       "fingerprint": "fdb799713cd7dbc120bd541c03ebda72e61835bb73c9c403e409499b247f5741",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0000-04-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0002:28": {
       "decision": "review-deferred",
@@ -303,21 +293,6 @@
     "04:0004:10": {
       "decision": "review-deferred",
       "fingerprint": "c529fac8bcce27a9c8ea289846674578429e00159a77718832be33a85ab970b4",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "04:0004:11": {
-      "decision": "review-deferred",
-      "fingerprint": "27baddd806a04ea403f6d7cc6b23e3b1e3f69f676e068346d263cd8df144108f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "04:0004:13": {
-      "decision": "review-deferred",
-      "fingerprint": "6f3b0a0b0ecd5ec36aaf2fc0d1a5c3e44dbc4d80ef0293b785aafd2c51f9f49b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "04:0004:14": {
-      "decision": "review-deferred",
-      "fingerprint": "5399af1446a16d41bb5c78a7735f835148e9a64ee1fb0e51492a28ccdd8d3698",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
     "04:0004:15": {
@@ -463,12 +438,12 @@
     "04:0011:01": {
       "decision": "review-deferred",
       "fingerprint": "5c822e037b8d088484b4dcd6d9fcae4bcbf2fe67963d9324dd3536db8a11dcb8",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-11-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0011:02": {
       "decision": "review-deferred",
       "fingerprint": "6ecde01f337a00f2bcc75e6e211a3bc70309e2332292db7ad01d6fe92777213a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-11-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0011:03": {
       "decision": "review-deferred",
@@ -478,17 +453,17 @@
     "04:0011:04": {
       "decision": "review-deferred",
       "fingerprint": "eaa51410fc88a722e889d206a21d1d18950e41ae840df47617de663654142379",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-11-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0011:05": {
       "decision": "review-deferred",
       "fingerprint": "ce5a499eed51107cb7c49f2f4ffb67b4c5d3f6e2344aeec010f7889f03f1240a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-11-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0011:07": {
       "decision": "review-deferred",
       "fingerprint": "8c5f031f8c0f961134f4b4d104c59c6ebf5da2c18ecbe5864bf944682edd304f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-11-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0011:12": {
       "decision": "review-deferred",
@@ -503,7 +478,7 @@
     "04:0011:14": {
       "decision": "review-deferred",
       "fingerprint": "1ec1b3055747e7cac1fb7cd782d24ed0bff2a61eea910226dc52bc15f9992288",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-11-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0011:15": {
       "decision": "review-deferred",
@@ -653,7 +628,7 @@
     "04:0016:04": {
       "decision": "review-deferred",
       "fingerprint": "5c3c382dcaade16f3e1a2adc3464dca7bc588eaacf1b994b9cfbea05f3f302c1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0001-12-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0016:05": {
       "decision": "review-deferred",
@@ -765,11 +740,6 @@
       "fingerprint": "e51244e933763226f34531ca1d3da9277430e7836e659b4a3ed5d15d86fe3787",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
-    "04:0019:15": {
-      "decision": "review-deferred",
-      "fingerprint": "f2f2cf2d742f4e76e3c10bfcc9205b77e1b88c3cb756c4ab8e0b31c507e2a0f9",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
     "04:0019:19": {
       "decision": "review-deferred",
       "fingerprint": "510a36febb8ffc98753778b8162c6f8194628ba9e44f6fd44c62368d1f0aad8e",
@@ -808,87 +778,87 @@
     "04:0023:00": {
       "decision": "review-deferred",
       "fingerprint": "7a7e4a8b29e066bab3a930385edac24e251941041a43013fb2000362a76a26d1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:01": {
       "decision": "review-deferred",
       "fingerprint": "be30dc4a66252d3477943613f8165e9249ad74edd7fba19743aa06079707c711",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:06": {
       "decision": "review-deferred",
       "fingerprint": "c04eafc8b05718738ca089a925fdeb2b083ed275c29a61fe6a708e452ab812ec",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:07": {
       "decision": "review-deferred",
       "fingerprint": "e9258e8036c04046792bfe3ed241e2c71d1a811c7e21a335f156c618e6414514",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:09": {
       "decision": "review-deferred",
       "fingerprint": "724bd5cadf755b1c4202cb5413462b5838c20b64d2a83c1560ec8279b6cca503",
-      "reason": "Byte-identical model and identical stored-frame image to the published scene 18 / 9; retain scene provenance without a duplicate gallery card."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0018-09-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:10": {
       "decision": "review-deferred",
       "fingerprint": "92f51c7fb49e7046cbae1174df449b0a1e6b9846fa9ff399afeef2dd21899908",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:11": {
       "decision": "review-deferred",
       "fingerprint": "14ea5a6c312663598d227672a39e49639e601a8daa1e22106cab9b3d227d29a9",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:12": {
       "decision": "review-deferred",
       "fingerprint": "cd484cb0ad6faf8e0c232a9339a93bbb2064ab352ba6cfaee1630b143fde6491",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:13": {
       "decision": "review-deferred",
       "fingerprint": "5d29d9bfea870362a2ce40fd703445444e9849ece96003c4d085e2480e465223",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:14": {
       "decision": "review-deferred",
       "fingerprint": "52e1ba172e16edf71e49f8938456d09e2e758814f96ba263c9c137a459f08163",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:15": {
       "decision": "review-deferred",
       "fingerprint": "e21367e352950220461c868e024d5ae702fb42eb45e4703e8e38b4cdedd50c89",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:16": {
       "decision": "review-deferred",
       "fingerprint": "be7a383fa9145aaa993cf922e5149f6c19124d663c29506d69a90782db6aa930",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:17": {
       "decision": "review-deferred",
       "fingerprint": "2e9a8b2b683a8cad3d7fc524481c661b8998884c5eddaf9fb3b58861e12e2040",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:18": {
       "decision": "review-deferred",
       "fingerprint": "3664d4eeeed099c116c6e705a6e6e72c9607b713cca295da3c2b9f82f2f9620f",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:19": {
       "decision": "review-deferred",
       "fingerprint": "1a4260ac784495ba502bc3774b7a7ab5b22e52272630b87a018f6062d3b2fa47",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:20": {
       "decision": "review-deferred",
       "fingerprint": "1578332b14857c2c59f96dcfae85b88b3da48c25bb5b022efe2a6b250b27af13",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0023:21": {
       "decision": "review-deferred",
       "fingerprint": "bafb7c1d8d1adb0aba5dd74ec261db5248fec1ad7d404dc82b902931faab3759",
-      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication."
+      "reason": "Sparse glowing fragments at the stored-frame preview; needs scene/effect composition before gallery publication. Available in static scene assemblies: scene-23-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0024:07": {
       "decision": "review-deferred",
@@ -908,12 +878,12 @@
     "04:0024:15": {
       "decision": "review-deferred",
       "fingerprint": "807a96c7b1307f756f41f6e88a5c6d7c4c9d31bd907bf53e438e674372599c20",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Bent black segmented mesh with a toothed red end. Front and rear views do not establish its intended character/scene assembly; keep the source pose visible for review."
     },
     "04:0025:01": {
       "decision": "review-deferred",
       "fingerprint": "333676a2288ac075595b5ad34d9c6f5abfa595ec89b56a350fe73e0125eebc80",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:03": {
       "decision": "review-deferred",
@@ -923,42 +893,42 @@
     "04:0025:04": {
       "decision": "review-deferred",
       "fingerprint": "ba842f8aac6f120663e6f608d341f5847fb2b42e4564b204dd270c00488bcf56",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:05": {
       "decision": "review-deferred",
       "fingerprint": "fb9139a1fbc2df4fead29c6b318e28e5e8fdec450964cc2ef212934a03f35677",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:07": {
       "decision": "review-deferred",
       "fingerprint": "0fc349b5f65f48d05bc5ae817e2ddcf097a1045314b09fefa15ffdf2e9ab7868",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:08": {
       "decision": "review-deferred",
       "fingerprint": "7ec3571374e3abc6b8569cf613db2db3452503e027721278a7c8d591d2f562d6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:09": {
       "decision": "review-deferred",
       "fingerprint": "d1677915e9ab68600353b029c34b64d89034afcb168b4ce222aa5319f004c05d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:10": {
       "decision": "review-deferred",
       "fingerprint": "1406911f49cb186f964f7dbb32cb8d7098bd4dc2c2e34111a68e572d379fb49c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0025:12": {
       "decision": "review-deferred",
       "fingerprint": "5c2ed99fd6f6d9b5ba5656986465c68a0f3c2929ae502f928b102a8416dbc4cd",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-25-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0026:01": {
       "decision": "review-deferred",
       "fingerprint": "b7b34e9a79bea8e7abfc2c8995892c13c24278b6ee8e4865e72d6a8b8bd84857",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-26-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0026:03": {
       "decision": "review-deferred",
@@ -968,7 +938,7 @@
     "04:0026:04": {
       "decision": "review-deferred",
       "fingerprint": "b38410f28ae67cacf67cf1b0b48ff1d7b1219a48b2690578ae3eedc43c72f85d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-26-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0027:02": {
       "decision": "review-deferred",
@@ -983,32 +953,32 @@
     "04:0027:04": {
       "decision": "review-deferred",
       "fingerprint": "3677f4f138e37c5e054a8a37681b66a3b7ca89542ade1aaa583dc54e3f9fa099",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-27-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0027:06": {
       "decision": "review-deferred",
       "fingerprint": "055d048c764fd6821d32dc86a43473dc5e6c3d83781110db7e0138b89e8469a6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-27-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0027:07": {
       "decision": "review-deferred",
       "fingerprint": "45c52c427543a28b3893ad01b8ac4e6170d374d419656969ee526b6e15be4687",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-27-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0027:09": {
       "decision": "review-deferred",
       "fingerprint": "6b1de03f4cd59d633719e610d8f795a59b3326e5e30f0f064d079d1a4f015843",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-27-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:01": {
       "decision": "review-deferred",
       "fingerprint": "70e63315edc791c5ee0b0f8d6cd09d10f2ca95c7a99780a81a6f9ed5b67c3e3c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:02": {
       "decision": "review-deferred",
       "fingerprint": "adfd57a9f7446bfbe656a3713b113fd593950cb08da77cb667807d18135ced46",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:03": {
       "decision": "review-deferred",
@@ -1048,62 +1018,62 @@
     "04:0028:15": {
       "decision": "review-deferred",
       "fingerprint": "a3f05e5d75bef1c790c84b72f44e2ba965627ef6bda5017af9adc89f25f66bce",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:17": {
       "decision": "review-deferred",
       "fingerprint": "41b2a5ea7c67c644dd214d75519bc279274fde691466041a2b0704ee7bdfe4cf",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:18": {
       "decision": "review-deferred",
       "fingerprint": "941e92a9ef741147964bac0ab54a33d7ee1856d7a7451d9ee4fd65ebce50f138",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:19": {
       "decision": "review-deferred",
       "fingerprint": "32cba8212b6aa27b5664f363954833bbe4e4ee38a2781d00924b2485229fa46e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:20": {
       "decision": "review-deferred",
       "fingerprint": "e96fbf0083493cf8ab9ce7e3477854ef9587d7ff18c2a72da939f0ea513e33bb",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:21": {
       "decision": "review-deferred",
       "fingerprint": "242b8ab4f9632475f40a62305c7124e00f6f6b6d314719b431e1cf4bbe6d1b5a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:22": {
       "decision": "review-deferred",
       "fingerprint": "b5f30ed32ecec2d0689d333bfbedfe75bb5a3bb4535a65b88b462f814c8db723",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:23": {
       "decision": "review-deferred",
       "fingerprint": "ccc2398f2d529b101364fcc38875b02f569cd8c6a41bd1bf28286a55858b5523",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:25": {
       "decision": "review-deferred",
       "fingerprint": "4318d54c8533cd7a2887edc46805b079ad6d2f4fc307627759da3bca0589ca33",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:26": {
       "decision": "review-deferred",
       "fingerprint": "e723751764a2b06266c26595b227b1d89d6f84c2752c03c10cea68a5456b6e74",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:27": {
       "decision": "review-deferred",
       "fingerprint": "f49062540f7e5a7f20528a2a40225e87097132ab347d14ea4c7b39608d18b821",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:28": {
       "decision": "review-deferred",
       "fingerprint": "2a6bbb63ff47b73061b0887c425183b30e62399b237d03eabf1712ad6bd12c6f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-28-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0028:31": {
       "decision": "review-deferred",
@@ -1153,22 +1123,22 @@
     "04:0030:04": {
       "decision": "review-deferred",
       "fingerprint": "3606792ba08c7ce67f68b25a54fdfa90a57c06996d6d66b1968b7e30c9a34676",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-30-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0030:05": {
       "decision": "review-deferred",
       "fingerprint": "cb79c2d4d931ed4419073ee1bae714590c1b70a38091d9bfe4f61558b052d19a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-30-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0030:06": {
       "decision": "review-deferred",
       "fingerprint": "8c2f36e5eb188174f5092e29241ba4436d6054bd818b56c912d6879ace716a6b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0027-05-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Available in static scene assemblies: scene-30-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0030:07": {
       "decision": "review-deferred",
       "fingerprint": "d565fc34de676743480e09f080c5c51812fc0bb14e01be4fbffb3d137cee3291",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-30-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0033:00": {
       "decision": "review-deferred",
@@ -1193,7 +1163,7 @@
     "04:0035:01": {
       "decision": "review-deferred",
       "fingerprint": "7048006b8f722ef275f356bde02f37c8b0db62b328b670613c69dc69c515c172",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-35-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0035:03": {
       "decision": "review-deferred",
@@ -1203,22 +1173,17 @@
     "04:0035:04": {
       "decision": "review-deferred",
       "fingerprint": "07188624c6e29f2ac1b4f3b12faa0de0c3bbc71d4184af017bb054f0abfc9459",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-35-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0035:16": {
       "decision": "review-deferred",
       "fingerprint": "8bab477b9d1d5059afb2eb83857609fe70b1870897d7541ef3f23263ae085f39",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking vine-covered column closely resembles published scene 35 segment 15. Retain for placement or state comparison; exported data is not identical. Available in static scene assemblies: scene-35-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0036:04": {
       "decision": "review-deferred",
       "fingerprint": "51de010bc5cd17cd092d5fa8551f9488188ed702b496583f2c686a7f62df8fa9",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "04:0038:00": {
-      "decision": "review-deferred",
-      "fingerprint": "7a81c678df7a47a5e2ff3df1ee412baea878728525c09aba70895eec2fda7c2e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank03-0079-00-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0038:01": {
       "decision": "review-deferred",
@@ -1248,12 +1213,12 @@
     "04:0041:01": {
       "decision": "review-deferred",
       "fingerprint": "18a4b11b9845c4b1a782b2922179a4b1dd4fd431a7298cebd482ca8c3c49f578",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-41-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0041:02": {
       "decision": "review-deferred",
       "fingerprint": "2f116348c158001273ecc418ed59afd8d473b200c4ecc9e3d79b91c623850042",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-41-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0041:03": {
       "decision": "review-deferred",
@@ -1288,12 +1253,12 @@
     "04:0041:14": {
       "decision": "review-deferred",
       "fingerprint": "accbe43a43e5a03d13f0b1879320d40967a30946972d3c70f97c941268a156fb",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-41-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0041:17": {
       "decision": "review-deferred",
       "fingerprint": "7a59d98967f202df436b62cbe2a783965e87eb99a84f80677a9c3b0bd9f587eb",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-41-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0041:18": {
       "decision": "review-deferred",
@@ -1303,7 +1268,7 @@
     "04:0041:22": {
       "decision": "review-deferred",
       "fingerprint": "1195aee06d55a4c80c3798e8f6e8ff3c42867247d504c651af911eff82ce65c2",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-41-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0043:03": {
       "decision": "review-deferred",
@@ -1318,7 +1283,7 @@
     "04:0044:01": {
       "decision": "review-deferred",
       "fingerprint": "1ac7d62e5ccb11755507817851081bbed9a3e5169aee453952c3fae07fb2afd6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:02": {
       "decision": "review-deferred",
@@ -1338,32 +1303,32 @@
     "04:0044:05": {
       "decision": "review-deferred",
       "fingerprint": "1d22b93fcbdeb54f32193d01a267fc93712a2f64edc4350b69dd9a5b2537899f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:07": {
       "decision": "review-deferred",
       "fingerprint": "6cc334e1b890a42579bc4f1708133acadf4d7344fae5822da3aae9bbf3e537e9",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:08": {
       "decision": "review-deferred",
       "fingerprint": "04b6d9b3632a187bae5f81d3733c0b3306a6215cc3d6a28356e3a7e4beaeef58",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:09": {
       "decision": "review-deferred",
       "fingerprint": "6fc01dfb8705889e593cdf00b563fd158b88f2045355d36d8f452191d1e60d3f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:10": {
       "decision": "review-deferred",
       "fingerprint": "75b8506827e15f4bb681da00ea32e5f3792746ab45fcdb8206661cc50e8a716d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:12": {
       "decision": "review-deferred",
       "fingerprint": "1612872a71aa02d5fb9275d4e36958f539c77d04f352a9c74c82029b55b2d773",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-44-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0044:13": {
       "decision": "review-deferred",
@@ -1418,22 +1383,22 @@
     "04:0046:01": {
       "decision": "review-deferred",
       "fingerprint": "894d565b21f2e68fb1ff41ec361574405672ce2745081b7177d27d781bdb665e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-46-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0046:04": {
       "decision": "review-deferred",
       "fingerprint": "e11793dee04a66ba6514c1860244146f72b49b99a907b713474f719ef937be66",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0041-15-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Available in static scene assemblies: scene-46-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0046:05": {
       "decision": "review-deferred",
       "fingerprint": "5d2881ee631bc6631f9d5edb86a43f98e96a29d1c8364eb3f71f4b6297a45035",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0041-16-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Available in static scene assemblies: scene-46-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0047:01": {
       "decision": "review-deferred",
       "fingerprint": "337aff8bda2ededb4f495e234e304625712917e946f4599346b0d5e12a9af604",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-47-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0047:03": {
       "decision": "review-deferred",
@@ -1443,17 +1408,17 @@
     "04:0047:05": {
       "decision": "review-deferred",
       "fingerprint": "46074ca78679bc12a8113e3e5d6bf354ba38b81e8eeeae3384db2049730b8895",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-47-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0047:07": {
       "decision": "review-deferred",
       "fingerprint": "43401c83dc8e132c66f67f7ad68e4c22214e60e405aaeb244b4986d6d3da664a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-47-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0047:09": {
       "decision": "review-deferred",
       "fingerprint": "b8cc2073614a96eab4db7ebdd8aa595769fc12ede64949b19be966909e27c5c8",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-47-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0048:01": {
       "decision": "review-deferred",
@@ -1468,17 +1433,17 @@
     "04:0048:04": {
       "decision": "review-deferred",
       "fingerprint": "4bf7986780c0b26aa739344ce5155a6083b3965a941c7cc9f5841df503004a7c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0045-13-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0048:05": {
       "decision": "review-deferred",
       "fingerprint": "3af3e2cfd59a2cef21a56d766b44bc6d44150fe5b5cad6eea509dd26bbc37456",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0043-07-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0049:01": {
       "decision": "review-deferred",
       "fingerprint": "8062b40ed1cc4a0956d72f25fa253f44c127dc16f4cc570dfaaee745c003d87b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:03": {
       "decision": "review-deferred",
@@ -1488,32 +1453,32 @@
     "04:0049:04": {
       "decision": "review-deferred",
       "fingerprint": "041dea5803a51e5a7bfebb247a2e9fbe02fda309c29d99b6aba631c22c9d7096",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:05": {
       "decision": "review-deferred",
       "fingerprint": "a3e4cb107f3eb2304c64d1b082c0551dd4d7eb6c4f3b72f567d94432acaff0a9",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:06": {
       "decision": "review-deferred",
       "fingerprint": "cff1c543a7d3937c05238039799bde46d69bce207de899b7bfc19d6d71313e3a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:10": {
       "decision": "review-deferred",
       "fingerprint": "07cc2092c8c6341625f47797f2d0361b0b86fda92a64bdf854c2109cc2aa513d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:12": {
       "decision": "review-deferred",
       "fingerprint": "cbcff70ebb2984f779cee6f14a67f62e70e4716e6fcabab65246114c4edd5c00",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:14": {
       "decision": "review-deferred",
       "fingerprint": "be7f3cd8be50e5fd8fa3204c135b589d6e47979e5dcff99dc62a066f4b65d114",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-49-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0049:15": {
       "decision": "review-deferred",
@@ -1528,12 +1493,12 @@
     "04:0050:01": {
       "decision": "review-deferred",
       "fingerprint": "51dc5ed91decb8db595753b4cca7078a25a15c509d9f5a96e760a5bdbd3c10c8",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-50-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0050:02": {
       "decision": "review-deferred",
       "fingerprint": "49c7e613dc2d3f87d95fcc2b834b09f44c3cf08898c120c9879a9c6d6732ba73",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-50-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0050:03": {
       "decision": "review-deferred",
@@ -1543,12 +1508,12 @@
     "04:0050:04": {
       "decision": "review-deferred",
       "fingerprint": "4db3ea8150d3f95e0b5df3e7638e7ca28158ddba29757069288f008ac50e0901",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-50-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0050:05": {
       "decision": "review-deferred",
       "fingerprint": "7a09e7544ed385dd78d7c798d4820fe68439ba81a61a51699b369b0fa0150ff1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-50-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0050:06": {
       "decision": "review-deferred",
@@ -1563,7 +1528,7 @@
     "04:0050:10": {
       "decision": "review-deferred",
       "fingerprint": "89fc61201630c92e522da5cb9b25da9c5951fdb1d4efb3858934bda477f79840",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-50-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0051:01": {
       "decision": "review-deferred",
@@ -1613,72 +1578,72 @@
     "04:0053:01": {
       "decision": "review-deferred",
       "fingerprint": "a6fe8aac8650c1ee8dcb34fbf56341bb862904c42d35fa69375df1f5243cd98b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:06": {
       "decision": "review-deferred",
       "fingerprint": "1a5d692e139a58ff7a62d95ff7f6579328157e0fb1d3991e51bbe4240f238d46",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:10": {
       "decision": "review-deferred",
       "fingerprint": "5950aa833528590edbb006c7b3b851f0d9bcda9017f3cb6cd63add745212d8ed",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:11": {
       "decision": "review-deferred",
       "fingerprint": "67cd56ea6ceec78892ab84dd52ea709ea8f6ced0a61884bff3ec767366b49ab1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:12": {
       "decision": "review-deferred",
       "fingerprint": "c5ef60fb5ce7405c324cbe71aa58da97d9351e3fe891908aec1a85a890824500",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:13": {
       "decision": "review-deferred",
       "fingerprint": "4ce15c065d858b7b99878e0de2b793fb16041cc9cd560427ff5c74b77b6a51b4",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:14": {
       "decision": "review-deferred",
       "fingerprint": "ee267dce9e7db8ac173b00a0c5c1c8e3c4e12cd982b18b3ec329d6447733269e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:15": {
       "decision": "review-deferred",
       "fingerprint": "b1182471a4f4e8e1e9d1402ce51a8959e339aa924a3c79f368b77b698304ffc6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:16": {
       "decision": "review-deferred",
       "fingerprint": "c67025703c099ac4aa46b85bb0471b2c9cc8fde50efd50c402ab4e8cc682b0a2",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:17": {
       "decision": "review-deferred",
       "fingerprint": "bc3c31b433d7c7764391cc34cee393eebf5bfdf920be7eeffbc8cfdae5b28245",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:19": {
       "decision": "review-deferred",
       "fingerprint": "27533ff49bb700207f55f8e8aca875d56606c8526a0f6ce8a29c0645710a0526",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:20": {
       "decision": "review-deferred",
       "fingerprint": "045fbabb98d604ea9e8354fe9dea108d3ad7081ab13a2ec3047d511cc613b013",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0053:21": {
       "decision": "review-deferred",
       "fingerprint": "0b5123312951ebdfa10a379bf0a583fd071b8bd9b3f88dd39179c0deed301651",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-53-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0054:00": {
       "decision": "review-deferred",
       "fingerprint": "fb980efd32e46fe57a7882cc8f5613703124a03bec41eab4997690bac34d94e2",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-54-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0054:03": {
       "decision": "review-deferred",
@@ -1688,12 +1653,12 @@
     "04:0054:04": {
       "decision": "review-deferred",
       "fingerprint": "6ab0709e137f22d1a83787dca767b963ae8df03212e1b3ac34d6a3dd27c95d31",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-54-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0054:14": {
       "decision": "review-deferred",
       "fingerprint": "b35d37998d9697141884cb4b5da0ac683088b2f87c4c4d3390f54a4d1bd59ca6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-54-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0054:15": {
       "decision": "review-deferred",
@@ -1728,7 +1693,7 @@
     "04:0054:21": {
       "decision": "review-deferred",
       "fingerprint": "5431b0b8f5bdce05adbde8aa17c5bfbf03adda7b9bd71b167bc7941ca2c308f0",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-54-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0055:01": {
       "decision": "review-deferred",
@@ -1758,22 +1723,22 @@
     "04:0057:01": {
       "decision": "review-deferred",
       "fingerprint": "25fccee66943a5f6987bd4ab50766b69fdb08360e0550ce8d1f728d0ec7da013",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0057:05": {
       "decision": "review-deferred",
       "fingerprint": "afc0aba76fc56e2cf7d4b1f9da9c803a022562214bbf6bad366af30c610342ce",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0057:08": {
       "decision": "review-deferred",
       "fingerprint": "abd3684edc273149513b851e0d9b7ca3bd392d601043dd15790fba45b1784acf",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0054-05-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0057:10": {
       "decision": "review-deferred",
       "fingerprint": "186235c4d3aaa1c7cb05089bae80e25b96cf63b88edb1bb29d0228f526e5e20b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0058:01": {
       "decision": "review-deferred",
@@ -1783,11 +1748,6 @@
     "04:0058:04": {
       "decision": "review-deferred",
       "fingerprint": "ce2f788b437a02997a303601751139ac3115d4da0e1b71ebbfff8c18f6616c00",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "04:0059:00": {
-      "decision": "review-deferred",
-      "fingerprint": "499e92835ff1ee8cf3b8e6ba5933a2afd77c61427c3776ab2a4f44610f44ce35",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
     "04:0059:01": {
@@ -1808,7 +1768,7 @@
     "04:0059:05": {
       "decision": "review-deferred",
       "fingerprint": "7e1f8d8bde08dbc80ac851de115920ae062378b1d5c099f49a0945be9e198dbc",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-05-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:06": {
       "decision": "review-deferred",
@@ -1818,17 +1778,17 @@
     "04:0059:07": {
       "decision": "review-deferred",
       "fingerprint": "d1d0b64ffa1698babdba4518323578885e74d6df198ddf0ae334c19f1ac01338",
-      "reason": "Byte-identical model and identical stored-frame image to the published scene 6 / 7; retain scene provenance without a duplicate gallery card."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-07-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:08": {
       "decision": "review-deferred",
       "fingerprint": "42ebab667797d6838e273e4c51f74fda5e90295a22bde37c070fab895bee981d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-08-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:09": {
       "decision": "review-deferred",
       "fingerprint": "f6b0c96d181da4ef11edfbf5f131551959f7b0b37b60b22b44db3adbd86411ab",
-      "reason": "Byte-identical model and identical stored-frame image to the published scene 6 / 9; retain scene provenance without a duplicate gallery card."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-09-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:10": {
       "decision": "review-deferred",
@@ -1838,27 +1798,27 @@
     "04:0059:11": {
       "decision": "review-deferred",
       "fingerprint": "3d62fe1c8a0a3ab67ac64627b6000c4141223cc2081eb91657a294248e0d715e",
-      "reason": "Byte-identical model and identical stored-frame image to the published scene 6 / 12; retain scene provenance without a duplicate gallery card."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-12-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:12": {
       "decision": "review-deferred",
       "fingerprint": "00ba46d813eab491b0e2acaf44629eb8c0064f124636f4a3b5fb03ed28806e95",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-14-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:13": {
       "decision": "review-deferred",
       "fingerprint": "7f6f50ff50bd1daf1b79afa5aa20a532338f01f901d30aa3b3eb39dc2fff8bdd",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-15-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:14": {
       "decision": "review-deferred",
       "fingerprint": "9459d79fc6578994935238bb114759c8c0d3edca3b9e2a972f57a6bd7e041a1d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-16-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:15": {
       "decision": "review-deferred",
       "fingerprint": "b48dc8eec996ca082954dafca85274cf0fe7f3b4dacb2487fdc38ed7f6aad6ae",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-17-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:16": {
       "decision": "review-deferred",
@@ -1898,27 +1858,27 @@
     "04:0059:25": {
       "decision": "review-deferred",
       "fingerprint": "7a15e8633173842581628fa0f0aba0a66a86bc4a266740dd8a62092b3c1d09da",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-24-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:26": {
       "decision": "review-deferred",
       "fingerprint": "eba8f01a1bdbe330585010651762cfcbb1e4726e65d714421d807a44ed3f0c05",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-25-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:27": {
       "decision": "review-deferred",
       "fingerprint": "55b0aae85a27fbb50ec1381b9439087fb9cc2f75aa438e7d2337674d66cbc38d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-26-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:28": {
       "decision": "review-deferred",
       "fingerprint": "a9280d610c9b9cc17c7a160440d183d06dfbc0001702e48e506e27abafc1b22d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-27-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:29": {
       "decision": "review-deferred",
       "fingerprint": "cc95867dee8eae60c4880c165e3e8fd50632f9149fb263e2a2a499fe3dc942bb",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-28-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0059:30": {
       "decision": "review-deferred",
@@ -1928,62 +1888,62 @@
     "04:0059:31": {
       "decision": "review-deferred",
       "fingerprint": "26ffc266568eb71793997e70e1e46152ae17b8a8a83dced33763ed738c8488df",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0006-30-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0060:01": {
       "decision": "review-deferred",
       "fingerprint": "b837f30476bc6b42d7d238d149ab8f53befab4bcacc75d87544cac44a5fc07b8",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:02": {
       "decision": "review-deferred",
       "fingerprint": "2c57692d47af9bd2d203bfa3ca5dc6ab55d5f592b69c36298396ec83f8db831a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:03": {
       "decision": "review-deferred",
       "fingerprint": "0bc5f5971474dc1fc35cd91bca398bacf396bf3768b1ae46b8b5d9aabe12498e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:07": {
       "decision": "review-deferred",
       "fingerprint": "c19cb634b7ee63289a0b07e88032fa8f141ab1a8f69d667767c5aefbea06aee2",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:10": {
       "decision": "review-deferred",
       "fingerprint": "d741aa294461d29db04a73efc03b951842c06dd3ad6a6e69c8b8508723f4bb7a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking spiked roller closely resembles published scene 60 segment 09. Retain for placement or state comparison; exported data is not identical. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:11": {
       "decision": "review-deferred",
       "fingerprint": "2919d8e28ed41be0ba9320b0006a87c2702c384840afcc05578cf141bc3535c6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:12": {
       "decision": "review-deferred",
       "fingerprint": "09289e7b38a90be56537039398fa790f87dbb3a3772450c85cddaf686d227d3c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:13": {
       "decision": "review-deferred",
       "fingerprint": "fdece5da59e91e53f9b51029216e1f6cf1f96a6ea85dbddd63523d132b9e9003",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:14": {
       "decision": "review-deferred",
       "fingerprint": "a0ee07666728427f6b3faceae4b682475db8fcce57e05237794b000438da3b0f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:15": {
       "decision": "review-deferred",
       "fingerprint": "0907fe9754cc9033e57560a5633b6bb6a4faa54346a867c231bec4296d51cc46",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0060:16": {
       "decision": "review-deferred",
       "fingerprint": "f3fa0816fca65ef1c30ab331aae008219d0e73e4f4665d4e8cd7f02c883985f7",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static scene assembly remains unpublished: detached elevated geometry requires visibility or placement investigation."
     },
     "04:0061:01": {
       "decision": "review-deferred",
@@ -2008,17 +1968,17 @@
     "04:0064:05": {
       "decision": "review-deferred",
       "fingerprint": "ed8512af38e4660c1f7672df09abf1fda1be539a268e335a51ca65926a778fcb",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0058-05-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0064:06": {
       "decision": "review-deferred",
       "fingerprint": "ff9744f67e9a51c151d339476d7b36fbd65865ded8988559b49ab2cc90d12137",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0058-06-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0064:07": {
       "decision": "review-deferred",
       "fingerprint": "a969cfc48fcccccc65afaa0e8932fa0d7b7fa6eb1b36be32d5a2f0a93bfb04c1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0058-07-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0064:09": {
       "decision": "review-deferred",
@@ -2060,11 +2020,6 @@
       "fingerprint": "233a461cb7258d8662b10945992cdb8ff02c2d42d7a7eb71a81b8f01bf9dc33c",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
-    "04:0064:21": {
-      "decision": "review-deferred",
-      "fingerprint": "c5daed726804b50fcf55faa9ae1b2d822a9ee7ed617878d770a99358276d7402",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
     "04:0065:01": {
       "decision": "review-deferred",
       "fingerprint": "981cfb3022548e5cfcdd6a74b1368eb81771f8acb2aef3d2b247480818b38511",
@@ -2078,7 +2033,7 @@
     "04:0065:06": {
       "decision": "review-deferred",
       "fingerprint": "1197cde500ac35f4f693fdc263ddfeb389defa084cc9351eec07c707a4f66ce5",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking reinforced door closely resembles published scene 65 segment 05. Retain for placement or state comparison; exported data is not identical."
     },
     "04:0065:08": {
       "decision": "review-deferred",
@@ -2118,17 +2073,17 @@
     "04:0067:01": {
       "decision": "review-deferred",
       "fingerprint": "4e9ee7504f1f70d1d41aeefe455a7ebd3f4cd9fb1cdec7f8bdfb2986ff99966a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-67-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0067:05": {
       "decision": "review-deferred",
       "fingerprint": "51a27d1db6eebe57e76bdf11c9809464901b69fd8973943d5824e2a14a12cf91",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-67-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0067:08": {
       "decision": "review-deferred",
       "fingerprint": "b976f6cd3c27de9232f48f29292b5b1c9d0d4b23828e9644cbde57f82f27161b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-67-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0067:10": {
       "decision": "review-deferred",
@@ -2143,12 +2098,12 @@
     "04:0068:00": {
       "decision": "review-deferred",
       "fingerprint": "22aa9bc91928c90979506eb26dad135e2630dfa9edf6f8643105b25df02f602e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-68-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0068:01": {
       "decision": "review-deferred",
       "fingerprint": "d79aafa417ab75a97eced3446d4f3a0aa69621cd43ee8e3b05c0f792353825a9",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-68-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0068:03": {
       "decision": "review-deferred",
@@ -2158,7 +2113,7 @@
     "04:0068:04": {
       "decision": "review-deferred",
       "fingerprint": "b654a074e8cd904816dbb7efbd3a70cbf6e3c6bc06327f3e917d37b32fccc173",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0067-04-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0068:05": {
       "decision": "review-deferred",
@@ -2168,17 +2123,17 @@
     "04:0068:06": {
       "decision": "review-deferred",
       "fingerprint": "9e1c19fa7b593f240439bb03b630344ec8ebc63e268f3dbc047b1ae6d5751009",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0067-07-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "04:0068:09": {
       "decision": "review-deferred",
       "fingerprint": "aa54cc7d0632c49c50708c3c013550de5c643d87c0f45e9db1f3c0b665c84450",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-68-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "04:0068:10": {
       "decision": "review-deferred",
       "fingerprint": "b7e7e4029147e7396482eaf2a256519beed2baf630339e7a6434ca4457f9a3a1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static scene assemblies: scene-68-assembly-rom. Placement context is recovered from ROM; runtime visibility remains unresolved."
     },
     "09:0000:00": {
       "decision": "review-deferred",
@@ -2273,12 +2228,12 @@
     "09:0033:00": {
       "decision": "review-deferred",
       "fingerprint": "2217e2e3de9e59dc11f5a84407cefc387cf51e5c2639fe2911124b606ee77004",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking kitchen knife closely resembles the published scene 01 segment 21 knife. Retain the separate attachment geometry for parent/pose comparison; exported data is not identical."
     },
     "09:0035:00": {
       "decision": "review-deferred",
       "fingerprint": "cc3f628baf73922ad60bb463d1948fae03f0fe8ad4dafae0f2cf03da12b62752",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking kitchen knife variant resembles attachment 33 and published scene 01 segment 21. Retain for parent/pose comparison; exported data is not identical."
     },
     "09:0037:00": {
       "decision": "review-deferred",
@@ -2288,11 +2243,6 @@
     "09:0038:00": {
       "decision": "review-deferred",
       "fingerprint": "6ba04130ef19a72b662b02a0f63091bb3b143ae85281b6e3f304c6e4c0e5c242",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "09:0042:00": {
-      "decision": "review-deferred",
-      "fingerprint": "ba97a310c2ebc0bc38073ee403127d16894f27fd8d2849293500f343f659b485",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
     "09:0046:00": {
@@ -2313,7 +2263,7 @@
     "09:0057:00": {
       "decision": "review-deferred",
       "fingerprint": "07c752c4ba96ac47002ab230790ebc3cfdec48806a53a5e180ebcc2bc4872875",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking brush closely resembles the published bank 09 entry 56 blue-tipped brush. Retain for attachment/state comparison; exported data is not identical."
     },
     "09:0067:00": {
       "decision": "review-deferred",
@@ -2330,11 +2280,6 @@
       "fingerprint": "af2943f3e384edc789fcb0c69ea085291963c6d0bb4d80c4113c5909e6b51abb",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
-    "09:0075:00": {
-      "decision": "review-deferred",
-      "fingerprint": "e5c89b3422f69a84bd87d8ac10a4f3976041adcac5b0bfd3a8d3363a43f0652c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
     "09:0076:00": {
       "decision": "review-deferred",
       "fingerprint": "4851b51cb4252599c786ff467280babd9bbee6fcdc6e9f21946d88d3b89301b9",
@@ -2343,11 +2288,6 @@
     "09:0078:00": {
       "decision": "review-deferred",
       "fingerprint": "996872c73e45c5275bc62124c624824e8a3c57fdfd1894ea628bc019df452893",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "09:0083:00": {
-      "decision": "review-deferred",
-      "fingerprint": "c0b659dd305e03d71390ea2ac930c72b820e96d9f0de6c80b90d3afffa9abb4e",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
     "09:0088:00": {
@@ -2363,7 +2303,7 @@
     "09:0108:00": {
       "decision": "review-deferred",
       "fingerprint": "95beee2b582152079af1e0259b4acd1cac2f833a996666e7ef9451db3cf73992",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking kitchen knife variant resembles attachment 33 and published scene 01 segment 21. Retain for parent/pose comparison; exported data is not identical."
     },
     "09:0109:00": {
       "decision": "review-deferred",
@@ -2373,11 +2313,6 @@
     "09:0112:00": {
       "decision": "review-deferred",
       "fingerprint": "a0288b7e897c104c75c2a7efdab50fba0047d8b8cfe1a49c0f697655b5431e81",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
-    },
-    "09:0118:00": {
-      "decision": "review-deferred",
-      "fingerprint": "7c4820e6943bc75c89b96f8c4ffc8c3f0452776e1a51862dee5c6af1ff847c86",
       "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
     },
     "09:0126:00": {
@@ -2393,12 +2328,12 @@
     "09:0130:00": {
       "decision": "review-deferred",
       "fingerprint": "99eeb74ddb8b3036c8a3b3e41e1c40994f22cacf72462b0020615c0ddd4a7f74",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking cigarette and holder closely resemble published bank 09 entry 69. Retain for attachment/state comparison; exported data is not identical."
     },
     "09:0151:00": {
       "decision": "review-deferred",
       "fingerprint": "f74e4b07bf5ca94e46feb88d03cd975a5fc47ad5e33b9a07f3982e53f76a9675",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Narrow grey twisted or tapered attachment. Front and rear views do not establish the object identity or intended parent/pose."
     },
     "09:0154:00": {
       "decision": "review-deferred",
@@ -2413,7 +2348,7 @@
     "09:0163:00": {
       "decision": "review-deferred",
       "fingerprint": "78f1fd3c3bd56bcb20bf5f0779296c964439a97034eb34939b9aa31b4edbb3ba",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Two orange tapered surfaces hang from a red-and-white attachment. Front and rear views retain coherent texture coverage, but intended object/effect identity and assembly are unresolved."
     },
     "09:0168:00": {
       "decision": "review-deferred",
@@ -2583,7 +2518,7 @@
     "09:0272:00": {
       "decision": "review-deferred",
       "fingerprint": "3214eb94dffe813cb1ba8809ab66aafef793574f11898b0172864b740fbfade8",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank09-0226-00-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
     },
     "09:0278:00": {
       "decision": "review-deferred",
@@ -2673,7 +2608,7 @@
     "09:0302:00": {
       "decision": "review-deferred",
       "fingerprint": "f73713d13801b4c6baa57fae6860de9124fea3d776a43246a6693a741acd4a1d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking kitchen knife variant resembles attachment 33 and published scene 01 segment 21. Retain for parent/pose comparison; exported data is not identical."
     },
     "09:0303:00": {
       "decision": "review-deferred",
@@ -2723,7 +2658,7 @@
     "09:0324:00": {
       "decision": "review-deferred",
       "fingerprint": "3314d1298104f8a12337a309799db25ac4f5bf1321a6f5f78ed505d3d6897362",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking green helmet closely resembles published bank 03 entry 55. Retain the separate ROM record for attachment/state comparison; exported data is not identical."
     },
     "09:0325:00": {
       "decision": "review-deferred",
@@ -2788,7 +2723,7 @@
     "09:0347:00": {
       "decision": "review-deferred",
       "fingerprint": "9e0b32f5f5b93d8420a0b440a9c6ef245b0dfde4db30b42b842a66b7d42cffe8",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Complete-looking metal syringe closely resembles published bank 09 entries 84 and 85. Retain this separate ROM record for attachment/state comparison; exported data is not identical."
     },
     "09:0349:00": {
       "decision": "review-deferred",

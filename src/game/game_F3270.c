@@ -15,6 +15,21 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+s32 func_150C6460();                                  /* extern */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5DC0 CURRENT (165) */
+void func_150C5DC0(void *arg0) {
+    void *temp_v0;
+
+    if (*(s32 *)((u8 *)arg0 + 0x58) != 0) {
+        temp_v0 = *(void **)((u8 *)arg0 + 0x58);
+        temp_v0 = (void *)((u8 *)temp_v0 + 0xB0);
+        *(volatile s8 *)((u8 *)temp_v0 + 4) = 1;
+    } else {
+        *(s32 *)((u8 *)arg0 + 0x58) = func_150C6460();
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C5DC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5DC0.s")
 u32 func_150ADA20(void *, s8);                      /* extern */
 f32 func_150ADA68();                                /* extern */
@@ -60,6 +75,32 @@ s32 func_150C5EFC(void *arg0) {
     func_1513F6C0(arg0, 0, 0);
     return 0;
 }
+typedef struct {
+    u8 pad_0[0x5C];
+    s8 field_5C;
+} GameF3270Data;
+
+typedef struct {
+    u8 pad_0[0x18];
+    s32 field_18;
+    u8 pad_1C[0x40];
+    GameF3270Data *field_5C;
+} GameF3270State;
+
+s32 func_150C5F94(s32, void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5F40 CURRENT (835) */
+void func_150C5F40(GameF3270State *arg0) {
+    s32 temp_a2;
+
+    temp_a2 = arg0->field_18;
+    if (arg0->field_5C != 0) {
+        arg0->field_5C->field_5C = 1;
+        return;
+    }
+    arg0->field_5C = (GameF3270Data *)func_150C5F94(temp_a2, arg0, temp_a2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C5F40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5F40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5F94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C60D8.s")

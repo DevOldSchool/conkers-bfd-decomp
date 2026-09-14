@@ -11,7 +11,6 @@
  * - func_150E3414
  * - func_150E3514
  * - func_150E35DC
- * - func_150E36BC
  * - func_150E3738
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -58,9 +57,45 @@ void func_150E3340(void *arg0, void *arg1, s32 arg2, s16 arg3) {
     temp_a2 = *(s32 *)((u8 *)arg1 + 8);
     func_150E3020(temp_a0, temp_a1, temp_a2, temp_a0, temp_a1, temp_a2, 0x1A, 10.0f, 0, *(f32 *)((u8 *)arg0 + 0), *(f32 *)((u8 *)arg0 + 4), *(f32 *)((u8 *)arg0 + 8), arg2, (s32) arg3);
 }
+void func_1000E7A0(s32, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E33CC CURRENT (170) */
+s32 func_150E33CC(s32 arg0, s32 arg1, void **arg2, s32 arg3) {
+    void *temp_v0;
+
+    temp_v0 = *arg2;
+    if (temp_v0 == 0) {
+        return 1;
+    }
+    func_1000E7A0(2, temp_v0);
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E33CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E33CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3414.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3514.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E35DC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E36BC.s")
+typedef struct {
+    u8 type;
+    u8 pad1[0xF];
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1104D0Slot;
+
+extern Game1104D0Slot *D_800D99D0[8];
+
+void func_150E36BC(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
+    Game1104D0Slot *slot;
+
+    arg0--;
+    if ((arg0 >= 0) && (arg0 < 8)) {
+        slot = D_800D99D0[arg0];
+        if ((slot != 0) && (slot->type == 0x27)) {
+            *arg1 = (s32) slot->x;
+            *arg2 = (s32) slot->y;
+            *arg3 = (s32) slot->z;
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3738.s")

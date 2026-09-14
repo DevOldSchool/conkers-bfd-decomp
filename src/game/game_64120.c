@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15036C70
  * - func_15036CE8
  * - func_15036F34
  * - func_15037698
@@ -18,16 +17,44 @@
  * - func_15039CC8
  * - func_15039ED0
  * - func_1503A08C
- * - func_1503A60C
  * - func_1503A678
- * - func_1503A7F0
  * - func_1503A830
  * - func_1503B708
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036C70.s")
+typedef struct Game64120InitBlock {
+    f32 first[3];
+    f32 second[3];
+    u8 pad18[0x30];
+} Game64120InitBlock;
+
+typedef struct Game64120InitState {
+    u8 pad0[0x324];
+    Game64120InitBlock *volatile block;
+} Game64120InitState;
+
+void *func_10003C40(s32, s32, s32, s32);
+void func_100226F0(void *, s32);
+extern f32 D_80098250;
+
+void func_15036C70(Game64120InitState *arg0) {
+    f32 value;
+    s32 offset;
+    Game64120InitBlock *block;
+
+    block = func_10003C40(sizeof(*block), 1, 0, 0);
+    arg0->block = block;
+    func_100226F0(block, sizeof(*block));
+    value = D_80098250;
+    offset = 0;
+    do {
+        *(f32 *)((u8 *)arg0->block + offset) = value;
+        *(f32 *)((u8 *)arg0->block + offset + 0xC) = value;
+        offset += 4;
+    } while (offset != 0xC);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036CE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036F34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15037698.s")
@@ -93,16 +120,50 @@ Game64120Entry *func_15039A54(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039CC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039ED0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A08C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A60C.s")
+typedef struct Game64120OutputBlock {
+    u8 pad0[0x30];
+    f32 x;
+    f32 y;
+    f32 z;
+} Game64120OutputBlock;
+
+typedef struct Game64120Output {
+    u8 pad0[0x40];
+    Game64120OutputBlock block;
+} Game64120Output;
+
+typedef struct Game64120Record {
+    u8 pad0[0x18];
+    f32 y;
+    u8 pad1C[0x158];
+    f32 x;
+    f32 z;
+    u8 pad17C[0x58];
+    Game64120Output *output;
+    u8 pad1D8[0x154];
+} Game64120Record;
+
+extern u8 D_800C3E78;
+extern Game64120Record D_800CC2D0[];
+
+void func_1503A60C(void) {
+    Game64120OutputBlock *temp_v0;
+    Game64120Record *temp_v1;
+
+    temp_v0 = &D_800CC2D0[D_800C3E78].output->block;
+    temp_v1 = &D_800CC2D0[D_800C3E78];
+    temp_v0->x = temp_v1->x;
+    temp_v0->y = D_800CC2D0[D_800C3E78].y;
+    temp_v0->z = D_800CC2D0[D_800C3E78].z;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A678.s")
 void func_15036F34(void);
 void func_1503A678(void);
 extern u8 D_800C3FFA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503A7F0 CURRENT (8) */
 void func_1503A7F0(void) {
-    s32 sp1C;
     s32 temp_t6;
+    s32 sp1C;
 
     temp_t6 = D_800C3FFA;
     D_800C3FFA = 0;
@@ -111,7 +172,5 @@ void func_1503A7F0(void) {
     D_800C3FFA = sp1C;
     func_1503A678();
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503A7F0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A7F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A830.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503B708.s")

@@ -1,21 +1,20 @@
 from __future__ import annotations
 
-import importlib.util
+import sys
 import unittest
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-SPEC = importlib.util.spec_from_file_location("normalize_asm", ROOT / "scripts" / "normalize_asm.py")
-assert SPEC is not None and SPEC.loader is not None
-normalize_asm = importlib.util.module_from_spec(SPEC)
-SPEC.loader.exec_module(normalize_asm)
+sys.path.insert(0, str(ROOT / "scripts"))
+import normalize_asm
 
 
 class NormalizeAsmTests(unittest.TestCase):
-    def test_replaces_ido_fpr_aliases_without_touching_similar_names(self) -> None:
-        self.assertEqual(
-            normalize_asm.normalize("sdc1 $fs0, 0($sp)\nmtc1 $zero, $ft0f\n$fs0_suffix\n"),
-            "sdc1 $f20, 0($sp)\nmtc1 $zero, $f5\n$fs0_suffix\n",
-        )
+    def test_normalizes_global_asm_label_and_ido_register_alias(self) -> None:
+        source = ".section .text\n\nglabel func_test\n    mfc1 $a0, $ft0\n"
 
+        self.assertEqual(
+            ".section .text\n\n.globl func_test\nfunc_test:\n    mfc1 $a0, $f4\n",
+            normalize_asm.normalize(source),
+        )

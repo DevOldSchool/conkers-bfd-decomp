@@ -12,9 +12,41 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75A90/func_150485E0.s")
-s32 func_150485E0(s16, s16);                        /* extern */
+extern u16 D_80085EC0[];
+extern u16 D_80085F3C[];
+extern u16 D_80085FBC[];
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150485E0 CURRENT (80) */
+ s32 func_150485E0(s32 arg0) {
+    s32 var_a1;
+    s32 var_v1;
+    u16 *var_a2;
+    u16 *temp_t0;
+    u16 temp_a3;
+
+    var_v1 = 7;
+    if (arg0 >= 0x7FE0) {
+        var_a1 = 3;
+        var_a2 = D_80085FBC;
+        arg0 -= 0x7FE0;
+    } else {
+        var_v1 = 0x1FF;
+        if (arg0 >= 0x7800) {
+            var_v1 = 0x1F;
+            var_a1 = 5;
+            var_a2 = D_80085F3C;
+            arg0 -= 0x7800;
+        } else {
+            var_a1 = 9;
+            var_a2 = D_80085EC0;
+        }
+    }
+    temp_t0 = (u16 *)((u8 *)var_a2 + ((arg0 >> var_a1) * 2));
+    temp_a3 = temp_t0[0];
+    return temp_a3 - (((s32)(temp_a3 - temp_t0[1]) * (arg0 & var_v1)) >> var_a1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150485E0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_75A90/func_150485E0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15048664 CURRENT (1530) */
 s32 func_15048664(s16 arg0) {
     s32 temp_v0;

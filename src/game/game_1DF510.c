@@ -16,11 +16,45 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1DF510EffectSlots {
+    u8 pad0[0x10];
+    void *effects[3];
+    void *field_1C;
+} Game1DF510EffectSlots;
+
+typedef struct Game1DF510EffectOwner {
+    u8 pad0[0x28];
+    Game1DF510EffectSlots slots;
+} Game1DF510EffectOwner;
+
+void func_1516972C(void *);
+void func_151B222C();
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2060.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2100.s")
 void func_151B220C() {
     func_151B222C();
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B222C CURRENT (100) */
+void func_151B222C(Game1DF510EffectOwner *arg0) {
+    u8 i = 0;
+    Game1DF510EffectSlots *slots = &arg0->slots;
+    void *effect;
+
+    do {
+        effect = slots->effects[i];
+        if (effect != 0) {
+            func_1516972C(effect);
+        }
+        i++;
+    } while (i < 3);
+
+    effect = slots->field_1C;
+    if (effect != 0) {
+        func_1516972C(effect);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B222C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B222C.s")
 void func_1514933C(s32);
 void func_15149368(s32);
@@ -36,6 +70,33 @@ void func_151B22C8(s32 arg0) {
     func_151B220C(arg0);
     func_15149368(arg0);
 }
+typedef struct {
+    u8 pad_0[0x5C];
+    s32 field_5C;
+    u8 pad_60[5];
+    u8 field_65;
+} Game1DF510Entry;
+
+typedef struct {
+    u8 pad_0[0x28];
+    u8 *field_28;
+    u8 pad_2C[4];
+    Game1DF510Entry *field_30;
+} Game1DF510State;
+
+extern u8 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B22F4 CURRENT (780) */
+s32 func_151B22F4(Game1DF510State *arg0) {
+    Game1DF510Entry *temp_v1;
+
+    temp_v1 = arg0->field_30;
+    if (((((arg0->field_28 - &D_800CC2D0) / 0x32C) + 1) == temp_v1->field_65) && (temp_v1->field_5C == 1)) {
+        return 1;
+    }
+    return 2;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B22F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B22F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2348.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2690.s")

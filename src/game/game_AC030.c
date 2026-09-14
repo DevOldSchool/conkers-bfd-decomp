@@ -36,6 +36,27 @@ void func_1507EB80(u8 *arg0, s32 *arg1, u8 arg2) {
         *arg1 += 1;
     }
 }
+void func_10023A10(void *, void *, s32);
+extern void *D_80086C24[];
+extern u8 D_8009BBF0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 CURRENT (252) */
+void func_1507EBB8(s32 arg0, s32 *arg1, s32 arg2) {
+    s32 sp18;
+    s32 temp_v0;
+    u8 temp_a3;
+    void *temp_t7;
+
+    temp_t7 = D_80086C24[arg2];
+    temp_a3 = D_8009BBF0[arg2];
+    temp_v0 = *arg1;
+    if ((temp_v0 + temp_a3) < 0x28) {
+        sp18 = (s32) temp_a3;
+        func_10023A10(temp_t7, (void *)(temp_v0 + arg0), (s32) temp_a3);
+        *arg1 += temp_a3;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EBB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EE58 CURRENT (644) */
@@ -119,6 +140,45 @@ loop_1:
     goto loop_1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EFD0.s")
+typedef struct GameAC030AnimationState {
+    u8 pad0[4];
+    u8 sequence;
+    u8 frame;
+} GameAC030AnimationState;
+
+typedef struct GameAC030NestedState {
+    u8 pad0[0x58];
+    GameAC030AnimationState animation;
+} GameAC030NestedState;
+
+typedef struct GameAC030RootState {
+    u8 pad0[0x31C];
+    GameAC030NestedState *nested;
+} GameAC030RootState;
+
+extern u8 *D_80086BA0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507F454 CURRENT (95) */
+s32 func_1507F454(void) {
+    GameAC030AnimationState *animation;
+    u8 sequence;
+    s32 frame;
+
+    animation = &((GameAC030RootState *)D_800D154C)->nested->animation;
+    sequence = animation->sequence;
+    if (sequence == 0) {
+        return 1;
+    }
+    frame = animation->frame + 1;
+    animation->frame = (u8)frame;
+    if (D_80086BA0[sequence][frame & 0xFF] == 0) {
+        animation->sequence = 0;
+        animation->frame = 0;
+        return 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507F454 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F454.s")
 s32 func_1507F4C0(s32 arg0) {
     s32 sp20;

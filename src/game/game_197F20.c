@@ -11,8 +11,6 @@
  * - func_1516C934
  * - func_1516CC58
  * - func_1516D0CC
- * - func_1516D2E0
- * - func_1516D328
  * - func_1516D378
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -95,8 +93,36 @@ void func_1516D0CC(void *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
 void func_1516D2D8(void) {
 
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516D2E0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516D328.s")
+void func_1516972C(void *);
+
+void func_1516D2E0(void *arg0) {
+    if ((arg0 != 0) && (*(u8 *)((u8 *)arg0 + 0) == 0x51)) {
+        *(s8 *)(*(u8 **)((u8 *)arg0 + 0x10) + 8) = 0;
+        func_1516972C(arg0);
+        *(s8 *)((u8 *)arg0 + 0x15) = 0;
+    }
+}
+typedef struct {
+    s32 field_0;
+    u8 pad_4[4];
+    u8 field_8;
+} Game197F20Data;
+
+typedef struct {
+    u8 field_0;
+    u8 pad_1[0xF];
+    Game197F20Data *field_10;
+    u8 pad_14[0xC];
+    u8 field_20;
+} Game197F20State;
+
+void func_1516D328(Game197F20State *arg0) {
+    if ((arg0 != 0) && (arg0->field_0 == 0x51)) {
+        arg0->field_10->field_0 |= 0x100;
+        arg0->field_10->field_0 &= ~0x400;
+        arg0->field_20 = arg0->field_10->field_8;
+    }
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1516D378 CURRENT (15) */
 void *func_1516D378(void *arg0) {
     s32 *temp_v1;

@@ -12,18 +12,59 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75C90/func_150487E0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75C90/func_15048864.s")
-
 f32 fabsf(f32 arg0);
 #pragma intrinsic(fabsf)
 
 extern u16 D_80098E00[];
+extern f32 D_80099000;
+extern f32 D_80099004;
+extern f32 D_80099008;
 extern f32 D_8009900C;
 extern f32 D_80099010;
 extern f32 D_80099014;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150488C8 CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150487E0 CURRENT (1000) */
+f32 func_150487E0(f32 arg0) {
+    f32 var_ft4;
+    f32 temp_fa1;
+    f32 var_fv1;
+    u16 temp_t9;
+    volatile u16 *table;
+
+    table = D_80098E00;
+    temp_t9 = *(u16 *)((u8 *)table + ((s32)(fabsf(arg0) * D_80099000) * 2));
+    var_ft4 = (f32)temp_t9;
+    if ((s32)temp_t9 < 0) {
+        var_ft4 += 4294967296.0f;
+    }
+    temp_fa1 = (var_ft4 * D_80099004) / 65536.0f;
+    if (arg0 < 0.0f) {
+        var_fv1 = -temp_fa1;
+    } else {
+        var_fv1 = temp_fa1;
+    }
+    return var_fv1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150487E0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_75C90/func_150487E0.s")
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048864 CURRENT (30) */
+f32 func_15048864(f32 arg0) {
+    f32 temp_fa1;
+    f32 var_fv1;
+
+    temp_fa1 = (f32)((s32)D_80098E00[(s32)(fabsf(arg0) * D_80099008)] >> 10);
+    if (arg0 < 0.0f) {
+        var_fv1 = 255.0f - temp_fa1;
+    } else {
+        var_fv1 = temp_fa1;
+    }
+    return var_fv1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15048864 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_75C90/func_15048864.s")
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150488C8 CURRENT (15) */
 f32 func_150488C8(f32 arg0) {
     f32 scaled;
     f32 fraction;

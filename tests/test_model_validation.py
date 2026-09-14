@@ -25,6 +25,35 @@ def geometry():
 
 
 class ModelValidationTests(unittest.TestCase):
+    def test_attachment_update_requires_matching_provenance_and_actual_uvs(self):
+        run = models.ModelMaterialRun(0, 1, True,
+            models.ModelTextureBinding(0xFD180000, segment=6, offset=0,
+                                      load_command=(0xF3000000, 0x071FF000)),
+            None, (0xF5180400, 0x00018030), (), (0xF2002002, 0x0001E0FE),
+            (0xD7000002, 0xFFFFFFFF), (0xFCFF9880, 0xF514FEFF), (0xEF182C3F, 0x04D049D8), None)
+        source = replace(geometry(), material_runs=(run,))
+        adjusted = replace(source, material_runs=(replace(run,
+            tile_bounds=(0xF200203E, 0x0001E0FE), texture_dimensions=(8, 64)),))
+        evidence = {'updater': 'func_150D83D8', 'preview_command': [0xF200203E, 0x0001E0FE]}
+        records = [{'face_count': 1, 'runtime_material': None}]
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            document, binary = models.encode_gltf(80, 0, adjusted, {}, output_stem='model')
+            parsed = json.loads(document)
+            parsed.setdefault('extras', {})['romAttachmentUpdate'] = evidence
+            path = root / 'model.gltf'; validation.write(path, parsed)
+            path.with_suffix('.bin').write_bytes(binary)
+            result = validation.compare_geometry(path, adjusted, None, records, attachment_update=evidence)
+            self.assertEqual(3, result['uv_corners'])
+            with self.assertRaisesRegex(ValueError, 'UV differs'):
+                validation.compare_geometry(path, source, None, records, attachment_update=evidence)
+            with self.assertRaisesRegex(ValueError, 'attachment texture/UV update differs'):
+                validation.compare_geometry(path, adjusted, None, records)
+            parsed['extras']['romAttachmentUpdate'] = {'preview_command': [0xF2002002, 0x0001E0FE]}
+            validation.write(path, parsed)
+            with self.assertRaisesRegex(ValueError, 'attachment texture/UV update differs'):
+                validation.compare_geometry(path, adjusted, None, records, attachment_update=evidence)
+
     def detail_fixture(self, root):
         def bounds(i, origin, w, h):
             return (i, 0xF2000000 | (origin << 12) | origin,
@@ -200,6 +229,44 @@ class ModelValidationTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, 'provenance differs'):
                     validation.compare_rom_object_materials(path, {}, {}, {})
 
+    def test_binding_material_validation_rejects_forged_provenance_pixels_and_capture_mix(self):
+        for bank in (4, 9):
+            with self.subTest(bank=bank):
+                self.check_binding_material_validation(bank)
+
+    def check_binding_material_validation(self, bank):
+        source = geometry()
+        segment = SimpleNamespace(index=0, data=b'model')
+        bundle = SimpleNamespace(index=58, segments=[segment])
+        context = {'models': [{'bank': bank, 'entry': 58, 'segment': 0}]}
+        evidence = {'object_renderer_context': {'bank': bank, 'entry': 58, 'segment': 0}}
+        png = texture_assets.encode_rgba_png(1, 1, bytes((10, 20, 30, 255)))
+        record = {'status': 'rom-object-binding-texture', 'rom_object_texture_binding': evidence,
+                  'texture': {'file': 'texture.png'}}
+        manifest = {'bank_index': bank, 'rom_object_material_context': context,
+                    'models': [{'bank_entry': 58, 'segment': 0, 'material_runs': [record]}]}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'manifest.json'
+            (root / 'texture.png').write_bytes(png)
+            validation.write(path, manifest)
+            with mock.patch.object(models, 'load_model_bundles', return_value=(None, None, 'rom', [bundle], [])), \
+                 mock.patch.object(models, 'load_object_material_context', return_value=context), \
+                 mock.patch.object(models, 'parse_segment_geometry', return_value=source), \
+                 mock.patch.object(models, 'choose_preview_texture', return_value=(None, 'runtime-segment')), \
+                 mock.patch.object(models, 'rom_object_binding_preview_texture', return_value=(SimpleNamespace(png_data=png), record['status'], evidence)):
+                result = validation.compare_rom_object_materials(path, {}, {}, {})
+                self.assertEqual((1, 1), (result['consensus_texture_runs'], result['consensus_texture_faces']))
+                with self.assertRaisesRegex(ValueError, 'captured material was replaced'):
+                    validation.compare_rom_object_materials(path, {}, {}, {(bank, 58, 0, 0): {}})
+                (root / 'texture.png').write_bytes(b'changed')
+                with self.assertRaisesRegex(ValueError, 'texture binding differs'):
+                    validation.compare_rom_object_materials(path, {}, {}, {})
+                manifest['rom_object_material_context'] = {'models': []}
+                validation.write(path, manifest)
+                with self.assertRaisesRegex(ValueError, 'provenance differs'):
+                    validation.compare_rom_object_materials(path, {}, {}, {})
+
     def export(self, root, source):
         document, binary = models.encode_gltf(0, 0, source, output_stem='model')
         path = root / 'model.gltf'
@@ -278,6 +345,29 @@ class ModelValidationTests(unittest.TestCase):
             self.assertIsNone(validation.cached(path, 'new-code-and-input'))
             self.assertEqual('incomplete', validation.summarize_status({}))
             self.assertEqual('failed', validation.summarize_status({'a': {'status': 'incomplete'}, 'b': {'status': 'failed'}}))
+
+    def test_regression_cache_reuses_content_and_rechecks_changes_or_missing_differences(self):
+        from scripts.model_evidence_cache import ContentSnapshot
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            reference, current, difference = (root / name for name in ('before.png', 'after.png', 'diff.png'))
+            original = texture_assets.encode_rgba_png(1, 1, bytes((0, 0, 0, 255)))
+            reference.write_bytes(original); current.write_bytes(original)
+            def compare(code='v1'):
+                return validation.cached_image_comparison(reference, current, difference,
+                    root / 'cache', ContentSnapshot(), code)
+            self.assertFalse(compare()['cached'])
+            with mock.patch.object(validation, 'compare_images', side_effect=AssertionError('unchanged images redecoded')):
+                self.assertTrue(compare()['cached'])
+            current.write_bytes(texture_assets.encode_rgba_png(1, 1, bytes((15, 0, 0, 255))))
+            result = compare()
+            self.assertEqual(('incomplete', False, 1), (result['status'], result['cached'], result['changed_pixels']))
+            self.assertTrue(compare()['cached'])
+            difference.unlink();self.assertFalse(compare()['cached']);self.assertTrue(difference.is_file())
+            difference.write_bytes(b'corrupt');self.assertFalse(compare()['cached'])
+            self.assertFalse(compare('changed decoder')['cached'])
+            reference.write_bytes(current.read_bytes())
+            self.assertEqual('passed', compare()['status'])
 
     def test_evidence_dimensions_stay_independent(self):
         model = {'scene_association': {'status': 'resolved'}, 'semantic_name': {'status': 'unknown'}}

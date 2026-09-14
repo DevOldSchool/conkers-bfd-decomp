@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1515AF90
  * - func_1515B21C
- * - func_1515B62C
  * - func_1515B674
  * - func_1515B994
  *
@@ -17,6 +16,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515AF90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515B21C.s")
 void func_1515572C(s16 *arg0, s32 arg1, s16 arg2);
+void func_1516972C(void *arg0);
 
 void func_1515B5F4(s16 arg0) {
     struct {
@@ -27,7 +27,11 @@ void func_1515B5F4(s16 arg0) {
     sp.sp1C = arg0;
     func_1515572C(&sp.sp1C, 0xB, arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515B62C.s")
+void func_1515B62C(void *arg0, s16 *arg1, u8 arg2) {
+    if ((arg2 == 0xB) && (*(s16 *)((u8 *)arg0 + 0x70) == *arg1)) {
+        func_1516972C(arg0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_188440/func_1515B674.s")
 extern f32 D_800BE9A4;
 

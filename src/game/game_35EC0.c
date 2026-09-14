@@ -5,13 +5,23 @@
  * Boundary evidence: docs/evidence/game_compact_multi_function_units.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15008A10
  * - func_15008A60
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_35EC0/func_15008A10.s")
+void *func_15083E90(u8);
+extern void *D_80088720;
+extern f32 D_80088724[];
+extern void *D_80088730;
+
+void func_15008A10(void) {
+    D_80088720 = func_15083E90(1);
+    D_80088724[0] = 0.0f;
+    D_80088724[1] = 0.0f;
+    D_80088724[2] = 0.0f;
+    D_80088730 = func_15083E90(1);
+}
 extern s8 D_800DDDAC;
 extern s8 D_800DDDAD;
 extern s8 D_800DDDAE;

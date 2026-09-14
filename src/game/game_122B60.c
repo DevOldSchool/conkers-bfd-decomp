@@ -16,6 +16,7 @@
  */
 
 void func_150F631C(s32 arg0);
+void func_1516972C(void *arg0);
 void func_1514933C(s32 arg0);
 void func_15149368(s32 arg0);
 
@@ -29,6 +30,21 @@ void func_150F6138(s32 arg0, s32 arg1, u8 arg2) {
     func_15149514(arg1, arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F6178.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F631C CURRENT (505) */
+void func_150F631C(s32 arg0) {
+    s32 temp_a1;
+    void *temp_a0;
+
+    temp_a1 = arg0;
+    if (*(void **)((u8 *)temp_a1 + 0x30) != 0) {
+        func_1516972C(*(void **)((u8 *)temp_a1 + 0x30));
+    }
+    temp_a0 = *(void **)((u8 *)temp_a1 + 0x34);
+    if (temp_a0 != 0) {
+        func_1516972C(temp_a0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F631C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_122B60/func_150F631C.s")
 void func_150F6368(s32 arg0) {
     func_150F631C(arg0);

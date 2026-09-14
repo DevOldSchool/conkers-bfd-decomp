@@ -117,6 +117,40 @@ void func_151A4CE0(void *arg0, void *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4CE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4CE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4D88.s")
+typedef struct Game1D0840TransformSource {
+    u8 pad0[0x74];
+    u8 flags;
+    u8 pad75[0x15F];
+    u8 *transformBase;
+} Game1D0840TransformSource;
+
+typedef struct Game1D0840TransformRequest {
+    Game1D0840TransformSource *source;
+    u8 pad4;
+    u8 transformIndex;
+    u8 pad6[2];
+    f32 input[3];
+} Game1D0840TransformRequest;
+
+void func_15143134(f32 *, f32 *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4E34 CURRENT (10) */
+s32 func_151A4E34(Game1D0840TransformRequest *arg0, f32 *arg1) {
+    u8 *temp_v1;
+    Game1D0840TransformSource *temp_v0;
+
+    temp_v0 = arg0->source;
+    temp_v1 = temp_v0->transformBase;
+    if (temp_v1 == 0) {
+        return 0;
+    }
+    if ((temp_v0->flags & 0xF) == 0xF) {
+        return 0;
+    }
+    func_15143134(arg0->input, arg1, (s32)(temp_v1 + (arg0->transformIndex << 6)));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4E34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E34.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4E9C CURRENT (220) */
 void func_151A4E9C(void *arg0) {
@@ -133,4 +167,27 @@ void func_151A4E9C(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4E9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4ECC.s")
+typedef struct {
+    s32 field_0;
+    u8 field_4;
+} Game1D0840Data;
+
+typedef struct {
+    u8 pad_0[0x28];
+    Game1D0840Data field_28;
+} Game1D0840State;
+
+void func_1516972C(Game1D0840State *, Game1D0840Data *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4F7C CURRENT (647) */
+void func_151A4F7C(Game1D0840State *arg0, Game1D0840Data *arg1, s32 arg2) {
+    s32 temp_t6;
+
+    temp_t6 = arg2 & 0xFF;
+    if ((temp_t6 == 0) && ((arg0->field_28.field_0 == arg1->field_0) ||
+        (arg0->field_28.field_4 == arg1->field_4))) {
+        func_1516972C(arg0, arg1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4F7C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4F7C.s")

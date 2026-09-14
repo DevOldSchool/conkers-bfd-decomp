@@ -5,9 +5,7 @@
  * Boundary evidence: docs/evidence/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150BDE90
  * - func_150BDF0C
- * - func_150BE150
  * - func_150BE1C4
  * - func_150BE210
  * - func_150BE2E8
@@ -17,9 +15,56 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BDE90.s")
+typedef struct {
+    s32 value;
+    s16 field4;
+} BeeCavernEffectPacket;
+
+void func_10022EC0(void *, void *, s32); /* extern */
+u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
+
+void func_150BDE90(s32 arg0, u8 arg1, s32 arg2) {
+    BeeCavernEffectPacket packet;
+    u8 *effect;
+
+    packet.field4 = 0;
+    packet.value = arg0;
+    effect = func_15149130(0x12C, -1, 0x4F, -1, 0, 0x3C, 8, arg1, arg2);
+    if (effect != 0) {
+        func_10022EC0(effect + 0x28, &packet, sizeof(packet));
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BDF0C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE150.s")
+
+typedef struct BeeCavernActor {
+    u8 pad0[0x318];
+    void *field_318;
+} BeeCavernActor;
+
+typedef struct BeeCavernEffect {
+    u8 pad0[0x28];
+    BeeCavernActor *field_28;
+} BeeCavernEffect;
+
+typedef struct BeeCavernMessage {
+    BeeCavernActor *actor;
+} BeeCavernMessage;
+
+void func_1516972C(void *);
+
+void func_150BE150(BeeCavernEffect *arg0, BeeCavernMessage *arg1, u8 arg2) {
+    if (arg2 == 0x21) {
+        if (arg1->actor == arg0->field_28) {
+            func_1516972C(arg0);
+        }
+    } else if (arg2 == 0) {
+        BeeCavernActor *actor = arg1->actor;
+
+        if (actor->field_318 == arg0->field_28) {
+            func_1516972C(arg0);
+        }
+    }
+}
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE1C4 CURRENT (10) */
@@ -62,5 +107,19 @@ void func_150BE2E8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150BE2E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE2E8.s")
+extern u8 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE438 CURRENT (580) */
+void *func_150BE438(void *arg0, s32 arg1) {
+    u8 *temp_v1;
+
+    *(s16 *)arg0 = 0x68;
+    temp_v1 = (arg1 * 0x32C) + &D_800CC2D0;
+    *(s16 *)((u8 *)arg0 + 4) = 0xE;
+    *(s16 *)((u8 *)arg0 + 2) = *(s32 *)((u8 *)temp_v1 + 0x2E8);
+    *(s16 *)((u8 *)arg0 + 6) = *(s32 *)((u8 *)temp_v1 + 0x2E4);
+    return (u8 *)arg0 + 8;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BE438 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE438.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE494.s")

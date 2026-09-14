@@ -18,7 +18,6 @@
  * - func_151D4794
  * - func_151D4C38
  * - func_151D4D04
- * - func_151D4D58
  * - func_151D4DAC
  * - func_151D5174
  * - func_151D5334
@@ -34,6 +33,12 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+typedef struct Game200930ResourceSlots {
+    s32 entries[4];
+} Game200930ResourceSlots;
+
+void func_100043B4(s32, s32);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D3480.s")
 /* Call context: func_15047D60: unique active project prototype */
@@ -104,8 +109,29 @@ void func_151D4668(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D469C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4794.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4C38.s")
+void func_15131828(s32, s32, s32, s32);
+void func_15131958(void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D4D04 CURRENT (10) */
+s32 func_151D4D04(s32 arg0, s32 arg1) {
+    s32 sp20;
+    s32 temp_a2;
+
+    temp_a2 = arg0 + 0xA8;
+    sp20 = temp_a2;
+    func_15131828(arg0, arg0 + 0xAC, temp_a2, arg0 + 0xAA);
+    func_15131958((void *)(arg0 + 0x58), *(f32 *)(temp_a2 + 0xC));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D4D04 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4D04.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4D58.s")
+/* Call context: func_151D469C: unique active project prototype */
+void func_151D469C(u8 *, s32, s32, s32, s32);
+
+void func_151D4D58(u8 *arg0) {
+    func_151D469C(arg0, 0, 0x50, 0xFF, 1);
+    func_151D469C(arg0, 1, 0x50, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D4DAC.s")
 void func_151D5148(void *arg0) {
     void *temp_v0;
@@ -129,4 +155,19 @@ void func_151D5148(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5A18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5B6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5D60.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5E30 CURRENT (405) */
+void func_151D5E30(Game200930ResourceSlots *arg0) {
+    register s32 resource;
+    s32 index;
+
+    index = 0;
+    do {
+        resource = arg0->entries[index];
+        if (resource != 0) {
+            func_100043B4(resource, 3);
+        }
+        index = (index + 1) & 0xFF;
+    } while (index < 4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D5E30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5E30.s")

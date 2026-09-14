@@ -13,13 +13,16 @@
     header p { color: #bcc7d0; margin: 8px 0; }
     .controls { margin: 28px 0 20px; }
     .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    button, input { font: inherit; color: inherit; border: 1px solid #677580; border-radius: 6px; }
+    button, input, select { font: inherit; color: inherit; border: 1px solid #677580; border-radius: 6px; }
     button { padding: 10px 14px; background: #252b33; cursor: pointer; }
     button:hover { border-color: #a7d9ff; }
     [aria-selected="true"] { background: #a7d9ff; border-color: #a7d9ff; color: #14202c; }
     .tab-count { display: inline-block; margin-left: 6px; font-size: 14px; font-variant-numeric: tabular-nums; }
     label { display: block; margin-bottom: 8px; }
     input { width: 100%; max-width: 620px; padding: 12px; background: #252b33; }
+    select { padding: 10px 12px; background: #252b33; max-width: 100%; }
+    .review-filters { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
+    .review-filters label { font-size: 14px; }
     :focus-visible { outline: 2px solid #a7d9ff; outline-offset: 3px; }
     #category-description { color: #bcc7d0; margin-bottom: 4px; }
     #model-count { margin-top: 4px; }
@@ -28,6 +31,9 @@
     article > a { text-decoration: none; }
     article > a:hover h2 { text-decoration: underline; }
     img { width: 100%; height: auto; display: block; border-radius: 4px; }
+    .preview-placeholder { aspect-ratio: 1; display: grid; place-items: center; background: #20262d; color: #bcc7d0; border-radius: 4px; }
+    .review-badge { font-size: 13px; color: #d3dee6; margin: 0 0 10px; }
+    .review-badge[data-status="material-blocked"], .review-badge[data-status="appearance-blocked"] { color: #ffcc83; }
     h2 { font-size: 20px; line-height: 1.35; margin: 16px 0 8px; }
     code { overflow-wrap: anywhere; font-size: 13px; color: #c5d0da; }
     details { margin-top: 16px; color: #bcc7d0; font-size: 14px; }
@@ -50,6 +56,21 @@
       <label for="model-search">Find models</label>
       <input id="model-search" type="search" placeholder="Search name, original description, bank or filename" autocomplete="off">
     </form>
+    <div id="review-filters" class="review-filters" hidden>
+      <div><label for="review-status">Review status</label><select id="review-status">
+        <option value="all">All review states</option>
+        <option value="material-blocked">Material issues</option>
+        <option value="appearance-blocked">Appearance issues</option>
+        <option value="review-deferred">Fragments and variants</option>
+        <option value="review-needed">Needs review</option>
+        <option value="no-drawable-geometry">No drawable faces</option>
+      </select></div>
+      <div><label for="review-bank">Bank</label><select id="review-bank">
+        <option value="all">All banks</option><option value="01">01 · Characters</option>
+        <option value="03">03 · Objects</option><option value="04">04 · Scene models</option>
+        <option value="09">09 · Objects and effects</option>
+      </select></div>
+    </div>
   </div>
   <main id="model-panel" tabindex="0">
     <p id="category-description">Every model currently extracted and published for inspection.</p>
@@ -69,6 +90,8 @@
     const cards = Array.from(document.querySelectorAll('article'));
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
     const panel = document.getElementById('model-panel');
+    const reviewStatus = document.getElementById('review-status');
+    const reviewBank = document.getElementById('review-bank');
     const normalize = value => value.normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
     const names = cards.map(card => normalize(card.dataset.search));
     let selected = tabs.find(tab => tab.dataset.category === 'characters');
@@ -77,12 +100,15 @@
       const terms = normalize(search.value).trim().split(/\s+/).filter(Boolean);
       const matches = names.map(name => terms.every(term => name.includes(term)));
       const category = selected.dataset.category;
+      const reviewMatch = card => (reviewStatus.value === 'all' || card.dataset.reviewStatus === reviewStatus.value) &&
+        (reviewBank.value === 'all' || card.dataset.bank === reviewBank.value);
+      document.getElementById('review-filters').hidden = category !== 'extracted-review';
       let count = 0;
       let total = 0;
       cards.forEach((card, index) => {
         const inCategory = category === 'all' || card.dataset.category === category;
         if (inCategory) total++;
-        card.hidden = !inCategory || !matches[index];
+        card.hidden = !inCategory || !matches[index] || (category === 'extracted-review' && !reviewMatch(card));
         if (!card.hidden) count++;
       });
       tabs.forEach(tab => {
@@ -90,13 +116,14 @@
         tab.setAttribute('aria-selected', String(active));
         tab.tabIndex = active ? 0 : -1;
         const matching = cards.filter((card, index) => matches[index] &&
-          (tab.dataset.category === 'all' || card.dataset.category === tab.dataset.category)).length;
+          (tab.dataset.category === 'all' || card.dataset.category === tab.dataset.category) &&
+          (tab.dataset.category !== 'extracted-review' || reviewMatch(card))).length;
         tab.querySelector('.tab-count').textContent = matching;
       });
       panel.setAttribute('aria-labelledby', selected.id);
       document.getElementById('category-description').textContent = selected.dataset.description;
       document.getElementById('model-count').textContent =
-        (terms.length ? count + ' of ' + total : count) + ' models · ' + selected.dataset.label;
+        (count !== total ? count + ' of ' + total : count) + ' models · ' + selected.dataset.label;
       document.getElementById('no-models').hidden = count !== 0;
     }
 
@@ -117,8 +144,12 @@
     });
     search.form.addEventListener('submit', event => event.preventDefault());
     search.addEventListener('input', filterModels);
+    reviewStatus.addEventListener('change', filterModels);
+    reviewBank.addEventListener('change', filterModels);
     document.getElementById('reset-filters').addEventListener('click', () => {
       search.value = '';
+      reviewStatus.value = 'all';
+      reviewBank.value = 'all';
       selected = tabs.find(tab => tab.dataset.category === 'all');
       filterModels();
       search.focus();

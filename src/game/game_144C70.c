@@ -157,6 +157,44 @@ void func_151179BC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151179BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151179BC.s")
+typedef struct Game144C70NestedState {
+    u8 pad0[0x57];
+    u8 enabled;
+} Game144C70NestedState;
+
+typedef struct Game144C70EventState {
+    s32 kind;
+    u8 pad4[0x318];
+    Game144C70NestedState *nested;
+} Game144C70EventState;
+
+typedef struct Game144C70MotionState {
+    u8 pad0[0x3C];
+    s32 packed;
+    u8 pad40[0xF];
+    u8 flags;
+    u8 pad50[0x23];
+    volatile u8 motion;
+} Game144C70MotionState;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15117D3C CURRENT (560) */
+void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
+    s32 temp_v0;
+    u8 temp_t5;
+    u8 temp_v1;
+
+    temp_v0 = arg0->packed;
+    if ((arg1->kind == 1) && (arg0->flags & 4)) {
+        temp_v1 = arg0->motion;
+        if (!(temp_v1 & 3) && !(temp_v1 & 4) &&
+            ((temp_t5 = temp_v1 & 0xFFFC, ((temp_v0 & 0xFFFF) == 0)) ||
+             (arg1->nested->enabled == 1))) {
+            arg0->motion = temp_t5;
+            arg0->motion = temp_t5 | 2;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15117D3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117D3C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117DA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15117F3C.s")

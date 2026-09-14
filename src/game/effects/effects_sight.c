@@ -29,12 +29,10 @@
  * - func_151CAB78
  * - func_151CAD28
  * - func_151CB110
- * - func_151CB49C
  * - func_151CB510
  * - func_151CB5FC
  * - func_151CB918
  * - func_151CB970
- * - func_151CBB6C
  * - func_151CBBE0
  * - func_151CBC60
  * - func_151CC1D4
@@ -43,7 +41,6 @@
  * - func_151CC77C
  * - func_151CC840
  * - func_151CCD1C
- * - func_151CCE94
  * - func_151CCF08
  * - func_151CD224
  *
@@ -148,6 +145,41 @@ void func_151C970C(s32 arg0, void *arg1) {
     func_151403A8(&sp.sp18, 0x3A, arg1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9740.s")
+
+typedef struct EffectsSightVec3f {
+    f32 x;
+    f32 y;
+    f32 z;
+} EffectsSightVec3f;
+
+typedef struct EffectsSightTransform {
+    u8 bytes[0x24];
+} EffectsSightTransform;
+
+typedef struct EffectsSightActor {
+    u8 pad0[0x14];
+    f32 x;
+    u8 pad18[4];
+    f32 z;
+    u8 pad20[0x160];
+    f32 y;
+} EffectsSightActor;
+
+void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
+void func_151ABE40(EffectsSightVec3f *, EffectsSightTransform *, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9AC0 CURRENT (100) */
+void func_151C9AC0(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
+    EffectsSightVec3f position;
+    EffectsSightTransform transform;
+
+    position.x = arg0->x;
+    position.y = arg0->y + 2.0f;
+    position.z = arg0->z;
+    func_1504715C(&transform, arg0);
+    func_151ABE40(&position, &transform, 2, arg1, arg2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9AC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9AC0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9B30 CURRENT (100) */
 s32 func_151C9B30(void *arg0) {
@@ -189,6 +221,24 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9BA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9DE8.s")
+void func_15160274(void *, u8);
+void func_1515572C();
+void func_151A561C(void *, u8);
+void func_151494E0(void *, u8);
+extern s8 D_8008CD00;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 CURRENT (1434) */
+void func_151C9ED4(void *arg0) {
+    void *sp24;
+
+    sp24 = arg0;
+    func_15160274(&sp24, 0x21);
+    func_1515572C(&sp24, 0x21);
+    func_151A561C(&sp24, 0x21);
+    func_151494E0(&sp24, 0x21);
+    D_8008CD00 = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9ED4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9ED4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
@@ -196,7 +246,35 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAD28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB110.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB49C.s")
+typedef struct SightActor {
+    u8 pad0[0x318];
+    void *field_318;
+} SightActor;
+
+typedef struct SightEffect {
+    u8 pad0[0x18];
+    SightActor *owner;
+} SightEffect;
+
+typedef struct SightMessage {
+    SightActor *actor;
+} SightMessage;
+
+void func_1516972C(void *);
+
+void func_151CB49C(SightEffect *arg0, SightMessage *arg1, u8 arg2) {
+    if (arg2 == 0x21) {
+        if (arg1->actor == arg0->owner) {
+            func_1516972C(arg0);
+        }
+    } else if (arg2 == 0) {
+        SightActor *actor = arg1->actor;
+
+        if (actor->field_318 == arg0->owner) {
+            func_1516972C(arg0);
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB510.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB5FC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB918 CURRENT (215) */
@@ -260,7 +338,46 @@ s32 func_151CB970(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CB970 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB970.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBB6C.s")
+typedef struct SightEffect20 {
+    u8 pad0[0x20];
+    SightActor *owner;
+} SightEffect20;
+
+void func_151CBB6C(SightEffect20 *arg0, SightMessage *arg1, u8 arg2) {
+    if (arg2 == 0x21) {
+        if (arg1->actor == arg0->owner) {
+            func_1516972C(arg0);
+        }
+    } else if (arg2 == 0) {
+        SightActor *actor = arg1->actor;
+
+        if (actor->field_318 == arg0->owner) {
+            func_1516972C(arg0);
+        }
+    }
+}
+void func_1514373C(f32, f32, f32 *, f32 *);
+extern f32 D_800AAEB8;
+
+f32 func_151CC1D4(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 CURRENT (340) */
+s32 func_151CBBE0(u8 *arg0) {
+    f32 temp_fv0;
+    u8 *temp_v0;
+
+    temp_fv0 = func_151CC1D4();
+    temp_v0 = arg0 + 0x70;
+    if (temp_fv0 != *(f32 *)(arg0 + 0x98)) {
+        *(f32 *)(temp_v0 + 0x28) = temp_fv0;
+        func_1514373C(*(f32 *)(temp_v0 + 0x24) +
+                          ((temp_fv0 - *(f32 *)(temp_v0 + 0x18)) *
+                           *(f32 *)(temp_v0 + 0x20) * D_800AAEB8),
+                      55.0f, (f32 *)(arg0 + 0x10), (f32 *)(arg0 + 0x14));
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBBE0.s")
 extern f32 D_800AAEBC;
 
@@ -318,7 +435,27 @@ void func_151CC290(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC77C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC840.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCD1C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCE94.s")
+typedef struct SightSpawnOwner {
+    u8 pad0[0x23D];
+    u8 type;
+} SightSpawnOwner;
+
+extern u8 D_800BE616;
+s32 func_151A4FD0(s32, s32, s32, s32, s32, s32, s32, s32);
+void func_10022EC0(void *, void *, s32);
+
+void func_151CCE94(SightSpawnOwner *arg0) {
+    s32 object;
+    SightSpawnOwner *owner;
+
+    if (D_800BE616 != 0) {
+        owner = arg0;
+        object = func_151A4FD0(0, 0, 0, 0xFF, 0, arg0->type, 1, 4);
+        if (object != 0) {
+            func_10022EC0((void *)(object + 0x20), &owner, sizeof(owner));
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCF08.s")
 f32 func_151CC1D4();                                /* extern */
 

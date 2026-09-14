@@ -5,14 +5,12 @@
  * Boundary evidence: docs/evidence/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15063390
  * - func_15063404
  * - func_150634E4
  * - func_15063570
  * - func_15063628
  * - func_150636A4
  * - func_150636F0
- * - func_150639BC
  * - func_15063A38
  * - func_15063B64
  * - func_15063C60
@@ -20,7 +18,6 @@
  * - func_15063FA0
  * - func_150641D8
  * - func_150642AC
- * - func_150649A0
  * - func_15064A14
  * - func_15064B94
  * - func_15065A5C
@@ -28,14 +25,100 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063390.s")
+typedef struct Game90840Inner {
+    u8 pad0[0x12];
+    s16 field_12;
+    u8 pad14[0x11C];
+    f32 field_130;
+    f32 field_134;
+    f32 field_138;
+    s32 field_13C;
+    s32 field_140;
+    s32 field_144;
+} Game90840Inner;
+
+typedef struct Game90840Actor {
+    u8 pad0[0x14];
+    f32 x;
+    u8 pad18[4];
+    f32 z;
+    u8 pad20[0x5A];
+    u16 field_7A;
+    u8 pad7C[0x1A6];
+    u8 field_222;
+    u8 pad223[0xAD];
+    struct Game90840Value *field_2D0;
+    u8 pad2D4[0x48];
+    Game90840Inner *field_31C;
+    u8 pad320[0xC];
+} Game90840Actor;
+
+typedef struct Game90840Value {
+    u8 pad0[8];
+    f32 field_8;
+    u8 padC[0xC];
+    f32 field_18;
+} Game90840Value;
+
+s32 func_1505A630(f32, f32, s32);
+extern Game90840Actor D_800CC2D0[];
+
+s16 func_15063390(Game90840Actor *arg0) {
+    Game90840Actor *other = &D_800CC2D0[arg0->field_222];
+
+    return func_1505A630(other->x - arg0->x, arg0->z - other->z, 0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063404.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150634E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063570.s")
+void func_15081690(f32, s32, s32, s32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
+void func_150636A4(Game90840Actor *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063628 CURRENT (481) */
+void func_15063628(Game90840Actor *arg0, f32 arg1) {
+    Game90840Inner *inner;
+
+    inner = arg0->field_31C;
+    func_15081690(arg1, inner->field_13C, inner->field_140, inner->field_144,
+                  inner->field_130, inner->field_134, inner->field_138,
+                  (u8 *)inner + 0xB0, arg1, 0, 0, 0, -1, 0, 0);
+    func_150636A4(arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15063628 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063628.s")
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150636A4 CURRENT (85) */
+void func_150636A4(void *arg0) {
+    void *temp_a1;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x31C);
+    temp_v0 = *(void **)((u8 *)temp_v0 + 0xB0);
+    if (temp_v0 != 0) {
+        temp_a1 = *(void **)((u8 *)temp_v0 + 0x31C);
+        if (temp_a1 != 0) {
+            *(s8 *)((u8 *)temp_a1 + 0x195) = 0x1E;
+            *(s8 *)((u8 *)*(void **)((u8 *)temp_v0 + 0x31C) + 0x196) =
+                (s8)(((s32)arg0 - (s32)&D_800CC2D0) / 0x32C);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150636A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150636A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150636F0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150639BC.s")
+extern s16 D_800CC2B2;
+
+s16 func_150639BC(Game90840Actor *arg0) {
+    D_800CC2B2 = (arg0->field_7A - arg0->field_31C->field_12) - func_15063390(arg0);
+    if (D_800CC2B2 >= 0x3E81) {
+        D_800CC2B2 = 0x3E80;
+    }
+    if (D_800CC2B2 < -0x3E80) {
+        D_800CC2B2 = -0x3E80;
+    }
+    return D_800CC2B2;
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063A38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063B64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063C60.s")
@@ -43,7 +126,20 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063FA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150641D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150642AC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150649A0.s")
+
+void func_150649A0(u32 arg0, u32 arg1) {
+    Game90840Value *first = D_800CC2D0[arg1].field_2D0;
+    Game90840Value *second = D_800CC2D0[arg0].field_2D0;
+
+    if ((first != 0) && (second != 0)) {
+        f32 limit = first->field_18;
+
+        first->field_8 = second->field_8;
+        if (limit <= first->field_8) {
+            first->field_8 = limit - 1.0f;
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15064A14.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15064B94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15065A5C.s")

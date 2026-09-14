@@ -14,7 +14,6 @@
  * - func_15007360
  * - func_15007440
  * - func_15007558
- * - func_150076BC
  * - func_15007718
  * - func_15007750
  * - func_15007778
@@ -53,9 +52,18 @@ void func_150076A0(void) {
     D_80082BB4 = 5;
     D_800BE3EC = 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_150076BC.s")
+void func_150064E0(void);
 extern u8 D_800BE616;
 
+void func_150076BC(s32 arg0) {
+    if (arg0 < 0) {
+        func_150064E0();
+    }
+    if ((arg0 >= 0) && (arg0 < 4) && (D_800BE616 == 0)) {
+        D_80082BB4 = 1;
+        D_800BE3EC = arg0;
+    }
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15007718 CURRENT (330) */
 void func_15007718(s8 arg0) {
     if ((arg0 >= 0) && (arg0 < 3) && (D_800BE616 == 0)) {

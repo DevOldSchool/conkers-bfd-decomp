@@ -186,6 +186,7 @@ def score_candidate(
     source_content: str,
     directory: Path,
     reference: Path,
+    expected_size: int,
 ) -> int:
     candidate_source = directory / "candidate.c"
     candidate_object = directory / "candidate.o"
@@ -200,7 +201,13 @@ def score_candidate(
         stderr=subprocess.DEVNULL,
     )
     result = subprocess.run(
-        diff.asm_diff_command(candidate_object, reference, symbol, require_match=True),
+        diff.asm_diff_command(
+            candidate_object,
+            reference,
+            symbol,
+            expected_size,
+            require_match=True,
+        ),
         cwd=directory,
         check=True,
         capture_output=True,
@@ -239,6 +246,7 @@ def main() -> int:
             game_reference=entry.get("overlay", "main") == "game",
             assembly=reference_assembly,
         )
+        expected_size = diff.expected_function_size(args.profile, symbol)
         directory = ROOT / "build" / args.profile / "permute" / args.identifier
         directory.mkdir(parents=True, exist_ok=True)
         best_path = directory / "best.c"
@@ -265,7 +273,12 @@ def main() -> int:
             )
             try:
                 score = score_candidate(
-                    args.profile, symbol, candidate_content, directory, reference
+                    args.profile,
+                    symbol,
+                    candidate_content,
+                    directory,
+                    reference,
+                    expected_size,
                 )
             except subprocess.CalledProcessError:
                 skipped += 1

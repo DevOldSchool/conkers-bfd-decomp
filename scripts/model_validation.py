@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 from scripts import model_assets as models, texture_assets as textures
 from scripts.model_preview_evidence import preview_fingerprint
+from scripts.model_evidence_cache import ContentSnapshot, source_identity
 from scripts.mupen_trace import TraceError
 from scripts.validate_model_previews_blender import collect_preview_records, collect_composition_records
 
@@ -65,10 +66,7 @@ def checked(callable_):
 
 
 def code_identity() -> dict:
-    # Parser helpers can affect data checks. Broad source identity avoids stale
-    # successes when a shared dependency changes without changing an artifact.
-    return {str(path.relative_to(ROOT)): digest(path)
-            for path in sorted((ROOT / 'scripts').glob('*.py'))}
+    return source_identity(ROOT, ['scripts/model_validation.py'], digest)
 
 
 def accessor(document: dict, index: int, buffers: list[bytes]) -> list[tuple]:
@@ -133,13 +131,16 @@ def verified_detail_preview_geometry(geometry, run_records: list[dict], flat: di
 
 def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morph_record: dict | None = None,
                      draw_pass: dict | None = None, *, flat_payloads: dict | None = None,
-                     runtime_materials: dict | None = None, preview_root: Path | None = None) -> dict:
+                     runtime_materials: dict | None = None, preview_root: Path | None = None,
+                     attachment_update: dict | None = None) -> dict:
     """Compare emitted corner order/positions/UVs/joints with decoded source data.
 
     This is exporter consistency, not an independent proof of the ROM decoder.
     It reads the actual glTF buffers, never a second call to encode_gltf.
     """
     document = read(path)
+    if document.get('extras', {}).get('romAttachmentUpdate') != attachment_update:
+        raise ValueError('exported attachment texture/UV update differs from ROM')
     if flat_payloads is not None:
         geometry = verified_detail_preview_geometry(geometry, run_records, flat_payloads,
                                                    runtime_materials or {}, preview_root or path.parent)
@@ -156,6 +157,8 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morp
             raise ValueError('exported ROM texture-state evidence differs from source')
         if isinstance(index, int) and extras.get('romObjectTextureAnimation') != run_records[index].get('rom_object_texture_animation'):
             raise ValueError('exported ROM texture-animation evidence differs from source')
+        if isinstance(index, int) and extras.get('romObjectTextureBinding') != run_records[index].get('rom_object_texture_binding'):
+            raise ValueError('glTF ROM object texture binding differs from manifest')
         if isinstance(index, int) and extras.get('romSceneTextureState') != run_records[index].get('rom_scene_texture_state'):
             raise ValueError('exported ROM scene texture evidence differs from source')
         if isinstance(index, int):
@@ -272,6 +275,38 @@ def compare_images(reference: Path, current: Path, difference: Path) -> dict:
         difference.write_bytes(textures.encode_rgba_png(width, height, pixels))
         result['difference_image'] = str(difference)
     return result
+
+
+def image_comparison_identity() -> dict:
+    # Model constructor/export edits do not change PNG comparison semantics.
+    return {'functions': {f.__name__: inspect.getsource(f) for f in
+                          (compare_images, rgba, digest)},
+            'dependencies': source_identity(ROOT, ['scripts/texture_assets.py'], digest)}
+
+
+def cached_image_comparison(reference, current, difference, cache_root, snapshot, code):
+    inputs = {'reference': snapshot.digest(reference), 'current': snapshot.digest(current),
+              'difference': str(difference)}
+    key = identity({'code': code, 'inputs': inputs})
+    destination = cache_root / 'image-comparisons' / (key + '.json')
+    result = cached(destination, key)
+    if result and result.get('difference_image'):
+        image = Path(result['difference_image'])
+        if (image != difference or not image.is_file()
+                or digest(image) != read(destination).get('difference_sha256')):
+            result = None
+    if result is not None:
+        return {**result, 'cached': True}
+    result = checked(lambda: compare_images(reference, current, difference))
+    for field in ('reference', 'current'):
+        if result.get(field + '_sha256', inputs[field]) != inputs[field]:
+            return {'status': 'failed', 'reason': 'image-changed-during-comparison', 'cached': False}
+    record = {'key': key, 'result': result}
+    if result.get('difference_image'):
+        # The comparison may just have regenerated a missing/corrupt artifact.
+        record['difference_sha256'] = digest(difference)
+    write(destination, record)
+    return {**result, 'cached': False}
 
 
 def capture_comparisons(path: Path, inventory: dict, flat: dict, catalog: dict) -> dict:
@@ -424,12 +459,17 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
             if not segment.data:
                 continue
             geometry = models.parse_segment_geometry(segment, bank)
-            geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
             key = (bank, bundle.index, segment.index)
+            material_records = {i: runtime[(*key, i)] for i in range(len(geometry.material_runs)) if (*key, i) in runtime}
+            geometry, attachment_update = models.apply_rom_attachment_preview_update(
+                segment.data, geometry, contexts.get(key), material_records)
+            if records[key[1:]].get('rom_attachment_update') != attachment_update:
+                raise ValueError('attachment texture/UV manifest update differs from ROM')
+            geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
             for index, run in enumerate(geometry.material_runs):
                 record = records[key[1:]]['material_runs'][index]
                 if (*key, index) in runtime:
-                    if record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state'):
+                    if record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state') or record.get('rom_object_texture_binding'):
                         raise ValueError('captured material was replaced with ROM object consensus')
                     continue
                 texture, status = models.choose_preview_texture(run, catalog, flat)
@@ -449,6 +489,20 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
                             or not record.get('texture')
                             or models._validated_preview_source(path.parent, record['texture']['file']).read_bytes() != texture.png_data):
                         raise ValueError(f'ROM object texture animation differs for {key}:{index}')
+                    linked += 1
+                    faces += run.face_count
+                binding_evidence = None
+                if texture is None and status == 'runtime-segment':
+                    texture, binding_status, binding_evidence = models.rom_object_binding_preview_texture(
+                        run, catalog, flat, tables, contexts.get(key))
+                    if texture is not None:
+                        status = binding_status
+                if binding_evidence is not None or record.get('rom_object_texture_binding'):
+                    if (texture is None or binding_evidence is None or record['status'] != status
+                            or record.get('rom_object_texture_binding') != binding_evidence
+                            or not record.get('texture')
+                            or models._validated_preview_source(path.parent, record['texture']['file']).read_bytes() != texture.png_data):
+                        raise ValueError(f'ROM object texture binding differs for {key}:{index}')
                     linked += 1
                     faces += run.face_count
                 scene_evidence = None
@@ -548,6 +602,9 @@ def compare_rom_defaults(path: Path, captures: list[dict], flat: dict, catalog: 
 
 def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = None,
                    skip_blender: bool = False, skip_renders: bool = False) -> dict:
+    before = ContentSnapshot()
+    digest = before.digest
+    preview_fingerprint = before.fingerprint
     config = read(config_path)
     if not isinstance(config, dict) or config.get('schema_version') != 1:
         raise ValueError('unsupported model validation configuration')
@@ -559,7 +616,7 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
     # Report formatting or ROM-comparison changes do not affect Blender's
     # implementation. Include the worker and every helper it executes instead.
     worker_identity = identity({f.__name__: inspect.getsource(f) for f in
-                                (blender_worker, read, write, digest)})
+                                (blender_worker, read, write, globals()['digest'])})
     report = {'schema_version': 1, 'family': 'model-batch-validation',
               'status': 'incomplete', 'summary': {'completed': False},
               'config_sha256': digest(config_path), 'code_sha256': codes,
@@ -666,8 +723,12 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
     source_geometry = {}
     source_primary_geometry = {}
     source_morphs = {}
+    attachment_inputs = {}
     for bank in models.BANK_INDICES:
-        _, _, _, bundles, _ = models.load_model_bundles('us', None, bank)
+        _, _, bank_digest, bundles, _ = models.load_model_bundles('us', None, bank)
+        update_contexts = ({(r['bank'], r['entry'], r['segment']): r
+                           for r in models.load_object_material_context('us', None, bank_digest, bank)['models']
+                           if r.get('geometry_update')} if bank == 9 else {})
         if bank == 1:
             morph_manifest = models.load_character_morph_manifest('us', None, bundles)
             source_morphs = {record['character_entry']: record for record in morph_manifest['models']}
@@ -687,6 +748,9 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                 else:
                     geometry = models.parse_segment_geometry(segment, bank)
                 source_geometry[(bank, bundle.index, segment.index)] = (geometry, joints)
+                if (bank, bundle.index, segment.index) in update_contexts:
+                    attachment_inputs[(bank, bundle.index, segment.index)] = (
+                        segment.data, update_contexts[(bank, bundle.index, segment.index)])
 
     records = []
     for corpus in config['corpora']:
@@ -734,7 +798,7 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                     dependencies[runtime_path] = digest(ROOT / runtime_path)
                 for record in manifest['models']:
                     for run in record['material_runs']:
-                        if run.get('texture') and (run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state')):
+                        if run.get('texture') and (run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state') or run.get('rom_object_texture_binding')):
                             image = models._validated_preview_source(directory, run['texture']['file'])
                             dependencies[str(image)] = digest(image)
                 report['checks'][f'rom-objects:{corpus["name"]}:{bank:02x}'] = stage(
@@ -748,28 +812,37 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                     geometry, draw_pass = source_primary_geometry[key]
                     if record.get('character_draw_pass') != draw_pass:
                         raise ValueError('preview character draw-pass selection differs from ROM')
-                geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
                 material_records = {index: runtime[(*key, index)] for index in range(len(geometry.material_runs))
                                     if (*key, index) in runtime}
+                attachment_update = None
+                if key in attachment_inputs:
+                    data, context = attachment_inputs[key]
+                    geometry, attachment_update = models.apply_rom_attachment_preview_update(
+                        data, geometry, context, material_records)
+                if record.get('rom_attachment_update') != attachment_update:
+                    raise ValueError('preview attachment texture/UV update differs from ROM')
+                geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
                 path = directory / (record.get('bind_gltf_file') or record['gltf_file'])
                 model_key = f'{bank:02x}:{key[1]:04d}:{key[2]:02d}'
                 inputs = {'rom': rom_key, 'fingerprint': preview_fingerprint(path),
                           'manifest': manifest_digest, 'model': model_key}
                 morph = source_morphs.get(key[1]) if bank == 1 and manifest.get('rom_character_defaults') is not None else None
-                comparison = stage('geometry', inputs, lambda p=path, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records:
+                comparison = stage('geometry', inputs, lambda p=path, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records, au=attachment_update:
                                    compare_geometry(p, g, j, r['material_runs'], m, d,
-                                                    flat_payloads=flat, runtime_materials=rm, preview_root=directory))
-                if morph or draw_pass or any(run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state') for run in record['material_runs']):
+                                                    flat_payloads=flat, runtime_materials=rm, preview_root=directory,
+                                                    attachment_update=au))
+                if morph or draw_pass or any(run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state') or run.get('rom_object_texture_binding') for run in record['material_runs']):
                     animated = directory / record['gltf_file']
                     report['checks'][f'animated-geometry:{corpus["name"]}:{model_key}'] = stage(
                         'geometry', {**inputs, 'fingerprint': preview_fingerprint(animated)},
-                        lambda p=animated, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records:
+                        lambda p=animated, g=geometry, j=joints, r=record, m=morph, d=draw_pass, rm=material_records, au=attachment_update:
                             compare_geometry(p, g, j, r['material_runs'], m, d,
-                                             flat_payloads=flat, runtime_materials=rm, preview_root=directory))
+                                             flat_payloads=flat, runtime_materials=rm, preview_root=directory,
+                                             attachment_update=au))
                 report['models'].append({'key': model_key, 'corpus': corpus['name'],
                     'checks': {'export_geometry': comparison,
                                'native_visual_parity': {'status': 'incomplete', 'reason': 'no-complete-aligned-runtime-reference'}}})
-            if digest(manifest_path) != manifest_digest:
+            if globals()['digest'](manifest_path) != manifest_digest:
                 raise ValueError(f'preview manifest changed during validation: {manifest_path}')
 
     for case in config.get('runtime_draw_cases', []):
@@ -786,6 +859,23 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
             if path not in recorded_paths:
                 records.append({**record, 'path': path, 'corpus': 'submitted-compositions'})
                 recorded_paths.add(path)
+
+    for directory in config.get('scene_assemblies', []):
+        from scripts.model_scene_assemblies import verify_assemblies
+        root = ROOT / directory
+        manifest_path = root / 'manifest.json'
+        manifest = read(manifest_path)
+        before.digest(manifest_path)
+        before.digest(ROOT / manifest['config'])
+        for record in manifest['models']:
+            for component in record['components']:
+                source = ROOT / component['path']
+                before.fingerprint(source)
+                before.digest(source.parent.parent / 'manifest.json')
+            records.append({'path': str((root / record['gltf_file']).resolve()),
+                            'bank': 4, 'kind': 'static-scene-assembly', 'corpus': 'scene-assemblies'})
+        report['checks']['scene-assemblies:' + directory] = checked(
+            lambda root=root: verify_assemblies(root, fresh_rom=True))
 
     node = shutil.which('node')
     package = ROOT / 'build/tools/model-validation/node_modules/gltf-validator'
@@ -863,9 +953,10 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
         print(f'Blender: {len(pending_blender)} changed/unvalidated files, {len(pending_renders)} changed renders', flush=True)
         report['blender_process_exit'] = run_logged([str(blender), '--background', '--factory-startup',
             '--python', str(Path(__file__)), '--', '--worker', str(request)], logs / 'blender.log')
+    after = ContentSnapshot()
     for row in report['files']:
         if row.get('input_fingerprint'):
-            current = checked(lambda row=row: {'value': preview_fingerprint(Path(row['path']))})
+            current = checked(lambda row=row: {'value': after.fingerprint(Path(row['path']))})
             if current['status'] == 'failed' or current['value'] != row['input_fingerprint']:
                 row['checks']['dependencies'] = {'status': 'failed', 'error': 'preview changed during batch validation'}
         for name in ('gltf', 'blender'):
@@ -877,6 +968,7 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
         if row['status'] == 'failed':
             report['review_queue'].append({'kind': 'validation-failure', 'path': row['path'],
                                             'checks': row['checks']})
+    comparison_code = image_comparison_identity()
     for row in report['renders']:
         source = row.get('cache')
         if source:
@@ -888,8 +980,9 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
             else:
                 row['image'] = result['image']
                 reference = Path(row['reference'])
-                row['check'] = (checked(lambda r=row: compare_images(Path(r['reference']), Path(r['image']),
-                                output / 'differences' / (r['id'] + '.png'))) if reference.is_file() else
+                row['check'] = (checked(lambda r=row: cached_image_comparison(
+                                Path(r['reference']), Path(r['image']), output / 'differences' / (r['id'] + '.png'),
+                                cache_root, before, comparison_code)) if reference.is_file() else
                                 {'status': 'incomplete', 'reason': 'no-regression-reference'})
         if (row['check']['status'] == 'failed' or row['check'].get('reason') in
                 ('changed-image-needs-review', 'no-regression-reference')):
@@ -934,13 +1027,18 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                                                str(row.get('key', row.get('path', row.get('id', ''))))))
     report['summary']['fresh_blender_imports'] = len(pending_blender)
     report['summary']['fresh_renders'] = len(pending_renders)
+    report['summary']['fresh_image_comparisons'] = sum(r['check'].get('cached') is False for r in report['renders'])
     report['summary']['fresh_gltf_checks'] = len(pending_gltf)
     report['summary']['runtime_draw_cases'] = dict(Counter(
         row['status'] for key, row in report['checks'].items() if key.startswith('runtime-draw:')))
     report['summary']['submitted_composition_cases'] = dict(Counter(
         row['status'] for key, row in report['checks'].items() if key.startswith('submitted-composition:')))
-    if code_identity() != codes or digest(config_path) != report['config_sha256'] or digest(rom_path) != rom_key:
-        report['checks']['input-stability'] = {'status': 'failed', 'error': 'code, configuration or ROM changed during validation'}
+    changed = before.verify(after)
+    if code_identity() != codes or changed:
+        report['checks']['input-stability'] = {'status': 'failed',
+            'error': 'validation inputs changed during validation', 'changed_files': changed}
+    report['summary']['content_reads'] = {'before': before.read_count, 'after': after.read_count,
+        'bytes_before': before.bytes_read, 'bytes_after': after.bytes_read}
     for name, result in report['checks'].items():
         if result['status'] == 'failed':
             report['review_queue'].append({'kind': 'evidence-disagreement', 'key': name,

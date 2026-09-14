@@ -12,7 +12,6 @@
  * - func_15108C38
  * - func_15108D24
  * - func_15108E10
- * - func_15108FFC
  * - func_15109064
  * - func_151090DC
  * - func_15109120
@@ -125,7 +124,30 @@ s32 func_15108C38(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108D24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108E10.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108FFC.s")
+typedef struct Game135D00DispatchDescriptor {
+    s32 field0;
+    s32 field4;
+} Game135D00DispatchDescriptor;
+
+typedef struct Game135D00DispatchMessage {
+    s32 arg0;
+    s32 arg1;
+    u8 arg2;
+} Game135D00DispatchMessage;
+
+extern Game135D00DispatchDescriptor D_80088C50;
+void func_15169260(Game135D00DispatchDescriptor *, s32, Game135D00DispatchMessage *, s32);
+
+void func_15108FFC(s32 arg0, s32 arg1, u8 arg2) {
+    Game135D00DispatchMessage message;
+    Game135D00DispatchDescriptor descriptor;
+
+    descriptor = D_80088C50;
+    message.arg0 = arg0;
+    message.arg1 = arg1;
+    message.arg2 = arg2;
+    func_15169260(&descriptor, 2, &message, 0x1D);
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15109064 CURRENT (455) */
 void func_15109064(u8 *arg0, u8 *arg1, s32 arg2) {
     s32 temp_t6;
@@ -151,7 +173,6 @@ void func_15109064(u8 *arg0, u8 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109064 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109064.s")
 extern s32 D_80088C58[];
-extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, s32 arg3);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151090DC CURRENT (780) */
 void func_151090DC(void) {

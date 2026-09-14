@@ -12,7 +12,6 @@
  * - func_150CFE98
  * - func_150CFF10
  * - func_150D0034
- * - func_150D00C0
  * - func_150D0134
  * - func_150D01A0
  * - func_150D02B4
@@ -94,14 +93,141 @@ s32 func_150CFDB8(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFDB8.s")
+void func_10022EC0(void *, void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (140) */
+void func_150CFE3C(void *arg0) {
+    s32 temp_v0;
+
+    func_10022EC0(*(void **)((u8 *)arg0 + (*(u8 *)((u8 *)arg0 + 0x3D) * 4) + 0x40),
+                   *(void **)((u8 *)arg0 + 0x34), *(u8 *)((u8 *)arg0 + 0x3C), arg0);
+    temp_v0 = (s32)arg0 + 0x28;
+    *(*(u8 **)(temp_v0 + (*(u8 *)(temp_v0 + 0x15) * 4) + 0x18) + *(u8 *)(temp_v0 + 0x14)) = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CFE3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE3C.s")
+typedef struct GameFD1D0TextCursor {
+    u8 field_0;
+    u8 pad1[7];
+    u8 flags;
+    u8 pad9[3];
+    u8 *field_C;
+    u8 *cursor;
+    u8 width;
+    u8 page;
+} GameFD1D0TextCursor;
+
+typedef struct GameFD1D0State {
+    u8 pad0[0x28];
+    GameFD1D0TextCursor text;
+    u8 pad40[0xD];
+    u8 field_4D;
+} GameFD1D0State;
+
+void func_150CFE3C(GameFD1D0State *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE98 CURRENT (10) */
+void func_150CFE98(GameFD1D0State *arg0) {
+    GameFD1D0TextCursor *text;
+
+    text = &arg0->text;
+    if (*text->cursor != 0) {
+        text->field_C = text->cursor + 1;
+        text->width = func_150CFD84((s32)text->field_C, (s32 *)&text->cursor);
+        text->page ^= 1;
+        func_150CFE3C(arg0);
+        text->flags |= 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CFE98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFF10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0034.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D00C0.s")
+
+typedef void (*GameFD1D0Callback)(GameFD1D0State *);
+
+void func_150CFE98(GameFD1D0State *);
+extern GameFD1D0Callback D_800888B0[];
+
+void func_150D00C0(GameFD1D0State *arg0, u8 *arg1, u8 arg2) {
+    GameFD1D0Callback callback;
+
+    if (arg2 == 0x51) {
+        if (*arg1 == arg0->text.field_0) {
+            func_150CFE98(arg0);
+        }
+    } else {
+        callback = D_800888B0[arg0->field_4D];
+        if (callback != 0) {
+            callback(arg0);
+        }
+    }
+}
+
+typedef struct GameFD1D0Object {
+    u8 pad0[0x48];
+    void *field_48;
+} GameFD1D0Object;
+
+typedef struct GameFD1D0ByteSlot {
+    u8 pad0[8];
+    u8 value;
+} GameFD1D0ByteSlot;
+
+typedef struct GameFD1D0SmallByteSlot {
+    u8 pad0[4];
+    u8 value;
+    u8 pad5[4];
+} GameFD1D0SmallByteSlot;
+
+GameFD1D0Object *func_150CFF10(u8, u8 *, s16, s32, s8, u8, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0134 CURRENT (109) */
+void func_150D0134(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+    GameFD1D0ByteSlot slot;
+    GameFD1D0Object *object;
+
+    slot.value = 0;
+    object = func_150CFF10(arg0, arg1, arg2, 8, 0, 0, arg3, arg4);
+    if (object != 0) {
+        func_10022EC0(object->field_48, &slot.value, 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D0134 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0134.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D01A0.s")
+typedef struct {
+    f32 value;
+    s16 field_4;
+    u8 pad6[2];
+} GameFD1D0ValuePacket;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D02B4 CURRENT (100) */
+void func_150D02B4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+    GameFD1D0Object *object;
+    GameFD1D0ValuePacket packet;
+
+    packet.field_4 = 0;
+    packet.value = 0.0f;
+    object = func_150CFF10(arg0, arg1, arg2, 8, 1, 0, arg3, arg4);
+    if (object != 0) {
+        func_10022EC0(object->field_48, &packet, sizeof(packet));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D02B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D02B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D032C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D04C4 CURRENT (100) */
+void func_150D04C4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+    GameFD1D0SmallByteSlot slot;
+    GameFD1D0Object *object;
+
+    slot.value = 0;
+    object = func_150CFF10(arg0, arg1, arg2, 8, 2, 0, arg3, arg4);
+    if (object != 0) {
+        func_10022EC0(object->field_48, &slot.value, 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D04C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D04C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0534.s")

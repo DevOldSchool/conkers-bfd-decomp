@@ -49,6 +49,30 @@
 void func_151AA170(s32 arg0) {
 
 }
+typedef struct {
+    u8 pad_0[0x18];
+    s32 field_18;
+    u8 field_1C;
+} Game1D6E80State;
+
+void func_15147D64(s32 *, s32, void *);
+void func_151494E0(s32 *, s32);
+void func_1519F3B8(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA17C CURRENT (516) */
+void func_151AA17C(Game1D6E80State *arg0) {
+    volatile u8 sp20;
+    s32 sp1C;
+    s32 *volatile sp18;
+
+    sp1C = arg0->field_18;
+    sp18 = &sp1C;
+    sp20 = arg0->field_1C;
+    func_15147D64(&sp1C, 0xA, arg0);
+    func_151494E0(sp18, 0xA);
+    func_1519F3B8(arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AA17C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA17C.s")
 void func_151AA1D0(void) {
     func_1519F400();
@@ -56,6 +80,20 @@ void func_151AA1D0(void) {
 void func_151AA1F0(void) {
     func_1519F400();
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA210 CURRENT (516) */
+void func_151AA210(Game1D6E80State *arg0) {
+    volatile u8 sp20;
+    s32 sp1C;
+    s32 *volatile sp18;
+
+    sp1C = arg0->field_18;
+    sp18 = &sp1C;
+    sp20 = arg0->field_1C;
+    func_15147D64(&sp1C, 0xA, arg0);
+    func_151494E0(sp18, 0xA);
+    func_1519F3B8(arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AA210 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA210.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA264.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA30C.s")

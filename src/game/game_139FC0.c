@@ -19,7 +19,21 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CDB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CE60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D0EC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D374.s")
+extern u8 D_1A37E0;
+extern u8 D_80091D20;
+
+u8 *func_1510D374(s32 arg0) {
+    u8 *var_v1;
+    s32 var_v0;
+
+    var_v1 = &D_1A37E0;
+    var_v0 = 0;
+    while (var_v0 < arg0) {
+        var_v1 += ((u16 *)&D_80091D20)[var_v0];
+        var_v0++;
+    }
+    return var_v1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D404.s")
 extern s8 D_800BC448[];
 

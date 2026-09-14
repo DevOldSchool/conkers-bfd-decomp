@@ -11,5 +11,31 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+extern u8 D_800BE616;
+extern s32 D_800BE9E8;
+s8 func_151E5FAC(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015F40 CURRENT (200) */
+void func_15015F40(s16 arg0, s32 arg1) {
+    switch (arg1) {
+        case 0x1A:
+        case 0x24:
+        case 0x2B:
+        case 0x2D:
+        case 0x30:
+        case 0x33:
+        case 0x34:
+        case 0x3F:
+            D_800BE616 = 1;
+            D_800BE9E8 = func_151E5FAC() - 1;
+            break;
+        default:
+            D_800BE616 = 0;
+            D_800BE9E8 = arg0 - 1;
+            break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15015F40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_433F0/func_15015F40.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_433F0/func_15015FBC.s")

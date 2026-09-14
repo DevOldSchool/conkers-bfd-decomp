@@ -1,12 +1,17 @@
 # Bank-09 object texture state
 
-Nineteen ROM meshes recover twenty material runs on 187 faces.
+Forty ROM meshes recover 73 material runs on 1,003 faces.
 These are small objects, effect pieces and fragments, including a hanging bell.
 This improves their textures; the decoded model inventory remains 1,487.
 
 The evidence comes from normalized US ROM SHA-1
 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, using the decompressed executable
 and its data region. Capture files and emulator save states are not inputs.
+
+The separate [callback texture-binding proof](us_object_callback_texture_bindings.md)
+admits four additional models through callbacks whose checked payloads preserve
+segment 8. Its counts and bindings are separate from the ordinary-object cohort
+described here.
 
 ## Consumer and constructor evidence
 
@@ -27,10 +32,14 @@ ROM render-state consensus decoder. A bank-wide default is unsafe:
   binding. The callbacks use `func_15133EEC`, whose destination segment comes
   from an object field. The lookup table alone cannot rule out replacement
   of segment 8. The exporter therefore admits only the reviewed constructor
-  paths below, whose initial flags leave bit 16 clear.
+  paths below, whose initial flags leave bit 16 clear or whose signed callback
+  index is the renderer's disabled sentinel `-1`.
 
-`scripts/model_bank09_materials.py` pins 28 complete function spans, the
-233-entry lookup table, two selector arrays and the relevant render-dispatch fields. It decodes
+`scripts/model_bank09_materials.py` pins 45 complete function spans, the
+233-entry lookup table, six selector arrays, two selection-mask tables, a
+20-record descriptor table, two type-dispatch jump tables, type-selected
+fragment pointer/count/selector arrays and the relevant
+render-dispatch fields. It decodes
 and checks each recorded literal and stack store, then maps the selector
 through ROM data. The whole-function pins cover the reviewed intervening
 control/data flow; the small literal/store check is not a general MIPS
@@ -52,6 +61,15 @@ interpreter. Changed pins or unsupported instructions fail closed.
 | `151B8DB0` | 34 | 210 | `0x0900` or `0x0D00` |
 | `151BB61C` through `15151D6C` | 4, 4, 7, 8, 24, 25, 29, 30, 32 | 194, 194, 198, 197, 201, 202, 205, 206, 208 | `0x29E8` |
 | `151BBA9C` through `15152190` | 45, 46, 42 | 220, 221, 217 | `0x29E8` or `0x1029E8` |
+| `1513A6E0`, set mask bits | 122–125 | 388–391 | `0x101900` |
+| `1513A6E0`, clear mask bits | 118–121 | 384–387 | `0x1039E9` |
+| `1513B0F8`, set mask bits | 227, 229 | 248, 250 | `0x101900` |
+| `1513B0F8`, clear mask bits | 228, 230 | 249, 251 | `0x1039E9` |
+| `15138424` through `15138BC0` | 20 descriptor records | 12 distinct entries | `0x39E9` |
+
+The [constructor-table evidence](us_model_constructor_tables.md) details the
+descriptor dispatch, two-entry loops, shared intensity decoding and automated
+cohort diagnosis.
 
 For example, `0x150BB660` loads selector 31, `0x150BB678` stores it at
 `sp+0x82`, and `0x150BB6C4` passes `sp+0x2C` as the template. The difference
@@ -91,20 +109,61 @@ Constructor evidence describes an initial draw path. It does not
 establish visibility, later flag mutations, world placement or a captured frame.
 The array evidence likewise covers initial ROM values, not later mutations.
 
+## Complementary fragment loops
+
+`1513A6E0` iterates two four-word ROM arrays. Both loops use indices 0–3
+and the bit `1 << index`; a shared mask is selected with `RNG % 6` from
+`0x800A4278`, whose bytes are `04 0C 06 07 0D 00` (SHA-1
+`e9a9be10f39f99e9842f3e0f6b20e38dd69b50d8`). This describes conditional
+submissions, not eight simultaneous fragments or a reconstructed effect.
+
+| Array | SHA-1 | Submission | Template | Selector store | Mask condition |
+| --- | --- | --- | --- | --- | --- |
+| `800A4280` | `2500c94c8e5b569e4ec666db87d4e8eded11a013` | `1513A89C` → `15132A4C` | `sp+144` | `1513A8A0` → `sp+19A` | Bit set |
+| `800A4290` | `d7494ec63fa885c74203a90d19fc5959d480d5af` | `1513AB48` → `1513264C` | `sp+A4` | `1513AA70` → `sp+FA` | Bit clear |
+
+The flags are decoded as full 32-bit `LUI/ORI/SW` expressions, preserving
+bit 20 and rejecting callback bit 16. The first is established at
+`1513A780/1513A784/1513A7EC`; the second at
+`1513A974/1513A984/1513AA34`. The complete 1,240-byte caller is pinned to
+`9d9cb54a938ddfbf76f6fbcb1c00fa5697256a8b`. Additional guards check array
+addresses, word indexing, mask polarity, loads, selector stores, template
+arguments, loop bounds and submission calls.
+
+The second loop also requires actor `+1D4` to be nonnull and the low four
+bits of actor `+74` to differ from 15. Between its selector store and submission,
+`15143134` writes only the position vector at `sp+CC..D7`, and `15143794`
+writes the direction vector at `sp+D8..E3`. Their bounded output helpers
+`150A7960` and `15142314` are pinned too; these outputs cannot overlap flags
+at `sp+F4` or selector at `sp+FA`. The pinned RNG and trigonometric helpers
+receive no pointer to those fields. Subsequent motion/lifetime stores remain
+outside the selector and flags. The first loop's one-byte post-allocation copy
+writes to the returned object's `+170`, not to the shared template.
+
+All eight initial ROM selectors produce a reviewed context. Their 18 missing
+CI4 runs cover 334 faces and three unique 64 × 32 images. Independent pixel
+checks cover all 6,144 texels, including odd-row word swapping and the trailing
+RGBA5551 palettes. All eight geometry exports pass buffer/material validation;
+60 ROM mutations and eight forged glTF contexts are rejected. Each separately
+stored surface variant has a reviewed preview and a regression baseline.
+Artifacts and the ROM-only file-open audit are under
+`build/assets/models/reference/ci4-array-bindings-20260912/`.
+
 ## Texture and export gates
 
 The existing decoder tries all eleven verified ROM segment-8 table variants
 and requires identical texture bytes and interpretation under every variant.
-Only missing texture lookups on the 27 models with reviewed contexts are eligible; explicit
+Only missing texture lookups on the 114 models with reviewed ordinary-object
+contexts are eligible; explicit
 OtherMode, partial state, captured materials and unreviewed models retain their
 existing handling. Consensus selects texture bytes only. It does not choose
-blending, lighting or an effective render pass. Nineteen contexts recover
-previously missing texture links; the other eight already had complete texture
-links or deliberately untextured runs. Entry 194 recovers RGBA32. Entry 345
+blending, lighting or an effective render pass. Forty contexts recover
+missing texture links; other contexts either already have complete texture
+links, contain deliberately untextured runs, or remain blocked by payload checks. Entry 194 recovers RGBA32. Entry 345
 retains five deliberately untextured faces.
 
-The guarded context resolves 20 material runs on 187 faces across
-19 models. Geometry, source palette bytes and explicit untextured runs remain
+The guarded context resolves 73 material runs on 1,003 faces across
+40 models. Geometry, source palette bytes and explicit untextured runs remain
 unchanged.
 
 The preview manifest records the constructors, decoded selector/flag fields,

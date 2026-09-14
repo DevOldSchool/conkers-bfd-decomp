@@ -11,7 +11,7 @@ import sys
 from pathlib import Path
 
 import compile_c
-from m2c import locate_function
+from m2c import extract_function, locate_function, registered_symbols
 import project_state
 
 
@@ -56,6 +56,57 @@ def find_work_item_by_id(identifier: str, profile: str) -> tuple[Path, str, bool
             raise ValueError(f"{identifier} is not registered for the {profile} profile")
         return ROOT / function["source"], region["symbol"], function.get("overlay", "main") == "game"
     raise ValueError(f"unknown work-item ID: {identifier}")
+
+
+def expected_function_size(profile: str, symbol: str) -> int:
+    """Return the non-overlapping registered byte span for one regional symbol."""
+
+    inventory = json.loads((ROOT / "progress" / "functions.json").read_text(encoding="utf-8"))
+    matches = [
+        (function, region)
+        for function in inventory["functions"]
+        if (region := function["regions"].get(profile)) is not None
+        and region["symbol"] == symbol
+    ]
+    if not matches:
+        raise ValueError(f"{symbol} is not registered for the {profile} profile")
+    if len(matches) != 1:
+        raise ValueError(f"{symbol} resolves to multiple {profile} work items")
+
+    function, region = matches[0]
+    recorded_size = region.get("size_bytes")
+    if recorded_size is None:
+        source_units_path = ROOT / "progress" / "source_units.json"
+        if not source_units_path.is_file():
+            raise ValueError(
+                f"{symbol} lacks size_bytes and has no reviewed source-unit span"
+            )
+        source_units_data = json.loads(source_units_path.read_text(encoding="utf-8"))
+        sizes = project_state.active_function_sizes(
+            inventory["functions"], source_units_data.get("source_units", []), profile
+        )
+        size = sizes.get(function["symbol"])
+        if size is None:
+            raise ValueError(
+                f"{symbol} lacks size_bytes and has no reviewed source-unit span"
+            )
+    else:
+        size = int(recorded_size)
+    start = int(region["vram"], 16)
+    overlay = function.get("overlay", "main")
+    following = [
+        int(other_region["vram"], 16)
+        for other in inventory["functions"]
+        if other is not function
+        and other.get("overlay", "main") == overlay
+        and (other_region := other["regions"].get(profile)) is not None
+        and int(other_region["vram"], 16) > start
+    ]
+    if following:
+        size = min(size, min(following) - start)
+    if size <= 0 or size % 4:
+        raise ValueError(f"{symbol} has an invalid {size}-byte instruction span")
+    return size
 
 
 def work_item_is_deferred(identifier: str) -> bool:
@@ -169,7 +220,10 @@ def reference_object(
             reference=not game_reference,
             game_reference=game_reference,
         )
-    relative = assembly.relative_to(ROOT / "reference").with_suffix(".s")
+    try:
+        relative = assembly.relative_to(ROOT / "reference").with_suffix(".s")
+    except ValueError:
+        relative = assembly.relative_to(ROOT).with_suffix(".s")
     normalized = ROOT / "build" / profile / "reference-normalized" / relative
     output = ROOT / "build" / profile / "reference-objects" / relative.with_suffix(".o")
     normalized.parent.mkdir(parents=True, exist_ok=True)
@@ -215,13 +269,16 @@ def ensure_reference(profile: str, *, game_reference: bool = False) -> None:
 
 
 def ensure_reference_function(
-    profile: str, symbol: str, *, game_reference: bool = False
+    profile: str,
+    symbol: str,
+    *,
+    game_reference: bool = False,
 ) -> Path:
-    """Refresh a stale split only when it does not contain the requested function."""
+    """Return an exact registered raw span, refreshing a stale split when needed."""
 
     ensure_reference(profile, game_reference=game_reference)
     try:
-        return locate_function(
+        assembly = locate_function(
             profile,
             symbol,
             reference=not game_reference,
@@ -229,12 +286,15 @@ def ensure_reference_function(
         )
     except ValueError:
         prepare_reference(profile, game_reference=game_reference)
-        return locate_function(
+        assembly = locate_function(
             profile,
             symbol,
             reference=not game_reference,
             game_reference=game_reference,
         )
+    return extract_function(
+        assembly, symbol, boundary_symbols=registered_symbols(profile)
+    )
 
 
 def current_difference_count(output: str) -> int:
@@ -287,10 +347,13 @@ def asm_diff_command(
     candidate: Path,
     reference: Path,
     symbol: str,
+    expected_size: int,
     *,
     require_match: bool = False,
     watch: bool = False,
 ) -> list[str]:
+    if expected_size <= 0 or expected_size % 4:
+        raise ValueError(f"{symbol} has an invalid {expected_size}-byte instruction span")
     command = [
         "python3",
         str(ASM_DIFFER),
@@ -299,7 +362,8 @@ def asm_diff_command(
         str(candidate),
         "-F",
         str(reference),
-        "--stop-at-ret",
+        "--max-lines",
+        str(expected_size // 4),
     ]
     if watch:
         command.extend(["-m", "-w", "-3"])
@@ -314,6 +378,9 @@ def run_asm_diff(command: list[str], directory: Path) -> int:
         return subprocess.run(command, cwd=directory, check=False).returncode
     except KeyboardInterrupt:
         return 130
+    except OSError as error:
+        print(f"error: could not run asm-differ: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
 
 
 def run_required_asm_diff(
@@ -321,6 +388,7 @@ def run_required_asm_diff(
     reference: Path,
     symbol: str,
     directory: Path,
+    expected_size: int,
 ) -> int:
     """Verify an exact match, showing the normal diff when verification fails."""
 
@@ -328,15 +396,20 @@ def run_required_asm_diff(
         candidate,
         reference,
         symbol,
+        expected_size,
         require_match=True,
     )
-    result = subprocess.run(
-        evidence_command,
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        result = subprocess.run(
+            evidence_command,
+            cwd=directory,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as error:
+        print(f"error: could not run asm-differ: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
     if result.returncode:
         sys.stdout.write(result.stdout)
         sys.stderr.write(result.stderr)
@@ -344,7 +417,9 @@ def run_required_asm_diff(
     try:
         require_zero_difference(result.stdout, symbol)
     except NonzeroDifferenceError as error:
-        display_command = asm_diff_command(candidate, reference, symbol)
+        display_command = asm_diff_command(
+            candidate, reference, symbol, expected_size
+        )
         run_asm_diff(display_command, directory)
         print(f"error: {error}", file=sys.stderr)
         return EXIT_MISMATCH
@@ -360,22 +435,30 @@ def run_score_only_diff(
     reference: Path,
     symbol: str,
     directory: Path,
+    expected_size: int,
 ) -> int:
     """Print only the machine-readable focused-diff score for shell callers."""
 
-    result = subprocess.run(
-        asm_diff_command(candidate, reference, symbol, require_match=True),
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        result = subprocess.run(
+            asm_diff_command(
+                candidate, reference, symbol, expected_size, require_match=True
+            ),
+            cwd=directory,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as error:
+        print(f"error: could not run asm-differ: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
     if result.returncode:
         sys.stdout.write(result.stdout)
         sys.stderr.write(result.stderr)
         return EXIT_BLOCKED_TOOLING
     try:
-        print(current_difference_count(result.stdout))
+        score = current_difference_count(result.stdout)
+        print(score)
     except ValueError as error:
         print(f"error: {error}", file=sys.stderr)
         return EXIT_BLOCKED_TOOLING
@@ -438,15 +521,25 @@ def classify_diff_rows(rows: list[dict]) -> dict[str, int]:
 
 
 def run_diagnose_diff(
-    candidate: Path, reference: Path, symbol: str, directory: Path
+    candidate: Path,
+    reference: Path,
+    symbol: str,
+    directory: Path,
+    expected_size: int,
 ) -> int:
-    result = subprocess.run(
-        asm_diff_command(candidate, reference, symbol, require_match=True),
-        cwd=directory,
-        check=False,
-        capture_output=True,
-        text=True,
-    )
+    try:
+        result = subprocess.run(
+            asm_diff_command(
+                candidate, reference, symbol, expected_size, require_match=True
+            ),
+            cwd=directory,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as error:
+        print(f"error: could not run asm-differ: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
     if result.returncode:
         sys.stdout.write(result.stdout)
         sys.stderr.write(result.stderr)
@@ -505,8 +598,11 @@ def main() -> int:
                 overlay="game" if game_reference else None,
             )
         reference_assembly = ensure_reference_function(
-            arguments.profile, symbol, game_reference=game_reference
+            arguments.profile,
+            symbol,
+            game_reference=game_reference,
         )
+        expected_size = expected_function_size(arguments.profile, symbol)
         if not source.is_file():
             raise ValueError(f"candidate source does not exist: {source.relative_to(ROOT)}")
     except (ValueError, subprocess.CalledProcessError, OSError) as error:
@@ -545,15 +641,18 @@ def main() -> int:
 
     directory = write_settings(arguments.profile, source)
     if arguments.score_only:
-        return run_score_only_diff(candidate, reference, symbol, directory)
+        return run_score_only_diff(candidate, reference, symbol, directory, expected_size)
     if arguments.diagnose:
-        return run_diagnose_diff(candidate, reference, symbol, directory)
+        return run_diagnose_diff(
+            candidate, reference, symbol, directory, expected_size
+        )
     if arguments.require_match:
-        return run_required_asm_diff(candidate, reference, symbol, directory)
+        return run_required_asm_diff(candidate, reference, symbol, directory, expected_size)
     command = asm_diff_command(
         candidate,
         reference,
         symbol,
+        expected_size,
         watch=arguments.watch,
     )
     return run_asm_diff(command, directory)

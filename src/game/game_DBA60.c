@@ -19,6 +19,7 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE5B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE790.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AEB9C.s")
+void func_1516972C(void *arg0);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150AECCC CURRENT (30) */

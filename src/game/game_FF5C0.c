@@ -31,5 +31,25 @@ extern u8 D_800D9900;
 void func_150D22D4(s32 arg0) {
     D_800D9900--;
 }
+typedef struct GameFF5C0Params {
+    u8 pad0[0x28];
+    u8 field_28;
+    u8 pad29[0x13];
+    u8 field_3C;
+    u8 field_3D;
+} GameFF5C0Params;
+
+s32 func_1517F08C(s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D22F4 CURRENT (100) */
+s32 func_150D22F4(s32 arg0, GameFF5C0Params *arg1, s16 arg2) {
+    if (arg1->field_28 == 1) {
+        arg0 = func_1517F08C(arg0, arg1->field_3C, 0xFF, 0xFF, 0xFF, arg2);
+    } else {
+        arg0 = func_1517F08C(arg0, arg1->field_3D, 0, 0, 0, arg2);
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D22F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FF5C0/func_150D22F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FF5C0/func_150D2374.s")

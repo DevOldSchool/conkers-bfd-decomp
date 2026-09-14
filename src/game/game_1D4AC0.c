@@ -8,7 +8,6 @@
  * - func_151A7610
  * - func_151A77C0
  * - func_151A787C
- * - func_151A7908
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -71,4 +70,14 @@ void func_151A787C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A787C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4AC0/func_151A787C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4AC0/func_151A7908.s")
+void func_1516972C(s32, void *);
+
+void func_151A7908(void *arg0) {
+    void *temp_v0;
+
+    temp_v0 = (u8 *)arg0 + 0x170;
+    if (*(s32 *)((u8 *)arg0 + 0x174) != 0) {
+        func_1516972C(*(s32 *)((u8 *)temp_v0 + 4), arg0);
+        *(s32 *)((u8 *)temp_v0 + 4) = 0;
+    }
+}

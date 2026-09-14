@@ -9,7 +9,6 @@
  * - func_150130B4
  * - func_15013778
  * - func_150139AC
- * - func_15013C38
  * - func_15013D38
  * - func_15013DE8
  * - func_15014094
@@ -24,7 +23,6 @@
  * - func_150150A4
  * - func_15015104
  * - func_150151D4
- * - func_15015300
  * - func_15015354
  * - func_15015644
  * - func_150156F4
@@ -96,9 +94,9 @@ extern u8 D_800C35E8;
 extern u8 D_800C35EA;
 extern u8 *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013C38 CURRENT (10) */
 s32 func_15013C38(Game40490CallbackState *state) {
     Game40490Callback callback;
+    f32 callback_value;
     s32 index;
 
     index = state->callback_index;
@@ -115,12 +113,11 @@ s32 func_15013C38(Game40490CallbackState *state) {
     }
     callback = D_80082F28[index];
     if (callback != 0) {
-        callback(state, (f32)state->callback_value * D_80096650);
+        callback_value = D_80096650 * (f32)state->callback_value;
+        callback(state, callback_value);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15013C38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013D38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013DE8.s")
 void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);
@@ -202,10 +199,50 @@ s32 func_150142AC(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501474C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014B60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014F6C.s")
+void *func_1515F1B0(void);
+void func_1515F25C(void **, void *);
+extern f32 D_800DCD90;
+extern void *D_800DCDC4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150150A4 CURRENT (133) */
+s32 func_150150A4(void) {
+    void *sp1C;
+    void *temp_v0;
+
+    temp_v0 = func_1515F1B0();
+    if (temp_v0 == 0) {
+        return 1;
+    }
+    sp1C = temp_v0;
+    func_1515F25C(&D_800DCDC4, temp_v0);
+    D_800DCD90 += *(f32 *)((u8 *)sp1C + 8);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150150A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150150A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015104.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150151D4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015300.s")
+typedef struct {
+    u8 pad_0[0x1C];
+    s32 field_1C;
+} Game40490State;
+
+extern void (*D_80082F70[])(void);
+
+s32 func_15015300(Game40490State *arg0) {
+    void (*temp_v1)(void);
+    s32 temp_v0;
+
+    temp_v0 = arg0->field_1C;
+    if ((temp_v0 < 0) || (temp_v0 >= 2)) {
+        return 1;
+    }
+    temp_v1 = D_80082F70[temp_v0];
+    if (temp_v1 != 0) {
+        temp_v1();
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015644.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150156F4.s")

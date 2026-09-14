@@ -13,6 +13,9 @@ commands; it does not invent texture bindings or mark visual comparisons complet
 
 # Use a selected bank only when the fix is known to affect that bank alone.
 ./conker model-assets batch --run --bank 03
+
+# Resume constructor argument research without exporting or publishing.
+./conker model-assets batch --constructors --bank 09
 ```
 
 The default report and journal are `build/assets/models/batch/report.json` and
@@ -54,6 +57,28 @@ inputs or decoder/tool source changes. Neither command approves a new gallery
 entry or guesses a material. Add accepted models and render references through
 the existing inspection and validation configuration after review.
 
+Static scene assemblies are tracked separately in `published_scene_assemblies`;
+they do not inflate standalone source-record publication counts. Their explicit
+selections live in [model-scene-assemblies.json](../config/model-scene-assemblies.json).
+Use `./conker model-assets scene-assemblies` to regenerate them. A batch run also
+refreshes configured assemblies after its bank exports and before validation,
+so component provenance stays current. See [the scene assembly evidence](evidence/us_static_scene_assemblies.md).
+
+The gallery's **Extracted review** tab exposes every remaining ROM record without
+changing these triage decisions. It is generated from the ROM-only manifests and
+current review fingerprints by `model-assets inspect`. Thumbnail rendering is
+cached by source content and renderer identity; existing validated renders can
+be reused. Files still require current glTF and Blender import evidence, even
+when their materials or appearance remain unresolved. Review exports are stored
+in a separate folder and `review_models` manifest list, so they do not inflate
+the batch driver's curated publication count.
+
+Gallery publication shares assembly-set verification within each read phase and
+repeats it independently before writing outputs. The triage report still calls
+the single-source assembly verifier for every configured scene. Apply the same
+caller-owned, per-phase reuse there to avoid repeated recomposition as the scene
+set grows; keep default uncached verification for standalone callers.
+
 ## Execution and resume
 
 A run executes the Python suite, verifies each selected ROM bank, then refreshes
@@ -71,7 +96,37 @@ command. The journal is written atomically and a lock prevents simultaneous runs
 in the same checkout, including runs using different journal directories.
 Use one journal to retain a continuous resume and review history.
 
-The driver always invokes the Python tests and authoritative validation gates. The validator owns its existing content/tool caches;
+Constructor analysis uses that same journal. The report links to
+`constructors-bank09.json` and includes the seven-model renderer queue. Analysis
+follows constant arguments, stack fields, branch joins, delay slots and initial
+ROM table reads. Unsupported paths remain explicit barriers. Candidate function
+boundaries and initial data values require consumer review; they never grant an
+export context. Unchanged analysis and its intact report are reused on resume.
+Work on the shared consumer, then publish all accepted models together.
+
+The bank-09 constructor report also includes `attachment_events`: a ROM-only
+lookup from character animation routes to attachment create/remove actions.
+It follows the native relative pointers and representative-character groups,
+and records unresolved event lists explicitly. Use it to find an attachment's
+parent and animation before investigating inherited textures. These references
+do not establish gameplay reachability or grant export eligibility. See
+[attachment animation events](evidence/us_attachment_animation_events.md).
+
+Successful Python suite evidence is reused when the interpreter and repository
+source, test, configuration and documentation inputs match. Failed or interrupted
+tests run again. Export dependencies follow local Python imports, including lazy
+imports; unrelated ASM automation scripts and gallery labels do not invalidate
+exports. Layout, ROM, texture and capture changes still do.
+
+The driver always invokes the authoritative validation gate. It hashes shared
+inputs once per phase, then verifies every input in an independent final phase.
+The report records content-read counts. Deleted or changed dependencies fail the
+run. Blender workers retain their independent fingerprint implementation and
+existing tool identities. The validator owns its existing content/tool caches;
+regression comparisons have their own cache keyed by both PNG hashes and the
+comparison/PNG-decoder code. Model changes do not invalidate unchanged image
+comparisons. Missing or modified difference images are regenerated. The report
+counts fresh comparisons separately from fresh renders.
 the driver does not add an outer shortcut around capture or Blender dependencies.
 Validation errors stop publication. New or changed incomplete render comparisons
 also stop publication and produce `render-review.json`. Existing unchanged

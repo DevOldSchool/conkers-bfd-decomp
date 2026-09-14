@@ -5,14 +5,24 @@
  * Boundary evidence: docs/evidence/game_raw_compact_display_resource_pairs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D26C0
  * - func_151D275C
  * - func_151D2830
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFB70/func_151D26C0.s")
+void *func_15167A68(s32, s32, s32, s32, s32, s32);
+
+void func_151D26C0(s16 arg0) {
+    void *temp_v0;
+
+    temp_v0 = func_15167A68(0x3C, 1, 0x18, 0, 0xFF, 1);
+    *(s16 *)((u8 *)temp_v0 + 0x14) = 0;
+    *(s16 *)((u8 *)temp_v0 + 0x12) = 0;
+    *(s16 *)((u8 *)temp_v0 + 0xE) = 0;
+    *(s8 *)((u8 *)temp_v0 + 0x16) = 1;
+    *(s16 *)((u8 *)temp_v0 + 0x10) = arg0;
+}
 extern void *D_800DD0E0;
 
 void func_151D2718(s16 arg0) {

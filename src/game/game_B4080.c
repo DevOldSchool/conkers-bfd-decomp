@@ -16,7 +16,6 @@
  * - func_15087DCC
  * - func_15087E54
  * - func_15087EF0
- * - func_15087FC4
  * - func_15087FEC
  * - func_1508802C
  * - func_150880F8
@@ -58,11 +57,7 @@
  * - func_1508E6D0
  * - func_1508E780
  * - func_1508E89C
- * - func_1508EB90
- * - func_1508EBF8
- * - func_1508EC5C
  * - func_1508ECC0
- * - func_1508EDBC
  * - func_1508EE0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -95,6 +90,16 @@ f32 func_15086BD0(s32 arg0, s32 arg1) {
 void func_15086C68(void) {
 
 }
+void func_150A3194(s32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15086C70 CURRENT (45) */
+void func_15086C70(s32 arg0) {
+    void *temp_v0;
+
+    temp_v0 = (void *)(D_800D2350 + (arg0 * 0x10));
+    func_150A3194(3, 0xB, *(s16 *)((u8 *)temp_v0 + 0), *(s16 *)((u8 *)temp_v0 + 2), (s32) *(s16 *)((u8 *)temp_v0 + 4));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15086C70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086C70.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086CBC.s")
 extern s16 D_80087290;
@@ -213,26 +218,42 @@ f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087EF0.s")
 extern s32 D_800872A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15087FC4 CURRENT (10) */
 void func_15087FC4(s32 arg0, s32 arg1) {
+    u8 *entry;
+
     if (D_800872A0 != 0) {
-        *(s8 *)((u8 *)((arg0 * 0x84) + D_800872A0) + 0x31) = arg1;
+        entry = (u8 *)((arg0 * 0x84) + D_800872A0);
+        *(s8 *)(entry + 0x31) = arg1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15087FC4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087FC4.s")
 extern s32 D_800872A0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15087FEC CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15087FEC CURRENT (100) */
 void func_15087FEC(s32 arg0, s32 arg1) {
+    u8 *entry;
+
     if (D_800872A0 != 0) {
-        *(f32 *)((u8 *)((arg0 * 0x84) + D_800872A0) + 4) = (f32) ((f32) arg1 * 0.00390625f);
+        entry = (u8 *)((arg0 * 0x84) + D_800872A0);
+        *(f32 *)(entry + 4) = (f32) ((f32) arg1 * 0.00390625f);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15087FEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087FEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508802C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150880F8.s")
+extern s32 D_800872A0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150881CC CURRENT (110) */
+s32 func_150881CC(u8 *arg0) {
+    s32 temp_v1;
+
+    temp_v1 = D_800872A0;
+    if (temp_v1 == 0) {
+        return 0;
+    }
+    return (s32) (*(f32 *)((u8 *)temp_v1 + ((s32) arg0 * 0x84)) * 256.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150881CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150881CC.s")
 extern s32 D_800872A0;
 
@@ -767,9 +788,44 @@ void func_1508E6C8(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E6D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E780.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508E89C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EB90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EBF8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EC5C.s")
+typedef struct {
+    u8 field_0;
+    u8 pad_1[0x32B];
+} GameB4080EntityIdRecord;
+
+extern GameB4080EntityIdRecord D_800CC40F[];
+void func_1509BFB0(s32, s32, s32, s32);
+
+void func_1508EB90(s32 arg0, s32 arg1, s32 arg2) {
+    u8 temp_v0;
+
+    temp_v0 = D_800CC40F[arg0].field_0;
+    func_1509BFB0(1, temp_v0 | 0x2000, arg1, arg2);
+}
+void func_1508EBF8(s32 arg0, s32 arg1) {
+    u8 temp_v0;
+
+    temp_v0 = D_800CC40F[arg0].field_0;
+    func_1509BFB0(1, temp_v0 | 0x2000, 0x14, arg1);
+}
+void func_1508EC5C(s32 arg0, s32 arg1) {
+    u8 temp_v0;
+
+    temp_v0 = D_800CC40F[arg0].field_0;
+    func_1509BFB0(1, temp_v0 | 0x2000, 0x61, arg1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508ECC0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EDBC.s")
+extern u32 D_80087380;
+extern s32 D_800D23C0;
+
+void func_1508EDBC(u32 arg0) {
+    s32 temp_v0;
+
+    if (arg0 < (u32) D_80087380) {
+        temp_v0 = arg0 * 0x18;
+        *(s16 *)((u8 *)D_800D23C0 + temp_v0 + 2) = 0;
+        *(s32 *)((u8 *)D_800D23C0 + temp_v0 + 4) = 0;
+        *(s16 *)((u8 *)D_800D23C0 + temp_v0) = 0;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508EE0C.s")

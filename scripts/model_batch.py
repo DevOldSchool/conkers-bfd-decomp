@@ -16,8 +16,10 @@ import time
 
 try:
     from scripts.model_preview_evidence import preview_fingerprint
+    from scripts.model_evidence_cache import source_identity
 except ModuleNotFoundError:
     from model_preview_evidence import preview_fingerprint
+    from model_evidence_cache import source_identity
 
 ROOT = Path(__file__).resolve().parents[1]
 BANKS = (1, 3, 4, 9)
@@ -62,8 +64,31 @@ def tree_identity(path):
 
 
 def code_identity(root):
-    return identity({str(p.relative_to(root)): digest(p) for p in sorted((root / 'scripts').glob('*.py'))
-                     if p.name != 'model_batch.py'})
+    return identity(source_identity(root, ['scripts/model_assets.py'], digest))
+
+
+def test_inputs(root):
+    # The full suite includes repository assertions as well as Python imports.
+    # Reuse only when all of those source trees and the interpreter are stable.
+    return {**{name: tree_identity(root / name) for name in
+        ('scripts', 'tests', 'config', 'docs', 'src', 'include', 'progress', 'conker', 'CONTRIBUTING.md', 'AGENTS.md')},
+        'python': digest(Path(sys.executable).resolve())}
+
+
+def constructor_stage(root, config, output, state, banks, *, runner=None):
+    summaries = {}
+    for bank in banks:
+        artifact = output / f'constructors-bank{bank:02}.json'
+        stage(root, output, state, f'constructors-{bank:02}',
+            ['./conker', 'model-assets', 'constructors', '--bank', f'{bank:02}',
+             '--rom', config['rom'], '--output', str(artifact)],
+            {'code': code_identity(root), 'rom': digest(root / config['rom']),
+             'layout': tree_identity(root / 'config/rzip_layouts.json'),
+             'launcher': tree_identity(root / 'conker')}, artifact, runner=runner or execute)
+        result = read(artifact)
+        summaries[str(bank)] = {'report': str(artifact.relative_to(root)), 'counts': result['counts'],
+            'argument_counts': result['argument_analysis']['counts'], 'targets': result['target_queue']}
+    return summaries
 
 
 def model_key(bank, entry, segment):
@@ -120,7 +145,7 @@ def scan(root, config, reviews, investigations):
                                            for status in {r['status'] for r in missing}}})
     if len(rom_hashes) != 1 or len({r['key'] for r in rows}) != len(rows):
         raise ValueError('duplicate model identities or mixed ROMs')
-    published, manifests = set(), {}
+    published, manifests, assemblies = set(), {}, []
     keys = {r["key"] for r in rows}
     for case in inspection['models']:
         path = Path(cases[case['render_case']]['source'])
@@ -129,6 +154,16 @@ def scan(root, config, reviews, investigations):
         if manifest_path not in manifests:
             manifests[manifest_path] = read(manifest_path)
         manifest = manifests[manifest_path]
+        if manifest.get('family') == 'rom-static-scene-assemblies':
+            try:
+                from scripts.model_scene_assemblies import inspection_evidence
+            except ModuleNotFoundError:
+                from model_scene_assemblies import inspection_evidence
+            evidence = inspection_evidence((root / path).resolve())
+            if manifest['normalized_sha1'] not in rom_hashes:
+                raise ValueError(f'assembly belongs to another ROM: {path}')
+            assemblies.append({'name': case['name'], 'scene_index': evidence['scene_index']})
+            continue
         record = next((r for r in manifest['models'] if path.name in
                        (Path(r['gltf_file']).name, Path(r.get('bind_gltf_file') or '').name)), None)
         if record is None or manifest['normalized_sha1'] not in rom_hashes:
@@ -158,6 +193,7 @@ def scan(root, config, reviews, investigations):
                        'reason': previous['reason'] if previous else None})
     groups.sort(key=lambda r: (r['status'] == 'deferred', -r['model_count'], -r['affected_faces'], r['blocker']))
     return {'schema_version': 1, 'normalized_sha1': next(iter(rom_hashes)),
+            'published_scene_assemblies': assemblies,
             'counts': dict(Counter(r['status'] for r in rows)), 'models': rows, 'groups': groups,
             'scope': 'Manifest/source triage, not a fresh ROM extraction or native appearance proof. '
                      'Groups may overlap and do not establish a shared runtime consumer.'}
@@ -227,7 +263,8 @@ def render_exceptions(report):
 def run(root, config, output, state, banks, blender=None, *, runner=execute):
     command = ['./conker', 'model-assets']
     common = {'code': code_identity(root), 'rom': digest(root / config['rom']),
-              'configuration': tree_identity(root / 'config'),
+              'layout': tree_identity(root / 'config/rzip_layouts.json'),
+              'launcher': tree_identity(root / 'conker'),
               'textures': tree_identity(root / config['textures'])}
     report_path = root / read(root / config['inspection_config'])['validation_report']
     if report_path.name != 'report.json':
@@ -239,7 +276,7 @@ def run(root, config, output, state, banks, blender=None, *, runner=execute):
         state['baseline_render_exceptions'] = render_exceptions(previous)
         write(output / 'state.json', state)
     stage(root, output, state, 'tests', [sys.executable, '-m', 'unittest', 'discover', '-s', 'tests'],
-          {}, reusable=False, runner=runner)
+          test_inputs(root), runner=runner)
     for bank in banks:
         stage(root, output, state, f'verify-{bank:02}', command + ['verify', '--bank', f'{bank:02}', '--rom', config['rom']], common, runner=runner)
         for corpus in config['corpora']:
@@ -254,6 +291,14 @@ def run(root, config, output, state, banks, blender=None, *, runner=execute):
                 args += ['--rom-defaults']
             stage(root, output, state, f'preview-{corpus["name"]}-{bank:02}', args, dependencies,
                   destination, runner=runner)
+    # Assembly provenance includes component manifest hashes. Refresh it after
+    # bank exports, even when unchanged geometry can reuse its render cache.
+    for directory in read(root / config['validation_config']).get('scene_assemblies', []):
+        destination = build_path(root, directory)
+        stage(root, output, state, 'scene-assemblies-' + destination.name,
+              command + ['scene-assemblies', '--rom', config['rom'],
+                         '--model-root', config['rom_root'], '--output', str(destination)],
+              {}, destination, reusable=False, runner=runner)
     # The authoritative validator owns dependency/tool caches. Always call it:
     # an outer cache cannot safely infer all capture, composition or Blender inputs.
     args = command + ['validate', '--validation-config', config['validation_config'],
@@ -283,6 +328,7 @@ def main(argv=None):
     parser.add_argument('--batch-config', type=Path, default=ROOT / 'config/model-batch.json')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/assets/models/batch')
     parser.add_argument('--run', action='store_true', help='verify and refresh selected banks, validate, then refresh approved gallery entries')
+    parser.add_argument('--constructors', action='store_true', help='resume ROM constructor argument analysis in the batch journal')
     parser.add_argument('--bank', choices=['01', '03', '04', '09'], action='append', help='bank to refresh (repeatable; default all four)')
     parser.add_argument('--blender', type=Path)
     decision = parser.add_mutually_exclusive_group()
@@ -291,8 +337,8 @@ def main(argv=None):
     decision.add_argument('--reopen-group', metavar='BLOCKER')
     parser.add_argument('--reason')
     args = parser.parse_args(argv)
-    if args.bank and not args.run:
-        parser.error('--bank applies only to --run')
+    if args.bank and not (args.run or args.constructors):
+        parser.error('--bank applies only to --run or --constructors')
     if args.run and (args.defer_model or args.defer_group or args.reopen_group):
         parser.error('record review decisions separately from --run')
     if (args.defer_model or args.defer_group) and not (args.reason and args.reason.strip()):
@@ -319,6 +365,9 @@ def main(argv=None):
                 investigations.pop(args.reopen_group, None)
             if args.run:
                 run(ROOT, config, output, state, sorted({int(b) for b in args.bank}) if args.bank else BANKS, args.blender)
+            if args.constructors:
+                state['constructors'] = constructor_stage(ROOT, config, output, state,
+                    sorted({int(b) for b in args.bank}) if args.bank else (9,))
             report = scan(ROOT, config, reviews, investigations)
             if args.defer_model:
                 row = next((r for r in report['models'] if r['key'] == args.defer_model), None)
@@ -332,6 +381,7 @@ def main(argv=None):
                     raise ValueError('unknown blocker group')
                 investigations[group['blocker']] = {'fingerprint': group['fingerprint'], 'reason': args.reason}
             report = scan(ROOT, config, reviews, investigations) if args.defer_group or args.defer_model else report
+            report['constructors'] = state.get('constructors', {})
             write(output / 'state.json', state)
             write(output / 'report.json', report)
             write(output / 'review-needed.json', [r for r in report['models'] if r['status'] == 'review-needed'])

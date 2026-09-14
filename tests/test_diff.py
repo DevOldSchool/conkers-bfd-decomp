@@ -61,16 +61,70 @@ class DiffReferenceTests(unittest.TestCase):
 
     def test_reference_function_returns_the_located_assembly(self) -> None:
         assembly = Path("reference/game/us/asm/game.s")
+        extracted = Path("build/m2c/asm/func_test.s")
         with (
             patch.object(diff_helper, "ensure_reference") as ensure_reference,
             patch.object(diff_helper, "locate_function", return_value=assembly),
+            patch.object(diff_helper, "registered_symbols", return_value={"func_test"}),
+            patch.object(diff_helper, "extract_function", return_value=extracted) as extract,
         ):
             result = diff_helper.ensure_reference_function(
                 "us", "func_test", game_reference=True
             )
 
-        self.assertEqual(assembly, result)
+        self.assertEqual(extracted, result)
         ensure_reference.assert_called_once_with("us", game_reference=True)
+        extract.assert_called_once_with(
+            assembly, "func_test", boundary_symbols={"func_test"}
+        )
+
+    def test_expected_size_stops_at_an_overlapping_registered_symbol(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            inventory = temporary_root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                '{"functions":['
+                '{"symbol":"func_parent","overlay":"game","regions":{"us":'
+                '{"symbol":"func_15000000","vram":"0x15000000","size_bytes":20}}},'
+                '{"symbol":"func_tail","overlay":"game","regions":{"us":'
+                '{"symbol":"func_1500000C","vram":"0x1500000C","size_bytes":8}}},'
+                '{"symbol":"func_main","overlay":"main","regions":{"us":'
+                '{"symbol":"func_80000008","vram":"0x15000008","size_bytes":4}}}'
+                "]}",
+                encoding="utf-8",
+            )
+
+            with patch.object(diff_helper, "ROOT", temporary_root):
+                size = diff_helper.expected_function_size("us", "func_15000000")
+
+            self.assertEqual(12, size)
+
+    def test_expected_size_uses_reviewed_source_unit_when_record_is_legacy(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            progress = temporary_root / "progress"
+            progress.mkdir(parents=True)
+            (progress / "functions.json").write_text(
+                '{"functions":['
+                '{"symbol":"func_target","overlay":"game","regions":{"us":'
+                '{"symbol":"func_15000000","vram":"0x15000000"}}},'
+                '{"symbol":"func_tail","overlay":"game","regions":{"us":'
+                '{"symbol":"func_15000060","vram":"0x15000060","size_bytes":4}}}'
+                "]}",
+                encoding="utf-8",
+            )
+            (progress / "source_units.json").write_text(
+                '{"source_units":[{"source":"src/game/test.c",'
+                '"functions":["func_target","func_tail"],'
+                '"regions":{"us":{"start":"0x100","end":"0x164"}}}]}',
+                encoding="utf-8",
+            )
+
+            with patch.object(diff_helper, "ROOT", temporary_root):
+                size = diff_helper.expected_function_size("us", "func_15000000")
+
+            self.assertEqual(96, size)
 
     def test_resolves_game_overlay_from_work_item_id(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -129,6 +183,30 @@ class DiffReferenceTests(unittest.TestCase):
         self.assertEqual(1, counts["register_only"])
         self.assertEqual(1, counts["opcode_or_control_flow"])
 
+    def test_diagnose_uses_the_full_registered_span(self) -> None:
+        evidence = subprocess.CompletedProcess(
+            args=["asm-differ"],
+            returncode=0,
+            stdout='{"current_score": 0, "rows": []}',
+            stderr="",
+        )
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
+            redirect_stdout(StringIO()),
+        ):
+            result = diff_helper.run_diagnose_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+                20,
+            )
+
+        self.assertEqual(0, result)
+        command = run.call_args.args[0]
+        self.assertEqual("5", command[command.index("--max-lines") + 1])
+        self.assertNotIn("--stop-at-ret", command)
+
     def test_rejects_invalid_json_evidence(self) -> None:
         with self.assertRaises(ValueError):
             diff_helper.current_difference_count('{"current_score": "0"}')
@@ -146,7 +224,7 @@ class DiffReferenceTests(unittest.TestCase):
         )
         output = StringIO()
         with (
-            patch.object(diff_helper.subprocess, "run", return_value=evidence),
+            patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
             redirect_stdout(output),
         ):
             result = diff_helper.run_score_only_diff(
@@ -154,10 +232,14 @@ class DiffReferenceTests(unittest.TestCase):
                 Path("reference.o"),
                 "func_test",
                 Path("build/us/diff"),
+                4,
             )
 
         self.assertEqual(0, result)
         self.assertEqual("45\n", output.getvalue())
+        command = run.call_args.args[0]
+        self.assertEqual("1", command[command.index("--max-lines") + 1])
+        self.assertNotIn("--stop-at-ret", command)
 
     def test_required_diff_displays_normal_diff_on_mismatch(self) -> None:
         evidence = subprocess.CompletedProcess(
@@ -175,6 +257,7 @@ class DiffReferenceTests(unittest.TestCase):
                 Path("reference.o"),
                 "func_test",
                 Path("build/us/diff"),
+                4,
             )
 
         self.assertEqual(1, result)
@@ -198,6 +281,7 @@ class DiffReferenceTests(unittest.TestCase):
                 Path("reference.o"),
                 "func_test",
                 Path("build/us/diff"),
+                4,
             )
 
         self.assertEqual(0, result)
@@ -216,6 +300,46 @@ class DiffReferenceTests(unittest.TestCase):
                 Path("reference.o"),
                 "func_test",
                 Path("build/us/diff"),
+                4,
+            )
+
+        self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+
+    def test_required_diff_uses_the_full_registered_span(self) -> None:
+        evidence = subprocess.CompletedProcess(
+            args=["asm-differ"],
+            returncode=0,
+            stdout='{"current_score": 10}',
+            stderr="",
+        )
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
+            patch.object(diff_helper, "run_asm_diff", return_value=0) as display,
+        ):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+                20,
+            )
+
+        self.assertEqual(diff_helper.EXIT_MISMATCH, result)
+        display.assert_called_once()
+        evidence_command = run.call_args.args[0]
+        display_command = display.call_args.args[0]
+        for command in (evidence_command, display_command):
+            self.assertEqual("5", command[command.index("--max-lines") + 1])
+            self.assertNotIn("--stop-at-ret", command)
+
+    def test_required_diff_classifies_asm_differ_launch_failure_as_tooling(self) -> None:
+        with patch.object(diff_helper.subprocess, "run", side_effect=OSError("missing")):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"),
+                Path("reference.o"),
+                "func_test",
+                Path("build/us/diff"),
+                4,
             )
 
         self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
@@ -240,6 +364,7 @@ class DiffReferenceTests(unittest.TestCase):
                     "ensure_reference_function",
                     return_value=Path("reference.s"),
                 ),
+                patch.object(diff_helper, "expected_function_size", return_value=4),
                 patch.object(diff_helper, "require_c_implementation"),
                 patch.object(
                     diff_helper,
@@ -370,6 +495,45 @@ class DiffReferenceTests(unittest.TestCase):
             self.assertEqual(output, result)
             run.assert_not_called()
 
+    def test_compiles_an_extracted_reference_span_outside_reference_tree(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            temporary_root = Path(temporary_directory)
+            assembly = temporary_root / "build" / "m2c" / "asm" / "func_test.s"
+            assembly.parent.mkdir(parents=True)
+            assembly.write_text("glabel func_test\n", encoding="utf-8")
+            normalizer = temporary_root / "scripts" / "normalize_asm.py"
+            normalizer.parent.mkdir(parents=True)
+            normalizer.write_text("", encoding="utf-8")
+            macros = temporary_root / "include" / "macro.inc"
+            macros.parent.mkdir(parents=True)
+            macros.write_text("", encoding="utf-8")
+            toolchain = temporary_root / "Dockerfile"
+            toolchain.write_text("", encoding="utf-8")
+
+            with (
+                patch.object(diff_helper, "ROOT", temporary_root),
+                patch.object(diff_helper, "NORMALIZE_ASM", normalizer),
+                patch.object(diff_helper, "ASSEMBLY_MACROS", macros),
+                patch.object(diff_helper, "TOOLCHAIN_DEFINITION", toolchain),
+                patch.object(diff_helper.subprocess, "run") as run,
+            ):
+                result = diff_helper.reference_object(
+                    "us", "func_test", assembly=assembly
+                )
+
+            self.assertEqual(
+                temporary_root
+                / "build"
+                / "us"
+                / "reference-objects"
+                / "build"
+                / "m2c"
+                / "asm"
+                / "func_test.o",
+                result,
+            )
+            self.assertEqual(2, run.call_count)
+
     def test_watch_settings_use_the_focused_candidate_compiler(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)
@@ -389,6 +553,7 @@ class DiffReferenceTests(unittest.TestCase):
             Path("candidate.o"),
             Path("reference.o"),
             "func_test",
+            4,
             watch=True,
         )
 
@@ -396,6 +561,18 @@ class DiffReferenceTests(unittest.TestCase):
         self.assertIn("-w", command)
         self.assertIn("-3", command)
         self.assertNotIn("--no-pager", command)
+
+    def test_focused_command_uses_the_full_registered_instruction_span(self) -> None:
+        command = diff_helper.asm_diff_command(
+            Path("candidate.o"),
+            Path("reference.o"),
+            "func_test",
+            20,
+            require_match=True,
+        )
+
+        self.assertEqual("5", command[command.index("--max-lines") + 1])
+        self.assertNotIn("--stop-at-ret", command)
 
     def test_keyboard_interrupt_exits_watch_without_a_traceback(self) -> None:
         with patch.object(diff_helper.subprocess, "run", side_effect=KeyboardInterrupt):

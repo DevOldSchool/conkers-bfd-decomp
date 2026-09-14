@@ -12,6 +12,36 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game126BD0LookupRecord {
+    u8 first;
+    u8 second;
+} Game126BD0LookupRecord;
+
+typedef struct Game126BD0Message {
+    s32 value;
+    u8 selector;
+} Game126BD0Message;
+
+extern Game126BD0LookupRecord D_800A1C40[];
+void func_151494E0(Game126BD0Message *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F9720 CURRENT (908) */
+void func_150F9720(s32 arg0) {
+    Game126BD0Message message;
+    Game126BD0Message *message_ptr;
+    Game126BD0LookupRecord *record;
+    s32 index;
+
+    index = arg0 & 0xFF;
+    record = &D_800A1C40[index];
+    message.value = 0;
+    message_ptr = &message;
+    message.selector = record->first;
+    func_151494E0(message_ptr, 0x42);
+    message.selector = record->second;
+    func_151494E0(message_ptr, 0x42);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F9720 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_126BD0/func_150F9720.s")
 void func_150F9788(s32 arg0) {
 

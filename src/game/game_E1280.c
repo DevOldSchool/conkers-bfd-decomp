@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150B3DD0
- * - func_150B3E74
- * - func_150B3EE8
  * - func_150B3F5C
  * - func_150B40E8
  * - func_150B4294
@@ -18,9 +16,30 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct GameE1280State {
+    u8 pad0[0x10];
+    f32 x;
+    f32 y;
+    f32 z;
+} GameE1280State;
+
+void func_1000FC18(s32, s16, s16, s16, s32);
+void func_151478F4(s32);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3DD0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3E74.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3EE8.s")
+
+void func_150B3E74(GameE1280State *arg0) {
+    func_1000FC18(0x221, (s16)(s32)arg0->x, (s16)(s32)arg0->y,
+                  (s16)(s32)arg0->z, 0xFA0);
+    func_151478F4((s32)arg0);
+}
+void func_15147928(s32);
+
+void func_150B3EE8(GameE1280State *arg0) {
+    func_1000FC18(0x221, (s16)(s32)arg0->x, (s16)(s32)arg0->y,
+                  (s16)(s32)arg0->z, 0xFA0);
+    func_15147928((s32)arg0);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3F5C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B40E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B4294.s")

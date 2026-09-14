@@ -9,7 +9,6 @@
  * - func_151571C4
  * - func_151572D0
  * - func_15157420
- * - func_15157860
  * - func_15157898
  * - func_15157918
  * - func_15157AA8
@@ -45,15 +44,31 @@ void func_1515728C(void *arg0) {
 extern u8 D_800BE9C0;
 void func_150A7BC0(s32 arg0, s32 arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157860 CURRENT (10) */
 s32 func_15157860(s32 arg0) {
-    func_150A7BC0((D_800BE9C0 << 6) + arg0 + 0x7C, arg0);
+    func_150A7BC0((s32)((u8 *)arg0 + (D_800BE9C0 << 6) + 0x7C), arg0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157860 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157860.s")
 void func_15169260(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern u8 D_800A6060;
+void func_10022EC0(void *, void *, s32);
+s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157898 CURRENT (108) */
+s32 func_15157898(s32 arg0, s32 arg1, s32 arg2, f32 arg3, s32 arg4,
+                  s32 arg5, s32 arg6, u8 arg7, s32 arg8) {
+    s32 sp2C;
+    s32 temp_v0;
+
+    temp_v0 = func_15157010(arg0, arg2, arg3, arg4, arg5, arg6 + 0x38,
+                            (s32)arg7, arg8);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    sp2C = temp_v0;
+    func_10022EC0((void *)(temp_v0 + 0x120), (void *)arg1, 0x38);
+    return sp2C;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15157898 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157898.s")
 /* Call context: func_150A8050: unique active project prototype */
 void func_150A8050(void *, f32, s32, f32);
@@ -109,6 +124,34 @@ s32 func_15157DC8(s32 arg0) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157DEC.s")
+typedef struct Game1844C0DisplayCommand {
+    u32 word0;
+    void *word1;
+} Game1844C0DisplayCommand;
+
+typedef struct Game1844C0Matrix {
+    u8 bytes[0x40];
+} Game1844C0Matrix;
+
+extern u8 D_80089470;
+extern Game1844C0Matrix D_800DCC10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157F80 CURRENT (1235) */
+Game1844C0DisplayCommand *func_15157F80(Game1844C0DisplayCommand *arg0, s32 arg1,
+                                       s32 arg2, s32 arg3, u8 *arg4) {
+    Game1844C0DisplayCommand *temp_v1;
+    Game1844C0DisplayCommand *temp_a1;
+
+    temp_v1 = arg0++;
+    temp_v1->word0 = 0xDA380003;
+    temp_v1->word1 = &D_80089470;
+    temp_a1 = arg0++;
+    temp_a1->word0 = 0xDA380007;
+    temp_a1->word1 = &D_800DCC10[arg2];
+    *arg4 = 1;
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15157F80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157F80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157FE8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15158078 CURRENT (260) */

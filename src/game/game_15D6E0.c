@@ -3,11 +3,21 @@
 /*
  * Reviewed source unit: src/game/game_15D6E0.c
  * Boundary evidence: docs/evidence/game_raw_direct_call_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15130230
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D6E0/func_15130230.s")
+typedef struct {
+    u8 pad_0[0xF];
+    u8 field_F;
+} Game15D6E0State;
+
+extern Game15D6E0State *D_800B0DF0;
+extern void (*D_80089670[])(void *);
+
+void func_15130230(void *arg0, void *arg1) {
+    u8 temp_v0;
+
+    temp_v0 = D_800B0DF0->field_F;
+    if (temp_v0 != 0) {
+        D_80089670[temp_v0](arg0);
+    }
+}

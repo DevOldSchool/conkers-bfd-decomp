@@ -29,6 +29,40 @@ void func_150C0A1C(s32 arg0) {
     func_150C0A48(arg0);
     func_15169824(arg0);
 }
+typedef struct {
+    void *resource;
+    s16 next_index;
+    u8 pad6[2];
+} GameEDE60ResourceEntry;
+
+typedef struct {
+    u8 pad0[0x40];
+    GameEDE60ResourceEntry *entries;
+    s16 first_index;
+} GameEDE60ResourceList;
+
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0A48 CURRENT (100) */
+void func_150C0A48(s32 arg0) {
+    GameEDE60ResourceList *list;
+    GameEDE60ResourceEntry *entries;
+    s16 index;
+    s32 offset;
+
+    list = (GameEDE60ResourceList *)arg0;
+    index = list->first_index;
+    if (index != -1) {
+        entries = list->entries;
+        do {
+            offset = index * sizeof(GameEDE60ResourceEntry);
+            func_1516972C(((GameEDE60ResourceEntry *)((u8 *)entries + offset))->resource);
+            entries = list->entries;
+            index = ((GameEDE60ResourceEntry *)((u8 *)entries + offset))->next_index;
+        } while (index != -1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C0A48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0A48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0AC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0C38.s")

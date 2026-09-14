@@ -40,6 +40,23 @@ CONSUMERS = (
     (0x15152190, 912, 'ad00c680b1584fcef202f0e6fc6690a6bb3dc5f6'),
     (0x151BB61C, 1152, '24f395be1718c9a889cf618b9caf18b022f628cb'),
     (0x151BBA9C, 1096, 'f2ff72cdfa4045152fa5912c4ccd0e324d6ecfa8'),
+    (0x1513A6E0, 1240, '9d9cb54a938ddfbf76f6fbcb1c00fa5697256a8b'),
+    (0x15143134, 392, 'aff90add2efa478694dcdd5359f96038e7f1c6f8'),
+    (0x15143794, 160, 'a7634c23792fe2bbba7646b52180f28d8a7c3551'),
+    (0x150A7960, 160, '74bbe33c7a4fb06b7b640eb86c0fb601b77a8c0d'),
+    (0x15142314, 196, '40947fc56427337b13d6b6d8047d967753641b66'),
+    (0x151423D8, 108, '954d4825ed97aad8aa6d35d203a8d2ba96cf11ae'),
+    (0x150ADA20, 72, 'd66a837e2d79841fd1b885390b95e5e2dc50bd45'),
+    (0x150ADA68, 100, '4367530c675204e4481b489e437de0d5ae563248'),
+    (0x1503F404, 172, 'd607cc0af029e9b1959bb71c4cccfc9e43fb6675'),
+    (0x15134070, 252, 'a7cf677b63f76ad45de83f60c5db0e8d02fdc8e3'),
+    (0x15138424, 1412, '05212f5aec7598460aa3b2565e7ca5d6be67d655'),
+    (0x15138BC0, 192, '2de828578f48d3750b085246735863131af7b027'),
+    (0x1513B0F8, 1256, 'afe190baeaf57391ceb066ce6b92c734073f1ad8'),
+    (0x15136C3C, 788, '585f34d7cf570b402f1f7f7bf4d1fa1c7f713846'),
+    (0x1513A24C, 576, '1859f5c6b74be313881963173a0c69a803bdaed7'),
+    (0x1515080C, 1296, '8a76782a5c5b96ff73e269d77038908f01dfc5db'),
+    (0x150F1D10, 992, '77c321a9f44d4758a8f5b249b431ada52469e419'),
 )
 MODEL_TABLE = 0x800A3880
 MODEL_COUNT = 233
@@ -91,6 +108,89 @@ ARRAY_SETUPS = (
     (0x151BBA9C, 0x151BBECC, 0x15152190, 0x151BBE08,
      (0x151BBDB8, 0x151BBDBC), 0x8008FBA0, 3, 'd88080eac98a7119b89ad930cb043e3c2fa96ac5',
      0x151BBDB0, 0x40),
+)
+
+
+# Two complementary mask loops in one pinned constructor. The full function
+# establishes index 0..3, bit 1 << index and a mask selected with RNG % 6.
+# Guards identify the address, stride/load, mask polarity, store and submission;
+# whole-function pins cover intervening lifetimes and bounded vector helpers.
+LOOP_MASK = (0x800A4278, 6, 'e9a9be10f39f99e9842f3e0f6b20e38dd69b50d8')
+LOOP_SETUPS = (
+    dict(call=0x1513A89C, frame=0x144, flags=(0x1513A780, 0x1513A784, 0x1513A7EC),
+         address=0x800A4280, sha1='2500c94c8e5b569e4ec666db87d4e8eded11a013',
+         store=0x1513A8A0, mask_set=True,
+         guards=((0x1513A83C, 0x3C12800A), (0x1513A848, 0x26524280),
+                 (0x1513A868, 0x92D80000), (0x1513A86C, 0x00104080),
+                 (0x1513A874, 0x0303C824), (0x1513A878, 0x1320000F),
+                 (0x1513A87C, 0x02484821), (0x1513A880, 0x8D2A0000),
+                 (0x1513A860, 0x27B30144), (0x1513A88C, 0x02602025),
+                 (0x1513A89C, 0x0D44CA93), (0x1513A8A0, 0xA7AA019A),
+                 (0x1513A8C8, 0x29610004), (0x1513A8D0, 0x1420FFE5))),
+    dict(call=0x1513AB48, frame=0xA4, flags=(0x1513A974, 0x1513A984, 0x1513AA34),
+         address=0x800A4290, sha1='d7494ec63fa885c74203a90d19fc5959d480d5af',
+         store=0x1513AA70, mask_set=False,
+         guards=((0x1513A990, 0x3C14800A), (0x1513A994, 0x26944290),
+                 (0x1513AA4C, 0x92CE0000), (0x1513AA50, 0x0010C080),
+                 (0x1513AA58, 0x01C27824), (0x1513AA5C, 0x15E0003C),
+                 (0x1513AA60, 0x0298C821), (0x1513AA64, 0x8F280000),
+                 (0x1513AB30, 0x27A400A4), (0x1513AB48, 0x0D44C993),
+                 (0x1513AA70, 0xA7A800FA), (0x1513AB60, 0x2B210004),
+                 (0x1513AB68, 0x1420FFB8))),
+)
+
+# The same selection protocol with two entries and three mask alternatives.
+# Keep the old records unchanged so existing export evidence is stable.
+LOOP_SETUPS += (
+    dict(function=0x1513B0F8, call=0x1513B2C4, frame=0x144,
+         flags=(0x1513B1AC, 0x1513B1B0, 0x1513B218),
+         address=0x800A4328, count=2, sha1='4b3184d589c4910e2cde7a150be53b80af1f9cd4',
+         mask=(0x800A4324, 3, '0c7a623fd2bbc05b06423be359e4021d36e721ad'),
+         store=0x1513B2C8, mask_set=True,
+         guards=((0x1513B268, 0x3C12800A), (0x1513B274, 0x26524328),
+                 (0x1513B2A8, 0x8D2A0000), (0x1513B2C4, 0x0D44CA93),
+                 (0x1513B2C8, 0xA7AA019A), (0x1513B2F0, 0x29610002))),
+    dict(function=0x1513B0F8, call=0x1513B564, frame=0xA4,
+         flags=(0x1513B388, 0x1513B398, 0x1513B450),
+         address=0x800A4330, count=2, sha1='e6668de31308cba3dc45196a61b1475bbe353493',
+         mask=(0x800A4324, 3, '0c7a623fd2bbc05b06423be359e4021d36e721ad'),
+         store=0x1513B48C, mask_set=False,
+         guards=((0x1513B3A4, 0x3C14800A), (0x1513B3A8, 0x26944330),
+                 (0x1513B480, 0x8F190000), (0x1513B564, 0x0D44C993),
+                 (0x1513B48C, 0xA7B900FA), (0x1513B57C, 0x2B010002))),
+)
+
+DESCRIPTOR_TABLE = (0x800A3FD8, 20, 16, '0e8101c4aae51031a32f923f252098a9eba039c6')
+DESCRIPTOR_SWITCHES = (
+    (0x800A4350, 129, 'e70e56298b7ac4cea69efdb3a55781e491b92ca4'),
+    (0x800A4554, 23, '1acee8d60bd0ac6743dc44648251864bd85b1ba1'),
+)
+
+# Actor-type selector arrays used by 15136C3C -> 1513A24C -> 1515080C.
+# Type index 1 enables callback 1 and is deliberately excluded. All other
+# indices pass -1, whose signed byte is copied to object +0x79 and tested by
+# the renderer before its optional callback. These are initial ROM arrays.
+FRAGMENT_TABLES = (
+    (0x80089A20, 80, 'fc31239198497a530d95521b430bea024ce7a081'),
+    (0x800A3F14, 80, '03eb3d6d44ad2b1f1075be7cf65ed6e800c878d2'),
+    (0x800A3C6C, 680, 'e1d0e2b9ac6c6818d798a994f0e8bb32c61de8e2'),
+    (0x800A18C0, 12, '9b86e97e5a7793f59e956182524b84cee02860e3'),
+)
+FRAGMENT_GUARDS = (
+    (0x15132C3C, 0x82020079), (0x15132C40, 0x2401FFFF),
+    (0x15132C48, 0x10410008), (0x1515097C, 0x83AE0143),
+    (0x151509C8, 0xA3AE0109), (0x15150BE4, 0x8FA80124),
+    (0x15150BE8, 0x00108880), (0x15150BEC, 0x01114821),
+    (0x15150BF0, 0x8D2A0000), (0x15150BFC, 0xA7AA00F6),
+    (0x15150C54, 0x27A400A0), (0x15150CB0, 0x0D44C993),
+    (0x1513A300, 0x2403FFFF), (0x1513A324, 0x10410021),
+    (0x1513A3CC, 0x24030001), (0x1513A454, 0xAFA30020),
+    (0x1513A468, 0x0D454203), (0x15136D34, 0x8CA59A20),
+    (0x15136D38, 0xAFA30014), (0x15136D50, 0x0D44E893),
+    (0x15136D00, 0x8CE73F14), (0x150F1F78, 0x3C05800A),
+    (0x150F1F84, 0x2409FFFF), (0x150F1FB0, 0xAFA90020),
+    (0x150F1FBC, 0x24A518C0), (0x150F1FE8, 0x24070003),
+    (0x150F1FF0, 0x0D454203),
 )
 
 
@@ -167,6 +267,169 @@ def array_selectors(code: bytes, code_base: int, data: bytes, data_base: int, se
             'a1_stack_offset': frame, 'selectors': list(struct.unpack(f'>{count}I', raw))}
 
 
+def word_literal_store(code: bytes, base: int, pcs: tuple[int, int, int], offset: int) -> dict:
+    """Decode a pinned LUI/ORI/SW field while retaining every high flag bit."""
+    upper, lower, store = (struct.unpack('>I', _slice(code, base, pc, 4))[0] for pc in pcs)
+    register = upper >> 16 & 31
+    if (not register or upper >> 26 != 15 or upper >> 21 & 31
+            or lower >> 26 != 13 or lower >> 21 & 31 != register
+            or lower >> 16 & 31 != register or store >> 26 != 43
+            or store >> 21 & 31 != 29 or store >> 16 & 31 != register
+            or store & 0xFFFF != offset):
+        raise ValueError('bank-09 word literal/store differs')
+    return {'literal_pc': f'0x{pcs[0]:08X}', 'or_pc': f'0x{pcs[1]:08X}',
+            'store_pc': f'0x{pcs[2]:08X}', 'stack_offset': offset,
+            'value': ((upper & 0xFFFF) << 16) | (lower & 0xFFFF)}
+
+
+def loop_array_contexts(code: bytes, code_base: int, data: bytes, data_base: int,
+                        setup: dict, lookup: tuple[int, ...]) -> dict:
+    for pc, expected in setup['guards']:
+        if struct.unpack('>I', _slice(code, code_base, pc, 4))[0] != expected:
+            raise ValueError('bank-09 mask loop instruction differs')
+    flags = word_literal_store(code, code_base, setup['flags'], setup['frame'] + 0x50)
+    if flags['value'] & 0x10000:
+        raise ValueError('bank-09 mask loop permits a texture callback')
+    count = setup.get('count', 4)
+    raw = _slice(data, data_base, setup['address'], count * 4)
+    if hashlib.sha1(raw).hexdigest() != setup['sha1']:
+        raise ValueError('bank-09 mask loop selector array changed')
+    mask_address, mask_count, mask_hash = setup.get('mask', LOOP_MASK)
+    masks = _slice(data, data_base, mask_address, mask_count)
+    if hashlib.sha1(masks).hexdigest() != mask_hash:
+        raise ValueError('bank-09 loop selection masks changed')
+    selectors = struct.unpack(f'>{count}I', raw)
+    contexts = {}
+    for index, selector in enumerate(selectors):
+        if selector >= len(lookup):
+            raise ValueError('bank-09 loop model selector exceeds lookup table')
+        rows = [row for row, mask in enumerate(masks)
+                if bool(mask & (1 << index)) == setup['mask_set']]
+        if not rows:
+            continue
+        contexts.setdefault(lookup[selector], []).append({
+            'function': f"func_{setup.get('function', 0x1513A6E0):08X}", 'call_pc': f"0x{setup['call']:08X}",
+            'template_stack_offset': setup['frame'], 'initial_flags': flags,
+            'model_selector': {'value': selector, 'array_index': index,
+                               'store_pc': f"0x{setup['store']:08X}"},
+            'selector_array': {'address': f"0x{setup['address']:08X}", 'count': count,
+                               'sha1': setup['sha1'], 'selectors': list(selectors)},
+            'selection_mask': {'address': f'0x{mask_address:08X}', 'count': mask_count,
+                               'sha1': mask_hash, 'values': list(masks), 'bit': 1 << index,
+                               'submit_when': 'set' if setup['mask_set'] else 'clear',
+                               'enabled_rows': rows, 'row_selection': f'RNG % {mask_count}'},
+            'model_table_address': f'0x{MODEL_TABLE + selector * 4:08X}',
+            'texture_callback': 'disabled by initial flags bit 16'})
+    return contexts
+
+
+def descriptor_contexts(code, code_base, data, data_base, lookup):
+    """Read every constructor descriptor reached by the pinned type switch.
+
+    func_15138BC0 rejects the switch's sentinel 99 and forwards the index to
+    func_15138424. That constructor reads record +0xC, stores it at template
+    +0x56 and submits with flags 0x39E9. No per-model whitelist is involved.
+    Whole consumer pins cover control flow and the vector helper write spans.
+    """
+    indices = set()
+    for address, count, expected in DESCRIPTOR_SWITCHES:
+        raw = _slice(data, data_base, address, count * 4)
+        if hashlib.sha1(raw).hexdigest() != expected:
+            raise ValueError('bank-09 descriptor type switch changed')
+        for destination in set(struct.unpack(f'>{count}I', raw)):
+            if destination == 0x15134160:  # The pinned sentinel return.
+                continue
+            ret, value = struct.unpack('>2I', _slice(code, code_base, destination, 8))
+            if ret != 0x03E00008 or not (value & 0xFFFF0000 == 0x24020000 or value == 0x00001025):
+                raise ValueError('bank-09 descriptor switch return differs')
+            indices.add(value & 0xFFFF if value != 0x00001025 else 0)
+    address, count, stride, expected = DESCRIPTOR_TABLE
+    raw = _slice(data, data_base, address, count * stride)
+    if hashlib.sha1(raw).hexdigest() != expected or indices != set(range(count)):
+        raise ValueError('bank-09 constructor descriptor table changed')
+    flags = literal_store(code, code_base, (0x151384F4, 0x15138510), 0x118, 4)
+    if flags['value'] & 0x10000:
+        raise ValueError('bank-09 descriptor constructor permits a texture callback')
+    contexts = {}
+    for index in sorted(indices):
+        selector = struct.unpack_from('>H', raw, index * stride + 12)[0]
+        if selector >= len(lookup):
+            raise ValueError('bank-09 descriptor selector exceeds model table')
+        contexts.setdefault(lookup[selector], []).append({
+            'function': 'func_15138424', 'call_pc': '0x15138728',
+            'template_stack_offset': 0xC8, 'initial_flags': flags,
+            'model_selector': {'value': selector, 'store_pc': '0x15138548'},
+            'constructor_descriptor': {'address': f'0x{address + index * stride:08X}',
+                'index': index, 'table_address': f'0x{address:08X}', 'count': count,
+                'stride': stride, 'sha1': expected, 'field_offset': 12,
+                'index_consumer': 'func_15134070', 'caller': 'func_15138BC0'},
+            'model_table_address': f'0x{MODEL_TABLE + selector * 4:08X}',
+            'texture_callback': 'disabled by initial flags bit 16'})
+    return contexts
+
+
+def fragment_array_contexts(code, code_base, data, data_base, lookup):
+    """Recover ROM arrays whose helper passes the renderer's -1 sentinel.
+
+    Whole-function pins in material_context cover selection without replacement,
+    template lifetimes and both flag branches. Vector outputs end before the
+    flags/selector/callback fields; post-allocation copies begin at object
+    +0x170. The signed callback byte is never changed after initialization.
+    """
+    for pc, expected in FRAGMENT_GUARDS:
+        if struct.unpack('>I', _slice(code, code_base, pc, 4))[0] != expected:
+            raise ValueError('bank-09 fragment callback protocol changed')
+    spans = []
+    for address, size, expected in FRAGMENT_TABLES:
+        raw = _slice(data, data_base, address, size)
+        if hashlib.sha1(raw).hexdigest() != expected:
+            raise ValueError('bank-09 fragment selector table changed')
+        spans.append(raw)
+    if len(spans[0]) != 80 or len(spans[1]) != 80:
+        raise ValueError('bank-09 fragment type table extent differs')
+    pointers = struct.unpack('>20I', spans[0])
+    counts = struct.unpack('>20I', spans[1])
+    arrays = []
+    for type_index, (address, count) in enumerate(zip(pointers, counts)):
+        if type_index == 1:
+            continue  # 1513A3CC changes the callback from -1 to 1.
+        offset = address - FRAGMENT_TABLES[2][0]
+        if count <= 2 or offset < 0 or offset % 4 or offset + count * 4 > len(spans[2]):
+            raise ValueError('bank-09 fragment selector array exceeds pinned span')
+        raw = spans[2][offset:offset + count * 4]
+        arrays.append((raw, {'caller': 'func_15136C3C', 'call_pc': '0x15136D50',
+            'wrapper': 'func_1513A24C', 'wrapper_call_pc': '0x1513A468',
+            'type_index': type_index, 'type_consumer': 'func_15134070',
+            'address': f'0x{address:08X}', 'count': count,
+            'count_variants': [count - 2, count],
+            'pointer_table_address': f'0x{FRAGMENT_TABLES[0][0]:08X}',
+            'count_table_address': f'0x{FRAGMENT_TABLES[1][0]:08X}',
+            'callback_argument_store': '0x1513A454'}))
+    arrays.append((spans[3], {'caller': 'func_150F1D10', 'call_pc': '0x150F1FF0',
+        'address': f'0x{FRAGMENT_TABLES[3][0]:08X}', 'count': 3,
+        'count_variants': [3], 'callback_argument_store': '0x150F1FB0'}))
+    contexts = {}
+    for raw, selection in arrays:
+        selection = {**selection, 'sha1': hashlib.sha1(raw).hexdigest(),
+                     'selectors': list(struct.unpack(f'>{len(raw) // 4}I', raw)),
+                     'policy': 'Initial ROM array; conditional selection without replacement'}
+        for index, selector in enumerate(selection['selectors']):
+            if selector >= len(lookup):
+                raise ValueError('bank-09 fragment selector exceeds model lookup')
+            proof = {'function': 'func_1515080C', 'call_pc': '0x15150CB0',
+                'template_stack_offset': 0xA0, 'selector_array': selection,
+                'model_selector': {'value': selector, 'array_index': index,
+                                   'store_pc': '0x15150BFC'},
+                'model_table_address': f'0x{MODEL_TABLE + selector * 4:08X}',
+                'callback_index': {'value': -1, 'argument_stack_offset': 0x20,
+                    'load_pc': '0x1515097C', 'store_pc': '0x151509C8',
+                    'template_offset': 0x69, 'object_offset': 0x79,
+                    'renderer_test_pc': '0x15132C48'},
+                'texture_callback': 'disabled by signed callback index -1'}
+            contexts.setdefault(lookup[selector], []).append(proof)
+    return contexts
+
+
 def material_context(code: bytes, code_base: int, data: bytes, data_base: int) -> dict:
     consumers = []
     for address, size, expected in CONSUMERS:
@@ -234,6 +497,13 @@ def material_context(code: bytes, code_base: int, data: bytes, data_base: int) -
                                 'selector_array': selection,
                                 'model_table_address': f'0x{MODEL_TABLE + selector * 4:08X}',
                                 'texture_callback': 'disabled by initial flags bit 16'}]
+    for setup in LOOP_SETUPS:
+        for entry, proofs in loop_array_contexts(code, code_base, data, data_base, setup, lookup).items():
+            contexts.setdefault(entry, proofs)
+    for entry, proofs in descriptor_contexts(code, code_base, data, data_base, lookup).items():
+        contexts.setdefault(entry, proofs)
+    for entry, proofs in fragment_array_contexts(code, code_base, data, data_base, lookup).items():
+        contexts.setdefault(entry, proofs)
     return {'consumers': consumers,
             'model_lookup_table': {'address': f'0x{MODEL_TABLE:08X}', 'count': MODEL_COUNT, 'sha1': MODEL_TABLE_SHA1},
             'models': [{'bank': 9, 'entry': entry, 'segment': 0, 'constructors': proofs,
