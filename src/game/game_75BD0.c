@@ -18,4 +18,18 @@ f32 func_15048720(f32 arg0, f32 arg1, f32 arg2) {
 
     return arg1 + product;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048758 CURRENT (300) */
+void func_15048758(f32 *arg0) {
+    if (*arg0 < 0.0f) {
+        do {
+            *arg0 += 360.0f;
+        } while (*arg0 < 0.0f);
+    }
+    if (*arg0 >= 360.0f) {
+        do {
+            *arg0 -= 360.0f;
+        } while (*arg0 >= 360.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15048758 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75BD0/func_15048758.s")

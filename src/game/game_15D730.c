@@ -19,7 +19,6 @@
  * - func_15131C2C
  * - func_15131C84
  * - func_15131D4C
- * - func_15131DEC
  * - func_15131EE4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -297,13 +296,12 @@ extern f32 D_800BE9A4;
 
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131DEC CURRENT (10) */
 s32 func_15131DEC(void *arg0, s32 arg1) {
     f32 temp_fa0;
     f32 temp_fv1;
 
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0xA8);
-    temp_fa0 = sqrtf(temp_fv1) * *(f32 *)((u8 *)arg0 + 0xB0);
+    temp_fa0 = *(f32 *)((u8 *)arg0 + 0xB0) * sqrtf(temp_fv1);
     *(f32 *)((u8 *)arg0 + 0x3C) = temp_fa0;
     *(f32 *)((u8 *)arg0 + 0x38) = temp_fa0;
     *(s8 *)((u8 *)arg0 + 0x2B) = (s8) (u32) (*(f32 *)((u8 *)arg0 + 0xB4) - (*(f32 *)((u8 *)arg0 + 0xB8) * temp_fv1 * temp_fv1));
@@ -313,6 +311,4 @@ s32 func_15131DEC(void *arg0, s32 arg1) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15131DEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131DEC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131EE4.s")

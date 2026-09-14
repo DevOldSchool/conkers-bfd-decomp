@@ -17,13 +17,15 @@ void func_15040D90(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E240/func_15040D9C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E240/func_15040FCC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504129C CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504129C CURRENT (300) */
 void func_1504129C(void) {
     s32 value = 0;
 
-    do {
-        value += 4;
-    } while (value != 0x18000000);
+loop:
+    value += 4;
+    if (value != 0x18000000) {
+        goto loop;
+    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1504129C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E240/func_1504129C.s")

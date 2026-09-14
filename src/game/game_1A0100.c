@@ -47,6 +47,20 @@ void func_15172C50(s8 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15172C50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A0100/func_15172C50.s")
+void func_1517EE40(s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15172CA8 CURRENT (100) */
+void func_15172CA8(s32 arg0) {
+    s8 *temp_v0;
+
+    temp_v0 = (s8 *)&D_800DD2B0 + arg0;
+    if (*temp_v0 != -1) {
+        *temp_v0 = -1;
+        func_1517EE40(0, 0, 0, 0, 1, arg0);
+        func_1517EE40(0, 0, 0, 0x32, 0, arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15172CA8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A0100/func_15172CA8.s")
 void func_15085430(void *, s32, s32);
 extern u8 D_800BE9B4;

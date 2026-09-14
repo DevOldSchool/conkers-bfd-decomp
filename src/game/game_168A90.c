@@ -24,7 +24,7 @@
 extern void func_150A7B80(s32 arg0, s32 arg1);
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B968 CURRENT (10) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B968 CURRENT (110) */
 s32 func_1513B968(s32 arg0, s32 arg1) {
     s32 temp_a0;
 

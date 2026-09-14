@@ -356,6 +356,28 @@ void func_151CBB6C(SightEffect20 *arg0, SightMessage *arg1, u8 arg2) {
         }
     }
 }
+void func_1514373C(f32, f32, f32 *, f32 *);
+extern f32 D_800AAEB8;
+
+f32 func_151CC1D4(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 CURRENT (340) */
+s32 func_151CBBE0(u8 *arg0) {
+    f32 temp_fv0;
+    u8 *temp_v0;
+
+    temp_fv0 = func_151CC1D4();
+    temp_v0 = arg0 + 0x70;
+    if (temp_fv0 != *(f32 *)(arg0 + 0x98)) {
+        *(f32 *)(temp_v0 + 0x28) = temp_fv0;
+        func_1514373C(*(f32 *)(temp_v0 + 0x24) +
+                          ((temp_fv0 - *(f32 *)(temp_v0 + 0x18)) *
+                           *(f32 *)(temp_v0 + 0x20) * D_800AAEB8),
+                      55.0f, (f32 *)(arg0 + 0x10), (f32 *)(arg0 + 0x14));
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBBE0.s")
 extern f32 D_800AAEBC;
 

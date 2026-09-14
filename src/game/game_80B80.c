@@ -46,7 +46,7 @@ void func_15060F28(u8 *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15053894 CURRENT (10) */
 void func_15053894(u8 *arg0) {
-    u8 temp_t6;
+    s32 temp_t6;
     u8 temp_t7;
     u8 temp_t8;
 

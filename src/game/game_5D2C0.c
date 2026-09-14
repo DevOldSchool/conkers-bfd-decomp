@@ -9,7 +9,6 @@
  * - func_1502FFD8
  * - func_15030158
  * - func_15030310
- * - func_150303E4
  * - func_15030468
  * - func_15030AF4
  * - func_15030D54
@@ -49,7 +48,31 @@ void func_150302F0(void *arg0, s32 arg1) {
     func_15030310(arg0, arg1, 0xFF);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030310.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150303E4.s")
+extern void *D_800C3EE0;
+void func_15030158(void *, s32);
+
+s32 func_150303E4(void *arg0) {
+    s32 var_s1;
+    void *temp_s0;
+    void *var_a0;
+
+    if (*(u8 *)((u8 *)arg0 + 0x3B) == 0) {
+        return 0;
+    }
+    var_a0 = D_800C3EE0;
+    var_s1 = 0;
+    if (var_a0 != 0) {
+        do {
+            temp_s0 = *(void **)((u8 *)var_a0 + 0x54);
+            if (*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)var_a0) {
+                var_s1 = 1;
+                func_15030158(var_a0, 0);
+            }
+            var_a0 = temp_s0;
+        } while (temp_s0 != 0);
+    }
+    return var_s1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030AF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030D54.s")
@@ -237,7 +260,7 @@ typedef struct {
 
 extern s32 D_800902BC[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E2C CURRENT (50) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E2C CURRENT (150) */
 s32 func_15031E2C(Game5D2C0State *arg0, s16 arg1) {
     s32 temp_v1;
     s32 var_v0;

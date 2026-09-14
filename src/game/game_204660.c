@@ -12,8 +12,6 @@
  * - func_151D7538
  * - func_151D75C4
  * - func_151D7724
- * - func_151D7770
- * - func_151D779C
  * - func_151D77C8
  * - func_151D7830
  * - func_151D792C
@@ -87,23 +85,17 @@ s32 func_151D7724(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D7724 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7724.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7770 CURRENT (20) */
 s32 func_151D7770(void *arg0) {
     u8 *temp_v0;
     u8 *temp_v0_2;
-    s32 temp_t7;
 
     temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x40));
     temp_v0_2 = (void *)((u8 *)arg0 + 0x28);
     if (*(u16 *)((u8 *)temp_v0 + 0x84) == 0) {
-        temp_t7 = *(u8 *)((u8 *)temp_v0_2 + 5);
-        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8)(temp_t7 & 0xFFFE);
+        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8)(*(u8 *)((u8 *)temp_v0_2 + 5) & 0xFFFE);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D7770 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7770.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D779C CURRENT (20) */
 s32 func_151D779C(void *arg0) {
     u8 *temp_v0;
     u8 *temp_v0_2;
@@ -112,13 +104,10 @@ s32 func_151D779C(void *arg0) {
     temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x40));
     temp_v0_2 = (void *)((u8 *)arg0 + 0x28);
     if (*(u8 *)((u8 *)temp_v0 + 0xAD) != 0) {
-        temp_t7 = *(u8 *)((u8 *)temp_v0_2 + 5);
-        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8)(temp_t7 & 0xFFFE);
+        *(u8 *)((u8 *)temp_v0_2 + 5) = (u8)(*(u8 *)((u8 *)temp_v0_2 + 5) & 0xFFFE);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D779C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D779C.s")
 typedef struct Game204660ActorState {
     s32 active;
 } Game204660ActorState;

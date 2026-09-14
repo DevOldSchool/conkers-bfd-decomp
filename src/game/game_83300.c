@@ -214,6 +214,23 @@ void func_15058F24(void *arg0, f32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15058F24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058F24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059140.s")
+void func_1505A184(u16, f32, s32, f32 *, f32 *, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150593C4 CURRENT (409) */
+void func_150593C4(s32 arg0, u16 arg1, f32 arg2, f32 arg3) {
+    f32 sp2C;
+    f32 sp28;
+    s32 sp24;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    func_1505A184(arg1, arg2, 0, &sp2C, &sp28, &sp24);
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x16C);
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x170);
+    *(f32 *)((u8 *)arg0 + 0x16C) = temp_fv0 + ((sp2C - temp_fv0) * arg3);
+    *(f32 *)((u8 *)arg0 + 0x170) = temp_fv1 + ((sp28 - temp_fv1) * arg3);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150593C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150593C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059444.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505959C.s")
@@ -773,6 +790,50 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DADC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DDA8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DF10.s")
+typedef struct Game83300Inner {
+    u8 pad0[0x28];
+    s32 field_28;
+    u8 pad2C[4];
+    s32 field_30;
+    s32 field_34;
+    u8 pad38[9];
+    u8 field_41;
+    u8 pad42[0x1CF];
+    u8 field_211;
+} Game83300Inner;
+
+typedef struct Game83300Actor {
+    u8 pad0[4];
+    u8 field_4;
+    u8 pad5[0x7F];
+    s16 field_84;
+    u8 pad86[0x24A];
+    Game83300Inner *field_2D0;
+} Game83300Actor;
+
+void func_100226F0(void *, s32);
+extern u16 D_800C4ED0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DFDC CURRENT (185) */
+void func_1505DFDC(Game83300Actor *arg0) {
+    s32 sp1C;
+    Game83300Inner *sp18;
+    u16 *temp_v1;
+
+    sp18 = arg0->field_2D0;
+    arg0->field_84 = -1;
+    if (sp18 != 0) {
+        sp1C = arg0->field_4;
+        sp18->field_28 = 0;
+        func_100226F0((u8 *)sp18 + 0x40, 0x3A0);
+        temp_v1 = &D_800C4ED0[sp1C];
+        sp18->field_41 = (u8)(*temp_v1 + 1);
+        sp18->field_30 = 0;
+        sp18->field_34 = 0;
+        sp18->field_211 = (u8)(*temp_v1 + 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505DFDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DFDC.s")
 /* Call context: func_10023A10: unique active project prototype */
 void func_10023A10(void *, void *, s32);

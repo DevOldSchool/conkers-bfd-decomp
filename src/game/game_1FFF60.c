@@ -22,6 +22,31 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void *func_1502B5C8(u32 *, s32, s32, u16);
+extern u8 D_800E0950[];
+extern s32 D_800E0990[];
+extern u16 D_800AB140[];
+extern s16 D_800E0968[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2AB0 CURRENT (190) */
+void func_151D2AB0(s32 arg0) {
+    u32 sp1C;
+    s32 sp18;
+    s32 temp_t1;
+    u8 *temp_v0;
+    u8 temp_t9;
+
+    temp_v0 = &D_800E0950[arg0];
+    temp_t9 = *temp_v0 + 1;
+    *temp_v0 = temp_t9;
+    if ((temp_t9 & 0xFF) < 2) {
+        temp_t1 = arg0 * 2;
+        sp18 = temp_t1;
+        D_800E0990[arg0] = (s32)func_1502B5C8(&sp1C, 2, 9, *(u16 *)((u8 *)D_800AB140 + temp_t1));
+        *(s16 *)((u8 *)D_800E0968 + sp18) = (s16)(sp1C >> 4);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D2AB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2AB0.s")
 void func_100043B4(s32, s32, s32);
 extern u8 D_800E0950[];
@@ -45,6 +70,28 @@ void func_151D2B4C(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D2B4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2B4C.s")
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void func_10022EC0(void *, void *, s32, void *);
+void func_151D3308(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2BA4 CURRENT (50) */
+void *func_151D2BA4(s32 arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
+    void *temp_v0;
+    void *sp24;
+
+    temp_v0 = func_15167A68(0x3D, arg4, arg2 + 0x48, 1, arg3, 1);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    sp24 = temp_v0;
+    func_10022EC0((u8 *)temp_v0 + 0x10, (void *)arg0, 0x24, temp_v0);
+    *(s32 *)((u8 *)sp24 + 0x34) = *(s32 *)arg1;
+    *(s32 *)((u8 *)sp24 + 0x38) = *(s32 *)((u8 *)arg1 + 4);
+    *(s32 *)((u8 *)sp24 + 0x3C) = *(s32 *)((u8 *)arg1 + 8);
+    func_151D3308(sp24);
+    return sp24;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D2BA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2BA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2C40.s")
 void func_151D3354();

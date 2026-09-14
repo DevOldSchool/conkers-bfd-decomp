@@ -9,7 +9,6 @@
  * - func_150130B4
  * - func_15013778
  * - func_150139AC
- * - func_15013C38
  * - func_15013D38
  * - func_15013DE8
  * - func_15014094
@@ -95,9 +94,9 @@ extern u8 D_800C35E8;
 extern u8 D_800C35EA;
 extern u8 *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013C38 CURRENT (10) */
 s32 func_15013C38(Game40490CallbackState *state) {
     Game40490Callback callback;
+    f32 callback_value;
     s32 index;
 
     index = state->callback_index;
@@ -114,12 +113,11 @@ s32 func_15013C38(Game40490CallbackState *state) {
     }
     callback = D_80082F28[index];
     if (callback != 0) {
-        callback(state, (f32)state->callback_value * D_80096650);
+        callback_value = D_80096650 * (f32)state->callback_value;
+        callback(state, callback_value);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15013C38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013D38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013DE8.s")
 void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);

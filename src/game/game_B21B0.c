@@ -80,4 +80,24 @@ u8 func_15085420(GameB21B0Object *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085430.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085710.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_150859AC.s")
+void func_15085710(s16, s32, u8);
+extern u8 D_800CC2D0[];
+extern u8 D_800D18A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15085ABC CURRENT (200) */
+void func_15085ABC(s16 arg0) {
+    s32 var_s0;
+
+    var_s0 = 0;
+    if (D_800D18A8 != 0) {
+        return;
+    }
+    do {
+        if ((1 << var_s0) & arg0) {
+            func_15085710(var_s0, 5, *(u8 *)(D_800CC2D0 + (var_s0 * 0x32C) + 0x1CA));
+        }
+        var_s0 += 1;
+    } while (var_s0 != 4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15085ABC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085ABC.s")

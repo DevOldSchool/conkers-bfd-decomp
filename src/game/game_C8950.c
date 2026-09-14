@@ -9,9 +9,7 @@
  * - func_1509B570
  * - func_1509B5AC
  * - func_1509B704
- * - func_1509B764
  * - func_1509B810
- * - func_1509B8FC
  * - func_1509B950
  * - func_1509BA04
  * - func_1509BBA0
@@ -26,12 +24,14 @@ typedef struct GameC8950Node {
     u16 key;
     u8 pad2[0x16];
     struct GameC8950Node *next;
+    struct GameC8950Node *prev;
 } GameC8950Node;
 
 typedef struct GameC8950List {
     u16 count;
     u8 pad2[2];
     GameC8950Node *head;
+    GameC8950Node *tail;
 } GameC8950List;
 
 extern GameC8950List D_800D2F48;
@@ -74,7 +74,29 @@ GameC8950Node *func_1509B704(s16 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509B704 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B704.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B764.s")
+void func_10004074(s32);
+
+void func_1509B764(GameC8950Node *arg0) {
+    if (D_800D2F48.count == 1) {
+        D_800D2F48.head = 0;
+        D_800D2F48.tail = 0;
+    } else {
+        if (arg0 == D_800D2F48.head) {
+            D_800D2F48.head = arg0->next;
+            arg0->next->prev = 0;
+        } else {
+            arg0->prev->next = arg0->next;
+        }
+        if (arg0 == D_800D2F48.tail) {
+            D_800D2F48.tail = arg0->prev;
+            arg0->prev->next = 0;
+        } else {
+            arg0->next->prev = arg0->prev;
+        }
+    }
+    func_10004074((s32)arg0);
+    D_800D2F48.count -= 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B810.s")
 typedef struct {
     u16 field_0;
@@ -85,18 +107,15 @@ GameC8950Data *func_1502B5C8(void *, s32, s32, s16);
 void func_1509B950(void *);
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B8FC CURRENT (5) */
 void func_1509B8FC(s16 arg0) {
-    s16 sp18;
     GameC8950Data *temp_v0;
+    s32 sp18;
 
     temp_v0 = func_1502B5C8(&sp18, 2, 0x14, arg0);
     temp_v0->field_0 |= arg0;
     temp_v0->field_2 = D_800BE9F0;
     func_1509B950(temp_v0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509B8FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B8FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B950.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BA04.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BBA0.s")

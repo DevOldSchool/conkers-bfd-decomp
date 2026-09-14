@@ -36,6 +36,27 @@ void func_1507EB80(u8 *arg0, s32 *arg1, u8 arg2) {
         *arg1 += 1;
     }
 }
+void func_10023A10(void *, void *, s32);
+extern void *D_80086C24[];
+extern u8 D_8009BBF0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 CURRENT (252) */
+void func_1507EBB8(s32 arg0, s32 *arg1, s32 arg2) {
+    s32 sp18;
+    s32 temp_v0;
+    u8 temp_a3;
+    void *temp_t7;
+
+    temp_t7 = D_80086C24[arg2];
+    temp_a3 = D_8009BBF0[arg2];
+    temp_v0 = *arg1;
+    if ((temp_v0 + temp_a3) < 0x28) {
+        sp18 = (s32) temp_a3;
+        func_10023A10(temp_t7, (void *)(temp_v0 + arg0), (s32) temp_a3);
+        *arg1 += temp_a3;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EBB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EE58 CURRENT (644) */

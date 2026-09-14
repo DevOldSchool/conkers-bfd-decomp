@@ -342,7 +342,7 @@ void func_1508434C(GameAEB40State *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150843AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084488.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084558.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150849A0 CURRENT (15) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150849A0 CURRENT (25) */
 u8 func_150849A0(void *arg0) {
     u8 temp_v0;
     u8 *temp_v1;

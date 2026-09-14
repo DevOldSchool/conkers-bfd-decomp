@@ -89,6 +89,12 @@
       "symbol": "func_15001460"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 38,
+        "reason": "Manual global initialization candidate reached CURRENT (30) after three source-only variants and 12 bounded register-allocation permutations; remaining differences are declaration/lifetime register choices with no exact match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -101,6 +107,12 @@
       "symbol": "func_15001970"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1064,
+        "reason": "Manual startup/MMIO body recovered in three bounded variants; best CURRENT (1064), with frame/register allocation and MMIO/control-flow scheduling differing from retail.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -150,7 +162,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "Best candidate remains CURRENT (30): three source-only variants using explicit pointer temporaries, an s8 double-pointer cursor, and a u8 double-pointer cursor changed allocation but did not produce the target t0/t1/t2 pointer-register sequence.",
+        "current_score": 30,
+        "reason": "register-only mismatch: bounded declaration/lifetime permutation exhausted 3 variants at best CURRENT (30), with the repeated global-pointer loads allocated t9/t0/t1 instead of target t0/t1/t2",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -165,6 +178,12 @@
       "symbol": "func_15001B8C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 300,
+        "reason": "Manual buffer/link-table body recovered in three bounded variants; CURRENT (300), with one source-unit boundary/size offset and small expression/control-flow differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -177,6 +196,12 @@
       "symbol": "func_15001BC8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 735,
+        "reason": "Manual buffer initialization/body recovered in three bounded variants; best CURRENT (735), with constant/register scheduling and source-unit layout differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -243,6 +268,12 @@
       "symbol": "func_15002560"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 111,
+        "reason": "Manual resource-size/lookup body recovered in three bounded variants; best CURRENT (111), with only local stack-slot/register allocation differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -306,6 +337,12 @@
       "symbol": "func_15002724"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 250,
+        "reason": "Manual allocation-table body recovered in three bounded source variants; best CURRENT (250), with only register-allocation differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -402,7 +439,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15002FB4",
           "vram": "0x15002FB4"
         }
@@ -440,6 +482,12 @@
       "symbol": "func_1513416C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 140,
+        "reason": "Manual blood-effect allocation and initialization body recovered in three bounded variants; best CURRENT (140), with ABI frame/stack and FPU scheduling differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -4848,8 +4896,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15004F30",
           "vram": "0x15004F30"
         }
@@ -5077,6 +5130,12 @@
       "symbol": "func_15048720"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 300,
+        "reason": "Manual angle-normalization C matches the target instruction sequence through the live body, but the registered span includes trailing padding and the focused diff retains shifted branch targets; diagnose reports CURRENT (300) with 3 control-flow rows and 8 register-only rows, with no justified semantic variant.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5185,8 +5244,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150120B0",
           "vram": "0x150120B0"
         }
@@ -5271,8 +5335,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15011B00",
           "vram": "0x15011B00"
         }
@@ -5284,8 +5353,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15011B94",
           "vram": "0x15011B94"
         }
@@ -5385,6 +5459,12 @@
       "symbol": "func_15008870"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Manual callback dispatch C matches the target loop and data accesses; IDO removes one unconditional branch in the arg0==2 path, leaving CURRENT (100) with a control-flow/register allocation plateau. An explicit goto variant worsened to CURRENT (455).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5401,8 +5481,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15016500",
           "vram": "0x15016500"
         }
@@ -5542,6 +5627,12 @@
       "symbol": "func_15011D60"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 80,
+        "reason": "Manual lookup interpolation now matches all opcodes, constants, control flow, and body span; remaining CURRENT (80) is 16 register-only rows after three source variants and 32 bounded permutations, with no improvement.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5653,8 +5744,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500ED80",
           "vram": "0x1500ED80"
         }
@@ -5681,6 +5777,12 @@
       "symbol": "func_1500EE18"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 400,
+        "reason": "Typed 12-byte packet C matches the target body instruction-for-instruction, but the focused gate reports CURRENT (400) from shifted branch targets and registered trailing padding; diagnose shows 2 register-only and 4 control-flow rows with no justified source-only variant.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5694,6 +5796,12 @@
       "symbol": "func_1500EE94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1000,
+        "reason": "Manual floating-point table lookup follows the target semantics, but remains CURRENT (1000) after three source-only table/address variants; diagnose reports 17 register-only, 3 control-flow, and 4 missing/extra rows, so no bounded permutation is justified.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5728,8 +5836,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Recovered the table interpolation algorithm and project-specific IDO fabsf intrinsic; best CURRENT 10 after three C variants, with the only remaining difference being the final floating-point destination register",
+        "current_score": 15,
+        "reason": "full-span diff matches except final division/return uses a different floating-point temporary register; assignment-before-return variant changed branch layout and worsened CURRENT (5), so best verified candidate remains CURRENT (15)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -5817,6 +5925,12 @@
       "symbol": "func_15049260"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1170,
+        "reason": "The global floating-point assignments are recovered, but the compiler folds the target divide-by-2 sequence into multiply-by-0.5 and changes the final global address form (CURRENT 1170); candidate preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5849,6 +5963,12 @@
       "symbol": "func_15049350"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1750,
+        "reason": "Manual request-struct body recovered in three bounded variants; best CURRENT (1750), with saved-register and field-copy scheduling differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5862,6 +5982,12 @@
       "symbol": "func_15010110"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 70,
+        "reason": "Manual flag/dispatch logic recovered in three bounded variants; best CURRENT (70), with only register-allocation differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5878,8 +6004,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 320,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15010FB0",
           "vram": "0x15010FB0"
         }
@@ -5888,6 +6019,12 @@
       "symbol": "func_15010FB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1410,
+        "reason": "Manual state-structure initialization recovered; current body has remaining field-store scheduling/register differences (CURRENT 1410), so defer pending better declaration/order evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5914,6 +6051,12 @@
       "symbol": "func_150484A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 330,
+        "reason": "Manual initialization/dispatch body recovered in bounded variants; remaining delay-slot and indirect-dispatch address scheduling differences prevent an exact match (best observed CURRENT 335).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -5927,6 +6070,12 @@
       "symbol": "func_1500E470"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9504,
+        "reason": "Manual trigonometric matrix body recovered, but the current C produces a large FPU/register/frame mismatch (CURRENT 9504); defer pending ABI/register-allocation evidence rather than inventing assembly.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -6060,8 +6209,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150102D0",
           "vram": "0x150102D0"
         }
@@ -6123,8 +6277,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500EB30",
           "vram": "0x1500EB30"
         }
@@ -6136,8 +6295,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 444,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500EBC4",
           "vram": "0x1500EBC4"
         }
@@ -6250,6 +6414,12 @@
       "symbol": "func_15017498"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 965,
+        "reason": "Manual packed-record loop recovered in three bounded variants; best CURRENT (965), with remaining branch/control-flow and register scheduling differences.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -6284,8 +6454,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150061B0",
           "vram": "0x150061B0"
         }
@@ -6566,8 +6741,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15011A78",
           "vram": "0x15011A78"
         }
@@ -6672,6 +6852,12 @@
       "symbol": "func_151236D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1090,
+        "reason": "Manual camera-state initialization body recovered in three bounded variants; remaining branch form and register-allocation/scheduling differences leave CURRENT (1090), so defer pending structure evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -6685,6 +6871,12 @@
       "symbol": "func_15123934"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 688,
+        "reason": "Manual camera-state restore body recovered in three bounded variants; best CURRENT (660) still has frame/branch/register-allocation differences, so defer pending declaration and ABI evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -6882,6 +7074,12 @@
       "symbol": "func_15125490"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 828,
+        "reason": "Manual camera initialization body recovered in three bounded FPU/source variants; best CURRENT (828) retains FPU register/scheduling differences, so defer pending expression evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8199,6 +8397,12 @@
       "symbol": "func_151CBB6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 340,
+        "reason": "best bounded source form CURRENT 340; remaining floating-point register allocation differs",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8564,6 +8768,12 @@
       "symbol": "func_15059140"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 409,
+        "reason": "bounded manual variants exhausted; frame size and FP add scheduling remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9058,6 +9268,12 @@
       "symbol": "func_1505DF10"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 185,
+        "reason": "best bounded source form CURRENT 185; remaining pointer-reload/store scheduling mismatch",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9777,8 +9993,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Offset/callback wrapper is semantically recovered; three source-only variants exhausted, with only final temporary-register selection differing from the target.",
+        "current_score": 110,
+        "reason": "callback-offset register plateau: original source remains the best semantic candidate; direct expression variants changed the addu operand order but did not remove the target a0 versus current v0 mismatch, and current full-span evidence remains nonzero",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -10271,6 +10487,12 @@
       "symbol": "func_151419B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1187,
+        "reason": "Manual callback-state update body recovered in three bounded variants; best CURRENT (1187) retains ABI/register and source-span differences, so defer pending stronger declaration evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10323,6 +10545,12 @@
       "symbol": "func_15141CC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 539,
+        "reason": "Manual bounds/table callback body recovered in three bounded variants; best CURRENT (539) retains unused-argument register allocation and one delay-slot difference, so defer pending ABI evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10362,6 +10590,12 @@
       "symbol": "func_15141F78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2410,
+        "reason": "Manual callback-state construction recovered in three bounded source variants; best CURRENT (2410) retains local aggregate load/store scheduling and frame differences, so defer pending source-shape evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -12483,7 +12717,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25,
-        "reason": "best clean global-pointer candidate; address register allocation differs, CURRENT (25)",
+        "reason": "best clean global-store candidate remains CURRENT (25): target keeps the global address in v1 while direct scalar and array-typed declarations both compile to v0; source-local pointer materialized direct at/lo stores and worsened to CURRENT (225)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -12877,6 +13111,12 @@
       "symbol": "func_15008230"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2180,
+        "reason": "The source-local global initialization semantics are recovered, but two bounded loop forms compile to a division-based count instead of the target pointer loop (CURRENT 2180); candidate preserved for later control-flow work.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -14632,17 +14872,16 @@
       "symbol": "func_150139AC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Best CURRENT (10): recovered all flag gating, scene exclusions, callback-table dispatch, unsigned-to-float conversion, and scale application; the sole remaining difference is IDO choosing f16 instead of the target f0 for the final multiply result.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 256,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15013C38",
           "vram": "0x15013C38"
         }
@@ -16952,6 +17191,12 @@
       "symbol": "func_1506B50C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 530,
+        "reason": "bounded manual variants exhausted; branch argument preload and epilogue scheduling remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -18109,6 +18354,12 @@
       "symbol": "func_1506DDC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 160,
+        "reason": "The baseline loop matches the body except for one initialization register-order difference and one missing-or-extra boundary row; two bounded source-only declaration variants worsened the diff, so the best candidate is preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -19620,6 +19871,12 @@
       "symbol": "func_15070114"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 769,
+        "reason": "bounded manual variants exhausted; remaining register scheduling and source-unit boundary differences",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22037,6 +22294,12 @@
       "symbol": "func_15074BEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "body exact; focused diff retains one boundary missing-or-extra row (CURRENT 100)",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -22135,17 +22398,16 @@
       "symbol": "func_15074EE8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Best typed field-transfer candidate is CURRENT (10); remaining mismatch is temporary register allocation v0 versus t6",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 24,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15074F30",
           "vram": "0x15074F30"
         }
@@ -22167,17 +22429,16 @@
       "symbol": "func_15074F48"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 124,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15074FD4",
           "vram": "0x15074FD4"
         }
@@ -22589,8 +22850,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15075DE8",
           "vram": "0x15075DE8"
         }
@@ -25200,8 +25466,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "current_score": 100,
+        "reason": "The source-level OR reversal makes the full instruction body exact, but finish still reports CURRENT (100) with one missing-or-extra full-span/source-unit item. Preserve the exact-body candidate pending independent boundary/layout evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25217,17 +25483,16 @@
       "symbol": "func_1507AD7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507ADAC",
           "vram": "0x1507ADAC"
         }
@@ -25239,7 +25504,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 185,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (185)",
+        "reason": "The candidate is semantically aligned and the residual is classified as register-allocation-only (26 differing register operands). The bounded permutation search exhausted 32 variants at CURRENT (185) without an exact match; preserve the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25276,7 +25541,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (50)",
+        "reason": "The full-span candidate is instruction/control-flow aligned with eight register-only differences in the floating-point temporaries. The bounded permutation search exhausted 16 variants at CURRENT (50) without an exact match; preserve the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25295,7 +25560,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 25,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (25)",
+        "reason": "The candidate is instruction/control-flow aligned with four register-only floating-point differences. The bounded permutation search exhausted four variants at CURRENT (25) without an exact match; preserve the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25314,7 +25579,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (50)",
+        "reason": "register-only FPU allocation plateau: finish CURRENT (50), diagnose register-only 8, bounded permute exhausted 16 variants with best CURRENT (50)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25348,6 +25613,12 @@
       "symbol": "func_1507B040"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1220,
+        "reason": "control-flow and register-allocation plateau: best manual C candidate finish CURRENT (1220), diagnose reports register-only 32 plus opcode/control-flow 6 and missing-or-extra 2; bounded declaration/control-flow variants did not improve",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -25382,7 +25653,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (50)",
+        "reason": "register-only FPU allocation plateau: finish CURRENT (50), diagnose register-only 16, bounded permute exhausted 4 variants with best CURRENT (50)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25598,8 +25869,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 595,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (595)",
+        "current_score": 670,
+        "reason": "signed-byte conversion/control-flow plateau: finish CURRENT (670), diagnose register-only 11 plus opcode/control-flow 2; source-local pointer/integer lifetime variant worsened to CURRENT (925)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25633,6 +25904,12 @@
       "symbol": "func_1507B5C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "near-exact candidate remains unmatched: finish CURRENT (100), diagnose register-only 9 and one missing-or-extra/control-flow item; m2c-derived source body matches semantics and bounded local declarations are exhausted",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -25667,8 +25944,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507B734",
           "vram": "0x1507B734"
         }
@@ -25698,7 +25980,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 85,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (85)",
+        "reason": "register-only allocation plateau: finish CURRENT (85), diagnose register-only 16, bounded permute exhausted 24 variants with best CURRENT (85)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25717,7 +25999,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 355,
-        "reason": "Three source-only forms recovered the callback-table ABI and saved global state; remaining mismatch is register allocation for the selector and callback target, plus adjacent-span evidence.",
+        "reason": "callback register/lifetime plateau: best finish CURRENT (300) after s32 selector and callback declaration; original u8 callback had CURRENT (355), declaration reorder worsened to CURRENT (365)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25769,6 +26051,12 @@
       "symbol": "func_1507B958"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 615,
+        "reason": "table-expression/register scheduling plateau: finish CURRENT (615); m2c-derived semantics are recovered but target evaluation order and register allocation remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -25782,6 +26070,12 @@
       "symbol": "func_1507B974"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 514,
+        "reason": "mixed register/stack/control-flow plateau: best finish CURRENT (514) with void s32 callback prototype; m2c body is semantically recovered but target stack spill/register lifetime remains unresolved",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26008,6 +26302,12 @@
       "symbol": "func_1513C900"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 890,
+        "reason": "Manual resource-release loop recovered in three bounded source variants; best CURRENT (890) retains loop register allocation and likely-branch scheduling differences, so defer pending declaration and control-flow evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26927,8 +27227,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 188,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150186D0",
           "vram": "0x150186D0"
         }
@@ -26953,8 +27258,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15018DFC",
           "vram": "0x15018DFC"
         }
@@ -26963,6 +27273,12 @@
       "symbol": "func_15018DFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Manual body is instruction-identical through the recorded span, but the focused gate retains one source-row boundary mismatch (CURRENT 100) after three bounded variants; defer pending function-span evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -26994,6 +27310,12 @@
       "symbol": "func_15018F08"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1634,
+        "reason": "Deferred after three manual source-only variants; remaining mismatch is ABI/local register allocation, pointer spill scheduling, and constant-store ordering (best CURRENT 1634).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27010,8 +27332,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 212,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501905C",
           "vram": "0x1501905C"
         }
@@ -27051,6 +27378,12 @@
       "symbol": "func_15019414"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3234,
+        "reason": "Deferred after three manual source-only variants; best CURRENT (3234) is dominated by ABI/register allocation and pointer spill scheduling across the helper chain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27090,6 +27423,12 @@
       "symbol": "func_150198FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1060,
+        "reason": "Manual body and argument widths recovered in three bounded variants; best tested CURRENT (1060), with packet-pointer preservation and frame/register allocation still differing from retail.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27103,6 +27442,12 @@
       "symbol": "func_15019BB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3120,
+        "reason": "Manual packet-building body recovered in three bounded variants; best CURRENT (3120), with argument/pointer preservation, frame size, and branch scheduling differing from retail.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27116,6 +27461,12 @@
       "symbol": "func_15019CC8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1482,
+        "reason": "Manual semantic body recovered in three bounded variants; current best CURRENT (1482), with saved-pointer frame/register allocation and control-flow differences remaining.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27188,8 +27539,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "best clean scalar loop; compiler unrolls four iterations at a time, CURRENT (10)",
+        "current_score": 300,
+        "reason": "The explicit source-level loop reproduces the target single-step increment sequence, but the full-span result remains CURRENT (300) with a mixed-source-unit offset/control-flow mismatch. The structured loop variants either unrolled to 0x10 increments or scored worse; preserve CURRENT (300).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -27518,6 +27869,12 @@
       "symbol": "func_15043EC8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 745,
+        "reason": "The typed work-record implementation recovers the call and all field stores but remains at CURRENT (745) with floating-point scheduling/register differences after two bounded variants; best candidate preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -27799,6 +28156,12 @@
       "symbol": "func_1507CD64"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "A typed entity-record temporary reproduces every instruction through the registered 0x80-byte body; the remaining CURRENT (100) is only one missing-or-extra boundary row.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -28255,7 +28618,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 220,
-        "reason": "Recovered D_800D2F48 as a counted linked-list head and node key/next fields; best manual candidate reaches CURRENT (220), with mask materialization scheduled after the count branch.",
+        "reason": "Manual linked-list search recovered in two bounded mask/initialization variants; best CURRENT (220) retains only mask/index scheduling and register-allocation differences, so defer pending source-shape evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -28274,8 +28637,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509B764",
           "vram": "0x1509B764"
         }
@@ -28297,17 +28665,16 @@
       "symbol": "func_1509B810"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5,
-        "reason": "CURRENT (5): only the escaped local scratch address differs (target sp+0x18 versus typed s16 candidate sp+0x1E); larger source-local objects increase the frame to 0x28, so preserve the closest evidence-backed candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509B8FC",
           "vram": "0x1509B8FC"
         }
@@ -28818,6 +29185,12 @@
       "symbol": "func_150C2700"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 80,
+        "reason": "Manual mixed-parameter packet construction recovered in three bounded scalar/aggregate variants; diagnose-diff found only 16 register differences at CURRENT (80), and permutation found no exact source variant, so defer pending ABI/register evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29583,6 +29956,12 @@
       "symbol": "func_1515D130"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 190,
+        "reason": "Manual resource-cache initialization recovered in two bounded declaration variants; best CURRENT (190) retains stack-frame, temporary-register, and scheduling differences, so defer pending local-layout evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29615,6 +29994,12 @@
       "symbol": "func_151D2B4C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 50,
+        "reason": "Manual effect-construction body recovered; diagnose-diff classified the remaining 11 differences as register-only (CURRENT 50), and the bounded declaration/lifetime permutation found no exact source variant, so defer pending stronger local-type evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31163,6 +31548,12 @@
       "symbol": "func_151067B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1165,
+        "reason": "bounded manual variants exhausted; callback argument allocation remains mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31273,7 +31664,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Best typed traversal candidate is CURRENT (20); recovered return type fixes v0, remaining mismatch is v1 versus a1 allocation for the nested pointer",
+        "reason": "Manual typed traversal is semantically exact, but IDO keeps the target pointer in a1 instead of the US v1 register; three source-only variants did not improve CURRENT (20).",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -34003,17 +34394,16 @@
       "symbol": "func_151C0698"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151C110C",
           "vram": "0x151C110C"
         }
@@ -34267,6 +34657,12 @@
       "symbol": "func_1503D45C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 198,
+        "reason": "Manual resource-table walk recovered in three bounded pointer/declaration variants; best CURRENT (198) retains only register allocation and focused-span boundary differences, so defer pending local type evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34325,6 +34721,12 @@
       "symbol": "func_1503D660"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 417,
+        "reason": "Manual resource-slot allocation body recovered in three bounded pointer/ABI variants; best CURRENT (417) retains stack-frame and branch/register scheduling differences, so defer pending allocator-call type evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34538,6 +34940,12 @@
       "symbol": "func_1507E908"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1440,
+        "reason": "Three source-only variants recovered the resource lookup and preceding-record field semantics but plateaued at CURRENT (1440) with register/control-flow differences; the best typed-record candidate is preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -34679,6 +35087,12 @@
       "symbol": "func_1507EB80"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 252,
+        "reason": "bounded manual variants exhausted; frame size and preserved-local layout remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35379,8 +35793,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501D1D4",
           "vram": "0x1501D1D4"
         }
@@ -35408,6 +35827,12 @@
       "symbol": "func_1501D258"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2260,
+        "reason": "The 64-bit mask semantics are recovered, but the candidate remains a large register/branch-shape mismatch (CURRENT 2260) after the bounded typed-global attempt; preserved for later.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35792,6 +36217,12 @@
       "symbol": "func_15022248"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1215,
+        "reason": "Three bounded source variants remain register/control-flow mismatched; preserve candidate for later expression recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35808,8 +36239,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150222E0",
           "vram": "0x150222E0"
         }
@@ -35818,6 +36254,12 @@
       "symbol": "func_150222E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 157,
+        "reason": "Three bounded source variants remain stack-layout/register/control-flow mismatched; preserve the recovered body for later ABI/lifetime recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35831,6 +36273,12 @@
       "symbol": "func_15022398"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1757,
+        "reason": "Three bounded source variants retain register-permutation/loop-scheduling mismatches; preserve the recovered body for later expression recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35866,8 +36314,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150226BC",
           "vram": "0x150226BC"
         }
@@ -35894,6 +36347,12 @@
       "symbol": "func_15022754"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Three bounded loop-source variants retain only initialization/update scheduling differences; preserve the recovered body for later expression recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35910,8 +36369,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15022848",
           "vram": "0x15022848"
         }
@@ -35920,6 +36384,12 @@
       "symbol": "func_15022848"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1245,
+        "reason": "Three bounded source variants retain base/stride register allocation and loop scheduling mismatches; preserve the recovered body for later expression recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35951,6 +36421,12 @@
       "symbol": "func_15022998"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3455,
+        "reason": "Initial semantic recovery remains control-flow/register divergent; preserve the candidate for later early-return expression recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35964,6 +36440,12 @@
       "symbol": "func_150229E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 995,
+        "reason": "Initial table-scan recovery remains register/control-flow divergent; preserve the candidate for later expression recovery.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35990,6 +36472,12 @@
       "symbol": "func_15022BA4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1846,
+        "reason": "Deferred after three manual source-only variants; remaining mismatch is frame/local spill plus fallback loop scheduling and control-flow/register allocation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36024,7 +36512,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Manual loop candidate recovers semantics and all loop instructions; best CURRENT (20) differs only in global-address materialization order.",
+        "reason": "global-address materialization plateau: original source reaches CURRENT (20) with only s0/s1 lui order differing; swapped initialization worsened addiu order to CURRENT (30)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -36058,6 +36546,12 @@
       "symbol": "func_15023440"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1770,
+        "reason": "Deferred after three manual source-only variants; best CURRENT (1754) still has compiler register and spill-slot allocation differences in the cleanup loop.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36071,6 +36565,12 @@
       "symbol": "func_150234A4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Deferred after three manual source-only variants; CURRENT (10) remains a single floating-compare operand-order mismatch plus one full-span extra instruction.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36084,6 +36584,12 @@
       "symbol": "func_150235DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 460,
+        "reason": "Deferred after three manual source-only variants; body is close but constant initialization scheduling and the registered trailing padding remain unmatched (CURRENT 460).",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36154,6 +36660,12 @@
       "symbol": "func_15023DE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 564,
+        "reason": "bounded manual variants exhausted; global-base register and frame-save scheduling remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36618,17 +37130,16 @@
       "symbol": "func_1502EA7C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1502EA98",
           "vram": "0x1502EA98"
         }
@@ -36872,8 +37383,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150303E4",
           "vram": "0x150303E4"
         }
@@ -37069,8 +37585,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 50,
-        "reason": "Manual source-local layout candidate reached CURRENT (50); remaining differences are register allocation only (v1/v0 and t9/a1), after three bounded source variants.",
+        "current_score": 150,
+        "reason": "integration correction: resumed candidate is nonzero under the current mixed source-unit layout (CURRENT (150), with one missing/extra full-span item); restore raw assembly before retrying the batch gate",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -37508,8 +38024,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150448D0",
           "vram": "0x150448D0"
         }
@@ -37969,8 +38490,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15047004",
           "vram": "0x15047004"
         }
@@ -37982,8 +38508,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150470B0",
           "vram": "0x150470B0"
         }
@@ -38315,7 +38846,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "reason": "register-only pointer-loop plateau: bounded declaration/lifetime permutation exhausted 32 variants at best CURRENT (10); only the target a1+t6 versus current t6+a1 address-add register order differs",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38479,8 +39010,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 15,
-        "reason": "CURRENT (15) after three bounded pointer-lifetime variants; remaining mismatch is branch-delay register allocation and addu operand order",
+        "current_score": 25,
+        "reason": "register-only pointer-lifetime plateau: bounded permutation exhausted 32 variants at best CURRENT (25); target keeps the branch-delay pointer in t8 and current reuses v1, with the indexed addu operand order also reversed",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38732,6 +39263,12 @@
       "symbol": "func_15081574"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 300,
+        "reason": "Manual queue-update body recovered; diagnose-diff classified the 37 remaining differences as register-only (CURRENT 300), and the bounded declaration/lifetime permutation found no exact source variant, so defer pending stronger local-type evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -38767,7 +39304,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 95,
-        "reason": "observable stores match but global-base and index register allocation differs after three bounded source-only variants; preserve candidate for later ABI/register review",
+        "reason": "Manual queue-reset body recovered; diagnose-diff classified the 14 remaining differences as register-only (CURRENT 95), and the bounded declaration/lifetime permutation found no exact source variant, so defer pending stronger local-type evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38786,7 +39323,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 85,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (85)",
+        "reason": "Manual queue-state comparison recovered in three bounded source/declaration variants; best CURRENT (85) retains only register-allocation differences in the index/base computation, so defer pending stronger local-type evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39733,6 +40270,12 @@
       "symbol": "func_150B6D34"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 30,
+        "reason": "best bounded source form CURRENT 30; only adjacent s0/s1 address-initialization order differs",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39798,8 +40341,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "current_score": 20,
+        "reason": "branch-comparison register-order plateau: direct, reversed comparison, and explicit threshold-local forms all remain CURRENT (20); target compares v1,v0 while current compares v0,v1 in both threshold checks",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40238,6 +40781,12 @@
       "symbol": "func_151ED90C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "bounded candidate body is visually exact but finish retains register-only mismatch; boundary/ABI gate unresolved",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40419,7 +40968,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Corrected the shared cursor-state padding and reduced the candidate from CURRENT 38 to CURRENT 10; remaining difference is one temporary register after three source forms and bounded permutation.",
+        "reason": "single register-allocation mismatch plateau: best finish CURRENT (10); assignment-expression variant aligned the two registers but changed the frame to CURRENT (38)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -41242,17 +41791,16 @@
       "symbol": "func_15131D9C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified deferred preparation improved CURRENT (2226) to CURRENT (10) with diagnostic-guided source preparation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 248,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15131DEC",
           "vram": "0x15131DEC"
         }
@@ -42476,7 +43024,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 16,
-        "reason": "Recovered the 0x14-byte slot table and one-argument initializer ABI; best CURRENT 16 after three lifetime/layout variants, with only the preserved slot pointer stack location differing.",
+        "reason": "stack-layout mismatch: target preserves the local pointer at sp+0x1C while the best simple pointer candidate uses sp+0x18 (CURRENT 16); an aggregate padding variant moved the pointer correctly but expanded the frame to 0x28 and reached CURRENT (26)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -42518,6 +43066,12 @@
       "symbol": "func_15183ACC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 305,
+        "reason": "best bounded source form CURRENT 305; remaining counter/register allocation and pointer-lifetime mismatch",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42778,8 +43332,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509F77C",
           "vram": "0x1509F77C"
         }
@@ -44825,6 +45384,12 @@
       "symbol": "func_15157860"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 108,
+        "reason": "best bounded source form CURRENT 108; result spill slot remains at 0x28 instead of target 0x2C",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45290,17 +45855,16 @@
       "symbol": "func_151D7724"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20) after pointer-lifetime and byte-temporary variants; remaining mismatch is byte-load register allocation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D7770",
           "vram": "0x151D7770"
         }
@@ -45309,17 +45873,16 @@
       "symbol": "func_151D7770"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20) after source-backed pointer-lifetime form; remaining mismatch is byte-load register allocation shared with func_151D7770",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D779C",
           "vram": "0x151D779C"
         }
@@ -46113,6 +46676,12 @@
       "symbol": "func_1513259C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 890,
+        "reason": "bounded manual variants exhausted; loop counter/pointer register allocation and branch scheduling remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48017,8 +48586,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1510B32C",
           "vram": "0x1510B32C"
         }
@@ -48027,6 +48601,12 @@
       "symbol": "func_1510B32C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 280,
+        "reason": "bounded manual variants exhausted; FP compare operand and helper-argument scheduling remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48309,6 +48889,12 @@
       "symbol": "func_15172C50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "The slot-state implementation matches every instruction in the registered 0x80-byte body; only one missing-or-extra boundary row remains.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -49579,7 +50165,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Recovered request fields 0x0/0x5/0x8 and source pointer fields 0x74/0x1D4; field 0x1D4 is pointer-backed by existing consumers. Remaining CURRENT (10) is only commutative addu operand order after three source variants.",
+        "reason": "register-only address-add plateau: bounded declaration/lifetime permutation exhausted 4 variants at best CURRENT (10); target addu uses v1,t9 while current uses t9,v1",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51457,6 +52043,12 @@
       "symbol": "func_150D22D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Reusing the argument register for the return value produces an instruction-identical 0x80-byte body; only one missing-or-extra boundary row remains.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51920,8 +52512,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Callback-table dispatch is semantically recovered; three source-only variants exhausted, with only temporary-register scheduling differing from the target.",
+        "current_score": 110,
+        "reason": "current mixed-unit diff reports CURRENT (110): target reuses t6 for the final index shift while current uses t7, plus one missing/extra full-span item after source-unit layout drift; no safe semantic rewrite identified",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51950,6 +52542,12 @@
       "symbol": "func_1509CCF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1255,
+        "reason": "Manual resource-state sweep recovered in two bounded loop-scope variants; best CURRENT (1255) retains an extra hoisted base register and outer-loop branch scheduling differences, so defer pending source-shape evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53531,6 +54129,12 @@
       "symbol": "func_1517725C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Typed nested structures reproduce every instruction through the registered 0x80-byte body; the remaining CURRENT (100) is one missing-or-extra boundary row after the exact body.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55370,7 +55974,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (55)",
+        "reason": "register-only mismatch: 28 bounded declaration/lifetime variants exhausted at best CURRENT (55), with 11 register-only differences and no opcode/control-flow or missing/extra items",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55865,8 +56469,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500F378",
           "vram": "0x1500F378"
         }
@@ -55891,8 +56500,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1500F9D0",
           "vram": "0x1500F9D0"
         }
@@ -55987,8 +56601,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15182F58",
           "vram": "0x15182F58"
         }
@@ -56730,6 +57349,12 @@
       "symbol": "func_1518AA10"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "best bounded source form CURRENT 120; cached arg0 reload and return-move scheduling differ",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56982,7 +57607,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Preserved CURRENT (10) candidate with explicit integer-backed address casts to avoid IDO pointer/integer warnings",
+        "reason": "floating-point multiplication register-order plateau: direct and reversed final-product forms both remain CURRENT (10); target emits ft3*fa4 while current emits fa4*ft3, with no structural differences",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -57488,8 +58113,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 19,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (19)",
+        "current_score": 113,
+        "reason": "ABI declaration plateau: semantically correct three-argument candidate finish CURRENT (113); two-argument starter switched on a0 and cannot reproduce target a1 plus a2 home spill, unnamed/register-qualified parameter variants were rejected or unchanged",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63551,6 +64176,12 @@
       "symbol": "func_151CF120"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 75,
+        "reason": "Manual initialization loop recovered in three bounded source variants; best CURRENT (75) retains only callee-saved register allocation differences, so defer pending local declaration evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64311,6 +64942,12 @@
       "symbol": "func_150FDBA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 931,
+        "reason": "The best pointer-helper candidate remains at CURRENT (931) with stack-layout and aliasing differences; the pointer-parameter variant worsened the result, so the bounded candidate is preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -66219,7 +66856,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "Recovered the 0x18-byte slot layout and 100-entry table; best CURRENT 8 after three local-layout variants, with only the saved base pointer stack slot differing.",
+        "reason": "register/stack-layout mismatch: bounded declaration/lifetime permutation exhausted 9 variants at best CURRENT (8); only the saved base pointer slot differs (target sp+0x2C, current sp+0x28)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66371,8 +67008,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151DDBA0",
           "vram": "0x151DDBA0"
         }
@@ -67311,8 +67953,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 132,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151E4E64",
           "vram": "0x151E4E64"
         }
@@ -67321,6 +67968,12 @@
       "symbol": "func_151E4E64"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3785,
+        "reason": "initial manual form has substantial FP/frame/control-flow drift; defer for later source-structure recovery",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68656,6 +69309,12 @@
       "symbol": "func_150EA11C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 507,
+        "reason": "bounded packet/local variants exhausted; 12-byte packet stack base and call scheduling remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68781,7 +69440,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "CURRENT (20): recovered cleanup loop; only global address-materialization order differs.",
+        "reason": "single callee-saved initialization register plateau: finish CURRENT (20), only initial s0/s1 lui order differs; swapped source assignment worsened to CURRENT (30)",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69907,17 +70566,16 @@
       "symbol": "func_150E8824"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 9,
-        "reason": "Recovered the nine-argument allocation call and four-byte float copy payload. Best CURRENT (9) differs only because the address-taken local float is allocated at stack 0x34 instead of the target's 0x30; two array-layout variants did not improve the source-only result.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150E8854",
           "vram": "0x150E8854"
         }
@@ -70634,6 +71292,12 @@
       "symbol": "func_150859AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 200,
+        "reason": "Manual four-bit state dispatch recovered in three bounded loop-counter/control-flow variants; best CURRENT (200) retains focused branch-target/register scheduling differences, so defer pending source-unit span evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71643,6 +72307,12 @@
       "symbol": "func_151BE0AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 921,
+        "reason": "bounded manual variants exhausted; remaining helper-call scheduling and pointer-expression differences",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72152,6 +72822,12 @@
       "symbol": "func_1518F45C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1306,
+        "reason": "best bounded source form CURRENT 1306; frame size and conditional register schedule remain mismatched",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72222,17 +72898,16 @@
       "symbol": "func_1518F858"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "arithmetic expression and callback match, but the compiler emits the multiplication operands in the opposite floating-point register order after three bounded source-only variants; preserve for later register review",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518F89C",
           "vram": "0x1518F89C"
         }
@@ -73141,7 +73816,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT (10): recovered both calls, argument layout, and state lifetime; only the post-call reload register differs.",
+        "reason": "register-only callback-pointer reload plateau: bounded declaration/lifetime permutation exhausted 10 variants at best CURRENT (10); target reloads the preserved pointer into a2 while current uses t6",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73425,7 +74100,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Byte-counter logic is correct; three source-only scheduling variants still leave the initial lbu in v1 instead of t6.",
+        "reason": "Full-span diff has one register-allocation mismatch: the loaded byte is in target t6 but current v1. The bounded permutation search exhausted 32 variants at CURRENT (10) without an exact match; preserve the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74137,7 +74812,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Three bounded source-only variants reached CURRENT (10) at best; the remaining difference is the compiler's commutative-add register ordering (target addu t7,v0,t6).",
+        "reason": "commutative-add register plateau: direct and reversed source operand forms both remain CURRENT (10), while an explicit second local worsened to CURRENT (20); target addu uses v0,t6 and current t6,v0",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74169,7 +74844,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Three source-only pointer/lifetime variants reached best CURRENT (10); remaining mismatch is only the register used to reload the preserved callback pointer before func_15131958.",
+        "reason": "register-only callback-pointer reload mismatch: bounded declaration/lifetime permutation exhausted 2 variants at best CURRENT (10); target reloads stack pointer into a2 while current uses t6",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78853,17 +79528,16 @@
       "symbol": "func_15087EF0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 40,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15087FC4",
           "vram": "0x15087FC4"
         }
@@ -78874,8 +79548,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "current_score": 100,
+        "reason": "The body matches the raw instructions after the source-local entry-pointer recovery, but the full-span result is CURRENT (100) with missing-or-extra source-unit layout: the preceding C function is followed at +0x30 instead of the raw +0x28 boundary. Preserve this candidate until the mixed-unit boundary/alignment is independently resolved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

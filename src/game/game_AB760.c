@@ -90,6 +90,27 @@ s32 func_1507E908(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E908 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E908.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E968 CURRENT (1440) */
+u32 func_1507E968(void *arg0) {
+    GameAB760ValueRecord *temp_v1;
+    u32 var_v0;
+    s32 var_v0_2;
+
+    var_v0_2 = *(u8 *)((u8 *)arg0 + 4);
+    if (var_v0_2 != 0x96) {
+        var_v0_2 = func_150849A0();
+    }
+    if (var_v0_2 == 0xFF) {
+        return 0U;
+    }
+    temp_v1 = D_800D1C90[var_v0_2];
+    var_v0 = 0;
+    if (temp_v1 != 0) {
+        var_v0 = (u32)temp_v1[-1].pad4 / 10U;
+    }
+    return var_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507E968 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E968.s")
 void func_1507E9E8(s32 arg0, s32 arg1) {
 }

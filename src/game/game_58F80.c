@@ -24,7 +24,6 @@
  * - func_1502DF38
  * - func_1502E4C4
  * - func_1502EA0C
- * - func_1502EA98
  * - func_1502EAFC
  * - func_1502EC34
  * - func_1502EE8C
@@ -148,14 +147,13 @@ void func_1502EA7C(u8 *arg0, s32 arg1) {
     arg0[0xA5] = 0xFF;
     arg0[0xA6] = arg1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EA98 CURRENT (5) */
 void func_1502EA98(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
     u8 temp_v0;
 
     temp_v0 = *(u8 *)((u8 *)arg0 + 0xA4);
     if ((temp_v0 != 6) && (temp_v0 != 7)) {
         if (arg5 != 0) {
-            *(s8 *)((u8 *)arg0 + 0xA5) = 0xFF;
+            *(u8 *)((u8 *)arg0 + 0xA5) = 0xFF;
         } else {
             *(s8 *)((u8 *)arg0 + 0xA5) = 0;
         }
@@ -164,8 +162,6 @@ void func_1502EA98(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
     }
     *(u8 *)((u8 *)arg0 + 0xA4) = 6U;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502EA98 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EA98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EAFC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EC34.s")
 extern u8 D_800CC33A[];
