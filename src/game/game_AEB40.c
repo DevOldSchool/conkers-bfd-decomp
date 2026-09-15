@@ -25,7 +25,6 @@
  * - func_15083E90
  * - func_15083FB0
  * - func_15084044
- * - func_1508434C
  * - func_150843AC
  * - func_15084488
  * - func_15084558
@@ -320,7 +319,6 @@ s32 func_15084000(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084044.s")
 void func_150843AC(GameAEB40State *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508434C CURRENT (100) */
 void func_1508434C(GameAEB40State *arg0) {
     s32 index;
     s32 count;
@@ -337,8 +335,6 @@ void func_1508434C(GameAEB40State *arg0) {
         } while (index != count);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1508434C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_1508434C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150843AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084488.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084558.s")

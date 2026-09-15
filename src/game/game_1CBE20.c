@@ -14,6 +14,26 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519E970 CURRENT (275) */
+void *func_1519E970(s16 arg0, s32 arg1, u8 arg2, s32 arg3, s32 arg4, u8 arg5, s32 arg6) {
+    void *temp_v0;
+
+    temp_v0 = func_15167A68(0x26, arg6, 0x2C, 1, arg5, 1);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    *(s32 *)((u8 *)temp_v0 + 0x18) = arg3;
+    *(s32 *)((u8 *)temp_v0 + 0x1C) = arg4;
+    *(s16 *)((u8 *)temp_v0 + 0x20) = arg0;
+    *(u8 *)((u8 *)temp_v0 + 0x28) = arg2;
+    *(s32 *)((u8 *)temp_v0 + 0x10) = 1;
+    *(s32 *)((u8 *)temp_v0 + 0x14) = 0;
+    *(s32 *)((u8 *)temp_v0 + 0x24) = arg1;
+    return temp_v0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519E970 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519E970.s")
 typedef struct Game1CBE20Owner {
     u8 pad0[0x30];

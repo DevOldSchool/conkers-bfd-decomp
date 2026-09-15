@@ -46,6 +46,30 @@ s32 func_150A0264(s32 arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A0264 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CD5A0/func_150A0264.s")
+extern s32 D_800D3014[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A02D0 CURRENT (125) */
+s32 func_150A02D0(s32 arg0, s32 arg1, void *arg2) {
+    GameCD5A0Record *temp_v1;
+    GameCD5A0Record *temp_v1_2;
+
+    switch (arg1) {                                 /* irregular */
+    case 0:
+        temp_v1 = &D_800D3010[arg0];
+        temp_v1->flags |= 0x40;
+        return 1;
+    case 1:
+        temp_v1_2 = &D_800D3010[arg0];
+        temp_v1_2->flags &= 0xFFBF;
+        return 1;
+    case 2:
+        *(D_800D3014 + (arg0 * 0xC)) = *(s32 *)((u8 *)arg2 + 8);
+        return 1;
+    default:
+        return 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A02D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CD5A0/func_150A02D0.s")
 extern s32 D_800D3014[];
 

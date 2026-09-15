@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15170B90
- * - func_15170EC4
  * - func_15170F4C
  * - func_15171200
  *
@@ -14,7 +13,19 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19E040/func_15170B90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19E040/func_15170EC4.s")
+void func_15170B90(s32, s32, s32, s32, s32, s32);
+extern s32 D_800BE9F0;
+
+void func_15170EC4(s32 arg0, u8 arg1, s32 arg2) {
+    switch (D_800BE9F0) {
+    case 2:
+        func_15170B90(arg0, 1, 1, 1, (s32)arg1, arg2);
+        return;
+    case 16:
+        func_15170B90(arg0, 0xA9, 8, 0, (s32)arg1, arg2);
+        return;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19E040/func_15170F4C.s")
 void func_150C3D5C(void);
 void func_15060F28(u8 *, s32);

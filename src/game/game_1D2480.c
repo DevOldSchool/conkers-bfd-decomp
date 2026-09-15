@@ -13,6 +13,40 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    u8 pad_0[0x10];
+    s32 field_10;
+    s8 field_14;
+    s8 field_15;
+    s8 field_16;
+    s8 field_17;
+    volatile s8 field_18;
+    u8 field_19;
+    s8 field_1A;
+} Game1D2480Effect;
+
+void *func_15167A68(s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4FD0 CURRENT (320) */
+Game1D2480Effect *func_151A4FD0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+                                s32 arg4, s32 arg5, u8 arg6, s32 arg7) {
+    Game1D2480Effect *effect;
+
+    effect = func_15167A68(0x5A, 0, arg7 + 0x20, 0, 0xFF, 1);
+    if (effect == 0) {
+        return 0;
+    }
+    effect->field_14 = (s8)arg0;
+    effect->field_10 = arg1;
+    effect->field_15 = (s8)arg2;
+    effect->field_16 = (s8)arg3;
+    effect->field_17 = (s8)arg4;
+    effect->field_18 = 0;
+    effect->field_19 = arg6;
+    effect->field_1A = (s8)arg5;
+    return effect;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4FD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2480/func_151A4FD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D2480/func_151A5070.s")
 typedef void (*Func151A5130Callback)(s32 arg0, void *arg1, s16 arg2, s32 arg3);

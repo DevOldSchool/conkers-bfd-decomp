@@ -17,6 +17,8 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E68B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6B84.s")
 f32 func_150ADA68();                                /* extern */
+extern s32 func_150ADA20(void);
+extern void *D_80088A44[];
 extern void *D_80088A3C;
 extern void *D_80088A40;
 extern f32 D_800A130C;
@@ -58,6 +60,29 @@ extern void func_1514470C(s32 arg0, s32 arg1);
 void func_150E6ED8(s32 arg0) {
     func_1514470C(D_800D9A20[func_150ADA20() & 1], arg0);
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E6F18 CURRENT (90) */
+void func_150E6F18(void *arg0) {
+    s32 sp1C;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    s32 temp_v1;
+
+    temp_v1 = (s32)D_80088A44[func_150ADA20() % 6U];
+    sp1C = temp_v1;
+    temp_fv0 = func_150ADA68();
+    temp_fv1 = *(f32 *)((u8 *)sp1C + 0);
+    *(f32 *)((u8 *)arg0 + 0) =
+        (f32)(((*(f32 *)((u8 *)sp1C + 0xC) - temp_fv1) * temp_fv0) + temp_fv1);
+    temp_fa0 = *(f32 *)((u8 *)sp1C + 4);
+    *(f32 *)((u8 *)arg0 + 4) =
+        (f32)(((*(f32 *)((u8 *)sp1C + 0x10) - temp_fa0) * temp_fv0) + temp_fa0);
+    temp_fa1 = *(f32 *)((u8 *)sp1C + 8);
+    *(f32 *)((u8 *)arg0 + 8) =
+        (f32)(((*(f32 *)((u8 *)sp1C + 0x14) - temp_fa1) * temp_fv0) + temp_fa1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E6F18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6F18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_113D60/func_150E6FAC.s")
 void func_150E70CC(f32 *arg0, f32 *arg1) {

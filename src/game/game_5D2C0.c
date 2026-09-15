@@ -47,6 +47,45 @@ void func_15030310(void *arg0, s32 arg1, s32 arg2);
 void func_150302F0(void *arg0, s32 arg1) {
     func_15030310(arg0, arg1, 0xFF);
 }
+/* Call context: func_15030158: unique active declaration in the allowed source */
+void func_15030158(void *, s32);
+extern void * D_800C3EE0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030310 CURRENT (2735) */
+void func_15030310(void *arg0, s32 arg1, s32 arg2) {
+    s32 var_s0;
+    void *temp_s1;
+    void *var_a0;
+
+    var_s0 = arg2;
+    if (*(u8 *)((u8 *)arg0 + 0x3B) == 0) {
+        return;
+    }
+    var_a0 = D_800C3EE0;
+    if (var_a0 != 0) {
+loop_3:
+        temp_s1 = *(void **)((u8 *)var_a0 + 0x54);
+        if ((*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)((u8 *)var_a0 + 0)) && (arg1 == *(u8 *)((u8 *)var_a0 + 6))) {
+            if ((var_s0 != 0xFF) && (var_s0 != 0)) {
+                var_s0 -= 1;
+                var_a0 = temp_s1;
+                goto block_10;
+            }
+            func_15030158(var_a0, 0);
+            if (var_s0 != 0) {
+                goto block_9;
+            }
+        } else {
+block_9:
+            var_a0 = temp_s1;
+block_10:
+            if (var_a0 != 0) {
+                goto loop_3;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15030310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030310.s")
 extern void *D_800C3EE0;
 void func_15030158(void *, s32);

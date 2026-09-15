@@ -60,6 +60,34 @@ s32 func_150A1040(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A104C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A11C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A1DA0.s")
+/* Call context: func_1000FA64: unique active project prototype */
+void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A23E4 CURRENT (265) */
+void func_150A23E4(void *arg0) {
+    s32 var_t0;
+    s32 var_v1;
+    u32 temp_v0;
+    u8 temp_t1;
+
+    if (*(s32 *)((u8 *)arg0 + 0x20) == 0) {
+        var_v1 = 0;
+        var_t0 = 8;
+        if (!(*(u8 *)((u8 *)arg0 + 0x15) & 3)) {
+            var_v1 = 0x8000;
+        }
+        temp_t1 = *(u8 *)((u8 *)arg0 + 0x17);
+        if (((s32) temp_t1 >> 7) != 0) {
+            var_t0 = 0x108;
+        }
+        temp_v0 = *(u32 *)((u8 *)arg0 + 0x1C);
+        func_1000FA64((temp_v0 >> 0x10) & 0xFFFF, (s32) *(s16 *)((u8 *)arg0 + 0), (s32) *(s16 *)((u8 *)arg0 + 2), (s32) *(s16 *)((u8 *)arg0 + 4), (temp_t1 & 0x7F) * 0x147, *(s32 *)((u8 *)arg0 + 0x18) | var_v1, temp_v0 & 0xFFFF, 0, 0, 0, var_t0, 0);
+        *(s32 *)((u8 *)arg0 + 0x20) = 1;
+        return;
+    }
+    *(s32 *)((u8 *)arg0 + 0x20) = 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A23E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A23E4.s")
 s32 func_15183290(s16, s32, s16, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 

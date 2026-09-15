@@ -33,6 +33,33 @@ void func_15147928(s32 arg0) {
     func_1514795C(arg0);
     func_15169824(arg0);
 }
+void func_100043B4(void *, s32);
+extern s32 D_80082FA0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514795C CURRENT (890) */
+void func_1514795C(s32 arg0) {
+    void *temp_v0;
+    s32 var_s0;
+    s32 var_s1;
+
+    var_s1 = 0;
+    var_s0 = arg0;
+    if (D_80082FA0 >= 0) {
+        do {
+            temp_v0 = *(void **)((u8 *)var_s0 + 0x3C);
+            if (temp_v0 != 0) {
+                func_100043B4(temp_v0, 4);
+            }
+            var_s1 += 1;
+            var_s0 += 4;
+        } while (D_80082FA0 >= var_s1);
+    }
+    temp_v0 = *(void **)((u8 *)arg0 + 0x4C);
+    if (temp_v0 != 0) {
+        func_100043B4(temp_v0, 4);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514795C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_174BF0/func_1514795C.s")
 typedef struct {
     u8 pad_0[0x20];

@@ -12,7 +12,6 @@
  * - func_150CFE98
  * - func_150CFF10
  * - func_150D0034
- * - func_150D0134
  * - func_150D01A0
  * - func_150D02B4
  * - func_150D032C
@@ -118,10 +117,12 @@ typedef struct GameFD1D0TextCursor {
 } GameFD1D0TextCursor;
 
 typedef struct GameFD1D0State {
-    u8 pad0[0x28];
+    u8 pad0[0xE];
+    s16 field_0E;
+    u8 pad10[0x18];
     GameFD1D0TextCursor text;
-    u8 pad40[0xD];
-    u8 field_4D;
+    u8 pad40[0xC];
+    s8 field_4D;
 } GameFD1D0State;
 
 void func_150CFE3C(GameFD1D0State *);
@@ -142,6 +143,23 @@ void func_150CFE98(GameFD1D0State *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFE98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFF10.s")
+typedef s32 (*GameFD1D0EntryCallback)(GameFD1D0State *);
+
+extern GameFD1D0EntryCallback D_800888A0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0034 CURRENT (1255) */
+s32 func_150D0034(s32 arg0, GameFD1D0State *arg1, s32 arg2) {
+    GameFD1D0TextCursor *text;
+
+    if ((arg1->field_4D != -1) && (D_800888A0[arg1->field_4D](arg1) == 0)) {
+        arg1->field_0E = -1;
+        return arg0;
+    }
+    text = &arg1->text;
+    text->flags = (u8) ((u16) text->flags & 0xFFFE);
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D0034 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0034.s")
 
 typedef void (*GameFD1D0Callback)(GameFD1D0State *);
@@ -182,10 +200,9 @@ typedef struct GameFD1D0SmallByteSlot {
 
 GameFD1D0Object *func_150CFF10(u8, u8 *, s16, s32, s8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0134 CURRENT (109) */
 void func_150D0134(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
-    GameFD1D0ByteSlot slot;
     GameFD1D0Object *object;
+    GameFD1D0ByteSlot slot;
 
     slot.value = 0;
     object = func_150CFF10(arg0, arg1, arg2, 8, 0, 0, arg3, arg4);
@@ -193,8 +210,6 @@ void func_150D0134(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(object->field_48, &slot.value, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D0134 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0134.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D01A0.s")
 typedef struct {
     f32 value;

@@ -152,6 +152,21 @@ receives one final clean `verify-batch`. Compiler failures and warnings retain
 the complete proposed source, log, and structured diagnostics under
 `build/us/automate/artifacts/<work-item-id>/` while restoring project source.
 
+Declaration recovery also handles `extern M2C_UNK` scalar objects and unknown
+argument types on functions with a known return type. Known return and argument
+types must still agree with the project evidence. Object evidence must be an
+external file-scope scalar or pointer declaration; comments, disabled code,
+function locals, static objects, arrays, and unavailable local types cannot
+supply that evidence.
+
+Declaration recovery first reuses a unique, supported active file-scope
+declaration in the allowed source. Conflicting declarations in other source
+files cannot replace that local call or object view. Local scalar arrays with
+literal or unspecified bounds retain their exact declarator; arrays and local
+types are still not imported from other files. Ambiguous or unsupported local
+evidence blocks fallback, and known argument/return types must still agree.
+Without local evidence, recovery continues to require project-wide agreement.
+
 Before generating a starter, m2c imports unique, self-contained active project
 prototypes for direct callees. For a straight-line wrapper with one direct call
 and a discarded result, it can also recover forwarded integer-register
@@ -160,6 +175,24 @@ Pointer use in the callee entry block supplies pointer arguments; other word
 arguments remain `s32`. It regenerates m2c with this context and emits the
 required declarations with the starter. Evidence is retained under
 `build/m2c/calls/<symbol>.json`.
+
+The generated m2c context omits recognized `sqrtf` and `fabsf` intrinsic pragmas
+while keeping the source's types and declarations. The pragmas remain in the
+compiled C source. Unsupported preprocessor directives still prevent context
+generation. If newly restored intrinsic context introduces m2c register errors,
+m2c retries without source context while retaining recovered call declarations.
+It selects that fallback only if it removes those errors, saves the typed starter
+under `build/m2c/calls/<symbol>-typed-starter.c`, and records the fallback in the
+call-evidence JSON. The usual preparation, compile, diff, and layout gates still
+apply.
+
+For recognized bounded IDO game-overlay jump dispatches, m2c reads the table
+from the checksum-validated regional ROM's decompressed game data. The unsigned
+range check determines the entry count; each destination must be an instruction
+inside the extracted function, whose instruction bytes must match the ROM.
+Recovered `.rodata` and missing case labels are written only to ignored m2c
+input. Unsupported dispatch patterns and profiles without a configured game-data
+layout remain unresolved. This does not change source, inventory, or match gates.
 
 Raw call-site declarations carry `CONKER_ABI_DISCARDED_RETURN`: they describe
 only calls that discard the result and are excluded from general return-type

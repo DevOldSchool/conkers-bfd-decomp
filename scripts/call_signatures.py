@@ -55,49 +55,63 @@ def c_type(text: str, *, parameter: bool = False) -> str | None:
     return None
 
 
-def signature_index(root: Path, wanted: set[str] | None = None) -> dict[str, Signature | None]:
-    """Collect external, top-level declarations; conflicts/unsupported types block.
+def source_signatures(text: str, wanted: set[str] | None = None) -> dict[str, set[Signature | None]]:
+    """Collect supported external signatures without importing another scope."""
+    found: dict[str, set[Signature | None]] = {}
+    # Remove comments before interpreting preprocessor lines.
+    text = without_abi_declarations(text)
+    text = re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)
+    text = declaration_facts.active_text(text)
+    items = candidate_syntax.tokens(text)
+    start = depth = 0
+    for i, token in enumerate(items):
+        if depth == 0 and token.text in (';', '{'):
+            words = [t.text for t in items[start:i]]
+            if '(' in words:
+                opening = words.index('(')
+                if opening and words[-1:] == [')']:
+                    symbol = words[opening-1]
+                    if wanted is None or symbol in wanted:
+                        prefix = words[:opening-1]
+                        if 'static' in prefix:
+                            found.setdefault(symbol, set()).add(None)
+                        elif 'typedef' not in prefix:
+                            result = c_type(' '.join(w for w in prefix if w != 'extern'))
+                            arguments = declaration_facts.split_arguments(' '.join(words[opening+1:-1]))
+                            types = tuple(c_type(a, parameter=True) for a in arguments)
+                            if types == ('void',):
+                                types = ()
+                            sig = Signature(result, types) if result is not None and arguments and all(t is not None and t != 'void' for t in types) else None
+                            found.setdefault(symbol, set()).add(sig)
+            start = i + 1
+        if token.text == '{':
+            depth += 1
+        elif token.text == '}':
+            depth -= 1
+            if depth == 0:
+                start = i + 1
+    return found
 
-    None distinguishes an ambiguous/unsupported declaration from no evidence.
-    Comments, bodies, and disabled candidates cannot supply a prototype.
+
+def signature_index(root: Path, wanted: set[str] | None = None, *,
+                    source: str = "") -> dict[str, Signature | None]:
+    """Prefer the allowed source's unique signature over unrelated call views.
+
+    A conflicting or unsupported local declaration blocks global/raw fallback.
+    Without local evidence, the complete project must still agree.
     """
+    local = source_signatures(source, wanted) if source else {}
+    if wanted is not None and wanted <= local.keys():
+        return {name: next(iter(values)) if len(values) == 1 else None
+                for name, values in local.items()}
     found: dict[str, set[Signature | None]] = {}
     for path in declaration_facts.evidence_files(root):
         text = path.read_text(encoding='utf-8')
         if wanted is not None and not any(re.search(rf'\b{re.escape(s)}\b', text) for s in wanted):
             continue
-        # Remove comments before interpreting preprocessor lines.
-        text = without_abi_declarations(text)
-        text = re.sub(r'/\*.*?\*/|//[^\n]*', '', text, flags=re.S)
-        text = declaration_facts.active_text(text)
-        items = candidate_syntax.tokens(text)
-        start = depth = 0
-        for i, token in enumerate(items):
-            if depth == 0 and token.text in (';', '{'):
-                words = [t.text for t in items[start:i]]
-                if '(' in words:
-                    opening = words.index('(')
-                    if opening and words[-1:] == [')']:
-                        symbol = words[opening-1]
-                        if wanted is None or symbol in wanted:
-                            prefix = words[:opening-1]
-                            if 'static' in prefix:
-                                found.setdefault(symbol, set()).add(None)
-                            elif 'typedef' not in prefix:
-                                result = c_type(' '.join(w for w in prefix if w != 'extern'))
-                                arguments = declaration_facts.split_arguments(' '.join(words[opening+1:-1]))
-                                types = tuple(c_type(a, parameter=True) for a in arguments)
-                                if types == ('void',):
-                                    types = ()
-                                sig = Signature(result, types) if result is not None and arguments and all(t is not None and t != 'void' for t in types) else None
-                                found.setdefault(symbol, set()).add(sig)
-                start = i + 1
-            if token.text == '{':
-                depth += 1
-            elif token.text == '}':
-                depth -= 1
-                if depth == 0:
-                    start = i + 1
+        for name, values in source_signatures(text, wanted).items():
+            found.setdefault(name, set()).update(values)
+    found.update(local)
     return {name: next(iter(values)) if len(values) == 1 else None for name, values in found.items()}
 
 
@@ -355,13 +369,15 @@ class Recovery:
 
 def recover(assembly: str, source: str, *, root: Path, profile: str = 'us', allow_raw: bool = False) -> Recovery:
     callees = direct_callees(assembly)
-    signatures = signature_index(root, callees) if callees else {}
+    signatures = signature_index(root, callees, source=source) if callees else {}
+    local = source_signatures(source, callees) if source and callees else {}
     declarations = []
     evidence = []
     for symbol, sig in sorted(signatures.items()):
         if sig is not None:
             declarations.append(sig.declaration(symbol))
-            evidence.append(f'{symbol}: unique active project prototype')
+            origin = 'unique active declaration in the allowed source' if symbol in local else 'unique active project prototype'
+            evidence.append(f'{symbol}: {origin}')
     if allow_raw and profile == 'us':
         wrapper = wrapper_call(assembly)
         if wrapper and wrapper[0] not in signatures:

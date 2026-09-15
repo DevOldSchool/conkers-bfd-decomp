@@ -6,9 +6,7 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1510E670
- * - func_1510E7A4
  * - func_1510E82C
- * - func_1510E8BC
  * - func_1510E950
  * - func_1510F648
  * - func_1510F720
@@ -21,9 +19,55 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E670.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E7A4.s")
+void func_1510E950(s32, s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, s32, s32, f32, f32, s32);
+extern f32 D_800A2D50;
+extern f32 D_800A2D54;
+extern f32 D_800A2D58;
+extern f32 D_800A2D5C;
+
+void func_1510E7A4(
+    s32 arg0,
+    s32 arg1,
+    s32 arg2,
+    s32 arg3,
+    s32 arg4,
+    s32 arg5,
+    f32 arg6,
+    f32 arg7,
+    f32 arg8,
+    f32 arg9,
+    u16 arg10,
+    s32 arg11,
+    f32 arg12,
+    f32 arg13
+) {
+    func_1510E950(arg0, arg1, 0, arg2, arg3, arg4, arg5, arg6, arg7,
+                  arg8, arg9, (s32)arg10, arg11, arg12, arg13, 0);
+}
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E82C CURRENT (100) */
+void func_1510E82C(
+    s32 arg0,
+    s32 arg1,
+    s32 arg2,
+    s32 arg3,
+    s32 arg4,
+    s32 arg5,
+    f32 arg6,
+    f32 arg7,
+    f32 arg8,
+    f32 arg9,
+    u16 arg10,
+    s32 arg11
+) {
+    func_1510E950(arg0, arg1, 0, arg2, arg3, arg4, arg5, arg6, arg7,
+                  arg8, arg9, (s32)arg10, arg11, D_800A2D50, D_800A2D54, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510E82C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E82C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E8BC.s")
+void func_1510E8BC(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, u16 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
+    func_1510E950(arg0, arg1, 0, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9,
+                  (s32)arg10, arg11, D_800A2D58, D_800A2D5C, arg14);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510E950.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F648.s")
 typedef struct Game13BB20Node {

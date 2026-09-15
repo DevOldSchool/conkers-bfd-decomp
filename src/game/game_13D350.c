@@ -21,6 +21,19 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_1510FEA0.s")
+void func_150A8050(void *, f32, f32, f32);
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151102CC CURRENT (2149) */
+void func_151102CC(void *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    f32 sp28[16];
+    f32 temp_fs0 = 0.0f;
+
+    func_150A8050(arg0, temp_fs0, arg2, 0);
+    func_150A8050(sp28, arg1, 0, temp_fs0);
+    func_150A7A48(arg0, sp28, arg0);
+    func_150A8050(sp28, temp_fs0, 0, arg3);
+    func_150A7A48(arg0, sp28, arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151102CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151102CC.s")
 typedef struct Game13D350Record {
     u8 pad0[0xBC];
@@ -28,8 +41,6 @@ typedef struct Game13D350Record {
 } Game13D350Record;
 
 extern Game13D350Record *D_800BE628;
-void func_151102CC(void *, f32, f32, f32);
-void func_150A7A48(void *, void *, void *);
 
 void func_15110360(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_151102CC(arg1, arg2, arg3, arg4);
@@ -38,6 +49,73 @@ void func_15110360(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151103C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110544.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110600.s")
+/* Call context: func_1501A490: unique active project prototype */
+void * func_1501A490(void *, s16, s32, s32, s32, s32);
+void *func_1501A680(void *);                        /* extern */
+void *func_1501A6CC(void *, s32, s32, s32, s32);    /* extern */
+extern s32 D_80082FA0;
+extern s32 D_80082FA4;
+extern s32 D_800BE620;
+extern s32 D_800BE624;
+extern s32 D_800BE9C4;
+extern u8 D_800BEAC2;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151106A8 CURRENT (5653) */
+void *func_151106A8(void *arg0) {
+    s32 temp_t5;
+    s32 temp_t7;
+    u8 *temp_a0;
+    u8 *temp_a0_2;
+    u8 *temp_a0_3;
+    u8 *temp_a0_4;
+    u8 *temp_v0;
+    u8 *temp_v0_2;
+    u8 *temp_v0_3;
+    u8 *var_a0;
+
+    var_a0 = arg0;
+    if (D_80082FA4 == 0) {
+        temp_a0 = (void *)(var_a0 + 8);
+        *(s32 *)((u8 *)var_a0 + 0) = 0xE7000000;
+        *(s32 *)((u8 *)var_a0 + 4) = 0;
+        *(s32 *)((u8 *)temp_a0 + 4) = 4;
+        *(s32 *)((u8 *)var_a0 + 8) = 0xEF302C0F;
+        temp_a0_2 = (void *)(temp_a0 + 8);
+        *(s32 *)((u8 *)temp_a0 + 8) = 0xFCFFFFFF;
+        *(s32 *)((u8 *)temp_a0_2 + 4) = 0xFFFE793C;
+        temp_a0_3 = (void *)(temp_a0_2 + 8);
+        *(s32 *)((u8 *)temp_a0_2 + 8) = (s32) (((D_800BE620 - 1) & 0xFFF) | 0xFF100000);
+        temp_a0_4 = (void *)(temp_a0_3 + 8);
+        *(s32 *)((u8 *)temp_a0_3 + 4) = (s32) D_800BE9C4;
+        *(s32 *)((u8 *)temp_a0_3 + 8) = 0xF7000000;
+        *(s32 *)((u8 *)temp_a0_4 + 4) = 0xFFFCFFFC;
+        temp_v0 = (void *)(func_1501A490(temp_a0_4 + 8, 0xFF, 0, 0, 0, 0));
+        *(s32 *)((u8 *)temp_v0 + 4) = 0x8000;
+        *(s32 *)((u8 *)temp_v0 + 0) = (s32) ((((D_800BE620 - 2) & 0x3FF) << 0xE) | 0xF6000000 | ((D_800BE624 & 0x3FF) * 4));
+        *(s32 *)((u8 *)temp_v0 + 8) = 0xE7000000;
+        *(s32 *)((u8 *)temp_v0 + 0xC) = 0;
+        temp_v0_2 = (void *)(func_1501A680(temp_v0 + 0x10));
+        var_a0 = temp_v0_2;
+        if (D_80082FA0 != 0) {
+            *(s32 *)((u8 *)temp_v0_2 + 0) = 0xE7000000;
+            *(s32 *)((u8 *)temp_v0_2 + 4) = 0;
+            temp_v0_3 = (void *)(func_1501A490(var_a0 + 8, 0xFF, 0, 0, 0, 0));
+            *(s32 *)((u8 *)temp_v0_3 + 0) = 0xF7000000;
+            *(s32 *)((u8 *)temp_v0_3 + 4) = 0x10001;
+            temp_t5 = (s32) D_800BE624 >> 1;
+            var_a0 = (void *)(func_1501A6CC(temp_v0_3 + 8, 0, temp_t5 - 6, D_800BE620, temp_t5 + 6));
+            if (D_80082FA0 != 1) {
+                temp_t7 = (s32) D_800BE620 >> 1;
+                var_a0 = (void *)(func_1501A6CC(var_a0, temp_t7 - 1, 0, temp_t7 + 1, D_800BE624));
+            }
+            if (D_800BEAC2 != 0) {
+                var_a0 = func_1501A6CC(var_a0, 0, 0, D_800BE620, D_800BE624);
+            }
+        }
+    }
+    return var_a0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151106A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151106A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151108C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110CFC.s")

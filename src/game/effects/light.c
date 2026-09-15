@@ -39,7 +39,6 @@
  * - func_1516284C
  * - func_1516295C
  * - func_15162B28
- * - func_15162EF8
  * - func_15162FAC
  * - func_151630F4
  * - func_15163414
@@ -55,7 +54,6 @@
  * - func_15163BE8
  * - func_15163CF8
  * - func_15163DEC
- * - func_15163F50
  * - func_15163FEC
  * - func_151640C0
  * - func_15164134
@@ -77,6 +75,9 @@ typedef struct GameLightDescriptor {
 } GameLightDescriptor;
 
 void *func_1516037C(GameLightDescriptor *, s32, void *, u8, s32);
+void *func_15167A68(s32, s32, void *, s32, s32, s32);
+void func_10022EC0(void *, void *, s32);
+s32 func_151149AC(u8);
 
 void func_15163CF8(s32 arg0, s32 arg1);
 void func_1514EDF0(s32 arg0, s32 arg1);
@@ -96,7 +97,57 @@ typedef struct LightCallData {
 } LightCallData;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151602C0.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516037C CURRENT (108) */
+void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
+    void *sp24;
+    void *temp_v0;
+
+    temp_v0 = func_15167A68(0x35, arg4, (u8 *)arg2 + 0x18, 1, (s32)arg3, 1);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    sp24 = temp_v0;
+    func_10022EC0((u8 *)temp_v0 + 0xE, arg0, 6);
+    *(s32 *)((u8 *)sp24 + 0x14) = arg1;
+    return sp24;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516037C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516037C.s")
+typedef s32 (*LightCallback)(void *);
+
+extern LightCallback D_8008B0F0[];
+extern s32 D_800BE9E4;
+void func_1516972C(void *arg0);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151603FC CURRENT (889) */
+void func_151603FC(void *arg0) {
+    u8 sp1B;
+    s8 callback_index;
+    u8 callback_pending;
+
+    callback_pending = 0;
+    if (*(u8 *)((u8 *)arg0 + 0xE) & 1) {
+        *(s16 *)((u8 *)arg0 + 0x10) = (s16) (*(s16 *)((u8 *)arg0 + 0x10) - D_800BE9E4);
+        if (*(s16 *)((u8 *)arg0 + 0x10) < 0) {
+            callback_pending = 1;
+        }
+    }
+    if (callback_pending == 0) {
+        callback_index = *(s8 *)((u8 *)arg0 + 0xF);
+        if (callback_index != -1) {
+            sp1B = callback_pending;
+            if (D_8008B0F0[(s32) callback_index](arg0) != 0) {
+                callback_pending = sp1B;
+            } else {
+                callback_pending = 1;
+            }
+        }
+    }
+    if (callback_pending != 0) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151603FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151603FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151604A0.s")
 s32 func_151422DC(s32, void *, s32, s32, s32, void *, s32);
@@ -139,6 +190,29 @@ s32 func_15161238(LightEntry *arg0, LightEntry *arg1) {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516127C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161334.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161408 CURRENT (151) */
+void *func_15161408(s32 arg0, u8 arg1, s32 arg2) {
+    GameLightDescriptor descriptor;
+    s32 sp20;
+    void *temp_v0;
+    void *sp2C;
+    void *var_v1;
+
+    sp20 = func_151149AC(0xF9U);
+    descriptor.field0 = 0;
+    descriptor.field1 = 3;
+    descriptor.field2 = 0x12C;
+    descriptor.field4 = 8;
+    temp_v0 = func_1516037C(&descriptor, arg0, (void *) 4, arg1, arg2);
+    var_v1 = temp_v0;
+    if (temp_v0 != 0) {
+        sp2C = temp_v0;
+        func_10022EC0((u8 *) temp_v0 + 0x18, &sp20, 4);
+        var_v1 = sp2C;
+    }
+    return var_v1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15161408 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161408.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161494.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161540.s")
@@ -220,23 +294,19 @@ void func_15161F2C(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516284C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516295C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162B28.s")
-s32 func_151149AC(u8);
 void func_151403A8(s8 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15162EF8 CURRENT (50) */
 void func_15162EF8(void *arg0) {
-    s8 sp1C;
+    s8 sp1C[12];
     s32 temp_v0;
 
     temp_v0 = func_151149AC(*(u8 *)((u8 *)arg0 + 0x48));
     if (temp_v0 != 0) {
         *(s32 *)((u8 *)temp_v0 + 0x7C) |= 1;
     }
-    sp1C = *(u8 *)((u8 *)arg0 + 0x12) - 0x15;
-    func_151403A8(&sp1C, 0x24);
+    sp1C[0] = *(u8 *)((u8 *)arg0 + 0x12) - 0x15;
+    func_151403A8(sp1C, 0x24);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15162EF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162EF8.s")
 void func_15162F50(void *arg0) {
     s8 sp1C[12];
     s32 temp_v0;
@@ -251,6 +321,24 @@ void func_15162F50(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162FAC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151630F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163414.s")
+typedef s32 (*LightUpdateCallback)(void *);
+
+extern LightUpdateCallback D_8008B36C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163504 CURRENT (895) */
+s32 func_15163504(void *arg0) {
+    s32 result;
+
+    result = 1;
+    *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0xE) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x18);
+    *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x1C);
+    *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x20);
+    if (*(s8 *)((u8 *)arg0 + 0x24) != -1) {
+        result = D_8008B36C[(s32) *(s8 *)((u8 *)arg0 + 0x24)](arg0);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15163504 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163504.s")
 extern void (*D_8008B370[])(void *, void *, u8);
 
@@ -341,7 +429,24 @@ s32 func_15163CD0(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163CF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163DEC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163F50.s")
+s32 func_15163F50(void *arg0, void *arg1) {
+    void *temp_v1;
+
+    temp_v1 = *(void **)arg1;
+    if (*(s32 *)temp_v1 == 0) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)temp_v1 + 4) == 0xFF) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)arg1 + 4) != *(u8 *)((u8 *)temp_v1 + 0x3B)) {
+        return 0;
+    }
+    *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0xE) = (s16) *(f32 *)((u8 *)temp_v1 + 0x14);
+    *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x10) = (s16) *(f32 *)((u8 *)temp_v1 + 0x18);
+    *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) = (s16) *(f32 *)((u8 *)temp_v1 + 0x1C);
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163FEC.s")
 typedef struct LightActor {
     u8 pad0[0x3B];
@@ -363,7 +468,25 @@ typedef struct LightEvent {
     LightOwnerRecord *owner_record;
 } LightEvent;
 
+typedef struct LightOutput {
+    u8 pad0[0xE];
+    s16 field_E;
+    s16 field_10;
+    s16 field_12;
+} LightOutput;
+
+typedef struct LightObject {
+    u8 pad0[0x14];
+    LightOutput *output;
+} LightObject;
+
+typedef struct LightInput {
+    u8 pad0[0xC];
+    s32 field_C;
+} LightInput;
+
 void func_1516972C(void *);
+void func_15145CD0(s32, void **, f32 **, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151640C0 CURRENT (978) */
 void func_151640C0(void *volatile arg0, void *volatile arg1, u8 arg2) {
@@ -386,6 +509,29 @@ void func_151640C0(void *volatile arg0, void *volatile arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151640C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151640C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164134.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15164208 CURRENT (521) */
+void *func_15164208(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
+    GameLightDescriptor sp2C;
+    f32 sp24;
+    void *sp34;
+    void *temp_v0;
+    void *var_v1;
+
+    sp2C.field0 = 0;
+    sp2C.field1 = 0x14;
+    sp2C.field2 = 0x12C;
+    sp2C.field4 = 0x27;
+    sp24 = 0.0f;
+    temp_v0 = func_1516037C(&sp2C, arg0, (void *)8, arg2, arg3);
+    var_v1 = temp_v0;
+    if (temp_v0 != 0) {
+        sp34 = temp_v0;
+        func_10022EC0((u8 *)temp_v0 + 0x18, &sp24, 8);
+        var_v1 = sp34;
+    }
+    return var_v1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15164208 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164208.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516429C.s")
 void func_1516434C(void *arg0, void *arg1, u8 arg2) {
@@ -419,10 +565,25 @@ void func_151643A8(s32 arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151643A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151643A8.s")
+void func_1516441C(void *, void *);
 s32 func_151643F8(s32 arg0) {
     func_1516441C(arg0, arg0 + 0x18);
     return 1;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516441C CURRENT (35) */
+void func_1516441C(void *arg0, void *arg1) {
+    void *sp2C;
+    f32 *sp28;
+    f32 sp1C[3];
+
+    sp28 = sp1C;
+    sp2C = arg1;
+    func_15145CD0(((LightInput *)arg1)->field_C, &sp2C, &sp28, 1);
+    ((LightObject *)arg0)->output->field_E = (s16)sp1C[0];
+    ((LightObject *)arg0)->output->field_10 = (s16)sp1C[1];
+    ((LightObject *)arg0)->output->field_12 = (s16)sp1C[2];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516441C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516441C.s")
 void func_151644F4(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4);
 

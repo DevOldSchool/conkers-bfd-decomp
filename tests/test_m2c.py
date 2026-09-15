@@ -6,6 +6,7 @@ import os
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 
@@ -17,6 +18,34 @@ SPEC.loader.exec_module(m2c_helper)
 
 
 class M2CHelperTests(unittest.TestCase):
+    def test_recovers_bounded_rom_jump_table_and_missing_case_labels(self) -> None:
+        base = 0x15000000
+        words = [0x2DE10002, 0x10200009, 0x000F7880, 0x3C018009,
+                 0x002F0821, 0x8C2F1A30, 0x01E00008, 0,
+                 0x24020001, 0x03E00008, 0, 0x03E00008, 0]
+        code = b"".join(word.to_bytes(4, "big") for word in words)
+        assembly = ".section .text\nglabel func_test\n" + "".join(
+            f"    /* {index * 4:X} {base + index * 4:08X} {word:08X} */ "
+            + ("lw $t7, %lo(jtbl_80091A30_game)($at)" if index == 5 else "nop")
+            + "\n" for index, word in enumerate(words)
+        )
+        data = (base + 32).to_bytes(4, "big") + (base + 44).to_bytes(4, "big")
+        recover = lambda text, raw, table: m2c_helper.add_game_jump_tables(
+            text, raw, table, base, 0x80091A30
+        )
+        result = recover(assembly, code, data)
+        self.assertIn(".L15000020:\n", result)
+        self.assertIn(".L1500002C:\n", result)
+        self.assertIn("glabel jtbl_80091A30_game\n    .word .L15000020\n    .word .L1500002C\n", result)
+        self.assertEqual(result, recover(result, code, data))
+        # Neither truncated tables nor targets outside the extracted function qualify.
+        self.assertEqual(assembly, recover(assembly, code, data[:4]))
+        self.assertEqual(assembly, recover(assembly, code, b"\x15\x00\x10\x00" + data[4:]))
+        self.assertEqual(assembly, recover(assembly, bytes(len(code)), data))
+        # The name alone is insufficient: the decoded unsigned bounds check is required.
+        unchecked = assembly.replace("2DE10002", "00000000")
+        self.assertEqual(unchecked, recover(unchecked, bytes(4) + code[4:], data))
+
     @staticmethod
     def write_game_inventory(root: Path) -> None:
         inventory = root / "progress" / "functions.json"
@@ -287,6 +316,100 @@ void func_wrapper(s32 arg0) {
 
             self.assertNotIn("--context", command)
             self.assertEqual("build/m2c/game/func_test.s", command[-1])
+
+    def test_intrinsic_pragmas_keep_source_context_without_changing_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            original = (
+                '#include "types.h"\n'
+                'typedef struct State { s32 value; } State;\n'
+                'f32 sqrtf(f32);\n#pragma intrinsic(sqrtf)\n'
+                'f32 fabsf(f32);\n#pragma intrinsic ( fabsf )\n'
+                'extern State *D_state;\n'
+            )
+            source.write_text(original)
+            with patch.object(m2c_helper, "ROOT", root):
+                command = m2c_helper.mips_to_c_command(root / "input.s", "func_test", source)
+            self.assertIn("--context", command)
+            context = (root / command[command.index("--context") + 1]).read_text()
+            self.assertIn('typedef struct State', context)
+            self.assertIn('f32 sqrtf(f32);', context)
+            self.assertIn('extern State *D_state;', context)
+            self.assertNotIn('#pragma', context)
+            self.assertEqual(original, source.read_text())
+
+    def test_other_pragmas_still_reject_context(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            source = Path(temporary_directory) / "test.c"
+            for directive in ('#pragma intrinsic(other)', '#pragma pack(1)',
+                              '#pragma intrinsic(sqrtf) unexpected'):
+                with self.subTest(directive=directive):
+                    source.write_text(directive + '\nvoid func_test(void);\n')
+                    self.assertIsNone(m2c_helper.flattened_source_context(source))
+
+    def test_context_fallback_retains_recovered_calls_and_original_artifact(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            (root / 'context.c').write_text('void incompatible(s32, s32);\n')
+            recovery = m2c_helper.call_signatures.Recovery(('s32 proven(s32);',), ('project evidence',))
+            typed = SimpleNamespace(returncode=0, stdout='M2C_ERROR(/* unset register */)')
+            plain = SimpleNamespace(returncode=0, stdout='s32 f(s32 x) { return proven(x); }')
+            command = ['m2c', '--context', 'context.c', 'input.s']
+            with patch.object(m2c_helper, 'ROOT', root), patch.object(
+                    m2c_helper.subprocess, 'run', side_effect=[typed, plain]) as run:
+                result, fallback = m2c_helper.run_m2c_command(
+                    command, recovery, 'func_test', allow_context_fallback=True)
+            self.assertIs(plain, result)
+            self.assertTrue(fallback)
+            fallback_command = run.call_args.args[0]
+            context = (root / fallback_command[fallback_command.index('--context') + 1]).read_text()
+            self.assertIn('s32 proven(s32);', context)
+            self.assertNotIn('incompatible', context)
+            self.assertEqual(typed.stdout, (root / 'build/m2c/calls/func_test-typed-starter.c').read_text())
+            self.assertEqual(['m2c', '--context', 'context.c', 'input.s'], command)
+
+    def test_context_fallback_is_bounded_and_must_remove_register_errors(self) -> None:
+        recovery = m2c_helper.call_signatures.Recovery((), ())
+        error = SimpleNamespace(returncode=0, stdout='M2C_ERROR(/* unset */)')
+        good = SimpleNamespace(returncode=0, stdout='void f(void) {}')
+        failed = SimpleNamespace(returncode=1, stdout='failed')
+        for allow, context, results in (
+            (False, True, [error]), (True, False, [error]),
+            (True, True, [good]), (True, True, [failed]),
+            (True, True, [error, failed]), (True, True, [error, error]),
+        ):
+            with self.subTest(allow=allow, context=context, results=results):
+                command = ['m2c', '--context', 'context.c', 'input.s'] if context else ['m2c', 'input.s']
+                with patch.object(m2c_helper.subprocess, 'run', side_effect=results) as run:
+                    result, fallback = m2c_helper.run_m2c_command(
+                        command, recovery, 'func_test', allow_context_fallback=allow)
+                self.assertIs(results[0], result)
+                self.assertFalse(fallback)
+                self.assertEqual(len(results), run.call_count)
+
+    def test_only_intrinsic_context_enables_fallback_and_records_it(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / 'test.c'
+            recovery = m2c_helper.call_signatures.Recovery((), ())
+            error = SimpleNamespace(returncode=0, stdout='M2C_ERROR(/* unset */)')
+            good = SimpleNamespace(returncode=0, stdout='void f(void) {}')
+            for intrinsic in (False, True):
+                with self.subTest(intrinsic=intrinsic):
+                    source.write_text('#pragma intrinsic(sqrtf)\n' if intrinsic else 'void f(void);\n')
+                    with (patch.object(m2c_helper, 'ROOT', root),
+                          patch.object(m2c_helper.call_signatures, 'recover', return_value=recovery),
+                          patch.object(m2c_helper.call_signatures, 'wrapper_call', return_value=None),
+                          patch.object(m2c_helper.call_signatures, 'dependency_digest', return_value='test'),
+                          patch.object(m2c_helper.subprocess, 'run', side_effect=[error, good] if intrinsic else [error])):
+                        output, status = m2c_helper.generate_with_call_context(
+                            ['m2c', '--context', 'context.c', 'input.s'], '', 'func_test', source, 'us')
+                    self.assertEqual(0, status)
+                    evidence = json.loads((root / 'build/m2c/calls/func_test.json').read_text())
+                    self.assertEqual(intrinsic, evidence['source_context_fallback'])
+                    self.assertEqual(intrinsic, 'using the starter without source context' in output)
 
     def test_registered_game_item_prefers_existing_rom_reference(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

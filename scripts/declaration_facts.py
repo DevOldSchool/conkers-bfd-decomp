@@ -10,23 +10,24 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parent.parent
-FUNCTION_PLACEHOLDER = re.compile(
-    r"^\s*M2C_UNK\s+(?P<symbol>[A-Za-z_]\w*)\((?P<args>[^()]*)\)\s*;.*$"
-)
 OBJECT_PLACEHOLDER = re.compile(
-    r"^\s*M2C_UNK\s+(?P<symbol>[A-Za-z_]\w*)\s*;.*$"
+    r"^\s*(?:extern\s+)?M2C_UNK\s+(?P<symbol>[A-Za-z_]\w*)\s*;.*$"
 )
 TYPE_TEXT = (
     r"(?:(?:const|volatile|signed|unsigned)\s+)*"
     r"(?:struct\s+[A-Za-z_]\w*|[A-Za-z_]\w*)(?:\s*\*)*"
+)
+FUNCTION_PLACEHOLDER = re.compile(
+    rf"^\s*(?:extern\s+)?(?P<return>{TYPE_TEXT})(?:\s+|(?<=\*))"
+    r"(?P<symbol>[A-Za-z_]\w*)\((?P<args>[^()]*)\)\s*;.*$"
 )
 FUNCTION_EVIDENCE = re.compile(
     rf"(?m)^\s*(?:extern\s+|static\s+)?(?P<return>{TYPE_TEXT})\s+"
     r"(?P<symbol>[A-Za-z_]\w*)\((?P<args>[^(){};]*)\)\s*(?:;|\{)"
 )
 OBJECT_EVIDENCE = re.compile(
-    rf"(?m)^\s*(?:extern\s+|static\s+)?(?P<type>{TYPE_TEXT})\s+"
-    r"(?P<symbol>[A-Za-z_]\w*)\s*(?:;|=)"
+    rf"(?m)^\s*(?P<storage>extern\s+|static\s+)?(?P<type>{TYPE_TEXT})(?:\s+|(?<=\*))"
+    r"(?P<symbol>[A-Za-z_]\w*)\s*(?P<array>(?:\[[^\]\n]*\]\s*)*)(?:;|=)"
 )
 PREPROCESSOR_IF_ZERO = re.compile(r"^\s*#\s*if\s+0(?:\s|$)")
 PREPROCESSOR_IF = re.compile(r"^\s*#\s*if(?:def|ndef)?\b")
@@ -136,7 +137,8 @@ def evidence_files(root: Path = ROOT) -> list[Path]:
 
 
 def function_declaration(
-    symbol: str, expected_arguments: str, *, root: Path = ROOT
+    symbol: str, expected_arguments: str, *, expected_return: str = "M2C_UNK",
+    root: Path = ROOT, source: str = ""
 ) -> Declaration | None:
     expected = argument_types(expected_arguments)
     if expected is None:
@@ -144,15 +146,21 @@ def function_declaration(
     # Resolve unknown parameter types as well as unknown returns, but never
     # repair argument count here: omitted register arguments require fresh m2c
     # output generated with a complete prototype.
-    from call_signatures import signature_index
-    signature = signature_index(root, {symbol}).get(symbol)
+    from call_signatures import signature_index, source_signatures
+    signature = signature_index(root, {symbol}, source=source).get(symbol)
     if signature is None or len(signature.arguments) != len(expected):
+        return None
+    if (expected_return != "M2C_UNK"
+            and normalize_type(signature.result) != normalize_type(expected_return)):
         return None
     if any(want != "M2C_UNK" and normalize_type(actual) != want
            for want, actual in zip(expected, signature.arguments)):
         return None
-    paths = [str(path.relative_to(root)) for path in evidence_files(root)
-             if re.search(rf"\b{re.escape(symbol)}\s*\(", active_text(path.read_text(encoding="utf-8")))]
+    if symbol in source_signatures(source, {symbol}):
+        paths = ["active declaration in the allowed source"]
+    else:
+        paths = [str(path.relative_to(root)) for path in evidence_files(root)
+                 if re.search(rf"\b{re.escape(symbol)}\s*\(", active_text(path.read_text(encoding="utf-8")))]
     return Declaration(
         signature.declaration(symbol),
         symbol,
@@ -160,17 +168,59 @@ def function_declaration(
     )
 
 
-def object_declaration(symbol: str, *, root: Path = ROOT) -> Declaration | None:
+def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> Declaration | None:
+    from call_signatures import c_type
+
+    # The source may already use an object through a deliberate local view.
+    # Reuse that exact declarator instead of importing another unit's type.
+    local = re.sub(r"/\*.*?\*/|//[^\n]*", "", source, flags=re.S)
+    local = active_text(local)
+    depth = 0
+    top_level = set()
+    for token in candidate_syntax.tokens(local):
+        if depth == 0:
+            top_level.add(token.start)
+        depth += (token.text == "{") - (token.text == "}")
+    choices: set[str] = set()
+    for match in OBJECT_EVIDENCE.finditer(local):
+        if match.group("symbol") != symbol or match.start("symbol") not in top_level:
+            continue
+        type_name = normalize_type(match.group("type"))
+        array = re.sub(r"\s+", "", match.group("array"))
+        if ((match.group("storage") or "").strip() == "static"
+                or c_type(type_name) in (None, "void")
+                or not re.fullmatch(r"(?:\[(?:0x[0-9A-Fa-f]+|[0-9]+)?\])*", array)):
+            return None
+        choices.add(f"extern {type_name} {symbol}{array};")
+    if choices:
+        if len(choices) != 1:
+            return None
+        return Declaration(next(iter(choices)), symbol,
+                           ("active file-scope declaration in the allowed source",))
+
     types: dict[str, set[str]] = {}
     for path in evidence_files(root):
         try:
-            text = active_text(path.read_text(encoding="utf-8"))
+            text = re.sub(r"/\*.*?\*/|//[^\n]*", "", path.read_text(encoding="utf-8"), flags=re.S)
+            text = active_text(text)
         except (OSError, UnicodeDecodeError):
             continue
+        depth = 0
+        top_level = set()
+        for token in candidate_syntax.tokens(text):
+            if depth == 0:
+                top_level.add(token.start)
+            depth += (token.text == "{") - (token.text == "}")
         for match in OBJECT_EVIDENCE.finditer(text):
-            if match.group("symbol") != symbol:
+            if match.group("symbol") != symbol or match.start("symbol") not in top_level:
                 continue
             type_name = normalize_type(match.group("type"))
+            # Only import self-contained external scalar/pointer declarations.
+            # Arrays and source-local types need separate declarator evidence.
+            if (match.group("storage") or "").strip() == "static" or match.group("array"):
+                return None
+            if c_type(type_name) in (None, "void"):
+                return None
             types.setdefault(type_name, set()).add(str(path.relative_to(root)))
     if len(types) != 1:
         return None
@@ -185,13 +235,13 @@ def object_declaration(symbol: str, *, root: Path = ROOT) -> Declaration | None:
 def declaration_already_present(source: str, declaration: Declaration) -> bool:
     if "(" in declaration.text:
         pattern = re.compile(
-            rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}\s+"
+            rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}(?:\s+|(?<=\*))"
             rf"{re.escape(declaration.symbol)}\([^;{{}}]*\)\s*(?:;|\{{)"
         )
     else:
         pattern = re.compile(
-            rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}\s+"
-            rf"{re.escape(declaration.symbol)}\s*(?:;|=)"
+            rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}(?:\s+|(?<=\*))"
+            rf"{re.escape(declaration.symbol)}\s*(?:\[[^\]\n]*\]\s*)*(?:;|=)"
         )
     return pattern.search(active_text(source)) is not None
 
@@ -210,9 +260,10 @@ def resolve_required_declarations(
         if not stripped or not stripped.endswith((";", "*/")):
             continue
         function = FUNCTION_PLACEHOLDER.match(stripped)
-        if function is not None:
+        if function is not None and "M2C_" in function.group("return") + function.group("args"):
             resolved = function_declaration(
-                function.group("symbol"), function.group("args"), root=root
+                function.group("symbol"), function.group("args"),
+                expected_return=function.group("return"), root=root, source=source
             )
             if resolved is None:
                 unresolved.append(function.group("symbol"))
@@ -221,7 +272,7 @@ def resolve_required_declarations(
             continue
         obj = OBJECT_PLACEHOLDER.match(stripped)
         if obj is not None:
-            resolved = object_declaration(obj.group("symbol"), root=root)
+            resolved = object_declaration(obj.group("symbol"), root=root, source=source)
             if resolved is None:
                 unresolved.append(obj.group("symbol"))
             else:

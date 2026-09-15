@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_audio_owner_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B3DD0
  * - func_150B3F5C
  * - func_150B40E8
  * - func_150B4294
@@ -25,8 +24,29 @@ typedef struct GameE1280State {
 
 void func_1000FC18(s32, s16, s16, s16, s32);
 void func_151478F4(s32);
+void func_15147D64(s32, s32);
+void func_151494E0(s8 *, s32);
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B3DD0.s")
+void func_150B3DD0(void) {
+    struct {
+        s8 value;
+        u8 pad[3];
+    } packet;
+
+    func_15147D64(0, 5);
+    packet.value = 0;
+    func_151494E0(&packet.value, 0x18);
+    packet.value = 2;
+    func_151494E0(&packet.value, 0x18);
+    packet.value = 4;
+    func_151494E0(&packet.value, 0x18);
+    packet.value = 1;
+    func_151494E0(&packet.value, 0x18);
+    packet.value = 3;
+    func_151494E0(&packet.value, 0x18);
+    packet.value = 5;
+    func_151494E0(&packet.value, 0x18);
+}
 
 void func_150B3E74(GameE1280State *arg0) {
     func_1000FC18(0x221, (s16)(s32)arg0->x, (s16)(s32)arg0->y,

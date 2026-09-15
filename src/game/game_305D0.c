@@ -10,7 +10,6 @@
  * - func_150034B4
  * - func_15003570
  * - func_15003668
- * - func_1500390C
  * - func_150039BC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -81,7 +80,42 @@ void func_150038A0(void) {
     func_150025FC();
     D_800DBE62 = 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_1500390C.s")
+extern s32 D_800B0E58;
+extern s32 D_800B0E5C;
+extern s32 D_800B0E60[];
+
+s32 func_1500390C(s32 arg0) {
+    s32 *entries;
+    s32 result;
+
+    if (arg0 == D_800B0E58) {
+        return 0;
+    }
+    if (arg0 == D_800B0E5C) {
+        return 1;
+    }
+    entries = D_800B0E60;
+    result = 2;
+loop:
+        if (arg0 == entries[0]) {
+            return result;
+        }
+        if (arg0 == entries[1]) {
+            return result + 1;
+        }
+        if (arg0 == entries[2]) {
+            return result + 2;
+        }
+        if (arg0 == entries[3]) {
+            return result + 3;
+        }
+        result += 4;
+        entries += 4;
+    if (result != 0x1E52) {
+        goto loop;
+    }
+    return -1;
+}
 void func_150039B0(s32 arg0) {
 
 }

@@ -8,7 +8,6 @@
  * - func_151D71B0
  * - func_151D7264
  * - func_151D7424
- * - func_151D74B0
  * - func_151D7538
  * - func_151D75C4
  * - func_151D7724
@@ -67,7 +66,49 @@ void func_151D747C(void *arg0) {
     sp.sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
     func_151494E0((s32 *)&sp, 0x3D, (s32)arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D74B0.s")
+void func_10022EC0(void *, void *, s32);
+s32 func_151D71B0(s32, s32, s32, s32, s32, s32, s32);
+
+typedef struct Game204660D74B0Packet {
+    void *owner;
+    u8 field34;
+    u8 field35;
+    s8 field36;
+    u8 pad37;
+} Game204660D74B0Packet;
+
+void func_151D74B0(void *arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
+    Game204660D74B0Packet packet;
+    s32 temp_v0;
+
+    packet.owner = arg0;
+    packet.field34 = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.field35 = arg1;
+    packet.field36 = arg2;
+    temp_v0 = func_151D71B0(0x12C, 0, 0, 0x41400000, 8, (s32)arg3, arg4);
+    if (temp_v0 != 0) {
+        func_10022EC0((void *)(temp_v0 + 0x40), &packet, 8);
+    }
+}
+void func_1516972C(s32, ...);
+void func_15149514(s32, u8, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7538 CURRENT (1142) */
+void func_151D7538(void *arg0, void *arg1, s32 arg2) {
+    u8 *temp_a2;
+
+    temp_a2 = (u8 *)arg0 + 0x40;
+    if ((u8)arg2 == 0x3D) {
+        if ((*(s32 *)temp_a2 == *(s32 *)arg1) ||
+            (*(u8 *)(temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C((s32)arg0);
+        }
+    } else {
+        func_15149514((s32)arg1, (u8)arg2, (s32)temp_a2,
+                      (s32)(temp_a2 + 4), (s32)arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D7538 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7538.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D75C4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7724 CURRENT (635) */

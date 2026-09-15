@@ -39,7 +39,6 @@
  * - func_15199C34
  * - func_1519A9A4
  * - func_1519B4B8
- * - func_1519BE1C
  * - func_1519BFBC
  * - func_1519C09C
  * - func_1519C258
@@ -62,8 +61,13 @@ extern s32 D_800E08F0;
 void func_1519CDB0(s32 arg0, f32 arg1, s32 arg2);
 void func_10010F30(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 void func_151478F4(s32 arg0);
+extern void (*D_8008F88C[])(void *);
+extern void (*D_8008F898[])(void *);
+extern void (*D_8008F8B4[])(s32);
+extern void (*D_8008F8C0[])(void);
 void func_15147928(s32 arg0);
 void func_15199980(s32 arg0);
+void func_1516972C(s32 arg0);
 void func_100111C8(s32 arg0, u16 arg1);
 void func_15195DD4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
 
@@ -88,7 +92,11 @@ typedef struct CharacterFlamethrowerState {
     CharacterFlamethrowerIdentity *identity;
     char pad4[0x2];
     u8 flags6;
-    char pad7[0x5F];
+    char pad7[0x2F];
+    s8 unk36;
+    char pad37[0x2];
+    s8 unk39;
+    char pad3A[0x2C];
     u16 unk66;
     char pad68[0xC8];
     u16 unk130;
@@ -206,7 +214,49 @@ void func_15196318(CharacterFlamethrowerControl *arg0, s32 arg1, s32 arg2) {
         arg0->unk13 = arg2;
     }
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15196330 CURRENT (60) */
+void func_15196330(void *arg0) {
+    void *sp1C;
+    s8 temp_v1;
+    s8 temp_v1_2;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    temp_v1 = *(s8 *)((u8 *)temp_v0 + 0x65);
+    if (temp_v1 != -1) {
+        sp1C = temp_v0;
+        D_8008F898[temp_v1](arg0);
+        temp_v0 = sp1C;
+    }
+    temp_v1_2 = *(s8 *)((u8 *)temp_v0 + 0x62);
+    if (temp_v1_2 != -1) {
+        D_8008F88C[temp_v1_2](arg0);
+    }
+    func_151478F4((s32)arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15196330 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196330.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151963B4 CURRENT (60) */
+void func_151963B4(void *arg0) {
+    void *sp1C;
+    s8 temp_v1;
+    s8 temp_v1_2;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    temp_v1 = *(s8 *)((u8 *)temp_v0 + 0x65);
+    if (temp_v1 != -1) {
+        sp1C = temp_v0;
+        D_8008F898[temp_v1](arg0);
+        temp_v0 = sp1C;
+    }
+    temp_v1_2 = *(s8 *)((u8 *)temp_v0 + 0x62);
+    if (temp_v1_2 != -1) {
+        D_8008F88C[temp_v1_2](arg0);
+    }
+    func_15147928((s32)arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151963B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151963B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196438.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15196748.s")
@@ -399,12 +449,49 @@ void func_15199954(s32 arg0) {
     func_15199980(arg0);
     func_15147928(arg0);
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15199980 CURRENT (100) */
+void func_15199980(s32 arg0) {
+    CharacterFlamethrowerState *var_v1;
+    s8 temp_v0;
+    s8 temp_v0_2;
+    s32 temp_a0;
+
+    var_v1 = ((CharacterFlamethrowerActor *)arg0)->state;
+    temp_v0 = var_v1->unk39;
+    if (temp_v0 != -1) {
+        D_8008F8C0[temp_v0]();
+    }
+    temp_v0_2 = var_v1->unk36;
+    if (temp_v0_2 != -1) {
+        D_8008F8B4[temp_v0_2](arg0);
+    }
+    temp_a0 = var_v1->unk148;
+    if (temp_a0 != 0) {
+        func_1516972C(temp_a0);
+    }
+    return;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15199980 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199980.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199A10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199C34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519A9A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519B4B8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519BE1C.s")
+typedef struct CharacterFlamethrowerVec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} CharacterFlamethrowerVec3;
+
+void func_1519BE1C(CharacterFlamethrowerVec3 *arg0, CharacterFlamethrowerVec3 *arg1, f32 arg2, f32 arg3) {
+    CharacterFlamethrowerVec3 temp;
+
+    temp = *arg1;
+    arg1->y = (f32) (arg1->y + (arg2 * arg3));
+    arg0->x = (f32) (arg0->x + (temp.x * arg3));
+    arg0->y = (f32) (arg0->y + ((temp.y * arg3) + (0.5f * arg2 * arg3 * arg3)));
+    arg0->z = (f32) (arg0->z + (temp.z * arg3));
+}
 void func_1519BEB8(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerState *temp_v0;
     CharacterFlamethrowerIdentity *temp_v1;

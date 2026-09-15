@@ -14,6 +14,33 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game61950Actor {
+    s32 field_0;
+    u8 pad4[0x98];
+    s32 field_9C;
+    u8 padA0[0x28C];
+} Game61950Actor;
+
+extern Game61950Actor D_800CC2D0[];
+extern f32 D_80097D1C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150344A0 CURRENT (195) */
+void *func_150344A0(void *arg0, s32 arg1) {
+    f32 temp_fv0;
+    u8 *temp_a2;
+    s16 temp_v1;
+
+    temp_fv0 = D_80097D1C;
+    *(s16 *)((u8 *)arg0 + 0) = 0x12;
+    temp_a2 = (u8 *)D_800CC2D0 + (arg1 * 0x32C);
+    temp_v1 = *(s16 *)(temp_a2 + 0x2E6);
+    *(s16 *)((u8 *)arg0 + 4) = 0xE;
+    *(s16 *)((u8 *)arg0 + 2) = (s16)(s32)((f32)temp_v1 * temp_fv0);
+    temp_v1 = *(s16 *)(temp_a2 + 0x2E4);
+    *(s16 *)((u8 *)arg0 + 6) = (s16)(s32)((f32)-temp_v1 * temp_fv0);
+    return (u8 *)arg0 + 8;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150344A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_150344A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_1503453C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_150345E4.s")
@@ -56,15 +83,7 @@ loop_9:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15034728 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_15034728.s")
-typedef struct Game61950Actor {
-    s32 field_0;
-    u8 pad4[0x98];
-    s32 field_9C;
-    u8 padA0[0x28C];
-} Game61950Actor;
-
 extern u8 D_800BEAC0;
-extern Game61950Actor D_800CC2D0[];
 extern Game61950Actor D_800D121C;
 void func_15034728(void *);
 

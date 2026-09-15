@@ -14,6 +14,42 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Call context: func_150A7790: unique active declaration in the allowed source */
+/* Call context: func_150A8050: unique active declaration in the allowed source */
+void func_150A7790(void *, s32);
+void func_150A8050(void *, f32, f32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15043D90 CURRENT (4351) */
+void func_15043D90(s32 arg0, f32 arg1, f32 arg2, s32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9) {
+    f32 sp50;
+    f32 sp4C;
+    f32 sp48;
+    f32 sp40;
+    f32 sp3C;
+    f32 sp38;
+    f32 sp30;
+    f32 sp2C;
+    f32 sp28;
+    f32 sp20;
+    f32 sp1C;
+    f32 sp18;
+
+    func_150A8050(&sp18, arg1, arg2, arg3);
+    sp18 *= arg4;
+    sp1C *= arg4;
+    sp48 = arg7;
+    sp4C = arg8;
+    sp50 = arg9;
+    sp20 *= arg4;
+    sp28 *= arg5;
+    sp2C *= arg5;
+    sp30 *= arg5;
+    sp38 *= arg6;
+    sp3C *= arg6;
+    sp40 *= arg6;
+    func_150A7790(&sp18, arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15043D90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71240/func_15043D90.s")
 void func_150A8050(void *, f32, f32, s32);
 void func_150A7790(void *, s32);

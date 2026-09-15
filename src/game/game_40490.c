@@ -13,7 +13,6 @@
  * - func_15013DE8
  * - func_15014094
  * - func_15014144
- * - func_15014220
  * - func_150142AC
  * - func_150142EC
  * - func_150144B8
@@ -175,7 +174,30 @@ s32 func_1501407C(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014094.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014144.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014220.s")
+void func_10022EC0(void *, void *, s32);
+s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+
+typedef struct Game4049014210Packet {
+    f32 value;
+    void *owner;
+    u8 active;
+    u8 pad9[3];
+} Game4049014210Packet;
+
+s32 func_15014220(void *arg0) {
+    Game4049014210Packet packet;
+    s32 temp_v0;
+
+    *(u8 *)((u8 *)arg0 + 0x16) = (u8)(*(u8 *)((u8 *)arg0 + 0x16) | 4);
+    packet.active = 1;
+    packet.owner = arg0;
+    packet.value = 0.0f;
+    temp_v0 = func_15149130(0x12C, -1, 0x26, -1, 0, 0x24, 0xC, 0xFF, 0);
+    if (temp_v0 != 0) {
+        func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0xC);
+    }
+    return 1;
+}
 extern void *D_800D9AA0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150142AC CURRENT (245) */

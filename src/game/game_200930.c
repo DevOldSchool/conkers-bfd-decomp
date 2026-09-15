@@ -152,6 +152,47 @@ void func_151D5148(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5648.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5714.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D57F8.s")
+/* Call context: func_15145740: unique active project prototype */
+/* Call context: func_15145EA4: unique active project prototype */
+void func_15145740(void *, void *, void *, void *, f32);
+void func_15145EA4(s32 *, s32 *, s32, s32);
+extern f32 D_800AB240;
+extern f32 D_800AB244;
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5A18 CURRENT (4979) */
+void func_151D5A18(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32 arg5, u8 arg6) {
+    s32 sp44;
+    s32 sp40;
+    f32 temp_fa0;
+    f32 temp_fa1;
+    f32 temp_fv1;
+    f32 var_ft4;
+    f32 var_ft5;
+
+    func_15145740(arg0, arg2, arg3, arg4, D_800AB240);
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+        sp40 = arg1;
+        sp44 = arg5;
+        func_15145EA4(&sp44, &sp40, *(s32 *)((u8 *)arg0 + 0x1D4) + (arg6 << 6), 1);
+        return;
+    }
+    temp_fa1 = *(f32 *)((u8 *)arg2 + 0);
+    if ((D_800AB244 < fabsf(temp_fa1)) || (D_800AB244 < fabsf(*(f32 *)((u8 *)arg2 + 8)))) {
+        temp_fv1 = *(f32 *)((u8 *)arg2 + 8);
+        temp_fa0 = 1.0f / sqrtf((temp_fa1 * temp_fa1) + (temp_fv1 * temp_fv1));
+        var_ft4 = temp_fv1 * temp_fa0;
+        var_ft5 = -temp_fa1 * temp_fa0;
+    } else {
+        var_ft4 = 1.0f;
+        var_ft5 = 0.0f;
+    }
+    *(f32 *)((u8 *)arg1 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + (34.0f * var_ft5));
+    *(f32 *)((u8 *)arg1 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + 49.0f);
+    *(f32 *)((u8 *)arg1 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 0x1C) + (34.0f * var_ft4));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D5A18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5A18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5B6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D5D60.s")

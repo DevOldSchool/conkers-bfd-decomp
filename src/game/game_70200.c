@@ -33,6 +33,35 @@ void func_15042D78(u8 arg0) {
     D_800CBD74 = arg0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15042D94.s")
+void func_15042ECC(s32, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15042E3C CURRENT (1660) */
+void func_15042E3C(s32 arg0, s32 arg1, ...) {
+    u8 sp24[0x40];
+    u8 *var_a1;
+    u8 *var_v0;
+    s32 temp_v0;
+    s32 temp_v0_2;
+    s32 temp_v0_3;
+    s32 temp_v0_4;
+
+    var_v0 = (u8 *)&arg1;
+    var_a1 = (u8 *)sp24;
+    do {
+        temp_v0 = ((s32)(var_v0 + 3)) & ~3;
+        *(s32 *)(var_a1 + 0) = *(s32 *)temp_v0;
+        temp_v0_2 = (temp_v0 + 7) & ~3;
+        *(s32 *)(var_a1 + 4) = *(s32 *)temp_v0_2;
+        temp_v0_3 = (temp_v0_2 + 7) & ~3;
+        *(s32 *)(var_a1 + 8) = *(s32 *)temp_v0_3;
+        var_a1 += 0x10;
+        temp_v0_4 = (temp_v0_3 + 7) & ~3;
+        *(s32 *)(var_a1 - 4) = *(s32 *)temp_v0_4;
+        var_v0 = (u8 *)(temp_v0_4 + 4);
+    } while (var_a1 != sp24 + 0x40);
+    func_15042ECC(arg0, (s32 *)sp24);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15042E3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15042E3C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15042ECC.s")
 extern f32 D_800CBD80;

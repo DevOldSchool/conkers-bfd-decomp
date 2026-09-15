@@ -124,6 +124,22 @@ void func_1517F488(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517F488 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F488.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F4D8 CURRENT (20) */
+s32 func_1517F4D8(s32 arg0, s32 arg1) {
+    u8 temp_a1;
+    u8 *temp_v0;
+
+    if (*(u16 *)((u8 *)&D_800DDE10 + (arg1 * 2)) == 0) {
+        return arg0;
+    }
+    temp_a1 = *(u8 *)((u8 *)&D_800DDD9C + arg1);
+    if (temp_a1 == 0) {
+        return arg0;
+    }
+    temp_v0 = (u8 *)&D_800DDD90 + (arg1 * 3);
+    return func_1517F08C(arg0, (s32)temp_a1, temp_v0[0], temp_v0[1], temp_v0[2], arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517F4D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F4D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F564.s")
 extern s8 D_800DDD88;

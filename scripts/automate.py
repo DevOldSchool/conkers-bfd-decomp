@@ -47,6 +47,8 @@ FINGERPRINT_INPUTS = (
     "scripts/candidate_lifetimes.py",
     "scripts/declaration_facts.py",
     "scripts/m2c.py",
+    "scripts/rzip_archive.py",
+    "config/rzip_layouts.json",
     "scripts/call_signatures.py",
     "toolchain/tools.lock.json",
 )
@@ -85,7 +87,8 @@ STAGE_VERSIONS["diff"] = 2
 # A changed starter can fix any later raw-stage failure, including declaration
 # blockers saved before compilation. Keep the upstream recovery inputs in each
 # relevant stage instead of requiring users to restart a saved scan.
-CALL_CONTEXT_INPUTS = ("scripts/m2c.py", "scripts/call_signatures.py", "scripts/declaration_facts.py")
+CALL_CONTEXT_INPUTS = ("scripts/m2c.py", "scripts/call_signatures.py", "scripts/declaration_facts.py",
+                       "scripts/rzip_archive.py", "config/rzip_layouts.json")
 for _stage in STAGE_INPUTS:
     if _stage != "inventory":
         STAGE_INPUTS[_stage] = tuple(dict.fromkeys(STAGE_INPUTS[_stage] + CALL_CONTEXT_INPUTS))

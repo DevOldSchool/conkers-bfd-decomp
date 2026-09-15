@@ -52,6 +52,27 @@ void func_1518E524(s8 *arg0, u8 *arg1, s8 *arg2, s8 *arg3, s8 *arg4, u8 *arg5, s
     *arg5 = 0xFF;
     *arg6 = 0x301;
 }
+/* Call context: func_151429E0: unique active project prototype */
+void func_151429E0(u8, u8 *, u8 *, u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E5D8 CURRENT (460) */
+void func_1518E5D8(s8 *arg0, u8 *arg1, u8 *arg2, u8 *arg3, u8 *arg4, s8 *arg5, s16 *arg6) {
+    s32 var_v0;
+
+    if (func_150ADA20() & 1) {
+        *arg1 |= 1;
+    }
+    *arg0 = 0x16;
+    if (func_150ADA20() & 1) {
+        var_v0 = 3;
+    } else {
+        var_v0 = 4;
+    }
+    func_151429E0(var_v0 & 0xFF, arg2, arg3, arg4);
+    *arg5 = 0xC8;
+    *arg6 = 0x401;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518E5D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BB950/func_1518E5D8.s")
 typedef struct Game1BB950State {
     u8 pad0;

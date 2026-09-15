@@ -11,7 +11,6 @@
  * - func_15063628
  * - func_150636A4
  * - func_150636F0
- * - func_15063A38
  * - func_15063B64
  * - func_15063C60
  * - func_15063E84
@@ -69,6 +68,22 @@ s16 func_15063390(Game90840Actor *arg0) {
     return func_1505A630(other->x - arg0->x, arg0->z - other->z, 0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063404.s")
+void func_150836CC(void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150634E4 CURRENT (2670) */
+void func_150634E4(void *arg0) {
+    Game90840Actor *temp_v0;
+
+    temp_v0 = &D_800CC2D0[(s32)((u8 *)arg0 - (u8 *)D_800CC2D0) / 0x32C];
+    temp_v0->field_31C->pad14[0x64] = 0;
+    temp_v0->field_31C->pad14[0x106] = 0;
+    func_150836CC(arg0, 0x1D);
+    func_150836CC(arg0, 0x1E);
+    *(u8 *)((u8 *)arg0 + 0x8A) = 0;
+    *(u8 *)((u8 *)arg0 + 0x89) = 0;
+    *(u8 *)((u8 *)arg0 + 0x83) = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150634E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150634E4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063570.s")
 void func_15081690(f32, s32, s32, s32, f32, f32, f32, void *, f32, s32, s32, s32, s32, s32, s32);
@@ -119,7 +134,42 @@ s16 func_150639BC(Game90840Actor *arg0) {
     return D_800CC2B2;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063A38.s")
+extern s16 D_800CC264;
+extern void *D_800CC284;
+extern f32 D_800CC2B4;
+
+s32 func_15063A38(Game90840Actor *arg0, s32 arg1, s32 arg2) {
+    s16 temp_v1;
+    u16 temp_t0;
+    u16 temp_t3;
+
+    if (arg1 & arg2) {
+        D_800CC2B2 = *(s8 *)((u8 *)D_800CC284 + 2) * 0xC8;
+        if (arg0->field_31C->pad14[0x70] != 0) {
+            D_800CC2B2 = func_150639BC(arg0);
+        }
+        D_800CC2B4 = 12.0f;
+        D_800CC2B2 = arg0->field_31C->field_12 + ((s32) (D_800CC2B2 * D_800CC264) / 2000);
+        temp_v1 = D_800CC2B2;
+        if (temp_v1 < -0x2328) {
+            temp_t0 = (arg0->field_7A - temp_v1) - 0x2328;
+            arg0->field_7A = temp_t0;
+            *(u16 *)((u8 *)arg0 + 0x76) = temp_t0;
+            D_800CC2B2 = -0x2328;
+            temp_v1 = D_800CC2B2;
+        }
+        if (temp_v1 >= 0x2329) {
+            temp_t3 = (arg0->field_7A - temp_v1) + 0x2328;
+            arg0->field_7A = temp_t3;
+            *(u16 *)((u8 *)arg0 + 0x76) = temp_t3;
+            D_800CC2B2 = 0x2328;
+            temp_v1 = D_800CC2B2;
+        }
+        arg0->field_31C->field_12 = temp_v1;
+        return 1;
+    }
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063B64.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063C60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063E84.s")

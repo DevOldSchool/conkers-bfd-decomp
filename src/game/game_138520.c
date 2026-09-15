@@ -59,4 +59,22 @@ void func_1510B3B0(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B3B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B458.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B51C.s")
+void func_150A7790(void *, s32);
+void func_15047F00(void *, void *, f32, f32, f32, f32, f32);
+extern s32 D_800BE628;
+extern u8 D_800BE9C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B5F8 CURRENT (50) */
+void func_1510B5F8(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+    s32 sp2C;
+    s32 temp_v1;
+
+    temp_v1 = arg0 * 0x180;
+    sp2C = temp_v1;
+    func_15047F00((void *)(D_800BE628 + temp_v1 + 0xBC), arg1,
+                  arg2, arg3, arg4, arg5, arg6);
+    func_150A7790((void *)(D_800BE628 + temp_v1 + 0xBC),
+                  D_800BE628 + temp_v1 + (D_800BE9C0 << 6) + 0x100);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510B5F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B5F8.s")

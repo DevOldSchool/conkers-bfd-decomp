@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150D8B3C
  * - func_150D8B88
- * - func_150D8D84
  * - func_150D8E1C
  * - func_150D8E4C
  * - func_150D8FAC
@@ -49,7 +48,24 @@ void func_150D8B3C(void *arg0, void *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D8B3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B3C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B88.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8D84.s")
+extern f32 D_800A0B4C;
+extern f32 D_800A0B50;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game105FC0Vec3;
+
+void func_150D8D84(Game105FC0Vec3 *arg0, Game105FC0Vec3 *arg1, f32 arg2) {
+    Game105FC0Vec3 sp4;
+
+    sp4 = *arg1;
+    arg1->y += D_800A0B4C * arg2;
+    arg0->x += sp4.x * arg2;
+    arg0->y += (sp4.y * arg2) + (D_800A0B50 * arg2 * arg2);
+    arg0->z += sp4.z * arg2;
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8E1C CURRENT (345) */
 void func_150D8E1C(void *arg0) {
     u16 temp_t0;

@@ -69,6 +69,40 @@ s32 func_151BE210(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BE210 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EB6C0/func_151BE210.s")
+typedef struct Game1EB6C0State {
+    void *field_0;
+    u8 pad_4[0x3C];
+    f32 field_40;
+    f32 field_44;
+    u8 pad_48[0xC];
+    f32 field_54;
+    u8 field_58;
+} Game1EB6C0State;
+
+void func_1516972C(void *arg0);
+void func_1513FAB4(void *arg0, s32 arg1, f32 *arg2, s16 arg3);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE4B8 CURRENT (1228) */
+void func_151BE4B8(void *arg0, s16 arg1) {
+    Game1EB6C0State *state;
+    struct {
+        u8 pad_0[4];
+        f32 values[2];
+    } locals;
+
+    state = (Game1EB6C0State *)((u8 *)arg0 + 0x110);
+    if ((*(u8 *)((u8 *)arg0 + 0x114) != *(u8 *)((u8 *)state->field_0 + 0x3B)) || (state->field_0 == 0)) {
+        func_1516972C(arg0);
+        return;
+    }
+    if (!(state->field_58 & 1)) {
+        return;
+    }
+    locals.values[0] = state->field_40 * state->field_54;
+    locals.values[1] = state->field_44 * state->field_54;
+    func_1513FAB4(arg0, 0, locals.values, arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BE4B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EB6C0/func_151BE4B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EB6C0/func_151BE558.s")
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);

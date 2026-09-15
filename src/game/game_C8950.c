@@ -97,6 +97,62 @@ void func_1509B764(GameC8950Node *arg0) {
     func_10004074((s32)arg0);
     D_800D2F48.count -= 1;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B810 CURRENT (1545) */
+void func_1509B810(GameC8950Node *arg0) {
+    GameC8950Node *temp_v0;
+    GameC8950Node *var_v0;
+    s32 var_a3;
+
+    var_v0 = D_800D2F48.tail;
+    if (D_800D2F48.count == 0) {
+        D_800D2F48.head = arg0;
+        D_800D2F48.tail = arg0;
+        arg0->next = 0;
+        arg0->prev = 0;
+        D_800D2F48.count += 1;
+        return;
+    }
+    var_a3 = 0;
+    if ((s32) D_800D2F48.count > 0) {
+loop_3:
+        var_a3 += 1;
+        if ((var_v0->key & 0xFFFF03FF) < (arg0->key & 0xFFFF03FF)) {
+            if (var_v0 == D_800D2F48.tail) {
+                arg0->prev = var_v0;
+                arg0->next = 0;
+                var_v0->next = arg0;
+                D_800D2F48.tail = arg0;
+                D_800D2F48.count += 1;
+                return;
+            }
+            arg0->prev = var_v0;
+            arg0->next = var_v0->next;
+            var_v0->next->prev = arg0;
+            var_v0->next = arg0;
+            D_800D2F48.count += 1;
+            return;
+        }
+        var_v0 = var_v0->prev;
+        if (var_a3 >= (s32) D_800D2F48.count) {
+            /* Duplicate return node #8. Try simplifying control flow for better match */
+            temp_v0 = D_800D2F48.head;
+            D_800D2F48.head = arg0;
+            arg0->prev = 0;
+            arg0->next = temp_v0;
+            temp_v0->prev = arg0;
+            D_800D2F48.count += 1;
+            return;
+        }
+        goto loop_3;
+    }
+    temp_v0 = D_800D2F48.head;
+    D_800D2F48.head = arg0;
+    arg0->prev = 0;
+    arg0->next = temp_v0;
+    temp_v0->prev = arg0;
+    D_800D2F48.count += 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509B810 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509B810.s")
 typedef struct {
     u16 field_0;

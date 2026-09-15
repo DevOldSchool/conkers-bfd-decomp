@@ -57,6 +57,39 @@ void func_151D0128(u8 *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D014C.s")
+/* Call context: func_1516972C: unique active declaration in the allowed source */
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D08F0 CURRENT (1602) */
+void func_151D08F0(u8 *arg0, u8 *arg1, s32 arg2) {
+    s32 temp_a0;
+    s32 temp_t6;
+    s32 temp_v1;
+    u8 *temp_v0;
+
+    temp_t6 = arg2 & 0xFF;
+    if ((temp_t6 == 0) || (temp_t6 == 0x18)) {
+        if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x28)) || (*(u8 *)((u8 *)(arg0 + 0x28) + 4) == (u8) *(s32 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0);
+        }
+    } else {
+        temp_v0 = (void *)(arg0 + 0x28);
+        if (temp_t6 == 0x2D) {
+            temp_a0 = *(s32 *)((u8 *)arg0 + 0x28);
+            temp_v1 = *(s32 *)((u8 *)arg1 + 0);
+            if (temp_v1 == temp_a0) {
+                *(s32 *)((u8 *)arg0 + 0x28) = (s32) *(s32 *)((u8 *)arg1 + 4);
+                *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
+                return;
+            }
+            if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
+                *(s32 *)((u8 *)arg0 + 0x28) = temp_v1;
+                *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D08F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D08F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D09A8.s")
 void func_1516972C(void *arg0);

@@ -45,13 +45,13 @@ extern u8 D_800CC2D0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507CD0C CURRENT (35) */
 void func_1507CD0C(void *arg0) {
-    s32 temp_a1;
     s32 temp_lo;
+    s32 temp_a1;
 
     temp_a1 = (u8 *)arg0 - &D_800CC2D0;
     temp_lo = temp_a1 / 812;
     *(s8 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x120) = 3;
-    if (D_80082FA0 >= temp_lo) {
+    if (temp_lo <= D_80082FA0) {
         func_15181D70(temp_lo, temp_a1);
     }
 }
@@ -88,6 +88,45 @@ void func_1507DB64(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DB6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DE4C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DF10 CURRENT (960) */
+void func_1507DF10(void *arg0, s32 arg1) {
+    s32 temp_t0;
+    s32 temp_t3;
+    s32 temp_t7;
+
+    switch (arg1) {
+    case 9:
+        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (*(s32 *)((u8 *)arg0 + 0x94) | 0x20);
+        *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0x78);
+        *(s32 *)((u8 *)arg0 + 0x2E4) = 1;
+        return;
+    case 8:
+        temp_t3 = *(s32 *)((u8 *)arg0 + 0x94) | 0x40;
+        *(s32 *)((u8 *)arg0 + 0x94) = temp_t3;
+        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (temp_t3 & ~0x200);
+        *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0xF00);
+        *(s32 *)((u8 *)arg0 + 0x2E4) = 2;
+        return;
+    case 6:
+    case 7:
+        temp_t0 = *(s32 *)((u8 *)arg0 + 0x94) | 0xE;
+        *(s32 *)((u8 *)arg0 + 0x94) = temp_t0;
+        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (temp_t0 & ~0x410);
+        *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0xEE0000);
+        *(s32 *)((u8 *)arg0 + 0x2E4) = 4;
+        return;
+    case 4:
+    case 5:
+        temp_t7 = *(s32 *)((u8 *)arg0 + 0x94) | 0x80;
+        *(s32 *)((u8 *)arg0 + 0x94) = temp_t7;
+        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (temp_t7 & ~0x500);
+        *(s32 *)((u8 *)arg0 + 0x2E4) = 8;
+        /* fallthrough */
+    default:
+        return;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507DF10 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DF10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DFE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507E114.s")

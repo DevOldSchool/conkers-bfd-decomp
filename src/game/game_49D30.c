@@ -65,13 +65,45 @@ typedef struct Game49D30Record {
 } Game49D30Record;
 
 void func_1516D328(Game49D30Resource *);
+extern s32 D_800C3960[];
+extern u8 D_800C363A[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501C880.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CC3C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CDC0 CURRENT (1220) */
+void func_1501CDC0(s32 arg0) {
+    s32 *var_a1;
+    s32 var_a0;
+    s32 var_v0;
+    u8 *temp_v1;
+
+    temp_v1 = &D_800C363A[arg0];
+    var_v0 = 0;
+    if ((s32)*temp_v1 > 0) {
+        var_a1 = (s32 *)((u8 *)D_800C3960 + (arg0 * 0x78));
+        var_a0 = 0;
+outer_loop:
+        loop_3:
+            *(u8 *)((u8 *)*var_a1 + var_a0) = 0xFF;
+            *(u8 *)((u8 *)*var_a1 + var_a0 + 1) = 0xFF;
+            *(u8 *)((u8 *)*var_a1 + var_a0 + 2) = 0xFF;
+            *(u8 *)((u8 *)*var_a1 + var_a0 + 3) = 0xFF;
+            var_a0 += 4;
+            if (var_a0 != 0x10) {
+                goto loop_3;
+            }
+            var_v0 += 1;
+            var_a1 += 4;
+            if (var_v0 < (s32)*temp_v1) {
+                var_a0 = 0;
+                goto outer_loop;
+            }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501CDC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CDC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CE54.s")
 extern u16 *D_800C35D8[];
-extern u8 D_800C363A[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501CFF8 CURRENT (2000) */
 s32 func_1501CFF8(s32 arg0) {

@@ -85,6 +85,42 @@ s32 func_151A4900(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4900 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4900.s")
+void func_10022EC0(void *, void *, s32);
+s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A8D64;
+
+typedef struct Game1D0840EffectPacket {
+    void *field_0;
+    u8 field_4;
+    u8 pad5[3];
+    f32 field_8;
+    f32 field_C;
+    u8 field_10;
+    u8 pad11[3];
+    f32 field_14;
+    f32 field_18;
+    f32 field_1C;
+} Game1D0840EffectPacket;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A499C CURRENT (37) */
+void func_151A499C(void *arg0, u8 arg1) {
+    Game1D0840EffectPacket packet;
+    s32 temp_v0;
+
+    packet.field_0 = arg0;
+    packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.field_8 = D_800A8D64;
+    packet.field_C = 0.0f;
+    packet.field_10 = 1;
+    packet.field_14 = 0.0f;
+    packet.field_18 = 0.0f;
+    packet.field_1C = 0.0f;
+    temp_v0 = func_151491F4(0x12C, -1, 5, 0, 1, 0x20, (s32) arg1, 0);
+    if (temp_v0 != 0) {
+        func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x20);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A499C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A499C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4A38.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4CE0 CURRENT (1222) */

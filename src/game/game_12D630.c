@@ -54,6 +54,23 @@ void func_151001B4(Game12D630Actor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151001B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_151001B4.s")
+void func_15149514(s32, u8, s32, s32, s32);
+void func_1516972C(void *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15100230 CURRENT (148) */
+void func_15100230(void *arg0, void *arg1, u8 arg2) {
+    u8 *temp_a2;
+
+    temp_a2 = (u8 *)arg0 + 0x28;
+    if (arg2 == 0x48) {
+        if ((*(s32 *)temp_a2 == *(s32 *)arg1) || (*(u8 *)((u8 *)temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0, arg1);
+        }
+    } else {
+        func_15149514((s32) arg1, arg2, (s32) temp_a2, (s32) ((u8 *)temp_a2 + 4), (s32) arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15100230 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_15100230.s")
 extern s32 D_800BE9E4;
 

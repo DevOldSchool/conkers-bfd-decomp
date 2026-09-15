@@ -44,4 +44,36 @@ s32 func_150BA37C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150BA37C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E7380/func_150BA37C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BA424 CURRENT (1960) */
+s32 func_150BA424(void *arg0) {
+    f32 temp_fv0;
+    s8 temp_t6;
+    s8 var_v1;
+
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x38) - *(f32 *)((u8 *)arg0 + 0x124);
+    if (temp_fv0 < 0.0f) {
+        return 0;
+    }
+    temp_t6 = *(s16 *)((u8 *)arg0 + 0x1C) * 0x10;
+    {
+        s8 var_v0 = temp_t6;
+    if (temp_t6 >= 0x100) {
+        var_v0 = -1;
+    }
+    var_v1 = (s32) temp_fv0 * 4;
+    if (var_v1 >= 0x100) {
+        var_v1 = -1;
+    }
+    if (var_v1 < var_v0) {
+        *(s8 *)((u8 *)arg0 + 0x5C) = var_v1;
+    } else {
+        *(s8 *)((u8 *)arg0 + 0x5C) = var_v0;
+    }
+    if ((s32) (u8) *(s8 *)((u8 *)arg0 + 0x5C) < 0) {
+        return 0;
+    }
+    return 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BA424 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E7380/func_150BA424.s")

@@ -151,6 +151,40 @@ s32 func_151C110C(void *arg0, s32 arg1, s32 *arg2, s32 arg3, s32 arg4, s32 arg5,
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1180.s")
+void func_1516972C(s32, ...);
+void func_1000FD38(s32 (*)(void *, s32, s32 *, s32, s32, s32, s16 *), s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1570 CURRENT (2291) */
+void func_151C1570(s32 arg0) {
+    void *sp1C;
+    s32 temp_a0;
+    s32 temp_a0_2;
+    s32 temp_t7;
+    void *temp_a1;
+    void *temp_v1;
+
+    temp_t7 = *(s32 *)((u8 *)arg0 + 0x1F0);
+    if (temp_t7 != 0) {
+        func_1516972C(temp_t7);
+    }
+    temp_a0 = *(s32 *)((u8 *)arg0 + 0x1F4);
+    temp_a1 = (u8 *)arg0 + 0x170;
+    if (temp_a0 != 0) {
+        sp1C = temp_a1;
+        func_1516972C(temp_a0, temp_a1);
+        temp_a1 = sp1C;
+    }
+    temp_v1 = *(void **)((u8 *)temp_a1 + 0x88);
+    if (temp_v1 != 0) {
+        *(s32 *)((u8 *)temp_v1 + 0x110) = 0;
+    }
+    temp_a0_2 = *(s32 *)((u8 *)temp_a1 + 0x8C);
+    if (temp_a0_2 != 0) {
+        func_1516972C(temp_a0_2, temp_a1);
+    }
+    func_1000FD38(func_151C110C, arg0, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C1570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1570.s")
 void func_151C1570(s32 arg0);
 void func_1513259C(s32 arg0);
@@ -227,4 +261,30 @@ void func_151C1940(void *arg0, void *arg1, s32 *arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C196C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1D5C.s")
+typedef struct {
+    s8 field_0;
+    s8 pad1;
+    s16 field_2;
+    s8 field_4;
+    s8 field_5;
+    s8 field_6;
+} Game1ED0F0EventPacket;
+
+u32 func_150ADA20(void *);
+void func_151D8868(s8 *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1FB8 CURRENT (400) */
+void func_151C1FB8(void *arg0) {
+    Game1ED0F0EventPacket packet;
+
+    if (*(void **)((u8 *)arg0 + 0x318) != 0) {
+        packet.field_0 = 1;
+        packet.field_2 = (func_150ADA20(arg0) & 7) + 0xD;
+        packet.field_5 = 1 << *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x318) + 0x23D);
+        packet.field_4 = (func_150ADA20(arg0) % 3U) + 6;
+        packet.field_6 = -1;
+        func_151D8868(&packet.field_0, 0, 0xFF, 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C1FB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1FB8.s")

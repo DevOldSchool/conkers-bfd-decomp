@@ -64,7 +64,140 @@ void func_151303BC(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151303BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151303EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130A9C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513137C CURRENT (1330) */
+void func_1513137C(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, Game15D730ColorState *arg4) {
+    s16 temp_v0;
+    s16 temp_v0_2;
+    s16 temp_v0_3;
+    u8 temp_t6;
+
+    temp_t6 = arg4->mode70;
+    switch (temp_t6) {
+    case 1:
+        *arg2 = 0;
+        temp_v0 = *arg2;
+        *arg1 = temp_v0;
+        *arg0 = temp_v0;
+        *arg3 = (s16) ((s32) (arg4->field27 * arg4->field2B) >> 8);
+        return;
+    case 2:
+        *arg0 = (s16) arg4->field24;
+        *arg1 = (s16) arg4->field25;
+        *arg2 = (s16) arg4->field26;
+        *arg3 = (s16) ((s32) (arg4->field27 * arg4->field2B) >> 8);
+        return;
+    case 3:
+        *arg0 = (s16) arg4->field28;
+        *arg1 = (s16) arg4->field29;
+        *arg2 = (s16) arg4->field2A;
+        *arg3 = (s16) ((s32) (arg4->field27 * arg4->field2B) >> 8);
+        return;
+    case 4:
+    case 6:
+        *arg3 = 0;
+        temp_v0_2 = *arg3;
+        *arg2 = temp_v0_2;
+        *arg1 = temp_v0_2;
+        *arg0 = temp_v0_2;
+        return;
+    case 5:
+        *arg2 = 0;
+        temp_v0_3 = *arg2;
+        *arg1 = temp_v0_3;
+        *arg0 = temp_v0_3;
+        *arg3 = (s16) arg4->field2B;
+        return;
+    case 7:
+        *arg0 = (s16) arg4->field24;
+        *arg1 = (s16) arg4->field25;
+        *arg2 = (s16) arg4->field26;
+        *arg3 = (s16) arg4->field2B;
+        return;
+    case 8:
+        *arg0 = (s16) arg4->field24;
+        *arg1 = (s16) arg4->field25;
+        *arg2 = (s16) arg4->field26;
+block_10:
+        *arg3 = 0;
+        return;
+    default:
+        *arg0 = (s16) ((s32) (arg4->field24 * arg4->field2C) >> 8);
+        *arg1 = (s16) ((s32) (arg4->field25 * arg4->field2C) >> 8);
+        *arg2 = (s16) ((s32) (arg4->field26 * arg4->field2C) >> 8);
+        goto block_10;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513137C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_1513137C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131514 CURRENT (915) */
+void func_15131514(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, Game15D730ColorState *arg4) {
+    s16 temp_v0;
+    s16 temp_v0_3;
+    u8 temp_t6;
+    u8 temp_v0_2;
+    u8 temp_v0_4;
+    u8 temp_v0_5;
+
+    temp_t6 = arg4->mode71;
+    switch (temp_t6) {
+    case 1:
+    case 5:
+        *arg2 = 0;
+        temp_v0 = *arg2;
+        *arg1 = temp_v0;
+        *arg0 = temp_v0;
+        *arg3 = 0;
+        return;
+    case 2:
+        temp_v0_2 = arg4->field2C;
+        *arg2 = (s16) temp_v0_2;
+        *arg1 = (s16) temp_v0_2;
+        *arg0 = (s16) temp_v0_2;
+        *arg3 = 0;
+        return;
+    case 8:
+        *arg2 = 0;
+        temp_v0_3 = *arg2;
+        *arg1 = temp_v0_3;
+        *arg0 = temp_v0_3;
+        *arg3 = (s16) arg4->field2B;
+        return;
+    case 3:
+        *arg0 = (s16) arg4->field24;
+        *arg1 = (s16) arg4->field25;
+        *arg2 = (s16) arg4->field26;
+        *arg3 = 0;
+        return;
+    case 4:
+    case 6:
+        *arg0 = (s16) arg4->field28;
+        *arg1 = (s16) arg4->field29;
+        *arg2 = (s16) arg4->field2A;
+        *arg3 = (s16) arg4->field2B;
+        return;
+    case 7:
+        temp_v0_4 = arg4->field2C;
+        *arg2 = (s16) temp_v0_4;
+        *arg1 = (s16) temp_v0_4;
+        *arg0 = (s16) temp_v0_4;
+        *arg3 = (s16) arg4->field2B;
+        return;
+    case 9:
+        *arg0 = (s16) arg4->field24;
+        *arg1 = (s16) arg4->field25;
+        *arg2 = (s16) arg4->field26;
+        *arg3 = (s16) arg4->field2B;
+        return;
+    default:
+        temp_v0_5 = arg4->field2C;
+        *arg2 = (s16) temp_v0_5;
+        *arg1 = (s16) temp_v0_5;
+        *arg0 = (s16) temp_v0_5;
+        *arg3 = (s16) ((s32) (arg4->field27 * arg4->field2B) >> 8);
+        return;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15131514 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131514.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1513164C CURRENT (100) */
 void func_1513164C(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3,

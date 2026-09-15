@@ -15,7 +15,6 @@
  * - func_1503EA54
  * - func_1503EB78
  * - func_1503ECA0
- * - func_1503EEC0
  * - func_1503EF4C
  * - func_1503EFC4
  * - func_1503F16C
@@ -25,6 +24,29 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game6B320MaskPair {
+    u32 first;
+    u32 second;
+} Game6B320MaskPair;
+
+extern u8 D_800CC2D0[];
+extern Game6B320MaskPair *D_8008446C[];
+void func_1503DF0C(s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DE70 CURRENT (80) */
+void func_1503DE70(s32 arg0, s32 arg1, s32 arg2) {
+    Game6B320MaskPair *temp_v0;
+    s32 temp_a0;
+
+    temp_a0 = ((u8 *)arg0 - D_800CC2D0) / 812;
+    if (arg2 != -1) {
+        temp_v0 = &D_8008446C[arg1][arg2];
+        func_1503DF0C(temp_a0, arg1, temp_v0->first, temp_v0->second);
+        return;
+    }
+    func_1503DF0C(temp_a0, arg1, -1, -1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503DE70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DE70.s")
 typedef struct {
     u8 pad_0[0x1EC];
@@ -83,14 +105,24 @@ s32 func_1503E1F4(s32 arg0, s32 arg1) {
 void func_1503EEB8(void) {
 
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EEC0.s")
-typedef struct Game6B320MaskPair {
-    u32 first;
-    u32 second;
-} Game6B320MaskPair;
+void func_15060F28(u8 *, s32);
+void func_1503ECA0(s32, s32);
+extern s32 D_800BE9E4;
+extern u8 D_800CC2D0[];
 
-extern Game6B320MaskPair *D_8008446C[];
+void func_1503EEC0(s32 arg0, s32 arg1) {
+    Game6B320Slot *temp_v1;
+    s32 temp_v0;
 
+    func_1503ECA0(arg0, arg1);
+    temp_v1 = &D_800C6660[arg0];
+    temp_v0 = temp_v1->field_C;
+    temp_v0 -= D_800BE9E4;
+    temp_v1->field_C = temp_v0;
+    if (temp_v0 <= 0) {
+        func_15060F28(D_800CC2D0 + (arg0 * 0x32C), 1);
+    }
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EF4C CURRENT (20) */
 s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     Game6B320MaskPair *base;
@@ -102,9 +134,9 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     pair = (Game6B320MaskPair *)((u8 *)base + (arg1 * sizeof(*pair)));
     first = pair->first;
     if (((first == 0) ||
-         (first & D_800C6664[arg2].bits)) &&
+         (D_800C6664[arg2].bits & first)) &&
         ((second = pair->second, (second == 0)) ||
-         (second & D_800C6668[arg2].bits))) {
+         (D_800C6668[arg2].bits & second))) {
         return 1;
     }
     return 0;

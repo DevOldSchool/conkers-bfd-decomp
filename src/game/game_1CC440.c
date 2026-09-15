@@ -41,6 +41,18 @@ typedef struct Game1CC440State {
     Game1CC440Node **link98;
 } Game1CC440State;
 
+typedef struct Game1CC440Attachments {
+    Game1CC440State *field0;
+    Game1CC440State *field4;
+    Game1CC440State *field8;
+    Game1CC440State *fieldC;
+} Game1CC440Attachments;
+
+typedef struct Game1CC440AttachmentOwner {
+    u8 pad0[0x58];
+    Game1CC440Attachments attachments;
+} Game1CC440AttachmentOwner;
+
 void func_151478F4(s32);
 void func_15147928(s32);
 
@@ -160,6 +172,37 @@ void func_1519F3B8(void *arg0) {
     *(s32 *)((u8 *)temp_v1 + 8) = func_1519F1C8(arg0, 7);
     *(s32 *)((u8 *)temp_v1 + 0xC) = 0;
 }
+void func_1519F48C(Game1CC440State *);
+void func_151A0928(void *);
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F400 CURRENT (40) */
+void func_1519F400(void *arg0) {
+    Game1CC440State *temp_a0;
+    register Game1CC440State *temp_t6;
+    register void *temp_s0;
+
+    temp_s0 = (u8 *)arg0 + 0x58;
+    temp_t6 = *(Game1CC440State **)temp_s0;
+    if (temp_t6 != 0) {
+        func_1519F48C(temp_t6);
+    }
+    temp_a0 = *(Game1CC440State **)((u8 *)temp_s0 + 8);
+    if (temp_a0 != 0) {
+        func_1519F48C(temp_a0);
+    }
+    temp_a0 = *(Game1CC440State **)((u8 *)temp_s0 + 4);
+    if (temp_a0 != 0) {
+        func_151A0928(temp_a0);
+        func_1516972C(*(void **)((u8 *)temp_s0 + 4));
+    }
+    temp_a0 = *(Game1CC440State **)((u8 *)temp_s0 + 0xC);
+    if (temp_a0 != 0) {
+        func_151A0928(temp_a0);
+        func_1516972C(*(void **)((u8 *)temp_s0 + 0xC));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519F400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F400.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F48C CURRENT (140) */
 void func_1519F48C(u8 *arg0) {

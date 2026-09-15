@@ -299,5 +299,31 @@ void *func_151D6418(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D6418 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6418.s")
+void func_100043B4(s32, s32);
+extern u8 D_80038080;
+extern s32 D_800BE570;
+extern s8 D_800BE574;
+extern s8 D_800BE575;
+extern s32 D_800BE9F0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D66F0 CURRENT (415) */
+void func_151D66F0(s32 arg0, s32 arg1) {
+    if ((D_800BE9F0 != 6) || (D_80038080 != 0)) {
+        if (arg1 == 0) {
+            arg0 = 0;
+        }
+        D_800BE574 = arg0;
+        if (arg0 != 0) {
+            D_800BE575 = arg1;
+        } else {
+            D_800BE575 = 0;
+        }
+        if ((arg0 == 0) && (D_800BE570 != 0)) {
+            func_100043B4(D_800BE570, 3);
+            D_800BE570 = 0;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D66F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D66F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6778.s")

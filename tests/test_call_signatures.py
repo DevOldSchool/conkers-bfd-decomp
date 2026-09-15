@@ -150,6 +150,30 @@ class CallSignatureTests(unittest.TestCase):
         other.write_text('void func_target(void *, s32, s32);\n')
         self.assertEqual((), calls.recover(WRAPPER, '', root=self.root, allow_raw=True).declarations)
 
+    def test_allowed_source_signature_precedes_unrelated_call_views(self):
+        self.source.write_text('void func_target(s32);\n')
+        local = 's32 func_target(void *, s32, s32);\n'
+        recovery = calls.recover(WRAPPER, local, root=self.root)
+        self.assertEqual(('s32 func_target(void *, s32, s32);',), recovery.declarations)
+        self.assertIn('allowed source', recovery.evidence[0])
+
+    def test_ambiguous_or_unsupported_local_signature_blocks_fallback(self):
+        self.write_raw()
+        self.source.write_text('s32 func_target(void *, s32, s32);\n')
+        for local in ('void func_target(s32);\ns32 func_target(s32);\n',
+                      'void func_target();\n', 'static void func_target(s32);\n',
+                      'void func_target(Other *);\n'):
+            with self.subTest(local=local):
+                self.assertEqual((), calls.recover(WRAPPER, local, root=self.root,
+                                                  allow_raw=True).declarations)
+
+    def test_disabled_and_nested_local_signatures_do_not_override_project(self):
+        self.source.write_text('s32 func_target(void *, s32, s32);\n')
+        local = ('/* void func_target(s32); */\n#if 0\nvoid func_target(s32);\n#endif\n'
+                 'void outer(void) { extern void func_target(s32); }\n')
+        self.assertEqual(('s32 func_target(void *, s32, s32);',),
+                         calls.recover(WRAPPER, local, root=self.root).declarations)
+
     def test_comments_disabled_and_nested_declarations_are_not_evidence(self):
         self.source.write_text('/* void func_target(s32); */\n#if 0\nvoid func_target(s32);\n#endif\nvoid outer(void) { extern void func_target(s32); }\n')
         self.assertNotIn('func_target', calls.signature_index(self.root))

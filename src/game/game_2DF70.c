@@ -49,10 +49,10 @@ extern s32 D_800B0DC8;
 extern s32 D_80091C04[];
 s32 func_10003C40(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001970 CURRENT (38) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15001970 CURRENT (30) */
 void func_15001970(void) {
-    s32 sp18;
     s32 temp_v0;
+    s32 sp18;
 
     D_800B0DE4 = 0;
     D_800DBE63 = 0;
@@ -274,11 +274,11 @@ extern s16 D_800DBE28;
 s32 func_1502B5C8(s32, s32, s32, s32);
 void func_150183D0(s16, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150025FC CURRENT (111) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150025FC CURRENT (95) */
 void func_150025FC(void) {
     s32 sp18;
-    s32 sp1C;
     s32 sp20;
+    s32 sp1C;
     s32 temp_a3;
 
     sp20 = (s32)D_800DBE2C;
@@ -445,7 +445,7 @@ void func_15002FB4(s32 arg0) {
     func_151EF040(func_15002FA0(0x40F0FAAC), &sp2CState.value);
     sp2CState.value = func_15002FA0(sp2CState.value);
     if (sp2CState.value != -0x184FF0F7) {
-        *((u8 *)D_800B0DF0 + 0x12) = (u8)(*((u8 *)D_800B0DF0 + 0x12) >> 1);
+        *((u8 *)D_800B0DF0 + 0x12) = (u8)((u32)*((u8 *)D_800B0DF0 + 0x12) >> 1);
     }
     temp_v1 = *((u8 *)D_800B0DF0 + 0x12);
     if (temp_v1 != 0) {
