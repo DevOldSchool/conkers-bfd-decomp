@@ -12,7 +12,6 @@
  * - func_15132A88
  * - func_15132B80
  * - func_15132DDC
- * - func_151332DC
  * - func_15133588
  * - func_151336A8
  * - func_15133760
@@ -33,7 +32,9 @@
  */
 
 typedef struct Game15F680TransformState {
-    u8 pad0[0x18];
+    u8 pad0[0x10];
+    f32 field10;
+    f32 field14;
     f32 field18;
     f32 field1C;
     f32 field20;
@@ -45,6 +46,19 @@ typedef struct Game15F680TransformState {
     f32 field38;
     f32 field3C;
     f32 field40;
+    u8 pad44[0xC];
+    f32 field50;
+    f32 field54;
+    f32 field58;
+    u8 pad5C[4];
+    s32 flags60;
+    u8 pad64[0xD0];
+    f32 origin[3];
+    u8 pad140[4];
+    f32 field144;
+    u8 flags148;
+    u8 phase149;
+    s8 angle14A;
 } Game15F680TransformState;
 
 void func_15142838(s32, f32, f32, f32, f32, f32, f32, f32, f32);
@@ -124,7 +138,53 @@ void func_15132A4C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132A88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151332DC.s")
+void *func_10022EC0(void *, const void *, u32);
+f32 func_151423D8(u8);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+
+s32 func_151332DC(Game15F680TransformState *arg0) {
+    s32 unused;
+    f32 amplitude;
+    f32 cosine;
+    f32 sine;
+
+    arg0->field2C = 1.0f;
+    arg0->field30 = 1.0f;
+    arg0->field34 = 1.0f;
+    if (arg0->flags60 & 0x40) {
+        arg0->field20 += arg0->field50 * D_800BE9A4;
+        arg0->field24 += arg0->field54 * D_800BE9A4;
+        arg0->field28 += arg0->field58 * D_800BE9A4;
+    }
+    arg0->phase149 += (s32)(576.0f * arg0->field144) * D_800BE9E4;
+    if (arg0->phase149 < 0x80) {
+        amplitude = func_151423D8((u8)(arg0->phase149 - 0x40));
+        amplitude = (1.0f - arg0->field14) * (1.0f - arg0->field144) * amplitude;
+        if (arg0->flags148 & 8) {
+            arg0->field2C *= 1.0f + amplitude;
+            arg0->field30 *= 1.0f - amplitude;
+            arg0->field34 *= 1.0f + amplitude;
+            arg0->field3C = arg0->origin[1] - amplitude * arg0->field10;
+        }
+        if (arg0->flags148 & 0x10) {
+            cosine = func_151423D8((u8)(arg0->angle14A - 0x40));
+            sine = func_151423D8((u8)arg0->angle14A);
+            arg0->field2C *= 1.0f - amplitude;
+            arg0->field30 *= 1.0f + amplitude;
+            arg0->field34 *= 1.0f - amplitude;
+            arg0->field38 = arg0->origin[0] - (amplitude * arg0->field10) * sine;
+            arg0->field40 = arg0->origin[2] + (amplitude * arg0->field10) * cosine;
+return_active:
+            return 1;
+        }
+    } else {
+        func_10022EC0(&arg0->field38, arg0->origin, 0xC);
+        arg0->phase149 = 0;
+        arg0->flags148 &= 0xFFE7;
+    }
+    return 1;
+}
 void func_151424F4(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
 
 s32 func_15133510(s32 arg0, Game15F680TransformState *arg1) {

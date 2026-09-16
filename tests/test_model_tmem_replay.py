@@ -4,13 +4,16 @@ import struct
 import unittest
 
 from scripts import model_assets as m
-from scripts.texture_assets import decode_ci8_png, decode_rgba_png_pixels
+from scripts.texture_assets import decode_ci8_png, decode_indexed_png, decode_rgba_png_pixels
 
 
-def fixture(split=False, barrier=None):
+def fixture(split=False, barrier=None, ci4=False):
     setup = [(0x01003006, 0x01000000), (0xD7000102, 0xFFFFFFFF),
              (0xFCFF9880, 0xF514FEFF), (0xF5080200, 0x0100C030),
              (0xF2000000, 0x0101C01C)]  # Tile 1: 8 by 8, stride 8.
+
+    if ci4:
+        setup[3:5] = [(0xF5000200, 0x0100C040), (0xF2000000, 0x0103C01C)]
 
     def load(flat, count):
         return [(0xFD100000, flat), (0xF5100000, 0x07000000),
@@ -128,6 +131,45 @@ class TextureMemoryReplayTests(unittest.TestCase):
                        replace(run, combine_mode=None)):
             self.assertIsNone(m.character_tmem_preview_texture(change, payloads)[0])
         self.assertIsNone(m.character_tmem_preview_texture(run, {**payloads, 2: bytes(528)})[0])
+
+    def test_parser_retains_full_palette_for_selected_four_bit_tile(self):
+        geometry, payloads = fixture(ci4=True)
+        run = geometry.material_runs[-1]
+        self.assertEqual(1, run.palette.mode)
+        self.assertEqual(0, m.texture_coordinate_state(run)['size'])
+        texture, _ = m.choose_preview_texture(run, {}, payloads)
+        self.assertEqual((2, 0, 16, 8),
+                         (texture.format, texture.size, texture.width, texture.height))
+
+    def test_ci4_retains_indices_across_small_tlut_and_uses_full_tlut_bank(self):
+        geometry, payloads = fixture()
+        run = geometry.material_runs[-1]
+        earlier_palette, tile = run.texture_loads[1]
+        earlier_palette = replace(earlier_palette, mode=2,
+                                  load_command=(0xF0000000, 0x0603C000))
+        # Select sixteen texels per eight-byte row and palette bank three.
+        run = replace(run, render_tile=(0xF5000200, 0x0130C040),
+                      tile_bounds=(0xF2000000, 0x0103C01C),
+                      texture_loads=(run.texture_loads[0], (earlier_palette, tile))
+                                    + run.texture_loads[2:])
+        texture, status = m.choose_preview_texture(run, {}, payloads)
+        self.assertEqual('runtime-composed-character-tmem-texture', status)
+        self.assertEqual((2, 0, 16, 8),
+                         (texture.format, texture.size, texture.width, texture.height))
+        self.assertEqual(16 + 3 * 32, texture.palette_byte_offset)
+        decoded = decode_indexed_png(texture.png_data, 'linear', 16, 8)
+        # Independent expected nibble bytes after odd-row addressing, with
+        # bank three selected from the full TLUT (no alpha modification).
+        memory = bytes([201]) * 16 + bytes(range(16, 64))
+        expected = bytes(memory[y * 8 + (x ^ (4 if y & 1 else 0))]
+                         for y in range(8) for x in range(8))
+        self.assertEqual(expected, decoded[:64])
+        self.assertEqual(payloads[2][-512 + 96:-512 + 128], decoded[64:])
+        for candidate in (replace(run, texture_loads=run.texture_loads[2:]),
+                          replace(run, palette=replace(run.palette,
+                              load_command=(0xF0000000, 0x0603C000)))):
+            self.assertIsNone(m.choose_preview_texture(candidate, {}, payloads)[0])
+        self.assertIsNone(m.choose_preview_texture(run, {}, {2: payloads[2]})[0])
 
     def test_packed_material_keeps_replay_provenance(self):
         loads = [{'flat_index': 1, 'payload_sha1': 'abc', 'tmem_byte_offset': 0, 'loaded_bytes': 64}]

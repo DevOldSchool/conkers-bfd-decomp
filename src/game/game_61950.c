@@ -22,7 +22,9 @@ typedef struct Game61950Actor {
 } Game61950Actor;
 
 extern Game61950Actor D_800CC2D0[];
+extern u8 D_800CC2D4[];
 extern f32 D_80097D1C;
+void func_1503B9BC(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150344A0 CURRENT (195) */
 void *func_150344A0(void *arg0, s32 arg1) {
@@ -42,7 +44,29 @@ void *func_150344A0(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150344A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_150344A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_1503453C.s")
+void func_1503453C(s32 arg0) {
+    if ((s32) D_800CC2D4[arg0 * 0x32C] >= 0x81) {
+        if (D_800CC2D4[arg0 * 0x32C] != 0xB0) {
+            return;
+        }
+        goto block_8;
+    }
+    if ((s32) D_800CC2D4[arg0 * 0x32C] >= 5) {
+        if (D_800CC2D4[arg0 * 0x32C] != 0x80) {
+            return;
+        }
+        goto block_8;
+    }
+    switch (D_800CC2D4[arg0 * 0x32C]) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+block_8:
+        func_1503B9BC();
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_61950/func_150345E4.s")
 s32 func_1502DB20(u8);                              /* extern */
 

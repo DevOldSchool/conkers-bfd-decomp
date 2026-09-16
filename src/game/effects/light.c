@@ -16,10 +16,6 @@
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
- * - func_1516127C
- * - func_15161334
- * - func_15161408
- * - func_15161494
  * - func_15161540
  * - func_151615F8
  * - func_151616D0
@@ -28,7 +24,6 @@
  * - func_151618BC
  * - func_151619A0
  * - func_15161A68
- * - func_15161E24
  * - func_15161F4C
  * - func_15162034
  * - func_15162110
@@ -57,10 +52,8 @@
  * - func_15163FEC
  * - func_151640C0
  * - func_15164134
- * - func_15164208
  * - func_1516429C
  * - func_151643A8
- * - func_1516441C
  * - func_151644F4
  * - func_151645C4
  *
@@ -77,6 +70,11 @@ typedef struct GameLightDescriptor {
 void *func_1516037C(GameLightDescriptor *, s32, void *, u8, s32);
 void *func_15167A68(s32, s32, void *, s32, s32, s32);
 void func_10022EC0(void *, void *, s32);
+extern f32 D_800A6AE4;
+f32 func_150ADA68();
+extern f32 D_800A6AD8;
+extern f32 D_800A6ADC;
+extern f32 D_800A6AE0;
 s32 func_151149AC(u8);
 
 void func_15163CF8(s32 arg0, s32 arg1);
@@ -188,33 +186,83 @@ s32 func_15161238(LightEntry *arg0, LightEntry *arg1) {
     return 1;
 }
 
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516127C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161334.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161408 CURRENT (151) */
+void *func_1516127C(s32 arg0, u8 arg1, s32 arg2) {
+    void *result;
+    GameLightDescriptor descriptor;
+    f32 values[4];
+
+    values[0] = 50.0f;
+    values[1] = 40.0f;
+    values[2] = func_150ADA68() * D_800A6AD8;
+    descriptor.field0 = 0;
+    descriptor.field1 = 1;
+    descriptor.field2 = 0x12C;
+    descriptor.field4 = 5;
+    values[3] = D_800A6ADC;
+    result = func_1516037C(&descriptor, arg0, (void *)0x10, arg1, arg2);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, values, 0x10);
+    }
+    return result;
+}
+void *func_15161334(s32 arg0, u8 arg1, s32 arg2) {
+    void *result;
+    GameLightDescriptor descriptor;
+    f32 values[8];
+
+    values[1] = 1.0f;
+    values[3] = 1.0f;
+    descriptor.field0 = 0;
+    descriptor.field1 = 2;
+    descriptor.field2 = 0x12C;
+    descriptor.field4 = 6;
+    values[0] = 20.0f;
+    values[2] = 50.0f;
+    values[4] = 0.0f;
+    values[5] = 10.0f;
+    values[6] = D_800A6AE0;
+    values[7] = 127.0f;
+    result = func_1516037C(&descriptor, arg0, (void *)0x20, arg1, arg2);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, values, 0x20);
+    }
+    return result;
+}
 void *func_15161408(s32 arg0, u8 arg1, s32 arg2) {
+    void *result;
     GameLightDescriptor descriptor;
     s32 sp20;
-    void *temp_v0;
-    void *sp2C;
-    void *var_v1;
 
     sp20 = func_151149AC(0xF9U);
     descriptor.field0 = 0;
     descriptor.field1 = 3;
     descriptor.field2 = 0x12C;
     descriptor.field4 = 8;
-    temp_v0 = func_1516037C(&descriptor, arg0, (void *) 4, arg1, arg2);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        sp2C = temp_v0;
-        func_10022EC0((u8 *) temp_v0 + 0x18, &sp20, 4);
-        var_v1 = sp2C;
+    result = func_1516037C(&descriptor, arg0, (void *)4, arg1, arg2);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, &sp20, 4);
     }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15161408 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161408.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161494.s")
+void *func_15161494(s32 arg0, u8 arg1, s32 arg2) {
+    void *result;
+    GameLightDescriptor descriptor;
+    f32 values[4];
+
+    descriptor.field0 = 0;
+    descriptor.field1 = 1;
+    descriptor.field2 = 0x12C;
+    descriptor.field4 = 5;
+    values[0] = 127.0f;
+    values[1] = 100.0f;
+    values[2] = 0.0f;
+    values[3] = D_800A6AE4;
+    result = func_1516037C(&descriptor, arg0, (void *)0x10, arg1, arg2);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, values, 0x10);
+    }
+    return result;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161540.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151615F8.s")
 
@@ -280,7 +328,47 @@ void func_15161860(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151618BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151619A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161A68.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161E24.s")
+typedef struct LightEffectActor {
+    u8 pad0[0x14];
+    f32 position[3];
+    u8 pad20[0x1B];
+    u8 field3B;
+} LightEffectActor;
+
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+
+s32 func_15161E24(LightEffectActor *arg0, u8 arg1, u8 arg2, s16 arg3,
+                 s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    s32 result;
+    GameLightDescriptor descriptor;
+    struct {
+        LightEffectActor *actor;
+        u8 field4;
+        u8 field5;
+        u8 pad6[2];
+    } payload;
+    s32 position[3];
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    descriptor.field0 = (u8)arg2;
+    descriptor.field1 = 0xA;
+    descriptor.field2 = (s16)arg3;
+    descriptor.field4 = 0x15;
+    payload.actor = arg0;
+    payload.field4 = arg0->field3B;
+    payload.field5 = (u8)arg1;
+    position[0] = (s32)arg0->position[0];
+    position[1] = (s32)arg0->position[1];
+    position[2] = (s32)arg0->position[2];
+    result = func_151602C0((u8 *)&descriptor, position, arg4, arg5, arg6, arg7,
+                          0xFF, 0, 8, (u8)arg8, arg9);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, &payload, 8);
+    }
+    return result;
+}
 void func_15161F2C(s32 arg0) {
     func_15163F50(arg0, arg0 + 0x18);
 }
@@ -509,30 +597,27 @@ void func_151640C0(void *volatile arg0, void *volatile arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151640C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151640C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164134.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15164208 CURRENT (521) */
 void *func_15164208(s32 arg0, u8 arg1, u8 arg2, s32 arg3) {
+    void *result;
     GameLightDescriptor sp2C;
-    f32 sp24;
-    void *sp34;
-    void *temp_v0;
-    void *var_v1;
+    struct {
+        f32 value;
+        u8 selector;
+        u8 pad[3];
+    } payload;
 
+    payload.value = 0.0f;
+    payload.selector = arg1;
     sp2C.field0 = 0;
     sp2C.field1 = 0x14;
     sp2C.field2 = 0x12C;
     sp2C.field4 = 0x27;
-    sp24 = 0.0f;
-    temp_v0 = func_1516037C(&sp2C, arg0, (void *)8, arg2, arg3);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        sp34 = temp_v0;
-        func_10022EC0((u8 *)temp_v0 + 0x18, &sp24, 8);
-        var_v1 = sp34;
+    result = func_1516037C(&sp2C, arg0, (void *)8, arg2, arg3);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, &payload, 8);
     }
-    return var_v1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15164208 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15164208.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516429C.s")
 void func_1516434C(void *arg0, void *arg1, u8 arg2) {
     void *temp_v0;
@@ -570,21 +655,18 @@ s32 func_151643F8(s32 arg0) {
     func_1516441C(arg0, arg0 + 0x18);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516441C CURRENT (35) */
 void func_1516441C(void *arg0, void *arg1) {
     void *sp2C;
     f32 *sp28;
     f32 sp1C[3];
 
-    sp28 = sp1C;
     sp2C = arg1;
+    sp28 = sp1C;
     func_15145CD0(((LightInput *)arg1)->field_C, &sp2C, &sp28, 1);
     ((LightObject *)arg0)->output->field_E = (s16)sp1C[0];
     ((LightObject *)arg0)->output->field_10 = (s16)sp1C[1];
     ((LightObject *)arg0)->output->field_12 = (s16)sp1C[2];
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516441C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516441C.s")
 void func_151644F4(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4);
 
 s32 func_151644A8(void *arg0) {

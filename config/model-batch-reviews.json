@@ -38,12 +38,12 @@
     "03:0113:00": {
       "decision": "review-deferred",
       "fingerprint": "9c8971cbacd445a3dc36dc5724b0857f674fa37cc8cf07d8c44fc93cdd991f67",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Omitted from static ROM scene assembly 52: isolated untextured surface needs runtime appearance or visibility evidence."
     },
     "04:0000:01": {
       "decision": "review-deferred",
       "fingerprint": "0c0c5e84eb7b3bd307e1d8bb02536ee533715121eb37d84768d162bf754eb856",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 0 assembly (scene-00-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0000:03": {
       "decision": "review-deferred",
@@ -63,12 +63,12 @@
     "04:0000:10": {
       "decision": "review-deferred",
       "fingerprint": "99ebf66be509471f537c21098f1a92295930f46fda33bacfba59ee4f52dd3410",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 0 assembly (scene-00-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0000:11": {
       "decision": "review-deferred",
       "fingerprint": "1ac0fc0de0c6ee4a6599a92097324f45ff6cf3850b046de0c2e7e216657fd8ac",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 0 assembly (scene-00-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0000:13": {
       "decision": "review-deferred",
@@ -78,7 +78,7 @@
     "04:0000:14": {
       "decision": "review-deferred",
       "fingerprint": "eb576da578bd156f7e84e38735623fbfaa780958ac81832ef9ec09544f1bd4fc",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 0 assembly (scene-00-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0001:01": {
       "decision": "review-deferred",
@@ -138,7 +138,7 @@
     "04:0002:01": {
       "decision": "review-deferred",
       "fingerprint": "b0221eda967c269d92456bdfc382a730447546541e9d89af61bcc5da965fc736",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:03": {
       "decision": "review-deferred",
@@ -148,22 +148,22 @@
     "04:0002:05": {
       "decision": "review-deferred",
       "fingerprint": "00268d794b62de450ff73e2c5bc7ce6519ec995eb0cfc7edc3de95c6bd9f529a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:06": {
       "decision": "review-deferred",
       "fingerprint": "ef16f516a222fffa0bed490092a22a6b315ea09e8fd065aee8b6abcad8c310d7",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:07": {
       "decision": "review-deferred",
       "fingerprint": "2f243c45549c1e9ebb775387b209d433503edbb48f23f48e78b44e057825925f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:08": {
       "decision": "review-deferred",
       "fingerprint": "2b5c16db3845b6ff352b36850131c742307d227389336073286e57335117d67b",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:09": {
       "decision": "review-deferred",
@@ -173,7 +173,7 @@
     "04:0002:11": {
       "decision": "review-deferred",
       "fingerprint": "6143c97d7888562d6a75d90f1486b7d90cf010a065853d6e57139ecd0e60fa38",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:12": {
       "decision": "review-deferred",
@@ -183,17 +183,17 @@
     "04:0002:14": {
       "decision": "review-deferred",
       "fingerprint": "29e984497646e31c2ce12caf5bb7518c978c755faa194ebf70304cb79be03cda",
-      "reason": "Complete-looking grey boulder closely resembles published scene 02 segment 15. Retain for placement or state comparison; exported data is not identical."
+      "reason": "Complete-looking grey boulder closely resembles published scene 02 segment 15. Retain for placement or state comparison; exported data is not identical. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:17": {
       "decision": "review-deferred",
       "fingerprint": "4fcd37ee0453dfaed2d77919256013dde48380be9a8cd75a28b5fbc47264df99",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:18": {
       "decision": "review-deferred",
       "fingerprint": "8480858b9f328ef51f294e109db5ccfb7a89eb59999891f0c99e6a060555b711",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:19": {
       "decision": "review-deferred",
@@ -213,22 +213,22 @@
     "04:0002:24": {
       "decision": "review-deferred",
       "fingerprint": "fdb799713cd7dbc120bd541c03ebda72e61835bb73c9c403e409499b247f5741",
-      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0000-04-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank04-0000-04-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:28": {
       "decision": "review-deferred",
       "fingerprint": "d76bcaf903cf84ef8e87cdbe4cc2c75ba8d5b1007e012a08e419ccfa34510d03",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:31": {
       "decision": "review-deferred",
       "fingerprint": "99358baa7798988bda2c94f2443f730e4f4112a25ed03353bdb4e71902147f41",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:32": {
       "decision": "review-deferred",
       "fingerprint": "6ea5b8c2bfea1c126fa38876e04a77f87ce3dcb6c7950596f34ecc3d91efc001",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 2 assembly (scene-02-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0002:33": {
       "decision": "review-deferred",
@@ -323,7 +323,7 @@
     "04:0006:01": {
       "decision": "review-deferred",
       "fingerprint": "b3778f9d6d2924c94d533b57ae293f1e8782a7b37504e3f664d1c5a34e15847c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:03": {
       "decision": "review-deferred",
@@ -333,12 +333,12 @@
     "04:0006:06": {
       "decision": "review-deferred",
       "fingerprint": "4df6ec439ac64a9d6428f12313fa1b3e134f2b2b99eebcaef32781614f71c992",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:10": {
       "decision": "review-deferred",
       "fingerprint": "6ad3e1bc2ceb720fdbac6c725ffa0c446bcf59d118887b6e4685abdcd44221b3",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:11": {
       "decision": "review-deferred",
@@ -348,32 +348,32 @@
     "04:0006:18": {
       "decision": "review-deferred",
       "fingerprint": "721b55feb59dec4b6c905670f3fd47526ddc36539307cddde31ed20feda71271",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:19": {
       "decision": "review-deferred",
       "fingerprint": "5808757fb7746ee87678f0f0d10ab93e499072bf6a42a0424239804e53bac93c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:20": {
       "decision": "review-deferred",
       "fingerprint": "f57dd98175779967405e4d4333de529bb53443228eb64a0e26b83115612b092d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:21": {
       "decision": "review-deferred",
       "fingerprint": "e3ecd3a422f5565ef2c2064622c7b60664381b9f95804f595aabbfc5c8163568",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:22": {
       "decision": "review-deferred",
       "fingerprint": "fa75373d2760abdeb323563c011df8e24538425494aed6938bd6d338a9e54551",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:23": {
       "decision": "review-deferred",
       "fingerprint": "c24d3bd6467cfb84d7aba3501363540c943af40603ffc54855eba282b00ecc94",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 6 assembly (scene-06-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0006:29": {
       "decision": "review-deferred",
@@ -413,7 +413,7 @@
     "04:0010:05": {
       "decision": "review-deferred",
       "fingerprint": "0ee8324197af1c4b864f49f5e615b7a5b4a2abb023e5ea9711cba33f8729f50e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static assembly 10 is held: Loose geometry below the floor needs placement or conditional-visibility evidence."
     },
     "04:0010:08": {
       "decision": "review-deferred",
@@ -428,12 +428,12 @@
     "04:0010:21": {
       "decision": "review-deferred",
       "fingerprint": "d5ba2bafe5623149551eae661db31a3e92a4bc7139a4cbe9028e7d7e34d8c3fa",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static assembly 10 is held: Loose geometry below the floor needs placement or conditional-visibility evidence."
     },
     "04:0010:22": {
       "decision": "review-deferred",
       "fingerprint": "b053382284494469aab867761c5e84e47369b4900f90237f47eb354cc28db612",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static assembly 10 is held: Loose geometry below the floor needs placement or conditional-visibility evidence."
     },
     "04:0011:01": {
       "decision": "review-deferred",
@@ -488,7 +488,7 @@
     "04:0012:01": {
       "decision": "review-deferred",
       "fingerprint": "1d1ea8e56a43d7cfec9012764a5969a48ba43a67c7a0376829df0788bed08698",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 12 assembly (scene-12-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0012:03": {
       "decision": "review-deferred",
@@ -503,22 +503,22 @@
     "04:0012:06": {
       "decision": "review-deferred",
       "fingerprint": "789b4c5a3f3f5e43bfb05aff11a0a43bc5427813fad040a2462a8fe775ea3ba5",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 12 assembly (scene-12-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0012:10": {
       "decision": "review-deferred",
       "fingerprint": "47add292625a21f6db91b12c92e12c4cbfc53f4603f2593dd609e62c1348ba1f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 12 assembly (scene-12-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0012:12": {
       "decision": "review-deferred",
       "fingerprint": "b90450646fd1e55b732050035854bdb607bc6e66151038b512512416eef7dfc1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 12 assembly (scene-12-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0012:13": {
       "decision": "review-deferred",
       "fingerprint": "b2cc2e1dc77f71c77715cce74f58a47ea4df79f619361b4c8b428cee493b10e5",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 12 assembly (scene-12-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0012:14": {
       "decision": "review-deferred",
@@ -578,12 +578,12 @@
     "04:0012:28": {
       "decision": "review-deferred",
       "fingerprint": "b2537949aebb11d69a3a8ab4a191639a3f9b084506cacf5ffd81ab40a187e491",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 12 assembly (scene-12-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0014:01": {
       "decision": "review-deferred",
       "fingerprint": "76f53287d03366cfa37fc6ee0837f55f80c02d165959df4c94879c9cbf1df0b6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 14 assembly (scene-14-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0014:03": {
       "decision": "review-deferred",
@@ -593,27 +593,27 @@
     "04:0014:05": {
       "decision": "review-deferred",
       "fingerprint": "5643fc744108654bcab0cdd65b469e5efa4cd56ac3eec367888575ed2c505d3f",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 14 assembly (scene-14-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0014:08": {
       "decision": "review-deferred",
       "fingerprint": "db6973f1ccfe9fcab2a9642ee294ed3c61aa11c8d3cb621773f560a10bec0014",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 14 assembly (scene-14-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0014:12": {
       "decision": "review-deferred",
       "fingerprint": "94c6bc046b2efe9fdda3e17405427afd180d85ec6c0b42bfab73479428363af5",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 14 assembly (scene-14-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0014:13": {
       "decision": "review-deferred",
       "fingerprint": "8dc503d3dff6fd26072ee437684ebf5a2f19f5555eb1f90f6f2762301a4d2b87",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 14 assembly (scene-14-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0014:14": {
       "decision": "review-deferred",
       "fingerprint": "34d967801c88326a1455798db0775d05944c2d374ac466df230882bed0aec109",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 14 assembly (scene-14-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0016:01": {
       "decision": "review-deferred",
@@ -763,7 +763,7 @@
     "04:0020:01": {
       "decision": "review-deferred",
       "fingerprint": "5c4efb83d735b35781f52b7211eb8cb617077498e4e224a04d04de8aced9f89a",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static assembly 20 is held: Detached elevated arch pieces need placement or conditional-visibility evidence."
     },
     "04:0020:03": {
       "decision": "review-deferred",
@@ -773,7 +773,7 @@
     "04:0020:07": {
       "decision": "review-deferred",
       "fingerprint": "b187cd3b6d078238813cd9225ee294fa3954af970deec196355341df081f07bc",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Candidate static assembly 20 is held: Detached elevated arch pieces need placement or conditional-visibility evidence."
     },
     "04:0023:00": {
       "decision": "review-deferred",
@@ -1183,7 +1183,7 @@
     "04:0036:04": {
       "decision": "review-deferred",
       "fingerprint": "51de010bc5cd17cd092d5fa8551f9488188ed702b496583f2c686a7f62df8fa9",
-      "reason": "Same exported geometry, textures and glTF presentation as object-bank03-0079-00-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared."
+      "reason": "Same exported geometry, textures and glTF presentation as object-bank03-0079-00-rom, after ignoring names and diagnostic metadata. ROM source identity retained; native runtime role and state were not compared. Available in static ROM scene assembly 36."
     },
     "04:0038:01": {
       "decision": "review-deferred",
@@ -1208,7 +1208,7 @@
     "04:0040:07": {
       "decision": "review-deferred",
       "fingerprint": "a054d615ffe21be51f226b2c16cd76e10ce02cc495a6874e2b05d21be1dd6669",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 40 assembly (scene-40-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0041:01": {
       "decision": "review-deferred",
@@ -1338,7 +1338,7 @@
     "04:0045:01": {
       "decision": "review-deferred",
       "fingerprint": "2a2b88e37bf502c14c15c38ac414dbf4f699eba628a278508cd9794c3303b84d",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:03": {
       "decision": "review-deferred",
@@ -1348,37 +1348,37 @@
     "04:0045:05": {
       "decision": "review-deferred",
       "fingerprint": "485b62c6b5c61dfa98b39940ddfbf9d69aad2bd58a23d0c576b3b214b12995ce",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:06": {
       "decision": "review-deferred",
       "fingerprint": "86b399edb749fa93f0970c8af7cfb3018c7b56e598da1c98e65088897b4a0e28",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:07": {
       "decision": "review-deferred",
       "fingerprint": "009aad339990f484a76ca5f2767daf3035ceddb6411492444e1977b2bf6677c4",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:08": {
       "decision": "review-deferred",
       "fingerprint": "445a74df793021bbedf75252440faff8e41ac7a0c279a7268c636a811fce2a78",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:09": {
       "decision": "review-deferred",
       "fingerprint": "fdca4672597bcfba6476e7236923ab8590479378ce81dd3d357641fc2c33bf25",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:10": {
       "decision": "review-deferred",
       "fingerprint": "19bb66d371ce3ed6bf192072cad4393afaf9c9d93cb0bec48fb0a98bf37a7266",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0045:11": {
       "decision": "review-deferred",
       "fingerprint": "ff9546d9771c84a7a079f815c06085717bcc0600a7b36dccd0f3d0a258b074f9",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 45; standalone deferral remains."
     },
     "04:0046:01": {
       "decision": "review-deferred",
@@ -1533,7 +1533,7 @@
     "04:0051:01": {
       "decision": "review-deferred",
       "fingerprint": "f9a9f27d3b1f6e29c64055903528871b373a7392971fc113f540c6fef3198253",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 51 assembly (scene-51-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0051:03": {
       "decision": "review-deferred",
@@ -1543,7 +1543,7 @@
     "04:0051:04": {
       "decision": "review-deferred",
       "fingerprint": "e1b23c87bd1d65d1e0de33530e1ed820390114048e2babc89b56cf845c8f7b5c",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene 51 assembly (scene-51-assembly-rom); standalone deferral and native visibility limitations remain unchanged."
     },
     "04:0051:05": {
       "decision": "review-deferred",
@@ -1558,22 +1558,22 @@
     "04:0052:05": {
       "decision": "review-deferred",
       "fingerprint": "8997b7e36a7f93e9bfccada39307c4938a35a8e0857884b9d3f5be90f1c8f2a3",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Scene 52 shares three placement origins with segment 4, but the meshes extend in opposite local directions. Both are omitted from the assembly until complementary versus conditional visibility is established."
     },
     "04:0052:08": {
       "decision": "review-deferred",
       "fingerprint": "1928507d30050af43d2af48404f63a915845de8f7aaab793debff8e8061e4777",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Omitted from static ROM scene assembly 52: isolated untextured surface needs runtime appearance or visibility evidence."
     },
     "04:0052:09": {
       "decision": "review-deferred",
       "fingerprint": "a9d1ad202b1ea9018c0dc0a31b619f8a91f90d1b84693978e5ca92d2875c0f60",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Omitted from static ROM scene assembly 52: isolated untextured surface needs runtime appearance or visibility evidence."
     },
     "04:0052:10": {
       "decision": "review-deferred",
       "fingerprint": "e1feb327d9c4824f7975b2b0664cd680f74e54cbe6e63e1064c827b0c882c7e6",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Omitted from static ROM scene assembly 52: isolated untextured surface needs runtime appearance or visibility evidence."
     },
     "04:0053:01": {
       "decision": "review-deferred",
@@ -2023,7 +2023,7 @@
     "04:0065:01": {
       "decision": "review-deferred",
       "fingerprint": "981cfb3022548e5cfcdd6a74b1368eb81771f8acb2aef3d2b247480818b38511",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 65; standalone deferral remains."
     },
     "04:0065:03": {
       "decision": "review-deferred",
@@ -2033,12 +2033,12 @@
     "04:0065:06": {
       "decision": "review-deferred",
       "fingerprint": "1197cde500ac35f4f693fdc263ddfeb389defa084cc9351eec07c707a4f66ce5",
-      "reason": "Complete-looking reinforced door closely resembles published scene 65 segment 05. Retain for placement or state comparison; exported data is not identical."
+      "reason": "Complete-looking reinforced door closely resembles published scene 65 segment 05. Retain for placement or state comparison; exported data is not identical. Available in static ROM scene assembly 65; standalone deferral remains."
     },
     "04:0065:08": {
       "decision": "review-deferred",
       "fingerprint": "4c06e7766011845376512f63f638732448f8dc08e1d0ffbe8d415f6a62c5a8cb",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 65; standalone deferral remains."
     },
     "04:0065:15": {
       "decision": "review-deferred",
@@ -2048,12 +2048,12 @@
     "04:0065:16": {
       "decision": "review-deferred",
       "fingerprint": "d12b388b697003ceaea672fa2b5d758c921bfaa06153ada2126897785ceed90e",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Omitted from static scene assembly 65: untextured corner panel below the water needs runtime appearance or visibility evidence."
     },
     "04:0065:17": {
       "decision": "review-deferred",
       "fingerprint": "76d05a25cee81ebe795b18eb671ca2a788a6455be394f20506ae0bb2be3ee3e1",
-      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context."
+      "reason": "Reviewed fragment, scattered geometry, indistinct piece or redundant variant; revisit with scene or effect context. Available in static ROM scene assembly 65; standalone deferral remains."
     },
     "04:0065:18": {
       "decision": "review-deferred",

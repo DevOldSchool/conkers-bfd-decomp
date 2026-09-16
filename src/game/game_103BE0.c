@@ -21,6 +21,36 @@ void func_150D6C98(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_103BE0/func_150D6CC4.s")
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D6E60 CURRENT (2022) */
+void func_150D6E60(void *arg0, void *arg1, s32 arg2) {
+    s32 temp_a0;
+    s32 temp_t6;
+    s32 temp_v1;
+    u8 *temp_v0;
+
+    temp_t6 = arg2 & 0xFF;
+    if (temp_t6 == 0x2D) {
+        temp_v0 = (u8 *)arg0 + 0xA8;
+        temp_a0 = *(s32 *)temp_v0;
+        temp_v1 = *(s32 *)arg1;
+        if (temp_v1 == temp_a0) {
+            *(s32 *)temp_v0 = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+            return;
+        }
+        if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
+            *(s32 *)temp_v0 = temp_v1;
+            *(u8 *)(temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
+        }
+    } else if ((temp_t6 == 0) &&
+               ((*(s32 *)arg1 == *(s32 *)((u8 *)arg0 + 0xA8)) ||
+                (*(u8 *)((u8 *)arg0 + 0xAC) == *(u8 *)((u8 *)arg1 + 4)))) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D6E60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_103BE0/func_150D6E60.s")
 /* Call context: func_150D6C98: unique active project prototype */
 extern f32 D_800BE9A4;

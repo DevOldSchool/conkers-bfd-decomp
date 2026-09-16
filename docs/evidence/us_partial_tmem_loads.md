@@ -11,7 +11,9 @@ tile to the latest image.
 The parser records each LoadBlock/LoadTLUT together with its load-time tile.
 Replay is bounded to one callable display list. Aligned RGBA16 LoadBlocks with
 zero DXT overwrite their destination span in lower TMEM, leaving other bytes
-intact. The CI8 path uses the selected flat asset's complete trailing palette.
+intact. CI8 uses the selected flat asset's complete trailing palette; CI4
+can select a 16-entry bank from that same 256-entry upload. Both 16- and
+256-entry TLUT uploads preserve lower TMEM.
 Every sampled index must have a known ROM source.
 
 For an RGBA32 LoadBlock, each source pixel's red/green halfword goes to lower
@@ -49,6 +51,7 @@ texture, external mesh, palette edit or padding supplies missing bytes.
 | 27 | Black weapon attachment B | 66 | Complete |
 | 98 | Pink canister attachment | 30 | Complete |
 | 107 | Horizontal black weapon attachment | 66 | Complete |
+| 110 | Blue hexagonal canister attachment | 20 | Complete |
 | 157 | Helium canister attachment | 64 | Complete |
 
 The three black weapon variants' final two faces use the selected tile 1,
@@ -90,3 +93,45 @@ boundaries and rejection of missing or incompatible state. Preview review and
 packed-file checks establish inspection usability, not native raster parity.
 Local audits are in `build/assets/models/batch/tmem-replay/` and
 `build/assets/models/batch/rgba8-replay/`.
+
+
+## Four-bit tile with a full palette: entry 110
+
+`09:0110:00` has 20 faces. Its final eight faces keep tile 1 selected by
+`D7000902 FFFFFFFF`: a 64-by-64 four-bit tile, 32-byte stride, palette bank
+zero. They do not switch to the later eight-bit tile-0 definition.
+
+The same callable list loads 2,048 index bytes from flat 1552 (2,080-byte
+payload), uploads its 16-entry palette, then overwrites the first 1,024 TMEM
+bytes from flat 1553 (1,536-byte payload) and uploads its full 256-entry
+palette. The remaining 1,024 index bytes still belong to flat 1552. The four-bit
+fetch uses palette entries 0–15 at flat 1553 offset 1,024, preserving all alpha
+bits. The exporter previously discarded the full palette because the selected
+tile had four-bit indices, and replay incorrectly invalidated lower TMEM at
+the earlier 16-entry palette upload.
+
+Both load spans are complete. The texture is reconstructed with odd-row
+addressing, without padding, changing the selected tile or replacing alpha.
+Its PNG SHA-1 is `8c285404238a66b52c874de8bb52cac1e2f877a6`.
+The model SHA-1 is `8f3d67b20950ca9613e2f421fc36d46cc89b708a`.
+All eleven verified segment-8 tables at offset `0x40` select RGBA16 lookup and
+produce the same texture bytes; the effective render pass remains unknown.
+This is texture completeness, not proof of native blending or colours.
+
+Local reproducible evidence is in
+`build/assets/models/reference/material-fixes-20260916/audit.py` and
+`rom-audit.json`. The audit independently reconstructs every sampled byte and
+selected palette, checks all lookup variants, and scans all four model banks:
+only entry 110 uses the newly supported four-bit/full-palette combination.
+The bank-09 before/after manifests differ only in this model's material runs.
+
+
+Entry 110 is published as **Blue hexagonal canister attachment — ROM 09 / 0110**
+(`object-bank09-0110-rom`). Its 20-face geometry and identities are unchanged.
+
+For the entry-110 extension, the focused TMEM suite passes 10 tests and the
+model-assets suite passes 177. The three affected corpus exports pass Blender
+import and Khronos glTF validation. The packed GLB has zero errors and warnings;
+front and rear regression views are reviewed. Final validation reuses all
+unchanged imports and renders, with the eight existing appearance exceptions
+unchanged. These regression baselines do not establish native visual parity.

@@ -9,7 +9,6 @@
  * - func_1519EA78
  * - func_1519EB8C
  * - func_1519ED24
- * - func_1519ED84
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -93,7 +92,76 @@ s32 func_1519ED24(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519ED24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519ED24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519ED84.s")
+typedef struct Game1CBE20SpawnPacket {
+    s8 field0;
+    s8 field1;
+    s16 field2;
+    s16 field4;
+    u8 pad6[2];
+    s32 field8;
+    s32 fieldC;
+    u8 colour[4];
+    f32 values[11];
+    s32 field40;
+    u8 field44;
+    u8 field45;
+    u8 field46;
+    u8 field47;
+    s32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+    s32 field50;
+    s16 field54;
+    s16 field56;
+} Game1CBE20SpawnPacket;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+extern u8 D_800A4AA0;
+
+void func_1519ED84(f32 *arg0, s32 arg1, s16 arg2, u8 arg3, s32 arg4) {
+    Game1CBE20SpawnPacket packet;
+    f32 *owner;
+    void *result;
+
+    owner = arg0;
+    packet.field0 = arg1;
+    packet.field1 = 0;
+    packet.field2 = 0x3B03;
+    packet.field4 = arg2;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.colour[0] = 0xFF;
+    packet.colour[1] = 0xFF;
+    packet.colour[2] = 0xFF;
+    packet.colour[3] = 0xFF;
+    packet.values[0] = arg0[6] * 10.0f;
+    packet.values[1] = arg0[7] * 10.0f;
+    packet.values[2] = arg0[0];
+    packet.values[3] = arg0[1];
+    packet.values[4] = arg0[2];
+    packet.values[5] = arg0[3];
+    packet.values[6] = arg0[4];
+    packet.values[7] = arg0[5];
+    packet.values[8] = 1.0f;
+    packet.values[9] = 1.0f;
+    packet.values[10] = 1.0f;
+    packet.field40 = 0x045C0081;
+    packet.field44 = 0xFF;
+    packet.field45 = 0xFF;
+    packet.field46 = 0;
+    packet.field47 = 7;
+    packet.field48 = 0;
+    packet.field4C = 0xFF;
+    packet.field50 = 0;
+    packet.field54 = 1;
+    packet.field56 = 0xFF;
+    result = func_1513D2F0((s32)&packet, (s32)&D_800A4AA0, 0x27, 0, 0,
+                          0x17, 0, 3, 0xFF, 4, arg3, arg4);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x110, &owner, 4);
+    }
+}
 s32 func_1519EF04(void *arg0) {
     void *temp_v1;
 

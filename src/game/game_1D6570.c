@@ -9,7 +9,6 @@
  * - func_151A91AC
  * - func_151A931C
  * - func_151A9390
- * - func_151A9634
  * - func_151A9834
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -33,5 +32,80 @@ void func_151A931C(void *arg0, u8 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A931C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A931C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9390.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9634.s")
+typedef struct Game1D6570Emitter {
+    f32 field0;
+    f32 field4;
+    f32 field8;
+    f32 fieldC;
+    s16 field10;
+    s16 field12;
+    s16 field14;
+    s16 field16;
+    s16 field18;
+    s16 field1A;
+    s16 field1C;
+    s16 field1E;
+    f32 field20;
+    f32 field24;
+    u8 flags28;
+} Game1D6570Emitter;
+
+typedef struct Game1D6570Actor {
+    u8 pad0;
+    u8 field1;
+    u8 pad2[0xA];
+    u8 fieldC;
+    u8 padD[0x73];
+    Game1D6570Emitter emitter;
+} Game1D6570Actor;
+
+typedef struct Game1D6570Payload {
+    f32 field0;
+    s16 field4;
+} Game1D6570Payload;
+
+void *func_10022EC0(void *, const void *, u32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+s32 func_1514B8E4(s32, f32 *, s16, s32, s32, f32, f32, f32,
+    s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+
+void func_151A9634(Game1D6570Actor *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    f32 position[2];
+    s32 choice;
+    Game1D6570Payload payload;
+    s32 kind;
+    s32 flags;
+    s32 result;
+    Game1D6570Emitter *emitter;
+    u32 random2;
+    u32 random1;
+
+    emitter = &arg0->emitter;
+    position[0] = func_150ADA68() * emitter->field8 + emitter->field0;
+    position[1] = func_150ADA68() * emitter->fieldC + emitter->field4;
+    payload.field0 = func_150ADA68() * emitter->field24 + emitter->field20;
+    payload.field4 = func_150ADA20() % (u32)(emitter->field16 + 1) + emitter->field14;
+    random1 = func_150ADA20();
+    random2 = func_150ADA20();
+    if (emitter->flags28 & 1) {
+        kind = 0x71;
+    } else {
+        if (func_150ADA20() & 1) {
+            choice = 0x13;
+        } else {
+            choice = 0x14;
+        }
+        kind = choice;
+    }
+    flags = (emitter->flags28 & 2) ? 0 : 2;
+    result = func_1514B8E4(arg1, position,
+        (s16)(random1 % (u32)(emitter->field12 + 1) + emitter->field10),
+        (random2 % (u32)(emitter->field1A + 1) + emitter->field18) & 0xFF,
+        0, 0.0f, 1.0f, 1.0f, 0x21, 0x23, 2, kind, flags,
+        emitter->field1C, emitter->field1E, 8, arg0->fieldC, arg0->field1);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x160, &payload, 8);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9834.s")

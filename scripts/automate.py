@@ -51,7 +51,7 @@ FINGERPRINT_INPUTS = (
     "config/rzip_layouts.json",
     "scripts/call_signatures.py",
     "toolchain/tools.lock.json",
-)
+) + call_signatures.SDK_ALIAS_INPUTS
 STAGE_INPUTS = {
     "inventory": ("scripts/automation_common.py", "scripts/project_state.py"),
     "m2c": ("scripts/m2c.py", "toolchain/tools.lock.json"),
@@ -88,7 +88,7 @@ STAGE_VERSIONS["diff"] = 2
 # blockers saved before compilation. Keep the upstream recovery inputs in each
 # relevant stage instead of requiring users to restart a saved scan.
 CALL_CONTEXT_INPUTS = ("scripts/m2c.py", "scripts/call_signatures.py", "scripts/declaration_facts.py",
-                       "scripts/rzip_archive.py", "config/rzip_layouts.json")
+                       "scripts/rzip_archive.py", "config/rzip_layouts.json") + call_signatures.SDK_ALIAS_INPUTS
 for _stage in STAGE_INPUTS:
     if _stage != "inventory":
         STAGE_INPUTS[_stage] = tuple(dict.fromkeys(STAGE_INPUTS[_stage] + CALL_CONTEXT_INPUTS))

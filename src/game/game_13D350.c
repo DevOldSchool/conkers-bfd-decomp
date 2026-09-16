@@ -22,6 +22,8 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_1510FEA0.s")
 void func_150A8050(void *, f32, f32, f32);
+void func_151102CC(void *, f32, f32, f32);
+void func_150A7A48(void *, void *, void *);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151102CC CURRENT (2149) */
 void func_151102CC(void *arg0, f32 arg1, f32 arg2, f32 arg3) {
     f32 sp28[16];

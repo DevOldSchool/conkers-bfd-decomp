@@ -19,6 +19,24 @@ SPEC.loader.exec_module(facts)
 
 
 class DeclarationFactsTests(unittest.TestCase):
+    def test_comment_only_prefix_does_not_supply_declarations_or_placeholders(self) -> None:
+        prefix = (
+            '/* Call context: func_copy: SDK binding; prototype evidence */\n'
+            '/* Preserved notes:\n'
+            'M2C_UNK func_unproven(M2C_UNK);\n'
+            'typedef struct Fake { s32 field; } Fake;\n'
+            '*/\n'
+            '// M2C_UNK another_unproven(void);\n'
+        )
+        self.assertEqual(([], []), facts.resolve_required_declarations(prefix, ''))
+
+    def test_skips_evidence_comments_while_preserving_declaration_abi_marker(self) -> None:
+        declaration = 'void func_copy(void *, s32); /* CONKER_ABI_DISCARDED_RETURN */'
+        prefix = '/* Call context: func_copy: proven argument homes */\n' + declaration
+        declarations, evidence = facts.resolve_required_declarations(prefix, '')
+        self.assertEqual([declaration], declarations)
+        self.assertEqual(['func_copy: m2c concrete declaration'], evidence)
+
     def test_rejects_composite_declarations_as_a_whole(self) -> None:
         with self.assertRaisesRegex(facts.DeclarationError, 'partial fields'):
             facts.resolve_required_declarations('typedef struct State {\n s32 field;\n} State;', '')

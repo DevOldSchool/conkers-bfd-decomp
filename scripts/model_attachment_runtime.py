@@ -83,11 +83,14 @@ def read_trace(path: Path, digest: str, spec_name: str) -> tuple[str, list[dict]
 def attachment_draws(events: list[dict]) -> tuple[list[dict], list[dict]]:
     """Pair selections by renderer record and stack, never by event adjacency."""
     pending, draws, incomplete = {}, [], []
+    hooks = {"attachment-part-selected": 0x15031870,
+             "attachment-alternate-part-selected": 0x15035F60,
+             "attachment-draw-return": 0x15031914}
     for index, event in enumerate(events):
         kind = event.get("breakpoint")
-        if kind not in ("attachment-part-selected", "attachment-draw-return"):
+        if kind not in hooks:
             continue
-        expected = 0x15031870 if kind == "attachment-part-selected" else 0x15031914
+        expected = hooks[kind]
         if address(event["hook_address"]) != expected:
             raise ValueError("attachment renderer hook changed")
         blocks = memory_blocks(event)
@@ -99,13 +102,15 @@ def attachment_draws(events: list[dict]) -> tuple[list[dict], list[dict]]:
         start = int.from_bytes(stack[:4], "big")
         key = (record_address, stack_address, start)
         state = event["state"]
-        if kind == "attachment-part-selected":
+        if kind != "attachment-draw-return":
             if (address(state["model"]["attachment_address"]) != record_address
                     or address(state["model"]["parent_character_address"]) != parent_address):
                 raise ValueError("attachment selected record address changed")
             draw = pending.setdefault(key, {"record_address": record_address, "record": record,
                 "parent_address": parent_address, "parent": parent, "command_buffer_start": start,
-                "first_event_index": index, "parts": []})
+                "first_event_index": index, "selection_hook": expected, "parts": []})
+            if draw["selection_hook"] != expected:
+                raise ValueError("attachment renderer mixes ordinary and alternate selections")
             if draw["record"] != record or draw["parent_address"] != parent_address:
                 raise ValueError("attachment identity changes between selected parts")
             draw["parts"].append({"event_index": index,

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import re
 import subprocess
@@ -356,7 +357,8 @@ def asm_diff_command(
         raise ValueError(f"{symbol} has an invalid {expected_size}-byte instruction span")
     command = [
         "python3",
-        str(ASM_DIFFER),
+        str(ROOT / "scripts" / "diff.py"),
+        "--asm-differ",
         "-o",
         "-f",
         str(candidate),
@@ -371,6 +373,70 @@ def asm_diff_command(
         command.append("--no-pager")
     command.extend(["--format", "json" if require_match else "color", symbol])
     return command
+
+
+def registered_span_lines(lines: list, instruction_count: int, *, reference: bool) -> list:
+    """Remove display metadata, retaining every registered instruction word."""
+
+    result = []
+    for line in lines:
+        # These describe incoming data relocations (for example jump-table
+        # entries), not instructions. The raw text-only reference may lack
+        # them, so exclude them from both span validation and match scoring.
+        # Relocations attached to real instructions remain intact.
+        if line.mnemonic == "<data-ref>" and line.diff_row == "<data-ref>":
+            if line.line_num is not None:
+                raise ValueError("asm-differ data-reference annotation has an instruction address")
+            continue
+        result.append(line)
+    if result and result[-1].mnemonic == "..." and result[-1].original == "...":
+        if result[-1].line_num is not None:
+            raise ValueError("asm-differ truncation marker has an instruction address")
+        result.pop()
+    addresses = [line.line_num for line in result]
+    if any(address is None for address in addresses):
+        raise ValueError("asm-differ returned a non-instruction inside the registered span")
+    if any(right != left + 4 for left, right in zip(addresses, addresses[1:])):
+        raise ValueError("asm-differ returned a discontinuous registered instruction span")
+    if len(result) > instruction_count or (reference and len(result) != instruction_count):
+        raise ValueError("asm-differ reference does not cover the registered instruction span")
+    return result
+
+
+def configure_registered_span_differ(differ) -> None:
+    """Adapt the pinned viewer's truncation heuristics for exact bounded matching.
+
+    Upstream inserts a synthetic ellipsis when more object text follows the
+    requested span. Its scorer can then ignore real differences after a long
+    matching prefix. Exclude that display marker before alignment/scoring, and
+    retain trailing nops because they are part of our reviewed byte span.
+    """
+
+    original_do_diff = differ.do_diff
+
+    def do_registered_diff(base, current, config):
+        if not config.diff_obj or config.stop_at_ret or config.arch.name != "mips":
+            raise ValueError("registered-span comparison requires bounded MIPS object mode")
+        count = config.max_function_size_lines
+        if count <= 0:
+            raise ValueError("registered-span comparison requires a positive instruction count")
+        base = registered_span_lines(base, count, reference=True)
+        current = registered_span_lines(current, count, reference=False)
+        return original_do_diff(base, current, config)
+
+    differ.do_diff = do_registered_diff
+    differ.trim_nops = lambda lines, arch: lines
+
+
+def run_pinned_asm_differ() -> None:
+    spec = importlib.util.spec_from_file_location("conker_asm_differ", ASM_DIFFER)
+    if spec is None or spec.loader is None:
+        raise ValueError(f"cannot load pinned asm-differ: {ASM_DIFFER}")
+    differ = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = differ
+    spec.loader.exec_module(differ)
+    configure_registered_span_differ(differ)
+    differ.main()
 
 
 def run_asm_diff(command: list[str], directory: Path) -> int:
@@ -659,4 +725,12 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    if sys.argv[1:2] == ["--asm-differ"]:
+        del sys.argv[1]
+        try:
+            run_pinned_asm_differ()
+        except (ValueError, OSError) as error:
+            print(f"error: {error}", file=sys.stderr)
+            raise SystemExit(EXIT_BLOCKED_TOOLING)
+    else:
+        raise SystemExit(main())

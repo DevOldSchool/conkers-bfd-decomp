@@ -40,7 +40,6 @@
  * - func_1519A9A4
  * - func_1519B4B8
  * - func_1519BFBC
- * - func_1519C09C
  * - func_1519C258
  * - func_1519C26C
  * - func_1519C4E4
@@ -556,7 +555,49 @@ void func_1519C06C(CharacterFlamethrowerActor *arg0) {
         func_100111C8(temp_a1 & 0xFFFF, temp_a1);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519C09C.s")
+typedef struct CharacterFlamethrowerLightDescriptor {
+    u8 field0;
+    s8 field1;
+    s16 field2;
+    s8 field4;
+} CharacterFlamethrowerLightDescriptor;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A8AF8;
+
+s32 func_1519C09C(s32 arg0, f32 *arg1, u8 arg2, u8 arg3, u8 arg4,
+                 u8 arg5, u8 arg6, s32 arg7) {
+    s32 result;
+    CharacterFlamethrowerLightDescriptor descriptor;
+    s32 position[3];
+    s32 owner;
+    f32 values[8];
+
+    values[0] = 35.0f;
+    values[1] = 5.0f;
+    owner = arg0;
+    descriptor.field0 = 2;
+    descriptor.field1 = 2;
+    descriptor.field2 = 0x12C;
+    descriptor.field4 = 0x22;
+    values[2] = 110.0f;
+    values[3] = 1.0f;
+    values[4] = 0.0f;
+    values[5] = 7.0f;
+    values[6] = D_800A8AF8;
+    values[7] = 127.0f;
+    position[0] = (s32)arg1[0];
+    position[1] = (s32)arg1[1];
+    position[2] = (s32)arg1[2];
+    result = func_151602C0((u8 *)&descriptor, position, arg2, arg3, arg4,
+                          arg5, 0xFF, 0, 0x24, arg6, arg7);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, values, 0x20);
+        func_10022EC0((u8 *)result + 0x38, &owner, 4);
+    }
+    return result;
+}
 void func_1519C200(CharacterFlamethrowerContext *arg0) {
     func_1519C258(arg0);
     func_151617C4(arg0);

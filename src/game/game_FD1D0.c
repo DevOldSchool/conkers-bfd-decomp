@@ -122,7 +122,8 @@ typedef struct GameFD1D0State {
     u8 pad10[0x18];
     GameFD1D0TextCursor text;
     u8 pad40[0xC];
-    s8 field_4D;
+    s8 field_4C;
+    u8 field_4D;
 } GameFD1D0State;
 
 void func_150CFE3C(GameFD1D0State *);
@@ -151,7 +152,7 @@ extern GameFD1D0EntryCallback D_800888A0[];
 s32 func_150D0034(s32 arg0, GameFD1D0State *arg1, s32 arg2) {
     GameFD1D0TextCursor *text;
 
-    if ((arg1->field_4D != -1) && (D_800888A0[arg1->field_4D](arg1) == 0)) {
+    if ((arg1->field_4C != -1) && (D_800888A0[arg1->field_4C](arg1) == 0)) {
         arg1->field_0E = -1;
         return arg0;
     }

@@ -165,7 +165,22 @@ files cannot replace that local call or object view. Local scalar arrays with
 literal or unspecified bounds retain their exact declarator; arrays and local
 types are still not imported from other files. Ambiguous or unsupported local
 evidence blocks fallback, and known argument/return types must still agree.
-Without local evidence, recovery continues to require project-wide agreement.
+Outside the reviewed SDK fallback below, recovery without local evidence
+continues to require project-wide agreement.
+
+For the reviewed US SDK `memcpy` alias, recovery instead uses the explicit
+numeric binding in `config/game/us-sdk.ld` and the pinned IDO SDK memory header.
+This supplies `void *func_10022EC0(void *, const void *, u32)` before m2c runs,
+preserving the pointer return and source-pointer qualifier and translating the
+header's unsigned `size_t` to the project's `u32`. It takes precedence over
+unrelated call-site declarations. Allowed-source declarations retain their
+existing priority, including ambiguous or unsupported local blockers. Recovery
+requires a unique literal binding and the supported header contract; missing
+headers, conflicting mappings, other SDK functions/data, and EU aliases do not
+receive this fallback. Known types and argument counts in a placeholder
+declaration must still agree. SDK map/header changes invalidate saved outcomes,
+and generated call evidence names both inputs. This is preparation only; all
+focused, layout, and batch gates remain required.
 
 Before generating a starter, m2c imports unique, self-contained active project
 prototypes for direct callees. For a straight-line wrapper with one direct call

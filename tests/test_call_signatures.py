@@ -45,6 +45,18 @@ nop
 '''
 STARTER = 'M2C_UNK func_target(M2C_UNK, M2C_UNK);\nvoid func_wrapper(void) { func_target(7, 2); }\n'
 REPAIRED = 'void func_wrapper(void *arg0) { func_target(arg0, 7, 2); }\n'
+SDK_CALL = WRAPPER.replace('func_target', 'func_10022EC0')
+SDK_DECLARATION = 'void * func_10022EC0(void *, const void *, u32);'
+# Minimal SDK contract fixture; no ROM instructions or SDK implementation.
+SDK_HEADER = '''#ifndef _MEMORY_H
+#define _MEMORY_H
+#ifndef _SIZE_T_DEF
+#define _SIZE_T_DEF
+typedef unsigned size_t;
+#endif
+void *memcpy(void *,const void *,size_t);
+#endif
+'''
 
 
 class CallSignatureTests(unittest.TestCase):
@@ -69,6 +81,144 @@ class CallSignatureTests(unittest.TestCase):
             'symbol': 'func_target', 'overlay': 'game', 'source': 'src/game/example.c',
             'regions': {'us': {'symbol': 'func_target', 'vram': '0x15001000', 'size_bytes': 4*(len(lines)-1)}}}]}))
         return path
+
+    def write_sdk(self):
+        mapping = self.root / calls.SDK_ALIAS_MAP
+        mapping.parent.mkdir(parents=True, exist_ok=True)
+        mapping.write_text('''/* reviewed US bindings */
+SECTIONS
+{
+    .sdk_test 0x80000000 : { library.a:test.o(.rodata); }
+    ASSERT(SIZEOF(.sdk_test) == 0x10, "unexpected section size")
+}
+memcpy = 0x10022EC0;
+unrelated = 0x10003000;
+func_151F0000 = other_sdk_function;
+''')
+        header = self.root / calls.SDK_MEMORY_HEADER
+        header.parent.mkdir(parents=True, exist_ok=True)
+        header.write_text(SDK_HEADER)
+        return mapping, header
+
+    def test_sdk_alias_recovers_return_const_pointer_and_unsigned_length(self):
+        self.write_sdk()
+        # Conflicting views elsewhere cannot override an identified SDK callee.
+        self.source.write_text('void func_10022EC0(s32, void *, s32);\n')
+        (self.source.parent / 'other.c').write_text('void func_10022EC0(void *, void *, s32);\n')
+        recovery = calls.recover(SDK_CALL, '', root=self.root)
+        self.assertEqual((SDK_DECLARATION,), recovery.declarations)
+        self.assertIn('verified SDK alias memcpy=', recovery.evidence[0])
+        self.assertIn(calls.SDK_MEMORY_HEADER, recovery.evidence[0])
+        self.assertNotIn(calls.ABI_MARKER, recovery.declarations[0])
+        self.assertEqual({calls.Signature('void *', ('void *', 'const void *', 'u32'))},
+                         calls.source_signatures(SDK_DECLARATION)['func_10022EC0'])
+
+    def test_sdk_alias_keeps_allowed_source_precedence_and_blockers(self):
+        self.write_sdk()
+        local = 'void func_10022EC0(void *, void *, s32);\n'
+        self.assertEqual((local.strip(),), calls.recover(SDK_CALL, local, root=self.root).declarations)
+        for local in ('void func_10022EC0();',
+                      'void func_10022EC0(LocalType *);',
+                      'static void func_10022EC0(void);',
+                      SDK_DECLARATION + '\nvoid func_10022EC0(s32);'):
+            with self.subTest(local=local):
+                self.assertEqual((), calls.recover(SDK_CALL, local, root=self.root,
+                                                   allow_raw=True).declarations)
+
+    def test_sdk_alias_requires_both_binding_and_matching_header(self):
+        mapping, header = self.write_sdk()
+        for contents in ('/* ' + SDK_HEADER + ' */',
+                         '#if 0\n' + SDK_HEADER + '\n#endif',
+                         SDK_HEADER.replace('typedef unsigned size_t;', 'typedef signed size_t;'),
+                         SDK_HEADER.replace('typedef unsigned size_t;', ''),
+                         SDK_HEADER.replace('void *memcpy', 'void memcpy'),
+                         SDK_HEADER.replace('const void *', 'void *'),
+                         SDK_HEADER + '\nvoid memcpy(void);\n'):
+            with self.subTest(header=contents):
+                header.write_text(contents)
+                self.assertEqual((), calls.recover(SDK_CALL, '', root=self.root).declarations)
+        header.unlink()
+        self.assertEqual((), calls.recover(SDK_CALL, '', root=self.root).declarations)
+        header.write_text(SDK_HEADER)
+        mapping.unlink()
+        self.assertEqual((), calls.recover(SDK_CALL, '', root=self.root).declarations)
+
+    def test_sdk_alias_rejects_ambiguous_expression_and_unreviewed_bindings(self):
+        mapping, _ = self.write_sdk()
+        for contents in ('memcpy = 0x10022EC0; memcpy = 0x10022ED0;',
+                         'memcpy = 0x10022EC0; memcpy = 0x10022EC0;',
+                         'memcpy = 0x10022EC0; unrelated = 0x10022EC0;',
+                         'memcpy = 0x10022EC0 + 4;',
+                         'memcpy = unknown_function;',
+                         'memcpy = 0x10022EC0',
+                         '/* memcpy = 0x10022EC0; */',
+                         'memcpy = 0x10022EC2;',
+                         'memcpy = 0x0;',
+                         'SECTIONS { memcpy = 0x10022EC0; }',
+                         'data_pointer = 0x10022EC0;',
+                         'memmove = 0x10022EC0;'):
+            with self.subTest(mapping=contents):
+                mapping.write_text(contents)
+                self.assertEqual((), calls.recover(SDK_CALL, '', root=self.root).declarations)
+
+    def test_sdk_alias_is_us_only_and_follows_the_map_address(self):
+        mapping, _ = self.write_sdk()
+        self.assertEqual((), calls.recover(SDK_CALL, '', root=self.root, profile='eu').declarations)
+        mapping.write_text('memcpy = 0x10023000;\n')
+        self.assertEqual((), calls.recover(SDK_CALL, '', root=self.root).declarations)
+        self.assertEqual((SDK_DECLARATION.replace('10022EC0', '10023000'),), calls.recover(
+            SDK_CALL.replace('10022EC0', '10023000'), '', root=self.root).declarations)
+
+    def test_sdk_alias_is_supplied_before_m2c_and_reemitted_with_evidence(self):
+        self.write_sdk()
+        def decompile(command, **kwargs):
+            context = self.root / command[command.index('--context') + 1]
+            self.assertIn(SDK_DECLARATION, context.read_text())
+            return SimpleNamespace(returncode=0, stdout='void *func_wrapper(void *p, const void *q, u32 n) { return func_10022EC0(p, q, n); }')
+        with patch.object(m2c, 'ROOT', self.root), patch.object(m2c.subprocess, 'run', side_effect=decompile) as run:
+            output, status = m2c.generate_with_call_context(['m2c', 'input.s'], SDK_CALL,
+                                                          'func_wrapper', self.source, 'us')
+        self.assertEqual(0, status)
+        self.assertEqual(1, run.call_count)
+        self.assertIn(SDK_DECLARATION, output)
+        self.assertIn('verified SDK alias memcpy=', output)
+        prepared = automate.candidate_rewrites.prepare_starter(
+            output, 'func_wrapper', self.source.read_text(), root=self.root)
+        self.assertEqual((SDK_DECLARATION,), prepared.declarations)
+        self.assertEqual('#include "types.h"\n', self.source.read_text())
+        record = json.loads((self.root / 'build/m2c/calls/func_wrapper.json').read_text())
+        self.assertEqual([SDK_DECLARATION], record['declarations'])
+        self.assertIn(calls.SDK_ALIAS_MAP, record['evidence'][0])
+
+    def test_sdk_inputs_invalidate_saved_raw_and_deferred_stage_results(self):
+        mapping, header = self.write_sdk()
+        with patch.object(automate, 'ROOT', self.root):
+            args = automate.parse_args(['--all'])
+            for path in (mapping, header):
+                before = automate.stage_fingerprint_seeds(args)
+                path.write_text(path.read_text() + '\n/* updated SDK evidence */\n')
+                after = automate.stage_fingerprint_seeds(args)
+                self.assertEqual(before['inventory'], after['inventory'])
+                for stage in ('m2c', 'declarations', 'prepare', 'compile', 'diff', 'permute', 'finish'):
+                    self.assertNotEqual(before[stage], after[stage])
+            snapshot = calls.signature_index(self.root)
+            before = calls.dependency_digest(self.root, SDK_CALL)
+            self.assertEqual(before, calls.dependency_digest(self.root, SDK_CALL, snapshot))
+            mapping.write_text('memcpy = 0x10023000;\n')
+            self.assertNotEqual(before, calls.dependency_digest(self.root, SDK_CALL))
+
+    def test_sdk_placeholder_resolution_preserves_known_type_and_arity_checks(self):
+        self.write_sdk()
+        facts = calls.declaration_facts
+        prefix = 'M2C_UNK func_10022EC0(M2C_UNK, M2C_UNK, M2C_UNK);'
+        declarations, evidence = facts.resolve_required_declarations(prefix, '', root=self.root)
+        self.assertEqual([SDK_DECLARATION], declarations)
+        self.assertIn(calls.SDK_ALIAS_MAP, evidence[0])
+        for prefix in ('void func_10022EC0(M2C_UNK, M2C_UNK, M2C_UNK);',
+                       'M2C_UNK func_10022EC0(M2C_UNK, M2C_UNK, s32);',
+                       'M2C_UNK func_10022EC0(M2C_UNK, M2C_UNK);'):
+            with self.subTest(prefix=prefix), self.assertRaises(facts.DeclarationError):
+                facts.resolve_required_declarations(prefix, '', root=self.root)
 
     def test_forwarded_a0_and_delay_slot_constants(self):
         self.assertEqual(('func_target', ('$a0', 7, 2, '$a3')), calls.wrapper_call(WRAPPER))

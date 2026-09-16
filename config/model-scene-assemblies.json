@@ -429,6 +429,443 @@
     {
       "scene_index": 35,
       "exclude_models": []
+    },
+    {
+      "scene_index": 45,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            45,
+            13
+          ],
+          "reason": "Tower and map easel occupy the same placement with unresolved conditional visibility; this static inspection selection retains the map easel in segment 12."
+        }
+      ]
+    },
+    {
+      "scene_index": 65,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            65,
+            15
+          ],
+          "reason": "Overlapping surface alternative at the same placement; this static inspection selection retains segment 11."
+        },
+        {
+          "model": [
+            4,
+            65,
+            16
+          ],
+          "reason": "Untextured corner panel below the water needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        }
+      ]
+    },
+    {
+      "scene_index": 36,
+      "exclude_models": []
+    },
+    {
+      "scene_index": 52,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            52,
+            5
+          ],
+          "reason": "Paired door models share three placement origins but extend in opposite local directions; complementary versus conditional visibility is unresolved, so both are omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            3,
+            113,
+            0
+          ],
+          "reason": "Untextured isolated surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            52,
+            8
+          ],
+          "reason": "Untextured isolated surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            52,
+            9
+          ],
+          "reason": "Untextured isolated surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            52,
+            10
+          ],
+          "reason": "Untextured isolated surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            52,
+            4
+          ],
+          "reason": "Paired door models share three placement origins but extend in opposite local directions; complementary versus conditional visibility is unresolved, so both are omitted from this static inspection selection."
+        }
+      ]
+    },
+    {
+      "scene_index": 6,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            3,
+            97,
+            0
+          ],
+          "reason": "Untextured isolated surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            6,
+            28
+          ],
+          "reason": "Colocated barrier parts overlap combined segment 30. This static inspection selection retains segment 30; vertex-colour/UV variants and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            6,
+            29
+          ],
+          "reason": "Colocated barrier parts overlap combined segment 30. This static inspection selection retains segment 30; vertex-colour/UV variants and conditional visibility remain unresolved."
+        }
+      ]
+    },
+    {
+      "scene_index": 14,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            14,
+            6
+          ],
+          "reason": "Platform and four identical beam placements are stored at the origin; runtime placement or visibility is unresolved. Omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            14,
+            7
+          ],
+          "reason": "Platform and four identical beam placements are stored at the origin; runtime placement or visibility is unresolved. Omitted from this static inspection selection."
+        }
+      ]
+    },
+    {
+      "scene_index": 2,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            9
+          ],
+          "reason": "Colocated structure variant 9 includes untextured surfaces; this static inspection selection retains the more complete textured structure 10. Native state selection remains unresolved."
+        },
+        {
+          "model": [
+            4,
+            2,
+            12
+          ],
+          "reason": "Colocated surface variants 11/12 overlap. This static inspection selection retains green surface 11; native state selection remains unresolved."
+        },
+        {
+          "model": [
+            4,
+            2,
+            15
+          ],
+          "reason": "Colocated rock variants 14/15 have equal position bounds. This static inspection selection retains 14; native state selection remains unresolved."
+        },
+        {
+          "model": [
+            4,
+            2,
+            19
+          ],
+          "reason": "Colocated panel and fragmented red parts need state or placement evidence; all four are omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            20
+          ],
+          "reason": "Colocated panel and fragmented red parts need state or placement evidence; all four are omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            21
+          ],
+          "reason": "Colocated panel and fragmented red parts need state or placement evidence; all four are omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            22
+          ],
+          "reason": "Colocated panel and fragmented red parts need state or placement evidence; all four are omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            26
+          ],
+          "reason": "Two identical weight assemblies occupy the same transform. Runtime placement or visibility is unresolved; both are omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            33
+          ],
+          "reason": "Isolated untextured surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            34
+          ],
+          "reason": "Isolated untextured surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            35
+          ],
+          "reason": "Isolated untextured surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            36
+          ],
+          "reason": "Isolated untextured surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            2,
+            37
+          ],
+          "reason": "Isolated untextured surface needs runtime appearance or visibility evidence; omitted from this static inspection selection."
+        }
+      ]
+    },
+    {
+      "scene_index": 12,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            12,
+            14
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            15
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            16
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            17
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            18
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            19
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            20
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            21
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            22
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            23
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        },
+        {
+          "model": [
+            4,
+            12,
+            24
+          ],
+          "reason": "Animal fragments are colocated with complete head 25, including repeated placements. This static inspection selection retains head 25; fragment motion and conditional visibility remain unresolved."
+        }
+      ]
+    },
+    {
+      "scene_index": 0,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        },
+        {
+          "model": [
+            4,
+            0,
+            13
+          ],
+          "reason": "Untextured dark surface is colocated with grate 15; the static inspection selection retains grate 15. Native conditional visibility remains unresolved."
+        }
+      ]
+    },
+    {
+      "scene_index": 40,
+      "exclude_models": [
+        {
+          "model": [
+            3,
+            51,
+            0
+          ],
+          "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+        }
+      ]
+    },
+    {
+      "scene_index": 51,
+      "exclude_models": []
     }
   ]
 }

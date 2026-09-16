@@ -78,6 +78,34 @@ model or exact hardware raster parity.
 
 ## Record model draw state
 
+### Ordinary-object selectors and callbacks
+
+```sh
+./conker mupen-trace --software-renderer \
+  --spec config/model-trace-object-selectors.json \
+  --output build/assets/models/object-selectors.jsonl \
+  --savestate build/trace.st --session-timeout 90
+```
+
+This specification captures constructor templates at `1513264C`, reference-count
+writes at `151328B4`, callback dispatch at `15132C60`, and the primary-list
+address write at `15132DC4`. The debugger can report the following instruction,
+`15132DC8`; each event retains that reported PC. A hit identifies the CPU
+submission path, not native appearance or completed rasterization. Object and cache
+selectors remain distinct from the model IDs in the 233-entry lookup table.
+Full flags and raw callback bytes are retained; byte 255 means signed sentinel
+-1. Constructor return addresses identify caller leads without admitting a
+material binding.
+
+The run stops at two graphics-submission hooks or 256 recorded events, with
+the command's wall-clock bound as a further limit. It captures small object
+records rather than decoding whole graphics tasks. Use a state/action that
+reaches the target constructor: absence from an idle saved state is only
+bounded negative evidence. See the [material frontier](evidence/us_model_material_frontier.md)
+for the seven bank-09 selectors still needing such a trigger.
+
+### General draw-state capture
+
 `mupen-trace` drives the same pinned debugger through a private pseudo-terminal
 and writes versioned JSON Lines records. It is intended for repeatable model
 research where copying register values out of the interactive prompt would be
@@ -199,8 +227,9 @@ is not yet included in the body composition. The trace, linked ranges,
 screenshots and regeneration script are under
 `build/assets/models/reference/software-submitted-lighting/`.
 
-The attachment follow-up uses selected-part/return hooks at `0x15031870` and
-`0x15031914` in `func_150311C4`. It captures the attachment record, parent
+The attachment follow-up uses ordinary selected-part/return hooks at
+`0x15031870` and `0x15031914` in `func_150311C4`, plus alternate selected-part
+hook `0x15035F60` in `func_15035D6C`. It captures the attachment record, parent
 character, generated command range and the following graphics task. Bank-09
 entries 29 and 133 match all 85 captured vertex positions; their part pointers,
 relocated normal/texture arguments and submitted matrices establish the cigar

@@ -11,8 +11,6 @@
  * - func_150432CC
  * - func_1504332C
  * - func_15043384
- * - func_15043A20
- * - func_15043AC8
  * - func_15043B70
  * - func_15043BB8
  * - func_15043CA4
@@ -22,6 +20,7 @@
 
 void func_15043384(s32 arg0);
 extern s32 D_800CBD64;
+void *func_10022EC0(void *, const void *, u32);
 
 void func_15042D50(void) {
     D_800CBD64 = 0;
@@ -121,8 +120,48 @@ void func_15043A00(Game70200Entry *arg0, s32 arg1, s32 arg2) {
         arg0->field_8 = 0;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15043A20.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_70200/func_15043AC8.s")
+s32 func_15043A20(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
+    s32 count;
+
+    if (arg4 != 0) {
+        do {
+            if (arg1 < arg2 + arg4) {
+                count = arg1 - arg2;
+            } else {
+                count = arg4;
+            }
+            func_10022EC0((u8 *)arg0 + arg2, arg3, count);
+            arg2 += count;
+            arg3 = (s32 *)((u8 *)arg3 + count);
+            arg4 -= count;
+            if (arg2 >= arg1) {
+                arg2 = 0;
+            }
+        } while (arg4 != 0);
+    }
+    return arg2;
+}
+s32 func_15043AC8(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
+    s32 count;
+
+    if (arg4 != 0) {
+        do {
+            if (arg1 < arg2 + arg4) {
+                count = arg1 - arg2;
+            } else {
+                count = arg4;
+            }
+            func_10022EC0(arg3, (u8 *)arg0 + arg2, count);
+            arg2 += count;
+            arg3 = (s32 *)((u8 *)arg3 + count);
+            arg4 -= count;
+            if (arg2 >= arg1) {
+                arg2 = 0;
+            }
+        } while (arg4 != 0);
+    }
+    return arg2;
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15043B70 CURRENT (390) */
 s32 func_15043B70(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 var_a2;

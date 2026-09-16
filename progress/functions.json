@@ -1627,7 +1627,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1516127C",
           "vram": "0x1516127C"
         }
@@ -1639,7 +1644,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15161334",
           "vram": "0x15161334"
         }
@@ -1648,16 +1658,15 @@
       "symbol": "func_15161334"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 151,
-        "reason": "Best source candidate is CURRENT (151); descriptor initialization, calls, constants, and return flow match, but IDO retains an 0x38-byte frame instead of the target 0x30-byte frame, shifting the local/argument slots after three bounded variants.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15161408",
           "vram": "0x15161408"
         }
@@ -1669,7 +1678,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15161494",
           "vram": "0x15161494"
         }
@@ -1897,7 +1911,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15161E24",
           "vram": "0x15161E24"
         }
@@ -2397,16 +2416,15 @@
       "symbol": "func_15164134"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 521,
-        "reason": "Evidence-backed candidate recovers the 0x38 frame, descriptor fields, argument bytes, helper calls, float initialization/copy, null branch, and return behavior; three source-only layouts remain nonzero, with best CURRENT (521) differing in local stack placement and register allocation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15164208",
           "vram": "0x15164208"
         }
@@ -2479,16 +2497,15 @@
       "symbol": "func_151643F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "Best source candidate is CURRENT (35); full stack layout, FPU operations, constants, calls, and control flow match, with only two temporary-register assignments remaining after the bounded permutation search found no exact variant.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1516441C",
           "vram": "0x1516441C"
         }
@@ -3047,7 +3064,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "reason": "CURRENT (10); three bounded source-only declaration/expression variants and a bounded permutation search did not resolve the remaining register-allocation-only multu difference; retained the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -3513,7 +3530,12 @@
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_1519C09C",
           "vram": "0x1519C09C"
         }
@@ -10330,8 +10352,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 212,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151407D0",
           "vram": "0x151407D0"
         }
@@ -13718,6 +13745,12 @@
       "symbol": "func_15009944"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12,
+        "reason": "CURRENT (12); adding the evidence-backed first callback argument recovered the target ABI, frame, helper-call arguments, and all instruction scheduling except the one-byte payload stack location at target sp+0x40 versus candidate sp+0x47; preserved the best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -28118,8 +28151,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15043A20",
           "vram": "0x15043A20"
         }
@@ -28131,8 +28169,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15043AC8",
           "vram": "0x15043AC8"
         }
@@ -41574,7 +41617,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Recovered the exact cursor test, pointer increment/store, width call, page toggle, callback, flag set, and epilogue; one bounded pointer-temporary variant worsened the frame and the original remains CURRENT (10) with only the cursor-load temporary register differing (a0 versus v0).",
+        "reason": "CURRENT (10); the full text-cursor update, callback sequence, and epilogue are exact except for the initial cursor load's register allocation, and the bounded declaration/lifetime permutation found no exact match; preserved the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46566,7 +46609,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1142,
-        "reason": "Best source candidate is CURRENT (1142); offset comparisons, branch structure, callback, and five-argument dispatch are recovered, but the target homes the byte argument in a 0x20-byte frame while IDO retains a 0x28-byte frame after the bounded ABI attempt.",
+        "reason": "Preserved prior best CURRENT (1142); callback table supports a byte selector, but remaining frame/register scheduling mismatch is unresolved after bounded manual review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -47527,8 +47570,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 564,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151332DC",
           "vram": "0x151332DC"
         }
@@ -49595,6 +49643,12 @@
       "symbol": "func_150D6CC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2022,
+        "reason": "Recovered one-argument destroy callback contract and the 0xA8 update paths; remaining mismatch is IDO branch/register scheduling after the first manual candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52213,7 +52267,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
+        "reason": "CURRENT (10); three bounded source-only expression/lifetime variants did not resolve the remaining commutative multu operand allocation; retained the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -52242,6 +52296,12 @@
       "symbol": "func_151918BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2074,
+        "reason": "Best manual candidate is CURRENT (2074); temp_s0 lifetime, event branches, destroy callbacks, and func_15169850 dispatch are recovered, but IDO still differs in argument-byte liveness, register allocation, and dispatch argument placement after bounded source variants.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53939,6 +53999,12 @@
       "symbol": "func_150C5CC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 255,
+        "reason": "CURRENT (255); changing arg2 to u8 and keeping the masked event local recovered the target prologue and ABI, while remaining differences are pointer/register allocation and branch-path scheduling; preserved the best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56520,8 +56586,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 580,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CE450",
           "vram": "0x150CE450"
         }
@@ -56530,6 +56601,12 @@
       "symbol": "func_150CE450"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1817,
+        "reason": "Best manual candidate is CURRENT (1817); both state-update paths and the destroy callback contract are recovered, but IDO still differs in argument masking/home placement, pointer scheduling, and branch/register allocation after bounded source variants.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58413,6 +58490,12 @@
       "symbol": "func_151D2718"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 115,
+        "reason": "CURRENT (115); three bounded source-only declaration/lifetime and multiplication-expression variants did not resolve the remaining register allocation, while control flow and instruction span remained exact; preserved the best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58545,7 +58628,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Recovered the exact branch, integer-to-float conversion, state-buffer addressing, two scaled multiplications, conditional second update, and full epilogue; one bounded explicit multiplication-order variant worsened register allocation, while the original candidate remains CURRENT (10) with only the final multiply operands swapped.",
+        "reason": "CURRENT (10); exact integer/FPU control flow and both updates are recovered, but the final multiply operand order remains IDO-specific; reversed grouping preserved CURRENT (10) and an explicit product temporary worsened to CURRENT (70), so the best candidate was preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58737,7 +58820,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 148,
-        "reason": "Best source candidate is CURRENT (148) after two bounded source variants. The 0x28 payload selection, 0x48 dispatch, comparisons, callback, and alternate call are recovered, but register allocation and callback-path scheduling remain nonzero.",
+        "reason": "Preserved prior best CURRENT (148); raw callback uses one owner argument at the call site, but the recovered candidate still needs ABI/register scheduling resolution.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58755,8 +58838,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (35)",
+        "current_score": 200,
+        "reason": "CURRENT (200); pointer-lifetime rewrite made the candidate body instruction-identical, but the registered mixed source unit still differs in function-span/layout addressing around preceding content; retained the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62958,6 +63041,12 @@
       "symbol": "func_15192DF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1817,
+        "reason": "Best manual candidate recovers both 0x2D state-update paths and the zero-type destroy callback, but the target\u2019s argument masking/home placement, branch scheduling, and register allocation remain nonzero after the first bounded source candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62971,6 +63060,12 @@
       "symbol": "func_15193234"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1540,
+        "reason": "CURRENT (1540); u8 arg2 and explicit zero-branch shaping were the best of three bounded variants, but owner-pointer/register allocation and branch scheduling remain nonzero; preserved the best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63114,6 +63209,12 @@
       "symbol": "func_151D70CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 550,
+        "reason": "CURRENT (550); bounded pointer/lifetime and constant-materialization variants did not resolve the remaining IDO constant scheduling and branch-layout mismatch; preserved the best ABI-correct candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63409,6 +63510,12 @@
       "symbol": "func_150CF140"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1010,
+        "reason": "CURRENT (1010); u8 arg2 and explicit owner-pointer shaping improved the ABI and reduced the mismatch, but branch-path register allocation and scheduling remain nonzero after three bounded source-only variants; preserved the best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63502,8 +63609,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 788,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EAB10",
           "vram": "0x150EAB10"
         }
@@ -64424,6 +64536,12 @@
       "symbol": "func_1518C69C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 515,
+        "reason": "CURRENT (515); three bounded source-only operand-order and control-flow variants did not resolve the 16-byte layout/register scheduling mismatch; preserved the ABI-correct candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67195,7 +67313,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1228,
-        "reason": "Recovered state-byte validation, null fallback, flag gate, scaled pair construction, and func_1513FAB4 dispatch; best CURRENT (1228) after three source-only variants is limited to compiler control-flow/register scheduling and stack placement differences.",
+        "reason": "Recovered state validation and callback contract; remaining mismatch is target stack placement/control-flow scheduling after the preserved three-variant manual review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67211,6 +67329,12 @@
       "symbol": "func_151BE4B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2322,
+        "reason": "Recovered one-argument destroy callback contract and the 0xB0 update paths; remaining mismatch is IDO branch/register scheduling after the first manual candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67245,7 +67369,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "CURRENT (30) after three bounded pointer-base and index-type variants; remaining mismatch is index temporary register allocation",
+        "reason": "CURRENT (30); the candidate recovers the function body and data write, but the remaining index temporary register allocation is unresolved; preserved the best candidate for later review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67975,7 +68099,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "Recovered the full 100-slot reset/dispatch loop, 0x18 stride, 0x960 clear size, exact prologue/epilogue, and call behavior; three bounded local declaration/type variants plateaued at CURRENT (8), with only the saved first-pointer stack slot offset differing (0x2C versus 0x28).",
+        "reason": "CURRENT (8); the complete reset/dispatch loop remains instruction-equivalent except for five register-only differences centered on the saved first-pointer stack slot, and the bounded declaration/lifetime permutation found no exact match; preserved the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -70990,8 +71114,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 512,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A9634",
           "vram": "0x151A9634"
         }
@@ -76091,7 +76220,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Recovered the exact short-input loads, integer sum, float conversions, argument placement, callee, and epilogue; the operand-order source variant was unchanged, diagnose-diff found one register-only difference, and 4 bounded permutations found no exact match, best CURRENT (10).",
+        "reason": "CURRENT (10); exact stack frame, loads, conversions, argument placement, callee, and epilogue are recovered, but IDO emits the commutative sum operands in the opposite register order; the bounded source/permutation attempts found no exact match, so preserved the best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -76123,7 +76252,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Recovered the exact stack frame, saved arguments, pointer arithmetic, two calls, field load, return value, and epilogue; three bounded pointer/local declaration variants plateaued at CURRENT (10), with only the post-call reload register differing (a2 versus t6).",
+        "reason": "CURRENT (10); exact frame, helper calls, arguments, return, and instruction span are recovered, but IDO reloads the saved pointer into a2 while the best ABI-correct C candidate uses t6; a pointer-typed stack/local variant did not change the diff, so preserved the original candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -76729,7 +76858,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 520,
-        "reason": "Best source candidate is CURRENT (275); frame, saved-register setup, FPU zeroing, loop bounds, calls, and field clears are correct, but IDO schedules the first clear/loop counter differently after three bounded source variants.",
+        "reason": "Raw one-argument callback contract is supported; remaining mismatch is IDO register allocation and loop scheduling after the preserved three-variant manual review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -76745,6 +76874,12 @@
       "symbol": "func_151B1918"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "CURRENT (10); direct byte-field typing and u8 event handling recovered nearly the complete target body, leaving only final comparison operand scheduling and the resulting branch/layout offset; preserved the best candidate after three bounded variants.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78249,8 +78384,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 384,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519ED84",
           "vram": "0x1519ED84"
         }

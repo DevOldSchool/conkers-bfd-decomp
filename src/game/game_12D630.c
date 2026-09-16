@@ -56,7 +56,6 @@ void func_151001B4(Game12D630Actor *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_151001B4.s")
 void func_15149514(s32, u8, s32, s32, s32);
 void func_1516972C(void *, void *);
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15100230 CURRENT (148) */
 void func_15100230(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
@@ -74,13 +73,14 @@ void func_15100230(void *arg0, void *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_15100230.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151002BC CURRENT (35) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151002BC CURRENT (200) */
 void func_151002BC(u8 *arg0) {
-    u8 *temp_v0;
     u8 *temp_v1;
+    u8 *temp_v0;
 
-    temp_v1 = (void *)(*(void **)((u8 *)arg0 + 0x28));
-    if ((*(s32 *)((u8 *)temp_v1 + 0) == 0) || (temp_v0 = arg0 + 0x28, (*(u8 *)((u8 *)temp_v1 + 4) == 0xFF)) || (*(u8 *)((u8 *)temp_v0 + 4) != *(u8 *)((u8 *)temp_v1 + 0x3B))) {
+    temp_v0 = arg0 + 0x28;
+    temp_v1 = (void *)(*(void **)temp_v0);
+    if ((*(s32 *)((u8 *)temp_v1 + 0) == 0) || ((*(u8 *)((u8 *)temp_v1 + 4) == 0xFF)) || (*(u8 *)((u8 *)temp_v0 + 4) != *(u8 *)((u8 *)temp_v1 + 0x3B))) {
         *(s16 *)((u8 *)arg0 + 0xE) = -1;
         return;
     }

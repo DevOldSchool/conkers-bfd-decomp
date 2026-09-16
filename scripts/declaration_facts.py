@@ -146,7 +146,9 @@ def function_declaration(
     # Resolve unknown parameter types as well as unknown returns, but never
     # repair argument count here: omitted register arguments require fresh m2c
     # output generated with a complete prototype.
-    from call_signatures import signature_index, source_signatures
+    from call_signatures import (
+        signature_index, source_signatures, sdk_alias_signatures, sdk_alias_evidence,
+    )
     signature = signature_index(root, {symbol}, source=source).get(symbol)
     if signature is None or len(signature.arguments) != len(expected):
         return None
@@ -158,6 +160,8 @@ def function_declaration(
         return None
     if symbol in source_signatures(source, {symbol}):
         paths = ["active declaration in the allowed source"]
+    elif symbol in sdk_alias_signatures(root, {symbol}):
+        paths = [sdk_alias_evidence(symbol)]
     else:
         paths = [str(path.relative_to(root)) for path in evidence_files(root)
                  if re.search(rf"\b{re.escape(symbol)}\s*\(", active_text(path.read_text(encoding="utf-8")))]
@@ -253,9 +257,16 @@ def resolve_required_declarations(
 
     declarations: list[Declaration] = []
     unresolved: list[str] = []
-    if any(token.text in ("{", "}") for token in candidate_syntax.tokens(prefix)):
+    tokens = candidate_syntax.tokens(prefix)
+    if any(token.text in ("{", "}") for token in tokens):
         raise DeclarationError("unresolved composite declaration in m2c context; refusing partial fields")
-    for line in prefix.splitlines():
+    # Tokenize the complete prefix so standalone and multiline evidence
+    # comments cannot become declarations. Keep real declaration lines intact:
+    # trailing ABI markers must survive to prevent later return-type inference.
+    code_lines = {prefix.count("\n", 0, token.start) for token in tokens}
+    for number, line in enumerate(prefix.splitlines()):
+        if number not in code_lines:
+            continue
         stripped = line.strip()
         if not stripped or not stripped.endswith((";", "*/")):
             continue

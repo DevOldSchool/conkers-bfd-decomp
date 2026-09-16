@@ -685,7 +685,7 @@ def generate_with_call_context(command: list[str], assembly: str, symbol: str,
     evidence_path.write_text(json.dumps({"symbol": symbol, "profile": profile,
         "declarations": recovery.declarations, "evidence": recovery.evidence,
         "source_context_fallback": context_fallback,
-        "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly)}, indent=2) + "\n")
+        "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly, profile=profile)}, indent=2) + "\n")
     return starter, result.returncode
 
 

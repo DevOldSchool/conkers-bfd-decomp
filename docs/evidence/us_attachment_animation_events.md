@@ -92,3 +92,55 @@ The local current report is
 `build/assets/models/batch/attachment47/constructors-bank09.json`. Focused
 parser checks cover relocation, stop boundaries, invalid/truncated inputs,
 cursor wrap, and the distinction between parent changes and attachments.
+
+
+## Expression and saved-state follow-up
+
+A fresh ROM audit closes the stored-expression shortcut. SHC Soldier's two
+normal blink tables both contain descriptor indices `[1, 10, 12]`. Its two
+stored expressions select `[1, 1]` and `[12, 12]`, with no action-program or
+other texture overrides. Descriptors 1/10/12 select flats 4200/4203/4201;
+each is 40 x 40 with 2,112 payload bytes and its palette at `0x640`.
+Neither normal blinking nor either stored expression supplies the attachment's
+32 x 32 layout with palette at `0x400`. Other 32 x 32 descriptors in the parent
+model do not establish a selection for this attachment.
+
+All 26 existing saved states were checked through the native attachment list:
+head `800C3EE0`, older link `+0x54`, newer link `+0x58`, model byte `+1`,
+parent ID byte `+0`, and texture halfwords `+0x18/+0x1A`. The audit validates
+bounds, cycles and reciprocal links. Parent IDs are resolved through the
+26 actor slots at `800CC2D0`, stride `0x32C`, following `15083E90`.
+No saved list contains attachment 47. States 18–23 contain SHC Soldier in
+slot 7 with blink codes zero and a null render pointer at `+0x1D4`; that is
+not an observed attachment submission. The finding is bounded saved-state
+absence, not proof that animation 24 or the attachment is unused.
+
+### Alternate submission capture
+
+The trace specification now covers the alternate per-parent submission write
+at `15035F60` in addition to ordinary write `15031870`, pairing both with
+outer renderer return `15031914`. `150311C4` branches on its fifth argument
+at `15031808`; the nonzero branch calls `15035D6C`. That helper filters
+12-byte draw records at `800C3F08` by kind 1 and matching parent ID, then
+submits selected attachment parts with each record's matrix.
+
+At the new hook, `$a1` is the attachment, `$t8` the selected list and `$s4`
+the call command address. The helper's 32-byte frame saved the outer parent
+`$s2` at stack `+0xC`. The outer renderer's saved command-buffer start is at
+inner stack `+0xD4` (outer `+0xB4`). These probes preserve the same pairing
+key as the outer return; the draw record is retained separately. The parser
+rejects mixed ordinary/alternate hooks in one invocation. Every selected call
+still requires a matching submitted graphics task, ROM list bytes, vertex
+positions and the matrix bound at that call. Repeated parts at distinct calls
+retain their separate matrices; repeated call addresses are rejected.
+
+The new path passes focused synthetic submission tests and its instructions
+are verified against the checksum-validated ROM. It has not received a positive
+live alternate-hook capture. Only saved state 10 contains matching kind-1 draw
+records, for other attachments; its previously failed debugger-prompt trace is
+not repeated unchanged. A fresh state exercising animation 24 and attachment
+47 is still needed to identify the preceding segment-6/7 writes and effective
+TLUT state. No material binding or gallery promotion follows from this audit.
+
+The reproducible audit and hashes are under
+`build/assets/models/reference/attachment47-inheritance-20260916/`.

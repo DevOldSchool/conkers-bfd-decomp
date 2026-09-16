@@ -1,6 +1,6 @@
 # Asset extraction roadmap
 
-Current US roadmap. Model inventory and validation checked **13 September 2026**.
+Current US roadmap. Model inventory and validation checked **16 September 2026**.
 This tracks what is supported and what remains to do; detailed byte and consumer
 evidence lives in the linked documents.
 
@@ -33,29 +33,29 @@ drawable geometry.
 | `01` | Rigged characters and animated props | 183 | 177 | 6 |
 | `03` | Direct object models | 77 | 68 | 9 |
 | `04` | Segmented level/model bundles | 765 | 341 | 424 |
-| `09` | Direct, relative-address, attachment and effect models | 462 | 277 | 185 |
-| **Total** | | **1,487** | **863** | **624** |
+| `09` | Direct, relative-address, attachment and effect models | 462 | 278 | 184 |
+| **Total** | | **1,487** | **864** | **623** |
 
 All remaining records are available in the **Extracted review** tab. Their current status is:
 
 | Review status | Records | Next action |
 | --- | ---: | --- |
-| Material blocked | 27 | Prove missing texture bindings, layouts or render state |
+| Material blocked | 26 | Prove missing texture bindings, layouts or render state |
 | Appearance blocked | 1 | Resolve stationary tank part visibility and colour state |
 | Reviewed fragments and variants | 594 | Identify useful standalone exports and inspect variants in scene or effect context |
 | No drawable faces | 2 | Preserve source records for completeness |
 
 Material-complete deferrals remain eligible for further standalone review. Missing
 combiner state is classified as unresolved, even when texture use is unknown.
-The **622 drawable review records** are not a count of missing characters or a
+The **621 drawable review records** are not a count of missing characters or a
 requirement to display every fragment. Published models can still need
 appearance fixes.
 
-The gallery at `build/assets/models/inspect/index.html` contains **1,505 entries**:
-**881 curated exports** and **624 extracted review records**. The curated set
-contains 863 standalone models and 18 static scene assemblies, split into
-**106 characters, ten collectables, 588 scene items and 177 parts/effects**.
-The assemblies expose **115 otherwise deferred components** in scene context;
+The gallery at `build/assets/models/inspect/index.html` contains **1,516 entries**:
+**893 curated exports** and **623 extracted review records**. The curated set
+contains 864 standalone models and 29 static scene assemblies, split into
+**106 characters, ten collectables, 600 scene items and 177 parts/effects**.
+The assemblies expose **169 otherwise deferred components** in scene context;
 they do not increase the extracted source-record inventory. Open the self-contained GLBs in Blender using
 Material Preview. Animation-free `*-bind.gltf` sources remain available for
 geometry diagnostics.
@@ -73,8 +73,8 @@ segments. The review notes identify **31 records with the same exported glTF
 presentation** as a curated entry and distinguish other similar props from
 proven matching exports. Runtime roles remain separate questions.
 
-Scenes **11, 23, 25–28, 30, 35, 41, 44, 46, 47, 49, 50, 53, 54, 67 and 68**
-combine 211 distinct ROM models in 310 instances using recovered loader slots
+Scenes **0, 2, 6, 11, 12, 14, 23, 25–28, 30, 35, 36, 40, 41, 44–47, 49–54, 65, 67 and 68**
+combine 356 distinct ROM models in 589 instances using recovered loader slots
 and placement records.
 They include lava chambers, walkways, industrial shafts, a tiled room and a
 mossy chamber. Deferred source notes link back to their assembled scene context.
@@ -85,7 +85,29 @@ whose appearance needs runtime state; each omission is recorded.
 Scenes 28 and 41 omit colocated debris pending fracture/visibility state; scenes
 49 and 53 use explicit surface alternatives. Candidate assemblies 57 and 60
 remain unpublished because detached elevated geometry needs visibility or
-placement investigation.
+placement investigation. Scene 45 selects the map easel instead of the colocated
+tower. Scene 65 combines the graveyard and water cavern, retaining textured
+surface 11 and omitting overlapping surface 15 and untextured corner panel 16.
+Scene 36 includes all recovered renderable placements in a circular stone arena.
+Scene 52 assembles the tiered industrial yard while omitting paired doors and
+isolated untextured surfaces. Matching placement matrices alone do not establish
+alternative geometry: its two door meshes extend in opposite local directions,
+so their complementary or conditional visibility remains unresolved.
+Scene 6 combines the spiral stone tower, meadow and ruins, selecting barrier
+segment 30 while omitting colocated parts 28/29 and untextured effects. Scene 14
+combines the fortified courtyard and bridges; its origin-positioned platform and
+four beams remain omitted pending runtime placement or visibility evidence.
+Scene 2 combines the lava caverns and stone structures with explicit surface
+variants, omitting repeated weights and unresolved fragments. Scene 12 combines
+the windmill clearing and wooden fixtures, retaining the animal head while
+omitting its colocated fragments.
+Scene 0 combines the cavern workshop and target fixtures, retaining grate 15
+instead of colocated untextured surface 13. Scene 18 remains held: its main
+room has prominent white surfaces whose effective appearance is unresolved,
+even after omitting secondary untextured surfaces and platform 03:0049:00.
+Candidate 10 is held for loose geometry below the floor; candidate 20 is held
+for detached elevated arch pieces. These require placement or conditional
+visibility evidence before publication.
 These are static inspection selections; native visibility, animation, lighting
 and fog remain unresolved. See [the assembly evidence](evidence/us_static_scene_assemblies.md)
 and [the reproducible selections](../config/model-scene-assemblies.json).
@@ -116,9 +138,13 @@ remain the ROM identities.
 - [x] Replay partial RGBA16 and split-bank RGBA32 LoadBlocks within a
   single callable list. Every sampled byte must come from a bounded ROM load;
   later tile definitions do not change earlier load destinations. CI8 uses the
-  selected trailing palette; RGBA8 without TLUT expands each byte into colour
+  selected trailing palette; CI4 can select a bank of a full 256-entry palette.
+  RGBA8 without TLUT expands each byte into colour
   and alpha. Attachments `09:0026`, `0027`, `0098`, `0107` and `0157` have
   complete texture coverage and are published with descriptive labels.
+  Blue hexagonal canister `09:0110:00` also has all 20 faces textured, using
+  retained flat-1552 indices and the flat-1553 palette. See
+  [the bounded replay evidence](evidence/us_partial_tmem_loads.md).
 - [x] Resolve the reviewed scene/object texture-animation table through its
   placement updater and renderer. Preserve all stored frame indices and decode
   every frame; show the first stored frame as an explicit inspection preset.
@@ -268,16 +294,27 @@ logs and the boundary between automated checks and visual approval. The current
 triage report is `build/assets/models/batch/report.json`; review decisions live
 in `config/model-batch-reviews.json`.
 
+Triage verifies each scene assembly set once per read phase and repeats the
+verification independently before returning the report. Each report needs two
+whole-set checks regardless of the number of published assemblies; component,
+selection and output changes still fail the final check.
+
 ### Next model work
 
-1. Resolve the **27 material-blocked records** using ROM consumer evidence.
+1. Resolve the **26 material-blocked records** using ROM consumer evidence.
    The constructor diagnosis identifies **seven bank-09 models with consistent
    texture decoding but missing renderer proof**. Follow their shared helpers,
    callback state and descriptor/placement paths as a group (entry 213 and
    entries 407–412). The bounded constant/table pass has no submission candidate
    for these seven; the bounded reverse-reference pass also found no sufficient
    consumer. Investigate unresolved indirect or runtime-selected consumers
-   instead of repeating the unchanged scan. The five short RGBA16 records
+   instead of repeating the unchanged scan. The indirect switch in `151D3480`
+   resolves to selectors 52, 77, 87, 88 and 12, not the seven target models;
+   the 26 saved object caches also contain none of their selectors. A bounded
+   live trace reaches nearby selectors 168–171 and one constructor/reference
+   write, but none of the targets. Obtain a gameplay trigger or fresh capture
+   that constructs selector 13 or 162–167, then follow its callback state to
+   submission with `config/model-trace-object-selectors.json`. The five short RGBA16 records
    request 4,096 bytes from 2,560-byte assets; four are exact copies of one
    surface. Their reviewed loaders do not convert the texture or repair the
    load commands. Reopen them only with a concrete conversion, command rewrite
@@ -293,20 +330,50 @@ in `config/model-batch-reviews.json`.
    attachment 47's SHC Soldier parent: animation 24 creates action 74, and
    animation 25 removes it. Its last eight faces need inherited segments 6/7;
    the parent's default 40 x 40 eyes do not match their 32 x 32 layout.
-   Follow the expression/texture state and segment lifetime for animation 24.
+   Normal blink states and both stored expressions also select 40 x 40 images;
+   none supplies the attachment layout. All 26 saved attachment lists lack entry
+   47. Obtain a fresh animation-24 submission to resolve segment lifetime and
+   effective TLUT state. The attachment trace covers both ordinary and alternate
+   per-parent submission writes; the new alternate hook still needs a positive
+   live capture.
    Attachments 165 and 185 have no references in this event protocol.
    Keep caller-selected variants explicit instead of inventing a default.
 2. Resolve the four unpublished drawable bank-01 records. Entry `0066` has
    white helmet/body/pack surfaces despite selecting the proven stationary
    renderer descriptor; investigate part visibility and colour state. Entries
-   `0154`, `0155` and `0162` use zero-alpha CI4 palettes whose effective alpha
-   and render modes remain unresolved. Do not force them opaque.
+   `0154`, `0155` and `0162` have 570 textured faces using zero-alpha CI4
+   palettes. The [ROM alpha audit](evidence/us_character_alpha_frontier.md)
+   proves opacity-dependent segment-8 selection: the full-opacity ordinary
+   path replaces combiner alpha with coverage, while the blending path does
+   not. Actual caller opacity, draw mode, part masks and colour state remain
+   unresolved. All three have concrete bank-0E spawn records in **scene 60**:
+   one each for 154/162 and seven for 155. All nine records have byte `+2 = 1`,
+   so the ordinary spawn routine skips them before distance checks. ROM script
+   **`[6,60,7]`** has type-2 descriptors selecting both 154 and 162; follow its
+   natural activation through `1501D348`, then capture submitted draws using
+   the existing character trace. Scripts 8–12 also select 162, and script 14
+   selects 154. None of scene 60's 16 populated scripts selects the seven 155
+   records through the reviewed initial type-2 route; later commands and its
+   player-selection route remain open. Five supplied scene-60 states contain
+   the exact spawn records but no active target actors or loaded primary tables;
+   slot 0 is inactive with no pending script. Recover the gameplay event that
+   requests script 7 before tracing: scene 60 lists bank-14 event programs
+   169–173, while its 120 bank-0C trigger records contain no direct script-start
+   class. Event-interpreter control flow remains the lead; do not repeat the
+   unchanged trigger or literal scans. The 26-state draw corpus
+   contains none of these IDs; do not replay it unchanged. The ordinary wrapper's mode-4 opacity
+   is capped at 254 and selects the blending table, while other modes still
+   depend on live actor state. Do not repeat the palette scan or force opacity.
+   Their 25 texture-independent colour faces
+   already do not count as missing textures and still need colour/K5 evidence.
 3. Assemble and identify the **594 reviewed fragments and variants** through
-   scene placements and effect consumers. The 18 scene assemblies already
-   expose 115 of these components in context. Extend the same explicit selection
-   process to other material-complete bundles, reviewing overlapping variants
-   and effect planes before publication. Promote a standalone fragment only when that
-   context makes it useful to inspect; avoid duplicate gallery entries.
+   scene placements and effect consumers. The 29 scene assemblies already
+   expose 169 of these components in context. Extend the same explicit selection
+   process to remaining material-complete bundles. Review dynamic object
+   placement and conditional visibility before adding omitted components or
+   reopening held scenes. Check overlapping variants and effect planes before
+   publication. Promote a standalone fragment only when that context makes it
+   useful to inspect; avoid duplicate gallery entries.
 4. Extend independent native comparisons for published characters and objects:
    vertex-load lighting, projection, dynamic materials, attachment state,
    secondary passes and distance-dependent filtering remain separate gates.

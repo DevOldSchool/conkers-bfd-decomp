@@ -1,6 +1,7 @@
 """Bounded call-context recovery for raw MIPS o32 wrappers.
 
-Existing C signatures take precedence. The raw fallback recognizes a single-call
+Allowed-source C signatures take precedence, followed by reviewed SDK aliases
+and unique project signatures. The raw fallback recognizes a single-call
 integer-register wrapper and a callee's contiguous argument-home spills. It is
 an ABI call-site view, not a claim about original typedefs or return types: a
 void declaration is used only for a wrapper whose decompiler discards the call
@@ -22,6 +23,9 @@ import declaration_facts
 WORD_TYPES = frozenset(('s32', 'u32', 'int', 'unsigned int', 'signed int'))
 SCALAR_TYPES = WORD_TYPES | {'void', 's8', 'u8', 's16', 'u16', 's64', 'u64', 'f32', 'f64', 'float', 'double'}
 ABI_MARKER = 'CONKER_ABI_DISCARDED_RETURN'
+SDK_ALIAS_MAP = 'config/game/us-sdk.ld'
+SDK_MEMORY_HEADER = 'lib/ultralib/include/compiler/ido/memory.h'
+SDK_ALIAS_INPUTS = (SDK_ALIAS_MAP, SDK_MEMORY_HEADER)
 
 
 def without_abi_declarations(text: str) -> str:
@@ -50,7 +54,10 @@ def c_type(text: str, *, parameter: bool = False) -> str | None:
             continue
         raw = ' '.join(parts).replace(' *', '*')
         base = raw.rstrip('*').strip()
-        if base in SCALAR_TYPES and raw[len(base):] in ('', '*', '**'):
+        pointers = raw[len(base):]
+        supported = base in SCALAR_TYPES or (
+            base.startswith('const ') and base[6:] in SCALAR_TYPES and pointers in ('*', '**'))
+        if supported and pointers in ('', '*', '**'):
             return base + (' ' + raw[len(base):] if raw[len(base):] else '')
     return None
 
@@ -93,24 +100,90 @@ def source_signatures(text: str, wanted: set[str] | None = None) -> dict[str, se
     return found
 
 
+def sdk_alias_signatures(root: Path, wanted: set[str] | None = None, *,
+                         profile: str = 'us') -> dict[str, Signature]:
+    """Recover the reviewed memcpy alias from its US binding and SDK header.
+
+    This deliberately supports only memcpy. Other SDK names, data addresses,
+    expressions, ambiguous bindings and unavailable/changed header contracts
+    need separate review. No SDK typedef is imported into a game source file.
+    """
+    if profile != 'us':
+        return {}
+    try:
+        bindings = re.sub(r'/\*.*?\*/|//[^\n]*', '',
+                          (root / SDK_ALIAS_MAP).read_text(encoding='utf-8'), flags=re.S)
+        header = re.sub(r'/\*.*?\*/|//[^\n]*', '',
+                        (root / SDK_MEMORY_HEADER).read_text(encoding='utf-8'), flags=re.S)
+    except (OSError, UnicodeDecodeError):
+        return {}
+    addresses: dict[str, list[int | None]] = {}
+    # The map also contains SECTIONS, ASSERT and symbolic aliases. Only take
+    # literal top-level assignments; never evaluate those other linker forms.
+    items = candidate_syntax.tokens(bindings)
+    depth = 0
+    for i, token in enumerate(items):
+        if (depth == 0 and candidate_syntax.IDENTIFIER.fullmatch(token.text)
+                and i + 1 < len(items) and items[i + 1].text == '='):
+            end = i + 2
+            while end < len(items) and items[end].text not in (';', '{', '}'):
+                end += 1
+            value = None
+            if (end == i + 3 and end < len(items) and items[end].text == ';'
+                    and re.fullmatch(r'0x[0-9A-Fa-f]{1,8}', items[i + 2].text)):
+                value = int(items[i + 2].text, 16)
+            addresses.setdefault(token.text, []).append(value)
+        depth += (token.text == '{') - (token.text == '}')
+    targets = addresses.get('memcpy', [])
+    if len(targets) != 1 or targets[0] is None:
+        return {}
+    address = targets[0]
+    if address == 0 or address % 4 or sum(values.count(address) for values in addresses.values()) != 1:
+        return {}
+    symbol = f'func_{address:08X}'
+    if wanted is not None and symbol not in wanted:
+        return {}
+    header = declaration_facts.active_text(header)
+    # IDO's SDK header defines size_t as unsigned int. Keep the canonical
+    # project's u32 spelling, and preserve const on memcpy's source pointer.
+    typedefs = re.findall(r'\btypedef\s+([^;{}]+?)\s+size_t\s*;', header)
+    if [t.strip() for t in typedefs] not in (['unsigned'], ['unsigned int']):
+        return {}
+    header = re.sub(r'\bsize_t\b', 'u32', header)
+    signature = Signature('void *', ('void *', 'const void *', 'u32'))
+    if source_signatures(header, {'memcpy'}).get('memcpy') != {signature}:
+        return {}
+    return {symbol: signature}
+
+
+def sdk_alias_evidence(symbol: str) -> str:
+    return (f'verified SDK alias memcpy=0x{symbol.removeprefix("func_")} in {SDK_ALIAS_MAP}; '
+            f'prototype and unsigned size_t in {SDK_MEMORY_HEADER}')
+
+
 def signature_index(root: Path, wanted: set[str] | None = None, *,
-                    source: str = "") -> dict[str, Signature | None]:
+                    source: str = "", profile: str = 'us') -> dict[str, Signature | None]:
     """Prefer the allowed source's unique signature over unrelated call views.
 
     A conflicting or unsupported local declaration blocks global/raw fallback.
-    Without local evidence, the complete project must still agree.
+    Without local evidence, a reviewed SDK alias precedes unrelated call views;
+    otherwise the complete project must still agree.
     """
     local = source_signatures(source, wanted) if source else {}
     if wanted is not None and wanted <= local.keys():
         return {name: next(iter(values)) if len(values) == 1 else None
                 for name, values in local.items()}
+    sdk = sdk_alias_signatures(root, wanted, profile=profile)
+    remaining = wanted - local.keys() - sdk.keys() if wanted is not None else None
     found: dict[str, set[Signature | None]] = {}
-    for path in declaration_facts.evidence_files(root):
+    paths = declaration_facts.evidence_files(root) if remaining is None or remaining else ()
+    for path in paths:
         text = path.read_text(encoding='utf-8')
-        if wanted is not None and not any(re.search(rf'\b{re.escape(s)}\b', text) for s in wanted):
+        if remaining is not None and not any(re.search(rf'\b{re.escape(s)}\b', text) for s in remaining):
             continue
-        for name, values in source_signatures(text, wanted).items():
+        for name, values in source_signatures(text, remaining).items():
             found.setdefault(name, set()).update(values)
+    found.update({name: {signature} for name, signature in sdk.items()})
     found.update(local)
     return {name: next(iter(values)) if len(values) == 1 else None for name, values in found.items()}
 
@@ -369,14 +442,16 @@ class Recovery:
 
 def recover(assembly: str, source: str, *, root: Path, profile: str = 'us', allow_raw: bool = False) -> Recovery:
     callees = direct_callees(assembly)
-    signatures = signature_index(root, callees, source=source) if callees else {}
+    signatures = signature_index(root, callees, source=source, profile=profile) if callees else {}
     local = source_signatures(source, callees) if source and callees else {}
+    sdk = sdk_alias_signatures(root, callees, profile=profile) if callees else {}
     declarations = []
     evidence = []
     for symbol, sig in sorted(signatures.items()):
         if sig is not None:
             declarations.append(sig.declaration(symbol))
-            origin = 'unique active declaration in the allowed source' if symbol in local else 'unique active project prototype'
+            origin = ('unique active declaration in the allowed source' if symbol in local else
+                      sdk_alias_evidence(symbol) if symbol in sdk else 'unique active project prototype')
             evidence.append(f'{symbol}: {origin}')
     if allow_raw and profile == 'us':
         wrapper = wrapper_call(assembly)
@@ -400,16 +475,17 @@ def discarded_call(starter: str, symbol: str, callee: str) -> bool:
 
 
 def dependency_digest(root: Path, assembly: str,
-                      prototypes: dict[str, Signature | None] | None = None) -> str:
+                      prototypes: dict[str, Signature | None] | None = None, *,
+                      profile: str = 'us') -> str:
     digest = hashlib.sha256()
     callees = direct_callees(assembly)
     if prototypes is None:
-        prototypes = signature_index(root, callees) if callees else {}
+        prototypes = signature_index(root, callees, profile=profile) if callees else {}
     for symbol in sorted(callees):
         digest.update(symbol.encode())
         signature = prototypes.get(symbol)
         digest.update((signature.declaration(symbol) if signature else
                        '<ambiguous>' if symbol in prototypes else '<undeclared>').encode())
-        path = raw_callee_path(root, symbol)
+        path = raw_callee_path(root, symbol, profile)
         digest.update(path.read_bytes() if path else b'<no-validated-callee>')
     return digest.hexdigest()

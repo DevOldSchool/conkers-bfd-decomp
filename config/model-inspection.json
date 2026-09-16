@@ -1221,7 +1221,7 @@
     },
     {
       "name": "character-bank01-0120-rom",
-      "label": "Wasp Larva — ROM bank 01 / 0120",
+      "label": "Wasp Larva \u2014 ROM bank 01 / 0120",
       "render_case": "character-bank01-0120-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 4 animation Actions. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
@@ -1231,7 +1231,7 @@
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "Wasp Larva — N64 appearance",
+        "reference_label": "Wasp Larva \u2014 N64 appearance",
         "reference_url": "https://conker.fandom.com/wiki/Wasp_Larvae"
       }
     },
@@ -1323,7 +1323,7 @@
     },
     {
       "name": "character-bank01-0142-rom",
-      "label": "The Grotesque (Gargoyle) — ROM bank 01 / 0142",
+      "label": "The Grotesque (Gargoyle) \u2014 ROM bank 01 / 0142",
       "render_case": "character-bank01-0142-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 20 animation Actions. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
@@ -1334,13 +1334,13 @@
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "The Grotesque (Gargoyle) — N64 appearance",
+        "reference_label": "The Grotesque (Gargoyle) \u2014 N64 appearance",
         "reference_url": "https://conker.fandom.com/wiki/The_Grotesque"
       }
     },
     {
       "name": "character-bank01-0147-rom",
-      "label": "Sweet Corn — ROM bank 01 / 0147",
+      "label": "Sweet Corn \u2014 ROM bank 01 / 0147",
       "render_case": "character-bank01-0147-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 14 animation Actions. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
@@ -1350,7 +1350,7 @@
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "Sweet Corn — N64 appearance",
+        "reference_label": "Sweet Corn \u2014 N64 appearance",
         "reference_url": "https://conker.fandom.com/wiki/Sweet_Corn"
       }
     },
@@ -2229,7 +2229,7 @@
     },
     {
       "name": "character-bank01-0049-rom",
-      "label": "Monk Gobling — ROM bank 01 / 0049",
+      "label": "Monk Gobling \u2014 ROM bank 01 / 0049",
       "render_case": "character-bank01-0049-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 13 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
@@ -2239,7 +2239,7 @@
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "Monk Gobling — N64 appearance",
+        "reference_label": "Monk Gobling \u2014 N64 appearance",
         "reference_url": "https://conker.fandom.com/wiki/Monk_Gobling"
       }
     },
@@ -2731,7 +2731,7 @@
     },
     {
       "name": "character-bank01-0181-rom",
-      "label": "Bartender — ROM bank 01 / 0181",
+      "label": "Bartender \u2014 ROM bank 01 / 0181",
       "render_case": "character-bank01-0181-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 56 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
@@ -2741,7 +2741,7 @@
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "Bartender — N64 appearance",
+        "reference_label": "Bartender \u2014 N64 appearance",
         "reference_url": "https://conker.fandom.com/wiki/Bartender"
       }
     },
@@ -6984,6 +6984,150 @@
         "bank04 0035",
         "scene assembly"
       ]
+    },
+    {
+      "name": "scene-45-assembly-rom",
+      "label": "Fortified courtyards and grassy passage \u2014 static ROM scene 45",
+      "render_case": "scene-45-assembly-rom",
+      "note": "25 ROM model components in 41 instances, using recovered initial slots and placement records. Selects the map easel in segment 12; the colocated tower in segment 13 and runtime effect planes are omitted. Collision-only initial slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 45",
+        "bank04 0045",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-65-assembly-rom",
+      "label": "Graveyard and water cavern \u2014 static ROM scene 65",
+      "render_case": "scene-65-assembly-rom",
+      "note": "16 ROM model components in 21 instances, using recovered initial slots and placement records. Selects textured surface 11; overlapping surface 15, untextured corner panel 16 and runtime effect planes are omitted. Collision-only initial slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 65",
+        "bank04 0065",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-36-assembly-rom",
+      "label": "Circular stone arena \u2014 static ROM scene 36",
+      "render_case": "scene-36-assembly-rom",
+      "note": "9 ROM model components in 35 instances, using recovered initial slots and placement records. All recovered renderable initial slots and placements are included. Collision-only initial slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 36",
+        "bank04 0036",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-52-assembly-rom",
+      "label": "Tiered industrial yard \u2014 static ROM scene 52",
+      "render_case": "scene-52-assembly-rom",
+      "note": "15 ROM model components in 21 instances, using recovered initial slots and placement records. Both paired door models (segments 4/5), isolated untextured surfaces (segments 8\u201310 and bank-03 model 113), and bank-03 effect model 51 are omitted. The door pairs share placement origins but extend in opposite local directions; complementary versus conditional visibility remains unresolved. Collision-only initial slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 52",
+        "bank04 0052",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-06-assembly-rom",
+      "label": "Spiral stone tower, meadow and ruins \u2014 static ROM scene 6",
+      "render_case": "scene-06-assembly-rom",
+      "note": "38 instances from 30 ROM model components. Retains barrier segment 30 and omits colocated parts 28/29; these are not proven identical, and their conditional visibility remains unresolved. Bank-03 untextured models 51 and 97 are omitted. Uses recovered initial slots and placement records; collision-only slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 6",
+        "bank04 0006",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-14-assembly-rom",
+      "label": "Fortified courtyard, pipes and bridges \u2014 static ROM scene 14",
+      "render_case": "scene-14-assembly-rom",
+      "note": "17 instances from 13 ROM model components. Omits platform segment 6 and four identical beam placements from segment 7 at the origin, pending runtime placement or visibility evidence. Bank-03 effect model 51 is omitted. Uses recovered initial slots and placement records; collision-only slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 14",
+        "bank04 0014",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-02-assembly-rom",
+      "label": "Lava caverns and stone structures \u2014 static ROM scene 2",
+      "render_case": "scene-02-assembly-rom",
+      "note": "39 instances from 24 ROM model components. Retains structure 10, green surface 11 and rock 14 instead of their colocated variants. The two door halves 17/18 extend in opposite local directions and both remain selected. Colocated panel/fragments 19\u201322, the repeated weight assembly 26, and untextured surfaces 33\u201337 are omitted pending runtime placement, visibility or appearance evidence. Bank-03 effect model 51 is omitted. Uses recovered initial slots and placement records; collision-only slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 2",
+        "bank04 0002",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-12-assembly-rom",
+      "label": "Windmill clearing and elevated platforms \u2014 static ROM scene 12",
+      "render_case": "scene-12-assembly-rom",
+      "note": "29 instances from 17 ROM model components. Retains complete animal head 25 and omits colocated fragments 14\u201324, including repeated placements, pending motion and conditional-visibility evidence. Bank-03 effect model 51 is omitted. Uses recovered initial slots and placement records; collision-only slot 3 is excluded. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 12",
+        "bank04 0012",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-00-assembly-rom",
+      "label": "Cavern workshop and target fixtures \u2014 static ROM scene 0",
+      "render_case": "scene-00-assembly-rom",
+      "note": "22 instances from 12 ROM model components. Retains grate 15 instead of colocated untextured surface 13. Bank-03 effect model 51 and collision-only initial slot 3 are omitted. Geometry, textures and transforms come from ROM. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 0",
+        "bank04 0000",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-40-assembly-rom",
+      "label": "Curved green channel and grille \u2014 static ROM scene 40",
+      "render_case": "scene-40-assembly-rom",
+      "note": "3 instances from 3 ROM model components. Bank-03 effect model 51 is omitted. Collision-only initial slot 3 is omitted. Geometry, textures and transforms come from ROM. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 40",
+        "bank04 0040",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "scene-51-assembly-rom",
+      "label": "Lava channels, bridges and placed props \u2014 static ROM scene 51",
+      "render_case": "scene-51-assembly-rom",
+      "note": "13 instances from 5 ROM model components. Includes four placements of scene component 4, three twin-canister props and four missile props. Collision-only initial slot 3 is omitted. Geometry, textures and transforms come from ROM. Descriptive visual label, not a recovered level name. Static inspection selection; native visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 51",
+        "bank04 0051",
+        "scene assembly"
+      ]
+    },
+    {
+      "name": "object-bank09-0110-rom",
+      "label": "Blue hexagonal canister attachment \u2014 ROM 09 / 0110",
+      "render_case": "object-bank09-0110-rom",
+      "category": "scene-items",
+      "aliases": [
+        "bank09 0110",
+        "blue canister",
+        "attachment"
+      ],
+      "note": "ROM model 09:0110:00, all 20 faces textured. Selected four-bit tile retains flat 1552 indices after the smaller flat 1553 load and selects bank zero of its 256-entry palette. Descriptive visual label, not a ROM-proven name. Parent placement, effective render pass, runtime colours and native appearance remain unresolved."
     }
   ],
   "extracted_review": {

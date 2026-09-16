@@ -146,6 +146,9 @@ def scan(root, config, reviews, investigations):
     if len(rom_hashes) != 1 or len({r['key'] for r in rows}) != len(rows):
         raise ValueError('duplicate model identities or mixed ROMs')
     published, manifests, assemblies = set(), {}, []
+    # A set contains every scene's components: recompose it once per read phase,
+    # not once for every gallery card. Never retain evidence across scans.
+    assembly_cache, assembly_sources = {}, []
     keys = {r["key"] for r in rows}
     for case in inspection['models']:
         path = Path(cases[case['render_case']]['source'])
@@ -159,10 +162,12 @@ def scan(root, config, reviews, investigations):
                 from scripts.model_scene_assemblies import inspection_evidence
             except ModuleNotFoundError:
                 from model_scene_assemblies import inspection_evidence
-            evidence = inspection_evidence((root / path).resolve())
+            source = (root / path).resolve()
+            evidence = inspection_evidence(source, verification_cache=assembly_cache)
             if manifest['normalized_sha1'] not in rom_hashes:
                 raise ValueError(f'assembly belongs to another ROM: {path}')
             assemblies.append({'name': case['name'], 'scene_index': evidence['scene_index']})
+            assembly_sources.append((source, evidence))
             continue
         record = next((r for r in manifest['models'] if path.name in
                        (Path(r['gltf_file']).name, Path(r.get('bind_gltf_file') or '').name)), None)
@@ -192,6 +197,12 @@ def scan(root, config, reviews, investigations):
                        'fingerprint': fingerprint, 'status': 'deferred' if held else 'investigate',
                        'reason': previous['reason'] if previous else None})
     groups.sort(key=lambda r: (r['status'] == 'deferred', -r['model_count'], -r['affected_faces'], r['blocker']))
+    # Independent final phase catches component, selection and output changes
+    # after the first card was checked, including changes without a new manifest.
+    assembly_cache = {}
+    for source, evidence in assembly_sources:
+        if inspection_evidence(source, verification_cache=assembly_cache) != evidence:
+            raise ValueError('scene assembly changed during batch scan')
     return {'schema_version': 1, 'normalized_sha1': next(iter(rom_hashes)),
             'published_scene_assemblies': assemblies,
             'counts': dict(Counter(r['status'] for r in rows)), 'models': rows, 'groups': groups,
