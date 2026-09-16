@@ -64162,17 +64162,16 @@
       "symbol": "func_151150B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 110,
-        "reason": "Re-evaluated the prior candidate against the current source unit: integer scaling and control flow remain exact, but finish is CURRENT (110) with FPU temporary allocation differences across the main angle update and wrap branches; no safe bounded source change was attempted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151150BC",
           "vram": "0x151150BC"
         }
@@ -64181,17 +64180,16 @@
       "symbol": "func_151150BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511515C",
           "vram": "0x1511515C"
         }
@@ -64200,17 +64198,16 @@
       "symbol": "func_1511515C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151151FC",
           "vram": "0x151151FC"
         }
@@ -80605,17 +80602,16 @@
       "symbol": "func_1515C0B8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "CURRENT 30 after three source-only variants; recovered the two-live-argument callee ABI despite an inconsistent three-argument external declaration, state field 0x2F4, linked-node pointer at 0x10, and pointer output; diagnose reports register-only differences with no opcode, operand, or span differences",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515C0F8",
           "vram": "0x1515C0F8"
         }
@@ -80643,17 +80639,16 @@
       "symbol": "func_1515C158"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 25,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (25)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515C1A0",
           "vram": "0x1515C1A0"
         }
@@ -80662,17 +80657,16 @@
       "symbol": "func_1515C1A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 25,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (25)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515C244",
           "vram": "0x1515C244"
         }
