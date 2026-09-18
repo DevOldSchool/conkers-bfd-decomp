@@ -474,7 +474,7 @@ verify_and_record_match() {
         return 3
     fi
     diff_status=0
-    run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match || diff_status=$?
+    run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match "$@" || diff_status=$?
     if [[ "$diff_status" -ne 0 ]]; then
         return "$diff_status"
     fi
@@ -634,7 +634,7 @@ case "$command" in
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
         match_status=0
-        verify_and_record_match || match_status=$?
+        verify_and_record_match --compact-mismatch || match_status=$?
         if [[ "$match_status" -eq 1 ]]; then
             printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
             exit 1

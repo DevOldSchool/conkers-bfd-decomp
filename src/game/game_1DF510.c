@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B2060
  * - func_151B2100
- * - func_151B222C
  * - func_151B229C
  * - func_151B22F4
  * - func_151B2348
@@ -72,7 +71,6 @@ void func_151B2060(void *arg0) {
 void func_151B220C() {
     func_151B222C();
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B222C CURRENT (100) */
 void func_151B222C(Game1DF510EffectOwner *arg0) {
     u8 i = 0;
     Game1DF510EffectSlots *slots = &arg0->slots;
@@ -91,8 +89,6 @@ void func_151B222C(Game1DF510EffectOwner *arg0) {
         func_1516972C(effect);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B222C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B222C.s")
 void func_1514933C(s32);
 void func_15149368(s32);
 

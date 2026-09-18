@@ -412,6 +412,9 @@ $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BU
 $(GAME_INTEGRATED_BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(GAME_PROFILE) --output $@ $<
+	$(if $(filter game_16EE20.o game_1C1150.o,$(notdir $@)),python3 scripts/split_game_rodata.py $@)
+
+$(filter %/game_16EE20.o %/game_1C1150.o,$(GAME_INTEGRATED_C_OBJS)): scripts/split_game_rodata.py
 
 $(GAME_INTEGRATED_NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@

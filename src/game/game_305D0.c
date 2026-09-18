@@ -17,6 +17,12 @@
 
 extern s32 D_800B0E30;
 extern s32 D_800B0E34;
+extern s32 D_800B0E00[];
+extern s32 D_800D3300[];
+void func_15001460(s32);
+void func_15001970(void);
+void func_15002754(void);
+void func_1510F800(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15003120 CURRENT (2105) */
 void func_15003120(s32 arg0, s32 arg1, s32 arg2) {
@@ -66,7 +72,6 @@ void func_15001A08(void);
 void func_15001BC8(s32, s16 *, s16 *);
 void func_15001CEC(s32);
 void func_150025FC(void);
-void func_1510F800(s32);
 extern s16 D_800DBE2A;
 extern s16 D_800DBE2C;
 extern s8 D_800DBE62;

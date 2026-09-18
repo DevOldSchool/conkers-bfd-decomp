@@ -30,7 +30,6 @@
  * - func_151E81EC
  * - func_151E8214
  * - func_151E82B8
- * - func_151E83E8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -418,7 +417,6 @@ void func_151E8214(void) {
 /* Call context: func_151E530C: unique active declaration in the allowed source */
 void func_1501D348(s32, s32, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E83E8 CURRENT (300) */
 void func_151E83E8(void) {
     if (D_800E0A80 == 0) {
         D_800E0A80 = -1;
@@ -437,5 +435,3 @@ void func_151E83E8(void) {
         func_1501C730(6, 0x21, 0, 0, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E83E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E83E8.s")

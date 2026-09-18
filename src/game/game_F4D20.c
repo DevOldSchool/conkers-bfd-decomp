@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C7870
  * - func_150C78E0
  * - func_150C7930
  * - func_150C7968
@@ -29,7 +28,6 @@ void func_1511650C(void *, s32, s32, f32);
 extern GameF4D20GlobalState *D_800D2E4C;
 extern void *D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7870 CURRENT (100) */
 void func_150C7870(void *arg0) {
     if (!(D_800D2E4C->field_A & 8)) {
         if (!(((GameF4D20Flags *)D_800DBEF4)->field_73 & 4)) {
@@ -39,8 +37,6 @@ void func_150C7870(void *arg0) {
         func_1511650C(arg0, 1, 0x43, 400.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C7870 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7870.s")
 /* Call context: func_151150BC: unique active project prototype */
 void func_151150BC(void);
 extern void * D_800DBEF4;

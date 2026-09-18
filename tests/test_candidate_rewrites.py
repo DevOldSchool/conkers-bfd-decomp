@@ -48,6 +48,11 @@ class CandidateRewriteTests(unittest.TestCase):
         candidate = rewrites.prepare_starter('void func_test(void) { callee(0U); }', 'func_test', source)
         self.assertEqual(('s32 callee(u8);',), candidate.declarations)
 
+    def test_repeats_existing_variadic_prototype_without_inferring_new_abi(self) -> None:
+        source = '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\nvoid callee(s32, ...);\n'
+        candidate = rewrites.prepare_starter('void func_test(void) { callee(0, 1, 2); }', 'func_test', source)
+        self.assertEqual(('void callee(s32, ...);',), candidate.declarations)
+
     def test_lowers_inferred_members_without_redefining_the_project_structure(self) -> None:
         source = 'typedef struct State { s32 known; } State;\nextern State *state;\n'
         starter = (
@@ -206,6 +211,43 @@ void func_test(void *arg0) {
         prepared = rewrites.prepare_starter(starter, "func_test", "")
 
         self.assertNotIn("(void *)", prepared.definition.split("{", 1)[1])
+
+    def test_casts_visible_global_operand_before_void_pointer_arithmetic(self) -> None:
+        function = "void f(s32 index) {\n    void *p;\n    p = D_base + (index * 0x9A0);\n}\n"
+        repaired, actions = rewrites.repair_compile_diagnostics(
+            function, ("Unacceptable operand of '+'.",), visible_source="extern void *D_base;\n"
+        )
+        self.assertIn("((u8 *)D_base) + (index * 0x9A0)", repaired)
+        self.assertTrue(any("before byte arithmetic" in action for action in actions))
+        self.assertEqual(repaired, rewrites.repair_compile_diagnostics(
+            repaired, ("Unacceptable operand of '+'.",), visible_source="extern void *D_base;\n"
+        )[0])
+
+    def test_does_not_guess_global_pointer_type_or_override_shadow(self) -> None:
+        function = "void f(s32 index) {\n    void *p;\n    p = D_base + index;\n}\n"
+        for context in ("", "extern s32 *D_base;", "/*\nextern void *D_base;\n*/",
+                        "#if 0\nextern void *D_base;\n#endif", "extern void *D_base;\nextern s32 D_base;"):
+            repaired, _ = rewrites.repair_compile_diagnostics(function, ("Unacceptable operand of '+'.",), visible_source=context)
+            self.assertNotIn("((u8 *)D_base)", repaired)
+        shadow = function.replace("s32 index", "s32 index, s32 *D_base")
+        repaired, _ = rewrites.repair_compile_diagnostics(shadow, ("Unacceptable operand of '+'.",), visible_source="extern void *D_base;")
+        self.assertNotIn("((u8 *)D_base)", repaired)
+
+    def test_casts_integer_address_call_argument_from_visible_prototype(self) -> None:
+        function = "void f(void) {\n    s32 temp;\n    void *packet;\n    copy(temp + 0x28, &packet, 0xC);\n}\n"
+        prototype = "void copy(void *, void *, s32);\n"
+        repaired, actions = rewrites.repair_compile_diagnostics(
+            function, ("illegal combination of pointer and integer",), visible_source=prototype
+        )
+        self.assertIn("copy((void *)(temp + 0x28), &packet, 0xC)", repaired)
+        self.assertIn("s32 temp;", repaired)
+        self.assertTrue(any("visible prototype" in action for action in actions))
+        self.assertEqual(repaired, rewrites.repair_compile_diagnostics(repaired,
+            ("illegal combination of pointer and integer",), visible_source=prototype)[0])
+        for context in ("", "#if 0\n" + prototype + "#endif", prototype + "void copy(s32, void *, s32);\n"):
+            self.assertEqual(function, rewrites.repair_compile_diagnostics(function,
+                ("illegal combination of pointer and integer",), visible_source=context)[0])
+        self.assertEqual(function, rewrites.repair_compile_diagnostics(function, (), visible_source=prototype)[0])
 
     def test_repairs_undefined_null_from_compiler_evidence(self) -> None:
         function = "void func_test(void *arg0) { if (arg0 == NULL) return; }\n"

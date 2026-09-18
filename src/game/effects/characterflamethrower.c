@@ -26,7 +26,6 @@
  * - func_15198D88
  * - func_151990AC
  * - func_151994B8
- * - func_15199980
  * - func_15199A10
  * - func_15199C34
  * - func_1519A9A4
@@ -839,7 +838,6 @@ void func_15199954(s32 arg0) {
     func_15199980(arg0);
     func_15147928(arg0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15199980 CURRENT (100) */
 void func_15199980(s32 arg0) {
     CharacterFlamethrowerState *var_v1;
     s8 temp_v0;
@@ -861,8 +859,6 @@ void func_15199980(s32 arg0) {
     }
     return;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15199980 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15199980.s")
 typedef struct CharacterFlamethrowerMovingPoint {
     CharacterFlamethrowerVec3 position;
     CharacterFlamethrowerVec3 velocity;

@@ -25,7 +25,6 @@
  * - func_151ED29C
  * - func_151ED430
  * - func_151ED90C
- * - func_151EDB58
  * - func_151EDBDC
  * - func_151EDF4C
  * - func_151EE184
@@ -196,7 +195,6 @@ s32 func_151EC178(s32 arg0) {
 void func_100043B4(void *, s32);
 void func_1503F7B8(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDB58 CURRENT (100) */
 void func_151EDB58(void *arg0) {
     s32 var_s0;
     void *var_s1;
@@ -215,8 +213,6 @@ void func_151EDB58(void *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151EDB58 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDB58.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDBDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDF4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")

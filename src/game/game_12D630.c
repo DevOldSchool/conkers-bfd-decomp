@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_selected_particle_resource_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151001B4
  * - func_15100230
  * - func_151002BC
  *
@@ -39,7 +38,6 @@ typedef struct {
 void func_10022EC0(void *, void *, s32); /* extern */
 u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151001B4 CURRENT (100) */
 void func_151001B4(Game12D630Actor *arg0) {
     Game12D630EffectPacket packet;
     u8 *effect;
@@ -52,8 +50,6 @@ void func_151001B4(Game12D630Actor *arg0) {
         func_10022EC0(effect + 0x28, &packet, sizeof(packet));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151001B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_151001B4.s")
 void func_15149514(s32, u8, s32, s32, s32);
 void func_1516972C(void *, void *);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15100230 CURRENT (148) */

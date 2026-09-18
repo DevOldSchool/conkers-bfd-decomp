@@ -19,7 +19,6 @@
  * - func_1502D54C
  * - func_1502D630
  * - func_1502D824
- * - func_1502DB20
  * - func_1502DB84
  * - func_1502DF38
  * - func_1502E4C4
@@ -87,7 +86,6 @@ u8 func_1502C3BC(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502D824.s")
 extern u16 D_800C4ED0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502DB20 CURRENT (200) */
 s32 func_1502DB20(s32 arg0) {
     switch (arg0) {
         case 0x3B:
@@ -109,8 +107,6 @@ s32 func_1502DB20(s32 arg0) {
             return D_800C4ED0[arg0];
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1502DB20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DB20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DB84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DF38.s")
 extern s8 D_800C3E90;

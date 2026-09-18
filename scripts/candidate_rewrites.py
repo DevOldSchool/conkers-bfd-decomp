@@ -251,8 +251,82 @@ def sanitize_pointer_integer_assignments(definition: str) -> str:
     return POINTER_INTEGER_ASSIGNMENT.sub(replace, definition)
 
 
+def repair_visible_address_uses(function: str, visible_source: str) -> tuple[str, list[str]]:
+    """Repair address expressions only from unambiguous visible declarations."""
+    from call_signatures import source_signatures
+
+    objects: dict[str, set[str]] = {}
+    for match in declaration_facts.file_scope_matches(declaration_facts.OBJECT_EVIDENCE, visible_source):
+        objects.setdefault(match.group("symbol"), set()).add(
+            declaration_facts.normalize_type(match.group("type")) + match.group("array")
+        )
+    clean = re.sub(r"/\*.*?\*/|//[^\n]*", "", function, flags=re.S)
+    # A target-local declaration shadows any file-scope object evidence.
+    local_types: dict[str, set[str]] = {}
+    for match in re.finditer(
+        rf"\b(?P<type>{declaration_facts.TYPE_TEXT})(?:\s+|(?<=\*))(?P<name>[A-Za-z_]\w*)\s*(?=[,;=)])", clean
+    ):
+        local_types.setdefault(match.group("name"), set()).add(
+            declaration_facts.normalize_type(match.group("type"))
+        )
+    locals_ = set(local_types)
+    void_globals = {name for name, types in objects.items() if types == {"void *"} and name not in locals_}
+    integers = {name for name, types in local_types.items() if len(types) == 1 and types <= {"s32", "u32"}}
+
+    def integer_expression(node: candidate_syntax.Expression) -> bool:
+        if node.kind == "atom":
+            value = function[node.start:node.end]
+            return value in integers or re.fullmatch(r"(?:0x[\da-fA-F]+|\d+)[uUlL]*", value) is not None
+        return node.kind in {"parentheses", "+", "-", "*", "<<", ">>", "&", "|", "^", "unary:-", "unary:+"} and all(
+            integer_expression(child) for child in node.children
+        )
+    signatures = source_signatures(visible_source)
+    roots = candidate_syntax.expression_roots(function)
+    items = candidate_syntax.tokens(function)
+    body = next((i for i, token in enumerate(items) if token.text == "{"), len(items))
+    # expression_roots covers assignments/conditions; include standalone calls.
+    for i in range(body + 1, len(items) - 1):
+        if items[i].text in signatures and items[i + 1].text == "(":
+            try:
+                roots.append(candidate_syntax.Parser(items, i).unary())
+            except (candidate_syntax.UnsupportedExpression, RecursionError):
+                continue
+    edits: dict[tuple[int, int], str] = {}
+    actions: list[str] = []
+    for root in roots:
+        for node in candidate_syntax.walk(root):
+            if node.kind in ("+", "-"):
+                left = node.children[0]
+                name = function[left.start:left.end]
+                if left.kind == "atom" and name in void_globals and integer_expression(node.children[1]):
+                    edits[left.start, left.end] = f"((u8 *){name})"
+                    actions.append(f"cast visible void pointer {name} before byte arithmetic")
+            if node.kind != "postfix:(" or node.children[0].kind != "atom":
+                continue
+            callee = function[node.children[0].start:node.children[0].end]
+            choices = signatures.get(callee, set())
+            if len(choices) != 1 or None in choices:
+                continue
+            signature = next(iter(choices))
+            arguments = node.children[1:]
+            if len(arguments) != len(signature.arguments):
+                continue
+            for argument, expected in zip(arguments, signature.arguments):
+                if expected not in ("void *", "const void *"):
+                    continue
+                value = function[argument.start:argument.end]
+                address = re.fullmatch(r"([A-Za-z_]\w*)\s*[+-]\s*(?:0x[\da-fA-F]+|\d+)", value)
+                if address and address[1] in integers:
+                    edits[argument.start, argument.end] = f"({expected})({value})"
+                    actions.append(f"cast integer-backed address argument to {callee} using visible prototype")
+    # All supported edits are disjoint atoms or simple integer expressions.
+    for (start, end), replacement in sorted(edits.items(), reverse=True):
+        function = function[:start] + replacement + function[end:]
+    return function, actions
+
+
 def repair_compile_diagnostics(
-    function: str, messages: tuple[str, ...]
+    function: str, messages: tuple[str, ...], *, visible_source: str = ""
 ) -> tuple[str, tuple[str, ...]]:
     """Apply bounded, semantics-neutral repairs proven by compiler diagnostics."""
 
@@ -275,6 +349,9 @@ def repair_compile_diagnostics(
     )
     if not pointer_arithmetic:
         return repaired, tuple(actions)
+
+    repaired, visible_actions = repair_visible_address_uses(repaired, visible_source)
+    actions.extend(visible_actions)
 
     # A local end pointer can be inferred as s32 by m2c. Preserve the existing
     # pointer arithmetic (including its scale); fix only the destination type.

@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import importlib.util
+import json
 import os
 import subprocess
 import sys
 import tempfile
 import unittest
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 from pathlib import Path
 from unittest.mock import patch
@@ -206,6 +207,241 @@ class DiffReferenceTests(unittest.TestCase):
         command = run.call_args.args[0]
         self.assertEqual("5", command[command.index("--max-lines") + 1])
         self.assertNotIn("--stop-at-ret", command)
+
+    def test_diagnose_mismatch_saves_compact_evidence_in_one_pass(self) -> None:
+        row = {
+            "base": {"mnemonic": "nop", "text": [{"text": "0: nop"}]},
+        }
+        raw = json.dumps({"current_score": 100, "rows": [row] * 10})
+        output = StringIO()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            directory = Path(temporary_directory)
+            with (
+                patch.object(diff_helper.subprocess, "run", return_value=subprocess.CompletedProcess([], 0, raw, "")) as run,
+                redirect_stdout(output),
+            ):
+                result = diff_helper.run_diagnose_diff(Path("candidate.o"), Path("reference.o"), "func_test", directory, 40)
+            self.assertEqual(0, result)
+            run.assert_called_once()
+            self.assertEqual(raw, (directory / "func_test/mismatch.json").read_text())
+            self.assertEqual(10, (directory / "func_test/mismatch.txt").read_text().count("0: nop"))
+        self.assertIn("missing-or-extra: 10", output.getvalue())
+        self.assertIn("first 5 of 10", output.getvalue())
+        self.assertEqual(5, output.getvalue().count("0: nop"))
+
+    def test_diagnose_artifact_failure_blocks_preflight(self) -> None:
+        evidence = subprocess.CompletedProcess([], 0, '{"current_score": 100, "rows": []}', "")
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence),
+            patch.object(diff_helper, "print_compact_mismatch", side_effect=OSError("disk full")),
+            redirect_stderr(StringIO()),
+        ):
+            result = diff_helper.run_diagnose_diff(Path("candidate.o"), Path("reference.o"), "func_test", Path("unused"), 4)
+        self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+
+    def test_register_annotations_do_not_hide_other_differences(self) -> None:
+        for mnemonic, text, format_name, category in (
+            ("addiu", "4:    addiu t1,t1,2", "immediate", "operand_or_constant"),
+            ("addiu", "4:    addiu t1,t1,2", "rotation", "operand_or_constant"),
+            ("lw", "4:    lw t1,8(sp)", "stack", "opcode_or_control_flow"),
+            ("ori", "4:    ori t1,t1,1", "register", "opcode_or_control_flow"),
+        ):
+            with self.subTest(text=text, format=format_name):
+                row = {
+                    "key": "candidate",
+                    "base": {"mnemonic": "addiu", "text": [
+                        {"text": "0:    addiu t0,t0,1", "format": "register"},
+                    ]},
+                    "current": {"mnemonic": mnemonic, "text": [
+                        {"text": text, "format": format_name},
+                    ]},
+                }
+                self.assertEqual(category, diff_helper.diff_row_category(row))
+
+    def test_classifier_ignores_offsets_and_decorative_branch_rotation(self) -> None:
+        row = {
+            "key": "nop",
+            "base": {"mnemonic": "nop", "text": [
+                {"text": "0:    nop"},
+            ]},
+            "current": {"mnemonic": "nop", "text": [
+                {"text": "4: "}, {"text": "~>", "format": "rotation"}, {"text": " nop"},
+            ]},
+        }
+        self.assertIsNone(diff_helper.diff_row_category(row))
+        row["base"] = {"mnemonic": "or", "text": [{"text": "0:    or t0,t1,zero"}]}
+        row["current"] = {"mnemonic": "or", "text": [{"text": "4:    or t2,t3,zero"}]}
+        self.assertEqual("register_only", diff_helper.diff_row_category(row))
+
+    def test_relocated_relative_branch_uses_encoded_displacement(self) -> None:
+        # func_15053894: object location changes, branch encoding does not.
+        row = {
+            "base": {"mnemonic": "bnez", "line": 0x18, "branch": 0x28,
+                     "text": [{"text": "18: bnez at,28 "}, {"text": "~>", "format": "rotation"}]},
+            "current": {"mnemonic": "bnez", "line": 0x98, "branch": 0xA8,
+                        "text": [{"text": " 56 98: bnez at,a8 "}, {"text": "~>", "format": "rotation"}]},
+        }
+        self.assertIsNone(diff_helper.diff_row_category(row))
+        row["current"]["text"][0]["text"] = "98: bnez t0,a8 "
+        self.assertEqual("register_only", diff_helper.diff_row_category(row))
+        row["current"]["branch"] = 0xAC
+        row["current"]["text"][0]["text"] = "98: bnez t0,ac "
+        self.assertEqual("operand_or_constant", diff_helper.diff_row_category(row))
+
+    def test_branch_normalization_requires_consistent_metadata_and_relative_opcode(self) -> None:
+        for mnemonic, metadata in (("bnez", {}), ("bnez", {"line": 0x98, "branch": 0xAC}),
+                                   ("j", {"line": 0x98, "branch": 0xA8})):
+            row = {
+                "base": {"mnemonic": mnemonic, "line": 0x18, "branch": 0x28,
+                         "text": [{"text": f"18: {mnemonic} 28"}]},
+                "current": {"mnemonic": mnemonic, **metadata,
+                            "text": [{"text": f"98: {mnemonic} a8"}]},
+            }
+            with self.subTest(mnemonic=mnemonic, metadata=metadata):
+                self.assertEqual("operand_or_constant", diff_helper.diff_row_category(row))
+
+    def test_classifier_counts_stack_and_missing_rows(self) -> None:
+        base = {"mnemonic": "lw", "text": [{"text": "0: lw t0,4(sp)"}]}
+        current = {"mnemonic": "lw", "text": [{"text": "0: lw t1,8(sp)", "format": "rotation"}]}
+        counts = diff_helper.classify_diff_rows([
+            {"base": base, "current": current}, {"base": base}, {"current": current},
+            {"is_data_ref": True, "base": base},
+        ])
+        self.assertEqual(1, counts["operand_or_constant"])
+        self.assertEqual(2, counts["missing_or_extra"])
+        self.assertEqual(0, counts["register_only"])
+
+    def test_classifier_counts_marker_only_cell_as_missing_instruction(self) -> None:
+        # Row shape captured from the func_1507E73C pilot's pinned-differ JSON.
+        row = {
+            "key": None, "is_data_ref": False,
+            "base": {"text": [
+                {"text": "2c:", "format": "diff_remove"}, {"text": "    "},
+                {"text": "move    v0,v1", "format": "diff_remove"},
+            ], "mnemonic": "move", "line": 44},
+            "current": {"text": [
+                {"text": "<", "format": "diff_remove"}, {"text": "      "},
+            ]},
+        }
+        added = {
+            "key": "move", "base": {"text": [{"text": ">", "format": "diff_add"}]},
+            "current": row["base"],
+        }
+        for evidence in (row, added):
+            with self.subTest(evidence=evidence):
+                counts = diff_helper.classify_diff_rows([evidence])
+                self.assertEqual({
+                    "register_only": 0, "operand_or_constant": 0,
+                    "opcode_or_control_flow": 0, "missing_or_extra": 1,
+                }, counts)
+
+    def test_classifier_ignores_pinned_differ_source_line_prefixes(self) -> None:
+        row = {
+            "key": "addiu\tsp,sp,-0x18", "is_data_ref": False,
+            "base": {"text": [{"text": "0:    addiu   sp,sp,-0x18"}],
+                     "mnemonic": "addiu", "line": 0},
+            "current": {"text": [
+                {"text": " "}, {"text": "   48", "format": "source_line_num"},
+                {"text": " 88:    addiu   sp,sp,-0x18"},
+            ], "mnemonic": "addiu", "line": 136, "src_line": 48},
+        }
+        self.assertIsNone(diff_helper.diff_row_category(row))
+        row["current"]["text"] = [
+            {"text": "r   48", "format": "register"},
+            {"text": " 88:    addiu   sp,t0,-0x18", "format": "rotation"},
+        ]
+        self.assertEqual("register_only", diff_helper.diff_row_category(row))
+
+    def test_diagnosis_does_not_recommend_permutation_with_changed_operands(self) -> None:
+        output = StringIO()
+        with redirect_stdout(output):
+            diff_helper.print_diagnosis("func_test", 10, {
+                "register_only": 2, "operand_or_constant": 1,
+                "opcode_or_control_flow": 0, "missing_or_extra": 0,
+            })
+        self.assertNotIn("bounded declaration/lifetime permutation", output.getvalue())
+
+    def test_compact_mismatch_reuses_evidence_and_saves_full_details(self) -> None:
+        row = {
+            "key": "or",
+            "base": {"mnemonic": "or", "text": [{"text": "0:    or t0,t1,zero"}]},
+            "current": {"mnemonic": "or", "text": [{"text": "0:    or t2,t3,zero"}]},
+        }
+        raw = json.dumps({"current_score": 80, "rows": [row] * 20})
+        evidence = subprocess.CompletedProcess([], 0, raw, "")
+        output = StringIO()
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            directory = Path(temporary_directory)
+            with (
+                patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
+                patch.object(diff_helper, "run_asm_diff") as display,
+                redirect_stdout(output), redirect_stderr(StringIO()),
+            ):
+                result = diff_helper.run_required_asm_diff(
+                    Path("candidate.o"), Path("reference.o"), "func_test", directory, 80,
+                    compact_mismatch=True,
+                )
+            self.assertEqual(diff_helper.EXIT_MISMATCH, result)
+            run.assert_called_once()
+            display.assert_not_called()
+            command = run.call_args.args[0]
+            self.assertEqual("20", command[command.index("--max-lines") + 1])
+            self.assertNotIn("--stop-at-ret", command)
+            self.assertEqual(raw, (directory / "func_test/mismatch.json").read_text())
+            self.assertEqual(20, (directory / "func_test/mismatch.txt").read_text().count("or t0,t1,zero"))
+        text = output.getvalue()
+        self.assertIn("CURRENT (80)", text)
+        self.assertIn("register-only: 20", text)
+        self.assertIn("bounded declaration/lifetime permutation", text)
+        self.assertIn("first 5 of 20", text)
+        self.assertEqual(5, text.count("or t0,t1,zero"))
+        self.assertIn("full-diff:", text)
+        self.assertIn("diff-evidence:", text)
+
+    def test_compact_mismatch_rejects_malformed_diagnostics_without_rerunning(self) -> None:
+        for rows in (None, [None], [{"base": None}], [{"base": {"text": [1]}}]):
+            with self.subTest(rows=rows), tempfile.TemporaryDirectory() as temporary_directory:
+                evidence = subprocess.CompletedProcess([], 0, json.dumps({"current_score": 10, "rows": rows}), "")
+                with (
+                    patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
+                    patch.object(diff_helper, "run_asm_diff") as display,
+                    redirect_stderr(StringIO()),
+                ):
+                    result = diff_helper.run_required_asm_diff(
+                        Path("candidate.o"), Path("reference.o"), "func_test",
+                        Path(temporary_directory), 4, compact_mismatch=True,
+                    )
+                self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+                run.assert_called_once()
+                display.assert_not_called()
+
+    def test_compact_artifact_failure_blocks_match(self) -> None:
+        evidence = subprocess.CompletedProcess([], 0, '{"current_score": 10, "rows": []}', "")
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence),
+            patch.object(Path, "mkdir", side_effect=OSError("read-only")),
+            redirect_stderr(StringIO()),
+        ):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"), Path("reference.o"), "func_test", Path("unused"), 4,
+                compact_mismatch=True,
+            )
+        self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, result)
+
+    def test_compact_exact_match_does_not_write_mismatch_artifacts(self) -> None:
+        evidence = subprocess.CompletedProcess([], 0, '{"current_score": 0}', "")
+        with (
+            patch.object(diff_helper.subprocess, "run", return_value=evidence) as run,
+            patch.object(diff_helper, "print_compact_mismatch") as summarize,
+            redirect_stdout(StringIO()),
+        ):
+            result = diff_helper.run_required_asm_diff(
+                Path("candidate.o"), Path("reference.o"), "func_test", Path("unused"), 4,
+                compact_mismatch=True,
+            )
+        self.assertEqual(0, result)
+        run.assert_called_once()
+        summarize.assert_not_called()
 
     def test_rejects_invalid_json_evidence(self) -> None:
         with self.assertRaises(ValueError):

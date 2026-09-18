@@ -13,9 +13,7 @@
  * - func_150CFF10
  * - func_150D0034
  * - func_150D01A0
- * - func_150D02B4
  * - func_150D032C
- * - func_150D04C4
  * - func_150D0534
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -218,7 +216,6 @@ typedef struct {
     u8 pad6[2];
 } GameFD1D0ValuePacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D02B4 CURRENT (100) */
 void func_150D02B4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
     GameFD1D0Object *object;
     GameFD1D0ValuePacket packet;
@@ -230,10 +227,7 @@ void func_150D02B4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(object->field_48, &packet, sizeof(packet));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D02B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D02B4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D032C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D04C4 CURRENT (100) */
 void func_150D04C4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
     GameFD1D0SmallByteSlot slot;
     GameFD1D0Object *object;
@@ -244,6 +238,4 @@ void func_150D04C4(u8 arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
         func_10022EC0(object->field_48, &slot.value, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D04C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D04C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150D0534.s")

@@ -19,6 +19,24 @@ SPEC.loader.exec_module(facts)
 
 
 class DeclarationFactsTests(unittest.TestCase):
+    def test_later_variadic_prototype_is_repeated_before_call(self) -> None:
+        prototype = "void func_1516972C(s32 arg, ...);\n"
+        body = "void f(void) { func_1516972C(1, 2, 3); }"
+        declarations, _ = facts.later_function_declarations(body, prototype * 2, "")
+        self.assertEqual(["void func_1516972C(s32, ...);"], declarations)
+        self.assertEqual([], facts.later_function_declarations(body, prototype, prototype)[0])
+        # General cross-source signature inference must still reject varargs.
+        self.assertIsNone(facts.argument_types("s32, ..."))
+
+    def test_later_prototype_ignores_comments_disabled_and_local_declarations(self) -> None:
+        body = "void f(void) { callee(1); }"
+        for source in ("/*\nvoid callee(s32, ...);\n*/", "#if 0\nvoid callee(s32, ...);\n#endif",
+                       "void other(void) {\nvoid callee(s32, ...);\n}"):
+            with self.subTest(source=source):
+                self.assertEqual([], facts.later_function_declarations(body, source, "")[0])
+        with self.assertRaises(facts.DeclarationError):
+            facts.later_function_declarations(body, "void callee(s32, ...);\ns32 callee(s32);", "")
+
     def test_comment_only_prefix_does_not_supply_declarations_or_placeholders(self) -> None:
         prefix = (
             '/* Call context: func_copy: SDK binding; prototype evidence */\n'
@@ -174,6 +192,37 @@ class DeclarationFactsTests(unittest.TestCase):
             for source in (local + 'extern s32 D_value;\n', 'static u8 D_value;\n',
                            'extern Other D_value;\n'):
                 self.assertIsNone(facts.object_declaration('D_value', root=root, source=source))
+
+    def test_resolves_local_function_pointer_array_view(self) -> None:
+        source = "extern void (*D_dispatch[])(void *, void *);\n"
+        result = facts.object_declaration('D_dispatch', source=source)
+        self.assertIsNotNone(result)
+        self.assertEqual("extern void (*D_dispatch[])(void *, void *);", result.text)
+        self.assertEqual([], facts.resolve_required_declarations(
+            'extern M2C_UNK D_dispatch;\n', source)[0])
+
+    def test_resolves_zero_argument_function_pointer_array_view(self) -> None:
+        source = "extern void (*D_dispatch[])(void);\n"
+        result = facts.object_declaration('D_dispatch', source=source)
+        self.assertIsNotNone(result)
+        self.assertEqual("extern void (*D_dispatch[])(void);", result.text)
+        self.assertEqual([], facts.resolve_required_declarations(
+            'extern M2C_UNK D_dispatch;\n', source)[0])
+
+    def test_function_pointer_array_conflicts_remain_ambiguous(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / "src" / "objects.c"
+            source.parent.mkdir(parents=True)
+            source.write_text(
+                "extern void (*D_dispatch[])(void *, void *);\n"
+                "extern s32 D_dispatch;\n",
+                encoding="utf-8",
+            )
+            with self.assertRaises(facts.DeclarationError):
+                facts.resolve_required_declarations(
+                    'extern M2C_UNK D_dispatch;\n', '', root=root
+                )
 
     def test_extern_unknown_objects_use_unique_external_evidence(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:

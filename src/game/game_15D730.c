@@ -12,7 +12,6 @@
  * - func_15130A9C
  * - func_1513137C
  * - func_15131514
- * - func_1513164C
  * - func_15131828
  * - func_151319C4
  * - func_15131B7C
@@ -199,15 +198,12 @@ void func_15131514(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, Game15D730ColorSt
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15131514 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131514.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513164C CURRENT (100) */
 void func_1513164C(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3,
                    s16 *arg4, s16 *arg5, s16 *arg6, s16 *arg7,
                    Game15D730ColorState *arg8) {
     func_15131514(arg4, arg5, arg6, arg7, arg8);
     func_1513137C(arg0, arg1, arg2, arg3, arg8);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513164C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_1513164C.s")
 void func_151318E8(void *, f32);
 
 s32 func_151316AC(u8 *arg0, s32 arg1) {

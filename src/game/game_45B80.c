@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1501878C
- * - func_15018E88
  * - func_15018F80
  * - func_15019130
  * - func_15019464
@@ -91,7 +90,6 @@ void func_1517D7B0(s32 *, s32);
 extern u8 D_800BE616;
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15018E88 CURRENT (100) */
 void func_15018E88(s32 arg0, s16 arg1) {
     if (D_800BE616 == 0) {
         func_1517D7B0(&arg0, 1);
@@ -101,8 +99,6 @@ void func_15018E88(s32 arg0, s16 arg1) {
     func_15174AA4(arg0, D_800BE9F0, arg1);
     return;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15018E88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_45B80/func_15018E88.s")
 
 s32 func_15018F08(s32 arg0, s16 arg1) {
     s32 value;

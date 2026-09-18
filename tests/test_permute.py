@@ -7,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -145,6 +145,20 @@ class PermuteTests(unittest.TestCase):
             argv = ["permute.py", "us", "func_test", "--budget", str(len(scores))]
             if exhaustive:
                 argv.append("--exhaustive")
+            source = root / "test.c"
+            source.write_text(function)
+            values = iter(scores)
+            stdout, stderr = io.StringIO(), io.StringIO()
+
+            def score_with_settings(*args):
+                settings = args[3] / "diff_settings.py"
+                self.assertTrue(settings.is_file())
+                self.assertIn("config['arch'] = 'mips'", settings.read_text())
+                value = next(values)
+                if isinstance(value, Exception):
+                    raise value
+                return value
+
             with (patch.object(permute_helper, "ROOT", root),
                   patch.object(permute_helper, "work_item", return_value=({}, "func_test")),
                   patch.object(permute_helper, "active_candidate_content", return_value=(root / "test.c", function)),
@@ -152,10 +166,13 @@ class PermuteTests(unittest.TestCase):
                   patch.object(permute_helper.diff, "ensure_reference_function", return_value=root / "reference.s"),
                   patch.object(permute_helper.diff, "reference_object", return_value=root / "reference.o"),
                   patch.object(permute_helper.diff, "expected_function_size", return_value=4),
-                  patch.object(permute_helper, "score_candidate", side_effect=scores) as scorer,
-                  patch.object(sys, "argv", argv), redirect_stdout(io.StringIO())):
+                  patch.object(permute_helper, "score_candidate", side_effect=score_with_settings) as scorer,
+                  patch.object(sys, "argv", argv), redirect_stdout(stdout), redirect_stderr(stderr)):
                 status = permute_helper.main()
             output = root / "build/us/permute/func_test"
+            self.search_output = stdout.getvalue() + stderr.getvalue()
+            self.best_saved = (output / "best.c").exists()
+            self.assertEqual(function, source.read_text())
             return status, scorer.call_count, json.loads((output / "search-report.json").read_text())
 
     def test_plateau_stops_at_32_and_exhaustive_preserves_full_budget(self) -> None:
@@ -173,6 +190,62 @@ class PermuteTests(unittest.TestCase):
         status, calls, report = self.run_search([subprocess.CalledProcessError(1, "compiler")] * 80)
         self.assertEqual((1, 32, 32), (status, calls, report["invalid"]))
         self.assertIsNone(report["best_score"])
+        self.assertFalse(self.best_saved)
+        self.assertIn("no scored candidates", self.search_output)
+        self.assertNotIn("CURRENT (None)", self.search_output)
+        self.assertNotIn("saved to", self.search_output)
+
+    def test_scorer_failure_stops_search_and_preserves_measured_best(self) -> None:
+        status, calls, report = self.run_search([
+            10, permute_helper.PermuteError("asm-differ exited 1"), 0,
+        ])
+        self.assertEqual((2, 2), (status, calls))
+        self.assertEqual("tooling_failure", report["stop_reason"])
+        self.assertEqual("asm-differ exited 1", report["error"])
+        self.assertEqual(0, report["invalid"])
+        self.assertEqual(10, report["best_score"])
+        self.assertTrue(self.best_saved)
+
+    def test_first_scorer_failure_does_not_claim_a_best_candidate(self) -> None:
+        status, calls, report = self.run_search([
+            permute_helper.PermuteError("could not launch asm-differ"), 0,
+        ])
+        self.assertEqual((2, 1, 0), (status, calls, report["invalid"]))
+        self.assertEqual("tooling_failure", report["stop_reason"])
+        self.assertIsNone(report["best_score"])
+        self.assertFalse(self.best_saved)
+        self.assertNotIn("saved to", self.search_output)
+
+    def test_score_candidate_separates_compile_errors_from_scoring_errors(self) -> None:
+        compile_error = subprocess.CalledProcessError(1, "compiler")
+        outcomes = (
+            (compile_error, subprocess.CalledProcessError, None),
+            (subprocess.CompletedProcess([], 1, "", "Unable to find diff_settings.py"),
+             permute_helper.PermuteError, "Unable to find diff_settings.py"),
+            (subprocess.CompletedProcess([], 0, "not-json", ""),
+             permute_helper.PermuteError, "invalid JSON match evidence"),
+            (OSError("scorer missing"), permute_helper.PermuteError, None),
+        )
+        for outcome, error_type, log_text in outcomes:
+            with self.subTest(outcome=outcome), tempfile.TemporaryDirectory() as temporary:
+                directory = Path(temporary)
+                compile_failure = outcome is compile_error
+                results = [outcome] if compile_failure else [subprocess.CompletedProcess([], 0), outcome]
+                with (
+                    patch.object(permute_helper.subprocess, "run", side_effect=results) as run,
+                    self.assertRaises(error_type),
+                ):
+                    permute_helper.score_candidate(
+                        "us", "func_test", "void func_test(void) {}\n", directory,
+                        directory / "reference.o", 16,
+                    )
+                self.assertEqual(1 if compile_failure else 2, run.call_count)
+                if not compile_failure:
+                    command = run.call_args.args[0]
+                    self.assertFalse(run.call_args.kwargs["check"])
+                    self.assertEqual("4", command[command.index("--max-lines") + 1])
+                if log_text is not None:
+                    self.assertIn(log_text, (directory / "scoring-failure.log").read_text())
 
     def test_improved_best_is_persisted_before_a_later_process_failure(self) -> None:
         function = "void func_test(void) {\n    value = value | mask;\n}\n"

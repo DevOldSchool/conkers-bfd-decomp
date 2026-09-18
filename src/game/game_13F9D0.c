@@ -17,7 +17,6 @@
  * - func_15114188
  * - func_15114348
  * - func_1511473C
- * - func_1511490C
  * - func_151149AC
  * - func_15114A1C
  * - func_15114B94
@@ -183,7 +182,6 @@ void func_151148A8(Game13F9D0Transform *arg0, Game13F9D0TransformArgs *arg1) {
 }
 void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511490C CURRENT (100) */
 void func_1511490C(Game13F9D0Transform *arg0,
                    Game13F9D0MotionArgs *arg1) {
     Game13F9D0Matrix sp20;
@@ -195,8 +193,6 @@ void func_1511490C(Game13F9D0Transform *arg0,
     func_150A7CB0(&sp20, arg1->field_2C, arg1->field_30, arg1->field_34);
     func_150A7A48(&sp20, arg0, arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511490C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511490C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151149AC CURRENT (410) */
 s32 func_151149AC(s32 arg0) {
     s32 temp_t6;

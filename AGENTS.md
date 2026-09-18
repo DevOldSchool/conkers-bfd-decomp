@@ -1,209 +1,72 @@
-# Conker decompilation workflow
+# Conker decompilation agents
 
-Use `./conker` from the repository root. It is the supported interface for
-Docker, ROM setup, progress, m2c, and asm diffs.
+Use `./conker` from the repository root. US is the active target; EU/PAL does not gate work.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) once per task. Consult the
+[workflow reference](docs/decompilation-workflow.md) only for details needed by the task.
 
-## Optional runtime tracing
+## Function matching
 
-Use `./conker mupen` when static ROM or display-list evidence cannot establish
-which runtime consumer reaches an asset or code path. It launches the pinned,
-debugger-enabled Mupen64Plus interpreter and HLE RSP from the Docker toolchain,
-using the checksum-validated US ROM and an ephemeral container configuration.
-It requires an interactive terminal. Pass additional Mupen64Plus options
-directly, for example `./conker mupen --savestate build/trace.st`.
+1. Run `git status --short` once and preserve existing changes. Use an isolated worktree
+   unless the user directs work on their current branch; never share an implementation checkout.
+2. Run `./conker next --ready` once per selected item; it selects, prewarms Docker and emits
+   declarations, raw US call sites and an m2c starter. Request Docker access on the first
+   Docker-backed call when sandboxed. Do not separately run `next`, `m2c`, `doctor` or list the queue.
+3. Obey `allowed-edit`, `target-file-dirty`, `source-unit-state` and `post-match-action`.
+   Stop if overlapping edits have unclear ownership. Read/claim an issue only when recorded;
+   `issue: none recorded` means no GitHub lookup.
+4. Inspect the emitted context and allowed source. Before the first candidate, allow at most
+   one additional batched lookup in `src/`, `include/` or the emitted raw call sites,
+   unless a compiler error identifies a missing declaration.
+5. Use `types.h` aliases and existing structures; otherwise use a typed pointer for one aligned
+   field or a source-local padded structure. Never copy `M2C_FIELD` or `M2C_UNK` into source.
+   Keep `sb`/`sh` parameters as `s32` unless existing declarations prove otherwise. Add concrete
+   `required-declarations` not already available; resolve unknown types from project evidence.
+6. Replace only the target `GLOBAL_ASM` at its existing position, then immediately run
+   `./conker finish <id>`. Do not change assembly, inventory JSON, compiler flags or shared
+   tooling/headers to force a function match; never use inline or handwritten assembly bodies.
 
-The default graphics, audio, and input plugins are deliberately dummy plugins;
-the HLE RSP is real so startup code can advance beyond the dummy-RSP boundary.
-Record whether a result is a positive runtime hit or a bounded negative trace.
+## Follow the terminal action
 
-## Small-agent fast path
+- `STOP_MATCHED`: follow `post-match-action` (`stop` or `integrate`); continue only if the
+  requested group has more functions. Do not repeat `progress match` or progress rendering.
+- `FIX_COMPILE`: fix only the reported C/declaration problem, then rerun `finish`.
+- `CONTINUE_MISMATCH`: use the latest `finish` diagnosis. Run `diagnose-diff` only when evidence
+  is missing or stale. Diagnosis is a search hint, not proof of equivalent behavior.
+  If `register-only` is positive and every other count is zero, try `permute <id> --budget 32`
+  before manual variants when permitted. Honor task budgets and manual-only restrictions.
+  Otherwise read the saved full diff, make one targeted source revision and rerun `finish`.
+  Default limit: one manual revision and one permutation search per function; keep plateau
+  stopping, never repeat an unchanged search, and expand effort only when the task allows it.
+  Exhaustion means `candidate`. A focused zero followed by layout failure needs layout recovery.
+- `FIX_INTEGRATION`: fix source/layout before retrying a batch; never rerun an unchanged failure.
+- `BLOCKED_TOOLING`, unavailable required declarations or unapproved shared changes: stop and
+  report `blocked`. Terminal actions remain authoritative even if the surrounding process ends.
 
-For ordinary source-local function work, follow this exact loop:
+When moving past a candidate is authorized, use `defer <id> --reason <text>`; later use
+`resume <id>`. Use `reopen-match` for invalidated older match evidence. Never reproduce these
+transactions by hand. `permute` applies only exact results through transactional `finish`.
 
-1. Read `CONTRIBUTING.md` once at the start of the task, then run
-   `git status --short` once and record all pre-existing changes. Do not reread
-   the guide for consecutive functions in the same task unless it changed.
-2. `next --ready` is Docker-backed. In a managed sandbox, request Docker
-   permission on the first `./conker next --ready` call. Run it once; do not
-   separately run `next`, `m2c`, `doctor`, or print the work queue.
-3. Treat the emitted `allowed-edit`, `target-file-dirty`,
-   `source-unit-state`, and `post-match-action` fields as authoritative. If the
-   allowed source has unrelated or overlapping edits whose ownership is
-   unclear, stop and report `blocked` without changing it.
-4. If the output says `issue: none recorded`, do not access GitHub.
-5. Inspect only the declarations printed by `next --ready`, the allowed source,
-   existing declarations in `src/` and `include/`, and the emitted bounded raw
-   US call sites. Perform at most one additional batched lookup before the
-   first candidate unless a compiler error names a missing declaration.
-6. Never paste `M2C_FIELD` or `M2C_UNK` into project source. Use the canonical
-   scalar aliases from `types.h`, then prefer an existing project structure. If
-   none exists, use a typed pointer for one naturally aligned field or a
-   source-local partial structure with explicit padding for several fields.
-   Values stored with `sb` or `sh` remain `s32` parameters unless an existing declaration proves
-   otherwise. Do not change a shared header merely to type one function.
-   Copy every concrete C declaration under `required-declarations` that is not
-   already available in the allowed source or its headers before the first
-   `finish` attempt. Resolve `M2C_UNK` declaration hints from existing project
-   declarations instead of copying that placeholder type.
-7. Replace only the target `GLOBAL_ASM` pragma, at the same position, then run
-   `./conker finish <work-item-id>` immediately after the first reasonable C
-   candidate.
-8. On `AGENT_ACTION: STOP_MATCHED`, follow the previously emitted
-   `post-match-action`: stop when it is `stop`, or run integration when it is
-   `integrate`. Do not repeat `progress match` or progress rendering.
-9. On `AGENT_ACTION: FIX_COMPILE`, correct only the reported C/declaration
-   problem and rerun `finish`; do not start a diff watcher until the candidate
-   compiles.
-10. On `AGENT_ACTION: CONTINUE_MISMATCH`, try at most three source-only
-    expression or declaration variants. Use `diff --watch` only when both stdin
-    and stdout are attached to an interactive terminal; otherwise edit and
-    rerun `finish`. Never alter assembly, inventory JSON, compiler flags, or
-    shared tooling. `./conker diagnose-diff <work-item-id>` may classify a live
-    or deferred candidate without changing it. For a register-allocation-only
-    candidate, `./conker permute <work-item-id> --budget <variants>` may search
-    bounded declaration/lifetime variants; it changes source only for
-    `CURRENT (0)` and then runs `finish`. Exact permutation application is
-    transactional: a pre-match `finish` failure restores both source and
-    inventory. If still unmatched, report
-    `candidate`. When the user
-    explicitly authorizes moving past it, run
-    `./conker defer <work-item-id> --reason <text>`; this preserves the current C
-    under a disabled source block, restores the exact `GLOBAL_ASM` pragma, and
-    removes the item from automatic selection. Use
-    `./conker resume <work-item-id>` to restore that candidate before trying it
-    again.
-    If mixed-object layout later invalidates older focused evidence, use
-    `./conker reopen-match <work-item-id> --reason <text>` instead of editing
-    inventory JSON; it preserves the C body and restores `GLOBAL_ASM`.
-11. On `AGENT_ACTION: FIX_INTEGRATION`, correct the source/layout problem before
-    running any batch command again. On `AGENT_ACTION: BLOCKED_TOOLING`, or when
-    required declarations are unavailable or a match would require unapproved
-    shared changes, stop and report `blocked`. Terminal actions are
-    authoritative even when a surrounding tool or terminal session also ends.
-12. Do not run the batch gate for one source-local match. After the final
-    function in a requested group, run `./conker verify-batch <id> [<id>...]`
-    exactly once. Never rerun an unchanged failed batch; the command records a
-    clean integration failure and rejects an identical retry.
-    `AGENT_ACTION: BATCH_COMPLETE` is the successful terminal state.
+## Acceptance and scope
 
-Feedback budget: send one brief start update, then speak only for a failure,
-blocker, or command that runs longer than 60 seconds before the final report.
-Do not narrate successful selection, edits, or per-function matches. This keeps
-user feedback useful without adding avoidable agent/tool round trips.
+- Match only on authoritative US `CURRENT (0)` against an independent raw-assembly reference
+  over the full registered span, with layout, progress and whitespace gates passed.
+  `progress/functions.json` owns matches; `progress/source_units.json` owns integration state.
+  A matched function does not complete its source unit. Generated assembly is not match evidence.
+  Regenerate derived progress with `./conker progress render`; never edit generated reports by hand.
+- Follow `post-match-action` for integration; afterward run `progress check` and
+  `git -c core.whitespace=cr-at-eol diff --check` because integration changed repository state.
+- Run one clean `verify-batch <ids...>` after a requested group; success is `BATCH_COMPLETE`.
+  Do not batch every single source-local match. The clean gate is required before commit/PR
+  or handoff; follow CONTRIBUTING.md for shared changes and source-unit transitions.
+- Use `diff --watch` only with interactive stdin/stdout; exit it before authoritative `finish`.
+  Keep the warm container across functions; use `./conker stop` only for requested cleanup
+  or when the broader contribution is finished with no likely follow-up work.
+- Registration, regional aliases and reference caching: [workflow reference](docs/decompilation-workflow.md).
+  If static evidence is insufficient, use [runtime tracing](docs/runtime-tracing.md) and distinguish
+  positive runtime hits from bounded negative traces.
 
-Use this exact report shape:
+## Reporting
 
-```text
-Function/source:
-Changed files:
-Shared dependency required: yes/no
-US focused diff:
-Whitespace:
-Status: matched/candidate/blocked
-Attempts:
-```
-
-## Source of truth
-
-- `progress/functions.json` is the canonical instruction-match inventory.
-- `progress/source_units.json` tracks C-file boundaries and whether a unit is
-  safely integrated into the full-ROM link. A matched function alone does not
-  make its source unit complete.
-- `docs/progress.md` and `progress/summary.json` are generated; update them
-  with `./conker progress render`.
-- Generated `asm/` is ignored reference output, not a completion marker.
-- The generated game comparison map must remain raw assembly even when the
-  canonical game build maps that range to mixed or completed C. Never diff a C
-  candidate against an object built from the same C source.
-- The active target is US. A function is matched when its US entry has
-  zero-difference evidence. EU/PAL is a preserved future goal and does not gate
-  progress or completion.
-- Each present regional record holds its exact symbol and VRAM; the outer symbol
-  is the shared work-item ID used by the public m2c and diff commands.
-- A function record's optional `overlay` is `main` by default. `./conker m2c`
-  and `./conker diff` resolve main versus game-overlay work automatically.
-- `./conker game-index` proposes US game-overlay functions. It is a review aid
-  only. Use `./conker register-game` with an explicitly reviewed US function to
-  create a `raw_asm` work item without claiming a source-unit boundary. Use
-  `./conker register-main` for an explicitly reviewed main-executable function.
-  Use `./conker register-source-unit --overlay <main|game>` separately only
-  after recording reviewed boundary evidence and registering every function in
-  that range. The overlay defaults to `game` for compatibility.
-
-## Agent procedure
-
-1. Read `CONTRIBUTING.md`, then use `./conker next --ready` to select one item,
-   prewarm the repository toolchain, and obtain its inventory, source, generated
-   assembly, issue metadata, nearby declarations, and m2c C starter in one
-   bounded call. Read and claim a related issue only when that output records
-   one; `issue: none recorded` means do not query GitHub. Read any additional
-   applicable source/header declarations.
-2. Work in an isolated Git worktree. Do not share a checkout with another
-   implementation agent unless the user explicitly directs you to work on their
-   current local branch; in that case preserve all unrelated staged and unstaged
-   changes.
-3. Use the m2c output from `next --ready` only as a C starting point. The
-   standalone `./conker m2c <work-item-id>` command remains available when a
-   specific item is already selected; add `--profile <region>` only when
-   intentionally overriding the default US profile. Replace guessed types and
-   offsets with project declarations.
-4. Make small changes, then run `./conker finish <work-item-id>` to record an
-   exact match and perform the progress and whitespace gates in one call. In a
-   reviewed mixed unit,
-   replace only the target function's generated `GLOBAL_ASM` pragma with C at
-   the same position. Do not edit target assembly, hand-write assembly bodies,
-   or add inline asm.
-   On a mismatch, `finish` prints the normal focused diff and leaves the
-   inventory unchanged. On `CURRENT (0)`, the same compilation records the match
-   and regenerates progress before checking generated output and whitespace; do
-   not repeat it with `progress match`.
-   Use `./conker diff --watch <work-item-id>` for the persistent edit loop when
-   interactive terminal access is available, then exit the watcher and run
-   `finish` once for authoritative evidence and the per-function gate.
-5. After `finish` reports and records `CURRENT (0)`, do not edit the
-   inventory JSON manually. A reviewed boundary may integrate immediately as
-   mixed C/ASM; run integration again to move it to `src/game/done/` only after
-   every function matches. If integration runs after `finish`, rerun the progress
-   and whitespace checks because integration changes repository state.
-
-## Fast tool usage
-
-- Batch independent read-only discovery commands into one tool call. Use
-  `next --ready` and `finish` instead of separate selection/m2c and
-  diff/progress/whitespace calls. Do not
-  print the full work queue when selecting one item, scan broad generated trees,
-  or repeat local context already emitted by `next --ready`.
-- Docker-backed commands are `doctor`, `build`, `m2c` on a cold host cache,
-  `diff`, `progress match`, `progress integrate`, and game build/reference
-  commands. In a managed sandbox that cannot access the Docker socket, request
-  the required Docker permission on the first such command instead of first
-  running a known-to-fail sandboxed attempt.
-- Keep the repository-scoped warm container alive across consecutive functions
-  and follow-up agent turns. Do not run `./conker stop` merely because one
-  function finished; use it only when the user requests cleanup or the broader
-  contribution is finished with no likely follow-up work.
-- `./conker progress match <work-item-id>` and `diff --record` remain
-  compatibility paths for automated or focused callers. New agent work should
-  use `finish` so a successful focused diff is compiled once and the remaining
-  per-function gates share the same tool call.
-- Follow the per-function gate in `CONTRIBUTING.md`; do not run full builds or
-  the full test suite after a small source-local match unless shared tooling,
-  headers, configuration, or source-unit integration changed.
-
-Every agent report must state the function/source, changed files, shared
-dependency requirement, US build/diff result, whitespace result, and status
-(`matched`, `candidate`, or `blocked`).
-
-`m2c` and `diff` resolve the registered overlay automatically. For game work,
-`m2c` first reuses existing ROM-derived assembly under
-`reference/game/<profile>/asm/`, then a validated raw per-function block under
-`asm/nonmatchings/`; it prepares the full game reference only when neither is
-available. They do not run `clean` or refresh `asm/<profile>/`.
-Run `./conker build --all` separately when checking the complete raw baselines.
-
-The legacy game-overlay aliases remain available for compatibility:
-
-```sh
-./conker game-m2c <work-item-id> > /tmp/<work-item-id>.c
-./conker game-diff <work-item-id>
-```
+Give one brief start update; then report failures, blockers or commands exceeding 60 seconds.
+For function work, report: function/source; changed files; shared dependency required (yes/no);
+US focused diff; whitespace; status (`matched`/`candidate`/`blocked`); attempts.

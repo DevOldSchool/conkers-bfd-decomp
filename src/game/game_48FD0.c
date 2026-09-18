@@ -67,14 +67,15 @@ void func_1501C0F0(u8 arg0, f32 arg1, f32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501C0F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_48FD0/func_1501C0F0.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C17C CURRENT (205) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C17C CURRENT (100) */
 void func_1501C17C(s32 arg0) {
-    u8 temp_v0;
 
     arg0 = arg0 & 0xFF;
-    temp_v0 = D_80084060[arg0];
+    {
+        u8 temp_v0 = D_80084060[arg0];
     if ((s32)temp_v0 < 4) {
         D_800BE93C[temp_v0] = 0;
+    }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501C17C */

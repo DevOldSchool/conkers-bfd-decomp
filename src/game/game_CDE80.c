@@ -28,7 +28,6 @@
  * - func_150A3194
  * - func_150A32B4
  * - func_150A3398
- * - func_150A3444
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -253,7 +252,6 @@ void func_150A3398(s32 arg0, s32 arg1, s8 arg2, s32 arg3, s32 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A3398 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3398.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A3444 CURRENT (100) */
 void func_150A3444(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
     s32 offset;
 
@@ -262,5 +260,3 @@ void func_150A3444(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
     *(s16 *)(D_800D3098 + offset + 2) = arg2;
     *(s16 *)(D_800D3098 + offset + 4) = arg3;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150A3444 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3444.s")

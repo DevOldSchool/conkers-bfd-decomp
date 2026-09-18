@@ -2770,7 +2770,7 @@
         "us": {
           "end": "0x16170",
           "start": "0x15F40",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_433F0.c"
@@ -17484,7 +17484,7 @@
         "us": {
           "end": "0xF34A0",
           "start": "0xF33B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_120860.c"

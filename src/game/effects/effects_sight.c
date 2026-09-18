@@ -18,7 +18,6 @@
  * - func_151C95D8
  * - func_151C96DC
  * - func_151C9740
- * - func_151C9AC0
  * - func_151C9B30
  * - func_151C9BA0
  * - func_151C9DE8
@@ -168,7 +167,6 @@ typedef struct EffectsSightActor {
 void func_1504715C(EffectsSightTransform *, EffectsSightActor *);
 void func_151ABE40(EffectsSightVec3f *, EffectsSightTransform *, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9AC0 CURRENT (100) */
 void func_151C9AC0(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
     EffectsSightVec3f position;
     EffectsSightTransform transform;
@@ -179,8 +177,6 @@ void func_151C9AC0(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
     func_1504715C(&transform, arg0);
     func_151ABE40(&position, &transform, 2, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C9AC0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9AC0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9B30 CURRENT (100) */
 s32 func_151C9B30(void *arg0) {
     s32 var_v0;

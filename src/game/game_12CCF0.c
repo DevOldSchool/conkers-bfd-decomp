@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FF840
- * - func_150FFB6C
- * - func_150FFBDC
  * - func_150FFD84
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -39,7 +37,6 @@ typedef struct Game12CCF0Actor {
 s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FFB6C CURRENT (100) */
 void func_150FFB6C(Game12CCF0Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32 arg3) {
     s32 actor_index;
     u16 actor_id;
@@ -49,9 +46,6 @@ void func_150FFB6C(Game12CCF0Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32
     func_1505D1C4(arg0->x, arg0->y, arg0->z, arg3 | 0x60000,
                   actor_index, actor_id, 0, (s32)arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FFB6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFB6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FFBDC CURRENT (100) */
 void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {
     s32 *sp1C;
     s32 sp18;
@@ -61,8 +55,6 @@ void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {
     func_15145EA4((s32 *) &sp1C, &sp18,
                   arg0->field1D4 + (D_80088BB0 << 6), 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FFBDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFBDC.s")
 u32 func_150ADA20(void *);
 void func_151D8868(s8 *, s32, s32, s32);
 

@@ -29,6 +29,13 @@ OBJECT_EVIDENCE = re.compile(
     rf"(?m)^\s*(?P<storage>extern\s+|static\s+)?(?P<type>{TYPE_TEXT})(?:\s+|(?<=\*))"
     r"(?P<symbol>[A-Za-z_]\w*)\s*(?P<array>(?:\[[^\]\n]*\]\s*)*)(?:;|=)"
 )
+FUNCTION_POINTER_OBJECT_EVIDENCE = re.compile(
+    rf"(?m)^\s*(?P<storage>extern\s+|static\s+)?"
+    rf"(?P<return>{TYPE_TEXT})\s*\(\s*\*\s*"
+    r"(?P<symbol>[A-Za-z_]\w*)\s*"
+    r"(?P<array>(?:\[[^\]\n]*\]\s*)*)\)\s*"
+    r"\((?P<args>[^()\n]*)\)\s*(?:;|=)"
+)
 PREPROCESSOR_IF_ZERO = re.compile(r"^\s*#\s*if\s+0(?:\s|$)")
 PREPROCESSOR_IF = re.compile(r"^\s*#\s*if(?:def|ndef)?\b")
 PREPROCESSOR_ENDIF = re.compile(r"^\s*#\s*endif\b")
@@ -185,6 +192,28 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
         if depth == 0:
             top_level.add(token.start)
         depth += (token.text == "{") - (token.text == "}")
+    pointer_choices: set[str] = set()
+    for match in FUNCTION_POINTER_OBJECT_EVIDENCE.finditer(local):
+        if match.group("symbol") != symbol or match.start("symbol") not in top_level:
+            continue
+        array = re.sub(r"\s+", "", match.group("array"))
+        arguments = argument_types(match.group("args"))
+        result = normalize_type(match.group("return"))
+        if ((match.group("storage") or "").strip() == "static"
+                or not re.fullmatch(r"(?:\[(?:0x[0-9A-Fa-f]+|[0-9]+)?\])*", array)
+                or arguments is None
+                or c_type(result) is None
+                or any(c_type(argument, parameter=True) is None for argument in arguments)):
+            return None
+        pointer_choices.add(
+            f"extern {result} (*{symbol}{array})"
+            f"({', '.join(arguments) if arguments else 'void'});"
+        )
+    if pointer_choices:
+        if len(pointer_choices) != 1:
+            return None
+        return Declaration(next(iter(pointer_choices)), symbol,
+                           ("active file-scope declaration in the allowed source",))
     choices: set[str] = set()
     for match in OBJECT_EVIDENCE.finditer(local):
         if match.group("symbol") != symbol or match.start("symbol") not in top_level:
@@ -203,6 +232,7 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
                            ("active file-scope declaration in the allowed source",))
 
     types: dict[str, set[str]] = {}
+    pointer_types: dict[str, set[str]] = {}
     for path in evidence_files(root):
         try:
             text = re.sub(r"/\*.*?\*/|//[^\n]*", "", path.read_text(encoding="utf-8"), flags=re.S)
@@ -215,6 +245,26 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
             if depth == 0:
                 top_level.add(token.start)
             depth += (token.text == "{") - (token.text == "}")
+        file_pointer_types: dict[str, set[str]] = {}
+        for match in FUNCTION_POINTER_OBJECT_EVIDENCE.finditer(text):
+            if match.group("symbol") != symbol or match.start("symbol") not in top_level:
+                continue
+            array = re.sub(r"\s+", "", match.group("array"))
+            arguments = argument_types(match.group("args"))
+            result = normalize_type(match.group("return"))
+            if ((match.group("storage") or "").strip() == "static"
+                    or not re.fullmatch(r"(?:\[(?:0x[0-9A-Fa-f]+|[0-9]+)?\])*", array)
+                    or arguments is None
+                    or c_type(result) is None
+                    or any(c_type(argument, parameter=True) is None for argument in arguments)):
+                return None
+            declaration = (
+                f"extern {result} (*{symbol}{array})"
+                f"({', '.join(arguments) if arguments else 'void'});"
+            )
+            file_pointer_types.setdefault(declaration, set()).add(str(path.relative_to(root)))
+        for declaration, paths in file_pointer_types.items():
+            pointer_types.setdefault(declaration, set()).update(paths)
         for match in OBJECT_EVIDENCE.finditer(text):
             if match.group("symbol") != symbol or match.start("symbol") not in top_level:
                 continue
@@ -225,7 +275,14 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
                 return None
             if c_type(type_name) in (None, "void"):
                 return None
+            if file_pointer_types:
+                return None
             types.setdefault(type_name, set()).add(str(path.relative_to(root)))
+    if pointer_types:
+        if len(pointer_types) != 1 or types:
+            return None
+        declaration, paths = next(iter(pointer_types.items()))
+        return Declaration(declaration, symbol, tuple(sorted(paths)))
     if len(types) != 1:
         return None
     type_name, paths = next(iter(types.items()))
@@ -237,6 +294,13 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
 
 
 def declaration_already_present(source: str, declaration: Declaration) -> bool:
+    if "(*" in declaration.text:
+        pointer = re.compile(
+            rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}\s*\(\s*\*\s*"
+            rf"{re.escape(declaration.symbol)}\s*(?:\[[^\]\n]*\]\s*)*\)\s*"
+            r"\([^()\n]*\)\s*(?:;|\{{)"
+        )
+        return pointer.search(active_text(source)) is not None
     if "(" in declaration.text:
         pattern = re.compile(
             rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}(?:\s+|(?<=\*))"
@@ -313,17 +377,35 @@ def resolve_required_declarations(
     return insert, evidence
 
 
+def file_scope_matches(pattern: re.Pattern, source: str):
+    """Yield declarations at file scope, excluding comments and disabled C."""
+    active = active_text(re.sub(r"/\*.*?\*/|//[^\n]*", "", source, flags=re.S))
+    depth = 0
+    top_level = set()
+    for token in candidate_syntax.tokens(active):
+        if depth == 0:
+            top_level.add(token.start)
+        depth += (token.text == "{") - (token.text == "}")
+    for match in pattern.finditer(active):
+        if match.start("symbol") in top_level:
+            yield match
+
+
 def later_function_declarations(definition: str, source: str, visible: str) -> tuple[list[str], list[str]]:
     """Repeat a proven later prototype before the candidate's first use."""
 
     tokens = candidate_syntax.tokens(definition)
     calls = {token.text for index, token in enumerate(tokens[:-1]) if tokens[index + 1].text == "("}
     declarations: dict[str, set[str]] = {}
-    for match in FUNCTION_EVIDENCE.finditer(active_text(source)):
+    for match in file_scope_matches(FUNCTION_EVIDENCE, source):
         symbol = match.group("symbol")
         if symbol not in calls:
             continue
-        arguments = argument_types(match.group("args"))
+        parts = split_arguments(match.group("args"))
+        variadic = len(parts) > 1 and parts[-1] == "..."
+        arguments = argument_types(", ".join(parts[:-1]) if variadic else match.group("args"))
+        if variadic and arguments:
+            arguments += ("...",)
         if arguments is None:
             continue
         text = f"{normalize_type(match.group('return'))} {symbol}({', '.join(arguments) if arguments else 'void'});"

@@ -14,7 +14,6 @@
  * - func_15132DDC
  * - func_15133588
  * - func_151336A8
- * - func_15133760
  * - func_151337C0
  * - func_15133894
  * - func_151339D4
@@ -195,15 +194,12 @@ s32 func_15133510(s32 arg0, Game15F680TransformState *arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133588.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151336A8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133760 CURRENT (100) */
 s32 func_15133760(s32 arg0, Game15F680TransformState *arg1) {
     func_15142838(arg0, arg1->field18, arg1->field1C, arg1->field20,
                   arg1->field24, arg1->field28, arg1->field38,
                   arg1->field3C, arg1->field40);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15133760 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133760.s")
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151337C0 CURRENT (325) */

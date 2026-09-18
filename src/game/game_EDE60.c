@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_owner_chain_resource_emitters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C0A48
  * - func_150C0AC0
  * - func_150C0C38
  * - func_150C1198
@@ -43,7 +42,6 @@ typedef struct {
 
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0A48 CURRENT (100) */
 void func_150C0A48(s32 arg0) {
     GameEDE60ResourceList *list;
     GameEDE60ResourceEntry *entries;
@@ -62,8 +60,6 @@ void func_150C0A48(s32 arg0) {
         } while (index != -1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C0A48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0A48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0AC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0C38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C1198.s")

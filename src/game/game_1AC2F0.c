@@ -20,7 +20,6 @@
  * - func_1517FB9C
  * - func_15180580
  * - func_151814FC
- * - func_15181D00
  * - func_15181DC8
  * - func_15181E18
  * - func_15181EE0
@@ -311,7 +310,6 @@ extern f32 D_800DDDD8[];
 extern u8 D_800DDDE8[];
 extern s8 D_800DDE1C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15181D00 CURRENT (100) */
 void func_15181D00(s32 arg0, s32 arg1) {
     Game1AC2F0Vector *vector;
 
@@ -326,8 +324,6 @@ void func_15181D00(s32 arg0, s32 arg1) {
     }
     D_800DDE1C[arg0] = arg1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15181D00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15181D00.s")
 extern f32 D_800A72B0;
 extern f32 D_800DDDD8[];
 extern f32 D_800DDDC8[];

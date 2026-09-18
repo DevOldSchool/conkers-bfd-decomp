@@ -21,7 +21,6 @@
  * - func_151C1860
  * - func_151C196C
  * - func_151C1D5C
- * - func_151C1FB8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -273,7 +272,6 @@ typedef struct {
 u32 func_150ADA20(void *);
 void func_151D8868(s8 *, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1FB8 CURRENT (400) */
 void func_151C1FB8(void *arg0) {
     Game1ED0F0EventPacket packet;
 
@@ -286,5 +284,3 @@ void func_151C1FB8(void *arg0) {
         func_151D8868(&packet.field_0, 0, 0xFF, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C1FB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1FB8.s")

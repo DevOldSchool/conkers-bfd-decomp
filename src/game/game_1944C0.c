@@ -11,14 +11,12 @@
  * - func_151671E8
  * - func_15167310
  * - func_151674F8
- * - func_15167A68
  * - func_15167B44
  * - func_15167C58
  * - func_15167D84
  * - func_15167E0C
  * - func_15168118
  * - func_1516865C
- * - func_15168800
  * - func_15168870
  * - func_15168A4C
  * - func_15168B44
@@ -31,7 +29,6 @@
  * - func_151695F0
  * - func_1516962C
  * - func_151696DC
- * - func_1516972C
  * - func_15169850
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -92,7 +89,6 @@ typedef struct Game1944C0AllocatedEffect {
 Game1944C0AllocatedEffect *func_10003C6C(s32, s32, s32, s32, u8);
 void func_15168A4C(s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15167A68 CURRENT (100) */
 void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
     Game1944C0AllocatedEffect *effect;
     Game1944C0AllocatedEffect *sp24;
@@ -109,8 +105,6 @@ void *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5) {
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15167A68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167A68.s")
 
 typedef struct Game1944C0Effect28 {
     u8 pad0[0x10];
@@ -162,7 +156,6 @@ typedef struct Game1944C0EffectB8 {
     u8 payload[0xA8];
 } Game1944C0EffectB8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168800 CURRENT (100) */
 Game1944C0EffectB8 *func_15168800(void *arg0, u8 arg1, s32 arg2) {
     Game1944C0EffectB8 *effect;
     Game1944C0EffectB8 *sp24;
@@ -175,8 +168,6 @@ Game1944C0EffectB8 *func_15168800(void *arg0, u8 arg1, s32 arg2) {
     func_10023A10(arg0, effect->payload, sizeof(effect->payload));
     return sp24;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15168800 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168800.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168870.s")
 void func_15168A2C(s32 arg0) {
     func_15168B10(arg0, 0);
@@ -472,7 +463,6 @@ void func_151696DC(void *);
 void func_15169804(s32);
 void func_15169824(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516972C CURRENT (100) */
 void func_1516972C(u8 *arg0) {
     Game1944C0DestroyCallback callback;
     u8 type;
@@ -488,8 +478,6 @@ void func_1516972C(u8 *arg0) {
         func_15169804((s32)arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516972C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516972C.s")
 
 void func_1516979C(u8 *arg0) {
     Game1944C0DestroyCallback callback;

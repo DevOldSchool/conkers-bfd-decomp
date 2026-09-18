@@ -223,6 +223,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertNotIn("remove_warm_container", prepare_body)
 
         self.assertIn("verify_and_record_match", finish_case)
+        self.assertIn("verify_and_record_match --compact-mismatch", finish_case)
         self.assertIn("scripts/layout_check.py", script)
         self.assertIn('progress --check', finish_case)
         self.assertIn("core.whitespace=cr-at-eol diff --check", finish_case)
@@ -279,7 +280,7 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("generate_starter(candidate.identifier)", automation)
         self.assertIn('"finish", candidate.identifier', automation)
         self.assertIn('"verify-batch", *matched', automation)
-        self.assertIn('"diff", candidate.identifier', automation)
+        self.assertNotIn('"diff", candidate.identifier', automation)
         self.assertIn('"diagnose-diff", candidate.identifier', automation)
         self.assertIn('"permute",', automation)
         self.assertIn("source.write_bytes(original)", automation)

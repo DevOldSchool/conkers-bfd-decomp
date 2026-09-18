@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_early_callback_state_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150177F8
  * - func_15017868
  * - func_15017930
  * - func_15017B20
@@ -38,7 +37,6 @@ void func_15017790(void) {
     func_100226F0(D_800D2E70, 0xCC);
     D_800D2E44 = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150177F8 CURRENT (100) */
 void func_150177F8(void) {
     func_1509BA04(1);
     func_100226F0(D_800D2F48, 0xC);
@@ -49,8 +47,6 @@ void func_150177F8(void) {
     D_800D3858 = 0;
     D_800D2E44 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150177F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_150177F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017868.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017930.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017B20.s")

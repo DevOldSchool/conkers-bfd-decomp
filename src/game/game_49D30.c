@@ -67,6 +67,7 @@ typedef struct Game49D30Record {
 void func_1516D328(Game49D30Resource *);
 extern s32 D_800C3960[];
 extern u8 D_800C363A[];
+extern s32 D_800C3640[];
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501C880.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501CC3C.s")

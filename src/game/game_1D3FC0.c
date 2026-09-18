@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_recovered_pointer_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A6B68
  * - func_151A6BD8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -38,7 +37,6 @@ void func_151A6B3C(s32 arg0) {
     func_151A6AB8(arg0);
     func_1513CAA0(arg0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A6B68 CURRENT (100) */
 void func_151A6B68(Game1D3FC0Actor *arg0, s32 arg1) {
     Game1D3FC0Node *node;
     Game1D3FC0Actor *actor = 0;
@@ -55,6 +53,4 @@ void func_151A6B68(Game1D3FC0Actor *arg0, s32 arg1) {
     }
     func_1505D024((s32)arg0, 0x60034, arg0->field_7A, actor_index);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A6B68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D3FC0/func_151A6B68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D3FC0/func_151A6BD8.s")

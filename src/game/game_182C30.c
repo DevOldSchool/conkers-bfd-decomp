@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15155780
- * - func_151557FC
  * - func_1515589C
  * - func_15155CFC
  * - func_15155FD4
@@ -50,7 +49,6 @@ Game182C30Effect *func_15155780(s32, s32);
 void *func_15155FD4(s32);
 extern u8 D_800CC37D[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151557FC CURRENT (100) */
 void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
     Game182C30Effect *effect;
 
@@ -69,8 +67,6 @@ void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
         effect->fieldE = (s16)arg1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151557FC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_151557FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
 extern void func_1515F10C(void *arg0);

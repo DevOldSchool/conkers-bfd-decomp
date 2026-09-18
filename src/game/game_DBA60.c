@@ -8,7 +8,6 @@
  * - func_150AE5B0
  * - func_150AE790
  * - func_150AEB9C
- * - func_150AECCC
  * - func_150AED4C
  * - func_150AED9C
  * - func_150AEDF8
@@ -22,7 +21,6 @@
 void func_1516972C(void *arg0);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AECCC CURRENT (100) */
 void func_150AECCC(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x96) = (s16) ((*(s16 *)((u8 *)arg0 + 0x94) * D_800BE9E4) + *(s16 *)((u8 *)arg0 + 0x96));
     if (*(s16 *)((u8 *)arg0 + 0x96) >= 0x1401) {
@@ -34,8 +32,6 @@ void func_150AECCC(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0xA4) = 0x19;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AECCC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AECCC.s")
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED4C CURRENT (245) */

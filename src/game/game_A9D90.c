@@ -8,7 +8,6 @@
  * - func_1507C8FC
  * - func_1507CD0C
  * - func_1507CD64
- * - func_1507D158
  * - func_1507D1D8
  * - func_1507D4F8
  * - func_1507D754
@@ -66,15 +65,12 @@ typedef struct GameA9D90EntityIdRecord {
 extern GameA9D90EntityIdRecord D_800CC40F[];
 void func_1509BFB0(s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507D158 CURRENT (100) */
 void func_1507D158(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     u8 temp_v0;
 
     temp_v0 = D_800CC40F[arg0].field_0;
     func_1509BFB0(3, temp_v0 | 0x2000, arg1, arg2, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507D158 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D158.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D1D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")

@@ -15,7 +15,6 @@
  * - func_1507E908
  * - func_1507E968
  * - func_1507E9F8
- * - func_1507EABC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -147,7 +146,6 @@ void func_1507EA44(void *arg0, s32 arg1, s32 arg2) {
 }
 void func_1507E7E4(GameAB760State *, u8, u8, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EABC CURRENT (100) */
 void func_1507EABC(GameAB760State *arg0) {
     func_1507E7E4(arg0, arg0->field_70, 3, 0xFFFF, 0xA);
     arg0->field_71 = 0;
@@ -161,8 +159,6 @@ void func_1507EABC(GameAB760State *arg0) {
         arg0->field_6B = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507EABC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507EABC.s")
 void func_1507EB4C(GameAB760State *arg0, s32 arg1);
 
 void func_1507EB2C(GameAB760State *arg0) {

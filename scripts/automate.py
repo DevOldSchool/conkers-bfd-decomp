@@ -82,8 +82,8 @@ STAGE_INPUTS = {
     ),
 }
 STAGE_VERSIONS = {stage: 1 for stage in STAGE_INPUTS}
-# Small register/missing-instruction differences now receive a bounded probe.
-STAGE_VERSIONS["diff"] = 2
+# Raw and deferred candidates share diagnostic preflight/search eligibility.
+STAGE_VERSIONS["diff"] = 3
 # A changed starter can fix any later raw-stage failure, including declaration
 # blockers saved before compilation. Keep the upstream recovery inputs in each
 # relevant stage instead of requiring users to restart a saved scan.
@@ -150,6 +150,15 @@ class Diagnosis:
             and self.counts["opcode-or-control-flow"] == 0
             and 1 <= self.counts["missing-or-extra"] <= 3
         )
+
+    def search_budget(self, budget: int) -> int | None:
+        if self.current_score == 0:
+            return 1
+        if self.is_register_only:
+            return budget
+        if self.is_small_register_mismatch:
+            return min(budget, 32)
+        return None
 
 
 def positive_integer(value: str) -> int:
@@ -373,6 +382,8 @@ def classify_attempt(result: AttemptResult) -> AttemptResult:
         return replace(result, stage="finish", blocker_code="layout_gate")
     if "not register-allocation-only" in detail:
         return replace(result, stage="diff", blocker_code="structural_mismatch")
+    if "diagnostic preflight failed" in detail:
+        return replace(result, stage="diff", blocker_code="diagnostic_failure")
     if "killed with exit" in detail:
         return replace(result, stage="permute", blocker_code="resource_killed")
     if result.outcome in {"preserved", "deferred", "restored"}:
@@ -536,7 +547,8 @@ def repair_candidate_source(
     content = candidate_source.decode("utf-8")
     start, end = project_state.c_function_span(content, symbol)
     repaired, actions = candidate_rewrites.repair_compile_diagnostics(
-        content[start:end], tuple(diagnostic.message for diagnostic in diagnostics)
+        content[start:end], tuple(diagnostic.message for diagnostic in diagnostics),
+        visible_source=content[:start],
     )
     if repaired == content[start:end]:
         return candidate_source, ()
@@ -779,7 +791,7 @@ def try_raw_candidate(
         )
     diff_status, diff_output = run_candidate_command(
         candidate.identifier,
-        [str(ROOT / "conker"), "diff", candidate.identifier],
+        [str(ROOT / "conker"), "diagnose-diff", candidate.identifier],
         verbose=verbose,
     )
     parsed_diagnostics = compiler_diagnostics(diff_output)
@@ -804,7 +816,7 @@ def try_raw_candidate(
             )
         diff_status, diff_output = run_candidate_command(
             candidate.identifier,
-            [str(ROOT / "conker"), "diff", candidate.identifier],
+            [str(ROOT / "conker"), "diagnose-diff", candidate.identifier],
             verbose=verbose,
         )
         diagnostic_output += "\n" + diff_output
@@ -832,14 +844,21 @@ def try_raw_candidate(
             diagnostic_log=diagnostic_log,
             repair_actions=tuple(dict.fromkeys(repair_actions)),
         )
-    if diff_status != 0 or initial_score is None:
+    diagnosis = None
+    diagnosis_error = f"exit {diff_status}"
+    if diff_status == 0:
+        try:
+            diagnosis = parse_diagnosis(diff_output)
+        except automation_common.AutomationError as error:
+            diagnosis_error = str(error)
+    if diagnosis is None:
         candidate_artifact, diagnostic_log = save_failure_artifacts(
             candidate.identifier, updated, diagnostic_output, parsed_diagnostics
         )
         source.write_bytes(original)
         detail = diagnostic_detail(
             parsed_diagnostics,
-            f"focused compile/diff failed with exit {diff_status}",
+            f"diagnostic preflight failed: {diagnosis_error}",
         )
         if verbose:
             print(f"RESTORED {candidate.identifier}: {detail}")
@@ -855,6 +874,7 @@ def try_raw_candidate(
             diagnostic_log=diagnostic_log,
             repair_actions=tuple(dict.fromkeys(repair_actions)),
         )
+    initial_score = diagnosis.current_score
     if initial_score == 0:
         finish_status, finish_output = run_candidate_command(
             candidate.identifier,
@@ -900,6 +920,24 @@ def try_raw_candidate(
             repair_actions=tuple(dict.fromkeys(repair_actions)),
         )
 
+    search_budget = diagnosis.search_budget(budget)
+    if search_budget is None:
+        try:
+            candidate_artifact, diagnostic_log = save_failure_artifacts(
+                candidate.identifier, updated, diagnostic_output, ()
+            )
+        finally:
+            source.write_bytes(original)
+        detail = f"CURRENT ({initial_score}) is not register-allocation-only"
+        if verbose:
+            print(f"SKIP {candidate.identifier}: {detail}; candidate saved")
+        return AttemptResult(
+            candidate.identifier, candidate.source, "raw", "skipped", detail,
+            initial_score, candidate_artifact=candidate_artifact,
+            diagnostic_log=diagnostic_log,
+            repair_actions=tuple(dict.fromkeys(repair_actions)),
+        )
+
     permutation_status, permutation_output = run_candidate_command(
         candidate.identifier,
         [
@@ -907,7 +945,7 @@ def try_raw_candidate(
             "permute",
             candidate.identifier,
             "--budget",
-            str(budget),
+            str(search_budget),
             *(["--exhaustive"] if exhaustive else []),
         ],
         verbose=verbose,
@@ -1172,7 +1210,8 @@ def try_deferred_candidate(
         if preparation_actions and retention_score is not None
         else diagnosis.current_score
     )
-    if diagnosis.current_score != 0 and not (diagnosis.is_register_only or diagnosis.is_small_register_mismatch):
+    search_budget = diagnosis.search_budget(budget)
+    if search_budget is None:
         detail = f"CURRENT ({diagnosis.current_score}) is not register-allocation-only"
         outcome = "skipped"
         if preparation_improved:
@@ -1192,9 +1231,6 @@ def try_deferred_candidate(
             repair_actions=preparation_actions,
         )
 
-    search_budget = 1 if diagnosis.current_score == 0 else budget
-    if diagnosis.is_small_register_mismatch:
-        search_budget = min(search_budget, 32)
     if verbose:
         if diagnosis.current_score == 0:
             print(

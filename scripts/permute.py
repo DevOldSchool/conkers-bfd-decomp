@@ -200,20 +200,33 @@ def score_candidate(
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    result = subprocess.run(
-        diff.asm_diff_command(
-            candidate_object,
-            reference,
-            symbol,
-            expected_size,
-            require_match=True,
-        ),
-        cwd=directory,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return diff.current_difference_count(result.stdout)
+    try:
+        result = subprocess.run(
+            diff.asm_diff_command(
+                candidate_object,
+                reference,
+                symbol,
+                expected_size,
+                require_match=True,
+            ),
+            cwd=directory,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as error:
+        raise PermuteError(f"could not launch asm-differ: {error}") from error
+    failure = None
+    if result.returncode:
+        failure = f"asm-differ exited {result.returncode}"
+    else:
+        try:
+            return diff.current_difference_count(result.stdout)
+        except ValueError as error:
+            failure = str(error)
+    log = directory / "scoring-failure.log"
+    log.write_text(f"{failure}\n{result.stdout}{result.stderr}", encoding="utf-8")
+    raise PermuteError(f"{failure}; details: {log}")
 
 
 def main() -> int:
@@ -251,6 +264,10 @@ def main() -> int:
         directory.mkdir(parents=True, exist_ok=True)
         best_path = directory / "best.c"
         best_path.unlink(missing_ok=True)
+        report = directory / "search-report.json"
+        report.unlink(missing_ok=True)
+        (directory / "scoring-failure.log").unlink(missing_ok=True)
+        diff.write_settings(args.profile, source, directory=directory)
 
         best_score: int | None = None
         best_function = original_function
@@ -261,6 +278,7 @@ def main() -> int:
         last_improvement = 0
         improvements = 0
         stop_reason = "variants_exhausted"
+        failure: str | None = None
         for variant in variants:
             if not args.exhaustive and attempted + skipped >= max(32, last_improvement + 32):
                 stop_reason = "plateau"
@@ -281,8 +299,14 @@ def main() -> int:
                     expected_size,
                 )
             except subprocess.CalledProcessError:
+                # Only candidate compilation uses check=True. Scorer failures
+                # are tooling errors and must terminate the search instead.
                 skipped += 1
                 continue
+            except (PermuteError, OSError) as error:
+                failure = str(error)
+                stop_reason = "tooling_failure"
+                break
             attempted += 1
             if best_score is None:
                 best_score = score
@@ -307,11 +331,21 @@ def main() -> int:
             "improvements": improvements, "best_score": best_score,
             "stop_reason": stop_reason, "elapsed_seconds": time.monotonic() - started,
         }
-        report = directory / "search-report.json"
+        if failure is not None:
+            summary["error"] = failure
         temporary = report.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
         temporary.replace(report)
+        if failure is not None:
+            print(f"error: {failure}", file=sys.stderr)
+            return 2
         if exact_function is None:
+            if best_score is None:
+                print(
+                    f"{args.identifier}: no scored candidates; "
+                    f"{skipped} invalid variant(s) skipped; no best candidate saved"
+                )
+                return 1
             print(
                 f"{args.identifier}: no exact match in {attempted} variant(s); "
                 f"best CURRENT ({best_score}) saved to {best_path.relative_to(ROOT)}"
