@@ -1,7 +1,7 @@
 """Bounded call-context recovery for raw MIPS o32 wrappers.
 
-Allowed-source C signatures take precedence, followed by reviewed SDK aliases
-and unique project signatures. The raw fallback recognizes a single-call
+Allowed-source C signatures take precedence, followed by reviewed SDK aliases,
+unique matched definitions and unique project signatures. The raw fallback recognizes a single-call
 integer-register wrapper and a callee's contiguous argument-home spills. It is
 an ABI call-site view, not a claim about original typedefs or return types: a
 void declaration is used only for a wrapper whose decompiler discards the call
@@ -62,7 +62,8 @@ def c_type(text: str, *, parameter: bool = False) -> str | None:
     return None
 
 
-def source_signatures(text: str, wanted: set[str] | None = None) -> dict[str, set[Signature | None]]:
+def source_signatures(text: str, wanted: set[str] | None = None, *,
+                      definitions_only: bool = False) -> dict[str, set[Signature | None]]:
     """Collect supported external signatures without importing another scope."""
     found: dict[str, set[Signature | None]] = {}
     # Remove comments before interpreting preprocessor lines.
@@ -74,11 +75,13 @@ def source_signatures(text: str, wanted: set[str] | None = None) -> dict[str, se
     for i, token in enumerate(items):
         if depth == 0 and token.text in (';', '{'):
             words = [t.text for t in items[start:i]]
-            if '(' in words:
+            if '(' in words and (not definitions_only or token.text == '{'):
                 opening = words.index('(')
                 if opening and words[-1:] == [')']:
                     symbol = words[opening-1]
                     if wanted is None or symbol in wanted:
+                        if definitions_only and symbol in found:
+                            found[symbol].add(None)  # Duplicate active definitions are ambiguous.
                         prefix = words[:opening-1]
                         if 'static' in prefix:
                             found.setdefault(symbol, set()).add(None)
@@ -161,30 +164,84 @@ def sdk_alias_evidence(symbol: str) -> str:
             f'prototype and unsigned size_t in {SDK_MEMORY_HEADER}')
 
 
+def matched_definition_sources(root: Path, wanted: set[str] | None, profile: str) -> dict[str, str]:
+    """Locate registered exact US definitions, never infer types from inventory."""
+    if profile != 'us':
+        return {}
+    path = root / 'progress/functions.json'
+    try:
+        stat = path.stat()
+        entries = _inventory(str(path), stat.st_mtime_ns, stat.st_size)
+        owners: dict[str, list[dict]] = {}
+        for entry in entries:
+            symbol = entry.get('regions', {}).get(profile, {}).get('symbol')
+            if symbol and (wanted is None or symbol in wanted):
+                owners.setdefault(symbol, []).append(entry)
+        result = {}
+        for symbol, choices in owners.items():
+            if len(choices) != 1:
+                continue
+            entry = choices[0]
+            region = entry['regions'][profile]
+            source = entry.get('source')
+            if (region.get('state') == 'matched'
+                    and region.get('evidence', {}).get('current_differences') == 0
+                    and isinstance(source, str)):
+                result[symbol] = source
+        return result
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        return {}
+
+
 def signature_index(root: Path, wanted: set[str] | None = None, *,
-                    source: str = "", profile: str = 'us') -> dict[str, Signature | None]:
+                    source: str = "", profile: str = 'us',
+                    evidence: dict[str, str] | None = None) -> dict[str, Signature | None]:
     """Prefer the allowed source's unique signature over unrelated call views.
 
     A conflicting or unsupported local declaration blocks global/raw fallback.
-    Without local evidence, a reviewed SDK alias precedes unrelated call views;
-    otherwise the complete project must still agree.
+    Without local evidence, reviewed SDK aliases and unique registered matched
+    definitions precede unrelated call views. The owning source must agree with
+    its definition, and all types must be self-contained. This provides m2c
+    context only; candidates still require independent exact-match gates.
     """
     local = source_signatures(source, wanted) if source else {}
+    origins = {name: 'unique active declaration in the allowed source' for name in local}
     if wanted is not None and wanted <= local.keys():
+        if evidence is not None:
+            evidence.update(origins)
         return {name: next(iter(values)) if len(values) == 1 else None
                 for name, values in local.items()}
     sdk = sdk_alias_signatures(root, wanted, profile=profile)
     remaining = wanted - local.keys() - sdk.keys() if wanted is not None else None
+    matched = matched_definition_sources(root, remaining, profile)
+    definitions: dict[str, list[tuple[str, set[Signature | None], set[Signature | None]]]] = {}
     found: dict[str, set[Signature | None]] = {}
     paths = declaration_facts.evidence_files(root) if remaining is None or remaining else ()
     for path in paths:
         text = path.read_text(encoding='utf-8')
         if remaining is not None and not any(re.search(rf'\b{re.escape(s)}\b', text) for s in remaining):
             continue
-        for name, values in source_signatures(text, remaining).items():
+        signatures = source_signatures(text, remaining)
+        for name, values in signatures.items():
             found.setdefault(name, set()).update(values)
+        relevant = matched.keys() & signatures.keys()
+        if relevant:
+            for name, values in source_signatures(text, relevant, definitions_only=True).items():
+                definitions.setdefault(name, []).append((str(path.relative_to(root)), values, signatures[name]))
+    for name, choices in definitions.items():
+        if len(choices) != 1:
+            continue
+        path, values, owner_signatures = choices[0]
+        if (path == matched[name] and len(values) == 1 and None not in values
+                and values == owner_signatures):
+            found[name] = values
+            origins[name] = f'matched US definition in {path}'
     found.update({name: {signature} for name, signature in sdk.items()})
+    origins.update({name: sdk_alias_evidence(name) for name in sdk})
     found.update(local)
+    origins.update({name: 'unique active declaration in the allowed source' for name in local})
+    if evidence is not None:
+        evidence.update({name: origins.get(name, 'unique active project prototype') for name in found})
     return {name: next(iter(values)) if len(values) == 1 else None for name, values in found.items()}
 
 
@@ -442,17 +499,14 @@ class Recovery:
 
 def recover(assembly: str, source: str, *, root: Path, profile: str = 'us', allow_raw: bool = False) -> Recovery:
     callees = direct_callees(assembly)
-    signatures = signature_index(root, callees, source=source, profile=profile) if callees else {}
-    local = source_signatures(source, callees) if source and callees else {}
-    sdk = sdk_alias_signatures(root, callees, profile=profile) if callees else {}
+    origins: dict[str, str] = {}
+    signatures = signature_index(root, callees, source=source, profile=profile, evidence=origins) if callees else {}
     declarations = []
     evidence = []
     for symbol, sig in sorted(signatures.items()):
         if sig is not None:
             declarations.append(sig.declaration(symbol))
-            origin = ('unique active declaration in the allowed source' if symbol in local else
-                      sdk_alias_evidence(symbol) if symbol in sdk else 'unique active project prototype')
-            evidence.append(f'{symbol}: {origin}')
+            evidence.append(f'{symbol}: {origins[symbol]}')
     if allow_raw and profile == 'us':
         wrapper = wrapper_call(assembly)
         if wrapper and wrapper[0] not in signatures:

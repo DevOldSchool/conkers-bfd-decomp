@@ -25,6 +25,8 @@ extern s32 D_8002BD14;
 extern u8 D_80084064;
 extern u8 D_8003B218[];
 extern u8 D_800BE6E0[];
+extern f32 D_80096960;
+void func_1501C0F0(u8, f32, f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1501BB20 CURRENT (1307) */
 void func_1501BB20(void) {
@@ -40,6 +42,41 @@ void func_1501BB20(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501BB20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_48FD0/func_1501BB20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_48FD0/func_1501BBB8.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501C010 CURRENT (1149) */
+void func_1501C010(s32 arg0, s32 arg1) {
+    f32 temp_fv0;
+    f32 var_fa0;
+    f32 var_ft1;
+    f32 var_fv1;
+    s32 var_a1;
+    s32 var_v0;
+
+    arg0 &= 0xFF;
+    arg1 &= 0xFF;
+    var_a1 = arg1;
+    var_v0 = var_a1;
+    if (var_a1 >= 9) {
+        var_a1 = 8;
+        var_v0 = 8;
+    }
+    if (var_v0 == 8) {
+        var_fv1 = 20.0f;
+        var_fa0 = 0.0f;
+    } else if (var_v0 == 0) {
+        var_fv1 = 0.0f;
+        var_fa0 = 99.0f;
+    } else {
+        var_ft1 = (f32)var_a1;
+        if (var_a1 < 0) {
+            var_ft1 += 4294967296.0f;
+        }
+        temp_fv0 = (var_ft1 - 1.0f) * D_80096960 * 5.0f;
+        var_fv1 = temp_fv0 + 2.0f;
+        var_fa0 = 7.0f - temp_fv0;
+    }
+    func_1501C0F0(arg0, var_fv1, var_fa0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501C010 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_48FD0/func_1501C010.s")
 extern u8 D_80084060[4];
 extern u8 D_800BE93C[4];

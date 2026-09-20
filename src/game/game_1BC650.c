@@ -146,6 +146,27 @@ void func_1518F49C(s32 arg0, s32 arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518F49C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F49C.s")
+extern s32 D_8008D630;
+s32 func_1518FDC4(void *, s8 *, s32);
+s32 func_1518F5D0(void *, s32, s16, s8, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F51C CURRENT (533) */
+ s32 func_1518F51C(void *arg0, u8 arg1, s16 arg2, s8 arg3,
+                  s8 arg4, s8 arg5, u8 arg6, s32 arg7, u8 arg8, s32 arg9) {
+    s8 index[5];
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    if (func_1518FDC4(arg0, &index[0], arg1) == 0) {
+        return 0;
+    }
+    return func_1518F5D0(
+        arg0,
+        *(s32 *)((u8 *)&D_8008D630 + ((u8)index[0] * 4)) + (arg1 * 0x50),
+        arg2, arg3, (s32)arg4, (s32)arg5, (s32)arg6, arg7, (s32)arg8, arg9);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518F51C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F51C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F5D0.s")
 extern s32 (*D_8008D67C[])(void *);

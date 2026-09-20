@@ -49,7 +49,64 @@ void func_15110360(s32 arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {
     func_150A7A48(arg1, D_800BE628[arg0].payload, arg1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151103C8.s")
+void *func_15110544(void *, s32, s32, s32, s32, s32, s32, u8);
+
+void *func_1501A680(void *);
+void *func_1501A6CC(void *, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15110544 CURRENT (1980) */
+void *func_15110544(void *arg0, s32 arg1, s32 arg2, s32 arg3,
+                    s32 arg4, s32 arg5, s32 arg6, u8 arg7) {
+    void *temp_a0;
+    void *temp_v0;
+    s32 packed;
+
+    *(s32 *)arg0 = 0xE7000000;
+    *(s32 *)((u8 *)arg0 + 4) = 0;
+    temp_a0 = (u8 *)arg0 + 8;
+    *(s32 *)((u8 *)temp_a0 + 4) = 4;
+    *(s32 *)temp_a0 = 0xEF302C0F;
+    temp_v0 = func_1501A680((u8 *)temp_a0 + 8);
+    *(s32 *)temp_v0 = 0xF7000000;
+    packed = (((u8)arg5 << 8) & 0xF800) |
+             (((u8)arg6 * 8) & 0x7C0) |
+             ((((s32)arg7 >> 2) & 0x3E) | 1);
+    *(s32 *)((u8 *)temp_v0 + 4) = (packed << 16) | packed;
+    return func_1501A6CC((u8 *)temp_v0 + 8, arg1, arg2, arg3, arg4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15110544 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110544.s")
+extern s32 D_800BE9F0;
+extern u8 D_800DBEA8[];
+extern void *D_800DBFF0;
+extern s32 D_800BE620;
+extern s32 D_800BE624;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15110600 CURRENT (2292) */
+s32 func_15110600(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 var_a0;
+    u8 *temp_v0;
+    void *temp_t6;
+    void *temp_t7;
+
+    var_a0 = arg0;
+    if ((D_800BE9F0 == 0x1B) || (D_800BE9F0 == 0x1E)) {
+        goto block_8;
+    }
+    if (D_800BE9F0 != 0x31) {
+        return var_a0;
+    }
+    temp_t6 = *(void **)((u8 *)D_800DBFF0 + 0x3D4);
+    temp_t7 = (u8 *)temp_t6 + 0x78;
+    if (*(u8 *)temp_t7 != 3) {
+        return var_a0;
+    }
+block_8:
+    temp_v0 = D_800DBEA8;
+    var_a0 = func_15110544(2, 0, D_800BE620 - 2, D_800BE624, temp_v0[0], temp_v0[1], temp_v0[2]);
+    return var_a0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15110600 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110600.s")
 /* Call context: func_1501A490: unique active project prototype */
 void * func_1501A490(void *, s16, s32, s32, s32, s32);

@@ -87,4 +87,29 @@ s32 func_150D6F0C(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D6F0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_103BE0/func_150D6F0C.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D7068 CURRENT (1087) */
+void func_150D7068(void *arg0, void *arg1, s32 arg2) {
+    u8 *state;
+    s32 current;
+    s32 other;
+
+    state = (u8 *)arg0 + 0xA8;
+    if ((arg2 & 0xFF) == 0x2D) {
+        current = *(s32 *)state;
+        if (*(s32 *)arg1 == current) {
+            *(s32 *)state = *(s32 *)((u8 *)arg1 + 4);
+            state[4] = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == current) {
+            *(s32 *)state = *(s32 *)arg1;
+            state[4] = *(u8 *)((u8 *)arg1 + 8);
+        }
+    } else if ((arg2 & 0xFF) == 0) {
+        other = *(s32 *)arg1;
+        if ((other == *(s32 *)state) ||
+            (state[4] == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D7068 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_103BE0/func_150D7068.s")

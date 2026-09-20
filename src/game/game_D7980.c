@@ -16,6 +16,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AA4D0 CURRENT (5260) */
+s32 func_150AA4D0(void) {
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150AA4D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D7980/func_150AA4D0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150AA5A8 CURRENT (3700) */
 s32 func_150AA5A8(void) {

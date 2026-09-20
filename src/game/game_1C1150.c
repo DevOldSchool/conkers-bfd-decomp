@@ -250,6 +250,30 @@ void func_15194EA8(s32 arg0, void *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15194EA8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194EA8.s")
+typedef struct Game1C1150Position {
+    u8 pad0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1C1150Position;
+
+extern void func_151C0098(f32 *arg0, Game1C1150Position *arg1, s32 arg2, s32 arg3, s32 arg4);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194F48 CURRENT (1533) */
+void func_15194F48(s32 arg0, Game1C1150Position *arg1, s32 arg2) {
+    f32 sp3C;
+    f32 sp38;
+    f32 sp34;
+
+    sp34 = arg1->x;
+    sp38 = arg1->y + 50.0f;
+    sp3C = arg1->z;
+    func_151C0098(&sp34, arg1, 1, 0xFF, 1);
+    func_15136C3C(arg1, 0, 0, 1, 0, 0, 0xFF, 1);
+    func_15145A50((u8 *)arg1);
+    func_1507CD64((u8 *)arg1, 6);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15194F48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194F48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194FF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151951E0.s")
@@ -263,9 +287,6 @@ void func_15195650(u8 *arg0, s32 arg1, s32 arg2) {
     func_151B01B8(arg0, arg1);
     func_151B09BC(arg0, arg1, 0x3E8, 0xFF, 0);
 }
-void func_15145A50(u8 *);
-void func_1507CD64(u8 *, s32);
-
 void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
     if ((*(u8 *)(arg1 + 0x1CA) == 0) && (*(u8 *)(arg1 + 0x127) != 0xFF)) {
         func_15136C3C(arg1, 1, 1, 1, 1, 0, 0xFF, 1);

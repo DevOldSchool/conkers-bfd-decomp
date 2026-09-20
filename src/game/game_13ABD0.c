@@ -45,6 +45,44 @@ void func_1510D720(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510D720 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13ABD0/func_1510D720.s")
+void func_10004074(s32);
+extern u32 D_800B0E58[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D7AC CURRENT (158) */
+void func_1510D7AC(s32 arg0) {
+    s8 *sp20;
+    s32 *sp1C;
+    s32 *temp_v0_2;
+    s8 *temp_a2;
+    s8 temp_v1;
+    u8 *temp_v0;
+    u8 temp_a0;
+    u8 temp_t8;
+
+    temp_a2 = &D_800BC448[arg0];
+    temp_v1 = *temp_a2;
+    temp_v0 = &D_800D9F68[arg0];
+    if (temp_v1 != 0) {
+        temp_a0 = *temp_v0;
+        temp_t8 = temp_a0 - 1;
+        if (temp_a0 != 0) {
+            *temp_v0 = temp_t8;
+            if (!(temp_t8 & 0xFF)) {
+                if (temp_v1 & 0x40) {
+                    sp20 = temp_a2;
+                    func_10004074(*(s32 *)D_800B0E58[arg0]);
+                }
+                temp_v0_2 = (s32 *)&D_800B0E58[arg0];
+                sp1C = temp_v0_2;
+                sp20 = temp_a2;
+                func_10004074(*temp_v0_2);
+                *temp_v0_2 = -1;
+                *temp_a2 = 0;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510D7AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13ABD0/func_1510D7AC.s")
 extern s8 D_800D9ED0;
 extern u8 D_800D9ED8[];

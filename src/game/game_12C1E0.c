@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FED30
- * - func_150FEFD0
  * - func_150FF084
  * - func_150FF2D4
  * - func_150FF474
@@ -16,9 +15,33 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FED30.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FEFD0.s")
+extern s32 func_1503195C(void *arg0, s32 arg1, s32 arg2);
+void func_1514654C(void *, s32, s32, void **, void **, s32);
+extern u8 D_800A2050;
+
+void func_150FEFD0(void *arg0, s16 arg1, void *arg2) {
+    u8 *sp34;
+    void *sp30;
+    s32 result;
+
+    if (arg1 == -1) {
+        *(f32 *)((u8 *)arg2 + 0) = *(f32 *)((u8 *)arg0 + 0x14);
+        *(f32 *)((u8 *)arg2 + 4) = *(f32 *)((u8 *)arg0 + 0x18);
+        *(f32 *)((u8 *)arg2 + 8) = *(f32 *)((u8 *)arg0 + 0x1C);
+        return;
+    }
+    result = func_1503195C(arg0, arg1, 0);
+    if (result == 0) {
+        *(f32 *)((u8 *)arg2 + 0) = *(f32 *)((u8 *)arg0 + 0x14);
+        *(f32 *)((u8 *)arg2 + 4) = *(f32 *)((u8 *)arg0 + 0x18);
+        *(f32 *)((u8 *)arg2 + 8) = *(f32 *)((u8 *)arg0 + 0x1C);
+        return;
+    }
+    sp34 = &D_800A2050;
+    sp30 = arg2;
+    func_1514654C(arg0, result, 0, (void **)&sp34, &sp30, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF084.s")
-extern void func_1503195C(void *arg0, s32 arg1, s32 arg2);
 
 void func_150FF288(void *arg0) {
     func_1503195C(arg0, 0x82, 0);

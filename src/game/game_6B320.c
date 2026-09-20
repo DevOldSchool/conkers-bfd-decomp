@@ -19,7 +19,6 @@
  * - func_1503EFC4
  * - func_1503F16C
  * - func_1503F2B0
- * - func_1503F404
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -143,6 +142,31 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503EF4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EF4C.s")
+extern u8 D_80098914[];
+extern u32 func_150ADA20(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 CURRENT (1867) */
+void func_1503EFC4(s32 arg0) {
+    Game6B320Slot *temp_s2;
+    s32 var_s0;
+    s32 var_s1;
+    u8 temp_s3;
+
+    temp_s2 = &D_800C6660[arg0];
+    temp_s2->field_C = 0x78;
+    temp_s3 = D_80098914[temp_s2->pad_E[0]];
+    var_s0 = 0;
+    var_s1 = 0;
+    if (temp_s3 > 0) {
+        do {
+            *(f32 *)((u8 *)temp_s2->entity + var_s1 + 0x4C) =
+                (f32)((func_150ADA20() % 20U) - 5);
+            var_s0 += 1;
+            var_s1 += 0x68;
+        } while (var_s0 != temp_s3);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EFC4.s")
 /* Call context: func_1503EB78: unique active project prototype */
 void func_1503EB78(void *, f32, f32, s32);
@@ -174,4 +198,19 @@ void func_1503F108(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F16C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F2B0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F404.s")
+void *func_10022EC0(void *, const void *, u32);
+void func_151EFEB8(void *, s32);
+s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800C3E90;
+
+void func_1503F404(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    u8 sp30[0x40];
+
+    if (D_800C3E90 != 0) {
+        func_151EFEB8(sp30, arg0);
+    } else {
+        func_10022EC0(sp30, (void *)arg0, 0x40U);
+    }
+    func_1503E5F8(sp30, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+}

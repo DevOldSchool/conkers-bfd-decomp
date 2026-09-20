@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B3184
  * - func_151B32C8
  * - func_151B3A7C
  * - func_151B3CF0
@@ -68,10 +67,9 @@ HoltenRopeEffect *func_151B30B0(void *arg0, f32 arg1, s32 arg2, u8 arg3, s32 arg
 }
 void func_1516972C(HoltenRopeEffect *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3184 CURRENT (24) */
 void func_151B3184(HoltenRopeEffect *arg0) {
-    u8 finished = 0;
     s32 callback;
+    u8 finished = 0;
 
     if (arg0->flags & 1) {
         arg0->timer -= D_800BE9E4;
@@ -107,8 +105,6 @@ void func_151B3184(HoltenRopeEffect *arg0) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B3184 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B32C8.s")
 extern void (*D_8008FB68[])(void *, s32, u8);
 
@@ -323,6 +319,37 @@ s32 func_151B3CF0(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B3CF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3CF0.s")
+extern f32 D_800AA3AC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3F28 CURRENT (1990) */
+s32 func_151B3F28(void *arg0, f32 *arg1, s32 arg2) {
+    void **slot;
+    void *state;
+    s32 result;
+
+    result = 1;
+    if ((arg2 & 0xFF) != 0) {
+        slot = *(void ***)((u8 *)arg0 + 0x150);
+        state = (slot != 0) ? *slot : 0;
+        if ((state != 0) &&
+            (*(u8 *)((u8 *)arg0 + 0x154) == *(u8 *)((u8 *)state + 0x3B))) {
+            arg1[0] = *(f32 *)((u8 *)state + 0x14);
+            arg1[1] = *(f32 *)((u8 *)state + 0x18);
+            arg1[2] = *(f32 *)((u8 *)state + 0x1C);
+            *(u8 *)((u8 *)arg0 + 0x10) &= 0xFB;
+        } else {
+            result = 0;
+            *(u8 *)((u8 *)arg0 + 0x10) |= 0xC;
+        }
+    } else {
+        arg1[0] = 0.0f;
+        arg1[2] = 0.0f;
+        arg1[1] = D_800AA3AC;
+        *(u8 *)((u8 *)arg0 + 0x10) &= 0xF7;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B3F28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3F28.s")
 /* Call context: func_15047D60: unique active project prototype */
 s32 func_151B3A7C(f32, f32);                        /* extern */

@@ -35,8 +35,9 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) once per task. Consult the
   If `register-only` is positive and every other count is zero, try `permute <id> --budget 32`
   before manual variants when permitted. Honor task budgets and manual-only restrictions.
   Otherwise read the saved full diff, make one targeted source revision and rerun `finish`.
-  Default limit: one manual revision and one permutation search per function; keep plateau
-  stopping, never repeat an unchanged search, and expand effort only when the task allows it.
+  Default limit: two manual revisions and one 32-variant permutation search per distinct
+  candidate and settings. Keep plateau stopping; repeat only after a source/evidence change
+  or an improvement that justifies a larger budget. Never repeat an unchanged search.
   Exhaustion means `candidate`. A focused zero followed by layout failure needs layout recovery.
 - `FIX_INTEGRATION`: fix source/layout before retrying a batch; never rerun an unchanged failure.
 - `BLOCKED_TOOLING`, unavailable required declarations or unapproved shared changes: stop and

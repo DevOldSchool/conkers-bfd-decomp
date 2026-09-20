@@ -10,6 +10,19 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+extern f32 D_800A04C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7670 CURRENT (485) */
+s32 func_150C7670(void *arg0) {
+    f32 value;
+    u8 intensity;
+
+    intensity = *(u8 *)((u8 *)*(void **)((u8 *)*(void **)((u8 *)arg0 + 0x170) + 0x14) + 0x2F);
+    value = (f32)intensity;
+    *(s8 *)((u8 *)arg0 + 0x70) = (s8)(u32)(value * D_800A04C0);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C7670 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4B20/func_150C7670.s")
 void func_10022EC0(void *arg0, void *arg1, s32 arg2);
 extern u8 D_80089470;

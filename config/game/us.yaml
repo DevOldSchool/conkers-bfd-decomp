@@ -499,7 +499,7 @@ segments:
       - [0x108850, c, game/game_135D00]
       - [0x109410, c, game/game_1368C0]
       - [0x10A870, c, game/game_137D20]
-      - [0x10A930, c, game/game_137DE0]
+      - [0x10A930, c, game/done/game_137DE0]
       - [0x10AA20, c, game/game_137ED0]
       - [0x10AEE0, c, game/game_138390]
       - [0x10B070, c, game/game_138520]

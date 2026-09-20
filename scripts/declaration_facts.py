@@ -156,7 +156,8 @@ def function_declaration(
     from call_signatures import (
         signature_index, source_signatures, sdk_alias_signatures, sdk_alias_evidence,
     )
-    signature = signature_index(root, {symbol}, source=source).get(symbol)
+    origins: dict[str, str] = {}
+    signature = signature_index(root, {symbol}, source=source, evidence=origins).get(symbol)
     if signature is None or len(signature.arguments) != len(expected):
         return None
     if (expected_return != "M2C_UNK"
@@ -169,6 +170,8 @@ def function_declaration(
         paths = ["active declaration in the allowed source"]
     elif symbol in sdk_alias_signatures(root, {symbol}):
         paths = [sdk_alias_evidence(symbol)]
+    elif origins.get(symbol, '').startswith('matched US definition in '):
+        paths = [origins[symbol]]
     else:
         paths = [str(path.relative_to(root)) for path in evidence_files(root)
                  if re.search(rf"\b{re.escape(symbol)}\s*\(", active_text(path.read_text(encoding="utf-8")))]
@@ -460,3 +463,16 @@ def later_object_declarations(definition: str, source: str, visible: str) -> tup
         needed.append(next(iter(choices)))
         evidence.append(f"{symbol}: later active file-scope extern in the allowed source")
     return needed, evidence
+
+
+def object_evidence_index(root: Path = ROOT) -> dict[str, tuple[str, ...]]:
+    """Index declaration spellings for invalidation only, never as type proof."""
+    result: dict[str, set[str]] = {}
+    for path in evidence_files(root):
+        source = active_text(path.read_text(encoding="utf-8"))
+        for pattern in (OBJECT_EVIDENCE, FUNCTION_POINTER_OBJECT_EVIDENCE):
+            for match in file_scope_matches(pattern, source):
+                if match.group("storage") and match.group("storage").strip() == "static":
+                    continue
+                result.setdefault(match.group("symbol"), set()).add(match.group(0).strip())
+    return {symbol: tuple(sorted(values)) for symbol, values in result.items()}

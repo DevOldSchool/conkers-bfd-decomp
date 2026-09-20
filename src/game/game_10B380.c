@@ -12,6 +12,38 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void *func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDED0 CURRENT (230) */
+void func_150DDED0(void *arg0) {
+    void *object;
+    u8 tag;
+
+    object = func_151491F4(0x64, 2, -1, 1, 0, 1, 0xFF, 0);
+    if (object == 0) {
+        return;
+    }
+    tag = *(u8 *)((u8 *)arg0 + 0x72);
+    switch (tag) {
+    case 0xFB:
+        *(s8 *)((u8 *)object + 0x28) = 1;
+        break;
+    case 0xFC:
+        *(s8 *)((u8 *)object + 0x28) = 2;
+        break;
+    case 0xFD:
+        *(s8 *)((u8 *)object + 0x28) = 4;
+        break;
+    case 0xFE:
+        *(s8 *)((u8 *)object + 0x28) = 3;
+        break;
+    default:
+        func_1516972C(object);
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150DDED0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDED0.s")
 extern void func_150DBD70(u8, void *);
 

@@ -156,19 +156,22 @@ s32 func_15141478(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_15141478.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
-f32 func_15144B68(f32, void *);                     /* extern */
+f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141564 CURRENT (73) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141564 CURRENT (35) */
 s32 func_15141564(u8 *arg0) {
     void *sp18;
     u8 *temp_v1;
 
     temp_v1 = (void *)(arg0 + 0x170);
-    *(f32 *)((u8 *)arg0 + 0x158) = (f32) (*(f32 *)((u8 *)arg0 + 0x170) + (*(f32 *)((u8 *)temp_v1 + 4) * func_15047D60(*(f32 *)((u8 *)arg0 + 0x178))));
+    *(f32 *)((u8 *)arg0 + 0x158) =
+        (f32)(*(f32 *)temp_v1 +
+              (func_15047D60(*(f32 *)((u8 *)arg0 + 0x178)) *
+               *(f32 *)((u8 *)temp_v1 + 4)));
     *(f32 *)((u8 *)temp_v1 + 8) = (f32) (*(f32 *)((u8 *)temp_v1 + 8) + (*(f32 *)((u8 *)temp_v1 + 0xC) * D_800BE9A4));
     sp18 = temp_v1;
-    *(f32 *)((u8 *)temp_v1 + 8) = func_15144B68(*(f32 *)((u8 *)temp_v1 + 8), arg0);
+    *(f32 *)((u8 *)temp_v1 + 8) = func_15144B68(*(f32 *)((u8 *)temp_v1 + 8));
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15141564 */
@@ -211,6 +214,35 @@ block_7:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151415D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151415D4.s")
+typedef void (*Game16DC80Callback)(u8 *, u8 *, u8);
+extern Game16DC80Callback D_8008A02C;
+void func_1516972C(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151416E8 CURRENT (1995) */
+void func_151416E8(u8 *arg0, u8 *arg1, u8 arg2) {
+    if (*(&D_8008A02C + arg0[0x168]) != 0) {
+        (*(&D_8008A02C + arg0[0x168]))(arg0, arg1, arg2);
+    }
+    if ((arg2 == 0x22) || (arg2 == 0x24) || (arg2 == 0x25)) {
+        s8 *state;
+
+        state = (s8 *)arg0 + 0x110;
+        if (*arg1 == (u8)state[0x58]) {
+            switch (arg2) {
+                case 0x22:
+                    func_1516972C(arg0);
+                    return;
+                case 0x24:
+                    state[0x59] = -1;
+                    return;
+                case 0x25:
+                    state[0x59] = 2;
+                    break;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151416E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151416E8.s")
 typedef struct {
     s32 field_0;

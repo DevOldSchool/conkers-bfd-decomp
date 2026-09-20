@@ -14,6 +14,64 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    s8 field_0;
+    u8 pad_1[3];
+    s32 field_4;
+    f32 field_8;
+    f32 field_C;
+    f32 field_10;
+    f32 field_14;
+    f32 field_18;
+    f32 field_1C;
+    f32 field_20;
+    s8 field_24;
+    s8 field_25;
+    s8 field_26;
+} Game1D6570Descriptor;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_151A8B20(Game1D6570Descriptor *, s32, s32, s32, s32);
+extern f32 D_800A8F58;
+extern f32 D_800A8F5C;
+extern f32 D_800A8F60;
+extern f32 D_800A8F64;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A90C0 CURRENT (302) */
+void func_151A90C0(s32 arg0, s32 arg1) {
+    Game1D6570Descriptor descriptor;
+    s8 payload;
+    f32 parity;
+    s32 result;
+
+    descriptor.field_4 = arg0;
+    descriptor.field_0 = 2;
+    parity = (f32)(arg1 & 1);
+    if (parity != 0.0f) {
+        descriptor.field_8 = D_800A8F58;
+    } else {
+        descriptor.field_8 = D_800A8F5C;
+    }
+    if (parity != 0.0f) {
+        descriptor.field_C = D_800A8F60;
+    } else {
+        descriptor.field_C = D_800A8F64;
+    }
+    descriptor.field_10 = 0.0f;
+    descriptor.field_14 = 0.0f;
+    descriptor.field_18 = 0.0f;
+    descriptor.field_1C = 0.0f;
+    descriptor.field_20 = 0.0f;
+    descriptor.field_24 = 1;
+    descriptor.field_25 = -1;
+    descriptor.field_26 = 0;
+    payload = arg1;
+    result = func_151A8B20(&descriptor, -1, 1, 0xFF, 0);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x80, &payload, 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A90C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A90C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A91AC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (1055) */

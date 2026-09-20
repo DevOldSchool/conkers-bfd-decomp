@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151D2AB0
  * - func_151D2B4C
- * - func_151D2BA4
  * - func_151D2C40
  * - func_151D2DCC
  * - func_151D2E14
@@ -55,10 +54,10 @@ extern s32 D_800E0990[];
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2B4C CURRENT (30) */
 void func_151D2B4C(s32 arg0) {
     u8 *temp_v0;
-    u8 temp_v1;
     u8 temp_t7;
+    u8 temp_v1;
 
-    temp_v0 = D_800E0950 + arg0;
+    temp_v0 = &D_800E0950[arg0];
     temp_v1 = *temp_v0;
     temp_t7 = temp_v1 - 1;
     if (temp_v1 != 0) {
@@ -74,7 +73,12 @@ void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_10022EC0(void *, void *, s32);
 void func_151D3308(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2BA4 CURRENT (50) */
+typedef struct Game1FFF60Vec3 {
+    s32 x;
+    s32 y;
+    s32 z;
+} Game1FFF60Vec3;
+
 void *func_151D2BA4(s32 arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
     void *temp_v0;
     void *sp24;
@@ -84,15 +88,11 @@ void *func_151D2BA4(s32 arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
         return 0;
     }
     sp24 = temp_v0;
-    func_10022EC0((u8 *)temp_v0 + 0x10, (void *)arg0, 0x24, temp_v0);
-    *(s32 *)((u8 *)sp24 + 0x34) = *(s32 *)arg1;
-    *(s32 *)((u8 *)sp24 + 0x38) = *(s32 *)((u8 *)arg1 + 4);
-    *(s32 *)((u8 *)sp24 + 0x3C) = *(s32 *)((u8 *)arg1 + 8);
+    func_10022EC0((u8 *)temp_v0 + 0x10, (void *)arg0, 0x24);
+    *(Game1FFF60Vec3 *)((u8 *)sp24 + 0x34) = *(Game1FFF60Vec3 *)arg1;
     func_151D3308(sp24);
     return sp24;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2BA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2BA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2C40.s")
 void func_151D3354();
 
@@ -177,6 +177,35 @@ void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D2F00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2F00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2F90.s")
+extern void (*D_8008FC48[])(void *, void *);
+extern void (*D_8008FC5C[])(s32);
+void func_1514EDF0(s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3130 CURRENT (415) */
+void func_151D3130(s32 arg0) {
+    u8 *var_s0;
+    u8 *temp_s1;
+    s8 temp_v0;
+
+    if (D_8008FC5C[*(u8 *)((u8 *)arg0 + 0x1D)] != 0) {
+        D_8008FC5C[*(u8 *)((u8 *)arg0 + 0x1D)](arg0);
+    }
+    var_s0 = *(u8 **)((u8 *)arg0 + 0x24);
+    if (var_s0 != 0) {
+        do {
+        temp_v0 = *(s8 *)(var_s0 + 0x2A);
+        temp_s1 = *(u8 **)(var_s0 + 0x40);
+        if (temp_v0 != -1) {
+            D_8008FC48[(s32)temp_v0](var_s0, var_s0 + 0x34);
+        }
+        *(s32 *)(var_s0 + 0x2C) = 0;
+        func_1516972C(var_s0);
+        var_s0 = temp_s1;
+        } while (var_s0 != 0);
+    }
+    func_1514EDF0(arg0, *(s32 *)((u8 *)arg0 + 0x10));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D3130 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D3130.s")
 void func_151D3130(s32 arg0);
 void func_15169804(s32 arg0);
@@ -190,6 +219,36 @@ void func_151D3220(s32 arg0) {
     func_151D3130(arg0);
     func_15169824(arg0);
 }
+extern void (*D_8008FC64[])(void *, void *, u8);
+void func_151D33FC(void *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D324C CURRENT (1460) */
+void func_151D324C(void *arg0, void *arg1, u8 arg2) {
+    u8 mode;
+    s32 current;
+    s32 incoming;
+    void (*callback)(void *, void *, u8);
+
+    mode = arg2 & 0xFF;
+    if (mode == 0) {
+        func_151D33FC(arg0, arg1);
+    } else if (mode == 0x2D) {
+        current = *(s32 *)((u8 *)arg0 + 0x10);
+        incoming = *(s32 *)arg1;
+        if (incoming == current) {
+            *(s32 *)((u8 *)arg0 + 0x10) = *(s32 *)((u8 *)arg1 + 4);
+            *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 9);
+        } else if (*(s32 *)((u8 *)arg1 + 4) == current) {
+            *(s32 *)((u8 *)arg0 + 0x10) = incoming;
+            *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 8);
+        }
+    }
+    callback = D_8008FC64[*(u8 *)((u8 *)arg0 + 0x1D)];
+    if (callback != 0) {
+        callback(arg0, arg1, mode);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D324C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D324C.s")
 void func_151D3308(void *arg0) {
     void *temp_v0;

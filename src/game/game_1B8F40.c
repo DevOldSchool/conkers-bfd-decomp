@@ -12,6 +12,53 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B8F40/func_1518BA90.s")
+typedef struct Game1B8F40Node {
+    u8 pad0[8];
+    struct Game1B8F40Node *next;
+    u8 padC[0x18];
+    void *owner;
+    u8 type;
+} Game1B8F40Node;
+
+extern u8 D_800DCE50[];
+extern s8 D_800DD190;
+extern Game1B8F40Node *D_800DD198[];
+void func_1516972C(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 CURRENT (685) */
+void func_1518BBF4(void *arg0) {
+    u8 *block;
+    u8 *end;
+
+    if (arg0 != 0) {
+        block = D_800DCE50;
+        end = (u8 *)&D_800DD190;
+        do {
+            Game1B8F40Node *node;
+
+            node = *(Game1B8F40Node **)(block + 0x7C);
+            D_800DD190 += 1;
+            if (node != 0) {
+                Game1B8F40Node **link;
+
+                link = &D_800DD198[D_800DD190];
+                do {
+                    *link = node->next;
+                    node->owner = arg0;
+                    if ((arg0 != 0) ||
+                        (*(u8 *)((u8 *)arg0 + 0x3B) == node->type)) {
+                        func_1516972C((u8 *)node);
+                    }
+                    link = &D_800DD198[D_800DD190];
+                    node = *link;
+                } while (node != 0);
+            }
+            block += 0x1A0;
+            D_800DD190 -= 1;
+        } while (block != end);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518BBF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B8F40/func_1518BBF4.s")
 typedef struct Game1B8F40Effect {
     u8 pad0[0x2C];

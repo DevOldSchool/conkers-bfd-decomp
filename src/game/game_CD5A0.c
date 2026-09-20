@@ -23,7 +23,7 @@ typedef struct GameCD5A0Record {
 extern GameCD5A0Record D_800D3010[];
 extern s32 D_800D3014[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A00F0 CURRENT (70) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A00F0 CURRENT (1075) */
 void func_150A00F0(void) {
     s32 i;
 

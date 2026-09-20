@@ -22,7 +22,6 @@
  * - func_1515F040
  * - func_1515F0AC
  * - func_1515F170
- * - func_1515F1B0
  * - func_1515F338
  * - func_1515F5C4
  * - func_1515F850
@@ -42,6 +41,13 @@ typedef struct Game18A8F0ListNode {
     struct Game18A8F0ListNode *next;
 } Game18A8F0ListNode;
 
+typedef struct Game18A8F0ValueNode {
+    s32 value;
+    f32 field_4;
+    f32 field_8;
+    s32 field_C;
+} Game18A8F0ValueNode;
+
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern void func_100226F0(void *arg0, s32 arg1);
 extern void *D_800DCD78;
@@ -56,19 +62,15 @@ void *func_1515D440(void) {
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D480 CURRENT (58) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D480 CURRENT (42) */
 void *func_1515D480(s32 arg0) {
-    void *sp1C;
     s32 sp18;
-    s32 temp_a0;
-    void *temp_v0;
+    void *sp1C;
 
-    temp_a0 = arg0 * 0x60;
-    sp18 = temp_a0;
-    temp_v0 = func_10003C40(temp_a0, 1, 2, 0);
-    sp1C = temp_v0;
-    func_100226F0(temp_v0, sp18);
-    return temp_v0;
+    sp18 = arg0 * 0x60;
+    sp1C = func_10003C40(sp18, 1, 2, 0);
+    func_100226F0(sp1C, sp18);
+    return sp1C;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515D480 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515D480.s")
@@ -239,6 +241,64 @@ void *func_1515D6D0(u8 *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E43C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E544.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E888.s")
+typedef struct Game18A8F0SearchActor {
+    u8 pad0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[0xC];
+    f32 field_2C;
+    f32 field_30;
+    f32 field_34;
+    u8 pad38[0x148];
+    f32 field_180;
+    u8 pad184[0x1A8];
+} Game18A8F0SearchActor;
+
+typedef struct Game18A8F0SearchEntry {
+    u8 pad0[0x14];
+    u8 field_14;
+    u8 field_15;
+    u8 pad16[2];
+    u32 flags_18;
+} Game18A8F0SearchEntry;
+
+typedef struct Game18A8F0SearchNode {
+    struct Game18A8F0SearchNode *next;
+    Game18A8F0SearchEntry *entry;
+} Game18A8F0SearchNode;
+
+s32 func_150A1DA0(Game18A8F0SearchActor *, Game18A8F0SearchEntry *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515EB84 CURRENT (20) */
+void *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+                    Game18A8F0SearchNode *arg4) {
+    Game18A8F0SearchActor actor;
+    Game18A8F0SearchEntry *entry;
+
+    actor.y = (f32)arg1;
+    actor.field_180 = (f32)arg1;
+    actor.field_30 = (f32)arg1;
+    actor.x = (f32)arg0;
+    actor.field_2C = (f32)arg0;
+    actor.z = (f32)arg2;
+    actor.field_34 = (f32)arg2;
+    if (arg4 != 0) {
+        do {
+            entry = arg4->entry;
+            if ((entry->field_14 == 0) &&
+                ((arg3 == 0) || (((entry->flags_18 >> 24) & arg3) != 0)) &&
+                (((entry->field_15 >> 2) == 0x18) ||
+                 ((entry->flags_18 >> 31) == 0)) &&
+                (func_150A1DA0(&actor, entry, 0) == 0)) {
+                return arg4->entry;
+            }
+            arg4 = arg4->next;
+        } while (arg4 != 0);
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515EB84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515EB84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515EC78.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515EF74 CURRENT (2244) */
@@ -252,10 +312,10 @@ void func_1515EF74(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515EF74.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F008 CURRENT (50) */
 f32 func_1515F008(s32 arg0, s32 arg1) {
-    u8 *temp_v1;
+    s16 *temp_v1;
 
-    temp_v1 = (u8 *)arg0 + (arg1 * 2);
-    return (f32) (*(u16 *)((u8 *)temp_v1 + 0x20) | (*(s16 *)((u8 *)temp_v1 + 0) << 0x10)) * 0.000015258789f;
+    temp_v1 = (s16 *)arg0 + arg1;
+    return (f32) (*(u16 *)((u8 *)temp_v1 + 0x20) | (*temp_v1 << 0x10)) * 0.000015258789f;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515F008 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F008.s")
@@ -335,7 +395,31 @@ void func_1515F170(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515F170 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F170.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F1B0.s")
+extern Game18A8F0ValueNode *func_10003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+extern f32 func_15144598(s32 arg0);
+extern f32 func_1514462C(s32 arg0);
+
+Game18A8F0ValueNode *func_1515F1B0(s32 arg0) {
+    Game18A8F0ValueNode *var_v1;
+
+    var_v1 = func_10003C6C(0x10, 1, 2, 0, 1);
+    if (var_v1 == 0) {
+        return 0;
+    }
+    var_v1->value = arg0;
+    if (arg0 != 0) {
+        var_v1->field_4 = func_1514462C(arg0);
+    } else {
+        var_v1->field_4 = 0.0f;
+    }
+    if (arg0 != 0) {
+        var_v1->field_8 = func_15144598(arg0);
+    } else {
+        var_v1->field_8 = 0.0f;
+    }
+    var_v1->field_C = 0;
+    return var_v1;
+}
 void func_1515F25C(Game18A8F0Node **arg0, Game18A8F0Node *arg1) {
     arg1->next = *arg0;
     *arg0 = arg1;

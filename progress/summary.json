@@ -3,17 +3,17 @@
     "us"
   ],
   "code_bytes": {
-    "fully_matched_source_unit_bytes": 165336,
-    "fully_matched_source_unit_percentage": 7.389675,
+    "fully_matched_source_unit_bytes": 165632,
+    "fully_matched_source_unit_percentage": 7.402905,
     "library_text_bytes": 147232,
-    "matched_bytes": 301776,
+    "matched_bytes": 324112,
     "overlays": {
       "game": {
-        "fully_matched_source_unit_bytes": 66656,
-        "fully_matched_source_unit_percentage": 3.215623,
+        "fully_matched_source_unit_bytes": 67120,
+        "fully_matched_source_unit_percentage": 3.238007,
         "library_text_bytes": 48720,
-        "matched_bytes": 203096,
-        "percentage": 9.797769,
+        "matched_bytes": 225008,
+        "percentage": 10.854849,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -24,92 +24,92 @@
             "total_bytes": 2074912
           },
           "us": {
-            "fully_matched_source_unit_bytes": 66656,
-            "fully_matched_source_unit_percentage": 3.215623,
+            "fully_matched_source_unit_bytes": 67120,
+            "fully_matched_source_unit_percentage": 3.238007,
             "library_text_bytes": 48720,
-            "matched_bytes": 203096,
-            "percentage": 9.797769,
+            "matched_bytes": 225008,
+            "percentage": 10.854849,
             "total_bytes": 2072880
           }
         },
         "total_bytes": 2072880
       },
       "main": {
-        "fully_matched_source_unit_bytes": 98680,
-        "fully_matched_source_unit_percentage": 59.983466,
+        "fully_matched_source_unit_bytes": 98512,
+        "fully_matched_source_unit_percentage": 59.881346,
         "library_text_bytes": 98512,
-        "matched_bytes": 98680,
-        "percentage": 59.983466,
+        "matched_bytes": 99104,
+        "percentage": 60.241198,
         "regions": {
           "eu": {
-            "fully_matched_source_unit_bytes": 168,
-            "fully_matched_source_unit_percentage": 0.101616,
+            "fully_matched_source_unit_bytes": 0,
+            "fully_matched_source_unit_percentage": 0.0,
             "library_text_bytes": 0,
             "matched_bytes": 168,
             "percentage": 0.101616,
             "total_bytes": 165328
           },
           "us": {
-            "fully_matched_source_unit_bytes": 98680,
-            "fully_matched_source_unit_percentage": 59.983466,
+            "fully_matched_source_unit_bytes": 98512,
+            "fully_matched_source_unit_percentage": 59.881346,
             "library_text_bytes": 98512,
-            "matched_bytes": 98680,
-            "percentage": 59.983466,
+            "matched_bytes": 99104,
+            "percentage": 60.241198,
             "total_bytes": 164512
           }
         },
         "total_bytes": 164512
       }
     },
-    "percentage": 13.487847,
+    "percentage": 14.486152,
     "regions": {
       "eu": {
-        "fully_matched_source_unit_bytes": 168,
-        "fully_matched_source_unit_percentage": 0.007499,
+        "fully_matched_source_unit_bytes": 0,
+        "fully_matched_source_unit_percentage": 0.0,
         "library_text_bytes": 0,
         "matched_bytes": 168,
         "percentage": 0.007499,
         "total_bytes": 2240240
       },
       "us": {
-        "fully_matched_source_unit_bytes": 165336,
-        "fully_matched_source_unit_percentage": 7.389675,
+        "fully_matched_source_unit_bytes": 165632,
+        "fully_matched_source_unit_percentage": 7.402905,
         "library_text_bytes": 147232,
-        "matched_bytes": 301776,
-        "percentage": 13.487847,
+        "matched_bytes": 324112,
+        "percentage": 14.486152,
         "total_bytes": 2237392
       }
     },
     "total_bytes": 2237392
   },
-  "complete_source_units": 68,
+  "complete_source_units": 69,
   "future_regions": [
     "eu"
   ],
-  "known_functions": 5226,
-  "mixed_source_units": 646,
+  "known_functions": 5231,
+  "mixed_source_units": 645,
   "overlays": {
     "game": {
       "known_functions": 5224,
-      "target_matched": 1929
+      "target_matched": 2051
     },
     "main": {
-      "known_functions": 2,
-      "target_matched": 1
+      "known_functions": 7,
+      "target_matched": 5
     }
   },
   "regions": {
     "us": {
       "blocked": 0,
       "candidate": 0,
-      "in_progress": 1,
-      "matched": 1930,
-      "raw_asm": 3295
+      "in_progress": 0,
+      "matched": 2056,
+      "raw_asm": 3175
     }
   },
   "schema_version": 1,
   "source_units": 716,
-  "target_matched": 1930,
-  "target_remaining": 3296,
+  "target_matched": 2056,
+  "target_remaining": 3175,
   "unassigned_functions": 0
 }

@@ -22,6 +22,42 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_10022EC0(void *, void *, s32);
+s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D71B0 CURRENT (2001) */
+s32 func_151D71B0(s16 arg0, u8 arg1, u8 arg2, s32 arg3,
+                  s32 arg4, u8 arg5, s32 arg6) {
+    s32 sp4C;
+    s32 sp48;
+    f32 sp44;
+    f32 sp40;
+    f32 sp3C;
+    s8 sp39;
+    u8 sp38;
+    s32 sp34;
+    s32 temp_v0;
+    s32 var_v1;
+
+    sp34 = 0;
+    sp39 = 0;
+    sp3C = 0.0f;
+    sp40 = 0.0f;
+    sp44 = 0.0f;
+    sp48 = *(f32 *)&arg3;
+    sp38 = arg2;
+    temp_v0 = func_15149130((s16)arg0, -1, 0x42, -1,
+                            (s32)arg1, 0x36, arg4 + 0x18,
+                            (s32)arg5, arg6);
+    var_v1 = temp_v0;
+    if (temp_v0 != 0) {
+        sp4C = temp_v0;
+        func_10022EC0((void *)(temp_v0 + 0x28), &sp34, 0x18);
+        var_v1 = sp4C;
+    }
+    return var_v1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D71B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D71B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7264.s")
 extern void (*volatile D_8008FCA4[])(void *, s32, u8);
@@ -67,7 +103,7 @@ void func_151D747C(void *arg0) {
     func_151494E0((s32 *)&sp, 0x3D, (s32)arg0);
 }
 void func_10022EC0(void *, void *, s32);
-s32 func_151D71B0(s32, s32, s32, s32, s32, s32, s32);
+s32 func_151D71B0(s16, u8, u8, s32, s32, u8, s32);
 
 typedef struct Game204660D74B0Packet {
     void *owner;

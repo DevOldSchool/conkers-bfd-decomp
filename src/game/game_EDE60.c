@@ -38,6 +38,7 @@ typedef struct {
     u8 pad0[0x40];
     GameEDE60ResourceEntry *entries;
     s16 first_index;
+    s16 last_index;
 } GameEDE60ResourceList;
 
 void func_1516972C(void *);
@@ -62,4 +63,40 @@ void func_150C0A48(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0AC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0C38.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1198 CURRENT (440) */
+void func_150C1198(u8 *arg0) {
+    GameEDE60ResourceEntry *entry;
+    GameEDE60ResourceList *list;
+    s16 index;
+    s16 previous;
+    s32 found;
+
+    list = *(GameEDE60ResourceList **) (arg0 + 0xA8);
+    index = list->first_index;
+    found = 0;
+    previous = -1;
+    if (index != -1) {
+        do {
+            entry = &list->entries[index];
+            if (arg0 == entry->resource) {
+                found = 1;
+            } else {
+                previous = index;
+                index = entry->next_index;
+            }
+        } while ((index != -1) && (found == 0));
+    }
+    if (found != 0) {
+        entry = &list->entries[index];
+        if (index == list->first_index) {
+            list->first_index = entry->next_index;
+        } else {
+            list->entries[previous].next_index = entry->next_index;
+            entry = &list->entries[index];
+        }
+        entry->next_index = list->last_index;
+        list->last_index = index;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C1198 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C1198.s")

@@ -53,12 +53,42 @@ reviewed source-unit transition.
 For a mismatch, use the latest `finish` diagnosis. Make at most three
 source-only variants for a bounded manual attempt. Use `diagnose-diff` when
 evidence is stale or unavailable, and use `diff --watch` only with interactive
-stdin and stdout. A register-only candidate may use one bounded `permute` search
-when the task allows it. Otherwise inspect the saved full diff, make one targeted
-revision, and rerun `finish`. If it remains unmatched, report `candidate`.
+stdin and stdout. A register-only candidate may use one `permute --budget 32` search
+per distinct candidate and settings when the task allows it. Increase the budget only
+after improvement or a new source shape; never repeat an unchanged search. Otherwise
+inspect the saved full diff, make two targeted revisions, and rerun `finish`. If it remains unmatched, report `candidate`.
 When explicitly authorized to move on, use `./conker defer <id> --reason ...`;
 use `resume` or `reopen-match` for supported recovery. Never reproduce those
 transactions by editing inventory JSON.
+
+### Low-usage manual m2c mode
+
+When minimizing model and tool-output usage, use one bounded candidate cycle per
+ready function:
+
+```text
+./conker next --ready
+        |
+        v
+Use the emitted m2c starter and assembly context
+        |
+        v
+Make one narrow source-only replacement
+        |
+        v
+./conker finish <id>
+        |
+        +--> CURRENT (0): retain the match
+        |
+        +--> nonzero: defer the candidate when authorized
+```
+
+Prefer small ready functions. Do not repeat `next`, rerun an unchanged
+`finish`, or perform broad repository searches after the emitted context is
+available. Inspect a full diff or make further variants only when the user
+explicitly authorizes additional effort and the diagnosis identifies a narrow,
+promising revision. These usage-saving practices never relax the authoritative
+`CURRENT (0)`, layout, progress, whitespace, or `verify-batch` gates.
 
 ## Source units and registration
 
@@ -101,7 +131,7 @@ and routes exact results through `finish` and the final `verify-batch` gate.
 Use a small run while evaluating a change:
 
 ```sh
-./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
+./conker automate --limit 5 --max-attempts 20 --rewrite-budget 32
 ./conker automate --function <work-item-id> --rewrite-budget 25 \
   --defer-best --skip-final-build
 ```
@@ -111,6 +141,41 @@ register differences are eligible for bounded search; one to three missing or
 extra rows receive a probe capped at 32 variants. Structural differences skip
 search. Preparation and compiler failures retain artifacts under
 `build/us/automate/artifacts/<work-item-id>/` and restore project source.
+
+### Reuse previous work
+
+Execution runs share fingerprinted outcomes in
+`build/us/automate/attempt-history.json`, importing existing execution reports
+on first use. Bounded runs and `next --ready` skip unchanged failed attempts.
+Source, assembly, relevant declaration evidence, headers, tooling, or search
+settings invalidate the applicable cache. History is local to each worktree.
+`--restart` retries cached automation outcomes for the selected scope; it never
+discards pending batch verification. Identical nonmatching `permute` searches
+also reuse their saved result; change source or search settings to search again.
+
+All automation runs use compact output by default; `--verbose` echoes full
+commands. Both modes retain command logs. Preparation failures retain the m2c
+starter under `build/us/automate/artifacts/<id>/starter.c`.
+
+```sh
+./conker blockers --limit 20
+./conker blockers --json
+./conker automate --function <work-item-id> --restart --rewrite-budget 32
+```
+
+The blocker report ranks missing declarations and placeholder families across
+saved failures, excludes functions already matched, and shows representative
+dependents. It does not revalidate fingerprints, and counts can overlap. Resolve
+high-frequency declarations from project evidence, then retry dependents. Inspect
+saved starters to develop narrow preparation rules; do not infer unknown types
+from blocker counts or replace placeholders indiscriminately.
+
+Completed execution reports include elapsed time, cache hits, attempted IDs,
+command-log bytes, and separate newly verified and carried verified match counts.
+`--model-tokens N` accepts an externally measured token count for that invocation
+and reports new batch-verified matches per 1,000 tokens. Missing token counts stay
+null; command-log bytes are not model tokens or the volume displayed to an agent.
+Compare the same candidate cohort when evaluating a workflow change.
 
 The full scan is an explicit, long-running operation:
 

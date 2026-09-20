@@ -23,6 +23,20 @@ SPEC.loader.exec_module(permute_helper)
 
 
 class PermuteTests(unittest.TestCase):
+    def test_candidate_span_resolves_profile_macro_alias(self) -> None:
+        content = (
+            "#if PROFILE_US\n"
+            "#define clear_region func_80001420\n"
+            "#endif\n"
+            "void clear_region(void) {\n    return;\n}\n"
+        )
+
+        start, end = permute_helper.candidate_function_span(
+            content, "func_bootstrap_clear_region", "func_80001420"
+        )
+
+        self.assertEqual("void clear_region(void) {\n    return;\n}\n", content[start:end])
+
     def test_generates_declaration_order_and_lifetime_variants(self) -> None:
         function = (
             "void func_test(s32 arg0) {\n"
@@ -147,6 +161,7 @@ class PermuteTests(unittest.TestCase):
                 argv.append("--exhaustive")
             source = root / "test.c"
             source.write_text(function)
+            (root / "reference.o").write_bytes(b"independent reference")
             values = iter(scores)
             stdout, stderr = io.StringIO(), io.StringIO()
 
@@ -174,6 +189,31 @@ class PermuteTests(unittest.TestCase):
             self.best_saved = (output / "best.c").exists()
             self.assertEqual(function, source.read_text())
             return status, scorer.call_count, json.loads((output / "search-report.json").read_text())
+
+    def test_identical_nonmatch_search_is_reused(self) -> None:
+        function = "s32 func_test(void) { return 1; }\n"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "test.c"
+            source.write_text(function)
+            reference = root / "reference.o"
+            reference.write_bytes(b"raw reference")
+            with (patch.object(permute_helper, "ROOT", root),
+                  patch.object(permute_helper, "work_item", return_value=({}, "func_test")),
+                  patch.object(permute_helper, "active_candidate_content", return_value=(source, function)),
+                  patch.object(permute_helper, "source_variants", return_value=[function]),
+                  patch.object(permute_helper.diff, "ensure_reference_function", return_value=root / "reference.s"),
+                  patch.object(permute_helper.diff, "reference_object", return_value=reference),
+                  patch.object(permute_helper.diff, "expected_function_size", return_value=4),
+                  patch.object(permute_helper, "score_candidate", return_value=10) as scorer,
+                  patch.object(sys, "argv", ["permute.py", "us", "func_test"]),
+                  redirect_stdout(io.StringIO())):
+                self.assertEqual(1, permute_helper.main())
+                self.assertEqual(1, permute_helper.main())
+                self.assertEqual(1, scorer.call_count)
+                reference.write_bytes(b"changed raw reference")
+                self.assertEqual(1, permute_helper.main())
+                self.assertEqual(2, scorer.call_count)
 
     def test_plateau_stops_at_32_and_exhaustive_preserves_full_budget(self) -> None:
         status, calls, report = self.run_search([10] * 80)
@@ -254,6 +294,7 @@ class PermuteTests(unittest.TestCase):
             source = root / "src" / "game" / "test.c"
             source.parent.mkdir(parents=True)
             source.write_text(function, encoding="utf-8")
+            (root / "reference.o").write_bytes(b"independent raw reference")
             with (
                 patch.object(permute_helper, "ROOT", root),
                 patch.object(

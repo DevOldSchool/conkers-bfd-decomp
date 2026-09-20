@@ -100,6 +100,26 @@ void func_1509F47C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s32 arg5) {
     func_15114D24(sp24, func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF),
                   arg2, arg4, arg5, 0);
 }
+s32 func_1000F568(s32, s32);
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+extern s32 D_800D3098;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F4E8 CURRENT (460) */
+void func_1509F4E8(s32 arg0, s32 arg1, u16 arg2, s32 arg3, u32 arg4) {
+    u8 *entry;
+    s16 limit;
+
+    entry = (u8 *)D_800D3098 + arg3 * 0x34;
+    limit = *(s16 *)(entry + 6);
+    if (arg4 >= (u32)limit) {
+        arg4 = (u32)(limit - 1);
+    }
+    func_10010F88(func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF), arg2,
+                   0, 0, 0,
+                   *(s16 *)(entry + 0), *(s16 *)(entry + 2), *(s16 *)(entry + 4),
+                   (s32)arg4, limit);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509F4E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F4E8.s")
 /* Call context: func_10010F30: unique active project prototype */
 void func_10010F30(s32, s32, s32, s32, s32);
@@ -115,9 +135,17 @@ void func_1509F5F4(u16 arg0, u32 arg1, s32 arg2, s16 arg3, s32 arg4, s32 arg5) {
 
     temp_v0 = func_1505EEF4(arg2);
     var_a1 = temp_v0;
-    if ((temp_v0 != 0) && ((arg5 != 0) || (sp24 = temp_v0, var_a1 = sp24, (func_10010894(temp_v0) == 0)))) {
-        func_10010344((s32) arg0, var_a1, arg1, arg3, arg4);
+    if (temp_v0 == 0) {
+        return;
     }
+    if (arg5 == 0) {
+        sp24 = temp_v0;
+        var_a1 = sp24;
+        if (func_10010894(temp_v0) != 0) {
+            return;
+        }
+    }
+    func_10010344((s32) arg0, var_a1, arg1, arg3, arg4);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509F5F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F5F4.s")

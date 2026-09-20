@@ -51,10 +51,11 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] (disable plateau stopping)
-           [--defer-best] [--skip-final-build] [--report PATH] [--restart]
-           [--analyze] [--verbose]
+           [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
+           [--analyze]
                                  Process raw and deferred ASM-to-C candidates. --function runs one
                                  eligible work item; --all considers the complete active US inventory
                                  with compact output. --analyze performs a non-mutating preflight.
@@ -93,7 +94,10 @@ After the raw base split map is available
                                  Register one US game-overlay function for matching work.
   register-main --id <id> --us <symbol> --source <path>
                                  Register one US main-executable function for matching work.
+  record-region-size <id> --profile <region> --size <bytes>
+                                 Preserve a reviewed legacy function span as function metadata.
   register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
+                       [--replace-unreviewed-source <path>]
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
                                  Register a separately reviewed source/object boundary.
   withdraw-source-unit --source <path>
@@ -566,6 +570,9 @@ case "$command" in
             python3 "$state_tool" next "$@"
         fi
         ;;
+    blockers)
+        python3 scripts/matching_blockers.py "$@"
+        ;;
     automate)
         python3 scripts/automate.py "$@"
         ;;
@@ -845,8 +852,12 @@ case "$command" in
         fi
         python3 "$state_tool" register-main "$@"
         ;;
+    record-region-size)
+        [[ $# -eq 5 ]] || die "usage: ./conker record-region-size <id> --profile <region> --size <bytes>"
+        python3 "$state_tool" record-region-size "$@"
+        ;;
     register-source-unit)
-        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>"
+        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference> [--replace-unreviewed-source <path>]"
         python3 "$state_tool" setup-check --profile us
         registration_overlay=game
         previous_argument=""

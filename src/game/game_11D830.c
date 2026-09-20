@@ -8,7 +8,6 @@
  * - func_150F03F8
  * - func_150F07E4
  * - func_150F088C
- * - func_150F0938
  * - func_150F0A24
  * - func_150F0BEC
  * - func_150F0E48
@@ -135,7 +134,17 @@ void func_150F088C(u8 *arg0, u8 *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F088C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F088C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0938.s")
+void func_15160A58(s32, s32, void *, s32, s32, s32, s32, s32,
+                   s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800A1674;
+extern u8 D_800A1680;
+
+void func_150F0938(s32 arg0) {
+    func_15160A58(arg0, 0x25, &D_800A1674, 2, 0x12C, 4, 0, 0xFF,
+                  0, 0xFF, 0, -1, 0, 0, 0xFF, 1);
+    func_15160A58(arg0, 2, &D_800A1680, 2, 0x12C, 0xD, 0xFF, 0xFF,
+                  0xFF, 0xFF, 0, -1, 0, 0, 0xFF, 1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0A24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0BEC.s")
 /* Call context: func_15047D60: unique active project prototype */

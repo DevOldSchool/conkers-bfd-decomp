@@ -100,6 +100,82 @@ func_151F0000 = other_sdk_function;
         header.write_text(SDK_HEADER)
         return mapping, header
 
+    def write_matched(self, definition='void func_target(u8 *arg0) {}'):
+        self.write_raw()
+        self.source.write_text(definition + '\n')
+        path = self.root / 'progress/functions.json'
+        data = json.loads(path.read_text())
+        data['functions'][0]['regions']['us'].update(
+            state='matched', evidence={'current_differences': 0})
+        path.write_text(json.dumps(data))
+        (self.root / 'src/game/other.c').write_text('s32 func_target(s32, ...);\n')
+        return path, data
+
+    def test_matched_definition_overrides_speculative_external_prototypes(self):
+        self.write_matched()
+        recovery = calls.recover(WRAPPER, '', root=self.root)
+        self.assertEqual(('void func_target(u8 *);',), recovery.declarations)
+        self.assertEqual(('func_target: matched US definition in src/game/example.c',), recovery.evidence)
+        declaration = calls.declaration_facts.function_declaration(
+            'func_target', 'M2C_UNK', root=self.root)
+        self.assertEqual(('matched US definition in src/game/example.c',), declaration.evidence)
+
+    def test_matched_definition_does_not_replace_local_contract(self):
+        self.write_matched()
+        local = 'void func_target(void *);'
+        self.assertEqual((local,), calls.recover(WRAPPER, local, root=self.root).declarations)
+        for local in ('void func_target();', 'void func_target(Private *);',
+                      'void func_target(s32); s32 func_target(s32);'):
+            with self.subTest(local=local):
+                self.assertEqual((), calls.recover(WRAPPER, local, root=self.root,
+                                                  allow_raw=True).declarations)
+
+    def test_only_registered_exact_us_definition_can_override_conflicts(self):
+        for mutation in ('raw', 'nonzero', 'missing_evidence', 'wrong_source', 'duplicate', 'malformed'):
+            with self.subTest(mutation=mutation):
+                path, data = self.write_matched()
+                entry = data['functions'][0]
+                if mutation == 'raw':
+                    entry['regions']['us']['state'] = 'raw'
+                elif mutation == 'nonzero':
+                    entry['regions']['us']['evidence']['current_differences'] = 1
+                elif mutation == 'missing_evidence':
+                    del entry['regions']['us']['evidence']
+                elif mutation == 'wrong_source':
+                    entry['source'] = 'src/game/other.c'
+                elif mutation == 'duplicate':
+                    data['functions'].append(entry.copy())
+                path.write_text('not json' if mutation == 'malformed' else json.dumps(data))
+                self.assertEqual((), calls.recover(WRAPPER, '', root=self.root).declarations)
+        self.write_matched()
+        self.assertEqual((), calls.recover(WRAPPER, '', root=self.root, profile='eu').declarations)
+
+    def test_ambiguous_or_unusable_matched_definitions_do_not_override_conflicts(self):
+        for definition in ('void func_target(u8 *);',
+                           '#if 0\nvoid func_target(u8 *p) {}\n#endif',
+                           'void func_target(Private *p) {}',
+                           'static void func_target(u8 *p) {}',
+                           'void func_target() {}',
+                           'void func_target(u8 *p) {} void func_target(u8 *p) {}',
+                           's32 func_target(u8 *); void func_target(u8 *p) {}'):
+            with self.subTest(definition=definition):
+                self.write_matched(definition)
+                self.assertEqual((), calls.recover(WRAPPER, '', root=self.root).declarations)
+        self.write_matched()
+        (self.root / 'src/game/other.c').write_text('s32 func_target(s32 p) { return p; }')
+        self.assertEqual((), calls.recover(WRAPPER, '', root=self.root).declarations)
+
+    def test_match_state_and_definition_change_invalidate_callee_digest(self):
+        path, data = self.write_matched()
+        before = calls.dependency_digest(self.root, WRAPPER)
+        self.assertEqual(before, calls.dependency_digest(self.root, WRAPPER, calls.signature_index(self.root)))
+        self.source.write_text('void func_target(u32 *arg0) {}')
+        self.assertNotEqual(before, calls.dependency_digest(self.root, WRAPPER))
+        self.source.write_text('void func_target(u8 *arg0) {}')
+        data['functions'][0]['regions']['us']['state'] = 'raw'
+        path.write_text(json.dumps(data))
+        self.assertNotEqual(before, calls.dependency_digest(self.root, WRAPPER))
+
     def test_sdk_alias_recovers_return_const_pointer_and_unsigned_length(self):
         self.write_sdk()
         # Conflicting views elsewhere cannot override an identified SDK callee.

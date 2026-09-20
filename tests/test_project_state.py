@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import io
 import json
+import sys
 import tempfile
 import unittest
 from contextlib import redirect_stdout
@@ -12,6 +13,7 @@ from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
 SPEC = importlib.util.spec_from_file_location("project_state", ROOT / "scripts" / "project_state.py")
 assert SPEC is not None and SPEC.loader is not None
 project_state = importlib.util.module_from_spec(SPEC)
@@ -802,6 +804,40 @@ class ProjectStateTests(unittest.TestCase):
 
         self.assertNotIn("deferred", resumed["functions"][0])
 
+    def test_defer_normalizes_legacy_in_progress_state(self) -> None:
+        entry = {
+            "symbol": "func_test",
+            "source": "src/main/test.c",
+            "regions": {
+                "us": {
+                    "state": "in_progress",
+                    "symbol": "func_test",
+                    "vram": "0x80001000",
+                }
+            },
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(
+                json.dumps({"schema_version": 1, "functions": [entry]}),
+                encoding="utf-8",
+            )
+            source = root / "src" / "main" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("void func_test(void) {\n}\n", encoding="utf-8")
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+            ):
+                project_state.defer_function(
+                    SimpleNamespace(symbol="func_test", reason="legacy plateau", score=30)
+                )
+
+            saved = json.loads(inventory.read_text(encoding="utf-8"))
+            self.assertEqual("raw_asm", saved["functions"][0]["regions"]["us"]["state"])
+
     def test_update_deferred_replaces_only_with_a_strictly_better_candidate(self) -> None:
         entry = {
             "symbol": "func_test",
@@ -1480,6 +1516,117 @@ class GameInventoryTests(unittest.TestCase):
 
         units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
         self.assertEqual(source, units["source_units"][0]["source"])
+
+    def test_record_region_size_backfills_legacy_matched_function(self) -> None:
+        source = "src/main/bootstrap.c"
+        project_state.register_main(
+            SimpleNamespace(identifier="bootstrap", source=source, us="func_80001000")
+        )
+        data = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        entry = data["functions"][0]
+        entry["regions"]["eu"] = {
+            "state": "matched",
+            "symbol": "func_80001000",
+            "vram": "0x80001000",
+            "evidence": {
+                "current_differences": 0,
+                "rom_sha1": "b" * 40,
+                "verified_revision": "working-tree",
+            },
+        }
+        project_state.write_json(project_state.FUNCTIONS_FILE, data)
+
+        project_state.record_region_size(
+            SimpleNamespace(symbol="bootstrap", profile="eu", size="0xC")
+        )
+
+        data = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual(12, data["functions"][0]["regions"]["eu"]["size_bytes"])
+
+    def test_register_source_unit_replaces_contained_unreviewed_record(self) -> None:
+        old_source = "src/legacy_bootstrap.c"
+        new_source = "src/main/bootstrap.c"
+        project_state.register_main(
+            SimpleNamespace(identifier="bootstrap", source=old_source, us="func_80001000")
+        )
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        source_units = {
+            "schema_version": 1,
+            "source_units": [
+                {
+                    "source": old_source,
+                    "functions": ["bootstrap"],
+                    "integration": "raw_asm",
+                    "regions": {
+                        "us": {"state": "raw_asm", "start": "0x0", "end": "0x4"}
+                    },
+                }
+            ],
+        }
+        project_state.write_json(project_state.FUNCTIONS_FILE, functions)
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, source_units)
+
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=new_source,
+                functions=None,
+                register_members=True,
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/bootstrap.md",
+                replace_unreviewed_sources=[old_source],
+            )
+        )
+
+        functions = json.loads(project_state.FUNCTIONS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual([new_source, new_source], [entry["source"] for entry in functions["functions"]])
+        units = json.loads(project_state.SOURCE_UNITS_FILE.read_text(encoding="utf-8"))
+        self.assertEqual([new_source], [unit["source"] for unit in units["source_units"]])
+        self.assertEqual(
+            ["bootstrap", "func_80001004"], units["source_units"][0]["functions"]
+        )
+
+    def test_register_source_unit_refuses_to_replace_reviewed_record(self) -> None:
+        source = "src/main/bootstrap.c"
+        for identifier, symbol in (
+            ("bootstrap", "func_80001000"),
+            ("bootstrap_next", "func_80001004"),
+        ):
+            project_state.register_main(
+                SimpleNamespace(identifier=identifier, source=source, us=symbol)
+            )
+        project_state.register_source_unit(
+            SimpleNamespace(
+                overlay="main",
+                source=source,
+                functions=["bootstrap", "bootstrap_next"],
+                register_members=False,
+                us_start="0x0",
+                us_end="0x10",
+                evidence_kind="structural_analysis",
+                evidence_reference="docs/evidence/bootstrap.md",
+                replace_unreviewed_sources=None,
+            )
+        )
+
+        with self.assertRaisesRegex(
+            project_state.ProjectStateError, "refusing to replace reviewed"
+        ):
+            project_state.register_source_unit(
+                SimpleNamespace(
+                    overlay="main",
+                    source=source,
+                    functions=None,
+                    register_members=True,
+                    us_start="0x0",
+                    us_end="0x10",
+                    evidence_kind="structural_analysis",
+                    evidence_reference="docs/evidence/bootstrap.md",
+                    replace_unreviewed_sources=[source],
+                )
+            )
 
     def test_retire_library_units_removes_only_archive_backed_raw_skeletons(self) -> None:
         source, evidence = self.register_main_library_unit()

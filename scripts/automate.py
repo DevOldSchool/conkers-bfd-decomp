@@ -8,7 +8,9 @@ import hashlib
 import json
 import re
 import sys
-from functools import wraps
+import time
+import attempt_history
+from functools import partial, wraps
 from dataclasses import asdict, dataclass, replace
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,6 +19,7 @@ import automation_common
 import candidate_rewrites
 import project_state
 import call_signatures
+import declaration_facts
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -41,6 +44,7 @@ REPORT_SCHEMA_VERSION = 3
 FINGERPRINT_VERSION = 2
 FINGERPRINT_INPUTS = (
     "scripts/automate.py",
+    "scripts/attempt_history.py",
     "scripts/automation_common.py",
     "scripts/candidate_rewrites.py",
     "scripts/candidate_syntax.py",
@@ -202,8 +206,8 @@ def parse_args(arguments: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--rewrite-budget",
         type=rewrite_budget,
-        default=250,
-        help="maximum source-shape variants per candidate (default: 250)",
+        default=32,
+        help="maximum source-shape variants per candidate (default: 32)",
     )
     parser.add_argument("--exhaustive", action="store_true",
                         help="use the full rewrite budget instead of stopping searches on a plateau")
@@ -225,7 +229,7 @@ def parse_args(arguments: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--restart",
         action="store_true",
-        help="with --all, ignore completed attempts in an existing report",
+        help="retry cached outcomes; pending verification is always preserved",
     )
     parser.add_argument(
         "--analyze",
@@ -235,13 +239,13 @@ def parse_args(arguments: list[str] | None = None) -> argparse.Namespace:
     parser.add_argument(
         "--verbose",
         action="store_true",
-        help="with --all, echo detailed per-command output instead of compact progress",
+        help="echo detailed per-command output instead of compact progress",
     )
+    parser.add_argument("--model-tokens", type=positive_integer,
+                        help="externally measured model tokens attributable to this run")
     parsed = parser.parse_args(arguments)
     if parsed.all and parsed.max_attempts is not None:
         parser.error("--all cannot be combined with --max-attempts")
-    if parsed.restart and not parsed.all:
-        parser.error("--restart requires --all")
     if parsed.analyze and not parsed.all:
         parser.error("--analyze requires --all")
     if parsed.analyze and (
@@ -292,6 +296,7 @@ def candidate_fingerprint(
     tool_fingerprint: str,
     *,
     prototypes: dict[str, call_signatures.Signature | None] | None = None,
+    objects: dict[str, tuple[str, ...]] | None = None,
 ) -> str:
     """Hash candidate-local inputs used to decide whether a result is reusable."""
 
@@ -312,10 +317,15 @@ def candidate_fingerprint(
         digest.update(b"\0")
         digest.update(path.read_bytes() if path.is_file() else b"<missing>")
         digest.update(b"\0")
-    if isinstance(candidate, automation_common.RawCandidate):
-        raw = ROOT / project_state.nonmatching_asm_path(candidate.source, candidate.identifier)
-        if raw.is_file():
-            digest.update(call_signatures.dependency_digest(ROOT, raw.read_text(), prototypes).encode())
+    raw = ROOT / project_state.nonmatching_asm_path(candidate.source, candidate.identifier)
+    if raw.is_file():
+        assembly = raw.read_text()
+        digest.update(call_signatures.dependency_digest(ROOT, assembly, prototypes).encode())
+        if objects is None:
+            objects = declaration_facts.object_evidence_index(ROOT)
+        for symbol in sorted(set(re.findall(r"\b[A-Za-z_]\w*\b", assembly)) & objects.keys()):
+            digest.update(symbol.encode())
+            digest.update(json.dumps(objects[symbol]).encode())
     return digest.hexdigest()
 
 
@@ -323,6 +333,11 @@ def stage_fingerprint_seeds(args: argparse.Namespace) -> dict[str, str]:
     """Hash only the tools and options capable of changing each pipeline stage."""
 
     seeds: dict[str, str] = {}
+    headers = hashlib.sha256()
+    for path in sorted((ROOT / "include").rglob("*")):
+        if path.is_file():
+            headers.update(str(path.relative_to(ROOT)).encode())
+            headers.update(path.read_bytes())
     for stage, relatives in STAGE_INPUTS.items():
         digest = hashlib.sha256()
         digest.update(
@@ -334,6 +349,7 @@ def stage_fingerprint_seeds(args: argparse.Namespace) -> dict[str, str]:
             digest.update(b"\0")
             digest.update(path.read_bytes() if path.is_file() else b"<missing>")
             digest.update(b"\0")
+        digest.update(headers.digest())
         settings: dict[str, object] = {
             "mode": "analyze" if args.analyze else "execute"
         }
@@ -463,18 +479,15 @@ def candidate_log_path(symbol: str) -> Path:
 
 
 def prepare_candidate_log(symbol: str, *, verbose: bool) -> None:
-    if not verbose:
-        candidate_log_path(symbol).unlink(missing_ok=True)
+    candidate_log_path(symbol).unlink(missing_ok=True)
 
 
 def run_candidate_command(
     symbol: str, arguments: list[str], *, verbose: bool
 ) -> tuple[int, str]:
-    if verbose:
-        return automation_common.run_command(arguments)
     return automation_common.run_command(
         arguments,
-        echo=False,
+        echo=verbose,
         log_path=candidate_log_path(symbol),
     )
 
@@ -647,6 +660,13 @@ def guard_interrupted_candidate(function):
     return guarded
 
 
+def save_starter_artifact(symbol: str, starter: str) -> str:
+    path = ROOT / "build/us/automate/artifacts" / symbol / "starter.c"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(starter, encoding="utf-8")
+    return str(path.relative_to(ROOT))
+
+
 def analyze_raw_candidate(
     candidate: automation_common.RawCandidate,
     *,
@@ -668,6 +688,7 @@ def analyze_raw_candidate(
     try:
         original = source.read_bytes()
         starter = automation_common.generate_starter(candidate.identifier)
+        save_starter_artifact(candidate.identifier, starter)
         prepared = candidate_rewrites.prepare_starter(
             starter,
             candidate.c_symbol,
@@ -764,6 +785,7 @@ def try_raw_candidate(
     checkpoint.content = original
     try:
         starter = automation_common.generate_starter(candidate.identifier)
+        save_starter_artifact(candidate.identifier, starter)
         prepared = candidate_rewrites.prepare_starter(
             starter,
             candidate.c_symbol,
@@ -1476,6 +1498,9 @@ def write_report(
     mode: str = "execute",
     tool_fingerprint: str | None = None,
     stage_fingerprints: dict[str, str] | None = None,
+    metrics: dict | None = None,
+    verified_batch: list[str] | None = None,
+    save_history: bool = False,
 ) -> None:
     counts: dict[str, int] = {}
     for result in entries.values():
@@ -1505,6 +1530,8 @@ def write_report(
         "invocation_progress": run_progress(entries, pending_batch or []),
         "batch_verified": batch_verified,
         "pending_batch": pending_batch or [],
+        "verified_batch": verified_batch or [],
+        "metrics": metrics or {},
         "summary": dict(sorted(counts.items())),
         "functions": [asdict(entries[symbol]) for symbol in sorted(entries)],
     }
@@ -1512,6 +1539,8 @@ def write_report(
     temporary = path.with_name(path.name + ".tmp")
     temporary.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
     temporary.replace(path)
+    if save_history:
+        attempt_history.save(ROOT, payload)
 
 
 def reconcile_pending_batch(
@@ -1537,13 +1566,15 @@ def resume_report(
     current_fingerprints: dict[str, str | dict[str, str]] | None = None,
     *,
     mode: str = "execute",
+    payload: dict | None = None,
 ) -> tuple[dict[str, AttemptResult], list[str]]:
-    """Carry completed outcomes from an interrupted compatible full scan."""
+    """Reuse fresh outcomes and retain pending gates for any execution scope."""
 
-    if not path.is_file():
+    if payload is None and not path.is_file():
         return entries, []
     try:
-        payload = json.loads(path.read_text(encoding="utf-8"))
+        if payload is None:
+            payload = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, json.JSONDecodeError) as error:
         raise automation_common.AutomationError(
             f"cannot resume coverage report {path}: {error}"
@@ -1552,7 +1583,6 @@ def resume_report(
         payload.get("schema_version") not in (1, 2, REPORT_SCHEMA_VERSION)
         or payload.get("profile") != "us"
         or payload.get("mode", "execute") != mode
-        or payload.get("full_scan") is not True
         or not isinstance(payload.get("functions"), list)
     ):
         raise automation_common.AutomationError(
@@ -1681,6 +1711,7 @@ def resume_report(
 
 def main(arguments: list[str] | None = None) -> int:
     args = parse_args(arguments)
+    write_run_report = partial(write_report, save_history=True)
     entries: dict[str, AttemptResult] = {}
     attempts = 0
     matched: list[str] = []
@@ -1689,7 +1720,9 @@ def main(arguments: list[str] | None = None) -> int:
     scan_complete = False
     batch_verified = False
     mode = "analyze" if args.analyze else "execute"
-    compact = args.all and not args.verbose
+    compact = not args.verbose
+    started = time.monotonic()
+    attempted_symbols: list[str] = []
     tool_fingerprint: str | None = None
     stage_seeds: dict[str, str] = {}
     active_candidate = None
@@ -1704,6 +1737,7 @@ def main(arguments: list[str] | None = None) -> int:
         # Share a read-only signature snapshot across resume fingerprints; a
         # candidate hashes only its callees, not unrelated newly matched C.
         prototypes = call_signatures.signature_index(ROOT)
+        objects = declaration_facts.object_evidence_index(ROOT)
         if args.target:
             selected = next(
                 (
@@ -1724,32 +1758,42 @@ def main(arguments: list[str] | None = None) -> int:
                     f"{inventory_result.detail}"
                 )
             candidates = [selected]
-        if args.all and not args.restart:
-            current_fingerprints = {
-                candidate.identifier: {
-                    stage: candidate_fingerprint(candidate, seed, prototypes=prototypes)
-                    for stage, seed in stage_seeds.items()
+        history = (None if args.analyze else attempt_history.load(ROOT))
+        if destination.is_file() and (args.analyze or not history):
+            history = attempt_history.read_report(destination)
+        saved_results = {item["symbol"]: item for item in (history or {}).get("functions", [])}
+        current_fingerprints = {}
+        for candidate in candidates:
+            stage = saved_results.get(candidate.identifier, {}).get("stage")
+            if stage in stage_seeds:
+                current_fingerprints[candidate.identifier] = {
+                    stage: candidate_fingerprint(candidate, stage_seeds[stage],
+                                                 prototypes=prototypes, objects=objects)
                 }
-                for candidate in candidates
-            }
+        if history:
+            if args.restart:
+                history = dict(history, functions=[])
             entries, matched = resume_report(
-                destination,
-                entries,
-                current_fingerprints,
-                mode=mode,
+                destination, entries, current_fingerprints, mode=mode, payload=history,
             )
-        if args.all:
-            candidates = [
-                candidate
-                for candidate in candidates
-                if entries[candidate.identifier].outcome == "not_attempted"
-            ]
+        before_cache = len(candidates)
+        candidates = [candidate for candidate in candidates
+                      if entries[candidate.identifier].outcome == "not_attempted"]
+        cache_hits = before_cache - len(candidates)
+        if cache_hits:
+            print(f"CACHE: {cache_hits} unchanged outcome(s) skipped; --restart explicitly retries them")
+        carried_matches = set(matched)
         for candidate in candidates:
             if not args.all and (
-                len(matched) >= args.limit or attempts >= args.max_attempts
+                len(set(matched) - carried_matches) >= args.limit or attempts >= args.max_attempts
             ):
                 break
             active_candidate = candidate
+            source_path = ROOT / candidate.source
+            source_before = source_path.read_bytes() if source_path.is_file() else None
+            prepare_candidate_log(candidate.identifier, verbose=not compact)
+            attempted_symbols.append(candidate.identifier)
+            (ROOT / f"build/us/automate/artifacts/{candidate.identifier}/starter.c").unlink(missing_ok=True)
             attempts += 1
             if args.analyze and isinstance(
                 candidate, automation_common.RawCandidate
@@ -1774,11 +1818,19 @@ def main(arguments: list[str] | None = None) -> int:
                 )
             log = candidate_log_path(candidate.identifier)
             result = classify_attempt(result)
+            source_after = source_path.read_bytes() if source_path.is_file() else None
+            if source_after != source_before:
+                prototypes = call_signatures.signature_index(ROOT)
+                objects = declaration_facts.object_evidence_index(ROOT)
             result_stage = result.stage or "prepare"
             result = replace(
                 result,
-                fingerprint=candidate_fingerprint(candidate, stage_seeds[result_stage], prototypes=prototypes),
+                fingerprint=candidate_fingerprint(candidate, stage_seeds[result_stage],
+                                                  prototypes=prototypes, objects=objects),
                 stage_fingerprint=stage_seeds[result_stage],
+                candidate_artifact=(result.candidate_artifact or (
+                    f"build/us/automate/artifacts/{candidate.identifier}/starter.c"
+                    if (ROOT / f"build/us/automate/artifacts/{candidate.identifier}/starter.c").is_file() else None)),
                 previous_score=(candidate.current_score if isinstance(candidate, automation_common.DeferredCandidate) else None),
                 command_log=(
                     str(log.relative_to(ROOT))
@@ -1793,7 +1845,7 @@ def main(arguments: list[str] | None = None) -> int:
                     matched.append(result.symbol)
                 elif result.outcome in {"deferred", "preserved"}:
                     deferred.append(result.symbol)
-            write_report(
+            write_run_report(
                 destination,
                 entries,
                 full_scan=args.all,
@@ -1806,6 +1858,13 @@ def main(arguments: list[str] | None = None) -> int:
                 stage_fingerprints=stage_seeds,
             )
             if compact:
+                if not args.all:
+                    print(f"RESULT {result.symbol}: {result.outcome}; {result.blocker_code or result.stage}; "
+                          f"{result.detail[:240]}")
+                    if result.command_log:
+                        print(f"  log: {result.command_log}")
+                    if result.candidate_artifact:
+                        print(f"  candidate: {result.candidate_artifact}")
                 progress = run_progress(entries, matched)
                 emit_compact_progress(
                     result,
@@ -1819,7 +1878,7 @@ def main(arguments: list[str] | None = None) -> int:
         scan_complete = args.all or attempts == len(candidates)
 
         if args.analyze:
-            write_report(
+            write_run_report(
                 destination,
                 entries,
                 full_scan=True,
@@ -1844,7 +1903,7 @@ def main(arguments: list[str] | None = None) -> int:
             )
             return 0
 
-        if args.all and matched:
+        if matched:
             matched, dropped = reconcile_pending_batch(
                 matched, initial_report_entries()
             )
@@ -1867,7 +1926,7 @@ def main(arguments: list[str] | None = None) -> int:
                 [str(ROOT / "conker"), "verify-batch", *matched]
             )
             if status:
-                write_report(
+                write_run_report(
                     destination,
                     entries,
                     full_scan=args.all,
@@ -1883,7 +1942,7 @@ def main(arguments: list[str] | None = None) -> int:
             batch_verified = True
         else:
             batch_verified = True
-        write_report(
+        write_run_report(
             destination,
             entries,
             full_scan=args.all,
@@ -1891,6 +1950,21 @@ def main(arguments: list[str] | None = None) -> int:
             attempts=attempts,
             batch_verified=batch_verified,
             pending_batch=[] if batch_verified else matched,
+            verified_batch=matched if batch_verified else [],
+            metrics={
+                "elapsed_seconds": round(time.monotonic() - started, 3),
+                "cache_hits": cache_hits,
+                "attempted_symbols": attempted_symbols,
+                "new_batch_verified_matches": len(set(matched) - carried_matches) if batch_verified else 0,
+                "carried_batch_verified_matches": len(set(matched) & carried_matches) if batch_verified else 0,
+                "model_tokens": args.model_tokens,
+                "new_verified_matches_per_1000_tokens": (
+                    1000 * len(set(matched) - carried_matches) / args.model_tokens
+                    if batch_verified and args.model_tokens else None
+                ),
+                "command_log_bytes": sum(candidate_log_path(symbol).stat().st_size
+                    for symbol in attempted_symbols if candidate_log_path(symbol).is_file()),
+            },
             mode=mode,
             tool_fingerprint=tool_fingerprint,
             stage_fingerprints=stage_seeds,
@@ -1907,7 +1981,7 @@ def main(arguments: list[str] | None = None) -> int:
                     stage="finish",
                 )
         if entries:
-            write_report(
+            write_run_report(
                 destination, entries, full_scan=args.all, scan_complete=False,
                 attempts=attempts, batch_verified=False, pending_batch=matched,
                 mode=mode, tool_fingerprint=tool_fingerprint, stage_fingerprints=stage_seeds,
@@ -1921,11 +1995,13 @@ def main(arguments: list[str] | None = None) -> int:
         candidate_rewrites.CandidateError,
         project_state.ProjectStateError,
         OSError,
+        ValueError,
     ) as error:
         if entries:
-            write_report(
+            write_run_report(
                 destination,
                 entries,
+                save_history=False,
                 full_scan=args.all,
                 scan_complete=False,
                 attempts=attempts,

@@ -62,6 +62,15 @@ and type propagation without creating a second maintained copy of declarations.
 Sources with unsupported conditional preprocessing safely fall back to an
 untyped starter. Context-informed output is still not match evidence.
 
+Call context prefers active declarations in the allowed source, then reviewed
+SDK aliases. When those are absent, a unique active definition in the registered
+US matched source can supply a scalar/pointer signature despite conflicting
+prototypes in unrelated callers. The owning source must agree with its definition;
+ambiguous definitions and private types cannot override conflicts. Otherwise the
+project declarations must agree. Recovery records the selected evidence in
+`build/m2c/calls/<work-item-id>.json`. Local declarations are never overwritten,
+and candidates still require the ordinary focused and integration gates.
+
 ## Match one function
 
 Replace only the selected function's `GLOBAL_ASM` pragma, at the same source
@@ -194,7 +203,7 @@ Use the unified automation for raw m2c starters and preserved deferred
 candidates:
 
 ```sh
-./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
+./conker automate --limit 5 --max-attempts 20 --rewrite-budget 32
 ```
 
 Target one eligible raw or deferred function without waiting for scheduler
@@ -255,9 +264,15 @@ and explicitly excluded functions. A complete traversal sets `full_scan` and
 from the report. Pending exact matches are reconciled against the current
 inventory both on resume and before the final batch gate, so functions reopened
 or deferred by later mixed-source integration are not sent to `verify-batch`.
-Add `--restart` when changed automation should reconsider prior outcomes.
+Bounded runs and `next --ready` also consult the shared local
+`build/us/automate/attempt-history.json`. Relevant input changes invalidate saved
+outcomes automatically; `--restart` explicitly retries the selected scope while
+preserving pending verification. The default rewrite budget is 32. Identical
+nonmatching permutation searches reuse saved results until their inputs change.
+Use `./conker blockers` to rank declaration and placeholder blockers across
+saved reports. See CONTRIBUTING.md for cache behavior and token metrics.
 
-Full scans use compact output to avoid terminal backpressure. Detailed
+All automation runs use compact output by default. Detailed
 subprocess output is written to
 `build/us/automate/logs/<work-item-id>.log`, and the corresponding report entry
 records that path. Stdout contains important events and a progress summary

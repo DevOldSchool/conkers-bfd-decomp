@@ -70,6 +70,53 @@ void func_151CD394(s32 arg0) {
         func_151494E0(&sp1C, 0x18, arg0);
     }
 }
+typedef struct Game1FA770DispatchState {
+    void *object;
+    s32 id;
+    void *handle;
+    u8 field_C;
+} Game1FA770DispatchState;
+
+typedef struct Game1FA770DispatchOwner {
+    u8 pad0;
+    u8 field_1;
+    u8 pad2[0xA];
+    u8 field_C;
+    u8 padD[0x1B];
+    Game1FA770DispatchState state;
+} Game1FA770DispatchOwner;
+
+s32 func_151CD4C0(void *, u8, s32, u8, s32);
+typedef struct Game1FA770Object Game1FA770Object;
+void func_151CE47C(Game1FA770Object *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD3CC CURRENT (458) */
+void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
+    Game1FA770DispatchState *state;
+    s32 temp_a2;
+
+    if (arg2 == 0x17) {
+        state = &arg0->state;
+        temp_a2 = state->id;
+        if ((temp_a2 == *arg1) && (state->handle == 0)) {
+            state->handle = (void *)func_151CD4C0(
+                state->object, state->field_C, temp_a2, arg0->field_C,
+                arg0->field_1);
+            *(s8 *)((u8 *)state->object + 0x14) = 0;
+        }
+    } else {
+        state = &arg0->state;
+        if (arg2 == 0x18) {
+            if ((state->id == *arg1) && (state->handle != 0)) {
+                func_151CE47C(state->handle);
+            }
+        } else if ((arg2 == 0x23) && (state->id == *arg1)) {
+            state->handle = 0;
+            *(s8 *)((u8 *)state->object + 0x14) = 1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CD3CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD3CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD4C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD674.s")
@@ -239,12 +286,12 @@ s32 func_151CDB94(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CDB94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CDB94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CDE20.s")
-typedef struct Game1FA770Object {
+struct Game1FA770Object {
     u8 pad0[0x1E];
     volatile u16 flags;
     u8 pad20[0x10];
     s8 field_30;
-} Game1FA770Object;
+};
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE47C CURRENT (35) */
 void func_151CE47C(Game1FA770Object *arg0) {

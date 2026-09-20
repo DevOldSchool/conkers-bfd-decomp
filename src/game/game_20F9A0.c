@@ -10,8 +10,6 @@
  * - func_151E30C4
  * - func_151E327C
  * - func_151E3344
- * - func_151E4264
- * - func_151E4314
  * - func_151E43DC
  * - func_151E4BD8
  * - func_151E4EE8
@@ -54,6 +52,15 @@ extern s8 D_8008FD8C;
 extern s8 D_8008FD90;
 extern s8 D_800D2E40;
 extern s8 D_800E0B94;
+extern s16 D_800E0B9A;
+extern u8 D_8008FD80;
+extern void func_151E2834(void);
+extern s32 func_151F2CDC(void);
+extern void func_151F2D6C(s32 arg0, s32 arg1);
+extern void func_151E530C(void);
+extern u8 D_800C35EA;
+extern void (*D_800E0A88)(void);
+extern u8 D_8008FD74;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151E327C CURRENT (210) */
 void func_151E327C(void) {
@@ -78,8 +85,55 @@ void func_151E327C(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151E327C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E327C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E3344.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4264.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4314.s")
+void func_151E4264(void) {
+    if (D_8008FD80 != 0) {
+        D_8008FD80 = 0;
+        return;
+    }
+    func_151E530C();
+    if ((D_800E0B9A != 0) || (D_800C35EA != 1)) {
+        if ((D_800C35EA == 1) && (func_151F2CDC() == 1)) {
+            func_151F2D6C(0, 0x2DE0);
+        }
+        D_800E0B94 = 7;
+        D_800E0A88 = func_151E2834;
+        D_8008FD74 = 8;
+    }
+}
+typedef struct {
+    s16 value;
+    s8 alternate;
+    s8 selected;
+} Game20F9A0Selection;
+
+void func_1501D348(s32, s32, s32, u8, s32);
+extern void *D_8008FDD4;
+extern s8 D_800AB692[];
+extern Game20F9A0Selection D_800AB7A4[];
+extern s8 D_800E0C00[];
+
+void func_151E4314(void) {
+    Game20F9A0Selection *entry;
+    s8 index;
+    s8 choice;
+
+    index = D_800AB692[*(s8 *)((u8 *)D_8008FDD4 + 0x42) * 10];
+    if (index >= 0) {
+        entry = &D_800AB7A4[index];
+        if (D_800E0C00[0] != 0) {
+            choice = entry->selected;
+        } else {
+            choice = entry->alternate;
+        }
+        func_1501D348(entry->value, choice, 0, 0, 0);
+        D_8008FD80 = 1;
+        D_800E0B94 = 5;
+        D_8008FD8C = 1;
+        D_8008FD90 = 1;
+    } else {
+        func_151E2834();
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E43DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E4BD8.s")
 extern s8 D_800E0B94;
@@ -98,7 +152,6 @@ void func_151E557C(void);
 void func_1501C730(s32, s32, s32, s32, s32);
 extern s16 D_8008FDCC;
 extern s8 D_8008FDA4;
-extern s8 D_8008FD80;
 extern s8 D_800D2E40;
 
 void func_151E4E00(void) {
@@ -110,10 +163,8 @@ void func_151E4E00(void) {
     D_800D2E40 = 0;
     func_1501C730(6, 0x1D, 0, 0, 1);
 }
-void func_151E530C(void);
 void func_151E55A8(void);
 extern s32 D_800E0A90;
-extern s16 D_800E0B9A;
 extern void (*D_800E0A88)(void);
 extern u8 D_8008FD74;
 
@@ -327,6 +378,40 @@ void func_151E6BFC(void) {
     D_8008FDD8 = 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E6C1C.s")
+void *func_151149AC(u8);
+extern u8 D_8008FFB0[];
+extern f32 D_800ABA8C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E7DC0 CURRENT (375) */
+void func_151E7DC0(void) {
+    s32 index;
+
+    index = 0;
+    if (*(f32 *)((u8 *)D_8008FDD4 + 8) < D_800ABA8C) {
+        if (*(s8 *)((u8 *)D_8008FDD4 + 0x3E) == 0) {
+            return;
+        }
+    }
+    {
+        do {
+            u8 resource_id;
+            void *resource;
+
+            if (*(s8 *)((u8 *)D_8008FDD4 + 0x3E) == 0) {
+                resource_id = D_8008FFB0[(((index << 2) - index) << 1) +
+                    *(s8 *)((u8 *)D_8008FDD4 + 0x2C)];
+            } else {
+                resource_id = D_8008FFB0[index * 6];
+            }
+            resource = func_151149AC(resource_id);
+            index++;
+            if (resource != 0) {
+                *(s32 *)((u8 *)resource + 0x80) = 2;
+            }
+        } while (index != 2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151E7DC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7DC0.s")
 void func_10017870(s32);
 extern s8 D_800E0BE9;

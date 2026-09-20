@@ -13,6 +13,39 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204310/func_151D6E60.s")
+void func_15042D78(u8);
+void func_150432CC(s32, s32);
+void func_1504332C(u8, u8, u8, u8);
+s32 func_15042E3C(s32 *, s32);
+extern s32 D_800AB254;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7000 CURRENT (610) */
+s32 func_151D7000(u8 *arg0) {
+    volatile s32 spacer;
+    u8 *entry;
+    u8 *object;
+    s16 value;
+    s16 limit;
+
+    entry = *(u8 **)(arg0 + 0x48);
+    object = *(u8 **)entry;
+    if ((*(s32 *)object == 0) || (entry[4] != object[0x3B])) {
+        return 0;
+    }
+    limit = *(s16 *)(arg0 + 0xE);
+    value = 0xFF;
+    if (limit < *(s16 *)(entry + 0xC)) {
+        value = *(s16 *)(entry + 0xE) * limit;
+        if (value < 0) {
+            value = 0;
+        }
+    }
+    func_150432CC((s32)object, 0x109);
+    func_1504332C(0x32, 0x7D, 0x1C, (u8)value);
+    func_15042D78(0x81);
+    return func_15042E3C(&D_800AB254, *(s32 *)(entry + 8));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D7000 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204310/func_151D7000.s")
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 

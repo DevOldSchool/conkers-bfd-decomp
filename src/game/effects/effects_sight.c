@@ -216,6 +216,28 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
     return var_v0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9BA0.s")
+void func_150BDE90(s32, u8, s32);
+s32 func_151C9F38(s32, s32, s32, s8, s32);
+s32 func_151CB5FC(s32, s32, s32, s8, s32);
+s32 func_151CC524(s32, s32, s32, s32, s32, s32);
+s32 func_151CC840(s32, s32, s32, s32, s32, s32);
+s32 func_151CCF08(s32, s32, s8, s32);
+extern s32 D_800BE9F0;
+extern s8 D_8008CD00;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9DE8 CURRENT (2019) */
+void func_151C9DE8(s32 arg0, u8 arg1, s8 arg2, u8 arg3, s32 arg4) {
+    func_151C9F38(arg0, 4, arg1, arg2, arg3);
+    func_151CC524(arg0, 0, 0x32, 0xFF, arg1, arg3);
+    func_151CC840(arg0, 0, 0x32, 0xFF, arg1, arg3);
+    func_151CCF08(arg0, arg1, arg2, arg3);
+    func_150BDE90(arg0, arg3, arg4);
+    func_151CB5FC(arg0, 2, arg1, arg2, arg3);
+    if (D_800BE9F0 == 0x27) {
+        D_8008CD00 = 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C9DE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9DE8.s")
 void func_15160274(void *, u8);
 void func_1515572C();
@@ -238,6 +260,28 @@ void func_151C9ED4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9ED4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9F38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CA6A0.s")
+extern void func_1516972C(void *arg0);
+extern void (*D_8008FC10[])(void *, void **, u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAACC CURRENT (1474) */
+void func_151CAACC(void *arg0, void **arg1, u8 arg2) {
+    u8 type;
+    void (*callback)(void *, void **, u8);
+
+    type = arg2;
+    if (type == 0x21) {
+        if (*(void **)((u8 *)arg0 + 0x70) == *arg1) {
+            func_1516972C(arg0);
+        }
+    } else if ((type == 0) && (*(void **)((u8 *)arg0 + 0x70) == *(void **)((u8 *)*arg1 + 0x318))) {
+        func_1516972C(arg0);
+    }
+    callback = D_8008FC10[*(u8 *)((u8 *)arg0 + 0x7D)];
+    if (callback != 0) {
+        callback(arg0, arg1, type);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CAACC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAACC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAD28.s")
@@ -256,8 +300,6 @@ typedef struct SightMessage {
     SightActor *actor;
 } SightMessage;
 
-void func_1516972C(void *);
-
 void func_151CB49C(SightEffect *arg0, SightMessage *arg1, u8 arg2) {
     if (arg2 == 0x21) {
         if (arg1->actor == arg0->owner) {
@@ -271,6 +313,29 @@ void func_151CB49C(SightEffect *arg0, SightMessage *arg1, u8 arg2) {
         }
     }
 }
+extern f32 D_800AAEA8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB510 CURRENT (10) */
+void func_151CB510(void *arg0) {
+    f32 temp_fv1;
+    f32 var_fv0;
+    void *temp_v0;
+    u8 *var_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x70);
+    if ((**(u16 **)((u8 *)temp_v0 + 0x36C) & 0x2000) &&
+        (var_v0 = (u8 *)arg0 + 0x70,
+         (*(u16 *)(*(u8 **)((u8 *)temp_v0 + 0x3D4) + 0x19E) == 0))) {
+        var_fv0 = *(f32 *)(var_v0 + 8);
+    } else {
+        var_fv0 = 0.0f;
+        var_v0 = (u8 *)arg0 + 0x70;
+    }
+    temp_fv1 = *(f32 *)(var_v0 + 4);
+    *(f32 *)(var_v0 + 4) = temp_fv1 + ((var_fv0 - temp_fv1) * D_800AAEA8);
+    *(s8 *)((u8 *)arg0 + 0x2E) = (s8)(u32)*(f32 *)(var_v0 + 4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CB510 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB510.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB5FC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB918 CURRENT (215) */
@@ -292,7 +357,7 @@ extern f32 D_800AAEAC;
 extern f32 D_800AAEB0;
 extern f32 D_800AAEB4;
 extern f32 D_800BE9A4;
-f32 func_151CC1D4(void);
+f32 func_151CC1D4(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB970 CURRENT (677) */
 s32 func_151CB970(u8 *arg0) {
@@ -355,7 +420,7 @@ void func_151CBB6C(SightEffect20 *arg0, SightMessage *arg1, u8 arg2) {
 void func_1514373C(f32, f32, f32 *, f32 *);
 extern f32 D_800AAEB8;
 
-f32 func_151CC1D4(void);
+f32 func_151CC1D4(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 CURRENT (340) */
 s32 func_151CBBE0(u8 *arg0) {
@@ -419,6 +484,37 @@ s32 func_151CBC60(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CBC60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CBC60.s")
+extern f32 D_800AAEC0;
+extern s32 D_800C3958;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC1D4 CURRENT (2315) */
+f32 func_151CC1D4(void *arg0) {
+    u8 *state;
+    f32 lower;
+    f32 upper;
+    f32 value;
+    void *object;
+
+    state = (u8 *)arg0 + 0x70;
+    lower = *(f32 *)(state + 0x18);
+    upper = *(f32 *)(state + 0x1C);
+    if (*(u8 *)((u8 *)arg0 + 0x7C) & 4) {
+        value = lower + ((upper - lower) *
+                         (*(f32 *)((u8 *)D_800C3958 +
+                                   (*(s8 *)(state + 0x54) * 0x44) + 0x28) * D_800AAEC0));
+    } else {
+        object = *(void **)state;
+        value = (*(f32 *)((u8 *)object + 0x19C) +
+                 *(f32 *)((u8 *)object + 0x1A0)) * 0.5f;
+    }
+    if (value < lower) {
+        value = lower;
+    } else if (upper < value) {
+        value = upper;
+    }
+    return value;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CC1D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC1D4.s")
 void func_151CC290(s32 arg0) {
     s32 sp1C;
@@ -428,6 +524,38 @@ void func_151CC290(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC2BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC524.s")
+void func_15145974(void *, f32 *, f32 *);
+extern f32 D_800AAED4;
+extern f32 D_800AAED8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC77C CURRENT (512) */
+s32 func_151CC77C(void *arg0) {
+    f32 sp24;
+    f32 sp20;
+    u8 *temp_a3;
+    u8 *temp_v0;
+    u8 *temp_v1;
+    void *saved_arg0;
+
+    saved_arg0 = arg0;
+    temp_a3 = *(u8 **)((u8 *)arg0 + 0x70);
+    temp_v1 = *(u8 **)(temp_a3 + 0x3D0);
+    if (temp_v1 == 0) {
+        return 0;
+    }
+    temp_v0 = *(u8 **)(temp_v1 + 0x31C);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    func_15145974(temp_v0 + 0x130, &sp24, &sp20);
+    if (*(u8 *)((u8 *)saved_arg0 + 0x20) == 0x9A) {
+        *(f32 *)((u8 *)saved_arg0 + 0x60) = 2.0f * -(sp24 * D_800AAED4 * 2560.0f);
+        return 1;
+    }
+    *(f32 *)((u8 *)saved_arg0 + 0x64) = 2.0f * (sp20 * D_800AAED8 * 2560.0f);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CC77C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC77C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC840.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCD1C.s")

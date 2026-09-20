@@ -280,6 +280,28 @@ def c_function_span(content: str, symbol: str) -> tuple[int, int]:
     return matches[0]
 
 
+def work_item_function_span(
+    content: str, identifier: str, regional_symbol: str | None = None
+) -> tuple[int, int]:
+    """Locate a work-item definition, including a profile macro alias."""
+
+    candidates = [identifier]
+    if regional_symbol is not None:
+        candidates.insert(0, regional_symbol)
+        alias_pattern = re.compile(
+            rf"(?m)^\s*#\s*define\s+([A-Za-z_]\w*)\s+"
+            rf"{re.escape(regional_symbol)}\s*$"
+        )
+        candidates.extend(match.group(1) for match in alias_pattern.finditer(content))
+    for candidate in dict.fromkeys(candidates):
+        try:
+            return c_function_span(content, candidate)
+        except ProjectStateError:
+            continue
+    expected = regional_symbol or identifier
+    raise ProjectStateError(f"expected exactly one C definition for {expected}; found 0")
+
+
 def deferred_candidate_markers(
     symbol: str, current_score: int | None = None
 ) -> tuple[str, str]:
@@ -291,7 +313,10 @@ def deferred_candidate_markers(
 
 
 def preserve_deferred_candidate(
-    source: str, symbol: str, current_score: int | None
+    source: str,
+    symbol: str,
+    current_score: int | None,
+    regional_symbol: str | None = None,
 ) -> tuple[Path, str, str]:
     """Disable the best C candidate in place and restore its raw-ASM pragma."""
 
@@ -306,7 +331,7 @@ def preserve_deferred_candidate(
         raise ProjectStateError(
             f"{symbol} still uses GLOBAL_ASM; add the best C candidate before deferring it"
         )
-    start, end = c_function_span(content, symbol)
+    start, end = work_item_function_span(content, symbol, regional_symbol)
     candidate = content[start:end].rstrip("\n")
     replacement = (
         f"{start_marker}\n{candidate}\n{end_marker}\n{pragma}\n"
@@ -396,14 +421,20 @@ def restore_deferred_candidate(source: str, symbol: str) -> tuple[Path, str, str
 
 
 def replace_deferred_candidate(
-    source: str, symbol: str, candidate: str, current_score: int
+    source: str,
+    symbol: str,
+    candidate: str,
+    current_score: int,
+    regional_symbol: str | None = None,
 ) -> tuple[Path, str, str]:
     """Replace one preserved candidate and its score without activating it."""
 
     if current_score <= 0:
         raise ProjectStateError("deferred candidate score must be positive")
     candidate = candidate.strip() + "\n"
-    function_start, function_end = c_function_span(candidate, symbol)
+    function_start, function_end = work_item_function_span(
+        candidate, symbol, regional_symbol
+    )
     if candidate[:function_start].strip() or candidate[function_end:].strip():
         raise ProjectStateError(
             f"replacement for {symbol} must contain exactly one C definition"
@@ -1424,11 +1455,13 @@ def defer_function(args: argparse.Namespace) -> None:
         raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
     if is_complete(function):
         raise ProjectStateError(f"matched function {args.symbol} cannot be deferred")
+    deferrable_states = {"raw_asm", "in_progress", "candidate"}
     if not all(
-        function["regions"][region]["state"] == "raw_asm" for region in TARGET_REGIONS
+        function["regions"][region]["state"] in deferrable_states
+        for region in TARGET_REGIONS
     ):
         raise ProjectStateError(
-            f"{args.symbol} must be raw_asm in every active region before it can be deferred"
+            f"{args.symbol} must be unfinished in every active region before it can be deferred"
         )
     reason = args.reason.strip()
     if not reason:
@@ -1439,7 +1472,10 @@ def defer_function(args: argparse.Namespace) -> None:
     if not isinstance(source, str) or not source:
         raise ProjectStateError(f"{args.symbol} needs an assigned source before deferral")
     source_path, old_source, deferred_source = preserve_deferred_candidate(
-        source, args.symbol, args.score
+        source,
+        args.symbol,
+        args.score,
+        function["regions"][TARGET_REGIONS[0]]["symbol"],
     )
     function["deferred"] = {
         "reason": reason,
@@ -1447,6 +1483,8 @@ def defer_function(args: argparse.Namespace) -> None:
         "recorded_revision": "working-tree",
         "candidate_preserved": True,
     }
+    for region in TARGET_REGIONS:
+        function["regions"][region]["state"] = "raw_asm"
     validate_functions(functions_data)
     source_path.write_text(deferred_source, encoding="utf-8")
     try:
@@ -1522,6 +1560,7 @@ def update_deferred_function(args: argparse.Namespace) -> None:
         args.symbol,
         candidate_path.read_text(encoding="utf-8"),
         args.score,
+        function["regions"][TARGET_REGIONS[0]]["symbol"],
     )
     function["deferred"] = {
         "reason": reason,
@@ -1917,6 +1956,35 @@ def register_main(args: argparse.Namespace) -> None:
     register_function(args, "main")
 
 
+def record_region_size(args: argparse.Namespace) -> None:
+    """Record a reviewed legacy function span when raw regional assembly is unavailable."""
+
+    data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(data)
+    entry = next((item for item in functions if item["symbol"] == args.symbol), None)
+    if entry is None:
+        raise ProjectStateError(f"unknown function: {args.symbol}")
+    record = entry["regions"].get(args.profile)
+    if record is None:
+        raise ProjectStateError(f"{args.symbol} has no {args.profile} region")
+    try:
+        size = int(args.size, 0)
+    except ValueError as error:
+        raise ProjectStateError("--size must be hexadecimal or decimal") from error
+    if size <= 0 or size % 4:
+        raise ProjectStateError("--size must be a positive instruction-aligned byte count")
+    existing = record.get("size_bytes")
+    if existing is not None and existing != size:
+        raise ProjectStateError(
+            f"refusing to replace {args.symbol}/{args.profile} size {existing} with {size}"
+        )
+    record["size_bytes"] = size
+    validated = validate_functions(data)
+    write_json(FUNCTIONS_FILE, data)
+    render_progress(validated)
+    print(f"Recorded {args.symbol}/{args.profile} size_bytes={size}.")
+
+
 def source_unit_skeleton_content(
     source: str,
     evidence_reference: str,
@@ -2221,6 +2289,42 @@ def register_source_unit(args: argparse.Namespace) -> None:
     source_units_data = load_json(SOURCE_UNITS_FILE)
     functions = validate_functions(functions_data)
     units = validate_source_units(source_units_data, functions)
+    replaced_sources = list(getattr(args, "replace_unreviewed_sources", None) or [])
+    if len(set(replaced_sources)) != len(replaced_sources):
+        raise ProjectStateError("--replace-unreviewed-source values must be unique")
+    if replaced_sources:
+        functions_by_id = {entry["symbol"]: entry for entry in functions}
+        units_by_source = {unit["source"]: unit for unit in units}
+        missing = [item for item in replaced_sources if item not in units_by_source]
+        if missing:
+            raise ProjectStateError(
+                "unreviewed source units are not registered: " + ", ".join(missing)
+            )
+        for replaced_source in replaced_sources:
+            replaced = units_by_source[replaced_source]
+            if replaced.get("boundary_evidence") is not None:
+                raise ProjectStateError(
+                    f"refusing to replace reviewed source unit: {replaced_source}"
+                )
+            if replaced.get("integration") != "raw_asm":
+                raise ProjectStateError(
+                    f"refusing to replace integrated source unit: {replaced_source}"
+                )
+            replaced_region = replaced.get("regions", {}).get("us", {})
+            replaced_start = int(replaced_region.get("start", "-1"), 0)
+            replaced_end = int(replaced_region.get("end", "-1"), 0)
+            if not (start <= replaced_start < replaced_end <= end):
+                raise ProjectStateError(
+                    f"replacement range does not contain {replaced_source}/us"
+                )
+            if any(
+                functions_by_id[identifier].get("overlay", "main") != overlay
+                for identifier in replaced["functions"]
+            ):
+                raise ProjectStateError(
+                    f"replacement overlay does not match {replaced_source}"
+                )
+        units = [unit for unit in units if unit["source"] not in replaced_sources]
     if any(unit["source"] == source for unit in units):
         raise ProjectStateError(f"source unit already registered: {source}")
 
@@ -2402,6 +2506,8 @@ def register_source_unit(args: argparse.Namespace) -> None:
         registration_detail = (
             f"; registered={len(newly_registered)}; reassigned={len(reassigned)}"
         )
+    if replaced_sources:
+        registration_detail += f"; replaced_unreviewed={len(replaced_sources)}"
     skeleton_detail = "created" if created_skeleton else "preserved"
     print(
         f"Registered reviewed source unit {source}: us=0x{start:X}:0x{end:X}; "
@@ -2733,6 +2839,36 @@ def next_function(args: argparse.Namespace | None = None) -> None:
             + "; register a reviewed source unit or record size_bytes during function registration"
         )
     available.sort(key=lambda entry: (sizes[entry["symbol"]], entry["symbol"]))
+    import attempt_history
+    try:
+        history = attempt_history.load(ROOT)
+    except (ValueError, OSError) as error:
+        raise ProjectStateError(f"cannot read attempt history: {error}") from error
+    if history:
+        import automate
+        import automation_common
+        import call_signatures
+        seeds = automate.stage_fingerprint_seeds(automate.parse_args([]))
+        prototypes = call_signatures.signature_index(ROOT)
+        objects = automate.declaration_facts.object_evidence_index(ROOT)
+        saved = {item["symbol"]: item for item in history.get("functions", [])}
+        fresh = []
+        for entry in available:
+            prior = saved.get(entry["symbol"], {})
+            stage = prior.get("stage")
+            if prior.get("outcome") in attempt_history.REUSABLE and stage in seeds:
+                candidate = automation_common.RawCandidate(
+                    entry["symbol"], entry["regions"]["us"]["symbol"],
+                    entry["source"], sizes[entry["symbol"]])
+                fingerprint = automate.candidate_fingerprint(candidate, seeds[stage], prototypes=prototypes, objects=objects)
+                if prior.get("pool") == "raw" and prior.get("fingerprint") == fingerprint:
+                    continue
+            fresh.append(entry)
+            if one:
+                break
+        available = fresh
+        if not available:
+            raise ProjectStateError("no fresh raw candidates; inspect ./conker blockers or explicitly retry with automate --function ID --restart")
     if one:
         available = available[:1]
     if id_only:
@@ -2871,6 +3007,10 @@ def parse_args() -> argparse.Namespace:
     register_main_parser.add_argument("--id", dest="identifier", required=True)
     register_main_parser.add_argument("--us", required=True)
     register_main_parser.add_argument("--source", required=True)
+    record_size_parser = subparsers.add_parser("record-region-size")
+    record_size_parser.add_argument("symbol")
+    record_size_parser.add_argument("--profile", choices=KNOWN_REGIONS, required=True)
+    record_size_parser.add_argument("--size", required=True)
     register_unit_parser = subparsers.add_parser("register-source-unit")
     register_unit_parser.add_argument(
         "--overlay", choices=sorted(OVERLAYS), default="game"
@@ -2889,6 +3029,12 @@ def parse_args() -> argparse.Namespace:
         "--evidence-kind", choices=sorted(BOUNDARY_EVIDENCE_KINDS), required=True
     )
     register_unit_parser.add_argument("--evidence-reference", required=True)
+    register_unit_parser.add_argument(
+        "--replace-unreviewed-source",
+        dest="replace_unreviewed_sources",
+        action="append",
+        help="replace a contained legacy raw source-unit record that has no reviewed boundary evidence",
+    )
     withdraw_unit_parser = subparsers.add_parser("withdraw-source-unit")
     withdraw_unit_parser.add_argument("--source", required=True)
     retire_library_parser = subparsers.add_parser("retire-library-units")
@@ -2949,6 +3095,8 @@ def main() -> int:
             register_game(args)
         elif args.command == "register-main":
             register_main(args)
+        elif args.command == "record-region-size":
+            record_region_size(args)
         elif args.command == "register-source-unit":
             register_source_unit(args)
         elif args.command == "withdraw-source-unit":

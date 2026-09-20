@@ -8,8 +8,6 @@
  * - func_1518D1C0
  * - func_1518D6E0
  * - func_1518E308
- * - func_1518E37C
- * - func_1518E3C4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -69,17 +67,37 @@ void func_1518E308(Game1BA670State *arg0) {
 /* Call context: func_1518E308: unique active project prototype */
 void func_1518E308(Game1BA670State *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518E37C CURRENT (846) */
 void func_1518E37C(void *arg0, u8 arg1) {
-    u8 temp_t6;
-
-    temp_t6 = arg1 & 0xFF;
-    if (temp_t6 != *(u8 *)((u8 *)arg0 + 0x22)) {
-        arg1 = temp_t6;
+    if (arg1 != *(u8 *)((u8 *)arg0 + 0x22)) {
         func_1518E308(arg0);
         *(u8 *)((u8 *)arg0 + 0x22) = arg1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518E37C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BA670/func_1518E37C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BA670/func_1518E3C4.s")
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void *func_10022EC0(void *, const void *, u32);
+
+void *func_1518E3C4(void **arg0, u8 arg1) {
+    u8 *result;
+
+    if (*(u8 *)((u8 *)*arg0 + 4) == 0x96) {
+        return 0;
+    }
+    result = func_15167A68(0x21, 1, 0x9EC, 1, arg1, 1);
+    if (result == 0) {
+        return 0;
+    }
+    func_10022EC0(result + 0x18, arg0, 0xC);
+    *(s32 *)(result + 0x28) = 0;
+    *(s8 *)(result + 0x2C) = 8;
+    *(s8 *)(result + 0x2D) = 4;
+    *(s32 *)(result + 0x30) = 0;
+    *(s32 *)(result + 0x10) = 1;
+    *(s32 *)(result + 0x14) = 0;
+    *(f32 *)(result + 0x24) = 0.0f;
+    *(f32 *)(result + 0x38) = 0.0f;
+    *(f32 *)(result + 0x3C) = 0.0f;
+    *(f32 *)(result + 0x40) = 0.0f;
+    *(f32 *)(result + 0x34) = 1.0f;
+    func_100226F0(result + 0x48, 0x960);
+    return result;
+}
