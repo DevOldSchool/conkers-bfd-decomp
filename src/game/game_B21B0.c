@@ -79,6 +79,31 @@ u8 func_15085420(GameB21B0Object *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085430.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085710.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150859AC CURRENT (5300) */
+void func_150859AC(s16 arg0, s16 arg1) {
+    if (arg0 >= 0xFF) {
+        return;
+    }
+    switch (arg1) {
+    case 0:
+        return;
+    case 1:
+        return;
+    case 2:
+        return;
+    case 3:
+        return;
+    case 4:
+        return;
+    case 5:
+        return;
+    case 6:
+        /* fallthrough */
+    default:
+        return;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150859AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_150859AC.s")
 void func_15085710(s16, s32, u8);
 extern u8 D_800CC2D0[];

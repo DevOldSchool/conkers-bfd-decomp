@@ -9,10 +9,8 @@
  * - func_1509F284
  * - func_1509F354
  * - func_1509F4E8
- * - func_1509F5A8
  * - func_1509F5F4
  * - func_1509F6B0
- * - func_1509F6E8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -24,6 +22,28 @@ s32 func_1509F248(s32 arg0, s32 *arg1) {
     }
     return 1;
 }
+/* Call context: func_1509F660: unique active declaration in the allowed source */
+/* Call context: func_1509F77C: unique active declaration in the allowed source */
+void func_1509F660(s32, s32);
+void func_1509F77C(u16, s32, s16, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F284 CURRENT (740) */
+s32 func_1509F284(s32 arg0, s32 arg1, void *arg2) {
+    switch (arg1) {                                 /* irregular */
+    case 1:
+        func_1509F660(*(s32 *)((u8 *)arg2 + 8) & 0xFFF, 0);
+        return 1;
+    case 0:
+        func_1509F660(*(s32 *)((u8 *)arg2 + 8) & 0xFFF, 1);
+        return 1;
+    case 2:
+        func_1509F77C((u16) ((u32) (*(s32 *)((u8 *)arg2 + 0) & 0xFFFF0000) >> 0x10), *(s32 *)((u8 *)arg2 + 8) & 0xFFF, (s16) *(s32 *)((u8 *)arg2 + 0xC), *(s32 *)((u8 *)arg2 + 0x10), *(s32 *)((u8 *)arg2 + 0x14));
+        return 1;
+    default:
+        return 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509F284 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F284.s")
 s32 func_1509F33C(s32 arg0, s32 arg1, s32 arg2) {
     return 0;
@@ -80,16 +100,33 @@ void func_1509F47C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, s32 arg5) {
     func_15114D24(sp24, func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF),
                   arg2, arg4, arg5, 0);
 }
+s32 func_1000F568(s32, s32);
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+extern s32 D_800D3098;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F4E8 CURRENT (460) */
+void func_1509F4E8(s32 arg0, s32 arg1, u16 arg2, s32 arg3, u32 arg4) {
+    u8 *entry;
+    s16 limit;
+
+    entry = (u8 *)D_800D3098 + arg3 * 0x34;
+    limit = *(s16 *)(entry + 6);
+    if (arg4 >= (u32)limit) {
+        arg4 = (u32)(limit - 1);
+    }
+    func_10010F88(func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF), arg2,
+                   0, 0, 0,
+                   *(s16 *)(entry + 0), *(s16 *)(entry + 2), *(s16 *)(entry + 4),
+                   (s32)arg4, limit);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509F4E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F4E8.s")
 /* Call context: func_10010F30: unique active project prototype */
 void func_10010F30(s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F5A8 CURRENT (40) */
 void func_1509F5A8(s32 arg0, s32 arg1, u16 arg2) {
-    func_10010F30(func_1000F568(((arg1 - arg0) + 1) & 0xFF, arg1), (s32) arg2, 0x40, 0, 0);
+    func_10010F30(func_1000F568(arg0, ((arg1 - arg0) + 1) & 0xFF), (s32) arg2, 0x40, 0, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509F5A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F5A8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509F5F4 CURRENT (60) */
 void func_1509F5F4(u16 arg0, u32 arg1, s32 arg2, s16 arg3, s32 arg4, s32 arg5) {
     s32 var_a1;
@@ -98,9 +135,17 @@ void func_1509F5F4(u16 arg0, u32 arg1, s32 arg2, s16 arg3, s32 arg4, s32 arg5) {
 
     temp_v0 = func_1505EEF4(arg2);
     var_a1 = temp_v0;
-    if ((temp_v0 != 0) && ((arg5 != 0) || (sp24 = temp_v0, var_a1 = sp24, (func_10010894(temp_v0) == 0)))) {
-        func_10010344((s32) arg0, var_a1, arg1, arg3, arg4);
+    if (temp_v0 == 0) {
+        return;
     }
+    if (arg5 == 0) {
+        sp24 = temp_v0;
+        var_a1 = sp24;
+        if (func_10010894(temp_v0) != 0) {
+            return;
+        }
+    }
+    func_10010344((s32) arg0, var_a1, arg1, arg3, arg4);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509F5F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F5F4.s")
@@ -128,8 +173,24 @@ void func_1509F6B0(s32 arg0, u16 arg1, s16 arg2, u8 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509F6B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F6B0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_CC4A0/func_1509F6E8.s")
 s32 func_1505EEF4(s32);
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+
+s32 func_1509F6E8(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4) {
+    s32 temp_v0;
+    s32 temp_a0;
+    s32 temp_a1;
+    s32 temp_a2;
+
+    temp_v0 = func_1505EEF4(arg1);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    temp_a0 = (s32)*(f32 *)((u8 *)temp_v0 + 0x14);
+    temp_a1 = (s32)*(f32 *)((u8 *)temp_v0 + 0x18);
+    temp_a2 = (s32)*(f32 *)((u8 *)temp_v0 + 0x1C);
+    return func_10010F88(arg0, arg2, 0, 0, 0, temp_a0, temp_a1, temp_a2, arg3, arg4);
+}
 void func_1000F91C(u16, s32, s16, s32, s32, s32, s32, s32, s32, s32);
 
 void func_1509F77C(u16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4) {

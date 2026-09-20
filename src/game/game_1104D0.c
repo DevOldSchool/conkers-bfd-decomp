@@ -9,7 +9,6 @@
  * - func_150E3208
  * - func_150E33CC
  * - func_150E3414
- * - func_150E3514
  * - func_150E35DC
  * - func_150E3738
  *
@@ -73,8 +72,6 @@ s32 func_150E33CC(s32 arg0, s32 arg1, void **arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E33CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E33CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3414.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3514.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E35DC.s")
 typedef struct {
     u8 type;
     u8 pad1[0xF];
@@ -84,6 +81,71 @@ typedef struct {
 } Game1104D0Slot;
 
 extern Game1104D0Slot *D_800D99D0[8];
+
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_100111C8(u16);
+void func_1516972C(u8 *);
+
+void func_150E3514(u8 *arg0) {
+    Game1104D0Slot **slot;
+    u16 handle;
+    u8 index;
+
+    index = arg0[0x48];
+    if ((s32) index >= 0) {
+        slot = &D_800D99D0[index];
+        if (arg0 == (u8 *) *slot) {
+            *slot = 0;
+        }
+    }
+    handle = *(u16 *) (arg0 + 0x4A);
+    if (handle != 0) {
+        func_100111C8(handle);
+        *(u16 *) (arg0 + 0x4A) = 0;
+        func_10010F88(0x2D7, 0x5DC0, 0, 0, 0,
+                      (s32) *(f32 *) (arg0 + 0x28),
+                      (s32) *(f32 *) (arg0 + 0x2C),
+                      (s32) *(f32 *) (arg0 + 0x30),
+                      0x3E8, 0x1770);
+    }
+    func_1516972C(arg0);
+}
+extern u8 D_800DCE50[];
+extern s8 D_800DD190;
+extern s32 D_800DD198;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E35DC CURRENT (1635) */
+void func_150E35DC(s32 arg0) {
+    s32 temp_s0;
+    u8 *block;
+    u8 *end;
+
+    temp_s0 = arg0 - 1;
+    block = D_800DCE50;
+    end = (u8 *)&D_800DD190;
+    do {
+        u8 *node;
+        u8 *volatile *link;
+
+        node = *(u8 **)(block + 0x9C);
+        D_800DD190 += 1;
+        if (node != 0) {
+            link = (u8 *volatile *)((u8 *)&D_800DD198 + (D_800DD190 * 4));
+            do {
+                *link = *(u8 **)(node + 8);
+                if ((temp_s0 == -1) || (temp_s0 == node[0x48])) {
+                    func_150E3514(node);
+                    link = (u8 *volatile *)((u8 *)&D_800DD198 + (D_800DD190 * 4));
+                }
+                node = *link;
+            } while (node != 0);
+        }
+        block += 0x1A0;
+        D_800DD190 -= 1;
+    } while (block != end);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E35DC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E35DC.s")
 
 void func_150E36BC(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3) {
     Game1104D0Slot *slot;

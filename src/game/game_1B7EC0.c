@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_radial_queue_render_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518AA10
  * - func_1518AADC
  * - func_1518AB60
  * - func_1518ABD0
@@ -13,7 +12,48 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B7EC0/func_1518AA10.s")
+typedef struct Game1B7EC0Node {
+    u8 pad0[0x10];
+    s32 field10;
+    struct Game1B7EC0Node *field14;
+    struct Game1B7EC0Node *field18;
+    u8 field1C;
+} Game1B7EC0Node;
+
+void func_1516972C(void *);
+extern void (*D_8008D5C0[])(s32);
+extern s32 D_800BE9E4;
+
+void func_1518AA10(u8 *arg0) {
+    Game1B7EC0Node *next;
+    Game1B7EC0Node *node;
+    s16 timer;
+
+    if (*(s32 *)(arg0 + 0x1C) == 0) {
+        return;
+    }
+    timer = *(s16 *)(arg0 + 0x22);
+    if (timer < 0) {
+        node = *(Game1B7EC0Node **)(arg0 + 0x14);
+        next = node->field18;
+        if (next == 0) {
+            *(s32 *)(arg0 + 0x10) = 0;
+            *(void **)(arg0 + 0x14) = 0;
+        } else {
+            next->field14 = 0;
+            *(Game1B7EC0Node **)(arg0 + 0x14) = node->field18;
+        }
+        if (node->field1C != 0) {
+            D_8008D5C0[node->field1C](node->field10);
+        }
+        func_1516972C(node);
+        *(s32 *)(arg0 + 0x1C) -= 1;
+        return;
+    }
+    if (*(u8 *)(arg0 + 0x24) & 1) {
+        *(s16 *)(arg0 + 0x22) = timer - D_800BE9E4;
+    }
+}
 typedef struct Game1B7EC0Effect {
     u8 pad0[0x10];
     s32 field_10;

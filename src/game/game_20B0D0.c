@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151DDC20
  * - func_151DE6D4
- * - func_151DE85C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -44,7 +43,25 @@ void func_151DE81C(void) {
         func_1500764C();
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20B0D0/func_151DE85C.s")
+/* Call context: func_1501C730: unique active project prototype */
+void func_1501C730(s32, s32, s32, s32, s32);
+extern s8 D_8008FD80;
+extern s8 D_8008FDA4;
+extern void *D_8008FDD4;
+extern s8 D_800D2E40;
+extern s8 D_800E0B94;
+
+void func_151DE85C(void) {
+    D_800D2E40 = 0;
+    func_1501C730(6, 0x1D, 0, 0, 1);
+    D_800E0B94 = 3;
+    D_8008FD80 = 1;
+    D_8008FE28 = 2;
+    D_8008FDA4 = 0;
+    *(s8 *)((u8 *)D_8008FDD4 + 0x3E) = 0;
+    *(s8 *)((u8 *)D_8008FDD4 + 0x2B) = 5;
+    *(s8 *)((u8 *)D_8008FDD4 + 0x2C) = (s8) *(s8 *)((u8 *)D_8008FDD4 + 0x2B);
+}
 void func_151DE8E8(void) {
 
 }

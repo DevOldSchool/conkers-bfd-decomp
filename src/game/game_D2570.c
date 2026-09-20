@@ -14,8 +14,19 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+extern void func_150A5174(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A50C0 CURRENT (4047) */
+void func_150A50C0(void *arg2, s32 arg5) {
+    func_150A5174();
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A50C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D2570/func_150A50C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D2570/func_150A515C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D2570/func_150A5378.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D2570/func_150A5708.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A5AB8 CURRENT (5000) */
+void func_150A5AB8(void) {
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A5AB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D2570/func_150A5AB8.s")

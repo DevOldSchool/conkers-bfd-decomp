@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_next_compact_units.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15015F40
  * - func_15015FBC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -15,7 +14,6 @@ extern u8 D_800BE616;
 extern s32 D_800BE9E8;
 s8 func_151E5FAC(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015F40 CURRENT (200) */
 void func_15015F40(s16 arg0, s32 arg1) {
     switch (arg1) {
         case 0x1A:
@@ -35,7 +33,5 @@ void func_15015F40(s16 arg0, s32 arg1) {
             break;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15015F40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_433F0/func_15015F40.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_433F0/func_15015FBC.s")

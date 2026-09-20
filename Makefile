@@ -50,6 +50,7 @@ GAME_LIB_DIR := build/game-libs/us
 GAME_LIB := $(GAME_LIB_DIR)/libultra_2_0G.a
 GAME_RARE_LIB := $(GAME_LIB_DIR)/libultrare.a
 GAME_LIB_SYMBOLS := config/game/us-sdk.ld
+GAME_RODATA_SCRIPT := config/game/us-rodata.ld
 GAME_LIB_OBJECTS := $(addprefix lib/ultralib/build/G/libultra_rom/src/,\
 	gu/random.o gu/ortho.o gu/normalize.o gu/mtxcatl.o gu/mtxcatf.o gu/sqrtf.o \
 	gu/mtxutil.o \
@@ -393,6 +394,7 @@ $(GAME_INTEGRATED_PREPARED): $(GAME_INTEGRATED_PREPARE_INPUTS)
 	@touch "$(GAME_INTEGRATED_PREPARED)"
 
 game-integrated-raw: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin
+	python3 scripts/verify_game_rodata.py "$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf"
 	@cmp -s "$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin" "$(GAME_INTEGRATED_CODE)" || { \
 		printf '%s\n' "integrated game mismatch: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin" >&2; exit 1; \
 	}
@@ -404,12 +406,15 @@ $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin: $(GAME_INTEGRATED_BU
 $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRATED_C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/game_integrated/$(GAME_PROFILE) src/game
 
-$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB) $(GAME_LIB_SYMBOLS)
-	$(LD) -m elf32btsmip -T $(GAME_LIB_SYMBOLS) -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
+$(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB) $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT)
+	$(LD) -m elf32btsmip -T $(GAME_LIB_SYMBOLS) -T $(GAME_RODATA_SCRIPT) -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive
 
 $(GAME_INTEGRATED_BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(GAME_PROFILE) --output $@ $<
+	$(if $(filter game_16EE20.o game_1C1150.o,$(notdir $@)),python3 scripts/split_game_rodata.py $@)
+
+$(filter %/game_16EE20.o %/game_1C1150.o,$(GAME_INTEGRATED_C_OBJS)): scripts/split_game_rodata.py
 
 $(GAME_INTEGRATED_NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
 	python3 scripts/normalize_asm.py $< $@

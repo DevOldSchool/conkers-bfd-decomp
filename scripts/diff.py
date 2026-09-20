@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import importlib.util
 import json
 import re
 import subprocess
@@ -319,8 +320,9 @@ def require_zero_difference(output: str, symbol: str) -> None:
         )
 
 
-def write_settings(profile: str, source: Path) -> Path:
-    directory = ROOT / "build" / profile / "diff"
+def write_settings(profile: str, source: Path, *, directory: Path | None = None) -> Path:
+    if directory is None:
+        directory = ROOT / "build" / profile / "diff"
     directory.mkdir(parents=True, exist_ok=True)
     settings = directory / "diff_settings.py"
     focused_compiler = ROOT / "scripts" / "compile_diff_candidate.py"
@@ -356,7 +358,8 @@ def asm_diff_command(
         raise ValueError(f"{symbol} has an invalid {expected_size}-byte instruction span")
     command = [
         "python3",
-        str(ASM_DIFFER),
+        str(ROOT / "scripts" / "diff.py"),
+        "--asm-differ",
         "-o",
         "-f",
         str(candidate),
@@ -371,6 +374,70 @@ def asm_diff_command(
         command.append("--no-pager")
     command.extend(["--format", "json" if require_match else "color", symbol])
     return command
+
+
+def registered_span_lines(lines: list, instruction_count: int, *, reference: bool) -> list:
+    """Remove display metadata, retaining every registered instruction word."""
+
+    result = []
+    for line in lines:
+        # These describe incoming data relocations (for example jump-table
+        # entries), not instructions. The raw text-only reference may lack
+        # them, so exclude them from both span validation and match scoring.
+        # Relocations attached to real instructions remain intact.
+        if line.mnemonic == "<data-ref>" and line.diff_row == "<data-ref>":
+            if line.line_num is not None:
+                raise ValueError("asm-differ data-reference annotation has an instruction address")
+            continue
+        result.append(line)
+    if result and result[-1].mnemonic == "..." and result[-1].original == "...":
+        if result[-1].line_num is not None:
+            raise ValueError("asm-differ truncation marker has an instruction address")
+        result.pop()
+    addresses = [line.line_num for line in result]
+    if any(address is None for address in addresses):
+        raise ValueError("asm-differ returned a non-instruction inside the registered span")
+    if any(right != left + 4 for left, right in zip(addresses, addresses[1:])):
+        raise ValueError("asm-differ returned a discontinuous registered instruction span")
+    if len(result) > instruction_count or (reference and len(result) != instruction_count):
+        raise ValueError("asm-differ reference does not cover the registered instruction span")
+    return result
+
+
+def configure_registered_span_differ(differ) -> None:
+    """Adapt the pinned viewer's truncation heuristics for exact bounded matching.
+
+    Upstream inserts a synthetic ellipsis when more object text follows the
+    requested span. Its scorer can then ignore real differences after a long
+    matching prefix. Exclude that display marker before alignment/scoring, and
+    retain trailing nops because they are part of our reviewed byte span.
+    """
+
+    original_do_diff = differ.do_diff
+
+    def do_registered_diff(base, current, config):
+        if not config.diff_obj or config.stop_at_ret or config.arch.name != "mips":
+            raise ValueError("registered-span comparison requires bounded MIPS object mode")
+        count = config.max_function_size_lines
+        if count <= 0:
+            raise ValueError("registered-span comparison requires a positive instruction count")
+        base = registered_span_lines(base, count, reference=True)
+        current = registered_span_lines(current, count, reference=False)
+        return original_do_diff(base, current, config)
+
+    differ.do_diff = do_registered_diff
+    differ.trim_nops = lambda lines, arch: lines
+
+
+def run_pinned_asm_differ() -> None:
+    spec = importlib.util.spec_from_file_location("conker_asm_differ", ASM_DIFFER)
+    if spec is None or spec.loader is None:
+        raise ValueError(f"cannot load pinned asm-differ: {ASM_DIFFER}")
+    differ = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = differ
+    spec.loader.exec_module(differ)
+    configure_registered_span_differ(differ)
+    differ.main()
 
 
 def run_asm_diff(command: list[str], directory: Path) -> int:
@@ -389,8 +456,10 @@ def run_required_asm_diff(
     symbol: str,
     directory: Path,
     expected_size: int,
+    *,
+    compact_mismatch: bool = False,
 ) -> int:
-    """Verify an exact match, showing the normal diff when verification fails."""
+    """Verify an exact match; optionally summarize the same mismatch evidence."""
 
     evidence_command = asm_diff_command(
         candidate,
@@ -417,10 +486,17 @@ def run_required_asm_diff(
     try:
         require_zero_difference(result.stdout, symbol)
     except NonzeroDifferenceError as error:
-        display_command = asm_diff_command(
-            candidate, reference, symbol, expected_size
-        )
-        run_asm_diff(display_command, directory)
+        if compact_mismatch:
+            try:
+                print_compact_mismatch(result.stdout, symbol, directory)
+            except (ValueError, OSError) as diagnostic_error:
+                print(f"error: could not summarize mismatch: {diagnostic_error}", file=sys.stderr)
+                return EXIT_BLOCKED_TOOLING
+        else:
+            display_command = asm_diff_command(
+                candidate, reference, symbol, expected_size
+            )
+            run_asm_diff(display_command, directory)
         print(f"error: {error}", file=sys.stderr)
         return EXIT_MISMATCH
     except ValueError as error:
@@ -478,6 +554,89 @@ def instruction_text(row: dict, side: str) -> str | None:
     ).strip()
 
 
+def diagnostic_rows(output: str) -> list[dict]:
+    evidence = json.loads(output)
+    if not isinstance(evidence, dict) or not isinstance(evidence.get("rows"), list):
+        raise ValueError("asm-differ JSON lacks rows")
+    rows = evidence["rows"]
+    for row in rows:
+        if not isinstance(row, dict):
+            raise ValueError("asm-differ JSON contains an invalid row")
+        for side in ("base", "current"):
+            entry = row.get(side, {})
+            if not isinstance(entry, dict) or not isinstance(entry.get("text", []), list):
+                raise ValueError("asm-differ JSON contains an invalid instruction")
+            for fragment in entry.get("text", []):
+                if not isinstance(fragment, dict) or not isinstance(fragment.get("text"), str):
+                    raise ValueError("asm-differ JSON contains an invalid text fragment")
+    return rows
+
+
+def diff_row_category(row: dict) -> str | None:
+    """Classify visible differences conservatively, not semantic equivalence."""
+
+    if row.get("is_data_ref"):
+        return None
+    # Empty cells may still contain a formatted '<' or '>' display marker.
+    # The pinned formatter supplies a mnemonic only for actual instructions.
+    base_mnemonic = row.get("base", {}).get("mnemonic")
+    current_mnemonic = row.get("current", {}).get("mnemonic")
+    if bool(base_mnemonic) != bool(current_mnemonic):
+        return "missing_or_extra"
+    base = instruction_text(row, "base")
+    current = instruction_text(row, "current")
+    if not base or not current:
+        return "missing_or_extra" if base or current else None
+    if row.get("base", {}).get("mnemonic") != row.get("current", {}).get("mnemonic"):
+        return "opcode_or_control_flow"
+    formats = {
+        fragment.get("format")
+        for side in ("base", "current")
+        for fragment in row.get(side, {}).get("text", [])
+        if isinstance(fragment, dict) and fragment.get("format")
+    }
+    # Register coloring can coexist with changed immediates, stack offsets or
+    # branch targets. These must not be advertised as register-only differences.
+    if formats & {"immediate", "stack", "diff_change"}:
+        return "operand_or_constant"
+    # The formatter includes diff markers, C line numbers, offsets and branch
+    # arrows. Use the structured mnemonic to find the actual instruction.
+    def operands(text: str, side: str) -> str:
+        mnemonic = row.get(side, {}).get("mnemonic")
+        if isinstance(mnemonic, str):
+            match = re.search(rf"(?<!\S){re.escape(mnemonic)}(?=\s|$)", text)
+            if match:
+                text = text[match.start():]
+        return " ".join(text.replace("~>", "").split())
+
+    base, current = operands(base, "base"), operands(current, "current")
+    # Object-relative branch addresses move when a candidate has preceding C.
+    # Compare the encoded PC-relative displacement, using structured evidence
+    # and checking the displayed operand before replacing it. Never normalize
+    # absolute jumps, symbolic relocations, or missing address evidence.
+    relative_branches = {
+        "b", "bal", "beq", "beql", "beqz", "beqzl", "bne", "bnel",
+        "bnez", "bnezl", "bgez", "bgezl", "bgezal", "bgezall", "bgtz",
+        "bgtzl", "blez", "blezl", "bltz", "bltzl", "bltzal", "bltzall",
+        "bc1f", "bc1fl", "bc1t", "bc1tl",
+    }
+    if base_mnemonic in relative_branches:
+        def relative_operand(text: str, side: str) -> str:
+            entry = row[side]
+            address, target = entry.get("line"), entry.get("branch")
+            match = re.search(r"(?<=[,\s])(?:0x)?[0-9a-fA-F]+$", text)
+            if (type(address) is int and type(target) is int and match
+                    and int(match.group(), 16) == target):
+                return text[:match.start()] + f"<branch:{target - address}>"
+            return text
+        base, current = relative_operand(base, "base"), relative_operand(current, "current")
+    if base == current:
+        return None
+    if MIPS_REGISTER.sub("REG", base) == MIPS_REGISTER.sub("REG", current):
+        return "register_only"
+    return "operand_or_constant"
+
+
 def classify_diff_rows(rows: list[dict]) -> dict[str, int]:
     """Summarize asm-differ rows into actionable source-shaping categories."""
 
@@ -488,36 +647,52 @@ def classify_diff_rows(rows: list[dict]) -> dict[str, int]:
         "missing_or_extra": 0,
     }
     for row in rows:
-        formats = {
-            fragment.get("format")
-            for side in ("base", "current")
-            for fragment in row.get(side, {}).get("text", [])
-            if isinstance(fragment, dict) and fragment.get("format")
-        }
-        if "rotation" in formats or "register" in formats:
-            counts["register_only"] += 1
-            continue
-        if row.get("key") is not None and not any(
-            str(value).startswith("diff_") for value in formats
-        ):
-            continue
-        base = instruction_text(row, "base")
-        current = instruction_text(row, "current")
-        if not base or not current:
-            counts["missing_or_extra"] += 1
-            continue
-        base_mnemonic = row.get("base", {}).get("mnemonic")
-        current_mnemonic = row.get("current", {}).get("mnemonic")
-        if base_mnemonic != current_mnemonic:
-            counts["opcode_or_control_flow"] += 1
-            continue
-        normalized_base = MIPS_REGISTER.sub("REG", base)
-        normalized_current = MIPS_REGISTER.sub("REG", current)
-        if normalized_base == normalized_current:
-            counts["register_only"] += 1
-        else:
-            counts["operand_or_constant"] += 1
+        category = diff_row_category(row)
+        if category is not None:
+            counts[category] += 1
     return counts
+
+
+def print_diagnosis(symbol: str, score: int, counts: dict[str, int]) -> None:
+    print(f"{symbol}: CURRENT ({score})")
+    for category, count in counts.items():
+        print(f"{category.replace('_', '-')}: {count}")
+    if score and counts["register_only"] and not any(
+        count for category, count in counts.items() if category != "register_only"
+    ):
+        print("recommendation: bounded declaration/lifetime permutation")
+    elif score:
+        print("recommendation: inspect full diff for expression, operand or control-flow differences")
+    else:
+        print("recommendation: run finish")
+
+
+def print_compact_mismatch(output: str, symbol: str, directory: Path) -> None:
+    rows = diagnostic_rows(output)
+    score = current_difference_count(output)
+    counts = classify_diff_rows(rows)
+    details = directory / symbol
+    details.mkdir(parents=True, exist_ok=True)
+    evidence_path = details / "mismatch.json"
+    text_path = details / "mismatch.txt"
+    lines = [
+        f"{instruction_text(row, 'base') or '-'} | {instruction_text(row, 'current') or '-'}"
+        for row in rows
+    ]
+    for path, content in (
+        (evidence_path, output),
+        (text_path, f"{symbol}: CURRENT ({score})\nreference | candidate\n" + "\n".join(lines) + "\n"),
+    ):
+        temporary = path.with_suffix(path.suffix + ".tmp")
+        temporary.write_text(content, encoding="utf-8")
+        temporary.replace(path)
+    print_diagnosis(symbol, score, counts)
+    differing = [line for row, line in zip(rows, lines) if diff_row_category(row) is not None]
+    print(f"diff-excerpt: first {min(5, len(differing))} of {len(differing)} differing rows (reference | candidate)")
+    for line in differing[:5]:
+        print("  " + (line[:157] + "..." if len(line) > 160 else line))
+    for label, path in (("full-diff", text_path), ("diff-evidence", evidence_path)):
+        print(f"{label}: {path.relative_to(ROOT) if path.is_relative_to(ROOT) else path}")
 
 
 def run_diagnose_diff(
@@ -545,26 +720,16 @@ def run_diagnose_diff(
         sys.stderr.write(result.stderr)
         return EXIT_BLOCKED_TOOLING
     try:
-        evidence = json.loads(result.stdout)
         score = current_difference_count(result.stdout)
-        rows = evidence.get("rows")
-        if not isinstance(rows, list):
-            raise ValueError("asm-differ JSON lacks rows")
+        rows = diagnostic_rows(result.stdout)
         counts = classify_diff_rows(rows)
-    except (json.JSONDecodeError, ValueError) as error:
+        if score:
+            print_compact_mismatch(result.stdout, symbol, directory)
+        else:
+            print_diagnosis(symbol, score, counts)
+    except (json.JSONDecodeError, ValueError, OSError) as error:
         print(f"error: asm-differ returned invalid diagnostic evidence: {error}", file=sys.stderr)
         return EXIT_BLOCKED_TOOLING
-    print(f"{symbol}: CURRENT ({score})")
-    for category, count in counts.items():
-        print(f"{category.replace('_', '-')}: {count}")
-    if score and counts["register_only"] and not (
-        counts["opcode_or_control_flow"] or counts["missing_or_extra"]
-    ):
-        print("recommendation: bounded declaration/lifetime permutation")
-    elif score:
-        print("recommendation: recover expression or control-flow structure before permutation")
-    else:
-        print("recommendation: run finish")
     return 0
 
 
@@ -576,10 +741,13 @@ def main() -> int:
     mode.add_argument("--game", action="store_true", help="compare a registered game-overlay candidate")
     mode.add_argument("--auto-overlay", action="store_true", help="resolve the overlay from the work-item ID")
     parser.add_argument("--require-match", action="store_true", help="fail unless asm-differ reports CURRENT (0)")
+    parser.add_argument("--compact-mismatch", action="store_true", help="summarize failed --require-match evidence without rerunning the differ")
     parser.add_argument("--score-only", action="store_true", help="print only the focused-diff score")
     parser.add_argument("--diagnose", action="store_true", help="classify focused differences, including a preserved deferred candidate")
     parser.add_argument("--watch", action="store_true", help="watch the candidate source and rebuild inside this container")
     arguments = parser.parse_args()
+    if arguments.compact_mismatch and not arguments.require_match:
+        parser.error("--compact-mismatch requires --require-match")
     if arguments.watch and (arguments.require_match or arguments.score_only or arguments.diagnose):
         parser.error("--watch cannot be combined with --require-match or --score-only")
     if arguments.require_match and arguments.score_only:
@@ -647,7 +815,10 @@ def main() -> int:
             candidate, reference, symbol, directory, expected_size
         )
     if arguments.require_match:
-        return run_required_asm_diff(candidate, reference, symbol, directory, expected_size)
+        return run_required_asm_diff(
+            candidate, reference, symbol, directory, expected_size,
+            compact_mismatch=arguments.compact_mismatch,
+        )
     command = asm_diff_command(
         candidate,
         reference,
@@ -659,4 +830,12 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    if sys.argv[1:2] == ["--asm-differ"]:
+        del sys.argv[1]
+        try:
+            run_pinned_asm_differ()
+        except (ValueError, OSError) as error:
+            print(f"error: {error}", file=sys.stderr)
+            raise SystemExit(EXIT_BLOCKED_TOOLING)
+    else:
+        raise SystemExit(main())

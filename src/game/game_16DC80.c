@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_state_callback_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151407D0
  * - func_151408A4
  * - func_151412BC
  * - func_1514143C
@@ -19,7 +18,53 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151407D0.s")
+typedef struct Game16DC80Descriptor {
+    u8 field0;
+    u8 field1;
+    u8 pad2[0x3E];
+    u32 flags40;
+} Game16DC80Descriptor;
+
+typedef struct Game16DC80Inner {
+    u8 pad0[0x44];
+    void *field_44;
+    u8 pad48[0x11];
+    s8 field59;
+} Game16DC80Inner;
+
+typedef struct Game16DC80Object {
+    u8 pad0[0x110];
+    Game16DC80Inner inner;
+} Game16DC80Object;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_1513D524(Game16DC80Descriptor *, u8, u8, u8, s32, s32, u32, s32, s32);
+extern s32 D_800DC9F0;
+
+s32 func_151407D0(void *arg0, u32 arg1, Game16DC80Descriptor *arg2,
+    u8 arg3, u8 arg4, u8 arg5, u8 arg6, s8 arg7, u8 arg8, s32 arg9) {
+    s32 result;
+    s32 unused;
+    Game16DC80Inner *inner;
+
+    arg2->field1 = 3;
+    arg2->flags40 |= 0x40400000;
+    result = func_1513D524(arg2, arg3, arg4, arg5, 1, arg6, arg1, arg8, arg9);
+    inner = (Game16DC80Inner *)(result + 0x110);
+    if (result != 0) {
+        func_10022EC0(inner, arg0, arg1);
+        inner->field59 = arg7;
+        inner->field_44 = 0;
+copy_done:
+        ;
+    } else {
+        return 0;
+    }
+    if (result) {
+        D_800DC9F0 = D_800DC9F0 + 1;
+    }
+    return result;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151408A4.s")
 void func_151411A4(void) {
     func_1513CA6C();
@@ -55,16 +100,6 @@ void func_15141250(Game1411E4State *arg0) {
     (*(void (**)(Game1411E4State *))(D_80089FE4 + (arg0->field_168 * 4)))(arg0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151412BC.s")
-typedef struct Game16DC80Inner {
-    u8 pad0[0x44];
-    void *field_44;
-} Game16DC80Inner;
-
-typedef struct Game16DC80Object {
-    u8 pad0[0x110];
-    Game16DC80Inner inner;
-} Game16DC80Object;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514143C CURRENT (160) */
 void func_1514143C(Game16DC80Object *arg0) {
     Game16DC80Inner *temp_v0;
@@ -121,19 +156,22 @@ s32 func_15141478(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_15141478.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
-f32 func_15144B68(f32, void *);                     /* extern */
+f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141564 CURRENT (73) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141564 CURRENT (35) */
 s32 func_15141564(u8 *arg0) {
     void *sp18;
     u8 *temp_v1;
 
     temp_v1 = (void *)(arg0 + 0x170);
-    *(f32 *)((u8 *)arg0 + 0x158) = (f32) (*(f32 *)((u8 *)arg0 + 0x170) + (*(f32 *)((u8 *)temp_v1 + 4) * func_15047D60(*(f32 *)((u8 *)arg0 + 0x178))));
+    *(f32 *)((u8 *)arg0 + 0x158) =
+        (f32)(*(f32 *)temp_v1 +
+              (func_15047D60(*(f32 *)((u8 *)arg0 + 0x178)) *
+               *(f32 *)((u8 *)temp_v1 + 4)));
     *(f32 *)((u8 *)temp_v1 + 8) = (f32) (*(f32 *)((u8 *)temp_v1 + 8) + (*(f32 *)((u8 *)temp_v1 + 0xC) * D_800BE9A4));
     sp18 = temp_v1;
-    *(f32 *)((u8 *)temp_v1 + 8) = func_15144B68(*(f32 *)((u8 *)temp_v1 + 8), arg0);
+    *(f32 *)((u8 *)temp_v1 + 8) = func_15144B68(*(f32 *)((u8 *)temp_v1 + 8));
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15141564 */
@@ -176,6 +214,35 @@ block_7:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151415D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151415D4.s")
+typedef void (*Game16DC80Callback)(u8 *, u8 *, u8);
+extern Game16DC80Callback D_8008A02C;
+void func_1516972C(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151416E8 CURRENT (1995) */
+void func_151416E8(u8 *arg0, u8 *arg1, u8 arg2) {
+    if (*(&D_8008A02C + arg0[0x168]) != 0) {
+        (*(&D_8008A02C + arg0[0x168]))(arg0, arg1, arg2);
+    }
+    if ((arg2 == 0x22) || (arg2 == 0x24) || (arg2 == 0x25)) {
+        s8 *state;
+
+        state = (s8 *)arg0 + 0x110;
+        if (*arg1 == (u8)state[0x58]) {
+            switch (arg2) {
+                case 0x22:
+                    func_1516972C(arg0);
+                    return;
+                case 0x24:
+                    state[0x59] = -1;
+                    return;
+                case 0x25:
+                    state[0x59] = 2;
+                    break;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151416E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151416E8.s")
 typedef struct {
     s32 field_0;

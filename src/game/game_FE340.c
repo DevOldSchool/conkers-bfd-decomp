@@ -6,14 +6,72 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D0E90
- * - func_150D10E4
  * - func_150D1204
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FE340/func_150D0E90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FE340/func_150D10E4.s")
+typedef struct GameFE340Packet {
+    u8 id;
+    u8 pad1[3];
+    void *object;
+    s8 value8;
+    u8 pad9[3];
+    f32 valueC;
+    f32 value10;
+    f32 value14;
+    f32 value18;
+    f32 value1C;
+    f32 value20;
+    s8 value24;
+    u8 pad25;
+    s16 value26;
+    s16 value28;
+    s16 value2A;
+    s16 value2C;
+    s8 value2E;
+    s8 value2F;
+    s8 value30;
+    u8 pad31[3];
+    f32 value34;
+    s8 value38;
+    s8 value39;
+    u8 pad3A[2];
+} GameFE340Packet;
+
+void func_15134DAC(u8 *, s32, void *, s32);
+extern f32 D_800A0890;
+
+void func_150D10E4(u8 *arg0, u8 arg1, void *arg2, s32 arg3) {
+    GameFE340Packet packet;
+
+    packet.id = arg0[0x3B];
+    packet.object = arg0;
+    packet.value8 = 0;
+    packet.valueC = 0.0f;
+    packet.value10 = 0.0f;
+    packet.value14 = 0.0f;
+    packet.value18 = 0.0f;
+    if (arg1 != 0) {
+        packet.value1C = -30.0f;
+    } else {
+        packet.value1C = 30.0f;
+    }
+    packet.value20 = 0.0f;
+    packet.value24 = 2;
+    packet.value26 = 0x32;
+    packet.value28 = 0x16;
+    packet.value2A = 0x7D0;
+    packet.value2C = 0;
+    packet.value2E = 6;
+    packet.value2F = 7;
+    packet.value30 = -1;
+    packet.value38 = 0;
+    packet.value39 = -1;
+    packet.value34 = D_800A0890;
+    func_15134DAC(&packet.id, 0, arg2, arg3);
+}
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800A0894;
 

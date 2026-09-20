@@ -31,6 +31,38 @@ s32 func_151BC580(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BC580 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC580.s")
+void func_1516972C(s32, ...);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 CURRENT (1577) */
+void func_151BC5A4(void *arg0, void *arg1, s32 arg2) {
+    s32 temp_a0;
+    s32 temp_t6;
+    s32 temp_v1;
+    void *temp_v0;
+
+    temp_t6 = arg2 & 0xFF;
+    if (temp_t6 == 0) {
+        if ((*(s32 *)((u8 *)arg0 + 0x40) == *(s32 *)arg1) || (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x44))) {
+            func_1516972C((s32)arg0, arg1, temp_t6);
+        }
+    } else {
+        temp_v0 = (u8 *)arg0 + 0x40;
+        if (temp_t6 == 0x2D) {
+            temp_a0 = *(s32 *)((u8 *)arg0 + 0x40);
+            temp_v1 = *(s32 *)arg1;
+            if (temp_v1 == temp_a0) {
+                *(s32 *)((u8 *)arg0 + 0x40) = *(s32 *)((u8 *)arg1 + 4);
+                *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 9);
+                return;
+            }
+            if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
+                *(s32 *)((u8 *)arg0 + 0x40) = temp_v1;
+                *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC5A4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC64C.s")
 f32 func_15143E64(f32 *, void *, void *);           /* extern */
@@ -225,6 +257,25 @@ void func_151BD7F4(void *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD828.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BDD8C.s")
+void func_1516972C(s32, ...);
+void func_15169850(s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BE0AC CURRENT (1334) */
+void func_151BE0AC(void *arg0, void *arg1, s32 arg2) {
+    u8 *temp_a2;
+
+    temp_a2 = (u8 *)arg0 + 0x28;
+    if ((u8)arg2 == 0x3B) {
+        if ((*(s32 *)temp_a2 == *(s32 *)arg1) ||
+            (*(u8 *)(temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C((s32)arg0);
+        }
+    } else {
+        func_15169850((s32)arg1, (s32)(u8)arg2, (s32)temp_a2,
+                      (s32)(temp_a2 + 4), (s32)arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BE0AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BE0AC.s")
 void func_1516972C(s32, ...);
 

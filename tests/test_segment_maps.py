@@ -527,10 +527,10 @@ class SegmentMapTests(unittest.TestCase):
         entries = segment_subsegments(ROOT / "config" / "game" / "us.yaml", "game")
         names = {offset: name for offset, _, name in entries if name is not None}
         self.assertEqual("game/done/game_3BFD0", names[0xEB20])
-        self.assertEqual("game/game_1765E0", names[0x149130])
+        self.assertEqual("game/done/game_1765E0", names[0x149130])
         self.assertEqual("game/game_1A6300", names[0x178E50])
         self.assertEqual("game/game_1BFC70", names[0x1927C0])
-        self.assertIn((0x149130, "c", "game/game_1765E0"), entries)
+        self.assertIn((0x149130, "c", "game/done/game_1765E0"), entries)
 
         from scripts.prepare_game_reference import raw_reference_map
         profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))

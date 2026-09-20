@@ -23,6 +23,14 @@ SPEC.loader.exec_module(automation)
 
 
 class AutomateTests(unittest.TestCase):
+    def setUp(self) -> None:
+        self.history_load = patch.object(automation.attempt_history, "load", return_value={})
+        self.history_save = patch.object(automation.attempt_history, "save")
+        self.history_load.start()
+        self.history_save.start()
+        self.addCleanup(self.history_load.stop)
+        self.addCleanup(self.history_save.stop)
+
     SOURCE = "src/game/test.c"
     PRAGMA = '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_test.s")\n'
 
@@ -108,6 +116,45 @@ class AutomateTests(unittest.TestCase):
             "missing-or-extra: 0\n"
         )
 
+    def test_bounded_run_reuses_shared_history(self) -> None:
+        candidate = self.raw_candidate()
+        initial = {"func_test": automation.AttemptResult("func_test", self.SOURCE, "raw", "not_attempted", "eligible")}
+        history = {"schema_version": 3, "profile": "us", "mode": "execute", "functions": [
+            {"symbol": "func_test", "source": self.SOURCE, "pool": "raw", "outcome": "skipped",
+             "stage": "prepare", "blocker_code": "unresolved_placeholder", "fingerprint": "stable"}],
+            "pending_batch": []}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            with (patch.object(automation, "ROOT", root),
+                  patch.object(automation, "initial_report_entries", return_value=initial),
+                  patch.object(automation.automation_common, "available_raw_candidates", return_value=[candidate]),
+                  patch.object(automation.automation_common, "available_deferred_candidates", return_value=[]),
+                  patch.object(automation.attempt_history, "load", return_value=history),
+                  patch.object(automation, "candidate_fingerprint", return_value="stable"),
+                  patch.object(automation, "try_raw_candidate") as attempt,
+                  redirect_stdout(io.StringIO())):
+                self.assertEqual(0, automation.main(["--limit", "1"]))
+            attempt.assert_not_called()
+            report = json.loads((root / "build/us/automate/report.json").read_text())
+            self.assertEqual(1, report["metrics"]["cache_hits"])
+            self.assertIsNone(report["metrics"]["model_tokens"])
+            self.assertEqual(0, report["metrics"]["new_batch_verified_matches"])
+
+    def test_object_evidence_change_invalidates_candidate(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / self.SOURCE
+            source.parent.mkdir(parents=True)
+            source.write_text(self.PRAGMA)
+            raw = root / automation.project_state.nonmatching_asm_path(self.SOURCE, "func_test")
+            raw.parent.mkdir(parents=True)
+            raw.write_text("glabel func_test\n lui $v0, %hi(D_1234)\n")
+            with patch.object(automation, "ROOT", root):
+                first = automation.candidate_fingerprint(self.raw_candidate(), "seed", prototypes={}, objects={})
+                second = automation.candidate_fingerprint(self.raw_candidate(), "seed", prototypes={},
+                                                          objects={"D_1234": ("extern s32 D_1234;",)})
+            self.assertNotEqual(first, second)
+
     def test_all_rejects_attempt_limit(self) -> None:
         with (
             redirect_stdout(io.StringIO()),
@@ -116,13 +163,11 @@ class AutomateTests(unittest.TestCase):
         ):
             automation.parse_args(["--all", "--max-attempts", "2"])
 
-    def test_restart_requires_all(self) -> None:
-        with (
-            redirect_stdout(io.StringIO()),
-            redirect_stderr(io.StringIO()),
-            self.assertRaises(SystemExit),
-        ):
-            automation.parse_args(["--restart"])
+    def test_restart_is_available_for_bounded_runs(self) -> None:
+        args = automation.parse_args(["--restart"])
+        self.assertTrue(args.restart)
+        self.assertEqual(32, args.rewrite_budget)
+        self.assertFalse(args.verbose)
 
     def test_analyze_requires_all_and_rejects_mutating_options(self) -> None:
         for arguments in (
@@ -161,7 +206,7 @@ void func_test(void *arg0) {
                 patch.object(
                     automation.automation_common,
                     "run_command",
-                    return_value=(0, "CURRENT (0)\n"),
+                    return_value=(0, self.diagnosis(current=0)),
                 ),
                 redirect_stdout(io.StringIO()),
             ):
@@ -174,6 +219,87 @@ void func_test(void *arg0) {
                 "*(s32 *)((u8 *)arg0 + 0x18) = 1;",
                 source.read_text(encoding="utf-8"),
             )
+
+    def test_repairs_address_argument_with_visible_context_only_in_target(self) -> None:
+        prefix = "void copy(void *, void *, s32);\n/* unrelated work */\n"
+        body = "void func_test(void) {\n    s32 address;\n    s32 packet;\n    copy(address + 0x28, &packet, 12);\n}\n"
+        suffix = "void other(void) { untouched(); }\n"
+        source = (prefix + body + suffix).encode()
+        diagnostics = automation.compiler_diagnostics(
+            "cfe: Warning 712: file.c, line 6: illegal combination of pointer and integer\n"
+        )
+        updated, actions = automation.repair_candidate_source(source, "func_test", diagnostics)
+        self.assertEqual(
+            (prefix + body.replace("copy(address + 0x28", "copy((void *)(address + 0x28)") + suffix).encode(),
+            updated,
+        )
+        self.assertTrue(actions)
+
+    def test_raw_preflight_routes_only_eligible_differences_to_search(self) -> None:
+        cases = (
+            (self.diagnosis(), 250, None),
+            (self.diagnosis().replace("missing-or-extra: 0", "missing-or-extra: 3"), 32, None),
+            (self.diagnosis(operands=1), None, "structural_mismatch"),
+            (self.diagnosis().replace("opcode-or-control-flow: 0", "opcode-or-control-flow: 1"), None, "structural_mismatch"),
+            (self.diagnosis().replace("missing-or-extra: 0", "missing-or-extra: 4"), None, "structural_mismatch"),
+            ("func_test: CURRENT (0)\n", None, "diagnostic_failure"),
+        )
+        for evidence, expected_budget, blocker in cases:
+            with self.subTest(evidence=evidence), tempfile.TemporaryDirectory() as temporary_directory:
+                root = Path(temporary_directory)
+                source = root / self.SOURCE
+                source.parent.mkdir(parents=True)
+                original = "/* existing unrelated work */\n" + self.PRAGMA
+                source.write_text(original)
+                starter = "void func_test(void) { value += 1; }\n"
+                calls = []
+
+                def run_command(arguments, *, echo=True, log_path=None):
+                    calls.append(arguments)
+                    if arguments[1] == "diagnose-diff":
+                        return 0, evidence
+                    if arguments[1] == "permute":
+                        return 1, "CURRENT (35)\n"
+                    raise AssertionError(arguments)
+
+                with (
+                    patch.object(automation, "ROOT", root),
+                    patch.object(automation.automation_common, "generate_starter", return_value=starter),
+                    patch.object(automation.automation_common, "run_command", side_effect=run_command),
+                    patch.object(automation.automation_common, "entry_is_complete", return_value=False),
+                    redirect_stdout(io.StringIO()),
+                ):
+                    result = automation.try_raw_candidate(self.raw_candidate(), budget=250, defer_best=True)
+                self.assertEqual(original, source.read_text())
+                self.assertEqual("diagnose-diff", calls[0][1])
+                searches = [call for call in calls if call[1] == "permute"]
+                if expected_budget is not None:
+                    self.assertEqual(1, len(searches))
+                    self.assertEqual(str(expected_budget), searches[0][searches[0].index("--budget") + 1])
+                else:
+                    self.assertEqual([], searches)
+                    self.assertEqual(1, len(calls))
+                    self.assertEqual(blocker, automation.classify_attempt(result).blocker_code)
+                    self.assertIn("value += 1", (root / result.candidate_artifact).read_text())
+                    self.assertEqual(evidence, (root / result.diagnostic_log).read_text())
+
+    def test_raw_structural_candidate_restores_source_if_artifact_write_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / self.SOURCE
+            source.parent.mkdir(parents=True)
+            source.write_text(self.PRAGMA)
+            with (
+                patch.object(automation, "ROOT", root),
+                patch.object(automation.automation_common, "generate_starter", return_value="void func_test(void) { value += 1; }\n"),
+                patch.object(automation.automation_common, "run_command", return_value=(0, self.diagnosis(operands=1))) as run,
+                patch.object(automation, "save_failure_artifacts", side_effect=OSError("disk full")),
+                redirect_stdout(io.StringIO()),
+                self.assertRaisesRegex(OSError, "disk full"),
+            ):
+                automation.try_raw_candidate(self.raw_candidate(), budget=32, defer_best=True)
+            self.assertEqual(self.PRAGMA, source.read_text())
+            run.assert_called_once()
 
     def test_unresolved_warning_is_restored_after_bounded_repairs(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
@@ -254,7 +380,7 @@ void func_test(void *arg0) {
                 patch.object(
                     automation.automation_common,
                     "run_command",
-                    side_effect=((1, compiler_output), (0, "CURRENT (0)\n"), (0, "done\n")),
+                    side_effect=((1, compiler_output), (0, self.diagnosis(current=0)), (0, "done\n")),
                 ) as run_command,
                 redirect_stdout(io.StringIO()),
             ):
@@ -264,6 +390,10 @@ void func_test(void *arg0) {
 
             self.assertEqual("matched", result.outcome)
             self.assertEqual(3, run_command.call_count)
+            self.assertEqual(
+                ["diagnose-diff", "diagnose-diff", "finish"],
+                [call.args[0][1] for call in run_command.call_args_list],
+            )
             self.assertTrue(result.repair_actions)
             self.assertIn("u8 *arg0", source.read_text(encoding="utf-8"))
 
@@ -439,7 +569,7 @@ void func_test(void) { func_missing(1); }
                     automation.automation_common,
                     "run_command",
                     side_effect=(
-                        (0, "func_test: CURRENT (40)\n"),
+                        (0, self.diagnosis(current=40)),
                         (137, "AGENT_ACTION: BLOCKED_TOOLING\n"),
                     ),
                 ),
@@ -465,9 +595,9 @@ void func_test(void) { func_missing(1); }
             starter = "void func_test(void) {\n    value += 1;\n}\n"
             active_at_defer: list[str] = []
 
-            def run_command(arguments: list[str]) -> tuple[int, str]:
-                if "diff" in arguments:
-                    return 0, "func_test: CURRENT (40)\n"
+            def run_command(arguments: list[str], *, echo: bool = True, log_path: Path | None = None) -> tuple[int, str]:
+                if "diagnose-diff" in arguments:
+                    return 0, self.diagnosis(current=40)
                 if "permute" in arguments:
                     return 137, "AGENT_ACTION: BLOCKED_TOOLING\n"
                 if "defer" in arguments:
@@ -553,7 +683,7 @@ f32 func_test(f32 arg0) {
             )
             calls: list[list[str]] = []
 
-            def run_command(arguments: list[str]) -> tuple[int, str]:
+            def run_command(arguments: list[str], *, echo: bool = True, log_path: Path | None = None) -> tuple[int, str]:
                 calls.append(arguments)
                 if "diagnose-diff" in arguments:
                     return 0, self.diagnosis(current=100, operands=1)
@@ -602,7 +732,7 @@ f32 func_test(f32 arg0) {
             diagnoses = 0
             completed = False
 
-            def run_command(arguments: list[str]) -> tuple[int, str]:
+            def run_command(arguments: list[str], *, echo: bool = True, log_path: Path | None = None) -> tuple[int, str]:
                 nonlocal diagnoses, completed
                 calls.append(arguments)
                 if 'diagnose-diff' in arguments:
@@ -833,7 +963,7 @@ f32 func_test(f32 arg0) {
             )
             calls: list[list[str]] = []
 
-            def run_command(arguments: list[str]) -> tuple[int, str]:
+            def run_command(arguments: list[str], *, echo: bool = True, log_path: Path | None = None) -> tuple[int, str]:
                 calls.append(arguments)
                 if "diagnose-diff" in arguments:
                     return 0, self.diagnosis()
@@ -930,14 +1060,18 @@ f32 func_test(f32 arg0) {
             )
         }
 
-        def run_command(arguments: list[str]) -> tuple[int, str]:
+        def run_command(arguments: list[str], *, echo: bool = True, log_path: Path | None = None) -> tuple[int, str]:
             calls.append(arguments)
             return 0, "AGENT_ACTION: BATCH_COMPLETE\n"
 
         with tempfile.TemporaryDirectory() as temporary_directory:
             report = Path(temporary_directory) / "report.json"
             with (
-                patch.object(automation, "initial_report_entries", return_value=entries),
+                patch.object(automation, "initial_report_entries", side_effect=[
+                    entries,
+                    {"func_test": automation.AttemptResult(
+                        "func_test", self.SOURCE, "inventory", "already_matched", "exact")},
+                ]),
                 patch.object(
                     automation.automation_common,
                     "available_raw_candidates",
@@ -1265,7 +1399,7 @@ f32 func_test(f32 arg0) {
             )
             calls: list[list[str]] = []
 
-            def run_command(arguments: list[str]) -> tuple[int, str]:
+            def run_command(arguments: list[str], *, echo: bool = True, log_path: Path | None = None) -> tuple[int, str]:
                 calls.append(arguments)
                 return 0, "AGENT_ACTION: BATCH_COMPLETE\n"
 

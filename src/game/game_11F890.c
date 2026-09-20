@@ -51,6 +51,24 @@ s32 func_150F2480(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F2480 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11F890/func_150F2480.s")
+void func_150A7790(void *, s32);
+void func_150A8050(void *, f32, s32, f32);
+extern u8 D_800BE9C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F2518 CURRENT (327) */
+s32 func_150F2518(void *arg0, s32 arg1) {
+    u8 work[0x3C];
+    u8 *source;
+
+    source = (u8 *)arg0 + *(s32 *)((u8 *)arg0 + 0x50) + 0xF8;
+    func_150A8050(work, *(f32 *)(source + 0x24), 0, *(f32 *)(source + 0x28));
+    *(f32 *)(work + 0x30) = *(f32 *)(source + 0x18);
+    *(f32 *)(work + 0x34) = *(f32 *)(source + 0x1C);
+    *(f32 *)(work + 0x38) = *(f32 *)(source + 0x20);
+    func_150A7790(work, (s32)((u8 *)arg0 + (D_800BE9C0 << 6) + 0x78));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F2518 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11F890/func_150F2518.s")
 typedef struct Game11F890Work {
     u8 transform[0x30];

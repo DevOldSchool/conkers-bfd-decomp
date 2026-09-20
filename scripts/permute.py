@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import itertools
+import hashlib
 import json
 import re
 import subprocess
@@ -21,6 +22,14 @@ import project_state
 
 
 ROOT = Path(__file__).resolve().parent.parent
+
+
+def candidate_function_span(content: str, identifier: str, regional_symbol: str) -> tuple[int, int]:
+    """Locate a candidate defined directly or through a profile symbol alias."""
+
+    return project_state.work_item_function_span(
+        content, identifier, regional_symbol
+    )
 DECLARATION = re.compile(
     r"^(?P<indent>[ \t]+)(?P<type>(?:(?:const|signed|unsigned)\s+)*"
     r"(?:struct\s+[A-Za-z_]\w*|[A-Za-z_]\w*)(?:[ \t]*\*)*)"
@@ -200,27 +209,56 @@ def score_candidate(
         stdout=subprocess.DEVNULL,
         stderr=subprocess.DEVNULL,
     )
-    result = subprocess.run(
-        diff.asm_diff_command(
-            candidate_object,
-            reference,
-            symbol,
-            expected_size,
-            require_match=True,
-        ),
-        cwd=directory,
-        check=True,
-        capture_output=True,
-        text=True,
-    )
-    return diff.current_difference_count(result.stdout)
+    try:
+        result = subprocess.run(
+            diff.asm_diff_command(
+                candidate_object,
+                reference,
+                symbol,
+                expected_size,
+                require_match=True,
+            ),
+            cwd=directory,
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+    except OSError as error:
+        raise PermuteError(f"could not launch asm-differ: {error}") from error
+    failure = None
+    if result.returncode:
+        failure = f"asm-differ exited {result.returncode}"
+    else:
+        try:
+            return diff.current_difference_count(result.stdout)
+        except ValueError as error:
+            failure = str(error)
+    log = directory / "scoring-failure.log"
+    log.write_text(f"{failure}\n{result.stdout}{result.stderr}", encoding="utf-8")
+    raise PermuteError(f"{failure}; details: {log}")
+
+
+def search_fingerprint(profile: str, content: str, reference: Path, expected_size: int,
+                       budget: int, exhaustive: bool) -> str:
+    """Invalidate negative search results when any supported search input changes."""
+    digest = hashlib.sha256()
+    digest.update(json.dumps([profile, content, expected_size, budget, exhaustive]).encode())
+    digest.update(reference.read_bytes())
+    paths = [ROOT / "Makefile"]
+    for directory in ("scripts", "include", "toolchain", "config"):
+        paths.extend(path for path in (ROOT / directory).rglob("*")
+                     if path.is_file() and "__pycache__" not in path.parts)
+    for path in sorted(paths):
+        digest.update(str(path.relative_to(ROOT)).encode())
+        digest.update(path.read_bytes() if path.is_file() else b"<missing>")
+    return digest.hexdigest()
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("profile", choices=("us", "eu"))
     parser.add_argument("identifier")
-    parser.add_argument("--budget", type=int, default=250)
+    parser.add_argument("--budget", type=int, default=32)
     parser.add_argument("--exhaustive", action="store_true",
                         help="use the full variant budget instead of stopping after 32 attempts without improvement")
     args = parser.parse_args()
@@ -230,8 +268,8 @@ def main() -> int:
     try:
         entry, symbol = work_item(args.identifier, args.profile)
         source, active_content = active_candidate_content(entry, args.identifier)
-        function_start, function_end = project_state.c_function_span(
-            active_content, symbol
+        function_start, function_end = candidate_function_span(
+            active_content, args.identifier, symbol
         )
         original_function = active_content[function_start:function_end].rstrip("\n")
         variants = source_variants(original_function, args.budget)
@@ -250,7 +288,23 @@ def main() -> int:
         directory = ROOT / "build" / args.profile / "permute" / args.identifier
         directory.mkdir(parents=True, exist_ok=True)
         best_path = directory / "best.c"
+        report = directory / "search-report.json"
+        fingerprint = search_fingerprint(args.profile, active_content, reference, expected_size,
+                                         args.budget, args.exhaustive)
+        if report.is_file():
+            saved = json.loads(report.read_text())
+            if (saved.get("fingerprint") == fingerprint
+                    and saved.get("stop_reason") in ("plateau", "variants_exhausted")
+                    and isinstance(saved.get("best_score"), int) and saved["best_score"] > 0
+                    and best_path.is_file()
+                    and saved.get("best_sha256") == hashlib.sha256(best_path.read_bytes()).hexdigest()):
+                print(f"{args.identifier}: unchanged search skipped; best CURRENT ({saved['best_score']}) "
+                      f"saved to {best_path.relative_to(ROOT)}; change source or search settings to retry")
+                return 1
         best_path.unlink(missing_ok=True)
+        report.unlink(missing_ok=True)
+        (directory / "scoring-failure.log").unlink(missing_ok=True)
+        diff.write_settings(args.profile, source, directory=directory)
 
         best_score: int | None = None
         best_function = original_function
@@ -261,6 +315,7 @@ def main() -> int:
         last_improvement = 0
         improvements = 0
         stop_reason = "variants_exhausted"
+        failure: str | None = None
         for variant in variants:
             if not args.exhaustive and attempted + skipped >= max(32, last_improvement + 32):
                 stop_reason = "plateau"
@@ -281,8 +336,14 @@ def main() -> int:
                     expected_size,
                 )
             except subprocess.CalledProcessError:
+                # Only candidate compilation uses check=True. Scorer failures
+                # are tooling errors and must terminate the search instead.
                 skipped += 1
                 continue
+            except (PermuteError, OSError) as error:
+                failure = str(error)
+                stop_reason = "tooling_failure"
+                break
             attempted += 1
             if best_score is None:
                 best_score = score
@@ -302,16 +363,28 @@ def main() -> int:
                 break
 
         summary = {
+            "fingerprint": fingerprint,
+            "best_sha256": hashlib.sha256(best_path.read_bytes()).hexdigest() if best_path.is_file() else None,
             "budget": args.budget, "exhaustive": args.exhaustive,
             "generated": len(variants), "compiled": attempted, "invalid": skipped,
             "improvements": improvements, "best_score": best_score,
             "stop_reason": stop_reason, "elapsed_seconds": time.monotonic() - started,
         }
-        report = directory / "search-report.json"
+        if failure is not None:
+            summary["error"] = failure
         temporary = report.with_suffix(".json.tmp")
         temporary.write_text(json.dumps(summary, indent=2) + "\n", encoding="utf-8")
         temporary.replace(report)
+        if failure is not None:
+            print(f"error: {failure}", file=sys.stderr)
+            return 2
         if exact_function is None:
+            if best_score is None:
+                print(
+                    f"{args.identifier}: no scored candidates; "
+                    f"{skipped} invalid variant(s) skipped; no best candidate saved"
+                )
+                return 1
             print(
                 f"{args.identifier}: no exact match in {attempted} variant(s); "
                 f"best CURRENT ({best_score}) saved to {best_path.relative_to(ROOT)}"

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150C7870
  * - func_150C78E0
  * - func_150C7930
  * - func_150C7968
@@ -29,7 +28,6 @@ void func_1511650C(void *, s32, s32, f32);
 extern GameF4D20GlobalState *D_800D2E4C;
 extern void *D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7870 CURRENT (100) */
 void func_150C7870(void *arg0) {
     if (!(D_800D2E4C->field_A & 8)) {
         if (!(((GameF4D20Flags *)D_800DBEF4)->field_73 & 4)) {
@@ -39,8 +37,6 @@ void func_150C7870(void *arg0) {
         func_1511650C(arg0, 1, 0x43, 400.0f);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C7870 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7870.s")
 /* Call context: func_151150BC: unique active project prototype */
 void func_151150BC(void);
 extern void * D_800DBEF4;
@@ -100,6 +96,70 @@ void **func_150C7968(GameF4D20State *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C7968 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7968.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C79BC.s")
+typedef struct GameF4D20Entry7C90 {
+    s8 marker;
+    u8 pad1[7];
+} GameF4D20Entry7C90;
+
+typedef struct GameF4D20State7C90 {
+    u8 pad0[0x1C];
+    GameF4D20Entry7C90 *entries;
+    u8 pad20[0x1C];
+    s32 flags;
+    u8 pad40[0x3C];
+    s32 index;
+} GameF4D20State7C90;
+
+typedef struct GameF4D20Object7C90 {
+    u8 pad0[0x12];
+    s16 angle;
+} GameF4D20Object7C90;
+
+void *func_151149AC(s32, s32 *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7C90 CURRENT (1603) */
+void func_150C7C90(void *arg0) {
+    s32 *entry;
+    s8 *entries;
+    s32 index;
+    s32 current;
+    s32 angle;
+    s32 value;
+    void *object;
+
+    current = *(s32 *)((u8 *)arg0 + 0x7C);
+    if (current == 0) {
+        entries = *(s8 **)((u8 *)arg0 + 0x1C);
+        index = 0;
+        if (*entries != -0xE) {
+            do {
+                index++;
+            } while (*(s8 *)(entries + (index * 8)) != -0xE);
+        }
+        *(s32 *)((u8 *)arg0 + 0x7C) = index;
+        current = index;
+    }
+    entry = (s32 *)(*(s8 **)((u8 *)arg0 + 0x1C) + (current * 8));
+    object = func_151149AC(*(s32 *)((u8 *)arg0 + 0x3C) & 0xFF, entry, arg0);
+    angle = -0x29D - *(s16 *)((u8 *)object + 0x12);
+    if (*(s32 *)((u8 *)arg0 + 0x3C) & 0x8000) {
+        angle = 0x344 - angle;
+    }
+    if (angle < 0) {
+        do {
+            angle += 0x400;
+        } while (angle < 0);
+    }
+    if (angle >= 0x400) {
+        do {
+            angle -= 0x400;
+        } while (angle >= 0x400);
+    }
+    value = *entry & ~0xFFF;
+    *entry = value;
+    *entry = value | angle;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C7C90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7C90.s")
 /* Call context: func_15083E90: unique active project prototype */
 void * func_15083E90(u8);

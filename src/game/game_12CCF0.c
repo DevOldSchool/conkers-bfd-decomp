@@ -6,9 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FF840
- * - func_150FFB6C
- * - func_150FFBDC
- * - func_150FFC3C
  * - func_150FFD84
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -40,7 +37,6 @@ typedef struct Game12CCF0Actor {
 s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FFB6C CURRENT (100) */
 void func_150FFB6C(Game12CCF0Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32 arg3) {
     s32 actor_index;
     u16 actor_id;
@@ -50,9 +46,6 @@ void func_150FFB6C(Game12CCF0Vec3f *arg0, void *arg1, Game12CCF0Actor *arg2, s32
     func_1505D1C4(arg0->x, arg0->y, arg0->z, arg3 | 0x60000,
                   actor_index, actor_id, 0, (s32)arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FFB6C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFB6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FFBDC CURRENT (100) */
 void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {
     s32 *sp1C;
     s32 sp18;
@@ -62,9 +55,28 @@ void func_150FFBDC(Game12CCF0State *arg0, s32 arg1, s32 arg2) {
     func_15145EA4((s32 *) &sp1C, &sp18,
                   arg0->field1D4 + (D_80088BB0 << 6), 1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FFBDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFBDC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12CCF0/func_150FFC3C.s")
+u32 func_150ADA20(void *);
+void func_151D8868(s8 *, s32, s32, s32);
+
+void func_150FFC3C(void *arg0) {
+    struct {
+        s8 field_0;
+        s8 pad1;
+        s16 field_2;
+        s8 field_4;
+        s8 field_5;
+        s8 field_6;
+    } sp18;
+
+    if (*(void **)((u8 *)arg0 + 0x318) != 0) {
+        sp18.field_0 = 1;
+        sp18.field_2 = (s16) ((func_150ADA20(arg0) % 11U) + 0x14);
+        sp18.field_5 = (s8) (1 << *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x318) + 0x23D));
+        sp18.field_4 = (s8) ((func_150ADA20(arg0) & 1) + 7);
+        sp18.field_6 = -1;
+        func_151D8868(&sp18.field_0, 0, 0xFF, 1);
+    }
+}
 void func_151D3E6C(void *, void *, void *, s32);
 void func_151D5A18(void *, void *, void *, void *, void *, s32, s32);
 extern s32 D_8008FC8C;

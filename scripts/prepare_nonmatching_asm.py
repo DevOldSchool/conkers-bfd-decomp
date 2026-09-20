@@ -14,11 +14,16 @@ ROOT = Path(__file__).resolve().parent.parent
 FUNCTION_LABEL = re.compile(r"^glabel\s+([A-Za-z_][A-Za-z0-9_]*)\s*$")
 
 
-def reference_function_blocks(profile: str) -> dict[str, str]:
-    root = project_state.game_assembly_root(profile)
+def reference_function_blocks(profile: str, overlay: str) -> dict[str, str]:
+    root = project_state.assembly_root(profile, overlay)
     if not root.is_dir():
+        preparation = (
+            f"./conker _prepare-reference --profile {profile}"
+            if overlay == "main"
+            else f"./conker game-asm --profile {profile}"
+        )
         raise project_state.ProjectStateError(
-            f"missing {root.relative_to(ROOT)}; run ./conker game-asm --profile {profile} first"
+            f"missing {root.relative_to(ROOT)}; run {preparation} first"
         )
     blocks: dict[str, str] = {}
     for path in sorted(root.rglob("*.s")):
@@ -57,15 +62,22 @@ def materialize(
         functions,
     )
     by_identifier = {entry["symbol"]: entry for entry in functions}
-    blocks = reference_function_blocks(profile)
+    blocks_by_overlay: dict[str, dict[str, str]] = {}
     written: list[Path] = []
     for unit in units:
         source = unit["source"]
         members = [by_identifier[identifier] for identifier in unit["functions"]]
         if source_filter is not None and source != source_filter:
             continue
-        if any(member.get("overlay", "main") != "game" for member in members):
-            continue
+        overlays = {member.get("overlay", "main") for member in members}
+        if len(overlays) != 1:
+            raise project_state.ProjectStateError(
+                f"source unit mixes executable overlays: {source}"
+            )
+        overlay = overlays.pop()
+        if overlay not in blocks_by_overlay:
+            blocks_by_overlay[overlay] = reference_function_blocks(profile, overlay)
+        blocks = blocks_by_overlay[overlay]
         source_path = ROOT / source
         if not source_path.is_file():
             continue
@@ -78,7 +90,7 @@ def materialize(
             body = blocks.get(regional_symbol)
             if body is None:
                 raise project_state.ProjectStateError(
-                    f"missing {regional_symbol} in generated {profile} game reference"
+                    f"missing {regional_symbol} in generated {profile} {overlay} reference"
                 )
             output = ROOT / project_state.nonmatching_asm_path(source, member["symbol"])
             write_if_changed(output, body)

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import os
 import re
@@ -13,6 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_signatures
+import rzip_archive
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -28,6 +30,9 @@ ARGUMENT_REGISTER_PATTERN = re.compile(r"\$a([0-3])\b")
 PREPROCESSOR_PATTERN = re.compile(r"^\s*#")
 TYPES_INCLUDE_PATTERN = re.compile(r'^\s*#include\s+"types\.h"\s*$')
 GLOBAL_ASM_PATTERN = re.compile(r"^\s*#pragma\s+GLOBAL_ASM\b")
+INTRINSIC_PRAGMA_PATTERN = re.compile(
+    r"^\s*#pragma\s+intrinsic\s*\(\s*(?:sqrtf|fabsf)\s*\)\s*$"
+)
 DISABLED_BLOCK_START_PATTERN = re.compile(r"^\s*#if\s+0(?:\s|$)")
 DISABLED_BLOCK_END_PATTERN = re.compile(r"^\s*#endif\b")
 
@@ -326,6 +331,107 @@ def extract_function(
     return output
 
 
+def add_game_jump_tables(
+    assembly: str, code: bytes, data: bytes, code_vram: int, data_vram: int
+) -> str:
+    """Attach ROM-backed tables for the bounded IDO sltiu/beqz/sll dispatch.
+
+    Unsupported dispatches remain unresolved. Never infer a table's length by
+    scanning adjacent pointers: its unsigned range check supplies the count.
+    """
+    pattern = re.compile(
+        r"(?m)^[ \t]*/\*\s+[0-9A-Fa-f]+\s+([0-9A-Fa-f]{8})\s+"
+        r"([0-9A-Fa-f]{8})\s*\*/[^\n]*"
+    )
+    instructions = list(pattern.finditer(assembly))
+    addresses = {int(item[1], 16): item for item in instructions}
+    # Validate the extracted instructions against the original overlay bytes.
+    for item in instructions:
+        offset = int(item[1], 16) - code_vram
+        if offset < 0 or code[offset:offset + 4] != bytes.fromhex(item[2]):
+            return assembly
+    tables: dict[str, tuple[int, ...]] = {}
+    for index in range(len(instructions) - 6):
+        window = instructions[index:index + 7]
+        if any(int(b[1], 16) != int(a[1], 16) + 4 for a, b in zip(window, window[1:])):
+            continue
+        words = [int(item[2], 16) for item in window]
+        guard, branch, shift, upper, add, load, jump = words
+        rs = lambda word: (word >> 21) & 31
+        rt = lambda word: (word >> 16) & 31
+        rd = lambda word: (word >> 11) & 31
+        count = guard & 0xFFFF
+        if not (
+            guard >> 26 == 0x0B and rt(guard) != 0 and 0 < count <= 1024
+            and branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
+            and 0 < (branch & 0xFFFF) < 0x8000
+            and shift >> 26 == 0 and shift & 0x7FF == 0x80 and rs(shift) == 0
+            and rt(shift) == rs(guard) and rd(shift) != 0
+            and upper >> 26 == 0x0F and rs(upper) == 0 and rt(upper) != 0
+            and rt(upper) != rd(shift)
+            and add >> 26 == 0 and add & 0x7FF == 0x21
+            and {rs(add), rt(add)} == {rt(upper), rd(shift)} and rd(add) != 0
+            and load >> 26 == 0x23 and rs(load) == rd(add) and rt(load) != 0
+            and jump == ((rt(load) << 21) | 8)
+        ):
+            continue
+        default = int(window[1][1], 16) + 4 + (branch & 0xFFFF) * 4
+        if default not in addresses:
+            continue
+        name = re.search(r"%lo\((jtbl_([0-9A-Fa-f]{8})(?:_\w+)?)\)", window[5][0])
+        if name is None or re.search(rf"(?m)^\s*(?:glabel|dlabel)\s+{re.escape(name[1])}\s*$", assembly):
+            continue
+        low = load & 0xFFFF
+        table_vram = (((upper & 0xFFFF) << 16) + (low if low < 0x8000 else low - 0x10000)) & 0xFFFFFFFF
+        offset = table_vram - data_vram
+        if table_vram != int(name[2], 16) or offset < 0 or offset % 4 or offset + count * 4 > len(data):
+            continue
+        targets = tuple(int.from_bytes(data[pos:pos + 4], "big") for pos in range(offset, offset + count * 4, 4))
+        if any(target not in addresses for target in targets):
+            continue
+        if name[1] in tables and tables[name[1]] != targets:
+            return assembly
+        tables[name[1]] = targets
+    if not tables:
+        return assembly
+    labels: dict[int, str] = {}
+    inserts: list[tuple[int, str]] = []
+    for target in sorted({target for targets in tables.values() for target in targets}):
+        item = addresses[target]
+        preceding = assembly[:item.start()].rstrip().splitlines()[-1]
+        label = re.fullmatch(r"\s*(?:([.\w]+):|(?:jlabel|glabel)\s+([.\w]+))", preceding)
+        labels[target] = (label[1] or label[2]) if label else f".L{target:08X}"
+        if label is None:
+            inserts.append((item.start(), labels[target] + ":\n"))
+    for position, label in sorted(inserts, reverse=True):
+        assembly = assembly[:position] + label + assembly[position:]
+    assembly += '\n.section .rodata\n.balign 4\n'
+    for name, targets in tables.items():
+        assembly += f"glabel {name}\n" + "".join(f"    .word {labels[target]}\n" for target in targets)
+    return assembly
+
+
+def prepare_game_jump_tables(assembly: str, profile: str) -> str:
+    """Read only a checksum-validated regional ROM; no generated build inputs."""
+    if not re.search(r"%lo\(jtbl_[0-9A-Fa-f]{8}(?:_\w+)?\)", assembly):
+        return assembly
+    layouts = json.loads((ROOT / "config" / "rzip_layouts.json").read_text())
+    layout = layouts["profiles"].get(profile)
+    if layout is None or layout.get("game_format") != "rzip":
+        return assembly
+    rom_path = ROOT / layout["default_rom"]
+    if not rom_path.is_file():
+        return assembly
+    rom, _ = rzip_archive.normalize_rom(rom_path.read_bytes())
+    if hashlib.sha1(rom).hexdigest() not in layout["normalized_sha1"]:
+        raise ValueError("jump table recovery requires a checksum-validated ROM")
+    game = rzip_archive.parse_game_archive(
+        rom[int(layout["game_start"], 0):int(layout["game_end"], 0)]
+    )
+    return add_game_jump_tables(assembly, game.code, game.data,
+                                int(layout["game_vram"], 0), int(layout["game_data_vram"], 0))
+
+
 def callees_with_preserved_a0(assembly: str) -> set[str]:
     """Find calls whose delay slot derives a1 from an unchanged incoming a0."""
 
@@ -444,7 +550,8 @@ def flattened_source_context(source: Path) -> str | None:
     for line in source.read_text(encoding="utf-8").splitlines(keepends=True):
         if call_signatures.ABI_MARKER in line:
             continue
-        if TYPES_INCLUDE_PATTERN.match(line) or GLOBAL_ASM_PATTERN.match(line):
+        if (TYPES_INCLUDE_PATTERN.match(line) or GLOBAL_ASM_PATTERN.match(line)
+                or INTRINSIC_PRAGMA_PATTERN.match(line)):
             continue
         if DISABLED_BLOCK_START_PATTERN.match(line):
             disabled_depth += 1
@@ -526,21 +633,48 @@ def call_context_command(command: list[str], recovery: call_signatures.Recovery,
     return command
 
 
+def run_m2c_command(command: list[str], recovery: call_signatures.Recovery,
+                    symbol: str, *, allow_context_fallback: bool = False):
+    """Keep the old starter when newly restored context introduces register errors."""
+    result = subprocess.run(call_context_command(command, recovery, symbol), cwd=ROOT,
+                            check=False, stdout=subprocess.PIPE, text=True)
+    if (allow_context_fallback and "--context" in command
+            and result.returncode == 0 and "M2C_ERROR(" in result.stdout):
+        fallback_command = list(command)
+        index = fallback_command.index("--context")
+        del fallback_command[index:index + 2]
+        fallback = subprocess.run(
+            call_context_command(fallback_command, recovery, symbol + "-fallback"),
+            cwd=ROOT, check=False, stdout=subprocess.PIPE, text=True,
+        )
+        if fallback.returncode == 0 and "M2C_ERROR(" not in fallback.stdout:
+            artifact = ROOT / "build/m2c/calls" / f"{symbol}-typed-starter.c"
+            artifact.parent.mkdir(parents=True, exist_ok=True)
+            artifact.write_text(result.stdout, encoding="utf-8")
+            return fallback, True
+    return result, False
+
+
 def generate_with_call_context(command: list[str], assembly: str, symbol: str,
                                source: Path | None, profile: str) -> tuple[str, int]:
     source_text = source.read_text(encoding="utf-8") if source else ""
     recovery = call_signatures.recover(assembly, source_text, root=ROOT, profile=profile)
-    result = subprocess.run(call_context_command(command, recovery, symbol), cwd=ROOT,
-                            check=False, stdout=subprocess.PIPE, text=True)
+    allow_fallback = any(INTRINSIC_PRAGMA_PATTERN.match(line) for line in source_text.splitlines())
+    result, context_fallback = run_m2c_command(
+        command, recovery, symbol, allow_context_fallback=allow_fallback,
+    )
     wrapper = call_signatures.wrapper_call(assembly)
     if result.returncode == 0 and wrapper and call_signatures.discarded_call(result.stdout, symbol, wrapper[0]):
         augmented = call_signatures.recover(assembly, source_text, root=ROOT,
                                             profile=profile, allow_raw=True)
         if augmented != recovery:
             recovery = augmented
-            result = subprocess.run(call_context_command(command, recovery, symbol), cwd=ROOT,
-                                    check=False, stdout=subprocess.PIPE, text=True)
+            result, context_fallback = run_m2c_command(
+                command, recovery, symbol, allow_context_fallback=allow_fallback,
+            )
     starter = result.stdout
+    if context_fallback:
+        starter = "/* m2c: source context errors; using the starter without source context. */\n" + starter
     if result.returncode == 0 and recovery.declarations:
         # m2c suppresses declarations supplied through --context. Keep them in
         # its public output so automate/next can insert them with the candidate.
@@ -550,7 +684,8 @@ def generate_with_call_context(command: list[str], assembly: str, symbol: str,
     evidence_path.parent.mkdir(parents=True, exist_ok=True)
     evidence_path.write_text(json.dumps({"symbol": symbol, "profile": profile,
         "declarations": recovery.declarations, "evidence": recovery.evidence,
-        "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly)}, indent=2) + "\n")
+        "source_context_fallback": context_fallback,
+        "callee_fingerprint": call_signatures.dependency_digest(ROOT, assembly, profile=profile)}, indent=2) + "\n")
     return starter, result.returncode
 
 
@@ -595,6 +730,12 @@ def main() -> int:
 
     command = mips_to_c_command(extracted_source, symbol, context_source)
     assembly = extracted_source.read_text(encoding="utf-8")
+    try:
+        assembly = prepare_game_jump_tables(assembly, args.profile)
+    except (ValueError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
+    extracted_source.write_text(assembly, encoding="utf-8")
     output, returncode = generate_with_call_context(command, assembly, symbol, context_source, args.profile)
     starter = repair_preserved_call_arguments(
         output,

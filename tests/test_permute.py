@@ -7,7 +7,7 @@ import subprocess
 import sys
 import tempfile
 import unittest
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 from unittest.mock import patch
 
@@ -23,6 +23,20 @@ SPEC.loader.exec_module(permute_helper)
 
 
 class PermuteTests(unittest.TestCase):
+    def test_candidate_span_resolves_profile_macro_alias(self) -> None:
+        content = (
+            "#if PROFILE_US\n"
+            "#define clear_region func_80001420\n"
+            "#endif\n"
+            "void clear_region(void) {\n    return;\n}\n"
+        )
+
+        start, end = permute_helper.candidate_function_span(
+            content, "func_bootstrap_clear_region", "func_80001420"
+        )
+
+        self.assertEqual("void clear_region(void) {\n    return;\n}\n", content[start:end])
+
     def test_generates_declaration_order_and_lifetime_variants(self) -> None:
         function = (
             "void func_test(s32 arg0) {\n"
@@ -145,6 +159,21 @@ class PermuteTests(unittest.TestCase):
             argv = ["permute.py", "us", "func_test", "--budget", str(len(scores))]
             if exhaustive:
                 argv.append("--exhaustive")
+            source = root / "test.c"
+            source.write_text(function)
+            (root / "reference.o").write_bytes(b"independent reference")
+            values = iter(scores)
+            stdout, stderr = io.StringIO(), io.StringIO()
+
+            def score_with_settings(*args):
+                settings = args[3] / "diff_settings.py"
+                self.assertTrue(settings.is_file())
+                self.assertIn("config['arch'] = 'mips'", settings.read_text())
+                value = next(values)
+                if isinstance(value, Exception):
+                    raise value
+                return value
+
             with (patch.object(permute_helper, "ROOT", root),
                   patch.object(permute_helper, "work_item", return_value=({}, "func_test")),
                   patch.object(permute_helper, "active_candidate_content", return_value=(root / "test.c", function)),
@@ -152,11 +181,39 @@ class PermuteTests(unittest.TestCase):
                   patch.object(permute_helper.diff, "ensure_reference_function", return_value=root / "reference.s"),
                   patch.object(permute_helper.diff, "reference_object", return_value=root / "reference.o"),
                   patch.object(permute_helper.diff, "expected_function_size", return_value=4),
-                  patch.object(permute_helper, "score_candidate", side_effect=scores) as scorer,
-                  patch.object(sys, "argv", argv), redirect_stdout(io.StringIO())):
+                  patch.object(permute_helper, "score_candidate", side_effect=score_with_settings) as scorer,
+                  patch.object(sys, "argv", argv), redirect_stdout(stdout), redirect_stderr(stderr)):
                 status = permute_helper.main()
             output = root / "build/us/permute/func_test"
+            self.search_output = stdout.getvalue() + stderr.getvalue()
+            self.best_saved = (output / "best.c").exists()
+            self.assertEqual(function, source.read_text())
             return status, scorer.call_count, json.loads((output / "search-report.json").read_text())
+
+    def test_identical_nonmatch_search_is_reused(self) -> None:
+        function = "s32 func_test(void) { return 1; }\n"
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "test.c"
+            source.write_text(function)
+            reference = root / "reference.o"
+            reference.write_bytes(b"raw reference")
+            with (patch.object(permute_helper, "ROOT", root),
+                  patch.object(permute_helper, "work_item", return_value=({}, "func_test")),
+                  patch.object(permute_helper, "active_candidate_content", return_value=(source, function)),
+                  patch.object(permute_helper, "source_variants", return_value=[function]),
+                  patch.object(permute_helper.diff, "ensure_reference_function", return_value=root / "reference.s"),
+                  patch.object(permute_helper.diff, "reference_object", return_value=reference),
+                  patch.object(permute_helper.diff, "expected_function_size", return_value=4),
+                  patch.object(permute_helper, "score_candidate", return_value=10) as scorer,
+                  patch.object(sys, "argv", ["permute.py", "us", "func_test"]),
+                  redirect_stdout(io.StringIO())):
+                self.assertEqual(1, permute_helper.main())
+                self.assertEqual(1, permute_helper.main())
+                self.assertEqual(1, scorer.call_count)
+                reference.write_bytes(b"changed raw reference")
+                self.assertEqual(1, permute_helper.main())
+                self.assertEqual(2, scorer.call_count)
 
     def test_plateau_stops_at_32_and_exhaustive_preserves_full_budget(self) -> None:
         status, calls, report = self.run_search([10] * 80)
@@ -173,6 +230,62 @@ class PermuteTests(unittest.TestCase):
         status, calls, report = self.run_search([subprocess.CalledProcessError(1, "compiler")] * 80)
         self.assertEqual((1, 32, 32), (status, calls, report["invalid"]))
         self.assertIsNone(report["best_score"])
+        self.assertFalse(self.best_saved)
+        self.assertIn("no scored candidates", self.search_output)
+        self.assertNotIn("CURRENT (None)", self.search_output)
+        self.assertNotIn("saved to", self.search_output)
+
+    def test_scorer_failure_stops_search_and_preserves_measured_best(self) -> None:
+        status, calls, report = self.run_search([
+            10, permute_helper.PermuteError("asm-differ exited 1"), 0,
+        ])
+        self.assertEqual((2, 2), (status, calls))
+        self.assertEqual("tooling_failure", report["stop_reason"])
+        self.assertEqual("asm-differ exited 1", report["error"])
+        self.assertEqual(0, report["invalid"])
+        self.assertEqual(10, report["best_score"])
+        self.assertTrue(self.best_saved)
+
+    def test_first_scorer_failure_does_not_claim_a_best_candidate(self) -> None:
+        status, calls, report = self.run_search([
+            permute_helper.PermuteError("could not launch asm-differ"), 0,
+        ])
+        self.assertEqual((2, 1, 0), (status, calls, report["invalid"]))
+        self.assertEqual("tooling_failure", report["stop_reason"])
+        self.assertIsNone(report["best_score"])
+        self.assertFalse(self.best_saved)
+        self.assertNotIn("saved to", self.search_output)
+
+    def test_score_candidate_separates_compile_errors_from_scoring_errors(self) -> None:
+        compile_error = subprocess.CalledProcessError(1, "compiler")
+        outcomes = (
+            (compile_error, subprocess.CalledProcessError, None),
+            (subprocess.CompletedProcess([], 1, "", "Unable to find diff_settings.py"),
+             permute_helper.PermuteError, "Unable to find diff_settings.py"),
+            (subprocess.CompletedProcess([], 0, "not-json", ""),
+             permute_helper.PermuteError, "invalid JSON match evidence"),
+            (OSError("scorer missing"), permute_helper.PermuteError, None),
+        )
+        for outcome, error_type, log_text in outcomes:
+            with self.subTest(outcome=outcome), tempfile.TemporaryDirectory() as temporary:
+                directory = Path(temporary)
+                compile_failure = outcome is compile_error
+                results = [outcome] if compile_failure else [subprocess.CompletedProcess([], 0), outcome]
+                with (
+                    patch.object(permute_helper.subprocess, "run", side_effect=results) as run,
+                    self.assertRaises(error_type),
+                ):
+                    permute_helper.score_candidate(
+                        "us", "func_test", "void func_test(void) {}\n", directory,
+                        directory / "reference.o", 16,
+                    )
+                self.assertEqual(1 if compile_failure else 2, run.call_count)
+                if not compile_failure:
+                    command = run.call_args.args[0]
+                    self.assertFalse(run.call_args.kwargs["check"])
+                    self.assertEqual("4", command[command.index("--max-lines") + 1])
+                if log_text is not None:
+                    self.assertIn(log_text, (directory / "scoring-failure.log").read_text())
 
     def test_improved_best_is_persisted_before_a_later_process_failure(self) -> None:
         function = "void func_test(void) {\n    value = value | mask;\n}\n"
@@ -181,6 +294,7 @@ class PermuteTests(unittest.TestCase):
             source = root / "src" / "game" / "test.c"
             source.parent.mkdir(parents=True)
             source.write_text(function, encoding="utf-8")
+            (root / "reference.o").write_bytes(b"independent raw reference")
             with (
                 patch.object(permute_helper, "ROOT", root),
                 patch.object(

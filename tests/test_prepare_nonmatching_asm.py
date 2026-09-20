@@ -20,6 +20,24 @@ SPEC.loader.exec_module(prepare_nonmatching_asm)
 
 
 class PrepareNonmatchingAssemblyTests(unittest.TestCase):
+    def test_reference_blocks_use_requested_overlay(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            assembly = root / "sample.s"
+            assembly.write_text(
+                "glabel func_main\n    /* 0 80001000 00000000 */  nop\n",
+                encoding="utf-8",
+            )
+            with mock.patch.object(
+                prepare_nonmatching_asm.project_state,
+                "assembly_root",
+                return_value=root,
+            ) as assembly_root:
+                blocks = prepare_nonmatching_asm.reference_function_blocks("us", "main")
+
+            assembly_root.assert_called_once_with("us", "main")
+            self.assertIn("func_main", blocks)
+
     def test_identical_generated_file_keeps_its_timestamp(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "func_test.s"

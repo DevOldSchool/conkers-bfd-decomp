@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_selected_particle_resource_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151001B4
  * - func_15100230
  * - func_151002BC
  *
@@ -39,7 +38,6 @@ typedef struct {
 void func_10022EC0(void *, void *, s32); /* extern */
 u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151001B4 CURRENT (100) */
 void func_151001B4(Game12D630Actor *arg0) {
     Game12D630EffectPacket packet;
     u8 *effect;
@@ -52,18 +50,33 @@ void func_151001B4(Game12D630Actor *arg0) {
         func_10022EC0(effect + 0x28, &packet, sizeof(packet));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151001B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_151001B4.s")
+void func_15149514(s32, u8, s32, s32, s32);
+void func_1516972C(void *, void *);
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15100230 CURRENT (148) */
+void func_15100230(void *arg0, void *arg1, u8 arg2) {
+    u8 *temp_a2;
+
+    temp_a2 = (u8 *)arg0 + 0x28;
+    if (arg2 == 0x48) {
+        if ((*(s32 *)temp_a2 == *(s32 *)arg1) || (*(u8 *)((u8 *)temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0, arg1);
+        }
+    } else {
+        func_15149514((s32) arg1, arg2, (s32) temp_a2, (s32) ((u8 *)temp_a2 + 4), (s32) arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15100230 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D630/func_15100230.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151002BC CURRENT (35) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151002BC CURRENT (200) */
 void func_151002BC(u8 *arg0) {
-    u8 *temp_v0;
     u8 *temp_v1;
+    u8 *temp_v0;
 
-    temp_v1 = (void *)(*(void **)((u8 *)arg0 + 0x28));
-    if ((*(s32 *)((u8 *)temp_v1 + 0) == 0) || (temp_v0 = arg0 + 0x28, (*(u8 *)((u8 *)temp_v1 + 4) == 0xFF)) || (*(u8 *)((u8 *)temp_v0 + 4) != *(u8 *)((u8 *)temp_v1 + 0x3B))) {
+    temp_v0 = arg0 + 0x28;
+    temp_v1 = (void *)(*(void **)temp_v0);
+    if ((*(s32 *)((u8 *)temp_v1 + 0) == 0) || ((*(u8 *)((u8 *)temp_v1 + 4) == 0xFF)) || (*(u8 *)((u8 *)temp_v0 + 4) != *(u8 *)((u8 *)temp_v1 + 0x3B))) {
         *(s16 *)((u8 *)arg0 + 0xE) = -1;
         return;
     }

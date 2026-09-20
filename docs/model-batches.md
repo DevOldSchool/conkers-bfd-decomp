@@ -63,6 +63,10 @@ selections live in [model-scene-assemblies.json](../config/model-scene-assemblie
 Use `./conker model-assets scene-assemblies` to regenerate them. A batch run also
 refreshes configured assemblies after its bank exports and before validation,
 so component provenance stays current. See [the scene assembly evidence](evidence/us_static_scene_assemblies.md).
+The 29 published assemblies include scenes 40 and 51, which expose deferred
+components `04:0040:07`, `04:0051:01` and `04:0051:04` in ROM placement context.
+Their standalone decisions remain deferred; scene inclusion is not native
+appearance or simultaneous-visibility proof.
 
 The gallery's **Extracted review** tab exposes every remaining ROM record without
 changing these triage decisions. It is generated from the ROM-only manifests and
@@ -74,10 +78,26 @@ in a separate folder and `review_models` manifest list, so they do not inflate
 the batch driver's curated publication count.
 
 Gallery publication shares assembly-set verification within each read phase and
-repeats it independently before writing outputs. The triage report still calls
-the single-source assembly verifier for every configured scene. Apply the same
-caller-owned, per-phase reuse there to avoid repeated recomposition as the scene
-set grows; keep default uncached verification for standalone callers.
+repeats it independently before writing outputs. Triage likewise verifies each
+assembly set once during collection and once in an independent final phase.
+Every scene lookup checks the manifest hash; the final phase recomposes the
+current components, selections and output bytes. Evidence never survives a
+scan, and standalone verification remains uncached. This requires two whole-set verifications per report regardless of the number
+of published assemblies. Focused tests
+cover reuse, separate scans, changed manifests between lookups and component,
+selection or output changes before the final phase.
+
+## Character alpha frontier
+
+`./conker model-assets alpha-frontier` audits the remaining bank-01 entries
+154, 155 and 162 directly from ROM without extraction, rendering or publication.
+It records palette hashes, primary face counts, texture-independent combiners,
+conditional renderer table selection, guarded caller opacity calculations,
+and exact bank-0E spawn records. The default targets share scene 60; source
+record indices are distinguished from combined indices and live actor slots.
+Use repeatable `--entry` values for
+other decimal bank-01 identities. The result is evidence, not a selected render
+preset or acceptance decision. See the [alpha frontier](evidence/us_character_alpha_frontier.md).
 
 ## Execution and resume
 

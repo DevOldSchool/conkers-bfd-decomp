@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15155780
- * - func_151557FC
  * - func_1515589C
  * - func_15155CFC
  * - func_15155FD4
@@ -16,7 +15,8 @@
  */
 
 typedef struct {
-    u8 pad0[0x10];
+    u8 pad0[0xE];
+    s16 fieldE;
     s8 field10;
     u8 field11;
     u8 pad12[2];
@@ -45,7 +45,28 @@ Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15155780 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155780.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_151557FC.s")
+Game182C30Effect *func_15155780(s32, s32);
+void *func_15155FD4(s32);
+extern u8 D_800CC37D[];
+
+void func_151557FC(s32 arg0, s32 arg1, f32 arg2) {
+    Game182C30Effect *effect;
+
+    effect = func_15155FD4(arg0);
+    if (effect == 0) {
+        effect = func_15155780(arg0, 0xFF);
+    }
+    if (effect != 0) {
+        effect->field98 = arg2;
+        if (D_800CC37D[arg0 * 0x32C] != 0) {
+            effect->fieldE = 0;
+            effect->field11 = 0;
+            return;
+        }
+        effect->field11 = 3;
+        effect->fieldE = (s16)arg1;
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_1515589C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155CFC.s")
 extern void func_1515F10C(void *arg0);

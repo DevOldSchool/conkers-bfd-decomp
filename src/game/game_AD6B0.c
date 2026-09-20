@@ -8,7 +8,6 @@
  * - func_15080200
  * - func_15080228
  * - func_15080348
- * - func_15080430
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -26,5 +25,77 @@ void func_15080200(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15080200 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD6B0/func_15080200.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD6B0/func_15080228.s")
+s32 func_151EF610(void);
+extern s32 D_800427F0;
+extern s32 D_8009BD10;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15080348 CURRENT (113) */
+void func_15080348(u8 *arg0) {
+    s32 sp1C;
+    s32 var_v1;
+
+    if ((D_800D1928 != 0) && (arg0 != 0)) {
+        if (D_800D1928 == 1) {
+            if (D_800427F0 < 0x3E8) {
+                arg0[0x1FF] = 0;
+            } else {
+                arg0[0x1FF] = 1;
+            }
+        } else {
+            var_v1 = D_800D192C;
+            if (D_800427F0 >= 0x3E9) {
+                var_v1 += 1;
+                if ((arg0[0x135] - D_800BE9E4) < 0) {
+                if (var_v1 >= 5) {
+                    var_v1 = 0;
+                }
+                arg0[0x134] = (s8)*(&D_8009BD10 + var_v1);
+                sp1C = var_v1;
+                arg0[0x135] = (u8)((func_151EF610() % 7) + 4);
+                D_800D192C = var_v1;
+                }
+            }
+        }
+        D_800427F0 = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15080348 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD6B0/func_15080348.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD6B0/func_15080430.s")
+void func_1507E500(u8 *, s32, s32);
+s32 func_1507E968(void *);
+
+void func_15080430(u8 *arg0, s32 arg1, s32 arg2) {
+    s32 active;
+
+    if (arg0 != 0) {
+        if (func_1507E968(arg0) > 0) {
+            if (arg1 == 0) {
+                D_800D1928 = 0;
+                *(s16 *)(arg0 + 0x72) = 0x14;
+                func_1507E500(arg0, 0, 0xA);
+                return;
+            }
+            *(u16 *)(arg0 + 0x72) = 0xFFFE;
+            if (arg1 == 1) {
+                D_800D1928 = 2;
+                return;
+            }
+            if (arg2 != 0) {
+                if (arg2 >= 0x15) {
+                    arg2 = 0x14;
+                }
+                if (arg2 <= 0) {
+                    arg2 = 1;
+                }
+            }
+            func_1507E500(arg0, arg1, arg2);
+            return;
+        }
+        active = arg1 != 0;
+        D_800D1928 = active;
+        if (active == 0) {
+            arg0[0x1FF] = 0;
+        }
+    }
+}

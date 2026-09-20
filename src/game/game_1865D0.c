@@ -20,7 +20,6 @@
  * - func_1515A238
  * - func_1515A60C
  * - func_1515A78C
- * - func_1515A920
  * - func_1515A974
  * - func_1515AA84
  * - func_1515AB88
@@ -174,6 +173,60 @@ block_15:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15159370 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159370.s")
+/* Call context: func_1514ECE0: unique active declaration in the allowed source */
+s32 func_1514ECE0(s32, s32, void **, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515942C CURRENT (3460) */
+u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, void *arg3, s16 arg4, s16 arg5) {
+    void *sp38;
+    u8 sp37;
+    s32 temp_v0;
+    s32 var_a0;
+    s32 var_a2;
+    s32 var_a3;
+    u8 var_t2;
+    s32 var_t0;
+    s32 var_t1;
+    void *temp_a1;
+
+    sp37 = 0;
+    var_t2 = sp37;
+    if (func_1514ECE0(*(s32 *)((u8 *)arg0 + 0x2F4), 0x13, &sp38, arg3) == 0) {
+        return 0U;
+    }
+    temp_a1 = *(void **)((u8 *)sp38 + 0x10);
+    if (arg4 == -1) {
+        var_t1 = 0x1E00;
+    } else {
+        var_t1 = 1 << (arg4 + 9);
+    }
+    if ((s16) arg3 == -1) {
+        var_t0 = 0x1C0;
+    } else {
+        var_t0 = 1 << ((s16) arg3 + 6);
+    }
+    if (arg2 == -1) {
+        var_a2 = 0x38;
+    } else {
+        var_a2 = 1 << (arg2 + 3);
+    }
+    if (arg1 == -1) {
+        var_a3 = 7;
+    } else {
+        var_a3 = 1 << arg1;
+    }
+    if (arg5 == -1) {
+        var_a0 = 0x3E000;
+    } else {
+        var_a0 = 1 << (arg5 + 0xD);
+    }
+    temp_v0 = var_a0 | var_a3 | var_a2 | var_t0 | var_t1;
+    if (temp_v0 == (temp_v0 | ((1 << *(u8 *)((u8 *)temp_a1 + 0x2C)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2D) + 3)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2E) + 6)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x2F) + 9)) | (1 << (*(u8 *)((u8 *)temp_a1 + 0x30) + 0xD))))) {
+        var_t2 = 1;
+    }
+    return var_t2;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515942C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515942C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159594.s")
 /* Call context: func_151423D8: unique active project prototype */
@@ -323,18 +376,17 @@ typedef struct {
 
 s32 func_1514ECE0(s32, s32, void **, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515A920 CURRENT (30) */
 s32 func_1515A920(Game1865D0State *arg0, s32 *arg1) {
     void *sp1C;
+    s32 temp_v1;
 
     if (func_1514ECE0(arg0->field_2F4, 0x13, &sp1C, arg0) == 0) {
         return 0;
     }
-    *arg1 = *(s32 *)((u8 *)sp1C + 0x10) + 0x34;
+    temp_v1 = *(s32 *)((u8 *)sp1C + 0x10);
+    *arg1 = temp_v1 + 0x34;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515A920 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A920.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A974.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515AA84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515AB88.s")

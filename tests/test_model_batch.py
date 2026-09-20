@@ -1,12 +1,14 @@
 from __future__ import annotations
 
 import json
+import struct
 from pathlib import Path
 import tempfile
 import unittest
 from unittest.mock import patch
 
 from scripts import model_batch as batch
+from scripts import model_scene_assemblies as scenes
 
 
 class ModelBatchTests(unittest.TestCase):
@@ -84,6 +86,82 @@ class ModelBatchTests(unittest.TestCase):
         self.assertEqual({'published': 1}, report['counts'])
         self.assertEqual([], report['groups'])
         self.assertEqual({'runtime-segment': 1}, report['models'][0]['blockers'])
+
+    def add_assembly_set(self):
+        directory = self.root / self.config['rom_root'] / 'us-bank-04-preview'
+        for entry in (1, 2):
+            _, source = self.add_model(entry)
+            source.with_name(f'{entry:04}.bin').write_bytes(struct.pack(
+                '<9f6H', 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 2, 0, 2, 1))
+            batch.write(source, {'asset': {'version': '2.0'},
+                'buffers': [{'uri': f'{entry:04}.bin', 'byteLength': 48}],
+                'bufferViews': [{'buffer': 0, 'byteLength': 36},
+                                {'buffer': 0, 'byteOffset': 36, 'byteLength': 12}],
+                'accessors': [{'bufferView': 0, 'componentType': 5126, 'count': 3,
+                               'type': 'VEC3', 'min': [0, 0, 0], 'max': [1, 1, 0]},
+                              {'bufferView': 1, 'componentType': 5123, 'count': 6, 'type': 'SCALAR'}],
+                'materials': [{'pbrMetallicRoughness': {}}], 'meshes': [{'primitives': [
+                    {'indices': 1, 'attributes': {'POSITION': 0}, 'material': 0}]}],
+                'nodes': [{'mesh': 0}], 'scenes': [{'nodes': [0]}]})
+        manifest = batch.read(directory / 'manifest.json')
+        manifest.update(profile='us', family='indexed-bank-04-model-preview')
+        batch.write(directory / 'manifest.json', manifest)
+        selections = [{'scene_index': n, 'exclude_models': []} for n in (1, 2)]
+        inputs = {n: {'scene_index': n, 'initial_slots': [
+            {'segment': 0, 'model_sha1': 'geometry',
+             'consumers': [{'kind': 'conditional-display-list-submission'}]}],
+            'placement_tables': []} for n in (1, 2)}
+        selection = self.root / 'config/assemblies.json'
+        batch.write(selection, {'schema_version': 1, 'scenes': selections})
+        for override in (patch.object(scenes, 'ROOT', self.root),
+                         patch.object(scenes, 'rom_scenes', return_value=('same-rom', inputs))):
+            override.start()
+            self.addCleanup(override.stop)
+        output = self.root / 'build/assets/models/assemblies'
+        scenes.export_assemblies(selection, self.root / self.config['rom_root'], output)
+        batch.write(self.root / self.config['validation_config'], {'render_cases': [
+            {'id': str(n), 'source': str((output / f'geometry/scene-{n:02}.gltf').relative_to(self.root))}
+            for n in (1, 2)]})
+        batch.write(self.root / self.config['inspection_config'], {'models': [
+            {'name': f'scene-{n}', 'render_case': str(n)} for n in (1, 2)]})
+        return output, directory, selection
+
+    def test_scan_verifies_assembly_set_once_per_phase_and_never_across_scans(self):
+        self.add_assembly_set()
+        with patch.object(scenes, 'verify_assemblies', wraps=scenes.verify_assemblies) as verify:
+            for count in (2, 4):
+                report = batch.scan(self.root, self.config, {}, {})
+                self.assertEqual([1, 2], [r['scene_index'] for r in report['published_scene_assemblies']])
+                self.assertEqual(count, verify.call_count)
+
+    def test_scan_final_phase_rejects_changed_assembly_inputs_and_outputs(self):
+        output, directory, selection = self.add_assembly_set()
+        targets = [output / 'geometry/scene-02.bin', output / 'geometry/scene-02.gltf',
+                   directory / 'geometry/0002.bin', selection, output / 'manifest.json']
+        for target in targets:
+            original = target.read_bytes()
+            with self.subTest(target=str(target)):
+                def mutate(_root):
+                    target.write_bytes(original + b' ')
+                    return 'code'
+                try:
+                    with patch.object(batch, 'code_identity', side_effect=mutate):
+                        with self.assertRaises(ValueError):
+                            batch.scan(self.root, self.config, {}, {})
+                finally:
+                    target.write_bytes(original)
+
+    def test_scan_rejects_manifest_change_between_cached_scene_lookups(self):
+        output, _, _ = self.add_assembly_set()
+        real = scenes.inspection_evidence
+        def mutate(source, **kwargs):
+            evidence = real(source, **kwargs)
+            manifest = output / 'manifest.json'
+            manifest.write_text(manifest.read_text() + ' ')
+            return evidence
+        with patch.object(scenes, 'inspection_evidence', side_effect=mutate):
+            with self.assertRaisesRegex(ValueError, 'manifest changed'):
+                batch.scan(self.root, self.config, {}, {})
 
     def test_resume_skips_only_matching_success_with_intact_output(self):
         state = {};calls = []; artifact = self.output/'preview'

@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150D8B3C
  * - func_150D8B88
- * - func_150D8D84
  * - func_150D8E1C
  * - func_150D8E4C
  * - func_150D8FAC
@@ -49,7 +48,24 @@ void func_150D8B3C(void *arg0, void *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D8B3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B3C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B88.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8D84.s")
+extern f32 D_800A0B4C;
+extern f32 D_800A0B50;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game105FC0Vec3;
+
+void func_150D8D84(Game105FC0Vec3 *arg0, Game105FC0Vec3 *arg1, f32 arg2) {
+    Game105FC0Vec3 sp4;
+
+    sp4 = *arg1;
+    arg1->y += D_800A0B4C * arg2;
+    arg0->x += sp4.x * arg2;
+    arg0->y += (sp4.y * arg2) + (D_800A0B50 * arg2 * arg2);
+    arg0->z += sp4.z * arg2;
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8E1C CURRENT (345) */
 void func_150D8E1C(void *arg0) {
     u16 temp_t0;
@@ -87,6 +103,40 @@ void func_150DA4E0(s32 arg0) {
     func_150DA484((void *)arg0);
     func_15147928(arg0);
 }
+void func_1516972C(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DA50C CURRENT (280) */
+void func_150DA50C(u8 *arg0, u8 *arg1, u8 arg2) {
+    s32 temp_a0;
+    s32 temp_v1;
+    u8 *temp_v0;
+
+    temp_v0 = *(u8 **)(arg0 + 0x98);
+    temp_v1 = arg2;
+    if (temp_v1 == 0x44) {
+        if ((*(s32 *)temp_v0 == *(s32 *)arg1) || (temp_v0[4] == arg1[4])) {
+            *(f32 *)(temp_v0 + 0x3C) = *(f32 *)(arg1 + 8);
+        }
+    } else if (temp_v1 == 0) {
+        temp_v1 = *(s32 *)arg1;
+        if ((temp_v1 == *(s32 *)temp_v0) || (arg1[4] == temp_v0[4])) {
+            func_1516972C(arg0);
+        }
+    } else if (temp_v1 == 0x2D) {
+        temp_a0 = *(s32 *)arg1;
+        temp_v1 = *(s32 *)temp_v0;
+        if (temp_a0 == temp_v1) {
+            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
+            temp_v0[4] = arg1[9];
+            return;
+        }
+        if (*(s32 *)(arg1 + 4) == temp_v1) {
+            *(s32 *)temp_v0 = temp_a0;
+            temp_v0[4] = arg1[8];
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150DA50C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150DA50C.s")
 void func_15147D64(void *, s32, void *, void *, u8, f32);
 

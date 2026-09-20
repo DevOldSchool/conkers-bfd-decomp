@@ -59,6 +59,70 @@
       }
     },
     {
+      "name": "attachment-alternate-part-selected",
+      "address": "0x15035F60",
+      "flags": 8,
+      "memory": [
+        {
+          "name": "attachment-record",
+          "address": "$a1",
+          "length": 92
+        },
+        {
+          "name": "attachment-caller-frame",
+          "address": "$sp",
+          "length": 32
+        },
+        {
+          "name": "parent-character",
+          "address": {
+            "source": "memory",
+            "name": "attachment-caller-frame",
+            "offset": 12,
+            "size": 4,
+            "endian": "big"
+          },
+          "length": 812
+        },
+        {
+          "name": "attachment-stack",
+          "address": "$sp+0xD4",
+          "length": 100
+        },
+        {
+          "name": "attachment-draw-record",
+          "address": "$a2",
+          "length": 12
+        },
+        {
+          "name": "attachment-list-head",
+          "address": "$t8",
+          "length": 64
+        }
+      ],
+      "fields": {
+        "model.attachment_address": {
+          "source": "register",
+          "name": "a1"
+        },
+        "model.parent_character_address": {
+          "source": "memory",
+          "name": "attachment-caller-frame",
+          "offset": 12,
+          "size": 4,
+          "endian": "big"
+        },
+        "rdp.selected_display_list": {
+          "source": "register",
+          "name": "t8"
+        },
+        "rdp.call_command_address": {
+          "source": "register",
+          "name": "s4"
+        }
+      }
+    },
+    {
       "name": "attachment-draw-return",
       "address": "0x15031914",
       "flags": 8,

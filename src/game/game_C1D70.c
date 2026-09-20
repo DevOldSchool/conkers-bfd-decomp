@@ -12,6 +12,36 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_1509499C(u8 *, u8 *);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+extern void *D_800D2C20;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150948C0 CURRENT (893) */
+void func_150948C0(u8 *arg0, s32 arg1) {
+    void *items[16];
+    s32 index;
+    u8 *item;
+    void *current;
+    f32 *output;
+
+    func_1509499C(arg0, (u8 *)items);
+    index = 0;
+    item = (u8 *)(s32)items;
+    do {
+        current = *(void **)item;
+        if (current != 0) {
+            output = (f32 *)(arg1 + index * 0xC);
+            func_150A7960(D_800D2C20,
+                          (f32)*(s16 *)current,
+                          (f32)*(s16 *)((u8 *)current + 2),
+                          (f32)*(s16 *)((u8 *)current + 4),
+                          output, output + 1, output + 2);
+        }
+        index++;
+        item += 4;
+    } while (index != 0x10);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150948C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C1D70/func_150948C0.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509499C CURRENT (7820) */
 void func_1509499C(u8 *arg0, u8 *arg1) {

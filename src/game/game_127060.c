@@ -36,8 +36,58 @@ typedef struct Game127060Transform {
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150F9BB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA1B8.s")
+void func_1515D4D4(s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FA468 CURRENT (2894) */
+void func_150FA468(void *arg0, s32 arg1, s32 arg2) {
+    switch ((u8)arg2) {
+    case 0x4C:
+        *(s8 *)((u8 *)arg0 + 0x11) = -1;
+        func_1515D4D4(0, 0, 0, 0xFF);
+        break;
+    case 0x4D:
+        *(s8 *)((u8 *)arg0 + 0x11) = 0x1E;
+        break;
+    case 0x4E:
+        *(s8 *)((u8 *)arg0 + 0x11) = -1;
+        break;
+    case 0x4F:
+        *(s8 *)((u8 *)arg0 + 0x11) = -1;
+        func_1515D4D4(0xFF, 0xFF, 0xFF, 0xFF);
+        break;
+    default:
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FA468 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA468.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA520.s")
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_80088B60;
+extern s32 D_800D3098;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FAA40 CURRENT (939) */
+void func_150FAA40(u8 arg0, s32 arg1) {
+    f32 sp44;
+    s32 sp40;
+    s32 sp3C;
+    s32 temp_v0;
+
+    if (D_80088B60 == 0) {
+        sp3C = D_800D3098 + 0x71C;
+        sp40 = D_800D3098 + 0x6E8;
+        sp44 = 0.0f;
+        temp_v0 = func_15149130(0x12C, -1, 0x57, -1, 0, 0x46, 0xC, (s32)arg0, arg1);
+        if (temp_v0 != 0) {
+            D_80088B60 = 1;
+        }
+        if (temp_v0 != 0) {
+            func_10022EC0((u8 *)temp_v0 + 0x28, &sp3C, 0xCU);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FAA40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAA40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAAEC.s")
 extern void func_1516972C(s32 arg0);

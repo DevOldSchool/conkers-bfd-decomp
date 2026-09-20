@@ -15,16 +15,37 @@
  * - func_1503EA54
  * - func_1503EB78
  * - func_1503ECA0
- * - func_1503EEC0
  * - func_1503EF4C
  * - func_1503EFC4
  * - func_1503F16C
  * - func_1503F2B0
- * - func_1503F404
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game6B320MaskPair {
+    u32 first;
+    u32 second;
+} Game6B320MaskPair;
+
+extern u8 D_800CC2D0[];
+extern Game6B320MaskPair *D_8008446C[];
+void func_1503DF0C(s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DE70 CURRENT (80) */
+void func_1503DE70(s32 arg0, s32 arg1, s32 arg2) {
+    Game6B320MaskPair *temp_v0;
+    s32 temp_a0;
+
+    temp_a0 = ((u8 *)arg0 - D_800CC2D0) / 812;
+    if (arg2 != -1) {
+        temp_v0 = &D_8008446C[arg1][arg2];
+        func_1503DF0C(temp_a0, arg1, temp_v0->first, temp_v0->second);
+        return;
+    }
+    func_1503DF0C(temp_a0, arg1, -1, -1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503DE70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DE70.s")
 typedef struct {
     u8 pad_0[0x1EC];
@@ -83,14 +104,24 @@ s32 func_1503E1F4(s32 arg0, s32 arg1) {
 void func_1503EEB8(void) {
 
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EEC0.s")
-typedef struct Game6B320MaskPair {
-    u32 first;
-    u32 second;
-} Game6B320MaskPair;
+void func_15060F28(u8 *, s32);
+void func_1503ECA0(s32, s32);
+extern s32 D_800BE9E4;
+extern u8 D_800CC2D0[];
 
-extern Game6B320MaskPair *D_8008446C[];
+void func_1503EEC0(s32 arg0, s32 arg1) {
+    Game6B320Slot *temp_v1;
+    s32 temp_v0;
 
+    func_1503ECA0(arg0, arg1);
+    temp_v1 = &D_800C6660[arg0];
+    temp_v0 = temp_v1->field_C;
+    temp_v0 -= D_800BE9E4;
+    temp_v1->field_C = temp_v0;
+    if (temp_v0 <= 0) {
+        func_15060F28(D_800CC2D0 + (arg0 * 0x32C), 1);
+    }
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EF4C CURRENT (20) */
 s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     Game6B320MaskPair *base;
@@ -102,15 +133,40 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
     pair = (Game6B320MaskPair *)((u8 *)base + (arg1 * sizeof(*pair)));
     first = pair->first;
     if (((first == 0) ||
-         (first & D_800C6664[arg2].bits)) &&
+         (D_800C6664[arg2].bits & first)) &&
         ((second = pair->second, (second == 0)) ||
-         (second & D_800C6668[arg2].bits))) {
+         (D_800C6668[arg2].bits & second))) {
         return 1;
     }
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503EF4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EF4C.s")
+extern u8 D_80098914[];
+extern u32 func_150ADA20(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 CURRENT (1867) */
+void func_1503EFC4(s32 arg0) {
+    Game6B320Slot *temp_s2;
+    s32 var_s0;
+    s32 var_s1;
+    u8 temp_s3;
+
+    temp_s2 = &D_800C6660[arg0];
+    temp_s2->field_C = 0x78;
+    temp_s3 = D_80098914[temp_s2->pad_E[0]];
+    var_s0 = 0;
+    var_s1 = 0;
+    if (temp_s3 > 0) {
+        do {
+            *(f32 *)((u8 *)temp_s2->entity + var_s1 + 0x4C) =
+                (f32)((func_150ADA20() % 20U) - 5);
+            var_s0 += 1;
+            var_s1 += 0x68;
+        } while (var_s0 != temp_s3);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503EFC4.s")
 /* Call context: func_1503EB78: unique active project prototype */
 void func_1503EB78(void *, f32, f32, s32);
@@ -142,4 +198,19 @@ void func_1503F108(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F16C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F2B0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F404.s")
+void *func_10022EC0(void *, const void *, u32);
+void func_151EFEB8(void *, s32);
+s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800C3E90;
+
+void func_1503F404(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    u8 sp30[0x40];
+
+    if (D_800C3E90 != 0) {
+        func_151EFEB8(sp30, arg0);
+    } else {
+        func_10022EC0(sp30, (void *)arg0, 0x40U);
+    }
+    func_1503E5F8(sp30, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+}

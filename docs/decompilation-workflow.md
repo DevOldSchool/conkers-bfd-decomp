@@ -62,6 +62,15 @@ and type propagation without creating a second maintained copy of declarations.
 Sources with unsupported conditional preprocessing safely fall back to an
 untyped starter. Context-informed output is still not match evidence.
 
+Call context prefers active declarations in the allowed source, then reviewed
+SDK aliases. When those are absent, a unique active definition in the registered
+US matched source can supply a scalar/pointer signature despite conflicting
+prototypes in unrelated callers. The owning source must agree with its definition;
+ambiguous definitions and private types cannot override conflicts. Otherwise the
+project declarations must agree. Recovery records the selected evidence in
+`build/m2c/calls/<work-item-id>.json`. Local declarations are never overwritten,
+and candidates still require the ordinary focused and integration gates.
+
 ## Match one function
 
 Replace only the selected function's `GLOBAL_ASM` pragma, at the same source
@@ -76,6 +85,17 @@ mixed source object and checks every member offset plus the aligned object
 extent. A nonzero focused result or a shifted mixed layout leaves the
 inventories unchanged. Only `CURRENT (0)` with preserved layout records the
 match, regenerates progress, and checks generated output and whitespace.
+
+On a focused mismatch, `finish` reuses the same JSON evidence to print the raw
+`CURRENT` score, four mismatch-category counts, a recommendation, and at most
+five differing rows. It saves the complete plain-text comparison and original
+JSON under `build/<profile>/diff/<regional-symbol>/mismatch.{txt,json}` and
+prints their paths. These files describe the last focused mismatch and are
+overwritten by the next one. `./conker diff <work-item-id>` still displays the
+full live diff. Classification is a conservative search hint, not proof of
+equivalent control flow or stack layout; it never starts permutation or changes
+the match gates. A failure to read or save diagnostic evidence reports
+`BLOCKED_TOOLING`.
 
 The terminal action states describe the next step:
 
@@ -131,15 +151,33 @@ Two bounded helpers reduce blind source-shaping work:
 
 ```sh
 ./conker diagnose-diff <work-item-id>
-./conker permute <work-item-id> --budget 250
+./conker permute <work-item-id> --budget 32
 ```
 
 `diagnose-diff` works with active and preserved deferred candidates and reports
 register-only, operand/constant, control-flow, and missing/extra categories.
+For relative branches, classification compares the displacement using validated
+instruction/target addresses, so relocation within an object is not an operand
+change. Different displacements and absolute jump targets remain differences.
+Nonzero results include a five-row excerpt and save the full text and JSON
+under `build/us/diff/<work-item-id>/`, using the same comparison evidence.
+Reuse the latest `finish` diagnosis when its source and compile inputs are
+unchanged; a separate diagnosis is then unnecessary. Agents route purely
+register-only differences to bounded permutation first when the task permits
+it. Otherwise they inspect the saved full diff, make one targeted source
+revision, and rerun `finish`. The default per-function budget is one manual
+revision and one search of up to 32 variants, with plateau stopping retained;
+an explicit task budget overrides this default. Exhaustion produces a candidate
+report, followed by deferral only when moving past it is authorized. A focused
+zero followed by a layout failure requires layout recovery, not permutation.
 `permute` searches deterministic declaration-order and first-assignment
 lifetime variants with the pinned compiler. A nonzero best result is written
 below `build/us/permute/` while project source remains untouched. An exact
 variant is restored to source and immediately sent through `finish`.
+Each search initializes its own differ settings. Compiler-rejected variants may
+be skipped; scorer failures stop with `BLOCKED_TOOLING` and diagnostic evidence,
+preserving any already scored best candidate. If no candidate was scored, the
+command reports that explicitly and does not claim a saved best file.
 When `automate` applies this search to deferred work, a strictly lower nonzero
 score replaces the disabled candidate and inventory score transactionally;
 equal or worse results preserve the existing source block.
@@ -165,7 +203,7 @@ Use the unified automation for raw m2c starters and preserved deferred
 candidates:
 
 ```sh
-./conker automate --limit 5 --max-attempts 20 --rewrite-budget 250
+./conker automate --limit 5 --max-attempts 20 --rewrite-budget 32
 ```
 
 Target one eligible raw or deferred function without waiting for scheduler
@@ -180,9 +218,13 @@ The scheduler alternates between size-ordered raw work and score-ordered
 deferred work. Raw starters use evidence-backed declaration recovery, aligned
 scalar or pointer field cleanup with expression bases and signed offsets,
 explicit integer-backed address casts for IDO, and bounded source-shape
-rewrites. Deferred candidates must diagnose as pure register-allocation
-differences before permutation. The
-command first runs a warning-free focused `diff`, restores unsuccessful source
+rewrites. Both pools use compact `diagnose-diff` preflight before permutation.
+Pure register-allocation differences qualify; register differences with only
+one to three missing/extra rows receive a probe capped at 32 variants.
+Structural mismatches skip search. Raw candidates preserve the proposed source
+and diagnostic log under `build/us/automate/artifacts/<work-item-id>/` and
+restore project source even with `--defer-best`. The
+command requires warning-free compilation, restores unsuccessful source
 attempts, and retains only `CURRENT (0)` results through `finish`. Compiler
 failures retain the proposed source, complete output, and structured diagnostics
 under `build/us/automate/artifacts/<work-item-id>/`. Before restoration, up to
@@ -222,9 +264,15 @@ and explicitly excluded functions. A complete traversal sets `full_scan` and
 from the report. Pending exact matches are reconciled against the current
 inventory both on resume and before the final batch gate, so functions reopened
 or deferred by later mixed-source integration are not sent to `verify-batch`.
-Add `--restart` when changed automation should reconsider prior outcomes.
+Bounded runs and `next --ready` also consult the shared local
+`build/us/automate/attempt-history.json`. Relevant input changes invalidate saved
+outcomes automatically; `--restart` explicitly retries the selected scope while
+preserving pending verification. The default rewrite budget is 32. Identical
+nonmatching permutation searches reuse saved results until their inputs change.
+Use `./conker blockers` to rank declaration and placeholder blockers across
+saved reports. See CONTRIBUTING.md for cache behavior and token metrics.
 
-Full scans use compact output to avoid terminal backpressure. Detailed
+All automation runs use compact output by default. Detailed
 subprocess output is written to
 `build/us/automate/logs/<work-item-id>.log`, and the corresponding report entry
 records that path. Stdout contains important events and a progress summary

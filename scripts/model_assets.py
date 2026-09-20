@@ -929,7 +929,7 @@ def parse_model_geometry(
             and render_size in (0, 1)
             and palette_texture is not None
             and palette_texture.flat_index == active_pixel.flat_index
-            and palette_texture.mode == 2 - render_size
+            and palette_texture.mode in ((1, 2) if render_size == 0 else (1,))
         )
         active_palette = (
             palette_texture
@@ -3335,12 +3335,12 @@ def texture_coordinate_state(run: ModelMaterialRun) -> dict | None:
         and size_id in (0, 1)
         and run.palette is not None
         and run.palette.flat_index == run.pixel.flat_index
-        and run.palette.mode == 2 - size_id
+        and run.palette.mode in ((1, 2) if size_id == 0 else (1,))
     ):
         # Character display lists load their indexed bytes through an RGBA16
-        # transfer image, then select an otherwise-invalid 4/8-bit RGBA render
-        # tile and a same-index mode-two/mode-one TLUT. The palette load proves
-        # the effective render format is CI4/CI8.
+        # transfer image, then select a 4/8-bit RGBA render tile and a
+        # same-index TLUT. A four-bit tile may select one 16-entry bank of
+        # a full mode-one palette; it need not load a mode-two palette.
         format_id = 2
         format_evidence = "character-same-index-tlut-load"
     return {
@@ -5170,10 +5170,11 @@ def replay_lower_tmem(run, payloads, *, rgba32=False):
             owners, last_pixel, last_palette = [None] * 2048, None, None
             continue
         command, argument = binding.load_command
-        if (command == 0xF0000000 and argument & 0xFFFFFF == 0x3FC000
+        if (command == 0xF0000000 and argument & 0xFFFFFF in (0x03C000, 0x3FC000)
                 and tile[0] in (0xF5000100, 0xF5600100)
                 and tile[1] == argument & 0x07000000):
-            # A complete TLUT occupies upper TMEM; it leaves CI indices alone.
+            # Both 16- and 256-entry TLUT uploads leave lower TMEM alone.
+            # The final decoder validates the selected palette and its source.
             last_palette = binding
             continue
         payload = payloads.get(binding.flat_index)
@@ -5203,7 +5204,7 @@ def replay_lower_tmem(run, payloads, *, rgba32=False):
 
 
 def character_tmem_preview_texture(run, payloads):
-    """Replay bounded RGBA16 transfers for an inherited CI8 render tile.
+    """Replay bounded RGBA16 transfers for an inherited CI4/CI8 render tile.
 
     DXT-zero LoadBlock overwrites its destination range, retaining other TMEM
     bytes. Every sampled index must have a ROM owner in this callable list.
@@ -5213,40 +5214,47 @@ def character_tmem_preview_texture(run, payloads):
     state = texture_coordinate_state(run)
     combine = decode_combine_mode(run.combine_mode)
     if (not state or state['format_evidence'] != 'character-same-index-tlut-load'
-            or state['size'] != 1 or not run.texture_loads or not combine
+            or state['size'] not in (0, 1) or not run.texture_loads or not combine
             or {name for name in combine['inputs'] if name in ('TEXEL0', 'TEXEL1')} != {'TEXEL0'}
             or run.pixel is None or run.palette is None):
         return unresolved
     stride = ((run.render_tile[0] >> 9) & 511) * 8
     start = (run.render_tile[0] & 511) * 8
     width, height = state['width'], state['height']
-    if stride < width or not stride or start + stride * height > 2048:
+    row_bytes = (width + 1) // 2 if state['size'] == 0 else width
+    if (state['size'] == 0 and width % 2
+            or stride < row_bytes or not stride or start + stride * height > 2048):
         return unresolved
     memory, owners, loads, _, last_pixel, last_palette = replay_lower_tmem(run, payloads)
     if (last_pixel != run.pixel or last_palette != run.palette
             or run.palette.flat_index != run.pixel.flat_index or run.palette.mode != 1
             or run.palette.image_command != 0xFD100000 or run.palette.external
-            or run.palette.segment is not None):
+            or run.palette.segment is not None or run.palette.load_command is None
+            or run.palette.load_command[1] & 0xFFFFFF != 0x3FC000):
         return unresolved
     payload = payloads.get(run.palette.flat_index, b'')
     if len(payload) < 512:
         return unresolved
-    palette = payload[-512:]
+    palette_offset = len(payload) - 512
+    if state['size'] == 0:
+        palette_offset += ((run.render_tile[1] >> 20) & 15) * 32
+    palette = payload[palette_offset:palette_offset + (32 if state['size'] == 0 else 512)]
     if not any(value & 1 for (value,) in struct.iter_unpack('>H', palette)):
         return unresolved
     addresses = [start + y * stride + (x ^ 4 if y & 1 else x)
-                 for y in range(height) for x in range(width)]
+                 for y in range(height) for x in range(row_bytes)]
     if any(owners[address] is None for address in addresses):
         return unresolved
     contributing = sorted({owners[address] for address in addresses})
     if len(contributing) < 2:
         return unresolved
     pixels = bytes(memory[address] for address in addresses)
-    png = encode_ci8_png(pixels + palette, 'linear', width, height)
+    encoder = encode_indexed_png if state['size'] == 0 else encode_ci8_png
+    png = encoder(pixels + palette, 'linear', width, height)
     return PreviewTexture(
-        'us-character-tmem-composed', None, run.pixel.flat_index, 2, 1,
+        'us-character-tmem-composed', None, run.pixel.flat_index, 2, state['size'],
         width, height, hashlib.sha1(png).hexdigest(), png,
-        palette_byte_offset=len(payload) - 512,
+        palette_byte_offset=palette_offset,
         tmem_source_loads=tuple(loads[index] for index in contributing),
     ), 'runtime-composed-character-tmem-texture'
 
@@ -5971,6 +5979,10 @@ def choose_preview_texture(
             return None, "character-indexed-flat-payload-missing"
         if is_character_rgb_trilinear_base(run):
             return character_rgb_mipmap_preview_texture(run, payload)
+        if state['size'] == 0 and run.palette.mode == 1:
+            # A four-bit selected tile may use one bank of a full TLUT while
+            # retaining earlier indices after a shorter LoadBlock.
+            return character_tmem_preview_texture(run, flat_payloads)
         texture, status = character_runtime_preview_texture(run, payload)
         if texture is None and status == 'character-indexed-tmem-span-unresolved':
             texture, status = character_tmem_preview_texture(run, flat_payloads)

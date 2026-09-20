@@ -14,8 +14,85 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef s32 (*Game182140Callback)(u8 *, s8);
+
+void func_1516972C(u8 *);
+extern Game182140Callback D_8008ACC8[];
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154C90 CURRENT (30) */
+void func_15154C90(u8 *arg0) {
+    s32 index;
+    s8 should_free;
+
+    should_free = 0;
+    if (*(u16 *)(arg0 + 0x24) & 1) {
+        *(s16 *)(arg0 + 0x22) = *(s16 *)(arg0 + 0x22) - D_800BE9E4;
+        if (*(s16 *)(arg0 + 0x22) < 0) {
+            should_free = 1;
+        }
+    }
+
+    index = arg0[0x68] & 0xF;
+    if ((index != 0) && (should_free == 0)) {
+        if (D_8008ACC8[index](arg0, should_free) == 0) {
+            should_free = 1;
+        }
+    }
+
+    if (*(u16 *)(arg0 + 0x24) & 8) {
+        s16 temp_lo;
+        s16 temp_v1;
+
+        temp_v1 = *(s16 *)(arg0 + 0x22);
+        if (temp_v1 < *(s16 *)(arg0 + 0x26)) {
+            temp_lo = temp_v1 * *(s16 *)(arg0 + 0x28);
+            if (temp_lo < arg0[0x2E]) {
+                arg0[0x2E] = temp_lo;
+            }
+        }
+    }
+
+    if (should_free != 0) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15154C90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_15154C90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_15154D80.s")
+void *func_10022EC0(void *, const void *, u32);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+s32 func_151555AC(void *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515548C CURRENT (239) */
+void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
+                    u8 arg5, s32 arg6) {
+    f32 position[2];
+    void *result;
+    s32 kind;
+
+    if ((arg2 != 0) && (arg3 > 0)) {
+        position[0] = *(f32 *)((u8 *)arg0 + 8);
+        position[1] = *(f32 *)((u8 *)arg0 + 0xC);
+        if (func_151555AC(arg0, position) != 0) {
+            return 0;
+        }
+    }
+    if (*(u16 *)((u8 *)arg0 + 0x14) & 0x20) {
+        kind = 0x57;
+    } else {
+        kind = 0x5D;
+    }
+    result = func_15167A68(kind, arg6, arg4 + 0x70, 1, arg5, 1);
+    if (result == 0) {
+        return 0;
+    }
+    func_10022EC0((u8 *)result + 0x10, arg0, 0x58);
+    *(volatile u8 *)((u8 *)result + 0x68) = 0;
+    *(volatile u8 *)((u8 *)result + 0x68) = arg1;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515548C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_1515548C.s")
 extern void (*D_8008AD04[])(void *, s32, u8);
 

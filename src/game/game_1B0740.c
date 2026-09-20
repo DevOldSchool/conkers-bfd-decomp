@@ -8,7 +8,6 @@
  * - func_15183290
  * - func_151838B0
  * - func_15183974
- * - func_151839F0
  * - func_15183ACC
  * - func_15183BA4
  * - func_15183C28
@@ -18,7 +17,6 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183290.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151838B0.s")
 typedef struct {
     void *field0;
     u8 pad4[8];
@@ -28,6 +26,32 @@ typedef struct {
 
 extern Game1B0740Slot D_800DDE80[];
 void func_15183ACC(s32); /* extern */
+void *func_1502B6BC(s32, s32, s32, s32, s32, s32);
+extern u8 D_800DDF69[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151838B0 CURRENT (525) */
+void func_151838B0(s32 arg0) {
+    u8 *temp_v1;
+    void *temp_v0;
+
+    temp_v1 = (u8 *)&D_800DDE80[arg0];
+    if (*(void **)temp_v1 == 0) {
+        func_15183ACC(arg0);
+    }
+    if (*(void **)(temp_v1 + 0x14) == 0) {
+        temp_v0 = func_1502B6BC(0, 0, 0, 2, 9, arg0 + 0xAE);
+        if (temp_v0 != 0) {
+            *(void **)(temp_v1 + 0x14) = temp_v0;
+            *(s32 *)(temp_v1 + 0x18) = *(s32 *)temp_v0;
+            *(s32 *)(temp_v1 + 0x24) = 0;
+            *(s32 *)(temp_v1 + 0x20) = *(s32 *)(temp_v1 + 0xC);
+            *(s32 *)(temp_v1 + 0x1C) = *(s32 *)((u8 *)temp_v0 + 8);
+            D_800DDF69[arg0] = 1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151838B0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151838B0.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15183974 CURRENT (16) */
 void func_15183974(s32 arg0) {
@@ -44,10 +68,56 @@ void func_15183974(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15183974 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183974.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151839F0.s")
+extern u8 D_800DDF68[];
+void func_151839F0(s32 arg0, s32 arg1) {
+    Game1B0740Slot *second;
+
+    second = &D_800DDE80[arg0];
+    if (second->field0 == 0) {
+        func_15183ACC(arg0);
+    }
+    if (second->field0 != 0) {
+        second = &D_800DDE80[arg1];
+        if (second->field0 == 0) {
+            arg0 = (s32)func_1502B6BC(0, 0, 0, 2, 9, arg1 + 0xAD);
+            if (arg0 != 0) {
+                second->field0 = (void *)arg0;
+                *(s32 *)((u8 *)second + 4) = *(s32 *)arg0;
+                *(s32 *)((u8 *)second + 8) = *(s32 *)((u8 *)arg0 + 8);
+                second->fieldC = *(s32 *)((u8 *)arg0 + 0x18);
+                *(s32 *)((u8 *)second + 0x10) = 0;
+                D_800DDF68[arg1] = 1;
+            }
+        }
+    }
+}
+void func_1510CE60(s32, s32, s32, s32, void *);
+extern s32 D_800DDF78[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15183ACC CURRENT (42) */
+void func_15183ACC(s32 arg0) {
+    register Game1B0740Slot *slot;
+    u8 *allocated;
+    s32 *handle_slot;
+
+    slot = &D_800DDE80[arg0];
+    if (slot->field0 == 0) {
+        allocated = func_1502B6BC(0, 0, 0, 2, 9, arg0 + 0xAD);
+        if (allocated != 0) {
+            slot->field0 = allocated;
+            *(s32 *)((u8 *)slot + 4) = *(s32 *)allocated;
+            *(s32 *)((u8 *)slot + 8) = *(s32 *)(allocated + 8);
+            slot->fieldC = *(s32 *)(allocated + 0x18);
+            handle_slot = &D_800DDF78[arg0];
+            *handle_slot = *(s32 *)(allocated + 0x10);
+            func_1510CE60(*handle_slot, 0, 1, 0x3E, (u8 *)slot + 0x10);
+            D_800DDF68[arg0] = 1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15183ACC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183ACC.s")
 extern u8 D_800A72D0[];
-extern s32 D_800DDF78[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15183BA4 CURRENT (305) */
 s32 *func_15183BA4(s32 *arg0, s32 arg1, s32 arg2, s32 arg3) {

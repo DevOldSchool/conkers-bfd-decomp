@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151B2060
  * - func_151B2100
- * - func_151B222C
  * - func_151B229C
  * - func_151B22F4
  * - func_151B2348
@@ -30,12 +29,48 @@ typedef struct Game1DF510EffectOwner {
 void func_1516972C(void *);
 void func_151B222C();
 
+typedef struct {
+    void *field_0;
+    u8 field_4;
+    u8 pad_5[3];
+    s32 field_8;
+    u8 field_C;
+    s8 field_D;
+    u8 pad_E[2];
+    u8 field_10[0xC];
+    s32 field_1C;
+} Game1DF510Packet;
+
+void func_100226F0(void *, s32);
+void func_10022EC0(s32, void *, s32);
+s32 func_15083E90(s32, void *);
+s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2060 CURRENT (134) */
+void func_151B2060(void *arg0) {
+    Game1DF510Packet packet;
+    s32 object;
+
+    if (arg0 != 0) {
+        packet.field_0 = arg0;
+        packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
+        packet.field_8 = func_15083E90(1, arg0);
+        packet.field_C = 1;
+        packet.field_D = 0;
+        func_100226F0(packet.field_10, 0xC);
+        packet.field_1C = 0;
+        object = func_151491F4(0x12C, -1, 0x16, 0, 0x12, 0x20, 0xFF, 1);
+        if (object != 0) {
+            func_10022EC0(object + 0x28, &packet, 0x20);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B2060 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2060.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2100.s")
 void func_151B220C() {
     func_151B222C();
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B222C CURRENT (100) */
 void func_151B222C(Game1DF510EffectOwner *arg0) {
     u8 i = 0;
     Game1DF510EffectSlots *slots = &arg0->slots;
@@ -54,8 +89,6 @@ void func_151B222C(Game1DF510EffectOwner *arg0) {
         func_1516972C(effect);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B222C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B222C.s")
 void func_1514933C(s32);
 void func_15149368(s32);
 

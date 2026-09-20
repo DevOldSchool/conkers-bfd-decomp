@@ -51,10 +51,11 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+  blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] (disable plateau stopping)
-           [--defer-best] [--skip-final-build] [--report PATH] [--restart]
-           [--analyze] [--verbose]
+           [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
+           [--analyze]
                                  Process raw and deferred ASM-to-C candidates. --function runs one
                                  eligible work item; --all considers the complete active US inventory
                                  with compact output. --analyze performs a non-mutating preflight.
@@ -93,7 +94,10 @@ After the raw base split map is available
                                  Register one US game-overlay function for matching work.
   register-main --id <id> --us <symbol> --source <path>
                                  Register one US main-executable function for matching work.
+  record-region-size <id> --profile <region> --size <bytes>
+                                 Preserve a reviewed legacy function span as function metadata.
   register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
+                       [--replace-unreviewed-source <path>]
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
                                  Register a separately reviewed source/object boundary.
   withdraw-source-unit --source <path>
@@ -120,7 +124,7 @@ After the raw base split map is available
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
-  model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
+  model-assets <alpha-frontier|batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]
                                  Export model banks or run cached ROM, glTF, Blender and image checks.
   hud-assets <survey|extract|preview|verify> [options]
                                  Extract, preview, or verify US HUD/menu metadata and sprites.
@@ -474,7 +478,7 @@ verify_and_record_match() {
         return 3
     fi
     diff_status=0
-    run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match || diff_status=$?
+    run_in_warm_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay --require-match "$@" || diff_status=$?
     if [[ "$diff_status" -ne 0 ]]; then
         return "$diff_status"
     fi
@@ -566,6 +570,9 @@ case "$command" in
             python3 "$state_tool" next "$@"
         fi
         ;;
+    blockers)
+        python3 scripts/matching_blockers.py "$@"
+        ;;
     automate)
         python3 scripts/automate.py "$@"
         ;;
@@ -634,7 +641,7 @@ case "$command" in
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
         match_status=0
-        verify_and_record_match || match_status=$?
+        verify_and_record_match --compact-mismatch || match_status=$?
         if [[ "$match_status" -eq 1 ]]; then
             printf 'AGENT_ACTION: CONTINUE_MISMATCH\n'
             exit 1
@@ -845,8 +852,12 @@ case "$command" in
         fi
         python3 "$state_tool" register-main "$@"
         ;;
+    record-region-size)
+        [[ $# -eq 5 ]] || die "usage: ./conker record-region-size <id> --profile <region> --size <bytes>"
+        python3 "$state_tool" record-region-size "$@"
+        ;;
     register-source-unit)
-        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>"
+        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference> [--replace-unreviewed-source <path>]"
         python3 "$state_tool" setup-check --profile us
         registration_overlay=game
         previous_argument=""
@@ -932,8 +943,13 @@ case "$command" in
         python3 scripts/texture_assets.py "$@"
         ;;
     model-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
-        python3 scripts/model_assets.py "$@"
+        [[ $# -ge 1 ]] || die "usage: ./conker model-assets <alpha-frontier|batch|survey|extract|preview|atlas|activity|compose|materials|collision|coverage|scene-consumers|scene-assemblies|verify|validate|inspect|submitted|discover-submitted> [options]"
+        if [[ "$1" == "alpha-frontier" ]]; then
+            shift
+            python3 scripts/model_character_alpha.py "$@"
+        else
+            python3 scripts/model_assets.py "$@"
+        fi
         ;;
     hud-assets)
         [[ $# -ge 1 ]] || die "usage: ./conker hud-assets <survey|extract|preview|verify> [options]"

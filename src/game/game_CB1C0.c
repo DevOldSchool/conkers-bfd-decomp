@@ -56,8 +56,32 @@ s32 func_1509DDC4(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509DDC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CB1C0/func_1509DDC4.s")
+void func_15178BE4(u8, void *, s16);
+void func_15178C34(u8, s32, s32, s32, s32);
+s32 func_15084000(s32);
+extern u8 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DDFC CURRENT (990) */
+s32 func_1509DDFC(s32 arg0, s32 arg1, u8 *arg2) {
+    switch (arg1) {
+        case 0:
+            func_15178BE4(arg0,
+                          (u8 *) &D_800CC2D0 + (func_15084000(*(s32 *) (arg2 + 8) & ~0x2000) * 0x32C) + 0x14,
+                          *(s16 *) (arg2 + 0xE));
+            return 1;
+        case 1:
+            func_15178C34(arg0,
+                          *(s32 *) (arg2 + 8),
+                          *(s32 *) (arg2 + 0xC),
+                          *(s32 *) (arg2 + 0x10),
+                          *(s32 *) (arg2 + 0x14));
+            return 1;
+        default:
+            return 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509DDFC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CB1C0/func_1509DDFC.s")
-s32 func_15084000(s32);                             /* extern */
 s32 func_15178C9C(s32, s32);                        /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DEC4 CURRENT (605) */

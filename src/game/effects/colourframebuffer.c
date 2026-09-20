@@ -33,6 +33,41 @@ ColourFramebufferEffect *func_1515FF74(void *arg0, s32 arg1, u8 arg2, s32 arg3) 
     func_10022EC0(effect->payload, arg0, sizeof(effect->payload));
     return effect;
 }
+typedef s32 (*ColourFramebufferCallback)(void *);
+
+extern ColourFramebufferCallback D_8008B0D0[];
+extern s32 D_800BE9E4;
+void func_1516972C(void *arg0);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FFEC CURRENT (889) */
+void func_1515FFEC(void *arg0) {
+    u8 sp1B;
+    s8 callback_index;
+    u8 callback_pending;
+
+    callback_pending = 0;
+    if (*(u8 *)((u8 *)arg0 + 0xE) & 1) {
+        *(s16 *)((u8 *)arg0 + 0x12) = (s16) (*(s16 *)((u8 *)arg0 + 0x12) - D_800BE9E4);
+        if (*(s16 *)((u8 *)arg0 + 0x12) < 0) {
+            callback_pending = 1;
+        }
+    }
+    if (callback_pending == 0) {
+        callback_index = *(s8 *)((u8 *)arg0 + 0xF);
+        if (callback_index != -1) {
+            sp1B = callback_pending;
+            if (D_8008B0D0[(s32) callback_index](arg0) != 0) {
+                callback_pending = sp1B;
+            } else {
+                callback_pending = 1;
+            }
+        }
+    }
+    if (callback_pending != 0) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515FFEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_1515FFEC.s")
 extern void (*D_8008B0E4[])(void *, s32, u8);
 

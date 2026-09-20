@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D13A0
- * - func_150D149C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -24,9 +23,13 @@ typedef struct GameFE850State {
 } GameFE850State;
 
 void func_15059C84(GameFE850State *);
+void func_151467A4(s32, s32, s32, s32, f32, f32, f32, s32);
+void func_1515D4D4(s32, u8, u8, s32);
 extern f32 D_800A08B0;
 extern f32 D_800A08B4;
 extern f32 D_800A08B8;
+extern f32 D_800A08C0;
+extern u8 D_800DCD20[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D13A0 CURRENT (745) */
 void func_150D13A0(GameFE850State *arg0) {
@@ -69,4 +72,12 @@ void func_150D146C(s32 arg0) {
         *(s8 *)((u8 *)temp_v0 + 0x6E) = 1;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FE850/func_150D149C.s")
+void func_150D149C(void *arg0) {
+    s32 sp28;
+
+    sp28 = (s32)arg0 + 0x28;
+    func_151467A4((s32)((u8 *)arg0 + 0x30), 0x41200000,
+                  (s32)((u8 *)arg0 + 0x2C), 0x42480000,
+                  100.0f, 123.0f, D_800A08C0, sp28);
+    func_1515D4D4((s32)*(f32 *)sp28, D_800DCD20[1], D_800DCD20[2], 0);
+}

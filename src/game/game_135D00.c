@@ -122,6 +122,41 @@ s32 func_15108C38(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15108C38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108C38.s")
+typedef struct Game135D00MatrixWork {
+    f32 values[12];
+    s32 pad_30;
+    f32 saved;
+    s32 pad_38;
+    s32 pad_3C;
+} Game135D00MatrixWork;
+
+void func_150A8050(f32 *, s32, s32, s32);
+void func_150A7790(void *, s32);
+extern f32 D_800A2490;
+extern u8 D_800BE9C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108D24 CURRENT (250) */
+s32 func_15108D24(u8 *arg0, s32 arg1) {
+    Game135D00MatrixWork work;
+    u8 *source;
+
+    source = arg0 + *(s32 *)(arg0 + 0x50) + 0xF8;
+    func_150A8050(work.values, *(s32 *)(source + 0), 0,
+                  *(s32 *)(source + 4));
+    work.saved = *(f32 *)(source + 0x10);
+    work.values[0] *= D_800A2490;
+    work.values[1] *= D_800A2490;
+    work.values[2] *= D_800A2490;
+    work.values[4] *= D_800A2490;
+    work.values[5] *= D_800A2490;
+    work.values[6] *= D_800A2490;
+    work.values[8] *= D_800A2490;
+    work.values[9] *= D_800A2490;
+    work.values[10] *= D_800A2490;
+    func_150A7790(work.values, (s32)(arg0 + (D_800BE9C0 << 6) + 0x78));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15108D24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108D24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108E10.s")
 typedef struct Game135D00DispatchDescriptor {

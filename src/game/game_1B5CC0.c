@@ -8,7 +8,6 @@
  * - func_15188810
  * - func_1518894C
  * - func_15188A58
- * - func_15188AD0
  * - func_15188B74
  * - func_15188D00
  * - func_15188E48
@@ -61,7 +60,45 @@ void func_15188A9C(s32 arg0) {
         } while (var_v0 != 0);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188AD0.s")
+typedef struct Game1B5CC0Node {
+    u8 pad0[8];
+    s32 resource;
+    struct Game1B5CC0Node *next;
+    s32 key;
+} Game1B5CC0Node;
+
+void func_10004074(s32);
+void func_100043B4();
+
+void func_15188AD0(s32 arg0) {
+    Game1B5CC0Node *temp_s0;
+    Game1B5CC0Node *var_s1;
+    Game1B5CC0Node *var_s2;
+    s32 var_s3;
+    Game1B5CC0Node *var_s4;
+
+    var_s3 = arg0;
+    var_s4 = (Game1B5CC0Node *)D_800DF7C8;
+    var_s2 = 0;
+    var_s1 = var_s4;
+    if (var_s1 != 0) {
+        do {
+            temp_s0 = var_s1->next;
+            if (var_s3 == var_s1->key) {
+                if (var_s2 == 0) {
+                    D_800DF7C8 = temp_s0;
+                } else {
+                    var_s2->next = temp_s0;
+                }
+                func_100043B4(var_s1->resource, 2);
+                func_10004074((s32)var_s1);
+            } else {
+                var_s2 = var_s1;
+            }
+            var_s1 = temp_s0;
+        } while (temp_s0 != 0);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188B74.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188D00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188E48.s")

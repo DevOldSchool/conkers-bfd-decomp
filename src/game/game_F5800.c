@@ -97,5 +97,33 @@ void func_150C84F4(s32 arg0) {
         func_150C8350();
     }
 }
+u32 func_150ADA20(void);
+void func_150CDB6C(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C851C CURRENT (255) */
+void func_150C851C(s32 arg0) {
+    s32 base;
+    s32 range;
+    s32 value;
+    s32 var_s0;
+    u32 random_value;
+    u8 *temp_t1;
+
+    if (D_800BE4E0 != 0) {
+        func_150CDB6C(arg0);
+        base = (s32)(arg0 * 0x12C) >> 8;
+        range = ((s32)(arg0 * 0x32) >> 8) + 0x32;
+        var_s0 = 0;
+        do {
+            value = base;
+            random_value = func_150ADA20();
+            temp_t1 = (u8 *)D_800BE4E0 + var_s0;
+            var_s0 += 0xA;
+            value += random_value % (u32)range;
+            *(s16 *)(temp_t1 + 8) = value;
+        } while (var_s0 != 0x64);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C851C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C851C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8600.s")

@@ -94,7 +94,7 @@ class AttachmentRuntimeTests(unittest.TestCase):
         spec = mupen_trace.validate_spec(json.loads(path.read_text()))
         self.assertEqual(spec["target"]["bank"], 9)
         self.assertEqual([address["address"] for address in spec["breakpoints"]],
-                         ["0x15031870", "0x15031914", "0x10023DF0"])
+                         ["0x15031870", "0x15035F60", "0x15031914", "0x10023DF0"])
         self.assertIn({"source": "memory", "name": "task", "offset": 0, "size": 4,
                        "endian": "big", "equals": 1}, spec["breakpoints"][-1]["when"])
 
@@ -108,6 +108,61 @@ class AttachmentRuntimeTests(unittest.TestCase):
         self.assertEqual([p["geometry"].face_source_indices for p in parts], [(0,), (1,)])
         self.assertEqual([p["source_face_count"] for p in parts], [1, 1])
         self.assertEqual(parts[0]["matrices"][0][3][:3], [20.0, 0.0, 0.0])
+
+    def test_alternate_hook_preserves_outer_frame_and_parent(self):
+        spec = json.loads((Path(__file__).resolve().parents[1] /
+                           "config/model-trace-attachment-draws.json").read_text())
+        alternate = spec["breakpoints"][1]
+        probes = {p["name"]: p for p in alternate["memory"]}
+        self.assertEqual(probes["attachment-stack"]["address"], "$sp+0xD4")
+        self.assertEqual(probes["parent-character"]["address"],
+                         {"source": "memory", "name": "attachment-caller-frame",
+                          "offset": 12, "size": 4, "endian": "big"})
+        data, events = fixture(parts=2)
+        for event in events[:2]:
+            event.update(breakpoint="attachment-alternate-part-selected", hook_address="0x15035F60")
+        draws, incomplete = attachment.attachment_draws(events)
+        self.assertEqual(incomplete, [])
+        parts = attachment.resolve_draw(draws[0], attachment.graphics_snapshot(events[-1]), data)
+        self.assertEqual([p["part"] for p in parts], [0, 1])
+        events[0]["hook_address"] = "0x15031870"
+        with self.assertRaisesRegex(ValueError, "hook changed"):
+            attachment.attachment_draws(events)
+
+    def test_ordinary_and_alternate_selections_cannot_share_one_invocation(self):
+        _, events = fixture(parts=2)
+        events[1].update(breakpoint="attachment-alternate-part-selected", hook_address="0x15035F60")
+        with self.assertRaisesRegex(ValueError, "mixes ordinary and alternate"):
+            attachment.attachment_draws(events)
+
+    def test_alternate_repeated_part_uses_each_submitted_matrix(self):
+        data, events = fixture()
+        selected, returned, task = events
+        selected.update(breakpoint="attachment-alternate-part-selected", hook_address="0x15035F60")
+        second = copy.deepcopy(selected)
+        second["state"]["rdp"]["call_command_address"] = 0x80001020
+        returned["state"]["rdp"]["command_buffer_end"] = 0x80001028
+        target = selected["state"]["rdp"]["selected_display_list"]
+        commands = [(0xDB060004, 0x80006000), (0xDB06000C, 0x80007000),
+                    (0xDE000000, target), (0xDB06000C, 0x80007100),
+                    (0xDE000000, target), (0xDF000000, 0)]
+        raw = b"".join(struct.pack(">II", *c) for c in commands)
+        blocks = task["evidence"]["memory"]
+        task_header = bytearray(base64.b64decode(blocks[0]["data_base64"]))
+        struct.pack_into(">I", task_header, 52, len(raw))
+        blocks[0] = probe("task", 0x80000100, bytes(task_header))
+        blocks[1] = probe("command-buffer", 0x80001000, raw)
+        blocks.append(probe("runtime-matrix-0002", 0x80007100, matrix_bytes(30)))
+        events = [selected, second, returned, task]
+        draws, incomplete = attachment.attachment_draws(events)
+        self.assertEqual(incomplete, [])
+        parts = attachment.resolve_draw(draws[0], attachment.graphics_snapshot(task), data)
+        self.assertEqual([p["part"] for p in parts], [0, 0])
+        self.assertEqual([p["matrices"][0][3][0] for p in parts], [20.0, 30.0])
+        second["state"]["rdp"]["call_command_address"] = 0x80001010
+        draws, _ = attachment.attachment_draws(events)
+        with self.assertRaisesRegex(ValueError, "repeats a call site"):
+            attachment.resolve_draw(draws[0], attachment.graphics_snapshot(task), data)
 
     def test_missing_return_and_graphics_submission_remain_incomplete(self):
         _, events = fixture()

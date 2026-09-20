@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150BDF0C
- * - func_150BE1C4
  * - func_150BE210
  * - func_150BE2E8
  * - func_150BE438
@@ -67,16 +66,42 @@ void func_150BE150(BeeCavernEffect *arg0, BeeCavernMessage *arg1, u8 arg2) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE1C4 CURRENT (10) */
 s32 func_150BE1C4(void *arg0) {
-    *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + (*(f32 *)((u8 *)arg0 + 0x80) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x14) = (f32) ((*(f32 *)((u8 *)arg0 + 0x80) * D_800BE9A4) + *(f32 *)((u8 *)arg0 + 0x14));
     if (*(f32 *)((u8 *)arg0 + 0x14) > 120.0f) {
         return 0;
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150BE1C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE1C4.s")
+void func_1511650C(void *, s32, s32, f32);
+void func_100111C8(u16);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE210 CURRENT (35) */
+void func_150BE210(void *arg0) {
+    u8 temp_t0;
+    u8 temp_t2;
+    u8 temp_t3;
+
+    if ((*(u8 *)((u8 *)arg0 + 0x73) & 3) != 3) {
+        func_1511650C(arg0, 1, 0x62C, 500.0f);
+        if (*(u8 *)((u8 *)arg0 + 0x4F) & 4) {
+            *(f32 *)((u8 *)arg0 + 0x84) += *(f32 *)((u8 *)arg0 + 0x64);
+        } else if (*(f32 *)((u8 *)arg0 + 0x84) > 270.0f) {
+            *(f32 *)((u8 *)arg0 + 0x84) = 270.0f;
+        }
+        if (*(f32 *)((u8 *)arg0 + 0x84) > 360.0f) {
+            temp_t0 = *(u8 *)((u8 *)arg0 + 0x73);
+            temp_t2 = temp_t0 & 0xFFFC;
+            *(volatile u8 *)((u8 *)arg0 + 0x73) = temp_t2;
+            temp_t3 = temp_t2 | 3;
+            *(volatile u8 *)((u8 *)arg0 + 0x73) = temp_t3;
+            *(f32 *)((u8 *)arg0 + 0x64) = 0.0f;
+            func_100111C8(*(u16 *)((u8 *)arg0 + 0x74));
+            *(u16 *)((u8 *)arg0 + 0x74) = 0;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BE210 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BE210.s")
 extern f32 D_800A0068;
 extern s32 D_800BE9E4;
