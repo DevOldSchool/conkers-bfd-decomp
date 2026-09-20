@@ -140,10 +140,17 @@ s32 func_150CBE88(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CBE88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F8590/func_150CBE88.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CBF5C CURRENT (30) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CBF5C CURRENT (220) */
 void func_150CBF5C(void *arg0) {
-    *(s16 *)((u8 *)arg0 + 0x1C) = 0x20;
-    *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) | 1);
+    s32 temp_t6;
+    s32 temp_t7;
+    s16 temp_t8;
+
+    temp_t6 = *(s32 *)((u8 *)arg0 + 0x58);
+    temp_t7 = temp_t6 | 1;
+    temp_t8 = 0x20;
+    *(s16 *)((u8 *)arg0 + 0x1C) = temp_t8;
+    *(s32 *)((u8 *)arg0 + 0x58) = temp_t7;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CBF5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F8590/func_150CBF5C.s")

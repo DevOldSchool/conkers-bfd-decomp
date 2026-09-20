@@ -5,20 +5,19 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150F5590
  * - func_150F55C8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F5590 CURRENT (20) */
 void func_150F5590(void *arg0) {
-    *(s16 *)((u8 *)arg0 + 0x38) = (s16) (0x1000 - (*(s16 *)((u8 *)arg0 + 0x24) * 4));
+    s32 temp_v0;
+
+    temp_v0 = 0x1000 - (*(s16 *)((u8 *)arg0 + 0x24) * 4);
+    *(s16 *)((u8 *)arg0 + 0x38) = (s16) temp_v0;
     *(s16 *)((u8 *)arg0 + 0x3A) = (s16) *(s16 *)((u8 *)arg0 + 0x38);
     func_150F55C8(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F5590 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_122A40/func_150F5590.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F55C8 CURRENT (395) */
 void func_150F55C8(void *arg0) {
     s16 temp_t2;
