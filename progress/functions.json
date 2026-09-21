@@ -69251,22 +69251,21 @@
       "symbol": "func_151C6290"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 4,
-        "reason": "CURRENT (4): full instruction/control/register stream matches; only the caller-save byte spill is allocated at sp25 instead of reference sp23. Removing a redundant result mask improved 424 to 4; reordering locals moved the spill to sp27, so the best candidate was restored",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 272,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515BAE0",
           "vram": "0x1515BAE0"
         }
       },
-      "source": "src/game/game_188F90.c",
+      "source": "src/game/done/game_188F90.c",
       "symbol": "func_1515BAE0"
     },
     {

@@ -82,6 +82,10 @@ After the raw base split map is available
                                  Show a focused diff and record it immediately when CURRENT (0).
   diff --watch [--profile us] <work-item-id>
                                  Keep an auto-rebuilding focused diff open while editing.
+  objdiff install               Install the checksum-pinned host objdiff CLI.
+  objdiff compare <id> [<id>...] Compare US candidates with objdiff and asm-differ.
+  objdiff report                Generate a full US CPU-code report for decomp.dev testing.
+  objdiff view <id>             Open an interactive objdiff after preparing both objects.
   first-diff [--profile us]      Report the first difference in a rebuilt ROM.
   mupen [mupen64plus-options]    Run the pinned headless Mupen64Plus debugger on the US ROM.
   mupen-trace --spec <path> --output <build-path> [options]
@@ -790,6 +794,20 @@ case "$command" in
             python3 "$state_tool" setup-check --profile "$selected_profile"
             run_in_container python3 scripts/diff.py "$selected_profile" "$selected_value" --auto-overlay
         fi
+        ;;
+    objdiff)
+        python3 scripts/objdiff.py "$@"
+        ;;
+    objdiff-report-prepare)
+        python3 "$state_tool" setup-check --profile us
+        python3 "$state_tool" progress --check
+        run_in_container_libultra make --silent --jobs 4 profile-libs PROFILE=us
+        run_in_container_libultra make --silent --jobs 4 game-libs
+        run_in_container python3 scripts/objdiff_report.py prepare
+        ;;
+    objdiff-prepare)
+        python3 "$state_tool" setup-check --profile us
+        run_in_container python3 scripts/objdiff.py prepare "$@"
         ;;
     first-diff)
         parse_profile_only "usage: ./conker first-diff [--profile us]" "$@"

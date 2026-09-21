@@ -13892,15 +13892,15 @@
       "functions": [
         "func_1515BAE0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x15BBF0",
           "start": "0x15BAE0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_188F90.c"
+      "source": "src/game/done/game_188F90.c"
     },
     {
       "boundary_evidence": {

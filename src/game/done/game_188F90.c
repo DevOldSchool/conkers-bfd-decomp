@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_188F90.c
  * Boundary evidence: docs/evidence/game_reconciled_pointer_singleton_15bae0.md
- *
- * TODO: Implement these source-unit functions:
- * - func_1515BAE0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_1516972C(u8 *);
@@ -16,10 +11,9 @@ extern s32 (*D_8008B078[])(u8 *);
 extern s32 (*D_8008B07C[])(u8 *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515BAE0 CURRENT (4) */
 void func_1515BAE0(u8 *arg0) {
     s8 temp_v0;
-    s8 temp_v0_2;
+    struct { s8 value; } temp_v0_2;
     u8 var_v1;
 
     var_v1 = 0;
@@ -43,9 +37,9 @@ void func_1515BAE0(u8 *arg0) {
         }
     }
     if (var_v1 != 0) {
-        temp_v0_2 = *(s8 *)(arg0 + 0x39);
-        if (temp_v0_2 != -1) {
-            if (D_8008B07C[temp_v0_2](arg0) != 0) {
+        (temp_v0_2.value) = *(s8 *)(arg0 + 0x39);
+        if ((temp_v0_2.value) != -1) {
+            if (D_8008B07C[(temp_v0_2.value)](arg0) != 0) {
                 func_1516972C(arg0);
             }
         } else {
@@ -53,5 +47,3 @@ void func_1515BAE0(u8 *arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515BAE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_188F90/func_1515BAE0.s")

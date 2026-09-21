@@ -59,5 +59,15 @@
       "repository": "https://github.com/ata4/angrylion-rdp-plus.git",
       "revision": "9c8b9ed3e7d7f00dff8bc872ccdd3fba1a3673fc"
     }
+  },
+  "objdiff_cli": {
+    "repository": "https://github.com/encounter/objdiff",
+    "version": "v3.8.1",
+    "assets": {
+      "objdiff-cli-linux-aarch64": "a84dc05de65eb981c97ca85890bbf2cf8e1def8a4ce062144ecc4d0d686a993a",
+      "objdiff-cli-linux-x86_64": "c8290281e82114bcc1a06ff73061110d3902a177822e750337de2537188e358f",
+      "objdiff-cli-macos-arm64": "98f8275c27900c4fe2248fce3af37617658be49648fa7dbb5b376371f046dfdb",
+      "objdiff-cli-macos-x86_64": "13e2535c252b8ecb6dba76b5aaef0bc03c6e36460c739fe5ac35af16d898501e"
+    }
   }
 }
