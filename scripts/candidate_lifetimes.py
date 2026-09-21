@@ -97,3 +97,67 @@ def lifetime_variants(function: str, declarations: list[re.Match[str]]):
             edits = [(second_decl.start(), second_decl.end(), "")]
             edits.extend((items[i].start, items[i].end, name) for i in second_uses)
             yield replace_spans(function, edits)
+
+
+def stack_variants(function: str, declarations: list[re.Match[str]]):
+    """Pilot storage shapes; keep object lifetimes through function exit.
+
+    No loops, labels, preprocessor directives, or nested declarations are
+    accepted. A scalar wrapper keeps the original type and initialization;
+    member/token rewriting never guesses padding or changes evaluation order.
+    """
+    items = candidate_syntax.tokens(function)
+    if (not declarations or re.search(r"(?m)^\s*#", function)
+            or any(t.text in {"goto", "case", "switch", "for", "while", "do",
+                                  "volatile", "asm", "__asm__", ":"} for t in items)):
+        return
+    end = declarations[-1].end()
+    # Reject nested declarations/shadowing, including unknown typedefs.
+    tail = function[end:]
+    declaration_pattern = declarations[0].re
+    if any(d.group("type") not in {"return", "goto"}
+           for d in declaration_pattern.finditer(tail)):
+        return
+    for declaration in declarations:
+        name = declaration.group("name")
+        uses = [i for i, t in enumerate(items) if t.start >= end and t.text == name
+                and items[i - 1].text not in (".", "->")]
+        if not uses or any(
+            (candidate_syntax.IDENTIFIER.fullmatch(items[i - 1].text)
+             and items[i - 1].text not in {"return", "sizeof"})
+            or items[i - 1].text == "*" for i in uses
+        ):
+            continue
+        first = uses[0]
+        # A top-level aggregate member assignment after an early guard can
+        # acquire a suffix scope without shortening any escaped address's life.
+        depth = sum((t.text == "{") - (t.text == "}") for t in items[:first])
+        if (depth == 1 and items[first - 1].text in (";", "}")
+                and items[first + 1].text == "."
+                and first + 3 < len(items) and items[first + 3].text == "="
+                and function[end:items[first].start].strip()):
+            yield replace_spans(function, [
+                (declaration.start(), declaration.end(), ""),
+                (items[first].start, items[first].start,
+                 "{\n" + declaration.group(0) + "\n" + declaration.group("indent")),
+                (function.rfind("}"), function.rfind("}"), "    }\n"),
+            ])
+    for declaration in declarations:
+        name, type_name = declaration.group("name", "type")
+        if not re.fullmatch(r"[su](?:8|16|32)|f32", type_name):
+            continue
+        uses = [i for i, t in enumerate(items) if t.start >= end and t.text == name
+                and items[i - 1].text not in (".", "->")]
+        if not uses or any(
+            (candidate_syntax.IDENTIFIER.fullmatch(items[i - 1].text)
+             and items[i - 1].text not in {"return", "sizeof"})
+            or items[i - 1].text == "*" for i in uses
+        ):
+            continue
+        # A same-name wrapper avoids collisions. Keep the member name unique
+        # to this object and leave sizeof and address-taking expressions valid.
+        replacement = (declaration.group("indent") + "struct { " + type_name
+                       + " value; } " + name + ";")
+        edits = [(declaration.start(), declaration.end(), replacement)]
+        edits.extend((items[i].start, items[i].end, "(" + name + ".value)") for i in uses)
+        yield replace_spans(function, edits)

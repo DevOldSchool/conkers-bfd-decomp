@@ -48,9 +48,53 @@ loop_1:
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D87E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D87E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8868.s")
+void func_1501C17C(u8);
+void func_1501C010(u8, u8);
+void func_1516972C(void *);
+extern void (*D_8008FCC0[])(void *);
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8A24 CURRENT (1267) */
+void func_151D8A24(void *arg0) {
+    u8 sp23;
+    s32 var_s0;
+    s32 var_v0;
+    s8 temp_v0;
+
+    sp23 = 0;
+    if (*(u8 *)((u8 *)arg0 + 0xE) & 1) {
+        *(s16 *)((u8 *)arg0 + 0x10) =
+            *(s16 *)((u8 *)arg0 + 0x10) - D_800BE9E4;
+        if (*(s16 *)((u8 *)arg0 + 0x10) < 0) {
+            sp23 = 1;
+        }
+    }
+    temp_v0 = *(s8 *)((u8 *)arg0 + 0x14);
+    if (temp_v0 != -1) {
+        D_8008FCC0[temp_v0](arg0);
+    }
+    var_s0 = 0;
+    var_v0 = 0;
+    if (*(u8 *)((u8 *)arg0 + 0x12) != *(u8 *)((u8 *)arg0 + 0x16)) {
+        do {
+            if (*(u8 *)((u8 *)arg0 + 0x13) & (1 << var_v0)) {
+                func_1501C17C(var_s0 & 0xFF);
+                func_1501C010(var_s0 & 0xFF,
+                              *(u8 *)((u8 *)arg0 + 0x12));
+            }
+            var_v0 = (var_s0 + 1) & 0xFF;
+            var_s0 = var_v0;
+        } while (var_v0 < 4);
+        *(u8 *)((u8 *)arg0 + 0x16) = *(u8 *)((u8 *)arg0 + 0x12);
+    }
+    if (sp23 != 0) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D8A24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_205C90/func_151D8A24.s")
 /* Call context: func_1501C17C: unique active project prototype */
-void func_1501C17C(s32);
+void func_1501C17C(u8);
 void func_151D8B24(s32);
 void func_1516972C(void *arg0);
 

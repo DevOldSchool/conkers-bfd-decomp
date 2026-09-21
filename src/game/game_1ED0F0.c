@@ -15,7 +15,6 @@
  * - func_151C0698
  * - func_151C1180
  * - func_151C1570
- * - func_151C1654
  * - func_151C1814
  * - func_151C196C
  * - func_151C1D5C
@@ -287,7 +286,32 @@ void func_151C1628(s32 arg0) {
     func_151C1570(arg0);
     func_1513259C(arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C1654.s")
+void func_151D40D4(void *, s32, s32, s32, s32, s32, s32, s32);
+void func_151D42E8(void *, s32, s32, s32, s32);
+extern void (*D_800E0934)(s32, s32, s32);
+
+void func_151C1654(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
+    if (D_800E0934 != 0) {
+        D_800E0934((s32)*(f32 *)((u8 *)arg0 + 0),
+                   (s32)*(f32 *)((u8 *)arg0 + 4),
+                   (s32)*(f32 *)((u8 *)arg0 + 8));
+    }
+    switch (arg3) {
+    case 1:
+        func_151D42E8(arg0, arg1, arg2, arg4, 0x24);
+        return;
+    case 2:
+        func_151D42E8(arg0, arg1, arg2, arg4, 0x25);
+        return;
+    case 3:
+        func_151D40D4(arg0, arg1, arg2, 0, arg4, 0x16, 0x26, 0);
+        return;
+    default:
+    case 0:
+        func_151D40D4(arg0, arg1, arg2, 0, arg4, 0x16, 0x15, 0);
+        return;
+    }
+}
 typedef struct {
     f32 x;
     f32 y;

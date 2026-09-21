@@ -10,7 +10,9 @@ import re
 import subprocess
 import sys
 from pathlib import Path
+from typing import Callable
 
+import candidate_tables
 import compile_c
 from m2c import extract_function, locate_function, registered_symbols
 import project_state
@@ -458,6 +460,7 @@ def run_required_asm_diff(
     expected_size: int,
     *,
     compact_mismatch: bool = False,
+    table_check: Callable[[], None] | None = None,
 ) -> int:
     """Verify an exact match; optionally summarize the same mismatch evidence."""
 
@@ -485,6 +488,8 @@ def run_required_asm_diff(
         return EXIT_BLOCKED_TOOLING
     try:
         require_zero_difference(result.stdout, symbol)
+        if table_check is not None:
+            table_check()
     except NonzeroDifferenceError as error:
         if compact_mismatch:
             try:
@@ -499,7 +504,7 @@ def run_required_asm_diff(
             run_asm_diff(display_command, directory)
         print(f"error: {error}", file=sys.stderr)
         return EXIT_MISMATCH
-    except ValueError as error:
+    except (ValueError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
         return EXIT_BLOCKED_TOOLING
     print(f"{symbol}: CURRENT (0)")
@@ -637,6 +642,30 @@ def diff_row_category(row: dict) -> str | None:
     return "operand_or_constant"
 
 
+def is_stack_difference(row: dict) -> bool:
+    """Accept only identical opcodes/registers with one changed SP immediate."""
+    if diff_row_category(row) != "operand_or_constant":
+        return False
+    mnemonic = row.get("base", {}).get("mnemonic")
+    if mnemonic not in {"addiu", "addi", "lw", "sw", "lh", "lhu", "sh", "lb", "lbu", "sb", "lwc1", "swc1", "ldc1", "sdc1"}:
+        return False
+    normalized = []
+    for side in ("base", "current"):
+        text = instruction_text(row, side) or ""
+        match = re.search(rf"(?<!\S){mnemonic}\s+(.+)$", text)
+        if not match:
+            return False
+        operands = re.sub(r"\s+", "", match[1]).replace("$", "")
+        immediate = r"-?(?:0x[0-9a-fA-F]+|[0-9]+)"
+        pattern = (rf"(?<=,sp,){immediate}$" if mnemonic in {"addi", "addiu"}
+                   else rf"{immediate}(?=\(sp\)$)")
+        operands, count = re.subn(pattern, "<slot>", operands)
+        if count != 1:
+            return False
+        normalized.append(operands)
+    return normalized[0] == normalized[1]
+
+
 def classify_diff_rows(rows: list[dict]) -> dict[str, int]:
     """Summarize asm-differ rows into actionable source-shaping categories."""
 
@@ -653,11 +682,14 @@ def classify_diff_rows(rows: list[dict]) -> dict[str, int]:
     return counts
 
 
-def print_diagnosis(symbol: str, score: int, counts: dict[str, int]) -> None:
+def print_diagnosis(symbol: str, score: int, counts: dict[str, int], stack_rows: int = 0) -> None:
     print(f"{symbol}: CURRENT ({score})")
     for category, count in counts.items():
         print(f"{category.replace('_', '-')}: {count}")
-    if score and counts["register_only"] and not any(
+    print(f"stack-rows: {stack_rows}")
+    if score and stack_rows and stack_rows == counts["operand_or_constant"] and not (counts["opcode_or_control_flow"] or counts["missing_or_extra"]):
+        print("recommendation: bounded stack-shape probe")
+    elif score and counts["register_only"] and not any(
         count for category, count in counts.items() if category != "register_only"
     ):
         print("recommendation: bounded declaration/lifetime permutation")
@@ -686,7 +718,7 @@ def print_compact_mismatch(output: str, symbol: str, directory: Path) -> None:
         temporary = path.with_suffix(path.suffix + ".tmp")
         temporary.write_text(content, encoding="utf-8")
         temporary.replace(path)
-    print_diagnosis(symbol, score, counts)
+    print_diagnosis(symbol, score, counts, sum(is_stack_difference(row) for row in rows))
     differing = [line for row, line in zip(rows, lines) if diff_row_category(row) is not None]
     print(f"diff-excerpt: first {min(5, len(differing))} of {len(differing)} differing rows (reference | candidate)")
     for line in differing[:5]:
@@ -701,6 +733,7 @@ def run_diagnose_diff(
     symbol: str,
     directory: Path,
     expected_size: int,
+    *, table_check: Callable[[], None] | None = None,
 ) -> int:
     try:
         result = subprocess.run(
@@ -726,7 +759,9 @@ def run_diagnose_diff(
         if score:
             print_compact_mismatch(result.stdout, symbol, directory)
         else:
-            print_diagnosis(symbol, score, counts)
+            if table_check is not None:
+                table_check()
+            print_diagnosis(symbol, score, counts, sum(is_stack_difference(row) for row in rows))
     except (json.JSONDecodeError, ValueError, OSError) as error:
         print(f"error: asm-differ returned invalid diagnostic evidence: {error}", file=sys.stderr)
         return EXIT_BLOCKED_TOOLING
@@ -807,17 +842,21 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
         return EXIT_BLOCKED_TOOLING
 
+    table_options = {}
+    if arguments.profile == "us" and game_reference:
+        table_options["table_check"] = lambda: candidate_tables.verify_candidate(
+            candidate, symbol, reference_assembly, expected_size)
     directory = write_settings(arguments.profile, source)
     if arguments.score_only:
         return run_score_only_diff(candidate, reference, symbol, directory, expected_size)
     if arguments.diagnose:
         return run_diagnose_diff(
-            candidate, reference, symbol, directory, expected_size
+            candidate, reference, symbol, directory, expected_size, **table_options
         )
     if arguments.require_match:
         return run_required_asm_diff(
             candidate, reference, symbol, directory, expected_size,
-            compact_mismatch=arguments.compact_mismatch,
+            compact_mismatch=arguments.compact_mismatch, **table_options,
         )
     command = asm_diff_command(
         candidate,

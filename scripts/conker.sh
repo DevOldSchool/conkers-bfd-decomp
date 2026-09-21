@@ -53,7 +53,7 @@ Getting started
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
   blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
-           [--exhaustive] (disable plateau stopping)
+           [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
            [--defer-best] [--skip-final-build] [--report PATH] [--restart] [--verbose] [--model-tokens N]
            [--analyze]
                                  Process raw and deferred ASM-to-C candidates. --function runs one
@@ -66,7 +66,7 @@ Getting started
   reopen-match <work-item-id> --reason <text>
                                  Preserve an invalidated match and restore its GLOBAL_ASM safely.
   diagnose-diff <work-item-id>   Classify a live or deferred candidate's focused differences.
-  permute <work-item-id> [--budget N] [--exhaustive]
+  permute <work-item-id> [--budget N] [--exhaustive] [--stack-shapes]
                                  Search safe declaration/lifetime and expression-form variants.
   finish [--profile us] <work-item-id>
                                  Record CURRENT (0), then check progress and whitespace.

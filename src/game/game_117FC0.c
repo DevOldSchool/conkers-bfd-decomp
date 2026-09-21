@@ -129,4 +129,54 @@ void func_150EAB10(Game117FC0Actor *arg0) {
         } while (emitter->values[12] > 1.0f);
     }
 }
+typedef struct {
+    u8 pad0[0xE];
+    s16 x;
+    s16 height;
+    s16 y;
+} Game117FC0Position;
+
+typedef struct {
+    u8 pad0[0x14];
+    Game117FC0Position *position;
+    f32 x;
+    f32 y;
+    f32 velocityX;
+    f32 velocityY;
+    f32 z;
+    s32 field2C;
+    f32 timer;
+    f32 alternateHeight;
+} Game117FC0Motion;
+
+s32 func_15046C80(f32 *, s32, s32, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EAE24 CURRENT (955) */
+s32 func_150EAE24(Game117FC0Motion *arg0) {
+    f32 position[4];
+    s32 result;
+    void *values;
+
+    arg0->x += arg0->velocityX * D_800BE9A4;
+    arg0->y += arg0->velocityY * D_800BE9A4;
+    position[0] = arg0->x;
+    position[1] = arg0->z;
+    position[2] = arg0->y;
+    arg0->position->x = (s16) (s32) arg0->x;
+    arg0->position->y = (s16) (s32) arg0->y;
+    if (func_15046C80(position, 0, arg0->field2C, &arg0->alternateHeight) != 0) {
+        values = &arg0->x;
+        arg0->position->height = (s16) (s32) *((f32 *) ((u8 *) values + 0x1C));
+    } else {
+        values = &arg0->x;
+        arg0->position->height = (s16) (s32) *((f32 *) ((u8 *) values + 0x10));
+    }
+    *((f32 *) ((u8 *) values + 0x18)) -= D_800BE9A4;
+    result = 1;
+    if (*((f32 *) ((u8 *) values + 0x18)) <= 0.0f) {
+        result = 0;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150EAE24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_117FC0/func_150EAE24.s")

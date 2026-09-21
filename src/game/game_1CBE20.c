@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1519E970
- * - func_1519EA78
  * - func_1519EB8C
  * - func_1519ED24
  *
@@ -71,7 +70,65 @@ void func_1519EA04(Game1CBE20Effect *arg0) {
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EA78.s")
+typedef struct Game1CBE20WordVector {
+    s32 x;
+    s32 y;
+    s32 z;
+} Game1CBE20WordVector;
+
+typedef struct Game1CBE20ParticleConfig {
+    s32 field_00;
+    s32 field_04;
+    Game1CBE20WordVector position;
+    s16 field_14;
+    s16 field_16;
+    s16 field_18;
+    s16 field_1A;
+    f32 field_1C;
+    f32 field_20;
+    f32 field_24;
+    f32 field_28;
+    s16 field_2C;
+    s16 field_2E;
+    f32 field_30;
+    f32 field_34;
+    f32 field_38;
+} Game1CBE20ParticleConfig;
+
+void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+extern f32 D_800A8CC0;
+extern f32 D_800A8CC4;
+extern f32 D_800A8CC8;
+extern f32 D_800A8CCC;
+extern f32 D_800A8CD0;
+
+void func_1519EA78(Game1CBE20WordVector *arg0, u16 arg1, f32 arg2, u8 arg3,
+                   s32 arg4) {
+    Game1CBE20ParticleConfig config;
+    s32 local_arg1;
+    f32 local_arg2;
+
+    config.field_00 = 0xA;
+    config.field_04 = 7;
+    config.position = *arg0;
+    config.field_1C = 10.0f;
+    config.field_20 = 8.0f;
+    config.field_14 = 0;
+    config.field_16 = 0xFF;
+    config.field_18 = -0x35;
+    config.field_1A = 0x18;
+    config.field_2C = 0x32;
+    config.field_2E = 0x14;
+    local_arg2 = arg2;
+    config.field_24 = D_800A8CC0;
+    config.field_28 = D_800A8CC4;
+    config.field_30 = D_800A8CC8;
+    config.field_34 = D_800A8CCC;
+    config.field_38 = D_800A8CD0;
+    local_arg1 = arg1;
+    func_15152190(&config, &local_arg1, &local_arg2, 1, 0.0f, 0, arg3,
+                  arg4);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EB8C.s")
 extern f32 D_800A8CD8;
 

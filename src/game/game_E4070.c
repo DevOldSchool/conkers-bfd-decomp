@@ -14,7 +14,6 @@
  * - func_150B71A8
  * - func_150B7220
  * - func_150B73F0
- * - func_150B7560
  * - func_150B76BC
  * - func_150B77A8
  * - func_150B791C
@@ -282,7 +281,41 @@ void func_150B7484(void) {
     D_800D9898 = func_15169968(&descriptor);
     D_800D9890 = 3;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B7560.s")
+void func_150B7560(void) {
+    GameE4070Descriptor descriptor;
+
+    if (D_800D9898 != 0) {
+        func_1516972C(D_800D9898);
+        D_800D9898 = 0;
+    }
+    descriptor.position[2] = 0x4D;
+    descriptor.field31 = 0xF;
+    descriptor.position[0] = 0;
+    descriptor.position[1] = 0;
+    descriptor.field2C = 0x58;
+    descriptor.field2E = 0x58;
+    descriptor.field30 = 0;
+    descriptor.resource = &D_800918DC;
+    descriptor.field24 = 0;
+    descriptor.field26 = 0;
+    descriptor.field32 = 0xFF;
+    descriptor.field33 = 0;
+    descriptor.field34 = 0;
+    descriptor.field35 = 0xFF;
+    descriptor.field36 = 7;
+    descriptor.field37 = 0x11;
+    descriptor.field38 = 1;
+    descriptor.field39 = 0;
+    descriptor.field28 = 0x1000;
+    descriptor.field2A = 0x1000;
+    descriptor.scale_x = 60.0f;
+    descriptor.scale_y = 60.0f;
+    if (D_800D98A4 != 0) {
+        func_1516972C(D_800D98A4);
+    }
+    D_800D98A4 = func_15169968(&descriptor);
+    D_800D9890 = 3;
+}
 void func_150B76BC(s32 arg0, s32 arg1);
 extern s8 D_800D9890;
 

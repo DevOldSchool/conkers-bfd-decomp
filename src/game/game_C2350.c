@@ -116,7 +116,61 @@ void func_15095060(GameC2350Input *arg0, s32 arg1, GameC2350Owner *arg2) {
     D_800D2C90.field_A = arg0->field_4;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_150950D4.s")
+void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
+extern s32 D_80082FA4;
+extern f32 D_800D9B20;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509563C CURRENT (1375) */
+s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
+                  f32 *arg5, f32 *arg6, f32 arg7) {
+    u8 *temp_v1;
+
+    func_150A7A00(D_800D2CA8 + (D_80082FA4 << 6), arg0, arg1, arg2,
+                  arg3, arg4, arg5, arg6);
+    arg1 = *arg6;
+    if ((arg7 <= arg1) || (arg1 <= D_800D9B20)) {
+        return 0;
+    }
+    arg0 = 1.0f / arg1;
+    temp_v1 = (u8 *)D_800BE628 + (D_80082FA4 * 0x180);
+    *arg3 = ((*(f32 *)(temp_v1 + 0xC) + 5.0f) * *arg3 * arg0) +
+            *(f32 *)(temp_v1 + 0x34);
+    *arg4 = *(f32 *)(temp_v1 + 0x38) -
+            ((*(f32 *)(temp_v1 + 0x10) + 5.0f) * *arg4 * arg0);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509563C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_1509563C.s")
+s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
+s32 func_15095A90(s32, void *, f32, f32, f32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15095760 CURRENT (1543) */
+void *func_15095760(u8 *display, s16 *input) {
+    f32 sp44;
+    f32 sp40;
+    f32 sp3C;
+    f32 sp38;
+    u8 *record;
+    f32 projection;
+
+    if (func_1509563C((f32)input[0], (f32)input[1], (f32)input[2],
+                      &sp44, &sp40, &sp3C, &sp38, 4000.0f) == 0) {
+        return display;
+    }
+    *(s32 *)display = 0xE7000000;
+    *(s32 *)(display + 4) = 0;
+    display += 8;
+    *(s32 *)display = 0xEE000000;
+    record = (u8 *)(D_800BE628 + D_80082FA4 * 0x180 + D_800BE9C0 * 0x10);
+    projection = sp3C / sp38;
+    *(s32 *)(display + 4) =
+        ((s32)(((f32)*(s16 *)(record + 0x4C) +
+                projection * (f32)*(s16 *)(record + 0x44)) * 32.0f)) << 16;
+    display += 8;
+    return (void *)func_15095A90((s32)display, input, sp44, sp40,
+                                 sp38, 1, 0, 0, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15095760 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_15095760.s")
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32); /* extern */
 extern f32 D_8009DEC0;

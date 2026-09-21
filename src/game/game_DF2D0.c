@@ -7,12 +7,11 @@
  * TODO: Implement these source-unit functions:
  * - func_150B1EE0
  * - func_150B1F90
- * - func_150B2340
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_1509BE40(s32, s32, s32, s32);
+s32 func_1509BE40();
 
 void func_150B1E20(void *arg0) {
     void *state;
@@ -60,4 +59,33 @@ void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B1EE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B1EE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B1F90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B2340.s")
+void func_150B2340(void *arg0) {
+    s32 sp24;
+    s32 sp20;
+    s32 first;
+    u8 *state;
+
+    state = arg0;
+    first = func_1509BE40(0, 0x2007, 0xB7);
+    sp24 = func_1509BE40(0, first | 0x2000, 0xBC);
+    sp20 = func_1509BE40(0, 0x2000, 0xBB);
+    if (func_1509BE40(0, 0x5043, 0x1A) != 0) {
+        if (func_1509BE40(0, 0x5045, 0x1A) != 0) {
+            *(s32 *)(state + 0x84) |= 0x4000;
+        }
+        *(s32 *)(state + 0x84) |= 0x400000;
+        *(f32 *)(state + 0x190) = 0.0f;
+    } else if (func_1509BE40(1, 0x4030, 6, 0x2000) != 0) {
+        *(f32 *)(state + 0x190) = 235.0f;
+    } else {
+        *(f32 *)(state + 0x348) = 114.0f;
+        *(f32 *)(state + 0x34C) = 114.0f;
+        *(f32 *)(state + 0x374) = 384.0f;
+        *(f32 *)(state + 0x190) = 60.0f;
+    }
+    if ((sp24 != 0) && (sp20 != -1)) {
+        *(s32 *)(state + 0x5F0) |= 0x100;
+    } else {
+        *(s32 *)(state + 0x5F0) &= ~0x100;
+    }
+}

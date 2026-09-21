@@ -70,6 +70,59 @@ s32 func_1514A19C(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514A19C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A19C.s")
+void func_1513F680(void *, s32, s32, s32, u8);
+extern f32 D_800A57A0;
+extern f32 D_800A57A4;
+extern f32 D_800A57A8;
+extern f32 D_800A57AC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A380 CURRENT (805) */
+s32 func_1514A380(void *arg0) {
+    f32 temp_fv0;
+    f32 temp_fv0_2;
+    s32 var_v1;
+    u8 temp_t8;
+    u8 var_v0;
+    void *temp_v0;
+    void *temp_v0_2;
+
+    var_v0 = *(u8 *)((u8 *)arg0 + 0x74);
+    var_v1 = 1;
+    if (!(var_v0 & 2)) {
+        temp_v0 = (u8 *)arg0 + 0x110;
+        temp_fv0 = *(f32 *)((u8 *)arg0 + 0x2C);
+        *(f32 *)((u8 *)arg0 + 0x2C) =
+            temp_fv0 + ((*(f32 *)((u8 *)temp_v0 + 8) - temp_fv0) * D_800A57A0);
+        if ((*(f32 *)((u8 *)temp_v0 + 8) * D_800A57A4) <
+            *(f32 *)((u8 *)arg0 + 0x2C)) {
+            temp_t8 = *(u8 *)((u8 *)arg0 + 0x74) | 2;
+            *(u8 *)((u8 *)arg0 + 0x74) = temp_t8;
+            var_v0 = temp_t8;
+        } else {
+            var_v1 = 0;
+            var_v0 = *(u8 *)((u8 *)arg0 + 0x74);
+        }
+    }
+    temp_v0_2 = (u8 *)arg0 + 0x110;
+    if (!(var_v0 & 8)) {
+        temp_fv0_2 = *(f32 *)((u8 *)arg0 + 0x30);
+        *(f32 *)((u8 *)arg0 + 0x30) =
+            temp_fv0_2 + ((*(f32 *)((u8 *)temp_v0_2 + 0x18) - temp_fv0_2) * D_800A57A8);
+        if ((*(f32 *)((u8 *)temp_v0_2 + 0x18) * D_800A57AC) <
+            *(f32 *)((u8 *)arg0 + 0x30)) {
+            *(u8 *)((u8 *)arg0 + 0x74) |= 8;
+        } else {
+            var_v1 = 0;
+        }
+    }
+    if (var_v1 != 0) {
+        func_1513F680(arg0, *(u8 *)((u8 *)arg0 + 0x70), 4,
+                       *(u8 *)((u8 *)arg0 + 0x72),
+                       *(u8 *)((u8 *)arg0 + 0x73));
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514A380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A380.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A498 CURRENT (10) */
 s32 func_1514A498(void *arg0) {

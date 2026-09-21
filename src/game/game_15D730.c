@@ -342,11 +342,48 @@ void func_15131958(void *arg0, f32 arg1) {
         } while (var_v0 > 0);
     }
 }
-void func_151319C4(void *arg0, s32 arg1, void *arg2);
+s32 func_151319C4(void *arg0, s32 arg1, void *arg2);
 
 void func_151319A4(void *arg0, s32 arg1) {
     func_151319C4(arg0, arg1, (u8 *)arg0 + 0xA8);
 }
+s32 func_1514672C(f32 *);
+s32 func_15046C80(f32 *, u16, f32, void *);
+extern s32 (*D_80089874[])();
+extern f32 D_800A3844;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151319C4 CURRENT (240) */
+s32 func_151319C4(void *arg0, s32 arg1, void *arg2) {
+    u8 result;
+    f32 position[3];
+    f32 output[3];
+    s8 index;
+
+    result = 1;
+    if ((*(u8 *)arg2 & 1) &&
+        ((index = *(s8 *)((u8 *)arg2 + 1)) != -1) &&
+        (D_80089874[index] != 0) &&
+        (*(f32 *)((u8 *)arg0 + 0x44) < *(f32 *)(arg1 + 4))) {
+        position[0] = *(f32 *)((u8 *)arg0 + 0x40);
+        position[1] = *(f32 *)(arg1 + 4);
+        position[2] = *(f32 *)((u8 *)arg0 + 0x48);
+        if (func_1514672C(position) == 0) {
+            return 0;
+        }
+        if (func_15046C80(position, 0,
+                          *(f32 *)((u8 *)arg0 + 0x44) -
+                              (*(f32 *)((u8 *)arg0 + 0x3C) * D_800A3844),
+                          (u8 *)arg0 + 0x80) != 0) {
+            output[0] = position[0];
+            output[1] = *(f32 *)((u8 *)arg0 + 0x80);
+            output[2] = position[2];
+            result = D_80089874[*(s8 *)((u8 *)arg2 + 1)](
+                arg0, arg1, output, arg2);
+        }
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151319C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151319C4.s")
 /* Call context: func_15131958: unique active project prototype */
 /* Call context: func_151319C4: unique active project prototype */

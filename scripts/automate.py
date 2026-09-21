@@ -49,6 +49,7 @@ FINGERPRINT_INPUTS = (
     "scripts/candidate_rewrites.py",
     "scripts/candidate_syntax.py",
     "scripts/candidate_lifetimes.py",
+    "scripts/candidate_tables.py",
     "scripts/declaration_facts.py",
     "scripts/m2c.py",
     "scripts/rzip_archive.py",
@@ -69,9 +70,10 @@ STAGE_INPUTS = {
         "scripts/diff.py",
         "toolchain/tools.lock.json",
     ),
-    "diff": ("scripts/diff.py",),
+    "diff": ("scripts/diff.py", "scripts/candidate_tables.py"),
     "permute": (
         "scripts/permute.py",
+        "scripts/candidate_tables.py",
         "scripts/candidate_lifetimes.py",
         "scripts/candidate_rewrites.py",
         "scripts/candidate_syntax.py",
@@ -136,6 +138,14 @@ class AttemptResult:
 class Diagnosis:
     current_score: int
     counts: dict[str, int]
+    stack_rows: int = 0
+
+    @property
+    def is_stack_mismatch(self) -> bool:
+        return (self.current_score > 0 and self.stack_rows > 0
+                and self.counts["operand-or-constant"] == self.stack_rows
+                and self.counts["opcode-or-control-flow"] == 0
+                and self.counts["missing-or-extra"] == 0)
 
     @property
     def is_register_only(self) -> bool:
@@ -155,9 +165,11 @@ class Diagnosis:
             and 1 <= self.counts["missing-or-extra"] <= 3
         )
 
-    def search_budget(self, budget: int) -> int | None:
+    def search_budget(self, budget: int, *, stack_shapes: bool = False) -> int | None:
         if self.current_score == 0:
             return 1
+        if stack_shapes and self.is_stack_mismatch:
+            return min(budget, 8)
         if self.is_register_only:
             return budget
         if self.is_small_register_mismatch:
@@ -209,6 +221,8 @@ def parse_args(arguments: list[str] | None = None) -> argparse.Namespace:
         default=32,
         help="maximum source-shape variants per candidate (default: 32)",
     )
+    parser.add_argument("--stack-shapes", action="store_true",
+                        help="pilot evidence-checked stack-only candidate probes")
     parser.add_argument("--exhaustive", action="store_true",
                         help="use the full rewrite budget instead of stopping searches on a plateau")
     parser.add_argument(
@@ -282,6 +296,7 @@ def run_fingerprint(tool_fingerprint: str, args: argparse.Namespace) -> str:
         "mode": "analyze" if args.analyze else "execute",
         "rewrite_budget": args.rewrite_budget,
         "exhaustive": args.exhaustive,
+        "stack_shapes": getattr(args, "stack_shapes", False),
     }
     digest = hashlib.sha256()
     digest.update(f"run-fingerprint-v{FINGERPRINT_VERSION}\0".encode())
@@ -353,6 +368,8 @@ def stage_fingerprint_seeds(args: argparse.Namespace) -> dict[str, str]:
         settings: dict[str, object] = {
             "mode": "analyze" if args.analyze else "execute"
         }
+        if stage in {"diff", "permute"}:
+            settings["stack_shapes"] = getattr(args, "stack_shapes", False)
         if stage == "permute":
             settings.update(
                 rewrite_budget=args.rewrite_budget,
@@ -396,7 +413,7 @@ def classify_attempt(result: AttemptResult) -> AttemptResult:
         return replace(result, stage="m2c", blocker_code="m2c_failure")
     if "layout gate" in detail or "source-unit layout mismatch" in detail:
         return replace(result, stage="finish", blocker_code="layout_gate")
-    if "not register-allocation-only" in detail:
+    if "not register-allocation-only" in detail or "no supported targeted search" in detail:
         return replace(result, stage="diff", blocker_code="structural_mismatch")
     if "diagnostic preflight failed" in detail:
         return replace(result, stage="diff", blocker_code="diagnostic_failure")
@@ -535,7 +552,8 @@ def parse_diagnosis(output: str) -> Diagnosis:
         raise automation_common.AutomationError(
             "diagnose-diff returned incomplete classification evidence"
         )
-    return Diagnosis(int(score_match.group("score")), counts)
+    stack = re.search(r"(?m)^stack-rows: (\d+)$", output)
+    return Diagnosis(int(score_match.group("score")), counts, int(stack[1]) if stack else 0)
 
 
 def candidate_block(prepared: candidate_rewrites.PreparedCandidate) -> str:
@@ -772,6 +790,7 @@ def try_raw_candidate(
     defer_best: bool,
     verbose: bool = True,
     exhaustive: bool = False,
+    stack_shapes: bool = False,
     checkpoint: SourceCheckpoint,
 ) -> AttemptResult:
     prepare_candidate_log(candidate.identifier, verbose=verbose)
@@ -942,7 +961,7 @@ def try_raw_candidate(
             repair_actions=tuple(dict.fromkeys(repair_actions)),
         )
 
-    search_budget = diagnosis.search_budget(budget)
+    search_budget = diagnosis.search_budget(budget, stack_shapes=stack_shapes)
     if search_budget is None:
         try:
             candidate_artifact, diagnostic_log = save_failure_artifacts(
@@ -950,7 +969,7 @@ def try_raw_candidate(
             )
         finally:
             source.write_bytes(original)
-        detail = f"CURRENT ({initial_score}) is not register-allocation-only"
+        detail = f"CURRENT ({initial_score}) has no supported targeted search"
         if verbose:
             print(f"SKIP {candidate.identifier}: {detail}; candidate saved")
         return AttemptResult(
@@ -968,6 +987,7 @@ def try_raw_candidate(
             candidate.identifier,
             "--budget",
             str(search_budget),
+            *(["--stack-shapes"] if diagnosis.is_stack_mismatch else []),
             *(["--exhaustive"] if exhaustive else []),
         ],
         verbose=verbose,
@@ -1075,6 +1095,7 @@ def try_deferred_candidate(
     budget: int,
     verbose: bool = True,
     exhaustive: bool = False,
+    stack_shapes: bool = False,
     checkpoint: SourceCheckpoint,
 ) -> AttemptResult:
     prepare_candidate_log(candidate.identifier, verbose=verbose)
@@ -1232,9 +1253,9 @@ def try_deferred_candidate(
         if preparation_actions and retention_score is not None
         else diagnosis.current_score
     )
-    search_budget = diagnosis.search_budget(budget)
+    search_budget = diagnosis.search_budget(budget, stack_shapes=stack_shapes)
     if search_budget is None:
-        detail = f"CURRENT ({diagnosis.current_score}) is not register-allocation-only"
+        detail = f"CURRENT ({diagnosis.current_score}) has no supported targeted search"
         outcome = "skipped"
         if preparation_improved:
             detail += "; improved deferred candidate retained"
@@ -1275,6 +1296,7 @@ def try_deferred_candidate(
                 candidate.identifier,
                 "--budget",
                 str(search_budget),
+                *(["--stack-shapes"] if diagnosis.is_stack_mismatch else []),
                 *(["--exhaustive"] if exhaustive else []),
             ],
             verbose=verbose,
@@ -1808,6 +1830,7 @@ def main(arguments: list[str] | None = None) -> int:
                     defer_best=args.defer_best,
                     verbose=not compact,
                     exhaustive=args.exhaustive,
+                    stack_shapes=args.stack_shapes,
                 )
             else:
                 result = try_deferred_candidate(
@@ -1815,6 +1838,7 @@ def main(arguments: list[str] | None = None) -> int:
                     budget=args.rewrite_budget,
                     verbose=not compact,
                     exhaustive=args.exhaustive,
+                    stack_shapes=args.stack_shapes,
                 )
             log = candidate_log_path(candidate.identifier)
             result = classify_attempt(result)

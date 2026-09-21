@@ -246,6 +246,55 @@ void *func_1509B950(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BBA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BE40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BFB0.s")
+s32 func_150ADA20(void);
+extern void *D_800D2E4C;
+
+typedef struct {
+    void *old;
+    void *entries[4];
+} GameC8950SwapLocals;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C120 CURRENT (1144) */
+void func_1509C120(void) {
+    GameC8950SwapLocals locals;
+    s32 temp_s1;
+    s32 temp_s2;
+    void **var_s0_2;
+    s32 temp_s3;
+    s32 var_s0;
+
+    temp_s3 = func_150ADA20() & 3;
+    locals.old = D_800D2E4C;
+    if ((D_800D2E4C == 0) || (func_150ADA20() & 4)) {
+        var_s0 = 0;
+        if (temp_s3 >= 0) {
+            var_s0_2 = &locals.entries[0];
+            temp_s1 = (s32)&var_s0_2[temp_s3 + 1];
+            do {
+                *var_s0_2 = func_10003C40(0x1B, 0xFF, 2, 0);
+                var_s0_2++;
+            } while (temp_s1 != (s32)var_s0_2);
+            var_s0 = 0;
+        }
+        if (temp_s3 >= 0) {
+            temp_s1 = temp_s3 + 1;
+            temp_s2 = (s32)&locals.entries[0];
+            do {
+                if (var_s0 != temp_s3) {
+                    func_10004074(*(s32 *)(temp_s2 + (var_s0 * 4)));
+                }
+                var_s0++;
+            } while (temp_s1 != var_s0);
+        }
+        temp_s2 = (s32)&locals.entries[0];
+        D_800D2E4C = *(void **)(temp_s2 + (temp_s3 * 4));
+        if (locals.old != 0) {
+            func_10023A10(locals.old, D_800D2E4C, 0x1B);
+            func_10004074((s32)locals.old);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509C120 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509C120.s")
 typedef struct {
     u8 pad0[0xF];
@@ -253,7 +302,6 @@ typedef struct {
 } GameC8950GlobalState;
 
 void func_1509BFB0(s32, s32, s32, s32, s32);
-extern void *D_800D2E4C;
 extern u8 D_800D2E68;
 
 void func_1509C228(void) {

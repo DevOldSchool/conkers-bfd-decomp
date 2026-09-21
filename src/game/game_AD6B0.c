@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15080200
- * - func_15080228
  * - func_15080348
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -24,7 +23,32 @@ void func_15080200(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15080200 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AD6B0/func_15080200.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD6B0/func_15080228.s")
+void func_15080430(u8 *, s32, s32);
+s32 func_100126E8(u8 *, s32);
+extern u8 D_800CC2D0;
+extern u8 D_800D18D0;
+
+void func_15080228(void) {
+    u8 buffer[0x100];
+    s32 var_a2;
+
+    if (func_100126E8(buffer, 0x100) != 0) {
+        do {
+            if (buffer[0] == 0x4C) {
+                var_a2 = buffer[4] & 0x7F;
+                var_a2 = (buffer[5] & 0x7F) | (var_a2 << 7);
+                var_a2 = (buffer[6] & 0x7F) | (var_a2 << 7);
+                var_a2 = (buffer[7] & 0x7F) | (var_a2 << 7);
+                var_a2 /= 367;
+                if (var_a2 == 0) {
+                    var_a2 = 0x14;
+                }
+                func_15080430(&D_800CC2D0 + (D_800D18D0 * 0x32C),
+                              buffer[3] - 1, var_a2);
+            }
+        } while (func_100126E8(buffer, 0x100) != 0);
+    }
+}
 s32 func_151EF610(void);
 extern s32 D_800427F0;
 extern s32 D_8009BD10;

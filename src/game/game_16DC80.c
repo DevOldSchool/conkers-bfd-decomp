@@ -268,6 +268,42 @@ void func_151417C4(s32 arg0, s32 arg1) {
 s32 func_15141818(s32 arg0, s32 arg1) {
     return 0;
 }
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_150A8050(void *, f32, s32, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514182C CURRENT (596) */
+void func_1514182C(void *arg0, void *arg1, s32 arg2, s32 arg3,
+                   f32 arg4, f32 arg5) {
+    struct {
+        f32 matrix[16];
+        f32 tail[3];
+    } transform;
+    f32 scaled_x;
+    f32 scaled_y;
+    f32 scaled_z;
+    f32 temp_fa0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+
+    func_150A8050(transform.matrix, arg4, 0, arg5);
+    transform.matrix[12] = *(f32 *)arg1;
+    transform.matrix[13] = *(f32 *)((u8 *)arg1 + 4);
+    transform.matrix[14] = *(f32 *)((u8 *)arg1 + 8);
+    func_150A7960(transform.matrix, 0.0f, *(f32 *)&arg2, 0.0f,
+                  (f32 *)((u8 *)arg0 + 0x34),
+                  (f32 *)((u8 *)arg0 + 0x38),
+                  (f32 *)((u8 *)arg0 + 0x3C));
+    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x34);
+    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x38);
+    temp_fa0 = *(f32 *)((u8 *)arg0 + 0x3C);
+    scaled_x = (temp_fv0 - *(f32 *)arg1) * *(f32 *)&arg3;
+    scaled_y = (temp_fv1 - *(f32 *)((u8 *)arg1 + 4)) * *(f32 *)&arg3;
+    scaled_z = (temp_fa0 - *(f32 *)((u8 *)arg1 + 8)) * *(f32 *)&arg3;
+    *(f32 *)((u8 *)arg0 + 0x40) = temp_fv0 + (scaled_x * 500.0f);
+    *(f32 *)((u8 *)arg0 + 0x44) = temp_fv1 + (scaled_y * 500.0f);
+    *(f32 *)((u8 *)arg0 + 0x48) = temp_fa0 + (scaled_z * 500.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514182C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_1514182C.s")
 void func_1514182C(void *, void *, s32, s32, f32, f32);
 

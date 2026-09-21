@@ -71,6 +71,26 @@ s32 func_150E33CC(s32 arg0, s32 arg1, void **arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E33CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E33CC.s")
+s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
+s32 func_150E33CC(s32, s32, void **, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E3414 CURRENT (8) */
+s32 func_150E3414(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, f32 arg8) {
+    void *sp44;
+    void *temp_v0;
+
+    temp_v0 = func_150E3020(arg3, arg4, arg5, 0, 0, 0, arg7, arg8, arg6,
+                            (f32) arg0, (f32) arg1, (f32) arg2, 0, -0x63);
+    if (temp_v0 != 0) {
+        sp44 = temp_v0;
+        *(s16 *)((u8 *)sp44 + 0x4A) = func_1000FA64(
+            0x2D0, (s16) arg0, (s16) arg1, (s16) arg2,
+            0x5DC0, 0x1770, 0x3E8, (void *)func_150E33CC, 0, 0, 0, 0);
+        return *(u8 *)((u8 *)sp44 + 0x48) + 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E3414 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3414.s")
 typedef struct {
     u8 type;

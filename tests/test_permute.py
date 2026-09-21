@@ -151,12 +151,14 @@ class PermuteTests(unittest.TestCase):
             declarations = list(permute_helper.DECLARATION.finditer(function))
             self.assertEqual([], list(lifetime_variants(function, declarations)))
 
-    def run_search(self, scores, *, exhaustive=False):
+    def run_search(self, scores, *, exhaustive=False, stack_shapes=False, table_error=None):
         function = "s32 func_test(void) { return 1; }\n"
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             variants = [function.replace("1", str(i + 1)) for i in range(len(scores))]
             argv = ["permute.py", "us", "func_test", "--budget", str(len(scores))]
+            if stack_shapes:
+                argv.append("--stack-shapes")
             if exhaustive:
                 argv.append("--exhaustive")
             source = root / "test.c"
@@ -175,9 +177,11 @@ class PermuteTests(unittest.TestCase):
                 return value
 
             with (patch.object(permute_helper, "ROOT", root),
-                  patch.object(permute_helper, "work_item", return_value=({}, "func_test")),
+                  patch.object(permute_helper, "work_item", return_value=({"overlay": "game"} if table_error else {}, "func_test")),
+                  patch.object(permute_helper.candidate_tables, "verify_candidate", side_effect=table_error),
                   patch.object(permute_helper, "active_candidate_content", return_value=(root / "test.c", function)),
                   patch.object(permute_helper, "source_variants", return_value=variants),
+                  patch.object(permute_helper, "stack_source_variants", return_value=variants),
                   patch.object(permute_helper.diff, "ensure_reference_function", return_value=root / "reference.s"),
                   patch.object(permute_helper.diff, "reference_object", return_value=root / "reference.o"),
                   patch.object(permute_helper.diff, "expected_function_size", return_value=4),
@@ -189,6 +193,20 @@ class PermuteTests(unittest.TestCase):
             self.best_saved = (output / "best.c").exists()
             self.assertEqual(function, source.read_text())
             return status, scorer.call_count, json.loads((output / "search-report.json").read_text())
+
+    def test_table_failure_does_not_save_or_accept_instruction_zero(self):
+        status, calls, report = self.run_search([0], table_error=ValueError("case target differs"))
+        self.assertEqual((2, 1, "table_gate_failure"), (status, calls, report["stop_reason"]))
+        self.assertEqual(1, report["compiled"])
+        self.assertIsNone(report["best_score"])
+        self.assertFalse(self.best_saved)
+
+    def test_stack_probe_stops_on_first_neutral_or_worse_shape(self):
+        for scores, calls in (([17, 17, 0], 2), ([17, 20, 0], 2), ([17, 8, 8, 0], 3)):
+            status, actual, report = self.run_search(scores, stack_shapes=True)
+            self.assertEqual((1, calls, "stack_shape_no_improvement"),
+                             (status, actual, report["stop_reason"]))
+            self.assertEqual("stack_shapes", report["strategy"])
 
     def test_identical_nonmatch_search_is_reused(self) -> None:
         function = "s32 func_test(void) { return 1; }\n"

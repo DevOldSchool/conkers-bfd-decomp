@@ -13,8 +13,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B690.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B7B4.s")
 typedef struct {
     u8 pad0[0x64];
     f32 base_x;
@@ -26,7 +24,49 @@ typedef struct {
     u8 pad7C[0x104];
 } Game138B40Record;
 
+typedef struct {
+    u32 words[0x10];
+} Game138B40Work;
+
 extern Game138B40Record *D_800BE628;
+
+void func_150A7A48(void *, void *, void *);
+void func_151EFEB8(void *, s32);
+void func_1501B22C(s32);
+
+extern s32 D_80082FA0;
+extern u8 D_800BE9C0;
+extern u8 D_800D9C10[];
+extern u8 D_800D9D10[];
+extern u8 *D_800DC2A0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B690 CURRENT (255) */
+void func_1510B690(void) {
+    Game138B40Work sp4C;
+    s16 var_s0;
+    s32 temp_s1;
+    void *temp_s2;
+
+    var_s0 = 0;
+    if (D_80082FA0 >= 0) {
+        do {
+            func_151EFEB8(&sp4C,
+                          (s32)((u8 *)D_800BE628 +
+                                (((var_s0 << 2) - var_s0) << 7) +
+                                (D_800BE9C0 << 6) + 0x100));
+            temp_s1 = var_s0 << 6;
+            temp_s2 = &D_800D9C10[temp_s1];
+            func_151EFEB8(temp_s2,
+                          (s32)(D_800DC2A0[D_800BE9C0] + (var_s0 * 0x40)));
+            func_150A7A48(temp_s2, &sp4C, &D_800D9D10[temp_s1]);
+            func_1501B22C(var_s0);
+            var_s0 += 1;
+        } while (D_80082FA0 >= var_s0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510B690 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B690.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_138B40/func_1510B7B4.s")
 extern volatile f32 D_800D35E0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B958 CURRENT (460) */

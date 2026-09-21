@@ -288,6 +288,48 @@ void func_151078E4(void *arg0, s32 arg1, u8 arg2) {
     temp_a2 = *(s32 *)((u8 *)arg0 + 0x60);
     func_15169850(arg1, (s32) arg2, temp_a2, temp_a2 + 4, (s32) arg0);
 }
+void func_15107A20(void *, s16, s16, void *, void *);
+void func_15107AE0(void *, void *, void *, void *);
+
+typedef struct Game133190VectorWords {
+    s32 x;
+    s32 y;
+    s32 z;
+} Game133190VectorWords;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107924 CURRENT (139) */
+s32 func_15107924(void *arg0, s8 *arg1) {
+    void *sp38;
+    Game133190VectorWords sp2C;
+    void *sp28;
+    void *temp_a3;
+    void *temp_t6;
+    void *temp_v0;
+
+    temp_v0 = *(void **)((u8 *)arg0 + 0x60);
+    temp_t6 = *(void **)temp_v0;
+    sp38 = temp_t6;
+    if ((*(s32 *)temp_t6 == 0) ||
+        (temp_a3 = (u8 *)arg0 + 0x14,
+         (*(u8 *)((u8 *)temp_v0 + 4) !=
+          *(u8 *)((u8 *)temp_t6 + 0x3B)))) {
+        return 0;
+    }
+    *arg1 = 0;
+    sp2C = *(Game133190VectorWords *)temp_a3;
+    sp28 = temp_a3;
+    func_15107A20(sp38, *(s16 *)((u8 *)temp_v0 + 6),
+                   *(s16 *)((u8 *)temp_v0 + 8), temp_a3, 0);
+    if ((*(f32 *)&sp2C.x != *(f32 *)((u8 *)arg0 + 0x14)) ||
+        (*(f32 *)&sp2C.y != *(f32 *)((u8 *)arg0 + 0x18)) ||
+        (*(f32 *)&sp2C.z != *(f32 *)((u8 *)arg0 + 0x1C))) {
+        *arg1 = 1;
+        func_15107AE0(sp28, (u8 *)arg0 + 0x38,
+                      (u8 *)arg0 + 0x20, (u8 *)arg0 + 0x2C);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15107924 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107924.s")
 void func_15143794(s16, s16, f32, void *);
 void func_1515C244(void *, f32 *, f32 *, f32 *);

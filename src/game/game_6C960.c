@@ -19,6 +19,50 @@ typedef struct Game6C960Actor {
 void func_1505E0C4(s32, s32, Game6C960Actor *, s32, s32, s32, s32,
                    f32, f32, f32, f32, s32);
 
+void *func_10003C40(s32, s32, s32, s32);
+void func_10004074(s32);
+void func_1502D824(void *, s32, s32);
+void func_150A81D0(s32 *, s32, void *, s32, s32, s16 *, s32, s32);
+void func_150A9984(void *, u16);
+void func_1507BDB0(s32, s32, void *, s32);
+extern s32 D_800BE9A4;
+extern u8 D_800BE9C0;
+
+typedef struct {
+    s32 handle;
+    u8 pad4[4];
+    s16 value;
+    u8 padA[2];
+    s32 allocation;
+} Game6C960F4B0Locals;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F4B0 CURRENT (270) */
+void func_1503F4B0(void *arg0) {
+    Game6C960F4B0Locals locals;
+    s32 temp_v0;
+    void *temp_v0_2;
+
+    locals.allocation = 0;
+    if (*(s32 *)((u8 *)arg0 + (D_800BE9C0 * 4) + 0x3E0) != 0) {
+        temp_v0 = (s32)func_10003C40(0x320, 1, 2, 2);
+        locals.allocation = temp_v0;
+        func_1502D824(arg0, 0, temp_v0);
+        locals.value = 0x1000;
+        temp_v0_2 = (u8 *)arg0 + (D_800BE9C0 * 4);
+        locals.handle = *(s32 *)((u8 *)temp_v0_2 + 0x3E8);
+        func_150A81D0(&locals.handle, *(s32 *)((u8 *)temp_v0_2 + 0x3E0), arg0,
+                       *(s32 *)((u8 *)arg0 + 0x3F0),
+                       *(u8 *)((u8 *)arg0 + 0x3F4), &locals.value, 0, 0);
+        func_150A9984(*(void **)((u8 *)arg0 + (D_800BE9C0 * 4) + 0x3E8),
+                      *(u8 *)((u8 *)arg0 + 0x3F4));
+        *(s8 *)((u8 *)arg0 + 0x3F6) = 1;
+    }
+    func_1507BDB0((s32)arg0, D_800BE9A4, 0, 0);
+    if (locals.allocation != 0) {
+        func_10004074(locals.allocation);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503F4B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6C960/func_1503F4B0.s")
 
 void func_1503F5B8(Game6C960Actor *arg0, s32 arg1, s32 arg2, f32 arg3,

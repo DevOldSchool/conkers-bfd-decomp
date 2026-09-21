@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A3390
- * - func_151A3504
  * - func_151A361C
  * - func_151A37C0
  * - func_151A3BE4
@@ -25,7 +24,66 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3390.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3504.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1D0840Vec3;
+
+typedef struct {
+    u8 request[0x30];
+    s8 field30;
+    u8 pad31[3];
+    Game1D0840Vec3 vec34;
+    f32 field40;
+    s8 field44;
+    u8 pad45[3];
+    f32 field48;
+    s8 field4C;
+    u8 pad4D[3];
+    Game1D0840Vec3 output50;
+    s16 field5C;
+    u16 flags5E;
+    s32 field60;
+    u8 pad64;
+    s8 field65;
+    u8 pad66[2];
+    u8 tail68[4];
+} Game1D0840SpawnLocals;
+
+void func_10022EC0(void *, void *, s32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
+                    s32, s32, s32);
+s32 func_151A4E34();
+
+void *func_151A3504(void *arg0, u8 arg1) {
+    Game1D0840SpawnLocals locals;
+    void *result;
+
+    if (*(s32 *)arg0 == 0) {
+        return 0;
+    }
+    func_10022EC0(locals.request, arg0, 0x30);
+    locals.field44 = 0;
+    locals.field65 = 0x32;
+    locals.flags5E = 2;
+    locals.field5C = 0x3E8;
+    locals.field30 = 6;
+    locals.field4C = 0;
+    locals.field40 = 0.0f;
+    locals.field48 = 0.0f;
+    if (func_151A4E34(locals.request, &locals.output50.x) != 0) {
+        locals.vec34 = locals.output50;
+        locals.flags5E |= 4;
+    }
+    locals.field60 = 8;
+    result = func_15147A80(&locals.output50, (void *)0x50, 0x18, 6, 6, 6,
+                           0, 0, 0, arg1, 0);
+    if (result != 0) {
+        func_10022EC0(*(void **)((u8 *)result + 0x98), locals.request, 0x50);
+    }
+    return result;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A361C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A37C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3BE4.s")
@@ -264,7 +322,7 @@ void func_151A4E9C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4E9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E9C.s")
-extern void func_151A3504(void *arg0, u8 arg1, void *arg2);
+extern void *func_151A3504(void *arg0, u8 arg1);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4ECC CURRENT (931) */
 void func_151A4ECC(void *arg0) {

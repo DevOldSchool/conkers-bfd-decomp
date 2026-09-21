@@ -13,7 +13,6 @@
  * - func_151106A8
  * - func_151108C4
  * - func_15110CFC
- * - func_1511172C
  * - func_15111858
  * - func_15111AF4
  *
@@ -178,7 +177,45 @@ void *func_151106A8(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151106A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151108C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110CFC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_1511172C.s")
+typedef struct {
+    u8 pad0[8];
+    u8 mode;
+    u8 selection;
+} Game13D350State;
+
+void func_10004074(s32);
+void func_1510D694(s32);
+void func_15111858(void);
+void func_1502B7F0(void **, s32, s32, u8);
+extern u8 D_80038080;
+extern s32 *D_800891BC[];
+extern Game13D350State *D_800B0DF0;
+extern void *D_800DBE80;
+
+void func_1511172C(s32 arg0) {
+    s32 i;
+
+    if (arg0 == 1) {
+        D_800B0DF0->mode = 1;
+        if (D_800DBE80 != 0) {
+            func_10004074((s32) D_800DBE80);
+        }
+        func_15111858();
+        return;
+    }
+    if ((arg0 != D_800B0DF0->selection) && (D_800B0DF0->mode == 4)) {
+        i = 0;
+        if (D_80038080 != 0) {
+            do {
+                func_1510D694(*D_800891BC[D_800B0DF0->selection] + i);
+                i++;
+            } while (i != 0x168);
+        }
+        func_10004074((s32) D_800DBE80);
+        D_800B0DF0->selection = (u8) arg0;
+        func_1502B7F0(&D_800DBE80, 2, 0xD, D_800B0DF0->selection);
+    }
+}
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);
 f32 func_150AD780(f32);                             /* extern */

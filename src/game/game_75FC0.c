@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15048B10
  * - func_15048C30
  * - func_15048F20
  * - func_15048FC8
@@ -14,7 +13,46 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048B10.s")
+s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_150A7A48(void *, void *, void *);
+void func_150A7BC0(void *);
+void func_150A8050(void *, f32, f32, f32);
+
+void func_15048B10(u8 *arg0, void *arg1) {
+    struct {
+        u8 sp34[0x40];
+        u8 sp74[0x40];
+        u8 spB4[0x40];
+        u8 spF4[0x40];
+        u8 sp134[0x40];
+        u8 sp174[0x40];
+        f32 sp1B4;
+        f32 sp1B8;
+        f32 sp1BC;
+        f32 sp1C0;
+        f32 sp1C4;
+        f32 sp1C8;
+        f32 sp1CC;
+        f32 sp1D0;
+        f32 sp1D4;
+    } locals;
+
+    func_1503E5F8(arg0, (s32)&locals.sp1D4, (s32)&locals.sp1D0,
+                  (s32)&locals.sp1CC, (s32)&locals.sp1BC,
+                  (s32)&locals.sp1B8, (s32)&locals.sp1B4,
+                  (s32)&locals.sp1C8, (s32)&locals.sp1C4,
+                  (s32)&locals.sp1C0);
+    func_150A7BC0(locals.spB4);
+    *(f32 *)(locals.spB4 + 0x30) = -locals.sp1D4;
+    *(f32 *)(locals.spB4 + 0x34) = -locals.sp1D0;
+    *(f32 *)(locals.spB4 + 0x38) = -locals.sp1CC;
+    func_150A8050(locals.sp174, -locals.sp1BC, 0.0f, 0.0f);
+    func_150A8050(locals.sp134, 0.0f, -locals.sp1B8, 0.0f);
+    func_150A8050(locals.spF4, 0.0f, 0.0f, -locals.sp1B4);
+    func_150A7A48(locals.spB4, locals.spF4, locals.sp74);
+    func_150A7A48(locals.sp74, locals.sp134, locals.sp34);
+    func_150A7A48(locals.sp34, locals.sp174, arg1);
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048C30.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15048F20 CURRENT (30) */
 void func_15048F20(void *arg0, void *arg1, void *arg2) {

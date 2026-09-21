@@ -55,6 +55,56 @@ void func_1513B798(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513B798 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B798.s")
+typedef struct {
+    u8 pad0[0x10];
+    u8 flags;
+    u8 pad11;
+    s8 callback;
+    u8 pad13[0x41];
+    s32 displayList;
+} Game168A90RenderState;
+
+typedef s32 (*Game168A90RenderCallback)(void *, s16, s32, void *);
+
+typedef struct {
+    u32 word0;
+    u32 word1;
+} Game168A90Command;
+
+extern Game168A90RenderCallback D_80089C28[];
+extern u8 D_800BE9C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B83C CURRENT (4000) */
+void *func_1513B83C(void *arg0, Game168A90RenderState *arg1, s32 arg2) {
+    s32 result;
+    Game168A90Command *cursor;
+    Game168A90Command *command;
+
+    arg2 = (s16) arg2;
+    if ((arg1->flags & 2) && !(*((u8 *) arg1 + 0x49) & (1 << arg2))) {
+        return arg0;
+    }
+    if (arg1->callback != -1) {
+        result = D_80089C28[arg1->callback](arg1, arg2, arg2, arg0);
+        if (result == 0) {
+            return arg0;
+        }
+    }
+
+    cursor = arg0;
+    command = cursor++;
+    command->word0 = 0xDA380003;
+    command->word1 = (s32) ((u8 *) arg1 + (D_800BE9C0 << 6) + 0x78);
+    command = cursor++;
+    command->word0 = 0xDB060004;
+    command->word1 =
+        *(s32 *) ((u8 *) arg1 + (D_800BE9C0 << 4) + (arg2 * 4) + 0x58);
+    command = cursor++;
+    command->word0 = 0xDE000000;
+    command->word1 = arg1->displayList;
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513B83C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B83C.s")
 extern void func_150A7B80(s32 arg0, s32 arg1);
 extern u8 D_800BE9C0;
@@ -115,6 +165,85 @@ void func_1513BA78(void *arg0, void *arg1, u8 arg2) {
 s32 func_1513BAD4(s32 arg0, s32 arg1) {
     return 0;
 }
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513B5E0(s8 *, s32, s32, s32, s32);
+
+typedef struct Game168A90SpawnParams {
+    s8 field_00;
+    s8 field_01;
+    s8 field_02;
+    u8 pad03;
+    s16 field_04;
+    u8 pad06[2];
+    s32 field_08;
+    s32 field_0C;
+    s32 field_10;
+    s32 field_14;
+    s32 field_18;
+    s32 field_1C;
+    s32 field_20;
+    s8 field_24;
+    s8 field_25;
+    u8 pad26[10];
+    s32 field_30;
+    s32 field_34;
+    s8 field_38;
+    u8 pad39[3];
+} Game168A90SpawnParams;
+
+typedef struct Game168A90Vector5 {
+    f32 field_00;
+    f32 field_04;
+    f32 field_08;
+    f32 field_0C;
+    f32 field_10;
+} Game168A90Vector5;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513BAE8 CURRENT (1102) */
+void *func_1513BAE8(void) {
+    void *sp74;
+    Game168A90SpawnParams sp38;
+    Game168A90Vector5 sp24;
+    register void *temp_v0;
+    register void *var_a3;
+
+    sp38.field_01 = 2;
+    sp38.field_02 = 5;
+    sp38.field_04 = 0x12C;
+    sp38.field_30 = 9;
+    sp24.field_00 = 0.0f;
+    sp24.field_04 = 0.0f;
+    sp24.field_0C = 0.0f;
+    sp24.field_10 = 0.0f;
+    sp24.field_08 = 0.0f;
+    sp38.field_00 = 0;
+    sp38.field_34 = 0x1AE;
+    sp38.field_08 = 1;
+    sp38.field_0C = 0x220205;
+    sp38.field_10 = 0x40600;
+    sp38.field_24 = 0;
+    sp38.field_25 = 0;
+    sp38.field_14 = 1;
+    sp38.field_18 = 0x36;
+    sp38.field_1C = 0x80;
+    sp38.field_20 = 0x20;
+    sp38.field_38 = 3;
+    temp_v0 = func_1513B5E0((s8 *)&sp38, 1, 0x14, 0xFF, 1);
+    var_a3 = temp_v0;
+    if (temp_v0 != 0) {
+        if (*(s32 *)((u8 *)temp_v0 + 0x50) != 0x1180) {
+            sp74 = temp_v0;
+            func_1516972C(temp_v0);
+        } else {
+            sp74 = var_a3;
+            func_10022EC0((u8 *)var_a3 + *(s32 *)((u8 *)var_a3 + 0x50) + 0xF8,
+                          &sp24, 0x14U);
+        }
+        var_a3 = sp74;
+    }
+    return var_a3;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513BAE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513BAE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513BBFC.s")
 /* Call context: func_15047D60: unique active project prototype */

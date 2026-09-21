@@ -41,6 +41,64 @@ s32 func_151025F4(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151025F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151025F4.s")
+typedef struct {
+    u8 pad0[0x78];
+    u8 field78;
+} Game12F400Inner;
+
+typedef struct {
+    u8 pad0[4];
+    u8 type;
+    u8 pad5[0x317];
+    Game12F400Inner *inner;
+} Game12F400Object;
+
+s32 func_15100600(void *, void *, void *, u8, s32, s32, s32, s32, f32, f32, f32, f32, s32, s32, s32);
+extern u8 D_800A21A0[];
+extern u8 D_800A21F4[];
+extern u8 D_800A2248[];
+extern f32 D_800A233C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151026BC CURRENT (600) */
+s32 func_151026BC(Game12F400Object *arg0, s16 arg1, u8 arg2, u8 arg3, u8 arg4, s32 arg5) {
+    s32 offset;
+    s32 var_t0;
+    s32 var_v1;
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    switch (arg0->type) {
+    case 0x58:
+    case 0x5B:
+    case 0x80:
+        var_v1 = 0x32;
+        var_t0 = 0xFF;
+        break;
+    case 0x5A:
+    case 0x5F:
+    case 0x74:
+    case 0x75:
+    case 0x7A:
+        var_v1 = 0xFF;
+        var_t0 = 0;
+        break;
+    default:
+        var_v1 = 0x32;
+        var_t0 = 0xFF;
+        if (arg0->inner->field78 != 0x3B) {
+            break;
+        }
+        var_v1 = 0xFF;
+        var_t0 = 0;
+        break;
+    }
+    offset = arg2 * 0xC;
+    return func_15100600(arg0, D_800A21A0 + offset, D_800A21F4 + offset, D_800A2248[arg2],
+                         arg1, var_v1, var_t0, 0, 20.0f, (f32) 20, 4.0f, D_800A233C,
+                         arg3, arg4, arg5);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151026BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_151026BC.s")
 void func_151403A8(void **arg0, s32 arg1, void *arg2);
 

@@ -278,6 +278,55 @@ block_12:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15114A1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114A1C.s")
+void func_1516972C(u8 *);
+extern s32 D_800DBF98;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114B94 CURRENT (503) */
+void func_15114B94(u32 arg0) {
+    s32 offset;
+    s32 count;
+    s32 next_count;
+    u32 index;
+    u32 threshold;
+    u8 *entry;
+    u8 *callback;
+
+    count = D_800DBEF0;
+    if (arg0 < (u32)count) {
+        offset = arg0 * 0xA0;
+        entry = (u8 *)(D_800DBEF4 + offset);
+        callback = *(u8 **)(entry + 0x94);
+        if (callback != 0) {
+            func_1516972C(callback);
+            *(s32 *)(D_800DBEF4 + offset + 0x94) = 0;
+            entry = (u8 *)(D_800DBEF4 + offset);
+        }
+        entry[0x70] |= 8;
+        *(u8 *)(D_800DBEF4 + offset + 0x6E) = 1;
+        count = D_800DBEF0;
+    }
+
+    index = count - 1;
+    threshold = count - D_800DBF98;
+    if (count != 0) {
+        entry = (u8 *)(D_800DBEF4 + (index * 0xA0));
+        if (entry[0x70] & 8) {
+            do {
+                next_count = count - 1;
+                if ((index >= threshold) && (D_800DBF98 != 0)) {
+                    D_800DBF98--;
+                } else {
+                    threshold--;
+                }
+                D_800DBEF0 = next_count;
+                index--;
+                entry -= 0xA0;
+                count = next_count;
+            } while ((next_count != 0) && (entry[0x70] & 8));
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15114B94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114B94.s")
 s32 func_15114CC4(void *arg0, s32 arg1, s32 *arg2, s32 arg3) {
     void *temp_v1;

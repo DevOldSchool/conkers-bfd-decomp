@@ -36,8 +36,6 @@
  * - func_151279A0
  * - func_15127EB8
  * - func_15128030
- * - func_151283B8
- * - func_15128540
  * - func_1512868C
  * - func_15128774
  *
@@ -46,6 +44,39 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122AE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122C5C.s")
+void func_15048F90(void *, void *, void *);
+f32 func_15048FC8();
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15123070 CURRENT (275) */
+void func_15123070(void *arg0) {
+    f32 sp20[3];
+    f32 var_fv0;
+    s32 temp_v0;
+
+    if ((*(s32 *)((u8 *)arg0 + 0x6C8) != 0) &&
+        ((temp_v0 = *(s32 *)((u8 *)arg0 + 0x6FC), temp_v0 == 0xA) ||
+         (temp_v0 == 0xE))) {
+        func_15048F90((u8 *)arg0 + 0x618, (u8 *)arg0 + 0x2A4, sp20);
+        *(f32 *)((u8 *)arg0 + 0x390) =
+            *(f32 *)((u8 *)arg0 + 0x37C) - func_15048FC8(sp20);
+    } else {
+        var_fv0 = (*(f32 *)(*(u8 **)((u8 *)arg0 + 0x3D0) + 0x40) -
+                   *(f32 *)((u8 *)arg0 + 0x37C)) -
+                  180.0f;
+        if (var_fv0 < 0.0f) {
+            do {
+                var_fv0 += 360.0f;
+            } while (var_fv0 < 0.0f);
+        }
+        *(f32 *)((u8 *)arg0 + 0x390) = var_fv0;
+    }
+    if (*(f32 *)((u8 *)arg0 + 0x390) < -360.0f) {
+        do {
+            *(f32 *)((u8 *)arg0 + 0x390) += 360.0f;
+        } while (*(f32 *)((u8 *)arg0 + 0x390) < -360.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15123070 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15123070.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_1512317C.s")
 void func_15123508(void *arg0) {
@@ -145,6 +176,50 @@ void func_15124AB4(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x664) = (f32) (*(f32 *)((u8 *)arg0 + 0x66C) * func_15047D60(*(f32 *)((u8 *)arg0 + 0x39C)));
     *(f32 *)((u8 *)arg0 + 0x66C) = (f32) (*(f32 *)((u8 *)arg0 + 0x66C) * func_15047C00(*(f32 *)((u8 *)arg0 + 0x39C)));
 }
+extern f32 D_800A34B0[];
+extern s32 D_800BE9F0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15124B18 CURRENT (45) */
+void func_15124B18(u8 *arg0) {
+    f32 *temp_v0;
+    s32 temp_t8;
+
+    if (*(s16 *)(arg0 + 0x1B4) == 0) {
+        *(s16 *)(arg0 + 0x1B4) = 4;
+    }
+    temp_t8 = *(s32 *)(arg0 + 0x2C) & 0x80;
+    if ((temp_t8 != 0) &&
+        (**(u16 **)(arg0 + 0x36C) & 0x10)) {
+        *(f32 *)(arg0 + 0x348) = 40.0f;
+        *(f32 *)(arg0 + 0x34C) = 40.0f;
+        *(f32 *)(arg0 + 0x374) = 150.0f;
+        return;
+    }
+    if (temp_t8 != 0) {
+        *(f32 *)(arg0 + 0x348) =
+            *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
+        return;
+    }
+    if ((temp_t8 != 0) &&
+        ((*(u8 **)(arg0 + 0x3D0))[0x102] == 0) &&
+        (D_800BE9F0 != 0x17)) {
+        *(f32 *)(arg0 + 0x348) = 40.0f;
+        *(f32 *)(arg0 + 0x34C) = 40.0f;
+        *(f32 *)(arg0 + 0x374) = 150.0f;
+        return;
+    }
+    if ((*(u8 **)(arg0 + 0x3D0))[0x102] != 0) {
+        *(f32 *)(arg0 + 0x348) = 40.0f;
+        *(f32 *)(arg0 + 0x34C) = 40.0f;
+        *(f32 *)(arg0 + 0x374) = 194.0f;
+        return;
+    }
+    temp_v0 = &D_800A34B0[*(s16 *)(arg0 + 0x1B4) * 2];
+    *(f32 *)(arg0 + 0x374) = temp_v0[0];
+    *(f32 *)(arg0 + 0x348) = temp_v0[1];
+    *(f32 *)(arg0 + 0x34C) = *(f32 *)(arg0 + 0x348);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15124B18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15124B18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15124C38.s")
 f32 func_150484A0(f32, f32);                        /* extern */
@@ -520,6 +595,42 @@ void func_1512623C(u8 *arg0, u8 *arg1, s32 arg2, f32 *arg3, f32 *arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15127520.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151277B0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151279A0.s")
+void func_150627D4(void *);
+void func_1510B32C(s32, f32, f32, f32);
+void func_151C9ED4(void *);
+extern s32 D_800BE628;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15127EB8 CURRENT (100) */
+void func_15127EB8(void *arg0) {
+    u8 temp_a0;
+    u8 *temp_v1;
+    u8 *var_v0;
+    u8 *camera;
+
+    camera = arg0;
+    func_151239CC(camera, 1);
+    (*(u8 **)(camera + 0x3D4))[0x197] = 0;
+    func_151C9ED4(camera);
+    *(f32 *)(camera + 0x19C) = 0.0f;
+    *(f32 *)(camera + 0x1A0) = 0.0f;
+    *(f32 *)(camera + 0x1A4) = 0.0f;
+    *(f32 *)(camera + 0x1A8) = 0.0f;
+    func_1510B32C(camera[0x23D], 0.0f, 0.0f, 1.0f);
+    *(f32 *)((u8 *)D_800BE628 + (camera[0x23D] * 0x180) + 0x84) = 1.0f;
+    func_150627D4(*(void **)(camera + 0x3D0));
+    D_800DBFF4[camera[0x23D]] = 2;
+    temp_v1 = *(u8 **)(camera + 0x3D0);
+    temp_a0 = temp_v1[0x65];
+    if (temp_a0 != 0) {
+        var_v0 = D_800CC2D0 + (temp_a0 * 0x32C) - 0x32C;
+    } else {
+        var_v0 = temp_v1;
+    }
+    var_v0[0x2FC] &= ~(1 << camera[0x23D]);
+    var_v0[0x74] &= ~(1 << camera[0x23D]);
+    camera[0x23C] = 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15127EB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15127EB8.s")
 extern void func_1512A390(void);
 
@@ -531,7 +642,46 @@ void func_15127FEC(void *arg0, void *arg1, void *arg2) {
     func_1512A390();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128030.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151283B8.s")
+void func_15120158();
+void func_15121C80(void *, f32);
+void func_15122170();
+void func_15122440();
+void func_15129934();
+void func_1512DEA4();
+
+void func_151283B8(void *arg0) {
+    switch (*(s32 *)((u8 *)arg0 + 0x2C)) {
+        case 0x80:
+            func_15122440(arg0);
+            return;
+        case 0x40:
+            func_15129934(arg0);
+            return;
+        case 1:
+            func_15122980(arg0);
+            return;
+        case 8:
+            func_15121C80(arg0, 0.0f);
+            return;
+        case 2:
+            func_151220D0(arg0);
+            return;
+        case 0x400:
+            func_15122170(arg0);
+            return;
+        case 0x800:
+            func_15122980(arg0);
+            return;
+        case 0x100:
+            func_15120158(arg0);
+            return;
+        case 0x800000:
+            func_1512DEA4(arg0);
+            break;
+        case 0x2000:
+            return;
+    }
+}
 void func_15128774(CameraCameraTargetState *, CameraCameraTarget *); /* extern */
 
 void func_151284C4(CameraCameraTargetState *arg0) {
@@ -552,7 +702,64 @@ void func_151284C4(CameraCameraTargetState *arg0) {
         func_15128774(arg0, arg0->field_3D0);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15128540.s")
+s32 func_151253CC(u8 *);
+s32 func_15128030(u8 *);
+void func_1512A360(void *);
+void func_151256BC(u8 *);
+void func_151236D0(u8 *);
+void func_1512E4B0(u8 *);
+void func_151219D0(u8 *);
+void func_1512D380(s32);
+s32 func_15126378(u8 *);
+typedef struct CameraCameraTriple {
+    s32 x;
+    s32 y;
+    s32 z;
+} CameraCameraTriple;
+
+s32 func_15128540(u8 *arg0) {
+    s32 temp_v0;
+
+    if (func_151253CC(arg0) != 0) {
+        return 1;
+    }
+    if (func_15128030(arg0) != 0) {
+        return 0;
+    }
+    temp_v0 = *(s32 *)(arg0 + 0x2C);
+    if (temp_v0 & 0x80000) {
+        func_1512A360(arg0);
+        *(CameraCameraTriple *)(arg0 + 0x2BC) =
+            *(CameraCameraTriple *)(arg0 + 0x2A4);
+        func_151256BC(arg0);
+        func_151236D0(arg0);
+        func_151284C4((CameraCameraTargetState *)arg0);
+        return 1;
+    }
+    if (temp_v0 & 0x100000) {
+        func_1512E4B0(arg0);
+        func_151236D0(arg0);
+        func_151284C4((CameraCameraTargetState *)arg0);
+        return 1;
+    }
+    if (temp_v0 & 0x200000) {
+        func_151219D0(arg0);
+        func_151236D0(arg0);
+        func_151284C4((CameraCameraTargetState *)arg0);
+        return 1;
+    }
+    if (temp_v0 & 0x400000) {
+        func_1512D380((s32)arg0);
+        func_151236D0(arg0);
+        func_151284C4((CameraCameraTargetState *)arg0);
+        return 1;
+    }
+    if (func_15126378(arg0) != 0) {
+        func_151284C4((CameraCameraTargetState *)arg0);
+        return 1;
+    }
+    return 0;
+}
 void func_15128680(s32 arg0) {
 
 }

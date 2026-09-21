@@ -17,6 +17,40 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+f32 func_15047D60(f32);
+f32 func_15047C00(f32);
+extern s16 D_800D99F0[];
+extern void *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E41C0 CURRENT (2857) */
+void func_150E41C0(void) {
+    s32 x;
+    s32 y;
+    s32 z;
+    f32 horizontal;
+    f32 depth;
+    f32 trig;
+    f32 cosine;
+    f32 angle;
+
+    x = (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x2F8);
+    y = (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x2FC);
+    z = (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x300);
+    angle = *(f32 *)((u8 *)D_800DBFF0 + 0x398);
+    trig = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    horizontal = 500.0f * trig;
+    depth = -500.0f * cosine;
+    angle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
+    trig = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    D_800D99F0[0] = (s16)(s32)((f32)x +
+                                     (0.0f + (depth * trig)));
+    D_800D99F0[2] =
+        (s16)(s32)((f32)z + ((depth * cosine) - 0.0f));
+    D_800D99F0[1] = (s16)(s32)((f32)y + horizontal);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E41C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E41C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E42F8.s")
 void func_150E4514(s32 arg0) {

@@ -115,4 +115,54 @@ void *func_1518AB60(s32 arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518AB60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B7EC0/func_1518AB60.s")
+void *func_1518AB60(s32, u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518ABD0 CURRENT (182) */
+s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {
+    Game1B7EC0Node *node;
+    Game1B7EC0Node *oldHead;
+    Game1B7EC0Node *oldTail;
+
+    if (arg0 == 0) {
+        if (arg2 != 0) {
+            D_8008D5C0[arg2](arg1);
+        }
+        return 0;
+    }
+    node = func_1518AB60(arg1, arg2);
+    if (node == 0) {
+        if (arg2 != 0) {
+            D_8008D5C0[arg2](arg1);
+        }
+        return 0;
+    }
+    oldHead = (Game1B7EC0Node *)arg0->field_10;
+    node->field14 = oldHead;
+    if (oldHead != 0) {
+        oldHead->field18 = node;
+    } else {
+        arg0->field_14 = (s32)node;
+    }
+    arg0->field_10 = (s32)node;
+    node->field18 = 0;
+    arg0->field_1C += 1;
+    arg0->field_22 = arg0->field_20;
+    if (arg0->field_18 < arg0->field_1C) {
+        oldTail = (Game1B7EC0Node *)arg0->field_14;
+        arg0->field_1C -= 1;
+        if (oldTail->field18 == 0) {
+            arg0->field_10 = 0;
+            arg0->field_14 = 0;
+        } else {
+            oldTail->field18->field14 = 0;
+            arg0->field_14 = (s32)oldTail->field18;
+        }
+        if (oldTail->field1C != 0) {
+            D_8008D5C0[oldTail->field1C](oldTail->field10);
+        }
+        func_1516972C(oldTail);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518ABD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B7EC0/func_1518ABD0.s")

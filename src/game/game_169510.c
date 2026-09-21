@@ -698,4 +698,85 @@ void func_151403DC(s32 arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151403DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_151403DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_15140410.s")
+typedef struct Game169510Node {
+    u8 pad00[4];
+    struct Game169510Node *prev;
+    struct Game169510Node *next;
+    u8 pad0C[0xC];
+    u8 field18;
+    u8 pad19[7];
+    s32 field20;
+    u8 pad24[0xEC];
+} Game169510Node;
+
+extern Game169510Node *D_800DCE50[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151406AC CURRENT (821) */
+s32 func_151406AC(s32 arg0, s32 arg1, s32 arg2, s16 arg3) {
+    Game169510Node sp28;
+    Game169510Node **temp_v1;
+    Game169510Node *temp_a2;
+    Game169510Node *temp_t0;
+    Game169510Node *temp_t0_2;
+    Game169510Node *temp_t7;
+    Game169510Node *temp_v0;
+    Game169510Node *var_a1;
+    Game169510Node *var_v0;
+    register s32 temp_t1;
+    register s32 temp_t2;
+
+    if (arg3 != 0) {
+        return arg0;
+    }
+    temp_v1 = (Game169510Node **)((u8 *)D_800DCE50 +
+        (((((arg2 << 2) - arg2) << 2) + arg2) << 5) + (arg1 << 2));
+    temp_v0 = *temp_v1;
+    sp28.field18 = 0;
+    sp28.field20 = 0;
+    sp28.next = temp_v0;
+    temp_v0->prev = &sp28;
+    if (temp_v0 != 0) {
+        var_a1 = temp_v0->next;
+        if (var_a1 != 0) {
+            do {
+                temp_t1 = (var_a1->field18 << 8) +
+                          (var_a1->field20 >> 16);
+                temp_a2 = var_a1->prev;
+                temp_t0 = var_a1->next;
+                var_v0 = temp_a2;
+                if (temp_a2 != 0) {
+loop_5:
+                    temp_t2 = (var_v0->field18 << 8) +
+                              (var_v0->field20 >> 16);
+                    if (temp_t1 >= temp_t2) {
+                        if (var_v0 != temp_a2) {
+                            temp_a2->next = temp_t0;
+                            temp_t0_2 = var_a1->next;
+                            if (temp_t0_2 != 0) {
+                                temp_t0_2->prev = var_a1->prev;
+                            }
+                            temp_t7 = var_v0->next;
+                            var_a1->next = temp_t7;
+                            if (temp_t7 != 0) {
+                                temp_t7->prev = var_a1;
+                            }
+                            var_a1->prev = var_v0;
+                            var_v0->next = var_a1;
+                        }
+                    } else {
+                        var_v0 = var_v0->prev;
+                        if (var_v0 != 0) {
+                            goto loop_5;
+                        }
+                    }
+                }
+                var_a1 = temp_t0;
+            } while (temp_t0 != 0);
+        }
+    }
+    *temp_v1 = sp28.next;
+    sp28.next->prev = 0;
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151406AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_151406AC.s")

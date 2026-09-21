@@ -39,6 +39,77 @@ void func_1503B7C0(Game68C70Actor *arg0) {
     arg0->field_31C->field_11C->field_44 = 30.0f;
     arg0->field_31C->field_11C->field_4C = (s16)(func_150ADA20() % 30U);
 }
+
+typedef struct Game68C70Status {
+    s32 field_0;
+    u8 pad4[0x80];
+    u16 field_84;
+    u8 pad86[0x275];
+    u8 field_2FB;
+} Game68C70Status;
+
+extern u16 D_8009877C;
+extern u16 D_8009877E;
+extern u8 D_80098780;
+extern u16 D_80098830;
+extern u16 D_80098836;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503B840 CURRENT (1785) */
+void func_1503B840(Game68C70Status *arg0) {
+    u8 *var_a1_2;
+    u16 *var_a1;
+    u16 temp_t5;
+    u16 temp_t7;
+    u16 temp_v1;
+
+    var_a1 = &D_80098830;
+    if (arg0->field_0 == 1) {
+        temp_v1 = arg0->field_84;
+loop_2:
+        temp_t7 = *var_a1;
+        var_a1++;
+        if (temp_v1 == temp_t7) {
+            arg0->field_2FB |= 2;
+            return;
+        }
+        if (var_a1 >= &D_80098836) {
+            if (temp_v1 == D_8009877C) {
+                arg0->field_2FB |= 1;
+                return;
+            }
+            var_a1_2 = &D_80098780;
+            if (temp_v1 == D_8009877E) {
+                arg0->field_2FB |= 1;
+                return;
+            }
+loop_10:
+            if (temp_v1 == *(u16 *)(var_a1_2 + 0)) {
+                arg0->field_2FB |= 1;
+                return;
+            }
+            if (temp_v1 == *(u16 *)(var_a1_2 + 2)) {
+                arg0->field_2FB |= 1;
+                return;
+            }
+            if (temp_v1 == *(u16 *)(var_a1_2 + 4)) {
+                arg0->field_2FB |= 1;
+                return;
+            }
+            temp_t5 = *(u16 *)(var_a1_2 + 6);
+            var_a1_2 += 8;
+            if (temp_v1 == temp_t5) {
+                arg0->field_2FB |= 1;
+                return;
+            }
+            if (var_a1_2 != (u8 *)&D_80098830) {
+                goto loop_10;
+            }
+        } else {
+            goto loop_2;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503B840 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_68C70/func_1503B840.s")
 extern u8 D_800CC5CB;
 

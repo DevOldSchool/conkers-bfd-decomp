@@ -16,6 +16,44 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void *func_10022EC0(void *, const void *, u32);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+extern s32 D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15164780 CURRENT (88) */
+void *func_15164780(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    void *sp24;
+    void *temp_v0;
+    void *temp_v1;
+
+    temp_v1 = *(void **)(D_800DBFF0 + (arg0[6] * 0x9A0) + 0x3D0);
+    if (temp_v1 != 0) {
+        temp_v0 = *(void **)((u8 *)temp_v1 + 0x31C);
+        if ((temp_v0 != 0) && (*(u8 *)((u8 *)temp_v0 + 0x198) != 0)) {
+            return 0;
+        }
+    }
+    temp_v0 = func_15167A68(0x39, arg3, arg1 + 0x68, 1, arg2, 1);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    sp24 = temp_v0;
+    func_10022EC0((u8 *)temp_v0 + 0x10, arg0, 0x38);
+    *(s8 *)((u8 *)sp24 + 0x60) = 1;
+    *(s8 *)((u8 *)sp24 + 0x61) = 1;
+    *(s8 *)((u8 *)sp24 + 0x62) = 1;
+    *(s8 *)((u8 *)sp24 + 0x63) = 1;
+    *(s8 *)((u8 *)sp24 + 0x64) = 1;
+    *(s8 *)((u8 *)sp24 + 0x65) = 1;
+    *(f32 *)((u8 *)sp24 + 0x48) = 0.0f;
+    *(f32 *)((u8 *)sp24 + 0x4C) = 0.0f;
+    *(f32 *)((u8 *)sp24 + 0x50) = 0.0f;
+    *(f32 *)((u8 *)sp24 + 0x54) = 0.0f;
+    *(f32 *)((u8 *)sp24 + 0x58) = 0.0f;
+    *(f32 *)((u8 *)sp24 + 0x5C) = 0.0f;
+    return sp24;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15164780 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164780.s")
 void func_15164888(u8 *arg0) {
     arg0[0x10] |= 2;

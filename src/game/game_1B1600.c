@@ -402,6 +402,51 @@ s32 func_15185DAC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15185DAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15185DAC.s")
+typedef struct {
+    s32 words[5];
+} Game1B1600Record;
+
+extern Game1B1600Record *(*D_8008D498[])(Game1B1600Record *, Game1B1600Record *, Game1B1600Record *);
+extern s32 (*D_8008D4C0[])(Game1B1600Record *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15185DD4 CURRENT (724) */
+Game1B1600Record *func_15185DD4(Game1B1600Record *arg0, s32 arg1, s32 arg2,
+                                  Game1B1600Record *arg3) {
+    s32 (*predicate)(Game1B1600Record *);
+    Game1B1600Record *(*combine)(Game1B1600Record *, Game1B1600Record *, Game1B1600Record *);
+    Game1B1600Record *previous;
+    Game1B1600Record *current;
+    Game1B1600Record *out;
+    s32 index;
+
+    out = arg3;
+    previous = arg0 + arg1 - 1;
+    combine = D_8008D498[arg2];
+    predicate = D_8008D4C0[arg2];
+    current = arg0;
+    index = 0;
+    if (arg1 > 0) {
+        do {
+            if (predicate(current) != 0) {
+                if (predicate(previous) != 0) {
+                    out++;
+                    out[-1] = *current;
+                } else {
+                    Game1B1600Record *merged = combine(previous, current, out);
+                    out = merged;
+                    *out++ = *current;
+                }
+            } else if (predicate(previous) != 0) {
+                out = combine(previous, current, out);
+            }
+            index++;
+            previous = current;
+            current++;
+        } while (index != arg1);
+    }
+    return out;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15185DD4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15185DD4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15185F24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_1518652C.s")

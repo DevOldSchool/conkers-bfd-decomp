@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151AF5C0
  * - func_151AF6D4
  * - func_151AFC08
  * - func_151AFC88
@@ -14,7 +13,40 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DCA70/func_151AF5C0.s")
+void func_15143134(f32 *, f32 *, s32);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_1504715C(void *, void *);
+extern f32 D_800AA0F0;
+extern f32 D_800AA0FC;
+
+s32 func_151AF5C0(f32 *arg0, void *arg1, s32 arg2, u8 arg3) {
+    f32 position[3];
+    f32 *var_a0;
+    s32 var_a2;
+
+    if ((arg3 != 1) && (arg3 != 2)) {
+        return 0;
+    }
+    if (arg3 == 1) {
+        var_a0 = &D_800AA0FC;
+    } else {
+        var_a0 = &D_800AA0F0;
+    }
+    if (arg3 == 1) {
+        var_a2 = *(s32 *)((u8 *)arg1 + 0x1D4) + 0x800;
+    } else {
+        var_a2 = *(s32 *)((u8 *)arg1 + 0x1D4) + 0x640;
+    }
+    func_15143134(var_a0, arg0, var_a2);
+    if (arg2 == 0) {
+        return 1;
+    }
+    position[0] = arg0[0];
+    position[1] = arg0[1] + 100.0f;
+    position[2] = arg0[2];
+    func_1504715C((void *)arg2, arg1);
+    return func_15046C80(position, 0, arg0[1] - 500.0f, (void *)arg2);
+}
 s32 func_151AF6C0(s32 arg0, s32 arg1) {
     return 0xC;
 }
