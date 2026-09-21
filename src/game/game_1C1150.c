@@ -277,6 +277,50 @@ void func_15194F48(s32 arg0, Game1C1150Position *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194F48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194FF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151951E0.s")
+void func_15137610(void *, void *, void *, s32, s32, s32);
+void func_1514373C(f32, f32, f32 *, f32 *);
+f32 func_150ADA68(void);
+extern f32 D_800A8708;
+
+typedef struct Game1C1150Vector3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1C1150Vector3;
+
+typedef struct Game1C1150BoundsLocals {
+    Game1C1150Vector3 direction;
+    Game1C1150Vector3 minimum;
+    Game1C1150Vector3 maximum;
+} Game1C1150BoundsLocals;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195528 CURRENT (151) */
+void func_15195528(void *arg0, Game1C1150Position *arg1, s32 arg2) {
+    Game1C1150BoundsLocals locals;
+    f32 offset_z;
+    f32 offset_x;
+    f32 angle;
+
+    if (arg0 != 0) {
+        angle = *(f32 *)((u8 *)arg0 + 0x40) - 90.0f;
+    } else if (arg1 != 0) {
+        angle = *(f32 *)((u8 *)arg1 + 0x40) - 90.0f;
+    } else {
+        angle = func_150ADA68() * 360.0f;
+    }
+    func_1514373C(angle * D_800A8708, 1.0f, &locals.direction.x, &locals.direction.z);
+    offset_x = locals.direction.x * 20.0f;
+    locals.direction.y = 0.0f;
+    offset_z = locals.direction.z * 20.0f;
+    locals.maximum.x = arg1->x + offset_x;
+    locals.maximum.y = arg1->y + 50.0f;
+    locals.maximum.z = arg1->z + offset_z;
+    locals.minimum.x = arg1->x - offset_x;
+    locals.minimum.y = arg1->y + 50.0f;
+    locals.minimum.z = arg1->z - offset_z;
+    func_15137610(arg1, &locals.maximum, &locals.minimum, (s32)&locals.direction, 0xFF, 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15195528 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15195528.s")
 /* Call context: func_151B01B8: unique active project prototype */
 /* Call context: func_151B09BC: unique active project prototype */

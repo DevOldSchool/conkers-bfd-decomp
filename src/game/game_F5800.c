@@ -126,4 +126,49 @@ void func_150C851C(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C851C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C851C.s")
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+extern s32 *D_80088810[2];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (1931) */
+void *func_150C8600(void *arg0) {
+    s32 sp58[2];
+    s32 *sp4C[2];
+    s32 **table;
+    s32 record_offset;
+    s32 command_offset;
+    s32 variant;
+    s32 result;
+    u8 state;
+    u8 *record;
+    s32 *output;
+
+    output = arg0;
+    table = sp4C;
+    sp4C[0] = D_80088810[0];
+    sp4C[1] = D_80088810[1];
+    record_offset = 0;
+    command_offset = 4;
+    do {
+        record = (u8 *)D_800BE4E0 + record_offset;
+        variant = *(s16 *)(record + 4) >> 8;
+        if (variant < 0) {
+            variant = 0;
+        } else if (variant >= 5) {
+            variant = 4;
+        }
+        state = record[0];
+        if (state >= 2) {
+            record[0] = 0;
+            state = *((u8 *)D_800BE4E0 + record_offset);
+        }
+        result = func_1510D0EC(table[state][variant], sp58, 3, 0);
+        output[0] = (command_offset & 0xFFFF) | 0xDB060000;
+        output[1] = result;
+        output += 2;
+        command_offset += 4;
+        record_offset += 0xA;
+    } while (command_offset != 0x2C);
+    return output;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C8600 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8600.s")

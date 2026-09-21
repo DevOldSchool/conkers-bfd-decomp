@@ -155,6 +155,47 @@ loop_1:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15183BA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183BA4.s")
+void func_1510D630(void *);
+void func_10004074(s32);
+extern s32 D_800DDF20;
+extern s8 D_800DDF70;
+extern s8 D_800DDF71;
+extern s32 D_800DDF98;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15183C28 CURRENT (183) */
+void func_15183C28(s32 arg0) {
+    register Game1B0740Slot *slot;
+    register void *resource;
+
+    slot = &D_800DDE80[arg0];
+    resource = *(void **)((u8 *)slot + 0x10);
+    if (resource != 0) {
+        func_1510D630(resource);
+        *(void **)((u8 *)slot + 0x10) = 0;
+    }
+    if (arg0 == 8) {
+        if (D_800DDF71 != -2) {
+            return;
+        }
+        goto free_slot;
+    }
+    if ((arg0 == 9) && (D_800DDF70 == -2)) {
+        resource = (void *)D_800DDF20;
+        if (resource != 0) {
+            func_10004074((s32)resource);
+            D_800DDF20 = 0;
+            D_800DDF98 = 0;
+        }
+    }
+free_slot:
+    resource = slot->field0;
+    if (resource != 0) {
+        func_10004074((s32)resource);
+        slot->field0 = 0;
+        D_800DDF78[arg0] = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15183C28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183C28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183D28.s")
 s32 func_15184118(void *arg0) {

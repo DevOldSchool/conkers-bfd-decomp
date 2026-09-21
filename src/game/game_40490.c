@@ -19,7 +19,6 @@
  * - func_15014B60
  * - func_15014F6C
  * - func_150150A4
- * - func_150151D4
  * - func_15015354
  * - func_15015644
  * - func_150156F4
@@ -330,6 +329,53 @@ s32 func_150142AC(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150144B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501474C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014B60.s")
+typedef struct {
+    void *object;
+    s32 rangeStart;
+    s32 rangeSize;
+    s32 value;
+    f32 matrix[12];
+    f32 position[3];
+    u8 pad4C[4];
+    s8 enabled;
+    s8 type;
+    u8 pad52[2];
+} Game40490ParticlePacket;
+
+void func_150A8050(f32 *, s32, s32, s32);
+u32 func_150ADA20(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15014F6C CURRENT (800) */
+s32 func_15014F6C(u8 *arg0) {
+    Game40490ParticlePacket packet;
+    s32 result;
+    s8 enabled;
+
+    enabled = 0;
+    arg0[0x16] |= 4;
+    packet.type = *(s32 *)(arg0 + 0x20);
+    if (*(s32 *)(arg0 + 0x1C) & 1) {
+        enabled = 1;
+    }
+    packet.enabled = enabled;
+    packet.object = arg0;
+    packet.rangeStart = *(u32 *)(arg0 + 0x18) & 0xFFFF;
+    packet.rangeSize = (*(u32 *)(arg0 + 0x18) >> 16) & 0xFFFF;
+    packet.value = (func_150ADA20() % (u32)(packet.rangeSize + 1)) +
+                   packet.rangeStart;
+    func_150A8050(packet.matrix, *(s32 *)(arg0 + 0xC),
+                  *(s32 *)(arg0 + 0x10), 0);
+    packet.position[0] = (f32)*(s16 *)(arg0 + 0);
+    packet.position[1] = (f32)*(s16 *)(arg0 + 2);
+    packet.position[2] = (f32)*(s16 *)(arg0 + 4);
+    result = func_15149130(0x12C, -1, 0x31, -1, 0, 0x2A, 0x54,
+                           0xFF, 0);
+    if (result != 0) {
+        func_10022EC0((void *)(result + 0x28), &packet, 0x54);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15014F6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014F6C.s")
 void *func_1515F1B0(void);
 void func_1515F25C(void **, void *);
@@ -397,7 +443,51 @@ s32 func_15015104(u8 *arg0) {
     }
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150151D4.s")
+extern f32 D_800966B4;
+
+typedef struct Game40490LargeSpawnPacket {
+    void *object;
+    f32 zero4;
+    s16 minusOne8;
+    u8 padA[2];
+    f32 coordinates[5];
+    f32 constant20;
+    u8 pad24[0x14];
+    s32 zero38;
+    u8 zero3C;
+    u8 zero3D;
+    u8 pad3E[2];
+    s32 zero40;
+    s32 value44;
+} Game40490LargeSpawnPacket;
+
+s32 func_150151D4(u8 *arg0) {
+    Game40490LargeSpawnPacket packet;
+    s32 result;
+
+    arg0[0x16] |= 4;
+    arg0[0x14] = 1;
+    packet.object = arg0;
+    packet.minusOne8 = -1;
+    packet.zero4 = 0.0f;
+    packet.coordinates[0] = (f32)*(s16 *)(arg0 + 0);
+    packet.coordinates[1] = (f32)*(s16 *)(arg0 + 2);
+    packet.coordinates[2] = (f32)*(s16 *)(arg0 + 4);
+    packet.coordinates[3] = (f32)*(s16 *)(arg0 + 6);
+    packet.coordinates[4] = (f32)*(s16 *)(arg0 + 8);
+    packet.zero40 = 0;
+    packet.zero3D = 0;
+    packet.zero3C = 0;
+    packet.zero38 = 0;
+    packet.constant20 = D_800966B4;
+    func_1510F800(0);
+    packet.value44 = func_1510FD20(*(s16 *)(arg0 + 0), *(s16 *)(arg0 + 4), arg0);
+    result = func_15149130(0x12C, -1, 0x3C, -1, 0, 0x2D, 0x48, 0xFF, 0);
+    if (result != 0) {
+        func_10022EC0((void *)(result + 0x28), &packet, sizeof(packet));
+    }
+    return 1;
+}
 typedef struct {
     u8 pad_0[0x1C];
     s32 field_1C;

@@ -52,4 +52,68 @@ s32 func_151B5240(s16 arg0, u8 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B5240 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E26F0/func_151B5240.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E26F0/func_151B5328.s")
+typedef struct {
+    s32 first;
+    s32 second;
+    u8 firstFlag;
+    u8 secondFlag;
+} Game1E26F0Pair;
+
+typedef struct {
+    u8 pad0[0x580];
+    s32 first;
+    u8 firstFlag;
+    u8 pad585[3];
+    s32 second;
+    u8 secondFlag;
+} Game1E26F0State;
+
+void func_1516972C(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5A9C CURRENT (1940) */
+void func_151B5A9C(u8 *arg0, void *arg1, u8 arg2) {
+    s32 temp_a2;
+    s32 temp_a2_2;
+    s32 temp_v1;
+    s32 temp_v1_2;
+    u8 temp_v1_3;
+    void *temp_v0;
+    void *temp_v0_2;
+
+    if (arg2 == 0x2D) {
+        temp_v0 = arg0 + 0x28;
+        temp_a2 = *(s32 *)((u8 *) temp_v0 + 0x580);
+        temp_v1 = *(s32 *)arg1;
+        if (temp_v1 == temp_a2) {
+            *(s32 *)((u8 *) temp_v0 + 0x580) = *(s32 *)((u8 *) arg1 + 4);
+            *(u8 *)((u8 *) temp_v0 + 0x584) = *(u8 *)((u8 *) arg1 + 9);
+        } else if (*(s32 *)((u8 *) arg1 + 4) == temp_a2) {
+            *(s32 *)((u8 *) temp_v0 + 0x580) = temp_v1;
+            *(u8 *)((u8 *) temp_v0 + 0x584) = *(u8 *)((u8 *) arg1 + 8);
+        }
+        temp_a2_2 = *(s32 *)((u8 *) temp_v0 + 0x588);
+        if (*(s32 *)arg1 == temp_a2_2) {
+            *(s32 *)((u8 *) temp_v0 + 0x588) = *(s32 *)((u8 *) arg1 + 4);
+            *(u8 *)((u8 *) temp_v0 + 0x58C) = *(u8 *)((u8 *) arg1 + 9);
+            return;
+        }
+        if (*(s32 *)((u8 *) arg1 + 4) == temp_a2_2) {
+            *(s32 *)((u8 *) temp_v0 + 0x588) = *(s32 *)arg1;
+            *(u8 *)((u8 *) temp_v0 + 0x58C) = *(u8 *)((u8 *) arg1 + 8);
+        }
+        return;
+    }
+    temp_v0_2 = arg0 + 0x28;
+    if (arg2 == 0) {
+        temp_v1_2 = *(s32 *)arg1;
+        if ((temp_v1_2 == *(s32 *)((u8 *) temp_v0_2 + 0x580)) ||
+            (temp_v1_2 == *(s32 *)((u8 *) temp_v0_2 + 0x588)) ||
+            (temp_v1_3 = *(u8 *)((u8 *) arg1 + 4),
+             *(u8 *)((u8 *) temp_v0_2 + 0x584) == temp_v1_3) ||
+            (*(u8 *)((u8 *) temp_v0_2 + 0x58C) == temp_v1_3)) {
+            func_1516972C(arg0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B5A9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E26F0/func_151B5A9C.s")

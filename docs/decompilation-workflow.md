@@ -24,6 +24,10 @@ The pinned `mips_to_c` files are copied into the ignored
 `build/host-tools/` cache and run with the existing host Python. This avoids
 repeated amd64 emulation without installing an additional host dependency.
 
+For an optional second opinion, `./conker objdiff compare <id> [<id>...]` runs
+the pinned native objdiff CLI alongside the existing diff adapter. See the
+[objdiff comparison guide](objdiff.md) for setup, saved evidence, and limitations.
+
 ## Select and inspect a work item
 
 Use the bounded ready path for ordinary source-local work:

@@ -42,6 +42,10 @@ SECTIONS
     .game_rodata_1c1150_0 0x800A8258 (INFO) : SUBALIGN(4) { *game_1C1150.o(.rodata.1c1150_0) }
     .game_rodata_1c1150_14 0x800A826C (INFO) : SUBALIGN(4) { *game_1C1150.o(.rodata.1c1150_14) }
     .game_rodata_1c1150_28 0x800A82BC (INFO) : SUBALIGN(4) { *game_1C1150.o(.rodata.1c1150_28) }
+    /* Reviewed manual switch tables: docs/evidence/manual_batch_jump_tables.md. */
+    .game_rodata_49be0 0x800969A0 (INFO) : SUBALIGN(4) { *game_49BE0.o(.rodata) }
+    .game_rodata_cd860 0x8009F550 (INFO) : SUBALIGN(4) { *game_CD860.o(.rodata) }
+    .game_rodata_179f30 0x800A5E20 (INFO) : SUBALIGN(4) { *game_179F30.o(.rodata) }
 }
 __game_rodata_16ee20_0_base = ADDR(.game_rodata_16ee20_0);
 __game_rodata_16ee20_40_base = ADDR(.game_rodata_16ee20_40) - 0x40;
@@ -57,6 +61,12 @@ ASSERT(SIZEOF(.game_rodata_16ee20_40) == 0x38, "game_16EE20 second table extent 
 ASSERT(SIZEOF(.game_rodata_1c1150_0) == 0x14, "game_1C1150 first table extent changed")
 ASSERT(SIZEOF(.game_rodata_1c1150_14) == 0x14, "game_1C1150 second table extent changed")
 ASSERT(SIZEOF(.game_rodata_1c1150_28) == 0x14, "game_1C1150 third table extent changed")
+ASSERT(SIZEOF(.game_rodata_49be0) == 0x20, "game_49BE0 table extent changed")
+ASSERT(SIZEOF(.game_rodata_cd860) == 0x20, "game_CD860 table extent changed")
+ASSERT(SIZEOF(.game_rodata_179f30) == 0x30, "game_179F30 table extent changed")
+__game_rodata_49be0_payload_size = 0x1C;
+__game_rodata_cd860_payload_size = 0x18;
+__game_rodata_179f30_payload_size = 0x28;
 __game_rodata_aeb40_payload_size = 0x114;
 ASSERT(SIZEOF(.game_rodata_61950) == 0x20,
        "game_61950 external rodata extent changed")

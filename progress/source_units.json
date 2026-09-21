@@ -2457,7 +2457,7 @@
         "us": {
           "end": "0x485E0",
           "start": "0x484A0",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_75950.c"
@@ -9499,7 +9499,7 @@
         "us": {
           "end": "0xDBD70",
           "start": "0xDB9E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_108E90.c"
@@ -10568,7 +10568,7 @@
         "us": {
           "end": "0xA09D0",
           "start": "0xA03B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_CD860.c"
@@ -12678,7 +12678,7 @@
         "us": {
           "end": "0x1B9660",
           "start": "0x1B9310",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1E67C0.c"
@@ -13036,7 +13036,7 @@
         "us": {
           "end": "0xC7870",
           "start": "0xC7770",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_F4C20.c"
@@ -13892,15 +13892,15 @@
       "functions": [
         "func_1515BAE0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x15BBF0",
           "start": "0x15BAE0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_188F90.c"
+      "source": "src/game/done/game_188F90.c"
     },
     {
       "boundary_evidence": {
@@ -16165,7 +16165,7 @@
         "us": {
           "end": "0x1B8370",
           "start": "0x1B6320",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1E37D0.c"
@@ -17974,7 +17974,7 @@
         "us": {
           "end": "0x1C860",
           "start": "0x1C730",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_49BE0.c"
@@ -18016,7 +18016,7 @@
         "us": {
           "end": "0xCCEB0",
           "start": "0xCCD90",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_FA240.c"

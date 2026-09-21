@@ -5,13 +5,34 @@
  * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E4010
  * - func_150E4174
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1114C0/func_150E4010.s")
+f32 func_150484A0(f32, f32);
+s32 func_1505D1C4(f32, f32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A1050;
+
+void func_150E4010(void *arg0) {
+    u8 *temp_v0;
+
+    temp_v0 = (u8 *)arg0 + 0x110;
+    if (*(s32 *)((u8 *)arg0 + 0x1B4) != 0) {
+        func_1505D1C4(*(f32 *)(temp_v0 + 0x30),
+                      *(f32 *)(temp_v0 + 0x34),
+                      *(s32 *)(temp_v0 + 0x38),
+                      *(s32 *)(temp_v0 + 0xA4) | 0x60000,
+                      -1,
+                      (((u32)(func_150484A0(*(f32 *)(temp_v0 + 0x60),
+                                            *(f32 *)(temp_v0 + 0x64)) *
+                               D_800A1050) &
+                        0xFFFF) -
+                       0x4000) |
+                          1,
+                      0, 0);
+    }
+}
 void func_151C3B0C(void *, f32, f32, f32, f32, s32, s32, s32);
 extern f32 D_800A1054;
 

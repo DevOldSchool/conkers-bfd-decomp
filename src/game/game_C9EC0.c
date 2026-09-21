@@ -258,9 +258,63 @@ void func_1509CE64(s32 arg0, void (*arg1)(s32), s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509CE64 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CE64.s")
+s32 func_1502B6BC(s32, s32, u32 *, s32, s32, s32, s32);
+extern u8 *D_800D2FB0;
+
+typedef struct GameC9EC0Reloc {
+    s32 offset;
+    u32 flags;
+} GameC9EC0Reloc;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509CF28 CURRENT (1005) */
+s32 func_1509CF28(s32 arg0, s32 *arg1) {
+    s32 base;
+    s32 entryOffset;
+    u32 index;
+    u32 count;
+    u8 *cursor;
+    s32 done;
+    GameC9EC0Reloc *reloc;
+    void *resource;
+
+    count = 0;
+    base = func_1502B6BC(0, 0, &count, 3, 8, 0, arg0);
+    D_800D2FB0 = (u8 *)base;
+    if (base == 0) {
+        *arg1 = 0;
+        return 0;
+    }
+    *(s32 *)(base + 4) = count - 1;
+    *arg1 = count - 1;
+    index = 1;
+    entryOffset = 8;
+    cursor = (u8 *)base;
+    if (count >= 2) {
+        do {
+            done = 0;
+            reloc = *(GameC9EC0Reloc **)(D_800D2FB0 + entryOffset);
+            do {
+                reloc->offset += *(s32 *)(D_800D2FB0 + entryOffset);
+                if (reloc->flags & 0x80000000) {
+                    done = 1;
+                }
+                reloc->flags &= 0x0FFFFFFF;
+                reloc++;
+            } while (done == 0);
+            resource = *(void **)(cursor + 8);
+            index++;
+            entryOffset += 8;
+            cursor += 8;
+            *(u32 *)((u8 *)resource + 0xC) =
+                (*(u32 *)((u8 *)resource + 0xC) & 0x0FFFFFFF) >> 1;
+        } while (index < count);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1509CF28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509CF28.s")
 void func_10004074(s32 arg0);
-extern s32 D_800D2FB0;
+extern u8 *D_800D2FB0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D054 CURRENT (220) */
 void func_1509D054(void) {

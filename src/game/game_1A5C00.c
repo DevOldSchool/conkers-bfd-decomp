@@ -87,6 +87,35 @@ void func_15178C34(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15178C34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178C34.s")
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern s32 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15178C9C CURRENT (417) */
+s32 func_15178C9C(s32 arg0, s32 arg1) {
+    s32 temp_ft2;
+    s32 temp_ft3;
+    s32 temp_ft4;
+    u8 *temp_a2;
+    u8 *temp_v0;
+
+    arg0 &= 0xFF;
+    temp_v0 = func_15178B98(arg0);
+    if (temp_v0 != 0) {
+        temp_a2 = (arg1 * 0x32C) + (u8 *)&D_800CC2D0;
+        temp_ft4 = (s32)(*(f32 *)(temp_a2 + 0x14) -
+                             (f32)*(s32 *)(temp_v0 + 0x18));
+        temp_ft3 = (s32)(*(f32 *)(temp_a2 + 0x18) -
+                             (f32)*(s32 *)(temp_v0 + 0x1C));
+        temp_ft2 = (s32)(*(f32 *)(temp_a2 + 0x1C) -
+                             (f32)*(s32 *)(temp_v0 + 0x20));
+        return (s32)sqrtf((f32)((temp_ft4 * temp_ft4) +
+                                (temp_ft3 * temp_ft3) +
+                                (temp_ft2 * temp_ft2)));
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15178C9C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A5C00/func_15178C9C.s")
 typedef struct Game1A5C00Owner {
     u8 pad0[0x2E];

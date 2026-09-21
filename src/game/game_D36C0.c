@@ -14,6 +14,46 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+extern f32 D_8009F6A0;
+extern f32 D_800D35E0[2];
+extern f32 D_800D9B20;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6210 CURRENT (10295) */
+s32 func_150A6210(u8 *arg0, f32 arg1, f32 arg2, f32 arg3,
+                  f32 arg4, f32 arg5, f32 arg6) {
+    f32 z;
+    f32 x;
+    f32 y;
+    f32 scale;
+    f32 bound;
+    f32 opposite;
+
+    z = (*(f32 *)(arg0 + 8) * arg1) + (*(f32 *)(arg0 + 0x18) * arg2) +
+        ((*(f32 *)(arg0 + 0x28) * arg3) + *(f32 *)(arg0 + 0x38));
+    if ((z - arg4) > -D_800D9B20 || (z + arg4) < -arg6) {
+        return 0;
+    }
+    x = (*(f32 *)(arg0 + 0) * arg1) + (*(f32 *)(arg0 + 0x10) * arg2) +
+        ((*(f32 *)(arg0 + 0x20) * arg3) + *(f32 *)(arg0 + 0x30));
+    scale = arg4 * D_8009F6A0;
+    bound = -z + scale;
+    if ((x - scale) * D_800D35E0[0] > bound) {
+        return 0;
+    }
+    opposite = -bound;
+    if ((x + scale) * D_800D35E0[0] < opposite) {
+        return 0;
+    }
+    y = (*(f32 *)(arg0 + 4) * arg1) + (*(f32 *)(arg0 + 0x14) * arg2) +
+        ((*(f32 *)(arg0 + 0x24) * arg3) + *(f32 *)(arg0 + 0x34));
+    scale = arg5 * D_8009F6A0;
+    if (((y - scale) * D_800D35E0[1] > bound) ||
+        ((y + scale) * D_800D35E0[1] < opposite)) {
+        return 0;
+    }
+    return (s32)z;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A6210 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6210.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6354 CURRENT (300) */
 void func_150A6354(void) {

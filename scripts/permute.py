@@ -16,6 +16,7 @@ from pathlib import Path
 import compile_c
 import candidate_rewrites
 import candidate_syntax
+import candidate_tables
 import candidate_lifetimes
 import diff
 import project_state
@@ -181,6 +182,19 @@ def declaration_variants(function: str, budget: int) -> list[str]:
     return variants
 
 
+def stack_source_variants(function: str, budget: int) -> list[str]:
+    opening = function.find("{")
+    declarations = []
+    cursor = opening + 1
+    for declaration in DECLARATION.finditer(function, cursor):
+        if function[cursor:declaration.start()].strip():
+            break
+        declarations.append(declaration)
+        cursor = declaration.end()
+    return list(itertools.islice(itertools.chain(
+        [function], candidate_lifetimes.stack_variants(function, declarations)), budget))
+
+
 def source_variants(function: str, budget: int) -> list[str]:
     """Combine lifetime permutations with bounded expression-form rewrites."""
 
@@ -239,10 +253,10 @@ def score_candidate(
 
 
 def search_fingerprint(profile: str, content: str, reference: Path, expected_size: int,
-                       budget: int, exhaustive: bool) -> str:
+                       budget: int, exhaustive: bool, stack_shapes: bool = False) -> str:
     """Invalidate negative search results when any supported search input changes."""
     digest = hashlib.sha256()
-    digest.update(json.dumps([profile, content, expected_size, budget, exhaustive]).encode())
+    digest.update(json.dumps([profile, content, expected_size, budget, exhaustive, stack_shapes]).encode())
     digest.update(reference.read_bytes())
     paths = [ROOT / "Makefile"]
     for directory in ("scripts", "include", "toolchain", "config"):
@@ -261,6 +275,8 @@ def main() -> int:
     parser.add_argument("--budget", type=int, default=32)
     parser.add_argument("--exhaustive", action="store_true",
                         help="use the full variant budget instead of stopping after 32 attempts without improvement")
+    parser.add_argument("--stack-shapes", action="store_true",
+                        help="probe storage shapes; stop at the first non-improvement")
     args = parser.parse_args()
     if args.budget < 1 or args.budget > 5000:
         parser.error("--budget must be between 1 and 5000")
@@ -272,7 +288,8 @@ def main() -> int:
             active_content, args.identifier, symbol
         )
         original_function = active_content[function_start:function_end].rstrip("\n")
-        variants = source_variants(original_function, args.budget)
+        variants = (stack_source_variants(original_function, min(args.budget, 8))
+                    if args.stack_shapes else source_variants(original_function, args.budget))
         reference_assembly = diff.ensure_reference_function(
             args.profile,
             symbol,
@@ -290,11 +307,11 @@ def main() -> int:
         best_path = directory / "best.c"
         report = directory / "search-report.json"
         fingerprint = search_fingerprint(args.profile, active_content, reference, expected_size,
-                                         args.budget, args.exhaustive)
+                                         args.budget, args.exhaustive, args.stack_shapes)
         if report.is_file():
             saved = json.loads(report.read_text())
             if (saved.get("fingerprint") == fingerprint
-                    and saved.get("stop_reason") in ("plateau", "variants_exhausted")
+                    and saved.get("stop_reason") in ("plateau", "variants_exhausted", "stack_shape_no_improvement")
                     and isinstance(saved.get("best_score"), int) and saved["best_score"] > 0
                     and best_path.is_file()
                     and saved.get("best_sha256") == hashlib.sha256(best_path.read_bytes()).hexdigest()):
@@ -345,11 +362,22 @@ def main() -> int:
                 stop_reason = "tooling_failure"
                 break
             attempted += 1
+            if score == 0 and args.profile == "us" and entry.get("overlay") == "game":
+                try:
+                    candidate_tables.verify_candidate(directory / "candidate.o", symbol,
+                                                      reference_assembly, expected_size)
+                except (ValueError, OSError) as error:
+                    failure = f"candidate table gate: {error}"
+                    stop_reason = "table_gate_failure"
+                    break
             if best_score is None:
                 best_score = score
                 best_function = variant
                 best_path.write_text(best_function + "\n", encoding="utf-8")
                 print(f"{args.identifier}: baseline CURRENT ({score}) at variant {attempted}")
+            elif args.stack_shapes and score >= best_score:
+                stop_reason = "stack_shape_no_improvement"
+                break
             elif score < best_score:
                 best_score = score
                 best_function = variant
@@ -366,6 +394,7 @@ def main() -> int:
             "fingerprint": fingerprint,
             "best_sha256": hashlib.sha256(best_path.read_bytes()).hexdigest() if best_path.is_file() else None,
             "budget": args.budget, "exhaustive": args.exhaustive,
+            "strategy": "stack_shapes" if args.stack_shapes else "general",
             "generated": len(variants), "compiled": attempted, "invalid": skipped,
             "improvements": improvements, "best_score": best_score,
             "stop_reason": stop_reason, "elapsed_seconds": time.monotonic() - started,

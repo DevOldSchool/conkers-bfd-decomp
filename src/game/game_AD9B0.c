@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_periodic_actor_resource_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15080500
  * - func_15080620
  * - func_15080784
  * - func_15080828
@@ -14,7 +13,43 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080500.s")
+s32 func_15080738(s32);
+extern s8 D_800D1940;
+extern void *D_800D199C;
+extern u8 D_800D2E60[];
+extern s32 D_800D3098;
+
+void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
+    u8 *temp_v0;
+
+    if ((arg0 != 0) && (*(s32 *)arg0 != 0) && (arg0[0x127] != 0xFF)) {
+        if ((arg3 == 0x2B) || (arg3 == 0x2C)) {
+            D_800D1940 = arg3;
+            D_800D199C = arg1;
+            arg3 = 0x2A;
+        } else {
+            if (func_15080738(arg3) != 0) {
+                D_800D1940 = arg3;
+                if (!(D_800D2E60[arg3 >> 3] & (1 << (arg3 & 7)))) {
+                    arg3 = 0x1A;
+                }
+            }
+        }
+        if (arg2 == 0) {
+            temp_v0 = *(u8 **)(arg0 + 0x31C);
+            if (!(temp_v0[0x74] & 0x80)) {
+                temp_v0[0x74] = arg3;
+            }
+        } else {
+            temp_v0 = *(u8 **)(arg0 + 0x31C);
+            if (!(temp_v0[0x75] & 0x80)) {
+                temp_v0[0x75] = arg3;
+                (*(u8 **)(arg0 + 0x31C))[0x7A] =
+                    ((s32)arg1 - D_800D3098) / 52;
+            }
+        }
+    }
+}
 extern void * D_800CC5EC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15080620 CURRENT (1819) */

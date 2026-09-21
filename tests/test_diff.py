@@ -22,6 +22,19 @@ SPEC.loader.exec_module(diff_helper)
 
 
 class DiffReferenceTests(unittest.TestCase):
+    def test_table_gate_blocks_zero_in_diagnosis_and_authoritative_diff(self):
+        from unittest.mock import Mock
+        evidence = subprocess.CompletedProcess([], 0, json.dumps({"current_score": 0, "rows": []}), "")
+        for runner in (diff_helper.run_required_asm_diff, diff_helper.run_diagnose_diff):
+            gate = Mock(side_effect=ValueError("case table differs from ROM"))
+            output = StringIO()
+            with patch.object(diff_helper.subprocess, "run", return_value=evidence), redirect_stdout(output), redirect_stderr(output):
+                status = runner(Path("candidate.o"), Path("reference.o"), "func_test", Path("unused"), 4, table_check=gate)
+            self.assertEqual(diff_helper.EXIT_BLOCKED_TOOLING, status)
+            gate.assert_called_once()
+            self.assertNotIn("CURRENT (0)", output.getvalue())
+            self.assertIn("case table differs", output.getvalue())
+
     def test_reuses_existing_game_reference(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             temporary_root = Path(temporary_directory)

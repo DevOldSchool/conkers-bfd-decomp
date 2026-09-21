@@ -272,6 +272,58 @@ void func_150F1684(u8 *arg0, u8 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F1684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1684.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F16DC.s")
+typedef struct Game11D830Weights {
+    u16 value[3];
+} Game11D830Weights;
+
+f32 func_15047C00(f32);
+extern Game11D830Weights D_80088B00;
+extern f32 D_800A18E8;
+extern f32 D_800A18EC;
+extern f32 D_800A18F0;
+extern s32 D_800BE9E4;
+extern u8 D_800CC298[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1A00 CURRENT (1581) */
+void func_150F1A00(void *arg0) {
+    Game11D830Weights weights;
+    s32 index;
+    s32 flags;
+    s32 i;
+    s32 j;
+    f32 *row;
+    f32 *cursor;
+    f32 current;
+    f32 scale;
+
+    weights = D_80088B00;
+    index = 0;
+    flags = *(s32 *)((u8 *)arg0 + 0x2E4);
+    if ((flags & 3) == 3) {
+        index = 1;
+    }
+    if ((flags & 0xC) == 0xC) {
+        index = 2;
+    }
+    *(s16 *)(D_800CC298 + 0x14) += weights.value[index] * D_800BE9E4;
+    scale = ((func_15047C00((f32)*(s16 *)(D_800CC298 + 0x14) * D_800A18E8) + 1.0f)
+             * 0.5f * D_800A18EC) + D_800A18F0;
+    row = (f32 *)((u8 *)*(void **)((u8 *)arg0 + 0x1D4) + 0xF80);
+    for (i = 0; i != 3; i++) {
+        cursor = row;
+        j = 1;
+        current = *cursor * scale;
+        do {
+            j++;
+            *cursor = current;
+            current = cursor[1] * scale;
+            cursor++;
+        } while (j != 3);
+        *cursor = current;
+        row += 4;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F1A00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1A00.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1B48.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1CB0 CURRENT (460) */

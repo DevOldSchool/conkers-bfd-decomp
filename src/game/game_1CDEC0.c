@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A0AF8
  * - func_151A0C0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -56,5 +55,32 @@ void func_151A0A10(u8 *arg0, s16 arg1, u8 arg2, s32 arg3) {
         }
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CDEC0/func_151A0AF8.s")
+typedef struct Game1CDEC0Emitter {
+    u8 pad0[0xC];
+    u8 field_C;
+    u8 padD[0x1B];
+    Game1CDEC0Packet packet;
+} Game1CDEC0Emitter;
+
+void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32,
+                   s32, s32);
+f32 func_150ADA68(void);
+extern f32 D_800A8D10;
+extern f32 D_800BE9A4;
+
+void func_151A0AF8(Game1CDEC0Emitter *arg0) {
+    Game1CDEC0Packet *packet;
+
+    arg0->packet.field_10 += D_800A8D10 * D_800BE9A4;
+    if (arg0->packet.field_10 > 1.0f) {
+        packet = &arg0->packet;
+        do {
+            func_1514C678(packet->field_0, packet->field_4,
+                          *(s32 *)&packet->field_8,
+                          (func_150ADA68() * 25.0f) + 15.0f, 0, 0xFF, 5, 4,
+                          *(u8 *)&packet->field_C, 0.0f, 0, arg0->field_C);
+            packet->field_10 -= 1.0f;
+        } while (packet->field_10 > 1.0f);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CDEC0/func_151A0C0C.s")

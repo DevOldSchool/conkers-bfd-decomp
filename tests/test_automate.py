@@ -238,6 +238,7 @@ void func_test(void *arg0) {
     def test_raw_preflight_routes_only_eligible_differences_to_search(self) -> None:
         cases = (
             (self.diagnosis(), 250, None),
+            (self.diagnosis(operands=1) + "stack-rows: 1\n", 8, None),
             (self.diagnosis().replace("missing-or-extra: 0", "missing-or-extra: 3"), 32, None),
             (self.diagnosis(operands=1), None, "structural_mismatch"),
             (self.diagnosis().replace("opcode-or-control-flow: 0", "opcode-or-control-flow: 1"), None, "structural_mismatch"),
@@ -269,13 +270,14 @@ void func_test(void *arg0) {
                     patch.object(automation.automation_common, "entry_is_complete", return_value=False),
                     redirect_stdout(io.StringIO()),
                 ):
-                    result = automation.try_raw_candidate(self.raw_candidate(), budget=250, defer_best=True)
+                    result = automation.try_raw_candidate(self.raw_candidate(), budget=250, defer_best=True, stack_shapes="stack-rows: 1" in evidence)
                 self.assertEqual(original, source.read_text())
                 self.assertEqual("diagnose-diff", calls[0][1])
                 searches = [call for call in calls if call[1] == "permute"]
                 if expected_budget is not None:
                     self.assertEqual(1, len(searches))
                     self.assertEqual(str(expected_budget), searches[0][searches[0].index("--budget") + 1])
+                    self.assertEqual("stack-rows: 1" in evidence, "--stack-shapes" in searches[0])
                 else:
                     self.assertEqual([], searches)
                     self.assertEqual(1, len(calls))

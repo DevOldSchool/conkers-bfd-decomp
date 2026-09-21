@@ -177,6 +177,30 @@ and reports new batch-verified matches per 1,000 tokens. Missing token counts st
 null; command-log bytes are not model tokens or the volume displayed to an agent.
 Compare the same candidate cohort when evaluating a workflow change.
 
+Stack-only near-misses have an opt-in storage-shape pilot. `diagnose-diff`
+reports `stack-rows` only when the opcode and registers agree and the sole
+operand change is an SP-relative offset. Mixed constants/control flow remain
+ineligible. `--stack-shapes` tries suffix scopes and scalar wrappers without
+inventing padding, with at most eight candidates and a stop at the first
+non-improving compiled shape. Its strategy and outcome are fingerprinted;
+`--exhaustive` does not override this stop.
+
+```sh
+./conker automate --function <work-item-id> --stack-shapes --defer-best
+```
+
+The initial fixed cohort produced one instruction-zero candidate from three
+functions; it did not establish a new accepted match or batch success. See
+[the pilot evidence](docs/evidence/targeted_candidate_pilot.md). Keep this
+experimental option off for broad scans until further integration validation.
+
+US game switches now receive an additional check at instruction zero in
+`diagnose-diff`, `permute`, and authoritative focused diffs. It resolves the
+candidate object's switch relocations and compares case targets to the
+checksum-validated ROM. Unsupported dispatches fail closed. This checks table
+contents early; `finish`, linker layout checks, and clean batch ROM verification
+remain required.
+
 The full scan is an explicit, long-running operation:
 
 ```sh

@@ -249,6 +249,49 @@ s32 func_1518FC44(void *arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518FC44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518FC44.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (501) */
+void func_1518FC84(u8 *arg0, void *arg1) {
+    u8 *object;
+    u8 *settings;
+    u8 *fields;
+    u8 *transform;
+    s32 range;
+    u32 random;
+    f32 *position;
+
+    position = arg1;
+    settings = *(u8 **)(arg0 + 0x30);
+    object = *(u8 **)(arg0 + 0x2C);
+    if (settings == 0) {
+        func_1516972C((s32)object);
+        return;
+    }
+    *(f32 *)(object + 0x148) = *(f32 *)(settings + 0x60) *
+                              (position[0] - *(f32 *)(arg0 + 0x34));
+    *(f32 *)(object + 0x14C) = *(f32 *)(settings + 0x60) *
+                              (position[1] - *(f32 *)(arg0 + 0x38));
+    *(f32 *)(object + 0x150) = *(f32 *)(settings + 0x60) *
+                              (position[2] - *(f32 *)(arg0 + 0x3C));
+    transform = object + 0x110;
+    fields = settings + 0x30;
+    *(f32 *)(transform + 0x44) = func_150ADA68() * *(f32 *)(fields + 0x38) +
+                                  *(f32 *)(fields + 0x34);
+    *(f32 *)(transform + 0x48) = *(f32 *)(fields + 0x3C);
+    *(s16 *)(object + 0x6C) = *(s16 *)(fields + 0x40);
+    *(s16 *)(object + 0x6E) = *(s16 *)(fields + 0x42);
+    random = func_150ADA20();
+    range = *(s16 *)(fields + 0x46) + 1;
+    *(s16 *)(object + 0x1C) = random % (u32)range +
+                              *(s16 *)(fields + 0x44);
+    if (fields[0x4C] & 1) {
+        object[0x70] = 0x21;
+    } else {
+        object[0x70] = 0x20;
+    }
+    object[0x71] = 0x24;
+    *(s32 *)(object + 0x58) |= 0x8000001;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518FC84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518FC84.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FDC4 CURRENT (6025) */
 s32 func_1518FDC4(void *arg0, s8 *arg1, s32 arg2) {

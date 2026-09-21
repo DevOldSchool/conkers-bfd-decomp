@@ -13,7 +13,6 @@
  * - func_151B7144
  * - func_151B7328
  * - func_151B7678
- * - func_151B76CC
  * - func_151B77F4
  * - func_151B7998
  * - func_151B7C38
@@ -23,6 +22,58 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    u8 field04;
+    u8 pad05[3];
+    f32 copiedPosition[3];
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    u8 pad28[8];
+    f32 position[3];
+    s16 field3C;
+    s16 field3E;
+    s32 field40;
+    u8 field44;
+    s8 field45;
+    u8 pad46[2];
+} Game1E37D0Spawn;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
+                    s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6320 CURRENT (2244) */
+void func_151B6320(void *arg0, u8 arg1, s32 arg2) {
+    u8 local[0x48];
+    void *result;
+
+    *(s8 *)&local[0x45] = 0xA;
+    *(f32 *)&local[0x30] = *(f32 *)((u8 *)arg0 + 0x14);
+    *(f32 *)&local[0x34] = *(f32 *)((u8 *)arg0 + 0x18);
+    *(s16 *)&local[0x3C] = 0x12C;
+    *(s16 *)&local[0x3E] = 6;
+    *(void **)&local[0] = arg0;
+    *(f32 *)&local[0x38] = *(f32 *)((u8 *)arg0 + 0x1C);
+    local[4] = *(u8 *)((u8 *)arg0 + 0x3B);
+    *(s32 *)&local[8] = *(s32 *)&local[0x30];
+    *(s32 *)&local[0xC] = *(s32 *)&local[0x34];
+    *(s32 *)&local[0x10] = *(s32 *)&local[0x38];
+    *(f32 *)&local[0x14] = 0.0f;
+    *(f32 *)&local[0x18] = 0.0f;
+    *(f32 *)&local[0x20] = -16384.0f;
+    *(f32 *)&local[0x1C] = -16384.0f;
+    *(f32 *)&local[0x24] = 0.0f;
+    *(s32 *)&local[0x40] = 0xD;
+    result = func_15147A80(&local[0x30], (void *)0x30, 0x1C, 0xB,
+                           0xB, 0xB, 0, 0, 0, arg1, arg2);
+    if (result != 0) {
+        func_10022EC0(*(void **)((u8 *)result + 0x98), local, 0x2C);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B6320 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6320.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6420.s")
 f32 func_15143E64(f32 *, void *, void *);           /* extern */
@@ -213,7 +264,43 @@ s32 func_151B7678(void *arg0, f32 *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B7678 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7678.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B76CC.s")
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_150A8050(f32 *, s32, s32, s32);
+
+typedef struct Game1E37D0TransformLocals {
+    u8 pad0[4];
+    f32 matrix[12];
+    f32 translation[3];
+    u8 pad40[4];
+} Game1E37D0TransformLocals;
+
+s32 func_151B76CC(void *arg0, f32 *arg1) {
+    void *entry;
+    void *root;
+    void *data;
+    Game1E37D0TransformLocals local;
+
+    root = *(void **)((u8 *)arg0 + 0x98);
+    entry = *(void **)((u8 *)root + 4);
+    data = *(void **)entry;
+    func_150A8050(local.matrix, *(s32 *)((u8 *)data + 0x20),
+                    *(s32 *)((u8 *)data + 0x24), *(s32 *)((u8 *)data + 0x28));
+    local.translation[0] = *(f32 *)((u8 *)data + 0x38);
+    local.translation[1] = *(f32 *)((u8 *)data + 0x3C);
+    local.translation[2] = *(f32 *)((u8 *)data + 0x40);
+    local.matrix[0] *= *(f32 *)((u8 *)data + 0x18);
+    local.matrix[1] *= *(f32 *)((u8 *)data + 0x18);
+    local.matrix[2] *= *(f32 *)((u8 *)data + 0x18);
+    local.matrix[4] *= *(f32 *)((u8 *)data + 0x1C);
+    local.matrix[5] *= *(f32 *)((u8 *)data + 0x1C);
+    local.matrix[6] *= *(f32 *)((u8 *)data + 0x1C);
+    local.matrix[8] *= *(f32 *)((u8 *)data + 0x18);
+    local.matrix[9] *= *(f32 *)((u8 *)data + 0x18);
+    local.matrix[10] *= *(f32 *)((u8 *)data + 0x18);
+    func_150A7960(local.matrix, 0.0f, 0.0f, -250.0f, arg1,
+                  (f32 *)((u8 *)arg1 + 4), (f32 *)((u8 *)arg1 + 8));
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B77F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7998.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7C38.s")

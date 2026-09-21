@@ -119,6 +119,76 @@ void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CD3CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD3CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD4C0.s")
+typedef struct Game1FA770Particle {
+    f32 x;
+    f32 y;
+    u8 pad08[4];
+    f32 velocity;
+    u8 pad10[0xC];
+} Game1FA770Particle;
+
+typedef struct Game1FA770Position {
+    s32 x;
+    s32 y;
+    s32 z;
+} Game1FA770Position;
+
+extern f32 D_800AAFC0;
+extern f32 D_800AAFC4;
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD674 CURRENT (200) */
+s32 func_151CD674(u8 *actor) {
+    u8 *owner;
+    Game1FA770Particle *particles;
+    Game1FA770Particle *particle;
+    s32 cursor;
+    f32 velocity;
+    f32 gravity;
+    f32 acceleration;
+    f32 step;
+    f32 travel;
+    f32 squared;
+
+    owner = *(u8 **)(actor + 0x98);
+    particles = *(Game1FA770Particle **)(actor + 0x94);
+    if ((*(s8 *)(actor + 0x2C) < 2) && (*(u16 *)(actor + 0x1E) & 8)) {
+        return 0;
+    }
+    cursor = *(s8 *)(actor + 0x2E);
+    if (cursor != *(s8 *)(actor + 0x2D)) {
+        gravity = D_800AAFC0;
+        acceleration = D_800AAFC4;
+        do {
+            cursor--;
+            if (cursor < 0) {
+                cursor = actor[0x25] - 1;
+            }
+            particle = &particles[cursor];
+            velocity = particle->velocity;
+            step = D_800BE9A4;
+            travel = velocity * step;
+            squared = step * step;
+            particle->y = particle->y + (travel + acceleration * squared);
+            particle->velocity = gravity * D_800BE9A4 + velocity;
+            if (particle->y < *(f32 *)(owner + 0x44)) {
+                if (cursor != *(s8 *)(actor + 0x2D)) {
+                    do {
+                        *(s8 *)(actor + 0x2D) += 1;
+                        if (actor[0x25] == *(s8 *)(actor + 0x2D)) {
+                            *(s8 *)(actor + 0x2D) = 0;
+                        }
+                        *(s8 *)(actor + 0x2C) -= 1;
+                    } while (cursor != *(s8 *)(actor + 0x2D));
+                }
+                particles[*(s8 *)(actor + 0x2D)].y = *(f32 *)(owner + 0x44);
+            }
+        } while (cursor != *(s8 *)(actor + 0x2D));
+    }
+    *(Game1FA770Position *)(actor + 0x54) = *(Game1FA770Position *)(actor + 0x10);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CD674 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD674.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
@@ -328,6 +398,48 @@ void func_151CE4DC(void *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CE4DC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CE4DC.s")
+typedef struct {
+    f32 x;
+    f32 y;
+} Game1FA770Vec2;
+
+void *func_151CE634(s32);
+void func_1515C1A0(void *, void *, f32 *, f32 *);
+void func_1505D024(void *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE51C CURRENT (1718) */
+void func_151CE51C(void *arg0, void *arg1) {
+    Game1FA770Vec2 sp44;
+    f32 sp40;
+    f32 sp3C;
+    void *sp38;
+    s32 var_v0;
+    u8 *temp_v0;
+
+    temp_v0 = func_151CE634(*(s32 *)((u8 *)arg1 + 0x18));
+    if (temp_v0 != 0) {
+        sp38 = temp_v0;
+        func_1515C1A0(arg0, &sp44, &sp40, &sp3C);
+        if (*(u16 *)(temp_v0 + 0x1E) & 8) {
+            if (*(s8 *)(temp_v0 + 0x2C) > 0) {
+                var_v0 = *(s8 *)(temp_v0 + 0x2E) - 1;
+                if (var_v0 < 0) {
+                    var_v0 = temp_v0[0x25] - 1;
+                }
+                if ((sp44.y - sp3C) <=
+                    *(f32 *)(*(u8 **)(temp_v0 + 0x94) + (var_v0 * 0x1C) + 4)) {
+                    func_1505D024(arg0, 0x60019, 0, -1);
+                }
+            }
+        } else if ((*(s8 *)(temp_v0 + 0x2C) > 0) &&
+                   (*(f32 *)(*(u8 **)(temp_v0 + 0x94) +
+                              (*(s8 *)(temp_v0 + 0x2D) * 0x1C) + 4) <=
+                    (sp44.y + sp3C))) {
+            func_1505D024(arg0, 0x60019, 0, -1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CE51C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CE51C.s")
 extern s32 D_800A5760[];
 extern u8 D_800DCE50[];

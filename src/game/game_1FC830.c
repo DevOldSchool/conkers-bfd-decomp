@@ -12,7 +12,6 @@
  * - func_151D014C
  * - func_151D08F0
  * - func_151D09A8
- * - func_151D0F60
  * - func_151D10E4
  * - func_151D1138
  * - func_151D1388
@@ -143,7 +142,49 @@ void func_151D0F34(s32 arg0) {
     func_151D0ED8((void *)arg0);
     func_1513175C(arg0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D0F60.s")
+typedef struct Game1FC830Vector {
+    s32 x;
+    s32 y;
+    s32 z;
+} Game1FC830Vector;
+
+typedef s32 (*Game1FC830PositionCallback)(void *, Game1FC830Vector *);
+extern Game1FC830PositionCallback D_8008FC30[];
+extern Game1FC830Vector D_800A5480;
+
+typedef struct Game1FC830ParticlePacket {
+    void *object;
+    u8 object_type;
+    u8 pad5[3];
+    s32 field_08;
+    Game1FC830Vector position;
+    Game1FC830Vector callback_position;
+    Game1FC830Vector default_position;
+    f32 field_30;
+    u8 type;
+    u8 pad35[3];
+    u8 tail_pad[4];
+} Game1FC830ParticlePacket;
+
+void func_151D0F60(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
+    Game1FC830ParticlePacket packet;
+    register void *result;
+
+    packet.object = arg0;
+    packet.object_type = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.field_08 = 0;
+    if (D_8008FC30[arg1](arg0, &packet.callback_position) == 0) {
+        packet.callback_position = D_800A5480;
+    }
+    packet.position = packet.callback_position;
+    packet.default_position = D_800A5480;
+    packet.field_30 = 0.0f;
+    packet.type = arg1;
+    result = func_15149130(0x12C, -1, 0x5F, -1, 0, 0x48, 0x38, arg2, arg3);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x28, &packet, 0x38);
+    }
+}
 s32 func_151D1074(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 0) = (f32) *(f32 *)((u8 *)arg0 + 0x14);
     *(f32 *)((u8 *)arg1 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 0x180) + 8.0f);

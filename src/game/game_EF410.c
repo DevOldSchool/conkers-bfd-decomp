@@ -28,7 +28,23 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2290.s")
+f32 func_150ADA68(void);
+void func_1514C470(f32, f32, s32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
+extern f32 D_800A0268;
+extern f32 D_800A026C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2424 CURRENT (1643) */
+void func_150C2424(u8 arg0) {
+    func_1514C470(D_800A0268, -490.0f, 0xC3A40000, D_800A0268,
+                  -490.0f, 328.0f, (func_150ADA68() * 8.0f) + 8.0f,
+                  1, 0, 0.0f, 0, (s32)arg0);
+    func_1514C470(D_800A026C, -560.0f, 0xC4110000, 8117.0f,
+                  -560.0f, -580.0f, (func_150ADA68() * 3.0f) + 4.0f,
+                  3, 0, 0.0f, 0, (s32)arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C2424 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2424.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C251C CURRENT (255) */
 s32 func_150C251C(void *arg0) {
     s16 temp_v1;
@@ -52,6 +68,73 @@ s32 func_150C251C(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C251C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C251C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2558.s")
+typedef struct {
+    s16 field00;
+    s16 field02;
+    s16 field04;
+    s16 field06;
+    f32 position[3];
+    s16 field14;
+    s16 field16;
+    f32 field18;
+    f32 field1C;
+    s16 field20;
+    s16 field22;
+    f32 field24;
+    f32 field28;
+    s8 field2C;
+    s8 field2D;
+    u8 pad2E[2];
+    f32 field30;
+    f32 field34;
+    s8 field38;
+    s8 field39;
+    u8 pad3A[2];
+    f32 field3C;
+    s8 field40;
+    u8 pad41[3];
+    f32 field44;
+} GameEF410Spawn;
+
+void func_15150178(s16 *, f32 *, s32, u8, s32);
+extern f32 D_800A0274;
+extern f32 D_800A0278;
+extern f32 D_800A027C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2700 CURRENT (625) */
+s32 func_150C2700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
+                   s32 arg10, s32 arg11, s32 arg12, s32 arg13, u8 arg14) {
+    GameEF410Spawn spawn;
+
+    spawn.field16 = 5;
+    spawn.field00 = 0x6B;
+    spawn.position[0] = arg2;
+    spawn.position[1] = arg3;
+    spawn.field14 = 6;
+    spawn.field02 = 0x46;
+    spawn.field04 = -0x1F;
+    spawn.field06 = 0x2E;
+    spawn.field20 = 0x64;
+    spawn.field22 = 0;
+    spawn.field2C = 0x9B;
+    spawn.field2D = 0x64;
+    spawn.field34 = 0.0f;
+    spawn.field38 = 1;
+    spawn.field39 = 6;
+    spawn.field3C = 0.0f;
+    spawn.field40 = 1;
+    spawn.field44 = 0.0f;
+    spawn.field18 = 30.0f;
+    spawn.field1C = 35.0f;
+    spawn.field24 = D_800A0274;
+    spawn.field28 = D_800A0278;
+    spawn.position[2] = arg4;
+    spawn.field30 = D_800A027C;
+    func_15150178(&spawn.field00, spawn.position, 0, arg14, 1);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C2700 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2700.s")
 void func_15134908(s32 *, s32, u8, s32);
 extern f32 D_800A0280;

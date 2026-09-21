@@ -80,7 +80,7 @@ s32 func_150C682C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C682C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C682C.s")
-s32 func_150C68C4(s32, void *, s32);
+s32 func_150C68C4(void *, void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C6870 CURRENT (835) */
 void func_150C6870(void *arg0) {
@@ -95,6 +95,81 @@ void func_150C6870(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C6870 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C6870.s")
+extern f32 D_800A0450;
+extern f32 D_800A0454;
+extern f32 D_800A0458;
+s32 func_15045800(f32 *, s32, f32, void *);
+u32 func_1513418C(void *, s32, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
+
+typedef struct GameF3BA0SpawnPacket {
+    s32 field_0;
+    s32 field_4;
+    u8 field_8;
+    u8 pad_9[3];
+    void *owner;
+    u8 field_10;
+    u8 pad_11[3];
+    f32 field_14;
+    f32 field_18;
+    f32 field_1C;
+    f32 field_20;
+    f32 field_24;
+    s16 field_28;
+    u8 field_2A;
+    u8 field_2B;
+    u8 field_2C;
+    u8 field_2D;
+} GameF3BA0SpawnPacket;
+
+typedef struct GameF3BA0RayPacket {
+    f32 coordinates[3];
+    u8 pad_C[4];
+    void *source;
+    u8 flag;
+    u8 pad_15[3];
+    f32 result;
+} GameF3BA0RayPacket;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C68C4 CURRENT (390) */
+s32 func_150C68C4(void *arg0, void *arg1) {
+    GameF3BA0SpawnPacket packet;
+    GameF3BA0RayPacket ray;
+    u32 spawned;
+
+    ray.source = arg1;
+    ray.flag = 1;
+    ray.coordinates[0] = *(f32 *)((u8 *)arg0 + 0x14);
+    ray.coordinates[1] = *(f32 *)((u8 *)arg0 + 0x18) + D_800A0450;
+    ray.coordinates[2] = *(f32 *)((u8 *)arg0 + 0x1C);
+    if (func_15045800(ray.coordinates, 0, *(f32 *)((u8 *)arg0 + 0x18) - 100.0f,
+                      (u8 *)arg1 + 0x34) != 0) {
+        ray.result = *(f32 *)((u8 *)arg1 + 0x34);
+    } else {
+        ray.result = *(f32 *)((u8 *)arg0 + 0x18) + D_800A0454;
+    }
+    packet.field_0 = 0;
+    packet.field_4 = 0;
+    packet.field_8 = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.owner = arg0;
+    packet.field_10 = 0;
+    packet.field_14 = 0.0f;
+    packet.field_18 = 0.0f;
+    packet.field_1C = 0.0f;
+    packet.field_20 = 80.0f;
+    packet.field_24 = D_800A0458;
+    packet.field_28 = 0x12C;
+    packet.field_2A = 0xA;
+    packet.field_2B = 5;
+    packet.field_2C = 2;
+    packet.field_2D = 3;
+    spawned = func_1513418C(&packet, 0xC, 0xFF, 0);
+    if (spawned != 0) {
+        func_10022EC0((void *)(spawned + 0x58), &ray.source, 0xC);
+    }
+    return spawned;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C68C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C68C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C6A08.s")
 s32 func_150C6D1C(void *arg0) {

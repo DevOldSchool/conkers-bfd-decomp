@@ -41,7 +41,7 @@
 
 f32 func_15144A74(void *, void *);                  /* extern */
 s32 func_15144E80(void *, void *, void *, void *);  /* extern */
-void func_15145128(f32 *, f32 *, f32 *, f32 *);     /* extern */
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);      /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F640 CURRENT (8) */
 void func_1514F640(s32 arg0, u8 *arg1) {
@@ -58,6 +58,53 @@ void func_1514F640(s32 arg0, u8 *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514F640 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F640.s")
+s32 func_15146078();
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F6E8 CURRENT (55) */
+s32 func_1514F6E8(void *arg0) {
+    f32 *temp_a0;
+    f32 *temp_a0_2;
+    f32 *temp_a0_3;
+    u8 temp_t1;
+    u8 temp_t8;
+    u8 var_v0;
+
+    var_v0 = *(u8 *)arg0;
+    temp_a0 = (f32 *)((u8 *)arg0 + 4);
+    if (!(var_v0 & 1)) {
+        if (func_15145128(temp_a0, temp_a0, 0, 0) == 0) {
+            return 0;
+        }
+        temp_t8 = *(u8 *)arg0 | 1;
+        *(u8 *)arg0 = temp_t8;
+        *(f32 *)((u8 *)arg0 + 4) *= 1000.0f;
+        var_v0 = temp_t8;
+        *(f32 *)((u8 *)arg0 + 8) *= 1000.0f;
+        *(f32 *)((u8 *)arg0 + 0xC) *= 1000.0f;
+    }
+    if (!(var_v0 & 2)) {
+        if (func_15146078((u8 *)arg0 + 4, (u8 *)arg0 + 0x10,
+                          (u8 *)arg0 + 0x1C) == 0) {
+            return 0;
+        }
+        temp_t1 = *(u8 *)arg0 | 6;
+        *(u8 *)arg0 = temp_t1;
+        var_v0 = temp_t1;
+    }
+    temp_a0_2 = (f32 *)((u8 *)arg0 + 0x10);
+    if (!(var_v0 & 4)) {
+        if (func_15145128(temp_a0_2, temp_a0_2, 0, 0) == 0) {
+            return 0;
+        }
+        temp_a0_3 = (f32 *)((u8 *)arg0 + 0x1C);
+        if (func_15145128(temp_a0_3, temp_a0_3, 0, 0) == 0) {
+            return 0;
+        }
+        *(u8 *)arg0 |= 4;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514F6E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F6E8.s")
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
