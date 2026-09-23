@@ -616,6 +616,45 @@ s32 func_151B498C(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3, s32 *arg4, s32 *arg
     *arg13 = 0x2B;
     return 1;
 }
+void func_1502EC34(u8 *, s32 *, s32 *, s32 *, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4A14 CURRENT (649) */
+u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
+                 s32 *arg4, s32 *arg5, s32 *arg6, s32 *arg7,
+                 s32 *arg8, s32 *arg9, s32 *arg10, s32 *arg11,
+                 s8 *arg12, s8 *arg13) {
+    u8 result;
+    u8 *data;
+    s32 value0;
+    s32 value1;
+    s32 value2;
+    s32 value3;
+
+    data = *(u8 **)((u8 *)arg0 + 0x150);
+    result = 1;
+    func_1502EC34(data, &value0, &value1, &value2, &value3);
+    if (data[0xA4] & 1) {
+        *arg1 = 0x200005;
+        *arg2 = 0x60600;
+        *arg3 = value0;
+        *arg4 = value1;
+        *arg5 = value2;
+        *arg6 = 0xFF;
+        *arg9 = value3;
+        *arg8 = value3;
+        *arg7 = value3;
+        *arg10 = 0xFF;
+        *arg11 = 0x100000;
+        *arg12 = 5;
+        *arg13 = 0x2F;
+    } else {
+        result = func_151B498C((s32)arg0, arg1, arg2, arg3, arg4,
+                              arg5, arg6, arg7, arg8, arg9, arg10,
+                              arg11, arg12, arg13);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B4A14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4A14.s")
 extern f32 D_800AA3C8;
 

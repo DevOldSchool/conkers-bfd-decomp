@@ -37,7 +37,6 @@
  * - func_15136F50
  * - func_15137610
  * - func_1513783C
- * - func_15137C64
  * - func_15137F30
  * - func_15138120
  * - func_151382E0
@@ -164,13 +163,16 @@ void func_10022EC0(void *, void *, s32);
 void func_15143134(f32 *, f32 *, s32);
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513418C CURRENT (50) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513418C CURRENT (40) */
 void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
     void *sp24;
     s32 temp_v1;
     u8 temp_a0;
     void *temp_v0_2;
+    f32 one;
+    f32 denominator;
+    f32 zero;
 
     temp_v0 = func_15167A68(0x28, arg3, arg1 + 0x58, 1, (s32)arg2, 1);
     if (temp_v0 == (void *)0) {
@@ -190,16 +192,18 @@ void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
         if ((temp_v1 != 0) && ((*(u8 *)((u8 *)temp_v0_2 + 0x74) & 0xF) != 0xF)) {
             func_15143134((f32 *)((u8 *)sp24 + 0x24),
                           (f32 *)((u8 *)sp24 + 0x40),
-                          (*(u8 *)((u8 *)sp24 + 0x20) << 6) + temp_v1);
+                          temp_v1 + (*(u8 *)((u8 *)sp24 + 0x20) << 6));
         } else {
             *(u8 *)((u8 *)sp24 + 0x3A) = temp_a0 | 8;
         }
     } else {
         *(u8 *)((u8 *)sp24 + 0x3A) = temp_a0 | 0x18;
     }
-    *(f32 *)((u8 *)sp24 + 0x50) = 0.0f;
-    *(f32 *)((u8 *)sp24 + 0x4C) =
-        1.0f / (*(f32 *)((u8 *)sp24 + 0x30) + *(f32 *)((u8 *)sp24 + 0x30));
+    one = 1.0f;
+    denominator = *(f32 *)((u8 *)sp24 + 0x30) + *(f32 *)((u8 *)sp24 + 0x30);
+    zero = 0.0f;
+    *(f32 *)((u8 *)sp24 + 0x50) = zero;
+    *(f32 *)((u8 *)sp24 + 0x4C) = one / denominator;
     return sp24;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513418C */
@@ -294,10 +298,11 @@ void func_151347CC(Blood347CCState *arg0, Blood347CCEvent *arg1, u8 arg2) {
             arg0->field18 = arg1->field09;
             return;
         }
-        if (temp_v1 == arg1->field04.word) {
-            arg0->field1C = temp_v0;
-            arg0->field18 = arg1->field08;
+        if (temp_v1 != arg1->field04.word) {
+            return;
         }
+        arg0->field1C = temp_v0;
+        arg0->field18 = *((u8 *)arg1 + 8);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151347CC */
@@ -701,12 +706,94 @@ void func_15136A50(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15136A50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136A50.s")
+f32 func_150ADA68(void);
+u32 func_150ADA20(void);
+void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,
+                   f32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A4624;
+extern f32 D_800A4628;
+extern f32 D_800A462C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136AE4 CURRENT (48) */
+void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
+                   f32 arg5, void *arg6) {
+    f32 sp6C[3];
+    f32 sp60[3];
+    u32 sp54;
+    u32 sp50;
+    f32 sp4C;
+    f32 temp_fv1;
+
+    sp6C[0] = arg0;
+    sp6C[1] = arg1;
+    sp6C[2] = arg2;
+    temp_fv1 = ((func_150ADA68() * 112.0f) + 247.0f) * D_800A4624;
+    sp60[0] = -arg3 * temp_fv1;
+    sp60[1] = -arg4 * temp_fv1;
+    sp60[2] = -arg5 * temp_fv1;
+    sp4C = func_150ADA68();
+    sp50 = func_150ADA20();
+    sp54 = func_150ADA20();
+    func_151D9014(sp6C, sp60, 0, (sp4C * D_800A4628) + D_800A462C,
+                   (sp50 & 0xF) + 0x19, (sp54 % 101U) + 0x9B,
+                   (func_150ADA68() * 119.0f) + 129.0f, 0, 1.0f, 1.0f,
+                   1, 0, 1, 0, *(u8 *)((u8 *)arg6 + 0xC),
+                   *(u8 *)((u8 *)arg6 + 1));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15136AE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136AE4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136C3C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136F50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513783C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137C64.s")
+typedef struct BloodVec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} BloodVec3;
+
+s32 func_15145128(BloodVec3 *, BloodVec3 *, f32 *, f32 *);
+s32 func_15146078(BloodVec3 *, s32, s32);
+
+s32 func_15137C64(BloodVec3 *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
+                    s32 arg3, s32 arg4, BloodVec3 *arg5,
+                    BloodVec3 *arg6, BloodVec3 *arg7) {
+    f32 sp2C;
+    f32 sp28;
+
+    if (arg5 != 0 && arg6 != 0) {
+        *arg0 = *arg5;
+        *arg1 = *arg6;
+        goto have_positions;
+    }
+    if (arg5 != 0) {
+        *arg0 = *arg5;
+        *arg1 = *arg5;
+        goto have_positions;
+    }
+    if (arg6 != 0) {
+        *arg0 = *arg6;
+        *arg1 = *arg6;
+        goto have_positions;
+    }
+    return 0;
+
+have_positions:
+    if (arg7 == 0) {
+        arg2->x = arg1->x - arg0->x;
+        arg2->y = arg1->y - arg0->y;
+        arg2->z = arg1->z - arg0->z;
+        if (func_15145128(arg2, arg2, &sp2C, &sp28) == 0) {
+            return 0;
+        }
+    } else {
+        *arg2 = *arg7;
+    }
+    if (func_15146078(arg2, arg3, arg4) == 0) {
+        return 2;
+    }
+    return 1;
+}
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800A4828;
 
@@ -782,6 +869,86 @@ s32 func_151380B4(Blood1380B4State *arg0, s32 arg1, f32 *arg2) {
     func_15143134(D_800A3FD8[arg1].values, arg2, (s32)(temp_v0 + 0x300));
     return 1;
 }
+extern u8 D_800A4058;
+extern u8 D_800A4068;
+extern u8 D_1000EBC4;
+s32 func_1000FA64(s32, s16, s16, s16, s32, s32, s32, void *, s32, s32, s32, s32);
+void func_15134DAC(u8 *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15138120 CURRENT (969) */
+void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
+    struct {
+        u8 color;
+        u8 pad01[3];
+        Blood1380B4State *owner;
+        s8 type;
+        u8 pad09[3];
+        f32 values[6];
+        s8 mode;
+        u8 pad25;
+        s16 width;
+        s16 height;
+        s16 alpha;
+        s16 sound;
+        s8 count;
+        s8 amount;
+        s8 loop;
+        u8 pad31[3];
+        f32 scale;
+        s8 byte38;
+        s8 byte39;
+    } packet;
+    Blood1380B4Vector *vector;
+    u8 kind;
+
+    vector = &D_800A3FD8[arg1];
+    kind = ((u8 *)vector)[0xE];
+    if (kind == 2) {
+        return;
+    }
+    packet.owner = arg0;
+    packet.color = arg0->pad_0[0x3B];
+    if (arg2 & 0xFF) {
+        packet.type = 0xC;
+    } else {
+        packet.type = 1;
+    }
+    packet.mode = 2;
+    packet.width = 0x28;
+    packet.height = 0x10;
+    packet.values[0] = 0.0f;
+    packet.values[1] = 0.0f;
+    packet.values[2] = 0.0f;
+    packet.values[3] = 0.0f;
+    packet.values[5] = 0.0f;
+    packet.values[4] = 20.0f;
+    if ((u8 *)vector == &D_800A4058 || (u8 *)vector == &D_800A4068) {
+        if (*(s32 *)((u8 *)arg0 + 0x94) & 0xE) {
+            packet.alpha = 0x78;
+        } else {
+            packet.alpha = 0xF0;
+        }
+    } else {
+        packet.alpha = 0x258;
+    }
+    packet.count = 5;
+    if (kind == 0) {
+        packet.amount = 5;
+    } else {
+        packet.amount = 6;
+    }
+    packet.loop = -1;
+    packet.byte38 = 0;
+    packet.byte39 = -1;
+    packet.scale = 1.0f;
+    packet.sound = (s16)func_1000FA64(0x4FE,
+        (s16)(s32)*(f32 *)((u8 *)arg0 + 0x14),
+        (s16)(s32)*(f32 *)((u8 *)arg0 + 0x18),
+        (s16)(s32)*(f32 *)((u8 *)arg0 + 0x1C),
+        0x5DC0, 0x258, 0x12C, &D_1000EBC4, 0x78, 0, 0, 0);
+    func_15134DAC(&packet.color, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15138120 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138120.s")
 typedef struct Blood382E0Position {
     s32 x;

@@ -31,24 +31,23 @@
 extern s32 D_800DBEF0;
 extern s32 D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113180 CURRENT (215) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113180 CURRENT (185) */
 void func_15113180(void) {
     s32 var_v0;
     s32 var_v1;
     u8 temp_a1;
-    void *temp_a0;
-    void *temp_a0_2;
+    u8 *temp_a0;
 
     var_v0 = 0;
     var_v1 = 0;
     if (D_800DBEF0 > 0) {
         do {
-            temp_a0 = D_800DBEF4 + var_v1;
-            *(u8 *)((u8 *)temp_a0 + 0x6F) = (u8) (*(u8 *)((u8 *)temp_a0 + 0x6F) & ~0x40);
-            temp_a0_2 = D_800DBEF4 + var_v1;
-            temp_a1 = *(u8 *)((u8 *)temp_a0_2 + 0x6F);
-            if (((temp_a1 & 0xF) || ((*(u8 *)((u8 *)temp_a0_2 + 0x70) & 4) == 4)) && (*(s32 *)((u8 *)temp_a0_2 + 0x38) != 0)) {
-                *(u8 *)((u8 *)temp_a0_2 + 0x6F) = (u8) (temp_a1 | 0x40);
+            temp_a0 = (u8 *)D_800DBEF4 + var_v1;
+            temp_a0[0x6F] = (u8) (temp_a0[0x6F] & ~0x40);
+            temp_a0 = (u8 *)D_800DBEF4 + var_v1;
+            temp_a1 = temp_a0[0x6F];
+            if (((temp_a1 & 0xF) || ((temp_a0[0x70] & 4) == 4)) && (*(s32 *)(temp_a0 + 0x38) != 0)) {
+                temp_a0[0x6F] = (u8) (temp_a1 | 0x40);
             }
             var_v0 += 1;
             var_v1 += 0xA0;
@@ -121,8 +120,104 @@ loop_2:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151140C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151140C4.s")
+extern u8 D_800CC2D0;
+void func_1511473C(void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (5805) */
+void func_15114188(void) {
+    struct ActorSlot {
+        u8 pad[0x127];
+        u8 flag;
+        u8 rest[0x204];
+    };
+    s32 index;
+    s32 offset;
+    s32 actorOffset;
+    s32 bit;
+    u32 mask;
+    u8 *entryBase;
+    u8 *entry;
+    u8 *actor;
+    void (*callback)(void *);
+
+    index = 0;
+    offset = 0;
+    if (D_800DBEF0 > 0) {
+        entryBase = (u8 *)D_800DBEF4;
+        do {
+            mask = *(u32 *)((u8 *)&D_800DBF94 + offset);
+            bit = 0;
+            if (mask != 0) {
+                actorOffset = index * 0xA0;
+                if (mask != 0) {
+                    do {
+                        if (mask & (1 << bit)) {
+                            *(u32 *)((u8 *)&D_800DBF94 + offset) = mask ^ (1 << bit);
+                            entry = (u8 *)D_800DBEF4 + actorOffset;
+                            callback = *(void (**)(void *))(entry + 0x78);
+                            if (callback != 0) {
+                                actor = (u8 *)&((struct ActorSlot *)&D_800CC2D0)[bit];
+                                if (entry[0x92] != 0 || actor[0x127] != 0xFF) {
+                                    ((void (*)(void *, void *, void *, void *))callback)(
+                                        (u8 *)D_800DBEF4 + actorOffset, actor,
+                                        (void *)D_800DBEF4, (void *)callback);
+                                    entry = (u8 *)D_800DBEF4 + actorOffset;
+                                }
+                            }
+                            if ((entry[0x4F] & 4) == 4) {
+                                if (!(entry[0x4F] & 8)) {
+                                    func_1511473C(&((struct ActorSlot *)&D_800CC2D0)[bit], index);
+                                }
+                            }
+                        }
+                        bit++;
+                        if (bit >= 0x19) {
+                            break;
+                        }
+                        mask = *(u32 *)((u8 *)&D_800DBF94 + offset);
+                    } while (mask != 0);
+                }
+                entry = (u8 *)D_800DBEF4 + actorOffset;
+                entry[0x4F] &= 0x73;
+            }
+            index++;
+            offset += 4;
+        } while (index < D_800DBEF0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15114188 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15114348.s")
+typedef struct Game13F9D0MovingActor {
+    u8 pad0[0x14];
+    f32 xyz[3];
+    u8 pad20[0x56];
+    u16 angle;
+    u8 pad78[2];
+    s16 angleCopy;
+    u8 pad7C[0xBB];
+    u8 active;
+} Game13F9D0MovingActor;
+
+void func_15114348(s32, f32 *, f32 *, f32 *);
+extern f32 D_800A2F60;
+extern u16 D_800CBDA0[];
+extern u8 D_800CC2D0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511473C CURRENT (225) */
+void func_1511473C(Game13F9D0MovingActor *arg0, s32 arg1) {
+    u32 angle;
+
+    if ((arg0 != 0) && (arg1 < D_800DBEF0)) {
+        func_15114348(arg1, &arg0->xyz[0], &arg0->xyz[1], &arg0->xyz[2]);
+        angle = (u32)((f32)arg0->angle + (*(f32 *)((u8 *)D_800DBEF4 + (arg1 * 0xA0) + 0x64) * D_800A2F60));
+        arg0->angle = (u16)angle;
+        if ((arg0->active != 0) && ((arg1 + 1) == D_800CBDA0[((s32)((u8 *)arg0 - &D_800CC2D0) / 0x32C)])) {
+            arg0->angleCopy = (s16)angle;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1511473C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511473C.s")
 typedef struct {
     u8 transform[0x30];

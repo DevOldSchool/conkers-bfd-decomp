@@ -74,4 +74,44 @@ void func_15193390(void *volatile arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15193390 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C0840/func_15193390.s")
+void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
+extern s32 D_800BE9E4;
+
+typedef struct Game1C0840Vec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1C0840Vec3;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151934B4 CURRENT (17) */
+void func_151934B4(u8 *actor) {
+    f32 position[3];
+    s16 timer;
+    s32 quarter;
+
+    if (*(s16 *)(actor + 0xA4) < *(s16 *)(actor + 0x96)) {
+        timer = *(s16 *)(actor + 0xAA);
+        quarter = timer >> 2;
+        *(s16 *)(actor + 0xA4) = (quarter * 0x18) / 3;
+        *(s16 *)(actor + 0xA2) = (quarter * 6) / 3;
+        *(s16 *)(actor + 0xAA) = timer + D_800BE9E4;
+        return;
+    }
+
+    *(s16 *)(actor + 0x94) += 1;
+    if (*(s16 *)(actor + 0x94) >= 0x15) {
+        *(s16 *)(actor + 0x94) = 0x14;
+    }
+    *(s16 *)(actor + 0x9E) -= ((s32)(*(s16 *)(actor + 0x94) * D_800BE9E4) >> 1);
+    if (*(s16 *)(actor + 0x9E) < *(s16 *)(actor + 0xA6)) {
+        if (*(s8 *)(actor + 0xB3) == 1) {
+            position[0] = *(s16 *)(actor + 0x9C);
+            position[1] = *(s16 *)(actor + 0xA6);
+            position[2] = *(s16 *)(actor + 0xA0);
+            func_151DBCBC(5, 30.0f, 0xFF, 0, position, actor[0xC], actor[1]);
+        }
+        *(s16 *)(actor + 0x98) = -1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151934B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C0840/func_151934B4.s")

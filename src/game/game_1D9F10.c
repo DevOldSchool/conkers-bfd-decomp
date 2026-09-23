@@ -11,7 +11,6 @@
  * - func_151ACBD4
  * - func_151AD174
  * - func_151AD92C
- * - func_151AE06C
  * - func_151AE0E4
  * - func_151AE2BC
  * - func_151AE3A8
@@ -69,16 +68,13 @@ Game1D9F10Record *func_151ACA60(void *arg0, f32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ACA60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151ACA60.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB38 CURRENT (805) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB38 CURRENT (485) */
 s32 func_151ACB38(void *arg0, s8 *arg1) {
-    s32 var_v1;
-
-    var_v1 = 0;
     if (*(u8 *)((u8 *)arg0 + 0x3B) == 1) {
         *arg1 = 1;
-        var_v1 = 1;
+        return 1;
     }
-    return var_v1;
+    return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ACB38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151ACB38.s")
@@ -119,7 +115,6 @@ s32 func_151ACB38(void *, s8 *);
 void func_151AE0E4(void *, u8);
 void func_151AE264(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE06C CURRENT (10) */
 void func_151AE06C(Game1D9F10Actor *arg0, Game1D9F10Event *arg1) {
     s8 matched;
     u8 type;
@@ -132,15 +127,58 @@ void func_151AE06C(Game1D9F10Actor *arg0, Game1D9F10Event *arg1) {
             func_151AE0E4(arg0, type);
             return;
         }
-        if (type == active_type) {
+        if ((type - active_type) == 0) {
             return;
         }
         func_151AE264(arg0);
         func_151AE0E4(arg0, type);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AE06C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE06C.s")
+void *func_151AE590(s32);
+void func_151AE2BC(void *, void *, f32, f32, f32);
+extern f32 D_800A9290;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE0E4 CURRENT (1249) */
+void func_151AE0E4(void *arg0, u8 arg1) {
+    u8 *record;
+    s32 point_index;
+    f32 point[3];
+    f32 dx;
+    f32 dy;
+    f32 dz;
+
+    record = func_151AE590(arg1);
+    if (record == 0) {
+        for (;;) {
+        }
+    }
+    if (*(s16 *)(record + 0x52) != 0 ||
+        *(u8 *)((u8 *)arg0 + 0x1CA) == 0 ||
+        *(u8 *)((u8 *)arg0 + 0x104) != 0) {
+        return;
+    }
+    func_151AE2BC(*(u8 **)((u8 *)arg0 + 0x31C) + 0xA0, record,
+                   *(f32 *)((u8 *)arg0 + 0x14),
+                   *(f32 *)((u8 *)arg0 + 0x18),
+                   *(f32 *)((u8 *)arg0 + 0x1C));
+    point_index = (s32)((f32)((record[0x42] - (s32)(140.0f / *(f32 *)(record + 0x3C))) - 1) *
+                        *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xA0));
+    point_index *= 0x18;
+    point[0] = *(f32 *)(*(u8 **)(record + 0x38) + point_index);
+    point[1] = *(f32 *)(*(u8 **)(record + 0x38) + point_index + 4);
+    point[2] = *(f32 *)(*(u8 **)(record + 0x38) + point_index + 8);
+    dx = point[0] - *(f32 *)((u8 *)arg0 + 0x14);
+    dy = point[1] - *(f32 *)((u8 *)arg0 + 0x18);
+    dz = point[2] - *(f32 *)((u8 *)arg0 + 0x1C);
+    if (D_800A9290 < ((dz * dz) + ((dx * dx) + (dy * dy)))) {
+        return;
+    }
+    (*(u8 **)((u8 *)arg0 + 0x31C))[0x98] = arg1;
+    *(s8 *)((u8 *)arg0 + 0x8A) = 0x12;
+    *(u8 **)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x9C) = record;
+    *(void **)(record + 0x44) = arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AE0E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE0E4.s")
 extern f32 D_800A9294;
 
@@ -258,18 +296,16 @@ void *func_151AE590(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AE590 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE590.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE640 CURRENT (590) */
-void func_151AE640(void *arg0, void *arg1, s32 arg2) {
-    s32 temp_t6;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE640 CURRENT (170) */
+void func_151AE640(void *arg0, void *arg1, u8 arg2) {
     s32 temp_v0;
     s32 temp_v1;
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0) {
+    if (arg2 == 0) {
         if (*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x44)) {
             *(s32 *)((u8 *)arg0 + 0x44) = 0;
         }
-    } else if (temp_t6 == 0x2D) {
+    } else if (arg2 == 0x2D) {
         temp_v0 = *(s32 *)((u8 *)arg1 + 0);
         temp_v1 = *(s32 *)((u8 *)arg0 + 0x44);
         if (temp_v0 == temp_v1) {

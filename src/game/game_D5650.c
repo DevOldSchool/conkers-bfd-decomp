@@ -36,6 +36,68 @@ void func_150A81A0(s64 *arg0, s64 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D5650/func_150A81A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D5650/func_150A81D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D5650/func_150A94DC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A9984 CURRENT (11665) */
+void func_150A9984(void *arg0, s32 arg1) {
+    u8 *p = arg0;
+    s32 first;
+    s32 second;
+    s32 third;
+    s32 fourth;
+    s32 fifth;
+    s32 sixth;
+    s32 seventh;
+    s32 eighth;
+    s32 ninth;
+    s32 tenth;
+    s32 eleventh;
+    s32 last;
+    f32 saved24;
+    f32 saved34;
+
+    do {
+        arg1--;
+        first = (s32)(*(f32 *)(p + 0) * 65536.0f);
+        second = (s32)(*(f32 *)(p + 4) * 65536.0f);
+        saved24 = *(f32 *)(p + 0x24);
+        *(s16 *)(p + 0) = (u32)first >> 16;
+        third = (s32)(*(f32 *)(p + 8) * 65536.0f);
+        *(s16 *)(p + 2) = (u32)second >> 16;
+        saved34 = *(f32 *)(p + 0x34);
+        *(s32 *)(p + 4) = third & 0xFFFF0000;
+        fourth = (s32)(*(f32 *)(p + 0x10) * 65536.0f);
+        *(s16 *)(p + 0x20) = first;
+        *(s16 *)(p + 0x22) = second;
+        *(s32 *)(p + 0x24) = third << 16;
+        fifth = (s32)(*(f32 *)(p + 0x14) * 65536.0f);
+        *(s16 *)(p + 0x28) = fourth;
+        *(s16 *)(p + 8) = (u32)fourth >> 16;
+        *(s16 *)(p + 0x2A) = fifth;
+        sixth = (s32)(*(f32 *)(p + 0x18) * 65536.0f);
+        *(s16 *)(p + 0xA) = (u32)fifth >> 16;
+        *(s32 *)(p + 0x2C) = sixth << 16;
+        *(s32 *)(p + 0xC) = sixth & 0xFFFF0000;
+        seventh = (s32)(*(f32 *)(p + 0x20) * 65536.0f);
+        *(s16 *)(p + 0x30) = seventh;
+        eighth = (s32)(saved24 * 65536.0f);
+        *(s16 *)(p + 0x10) = (u32)seventh >> 16;
+        *(s16 *)(p + 0x32) = eighth;
+        ninth = (s32)(*(f32 *)(p + 0x28) * 65536.0f);
+        *(s16 *)(p + 0x12) = (u32)eighth >> 16;
+        *(s32 *)(p + 0x34) = ninth << 16;
+        *(s32 *)(p + 0x14) = ninth & 0xFFFF0000;
+        tenth = (s32)(*(f32 *)(p + 0x30) * 65536.0f);
+        eleventh = (s32)(saved34 * 65536.0f);
+        *(s16 *)(p + 0x38) = tenth;
+        *(s16 *)(p + 0x18) = (u32)tenth >> 16;
+        *(s16 *)(p + 0x3A) = eleventh;
+        *(s16 *)(p + 0x1A) = (u32)eleventh >> 16;
+        last = (s32)(*(f32 *)(p + 0x38) * 65536.0f);
+        p += 0x40;
+        *(s32 *)(p - 4) = last << 16;
+        *(s32 *)(p - 0x24) = (last & 0xFFFF0000) + 1;
+    } while (arg1 != 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A9984 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D5650/func_150A9984.s")
 f32 func_150AD780(f32);
 f32 func_150AD78C(f32);

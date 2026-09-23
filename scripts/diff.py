@@ -14,6 +14,7 @@ from typing import Callable
 
 import candidate_tables
 import compile_c
+import linked_aliases
 from m2c import extract_function, locate_function, registered_symbols
 import project_state
 
@@ -844,8 +845,26 @@ def main() -> int:
 
     table_options = {}
     if arguments.profile == "us" and game_reference:
+        original_candidate = candidate
         table_options["table_check"] = lambda: candidate_tables.verify_candidate(
-            candidate, symbol, reference_assembly, expected_size)
+            original_candidate, symbol, reference_assembly, expected_size)
+        # Keep the original objects for table verification. Equivalent bootstrap
+        # address aliases may use a linked comparison only after independent
+        # full-span raw-reference and checksum-validated ROM byte proof.
+        try:
+            inventory = json.loads((ROOT / "progress/functions.json").read_text())
+            region = next(entry["regions"]["us"] for entry in inventory["functions"]
+                          if entry["regions"].get("us", {}).get("symbol") == symbol)
+            # Watch rebuilds the live C object; never point it at a snapshot of
+            # previously linked bytes. A later finish performs this proof anew.
+            pair = None if arguments.watch else linked_aliases.prepare(
+                ROOT, candidate, reference, reference_assembly,
+                symbol, int(region["vram"], 16), expected_size)
+            if pair is not None:
+                candidate, reference = pair
+        except (ValueError, OSError, subprocess.CalledProcessError) as error:
+            print(f"error: address-alias verification failed: {error}", file=sys.stderr)
+            return EXIT_BLOCKED_TOOLING
     directory = write_settings(arguments.profile, source)
     if arguments.score_only:
         return run_score_only_diff(candidate, reference, symbol, directory, expected_size)

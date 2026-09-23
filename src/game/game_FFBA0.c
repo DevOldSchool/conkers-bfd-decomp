@@ -16,7 +16,7 @@
  */
 
 /* Call context: func_150D278C: unique active declaration in the allowed source */
-void func_150D278C(s32, void *, u8, u8);
+void func_150D278C(s32, void *, u8, s32);
 u32 func_150ADA20();                                /* extern */
 extern s32 D_800BE9E4;
 
@@ -39,6 +39,50 @@ void func_150D26F0(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D26F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D26F0.s")
+void *func_10022EC0(void *, const void *, u32);
+f32 func_150ADA68(void);
+void *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+extern u8 D_800A0990[];
+extern f32 D_800A099C;
+extern f32 D_800A09A0;
+extern f32 D_800A09A4;
+extern f32 D_800A09A8;
+extern f32 D_800A09AC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D278C CURRENT (941) */
+void func_150D278C(s32 arg0, void *arg1, u8 arg2, s32 arg3) {
+    u8 packet[0x60];
+    u8 choices[9];
+    u8 *color;
+    u8 *object;
+    f32 temp;
+
+    *(s32 *)(packet + 0) = arg0;
+    *(f32 *)(packet + 4) = (2.0f * func_150ADA68()) * D_800A099C;
+    temp = (func_150ADA68() * D_800A09A0) + D_800A09A4;
+    *(f32 *)(packet + 8) = temp;
+    *(f32 *)(packet + 0xC) = 1.0f / temp;
+    *(f32 *)(packet + 0x10) = (func_150ADA68() * D_800A09A8) + D_800A09AC;
+    if (func_150ADA20() & 1) {
+        *(f32 *)(packet + 0x10) = -*(f32 *)(packet + 0x10);
+    }
+    *(f32 *)(packet + 0x14) = 0.0f;
+    *(f32 *)(packet + 0x18) = 0.0f;
+    func_10022EC0(packet + 0x1C, arg1, 0x40);
+    *(u32 *)choices = *(u32 *)D_800A0990;
+    *(u32 *)(choices + 4) = *(u32 *)(D_800A0990 + 4);
+    choices[8] = D_800A0990[8];
+    color = choices + (((func_150ADA20() % 3U) & 0xFF) * 3);
+    packet[0x5C] = color[0];
+    packet[0x5D] = color[1];
+    packet[0x5E] = color[2];
+    object = func_15149130((s16)((func_150ADA20() % 101U) + 0x64), -1,
+                           0x32, -1, 1, 0, 0x60, arg2, arg3);
+    if (object != 0) {
+        func_10022EC0(object + 0x28, packet, 0x60);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150D278C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D278C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D2924.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FFBA0/func_150D2D6C.s")
@@ -85,7 +129,7 @@ typedef struct {
     GameFFBA0Child child;
 } GameFFBA0State;
 
-void func_150D278C(s32, void *, u8, u8);
+void func_150D278C(s32, void *, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D32FC CURRENT (565) */
 void func_150D32FC(GameFFBA0State *arg0, u8 *arg1, u8 arg2) {

@@ -18,6 +18,81 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game168A90Allocated {
+    u8 pad00[0x4C];
+    s32 *source;
+    s32 size;
+    s32 value;
+    void *first;
+    u8 pad5C[0xC];
+    void *second;
+} Game168A90Allocated;
+
+extern s32 D_80082FA0;
+s32 *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void func_1510CE60(s32, s32, s32, s32, void *);
+void *func_10022EC0(void *, const void *, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B5E0 CURRENT (2607) */
+void *func_1513B5E0(s8 *arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
+    s32 *volatile sp70;
+    s32 sp6C;
+    s32 sp60;
+    s32 sp5C;
+    s32 sp50;
+    s32 itemSize;
+    s32 stride;
+    s32 total;
+    s32 kind;
+    s32 index;
+    u8 *first;
+    u8 *entry;
+    u8 *copySource;
+    Game168A90Allocated *result;
+    Game168A90Allocated *cursor;
+
+    sp70 = func_1502B6BC(&sp60, 0, &sp5C, 2,
+                          *(s32 *)(arg0 + 0x30), *(s32 *)(arg0 + 0x34));
+    itemSize = *sp70 - (s32)sp70 - 0x28;
+    stride = itemSize * 2;
+    total = stride * (D_80082FA0 + 1);
+    kind = 0x38;
+    if (arg1 & 0xFF) {
+        kind = 0x54;
+    }
+    sp50 = stride;
+    sp6C = total;
+    result = func_15167A68(kind, arg4, arg2 + total + 0xF8,
+                           2, (u8)arg3, 1);
+    if (result == 0) {
+        return 0;
+    }
+    sp50 = stride;
+    func_10022EC0((u8 *)result + 0x10, arg0, 0x3C);
+    cursor = result;
+    result->source = sp70;
+    index = 0;
+    first = (u8 *)result + 0xF8;
+    copySource = (u8 *)sp70 + 0x28;
+    if (D_80082FA0 + 1 > 0) {
+        do {
+            entry = first + itemSize;
+            cursor->first = first;
+            cursor->second = entry;
+            func_10022EC0(first, copySource, itemSize);
+            func_10022EC0(cursor->second, copySource, itemSize);
+            index++;
+            cursor = (Game168A90Allocated *)((u8 *)cursor + 4);
+            first += sp50;
+        } while (D_80082FA0 >= index);
+    }
+    result->value = *sp70;
+    result->size = sp6C;
+    func_1510CE60(*sp70, 0, 1, 0x3E, 0);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513B5E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B5E0.s")
 typedef s32 (*Game168A90Callback)(void *);
 
@@ -124,7 +199,7 @@ void func_100043B4(s32 arg0, s32 arg1, void *arg2);
 void func_15169804(s32 arg0);
 void func_15169824(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B9A8 CURRENT (100) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513B9A8 CURRENT (200) */
 void func_1513B9A8(void *arg0, s32 arg1, void *arg2) {
     func_100043B4(*(s32 *)((u8 *)arg0 + 0x4C), 4, arg2);
     func_15169804((s32)arg0);
@@ -166,7 +241,7 @@ s32 func_1513BAD4(s32 arg0, s32 arg1) {
     return 0;
 }
 void *func_10022EC0(void *, const void *, u32);
-void *func_1513B5E0(s8 *, s32, s32, s32, s32);
+void *func_1513B5E0(s8 *, u8, s32, u8, s32);
 
 typedef struct Game168A90SpawnParams {
     s8 field_00;

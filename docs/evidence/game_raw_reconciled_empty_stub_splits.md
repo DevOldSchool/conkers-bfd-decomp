@@ -27,3 +27,17 @@ The large `0x86BD0:0x8EF80` controller family contains 37 direct local edges
 spanning the range and 31 strong ECTS correlations. The `0x16AA70:0x16D400`
 family links its two selected entry points to four later members. The remaining
 ranges have exact selections or direct calls plus preserved beta order.
+
+## Durable boundaries after C integration
+
+When a whole source unit becomes one C range, its internal raw-ASM navigation
+splits no longer appear in `config/game/us.yaml`. The six registered empty bodies
+above therefore also have explicit `type:func size:0x8` entries in
+`config/symbols/game-us.txt`. These preserve their boundaries when raw references
+are regenerated from scratch; they do not supply or modify instruction bytes.
+
+Without these declarations, a fresh split absorbs `func_15086C68` into the
+preceding `func_15086BD0` assembly fallback. The separate C empty body then adds
+those eight bytes a second time. Every subsequent `game_B4080` function moves by
+eight bytes and the two linked jump tables fail ROM verification. Previously
+cached raw references retain the earlier split and can hide this defect.

@@ -14,6 +14,8 @@ from collections import Counter
 from pathlib import Path
 from typing import Any, NamedTuple
 
+import original_asm
+
 ROOT = Path(__file__).resolve().parent.parent
 ROMS_FILE = ROOT / "config" / "roms.json"
 OVERLAYS_FILE = ROOT / "config" / "overlays.json"
@@ -35,7 +37,7 @@ FUTURE_REGIONS = ("eu",)
 KNOWN_REGIONS = TARGET_REGIONS + FUTURE_REGIONS
 REGION_NAMES = {"us": "US", "eu": "EU/PAL"}
 OVERLAYS = {"main": "Main ROM", "game": "Game overlay"}
-STATES = {"raw_asm", "in_progress", "candidate", "matched", "blocked"}
+STATES = {"raw_asm", "in_progress", "candidate", "matched", "blocked", "original_asm"}
 SOURCE_UNIT_STATES = {"raw_asm", "in_progress", "candidate", "complete", "blocked"}
 SOURCE_UNIT_INTEGRATIONS = {"raw_asm", "mixed", "c"}
 BOUNDARY_EVIDENCE_KINDS = {"linker_map", "object_symbols", "structural_analysis"}
@@ -789,8 +791,24 @@ def validate_functions(data: dict[str, Any]) -> list[dict[str, Any]]:
                 for key in ("rom_sha1", "verified_revision"):
                     if not isinstance(evidence.get(key), str) or not evidence[key]:
                         raise ProjectStateError(f"{identifier}/{region} evidence needs {key}")
+        blocked = entry.get("blocked")
+        blocked_regions = [
+            region for region in TARGET_REGIONS
+            if regions[region]["state"] == "blocked"
+        ]
+        if blocked_regions:
+            if len(blocked_regions) != len(TARGET_REGIONS):
+                raise ProjectStateError(f"{identifier} must be blocked in every active region")
+            if not isinstance(blocked, dict) or not isinstance(blocked.get("reason"), str) or not blocked["reason"].strip():
+                raise ProjectStateError(f"{identifier} blocked metadata needs a reason")
+            if not isinstance(blocked.get("recorded_revision"), str) or not blocked["recorded_revision"]:
+                raise ProjectStateError(f"{identifier} blocked metadata needs recorded_revision")
+        elif blocked is not None:
+            raise ProjectStateError(f"{identifier} has blocked metadata but is not blocked")
         deferred = entry.get("deferred")
         if deferred is not None:
+            if blocked is not None:
+                raise ProjectStateError(f"{identifier} cannot be blocked and deferred")
             if not isinstance(deferred, dict):
                 raise ProjectStateError(f"{identifier} deferred metadata must be an object")
             reason = deferred.get("reason")
@@ -816,6 +834,10 @@ def validate_functions(data: dict[str, Any]) -> list[dict[str, Any]]:
                 )
             if is_complete(entry):
                 raise ProjectStateError(f"matched function {identifier} cannot be deferred")
+        try:
+            original_asm.validate_metadata(entry)
+        except ValueError as error:
+            raise ProjectStateError(f"{identifier}: {error}") from error
     return functions
 
 
@@ -937,6 +959,23 @@ def validate_deferred_candidate_sources(functions: list[dict[str, Any]]) -> None
             ) from error
 
 
+def validate_blocked_raw_sources(functions: list[dict[str, Any]]) -> None:
+    """A skipped raw item must retain its canonical assembly placeholder."""
+
+    for function in functions:
+        if not function.get("blocked"):
+            continue
+        source = function.get("source")
+        if not isinstance(source, str) or not source:
+            raise ProjectStateError(f"blocked function {function['symbol']} needs an assigned source")
+        path = ROOT / source
+        if not path.is_file():
+            raise ProjectStateError(f"blocked function {function['symbol']} source does not exist: {source}")
+        pragma = global_asm_pragma(source, function["regions"][TARGET_REGIONS[0]]["symbol"])
+        if pragma not in path.read_text(encoding="utf-8"):
+            raise ProjectStateError(f"blocked function {function['symbol']} must retain {pragma}")
+
+
 def validate_project() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     roms = load_json(ROMS_FILE)
     functions = load_json(FUNCTIONS_FILE)
@@ -944,6 +983,13 @@ def validate_project() -> tuple[dict[str, Any], list[dict[str, Any]]]:
     validate_code_ranges(load_json(OVERLAYS_FILE))
     validated_functions = validate_functions(functions)
     validate_deferred_candidate_sources(validated_functions)
+    validate_blocked_raw_sources(validated_functions)
+    for function in validated_functions:
+        if function.get("original_asm"):
+            try:
+                original_asm.validate_source(ROOT, function)
+            except ValueError as error:
+                raise ProjectStateError(f"{function['symbol']}: {error}") from error
     validate_source_units(load_json(SOURCE_UNITS_FILE), validated_functions)
     return roms, validated_functions
 
@@ -1171,6 +1217,7 @@ def summary(functions: list[dict[str, Any]]) -> dict[str, Any]:
         "future_regions": list(FUTURE_REGIONS),
         "known_functions": len(functions),
         "target_matched": target_matched,
+        "target_original_asm": sum(bool(entry.get("original_asm")) for entry in functions),
         "target_remaining": len(functions) - target_matched,
         "source_units": len(source_units),
         "mixed_source_units": sum(unit["integration"] == "mixed" for unit in source_units),
@@ -1194,6 +1241,7 @@ def render_markdown(result: dict[str, Any]) -> str:
         "- Active target: **North America (US)**",
         "- Future target: **Europe/PAL (not counted)**",
         f"- Matched for active target: **{result['target_matched']}**",
+        f"- Verified original assembly (excluded from C matches): **{result['target_original_asm']}**",
         f"- Remaining: **{result['target_remaining']}**",
         f"- Completed source units: **{result['complete_source_units']} / {result['source_units']}**",
         f"- Mixed C/ASM source units in the canonical build: **{result['mixed_source_units']}**",
@@ -1208,19 +1256,20 @@ def render_markdown(result: dict[str, Any]) -> str:
         "- Archive-backed library text bytes included above: "
         f"**{result['code_bytes']['library_text_bytes']:,}**",
         "",
-        "| Region | Raw ASM | In progress | Candidate | Matched | Blocked |",
-        "| --- | ---: | ---: | ---: | ---: | ---: |",
+        "| Region | Raw ASM | In progress | Candidate | Matched | Blocked | Verified original ASM |",
+        "| --- | ---: | ---: | ---: | ---: | ---: | ---: |",
     ]
     for region in TARGET_REGIONS:
         counts = result["regions"][region]
         lines.append(
-            "| {name} | {raw} | {progress} | {candidate} | {matched} | {blocked} |".format(
+            "| {name} | {raw} | {progress} | {candidate} | {matched} | {blocked} | {original} |".format(
                 name=REGION_NAMES[region],
                 raw=counts["raw_asm"],
                 progress=counts["in_progress"],
                 candidate=counts["candidate"],
                 matched=counts["matched"],
                 blocked=counts["blocked"],
+                original=counts["original_asm"],
             )
         )
     lines.extend(
@@ -1443,6 +1492,122 @@ def mark_matched(args: argparse.Namespace) -> None:
         + ", "
         + f"and {DOCUMENT_FILE.relative_to(ROOT)}."
     )
+
+
+def verify_original_asm(args: argparse.Namespace) -> None:
+    """Verify retained ROM assembly, optionally recording a separate classification."""
+    _, functions = validate_project()
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    state = function["regions"]["us"]["state"]
+    if state not in {"raw_asm", "blocked", "original_asm"} or function.get("deferred"):
+        raise ProjectStateError("original assembly classification requires retained, non-deferred raw ASM")
+    if args.proof_output:
+        output = Path(args.proof_output).resolve()
+        if not output.is_relative_to((ROOT / "build").resolve()):
+            raise ProjectStateError("original assembly proof must be written under build/")
+        try:
+            evidence = original_asm.verify(ROOT, function)
+        except (ValueError, OSError, subprocess.CalledProcessError) as error:
+            raise ProjectStateError(f"{args.symbol}: original assembly verification failed: {error}") from error
+        output.parent.mkdir(parents=True, exist_ok=True)
+        write_json(output, {"symbol": args.symbol, "evidence": evidence})
+        print(f"{args.symbol}: assembled full-span US ROM proof saved")
+        return
+    if args.check and state != "original_asm":
+        raise ProjectStateError(f"{args.symbol} is not classified as verified original assembly")
+    if not args.check:
+        if not args.reason or not args.reason.strip() or not args.evidence_reference:
+            raise ProjectStateError("classification requires --reason and --evidence-reference")
+        reference = (ROOT / args.evidence_reference).resolve()
+        if not reference.is_relative_to(ROOT.resolve()) or not reference.is_file():
+            raise ProjectStateError("classification requires an existing repository evidence document")
+    try:
+        if not args.proof:
+            raise ValueError("use ./conker verify-original-asm to assemble a fresh proof")
+        evidence = original_asm.read_proof(ROOT, function, Path(args.proof))
+    except (ValueError, OSError, subprocess.CalledProcessError) as error:
+        raise ProjectStateError(f"{args.symbol}: original assembly verification failed: {error}") from error
+    if args.check:
+        if evidence != function["regions"]["us"]["evidence"]:
+            raise ProjectStateError(f"{args.symbol}: original assembly evidence is stale")
+    else:
+        function.pop("blocked", None)
+        function["original_asm"] = {"reason": args.reason.strip(),
+                                    "reference": reference.relative_to(ROOT.resolve()).as_posix(),
+                                    "recorded_revision": "working-tree"}
+        function["regions"]["us"].update(state="original_asm", evidence=evidence)
+        data = {"schema_version": 1, "functions": functions}
+        validate_functions(data)
+        original_asm.validate_source(ROOT, function)
+        paths = [FUNCTIONS_FILE, SUMMARY_FILE, DOCUMENT_FILE, *BADGE_FILES.values()]
+        previous = {path: path.read_bytes() if path.exists() else None for path in paths}
+        try:
+            write_json(FUNCTIONS_FILE, data)
+            render_progress(functions)
+        except Exception:
+            for path, content in previous.items():
+                if content is None:
+                    path.unlink(missing_ok=True)
+                else:
+                    path.write_bytes(content)
+            raise
+    print(f"{args.symbol}: VERIFIED_ORIGINAL_ASM (full US ROM span; excluded from C matches)")
+
+
+def block_raw_function(args: argparse.Namespace) -> None:
+    """Transactionally skip a raw item that cannot enter the C candidate loop."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if function.get("deferred") or function.get("blocked"):
+        raise ProjectStateError(f"{args.symbol} is already deferred or blocked")
+    if any(function["regions"][region]["state"] != "raw_asm" for region in TARGET_REGIONS):
+        raise ProjectStateError(f"{args.symbol} must be raw_asm in every active region")
+    reason = args.reason.strip()
+    if not reason:
+        raise ProjectStateError("block-raw requires a non-empty reason")
+    source = function.get("source")
+    if not isinstance(source, str) or not source:
+        raise ProjectStateError(f"{args.symbol} needs an assigned source")
+    source_path = ROOT / source
+    if not source_path.is_file():
+        raise ProjectStateError(f"{args.symbol} source does not exist: {source}")
+    pragma = global_asm_pragma(source, function["regions"][TARGET_REGIONS[0]]["symbol"])
+    if pragma not in source_path.read_text(encoding="utf-8"):
+        raise ProjectStateError(f"{args.symbol} must retain {pragma}")
+    function["blocked"] = {"reason": reason, "recorded_revision": "working-tree"}
+    for region in TARGET_REGIONS:
+        function["regions"][region]["state"] = "blocked"
+    validated_functions = validate_functions(functions_data)
+    validate_blocked_raw_sources(validated_functions)
+    write_json(FUNCTIONS_FILE, functions_data)
+    render_progress(validated_functions)
+    print(f"Blocked raw {args.symbol}; preserved {source} unchanged: {reason}")
+
+
+def unblock_raw_function(args: argparse.Namespace) -> None:
+    """Return a previously skipped raw item to manual selection."""
+
+    functions_data = load_json(FUNCTIONS_FILE)
+    functions = validate_functions(functions_data)
+    function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
+    if function is None:
+        raise ProjectStateError(f"unknown work-item ID: {args.symbol}")
+    if not function.get("blocked"):
+        raise ProjectStateError(f"{args.symbol} is not blocked")
+    validate_blocked_raw_sources([function])
+    function.pop("blocked")
+    for region in TARGET_REGIONS:
+        function["regions"][region]["state"] = "raw_asm"
+    validated_functions = validate_functions(functions_data)
+    write_json(FUNCTIONS_FILE, functions_data)
+    render_progress(validated_functions)
+    print(f"Unblocked raw {args.symbol}; returned it to manual selection")
 
 
 def defer_function(args: argparse.Namespace) -> None:
@@ -2898,10 +3063,11 @@ def batch_plan(symbols: list[str]) -> None:
         raise ProjectStateError(f"unknown work-item ID(s): {', '.join(unknown)}")
     unfinished = [
         symbol for symbol in symbols if not is_complete(functions_by_symbol[symbol])
+        and not functions_by_symbol[symbol].get("original_asm")
     ]
     if unfinished:
         raise ProjectStateError(
-            "verify-batch requires matched active work items: " + ", ".join(unfinished)
+            "verify-batch requires matched active work items or verified original assembly: " + ", ".join(unfinished)
         )
     overlays = {
         functions_by_symbol[symbol].get("overlay", "main") for symbol in symbols
@@ -2958,6 +3124,20 @@ def parse_args() -> argparse.Namespace:
     defer_parser.add_argument("symbol")
     defer_parser.add_argument("--reason", required=True)
     defer_parser.add_argument("--score", required=True, type=int)
+    block_raw_parser = subparsers.add_parser("block-raw")
+    block_raw_parser.add_argument("symbol")
+    block_raw_parser.add_argument("--reason", required=True)
+    unblock_raw_parser = subparsers.add_parser("unblock-raw")
+    unblock_raw_parser.add_argument("symbol")
+    original_parser = subparsers.add_parser("verify-original-asm")
+    original_parser.add_argument("symbol")
+    original_parser.add_argument("--check", action="store_true")
+    original_parser.add_argument("--reason")
+    original_parser.add_argument("--evidence-reference")
+    original_parser.add_argument("--proof-output")
+    original_parser.add_argument("--proof")
+    original_list_parser = subparsers.add_parser("original-asm-items")
+    original_list_parser.add_argument("symbols", nargs="+")
     resume_parser = subparsers.add_parser("resume")
     resume_parser.add_argument("symbol")
     update_deferred_parser = subparsers.add_parser("update-deferred")
@@ -3069,6 +3249,17 @@ def main() -> int:
             mark_matched(args)
         elif args.command == "defer":
             defer_function(args)
+        elif args.command == "block-raw":
+            block_raw_function(args)
+        elif args.command == "unblock-raw":
+            unblock_raw_function(args)
+        elif args.command == "verify-original-asm":
+            verify_original_asm(args)
+        elif args.command == "original-asm-items":
+            _, functions = validate_project()
+            for function in functions:
+                if function["symbol"] in args.symbols and function.get("original_asm"):
+                    print(function["symbol"])
         elif args.command == "resume":
             resume_function(args)
         elif args.command == "update-deferred":

@@ -118,6 +118,82 @@ void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CD3CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD3CC.s")
+typedef struct Game1CD4C0Source {
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 vertical;
+    s16 delta;
+} Game1CD4C0Source;
+
+typedef struct Game1CD4C0Locals {
+    f32 values[18];
+    s32 id;
+    u8 shade;
+    u8 pad4D[3];
+    f32 position[3];
+    s16 duration;
+    s16 count;
+    s32 mode;
+    u8 layer;
+    s8 kind;
+    u8 pad66[2];
+    s32 zero;
+} Game1CD4C0Locals;
+
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32,
+                    s32, s32, s32);
+extern f32 D_800AAFB4;
+extern f32 D_800AAFB8;
+extern f32 D_800AAFBC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD4C0 CURRENT (7714) */
+s32 func_151CD4C0(void *arg0, u8 arg1, s32 arg2, u8 arg3,
+                   s32 arg4) {
+    Game1CD4C0Source *source;
+    Game1CD4C0Locals locals;
+    f32 vertical;
+    void *result;
+
+    source = arg0;
+    locals.kind = 0x23;
+    vertical = (f32)source->vertical;
+    locals.position[0] = (f32)source->x;
+    locals.position[1] = (f32)(source->y + source->delta);
+    locals.duration = 0x12C;
+    locals.count = 0x34;
+    locals.mode = 0xB;
+    locals.position[2] = (f32)source->z;
+    locals.values[9] = vertical * 0.875f;
+    locals.values[4] = D_800AAFB4;
+    locals.values[0] = vertical * 0.125f;
+    locals.values[1] = locals.values[0];
+    locals.values[5] = D_800AAFB8;
+    locals.values[2] = 0.0f;
+    locals.values[17] = (f32)source->y;
+    locals.values[3] = 0.0f;
+    locals.values[6] = locals.position[0];
+    locals.values[7] = locals.position[2];
+    locals.values[13] = locals.values[9];
+    locals.values[10] = vertical * 0.0625f;
+    locals.values[11] = 0.0f;
+    locals.values[12] = D_800AAFBC;
+    locals.values[16] = 0.0f;
+    locals.id = arg2;
+    locals.values[14] = -16384.0f;
+    locals.values[15] = -16384.0f;
+    locals.values[8] = 0.0f;
+    locals.shade = arg1;
+    locals.zero = 0;
+    locals.layer = 7;
+    result = func_15147A80(locals.position, (void *)0x50, 0x1C,
+                           9, 9, 9, 0, 0, 0, arg3, arg4);
+    if (result != 0) {
+        func_10022EC0(*(void **)((u8 *)result + 0x98), locals.values, 0x50);
+    }
+    return (s32)result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CD4C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD4C0.s")
 typedef struct Game1FA770Particle {
     f32 x;

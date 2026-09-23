@@ -4,6 +4,27 @@ Describe the function, tooling, or documentation change.
 
 ## Verification
 
+### Public checks (automatic; no ROM access)
+
+- Repository metadata
+- Generated progress consistency
+- PR whitespace and prohibited files
+- Python tests and shell syntax
+- Toolchain image and compiler smoke test
+- US C compilation (no ROM; not match evidence)
+- GitHub workflow syntax
+- All public PR checks passed (required aggregate after ruleset migration)
+
+### Local US verification before merge
+
+A contributor or maintainer with the US ROM performs the checks below and records
+the tested commit and results. Contributors without a ROM may ask a maintainer
+to verify their PR. GitHub does not enforce this local ROM evidence; the existing
+approved-main ROM workflow runs after merge. See [CI and review](docs/ci.md).
+Do not attach ROMs, objects, generated assembly or private build logs.
+
+Tested commit:
+
 For function work, include exact output for the active US target:
 
 ```text

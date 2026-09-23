@@ -118,7 +118,7 @@ segments:
       - [0x11FA0, c, game/done/game_3F450]
       - [0x12020, c, game/done/game_3F4D0]
       - [0x120B0, c, game/game_3F560]
-      - [0x121C0, c, game/game_3F670]
+      - [0x121C0, c, game/done/game_3F670]
       - [0x12370, c, game/game_3F820]
       - [0x12720, c, game/game_3FBD0]
       - [0x12770, c, game/done/game_3FC20]

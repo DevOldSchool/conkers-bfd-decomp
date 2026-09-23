@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1518F1A0
  * - func_1518F384
- * - func_1518F45C
  * - func_1518F49C
  * - func_1518F51C
  * - func_1518F5D0
@@ -18,7 +17,6 @@
  * - func_1518FC84
  * - func_1518FDC4
  * - func_1519003C
- * - func_1519021C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -118,17 +116,17 @@ s32 func_1518F384(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518F384 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F384.s")
-extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern s32 D_800A74D4;
+extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, u8 arg3);
+typedef struct {
+    s32 value;
+} Game1BC650DispatchDescriptor;
+extern Game1BC650DispatchDescriptor D_800A74D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F45C CURRENT (720) */
-void func_1518F45C(s32 arg0, s32 arg1) {
-    s32 sp1C = D_800A74D4;
+void func_1518F45C(s32 arg0, u8 arg1) {
+    Game1BC650DispatchDescriptor sp1C = D_800A74D4;
 
-    func_15169260(&sp1C, 1, arg0, arg1 & 0xFF);
+    func_15169260(&sp1C.value, 1, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F45C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F45C.s")
 void func_15169850(s32, s32, s32, s32, s32);
 void func_1516972C(s32);
 
@@ -172,18 +170,15 @@ s32 func_1518F5D0(void *, s32, s16, s8, s32, s32, s32, s32, s32, s32);
 extern s32 (*D_8008D67C[])(void *);
 extern void func_1518F8E0(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F7C4 CURRENT (89) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F7C4 CURRENT (8) */
 s32 func_1518F7C4(void *arg0) {
-    void *sp1C;
+    struct { void *ptr; } sp18;
     s8 temp_v1;
-    void *temp_v0;
 
-    temp_v0 = (u8 *)arg0 + 0x30;
-    *(f32 *)temp_v0 = (f32)(*(f32 *)temp_v0 + ((*(f32 *)((u8 *)temp_v0 + 4) +
-        (func_150ADA68() * *(f32 *)((u8 *)temp_v0 + 8))) * D_800BE9A4));
-    sp1C = temp_v0;
+    sp18.ptr = (u8 *)arg0 + 0x30;
+    *(f32 *)sp18.ptr += (*(f32 *)((u8 *)sp18.ptr + 4) + (func_150ADA68() * *(f32 *)((u8 *)sp18.ptr + 8))) * D_800BE9A4;
     func_1518F8E0(arg0);
-    temp_v1 = *(s8 *)((u8 *)sp1C + 0x58);
+    temp_v1 = *(s8 *)((u8 *)sp18.ptr + 0x58);
     if (temp_v1 != -1) {
         return D_8008D67C[temp_v1](arg0);
     }
@@ -437,4 +432,64 @@ s32 func_1518FDC4(void *arg0, s8 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518FDC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518FDC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1519003C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1519021C.s")
+typedef struct Game19021CDescriptor {
+    u8 flags;
+    u8 kind;
+    s16 duration;
+    u8 type;
+    u8 pad5[3];
+} Game19021CDescriptor;
+
+typedef struct Game19021CLocals {
+    s32 position[3];
+    s32 source;
+    f32 values[8];
+    void *node;
+    u8 color;
+    u8 pad35[3];
+    Game19021CDescriptor descriptor;
+    u8 pad40[4];
+} Game19021CLocals;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A6760[];
+extern f32 D_800A67C0[];
+extern f32 D_800A6820[];
+extern f32 D_800A8004;
+
+s32 func_1519021C(s32 arg0, u8 *arg1, u8 arg2, s16 arg3, u8 arg4,
+                   s32 arg5) {
+    Game19021CLocals locals;
+    s32 result;
+
+    if (arg2 >= 0x18) {
+        return 0;
+    }
+    locals.source = arg0;
+    locals.values[0] = D_800A67C0[arg2];
+    locals.values[1] = D_800A6760[arg2];
+    locals.values[2] = D_800A6820[arg2];
+    locals.values[3] = 1.0f;
+    locals.values[5] = 5.0f;
+    locals.values[4] = 0.0f;
+    locals.values[7] = 0.0f;
+    locals.values[6] = D_800A8004;
+    locals.descriptor.flags = (arg3 == -1 ? 0 : 1) | 2;
+    locals.descriptor.kind = 0x12;
+    locals.descriptor.duration = arg3 == -1 ? 0x12C : arg3;
+    locals.descriptor.type = 0x25;
+    locals.node = arg1;
+    locals.color = arg1[0x3B];
+    locals.position[0] = (s32)*(f32 *)(arg1 + 0x14);
+    locals.position[1] = (s32)*(f32 *)(arg1 + 0x18);
+    locals.position[2] = (s32)*(f32 *)(arg1 + 0x1C);
+    result = func_151602C0((u8 *)&locals.descriptor, locals.position,
+                           0, 0xFF, 0xD1, 0, 0xFF, 0, 0x30, arg4, arg5);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x18, &locals.node, 8);
+        func_10022EC0((u8 *)result + 0x20, locals.values, 0x20);
+        func_10022EC0((u8 *)result + 0x40, &locals.source, 4);
+    }
+    return result;
+}

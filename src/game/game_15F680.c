@@ -20,8 +20,6 @@
  * - func_15133A50
  * - func_15133A94
  * - func_15133B98
- * - func_15133DE8
- * - func_15133E3C
  * - func_15133EEC
  * - func_15133FD8
  *
@@ -202,10 +200,10 @@ void func_151325C8(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151325C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151325C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_1513264C.s")
-void func_1513264C(s32, s32, s32, s32, s32, u8, s32);
+void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
 
-void func_15132A4C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
-    func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);
+void *func_15132A4C(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) {
+    return func_1513264C(arg0, arg1, arg2, 0, arg3, arg4, arg5);
 }
 void func_1516972C(void *);
 s32 func_151464B8(s32, void *);
@@ -468,14 +466,15 @@ s32 func_151339D4(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151339D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151339D4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133A50 CURRENT (460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133A50 CURRENT (45) */
 s32 func_15133A50(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
+    f32 sum = *(f32 *)((u8 *)arg0 + 0x10) + arg4;
     *(f32 *)((u8 *)arg0 + 0x44) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x48) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x4C) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x50) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x10) + arg4);
+    *(f32 *)((u8 *)arg0 + 0x3C) = sum;
     *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
     return 1;
 }
@@ -505,13 +504,13 @@ s32 func_15133A94(void *arg0, void *arg1) {
     }
     if (D_800C3E90 != 0) {
         func_10022EC0(arg0,
-                      (*(u8 *)((u8 *)arg1 + 0x170) << 6) +
-                          (u8 *)temp_v1,
+                      (void *)(temp_v1 +
+                          (*(u8 *)((u8 *)arg1 + 0x170) << 6)),
                       0x40);
     } else {
         func_10022EC0(matrix,
-                      (*(u8 *)((u8 *)arg1 + 0x170) << 6) +
-                          (u8 *)temp_v1,
+                      (void *)(temp_v1 +
+                          (*(u8 *)((u8 *)arg1 + 0x170) << 6)),
                       0x40);
         matrix[3] = 0.0f;
         matrix[7] = 0.0f;
@@ -572,44 +571,30 @@ s32 func_15133D20(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5) 
     return 1;
 }
 void func_1516972C(void *arg0);
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133DE8 CURRENT (30) */
 void func_15133DE8(void *arg0, s32 *arg1, u8 arg2) {
     s32 temp_v0;
-    s32 temp_t7;
-    u8 temp_t8;
-    u8 temp_t9;
 
     if (arg2 == 0) {
         temp_v0 = *arg1;
-        temp_t7 = *(s32 *)((u8 *)arg0 + 0x7C);
-        if (temp_v0 != temp_t7) {
-            temp_t8 = *((u8 *)arg1 + 4);
-            temp_t9 = *(u8 *)((u8 *)arg0 + 0x80);
-            if (temp_t8 != temp_t9) {
-                return;
-            }
+        if ((temp_v0 == *(s32 *)((u8 *)arg0 + 0x7C)) ||
+            (*((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x80))) {
+            func_1516972C(arg0);
         }
-        func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15133DE8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133DE8.s")
-void func_15169260(void *, s32, s32, s32);
+void func_15169260(void *, s32, s32, u8);
 typedef struct {
     s32 field0;
     s32 field4;
 } Func15133E3CData;
 extern Func15133E3CData D_800A3860;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133E3C CURRENT (460) */
-void func_15133E3C(s32 arg0, s32 arg1) {
+void func_15133E3C(s32 arg0, u8 arg1) {
     Func15133E3CData sp18;
 
     sp18 = D_800A3860;
-    func_15169260(&sp18, 2, arg0, arg1 & 0xFF);
+    func_15169260(&sp18, 2, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15133E3C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15133E3C.s")
 /* Call context: func_15133EEC: unique active project prototype */
 s32 func_15133EEC(s32, u16, u8, s32);
 

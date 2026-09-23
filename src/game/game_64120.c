@@ -8,7 +8,6 @@
  * - func_15036CE8
  * - func_15036F34
  * - func_15037698
- * - func_15037880
  * - func_150379DC
  * - func_150380C0
  * - func_15038468
@@ -39,6 +38,31 @@ void *func_10003C40(s32, s32, s32, s32);
 void func_100226F0(void *, s32);
 extern f32 D_80098250;
 
+typedef struct Game64120OutputBlock {
+    u8 pad0[0x30];
+    f32 x;
+    f32 y;
+    f32 z;
+} Game64120OutputBlock;
+
+typedef struct Game64120Output {
+    u8 pad0[0x40];
+    Game64120OutputBlock block;
+} Game64120Output;
+
+typedef struct Game64120Record {
+    u8 pad0[0x18];
+    f32 y;
+    u8 pad1C[0x158];
+    f32 x;
+    f32 z;
+    u8 pad17C[0x58];
+    Game64120Output *output;
+    u8 pad1D8[0x154];
+} Game64120Record;
+
+extern Game64120Record D_800CC2D0[];
+
 void func_15036C70(Game64120InitState *arg0) {
     f32 value;
     s32 offset;
@@ -58,7 +82,42 @@ void func_15036C70(Game64120InitState *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036CE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036F34.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15037698.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15037880.s")
+extern f32 D_8009862C;
+extern s16 D_800C3FF4[];
+extern void *D_800DBFF0;
+
+s32 func_15037880(s32 arg0, f32 *arg1) {
+    Game64120Record *temp_v0;
+    f32 temp_fv0;
+    f32 temp_fv1;
+    s32 temp_t8;
+
+    temp_v0 = &D_800CC2D0[arg0];
+    temp_t8 = (*(u16 *)((u8 *)temp_v0 + 0x2F8)) & 7;
+    if (temp_t8 == 1) {
+        arg1[0] = *(f32 *)((u8 *)D_800DBFF0 + 0x2F8);
+        arg1[1] = *(f32 *)((u8 *)D_800DBFF0 + 0x2FC);
+        arg1[2] = *(f32 *)((u8 *)D_800DBFF0 + 0x300);
+        return 1;
+    }
+    if (temp_t8 == 2) {
+        if (temp_v0->pad0[5] == 4) {
+            temp_fv0 = *(f32 *)((u8 *)temp_v0 + 0x14) - (f32)D_800C3FF4[0];
+            temp_fv1 = *(f32 *)((u8 *)temp_v0 + 0x1C) - (f32)D_800C3FF4[2];
+            if (D_8009862C < ((temp_fv0 * temp_fv0) + (temp_fv1 * temp_fv1))) {
+                return 1;
+            }
+        }
+        arg1[0] = (f32)D_800C3FF4[0];
+        arg1[1] = (f32)D_800C3FF4[1];
+        arg1[2] = (f32)D_800C3FF4[2];
+        return 1;
+    }
+    if (temp_t8 == 3) {
+        return 1;
+    }
+    return 0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150379DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150380C0.s")
 /* Call context: func_150484A0: unique active project prototype */
@@ -220,33 +279,67 @@ block_34:
 #endif /* CONKER_DEFERRED_CANDIDATE func_15039A78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039A78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039CC8.s")
+void func_15039A78(f32 *, f32 *, f32 *, f32 *, f32, f32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039ED0 CURRENT (1758) */
+void func_15039ED0(s32 arg0, f32 *arg1, register f32 *arg2, f32 *arg3,
+                   f32 *arg4, f32 arg5, f32 arg6, s32 arg7) {
+    Game64120Entry *entry;
+    f32 marginX;
+    f32 marginY;
+    f32 valueX;
+    f32 valueY;
+    f32 bound;
+
+    if (arg0 == 0) {
+        func_15039A78(arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+        return;
+    }
+    entry = func_15039A54(arg7, arg0);
+    marginX = *(f32 *)(entry->data + 0x10);
+    valueX = *arg1;
+    if ((*(f32 *)(entry->data + 0) + marginX < valueX) ||
+        (valueX < *(f32 *)(entry->data + 4) - marginX)) {
+        *arg1 = arg5;
+        *arg2 = arg6;
+        if (arg3 != 0) {
+            *arg3 = *arg1;
+            *arg4 = *arg2;
+        }
+    } else {
+        if (arg3 != 0) {
+            *arg3 = valueX;
+            *arg4 = *arg2;
+        }
+        if (*arg1 < *(f32 *)(entry->data + 4)) {
+            bound = *(f32 *)(entry->data + 4);
+        } else if (*(f32 *)(entry->data + 0) < *arg1) {
+            bound = *(f32 *)(entry->data + 0);
+        } else {
+            bound = *arg1;
+        }
+        *arg1 = bound;
+        marginY = *(f32 *)(entry->data + 0x14);
+        valueY = *arg2;
+        if ((*(f32 *)(entry->data + 8) + marginY < valueY) ||
+            (valueY < *(f32 *)(entry->data + 0xC) - marginY)) {
+            *arg2 = arg6;
+            return;
+        }
+        if (valueY < *(f32 *)(entry->data + 0xC)) {
+            bound = *(f32 *)(entry->data + 0xC);
+        } else if (*(f32 *)(entry->data + 8) < valueY) {
+            bound = *(f32 *)(entry->data + 8);
+        } else {
+            bound = valueY;
+        }
+        *arg2 = bound;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15039ED0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039ED0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A08C.s")
-typedef struct Game64120OutputBlock {
-    u8 pad0[0x30];
-    f32 x;
-    f32 y;
-    f32 z;
-} Game64120OutputBlock;
-
-typedef struct Game64120Output {
-    u8 pad0[0x40];
-    Game64120OutputBlock block;
-} Game64120Output;
-
-typedef struct Game64120Record {
-    u8 pad0[0x18];
-    f32 y;
-    u8 pad1C[0x158];
-    f32 x;
-    f32 z;
-    u8 pad17C[0x58];
-    Game64120Output *output;
-    u8 pad1D8[0x154];
-} Game64120Record;
-
 extern u8 D_800C3E78;
-extern Game64120Record D_800CC2D0[];
 
 void func_1503A60C(void) {
     Game64120OutputBlock *temp_v0;
@@ -258,6 +351,73 @@ void func_1503A60C(void) {
     temp_v0->y = D_800CC2D0[D_800C3E78].y;
     temp_v0->z = D_800CC2D0[D_800C3E78].z;
 }
+typedef struct Game64120Motion {
+    u8 pad0[0xC];
+    f32 zero0;
+    u8 pad10[0xC];
+    f32 zero1;
+    u8 pad20[0xC];
+    f32 zero2;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 one;
+} Game64120Motion;
+
+typedef union Game64120FloatBits {
+    f32 value;
+    u32 bits;
+} Game64120FloatBits;
+
+void func_150A7BC0(void *);
+void func_150A7CB0(void *, u32, u32, u32);
+void func_150A7A48(void *, void *, void *);
+void func_10023A10(void *, void *, s32);
+extern u8 D_80084404[];
+extern u8 D_800C3FFA;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503A678 CURRENT (667) */
+void func_1503A678(void) {
+    Game64120FloatBits scale[5];
+    u8 transform[0x48];
+    u8 transformed[0x40];
+    f32 original[3];
+    Game64120Record *record;
+    Game64120Motion *motion;
+    f32 factor;
+
+    record = &D_800CC2D0[D_800C3E78];
+    if (record->pad0[4] != 0x22) {
+        return;
+    }
+    factor = (f32)(u32)record->pad1D8[0x32] * 0.015625f + 1.0f;
+    if (D_800C3FFA == 0) {
+        scale[0].value = factor;
+        scale[1].value = 1.0f;
+        scale[2].value = factor;
+    } else {
+        scale[0].value = 1.0f / factor;
+        scale[1].value = 1.0f;
+        scale[2].value = scale[0].value;
+    }
+    motion = ((Game64120Motion *)record->output) + D_80084404[D_800C3FFA];
+    motion->one = 1.0f;
+    motion->zero0 = 0.0f;
+    motion->zero1 = 0.0f;
+    motion->zero2 = 0.0f;
+    original[0] = motion->x;
+    original[1] = motion->y;
+    original[2] = motion->z;
+    func_150A7BC0(transform);
+    func_150A7CB0(transform, scale[0].bits, scale[1].bits, scale[2].bits);
+    func_150A7A48(motion, transform, transformed);
+    func_10023A10(transformed, motion, 0x40);
+    motion->x = original[0];
+    motion->y = original[1];
+    motion->z = original[2];
+    D_800C3FFA++;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503A678 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A678.s")
 void func_15036F34(void);
 void func_1503A678(void);
@@ -275,7 +435,7 @@ void func_1503A7F0(void) {
     func_1503A678();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A830.s")
-s32 func_15037880(s32, void *);
+s32 func_15037880(s32, f32 *);
 void func_150380C0(void *, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32);
 extern f32 D_800986EC;
 extern f32 D_800C3FD0[];

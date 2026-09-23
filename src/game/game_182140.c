@@ -62,7 +62,7 @@ void func_15154C90(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_15154D80.s")
 void *func_10022EC0(void *, const void *, u32);
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
-s32 func_151555AC(void *, f32 *);
+s32 func_151555AC(f32 *, f32 *, s32 *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1515548C CURRENT (239) */
 void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
@@ -104,16 +104,74 @@ void func_15155564(void *arg0, s32 arg1, u8 arg2) {
         temp_v0(arg0, arg1, arg2);
     }
 }
+typedef struct Game1555Pair {
+    s32 entries[2];
+} Game1555Pair;
+
+extern Game1555Pair D_800A6030;
+extern u8 D_800DCE50[];
+extern u8 D_800DD190[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151555AC CURRENT (5659) */
+s32 func_151555AC(f32 *arg0, f32 *arg1, s32 *arg2, s32 arg3) {
+    Game1555Pair pair = D_800A6030;
+    u8 *table = D_800DCE50;
+    s32 index;
+
+    do {
+        index = 0;
+        do {
+            u8 *object = *(u8 **)(table + pair.entries[index] * 4);
+            while (object != 0) {
+                u8 *next = *(u8 **)(object + 8);
+                s32 found = 0;
+                if (arg3 > 0) {
+                    s32 remaining = arg3 * 4;
+                    s32 *scan = arg2 + arg3;
+                    do {
+                        if (object[0x2A] == scan[-1]) {
+                            found = 1;
+                        } else {
+                            remaining -= 4;
+                            scan--;
+                        }
+                        if (remaining < 4 || found != 0) {
+                            break;
+                        }
+                    } while (1);
+                }
+                if (found != 0) {
+                    f32 x_extent = *(f32 *)(object + 0x18) + arg1[0];
+                    f32 y_extent = *(f32 *)(object + 0x1C) + arg1[1];
+                    f32 x = arg0[0];
+                    f32 x_center = *(f32 *)(object + 0x10);
+                    if (x - x_extent <= x_center && x_center <= x + x_extent) {
+                        f32 y = arg0[1];
+                        f32 y_center = *(f32 *)(object + 0x14);
+                        if (y - y_extent <= y_center && y_center <= y + y_extent) {
+                            return 1;
+                        }
+                    }
+                }
+                object = next;
+            }
+            index = (index + 1) & 0xFF;
+        } while (index < 2);
+        table += 0x1A0;
+    } while (table != D_800DD190);
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151555AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_151555AC.s")
 typedef struct {
     s32 field_0;
     s32 field_4;
 } Game182140Pair;
 
-void func_15169260(Game182140Pair *, s32, s32, s32);
+void func_15169260(Game182140Pair *, s32, s32, u8);
 extern Game182140Pair D_800A6038;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515572C CURRENT (260) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515572C CURRENT (300) */
 void func_1515572C(s32 arg0, u8 arg1) {
     Game182140Pair sp18;
 

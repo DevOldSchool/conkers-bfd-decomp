@@ -163,17 +163,58 @@ void func_150832AC(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150832AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150832AC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083384.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083568.s")
 typedef struct {
     u8 *entries;
     u8 count;
     u8 pad5[3];
 } GameAEB40EntryList;
 
+extern GameAEB40EntryList D_80086CC4[];
+s32 func_15083AC8(s32, u8, u8, s32, s32, s32, s32, s32, f32);
+s32 func_15030AF4(s32, u8, u8, u8, s32, s32, s32, s32, s32, u8 *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083568 CURRENT (515) */
+s32 func_15083568(s32 arg0, s32 arg1, f32 arg2, s32 arg3) {
+    GameAEB40EntryList *list;
+    u8 *entry;
+    s32 index;
+    s32 result;
+
+    arg1 -= 1;
+    list = &D_80086CC4[arg1];
+    result = 0;
+    index = 0;
+    if (list->count > 0) {
+        entry = list->entries;
+        do {
+            if (entry[3] == 0) {
+                result = func_15083AC8(arg0, entry[1], entry[0], 0,
+                                        entry[2], entry[4], entry[5], entry[6], arg2);
+            } else {
+                s32 special;
+
+                if (entry[3] == 2) {
+                    special = entry[6];
+                } else {
+                    special = -1;
+                }
+                result = func_15030AF4(arg0, entry[0], entry[1], entry[7],
+                                       entry[4], entry[5], arg3, arg1 + 1,
+                                       entry[2], entry + 8, special,
+                                       entry[0xE], entry[0xF]);
+            }
+            index++;
+            entry += 0x10;
+        } while (index < list->count);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15083568 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083568.s")
+
 void func_150302F0(void *, s32);
 u8 *func_1505F0AC(u8);
 void func_15060F28(u8 *, s32);
-extern GameAEB40EntryList D_80086CC4[];
 extern s32 D_800CC2D0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150836CC CURRENT (330) */
@@ -607,7 +648,7 @@ void func_15084C30(void *arg0) {
 extern u8 D_800BE590;
 extern u16 D_800BE598;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084CB0 CURRENT (140) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084CB0 CURRENT (235) */
 s32 func_15084CB0(s32 arg0) {
     s32 var_v0;
     s32 var_v1;
@@ -622,7 +663,7 @@ loop_2:
             var_v1 = var_v0;
         } else {
             var_v0 += 1;
-            var_a2 += 2;
+            var_a2 += 1;
             if (var_v0 < (s32) D_800BE590) {
                 goto loop_2;
             }

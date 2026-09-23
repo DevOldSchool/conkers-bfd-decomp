@@ -56,4 +56,46 @@ void func_15100340(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15100340 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D7F0/func_15100340.s")
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+extern s32 D_80090324[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15100464 CURRENT (1702) */
+void *func_15100464(void *arg0) {
+    struct {
+        s32 padding[2];
+        s32 sp58[4];
+    } workspace;
+    s32 phase;
+    s32 value;
+    s32 *output;
+    s32 *slot;
+    u8 *selector;
+    s32 command;
+
+    phase = D_800DD405 >> 2;
+    output = arg0;
+    value = func_1510D0EC(D_80090324[phase % 3], workspace.sp58, 3, 0);
+    slot = output;
+    slot[0] = 0xDB060008;
+    slot[1] = value;
+    output += 2;
+    value = func_1510D0EC(D_80090324[(phase + 1) % 3], workspace.sp58, 3, 0);
+    slot = output;
+    slot[0] = 0xDB06000C;
+    slot[1] = value;
+    output += 2;
+    selector = D_800BE500;
+    command = 0x10;
+    do {
+        value = func_1510D0EC(D_80090324[selector[0] + 3], workspace.sp58, 3, 0);
+        slot = output;
+        slot[0] = 0xDB060000 | (command & 0xFFFF);
+        slot[1] = value;
+        output += 2;
+        command += 4;
+        selector++;
+    } while (command != 0x24);
+    return output;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15100464 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12D7F0/func_15100464.s")

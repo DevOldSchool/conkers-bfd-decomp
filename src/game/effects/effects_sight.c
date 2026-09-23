@@ -16,9 +16,7 @@
  * - func_151C9198
  * - func_151C94D4
  * - func_151C95D8
- * - func_151C96DC
  * - func_151C9740
- * - func_151C9B30
  * - func_151C9BA0
  * - func_151C9DE8
  * - func_151C9ED4
@@ -28,9 +26,7 @@
  * - func_151CAB78
  * - func_151CAD28
  * - func_151CB110
- * - func_151CB510
  * - func_151CB5FC
- * - func_151CB918
  * - func_151CB970
  * - func_151CBBE0
  * - func_151CBC60
@@ -112,6 +108,67 @@ s32 func_151C87AC(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
     }
     return 0;
 }
+extern u8 *D_800D1C90[];
+void func_1507C3E0(void *, s16 *, s16 *, s16 *);
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+s32 func_151451F0(void *, void *, s32, f32, f32, s32, s32, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C87E0 CURRENT (5482) */
+s32 func_151C87E0(s32 arg0, void *arg1, s32 arg2, void *arg3) {
+    struct {
+        f32 inverse;
+        u8 pad44[2];
+        s16 sample3;
+        s16 sample2;
+        s16 sample;
+        f32 output1;
+        f32 output0;
+        u8 pad54[0xC];
+        u8 result60[0xC];
+        f32 length;
+        f32 direction[3];
+        u8 pad7C[0xC];
+        f32 clipped[3];
+        u8 pad94[4];
+        f32 start[3];
+        u8 padA4[4];
+        f32 radius;
+    } local;
+    u8 *actor;
+    u8 *sight;
+    f32 ratio;
+
+    actor = (u8 *)arg0;
+    sight = arg1;
+    if ((actor[4] < 0xBB) && (actor[4] != 0xFF)) {
+        local.radius = (f32)*(s16 *)(D_800D1C90[actor[4]] + 0x1A) * *(f32 *)(actor + 0x14C);
+    } else {
+        local.radius = 50.0f;
+    }
+    func_1507C3E0(actor, &local.sample, &local.sample2, &local.sample3);
+    if ((f32)local.sample == 0.0f) {
+        return 0;
+    }
+    ratio = local.radius / ((f32)local.sample * 0.5f);
+    local.start[0] = *(f32 *)(actor + 0x14);
+    local.start[1] = *(f32 *)(actor + 0x18) + ((f32)local.sample * 0.5f);
+    local.start[2] = *(f32 *)(actor + 0x1C);
+    local.clipped[0] = *(f32 *)(sight + 0x34);
+    local.clipped[1] = ((*(f32 *)(sight + 0x38) - local.start[1]) * ratio) + local.start[1];
+    local.clipped[2] = *(f32 *)(sight + 0x3C);
+    local.direction[0] = *(f32 *)(sight + 0x40) - local.clipped[0];
+    local.direction[1] = (((*(f32 *)(sight + 0x44) - local.start[1]) * ratio) + local.start[1]) - local.clipped[1];
+    local.direction[2] = *(f32 *)(sight + 0x48) - local.clipped[2];
+    if (func_15145128(local.direction, local.direction, &local.length, &local.inverse) == 0) {
+        return 0;
+    }
+    if (func_151451F0(local.clipped, local.direction, (s32)local.start, local.radius, local.length,
+                      (s32)local.result60, (s32)local.pad54, &local.output0, &local.output1) != 0) {
+        return 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C87E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C87E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C899C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C8FCC.s")
@@ -233,21 +290,16 @@ void func_151C95D8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C95D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C95D8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C96DC CURRENT (120) */
 s32 func_151C96DC(void *arg0, s32 arg1) {
-    u8 *temp_v0;
-    s32 temp_t6;
+    s32 temp_v0;
 
-    temp_v0 = *(u8 **)((u8 *)arg0 + 0x170);
-    temp_t6 = *(u8 *)(temp_v0 + 0x196);
+    temp_v0 = *(s32 *)((u8 *)arg0 + 0x170);
     temp_v0 += 0x110;
-    if (temp_t6 & 2) {
+    if (*(u8 *)(temp_v0 + 0x86) & 2) {
         return 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C96DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C96DC.s")
 void func_151C970C(s32 arg0, void *arg1) {
     struct {
         void *sp18;
@@ -292,28 +344,16 @@ void func_151C9AC0(EffectsSightActor *arg0, u8 arg1, s32 arg2) {
     func_1504715C(&transform, arg0);
     func_151ABE40(&position, &transform, 2, arg1, arg2);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C9B30 CURRENT (100) */
 s32 func_151C9B30(void *arg0) {
-    s32 var_v0;
-    s32 temp_t7;
-    void *temp_v0;
-    void *temp_v1;
-    void *temp_v1_2;
+    void *temp_v0 = *(void **)((u8 *)arg0 + 0x18);
 
-    var_v0 = 1;
-    temp_t7 = 1;
-    temp_v0 = *(void **)((u8 *)arg0 + 0x18);
     if (*(u8 *)((u8 *)temp_v0 + 0x6F) == 0) {
-        temp_v1_2 = *(void **)((u8 *)arg0 + 0x14);
-        *(u8 *)((u8 *)temp_v1_2 + 9) = 0;
+        *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 9) = 0;
     } else {
-        temp_v1 = *(void **)((u8 *)arg0 + 0x14);
-        *(u8 *)((u8 *)temp_v1 + 9) = temp_t7;
+        *(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 9) = 1;
     }
-    return var_v0;
+    return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C9B30 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C9B30.s")
 s32 func_151C9B64(void *arg0, s8 *arg1) {
     s32 var_v0;
     s32 temp_t7;
@@ -398,6 +438,103 @@ void func_151CAACC(void *arg0, void **arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CAACC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAACC.s")
+extern s32 D_80082FA0;
+void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
+void func_10022EC0(void *, void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (1557) */
+void func_151CAB78(u8 *arg0, u8 arg1) {
+    struct {
+        f32 x;
+        f32 y;
+        f32 width;
+        f32 height;
+        u8 type;
+        u8 pad11;
+        s16 angle;
+        s16 flags;
+        s16 count;
+        s16 color;
+        u8 mode;
+        u8 arg1;
+        u8 arg2;
+        u8 arg3;
+        u8 time;
+        u8 color0;
+        u8 color1;
+        u8 color2;
+        u8 color3;
+        u8 color4;
+        s32 field24;
+        s32 field28;
+        s32 field2C;
+        s32 field30;
+        s32 field34;
+        s32 field38;
+        s32 field3C;
+        u8 field40;
+        u8 field41;
+        u8 pad42[2];
+        u8 field44;
+        u8 pad45[0x13];
+    } spawn;
+    struct {
+        u8 *owner;
+        f32 zero;
+        f32 scale;
+        u8 bytes[2];
+        u8 pad[0x4E];
+    } payload;
+    f32 multiplier;
+    s32 mode;
+    void *object;
+
+    payload.owner = arg0;
+    payload.zero = 0.0f;
+    payload.bytes[1] = 0;
+    payload.bytes[0] = 0;
+    payload.scale = 130.0f;
+    if (D_80082FA0 > 0) {
+        multiplier = 2.0f;
+    } else {
+        multiplier = 1.0f;
+    }
+    spawn.type = 100;
+    spawn.angle = 300;
+    spawn.height = multiplier * 12.0f;
+    spawn.width = spawn.height;
+    spawn.color = 255;
+    spawn.mode = 7;
+    spawn.flags = (1 << (arg0[0x23D] + 11)) | 0x50;
+    spawn.count = 1;
+    spawn.arg1 = 255;
+    spawn.arg2 = 200;
+    spawn.time = 130;
+    spawn.color0 = 255;
+    spawn.color1 = 255;
+    spawn.arg3 = 0;
+    spawn.color2 = 255;
+    spawn.color3 = 255;
+    spawn.color4 = 255;
+    spawn.field24 = 0;
+    spawn.field28 = 0x200004;
+    spawn.field2C = 0x1F0601;
+    spawn.field30 = 8;
+    spawn.field34 = 0x44;
+    spawn.field38 = 0x80;
+    spawn.field3C = 0x20;
+    spawn.field40 = 0;
+    spawn.field41 = 10;
+    spawn.x = 0.0f;
+    spawn.y = 0.0f;
+    spawn.field44 = arg0[0x23D];
+    mode = arg1 ? 4 : 0;
+    object = func_1515548C(&spawn, mode & 0xFF, 0, 0, 0x58, 0xFF, 1);
+    if (object != 0) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CAB78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAB78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAD28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB110.s")
@@ -430,7 +567,6 @@ void func_151CB49C(SightEffect *arg0, SightMessage *arg1, u8 arg2) {
 }
 extern f32 D_800AAEA8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB510 CURRENT (10) */
 void func_151CB510(void *arg0) {
     f32 temp_fv1;
     f32 var_fv0;
@@ -447,25 +583,20 @@ void func_151CB510(void *arg0) {
         var_v0 = (u8 *)arg0 + 0x70;
     }
     temp_fv1 = *(f32 *)(var_v0 + 4);
-    *(f32 *)(var_v0 + 4) = temp_fv1 + ((var_fv0 - temp_fv1) * D_800AAEA8);
+    *(f32 *)(var_v0 + 4) += (var_fv0 - temp_fv1) * D_800AAEA8;
     *(s8 *)((u8 *)arg0 + 0x2E) = (s8)(u32)*(f32 *)(var_v0 + 4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CB510 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB510.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB5FC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CB918 CURRENT (215) */
-void func_151CB918(u8 *arg0, u8 *arg1, s32 arg2) {
+void func_151CB918(u8 *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
 
     temp_v0 = (void *)(arg0 + 0x70);
-    if (((arg2 & 0xFF) == 0x37) && (*(u8 *)((u8 *)arg1 + 0) == *(u8 *)((u8 *)temp_v0 + 0xE)) && (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)((u8 *)arg0 + 0x70))) {
+    if ((arg2 == 0x37) && (*(u8 *)((u8 *)arg1 + 0) == *(u8 *)((u8 *)temp_v0 + 0xE)) && (*(s32 *)((u8 *)arg1 + 4) == *(s32 *)temp_v0)) {
         *(f32 *)((u8 *)temp_v0 + 0x10) = 0.0f;
         *(u8 *)((u8 *)temp_v0 + 0xC) = (u8) (*(u8 *)((u8 *)temp_v0 + 0xC) | 1);
         *(f32 *)((u8 *)temp_v0 + 0x14) = 0.0f;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CB918 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CB918.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 extern f32 D_800AAEAC;
@@ -673,6 +804,98 @@ s32 func_151CC77C(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CC77C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC77C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC840.s")
+typedef struct SightEffectPayload {
+    void *owner;
+    f32 zero;
+    f32 scale;
+    u8 bytes[2];
+    u8 pad[0x4E];
+} SightEffectPayload;
+
+typedef struct SightEffectSpawn {
+    f32 x;
+    f32 y;
+    f32 width;
+    f32 height;
+    u8 type;
+    u8 pad11;
+    s16 angle;
+    s16 flags;
+    s16 count;
+    s16 color;
+    u8 mode;
+    u8 arg1;
+    u8 arg2;
+    u8 arg3;
+    u8 time;
+    u8 color0;
+    u8 color1;
+    u8 color2;
+    u8 color3;
+    u8 color4;
+    s32 field24;
+    s32 field28;
+    s32 field2C;
+    s32 field30;
+    s32 field34;
+    s32 field38;
+    s32 field3C;
+    u8 field40;
+    u8 field41;
+    u8 pad42[2];
+    u8 field44;
+    u8 pad45[3];
+} SightEffectSpawn;
+
+void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
+void func_10022EC0(void *, void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCD1C CURRENT (2834) */
+void func_151CCD1C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    SightEffectSpawn spawn;
+    SightEffectPayload payload;
+    void *object;
+
+    payload.zero = 0.0f;
+    payload.bytes[1] = 0;
+    payload.bytes[0] = 0;
+    spawn.angle = 0x12C;
+    payload.owner = arg0;
+    payload.scale = 130.0f;
+    spawn.flags = (1 << (*(u8 *)((u8 *)arg0 + 0x23D) + 0xB)) | 0x50;
+    spawn.count = 1;
+    spawn.arg1 = arg1;
+    spawn.arg2 = arg2;
+    spawn.mode = 7;
+    spawn.time = 0xB4;
+    spawn.color0 = 0xFF;
+    spawn.color1 = 0xFF;
+    spawn.color2 = 0xFF;
+    spawn.arg3 = arg3;
+    spawn.color = 0xFF;
+    spawn.color3 = 0xFF;
+    spawn.color4 = 0xFF;
+    spawn.field24 = 0;
+    spawn.field28 = 0x200004;
+    spawn.field2C = 0x1F0601;
+    spawn.field30 = 8;
+    spawn.field34 = 0x44;
+    spawn.field38 = 0x80;
+    spawn.field3C = 0x20;
+    spawn.field40 = 0;
+    spawn.field41 = 0xA;
+    spawn.x = 0.0f;
+    spawn.y = 0.0f;
+    spawn.type = 0xB4;
+    spawn.width = 65.0f;
+    spawn.height = 65.0f;
+    spawn.field44 = *(u8 *)((u8 *)arg0 + 0x23D);
+    object = func_1515548C(&spawn, 0, 0, 0, 0x58, 0xFF, 1);
+    if (object != 0) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CCD1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCD1C.s")
 typedef struct SightSpawnOwner {
     u8 pad0[0x23D];

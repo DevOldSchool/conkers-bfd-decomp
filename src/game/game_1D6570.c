@@ -73,17 +73,83 @@ void func_151A90C0(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A90C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A90C0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A91AC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (1055) */
-void func_151A931C(void *arg0, u8 *arg1, s32 arg2) {
-    s32 temp_t6;
+typedef struct Game1D6570Particle {
+    s32 field0;
+    s16 field4;
+    u8 field6;
+    u8 field7;
+    s32 field8;
+    s32 fieldC;
+    u8 field10;
+    u8 field11;
+    u8 field12;
+    u8 field13;
+    u8 field14;
+    u8 field15;
+    u8 field16;
+    u8 field17;
+    s32 field18;
+} Game1D6570Particle;
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0x17) {
+typedef struct Game1D6570ParticleOwner {
+    u8 pad0;
+    u8 field1;
+    u8 pad2[0xA];
+    u8 fieldC;
+    u8 padD[0x4B];
+    u8 field58;
+} Game1D6570ParticleOwner;
+
+typedef struct Game1D6570Choices {
+    s16 values[3];
+} Game1D6570Choices;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
+extern Game1D6570Choices D_8008F9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A91AC CURRENT (584) */
+void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3) {
+    Game1D6570Particle particle;
+    f32 size;
+    Game1D6570Choices choices;
+    u32 random0;
+    u32 random1;
+
+    choices = D_8008F9A4;
+    size = func_150ADA68() * 50.0f + 50.0f;
+    particle.field6 = choices.values[func_150ADA20() % 3U];
+    particle.field7 = 0;
+    particle.field8 = 0;
+    particle.fieldC = 0;
+    particle.field0 = 0x1701;
+    particle.field4 = 0x3C;
+    particle.field10 = 0xA0;
+    particle.field11 = 0xFF;
+    particle.field12 = 0;
+    particle.field13 = 0;
+    particle.field14 = 0;
+    particle.field15 = 0xFF;
+    particle.field16 = 0;
+    particle.field17 = 7;
+    particle.field18 = 0x3B0002;
+    random0 = func_150ADA20();
+    random1 = func_150ADA20();
+    func_1513C650((s32)&particle, 1, 0, (s32)&arg0->field58,
+                  arg1[0], arg1[1], arg1[2], size, size,
+                  random0 & 0xFF, (func_150ADA20() & 1) + (random1 & 1),
+                  3, 0xFF, 0, arg0->fieldC, arg0->field1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A91AC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A91AC.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A931C CURRENT (830) */
+void func_151A931C(void *arg0, u8 *arg1, u8 arg2) {
+    if (arg2 == 0x17) {
         if (*arg1 == *(u8 *)((u8 *)arg0 + 0x80)) {
             *(u8 *)((u8 *)arg0 + 0x28) = (u8) (*(u8 *)((u8 *)arg0 + 0x28) | 1);
         }
-    } else if ((temp_t6 == 0x18) && (*arg1 == *(u8 *)((u8 *)arg0 + 0x80))) {
+    } else if ((arg2 == 0x18) && (*arg1 == *(u8 *)((u8 *)arg0 + 0x80))) {
         *(u8 *)((u8 *)arg0 + 0x28) = (u8) (*(u8 *)((u8 *)arg0 + 0x28) & 0xFFFE);
     }
 }
@@ -166,4 +232,57 @@ void func_151A9634(Game1D6570Actor *arg0, s32 arg1, s32 arg2, s32 arg3) {
         func_10022EC0((u8 *)result + 0x160, &payload, 8);
     }
 }
+typedef void (*Game1D6570ParticleCallback)(f32 *, f32 *, s32, u8, s32);
+f32 func_150ADA68(void);
+void func_1514373C(f32, f32, f32 *, f32 *);
+s32 func_15046C80(f32 *, u16, f32, void *);
+extern Game1D6570ParticleCallback D_8008FA60[];
+extern f32 D_800A8F68;
+extern f32 D_800A8F6C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9834 CURRENT (881) */
+void func_151A9834(f32 *arg0, f32 arg1, f32 arg2, f32 *arg3,
+                    s32 arg4, u8 arg5, s32 arg6, u8 arg7, s32 arg8) {
+    struct {
+        f32 callbackPosition[3];
+        f32 position[3];
+        u8 fallback[0x24];
+    } locals;
+    f32 *state;
+    s32 count;
+    f32 random;
+    f32 angleScale;
+
+    state = arg3;
+    if (state == 0) {
+        state = (f32 *)locals.fallback;
+        *(s32 *)(locals.fallback + 0x18) = 0;
+        locals.fallback[0x1C] = 7;
+        locals.fallback[0x1D] = 0;
+        *(s32 *)(locals.fallback + 0x20) = 0;
+        state[0] = D_800A8F68;
+    }
+    count = arg4;
+    locals.position[1] = arg0[1];
+    if (count > 0) {
+        angleScale = D_800A8F6C;
+        do {
+            random = func_150ADA68();
+            func_1514373C((random + random) * angleScale,
+                           func_150ADA68() * arg2,
+                           &locals.position[0], &locals.position[2]);
+            locals.position[0] += arg0[0];
+            locals.position[2] += arg0[2];
+            if (func_15046C80(locals.position, 0, arg1, state) != 0) {
+                locals.callbackPosition[0] = locals.position[0];
+                locals.callbackPosition[1] = state[0];
+                locals.callbackPosition[2] = locals.position[2];
+                D_8008FA60[(u8)arg5](locals.callbackPosition, state,
+                                       arg6, (u8)arg7, arg8);
+            }
+            count--;
+        } while (count > 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A9834 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9834.s")

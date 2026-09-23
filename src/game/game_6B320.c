@@ -96,6 +96,50 @@ s32 func_1503E1F4(s32 arg0, s32 arg1) {
     }
     return 0;
 }
+extern u8 *D_80084460[];
+void func_10004074(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503E260 CURRENT (93) */
+void func_1503E260(s32 arg0) {
+    Game6B320Slot *slot = &D_800C6660[arg0];
+    s32 i;
+    u8 *list;
+    u8 *mask;
+    u8 *actor;
+    u8 count;
+    u8 selector;
+
+    if (slot->pad_E[1] != 0) {
+        selector = slot->pad_E[0];
+        list = D_80084460[selector];
+        if (list != 0) {
+            count = D_80098914[selector];
+            i = 0;
+            mask = list;
+            if ((s32)count > 0) {
+                do {
+                    if (*mask != 0xFF && func_1503E1F4(i, arg0) != 0) {
+                        actor = D_800CC2D0 + arg0 * 0x32C;
+                        *(s32 *)(actor + 0x94) |= 1 << *mask;
+                    }
+                    i++;
+                    mask++;
+                } while (i != count);
+            }
+        }
+        actor = D_800CC2D0 + arg0 * 0x32C;
+        slot->pad_E[1] = 0;
+        if (slot->entity != 0) {
+            func_10004074((s32)slot->entity);
+        }
+        {
+            u8 flags = actor[0x74];
+            slot->entity = 0;
+            actor[0x74] = flags & 0xFF7F;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503E260 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E260.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E3C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503E5F8.s")

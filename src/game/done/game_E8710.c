@@ -101,7 +101,7 @@ typedef struct GameE8710Packet {
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 f32 func_151423D8(s32);
-void func_15132A4C(s32, s32, s32, s32, u8, s32);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
 
 extern const f32 D_8009FE7C;
 extern const f32 D_8009FE80;
@@ -164,6 +164,6 @@ s32 func_150BB498(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     packet.field72 = 1;
     packet.field74 = 0xFF;
     packet.fieldC = temp_fv1;
-    func_15132A4C((s32) &packet, 3, 0xFF, 0, (u8) (s32) arg14, 0);
+    func_15132A4C(&packet, 3, 0xFF, 0, (u8) (s32) arg14, 0);
     return 1;
 }

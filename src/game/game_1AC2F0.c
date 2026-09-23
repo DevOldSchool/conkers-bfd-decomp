@@ -9,7 +9,6 @@
  * - func_1517EFDC
  * - func_1517F08C
  * - func_1517F488
- * - func_1517F4D8
  * - func_1517F564
  * - func_1517F720
  * - func_1517F75C
@@ -166,30 +165,66 @@ void func_1517F488(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517F488 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F488.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F4D8 CURRENT (20) */
 s32 func_1517F4D8(s32 arg0, s32 arg1) {
-    u8 temp_a1;
+    s32 temp_a1;
     u8 *temp_v0;
+    u8 *entry = (u8 *)&D_800DDD9C + arg1;
 
     if (*(u16 *)((u8 *)&D_800DDE10 + (arg1 * 2)) == 0) {
         return arg0;
     }
-    temp_a1 = *(u8 *)((u8 *)&D_800DDD9C + arg1);
+    temp_a1 = *entry;
     if (temp_a1 == 0) {
         return arg0;
     }
     temp_v0 = (u8 *)&D_800DDD90 + (arg1 * 3);
     return func_1517F08C(arg0, (s32)temp_a1, temp_v0[0], temp_v0[1], temp_v0[2], arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1517F4D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F4D8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F564.s")
 extern s8 D_800DDD88;
 extern s8 D_800DDD89;
 extern s8 D_800DDD8A;
 extern s8 D_800DDD8B;
 extern s8 D_800DDD8C;
 extern s16 D_800DDE08;
+extern u8 D_8008D010[][6];
+f32 func_15048A40(s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F564 CURRENT (3177) */
+s32 func_1517F564(s32 arg0) {
+    f32 fraction;
+    f32 scale;
+    f32 red;
+    f32 green;
+    f32 blue;
+    s32 intensity;
+    u8 *colors;
+    u8 red0;
+    u8 green0;
+    u8 blue0;
+
+    if ((u16)D_800DDE08 == 0) {
+        return arg0;
+    }
+    if ((u8)D_800DDD8B == 0) {
+        return arg0;
+    }
+    intensity = (u8)D_800DDD8B;
+    if ((u8)D_800DDD8C != 0) {
+        scale = (func_15048A40((u8)D_800DDD89, intensity) + 1.0f) * 0.5f;
+        intensity = (s32)((f32)(u8)D_800DDD8B * scale);
+        fraction = 0.0f;
+    }
+    colors = D_8008D010[(u8)D_800DDD8A];
+    red0 = colors[0];
+    red = (f32)red0 + (f32)(colors[3] - red0) * fraction;
+    green0 = colors[1];
+    green = (f32)green0 + (f32)(colors[4] - green0) * fraction;
+    blue0 = colors[2];
+    blue = (f32)blue0 + (f32)(colors[5] - blue0) * fraction;
+    return func_1517F08C(arg0, intensity, (s32)red, (s32)green, (s32)blue, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517F564 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F564.s")
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F720 CURRENT (1210) */
 void func_1517F720(s8 arg0, s16 arg1, s8 arg2, s8 arg3, s32 arg4) {
@@ -474,17 +509,19 @@ void func_15182748(Game1AC2F0Object *arg0) {
 }
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);  /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182768 CURRENT (264) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182768 CURRENT (100) */
 s32 func_15182768(s32 arg0, u8 *arg1, s16 arg2) {
-    s32 var_a0;
     u8 *temp_v0;
 
-    var_a0 = arg0;
     temp_v0 = (void *)(arg1 + 0x28);
     if (arg2 == *(u8 *)((u8 *)arg1 + 0x2C)) {
-        var_a0 = func_1517F08C(*(u8 *)((u8 *)temp_v0 + 3), *(u8 *)((u8 *)arg1 + 0x28), *(u8 *)((u8 *)temp_v0 + 1), (s32) *(u8 *)((u8 *)temp_v0 + 2), (s32) *(u8 *)((u8 *)temp_v0 + 4));
+        arg0 = func_1517F08C(arg0, *(u8 *)((u8 *)temp_v0 + 3),
+                                *(u8 *)temp_v0,
+                                *(u8 *)((u8 *)temp_v0 + 1),
+                                (s32)*(u8 *)((u8 *)temp_v0 + 2),
+                                (s32)*(u8 *)((u8 *)temp_v0 + 4));
     }
-    return var_a0;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15182768 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_15182768.s")

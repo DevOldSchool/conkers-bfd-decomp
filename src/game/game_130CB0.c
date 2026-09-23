@@ -125,5 +125,77 @@ block_11:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15103910 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103910.s")
+typedef struct Game130CB0Source {
+    u8 pad0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+} Game130CB0Source;
+
+typedef struct Game130CB0Record {
+    s16 field0;
+    s16 x;
+    s16 y;
+    s16 z;
+    u16 field8;
+    s16 fieldA;
+    u8 padC[4];
+    s32 flags;
+    u8 pad14[4];
+    s32 remaining;
+    Game130CB0Source *source;
+    u8 pad20[4];
+    u16 field24;
+} Game130CB0Record;
+
+void func_1000F85C(u16, s32, s32, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103AA0 CURRENT (667) */
+s32 func_15103AA0(Game130CB0Record *arg0, s32 arg1, s32 arg2, s32 arg3,
+                  s32 arg4, s32 arg5, u16 *arg6) {
+    Game130CB0Source *source;
+    s32 packed;
+    u32 remaining;
+    u16 trigger;
+
+    source = arg0->source;
+    packed = arg0->remaining;
+    remaining = packed & 0x7FFF;
+    arg0->x = (s16)(s32)source->x;
+    arg0->y = (s16)(s32)source->y;
+    arg0->z = (s16)(s32)source->z;
+    if (remaining != 0) {
+        trigger = *arg6;
+        if (trigger != 0) {
+            arg0->remaining = (trigger << 16) | (packed & 0xFFFF);
+            arg0->field0 = 0;
+            *arg6 = 0;
+            func_10010344(0x5B0, (s32)source, (u32)-0x61A8, arg0->fieldA, arg0->field8);
+            return 0;
+        }
+        if ((u32)D_800BE9E4 >= remaining) {
+            *arg6 = packed >> 16;
+            arg0->field0 = packed >> 16;
+            arg0->remaining &= ~0x7FFF;
+            return 0;
+        }
+        remaining -= D_800BE9E4;
+    } else {
+        if (arg0->field24 == 0) {
+            func_10010344(0x5B1, (s32)source, (u32)-0x61A8, arg0->fieldA, arg0->field8);
+            return 1;
+        }
+        if (packed != 0) {
+            if ((packed & 0x8000) == 0) {
+                func_1000F85C(arg0->field24, -0x8000, 2, remaining);
+            }
+            arg0->remaining = 0;
+        }
+        arg0->flags &= ~0x80;
+    }
+    arg0->remaining = (arg0->remaining & ~0x7FFF) | remaining;
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15103AA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103AA0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103C14.s")

@@ -181,6 +181,76 @@ s32 func_15013D38(Game40490DispatchState *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15013D38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013D38.s")
+void func_15149550(f32 *, s32, s32, s32, s32, s32);
+u32 func_150ADA20(void);
+extern f32 D_80096654;
+extern f32 D_80096658;
+extern f32 D_8009665C;
+extern f32 D_80096660;
+extern f32 D_80096664;
+extern f32 D_80096668;
+extern f32 D_8009666C;
+extern f32 D_80096670;
+extern f32 D_80096674;
+extern f32 D_80096678;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013DE8 CURRENT (4781) */
+s32 func_15013DE8(u8 *arg0) {
+    struct {
+        f32 scaledY;
+        f32 scaledX;
+        f32 position[3];
+        f32 offsets[5];
+        s16 first;
+        s16 second;
+        s16 angle;
+        u8 bytes56[4];
+        s16 short5A;
+        u8 bytes5C[4];
+        s32 field60;
+        u8 field64;
+        u8 pad65[3];
+        f32 zero;
+        f32 value6C;
+        f32 value70;
+        f32 value74;
+    } packet;
+    s32 mode;
+
+    arg0[0x16] |= 4;
+    packet.first = 0x6231;
+    packet.second = 0x1A4D;
+    packet.bytes56[0] = 0;
+    packet.bytes56[1] = 0;
+    packet.bytes56[2] = 0;
+    packet.bytes56[3] = 0xFF;
+    packet.short5A = 0;
+    packet.bytes5C[1] = 0xFF;
+    packet.field60 = 0;
+    packet.bytes5C[2] = 0;
+    packet.bytes5C[3] = 0;
+    packet.field64 = 0;
+    packet.value6C = D_8009665C;
+    packet.scaledX = (f32)*(s16 *)(arg0 + 6) * D_80096654;
+    packet.position[0] = (f32)*(s16 *)(arg0 + 0);
+    packet.scaledY = (f32)*(s16 *)(arg0 + 8) * D_80096658;
+    packet.position[1] = (f32)*(s16 *)(arg0 + 2);
+    packet.angle = 300;
+    packet.position[2] = (f32)*(s16 *)(arg0 + 4);
+    packet.zero = 0.0f;
+    packet.value70 = D_80096660;
+    packet.value74 = D_80096664;
+    packet.bytes5C[0] = (func_150ADA20() % 56U) + 200;
+    packet.offsets[0] = D_80096668 * packet.scaledX;
+    packet.offsets[2] = D_8009666C * packet.scaledX;
+    packet.offsets[3] = D_80096674 * packet.scaledY;
+    packet.offsets[1] = D_80096670 * packet.scaledY;
+    packet.offsets[4] = D_80096678 * packet.scaledY;
+    mode = *(s32 *)(arg0 + 0x18) ? 2 : 1;
+    func_15149550(packet.position, 10, 1, mode & 0xFF, 0xFF, 1);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15013DE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013DE8.s")
 void func_151CD2C0(s32 arg0, s32 arg1, s32 arg2);
 
@@ -380,10 +450,12 @@ s32 func_15014F6C(u8 *arg0) {
 void *func_1515F1B0(void);
 void func_1515F25C(void **, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150150A4 CURRENT (133) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150150A4 CURRENT (20) */
 s32 func_150150A4(void) {
-    void *sp1C;
     void *temp_v0;
+    volatile void *sp1C;
+    f32 increase;
+    f32 *accumulator;
 
     temp_v0 = func_1515F1B0();
     if (temp_v0 == 0) {
@@ -391,7 +463,9 @@ s32 func_150150A4(void) {
     }
     sp1C = temp_v0;
     func_1515F25C(&D_800DCDC4, temp_v0);
-    D_800DCD90 += *(f32 *)((u8 *)sp1C + 8);
+    accumulator = &D_800DCD90;
+    increase = *(f32 *)((u8 *)sp1C + 8);
+    *accumulator = *accumulator + increase;
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150150A4 */

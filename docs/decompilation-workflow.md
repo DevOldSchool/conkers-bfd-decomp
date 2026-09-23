@@ -151,6 +151,22 @@ use the supported deferral flow after agreeing to move past it:
 source block, restores the canonical pragma, and excludes the item from
 automatic selection. `resume` restores the candidate byte-for-byte.
 
+If a raw item cannot enter the C candidate loop at all (for example, its
+registered span is `.word`-only and the starter finds no instructions), use a
+separate, reversible blocker transaction after reviewing the evidence:
+
+```sh
+./conker block-raw <work-item-id> --reason "<specific tooling or registration blocker>"
+./conker next --ready
+# Once the underlying blocker is resolved:
+./conker unblock-raw <work-item-id>
+```
+
+`block-raw` requires an untouched canonical `GLOBAL_ASM`, records the reason,
+and changes only the inventory state and derived progress. It does not claim a
+match or fabricate a C candidate. Do not use it for a compiling nonzero C
+candidate; use `defer` for that case.
+
 Two bounded helpers reduce blind source-shaping work:
 
 ```sh
@@ -166,13 +182,16 @@ change. Different displacements and absolute jump targets remain differences.
 Nonzero results include a five-row excerpt and save the full text and JSON
 under `build/us/diff/<work-item-id>/`, using the same comparison evidence.
 Reuse the latest `finish` diagnosis when its source and compile inputs are
-unchanged; a separate diagnosis is then unnecessary. Agents route purely
-register-only differences to bounded permutation first when the task permits
-it. Otherwise they inspect the saved full diff, make one targeted source
-revision, and rerun `finish`. The default per-function budget is one manual
-revision and one search of up to 32 variants, with plateau stopping retained;
-an explicit task budget overrides this default. Exhaustion produces a candidate
-report, followed by deferral only when moving past it is authorized. A focused
+unchanged; a separate diagnosis is then unnecessary. For purely register-only
+differences, agents use bounded permutation only when an untried transformation
+supported by the permuter plausibly addresses the diff and the task permits it.
+Classification alone does not justify a search. Otherwise inspect the saved full
+diff, make one targeted source revision, and rerun `finish`. The default budget
+after the initial candidate is two manual revisions and at most one eligible
+search of up to 32 variants per distinct candidate and settings. An explicit
+task budget overrides this ceiling, but not evidence-based plateau stopping.
+Exhaustion produces a candidate report, followed by deferral only when moving
+past it is authorized. A focused
 zero followed by a layout failure requires layout recovery, not permutation.
 `permute` searches deterministic declaration-order and first-assignment
 lifetime variants with the pinned compiler. A nonzero best result is written
@@ -385,6 +404,82 @@ If later evidence invalidates an untouched game boundary, use
 range to raw assembly while retaining its function work items and refuses to
 discard modified or matched C work.
 
+## Sustained manual matching
+
+Use this workflow for an authorized continuing group of functions. Keep the
+normal `next --ready`, source ownership, immediate `finish`, and transactional
+`defer`/`resume` rules. It does not authorize broader scans, tooling changes,
+shared declarations, model changes, or concurrent writers in one checkout.
+
+### Selection and reuse
+
+Prefer a short registered span with a concrete hypothesis: a successful sibling
+pattern, an evidence-backed declaration/type correction, or an identifiable
+expression/lifetime mismatch. Do not rank solely by `CURRENT`: a small register
+mismatch may resist many changes, while a larger structural mismatch may have
+a direct fix. Refresh diagnostics when relevant inputs have changed.
+
+After a match, make one bounded lookup for nearby or similar raw-assembly
+siblings within the authorized scope; keep the existing per-target lookup
+limit. Useful hypotheses demonstrated in prior manual work include returning
+a floating-point comparison directly, restoring an evidence-backed unused
+parameter that produces an argument-home store, naming mask/offset locals,
+correcting pointer types, and shortening local lifetimes. Check each sibling's
+assembly and ABI independently. Neither a similar body nor a reused source
+pattern establishes a match.
+
+### Durable manual attempt ledger
+
+Create an agent-maintained Markdown or JSONL ledger under
+`build/us/manual-attempts/<task-id>/`. This is local, ignored working evidence;
+the directory and ledger are not created automatically by `conker`. Use a
+task-owned file, read relevant prior ledgers, and do not overwrite another
+task's history. Include the path in handoffs. If work moves to a new checkout,
+explicitly carry the relevant ledger and artifacts; ignored files do not move
+with Git commits.
+
+Record one compact entry per tested hypothesis:
+
+| Field | What to retain |
+| --- | --- |
+| Target | Function ID, source path, timestamp, and task ID |
+| Inputs | Hashes of candidate body and relevant declarations, headers, raw reference, compiler/tool inputs; profile and search settings |
+| Hypothesis | Expected instruction, operand, control-flow, or lifetime change |
+| Attempt | Exact source change or saved candidate artifact and attempt number |
+| Result | Full-span `CURRENT` score, diagnostic classes, terminal action, and evidence paths |
+| Best and exhausted | Best candidate artifact/hash, tried source shapes, and why further work stopped |
+| Verification | Pending batch IDs, time the first pending match was added, and clean batch outcome |
+
+Save enough context to recover the hypothesis after compaction. Shared diff and
+permutation output paths may be overwritten; copy useful best candidates and
+diagnostics into the task-owned directory before that happens. Keep pending
+batch IDs in a small checkpoint updated after each match and clean batch.
+
+Consult the ledger before `resume` or another search. Unchanged inputs and an
+exhausted hypothesis should be skipped. A changed fingerprint permits review,
+but does not by itself justify repeating the same failed approach: identify
+how the change addresses the remaining mismatch. Existing automation and
+permutation caches complement this ledger; they do not record every manual
+hypothesis. Never edit inventory JSON or automatic cache records to maintain it.
+
+After two non-improving manual revisions, preserve the best candidate and stop
+unless a concrete new evidence-backed hypothesis and the task budget permit
+continuation. If moving on is authorized, use `defer` with the measured remaining
+mismatch. Extra attempts are a ceiling, not a quota. A purely register-only
+diagnosis permits a budget-32 search only when a relevant, untried supported
+transformation exists and the task allows permutation. Do not repeat equivalent
+exhausted searches or increase budgets without evidence or improvement.
+
+### Measuring improvement
+
+Track newly clean-batch-verified functions per wall-clock hour, keeping rechecks
+and deferred-score improvements separate. Record actual model tokens only when
+available; command output bytes are not token usage. Separate command duration
+from end-to-end workflow time. Compare workflow or model changes on a small,
+comparable candidate cohort and retain all acceptance gates. Keep current model
+settings unless a model experiment is explicitly requested; medium versus high
+reasoning remains an experiment, not an established improvement for this project.
+
 ## Builds and batch verification
 
 `./conker build` targets US by default. `./conker build --all` verifies every
@@ -396,7 +491,14 @@ verifies mixed or completed source units against the decompressed payload. Use
 `./conker game-build --refresh` before a pull request, after shared build or
 configuration changes, or while diagnosing stale generated state.
 
-After the final function in a logical group, run one composed clean gate:
+After the final function in a logical group, run one composed clean gate.
+During sustained matching, aim for 5–10 focused matches per group. Flush a
+smaller pending group at about 45 minutes after its first match, before stopping,
+handoff, commit/PR, or at a required integration boundary. Follow
+`post-match-action` immediately; batch scheduling does not postpone required
+source-unit transitions. Avoid singleton full batches merely because a function
+matched, and do not run empty batches. Record pending IDs durably and clear them
+only after clean success. If blocked, report the pending group and its blocker.
 
 ```sh
 ./conker verify-batch <work-item-id> [<work-item-id>...]

@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15167010
- * - func_1516706C
  * - func_151670C0
  * - func_151671E8
  * - func_15167310
@@ -57,14 +56,12 @@ void func_15167010(void) {
 extern void (*D_8008CB64)(void);
 extern void (*D_8008CB70)(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516706C CURRENT (20) */
 void func_1516706C(void) {
     void (**var_s0)(void);
     void (**var_s1)(void);
     void (*temp_v0)(void);
 
-    var_s1 = &D_8008CB70;
-    var_s0 = &D_8008CB64;
+    var_s1 = (var_s0 = &D_8008CB64, &D_8008CB70);
     do {
         temp_v0 = *var_s0;
         if (temp_v0 != 0) {
@@ -73,8 +70,6 @@ void func_1516706C(void) {
         var_s0++;
     } while (var_s0 != var_s1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516706C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516706C.s")
 struct Game1944C0Node;
 
 typedef struct Game1944C0ProcessNode {
@@ -356,6 +351,89 @@ void func_15167D84(void *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, s32 arg5) 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167D84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167E0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168118.s")
+extern u8 *D_8008CA4C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516865C CURRENT (3865) */
+void func_1516865C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    u8 *record;
+    u8 *cursor;
+    u8 **table;
+    s32 index;
+    s16 value0;
+    s16 value1;
+    s16 value2;
+    s16 value3;
+    u16 flags;
+    u8 a;
+
+    arg1 &= 0xFF;
+    arg2 &= 0xFF;
+    arg3 &= 0xFF;
+    a = *(u8 *)((u8 *)&arg4 + 3);
+    value0 = 0x2000;
+    value1 = 0x2000;
+    table = D_8008CA4C;
+    record = table[arg0[0xA0]];
+    value2 = (s16)((*(u16 *)(record + 8) + 0x100) << 5);
+    value3 = (s16)((*(u16 *)(record + 6) + 0x100) << 5);
+    cursor = arg0;
+    index = 0;
+    do {
+        index++;
+        cursor += 0x40;
+        *(s16 *)(cursor - 0x2A) = 0;
+        cursor[-0x24] = arg1;
+        cursor[-0x23] = arg2;
+        cursor[-0x22] = arg3;
+        cursor[-0x21] = a;
+        *(s16 *)(cursor - 0x1A) = 0;
+        cursor[-0x14] = arg1;
+        cursor[-0x13] = arg2;
+        cursor[-0x12] = arg3;
+        cursor[-0x11] = a;
+        *(s16 *)(cursor - 0xA) = 0;
+        cursor[-4] = arg1;
+        cursor[-3] = arg2;
+        cursor[-2] = arg3;
+        cursor[-1] = a;
+        *(s16 *)(cursor - 0x3A) = 0;
+        cursor[-0x34] = arg1;
+        cursor[-0x33] = arg2;
+        cursor[-0x32] = arg3;
+        cursor[-0x31] = a;
+    } while (index != 2);
+    flags = *(u16 *)(arg0 + 0x98);
+    if (flags & 0x80) {
+        value2 = 0x2000;
+        record = table[arg0[0xA0]];
+        value0 = (s16)((*(u16 *)(record + 8) + 0x100) << 5);
+    }
+    if (flags & 0x100) {
+        value3 = 0x2000;
+        record = table[arg0[0xA0]];
+        value1 = (s16)((*(u16 *)(record + 6) + 0x100) << 5);
+    }
+    *(s16 *)(arg0 + 0x68) = value1;
+    *(s16 *)(arg0 + 0x7A) = value0;
+    *(s16 *)(arg0 + 0x78) = value3;
+    *(s16 *)(arg0 + 0x28) = *(s16 *)(arg0 + 0x68);
+    *(s16 *)(arg0 + 0x58) = *(s16 *)(arg0 + 0x68);
+    *(s16 *)(arg0 + 0x18) = *(s16 *)(arg0 + 0x68);
+    *(s16 *)(arg0 + 0x5A) = value2;
+    *(s16 *)(arg0 + 0x88) = 0;
+    *(s16 *)(arg0 + 0x3A) = *(s16 *)(arg0 + 0x7A);
+    *(s16 *)(arg0 + 0x6A) = *(s16 *)(arg0 + 0x7A);
+    *(s16 *)(arg0 + 0x2A) = *(s16 *)(arg0 + 0x7A);
+    *(s16 *)(arg0 + 0x9C) = 0;
+    *(s16 *)(arg0 + 0x9E) = 0;
+    *(s16 *)(arg0 + 0x38) = *(s16 *)(arg0 + 0x78);
+    *(s16 *)(arg0 + 0x48) = *(s16 *)(arg0 + 0x78);
+    *(s16 *)(arg0 + 8) = *(s16 *)(arg0 + 0x78);
+    *(s16 *)(arg0 + 0x1A) = *(s16 *)(arg0 + 0x5A);
+    *(s16 *)(arg0 + 0x4A) = *(s16 *)(arg0 + 0x5A);
+    *(s16 *)(arg0 + 0xA) = *(s16 *)(arg0 + 0x5A);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516865C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516865C.s")
 typedef struct Game1944C0EffectB8 {
     u8 pad0[0x10];
@@ -374,6 +452,76 @@ Game1944C0EffectB8 *func_15168800(void *arg0, u8 arg1, s32 arg2) {
     func_10023A10(arg0, effect->payload, sizeof(effect->payload));
     return sp24;
 }
+typedef struct Game168870State {
+    u8 pad00[0x98];
+    s16 progress;
+    s16 speed;
+    u8 pad9C[0xC];
+    u16 flags;
+    u8 padAA[6];
+    u8 descriptor;
+    u8 padB1;
+    s8 callback;
+} Game168870State;
+
+typedef void (*Game168870Callback)(void);
+extern Game168870Callback D_8008C9C8[];
+extern u8 *D_8008CA4C[];
+extern s32 D_800BE9E4;
+void func_1516972C(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168870 CURRENT (1275) */
+void func_15168870(Game168870State *arg0) {
+    s32 speed;
+    s32 progress;
+    s32 maximum;
+    u16 flags;
+    u8 width;
+    Game168870Callback callback;
+
+    speed = arg0->speed;
+    if (speed != 0) {
+        width = D_8008CA4C[arg0->descriptor][4];
+        arg0->progress = arg0->progress + speed * D_800BE9E4;
+        progress = arg0->progress;
+        maximum = (width << 8) - 1;
+        if (maximum < progress) {
+            flags = arg0->flags;
+            if (flags & 0x40) {
+                arg0->progress = maximum - (progress % maximum);
+                arg0->speed = -speed;
+            } else if (flags & 4) {
+                arg0->progress = -1;
+            } else {
+                do {
+                    arg0->progress = arg0->progress - maximum;
+                } while (maximum < arg0->progress);
+            }
+        } else if (progress < 0) {
+            flags = arg0->flags;
+            if (flags & 0x40) {
+                arg0->progress = -progress % maximum;
+                arg0->speed = -speed;
+            } else if (flags & 4) {
+                arg0->progress = -1;
+            } else {
+                do {
+                    arg0->progress = arg0->progress + maximum;
+                } while (arg0->progress < 0);
+            }
+        }
+    }
+    if (arg0->callback != -1) {
+        callback = D_8008C9C8[arg0->callback];
+        if (callback != 0) {
+            callback();
+        }
+    }
+    if (arg0->progress == -1) {
+        func_1516972C((u8 *)arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15168870 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15168870.s")
 void func_15168A2C(s32 arg0) {
     func_15168B10(arg0, 0);
@@ -595,6 +743,64 @@ void func_15169040(s32 arg0, u8 arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15169070.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15169260.s")
+void func_1516968C(void *, u8 *, u8);
+
+typedef struct Game1944C0TraversalEntry {
+    u8 pad0[0x1C];
+    void (*callback)(Game1944C0Node *, s8 *, s32);
+    u8 pad20[0x14];
+} Game1944C0TraversalEntry;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516944C CURRENT (2645) */
+void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3) {
+    Game1944C0Node **row;
+    Game1944C0Node **head;
+    Game1944C0Node **slot;
+    Game1944C0Node *node;
+    Game1944C0TraversalEntry *entry;
+    s32 mode;
+
+    mode = arg2 & 0xFF;
+    if (arg0 >= 0x68) {
+        arg0 = 0x67;
+    }
+    row = &D_800DCE50[0][0];
+    head = row + arg0;
+    entry = (Game1944C0TraversalEntry *)&D_8008B4A8 + arg0;
+    do {
+        if (entry->callback != 0) {
+            node = *head;
+            D_800DD190++;
+            if (node != 0) {
+                do {
+                    slot = &D_800DD198[D_800DD190];
+                    *slot = node->field_8;
+                    func_1516968C(node, (u8 *)arg1, mode);
+                    entry->callback(node, arg1, mode);
+                    slot = &D_800DD198[D_800DD190];
+                    node = *slot;
+                } while (node != 0);
+            }
+            D_800DD190--;
+        } else {
+            node = *head;
+            D_800DD190++;
+            if (node != 0) {
+                do {
+                    slot = &D_800DD198[D_800DD190];
+                    *slot = node->field_8;
+                    func_1516968C(node, (u8 *)arg1, mode);
+                    slot = &D_800DD198[D_800DD190];
+                    node = *slot;
+                } while (node != 0);
+            }
+            D_800DD190--;
+        }
+        row += 104;
+        head += 104;
+    } while ((void *)row != (void *)&D_800DD190);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516944C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516944C.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151695F0 CURRENT (541) */
 void func_151695F0(void *arg0, s32 arg1) {

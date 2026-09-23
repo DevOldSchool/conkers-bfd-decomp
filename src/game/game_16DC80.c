@@ -9,7 +9,6 @@
  * - func_151412BC
  * - func_1514143C
  * - func_15141478
- * - func_15141564
  * - func_151415D4
  * - func_151416E8
  * - func_151417C4
@@ -99,8 +98,60 @@ void func_15141250(Game1411E4State *arg0) {
     D_800DC9F0 -= 1;
     (*(void (**)(Game1411E4State *))(D_80089FE4 + (arg0->field_168 * 4)))(arg0);
 }
+extern s32 D_80082FA0;
+extern s32 D_800A5168[];
+extern s32 D_800BE620;
+extern s32 D_800BE624;
+extern u16 *D_800BE9C4;
+extern u8 D_800DCE50[];
+extern u8 D_800DD190[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151412BC CURRENT (1460) */
+void func_151412BC(void) {
+    u8 *table = D_800DCE50;
+    s32 object_index;
+
+    do {
+        object_index = 0;
+        do {
+            u8 *object = *(u8 **)(table + D_800A5168[object_index] * 4);
+            object_index++;
+            while (object != 0) {
+                s32 flags = *(s32 *)(object + 0x58);
+                if (flags & 0x2000) {
+                    *(s16 *)(object + 0x162) = 0;
+                    *(s16 *)(object + 0x160) = 0;
+                    *(s16 *)(object + 0x15E) = 0;
+                    *(s16 *)(object + 0x15C) = 0;
+                    if (flags & 0x10) {
+                        s32 index = 0;
+                        u8 *data = object + 0x110;
+                        if (D_80082FA0 >= 0) {
+                            do {
+                                s32 x = *(s32 *)(data + 0x24 + index * 4);
+                                s32 y;
+                                if (x >= 0 && x < D_800BE620 &&
+                                    (y = *(s32 *)(data + 0x34 + index * 4), y >= 0) &&
+                                    y < D_800BE624) {
+                                    *(u16 *)(data + 0x4C + index * 2) = D_800BE9C4[y * D_800BE620 + x];
+                                } else {
+                                    *(s16 *)(data + 0x4C + index * 2) = 0x7FFF;
+                                }
+                                index = (index + 1) & 0xFF;
+                            } while (index <= D_80082FA0);
+                        }
+                    }
+                }
+                object = *(u8 **)(object + 8);
+            }
+            object_index &= 0xFF;
+        } while (object_index < 4);
+        table += 0x1A0;
+    } while (table != D_800DD190);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151412BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151412BC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514143C CURRENT (160) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514143C CURRENT (260) */
 void func_1514143C(Game16DC80Object *arg0) {
     Game16DC80Inner *temp_v0;
     void *temp_v1;
@@ -159,23 +210,26 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141564 CURRENT (35) */
 s32 func_15141564(u8 *arg0) {
+    typedef struct {
+        f32 base;
+        f32 scale;
+        f32 value;
+        f32 velocity;
+    } Motion;
     void *sp18;
-    u8 *temp_v1;
+    Motion *temp_v1;
+    f32 factor;
 
-    temp_v1 = (void *)(arg0 + 0x170);
+    temp_v1 = (Motion *)(arg0 + 0x170);
+    factor = func_15047D60(temp_v1->value);
     *(f32 *)((u8 *)arg0 + 0x158) =
-        (f32)(*(f32 *)temp_v1 +
-              (func_15047D60(*(f32 *)((u8 *)arg0 + 0x178)) *
-               *(f32 *)((u8 *)temp_v1 + 4)));
-    *(f32 *)((u8 *)temp_v1 + 8) = (f32) (*(f32 *)((u8 *)temp_v1 + 8) + (*(f32 *)((u8 *)temp_v1 + 0xC) * D_800BE9A4));
+        temp_v1->base + temp_v1->scale * factor;
+    temp_v1->value = temp_v1->value + temp_v1->velocity * D_800BE9A4;
     sp18 = temp_v1;
-    *(f32 *)((u8 *)temp_v1 + 8) = func_15144B68(*(f32 *)((u8 *)temp_v1 + 8));
+    temp_v1->value = func_15144B68(temp_v1->value);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15141564 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_15141564.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151415D4 CURRENT (685) */
 s32 func_151415D4(u8 *arg0) {
     f32 temp_fa0;
@@ -252,16 +306,14 @@ typedef struct {
 void func_15169260(Game16DC80Pair *, s32, u8 *, s32);
 extern Game16DC80Pair D_8008A074;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151417C4 CURRENT (460) */
-void func_151417C4(s32 arg0, s32 arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151417C4 CURRENT (209) */
+void func_151417C4(u8 arg0, u8 arg1) {
     s32 sp24;
     Game16DC80Pair sp1C;
-    s32 temp_a3;
 
-    temp_a3 = arg1 & 0xFF;
     sp1C = D_8008A074;
-    *(u8 *)&sp24 = arg1;
-    func_15169260(&sp1C, 2, (u8 *)&sp24, temp_a3);
+    *(u8 *)&sp24 = arg0;
+    func_15169260(&sp1C, 2, (u8 *)&sp24, arg1 & 0xFF);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151417C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16DC80/func_151417C4.s")

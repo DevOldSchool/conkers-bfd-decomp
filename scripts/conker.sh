@@ -62,6 +62,13 @@ Getting started
   defer <work-item-id> --reason <text>
                                  Measure and record its score, preserve its C candidate,
                                  restore GLOBAL_ASM, and skip selection.
+  block-raw <work-item-id> --reason <text>
+                                 Skip a raw item that cannot enter the C candidate loop;
+                                 retain its GLOBAL_ASM and record the blocker.
+  unblock-raw <work-item-id>     Return a blocked raw item to manual selection.
+  verify-original-asm <id> --reason <text> --evidence-reference <path>
+                                 Verify retained handwritten ASM against the full US ROM span;
+                                 classify separately from C matches. --check revalidates it.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
   reopen-match <work-item-id> --reason <text>
                                  Preserve an invalidated match and restore its GLOBAL_ASM safely.
@@ -590,6 +597,17 @@ case "$command" in
         [[ "$deferred_score" -gt 0 ]] || die "cannot defer an exact CURRENT (0) candidate; run finish instead"
         python3 "$state_tool" defer "$@" --score "$deferred_score"
         ;;
+    block-raw|unblock-raw)
+        python3 "$state_tool" "$command" "$@"
+        ;;
+    verify-original-asm)
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --reason TEXT --evidence-reference PATH]"
+        python3 "$state_tool" setup-check --profile us
+        run_in_container python3 scripts/prepare_nonmatching_asm.py --profile us --identifier "$1"
+        original_proof="build/us/original-asm/$1/proof.json"
+        run_in_container python3 scripts/project_state.py verify-original-asm "$1" --proof-output "$original_proof"
+        python3 "$state_tool" verify-original-asm "$@" --proof "$repo_root/$original_proof"
+        ;;
     resume)
         [[ $# -eq 1 ]] || die "usage: ./conker resume <work-item-id>"
         python3 "$state_tool" resume "$1"
@@ -724,6 +742,14 @@ case "$command" in
                 exit 1
             fi
         fi
+        original_asm_items="$(python3 "$state_tool" original-asm-items "$@")"
+        while IFS= read -r original_symbol; do
+            [[ -n "$original_symbol" ]] || continue
+            if ! "$repo_root/conker" verify-original-asm "$original_symbol" --check; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 1
+            fi
+        done <<< "$original_asm_items"
         if ! python3 -m unittest discover -s tests -q -b; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1

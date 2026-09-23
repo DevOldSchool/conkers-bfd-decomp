@@ -11,6 +11,83 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game193660Packet {
+    s32 head[2];
+    u8 scratch[0xC];
+    s16 shorts34[4];
+    f32 floats3C[5];
+    s16 shorts50[2];
+    s32 words54[3];
+    f32 floats60[10];
+    u8 bytes88[10];
+    s16 shorts92[2];
+    u8 pad96[2];
+} Game193660Packet;
+
+void func_15142314(s32, s32, void *);
+void func_15152520(s32 *, u8, s32);
+extern f32 D_800A81C0;
+extern f32 D_800A81C4;
+extern f32 D_800A81C8;
+extern f32 D_800A81CC;
+extern f32 D_800A81D0;
+extern f32 D_800A81D4;
+extern f32 D_800A81D8;
+extern f32 D_800A81DC;
+extern f32 D_800A81E0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15193660 CURRENT (1021) */
+void func_15193660(u8 *arg0, u8 arg1, s32 arg2) {
+    Game193660Packet packet;
+    s32 temp_v0;
+
+    if (arg0 != 0 && *(s32 *)arg0 != 0) {
+        temp_v0 = *(s32 *)(arg0 + 0x1D4);
+        if (temp_v0 != 0) {
+            func_15142314(temp_v0, 0xA, packet.scratch);
+            packet.head[0] = 8;
+            packet.floats3C[0] = D_800A81C8;
+            packet.head[1] = 7;
+            packet.shorts34[2] = -0x21;
+            packet.shorts34[3] = 0x18;
+            packet.shorts50[0] = 0x28;
+            packet.shorts50[1] = 0x23;
+            packet.words54[0] = 0xA0;
+            packet.words54[1] = 0x13;
+            packet.bytes88[8] = 0x21;
+            packet.bytes88[0] = 0xFF;
+            packet.shorts34[0] = 0;
+            packet.shorts34[1] = 0xFF;
+            packet.words54[2] = 0;
+            packet.bytes88[1] = 0xFF;
+            packet.bytes88[2] = 0xFF;
+            packet.bytes88[3] = 0xFF;
+            packet.bytes88[4] = 0xFF;
+            packet.bytes88[5] = 0xFF;
+            packet.bytes88[6] = 0xFF;
+            packet.bytes88[7] = 0xFF;
+            packet.bytes88[9] = 0xF;
+            packet.shorts92[0] = 0x19;
+            packet.shorts92[1] = 0xA;
+            packet.floats60[6] = D_800A81C0;
+            packet.floats60[4] = D_800A81C0;
+            packet.floats60[9] = D_800A81C4;
+            packet.floats60[7] = D_800A81C4;
+            packet.floats3C[1] = D_800A81CC;
+            packet.floats3C[2] = D_800A81D0;
+            packet.floats3C[3] = D_800A81D4;
+            packet.floats3C[4] = D_800A81D8;
+            packet.floats60[1] = D_800A81DC;
+            packet.floats60[0] = 0.0f;
+            packet.floats60[3] = 0.0f;
+            packet.floats60[5] = 0.0f;
+            packet.floats60[8] = 0.0f;
+            packet.floats60[2] = D_800A81E0;
+            func_15152520(packet.head, arg1, arg2);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15193660 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C0B10/func_15193660.s")
 typedef struct {
     u8 id;

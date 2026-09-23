@@ -8,7 +8,6 @@
  * - func_150B6BC0
  * - func_150B6C90
  * - func_150B6D34
- * - func_150B6D78
  * - func_150B6E3C
  * - func_150B709C
  * - func_150B71A8
@@ -127,7 +126,6 @@ extern s32 D_800D98C0;
 extern s8 D_800D9890;
 void func_1516972C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D78 CURRENT (20) */
 void func_150B6D78(void) {
     s32 *var_s0;
     s32 *var_s1;
@@ -137,8 +135,7 @@ void func_150B6D78(void) {
         func_1516972C(D_800D9894);
         D_800D9894 = 0;
     }
-    var_s1 = &D_800D98C0;
-    var_s0 = &D_800D9898;
+    var_s1 = (var_s0 = &D_800D9898, &D_800D98C0);
     do {
         temp_a0 = *var_s0;
         if (temp_a0 != 0) {
@@ -149,8 +146,6 @@ void func_150B6D78(void) {
     } while (var_s0 != var_s1);
     D_800D9890 = 3;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B6D78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6D78.s")
 extern s32 D_800BE9E4;
 
 void func_150B6DFC(void *arg0) {
@@ -208,23 +203,32 @@ void func_150B71A8(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B71A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B71A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B7220.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B73F0 CURRENT (175) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B73F0 CURRENT (80) */
 void func_150B73F0(void *arg0) {
+    s16 target_x;
+    s16 target_y;
+    s16 scale;
+    s32 divisor;
     s16 temp_v0;
     s16 temp_v1;
     s32 temp_lo;
 
     temp_v0 = *(s16 *)((u8 *)arg0 + 0x18);
-    temp_lo = (s32) (*(s16 *)((u8 *)arg0 + 0x24) << 0x10) / (s32) *(s32 *)((u8 *)arg0 + 0x1C);
+    scale = *(s16 *)((u8 *)arg0 + 0x24);
+    divisor = *(s32 *)((u8 *)arg0 + 0x1C);
+    temp_lo = (s32) (scale << 0x10) / divisor;
+    target_x = *(s16 *)((u8 *)arg0 + 0x20);
     temp_v1 = *(s16 *)((u8 *)arg0 + 0x1A);
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (((s32) ((*(s16 *)((u8 *)arg0 + 0x20) - temp_v0) * temp_lo) >> 0x10) + temp_v0);
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (((s32) ((*(s16 *)((u8 *)arg0 + 0x22) - temp_v1) * temp_lo) >> 0x10) + temp_v1);
+    target_y = *(s16 *)((u8 *)arg0 + 0x22);
+    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (((s32) ((target_x - temp_v0) * temp_lo) >> 0x10) + temp_v0);
+    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (((s32) ((target_y - temp_v1) * temp_lo) >> 0x10) + temp_v1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B73F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B73F0.s")
 typedef struct {
     void *resource;
-    u8 pad04[0x10];
+    void *resource2;
+    u8 pad08[0xC];
     s16 position[3];
     u8 pad1A[2];
     f32 scale_x;
@@ -366,5 +370,64 @@ void func_150B76BC(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B76BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B76BC.s")
+extern u8 D_800918F4;
+extern u8 D_80091900;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B77A8 CURRENT (2002) */
+void func_150B77A8(void) {
+    GameE4070Descriptor descriptor;
+    s32 *slots = &D_800D9898;
+    s32 current;
+
+    current = slots[1];
+    if (current != 0) {
+        func_1516972C(current);
+        slots[1] = 0;
+    }
+    descriptor.field2C = 0x40;
+    descriptor.field2E = 0x40;
+    descriptor.field30 = 4;
+    descriptor.resource = &D_800918F4;
+    descriptor.resource2 = &D_80091900;
+    descriptor.position[0] = 0;
+    descriptor.position[1] = 0;
+    descriptor.position[2] = 0;
+    descriptor.field31 = 0;
+    descriptor.field24 = -0x800;
+    descriptor.field26 = 9;
+    descriptor.field32 = 0xFF;
+    descriptor.field33 = 0;
+    descriptor.field34 = 0;
+    descriptor.field35 = 0xFF;
+    descriptor.field36 = 0xD;
+    descriptor.field37 = 0x12;
+    descriptor.field38 = 2;
+    descriptor.field39 = 3;
+    descriptor.field28 = 0x1000;
+    descriptor.field2A = 0x1000;
+    descriptor.scale_x = 60.0f;
+    descriptor.scale_y = 170.0f;
+    current = slots[4];
+    if (current != 0) {
+        func_1516972C(current);
+    }
+    slots[4] = func_15169968(&descriptor);
+    descriptor.field24 = 0;
+    descriptor.field26 = 0;
+    descriptor.field2C = 0x58;
+    descriptor.field2E = 0x40;
+    descriptor.field30 = 0;
+    descriptor.field36 = 7;
+    descriptor.field37 = 0x11;
+    descriptor.field38 = 1;
+    descriptor.resource = &D_800918E8;
+    current = slots[8];
+    if (current != 0) {
+        func_1516972C(current);
+    }
+    slots[8] = func_15169968(&descriptor);
+    D_800D9890 = 3;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B77A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B77A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B791C.s")
