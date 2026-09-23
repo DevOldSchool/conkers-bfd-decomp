@@ -72,7 +72,7 @@ jobs:
         run: python3 -m pip install PyYAML
       - name: Check shell entry points
         run: bash -n conker scripts/conker.sh
-      - name: Run tooling and CI security regression tests
+      - name: Run tooling and public-check regression tests
         run: python3 -m unittest discover -s tests -v
 
   toolchain:
@@ -127,8 +127,8 @@ jobs:
             --output "$RUNNER_TEMP/actionlint.tar.gz"
           echo "8aca8db96f1b94770f1b0d72b6dddcb1ebb8123cb3712530b08cc387b349a3d8  $RUNNER_TEMP/actionlint.tar.gz" | sha256sum --check
           tar -xzf "$RUNNER_TEMP/actionlint.tar.gz" -C "$RUNNER_TEMP" actionlint
-      - name: Validate public workflows and private deployment template
-        run: '"$RUNNER_TEMP/actionlint" -shellcheck= .github/workflows/*.yml ci/private-verifier/verify-pr.yml'
+      - name: Validate repository workflows
+        run: '"$RUNNER_TEMP/actionlint" -shellcheck= .github/workflows/*.yml'
 
   required:
     name: All public PR checks passed

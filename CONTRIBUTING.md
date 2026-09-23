@@ -269,11 +269,13 @@ and `BATCH_COMPLETE`.
 
 PRs show separate metadata, generated-progress, hygiene, tooling-test,
 toolchain, and ROM-free C-compilation checks. These do not establish matching.
-The maintainer-approved private verifier supplies a separate US verification
-result for the exact PR merge revision. New head/base commits invalidate that
-result; changes to trusted tooling or reference definitions require explicit
-review and verifier promotion. See [CI and required checks](docs/ci.md) for the
-activation steps, review policy, and private/public evidence boundary.
+Before merging function changes, a contributor or maintainer with the US ROM
+performs the local focused and clean batch checks below and records the tested
+commit and results in the PR. Contributors without a ROM may ask a maintainer
+to perform these checks. GitHub does not enforce this local ROM evidence.
+After merge, the existing owner-approved main workflow verifies the US build
+and publishes the validated progress report. See [CI and required checks](docs/ci.md)
+for setup, review policy, and the public/private input boundary.
 
 Run one clean `verify-batch` for the requested group before handoff, commit, or
 pull request. A failed clean integration must be fixed at its source or linker

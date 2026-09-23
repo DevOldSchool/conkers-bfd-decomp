@@ -15,17 +15,15 @@ Describe the function, tooling, or documentation change.
 - GitHub workflow syntax
 - All public PR checks passed (required aggregate after ruleset migration)
 
-### Protected US verification (maintainer approval)
+### Local US verification before merge
 
-Once activated, the maintainer dispatches the private verifier for every PR against
-the exact PR head and base. **US ROM verification (maintainer approved)** must
-pass on the current merge revision before merging once the gate is activated.
-New commits or base changes require another run. Tooling/layout/reference changes
-require review and promotion of the verifier's pinned tooling first.
-See [CI setup and review](docs/ci.md). Do not attach ROMs, objects, raw assembly,
-or private build logs to the PR.
+A contributor or maintainer with the US ROM performs the checks below and records
+the tested commit and results. Contributors without a ROM may ask a maintainer
+to verify their PR. GitHub does not enforce this local ROM evidence; the existing
+approved-main ROM workflow runs after merge. See [CI and review](docs/ci.md).
+Do not attach ROMs, objects, generated assembly or private build logs.
 
-### Contributor's local evidence
+Tested commit:
 
 For function work, include exact output for the active US target:
 

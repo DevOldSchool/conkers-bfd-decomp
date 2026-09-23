@@ -5,6 +5,8 @@ import re
 import unittest
 from pathlib import Path
 
+import yaml
+
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -18,6 +20,55 @@ def ignore_patterns(path: Path) -> list[str]:
 
 
 class RepositorySafetyTests(unittest.TestCase):
+    def test_rom_workflow_keeps_private_inputs_behind_main_environment(self) -> None:
+        workflow = yaml.safe_load((ROOT / ".github/workflows/rom-verify-main.yml").read_text())
+        events = workflow.get("on", workflow.get(True))
+        self.assertEqual(set(events), {"push", "workflow_dispatch"})
+        self.assertEqual(events["push"]["branches"], ["main"])
+        self.assertEqual(workflow["permissions"], {"contents": "read"})
+        self.assertEqual(set(workflow["jobs"]), {"verify-main"})
+        job = workflow["jobs"]["verify-main"]
+        self.assertEqual(job["if"], "github.ref == 'refs/heads/main'")
+        self.assertEqual(job["environment"], "rom-verification")
+        steps = job["steps"]
+        checkouts = [step for step in steps if step.get("uses", "").startswith("actions/checkout@")]
+        self.assertEqual(len(checkouts), 2)
+        self.assertEqual(checkouts[0]["with"]["ref"], "${{ github.sha }}")
+        for checkout in checkouts:
+            self.assertIs(checkout["with"]["persist-credentials"], False)
+        private = checkouts[1]
+        self.assertEqual(private["with"]["repository"], "${{ secrets.ROM_ASSETS_REPOSITORY }}")
+        self.assertEqual(private["with"]["token"], "${{ secrets.ROM_ASSETS_READ_TOKEN }}")
+        self.assertEqual(private["with"]["sparse-checkout"], "baserom.us.z64")
+        builds = [step for step in steps if "docker build " in step.get("run", "")]
+        self.assertEqual(len(builds), 1)
+        self.assertLess(steps.index(builds[0]), steps.index(private))
+        token_steps = [step for step in steps if "ROM_ASSETS_READ_TOKEN" in str(step)]
+        self.assertEqual(token_steps, [private])
+        uploads = [step for step in steps if step.get("uses", "").startswith("actions/upload-artifact@")]
+        self.assertEqual(len(uploads), 1)
+        self.assertEqual(uploads[0]["with"]["path"], "build/us/objdiff-report/report.json")
+        self.assertEqual(uploads[0]["with"]["if-no-files-found"], "error")
+        self.assertEqual(steps[-1]["if"], "always()")
+        self.assertIn("./conker stop", steps[-1]["run"])
+        self.assertIn("rm -rf -- .private-rom-assets roms/baserom.us.z64", steps[-1]["run"])
+
+    def test_public_pr_workflow_has_no_private_credentials_or_privileged_trigger(self) -> None:
+        raw = (ROOT / ".github/workflows/ci.yml").read_text()
+        workflow = yaml.safe_load(raw)
+        events = workflow.get("on", workflow.get(True))
+        self.assertEqual(set(events), {"pull_request", "push"})
+        self.assertEqual(workflow["permissions"], {"contents": "read"})
+        self.assertNotIn("secrets.", raw)
+        self.assertNotIn("ROM_ASSETS", raw)
+        for job in workflow["jobs"].values():
+            self.assertNotIn("environment", job)
+            self.assertNotIn("permissions", job)
+        required = workflow["jobs"]["required"]
+        self.assertEqual(required["if"], "always()")
+        self.assertEqual(set(required["needs"]), set(workflow["jobs"]) - {"required"})
+        self.assertIn("job['result'] == 'success'", required["steps"][0]["run"])
+
     def test_default_container_image_is_digest_locked_and_sandboxed(self) -> None:
         lock = json.loads((ROOT / "toolchain" / "tools.lock.json").read_text(encoding="utf-8"))
         image = lock["container_image"]
