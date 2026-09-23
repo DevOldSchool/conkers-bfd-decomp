@@ -1,0 +1,16 @@
+# Sensitive paths request owner review. Enforcement is enabled with --require-reviews
+# after a second eligible maintainer joins; the initial CI migration preserves zero reviews.
+# These are review assignments, not file-access rules. Contributors and tools may
+# edit and commit the inventories below; mandatory review only gates merging.
+/.github/ @DevOldSchool
+/conker @DevOldSchool
+/scripts/ @DevOldSchool
+/Makefile @DevOldSchool
+/Dockerfile @DevOldSchool
+/.dockerignore @DevOldSchool
+/toolchain/ @DevOldSchool
+/config/ @DevOldSchool
+/lib/ @DevOldSchool
+/progress/functions.json @DevOldSchool
+/progress/source_units.json @DevOldSchool
+/ci/ @DevOldSchool

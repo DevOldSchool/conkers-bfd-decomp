@@ -1,4 +1,4 @@
-name: Verify protected ROM build
+name: Post-merge US verification and progress
 
 on:
   push:
@@ -14,8 +14,10 @@ concurrency:
 
 jobs:
   verify-main:
+    name: Approved main — US build and decomp.dev report
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
+    timeout-minutes: 90
     environment: rom-verification
     env:
       CONKER_IMAGE: conkers-bfd-decomp-toolchain:verify
@@ -33,6 +35,8 @@ jobs:
           repository: DevOldSchool/conkers-bfd-assets
           token: ${{ secrets.ROM_ASSETS_READ_TOKEN }}
           path: .private-rom-assets
+          sparse-checkout: baserom.us.z64
+          sparse-checkout-cone-mode: false
           persist-credentials: false
       - name: Build and verify active US target
         run: |
@@ -48,3 +52,6 @@ jobs:
           path: build/us/objdiff-report/report.json
           if-no-files-found: error
           retention-days: 90
+      - name: Remove private ROM checkout
+        if: always()
+        run: rm -rf .private-rom-assets

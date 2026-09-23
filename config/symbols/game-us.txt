@@ -18,3 +18,13 @@ func_15073F54 = 0x15073F54; // type:func size:0x8
 func_15076600 = 0x15076600; // type:func size:0x8
 func_15076E48 = 0x15076E48; // type:func size:0x8
 func_1507735C = 0x1507735C; // type:func size:0x8
+
+// Registered empty bodies whose original ASM navigation splits disappear when
+// their source units become C ranges. Preserve these boundaries on clean splits.
+// Evidence: docs/evidence/game_raw_reconciled_empty_stub_splits.md
+func_15086C68 = 0x15086C68; // type:func size:0x8
+func_15094E98 = 0x15094E98; // type:func size:0x8
+func_1515BE48 = 0x1515BE48; // type:func size:0x8
+func_1516D2D8 = 0x1516D2D8; // type:func size:0x8
+func_151B5E8C = 0x151B5E8C; // type:func size:0x8
+func_151DE6CC = 0x151DE6CC; // type:func size:0x8

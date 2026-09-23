@@ -4,6 +4,29 @@ Describe the function, tooling, or documentation change.
 
 ## Verification
 
+### Public checks (automatic; no ROM access)
+
+- Repository metadata
+- Generated progress consistency
+- PR whitespace and prohibited files
+- Python tests and shell syntax
+- Toolchain image and compiler smoke test
+- US C compilation (no ROM; not match evidence)
+- GitHub workflow syntax
+- All public PR checks passed (required aggregate after ruleset migration)
+
+### Protected US verification (maintainer approval)
+
+Once activated, the maintainer dispatches the private verifier for every PR against
+the exact PR head and base. **US ROM verification (maintainer approved)** must
+pass on the current merge revision before merging once the gate is activated.
+New commits or base changes require another run. Tooling/layout/reference changes
+require review and promotion of the verifier's pinned tooling first.
+See [CI setup and review](docs/ci.md). Do not attach ROMs, objects, raw assembly,
+or private build logs to the PR.
+
+### Contributor's local evidence
+
 For function work, include exact output for the active US target:
 
 ```text

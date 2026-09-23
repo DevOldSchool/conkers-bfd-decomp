@@ -1,0 +1,138 @@
+# Deploy this file only to .github/workflows/verify-pr.yml in the PRIVATE verifier repo.
+name: Private US verification
+run-name: US verification — PR ${{ inputs.pr }} — ${{ inputs.head_sha }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      reviewed:
+        description: I reviewed the verifier revision and these exact PR head/base revisions
+        required: true
+        default: false
+        type: boolean
+      pr:
+        description: Public pull request number
+        required: true
+        type: string
+      head_sha:
+        description: Reviewed full PR head SHA
+        required: true
+        type: string
+      base_sha:
+        description: Reviewed full main/base SHA
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: private-pr-${{ inputs.pr }}
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  revision:
+    name: Confirm reviewed PR and merge revision
+    if: github.repository == 'DevOldSchool/conkers-bfd-verifier' && github.event.repository.private && github.ref == 'refs/heads/main' && github.actor_id == '168640902' && github.triggering_actor == 'DevOldSchool' && inputs.reviewed
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      head: ${{ steps.resolve.outputs.head }}
+      base: ${{ steps.resolve.outputs.base }}
+      merge: ${{ steps.resolve.outputs.merge }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Resolve immutable approved inputs
+        id: resolve
+        env:
+          PR: ${{ inputs.pr }}
+          HEAD_SHA: ${{ inputs.head_sha }}
+          BASE_SHA: ${{ inputs.base_sha }}
+        run: python3 verify.py resolve --pr "$PR" --head "$HEAD_SHA" --base "$BASE_SHA"
+
+  pending:
+    name: Mark approved merge revision pending
+    needs: revision
+    if: github.actor_id == '168640902' && github.triggering_actor == 'DevOldSchool' && inputs.reviewed
+    runs-on: ubuntu-24.04
+    environment: status-publisher
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Publish fixed pending status with dedicated App identity
+        env:
+          PR: ${{ inputs.pr }}
+          HEAD_SHA: ${{ needs.revision.outputs.head }}
+          BASE_SHA: ${{ needs.revision.outputs.base }}
+          MERGE_SHA: ${{ needs.revision.outputs.merge }}
+          VERIFIER_APP_ID: ${{ secrets.VERIFIER_APP_ID }}
+          VERIFIER_APP_PRIVATE_KEY: ${{ secrets.VERIFIER_APP_PRIVATE_KEY }}
+        run: python3 publish.py --pr "$PR" --head "$HEAD_SHA" --base "$BASE_SHA" --merge "$MERGE_SHA" --state pending
+
+  verify:
+    name: Verify maintainer-selected US revision in offline sandbox
+    needs: [revision, pending]
+    if: github.actor_id == '168640902' && github.triggering_actor == 'DevOldSchool' && inputs.reviewed
+    runs-on: ubuntu-24.04
+    timeout-minutes: 75
+    environment: rom-verification
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Fetch private US ROM input (no public artifacts)
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          repository: DevOldSchool/conkers-bfd-assets
+          token: ${{ secrets.ROM_ASSETS_READ_TOKEN }}
+          path: private-assets
+          sparse-checkout: baserom.us.z64
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+      - name: Validate tooling policy, focused matches, and clean integrated bytes
+        env:
+          PR: ${{ inputs.pr }}
+          HEAD_SHA: ${{ needs.revision.outputs.head }}
+          BASE_SHA: ${{ needs.revision.outputs.base }}
+        run: python3 verify.py run --pr "$PR" --head "$HEAD_SHA" --base "$BASE_SHA" --rom private-assets/baserom.us.z64
+      # No uploads, shared caches, public summaries, or raw log forwarding.
+      - name: Remove private inputs and diagnostics
+        if: always()
+        run: rm -rf private-work private-assets
+
+  result:
+    name: Publish fixed result for the tested revision
+    if: always() && needs.revision.result == 'success' && github.actor_id == '168640902' && github.triggering_actor == 'DevOldSchool' && inputs.reviewed
+    needs: [revision, pending, verify]
+    runs-on: ubuntu-24.04
+    environment: status-publisher
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Recheck PR freshness and publish only pass or fail
+        env:
+          PR: ${{ inputs.pr }}
+          HEAD_SHA: ${{ needs.revision.outputs.head }}
+          BASE_SHA: ${{ needs.revision.outputs.base }}
+          MERGE_SHA: ${{ needs.revision.outputs.merge }}
+          VERIFY_RESULT: ${{ needs.verify.result }}
+          VERIFIER_APP_ID: ${{ secrets.VERIFIER_APP_ID }}
+          VERIFIER_APP_PRIVATE_KEY: ${{ secrets.VERIFIER_APP_PRIVATE_KEY }}
+        run: |
+          state=failure
+          if [[ "$VERIFY_RESULT" == success ]]; then state=success; fi
+          python3 publish.py --pr "$PR" --head "$HEAD_SHA" --base "$BASE_SHA" --merge "$MERGE_SHA" --state "$state"

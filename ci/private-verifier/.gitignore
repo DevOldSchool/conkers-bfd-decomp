@@ -1,0 +1,4 @@
+private-work/
+private-assets/
+__pycache__/
+*.pem

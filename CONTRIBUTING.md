@@ -267,6 +267,14 @@ and `BATCH_COMPLETE`.
 
 ## Integration and review
 
+PRs show separate metadata, generated-progress, hygiene, tooling-test,
+toolchain, and ROM-free C-compilation checks. These do not establish matching.
+The maintainer-approved private verifier supplies a separate US verification
+result for the exact PR merge revision. New head/base commits invalidate that
+result; changes to trusted tooling or reference definitions require explicit
+review and verifier promotion. See [CI and required checks](docs/ci.md) for the
+activation steps, review policy, and private/public evidence boundary.
+
 Run one clean `verify-batch` for the requested group before handoff, commit, or
 pull request. A failed clean integration must be fixed at its source or linker
 layout before retrying; the command records an input fingerprint and rejects an

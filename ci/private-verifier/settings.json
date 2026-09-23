@@ -1,0 +1,6 @@
+{
+  "trusted_revision": "5cefc17f41b4fe0e4e4005eaa89b3bbbd63802b9",
+  "image": "ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:b3e29a92f2c26f11a58fbafde2d5d3b1184416e21b635e07b2a6303591ed5c8b",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5"
+}
