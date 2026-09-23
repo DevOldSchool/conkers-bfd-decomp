@@ -737,6 +737,87 @@ class ProjectStateTests(unittest.TestCase):
 
         self.assertEqual("func_ready\n", output.getvalue())
 
+    def test_block_raw_skips_without_fabricating_a_candidate_and_can_unblock(self) -> None:
+        functions = []
+        for symbol, size in (("func_blocked", 4), ("func_ready", 8)):
+            functions.append({
+                "symbol": symbol,
+                "source": "src/game/test.c",
+                "overlay": "game",
+                "regions": {"us": {
+                    "state": "raw_asm", "symbol": symbol,
+                    "vram": "0x15000000", "size_bytes": size,
+                }},
+            })
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(json.dumps({"schema_version": 1, "functions": functions}), encoding="utf-8")
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            original_source = (
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_blocked.s")\n'
+                '#pragma GLOBAL_ASM("asm/nonmatchings/test/func_ready.s")\n'
+            )
+            source.write_text(original_source, encoding="utf-8")
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+                patch.object(project_state, "render_progress"),
+            ):
+                project_state.block_raw_function(SimpleNamespace(
+                    symbol="func_blocked", reason="m2c found no instructions"
+                ))
+                blocked = json.loads(inventory.read_text(encoding="utf-8"))["functions"]
+                self.assertEqual("blocked", blocked[0]["regions"]["us"]["state"])
+                self.assertEqual("m2c found no instructions", blocked[0]["blocked"]["reason"])
+                self.assertNotIn("deferred", blocked[0])
+                self.assertEqual(original_source, source.read_text(encoding="utf-8"))
+                output = io.StringIO()
+                with (
+                    patch.object(project_state, "validate_project", return_value=({}, blocked)),
+                    patch.object(project_state, "load_json", return_value={}),
+                    patch.object(project_state, "validate_source_units", return_value=[]),
+                    redirect_stdout(output),
+                ):
+                    project_state.next_function(SimpleNamespace(one=True, details=False, id_only=True))
+                self.assertEqual("func_ready\n", output.getvalue())
+                project_state.unblock_raw_function(SimpleNamespace(symbol="func_blocked"))
+                restored = json.loads(inventory.read_text(encoding="utf-8"))["functions"][0]
+                self.assertEqual("raw_asm", restored["regions"]["us"]["state"])
+                self.assertNotIn("blocked", restored)
+                self.assertEqual(original_source, source.read_text(encoding="utf-8"))
+
+    def test_block_raw_requires_canonical_placeholder(self) -> None:
+        entry = {
+            "symbol": "func_test", "source": "src/game/test.c",
+            "regions": {"us": {"state": "raw_asm", "symbol": "func_test", "vram": "0x15000000"}},
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            inventory = root / "progress" / "functions.json"
+            inventory.parent.mkdir(parents=True)
+            inventory.write_text(json.dumps({"schema_version": 1, "functions": [entry]}), encoding="utf-8")
+            source = root / "src" / "game" / "test.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("void func_test(void) {}\n", encoding="utf-8")
+            with (
+                patch.object(project_state, "ROOT", root),
+                patch.object(project_state, "FUNCTIONS_FILE", inventory),
+                self.assertRaisesRegex(project_state.ProjectStateError, "must retain"),
+            ):
+                project_state.block_raw_function(SimpleNamespace(symbol="func_test", reason="no starter"))
+
+    def test_blocked_inventory_requires_a_reason(self) -> None:
+        entry = {
+            "symbol": "func_test", "source": "src/game/test.c",
+            "blocked": {"reason": "", "recorded_revision": "working-tree"},
+            "regions": {"us": {"state": "blocked", "symbol": "func_test", "vram": "0x15000000"}},
+        }
+        with self.assertRaisesRegex(project_state.ProjectStateError, "blocked metadata needs a reason"):
+            project_state.validate_functions({"schema_version": 1, "functions": [entry]})
+
     def test_defer_preserves_and_resume_restores_the_best_c_candidate(self) -> None:
         entry = {
             "symbol": "func_test",

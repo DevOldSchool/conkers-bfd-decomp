@@ -94,4 +94,47 @@ void func_150E05F8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E05F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E05F8.s")
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32, s32,
+                   s32, s32, s32, s32);
+void func_15145EA4(s32 *, s32 *, s32, s32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern u8 D_80088988;
+extern u8 D_800A0F70[];
+extern u8 D_800A0F88[];
+
+typedef struct {
+    u32 random1;
+    u32 random2;
+    s32 pad4C;
+    s32 *target;
+    s32 *source;
+    f32 dimensions[2];
+    s32 pad60;
+    s32 position[3];
+} Game10D7B0EffectLocals;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E06D8 CURRENT (3213) */
+void func_150E06D8(void *arg0, u8 arg1, u8 arg2, s32 arg3) {
+    Game10D7B0EffectLocals locals;
+
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+        locals.source = (s32 *)(D_800A0F70 + (arg1 * 0xC));
+        locals.target = locals.position;
+        func_15145EA4((s32 *)&locals.source, (s32 *)&locals.target,
+                      *(s32 *)((u8 *)arg0 + 0x1D4) + (D_80088988 << 6), 1);
+        locals.dimensions[1] = (func_150ADA68() * 1.0f) + 2.0f;
+        locals.dimensions[0] = (func_150ADA68() * 14.0f) + 28.0f;
+        locals.random1 = func_150ADA20();
+        locals.random2 = func_150ADA20();
+        func_15102B38((s32)arg0, D_80088988,
+                       (s32)(D_800A0F70 + (arg1 * 0xC)),
+                       (s32)(D_800A0F88 + (arg1 * 0xC)),
+                       locals.dimensions, (locals.random1 % 3U) + 4,
+                       (locals.random2 % 156U) + 0x64,
+                       (func_150ADA68() * 300.0f) + 400.0f,
+                       (s32)locals.position, 0xFF, 0, -1, arg2, arg3);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E06D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E06D8.s")

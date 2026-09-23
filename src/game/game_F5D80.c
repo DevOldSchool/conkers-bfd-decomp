@@ -21,6 +21,55 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void *func_10022EC0(void *, const void *, u32);
+f32 func_15047D60(f32);
+f32 func_15047C00(f32);
+void *func_15167A68(s32, s32, s32, s32, s32, s32);
+extern f32 D_800A0528;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C88D0 CURRENT (2675) */
+void *func_150C88D0(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    f32 angle;
+    f32 zero;
+    u8 *effect;
+    s32 count;
+    s32 index;
+    s32 offset;
+    s32 five;
+
+    count = *(s32 *)(arg0 + 0x14);
+    effect = func_15167A68(0x31, arg3, arg1 + (count * 8) + (count * 0xA0) + 0x408,
+                           1, arg2, 1);
+    five = 5;
+    if (effect == 0) {
+        return 0;
+    }
+    func_10022EC0(effect + 0x10, arg0, 0x30);
+    *(u8 **)(effect + 0x360) = effect + 0x368;
+    *(u8 **)(effect + 0x54) = effect + (*(s32 *)(arg0 + 0x14) * 8) + 0x368;
+    zero = 0.0f;
+    *(u8 **)(effect + 0x58) = effect + (*(s32 *)(arg0 + 0x14) * 8) + ((*(s32 *)(arg0 + 0x14) * five) * 0x10) + 0x3B8;
+    *(f32 *)(effect + 0x40) = zero;
+    *(f32 *)(effect + 0x44) = zero;
+    *(u8 **)(effect + 0x364) = effect + (*(s32 *)(arg0 + 0x14) * 8) + ((*(s32 *)(arg0 + 0x14) * five) * 0x20) + 0x408;
+    *(f32 *)(effect + 0x50) = zero;
+    *(s16 *)(effect + 0x4C) = *(s16 *)(effect + 0x28);
+    *(f32 *)(effect + 0x48) = D_800A0528 / (f32)*(s32 *)(effect + 0x24);
+    angle = zero;
+    index = 0;
+    offset = 0;
+    if (*(s32 *)(effect + 0x24) > 0) {
+        do {
+            *(f32 *)(*(u8 **)(effect + 0x360) + offset) = func_15047D60(angle);
+            index++;
+            *(f32 *)(*(u8 **)(effect + 0x360) + offset + 4) = func_15047C00(angle);
+            offset += 8;
+            angle += *(f32 *)(effect + 0x48);
+        } while (index < *(s32 *)(effect + 0x24));
+    }
+    return effect;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C88D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C88D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C8A68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C8DB8.s")

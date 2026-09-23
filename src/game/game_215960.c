@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_connected_controller_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151E84B0
  * - func_151E86E4
  * - func_151E89A0
  * - func_151E966C
@@ -33,7 +32,59 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E84B0.s")
+typedef void *(*Game215960Dispatch)(void *);
+typedef struct {
+    u8 pad0[0x1D0];
+    s32 field_1D0;
+} Game215960State;
+
+void *func_151ED1E0(void *);
+void func_15042D94(s32, s32, s32, s32);
+void func_1504332C(s32, s32, s32, s32);
+extern s32 D_8003C8E0;
+extern s32 D_80000300;
+extern s8 D_8008FD90;
+extern Game215960Dispatch D_8008FFF4[];
+extern u8 D_800BE616;
+extern u8 D_800BE740;
+extern s8 D_800E0BD3;
+extern Game215960State *D_800E0BD8;
+extern u8 D_800E0B94;
+
+void *func_151E84B0(void *arg0) {
+    s32 effect = 0;
+    Game215960Dispatch callback;
+
+    D_8003C8E0 = 0x09000001;
+    arg0 = func_151ED1E0(arg0);
+    callback = D_8008FFF4[D_800E0B94];
+    if (callback != 0) {
+        arg0 = callback(arg0);
+    }
+    if (D_80000300 != 0) {
+        if ((D_800BE616 != 0) && (D_8008FD90 >= 2)) {
+            if ((D_800BE740 & 0xF) == 0) {
+                if (D_800E0BD3 == 1) {
+                    effect = 0x33;
+                } else if (D_800E0BD3 == 2) {
+                    effect = 0x16;
+                }
+            }
+        } else if ((D_800BE740 & 1) == 0) {
+            if (D_800E0BD3 == 1) {
+                effect = 0x32;
+            } else if (D_800E0BD3 == 2) {
+                effect = 0x15;
+            }
+        }
+    }
+    if (effect != 0) {
+        func_1504332C(0xFF, 0xFF, 0xFF, 0xFF);
+        func_15042D94(0x94, 0xC8, 0x81, ((s32 *)D_800E0BD8)[effect]);
+    }
+    D_8003C8E0 = 0;
+    return arg0;
+}
 typedef s32 (*Game215960Callback)(s32, s32);
 
 extern s32 D_8003C8E0;
@@ -192,11 +243,6 @@ s32 func_151EB930(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB96C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EBB50.s")
 
-typedef struct {
-    u8 pad0[0x1D0];
-    s32 field_1D0;
-} Game215960State;
-
 void func_15042D94(s32, s32, s32, s32);
 void func_1504332C(s32, s32, s32, s32);
 extern s32 D_800E0A90;
@@ -292,6 +338,73 @@ void *func_151ED1E0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151ED1E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED1E0.s")
+extern u8 D_8009DEB0[];
+extern u8 D_8009DEB4[];
+extern u8 D_8009DEB8[];
+extern u8 D_8009DEBC[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ED29C CURRENT (4255) */
+void *func_151ED29C(u32 *arg0, u8 *arg1, s32 *arg2) {
+    s32 temp_at;
+    s32 temp_at_2;
+    s32 temp_t2;
+    s32 temp_t5;
+    s32 temp_t6;
+    s32 var_a2;
+    s32 var_t1;
+    s32 var_v0;
+    u16 temp_t0;
+    u16 temp_v1;
+    u8 temp_a3;
+    u8 temp_a3_2;
+    u32 *cursor;
+
+    temp_a3 = arg1[0xB];
+    var_v0 = 1;
+    var_t1 = 2;
+    *arg2 = (D_8009DEB0[temp_a3] +
+             (*(u16 *)(arg1 + 6) * *(u16 *)(arg1 + 8))) >>
+            D_8009DEB4[temp_a3];
+    temp_t0 = *(u16 *)(arg1 + 6);
+    if (temp_t0 >= 3) {
+        do {
+            temp_t5 = var_t1 * 2;
+            temp_at = temp_t5 < temp_t0;
+            var_t1 = temp_t5;
+            var_v0 += 1;
+        } while (temp_at != 0);
+        var_t1 = 2;
+    }
+    temp_v1 = *(u16 *)(arg1 + 8);
+    var_a2 = 1;
+    cursor = arg0;
+    if (temp_v1 >= 3) {
+        do {
+            temp_t6 = var_t1 * 2;
+            temp_at_2 = temp_t6 < temp_v1;
+            var_t1 = temp_t6;
+            var_a2 += 1;
+        } while (temp_at_2 != 0);
+    }
+    cursor[0] = 0xE7000000;
+    cursor[1] = 0;
+    cursor += 2;
+    temp_t2 = ((arg1[0xA] & 7) << 21) | 0xF5000000;
+    cursor[0] = ((D_8009DEBC[arg1[0xB]] & 3) << 19) | temp_t2;
+    cursor[1] = 0x07000000;
+    cursor += 2;
+    temp_a3_2 = arg1[0xB];
+    cursor[0] = (((((D_8009DEB8[temp_a3_2] * *(u16 *)(arg1 + 6)) + 7) >> 3)
+                & 0x1FF) << 9) | temp_t2 | ((temp_a3_2 & 3) << 19);
+    cursor[1] = ((var_a2 & 0xF) << 14) | 0x80000 | 0x200 | ((var_v0 & 0xF) * 0x10);
+    cursor += 2;
+    cursor[0] = 0xF2000000;
+    cursor[1] = ((((*(u16 *)(arg1 + 6) - 1) * 4) & 0xFFF) << 12) |
+              (((*(u16 *)(arg1 + 8) - 1) * 4) & 0xFFF);
+    cursor += 2;
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151ED29C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED29C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED430.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151ED90C.s")

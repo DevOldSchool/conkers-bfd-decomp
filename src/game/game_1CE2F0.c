@@ -54,6 +54,38 @@ void func_151A0F28(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A0F28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A0F28.s")
+extern f32 D_800A8D28;
+typedef void (*Game1CE2F0ScaledSetupFn)(f32, f32, s32, f32, f32, s32, s32, s32,
+                                        s32, s32, f32, s32, s32, s32, s32, s32,
+                                        s32, f32, s32, s32, s32, s32, s32, s32,
+                                        s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A1010 CURRENT (6476) */
+void func_151A1010(f32 arg0, f32 arg1, s32 arg2, s16 arg3, f32 arg4, f32 arg5, u8 arg6, s32 arg7) {
+    s16 interval;
+    s16 bounded;
+    s16 y70;
+    s16 y30;
+    s16 xScale;
+    s16 x100;
+
+    interval = arg3 - 0x20;
+    bounded = interval;
+    if (interval <= 0) {
+        bounded = 1;
+    }
+    y70 = (s16)(s32)(70.0f * arg5);
+    y30 = (s16)(s32)(30.0f * arg5);
+    xScale = (s16)(s32)(D_800A8D28 * arg4);
+    x100 = (s16)(s32)(100.0f * arg4);
+    ((Game1CE2F0ScaledSetupFn)func_151A11CC)(
+        arg0, arg1, arg2, 250.0f * arg4,
+        1.0f, y70, y30, xScale, x100, 0x12,
+        1.0f, (s32)(90.0f * arg5), (s32)(20.0f * arg5), xScale, x100, bounded, 0x10,
+        1.0f, y70, y30, xScale, x100, (s32)(15.0f * arg4), (s32)(10.0f * arg4),
+        0x12, interval + 0x10, arg6, arg7);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A1010 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A1010.s")
 void func_151A11CC(f32 arg0, f32 arg1, s32 arg2, s32 arg3) {
 }

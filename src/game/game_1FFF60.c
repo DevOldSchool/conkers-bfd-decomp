@@ -7,11 +7,9 @@
  * TODO: Implement these source-unit functions:
  * - func_151D2AB0
  * - func_151D2B4C
- * - func_151D2C40
  * - func_151D2DCC
  * - func_151D2E14
  * - func_151D2E5C
- * - func_151D2F00
  * - func_151D2F90
  * - func_151D3130
  * - func_151D324C
@@ -93,7 +91,72 @@ void *func_151D2BA4(s32 arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
     func_151D3308(sp24);
     return sp24;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2C40.s")
+typedef struct Game1FFF60MotionSource {
+    s32 valid;
+    u8 id;
+    u8 pad5[0x36];
+    u8 owner;
+    u8 pad3C[0x38];
+    u8 flags;
+    u8 pad75[0x15F];
+    u8 *frames;
+} Game1FFF60MotionSource;
+
+typedef struct Game1FFF60Motion {
+    u8 pad0[0x10];
+    Game1FFF60MotionSource *source;
+    u8 owner;
+    u8 pad15[3];
+    f32 position[3];
+    u8 frame;
+    u8 pad25;
+    s16 timer;
+    u8 flags;
+    s8 update_callback;
+    s8 end_callback;
+    u8 pad2B;
+    s32 state;
+    u8 pad30[4];
+    Game1FFF60Vec3 result;
+} Game1FFF60Motion;
+
+void func_1516972C();
+void func_15143134(f32 *, f32 *, s32);
+extern s32 D_800BE9E4;
+extern s32 (*D_8008FC40[])(void *, void *);
+extern void (*D_8008FC48[])(void *, void *);
+
+void func_151D2C40(Game1FFF60Motion *arg0) {
+    struct {
+        Game1FFF60Vec3 position;
+        s32 padding;
+    } local;
+    Game1FFF60MotionSource *source;
+
+    source = arg0->source;
+    if ((source->valid == 0) || (source->id == 0xFF) || (source->owner != arg0->owner) ||
+        (source->frames == 0) || ((source->flags & 0xF) == 0xF)) {
+        func_1516972C(arg0);
+        return;
+    }
+    func_15143134(arg0->position, (f32 *)&local.position, (s32)(source->frames + (arg0->frame << 6)));
+    if (arg0->flags & 1) {
+        arg0->timer = (s16)(arg0->timer - D_800BE9E4);
+        if (arg0->timer < 0) {
+            if (arg0->end_callback != -1) {
+                D_8008FC48[arg0->end_callback](arg0, &local.position);
+            }
+            arg0->state = 0;
+            func_1516972C(arg0);
+            return;
+        }
+    }
+    if ((arg0->update_callback != -1) && (D_8008FC40[arg0->update_callback](arg0, &local.position) == 0)) {
+        func_1516972C(arg0);
+        return;
+    }
+    arg0->result = local.position;
+}
 void func_151D3354();
 
 void func_151D2DAC(void) {
@@ -157,10 +220,9 @@ void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D2E5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2E5C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2F00 CURRENT (108) */
 void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
-    void *sp24;
     void *temp_v0;
+    volatile void *sp24;
 
     temp_v0 = func_15167A68(0x3E, arg3, arg1 + 0x30, 1, arg2, 1);
     if (temp_v0 == 0) {
@@ -172,10 +234,59 @@ void *func_151D2F00(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
     *(s32 *)((u8 *)sp24 + 0x24) = 0;
     *(s32 *)((u8 *)sp24 + 0x28) = 0;
     *(u8 *)((u8 *)sp24 + 0x18) = (u8)(*(u8 *)((u8 *)sp24 + 0x18) & 0xFFFD);
-    return sp24;
+    return (void *)sp24;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2F00 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2F00.s")
+extern s32 (*D_8008FC4C[])(void *);
+extern void (*D_8008FC50[])(void *);
+extern void (*D_8008FC54[])(void *);
+extern void (*D_8008FC58[])(void *);
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2F90 CURRENT (1670) */
+void func_151D2F90(u8 *arg0) {
+    u8 *actor;
+    u8 flags;
+    s32 previousMode;
+    s32 currentMode;
+    s8 callback;
+
+    actor = *(u8 **)(arg0 + 0x10);
+    flags = arg0[0x18];
+    previousMode = flags & 2;
+    if (*(s32 *)actor == 0 || actor[4] == 0xFF || arg0[0x14] != actor[0x3B]) {
+        func_1516972C(arg0);
+        return;
+    }
+    if (*(s32 *)(actor + 0x1D4) != 0 && (actor[0x74] & 0xF) != 0xF) {
+        arg0[0x18] = flags | 2;
+    } else {
+        arg0[0x18] = flags & ~2;
+    }
+    if (arg0[0x18] & 1) {
+        *(s16 *)(arg0 + 0x16) -= D_800BE9E4;
+        if (*(s16 *)(arg0 + 0x16) < 0) {
+            callback = *(s8 *)(arg0 + 0x1C);
+            if (callback != -1) {
+                D_8008FC58[callback](arg0);
+            }
+            func_1516972C(arg0);
+            return;
+        }
+    }
+    currentMode = arg0[0x18] & 2;
+    if (currentMode != previousMode) {
+        if (currentMode != 0) {
+            D_8008FC50[*(s8 *)(arg0 + 0x1A)](arg0);
+        } else {
+            D_8008FC54[*(s8 *)(arg0 + 0x1B)](arg0);
+        }
+    }
+    callback = *(s8 *)(arg0 + 0x19);
+    if (callback != -1 && D_8008FC4C[callback](arg0) == 0) {
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D2F90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2F90.s")
 extern void (*D_8008FC48[])(void *, void *);
 extern void (*D_8008FC5C[])(s32);
@@ -337,15 +448,18 @@ void func_151D33FC(void *arg0, void *arg1) {
         func_1516972C(arg0, arg1);
     }
 }
-extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern s32 D_800AB168;
+extern void func_15169260(s32 *arg0, s32 arg1, s32 arg2, u8 arg3);
+typedef struct {
+    s32 value;
+} Game1FFF60DispatchDescriptor;
+extern Game1FFF60DispatchDescriptor D_800AB168;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D343C CURRENT (720) */
-void func_151D343C(s32 arg0, s32 arg1) {
-    s32 sp1C;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D343C CURRENT (100) */
+void func_151D343C(s32 arg0, u8 arg1) {
+    Game1FFF60DispatchDescriptor sp1C;
 
     sp1C = D_800AB168;
-    func_15169260(&sp1C, 1, arg0, arg1 & 0xFF);
+    func_15169260(&sp1C.value, 1, arg0, arg1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D343C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D343C.s")

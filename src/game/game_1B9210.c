@@ -99,6 +99,56 @@ s32 func_1518C57C(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518C57C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C57C.s")
+typedef struct Game18C69CPosition {
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 padC[8];
+} Game18C69CPosition;
+
+u8 func_151D8E20(void);
+f32 func_150ADA68(void);
+void func_151DBCBC(s32, f32, u8, s32, f32 *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518C69C CURRENT (1787) */
+s32 func_1518C69C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
+                   s32 arg5) {
+    Game1B9210EffectPacket packet;
+    f32 position[3];
+    u8 kind;
+    u8 *effect;
+    Game18C69CPosition *positions;
+    s32 height;
+    s16 size;
+
+    effect = *(u8 **)(arg0 + 0x98);
+    positions = *(Game18C69CPosition **)(arg0 + 0x94);
+    packet.field80 = 0;
+    packet.field8A = 0x100;
+    height = (s32)arg4;
+    packet.field8E = height;
+    packet.field8C = (s32)positions[*(s8 *)(arg0 + 0x2D)].x;
+    packet.field90 = (s32)positions[*(s8 *)(arg0 + 0x2D)].z;
+    size = (func_150ADA20() % 21U) + 0x23;
+    packet.field92 = size;
+    packet.fieldA2 = -1;
+    packet.fieldA0 = 0x12;
+    packet.field98 = 0xC;
+    packet.fieldA1 = 0;
+    packet.field94 = size;
+    packet.field96 = height;
+    func_1516865C(&packet, 0xFF, 0xFF, 0xFF, 0xFF);
+    func_15168800(&packet, arg0[0xC], arg0[1]);
+    effect[0x20] = 4;
+    position[0] = positions[*(s8 *)(arg0 + 0x2D)].x;
+    position[1] = arg4;
+    position[2] = positions[*(s8 *)(arg0 + 0x2D)].z;
+    kind = func_151D8E20();
+    func_151DBCBC(kind, func_150ADA68() * 40.0f + 100.0f, 0xFF,
+                   arg5, position, arg0[0xC], arg0[1]);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518C69C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B9210/func_1518C69C.s")
 void func_1516972C(void *);
 

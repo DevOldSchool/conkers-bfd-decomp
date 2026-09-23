@@ -2557,15 +2557,15 @@
       "functions": [
         "func_150121C0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x12370",
           "start": "0x121C0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_3F670.c"
+      "source": "src/game/done/game_3F670.c"
     },
     {
       "boundary_evidence": {
@@ -6357,7 +6357,7 @@
         "us": {
           "end": "0x1DD970",
           "start": "0x1DD4E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_20A990.c"
@@ -7296,7 +7296,7 @@
         "us": {
           "end": "0x1875E0",
           "start": "0x184150",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1B1600.c"
@@ -8582,7 +8582,7 @@
         "us": {
           "end": "0x1C730",
           "start": "0x1BB20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_48FD0.c"
@@ -10296,7 +10296,7 @@
         "us": {
           "end": "0xB3DD0",
           "start": "0xB3AB0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_E0F60.c"
@@ -14240,7 +14240,7 @@
         "us": {
           "end": "0xFCFB0",
           "start": "0xFCA30",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_129EE0.c"
@@ -15134,7 +15134,7 @@
         "us": {
           "end": "0xC5280",
           "start": "0xC4D20",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_F21D0.c"
@@ -15311,7 +15311,7 @@
         "us": {
           "end": "0x149FD0",
           "start": "0x149550",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_176A00.c"
@@ -16456,7 +16456,7 @@
         "us": {
           "end": "0xE9890",
           "start": "0xE8A80",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_115F30.c"
@@ -17134,7 +17134,7 @@
         "us": {
           "end": "0xD7420",
           "start": "0xD7120",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1045D0.c"
@@ -18289,7 +18289,7 @@
         "us": {
           "end": "0xF5590",
           "start": "0xF5420",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/game/game_1228D0.c"

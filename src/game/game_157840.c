@@ -21,6 +21,53 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512A390.s")
+typedef struct Game157840Record {
+    u8 bytes[8];
+} Game157840Record;
+
+void func_100226F0(void *, s32);
+extern s32 D_80082FA0;
+extern Game157840Record D_80089590[];
+extern s32 D_800BE9F0;
+extern u8 D_800DC0C0;
+extern Game157840Record D_800DC200[4][4];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 CURRENT (1490) */
+void func_1512ABF8(void) {
+    u8 row;
+    s32 column;
+    s32 scaleMode;
+    s32 animationMode;
+    Game157840Record *record;
+
+    scaleMode = D_80082FA0;
+    animationMode = D_800BE9F0;
+    row = 0;
+    do {
+        column = 0;
+        do {
+            record = &D_800DC200[row][column];
+            *record = D_80089590[column];
+            column++;
+            if ((scaleMode > 0) && (scaleMode < 4)) {
+                *(s16 *)&record->bytes[0] =
+                    (s16)(s32)((f32)*(s16 *)&record->bytes[0] * 0.5f);
+                *(s16 *)&record->bytes[2] =
+                    (s16)(s32)((f32)*(s16 *)&record->bytes[2] * 0.5f);
+            }
+            if ((animationMode == 0x1B) || (animationMode == 0x1E)) {
+                *(s16 *)&record->bytes[0] =
+                    (s16)(s32)((f32)*(s16 *)&record->bytes[0] * 0.75f);
+                *(s16 *)&record->bytes[2] =
+                    (s16)(s32)((f32)*(s16 *)&record->bytes[2] * 0.75f);
+            }
+            column = (u8)column;
+        } while (column < 4);
+        row++;
+    } while (row < 4);
+    func_100226F0(&D_800DC0C0, 0x130);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1512ABF8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512ABF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_157840/func_1512AD54.s")
 void func_1512AD54(void);

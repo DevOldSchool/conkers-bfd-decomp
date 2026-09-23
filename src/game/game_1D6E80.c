@@ -388,6 +388,55 @@ void func_151AA264(void *arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AA264 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA264.s")
+void func_1515A238(f32 *, f32 *, f32, s32, s32, f32, s32, s32, s32, s32, s32);
+s32 func_1515A920(void *, s32 *);
+u32 func_150ADA20();
+f32 func_150ADA68();
+extern f32 D_800A8F98;
+extern f32 D_800A8F9C;
+extern f32 D_800A8FA0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AA30C CURRENT (2164) */
+void func_151AA30C(f32 arg0, f32 arg1, f32 arg2, s32 arg3,
+                   f32 arg4, s32 arg5, void *arg6) {
+    f32 position[3];
+    f32 velocity[3];
+    s32 reference;
+    u32 random_int;
+    f32 random2;
+    f32 random1;
+    u32 random_int2;
+    void *object = *(void **)((u8 *)arg6 + 0x1C);
+    f32 speed;
+    f32 height;
+    f32 width;
+
+    if (*(f32 *)((u8 *)object + 0x118) < arg1) {
+        return;
+    }
+    if (func_1515A920(object, &reference) == 0) {
+        reference = 0;
+    }
+    velocity[0] = 0.0f;
+    speed = ((func_150ADA68() * 196.0f) + 199.0f) * D_800A8F98;
+    velocity[2] = 0.0f;
+    position[0] = arg0;
+    position[1] = arg1;
+    position[2] = arg2;
+    velocity[1] = -(speed * arg4);
+    random1 = func_150ADA68();
+    random2 = func_150ADA68();
+    random_int = func_150ADA20();
+    random_int2 = func_150ADA20();
+    height = (random1 * D_800A8F9C) + 454.0f;
+    width = height * D_800A8FA0;
+    func_1515A238(position, velocity, width, 0x3F7901C1,
+                   reference, (random2 * 101.0f) + 101.0f,
+                   (random_int % 31U) + 0x32,
+                   (random_int2 % 101U) + 0x64, 1,
+                   *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AA30C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AA30C.s")
 typedef struct {
     void *link;
@@ -570,7 +619,7 @@ s32 func_151AABA0(void *arg0) {
     return var_v1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AABC4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AADBC CURRENT (130) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AADBC CURRENT (230) */
 s32 func_151AADBC(void *arg0) {
     s32 temp_t6;
     void *temp_v0;

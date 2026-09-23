@@ -70,6 +70,48 @@ void func_1503F5B8(Game6C960Actor *arg0, s32 arg1, s32 arg2, f32 arg3,
     func_1505E0C4(0, 0, arg0, 0, arg1, arg2, arg0->field_3F5, arg3,
                   arg4, 0.0f, 0.0f, arg5);
 }
+void func_100226F0(void *, s32);
+s32 func_1502FE10(u8, void *, void *, void **, void *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F62C CURRENT (1095) */
+s32 func_1503F62C(u8 arg0, s32 arg1, void *arg2, void *arg3,
+                   void **arg4, void *arg5, Game6C960Actor **arg6) {
+    s32 count;
+    Game6C960Actor *actor;
+    void *allocation;
+
+    actor = func_10003C40(0x3F8, 1, 2, 2);
+    *arg6 = actor;
+    if (actor == 0) {
+        return 1;
+    }
+    func_100226F0(*arg6, 0x40);
+    ((u8 *)*arg6)[0x215] = 1;
+    ((u8 *)*arg6)[0x45] = 1;
+    func_1502FE10(arg0, arg2, arg3, arg4, arg5,
+                   (s32)((u8 *)*arg6 + 0x3F0), (s32)&count);
+    ((u8 *)*arg6)[0x3F4] = (u8)count;
+    ((u8 *)*arg6)[0x3F5] = (u8)arg1;
+    ((u8 *)*arg6)[0x3F6] = 0;
+    *(void **)((u8 *)*arg6 + 0x3E8) = func_10003C40(count << 6, 1, 2, 2);
+    *(void **)((u8 *)*arg6 + 0x3EC) = func_10003C40(count << 6, 1, 2, 2);
+    actor = *arg6;
+    allocation = *(void **)((u8 *)actor + 0x3E8);
+    if (allocation == 0 || *(void **)((u8 *)actor + 0x3EC) == 0) {
+        if (allocation == 0) {
+            func_10004074((s32)allocation);
+        }
+        allocation = *(void **)((u8 *)*arg6 + 0x3EC);
+        if (allocation == 0) {
+            func_10004074((s32)allocation);
+        }
+        func_10004074((s32)*arg6);
+        return 1;
+    }
+    func_1503F5B8(actor, 1, 0, 1.0f, 0.0f, 0);
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1503F62C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6C960/func_1503F62C.s")
 extern void func_10004074(s32 arg0);
 extern void func_100043B4();

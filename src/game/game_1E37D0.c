@@ -75,6 +75,98 @@ void func_151B6320(void *arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B6320 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6320.s")
+typedef struct Game1B6420Record {
+    u8 pad0[0xC];
+    f32 countdown;
+    u8 intensity;
+    u8 pad11[7];
+    f32 time;
+} Game1B6420Record;
+
+typedef struct Game1B6420Actor {
+    u8 pad0[0x1E];
+    u16 flags;
+    u8 pad20[5];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    s8 head;
+    s8 tail;
+    u8 pad2F[0x25];
+    s32 output[3];
+    u8 pad60[0x34];
+    Game1B6420Record *records;
+} Game1B6420Actor;
+
+extern f32 D_800AA470;
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6420 CURRENT (110) */
+s32 func_151B6420(Game1B6420Actor *actor) {
+    Game1B6420Record *records;
+    Game1B6420Record *record;
+    s32 index;
+    s32 intensity;
+    f32 zero;
+    f32 baseTime;
+    f32 scale;
+
+    records = actor->records;
+    if (actor->count < 2 && (actor->flags & 8)) {
+        return 0;
+    }
+    index = actor->tail;
+    zero = 0.0f;
+    if (index != actor->head) {
+        do {
+            index--;
+            if (index < 0) {
+                index = actor->capacity - 1;
+            }
+            record = &records[index];
+            record->countdown -= D_800BE9A4;
+            if (record->countdown < zero && index != actor->head) {
+                do {
+                    actor->head++;
+                    if (actor->capacity == actor->head) {
+                        actor->head = 0;
+                    }
+                    actor->count--;
+                } while (index != actor->head);
+            }
+        } while (index != actor->head);
+    }
+    if (actor->count > 0) {
+        index = actor->head;
+        baseTime = records[index].time;
+        scale = D_800AA470;
+        do {
+            record = &records[index];
+            intensity = (s32)((record->time - baseTime) * scale);
+            if (intensity >= 0x9C) {
+                record->intensity = 0x9B;
+            } else {
+                record->intensity = intensity;
+            }
+            index++;
+            if (index >= actor->capacity) {
+                index = 0;
+            }
+        } while (index != actor->tail);
+    }
+    if (actor->count > 0) {
+        record = &records[actor->head];
+        actor->output[0] = *(s32 *)((u8 *)record + 0);
+        actor->output[1] = *(s32 *)((u8 *)record + 4);
+        actor->output[2] = *(s32 *)((u8 *)record + 8);
+    } else {
+        *(f32 *)&actor->output[0] = zero;
+        *(f32 *)&actor->output[1] = zero;
+        *(f32 *)&actor->output[2] = zero;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B6420 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6420.s")
 f32 func_15143E64(f32 *, void *, void *);           /* extern */
 extern f32 D_800AA474;
@@ -190,22 +282,20 @@ s32 func_151B65D4(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B65D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B65D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B6928.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B70B4 CURRENT (1255) */
-void func_151B70B4(void *arg0, void *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B70B4 CURRENT (805) */
+void func_151B70B4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_a3;
-    s32 temp_t6;
     s32 temp_v1;
     void *temp_v0;
 
-    temp_t6 = arg2 & 0xFF;
     temp_v0 = *(void **)((u8 *)arg0 + 0x98);
     temp_a3 = *(s32 *)((u8 *)temp_v0 + 0);
-    if (temp_t6 == 0) {
+    if (arg2 == 0) {
         if (temp_a3 == *(s32 *)((u8 *)arg1 + 0)) {
             *(s8 *)((u8 *)arg0 + 0x30) = 0;
             *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) | 8);
         }
-    } else if (temp_t6 == 0x2D) {
+    } else if (arg2 == 0x2D) {
         temp_v1 = *(s32 *)((u8 *)arg1 + 0);
         if (temp_v1 == temp_a3) {
             *(s32 *)((u8 *)temp_v0 + 0) = (s32) *(s32 *)((u8 *)arg1 + 4);
@@ -247,7 +337,7 @@ typedef struct {
     Game1E37D0Root *field_98;
 } Game1E37D0State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7678 CURRENT (75) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7678 CURRENT (90) */
 s32 func_151B7678(void *arg0, f32 *arg1) {
     void *temp_v1;
     void *temp_a2;
@@ -301,6 +391,87 @@ s32 func_151B76CC(void *arg0, f32 *arg1) {
                   (f32 *)((u8 *)arg1 + 4), (f32 *)((u8 *)arg1 + 8));
     return 1;
 }
+typedef struct Game1E37D0Vec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1E37D0Vec3;
+
+typedef struct Game1E37D0RingEntry {
+    Game1E37D0Vec3 position;
+    f32 distance;
+    u8 state;
+    u8 pad11[3];
+} Game1E37D0RingEntry;
+
+typedef struct Game1E37D0RingState {
+    u8 *linked;
+    u8 pad4[4];
+    u8 selector;
+} Game1E37D0RingState;
+
+typedef struct Game1E37D0RingObject {
+    u8 pad0[0x10];
+    Game1E37D0Vec3 position;
+    u8 pad1C[9];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    s8 tail;
+    s8 head;
+    u8 pad2F[0x65];
+    Game1E37D0RingEntry *entries;
+    Game1E37D0RingState *state;
+} Game1E37D0RingObject;
+
+extern s32 D_800BE9E4;
+extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Game1E37D0Vec3 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B77F4 CURRENT (821) */
+s32 func_151B77F4(Game1E37D0RingObject *arg0) {
+    Game1E37D0Vec3 previous;
+    Game1E37D0Vec3 delta;
+    Game1E37D0RingState *state;
+    Game1E37D0RingEntry *entries;
+    Game1E37D0RingEntry *entry;
+    s8 tail;
+    f32 distance;
+
+    entries = arg0->entries;
+    state = arg0->state;
+    if (D_800BE9E4 > 0) {
+        previous = arg0->position;
+        if (D_8008FB90[state->selector](arg0, &arg0->position) == 0) {
+            return 0;
+        }
+        if (state->linked != 0) {
+            *(Game1E37D0Vec3 *)(state->linked + 0x40) = arg0->position;
+        }
+        delta.x = arg0->position.x - previous.x;
+        delta.y = arg0->position.y - previous.y;
+        delta.z = arg0->position.z - previous.z;
+        distance = func_15143E64(&delta.x, &arg0->position, arg0);
+        entry = &entries[arg0->head];
+        entry->position = arg0->position;
+        entry->distance = distance;
+        entry->state = 0xFF;
+        arg0->head++;
+        if (arg0->head == arg0->capacity) {
+            arg0->head = 0;
+        }
+        arg0->count++;
+        tail = arg0->tail;
+        if (tail == arg0->head) {
+            arg0->tail = tail + 1;
+            if (arg0->tail == arg0->capacity) {
+                arg0->tail = 0;
+            }
+            arg0->count--;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B77F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B77F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7998.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7C38.s")

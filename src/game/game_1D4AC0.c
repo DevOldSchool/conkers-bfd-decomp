@@ -12,6 +12,54 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A8DC8;
+extern f32 D_800A8DCC;
+extern f32 D_800A8DD0;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7610 CURRENT (2637) */
+void func_151A7610(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, u8 *arg6) {
+    f32 position[3];
+    f32 velocity[3];
+    f32 zero[3];
+    f32 radius;
+    f32 spread;
+    f32 random0;
+    f32 random1;
+    u32 random2;
+    u32 random3;
+    f32 factor;
+    f32 unit;
+    f32 size;
+
+    position[0] = arg0;
+    position[1] = arg1;
+    position[2] = arg2;
+    radius = *(f32 *)(arg6 + 0x40);
+    factor = func_150ADA68();
+    unit = D_800BE9A8;
+    zero[0] = 0.0f;
+    zero[1] = 0.0f;
+    zero[2] = 0.0f;
+    factor = (factor * 166.0f + 160.0f) * D_800A8DC8;
+    velocity[0] = -arg3 * unit * factor;
+    velocity[1] = -arg4 * unit * factor;
+    velocity[2] = -arg5 * unit * factor;
+    random0 = func_150ADA68();
+    random1 = func_150ADA68();
+    random2 = func_150ADA20();
+    random3 = func_150ADA20();
+    spread = ((random0 * D_800A8DCC) + -600.0f) * D_800A8DD0;
+    size = (random1 * 500.0f + 400.0f) * radius;
+    func_151A26EC(position, zero, velocity, 1.0f, spread,
+                  size,
+                  (random2 % 21U) + 15, (random3 % 101U) + 100,
+                  15, 20, 0, -1, 86, 39, 0, arg6[0xC], arg6[1]);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A7610 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4AC0/func_151A7610.s")
 extern s32 D_800BE9E4;
 

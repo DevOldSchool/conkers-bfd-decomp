@@ -32,12 +32,15 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) once per task. Consult the
 - `FIX_COMPILE`: fix only the reported C/declaration problem, then rerun `finish`.
 - `CONTINUE_MISMATCH`: use the latest `finish` diagnosis. Run `diagnose-diff` only when evidence
   is missing or stale. Diagnosis is a search hint, not proof of equivalent behavior.
-  If `register-only` is positive and every other count is zero, try `permute <id> --budget 32`
-  before manual variants when permitted. Honor task budgets and manual-only restrictions.
+  For purely register-only differences, use `permute <id> --budget 32` only when an untried
+  transformation supported by the permuter plausibly addresses the diff and the task permits it.
+  Register-only classification alone is not a reason to search. Honor manual-only restrictions.
   Otherwise read the saved full diff, make one targeted source revision and rerun `finish`.
   Default limit: two manual revisions and one 32-variant permutation search per distinct
-  candidate and settings. Keep plateau stopping; repeat only after a source/evidence change
-  or an improvement that justifies a larger budget. Never repeat an unchanged search.
+  candidate and settings. Consult the durable manual-attempt ledger before retrying.
+  After two non-improving revisions, stop unless a concrete new evidence-backed hypothesis
+  and the task budget permit more work. A higher ceiling is not an attempt quota.
+  Never repeat an equivalent exhausted search; larger budgets require new evidence or improvement.
   Exhaustion means `candidate`. A focused zero followed by layout failure needs layout recovery.
 - `FIX_INTEGRATION`: fix source/layout before retrying a batch; never rerun an unchanged failure.
 - `BLOCKED_TOOLING`, unavailable required declarations or unapproved shared changes: stop and
@@ -46,6 +49,22 @@ Read [CONTRIBUTING.md](CONTRIBUTING.md) once per task. Consult the
 When moving past a candidate is authorized, use `defer <id> --reason <text>`; later use
 `resume <id>`. Use `reopen-match` for invalidated older match evidence. Never reproduce these
 transactions by hand. `permute` applies only exact results through transactional `finish`.
+
+## Sustained matching
+
+- Prioritize short registered spans, concrete declaration/type fixes, and proven sibling
+  source patterns. A low `CURRENT` score is not a probability of an easy match.
+- After a match, make at most one bounded lookup for nearby or similar raw-assembly siblings
+  within the authorized scope. Reuse the source-shape hypothesis, then inspect and `finish`
+  each selected function independently. Keep the per-target context lookup limit above.
+- Keep a task-owned ledger under `build/us/manual-attempts/<task-id>/`; consult relevant prior
+  ledgers across passes and compactions. Record source/input fingerprints, hypotheses, tested
+  changes, scores and diagnostic classes, best artifacts, exhausted approaches, and pending
+  batch IDs. This is an agent-maintained record, not an existing automatic tool feature or
+  a substitute for inventory transactions. See the workflow reference's sustained matching section.
+- Keep model settings unchanged unless requested. Evaluate future workflow/model pilots using
+  newly batch-verified matches per wall-clock hour and measured tokens when available; distinguish
+  rechecks, candidate improvements, and command time.
 
 ## Acceptance and scope
 
@@ -57,8 +76,12 @@ transactions by hand. `permute` applies only exact results through transactional
 - Follow `post-match-action` for integration; afterward run `progress check` and
   `git -c core.whitespace=cr-at-eol diff --check` because integration changed repository state.
 - Run one clean `verify-batch <ids...>` after a requested group; success is `BATCH_COMPLETE`.
-  Do not batch every single source-local match. The clean gate is required before commit/PR
-  or handoff; follow CONTRIBUTING.md for shared changes and source-unit transitions.
+  During sustained work, aim for 5–10 focused matches per batch; flush a smaller pending group
+  at about 45 minutes after its first match, before stopping/handoff/commit/PR, or at a required
+  integration boundary. Follow `post-match-action` immediately. Do not run a singleton batch
+  merely because one function matched, or an empty batch when there are no pending matches.
+  Persist pending IDs and clear them only after clean success. Follow CONTRIBUTING.md for
+  shared changes and source-unit transitions; a blocked batch remains pending and must be reported.
 - Use `diff --watch` only with interactive stdin/stdout; exit it before authoritative `finish`.
   Keep the warm container across functions; use `./conker stop` only for requested cleanup
   or when the broader contribution is finished with no likely follow-up work.

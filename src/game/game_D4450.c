@@ -100,6 +100,46 @@ void func_150A70C0(u8 *arg0, s32 arg1, u8 *arg2, u8 *arg3, u8 *arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A70C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D4450/func_150A70C0.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A71C8 CURRENT (11859) */
+void func_150A71C8(u8 *arg0, s32 arg1, u8 *arg2, u8 *arg3,
+                   u8 *arg4, u8 *arg5) {
+    f32 value;
+    f32 scale;
+    s32 end;
+    s32 index;
+    s32 color;
+    u16 phase;
+
+    scale = *(f32 *)(arg2 + 4);
+    phase = *(u16 *)(arg2 + 0x10);
+    end = (arg1 * 0x10) + (s32)arg0;
+    do {
+        index = (*arg4 - ((s32)phase >> 4)) & 0xFF;
+        if (index >= 0x41) {
+            if (index >= 0x81) {
+                if (index >= 0xC1) {
+                    value = D_8009A220[0x100 - index];
+                } else {
+                    value = -D_8009A220[index - 0x80];
+                }
+            } else {
+                value = -D_8009A220[0x80 - index];
+            }
+        } else {
+            value = D_8009A220[index];
+        }
+        color = (s32)(value * 1024.0f);
+        arg4++;
+        *(s8 *)(arg0 + 0xC) = ((color * arg3[1]) >> 10) + arg3[0];
+        *(s8 *)(arg0 + 0xD) = ((color * arg3[3]) >> 10) + arg3[2];
+        *(s8 *)(arg0 + 0xE) = ((color * arg3[5]) >> 10) + arg3[4];
+        *(s16 *)(arg0 + 2) = *(s16 *)(arg5 + 2) + (s32)(value * scale);
+        arg0 += 0x10;
+        arg5 += 0x10;
+    } while (end != (s32)arg0);
+    *(u16 *)(arg2 + 0x10) = (*(s8 *)(arg2 + 0x12) + phase) & 0xFFF;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150A71C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D4450/func_150A71C8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D4450/func_150A7360.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D4450/func_150A751C.s")

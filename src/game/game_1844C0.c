@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15157010
  * - func_151571C4
  * - func_151572D0
  * - func_15157420
@@ -14,12 +13,76 @@
  * - func_15157DEC
  * - func_15157F80
  * - func_15157FE8
- * - func_15158078
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157010.s")
+/* Raw identity-matrix entry reads only a0. Legacy callers also forward
+ * an unused a1, so retain an unspecified argument list for those calls. */
+void func_150A7BC0();
+
+void func_10022EC0(void *, void *, s32);
+/* Raw callee forwards full-width a0 and stores full-width a1. */
+s32 func_1503F62C(s32, s32, void *, void *, void **, void *, void *);
+void *func_1515D440(void);
+void *func_1515D480(s32);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void func_1503F5B8(void *, s32, s32, f32, f32, s32);
+extern s32 D_80082FA0;
+
+s32 func_15157010(s32 arg0, s32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+    s32 var_s0;
+    s32 var_s1;
+    s32 temp_v0_2;
+    u8 *temp_s0;
+    u8 *temp_s1;
+    u8 *temp_v0;
+
+    temp_v0_2 = *(u8 *)arg0;
+    var_s0 = 0x36;
+    if (temp_v0_2 & 0x80) {
+        var_s0 = 0x5B;
+    } else if (temp_v0_2 & 0x10) {
+        var_s0 = 0x4C;
+    }
+    temp_v0 = func_15167A68(var_s0, arg7, arg5 + 0x120, 1, (u8) (s32) (u8) arg6, 1U);
+    if (temp_v0 == 0) {
+        return 0;
+    }
+    func_10022EC0(temp_v0 + 0x10, (u8 *) arg0, 0x58);
+    func_1503F62C(*(s32 *)((u8 *)(temp_v0) + 0x18), *(s32 *)((u8 *)(temp_v0) + 0x1C), temp_v0 + 0x6C, temp_v0 + 0x70, (void **)(temp_v0 + 0x74), temp_v0 + 0x78, temp_v0 + 0x68);
+    temp_s0 = temp_v0 + 0x7C;
+    func_150A7BC0(temp_s0);
+    temp_s1 = temp_v0 + 0xBC;
+    func_150A7BC0(temp_s1);
+    *(u8 **)(*(u8 **)(temp_v0 + 0x68) + 0x3E0) = temp_s0;
+    *(u8 **)(*(u8 **)(temp_v0 + 0x68) + 0x3E4) = temp_s1;
+    func_1503F5B8(*(u8 **)((u8 *)(temp_v0) + 0x68), 1, arg1, arg2, 0.0f, 0);
+    *(s32 *)((u8 *)(temp_v0) + 0xFC) = arg3;
+    *(s32 *)((u8 *)(temp_v0) + 0x118) = arg4;
+    *(s8 *)((u8 *)(temp_v0) + 0x100) = 0;
+    var_s1 = 0;
+    temp_s0 = temp_v0;
+    do {
+        var_s1 += 1;
+        temp_s0 += 4;
+        *(s32 *)((u8 *)(temp_s0) + 0x100) = 0;
+    } while (var_s1 < 4);
+    *(u8 **)((u8 *)(temp_v0) + 0x114) = 0;
+    if (arg3 != 0) {
+        var_s1 = 0;
+        temp_s0 = temp_v0;
+        if (D_80082FA0 >= 0) {
+            do {
+                *(void **)((u8 *)(temp_s0) + 0x104) = func_1515D480(arg3);
+                var_s1 += 1;
+                temp_s0 += 4;
+            } while (D_80082FA0 >= var_s1);
+        }
+        *(u8 **)((u8 *)(temp_v0) + 0x114) = func_1515D440();
+    }
+    return (s32) temp_v0;
+}
 void func_100043B4(s32, s32);
 extern s32 D_80082FA0;
 
@@ -115,13 +178,12 @@ void func_151572D0(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_151572D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157420.s")
 extern u8 D_800BE9C0;
-void func_150A7BC0(s32 arg0, s32 arg1);
 
 s32 func_15157860(s32 arg0) {
     func_150A7BC0((s32)((u8 *)arg0 + (D_800BE9C0 << 6) + 0x7C), arg0);
     return 1;
 }
-void func_15169260(void *arg0, s32 arg1, s32 arg2, s32 arg3);
+void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A6060;
 void func_10022EC0(void *, void *, s32);
 s32 func_15157010(s32, s32, f32, s32, s32, s32, s32, s32);
@@ -190,10 +252,48 @@ extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 void func_15157D88(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x4C, arg0 + 0x50, arg0);
 }
+void func_15157DEC(u8 *, u8 *);
 s32 func_15157DC8(s32 arg0) {
-    func_15157DEC(arg0, arg0 + 0x120);
+    func_15157DEC((u8 *)arg0, (u8 *)(arg0 + 0x120));
     return 1;
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157DEC CURRENT (320) */
+void func_15157DEC(u8 *arg0, u8 *arg1) {
+    u8 *temp_v0;
+    u8 *temp_v0_2;
+    u8 *temp_v0_3;
+    u8 *temp_v0_4;
+    u8 *temp_v0_5;
+    u8 *temp_v0_6;
+    u8 *temp_v0_7;
+    u8 *temp_v0_8;
+    u8 *temp_v0_9;
+
+    func_150A8050((u8 *)((s32)arg0 + (D_800BE9C0 << 6) + 0x7C),
+                   *(f32 *)(arg1 + 0), *(s32 *)(arg1 + 4), *(f32 *)(arg1 + 8));
+    *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xAC) = *(f32 *)(arg0 + 0x54);
+    *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xB0) = *(f32 *)(arg0 + 0x58);
+    *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xB4) = *(f32 *)(arg0 + 0x5C);
+    temp_v0 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0 + 0x7C) *= *(f32 *)(arg1 + 0xC);
+    temp_v0_2 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_2 + 0x80) *= *(f32 *)(arg1 + 0xC);
+    temp_v0_3 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_3 + 0x84) *= *(f32 *)(arg1 + 0xC);
+    temp_v0_4 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_4 + 0x8C) *= *(f32 *)(arg1 + 0x10);
+    temp_v0_5 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_5 + 0x90) *= *(f32 *)(arg1 + 0x10);
+    temp_v0_6 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_6 + 0x94) *= *(f32 *)(arg1 + 0x10);
+    temp_v0_7 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_7 + 0x9C) *= *(f32 *)(arg1 + 0xC);
+    temp_v0_8 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_8 + 0xA0) *= *(f32 *)(arg1 + 0xC);
+    temp_v0_9 = arg0 + (D_800BE9C0 << 6);
+    *(f32 *)(temp_v0_9 + 0xA4) *= *(f32 *)(arg1 + 0xC);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15157DEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157DEC.s")
 typedef struct Game1844C0DisplayCommand {
     u32 word0;
@@ -244,9 +344,6 @@ void *func_15157FE8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15157FE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157FE8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15158078 CURRENT (260) */
 void func_15158078(s32 arg0, u8 arg1) {
     func_15169260(&D_800A6060, 3, arg0, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15158078 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15158078.s")

@@ -9,7 +9,6 @@
  * - func_15096A68
  * - func_15096D78
  * - func_1509759C
- * - func_15097798
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -108,4 +107,35 @@ block_6:
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_15096D78.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_1509759C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_15097798.s")
+typedef struct GameC3E20View {
+    u8 pad0[0x2A4];
+    f32 firstX;
+    f32 firstY;
+    f32 firstZ;
+    u8 pad2B0[0x48];
+    f32 secondX;
+    f32 secondY;
+    f32 secondZ;
+} GameC3E20View;
+
+void func_15048F90(void *, void *, void *);
+void func_1504917C(void *, void *);
+extern u8 *D_800DBFF0;
+extern s32 D_800D2E30[];
+
+void func_15097798(s32 arg0) {
+    GameC3E20View *view;
+    f32 direction[5];
+
+    view = (GameC3E20View *)(D_800DBFF0 + arg0 * 0x9A0);
+    if (D_800D2DB4 != 0) {
+        func_15048F90(&view->firstX, &view->secondX, direction + 2);
+        func_1504917C(direction + 2, direction + 2);
+        view->firstX += direction[2] * -2.5f * (f32)D_800D2E30[arg0];
+        view->firstY += direction[3] * -2.0f * (f32)D_800D2E30[arg0];
+        view->firstZ += direction[4] * -2.5f * (f32)D_800D2E30[arg0];
+        view->secondX += direction[2] * -2.5f * (f32)D_800D2E30[arg0];
+        view->secondY += direction[3] * -2.0f * (f32)D_800D2E30[arg0];
+        view->secondZ += direction[4] * -2.5f * (f32)D_800D2E30[arg0];
+    }
+}

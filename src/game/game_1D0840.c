@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_composite_emitter_timed_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151A3390
  * - func_151A361C
  * - func_151A37C0
  * - func_151A3BE4
@@ -23,7 +22,73 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3390.s")
+typedef struct Game1D0840LaunchPacket {
+    void *owner;
+    u8 mode;
+    u8 enabled;
+    u8 pad6[2];
+    f32 zero0;
+    f32 zero1;
+    f32 zero2;
+    f32 scale;
+    s16 field18;
+    s16 field1A;
+    s16 field1C;
+    u8 pad1E[2];
+    f32 field20;
+    f32 field24;
+    u8 field28;
+    u8 field29;
+    u8 field2A;
+    u8 field2B;
+    u8 field2C;
+    u8 field2D;
+    u8 field2E;
+    u8 pad2F;
+} Game1D0840LaunchPacket;
+
+void *func_151A3504(void *, u8);
+void func_151A4590(void *, s32);
+void func_151A499C(void *, u8);
+void func_10010154(s32, void *, s32, s32, s32);
+void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32,
+                    s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A8D50;
+extern f32 D_800A8D54;
+
+void func_151A3390(u8 *arg0, volatile u8 arg1) {
+    Game1D0840LaunchPacket packet;
+    f32 origin[3];
+
+    packet.owner = arg0;
+    packet.mode = arg0[0x3B];
+    packet.enabled = 1;
+    packet.zero0 = 0.0f;
+    packet.zero1 = 0.0f;
+    packet.zero2 = 0.0f;
+    packet.field2B = 1;
+    packet.field2C = 0xFF;
+    packet.field2D = 8;
+    packet.field2E = 0x1F;
+    packet.field18 = 0xAA;
+    packet.field1A = 0x28;
+    packet.field1C = 7;
+    packet.field28 = 2;
+    packet.field29 = 4;
+    packet.field2A = 1;
+    packet.scale = D_800A8D50;
+    packet.field20 = 30.0f;
+    packet.field24 = D_800A8D54;
+    func_151A3504(&packet, arg1);
+    func_151A4590(arg0, arg1);
+    func_151A499C(arg0, arg1);
+    func_10010154(0x1AA, arg0, 0x55F0, 0x3E8, 0xFA0);
+    origin[0] = 0.0f;
+    origin[1] = 0.0f;
+    origin[2] = 0.0f;
+    func_15160A58(arg0, 1, origin, 2, 0x12C, 0x50, 0xFF, 0xFF,
+                   0x75, 0xFF, 0, -1, 0, 0, arg1, 1);
+}
 typedef struct {
     f32 x;
     f32 y;
@@ -84,6 +149,99 @@ void *func_151A3504(void *arg0, u8 arg1) {
     }
     return result;
 }
+extern s32 D_800BE9E4;
+extern f32 D_800BE9A4;
+
+typedef struct Game1D0840TimedEntry {
+    Game1D0840Vec3 value0;
+    f32 fieldC;
+    s16 field10;
+    s16 field12;
+    u8 field14;
+    u8 pad15[3];
+} Game1D0840TimedEntry;
+
+typedef struct Game1D0840TimedState {
+    u8 pad0[0x1C];
+    s16 field1C;
+    u8 pad1E[6];
+    f32 field24;
+    u8 pad28[2];
+    s8 field2A;
+    u8 pad2B[5];
+    u8 flags30;
+    u8 pad31[0x1B];
+    u8 field4C;
+} Game1D0840TimedState;
+
+typedef struct Game1D0840TimedObject {
+    u8 pad0[0x25];
+    u8 field25;
+    u8 pad26[6];
+    s8 field2C;
+    s8 field2D;
+    s8 field2E;
+    u8 pad2F[0x25];
+    Game1D0840Vec3 output54;
+    u8 pad60[0x34];
+    Game1D0840TimedEntry *entries94;
+    Game1D0840TimedState *state98;
+} Game1D0840TimedObject;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A361C CURRENT (190) */
+s32 func_151A361C(Game1D0840TimedObject *arg0) {
+    Game1D0840TimedState *state = arg0->state98;
+    Game1D0840TimedEntry *entries = arg0->entries94;
+    Game1D0840TimedEntry *entry;
+    s32 index;
+    s32 current;
+
+    if (arg0->field2C < 2 && (state->flags30 & 1)) {
+        return 0;
+    }
+    state->field4C += state->field2A * D_800BE9E4;
+    index = arg0->field2E;
+    if (index != arg0->field2D) {
+        do {
+            index--;
+            if (index < 0) {
+                index = arg0->field25 - 1;
+            }
+            entry = &entries[index];
+            if (entry->field12 > 0) {
+                entry->field12 -= D_800BE9E4;
+            } else {
+                entry->field10 -= D_800BE9E4 * state->field1C;
+            }
+            entry->field14 = 0xFF;
+            entry->fieldC += D_800BE9A4 * state->field24;
+            if (entry->field10 < 0) {
+                state->flags30 &= ~2;
+                if (index != arg0->field2D) {
+                    do {
+                        current = arg0->field2D + 1;
+                        arg0->field2D = current;
+                        if (arg0->field25 == arg0->field2D) {
+                            arg0->field2D = 0;
+                        }
+                        arg0->field2C--;
+                    } while (index != arg0->field2D);
+                }
+                entries[arg0->field2D].field10 = 0;
+            }
+        } while (index != arg0->field2D);
+    }
+    if (arg0->field2C > 0) {
+        entry = &entries[arg0->field2D];
+        arg0->output54 = entry->value0;
+    } else {
+        arg0->output54.x = 0.0f;
+        arg0->output54.y = 0.0f;
+        arg0->output54.z = 0.0f;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A361C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A361C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A37C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3BE4.s")
@@ -239,9 +397,9 @@ void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if ((*(s32 *)((u8 *)arg1 + 4) - temp_v1) == 0) {
+        if (*(s32 *)((u8 *)arg1 + 4) == temp_v1) {
             *(s32 *)((u8 *)temp_v0 + 0) = (s32)arg0;
-            *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
+            *(u8 *)((u8 *)temp_v0 + 4) = *(u8 *)((u8 *)arg1 + 8);
         }
     }
 }
@@ -249,11 +407,11 @@ void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4CE0.s")
 extern void func_1516972C(void *arg0, u8 *arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4D88 CURRENT (35) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4D88 CURRENT (30) */
 void func_151A4D88(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
-    s32 temp_a0;
-    s32 temp_v1;
+    void *temp_a0;
+    void *temp_v1;
 
     temp_v0 = (u8 *)arg0 + 0x28;
     if (arg2 == 0) {
@@ -261,15 +419,15 @@ void func_151A4D88(void *arg0, u8 *arg1, u8 arg2) {
             func_1516972C(arg0, arg1);
         }
     } else if (arg2 == 0x2D) {
-        temp_a0 = *(s32 *)temp_v0;
-        temp_v1 = *(s32 *)arg1;
+        temp_v1 = *(void **)arg1;
+        temp_a0 = *(void **)temp_v0;
         if (temp_v1 == temp_a0) {
-            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
+            *(void **)temp_v0 = *(void **)(arg1 + 4);
             temp_v0[4] = arg1[9];
             return;
         }
-        if (*(s32 *)(arg1 + 4) == temp_a0) {
-            *(s32 *)temp_v0 = temp_v1;
+        if (*(void **)(arg1 + 4) == temp_a0) {
+            *(void **)temp_v0 = temp_v1;
             temp_v0[4] = arg1[8];
         }
     }

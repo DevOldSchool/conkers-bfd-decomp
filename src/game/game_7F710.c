@@ -11,6 +11,81 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game7F710MotionController {
+    u8 pad0[0x6B];
+    u8 mode;
+    s16 targetX;
+    s16 targetY;
+    s16 targetZ;
+} Game7F710MotionController;
+
+typedef struct Game7F710MotionObject {
+    u8 pad0[0x14];
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 speed;
+    f32 field24;
+    f32 timer;
+    u8 pad2C[0x57];
+    s8 field83;
+    u8 pad84[0x29];
+    s8 fieldAD;
+    u8 padAE[0x6A];
+    f32 threshold;
+    u8 pad11C[0xB0];
+    f32 cachedY;
+    u8 pad1D0[0x14C];
+    Game7F710MotionController *controller;
+} Game7F710MotionObject;
+
+void func_1505E650(Game7F710MotionObject *, s32, f32, f32, f32, f32, s32);
+void func_1505A770(Game7F710MotionObject *);
+extern f32 D_8009933C;
+extern f32 D_80099340;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15052260 CURRENT (30) */
+void func_15052260(Game7F710MotionObject *arg0) {
+    Game7F710MotionController *controller;
+    f32 factor;
+    f32 oldY;
+    f32 oldX;
+    f32 oldZ;
+
+    controller = arg0->controller;
+    if (controller->mode == 1 || controller->mode == 3) {
+        factor = D_8009933C;
+    } else {
+        factor = 1.0f;
+    }
+    oldY = arg0->y;
+    arg0->cachedY = oldY;
+    if (controller->mode < 4) {
+        oldX = arg0->x;
+        oldZ = arg0->z;
+        arg0->x = oldX + ((f32)controller->targetX - oldX) * factor;
+        arg0->y = oldY + ((f32)(controller->targetY - 0x50) - oldY) * factor;
+        arg0->z = oldZ + ((f32)controller->targetZ - oldZ) * factor;
+        func_1505E650(arg0, 0x14, 1.0f, 6.0f, 0.0f, 0.0f, 0);
+        arg0->speed = -10.0f;
+    } else {
+        if ((s32)arg0->timer == 0) {
+            controller->mode = 0;
+        } else {
+            func_1505E650(arg0, 0x38, 1.0f, 6.0f, 0.0f, 0.0f, 0);
+        }
+        func_1505A770(arg0);
+    }
+    arg0->field24 = D_80099340;
+    if (arg0->y < arg0->threshold) {
+        arg0->field24 = 0.0f;
+        arg0->speed = 0.0f;
+        arg0->controller->mode = 0;
+        arg0->field83 = 0;
+        arg0->fieldAD = 1;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15052260 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_7F710/func_15052260.s")
 typedef struct {
     u8 pad_0[0x95];

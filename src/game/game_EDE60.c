@@ -46,7 +46,7 @@ void func_1516972C(void *);
 void func_150C0A48(s32 arg0) {
     GameEDE60ResourceList *list;
     GameEDE60ResourceEntry *entries;
-    s16 index;
+    s32 index;
     s32 offset;
 
     list = (GameEDE60ResourceList *)arg0;
@@ -61,6 +61,56 @@ void func_150C0A48(s32 arg0) {
         } while (index != -1);
     }
 }
+/* SDK memcpy alias and the matched allocator declaration. */
+void *func_10022EC0(void *, const void *, u32);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 CURRENT (815) */
+void *func_150C0AC0(u8 *arg0, u8 arg1, s32 arg2) {
+    u8 *allocated;
+    s32 size;
+    s16 index;
+    s16 next;
+
+    size = (*(s16 *)(arg0 + 0x14) * 8) + 0x48;
+    if (!(arg0[0x18] & 2)) {
+        if (*(s32 **)(arg0 + 8) == 0) {
+            return 0;
+        }
+        if (**(s32 **)(arg0 + 8) == 0) {
+            return 0;
+        }
+    }
+    allocated = func_15167A68(0x25, arg2, size, 1, arg1, 1);
+    if (allocated == 0) {
+        return 0;
+    }
+    func_10022EC0(allocated + 0x18, arg0, 0x1C);
+    *(u8 **)(allocated + 0x40) = allocated + 0x48;
+    if (arg0[0x18] & 2) {
+        *(f32 *)(allocated + 0x34) = **(f32 **)(allocated + 0x18);
+        *(f32 *)(allocated + 0x38) = *(f32 *)(*(u8 **)(allocated + 0x18) + 8);
+    } else {
+        *(f32 *)(allocated + 0x34) = *(f32 *)(*(u8 **)(allocated + 0x20) + 0x14);
+        *(f32 *)(allocated + 0x38) = *(f32 *)(*(u8 **)(allocated + 0x20) + 0x1C);
+    }
+    *(f32 *)(allocated + 0x3C) = 0.0f;
+    *(s16 *)(allocated + 0x44) = -1;
+    *(s16 *)(allocated + 0x46) = 0;
+    index = 0;
+    if (*(s16 *)(arg0 + 0x14) - 1 > 0) {
+        do {
+            next = index + 1;
+            *(s16 *)(*(u8 **)(allocated + 0x40) + (index * 8) + 4) = next;
+            index = next;
+        } while (next < *(s16 *)(arg0 + 0x14) - 1);
+    }
+    *(s16 *)(*(u8 **)(allocated + 0x40) + (*(s16 *)(arg0 + 0x14) * 8) - 4) = -1;
+    *(s32 *)(allocated + 0x10) = 1;
+    *(s32 *)(allocated + 0x14) = 0;
+    return allocated;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C0AC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0AC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EDE60/func_150C0C38.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1198 CURRENT (440) */

@@ -19,7 +19,6 @@
  * - func_15124C38
  * - func_1512523C
  * - func_15125330
- * - func_15125394
  * - func_151253CC
  * - func_15125490
  * - func_151254F4
@@ -42,6 +41,46 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+s32 func_150859AC(s32, s32);
+s32 func_15123934(void *, s32, s32, s32, s32);
+s32 func_151239CC(void *, s32);
+void func_15122C5C(void *);
+void func_1512C490(void *);
+extern s32 D_80082FA0;
+extern s32 D_800894B0;
+extern f32 D_800A34D0;
+extern s32 D_800BEA08;
+extern u8 D_800BEAC0;
+extern u8 D_800C35EA;
+extern s32 D_800D2DB4;
+extern u8 *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122AE0 CURRENT (290) */
+void func_15122AE0(void) {
+    f32 scale = (f32)D_800BEA08 * D_800A34D0;
+    s32 i;
+    u8 *camera;
+
+    if (D_80082FA0 >= 0) {
+        i = 0;
+        do {
+            camera = D_800DBFF0 + i * 0x9A0;
+            if (func_150859AC((s16)i, 0) != 0 || i == 0) {
+                *(f32 *)(camera + 0x7B4) = scale;
+                if (D_800BEAC0 == 0 || D_800C35EA != 0 || D_800D2DB4 != 0) {
+                    func_151239CC(camera, 5);
+                    func_15122C5C(camera);
+                } else {
+                    func_15123934(camera, 0x2000, 0, *(s32 *)(camera + 0x134), 5);
+                    func_1512C490(camera);
+                }
+            }
+            i = (s16)(i + 1);
+        } while (D_80082FA0 >= i);
+    }
+    D_800894B0++;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15122AE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122AE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122C5C.s")
 void func_15048F90(void *, void *, void *);
@@ -89,9 +128,56 @@ void func_15123508(void *arg0) {
         }
     }
 }
+void func_15124B18(u8 *);
+void func_15125608(f32 *);
+extern f32 D_800A34D8;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15123568 CURRENT (630) */
+void func_15123568(u8 *arg0) {
+    s32 timer;
+
+    if (*(u8 *)(*(u8 **)(arg0 + 0x3D4) + 0x120) == 4 &&
+        *(s32 *)(arg0 + 0x2C) != 0x40 &&
+        *(u8 *)(arg0 + 0x92C) == 0) {
+        *(f32 *)(arg0 + 0x7C0) = D_800A34D8;
+        *(s16 *)(arg0 + 0x1B4) = 1;
+        func_15124B18(arg0);
+        *(f32 *)(arg0 + 0x198) = 0.0f;
+        *(f32 *)(arg0 + 0x190) = 0.0f;
+        return;
+    }
+    timer = *(s32 *)(arg0 + 0x7B8);
+    if (timer > 0) {
+        timer -= D_800BE9E4;
+        *(s32 *)(arg0 + 0x7B8) = timer;
+        if (timer < 0) {
+            *(s32 *)(arg0 + 0x7B8) = 0;
+        }
+    } else if ((*(s32 *)(arg0 + 0x84) & 4) &&
+               (*(u16 *)(arg0 + 0x36A) & 8) &&
+               *(s32 *)(arg0 + 0xDC) != 4 &&
+               (*(s32 *)(arg0 + 0x6C8) == 0 ||
+                *(s32 *)(arg0 + 0x6FC) == 4) &&
+               (*(u8 *)(*(u8 **)(arg0 + 0x3D0) + 0xAD) != 1 ||
+                *(s16 *)(arg0 + 0x1B4) != 1) &&
+               *(s16 *)(arg0 + 0x1B4) != 1) {
+        do {
+            *(s16 *)(arg0 + 0x1B4) -= 1;
+            if (*(s16 *)(arg0 + 0x1B4) <= 0) {
+                *(s16 *)(arg0 + 0x1B4) = 3;
+            }
+        } while (!((1 << *(s16 *)(arg0 + 0x1B4)) &
+                   *(s16 *)(arg0 + 0x1E0)));
+        func_15124B18(arg0);
+        func_15125608((f32 *)arg0);
+        *(s32 *)(arg0 + 0x7B8) = 0x14;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15123568 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15123568.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_151236D0.s")
-s32 func_15125394(void);
+void func_15125394(void *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15123934 CURRENT (1090) */
 s32 func_15123934(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -179,10 +265,11 @@ void func_15124AB4(void *arg0) {
 extern f32 D_800A34B0[];
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15124B18 CURRENT (45) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15124B18 CURRENT (15) */
 void func_15124B18(u8 *arg0) {
-    f32 *temp_v0;
+    s16 temp_t7;
     s32 temp_t8;
+    f32 *temp_v0;
 
     if (*(s16 *)(arg0 + 0x1B4) == 0) {
         *(s16 *)(arg0 + 0x1B4) = 4;
@@ -214,7 +301,8 @@ void func_15124B18(u8 *arg0) {
         *(f32 *)(arg0 + 0x374) = 194.0f;
         return;
     }
-    temp_v0 = &D_800A34B0[*(s16 *)(arg0 + 0x1B4) * 2];
+    temp_t7 = *(s16 *)(arg0 + 0x1B4);
+    temp_v0 = &D_800A34B0[temp_t7 * 2];
     *(f32 *)(arg0 + 0x374) = temp_v0[0];
     *(f32 *)(arg0 + 0x348) = temp_v0[1];
     *(f32 *)(arg0 + 0x34C) = *(f32 *)(arg0 + 0x348);
@@ -277,22 +365,21 @@ void func_15125330(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15125330 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125330.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15125394 CURRENT (290) */
 void func_15125394(void *arg0) {
-    s16 var_v0;
+    s32 var_v0;
     s32 temp_v1;
+    s32 mask;
 
-    temp_v1 = *(s32 *)((u8 *)arg0 + 0x2C);
     var_v0 = 0;
+    temp_v1 = *(s32 *)((u8 *)arg0 + 0x2C);
     if (!(temp_v1 & 1)) {
         do {
             var_v0 += 1;
-        } while (!(temp_v1 & (1 << var_v0)));
+            mask = 1 << var_v0;
+        } while (!(temp_v1 & mask));
     }
     *(s16 *)((u8 *)arg0 + 0) = var_v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15125394 */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125394.s")
 void func_15124AB4(void *);
 void func_1512523C(void *);
 void func_15125330(void *);
@@ -507,6 +594,67 @@ void func_15125924(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15125924 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125924.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125A6C.s")
+typedef struct CameraCameraTransition {
+    u8 pad0[0x23E];
+    u8 mode;
+    u8 pad23F[0x12B];
+    u16 status36A;
+    u16 *status36C;
+    u8 pad370[0x60];
+    u8 *position;
+    u8 pad3D4[0x21C];
+    s32 flags;
+    u8 pad5F4[0x1D8];
+    s32 timer;
+} CameraCameraTransition;
+
+void func_1509BFB0(s32, s32, s32, s32, ...);
+extern u8 D_800D1940;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15125C40 CURRENT (550) */
+void func_15125C40(CameraCameraTransition *arg0) {
+    s32 isSpecial;
+    s32 isActive;
+    s32 timer;
+    s32 mode;
+
+    mode = arg0->mode;
+    isSpecial = D_800D1940 == 0x42;
+    if (isSpecial != 0) {
+        isSpecial = mode == 0x1A;
+    }
+    isActive = mode == 3;
+    if (isActive == 0) {
+        isActive = mode == 0x1A;
+        if (isActive == 0) {
+            isActive = isSpecial != 0;
+        }
+    }
+    timer = arg0->timer - 1;
+    arg0->timer = timer;
+    if (isActive != 0) {
+        if (timer == 0) {
+            if (isSpecial != 0) {
+                func_1509BFB0(3, 0x9000, 0x18,
+                              (s32)*(f32 *)(arg0->position + 0x40), 0, 0xFA);
+            } else if (mode == 0x1A) {
+                func_1509BFB0(3, 0x9000, 0x18, 0, 0, 0xFA);
+            }
+            arg0->flags |= 2;
+            *arg0->status36C |= 0x10;
+            arg0->timer = 1;
+            arg0->status36A |= 0x10;
+        }
+    } else {
+        if ((arg0->flags & 2) && (isActive == 0)) {
+            func_1509BFB0(1, 0x9000, 0x10, 0);
+            func_1509BFB0(1, 0x9000, 0xF, 0);
+            arg0->flags &= ~2;
+        }
+        arg0->timer = 2;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15125C40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125C40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15125DB4.s")
 void func_151220D0(void *);

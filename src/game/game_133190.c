@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15105CE0
  * - func_1510608C
- * - func_151061EC
  * - func_15106214
  * - func_15106610
  * - func_151067B8
@@ -48,20 +47,70 @@ typedef struct Game133190Object {
     Game133190Holder *holder;
 } Game133190Object;
 
+typedef s32 (*Game133190EventCallback)(void *, u8 *);
+typedef struct Game133190Triple {
+    s32 x;
+    s32 y;
+    s32 z;
+} Game133190Triple;
+extern Game133190EventCallback D_80088C10[];
+extern s32 D_800BE9E4;
+void func_1516972C(void *);
+void func_15106214(s32);
+void func_15106610(void *);
+u32 func_150ADA20(void);
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15105CE0.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510608C CURRENT (91) */
+void func_1510608C(void *arg0) {
+    u8 sp2B[1];
+    Game133190EventCallback temp_v1;
+    s8 temp_v0;
+    void *temp_v0_2;
+    void *temp_v0_3;
+
+    sp2B[0] = 0;
+    temp_v0 = *(s8 *)((u8 *)arg0 + 0x44);
+    if (temp_v0 != -1) {
+        temp_v1 = D_80088C10[temp_v0];
+        if ((temp_v1 != 0) && (temp_v1(arg0, sp2B) == 0)) {
+            func_1516972C(arg0);
+        }
+    }
+    if (*(u8 *)((u8 *)arg0 + 0x12) & 1) {
+        *(s16 *)((u8 *)arg0 + 0x10) = (s16)(*(s16 *)((u8 *)arg0 + 0x10) - D_800BE9E4);
+        if (*(s16 *)((u8 *)arg0 + 0x10) < 0) {
+            func_1516972C(arg0);
+        }
+    }
+    if (sp2B[0] != 0) {
+        func_15106214((s32)arg0);
+    }
+    *(s16 *)((u8 *)arg0 + 0x68) = (s16)(*(s16 *)((u8 *)arg0 + 0x68) - D_800BE9E4);
+    if (*(s16 *)((u8 *)arg0 + 0x68) < 0) {
+        func_15106610(arg0);
+        *(s16 *)((u8 *)arg0 + 0x68) = (s16)((func_150ADA20() % (u32)(*(s16 *)((u8 *)arg0 + 0x56) + 1)) + *(s16 *)((u8 *)arg0 + 0x54));
+    }
+    temp_v0_2 = *(void **)((u8 *)arg0 + 0x6C);
+    if (temp_v0_2 != 0) {
+        *(Game133190Triple *)((u8 *)temp_v0_2 + 0x40) = *(Game133190Triple *)((u8 *)arg0 + 0x14);
+    }
+    temp_v0_3 = *(void **)((u8 *)arg0 + 0x70);
+    if (temp_v0_3 != 0) {
+        *(Game133190Triple *)((u8 *)temp_v0_3 + 0x40) = *(Game133190Triple *)((u8 *)arg0 + 0x38);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510608C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_1510608C.s")
 s32 func_151061E0(s32 arg0) {
     return arg0 + 0x88;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151061EC CURRENT (10) */
 void *func_151061EC(u8 *arg0) {
     s32 temp_v1;
 
     temp_v1 = *(s32 *)((u8 *)arg0 + 0x48);
-    return arg0 + (temp_v1 * 0x34) + 0x88;
+    return (void *)((s32)arg0 + (temp_v1 * 0x34) + 0x88);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151061EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151061EC.s")
 /* Call context: func_151061E0: unique active project prototype */
 /* Call context: func_151064B4: unique active project prototype */
 /* Call context: func_151064DC: unique active project prototype */
@@ -179,6 +228,57 @@ f32 func_151065BC(f32 arg0) {
 f32 func_151065EC(f32 arg0) {
     return 3.0f * arg0 * arg0;
 }
+typedef struct Game133190CurveObject {
+    u8 pad0[0x14];
+    Game133190Triple first;
+    u8 pad20[0x18];
+    Game133190Triple last;
+    u8 pad44[4];
+    s32 count;
+    f32 scale;
+} Game133190CurveObject;
+
+void *func_151061EC(u8 *);
+f32 func_150ADA68(void);
+void func_15143874(s16, f32, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106610 CURRENT (2042) */
+void func_15106610(void *arg0) {
+    struct {
+        f32 sp50;
+        f32 sp54;
+        u8 pad[0x10];
+    } local;
+    f32 *control;
+    f32 *currentControl;
+    f32 *output;
+    f32 *currentOutput;
+    s32 count;
+    u32 random;
+    Game133190CurveObject *obj = arg0;
+
+    control = (f32 *)func_151061E0((s32)arg0);
+    output = func_151061EC((u8 *)arg0);
+    *(Game133190Triple *)output = obj->first;
+    ((Game133190Triple *)output)[obj->count + 1] = obj->last;
+    count = 1;
+    currentOutput = output + 3;
+    currentControl = control;
+    if (obj->count + 1 >= 2) {
+        do {
+            random = func_150ADA20();
+            func_15143874((s16)(random & 0xFF), func_150ADA68() * obj->scale,
+                          &local.sp50, &local.sp54);
+            currentOutput[0] = (currentControl[7] * local.sp50) + (currentControl[10] * local.sp54) + currentControl[1];
+            currentOutput[1] = (currentControl[8] * local.sp50) + (currentControl[11] * local.sp54) + currentControl[2];
+            currentOutput[2] = (currentControl[9] * local.sp50) + (currentControl[12] * local.sp54) + currentControl[3];
+            count++;
+            currentOutput += 3;
+            currentControl += 13;
+        } while (obj->count >= count);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15106610 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151067B8.s")
 void func_15106E78(void *arg0);
@@ -239,6 +339,52 @@ void func_15106F50(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15106F50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F50.s")
+typedef struct Game133190FourTriples {
+    Game133190Triple values[4];
+} Game133190FourTriples;
+
+typedef struct Game133190SpawnPacket {
+    s32 count;
+    s32 field44;
+    s32 field48;
+    s32 pad4C;
+    Game133190FourTriples positions;
+    u8 field80;
+    u8 pad81[3];
+} Game133190SpawnPacket;
+
+s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
+void func_151070F8(s32, s32, s16, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106F98 CURRENT (505) */
+s32 func_15106F98(Game133190Triple *arg0, Game133190Triple *arg1,
+                  s32 arg2, Game133190FourTriples *arg3, s32 arg4,
+                  u8 arg5, u8 arg6, s32 arg7) {
+    s32 result;
+    Game133190SpawnPacket packet;
+    u8 *object;
+    Game133190Triple *positions;
+
+    packet.count = (1 << arg2) + 1;
+    packet.field48 = 0;
+    packet.field44 = 0;
+    packet.positions = *arg3;
+    packet.field80 = arg5;
+    result = func_15149130(0, -1, 0x3E, -1, 0, 0x30,
+                           (packet.count * 0xC) + 0x48, arg6, arg7);
+    if (result != 0) {
+        object = (u8 *)result + 0x28;
+        func_10022EC0(object, &packet, 0x44);
+        positions = (Game133190Triple *)(object + 0x48);
+        *(Game133190Triple **)(object + 0xC) = positions;
+        positions[0] = *arg0;
+        positions[packet.count - 1] = *arg1;
+        func_151070F8(result, 0, (s16)(packet.count - 1), arg4);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15106F98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15106F98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151070F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_151072BC.s")

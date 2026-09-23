@@ -54,12 +54,41 @@ For a mismatch, use the latest `finish` diagnosis. Make at most three
 source-only variants for a bounded manual attempt. Use `diagnose-diff` when
 evidence is stale or unavailable, and use `diff --watch` only with interactive
 stdin and stdout. A register-only candidate may use one `permute --budget 32` search
-per distinct candidate and settings when the task allows it. Increase the budget only
-after improvement or a new source shape; never repeat an unchanged search. Otherwise
+per distinct candidate and settings when the task allows it and an untried supported
+transformation plausibly addresses the diff. Classification alone does not justify a search.
+Increase the budget only after improvement or an evidence-backed new source
+shape; never repeat an unchanged search. Otherwise
 inspect the saved full diff, make two targeted revisions, and rerun `finish`. If it remains unmatched, report `candidate`.
 When explicitly authorized to move on, use `./conker defer <id> --reason ...`;
 use `resume` or `reopen-match` for supported recovery. Never reproduce those
 transactions by editing inventory JSON.
+
+### Sustained manual matching
+
+Prioritize short registered spans, concrete declaration/type corrections, and
+functions with a proven sibling source pattern. After a successful fix, make one
+bounded lookup for nearby or similar raw-assembly functions within the authorized
+scope. A sibling's source is a hypothesis: inspect and run `finish` for every
+target independently. A low `CURRENT` score alone does not imply an easy match.
+
+Keep a compact task-owned ledger under `build/us/manual-attempts/<task-id>/` and
+consult relevant earlier ledgers before retrying work. Record fingerprints,
+hypotheses, tested changes, scores/diagnostic classes, best artifacts, exhausted
+approaches, and pending batch IDs. After two non-improving manual revisions,
+stop unless new evidence supports another concrete hypothesis within the task's
+budget. Extra authorized attempts are a ceiling, not a quota. Preserve the best
+candidate with `defer` when moving on is authorized.
+
+During continuous work, aim for 5–10 focused matches per clean `verify-batch`.
+Flush a smaller pending group at about 45 minutes after its first match, before
+stopping, handoff, commit/PR, or at a required integration boundary. Follow
+`post-match-action` immediately. Persist pending IDs until clean success; report
+any blocked batch as pending. These scheduling choices never relax the focused,
+layout, progress, whitespace, or clean batch gates.
+
+The ledger is an agent-maintained local record, not automatic manual-history
+support in the tools. See [the sustained matching reference](docs/decompilation-workflow.md#sustained-manual-matching)
+for its fields, reuse rules, and evaluation guidance.
 
 ### Low-usage manual m2c mode
 
@@ -200,6 +229,28 @@ candidate object's switch relocations and compares case targets to the
 checksum-validated ROM. Unsupported dispatches fail closed. This checks table
 contents early; `finish`, linker layout checks, and clean batch ROM verification
 remain required.
+
+US game candidates with different address-bearing data aliases may also use a
+linked comparison. Both original objects are linked independently at the
+registered address, and their entire registered spans must equal each other and
+the checksum-validated ROM. Only then are those bytes passed to the same bounded
+asm-differ gate. Unsupported relocations keep the normal symbolic comparison;
+original objects still supply switch-table evidence. Watch mode remains symbolic
+and requires a fresh `finish` afterward.
+
+Reviewed handwritten game routines can be retained as verified original assembly:
+
+```sh
+./conker verify-original-asm <id> --reason "reviewed custom ABI" --evidence-reference docs/evidence/<review>.md
+./conker verify-original-asm <id> --check
+```
+
+This assembles and links the unchanged `GLOBAL_ASM` body and verifies its full
+registered ROM span, including any embedded data. The host records the proof
+transactionally. The `original_asm` state removes the item from C-candidate
+selection and is reported separately; it contributes no C matches or matched
+bytes and does not complete a C source unit. `verify-batch` accepts these items
+alongside C matches and revalidates their assembly proofs.
 
 The full scan is an explicit, long-running operation:
 

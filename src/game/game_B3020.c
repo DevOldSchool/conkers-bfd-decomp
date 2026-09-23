@@ -21,7 +21,7 @@ typedef struct {
 } GameB3020Image;
 
 GameB3020Image *func_1502B5C8(s32, s32, s32, void *);
-void func_15085BE8(void);
+s32 func_15085BE8(void);
 extern s16 D_80087290;
 extern s16 D_80087294;
 extern u8 *D_800D2350;
@@ -41,10 +41,92 @@ void func_15085B70(void *arg0) {
     }
     func_15085BE8();
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15085BE8.s")
+extern f32 D_8009D9C0;
+extern f32 D_8009D9C4;
+extern f32 D_8009D9C8;
+extern u8 D_800D2358;
 extern f32 D_800D2360;
 extern u8 D_800D237C[];
 
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15085BE8 CURRENT (4345) */
+s32 func_15085BE8(void) {
+    f32 lower[6];
+    f32 upper[6];
+    f32 *lowerPtr;
+    f32 *upperPtr;
+    u8 *record;
+    u8 *order;
+    f32 *split;
+    f32 value;
+    f32 a;
+    f32 b;
+    f32 initialLower;
+    f32 initialUpper;
+    s32 offset;
+    s32 i;
+    s32 count;
+    s32 overlap;
+
+    initialLower = D_8009D9C0;
+    initialUpper = D_8009D9C4;
+    overlap = 0;
+    lowerPtr = lower;
+    upperPtr = upper;
+    do {
+        lowerPtr++;
+        upperPtr++;
+        upperPtr[-1] = initialUpper;
+        lowerPtr[-1] = initialLower;
+    } while ((u32)lowerPtr < (u32)upper);
+    if (D_80087290 > 0) {
+        offset = 0;
+        record = D_800D2350;
+        do {
+            value = (f32)*(s16 *)(record + 2);
+            i = record[6];
+            offset += 0x10;
+            if (value < upper[i]) {
+                upper[i] = value;
+            }
+            if (lower[i] < value) {
+                lower[i] = value;
+            }
+            record += 0x10;
+        } while (offset < D_80087290 * 0x10);
+    }
+    D_800D2358 = 0;
+    lowerPtr = lower;
+    upperPtr = upper;
+    for (i = 0; i < 6; i++, lowerPtr++, upperPtr++) {
+        if (*upperPtr <= *lowerPtr) {
+            D_800D237C[D_800D2358] = i;
+            D_800D2358++;
+        }
+    }
+    order = D_800D237C;
+    count = (s32)D_800D2358 - 1;
+    i = 0;
+    if (count > 0) {
+        split = &D_800D2360;
+loop_overlap:
+            i++;
+            a = lower[order[0]];
+            b = upper[order[1]];
+            order++;
+            *split = (b + a) * 0.5f;
+            if (b < a) {
+                overlap = 1;
+            }
+            split++;
+            if (i < count) {
+                goto loop_overlap;
+            }
+    }
+    (&D_800D2360)[i] = D_8009D9C8;
+    return overlap;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15085BE8 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_B3020/func_15085BE8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15085DA8 CURRENT (540) */
 u8 func_15085DA8(f32 arg0) {
     f32 *var_v0;

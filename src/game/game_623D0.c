@@ -82,5 +82,61 @@ s32 func_15035714(s32 arg0, u8 *arg1, u8 *arg2, register f32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035714.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035808.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035D6C.s")
+typedef struct Game623D0Entry {
+    s32 word;
+    u8 field4;
+    u8 field5;
+    u8 field6;
+    u8 field7;
+    u8 field8;
+    u8 pad9[2];
+    u8 fieldB;
+} Game623D0Entry;
+
+void *func_1502CCFC(void *, u8, void *, s32, s32, s32 *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15035FE8 CURRENT (7949) */
+void *func_15035FE8(void *arg0, void *arg1) {
+    u8 *cursor;
+    Game623D0Entry *entry;
+    Game623D0Entry *end;
+    s32 colors[4];
+    u8 count;
+
+    cursor = arg0;
+    if ((u8)D_800C3F00 != 0) {
+        *(u32 *)(cursor + 4) = 0x200004;
+        *(u32 *)cursor = 0xD9FFFFFF;
+        cursor += 8;
+        *(u32 *)cursor = 0xD9EEFFFF;
+        *(u32 *)(cursor + 4) = 0;
+        cursor += 8;
+        *(u32 *)cursor = 0xE2001E01;
+        *(u32 *)(cursor + 4) = 0;
+        cursor += 8;
+        count = (u8)D_800C3F00;
+        entry = (Game623D0Entry *)D_800C3F08;
+        if (count > 0) {
+            do {
+                if (entry->fieldB != 0) {
+                    end = (Game623D0Entry *)(D_800C3F08 + count * 0xC);
+                } else {
+                    colors[3] = 0xFF;
+                    colors[0] = entry->field5;
+                    colors[1] = entry->field6;
+                    colors[2] = entry->field7;
+                    cursor = func_1502CCFC(cursor, entry->field8, arg1,
+                                           entry->word, entry->field4,
+                                           colors, 0, 1);
+                    count = (u8)D_800C3F00;
+                    end = (Game623D0Entry *)(D_800C3F08 + count * 0xC);
+                }
+                entry++;
+            } while (entry < end);
+        }
+    }
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15035FE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035FE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15036148.s")
