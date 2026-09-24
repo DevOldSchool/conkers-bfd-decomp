@@ -5,9 +5,7 @@
  * Boundary evidence: docs/evidence/game_raw_render_effect_lifecycles.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151B2060
  * - func_151B2100
- * - func_151B229C
  * - func_151B22F4
  * - func_151B2348
  * - func_151B2690
@@ -46,27 +44,27 @@ void func_10022EC0(s32, void *, s32);
 s32 func_15083E90(s32, void *);
 s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B2060 CURRENT (134) */
 void func_151B2060(void *arg0) {
-    Game1DF510Packet packet;
+    struct {
+        Game1DF510Packet packet;
+        s32 padding;
+    } frame;
     s32 object;
 
     if (arg0 != 0) {
-        packet.field_0 = arg0;
-        packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
-        packet.field_8 = func_15083E90(1, arg0);
-        packet.field_C = 1;
-        packet.field_D = 0;
-        func_100226F0(packet.field_10, 0xC);
-        packet.field_1C = 0;
+        frame.packet.field_0 = arg0;
+        frame.packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
+        frame.packet.field_8 = func_15083E90(1, arg0);
+        frame.packet.field_C = 1;
+        frame.packet.field_D = 0;
+        func_100226F0(frame.packet.field_10, 0xC);
+        frame.packet.field_1C = 0;
         object = func_151491F4(0x12C, -1, 0x16, 0, 0x12, 0x20, 0xFF, 1);
         if (object != 0) {
-            func_10022EC0(object + 0x28, &packet, 0x20);
+            func_10022EC0(object + 0x28, &frame.packet, 0x20);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B2060 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B2060.s")
 s32 func_151B22F4();
 void func_151B2348();
 void func_151B2690();
@@ -130,13 +128,10 @@ void func_151B222C(Game1DF510EffectOwner *arg0) {
 void func_1514933C(s32);
 void func_15149368(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B229C CURRENT (200) */
 void func_151B229C(s32 arg0) {
-    func_151B220C();
+    func_151B220C(arg0);
     func_1514933C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B229C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DF510/func_151B229C.s")
 void func_151B22C8(s32 arg0) {
     func_151B220C(arg0);
     func_15149368(arg0);
@@ -157,7 +152,7 @@ typedef struct {
 
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B22F4 CURRENT (780) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B22F4 CURRENT (885) */
 s32 func_151B22F4(Game1DF510State *arg0) {
     Game1DF510Entry *temp_v1;
 

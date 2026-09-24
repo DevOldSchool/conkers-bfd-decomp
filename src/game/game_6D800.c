@@ -54,12 +54,12 @@ s32 func_1504072C(s32 arg0) {
 void func_15040748(s32 arg0) {
 
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15040754 CURRENT (1010) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15040754 CURRENT (85) */
 s32 func_15040754(void *arg0) {
     u32 temp_v1;
 
     temp_v1 = *(u32 *)((u8 *)arg0 + 0);
-    if ((((temp_v1 >> 1) & 0x7F) - ((temp_v1 >> 0xC) & 0xFF)) < 0) {
+    if ((s32)(((temp_v1 >> 1) & 0x7F) - ((temp_v1 >> 0xC) & 0xFF)) < 0) {
         return 1;
     }
     return func_1504072C(*(s32 *)((u8 *)arg0 + 4));

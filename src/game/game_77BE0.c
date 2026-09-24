@@ -251,8 +251,8 @@ s32 func_1504C8BC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1504C8BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C8BC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 CURRENT (810) */
-void func_1504C9E4(void *arg0, s8 arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504C9E4 CURRENT (450) */
+void func_1504C9E4(void *arg0, s8 arg1, u8 arg2) {
     s32 temp_t8;
     s32 var_a2;
     s8 temp_v1;
@@ -261,7 +261,7 @@ void func_1504C9E4(void *arg0, s8 arg1, s32 arg2) {
     temp_t8 = (temp_v1 - arg1) & 0xFF;
     if (temp_t8 != 0) {
         var_a2 = 3;
-        if ((arg2 & 0xFF) == 0x10) {
+        if (arg2 == 0x10) {
             var_a2 = 6;
         }
         if (temp_t8 >= 0x80) {

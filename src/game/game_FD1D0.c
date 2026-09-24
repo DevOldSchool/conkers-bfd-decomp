@@ -60,26 +60,25 @@ s32 func_150CFD84(s32 arg0, s32 *arg1) {
     *arg1 = temp_v0;
     return temp_v0 - arg0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 CURRENT (1359) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFDB8 CURRENT (249) */
 s32 func_150CFDB8(u8 *arg0) {
     s32 temp_v0_3;
     s32 var_s0;
     u32 temp_v0;
     s32 sp2C;
     u8 *temp_v0_2;
-    u8 *var_a0;
 
     var_s0 = 0;
     temp_v0 = func_150CFD5C(arg0);
-    var_a0 = arg0;
-    if ((u32) var_a0 < temp_v0) {
+    if ((u32)arg0 < temp_v0) {
         do {
-            temp_v0_3 = func_150CFD84((s32) var_a0, &sp2C);
+            temp_v0_3 = func_150CFD84((s32)arg0, &sp2C);
             if (var_s0 < temp_v0_3) {
                 var_s0 = temp_v0_3;
             }
-            temp_v0_2 = sp2C + 1;
-            var_a0 = temp_v0_2;
+            temp_v0_2 = (u8 *)sp2C;
+            temp_v0_2 += 1;
+            arg0 = temp_v0_2;
         } while ((u32) temp_v0_2 < temp_v0);
     }
     return var_s0;

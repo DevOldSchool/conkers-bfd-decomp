@@ -346,21 +346,21 @@ void func_151C1798(Game1ED0F0Object *arg0, f32 *arg1) {
     func_15143134(&D_800AA958[index].x, arg1,
                   (D_800AA954[index] << 6) + arg0->transform);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1814 CURRENT (205) */
-void func_151C1814(u8 *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C1814 CURRENT (10) */
+void func_151C1814(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a2;
     s32 temp_v1;
     u8 *temp_v0;
 
     temp_v0 = (void *)(arg0 + 0x170);
-    if ((arg2 & 0xFF) == 0x2D) {
+    if (arg2 == 0x2D) {
         temp_v1 = *(s32 *)((u8 *)arg1 + 0);
         temp_a2 = *(s32 *)((u8 *)temp_v0 + 0x6C);
         if (temp_v1 == temp_a2) {
             *(s32 *)((u8 *)temp_v0 + 0x6C) = (s32) *(s32 *)((u8 *)arg1 + 4);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == temp_a2) {
+        if (temp_a2 == *(s32 *)((u8 *)arg1 + 4)) {
             *(s32 *)((u8 *)temp_v0 + 0x6C) = temp_v1;
         }
     }

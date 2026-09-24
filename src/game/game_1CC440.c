@@ -204,19 +204,20 @@ void func_1519F400(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F400.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F48C CURRENT (140) */
-void func_1519F48C(u8 *arg0) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F48C CURRENT (35) */
+void func_1519F48C(Game1CC440State *arg0) {
     u8 *temp_v0;
     u8 *temp_v1;
 
     temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x98));
     temp_v1 = (void *)(*(void **)((u8 *)temp_v0 + 0));
     if (temp_v1 != 0) {
+        temp_v1 += 0x58;
         if (*(s32 *)((u8 *)arg0 + 0x20) == 6) {
-            *(s32 *)((u8 *)temp_v1 + 0x58) = 0;
+            *(s32 *)temp_v1 = 0;
         }
         if (*(s32 *)((u8 *)arg0 + 0x20) == 7) {
-            *(s32 *)((u8 *)(temp_v1 + 0x58) + 8) = 0;
+            *(s32 *)(temp_v1 + 8) = 0;
         }
         *(void **)((u8 *)temp_v0 + 0) = 0;
     }

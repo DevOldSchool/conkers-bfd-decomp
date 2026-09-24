@@ -36,7 +36,7 @@ void func_1512D560(void *arg0, s32 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1512D560 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15AA10/func_1512D560.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512D604 CURRENT (630) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512D604 CURRENT (730) */
 void *func_1512D604(u8 *arg0) {
     s32 temp_a1;
     u8 *temp_v0;

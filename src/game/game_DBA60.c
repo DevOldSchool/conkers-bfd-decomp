@@ -98,20 +98,19 @@ void func_150AED4C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AED4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AED4C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED9C CURRENT (480) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED9C CURRENT (40) */
 s32 func_150AED9C(void *arg0) {
-    s32 temp_t6;
-    s32 var_v1;
+    s32 value;
     void *temp_v0;
 
-    temp_t6 = *(s16 *)((u8 *)arg0 + 0x1C) * 8;
-    var_v1 = temp_t6;
-    if (temp_t6 >= 0x100) {
-        var_v1 = 0xFF;
-    }
+    value = *(s16 *)((u8 *)arg0 + 0x1C);
     temp_v0 = *(void **)((u8 *)arg0 + 0x98);
-    *(s8 *)((u8 *)temp_v0 + 0x1B) = var_v1;
-    if ((var_v1 & 0xFF) < 0) {
+    value *= 8;
+    if (value >= 0x100) {
+        value = 0xFF;
+    }
+    *(s8 *)((u8 *)temp_v0 + 0x1B) = value;
+    if ((value & 0xFF) < 0) {
         return 0;
     }
     return 1;
@@ -136,15 +135,13 @@ s32 func_150AEDD8(GameDBA60Object *arg0) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AEDF8 CURRENT (1597) */
-void func_150AEDF8(u8 *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AEDF8 CURRENT (1195) */
+void func_150AEDF8(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a0;
-    s32 temp_t6;
     s32 temp_v1;
     u8 *temp_v0;
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0x2D) {
+    if (arg2 == 0x2D) {
         temp_v0 = (void *)(arg0 + 0x28);
         temp_a0 = *(s32 *)((u8 *)arg0 + 0x28);
         temp_v1 = *(s32 *)((u8 *)arg1 + 0);
@@ -157,7 +154,7 @@ void func_150AEDF8(u8 *arg0, u8 *arg1, s32 arg2) {
             *(s32 *)((u8 *)arg0 + 0x28) = temp_v1;
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
         }
-    } else if ((temp_t6 == 0) && ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x28)) || (*(u8 *)((u8 *)(arg0 + 0x28) + 4) == (u8) *(s32 *)((u8 *)arg1 + 4)))) {
+    } else if ((arg2 == 0) && ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x28)) || (*(u8 *)((u8 *)(arg0 + 0x28) + 4) == *(u8 *)((u8 *)arg1 + 4)))) {
         func_1516972C(arg0);
     }
 }

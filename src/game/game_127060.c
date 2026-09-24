@@ -11,7 +11,6 @@
  * - func_150FA520
  * - func_150FAA40
  * - func_150FAAEC
- * - func_150FADC8
  * - func_150FAE18
  * - func_150FB188
  * - func_150FB1E8
@@ -113,21 +112,16 @@ void func_150FAD78(void) {
     func_151494E0(D_800D3098 + 0x514, 0x31);
     func_151494E0(0, 0x4C);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FADC8 CURRENT (639) */
-void func_150FADC8(void *arg0, s32 arg1, s32 arg2) {
-    s32 temp_t6;
+void func_150FADC8(void *arg0, s32 arg1, u8 arg2) {
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0x53) {
+    if (arg2 == 0x53) {
         *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) | 2);
         return;
     }
-    if (temp_t6 == 0x54) {
+    if (arg2 == 0x54) {
         *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) & ~2);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FADC8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FADC8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAE18.s")
 void func_15157DEC(Game127060State *, Game127060Transform *);
 extern f32 D_800A1DC0;

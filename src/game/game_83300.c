@@ -30,7 +30,6 @@
  * - func_1505A3A8
  * - func_1505A5CC
  * - func_1505A630
- * - func_1505A72C
  * - func_1505A770
  * - func_1505A9AC
  * - func_1505B5F8
@@ -51,7 +50,6 @@
  * - func_1505DF10
  * - func_1505E0C4
  * - func_1505E650
- * - func_1505E7CC
  * - func_1505E874
  * - func_1505ED34
  * - func_1505EEB0
@@ -135,8 +133,10 @@ void func_15056150(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15056150 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15056150.s")
 extern f32 D_80099444;
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15056258 CURRENT (3780) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15056258 CURRENT (1290) */
 void func_15056258(void *arg0) {
     f32 temp_fa1;
     f32 temp_ft0;
@@ -150,12 +150,16 @@ void func_15056258(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x11C) = temp_fv0;
     temp_fv1 = temp_fv0 - temp_ft0;
     var_fa0 = 2.0f * (temp_fa1 - ((temp_fv0 - 60.0f) - 170.0f));
-    if (!(var_fa0 < 0.0f) && !(fabsf(temp_fv1) > 30.0f)) {
-        if (var_fa0 > 300.0f) {
-            var_fa0 = 300.0f;
-        }
-        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (temp_fa1 + (var_fa0 * temp_fv1 * D_80099444));
+    if (var_fa0 < 0.0f) {
+        return;
     }
+    if (fabsf(temp_fv1) > 30.0f) {
+        return;
+    }
+    if (var_fa0 > 300.0f) {
+        var_fa0 = 300.0f;
+    }
+    *(f32 *)((u8 *)arg0 + 0x18) = (f32) (temp_fa1 + (var_fa0 * temp_fv1 * D_80099444));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15056258 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15056258.s")
@@ -669,20 +673,18 @@ block_32:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A3A8.s")
 extern f32 D_800994D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A5CC CURRENT (2035) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A5CC CURRENT (25) */
 f32 func_1505A5CC(void *arg0) {
     f32 temp_fa0;
     f32 temp_fv1;
 
     temp_fv1 = (f32) *(s8 *)((u8 *)arg0 + 2);
     temp_fa0 = (f32) *(s8 *)((u8 *)arg0 + 3);
-    {
-        f32 var_fv1 = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
-    if (var_fv1 > 35.0f) {
-        var_fv1 = 35.0f;
+    temp_fv1 = sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0)) * D_800994D4;
+    if (temp_fv1 > 35.0f) {
+        temp_fv1 = 35.0f;
     }
-    return var_fv1;
-    }
+    return temp_fv1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505A5CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A5CC.s")
@@ -707,7 +709,6 @@ f32 func_1505A6F8(void *arg0, void *arg1) {
     temp_fa0 *= temp_fa0;
     return sqrtf(temp_fv1 + temp_fa0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A72C CURRENT (1075) */
 f32 func_1505A72C(void *arg0, void *arg1) {
     f32 temp_fa0;
     f32 temp_fa1;
@@ -716,10 +717,11 @@ f32 func_1505A72C(void *arg0, void *arg1) {
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x14) - *(f32 *)((u8 *)arg1 + 0x14);
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x1C) - *(f32 *)((u8 *)arg1 + 0x1C);
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x18) - *(f32 *)((u8 *)arg1 + 0x18);
-    return sqrtf((temp_fv1 * temp_fv1) + (temp_fa0 * temp_fa0) + (temp_fa1 * temp_fa1));
+    temp_fv1 *= temp_fv1;
+    temp_fa0 *= temp_fa0;
+    temp_fa1 *= temp_fa1;
+    return sqrtf(temp_fv1 + temp_fa0 + temp_fa1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505A72C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A72C.s")
 extern f32 D_800994DC;
 extern f32 D_800994E0;
 extern f32 D_800994E4;
@@ -996,23 +998,20 @@ f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
 extern f32 D_80099520;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D34C CURRENT (1150) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D34C CURRENT (411) */
 f32 func_1505D34C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4) {
     f32 sp24;
     f32 temp_fa0;
     f32 temp_fv0;
-    f32 var_fa1;
 
-    var_fa1 = arg1;
     if (arg3 != 1.0f) {
-        var_fa1 *= arg3;
+        arg1 *= arg3;
         arg2 *= arg3;
     }
-    arg1 = var_fa1;
     temp_fa0 = (arg0 - 90.0f) * D_80099520;
     {
         f32 sp18 = temp_fa0;
-    sp24 = func_150AD780(temp_fa0, var_fa1);
+    sp24 = func_150AD780(temp_fa0);
     temp_fv0 = func_150AD78C(temp_fa0);
     *arg4 = (-arg1 * temp_fv0) + (arg2 * sp24);
     return (arg1 * sp24) + (arg2 * temp_fv0);
@@ -1310,9 +1309,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505E650 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E650.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505E7CC CURRENT (1065) */
 u32 func_1505E7CC(s32 arg0, void *arg1) {
-    u32 temp_lo;
     u32 temp_v0_2;
     u32 var_v1;
     u8 *temp_a0;
@@ -1332,30 +1329,24 @@ u32 func_1505E7CC(s32 arg0, void *arg1) {
     if (temp_v0_2 == 0) {
         return 0U;
     }
-    temp_lo = temp_v0_2 / 24U;
+    temp_v0_2 /= 24U;
     temp_a0 = *(u8 **)((u8 *)temp_v1 + -8);
     if (temp_a0 == 0) {
         return 0U;
     }
     var_v1 = 0;
-    if (temp_lo != 0) {
+    if (temp_v0_2 != 0) {
         var_a1 = temp_a0;
-loop_10:
-        if (arg0 == *var_a1) {
-            return var_v1;
-        }
-        var_v1 += 1;
-        var_a1 += 0x18;
-        if (var_v1 >= temp_lo) {
-            /* Duplicate return node #13. Try simplifying control flow for better match */
-            return 0U;
-        }
-        goto loop_10;
+        do {
+            if (arg0 == *var_a1) {
+                return var_v1;
+            }
+            var_v1 += 1;
+            var_a1 += 0x18;
+        } while (var_v1 < temp_v0_2);
     }
     return 0U;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1505E7CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E7CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E874.s")
 void func_15060F28(u8 *, s32);
 extern s32 D_800CC2D0;
@@ -1417,7 +1408,7 @@ loop_14:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505ED34.s")
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEB0 CURRENT (780) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEB0 CURRENT (875) */
 s32 *func_1505EEB0(s32 arg0, s32 *arg1) {
     s32 *var_v1;
     s32 var_a2;
@@ -1427,7 +1418,7 @@ s32 *func_1505EEB0(s32 arg0, s32 *arg1) {
     if (arg0 != D_800CC2D0) {
 loop_1:
         var_a2 += 1;
-        var_v1 += 0x32C;
+        var_v1 = (s32 *)((u8 *)var_v1 + 0x32C);
         if (var_a2 < 0x19) {
             if (arg0 != *var_v1) {
                 goto loop_1;
@@ -1442,37 +1433,34 @@ loop_1:
 extern u8 D_800CC40F;
 extern s32 D_800CC5FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEF4 CURRENT (420) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505EEF4 CURRENT (415) */
 s32 *func_1505EEF4(s32 arg0) {
-    s32 *temp_v1;
-    s32 *temp_v1_2;
-    s32 *temp_v1_3;
-    s32 *var_v1;
+    u8 *var_v1;
     s32 var_v0;
 
-    var_v1 = &D_800CC5FC;
+    var_v1 = (u8 *)&D_800CC5FC;
     if ((D_800CC2D0 != 0) && (arg0 == D_800CC40F)) {
         return &D_800CC2D0;
     }
     var_v0 = 1;
 loop_4:
     if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (arg0 == *(u8 *)((u8 *)var_v1 + 0x13F))) {
-        return var_v1;
+        return (s32 *)var_v1;
     }
-    temp_v1_3 = var_v1 + 0x32C;
-    if ((*(s32 *)((u8 *)var_v1 + 0x32C) != 0) && (arg0 == *(u8 *)((u8 *)temp_v1_3 + 0x13F))) {
-        return temp_v1_3;
+    var_v1 += 0x32C;
+    if ((*(s32 *)var_v1 != 0) && (arg0 == *(u8 *)(var_v1 + 0x13F))) {
+        return (s32 *)var_v1;
     }
-    temp_v1_2 = temp_v1_3 + 0x32C;
-    if ((*(s32 *)((u8 *)temp_v1_3 + 0x32C) != 0) && (arg0 == *(u8 *)((u8 *)temp_v1_2 + 0x13F))) {
-        return temp_v1_2;
+    var_v1 += 0x32C;
+    if ((*(s32 *)var_v1 != 0) && (arg0 == *(u8 *)(var_v1 + 0x13F))) {
+        return (s32 *)var_v1;
     }
-    temp_v1 = temp_v1_2 + 0x32C;
+    var_v1 += 0x32C;
     var_v0 += 4;
-    if ((*(s32 *)((u8 *)temp_v1_2 + 0x32C) != 0) && (arg0 == *(u8 *)((u8 *)temp_v1 + 0x13F))) {
-        return temp_v1;
+    if ((*(s32 *)var_v1 != 0) && (arg0 == *(u8 *)(var_v1 + 0x13F))) {
+        return (s32 *)var_v1;
     }
-    var_v1 = temp_v1 + 0x32C;
+    var_v1 += 0x32C;
     if (var_v0 == 0x19) {
         return 0;
     }

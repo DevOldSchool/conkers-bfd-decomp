@@ -189,13 +189,15 @@ void func_1519EB8C(f32 *arg0, u16 arg1, s16 arg2, u8 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CBE20/func_1519EB8C.s")
 extern f32 D_800A8CD8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519ED24 CURRENT (505) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519ED24 CURRENT (120) */
 s32 func_1519ED24(void *arg0) {
+    f32 scale;
     void *temp_v1;
 
+    scale = D_800A8CD8;
     temp_v1 = *(void **)((u8 *)arg0 + 0x170);
-    *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x18) * D_800A8CD8);
-    *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x1C) * D_800A8CD8);
+    *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x18) * scale);
+    *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v1 + 0x1C) * scale);
     *(f32 *)((u8 *)arg0 + 0x20) = (f32) *(f32 *)((u8 *)temp_v1 + 0xC);
     *(f32 *)((u8 *)arg0 + 0x24) = (f32) *(f32 *)((u8 *)temp_v1 + 0x10);
     *(f32 *)((u8 *)arg0 + 0x28) = (f32) *(f32 *)((u8 *)temp_v1 + 0x14);

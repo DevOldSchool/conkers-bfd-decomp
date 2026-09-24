@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150489B0
  * - func_15048A40
- * - func_15048A70
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -29,7 +28,7 @@ void func_150489B0(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150489B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75E60/func_150489B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048A40 */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048A40 CURRENT (205) */
 void func_15048A40(u8 arg0) {
     s32 temp_a1 = arg0 & 0xFF;
 
@@ -37,25 +36,15 @@ void func_15048A40(u8 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15048A40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75E60/func_15048A40.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048A70 CURRENT (230) */
 f32 func_15048A70(f32 arg0, f32 arg1) {
-    f32 var_fa0;
-    f32 var_fa1;
-
-    var_fa0 = arg0;
-    var_fa1 = arg1;
-    {
-        f32 temp_fv0 = var_fa0 - var_fa1;
+    f32 temp_fv0 = arg0 - arg1;
     if (temp_fv0 > 180.0f) {
-        var_fa0 -= 360.0f;
+        arg0 -= 360.0f;
     } else if (temp_fv0 <= -180.0f) {
-        var_fa1 -= 360.0f;
+        arg1 -= 360.0f;
     }
-    return var_fa1 - var_fa0;
-    }
+    return arg1 - arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15048A70 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75E60/func_15048A70.s")
 
 s32 func_15048AD0(s32 arg0, s32 arg1) {
     s32 temp_v0;

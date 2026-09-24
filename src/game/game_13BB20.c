@@ -209,21 +209,27 @@ block_10:
 void func_1510F800(void) {
     func_150A49F4();
 }
-void func_1510E388(f32 *, f32 *);
+void func_1510E388(void *, void *, f32 *, f32 *);
 f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
 extern f32 D_800A2D9C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F820 CURRENT (2483) */
-void func_1510F820(f32 *arg2, f32 *arg3, f32 *arg5, f32 *arg6) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F820 CURRENT (240) */
+void func_1510F820(void *arg0, void *arg1, f32 *arg2, f32 *arg3, s32 arg4,
+                   f32 *arg5, f32 *arg6) {
     f32 sp24;
     f32 sp20;
+    f32 square24;
+    f32 square20;
     f32 temp_fv1;
 
-    func_1510E388(&sp24, &sp20);
+    func_1510E388(arg0, arg1, &sp24, &sp20);
+    square24 = sp24 * sp24;
+    square20 = sp20 * sp20;
     *arg5 = sp24;
     *arg6 = sp20;
-    temp_fv1 = sqrtf((sp24 * sp24) + (sp20 * sp20)) * D_800A2D9C;
-    if (temp_fv1 == 0.0f) {
+    temp_fv1 = sqrtf(square24 + square20) * D_800A2D9C;
+    if (0.0f == temp_fv1) {
         *arg2 = 1.0f;
         *arg3 = 0.0f;
         return;

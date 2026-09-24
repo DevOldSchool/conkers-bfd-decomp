@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150E3020
- * - func_150E3208
  * - func_150E33CC
  * - func_150E3414
  * - func_150E35DC
@@ -17,21 +16,18 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3020.s")
 /* Call context: func_150AD9A0: unique active project prototype */
-s32 func_150AD9A0(s32, s32, s32, s16);
+s32 func_150AD9A0(s32, s32, s32);
 void *func_150E3020(s32, s32, s32, s32, s32, s32, s32, f32, s32, f32, f32, f32, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E3208 CURRENT (100) */
 s32 func_150E3208(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
     void *temp_v0;
 
-    temp_v0 = func_150E3020(arg0, arg1, arg2, arg3, arg4, arg5, arg6, (f32) func_150AD9A0(arg0 - arg3, arg1 - arg4, arg2 - arg5, (s16) arg3) / (f32) arg7, 0, 0.0f, 0.0f, 0.0f, 0, -0x63);
+    temp_v0 = func_150E3020(arg0, arg1, arg2, arg3, arg4, arg5, arg6, (f32) func_150AD9A0(arg0 - arg3, arg1 - arg4, arg2 - arg5) / (f32) arg7, 0, 0.0f, 0.0f, 0.0f, 0, -0x63);
     if (temp_v0 != 0) {
         return *(u8 *)((u8 *)temp_v0 + 0x48) + 1;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E3208 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1104D0/func_150E3208.s")
 /* Call context: func_150E3020: unique active project prototype */
 void * func_150E3020(s32, s32, s32, s32, s32, s32, s32, f32, s32, f32, f32, f32, s32, s32);
 

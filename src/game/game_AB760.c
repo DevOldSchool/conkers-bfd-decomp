@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1507E2B0
  * - func_1507E3C0
- * - func_1507E6B8
  * - func_1507E73C
  * - func_1507E7E4
  * - func_1507E908
@@ -182,19 +181,20 @@ void func_1507E5C8(u8 *arg0, s32 arg1) {
 }
 s32 func_150849A0();                                /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E6B8 CURRENT (820) */
 s32 func_1507E6B8(void *arg0) {
     s32 temp_v0;
+    u8 value;
 
     if (*(u8 *)((u8 *)arg0 + 0x1CA) == 0) {
-        goto block_9;
+        return 0;
     }
     if (*(u8 *)((u8 *)arg0 + 0x70) == *(u8 *)((u8 *)arg0 + 0x6F)) {
         return 1;
     }
     temp_v0 = func_150849A0();
+    value = *(u8 *)((u8 *)arg0 + 0x6F);
     if (temp_v0 == 0) {
-        if (*(u8 *)((u8 *)arg0 + 0x6F) == 0x15) {
+        if (value == 0x15) {
             return 1;
         }
         goto block_9;
@@ -205,8 +205,6 @@ s32 func_1507E6B8(void *arg0) {
 block_9:
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E6B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E6B8.s")
 
 typedef struct GameAB760State {
     u8 pad0[0x6A];

@@ -658,45 +658,43 @@ u8 func_151B4A14(void *arg0, s32 *arg1, s32 *arg2, s32 *arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B4A14.s")
 extern f32 D_800AA3C8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4B78 CURRENT (2035) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B4B78 CURRENT (1395) */
 s32 func_151B4B78(u8 *arg0) {
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv0_4;
-    f32 var_fv0;
+    f32 step;
+    f32 value;
     s32 var_v0;
     u8 *var_v1;
 
+    step = D_800AA3C8;
     *(f32 *)((u8 *)arg0 + 0x48) = -1000.0f;
-    temp_fv0 = -1000.0f + D_800AA3C8;
+    value = -1000.0f + step;
     var_v0 = 2;
     var_v1 = (void *)(arg0 + 0x30);
-    *(f32 *)((u8 *)arg0 + 0x60) = temp_fv0;
-    var_fv0 = temp_fv0 + D_800AA3C8;
+    *(f32 *)((u8 *)arg0 + 0x60) = value;
+    value += step;
     *(f32 *)((u8 *)arg0 + 0x4C) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x50) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x64) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x68) = 0.0f;
     do {
-        *(f32 *)((u8 *)var_v1 + 0x48) = var_fv0;
+        *(f32 *)((u8 *)var_v1 + 0x48) = value;
         *(f32 *)((u8 *)var_v1 + 0x4C) = 0.0f;
         *(f32 *)((u8 *)var_v1 + 0x50) = 0.0f;
-        temp_fv0_2 = var_fv0 + D_800AA3C8;
+        value += step;
         var_v0 += 4;
         *(f32 *)((u8 *)var_v1 + 0x64) = 0.0f;
         *(f32 *)((u8 *)var_v1 + 0x68) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x60) = temp_fv0_2;
-        temp_fv0_3 = temp_fv0_2 + D_800AA3C8;
+        *(f32 *)((u8 *)var_v1 + 0x60) = value;
+        value += step;
         *(f32 *)((u8 *)var_v1 + 0x7C) = 0.0f;
         *(f32 *)((u8 *)var_v1 + 0x80) = 0.0f;
         *(f32 *)((u8 *)var_v1 + 0x94) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x78) = temp_fv0_3;
-        temp_fv0_4 = temp_fv0_3 + D_800AA3C8;
+        *(f32 *)((u8 *)var_v1 + 0x78) = value;
+        value += step;
         *(f32 *)((u8 *)var_v1 + 0x98) = 0.0f;
         var_v1 += 0x60;
-        *(f32 *)((u8 *)var_v1 + 0x30) = temp_fv0_4;
-        var_fv0 = temp_fv0_4 + D_800AA3C8;
+        *(f32 *)((u8 *)var_v1 + 0x30) = value;
+        value += step;
     } while (var_v0 != 0xA);
     *(u8 *)((u8 *)arg0 + 0x10) = (u8) (*(u8 *)((u8 *)arg0 + 0x10) & 0xFFFD);
     return 1;

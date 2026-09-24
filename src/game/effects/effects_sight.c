@@ -919,17 +919,28 @@ void func_151CCE94(SightSpawnOwner *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CCF08.s")
-f32 func_151CC1D4();                                /* extern */
+f32 func_151CC1D4(void *);                          /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (281) */
+typedef struct SightUpdateFields {
+    u8 pad0[0xD];
+    u8 mode;
+    u8 padE[0xA];
+    f32 start;
+    u8 pad1C[4];
+    f32 scale;
+} SightUpdateFields;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD224 CURRENT (700) */
 void func_151CD224(u8 *arg0) {
     u8 temp_v1;
-    u8 *temp_v0;
+    SightUpdateFields *state;
+    f32 current;
 
-    temp_v0 = (void *)(arg0 + 0x70);
-    temp_v1 = *(u8 *)((u8 *)temp_v0 + 0xD);
+    current = func_151CC1D4(arg0);
+    state = (SightUpdateFields *)(arg0 + 0x70);
     {
-        f32 temp_fv1 = (1.0f - ((func_151CC1D4() - *(f32 *)((u8 *)temp_v0 + 0x18)) * *(f32 *)((u8 *)temp_v0 + 0x20))) * 75.0f;
+        f32 temp_fv1 = (1.0f - ((current - state->start) * state->scale)) * 75.0f;
+    temp_v1 = state->mode;
     if (temp_v1 == 5) {
         *(f32 *)((u8 *)arg0 + 0x14) = (f32) (92.0f + temp_fv1);
         return;

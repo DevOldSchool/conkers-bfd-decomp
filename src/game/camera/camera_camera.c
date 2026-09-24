@@ -348,17 +348,15 @@ void func_1512523C(void *arg0) {
 f32 func_15048FC8(f32 *, void *);                   /* extern */
 extern f32 D_800A3524;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15125330 CURRENT (689) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15125330 CURRENT (180) */
 void func_15125330(void *arg0) {
-    f32 sp24;
-    f32 sp20;
-    f32 sp1C;
+    f32 vector[3];
 
-    sp20 = 0.0f;
-    sp1C = *(f32 *)((u8 *)arg0 + 0x2BC) - *(f32 *)((u8 *)arg0 + 0x2F8);
-    sp24 = *(f32 *)((u8 *)arg0 + 0x2C4) - *(f32 *)((u8 *)arg0 + 0x300);
+    vector[0] = *(f32 *)((u8 *)arg0 + 0x2BC) - *(f32 *)((u8 *)arg0 + 0x2F8);
+    vector[1] = 0.0f;
+    vector[2] = *(f32 *)((u8 *)arg0 + 0x2C4) - *(f32 *)((u8 *)arg0 + 0x300);
     {
-        f32 temp_fv0 = func_15048FC8(&sp1C, arg0);
+        f32 temp_fv0 = func_15048FC8(vector, arg0);
     *(f32 *)((u8 *)arg0 + 0x37C) = temp_fv0;
     *(f32 *)((u8 *)arg0 + 0x39C) = (f32) (temp_fv0 * D_800A3524);
     }

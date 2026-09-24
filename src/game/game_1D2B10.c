@@ -47,7 +47,7 @@ void func_151A5CEC(void *arg0) {
 /* Call context: func_100111C8: unique active project prototype */
 void func_100111C8(s32, u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5D2C CURRENT (319) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5D2C CURRENT (419) */
 void func_151A5D2C(s32 arg0, u16 arg1) {
     func_100111C8(arg0 & 0xFFFF, arg1);
 }

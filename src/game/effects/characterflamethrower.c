@@ -11,7 +11,6 @@
  * - func_15195AA8
  * - func_15195DD4
  * - func_15195FF0
- * - func_15196318
  * - func_15196438
  * - func_15196748
  * - func_15196B4C
@@ -30,7 +29,6 @@
  * - func_15199C34
  * - func_1519A9A4
  * - func_1519B4B8
- * - func_1519C258
  * - func_1519C26C
  * - func_1519C4E4
  * - func_1519C56C

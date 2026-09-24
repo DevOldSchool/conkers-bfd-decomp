@@ -11,23 +11,22 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511A410 CURRENT (1925) */
-s32 func_1511A410(s8 *arg0, s32 *arg1) {
-    s32 sp10;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511A410 CURRENT (1696) */
+s32 func_1511A410(volatile s8 *arg0, s32 *arg1) {
+    s32 slots[2];
     s32 var_v0;
     s32 var_v1;
-    s8 var_a1;
-    s32 spC;
+    s32 var_a1;
 
-    spC = 0;
-    sp10 = 0;
+    slots[0] = 0;
+    slots[1] = 0;
     var_v0 = 0;
     var_v1 = 0;
     if (*arg0 != -0x21) {
         var_a1 = *((0 * 8) + arg0);
 loop_2:
         if (var_a1 == -3) {
-            (&spC)[var_v0] = var_v1;
+            slots[var_v0] = var_v1;
             var_v0 += 1;
         }
         var_v1 += 1;
@@ -36,8 +35,8 @@ loop_2:
             goto loop_2;
         }
     }
-    *arg1 = sp10;
-    return spC;
+    *arg1 = slots[1];
+    return slots[0];
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511A410 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1478C0/func_1511A410.s")
