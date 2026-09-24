@@ -3,12 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_7F710.c
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15052260
- * - func_15052490
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game7F710MotionController {
@@ -44,13 +38,9 @@ void func_1505A770(Game7F710MotionObject *);
 extern f32 D_8009933C;
 extern f32 D_80099340;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15052260 CURRENT (30) */
 void func_15052260(Game7F710MotionObject *arg0) {
     Game7F710MotionController *controller;
     f32 factor;
-    f32 oldY;
-    f32 oldX;
-    f32 oldZ;
 
     controller = arg0->controller;
     if (controller->mode == 1 || controller->mode == 3) {
@@ -58,14 +48,11 @@ void func_15052260(Game7F710MotionObject *arg0) {
     } else {
         factor = 1.0f;
     }
-    oldY = arg0->y;
-    arg0->cachedY = oldY;
+    arg0->cachedY = arg0->y;
     if (controller->mode < 4) {
-        oldX = arg0->x;
-        oldZ = arg0->z;
-        arg0->x = oldX + ((f32)controller->targetX - oldX) * factor;
-        arg0->y = oldY + ((f32)(controller->targetY - 0x50) - oldY) * factor;
-        arg0->z = oldZ + ((f32)controller->targetZ - oldZ) * factor;
+        arg0->x = arg0->x + ((f32)controller->targetX - arg0->x) * factor;
+        arg0->y = arg0->y + ((f32)(controller->targetY - 0x50) - arg0->y) * factor;
+        arg0->z = arg0->z + ((f32)controller->targetZ - arg0->z) * factor;
         func_1505E650(arg0, 0x14, 1.0f, 6.0f, 0.0f, 0.0f, 0);
         arg0->speed = -10.0f;
     } else {
@@ -85,8 +72,6 @@ void func_15052260(Game7F710MotionObject *arg0) {
         arg0->fieldAD = 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15052260 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_7F710/func_15052260.s")
 typedef struct {
     u8 pad_0[0x95];
     s8 field_95;
@@ -140,22 +125,18 @@ void func_15052464(u8 *arg0) {
 }
 extern f32 D_800D1550;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15052490 CURRENT (420) */
-void func_15052490(void *arg0, s32 arg1, f32 arg2, f32 arg3) {
-    f32 temp_fa0;
+void func_15052490(void *arg0, u16 arg1, f32 arg2, f32 arg3) {
     u16 temp_v0;
 
     temp_v0 = *(u16 *)((u8 *)arg0 + 0x7A);
-    temp_fa0 = arg3 * D_800D1550;
+    arg3 *= D_800D1550;
     *(f32 *)((u8 *)arg0 + 0x40) = (f32) ((f32) (temp_v0 + 0x4000) * 0.005493164f);
-    if ((((arg1 & 0xFFFF) - temp_v0) + 0x4000) & 0x8000) {
-        *(f32 *)((u8 *)arg0 + 0xB8) = (f32) (*(f32 *)((u8 *)arg0 + 0xB8) - (arg2 * temp_fa0));
+    if (((arg1 - temp_v0) + 0x4000) & 0x8000) {
+        *(f32 *)((u8 *)arg0 + 0xB8) = (f32) (*(f32 *)((u8 *)arg0 + 0xB8) - (arg2 * arg3));
         return;
     }
-    *(f32 *)((u8 *)arg0 + 0xB8) = (f32) (*(f32 *)((u8 *)arg0 + 0xB8) + (arg2 * temp_fa0));
+    *(f32 *)((u8 *)arg0 + 0xB8) = (f32) (*(f32 *)((u8 *)arg0 + 0xB8) + (arg2 * arg3));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15052490 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_7F710/func_15052490.s")
 void func_1505250C(void *arg0, s32 arg1) {
     s16 temp_v0;
     s16 temp_v1;

@@ -260,13 +260,13 @@ void func_150F15F8(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F15F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F15F8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1684 CURRENT (852) */
-void func_150F1684(u8 *arg0, u8 *arg1, s32 arg2) {
-    s32 temp_t6;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1684 CURRENT (455) */
+void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
+    u8 *temp_v1;
 
-    temp_t6 = arg2 & 0xFF;
-    if ((temp_t6 == 0x43) && ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x18)) || (*(u8 *)((u8 *)(arg0 + 0x18) + 4) == *(u8 *)((u8 *)arg1 + 4)))) {
-        func_1516972C(arg0, (s32) arg1, (void *) temp_t6);
+    temp_v1 = arg0 + 0x18;
+    if ((arg2 == 0x43) && ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)temp_v1) || (*(u8 *)(temp_v1 + 4) == *(u8 *)((u8 *)arg1 + 4)))) {
+        func_1516972C(arg0, (s32) arg1, (void *) (s32) arg2);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F1684 */

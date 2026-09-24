@@ -15,7 +15,7 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D92F0/func_151ABE40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D92F0/func_151AC078.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC3CC CURRENT (130) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC3CC CURRENT (230) */
 s32 func_151AC3CC(void *arg0) {
     s32 temp_t6;
     void *temp_v0;

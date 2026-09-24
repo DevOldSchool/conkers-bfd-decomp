@@ -52,15 +52,15 @@ void func_151B5E94(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B5E94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E30A0/func_151B5E94.s")
 /* Call context: func_100111C8: unique active project prototype */
-void func_100111C8(s32, u16);
+void func_100111C8(s32, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5FCC CURRENT (125) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B5FCC CURRENT (300) */
 void func_151B5FCC(void *arg0) {
     s32 temp_v0;
 
     temp_v0 = *(s32 *)((u8 *)arg0 + 0x88);
     if (temp_v0 != 0) {
-        func_100111C8(temp_v0 & 0xFFFF, (u16) arg0);
+        func_100111C8(temp_v0 & 0xFFFF, arg0);
         *(s32 *)((u8 *)arg0 + 0x88) = 0;
     }
 }

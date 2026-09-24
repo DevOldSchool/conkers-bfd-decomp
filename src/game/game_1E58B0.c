@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B8400
- * - func_151B8668
  * - func_151B86F4
  * - func_151B8908
  *
@@ -144,31 +143,30 @@ void func_15134908(s32 *, s32, u8, s32);
 extern f32 D_800AA4C8;
 extern f32 D_800DCA24;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B8668 CURRENT (2093) */
 void func_151B8668(s32 arg0, u8 arg1, s32 arg2) {
-    s8 sp2F;
-    s8 sp2E;
-    s16 sp2C;
-    f32 sp28;
-    f32 sp24;
-    s32 sp20;
-    s32 sp1C;
-    s32 sp18;
+    struct {
+        s32 x;
+        s32 y;
+        s32 z;
+        f32 size;
+        f32 scale;
+        s16 lifetime;
+        s8 flag;
+        s8 kind;
+        s8 extra;
+        u32 pad;
+    } packet;
 
-    sp18 = arg0 + 0x38;
-    sp1C = arg0 + 0x3C;
-    sp20 = arg0 + 0x40;
-    sp28 = D_800AA4C8 * D_800DCA24;
-    sp2C = 0x12C;
-    sp2E = 0;
-    sp2F = 3;
-    {
-        s8 sp30 = 0;
-    sp24 = 10.0f;
-    func_15134908(&sp18, 0, arg1, arg2);
-    }
+    packet.size = 10.0f;
+    packet.x = arg0 + 0x38;
+    packet.y = arg0 + 0x3C;
+    packet.z = arg0 + 0x40;
+    packet.scale = D_800AA4C8 * D_800DCA24;
+    packet.lifetime = 0x12C;
+    packet.flag = 0;
+    packet.kind = 3;
+    packet.extra = 0;
+    func_15134908((s32 *)&packet, 0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151B8668 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8668.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B86F4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8908.s")

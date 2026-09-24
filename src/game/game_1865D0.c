@@ -5,8 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15159120
- * - func_15159184
  * - func_15159230
  * - func_151592B8
  * - func_15159370
@@ -27,33 +25,26 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159120 CURRENT (715) */
-s32 func_15159120(void *arg0, s32 arg1) {
-    s32 temp_t6;
+s32 func_15159120(void *arg0, u8 arg1) {
     s32 var_v1;
 
-    temp_t6 = arg1 & 0xFF;
-    if ((temp_t6 == 2) || (temp_t6 == 3)) {
+    if ((arg1 == 2) || (arg1 == 3)) {
         var_v1 = 1;
     } else {
-        var_v1 = 0;
         if (*(f32 *)((u8 *)arg0 + 0x180) < (*(f32 *)((u8 *)arg0 + 0x118) - 35.0f)) {
             var_v1 = 1;
+        } else {
+            var_v1 = 0;
         }
     }
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15159120 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159120.s")
 extern u8 D_800C35EA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159184 CURRENT (735) */
-s32 func_15159184(void *arg0, s32 arg1) {
-    s32 temp_t6;
+s32 func_15159184(void *arg0, u8 arg1) {
     s32 var_v1;
 
-    temp_t6 = arg1 & 0xFF;
-    if ((temp_t6 == 2) || (temp_t6 == 3)) {
+    if ((arg1 == 2) || (arg1 == 3)) {
         if (D_800C35EA != 1) {
             var_v1 = 0;
         } else if ((*(f32 *)((u8 *)arg0 + 0x118) - 75.0f) < *(f32 *)((u8 *)arg0 + 0x18)) {
@@ -62,15 +53,14 @@ s32 func_15159184(void *arg0, s32 arg1) {
             var_v1 = 0;
         }
     } else {
-        var_v1 = 0;
         if ((*(f32 *)((u8 *)arg0 + 0x118) - 75.0f) < *(f32 *)((u8 *)arg0 + 0x18)) {
             var_v1 = 1;
+        } else {
+            var_v1 = 0;
         }
     }
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15159184 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159184.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15159230 CURRENT (680) */
 s32 func_15159230(void *arg0, void *arg1, u8 arg2) {
     s32 var_v1;

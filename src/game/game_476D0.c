@@ -188,36 +188,30 @@ void *func_1501A680(void *arg0) {
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A6CC CURRENT (2375) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A6CC CURRENT (2392) */
 void *func_1501A6CC(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     s32 temp_v0;
-    s32 var_a1;
-    s32 var_a2;
-    s32 var_a3;
     u8 *temp_a0;
 
-    var_a1 = arg1;
-    var_a2 = arg2;
-    var_a3 = arg3;
-    if (var_a1 < 3) {
-        var_a1 = 2;
+    if (arg1 < 3) {
+        arg1 = 2;
     }
     {
         s32 var_v1 = arg4;
-    if (var_a2 <= 0) {
-        var_a2 = 0;
+    if (arg2 <= 0) {
+        arg2 = 0;
     }
     temp_a0 = arg0;
     temp_v0 = D_800BE620 - 2;
-    if (var_a3 >= temp_v0) {
-        var_a3 = temp_v0;
+    if (arg3 >= temp_v0) {
+        arg3 = temp_v0;
     }
     if (var_v1 >= D_800BE624) {
         var_v1 = D_800BE624;
     }
     arg0 = (void *)(temp_a0 + 8);
-    *(s32 *)((u8 *)temp_a0 + 4) = (s32) (((var_a1 & 0x3FF) << 0xE) | ((var_a2 & 0x3FF) * 4));
-    *(s32 *)((u8 *)temp_a0 + 0) = (s32) (((var_a3 & 0x3FF) << 0xE) | 0xF6000000 | ((var_v1 & 0x3FF) * 4));
+    *(s32 *)((u8 *)temp_a0 + 4) = (s32) (((arg1 & 0x3FF) << 0xE) | ((arg2 & 0x3FF) * 4));
+    *(s32 *)((u8 *)temp_a0 + 0) = (s32) (((arg3 & 0x3FF) << 0xE) | 0xF6000000 | ((var_v1 & 0x3FF) * 4));
     return arg0;
     }
 }
@@ -255,15 +249,19 @@ extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern s32 D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501AE94 CURRENT (1670) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501AE94 CURRENT (40) */
 s32 func_1501AE94(s32 arg0) {
     void *temp_v0;
+    f32 upper_a;
+    f32 upper_b;
 
-    temp_v0 = D_800BE628 + (arg0 * 0x180);
-    if ((*(f32 *)((u8 *)temp_v0 + 0x2C) < 2.0f) || (((f32) D_800BE620 - 2.0f) < *(f32 *)((u8 *)temp_v0 + 0x30))) {
+    upper_a = (f32) D_800BE620 - 2.0f;
+    upper_b = (f32) D_800BE624;
+    temp_v0 = (void *)((arg0 * 0x180) + (s32)D_800BE628);
+    if ((*(f32 *)((u8 *)temp_v0 + 0x2C) < 2.0f) || (upper_a < *(f32 *)((u8 *)temp_v0 + 0x30))) {
         return 0;
     }
-    if ((*(f32 *)((u8 *)temp_v0 + 0x24) < 0.0f) || ((f32) D_800BE624 < *(f32 *)((u8 *)temp_v0 + 0x28))) {
+    if ((*(f32 *)((u8 *)temp_v0 + 0x24) < 0.0f) || (upper_b < *(f32 *)((u8 *)temp_v0 + 0x28))) {
         return 0;
     }
     return 1;

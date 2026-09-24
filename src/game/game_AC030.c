@@ -7,9 +7,7 @@
  * TODO: Implement these source-unit functions:
  * - func_1507EBB8
  * - func_1507EC38
- * - func_1507EE58
  * - func_1507EEB8
- * - func_1507EEF4
  * - func_1507EFD0
  * - func_1507F454
  * - func_1507F54C
@@ -59,68 +57,71 @@ void func_1507EBB8(s32 arg0, s32 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EBB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EE58 CURRENT (644) */
-void func_1507EE58(u8 arg0, u8 *arg1) {
-    func_1507EEB8((s32) arg0, arg1);
-    if (arg0 == 0x11) {
+void func_1507EE58(volatile u8 arg0, u8 *arg1) {
+    s32 value;
+
+    func_1507EEB8(arg0, arg1);
+    value = arg0;
+    if (value == 0x11) {
         func_1507EEB8(0x12, arg1);
         return;
     }
-    if (arg0 == 0x12) {
+    if (value == 0x12) {
         func_1507EEB8(0x11, arg1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507EE58 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EE58.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 CURRENT (525) */
-void func_1507EEB8(s32 arg0, u8 *arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 CURRENT (330) */
+void func_1507EEB8(u8 arg0, u8 *arg1) {
     u8 temp_t7;
+    u8 temp_t8;
+    u8 temp_t9;
+    u8 temp_t0;
     u8 *temp_v0;
 
     temp_v0 = (void *)(arg1 + 4);
+    temp_t8 = *(u8 *)((u8 *)temp_v0 + -2);
+    temp_t9 = *(u8 *)((u8 *)temp_v0 + -3);
+    temp_t0 = *(u8 *)((u8 *)temp_v0 + -4);
     temp_t7 = *(u8 *)((u8 *)temp_v0 + -1);
-    *(u8 *)((u8 *)temp_v0 + -1) = (u8) *(u8 *)((u8 *)temp_v0 + -2);
-    *(u8 *)((u8 *)temp_v0 + -2) = (u8) *(u8 *)((u8 *)temp_v0 + -3);
-    *(u8 *)((u8 *)temp_v0 + -3) = (u8) *(u8 *)((u8 *)temp_v0 + -4);
+    *(u8 *)((u8 *)temp_v0 + -1) = temp_t8;
+    *(u8 *)((u8 *)temp_v0 + -2) = temp_t9;
+    *(u8 *)((u8 *)temp_v0 + -3) = temp_t0;
     *(u8 *)((u8 *)arg1 + 4) = temp_t7;
-    *(s8 *)((u8 *)arg1 + 0) = (s8) (arg0 & 0xFF);
+    *(s8 *)((u8 *)arg1 + 0) = (s8) arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507EEB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEB8.s")
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EEF4 CURRENT (875) */
 void func_1507EEF4(u32 arg0) {
     u8 *temp_v1;
     void *sp1C;
-    u8 temp_v0;
-    u8 *temp_v1_2;
+    s32 temp_v0;
 
     temp_v1 = (void *)(*(void **)((u8 *)D_800D154C + 0x31C));
     temp_v0 = *(u8 *)((u8 *)temp_v1 + 0x64);
-    temp_v1_2 = (void *)(temp_v1 + 0x58);
+    temp_v1 += 0x58;
     if (temp_v0 == 0) {
-        *(s8 *)((u8 *)temp_v1_2 + 0xC) = 1;
-        goto block_7;
+        *(s8 *)((u8 *)temp_v1 + 0xC) = 1;
+        *(u8 *)((u8 *)temp_v1 + 0xD) = 0;
+        return;
     }
     if (temp_v0 == 1) {
-        sp1C = temp_v1_2;
+        sp1C = temp_v1;
         func_150ADA20(arg0);
-        if ((s32) *(u8 *)((u8 *)temp_v1_2 + 0xD) >= 3) {
-            *(s8 *)((u8 *)temp_v1_2 + 0xC) = 2;
-            goto block_7;
+        if ((s32) *(u8 *)((u8 *)temp_v1 + 0xD) >= 3) {
+            *(s8 *)((u8 *)temp_v1 + 0xC) = 2;
+            *(u8 *)((u8 *)temp_v1 + 0xD) = 0;
+            return;
         }
     } else {
-        sp1C = temp_v1_2;
-        if ((s32) *(u8 *)((u8 *)temp_v1_2 + 0xD) >= ((func_150ADA20(arg0) & 3) + 8)) {
-            *(s8 *)((u8 *)temp_v1_2 + 0xC) = 1;
-block_7:
-            *(u8 *)((u8 *)temp_v1_2 + 0xD) = 0U;
+        sp1C = temp_v1;
+        if ((s32) *(u8 *)((u8 *)temp_v1 + 0xD) >= ((s32)(func_150ADA20(arg0) & 3) + 8)) {
+            *(s8 *)((u8 *)temp_v1 + 0xC) = 1;
+            *(u8 *)((u8 *)temp_v1 + 0xD) = 0U;
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507EEF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EEF4.s")
 void func_1507EFA0(s32 arg0, u8 *arg1) {
     s32 var_v0;
     u8 *var_v1;
@@ -298,16 +299,18 @@ void func_1507FEA0(void *arg0) {
 extern void func_15191B8C(u8 *arg0, s32 arg1, void *arg2);
 extern void func_151494E0(s32 *arg0, s32 arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FF94 CURRENT (560) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FF94 CURRENT (300) */
 void func_1507FF94(void *arg0) {
-    u8 sp24;
-    void *sp20;
-    void **sp1C;
+    struct {
+        void *object;
+        u8 kind;
+    } descriptor;
+    void *sp1C;
 
-    sp20 = arg0;
-    sp1C = &sp20;
-    sp24 = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_15191B8C((u8 *) &sp20, 0xD, arg0);
+    descriptor.object = arg0;
+    descriptor.kind = *(u8 *)((u8 *)arg0 + 0x3B);
+    sp1C = &descriptor;
+    func_15191B8C((u8 *)sp1C, 0xD, arg0);
     func_151494E0((s32 *) sp1C, 0xD);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507FF94 */

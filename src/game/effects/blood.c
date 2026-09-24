@@ -6,25 +6,18 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15134070
- * - func_1513416C
  * - func_1513418C
  * - func_151342BC
- * - func_151346D0
- * - func_151346EC
- * - func_1513470C
  * - func_151347CC
  * - func_15134908
  * - func_151349D0
  * - func_15134CEC
  * - func_15134DAC
  * - func_15134E48
- * - func_151352EC
- * - func_1513530C
  * - func_1513532C
  * - func_151353A8
  * - func_15135480
  * - func_151355B8
- * - func_15135658
  * - func_151356D4
  * - func_15135BF8
  * - func_15135DD0

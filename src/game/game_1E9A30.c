@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_dense_pointer_families.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151BC580
  * - func_151BC5A4
  * - func_151BC64C
  * - func_151BC794
@@ -22,15 +21,15 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC580 CURRENT (80) */
 s32 func_151BC580(void *arg0) {
-    if (**(s32 **)((u8 *)arg0 + 0x40) == 0) {
+    s32 *value_ptr = *(s32 **)((u8 *)arg0 + 0x40);
+    s32 result = 1;
+
+    if (*value_ptr == 0) {
         return 0;
     }
-    return 1;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151BC580 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BC580.s")
 void func_1516972C(s32, ...);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC5A4 CURRENT (1577) */
@@ -359,13 +358,20 @@ extern f32 D_800AA860;
 extern f32 D_800AA864;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD750 CURRENT (945) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD750 CURRENT (705) */
 f32 func_151BD750(void *arg0) {
+    union {
+        u32 bits;
+        f32 value;
+    } scale;
     s16 temp_v0;
+    f32 result;
 
     temp_v0 = *(s16 *)((u8 *)arg0 + 0x80);
+    scale.bits = 0x40000000;
+    result = (((f32) temp_v0 * scale.value) * D_800AA860) + D_800AA864;
     *(s16 *)((u8 *)arg0 + 0x80) = (s16) (temp_v0 + D_800BE9E4);
-    return ((f32) temp_v0 * 2.0f * D_800AA860) + D_800AA864;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BD750 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E9A30/func_151BD750.s")

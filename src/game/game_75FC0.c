@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15048C30
- * - func_15048F20
  * - func_15048FC8
  * - func_150490A8
  *
@@ -54,14 +53,11 @@ void func_15048B10(u8 *arg0, void *arg1) {
     func_150A7A48(locals.sp34, locals.sp174, arg1);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048C30.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048F20 CURRENT (30) */
 void func_15048F20(void *arg0, void *arg1, void *arg2) {
-    *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) + *(f32 *)((u8 *)arg1 + 0));
-    *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) + *(f32 *)((u8 *)arg1 + 4));
-    *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) + *(f32 *)((u8 *)arg1 + 8));
+    *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg1 + 0) + *(f32 *)((u8 *)arg0 + 0));
+    *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg1 + 4) + *(f32 *)((u8 *)arg0 + 4));
+    *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg1 + 8) + *(f32 *)((u8 *)arg0 + 8));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15048F20 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048F20.s")
 void func_15048F58(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) - *(f32 *)((u8 *)arg1 + 0));
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) - *(f32 *)((u8 *)arg1 + 4));

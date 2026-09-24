@@ -11,23 +11,21 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516A770 CURRENT (675) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516A770 CURRENT (10) */
 s32 func_1516A770(u8 *arg0) {
     s32 var_v1;
-    u8 *var_a0;
-    u8 var_v0;
+    s32 var_v0;
 
-    var_a0 = arg0;
-    var_v0 = *var_a0;
+    var_v0 = *arg0;
     var_v1 = 1;
     if (var_v0 != 0) {
         do {
             if (var_v0 == 0xBD) {
-                *(u8 *)((u8 *)var_a0 + 0) = 0;
+                *(u8 *)((u8 *)arg0 + 0) = 0;
                 var_v1 += 1;
             }
-            var_v0 = *(u8 *)((u8 *)var_a0 + 1);
-            var_a0 += 1;
+            var_v0 = *(u8 *)((u8 *)arg0 + 1);
+            arg0 += 1;
         } while (var_v0 != 0);
     }
     return var_v1;

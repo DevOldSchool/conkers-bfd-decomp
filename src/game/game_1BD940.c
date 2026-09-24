@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151904BC
- * - func_15190518
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -14,7 +13,7 @@
 void func_15190454(s32 arg0);
 void func_151617E4(s32 arg0);
 void func_1000FD38(void *, void *, s32);
-void func_1516972C(s32, void *);
+void func_1516972C(void *);
 void func_151D2B4C(s32);
 void func_1518E298(void);
 
@@ -22,14 +21,14 @@ void func_15190490(s32 arg0) {
     func_15190454(arg0);
     func_151617E4(arg0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151904BC CURRENT (146) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151904BC CURRENT (246) */
 void func_151904BC(void *arg0) {
     volatile s32 *field84;
-    volatile void *sp18;
+    void *sp18;
 
     field84 = (volatile s32 *)((u8 *)arg0 + 0x84);
     if (*field84 != 0) {
-        func_1516972C(*field84, arg0);
+        func_1516972C((void *)*field84);
     }
     sp18 = (u8 *)arg0 + 0x30;
     func_1000FD38(&func_1518E298, arg0, *(s32 *)((u8 *)arg0 + 0x10));
@@ -38,16 +37,15 @@ void func_151904BC(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151904BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BD940/func_151904BC.s")
 /* Call context: func_1516944C: unique active project prototype */
-void func_1516944C(s32, s8 *, u8, u8);
+void func_1516944C(s32, s8 *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15190518 CURRENT (613) */
 void func_15190518(void *arg0) {
-    u8 sp1C;
-    void *sp18;
+    struct {
+        void *object;
+        u8 kind;
+    } descriptor;
 
-    sp18 = arg0;
-    sp1C = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_1516944C(0x3E, (s8 *) &sp18, 0x2AU, (u8) arg0);
+    descriptor.object = arg0;
+    descriptor.kind = *(u8 *)((u8 *)arg0 + 0x3B);
+    func_1516944C(0x3E, (s8 *)&descriptor, 0x2A);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15190518 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BD940/func_15190518.s")

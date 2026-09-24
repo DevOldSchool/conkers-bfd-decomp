@@ -48,7 +48,7 @@ typedef struct Game1D0840LaunchPacket {
 } Game1D0840LaunchPacket;
 
 void *func_151A3504(void *, u8);
-void func_151A4590(void *, s32);
+void func_151A4590(void *, u8);
 void func_151A499C(void *, u8);
 void func_10010154(s32, void *, s32, s32, s32);
 void *func_15160A58(void *, s32, void *, s32, s32, s32, s32, s32,
@@ -248,41 +248,49 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
 u32 func_1513418C(void *, s32, u8, s32);
 extern f32 D_800A8D5C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4590 CURRENT (3228) */
-void func_151A4590(void *arg0, s32 arg1) {
-    s8 sp45;
-    s8 sp44;
-    s8 sp43;
-    s8 sp42;
-    s16 sp40;
-    f32 sp3C;
-    f32 sp38;
-    f32 sp34;
-    f32 sp30;
-    f32 sp2C;
-    s8 sp28;
-    void *sp24;
-    u8 sp20;
-    s32 sp1C;
-    s32 sp18;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4590 CURRENT (716) */
+void func_151A4590(void *arg0, u8 arg1) {
+    struct {
+        s32 zero0;
+        s32 zero4;
+        u8 selector;
+        u8 pad9[3];
+        void *object;
+        s8 kind;
+        u8 pad11[3];
+        f32 x;
+        f32 y;
+        f32 z;
+        f32 scale;
+        f32 size;
+        s16 lifetime;
+        s8 a;
+        s8 b;
+        s8 c;
+        s8 d;
+    } packet;
+    s32 selector;
+    f32 scale;
 
     if (arg0 != 0) {
-        sp18 = 0;
-        sp1C = 0;
-        sp28 = 1;
-        sp40 = 0x64;
-        sp42 = 0xA;
-        sp43 = 1;
-        sp44 = -1;
-        sp45 = 0;
-        sp24 = arg0;
-        sp20 = *(u8 *)((u8 *)arg0 + 0x3B);
-        sp2C = 0.0f;
-        sp30 = 0.0f;
-        sp34 = 0.0f;
-        sp38 = D_800A8D5C;
-        sp3C = 3.0f;
-        func_1513418C(&sp18, 0, arg1 & 0xFF, 0);
+        packet.zero0 = 0;
+        packet.zero4 = 0;
+        selector = *(u8 *)((u8 *)arg0 + 0x3B);
+        scale = D_800A8D5C;
+        packet.kind = 1;
+        packet.lifetime = 0x64;
+        packet.a = 0xA;
+        packet.b = 1;
+        packet.c = -1;
+        packet.d = 0;
+        packet.object = arg0;
+        packet.selector = selector;
+        packet.x = 0.0f;
+        packet.y = 0.0f;
+        packet.z = 0.0f;
+        packet.scale = scale;
+        packet.size = 3.0f;
+        func_1513418C((void *)&packet, 0, arg1, 0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4590 */

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_periodic_actor_resource_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15080620
  * - func_15080784
  * - func_15080828
  * - func_15080BE8
@@ -52,22 +51,16 @@ void func_15080500(u8 *arg0, void *arg1, s32 arg2, s32 arg3) {
 }
 extern void * D_800CC5EC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15080620 CURRENT (1819) */
-void func_15080620(s32 arg0, s32 arg1, s8 arg2, s32 arg3) {
-    s8 var_a2;
-
-    var_a2 = arg2;
-    if (var_a2 != 0) {
-        var_a2 |= 0x80;
+void func_15080620(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    if (arg2 != 0) {
+        arg2 |= 0x80;
     }
     if (arg1 == 0) {
-        *(s8 *)((u8 *)*(&D_800CC5EC + (arg0 * 0x32C)) + 0x74) = var_a2;
+        *(s8 *)((u8 *)*(u8 **)((u8 *)&D_800CC5EC + (arg0 * 0x32C)) + 0x74) = arg2;
         return;
     }
-    *(s8 *)((u8 *)*(&D_800CC5EC + (arg0 * 0x32C)) + 0x75) = var_a2;
+    *(s8 *)((u8 *)*(u8 **)((u8 *)&D_800CC5EC + (arg0 * 0x32C)) + 0x75) = arg2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15080620 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AD9B0/func_15080620.s")
 typedef struct GameAD9B0Nested {
     u8 pad0[0x74];
     u8 field_74;

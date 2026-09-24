@@ -67,13 +67,13 @@ s32 func_151D3D50(u8 *arg0) {
 /* Call context: func_15143134: unique active project prototype */
 void func_15143134(f32 *, f32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3E04 CURRENT (373) */
-void func_151D3E04(void *arg0, f32 *arg1, f32 *arg2, s32 arg3, f32 arg4) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3E04 CURRENT (10) */
+void func_151D3E04(void *arg0, f32 *arg1, f32 *arg2, u8 arg3, f32 arg4) {
     s32 temp_v0;
 
     temp_v0 = *(s32 *)((u8 *)arg0 + 0x1D4);
     if (temp_v0 != 0) {
-        func_15143134(arg2, arg1, temp_v0 + ((arg3 & 0xFF) << 6));
+        func_15143134(arg2, arg1, temp_v0 + (arg3 << 6));
         return;
     }
     *(f32 *)((u8 *)arg1 + 0) = *(f32 *)((u8 *)arg0 + 0x14);

@@ -30,8 +30,6 @@
  * - func_151AB1C4
  * - func_151AB2C4
  * - func_151AB3A4
- * - func_151AB788
- * - func_151AB7D8
  * - func_151AB854
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -811,42 +809,36 @@ u8 func_151AB6B8(void *arg0) {
 /* Call context: func_100111C8: unique active project prototype */
 /* Call context: func_151346EC: unique active project prototype */
 void func_100111C8(s32, void *);
-void func_151346EC(void);
+void func_151346EC(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB788 CURRENT (690) */
 void func_151AB788(void *arg0) {
     void *sp18;
     void *temp_v0;
 
     temp_v0 = (void *)(*(s32 *)((u8 *)arg0 + 0x58) + 0x58);
-    if (*(u16 *)((u8 *)arg0 + 0x5E) != 0) {
+    if (*(volatile u16 *)((u8 *)arg0 + 0x5E) != 0) {
         sp18 = temp_v0;
-        func_100111C8((s32) *(u16 *)((u8 *)arg0 + 0x5E), (u16) arg0);
+        func_100111C8((s32) *(u16 *)((u8 *)arg0 + 0x5E), arg0);
     }
     *(s32 *)((u8 *)temp_v0 + 0x1C) = 0;
-    func_151346EC();
+    func_151346EC(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB788 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB788.s")
 /* Call context: func_100111C8: unique active project prototype */
 /* Call context: func_1513470C: unique active project prototype */
-void func_1513470C(void);
+void func_1513470C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB7D8 CURRENT (690) */
 void func_151AB7D8(void *arg0) {
     void *sp18;
     void *temp_v0;
 
     temp_v0 = (void *)(*(s32 *)((u8 *)arg0 + 0x58) + 0x58);
-    if (*(u16 *)((u8 *)arg0 + 0x5E) != 0) {
+    if (*(volatile u16 *)((u8 *)arg0 + 0x5E) != 0) {
         sp18 = temp_v0;
-        func_100111C8((s32) *(u16 *)((u8 *)arg0 + 0x5E), (u16) arg0);
+        func_100111C8((s32) *(u16 *)((u8 *)arg0 + 0x5E), arg0);
     }
     *(s32 *)((u8 *)temp_v0 + 0x1C) = 0;
-    func_1513470C();
+    func_1513470C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB7D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB7D8.s")
 void func_15141DA4(s32 arg0, s32 arg1, s32 arg2, void *arg3);
 
 void func_151AB828(void *arg0) {

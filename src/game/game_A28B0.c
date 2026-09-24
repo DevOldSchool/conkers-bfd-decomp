@@ -2043,7 +2043,7 @@ s32 func_1507A3E8(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507A3E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A3E8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A428 CURRENT (340) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A428 CURRENT (440) */
 void func_1507A428(void) {
     *(s32 *)((u8 *)D_800D154C + 0x94) = (s32) ~((D_800D1890 << 0x18) | (D_800D1891 << 0x10) | (D_800D1892 << 8) | 1 | D_800D1893);
 }
@@ -2057,9 +2057,11 @@ void func_1507A47C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507A47C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A47C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 CURRENT (970) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 CURRENT (910) */
 void func_1507A4D4(void) {
-    *(s32 *)((u8 *)D_800D154C + 0x94) = (s32) (*(s32 *)((u8 *)D_800D154C + 0x94) | ((D_800D1890 << 0x18) | (D_800D1891 << 0x10) | (D_800D1892 << 8) | D_800D1893));
+    s32 mask = (D_800D1890 << 24) | (D_800D1891 << 16) | (D_800D1892 << 8) | D_800D1893;
+
+    *(s32 *)((u8 *)D_800D154C + 0x94) |= mask;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A4D4.s")

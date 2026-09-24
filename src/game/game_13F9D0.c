@@ -17,7 +17,6 @@
  * - func_15114188
  * - func_15114348
  * - func_1511473C
- * - func_151149AC
  * - func_15114A1C
  * - func_15114B94
  * - func_15114D24
@@ -288,38 +287,33 @@ void func_1511490C(Game13F9D0Transform *arg0,
     func_150A7CB0(&sp20, arg1->field_2C, arg1->field_30, arg1->field_34);
     func_150A7A48(&sp20, arg0, arg0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151149AC CURRENT (410) */
-s32 func_151149AC(s32 arg0) {
+s32 func_151149AC(u8 arg0) {
     s32 temp_t6;
     s32 var_a2;
     s32 var_a3;
     s32 var_v1;
+    s32 base;
 
-    temp_t6 = arg0 & 0xFF;
+    temp_t6 = arg0;
     if (temp_t6 == 0) {
         return 0;
     }
     var_v1 = 0;
     if (D_800DBEF0 > 0) {
+        base = D_800DBEF4;
         var_a2 = 0;
-        var_a3 = D_800DBEF4;
-loop_4:
-        var_v1 += 1;
-        var_a3 += 0xA0;
-        if (temp_t6 == *(u8 *)((u8 *)var_a3 + 0x72)) {
-            return var_a2 + D_800DBEF4;
-        }
-        var_a2 += 0xA0;
-        if (var_v1 >= D_800DBEF0) {
-            /* Duplicate return node #7. Try simplifying control flow for better match */
-            return 0;
-        }
-        goto loop_4;
+        var_a3 = base;
+        do {
+            var_v1 += 1;
+            if (temp_t6 == *(u8 *)((u8 *)var_a3 + 0x72)) {
+                return var_a2 + base;
+            }
+            var_a2 += 0xA0;
+            var_a3 += 0xA0;
+        } while (var_v1 < D_800DBEF0);
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151149AC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151149AC.s")
 /* Call context: func_10004074: unique active project prototype */
 void func_10004074(s32);
 extern s32 D_800DBEF8;
