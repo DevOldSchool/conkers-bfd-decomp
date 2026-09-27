@@ -49,6 +49,8 @@ SECTIONS
     /* Recovered blocked switches: docs/evidence/blocked_switch_jump_tables.md. */
     .game_rodata_5d2c0 0x80096F40 (INFO) : SUBALIGN(4) { *game_5D2C0.o(.rodata) }
     .game_rodata_1bf090 0x800A811C (INFO) : SUBALIGN(4) { *game_1BF090.o(.rodata) }
+    /* Six switch targets: docs/evidence/game_11f780_jump_table.md. */
+    .game_rodata_11f780 0x800A192C (INFO) : SUBALIGN(4) { *game_11F780.o(.rodata) }
 }
 __game_rodata_16ee20_0_base = ADDR(.game_rodata_16ee20_0);
 __game_rodata_16ee20_40_base = ADDR(.game_rodata_16ee20_40) - 0x40;
@@ -88,3 +90,5 @@ ASSERT(SIZEOF(.game_rodata_75c90) == 0x20,
 ASSERT(SIZEOF(.game_rodata_70200) == 0xD0,
        "game_70200 external rodata extent changed")
 __game_rodata_70200_payload_size = 0xCC;
+ASSERT(SIZEOF(.game_rodata_11f780) == 0x20, "game_11F780 table extent changed")
+__game_rodata_11f780_payload_size = 0x18;

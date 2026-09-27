@@ -17,7 +17,6 @@
  * - func_151A4D88
  * - func_151A4E9C
  * - func_151A4ECC
- * - func_151A4F7C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -490,25 +489,27 @@ void func_151A4E9C(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E9C.s")
 extern void *func_151A3504(void *arg0, u8 arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4ECC CURRENT (931) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4ECC CURRENT (426) */
 void func_151A4ECC(void *arg0) {
     u8 *temp_a0;
     void *temp_v0;
+    u8 saved;
     s32 var_v1;
 
     var_v1 = 0;
     temp_a0 = (u8 *)arg0 + 0x28;
-    temp_v0 = *(void **)((u8 *)arg0 + 0x28);
-    if (*(s32 *)temp_v0 == 0) {
+    if (*(s32 *)*(void *volatile *)((u8 *)arg0 + 0x28) == 0) {
         var_v1 = 1;
     }
+    temp_v0 = *(void **)temp_a0;
     if (temp_a0[4] != *(u8 *)((u8 *)temp_v0 + 0x3B)) {
         var_v1 = 1;
     }
     if ((var_v1 == 0) && (*(s32 *)((u8 *)temp_v0 + 0x1D4) != 0) &&
         ((*(u8 *)((u8 *)temp_v0 + 0x74) & 0xF) != 0xF)) {
-        func_151A3504(temp_a0, *(u8 *)((u8 *)arg0 + 0xC), arg0);
-        var_v1 = 1;
+        saved = 1;
+        func_151A3504(temp_a0, *(u8 *)((u8 *)arg0 + 0xC));
+        var_v1 = saved;
     }
     if (var_v1 != 0) {
         *(s16 *)((u8 *)arg0 + 0xE) = -1;
@@ -527,15 +528,11 @@ typedef struct {
     Game1D0840Data field_28;
 } Game1D0840State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4F7C CURRENT (647) */
-void func_151A4F7C(Game1D0840State *arg0, Game1D0840Data *arg1, s32 arg2) {
-    s32 temp_t6;
+void func_151A4F7C(Game1D0840State *arg0, Game1D0840Data *arg1, u8 arg2) {
+    Game1D0840Data *data = &arg0->field_28;
 
-    temp_t6 = arg2 & 0xFF;
-    if ((temp_t6 == 0) && ((arg0->field_28.field_0 == arg1->field_0) ||
-        (arg0->field_28.field_4 == arg1->field_4))) {
-        func_1516972C(arg0, arg1);
+    if ((arg2 == 0) && ((arg1->field_0 == data->field_0) ||
+        (arg1->field_4 == data->field_4))) {
+        func_1516972C(arg0, (u8 *)arg1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4F7C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4F7C.s")

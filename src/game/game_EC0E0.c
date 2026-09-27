@@ -70,21 +70,15 @@ typedef struct {
     f32 position[3];
 } GameEC0E0ED4CLocals;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BED4C CURRENT (1790) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BED4C CURRENT (735) */
 void func_150BED4C(void *arg0, s32 arg1, s32 arg2) {
     GameEC0E0ED4CLocals locals;
-    union {
-        u32 bits;
-        f32 value;
-    } double_scale;
-
-    double_scale.bits = 0x40000000;
 
     if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
         locals.saved_arg1 = (u8)arg1;
         if (func_150BEC30(locals.position, arg0, locals.work, (u8)arg1) != 0) {
             func_15141F78(0xB, locals.work,
-                          (f32)arg2 * D_800A00D0 * double_scale.value,
+                          (f32)arg2 * D_800A00D0 * 2,
                           (u32)(*(f32 *)((u8 *)arg0 + 0x40) * D_800A00D4) & 0xFF,
                           locals.position, locals.saved_arg1);
             if (arg2 >= 0x4C) {

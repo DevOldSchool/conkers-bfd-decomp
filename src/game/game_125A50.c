@@ -23,29 +23,26 @@ void func_150F884C(s32 arg0, s32 arg1) {
 }
 extern void func_150F892C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F887C CURRENT (2038) */
-void func_150F887C(void *arg0, u8 *arg1, s32 arg2) {
-    u8 *temp_a0;
-    void *temp_t1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F887C CURRENT (810) */
+void func_150F887C(void *arg0, u8 *arg1, u8 arg2) {
+    void *owner;
+    u8 *base;
     s32 var_v0;
-    s32 temp_t2;
 
-    arg2 &= 0xFF;
-    temp_a0 = (u8 *)arg0 + 0x28;
+    owner = arg0;
+    var_v0 = arg2;
     if (arg2 == 0x42) {
+        base = (u8 *)owner + 0x28;
         var_v0 = 0;
-        if (arg1[4] == temp_a0[4]) {
-            do {
-                temp_t1 = *(void **)(temp_a0 + (var_v0 * 4) + 0xC);
-                temp_t2 = (var_v0 + 1) & 0xFF;
-                var_v0 = temp_t2;
-                *(u8 *)((u8 *)temp_t1 + 0x6E) = 1;
-            } while (temp_t2 < 7);
-            *(u8 *)((u8 *)*(void **)(temp_a0 + 0x28) + 0x6E) = 0;
-            temp_a0[8] = 7;
+        if (arg1[4] == base[4]) {
+            for (; var_v0 < 7; var_v0 = (var_v0 + 1) & 0xFF) {
+                (*(u8 **)(base + (var_v0 * 4) + 0xC))[0x6E] = 1;
+            }
+            *(u8 *)((u8 *)*(void **)(base + 0x28) + 0x6E) = 0;
+            base[8] = 7;
         }
-    } else if ((arg2 == 0x3F) && (*(s32 *)arg1 == *(s32 *)((u8 *)arg0 + 0x28))) {
-        func_150F892C(arg0);
+    } else if ((var_v0 == 0x3F) && (*(s32 *)arg1 == *(s32 *)((u8 *)owner + 0x28))) {
+        func_150F892C(owner);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F887C */

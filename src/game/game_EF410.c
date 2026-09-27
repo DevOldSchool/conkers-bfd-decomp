@@ -11,7 +11,6 @@
  * - func_150C251C
  * - func_150C2558
  * - func_150C2700
- * - func_150C2804
  * - func_150C2898
  * - func_150C29F0
  * - func_150C2C00
@@ -280,24 +279,21 @@ typedef struct {
     s8 field_19;
 } GameEF410Params;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2804 CURRENT (80) */
 void func_150C2804(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
     GameEF410Params sp1C;
 
-    sp1C.field_16 = 5;
-    sp1C.field_17 = 6;
-    sp1C.field_18 = 3;
-    sp1C.field_19 = -1;
     sp1C.field_C = D_800A0280;
     sp1C.field_0 = arg0;
     sp1C.field_4 = arg1;
     sp1C.field_8 = arg2;
     sp1C.field_10 = D_800A0284;
     sp1C.field_14 = arg3;
+    sp1C.field_16 = 5;
+    sp1C.field_17 = 6;
+    sp1C.field_18 = 3;
+    sp1C.field_19 = -1;
     func_15134908((s32 *)&sp1C, 0, arg4, arg5);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150C2804 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2804.s")
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32, f32,
                    s32, s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);

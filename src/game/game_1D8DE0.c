@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_model_owner_mode_cores.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151AB930
  * - func_151AB9C8
  * - func_151ABD54
  *
@@ -28,16 +27,15 @@ typedef struct {
     u8 field_18;
 } Game1D8DE0Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB930 CURRENT (449) */
 void func_151AB930(void *arg0) {
-    volatile Game1D8DE0Packet packet;
     s32 temp_v0;
+    Game1D8DE0Packet packet;
 
     packet.field_0 = arg0;
     packet.field_4 = *(u8 *)((u8 *)arg0 + 0x3B);
-    packet.field_10 = D_800A9014;
     packet.field_8 = *(u16 *)((u8 *)arg0 + 0x84);
     packet.field_C = 0.0f;
+    packet.field_10 = D_800A9014;
     packet.field_14 = 3.0f;
     packet.field_18 = func_151D8E20();
     temp_v0 = func_151491F4(0x3C, -1, 0xE, 1, 9, 0x1C, 0xFF, 0);
@@ -45,19 +43,17 @@ void func_151AB930(void *arg0) {
         func_10022EC0((u8 *)temp_v0 + 0x28, (void *)&packet.field_0, 0x1C);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB930 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D8DE0/func_151AB930.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D8DE0/func_151AB9C8.s")
 extern void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ABD54 CURRENT (1477) */
-void func_151ABD54(void *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ABD54 CURRENT (35) */
+void func_151ABD54(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
     s32 temp_a0;
     s32 temp_t6;
     s32 temp_v1;
 
-    temp_t6 = arg2 & 0xFF;
+    temp_t6 = arg2;
     temp_v0 = (u8 *)arg0 + 0x28;
     if (temp_t6 == 0) {
         if ((*(s32 *)temp_v0 == *(s32 *)arg1) || (temp_v0[4] == arg1[4])) {
@@ -67,9 +63,9 @@ void func_151ABD54(void *arg0, u8 *arg1, s32 arg2) {
         temp_a0 = *(s32 *)temp_v0;
         temp_v1 = *(s32 *)arg1;
         if (temp_v1 == temp_a0) {
-            *(s32 *)temp_v0 = (s32)arg1[4];
+            *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
             temp_v0[4] = arg1[9];
-        } else if (*(s32 *)arg1 == temp_a0) {
+        } else if (*(s32 *)(arg1 + 4) == temp_a0) {
             *(s32 *)temp_v0 = temp_v1;
             temp_v0[4] = arg1[8];
         }

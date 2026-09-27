@@ -333,20 +333,20 @@ extern s8 D_800BE3DB;
 extern u8 D_800BE3D8[];
 extern u8 D_800D2E60[];
 extern u8 D_800D2E69[];
-extern u8 D_800D2E4C[];
+extern u8 *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007778 CURRENT (4215) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007778 CURRENT (4795) */
 void func_15007778(void) {
     u8 *dst;
-    u8 *flags;
+    s8 *flags;
     s32 i;
 
     *(s32 *)(D_800BE3F8 + 8) = -1;
     *(s32 *)(D_800BE3F8 + 0x18) = -1;
     *(s32 *)(D_800BE3F8 + 0x28) = -1;
-    D_800BE3F8[0xE] = 0xFF;
-    D_800BE3F8[0x1E] = 0xFF;
-    D_800BE3F8[0x2E] = 0xFF;
+    ((s8 *)D_800BE3F8)[0xE] = -1;
+    ((s8 *)D_800BE3F8)[0x1E] = -1;
+    ((s8 *)D_800BE3F8)[0x2E] = -1;
     D_800BE3DC = -1;
     D_800BE3DE = 0;
     D_80082BC0 = 1;
@@ -354,14 +354,15 @@ void func_15007778(void) {
         D_800D2E4C[i] = 0;
     }
     dst = D_800D2E60;
-    while (++dst < D_800D2E69) {
+    do {
+        ++dst;
         dst[-1] = 0;
-    }
-    flags = D_800BE3D8;
-    flags[0] = 0xFF;
-    flags[1] = 0xFF;
-    flags[2] = 0xFF;
-    flags[3] = 0xFF;
+    } while (dst < D_800D2E69);
+    flags = (s8 *)D_800BE3D8;
+    flags[0] = -1;
+    flags[1] = -1;
+    flags[2] = -1;
+    flags[3] = -1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15007778 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_33990/func_15007778.s")

@@ -51,9 +51,10 @@ extern s32 D_800BE9F0;
 extern s32 D_800A56D0[5];
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146970 CURRENT (1890) */
-s32 func_15146970(u32 arg0, void *arg1, s32 arg2) {
-    s32 sp1C[5];
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146970 CURRENT (180) */
+s32 func_15146970(u32 arg0, void *arg1) {
+    typedef struct { s32 words[5]; } Copy20;
+    Copy20 sp1C;
 
     switch (arg0) {
     case 0:
@@ -79,13 +80,9 @@ s32 func_15146970(u32 arg0, void *arg1, s32 arg2) {
     case 7:
         return 3;
     case 8:
-        sp1C[0] = D_800A56D0[0];
-        sp1C[1] = D_800A56D0[1];
-        sp1C[2] = D_800A56D0[2];
-        sp1C[3] = D_800A56D0[3];
-        sp1C[4] = D_800A56D0[4];
+        sp1C = *(Copy20 *)D_800A56D0;
         if (func_150A2AEC(((u8 *)arg1 - (u8 *)&D_800CC2D0) / 0x32C,
-                          5, sp1C, (s32)arg1) == -1) {
+                          5, sp1C.words, (s32)arg1) == -1) {
             return -1;
         }
         return 6;
@@ -129,7 +126,7 @@ extern f32 D_800A5714;
 extern f32 D_800A5718;
 extern f32 D_800A571C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146A98 CURRENT (194) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146A98 CURRENT (180) */
 void func_15146A98(void *volatile arg0, s32 arg1, s32 arg2) {
     Game173D40RawVec3 position;
     Game173D40Effect effect;
@@ -143,8 +140,8 @@ void func_15146A98(void *volatile arg0, s32 arg1, s32 arg2) {
         effect.field18 = D_800A570C;
         effect.field1C = 0;
         effect.field1E = 0xFF;
-        effect.field22 = 0xE;
         effect.field20 = -0x14;
+        effect.field22 = 0xE;
         effect.field3C = 3;
         effect.field3E = 0x19;
         effect.field40 = 0x19;
@@ -293,8 +290,8 @@ u32 func_150ADA20(void);
 f32 func_150ADA68(void);
 void func_1514C678(f32, f32, s32, f32, s32, s32, s32, s32, s32, f32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15147040 CURRENT (210) */
-void func_15147040(void *arg0, s32 arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15147040 CURRENT (180) */
+void func_15147040(void *volatile arg0, s32 arg1, s32 arg2) {
     f32 coordinates[3];
     s16 sp42;
 

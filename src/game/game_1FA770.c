@@ -34,23 +34,22 @@ typedef struct Game1FA770Packet {
     u8 padD[3];
 } Game1FA770Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD2C0 CURRENT (324) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD2C0 CURRENT (120) */
 s32 func_151CD2C0(void *arg0, u8 arg1, s32 arg2) {
-    Game1FA770Packet packet;
-    s32 temp_v0;
-    s32 var_v1;
+    struct { Game1FA770Packet packet; s32 saved; } allocation;
+    s32 result;
 
-    packet.field_0 = arg0;
-    packet.field_8 = 0;
-    packet.field_4 = *(s32 *)((u8 *)arg0 + 0x18);
-    packet.field_C = (s8) *(s32 *)((u8 *)arg0 + 0x1C);
-    temp_v0 = func_15149130(0x12C, -1, -1, -1, 0, 0x1E, 0x10, (s32) arg1, arg2);
-    var_v1 = temp_v0;
-    if (temp_v0 != 0) {
-        func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x10);
-        var_v1 = temp_v0;
+    allocation.packet.field_0 = arg0;
+    allocation.packet.field_4 = *(s32 *)((u8 *)arg0 + 0x18);
+    allocation.packet.field_8 = 0;
+    allocation.packet.field_C = (s8) *(s32 *)((u8 *)arg0 + 0x1C);
+    result = func_15149130(0x12C, -1, -1, -1, 0, 0x1E, 0x10, (s32) arg1, arg2);
+    if (result != 0) {
+        allocation.saved = result;
+        func_10022EC0((void *)(result + 0x28), &allocation.packet, 0x10);
+        result = allocation.saved;
     }
-    return var_v1;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CD2C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CD2C0.s")

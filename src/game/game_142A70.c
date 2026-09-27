@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151155C0
  * - func_1511575C
- * - func_15115EDC
  * - func_15115F68
  * - func_15116058
  *
@@ -118,10 +117,7 @@ void func_15115E0C(void *arg0, void *arg1) {
         *(f32 *)((u8 *)arg0 + 0x80) = (f32) (*(f32 *)((u8 *)arg0 + 0x80) - ((temp_fv0 * temp_fa1) + (sp1C * temp_fa0)));
     }
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15115EDC CURRENT (1482) */
 void func_15115EDC(void *arg0, void *arg1) {
-    f32 sp1C;
-    f32 sp18;
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fv0;
@@ -129,18 +125,16 @@ void func_15115EDC(void *arg0, void *arg1) {
 
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x7C);
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x80);
-    sp1C = temp_fa0;
-    sp18 = temp_fa1;
     func_15115E0C(arg0, arg1);
     if (*(u16 *)((u8 *)arg1 + 0x84) == 0x4B) {
         temp_fv0 = *(f32 *)((u8 *)arg0 + 0x7C);
         temp_fv1 = *(f32 *)((u8 *)arg0 + 0x80);
-        *(f32 *)((u8 *)arg0 + 0x7C) = (f32) (temp_fv0 + ((temp_fv0 - temp_fa0) * 4.0f));
-        *(f32 *)((u8 *)arg0 + 0x80) = (f32) (temp_fv1 + ((temp_fv1 - temp_fa1) * 4.0f));
+        temp_fa0 = (temp_fv0 - temp_fa0) * 4.0f;
+        temp_fa1 = (temp_fv1 - temp_fa1) * 4.0f;
+        *(f32 *)((u8 *)arg0 + 0x7C) = temp_fv0 + temp_fa0;
+        *(f32 *)((u8 *)arg0 + 0x80) = temp_fv1 + temp_fa1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15115EDC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_142A70/func_15115EDC.s")
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15115F68 CURRENT (3210) */

@@ -25,21 +25,16 @@ extern s32 D_800E0990[];
 extern u16 D_800AB140[];
 extern s16 D_800E0968[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2AB0 CURRENT (169) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2AB0 CURRENT (42) */
 void func_151D2AB0(s32 arg0) {
     s32 sp18;
-    s32 temp_t1;
     u8 *temp_v0;
-    u8 temp_t9;
     u32 sp1C;
 
     temp_v0 = &D_800E0950[arg0];
-    temp_t9 = *temp_v0 + 1;
-    *temp_v0 = temp_t9;
-    if ((temp_t9 & 0xFF) < 2) {
-        temp_t1 = arg0 * 2;
-        sp18 = temp_t1;
-        D_800E0990[arg0] = (s32)func_1502B5C8(&sp1C, 2, 9, *(u16 *)((u8 *)D_800AB140 + temp_t1));
+    if (++*temp_v0 < 2) {
+        sp18 = arg0 * 2;
+        D_800E0990[arg0] = (s32)func_1502B5C8(&sp1C, 2, 9, *(u16 *)((u8 *)D_800AB140 + sp18));
         *(s16 *)((u8 *)D_800E0968 + sp18) = (s16)(sp1C >> 4);
     }
 }
@@ -194,15 +189,20 @@ void func_151D2E14(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D2E14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2E14.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2E5C CURRENT (360) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2E5C CURRENT (10) */
 void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
     s32 temp_v0;
     s32 temp_v1;
+    s32 owner_id;
+    s32 message_id;
 
     if (arg2 == 0) {
-        if ((*(s32 *)((u8 *)arg0 + 0x10) == *(s32 *)arg1) ||
-            (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x14))) {
-            func_1516972C(arg0, arg1);
+        temp_v0 = *(s32 *)((u8 *)arg0 + 0x10);
+        temp_v1 = *(s32 *)arg1;
+        owner_id = *(u8 *)((u8 *)arg0 + 0x14);
+        message_id = *(u8 *)((u8 *)arg1 + 4);
+        if ((temp_v0 == temp_v1) || (message_id == owner_id)) {
+            func_1516972C(arg0);
         }
     } else if (arg2 == 0x2D) {
         temp_v0 = *(s32 *)arg1;
@@ -212,7 +212,7 @@ void func_151D2E5C(void *arg0, void *arg1, u8 arg2) {
             *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == temp_v1) {
+        if (temp_v1 == *(s32 *)((u8 *)arg1 + 4)) {
             *(s32 *)((u8 *)arg0 + 0x10) = temp_v0;
             *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 8);
         }
@@ -333,19 +333,17 @@ void func_151D3220(s32 arg0) {
 extern void (*D_8008FC64[])(void *, void *, u8);
 void func_151D33FC(void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D324C CURRENT (1460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D324C CURRENT (230) */
 void func_151D324C(void *arg0, void *arg1, u8 arg2) {
-    u8 mode;
     s32 current;
     s32 incoming;
     void (*callback)(void *, void *, u8);
 
-    mode = arg2 & 0xFF;
-    if (mode == 0) {
+    if (arg2 == 0) {
         func_151D33FC(arg0, arg1);
-    } else if (mode == 0x2D) {
-        current = *(s32 *)((u8 *)arg0 + 0x10);
+    } else if (arg2 == 0x2D) {
         incoming = *(s32 *)arg1;
+        current = *(s32 *)((u8 *)arg0 + 0x10);
         if (incoming == current) {
             *(s32 *)((u8 *)arg0 + 0x10) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)arg0 + 0x14) = *(u8 *)((u8 *)arg1 + 9);
@@ -356,7 +354,7 @@ void func_151D324C(void *arg0, void *arg1, u8 arg2) {
     }
     callback = D_8008FC64[*(u8 *)((u8 *)arg0 + 0x1D)];
     if (callback != 0) {
-        callback(arg0, arg1, mode);
+        callback(arg0, arg1, arg2);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D324C */
@@ -398,27 +396,28 @@ struct Game1FFF60Node {
     Game1FFF60Node *prev;
 };
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3354 CURRENT (250) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3354 CURRENT (5) */
 void func_151D3354(Game1FFF60Node *arg0) {
     Game1FFF60Node *temp_a1;
-    Game1FFF60List *temp_v0;
-    Game1FFF60Node *temp_v0_2;
+    void *cursor;
+    Game1FFF60List *list;
 
-    temp_v0 = arg0->list;
-    if (temp_v0 != 0) {
+    cursor = arg0->list;
+    if (cursor != 0) {
+        list = cursor;
         temp_a1 = arg0->prev;
         if (temp_a1 != 0) {
             temp_a1->next = arg0->next;
         } else {
-            temp_v0->head = arg0->next;
+            list->head = arg0->next;
         }
-        temp_v0_2 = arg0->next;
-        if (temp_v0_2 != 0) {
-            temp_v0_2->prev = arg0->prev;
+        cursor = arg0->next;
+        if (cursor != 0) {
+            ((Game1FFF60Node *)cursor)->prev = arg0->prev;
         } else {
-            temp_v0->tail = arg0->prev;
+            list->tail = arg0->prev;
         }
-        temp_v0->count--;
+        list->count--;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D3354 */

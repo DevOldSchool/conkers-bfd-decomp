@@ -82,16 +82,18 @@ s32 func_150C682C(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C682C.s")
 s32 func_150C68C4(void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C6870 CURRENT (835) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C6870 CURRENT (265) */
 void func_150C6870(void *arg0) {
     s32 temp_a2;
+    u8 (*state)[1];
 
     temp_a2 = *(s32 *)((u8 *)arg0 + 0x18);
-    if (*(s32 *)((u8 *)arg0 + 0x70) != 0) {
-        *(s8 *)((u8 *)(*(s32 *)((u8 *)arg0 + 0x70) + 0x58) + 4) = 1;
+    if (*(volatile s32 *)((u8 *)arg0 + 0x70) != 0) {
+        state = (u8 (*)[1])(*(u8 **)((u8 *)arg0 + 0x70) + 0x58);
+        state[4][0] = 1;
         return;
     }
-    *(s32 *)((u8 *)arg0 + 0x70) = func_150C68C4(temp_a2, arg0, temp_a2);
+    *(s32 *)((u8 *)arg0 + 0x70) = func_150C68C4((void *)temp_a2, arg0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C6870 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C6870.s")

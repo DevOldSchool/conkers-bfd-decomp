@@ -125,14 +125,14 @@ void *func_151B9F00(void *arg0, u8 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E73B0/func_151BA084.s")
 extern void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BA468 CURRENT (1697) */
-void func_151BA468(void *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BA468 CURRENT (350) */
+void func_151BA468(void *arg0, u8 *arg1, u8 arg2) {
     u8 *temp_v0;
     void *temp_v1;
 
-    arg2 &= 0xFF;
     temp_v0 = (u8 *)arg0 + *(s32 *)((u8 *)arg0 + 0x50);
     temp_v1 = *(void **)(temp_v0 + 0xF8);
+    temp_v0 += 0xF8;
     if (arg2 == 0) {
         if ((temp_v1 == *(void **)arg1) ||
             (*(u8 *)((u8 *)temp_v1 + 0x3B) == arg1[4])) {
@@ -142,13 +142,13 @@ void func_151BA468(void *arg0, u8 *arg1, s32 arg2) {
         void *temp_a0 = *(void **)arg1;
 
         if (temp_a0 == temp_v1) {
-            *(void **)(temp_v0 + 0xF8) = (void *)(s32)arg1[4];
-            temp_v0[0xFC] = arg1[9];
+            *(void **)temp_v0 = *(void **)(arg1 + 4);
+            temp_v0[4] = arg1[9];
             return;
         }
-        if ((s32)arg1[4] == (s32)temp_v1) {
-            *(void **)(temp_v0 + 0xF8) = temp_a0;
-            temp_v0[0xFC] = arg1[8];
+        if (*(void **)(arg1 + 4) == temp_v1) {
+            *(void **)temp_v0 = temp_a0;
+            temp_v0[4] = arg1[8];
         }
     }
 }

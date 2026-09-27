@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_animated_emission_controllers.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15171CA0
  * - func_15171D4C
  * - func_151720C4
  * - func_151725FC
@@ -34,7 +33,6 @@ typedef struct Game19F150Object {
 
 extern Game19F150Object *func_15167A68(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15171CA0 CURRENT (595) */
 Game19F150Object *func_15171CA0(s16 arg0, u16 arg1, u8 arg2, s32 arg3, s32 arg4, s32 arg5, u8 arg6, s32 arg7) {
     Game19F150Object *var_v1;
 
@@ -42,20 +40,18 @@ Game19F150Object *func_15171CA0(s16 arg0, u16 arg1, u8 arg2, s32 arg3, s32 arg4,
     if (var_v1 == 0) {
         return 0;
     }
-    var_v1->field_52 = 0;
     var_v1->field_50 = arg0;
+    var_v1->field_52 = 0;
     var_v1->field_54 = arg4;
     var_v1->field_56 = arg1;
     var_v1->field_58 = arg2;
+    var_v1->field_59 = arg3;
     var_v1->field_16 = 0;
     var_v1->field_26 = 0;
     var_v1->field_36 = 0;
     var_v1->field_46 = 0;
-    var_v1->field_59 = arg3;
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15171CA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19F150/func_15171CA0.s")
 typedef struct Game171D4CGeometry {
     u8 pad00[0x10];
     s16 values[0x1E];

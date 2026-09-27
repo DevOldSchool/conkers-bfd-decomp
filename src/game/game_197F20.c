@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1516AA70
  * - func_1516B6BC
- * - func_1516C878
  * - func_1516C934
  * - func_1516CC58
  * - func_1516D0CC
@@ -20,20 +19,21 @@
 extern s32 D_800DD254;
 extern s32 D_800DD258;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516C878 CURRENT (2588) */
 u8 *func_1516C878(void *arg0, s32 arg1, s16 arg2) {
     s32 count;
     u8 *cursor;
-    u8 value;
+    s32 value;
 
-    if (arg2 == 0) {
-        cursor = *(u8 **)((u8 *)D_800DD254 + (*(s32 *)((u8 *)arg0 + 4) * 8));
-    } else if (arg2 == 1) {
-        cursor = *(u8 **)((u8 *)D_800DD258 + (*(s32 *)((u8 *)arg0 + 4) * 8));
-    } else if (arg2 == 2) {
+    switch (arg2) {
+    case 0:
+        cursor = ((u8 *(*)[2])D_800DD254)[*(s32 *)((u8 *)arg0 + 4)][0];
+        break;
+    case 1:
+        cursor = ((u8 *(*)[2])D_800DD258)[*(s32 *)((u8 *)arg0 + 4)][0];
+        break;
+    case 2:
         cursor = *(u8 **)((u8 *)arg0 + 4);
-    } else {
-        cursor = 0;
+        break;
     }
     count = 0;
     if (arg1 > 0) {
@@ -56,8 +56,6 @@ u8 *func_1516C878(void *arg0, s32 arg1, s16 arg2) {
     }
     return cursor;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516C878 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516C878.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516C934.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_197F20/func_1516CC58.s")
 f32 func_15047C00(f32);                             /* extern */

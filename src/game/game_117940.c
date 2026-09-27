@@ -25,14 +25,18 @@ typedef struct Game117940State {
 f32 func_151423D8(u8);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EA490 CURRENT (865) */
-f32 func_150EA490(Game117940State *arg0) {
-    u8 index;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EA490 CURRENT (20) */
+f32 func_150EA490(Game117940State *volatile arg0) {
+    s32 angle;
     f32 result;
+    f32 sine;
+    Game117940Phase *phase;
 
-    index = ((arg0->phase.phase_80 >> 16) - 0x40) & 0xFF;
-    result = (func_151423D8(index) * arg0->phase.amplitude_8C) + arg0->phase.base_88;
-    arg0->phase.phase_80 += arg0->phase.phase_step_84 * D_800BE9E4;
+    angle = (s32)(arg0->phase.phase_80 >> 16) - 0x40;
+    sine = func_151423D8(angle & 0xFF);
+    phase = (Game117940Phase *)((u8 (*)[1])arg0)[0x80];
+    result = (sine * phase->amplitude_8C) + phase->base_88;
+    phase->phase_80 += phase->phase_step_84 * D_800BE9E4;
     return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EA490 */

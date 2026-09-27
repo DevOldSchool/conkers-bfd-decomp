@@ -72,30 +72,31 @@ void func_150B5814(s32 arg0) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5840 CURRENT (1887) */
-void func_150B5840(u8 *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5840 CURRENT (110) */
+void func_150B5840(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a0;
     s32 temp_t6;
     s32 temp_v1;
     u8 *temp_v0;
 
-    temp_t6 = arg2 & 0xFF;
+    temp_t6 = arg2;
+    temp_v0 = arg0 + 0x28;
     if (temp_t6 == 0) {
-        if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x28)) || (*(u8 *)((u8 *)(arg0 + 0x28) + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+        temp_v1 = *(s32 *)arg1;
+        if ((temp_v1 == *(s32 *)temp_v0) || (temp_v0[4] == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
     } else {
-        temp_v0 = (void *)(arg0 + 0x28);
         if (temp_t6 == 0x2D) {
-            temp_a0 = *(s32 *)((u8 *)arg0 + 0x28);
+            temp_a0 = *(s32 *)temp_v0;
             temp_v1 = *(s32 *)((u8 *)arg1 + 0);
             if (temp_v1 == temp_a0) {
-                *(s32 *)((u8 *)arg0 + 0x28) = (s32) *(u8 *)((u8 *)arg1 + 4);
+                *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
                 *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
                 return;
             }
-            if ((s32) *(u8 *)((u8 *)arg1 + 4) == temp_a0) {
-                *(s32 *)((u8 *)arg0 + 0x28) = temp_v1;
+            if (*(s32 *)(arg1 + 4) == temp_a0) {
+                *(s32 *)temp_v0 = temp_v1;
                 *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
             }
         }

@@ -40,7 +40,7 @@ extern s32 D_800D9F58;
 extern s32 D_800D9F5C;
 extern u8 D_800D9F68[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D694 CURRENT (130) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D694 CURRENT (30) */
 void func_1510D694(s32 arg0) {
     u8 temp_v1;
     u8 *temp_v0;

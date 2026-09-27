@@ -11,10 +11,8 @@
  * - func_1513C92C
  * - func_1513CAD4
  * - func_1513CBF0
- * - func_1513CF9C
  * - func_1513CFE4
  * - func_1513D2F0
- * - func_1513D668
  * - func_1513D6FC
  * - func_1513DB00
  * - func_1513DF9C
@@ -30,7 +28,6 @@
  * - func_1513F728
  * - func_1513FAB4
  * - func_1513FFF4
- * - func_151400D0
  * - func_15140190
  * - func_15140410
  * - func_151406AC
@@ -345,14 +342,11 @@ void func_1513CBA4(void *arg0) {
     D_80089F2C[var_v0]();
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CBF0.s")
-extern void (*D_80089F60)(s32);
+extern void (*D_80089F60)(s32, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513CF9C CURRENT (430) */
-void func_1513CF9C(s32 arg0, s32 arg1, s32 arg2) {
-    D_80089F60(arg2 & 0xFF);
+void func_1513CF9C(s32 arg0, s32 arg1, u8 arg2) {
+    D_80089F60(arg0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513CF9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CF9C.s")
 void func_1513CFD0(s32 arg0, s32 arg1, s32 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CFE4.s")
@@ -391,16 +385,10 @@ void *func_1513D594(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
     }
     return (void *)sp3C;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513D668 CURRENT (1582) */
-void func_1513D668(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, s16 arg6, f32 arg7, f32 arg8, s32 arg9, s32 arg10, u8 arg11, s32 arg12, u8 arg13, s32 arg14) {
-    s32 temp_a2 = arg2;
-    s32 temp_a3 = arg3;
-
-    func_1513D594(arg0, arg1, temp_a2 & 0xFF, temp_a3 & 0xFF, (s32)arg4, (s32)arg5, (s32)arg6,
+void func_1513D668(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4, u8 arg5, s16 arg6, f32 arg7, f32 arg8, s32 arg9, s32 arg10, u8 arg11, s32 arg12, u8 arg13, s32 arg14) {
+    func_1513D594(arg0, arg1, arg2, arg3, (s32)arg4, (s32)arg5, (s32)arg6,
                   arg7, arg8, arg9, arg10, 0, 0, (s32)arg11, arg12, (s32)arg13, arg14);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513D668 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D668.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D6FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513DB00.s")
 extern void (*D_80089F64[])(void *, s32, u8);
@@ -733,40 +721,34 @@ void func_1513FFF4(void *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513FFF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513FFF4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151400D0 CURRENT (1055) */
-void func_151400D0(u8 *arg0, u8 *arg1) {
-    u8 *temp_a0;
-    u8 *temp_a1;
-
-    temp_a0 = (void *)(arg0 + 0x30);
-    temp_a1 = (void *)(arg1 + 0x1E);
-    *(u16 *)((u8 *)temp_a0 + -0x2A) = (u16) *(u16 *)((u8 *)arg1 + 8);
-    *(s8 *)((u8 *)temp_a0 + -0x24) = (s8) *(s16 *)((u8 *)temp_a1 + -0x1E);
-    *(s8 *)((u8 *)temp_a0 + -0x23) = (s8) *(s16 *)((u8 *)temp_a1 + -0x1C);
-    *(s8 *)((u8 *)temp_a0 + -0x22) = (s8) *(s16 *)((u8 *)temp_a1 + -0x1A);
-    *(u16 *)((u8 *)temp_a0 + -0x2A) = 0U;
-    *(s8 *)((u8 *)temp_a0 + -0x21) = (s8) *(s16 *)((u8 *)temp_a1 + -0x18);
-    *(u16 *)((u8 *)temp_a0 + -0x1A) = (u16) *(u16 *)((u8 *)temp_a1 + -0xC);
-    *(s8 *)((u8 *)temp_a0 + -0x14) = (s8) *(s16 *)((u8 *)temp_a1 + -0x14);
-    *(s8 *)((u8 *)temp_a0 + -0x13) = (s8) *(s16 *)((u8 *)temp_a1 + -0x12);
-    *(s8 *)((u8 *)temp_a0 + -0x12) = (s8) *(s16 *)((u8 *)temp_a1 + -0x10);
-    *(u16 *)((u8 *)temp_a0 + -0x1A) = 0U;
-    *(s8 *)((u8 *)temp_a0 + -0x11) = (s8) *(s16 *)((u8 *)temp_a1 + -0xE);
-    *(u16 *)((u8 *)temp_a0 + -0xA) = (u16) *(u16 *)((u8 *)temp_a1 + -2);
-    *(s8 *)((u8 *)temp_a0 + -4) = (s8) *(s16 *)((u8 *)temp_a1 + -0xA);
-    *(s8 *)((u8 *)temp_a0 + -3) = (s8) *(s16 *)((u8 *)temp_a1 + -8);
-    *(s8 *)((u8 *)temp_a0 + -2) = (s8) *(s16 *)((u8 *)temp_a1 + -6);
-    *(u16 *)((u8 *)temp_a0 + -0xA) = 0U;
-    *(s8 *)((u8 *)temp_a0 + -1) = (s8) *(s16 *)((u8 *)temp_a1 + -4);
-    *(u16 *)((u8 *)temp_a0 + 6) = (u16) *(u16 *)((u8 *)temp_a1 + 8);
-    *(s8 *)((u8 *)temp_a0 + 0xC) = (s8) *(s16 *)((u8 *)arg1 + 0x1E);
-    *(s8 *)((u8 *)temp_a0 + 0xD) = (s8) *(s16 *)((u8 *)temp_a1 + 2);
-    *(s8 *)((u8 *)temp_a0 + 0xE) = (s8) *(s16 *)((u8 *)temp_a1 + 4);
-    *(u16 *)((u8 *)temp_a0 + 6) = 0U;
-    *(s8 *)((u8 *)temp_a0 + 0xF) = (s8) *(s16 *)((u8 *)temp_a1 + 6);
+void func_151400D0(void *arg0, void *arg1) {
+    *(u16 *)((u8 *)arg0 + 6) = *(u16 *)((u8 *)arg1 + 8);
+    arg0 = (u8 *)arg0 + 0x30;
+    arg1 = (u8 *)arg1 + 0x1E;
+    *(s8 *)((u8 *)arg0 + -0x24) = (s8) *(s16 *)((u8 *)arg1 + -0x1E);
+    *(s8 *)((u8 *)arg0 + -0x23) = (s8) *(s16 *)((u8 *)arg1 + -0x1C);
+    *(s8 *)((u8 *)arg0 + -0x22) = (s8) *(s16 *)((u8 *)arg1 + -0x1A);
+    *(s8 *)((u8 *)arg0 + -0x21) = (s8) *(s16 *)((u8 *)arg1 + -0x18);
+    *(u16 *)((u8 *)arg0 + -0x2A) = 0U;
+    *(u16 *)((u8 *)arg0 + -0x1A) = (u16) *(u16 *)((u8 *)arg1 + -0xC);
+    *(s8 *)((u8 *)arg0 + -0x14) = (s8) *(s16 *)((u8 *)arg1 + -0x14);
+    *(s8 *)((u8 *)arg0 + -0x13) = (s8) *(s16 *)((u8 *)arg1 + -0x12);
+    *(s8 *)((u8 *)arg0 + -0x12) = (s8) *(s16 *)((u8 *)arg1 + -0x10);
+    *(s8 *)((u8 *)arg0 + -0x11) = (s8) *(s16 *)((u8 *)arg1 + -0xE);
+    *(u16 *)((u8 *)arg0 + -0x1A) = 0U;
+    *(u16 *)((u8 *)arg0 + -0xA) = (u16) *(u16 *)((u8 *)arg1 + -2);
+    *(s8 *)((u8 *)arg0 + -4) = (s8) *(s16 *)((u8 *)arg1 + -0xA);
+    *(s8 *)((u8 *)arg0 + -3) = (s8) *(s16 *)((u8 *)arg1 + -8);
+    *(s8 *)((u8 *)arg0 + -2) = (s8) *(s16 *)((u8 *)arg1 + -6);
+    *(s8 *)((u8 *)arg0 + -1) = (s8) *(s16 *)((u8 *)arg1 + -4);
+    *(u16 *)((u8 *)arg0 + -0xA) = 0U;
+    *(u16 *)((u8 *)arg0 + 6) = (u16) *(u16 *)((u8 *)arg1 + 8);
+    *(s8 *)((u8 *)arg0 + 0xC) = (s8) *(s16 *)arg1;
+    *(s8 *)((u8 *)arg0 + 0xD) = (s8) *(s16 *)((u8 *)arg1 + 2);
+    *(s8 *)((u8 *)arg0 + 0xE) = (s8) *(s16 *)((u8 *)arg1 + 4);
+    *(s8 *)((u8 *)arg0 + 0xF) = (s8) *(s16 *)((u8 *)arg1 + 6);
+    *(u16 *)((u8 *)arg0 + 6) = 0U;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151400D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_151400D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_15140190.s")
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A5168;

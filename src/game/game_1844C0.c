@@ -327,7 +327,7 @@ Game1844C0DisplayCommand *func_15157F80(Game1844C0DisplayCommand *arg0, s32 arg1
 extern s32 D_800BE628;
 extern u8 *D_800DC2A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157FE8 CURRENT (1460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157FE8 CURRENT (1860) */
 void *func_15157FE8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     u8 *temp_a3;
     u8 *var_v1;

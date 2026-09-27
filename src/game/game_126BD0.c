@@ -25,15 +25,13 @@ typedef struct Game126BD0Message {
 extern Game126BD0LookupRecord D_800A1C40[];
 void func_151494E0(Game126BD0Message *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F9720 CURRENT (908) */
-void func_150F9720(s32 arg0) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F9720 CURRENT (651) */
+void func_150F9720(u8 arg0) {
     Game126BD0Message message;
     Game126BD0Message *message_ptr;
     Game126BD0LookupRecord *record;
-    s32 index;
 
-    index = arg0 & 0xFF;
-    record = &D_800A1C40[index];
+    record = &D_800A1C40[arg0];
     message.value = 0;
     message_ptr = &message;
     message.selector = record->first;

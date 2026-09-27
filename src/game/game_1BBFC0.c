@@ -54,7 +54,7 @@ s32 func_1518EF54(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BBFC0/func_1518EF54.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F058 CURRENT (975) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F058 CURRENT (85) */
 s32 func_1518F058(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;
@@ -63,8 +63,8 @@ s32 func_1518F058(void *arg0) {
 
     temp_fv0 = *(f32 *)((u8 *)arg0 + 0x150);
     *(f32 *)((u8 *)arg0 + 0x140) = (f32) (*(f32 *)((u8 *)arg0 + 0x140) * temp_fv0);
+    *(f32 *)((u8 *)arg0 + 0x144) = (f32) ((*(f32 *)((u8 *)arg0 + 0x14C) * D_800BE9A4) + *(f32 *)((u8 *)arg0 + 0x144));
     *(f32 *)((u8 *)arg0 + 0x148) = (f32) (*(f32 *)((u8 *)arg0 + 0x148) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x144) = (f32) (*(f32 *)((u8 *)arg0 + 0x144) + (*(f32 *)((u8 *)arg0 + 0x14C) * D_800BE9A4));
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x140) * D_800BE9A4;
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x144) * D_800BE9A4;
     temp_ft4 = *(f32 *)((u8 *)arg0 + 0x148) * D_800BE9A4;

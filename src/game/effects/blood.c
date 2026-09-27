@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_15134070
- * - func_1513418C
  * - func_151342BC
  * - func_151347CC
  * - func_15134908
@@ -156,11 +155,10 @@ void func_10022EC0(void *, void *, s32);
 void func_15143134(f32 *, f32 *, s32);
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513418C CURRENT (40) */
 void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     void *temp_v0;
     void *sp24;
-    s32 temp_v1;
+    u8 *temp_v1;
     u8 temp_a0;
     void *temp_v0_2;
     f32 one;
@@ -181,26 +179,21 @@ void *func_1513418C(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
             func_1516972C(sp24);
             return (void *)0;
         }
-        temp_v1 = *(s32 *)((u8 *)temp_v0_2 + 0x1D4);
+        temp_v1 = *(u8 **)((u8 *)temp_v0_2 + 0x1D4);
         if ((temp_v1 != 0) && ((*(u8 *)((u8 *)temp_v0_2 + 0x74) & 0xF) != 0xF)) {
             func_15143134((f32 *)((u8 *)sp24 + 0x24),
                           (f32 *)((u8 *)sp24 + 0x40),
-                          temp_v1 + (*(u8 *)((u8 *)sp24 + 0x20) << 6));
+                          (s32)((u8 (*)[0x40])temp_v1)[*(u8 *)((u8 *)sp24 + 0x20)]);
         } else {
             *(u8 *)((u8 *)sp24 + 0x3A) = temp_a0 | 8;
         }
     } else {
         *(u8 *)((u8 *)sp24 + 0x3A) = temp_a0 | 0x18;
     }
-    one = 1.0f;
-    denominator = *(f32 *)((u8 *)sp24 + 0x30) + *(f32 *)((u8 *)sp24 + 0x30);
-    zero = 0.0f;
-    *(f32 *)((u8 *)sp24 + 0x50) = zero;
-    *(f32 *)((u8 *)sp24 + 0x4C) = one / denominator;
+    *(f32 *)((u8 *)sp24 + 0x4C) = 1.0f / (*(f32 *)((u8 *)sp24 + 0x30) + *(f32 *)((u8 *)sp24 + 0x30));
+    *(f32 *)((u8 *)sp24 + 0x50) = 0.0f;
     return sp24;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1513418C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513418C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151342BC.s")
 s32 func_151346D0(s32 arg0, void *arg1, s32 arg2) {
     *((unsigned char *)arg1 + 0x3A) =

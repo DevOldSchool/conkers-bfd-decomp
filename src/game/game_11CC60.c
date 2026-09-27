@@ -5,8 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150EF7B0
- * - func_150EF860
  * - func_150EF910
  * - func_150EFA4C
  *
@@ -18,13 +16,14 @@ extern void func_1513CA6C(void *arg0);
 extern void func_1516979C(void *arg0);
 extern void func_1513CAA0(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EF7B0 CURRENT (717) */
 void func_150EF7B0(void *arg0) {
     void **var_s1;
+    void **base;
     s32 var_s0;
 
     var_s0 = 0;
-    var_s1 = (void **)((u8 *)arg0 + 0x110);
+    base = (void **)((u8 *)arg0 + 0x110);
+    var_s1 = base;
     do {
         if (var_s1[7] != 0) {
             func_1516972C(var_s1[7]);
@@ -32,26 +31,25 @@ void func_150EF7B0(void *arg0) {
         var_s0 += 4;
         var_s1 = (void **)((u8 *)var_s1 + 4);
     } while (var_s0 != 8);
-    if (var_s1[1] != 0) {
-        func_1516972C(var_s1[1]);
+    if (base[9] != 0) {
+        func_1516972C(base[9]);
     }
-    if (var_s1[2] != 0) {
-        func_1516972C(var_s1[2]);
+    if (base[10] != 0) {
+        func_1516972C(base[10]);
     }
-    if (var_s1[3] != 0) {
-        func_1516972C(var_s1[3]);
+    if (base[11] != 0) {
+        func_1516972C(base[11]);
     }
     func_1513CA6C(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EF7B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11CC60/func_150EF7B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EF860 CURRENT (717) */
 void func_150EF860(void *arg0) {
     void **var_s1;
+    void **base;
     s32 var_s0;
 
     var_s0 = 0;
-    var_s1 = (void **)((u8 *)arg0 + 0x110);
+    base = (void **)((u8 *)arg0 + 0x110);
+    var_s1 = base;
     do {
         if (var_s1[7] != 0) {
             func_1516979C(var_s1[7]);
@@ -59,19 +57,17 @@ void func_150EF860(void *arg0) {
         var_s0 += 4;
         var_s1 = (void **)((u8 *)var_s1 + 4);
     } while (var_s0 != 8);
-    if (var_s1[1] != 0) {
-        func_1516979C(var_s1[1]);
+    if (base[9] != 0) {
+        func_1516979C(base[9]);
     }
-    if (var_s1[2] != 0) {
-        func_1516979C(var_s1[2]);
+    if (base[10] != 0) {
+        func_1516979C(base[10]);
     }
-    if (var_s1[3] != 0) {
-        func_1516979C(var_s1[3]);
+    if (base[11] != 0) {
+        func_1516979C(base[11]);
     }
     func_1513CAA0(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150EF860 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11CC60/func_150EF860.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150EF910 CURRENT (2970) */
 void func_150EF910(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a2;
@@ -130,25 +126,24 @@ void func_15143134(f32 *, f32 *, s32);
 extern f32 D_800A1620[][3];
 extern u8 D_800A1638[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EFA4C CURRENT (1875) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EFA4C CURRENT (1190) */
 s32 func_150EFA4C(u8 *arg0) {
+    typedef struct { s32 words[3]; } Copy12;
+    u8 *parent;
     u8 temp_v0;
     u8 *temp_t0;
     u8 *temp_t1;
     u8 *temp_v1;
 
-    temp_v1 = *(u8 **)(*(u8 **)(arg0 + 0x60) + 8);
+    parent = *(u8 **)(arg0 + 0x60);
+    temp_v1 = *(u8 **)(parent + 8);
     temp_t0 = temp_v1 + 0x110;
     if (temp_v1[0x128] & 1) {
         temp_t1 = *(u8 **)temp_t0;
         if (*(s32 *)(temp_t1 + 0x1D4) != 0) {
             temp_v0 = temp_t0[0xD];
-            *(s32 *)(arg0 + 0x30) = *(s32 *)(temp_v1 + 0x34);
-            *(s32 *)(arg0 + 0x34) = *(s32 *)(temp_v1 + 0x38);
-            *(s32 *)(arg0 + 0x38) = *(s32 *)(temp_v1 + 0x3C);
-            *(s32 *)(arg0 + 0x3C) = *(s32 *)(temp_v1 + 0x40);
-            *(s32 *)(arg0 + 0x40) = *(s32 *)(temp_v1 + 0x44);
-            *(s32 *)(arg0 + 0x44) = *(s32 *)(temp_v1 + 0x48);
+            *(Copy12 *)(arg0 + 0x30) = *(Copy12 *)(temp_v1 + 0x34);
+            *(Copy12 *)(arg0 + 0x3C) = *(Copy12 *)(temp_v1 + 0x40);
             *(f32 *)(arg0 + 0x54) = *(f32 *)(temp_t0 + 0x3C);
             *(f32 *)(arg0 + 0x58) = *(f32 *)(temp_t0 + 0x40);
             func_15143134(D_800A1620[temp_v0], (f32 *)(arg0 + 0x48),
@@ -158,11 +153,13 @@ s32 func_150EFA4C(u8 *arg0) {
             *(f32 *)(arg0 + 0x4C) -= *(f32 *)(arg0 + 0x34);
             arg0[0x1C] |= 2;
             *(f32 *)(arg0 + 0x50) -= *(f32 *)(arg0 + 0x38);
+            return 1;
         } else {
-            arg0[0x1C] &= 0xFD;
+            arg0[0x1C] &= ~2;
+            return 1;
         }
     } else {
-        arg0[0x1C] &= 0xFD;
+        arg0[0x1C] &= ~2;
     }
     return 1;
 }

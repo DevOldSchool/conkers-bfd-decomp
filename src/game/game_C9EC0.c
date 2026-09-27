@@ -322,7 +322,7 @@ void func_1509D054(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509D054 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C9EC0/func_1509D054.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D08C CURRENT (100) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509D08C CURRENT (50) */
 s32 func_1509D08C(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3) {
     u8 *base;
     u8 *entry;
@@ -333,7 +333,7 @@ s32 func_1509D08C(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3) {
     u32 count;
 
     base = (u8 *)D_800D2FB0;
-    entry = (u8 *)((arg1 * 8) + (s32)base);
+    entry = ((u8 (*)[8])base)[arg1];
     if (base == 0) {
         if (arg2 != 0) {
             *arg2 = 0xBF;
@@ -361,15 +361,15 @@ s32 func_1509D08C(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3) {
         *arg3 = resource[0][0];
         resource = *(s16 ***)(entry + 8);
     }
-    count = *(u32 *)((u8 *)resource + 0xC);
     index = 0;
+    count = *(u32 *)((u8 *)resource + 0xC);
     if (count != 0) {
         dependencies = resource[2];
         do {
             dependency = *dependencies;
             index++;
             if (!((1 << (dependency & 7)) &
-                  *(u8 *)(D_800D2E4C + (dependency >> 3)))) {
+                  ((u8 *)D_800D2E4C)[dependency >> 3])) {
                 return 0;
             }
             dependencies++;

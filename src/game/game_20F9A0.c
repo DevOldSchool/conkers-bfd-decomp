@@ -17,7 +17,6 @@
  * - func_151E53E8
  * - func_151E55A8
  * - func_151E565C
- * - func_151E5F64
  * - func_151E5FF4
  * - func_151E6964
  * - func_151E6C1C
@@ -574,8 +573,7 @@ s8 func_151E564C(void) {
 extern u8 D_800BE616;
 extern s8 D_800E0C00[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E5F64 CURRENT (530) */
-s8 func_151E5F64(s8 arg0) {
+s32 func_151E5F64(s32 arg0) {
     s8 var_v1;
 
     if ((D_800BE616 != 0) || (D_800E0B94 != 0)) {
@@ -587,8 +585,6 @@ s8 func_151E5F64(s8 arg0) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E5F64 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E5F64.s")
 extern s8 D_8008FD8C;
 extern s8 D_8008FD90;
 extern s8 D_800E0BEB;

@@ -19,18 +19,19 @@ typedef struct Game1D6510State {
 
 extern s32 (*D_8008F984[])(Game1D6510State *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9060 CURRENT (460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9060 CURRENT (55) */
 s32 func_151A9060(Game1D6510State *arg0) {
     s32 index;
     s32 (*callback)(Game1D6510State *);
 
     index = arg0->callbackIndex;
     arg0->flags |= 4;
-    if ((index >= 0) && (index < 8)) {
-        callback = D_8008F984[index];
-        if (callback != 0) {
-            callback(arg0);
-        }
+    if ((index < 0) || (index >= 8)) {
+        return 1;
+    }
+    callback = D_8008F984[index];
+    if (callback != 0) {
+        callback(arg0);
     }
     return 1;
 }

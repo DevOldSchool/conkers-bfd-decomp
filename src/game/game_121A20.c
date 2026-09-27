@@ -26,7 +26,7 @@ typedef struct Game121A20State {
     Game121A20NestedState nested170;
 } Game121A20State;
 
-void func_1516972C(s32);
+void func_1516972C(u8 *);
 s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_10022EC0(s32, s32 *, s32);
 
@@ -65,7 +65,7 @@ void *func_150F48D0(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F48D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4A38.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4CFC CURRENT (520) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4CFC CURRENT (410) */
 void func_150F4CFC(Game121A20State *arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4E) {
         arg0->field71 = 0;
@@ -73,7 +73,7 @@ void func_150F4CFC(Game121A20State *arg0, s32 arg1, u8 arg2) {
         return;
     }
     if (arg2 == 0x4F) {
-        func_1516972C(arg2);
+        func_1516972C((u8 *)arg0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F4CFC */

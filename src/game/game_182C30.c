@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_indexed_controller_view_worklist.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15155780
  * - func_1515589C
  * - func_15155CFC
  * - func_15155FD4
@@ -28,7 +27,6 @@ typedef struct {
 s32 func_1518C900(s32); /* extern */
 Game182C30Effect *func_15167A68(s32, s32, s32, s32, s32, s32); /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15155780 CURRENT (245) */
 Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
     Game182C30Effect *effect;
 
@@ -36,15 +34,13 @@ Game182C30Effect *func_15155780(s32 arg0, s32 arg1) {
     if (effect == 0) {
         return effect;
     }
+    effect->field10 = arg0;
     effect->field11 = 0;
     effect->field14 = 0;
-    effect->field10 = arg0;
     effect->field98 = 0.0f;
     func_1518C900(0xA6);
     return effect;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15155780 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_182C30/func_15155780.s")
 Game182C30Effect *func_15155780(s32, s32);
 void *func_15155FD4(s32);
 extern u8 D_800CC37D[];

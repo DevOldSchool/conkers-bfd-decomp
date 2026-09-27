@@ -95,14 +95,14 @@ Game61490Command *func_150343B0(Game61490Command *arg0, s32 arg1) {
 }
 extern f32 D_80097D18;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15034420 CURRENT (405) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15034420 CURRENT (55) */
 Game61490Command *func_15034420(Game61490Command *arg0, s32 arg1) {
     s32 value;
     s32 part;
 
+    value = (s32)((f32)D_800CC2D0[arg1].field_2E4 * D_80097D18);
     arg0[0].opcode = 0;
     arg0[1].opcode = 0x18;
-    value = (s32)((f32)D_800CC2D0[arg1].field_2E4 * D_80097D18);
     part = (s16)value >> 4;
     arg0[0].value = part;
     arg0[1].value = (s16)value - part;

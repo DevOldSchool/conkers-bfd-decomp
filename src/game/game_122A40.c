@@ -10,6 +10,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_150F55C8(void *);
+
 void func_150F5590(void *arg0) {
     s32 temp_v0;
 
@@ -18,7 +20,7 @@ void func_150F5590(void *arg0) {
     *(s16 *)((u8 *)arg0 + 0x3A) = (s16) *(s16 *)((u8 *)arg0 + 0x38);
     func_150F55C8(arg0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F55C8 CURRENT (395) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F55C8 CURRENT (780) */
 void func_150F55C8(void *arg0) {
     s16 temp_t2;
     s32 temp_a1;
@@ -34,14 +36,14 @@ void func_150F55C8(void *arg0) {
     temp_a1 = temp_a2 >> 0x10;
     temp_t1 = temp_v0 - temp_a1;
     if (temp_t1 < temp_t2) {
-        *(s8 *)((u8 *)arg0 + 0x45) = (s8) ((s32) ((temp_v0 - temp_t2) * 0xFF) / temp_a1);
+        *(u8 *)((u8 *)arg0 + 0x45) = (u8) ((s32) ((temp_v0 - temp_t2) * 0xFF) / temp_a1);
         return;
     }
     if ((temp_t1 - (temp_a2 & 0xFFFF)) < temp_t2) {
-        *(s8 *)((u8 *)arg0 + 0x45) = 0xFF;
+        *(u8 *)((u8 *)arg0 + 0x45) = 0xFF;
         return;
     }
-    *(s8 *)((u8 *)arg0 + 0x45) = (s8) ((s32) (temp_t2 * 0xFF) / (s32) (temp_v1 >> 0x10));
+    *(u8 *)((u8 *)arg0 + 0x45) = (u8) ((s32) (temp_t2 * 0xFF) / (s32) (temp_v1 >> 0x10));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F55C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_122A40/func_150F55C8.s")

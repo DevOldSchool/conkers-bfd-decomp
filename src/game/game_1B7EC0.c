@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_radial_queue_render_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1518AADC
  * - func_1518AB60
  * - func_1518ABD0
  *
@@ -77,7 +76,6 @@ typedef struct Game1B7EC0RadialEffect {
 
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518AADC CURRENT (120) */
 void *func_1518AADC(s32 arg0, s16 arg1, u8 arg2) {
     s32 temp_t8;
     void *temp_v0;
@@ -88,34 +86,34 @@ void *func_1518AADC(s32 arg0, s16 arg1, u8 arg2) {
     }
     *(s32 *)((u8 *)temp_v0 + 0x1C) = 0;
     temp_t8 = arg0;
+    *(s32 *)((u8 *)temp_v0 + 0x18) = temp_t8;
     *(s16 *)((u8 *)temp_v0 + 0x22) = arg1;
     *(s16 *)((u8 *)temp_v0 + 0x20) = arg1;
     *(s32 *)((u8 *)temp_v0 + 0x10) = 0;
     *(s32 *)((u8 *)temp_v0 + 0x14) = 0;
-    *(s32 *)((u8 *)temp_v0 + 0x18) = temp_t8;
     *(u8 *)((u8 *)temp_v0 + 0x24) = arg2;
     return temp_v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518AADC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B7EC0/func_1518AADC.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518AB60 CURRENT (265) */
-void *func_1518AB60(s32 arg0, u8 arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518AB60 CURRENT (10) */
+void *func_1518AB60(s32 arg0, volatile u8 arg1) {
     volatile Game1B7EC0Effect *effect;
+    u8 selector;
 
     effect = func_15167A68(0x1E, 0, sizeof(Game1B7EC0Effect), 1, 0xFF, 1);
     if (effect == 0) {
         return 0;
     }
     effect->field_10 = arg0;
+    selector = arg1;
     effect->field_14 = 0;
     effect->field_18 = 0;
-    effect->field_1C = arg1;
+    effect->field_1C = selector;
     return (void *)effect;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518AB60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B7EC0/func_1518AB60.s")
-void *func_1518AB60(s32, u8);
+void *func_1518AB60(s32, volatile u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518ABD0 CURRENT (182) */
 s32 func_1518ABD0(Game1B7EC0RadialEffect *arg0, s32 arg1, u8 arg2) {

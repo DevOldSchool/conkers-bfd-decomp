@@ -5,24 +5,19 @@
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B6450
  * - func_150B648C
  * - func_150B66DC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1516972C(s32, s32, s32);
+void func_1516972C(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6450 CURRENT (577) */
-void func_150B6450(s32 arg0, s32 arg1, s32 arg2) {
-    arg2 = arg2 & 0xFF;
+void func_150B6450(s32 arg0, s32 arg1, u8 arg2) {
     if (arg2 == 0x4A) {
-        func_1516972C(arg0, arg1, arg2);
+        func_1516972C((u8 *)arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B6450 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_E3900/func_150B6450.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E3900/func_150B648C.s")
 typedef struct {
     u8 pad0[0x68];

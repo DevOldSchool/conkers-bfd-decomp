@@ -20,7 +20,7 @@ typedef struct Game40440Entry {
 extern Game40440Entry D_800DF7D3;
 extern Game40440Entry D_800DF9B3;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012F90 CURRENT (2915) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012F90 CURRENT (1675) */
 void func_15012F90(void) {
     Game40440Entry *var_v1;
 

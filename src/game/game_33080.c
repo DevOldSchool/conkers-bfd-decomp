@@ -10,7 +10,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15124B18(void);
+void func_15124B18(void *arg0);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15005BD0 CURRENT (65) */
 void func_15005BD0(void *arg0) {
@@ -32,7 +32,7 @@ void func_15005BD0(void *arg0) {
     *field84 = temp_t0;
     *(s16 *)((u8 *)arg0 + 0x1B4) = temp_t1;
     *(s16 *)((u8 *)arg0 + 0x1E0) = temp_t2;
-    func_15124B18();
+    func_15124B18(arg0);
     *(s32 *)((u8 *)arg0 + 0x134) = 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15005BD0 */

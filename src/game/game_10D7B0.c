@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150E0348
  * - func_150E03F8
  * - func_150E05F8
  * - func_150E06D8
@@ -29,41 +28,41 @@ extern f32 D_800A0FB4;
 extern f32 D_800A0FB8;
 extern s32 D_800A5480[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0348 CURRENT (3363) */
 void func_150E0348(void *arg0, u8 arg1, s32 arg2) {
-    s8 sp45;
-    s8 sp44;
-    s8 sp43;
-    s8 sp42;
-    s16 sp40;
-    f32 sp3C;
-    f32 sp38;
-    s32 sp2C[3];
-    s8 sp28;
-    void *sp24;
-    u8 sp20;
-    s32 sp1C;
-    s32 sp18;
+    typedef struct { s32 words[3]; } Copy3;
+    struct {
+        s32 sp18;
+        s32 sp1C;
+        u8 sp20;
+        u8 pad21[3];
+        void *sp24;
+        s8 sp28;
+        u8 pad29[3];
+        Copy3 sp2C;
+        f32 sp38;
+        f32 sp3C;
+        s16 sp40;
+        s8 sp42;
+        s8 sp43;
+        s8 sp44;
+        s8 sp45;
+    } packet;
 
-    sp18 = 0;
-    sp1C = 0;
-    sp28 = 0;
-    sp24 = arg0;
-    sp20 = *(u8 *)((u8 *)arg0 + 0x3B);
-    sp2C[0] = D_800A5480[0];
-    sp2C[1] = D_800A5480[1];
-    sp2C[2] = D_800A5480[2];
-    sp40 = 0x12C;
-    sp42 = 0x1B;
-    sp43 = 0xB;
-    sp44 = -1;
-    sp45 = 0;
-    sp38 = D_800A0FB4;
-    sp3C = D_800A0FB8;
-    func_1513418C(&sp18, 0, arg1, arg2);
+    packet.sp18 = 0;
+    packet.sp1C = 0;
+    packet.sp20 = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.sp28 = 0;
+    packet.sp24 = arg0;
+    packet.sp2C = *(Copy3 *)D_800A5480;
+    packet.sp40 = 0x12C;
+    packet.sp42 = 0x1B;
+    packet.sp43 = 0xB;
+    packet.sp44 = -1;
+    packet.sp45 = 0;
+    packet.sp38 = D_800A0FB4;
+    packet.sp3C = D_800A0FB8;
+    func_1513418C(&packet, 0, arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150E0348 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E0348.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10D7B0/func_150E03F8.s")
 extern f32 D_800A0FD0;
 extern f32 D_800A0FD4;

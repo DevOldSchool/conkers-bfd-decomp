@@ -17,7 +17,7 @@
 extern u8 D_80084060[4];
 extern u8 D_800BE944[4];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D87E0 CURRENT (315) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D87E0 CURRENT (280) */
 s32 func_151D87E0(u8 arg0) {
     s32 var_a1;
     s32 var_v1;
@@ -37,7 +37,8 @@ loop_1:
             return 1;
         }
     }
-    var_a1 = (var_v0 + 1) & 0xFF;
+    var_v0 += 1;
+    var_a1 = var_v0 & 0xFF;
     var_v0 = var_a1;
     if (var_a1 < 4) {
         goto loop_1;

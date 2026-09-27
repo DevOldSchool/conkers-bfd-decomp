@@ -129,23 +129,19 @@ void func_150C851C(s32 arg0) {
 s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern s32 *D_80088810[2];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (1931) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C8600 CURRENT (433) */
 void *func_150C8600(void *arg0) {
-    s32 sp58[2];
-    s32 *sp4C[2];
-    s32 **table;
+    typedef struct { s32 *entries[2]; } PointerPair;
     s32 record_offset;
     s32 command_offset;
+    s32 sp58[2];
     s32 variant;
+    PointerPair sp4C;
     s32 result;
     u8 state;
     u8 *record;
-    s32 *output;
 
-    output = arg0;
-    table = sp4C;
-    sp4C[0] = D_80088810[0];
-    sp4C[1] = D_80088810[1];
+    sp4C = *(PointerPair *)D_80088810;
     record_offset = 0;
     command_offset = 4;
     do {
@@ -161,14 +157,17 @@ void *func_150C8600(void *arg0) {
             record[0] = 0;
             state = *((u8 *)D_800BE4E0 + record_offset);
         }
-        result = func_1510D0EC(table[state][variant], sp58, 3, 0);
-        output[0] = (command_offset & 0xFFFF) | 0xDB060000;
-        output[1] = result;
-        output += 2;
+        result = func_1510D0EC(sp4C.entries[state][variant], sp58, 3, 0);
+        {
+            s32 *slot = arg0;
+            arg0 = (u8 *)arg0 + 8;
+            slot[0] = (command_offset & 0xFFFF) | 0xDB060000;
+            slot[1] = result;
+        }
         command_offset += 4;
         record_offset += 0xA;
     } while (command_offset != 0x2C);
-    return output;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C8600 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5800/func_150C8600.s")

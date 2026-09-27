@@ -114,28 +114,23 @@ extern f32 D_800A2D98;
 extern u8 D_800D3830;
 extern s32 D_800D3300;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F648 CURRENT (103) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F648 CURRENT (16) */
 f32 func_1510F648(f32 arg0, f32 arg1, f32 arg2) {
-    s32 sp28;
-    s32 sp20;
-    s32 sp1C;
-    f32 result;
+    struct { s32 output; f32 result; } query;
     s32 x;
     s32 z;
 
     func_1510F800(2);
     x = (s32)arg0;
     z = (s32)arg2;
-    sp20 = x;
-    sp1C = z;
-    func_150A64C8((s16)x, (s16)z, &sp28, (s32)arg1);
-    func_150A44F0(sp28, &D_800D3830, 0);
-    if (func_150A43E0(sp20, sp1C, sp28, &D_800D3830) != 0) {
-        result = (f32)D_800D3300 * 0.00390625f;
+    func_150A64C8((s16)x, (s16)z, &query.output, (s32)arg1);
+    func_150A44F0(query.output, &D_800D3830, 0);
+    if (func_150A43E0(x, z, query.output, &D_800D3830) != 0) {
+        query.result = (f32)D_800D3300 * 0.00390625f;
     } else {
-        result = D_800A2D98;
+        query.result = D_800A2D98;
     }
-    return result;
+    return query.result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510F648 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510F648.s")

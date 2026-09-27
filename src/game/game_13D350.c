@@ -6,10 +6,8 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1510FEA0
- * - func_151102CC
  * - func_151103C8
  * - func_15110544
- * - func_15110600
  * - func_151106A8
  * - func_151108C4
  * - func_15110CFC
@@ -23,19 +21,15 @@
 void func_150A8050(void *, f32, f32, f32);
 void func_151102CC(void *, f32, f32, f32);
 void func_150A7A48(void *, void *, void *);
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151102CC CURRENT (2149) */
 void func_151102CC(void *arg0, f32 arg1, f32 arg2, f32 arg3) {
     f32 sp28[16];
-    f32 temp_fs0 = 0.0f;
 
-    func_150A8050(arg0, temp_fs0, arg2, 0);
-    func_150A8050(sp28, arg1, 0, temp_fs0);
+    func_150A8050(arg0, 0.0f, arg2, 0.0f);
+    func_150A8050(sp28, arg1, 0.0f, 0.0f);
     func_150A7A48(arg0, sp28, arg0);
-    func_150A8050(sp28, temp_fs0, 0, arg3);
+    func_150A8050(sp28, 0.0f, 0.0f, arg3);
     func_150A7A48(arg0, sp28, arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151102CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_151102CC.s")
 typedef struct Game13D350Record {
     u8 pad0[0xBC];
     u8 payload[0xC4];
@@ -122,32 +116,18 @@ extern void *D_800DBFF0;
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15110600 CURRENT (2292) */
 s32 func_15110600(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 var_a0;
     u8 *temp_v0;
-    void *temp_t6;
-    void *temp_t7;
 
-    var_a0 = arg0;
-    if ((D_800BE9F0 == 0x1B) || (D_800BE9F0 == 0x1E)) {
-        goto block_8;
+    if ((D_800BE9F0 == 0x1B) || (D_800BE9F0 == 0x1E) ||
+        ((D_800BE9F0 == 0x31) &&
+         (*(u8 *)((u8 *)*(void **)((u8 *)D_800DBFF0 + 0x3D4) + 0x78) == 3))) {
+        temp_v0 = D_800DBEA8;
+        arg0 = (s32)func_15110544((void *)arg0, 2, 0, D_800BE620 - 2,
+                                   D_800BE624, temp_v0[0], temp_v0[1], temp_v0[2]);
     }
-    if (D_800BE9F0 != 0x31) {
-        return var_a0;
-    }
-    temp_t6 = *(void **)((u8 *)D_800DBFF0 + 0x3D4);
-    temp_t7 = (u8 *)temp_t6 + 0x78;
-    if (*(u8 *)temp_t7 != 3) {
-        return var_a0;
-    }
-block_8:
-    temp_v0 = D_800DBEA8;
-    var_a0 = func_15110544(2, 0, D_800BE620 - 2, D_800BE624, temp_v0[0], temp_v0[1], temp_v0[2]);
-    return var_a0;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15110600 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110600.s")
 /* Call context: func_1501A490: unique active project prototype */
 void * func_1501A490(void *, s16, s32, s32, s32, s32);
 void *func_1501A680(void *);                        /* extern */

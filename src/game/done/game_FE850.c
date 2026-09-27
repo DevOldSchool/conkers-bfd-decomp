@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_FE850.c
  * Boundary evidence: docs/evidence/game_raw_complete_callback_clusters.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D13A0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct GameFE850State {
@@ -31,7 +26,6 @@ extern f32 D_800A08B8;
 extern f32 D_800A08C0;
 extern u8 D_800DCD20[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D13A0 CURRENT (745) */
 void func_150D13A0(GameFE850State *arg0) {
     f32 velocity_x;
     f32 velocity_y;
@@ -40,13 +34,11 @@ void func_150D13A0(GameFE850State *arg0) {
     arg0->field_B8 += velocity_x;
     arg0->field_BC = velocity_x * D_800A08B0;
     velocity_y = arg0->field_148;
-    arg0->field_C4 += velocity_y;
     arg0->field_3C *= D_800A08B4;
+    arg0->field_C4 += velocity_y;
     arg0->field_148 = velocity_y * D_800A08B8;
     func_15059C84(arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D13A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FE850/func_150D13A0.s")
 /* Call context: func_151149AC: unique active project prototype */
 s32 func_151149AC(u8);
 extern u8 D_800CC2D0;

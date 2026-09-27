@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1503DE70
- * - func_1503DF0C
  * - func_1503DF48
  * - func_1503E260
  * - func_1503E3C4
@@ -63,8 +62,7 @@ extern u8 D_80098914[];
 extern s32 D_800BE9E4;
 extern s8 *D_80084454[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DF0C CURRENT (380) */
-void func_1503DF0C(s32 arg0, s8 arg1, s32 arg2, s32 arg3) {
+void func_1503DF0C(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     void *temp_v0;
 
     temp_v0 = (void *)((u8 *)&D_800C6660 + (arg0 * 0x10));
@@ -73,8 +71,6 @@ void func_1503DF0C(s32 arg0, s8 arg1, s32 arg2, s32 arg3) {
     *(s8 *)((u8 *)temp_v0 + 0xE) = arg1;
     *(s8 *)((u8 *)temp_v0 + 0xF) = 2;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503DF0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DF0C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503DF48.s")
 typedef struct Game6B320MaskColumn {
     u32 bits;

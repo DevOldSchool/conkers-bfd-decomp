@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_FDBE0.c
  * Boundary evidence: docs/evidence/game_raw_pointer_singletons_continued.md
- *
- * TODO: Implement these source-unit functions:
- * - func_150D0730
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -18,7 +13,6 @@ extern s32 D_800BE9E4;
 extern s32 D_800D3098;
 extern u8 D_800D98F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0730 CURRENT (60) */
 void func_150D0730(s32 arg0) {
     s32 selected = 0;
     u32 random;
@@ -49,11 +43,9 @@ void func_150D0730(s32 arg0) {
     if (selected != 0) {
         D_800D98F0 = (func_150ADA20() & 0x7F) + 0x80;
         random = func_150ADA20();
-        entry = (u8 *)(D_800D3098 + (selected * 0x34));
+        entry = ((u8 (*)[0x34])D_800D3098)[selected];
         func_10010F88((random % 3U) + 0x6C, 0x5DC0U, 0, 0, 0,
                       *(s16 *)(entry + 0), *(s16 *)(entry + 2),
                       *(s16 *)(entry + 4), 0x320, 0x5DC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D0730 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FDBE0/func_150D0730.s")

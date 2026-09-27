@@ -7,13 +7,10 @@
  * TODO: Implement these source-unit functions:
  * - func_1518F1A0
  * - func_1518F384
- * - func_1518F49C
  * - func_1518F51C
  * - func_1518F5D0
  * - func_1518F7C4
  * - func_1518F8E0
- * - func_1518FC04
- * - func_1518FC44
  * - func_1518FC84
  * - func_1518FDC4
  * - func_1519003C
@@ -127,23 +124,26 @@ void func_1518F45C(s32 arg0, u8 arg1) {
 
     func_15169260(&sp1C.value, 1, arg0, arg1);
 }
-void func_15169850(s32, s32, s32, s32, s32);
+void func_15169850(s32, u8, s32, s32, s32);
 void func_1516972C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F49C CURRENT (1306) */
 void func_1518F49C(s32 arg0, s32 arg1, u8 arg2) {
-    u8 temp_a1;
+    s32 first;
+    s32 second;
+    u8 first_kind;
+    u8 second_kind;
 
-    func_15169850(arg1, (s32)arg2, arg0 + 0x18, arg0 + 0x1C, arg0);
-    if ((arg2 == 0x49) &&
-        ((*(s32 *)((u8 *)arg0 + 0x18) == *(s32 *)((u8 *)arg1 + 0)) ||
-         ((temp_a1 = *(u8 *)((u8 *)arg1 + 4)),
-          (temp_a1 == *(u8 *)((u8 *)arg0 + 0x1C))))) {
-        func_1516972C(arg0);
+    func_15169850(arg1, arg2, arg0 + 0x18, arg0 + 0x1C, arg0);
+    if (arg2 == 0x49) {
+        first = *(s32 *)((u8 *)arg0 + 0x18);
+        second = *(s32 *)arg1;
+        first_kind = *(u8 *)((u8 *)arg0 + 0x1C);
+        second_kind = *(u8 *)((u8 *)arg1 + 4);
+        if ((first == second) || (first_kind == second_kind)) {
+            func_1516972C(arg0);
+        }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518F49C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F49C.s")
 extern s32 D_8008D630;
 s32 func_1518FDC4(void *, s8 *, s32);
 s32 func_1518F5D0(void *, s32, s16, s8, s32, s32, s32, s32, s32, s32);
@@ -206,8 +206,8 @@ void func_1518F89C(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F8E0.s")
 extern void func_1514BE20(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC04 CURRENT (130) */
 s32 func_1518FC04(void *arg0, void *arg1) {
+    typedef struct { s32 words[3]; } Copy3;
     struct {
         u8 pad0[0x2C];
         s32 *field2C;
@@ -216,18 +216,14 @@ s32 func_1518FC04(void *arg0, void *arg1) {
 
     temp_a2 = arg0;
     temp_a0 = temp_a2->field2C;
-    *(s32 *)((u8 *)temp_a0 + 0x34) = *(s32 *)((u8 *)arg1 + 0);
-    *(s32 *)((u8 *)temp_a0 + 0x38) = *(s32 *)((u8 *)arg1 + 4);
-    *(s32 *)((u8 *)temp_a0 + 0x3C) = *(s32 *)((u8 *)arg1 + 8);
+    *(Copy3 *)((u8 *)temp_a0 + 0x34) = *(Copy3 *)arg1;
     func_1514BE20((s32) temp_a0);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518FC04 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518FC04.s")
 extern void func_1514BF50(void *arg0, void *arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC44 CURRENT (130) */
 s32 func_1518FC44(void *arg0, void *arg1) {
+    typedef struct { s32 words[3]; } Copy3;
     struct {
         u8 pad0[0x2C];
         s32 *field2C;
@@ -236,14 +232,10 @@ s32 func_1518FC44(void *arg0, void *arg1) {
 
     temp_a2 = arg0;
     temp_a0 = temp_a2->field2C;
-    *(s32 *)((u8 *)temp_a0 + 0x34) = *(s32 *)((u8 *)arg1 + 0);
-    *(s32 *)((u8 *)temp_a0 + 0x38) = *(s32 *)((u8 *)arg1 + 4);
-    *(s32 *)((u8 *)temp_a0 + 0x3C) = *(s32 *)((u8 *)arg1 + 8);
+    *(Copy3 *)((u8 *)temp_a0 + 0x34) = *(Copy3 *)arg1;
     func_1514BF50(temp_a0, arg1);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1518FC44 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518FC44.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (501) */
 void func_1518FC84(u8 *arg0, void *arg1) {
     u8 *object;

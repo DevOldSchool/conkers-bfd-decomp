@@ -14,11 +14,9 @@
  * - func_150F1020
  * - func_150F1170
  * - func_150F15F8
- * - func_150F1684
  * - func_150F16DC
  * - func_150F1A00
  * - func_150F1B48
- * - func_150F1CB0
  * - func_150F1D10
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -70,7 +68,7 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F03F8.s")
 /* Call context: func_1516972C: unique active declaration in the allowed source */
-void * func_1516972C(void *, s32, void *);
+void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F07E4 CURRENT (1472) */
 void func_150F07E4(void *arg0, void *arg1, s32 arg2) {
@@ -180,7 +178,7 @@ s32 func_150F0E48(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F0E48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0E48.s")
-void *func_1516972C(void *, s32, void *);           /* extern */
+void func_1516972C(u8 *);           /* extern */
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1020 CURRENT (2723) */
 void *func_150F1020(u8 *arg0, u8 *arg1, s32 arg2) {
@@ -245,14 +243,15 @@ void func_150F10D4(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1170.s")
 void func_15149514(s32, u8, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (86) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F15F8 CURRENT (260) */
 void func_150F15F8(void *arg0, void *arg1, u8 arg2) {
     u8 *temp_a2;
+    s32 word;
 
     temp_a2 = (u8 *)arg0 + 0x28;
     if (arg2 == 0x43) {
-        if ((*(s32 *)arg1 == *(s32 *)temp_a2) || (*(u8 *)((u8 *)temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C(arg0, (s32) arg1, temp_a2);
+        if (((word = *(s32 *)arg1) == *(s32 *)temp_a2) || (*(u8 *)((u8 *)temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0);
         }
     } else {
         func_15149514((s32) arg1, arg2, (s32) temp_a2, (s32) ((u8 *)temp_a2 + 4), (s32) arg0);
@@ -260,17 +259,15 @@ void func_150F15F8(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F15F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F15F8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1684 CURRENT (455) */
 void func_150F1684(u8 *arg0, u8 *arg1, u8 arg2) {
+    s32 word;
     u8 *temp_v1;
 
     temp_v1 = arg0 + 0x18;
-    if ((arg2 == 0x43) && ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)temp_v1) || (*(u8 *)(temp_v1 + 4) == *(u8 *)((u8 *)arg1 + 4)))) {
-        func_1516972C(arg0, (s32) arg1, (void *) (s32) arg2);
+    if ((arg2 == 0x43) && (((word = *(s32 *)arg1) == *(s32 *)temp_v1) || (*(u8 *)(temp_v1 + 4) == *(u8 *)((u8 *)arg1 + 4)))) {
+        func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F1684 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1684.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F16DC.s")
 typedef struct Game11D830Weights {
     u16 value[3];
@@ -373,21 +370,18 @@ void *func_150F1B48(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F1B48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1B48.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1CB0 CURRENT (460) */
 void func_150F1CB0(void *arg0) {
     if (*(u16 *)((u8 *)arg0 + 0x84) == 0x14) {
-        *(s8 *)((u8 *)arg0 + 0x68) = 0x1B;
+        *(u8 *)((u8 *)arg0 + 0x68) = 0x1B;
     } else {
-        *(s8 *)((u8 *)arg0 + 0x68) = 0xC;
+        *(u8 *)((u8 *)arg0 + 0x68) = 0xC;
     }
-    *(s8 *)((u8 *)arg0 + 0x69) = 0x13;
+    *(u8 *)((u8 *)arg0 + 0x69) = 0x13;
     if ((*(s32 *)((u8 *)arg0 + 0x2E4) & 3) == 3) {
-        *(s8 *)((u8 *)arg0 + 0x69) = 0x14;
+        *(u8 *)((u8 *)arg0 + 0x69) = 0x14;
     }
     if ((*(s32 *)((u8 *)arg0 + 0x2E4) & 0xC) == 0xC) {
-        *(s8 *)((u8 *)arg0 + 0x69) = 0x17;
+        *(u8 *)((u8 *)arg0 + 0x69) = 0x17;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150F1CB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1CB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1D10.s")

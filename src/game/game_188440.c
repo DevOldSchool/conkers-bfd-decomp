@@ -39,16 +39,28 @@ void func_1515AF90(s16 arg0);
 void func_1515B5F4(s16 arg0);
 void func_1515B674(s16 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515B994 CURRENT (555) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515B994 CURRENT (355) */
 s32 func_1515B994(void *arg0) {
+    typedef struct {
+        u8 pad0[0x14];
+        f32 x;
+        u8 pad18[4];
+        f32 z;
+        u8 pad20[0x54];
+        f32 acceleration;
+        f32 velocity;
+        f32 base;
+        f32 scale;
+    } Motion;
+    Motion *motion = arg0;
     f32 temp_fa1;
     f32 temp_fv1;
 
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 0x78);
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0x74);
-    *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + ((temp_fv1 * D_800BE9A4) + (0.5f * temp_fa1 * D_800BE9A4)));
-    *(f32 *)((u8 *)arg0 + 0x78) = (f32) (temp_fv1 + (temp_fa1 * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)arg0 + 0x7C) + (*(f32 *)((u8 *)arg0 + 0x80) * (*(f32 *)((u8 *)arg0 + 0x78) + temp_fv1) * 0.5f));
+    temp_fv1 = motion->velocity;
+    temp_fa1 = motion->acceleration;
+    motion->x += (temp_fv1 * D_800BE9A4) + (0.5f * temp_fa1 * D_800BE9A4);
+    motion->velocity = (f32) (temp_fv1 + (temp_fa1 * D_800BE9A4));
+    motion->z = (f32) (motion->base + (motion->scale * (motion->velocity + temp_fv1) * 0.5f));
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515B994 */

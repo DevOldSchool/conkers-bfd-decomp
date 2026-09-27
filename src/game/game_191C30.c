@@ -10,7 +10,6 @@
  * - func_15164F0C
  * - func_15165628
  * - func_151658DC
- * - func_15165BB0
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -137,31 +136,25 @@ f32 func_15165BB0(void *, void *, f32, f32, f32);
 void func_15165B80(u8 *arg0) {
     func_15165BB0(arg0, arg0 + 0x108, *(f32 *)((u8 *)arg0 + 0x114), *(f32 *)((u8 *)arg0 + 0x118), *(f32 *)((u8 *)arg0 + 0x11C));
 }
-f32 func_15143E64(f32 *, void *);                   /* extern */
-void *func_15144B34(u8, void *);                    /* extern */
+f32 func_15143E64(void *);                   /* extern */
+s32 func_15144B34(s32);                    /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15165BB0 CURRENT (1233) */
 f32 func_15165BB0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4) {
-    f32 sp28;
-    f32 sp20;
-    f32 sp24;
-    f32 temp_fv0;
+    struct { f32 x; f32 y; f32 z; f32 length; } position;
     f32 var_fv1;
     void *temp_v0;
 
-    temp_v0 = func_15144B34(*(u8 *)((u8 *)arg0 + 0x16), arg0);
-    sp20 = *(f32 *)((u8 *)arg1 + 0) - *(f32 *)((u8 *)temp_v0 + 0);
-    sp24 = *(f32 *)((u8 *)arg1 + 4) - *(f32 *)((u8 *)temp_v0 + 4);
-    sp28 = *(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)temp_v0 + 8);
-    temp_fv0 = func_15143E64(&sp20, arg1);
-    if (temp_fv0 < arg2) {
+    temp_v0 = (void *)func_15144B34(*(u8 *)((u8 *)arg0 + 0x16));
+    position.x = *(f32 *)((u8 *)arg1 + 0) - *(f32 *)((u8 *)temp_v0 + 0);
+    position.y = *(f32 *)((u8 *)arg1 + 4) - *(f32 *)((u8 *)temp_v0 + 4);
+    position.z = *(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)temp_v0 + 8);
+    position.length = func_15143E64(&position);
+    if (position.length < arg2) {
         var_fv1 = 1.0f;
-    } else if ((arg2 + arg3) < temp_fv0) {
+    } else if ((arg2 + arg3) < position.length) {
         var_fv1 = 0.0f;
     } else {
-        var_fv1 = 1.0f - ((temp_fv0 - arg2) * arg4);
+        var_fv1 = 1.0f - ((position.length - arg2) * arg4);
     }
     return var_fv1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15165BB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165BB0.s")

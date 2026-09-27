@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151C62D0
- * - func_151C69CC
  * - func_151C6A28
  * - func_151C6D70
  *
@@ -36,16 +35,17 @@ extern f32 D_800AAC18;
 extern f32 D_800AAC1C;
 extern f32 D_800AAC20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C69CC CURRENT (380) */
-void func_151C69CC(s32 arg0, s32 arg1, s32 arg2) {
-    s32 temp_a3;
+void func_151C69CC(arg0, arg1, arg2)
+s32 arg0;
+s32 arg1;
+u8 arg2;
+{
+    s32 matrixAddress;
 
-    temp_a3 = arg2 & 0xFF;
-    func_15143134((f32 *)((u8 *)D_800AAB08 + (temp_a3 * 0xC)), (f32 *)arg1,
-                   D_800AAB00[temp_a3] + *(s32 *)((u8 *)arg0 + 0x1D4));
+    matrixAddress = *(s32 *)((u8 *)arg0 + 0x1D4) + D_800AAB00[arg2];
+    func_15143134((f32 *)((u8 *)D_800AAB08 + (arg2 * 0xC)), (f32 *)arg1,
+                   matrixAddress);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151C69CC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1F3780/func_151C69CC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1F3780/func_151C6A28.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C6D70 CURRENT (496) */
 void func_151C6D70(s32 arg0, u8 arg1, s32 arg2, s16 arg3, u8 arg4,

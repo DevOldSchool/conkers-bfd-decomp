@@ -99,22 +99,19 @@ void func_150E7FEC(f32 arg0, u8 arg1, s32 arg2, f32 *arg3,
 void func_10022EC0(void *, void *, s32);
 u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E83AC CURRENT (2259) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E83AC CURRENT (1230) */
 void func_150E83AC(void *arg0, s16 arg1, u8 arg2, s32 arg3) {
+    typedef struct { s32 words[3]; } Copy3;
     struct {
-        s32 first;
-        s32 second;
-        s32 third;
+        Copy3 header;
         f32 value;
     } packet;
     s32 var_v1;
     s32 var_v0;
     u8 *temp_v0;
 
-    packet.first = *(s32 *)arg0;
-    packet.second = *(s32 *)((u8 *)arg0 + 4);
+    packet.header = *(Copy3 *)arg0;
     var_v1 = arg1;
-    packet.third = *(s32 *)((u8 *)arg0 + 8);
     packet.value = 0.0f;
     if (arg1 == -1) {
         var_v1 = 0x12C;
