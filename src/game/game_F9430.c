@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CBF80
- * - func_150CC638
  * - func_150CC6B8
  * - func_150CC8D4
  * - func_150CCA7C
@@ -18,18 +17,15 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F9430/func_150CBF80.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CC638 CURRENT (420) */
 s32 func_150CC638(u8 *arg0) {
     f32 temp_fv0;
-    s32 temp_v1;
     u8 *subrecord;
     s32 temp_v0;
 
     if (*(s32 *)((u8 *)arg0 + 0x58) & 1) {
-        temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
         subrecord = arg0 + 0x128;
-        if (temp_v1 < 0x20) {
-            temp_v0 = temp_v1 * 8;
+        if (*(s16 *)(arg0 + 0x1C) < 0x20) {
+            temp_v0 = *(s16 *)(arg0 + 0x1C) * 8;
             if (temp_v0 < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
                 *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v0;
             }
@@ -42,8 +38,6 @@ s32 func_150CC638(u8 *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CC638 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_F9430/func_150CC638.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F9430/func_150CC6B8.s")
 extern s32 D_800BE9E4;
 

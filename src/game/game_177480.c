@@ -146,20 +146,19 @@ s32 func_1514A498(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A498.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A4EC CURRENT (2540) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A4EC CURRENT (95) */
 s32 func_1514A4EC(void *arg0) {
+    typedef struct { f32 words[3]; } Copy3;
     f32 temp_fv0;
 
     temp_fv0 = *(f32 *)((u8 *)arg0 + 0x140);
-    *(f32 *)((u8 *)arg0 + 0x40) = (f32) *(f32 *)((u8 *)arg0 + 0x34);
-    *(f32 *)((u8 *)arg0 + 0x44) = (f32) *(f32 *)((u8 *)arg0 + 0x38);
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) *(f32 *)((u8 *)arg0 + 0x3C);
+    *(Copy3 *)((u8 *)arg0 + 0x40) = *(Copy3 *)((u8 *)arg0 + 0x34);
     *(f32 *)((u8 *)arg0 + 0x130) = (f32) (*(f32 *)((u8 *)arg0 + 0x130) * temp_fv0);
+    *(f32 *)((u8 *)arg0 + 0x134) += *(f32 *)((u8 *)arg0 + 0x13C) * D_800BE9A4;
     *(f32 *)((u8 *)arg0 + 0x138) = (f32) (*(f32 *)((u8 *)arg0 + 0x138) * temp_fv0);
-    *(f32 *)((u8 *)arg0 + 0x134) = (f32) (*(f32 *)((u8 *)arg0 + 0x134) + (*(f32 *)((u8 *)arg0 + 0x13C) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)arg0 + 0x34) + (*(f32 *)((u8 *)arg0 + 0x130) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + (*(f32 *)((u8 *)arg0 + 0x134) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)arg0 + 0x3C) + (*(f32 *)((u8 *)arg0 + 0x138) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x34) += *(f32 *)((u8 *)arg0 + 0x130) * D_800BE9A4;
+    *(f32 *)((u8 *)arg0 + 0x38) += *(f32 *)((u8 *)arg0 + 0x134) * D_800BE9A4;
+    *(f32 *)((u8 *)arg0 + 0x3C) += *(f32 *)((u8 *)arg0 + 0x138) * D_800BE9A4;
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514A4EC */

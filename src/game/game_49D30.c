@@ -1135,25 +1135,28 @@ void func_15022848(s32 arg0) {
 }
 void func_15060F28(u8 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150228E4 CURRENT (1245) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150228E4 CURRENT (190) */
 void func_150228E4(s32 arg0) {
     s32 var_s1;
+    s32 count;
     u8 *temp_a0;
     u8 *temp_s4;
     u8 *var_s0;
 
     temp_s4 = &D_800C3510[arg0];
+    count = *temp_s4;
     var_s1 = 0;
-    if ((s32)*temp_s4 > 0) {
+    if (count > 0) {
         var_s0 = (arg0 * 0x19) + D_800C3518;
         do {
-            temp_a0 = (u8 *)&D_800CC2D0 + (*var_s0 * 0x32C);
+            temp_a0 = (u8 *)((s32)&D_800CC2D0 + (*var_s0 * 0x32C));
             if (*(s32 *)temp_a0 != 0) {
                 func_15060F28(temp_a0, 0);
+                count = *temp_s4;
             }
             var_s1 += 1;
             var_s0 += 1;
-        } while (var_s1 < (s32)*temp_s4);
+        } while (var_s1 < count);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150228E4 */
@@ -1230,14 +1233,14 @@ loop_13:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_150229E4.s")
 extern s32 D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15022B08 CURRENT (995) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15022B08 CURRENT (685) */
 s32 func_15022B08(s32 arg0, s32 arg1) {
     s32 var_v0;
-    u8 temp_v1;
+    s32 temp_v1;
     void *var_a2;
 
-    temp_v1 = D_800C363A[arg1];
     var_v0 = 0;
+    temp_v1 = D_800C363A[arg1];
     if ((s32)temp_v1 > 0) {
         var_a2 = D_800C35C8[arg1];
 loop_2:

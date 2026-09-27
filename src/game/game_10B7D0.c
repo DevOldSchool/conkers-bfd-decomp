@@ -25,13 +25,13 @@ extern Game10B7D0Lookup8 D_80088950;
 extern Game10B7D0Lookup8 D_80088958;
 extern s32 D_800D3098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE32C CURRENT (1180) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE32C CURRENT (1175) */
 void func_150DE32C(s32 arg0, s32 arg1, s32 arg2) {
+    u8 *id;
+    void *object;
     Game10B7D0Lookup8 ids;
     Game10B7D0Lookup8 actions;
     s32 i;
-    u8 *id;
-    void *object;
     u8 action;
 
     ids = D_80088950;

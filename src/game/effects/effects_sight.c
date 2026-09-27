@@ -418,9 +418,10 @@ void func_151C9ED4(void *arg0) {
 extern void func_1516972C(void *arg0);
 extern void (*D_8008FC10[])(void *, void **, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAACC CURRENT (1474) */
-void func_151CAACC(void *arg0, void **arg1, u8 arg2) {
-    u8 type;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAACC CURRENT (265) */
+void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
+    s32 type;
+    void *other;
     void (*callback)(void *, void **, u8);
 
     type = arg2;
@@ -428,12 +429,15 @@ void func_151CAACC(void *arg0, void **arg1, u8 arg2) {
         if (*(void **)((u8 *)arg0 + 0x70) == *arg1) {
             func_1516972C(arg0);
         }
-    } else if ((type == 0) && (*(void **)((u8 *)arg0 + 0x70) == *(void **)((u8 *)*arg1 + 0x318))) {
-        func_1516972C(arg0);
+    } else if (type == 0) {
+        other = *arg1;
+        if (*(void **)((u8 *)arg0 + 0x70) == *(void **)((u8 *)other + 0x318)) {
+            func_1516972C(arg0);
+        }
     }
     callback = D_8008FC10[*(u8 *)((u8 *)arg0 + 0x7D)];
     if (callback != 0) {
-        callback(arg0, arg1, type);
+        callback(arg0, arg1, arg2);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CAACC */
@@ -668,18 +672,18 @@ extern f32 D_800AAEB8;
 
 f32 func_151CC1D4(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 CURRENT (340) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CBBE0 CURRENT (235) */
 s32 func_151CBBE0(u8 *arg0) {
     f32 temp_fv0;
     u8 *temp_v0;
 
-    temp_fv0 = func_151CC1D4();
-    temp_v0 = arg0 + 0x70;
-    if (temp_fv0 != *(f32 *)(arg0 + 0x98)) {
+    temp_fv0 = func_151CC1D4(arg0);
+    temp_v0 = ((u8 (*)[0x70])arg0)[1];
+    if (temp_fv0 != *(f32 *)(temp_v0 + 0x28)) {
         *(f32 *)(temp_v0 + 0x28) = temp_fv0;
-        func_1514373C(*(f32 *)(temp_v0 + 0x24) +
-                          ((temp_fv0 - *(f32 *)(temp_v0 + 0x18)) *
-                           *(f32 *)(temp_v0 + 0x20) * D_800AAEB8),
+        temp_fv0 = (temp_fv0 - *(f32 *)(temp_v0 + 0x18)) *
+                   *(f32 *)(temp_v0 + 0x20) * D_800AAEB8;
+        func_1514373C(*(f32 *)(temp_v0 + 0x24) + temp_fv0,
                       55.0f, (f32 *)(arg0 + 0x10), (f32 *)(arg0 + 0x14));
     }
     return 1;

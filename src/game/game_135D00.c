@@ -13,7 +13,6 @@
  * - func_15108D24
  * - func_15108E10
  * - func_15109064
- * - func_151090DC
  * - func_15109120
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -72,7 +71,7 @@ void func_15108B80(u8 *arg0) {
 extern u8 D_800C35EA;
 extern s32 D_800C3958;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108BC0 CURRENT (710) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108BC0 CURRENT (270) */
 void func_15108BC0(u8 *arg0) {
     s32 temp_v1;
     u8 *temp_v0;
@@ -85,7 +84,8 @@ void func_15108BC0(u8 *arg0) {
         return;
     }
     if (D_800C35EA == 1) {
-        *(f32 *)(temp_v0 + 0x10) = *(f32 *)((u8 *)(D_800C3958 + (temp_v1 * 0x44)) + 4);
+        arg0 = ((u8 (*)[0x44])D_800C3958)[temp_v1];
+        *(f32 *)(temp_v0 + 0x10) = *(f32 *)(arg0 + 4);
         return;
     }
     *(f32 *)(temp_v0 + 0x10) = 226.0f;
@@ -130,19 +130,19 @@ typedef struct Game135D00MatrixWork {
     s32 pad_3C;
 } Game135D00MatrixWork;
 
-void func_150A8050(f32 *, s32, s32, s32);
+void func_150A8050(f32 *, f32, f32, f32);
 void func_150A7790(void *, s32);
 extern f32 D_800A2490;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108D24 CURRENT (250) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108D24 CURRENT (50) */
 s32 func_15108D24(u8 *arg0, s32 arg1) {
     Game135D00MatrixWork work;
     u8 *source;
 
     source = arg0 + *(s32 *)(arg0 + 0x50) + 0xF8;
-    func_150A8050(work.values, *(s32 *)(source + 0), 0,
-                  *(s32 *)(source + 4));
+    func_150A8050(work.values, *(f32 *)(source + 0), 0.0f,
+                  *(f32 *)(source + 4));
     work.saved = *(f32 *)(source + 0x10);
     work.values[0] *= D_800A2490;
     work.values[1] *= D_800A2490;
@@ -205,19 +205,12 @@ void func_15109064(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109064 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109064.s")
-extern s32 D_80088C58[];
+extern Game135D00DispatchDescriptor D_80088C58;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151090DC CURRENT (780) */
 void func_151090DC(void) {
-    struct {
-        s32 field0;
-        s32 field4;
-    } sp18;
+    Game135D00DispatchDescriptor sp18;
 
-    sp18.field0 = D_80088C58[0];
-    sp18.field4 = D_80088C58[1];
-    func_15169260((s32 *) &sp18, 2, 0, 0x1E);
+    sp18 = D_80088C58;
+    func_15169260(&sp18, 2, 0, 0x1E);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151090DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_151090DC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109120.s")

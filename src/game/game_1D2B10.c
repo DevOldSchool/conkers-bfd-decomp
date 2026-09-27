@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151A5660
- * - func_151A5CAC
- * - func_151A5CEC
  * - func_151A5D2C
  * - func_151A5D58
  *
@@ -18,32 +16,25 @@
 /* Call context: func_1514933C: unique active project prototype */
 void func_1514933C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5CAC CURRENT (435) */
+extern void func_151A5D2C(s32 arg0, void *arg1);
+
 void func_151A5CAC(void *arg0) {
-    if (*(u16 *)((u8 *)arg0 + 0x6C) != 0) {
-        func_151A5D2C((s32) *(u16 *)((u8 *)arg0 + 0x6C), (u16) arg0);
+    if (*(volatile u16 *)((u8 *)arg0 + 0x6C) != 0) {
+        func_151A5D2C((s32) *(u16 *)((u8 *)arg0 + 0x6C), arg0);
     }
     func_1514933C((s32) arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A5CAC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5CAC.s")
-extern void func_151A5D2C(s32 arg0, u16 arg1);
-extern void func_15149368(void *arg0, void *arg1);
+extern void func_15149368(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A5CEC CURRENT (545) */
 void func_151A5CEC(void *arg0) {
     void *temp_a1;
-    u16 temp_v0;
 
     temp_a1 = arg0;
-    temp_v0 = *(u16 *)((u8 *)temp_a1 + 0x6C);
-    if (temp_v0 != 0) {
-        func_151A5D2C(temp_v0, (u16) temp_a1);
+    if (*(volatile u16 *)((u8 *)temp_a1 + 0x6C) != 0) {
+        func_151A5D2C(*(u16 *)((u8 *)temp_a1 + 0x6C), temp_a1);
     }
-    func_15149368(temp_a1, temp_a1);
+    func_15149368(temp_a1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A5CEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D2B10/func_151A5CEC.s")
 /* Call context: func_100111C8: unique active project prototype */
 void func_100111C8(s32, u16);
 

@@ -9,7 +9,6 @@
  * - func_150AE790
  * - func_150AEB9C
  * - func_150AED4C
- * - func_150AED9C
  * - func_150AEDF8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -98,13 +97,12 @@ void func_150AED4C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AED4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AED4C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED9C CURRENT (40) */
 s32 func_150AED9C(void *arg0) {
     s32 value;
     void *temp_v0;
 
-    value = *(s16 *)((u8 *)arg0 + 0x1C);
     temp_v0 = *(void **)((u8 *)arg0 + 0x98);
+    value = *(s16 *)((u8 *)arg0 + 0x1C);
     value *= 8;
     if (value >= 0x100) {
         value = 0xFF;
@@ -115,8 +113,6 @@ s32 func_150AED9C(void *arg0) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150AED9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AED9C.s")
 typedef struct GameDBA60Object {
     u8 pad0[0x1C];
     s16 field_1C;

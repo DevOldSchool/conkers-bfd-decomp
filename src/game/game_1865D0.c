@@ -7,18 +7,15 @@
  * TODO: Implement these source-unit functions:
  * - func_15159230
  * - func_151592B8
- * - func_15159370
  * - func_1515942C
  * - func_15159594
  * - func_151596BC
  * - func_15159890
- * - func_15159BB0
  * - func_15159C08
  * - func_1515A11C
  * - func_1515A238
  * - func_1515A60C
  * - func_1515A78C
- * - func_1515A974
  * - func_1515AA84
  * - func_1515AB88
  *
@@ -124,45 +121,43 @@ loop_2:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_151592B8.s")
 extern u8 D_800BE616;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159370 CURRENT (1020) */
 s32 func_15159370(void *arg0, s8 *arg1) {
-    s32 var_v1;
+    u8 var_v1;
     u8 temp_v0;
     u8 temp_v0_2;
 
     var_v1 = 0;
     if (D_800BE616 != 0) {
-        *arg1 = 0;
+        *(u8 *)arg1 = 0;
         var_v1 = 1;
     }
     if (*(u8 *)((u8 *)arg0 + 0x3B) == 1) {
-        *arg1 = 0;
+        *(u8 *)arg1 = 0;
         var_v1 = 1;
     }
     temp_v0 = *(u8 *)((u8 *)arg0 + 5);
     if ((temp_v0 == 5) || (temp_v0 == 2)) {
-        *arg1 = 1;
+        *(u8 *)arg1 = 1;
         var_v1 = 1;
     }
     temp_v0_2 = *(u8 *)((u8 *)arg0 + 4);
-    switch (temp_v0_2) {                            /* irregular */
+    switch (temp_v0_2) {
     case 8:
-        *arg1 = 2;
-block_15:
+        *(u8 *)arg1 = 2;
         var_v1 = 1;
         break;
     case 10:
-        *arg1 = 3;
-        goto block_15;
+        *(u8 *)arg1 = 3;
+        var_v1 = 1;
+        break;
     case 41:
     case 42:
-        *arg1 = 4;
-        goto block_15;
+        *(u8 *)arg1 = 4;
+        var_v1 = 1;
+        break;
     }
     return var_v1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15159370 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159370.s")
 /* Call context: func_1514ECE0: unique active declaration in the allowed source */
 s32 func_1514ECE0(s32, s32, void **, void *);
 
@@ -311,25 +306,18 @@ u8 func_151596BC(u8 *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159890.s")
 void func_15159890(f32 *, f32 *, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15159BB0 CURRENT (889) */
 void func_15159BB0(f32 arg0, f32 arg1, f32 arg2, s32 arg3, s32 arg4, s32 arg5, void *arg6) {
-    f32 sp2C;
-    f32 sp28;
-    f32 sp24;
-    f32 sp20;
-    f32 sp1C;
-    f32 sp18;
+    f32 position[3];
+    f32 velocity[3];
 
-    sp24 = arg0;
-    sp28 = arg1;
-    sp18 = 0.0f;
-    sp1C = 0.0f;
-    sp20 = 0.0f;
-    sp2C = arg2;
-    func_15159890(&sp24, &sp18, *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
+    position[0] = arg0;
+    position[1] = arg1;
+    velocity[0] = 0.0f;
+    velocity[1] = 0.0f;
+    velocity[2] = 0.0f;
+    position[2] = arg2;
+    func_15159890(&position[0], &velocity[0], *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15159BB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159BB0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_15159C08.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_151423D8: unique active project prototype */
@@ -503,18 +491,22 @@ extern Game1865D0A974Entry D_800A636C[];
 void *func_151A8B20(void *, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515A974 CURRENT (5322) */
-void func_1515A974(void *arg0, s32 arg1) {
-    Game1865D0A974Payload payload;
+void func_1515A974(void *volatile arg0, s32 arg1) {
+    typedef struct { u8 bytes[4]; } Byte4;
+    typedef struct { s32 words[10]; } Copy40;
     Game1865D0A974Descriptor descriptor;
     Game1865D0A974Entry *temp_v0;
     void *result;
+    Game1865D0A974Payload payload;
     u8 temp_v1;
 
     temp_v1 = *(u8 *)((u8 *)arg0 + 0x1F);
     if ((s32)temp_v1 <= 0) {
         temp_v0 = &D_800A636C[temp_v1];
         descriptor.field00 = 0xF;
+        descriptor.owner = arg0;
+        descriptor.field08 = *(f32 *)&temp_v0->bytes[0];
+        descriptor.field0C = *(f32 *)&temp_v0->bytes[4];
         descriptor.field24 = 0;
         descriptor.field25 = -1;
         descriptor.field26 = 2;
@@ -523,18 +515,14 @@ void func_1515A974(void *arg0, s32 arg1) {
         descriptor.zero18 = 0.0f;
         descriptor.zero1C = 0.0f;
         descriptor.zero20 = 0.0f;
-        descriptor.owner = arg0;
-        descriptor.field08 = *(f32 *)&temp_v0->bytes[0];
-        descriptor.field0C = *(f32 *)&temp_v0->bytes[4];
-        payload = *(Game1865D0A974Payload *)&temp_v0->bytes[8];
+        *(Byte4 *)&payload.bytes[0] = *(Byte4 *)&temp_v0->bytes[8];
+        *(Copy40 *)&payload.bytes[4] = *(Copy40 *)&temp_v0->bytes[0xC];
         result = func_151A8B20(&descriptor, -1, 0x2C, 0xFF, 0);
         if (result != 0) {
             func_10022EC0((u8 *)result + 0x80, &payload, 0x2C);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515A974 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1865D0/func_1515A974.s")
 typedef struct {
     s32 words[10];
 } Game1865D0Copy40;
@@ -565,9 +553,12 @@ u32 func_150ADA20(void);
 void *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515AA84 CURRENT (1781) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515AA84 CURRENT (400) */
 void func_1515AA84(Game1865D0Arg *volatile arg0, Game1865D0Copy12 *arg1, f32 arg2, s32 arg3) {
+    typedef struct { s16 base; s16 range; } Range;
     Game1865D0Spawn spawn;
+    Game1865D0Arg *owner;
+    Range *range;
     void *result;
     u32 random;
     s16 type;
@@ -578,9 +569,11 @@ void func_1515AA84(Game1865D0Arg *volatile arg0, Game1865D0Copy12 *arg1, f32 arg
     spawn.copied = arg0->copied;
 
     random = func_150ADA20();
-    type = (s16) ((random % (u32) (arg0->range + 1)) + arg0->base);
+    owner = arg0;
+    range = (Range *) ((u8 *) owner + 0x80);
+    type = (s16) ((random % (u32) (range->range + 1)) + range->base);
     result = func_15149130(type, -1, 0x3F, -1, 1, 0, 0x3C,
-                          arg0->valueC, arg0->value1);
+                          owner->valueC, owner->value1);
     if (result != 0) {
         func_10022EC0((u8 *) result + 0x28, &spawn, 0x3C);
     }

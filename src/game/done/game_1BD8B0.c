@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_1BD8B0.c
  * Boundary evidence: docs/evidence/game_raw_recovered_pointer_helper_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15190400
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game1BD8B0Inner {
@@ -33,18 +28,18 @@ typedef struct {
 
 void func_1516972C(Game1BD8B0State *, Game1BD8B0Data *, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15190400 CURRENT (272) */
-void func_15190400(Game1BD8B0State *arg0, Game1BD8B0Data *arg1, s32 arg2) {
+void func_15190400(Game1BD8B0State *arg0, Game1BD8B0Data *arg1, u8 arg2) {
+    s32 stateWord;
+    s32 dataWord;
     u8 temp_a2;
     u8 temp_a3;
 
-    if (!(arg2 & 0xFF) && ((temp_a2 = arg0->field_1C, temp_a3 = arg1->field_4,
-        (arg0->field_18 == arg1->field_0)) || (temp_a3 == temp_a2))) {
+    if (!arg2 && ((stateWord = arg0->field_18, dataWord = arg1->field_0,
+        temp_a2 = arg0->field_1C, temp_a3 = arg1->field_4,
+        (stateWord == dataWord)) || (temp_a2 == temp_a3))) {
         func_1516972C(arg0, arg1, temp_a2, temp_a3);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15190400 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BD8B0/func_15190400.s")
 Game1BD8B0Inner *func_15190454(Game1BD8B0Object *arg0) {
     Game1BD8B0Inner *inner = arg0->inner;
 

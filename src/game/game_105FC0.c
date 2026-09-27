@@ -13,7 +13,6 @@
  * - func_150D942C
  * - func_150D9C7C
  * - func_150DA50C
- * - func_150DA5EC
  * - func_150DA67C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -222,19 +221,20 @@ void func_150DA50C(u8 *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DA50C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150DA50C.s")
-void func_15147D64(void *, s32, void *, void *, u8, f32);
+void func_15147D64(void *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DA5EC CURRENT (510) */
-void func_150DA5EC(void *arg0, f32 arg1, s32 arg2, void *arg3) {
-    void *sp1C;
-    u8 sp20;
+void func_150DA5EC(void *arg0, f32 arg1) {
+    struct {
+        void *object;
+        u8 type;
+        f32 value;
+    } packet;
 
-    sp1C = arg0;
-    sp20 = *(u8 *)((u8 *)arg0 + 0x3B);
-    func_15147D64(&sp1C, 0x44, arg0, arg3, sp20, arg1);
+    packet.object = arg0;
+    packet.type = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.value = arg1;
+    func_15147D64(&packet, 0x44);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150DA5EC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150DA5EC.s")
 void func_15131828(s32, s32, s32, s32);
 void func_15131958(void *, f32, s32);
 

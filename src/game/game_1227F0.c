@@ -19,19 +19,17 @@ void func_151C970C(s32, void *);
 extern Game1227F0Indices D_800A1AB0;
 extern s32 D_800D3098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F5340 CURRENT (555) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F5340 CURRENT (60) */
 void func_150F5340(void) {
-    s32 indices[17];
-    s32 temp_t8;
-    s32 var_s0;
+    u8 var_s0;
+    Game1227F0Indices indices;
 
-    *(Game1227F0Indices *)indices = D_800A1AB0;
     var_s0 = 0;
+    indices = D_800A1AB0;
     do {
-        func_151C970C(1, (void *)((indices[var_s0] * 0x34) + D_800D3098));
-        temp_t8 = (var_s0 + 1) & 0xFF;
-        var_s0 = temp_t8;
-    } while (temp_t8 < 0x11);
+        func_151C970C(1, (void *)((indices.values[var_s0] * 0x34) + D_800D3098));
+        var_s0++;
+    } while (var_s0 < 0x11);
     func_1515F170(9, 1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F5340 */

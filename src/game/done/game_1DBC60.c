@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_1DBC60.c
  * Boundary evidence: docs/evidence/game_raw_direct_call_singletons.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151AE7B0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 u32 func_1513418C(void *, s32, u8, s32);
@@ -34,14 +29,10 @@ typedef struct Game1DBC60Packet {
     s8 field_2D;
 } Game1DBC60Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE7B0 CURRENT (366) */
 u32 func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     volatile s32 sp18;
     Game1DBC60Packet packet;
-    f32 temp_ft0;
-    f32 temp_ft1;
     s16 temp_v0;
-    u8 temp_t6;
 
     if (arg0 == 0) {
         return 0;
@@ -49,19 +40,16 @@ u32 func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     func_1516962C(0x28, arg0, 0x11);
     packet.field_00 = 0;
     packet.field_04 = 0;
-    temp_t6 = *(u8 *)((u8 *)arg0 + 0x3B);
+    packet.field_08 = *(u8 *)((u8 *)arg0 + 0x3B);
     temp_v0 = arg2;
-    temp_ft0 = D_800A9D80;
-    temp_ft1 = arg1;
     packet.field_10 = 1;
     packet.field_2A = 2;
     packet.field_0C = arg0;
-    packet.field_08 = temp_t6;
     packet.field_14 = 0.0f;
     packet.field_18 = 0.0f;
     packet.field_1C = 0.0f;
-    packet.field_20 = temp_ft0;
-    packet.field_24 = temp_ft1;
+    packet.field_20 = D_800A9D80;
+    packet.field_24 = arg1;
     if (temp_v0 != 0) {
         packet.field_28 = temp_v0;
         packet.field_2A = 6;
@@ -73,5 +61,3 @@ u32 func_151AE7B0(void *arg0, f32 arg1, s16 arg2, u8 arg3, s32 arg4) {
     packet.field_2D = 5;
     return func_1513418C(&packet, 0, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AE7B0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DBC60/func_151AE7B0.s")

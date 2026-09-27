@@ -10,7 +10,6 @@
  * - func_1504AF10
  * - func_1504B0FC
  * - func_1504BA38
- * - func_1504BB88
  * - func_1504BC38
  * - func_1504BE2C
  * - func_1504C0E8
@@ -125,7 +124,6 @@ void func_1504BAF0(void *arg0) {
 extern void func_1504BAF0(void *arg0);
 extern void func_1505E650(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, f32 arg5, s32 arg6);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BB88 CURRENT (255) */
 void func_1504BB88(u8 *arg0) {
     s32 var_v0;
 
@@ -136,8 +134,7 @@ void func_1504BB88(u8 *arg0) {
         if (*(s32 *)arg0 == 1) {
             func_1505E650(arg0, 0xD6, 0x3F933333, 0x40400000, 0.0f, 0.0f, 0);
         }
-        var_v0 = *(s32 *)(arg0 + 0x25C) & ~0x10;
-        *(s32 *)(arg0 + 0x25C) = var_v0;
+        var_v0 = (*(s32 *)(arg0 + 0x25C) &= ~0x10);
     }
     if (var_v0 & 2) {
         if (arg0[0x13C] != 0) {
@@ -147,8 +144,6 @@ void func_1504BB88(u8 *arg0) {
         *(s32 *)(arg0 + 0x25C) = var_v0 & ~2;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504BB88 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BB88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BC38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BE2C.s")
 void func_1507F640(void);

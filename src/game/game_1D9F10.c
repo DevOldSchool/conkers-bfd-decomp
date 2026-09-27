@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_owner_point_lifecycle.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151ACA60
  * - func_151ACB38
  * - func_151ACB60
  * - func_151ACBD4
@@ -37,12 +36,8 @@ void func_1516979C(u8 *);
 s32 func_151ACB38(void *, s8 *);
 extern u8 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACA60 CURRENT (510) */
 Game1D9F10Record *func_151ACA60(void *arg0, f32 arg1, s32 arg2) {
     Game1D9F10Record *record;
-    s32 difference;
-    s32 actor_index;
-    u8 type;
 
     if (arg0 == 0) {
         return 0;
@@ -55,19 +50,14 @@ Game1D9F10Record *func_151ACA60(void *arg0, f32 arg1, s32 arg2) {
         func_1516979C((u8 *)record);
         return 0;
     }
-    difference = (s32)arg0 - (s32)&D_800CC2D0;
-    actor_index = difference / 0x32C;
     *(void **)((u8 *)record + 0x1C) = arg0;
-    type = *(u8 *)((u8 *)arg0 + 0x3B);
-    *(s32 *)((u8 *)record + 0x24) = actor_index;
-    *(u8 *)((u8 *)record + 0x20) = type;
+    *(u8 *)((u8 *)record + 0x20) = *(u8 *)((u8 *)arg0 + 0x3B);
+    *(s32 *)((u8 *)record + 0x24) = ((s32)arg0 - (s32)&D_800CC2D0) / 0x32C;
+    *(f32 *)((u8 *)record + 0x28) = arg1;
     *(s32 *)((u8 *)record + 0x10) = 1;
     *(s32 *)((u8 *)record + 0x14) = 0;
-    *(f32 *)((u8 *)record + 0x28) = arg1;
     return record;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ACA60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151ACA60.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB38 CURRENT (485) */
 s32 func_151ACB38(void *arg0, s8 *arg1) {
     if (*(u8 *)((u8 *)arg0 + 0x3B) == 1) {
@@ -134,7 +124,7 @@ void func_151AE06C(Game1D9F10Actor *arg0, Game1D9F10Event *arg1) {
         func_151AE0E4(arg0, type);
     }
 }
-void *func_151AE590(s32);
+void *func_151AE590(u8);
 void func_151AE2BC(void *, void *, f32, f32, f32);
 extern f32 D_800A9290;
 
@@ -258,40 +248,28 @@ loop_2:
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE2BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151AE3A8.s")
 extern s32 D_800A9270[];
-extern u8 D_800DCE50[];
+extern void *D_800DCE50[][104];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE590 CURRENT (4360) */
-void *func_151AE590(s32 arg0) {
-    s32 var_v0;
-    s32 var_v1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE590 CURRENT (465) */
+void *func_151AE590(u8 arg0) {
+    u8 var_v0;
+    u8 var_v1;
+    void *var_a0;
+    void *temp_a2;
 
-    var_v0 = 0;
-    do {
-        var_v1 = 0;
-        do {
-            void *var_a0;
-            s32 temp_t4;
-
-            var_a0 = *(void **)(D_800DCE50 + (var_v1 * 0x1A0) + (D_800A9270[var_v0] * 4));
-            temp_t4 = (var_v1 + 1) & 0xFF;
-            if (var_a0 != 0) {
-                do {
-                    void *temp_a2;
-
-                    temp_a2 = *(void **)((u8 *)var_a0 + 8);
-                    if ((arg0 & 0xFF) == *(u8 *)((u8 *)var_a0 + 0x10)) {
-                        return var_a0;
-                    }
+    for (var_v0 = 0; var_v0 < 2; var_v0++) {
+        for (var_v1 = 0; var_v1 < 2; var_v1++) {
+            var_a0 = D_800DCE50[var_v1][D_800A9270[var_v0]];
+            while (var_a0 != 0) {
+                temp_a2 = *(void **)((u8 *)var_a0 + 8);
+                if (arg0 != *(u8 *)((u8 *)var_a0 + 0x10)) {
                     var_a0 = temp_a2;
-                    if (temp_a2 == 0) {
-                        break;
-                    }
-                } while (1);
+                } else {
+                    return var_a0;
+                }
             }
-            var_v1 = temp_t4;
-        } while (var_v1 < 2);
-        var_v0 = (var_v0 + 1) & 0xFF;
-    } while (var_v0 < 2);
+        }
+    }
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AE590 */

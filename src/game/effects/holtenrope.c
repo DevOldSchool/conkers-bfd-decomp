@@ -321,31 +321,30 @@ s32 func_151B3CF0(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3CF0.s")
 extern f32 D_800AA3AC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3F28 CURRENT (1990) */
-s32 func_151B3F28(void *arg0, f32 *arg1, s32 arg2) {
-    void **slot;
-    void *state;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3F28 CURRENT (310) */
+s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {
+    u8 *base;
+    u8 *state;
     s32 result;
 
     result = 1;
-    if ((arg2 & 0xFF) != 0) {
-        slot = *(void ***)((u8 *)arg0 + 0x150);
-        state = (slot != 0) ? *slot : 0;
-        if ((state != 0) &&
-            (*(u8 *)((u8 *)arg0 + 0x154) == *(u8 *)((u8 *)state + 0x3B))) {
+    if (arg2 != 0) {
+        base = (u8 *)arg0 + 0x150;
+        if ((*(s32 *)*(u8 *volatile *)base != 0) &&
+            (state = *(u8 **)base, base[4] == state[0x3B])) {
             arg1[0] = *(f32 *)((u8 *)state + 0x14);
-            arg1[1] = *(f32 *)((u8 *)state + 0x18);
-            arg1[2] = *(f32 *)((u8 *)state + 0x1C);
-            *(u8 *)((u8 *)arg0 + 0x10) &= 0xFB;
+            arg1[1] = *(f32 *)(*(u8 **)base + 0x18);
+            arg1[2] = *(f32 *)(*(u8 **)base + 0x1C);
+            *(u8 *)((u8 *)arg0 + 0x10) &= ~4;
         } else {
             result = 0;
             *(u8 *)((u8 *)arg0 + 0x10) |= 0xC;
         }
     } else {
         arg1[0] = 0.0f;
-        arg1[2] = 0.0f;
         arg1[1] = D_800AA3AC;
-        *(u8 *)((u8 *)arg0 + 0x10) &= 0xF7;
+        arg1[2] = 0.0f;
+        *(u8 *)((u8 *)arg0 + 0x10) &= ~8;
     }
     return result;
 }

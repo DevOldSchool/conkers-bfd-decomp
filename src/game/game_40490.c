@@ -9,7 +9,6 @@
  * - func_150130B4
  * - func_15013778
  * - func_150139AC
- * - func_15013D38
  * - func_15013DE8
  * - func_15014094
  * - func_150142AC
@@ -20,7 +19,6 @@
  * - func_15014F6C
  * - func_150150A4
  * - func_15015354
- * - func_15015644
  * - func_150156F4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -49,11 +47,13 @@ extern u8 *D_800D3098;
 extern f32 D_800DCD90;
 extern void *D_800DCDC4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013000 CURRENT (780) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013000 CURRENT (275) */
 void func_15013000(void) {
     Game40490DispatchCallback callback;
     u32 var_s1;
     s32 var_s0;
+    u8 *base;
+    s32 index;
 
     D_800DCDC4 = 0;
     D_800DCD90 = 0.0f;
@@ -61,9 +61,11 @@ void func_15013000(void) {
     var_s0 = 0;
     if (D_800D3094 != 0) {
         do {
-            callback = D_80082E30[((D_800D3098[var_s0 + 0x15] >> 2) & 0xFF)];
+            base = D_800D3098;
+            index = *(u8 *)((s32)base + var_s0 + 0x15);
+            callback = D_80082E30[(index >> 2) & 0xFF];
             if (callback != 0) {
-                callback(D_800D3098 + var_s0, callback);
+                callback(base + var_s0, callback);
             }
             var_s1 += 1;
             var_s0 += 0x34;
@@ -159,28 +161,18 @@ typedef struct Game40490DispatchState {
 
 extern void func_151BE850(f32 *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013D38 CURRENT (3964) */
 s32 func_15013D38(Game40490DispatchState *arg0) {
-    f32 sp44;
-    f32 sp40;
-    f32 sp3C;
+    f32 position[3];
     s32 temp_v0;
-    s32 var_v1;
 
     arg0->flags |= 4;
-    var_v1 = 1;
-    sp3C = (f32)arg0->value_x;
-    sp40 = (f32)arg0->value_y;
-    sp44 = (f32)arg0->value_z;
+    position[0] = (f32)arg0->value_x;
+    position[1] = (f32)arg0->value_y;
+    position[2] = (f32)arg0->value_z;
     temp_v0 = arg0->callback_result;
-    if (temp_v0 != 0) {
-        var_v1 = temp_v0;
-    }
-    func_151BE850(&sp3C, arg0->callback_arg, var_v1 & 0xFF, arg0->callback_index, 1, 0xFF, 1);
+    func_151BE850(&position[0], arg0->callback_arg, (temp_v0 != 0 ? temp_v0 : 1) & 0xFF, arg0->callback_index, 1, 0xFF, 1);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15013D38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013D38.s")
 void func_15149550(f32 *, s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);
 extern f32 D_80096654;
@@ -311,7 +303,7 @@ extern s32 func_1510FD20(s16 arg0, s16 arg1, void *arg2);
 extern void func_10022EC0(void *arg0, void *arg1, s32 arg2);
 extern s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15014094 CURRENT (1254) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15014094 CURRENT (1394) */
 void func_15014094(void *arg0) {
     s8 sp60;
     s32 sp40;
@@ -586,27 +578,21 @@ s32 func_15015300(Game40490State *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
 extern f32 func_15144598(void *arg0, void *arg1);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015644 CURRENT (589) */
 s32 func_15015644(void *arg0, void *arg1) {
-    s8 sp44;
-    s32 sp40;
-    f32 sp3C;
-    void *sp38;
+    struct { void *owner; f32 value; s32 index; s8 flag; } packet;
     s32 temp_v0;
 
-    *(u8 *)((u8 *)arg0 + 0x14) = 1;
     *(u8 *)((u8 *)arg0 + 0x16) |= 4;
-    sp38 = arg0;
-    sp3C = func_15144598(arg0, arg1);
+    *(u8 *)((u8 *)arg0 + 0x14) = 1;
+    packet.owner = arg0;
+    packet.value = func_15144598(arg0, arg1);
     func_1510F800(0);
-    sp40 = func_1510FD20(*(s16 *)((u8 *)arg0 + 0), *(s16 *)((u8 *)arg0 + 4), arg0);
-    sp44 = 0;
+    packet.index = func_1510FD20(*(s16 *)((u8 *)arg0 + 0), *(s16 *)((u8 *)arg0 + 4), arg0);
+    packet.flag = 0;
     temp_v0 = func_15149130(0x12C, -1, 0x44, -1, 0, 0x2F, 0x10, 0xFF, 0);
     if (temp_v0 != 0) {
-        func_10022EC0((void *)(temp_v0 + 0x28), &sp38, 0x10);
+        func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x10);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15015644 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015644.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150156F4.s")

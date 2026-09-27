@@ -27,17 +27,19 @@ typedef struct {
 
 void func_1516972C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFB2C CURRENT (1078) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFB2C CURRENT (50) */
 void func_151BFB2C(Game1EC390ResourceOwner *arg0) {
     u8 i;
+    struct { void *primary; void *secondary[2]; } *resources;
 
-    if (arg0->primary != 0) {
-        func_1516972C(arg0->primary);
+    if (*(s32 *)&arg0->primary != 0) {
+        func_1516972C((void *)*(s32 *)&arg0->primary);
     }
 
+    resources = (void *)((u8 (*)[1])arg0)[0x28];
     for (i = 0; i < 2; i++) {
-        if (arg0->secondary[i] != 0) {
-            func_1516972C(arg0->secondary[i]);
+        if (resources->secondary[i] != 0) {
+            func_1516972C(resources->secondary[i]);
         }
     }
 }

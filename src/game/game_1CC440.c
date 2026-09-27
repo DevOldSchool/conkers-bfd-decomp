@@ -15,7 +15,6 @@
  * - func_1519F7F0
  * - func_1519FE6C
  * - func_151A084C
- * - func_151A0950
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -296,7 +295,6 @@ typedef struct {
 
 void func_1519F48C(Game1CC440State *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A0950 CURRENT (40) */
 void func_151A0950(Game1CC440State *arg0, Game1CC440Lookup *arg1, u8 arg2) {
     Game1CC440Node **temp_v1;
     Game1CC440Node *temp_v0;
@@ -304,15 +302,15 @@ void func_151A0950(Game1CC440State *arg0, Game1CC440Lookup *arg1, u8 arg2) {
     temp_v1 = arg0->link98;
     if (arg2 == 0xA) {
         temp_v0 = *temp_v1;
-        if ((temp_v0 != 0) &&
-            ((arg1->field0 == temp_v0->field18) ||
-             (arg1->field4 == temp_v0->field1C))) {
-            func_1519F48C(arg0);
+        if (temp_v0 != 0) {
+            void *key = temp_v0->field18;
+            if ((arg1->field0 == key) ||
+                (arg1->field4 == temp_v0->field1C)) {
+                func_1519F48C(arg0);
+            }
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A0950 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_151A0950.s")
 void func_1516972C(void *);
 
 void func_151A09B4(void *arg0, void *arg1, u8 arg2) {

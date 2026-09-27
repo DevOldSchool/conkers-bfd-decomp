@@ -22,8 +22,9 @@ extern u8 D_800A15F0[];
 extern u8 D_800A1638[];
 extern u8 D_800A163C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EEE00 CURRENT (65) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EEE00 CURRENT (35) */
 void func_150EEE00(void *arg0, u8 arg1) {
+    typedef struct { u8 beforeFlags[0x94]; s32 flags; } ActorFlags;
     struct {
         s32 position[3];
         u8 descriptor[8];
@@ -33,7 +34,7 @@ void func_150EEE00(void *arg0, u8 arg1) {
     s32 transform;
 
     state = arg0;
-    if (!(D_800A163C[arg1] & *(s32 *)(state + 0x94))) {
+    if (!(D_800A163C[arg1] & ((ActorFlags *)state)->flags)) {
         func_150EEF80(arg0, arg1, 0xFF, 1);
         transform = *(s32 *)(state + 0x1D4);
         if (transform != 0) {

@@ -22,12 +22,12 @@ extern u8 D_800DBF88;
 extern s32 D_800DBF8C;
 extern s32 D_800DBF90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15004574 CURRENT (40) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15004574 CURRENT (400) */
 void func_15004574(void) {
     void *temp_v1;
 
     if (D_800DBF88 != 0xFF) {
-        temp_v1 = D_800DBEF4 + (D_800DBF88 * 0xA0);
+        temp_v1 = (u8 *)D_800DBEF4 + (D_800DBF88 * 0xA0);
         D_800DBF8C = *(s32 *)((u8 *)temp_v1 + 0x1C);
         D_800DBF90 = *(s32 *)((u8 *)temp_v1 + 0x28);
     }
@@ -35,36 +35,36 @@ void func_15004574(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15004574 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_15004574.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150045C4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150049A4 CURRENT (2920) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150049A4 CURRENT (1375) */
 void func_150049A4(s8 *arg0, s32 arg1, s32 arg2) {
-    s32 var_t8;
-    s32 var_v0;
-    s8 *var_a1;
-    s8 var_a2;
+    s32 offset1;
+    s32 offset2;
+    s32 index;
 
-    var_v0 = 0;
-    var_a1 = arg0;
-    if (*arg0 != -0x21) {
-        var_a2 = *arg0;
+    index = 0;
+    offset1 = arg1;
+    offset2 = arg2;
+    arg1 = (s32)arg0;
+    if (*(volatile s8 *)arg0 != -0x21) {
+        arg2 = *arg0;
         do {
-            var_v0 += 1;
-            if (var_a2 != -0x24) {
-                if (var_a2 != 1) {
-                    if (var_a2 == -0x22) {
-                        var_t8 = *(s32 *)((u8 *)var_a1 + 4) + arg1;
-                        goto block_9;
-                    }
-                } else {
-                    *(s32 *)((u8 *)var_a1 + 4) = (s32) (*(s32 *)((u8 *)var_a1 + 4) + arg1);
+            index++;
+            switch (arg2) {
+            case 0xDE:
+                *(s32 *)(arg1 + 4) += offset1;
+                break;
+            case 1:
+                *(s32 *)(arg1 + 4) += offset1;
+                break;
+            case -0x24:
+                if (*(u8 *)(arg1 + 3) == 0xE) {
+                    *(s32 *)(arg1 + 4) += offset2;
                 }
-            } else if (*(u8 *)((u8 *)var_a1 + 3) == 0xE) {
-                var_t8 = *(s32 *)((u8 *)var_a1 + 4) + arg2;
-block_9:
-                *(s32 *)((u8 *)var_a1 + 4) = var_t8;
+                break;
             }
-            var_a1 = (var_v0 * 8) + arg0;
-            var_a2 = *var_a1;
-        } while (var_a2 != -0x21);
+            arg1 = (s32)arg0 + (index << 3);
+            arg2 = *(s8 *)arg1;
+        } while (arg2 != -0x21);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150049A4 */

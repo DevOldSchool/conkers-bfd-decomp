@@ -10,7 +10,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD8B0 CURRENT (765) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AD8B0 CURRENT (490) */
 void func_150AD8B0(void *arg0, void *arg1, void *arg2) {
     f32 temp_ft0;
     f32 temp_ft1;

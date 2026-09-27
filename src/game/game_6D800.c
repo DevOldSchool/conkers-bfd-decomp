@@ -91,7 +91,7 @@ void func_15040814(s32 arg0) {
 }
 void func_15040820(s32 arg0) {
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504082C CURRENT (450) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504082C CURRENT (650) */
 s32 func_1504082C(u32 *arg0) {
     u32 temp_v1;
 

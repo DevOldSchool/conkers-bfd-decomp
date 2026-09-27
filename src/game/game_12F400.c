@@ -9,7 +9,6 @@
  * - func_151022AC
  * - func_151025F4
  * - func_151026BC
- * - func_1510281C
  * - func_151028AC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -135,15 +134,13 @@ typedef struct Game12F400State {
     u8 flags;
 } Game12F400State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510281C CURRENT (65) */
 s32 func_1510281C(Game12F400State *arg0, s16 arg1) {
-    Game12F400ControlState *temp_v0;
+    Game12F400LinkedState **temp_v0;
     Game12F400LinkedState *temp_v1;
 
-    temp_v0 = arg0->control;
-    if (arg1 == temp_v0->selector) {
-        temp_v0 = (Game12F400ControlState *)((u8 *)temp_v0 + 0x110);
-        temp_v1 = *(Game12F400LinkedState **)temp_v0;
+    temp_v0 = (Game12F400LinkedState **)((u8 (*)[1])arg0->control)[0x110];
+    if (arg1 == *(u8 *)((u8 *)temp_v0 + 0x22)) {
+        temp_v1 = *temp_v0;
         if ((temp_v1 == 0) || (temp_v1->deep->active != 0)) {
             return 0;
         }
@@ -153,8 +150,6 @@ s32 func_1510281C(Game12F400State *arg0, s16 arg1) {
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1510281C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_12F400/func_1510281C.s")
 s32 func_15102884(void *arg0, s32 arg1) {
     if (!(*(u8 *)((u8 *)arg0 + 0xAC) & 1)) {
         return 0;

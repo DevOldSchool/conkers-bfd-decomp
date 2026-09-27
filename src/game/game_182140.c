@@ -64,17 +64,16 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 s32 func_151555AC(f32 *, f32 *, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515548C CURRENT (239) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515548C CURRENT (20) */
 void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
                     u8 arg5, s32 arg6) {
-    f32 position[2];
-    void *result;
+    struct { f32 position[2]; void *result; } locals;
     s32 kind;
 
     if ((arg2 != 0) && (arg3 > 0)) {
-        position[0] = *(f32 *)((u8 *)arg0 + 8);
-        position[1] = *(f32 *)((u8 *)arg0 + 0xC);
-        if (func_151555AC(arg0, position) != 0) {
+        locals.position[0] = *(f32 *)((u8 *)arg0 + 8);
+        locals.position[1] = *(f32 *)((u8 *)arg0 + 0xC);
+        if (func_151555AC(arg0, locals.position, (s32 *)arg2, arg3) != 0) {
             return 0;
         }
     }
@@ -83,14 +82,15 @@ void *func_1515548C(void *arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4,
     } else {
         kind = 0x5D;
     }
-    result = func_15167A68(kind, arg6, arg4 + 0x70, 1, arg5, 1);
-    if (result == 0) {
+    locals.result = func_15167A68(kind, arg6, arg4 + 0x70, 1, arg5, 1);
+    if (locals.result == 0) {
         return 0;
     }
-    func_10022EC0((u8 *)result + 0x10, arg0, 0x58);
-    *(volatile u8 *)((u8 *)result + 0x68) = 0;
-    *(volatile u8 *)((u8 *)result + 0x68) = arg1;
-    return result;
+    func_10022EC0((u8 *)locals.result + 0x10, arg0, 0x58);
+    arg0 = locals.result;
+    *(u8 *)((u8 *)arg0 + 0x68) = 0;
+    *(u8 *)((u8 *)arg0 + 0x68) |= arg1;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515548C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_182140/func_1515548C.s")

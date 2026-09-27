@@ -29,7 +29,7 @@ typedef struct {
     f32 field_3C;
 } GameD5160Matrix;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A7CB0 CURRENT (160) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A7CB0 CURRENT (60) */
 void func_150A7CB0(GameD5160Matrix *arg0, s32 arg1, s32 arg2, s32 arg3) {
     arg0->field_0 = arg1;
     arg0->field_4 = 0;

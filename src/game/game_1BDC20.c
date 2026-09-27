@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_owner_particle_lifecycle.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15190770
  * - func_15190898
  * - func_15190F9C
  * - func_1519108C
@@ -24,33 +23,29 @@ void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_15191B8C(s32, u8);
 u8 func_151D8E20(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15190770 CURRENT (630) */
-void *func_15190770(void *arg0, s32 arg1, u8 arg2, u8 arg3) {
+void *func_15190770(void *arg0, s32 arg1, u8 arg2, s32 arg3) {
+    void *result;
     struct {
         void *field_0;
         u8 field_4;
     } data;
-    void *source;
 
-    source = arg0;
-    data.field_0 = *(void **)source;
-    data.field_4 = *(u8 *)((u8 *)data.field_0 + 0x3B);
+    data.field_0 = *(void **)arg0;
+    data.field_4 = *(u8 *)((u8 *)*(void **)arg0 + 0x3B);
     func_15191B8C((s32)&data, 0xE);
-    arg0 = func_15167A68(0x20, arg3, arg1 + 0x300, 1, arg2, 1);
-    if (arg0 == 0) {
+    result = func_15167A68(0x20, arg3, arg1 + 0x300, 1, arg2, 1);
+    if (result == 0) {
         return 0;
     }
-    func_10022EC0((u8 *)arg0 + 0x10, source, 0xC);
-    *(void **)((u8 *)arg0 + 0x24) = (u8 *)arg0 + 0x30;
-    *(void **)((u8 *)arg0 + 0x28) = (u8 *)arg0 + 0x300;
-    *(s32 *)((u8 *)arg0 + 0x20) = 0;
-    *(f32 *)((u8 *)arg0 + 0x1C) = 0.0f;
-    func_100226F0((u8 *)arg0 + 0x30, 0x2D0);
-    *(u8 *)((u8 *)arg0 + 0x2C) = func_151D8E20();
-    return arg0;
+    func_10022EC0((u8 *)result + 0x10, arg0, 0xC);
+    *(void **)((u8 *)result + 0x24) = (u8 *)result + 0x30;
+    *(void **)((u8 *)result + 0x28) = (u8 *)result + 0x300;
+    *(s32 *)((u8 *)result + 0x20) = 0;
+    *(f32 *)((u8 *)result + 0x1C) = 0.0f;
+    func_100226F0((u8 *)result + 0x30, 0x2D0);
+    *(u8 *)((u8 *)result + 0x2C) = func_151D8E20();
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15190770 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15190770.s")
 void func_15191400(s32);
 void func_15190840(s32 arg0) {
     func_15191400(arg0);
@@ -147,7 +142,7 @@ s32 func_1519187C(void *arg0) {
     return 1;
 }
 void func_1516972C(void *);
-void *func_15190770(void *, s32, u8, u8);
+void *func_15190770(void *, s32, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151918BC CURRENT (895) */
 void func_151918BC(void *arg0) {

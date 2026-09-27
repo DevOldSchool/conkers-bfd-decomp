@@ -9,9 +9,7 @@
  * - func_15194408
  * - func_151945CC
  * - func_15194810
- * - func_15194B94
  * - func_15194BF0
- * - func_15194F48
  * - func_15194FF4
  * - func_151951E0
  * - func_15195528
@@ -262,17 +260,14 @@ void func_15194B1C(void *arg0) {
 }
 void func_15194B1C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194B94 CURRENT (170) */
 void func_15194B94(s32 arg0, void *arg1, s32 arg2) {
     if (*(u8 *)((u8 *)arg1 + 4) == 0x53) {
         func_151942B0(arg0, (s32)arg1, arg2);
         return;
     }
-    func_15194B1C(arg1, arg1, (void *)arg2);
-    func_151949F4(1, arg0, (s32)arg1);
+    func_15194B1C(arg1);
+    func_151949F4(1, (Game1C1150ActorState *)arg0, (s32)arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15194B94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194B94.s")
 void func_15145A50(u8 *);
 void func_1507CD64(void *, s32);
 void func_15063B64(void *);
@@ -413,22 +408,17 @@ typedef struct Game1C1150Position {
 
 extern void func_151C0098(f32 *arg0, Game1C1150Position *arg1, s32 arg2, s32 arg3, s32 arg4);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194F48 CURRENT (1533) */
 void func_15194F48(s32 arg0, Game1C1150Position *arg1, s32 arg2) {
-    f32 sp3C;
-    f32 sp38;
-    f32 sp34;
+    f32 position[3];
 
-    sp34 = arg1->x;
-    sp38 = arg1->y + 50.0f;
-    sp3C = arg1->z;
-    func_151C0098(&sp34, arg1, 1, 0xFF, 1);
+    position[0] = arg1->x;
+    position[1] = arg1->y + 50.0f;
+    position[2] = arg1->z;
+    func_151C0098(&position[0], arg1, 1, 0xFF, 1);
     func_15136C3C(arg1, 0, 0, 1, 0, 0, 0xFF, 1);
     func_15145A50((u8 *)arg1);
     func_1507CD64((u8 *)arg1, 6);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15194F48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194F48.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194FF4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151951E0.s")
 void func_15137610(void *, void *, void *, s32, s32, s32);

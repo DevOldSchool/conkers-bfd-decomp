@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_subranges.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D6E60
  * - func_151D7000
  * - func_151D710C
  *
@@ -17,34 +16,29 @@ void func_150A8050(void *, f32, f32, f32);
 extern f32 D_800AB278;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6E60 CURRENT (220) */
 s32 func_151D6E60(u8 *arg0) {
-    f32 height;
     f32 scale;
 
-    height = func_15144AA8(0) + 25.0f;
-    func_150A8050(((s32)D_800BE9C0 << 6) + arg0 + 0x7C,
-                   0.0f, height, 0.0f);
+    func_150A8050(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x7C,
+                   0.0f, func_15144AA8(0) + 25.0f, 0.0f);
     scale = D_800AB278;
-    *(f32 *)(arg0 + ((s32)D_800BE9C0 << 6) + 0xAC) =
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0xAC) =
         *(f32 *)(*(u8 **)(arg0 + 0x4C) + 0x14);
-    *(f32 *)(arg0 + ((s32)D_800BE9C0 << 6) + 0xB0) =
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0xB0) =
         *(f32 *)(*(u8 **)(arg0 + 0x4C) + 0x18) + 120.0f;
-    *(f32 *)(arg0 + ((s32)D_800BE9C0 << 6) + 0xB4) =
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0xB4) =
         *(f32 *)(*(u8 **)(arg0 + 0x4C) + 0x1C);
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x7C) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x80) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x84) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x8C) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x90) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x94) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0x9C) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0xA0) *= scale;
-    *(f32 *)(((s32)D_800BE9C0 << 6) + arg0 + 0xA4) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x7C) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x80) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x84) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x8C) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x90) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x94) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x9C) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0xA0) *= scale;
+    *(f32 *)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0xA4) *= scale;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D6E60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_204310/func_151D6E60.s")
 void func_15042D78(u8);
 void func_150432CC(s32, s32);
 void func_1504332C(u8, u8, u8, u8);

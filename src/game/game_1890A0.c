@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1515BBF0
  * - func_1515BE50
- * - func_1515BFA8
  * - func_1515C158
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -107,7 +106,6 @@ typedef struct {
     s32 z;
 } Game1890A0Vector;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515BFA8 CURRENT (60) */
 void func_1515BFA8(u8 *arg0) {
     s32 var_a1;
     f32 *temp_v1;
@@ -131,16 +129,14 @@ void func_1515BFA8(u8 *arg0) {
         *(f32 *)(arg0 + 0x20) = *(f32 *)(temp_v0 + 0x14);
         *(f32 *)(arg0 + 0x24) = *(f32 *)(temp_v0 + 0x18);
         *(f32 *)(arg0 + 0x28) = *(f32 *)(temp_v0 + 0x1C);
-        *(f32 *)(arg0 + 0x38) = (*(f32 *)(arg0 + 0x2C) - *(f32 *)(arg0 + 0x20)) * *temp_v1;
-        *(f32 *)(arg0 + 0x3C) = (*(f32 *)(arg0 + 0x30) - *(f32 *)(arg0 + 0x24)) * *temp_v1;
-        *(f32 *)(arg0 + 0x40) = (*(f32 *)(arg0 + 0x34) - *(f32 *)(arg0 + 0x28)) * *temp_v1;
+        *(f32 *)(arg0 + 0x38) = *temp_v1 * (*(f32 *)(arg0 + 0x2C) - *(f32 *)(arg0 + 0x20));
+        *(f32 *)(arg0 + 0x3C) = *temp_v1 * (*(f32 *)(arg0 + 0x30) - *(f32 *)(arg0 + 0x24));
+        *(f32 *)(arg0 + 0x40) = *temp_v1 * (*(f32 *)(arg0 + 0x34) - *(f32 *)(arg0 + 0x28));
     }
     if (var_a1 != 0) {
         func_1516972C(arg0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515BFA8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1890A0/func_1515BFA8.s")
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_1515C0B8(s32 arg0, s32 arg1, u8 arg2) {

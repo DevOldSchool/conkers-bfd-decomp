@@ -39,7 +39,7 @@ void func_150CF578(s32 arg0) {
 }
 extern s32 D_8008889C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF5E8 CURRENT (575) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF5E8 CURRENT (975) */
 void *func_150CF5E8(u8 *arg0) {
     u8 *temp_a0;
 

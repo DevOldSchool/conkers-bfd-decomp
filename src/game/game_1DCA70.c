@@ -66,16 +66,14 @@ s32 func_151AFBD4(void *arg0) {
 }
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AFC08 CURRENT (775) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AFC08 CURRENT (670) */
 s32 func_151AFC08(u8 *arg0) {
     f32 temp_fv0;
-    s16 temp_v1;
     s32 temp_v0;
 
     if (*(s32 *)((u8 *)arg0 + 0x58) & 1) {
-        temp_v1 = *(s16 *)((u8 *)arg0 + 0x1C);
-        if (temp_v1 < 0x20) {
-            temp_v0 = temp_v1 * 8;
+        if (*(s16 *)((u8 *)arg0 + 0x1C) < 0x20) {
+            temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C) * 8;
             if (temp_v0 < (s32) *(u8 *)((u8 *)arg0 + 0x5C)) {
                 *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v0;
             }

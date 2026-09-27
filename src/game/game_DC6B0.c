@@ -20,28 +20,28 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-s32 func_151149AC(s32);
+s32 func_151149AC(u8);
 void func_1505D024(s32, s32, s32, s32);
 extern u8 D_800CC2D0;
 extern u8 D_800CC3D4;
 extern s32 D_800DBEF4;
 extern s32 D_800DBF94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF200 CURRENT (40) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF200 CURRENT (80) */
 void func_150AF200(s32 arg0, s32 arg1) {
     s32 delta;
     s32 index;
 
     if (D_800CC3D4 == 0) {
-        delta = func_151149AC(arg0 & 0xFF) - D_800DBEF4;
+        delta = func_151149AC((u8)arg0) - D_800DBEF4;
         index = delta / 160;
-        if (*(s32 *)(D_800DBF94 + (index * 4)) & 1) {
+        if (*(s32 *)(((u8 (*)[4])D_800DBF94)[index]) & 1) {
             func_1505D024((s32)&D_800CC2D0, 0x3F, 0x6E00, -1);
             return;
         }
         delta = func_151149AC((u8)arg1) - D_800DBEF4;
         index = delta / 160;
-        if (*(s32 *)(D_800DBF94 + (index * 4)) & 1) {
+        if (*(s32 *)(((u8 (*)[4])D_800DBF94)[index]) & 1) {
             func_1505D024((s32)&D_800CC2D0, 0x3F, 0xEE00, -1);
         }
     }
@@ -50,14 +50,12 @@ void func_150AF200(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF200.s")
 extern void func_151CF898(void *arg0, f32 arg1, f32 arg2, void *arg3);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 CURRENT (20) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 CURRENT (10) */
 void func_150AF2E0(void *arg0, void *arg1) {
     s32 temp_v0;
-    s32 temp_t7;
 
     temp_v0 = *(s16 *)((u8 *)arg1 + 2);
-    temp_t7 = temp_v0 + *(s16 *)((u8 *)arg1 + 8);
-    func_151CF898(arg0, (f32)temp_t7, (f32)temp_v0, arg1);
+    func_151CF898(arg0, (f32)(temp_v0 + *(s16 *)((u8 *)arg1 + 8)), (f32)temp_v0, arg1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF2E0.s")
@@ -205,14 +203,14 @@ void func_150B031C(s32 arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0348.s")
 /* Call context: func_151149AC: unique active project prototype */
-s32 func_151149AC(s32);
+s32 func_151149AC(u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B060C CURRENT (309) */
-s32 func_150B060C(s32 arg0, void *arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B060C CURRENT (200) */
+s32 func_150B060C(u8 arg0, void *arg1) {
     s32 temp_v0;
     s32 temp_v1;
 
-    temp_v0 = func_151149AC(arg0 & 0xFF);
+    temp_v0 = func_151149AC(arg0);
     *(s32 *)((u8 *)arg1 + 8) = temp_v0;
     if (temp_v0 == 0) {
         return 0;

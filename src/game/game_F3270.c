@@ -89,16 +89,18 @@ typedef struct {
 
 s32 func_150C5F94(void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5F40 CURRENT (835) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5F40 CURRENT (265) */
 void func_150C5F40(GameF3270State *arg0) {
     s32 temp_a2;
+    u8 (*state)[1];
 
     temp_a2 = arg0->field_18;
-    if (arg0->field_5C != 0) {
-        arg0->field_5C->field_5C = 1;
+    if (*(GameF3270Data *volatile *)&arg0->field_5C != 0) {
+        state = (u8 (*)[1])((u8 *)arg0->field_5C + 0x58);
+        state[4][0] = 1;
         return;
     }
-    arg0->field_5C = (GameF3270Data *)func_150C5F94(temp_a2, arg0, temp_a2);
+    arg0->field_5C = (GameF3270Data *)func_150C5F94((void *)temp_a2, arg0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C5F40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5F40.s")

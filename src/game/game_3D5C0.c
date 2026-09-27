@@ -30,11 +30,11 @@ extern s32 D_80090298[];
 extern s32 D_800963A0[];
 extern s32 D_800B0E00[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010110 CURRENT (1750) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010110 CURRENT (990) */
 void func_15010110(void) {
     Game3D5C0Request request;
-    s8 var_s0;
-    s8 temp_s2;
+    s32 var_s0;
+    s32 temp_s2;
     struct Game3D5C0PositionBlock *var_s1;
 
     func_15195AA8(D_800B0E00[0], D_80090298[0x50 / 4], 0, -1, 0, 0, 0, -8);

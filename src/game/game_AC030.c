@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507EBB8
  * - func_1507EC38
  * - func_1507EEB8
  * - func_1507EFD0
@@ -38,24 +37,16 @@ void func_10023A10(void *, void *, s32);
 extern void *D_80086C24[];
 extern u8 D_8009BBF0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 CURRENT (252) */
 void func_1507EBB8(s32 arg0, s32 *arg1, s32 arg2) {
-    s32 sp18;
-    s32 temp_v0;
-    u8 temp_a3;
-    void *temp_t7;
+    struct { s32 count; void *source; } copy;
 
-    temp_t7 = D_80086C24[arg2];
-    temp_a3 = D_8009BBF0[arg2];
-    temp_v0 = *arg1;
-    if ((temp_v0 + temp_a3) < 0x28) {
-        sp18 = (s32) temp_a3;
-        func_10023A10(temp_t7, (void *)(temp_v0 + arg0), (s32) temp_a3);
-        *arg1 += temp_a3;
+    copy.source = D_80086C24[arg2];
+    copy.count = D_8009BBF0[arg2];
+    if ((*arg1 + copy.count) < 0x28) {
+        func_10023A10(copy.source, (void *)(*arg1 + arg0), (s32) copy.count);
+        *arg1 += copy.count;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507EBB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EBB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
 void func_1507EE58(volatile u8 arg0, u8 *arg1) {
     s32 value;

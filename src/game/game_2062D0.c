@@ -226,33 +226,29 @@ u8 func_151D9878(void) {
     return *((u8 *)&sp1C + ((func_150ADA20() % 3U) * 4) + 3);
 }
 extern s32 func_150ADA20();
-extern s32 D_800AB384[2];
+typedef struct Game2062D0Pair {
+    s32 values[2];
+} Game2062D0Pair;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D98D0 CURRENT (245) */
+extern Game2062D0Pair D_800AB384;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D98D0 CURRENT (20) */
 u8 func_151D98D0(void) {
-    struct {
-        u8 pad[8];
-        s32 values[2];
-    } sp20;
+    Game2062D0Pair sp20;
 
-    sp20.values[0] = D_800AB384[0];
-    sp20.values[1] = D_800AB384[1];
+    sp20 = D_800AB384;
     return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D98D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D98D0.s")
 extern s32 func_150ADA20();
-extern s32 D_800AB38C[2];
+extern Game2062D0Pair D_800AB38C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9918 CURRENT (245) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9918 CURRENT (20) */
 u8 func_151D9918(void) {
-    struct {
-        u8 pad[8];
-        s32 values[2];
-    } sp20;
+    Game2062D0Pair sp20;
 
-    sp20.values[0] = D_800AB38C[0];
-    sp20.values[1] = D_800AB38C[1];
+    sp20 = D_800AB38C;
     return ((u8 *)sp20.values)[(func_150ADA20() & 1) * 4 + 3];
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D9918 */
@@ -662,16 +658,16 @@ extern f32 D_800AB4C4;
 extern f32 D_800AB4C8;
 extern f32 D_800AB4CC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBAA8 CURRENT (1072) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBAA8 CURRENT (630) */
 void func_151DBAA8(Game2062D0Vector3 *arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4) {
     Game2062D0Params params;
 
     params.vector = *arg0;
+    params.field50 = (s16) arg1;
+    params.field26 = 0xFF;
     params.field28 = -0x40;
     params.field2A = 0x2E;
     params.field38 = 5.5f;
-    params.field26 = 0xFF;
-    params.field50 = (s16) arg1;
     params.field52 = 0;
     params.field24 = 0;
     params.field54 = 3;

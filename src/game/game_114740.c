@@ -24,15 +24,15 @@ typedef struct {
     s16 sp40;
     s16 sp42;
     s16 sp44;
-    s8 sp46;
-    s8 sp47;
-    s8 sp48;
-    s8 sp49;
+    u8 sp46;
+    u8 sp47;
+    u8 sp48;
+    u8 sp49;
     u8 sp4A;
-    s8 sp4B;
-    s8 sp4C;
-    s8 sp4D;
-    s8 sp4E;
+    u8 sp4B;
+    u8 sp4C;
+    u8 sp4D;
+    u8 sp4E;
     u8 sp4F;
     s32 sp50;
     s32 sp54;
@@ -41,23 +41,23 @@ typedef struct {
     s32 sp60;
     s32 sp64;
     s32 sp68;
-    s8 sp6C;
-    s8 sp6D;
+    u8 sp6C;
+    u8 sp6D;
     u8 pad6E[0x1A];
 } Game114740Local;
 
 void func_1515548C(void *, s32, s32, s32, s32, s32, s32);
 extern u8 D_80088A64;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E75A0 CURRENT (3476) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E75A0 CURRENT (1893) */
 void func_150E75A0(void *arg0, f32 arg1, s16 arg2, u8 arg3, u8 arg4,
                    u8 arg5, s16 arg6, s16 arg7, s32 arg8, s32 arg9,
                    u8 arg10, s32 arg11) {
+    typedef struct { s32 words[2]; } Copy2;
     Game114740Local local;
 
     local.sp28 = D_80088A64;
-    local.source[0] = *(s32 *)arg0;
-    local.source[1] = *(s32 *)((u8 *)arg0 + 4);
+    *(Copy2 *)local.source = *(Copy2 *)arg0;
     local.sp3C = local.sp28;
     local.sp40 = arg3 | 0x40;
     local.sp3E = arg2;

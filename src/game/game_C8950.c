@@ -256,21 +256,22 @@ void *func_10003C40(s32, s32, s32, s32);
 void func_10023A10(void *, void *, s32);
 void func_100226F0(void *, u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B950 CURRENT (910) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509B950 CURRENT (355) */
 void *func_1509B950(void *arg0) {
-    u16 temp_v0;
-    u16 temp_t0;
-    u16 temp_v0_2;
-    u16 temp_t6;
+    s32 temp_v0;
+    s32 temp_t0;
+    u8 adjustment;
+    s32 temp_t6;
     void *temp_v0_3;
     void *temp_s0;
 
     temp_s0 = arg0;
     temp_v0 = *(u16 *)((u8 *)temp_s0 + 4);
-    temp_t0 = temp_v0 + (8 - ((s32)((u8 *)temp_s0 + temp_v0) & 7));
-    temp_v0_2 = temp_t0 + *(u16 *)((u8 *)temp_s0 + 6);
-    *(u16 *)((u8 *)temp_s0 + 4) = temp_v0_2;
-    temp_t6 = (temp_v0_2 - ((s32)((u8 *)temp_s0 + temp_v0_2) & 7)) + 8;
+    adjustment = 8 - (((s32)temp_s0 + temp_v0) & 7);
+    temp_t0 = temp_v0 + adjustment;
+    temp_v0 = temp_t0 + *(u16 *)((u8 *)temp_s0 + 6);
+    *(volatile u16 *)((u8 *)temp_s0 + 4) = temp_v0;
+    temp_t6 = (temp_v0 - ((s32)((u8 *)temp_s0 + temp_v0) & 7)) + 8;
     *(u16 *)((u8 *)temp_s0 + 0xA) = temp_t0;
     *(u16 *)((u8 *)temp_s0 + 4) = temp_t6;
     temp_v0_3 = func_10003C40(temp_t6 & 0xFFFF, 0xFF, 2, 0);
@@ -279,7 +280,7 @@ void *func_1509B950(void *arg0) {
         }
     }
     func_10023A10(temp_s0, temp_v0_3, *(u16 *)((u8 *)temp_s0 + 4));
-    func_100226F0((u8 *)temp_v0_3 + *(u16 *)((u8 *)temp_v0_3 + 0xA),
+    func_100226F0((void *)((s32)temp_v0_3 + *(u16 *)((u8 *)temp_v0_3 + 0xA)),
                   *(u16 *)((u8 *)temp_v0_3 + 6));
     func_10004074((s32)temp_s0);
     return temp_v0_3;

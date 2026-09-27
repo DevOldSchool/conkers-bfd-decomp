@@ -241,7 +241,7 @@ s32 func_151D1074(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
     return 1;
 }
-s32 func_151D10E4(s32 arg0, s32 arg1, s32 arg2);
+s32 func_151D10E4(s32 arg0, s32 arg1, u8 arg2);
 
 void func_151D10A4(s32 arg0, s32 arg1) {
     func_151D10E4(arg0, arg1, 0);
@@ -257,17 +257,15 @@ typedef struct {
 void func_15143134(f32 *, f32 *, s32);
 extern f32 D_800AAF9C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D10E4 CURRENT (1150) */
-s32 func_151D10E4(s32 arg0, s32 arg1, s32 arg2) {
-    s32 temp_a3;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D10E4 CURRENT (845) */
+s32 func_151D10E4(s32 arg0, s32 arg1, u8 arg2) {
     s32 temp_v0;
 
-    temp_a3 = arg2 & 0xFF;
     temp_v0 = *(s32 *)((u8 *)arg0 + 0x1D4);
     if (temp_v0 == 0) {
         return 0;
     }
-    func_15143134((f32 *)((u8 *)D_800AAF9C + (temp_a3 * 0xC)), (f32 *)arg1, temp_v0);
+    func_15143134((f32 *)((u8 *)D_800AAF9C + (arg2 * 0xC)), (f32 *)arg1, temp_v0);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D10E4 */

@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_subranges.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150B1EE0
  * - func_150B1F90
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -39,15 +38,13 @@ extern void *func_10022EC0(void *arg0, const void *arg1, u32 arg2);
 extern u32 func_150ADA20(void);
 extern s32 func_15149130(s16 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B1EE0 CURRENT (555) */
 void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
+    typedef struct { s32 words[3]; } Copy3;
     GameDF2D0Packet packet;
     s16 temp_a0;
     s32 temp_v0;
 
-    packet.field_0 = arg1->field_0;
-    packet.field_4 = arg1->field_4;
-    packet.field_8 = arg1->field_8;
+    *(Copy3 *)&packet = *(Copy3 *)arg1;
     packet.field_C = 0.0f;
     temp_a0 = (func_150ADA20() % 133U) + 0x45;
     temp_v0 = func_15149130(temp_a0, -1, 0x49, -1, 1, 0, 0x10,
@@ -56,8 +53,6 @@ void func_150B1EE0(void *arg0, GameDF2D0Packet *arg1, s32 arg2, s32 arg3) {
         func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0x10);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150B1EE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B1EE0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DF2D0/func_150B1F90.s")
 void func_150B2340(void *arg0) {
     s32 sp24;

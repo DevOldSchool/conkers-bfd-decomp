@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150CFD20
- * - func_150CFD5C
  * - func_150CFDB8
  * - func_150CFE3C
  * - func_150CFE98
@@ -39,20 +38,14 @@ loop_2:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFD20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFD20.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFD5C CURRENT (15) */
 u8 *func_150CFD5C(u8 *arg0) {
-    u8 temp_t7;
-
     if (*arg0 != 0) {
         do {
-            temp_t7 = arg0[1];
             arg0 += 1;
-        } while (temp_t7 != 0);
+        } while (*arg0 != 0);
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CFD5C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFD5C.s")
 s32 func_150CFD84(s32 arg0, s32 *arg1) {
     s32 temp_v0;
 
@@ -87,14 +80,16 @@ s32 func_150CFDB8(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFDB8.s")
 void func_10022EC0(void *, void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (140) */
-void func_150CFE3C(void *arg0) {
-    s32 temp_v0;
+struct GameFD1D0State;
 
-    func_10022EC0(*(void **)((u8 *)arg0 + (*(u8 *)((u8 *)arg0 + 0x3D) * 4) + 0x40),
-                   *(void **)((u8 *)arg0 + 0x34), *(u8 *)((u8 *)arg0 + 0x3C), arg0);
-    temp_v0 = (s32)arg0 + 0x28;
-    *(*(u8 **)(temp_v0 + (*(u8 *)(temp_v0 + 0x15) * 4) + 0x18) + *(u8 *)(temp_v0 + 0x14)) = 0;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CFE3C CURRENT (235) */
+void func_150CFE3C(struct GameFD1D0State *arg0) {
+    struct Text { u8 beforeWidth[0x14]; u8 width; u8 page; u8 pad16[2]; u8 *buffers[2]; } *temp_v0;
+
+    func_10022EC0(*(void **)(((u8 (*)[4])arg0)[*(u8 *)((u8 *)arg0 + 0x3D)] + 0x40),
+                   *(void **)((u8 *)arg0 + 0x34), *(u8 *)((u8 *)arg0 + 0x3C));
+    temp_v0 = (struct Text *)((u8 *)arg0 + 0x28);
+    temp_v0->buffers[temp_v0->page][temp_v0->width] = 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CFE3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FD1D0/func_150CFE3C.s")
@@ -206,11 +201,11 @@ typedef s32 (*GameFD1D0EntryCallback)(GameFD1D0State *);
 
 extern GameFD1D0EntryCallback D_800888A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0034 CURRENT (1255) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D0034 CURRENT (430) */
 s32 func_150D0034(s32 arg0, GameFD1D0State *arg1, s32 arg2) {
     GameFD1D0TextCursor *text;
 
-    if ((arg1->field_4C != -1) && (D_800888A0[arg1->field_4C](arg1) == 0)) {
+    if ((*(volatile s8 *)&arg1->field_4C != -1) && (D_800888A0[arg1->field_4C](arg1) == 0)) {
         arg1->field_0E = -1;
         return arg0;
     }

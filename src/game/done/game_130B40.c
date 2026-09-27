@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_130B40.c
  * Boundary evidence: docs/evidence/game_raw_extended_code_selected_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_151036B4
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_15103690(s32 arg0) {
@@ -47,17 +42,16 @@ typedef struct Game130B40Locals {
     Game130B40Params params;
 } Game130B40Locals;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151036B4 CURRENT (3513) */
 void func_151036B4(void *arg0, u8 arg1, s32 arg2) {
+    typedef struct { s32 word; } Copy1;
+    typedef struct { s32 words[3]; } Copy3;
     Game130B40Locals locals;
 
-    locals.field_30 = D_800A2350;
-    locals.field_2C = D_800A2354;
+    *(Copy1 *)&locals.field_30 = *(Copy1 *)&D_800A2350;
+    *(Copy1 *)&locals.field_2C = *(Copy1 *)&D_800A2354;
     locals.params.field_0 = 8;
     locals.params.field_4 = 4;
-    locals.params.field_8[0] = *(s32 *)((u8 *)arg0 + 0);
-    locals.params.field_8[1] = *(s32 *)((u8 *)arg0 + 4);
-    locals.params.field_8[2] = *(s32 *)((u8 *)arg0 + 8);
+    *(Copy3 *)locals.params.field_8 = *(Copy3 *)arg0;
     locals.params.field_1C = 8.0f;
     locals.params.field_20 = 4.0f;
     locals.params.field_14 = 0;
@@ -74,8 +68,6 @@ void func_151036B4(void *arg0, u8 arg1, s32 arg2) {
     func_15152190(&locals.params, &locals.field_30, &locals.field_2C,
                   1, 0.0f, 1, (s32)arg1, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151036B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_130B40/func_151036B4.s")
 s32 func_151037DC(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return 0;
 }

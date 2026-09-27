@@ -18,7 +18,7 @@ void *func_151149AC(s32);
 extern f32 D_800A0830;
 extern f32 D_800A0834;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CEF60 CURRENT (1810) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CEF60 CURRENT (64) */
 void func_150CEF60(s32 arg0) {
     struct {
         f32 trig;
@@ -29,16 +29,22 @@ void func_150CEF60(s32 arg0) {
     f32 temp_fa0_2;
     f32 temp_fv0;
     f32 temp_fv1;
+    f32 originX;
+    f32 originZ;
 
     temp_fa0 = *(f32 *)((u8 *)func_151149AC(4) + 8) * D_800A0830;
     local.angle = temp_fa0;
     local.trig = func_150AD78C(temp_fa0);
     temp_fv0 = func_150AD780(temp_fa0);
-    temp_fv1 = 76.0f - -1.0f;
-    temp_fa0_2 = 241.0f - 44.0f;
+    originX = -1.0f;
+    originZ = 44.0f;
+    temp_fv1 = 76.0f;
+    temp_fa0_2 = 241.0f;
+    temp_fv1 -= originX;
+    temp_fa0_2 -= originZ;
     func_150A3444(2,
-                  (s16)(s32)(((temp_fv1 * temp_fv0) - (temp_fa0_2 * local.trig)) + -1.0f),
-                  (s16)(s32)((temp_fv1 * local.trig) + (temp_fa0_2 * temp_fv0) + 44.0f),
+                  (s16)(s32)(((temp_fv1 * temp_fv0) - (temp_fa0_2 * local.trig)) + originX),
+                  (s16)(s32)((temp_fv1 * local.trig) + (temp_fa0_2 * temp_fv0) + originZ),
                   (s16)(s32)D_800A0834);
     func_151749A0(5, 3);
 }

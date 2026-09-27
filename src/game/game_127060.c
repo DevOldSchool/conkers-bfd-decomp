@@ -9,11 +9,9 @@
  * - func_150FA1B8
  * - func_150FA468
  * - func_150FA520
- * - func_150FAA40
  * - func_150FAAEC
  * - func_150FAE18
  * - func_150FB188
- * - func_150FB1E8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -66,28 +64,23 @@ s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 extern u8 D_80088B60;
 extern s32 D_800D3098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FAA40 CURRENT (939) */
 void func_150FAA40(u8 arg0, s32 arg1) {
-    f32 sp44;
-    s32 sp40;
-    s32 sp3C;
+    struct { s32 first; s32 second; f32 value; } packet;
     s32 temp_v0;
 
     if (D_80088B60 == 0) {
-        sp3C = D_800D3098 + 0x71C;
-        sp40 = D_800D3098 + 0x6E8;
-        sp44 = 0.0f;
+        packet.first = D_800D3098 + 0x71C;
+        packet.second = D_800D3098 + 0x6E8;
+        packet.value = 0.0f;
         temp_v0 = func_15149130(0x12C, -1, 0x57, -1, 0, 0x46, 0xC, (s32)arg0, arg1);
         if (temp_v0 != 0) {
             D_80088B60 = 1;
         }
         if (temp_v0 != 0) {
-            func_10022EC0((u8 *)temp_v0 + 0x28, &sp3C, 0xCU);
+            func_10022EC0((u8 *)temp_v0 + 0x28, &packet, 0xCU);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FAA40 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAA40.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAAEC.s")
 extern void func_1516972C(s32 arg0);
 
@@ -145,11 +138,8 @@ s32 func_150FB188(Game127060State *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FB188.s")
 
 void func_15157F80(s32, s32, s32, s32, s32);
-s32 func_151D710C(s32, s32, s32, s32);
+s32 func_151D710C(s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FB1E8 CURRENT (452) */
 void func_150FB1E8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
-    func_15157F80(func_151D710C(arg1, arg2, arg3, arg4), arg1, arg2, arg3, arg4);
+    func_15157F80(func_151D710C(arg0, arg1, arg2, arg3, arg4), arg1, arg2, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FB1E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FB1E8.s")

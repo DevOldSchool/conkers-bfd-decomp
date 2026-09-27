@@ -177,11 +177,11 @@ typedef struct Game144C70MotionState {
     volatile u8 motion;
 } Game144C70MotionState;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15117D3C CURRENT (560) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15117D3C CURRENT (340) */
 void func_15117D3C(Game144C70MotionState *arg0, Game144C70EventState *arg1) {
     s32 temp_v0;
-    u8 temp_t5;
-    u8 temp_v1;
+    s32 temp_t5;
+    s32 temp_v1;
 
     temp_v0 = arg0->packed;
     if ((arg1->kind == 1) && (arg0->flags & 4)) {

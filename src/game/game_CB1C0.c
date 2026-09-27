@@ -46,12 +46,12 @@ s32 func_1509DD50(s32 arg0, GameCB1C0Record *arg1) {
                   0xFF, arg1->field_1C, 0);
     return 1;
 }
-void func_15178E14(s32 arg0, s32 arg1);
+void func_15178E14(u8 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DDC4 CURRENT (270) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509DDC4 CURRENT (480) */
 s32 func_1509DDC4(s32 arg0, s32 arg1) {
     arg1 = arg0;
-    func_15178E14(arg1 & 0xFF, arg1);
+    func_15178E14(arg1);
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509DDC4 */
