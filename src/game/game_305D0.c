@@ -24,42 +24,39 @@ void func_15001970(void);
 void func_15002754(void);
 void func_1510F800(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15003120 CURRENT (2105) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15003120 CURRENT (545) */
 void func_15003120(s32 arg0, s32 arg1, s32 arg2) {
-    s32 *temp_a1;
+    s32 relocation;
     s32 *temp_v1;
-    s32 *var_t0;
-    s32 temp_t8;
+    u8 *var_t0;
     s32 temp_v0;
     s32 var_t1;
     s32 var_v1;
-    s8 var_a2;
-    u8 *temp_t0;
 
+    relocation = arg1;
     temp_v0 = arg0 * 4;
-    *(u8 *)(D_800B0E30 + temp_v0) = arg2;
+    *(s32 *)(D_800B0E30 + temp_v0) = arg2;
     *(u8 *)(D_800B0E34 + arg0) = 0;
     if (arg2 != 0) {
-        var_a2 = 0;
+        arg2 = 0;
         temp_v1 = (void *)(D_800B0E30 + temp_v0);
-        *temp_v1 += arg1;
+        *temp_v1 += relocation;
         var_v1 = 0;
-        temp_a1 = (void *)(*(u8 *)(D_800B0E30 + temp_v0));
-        var_t0 = temp_a1;
-        if (*temp_a1 != 0) {
-            var_t1 = *temp_a1;
+        arg1 = *(s32 *)(D_800B0E30 + temp_v0);
+        var_t0 = (u8 *)arg1;
+        if (*(volatile s32 *)arg1 != 0) {
+            var_t1 = *(s32 *)arg1;
             do {
-                *var_t0 = var_t1 + arg1;
-                var_a2 += 1;
-                temp_t0 = (void *)(*(u8 *)(D_800B0E30 + temp_v0) + var_v1);
-                temp_t8 = *(s32 *)((u8 *)temp_t0 + 4);
+                *(s32 *)var_t0 = var_t1 + relocation;
+                arg2 += 1;
+                var_t0 = (void *)(*(s32 *)(D_800B0E30 + temp_v0) + var_v1);
                 var_v1 += 0xC;
-                *(s32 *)((u8 *)temp_t0 + 4) = (s32) (temp_t8 + arg1);
-                var_t0 = (void *)(*(u8 *)(D_800B0E30 + temp_v0) + var_v1);
-                var_t1 = *var_t0;
+                *(s32 *)(var_t0 + 4) += relocation;
+                var_t0 = (void *)(*(s32 *)(D_800B0E30 + temp_v0) + var_v1);
+                var_t1 = *(s32 *)var_t0;
             } while (var_t1 != 0);
         }
-        *(u8 *)(D_800B0E34 + arg0) = var_a2;
+        *(u8 *)(D_800B0E34 + arg0) = arg2;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15003120 */

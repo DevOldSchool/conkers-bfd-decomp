@@ -93,8 +93,9 @@ typedef struct Game1B6420Actor {
 extern f32 D_800AA470;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6420 CURRENT (110) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B6420 CURRENT (60) */
 s32 func_151B6420(Game1B6420Actor *actor) {
+    typedef struct { s32 words[3]; } Copy3;
     Game1B6420Record *records;
     Game1B6420Record *record;
     s32 index;
@@ -147,10 +148,7 @@ s32 func_151B6420(Game1B6420Actor *actor) {
         } while (index != actor->tail);
     }
     if (actor->count > 0) {
-        record = &records[actor->head];
-        actor->output[0] = *(s32 *)((u8 *)record + 0);
-        actor->output[1] = *(s32 *)((u8 *)record + 4);
-        actor->output[2] = *(s32 *)((u8 *)record + 8);
+        *(Copy3 *)actor->output = *(Copy3 *)&records[actor->head];
     } else {
         *(f32 *)&actor->output[0] = zero;
         *(f32 *)&actor->output[1] = zero;

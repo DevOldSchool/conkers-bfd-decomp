@@ -32,8 +32,6 @@
  * - func_15162FAC
  * - func_151630F4
  * - func_15163414
- * - func_15163504
- * - func_151635A8
  * - func_15163604
  * - func_15163704
  * - func_151638E0
@@ -131,8 +129,9 @@ extern LightCallback D_8008B0F0[];
 extern s32 D_800BE9E4;
 void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151603FC CURRENT (889) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151603FC CURRENT (120) */
 void func_151603FC(void *arg0) {
+    s32 result;
     u8 sp1B;
     s8 callback_index;
     u8 callback_pending;
@@ -148,9 +147,9 @@ void func_151603FC(void *arg0) {
         callback_index = *(s8 *)((u8 *)arg0 + 0xF);
         if (callback_index != -1) {
             sp1B = callback_pending;
-            if (D_8008B0F0[(s32) callback_index](arg0) != 0) {
-                callback_pending = sp1B;
-            } else {
+            result = D_8008B0F0[(s32) callback_index](arg0);
+            callback_pending = sp1B;
+            if (result == 0) {
                 callback_pending = 1;
             }
         }
@@ -1155,7 +1154,6 @@ typedef s32 (*LightUpdateCallback)(void *);
 
 extern LightUpdateCallback D_8008B36C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15163504 CURRENT (895) */
 s32 func_15163504(void *arg0) {
     s32 result;
 
@@ -1163,23 +1161,18 @@ s32 func_15163504(void *arg0) {
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0xE) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x18);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x1C);
     *(s16 *)((u8 *)*(void **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)**(f32 **)((u8 *)arg0 + 0x20);
-    if (*(s8 *)((u8 *)arg0 + 0x24) != -1) {
-        result = D_8008B36C[(s32) *(s8 *)((u8 *)arg0 + 0x24)](arg0);
+    if (*(volatile s8 *)((u8 *)arg0 + 0x24) != -1) {
+        return D_8008B36C[(s32) *(s8 *)((u8 *)arg0 + 0x24)](arg0);
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15163504 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15163504.s")
 extern void (*D_8008B370[])(void *, void *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151635A8 CURRENT (605) */
 void func_151635A8(void *arg0, void *arg1, u8 arg2) {
-    if (D_8008B370[*(u8 *)((u8 *)arg0 + 0x25)] != 0) {
+    if (D_8008B370[*(volatile u8 *)((u8 *)arg0 + 0x25)] != 0) {
         D_8008B370[*(u8 *)((u8 *)arg0 + 0x25)](arg0, arg1, arg2);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151635A8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151635A8.s")
 extern u8 D_800A6964[];
 extern u8 D_800A699C[];
 extern u8 D_800A69D4[];

@@ -62,7 +62,7 @@ Game19F150Object *func_15171CA0(s16, u16, u8, s32, s32, s32, u8, s32);
 s32 func_15172B20(s32, f32, f32, f32, f32, s32, s32, u8);
 extern u8 *D_8008CA4C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15171D4C CURRENT (3135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15171D4C CURRENT (3005) */
 void func_15171D4C(f32 arg0, f32 arg1, f32 arg2, s16 arg3,
                     u16 arg4, u8 arg5, f32 arg6, s32 arg7,
                     s32 arg8, s32 arg9, s32 arg10, s32 arg11,
@@ -119,6 +119,7 @@ void func_15171D4C(f32 arg0, f32 arg1, f32 arg2, s16 arg3,
             geometry->values[(0x28 - 0x10) / 2] = uv;
             geometry->values[(0x1A - 0x10) / 2] =
                 geometry->values[(0x2A - 0x10) / 2];
+            descriptor = D_8008CA4C[arg5];
             uv = (*(u16 *)(descriptor + 8) + 0x100) << 5;
             geometry->values[(0x4A - 0x10) / 2] = uv;
             geometry->values[(0x3A - 0x10) / 2] = uv;

@@ -19,7 +19,7 @@ extern f32 D_800A0BE8;
 extern f32 D_800A0BEC;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB114 CURRENT (2465) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DB114 CURRENT (2565) */
 s32 func_150DB114(u8 *arg0) {
     f32 temp_fv0;
     f32 temp_fv0_2;

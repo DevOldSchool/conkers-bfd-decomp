@@ -143,55 +143,46 @@ typedef struct Game13BB20Node {
 
 extern Game13BB20Node *D_800DBE48;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F720 CURRENT (1595) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510F720 CURRENT (135) */
 s32 func_1510F720(s32 arg0, s32 arg1, s32 arg2, void **arg3) {
-    s16 temp_a1_3;
-    s16 var_a2_2;
     s32 temp_a1;
-    s32 temp_a1_2;
-    s32 temp_a2;
     s32 var_a2;
     s32 var_a3;
     s32 var_v1;
-    void **var_s2;
-    u8 *var_v0;
+    Game13BB20Node *var_v0;
 
-    var_s2 = arg3;
     var_v0 = D_800DBE48;
     var_v1 = 0;
     if (var_v0 != 0) {
         do {
             temp_a1 = *(s16 *)((u8 *)var_v0 + 8) - arg0;
-            var_a2 = temp_a1;
-            if (temp_a1 < 0) {
-                var_a2 = -temp_a1;
-            }
-            temp_a1_2 = arg2 + *(u16 *)((u8 *)var_v0 + 6);
-            if (var_a2 < temp_a1_2) {
-                temp_a2 = *(s16 *)((u8 *)var_v0 + 0xA) - arg1;
-                var_a3 = temp_a2;
-                if (temp_a2 < 0) {
-                    var_a3 = -temp_a2;
-                }
-                if (var_a3 < temp_a1_2) {
-                    temp_a1_3 = *(s16 *)((u8 *)var_v0 + 0xC);
-                    if (temp_a1_3 != 0) {
-                        var_a2_2 = temp_a1_3;
+            var_a2 = temp_a1 < 0 ? -temp_a1 : temp_a1;
+            temp_a1 = arg2;
+            temp_a1 += *(u16 *)((u8 *)var_v0 + 6);
+            if (var_a2 < temp_a1) {
+                var_a2 = *(s16 *)((u8 *)var_v0 + 0xA) - arg1;
+                var_a3 = var_a2 < 0 ? -var_a2 : var_a2;
+                if (var_a3 < temp_a1) {
+                    temp_a1 = *(s16 *)((u8 *)var_v0 + 0xC);
+                    if (temp_a1 != 0) {
+                        var_a2 = temp_a1;
                     } else {
-                        *var_s2 = var_v0;
-                        var_s2 += 4;
+                        *arg3 = var_v0;
+                        arg3 += 1;
                         var_v1 += 1;
-                        goto block_10;
+                        var_a2 = *(s16 *)((u8 *)var_v0 + 4);
+                        goto advance;
                     }
                 } else {
                     goto block_10;
                 }
             } else {
 block_10:
-                var_a2_2 = *(s16 *)((u8 *)var_v0 + 4);
+                var_a2 = *(s16 *)((u8 *)var_v0 + 4);
             }
-            if (var_a2_2 != 0) {
-                var_v0 += var_a2_2;
+advance:
+            if (var_a2 != 0) {
+                var_v0 = (Game13BB20Node *)((u8 *)var_v0 + var_a2);
             } else {
                 var_v0 = 0;
             }
@@ -353,22 +344,13 @@ void func_1510FC34(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510FC34 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13BB20/func_1510FC34.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510FD20 CURRENT (2625) */
-void *func_1510FD20(s32 arg0, s32 arg1) {
-    s16 temp_v0;
-    s16 temp_v0_2;
-    s16 temp_v0_3;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510FD20 CURRENT (360) */
+Game13BB20Node *func_1510FD20(s32 arg0, s32 arg1) {
+    s32 temp_v0;
     s32 temp_a1;
-    s32 temp_a1_3;
-    s32 temp_a2;
-    s32 temp_a2_2;
     s32 var_a2;
-    s32 var_a2_2;
     s32 var_t0;
-    s32 var_t0_2;
-    u16 temp_a1_2;
-    u16 temp_a1_4;
-    u8 *var_v1;
+    Game13BB20Node *var_v1;
 
     var_v1 = D_800DBE48;
     if (var_v1 != 0) {
@@ -376,64 +358,50 @@ loop_1:
         temp_v0 = *(s16 *)((u8 *)var_v1 + 0xC);
         if (temp_v0 != 0) {
             temp_a1 = arg0 - *(s16 *)((u8 *)var_v1 + 8);
-            var_a2 = temp_a1;
-            if (temp_a1 < 0) {
-                var_a2 = -temp_a1;
-            }
-            temp_a1_2 = *(u16 *)((u8 *)var_v1 + 6);
-            if ((s32) temp_a1_2 >= var_a2) {
-                temp_a2 = arg1 - *(s16 *)((u8 *)var_v1 + 0xA);
-                var_t0 = temp_a2;
-                if (temp_a2 < 0) {
-                    var_t0 = -temp_a2;
-                }
-                if ((s32) temp_a1_2 >= var_t0) {
-                    var_v1 += temp_v0;
+            var_a2 = temp_a1 < 0 ? -temp_a1 : temp_a1;
+            temp_a1 = *(u16 *)((u8 *)var_v1 + 6);
+            if ((s32) temp_a1 >= var_a2) {
+                var_a2 = arg1 - *(s16 *)((u8 *)var_v1 + 0xA);
+                var_t0 = var_a2 < 0 ? -var_a2 : var_a2;
+                if ((s32) temp_a1 >= var_t0) {
+                    var_v1 = (Game13BB20Node *)((u8 *)var_v1 + temp_v0);
                 } else {
                     goto block_9;
                 }
             } else {
 block_9:
-                temp_v0_2 = *(s16 *)((u8 *)var_v1 + 4);
-                if (temp_v0_2 != 0) {
-                    var_v1 += temp_v0_2;
+                temp_v0 = *(s16 *)((u8 *)var_v1 + 4);
+                if (temp_v0 != 0) {
+                    var_v1 = (Game13BB20Node *)((u8 *)var_v1 + temp_v0);
                 } else {
                     goto block_21;
                 }
             }
             goto block_22;
         }
-        temp_a1_3 = arg0 - *(s16 *)((u8 *)var_v1 + 8);
-        var_a2_2 = temp_a1_3;
-        if (temp_a1_3 < 0) {
-            var_a2_2 = -temp_a1_3;
-        }
-        temp_a1_4 = *(u16 *)((u8 *)var_v1 + 6);
-        if ((s32) temp_a1_4 >= var_a2_2) {
-            temp_a2_2 = arg1 - *(s16 *)((u8 *)var_v1 + 0xA);
-            var_t0_2 = temp_a2_2;
-            if (temp_a2_2 < 0) {
-                var_t0_2 = -temp_a2_2;
-            }
-            if ((s32) temp_a1_4 >= var_t0_2) {
+        temp_a1 = arg0 - *(s16 *)((u8 *)var_v1 + 8);
+        var_a2 = temp_a1 < 0 ? -temp_a1 : temp_a1;
+        temp_a1 = *(u16 *)((u8 *)var_v1 + 6);
+        if ((s32) temp_a1 >= var_a2) {
+            var_a2 = arg1 - *(s16 *)((u8 *)var_v1 + 0xA);
+            var_t0 = var_a2 < 0 ? -var_a2 : var_a2;
+            if ((s32) temp_a1 >= var_t0) {
                 return var_v1;
             }
             goto block_19;
         }
 block_19:
-        temp_v0_3 = *(s16 *)((u8 *)var_v1 + 4);
-        if (temp_v0_3 != 0) {
-            var_v1 += temp_v0_3;
+        temp_v0 = *(s16 *)((u8 *)var_v1 + 4);
+        if (temp_v0 != 0) {
+            var_v1 = (Game13BB20Node *)((u8 *)var_v1 + temp_v0);
         } else {
 block_21:
             var_v1 = 0;
         }
 block_22:
-        if (var_v1 == 0) {
-            /* Duplicate return node #23. Try simplifying control flow for better match */
-            return 0;
+        if (var_v1 != 0) {
+            goto loop_1;
         }
-        goto loop_1;
     }
     return 0;
 }

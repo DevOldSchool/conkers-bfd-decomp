@@ -333,24 +333,22 @@ void func_1502EA98(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
 }
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EAFC CURRENT (1345) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502EAFC CURRENT (570) */
 void func_1502EAFC(void *arg0) {
     s32 temp_lo;
     s32 temp_lo_2;
     s32 temp_lo_3;
     s32 temp_t1;
-    u8 temp_t6;
     u8 temp_v1;
     u8 temp_v1_2;
     u8 temp_v1_3;
     u8 temp_v1_4;
 
-    temp_t6 = *(u8 *)((u8 *)arg0 + 0xA4);
-    switch (temp_t6) {
+    switch (*(u8 *)((u8 *)arg0 + 0xA4)) {
     case 2:
     case 3:
-        temp_v1 = *(u8 *)((u8 *)arg0 + 0xA5);
         temp_lo = *(u8 *)((u8 *)arg0 + 0xA6) * D_800BE9E4;
+        temp_v1 = *(u8 *)((u8 *)arg0 + 0xA5);
         if (temp_lo < (s32) temp_v1) {
             *(u8 *)((u8 *)arg0 + 0xA5) = (u8) (temp_v1 - temp_lo);
             return;
@@ -367,11 +365,11 @@ void func_1502EAFC(void *arg0) {
         }
         /* fallthrough */
     case 4:
-        *(u8 *)((u8 *)arg0 + 0xA5) = (u8) (*(u8 *)((u8 *)arg0 + 0xA5) + (*(u8 *)((u8 *)arg0 + 0xA6) * D_800BE9E4));
+        *(u8 *)((u8 *)arg0 + 0xA5) += *(u8 *)((u8 *)arg0 + 0xA6) * D_800BE9E4;
         return;
     case 6:
-        temp_v1_3 = *(u8 *)((u8 *)arg0 + 0xA5);
         temp_lo_2 = *(u8 *)((u8 *)arg0 + 0xA6) * D_800BE9E4;
+        temp_v1_3 = *(u8 *)((u8 *)arg0 + 0xA5);
         if ((s32) temp_v1_3 < (0xFF - temp_lo_2)) {
             *(u8 *)((u8 *)arg0 + 0xA5) = (u8) (temp_v1_3 + temp_lo_2);
         } else {
@@ -380,8 +378,8 @@ void func_1502EAFC(void *arg0) {
         *(u8 *)((u8 *)arg0 + 0xA4) = 7U;
         return;
     case 7:
-        temp_v1_4 = *(u8 *)((u8 *)arg0 + 0xA5);
         temp_lo_3 = *(u8 *)((u8 *)arg0 + 0xA6) * D_800BE9E4;
+        temp_v1_4 = *(u8 *)((u8 *)arg0 + 0xA5);
         if (temp_lo_3 < (s32) temp_v1_4) {
             *(u8 *)((u8 *)arg0 + 0xA5) = (u8) (temp_v1_4 - temp_lo_3);
             return;

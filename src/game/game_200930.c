@@ -284,7 +284,7 @@ void func_151D5148(void *arg0) {
 }
 void func_151450B4(void *, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5174 CURRENT (2906) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5174 CURRENT (1549) */
 void func_151D5174(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4,
                    void *arg5, void *arg6, void **arg7, void **arg8, void *arg9) {
     typedef struct {
@@ -307,40 +307,42 @@ void func_151D5174(void *arg0, void *arg1, void *arg2, void *arg3, void *arg4,
         u8 pad1D8[0x144];
         Node *node;
     } Actor;
-    Actor *actor = arg0;
-    Node *node;
+    Vec3 *base;
     Vec3 first;
     Vec3 second;
-    void *base;
+    Node *node;
     f32 dx;
     f32 dy;
     f32 dz;
     f32 scale;
+    f32 baseX;
 
-    if (actor->active != 0) {
-        node = actor->node;
+    if (((Actor *)arg0)->active != 0) {
+        node = ((Actor *)arg0)->node;
         if (node != 0 && (node->mode == 2 || node->flag != 0)) {
             base = &node->position;
             func_151450B4(arg2, arg3, &first);
             func_151450B4(&first, arg4, &second);
             if (arg9 != 0) {
-                dx = ((Vec3 *)arg9)->x - ((Vec3 *)base)->x;
-                dy = ((Vec3 *)arg9)->y - ((Vec3 *)base)->y;
-                dz = ((Vec3 *)arg9)->z - ((Vec3 *)base)->z;
+                baseX = base->x;
+                dx = ((Vec3 *)arg9)->x - baseX;
+                dy = ((Vec3 *)arg9)->y - base->y;
+                dz = ((Vec3 *)arg9)->z - base->z;
             } else {
-                dx = ((Vec3 *)arg1)->x - ((Vec3 *)base)->x;
-                dy = ((Vec3 *)arg1)->y - ((Vec3 *)base)->y;
-                dz = ((Vec3 *)arg1)->z - ((Vec3 *)base)->z;
+                baseX = base->x;
+                dx = ((Vec3 *)arg1)->x - baseX;
+                dy = ((Vec3 *)arg1)->y - base->y;
+                dz = ((Vec3 *)arg1)->z - base->z;
             }
-            node = actor->node;
+            node = ((Actor *)arg0)->node;
             scale = (second.x * dx + second.y * dy + second.z * dz) /
                     (second.x * node->direction.x + second.y * node->direction.y + second.z * node->direction.z);
-            ((Vec3 *)arg5)->x = ((Vec3 *)base)->x + scale * node->direction.x;
-            ((Vec3 *)arg5)->y = ((Vec3 *)base)->y + scale * actor->node->direction.y;
-            ((Vec3 *)arg5)->z = ((Vec3 *)base)->z + scale * actor->node->direction.z;
-            ((Vec3 *)arg6)->x = actor->node->direction.x;
-            ((Vec3 *)arg6)->y = actor->node->direction.y;
-            ((Vec3 *)arg6)->z = actor->node->direction.z;
+            ((Vec3 *)arg5)->x = baseX + scale * node->direction.x;
+            ((Vec3 *)arg5)->y = base->y + scale * ((Actor *)arg0)->node->direction.y;
+            ((Vec3 *)arg5)->z = base->z + scale * ((Actor *)arg0)->node->direction.z;
+            ((Vec3 *)arg6)->x = ((Actor *)arg0)->node->direction.x;
+            ((Vec3 *)arg6)->y = ((Actor *)arg0)->node->direction.y;
+            ((Vec3 *)arg6)->z = ((Actor *)arg0)->node->direction.z;
             *arg7 = arg5;
             *arg8 = arg6;
             return;

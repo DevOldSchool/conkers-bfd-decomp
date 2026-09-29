@@ -594,7 +594,7 @@ void func_151DB4CC(void *arg0) {
 /* Call context: func_151423D8: unique active project prototype */
 void func_15131918(void *, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DB97C CURRENT (1870) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DB97C CURRENT (680) */
 s32 func_151DB97C(u8 *arg0, s32 arg1) {
     f32 temp_fv0;
     u8 *temp_s0;
@@ -605,13 +605,13 @@ s32 func_151DB97C(u8 *arg0, s32 arg1) {
         func_15131918(arg0 + 0x58, *(f32 *)((u8 *)arg0 + 0xAC));
     }
     temp_s0 = (void *)(arg0 + 0xA8);
-    if (*(u8 *)((u8 *)arg0 + 0xA8) & 1) {
-        *(u8 *)((u8 *)temp_s0 + 8) = (u8) (*(u8 *)((u8 *)temp_s0 + 8) + (*(u8 *)((u8 *)temp_s0 + 0xB) * D_800BE9E4));
-        *(u8 *)((u8 *)temp_s0 + 9) = (u8) (*(u8 *)((u8 *)temp_s0 + 9) + (*(u8 *)((u8 *)temp_s0 + 0xC) * D_800BE9E4));
-        *(u8 *)((u8 *)temp_s0 + 0xA) = (u8) (*(u8 *)((u8 *)temp_s0 + 0xA) + (*(u8 *)((u8 *)temp_s0 + 0xD) * D_800BE9E4));
-        sp20 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 8) - 0x40) & 0xFF);
-        sp24 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 9) - 0x40) & 0xFF);
-        temp_fv0 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 0xA) - 0x40) & 0xFF);
+    if (*(volatile u8 *)temp_s0 & 1) {
+        temp_s0[8] += temp_s0[0xB] * D_800BE9E4;
+        temp_s0[9] += temp_s0[0xC] * D_800BE9E4;
+        temp_s0[0xA] += temp_s0[0xD] * D_800BE9E4;
+        sp20 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 8) - 0x40));
+        sp24 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 9) - 0x40));
+        temp_fv0 = func_151423D8((*(u8 *)((u8 *)temp_s0 + 0xA) - 0x40));
         *(f32 *)((u8 *)arg0 + 0x4C) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x10) * sp20);
         *(f32 *)((u8 *)arg0 + 0x50) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x14) * sp24);
         *(f32 *)((u8 *)arg0 + 0x54) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x18) * temp_fv0);
@@ -768,31 +768,27 @@ void func_1513D668(s32, s32, s32, s32, u8, u8, s16, f32, f32,
                    s32, s32, u8, s32, u8, s32);
 extern Game1DBE80Color D_800AB414[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBE80 CURRENT (2038) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBE80 CURRENT (898) */
 void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
                     s32 arg5, u8 arg6, u8 arg7, u8 arg8, s32 arg9) {
+    typedef struct { s32 words[3]; } Copy3;
     Game1DBE80Packet packet;
     s32 random1;
     s32 random2;
-    s32 mode;
-    s32 color_index;
 
-    color_index = arg0 & 0xFF;
+    arg0 &= 0xFF;
     packet.type = 0x38;
-    mode = arg7 != 0 ? 2 : 1;
-    packet.flags = mode + 0x440000;
+    packet.flags = (arg7 != 0 ? 2 : 1) + 0x440000;
     packet.duration = arg3;
     packet.field8 = 0;
     packet.fieldC = 0x4000;
     packet.alpha = 0xFF;
-    packet.red = D_800AB414[color_index].r;
-    packet.green = D_800AB414[color_index].g;
-    packet.blue = D_800AB414[color_index].b;
+    packet.red = D_800AB414[arg0].r;
+    packet.green = D_800AB414[arg0].g;
+    packet.blue = D_800AB414[arg0].b;
     packet.scaleX = 1.0f;
     packet.scaleY = 1.0f;
-    packet.position[0] = arg4[0];
-    packet.position[1] = arg4[1];
-    packet.position[2] = arg4[2];
+    *(Copy3 *)packet.position = *(Copy3 *)arg4;
     packet.magnitude = arg2;
     packet.field40 = 0x466C0001;
     packet.flag45 = 0xFF;

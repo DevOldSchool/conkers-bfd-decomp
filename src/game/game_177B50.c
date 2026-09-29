@@ -22,10 +22,11 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AD9C.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AF74 CURRENT (465) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AF74 CURRENT (630) */
 s32 func_1514AF74(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;
+    f32 rate;
     f32 temp_ft5;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -34,10 +35,11 @@ s32 func_1514AF74(void *arg0) {
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x150);
     temp_fa0 = *(f32 *)((u8 *)arg0 + 0x30);
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x50);
-    temp_ft5 = *(f32 *)((u8 *)arg0 + 0x4C);
     *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0 - (temp_fv0 * temp_fv1));
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fa0 - (temp_fa0 * temp_fv1));
-    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + ((temp_fa1 * D_800BE9A4) + (0.5f * temp_ft5 * D_800BE9A4 * D_800BE9A4)));
+    rate = D_800BE9A4;
+    temp_ft5 = *(f32 *)((u8 *)arg0 + 0x4C);
+    *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)arg0 + 0x38) + ((temp_fa1 * rate) + (0.5f * temp_ft5 * rate * rate)));
     *(f32 *)((u8 *)arg0 + 0x50) = (f32) (temp_fa1 + (temp_ft5 * D_800BE9A4));
     if ((*(f32 *)((u8 *)arg0 + 0x2C) < 10.0f) || (*(f32 *)((u8 *)arg0 + 0x30) < 10.0f)) {
         return 0;

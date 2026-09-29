@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_35D20.c
  * Boundary evidence: docs/evidence/game_compact_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15008930
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern s32 D_800DCE50[2][104];
@@ -37,7 +32,6 @@ extern Game35D20Callback D_80082BD0;
 extern Game35D20Callback D_80082BD4;
 extern s32 D_800DD1B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15008930 CURRENT (100) */
 void func_15008930(s32 arg0) {
     Game35D20Callback *sp2C;
     Game35D20Callback *var_s1;
@@ -47,12 +41,11 @@ void func_15008930(s32 arg0) {
     if (arg0 == 1) {
         sp2C = &D_80082BD0;
         var_s2 = 1;
+    } else if (arg0 == 2) {
+        sp2C = &D_80082BD4;
+        var_s2 = 1;
     } else {
         var_s2 = 0;
-        if (arg0 == 2) {
-            sp2C = &D_80082BD4;
-            var_s2 = 1;
-        }
     }
     var_s0 = 0;
     if (var_s2 > 0) {
@@ -65,5 +58,3 @@ void func_15008930(s32 arg0) {
     }
     D_800DD1B0 = -1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15008930 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_35D20/func_15008930.s")

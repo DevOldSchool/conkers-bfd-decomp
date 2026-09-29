@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_1511EF40
  * - func_1511F31C
- * - func_1511F3E8
  * - func_1511F4D0
  * - func_1511F788
  *
@@ -43,19 +42,18 @@ void func_1511F31C(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F31C.s")
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F3E8 CURRENT (170) */
 void func_1511F3E8(void *arg0) {
     s32 temp_t2;
-    s32 temp_t4;
     s32 temp_v1;
-    s32 temp_v1_2;
 
     if (*(s32 *)((u8 *)arg0 + 0x7C) == 0) {
+        temp_t2 = *(s32 *)((u8 *)arg0 + 0x3C);
+        *(s32 *)((u8 *)arg0 + 0x80) = (s32) (((temp_t2 >> 0x10) & 0xFFFF) * 0x3C);
         *(s32 *)((u8 *)arg0 + 0x7C) = 1;
-        *(s32 *)((u8 *)arg0 + 0x80) = (s32) ((((s32) *(s32 *)((u8 *)arg0 + 0x3C) >> 0x10) & 0xFFFF) * 0x3C);
     }
+    temp_t2 = *(s32 *)((u8 *)arg0 + 0x3C);
     temp_v1 = *(s32 *)((u8 *)arg0 + 0x80);
-    temp_t2 = (*(s32 *)((u8 *)arg0 + 0x3C) & 0xFFFF) * 0x3C;
+    temp_t2 = (temp_t2 & 0xFFFF) * 0x3C;
     if (temp_v1 != 0) {
         if (D_800BE9E4 < temp_v1) {
             *(s32 *)((u8 *)arg0 + 0x80) = (s32) (temp_v1 - D_800BE9E4);
@@ -65,17 +63,13 @@ void func_1511F3E8(void *arg0) {
         *(s32 *)((u8 *)arg0 + 0x84) = temp_t2;
         return;
     }
-    temp_v1_2 = *(s32 *)((u8 *)arg0 + 0x84);
-    temp_t4 = temp_v1_2 - D_800BE9E4;
-    if (D_800BE9E4 < temp_v1_2) {
-        *(s32 *)((u8 *)arg0 + 0x84) = temp_t4;
-        *(s8 *)((u8 *)arg0 + 0x8A) = (s8) ((s32) (temp_t4 * 0xFF) / temp_t2);
+    if (D_800BE9E4 < *(s32 *)((u8 *)arg0 + 0x84)) {
+        *(s32 *)((u8 *)arg0 + 0x84) -= D_800BE9E4;
+        *(s8 *)((u8 *)arg0 + 0x8A) = (s8) ((s32) (*(s32 *)((u8 *)arg0 + 0x84) * 0xFF) / temp_t2);
         return;
     }
     *(s8 *)((u8 *)arg0 + 0x6E) = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511F3E8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_14C3F0/func_1511F3E8.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1511F4D0 CURRENT (6785) */
 void func_1511F4D0(void *arg0) {
     s32 sp8;

@@ -39,8 +39,9 @@ extern ColourFramebufferCallback D_8008B0D0[];
 extern s32 D_800BE9E4;
 void func_1516972C(void *arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FFEC CURRENT (889) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FFEC CURRENT (120) */
 void func_1515FFEC(void *arg0) {
+    s32 result;
     u8 sp1B;
     s8 callback_index;
     u8 callback_pending;
@@ -56,9 +57,9 @@ void func_1515FFEC(void *arg0) {
         callback_index = *(s8 *)((u8 *)arg0 + 0xF);
         if (callback_index != -1) {
             sp1B = callback_pending;
-            if (D_8008B0D0[(s32) callback_index](arg0) != 0) {
-                callback_pending = sp1B;
-            } else {
+            result = D_8008B0D0[(s32) callback_index](arg0);
+            callback_pending = sp1B;
+            if (result == 0) {
                 callback_pending = 1;
             }
         }

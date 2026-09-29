@@ -233,41 +233,36 @@ void func_1519F48C(Game1CC440State *arg0) {
 void func_151A0928(void *);
 s32 func_1519F1C8(void *, u8, ...);                 /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A084C CURRENT (1389) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A084C CURRENT (1355) */
 void func_151A084C(u8 *arg0) {
-    void *sp28;
-    u8 sp23;
-    void *sp18;
+    struct Lookup { Game1CC440Node *node; u8 mode; };
     s32 temp_v0_2;
-    s32 var_v1;
-    u8 *temp_a0;
+    u8 var_v1;
+    Game1CC440Node *temp_a0;
     u8 *temp_a1;
     u8 *temp_v0;
-    u8 *temp_a2;
-    u8 *temp_t0;
+    struct Lookup *temp_a2;
+    Game1CC440NodeData *temp_t0;
 
     temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0x28));
     var_v1 = 0;
     temp_a2 = (void *)(arg0 + 0x28);
     temp_a1 = (void *)(*(void **)((u8 *)temp_v0 + 0x18));
-    temp_t0 = (void *)(temp_v0 + 0x58);
+    temp_t0 = (Game1CC440NodeData *)(temp_v0 + 0x58);
     if (*(s32 *)((u8 *)temp_a1 + 0) == 0) {
         var_v1 = 1;
     }
-    temp_a0 = (void *)(*(void **)((u8 *)arg0 + 0x28));
-    if (*(u8 *)((u8 *)temp_a0 + 0x1C) != *(u8 *)((u8 *)temp_a1 + 0x3B)) {
+    temp_a0 = temp_a2->node;
+    if (temp_a0->field1C != *(u8 *)((u8 *)temp_a1 + 0x3B)) {
         var_v1 = 1;
     }
     if ((var_v1 == 0) && (*(s32 *)((u8 *)temp_a1 + 0x1D4) != 0)) {
-        sp23 = 1;
-        sp28 = temp_t0;
-        sp18 = temp_a2;
         temp_v0_2 = func_1519F1C8(temp_a0, *(u8 *)((u8 *)temp_a2 + 4), temp_a2, arg0);
         var_v1 = 1;
         if (*(u8 *)((u8 *)temp_a2 + 4) == 6) {
-            *(s32 *)((u8 *)temp_v0 + 0x58) = temp_v0_2;
+            temp_t0->field0 = temp_v0_2;
         } else {
-            *(s32 *)((u8 *)temp_t0 + 8) = temp_v0_2;
+            temp_t0->field8 = temp_v0_2;
         }
     }
     if (var_v1 != 0) {

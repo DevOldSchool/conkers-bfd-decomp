@@ -402,12 +402,13 @@ s32 func_150C308C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C308C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C308C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C3160 CURRENT (720) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C3160 CURRENT (675) */
 void *func_150C3160(u8 *arg0, u8 *arg1) {
     f32 var_fv0;
     s32 temp_ft3;
     s32 temp_v0;
     s32 var_a0;
+    u32 *packet;
 
     temp_v0 = *(s32 *)((u8 *)arg1 + 0x2E8);
     if (temp_v0 != 0) {
@@ -415,17 +416,20 @@ void *func_150C3160(u8 *arg0, u8 *arg1) {
     } else {
         var_fv0 = 1.0f;
     }
+    var_fv0 = 1.0f - var_fv0;
+    temp_ft3 = (s32) ((500.0f * var_fv0) + 2.0f);
     var_a0 = 2 - *(s32 *)((u8 *)arg1 + 0x2EC);
-    temp_ft3 = (s32) ((500.0f * (1.0f - var_fv0)) + 2.0f);
     *(s32 *)((u8 *)arg1 + 0x2EC) = (s32) (temp_ft3 / 3);
     if (var_a0 < 0) {
         do {
             var_a0 += 0x40;
         } while (var_a0 < 0);
     }
-    *(s32 *)((u8 *)arg0 + 0) = (s32) (((temp_ft3 & 0xFFF) << 0xC) | 0xF2000000 | (var_a0 & 0xFFF));
-    *(s32 *)((u8 *)arg0 + 4) = 0x041FE03E;
-    return arg0 + 8;
+    packet = (u32 *)arg0;
+    arg0 += 8;
+    packet[0] = (s32) (((temp_ft3 & 0xFFF) << 0xC) | 0xF2000000 | (var_a0 & 0xFFF));
+    packet[1] = 0x041FE03E;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C3160 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C3160.s")

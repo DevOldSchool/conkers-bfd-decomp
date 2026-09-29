@@ -11,8 +11,6 @@
  * - func_15030310
  * - func_15030468
  * - func_15030AF4
- * - func_15030E08
- * - func_15030F94
  * - func_15031070
  * - func_150311C4
  * - func_1503195C
@@ -22,7 +20,6 @@
  * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
- * - func_150334B8
  * - func_150335C8
  * - func_15033838
  * - func_15033BDC
@@ -267,84 +264,68 @@ s32 func_150311C4(s32, void *, void *, s32, s32);   /* extern */
 s32 func_1506196C(void *, s32);                     /* extern */
 extern void * D_800C3EE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030E08 CURRENT (2824) */
 s32 func_15030E08(s32 arg0, s32 arg1, s32 arg2) {
     s32 temp_v0_2;
     s32 temp_v1;
-    s32 var_s6;
     void *temp_s2;
     void *temp_v0;
     void *var_s0;
 
-    var_s6 = arg0;
     var_s0 = D_800C3EE0;
-    if (var_s0 != 0) {
-        do {
-            temp_s2 = *(void **)((u8 *)var_s0 + 0x54);
-            if (*(u8 *)((u8 *)var_s0 + 3) == 0) {
-
-            } else {
-                temp_v0 = func_15083E90(*(u8 *)((u8 *)var_s0 + 0));
-                if ((temp_v0 == 0) || (*(s32 *)((u8 *)temp_v0 + 0x1D4) == 0) || (temp_v1 = 1 << arg1, (temp_v1 == (*(u8 *)((u8 *)temp_v0 + 0x74) & temp_v1)))) {
-
-                } else if (arg2 == 2) {
-                    if (*(u8 *)((u8 *)temp_v0 + 5) != 7) {
-
-                    } else {
-                        goto block_19;
-                    }
-                } else {
-                    temp_v0_2 = func_1506196C(temp_v0, arg1);
-                    if (arg2 == 1) {
-                        if (!(*(u8 *)((u8 *)var_s0 + 4) & 2) && (temp_v0_2 == 0xFF) && (*(u8 *)((u8 *)temp_v0 + 5) != 1)) {
-
-                        } else {
-                            goto block_19;
-                        }
-                    } else if ((*(u8 *)((u8 *)var_s0 + 4) & 2) || (temp_v0_2 < 0xFF) || (*(u8 *)((u8 *)temp_v0 + 5) == 1)) {
-
-                    } else {
-block_19:
-                        var_s6 = func_150311C4(var_s6, var_s0, temp_v0, arg1, 0);
-                    }
-                }
-            }
+    while (var_s0 != 0) {
+        temp_s2 = *(void **)((u8 *)var_s0 + 0x54);
+        if (*(u8 *)((u8 *)var_s0 + 3) == 0) {
             var_s0 = temp_s2;
-        } while (var_s0 != 0);
+            continue;
+        }
+        temp_v0 = func_15083E90(*(u8 *)var_s0);
+        if ((temp_v0 == 0) || (*(s32 *)((u8 *)temp_v0 + 0x1D4) == 0) || (temp_v1 = 1 << arg1, (temp_v1 == (*(u8 *)((u8 *)temp_v0 + 0x74) & temp_v1)))) {
+            var_s0 = temp_s2;
+            continue;
+        }
+        if (arg2 == 2) {
+            if (*(u8 *)((u8 *)temp_v0 + 5) != 7) {
+                var_s0 = temp_s2;
+                continue;
+            }
+        } else {
+            temp_v0_2 = func_1506196C(temp_v0, arg1);
+            if (arg2 == 1) {
+                if (!(*(u8 *)((u8 *)var_s0 + 4) & 2) && (temp_v0_2 == 0xFF) && (*(u8 *)((u8 *)temp_v0 + 5) != 1)) {
+                    var_s0 = temp_s2;
+                    continue;
+                }
+            } else if ((*(u8 *)((u8 *)var_s0 + 4) & 2) || (temp_v0_2 < 0xFF) || (*(u8 *)((u8 *)temp_v0 + 5) == 1)) {
+                var_s0 = temp_s2;
+                continue;
+            }
+        }
+        arg0 = func_150311C4(arg0, var_s0, temp_v0, arg1, 0);
+        var_s0 = temp_s2;
     }
-    return var_s6;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15030E08 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030E08.s")
 /* Call context: func_150311C4: unique active project prototype */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030F94 CURRENT (2340) */
 s32 func_15030F94(s32 arg0, void *arg1, s32 arg2, s32 arg3) {
-    s32 var_s3;
     void *temp_s1;
     void *var_s0;
 
-    var_s3 = arg0;
     if ((arg1 == 0) || (*(s32 *)((u8 *)arg1 + 0x1D4) == 0) || (*(u8 *)((u8 *)arg1 + 0x3B) == 0)) {
-
-    } else {
-        var_s0 = D_800C3EE0;
-        if (var_s0 != 0) {
-            do {
-                temp_s1 = *(void **)((u8 *)var_s0 + 0x54);
-                if ((*(u8 *)((u8 *)arg1 + 0x3B) != *(u8 *)((u8 *)var_s0 + 0)) || (*(u8 *)((u8 *)var_s0 + 3) == 0)) {
-
-                } else {
-                    var_s3 = func_150311C4(var_s3, var_s0, arg1, arg2, arg3);
-                }
-                var_s0 = temp_s1;
-            } while (var_s0 != 0);
-        }
+        return arg0;
     }
-    return var_s3;
+    var_s0 = D_800C3EE0;
+    while (var_s0 != 0) {
+        temp_s1 = *(void **)((u8 *)var_s0 + 0x54);
+        if ((*(u8 *)((u8 *)arg1 + 0x3B) != *(u8 *)var_s0) || (*(u8 *)((u8 *)var_s0 + 3) == 0)) {
+            var_s0 = temp_s1;
+            continue;
+        }
+        arg0 = func_150311C4(arg0, var_s0, arg1, arg2, arg3);
+        var_s0 = temp_s1;
+    }
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15030F94 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030F94.s")
 void *func_1503195C(void *, s32, s32);
 extern u8 D_800BE9C0;
 
@@ -406,28 +387,26 @@ void func_1503192C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 extern void * D_800C3EE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503195C CURRENT (1430) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503195C CURRENT (495) */
 void *func_1503195C(void *arg0, s32 arg1, s32 arg2) {
-    s32 var_a2;
     u8 temp_v0;
     void *var_v1;
 
-    var_a2 = arg2;
     temp_v0 = *(u8 *)((u8 *)arg0 + 0x3B);
     if (temp_v0 == 0) {
         return 0;
     }
     var_v1 = D_800C3EE0;
     while (var_v1 != 0) {
-        if ((temp_v0 == *(u8 *)((u8 *)var_v1 + 0)) && (arg1 == *(u8 *)((u8 *)var_v1 + 6))) {
-            var_a2 -= 1;
-            if (var_a2 != 0) {
-                goto block_8;
+        arg0 = *(void **)((u8 *)var_v1 + 0x54);
+        if ((temp_v0 == *(u8 *)var_v1) && (arg1 == *(u8 *)((u8 *)var_v1 + 6))) {
+            if (arg2--) {
+                var_v1 = arg0;
+                continue;
             }
             return var_v1;
         }
-block_8:
-        var_v1 = *(void **)((u8 *)var_v1 + 0x54);
+        var_v1 = arg0;
     }
     return 0;
 }
@@ -720,14 +699,12 @@ s32 func_15033440(void *arg0, void *arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150334B8 CURRENT (1760) */
-s32 func_150334B8(u8 *arg0, s32 arg1) {
+s32 func_150334B8(u8 *arg0, void *arg1) {
     s32 temp_a3;
     s32 temp_t0;
     s32 temp_t2;
     s32 temp_t4;
     s32 temp_v0;
-    s32 temp_v1;
     s32 var_a0;
     s32 var_a1;
     s32 var_t1;
@@ -749,24 +726,23 @@ s32 func_150334B8(u8 *arg0, s32 arg1) {
         if (var_v1 != 0) {
             do {
                 var_v1 -= 1;
-                if (*((var_a0 * 8) + var_v0) != -0xE) {
+                if (*(s8 *)((var_a0 << 3) + (s32)var_v0) != -0xE) {
                     do {
                         var_a0 += 1;
-                    } while (*((var_a0 * 8) + var_v0) != -0xE);
+                    } while (*(s8 *)((var_a0 << 3) + (s32)var_v0) != -0xE);
                 }
                 if (var_v1 != 0) {
                     var_a0 += 1;
                 }
             } while (var_v1 != 0);
         }
-        temp_a2 = (void *)(var_v0 + (var_a0 * 8));
-        temp_v1 = *(s32 *)((u8 *)temp_a2 + 0);
+        temp_a2 = var_v0;
+        temp_a2 += var_a0 << 3;
+        var_v1 = *(s32 *)((u8 *)temp_a2 + 0);
         temp_a3 = *(s32 *)((u8 *)temp_a2 + 4);
-        temp_t2 = ((temp_v1 >> 0xC) & 0xFFF) + var_a1;
         temp_t0 = ((temp_a3 >> 0xC) & 0xFFF) + 2;
-        temp_t4 = temp_v1 & 0xFFF;
-        var_t1 = temp_t2;
-        var_t3 = temp_t4;
+        temp_t2 = var_t1 = ((var_v1 >> 0xC) & 0xFFF) + var_a1;
+        temp_t4 = var_t3 = var_v1 & 0xFFF;
         if (temp_t2 >= temp_t0) {
             var_t1 = temp_t2 - temp_t0;
         }
@@ -784,8 +760,6 @@ s32 func_150334B8(u8 *arg0, s32 arg1) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150334B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150334B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150335C8.s")
 s32 func_1503378C(void *arg0, void *arg1) {
     u16 temp_v0;
@@ -860,7 +834,7 @@ valid_kind:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15033838 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033838.s")
-void func_150334B8(u8 *, void *);
+s32 func_150334B8(u8 *, void *);
 void func_1000FD38(void *, void *, s32);
 s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *,
                    void *, void *, s32, s32);

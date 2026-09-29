@@ -13,7 +13,7 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151155C0 CURRENT (11445) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151155C0 CURRENT (12790) */
 void func_151155C0(void *arg0) {
     s16 temp_t2;
     s16 temp_v0;
@@ -26,10 +26,17 @@ void func_151155C0(void *arg0) {
     s32 var_t0;
     s32 var_t4;
     s32 var_v1;
+    u8 divisor;
+    s16 target;
 
     temp_v1 = *(s32 *)((u8 *)arg0 + 0x3C);
     temp_t2 = *(s16 *)((u8 *)arg0 + 0x12);
-    temp_a1 = ((temp_v1 >> 0x18) & 0xFF) + 1;
+    divisor = temp_v1 >> 0x10;
+    temp_a1 = temp_v1 >> 0x18;
+    target = temp_v1;
+    divisor = (u8)divisor;
+    temp_a1 = (u8)temp_a1 + 1;
+    target = (s16)target;
     var_a3 = 0;
     var_t0 = 0;
     if ((*(u8 *)((u8 *)arg0 + 0x4F) & 4) == 4) {
@@ -40,7 +47,7 @@ void func_151155C0(void *arg0) {
         *(s32 *)((u8 *)arg0 + 0x7C) = (s32) temp_t2;
         var_v1 = (s32) temp_t2;
     }
-    temp_lo = (s32) ((s16) temp_v1 - var_v1) / (s32) ((temp_v1 >> 0x10) & 0xFF);
+    temp_lo = (s32) (target - var_v1) / divisor;
     var_t4 = *(s32 *)((u8 *)arg0 + 0x80);
     if (var_t4 == 0) {
         temp_v0 = temp_t2 - temp_lo;
@@ -50,7 +57,7 @@ void func_151155C0(void *arg0) {
                 var_t4 = temp_a1;
             }
         } else {
-            if (var_v1 < (s16) temp_v1) {
+            if (var_v1 < target) {
                 if (var_v1 < temp_v0) {
                     goto block_12;
                 }
@@ -71,11 +78,11 @@ block_12:
     if (var_t4 > 0) {
         temp_t9 = var_t4 - 1;
         temp_v0_2 = *(s16 *)((u8 *)arg0 + 0x12) + temp_lo;
-        if (*(s32 *)((u8 *)arg0 + 0x7C) < (s16) temp_v1) {
-            if (temp_v0_2 < (s16) temp_v1) {
+        if (*(s32 *)((u8 *)arg0 + 0x7C) < target) {
+            if (temp_v0_2 < target) {
                 goto block_21;
             }
-        } else if ((s16) temp_v1 < temp_v0_2) {
+        } else if (target < temp_v0_2) {
 block_21:
             var_t0 = 1;
         }
@@ -85,14 +92,14 @@ block_21:
             *(s32 *)((u8 *)arg0 + 0x80) = temp_a1;
             var_t4 = temp_a1;
         } else {
-            *(s16 *)((u8 *)arg0 + 0x12) = (s16) temp_v1;
+            *(s16 *)((u8 *)arg0 + 0x12) = target;
             *(s32 *)((u8 *)arg0 + 0x80) = temp_t9;
         }
     }
     if (var_t4 < 0) {
         *(s32 *)((u8 *)arg0 + 0x80) = (s32) (var_t4 + 1);
     }
-    *(s16 *)((u8 *)arg0 + 0x5C) = (s16) (*(s16 *)((u8 *)arg0 + 0x12) * 0);
+    *(s16 *)((u8 *)arg0 + 0x5C) = (s16) (*(s16 *)((u8 *)arg0 + 0x12) - temp_t2);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151155C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142A70/func_151155C0.s")
@@ -137,29 +144,39 @@ void func_15115EDC(void *arg0, void *arg1) {
 }
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15115F68 CURRENT (3210) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15115F68 CURRENT (1730) */
 void func_15115F68(void *arg0) {
     f32 temp_fv0;
     f32 var_fv1;
-    s32 temp_a1;
-    s32 temp_v1;
+    s32 divisor;
+    s32 packed;
+    s32 increment;
+    s32 upper;
+    s32 lower;
 
-    temp_v1 = *(s32 *)((u8 *)arg0 + 0x3C);
-    temp_a1 = temp_v1 >> 0x10;
-    if ((s8) temp_v1 != 0) {
-        *(f32 *)((u8 *)arg0 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) + ((*(f32 *)((u8 *)arg0 + 0x7C) / (f32) (s8) temp_v1) + (f32) (s8) temp_a1));
+    packed = *(s32 *)((u8 *)arg0 + 0x3C);
+    divisor = packed;
+    increment = packed >> 16;
+    upper = packed >> 8;
+    lower = packed >> 24;
+    divisor = (s8)divisor;
+    increment = (s8)increment;
+    upper = (s8)upper;
+    lower = (s8)lower;
+    if ((s8)packed != 0) {
+        *(f32 *)arg0 += *(f32 *)((u8 *)arg0 + 0x7C) / (f32)divisor + (f32)increment;
     } else {
-        *(f32 *)((u8 *)arg0 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) + (f32) ((s8) D_800BE9E4 * temp_a1));
+        *(f32 *)arg0 += (f32)(increment * D_800BE9E4);
     }
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0);
-    var_fv1 = (f32) (s8) (temp_v1 >> 8);
+    temp_fv0 = *(f32 *)arg0;
+    var_fv1 = (f32)upper;
     if (var_fv1 < temp_fv0) {
-        goto block_6;
-    }
-    var_fv1 = (f32) (s8) (temp_v1 >> 0x18);
-    if (temp_fv0 < var_fv1) {
-block_6:
-        *(f32 *)((u8 *)arg0 + 0) = var_fv1;
+        *(f32 *)arg0 = var_fv1;
+    } else {
+        var_fv1 = (f32)lower;
+        if (temp_fv0 < var_fv1) {
+            *(f32 *)arg0 = var_fv1;
+        }
     }
     *(f32 *)((u8 *)arg0 + 0x80) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x7C) = 0.0f;

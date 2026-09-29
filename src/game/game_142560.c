@@ -81,7 +81,7 @@ void func_1511529C(s32 arg0) {
 }
 extern f32 D_800A2F8C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151152A8 CURRENT (130) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151152A8 CURRENT (170) */
 void func_151152A8(void *arg0) {
     s16 temp_v1;
     s32 temp_a1;

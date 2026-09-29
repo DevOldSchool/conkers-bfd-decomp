@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_151419D0
  * - func_15141A7C
- * - func_15141C0C
  * - func_15141E38
  * - func_15141F78
  * - func_15142314
@@ -25,7 +24,6 @@
  * - func_15143D18
  * - func_15143E94
  * - func_1514401C
- * - func_151441A4
  * - func_1514462C
  * - func_1514470C
  * - func_15144A74
@@ -150,12 +148,8 @@ void func_15141A7C(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15141A7C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141A7C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15141C0C CURRENT (1410) */
 s32 func_15141C0C(void *arg0) {
-    u8 temp_v0;
-
-    temp_v0 = *(u8 *)((u8 *)arg0 + 4);
-    switch ((s32) temp_v0) {                        /* irregular */
+    switch (*(u8 *)((u8 *)arg0 + 4)) {
     case 0x79:
         return 0xA;
     case 0x21:
@@ -190,8 +184,6 @@ s32 func_15141C0C(void *arg0) {
         return 0xB;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15141C0C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141C0C.s")
 extern s32 D_800BE9F0;
 
 s32 func_15141CC0(u32 arg0) {
@@ -443,17 +435,19 @@ s32 func_151422F8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 extern u8 D_800C3E90;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142314 CURRENT (970) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142314 CURRENT (820) */
 void func_15142314(s32 arg0, s32 arg1, void *arg2) {
+    f32 scale;
     void *temp_v0;
     void *temp_v0_2;
 
-    temp_v0 = arg0 + (arg1 << 6);
+    temp_v0 = (u8 *)arg0 + (arg1 << 6);
     if (D_800C3E90 != 0) {
-        temp_v0_2 = arg0 + (arg1 << 6);
-        *(f32 *)((u8 *)arg2 + 0) = (f32) (((f32) *(s16 *)((u8 *)temp_v0_2 + 0x38) + (f32) (*(s16 *)((u8 *)temp_v0_2 + 0x18) << 0x10)) * 0.000015258789f);
-        *(f32 *)((u8 *)arg2 + 4) = (f32) (((f32) *(s16 *)((u8 *)temp_v0_2 + 0x3A) + (f32) (*(s16 *)((u8 *)temp_v0_2 + 0x1A) << 0x10)) * 0.000015258789f);
-        *(f32 *)((u8 *)arg2 + 8) = (f32) (((f32) *(s16 *)((u8 *)temp_v0_2 + 0x3C) + (f32) (*(s16 *)((u8 *)temp_v0_2 + 0x1C) << 0x10)) * 0.000015258789f);
+        scale = 0.000015258789f;
+        temp_v0_2 = (u8 *)arg0 + (arg1 << 6);
+        *(f32 *)((u8 *)arg2 + 0) = (f32) (((f32) *(s16 *)((u8 *)temp_v0_2 + 0x38) + (f32) (*(s16 *)((u8 *)temp_v0_2 + 0x18) << 0x10)) * scale);
+        *(f32 *)((u8 *)arg2 + 4) = (f32) (((f32) *(s16 *)((u8 *)temp_v0_2 + 0x3A) + (f32) (*(s16 *)((u8 *)temp_v0_2 + 0x1A) << 0x10)) * scale);
+        *(f32 *)((u8 *)arg2 + 8) = (f32) (((f32) *(s16 *)((u8 *)temp_v0_2 + 0x3C) + (f32) (*(s16 *)((u8 *)temp_v0_2 + 0x1C) << 0x10)) * scale);
         return;
     }
     *(f32 *)((u8 *)arg2 + 0) = (f32) *(f32 *)((u8 *)temp_v0 + 0x30);
@@ -732,8 +726,8 @@ extern s16 D_800DD1CA;
 extern s16 D_800DD1CC;
 extern s16 D_800DD1CE;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142C10 CURRENT (2870) */
-void *func_15142C10(void *arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4, u8 *arg5) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142C10 CURRENT (2276) */
+void *func_15142C10(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5) {
     u8 *var_s0;
 
     var_s0 = arg0;
@@ -745,7 +739,7 @@ void *func_15142C10(void *arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4, u8 *arg5
             *arg5 = 0;
         }
         *(s32 *)((u8 *)var_s0 + 0) = 0xFB000000;
-        *(s32 *)((u8 *)var_s0 + 4) = (s32) ((arg1 << 0x18) | ((arg2 & 0xFF) << 0x10) | ((arg3 & 0xFF) << 8) | (arg4 & 0xFF));
+        *(s32 *)((u8 *)var_s0 + 4) = (s32) (((u32)arg1 << 0x18) | ((arg2 & 0xFF) << 0x10) | ((arg3 & 0xFF) << 8) | (arg4 & 0xFF));
         var_s0 += 8;
         D_800DD1C8 = arg1;
         D_800DD1CA = arg2;
@@ -763,8 +757,8 @@ extern s16 D_800DD1C6;
 extern s16 D_800DD204;
 extern s16 D_800DD206;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142CF0 CURRENT (3067) */
-void *func_15142CF0(void *arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5, s32 arg6, u8 *arg7) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142CF0 CURRENT (2718) */
+void *func_15142CF0(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u8 *arg7) {
     u8 *var_s0;
 
     var_s0 = arg0;
@@ -776,7 +770,7 @@ void *func_15142CF0(void *arg0, s16 arg1, s16 arg2, s16 arg3, s32 arg4, s32 arg5
             *arg7 = 0;
         }
         *(s32 *)((u8 *)var_s0 + 0) = (s32) (((arg1 & 0xFF) << 8) | 0xFA000000 | (arg2 & 0xFF));
-        *(s32 *)((u8 *)var_s0 + 4) = (s32) ((arg3 << 0x18) | ((arg4 & 0xFF) << 0x10) | ((arg5 & 0xFF) << 8) | (arg6 & 0xFF));
+        *(s32 *)((u8 *)var_s0 + 4) = (s32) (((u32)arg3 << 0x18) | ((arg4 & 0xFF) << 0x10) | ((arg5 & 0xFF) << 8) | (arg6 & 0xFF));
         var_s0 += 8;
         D_800DD204 = arg1;
         D_800DD206 = arg2;
@@ -1370,8 +1364,7 @@ s32 func_1514401C(u8 arg0, s32 *arg1, s32 *arg2, u8 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514401C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514401C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151441A4 CURRENT (536) */
-void func_151441A4(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
+void func_151441A4(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
     s16 temp_v0;
     s16 temp_v0_2;
 
@@ -1416,8 +1409,6 @@ void func_151441A4(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5,
         return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151441A4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151441A4.s")
 void func_151442FC(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
     s16 temp_v0;
     s16 temp_v0_2;
@@ -1929,26 +1920,33 @@ typedef struct Game145AD8Locals {
 
 void func_1515C1A0(void *, void *, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145AD8 CURRENT (2526) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145AD8 CURRENT (787) */
 s32 func_15145AD8(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
                    u8 *arg2, f32 *arg3, f32 *arg4, f32 *arg5,
                    f32 *arg6, Game16EE20Vector3 *arg7) {
-    Game145AD8Locals local;
     Game16EE20Vector3 sp7C;
-    Game16EE20Vector3 *third;
+    f32 sp78;
+    f32 sp74;
+    Game16EE20Vector3 first;
+    Game16EE20Vector3 second;
+    Game16EE20Vector3 thirdVector;
+    f32 sp4C;
+    f32 sp48;
+    f32 sp44;
     f32 scale;
+    f32 sp3C;
+    f32 sp38;
 
     if (arg5 != 0) {
-        arg5 = &local.sp78;
+        arg5 = &sp78;
     }
     if (arg6 != 0) {
-        arg6 = &local.sp74;
+        arg6 = &sp74;
     }
-    third = arg7;
-    if (third != 0) {
-        third = &sp7C;
+    if (arg7 != 0) {
+        arg7 = &sp7C;
     }
-    func_1515C1A0(arg2, third, arg5, arg6);
+    func_1515C1A0(arg2, arg7, arg5, arg6);
     if (*arg6 == 0.0f) {
         return 0;
     }
@@ -1956,28 +1954,27 @@ s32 func_15145AD8(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
         return 0;
     }
     scale = *(f32 *)(arg2 + 0xDC);
-    local.sp3C = *(f32 *)(arg2 + 0xE0);
-    local.first.x = arg0->x;
-    local.first.y = arg0->y * scale;
-    local.first.z = arg0->z;
-    local.second.x = arg1->x;
-    local.second.y = arg1->y * scale;
-    local.second.z = arg1->z;
-    local.sp40 = scale;
-    if (func_15145128(&local.second, &local.second,
-                      &local.sp4C, &local.sp38) == 0) {
+    sp3C = *(f32 *)(arg2 + 0xE0);
+    first.x = arg0->x;
+    first.y = arg0->y * scale;
+    first.z = arg0->z;
+    second.x = arg1->x;
+    second.y = arg1->y * scale;
+    second.z = arg1->z;
+    if (func_15145128(&second, &second,
+                      &sp4C, &sp38) == 0) {
         return 0;
     }
-    local.third.x = third->x;
-    local.third.y = third->y * local.sp40;
-    local.third.z = third->z;
-    if (func_151451F0(&local.first, &local.second, (s32)&local.third,
-                      *arg5, local.sp4C, (s32)arg3, (s32)arg4,
-                      &local.sp48, &local.sp44) == 0) {
+    thirdVector.x = arg7->x;
+    thirdVector.y = arg7->y * scale;
+    thirdVector.z = arg7->z;
+    if (func_151451F0(&first, &second, (s32)&thirdVector,
+                      *arg5, sp4C, (s32)arg3, (s32)arg4,
+                      &sp48, &sp44) == 0) {
         return 0;
     }
-    arg3[1] *= local.sp3C;
-    arg4[1] *= local.sp3C;
+    arg3[1] *= sp3C;
+    arg4[1] *= sp3C;
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145AD8 */

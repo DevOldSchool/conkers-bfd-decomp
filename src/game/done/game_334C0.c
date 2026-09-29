@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_334C0.c
  * Boundary evidence: docs/evidence/game_compact_multi_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15006010
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game334C0State {
@@ -40,16 +35,11 @@ s32 func_15123934(Game334C0State *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 void func_151239CC(Game334C0State *arg0, s32 arg1);
 void func_15124B18();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15006010 CURRENT (105) */
 void func_15006010(Game334C0State *arg0) {
-    s32 firstFlags;
-    s32 secondFlags;
-
     if (arg0->child3D0->unk102 != 0) {
         if (func_15123934(arg0, 8, 0, 0, 0) != 0) {
-            firstFlags = arg0->flags | 0x100000;
-            arg0->flags = firstFlags;
-            arg0->flags = firstFlags & ~4;
+            *(s32 *)((u8 *)arg0 + 0x84) |= 0x100000;
+            arg0->flags = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
             arg0->unk1B4 = 1;
             arg0->unk1E0 = 3;
             func_15124B18(arg0);
@@ -63,9 +53,8 @@ void func_15006010(Game334C0State *arg0) {
 
     if (arg0->unk23E == 0x3B) {
         if (func_15123934(arg0, 8, 0, 0, 0) != 0) {
-            secondFlags = arg0->flags | 0x100000;
-            arg0->flags = secondFlags;
-            arg0->flags = secondFlags & ~4;
+            *(s32 *)((u8 *)arg0 + 0x84) |= 0x100000;
+            arg0->flags = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
             arg0->unk348 = 155.0f;
             arg0->unk34C = 155.0f;
             arg0->unk190 = 30.0f;
@@ -76,8 +65,6 @@ void func_15006010(Game334C0State *arg0) {
         func_151239CC(arg0, 0);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15006010 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_334C0/func_15006010.s")
 
 void func_15006140(Game334C0State *arg0) {
     arg0->unk1E0 = 5;

@@ -13,7 +13,6 @@
  * - func_1507D754
  * - func_1507DB6C
  * - func_1507DE4C
- * - func_1507DF10
  * - func_1507DFE4
  * - func_1507E1D0
  *
@@ -107,12 +106,7 @@ void func_1507DE4C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507DE4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DE4C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DF10 CURRENT (960) */
 void func_1507DF10(void *arg0, s32 arg1) {
-    s32 temp_t0;
-    s32 temp_t3;
-    s32 temp_t7;
-
     switch (arg1) {
     case 9:
         *(s32 *)((u8 *)arg0 + 0x94) = (s32) (*(s32 *)((u8 *)arg0 + 0x94) | 0x20);
@@ -120,33 +114,28 @@ void func_1507DF10(void *arg0, s32 arg1) {
         *(s32 *)((u8 *)arg0 + 0x2E4) = 1;
         return;
     case 8:
-        temp_t3 = *(s32 *)((u8 *)arg0 + 0x94) | 0x40;
-        *(s32 *)((u8 *)arg0 + 0x94) = temp_t3;
-        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (temp_t3 & ~0x200);
+        *(s32 *)((u8 *)arg0 + 0x94) |= 0x40;
+        *(volatile s32 *)((u8 *)arg0 + 0x94) = *(s32 *)((u8 *)arg0 + 0x94) & ~0x200;
         *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0xF00);
         *(s32 *)((u8 *)arg0 + 0x2E4) = 2;
         return;
     case 6:
     case 7:
-        temp_t0 = *(s32 *)((u8 *)arg0 + 0x94) | 0xE;
-        *(s32 *)((u8 *)arg0 + 0x94) = temp_t0;
-        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (temp_t0 & ~0x410);
+        *(s32 *)((u8 *)arg0 + 0x94) |= 0xE;
+        *(volatile s32 *)((u8 *)arg0 + 0x94) = *(s32 *)((u8 *)arg0 + 0x94) & ~0x410;
         *(s32 *)((u8 *)arg0 + 0x9C) = (s32) (*(s32 *)((u8 *)arg0 + 0x9C) | 0xEE0000);
         *(s32 *)((u8 *)arg0 + 0x2E4) = 4;
         return;
     case 4:
     case 5:
-        temp_t7 = *(s32 *)((u8 *)arg0 + 0x94) | 0x80;
-        *(s32 *)((u8 *)arg0 + 0x94) = temp_t7;
-        *(s32 *)((u8 *)arg0 + 0x94) = (s32) (temp_t7 & ~0x500);
+        *(s32 *)((u8 *)arg0 + 0x94) |= 0x80;
+        *(volatile s32 *)((u8 *)arg0 + 0x94) = *(s32 *)((u8 *)arg0 + 0x94) & ~0x500;
         *(s32 *)((u8 *)arg0 + 0x2E4) = 8;
         /* fallthrough */
     default:
         return;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507DF10 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DF10.s")
 void func_1501D348(s32, s32, s32, u8, s32);
 void func_15022190(s16, s16, s16, f32);
 void func_15084D70(s32, u8, s32, void *, void *, void *, void *, void *, void *, s32, s32 *);

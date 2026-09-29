@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_33260.c
  * Boundary evidence: docs/evidence/game_330E0_33460.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15005DB0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct Game33260Object {
@@ -26,22 +21,12 @@ typedef struct Game33260Object {
 
 void func_15123934(Game33260Object *, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15005DB0 CURRENT (35) */
 void func_15005DB0(Game33260Object *arg0) {
-    s32 temp_t7;
-    s32 temp_t8;
-    s32 temp_t0;
-
     func_15123934(arg0, 8, 0, arg0->field_134, 3);
     arg0->field_73C = 0;
-    temp_t7 = arg0->flags;
-    temp_t8 = temp_t7 | 0x01000000;
-    temp_t0 = temp_t8 & ~4;
-    arg0->flags = temp_t8;
-    arg0->flags = temp_t0;
+    *(s32 *)((u8 *)arg0 + 0x84) |= 0x01000000;
+    arg0->flags = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
     arg0->field_348 = 500.0f;
     arg0->field_34C = 500.0f;
     arg0->field_374 = 800.0f;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15005DB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_33260/func_15005DB0.s")

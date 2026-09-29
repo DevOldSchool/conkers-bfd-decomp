@@ -15,8 +15,9 @@ f32 func_15047C00(f32);
 extern f32 D_800A3730;
 extern u8 D_800CC2D0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512E4B0 CURRENT (219) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1512E4B0 CURRENT (108) */
 void func_1512E4B0(void *arg0) {
+    s16 angle;
     f32 sp18;
     f32 temp_fa0;
     f32 temp_ft2;
@@ -33,8 +34,9 @@ void func_1512E4B0(void *arg0) {
     *(f32 *)(state + 0x2BC) = *(f32 *)(temp_v0 + 0x14);
     *(f32 *)(state + 0x2C0) = *(f32 *)(temp_v0 + 0x18) + 150.0f;
     *(f32 *)(state + 0x2C4) = *(f32 *)(temp_v0 + 0x1C);
-    temp_fa0 = ((f32)(s16)(s32)((*(f32 *)(temp_v0 + 0x40) * 10.0f) +
-                    (f32)(s16)(-*(s16 *)(temp_v0 + 0x2E4))) * D_800A3730) / 1800.0f;
+    angle = -*(s16 *)(temp_v0 + 0x2E4);
+    angle = (s32)((f32)angle + *(f32 *)(temp_v0 + 0x40) * 10.0f);
+    temp_fa0 = ((f32)angle * D_800A3730) / 1800.0f;
     sp18 = temp_fa0;
     temp_ft2 = func_15047D60(temp_fa0) * 60.0f;
     *(f32 *)(state + 0x2FC) = *(f32 *)(state + 0x2C0);

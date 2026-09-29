@@ -10,7 +10,6 @@
  * - func_151347CC
  * - func_15134908
  * - func_151349D0
- * - func_15134CEC
  * - func_15134DAC
  * - func_15134E48
  * - func_1513532C
@@ -23,7 +22,6 @@
  * - func_15136404
  * - func_15136698
  * - func_151368A8
- * - func_15136A50
  * - func_15136AE4
  * - func_15136C3C
  * - func_15136F50
@@ -334,26 +332,24 @@ extern f32 D_800A45B0;
 extern s32 D_800BE9E4;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15134CEC CURRENT (140) */
 s32 func_15134CEC(void *arg0) {
     s32 temp_v1;
 
+    temp_v1 = *(u8 *)((u8 *)arg0 + 0x2E);
     *(f32 *)((u8 *)arg0 + 0x70) = (f32) (*(f32 *)((u8 *)arg0 + 0x70) + (0.125f * D_800BE9A4));
     *(f32 *)((u8 *)arg0 + 0x74) = (f32) (*(f32 *)((u8 *)arg0 + 0x74) + (D_800A45B0 * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + (*(f32 *)((u8 *)arg0 + 0x70) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)arg0 + 0x1C) + (*(f32 *)((u8 *)arg0 + 0x74) * D_800BE9A4));
+    *(f32 *)((u8 *)arg0 + 0x14) += *(f32 *)((u8 *)arg0 + 0x70) * D_800BE9A4;
+    *(f32 *)((u8 *)arg0 + 0x1C) += *(f32 *)((u8 *)arg0 + 0x74) * D_800BE9A4;
     if (*(f32 *)((u8 *)arg0 + 0x14) > 130.0f) {
         return 0;
     }
-    temp_v1 = *(u8 *)((u8 *)arg0 + 0x2E) - (D_800BE9E4 * 2);
+    temp_v1 -= D_800BE9E4 * 2;
     if (temp_v1 < 0) {
         return 0;
     }
     *(u8 *)((u8 *)arg0 + 0x2E) = (u8) temp_v1;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15134CEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134CEC.s")
 /* Call context: func_10022EC0: unique active declaration in the allowed source */
 /* Call context: func_15167A68: unique active declaration in the allowed source */
 void * func_15167A68(s32, s32, s32, s32, s32, s32);
@@ -497,13 +493,9 @@ void func_1513555C(void *arg0, void *arg1, u8 arg2) {
 }
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151355B8 CURRENT (842) */
-void func_151355B8(void *arg0, void *arg1, s32 arg2) {
-    s32 temp_t6;
-    s32 temp_t6_2;
-
-    temp_t6 = arg2 & 0xFF;
-    switch (temp_t6) {                              /* irregular */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151355B8 CURRENT (15) */
+void func_151355B8(void *arg0, void *arg1, u8 arg2) {
+    switch (arg2) {                              /* irregular */
     case 0:
         if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x1C)) || (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x18))) {
             func_1516972C(arg0);
@@ -512,9 +504,8 @@ void func_151355B8(void *arg0, void *arg1, s32 arg2) {
         return;
     case 3:
         if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x1C)) || (*(u8 *)((u8 *)arg1 + 4) == *(u8 *)((u8 *)arg0 + 0x18))) {
-            temp_t6_2 = *(s32 *)((u8 *)arg0 + 0x10) & ~1;
-            *(s32 *)((u8 *)arg0 + 0x10) = temp_t6_2;
-            *(s32 *)((u8 *)arg0 + 0x10) = temp_t6_2;
+            *(s32 *)((u8 *)arg0 + 0x10) &= ~1;
+            *(volatile s32 *)((u8 *)arg0 + 0x10) = *(s32 *)((u8 *)arg0 + 0x10);
         }
         break;
     }
@@ -589,10 +580,11 @@ s32 func_15135BF8(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136698.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151368A8 CURRENT (1500) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151368A8 CURRENT (1495) */
 s32 func_151368A8(void *arg0) {
     s16 temp_v0;
     s32 temp_v1;
+    volatile f32 *rate;
 
     temp_v0 = *(s16 *)((u8 *)arg0 + 0x1C);
     if (temp_v0 < 0x20) {
@@ -601,8 +593,9 @@ s32 func_151368A8(void *arg0) {
             *(u8 *)((u8 *)arg0 + 0x5C) = (u8) temp_v1;
         }
     }
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)arg0 + 0x2C) + (*(f32 *)((u8 *)arg0 + 0x128) * D_800BE9A4));
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + (*(f32 *)((u8 *)arg0 + 0x128) * D_800BE9A4));
+    rate = (volatile f32 *)((u8 *)arg0 + 0x128);
+    *(f32 *)((u8 *)arg0 + 0x2C) += *rate * D_800BE9A4;
+    *(f32 *)((u8 *)arg0 + 0x30) += *rate * D_800BE9A4;
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151368A8 */
@@ -665,33 +658,33 @@ void func_15134908(s32 *, s32, u8, s32);
 extern f32 D_800A461C;
 extern f32 D_800A4620;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136A50 CURRENT (4162) */
 void func_15136A50(s32 arg0, s32 arg1, s32 arg2, s16 arg3, u8 arg4, s32 arg5) {
-    s8 sp35;
-    s8 sp34;
-    s8 sp33;
-    s8 sp32;
-    s16 sp30;
-    f32 sp2C;
-    f32 sp28;
-    s32 sp24;
-    s32 sp20;
-    s32 sp1C;
+    struct {
+        s32 x;
+        s32 y;
+        s32 z;
+        f32 scale;
+        f32 speed;
+        s16 amount;
+        s8 kind;
+        s8 count;
+        s8 mode;
+        s8 sentinel;
+    } packet;
 
-    sp32 = 5;
-    sp33 = 5;
-    sp34 = 2;
-    sp35 = -1;
-    sp28 = D_800A461C;
-    sp1C = arg0;
-    sp20 = arg1;
-    sp24 = arg2;
-    sp2C = D_800A4620;
-    sp30 = arg3;
-    func_15134908(&sp1C, 0, arg4, arg5);
+    packet.x = arg0;
+    packet.y = arg1;
+    packet.z = arg2;
+    packet.scale = D_800A461C;
+    packet.speed = D_800A4620;
+    packet.amount = arg3;
+    packet.kind = 5;
+    packet.count = 5;
+    packet.mode = 2;
+    packet.sentinel = -1;
+
+    func_15134908(&packet.x, 0, arg4, arg5);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15136A50 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136A50.s")
 f32 func_150ADA68(void);
 u32 func_150ADA20(void);
 void func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32, f32,

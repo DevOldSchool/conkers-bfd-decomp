@@ -12,13 +12,11 @@
 
 extern f32 D_800A04C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7670 CURRENT (485) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C7670 CURRENT (260) */
 s32 func_150C7670(void *arg0) {
     f32 value;
-    u8 intensity;
 
-    intensity = *(u8 *)((u8 *)*(void **)((u8 *)*(void **)((u8 *)arg0 + 0x170) + 0x14) + 0x2F);
-    value = (f32)intensity;
+    value = (f32)*(u8 *)((u8 *)*(void **)((u8 *)*(void **)((u8 *)arg0 + 0x170) + 0x14) + 0x2F);
     *(s8 *)((u8 *)arg0 + 0x70) = (s8)(u32)(value * D_800A04C0);
     return 1;
 }

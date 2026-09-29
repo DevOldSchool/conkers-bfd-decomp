@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/game_186080.c
  * Boundary evidence: docs/evidence/game_raw_isolated_selectors_and_calls.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15158BD0
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct {
@@ -34,7 +29,6 @@ void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_1516979C(u8 *);
 s32 func_15159370(void *, s8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15158BD0 CURRENT (150) */
 u8 *func_15158BD0(void *arg0, u8 arg1, s32 arg2) {
     u8 *effect;
 
@@ -54,10 +48,10 @@ u8 *func_15158BD0(void *arg0, u8 arg1, s32 arg2) {
     *(s8 *)(effect + 0x30) = 0;
     *(f32 *)(effect + 0x20) = *(f32 *)((u8 *)arg0 + 0x14);
     *(f32 *)(effect + 0x24) = *(f32 *)((u8 *)arg0 + 0x18);
-    *(s8 *)(effect + 0x31) = 0;
     *(f32 *)(effect + 0x28) = *(f32 *)((u8 *)arg0 + 0x1C);
+    *(u8 *)(effect + 0x31) = 0;
     if (arg1 != 0) {
-        *(s8 *)(effect + 0x31) = 1;
+        *(u8 *)(effect + 0x31) |= 1;
     }
     *(s32 *)(effect + 0x10) = 1;
     *(s32 *)(effect + 0x14) = 0;
@@ -68,8 +62,6 @@ u8 *func_15158BD0(void *arg0, u8 arg1, s32 arg2) {
     *(s8 *)(effect + 0x50) = 0;
     return effect;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15158BD0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_186080/func_15158BD0.s")
 /* Call context: func_1514EDF0: unique active project prototype */
 /* Call context: func_15169804: unique active project prototype */
 void func_1514EDF0(s32, s32);

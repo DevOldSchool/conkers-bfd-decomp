@@ -27,23 +27,20 @@ void func_10023A10(void *, void *, s32);
 extern void *D_800DF7CC;
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188810 CURRENT (1442) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188810 CURRENT (258) */
 void func_15188810(void *arg0, s32 arg1, s32 arg2) {
-    s32 sp20;
     s32 temp_t0;
-    s32 temp_t8;
     s32 temp_v0_2;
-    void *temp_v0;
     void *temp_v0_3;
     u8 *var_s0;
+    volatile s32 sp20;
 
     var_s0 = D_800DF7C8;
-    temp_t8 = arg1;
     if (var_s0 != 0) {
         do {
             if (arg0 == *(void **)(var_s0 + 0x10)) {
-                if (*(s16 *)(var_s0 + 6) < temp_t8) {
-                    *(s16 *)(var_s0 + 6) = (s16)temp_t8;
+                if (*(s16 *)(var_s0 + 6) < arg1) {
+                    *(s16 *)(var_s0 + 6) = (s16)arg1;
                 }
                 *(s8 *)(var_s0 + 4) = (s8)arg2;
                 return;
@@ -52,31 +49,31 @@ void func_15188810(void *arg0, s32 arg1, s32 arg2) {
         } while (var_s0 != 0);
     }
 
-    temp_v0 = func_10003C40(0x18, 1, 0, 0);
-    if (temp_v0 != 0) {
+    var_s0 = func_10003C40(0x18, 1, 0, 0);
+    if (var_s0 != 0) {
         temp_v0_2 = func_1502DB20(*(u8 *)((u8 *)arg0 + 4));
         if (temp_v0_2 == 0) {
-            func_10004074((s32)temp_v0);
+            func_10004074((s32)var_s0);
             return;
         }
         temp_t0 = temp_v0_2 * 0x180;
         sp20 = temp_t0;
         temp_v0_3 = func_10003C40(temp_t0, 1, 1, 1);
         if (temp_v0_3 == 0) {
-            func_10004074((s32)temp_v0);
+            func_10004074((s32)var_s0);
             return;
         }
-        *(u8 *)temp_v0 = 0;
-        *((u8 *)temp_v0 + 1) = 3;
-        *((u8 *)temp_v0 + 2) = 0;
-        *((u8 *)temp_v0 + 3) = 0x14;
-        *((s8 *)temp_v0 + 4) = (s8)arg2;
-        *(s16 *)((u8 *)temp_v0 + 6) = (s16)arg1;
-        *(void **)((u8 *)temp_v0 + 8) = temp_v0_3;
-        *(void **)((u8 *)temp_v0 + 0x10) = arg0;
-        *(s32 *)((u8 *)temp_v0 + 0x14) = 0;
+        *(u8 *)var_s0 = 0;
+        *((u8 *)var_s0 + 1) = 3;
+        *((u8 *)var_s0 + 2) = 0;
+        *((u8 *)var_s0 + 3) = 0x14;
+        *((s8 *)var_s0 + 4) = (s8)arg2;
+        *(s16 *)((u8 *)var_s0 + 6) = (s16)arg1;
+        *(void **)((u8 *)var_s0 + 8) = temp_v0_3;
+        *(void **)((u8 *)var_s0 + 0x10) = arg0;
+        *(s32 *)((u8 *)var_s0 + 0x14) = 0;
         func_100226F0(temp_v0_3, sp20);
-        func_15188A58(temp_v0, &D_800DF7C8);
+        func_15188A58(var_s0, &D_800DF7C8);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15188810 */
@@ -310,7 +307,7 @@ void *func_15188D00(void *arg0, s32 arg1, s16 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15188D00 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B5CC0/func_15188D00.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188E48 CURRENT (3061) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15188E48 CURRENT (1200) */
 void func_15188E48(void *arg0) {
     s32 temp_lo;
     s32 temp_s0;
@@ -321,7 +318,7 @@ void func_15188E48(void *arg0) {
     s32 var_a3;
     s32 var_s1;
     s32 var_v1;
-    u8 temp_s3;
+    s32 temp_s3;
     u8 temp_v0_2;
     void *temp_a1;
     void *var_a0;
@@ -337,7 +334,7 @@ void func_15188E48(void *arg0) {
     temp_s4 = D_800BE9C0 * temp_lo;
     temp_s5 = (D_800BE9C0 ^ 1) * temp_lo;
     if ((s32)temp_s3 > 0) {
-loop_1:
+        do {
         if (temp_s3 == var_s1) {
             temp_a1 = *(void **)(*(u8 **)(base + 0x10) + 0x1D4);
             if (temp_a1 == 0) {
@@ -347,21 +344,17 @@ loop_1:
             var_a0 = temp_a1;
             var_a2 = temp_s0 << 6;
             var_v1 = (var_a3 * temp_s0) + temp_s4;
-            goto block_6;
-        }
+            func_10023A10(var_a0, (u8 *)*(void **)(base + 8) + (var_v1 << 6), var_a2);
+        } else {
         var_a2 = temp_s0 << 6;
         var_a0 = (u8 *)*(void **)(base + 8) + (((var_s1 * temp_s0) + temp_s5) << 6);
         var_v1 = (var_a3 * temp_s0) + temp_s4;
-block_6:
         func_10023A10(var_a0, (u8 *)*(void **)(base + 8) + (var_v1 << 6), var_a2);
-        var_a3 = var_s1;
-        var_s1 += 1;
-        if (var_s1 == temp_s3) {
-            goto block_7;
         }
-        goto loop_1;
+        var_a3 = var_s1;
+        var_s1++;
+        } while (var_a3 != temp_s3);
     }
-block_7:
     temp_v0_2 = base[2];
     if (base[1] != temp_v0_2) {
         base[2] = temp_v0_2 + 1;

@@ -9,7 +9,6 @@
  * - func_1511B07C
  * - func_1511B51C
  * - func_1511B7D4
- * - func_1511BA24
  * - func_1511BB04
  * - func_1511BDF4
  * - func_1511BEBC
@@ -77,21 +76,16 @@ void func_1511AF30(void *arg0) {
 /* Call context: func_15188010: unique active project prototype */
 void func_15188010(s32, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511BA24 CURRENT (125) */
 void func_1511BA24(void *arg0) {
     f32 sp1C;
-    u32 temp_t7;
 
     sp1C = 0.0f;
     func_15188010(*(s32 *)((u8 *)arg0 + 0x3C), &sp1C);
-    temp_t7 = (u32) (sp1C * 255.0f);
-    *(s8 *)((u8 *)arg0 + 0x8A) = (s8) temp_t7;
-    if (!(temp_t7 & 0xFF)) {
+    *(u8 *)((u8 *)arg0 + 0x8A) = (u32) (sp1C * 255.0f);
+    if (*(u8 *)((u8 *)arg0 + 0x8A) == 0) {
         *(s8 *)((u8 *)arg0 + 0x8A) = 1;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1511BA24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BA24.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511BB04.s")
 typedef struct Game1483E0Reference {
     u8 pad0[0x14];

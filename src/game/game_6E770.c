@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150412C0
  * - func_150413FC
- * - func_15041480
  * - func_15041508
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -99,56 +98,38 @@ u8 *func_150413FC(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150413FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_150413FC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15041480 CURRENT (705) */
 s32 func_15041480(u8 arg0) {
-    u8 *var_a1;
-    s32 temp_t6;
-    s32 var_v1;
+    s32 i;
 
-    temp_t6 = arg0 & 0xFF;
-    var_a1 = D_800848D0;
-    var_v1 = 0;
-loop_1:
-    if (temp_t6 == var_a1[0]) {
-        return var_v1;
+    for (i = 0; i < 0x50; i++) {
+        if (arg0 == D_800848D0[i]) {
+            return i;
+        }
     }
-    if (temp_t6 == var_a1[1]) {
-        return var_v1 + 1;
-    }
-    if (temp_t6 == var_a1[2]) {
-        return var_v1 + 2;
-    }
-    if (temp_t6 == var_a1[3]) {
-        return var_v1 + 3;
-    }
-    var_v1 += 4;
-    var_a1 += 4;
-    if (var_v1 == 0x50) {
-        return var_v1;
-    }
-    goto loop_1;
+    return i;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15041480 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_15041480.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15041508 CURRENT (2290) */
-void *func_15041508(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 temp_v1;
-    u8 *temp_a0;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15041508 CURRENT (2575) */
+u8 *func_15041508(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    union Packet {
+        u64 command;
+        struct { u32 first; u32 second; } words;
+    };
+    union Packet *cursor;
+    union Packet *packet;
+    s32 remainder;
 
-
-    *(s32 *)((u8 *)arg0 + 4) = (s32) ((((arg1 * 4) & 0xFFF) << 0xC) | ((arg2 * 4) & 0xFFF));
-    *(s32 *)((u8 *)arg0 + 0) = (s32) (((((arg1 + 8) * 4) & 0xFFF) << 0xC) | 0xE4000000 | (((arg2 + 0xC) * 4) & 0xFFF));
-    {
-    u8 *temp_a0_2;
-    temp_a0_2 = (void *)(arg0 + 8);
-    *(s32 *)((u8 *)arg0 + 8) = 0xE1000000;
-    temp_a0 = (void *)(temp_a0_2 + 8);
-    temp_v1 = arg3 % 8;
-    *(s32 *)((u8 *)temp_a0_2 + 4) = (s32) ((((temp_v1 * 8) << 5) << 0x10) | ((((s32) (arg3 - temp_v1) / 8) * 0x180) & 0xFFFF));
-    *(s32 *)((u8 *)temp_a0_2 + 8) = 0xF1000000;
-    }
-    *(s32 *)((u8 *)temp_a0 + 4) = 0x04000400;
-    return temp_a0 + 8;
+    cursor = (union Packet *)arg0;
+    packet = cursor++;
+    packet->words.first = (((((arg1 + 8) * 4) & 0xFFF) << 12) | 0xE4000000 | (((arg2 + 12) * 4) & 0xFFF));
+    packet->words.second = ((((arg1 * 4) & 0xFFF) << 12) | ((arg2 * 4) & 0xFFF));
+    packet = cursor++;
+    packet->words.first = 0xE1000000;
+    remainder = arg3 % 8;
+    packet->words.second = (((u32)(remainder * 8) << 5) << 16) | ((((arg3 - remainder) / 8) * 0x180) & 0xFFFF);
+    packet = cursor++;
+    packet->words.first = 0xF1000000;
+    packet->words.second = 0x04000400;
+    return (u8 *)cursor;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15041508 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_15041508.s")

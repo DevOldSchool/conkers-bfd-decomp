@@ -15,10 +15,9 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150EFB80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D030/func_150EFEC8.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F00EC CURRENT (330) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F00EC CURRENT (290) */
 s32 func_150F00EC(u8 *arg0) {
     typedef struct { f32 words[3]; } Copy3;
-    s32 temp_t4;
     u8 *temp_v0;
     u8 *temp_v1;
 
@@ -31,9 +30,8 @@ s32 func_150F00EC(u8 *arg0) {
         *(s32 *)((u8 *)arg0 + 0x58) = (s32) (*(s32 *)((u8 *)arg0 + 0x58) | 6);
         *(f32 *)((u8 *)arg0 + 0x48) = (*(f32 *)((u8 *)temp_v1 + 0x38) * 500.0f) + *(f32 *)((u8 *)temp_v0 + 0x3C);
     } else {
-        temp_t4 = *(s32 *)((u8 *)arg0 + 0x58) & ~4;
-        *(volatile s32 *)((u8 *)arg0 + 0x58) = temp_t4;
-        *(s32 *)((u8 *)arg0 + 0x58) = (s32) (temp_t4 & ~2);
+        *(s32 *)((u8 *)arg0 + 0x58) &= ~4;
+        *(volatile s32 *)((u8 *)arg0 + 0x58) = *(s32 *)((u8 *)arg0 + 0x58) & ~2;
     }
     return 1;
 }

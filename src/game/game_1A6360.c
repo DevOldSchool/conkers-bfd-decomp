@@ -86,30 +86,36 @@ f32 func_150AD78C(f32);
 extern void *D_800DBFF0;
 extern s16 D_800DD438[3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151794C8 CURRENT (3899) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151794C8 CURRENT (2357) */
 void func_151794C8(void) {
     s32 x;
     s32 y;
     s32 z;
-    f32 offset_y;
-    f32 offset_z;
+    f32 zero;
+    f32 horizontal;
+    f32 depth;
     f32 trig;
+    f32 cosine;
     f32 angle;
-    f32 second_z;
 
     x = (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x2F8);
     y = (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x2FC);
     z = (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x300);
     angle = *(f32 *)((u8 *)D_800DBFF0 + 0x398);
     trig = func_150AD78C(angle);
-    offset_y = 500.0f * trig;
-    offset_z = -500.0f * func_150AD780(angle);
+    cosine = func_150AD780(angle);
+    horizontal = 500.0f * trig;
+    depth = -500.0f * cosine;
     angle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
     trig = func_150AD78C(angle);
-    second_z = (offset_z * func_150AD780(angle)) - 0.0f;
-    D_800DD438[0] = (s16)(s32)((f32)x + (0.0f + (offset_z * trig)));
-    D_800DD438[2] = (s16)(s32)((f32)z + second_z);
-    D_800DD438[1] = (s16)(s32)((f32)y + offset_y);
+    cosine = func_150AD780(angle);
+    zero = 0.0f;
+    x = (s32)((f32)x + (zero + (depth * trig)));
+    z = (s32)((f32)z + ((depth * cosine) - zero));
+    y = (s32)((f32)y + horizontal);
+    D_800DD438[0] = x;
+    D_800DD438[2] = z;
+    D_800DD438[1] = y;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151794C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A6360/func_151794C8.s")

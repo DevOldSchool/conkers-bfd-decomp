@@ -40,17 +40,17 @@ typedef struct Game3D9A0Packet {
     s16 z;
 } Game3D9A0Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010538 CURRENT (195) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15010538 CURRENT (135) */
 void func_15010538(void *arg0) {
     Game3D9A0Packet packet;
     u8 *object;
 
     func_15161E24(arg0, 2, 2, 0x12C, 0x1E, 0x64, 0xC8, 0xFF, 0xFF, 1);
     packet.owner = arg0;
+    packet.type = ((u8 *)packet.owner)[0x3B];
     packet.x = 0;
     packet.y = 0;
     packet.z = 0;
-    packet.type = ((u8 *)arg0)[0x3B];
 
     object = func_15149130(0x12C, -1, 0x50, -1, 0, 0x3D, 0xC, 0xFF, 1);
     if (object != 0) {

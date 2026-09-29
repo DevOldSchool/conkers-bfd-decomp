@@ -41,13 +41,12 @@ extern f32 D_800A00B0;
 extern f32 D_800A00B4;
 extern u8 D_800CC335;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE850 CURRENT (65) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BE850 CURRENT (30) */
 void func_150BE850(GameEBD00Actor *arg0) {
     struct {
         s32 sp28;
         s32 pad;
     } state;
-    s32 temp_t0;
     s32 temp_v0;
     f32 value;
     f32 other;
@@ -63,10 +62,9 @@ void func_150BE850(GameEBD00Actor *arg0) {
         }
         if (func_15123934(arg0, 8, 0, arg0->field134, 3) != 0) {
             func_151254F4(arg0, D_800CC335 - 1);
-            temp_t0 = arg0->field84 | 0x01000200;
-            arg0->field84 = temp_t0;
+            *(s32 *)((u8 *)arg0 + 0x84) |= 0x01000200;
             arg0->field73C = 0;
-            arg0->field84 = temp_t0 & ~4;
+            arg0->field84 = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
             arg0->field674 = 0.0f;
         }
         value = D_800A00B0;
