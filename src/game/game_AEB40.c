@@ -125,8 +125,9 @@ s32 func_1515D440();                                /* extern */
 s32 func_1515D480(u8);                              /* extern */
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150832AC CURRENT (830) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150832AC CURRENT (935) */
 void func_150832AC(u8 *arg0) {
+    void *temp_v1;
     s32 var_s1;
     u8 temp_a0;
     u8 var_s3;
@@ -418,49 +419,24 @@ extern s32 D_800CC2D0;
 extern u8 D_800CC30B;
 extern s32 D_800CC5FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E90 CURRENT (410) */
-s32 *func_15083E90(s32 arg0) {
-    s32 *temp_v1;
-    s32 *temp_v1_2;
-    s32 *temp_v1_3;
-    s32 *var_v1;
-    s32 temp_t6;
-    s32 var_a0;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083E90 CURRENT (2300) */
+void *func_15083E90(u8 arg0) {
+    u8 *actor;
+    s32 i;
 
-    temp_t6 = arg0 & 0xFF;
-    if (temp_t6 == 0) {
+    if (arg0 == 0) {
         return 0;
     }
-    if ((D_800CC2D0 != 0) && (temp_t6 == D_800CC30B)) {
+    if ((D_800CC2D0 != 0) && (arg0 == D_800CC30B)) {
         return &D_800CC2D0;
     }
-    var_a0 = 2;
-    if ((*(s32 *)((u8 *)&D_800CC5FC + 0) != 0) && (temp_t6 == *(u8 *)((u8 *)&D_800CC5FC + 0x3B))) {
-        return &D_800CC5FC;
+    actor = (u8 *)&D_800CC5FC;
+    for (i = 1; i < 0x1A; i++, actor += 0x32C) {
+        if ((*(s32 *)actor != 0) && (arg0 == actor[0x3B])) {
+            return actor;
+        }
     }
-    var_v1 = &D_800CC5FC + 0x32C;
-loop_9:
-    if ((*(s32 *)((u8 *)var_v1 + 0) != 0) && (temp_t6 == *(u8 *)((u8 *)var_v1 + 0x3B))) {
-        return var_v1;
-    }
-    temp_v1_3 = var_v1 + 0x32C;
-    if ((*(s32 *)((u8 *)var_v1 + 0x32C) != 0) && (temp_t6 == *(u8 *)((u8 *)temp_v1_3 + 0x3B))) {
-        return temp_v1_3;
-    }
-    temp_v1_2 = temp_v1_3 + 0x32C;
-    if ((*(s32 *)((u8 *)temp_v1_3 + 0x32C) != 0) && (temp_t6 == *(u8 *)((u8 *)temp_v1_2 + 0x3B))) {
-        return temp_v1_2;
-    }
-    temp_v1 = temp_v1_2 + 0x32C;
-    var_a0 += 4;
-    if ((*(s32 *)((u8 *)temp_v1_2 + 0x32C) != 0) && (temp_t6 == *(u8 *)((u8 *)temp_v1 + 0x3B))) {
-        return temp_v1;
-    }
-    var_v1 = temp_v1 + 0x32C;
-    if (var_a0 == 0x1A) {
-        return 0;
-    }
-    goto loop_9;
+    return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15083E90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083E90.s")

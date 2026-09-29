@@ -51,3 +51,57 @@ all 91 pending functions ended in `BATCH_COMPLETE`: the integrated code payload
 matched exactly, all external table payloads matched US ROM data, 975 tests
 completed successfully (six skipped), and metadata, progress, and whitespace
 checks passed. Existing compiler warnings were not part of this repair.
+
+## September 28 manual switch recovery
+
+`func_15141C0C` now contributes two additional tables to `game_16EE20.o`.
+The integrated object contains exactly 0x290 bytes of table payload with no
+trailing alignment bytes. The unchanged raw dispatches identify these mappings:
+
+| Object offset | Size | Runtime address | HI16 / LO16 instruction sites |
+| --- | --- | --- | --- |
+| 0x0 | 0xB4 | 0x800A5218 | 0x2B8 / 0x2C0 |
+| 0xB4 | 0x164 | 0x800A52CC | 0x2D8 / 0x2E0 |
+| 0x218 | 0x40 | 0x800A5430 | 0x3B4 / 0x3BC |
+| 0x258 | 0x38 | 0x800A565C | 0x29A0 / 0x29A8 |
+
+The new tables cover selectors 0x79 through 0xA5 and 0 through 0x58.
+All 164 relocated target words across all four tables were independently
+compared with the checksum-validated US ROM using `rom_game_data` and
+`verify_bytes` from `scripts/verify_game_rodata.py`. The existing two tables
+retain their original runtime addresses; only their packed object offsets move.
+
+The proposed split was checked against the actual integrated object: all
+existing strict extent, relocation coverage, instruction addend and reference
+checks pass, and `.text` remains byte-for-byte unchanged. The linker continues
+to assert exact individual table sizes. No padding is added and no verifier
+check is weakened. Full clean batch verification remains required after applying
+the reviewed mapping.
+
+## Additional table from func_151441A4
+
+The restored unused parameter at index 7 is supported by caller `1513CD38`,
+which writes its value at SP+0x1C and places the selector at SP+0x34.
+The complete 344-byte function now passes authoritative US CURRENT (0).
+Its raw unsigned bounds check admits selectors 0 through 4, and its dispatch
+loads the five-entry table at `0x800A5648`.
+
+The full-layout object now has 0x2A4 table payload bytes in a 0x2B0-byte
+`.rodata` section, followed by 12 existing zero alignment bytes. The reviewed
+splitter validates those bytes and preserves `.text` byte-for-byte. No padding
+or relaxed checks are introduced. The updated mappings are:
+
+| Object offset | Size | Runtime address | HI16 / LO16 instruction sites |
+| --- | --- | --- | --- |
+| 0x0 | 0xB4 | 0x800A5218 | 0x2B8 / 0x2C0 |
+| 0xB4 | 0x164 | 0x800A52CC | 0x2D8 / 0x2E0 |
+| 0x218 | 0x40 | 0x800A5430 | 0x3B4 / 0x3BC |
+| 0x258 | 0x14 | 0x800A5648 | 0x284C / 0x2854 |
+| 0x26C | 0x38 | 0x800A565C | 0x29A0 / 0x29A8 |
+
+All 169 relocated target words across the five tables match the checksum-validated
+US ROM. Existing runtime addresses are preserved; the final table's packed
+object offset moves from 0x258 to 0x26C. The unchanged splitter checks enforce
+complete relocation coverage, exact instruction addends and reviewed references.
+Each linker section retains an exact size assertion. Clean batch verification
+remains required after applying the mapping.

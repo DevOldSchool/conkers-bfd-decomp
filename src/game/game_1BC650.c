@@ -77,39 +77,47 @@ s32 func_1518F1A0(u8 *arg0) {
 extern f32 D_800A7B74;
 extern f32 D_800A7B78;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F384 CURRENT (719) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F384 CURRENT (683) */
 s32 func_1518F384(u8 *arg0) {
-    void *sp18;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    u8 *temp_v1;
-    u8 *temp_v1_2;
+    struct RangeState {
+        f32 firstHigh;
+        f32 firstLow;
+        f32 firstValue;
+        f32 secondHigh;
+        f32 secondLow;
+        f32 unused14;
+        f32 secondValue;
+        s16 firstReady;
+        s16 secondReady;
+    };
+    struct RangeState *volatile saved;
+    f32 random;
+    f32 low;
+    f32 current;
+    f32 other;
+    struct RangeState *state;
 
-    if (*(s16 *)((u8 *)arg0 + 0x12C) == 0) {
-        temp_fv0 = func_150ADA68();
-        temp_v1 = (void *)(arg0 + 0x110);
-        temp_fv1 = *(f32 *)((u8 *)temp_v1 + 4);
-        *(s16 *)((u8 *)temp_v1 + 0x1C) = 1;
-        *(f32 *)((u8 *)temp_v1 + 8) = (f32) ((temp_fv0 * (*(f32 *)((u8 *)arg0 + 0x110) - temp_fv1)) + temp_fv1);
+    if (*(s16 *)(arg0 + 0x12C) == 0) {
+        random = func_150ADA68();
+        state = (struct RangeState *)(arg0 + 0x110);
+        low = state->firstLow;
+        state->firstReady = 1;
+        state->firstValue = random * (state->firstHigh - low) + low;
     }
-    temp_v1_2 = (void *)(arg0 + 0x110);
-    if (*(s16 *)((u8 *)temp_v1_2 + 0x1E) == 0) {
-        sp18 = temp_v1_2;
-        temp_fv0_2 = func_150ADA68(arg0);
-        temp_fv1_2 = *(f32 *)((u8 *)temp_v1_2 + 0x10);
-        *(s16 *)((u8 *)temp_v1_2 + 0x1E) = 1;
-        *(f32 *)((u8 *)temp_v1_2 + 0x18) = (f32) ((temp_fv0_2 * (*(f32 *)((u8 *)temp_v1_2 + 0xC) - temp_fv1_2)) + temp_fv1_2);
+    state = (struct RangeState *)(arg0 + 0x110);
+    if (state->secondReady == 0) {
+        saved = state;
+        random = func_150ADA68();
+        state = saved;
+        low = state->secondLow;
+        state->secondReady = 1;
+        state->secondValue = random * (state->secondHigh - low) + low;
     }
-    temp_fv0_3 = *(f32 *)((u8 *)arg0 + 0x30);
-    {
-        f32 temp_fv1_3 = *(f32 *)((u8 *)arg0 + 0x2C);
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0_3 + ((*(f32 *)((u8 *)temp_v1_2 + 0x18) - temp_fv0_3) * D_800A7B74));
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv1_3 + ((*(f32 *)((u8 *)temp_v1_2 + 8) - temp_fv1_3) * D_800A7B78));
+    current = *(f32 *)(arg0 + 0x30);
+    other = *(f32 *)(arg0 + 0x2C);
+    *(f32 *)(arg0 + 0x30) += (state->secondValue - current) * D_800A7B74;
+    *(f32 *)(arg0 + 0x2C) += (state->firstValue - other) * D_800A7B78;
     return 1;
-    }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1518F384 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F384.s")
@@ -236,14 +244,12 @@ s32 func_1518FC44(void *arg0, void *arg1) {
     func_1514BF50(temp_a0, arg1);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (501) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518FC84 CURRENT (311) */
 void func_1518FC84(u8 *arg0, void *arg1) {
     u8 *object;
     u8 *settings;
     u8 *fields;
     u8 *transform;
-    s32 range;
-    u32 random;
     f32 *position;
 
     position = arg1;
@@ -261,15 +267,13 @@ void func_1518FC84(u8 *arg0, void *arg1) {
                               (position[2] - *(f32 *)(arg0 + 0x3C));
     transform = object + 0x110;
     fields = settings + 0x30;
-    *(f32 *)(transform + 0x44) = func_150ADA68() * *(f32 *)(fields + 0x38) +
-                                  *(f32 *)(fields + 0x34);
+    *(f32 *)(transform + 0x44) = *(f32 *)(fields + 0x34) +
+                                  *(f32 *)(fields + 0x38) * func_150ADA68();
     *(f32 *)(transform + 0x48) = *(f32 *)(fields + 0x3C);
     *(s16 *)(object + 0x6C) = *(s16 *)(fields + 0x40);
     *(s16 *)(object + 0x6E) = *(s16 *)(fields + 0x42);
-    random = func_150ADA20();
-    range = *(s16 *)(fields + 0x46) + 1;
-    *(s16 *)(object + 0x1C) = random % (u32)range +
-                              *(s16 *)(fields + 0x44);
+    *(s16 *)(object + 0x1C) = *(s16 *)(fields + 0x44) +
+                              func_150ADA20() % (u32)(*(s16 *)(fields + 0x46) + 1);
     if (fields[0x4C] & 1) {
         object[0x70] = 0x21;
     } else {

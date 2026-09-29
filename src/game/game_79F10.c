@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_call_connected_beta_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1504CA60
  * - func_1504CB98
  * - func_150511E8
  * - func_15051558
@@ -17,27 +16,24 @@
 void func_15058EA4(void *, f32, f32, f32, f32, f32, f32);
 u32 func_150ADA20(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504CA60 CURRENT (58) */
 void func_1504CA60(u8 *arg0) {
-    f32 height;
     f32 horizontal;
     f32 vertical;
 
-    height = *(f32 *)(arg0 + 0x28);
     horizontal = 18.0f;
     vertical = *(f32 *)(arg0 + 0x180) + 20.0f;
     *(f32 *)(arg0 + 0x1CC) = *(f32 *)(arg0 + 0x18);
-    if (height > 30.0f) {
+    if (*(f32 *)(arg0 + 0x28) > 30.0f) {
         horizontal = 80.0f;
     }
     if (arg0[0x81] != 0) {
         horizontal = 80.0f;
         vertical -= 30.0f;
-        if ((height < 5.0f) && (*(f32 *)(arg0 + 0x20) < 0.0f)) {
+        if ((*(f32 *)(arg0 + 0x28) < 5.0f) && (*(f32 *)(arg0 + 0x20) < 0.0f)) {
             arg0[0x81] = 0;
             *(f32 *)(arg0 + 0x20) = 45.0f;
         }
-    } else if (height < 20.0f) {
+    } else if (*(f32 *)(arg0 + 0x28) < 20.0f) {
         if (!(func_150ADA20() & 0x3F)) {
             *(f32 *)(arg0 + 0x20) = 25.0f;
         }
@@ -46,8 +42,6 @@ void func_1504CA60(u8 *arg0) {
                   -horizontal);
     arg0[0x80] = 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1504CA60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_79F10/func_1504CA60.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_79F10/func_1504CB98.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_79F10/func_150511E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_79F10/func_15051558.s")

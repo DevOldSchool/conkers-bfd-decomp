@@ -10,37 +10,26 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_15124B18(void);
+void func_15124B18(void *arg0);
 extern f32 D_800A0F60;
 extern f32 D_800A0F64;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF820 CURRENT (110) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DF820 CURRENT (85) */
 void func_150DF820(void *arg0) {
-    s32 temp_t6 = *(s32 *)((u8 *)arg0 + 0x84);
-    void *temp_t2 = *(void **)((u8 *)arg0 + 0x3D0);
-    s32 temp_t1;
-    s32 temp_t5;
-    s32 temp_t7;
-    s32 temp_t9;
-    u8 temp_t3;
+    s32 flags;
 
-    temp_t7 = temp_t6 & ~0x4000;
-    temp_t9 = temp_t7 | 4;
-    *(volatile s32 *)((u8 *)arg0 + 0x84) = temp_t7;
-    *(volatile s32 *)((u8 *)arg0 + 0x84) = temp_t9;
-    temp_t1 = temp_t9 & ~0x1010;
-    *(volatile s32 *)((u8 *)arg0 + 0x84) = temp_t1;
-    temp_t5 = temp_t1 | 0x1010;
-    temp_t3 = *(u8 *)((u8 *)temp_t2 + 0xAD);
-    if (temp_t3 != 0) {
-        *(volatile s32 *)((u8 *)arg0 + 0x84) = temp_t5;
-        *(volatile s32 *)((u8 *)arg0 + 0x84) = temp_t5 & ~4;
+    *(s32 *)((u8 *)arg0 + 0x84) &= ~0x4000;
+    flags = (*(volatile s32 *)((u8 *)arg0 + 0x84) = *(s32 *)((u8 *)arg0 + 0x84) | 4);
+    *(s32 *)((u8 *)arg0 + 0x84) = flags & ~0x1010;
+    if (*(u8 *)((u8 *)*(void **)((u8 *)arg0 + 0x3D0) + 0xAD) != 0) {
+        *(s32 *)((u8 *)arg0 + 0x84) |= 0x1010;
+        *(volatile s32 *)((u8 *)arg0 + 0x84) = *(s32 *)((u8 *)arg0 + 0x84) & ~4;
         *(f32 *)((u8 *)arg0 + 0x374) = D_800A0F60;
         return;
     }
     if (D_800A0F64 == *(f32 *)((u8 *)arg0 + 0x374)) {
         *(s16 *)((u8 *)arg0 + 0x1B4) = 3;
-        func_15124B18();
+        func_15124B18(arg0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DF820 */

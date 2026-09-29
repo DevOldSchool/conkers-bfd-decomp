@@ -21,21 +21,21 @@ f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151025F4 CURRENT (2343) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151025F4 CURRENT (2008) */
 s32 func_151025F4(u8 *arg0, s32 arg1) {
-    f32 sp24;
-    f32 temp_ft3;
-    u8 *temp_s0;
+    f32 first;
+    f32 second;
+    f32 *state;
 
-    sp24 = func_15047D60(*(f32 *)((u8 *)arg0 + 0xC0));
-    temp_s0 = (void *)(arg0 + 0xA8);
-    temp_ft3 = *(f32 *)((u8 *)temp_s0 + 0xC) + (*(f32 *)((u8 *)temp_s0 + 0x14) * func_15047D60(*(f32 *)((u8 *)arg0 + 0xC4)));
-    *(f32 *)((u8 *)arg0 + 0xA8) = (f32) (*(f32 *)((u8 *)temp_s0 + 8) + (*(f32 *)((u8 *)temp_s0 + 0x10) * sp24));
-    *(f32 *)((u8 *)temp_s0 + 4) = temp_ft3;
-    *(f32 *)((u8 *)temp_s0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x18) + (*(f32 *)((u8 *)temp_s0 + 0x20) * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x1C) + (*(f32 *)((u8 *)temp_s0 + 0x24) * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0 + 0x18) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 0x18));
-    *(f32 *)((u8 *)temp_s0 + 0x1C) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 0x1C));
+    first = func_15047D60(*(f32 *)(arg0 + 0xC0));
+    state = (f32 *)(arg0 + 0xA8);
+    second = func_15047D60(state[7]);
+    state[0] = state[2] + state[4] * first;
+    state[1] = state[3] + state[5] * second;
+    state[6] += state[8] * D_800BE9A4;
+    state[7] += state[9] * D_800BE9A4;
+    state[6] = func_15144B68(state[6]);
+    state[7] = func_15144B68(state[7]);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151025F4 */

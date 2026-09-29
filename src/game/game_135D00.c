@@ -9,7 +9,6 @@
  * - func_15108AB4
  * - func_15108B80
  * - func_15108BC0
- * - func_15108C38
  * - func_15108D24
  * - func_15108E10
  * - func_15109064
@@ -98,30 +97,27 @@ extern f32 D_800A2484;
 extern f32 D_800A2488;
 extern f32 D_800A248C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108C38 CURRENT (1339) */
 s32 func_15108C38(u8 *arg0) {
     u8 *temp_s0;
-    u8 *temp_s0_2;
 
-    temp_s0 = (void *)(arg0 + *(s32 *)((u8 *)arg0 + 0x50));
-    temp_s0_2 = (void *)(temp_s0 + 0xF8);
-    *(f32 *)((u8 *)temp_s0_2 + 8) = (f32) (*(f32 *)((u8 *)temp_s0 + 0x100) + (D_800A2480 * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0_2 + 0xC) = (f32) (*(f32 *)((u8 *)temp_s0_2 + 0xC) + (D_800A2484 * D_800BE9A4));
-    *(f32 *)((u8 *)temp_s0_2 + 8) = func_15144B68(*(f32 *)((u8 *)temp_s0_2 + 8));
-    *(f32 *)((u8 *)temp_s0_2 + 0xC) = func_15144B68(*(f32 *)((u8 *)temp_s0_2 + 0xC));
-    *(f32 *)((u8 *)temp_s0 + 0xF8) = (f32) (func_15047D60(*(f32 *)((u8 *)temp_s0_2 + 8)) * D_800A2488);
-    *(f32 *)((u8 *)temp_s0_2 + 4) = (f32) (func_15047D60(*(f32 *)((u8 *)temp_s0_2 + 0xC)) * D_800A248C);
+    temp_s0 = arg0;
+    temp_s0 += *(s32 *)(arg0 + 0x50);
+    temp_s0 += 0xF8;
+    *(f32 *)((u8 *)temp_s0 + 8) = (f32) (*(f32 *)((u8 *)temp_s0 + 8) + (D_800A2480 * D_800BE9A4));
+    *(f32 *)((u8 *)temp_s0 + 0xC) = (f32) (*(f32 *)((u8 *)temp_s0 + 0xC) + (D_800A2484 * D_800BE9A4));
+    *(f32 *)((u8 *)temp_s0 + 8) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 8));
+    *(f32 *)((u8 *)temp_s0 + 0xC) = func_15144B68(*(f32 *)((u8 *)temp_s0 + 0xC));
+    *(f32 *)((u8 *)temp_s0 + 0) = (f32) (func_15047D60(*(f32 *)((u8 *)temp_s0 + 8)) * D_800A2488);
+    *(f32 *)((u8 *)temp_s0 + 4) = (f32) (func_15047D60(*(f32 *)((u8 *)temp_s0 + 0xC)) * D_800A248C);
     func_15108B80(arg0);
     func_15108BC0(arg0);
-    if (*(u8 *)((u8 *)temp_s0_2 + 0x20) != 0) {
+    if (*(u8 *)((u8 *)temp_s0 + 0x20) != 0) {
         *(s8 *)((u8 *)arg0 + 0x12) = 4;
-        return 1;
+    } else {
+        *(s8 *)((u8 *)arg0 + 0x12) = 2;
     }
-    *(s8 *)((u8 *)arg0 + 0x12) = 2;
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15108C38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108C38.s")
 typedef struct Game135D00MatrixWork {
     f32 values[12];
     s32 pad_30;

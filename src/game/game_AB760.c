@@ -63,13 +63,11 @@ void func_1507E2B0(struct GameAB760State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E2B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E2B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 CURRENT (1296) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 CURRENT (757) */
 void func_1507E3C0(void *arg0) {
     s32 values[2];
     s32 *var_v1;
     s32 temp_t2;
-    s32 temp_v0_2;
-    u8 temp_t6;
     u8 temp_v0;
     u8 *var_a1;
     u8 *state;
@@ -80,20 +78,18 @@ void func_1507E3C0(void *arg0) {
     var_a1 = state;
     if ((temp_v0 == 0xF) || (temp_v0 == 0x46) || (temp_v0 == 0x4C)) {
         do {
-            temp_t6 = var_a1[0x6C];
-            *var_v1 = temp_t6;
-            if (temp_t6 >= 0xA) {
-                temp_v0_2 = temp_t6 - 0xA;
-                *var_v1 = temp_v0_2;
-                if (temp_v0_2 == 5) {
+            *var_v1 = var_a1[0x6C];
+            if (*var_v1 >= 0xA) {
+                *var_v1 -= 0xA;
+                if (*var_v1 == 5) {
                     *var_v1 = 0;
-                } else if (temp_v0_2 == 1) {
+                } else if (*var_v1 == 1) {
                     *var_v1 = 1;
                 } else {
                     *var_v1 = 2;
                 }
-            } else if (temp_t6 < 2) {
-                *var_v1 = temp_t6 + 1;
+            } else if (*var_v1 < 2) {
+                *var_v1 += 1;
             }
             var_v1++;
             var_a1++;

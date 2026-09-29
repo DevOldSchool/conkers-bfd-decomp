@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_150D8B3C
  * - func_150D8B88
- * - func_150D8E1C
  * - func_150D8E4C
  * - func_150D8FAC
  * - func_150D942C
@@ -64,21 +63,13 @@ void func_150D8D84(Game105FC0Vec3 *arg0, Game105FC0Vec3 *arg1, f32 arg2) {
     arg0->y += (sp4.y * arg2) + (D_800A0B50 * arg2 * arg2);
     arg0->z += sp4.z * arg2;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8E1C CURRENT (60) */
 void func_150D8E1C(void *arg0) {
-    u16 temp_t0;
-    u16 temp_t8;
-
     *(s8 *)((u8 *)arg0 + 0x30) = 0;
-    temp_t8 = *(u16 *)((u8 *)arg0 + 0x1E) & 0xFFFD;
-    temp_t0 = temp_t8 | 8;
-    *(volatile u16 *)((u8 *)arg0 + 0x1E) = temp_t8;
-    *(volatile u16 *)((u8 *)arg0 + 0x1E) = temp_t0;
-    *(volatile u16 *)((u8 *)arg0 + 0x1E) = (u16) (temp_t0 | 1);
+    *(u16 *)((u8 *)arg0 + 0x1E) &= 0xFFFD;
+    *(u16 *)((u8 *)arg0 + 0x1E) |= 8;
+    *(volatile u16 *)((u8 *)arg0 + 0x1E) = *(u16 *)((u8 *)arg0 + 0x1E) | 1;
     *(s16 *)((u8 *)arg0 + 0x1C) = 0x28;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D8E1C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8E1C.s")
 typedef struct Game105FC0Sub {
     u8 pad0[0x1AA];
     s16 count;

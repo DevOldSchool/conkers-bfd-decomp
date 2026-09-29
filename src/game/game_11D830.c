@@ -70,28 +70,27 @@ Game11D830AltInner *func_150F03E8(Game11D830AltObject *arg0) {
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 void func_1516972C(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F07E4 CURRENT (1472) */
-void func_150F07E4(void *arg0, void *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F07E4 CURRENT (10) */
+void func_150F07E4(void *arg0, void *arg1, u8 arg2) {
     s32 temp_a0;
-    s32 temp_t6;
     s32 temp_v1;
     void *temp_v0;
 
-    temp_t6 = arg2 & 0xFF;
     temp_v0 = *(void **)((u8 *)arg0 + 0x60);
-    if (temp_t6 == 0) {
-        if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)temp_v0 + 0)) || (*(u8 *)((u8 *)temp_v0 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C(arg0, (s32) arg1, (void *) temp_t6);
+    if (arg2 == 0) {
+        temp_v1 = *(s32 *)((u8 *)arg1 + 0);
+        if ((temp_v1 == *(s32 *)((u8 *)temp_v0 + 0)) || (*(u8 *)((u8 *)temp_v0 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0);
         }
-    } else if (temp_t6 == 0x2D) {
+    } else if (arg2 == 0x2D) {
         temp_a0 = *(s32 *)((u8 *)arg1 + 0);
         temp_v1 = *(s32 *)((u8 *)temp_v0 + 0);
         if (temp_a0 == temp_v1) {
-            *(s32 *)((u8 *)temp_v0 + 0) = (s32) *(u8 *)((u8 *)arg1 + 4);
+            *(s32 *)((u8 *)temp_v0 + 0) = *(s32 *)((u8 *)arg1 + 4);
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
             return;
         }
-        if ((s32) *(u8 *)((u8 *)arg1 + 4) == temp_v1) {
+        if (*(s32 *)((u8 *)arg1 + 4) == temp_v1) {
             *(s32 *)((u8 *)temp_v0 + 0) = temp_a0;
             *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
         }
@@ -101,31 +100,31 @@ void func_150F07E4(void *arg0, void *arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F07E4.s")
 /* Call context: func_1516972C: unique active declaration in the allowed source */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F088C CURRENT (1792) */
-void func_150F088C(u8 *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F088C CURRENT (230) */
+void func_150F088C(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a0;
-    s32 temp_t6;
     s32 temp_v1;
-    u8 *temp_v0;
+    struct { s32 object; u8 index; } *temp_v0;
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0) {
-        if ((*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0x170)) || (*(u8 *)((u8 *)(arg0 + 0x170) + 4) == *(u8 *)((u8 *)arg1 + 4))) {
-            func_1516972C(arg0, (s32) arg1, (void *) temp_t6);
+    if (arg2 == 0) {
+        temp_v0 = (void *)(arg0 + 0x170);
+        temp_v1 = *(s32 *)arg1;
+        if ((temp_v1 == temp_v0->object) || (temp_v0->index == *(u8 *)((u8 *)arg1 + 4))) {
+            func_1516972C(arg0);
         }
     } else {
         temp_v0 = (void *)(arg0 + 0x170);
-        if (temp_t6 == 0x2D) {
-            temp_a0 = *(s32 *)((u8 *)arg0 + 0x170);
+        if (arg2 == 0x2D) {
+            temp_a0 = temp_v0->object;
             temp_v1 = *(s32 *)((u8 *)arg1 + 0);
             if (temp_v1 == temp_a0) {
-                *(s32 *)((u8 *)arg0 + 0x170) = (s32) *(u8 *)((u8 *)arg1 + 4);
-                *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
+                temp_v0->object = *(s32 *)((u8 *)arg1 + 4);
+                temp_v0->index = (u8) *(u8 *)((u8 *)arg1 + 9);
                 return;
             }
-            if ((s32) *(u8 *)((u8 *)arg1 + 4) == temp_a0) {
-                *(s32 *)((u8 *)arg0 + 0x170) = temp_v1;
-                *(u8 *)((u8 *)temp_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
+            if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
+                temp_v0->object = temp_v1;
+                temp_v0->index = (u8) *(u8 *)((u8 *)arg1 + 8);
             }
         }
     }
@@ -180,35 +179,35 @@ s32 func_150F0E48(u8 *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0E48.s")
 void func_1516972C(u8 *);           /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1020 CURRENT (2723) */
-void *func_150F1020(u8 *arg0, u8 *arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F1020 CURRENT (1290) */
+void func_150F1020(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a0;
-    s32 temp_t6;
     s32 temp_v1;
-    u8 *var_v0;
+    struct { s32 object; u8 index; } *var_v0;
 
-    temp_t6 = arg2 & 0xFF;
-    if (temp_t6 == 0x2D) {
+    if (arg2 == 0x2D) {
         var_v0 = (void *)(arg0 + 0xA8);
-        temp_a0 = *(s32 *)((u8 *)arg0 + 0xA8);
-        temp_v1 = *(s32 *)((u8 *)arg1 + 0);
+        temp_a0 = var_v0->object;
+        temp_v1 = *(s32 *)arg1;
         if (temp_v1 == temp_a0) {
-            *(s32 *)((u8 *)arg0 + 0xA8) = (s32) *(s32 *)((u8 *)arg1 + 4);
-            *(u8 *)((u8 *)var_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 9);
-            return var_v0;
+            var_v0->object = *(s32 *)(arg1 + 4);
+            var_v0->index = arg1[9];
+            return;
         }
-        if (*(s32 *)((u8 *)arg1 + 4) == temp_a0) {
-            *(s32 *)((u8 *)arg0 + 0xA8) = temp_v1;
-            *(u8 *)((u8 *)var_v0 + 4) = (u8) *(u8 *)((u8 *)arg1 + 8);
-            return var_v0;
+        if (*(s32 *)(arg1 + 4) == temp_a0) {
+            var_v0->object = temp_v1;
+            var_v0->index = arg1[8];
         }
-        /* Duplicate return node #10. Try simplifying control flow for better match */
-        return var_v0;
+    } else {
+        var_v0 = (void *)(arg0 + 0xA8);
+        if ((arg2 != 0) && (arg2 != 0x43)) {
+            return;
+        }
+        temp_v1 = *(s32 *)arg1;
+        if ((temp_v1 == var_v0->object) || (var_v0->index == arg1[4])) {
+            func_1516972C(arg0);
+        }
     }
-    if (((temp_t6 == 0) || (var_v0 = arg0 + 0xA8, (temp_t6 == 0x43))) && ((var_v0 = arg0 + 0xA8, (*(s32 *)((u8 *)arg1 + 0) == *(s32 *)((u8 *)arg0 + 0xA8))) || (*(u8 *)((u8 *)var_v0 + 4) == (u8) *(s32 *)((u8 *)arg1 + 4)))) {
-        var_v0 = func_1516972C(arg0, temp_t6, arg0);
-    }
-    return var_v0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F1020 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F1020.s")

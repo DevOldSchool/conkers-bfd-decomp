@@ -33,7 +33,6 @@
  * - func_151CC1D4
  * - func_151CC2BC
  * - func_151CC524
- * - func_151CC77C
  * - func_151CC840
  * - func_151CCD1C
  * - func_151CCF08
@@ -58,29 +57,32 @@ void func_151C8674(void *arg0, s32 arg1) {
         func_151403A8(&sp18, 0x20, arg0);
     }
 }
-s32 func_151C87E0(s32, void *, s32, void *);
+s32 func_151C87E0(s32, void *);
 void func_151C899C();
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C86AC CURRENT (1931) */
-void func_151C86AC(void *arg0, void *arg1, s32 arg2) {
-    s32 temp_t6;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C86AC CURRENT (935) */
+void func_151C86AC(void *volatile arg0, void *arg1, u8 arg2) {
+    void *owner;
+    s32 owner_id;
     u8 temp_v1;
     u8 *temp_v0;
     u8 *temp_v0_2;
 
-    temp_t6 = arg2 & 0xFF;
-    switch (temp_t6) {
+    switch (arg2) {
     case 0x20:
-        temp_v0 = (u8 *)arg0 + 0x110;
+        owner = arg0;
+        temp_v0 = (u8 *)owner + 0x110;
         if ((temp_v0[0x86] & 0x10) &&
             (*(s32 *)(temp_v0 + 0x28) == *(s32 *)((u8 *)arg1 + 4)) &&
-            (func_151C87E0(*(s32 *)arg1, arg0, temp_t6, arg1) != 0)) {
+            (func_151C87E0(*(s32 *)arg1, owner) != 0)) {
             func_151C899C(*(s32 *)arg1, arg0);
         }
         return;
     case 0x3A:
-        temp_v0_2 = (u8 *)arg0 + 0x110;
-        if (*(s32 *)((u8 *)arg0 + 0x138) == *(s32 *)arg1) {
+        temp_v0_2 = arg0;
+        owner_id = *(s32 *)(temp_v0_2 + 0x138);
+        temp_v0_2 += 0x110;
+        if (owner_id == *(s32 *)arg1) {
             temp_v1 = *((u8 *)arg1 + 4);
             switch (temp_v1) {
             case 0:
@@ -113,8 +115,13 @@ void func_1507C3E0(void *, s16 *, s16 *, s16 *);
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
 s32 func_151451F0(void *, void *, s32, f32, f32, s32, s32, f32 *, f32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C87E0 CURRENT (5482) */
-s32 func_151C87E0(s32 arg0, void *arg1, s32 arg2, void *arg3) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C87E0 CURRENT (3348) */
+s32 func_151C87E0(s32 arg0, void *arg1) {
+    u8 *actor;
+    u8 *sight;
+    f32 ratio;
+    f32 sample;
+    f32 half;
     struct {
         f32 inverse;
         u8 pad44[2];
@@ -134,9 +141,6 @@ s32 func_151C87E0(s32 arg0, void *arg1, s32 arg2, void *arg3) {
         u8 padA4[4];
         f32 radius;
     } local;
-    u8 *actor;
-    u8 *sight;
-    f32 ratio;
 
     actor = (u8 *)arg0;
     sight = arg1;
@@ -146,12 +150,14 @@ s32 func_151C87E0(s32 arg0, void *arg1, s32 arg2, void *arg3) {
         local.radius = 50.0f;
     }
     func_1507C3E0(actor, &local.sample, &local.sample2, &local.sample3);
-    if ((f32)local.sample == 0.0f) {
+    sample = (f32)local.sample;
+    if (sample == 0.0f) {
         return 0;
     }
-    ratio = local.radius / ((f32)local.sample * 0.5f);
+    half = sample * 0.5f;
+    ratio = local.radius / half;
     local.start[0] = *(f32 *)(actor + 0x14);
-    local.start[1] = *(f32 *)(actor + 0x18) + ((f32)local.sample * 0.5f);
+    local.start[1] = *(f32 *)(actor + 0x18) + half;
     local.start[2] = *(f32 *)(actor + 0x1C);
     local.clipped[0] = *(f32 *)(sight + 0x34);
     local.clipped[1] = ((*(f32 *)(sight + 0x38) - local.start[1]) * ratio) + local.start[1];
@@ -737,30 +743,42 @@ s32 func_151CBC60(u8 *arg0) {
 extern f32 D_800AAEC0;
 extern s32 D_800C3958;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC1D4 CURRENT (2315) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC1D4 CURRENT (715) */
 f32 func_151CC1D4(void *arg0) {
-    u8 *state;
-    f32 lower;
+    struct State {
+        void *object;
+        u8 pad4[0x14];
+        f32 lower;
+        f32 upper;
+        u8 pad20[0x34];
+        s8 index;
+    };
+    struct State *state;
     f32 upper;
     f32 value;
+    f32 lower;
     void *object;
 
-    state = (u8 *)arg0 + 0x70;
-    lower = *(f32 *)(state + 0x18);
-    upper = *(f32 *)(state + 0x1C);
+    state = (struct State *)((u8 *)arg0 + 0x70);
     if (*(u8 *)((u8 *)arg0 + 0x7C) & 4) {
-        value = lower + ((upper - lower) *
-                         (*(f32 *)((u8 *)D_800C3958 +
-                                   (*(s8 *)(state + 0x54) * 0x44) + 0x28) * D_800AAEC0));
+        state = (struct State *)((u8 *)arg0 + 0x70);
+        upper = *(f32 *)((u8 *)D_800C3958 +
+                          (state->index * 0x44) + 0x28) * D_800AAEC0;
+        lower = state->lower;
+        value = lower + ((state->upper - lower) * upper);
     } else {
-        object = *(void **)state;
-        value = (*(f32 *)((u8 *)object + 0x19C) +
-                 *(f32 *)((u8 *)object + 0x1A0)) * 0.5f;
+        object = state->object;
+        value = (*(f32 *)((u8 *)object + 0x1A0) +
+                 *(f32 *)((u8 *)object + 0x19C)) * 0.5f;
+        lower = state->lower;
     }
     if (value < lower) {
         value = lower;
-    } else if (upper < value) {
-        value = upper;
+    } else {
+        upper = state->upper;
+        if (upper < value) {
+            value = upper;
+        }
     }
     return value;
 }
@@ -778,14 +796,14 @@ void func_15145974(void *, f32 *, f32 *);
 extern f32 D_800AAED4;
 extern f32 D_800AAED8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC77C CURRENT (512) */
 s32 func_151CC77C(void *arg0) {
-    f32 sp24;
-    f32 sp20;
     u8 *temp_a3;
     u8 *temp_v0;
     u8 *temp_v1;
     void *saved_arg0;
+    f32 sp24;
+    f32 sp20;
+    f32 scaled;
 
     saved_arg0 = arg0;
     temp_a3 = *(u8 **)((u8 *)arg0 + 0x70);
@@ -799,14 +817,14 @@ s32 func_151CC77C(void *arg0) {
     }
     func_15145974(temp_v0 + 0x130, &sp24, &sp20);
     if (*(u8 *)((u8 *)saved_arg0 + 0x20) == 0x9A) {
-        *(f32 *)((u8 *)saved_arg0 + 0x60) = 2.0f * -(sp24 * D_800AAED4 * 2560.0f);
-        return 1;
+        scaled = -(sp24 * D_800AAED4 * 2560.0f);
+        *(f32 *)((u8 *)saved_arg0 + 0x60) = 2.0f * scaled;
+    } else {
+        scaled = sp20 * D_800AAED8 * 2560.0f;
+        *(f32 *)((u8 *)saved_arg0 + 0x64) = 2.0f * scaled;
     }
-    *(f32 *)((u8 *)saved_arg0 + 0x64) = 2.0f * (sp20 * D_800AAED8 * 2560.0f);
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CC77C */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC77C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC840.s")
 typedef struct SightEffectPayload {
     void *owner;

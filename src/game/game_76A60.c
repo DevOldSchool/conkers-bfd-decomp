@@ -11,36 +11,39 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150495B0 CURRENT (1681) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150495B0 CURRENT (791) */
 void func_150495B0(f32 *arg0, f32 arg1, f32 *arg2, f32 arg3, f32 arg4, f32 arg5) {
-    f32 sp4;
-    f32 temp_ft2;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    f32 var_fv0;
-    f32 var_fv1;
+    f32 proposed;
+    f32 next;
+    f32 velocity;
+    f32 value;
+    f32 direction;
+    f32 change;
 
-    temp_fv0 = arg1 - *arg0;
-    if (temp_fv0 < 0.0f) {
-        var_fv1 = -1.0f;
+    value = arg1 - *arg0;
+    if (value < 0.0f) {
+        direction = -1.0f;
     } else {
-        var_fv1 = 1.0f;
+        direction = 1.0f;
     }
-    temp_ft5 = *arg2;
-    *arg2 = temp_ft5 + (((temp_fv0 * arg3) - temp_ft5) * arg4 * arg5);
-    temp_ft2 = (*arg2 * arg5) + *arg0;
-    sp4 = temp_ft2;
-    if (arg1 < temp_ft2) {
-        var_fv0 = -1.0f;
+    value *= arg3;
+    velocity = *arg2;
+    change = value - velocity;
+    change *= arg4;
+    *arg2 += change * arg5;
+    next = (*arg2 * arg5) + *arg0;
+    proposed = next;
+    if (arg1 < next) {
+        value = -1.0f;
     } else {
-        var_fv0 = 1.0f;
+        value = 1.0f;
     }
-    if (var_fv0 == var_fv1) {
-        *arg0 = sp4;
-        return;
+    if (value == direction) {
+        *arg0 = proposed;
+    } else {
+        *arg0 = arg1;
+        *arg2 = 0.0f;
     }
-    *arg0 = arg1;
-    *arg2 = 0.0f;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150495B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_76A60/func_150495B0.s")

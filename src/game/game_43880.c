@@ -18,12 +18,11 @@ typedef struct {
 s32 func_1502B7F0(s32 **, s32, s32, s32, s32);
 extern s32 *D_800D18B0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150163D0 CURRENT (640) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150163D0 CURRENT (455) */
 void func_150163D0(s32 arg0) {
     Game43880Record *base;
     Game43880Record *scan;
     s32 count;
-    s32 total;
     s32 i;
 
     if (func_1502B7F0(&D_800D18B0, 3, 0xC, arg0, 9) > 0) {
@@ -38,12 +37,8 @@ void func_150163D0(s32 arg0) {
             } while (scan->offset != 0);
             i = 0;
         }
-        total = count - 1;
-        if (total > 0) {
-            do {
-                ((Game43880Record *) D_800D18B0)[i].offset += (s32) D_800D18B0;
-                i++;
-            } while (i != total);
+        for (i = 0; i < count - 1; i++) {
+            ((Game43880Record *) D_800D18B0)[i].offset += (s32) D_800D18B0;
         }
     } else {
         D_800D18B0 = 0;

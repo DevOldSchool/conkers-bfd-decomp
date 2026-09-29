@@ -22,14 +22,13 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_100226F0(void *, s32, void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7950 CURRENT (725) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7950 CURRENT (445) */
 void *func_151A7950(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     u8 *result;
     u8 *data;
 
     result = func_15167A68(0x2D, arg3,
-                           (((*(s16 *)(arg0 + 2) << 2) -
-                             *(s16 *)(arg0 + 2)) << 3) + arg1 + 0x80,
+                           *(s16 *)(arg0 + 2) * 0x18U + arg1 + 0x80,
                            1, arg2, 1);
     if (result == 0) {
         return 0;
@@ -40,7 +39,7 @@ void *func_151A7950(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     *(f32 *)(result + 0x68) = 0.0f;
     *(u8 **)(result + 0x60) = *(u8 **)(result + 0x64) +
                               *(s16 *)(arg0 + 2) * 0x18;
-    *(f32 *)data = 0.0f;
+    *(f32 *)*(u8 **)(result + 0x64) = 0.0f;
     *(f32 *)(*(u8 **)(result + 0x64) + 4) = 0.0f;
     *(f32 *)(*(u8 **)(result + 0x64) + 8) = 0.0f;
     *(f32 *)(*(u8 **)(result + 0x64) + *(s16 *)(arg0 + 2) * 0x18 - 0x18) = 0.0f;

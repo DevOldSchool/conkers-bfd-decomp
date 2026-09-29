@@ -468,25 +468,22 @@ extern u8 *D_8008CA4C[];
 extern s32 D_800BE9E4;
 void func_1516972C(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168870 CURRENT (1275) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15168870 CURRENT (245) */
 void func_15168870(Game168870State *arg0) {
     s32 speed;
-    s32 progress;
     s32 maximum;
-    u16 flags;
-    u8 width;
+    s32 flags;
     Game168870Callback callback;
 
     speed = arg0->speed;
     if (speed != 0) {
-        width = D_8008CA4C[arg0->descriptor][4];
+        flags = D_8008CA4C[arg0->descriptor][4];
+        maximum = (flags << 8) - 1;
         arg0->progress = arg0->progress + speed * D_800BE9E4;
-        progress = arg0->progress;
-        maximum = (width << 8) - 1;
-        if (maximum < progress) {
+        if (maximum < arg0->progress) {
             flags = arg0->flags;
             if (flags & 0x40) {
-                arg0->progress = maximum - (progress % maximum);
+                arg0->progress = maximum - (arg0->progress % maximum);
                 arg0->speed = -speed;
             } else if (flags & 4) {
                 arg0->progress = -1;
@@ -495,10 +492,10 @@ void func_15168870(Game168870State *arg0) {
                     arg0->progress = arg0->progress - maximum;
                 } while (maximum < arg0->progress);
             }
-        } else if (progress < 0) {
+        } else if (arg0->progress < 0) {
             flags = arg0->flags;
             if (flags & 0x40) {
-                arg0->progress = -progress % maximum;
+                arg0->progress = -arg0->progress % maximum;
                 arg0->speed = -speed;
             } else if (flags & 4) {
                 arg0->progress = -1;
@@ -583,7 +580,6 @@ void func_15168B10(s32 arg0, s32 arg1) {
 void func_15168B44(void *arg0) {
     u16 temp_t2;
     u16 temp_t6;
-    s32 temp_t9;
     s32 temp_v1;
     u8 temp_a2;
 
@@ -591,10 +587,9 @@ void func_15168B44(void *arg0) {
     temp_t6 = temp_v1 & 0xFFFF;
     if (temp_t6 != 0) {
         temp_t6--;
-        temp_t9 = temp_v1 & 0xFFFF0000;
-        *(volatile s32 *)((u8 *)arg0 + 0x14) = temp_t9;
+        *(s32 *)((u8 *)arg0 + 0x14) = temp_v1 & 0xFFFF0000;
         *(s16 *)((u8 *)arg0 + 0x38) = 0x1E;
-        *(s32 *)((u8 *)arg0 + 0x14) = (s32) (temp_t9 | temp_t6);
+        *(volatile s32 *)((u8 *)arg0 + 0x14) = *(s32 *)((u8 *)arg0 + 0x14) | temp_t6;
         return;
     }
     temp_a2 = *(u8 *)((u8 *)arg0 + 0x3F);

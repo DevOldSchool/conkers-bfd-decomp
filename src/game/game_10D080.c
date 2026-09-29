@@ -51,12 +51,13 @@ extern f32 D_800A0FA8;
 extern f32 D_800A0FAC;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFCA8 CURRENT (190) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFCA8 CURRENT (10) */
 void func_150DFCA8(void *arg0) {
     f32 temp_fa0;
     f32 var_fv0;
 
-    *(f32 *)((u8 *)arg0 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) + (*(f32 *)((u8 *)arg0 + 0x64) * (f32) D_800BE9E4));
+    var_fv0 = *(f32 *)((u8 *)arg0 + 0x64) * (f32)D_800BE9E4;
+    *(f32 *)((u8 *)arg0 + 4) += var_fv0;
     temp_fa0 = *(f32 *)((u8 *)arg0 + 4);
     if (temp_fa0 < 11.0f) {
         var_fv0 = D_800A0FA0;

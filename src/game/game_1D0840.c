@@ -15,7 +15,6 @@
  * - func_151A4A38
  * - func_151A4CE0
  * - func_151A4D88
- * - func_151A4E9C
  * - func_151A4ECC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -473,20 +472,15 @@ s32 func_151A4E34(Game1D0840TransformRequest *arg0, f32 *arg1) {
     func_15143134(arg0->input, arg1, (s32)temp_v1 + (arg0->transformIndex << 6));
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4E9C CURRENT (35) */
 void func_151A4E9C(void *arg0) {
-    u8 temp_t0;
-    volatile u8 *temp_v0;
+    u8 *temp_v0;
 
     temp_v0 = *(u8 **)((u8 *)arg0 + 0x98);
     *(s8 *)((u8 *)arg0 + 0x30) = 0;
     *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) & 0xFFFD);
-    temp_t0 = temp_v0[0x30] | 1;
-    temp_v0[0x30] = temp_t0;
-    temp_v0[0x30] = (u8) (temp_t0 | 4);
+    temp_v0[0x30] |= 1;
+    ((volatile u8 *)temp_v0)[0x30] = temp_v0[0x30] | 4;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151A4E9C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4E9C.s")
 extern void *func_151A3504(void *arg0, u8 arg1);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4ECC CURRENT (426) */

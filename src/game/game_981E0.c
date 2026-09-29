@@ -485,30 +485,28 @@ void func_1506BCA0(void) {
 }
 s32 func_151EF610(u8 **);                           /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506BCC8 CURRENT (570) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506BCC8 CURRENT (10) */
 void func_1506BCC8(void) {
     f32 temp_fv0;
     f32 temp_fv0_2;
-    f32 var_ft1;
     u8 *temp_v1;
 
     temp_v1 = D_800D154C;
     if (*(s32 *)((u8 *)temp_v1 + 0) == 0x16) {
         if (*(f32 *)((u8 *)temp_v1 + 0x180) == *(f32 *)((u8 *)temp_v1 + 0x18)) {
             *(f32 *)((u8 *)D_800D154C + 0x20) = (f32) ((func_151EF610(&D_800D154C) % 8) + D_800D1580);
-            temp_fv0 = *(f32 *)((u8 *)D_800D154C + 0x3C);
-            if (temp_fv0 != 0.0f) {
-                var_ft1 = *(f32 *)((u8 *)D_800D154C + 0x20) * (temp_fv0 / 40.0f);
-                goto block_8;
+            temp_v1 = D_800D154C;
+            temp_fv0 = *(f32 *)(temp_v1 + 0x3C);
+            if (0.0f != temp_fv0) {
+                *(f32 *)(temp_v1 + 0x20) *= temp_fv0 / 40.0f;
+            } else {
+                *(f32 *)(temp_v1 + 0x20) = 0.0f;
             }
-            *(f32 *)((u8 *)D_800D154C + 0x20) = 0.0f;
         }
     } else {
         temp_fv0_2 = *(f32 *)((u8 *)temp_v1 + 0x18) - *(f32 *)((u8 *)temp_v1 + 0x180);
         if ((temp_fv0_2 > -5.0f) && (temp_fv0_2 < 5.0f)) {
-            var_ft1 = (f32) D_800D1580;
-block_8:
-            *(f32 *)((u8 *)temp_v1 + 0x20) = var_ft1;
+            *(f32 *)(temp_v1 + 0x20) = (f32) D_800D1580;
         }
     }
 }
@@ -739,13 +737,11 @@ extern u8 D_800CC335;
 extern s32 D_800CC5FC;
 extern s32 D_800D121C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506D958 CURRENT (610) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506D958 CURRENT (495) */
 void func_1506D958(void) {
-    volatile s32 *var_a1;
+    s32 *var_a1;
     s32 temp_t6;
     s32 temp_v0;
-    u8 temp_t1;
-    u8 temp_t2;
 
     temp_v0 = D_800D1580 & 0xFF;
     temp_t6 = ((s32)D_800D1580 >> 8) & 0xFF;
@@ -757,19 +753,17 @@ void func_1506D958(void) {
     var_a1 = &D_800CC5FC;
 loop_5:
         if ((*var_a1 != 0) &&
-            (temp_v0 == ((volatile u8 *)var_a1)[0xAB]) &&
-            ((D_800C3E78 + 1) == ((volatile u8 *)var_a1)[0x65])) {
-            temp_t2 = ((volatile u8 *)var_a1)[0x101] & 0xFFFE;
-            ((volatile u8 *)var_a1)[0x101] = temp_t2;
-            ((volatile u8 *)var_a1)[0x101] = temp_t2 | temp_t6;
+            (temp_v0 == ((u8 *)var_a1)[0xAB]) &&
+            ((D_800C3E78 + 1) == ((u8 *)var_a1)[0x65])) {
+            ((u8 *)var_a1)[0x101] &= 0xFFFE;
+            ((volatile u8 *)var_a1)[0x101] = ((u8 *)var_a1)[0x101] | temp_t6;
             return;
         }
-        if (*(volatile s32 *)((volatile u8 *)var_a1 + 0x32C) != 0 &&
-            (temp_v0 == ((volatile u8 *)var_a1)[0x3D7]) &&
-            ((D_800C3E78 + 1) == ((volatile u8 *)var_a1)[0x391])) {
-            temp_t1 = ((volatile u8 *)var_a1)[0x42D] & 0xFFFE;
-            ((volatile u8 *)var_a1)[0x42D] = temp_t1;
-            ((volatile u8 *)var_a1)[0x42D] = temp_t1 | temp_t6;
+        if (*(s32 *)((u8 *)var_a1 + 0x32C) != 0 &&
+            (temp_v0 == ((u8 *)var_a1)[0x3D7]) &&
+            ((D_800C3E78 + 1) == ((u8 *)var_a1)[0x391])) {
+            ((u8 *)var_a1)[0x42D] &= 0xFFFE;
+            ((volatile u8 *)var_a1)[0x42D] = ((u8 *)var_a1)[0x42D] | temp_t6;
             return;
         }
         var_a1 += 0x196;
@@ -1464,14 +1458,14 @@ void func_150E2EA4(s32, u8, u8, s32, f32, f32, f32, f32, f32, f32,
 f32 func_150ADA68(void);
 extern f32 D_80099EA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506FD30 CURRENT (366) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506FD30 CURRENT (20) */
 void func_1506FD30(s32 arg0) {
     register f32 random;
 
     random = func_150ADA68();
     arg0 = (s32)D_800D154C;
     func_150E2EA4(arg0, *(u8 *)(arg0 + 0x3B), 1, -1,
-                  0.0f, 0.0f, D_80099EA0, 0.0f, 0.0f, 414.0f,
+                  0.0f, 0, D_80099EA0, 0.0f, 0, 414.0f,
                   3, 3, 5, 20.0f, (random * 10.0f) + 40.0f,
                   1, 50.0f);
 }
@@ -2567,17 +2561,20 @@ void func_15073A28(void) {
 void func_1505D024(s32, s32, s32, s32);
 extern f32 D_8009A0D8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15073A50 CURRENT (645) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15073A50 CURRENT (520) */
 void func_15073A50(void) {
     s32 sp20;
     s32 temp_v0;
     void *sp18;
     void *temp_a0;
+    u8 *parent;
 
-    temp_a0 = (*(u8 *)((u8 *)D_800D154C + 0x124) * 0x32C) + &D_800CC2D0;
+    parent = D_800D154C;
+    temp_v0 = parent[0x124];
+    temp_a0 = temp_v0 * 0x32C + (u8 *)&D_800CC2D0;
     if (*(u8 *)((u8 *)temp_a0 + 0x65) != 0) {
         temp_v0 = D_800D1580;
-        *(s8 *)((u8 *)D_800D154C + 0x13C) = 0;
+        parent[0x13C] = 0;
         *(s8 *)((u8 *)temp_a0 + 0x125) = 0;
         sp18 = temp_a0;
         sp20 = temp_v0;

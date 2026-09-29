@@ -70,11 +70,17 @@ void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800A1BDC;
 extern u32 D_800A5480[3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F802C CURRENT (5496) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F802C CURRENT (1325) */
 void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
+    typedef struct { u32 words[3]; } Copy3;
     u8 packet[0x90];
     void *result;
 
+    *(void **)(packet + 0x7C) = arg0;
+    *(f32 *)(packet + 0x80) = arg0[0];
+    *(f32 *)(packet + 0x84) = arg0[1];
+    *(f32 *)(packet + 0x88) = arg0[2];
+    *(f32 *)(packet + 0x8C) = 0.0f;
     *(f32 *)(packet + 0x00) = 1.0f;
     *(f32 *)(packet + 0x04) = 1.0f;
     *(f32 *)(packet + 0x08) = D_800A1BDC;
@@ -91,9 +97,7 @@ void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
     *(f32 *)(packet + 0x34) = 0.0f;
     *(f32 *)(packet + 0x38) = 0.0f;
     *(f32 *)(packet + 0x3C) = 0.0f;
-    *(u32 *)(packet + 0x40) = D_800A5480[0];
-    *(u32 *)(packet + 0x44) = D_800A5480[1];
-    *(u32 *)(packet + 0x48) = D_800A5480[2];
+    *(Copy3 *)(packet + 0x40) = *(Copy3 *)D_800A5480;
     *(f32 *)(packet + 0x4C) = 0.0f;
     *(s32 *)(packet + 0x50) = 0x980;
     *(s16 *)(packet + 0x54) = arg1;
@@ -115,11 +119,6 @@ void func_150F802C(f32 *arg0, s16 arg1, u8 arg2, s32 arg3) {
     *(s16 *)(packet + 0x72) = 1;
     *(s16 *)(packet + 0x74) = 0xFF;
     *(s32 *)(packet + 0x78) = 0;
-    *(void **)(packet + 0x7C) = arg0;
-    *(f32 *)(packet + 0x80) = arg0[0];
-    *(f32 *)(packet + 0x84) = arg0[1];
-    *(f32 *)(packet + 0x88) = arg0[2];
-    *(f32 *)(packet + 0x8C) = 0.0f;
     result = func_1513264C(packet, 3, 0xFF, 0, 0xB4, arg2, arg3);
     if (result != 0) {
         func_10022EC0((u8 *)result + 0x170, packet + 0x7C, 0x14);

@@ -16,7 +16,6 @@
  * - func_1503ECA0
  * - func_1503EF4C
  * - func_1503EFC4
- * - func_1503F16C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -332,32 +331,25 @@ void func_1503F108(s32 arg0) {
 s32 func_1503EF4C(s32, s32, s32);
 extern s16 D_800C666C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503F16C CURRENT (310) */
 void func_1503F16C(s32 arg0) {
     u8 *entity;
-    s32 first_flags;
-    s32 second_flags;
 
     *(s16 *)((u8 *)&D_800C666C + arg0 * 0x10) = 0x12C;
     if (func_1503EF4C(2, 0, arg0) != 0) {
         entity = D_800CC2D0 + arg0 * 0x32C;
-        first_flags = *(s32 *)(entity + 0x94) | 0x40;
-        *(volatile s32 *)(entity + 0x94) = first_flags;
-        *(s32 *)(entity + 0x94) = first_flags & ~0x200;
+        *(s32 *)(entity + 0x94) |= 0x40;
+        *(volatile s32 *)(entity + 0x94) = *(s32 *)(entity + 0x94) & ~0x200;
     }
     if (func_1503EF4C(2, 1, arg0) != 0) {
         entity = D_800CC2D0 + arg0 * 0x32C;
-        second_flags = *(s32 *)(entity + 0x94) | 0x80;
-        *(volatile s32 *)(entity + 0x94) = second_flags;
-        *(s32 *)(entity + 0x94) = second_flags & ~0x100;
+        *(s32 *)(entity + 0x94) |= 0x80;
+        *(volatile s32 *)(entity + 0x94) = *(s32 *)(entity + 0x94) & ~0x100;
     }
     if (func_1503EF4C(2, 2, arg0) != 0) {
         entity = D_800CC2D0 + arg0 * 0x32C;
         *(s32 *)(entity + 0x94) &= ~0x400;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1503F16C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_6B320/func_1503F16C.s")
 void func_1503E260(s32);
 
 void func_1503F2B0(s32 arg0, s32 arg1) {

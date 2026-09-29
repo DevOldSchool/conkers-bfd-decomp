@@ -13,7 +13,6 @@
  * - func_151137D4
  * - func_15113C88
  * - func_15113E54
- * - func_151140C4
  * - func_15114188
  * - func_15114348
  * - func_1511473C
@@ -81,48 +80,28 @@ s32 func_15114050(Game13F9D0Entry *arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151140C4 CURRENT (305) */
 s32 func_151140C4(u8 *arg0) {
-    s32 temp_a0;
-    s32 temp_a0_2;
-    s32 temp_a0_3;
     s32 var_v1;
     u32 temp_v0;
+    u32 bits;
 
     var_v1 = 0;
     if (*(u8 *)((u8 *)arg0 + 0x4F) & 0x80) {
         temp_v0 = D_800DBF94[(s32) (arg0 - D_800DBEF4) / 160];
-loop_2:
-        temp_a0_3 = var_v1 + 1;
-        if (temp_v0 & (1 << var_v1)) {
-            return var_v1;
+        for (; var_v1 < 32; var_v1++) {
+            bits = temp_v0;
+            bits &= 1U << var_v1;
+            if (bits) {
+                return var_v1;
+            }
         }
-        if (temp_v0 & (1 << temp_a0_3)) {
-            return temp_a0_3;
-        }
-        temp_a0_2 = var_v1 + 2;
-        if (temp_v0 & (1 << temp_a0_2)) {
-            return temp_a0_2;
-        }
-        temp_a0 = var_v1 + 3;
-        var_v1 += 4;
-        if (temp_v0 & (1 << temp_a0)) {
-            return temp_a0;
-        }
-        if (var_v1 == 0x20) {
-            /* Duplicate return node #11. Try simplifying control flow for better match */
-            return 0;
-        }
-        goto loop_2;
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151140C4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151140C4.s")
 extern u8 D_800CC2D0;
 void func_1511473C(void *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (5805) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114188 CURRENT (700) */
 void func_15114188(void) {
     struct ActorSlot {
         u8 pad[0x127];
@@ -134,7 +113,8 @@ void func_15114188(void) {
     s32 actorOffset;
     s32 bit;
     u32 mask;
-    u8 *entryBase;
+    u32 *maskPointer;
+    u32 bitMask;
     u8 *entry;
     u8 *actor;
     void (*callback)(void *);
@@ -142,23 +122,24 @@ void func_15114188(void) {
     index = 0;
     offset = 0;
     if (D_800DBEF0 > 0) {
-        entryBase = (u8 *)D_800DBEF4;
         do {
-            mask = *(u32 *)((u8 *)&D_800DBF94 + offset);
+            maskPointer = (u32 *)((u8 *)D_800DBF94 + offset);
+            mask = *maskPointer;
             bit = 0;
             if (mask != 0) {
                 actorOffset = index * 0xA0;
                 if (mask != 0) {
                     do {
-                        if (mask & (1 << bit)) {
-                            *(u32 *)((u8 *)&D_800DBF94 + offset) = mask ^ (1 << bit);
+                        bitMask = 1U << bit;
+                        if (mask & bitMask) {
+                            *maskPointer = mask ^ bitMask;
                             entry = (u8 *)D_800DBEF4 + actorOffset;
                             callback = *(void (**)(void *))(entry + 0x78);
                             if (callback != 0) {
                                 actor = (u8 *)&((struct ActorSlot *)&D_800CC2D0)[bit];
                                 if (entry[0x92] != 0 || actor[0x127] != 0xFF) {
                                     ((void (*)(void *, void *, void *, void *))callback)(
-                                        (u8 *)D_800DBEF4 + actorOffset, actor,
+                                        (void *)(actorOffset + D_800DBEF4), actor,
                                         (void *)D_800DBEF4, (void *)callback);
                                     entry = (u8 *)D_800DBEF4 + actorOffset;
                                 }
@@ -173,11 +154,12 @@ void func_15114188(void) {
                         if (bit >= 0x19) {
                             break;
                         }
-                        mask = *(u32 *)((u8 *)&D_800DBF94 + offset);
+                        maskPointer = (u32 *)((u8 *)D_800DBF94 + offset);
+                        mask = *maskPointer;
                     } while (mask != 0);
                 }
                 entry = (u8 *)D_800DBEF4 + actorOffset;
-                entry[0x4F] &= 0x73;
+                entry[0x4F] &= 0xFF73;
             }
             index++;
             offset += 4;

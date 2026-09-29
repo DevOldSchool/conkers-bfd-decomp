@@ -138,7 +138,7 @@ s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
 s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
 s32 func_15095A90(s32, void *, f32, f32, f32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15095760 CURRENT (1543) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15095760 CURRENT (1523) */
 void *func_15095760(u8 *display, s16 *input) {
     f32 sp44;
     f32 sp40;
@@ -158,8 +158,8 @@ void *func_15095760(u8 *display, s16 *input) {
     record = (u8 *)(D_800BE628 + D_80082FA4 * 0x180 + D_800BE9C0 * 0x10);
     projection = sp3C / sp38;
     *(s32 *)(display + 4) =
-        ((s32)(((f32)*(s16 *)(record + 0x4C) +
-                projection * (f32)*(s16 *)(record + 0x44)) * 32.0f)) << 16;
+        ((s32)(((f32)*(s16 *)(record + 0x44) * projection +
+                (f32)*(s16 *)(record + 0x4C)) * 32.0f)) << 16;
     display += 8;
     return (void *)func_15095A90((s32)display, input, sp44, sp40,
                                  sp38, 1, 0, 0, 0);

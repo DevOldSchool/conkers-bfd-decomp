@@ -60,9 +60,8 @@ extern u8 D_800BEAC2;
 extern u8 D_800BEAC3;
 extern u8 D_800E0B94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8868 CURRENT (620) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8868 CURRENT (500) */
 void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
-    s32 *maxIndex;
     s32 index;
     s32 nextIndex;
     s32 bit;
@@ -77,35 +76,33 @@ void *func_151D8868(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
     if (D_800BEAC0 != 0 || D_800BEAC1 != 0 || D_800BEAC2 != 0 || D_800BEAC3 != 0) {
         return 0;
     }
-    maxIndex = &D_80082FA0;
     nextIndex = 0;
     index = 0;
-    if (*maxIndex >= 0) {
+    if (D_80082FA0 >= 0) {
         do {
             if (arg0[5] & (1 << index)) {
                 if (func_15181CC8(index) == 0 || func_1517EF00(index) != 0) {
                     return 0;
                 }
             }
-            nextIndex += 1;
-            index = nextIndex & 0xFF;
+            index = (nextIndex + 1) & 0xFF;
             nextIndex = index;
-        } while (*maxIndex >= index);
+        } while (D_80082FA0 >= index);
     }
     result = func_15167A68(0x3F, arg3, arg1 + 0x18, 1, arg2, 1);
     if (result == 0) {
         return 0;
     }
     func_10022EC0(result + 0xE, arg0, 8);
-    nextIndex = 0;
+    index = 0;
     bit = 0;
     do {
         if (result[0x13] & (1 << bit)) {
-            func_1501C010(nextIndex, arg0[4]);
+            func_1501C010(index, arg0[4]);
         }
-        nextIndex += 1;
-        bit = nextIndex & 0xFF;
-        nextIndex = bit;
+        index += 1;
+        bit = index & 0xFF;
+        index = bit;
     } while (bit < 4);
     result[0x16] = arg0[4];
     return result;
@@ -117,10 +114,10 @@ void func_1516972C(void *);
 extern void (*D_8008FCC0[])(void *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8A24 CURRENT (1267) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D8A24 CURRENT (276) */
 void func_151D8A24(void *arg0) {
     u8 sp23;
-    s32 var_s0;
+    u8 var_s0;
     s32 var_v0;
     s8 temp_v0;
 
@@ -141,11 +138,12 @@ void func_151D8A24(void *arg0) {
     if (*(u8 *)((u8 *)arg0 + 0x12) != *(u8 *)((u8 *)arg0 + 0x16)) {
         do {
             if (*(u8 *)((u8 *)arg0 + 0x13) & (1 << var_v0)) {
-                func_1501C17C(var_s0 & 0xFF);
-                func_1501C010(var_s0 & 0xFF,
+                func_1501C17C(var_s0);
+                func_1501C010(var_s0,
                               *(u8 *)((u8 *)arg0 + 0x12));
             }
-            var_v0 = (var_s0 + 1) & 0xFF;
+            var_s0 += 1;
+            var_v0 = var_s0 & 0xFF;
             var_s0 = var_v0;
         } while (var_v0 < 4);
         *(u8 *)((u8 *)arg0 + 0x16) = *(u8 *)((u8 *)arg0 + 0x12);

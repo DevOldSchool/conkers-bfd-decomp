@@ -68,7 +68,7 @@ void func_150EF860(void *arg0) {
     }
     func_1513CAA0(arg0);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EF910 CURRENT (2970) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EF910 CURRENT (2110) */
 void func_150EF910(u8 *arg0, u8 *arg1, u8 arg2) {
     s32 temp_a2;
     s32 temp_a2_2;
@@ -95,7 +95,7 @@ void func_150EF910(u8 *arg0, u8 *arg1, u8 arg2) {
         if (temp_v1 == temp_a2) {
             *(s32 *)temp_v0 = *(s32 *)(arg1 + 4);
             temp_v0[4] = arg1[9];
-        } else if ((s32)arg1[4] == temp_a2) {
+        } else if (*(s32 *)(arg1 + 4) == temp_a2) {
             *(s32 *)temp_v0 = temp_v1;
             temp_v0[4] = arg1[8];
         }
@@ -105,7 +105,7 @@ void func_150EF910(u8 *arg0, u8 *arg1, u8 arg2) {
             temp_v0[0xC] = arg1[9];
             return;
         }
-        if ((s32)arg1[4] == temp_a2_2) {
+        if (*(s32 *)(arg1 + 4) == temp_a2_2) {
             *(s32 *)(temp_v0 + 8) = *(s32 *)arg1;
             temp_v0[0xC] = arg1[8];
         }
