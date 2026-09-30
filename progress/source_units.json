@@ -19891,6 +19891,111 @@
         }
       },
       "source": "src/main/init_11FA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_audio_driver_sequence_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80008F90",
+        "func_800093CC",
+        "func_80009400",
+        "func_800095A0",
+        "func_800097CC",
+        "func_80009980",
+        "func_800099BC",
+        "func_80009B2C",
+        "func_80009B4C",
+        "func_80009B90",
+        "func_80009BE4",
+        "func_80009CBC",
+        "func_80009FFC",
+        "func_8000A03C",
+        "func_8000A348"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0xA420",
+          "start": "0x8F90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_8F90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_audio_driver_sequence_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_8000B1B0",
+        "func_8000B1FC",
+        "func_8000B294",
+        "func_8000B2F4",
+        "func_8000B3D4",
+        "func_8000B548",
+        "func_8000B638",
+        "func_8000B830",
+        "func_8000B8B8",
+        "func_8000BA18",
+        "func_8000BAFC",
+        "func_8000BBE8",
+        "func_8000BC28",
+        "func_8000BCBC",
+        "func_8000BF60",
+        "func_8000C350",
+        "func_8000C530",
+        "func_8000C7E8",
+        "func_8000C934",
+        "func_8000CA18",
+        "func_8000CAE4",
+        "func_8000CBA8",
+        "func_8000CBF0",
+        "func_8000CC54",
+        "func_8000CD40",
+        "func_8000CDA0",
+        "func_8000CEAC",
+        "func_8000D2F8",
+        "func_8000D758",
+        "func_8000D96C",
+        "func_8000DE1C",
+        "func_8000DEC4",
+        "func_8000DF68",
+        "func_8000E054",
+        "func_8000E0F8",
+        "func_8000E134",
+        "func_8000E17C",
+        "func_8000E2F4",
+        "func_8000E40C",
+        "func_8000E46C",
+        "func_8000E588",
+        "func_8000E654",
+        "func_8000E704",
+        "func_8000E75C",
+        "func_8000E770",
+        "func_8000E7A0",
+        "func_8000E8C4",
+        "func_8000E8F0",
+        "func_8000E934",
+        "func_8000EA94"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0xEB00",
+          "start": "0xB1B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_B1B0.c"
     }
   ]
 }

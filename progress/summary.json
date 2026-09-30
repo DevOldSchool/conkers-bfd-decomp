@@ -86,7 +86,7 @@
   "future_regions": [
     "eu"
   ],
-  "known_functions": 5271,
+  "known_functions": 5336,
   "mixed_source_units": 565,
   "overlays": {
     "game": {
@@ -94,7 +94,7 @@
       "target_matched": 2590
     },
     "main": {
-      "known_functions": 47,
+      "known_functions": 112,
       "target_matched": 5
     }
   },
@@ -105,13 +105,13 @@
       "in_progress": 0,
       "matched": 2595,
       "original_asm": 2,
-      "raw_asm": 2672
+      "raw_asm": 2737
     }
   },
   "schema_version": 1,
-  "source_units": 731,
+  "source_units": 733,
   "target_matched": 2595,
   "target_original_asm": 2,
-  "target_remaining": 2676,
+  "target_remaining": 2741,
   "unassigned_functions": 0
 }
