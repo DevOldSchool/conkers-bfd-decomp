@@ -159,6 +159,88 @@ void func_151671E8(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151671E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151671E8.s")
+typedef struct Game1944C0UpdateEntry {
+    u8 pad0[0xC];
+    void (*update)(struct Game1944C0Node *);
+    u8 pad10[0x24];
+} Game1944C0UpdateEntry;
+
+f32 func_15047D60(f32);
+f32 func_15047C00(f32);
+extern s32 D_80082FA0;
+extern void *D_800DBFF0;
+extern f32 D_800DD1D0[2];
+extern f32 D_800DD1D8[];
+extern f32 D_800DD1E8[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15167310 CURRENT (1435) */
+void func_15167310(void) {
+    s32 columnOffset;
+    struct Game1944C0Node *(*row)[104];
+    struct Game1944C0Node **next;
+    struct Game1944C0Node **head;
+    struct Game1944C0Node *initial;
+    struct Game1944C0Node *node;
+    f32 *cosines;
+    f32 *sines;
+    f32 angle;
+    f32 mainAngle;
+    f32 cosineValue;
+    s32 index;
+    s32 offset;
+    s32 column;
+    Game1944C0UpdateEntry *entry;
+
+    index = 0;
+    offset = 0;
+    if (D_80082FA0 + 1 > 0) {
+        sines = D_800DD1D8;
+        cosines = D_800DD1E8;
+        do {
+            angle = *(f32 *)((u8 *)D_800DBFF0 + offset + 0x3A0);
+            *sines = func_15047D60(angle);
+            cosineValue = func_15047C00(angle);
+            index++;
+            offset += 0x9A0;
+            sines++;
+            cosines++;
+            cosines[-1] = cosineValue;
+        } while (D_80082FA0 >= index);
+    }
+    mainAngle = *(f32 *)((u8 *)D_800DBFF0 + 0x3A0);
+    D_800DD1D0[0] = func_15047D60(mainAngle);
+    D_800DD1D0[1] = func_15047C00(mainAngle);
+    column = 0;
+    columnOffset = 0;
+    do {
+        row = D_800DCE50;
+        head = (struct Game1944C0Node **)((u8 *)D_800DCE50 + columnOffset);
+        do {
+            initial = *head;
+            if (initial != 0) {
+                entry = (Game1944C0UpdateEntry *)&D_8008B4A8 + column;
+                if (entry->update != 0) {
+                    node = initial;
+                    D_800DD190++;
+                    if (initial != 0) {
+                        next = &D_800DD198[D_800DD190];
+                        do {
+                            entry->update((*next = ((Game1944C0ProcessNode *)node)->next, node));
+                            next = &D_800DD198[D_800DD190];
+                            node = *next;
+                        } while (node != 0);
+                    }
+                    D_800DD190--;
+                }
+            }
+            row++;
+            head = (struct Game1944C0Node **)((u8 *)head + 0x1A0);
+        } while ((u8 *)row != (u8 *)&D_800DD190);
+        column++;
+        columnOffset += 4;
+    } while (column != 104);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15167310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_15167310.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_151674F8.s")
 typedef struct Game1944C0AllocatedEffect {

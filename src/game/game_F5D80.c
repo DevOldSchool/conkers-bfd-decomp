@@ -73,6 +73,83 @@ void *func_150C88D0(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C8A68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C8DB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C99B4.s")
+typedef struct GameF5D80Actor {
+    s32 active;
+    u8 kind;
+    u8 pad05[0xF];
+    f32 x;
+    u8 pad18[4];
+    f32 z;
+    u8 pad20[8];
+    f32 radius;
+    u8 pad2C[0x39];
+    u8 enabled65;
+    u8 pad66[0x14];
+    u16 sound;
+    u8 pad7C[0xD];
+    u8 state89;
+    u8 pad8A[0x9A];
+    u8 owner, disabled;
+    u8 pad126[0x16];
+    u8 mode13C;
+    u8 pad13D[0xDB];
+    s32 counter218;
+    u8 pad21C[0x16];
+    u8 state232;
+    u8 pad233[0xF9];
+} GameF5D80Actor;
+typedef struct GameF5D80Wave {
+    u8 pad00[0x10];
+    f32 x;
+    u8 pad14[4];
+    f32 z;
+    u8 pad1C[0x28];
+    f32 radius;
+} GameF5D80Wave;
+extern u8 D_800CC2D0[];
+extern u8 D_800D121C[];
+void func_1505D024(void *, s32, s32, s32);
+f32 sqrtf(f32);
+__pragma(1, sqrtf);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C9BDC CURRENT (1177) */
+void func_150C9BDC(GameF5D80Wave *arg0, s32 arg1) {
+    GameF5D80Actor *actor;
+    f32 dx, dz, adjusted, distance, delta;
+    s32 active;
+    s32 kind;
+
+    actor = (GameF5D80Actor *)D_800CC2D0;
+    do {
+        active = actor->active;
+        if ((active != 0) && (actor->radius < 20.0f) &&
+            (actor->disabled == 0) &&
+            (((kind = actor->kind) == 0x53) || (active == 1))) {
+            dx = actor->x - arg0->x;
+            dz = actor->z - arg0->z;
+            distance = sqrtf(dx * dx + dz * dz) - 100.0f;
+            adjusted = distance;
+            if ((kind == 0x53) && (actor->mode13C == 0)) {
+                adjusted = distance - 150.0f;
+            }
+            delta = arg0->radius - adjusted;
+            if ((delta >= 0.0f) && (delta < 250.0f)) {
+                if (kind == 0x53) {
+                    actor->state89 = 0xA;
+                    actor->counter218 = 0;
+                    actor->state232 = 0x13;
+                    if (D_800CC2D0[actor->owner * 0x32C + 0x65] != 0) {
+                        actor->state232 = 0x14;
+                    }
+                } else {
+                    func_1505D024(actor, 0x6000E, actor->sound, -1);
+                }
+            }
+        }
+        actor++;
+    } while (actor != (GameF5D80Actor *)D_800D121C);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C9BDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C9BDC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C9DC4.s")
 extern f32 D_800BE9A4;

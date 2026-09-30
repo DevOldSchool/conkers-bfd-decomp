@@ -12,7 +12,8 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_1502B7F0(s32 *, s32, s32, u8);
+/* Raw 1502B7F0 consumes count-selected word varargs and returns its size word. */
+u32 func_1502B7F0(s32 *, s32, ...);
 extern u8 D_800BE590;
 extern u16 D_800BE598[];
 extern s32 D_800BE5A8[];
@@ -70,4 +71,48 @@ void func_15016850(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15016850 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_43D00/func_15016850.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_43D00/func_150169A0.s")
+void *func_10003C40(s32, s32, s32, s32);
+void func_100226F0(void *, s32);
+extern s8 D_8008FD8C;
+extern u8 D_800D2101;
+extern void **D_800D2104;
+extern u8 *D_800D2108;
+typedef struct Game43D00Entry {
+    s32 offset;
+    s32 kind;
+} Game43D00Entry;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15017114 CURRENT (2230) */
+void func_15017114(s32 arg0) {
+    s32 data;
+    s32 index;
+    s32 byteCount;
+    u8 count;
+    Game43D00Entry *entry;
+
+    count = D_800D2100;
+    data = 0;
+    byteCount = count * 4;
+    D_800D2104 = func_10003C40(byteCount, 1, 0, 0);
+    D_800D2108 = func_10003C40(count, 1, 0, 0);
+    func_100226F0(D_800D2104, byteCount);
+    func_100226F0(D_800D2108, count);
+    for (index = 0; index < D_8008FD8C; index++) {
+        D_800D2104[index] = func_10003C40(0x10, 1, 2, 0);
+        func_100226F0(D_800D2104[index], 0x10);
+        D_800D2108[index] = 2;
+    }
+    if (func_1502B7F0(&data, 2, 0x10, arg0) != 0) {
+        index = D_800D2101;
+        while (index < D_800D2100) {
+            entry = (Game43D00Entry *)(data + index * 8 - D_800D2101 * 8);
+            if (entry->offset != 0) {
+                D_800D2108[index] = entry->kind;
+                D_800D2104[index] = (void *)(((Game43D00Entry *)(data + index * 8 - D_800D2101 * 8))->offset + data);
+            }
+            index++;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15017114 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_43D00/func_15017114.s")

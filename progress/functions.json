@@ -12990,6 +12990,12 @@
       "symbol": "func_151671E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1435,
+        "reason": "Isolated small-queue worker group3 source-only handoff; best candidate independently reproduced. See saved worker report for exact three-variant hypotheses, type-field proof and exhausted approaches; no new match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52071,6 +52077,12 @@
       "symbol": "func_151AE2BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5407,
+        "reason": "Typed owner/keyframe interpolation candidate5407; staged real old/interpolated vector arrays worsened7628. Broad frame/spill and FP scheduling mismatch remains. Existing private type offsets preserved. Initial candidate restored; stopped rather than spending last variant without narrow new evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56013,6 +56025,12 @@
       "symbol": "func_15147D64"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1090,
+        "reason": "Isolated small-queue worker group3 source-only handoff; best candidate independently reproduced. See saved worker report for exact three-variant hypotheses, type-field proof and exhausted approaches; no new match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58216,6 +58234,12 @@
       "symbol": "func_150C99B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1177,
+        "reason": "Three manual forms1302/1302/1177. Existing four-argument helper contract corrects stale-FPR m2c inference. Typed actor/wave fields recover math and frame; byte-address global view unchanged, word kind and actual float-local order improve. Global base CSE, register allocation and branch schedule remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61613,6 +61637,12 @@
       "symbol": "func_150169A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2230,
+        "reason": "Typed allocation/entry-loop candidate2230 after proving helper1502B7F0 varargs/size return from rawcallee. Separate byte selected index and local ordering worsened2686. First restored; frame/spill, count-copy lifetime and indexed-loop strength reduction differ. Stop after non-improving alternate rather than speculative register changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84494,6 +84524,12 @@
       "symbol": "func_1505250C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1392,
+        "reason": "Isolated small-queue worker group3 source-only handoff; best candidate independently reproduced. See saved worker report for exact three-variant hypotheses, type-field proof and exhausted approaches; no new match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

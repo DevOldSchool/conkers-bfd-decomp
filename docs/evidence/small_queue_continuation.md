@@ -100,3 +100,45 @@ at 493 and 3313, then deferred canonically. No match counts increase and there
 is no pending accepted-match batch. A complete incremental game/rodata check,
 progress and whitespace gates were run; no empty clean batch or redundant full
 test suite was run.
+
+
+## Third related group
+
+Six targets received 16 manual variants, with no new exact match. Two broad
+mismatches were stopped after a non-improving second shape instead of using the
+last permitted variant without a narrow new lead. All best candidates remain
+disabled and all original assembly remains active.
+
+| Target | Source | Scores | Retained evidence |
+| --- | --- | --- | --- |
+| `func_150C9BDC` | `game_F5D80.c` | 1302, 1302, 1177 | Existing four-GPR helper declarations correct m2c's stale-FPR argument inference; actor/wave fields recover math and frame. Global-base commoning and scalar allocation remain |
+| `func_151AE3A8` | `game_1D9F10.c` | 5407, 7628 | Existing private owner types gain observed motion fields without moving prior members. Staged old/interpolated vectors worsen the broad frame/FP mismatch; first form restored |
+| `func_15017114` | `game_43D00.c` | 2230, 2686 | Actual helper data flow proves a word-varargs and return-size contract; typed allocation/entry loops compile, but count lifetime, frame and index strength reduction differ |
+| `func_150E3020` | `game_1104D0.c` | 1725, 1195, 1090 | Existing private slot type is expanded with proven fields; four-slot grouping improves the constructor. Existing full-width arg13 declaration is retained |
+| `func_15167310` | `game_1944C0.c` | 1605, 1995, 1435 | Existing node types and real cached cosine/next-link lifetimes improve traversal. Frame and callback scheduling differ |
+| `func_151BEEE0` | `game_1EC390.c` | 1726, 1392, 1392 | Actual packet/selector objects recover exact frame and homes. Constructor ordering and an unqualified full-width arg7 reload remain |
+
+The `func_1502B7F0` annotation correction is source-local to `game_43D00.c`.
+Its original body (`reference/game/us/asm/2AAF0.s`, addresses
+`1502B7F0–1502B8DC`) walks an aligned word argument list beginning with a2,
+consumes the count passed in a1, writes the loaded pointer through a0, and
+returns its size/status word from SP+0x38 in v0 at `1502B8BC`. The earlier
+`void`/fixed narrow fourth-argument annotation concealed the target's v0 test.
+The existing completed `game_43B20.c` independently uses its `u32` return.
+The corrected local prototype is `u32 (s32 *, s32, ...)`; no shared header or
+callee body changed.
+
+One interpolation edit initially crossed into a neighboring saved candidate.
+The metadata guard rejected it before compilation; the neighbor was restored
+from the task's own pre-edit snapshot and the intended bounded function edit
+was reapplied. Both candidate shapes and that rejected attempt are retained in
+the proof ledger. A brief exec transport disconnect also recovered immediately;
+source changes and the workspace's birth time were intact, with no evidence of
+a filesystem reset.
+
+The integrator independently reproduced the worker's 1090, 1435 and 1392 scores
+and deferred them. Complete incremental US game-code and mapped-rodata equality
+passed in 8.640 seconds at 22:14:59 UTC, with progress and whitespace passing.
+There are no pending matched/regression IDs, no new matched bytes, and no empty
+clean batch or extra full test suite. The public/private checkpoint preserves
+all six candidates and their failed hypotheses before the next group.
