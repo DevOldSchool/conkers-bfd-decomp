@@ -24,7 +24,6 @@
  * - func_15169070
  * - func_15169260
  * - func_1516944C
- * - func_1516962C
  * - func_151696DC
  * - func_15169850
  *
@@ -738,20 +737,18 @@ void func_1516968C(void *, u8 *, u8);
 
 typedef struct Game1944C0TraversalEntry {
     u8 pad0[0x1C];
-    void (*callback)(Game1944C0Node *, s8 *, s32);
+    void (*callback)(Game1944C0Node *, s8 *, u8);
     u8 pad20[0x14];
 } Game1944C0TraversalEntry;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516944C CURRENT (2645) */
-void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516944C CURRENT (560) */
+void func_1516944C(s32 arg0, s8 *arg1, u8 arg2) {
     Game1944C0Node **row;
     Game1944C0Node **head;
     Game1944C0Node **slot;
     Game1944C0Node *node;
     Game1944C0TraversalEntry *entry;
-    s32 mode;
 
-    mode = arg2 & 0xFF;
     if (arg0 >= 0x68) {
         arg0 = 0x67;
     }
@@ -766,8 +763,8 @@ void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3) {
                 do {
                     slot = &D_800DD198[D_800DD190];
                     *slot = node->field_8;
-                    func_1516968C(node, (u8 *)arg1, mode);
-                    entry->callback(node, arg1, mode);
+                    func_1516968C(node, (u8 *)arg1, arg2);
+                    entry->callback(node, arg1, arg2);
                     slot = &D_800DD198[D_800DD190];
                     node = *slot;
                 } while (node != 0);
@@ -780,7 +777,7 @@ void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3) {
                 do {
                     slot = &D_800DD198[D_800DD190];
                     *slot = node->field_8;
-                    func_1516968C(node, (u8 *)arg1, mode);
+                    func_1516968C(node, (u8 *)arg1, arg2);
                     slot = &D_800DD198[D_800DD190];
                     node = *slot;
                 } while (node != 0);
@@ -789,7 +786,7 @@ void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3) {
         }
         row += 104;
         head += 104;
-    } while ((void *)row != (void *)&D_800DD190);
+    } while (row != (Game1944C0Node **)(D_800DCE50 + 2));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516944C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516944C.s")
@@ -801,18 +798,15 @@ void func_151695F0(void *arg0, u8 arg1) {
     func_15169040((s32) &descriptor, arg1);
 }
 /* Call context: func_1516944C: unique active project prototype */
-void func_1516944C(s32, s8 *, u8, u8);
+void func_1516944C(s32, s8 *, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516962C CURRENT (615) */
 void func_1516962C(s32 arg0, void *arg1, u8 arg2) {
     struct { void *object; u8 kind; } descriptor;
 
     descriptor.object = arg1;
     descriptor.kind = *(u8 *)((u8 *)arg1 + 0x3B);
-    ((void (*)(s32, s8 *, u8, void *)) func_1516944C)(arg0, (s8 *) &descriptor, arg2, arg1);
+    func_1516944C(arg0, (s8 *) &descriptor, arg2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516962C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1944C0/func_1516962C.s")
 extern s8 D_800D2DAB;
 void func_1516972C(u8 *arg0);
 

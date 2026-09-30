@@ -225,8 +225,10 @@ extern f32 D_800AA3A4;
 extern f32 D_800AA3A8;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3CF0 CURRENT (9877) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3CF0 CURRENT (10356) */
 s32 func_151B3CF0(u8 *arg0) {
     f32 sp80;
     f32 sp78;

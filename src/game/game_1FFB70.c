@@ -38,7 +38,7 @@ void func_151D2718(s16 arg0) {
         } while (var_v0 != 0);
     }
 }
-void func_1516972C(void);
+void func_1516972C(u8 *);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D275C CURRENT (115) */
@@ -65,7 +65,7 @@ void func_151D275C(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0x12) = (s16)(*(s16 *)((u8 *)arg0 + 0x12) - 0x100);
     }
     if ((*(s16 *)((u8 *)arg0 + 0xE) >= 0x12D) || (*(s16 *)((u8 *)arg0 + 0xE) < 0)) {
-        func_1516972C();
+        func_1516972C((u8 *)arg0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D275C */

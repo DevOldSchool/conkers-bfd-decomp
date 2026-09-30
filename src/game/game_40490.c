@@ -11,7 +11,6 @@
  * - func_150139AC
  * - func_15013DE8
  * - func_15014094
- * - func_150142EC
  * - func_150144B8
  * - func_1501474C
  * - func_15014B60
@@ -381,7 +380,54 @@ s32 func_150142AC(void *arg0) {
     D_800D9AA0[temp_v1] = arg0;
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150142EC.s")
+typedef struct Game40490ScaledPacket {
+    void *owner;
+    f32 scaledX;
+    f32 scaledY;
+    f32 x;
+    f32 y;
+    f32 zero;
+} Game40490ScaledPacket;
+
+f32 func_1514462C(void *);
+extern s32 D_80082FA0;
+extern f32 D_80096680;
+extern f32 D_80096684;
+
+s32 func_150142EC(Game40490CallbackState *arg0) {
+    Game40490ScaledPacket packet;
+    f32 factor;
+    f32 low0;
+    f32 high0;
+    f32 low1;
+    f32 high1;
+    u32 first;
+
+    arg0->flags |= 4;
+    if (D_80082FA0 >= 2) {
+        return 1;
+    }
+    if ((D_800D2E4C[0x11] & 4) && (D_800BE9F0 == 0x13)) {
+        return 1;
+    }
+    low0 = (f32)(arg0->callback_value & 0xFFFF) * D_80096680;
+    high0 = (f32)((arg0->callback_value >> 16) & 0xFFFF) * D_80096680;
+    first = *(u32 *)((u8 *)arg0 + 0x20);
+    low1 = (f32)(first & 0xFFFF) * D_80096680;
+    high1 = (f32)((first >> 16) & 0xFFFF) * D_80096680;
+    factor = func_1514462C(arg0);
+    packet.owner = arg0;
+    packet.scaledX = low0 * factor * D_80096684;
+    packet.scaledY = high0 * factor * D_80096684;
+    packet.x = low1;
+    packet.y = high1;
+    packet.zero = 0.0f;
+    first = func_15149130(0x12C, -1, 0x29, -1, 0, 0, 0x18, 0xFF, 0);
+    if (first != 0) {
+        func_10022EC0((void *)(first + 0x28), &packet, 0x18);
+    }
+    return 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150144B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501474C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014B60.s")

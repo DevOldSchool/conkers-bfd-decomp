@@ -52,11 +52,11 @@ void func_15192800(void *arg0, void *arg1) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151928B0 CURRENT (405) */
-s32 func_151928B0(Game1BFCB0Record *arg0, s32 *arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151928B0 CURRENT (265) */
+s32 func_151928B0(void *arg0, s32 *arg1) {
     s32 result = 0;
 
-    switch (arg0->field_4) {
+    switch (((Game1BFCB0Record *)arg0)->field_4) {
         case 0:
         case 1:
         case 2:

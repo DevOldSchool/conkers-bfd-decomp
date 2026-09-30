@@ -423,15 +423,15 @@ void func_15131C2C(void *arg0, s32 arg1, u8 arg2) {
 }
 /* Call context: func_151423D8: unique active project prototype */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131C84 CURRENT (530) */
-void func_15131C84(void *arg0, void *arg1, f32 arg2, void *arg3, f32 *arg4, f32 *arg5) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131C84 CURRENT (775) */
+void func_15131C84(s16 *arg0, s16 *arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5) {
     u8 temp_a0;
 
     temp_a0 = *(u8 *)((u8 *)arg0 + 0) + (*(s8 *)((u8 *)arg1 + 0) * D_800BE9E4);
     *(u8 *)((u8 *)arg0 + 0) = temp_a0;
     *(u8 *)((u8 *)arg0 + 1) = (u8) (*(u8 *)((u8 *)arg0 + 1) + (*(s8 *)((u8 *)arg1 + 1) * D_800BE9E4));
-    *arg4 = (func_151423D8((temp_a0 - 0x40) & 0xFF) * *(f32 *)((u8 *)arg3 + 0)) + arg2;
-    *arg5 = (func_151423D8((*(u8 *)((u8 *)arg0 + 1) - 0x40) & 0xFF) * *(f32 *)((u8 *)arg3 + 4)) + arg2;
+    *(f32 *)arg4 = (func_151423D8((temp_a0 - 0x40) & 0xFF) * *(f32 *)((u8 *)arg3 + 0)) + *(f32 *)&arg2;
+    *(f32 *)arg5 = (func_151423D8((*(u8 *)((u8 *)arg0 + 1) - 0x40) & 0xFF) * *(f32 *)((u8 *)arg3 + 4)) + *(f32 *)&arg2;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15131C84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131C84.s")

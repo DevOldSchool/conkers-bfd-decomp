@@ -5,6 +5,16 @@
  */
 SECTIONS
 {
+    /* ROM-verified constant: docs/evidence/game_11d830_float_constant.md. */
+    .game_rodata_11d830 0x800A1854 (INFO) : SUBALIGN(4)
+    {
+        *game_11D830.o(.rodata)
+    }
+    /* Reviewed tables: docs/evidence/game_1bc650_jump_tables.md. */
+    .game_rodata_1bc650 0x800A7B7C (INFO) : SUBALIGN(4)
+    {
+        *game_1BC650.o(.rodata)
+    }
     .game_rodata_61950 0x80097D1C (INFO) : SUBALIGN(4)
     {
         *game_61950.o(.rodata)
@@ -110,3 +120,11 @@ __game_rodata_15d730_payload_size = 0x44;
 
 ASSERT(SIZEOF(.game_rodata_a9d90) == 0x20, "game_A9D90 table extent changed")
 __game_rodata_a9d90_payload_size = 0x18;
+
+ASSERT(SIZEOF(.game_rodata_11d830) == 0x10,
+       "game_11D830 constant pool extent changed")
+__game_rodata_11d830_payload_size = 0x4;
+
+ASSERT(SIZEOF(.game_rodata_1bc650) == 0x250,
+       "game_1BC650 table extent changed")
+__game_rodata_1bc650_payload_size = 0x244;

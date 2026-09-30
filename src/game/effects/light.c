@@ -15,7 +15,6 @@
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
- * - func_151616D0
  * - func_15161804
  * - func_15161860
  * - func_151619A0
@@ -72,7 +71,7 @@ void func_15163CF8(s32 arg0, s32 arg1);
 void func_1514EDF0(s32 arg0, s32 arg1);
 void func_151617C4();
 void func_151617E4();
-void func_1516944C(s32 arg0, s8 *arg1, u8 arg2, u8 arg3);
+void func_1516944C(s32 arg0, s8 *arg1, u8 arg2);
 
 typedef struct LightEntry {
     s32 unk0;
@@ -661,16 +660,13 @@ void *func_151615F8(s32 arg0, u8 arg1, u8 arg2, u8 arg3, u8 arg4,
     return result;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151616D0 CURRENT (510) */
-void func_151616D0(s32 arg0, u8 arg1, s32 arg2) {
+void func_151616D0(u8 arg0, u8 arg1, s32 arg2) {
     LightCallData data;
 
     data.value = arg0;
     data.arg2 = arg2;
-    func_1516944C(0x35, (s8 *)&data, arg1, arg0);
+    func_1516944C(0x35, (s8 *)&data, arg1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151616D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151616D0.s")
 
 void func_15161714(void *arg0) {
     func_1514EDF0((s32)arg0, *(s32 *)((u8 *)arg0 + 0x18));

@@ -64,11 +64,12 @@ extern f32 D_800A8CE4;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519EF90 CURRENT (6001) */
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519EF90 CURRENT (2107) */
 s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
-    u16 *sp3C;
     u8 *sp38;
-    f32 sp2C;
     f32 sp28;
     u8 sp1F;
     f32 temp_fa0;
@@ -80,7 +81,6 @@ s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
     u8 *temp_v0;
     f32 var_fv0;
     u16 *temp_a3;
-    u8 temp_v0_2;
 
     temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0));
     sp38 = (void *)(temp_v0 + 0x58);
@@ -96,12 +96,9 @@ s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
         var_ft5 = temp_fa1 * temp_fv1;
         sp28 = temp_fa0 * temp_fv1;
     } else {
-        sp3C = temp_a3;
-        temp_v0_2 = func_15143E08(temp_a3);
-        sp1F = temp_v0_2;
-        sp2C = func_151423D8(temp_v0_2 & 0xFF);
-        var_ft5 = sp2C;
-        sp28 = func_151423D8((sp1F - 0x40) & 0xFF);
+        sp1F = func_15143E08(temp_a3);
+        var_ft5 = func_151423D8(sp1F & 0xFF);
+        sp28 = func_151423D8(sp1F - 0x40);
         var_ft4 = *(f32 *)((u8 *)temp_a3 + 0x14);
     }
     if (arg1 == 6) {

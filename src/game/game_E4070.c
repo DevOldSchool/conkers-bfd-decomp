@@ -103,19 +103,22 @@ extern s32 D_800D9898;
 extern s32 D_800D98A4;
 extern s8 D_800D9890;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (2720) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (70) */
 void func_150B6D34(void) {
     u8 *var_v1;
     void *temp_v0;
+    u32 end = (u32)&D_800D98A4;
 
     var_v1 = (u8 *) &D_800D9898;
-    do {
+loop:
         temp_v0 = *(void **)(var_v1 + 0x14);
         var_v1 += 4;
         if (temp_v0 != 0) {
             *(s32 *)((u8 *)temp_v0 + 0x20) = 1;
         }
-    } while (var_v1 != (u8 *) &D_800D98A4);
+    if ((u32)var_v1 != end) {
+        goto loop;
+    }
     D_800D9890 = 3;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6D34 */

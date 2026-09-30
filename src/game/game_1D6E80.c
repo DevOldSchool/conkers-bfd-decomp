@@ -24,7 +24,6 @@
  * - func_151AABC4
  * - func_151AADF8
  * - func_151AB090
- * - func_151AB180
  * - func_151AB1C4
  * - func_151AB2C4
  * - func_151AB3A4
@@ -668,20 +667,16 @@ s8 func_151AB090(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB090.s")
 extern void func_1513F6C0(void *arg0, s32 arg1, s32 arg2);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB180 CURRENT (100) */
 s32 func_151AB180(void *arg0) {
-    void *temp_v0;
+    u8 (*temp_v0)[0x58];
 
     temp_v0 = *(void **)((u8 *)arg0 + 0xB0);
-    *(s32 *)((u8 *)temp_v0 + 0x70) = 0;
+    *(s32 *)((++temp_v0)[0] + 0x18) = 0;
     *(void **)((u8 *)arg0 + 0xB0) = 0;
-    temp_v0 = (u8 *)temp_v0 + 0x58;
     *(s32 *)((u8 *)arg0 + 0x18) |= 2;
     func_1513F6C0(arg0, 0, 0);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151AB180 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AB180.s")
 extern f32 D_800A8FEC;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AB1C4 CURRENT (512) */

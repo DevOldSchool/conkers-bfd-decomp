@@ -13,16 +13,17 @@
 extern s32 D_800DD410;
 extern volatile s8 D_800DD418;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012780 */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15012780 CURRENT (30) */
 void func_15012780(void) {
+    u32 end = (u32)&D_800DD418;
     volatile s32 *current;
 
-    D_800DD418 = 0;
+    *(s8 *)&D_800DD418 = 0;
     current = &D_800DD410;
 loop:
     current++;
     current[-1] = 0;
-    if (current != (volatile s32 *)&D_800DD418) {
+    if ((u32)current != end) {
         goto loop;
     }
 }

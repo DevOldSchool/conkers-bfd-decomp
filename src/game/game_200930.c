@@ -590,7 +590,10 @@ extern f32 D_800AB244;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5A18 CURRENT (4979) */
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5A18 CURRENT (565) */
 void func_151D5A18(void *arg0, s32 arg1, void *arg2, void *arg3, void *arg4, s32 arg5, u8 arg6) {
     s32 sp44;
     s32 sp40;

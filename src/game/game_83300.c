@@ -593,73 +593,68 @@ extern f32 D_800994CC;
 extern f32 D_800994D0;
 extern u8 D_800CC27C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A3A8 CURRENT (3081) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A3A8 CURRENT (20) */
 void func_1505A3A8(f32 arg0, void *arg1, f32 arg2, f32 arg3, u8 arg4) {
-    f32 var_fa0;
-    f32 var_fa1;
     u8 temp_v0;
 
-    var_fa0 = arg0;
-    {
-        f32 var_fs0 = arg2 * D_800D1550;
-    var_fa1 = arg3 * D_800D1550;
+    arg3 *= D_800D1550;
+    arg2 *= D_800D1550;
     if ((D_800CC27C != 0) && (*(f32 *)((u8 *)arg1 + 0x28) < 5.0f) && (*(s32 *)((u8 *)arg1 + 0) != 0x1E)) {
-        var_fs0 = 0.0f;
+        arg2 = 0.0f;
     }
     if (*(s32 *)((u8 *)arg1 + 0) == 1) {
         if (*(u8 *)((u8 *)arg1 + 0xAD) != 0) {
-            var_fs0 = 2.0f;
-            var_fa1 *= D_800994C0;
+            arg3 *= D_800994C0;
+            arg2 = 2.0f;
         }
         if (*(u8 *)((u8 *)arg1 + 0xA8) != 0) {
-            var_fa1 *= 0.25f;
+            arg3 *= 0.25f;
         }
         temp_v0 = *(u8 *)((u8 *)arg1 + 0x81);
         if (temp_v0 != 0) {
             if (temp_v0 & 0x40) {
                 if (temp_v0 & 0x20) {
-                    var_fa1 = 0.0f;
+                    arg3 = 0.0f;
                 } else {
-                    var_fa1 = D_800994C4;
+                    arg3 = D_800994C4;
                 }
             } else {
-                var_fa1 *= D_800994C8;
+                arg3 *= D_800994C8;
                 if ((s32) arg4 >= 0x2E) {
-                    var_fs0 *= 0.5f;
+                    arg2 *= 0.5f;
                 }
                 if ((s32) arg4 >= 0x5B) {
-                    var_fa0 *= 0.5f;
+                    arg0 *= 0.5f;
                 }
             }
         }
         if (*(u8 *)((u8 *)arg1 + 0xAE) != 0) {
-            var_fa1 *= D_800994CC;
+            arg3 *= D_800994CC;
         }
     }
-    if (var_fa0 < 0.0f) {
+    if (arg0 < 0.0f) {
         if (*(f32 *)((u8 *)arg1 + 0x3C) > 0.0f) {
-            var_fa1 += var_fs0;
+            arg3 += arg2;
         } else {
-            var_fa1 = var_fs0;
+            arg3 = arg2;
         }
     } else if (*(f32 *)((u8 *)arg1 + 0x3C) < 0.0f) {
-        var_fs0 += var_fa1;
+        arg2 += arg3;
     }
-    if (var_fa0 < *(f32 *)((u8 *)arg1 + 0x3C)) {
-        *(f32 *)((u8 *)arg1 + 0x3C) = (f32) (*(f32 *)((u8 *)arg1 + 0x3C) - var_fa1);
-        if (*(f32 *)((u8 *)arg1 + 0x3C) < var_fa0) {
+    if (arg0 < *(f32 *)((u8 *)arg1 + 0x3C)) {
+        *(f32 *)((u8 *)arg1 + 0x3C) = (f32) (*(f32 *)((u8 *)arg1 + 0x3C) - arg3);
+        if (*(f32 *)((u8 *)arg1 + 0x3C) < arg0) {
             goto block_32;
         }
     } else {
-        if ((var_fa0 - 1.0f) < *(f32 *)((u8 *)arg1 + 0x3C)) {
-            var_fs0 *= D_800994D0;
+        if ((arg0 - 1.0f) < *(f32 *)((u8 *)arg1 + 0x3C)) {
+            arg2 *= D_800994D0;
         }
-        *(f32 *)((u8 *)arg1 + 0x3C) = (f32) (*(f32 *)((u8 *)arg1 + 0x3C) + var_fs0);
-        if (var_fa0 < *(f32 *)((u8 *)arg1 + 0x3C)) {
+        *(f32 *)((u8 *)arg1 + 0x3C) = (f32) (*(f32 *)((u8 *)arg1 + 0x3C) + arg2);
+        if (arg0 < *(f32 *)((u8 *)arg1 + 0x3C)) {
 block_32:
-            *(f32 *)((u8 *)arg1 + 0x3C) = var_fa0;
+            *(f32 *)((u8 *)arg1 + 0x3C) = arg0;
         }
-    }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505A3A8 */

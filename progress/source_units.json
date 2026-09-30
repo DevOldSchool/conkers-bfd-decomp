@@ -1833,15 +1833,15 @@
       "functions": [
         "func_150162B0"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x16370",
           "start": "0x162B0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_43760.c"
+      "source": "src/game/done/game_43760.c"
     },
     {
       "boundary_evidence": {
@@ -13598,15 +13598,15 @@
       "functions": [
         "func_150DF820"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xDF8C0",
           "start": "0xDF820",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_10CCD0.c"
+      "source": "src/game/done/game_10CCD0.c"
     },
     {
       "boundary_evidence": {

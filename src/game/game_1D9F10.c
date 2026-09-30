@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_owner_point_lifecycle.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151ACB38
  * - func_151ACB60
  * - func_151ACBD4
  * - func_151AD174
@@ -58,16 +57,16 @@ Game1D9F10Record *func_151ACA60(void *arg0, f32 arg1, s32 arg2) {
     *(s32 *)((u8 *)record + 0x14) = 0;
     return record;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB38 CURRENT (485) */
 s32 func_151ACB38(void *arg0, s8 *arg1) {
+    u8 result;
+
+    result = 0;
     if (*(u8 *)((u8 *)arg0 + 0x3B) == 1) {
-        *arg1 = 1;
-        return 1;
+        *(u8 *)arg1 = 1;
+        result = 1;
     }
-    return 0;
+    return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151ACB38 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D9F10/func_151ACB38.s")
 void func_151AE3A8(s32 arg0);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151ACB60 CURRENT (200) */

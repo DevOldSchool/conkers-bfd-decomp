@@ -462,15 +462,15 @@ s32 func_151339D4(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     *(f32 *)((u8 *)arg0 + 0x58) = (f32) (*(f32 *)((u8 *)arg0 + 0x58) * temp_fv0);
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133A50 CURRENT (45) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15133A50 CURRENT (20) */
 s32 func_15133A50(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
-    f32 sum = *(f32 *)((u8 *)arg0 + 0x10) + arg4;
+    arg4 = *(f32 *)((u8 *)arg0 + 0x10) + arg4;
     *(f32 *)((u8 *)arg0 + 0x44) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x48) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x4C) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x50) = 0.0f;
     *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x3C) = sum;
+    *(f32 *)((u8 *)arg0 + 0x3C) = arg4;
     *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
     return 1;
 }

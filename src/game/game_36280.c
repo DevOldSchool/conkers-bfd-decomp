@@ -13,15 +13,15 @@
 extern s32 D_800DD460;
 extern s32 D_800DD468;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15008DD0 */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15008DD0 CURRENT (30) */
 void func_15008DD0(void) {
-    s32 *end = &D_800DD468;
+    u32 end = (u32)&D_800DD468;
     s32 *current = &D_800DD460;
 
 loop:
     current++;
     current[-1] = 0;
-    if (current != end) {
+    if ((u32)current != end) {
         goto loop;
     }
 }

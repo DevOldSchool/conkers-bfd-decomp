@@ -20,7 +20,6 @@
  * - func_15031E7C
  * - func_15031FC8
  * - func_150331B8
- * - func_150335C8
  * - func_15033838
  * - func_15033BDC
  * - func_15033EC4
@@ -28,7 +27,70 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+void func_1510CE60(s32, s32, s32, s32, void *);
+void func_15168E54(s32, s32 *);
+s32 func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+extern u8 D_800DF7D0[];
+extern s32 D_800DF9B8[];
+extern s32 *D_800E0148[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FE10 CURRENT (1904) */
+s32 func_1502FE10(u8 arg0, void *arg1, void *arg2, void **arg3, void *arg4, s32 arg5, s32 arg6) {
+    u8 *savedCount;
+    s32 *allocated;
+    s32 *header;
+    s32 offset;
+    s32 index;
+    u32 count;
+    u8 *usage;
+    s32 *entry;
+
+    usage = &D_800DF7D0[arg0];
+    if (*usage == 0) {
+        savedCount = usage;
+        allocated = (s32 *)func_1502B6BC(0, 0, 0, 2, 9, arg0);
+        header = allocated;
+        if (allocated == 0) {
+            return 1;
+        }
+        index = 0;
+        offset = 0;
+        *(s32 *)arg1 = allocated[0];
+        count = (u32)allocated[1] >> 2;
+        *(u8 *)arg2 = count;
+        if ((s32)(count & 0xFF) > 0) {
+            do {
+                entry = (s32 *)(*(s32 *)arg1 + offset);
+                *entry += (s32)header;
+                func_1510CE60(*(s32 *)(*(s32 *)arg1 + offset), 0, 1, 0x3E, &D_800DF9B8[arg0]);
+                func_15168E54(*(s32 *)(*(s32 *)arg1 + offset), header);
+                index++;
+                offset += 4;
+            } while (index < *(u8 *)arg2);
+        }
+        D_800E0148[arg0] = header;
+        usage = savedCount;
+    } else {
+        header = D_800E0148[arg0];
+        *(s32 *)arg1 = header[0];
+        *(u8 *)arg2 = (u32)header[1] >> 2;
+    }
+    *usage += 1;
+    *arg3 = (u8 *)header + 0x18;
+    if (arg4 != 0) {
+        *(s32 *)arg4 = header[4];
+    }
+    if (arg5 != 0) {
+        *(s32 *)arg5 = header[2];
+        if (arg6 != 0) {
+            *(u32 *)arg6 = (u32)header[3] >> 4;
+        }
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502FE10 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_1502FE10.s")
+
 void *func_10003C40(s32, s32, s32, s32);
 void func_10004074(s32);
 void func_10023A10(void *, void *, s32);
@@ -760,7 +822,67 @@ s32 func_150334B8(u8 *arg0, void *arg1) {
     }
     return 0;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_150335C8.s")
+s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_15048B10(u8 *, void *);
+void func_150A7A48(void *, void *, void *);
+void func_150A9B0C(void *, f32, f32, s32, f32, f32, f32);
+void func_151EFEB8(void *, s32);
+s32 func_15083568(s32, s32, f32, s32);
+
+void *func_150335C8(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+    void *sp164;
+    u8 sp124[0x40];
+    f32 spE4[16];
+    f32 spA4[16];
+    u8 sp64[0x40];
+    f32 sp60;
+    f32 sp5C;
+    f32 sp58;
+    u32 sp54;
+    u32 sp50;
+    u32 sp4C;
+    f32 sp48;
+    f32 sp44;
+    f32 sp40;
+    f32 temp_fv0;
+    void *temp_v0;
+
+    if (*(s32 *)((u8 *)arg1 + 0x1D4) == 0) {
+        return 0;
+    }
+    temp_v0 = (void *)func_15083568((s32)arg1, arg2, 1.0f, 0);
+    sp164 = temp_v0;
+    if (temp_v0 != 0) {
+        *(s8 *)((u8 *)temp_v0 + 2) = (s8) arg3;
+        *(f32 *)((u8 *)temp_v0 + 0x40) = (f32) *(f32 *)((u8 *)arg0 + 0x14C);
+        if (arg4 != 0) {
+            *(u8 *)((u8 *)temp_v0 + 0x16) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x16) & 0xFFFB);
+        } else {
+            *(u8 *)((u8 *)temp_v0 + 0x16) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x16) | 4);
+        }
+        func_151EFEB8(sp124, *(s32 *)((u8 *)arg1 + 0x1D4) + (arg3 << 6));
+        func_15048B10(sp124, spE4);
+        temp_fv0 = *(f32 *)((u8 *)arg0 + 0x14C);
+        func_150A9B0C(spA4, *(f32 *)((u8 *)arg0 + 0xB8), *(f32 *)((u8 *)arg0 + 0x40), *(s32 *)((u8 *)arg0 + 0xC4), temp_fv0, *(f32 *)((u8 *)arg0 + 0x150), temp_fv0);
+        spA4[12] = *(f32 *)((u8 *)arg0 + 0x14);
+        spA4[13] = *(f32 *)((u8 *)arg0 + 0x18);
+        spA4[14] = *(f32 *)((u8 *)arg0 + 0x1C);
+        spA4[3] = 0.0f;
+        spA4[7] = 0.0f;
+        spA4[11] = 0.0f;
+        spA4[15] = 1.0f;
+        func_150A7A48(spA4, spE4, sp64);
+        func_1503E5F8(sp64, (s32) &sp60, (s32) &sp5C, (s32) &sp58, (s32) &sp48, (s32) &sp44, (s32) &sp40, (s32) &sp54, (s32) &sp50, (s32) &sp4C);
+        if (arg5 != 0) {
+            sp58 = 0.0f;
+            sp5C = 0.0f;
+            sp60 = 0.0f;
+        }
+        func_15030D54(sp164, sp60, sp5C, sp58, sp48, sp44, sp40);
+        return sp164;
+    }
+    return 0;
+}
 s32 func_1503378C(void *arg0, void *arg1) {
     u16 temp_v0;
 

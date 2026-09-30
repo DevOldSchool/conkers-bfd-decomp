@@ -785,22 +785,22 @@ s32 func_150888A8(s32 arg0, u8 arg1, s8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150888A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088A08.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15088D58.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088F30 CURRENT (2635) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15088F30 CURRENT (1423) */
 void func_15088F30(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
+    f32 x_delta;
+    f32 z_delta;
     f32 *var_t2;
     f32 *var_t3;
     f32 *var_t4;
-    f32 *var_v1;
-    s16 temp_a1_3;
+    u8 *var_v1;
     s32 var_t1;
     s32 var_v0;
-    u8 temp_a1;
-    u8 temp_a1_2;
+    s32 temp_a1;
     u8 *temp_a2;
     u8 *var_t0;
 
     var_v0 = 0;
-    var_v1 = arg0;
+    var_v1 = (u8 *)arg0;
     var_t2 = arg1;
     var_t3 = arg2;
     var_t4 = arg3;
@@ -809,29 +809,31 @@ void func_15088F30(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
         var_v1 += 1;
         if (temp_a1 != 0xFF) {
             var_t1 = 0;
-            temp_a2 = (void *)((temp_a1 * 0x10) + D_800D2350);
+            temp_a2 = (u8 *)((temp_a1 * 0x10) + (s32)D_800D2350);
             var_t0 = temp_a2;
             do {
-                temp_a1_2 = *(u8 *)((u8 *)(temp_a2 + var_t1) + 9);
-                if ((temp_a1_2 != 0xFF) && (*(u8 *)((u8 *)(D_800D2350 + (temp_a1_2 * 0x10)) + 0xE) == 4)) {
-                    var_t0 = (void *)((temp_a1_2 * 0x10) + D_800D2350);
+                temp_a1 = *(u8 *)((u8 *)(temp_a2 + var_t1) + 9);
+                if ((temp_a1 != 0xFF) && (*(u8 *)((u8 *)((s32)D_800D2350 + (temp_a1 * 0x10)) + 0xE) == 4)) {
+                    var_t0 = (u8 *)((temp_a1 * 0x10) + (s32)D_800D2350);
                     var_t1 = 5;
                 }
                 var_t1 += 1;
             } while (var_t1 < 5);
-            temp_a1_3 = *(s16 *)((u8 *)temp_a2 + 0);
-            *var_t2 = (f32) temp_a1_3 + ((f32) (*(s16 *)((u8 *)var_t0 + 0) - temp_a1_3) * *arg0);
+            temp_a1 = *(s16 *)((u8 *)temp_a2 + 0);
+            x_delta = (f32) (*(s16 *)((u8 *)var_t0 + 0) - temp_a1);
+            z_delta = (f32) (*(s16 *)((u8 *)var_t0 + 4) - *(s16 *)((u8 *)temp_a2 + 4));
+            *var_t2 = (x_delta * *arg0) + (f32) temp_a1;
             *var_t3 = (f32) *(s16 *)((u8 *)temp_a2 + 2);
-            *var_t4 = (f32) *(s16 *)((u8 *)temp_a2 + 4) + ((f32) (*(s16 *)((u8 *)var_t0 + 4) - *(s16 *)((u8 *)temp_a2 + 4)) * *arg0);
+            *var_t4 = (z_delta * *arg0) + (f32) *(s16 *)((u8 *)temp_a2 + 4);
         } else {
             *var_t2 = (f32) (var_v0 << 6);
             *var_t3 = 0.0f;
             *var_t4 = 0.0f;
         }
         var_v0 += 1;
-        var_t2 += 4;
-        var_t3 += 4;
-        var_t4 += 4;
+        var_t2++;
+        var_t3++;
+        var_t4++;
     } while (var_v0 != 4);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15088F30 */

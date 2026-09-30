@@ -39,8 +39,9 @@ void func_1505371C(void *arg0) {
 }
 void func_15062BDC(u8 *, f32, f32);
 f32 fabsf(f32);
+#pragma intrinsic(fabsf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15053750 CURRENT (6625) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15053750 CURRENT (1010) */
 void func_15053750(u8 *arg0) {
     f32 current;
     f32 previous;
@@ -56,9 +57,10 @@ void func_15053750(u8 *arg0) {
         if (fabsf(delta) < limit) {
             func_15062BDC(arg0, current, *(f32 *)(arg0 + 0x150));
         } else {
-            direction = 1;
             if (delta < 0.0f) {
                 direction = -1;
+            } else {
+                direction = 1;
             }
             func_15062BDC(arg0, (f32)direction * limit + previous,
                            *(f32 *)(arg0 + 0x150));
@@ -73,9 +75,10 @@ void func_15053750(u8 *arg0) {
             func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C), current);
             return;
         }
-        direction = 1;
         if (delta < 0.0f) {
             direction = -1;
+        } else {
+            direction = 1;
         }
         func_15062BDC(arg0, *(f32 *)(arg0 + 0x14C),
                        (f32)direction * limit + previous);

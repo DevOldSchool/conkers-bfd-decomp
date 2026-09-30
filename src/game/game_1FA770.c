@@ -12,16 +12,13 @@
  * - func_151CD7BC
  * - func_151CDB94
  * - func_151CDE20
- * - func_151CE47C
- * - func_151CE49C
- * - func_151CE4DC
  * - func_151CE51C
  * - func_151CE634
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-void func_151494E0(s32 *arg0, s32 arg1, s32 arg2);
+void func_151494E0(s32 arg0, u8 arg1);
 
 void func_10022EC0(void *, void *, s32);
 s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
@@ -58,7 +55,7 @@ void func_151CD35C(s32 arg0) {
 
     if ((arg0 >= 0) && (arg0 < 4)) {
         sp1C = arg0;
-        func_151494E0(&sp1C, 0x17, arg0);
+        func_151494E0((s32)&sp1C, 0x17);
     }
 }
 void func_151CD394(s32 arg0) {
@@ -66,7 +63,7 @@ void func_151CD394(s32 arg0) {
 
     if ((arg0 >= 0) && (arg0 < 4)) {
         sp1C = arg0;
-        func_151494E0(&sp1C, 0x18, arg0);
+        func_151494E0((s32)&sp1C, 0x18);
     }
 }
 typedef struct Game1FA770DispatchState {
@@ -438,41 +435,33 @@ struct Game1FA770Object {
     s8 field_30;
 };
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE47C CURRENT (35) */
 void func_151CE47C(Game1FA770Object *arg0) {
-    u16 flags;
-
     arg0->field_30 = 0;
-    flags = arg0->flags & 0xFFFD;
-    arg0->flags = flags;
-    arg0->flags = flags | 8;
+    *(u16 *)&arg0->flags &= 0xFFFD;
+    arg0->flags = *(u16 *)&arg0->flags | 8;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CE47C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CE47C.s")
 extern void func_151478F4(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE49C CURRENT (120) */
-void func_151CE49C(void *arg0, s32 arg1, s32 arg2) {
+void func_151CE49C(void *arg0) {
     s32 sp1C;
+    u8 *state;
 
-    sp1C = *(s32 *)((u8 *)*(void **)((u8 *)arg0 + 0x98) + 0x48);
-    func_151494E0(&sp1C, 0x23, arg2);
+    state = *(u8 **)((u8 *)arg0 + 0x98);
+    sp1C = *(s32 *)(state + 0x48);
+    func_151494E0((s32)&sp1C, 0x23);
     func_151478F4((s32) arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CE49C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CE49C.s")
 extern void func_15147928(s32 arg0);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CE4DC CURRENT (120) */
-void func_151CE4DC(void *arg0, s32 arg1, s32 arg2) {
+void func_151CE4DC(void *arg0) {
     s32 sp1C;
+    u8 *state;
 
-    sp1C = *(s32 *)((u8 *)*(void **)((u8 *)arg0 + 0x98) + 0x48);
-    func_151494E0(&sp1C, 0x23, arg2);
+    state = *(u8 **)((u8 *)arg0 + 0x98);
+    sp1C = *(s32 *)(state + 0x48);
+    func_151494E0((s32)&sp1C, 0x23);
     func_15147928((s32) arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151CE4DC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FA770/func_151CE4DC.s")
 typedef struct {
     f32 x;
     f32 y;

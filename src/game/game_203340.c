@@ -145,47 +145,45 @@ void *func_151D5E90(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D61B0 CURRENT (6796) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D61B0 CURRENT (90) */
 void func_151D61B0(void *arg0) {
-    s16 temp_t7;
-    s32 temp_t3;
-    s32 var_a2;
-    s32 var_t2;
-    u16 temp_t1;
-    u16 temp_t4;
-    u16 temp_t4_2;
-    u16 var_t0;
-    u16 var_t1;
-    u8 *temp_a3;
-    u8 *var_a0;
-    u8 *var_a1;
+    s32 height;
+    s32 width;
+    s32 y;
+    s32 x;
+    u16 red;
+    u16 green;
+    u16 blue;
+    u16 previous;
+    u16 current;
+    u16 next;
+    u16 *row;
+    u16 *cursor;
 
-    var_a1 = arg0;
-    var_a2 = 0;
-    if (D_800BE624 > 0) {
-        temp_t3 = D_800BE620 - 1;
-        do {
-            temp_a3 = (void *)(var_a1 + 2);
-            var_a0 = temp_a3;
-            var_t0 = *(u16 *)((u8 *)var_a1 + 2);
-            var_t1 = *(u16 *)((u8 *)var_a1 + 4);
-            var_t2 = 1;
-            if ((temp_t3 >= 2) && ((temp_t4 = var_t0, (((D_800BE620 - 2) & 1) == 0)) || (var_t0 = var_t1 & 0xFFFF, var_t1 = *(u16 *)((u8 *)temp_a3 + 4), var_t2 = 2, *(s16 *)((u8 *)temp_a3 + 2) = (s16) (((((((s32) var_t0 >> 0xB) & 0x1F) + (((s32) temp_t4 >> 0xC) & 0xF) + (((s32) var_t1 >> 0xC) & 0xF)) & 0x3E) << 0xA) | ((((((s32) var_t0 >> 6) & 0x1F) + (((s32) temp_t4 >> 7) & 0xF) + (((s32) var_t1 >> 7) & 0xF)) & 0x3E) << 5) | (((((s32) var_t0 >> 1) & 0x1F) + (((s32) temp_t4 >> 2) & 0xF) + (((s32) var_t1 >> 2) & 0xF)) & 0x3E) | 1), var_a0 = temp_a3 + 2, (temp_t3 != 2)))) {
-                do {
-                    temp_t1 = *(u16 *)((u8 *)var_a0 + 4);
-                    temp_t7 = ((((((s32) var_t1 >> 0xB) & 0x1F) + (((s32) var_t0 >> 0xC) & 0xF) + (((s32) temp_t1 >> 0xC) & 0xF)) & 0x3E) << 0xA) | ((((((s32) var_t1 >> 6) & 0x1F) + (((s32) var_t0 >> 7) & 0xF) + (((s32) temp_t1 >> 7) & 0xF)) & 0x3E) << 5) | (((((s32) var_t1 >> 1) & 0x1F) + (((s32) var_t0 >> 2) & 0xF) + (((s32) temp_t1 >> 2) & 0xF)) & 0x3E) | 1;
-                    temp_t4_2 = var_t1;
-                    var_t0 = temp_t1 & 0xFFFF;
-                    *(s16 *)((u8 *)var_a0 + 2) = temp_t7;
-                    var_t1 = *(u16 *)((u8 *)var_a0 + 6);
-                    var_t2 += 2;
-                    *(u16 *)((u8 *)var_a0 + 4) = (u16) (((((((s32) var_t0 >> 0xB) & 0x1F) + (((s32) temp_t4_2 >> 0xC) & 0xF) + (((s32) var_t1 >> 0xC) & 0xF)) & 0x3E) << 0xA) | ((((((s32) var_t0 >> 6) & 0x1F) + (((s32) temp_t4_2 >> 7) & 0xF) + (((s32) var_t1 >> 7) & 0xF)) & 0x3E) << 5) | (((((s32) var_t0 >> 1) & 0x1F) + (((s32) temp_t4_2 >> 2) & 0xF) + (((s32) var_t1 >> 2) & 0xF)) & 0x3E) | 1);
-                    var_a0 += 4;
-                } while (var_t2 != temp_t3);
-            }
-            var_a2 += 1;
-            var_a1 += D_800BE620 * 2;
-        } while (var_a2 != D_800BE624);
+    width = D_800BE620;
+    height = D_800BE624;
+    row = arg0;
+    for (y = 0; y < height; y++) {
+        cursor = row + 1;
+        current = row[1];
+        next = row[2];
+        for (x = 1; x < width - 1; x++) {
+            previous = current;
+            current = next;
+            next = cursor[2];
+            red = (current >> 11) & 31;
+            red += (previous >> 12) & 15;
+            red += (next >> 12) & 15;
+            green = (current >> 6) & 31;
+            green += (previous >> 7) & 15;
+            green += (next >> 7) & 15;
+            blue = (current >> 1) & 31;
+            blue += (previous >> 2) & 15;
+            blue = (blue + ((next >> 2) & 15)) & 0x3E;
+            cursor[1] = ((red & 0x3E) << 10) | ((green & 0x3E) << 5) | blue | 1;
+            cursor++;
+        }
+        row += width;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D61B0 */

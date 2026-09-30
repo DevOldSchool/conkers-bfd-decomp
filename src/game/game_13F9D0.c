@@ -429,7 +429,7 @@ extern s32 D_800DBF9C;
 extern s32 D_800DBFA0;
 extern s32 D_800DBFA4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114F44 CURRENT (750) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15114F44 CURRENT (880) */
 void func_15114F44(s32 arg0, s32 arg1, s32 arg2) {
     s32 *var_s4;
     s32 temp_a0;
@@ -443,21 +443,16 @@ void func_15114F44(s32 arg0, s32 arg1, s32 arg2) {
     if ((D_800BE9F0 == 0x12) || (D_800BE9F0 == 0x36) || (D_800BE9F0 == 0x13)) {
         var_s4 = &D_800DBE18;
         do {
-            var_s1 = 0;
             var_s0 = *var_s7;
-            if (*var_s4 > 0) {
-                do {
+            for (var_s1 = 0; var_s1 < *var_s4; var_s1++, var_s0 += 0xC) {
                     temp_v0 = *(s32 *)((u8 *)var_s0 + 0);
                     if (((temp_v0 & 0xF0000000) != 0x80000000) || (temp_v1 = *(s32 *)((u8 *)var_s0 + 4), ((temp_v1 & 0xF0000000) != 0x80000000)) || (temp_a0 = *(s32 *)((u8 *)var_s0 + 8), ((temp_a0 & 0xF0000000) != 0x80000000)) || (temp_v0 & 3) || (temp_v1 & 3) || (temp_a0 & 3)) {
                         D_8003C8E0 = 0x0C00005A;
                         func_150AD770();
                     }
-                    var_s1 += 1;
-                    var_s0 += 0xC;
-                } while (var_s1 < *var_s4);
             }
-            var_s4 += 4;
-            var_s7 += 4;
+            var_s4++;
+            var_s7++;
         } while (var_s4 != &D_800DBE20);
         D_800DBF9C = arg0;
         D_800DBFA0 = arg1;

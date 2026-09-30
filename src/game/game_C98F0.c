@@ -161,15 +161,15 @@ void func_1509C7C8(s32 arg0, s32 arg1, s32 arg2) {
 /* Call context: func_150221E8: unique active project prototype */
 void func_15022190(s16, s16, s16, f32);
 void func_150221E8(s16, s16, s16, f32);
-void *func_1505EEF4(s32, s32);                      /* extern */
+s32 *func_1505EEF4(s32);
 extern void *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C8FC CURRENT (331) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C8FC CURRENT (100) */
 void func_1509C8FC(s32 arg0, s32 arg1) {
     f32 var_fv0;
     void *temp_v0;
 
-    temp_v0 = func_1505EEF4(arg0 & 0xFFF, arg0);
+    temp_v0 = func_1505EEF4(arg0 & 0xFFF);
     if (temp_v0 != 0) {
         if (*(s32 *)((u8 *)D_800DBFF0 + 0x2C) & 0x100) {
             var_fv0 = *(f32 *)((u8 *)D_800DBFF0 + 0x760);
