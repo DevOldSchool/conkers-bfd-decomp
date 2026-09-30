@@ -54,3 +54,14 @@ preservation and progress tests remain in force.
 This change does not create a generic alternate-entry model, integrate mixed
 main source units, assign a historical SDK identity, or claim any new C match.
 Each handwritten group still needs its own complete boundary and entry evidence.
+
+## Cross-span main branch labels
+
+The first exception-family proof exposed a real retained-span boundary:
+`0x71D0` branches to `.L8000787C` inside its neighbouring span. The initial
+verifier correctly rejected that external symbol form. Main-only resolution
+now accepts exactly `.L` followed by eight hexadecimal address digits, and only
+when that address lies inside the independently validated CPU text interval.
+Suffixes, arbitrary names, nonzero undefined-symbol values and out-of-interval
+targets remain rejected. The actual assembled branch relocation still must
+produce the original ROM word. Game label handling is unchanged.

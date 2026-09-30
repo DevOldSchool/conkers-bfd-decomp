@@ -91,9 +91,15 @@ def verify(root: Path, entry: dict) -> dict:
         for name, value, _, section in table:
             if name and section == 0:
                 match = re.fullmatch(r"(?:D|func|jtbl)_([0-9A-Fa-f]{8})(?:_[A-Za-z0-9]+)?", name)
-                if match is None or value:
+                # Main handwritten spans may branch into a neighbouring retained
+                # span. Resolve only the disassembler's exact CPU-address label
+                # form; the actual linked branch still must equal the ROM word.
+                local = re.fullmatch(r"\.L([0-9A-Fa-f]{8})", name) if not game_reference else None
+                if local and not base <= int(local[1], 16) < base + len(code):
+                    raise ValueError(f"original assembly local target is outside main CPU text: {name}")
+                if (match is None and local is None) or value:
                     raise ValueError(f"unsupported original assembly external symbol: {name}")
-                symbols[name] = int(match[1], 16)
+                symbols[name] = int((match or local)[1], 16)
     payload = linked_aliases.linked_span(path, obj, symbol, start, size, symbols,
                                         output / "original", reference=True)
     if payload != expected:

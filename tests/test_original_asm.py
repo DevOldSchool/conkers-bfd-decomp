@@ -138,13 +138,23 @@ class OriginalAssemblyTests(unittest.TestCase):
             obj = root / "object.o"
             obj.write_bytes(b"mock object")
             ref = stack.enter_context(patch.object(diff, "reference_object", return_value=obj))
-            stack.enter_context(patch.object(original_asm, "Object32", return_value=SimpleNamespace(symbols={})))
+            parsed = SimpleNamespace(symbols={0: [(".L80008120", 0, 0, 0)]})
+            stack.enter_context(patch.object(original_asm, "Object32", return_value=parsed))
             link = stack.enter_context(patch.object(original_asm.linked_aliases, "linked_span", return_value=payload))
             evidence = original_asm.verify(root, entry)
             self.assertEqual(hashlib.sha256(payload).hexdigest(), evidence["span_sha256"])
             raw.assert_called_once_with("us", "func_test", game_reference=False)
             self.assertFalse(ref.call_args.kwargs["game_reference"])
             game.assert_not_called()
+            self.assertEqual({".L80008120": 0x80008120}, link.call_args.args[5])
+            for invalid in (".L80008124", ".L80008120_suffix", "other_symbol"):
+                parsed.symbols = {0: [(invalid, 0, 0, 0)]}
+                with self.assertRaisesRegex(ValueError, "outside main CPU|unsupported"):
+                    original_asm.verify(root, entry)
+            parsed.symbols = {0: [(".L80008120", 1, 0, 0)]}
+            with self.assertRaisesRegex(ValueError, "unsupported"):
+                original_asm.verify(root, entry)
+            parsed.symbols = {}
             proof = root / "proof.json"
             proof.write_text(json.dumps({"symbol": "func_test", "evidence": evidence}))
             self.assertEqual(evidence, original_asm.read_proof(root, entry, proof))
