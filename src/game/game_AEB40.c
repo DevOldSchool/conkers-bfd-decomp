@@ -161,6 +161,85 @@ void func_150832AC(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150832AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150832AC.s")
+typedef struct GameAEB40CommandState {
+    u8 pad00[0x94];
+    u32 flags;
+    u8 pad98[0x284];
+    u8 *nested;
+} GameAEB40CommandState;
+s32 func_15083568(s32, s32, f32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083384 CURRENT (265) */
+void func_15083384(GameAEB40CommandState *arg0, s32 arg1) {
+    s32 command = -1;
+    s32 group;
+
+    switch (arg1) {
+    case 37:
+    case 38:
+        if (arg0->nested != 0) {
+            arg0->nested[0x1B2] = 1;
+        }
+        break;
+    case 9:
+        arg0->flags |= 2;
+        break;
+    case 13:
+        command = 0x76;
+        break;
+    case 14:
+        command = 0x78;
+        break;
+    case 15:
+        command = 0x77;
+        arg0->flags |= 2;
+        break;
+    case 29:
+    case 30:
+    case 31:
+    case 32:
+        group = arg1 - 29;
+        arg0->flags = 0x1E;
+        if (group < 2) {
+            arg0->flags &= ~0x14;
+        } else {
+            arg0->flags &= ~8;
+        }
+        if (group >> 1) {
+            arg0->flags &= ~2;
+        }
+        break;
+    case 17:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 26:
+    case 27:
+    case 28:
+        group = (arg1 - 17) >> 2;
+        arg0->flags = 0x3E;
+        switch (group) {
+        case 0: arg0->flags &= ~4; break;
+        case 1: arg0->flags &= ~8; break;
+        case 2: arg0->flags &= ~0x10; break;
+        }
+        switch (arg1 - (group << 2) - 17) {
+        case 1: arg0->flags &= ~2; break;
+        case 2: arg0->flags &= ~0x20; break;
+        case 3: arg0->flags &= ~0x22; break;
+        }
+        break;
+    }
+    if (command != -1) {
+        func_15083568((s32)arg0, command, 0.0f, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15083384 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083384.s")
 typedef struct {
     u8 *entries;

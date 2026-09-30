@@ -300,6 +300,102 @@ void func_151B70B4(void *arg0, void *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B70B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B70B4.s")
+typedef struct Game1E37D0ParticleSpawn {
+    s32 code;
+    s32 zero4;
+    s16 texture;
+    s16 lifetime;
+    s32 zeroC;
+    s32 zero10;
+    u8 colors[8];
+    u8 alpha;
+    u8 kind;
+    s16 width;
+    s16 height;
+    s16 duration;
+    f32 scale;
+    f32 sizeX;
+    f32 sizeY;
+    f32 position[3];
+    f32 velocity[3];
+    f32 acceleration[3];
+    f32 zero54;
+    u32 flags;
+    s32 field5C;
+    s8 mode0;
+    s8 mode1;
+    s8 negative0;
+    s8 negative1;
+    s8 negative2;
+    s8 zero65;
+} Game1E37D0ParticleSpawn;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_15130280(void *, u8, void *, s32, u8, s32);
+extern f32 D_800AA47C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7144 CURRENT (493) */
+void func_151B7144(u8 *arg0, s32 arg1, s32 arg2) {
+    f32 size;
+    s32 secondFlag;
+    Game1E37D0ParticleSpawn spawn;
+    s32 firstFlag;
+
+    spawn.kind = 0x29;
+    spawn.texture = 0xE03;
+    spawn.code = 0x200005;
+    spawn.zero4 = 0;
+    spawn.zeroC = 0;
+    spawn.zero10 = 0;
+    spawn.width = 0x12;
+    spawn.height = 0xE;
+    if (func_150ADA20() & 1) {
+        firstFlag = 0x40;
+    } else {
+        firstFlag = 0;
+    }
+    if (func_150ADA20() & 1) {
+        secondFlag = 0x80;
+    } else {
+        secondFlag = 0;
+    }
+    spawn.flags = secondFlag | 1 | firstFlag | 0xCE00 | 0x10000;
+    spawn.mode0 = 3;
+    spawn.mode1 = 3;
+    spawn.negative0 = -1;
+    spawn.negative1 = -1;
+    spawn.negative2 = -1;
+    spawn.zero65 = 0;
+    spawn.duration = 0x28;
+    spawn.colors[0] = 0xDD;
+    spawn.colors[1] = 0xD3;
+    spawn.colors[2] = 0xCD;
+    spawn.colors[3] = 0xFF;
+    spawn.colors[4] = 0x57;
+    spawn.colors[5] = 0x55;
+    spawn.colors[6] = 0x5A;
+    spawn.alpha = 0xFF;
+    spawn.zero54 = 0.0f;
+    spawn.scale = D_800AA47C;
+    spawn.position[0] = *(f32 *)(arg0 + 0x14);
+    spawn.position[1] = *(f32 *)(arg0 + 0x18);
+    spawn.position[2] = *(f32 *)(arg0 + 0x1C);
+    spawn.velocity[0] = 0.0f;
+    spawn.velocity[1] = 0.0f;
+    spawn.velocity[2] = 0.0f;
+    spawn.colors[7] = (func_150ADA20() % 56U) + 0xC8;
+    spawn.lifetime = (func_150ADA20() % 10U) + 0x1E;
+    size = func_150ADA68();
+    size = (size * 50.0f) + 89.0f;
+    spawn.acceleration[0] = 0.0f;
+    spawn.acceleration[1] = 0.0f;
+    spawn.sizeX = size;
+    spawn.sizeY = size;
+    spawn.acceleration[2] = 0.0f;
+    func_15130280(&spawn, 1, 0, 0, (u8)arg1, arg2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B7144 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7144.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E37D0/func_151B7328.s")
 typedef struct {

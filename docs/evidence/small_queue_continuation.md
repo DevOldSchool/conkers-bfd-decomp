@@ -67,3 +67,36 @@ and whitespace passing. This group adds **two batch-verified functions / 960
 bytes**, with no new complete source unit. The old switch is a regression only;
 all five disabled candidates add no matched bytes. Pending batch IDs were
 cleared only after this clean success.
+
+
+## Second related group
+
+The next group selected six targets. Five received 13 bounded manual source
+variants; none reached exact matching. One was left source-unchanged through
+the supported declaration-blocked transaction. The same warm isolated worker
+checkout was advanced to the first group's verified commit after preserving
+its local work, avoiding another full toolchain/input bootstrap.
+
+| Target | Source | Scores | Retained evidence |
+| --- | --- | --- | --- |
+| `func_15083384` | `game_AEB40.c` | 265, 265, 265 | m2c lacked its table; a checksum-ROM-backed manual 30-case reconstruction nearly matches, but the final flag-clear join is one instruction shorter. Natural, inverted-break and nested-switch forms emit the same code |
+| `func_151EB96C` | `game_215960.c` | 2512, 1812, 1254 | Per-branch fade clamps and byte opacity restore more control flow; frame/spill homes and remaining alpha/scalar scheduling differ |
+| `func_150BD954` | `game_E8C10.c` | 242 | First typed emission candidate matches all payload offsets and arithmetic; frame is eight bytes shorter and a full-width argument is loaded as a word rather than the raw byte. The known 24-byte primary packet does not justify padding; stopped early |
+| `func_151B7144` | `game_1E37D0.c` | 2363, 781, 493 | Known particle-helper contract and actual-local ordering recover frame and descriptor placement. Register allocation, flag spill and an unqualified byte-formal load remain |
+| `func_15037698` | `game_64120.c` | 4377, 4350, 3313 | Typed matrix/vector calculations, pointer/storage and return shapes improve the candidate; frame, parameters and FP/control-flow scheduling remain |
+
+`func_15107700` (`game_133190.c`) was not compiled. Its raw call passes an actor
+pointer in a0 to `func_15081690`, while the available active helper annotation
+starts with `f32`. The worker preserved that evidence and used `block-raw`, and
+the integrator reproduced the same supported transaction. Actual callee data
+flow could establish a safe source-local correction later; this is not proof
+that matching is impossible. Narrow target formals also lack qualifying
+existing declarations.
+
+All five best candidates remain disabled with the original ASM active. No
+shared header, linker mapping, compiler flag, assembly or verifier change was
+made for this group. The worker's two candidates were independently reproduced
+at 493 and 3313, then deferred canonically. No match counts increase and there
+is no pending accepted-match batch. A complete incremental game/rodata check,
+progress and whitespace gates were run; no empty clean batch or redundant full
+test suite was run.

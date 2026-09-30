@@ -33933,11 +33933,15 @@
       "symbol": "func_151076A4"
     },
     {
+      "blocked": {
+        "reason": "Required active func_15081690 prototype has leading f32 but raw target call passes actor pointer in a0; missing verified ABI blocks safe implementation. Target narrow formals also lack qualifying existing declaration; no C hypothesis tested.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 484,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15107700",
           "vram": "0x15107700"
         }
@@ -41665,6 +41669,12 @@
       "symbol": "func_150832AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 265,
+        "reason": "Manual ROM-backed switch reconstruction after m2c lacked table. All three source forms265: natural if, inverted early break and nested zero/default switch. One flag-clear join uses store delay slot instead of target extra store plus branch-delay load; resulting branch/table offsets differ. Natural first variant retained; no mapping or verifier change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42746,6 +42756,12 @@
       "symbol": "func_15036F34"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3313,
+        "reason": "Worker group2 candidate independently reproduced3313 after4377/4350/3313. Typed matrix/vector and helper-output shapes tested; remaining stack/register and branching differences. No padding/search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -43782,6 +43798,12 @@
       "symbol": "func_151EB930"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1254,
+        "reason": "Small-queue pass2512/1812/1254. Per-branch alpha clamps and byte-opacity restore control shape; remove redundant remaining temporary and reorder actual count local improve. Frame/spill-8, alpha expression scheduling and scalar allocation remain. Three variants exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81497,6 +81519,12 @@
       "symbol": "func_151B70B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 493,
+        "reason": "Worker group2 candidate independently reproduced493 after2363/781/493. Known particle helper contract, typed descriptor and real local organization recover frame/packet; registers, flag spill and unqualified byte-formal load remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -83583,6 +83611,12 @@
       "symbol": "func_150BD740"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 242,
+        "reason": "Initial typed emission record242. Every payload offset and arithmetic instruction matches; frame is8bytes shorter and final full-width argument is loaded asword versus raw byte. Existing primary packet confirms24byte extent; no invented padding or unsupported narrowed arg14. Stop early on formal-width lead.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
