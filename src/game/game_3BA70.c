@@ -170,6 +170,62 @@ void func_1500E890(void) {
     func_15008E10(0);
     func_15008E10(1);
 }
+typedef struct Game3BA70Descriptor {
+    s16 angle, field2, field4, field6;
+    f32 x, y, z;
+    f32 width, field18, depth;
+    f32 field20, field24, field28, field2C, field30, field34;
+    s16 field38, field3A;
+    f32 field3C, field40;
+    s16 field44, field46;
+    s32 field48, field4C;
+} Game3BA70Descriptor;
+
+void func_15189900(void *, u8);
+void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
+extern u8 D_1000EF40;
+extern s32 D_800B0E00, D_800B0E04, D_800902E8, D_800BE9F0;
+extern f32 D_80096210, D_80096214, D_80096218, D_8009621C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E8C0 CURRENT (1600) */
+void func_1500E8C0(void) {
+    Game3BA70Descriptor descriptor;
+    s16 index;
+
+    func_15195AA8(D_800B0E00, D_800902E8, 0, -1, 0, 0, 0, -6);
+    func_15195AA8(D_800B0E04, D_800902E8, 0, -1, 0, 1, 0, -6);
+    descriptor.field28 = D_80096210;
+    descriptor.field30 = 5.0f;
+    descriptor.field34 = 6.0f;
+    descriptor.field20 = 8.0f;
+    descriptor.field24 = 7.0f;
+    descriptor.field2C = descriptor.width = descriptor.field18 = 0.0f;
+    descriptor.field48 = 3;
+    descriptor.field4C = 2;
+    descriptor.angle = 0x34;
+    descriptor.field2 = 0x12;
+    descriptor.field4 = -0x28;
+    descriptor.field6 = 0xF;
+    descriptor.field38 = 0x9B;
+    descriptor.field3A = 0x64;
+    descriptor.field44 = 0x29;
+    descriptor.field46 = 0x29;
+    descriptor.z = 400.0f;
+    descriptor.field3C = D_80096214;
+    descriptor.field40 = D_80096218;
+    descriptor.x = 800.0f;
+    descriptor.y = D_8009621C;
+    descriptor.depth = 900.0f - descriptor.z;
+    func_15189900(&descriptor, 1);
+    if (D_800BE9F0 == 6) {
+        index = 0x34;
+    } else {
+        index = 7;
+    }
+    func_1000FA64(0x61F, index, 0, 0, 0x2EE0, 0x3E8, 0x190, &D_1000EF40, 0, 0, 0x48, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1500E8C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_3BA70/func_1500E8C0.s")
 /* Call context: func_15195AA8: unique active project prototype */
 void func_15195AA8(s32, s32, s32, s32, s32, s32, s32, s32);

@@ -6609,6 +6609,12 @@
       "symbol": "func_15011170"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1909,
+        "reason": "Timed pilot3 candidates4956->4956->1909. Natural helper-output workspace unchanged; cached angle scale and physical stores improve. Frame+8, packet stack offsets and initial FP scheduling remain. Trial cap reached; no further probes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -15921,6 +15927,12 @@
       "symbol": "func_1500E890"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1600,
+        "reason": "Timed pilot3 candidates2500->2217->1600. Reused80-byte descriptor, retained floating subtraction via field and grouped zero writes. Frame/layout slots agree; initialization scheduling and registers remain. Trial cap reached; no further probes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39408,6 +39420,12 @@
       "symbol": "func_1502BD84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4512,
+        "reason": "Actor-worker candidate4512 independently reproduced; bounded hypotheses exhausted; see timed workflow evidence",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39508,6 +39526,12 @@
       "symbol": "func_1502C608"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1493,
+        "reason": "Actor-worker candidate1493 independently reproduced; bounded hypotheses exhausted; see timed workflow evidence",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39584,6 +39608,12 @@
       "symbol": "func_1502D54C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1104,
+        "reason": "Actor-worker candidate1104 independently reproduced; bounded hypotheses exhausted; see timed workflow evidence",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81302,6 +81332,12 @@
       "symbol": "func_151C455C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Typed17-float emitter403->10->10; physical stores and staged RNG call recover every instruction except one commuted multiply operand. Swapping source operands unchanged. Best natural spelling retained; defer before timed workflow pilot, no permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

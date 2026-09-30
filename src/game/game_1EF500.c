@@ -603,4 +603,73 @@ s32 func_151C455C(s32 arg0, u8 *arg1, f32 arg2) {
     }
     return var_v1;
 }
+typedef struct Game1EF500TimedEmitter {
+    s16 *position;
+    s32 timer;
+    s32 minimumDelay;
+    s32 delayRange;
+    s16 minimumLife;
+    s16 lifeRange;
+    f32 base;
+    f32 jitter;
+    f32 field1C;
+    f32 field20;
+    f32 spread;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+} Game1EF500TimedEmitter;
+
+typedef struct Game1EF500TimedOwner {
+    u8 pad0;
+    u8 category;
+    u8 pad2[0xA];
+    u8 group;
+    u8 padD[0x1B];
+    Game1EF500TimedEmitter emitter;
+} Game1EF500TimedOwner;
+
+u8 *func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800AAA80;
+extern f32 D_800AAA84;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C4644 CURRENT (10) */
+void func_151C4644(Game1EF500TimedOwner *arg0) {
+    u8 *object;
+    f32 values[17];
+    f32 random;
+    Game1EF500TimedEmitter *emitter;
+
+    emitter = &arg0->emitter;
+    arg0->emitter.timer -= D_800BE9E4;
+    if (arg0->emitter.timer < 0) {
+        values[0] = emitter->field1C;
+        values[1] = emitter->field20;
+        values[2] = func_150ADA68() * emitter->spread;
+        values[3] = func_150ADA68() * emitter->spread;
+        values[4] = func_150ADA68() * D_800AAA80;
+        values[5] = func_150ADA68() * D_800AAA84;
+        values[6] = emitter->field28;
+        values[7] = emitter->field28;
+        values[8] = 0.0f;
+        random = func_150ADA68();
+        values[9] = random * emitter->jitter + emitter->base;
+        values[10] = 0.0f;
+        values[11] = emitter->position[0];
+        values[12] = emitter->position[1];
+        values[13] = emitter->position[2];
+        values[14] = emitter->field2C;
+        values[15] = emitter->field30;
+        values[16] = emitter->field34;
+        object = func_15149130((s16)((func_150ADA20() % (u32)(emitter->lifeRange + 1)) + emitter->minimumLife),
+                               -1, 0x2B, -1, 1, 0, 0x44, arg0->group, arg0->category);
+        if (object != 0) {
+            func_10022EC0(object + 0x28, values, 0x44);
+        }
+        emitter->timer = (func_150ADA20() % (u32)(emitter->delayRange + 1)) + emitter->minimumDelay;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C4644 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C4644.s")
