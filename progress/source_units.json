@@ -8823,7 +8823,7 @@
         "us": {
           "end": "0x42D50",
           "start": "0x415E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_6EA90.c"

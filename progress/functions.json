@@ -58316,8 +58316,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150415E0",
           "vram": "0x150415E0"
         }
@@ -58354,8 +58359,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 540,
-        "reason": "CURRENT (540): exact original best restored; one new natural suffix-loop probe regressed to3350 by introducing peel/pointer updates and did not recover normalized-character A1 move. Prior GPR approaches remain exhausted; no padding or register search.",
+        "current_score": 420,
+        "reason": "CURRENT (420): whole-table loop lets IDO reproduce the three peeled entries and four-way unroll; remains missing normalized-character A1 move with V0/A1 allocation and alias differences. Prior natural suffix-loop regressed to 3350; earlier GPR shapes exhausted. One new manual revision in cloud batch; no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

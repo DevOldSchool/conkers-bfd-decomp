@@ -19,6 +19,11 @@ SECTIONS
     {
         *game_61950.o(.rodata)
     }
+    /* Glyph switch and constants: docs/evidence/game_6ea90_glyph_rodata.md. */
+    .game_rodata_6ea90 0x80098AB0 (INFO) : SUBALIGN(4)
+    {
+        *game_6EA90.o(.rodata)
+    }
     /* ROM-verified floating constants used by the recovered effect helpers. */
     .game_rodata_1dc720 0x800A9DD4 (INFO) : SUBALIGN(4)
     {
@@ -102,6 +107,8 @@ __game_rodata_1bf090_payload_size = 0x44;
 __game_rodata_aeb40_payload_size = 0x114;
 ASSERT(SIZEOF(.game_rodata_61950) == 0x20,
        "game_61950 external rodata extent changed")
+ASSERT(SIZEOF(.game_rodata_6ea90) == 0x60,
+       "game_6EA90 glyph rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_1dc720) == 0x10,
        "game_1DC720 external rodata extent changed")
 ASSERT(SIZEOF(.game_rodata_1e2490) == 0x10,
