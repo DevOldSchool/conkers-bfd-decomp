@@ -4,7 +4,40 @@ The project builds Nintendo 64 library code from `lib/` separately from
 Conker-specific `src/` code. Stock SDK objects come from the pinned ultralib
 submodule, while verified Rare variants live in a bounded Rare source snapshot.
 
-## Reviewed code-boundary coverage
+## Current US mapping status
+
+The US game-overlay ownership map is complete: all 2,072,880 bytes are
+classified, with no raw `asm` or `hasm` subsegments. The canonical map contains
+714 reviewed source units covering 2,022,064 bytes, 38 library text placements
+covering 48,720 bytes, and one 2,096-byte text-resident data range. See the
+[mapping completion record](evidence/game_mapping_residual_frontier.md).
+These are reviewed working source families and section assignments, not a claim
+that every original filename or historical compilation unit has been recovered.
+
+Source ownership and matching C implementation are separate milestones. The
+current implementation counts are generated in [progress.md](progress.md);
+ASM-backed members inside reviewed source units do not represent missing
+boundaries.
+
+Main-executable review remains separate. Its CPU text map contains 33 raw
+navigation ranges totaling 65,456 bytes. Two already have
+[reviewed bootstrap boundaries](evidence/main_bootstrap_source_units.md),
+covering 1,280 bytes; the other 31 ranges total 64,176 bytes. Those ranges
+are leads, not proven original objects or a complete function inventory.
+They include the [64-byte zero tail](evidence/libultrare_us_continued_reconstruction.md)
+at `0x226B0:0x226F0`. The handwritten entry at `0x1000:0x1050` is separate.
+Main source units remain canonically raw until every member matches, because
+mixed C/ASM integration currently supports only the game overlay.
+
+The historical percentages below must not be used as the current boundary
+status. They use the existing progress denominators: the main range ends at
+`0x292F0`, including 544 bytes after the CPU/RSP boundary at `0x290D0`, while
+RSP archive text is excluded from the matched numerator. The game range also
+includes the 2,096-byte text-resident data allocation. A future percentage
+refresh should explicitly reconcile CPU-code coverage and section ownership;
+this documentation update does not change the progress calculation.
+
+## Historical boundary coverage: 2026-09-03
 
 As of the 2026-09-03 search, reviewed source-unit intervals plus exact archive
 text cover 1,589,056 of 2,237,392 tracked US code bytes (71.0227%). Another
@@ -18,8 +51,9 @@ text cover 1,589,056 of 2,237,392 tracked US code bytes (71.0227%). Another
 This is boundary coverage, not implementation completion. It merges the US
 intervals of the 491 source units with reviewed boundary evidence and the
 canonical maps' archive `.text` intervals, separately per overlay, so overlaps
-are counted once. The two unreviewed bootstrap units are excluded. Generic
-raw split points alone receive no reviewed-ownership credit. Initialized data,
+are counted once. The two bootstrap units, which were unreviewed at this
+snapshot, are excluded. Generic raw split points alone receive no
+reviewed-ownership credit. Initialized data,
 rodata, BSS, and assets are outside this code-byte denominator. The separate
 matched-code figure is 150,564 bytes (6.7294%); see generated
 [`progress.md`](progress.md).
