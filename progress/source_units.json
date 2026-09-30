@@ -19765,6 +19765,132 @@
         }
       },
       "source": "src/main/init_3BD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003C40",
+        "func_80003C6C",
+        "func_80004074",
+        "func_80004250",
+        "func_80004308",
+        "func_800043B4",
+        "func_8000440C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x4470",
+          "start": "0x3C40",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3C40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80004470",
+        "func_80004514",
+        "func_80004674",
+        "func_800046E4",
+        "func_8000480C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x49E0",
+          "start": "0x4470",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_4470.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800049E0",
+        "func_80004DB0",
+        "func_80004F00",
+        "func_80004FE0",
+        "func_80005020"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x50A0",
+          "start": "0x49E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_49E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80005570",
+        "func_800056A0",
+        "func_800057E0",
+        "func_80005948"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x5AB0",
+          "start": "0x5570",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_5570.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80011FA0",
+        "func_80011FB0",
+        "func_80011FDC",
+        "func_80011FEC",
+        "func_80012020"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x12560",
+          "start": "0x11FA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_11FA0.c"
     }
   ]
 }
