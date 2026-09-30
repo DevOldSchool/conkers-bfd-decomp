@@ -57,6 +57,87 @@ void func_15113180(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113218.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151135C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151137D4.s")
+s32 func_15022B08(s32, s32);
+s32 func_150859AC(s32, s32);
+void func_1516972C(u8 *);
+void *func_1510D970(s32, s32, s32, s32, s32);
+extern s32 D_80082FA0;
+extern u8 D_800C35EA;
+extern u8 D_800C3658;
+
+typedef struct Game13F9D0ActiveEntry {
+    u8 pad0[0x4C];
+    u8 enabled;
+    u8 pad4D[2];
+    u8 flags;
+    u8 pad50[0x20];
+    u8 state;
+    u8 pad71[0x1A];
+    u8 players[9];
+    u8 *callback;
+} Game13F9D0ActiveEntry;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113C88 CURRENT (2105) */
+void func_15113C88(void) {
+    s32 player;
+    s32 blocked;
+    s32 index;
+    s32 offset;
+    s32 active;
+    u8 *callback;
+    Game13F9D0ActiveEntry *entry;
+
+    index = 0;
+    offset = 0;
+    if (D_800DBEF0 > 0) {
+        do {
+            blocked = 0;
+            player = 0;
+            entry = (Game13F9D0ActiveEntry *)(offset + D_800DBEF4);
+            if (D_80082FA0 > 0) {
+                do {
+                    if ((func_150859AC((s16)player, 0) != 0) &&
+                        (entry->players[player] == 0)) {
+                        blocked = 1;
+                        break;
+                    }
+                    player++;
+                } while (player < D_80082FA0);
+            }
+            if (!(entry->state & 8) && (entry->enabled != 0) &&
+                ((entry->flags & 0x10) != 0x10) && (blocked == 0)) {
+                if ((D_800C3658 == 0) && (D_800C35EA == 1)) {
+                    if (func_15022B08(index, 0) != 0) {
+                        goto check_flags;
+                    }
+                    goto inactive;
+                }
+check_flags:
+                active = 1;
+                if (!(entry->flags & 1)) {
+                    goto inactive;
+                }
+            } else {
+inactive:
+                active = 0;
+            }
+            if (active != 0) {
+                if (entry->callback == 0) {
+                    entry->callback = func_1510D970(1, (s32)entry, 0, 1, 0);
+                }
+            } else {
+                callback = entry->callback;
+                if (callback != 0) {
+                    func_1516972C(callback);
+                    entry->callback = 0;
+                }
+            }
+            index++;
+            offset += 0xA0;
+        } while (index < D_800DBEF0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15113C88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113C88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113E54.s")
 

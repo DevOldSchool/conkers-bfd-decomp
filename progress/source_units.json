@@ -12510,7 +12510,7 @@
         "us": {
           "end": "0x14A6A0",
           "start": "0x149FD0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_177480.c"

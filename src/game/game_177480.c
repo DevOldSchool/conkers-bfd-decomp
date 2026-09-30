@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_table_runs.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15149FD0
  * - func_1514A19C
  * - func_1514A380
  * - func_1514A498
@@ -15,7 +14,57 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_15149FD0.s")
+void *func_10022EC0(void *, const void *, u32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+extern f32 D_800DD1D8[];
+extern f32 D_800DD1E8[];
+
+typedef struct Game177480Vertex {
+    s16 x, y, z, flag;
+    u8 other[8];
+} Game177480Vertex;
+
+typedef struct Game177480Owner {
+    u8 pad0[0x2C];
+    f32 scale;
+    f32 height;
+    f32 x, y, z;
+    u8 pad40[0x80];
+    u8 templateData[0x40];
+    u8 *buffers[1];
+} Game177480Owner;
+
+void *func_15149FD0(Game177480Owner *arg0, s16 arg1) {
+    Game177480Vertex *vertices;
+    void *result;
+    f32 offsetZ;
+    f32 offsetX;
+    u8 fresh;
+
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            func_10022EC0(arg0->buffers[arg1], arg0->templateData, 0x40);
+            func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->templateData, 0x40);
+        }
+    } else {
+        return 0;
+    }
+    offsetZ = D_800DD1D8[arg1] * arg0->scale;
+    offsetX = D_800DD1E8[arg1] * arg0->scale;
+    vertices[0].flag = 0;
+    vertices[1].flag = 0;
+    vertices[2].flag = 0;
+    vertices[3].flag = 0;
+    vertices[0].x = vertices[3].x = (s32)(arg0->x + offsetX);
+    vertices[0].y = vertices[1].y = (s32)arg0->y;
+    vertices[0].z = vertices[3].z = (s32)(arg0->z - offsetZ);
+    vertices[1].x = vertices[2].x = (s32)(arg0->x - offsetX);
+    vertices[2].y = vertices[3].y = (s32)(arg0->y + arg0->height);
+    vertices[1].z = vertices[2].z = (s32)(arg0->z + offsetZ);
+    return result;
+}
 u32 func_150ADA20();                                /* extern */
 f32 func_150ADA68();                                /* extern */
 extern f32 D_800A5794;

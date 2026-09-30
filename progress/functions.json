@@ -2207,6 +2207,12 @@
       "symbol": "func_1516284C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3909,
+        "reason": "Bounded manual recovery pass: typed light payload/descriptor packet preserves observed layout and full arguments. First candidate3909; stack layout exact but float scalar promotion, loads/store scheduling and compare chain differ. No speculative volatile, padding or permutations used; preserve typed candidate for fresh source-shape evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55774,6 +55780,12 @@
       "symbol": "func_15147A30"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 922,
+        "reason": "Bounded manual recovery pass: typed allocation and real 0x24-byte by-value packet copy. Initial source4025; precomputed size and reusing stored start pointer improved922; ternary allocator type1133. Preserved922 candidate; saved-register allocation and two control-flow rows remain. No padding, volatile or permutations added.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68675,8 +68687,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15149FD0",
           "vram": "0x15149FD0"
         }
@@ -74452,6 +74469,12 @@
       "symbol": "func_151137D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2105,
+        "reason": "Bounded manual recovery pass: typed 0x98-byte active-entry prefix and observed five-word callback contract. Ordinary combined if scored 2460; starter-like explicit branch labels improved to 2105; direct logical assignment worsened to 4814. Remaining differences are boolean/control-flow scheduling, 4 GPR rows, 7 operands and 12 extra/missing rows. Preserve best typed candidate; no exact match and no permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -76106,17 +76129,16 @@
       "symbol": "func_15149C58"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 208,
-        "reason": "Improved full-span US candidate from CURRENT (573) to CURRENT (208): reversed chained stores, direct f32 table indexing, and repeated actor scale load reduced register differences and frame from 0x58 to 0x50. Remaining 0x50 versus raw 0x48 frame shifts stack slots; removing offset_x restored the frame but duplicated calculations and regressed to CURRENT (1484). Preserved best pending new storage-shape evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 428,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15149D18",
           "vram": "0x15149D18"
         }

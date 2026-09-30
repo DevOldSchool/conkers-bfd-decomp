@@ -1003,6 +1003,74 @@ s32 func_1516284C(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516284C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516284C.s")
+extern f32 D_800A6880[];
+extern f32 D_800A6894[];
+extern f32 D_800A68A8[];
+extern f32 D_800A68BC[];
+extern f32 D_800A68D0[];
+extern f32 D_800A68E4[];
+
+typedef struct Light6295CPayload {
+    f32 values[9];
+    s8 phase;
+    s8 color[4];
+} Light6295CPayload;
+
+typedef struct Light6295CLocals {
+    Light6295CPayload payload;
+    GameLightDescriptor descriptor;
+    void *saved;
+} Light6295CLocals;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516295C CURRENT (3909) */
+void *func_1516295C(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s16 arg4,
+                   s8 arg5, s8 arg6, s8 arg7, s8 arg8, s8 arg9,
+                   s32 arg10, u8 arg11, s32 arg12) {
+    Light6295CLocals locals;
+    f32 width;
+    void *result;
+
+    if (arg1 >= 5) {
+        return 0;
+    }
+    locals.payload.values[0] = D_800A6880[arg1];
+    locals.payload.values[1] = D_800A6894[arg1];
+    locals.payload.values[2] = locals.payload.values[0] - locals.payload.values[1];
+    locals.payload.values[3] = D_800A68A8[arg1];
+    locals.payload.values[4] = D_800A68BC[arg1];
+    width = D_800A68D0[arg1];
+    locals.payload.values[5] = width + locals.payload.values[4];
+    locals.payload.values[6] = D_800A68E4[arg1] + locals.payload.values[5];
+    locals.payload.values[7] = width + locals.payload.values[6];
+    locals.payload.color[0] = arg6;
+    locals.payload.color[1] = arg7;
+    locals.payload.color[2] = arg8;
+    locals.payload.color[3] = arg9;
+    if (locals.payload.values[3] < locals.payload.values[4]) {
+        locals.payload.phase = 0;
+    } else if (locals.payload.values[3] < locals.payload.values[5]) {
+        locals.payload.phase = 1;
+    } else if (locals.payload.values[3] < locals.payload.values[6]) {
+        locals.payload.phase = 2;
+    } else if (locals.payload.values[3] < locals.payload.values[7]) {
+        locals.payload.phase = 3;
+    } else {
+        locals.payload.phase = 4;
+    }
+    locals.descriptor.field0 = arg3;
+    locals.descriptor.field1 = arg5;
+    locals.descriptor.field2 = arg4;
+    locals.descriptor.field4 = arg2;
+    locals.payload.values[8] = 1.0f / width;
+    result = func_1516037C(&locals.descriptor, arg0, (void *)(arg10 + 0x30), arg11, arg12);
+    if (result != 0) {
+        locals.saved = result;
+        func_10022EC0((u8 *)result + 0x18, &locals.payload, 0x30);
+        result = locals.saved;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1516295C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_1516295C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162B28.s")
 void func_151403A8(s8 *, s32);

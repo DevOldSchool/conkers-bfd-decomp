@@ -146,6 +146,106 @@ void func_15147A30(Game174BF0State *arg0) {
     }
     D_8008A340[temp_v0]();
 }
+void *func_10022EC0(void *, const void *, u32);
+void *func_1515D440(void);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+void func_100226F0(void *, s32);
+void *func_1515D480(s32);
+
+typedef struct Game174BF0Packet {
+    u32 words[9];
+} Game174BF0Packet;
+
+typedef struct Game174BF0Allocation {
+    u8 pad0[0x10];
+    u8 header[0x1C];
+    u8 state2C;
+    u8 state2D;
+    u8 state2E;
+    u8 selector2F;
+    u8 selector30;
+    u8 selector31;
+    u8 pad32[2];
+    s32 parameter34;
+    u8 state38;
+    u8 pad39[3];
+    void *slots[4];
+    void *list;
+    s32 parameter50;
+    f32 position[3];
+    Game174BF0Packet packet;
+    u8 storage[0x10];
+    void *end;
+    void *start;
+    u8 pad9C[4];
+} Game174BF0Allocation;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15147A80 CURRENT (922) */
+void *func_15147A80(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
+                   s32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                   Game174BF0Packet *arg8, u8 arg9, s32 arg10) {
+    s32 index;
+    s32 type;
+    s32 size;
+    Game174BF0Allocation *allocation;
+    u8 *start;
+    u8 *cursor;
+
+    size = arg0[0x15] * arg2;
+    type = 0x22;
+    if (*(u16 *)(arg0 + 0xE) & 0x40) {
+        type = 0x4D;
+    }
+    allocation = func_15167A68(type, arg10,
+        arg1 + size + 0xA0, 1, arg9, 1);
+    if (allocation == 0) {
+        return 0;
+    }
+    start = (u8 *)allocation + 0xA0;
+    allocation->start = start;
+    allocation->end = (u8 *)allocation->start + arg1;
+    func_10022EC0(allocation->header, arg0, 0x1C);
+    allocation->state2C = 0;
+    allocation->state2D = 0;
+    allocation->state2E = 0;
+    allocation->selector2F = arg3;
+    allocation->selector30 = arg4;
+    allocation->selector31 = arg5;
+    if (arg8 != 0) {
+        allocation->packet = *arg8;
+    } else {
+        *((u8 *)&allocation->packet + 0x1C) = 0;
+    }
+    index = 0;
+    cursor = (u8 *)allocation;
+    allocation->parameter34 = arg6;
+    allocation->state38 = 0;
+    allocation->parameter50 = arg7;
+    do {
+        index++;
+        cursor += 4;
+        *(s32 *)(cursor + 0x38) = 0;
+    } while (index < 4);
+    allocation->list = 0;
+    if (arg6 != 0) {
+        index = 0;
+        cursor = (u8 *)allocation;
+        if (D_80082FA0 >= 0) {
+            do {
+                *(void **)(cursor + 0x3C) = func_1515D480(arg6);
+                index++;
+                cursor += 4;
+            } while (D_80082FA0 >= index);
+        }
+        allocation->list = func_1515D440();
+    }
+    allocation->position[0] = 0.0f;
+    allocation->position[1] = 0.0f;
+    allocation->position[2] = 0.0f;
+    func_100226F0(allocation->storage, 0x10);
+    return allocation;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15147A80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_174BF0/func_15147A80.s")
 extern s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
 extern void func_1516972C(u8 *);
