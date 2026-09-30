@@ -64217,17 +64217,16 @@
       "symbol": "func_1507C3E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "CURRENT (30): only two FP load-order rows remain; threshold-local expanded the frame to CURRENT (201), and direct-field comparison regressed to CURRENT (111)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BA930",
           "vram": "0x150BA930"
         }
@@ -64254,6 +64253,12 @@
       "symbol": "func_150BAA00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 298,
+        "reason": "Typed 0x24 hit record and concrete call signatures: 658 to 298 after retaining the unused helper word at full width and preserving integer address evaluation. Opaque owner plus suffix-scoped random value stayed 298. Remaining owner-load scheduling, six GPR rows and random spill offset.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
