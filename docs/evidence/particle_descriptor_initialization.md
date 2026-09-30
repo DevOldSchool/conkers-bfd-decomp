@@ -48,3 +48,52 @@ compiler flag, assembly body, or linker mapping changed for this emitter.
 Its clean singleton batch (required by the integration boundary) also returned
 `BATCH_COMPLETE`: full game-code and external-rodata comparisons, 1,068 tests
 (12 skipped), metadata, progress and whitespace all passed.
+
+## Adjacent and table-driven emitters
+
+`func_151A2F0C` (580 bytes) matched on its first candidate with the same owner
+and descriptor layout, after independently checking its dimensions, count,
+color and lifetime constants. Its reviewed source unit remains mixed.
+
+`func_1515D130` (784 bytes) selects a 0x40-byte parameter record, accumulates a
+randomized emission rate in its owner's state, and emits particles around a
+short-vector origin. Physical-order descriptor initialization reproduced all
+instructions immediately, with only an eight-byte stack-placement difference.
+Moving the two used pointer declarations before the descriptor, without adding
+fields or padding, produced full-span `CURRENT (0)` on the second candidate.
+The source-local parameter record's stride, field widths and owner offsets
+come directly from the independent assembly; no shared structure was changed.
+
+The raw `func_15152B38` consumes its incoming a0-a2 only. Incoming a3 is not
+saved before its first nested call and is assigned internally before use.
+Three-argument callers therefore use a concrete three-argument source-local
+declaration rather than copying an m2c unset-register placeholder. Existing
+four-argument callers have not been rewritten merely to change that spelling.
+
+### Bounded unmatched candidates
+
+The same pass preserved typed, disabled candidates for five related emitters.
+None is counted as matched, and their original assembly remains active:
+
+- `func_150F85A0`: `CURRENT (266)`, three pre-RNG store-scheduling rows differ.
+  Legacy RNG declaration did not change the result; byte-array light storage
+  scored 271. The typed-record candidate was restored.
+- `func_151C2F48`: best 570, after natural local ordering fixed the descriptor,
+  light and coordinate offsets. Scratch offsets, one pointer-derived base and
+  zero-float scheduling still differ. A used-context record probe scored 614.
+- `func_15109848`: best 550. Consecutive velocity-component expressions matched
+  the original prefix through offset 0x1AC; subsequent owner-load scheduling
+  and register allocation differ. Byte-pointer owner access did not improve it.
+- `func_151C36D8`: best 2058. Byte-argument promotion is cached in a new scratch
+  slot and the frame grows by eight bytes. Inline conditional and widened-
+  argument probes scored 2066 and 3502; both were discarded.
+- `func_151C329C`: first candidate 2058 with the same structural mismatch as
+  its independently inspected sibling. Equivalent exhausted probes were skipped.
+
+These are source-shape hypotheses for future manual work, not evidence to relax
+stack, register, layout or ROM acceptance gates.
+
+The clean group gate on 2026-09-30 verified `func_151A2F0C` and
+`func_1515D130` with `BATCH_COMPLETE`. The full US game-code image and external
+rodata remained byte-identical, all 1,068 tests passed (12 skipped), and
+metadata, generated progress and whitespace checks passed.

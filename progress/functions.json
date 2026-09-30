@@ -31955,8 +31955,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 784,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515D130",
           "vram": "0x1515D130"
         }
@@ -71232,6 +71237,12 @@
       "symbol": "func_151BEE94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 266,
+        "reason": "Manual typed particle/light descriptors match all but three pre-RNG store-scheduling rows (CURRENT 266). Legacy RNG declaration unchanged; byte-array light storage 271. Bounded source hypotheses exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72773,8 +72784,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 580,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A2F0C",
           "vram": "0x151A2F0C"
         }
@@ -76781,6 +76797,12 @@
       "symbol": "func_151094FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 550,
+        "reason": "Typed 0x70 spawn and0x74 particle descriptors; consecutive velocity expressions restore exact prefix through0x1AC, CURRENT550. Remaining owner-load scheduling and GPR allocation. Byte-pointer owner probe unchanged; no blind register search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80957,6 +80979,12 @@
       "symbol": "func_151C2EF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 570,
+        "reason": "Typed particle/light descriptor candidate570. Original pointer-derived base, scratch offsets and zero-float scheduling still differ; record-local probe614. Bounded manual hypotheses exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80970,6 +80998,12 @@
       "symbol": "func_151C2F48"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2058,
+        "reason": "Independently inspected sibling particle/spawn/light emitter score2058, same cached byte-promotion, extra8-byte frame and late-call GPR pattern as151C36D8. Do not repeat its exhausted inline-flag or widened-argument probes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80983,6 +81017,12 @@
       "symbol": "func_151C329C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2058,
+        "reason": "Typed particle/spawn/light records score2058; argument-byte promotion is cached in a new scratch slot and frame grows8. Inline flag conditional2066; full-width parameter with byte casts3502. Restore best and stop bounded hypotheses.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

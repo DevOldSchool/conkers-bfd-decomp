@@ -10,7 +10,6 @@
  * - func_1515C6F4
  * - func_1515CF9C
  * - func_1515D088
- * - func_1515D130
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -222,4 +221,153 @@ s32 func_1515D088(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515D088 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515D088.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515D130.s")
+typedef struct Game1897A0EmitterVector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1897A0EmitterVector;
+
+typedef struct Game1897A0EmitterParticle {
+    s32 field0;
+    s32 field4;
+    Game1897A0EmitterVector position8;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    s16 field2C;
+    s16 field2E;
+    s16 field30;
+    s16 field32;
+    s32 field34;
+    s32 field38;
+    s16 field3C;
+    s16 field3E;
+    s16 field40;
+    u8 fields42[23];
+    s32 field5C;
+    s32 field60;
+    s16 field64;
+    s16 field66;
+    s16 field68;
+    u8 field6A;
+    f32 field6C;
+    s8 fields70[4];
+} Game1897A0EmitterParticle;
+
+typedef struct Game1897A0EmitterSettings {
+    f32 field0;
+    f32 field4;
+    s32 field8;
+    s32 fieldC;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    s32 field28;
+    s32 field2C;
+    s16 field30;
+    s16 field32;
+    s16 field34;
+    s16 field36;
+    s16 field38;
+    f32 field3C;
+} Game1897A0EmitterSettings;
+
+typedef struct Game1897A0EmitterState {
+    s16 *origin;
+    f32 accumulator;
+    u8 selector;
+} Game1897A0EmitterState;
+
+typedef struct Game1897A0EmitterOwner {
+    u8 pad0;
+    u8 field1;
+    u8 pad2[0xA];
+    u8 fieldC;
+    u8 padD[0x1B];
+    Game1897A0EmitterState state28;
+} Game1897A0EmitterOwner;
+
+void func_15143794(s16, s16, f32, void *);
+void func_15152B38(void *, s32, s32);
+s32 func_150ADA20();
+f32 func_150ADA68();
+extern Game1897A0EmitterSettings D_800A64A0[];
+
+void func_1515D130(Game1897A0EmitterOwner *arg0) {
+    Game1897A0EmitterSettings *settings;
+    Game1897A0EmitterState *state;
+    Game1897A0EmitterParticle descriptor;
+    s32 random;
+
+    settings = &D_800A64A0[arg0->state28.selector];
+    state = &arg0->state28;
+    state->accumulator += settings->field0 + func_150ADA68() * settings->field4;
+    if (state->accumulator > 1.0f) {
+        do {
+            descriptor.field0 = settings->field8;
+            descriptor.field4 = settings->fieldC;
+            descriptor.field14 = settings->field10;
+            descriptor.field18 = settings->field14;
+            descriptor.field1C = settings->field18;
+            descriptor.field20 = settings->field1C;
+            descriptor.field24 = settings->field20;
+            descriptor.field28 = settings->field24;
+            descriptor.field2C = 0;
+            descriptor.field2E = 0xFF;
+            descriptor.field30 = -0x3F;
+            descriptor.field32 = 0x50;
+            descriptor.field34 = settings->field28;
+            descriptor.field38 = settings->field2C;
+            descriptor.field3C = settings->field30;
+            descriptor.field3E = settings->field32;
+            descriptor.field40 = 1;
+            descriptor.fields42[0] = 0xC;
+            descriptor.fields42[1] = 2;
+            descriptor.fields42[2] = 3;
+            descriptor.fields42[3] = 0xB4;
+            descriptor.fields42[4] = 0;
+            descriptor.fields42[5] = 0;
+            descriptor.fields42[6] = 0x9B;
+            descriptor.fields42[7] = 0x32;
+            descriptor.fields42[8] = 0x64;
+            descriptor.fields42[9] = 0;
+            descriptor.fields42[10] = 0x64;
+            descriptor.fields42[11] = 0xFF;
+            descriptor.fields42[12] = 0xFF;
+            descriptor.fields42[13] = 0xFF;
+            descriptor.fields42[14] = 0xFF;
+            descriptor.fields42[15] = 0;
+            descriptor.fields42[16] = 0;
+            descriptor.fields42[17] = 0;
+            descriptor.fields42[18] = 0;
+            descriptor.fields42[19] = 0xFF;
+            descriptor.fields42[20] = 0;
+            descriptor.fields42[21] = 1;
+            descriptor.fields42[22] = 0x24;
+            descriptor.field5C = 0x200005;
+            descriptor.field60 = 0x60600;
+            descriptor.field64 = settings->field34;
+            descriptor.field66 = settings->field36;
+            descriptor.field68 = settings->field38;
+            descriptor.field6A = 0;
+            descriptor.field6C = settings->field3C;
+            descriptor.fields70[0] = -1;
+            descriptor.fields70[1] = 0;
+            random = func_150ADA20();
+            func_15143794((s16)(random & 0xFF),
+                         (s16)(0x40 - (func_150ADA20() & 0x7F)),
+                         (f32)state->origin[3], &descriptor.position8);
+            descriptor.position8.x += (f32)state->origin[0];
+            descriptor.position8.y += (f32)state->origin[1];
+            descriptor.position8.z += (f32)state->origin[2];
+            func_15152B38(&descriptor, arg0->fieldC, arg0->field1);
+            state->accumulator -= 1.0f;
+        } while (state->accumulator > 1.0f);
+    }
+}

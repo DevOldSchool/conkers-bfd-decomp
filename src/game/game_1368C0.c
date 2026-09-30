@@ -65,6 +65,203 @@ s32 func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109410 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109410.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_151094FC.s")
+typedef struct Game1368C0EmitterVector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1368C0EmitterVector;
+
+typedef struct Game1368C0EmitterParticle {
+    s32 field0;
+    s32 field4;
+    Game1368C0EmitterVector position8;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    s16 field2C;
+    s16 field2E;
+    s16 field30;
+    s16 field32;
+    s32 field34;
+    s32 field38;
+    s16 field3C;
+    s16 field3E;
+    s16 field40;
+    u8 fields42[23];
+    s32 field5C;
+    s32 field60;
+    s16 field64;
+    s16 field66;
+    s16 field68;
+    u8 field6A;
+    f32 field6C;
+    s8 fields70[4];
+} Game1368C0EmitterParticle;
+
+typedef struct Game1368C0EmitterSpawn {
+    s32 field0;
+    s32 field4;
+    s16 field8;
+    s16 fieldA;
+    s32 fieldC;
+    s32 field10;
+    u8 colors14[9];
+    u8 field1D;
+    s16 field1E;
+    s16 field20;
+    s16 field22;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    Game1368C0EmitterVector position30;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    f32 field48;
+    f32 field4C;
+    f32 field50;
+    f32 field54;
+    s32 field58;
+    s32 field5C;
+    s8 fields60[6];
+    /* The constructor copies a full 0x70-byte record; these fields are unused here. */
+    u8 fields66[0xA];
+} Game1368C0EmitterSpawn;
+
+typedef struct Game1368C0EmitterOwner {
+    u8 pad0;
+    u8 field1;
+    u8 pad2[0xA];
+    u8 fieldC;
+} Game1368C0EmitterOwner;
+
+void func_15130374(s32, u8, s32, u8, s32);
+void func_15152B38(void *, s32, s32);
+s32 func_150ADA20();
+f32 func_150ADA68();
+extern f32 D_800A2634;
+extern f32 D_800A2638;
+extern f32 D_800A263C;
+extern f32 D_800A2640;
+extern f32 D_800A2644;
+extern f32 D_800A2648;
+extern f32 D_800A264C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109848 CURRENT (550) */
+void func_15109848(Game1368C0EmitterOwner *arg0, Game1368C0EmitterVector *arg1,
+                   s32 arg2, s32 arg3, s32 arg4, Game1368C0EmitterVector *arg5) {
+    Game1368C0EmitterSpawn spawn;
+    f32 speed;
+    Game1368C0EmitterParticle descriptor;
+    s32 flag80;
+    s32 flag40;
+
+    speed = (func_150ADA68() * D_800A2634 + D_800A2638) * D_800A263C;
+    spawn.field1D = 0x2B;
+    spawn.field8 = 0x4401;
+    spawn.field0 = 0x200005;
+    spawn.field4 = 0x20000;
+    spawn.fieldA = (func_150ADA20() & 0xF) + 0xA;
+    spawn.fieldC = 0;
+    spawn.field10 = 0;
+    spawn.colors14[0] = 0xFF;
+    spawn.colors14[1] = 0xFF;
+    spawn.colors14[2] = 0xFF;
+    spawn.colors14[3] = 0xFF;
+    spawn.colors14[4] = 0xFF;
+    spawn.colors14[5] = 0xFF;
+    spawn.colors14[6] = 0xFF;
+    spawn.colors14[7] = 0xFF;
+    spawn.colors14[8] = 0xFF;
+    spawn.field28 = spawn.field2C = func_150ADA68() * 25.0f + 35.0f;
+    spawn.position30 = *arg1;
+    spawn.field3C = 0.0f;
+    spawn.field40 = 0.0f;
+    spawn.field44 = 0.0f;
+    spawn.field48 = arg5->x * speed;
+    spawn.field4C = arg5->y * speed;
+    spawn.field50 = arg5->z * speed;
+    spawn.field1E = 5;
+    spawn.field20 = 0x33;
+    spawn.field22 = 1;
+    spawn.field54 = 0.0f;
+    spawn.field24 = 1.0f;
+    if (func_150ADA20() & 1) {
+        flag40 = 0x40;
+    } else {
+        flag40 = 0;
+    }
+    if (func_150ADA20() & 1) {
+        flag80 = 0x80;
+    } else {
+        flag80 = 0;
+    }
+    spawn.field58 = flag80 | 5 | flag40 | 0xC200;
+    spawn.fields60[0] = 6;
+    spawn.fields60[1] = 6;
+    spawn.fields60[2] = -1;
+    spawn.fields60[3] = -1;
+    spawn.fields60[4] = -1;
+    spawn.fields60[5] = 4;
+    func_15130374((s32)&spawn, 1, 0, arg0->fieldC, arg0->field1);
+    descriptor.field0 = 1;
+    descriptor.field4 = 4;
+    descriptor.position8 = *arg1;
+    descriptor.field14 = D_800A2640;
+    descriptor.field18 = D_800A2644;
+    descriptor.field1C = D_800A2648;
+    descriptor.field20 = D_800A264C;
+    descriptor.field24 = 2.0f;
+    descriptor.field28 = 6.0f;
+    descriptor.field2C = 0;
+    descriptor.field2E = 0xFF;
+    descriptor.field30 = -0x40;
+    descriptor.field32 = 0x2E;
+    descriptor.field34 = 4;
+    descriptor.field38 = 3;
+    descriptor.field3C = 0x14;
+    descriptor.field3E = 0xF;
+    descriptor.field40 = 1;
+    descriptor.fields42[0] = 0xC;
+    descriptor.fields42[1] = 2;
+    descriptor.fields42[2] = 3;
+    descriptor.fields42[3] = 0xFF;
+    descriptor.fields42[4] = 0xFF;
+    descriptor.fields42[5] = 0xFF;
+    descriptor.fields42[6] = 0xFF;
+    descriptor.fields42[7] = 0;
+    descriptor.fields42[8] = 0;
+    descriptor.fields42[9] = 0;
+    descriptor.fields42[10] = 0;
+    descriptor.fields42[11] = 0xFF;
+    descriptor.fields42[12] = 0xFF;
+    descriptor.fields42[13] = 0xFF;
+    descriptor.fields42[14] = 0xFF;
+    descriptor.fields42[15] = 0;
+    descriptor.fields42[16] = 0;
+    descriptor.fields42[17] = 0;
+    descriptor.fields42[18] = 0;
+    descriptor.fields42[19] = 0xFF;
+    descriptor.fields42[20] = 0;
+    descriptor.fields42[21] = 3;
+    descriptor.fields42[22] = 0x24;
+    descriptor.field5C = 0x200005;
+    descriptor.field60 = 0x60600;
+    descriptor.field64 = 0xA;
+    descriptor.field66 = 0x19;
+    descriptor.field68 = 1;
+    descriptor.field6A = 0;
+    descriptor.field6C = 1.0f;
+    descriptor.fields70[0] = -1;
+    descriptor.fields70[1] = 0;
+    descriptor.fields70[2] = -1;
+    descriptor.fields70[3] = -1;
+    func_15152B38(&descriptor, arg0->fieldC, arg0->field1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15109848 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109848.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109C20.s")
 void *func_10022EC0(void *, const void *, u32);
