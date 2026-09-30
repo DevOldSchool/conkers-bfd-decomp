@@ -45,3 +45,16 @@ The clean group gate on 2026-09-30 returned `BATCH_COMPLETE` for
 `func_150BA930`. The full US game-code image and external rodata matched the
 owned ROM, all 1,068 tests passed (12 skipped), and metadata, generated-progress
 and whitespace checks passed.
+
+## Bounded related threshold probes
+
+The comparison-assignment hypothesis did not improve `func_1514672C` (215).
+Its first global/field load order remains different; the original candidate was
+restored rather than repeating earlier named-limit or reversed-comparison probes.
+
+For `func_150AED4C`, capturing both compared halfwords as full-width locals and
+using a compound update improved 245 to 60. All opcode and register choices now
+agree, but the compiler still schedules the +0x34 halfword reload before the
++0x3A status-byte store instead of after it. The intervening candidates scored
+500 and 75. The best 60 source is preserved and disabled; it is not a match and
+adds no matched bytes. No padding, volatility or register permutation was used.

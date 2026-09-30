@@ -83,14 +83,14 @@ void func_150AECCC(void *arg0) {
 }
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED4C CURRENT (245) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED4C CURRENT (60) */
 void func_150AED4C(void *arg0) {
-    s16 temp_v1;
+    s32 value;
+    s32 limit;
 
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x2A);
-    *(s16 *)((u8 *)arg0 + 0x34) = (s16) (*(s16 *)((u8 *)arg0 + 0x34) + (*(s32 *)((u8 *)arg0 + 0x14) * D_800BE9E4));
-    if (temp_v1 < *(s16 *)((u8 *)arg0 + 0x34)) {
-        *(s16 *)((u8 *)arg0 + 0x34) = temp_v1;
+    *(s16 *)((u8 *)arg0 + 0x34) += *(s32 *)((u8 *)arg0 + 0x14) * D_800BE9E4;
+    if ((limit = *(s16 *)((u8 *)arg0 + 0x2A)) < (value = *(s16 *)((u8 *)arg0 + 0x34))) {
+        *(s16 *)((u8 *)arg0 + 0x34) = limit;
         *(s8 *)((u8 *)arg0 + 0x3A) = 0x46;
     }
     *(s16 *)((u8 *)arg0 + 0x36) = *(s16 *)((u8 *)arg0 + 0x34);

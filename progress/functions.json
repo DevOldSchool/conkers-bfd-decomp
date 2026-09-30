@@ -12833,7 +12833,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 215,
-        "reason": "CURRENT (215): fabsf intrinsic removes call/frame and matches all but first load order; raw loads global D_800A56C4 before arg0 field0, candidate loads field0 before global; named limit and equivalent reversed first comparison compiled identically, so load-order approach plateaued",
+        "reason": "CURRENT (215): first global/field load order remains. Assignment within the first comparison, unlike the successful collision helper, was neutral; earlier named-limit and reversed-comparison probes were also neutral. Original candidate restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -30936,8 +30936,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 245,
-        "reason": "CURRENT (245): candidate swaps threshold and updated-value registers and schedules an extra +0x34 reload before the status store; widened temporaries and reordered field loads regressed or plateaued at 275",
+        "current_score": 60,
+        "reason": "Improved 245 to 60: capture updated halfword and limit as full-width comparison locals, with compound update. All opcodes/registers now agree; only the +0x34 reload moves before the +0x3A status store. Intermediate signed capture 500 and single full-width local 75. No exact match.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
