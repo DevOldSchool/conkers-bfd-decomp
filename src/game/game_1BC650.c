@@ -11,7 +11,6 @@
  * - func_1518F7C4
  * - func_1518F8E0
  * - func_1518FC84
- * - func_1519003C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -421,7 +420,124 @@ s32 func_1518FDC4(void *arg0, s8 *arg1, u8 arg2) {
         return 0;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1519003C.s")
+extern u8 D_800A7AC8;
+extern u8 D_800A7ACC;
+extern u8 D_800A7AD0;
+extern u8 D_800A7AD4;
+extern u8 D_800A7AD8;
+extern u8 D_800A7ADC;
+extern u8 D_800A7AE0;
+extern u8 D_800A7AE4;
+extern u8 D_800A7AE8;
+extern u8 D_800A7AEC;
+extern u8 D_800A7AF0;
+extern u8 D_800A7AF4;
+extern u8 D_800A7AF8;
+extern u8 D_800A7AFC;
+extern u8 D_800A7B00;
+extern u8 D_800A7B04;
+extern u8 D_800A7B08;
+extern u8 D_800A7B0C;
+extern u8 D_800A7B10;
+
+u8 *func_1519003C(u8 *arg0, s32 *arg1) {
+    u8 *var_v1;
+
+    switch (arg0[4]) {
+    case 0x87:
+    case 0xB0:
+        var_v1 = &D_800A7AFC;
+        *arg1 = 1;
+        break;
+    case 0xB1:
+        var_v1 = &D_800A7B00;
+        *arg1 = 1;
+        break;
+    case 0xB4:
+        var_v1 = &D_800A7B04;
+        *arg1 = 1;
+        break;
+    case 0x70:
+    case 0xB2:
+        var_v1 = &D_800A7B08;
+        *arg1 = 1;
+        break;
+    case 0x53:
+        var_v1 = &D_800A7B0C;
+        *arg1 = 1;
+        break;
+    case 0x96:
+        var_v1 = &D_800A7B10;
+        *arg1 = 1;
+        break;
+    case 0x0:
+    case 0x1:
+    case 0x2:
+    case 0x3:
+    case 0x4:
+        var_v1 = &D_800A7AC8;
+        *arg1 = 1;
+        break;
+    case 0x49:
+        var_v1 = &D_800A7ACC;
+        *arg1 = 1;
+        break;
+    case 0x58:
+        var_v1 = &D_800A7AD0;
+        *arg1 = 1;
+        break;
+    case 0x50:
+        var_v1 = &D_800A7AD4;
+        *arg1 = 1;
+        break;
+    case 0x75:
+        var_v1 = &D_800A7AD8;
+        *arg1 = 1;
+        break;
+    case 0x80:
+        var_v1 = &D_800A7ADC;
+        *arg1 = 1;
+        break;
+    case 0x11:
+    case 0x14:
+    case 0x3B:
+    case 0x98:
+    case 0x99:
+        var_v1 = &D_800A7AE0;
+        *arg1 = 1;
+        break;
+    case 0x16:
+        var_v1 = &D_800A7AE4;
+        *arg1 = 1;
+        break;
+    case 0x88:
+    case 0x90:
+        var_v1 = &D_800A7AE8;
+        *arg1 = 1;
+        break;
+    case 0x9C:
+        var_v1 = &D_800A7AEC;
+        *arg1 = 1;
+        break;
+    case 0x9D:
+        var_v1 = &D_800A7AF0;
+        *arg1 = 1;
+        break;
+    case 0x9F:
+        var_v1 = &D_800A7AF4;
+        *arg1 = 1;
+        break;
+    case 0xA0:
+        var_v1 = &D_800A7AF8;
+        *arg1 = 1;
+        break;
+    default:
+        var_v1 = 0;
+        *arg1 = 0;
+        break;
+    }
+    return var_v1;
+}
 typedef struct Game19021CDescriptor {
     u8 flags;
     u8 kind;

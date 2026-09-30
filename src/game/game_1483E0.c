@@ -161,6 +161,84 @@ void func_1511CB2C(s32 arg0, f32 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511CB44.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511D394.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511D7BC.s")
+typedef struct Game1483E0Vertex {
+    s16 x, y, z, flag, s, t;
+    u8 color[4];
+} Game1483E0Vertex;
+typedef struct Game1483E0Texcoord {
+    s16 s, t;
+} Game1483E0Texcoord;
+typedef struct Game1483E0Mesh {
+    u8 pad00[0x10];
+    s16 x, y, z;
+    u16 count;
+    u8 pad18[8];
+    Game1483E0Vertex *buffers[2];
+    Game1483E0Vertex *source;
+    u8 pad2C[0x10];
+    s32 flags;
+    u8 pad40[0x3C];
+    Game1483E0Texcoord *coords;
+    f32 phase;
+} Game1483E0Mesh;
+void *func_10003C40(s32, s32, s32, s32);
+void func_15094AB8(s32, s32, s32, f32, s32, s32);
+extern f64 D_800A3208;
+extern u8 D_800BE9C0;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511D9E4 CURRENT (1400) */
+void func_1511D9E4(Game1483E0Mesh *arg0) {
+    Game1483E0Texcoord *coords;
+    Game1483E0Texcoord *cursor;
+    s32 index;
+    s32 flags;
+    s32 offset;
+    f32 delta;
+    Game1483E0Texcoord *existing;
+    Game1483E0Texcoord *allocated;
+    s16 x, y, z;
+
+    existing = arg0->coords;
+    if (existing == 0) {
+        allocated = func_10003C40(arg0->count * 4, 1, 0, 0);
+        arg0->coords = allocated;
+        coords = allocated;
+        index = 0;
+        offset = 0;
+        cursor = allocated;
+        while (index < arg0->count) {
+            cursor->s = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).s - 0x2000;
+            cursor->t = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).t - 0x2000;
+            cursor++;
+            index++;
+            offset += 0x10;
+        }
+        index = 0;
+        offset = 0;
+        while (index < arg0->count) {
+            x = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).x + arg0->x;
+            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[1] + offset)).x = x;
+            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[0] + offset)).x = x;
+            y = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).y + arg0->y;
+            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[1] + offset)).y = y;
+            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[0] + offset)).y = y;
+            z = (*(Game1483E0Vertex *)((u8 *)arg0->source + offset)).z + arg0->z;
+            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[1] + offset)).z = z;
+            (*(Game1483E0Vertex *)((u8 *)arg0->buffers[0] + offset)).z = z;
+            index++;
+            offset += 0x10;
+        }
+    }
+    else {
+        coords = existing;
+    }
+    flags = arg0->flags;
+    delta = (f32)((f64)(f32)(s16)flags * D_800A3208);
+    arg0->phase += delta * (f32)D_800BE9E4;
+    func_15094AB8((s32)arg0->buffers[D_800BE9C0], (s32)coords, arg0->count, arg0->phase, flags >> 24, (flags >> 16) & 0xFF);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1511D9E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511D9E4.s")
 /* Call context: func_10003C40: unique active project prototype */
 void * func_10003C40(s32, s32, s32, s32);

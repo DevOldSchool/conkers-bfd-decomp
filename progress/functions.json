@@ -12858,6 +12858,12 @@
       "symbol": "func_15146508"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1533,
+        "reason": "Source-only isolated queue worker handoff independently reproduced1533. Three variants2722/2730/1533; typed record/matrix and helper outputs, branch shapes and real local order tested. Remaining frame/register differences; no padding/search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30933,8 +30939,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 480,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150AE5B0",
           "vram": "0x150AE5B0"
         }
@@ -36376,6 +36387,12 @@
       "symbol": "func_1517F7B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 234,
+        "reason": "Small-queue pass338/234/368. All instruction/control flow agrees except upper/lower FP allocation and stack/frame homes. Moving real non-address-taken locals before outputs improves234; inline viewport/output expressions plus named upper clamp worse368. Best234 restored; no padding/search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51199,6 +51216,12 @@
       "symbol": "func_1514C470"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4012,
+        "reason": "First typed callback candidate4012. Existing target prototypes use full-width integer stack formals, retained with s16/u8 use casts. Raw halfword loads versus compiler cached fullword normalization cause live-register/branch differences; no qualifying narrow declaration. Stop early rather than spend variants on this known ABI-width barrier. FP allocation also differs.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74873,6 +74896,12 @@
       "symbol": "func_15114CC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1180,
+        "reason": "Source-only isolated queue worker handoff independently reproduced1180. Three variants1248/1884/1180; setup/return lifetimes and real local order tested. Word-width formals retained except proven arg3s16. Register/stack differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78370,6 +78399,12 @@
       "symbol": "func_1511D7BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1400,
+        "reason": "Small-queue manual pass2310/1630/1400. Separate existing/allocation/output pointers recover entry flow; explicit byte offsets and named float delta improve. Frame and stack exact; loop scalar registers, load scheduling and join remain. Three variants exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79577,8 +79612,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 480,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1519003C",
           "vram": "0x1519003C"
         }

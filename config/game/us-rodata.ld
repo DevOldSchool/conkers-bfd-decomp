@@ -136,9 +136,9 @@ ASSERT(SIZEOF(.game_rodata_11d830) == 0x10,
        "game_11D830 constant pool extent changed")
 __game_rodata_11d830_payload_size = 0x4;
 
-ASSERT(SIZEOF(.game_rodata_1bc650) == 0x250,
+ASSERT(SIZEOF(.game_rodata_1bc650) == 0x490,
        "game_1BC650 table extent changed")
-__game_rodata_1bc650_payload_size = 0x244;
+__game_rodata_1bc650_payload_size = 0x488;
 
 ASSERT(SIZEOF(.game_rodata_1483e0) == 0xE0, "game_1483E0 table extent changed")
 __game_rodata_1483e0_payload_size = 0xD8;
