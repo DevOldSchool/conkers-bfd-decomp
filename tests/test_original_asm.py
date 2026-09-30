@@ -138,7 +138,7 @@ class OriginalAssemblyTests(unittest.TestCase):
             obj = root / "object.o"
             obj.write_bytes(b"mock object")
             ref = stack.enter_context(patch.object(diff, "reference_object", return_value=obj))
-            parsed = SimpleNamespace(symbols={0: [(".L80008120", 0, 0, 0)]})
+            parsed = SimpleNamespace(symbols={0: [(".L80008120", 0, 0, 0), ("D_63FFFF", 0, 0, 0)]})
             stack.enter_context(patch.object(original_asm, "Object32", return_value=parsed))
             link = stack.enter_context(patch.object(original_asm.linked_aliases, "linked_span", return_value=payload))
             evidence = original_asm.verify(root, entry)
@@ -146,8 +146,9 @@ class OriginalAssemblyTests(unittest.TestCase):
             raw.assert_called_once_with("us", "func_test", game_reference=False)
             self.assertFalse(ref.call_args.kwargs["game_reference"])
             game.assert_not_called()
-            self.assertEqual({".L80008120": 0x80008120}, link.call_args.args[5])
-            for invalid in (".L80008124", ".L80008120_suffix", "other_symbol"):
+            self.assertEqual({".L80008120": 0x80008120, "D_63FFFF": 0x63FFFF}, link.call_args.args[5])
+            for invalid in (".L80008124", ".L80008120_suffix", "other_symbol",
+                            "D_123456789", "D_63FFFF_suffix", "func_63FFFF"):
                 parsed.symbols = {0: [(invalid, 0, 0, 0)]}
                 with self.assertRaisesRegex(ValueError, "outside main CPU|unsupported"):
                     original_asm.verify(root, entry)

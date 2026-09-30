@@ -65,3 +65,9 @@ when that address lies inside the independently validated CPU text interval.
 Suffixes, arbitrary names, nonzero undefined-symbol values and out-of-interval
 targets remain rejected. The actual assembled branch relocation still must
 produce the original ROM word. Game label handling is unchanged.
+
+The diagnostic span also contains the generated literal symbol `D_63FFFF`.
+Main-only resolution accepts unpadded one-to-seven-digit `D_` constants,
+consistent with the existing full-ROM bootstrap linker, while function and
+jump-table names retain their strict eight-digit forms. Overwide literals and
+suffixed short names are rejected; assembled bytes still have to match the ROM.

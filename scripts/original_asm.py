@@ -91,6 +91,10 @@ def verify(root: Path, entry: dict) -> dict:
         for name, value, _, section in table:
             if name and section == 0:
                 match = re.fullmatch(r"(?:D|func|jtbl)_([0-9A-Fa-f]{8})(?:_[A-Za-z0-9]+)?", name)
+                if match is None and not game_reference:
+                    # Raw main also uses unpadded D_ names for literal constants
+                    # (for example D_63FFFF); keep function identities strict.
+                    match = re.fullmatch(r"D_([0-9A-Fa-f]{1,7})", name)
                 # Main handwritten spans may branch into a neighbouring retained
                 # span. Resolve only the disassembler's exact CPU-address label
                 # form; the actual linked branch still must equal the ROM word.
