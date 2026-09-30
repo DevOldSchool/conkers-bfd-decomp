@@ -8633,6 +8633,12 @@
       "symbol": "func_151C899C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1783,
+        "reason": "Typed sight descriptor and parameter blocks; recovered pointer-first ten-argument151407D0 ABI from raw call instead of m2c spurious float arguments. First candidate1783; physical-order initializer probe11109 discarded. Remaining frame/stack offset, floating-register constant scheduling and flags-expression differences. Preserve1783, no permutations or volatility.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -73482,6 +73488,12 @@
       "symbol": "func_151037DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 469,
+        "reason": "Typed 0x58-byte emission payload and source-local callback/allocator contracts. First candidate840; inline lifetime/timed ternaries recovered prefix to469. Remaining0xB0 vs0xA8 frame/stack-slot offsets and one node-store/flag-load branch scheduling difference. No padding, volatility or automated permutations. Preserve469 for fresh storage evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81995,6 +82007,12 @@
       "symbol": "func_151B03B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1476,
+        "reason": "Typed0x98 packet with11 actual three-word nodes; raw wrapper151491F4 preserves allocator v0 so source-local return contract is pointer. Pointer-counted loop8989; indexed11-node loop1476 recovers0xE0 frame and raw unrolling; ternary/chained zero variant1680 discarded. Classification branches, marker placement and initializer scheduling remain. No addedpadding/volatile/permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

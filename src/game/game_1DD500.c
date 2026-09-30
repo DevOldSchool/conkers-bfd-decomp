@@ -55,6 +55,101 @@ s32 func_151B0050(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s3
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0050.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B01B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B03B8.s")
+void *func_10022EC0(void *, const void *, u32);
+/* The independent wrapper preserves the allocator result in v0. */
+void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
+void func_151494E0(s32, u8);
+s32 func_15134070(void *);
+extern u8 D_800A3FE6[];
+
+typedef struct Game1DD500Owner {
+    u8 pad0[0x3B];
+    u8 id;
+} Game1DD500Owner;
+
+typedef struct Game1DD500Node {
+    s32 object;
+    s32 state;
+    s32 value;
+} Game1DD500Node;
+
+typedef struct Game1DD500Packet {
+    Game1DD500Owner *owner;
+    u8 id;
+    s32 count;
+    Game1DD500Node nodes[11];
+    f32 time;
+    u8 kind;
+} Game1DD500Packet;
+
+typedef struct Game1DD500Marker {
+    Game1DD500Owner *owner;
+    u8 id;
+} Game1DD500Marker;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B09BC CURRENT (1476) */
+void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+    void *saved;
+    Game1DD500Packet packet;
+    Game1DD500Marker marker;
+    s32 classification;
+    u8 kind;
+    u8 timed;
+    s16 lifetime;
+    s32 index;
+    void *result;
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    classification = 4;
+    if (arg1 != 0) {
+        if ((arg1[4] == 0x53) || (arg1[4] == 0xA5)) {
+            classification = 4;
+        } else {
+            classification = func_15134070(arg1);
+        }
+    }
+    if (classification == 0x63) {
+        return 0;
+    }
+    kind = D_800A3FE6[classification * 0x10];
+    if (kind == 2) {
+        return 0;
+    }
+    if (kind == 1) {
+        packet.kind = 1;
+    } else {
+        packet.kind = 0;
+    }
+    marker.owner = arg0;
+    marker.id = arg0->id;
+    func_151494E0((s32)&marker, 0x13);
+    timed = 0;
+    if (arg2 == -1) {
+        lifetime = 0x12C;
+    } else {
+        lifetime = arg2;
+        timed = 1;
+    }
+    packet.owner = arg0;
+    packet.id = arg0->id;
+    packet.count = 0;
+    packet.time = 0.0f;
+    for (index = 0; index < 11; index++) {
+        packet.nodes[index].object = 0;
+        packet.nodes[index].state = 0;
+        packet.nodes[index].value = 0;
+    }
+    result = func_151491F4(lifetime, -1, 0x13, timed, 0xF, 0x98, arg3, arg4);
+    if (result != 0) {
+        saved = result;
+        func_10022EC0((u8 *)result + 0x28, &packet, 0x98);
+        result = saved;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B09BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B09BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0B88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B118C.s")
