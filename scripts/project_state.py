@@ -2974,12 +2974,15 @@ def next_function(args: argparse.Namespace | None = None) -> None:
     one = bool(args and args.one)
     details = bool(args and args.details)
     id_only = bool(args and getattr(args, "id_only", False))
+    excluded_sources = set(getattr(args, "exclude_source", []) or [])
     if details and not one:
         raise ProjectStateError("--details requires --one to keep output bounded")
     if id_only and not one:
         raise ProjectStateError("--id-only requires --one")
     if id_only and details:
         raise ProjectStateError("--id-only and --details cannot be combined")
+    if excluded_sources and not one:
+        raise ProjectStateError("--exclude-source requires --one to keep selection bounded")
     _, functions = validate_project()
     source_units = validate_source_units(load_json(SOURCE_UNITS_FILE), functions)
     sizes = active_function_sizes(functions, source_units)
@@ -2992,7 +2995,7 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         and not entry.get("deferred")
     ]
     if not available:
-        if id_only:
+        if id_only or excluded_sources:
             raise ProjectStateError("no unclaimed raw-ASM functions are registered yet")
         print("No unclaimed raw-ASM functions are registered yet.")
         return
@@ -3003,6 +3006,10 @@ def next_function(args: argparse.Namespace | None = None) -> None:
             + ", ".join(sorted(missing_sizes))
             + "; register a reviewed source unit or record size_bytes during function registration"
         )
+    if excluded_sources:
+        available = [entry for entry in available if entry.get("source") not in excluded_sources]
+        if not available:
+            raise ProjectStateError("no unclaimed raw-ASM functions remain after source exclusions")
     available.sort(key=lambda entry: (sizes[entry["symbol"]], entry["symbol"]))
     import attempt_history
     try:
@@ -3174,6 +3181,13 @@ def parse_args() -> argparse.Namespace:
         "--id-only",
         action="store_true",
         help=argparse.SUPPRESS,
+    )
+    next_parser.add_argument(
+        "--exclude-source",
+        action="append",
+        default=[],
+        metavar="PATH",
+        help="with --one, exclude an exact repository-relative source path (repeatable)",
     )
     batch_plan_parser = subparsers.add_parser("batch-plan")
     batch_plan_parser.add_argument("symbols", nargs="+")
