@@ -68710,8 +68710,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2245,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2245)",
+        "current_score": 525,
+        "reason": "Fresh manual evidence: four old interpolation bases lived across RNG calls although raw loads follow each call. Call-first595; typedstate585; direct RNG expressions and compound smoothing525; typedowner also525. Saved-FPR mismatch removed, raw0x20 frame recovered. Remaining subobject pointer strength-reduction/load order plus one integer-add operand. No automated rerun of exhausted250variant search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69479,13 +69479,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 464,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15052590",
           "vram": "0x15052590"
         }
       },
-      "source": "src/game/game_7FA40.c",
+      "source": "src/game/done/game_7FA40.c",
       "symbol": "func_15052590"
     },
     {
@@ -73540,8 +73545,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 396,
-        "reason": "manual attempt remained at CURRENT (396) after one saved-argument frame revision",
+        "current_score": 491,
+        "reason": "Matched callee/raw reference proves15143874 second argument is f32; old396 candidate converted it numerically to s32 incorrectly. Correct source-local ABI and direct f32 call now491; removing saved-argument aliases also491. Remaining raw saved statepointer versus rematerialization, frame28vs30 and FP allocation. Preserve semantically corrected491 rather than numerically lower incorrect396. No volatile/padding/permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -85445,11 +85450,15 @@
       "symbol": "func_150183D0"
     },
     {
+      "blocked": {
+        "reason": "Independent raw span is custom-ABI original assembly: stores return address in s4, reads caller stack+0x44 without allocating a frame, contains internal exported labels and returns via jr s4. m2c cannot interpret that nonstandard return. Do not force ordinary C or compiler-generated reference.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 464,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15018500",
           "vram": "0x15018500"
         }

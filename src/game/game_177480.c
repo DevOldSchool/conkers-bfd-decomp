@@ -72,53 +72,59 @@ extern f32 D_800A5798;
 extern f32 D_800A579C;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A19C CURRENT (2245) */
-s32 func_1514A19C(u8 *arg0) {
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 temp_fv1_3;
-    f32 temp_fv1_4;
-    s32 temp_v1;
-    u8 *temp_s0;
-    u8 *temp_s0_2;
+typedef struct Game177480Interpolation {
+    f32 high0, low0, target0;
+    f32 split1, low1, high1, target1;
+    s16 timer0, timer1;
+    u8 pad20[0x18];
+    f32 high2, low2, target2;
+    s16 timer2;
+} Game177480Interpolation;
 
-    *(s16 *)((u8 *)arg0 + 0x12E) = (s16) (*(s16 *)((u8 *)arg0 + 0x12E) - D_800BE9E4);
-    if (*(s16 *)((u8 *)arg0 + 0x12E) < 0) {
-        temp_s0 = (void *)(arg0 + 0x110);
-        *(s16 *)((u8 *)temp_s0 + 0x1E) = (s16) (func_150ADA20() % 6U);
+typedef struct Game177480InterpolationOwner {
+    u8 pad0[0x24];
+    s32 integer;
+    u8 pad28[4];
+    f32 scale, height;
+    u8 pad34[0xDC];
+    Game177480Interpolation state;
+} Game177480InterpolationOwner;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514A19C CURRENT (525) */
+s32 func_1514A19C(Game177480InterpolationOwner *arg0) {
+    Game177480Interpolation *state;
+    s32 integer;
+
+    arg0->state.timer1 -= D_800BE9E4;
+    if (arg0->state.timer1 < 0) {
+        state = &arg0->state;
+        state->timer1 = func_150ADA20() % 6U;
         if (func_150ADA20() & 3) {
-            temp_fv1 = *(f32 *)((u8 *)temp_s0 + 0x10);
-            *(f32 *)((u8 *)temp_s0 + 0x18) = (f32) ((func_150ADA68() * (*(f32 *)((u8 *)temp_s0 + 0xC) - temp_fv1)) + temp_fv1);
+            state->target1 = func_150ADA68() * (state->split1 - state->low1) + state->low1;
         } else {
-            temp_fv1_2 = *(f32 *)((u8 *)temp_s0 + 0xC);
-            *(f32 *)((u8 *)temp_s0 + 0x18) = (f32) ((func_150ADA68() * (*(f32 *)((u8 *)temp_s0 + 0x14) - temp_fv1_2)) + temp_fv1_2);
+            state->target1 = func_150ADA68() * (state->high1 - state->split1) + state->split1;
         }
     }
-    temp_s0_2 = (void *)(arg0 + 0x110);
-    temp_fv0 = *(f32 *)((u8 *)arg0 + 0x30);
-    *(f32 *)((u8 *)arg0 + 0x30) = (f32) (temp_fv0 + ((*(f32 *)((u8 *)temp_s0_2 + 0x18) - temp_fv0) * D_800A5794));
-    *(s16 *)((u8 *)temp_s0_2 + 0x1C) = (s16) (*(s16 *)((u8 *)temp_s0_2 + 0x1C) - D_800BE9E4);
-    if (*(s16 *)((u8 *)temp_s0_2 + 0x1C) < 0) {
-        *(s16 *)((u8 *)temp_s0_2 + 0x1C) = (s16) (func_150ADA20() % 17U);
-        temp_fv1_3 = *(f32 *)((u8 *)temp_s0_2 + 4);
-        *(f32 *)((u8 *)temp_s0_2 + 8) = (f32) ((func_150ADA68() * (*(f32 *)((u8 *)arg0 + 0x110) - temp_fv1_3)) + temp_fv1_3);
+    state = &arg0->state;
+    arg0->height += (state->target1 - arg0->height) * D_800A5794;
+    state->timer0 -= D_800BE9E4;
+    if (state->timer0 < 0) {
+        state->timer0 = func_150ADA20() % 17U;
+        state->target0 = func_150ADA68() * (state->high0 - state->low0) + state->low0;
     }
-    temp_fv0_2 = *(f32 *)((u8 *)arg0 + 0x2C);
-    *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (temp_fv0_2 + ((*(f32 *)((u8 *)temp_s0_2 + 8) - temp_fv0_2) * D_800A5798));
-    *(s16 *)((u8 *)temp_s0_2 + 0x44) = (s16) (*(s16 *)((u8 *)temp_s0_2 + 0x44) - D_800BE9E4);
-    if (*(s16 *)((u8 *)temp_s0_2 + 0x44) < 0) {
-        *(s16 *)((u8 *)temp_s0_2 + 0x44) = (s16) (func_150ADA20() % 15U);
-        temp_fv1_4 = *(f32 *)((u8 *)temp_s0_2 + 0x3C);
-        *(f32 *)((u8 *)temp_s0_2 + 0x40) = (f32) ((func_150ADA68() * (*(f32 *)((u8 *)temp_s0_2 + 0x38) - temp_fv1_4)) + temp_fv1_4);
+    arg0->scale += (state->target0 - arg0->scale) * D_800A5798;
+    state->timer2 -= D_800BE9E4;
+    if (state->timer2 < 0) {
+        state->timer2 = func_150ADA20() % 15U;
+        state->target2 = func_150ADA68() * (state->high2 - state->low2) + state->low2;
     }
-    temp_v1 = *(s32 *)((u8 *)arg0 + 0x24);
-    *(s32 *)((u8 *)arg0 + 0x24) = (s32) (temp_v1 + (s32) ((*(f32 *)((u8 *)temp_s0_2 + 0x40) - (f32) temp_v1) * D_800A579C));
+    integer = arg0->integer;
+    arg0->integer = (s32)((state->target2 - (f32)integer) * D_800A579C) + integer;
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514A19C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177480/func_1514A19C.s")
+
 void func_1513F680(void *, s32, s32, s32, u8);
 extern f32 D_800A57A0;
 extern f32 D_800A57A4;

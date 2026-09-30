@@ -12968,15 +12968,15 @@
       "functions": [
         "func_15052590"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x52760",
           "start": "0x52590",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_7FA40.c"
+      "source": "src/game/done/game_7FA40.c"
     },
     {
       "boundary_evidence": {

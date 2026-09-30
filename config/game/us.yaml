@@ -201,7 +201,7 @@ segments:
       - [0x4A730, c, game/game_77BE0]
       - [0x4CA60, c, game/game_79F10]
       - [0x52260, c, game/done/game_7F710]
-      - [0x52590, c, game/game_7FA40]
+      - [0x52590, c, game/done/game_7FA40]
       - [0x52760, c, game/game_7FC10]
       - [0x52EF0, c, game/game_803A0]
       - [0x53430, c, game/game_808E0]
