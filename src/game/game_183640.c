@@ -63,6 +63,57 @@ void func_151563B8(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151563B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151564F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_151568F8.s")
+s32 func_151602C0(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+u32 func_150ADA20(void);
+void func_15156D24(void *, u8);
+
+typedef struct Game183640Point {
+    f32 x, y, z;
+    s32 value;
+} Game183640Point;
+extern Game183640Point D_800DCA30[3][10];
+
+typedef struct Game183640Light {
+    u8 kind;
+    s8 mode;
+    s16 lifetime;
+    u8 state;
+} Game183640Light;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15156B54 CURRENT (2047) */
+void func_15156B54(u8 *arg0) {
+    u32 row;
+    Game183640Light light;
+    s32 position[3];
+    Game183640Point *point;
+    Game183640Point *group;
+    u32 index;
+    s16 *timers;
+
+    *(s16 *)(arg0 + 0x2C) -= D_800BE9E4;
+    if (*(s16 *)(arg0 + 0x2C) < 0) {
+        row = func_150ADA20() % 3U;
+        index = func_150ADA20() % 10U;
+        group = D_800DCA30[row];
+        point = &group[index];
+        if (point->x != 0.0f && point->y != 0.0f && point->z != 0.0f) {
+            point = &group[index];
+            func_15156D24(point, arg0[0xC]);
+            light.kind = 3;
+            light.mode = -1;
+            light.lifetime = func_150ADA20() % 11U + 5;
+            light.state = 0;
+            position[0] = point->x;
+            position[1] = point->y;
+            position[2] = point->z;
+            func_151602C0((u8 *)&light, position, func_150ADA20() % 156U + 0x64,
+                         0xFF, 0xFF, 0xFF, 0xFF, 0, 0, arg0[0xC], arg0[1]);
+        }
+        timers = (s16 *)(arg0 + 0x28);
+        timers[2] = func_150ADA20() % (u32)(timers[1] + 1) + timers[0];
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15156B54 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156B54.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_183640/func_15156D24.s")
 void func_15156F94(s32 arg0) {

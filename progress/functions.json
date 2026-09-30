@@ -9370,8 +9370,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 468,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1505841C",
           "vram": "0x1505841C"
         }
@@ -10367,6 +10372,12 @@
       "symbol": "func_15060BE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2465,
+        "reason": "Typed812-byte actor records and counted25-record loop score2465. Pointer-bound loop16380 and explicit remainder/four-record traversal8135 discarded after two non-improvements. Loop control, register allocation and division scheduling remain; original ASM active.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47800,6 +47811,12 @@
       "symbol": "func_15194794"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "First typed packet/event candidate CURRENT 120: two switch-table relocation rows and three call-delay scheduling rows. Actual collision-result structure and coherent local workspace variants both remain 120; first candidate preserved. New table at raw 0x800A82D0 would require reviewed mapping only after instruction shape is resolved. No mapping or instruction changes made.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55611,8 +55628,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2074,
-        "reason": "Best manual candidate is CURRENT (2074); temp_s0 lifetime, event branches, destroy callbacks, and func_15169850 dispatch are recovered, but IDO still differs in argument-byte liveness, register allocation, and dispatch argument placement after bounded source variants.",
+        "current_score": 725,
+        "reason": "Raw-proven pointer/u8 func_15169850 contract improved old2074 to725. Fully named owner/event fields scored805 and were discarded. Duplicate event-pointer reloads and return-delay scheduling remain; no fake volatile or stack homes added.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55630,8 +55647,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2479,
-        "reason": "CURRENT (2479) after two manual revisions; compiler canonicalizes the byte event code into a saved s1 and folds the +0x28 pointer, while the reference repeatedly reloads the incoming stack byte and keeps a2 live; no improving lifetime shape found",
+        "current_score": 890,
+        "reason": "Pointer/u8 callee contract improved2479 to1615; shared owner-field pointer reached890; concrete word-pointer event argument unchanged890 and discarded. Repeated event-pointer reloads and delay-slot scheduling remain. No volatile or synthetic stack saves.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66412,6 +66429,12 @@
       "symbol": "func_151568F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2047,
+        "reason": "Typed3x10 point table, six-byte light descriptor and actual two-argument15156D24/zero-argument RNG contracts. First2047; reordered real locals and structured coordinates2131 discarded. Frame, FP coordinate-conversion scheduling and register/operand differences remain. No dummy live arguments, padding or volatility.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -89241,11 +89264,15 @@
       "symbol": "func_150A7360"
     },
     {
+      "blocked": {
+        "reason": "Handwritten vertex entry uses v0 continuation addresses and jumps (not jal) to custom-register helper150A76F0, live odd FPR values, FCSR-dependent cvt.w.s, and stack restoration before s0-s7 reloads. m2c omits exported continuation bodies and reports unset t6; ordinary C ABI cannot establish full-span equivalence without prohibited assembly/toolchain changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 468,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A751C",
           "vram": "0x150A751C"
         }
