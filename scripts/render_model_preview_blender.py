@@ -34,6 +34,27 @@ def blender_arguments() -> list[str]:
     return sys.argv[sys.argv.index("--") + 1 :] if "--" in sys.argv else []
 
 
+def set_preview_render_engine(scene, shading: str) -> None:
+    """Use the installed Eevee identifier rather than assuming a Blender version."""
+    if shading == "vertex":
+        scene.render.engine = "BLENDER_WORKBENCH"
+        return
+    available = {
+        item.identifier
+        for item in scene.render.bl_rna.properties["engine"].enum_items
+    }
+    # Eevee Next replaced the old identifier in Blender 4.2. Prefer it when
+    # both are registered, but retain support for older Blender installations.
+    for engine in ("BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"):
+        if engine in available:
+            scene.render.engine = engine
+            return
+    raise RuntimeError(
+        "Material previews require Eevee; available render engines: "
+        + ", ".join(sorted(available))
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     import bpy  # type: ignore[import-not-found]
     from mathutils import Vector  # type: ignore[import-not-found]
@@ -99,8 +120,8 @@ def main(argv: list[str] | None = None) -> int:
     bpy.context.scene.camera = camera
 
     scene = bpy.context.scene
+    set_preview_render_engine(scene, args.shading)
     if args.shading == "vertex":
-        scene.render.engine = "BLENDER_WORKBENCH"
         scene.display.shading.light = "STUDIO"
         scene.display.shading.color_type = "VERTEX"
         scene.display.shading.show_shadows = True
@@ -109,7 +130,6 @@ def main(argv: list[str] | None = None) -> int:
         scene.display.shading.background_type = "VIEWPORT"
         scene.display.shading.background_color = (0.025, 0.03, 0.04)
     else:
-        scene.render.engine = "BLENDER_EEVEE"
         world = bpy.data.worlds.new("PreviewWorld")
         world.use_nodes = True
         background = world.node_tree.nodes.get("Background")
