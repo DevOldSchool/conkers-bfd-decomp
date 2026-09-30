@@ -19996,6 +19996,80 @@
         }
       },
       "source": "src/main/init_B1B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_sound_record_family_boundary.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_8000EB00",
+        "func_8000EBC4",
+        "func_8000EC24",
+        "func_8000ECCC",
+        "func_8000EDA0",
+        "func_8000EE70",
+        "func_8000EF40",
+        "func_8000EFB4",
+        "func_8000F1A8",
+        "func_8000F248",
+        "func_8000F3D0",
+        "func_8000F44C",
+        "func_8000F4D8",
+        "func_8000F568",
+        "func_8000F6B8",
+        "func_8000F85C",
+        "func_8000F91C",
+        "func_8000F9D4",
+        "func_8000FA64",
+        "func_8000FC18",
+        "func_8000FD38",
+        "func_8000FDF4",
+        "func_8000FE88",
+        "func_8000FEF0",
+        "func_8000FF90",
+        "func_8001001C",
+        "func_800100E0",
+        "func_80010154",
+        "func_80010344",
+        "func_80010558",
+        "func_80010630",
+        "func_80010720",
+        "func_800107F8",
+        "func_80010894",
+        "func_8001091C",
+        "func_800109D0",
+        "func_80010A3C",
+        "func_80010AA8",
+        "func_80010BE8",
+        "func_80010E78",
+        "func_80010F30",
+        "func_80010F88",
+        "func_80010FFC",
+        "func_800111C8",
+        "func_8001123C",
+        "func_800112BC",
+        "func_80011310",
+        "func_8001147C",
+        "func_800114D0",
+        "func_80011624",
+        "func_80011BB8",
+        "func_80011E88",
+        "func_80011E94",
+        "func_80011EB8"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x11FA0",
+          "start": "0xEB00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_EB00.c"
     }
   ]
 }
