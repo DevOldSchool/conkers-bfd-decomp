@@ -3,6 +3,8 @@
 Use `./conker` from the repository root. US is the active target; EU/PAL does not gate work.
 Read [CONTRIBUTING.md](CONTRIBUTING.md) once per task. Consult the
 [workflow reference](docs/decompilation-workflow.md) only for details needed by the task.
+For a fresh or reset cloud executor, follow [cloud setup and recovery](docs/cloud-matching.md)
+before selecting functions; it also defines isolated parallel-worker handoffs.
 
 ## Function matching
 

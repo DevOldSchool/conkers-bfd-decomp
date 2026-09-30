@@ -1,0 +1,12 @@
+{
+  "revision": "156f78f6bccfc07498578ac491ce7fe2a1e807a6",
+  "repository": "https://github.com/Kingcom/armips.git",
+  "sha256": "11682726ff6b42af2c5130db9150f858549e77df3e84dbed73235aa1c1264e94",
+  "dockerfile_sha256": "b161bd2fdb84561aa0480fe553e1806420ba7f3caf648dffa0331b42b426713c",
+  "compiler": "g++ from exact digest-pinned Ubuntu toolchain filesystem",
+  "cmake_version": "3.31.10",
+  "cmake_flags": [
+    "-DCMAKE_BUILD_TYPE=Release",
+    "-DCMAKE_CXX_FLAGS=-include limits"
+  ]
+}
