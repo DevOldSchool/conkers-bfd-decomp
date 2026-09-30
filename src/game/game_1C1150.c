@@ -557,7 +557,97 @@ void func_15194F48(s32 arg0, Game1C1150Position *arg1, s32 arg2) {
     func_15145A50((u8 *)arg1);
     func_1507CD64((u8 *)arg1, 6);
 }
+void *func_10022EC0(void *, const void *, u32);
+s32 func_1518F51C(void *, u8, s16, s8, s8, s8, u8, s32, u8, s32);
+void func_15190518(void *);
+
+typedef struct Game1C1150SpawnInfo {
+    s32 duration;
+    s32 mode;
+    void *owner;
+} Game1C1150SpawnInfo;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194FF4 CURRENT (1260) */
+void func_15194FF4(s32 arg0, s32 arg1, s32 arg2) {
+    s32 result;
+    s32 enabled;
+    s32 amount;
+    s32 second;
+    s32 first;
+    u8 mode;
+    u8 owner;
+    u8 *state;
+    Game1C1150SpawnInfo info;
+
+    func_15190518((void *)arg1);
+    mode = arg2;
+    switch (((Game1C1150Event *)arg1)->type) {
+    case 0x0:
+    case 0x1:
+    case 0x2:
+    case 0x3:
+    case 0x4:
+    case 0x11:
+    case 0x14:
+    case 0x16:
+    case 0x3B:
+    case 0x50:
+    case 0x53:
+    case 0x58:
+    case 0x5A:
+    case 0x5F:
+    case 0x70:
+    case 0x74:
+    case 0x75:
+    case 0x7A:
+    case 0x80:
+    case 0x87:
+    case 0x88:
+    case 0x90:
+    case 0x96:
+    case 0x98:
+    case 0x99:
+    case 0x9C:
+    case 0x9D:
+    case 0x9F:
+    case 0xA0:
+    case 0xB0:
+    case 0xB1:
+    case 0xB2:
+    case 0xB4:
+        if (D_800BE616 != 0) {
+            info.duration = 125;
+            info.mode = 5;
+            if (((Game1C1150Event *)arg0)->type == 0xFF &&
+                (owner = *(u8 *)(arg0 + 0x124)) != 0) {
+                info.owner = D_800CC2D0 + owner * 0x32C - 0x32C;
+            } else {
+                info.owner = (void *)arg0;
+            }
+            if (mode != 0) first = 0; else first = -1;
+            if (mode != 0) second = 0; else second = -1;
+            if (mode != 0) enabled = 1; else enabled = 0;
+            if (mode != 0) amount = 12; else amount = 0;
+            result = func_1518F51C((void *)arg1, 0, 250, (s8)first, (s8)second,
+                                  8, (u8)enabled, amount, 255, 1);
+            if (result != 0 && (u8)arg2 != 0) {
+                func_10022EC0((void *)(result + 0x90), &info, sizeof(info));
+                state = *(u8 **)(arg1 + 0x31C);
+                if (state != 0) {
+                    state[0x1AC] = 1;
+                    return;
+                }
+            }
+        } else {
+            func_1518F51C((void *)arg1, 0, 300, -1, -1, 8, 0, 0, 255, 1);
+            return;
+        }
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15194FF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194FF4.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151951E0.s")
 void func_15137610(void *, void *, void *, s32, s32, s32);
 void func_1514373C(f32, f32, f32 *, f32 *);

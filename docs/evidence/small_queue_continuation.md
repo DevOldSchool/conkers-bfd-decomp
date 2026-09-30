@@ -174,3 +174,31 @@ incremental US game-code and mapped-rodata equality, progress and whitespace
 passed. No shared dependency, linker mapping, compiler setting or verifier was
 changed. There are no pending matched IDs and the accepted total stays at
 22 functions / 9,284 bytes for this task; no empty clean batch was run.
+
+## Fifth related group
+
+Seven targets received 20 manual variants with no new exact match. Existing
+full-width formals were preserved where no qualifying narrower declaration
+was available. The entry-loop target stopped after two equivalent shapes.
+
+| Target | Source | Scores | Retained evidence |
+| --- | --- | --- | --- |
+| `func_15194FF4` | `game_1C1150.c` | 2762, 1260, 1954 | Actual 12-byte spawn record and known helper ABI; word selector improves code, but parameter reload lifetime and frame differ |
+| `func_151E4BD8` | `game_20F9A0.c` | 875, 875, 875 | Existing selection record and byte counter recover frame/arithmetic; real-local ordering and explicit common continuation do not alter the remaining register/table scheduling |
+| `func_15017930` | `game_44C40.c` | 2595, 2145, 2405 | Proven loader ABI and 0x34-byte records; direct global assignment/division restores both stores, but address lifetimes and register allocation remain |
+| `func_15139578` | `effects/blood.c` | 4034, 1477, 2722 | Correct fabsf intrinsic replaces an incorrect external call; direct vector updates restore the frame but worsen FP allocation. Best second shape retained |
+| `func_151AEAB4` | `game_1DBD40.c` | 1337, 1311, 1070 | Existing caller supports u8 arg2 while arg1 remains full-width. Frame and real stack homes become exact; quarter-turn setup and register scheduling remain |
+| `func_15007830` | `entrypoint.c` | 755, 755 | First 0xF0 bytes agree; loop and label forms leave later constant allocation and unreachable epilogue differences. No padding or integration claimed |
+| `func_15071B18` | `game_981E0.c` | 390, 390, 627 | Seven scheduling rows remain around paired 10.0f initialization in the best first form; no exact match claimed |
+
+All candidates are disabled with original ASM active. The canonical integrator
+independently reproduced the worker's 1070, 755 and 390 scores. Full incremental
+US game-code and mapped-rodata checks, progress and whitespace gates passed;
+there are no pending accepted-match IDs. The accepted total remains 22 functions
+and 9,284 bytes. No empty clean batch or redundant full test suite was run.
+
+A separate read-only research pass began while this group was being preserved.
+Its findings will be measured as new evidence for bounded attempts, rather than
+counted as matching progress by themselves. In particular, stale pointer/float
+helper annotations can block valid C before the first compile, while callback
+byte loads without a qualifying target declaration do not justify narrow formals.
