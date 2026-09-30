@@ -9,7 +9,6 @@
  * - func_1515C534
  * - func_1515C6F4
  * - func_1515CF9C
- * - func_1515D088
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -96,10 +95,10 @@ s32 func_1515C388(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515C388 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515C388.s")
 extern s32 D_800BE9E4;
-typedef s32 (*Game1897A0ActionCallback)(void *, void *, void *, s32);
+typedef s32 (*Game1897A0ActionCallback)(void *, void *);
 extern Game1897A0ActionCallback D_8008B084[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C534 CURRENT (179) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515C534 CURRENT (58) */
 s32 func_1515C534(void *arg0) {
     struct Actor {
         u8 pad00[0x1C];
@@ -130,7 +129,7 @@ s32 func_1515C534(void *arg0) {
     settings = actor->settings;
     callbackFailed = 0;
     if (settings->callbackIndex != -1) {
-        callbackFailed = (D_8008B084[settings->callbackIndex](arg0, settings, arg0, 0) == 0) & 0xFF;
+        callbackFailed = (D_8008B084[settings->callbackIndex](arg0, settings) == 0) & 0xFF;
     }
     if (callbackFailed == 0) {
         if (settings->flags & 4) {
@@ -201,13 +200,12 @@ s32 func_1515D030(void *arg0, s32 arg1) {
 }
 extern s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515D088 CURRENT (121) */
 s32 func_1515D088(void *arg0) {
-    struct { void *owner; f32 value; s8 selector; } packet;
     s32 temp_v0;
+    struct { void *owner; f32 value; s8 selector; } packet;
 
-    temp_v0 = *(s32 *)((u8 *)arg0 + 0x18) & 0xFF;
     packet.selector = (s8)*(s32 *)((u8 *)arg0 + 0x18);
+    temp_v0 = (u8)packet.selector;
     if ((temp_v0 < 0) || (temp_v0 >= 2)) {
         return 0;
     }
@@ -219,8 +217,6 @@ s32 func_1515D088(void *arg0) {
     }
     return temp_v0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1515D088 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1897A0/func_1515D088.s")
 typedef struct Game1897A0EmitterVector {
     f32 x;
     f32 y;

@@ -31866,8 +31866,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 179,
-        "reason": "Preserved CURRENT179. Fourth callback argument using known-zero state neutral179; removing actor alias regressed1514. Both local hypotheses exhausted; callback declaration requires canonical evidence for any ABI correction.",
+        "current_score": 58,
+        "reason": "Correct two-argument callback type, supported by local table members, improves 179 to 58. Remaining settings spill offset and flags/time register allocation. Explicit time local scored 78; byte-sized callback-result probe 578. Best 58 restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31899,7 +31899,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Manual aggregate copy plus unnamed destination improved370->265: raw body/registers exact through final comparison. Shared return moves zero-store into branch delay and loses one word; explicit arm returns600 (independent jr), reused count/result local265 unchanged. Best265 preserved after two nonimproving epilogue variants.",
+        "reason": "Baseline 265 has exact body before return-tail control flow. Explicit successful-path return scored 600; per-branch result assignments stayed 265. Restored original candidate; no extra instructions or padding added.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31933,17 +31933,16 @@
       "symbol": "func_1515D030"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 121,
-        "reason": "Manual12Bpacket and reduced result lifetimes650->121. Frame40 now exact; packet34vs30, returnspill and anonymous selector registers remain. Selectorfirst557 adds alias reload; groupedreturn410 fixesstack but regresses control/stores. Best121 preserved, five attempts.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1515D088",
           "vram": "0x1515D088"
         }
