@@ -1,4 +1,4 @@
-"""Independent, checksum-validated US game-code span evidence."""
+"""Independent, checksum-validated US CPU-code span evidence."""
 from __future__ import annotations
 
 import hashlib
@@ -7,6 +7,27 @@ import re
 from pathlib import Path
 
 import rzip_archive
+import yaml
+
+
+def main_code(root: Path) -> tuple[bytes, int, str]:
+    """Return only the main CPU interval, excluding the boot blob and RSP text."""
+    metadata = json.loads((root / "config/roms.json").read_text())["profiles"]["us"]
+    rom, _ = rzip_archive.normalize_rom((root / "roms/baserom.us.z64").read_bytes())
+    digest = hashlib.sha1(rom).hexdigest()
+    if digest != metadata["sha1"] or len(rom) != metadata["size_bytes"]:
+        raise ValueError("span verification requires a checksum-validated US ROM")
+    profile = yaml.safe_load((root / "config/reference/us.yaml").read_text())
+    entry = next(segment for segment in profile["segments"]
+                 if isinstance(segment, dict) and segment.get("name") == "entry")
+    start, base = entry["start"], entry["vram"]
+    rsp = json.loads((root / "config/rsp/us.json").read_text())
+    if rsp["rom_sha1"] != digest:
+        raise ValueError("main CPU endpoint requires the same checksum-validated RSP layout")
+    end = min(payload["start"] for payload in rsp["payloads"] if payload["kind"] == "code")
+    if not 0 <= start < end <= len(rom):
+        raise ValueError("invalid main CPU interval")
+    return rom[start:end], base, digest
 
 
 def game_code(root: Path) -> tuple[bytes, int, str]:
