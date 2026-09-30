@@ -13324,6 +13324,12 @@
       "symbol": "func_15168BE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 383,
+        "reason": "Manual display-command construction3760/443/383. Updating incoming display pointer directly recovers saved-register assignment; separate actual helper result improves optional-command flow. Frame8short, command increment/store scheduling and transient registers remain. Three variants exhausted; no padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13442,6 +13448,12 @@
       "symbol": "func_15169070"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 781,
+        "reason": "Three manual forms 2401/3006/781. Existing completed caller game_1765E0 declares u8 final formal and raw entry masks it; using that proven width removes redundant local normalization. Remaining frame and global-address CSE differences require a new lead.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40021,6 +40033,12 @@
       "symbol": "func_1502F948"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4582,
+        "reason": "Two bounded manual forms 4651/4582; two-input helper contract is proven by raw data flow. Broad lifetime/mask scheduling remains.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41549,6 +41567,12 @@
       "symbol": "func_15081690"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 525,
+        "reason": "Three manual forms555/565/525. Typed existing actor collision fields and real vector arrays recover frame/stack. Separate factor worsens scale spill; physical XYZ center order and raw-compatible pointer/address views improve. Early helper argument scheduling and first delta load order remain; no further equivalent probes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54072,6 +54096,12 @@
       "symbol": "func_15108D24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 889,
+        "reason": "Bounded source-only parallel group four independently rechecked canonical best; exact hypotheses and remaining mismatches retained in worker-group-4/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -82528,6 +82558,12 @@
       "symbol": "func_1504AEF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 680,
+        "reason": "Bounded source-only parallel group four independently rechecked canonical best; exact hypotheses and remaining mismatches retained in worker-group-4/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

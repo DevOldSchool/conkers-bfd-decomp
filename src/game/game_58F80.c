@@ -904,6 +904,81 @@ void func_1502F948(void *arg0) {
     }
     func_10023A10(*(void **)((u8 *)arg0 + 0x1D4), *(void **)((u8 *)arg0 + 0x1D8), D_800C4ED0[temp_v1] << 6);
 }
+typedef struct Game58F80TileExtent {
+    u32 words[2];
+    u16 width;
+    u16 height;
+} Game58F80TileExtent;
+
+typedef struct Game58F80TileCommand {
+    u32 word0;
+    u32 word1;
+} Game58F80TileCommand;
+
+void *func_150C3160(void *, void *);
+extern Game58F80TileExtent *D_800C5338[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F9FC CURRENT (4582) */
+void *func_1502F9FC(void *arg0, s32 arg1) {
+    Game58F80TileExtent **table;
+    s32 index;
+    s32 tile;
+    s32 kind;
+    u8 *actor;
+    Game58F80TileExtent *extent;
+    u8 *coordinates;
+    Game58F80TileCommand *output;
+    Game58F80TileCommand *command;
+    u32 s;
+    u32 t;
+    u32 width;
+    u32 height;
+
+    output = arg0;
+    actor = &D_800CC2D0 + arg1 * 0x32C;
+    kind = actor[4];
+    if (kind == 0x89 || kind == 0xBA) {
+        output = func_150C3160(output, actor);
+        goto done;
+    }
+    if (kind == 0) {
+        tile = 14;
+    } else if (kind == 0x96) {
+        tile = 7;
+    } else if (kind == 0x28) {
+        tile = 4;
+    } else if (kind == 1 || kind == 2 || kind == 3 || kind == 4) {
+        tile = 5;
+    } else {
+        tile = 0;
+    }
+    table = &D_800C5338[kind];
+    index = 0;
+    if (*table != 0) {
+        coordinates = &D_800CC2D0 + arg1 * 0x32C;
+        do {
+            extent = *table + tile;
+            s = *(s16 *)(coordinates + 0x27A);
+            t = *(s16 *)(coordinates + 0x27E);
+            width = extent->width;
+            height = extent->height;
+            s = (s + 2) & 0xFFFF;
+            t = (t + 2) & 0xFFFF;
+            width = (width * 4 - 2) & 0xFFFF;
+            height = (height * 4 - 2) & 0xFFFF;
+            command = output;
+            command->word0 = ((s & 0xFFF) << 12) | 0xF2000000U | (t & 0xFFF);
+            command->word1 = (((5 - index) & 7) << 24) |
+                             ((width & 0xFFF) << 12) | (height & 0xFFF);
+            output++;
+            index++;
+            coordinates += 2;
+        } while (index != 2);
+    }
+done:
+    return output;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502F9FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F9FC.s")
 extern u8 D_800C35EA;
 extern u8 D_800C3638;

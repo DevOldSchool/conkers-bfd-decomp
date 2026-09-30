@@ -70,6 +70,69 @@ s32 func_1504AEF4(s32 arg0, s32 arg1) {
     }
     return 0;
 }
+typedef struct Game77BE0AttachmentActor {
+    u8 pad0[0x14];
+    f32 position[3];
+    u8 pad20[0x70];
+    s16 height;
+    u16 attachment;
+} Game77BE0AttachmentActor;
+
+typedef struct Game77BE0Attachment {
+    u8 pad0[0x10];
+    s16 position[3];
+    u8 pad16[0x38];
+    s8 owner;
+    u8 flags;
+    u8 pad50[0x50];
+} Game77BE0Attachment;
+
+extern s32 D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504AF10 CURRENT (680) */
+void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
+    s32 selected;
+    s32 index;
+    s32 type;
+    s32 attachment;
+    Game77BE0Attachment *entry;
+
+    attachment = arg0->attachment;
+    if ((attachment != 0) && ((arg1 != 0) || ((attachment >> 15) == 0))) {
+        type = attachment >> 12;
+        type &= 7;
+        selected = attachment & 0x7FFF;
+        if (type == 0) {
+            selected = func_1504AEF4(selected, (s32)&index);
+            type = selected;
+            if (selected != 0) {
+                arg0->attachment = (selected << 12) | index;
+            }
+        }
+        index = arg0->attachment & 0xFFF;
+        if (type == 3) {
+            if (arg2 != 0) {
+                ((Game77BE0Attachment *)D_800DBEF4)[index].owner = 0;
+                arg0->attachment = 0;
+                return;
+            }
+            ((Game77BE0Attachment *)D_800DBEF4)[index].owner =
+                ((u8 *)arg0 - D_800CC2D0) / 0x32C + 0x64;
+            if (arg1 != 0) {
+                ((Game77BE0Attachment *)D_800DBEF4)[index].owner = 0;
+                return;
+            }
+            entry = &((Game77BE0Attachment *)D_800DBEF4)[index];
+            entry->flags &= 0xFF9F;
+            entry = &((Game77BE0Attachment *)D_800DBEF4)[index];
+            entry->flags |= 0x20;
+            ((Game77BE0Attachment *)D_800DBEF4)[index].position[0] = (s32)arg0->position[0];
+            ((Game77BE0Attachment *)D_800DBEF4)[index].position[1] = (s32)(arg0->position[1] + arg0->height);
+            ((Game77BE0Attachment *)D_800DBEF4)[index].position[2] = (s32)arg0->position[2];
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1504AF10 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504AF10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504B0FC.s")
 extern s8 D_80099140[];

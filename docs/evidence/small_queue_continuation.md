@@ -142,3 +142,35 @@ passed in 8.640 seconds at 22:14:59 UTC, with progress and whitespace passing.
 There are no pending matched/regression IDs, no new matched bytes, and no empty
 clean batch or extra full test suite. The public/private checkpoint preserves
 all six candidates and their failed hypotheses before the next group.
+
+## Fourth related group
+
+Six targets received 17 manual variants and no new exact match. The first
+worker target stopped after two broad forms. Existing caller declarations were
+checked before preserving narrow callback parameters; raw byte normalization
+alone was not used as permission to narrow a formal.
+
+| Target | Source | Scores | Retained evidence |
+| --- | --- | --- | --- |
+| `func_15168C4C` | `game_1944C0.c` | 3760, 443, 383 | Proven matrix-helper ABI, actual command records and incoming-pointer lifetimes recover most display-list instructions; frame and command increment/store scheduling remain |
+| `func_15081C20` | `game_AEB40.c` | 555, 565, 525 | Observed actor fields and real vector arrays recover the exact frame and stack homes; helper argument setup and first delta-load ordering remain |
+| `func_15169260` | `game_1944C0.c` | 2401, 3006, 781 | Existing completed caller declares a u8 final formal; honoring it removes redundant normalization. Frame, count spill and global-address commoning remain |
+| `func_1502F9FC` | `game_58F80.c` | 4651, 4582 | Actual callee proves a two-input display helper; buffer lifetime, repeated addresses and mask scheduling remain broad |
+| `func_1504AF10` | `game_77BE0.c` | 1404, 892, 680 | Packed attachment value and actual index placement recover frame and stack homes; extraction and helper setup still differ |
+| `func_15108E10` | `game_135D00.c` | 933, 3237, 889 | Existing matrix record and concrete transform/collision contracts improve the source; frame, vector homes and FP scheduling remain |
+
+The `func_15169260` declaration evidence is the existing completed
+`src/game/done/game_1765E0.c` caller, which declares its fourth argument `u8`
+and passes its own `u8` parameter. The raw entry normalization corroborates
+that declaration. Only this source-local target definition was refined.
+The `func_150C3160` helper used by the first worker target reads incoming a0/a1,
+overwrites a2 before use, never consumes incoming a3, and returns the command
+pointer in v0; its local two-argument contract avoids m2c's incidental live
+register arguments.
+
+All six candidates are disabled through supported deferral transactions. The
+integrator independently reproduced worker scores 4582, 680 and 889. Complete
+incremental US game-code and mapped-rodata equality, progress and whitespace
+passed. No shared dependency, linker mapping, compiler setting or verifier was
+changed. There are no pending matched IDs and the accepted total stays at
+22 functions / 9,284 bytes for this task; no empty clean batch was run.
