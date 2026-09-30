@@ -195,7 +195,7 @@ segments:
       - [0x499A0, c, game/game_76E50]
       - [0x49C40, c, game/game_770F0]
       - [0x4A2B0, lib, libultrare, expf, .text]
-      - [0x4A400, c, game/game_778B0]
+      - [0x4A400, c, game/done/game_778B0]
       - [0x4A5E0, c, game/done/game_77A90]
       - [0x4A620, lib, libultrare, logf, .text]
       - [0x4A730, c, game/game_77BE0]

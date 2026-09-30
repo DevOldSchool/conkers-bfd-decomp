@@ -19854,6 +19854,12 @@
       "symbol": "func_1506DE84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1570,
+        "reason": "Selection trial ready target:6264/2783/1570; pointer and cached-coordinate lifetimes, then actual local ordering improved. Worker source-only handoff independently reproduces1570. Frame/vertex homes and registers remain; three-variant cap reached.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -28828,6 +28834,12 @@
       "symbol": "func_151400D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1466,
+        "reason": "Selection trial: proven quad output contract, natural matrix/vector and vertex types. Three variants2167/2523/1466; physical coordinate stores best. Full-width formal retained; local s16 normalization adds live storage. Frame+8, formal normalization and final loop schedule remain. Trial cap reached.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -35235,6 +35247,12 @@
       "symbol": "func_1514EE70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5880,
+        "reason": "Selection trial: known descriptor-pointer call contract and matched sibling setup pattern. Three variants5905/5880/10089. Unsigned descriptor bytes and separate real vector objects preserve best5880; component copies worse. Frame+8, vector placement and FP initializer scheduling remain. Three-variant cap reached.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88658,13 +88676,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 480,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1504A400",
           "vram": "0x1504A400"
         }
       },
-      "source": "src/game/game_778B0.c",
+      "source": "src/game/done/game_778B0.c",
       "symbol": "func_1504A400"
     },
     {

@@ -18704,15 +18704,15 @@
       "functions": [
         "func_1504A400"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x4A5E0",
           "start": "0x4A400",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_778B0.c"
+      "source": "src/game/done/game_778B0.c"
     },
     {
       "boundary_evidence": {
