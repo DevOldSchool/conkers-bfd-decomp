@@ -54670,6 +54670,12 @@
       "symbol": "func_151A85D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1828,
+        "reason": "Typed0x50 descriptor and0x28 owner payload score1828; fullword mode/ternary timed2078 discarded. Raw entry homes/narrows a2/a3, but no qualifying existing declaration was found; sb/sh formals remain s32 per repository rule and narrow-formal experiment was not run. Other argument-load and initializer scheduling differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77016,6 +77022,12 @@
       "symbol": "func_1514AB5C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 14,
+        "reason": "Actual72-byte particle, canonical RNG contracts and word formals first1863. Split second RNG call from later scaling and initializer order reaches14: two initial halfword stores reversed. Nested comma initializer14 and material temporary20 discarded after two non-improvements. Preserve clear second candidate; no padding or volatile additions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81644,6 +81656,12 @@
       "symbol": "func_150AFDB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 26,
+        "reason": "Real near/far transform outputs and concrete large-call contracts246. Reusing one matrix pointer860 discarded; reloading the final owner into its actual word argument reaches26. Coherent real-field workspace1155 discarded. Best26 has one commuted integer-add row and two matrix spill-offset rows; no dummy storage or volatile additions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87006,6 +87024,12 @@
       "symbol": "func_15088A08"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Typed route/actor fields and actual interpolation contracts375; move actual entry/angle locals before coefficient arrays and fullword status/rotation80; fullword cached link20. Narrow rotation and constant-left comparison40 discarded. Best20 has exact opcodes/control/frame/stack, three GPR operand rows only. No automatic search or dummy locals.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
