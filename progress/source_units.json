@@ -10291,15 +10291,15 @@
         "func_150B3AB0",
         "func_150B3C0C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xB3DD0",
           "start": "0xB3AB0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_E0F60.c"
+      "source": "src/game/done/game_E0F60.c"
     },
     {
       "boundary_evidence": {

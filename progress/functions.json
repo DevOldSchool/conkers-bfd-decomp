@@ -62613,26 +62613,25 @@
           "vram": "0x150B3AB0"
         }
       },
-      "source": "src/game/game_E0F60.c",
+      "source": "src/game/done/game_E0F60.c",
       "symbol": "func_150B3AB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1478,
-        "reason": "Manual typed particle packet improved1923to1478; frame70 and trigslots correct. Packetaddress CSEspill causes +4 field offsets; firstfield-address and singleelementarray probes unchanged. Narrow helper-argument codegen and FP operand ordering remain. Four revisions, preserve simpler best.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 452,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B3C0C",
           "vram": "0x150B3C0C"
         }
       },
-      "source": "src/game/game_E0F60.c",
+      "source": "src/game/done/game_E0F60.c",
       "symbol": "func_150B3C0C"
     },
     {

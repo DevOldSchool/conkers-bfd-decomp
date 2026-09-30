@@ -61,3 +61,25 @@ The supported `block-raw` transaction preserved these original sources unchanged
   The ready step cannot interpret its nonstandard return as ordinary C.
 
 These are queue blockers, not new C matches or original-assembly proof claims.
+
+## Independently checked sibling `func_150B3C0C`
+
+The 452-byte sibling in `game_E0F60.c` uses the same packet but two supplied
+angles, distinct constants and two submission calls. Its old 1478 candidate
+had exhausted address-spelling probes. Applying explicit byte conversions,
+separating the sine result from its multiplication, and placing the used scale
+before the packet restored the exact local offsets and improved it to 520.
+
+The remaining difference was an unnecessary saved/reloaded packet address.
+Both source-local submission declarations treated the packet as an integer.
+The independent `func_15156190` saves incoming a0 as its packet pointer and
+reads its fields; `func_15156388` forwards that pointer unchanged. Declaring
+those first parameters as `void *` and passing `&particle` directly removed the
+integer-expression spill and produced full-span `CURRENT (0)`. This is a new
+argument-type correction, not a repeat of the earlier address-spelling probes.
+
+The source unit moved to `src/game/done/game_E0F60.c`. Its required clean
+boundary batch returned `BATCH_COMPLETE`: full US game code and external
+rodata identical, 1,068 tests passing with 12 skipped, and metadata, progress
+and whitespace gates passing. The two related callbacks add 916 verified bytes
+and complete two reviewed source units.
