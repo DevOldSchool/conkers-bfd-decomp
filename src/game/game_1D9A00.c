@@ -37,6 +37,66 @@ s32 func_151AC550(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151AC550 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9A00/func_151AC550.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9A00/func_151AC61C.s")
+typedef struct Game1D9A00Vertex {
+    s16 x, y, z, flag;
+    u8 other[8];
+} Game1D9A00Vertex;
+
+typedef struct Game1D9A00Quad {
+    u8 pad0[0x2C];
+    f32 scale;
+    f32 height;
+    f32 x, y, z;
+    u8 pad40[0xC];
+    f32 scaleMultiplier;
+    f32 heightMultiplier;
+    u8 pad54[0x6C];
+    u8 templateData[0x40];
+    u8 *buffers[1];
+} Game1D9A00Quad;
+
+void *func_10022EC0(void *, const void *, u32);
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+extern f32 D_800DD1D8[];
+extern f32 D_800DD1E8[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AC810 CURRENT (796) */
+void *func_151AC810(Game1D9A00Quad *arg0, s32 arg1) {
+    Game1D9A00Vertex *vertices;
+    void *result;
+    f32 scale;
+    f32 height;
+    f32 offsetZ;
+    f32 offsetX;
+    u8 fresh;
+
+    func_151D5D60(arg0->buffers, (s16)arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            func_10022EC0(arg0->buffers[(s16)arg1], arg0->templateData, 0x40);
+            func_10022EC0(arg0->buffers[(s16)arg1] + 0x40, arg0->templateData, 0x40);
+        }
+    } else {
+        return 0;
+    }
+    scale = arg0->scale * arg0->scaleMultiplier;
+    height = arg0->height * arg0->heightMultiplier;
+    offsetZ = D_800DD1D8[(s16)arg1] * scale;
+    offsetX = D_800DD1E8[(s16)arg1] * scale;
+    vertices[0].flag = 0;
+    vertices[1].flag = 0;
+    vertices[2].flag = 0;
+    vertices[3].flag = 0;
+    vertices[0].x = vertices[3].x = (s32)(arg0->x + offsetX);
+    vertices[0].y = vertices[1].y = (s32)arg0->y;
+    vertices[0].z = vertices[3].z = (s32)(arg0->z - offsetZ);
+    vertices[1].x = vertices[2].x = (s32)(arg0->x - offsetX);
+    vertices[2].y = vertices[3].y = (s32)(arg0->y + height);
+    vertices[1].z = vertices[2].z = (s32)(arg0->z + offsetZ);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AC810 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D9A00/func_151AC810.s")
 extern f32 D_800BE9A4;
 

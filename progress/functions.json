@@ -50299,6 +50299,12 @@
       "symbol": "func_15187D6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 260,
+        "reason": "Typed lifecycle/callback candidate best260. Combined flag clear and actual local order recover exact first0xE8 bytes and stack; dead flag migrates a1 to v1 afterward. One-owner callback contract uses existing matched special/cleanup definitions and typed table evidence. Separate flags scratch worse; no equivalent retries.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62085,6 +62091,12 @@
       "symbol": "func_150B7B40"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5069,
+        "reason": "Worker5069 independently reproduced; ROM-backed constant hoisting improved, frame and loop allocation remain; bounded family exhausted",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62117,6 +62129,12 @@
       "symbol": "func_150B85C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 435,
+        "reason": "Worker435 independently reproduced; exact frame and control flow, FP zero-scale allocation and final flag scheduling differ",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69228,6 +69246,12 @@
       "symbol": "func_151AC61C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 796,
+        "reason": "Paired-vertex sibling pattern yields796; all geometry arithmetic and stores match, but s32 selector cast caches signed-halfword value into extra spill instead of original argument-home reloads. No existing declaration found for target; narrow-formal experiment not performed. Callback pointer observed at80089E48, interface proof still needed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71309,6 +71333,12 @@
       "symbol": "func_151BEC94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 711,
+        "reason": "Typed actor collision callback candidate2505->776->711. Explicit switch arms recover saved-register assignment; actual vectors and local ordering improve. Frame extent, workspace offsets, ready scheduling and sparse-switch join remain. No padding or equivalent retries.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75738,6 +75768,12 @@
       "symbol": "func_15102EB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 828,
+        "reason": "Typed descriptor best828 after direct random-kind store, real local order and evidence-backed initializer ordering. Word formals retained; raw byte reloads, first-flag spill and final scheduling differ. No narrowing without existing declaration evidence; no equivalent retries.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -76707,6 +76743,12 @@
       "symbol": "func_150FC368"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 319,
+        "reason": "Typed owner/effect packet best319; every remaining row is incoming a2 byte-formal normalization. Existing call declaration proves a3 u8 only, a2 remains s32 by AGENTS. No narrow-a2 experiment performed. Natural local order and physical packet stores recover all later instructions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

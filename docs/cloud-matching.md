@@ -142,7 +142,7 @@ Before matching new work, prove a known match and the full environment:
 
 ```sh
 # Known accepted actor playback-rate match at the checkpoint above.
-./conker diff 1505841C
+./conker diff func_1505841C
 ./conker rsp
 ./conker build --all
 ./conker game-build --refresh
@@ -150,7 +150,7 @@ Before matching new work, prove a known match and the full environment:
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
-First verify that `1505841C` is still an accepted C function on the selected
+First verify that `func_1505841C` is still an accepted C function on the selected
 branch; if absent, select an existing accepted ID from that branch's inventory.
 The quick check must report `CURRENT (0)` against independent raw assembly. It
 is a smoke check, not permission to skip full baseline gates or record new
