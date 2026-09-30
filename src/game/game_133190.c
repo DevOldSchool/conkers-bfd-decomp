@@ -411,7 +411,106 @@ void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
         (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*(volatile u8 *)((u8 *)arg0 + 0x68)]))(arg0, arg1, arg2);
     }
 }
+typedef struct Game133190Vector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game133190Vector;
+
+typedef struct Game133190Color {
+    u8 bytes[4];
+} Game133190Color;
+
+typedef struct Game133190Contact {
+    u8 pad0[8];
+    Game133190Vector point;
+    u8 pad14[0x45];
+    u8 hit;
+    u8 pad5A[0xA];
+} Game133190Contact;
+
+typedef struct Game133190Beam {
+    s16 life;
+    s8 enabled;
+    u8 pad3;
+    Game133190Vector position;
+    Game133190Vector axis0;
+    Game133190Vector axis1;
+    Game133190Vector contact;
+    s8 flag;
+    u8 pad35[3];
+    s32 count;
+    f32 width;
+    f32 scale;
+    s16 lower;
+    s16 upper;
+    Game133190Color color;
+    s8 mode;
+    u8 pad4D[3];
+} Game133190Beam;
+
+typedef struct Game133190Owner {
+    void *owner;
+    u8 kind;
+    u8 pad5;
+    s16 first;
+    s16 second;
+    u8 padA[2];
+} Game133190Owner;
+
+/* Pointer-leading ABI proved by raw actor dereference and independent caller. */
+void func_15081690(void *, f32, f32, f32, f32, f32, f32,
+                   void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15107A20(void *, s16, s16, void *, void *);
+void func_15107AE0(void *, void *, void *, void *);
+Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107700 CURRENT (3417) */
+Game133190Object *func_15107700(void *arg0, s32 arg1, s32 arg2, s32 arg3,
+                              s32 arg4, f32 arg5, f32 arg6, s32 arg7,
+                              s32 arg8, Game133190Color *arg9, s32 arg10, s32 arg11) {
+    Game133190Owner owner;
+    Game133190Object *result;
+    Game133190Beam beam;
+    Game133190Contact contact;
+    Game133190Vector origin;
+    s8 enabled;
+
+    arg1 = (s16)arg1;
+    arg2 = (s16)arg2;
+    arg3 = (s16)arg3;
+    if (*(void **)((u8 *)arg0 + 0x1D4) == 0) return 0;
+    owner.owner = arg0;
+    owner.first = arg1;
+    owner.second = arg2;
+    owner.kind = *((u8 *)arg0 + 0x3B);
+    if (arg3 == -1) beam.life = 300; else beam.life = arg3;
+    if (arg3 == -1) enabled = 0; else enabled = 1;
+    beam.enabled = enabled;
+    beam.flag = 0;
+    beam.count = arg4;
+    beam.width = arg5;
+    beam.scale = arg6;
+    beam.lower = (s16)arg7;
+    beam.upper = (s16)arg8;
+    beam.color = *arg9;
+    beam.mode = 2;
+    func_15107A20(arg0, (s16)arg1, (s16)arg2, &beam.position, &origin);
+    func_15081690(arg0, beam.position.x, beam.position.y, beam.position.z,
+                  beam.position.x-origin.x, beam.position.y-origin.y,
+                  beam.position.z-origin.z, &contact, 0.0f, 0, 1, 1, -1, 0, 0);
+    if (contact.hit == 0) return 0;
+    beam.contact = contact.point;
+    func_15107AE0(&beam.position, &beam.contact, &beam.axis0, &beam.axis1);
+    result = func_15105CE0(&beam, 12, (u8)arg10, arg11);
+    if (result != 0) {
+        func_10022EC0(result->holder, &owner, sizeof(owner));
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15107700 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107700.s")
+
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151078E4(void *arg0, s32 arg1, u8 arg2) {

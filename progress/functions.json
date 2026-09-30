@@ -12820,6 +12820,12 @@
       "symbol": "func_15146078"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3510,
+        "reason": "Bounded source-only group six independently reproduced; hypotheses, scores and remaining differences preserved in worker-group-6/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13447,6 +13453,12 @@
       "symbol": "func_15169040"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2476,
+        "reason": "Three bounded forms scored 3071/2476/2551. Reused proven traversal entry and qualifying u8 target declaration; direct formal use improves lifetime, branch-local node/slot scopes do not. Frame, end-address commoning and range/register scheduling remain; best2476 retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -16099,6 +16111,12 @@
       "symbol": "func_1501374C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1233,
+        "reason": "Bounded source-only group six independently reproduced; hypotheses, scores and remaining differences preserved in worker-group-6/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33975,15 +33993,17 @@
       "symbol": "func_151076A4"
     },
     {
-      "blocked": {
-        "reason": "Required active func_15081690 prototype has leading f32 but raw target call passes actor pointer in a0; missing verified ABI blocks safe implementation. Target narrow formals also lack qualifying existing declaration; no C hypothesis tested.",
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3417,
+        "reason": "Research proved pointer-leading helper15081690 ABI; three safe compiling variants scored 4365/3417/5656. Best second shape has exact frame, real object homes and helper-call body; full-width target normalization and stack argument reloads remain. No qualifying narrow target declaration was found.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 484,
-          "state": "blocked",
+          "state": "raw_asm",
           "symbol": "func_15107700",
           "vram": "0x15107700"
         }
@@ -48605,6 +48625,12 @@
       "symbol": "func_1519F168"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2508,
+        "reason": "Bounded source-only group six independently reproduced; hypotheses, scores and remaining differences preserved in worker-group-6/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79364,6 +79390,12 @@
       "symbol": "func_151D10E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1022,
+        "reason": "One extra research-backed form uses direct embedded vector copies as in matched151D0F60, removing two redundant pointer locals. Improves1160 to1022 and recovers exact frame; spill homes and incoming-pointer scheduling remain. Bounded follow-up ends here.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -82690,8 +82722,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 500,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1504BC38",
           "vram": "0x1504BC38"
         }

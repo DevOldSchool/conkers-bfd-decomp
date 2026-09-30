@@ -10,7 +10,6 @@
  * - func_1504AF10
  * - func_1504B0FC
  * - func_1504BA38
- * - func_1504BC38
  * - func_1504BE2C
  * - func_1504C0E8
  * - func_1504C8BC
@@ -207,7 +206,89 @@ void func_1504BB88(u8 *arg0) {
         *(s32 *)(arg0 + 0x25C) = var_v0 & ~2;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BC38.s")
+typedef struct {
+    u8 pad0[0x44];
+    s8 field44;
+    u8 pad45[5];
+    s8 field4A;
+    s8 field4B;
+    u8 pad4C[6];
+    u8 field52;
+    u8 pad53;
+    s8 field54;
+    s8 field55;
+    u8 pad56[0x34];
+    s16 field_8A;
+    u16 field_8C;
+    s8 field_8E;
+    s8 field_8F;
+    u8 pad90[0x10E];
+    u16 field19E;
+    u16 field1A0;
+} Game77BE0TimerState;
+
+typedef struct {
+    u8 pad0[0x89];
+    u8 field89;
+    u8 field8A;
+    u8 pad8B[0x23];
+    u8 fieldAE;
+    u8 padAF[0x58];
+    u8 field107;
+    u8 pad108[0x1D];
+    u8 field125;
+    u8 pad126[0xAA];
+    s8 field1D0;
+    u8 pad1D1[0x57];
+    u8 field228;
+    u8 pad229[0xF3];
+    Game77BE0TimerState *field_31C;
+} Game77BE0State;
+
+extern u8 D_800BE9A0;
+extern s32 D_800BE9E4;
+
+void func_1504BC38(Game77BE0State *arg0) {
+
+    if (arg0->field89 != 0 && arg0->field89 < 250) {
+        if (D_800BE9A0 >= arg0->field89) arg0->field89 = 0;
+        else arg0->field89 = arg0->field89 - D_800BE9A0;
+    }
+    if (arg0->field228 != 0) {
+        s32 timer = arg0->field228;
+        if (D_800BE9A0 >= arg0->field228) arg0->field228 = 0;
+        else arg0->field228 = timer - D_800BE9A0;
+    }
+    if (arg0->fieldAE != 0) arg0->fieldAE = arg0->fieldAE - 1;
+    if (arg0->field8A != 255) {
+        if (D_800BE9A0 >= arg0->field8A) arg0->field8A = 0;
+        else arg0->field8A = arg0->field8A - D_800BE9A0;
+    }
+    if (arg0->field125 != 255) {
+        if (D_800BE9A0 >= arg0->field125) arg0->field125 = 0;
+        else arg0->field125 = arg0->field125 - D_800BE9A0;
+    }
+    if (arg0->field_31C->field4A > 0) arg0->field_31C->field4A = arg0->field_31C->field4A - D_800BE9A0;
+    if (arg0->field_31C->field4B > 0) arg0->field_31C->field4B = arg0->field_31C->field4B - D_800BE9A0;
+    if (arg0->field_31C->field44 > 0) arg0->field_31C->field44 = arg0->field_31C->field44 - D_800BE9A0;
+    if (arg0->field107 != 0) arg0->field107 = arg0->field107 - 1;
+    if (arg0->field1D0 > 0) arg0->field1D0 = arg0->field1D0 - D_800BE9A0;
+    if (arg0->field_31C->field54 > 0) arg0->field_31C->field54 = arg0->field_31C->field54 - D_800BE9A0;
+    if (arg0->field_31C->field55 != 0) arg0->field_31C->field55 = arg0->field_31C->field55 - 1;
+    arg0->field_31C->field52 >>= 1;
+    if (arg0->field_31C->field19E != 0) {
+        if (D_800BE9E4 < arg0->field_31C->field19E) arg0->field_31C->field19E = arg0->field_31C->field19E - D_800BE9E4;
+        else arg0->field_31C->field19E = 0;
+    }
+    if (arg0->field_31C->field1A0 != 0) {
+        if (D_800BE9E4 < arg0->field_31C->field1A0) {
+            arg0->field_31C->field1A0 = arg0->field_31C->field1A0 - D_800BE9E4;
+            return;
+        }
+        arg0->field_31C->field1A0 = 0;
+    }
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BE2C.s")
 void func_1507F640(void);
 extern void *D_800D154C;
@@ -231,19 +312,6 @@ s32 func_1504C0B8(void) {
     return 0x1B;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C0E8.s")
-typedef struct {
-    u8 pad_0[0x8A];
-    s16 field_8A;
-    u16 field_8C;
-    s8 field_8E;
-    s8 field_8F;
-} Game77BE0TimerState;
-
-typedef struct {
-    u8 pad_0[0x31C];
-    Game77BE0TimerState *field_31C;
-} Game77BE0State;
-
 extern u8 D_800BE9A0;
 extern s32 D_800CC288;
 

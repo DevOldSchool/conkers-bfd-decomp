@@ -89,6 +89,65 @@ s32 func_1501374C(u8 *arg0) {
     func_1515D088(arg0);
     return 1;
 }
+void func_10022EC0(void *, void *, s32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_150A8050(f32 *, s32, s32, s32);
+s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
+void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
+extern u8 D_1000EF40[];
+extern f32 D_80096640;
+extern f32 D_80096644;
+
+typedef struct Game40490BeamPacket {
+    f32 position[3];
+    f32 direction[3];
+    f32 height;
+    f32 width;
+    f32 rotation[2];
+    f32 zero;
+    f32 field2C;
+    f32 field30;
+} Game40490BeamPacket;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013778 CURRENT (1233) */
+s32 func_15013778(u8 *arg0) {
+    s32 result;
+    Game40490BeamPacket packet;
+    f32 matrix[4][4];
+    f32 inverse;
+    s16 height;
+
+    height = *(s16 *)(arg0 + 8);
+    if (height != 0) {
+        packet.height = 2.0f * (f32)height;
+        inverse = 1.0f / packet.height;
+        packet.width = (f32)*(s16 *)(arg0 + 6);
+        packet.rotation[0] = *(f32 *)(arg0 + 0xC);
+        packet.zero = 0.0f;
+        packet.field2C = D_80096640;
+        packet.field30 = D_80096644;
+        packet.rotation[1] = *(f32 *)(arg0 + 0x10);
+        packet.position[0] = (f32)*(s16 *)(arg0 + 0);
+        packet.position[1] = (f32)*(s16 *)(arg0 + 2);
+        packet.position[2] = (f32)*(s16 *)(arg0 + 4);
+        func_150A8050(&matrix[0][0], *(s32 *)(arg0 + 0xC), *(s32 *)(arg0 + 0x10), 0);
+        func_150A7960(matrix, 0.0f, packet.height, 0.0f,
+                      &packet.direction[0], &packet.direction[1], &packet.direction[2]);
+        packet.direction[0] *= inverse;
+        packet.direction[1] *= inverse;
+        packet.direction[2] *= inverse;
+        result = func_15149130(0x12C, -1, 0x19, -1, 0, 0x17, 0x34, 0xFF, 0);
+        if (result != 0) {
+            func_10022EC0((void *)(result + 0x28), &packet, 0x34);
+        }
+        height = *(s16 *)(arg0 + 8);
+        func_1000FA64(0x67C, *(s16 *)(arg0 + 0),
+                      (s16)(*(s16 *)(arg0 + 2) + height), *(s16 *)(arg0 + 4),
+                      0x2EE0, height * 2, height / 2, D_1000EF40, 0, 0, 8, 0);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15013778 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15013778.s")
 s32 func_1501396C(u8 *arg0) {
     Game40490SimpleCallback callback;

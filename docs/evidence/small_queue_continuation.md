@@ -202,3 +202,61 @@ Its findings will be measured as new evidence for bounded attempts, rather than
 counted as matching progress by themselves. In particular, stale pointer/float
 helper annotations can block valid C before the first compile, while callback
 byte loads without a qualifying target declaration do not justify narrow formals.
+
+## Sixth related group and research-assisted follow-ups
+
+This group adds one batch-verified match: **`func_1504BC38`, 500 bytes**, in the
+still-mixed `game_77BE0.c`. Seven targets received 18 ordinary manual variants
+and one additional evidence-backed research probe. The accepted task total is
+now **23 functions / 9,784 bytes**.
+
+| Target | Scores | Result and evidence |
+| --- | --- | --- |
+| `func_1504BC38` | 975, 365, 0 | Existing private timer views gain observed fields without moving prior members. Direct field operations plus a full-word snapshot for timer +0x228 reproduce the raw value copy and all 500 bytes |
+| `func_15107700` | 4365, 3417, 5656 | Previously declaration-blocked; real callee/caller evidence permits a pointer-leading helper contract. A single result-pointer lifetime restores the exact frame and real object homes. Full-width target normalization still differs; best 3417 deferred |
+| `func_15169070` | 3071, 2476, 2551 | Existing traversal type and qualifying u8 target declaration reused; incoming flag lifetime improves, branch-local node scopes do not. Frame and address/register scheduling remain |
+| `func_151D1138` | 1265, 1160, 1160; research 1022 | Existing packet and vector copies recover math; one research-backed direct-member form removes redundant pointer locals and restores exact frame. Spill homes and incoming-pointer scheduling remain |
+| `func_151462C8` | 3510 | Raw-proven leading display pointer corrects two helper calls. Existing full-width target formals constrain entry normalization; stopped after one compiled form and a declaration-only repair |
+| `func_1519F1C8` | 2508, 2508 | Real 0x50 record and equivalent aggregate form reproduce frame but not record homes or variadic argument saves; first retained |
+| `func_15013778` | 2302, 1466, 1233 | Reciprocal calculation moved to its actual dependency point; real result-local placement restores frame/homes. FP scheduling and matrix-helper argument annotation remain |
+
+### What the research established
+
+The first read-only pass took 212 seconds for three bounded questions; the
+complete first helper contract was available after roughly 94 seconds. It proved
+`func_15081690` takes an actor pointer in a0, followed by six float coordinates,
+an output pointer, a float threshold and six full-width flags/arguments. The
+callee copies a0 at 150816B0 and dereferences actor+0x124 at 1508178C; independent
+caller 15063628 also places the actor in a0 and coordinate bits in a1–a3. The
+stale leading-f32 annotations were not reliable ABI evidence. Only the target's
+source-local declaration changed; unrelated callers were not rewritten.
+
+The enabled 15107700 trial ran 22:56:04–23:00:23 UTC, 259 seconds, including
+checkpoint coordination and one rejected selector spelling corrected through
+the supported selector. Its three finishes took 2.972, 2.669 and 2.163 seconds;
+deferral took 2.550 seconds. It now compiles safely but produced no exact match.
+Existing declarations still do not permit narrower target formals.
+
+The same research found the ROM-backed callback identity
+`D_8008AA00[13] = func_150BD954` at 0x8008AA34. That table's existing typed
+contract in `game_1797A0.c` retains a full-width final argument, so no narrowing
+probe was run. Existing 0x34 record types corroborate 15017930's layout but do
+not establish a different global-array/alias contract, so no speculative
+rewrite of its globals was run either.
+
+A second read-only pass took 115 seconds. Matched 151D0F60 and the target's
+wordwise 12-byte copies support expressing 151D1138's copies directly through
+embedded members instead of two temporary pointer variables. Exactly one extra
+compile took 2.663 seconds and improved 1160 to 1022, restoring the frame but not
+all spill homes. This is candidate improvement, not matching throughput.
+Neither research-assisted trial produced a new accepted match; the timer match
+came from the normal queue. These small, different targets do not establish a
+causal speedup or forecast.
+
+### Acceptance
+
+Worker candidates were independently reproduced at 3510, 2508 and 1233 and then
+deferred canonically. The clean batch for 1504BC38 returned `BATCH_COMPLETE`:
+full US game-code and mapped-rodata equality, 1,092 tests passed/12 skipped,
+valid metadata, current progress, and whitespace checks. All other six best
+candidates remain disabled with original ASM active. No pending batch IDs remain.
