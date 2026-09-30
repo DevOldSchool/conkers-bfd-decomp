@@ -35,6 +35,94 @@ void func_15116984(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_151169B4.s")
+typedef struct Game143DE0Sound {
+    s16 sound;
+    u8 pad2[6];
+    s16 endSound;
+    s16 threshold;
+} Game143DE0Sound;
+
+extern s32 D_800BE9E4;
+extern Game143DE0Sound D_80089260[];
+void func_15114D24(s32, s32, s32, s16, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116BAC CURRENT (5909) */
+void func_15116BAC(u8 *arg0) {
+    s32 packed;
+    s32 soundIndex;
+    s32 rate;
+    s32 maximum;
+    s32 played;
+    s32 step;
+    s32 offset;
+    s16 *current;
+    s16 *previous;
+    s32 *target;
+    s32 desired;
+    s32 distance;
+    s16 value;
+    s16 soundId;
+    Game143DE0Sound *sound;
+
+    packed = *(s32 *)(arg0 + 0x3C);
+    soundIndex = packed >> 10;
+    played = 0;
+    maximum = 0;
+    rate = packed & 0xFFFF03FF;
+    if (soundIndex != 0 && *(u16 *)(arg0 + 0x74) == 0) {
+        soundId = D_80089260[soundIndex].sound;
+        if (soundId != 0) {
+            func_15114D24((s32)arg0, soundId, 0x5DC0, 0x7D0, 0xFA0, 0);
+            played = 1;
+        }
+    }
+    offset = 0;
+    current = (s16 *)(arg0 + 0x10);
+    target = (s32 *)(arg0 + 0x7C);
+    previous = (s16 *)(arg0 + 0x5A);
+    step = (rate * D_800BE9E4) >> 1;
+    do {
+        offset += 4;
+        *previous = *current;
+        desired = *target;
+        value = *current;
+        if (value != desired) {
+            if (desired < value) {
+                *current = value - step;
+                desired = *target;
+                distance = *current - desired;
+                if (distance < 0) {
+                    *current = desired;
+                }
+            } else {
+                *current = value + step;
+                desired = *target;
+                distance = desired - *current;
+                if (distance < 0) {
+                    *current = desired;
+                }
+            }
+            if (maximum < distance) {
+                maximum = distance;
+            }
+        }
+        *previous = *current - *previous;
+        current++;
+        target++;
+        previous++;
+    } while (offset != 0xC);
+    if (soundIndex != 0) {
+        sound = &D_80089260[soundIndex];
+        soundId = sound->endSound;
+        if (soundId != 0) {
+            maximum -= (sound->threshold * rate) >> 1;
+            if (maximum <= 0 && (-step < maximum || played != 0)) {
+                func_15114D24((s32)arg0, soundId, 0x5DC0, 0x7D0, 0xFA0, 0);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15116BAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_143DE0/func_15116BAC.s")
 extern s32 D_800BE9E4;
 
@@ -99,10 +187,7 @@ typedef struct Game143DE0Motion {
     f32 velocity;
 } Game143DE0Motion;
 
-typedef struct Game143DE0Sound {
-    s16 sound;
-    u8 pad2[10];
-} Game143DE0Sound;
+
 
 extern Game143DE0Sound D_80089260[];
 extern f32 D_800A2FD8;

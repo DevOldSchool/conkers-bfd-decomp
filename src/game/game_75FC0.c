@@ -72,39 +72,39 @@ f32 func_15048C30(f32, f32);                        /* extern */
 extern f32 D_80099070;
 extern f32 D_80099074;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048FC8 CURRENT (3363) */
-f32 func_15048FC8(void *arg0) {
-    f32 temp_fa1;
-    f32 temp_ft4;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 var_fa0;
-    f32 var_fa0_2;
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
 
-    temp_fa1 = *(f32 *)((u8 *)arg0 + 0);
-    temp_fv1 = *(f32 *)((u8 *)arg0 + 8);
-    temp_ft4 = sqrtf((temp_fa1 * temp_fa1) + (temp_fv1 * temp_fv1));
-    if (temp_ft4 == 0.0f) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048FC8 CURRENT (45) */
+f32 func_15048FC8(f32 *arg0) {
+    f32 x;
+    f32 z;
+    f32 length;
+    f32 angle;
+
+    x = arg0[0];
+    z = arg0[2];
+    length = sqrtf(x * x + z * z);
+    if (length == 0.0f) {
         return 0.0f;
     }
-    temp_fv0 = func_15048C30(-temp_fa1 / temp_ft4, temp_fa1);
-    if (*(f32 *)((u8 *)arg0 + 8) > 0.0f) {
-        var_fa0_2 = 270.0f - (temp_fv0 * D_80099070);
+    angle = func_15048C30(-x / length, x);
+    if (arg0[2] > 0.0f) {
+        angle = 270.0f - angle * D_80099070;
     } else {
-        var_fa0_2 = (temp_fv0 * D_80099074) + 90.0f;
+        angle = angle * D_80099074 + 90.0f;
     }
-    var_fa0 = var_fa0_2 - 90.0f;
-    if (var_fa0 < 0.0f) {
-        var_fa0 += 360.0f;
+    angle -= 90.0f;
+    if (angle < 0.0f) {
+        angle += 360.0f;
     }
-    return var_fa0;
+    return angle;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15048FC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048FC8.s")
+
 f32 func_15048864(f32, f32);                        /* extern */
 
-f32 sqrtf(f32);
-#pragma intrinsic(sqrtf)
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150490A8 CURRENT (35) */
 s32 func_150490A8(void *arg0) {
     f32 temp_fa0;

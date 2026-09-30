@@ -29826,8 +29826,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3363,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3363)",
+        "current_score": 45,
+        "reason": "New declaration-order evidence: existing f32 sqrtf/intrinsic was below caller. Moving it before caller improved3363\u21921585; one coherent angle accumulator45. Separate radians scalar45 and explicit quotient assignment45, discarded. Fullspan now differs only7 final-angle f2 vs f12 rows. No automated repeat of250variantsearch or scoped-register probe.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43370,6 +43370,12 @@
       "symbol": "func_150B71A8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4246,
+        "reason": "Typed existing sprite descriptor with actual packed-coordinate words and void-pointer draw-helper contract. First4266; signed packedword probe4266; distinct edge values4246. Remaining arg1 stack-vs-saved-register choice, frame/layout and initializer scheduling. Three bounded manual candidates, no permutations/padding/volatile.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -76235,6 +76241,12 @@
       "symbol": "func_151169B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5909,
+        "reason": "First typed motion/sound candidate5909. Recovered three halfword-current/fullword-target axes, correct pointer strides, initial/final sound fields, clamped updates and delta storage; remaining frame/register/control-flow differences. No arbitrary padding, volatile accesses or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88485,6 +88497,12 @@
       "symbol": "func_1504A400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 490,
+        "reason": "Typed owner/state candidate1090; explicit lower-clamp store and separate decay path improved490. Original frame and primary path exact; remaining derived-state pointer rematerialization/load order and zero-comparison operands. No padding, volatile or permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
