@@ -19,9 +19,10 @@ current implementation counts are generated in [progress.md](progress.md);
 ASM-backed members inside reviewed source units do not represent missing
 boundaries.
 
-Main-executable review remains separate. Its CPU text map contains 33 raw
-navigation ranges totaling 65,456 bytes. Twenty-six working source units now
-have reviewed boundaries, totaling 60,576 bytes: the two
+Main-executable review remains separate. Its CPU text map contains 32 raw
+navigation ranges totaling 65,392 bytes, plus a separately classified 64-byte
+zero tail. Twenty-seven working source units now
+have reviewed boundaries, totaling 64,048 bytes: the two
 [bootstrap units](evidence/main_bootstrap_source_units.md), ten
 [system-wrapper units](evidence/main_system_wrapper_boundaries.md), and five
 [allocation/transfer/controller units](evidence/main_allocator_transfer_controller_boundaries.md),
@@ -30,13 +31,16 @@ the [sound-record family](evidence/main_sound_record_family_boundary.md), and tw
 [sequence/MP3 API units](evidence/main_sequence_api_mp3_adapter_boundaries.md).
 The [fixed TLB alias](evidence/main_tlb_alias_boundary.md) adds one verified
 original-assembly unit; the [handwritten families](evidence/main_handwritten_family_boundaries.md)
-add three further units with all interior entries accounted for. Together they
-cover twenty-seven navigation ranges; six ranges totaling 4,880 bytes
-remain without registered working ownership. Those ranges are leads, not proven original objects or a complete function inventory.
-They include the [64-byte zero tail](evidence/libultrare_us_continued_reconstruction.md)
-at `0x226B0:0x226F0`. The handwritten entry at `0x1000:0x1050` is separate.
-Main source units remain canonically raw until every member matches, because
-mixed C/ASM integration currently supports only the game overlay.
+add three further units with all interior entries accounted for, and the
+[spatial-audio family](evidence/main_spatial_audio_boundaries.md) adds one.
+Together they cover twenty-eight navigation ranges; four ranges totaling
+1,344 bytes remain without registered working ownership. Their unresolved
+stub/entry identities are explicit, rather than forced into guessed objects.
+The [64-byte zero tail](evidence/main_text_zero_tail_226b0.md) at
+`0x226B0:0x226F0` is classified separately and earns no function credit.
+The handwritten entry at `0x1000:0x1050` is separate. Main source units remain
+canonically raw: mixed C/ASM integration currently supports only the game overlay,
+and verified original assembly is deliberately excluded from C matching.
 The [main residual review](evidence/main_boundary_residual_frontier.md) records
 all remaining ranges, concrete index conflicts and the verification gates
 needed before the next mapping change.

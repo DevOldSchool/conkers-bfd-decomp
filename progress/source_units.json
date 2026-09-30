@@ -20248,6 +20248,29 @@
         }
       },
       "source": "src/main/init_71D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_spatial_audio_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_8000A420",
+        "func_8000A750",
+        "func_8000B060"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0xB1B0",
+          "start": "0xA420",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_A420.c"
     }
   ]
 }

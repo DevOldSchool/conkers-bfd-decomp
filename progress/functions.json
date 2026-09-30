@@ -92694,6 +92694,45 @@
       },
       "source": "src/main/init_71D0.c",
       "symbol": "func_80007DAC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 816,
+          "state": "raw_asm",
+          "symbol": "func_8000A420",
+          "vram": "0x8000A420"
+        }
+      },
+      "source": "src/main/init_A420.c",
+      "symbol": "func_8000A420"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 2320,
+          "state": "raw_asm",
+          "symbol": "func_8000A750",
+          "vram": "0x8000A750"
+        }
+      },
+      "source": "src/main/init_A420.c",
+      "symbol": "func_8000A750"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 336,
+          "state": "raw_asm",
+          "symbol": "func_8000B060",
+          "vram": "0x8000B060"
+        }
+      },
+      "source": "src/main/init_A420.c",
+      "symbol": "func_8000B060"
     }
   ],
   "schema_version": 1
