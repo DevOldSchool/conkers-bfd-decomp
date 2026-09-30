@@ -52575,8 +52575,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B5A3C",
           "vram": "0x150B5A3C"
         }
@@ -52588,8 +52593,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B5C38",
           "vram": "0x150B5C38"
         }
@@ -52598,6 +52608,12 @@
       "symbol": "func_150B5C38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 303,
+        "reason": "CURRENT (303): reconstructed the real 0x70-byte descriptor and vector copy. Removing pseudo-spill locals and chaining size assignments restores frame 0x98 and the first 0x158 bytes exactly (initial 1772). Remaining final argument load order and GPR allocation; fifth-argument widening unchanged, original declaration restored. Two revisions, no search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
