@@ -92162,6 +92162,30 @@
       },
       "source": "src/main/init_12560.c",
       "symbol": "func_800127D0"
+    },
+    {
+      "original_asm": {
+        "reason": "CP0 TLB setup with preserved hazard-delay instructions",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_tlb_alias_boundary.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "3192d0fd89ced9fd65f862ad4821007e3570d18c9282098c8625d85f0c9f4d4f",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "a45e7497d9b1ae318665a675d85972e06b9865a413346ccd382da7c89e7d7fa4",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 96,
+          "state": "original_asm",
+          "symbol": "func_80008120",
+          "vram": "0x80008120"
+        }
+      },
+      "source": "src/main/init_8120.c",
+      "symbol": "func_80008120"
     }
   ],
   "schema_version": 1

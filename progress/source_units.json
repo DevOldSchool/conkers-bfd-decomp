@@ -20144,6 +20144,27 @@
         }
       },
       "source": "src/main/init_12560.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_tlb_alias_boundary.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80008120"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x8180",
+          "start": "0x8120",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_8120.c"
     }
   ]
 }

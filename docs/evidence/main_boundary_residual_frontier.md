@@ -1,6 +1,6 @@
 # US main boundary review: remaining frontier
 
-This records the conservative stopping point of the 2026-09-30 main review.
+This records the remaining frontier of the ongoing 2026-09-30 main review.
 It is separate from the already complete game-overlay ownership map and from
 ASM-to-C implementation progress.
 
@@ -8,8 +8,9 @@ ASM-to-C implementation progress.
 
 Five registration batches added twenty reviewed working source units,
 193 entries and 49,360 bytes. Together with the two earlier bootstrap units,
-main now has twenty-two reviewed units, 200 registered entries and 50,640
-reviewed source bytes. All previously registered functions, source units,
+a sixth batch adds one 96-byte fixed-TLB original-assembly unit. Main now has
+twenty-three reviewed units, 201 registered entries and 50,736 reviewed source
+bytes. All previously registered functions, source units,
 match states and matched-byte counts were preserved exactly. The canonical
 main and raw-reference maps were not changed.
 
@@ -18,8 +19,8 @@ The CPU interval `0x1050:0x290D0` consists of:
 | Classification | Bytes |
 | --- | ---: |
 | Already exact CPU library text | 98,512 |
-| Reviewed working source units, canonically raw | 50,640 |
-| Ten remaining raw navigation ranges | 14,816 |
+| Reviewed working source units, canonically raw | 50,736 |
+| Nine remaining raw navigation ranges | 14,720 |
 | CPU interval total | 163,968 |
 
 The handwritten `0x1000:0x1050` entry is outside this interval. The existing
@@ -33,6 +34,7 @@ The new memberships and positive evidence are in:
 - [Audio driver and sequence controller](main_audio_driver_sequence_boundaries.md): two units, sixty-five entries, 19,936 bytes
 - [Sound-record callbacks and handles](main_sound_record_family_boundary.md): one unit, fifty-four entries, 13,472 bytes
 - [Sequence API and MP3 adapter](main_sequence_api_mp3_adapter_boundaries.md): two units, thirty-four entries, 4,304 bytes
+- [Fixed TLB alias](main_tlb_alias_boundary.md): one unit, one verified original-assembly span, 96 bytes
 
 These are evidence-backed working families. They do not claim that every
 historical object boundary or original filename has been recovered.
@@ -48,7 +50,6 @@ historical object boundary or original filename has been recovered.
 | `0x5AB0:0x6240` | 1,936 | Handwritten TLB/control code with alternate entries; unsplit IDO analysis merges across true control transitions | Review explicit entries/shared ABI and support original-assembly ownership without treating every label as an ordinary C function |
 | `0x6240:0x71D0` | 3,984 | Split raw entries exist, but independent unsplit index is swallowed by the preceding handwritten range | Reconcile an independently seeded/range-scoped index and inspect alternate entries before registration |
 | `0x71D0:0x8120` | 3,920 | Handwritten exception/control paths include callable internal labels not represented as ordinary top-level indexed members | Model complete entry/alias membership and validate against raw words; do not drop those entries |
-| `0x8120:0x8180` | 96 | Positively bounded handwritten TLB routine, directly called from `0x22910` | Preserve as original assembly; establish supported main-assembly registration/integration semantics rather than enqueueing an impossible portable-C rewrite |
 | `0xA420:0xB1B0` | 3,472 | `0xA420/0xA750` are call-connected; `0xB060` is separately called spatial/pan math | Complete the ownership argument or use a reviewed finer split at aligned `0xB060`, with raw regeneration and main-map validation |
 | `0x226B0:0x226F0` | 64 | All zero words, explicitly outside the exact preceding `n_resample.o` | Classify as known padding without inventing its original object owner or a C function |
 
@@ -86,10 +87,9 @@ change; stale raw caches can conceal the disagreement.
 1. Keep the reviewed metadata separate from concurrent game matching. Reconcile
    by replaying the documented registration transactions onto the chosen
    integration baseline, preserving newer matches and source-unit states.
-2. Restore the exact full-main/RSP build capability before changing canonical
-   main splits or performing main source integration. The available cloud CPU
-   image does not include that extension. Reproduce the unchanged full US ROM
-   baseline before relying on it as a gate.
+2. The exact full-main/RSP capability is now restored, with byte-identical full
+   ROM equality. See [toolchain and verifier evidence](main_original_assembly_verification.md).
+   Retain this gate for any canonical split or original-assembly registration.
 3. Resolve the `0x5298` member disagreement first. Regenerate independent raw
    references, compare every word against the owned ROM, and re-review the
    complete `0x50A0:0x5570` family rather than simply attaching a label.
@@ -116,7 +116,9 @@ tests pass after every batch; a full repository run passes 1,067 tests with
 12 declared skips. Generated progress and whitespace checks pass. Raw-word,
 unsplit-index, branch and specific callback evidence are recorded in each batch.
 
-No new full-main build, C-function match, original-assembly integration or
+The sixth batch passes the full US ROM build, a 96-byte original-assembly
+proof, and clean `BATCH_COMPLETE`; the expanded suite passes 1,070 tests with
+12 declared skips. No new C-function match, mixed main integration or
 combined-branch integration is claimed. The raw references and owned ROM remain
 private ignored research inputs; only source/evidence/metadata are committed.
 
