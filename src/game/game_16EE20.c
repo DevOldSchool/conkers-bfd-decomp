@@ -2062,6 +2062,55 @@ void func_15145DB4(u8 *arg0, u8 *arg1, f32 *arg2, register s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145DB4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145DB4.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145EA4 CURRENT (353) */
+void func_15145EA4(f32 **arg0, f32 **arg1, s32 arg2, s32 arg3) {
+    f32 x;
+    f32 transform[4][4];
+    f32 **outputs;
+    f32 *output;
+    register s32 count;
+    f32 **inputs;
+    f32 *input;
+
+    count = arg3;
+    if (D_800C3E90 != 0) {
+        func_151EFEB8(transform, arg2);
+        inputs = arg0;
+        if (count > 0) {
+            outputs = arg1;
+            do {
+                input = *inputs;
+                if (input != 0 && ((0.0f != (x = input[0])) || input[1] != 0.0f || input[2] != 0.0f)) {
+                    output = *outputs;
+                    func_150A7960(transform, x, input[1], input[2], output, output + 1, output + 2);
+                } else {
+                    func_15142314(arg2, 0, *outputs);
+                }
+                count--;
+                inputs++;
+                outputs++;
+            } while (count > 0);
+        }
+    } else {
+        inputs = arg0;
+        if (count > 0) {
+            outputs = arg1;
+            do {
+                input = *inputs;
+                if (input != 0 && ((0.0f != (x = input[0])) || input[1] != 0.0f || input[2] != 0.0f)) {
+                    output = *outputs;
+                    func_150A7960((void *)arg2, x, input[1], input[2], output, output + 1, output + 2);
+                } else {
+                    func_15142314(arg2, 0, *outputs);
+                }
+                count--;
+                inputs++;
+                outputs++;
+            } while (count > 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15145EA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145EA4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15146078.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151462C8.s")

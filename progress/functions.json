@@ -2891,6 +2891,12 @@
       "symbol": "func_150B37C8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5566,
+        "reason": "Typed effect nodes,416-byte head groups and dispatch/iteration pointer tables:5566. Structured duplicate slot reload5576; explicit callback-table/group register hints5621 discarded after two non-improvements. Global address hoisting, frame and control scheduling differ. Existing effect layout unchanged.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -12764,6 +12770,12 @@
       "symbol": "func_15145DB4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 353,
+        "reason": "Typed pointer arrays and real4x4 transform:512; shared loop locals358; using parameter directly984 discarded; real x local before matrix gives353 with exact frame/stack slots. Count register coalescing, one entry move and first-coordinate FP comparison order remain. No artificial padding or volatile accesses.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71829,6 +71841,12 @@
       "symbol": "func_151A73EC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 90,
+        "reason": "Raw callee evidence removes phantom a0/a1 arguments:1514AB5C has12 ABI words with leading f12/f14 floats, and1516972C takes one pointer. Typed state first1206; direct actual fields98; separate initialization pointer232 discarded; declaration order reaches90 with exact frame/stack. Derived-state rematerialization and threshold load order remain. Existing151A73EC rechecks0.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
