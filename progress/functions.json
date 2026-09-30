@@ -38624,6 +38624,12 @@
       "symbol": "func_1501F72C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 633,
+        "reason": "Raw callee1501F72C returns sample index in v0; corrected stale void declaration. Typed six-float output and interval interpolation first933, reduced real temporaries738, explicit numerator stage633. Frame now exact; resource/offset spill positions and FP allocation/scheduling remain. No invented return value or M2C unset-register placeholder.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -39415,6 +39421,12 @@
       "symbol": "func_1502BEE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 320,
+        "reason": "Reuse actual812-byte actor layout with named fields:940. Shared fullword active/model temporary and explicit creation branches380; initialize needed after model cache and name returned effect320. Frame/registers equal; global-address initialization and creation-store branch-delay scheduling remain. Three bounded manual candidates; no artificial barriers.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62086,6 +62098,12 @@
       "symbol": "func_150B82D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 285,
+        "reason": "Manual typed descriptor candidate best285: exact frame and stack fields; final flag-combine allocation/store scheduling differs. Tested scheduled initialization, ternary random flag, physical final-store order (worse), and real local order. No equivalent retries.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63505,8 +63523,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 476,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15033FE0",
           "vram": "0x15033FE0"
         }

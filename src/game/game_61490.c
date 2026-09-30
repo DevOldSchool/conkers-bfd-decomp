@@ -5,18 +5,20 @@
  * Boundary evidence: docs/evidence/game_raw_internal_call_callback_clusters.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15033FE0
  * - func_150341BC
  * - func_15034420
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_61490/func_15033FE0.s")
 typedef struct Game61490Actor {
-    u8 pad0[0x1D1];
+    s32 active;
+    u8 type;
+    u8 pad5[0x1CC];
     s8 field_1D1;
-    u8 pad1D2[0x112];
+    u8 pad1D2[2];
+    void *resources;
+    u8 pad1D8[0x10C];
     s32 field_2E4;
     u8 pad2E8[0x44];
 } Game61490Actor;
@@ -27,6 +29,67 @@ typedef struct Game61490Command {
 } Game61490Command;
 
 extern Game61490Actor D_800CC2D0[];
+
+Game61490Command *func_150341BC(Game61490Command *, s32);
+Game61490Command *func_15034340(Game61490Command *, s32);
+Game61490Command *func_150343B0(Game61490Command *, s32);
+Game61490Command *func_15034420(Game61490Command *, s32);
+s16 *func_150344A0(s16 *, s32);
+void *func_150BE438(void *, s32);
+Game61490Command *func_150B58F0(Game61490Command *, s32);
+Game61490Command *func_150D8590(Game61490Command *, s32);
+Game61490Command *func_150F1B48(Game61490Command *, s32);
+s32 func_1503DA3C(s32, s32);
+s16 *func_15034860(Game61490Command *, Game61490Actor *, s32, s32);
+
+void func_15033FE0(Game61490Command *arg0, s32 arg1) {
+    Game61490Actor *actor;
+    s32 first;
+    Game61490Command *cursor;
+
+    actor = &D_800CC2D0[arg1];
+    cursor = arg0;
+    if (actor->resources == 0) {
+        arg0->opcode = 0x1000;
+        return;
+    }
+    if (actor->active == 1) {
+        cursor = func_150341BC(arg0, arg1);
+    } else {
+        switch (actor->type) {
+        case 0x2B:
+            cursor = func_150D8590(arg0, arg1);
+            break;
+        case 0x28:
+        case 0x77:
+            cursor = (Game61490Command *)func_150344A0(&arg0->opcode, arg1);
+            break;
+        case 0x4B:
+            cursor = func_150B58F0(arg0, arg1);
+            break;
+        case 0x7B:
+            cursor = func_150F1B48(arg0, arg1);
+            break;
+        case 0x8A:
+            cursor = func_15034420(arg0, arg1);
+            break;
+        case 0x21:
+            cursor = func_150BE438(arg0, arg1);
+            break;
+        case 0x98:
+            cursor = func_15034340(arg0, arg1);
+            break;
+        case 0x5A:
+        case 0x74:
+        case 0x7A:
+        case 0x8D:
+            cursor = func_150343B0(arg0, arg1);
+            break;
+        }
+    }
+    first = func_1503DA3C(actor->type, 0);
+    *func_15034860(cursor, actor, first, func_1503DA3C(actor->type, 1)) = 0x1000;
+}
 extern f32 D_80097D14;
 extern u8 D_800C3E78;
 

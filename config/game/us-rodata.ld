@@ -73,6 +73,8 @@ SECTIONS
     .game_rodata_11f780 0x800A192C (INFO) : SUBALIGN(4) { *game_11F780.o(.rodata) }
     /* Two adjacent switches: docs/evidence/game_15d730_jump_tables.md. */
     .game_rodata_15d730 0x800A3800 (INFO) : SUBALIGN(4) { *game_15D730.o(.rodata) }
+    /* Actor command dispatcher: docs/evidence/game_61490_jump_table.md. */
+    .game_rodata_61490 0x80097C80 (INFO) : SUBALIGN(4) { *game_61490.o(.rodata) }
     /* Sound-event switch: docs/evidence/game_1483e0_jump_table.md. */
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
 }
@@ -140,3 +142,6 @@ __game_rodata_1bc650_payload_size = 0x244;
 
 ASSERT(SIZEOF(.game_rodata_1483e0) == 0xE0, "game_1483E0 table extent changed")
 __game_rodata_1483e0_payload_size = 0xD8;
+
+ASSERT(SIZEOF(.game_rodata_61490) == 0xA0, "game_61490 table extent changed")
+__game_rodata_61490_payload_size = 0x94;
