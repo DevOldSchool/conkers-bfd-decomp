@@ -260,3 +260,36 @@ deferred canonically. The clean batch for 1504BC38 returned `BATCH_COMPLETE`:
 full US game-code and mapped-rodata equality, 1,092 tests passed/12 skipped,
 valid metadata, current progress, and whitespace checks. All other six best
 candidates remain disabled with original ASM active. No pending batch IDs remain.
+
+## Seventh related group
+
+Six targets received 14 manual variants, with no new exact match. One narrow
+source-local caller correction also passed independent existing-match regression
+verification and a clean batch. The task total remains 23 functions / 9,784 bytes.
+
+| Target | Scores | Retained result |
+| --- | --- | --- |
+| `func_151AC61C` | 4785, 5145, 209 | Owned-ROM pointer at 0x8008AA30 identifies D_8008AA00[12] and the existing typed callback slots. A direct boolean helper argument, instead of an earlier flag or ternary, reproduces expression scheduling. Only frame/stack homes and two FP register choices remain |
+| `func_150FAAEC` | 2852, 2754, 2759 | Real emission record and helper-produced three-float vectors; an explicit random scale range restores a raw multiply. Global address hoisting and saved-register allocation remain; integer-address views did not help |
+| `func_151452C4` | 4746, 2576, 6277 | Existing Vector3 and intrinsic sqrtf; completing coordinate deltas before aggregate copies improves initial scheduling. Reusing the delta vector recovers frame but worsens arithmetic, so second form retained |
+| `func_1518F5D0` | 2197 | Qualified narrow entry formals and actual 0x50 record copied; existing full-width remaining arguments constrain byte reload/storage folding. Stopped after one compiled form |
+| `func_151D5B6C` | 4949, 4088 | Full-width masked loop index restores induction/base hoisting; no qualifying narrower selector declaration found, so no narrow-formal probe |
+| `func_151169B4` | 5826, 5325 | Corrected caller contract makes this a safe C candidate; full-width current-value local improves it. Table multiplication, frame and loop scheduling remain |
+
+### Verified caller contract correction
+
+`game_143DE0.c` previously declared 151169B4 as `void(void)` and its matched
+wrapper 15116984 called it without arguments. The wrapper itself already takes
+`void *arg0`. Its independent raw 48-byte body at 15116984–151169B4 loads the
+flag at a0+0x73, conditionally calls 151169B4 and never changes a0. The target
+immediately dereferences incoming a0. The local prototype is now `void(void *)`
+and the wrapper explicitly forwards arg0. No unrelated caller changed.
+
+Canonical focused verification reproduces the wrapper's original CURRENT(0),
+layout, progress and whitespace. An initial check while the adjacent unmatched
+candidate was active correctly rejected shifted source-unit layout; the target
+was deferred before the final wrapper check. No mismatch was accepted.
+The required regression-only clean batch then returned `BATCH_COMPLETE`, with
+full game-code/mapped-rodata equality, 1,092 tests passed/12 skipped, and valid
+metadata/progress. The wrapper is an existing match, so it adds no functions or
+bytes. All six new candidates remain disabled and no batch IDs are pending.

@@ -1788,7 +1788,59 @@ s32 func_151451F0(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
     }
     return 0;
 }
+f32 func_15144A74(void *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151452C4 CURRENT (2576) */
+s32 func_151452C4(void *arg0, void *arg1, s32 arg2, f32 arg3,
+                  s32 arg4, s32 arg5, f32 *arg6, f32 *arg7) {
+    Game16EE20Vector3 direction;
+    Game16EE20Vector3 origin;
+    Game16EE20Vector3 delta;
+    f32 perpendicular;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 radiusSquared;
+    f32 projection;
+    f32 discriminant;
+    f32 root;
+    f32 nearDistance;
+    f32 farDistance;
+    s32 result;
+
+    dx = ((Game16EE20Vector3 *)arg2)->x - ((Game16EE20Vector3 *)arg0)->x;
+    dy = ((Game16EE20Vector3 *)arg2)->y - ((Game16EE20Vector3 *)arg0)->y;
+    dz = ((Game16EE20Vector3 *)arg2)->z - ((Game16EE20Vector3 *)arg0)->z;
+    direction = *(Game16EE20Vector3 *)arg1;
+    origin = *(Game16EE20Vector3 *)arg0;
+    radiusSquared = arg3 * arg3;
+    projection = dx * direction.x + dy * direction.y + dz * direction.z;
+    discriminant = dx * dx + dy * dy + dz * dz - projection * projection;
+    perpendicular = discriminant;
+    if (radiusSquared < discriminant) return 0;
+    root = sqrtf(radiusSquared - perpendicular);
+    if (projection < root) root = -root;
+    nearDistance = projection - root;
+    farDistance = projection + root;
+    ((Game16EE20Vector3 *)arg4)->x = nearDistance * direction.x + origin.x;
+    ((Game16EE20Vector3 *)arg4)->y = nearDistance * direction.y + origin.y;
+    ((Game16EE20Vector3 *)arg4)->z = nearDistance * direction.z + origin.z;
+    *arg6 = nearDistance;
+    ((Game16EE20Vector3 *)arg5)->x = farDistance * direction.x + origin.x;
+    ((Game16EE20Vector3 *)arg5)->y = farDistance * direction.y + origin.y;
+    ((Game16EE20Vector3 *)arg5)->z = farDistance * direction.z + origin.z;
+    *arg7 = farDistance;
+    delta.x = ((Game16EE20Vector3 *)arg4)->x - ((Game16EE20Vector3 *)arg0)->x;
+    delta.y = ((Game16EE20Vector3 *)arg4)->y - ((Game16EE20Vector3 *)arg0)->y;
+    delta.z = ((Game16EE20Vector3 *)arg4)->z - ((Game16EE20Vector3 *)arg0)->z;
+    discriminant = func_15144A74(&delta, arg1);
+    result = 1;
+    if (discriminant < 0.0f) result = 0;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151452C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151452C4.s")
+
 s32 func_151454BC(u8 arg0, f32 arg1, void *arg2) {
     f32 temp_fa0;
     f32 temp_fv0;

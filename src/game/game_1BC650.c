@@ -174,6 +174,90 @@ s32 func_1518F5D0(void *, s32, s16, s8, s32, s32, s32, s32, s32, s32);
         arg0, record,
         arg2, arg3, (s32)arg4, (s32)arg5, (s32)arg6, arg7, (s32)arg8, arg9);
 }
+typedef struct Game1BC650Record {
+    s32 words[20];
+} Game1BC650Record;
+
+typedef struct Game1BC650CreatePacket {
+    f32 zero;
+    Game1BC650Record record;
+    s32 child;
+    s8 field58;
+    s8 field59;
+    u8 field5A;
+    u8 pad5B;
+} Game1BC650CreatePacket;
+
+typedef struct Game1BC650Spawn {
+    void *owner;
+    u8 field4;
+    u8 pad5;
+    s16 duration;
+    s8 enabled;
+    s8 field9;
+    s8 fieldA;
+    s8 fieldB;
+    s8 fieldC;
+    s8 fieldD;
+} Game1BC650Spawn;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_1519021C(s32, u8 *, u8, s16, u8, s32);
+void func_151D2AB0(s32);
+void *func_151D2F00(void *, s32, u8, s32);
+s32 func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, void *, void *, s32, s32);
+s32 func_1518E298(void *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518F5D0 CURRENT (2197) */
+s32 func_1518F5D0(void *arg0, s32 arg1, s16 arg2, s8 arg3,
+                   s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9) {
+    Game1BC650Spawn spawn;
+    Game1BC650CreatePacket packet;
+    s8 enabled;
+    u8 *data;
+    void *result;
+
+    packet.zero = 0.0f;
+    packet.record = *(Game1BC650Record *)arg1;
+    enabled = 1;
+    packet.field58 = arg3;
+    spawn.owner = arg0;
+    packet.field59 = (s8)arg4;
+    packet.field5A = (u8)arg6;
+    spawn.field4 = *((u8 *)arg0 + 0x3B);
+    if (arg2 == -1) {
+        spawn.duration = 0x12C;
+    } else {
+        spawn.duration = arg2;
+    }
+    if (arg2 == -1) {
+        enabled = 0;
+    }
+    spawn.enabled = enabled;
+    spawn.field9 = 0;
+    spawn.fieldA = 0;
+    spawn.fieldB = 0;
+    spawn.fieldC = 0;
+    spawn.fieldD = 1;
+    result = func_151D2F00(&spawn, arg7 + 0x60, (u8)arg8, arg9);
+    if (result != 0) {
+        data = (u8 *)result + 0x30;
+        func_10022EC0(data, &packet, 0x5CU);
+        if ((s8)arg5 != -1) {
+            *(s32 *)(data + 0x54) = func_1519021C((s32)result, arg0,
+                (s8)arg5 & 0xFF, arg2, (u8)arg8, arg9);
+        } else {
+            *(s32 *)(data + 0x54) = 0;
+        }
+        func_151D2AB0(*(s32 *)(data + 0x48));
+        func_1000FA64(0x4D, (s16)(s32)*(f32 *)((u8 *)arg0 + 0x14),
+            (s16)(s32)*(f32 *)((u8 *)arg0 + 0x18),
+            (s16)(s32)*(f32 *)((u8 *)arg0 + 0x1C), 0x3A98, 0x7D0, 0x320,
+            func_1518E298, result, arg0, 0, 0);
+    }
+    return (s32)result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518F5D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BC650/func_1518F5D0.s")
 extern s32 (*D_8008D67C[])(void *);
 extern void func_1518F8E0(void *arg0);
