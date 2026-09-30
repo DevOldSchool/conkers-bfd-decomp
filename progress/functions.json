@@ -48946,8 +48946,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3363,
-        "reason": "Three-argument callback semantics remain nonzero (CURRENT 3363): register allocation and callback spill order differ; one/two-argument forms improved bytes but omit raw live callback arguments, so preserve the three-argument candidate.",
+        "current_score": 2291,
+        "reason": "New rawcallee/fullROMtable evidence proves only first callback/helperargument consumed; prior livea1/a2 rationale did not establish arity. Corrected one-argument contracts and nested named callback results improve3363to2291; suffix-scoped locals2511 discarded. Byteflag/register/spill/control scheduling remains. No duplicate save-restore locals, padding or volatile added.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65423,7 +65423,7 @@
           "vram": "0x150B2480"
         }
       },
-      "source": "src/game/game_DF930.c",
+      "source": "src/game/done/game_DF930.c",
       "symbol": "func_150B2480"
     },
     {
@@ -65441,20 +65441,25 @@
           "vram": "0x150B2494"
         }
       },
-      "source": "src/game/game_DF930.c",
+      "source": "src/game/done/game_DF930.c",
       "symbol": "func_150B2494"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 464,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150B2570",
           "vram": "0x150B2570"
         }
       },
-      "source": "src/game/game_DF930.c",
+      "source": "src/game/done/game_DF930.c",
       "symbol": "func_150B2570"
     },
     {
@@ -87941,11 +87946,15 @@
       "symbol": "func_15122980"
     },
     {
+      "blocked": {
+        "reason": "Raw float-to-fixed matrix converter uses FCSR-rounding-sensitive cvt.w.s for all16 values, paired t0/t1 stores and manual two-FPR schedule. m2c replaces these with C integer casts (truncation), which changes semantics under nontruncating FCSR modes. Ordinary C candidate unavailable without an evidenced supported rounding intrinsic; no inline assembly or compiler-flag changes permitted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 464,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A7790",
           "vram": "0x150A7790"
         }
@@ -89463,11 +89472,15 @@
       "symbol": "func_150AA5A8"
     },
     {
+      "blocked": {
+        "reason": "Custom-ABI raw geometry span with interior exported entry150AA678: consumes incoming f3-f11/f12 and v1, saves return address in t9/t8, calls custom sibling150AA470 and returns via jr t9. m2c fails on nonstandard return. Preserve unchanged original assembly; ordinary C ABI cannot represent evidenced register contract.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 464,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150AA644",
           "vram": "0x150AA644"
         }

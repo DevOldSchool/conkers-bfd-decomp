@@ -11411,15 +11411,15 @@
         "func_150B2494",
         "func_150B2570"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xB2740",
           "start": "0xB2480",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_DF930.c"
+      "source": "src/game/done/game_DF930.c"
     },
     {
       "boundary_evidence": {

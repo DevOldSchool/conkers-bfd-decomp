@@ -286,7 +286,7 @@ segments:
       - [0xB10F0, c, game/game_DE5A0]
       - [0xB1DB0, c, game/game_DF260]
       - [0xB1E20, c, game/game_DF2D0]
-      - [0xB2480, c, game/game_DF930]
+      - [0xB2480, c, game/done/game_DF930]
       - [0xB2740, c, game/effects/pipeexplode]
       - [0xB3AB0, c, game/game_E0F60]
       - [0xB3DD0, c, game/game_E1280]
