@@ -34,6 +34,9 @@ They include the [64-byte zero tail](evidence/libultrare_us_continued_reconstruc
 at `0x226B0:0x226F0`. The handwritten entry at `0x1000:0x1050` is separate.
 Main source units remain canonically raw until every member matches, because
 mixed C/ASM integration currently supports only the game overlay.
+The [main residual review](evidence/main_boundary_residual_frontier.md) records
+all remaining ranges, concrete index conflicts and the verification gates
+needed before the next mapping change.
 
 The historical percentages below must not be used as the current boundary
 status. They use the existing progress denominators: the main range ends at
