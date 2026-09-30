@@ -63,8 +63,9 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
             raise TableEvidenceError("unsupported switch dispatch shape")
         counts = []
         # Permit up to two independent loads between the bounds check and
-        # branch, and a load/store delay slot before the index shift. This is
-        # the scheduled form in func_1501C730; no arbitrary CFG inference.
+        # branch, and a load/store delay slot before the index shift. The
+        # swc1 delay slot in func_150415E0 reads GPRs but cannot clobber them;
+        # its rt field names an FPR, not a protected GPR. No CFG inference.
         for guard_index in range(max(0, index - 8), index - 4):
             guard = words[guard_index]
             if not (guard >> 26 == 0x0B and rs(guard) == rt(shift) and rt(guard) != 0
@@ -80,7 +81,7 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                     continue
                 independent = words[guard_index + 1:branch_index] + words[branch_index + 1:index - 3]
                 protected = {rs(guard), rt(guard)}
-                if any(not (word == 0 or word >> 26 in (0x28, 0x29, 0x2B)
+                if any(not (word == 0 or word >> 26 in (0x28, 0x29, 0x2B, 0x39)
                             or (word >> 26 == 0x23 and rt(word) not in protected))
                        for word in independent):
                     continue

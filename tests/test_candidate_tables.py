@@ -41,6 +41,36 @@ def object_fixture(*, wrong_case=False, missing_relocation=False, origin=32, tab
 class CandidateTableTests(unittest.TestCase):
     tables = [Table(0, 8, (0x15000010, 0x15000014))]
 
+    def test_float_store_delay_slot_cannot_clobber_guard_gprs(self):
+        # The same bounded dispatch as func_150415E0, with a swc1 in the
+        # branch delay slot. FPR indices matching at/t6 must not be treated
+        # as writes to those GPRs; a GPR-writing instruction still fails.
+        def reference(delay, branch=0x10200007):
+            words = [0x2DC10002, 0x8FA30020, 0x8FA5001C, branch, delay,
+                     0x000E7080, 0x3C018009, 0x002E0821, 0x8C2E0000,
+                     0x01C00008, 0, 0]
+            raw = ''.join(f'/* {i*4:06X} {0x15000000+i*4:08X} {word:08X} */ '
+                          + ('lw $t6,%lo(jtbl_80090000)($at)' if i == 8 else 'instruction')
+                          + '\n' for i, word in enumerate(words))
+            code = b''.join(word.to_bytes(4, 'big') for word in words)
+            return raw, code
+
+        data = struct.pack('>II', 0x15000028, 0x1500002C)
+        expected = (0x15000000, [Table(24, 32, (0x15000028, 0x1500002C))])
+        for delay in (0xE4440000, 0xE4410000, 0xE5CE0000):
+            with self.subTest(delay=hex(delay)):
+                raw, code = reference(delay)
+                self.assertEqual(expected, reference_tables(raw, code, data,
+                                                            0x15000000, 0x80090000))
+        for delay in (0x440E0000, 0x44010000, 0x8C4E0000, 0x25CE0001):
+            with self.subTest(gpr_clobber=hex(delay)):
+                raw, code = reference(delay)
+                with self.assertRaisesRegex(TableEvidenceError, 'bound is missing'):
+                    reference_tables(raw, code, data, 0x15000000, 0x80090000)
+        raw, code = reference(0xE4440000, branch=0x14200007)
+        with self.assertRaisesRegex(TableEvidenceError, 'bound is missing'):
+            reference_tables(raw, code, data, 0x15000000, 0x80090000)
+
     def test_relocates_case_targets_relative_to_candidate_function(self):
         for origin in (0, 32, 128):
             for offset in (4, 0x8000):
