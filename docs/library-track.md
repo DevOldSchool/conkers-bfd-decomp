@@ -20,9 +20,10 @@ ASM-backed members inside reviewed source units do not represent missing
 boundaries.
 
 Main-executable review remains separate. Its CPU text map contains 33 raw
-navigation ranges totaling 65,456 bytes. Two already have
-[reviewed bootstrap boundaries](evidence/main_bootstrap_source_units.md),
-covering 1,280 bytes; the other 31 ranges total 64,176 bytes. Those ranges
+navigation ranges totaling 65,456 bytes. Twelve now have reviewed working boundaries, totaling 4,896 bytes: the two
+[bootstrap units](evidence/main_bootstrap_source_units.md) and ten
+[system-wrapper units](evidence/main_system_wrapper_boundaries.md). The other
+21 ranges total 60,560 bytes. Those ranges
 are leads, not proven original objects or a complete function inventory.
 They include the [64-byte zero tail](evidence/libultrare_us_continued_reconstruction.md)
 at `0x226B0:0x226F0`. The handwritten entry at `0x1000:0x1050` is separate.

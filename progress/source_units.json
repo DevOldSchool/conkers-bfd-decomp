@@ -19551,6 +19551,220 @@
         }
       },
       "source": "src/main/init_1420.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80002DB0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x2E50",
+          "start": "0x2DB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_2DB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80002E50"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x30A0",
+          "start": "0x2E50",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_2E50.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800030A0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3220",
+          "start": "0x30A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_30A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003220",
+        "func_80003330",
+        "func_8000349C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x34E0",
+          "start": "0x3220",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3220.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800034E0",
+        "func_80003658"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x37F0",
+          "start": "0x34E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_34E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800037F0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x38C0",
+          "start": "0x37F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_37F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003920"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3930",
+          "start": "0x3920",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3920.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003930"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x39B0",
+          "start": "0x3930",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3930.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800039C0",
+        "func_80003ACC"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3BD0",
+          "start": "0x39C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_39C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003BD0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3C40",
+          "start": "0x3BD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3BD0.c"
     }
   ]
 }
