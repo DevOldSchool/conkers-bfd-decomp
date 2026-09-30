@@ -9470,7 +9470,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 265,
-        "reason": "Best manual switch candidate CURRENT (265): case 0x29 tail lacks one sw/reload row and following branch targets are shifted 4 bytes; early-exit case shape regressed to 1018. Shared case 6/0x2B/0x41 assignments improved original 670.",
+        "reason": "CURRENT (265): missing case0x29 sw/reload row shifts subsequent targets4B. Shared-label form reproduces670; one-member s32 aggregate unchanged265; prior early-exit1018. Original265 restored; hypotheses exhausted, no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -9499,6 +9499,12 @@
       "symbol": "func_1505959C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 460,
+        "reason": "CURRENT (460): typed source-local actor/state layouts and corrected three-argument callee declaration (A3 is overwritten before read). Initial1490, corrected-call460, explicit snapshots510. Restored460; count/mask GPR allocation and scheduling remain. Two manual revisions; no permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58360,7 +58366,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 420,
-        "reason": "CURRENT (420): whole-table loop lets IDO reproduce the three peeled entries and four-way unroll; remains missing normalized-character A1 move with V0/A1 allocation and alias differences. Prior natural suffix-loop regressed to 3350; earlier GPR shapes exhausted. One new manual revision in cloud batch; no permutation.",
+        "reason": "CURRENT (420): whole-table loop reproduces peeled entries and four-way unroll; missing A1 move and V0/A1 allocation remain. Reusing normalized u8 input parameter regressed to695; restored420. Natural suffix loop previously3350; historical GPR shapes exhausted. Two cloud manual hypotheses; no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71302,7 +71308,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 17,
-        "reason": "Two new natural used-record probes vector/result39 and vector/owner239 increase frame to38/base28; original17 restored. Vector remains24 insteadraw20 withframe30. No padding added. Ledger deferred-manual-20260927.",
+        "reason": "CURRENT (17): array storage unchanged. Corrected call declaration from matched callee game_191C30.c to void*, void*, f32, f32, f32, using exact 2007.0f/9005.0f literals and whole-vector address; offsets still 24/28/2C instead of 20/24/28, frame 30. Prior vector/result and vector/owner records and suffix scope exhausted. No padding/search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87200,6 +87206,12 @@
       "symbol": "func_1508CAD8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1752,
+        "reason": "CURRENT (1752): typed actor/state and byte/halfword tables, ROM-backed5000 literal. Early return0 and cached pre-write array bases improved2982 to1932; removing pseudo-spill locals and explicit distance cases improved1752. Frame58 vs50 and register/scheduling differences remain; two manual revisions, no permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87215,8 +87227,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1030,
-        "reason": "Manual byte-offset/element-stride correction and six early captured bases improve full3055->1030. First-loop cursor and base roles exact; second-loop cursor allocation and S0 constant lifetime/frame unresolved. Best1030 preserved.",
+        "current_score": 1090,
+        "reason": "Historical 1030 candidate scores 1090 in the fresh full-span comparison. Named register-qualified shared -1 sentinel emits unchanged code. Original source restored; second-loop cursor allocation and S0 lifetime/frame remain unresolved. No padding or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

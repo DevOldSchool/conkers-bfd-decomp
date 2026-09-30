@@ -401,6 +401,86 @@ void func_15059444(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15059444 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059444.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505959C.s")
+typedef struct Game83300InteractionState {
+    u8 pad0[0x18];
+    s16 unk18;
+    u8 pad1A[0xD];
+    u8 unk27;
+    u8 pad28[0x173];
+    u8 unk19B;
+} Game83300InteractionState;
+
+typedef struct Game83300InteractionActor {
+    s32 unk0;
+    u8 unk4;
+    u8 pad5[0x23];
+    f32 unk28;
+    u8 pad2C[0x10];
+    f32 unk3C;
+    u8 pad40[0x49];
+    u8 unk89;
+    u8 pad8A[0x7A];
+    u8 unk104;
+    u8 pad105[0x22];
+    u8 unk127;
+    u8 unk128;
+    u8 pad129[0x13];
+    u8 unk13C;
+    u8 unk13D;
+    u8 pad13E[0x8C];
+    u8 unk1CA;
+    u8 pad1CB[0x91];
+    s32 unk25C;
+    u8 pad260[0xBC];
+    Game83300InteractionState *unk31C;
+    u8 pad320[0xC];
+} Game83300InteractionActor;
+
+extern s8 D_8008FD8C;
+extern s32 D_800CC268;
+void func_1505959C(void *, s32, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150597FC CURRENT (460) */
+void func_150597FC(Game83300InteractionActor *arg0) {
+    s32 var_a1;
+    u8 temp_v1;
+    Game83300InteractionState *temp_a2;
+    Game83300InteractionActor *temp_v0;
+    Game83300InteractionActor *temp_v0_2;
+
+    var_a1 = 0;
+    if (D_8008FD8C > 0) {
+loop_2:
+        if (!((1 << var_a1) & D_800CC268) ||
+            (temp_v0 = (Game83300InteractionActor *)((u8 *)&D_800CC2D0 + var_a1 * 0x32C), temp_v0->unk13C != 0) ||
+            temp_v0->unk89 != 0 || temp_v0->unk0 != 1 ||
+            temp_v0->unk104 != 0 || temp_v0->unk127 == 0xFF) {
+            var_a1 += 1;
+            if (var_a1 < D_8008FD8C) {
+                goto loop_2;
+            }
+        }
+    }
+    if (var_a1 != D_8008FD8C) {
+        temp_v0_2 = (Game83300InteractionActor *)((u8 *)&D_800CC2D0 + var_a1 * 0x32C);
+        if (temp_v0_2->unk13C == 0) {
+            temp_a2 = temp_v0_2->unk31C;
+            if ((temp_a2->unk27 == 0) && (temp_v0_2->unk1CA != 0) &&
+                (arg0->unk13D == 0) &&
+                ((arg0->unk104 != 0) || (arg0->unk25C & 0x1000) || (arg0->unk4 == 0x57)) &&
+                (arg0->unk28 == 0.0f) && (temp_v0_2->unk28 == 0.0f) &&
+                (arg0->unk25C & 8) && (temp_a2->unk19B == 0) &&
+                ((temp_v1 = arg0->unk4, temp_v1 != 0xA9) || temp_v0_2->unk128 == 0) &&
+                ((temp_v1 != 0xA8) || temp_v0_2->unk128 != 0)) {
+                temp_v0_2->unk3C = 0.0f;
+                temp_v0_2->unk13C = (u8)(D_800C3E78 + 0x64);
+                temp_a2->unk18 = 0;
+                func_1505959C(arg0, var_a1, temp_a2);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150597FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150597FC.s")
 extern s16 D_800CC264;
 
