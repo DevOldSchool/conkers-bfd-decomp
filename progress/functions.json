@@ -91720,6 +91720,448 @@
       },
       "source": "src/main/init_EB00.c",
       "symbol": "func_80011EB8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 856,
+          "state": "raw_asm",
+          "symbol": "func_80008180",
+          "vram": "0x80008180"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008180"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 100,
+          "state": "raw_asm",
+          "symbol": "func_800084D8",
+          "vram": "0x800084D8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800084D8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_8000853C",
+          "vram": "0x8000853C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_8000853C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80008570",
+          "vram": "0x80008570"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008570"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_800085A4",
+          "vram": "0x800085A4"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800085A4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 64,
+          "state": "raw_asm",
+          "symbol": "func_800085B8",
+          "vram": "0x800085B8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800085B8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_800085F8",
+          "vram": "0x800085F8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800085F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_8000862C",
+          "vram": "0x8000862C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_8000862C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 156,
+          "state": "raw_asm",
+          "symbol": "func_80008660",
+          "vram": "0x80008660"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008660"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_800086FC",
+          "vram": "0x800086FC"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800086FC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_80008744",
+          "vram": "0x80008744"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008744"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 148,
+          "state": "raw_asm",
+          "symbol": "func_80008790",
+          "vram": "0x80008790"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008790"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_80008824",
+          "vram": "0x80008824"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008824"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 132,
+          "state": "raw_asm",
+          "symbol": "func_8000886C",
+          "vram": "0x8000886C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_8000886C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 152,
+          "state": "raw_asm",
+          "symbol": "func_800088F0",
+          "vram": "0x800088F0"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800088F0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 196,
+          "state": "raw_asm",
+          "symbol": "func_80008988",
+          "vram": "0x80008988"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008988"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_80008A4C",
+          "vram": "0x80008A4C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008A4C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 152,
+          "state": "raw_asm",
+          "symbol": "func_80008A94",
+          "vram": "0x80008A94"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008A94"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80008B2C",
+          "vram": "0x80008B2C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008B2C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 96,
+          "state": "raw_asm",
+          "symbol": "func_80008B60",
+          "vram": "0x80008B60"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008B60"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80008BC0",
+          "vram": "0x80008BC0"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008BC0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 104,
+          "state": "raw_asm",
+          "symbol": "func_80008C04",
+          "vram": "0x80008C04"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008C04"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 124,
+          "state": "raw_asm",
+          "symbol": "func_80008C6C",
+          "vram": "0x80008C6C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008C6C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 504,
+          "state": "raw_asm",
+          "symbol": "func_80008CE8",
+          "vram": "0x80008CE8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008CE8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80008EE0",
+          "vram": "0x80008EE0"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008EE0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80008F24",
+          "vram": "0x80008F24"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008F24"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 56,
+          "state": "raw_asm",
+          "symbol": "func_80008F58",
+          "vram": "0x80008F58"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008F58"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 40,
+          "state": "raw_asm",
+          "symbol": "func_80012560",
+          "vram": "0x80012560"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_80012560"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80012588",
+          "vram": "0x80012588"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_80012588"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 112,
+          "state": "raw_asm",
+          "symbol": "func_800125CC",
+          "vram": "0x800125CC"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_800125CC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 172,
+          "state": "raw_asm",
+          "symbol": "func_8001263C",
+          "vram": "0x8001263C"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_8001263C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 48,
+          "state": "raw_asm",
+          "symbol": "func_800126E8",
+          "vram": "0x800126E8"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_800126E8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 184,
+          "state": "raw_asm",
+          "symbol": "func_80012718",
+          "vram": "0x80012718"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_80012718"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 80,
+          "state": "raw_asm",
+          "symbol": "func_800127D0",
+          "vram": "0x800127D0"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_800127D0"
     }
   ],
   "schema_version": 1
