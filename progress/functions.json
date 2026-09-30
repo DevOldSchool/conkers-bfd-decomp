@@ -92186,6 +92186,514 @@
       },
       "source": "src/main/init_8120.c",
       "symbol": "func_80008120"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "e7ccfcabb369fe60ecf51abce7c12d8af3cb41810a8d4d0bc830bc3848a085f2",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "4009845455f592c3e452157a4ed5c7be73c1b29e6588fc69fdc0dfa931dc7bac",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 84,
+          "state": "original_asm",
+          "symbol": "func_80005AB0",
+          "vram": "0x80005AB0"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005AB0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "3d2c013dac751f7cd8b374250d9ce6e68e19b0f062189f8d0e7add786bd2a117",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "7af930e4b18ebf75f6d73ba7e60376c1fade280643387a06bfe8e37246713522",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 220,
+          "state": "original_asm",
+          "symbol": "func_80005B04",
+          "vram": "0x80005B04"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005B04"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_80005BE0",
+          "vram": "0x80005BE0"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005BE0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "94dcef6ff3438c73ff120635dd77d544836e233519bedeb0d4141682bcc52122",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "2b3182a83025e61e6ec0bac798683fc13ae348da0ef15f952758208eff3986e7",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1484,
+          "state": "original_asm",
+          "symbol": "func_80005C2C",
+          "vram": "0x80005C2C"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005C2C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "811b03281b6492b830a9ccdbb0de8d4607ab7f106692015159f96d78c750f8fa",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "e405f82e418a59b413b3b63d1b8fd915410e688883dacfd1f73ac94ec25b9882",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 72,
+          "state": "original_asm",
+          "symbol": "func_800061F8",
+          "vram": "0x800061F8"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_800061F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 28,
+          "state": "raw_asm",
+          "symbol": "func_80006240",
+          "vram": "0x80006240"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006240"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "2f0fd6d794b6d20948601d0990b1387b9c61fee8d2402960be30ae15d7304a22",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "87ffd007accce1a3e8e8f0cc1ff32f1342691bb532fadbf882dfc4641e681beb",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 208,
+          "state": "original_asm",
+          "symbol": "func_8000625C",
+          "vram": "0x8000625C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000625C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "53acfc934254663c95aab56411385ceb50917b764eed06e43dbeb0fe552a248f",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "9af14aa38a71c93b7f25b610e59c63405e4e03ed3bd6f86becfe4c6608459107",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 84,
+          "state": "original_asm",
+          "symbol": "func_8000632C",
+          "vram": "0x8000632C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000632C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "c5b3aff37cc60925c59311f318f9d106ed52034fd7765ab1c15cafde4f717990",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "2c19b92d66310a78ac0df70a08704c249f4ef6e708320659f80298ec55ad0174",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 164,
+          "state": "original_asm",
+          "symbol": "func_80006380",
+          "vram": "0x80006380"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006380"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "bbda0f3b339172f90940227f35a0bbe56b16df4c8ed6380e0790994a94e3bd50",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "40f835450a499e50052e1737edfade8b336c3add82f129da5a8b6de7600cba6a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1028,
+          "state": "original_asm",
+          "symbol": "func_80006424",
+          "vram": "0x80006424"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006424"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "dc62e59b83a2b9a45e9864b816bf0c61d89834abf0e1fc54a6ceda7a781d0250",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "f4f01aceaebcbe190ba42cc9519797ac3c96a94a17e3e7558801480cd5722cc4",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 260,
+          "state": "original_asm",
+          "symbol": "func_80006828",
+          "vram": "0x80006828"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006828"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "51bef6d2969d477ec1fa6d4038da64cd09ac6dbdf799fe05db52a6c3101d788e",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "809c761eea27e3f786f2274524b7bf59319d2af693bbc8965d0e8c9befcf56f7",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 64,
+          "state": "original_asm",
+          "symbol": "func_8000692C",
+          "vram": "0x8000692C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000692C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "e84019a149dd4610a47c5d62e7278cb36f497a3dbcdc9d93243d86d0de22c50e",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "671a7926edb4a0b13a0fda7de90eb090cd9211b8f364aef7f6950d915b3b8b5f",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1172,
+          "state": "original_asm",
+          "symbol": "func_8000696C",
+          "vram": "0x8000696C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000696C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "4acb6c4cc92ec62c9ae822b756678c0c7809dbd83a224bc65fe94fc34cad4ff0",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "9991b45e6425503146d321b1a31b8a114c5932e8c029101ea0942c42c06d4895",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 668,
+          "state": "original_asm",
+          "symbol": "func_80006E00",
+          "vram": "0x80006E00"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006E00"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "a7a131a3e6fded854895150a8c0eea1686fc7652fc773061fcc633efb8f2f481",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "90798a221f87431b9125a9629322775fc3e9ffc523a266b6e81b37346018b361",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 308,
+          "state": "original_asm",
+          "symbol": "func_8000709C",
+          "vram": "0x8000709C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000709C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "0ad5583de681023f0acd3d20a1f571485c1bd3d33929a9e36f153c8fc7fb1b37",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "ba78a6087cf100fa46f4045a57ad85b6536e88184af72914420e3cb9719cb908",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1452,
+          "state": "original_asm",
+          "symbol": "func_800071D0",
+          "vram": "0x800071D0"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_800071D0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "677db688b6eb574ff80ffcae49bb9e79b516bb47143849be0d43241089d8ff70",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "ef1762f1c120268b65c5abd50988486039d959748fc046cef8aad972ec539a99",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 604,
+          "state": "original_asm",
+          "symbol": "func_8000777C",
+          "vram": "0x8000777C"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_8000777C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_800079D8",
+          "vram": "0x800079D8"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_800079D8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_80007A24",
+          "vram": "0x80007A24"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007A24"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "31a00e3bacff1d4c5551d34fd67b7e3a0d2dd10f9e14b72a6eeca09d4d874e99",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "848a39a0cd94a308a553dbfeee3ddc38b72fac6e889ebe6552620df2475e48d2",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 572,
+          "state": "original_asm",
+          "symbol": "func_80007A38",
+          "vram": "0x80007A38"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007A38"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "827419f1f35f1c786420b4d925bad05147abd3570e81bf533bef6f81bd74ab23",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "cefd5d67e93c79dcd04c2b932a491f100fa71294c5088e3b6bc7041bf33ab623",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 300,
+          "state": "original_asm",
+          "symbol": "func_80007C74",
+          "vram": "0x80007C74"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007C74"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "d7cabf0420f0782f268a13d4db96c727156ed27cf0bd1f158eba4f75c9c6b1e4",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "93a82a1b5ea7573dcc02d0ec39a725e0531ef38269410216133b8518e27c4652",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 12,
+          "state": "original_asm",
+          "symbol": "func_80007DA0",
+          "vram": "0x80007DA0"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007DA0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed diagnostic custom-register ABI and retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "011647f65fa1dfa9c31dc5b4bbc73a04d56de8f5e680b1ba9c9485017c016b0a",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "99c643c8698f78f90aae3800d4fa030773ff099291c01f0e5d18fbec662042e2",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 884,
+          "state": "original_asm",
+          "symbol": "func_80007DAC",
+          "vram": "0x80007DAC"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007DAC"
     }
   ],
   "schema_version": 1

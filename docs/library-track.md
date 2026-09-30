@@ -20,8 +20,8 @@ ASM-backed members inside reviewed source units do not represent missing
 boundaries.
 
 Main-executable review remains separate. Its CPU text map contains 33 raw
-navigation ranges totaling 65,456 bytes. Twenty-three working source units now
-have reviewed boundaries, totaling 50,736 bytes: the two
+navigation ranges totaling 65,456 bytes. Twenty-six working source units now
+have reviewed boundaries, totaling 60,576 bytes: the two
 [bootstrap units](evidence/main_bootstrap_source_units.md), ten
 [system-wrapper units](evidence/main_system_wrapper_boundaries.md), and five
 [allocation/transfer/controller units](evidence/main_allocator_transfer_controller_boundaries.md),
@@ -29,8 +29,9 @@ two [audio-driver/sequence units](evidence/main_audio_driver_sequence_boundaries
 the [sound-record family](evidence/main_sound_record_family_boundary.md), and two
 [sequence/MP3 API units](evidence/main_sequence_api_mp3_adapter_boundaries.md).
 The [fixed TLB alias](evidence/main_tlb_alias_boundary.md) adds one verified
-original-assembly unit. Together they cover twenty-four navigation ranges;
-nine ranges totaling 14,720 bytes
+original-assembly unit; the [handwritten families](evidence/main_handwritten_family_boundaries.md)
+add three further units with all interior entries accounted for. Together they
+cover twenty-seven navigation ranges; six ranges totaling 4,880 bytes
 remain without registered working ownership. Those ranges are leads, not proven original objects or a complete function inventory.
 They include the [64-byte zero tail](evidence/libultrare_us_continued_reconstruction.md)
 at `0x226B0:0x226F0`. The handwritten entry at `0x1000:0x1050` is separate.

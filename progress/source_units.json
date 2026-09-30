@@ -20165,6 +20165,89 @@
         }
       },
       "source": "src/main/init_8120.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_handwritten_family_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80005AB0",
+        "func_80005B04",
+        "func_80005BE0",
+        "func_80005C2C",
+        "func_800061F8"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x6240",
+          "start": "0x5AB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_5AB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_handwritten_family_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80006240",
+        "func_8000625C",
+        "func_8000632C",
+        "func_80006380",
+        "func_80006424",
+        "func_80006828",
+        "func_8000692C",
+        "func_8000696C",
+        "func_80006E00",
+        "func_8000709C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x71D0",
+          "start": "0x6240",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_6240.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_handwritten_family_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800071D0",
+        "func_8000777C",
+        "func_800079D8",
+        "func_80007A24",
+        "func_80007A38",
+        "func_80007C74",
+        "func_80007DA0",
+        "func_80007DAC"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x8120",
+          "start": "0x71D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_71D0.c"
     }
   ]
 }

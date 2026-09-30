@@ -1,126 +1,114 @@
 # US main boundary review: remaining frontier
 
-This records the remaining frontier of the ongoing 2026-09-30 main review.
-It is separate from the already complete game-overlay ownership map and from
-ASM-to-C implementation progress.
+This records the remaining frontier of the ongoing 2026-09-30 main review,
+separate from the complete game-overlay ownership map and ASM-to-C progress.
 
 ## Verified progress
 
-Five registration batches added twenty reviewed working source units,
-193 entries and 49,360 bytes. Together with the two earlier bootstrap units,
-a sixth batch adds one 96-byte fixed-TLB original-assembly unit. Main now has
-twenty-three reviewed units, 201 registered entries and 50,736 reviewed source
-bytes. All previously registered functions, source units,
-match states and matched-byte counts were preserved exactly. The canonical
-main and raw-reference maps were not changed.
+Seven registration batches added 24 reviewed working units, 217 registered
+spans and 59,296 bytes. With the two existing bootstrap units, main has
+26 reviewed units, 224 registered spans and 60,576 reviewed source bytes.
+The nineteen custom/privileged spans in the seventh batch and the earlier
+96-byte fixed-TLB routine are separately verified original assembly: twenty
+spans, 9,736 bytes, with no C matching credit. All earlier registration and
+matching records are preserved. Both main maps remain unchanged.
 
-The CPU interval `0x1050:0x290D0` consists of:
-
-| Classification | Bytes |
+| Classification in CPU interval `0x1050:0x290D0` | Bytes |
 | --- | ---: |
 | Already exact CPU library text | 98,512 |
-| Reviewed working source units, canonically raw | 50,736 |
-| Nine remaining raw navigation ranges | 14,720 |
-| CPU interval total | 163,968 |
+| Reviewed working units, canonically raw | 60,576 |
+| Six remaining raw navigation ranges | 4,880 |
+| Total | 163,968 |
 
-The handwritten `0x1000:0x1050` entry is outside this interval. The existing
-progress denominator ends at `0x292F0` and therefore includes a further 544
-RSP bytes; this review does not silently change that denominator.
+The handwritten entry `0x1000:0x1050` lies outside this interval. The existing
+progress denominator ends at `0x292F0`, including another 544 RSP bytes; this
+review does not silently change that denominator.
 
-The new memberships and positive evidence are in:
+The complete memberships and evidence are in:
 
-- [System wrappers](main_system_wrapper_boundaries.md): ten units, fourteen entries, 3,616 bytes
-- [Allocation, transfer, scheduler and controller](main_allocator_transfer_controller_boundaries.md): five units, twenty-six entries, 8,032 bytes
-- [Audio driver and sequence controller](main_audio_driver_sequence_boundaries.md): two units, sixty-five entries, 19,936 bytes
-- [Sound-record callbacks and handles](main_sound_record_family_boundary.md): one unit, fifty-four entries, 13,472 bytes
-- [Sequence API and MP3 adapter](main_sequence_api_mp3_adapter_boundaries.md): two units, thirty-four entries, 4,304 bytes
-- [Fixed TLB alias](main_tlb_alias_boundary.md): one unit, one verified original-assembly span, 96 bytes
+- [System wrappers](main_system_wrapper_boundaries.md)
+- [Allocation, transfer, scheduler and controller](main_allocator_transfer_controller_boundaries.md)
+- [Audio driver and sequence controller](main_audio_driver_sequence_boundaries.md)
+- [Sound-record callbacks and handles](main_sound_record_family_boundary.md)
+- [Sequence API and MP3 adapter](main_sequence_api_mp3_adapter_boundaries.md)
+- [Fixed TLB alias](main_tlb_alias_boundary.md)
+- [Handwritten families and complete interior-entry accounting](main_handwritten_family_boundaries.md)
 
-These are evidence-backed working families. They do not claim that every
-historical object boundary or original filename has been recovered.
+These are working families, not claims that every historical filename or
+original object boundary has been recovered. The handwritten inventory records
+non-overlapping verification spans; documented interior ABI entries remain
+inside their owners rather than becoming overlapping ordinary C work items.
 
 ## Remaining exact ranges
 
 | US ROM range | Bytes | Current result | Required next evidence/action |
 | --- | ---: | --- | --- |
-| `0x38C0:0x38E0` | 32 | Varargs-style empty stub, no direct call found in either scanned CPU image | Find an owned selector/reference or independent original grouping; do not name it from its common shape |
-| `0x38E0:0x3920` | 64 | Two complete indexed entries, but no reviewed relationship between hardware-writing `0x38E0` and zero-return `0x390C` | Prove common ownership or a justified finer representation; the internal start is not 16-byte aligned |
-| `0x39B0:0x39C0` | 16 | Ambiguous no-op return already rejected as a stock SDK identity | Preserve explicit uncertainty unless new ownership evidence appears |
-| `0x50A0:0x5570` | 1,232 | Raw/independent-index membership disagreement at `0x5298` | Reconcile the empty entry through regenerated references, then review complete family membership |
-| `0x5AB0:0x6240` | 1,936 | Handwritten TLB/control code with alternate entries; unsplit IDO analysis merges across true control transitions | Review explicit entries/shared ABI and support original-assembly ownership without treating every label as an ordinary C function |
-| `0x6240:0x71D0` | 3,984 | Split raw entries exist, but independent unsplit index is swallowed by the preceding handwritten range | Reconcile an independently seeded/range-scoped index and inspect alternate entries before registration |
-| `0x71D0:0x8120` | 3,920 | Handwritten exception/control paths include callable internal labels not represented as ordinary top-level indexed members | Model complete entry/alias membership and validate against raw words; do not drop those entries |
-| `0xA420:0xB1B0` | 3,472 | `0xA420/0xA750` are call-connected; `0xB060` is separately called spatial/pan math | Complete the ownership argument or use a reviewed finer split at aligned `0xB060`, with raw regeneration and main-map validation |
-| `0x226B0:0x226F0` | 64 | All zero words, explicitly outside the exact preceding `n_resample.o` | Classify as known padding without inventing its original object owner or a C function |
+| `0x38C0:0x38E0` | 32 | Varargs-style empty stub | Owned selector/reference or independent original grouping |
+| `0x38E0:0x3920` | 64 | Hardware-writing `0x38E0` and zero-return `0x390C` | Common ownership or a justified finer representation; internal start is not 16-byte aligned |
+| `0x39B0:0x39C0` | 16 | Ambiguous no-op return | Preserve uncertainty without an unsupported stock identity |
+| `0x50A0:0x5570` | 1,232 | Five raw spans but six independent-index proposals | Resolve ownership and the unselected empty `0x5298` proposal without shrinking a span for matching credit |
+| `0xA420:0xB1B0` | 3,472 | Spatial-audio encoding/consumer evidence now under review | Complete three-member working-family argument or stronger original boundary evidence |
+| `0x226B0:0x226F0` | 64 | Entirely zero, outside exact preceding `n_resample.o` | Classify as known padding without inventing an object owner or function |
 
-The first three ranges total 112 bytes. Their bounded negative call scan does
-not establish that they are unreachable. The known padding contributes no
-callable member and must not be registered as one merely to eliminate a raw
-map entry.
+These are permitted research tasks, not user-authorization blockers. No user
+decision or new computer access is currently required. A lack of positive
+static evidence must remain explicit rather than being converted into a guessed
+boundary. No unchanged stock-library scan is repeated.
 
-## Concrete index conflicts
+## The unselected `0x5298` proposal
 
-The independently generated unsplit CPU CSV reports:
+Both unsplit and independently range-scoped spimdisasm 1.33.0 IDO analyses
+propose `0x5218:0x5298` and `0x5298:0x52A0`. The split raw reference instead
+retains the complete `0x5218:0x52A0` span. The first body's ordinary epilogue
+ends at `0x5294`; the final two words are another `jr $ra; nop`.
 
-- `0x5218:0x5298` followed by `0x5298:0x52A0`. The current raw split labels
-  only `0x5218`; ROM words at `0x5298/0x529C` are `jr $ra; nop`.
-- A combined `0x5AB0:0x5BE0` span, while raw reference labels expose separate
-  `0x5AB0` and `0x5B04` entries.
-- A `0x5C2C:0x7C74` span that crosses the `0x6240` and `0x71D0` navigation
-  ranges. This is a disassembler control-flow limitation, not proof that they
-  were one C object.
+A complete direct J/JAL scan of main CPU and decompressed game code found no
+selection of `0x5298`. Neither initialized main data nor decompressed game data
+contains its `0x80005298/0x10005298` pointer, and neither CPU image has an
+immediate low-half address construction for that exact target. These bounded
+negative results do not establish unreachability or original ownership. The
+raw words are preserved; no forced symbol, shortened registration or new empty
+function is introduced. The same scans found no positive selection of the tiny
+stub ranges above.
 
-Raw assembly also contains indented global labels. Examples are `0x5B3C`
-and `0x77B8`; the latter has direct callers including `0x74A4`, `0x74CC` and
-`0x77A8`. The ordinary registration parser recognizes only its supported
-top-level function-label form. Indented labels can represent alternate entries
-or internal targets, so a blanket parser change that promotes all of them to
-ordinary functions would be unsafe. Review their ABI and control flow first.
+## Resolved implementation obstacles
 
-The existing game empty-stub reconciliation is a useful precedent, not proof
-for main: [reconciled empty stubs](game_raw_reconciled_empty_stub_splits.md).
-A fresh reference generation is essential after any justified symbol/split
-change; stale raw caches can conceal the disagreement.
+- The pinned RSP assembler was built in an isolated extension, all four RSP
+  payloads matched, and the unchanged full US ROM was reproduced byte-for-byte.
+  See [toolchain and verifier proof](main_original_assembly_verification.md).
+- Original-assembly verification now supports main CPU spans, including strict
+  checked cross-span local labels and unpadded literal constants. Its exact
+  full-span assembly/link/ROM gate remains unchanged.
+- The apparent handwritten index disagreements were reconciled through positive
+  calls, custom shared-stack/register contracts, owned state and complete
+  interior-entry accounting. Every retained original span passes actual proof.
+  No blanket label promotion or speculative parser change was needed.
 
-## Safe completion sequence
+## Completion and integration sequence
 
-1. Keep the reviewed metadata separate from concurrent game matching. Reconcile
-   by replaying the documented registration transactions onto the chosen
-   integration baseline, preserving newer matches and source-unit states.
-2. The exact full-main/RSP capability is now restored, with byte-identical full
-   ROM equality. See [toolchain and verifier evidence](main_original_assembly_verification.md).
-   Retain this gate for any canonical split or original-assembly registration.
-3. Resolve the `0x5298` member disagreement first. Regenerate independent raw
-   references, compare every word against the owned ROM, and re-review the
-   complete `0x50A0:0x5570` family rather than simply attaching a label.
-4. Review the handwritten/alternate-entry ranges as original assembly. Keep
-   assembly preservation separate from matching C; any supporting tooling
-   change needs dedicated tests and final full-ROM equality.
-5. Resolve the spatial/pan range through stronger shared-ownership evidence or
-   justified smaller units. Keep unknown stubs and padding explicitly classified
-   if original ownership cannot be established.
-6. Refresh ownership reporting from the canonical intervals and inventories,
-   keeping CPU code, RSP, text-resident data, padding and C-match progress as
-   separate claims.
+1. Preserve the separate reviewed branch while game matching continues. Replay
+   registration transactions onto the chosen baseline instead of replacing its
+   inventories; this preserves newer game matches and source-unit states.
+2. Finish the spatial-family evidence and classify the zero tail with full-ROM
+   equality for any map change. Retain unknown stub/entry identities explicitly.
+3. For any later positive empty-stub evidence, regenerate references independently
+   and reconcile complete memberships before changing registered spans.
+4. Keep CPU source ownership, original assembly, RSP, text data, padding and
+   matched C progress as separate measures. Mixed main C/ASM integration remains
+   a separate unsupported transition, not a reason to withhold proven raw ownership.
 
-Completion requires evidence-backed membership/classification for every scoped
-range and all applicable registration/map/build gates. Eliminating `asm` tokens
-or incrementing a percentage is not a substitute for that evidence. No unchanged
-stock-library scan or exhausted matching candidate is repeated by this plan.
+Completion requires evidence-backed ownership or explicit classification of each
+scoped range and its applicable registration/map/build gates. Removing `asm`
+tokens or increasing a percentage is not proof.
 
-## Verification at handoff
+## Verification
 
-All earlier function and source-unit records remain unchanged. The new units
-are `raw_asm`, with no C-match or matched-byte change. Focused metadata and map
-tests pass after every batch; a full repository run passes 1,067 tests with
-12 declared skips. Generated progress and whitespace checks pass. Raw-word,
-unsplit-index, branch and specific callback evidence are recorded in each batch.
-
-The sixth batch passes the full US ROM build, a 96-byte original-assembly
-proof, and clean `BATCH_COMPLETE`; the expanded suite passes 1,070 tests with
-12 declared skips. No new C-function match, mixed main integration or
-combined-branch integration is claimed. The raw references and owned ROM remain
-private ignored research inputs; only source/evidence/metadata are committed.
+The fixed-TLB batch and the nineteen-span handwritten batch each pass clean
+`BATCH_COMPLETE`, including full US ROM equality, fresh assembled/link/ROM
+original-assembly proofs, all 1,070 tests (12 declared skips), metadata/progress
+and whitespace gates. No new C match or mixed main integration is claimed.
+The earlier five batch reports remain historical records of the checks available
+at that time. Private ROMs, generated raw assembly and binaries remain ignored.
 
 ## Separate game function-span caveat
 
