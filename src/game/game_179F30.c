@@ -234,7 +234,7 @@ void func_1514D564(u8 *arg0) {
     }
 }
 /* Raw US callees establish pointer arguments and the stack byte parameters. */
-s32 func_15189FF0(s32, void *, void *, s32, u8, u8, u8);
+s32 func_15189FF0(void *, void *, void *, s32, u8, u8, u8);
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
 extern u8 D_800A58D0[];
 extern u8 D_800A58E4[];
@@ -301,9 +301,9 @@ typedef struct {
         s8 sp123;
 } Game179F30D64CSetup;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D64C CURRENT (7859) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D64C CURRENT (5162) */
 void func_1514D64C(void *arg0) {
-    void *second_setup;
+    s32 allocated;
     Game179F30D64CSetup setup;
 
     setup.sp74 = 3;
@@ -347,8 +347,8 @@ void func_1514D64C(void *arg0) {
     setup.sp5C = 25.0f;
     setup.sp68 = 75.0f;
     setup.sp114 = 1.0f;
-    func_1514EC1C(func_15189FF0((s32)((u8 *)&setup.sp76 - 2), &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U), (s32) arg0, 9);
-    second_setup = &setup.sp74;
+    allocated = func_15189FF0(&setup.sp74, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U);
+    func_1514EC1C(allocated, (s32)arg0, 9);
     setup.sp74 = 3;
     setup.sp7C = 0;
     setup.sp80 = 0;
@@ -390,7 +390,8 @@ void func_1514D64C(void *arg0) {
     setup.sp64 = 20.0f;
     setup.sp68 = -140.0f;
     setup.sp114 = 1.0f;
-    func_1514EC1C(func_15189FF0((s32)second_setup, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U), (s32) arg0, 0xA);
+    allocated = func_15189FF0(&setup.sp74, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U);
+    func_1514EC1C(allocated, (s32)arg0, 0xA);
     func_15160A58(arg0, 5, &setup.sp54, 2, 0x12C, 0x28, 0xFF, 0, 0, 0xFF, 0, 1, 0, 0, 0xFF, 1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514D64C */
@@ -731,7 +732,7 @@ void func_1514E00C(void *arg0) {
     setup.sp34 = 59.0f;
     setup.sp40 = D_800A5E0C;
     setup.spEC = 1.0f;
-    func_1514EC1C(func_15189FF0((s32) &setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
+    func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
 }
 
@@ -835,7 +836,7 @@ void func_1514E194(void *arg0) {
     setup.sp34 = 59.0f;
     setup.sp40 = D_800A5E14;
     setup.spEC = 1.0f;
-    func_1514EC1C(func_15189FF0((s32) &setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
+    func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
 }
 
@@ -938,7 +939,7 @@ void func_1514E31C(void *arg0) {
     setup.sp64 = 100.0f;
     setup.sp70 = 600.0f;
     setup.sp11C = 1.0f;
-    func_1514EC1C(func_15189FF0((s32) &setup.sp7C, &setup.spD4, &setup.sp5C, 2, 3U, 0U, 0U), (s32) arg0, 7);
+    func_1514EC1C(func_15189FF0(&setup.sp7C, &setup.spD4, &setup.sp5C, 2, 3U, 0U, 0U), (s32) arg0, 7);
     {
         f32 effect_position[3];
 

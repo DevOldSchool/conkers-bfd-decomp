@@ -34156,8 +34156,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7859,
-        "reason": "Improved verified best from CURRENT (8069) to CURRENT (7859) by correcting positive byte fields and shortening the repeated setup-address spill placement. The remaining full-span residual is 5 register, 74 operand, 23 control, 28 missing/extra, and 51 stack rows. IDO keeps the repeated setup address live across the first callback, adding a spill and shifting the aggregate/frame. Separate scoped aggregates expanded the frame to 0x1F8; shared union views, distinct equivalent address expressions, and source block boundaries were canonicalized or regressed. No shared dependency required.",
+        "current_score": 5162,
+        "reason": "New raw helper evidence proves15189FF0 descriptor pointer contract. Source-local s32\u2192void* first parameter and direct pointercalls improve7859\u21927239; eliminating redundant second_setup pointer7053; used allocationresult before aggregate5162. Original frame/aggregate offsets largely restored; initializer scheduling, temporary register and remaining spill/control differences persist. Earlier address-spelling/union probes not repeated without this new type evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
