@@ -19,13 +19,12 @@
  * - func_1511D7BC
  * - func_1511D9E4
  * - func_1511DBC4
- * - func_1511DD98
  * - func_1511DF6C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-u32 func_150ADA20(f32, f32);                        /* extern */
+u32 func_150ADA20(void);                        /* extern */
 extern f32 D_800A3188;
 extern f32 D_800A318C;
 extern f32 D_800A3190;
@@ -233,5 +232,95 @@ void func_1511DBC4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511DBC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511DBC4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511DD98.s")
+void func_10010630(u16, void *, s32, s32, s32);
+void func_10010558(u16, void *, s32, s32, s32, s32);
+
+void func_1511DD98(u8 *arg0, u8 *arg1) {
+    s32 sound;
+    s32 volume;
+    s32 type_3B;
+    s32 type_80;
+
+    volume = 0x6590;
+    type_3B = arg1[4] == 0x3B;
+    type_80 = arg1[4] == 0x80;
+    sound = 0;
+    switch (*(u16 *)(arg0 + 0x54)) {
+    case 0x39:
+    case 0x5C:
+    case 0x5D:
+    case 0x5E:
+        if (type_3B) {
+            func_10010630(0x542, arg1, 0x6590, 100, 1000);
+        } else if (type_80) {
+            func_10010630(0x567, arg1, 0x6590, 100, 1000);
+        }
+        sound = 0x2B0;
+        break;
+    case 0x3A:
+        if (type_3B) {
+            sound = (func_150ADA20() & 1) + 0x53E;
+        } else if (type_80) {
+            sound = 0x567;
+        } else {
+            sound = 0x60A;
+        }
+        break;
+    case 0x3B:
+    case 0x51:
+        sound = 0x181;
+        break;
+    case 0x3C:
+    case 0x6A:
+        sound = 0xB1;
+        break;
+    case 0x3D:
+    case 0x6B:
+        sound = 0x442;
+        break;
+    case 0x3E:
+        sound = 0x444;
+        break;
+    case 0x46:
+        sound = 0x2F0;
+        break;
+    case 0x47:
+        sound = 0x4A3;
+        break;
+    case 0x50:
+    case 0x55:
+        sound = (func_150ADA20() & 1) + 0xB;
+        break;
+    case 0x52:
+    case 0x58:
+        sound = 0x510;
+        break;
+    case 0x53:
+        sound = 0x2AF;
+        if (type_80) {
+            func_10010558(0x567, arg1, 0x7D00, 100, 1000, 30);
+        }
+        break;
+    case 0x56:
+        if (type_80) {
+            func_10010630(0x567, arg1, 0x6590, 100, 1000);
+        }
+        sound = 0x5AE;
+        break;
+    case 0x57:
+    case 0x6D:
+    case 0x6E:
+        sound = 0x51;
+        volume = 0x2328;
+        break;
+    case 0x64:
+    case 0x65:
+        sound = 0x629;
+        volume = 0x7FFF;
+        break;
+    }
+    if (sound != 0) {
+        func_10010630(sound, arg1, volume, 100, 1000);
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511DF6C.s")
