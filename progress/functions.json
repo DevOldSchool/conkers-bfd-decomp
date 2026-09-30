@@ -69696,13 +69696,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 576,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151A3150",
           "vram": "0x151A3150"
         }
       },
-      "source": "src/game/game_1D0600.c",
+      "source": "src/game/done/game_1D0600.c",
       "symbol": "func_151A3150"
     },
     {
