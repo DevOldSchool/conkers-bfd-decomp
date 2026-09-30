@@ -57,9 +57,15 @@ The remaining cases need new positive ownership/entry evidence. The completed
 bounded static scans of the available US main/game images cannot supply it;
 repeating those scans would add no evidence. There is no current permission
 blocker, but these bytes must remain uncertain until a new call/selector,
-independent original map or meaningful cross-version correlation appears. Only
-the owned US ROM is currently available in this cloud checkout. A negative
-runtime trace would not establish an original boundary or prove unreachability.
+independent original map or meaningful cross-version correlation appears. The
+owned PAL ROM has now been checksum-validated and used for a
+[targeted regional comparison](main_boundary_pal_comparison.md): it preserves
+the ambiguous entries and supplies no new selection or ownership evidence for
+them. The documented debug/ECTS inputs were not available for that trial;
+the next targeted check awaits the user's planned owned-debug-build upload.
+The user confirmed that no original debug map is available.
+A negative runtime trace would not establish an original boundary or prove
+unreachability.
 
 ## The unselected `0x5298` proposal
 
