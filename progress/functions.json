@@ -1482,16 +1482,15 @@
       "symbol": "func_1513B0F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 15,
-        "reason": "CURRENT (15): two register-only rows reload saved allocation into a0 then move to a1, while raw reloads a1 then moves to a0; prior permutation unchanged, explicit local neutral, function-pointer cast worsened.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_151602C0",
           "vram": "0x151602C0"
         }
@@ -1962,16 +1961,15 @@
       "symbol": "func_151617E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 240,
-        "reason": "Manual callback-dispatch candidate recovers helper and callback semantics; CURRENT 240 is limited to IDO caller-saved argument register allocation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15161804",
           "vram": "0x15161804"
         }
@@ -1980,16 +1978,15 @@
       "symbol": "func_15161804"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 240,
-        "reason": "Manual callback-dispatch candidate recovers helper and callback semantics; CURRENT 240 is limited to IDO caller-saved argument register allocation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
-          "state": "raw_asm",
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "state": "matched",
           "symbol": "func_15161860",
           "vram": "0x15161860"
         }

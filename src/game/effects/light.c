@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/effects_light.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151602C0
  * - func_151603FC
  * - func_151604A0
  * - func_151606A8
@@ -15,8 +14,6 @@
  * - func_15160B74
  * - func_15160CDC
  * - func_15160E30
- * - func_15161804
- * - func_15161860
  * - func_151619A0
  * - func_15161A68
  * - func_15161F4C
@@ -85,9 +82,8 @@ typedef struct LightCallData {
 } LightCallData;
 
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
-void func_1515F10C(s32, void *);
+void func_1515F10C(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151602C0 CURRENT (15) */
 s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     void *result;
@@ -102,13 +98,11 @@ s32 func_151602C0(u8 *arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4,
         if (result != 0) {
             *(u8 *)((u8 *)result + 0xE) |= 2;
         } else {
-            func_1515F10C((s32)allocated, allocated);
+            func_1515F10C(allocated);
         }
     }
     return (s32)result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151602C0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151602C0.s")
 void *func_1516037C(GameLightDescriptor *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
     void *temp_v0;
     volatile void *sp24;
@@ -690,32 +684,26 @@ void func_151617C4(void) {
 void func_151617E4(void) {
     func_15169824();
 }
-void func_1515F10C(s32, void *);
-extern void (*D_8008B208[])(void *, void *);
+void func_1515F10C(void *);
+extern void (*D_8008B208[])(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161804 CURRENT (240) */
 void func_15161804(void *arg0) {
     void *temp_a1;
 
     temp_a1 = arg0;
     if (*(u8 *)((u8 *)temp_a1 + 0xE) & 2) {
-        func_1515F10C(*(s32 *)((u8 *)temp_a1 + 0x14), temp_a1);
+        func_1515F10C(*(void **)((u8 *)temp_a1 + 0x14));
     }
-    D_8008B208[*(u8 *)((u8 *)temp_a1 + 0x12)](temp_a1, temp_a1);
+    D_8008B208[*(u8 *)((u8 *)temp_a1 + 0x12)](temp_a1);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15161804 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161804.s")
-extern void (*D_8008B2B0[])(void *, void *);
+extern void (*D_8008B2B0[])(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15161860 CURRENT (240) */
 void func_15161860(void *arg0) {
     if (*(u8 *)((u8 *)arg0 + 0xE) & 2) {
-        func_1515F10C(*(s32 *)((u8 *)arg0 + 0x14), arg0);
+        func_1515F10C(*(void **)((u8 *)arg0 + 0x14));
     }
-    D_8008B2B0[*(u8 *)((u8 *)arg0 + 0x12)](arg0, arg0);
+    D_8008B2B0[*(u8 *)((u8 *)arg0 + 0x12)](arg0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15161860 */
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15161860.s")
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
 u32 func_150ADA20(void);
 
