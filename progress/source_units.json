@@ -19838,7 +19838,7 @@
         "us": {
           "end": "0x50A0",
           "start": "0x49E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_49E0.c"

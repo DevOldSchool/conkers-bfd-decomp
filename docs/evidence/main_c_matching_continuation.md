@@ -421,3 +421,45 @@ This adds **3 functions / 400 bytes**, giving **39 / 2,900 bytes** since the
 fresh baseline and **2,672** accepted US C functions. The source remains in
 progress with the best deferred candidates retained. No accepted IDs remain
 pending at this checkpoint.
+
+## Eleventh batch: scheduler state and completion helpers
+
+Four related members of `init_49E0.c` are newly accepted:
+
+| Function | Bytes | Behavior |
+| --- | ---: | --- |
+| `func_80004FE0` | 64 | Chooses the pending state or immediate completion path from the observed byte counter |
+| `func_80005020` | 128 | Keeps the framebuffer snapshot across the effect callback, swaps it when required, then reloads the global task for the completion message |
+| `func_80004DB0` | 336 | Receives a task, checks current/next framebuffer ownership and preserves the scheduler's byte-state gates |
+| `func_80004F00` | 224 | Loads/starts the actual task and normalizes the frame counter before sending the scheduler message |
+
+The SDK map and implementations establish the queue, current/next framebuffer
+and swap-buffer contracts. The local task view describes only its observed
+flags, framebuffer, embedded task bytes and completion fields; it is not
+mistaken for the stock scheduler structure, whose offsets differ. The first
+three functions matched on their first implementation forms, including the
+complete terminal span of `80005020`.
+
+`80004F00` scored 385, 255, 255 and finally 0. Removing a redundant local copy
+of the global counter removed an extra value identity; reversing one equality
+comparison was code-neutral and discarded. Independent review of the owning
+thread then established that globals `D_8003A583` and `D_8003A584` are read
+with unsigned byte loads. Correcting their starter-derived signed-byte local
+annotations recovered the remaining constant-reuse and register schedule.
+This is a data-type correction supported by the actual consumer, not a narrow
+parameter workaround. The larger thread remains assembly; reading its switch
+and shared-state evidence adds no C match.
+
+A separate sequence wrapper, `800085F8`, is retained at 225. Its actual
+channel-off helper consumes the incoming second argument, unlike the starter's
+incorrect forwarding guess. The first full-width implementation encountered
+the already documented incoming-home mismatch, and no existing declaration
+supports narrowing its player index. That exhausted sibling hypothesis was
+not repeated, and the candidate contributes no new match.
+
+The clean batch checked all four new scheduler functions and the affected
+existing sequence no-op regression: `BATCH_COMPLETE`, full US ROM match,
+1,328 tests run with 12 skipped, metadata, progress and whitespace passed.
+This adds **4 functions / 752 bytes**, giving **43 / 3,652 bytes** since the
+fresh baseline and **2,676** accepted US C functions. Both source units remain
+in progress, and no accepted IDs remain pending at this checkpoint.
