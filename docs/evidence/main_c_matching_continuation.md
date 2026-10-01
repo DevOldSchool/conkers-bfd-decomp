@@ -208,3 +208,41 @@ ROM match, 1,328 tests run with 12 skipped, metadata, progress and whitespace.
 This adds **5 functions / 424 bytes**, giving **20 / 1,092 bytes** since the
 fresh baseline and **2,653** accepted US C functions. The unit remains in
 progress and no accepted IDs remain pending at this checkpoint.
+
+## Sixth batch: genuine companion alignment recovery
+
+Three related functions are newly accepted:
+
+- `func_8000CBF0` (100 bytes): three-entry, mask-controlled halfword updates.
+  The first do-while form scored 60 with only the index initialization moved.
+  A normal counted for-loop recovered that schedule and CURRENT (0), retaining
+  full-width arguments and the raw full-width zero-duration test.
+- `func_8000B830` (136 bytes): a once-read global flag controls a callback state
+  transition and the already matched scalar update helper. Its first source
+  form matched, including all unused argument homes and the real state spill.
+- `func_8000EA94` (108-byte registered span): three explicit selections, one
+  genuine halfword local across a call, and the existing three-word helper
+  contract. No default initialization was invented for the original other-input
+  path.
+
+The final selector first scored 200 solely because the stripped C object lacked
+two terminal `nop` words. Its actual 96-byte code was already exact. The first
+object had selector offset 0x33C and a 0x3A0-byte `.text` section, so only four
+alignment bytes followed the code. After the genuine 136-byte `8000B830`
+companion matched, the unchanged selector body moved to offset 0x3C4 in a
+0x430-byte `.text` section. Normal 16-byte section alignment then supplied all
+12 trailing bytes, and its complete registered 108-byte span reached CURRENT
+(0). Reviewed source-unit symbol layout also passed. No source padding,
+reference edit, compiler change or weakened comparison was used.
+
+This focused terminal-span proof depends on the genuine C prefix present in
+the tested source. Later changes to this unit must explicitly revalidate the
+selector's full span; instruction equality alone is insufficient. Source-unit
+ownership or historical object boundaries are not inferred from this result.
+
+The clean three-new-function batch included four affected existing regressions:
+`BATCH_COMPLETE`, full US ROM match, 1,328 tests run with 12 skipped, and
+metadata/progress/whitespace passed. This adds **3 functions / 344 bytes**,
+giving **23 / 1,436 bytes** since the fresh baseline and **2,656** accepted US
+C functions. The source unit remains in progress. No accepted IDs remain
+pending at this checkpoint.

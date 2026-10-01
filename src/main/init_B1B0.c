@@ -12,7 +12,6 @@
  * - func_8000B3D4
  * - func_8000B548
  * - func_8000B638
- * - func_8000B830
  * - func_8000B8B8
  * - func_8000BA18
  * - func_8000BAFC
@@ -25,7 +24,6 @@
  * - func_8000C934
  * - func_8000CA18
  * - func_8000CAE4
- * - func_8000CBF0
  * - func_8000CC54
  * - func_8000CDA0
  * - func_8000CEAC
@@ -43,7 +41,6 @@
  * - func_8000E654
  * - func_8000E7A0
  * - func_8000E934
- * - func_8000EA94
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -59,7 +56,11 @@ typedef struct SequenceRecordState {
     u8 pad34[0x1A];
     s16 value;
     s16 duration;
-    u8 pad52[0xE];
+    u8 pad52[6];
+    s16 current58;
+    s16 target5A;
+    s16 duration5C;
+    u8 pad5E[2];
     struct SequenceRecordState *state;
 } SequenceRecordState;
 
@@ -114,7 +115,22 @@ void func_8000B294(SequenceRecordState *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B3D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B548.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B638.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B830.s")
+void func_8000E40C(s32, s32);
+extern u8 *D_800DBFF0;
+
+s32 func_8000B830(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 flag;
+
+    flag = *(s32 *)(D_800DBFF0 + 0x5F0) & 1;
+    if (flag != 0 && arg0 == 0) {
+        arg0 = 1;
+        func_8000E40C(0x10, 0x3E8);
+    } else if (flag == 0 && arg0 != 0) {
+        arg0 = 0;
+        func_8000E40C(0x10, 0x4650);
+    }
+    return arg0;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B8B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BA18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BAFC.s")
@@ -146,7 +162,25 @@ void func_8000CBA8(s32 arg0) {
         D_800417B0[1]->duration = 0x500;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CBF0.s")
+void func_8000CBF0(s32 arg0, s32 arg1, s32 arg2) {
+    SequenceRecordState **slot;
+    SequenceRecordState *record;
+    s32 i;
+
+    for (i = 0; i != 3; i++) {
+        if ((1 << i) & arg2) {
+            slot = &D_800417B0[i];
+            record = *slot;
+            if (record != 0) {
+                record->target5A = arg0;
+                (*slot)->duration5C = arg1;
+                if (arg1 == 0) {
+                    (*slot)->current58 = arg0;
+                }
+            }
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CC54.s")
 extern s32 D_800BE9E4;
 
@@ -276,4 +310,18 @@ s32 func_8000E8F0(s32 arg0) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E934.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000EA94.s")
+void func_8000D96C(s32, s32, s32);
+
+u16 func_8000EA94(s32 arg0) {
+    u16 selection;
+
+    if (arg0 == 0) {
+        selection = 0x52;
+    } else if (arg0 == 2) {
+        selection = 0x51;
+    } else if (arg0 == 1) {
+        selection = 0x53;
+    }
+    func_8000D96C(selection, 0, 0);
+    return selection;
+}
