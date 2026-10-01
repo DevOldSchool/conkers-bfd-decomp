@@ -1419,3 +1419,41 @@ the PI initializer. Full US ROM equality, 1,346 tests with 12 skipped, metadata,
 progress and whitespace pass with `BATCH_COMPLETE`. Game sources remain
 unchanged from their preceding separately verified batch. Totals remain
 **67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.
+
+## Thirty-seventh batch: DMA provider and task dispatch contracts
+
+The DMA provider `800097CC` retains the established signed ALDMAproc signature.
+Its first address-order comparison is unsigned, while its buffer-end comparison
+is signed after word-width addition. Both distinctions are explicit; the
+starter's uniformly unsigned expression would change the latter behavior.
+Observed node fields at offsets eight and sixteen extend the existing local
+prefix without moving any earlier field. The existing 24-byte transfer-message
+layout supplies the request-array stride, and an explicit queue-view cast
+preserves the helper's established declaration. The first form scores 1135
+with the exact frame and two cross-call spill homes. Naming the range-end
+value is code-neutral, so the simpler form remains disabled.
+
+The task dispatcher `800095A0` uses the actual eight-byte SDK Acmd union and
+independently mapped helper contracts. The previous-buffer helper takes two
+arguments, and cache writeback takes none; extra starter arguments were stale
+live registers. The command builder returns a command pointer and writes one
+count scalar. Physical output addresses remain words until the required pointer
+conversion. The existing project scheduler view confirms the RSP task at offset
+0x18 relative to the submitted record, with the completion queue and message at
+0x58 and 0x5C. The typed local extension preserves those observed offsets.
+
+Command byte sizing retains the raw signed right shift followed by a left
+shift. The volatile AI length read is grounded in the SDK register definition
+and existing project declaration. Its first form scores 1682; a direct SDK-style
+MMIO expression scores 1687 with literal-versus-symbolic differences still
+reported by the unchanged comparator. Both are preserved, with the first kept
+as the canonical candidate. The eight-byte frame gap has no proven extra
+storage and is left unresolved.
+
+The existing deferred cleanup and thread candidates independently recheck at
+976 and 1050 after the view changes. A clean seven-target main batch verifies
+all existing unit matches and the PI initializer. Full US ROM equality, 1,346
+tests with 12 skipped, metadata, progress and whitespace pass with
+`BATCH_COMPLETE`. Game sources remain unchanged from their preceding separately
+verified batch. Totals remain **67 / 8,388 bytes**, with **2,700** accepted US C
+functions and no pending IDs.

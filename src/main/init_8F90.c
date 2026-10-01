@@ -1,4 +1,5 @@
 #include "types.h"
+#include "../lib/ultralib/include/PR/abi.h"
 
 /*
  * Reviewed source unit: src/main/init_8F90.c
@@ -129,8 +130,121 @@ void func_80009400(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80009400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80009400.s")
+typedef struct {
+    u32 type;
+    u32 flags;
+    void *boot;
+    u32 bootSize;
+    void *microcode;
+    u32 microcodeSize;
+    void *microcodeData;
+    u32 microcodeDataSize;
+    void *stack;
+    u32 stackSize;
+    void *output;
+    void *outputSize;
+    Acmd *commands;
+    u32 commandSize;
+    void *yieldData;
+    u32 yieldSize;
+} AudioRspTask;
+
+typedef struct {
+    void *next;
+    u8 pad4[8];
+    u32 flags;
+    void *framebuffer;
+    u8 pad14[4];
+    AudioRspTask task;
+    MessageQueue *completionQueue;
+    void *completionMessage;
+} AudioSchedulerTask;
+
+struct AudioTaskRecord {
+    u8 *buffer;
+    u8 *adjustedBuffer;
+    s16 samples;
+    u8 padA[6];
+    AudioSchedulerTask scheduler;
+    AudioCompletionMessage completion;
+};
+
+u32 func_800233C0(void *);
+s32 func_80002DB0(void *, u32);
+void func_800099BC(void);
+void func_8000A03C(void);
+Acmd *func_80019498(Acmd *, s32 *, s16 *, s32);
+void func_80024F10(void);
+s32 func_80023580(MessageQueue *, void *, s32);
+extern Acmd *D_8003E388[];
+extern u8 D_100290D0[];
+extern u8 D_100291A0[];
+extern u8 D_8002C960[];
+extern s32 D_8002AE4C;
+extern u8 D_80040F84;
+extern s32 D_80040F88;
+extern s32 D_80040F8C;
+extern MessageQueue D_8003B200;
+extern volatile u32 D_A4500004;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800095A0 CURRENT (1682) */
+s32 func_800095A0(AudioTaskRecord *record, AudioTaskRecord *previous) {
+    u32 physical;
+    Acmd *commandEnd;
+    s32 commandCount;
+    s32 remaining;
+
+    physical = func_800233C0(record->buffer);
+    func_800099BC();
+    func_8000A03C();
+    remaining = (s32)(D_A4500004 >> 2);
+    if (previous != 0) {
+        func_80002DB0(previous->adjustedBuffer, previous->samples * 4);
+    }
+    if (remaining >= 0xF9 && D_80040F84 == 0) {
+        record->samples = D_80040F88;
+        D_80040F84 = 2;
+    } else {
+        record->samples = D_80040F8C;
+        if (D_80040F84 != 0) {
+            D_80040F84--;
+        }
+    }
+    if (((physical + record->samples * 4) & 0x1FFF) == 0) {
+        physical += 0x10;
+        record->adjustedBuffer = record->buffer + 0x10;
+    } else {
+        record->adjustedBuffer = record->buffer;
+    }
+    commandEnd = func_80019498(D_8003E388[D_8002AE4C], &commandCount,
+                             (s16 *)physical, record->samples);
+    if (commandCount == 0) {
+        return 0;
+    }
+    record->scheduler.next = 0;
+    record->scheduler.completionQueue = &D_8003E608;
+    record->scheduler.completionMessage = &record->completion;
+    record->scheduler.flags = 2;
+    record->scheduler.framebuffer = 0;
+    record->scheduler.task.commands = D_8003E388[D_8002AE4C];
+    record->scheduler.task.commandSize =
+        (u32)((s32)((u32)commandEnd - (u32)D_8003E388[D_8002AE4C]) >> 3) << 3;
+    record->scheduler.task.type = 2;
+    record->scheduler.task.boot = D_100290D0;
+    record->scheduler.task.bootSize = (u32)D_100291A0 - (u32)D_100290D0;
+    record->scheduler.task.flags = 0;
+    record->scheduler.task.microcode = D_100291A0;
+    record->scheduler.task.microcodeData = D_8002C960;
+    record->scheduler.task.microcodeDataSize = 0x800;
+    record->scheduler.task.yieldData = 0;
+    record->scheduler.task.yieldSize = 0x400;
+    func_80024F10();
+    func_80023580(&D_8003B200, &record->scheduler, 1);
+    D_8002AE4C ^= 1;
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_800095A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800095A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800097CC.s")
 /* SDK ALDMAproc contract, using the project scalar aliases. */
 typedef s32 (*ALDMAproc)(s32 addr, s32 len, void *state);
 
@@ -145,6 +259,99 @@ extern AudioDmaManager D_80040F78;
 extern u8 D_800406B8[];
 s32 D_100097CC(s32, s32, void *);
 
+typedef struct AudioDmaNode {
+    struct AudioDmaNode *next;
+    struct AudioDmaNode *prev;
+    u32 address;
+    u32 frame;
+    u8 *buffer;
+} AudioDmaNode;
+
+extern MessageQueue D_80041298;
+extern u32 D_8002AE48;
+
+typedef struct TransferMessageQueue TransferMessageQueue;
+typedef struct {
+    u16 type;
+    u8 priority;
+    u8 status;
+    TransferMessageQueue *returnQueue;
+    void *dramAddress;
+    u32 deviceAddress;
+    u32 size;
+    void *piHandle;
+} TransferIoMessage;
+
+s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
+                 TransferMessageQueue *);
+extern TransferIoMessage D_80040F98[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (1135) */
+s32 func_800097CC(s32 addr, s32 len, void *state) {
+    u8 *buffer;
+    s32 offset;
+    u32 start;
+    AudioDmaNode *record;
+    AudioDmaNode *previous;
+    AudioDmaNode *head;
+
+    record = (AudioDmaNode *)D_80040F78.field4;
+    previous = 0;
+    while (record != 0) {
+        start = record->address;
+        if ((u32)addr < start) {
+            break;
+        }
+        previous = record;
+        if ((s32)(start + 0x800U) >= (s32)((u32)addr + (u32)len)) {
+            record->frame = D_8002AE44;
+            return (s32)func_800233C0(record->buffer + ((u32)addr - start));
+        }
+        record = record->next;
+    }
+    record = D_80040F78.base;
+    if (record == 0 || D_8002AE48 >= 0x20) {
+        return 0;
+    }
+    D_80040F78.base = record->next;
+    if (record->next != 0) {
+        record->next->prev = record->prev;
+    }
+    if (record->prev != 0) {
+        record->prev->next = record->next;
+    }
+    if (previous != 0) {
+        record->next = previous->next;
+        record->prev = previous;
+        if (previous->next != 0) {
+            previous->next->prev = record;
+        }
+        previous->next = record;
+    } else {
+        head = (AudioDmaNode *)D_80040F78.field4;
+        if (head != 0) {
+            D_80040F78.field4 = (s32)record;
+            record->next = head;
+            record->prev = 0;
+            head->prev = record;
+        } else {
+            D_80040F78.field4 = (s32)record;
+            record->next = 0;
+            record->prev = 0;
+        }
+    }
+    offset = addr & 1;
+    buffer = record->buffer;
+    addr -= offset;
+    record->address = addr;
+    record->frame = D_8002AE44;
+    func_80024920(&D_80040F98[D_8002AE48++], 1, 0, addr, buffer,
+                 0x800, (TransferMessageQueue *)&D_80041298);
+    return (s32)(func_800233C0(buffer) + (u32)offset);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_800097CC */
+#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800097CC.s")
+
 ALDMAproc func_80009980(void *state) {
     if (D_80040F78.initialized == 0) {
         D_80040F78.field4 = 0;
@@ -154,16 +361,6 @@ ALDMAproc func_80009980(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
-typedef struct AudioDmaNode {
-    struct AudioDmaNode *next;
-    struct AudioDmaNode *prev;
-    u8 pad8[4];
-    u32 frame;
-} AudioDmaNode;
-
-extern MessageQueue D_80041298;
-extern u32 D_8002AE48;
-
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (976) */
 void func_800099BC(void) {
     u32 i;

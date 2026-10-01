@@ -91320,7 +91320,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1050,
-        "reason": "Preserve manual candidate 1050: proven client flags and message contracts give exact frame and homes; phase scope is code-neutral and late initialization/register differences remain.",
+        "reason": "Best 1050 unchanged after the concrete audio-task record and SDK command declarations; regression only, no new source hypothesis or match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -91336,6 +91336,12 @@
       "symbol": "func_80009400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1682,
+        "reason": "Preserve candidate 1682 with independently verified task layout and helper contracts; SDK-style MMIO form scores1687, and the 8-byte frame gap has no storage proof.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91349,6 +91355,12 @@
       "symbol": "func_800095A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1135,
+        "reason": "Preserve candidate 1135 with established ALDMAproc ABI and correct mixed signed/unsigned bounds; named range-end form is code-neutral, allocation and scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91383,7 +91395,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 976,
-        "reason": "Preserve manual best 976: SDK-supported link assignment order improves the candidate, but the 16-byte frame difference lacks source storage evidence; no synthetic aliases or padding.",
+        "reason": "Best 976 remains unchanged after raw-proven DMA node view extension; regression only, no new source hypothesis or match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
