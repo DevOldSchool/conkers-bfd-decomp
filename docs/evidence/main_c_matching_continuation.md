@@ -1014,3 +1014,33 @@ with 12 skipped, metadata, progress and whitespace passed. A supplemental main
 build also matches the US ROM. This adds **1 function / 244 bytes**, giving
 **62 / 7,164 bytes** since the fresh baseline and **2,695** accepted US C
 functions. No accepted IDs remain pending.
+
+## Twenty-fifth batch: typed timed-emitter state
+
+`151A4A38` has a first-form candidate at 463. The consumer's accesses establish
+a burst descriptor through its float at 0x68, distinct from the earlier 0x70-byte
+allocation packet. Existing effect-state and vector views are reused. Its frame
+and descriptor/vector/angle homes agree, but the actual cross-call pointer spill
+is at SP+0x20 rather than SP+0x24. The compiler debug home is virtual and already
+reports SP+0x24; it does not prove where the runtime spill belongs. Independent
+review found no defensible slot correction, so the candidate is preserved without
+changing declarations merely to perturb allocation. Floating-constant scheduling
+also remains unresolved. Helper integer formals remain full-width.
+
+The related `151A37C0` candidate describes the timed entry ring, interpolation,
+phase update and transform-loss fallback. Existing state, object and entry views
+now expose additional observed fields while retaining their prior offsets and
+extents. The actual 0x30-byte fallback copy reuses the existing launch-packet type;
+ring indices and count remain signed bytes. Its first form scores 12270, with a
+smaller frame, fewer saved registers and additional volatile-register spills.
+An explicit byte-stride address form compiles identically, so the clearer typed
+array form is retained. The compiler already hoists the X/Y interpolation products;
+that is not the cause of this mismatch. No register hints or artificial state
+were added to reproduce the allocation.
+
+A clean batch rechecked six existing matches in the affected unit and the main
+PI initializer: `BATCH_COMPLETE`, full US ROM, integrated game/rodata checks,
+1,346 tests with 12 skipped, metadata, progress and whitespace passed. Deferred
+`151A361C`, `151A4638` and `151A4A38` retain scores 190, 470 and 463 respectively.
+This candidate-only batch adds no matches: totals remain **62 / 7,164 bytes**,
+with **2,695** accepted US C functions and no accepted pending IDs.

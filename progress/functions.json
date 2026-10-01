@@ -54372,6 +54372,12 @@
       "symbol": "func_151A361C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12270,
+        "reason": "Preserve typed timed-ring candidate at 12270; explicit byte-stride form is code-neutral and register/save/spill allocation remains different",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -54492,6 +54498,12 @@
       "symbol": "func_151A499C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 463,
+        "reason": "Preserve first typed burst candidate at 463: real pointer spill differs despite matching virtual home, and float constant scheduling remains; independent review does not justify slot perturbations",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

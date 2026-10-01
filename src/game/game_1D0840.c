@@ -156,24 +156,45 @@ typedef struct Game1D0840TimedEntry {
     s16 field10;
     s16 field12;
     u8 field14;
-    u8 pad15[3];
+    u8 field15;
+    u8 pad16[2];
 } Game1D0840TimedEntry;
 
 typedef struct Game1D0840TimedState {
-    u8 pad0[0x1C];
+    u8 *owner;
+    u8 identity;
+    u8 transformIndex;
+    u8 pad06[2];
+    Game1D0840Vec3 input08;
+    f32 field14;
+    s16 field18;
+    s16 field1A;
     s16 field1C;
-    u8 pad1E[6];
+    u8 pad1E[2];
+    f32 field20;
     f32 field24;
-    u8 pad28[2];
+    u8 field28;
+    u8 field29;
     s8 field2A;
     u8 pad2B[5];
     u8 flags30;
-    u8 pad31[0x1B];
+    u8 pad31[3];
+    Game1D0840Vec3 previous34;
+    f32 field40;
+    u8 field44;
+    u8 pad45[3];
+    f32 field48;
     u8 field4C;
 } Game1D0840TimedState;
 
 typedef struct Game1D0840TimedObject {
-    u8 pad0[0x25];
+    u8 pad0[0xC];
+    u8 fieldC;
+    u8 pad0D[3];
+    Game1D0840Vec3 position10;
+    u8 pad1C[2];
+    u16 flags1E;
+    u8 pad20[5];
     u8 field25;
     u8 pad26[6];
     s8 field2C;
@@ -241,6 +262,115 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A361C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A361C.s")
+u32 func_150ADA20(void);
+s32 func_151491F4(s32, s32, s32, s32, s32, s32, s32, s32);
+void func_151A4E9C(void *);
+f32 sqrtf(f32);
+f32 fabsf(f32);
+extern f32 D_800A8D58;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A37C0 CURRENT (12270) */
+s32 func_151A37C0(Game1D0840TimedObject *object) {
+    Game1D0840LaunchPacket snapshot;
+    Game1D0840Vec3 point;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 distance;
+    f32 inverse;
+    f32 age;
+    f32 ageStep;
+    f32 value;
+    f32 valueStep;
+    f32 zStep;
+    Game1D0840TimedState *state;
+    Game1D0840TimedEntry *entries;
+    Game1D0840TimedEntry *entry;
+    s32 initialized;
+    s32 spawned;
+    Game1D0840Vec3 *previous;
+
+    state = object->state98;
+    entries = object->entries94;
+    if (*(s32 *) state->owner == 0) {
+        return 0;
+    }
+    if (state->identity != state->owner[0x3B]) {
+        return 0;
+    }
+    initialized = 0;
+    if (!(object->flags1E & 4)) {
+        if (func_151A4E34(state, &object->position10.x) != 0) {
+            initialized = 1;
+            state->previous34 = object->position10;
+            object->flags1E |= 4;
+        } else {
+            return 1;
+        }
+    }
+    if ((initialized == 0) &&
+        (func_151A4E34(state, &object->position10.x) == 0)) {
+        func_151A4E9C(object);
+        func_10022EC0(&snapshot, state, 0x30);
+        spawned = func_151491F4(0x12C, -1, 0xA, 0, 5, 0x30,
+                               object->fieldC, 0);
+        if (spawned != 0) {
+            func_10022EC0((void *) (spawned + 0x28), &snapshot, 0x30);
+        }
+    } else {
+        dx = object->position10.x - state->previous34.x;
+        dy = object->position10.y - state->previous34.y;
+        dz = object->position10.z - state->previous34.z;
+        if ((D_800A8D58 < fabsf(dx)) || (D_800A8D58 < fabsf(dy)) ||
+            (D_800A8D58 < fabsf(dz))) {
+            state->field40 += sqrtf(dx * dx + dy * dy + dz * dz) * state->field14;
+        }
+        distance = state->field40;
+        if (distance > 1.0f) {
+            inverse = 1.0f / distance;
+            previous = &state->previous34;
+            point = *previous;
+            age = state->field48 + D_800BE9A4;
+            ageStep = age * inverse;
+            value = state->field20 + state->field24 * age;
+            zStep = dz * inverse;
+            valueStep = (state->field20 - value) * inverse;
+            do {
+                entry = &entries[object->field2E];
+                entry->value0 = point;
+                entry->fieldC = value;
+                entry->field10 = state->field18;
+                entry->field12 = state->field1A;
+                entry->field15 = state->field44;
+                state->field44 += state->field28 +
+                    func_150ADA20() % (u32) (state->field29 + 1);
+                entry->field14 = 0xFF;
+                object->field2E++;
+                if (object->field25 == object->field2E) {
+                    object->field2E = 0;
+                }
+                object->field2C++;
+                if (object->field2D == object->field2E) {
+                    object->field2D++;
+                    if (object->field25 == object->field2D) {
+                        object->field2D = 0;
+                    }
+                    object->field2C--;
+                }
+                value += valueStep;
+                point.x += dx * inverse;
+                point.y += dy * inverse;
+                age -= ageStep;
+                point.z += zStep;
+                state->field40 -= 1.0f;
+            } while (state->field40 > 1.0f);
+            *previous = point;
+            state->field48 = age;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A37C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A37C0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A3BE4.s")
 u32 func_1513418C(void *, s32, u8, s32);
@@ -487,6 +617,134 @@ void func_151A499C(void *arg0, u8 arg1) {
         func_10022EC0((void *)(temp_v0 + 0x28), &packet, 0x20);
     }
 }
+typedef struct Game1D0840BurstPacket {
+    s16 count;
+    s16 countRange;
+    u8 callback;
+    u8 pad05;
+    u16 field06;
+    u32 field08;
+    s32 field0C;
+    s16 field10;
+    s16 field12;
+    s32 field14;
+    s32 field18;
+    u8 field1C;
+    u8 field1D;
+    u8 field1E;
+    u8 field1F;
+    u8 field20;
+    u8 field21;
+    u8 field22;
+    u8 field23;
+    u8 field24;
+    u8 field25;
+    s16 field26;
+    s16 field28;
+    s16 field2A;
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+    Game1D0840Vec3 position;
+    s16 field44;
+    s16 field46;
+    s16 field48;
+    s16 field4A;
+    f32 field4C;
+    f32 field50;
+    f32 field54;
+    f32 field58;
+    u32 flags5C;
+    s8 field60;
+    s8 field61;
+    u8 field62;
+    u8 field63;
+    u8 field64;
+    u8 pad65[3];
+    f32 field68;
+} Game1D0840BurstPacket;
+
+void func_15143134(f32 *, f32 *, s32);
+void func_15153634(Game1D0840BurstPacket *, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4A38 CURRENT (463) */
+void func_151A4A38(u8 *object) {
+    u8 *owner;
+    Game1D0840Vec3 position;
+    Game1D0840BurstPacket packet;
+    s16 angle;
+    Game1D0840EffectPacket *state;
+
+    state = (Game1D0840EffectPacket *) (object + 0x28);
+    if ((*(s32 *) *(void **) (object + 0x28) == 0) ||
+        (owner = state->field_0, *(s32 *) owner == 8) ||
+        (state->field_4 != owner[0x3B])) {
+        *(s16 *) (object + 0xE) = -1;
+        object[0xD] |= 1;
+        return;
+    }
+    if ((*(void **) (owner + 0x1D4) != 0) &&
+        ((owner[0x74] & 0xF) != 0xF)) {
+        state->field_C += state->field_8 * D_800BE9A4;
+        if (state->field_C > 1.0f) {
+            owner = state->field_0;
+            angle = (*(u16 *) (owner + 0x76) >> 8) - 0x40;
+            func_15143134(&state->field_14, &position.x,
+                         (s32) *(u8 **) (owner + 0x1D4) +
+                         (state->field_10 << 6));
+            packet.countRange = 0;
+            packet.count = (s32) state->field_C;
+            state->field_C -= (f32) packet.count;
+            packet.callback = 0x28;
+            packet.field06 = 0xC01;
+            packet.field08 = 0x200005;
+            packet.field0C = 0;
+            packet.field10 = 0x17;
+            packet.field12 = 0xD;
+            packet.field14 = 0;
+            packet.field18 = 0;
+            packet.field1C = 0;
+            packet.field1D = 0;
+            packet.field1E = 0;
+            packet.field1F = 0xFF;
+            packet.field20 = 0;
+            packet.field21 = 0;
+            packet.field22 = 0;
+            packet.field30 = 300.0f;
+            packet.field34 = 400.0f;
+            packet.position = position;
+            packet.field26 = 1;
+            packet.field28 = 0;
+            packet.field2A = 1;
+            packet.field64 = 0;
+            packet.field44 = angle - 0x19;
+            packet.field46 = -0x2C;
+            packet.field48 = 0x32;
+            packet.field4A = 0x32;
+            packet.flags5C = 7;
+            packet.field62 = 1;
+            packet.field63 = 0;
+            packet.field54 = -0.5f;
+            packet.field58 = -0.5f;
+            packet.field4C = 0.0f;
+            packet.field2C = 1.0f;
+            packet.field50 = 15.0f;
+            if (func_150ADA20() & 1) {
+                packet.flags5C |= 0x40;
+            }
+            if (func_150ADA20() & 1) {
+                packet.flags5C |= 0x80;
+            }
+            packet.field23 = 0xFF;
+            packet.field24 = 0;
+            packet.field25 = 0xFF;
+            packet.field60 = -1;
+            packet.field61 = -1;
+            func_15153634(&packet, 0xFF, object[0xC], object[1]);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4A38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4A38.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4CE0 CURRENT (10) */
 void func_151A4CE0(void *arg0, void *arg1, u8 arg2) {
