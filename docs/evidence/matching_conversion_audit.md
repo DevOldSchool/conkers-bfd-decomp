@@ -222,3 +222,35 @@ probe on 1501E73C was unchanged at 70 and stopped. See the
 [continuation ledger](small_queue_continuation.md) for acceptance details.
 These results support running concrete implementation leads alongside bounded
 read-only diagnosis, rather than stopping both streams behind every review.
+
+## Observed storage-led follow-up cohort
+
+From the first new trial at approximately 00:04 UTC through clean acceptance
+before 01:00 UTC on 2026-10-01, this selected deferred cohort produced eight
+accepted functions / 1,932 bytes from 16 new scored forms on 12 compiled targets.
+Two additional targets stopped after read-only negative reviews. Existing-score
+diagnoses, deferral measurements and one type-cast repair recheck are excluded
+from the 16 source hypotheses. All original acceptance gates remained in force.
+The private machine-readable record is `storage-method-hour-20261001.json`
+under the continuation proof directory.
+
+Summed measured finish-command time was 81.042 seconds. Four clean batches
+totalled 348.888 seconds, including 101.404 seconds of Python tests. Analysis,
+review, source editing, coordination, baseline diagnoses, publication and backup
+are not included in those command totals. They are not an exclusive wall-time
+partition.
+
+This is an observed improvement in delivered results within this cohort, not a
+controlled estimate of a general speedup: targets were deliberately selected
+from preserved near-misses and differed in size/difficulty from the prior hour.
+The useful transferable finding is the distinction between actual state and
+source-level names for derived addresses. Where the compiler recovers required
+common expressions, redundant homes can be removed without changing operations.
+Where it instead rematerializes addresses (1518F7C4), the same transformation
+fails and the prior best must remain. Reconstructed source homes and dataflow,
+not score alone or a universal locals-count rule, justified the successful tests.
+
+A short explicit follow-up on 1501FC8C's remaining duplicate-zero behavior found
+no matched local precedent or compiler proof for changing the float comparison
+to an unsuffixed double zero. No additional source form was justified; the
+improved 567 remains preserved.

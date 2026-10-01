@@ -406,3 +406,34 @@ full US game code and mapped rodata identical, 1,092 tests passed / 12 skipped,
 metadata/progress/whitespace passed. The three source units remain mixed.
 This adds 3 functions / 428 bytes, bringing the task total to 28 / 11,040 bytes.
 The two improved candidates stay disabled, and no batch IDs remain pending.
+
+## Real-state versus derived-home follow-up
+
+Three more preserved candidates received focused exact matches:
+
+- `func_151D2AB0` (156 bytes), 42 → 0: remove both the named flag address and
+  named doubled index, while retaining the actual address-taken u32 result.
+  The 0x28 frame becomes 0x20; output0x1C and compiler-derived offset0x18 stay
+  exact. Prior removal of just one name had not removed both reserved homes.
+- `func_15107924` (252 bytes), 99 → 8 → 0: remove the duplicate owner snapshot
+  alias and both names for one vector address, retaining real record/owner
+  snapshots and the 12-byte vector. Frame0x40, vector0x2C and derived spill0x28
+  then agree. Object `.mdebug` identifies the sole remaining owner snapshot at
+  entry-SP−4 (runtime0x3C), versus raw0x38. Declaring the actually loaded record
+  before its owner puts the owner at entry-SP−8 and closes exactly two accesses.
+  This is one measured source-home correction, not a declaration permutation
+  search; no dummy storage is introduced.
+- `func_15107E48` (268 bytes), 34 → 0: remove both aliases for the same derived
+  vector address. Retain real owner/record values and the 12-byte snapshot.
+  Frame0x40 becomes0x38 while snapshot0x24 and derived-pointer spill0x20 stay
+  exact. An explicit f32 pointer cast corrects the direct helper argument's
+  type; authoritative zero/layout/progress/whitespace were rechecked afterward.
+
+All source units remain mixed. These tests preserve real values that must
+survive calls; they do not replace a callee-mutable pointee snapshot with a
+fresh load, or a required fresh resource reload with a cached pointer.
+
+The three-function follow-up clean batch returned BATCH_COMPLETE in 82.421
+seconds, with full US game/mapped-rodata equality, 1,092 tests passed / 12
+skipped, and metadata/progress/whitespace passing. This adds 3 functions /
+676 bytes, for a task total of 31 / 11,716 bytes. No batch IDs remain pending.

@@ -32101,17 +32101,16 @@
       "symbol": "func_1515D130"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 42,
-        "reason": "Manual169->91->42: direct byte preincrement and single saved offset. All instructions/registers/local18/1C match, remaining frame28 vs20 and formalhome. Inlinepointer59 and used offset/output record271 regress; restored42 after4 revisions. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2AB0",
           "vram": "0x151D2AB0"
         }
@@ -34035,17 +34034,16 @@
       "symbol": "func_151078E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 99,
-        "reason": "Manual139->99: float-vector typing neutral; existing pointers before vector improved offsets. Register-qualified unspilled temporaries neutral99. Best plain-pointer candidate preserved; all nonstack rows exact, frame50 vs40/vector30 vs2C/cached2C vs28/owner40 vs38 remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 252,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15107924",
           "vram": "0x15107924"
         }
@@ -34123,17 +34121,16 @@
       "symbol": "func_15107C1C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 34,
-        "reason": "Manual aggregate snapshot and declaration order improved CURRENT 2194 to 34. Every non-frame/argument-home row exact, snapshot24 and cached pointer20 correct. Removing redundant pointer alias regressed59; direct Copy3 local neutral34. Best34 preserved; frame40 instead of38 remains.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15107E48",
           "vram": "0x15107E48"
         }
