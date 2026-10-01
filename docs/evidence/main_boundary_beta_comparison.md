@@ -18,18 +18,16 @@ original compilation unit. The beta correlations supply new selected-entry and
 hardware-domain evidence; independent US raw/index/span checks establish the
 retained US membership. Neither canonical nor independent reference map changes.
 
-## Input provenance and validation
+## Independently validated inputs
 
-The owner authorized both new inputs from the private assets repository.
-Commit `08aea468e1cb2e3f42c9500b890606325fd12fae`, dated 2026-10-01, added the
-following files. Each is 67,108,864 bytes and uses V64 byte order. Git blob IDs
-identify retrieval artifacts; the independently computed SHA-1s below identify
-ROM content. Neither ROM nor extracted payload is committed.
+Each owned beta input is 67,108,864 bytes and uses V64 byte order. The
+independently computed SHA-1s below identify ROM content before and after
+normalization to Z64 byte order. Neither ROM nor extracted payload is committed.
 
-| Input | Git blob | Raw SHA-1 | Normalized Z64 SHA-1 |
-| --- | --- | --- | --- |
-| `baserom.us.beta.v64` (debug) | `d13e3e6da482bcedc79ddb40c8f0970c20751f6e` | `6956bd77351a91cdd22af454a8d410a3b9c829f0` | `3b99222ee76f6277a963142cd807b3df25d5174f` |
-| `baserom.us.beta.ects.v64` | `9146067ab6a7ec6cef690f3dc675faccb78b4d49` | `92575eed941324b9cd7d29df61e720b04d8b26cb` | `06597dc935651f8995bfacc30fde6e621d44c3e1` |
+| Input | Raw SHA-1 | Normalized Z64 SHA-1 |
+| --- | --- | --- |
+| `baserom.us.beta.v64` (debug) | `6956bd77351a91cdd22af454a8d410a3b9c829f0` | `3b99222ee76f6277a963142cd807b3df25d5174f` |
+| `baserom.us.beta.ects.v64` | `92575eed941324b9cd7d29df61e720b04d8b26cb` | `06597dc935651f8995bfacc30fde6e621d44c3e1` |
 
 Both normalized hashes match `config/rzip_layouts.json`. US and PAL hashes
 remain those in [the regional comparison](main_boundary_pal_comparison.md).

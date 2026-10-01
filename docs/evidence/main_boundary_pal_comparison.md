@@ -12,9 +12,8 @@ or progress state.
 
 - Owned US ROM SHA-1: `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
 - Owned PAL ROM SHA-1: `ee7bc6656fd1e1d9ffb3d19add759f28b88df710`.
-- Each ROM is 67,108,864 bytes. PAL was obtained from the owner's private assets
-  repository, then hashed locally; a Git blob identifier was not used as a ROM
-  checksum. No private ROM or extracted payload is committed.
+- Each ROM is 67,108,864 bytes and was hashed locally. No private ROM or
+  extracted payload is committed.
 - PAL game code was decoded with the existing `scripts/rzip_archive.py` parser
   from configured archive range `0x427B0:0x19EDE8`. Its 2,074,912-byte code
   SHA-1 is `e79369f8c0cad22892728a3db723092bc6856f07`, matching
@@ -92,15 +91,15 @@ entries corroborate those bodies but do not account for the extra empty entry.
 PAL does not close the main boundary frontier. Do not repeat this same retail
 comparison without a new lead or reinterpret the negative checks as proof.
 At this checkpoint the next planned input was the user's owned debug build.
-Both beta inputs were subsequently uploaded and examined on 2026-10-01; see
+Both beta inputs were subsequently examined on 2026-10-01; see
 [the completed beta comparison](main_boundary_beta_comparison.md). The user
 confirmed that no original debug map is available and cautioned that the debug build may add little information. This
 is a bounded investigation opportunity, not a promised route to completion.
 The existing `beta-index` correlations concern game overlays; main needs its
 own targeted review.
 
-The private assets inventory at this historical checkpoint supplied US and PAL,
-but not those prototypes or an original symbol map. Prototype hashes and
+This historical comparison used US and PAL inputs, without those prototypes or
+an original symbol map. Prototype hashes and
 canonical input names are documented in [beta evidence](../beta-evidence.md) and `config/rzip_layouts.json`;
 their bytes were not available for this trial. A prototype correlation would
 still require positive entry/grouping evidence before changing US spans.
