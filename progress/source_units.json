@@ -19887,7 +19887,7 @@
         "us": {
           "end": "0x12560",
           "start": "0x11FA0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_11FA0.c"
@@ -19992,7 +19992,7 @@
         "us": {
           "end": "0xEB00",
           "start": "0xB1B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_B1B0.c"
@@ -20066,7 +20066,7 @@
         "us": {
           "end": "0x11FA0",
           "start": "0xEB00",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_EB00.c"
@@ -20113,7 +20113,7 @@
         "us": {
           "end": "0x8F90",
           "start": "0x8180",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_8180.c"

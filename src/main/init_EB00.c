@@ -56,7 +56,6 @@
  * - func_800114D0
  * - func_80011624
  * - func_80011BB8
- * - func_80011E88
  * - func_80011E94
  * - func_80011EB8
  *
@@ -114,6 +113,8 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_800114D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011624.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011BB8.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011E88.s")
+void func_80011E88(s32 arg0) {
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011E94.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011EB8.s")

@@ -12,4 +12,9 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_38E0/func_800038E0.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000390C CURRENT (100) */
+s32 func_8000390C(void) {
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000390C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_38E0/func_8000390C.s")

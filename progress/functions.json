@@ -90546,6 +90546,12 @@
       "symbol": "func_800037F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 60,
+        "reason": "Natural reset and explicit-return forms both remain60: store precedes rather than occupies jr delay slot; no further justified source form.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90887,8 +90893,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 16,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011FA0",
           "vram": "0x80011FA0"
         }
@@ -90913,8 +90924,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 16,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011FDC",
           "vram": "0x80011FDC"
         }
@@ -91706,8 +91722,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 20,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E75C",
           "vram": "0x8000E75C"
         }
@@ -92460,8 +92481,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 12,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011E88",
           "vram": "0x80011E88"
         }
@@ -92551,8 +92577,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 20,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800085A4",
           "vram": "0x800085A4"
         }
@@ -93522,6 +93553,12 @@
       "symbol": "func_800038E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Natural zero-return body matches instructions but independent registered 20-byte span includes one additional trailing nop beyond the 16-byte candidate object; no source padding added.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

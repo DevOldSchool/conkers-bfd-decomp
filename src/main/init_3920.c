@@ -10,4 +10,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+extern s8 D_80038080;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003920 CURRENT (60) */
+void func_80003920(void) {
+    D_80038080 = 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_80003920 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3920/func_80003920.s")

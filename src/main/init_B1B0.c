@@ -48,7 +48,6 @@
  * - func_8000E588
  * - func_8000E654
  * - func_8000E704
- * - func_8000E75C
  * - func_8000E770
  * - func_8000E7A0
  * - func_8000E8C4
@@ -102,7 +101,11 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E588.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E654.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E704.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E75C.s")
+extern s32 D_8002B070;
+
+void func_8000E75C(s32 arg0) {
+    D_8002B070 = arg0 >> 1;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E770.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E7A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E8C4.s")

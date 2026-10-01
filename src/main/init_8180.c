@@ -9,7 +9,6 @@
  * - func_800084D8
  * - func_8000853C
  * - func_80008570
- * - func_800085A4
  * - func_800085B8
  * - func_800085F8
  * - func_8000862C
@@ -40,7 +39,8 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800084D8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_8000853C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008570.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085A4.s")
+void func_800085A4(s32 arg0, s32 arg1, s32 arg2) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_8000862C.s")
