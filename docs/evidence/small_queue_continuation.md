@@ -718,3 +718,38 @@ The clean batch returned BATCH_COMPLETE: full US game code and mapped rodata
 identical, 1,092 tests passed / 12 skipped, metadata/progress/whitespace passed.
 The owner unit remains mixed. This adds 2 functions / 724 bytes, for an accepted
 task total of 38 functions / 14,244 bytes. No batch IDs remain pending.
+
+## Final in-progress candidates and requested stop
+
+After the owner batch, three already-selected candidates were completed within
+their bounded manual scope before stopping at the user's request:
+
+- `func_1510B128`: 2094 to 1759. Independent review identified a real projection
+  quotient after each sine call. Naming that value recovers the raw f2 quotient
+  and several FP identities. The 0x40 versus 0x50 frame, outer-load scheduling,
+  settings branch and final address expression remain unresolved. The cosine
+  spill is already exact at 0x3C; no unsupported frame storage was added.
+- `func_1510D404`: 4089, 3874, 3874. Separating the exclusive loop bound from the
+  inclusive range end improves the candidate; a separate guard snapshot is
+  code-neutral and was discarded. Raw keeps the bound at SP+0x40 and retains
+  a repeated -1 constant in s6, whereas the candidate retains its bound in s6.
+  Frame and global-reload scheduling also differ. Best 3874 is preserved.
+- `func_15154884`: 270 to 200. The 0x78 descriptor, five-float payload, result
+  spill, frame and all storage already agree. Retaining the unscaled RNG sample
+  and multiplying only in the consuming field expression removes every FP
+  difference. Only the fifth formal's full-word versus byte reload remains.
+  Its full-width contract is retained without an unsupported ABI change.
+
+All three best candidates are disabled with original ASM active, and all
+attempts and failed hypotheses are retained privately. The final refreshed
+US game build and mapped rodata comparison pass, as do progress and whitespace
+checks. No new focused or accepted match is claimed for this final group; no
+empty verification batch was run. The last accepted clean batch remains the
+38-function / 14,244-byte checkpoint with 1,092 tests passed and 12 skipped.
+
+The cumulative byte count includes three earlier light routines whose inventory
+entries omit size_bytes: their 188-, 92- and 92-byte spans are documented in
+[light callback argument matching](light_callback_argument_matching.md).
+The count was reconciled against baseline `354b006e50471198e7ab4fa90134694c53438bad`.
+There are no pending accepted IDs. Manual matching is stopped; no new queue item
+was selected after the stop instruction was received.

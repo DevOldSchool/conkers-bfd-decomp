@@ -51887,6 +51887,12 @@
       "symbol": "func_15154684"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 200,
+        "reason": "270 to200 by retaining the actual unscaled RNG sample and scaling only in its consuming field expression. Exact frame, packet homes, registers, count and scheduling; only full-word vs byte reload of fifth formal differs. Existing full-width contract retained, no unsupported ABI change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52719,6 +52725,12 @@
       "symbol": "func_1510B070"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1759,
+        "reason": "Independent quotient-state trial2094 to1759 restores division result f2 and many FP identities. Frame40 vs50 and valid cosine spill3C unchanged; outer-load/scheduling/final address differences remain. No invented padding or pointer homes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77945,6 +77957,12 @@
       "symbol": "func_1510D374"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3874,
+        "reason": "Natural cleanup state4089; separate exclusive stop bound3874; explicit guard snapshot is code-neutral. Saved constant/bound allocation, global reload scheduling and frame remain different. Retain smaller valid source; no invented storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

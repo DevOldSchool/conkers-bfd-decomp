@@ -302,6 +302,91 @@ void func_15154684(void *arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15154684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154684.s")
+typedef struct Game154884Descriptor {
+    f32 field00, field04, field08, field0C;
+    Game17CAF0Vec3f angles;
+    Game17CAF0Vec3f scale;
+    Game17CAF0Vec3f position;
+    Game17CAF0Vec3f velocity;
+    f32 field40, field44, field48, field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58;
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70;
+    s16 field72, field74;
+} Game154884Descriptor;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A601C, D_800A6020, D_800A6024, D_800A6028, D_800A602C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154884 CURRENT (200) */
+void *func_15154884(Game17CAF0Vec3f *arg0, f32 arg1, f32 arg2,
+                    f32 arg3, s32 arg4, s32 arg5) {
+    u8 *result;
+    f32 random;
+    Game154884Descriptor descriptor;
+    f32 payload[5];
+
+    if (arg1 <= 0.0f) {
+        return 0;
+    }
+    payload[0] = arg1;
+    payload[1] = arg2;
+    payload[3] = 0.0f;
+    descriptor.field08 = 0.0f;
+    descriptor.field0C = 0.0f;
+    descriptor.field00 = 1.0f;
+    descriptor.field04 = 1.0f;
+    payload[2] = arg3;
+    payload[4] = D_800A601C / arg1;
+    descriptor.angles.x = func_150ADA68() * 360.0f;
+    descriptor.angles.y = func_150ADA68() * 360.0f;
+    random = func_150ADA68();
+    descriptor.scale.x = 1.0f;
+    descriptor.scale.y = 1.0f;
+    descriptor.scale.z = 1.0f;
+    descriptor.angles.z = random * 360.0f;
+    descriptor.position = *arg0;
+    descriptor.velocity.x = 0.0f;
+    descriptor.velocity.y = 0.0f;
+    descriptor.velocity.z = 0.0f;
+    random = func_150ADA68();
+    descriptor.field44 = 0.0f;
+    descriptor.field40 = (random * D_800A6020) + D_800A6024;
+    descriptor.field48 = func_150ADA68() * D_800A6028 + D_800A602C;
+    descriptor.field4C = 0.0f;
+    descriptor.field50 = 0x140;
+    descriptor.field56 = 0x55;
+    descriptor.field58 = 0;
+    descriptor.field5C = 0;
+    descriptor.field60 = 0xFF;
+    descriptor.field61 = 0x12;
+    descriptor.field62 = 0;
+    descriptor.field63 = 0;
+    descriptor.field64 = 0;
+    descriptor.field65 = 0;
+    descriptor.field66 = 0;
+    descriptor.field67 = 0;
+    descriptor.field68 = 2;
+    descriptor.field6A = 0;
+    descriptor.field6C = 0;
+    descriptor.field70 = 0;
+    descriptor.field72 = 1;
+    descriptor.field74 = 0xFF;
+    descriptor.field54 = 0x12C;
+    result = func_15132A4C(&descriptor, 0, 0, 0x14, (u8)arg4, arg5);
+    if (result != 0) {
+        func_10022EC0(result + 0x170, payload, 0x14);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15154884 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154884.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
