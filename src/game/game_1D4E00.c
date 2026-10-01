@@ -95,6 +95,115 @@ void func_151A85D4(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A85D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A85D4.s")
+typedef struct { f32 x, y, z; } Game1D4E00Vector;
+typedef struct { u8 bytes[4]; } Game1D4E00Colour;
+typedef struct {
+    s16 lifetime;
+    s16 count;
+    f32 field04;
+    f32 field08;
+    u8 timed;
+    u8 pad0D[3];
+    f32 field10;
+    Game1D4E00Colour colour;
+    f32 field18;
+    u8 mode;
+    s8 type;
+    u8 pad1E[2];
+    f32 field20[10];
+    f32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+} Game1D4E00Descriptor;
+typedef struct {
+    void *owner;
+    u8 generation;
+    u8 pad05[3];
+    Game1D4E00Vector position;
+    u8 style;
+    u8 pad15[3];
+    Game1D4E00Vector offset;
+    u8 flag24;
+    u8 flag25;
+    u8 pad26[2];
+} Game1D4E00OwnerData;
+
+extern f32 D_800A8DE0;
+void *func_151A7950(u8 *, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8624 CURRENT (1828) */
+void *func_151A8624(u8 *arg0, Game1D4E00Vector *arg1, s32 arg2, s32 arg3,
+                   f32 arg4, f32 arg5, Game1D4E00Colour *arg6, f32 arg7,
+                   Game1D4E00Vector *arg8, s32 arg9, s32 arg10, s32 arg11,
+                   s32 arg12, s32 arg13, s32 arg14) {
+    void *result;
+    Game1D4E00Descriptor descriptor;
+    Game1D4E00OwnerData owner;
+    u8 mode;
+
+    arg2 = (u8)arg2;
+    arg3 = (s16)arg3;
+    mode = arg9;
+    if (arg0 == 0) {
+        return 0;
+    }
+    if (mode >= 2) {
+        mode = 0;
+    }
+    owner.position = *arg1;
+    owner.style = arg2;
+    owner.flag25 = 0;
+    owner.owner = arg0;
+    owner.generation = arg0[0x3B];
+    owner.flag24 = arg10;
+    if (arg8 != 0) {
+        owner.offset = *arg8;
+    } else {
+        owner.offset.x = 0.0f;
+        owner.offset.y = 0.0f;
+        owner.offset.z = 0.0f;
+    }
+    if (arg3 == -1) {
+        descriptor.lifetime = 300;
+    } else {
+        descriptor.lifetime = arg3;
+    }
+    descriptor.count = 9;
+    descriptor.field04 = arg4;
+    descriptor.field08 = arg5;
+    if (arg3 == -1) {
+        descriptor.timed = 0;
+    } else {
+        descriptor.timed = 1;
+    }
+    descriptor.field10 = D_800A8DE0;
+    descriptor.colour = *arg6;
+    descriptor.field18 = arg7;
+    if (mode != 0 && mode == 1) {
+        descriptor.mode = 1;
+    } else {
+        descriptor.mode = 1;
+    }
+    descriptor.field20[0] = 0.0f;
+    descriptor.field20[1] = 0.0f;
+    descriptor.field20[2] = 0.0f;
+    descriptor.field20[3] = 0.0f;
+    descriptor.field20[4] = 0.0f;
+    descriptor.field20[5] = 0.0f;
+    descriptor.field20[6] = 0.0f;
+    descriptor.field20[7] = 0.0f;
+    descriptor.field20[8] = 0.0f;
+    descriptor.field20[9] = 0.0f;
+    descriptor.field4C = 2;
+    descriptor.type = arg11;
+    descriptor.field48 = 1.0f;
+    result = func_151A7950((u8 *)&descriptor, arg12 + 0x28, arg13, arg14);
+    if (result != 0) {
+        func_10022EC0(*(void **)((u8 *)result + 0x60), &owner, sizeof(owner));
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A8624 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8624.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A87F8.s")
 typedef void (*Game1D4E00Callback)(void *, s32, u8);

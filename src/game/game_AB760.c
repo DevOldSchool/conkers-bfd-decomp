@@ -9,9 +9,6 @@
  * - func_1507E3C0
  * - func_1507E73C
  * - func_1507E7E4
- * - func_1507E908
- * - func_1507E968
- * - func_1507E9F8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -21,12 +18,13 @@ u32 func_150ADA20(void);
 extern u8 D_800C35EA;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E2B0 CURRENT (255) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E2B0 CURRENT (230) */
 void func_1507E2B0(struct GameAB760State *arg0) {
     u8 *state = (u8 *)arg0;
     u8 temp_t6;
     u8 temp_v0;
     s32 one;
+    s32 timestep;
 
     if ((state[4] != 0x2B) && (D_800C35EA != 1)) {
         if ((state[0x127] != 0xFF) &&
@@ -43,9 +41,10 @@ void func_1507E2B0(struct GameAB760State *arg0) {
             state[0x6B] = 0;
         }
         temp_v0 = state[0x6E];
+        timestep = D_800BE9E4;
         one = 1;
-        if ((s32)temp_v0 >= D_800BE9E4) {
-            state[0x6E] = temp_v0 - D_800BE9E4;
+        if ((s32)temp_v0 >= timestep) {
+            state[0x6E] = temp_v0 - timestep;
             return;
         }
         state[0x6E] = 0;
@@ -283,53 +282,45 @@ typedef struct GameAB760ValueRecord {
     s32 pad4;
 } GameAB760ValueRecord;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E908 CURRENT (1129) */
-s32 func_1507E908(void *arg0, s32 arg1) {
+u8 *func_1507E908(void *arg0, s32 arg1) {
     s32 value;
-    s32 result;
     GameAB760ValueRecord *record;
 
-    record = D_800D1C90[func_150849A0()];
-    result = 0;
+    record = D_800D1C90[func_150849A0(arg0)];
     if (record != 0) {
-        value = record[-1].value;
+        value = (--record)->value;
         if (value != 0) {
-            result = (arg1 * 0xA) + value;
+            return (u8 *)((arg1 * 0xA) + value);
         }
     }
-    return result;
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E908 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E908.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E968 CURRENT (1440) */
-u32 func_1507E968(void *arg0) {
-    GameAB760ValueRecord *temp_v1;
-    u32 var_v0;
-    s32 var_v0_2;
+s32 func_1507E968(void *arg0) {
+    GameAB760ValueRecord *record;
+    s32 kind;
+    s32 index;
 
-    var_v0_2 = *(u8 *)((u8 *)arg0 + 4);
-    if (var_v0_2 != 0x96) {
-        var_v0_2 = func_150849A0();
+    kind = *(u8 *)((u8 *)arg0 + 4);
+    if (kind != 0x96) {
+        index = func_150849A0(arg0);
+    } else {
+        index = kind;
     }
-    if (var_v0_2 == 0xFF) {
-        return 0U;
+    if (index == 0xFF) {
+        return 0;
     }
-    temp_v1 = D_800D1C90[var_v0_2];
-    var_v0 = 0;
-    if (temp_v1 != 0) {
-        var_v0 = (u32)temp_v1[-1].pad4 / 10U;
+    record = D_800D1C90[index];
+    if (record != 0) {
+        return (u32)(--record)->pad4 / 10U;
     }
-    return var_v0;
+    return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E968 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E968.s")
 void func_1507E9E8(s32 arg0, s32 arg1) {
 }
 extern u8 D_8009D910[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E9F8 CURRENT (100) */
-void *func_1507E9F8(void *arg0, s32 *arg1) {
-    if (func_150849A0() == 0) {
+u8 *func_1507E9F8(void *arg0, s32 *arg1) {
+    if (func_150849A0(arg0) == 0) {
         if (arg1 != 0) {
             *arg1 = 5;
         }
@@ -340,8 +331,6 @@ void *func_1507E9F8(void *arg0, s32 *arg1) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1507E9F8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E9F8.s")
 u8 *func_1507E9F8(void *, s32 *);
 void func_15083568(void *, s32, f32, s32);
 extern f32 D_8009B8A0;

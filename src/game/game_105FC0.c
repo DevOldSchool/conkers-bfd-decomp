@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150D8B3C
- * - func_150D8B88
  * - func_150D8E4C
  * - func_150D8FAC
  * - func_150D942C
@@ -30,9 +29,16 @@ void func_150D8B10(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + 20.0f);
     *(f32 *)((u8 *)arg1 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
 }
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game105FC0Vec3;
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D8B3C CURRENT (270) */
 void func_150D8B3C(void *arg0, void *arg1) {
-    u8 sp28[0x1C];
+    Game105FC0Vec3 first;
+    Game105FC0Vec3 second;
     f32 var_fv0;
 
     if (D_800BE616 != 0) {
@@ -40,19 +46,91 @@ void func_150D8B3C(void *arg0, void *arg1) {
     } else {
         var_fv0 = D_800A0B44;
     }
-    func_15145740(arg0, sp28 + 0xC, sp28, arg1, var_fv0);
+    func_15145740(arg0, &first, &second, arg1, var_fv0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D8B3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B3C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_105FC0/func_150D8B88.s")
+
+typedef struct Game105FC0Spawn {
+    Game105FC0Vec3 position;
+    s16 life;
+    s16 count;
+    s32 mode;
+    s8 kind;
+    s8 rate;
+    s32 flags;
+} Game105FC0Spawn;
+typedef struct Game105FC0Payload {
+    void *owner;
+    u8 kind;
+    Game105FC0Vec3 first;
+    Game105FC0Vec3 second;
+    Game105FC0Vec3 velocity;
+    f32 value2C;
+    s16 sound;
+    f32 value34;
+    f32 value38;
+    f32 value3C;
+    Game105FC0Vec3 offset;
+    u8 flags;
+    s8 timer;
+} Game105FC0Payload;
+void func_1000D96C(s32, s32, s32);
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+void *func_10022EC0(void *, const void *, u32);
+void func_150D8B3C(void *, void *);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_151EF610(void);
+extern f32 D_800A0B48;
+extern s32 D_800BE9F0;
+
+void func_150D8B88(void *arg0) {
+    Game105FC0Spawn spawn;
+    void *object;
+    Game105FC0Payload payload;
+    Game105FC0Vec3 position;
+    void *entity;
+
+    if (*(void **)((u8 *)arg0 + 0x31C) != 0) {
+        if (D_800BE9F0 == 0xA) {
+            func_1000D96C(0xA, 0x37, 0);
+        }
+        func_150D8B10(arg0, &spawn.position);
+        payload.timer = 0;
+        payload.flags = 1;
+        payload.owner = arg0;
+        payload.kind = *(u8 *)((u8 *)arg0 + 0x3B);
+        position = spawn.position;
+        payload.first = position;
+        payload.second = position;
+        func_150D8B3C(arg0, &payload.velocity);
+        payload.value3C = D_800A0B48;
+        payload.sound = func_10010F88((func_151EF610() % 2) + 0x1B6, 0x7FFFU, 0, 0, 0, 0, 0, 0, 500, 5000);
+        payload.value34 = 0.0f;
+        payload.value2C = 0.0f;
+        payload.offset.x = 0.0f;
+        payload.offset.y = 0.0f;
+        payload.offset.z = 0.0f;
+        payload.value38 = -16384.0f;
+        entity = *(void **)((u8 *)arg0 + 0x31C);
+        if (entity != 0 && *(u8 *)((u8 *)entity + 0x84) != 0) {
+            payload.flags &= 0xFFFE;
+        }
+        spawn.rate = 0x32;
+        spawn.life = 0x12C;
+        spawn.count = 0x36;
+        spawn.mode = 2;
+        spawn.kind = 5;
+        spawn.flags = 0;
+        object = func_15147A80(&spawn, (void *)0x50, 0x24, 0xE, 1, 0x11, 3, 0xFF, 0, 0xFF, 1);
+        if (object != 0) {
+            func_10022EC0(*(void **)((u8 *)object + 0x98), &payload, 0x50U);
+        }
+    }
+}
 extern f32 D_800A0B4C;
 extern f32 D_800A0B50;
 
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game105FC0Vec3;
 
 void func_150D8D84(Game105FC0Vec3 *arg0, Game105FC0Vec3 *arg1, f32 arg2) {
     Game105FC0Vec3 sp4;

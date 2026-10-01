@@ -17,6 +17,76 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game131F30Choices {
+    u8 bytes[9];
+} Game131F30Choices;
+
+typedef struct Game131F30Request {
+    s32 count;
+    Game131F30Choices *choices;
+    void *selected;
+} Game131F30Request;
+
+void func_151494E0(s32, u8);
+extern Game131F30Choices D_800A2380;
+extern Game131F30Choices D_800A238C;
+extern Game131F30Choices D_800A2398;
+extern u8 D_800CC2D0[];
+extern u8 *D_800DBEF4;
+extern s32 *D_800DBF94;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15104A80 CURRENT (4055) */
+void func_15104A80(void *arg0) {
+    u8 *selected;
+    u8 *cursor;
+    s32 mask;
+    s32 index;
+    Game131F30Request request;
+    Game131F30Choices choicesF9;
+    Game131F30Choices choicesF8;
+    Game131F30Choices choicesF7;
+    void *single;
+    u8 kind;
+
+    selected = 0;
+    mask = D_800DBF94[((s32)arg0 - (s32)D_800DBEF4) / 160];
+    index = 0;
+    if (mask != 0) {
+        cursor = D_800CC2D0 + index * 0x2EC;
+        do {
+            if ((*(s32 *)cursor != 0) && (mask & (1 << index))) {
+                selected = cursor;
+            }
+            index++;
+            cursor += 0x32C;
+        } while ((index < 0x19) && (selected == 0));
+    }
+    kind = *((u8 *)arg0 + 0x72);
+    if ((kind == 0xF9) || (kind == 0xF8) || (kind == 0xF7)) {
+        request.selected = selected;
+        kind = *((u8 *)arg0 + 0x72);
+        if (kind == 0xF9) {
+            choicesF9 = D_800A2380;
+            request.count = 9;
+            request.choices = &choicesF9;
+        } else if (kind == 0xF8) {
+            choicesF8 = D_800A238C;
+            request.count = 9;
+            request.choices = &choicesF8;
+        } else if (kind == 0xF7) {
+            choicesF7 = D_800A2398;
+            request.count = 9;
+            request.choices = &choicesF7;
+        }
+        func_151494E0((s32)&request, 0x35);
+        return;
+    }
+    if (kind == 0xF6) {
+        single = selected;
+        func_151494E0((s32)&single, 0x38);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15104A80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104A80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_131F30/func_15104C44.s")
 void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);

@@ -64,11 +64,12 @@ extern f32 D_800A8CE4;
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519EF90 CURRENT (6001) */
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519EF90 CURRENT (2107) */
 s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
-    u16 *sp3C;
     u8 *sp38;
-    f32 sp2C;
     f32 sp28;
     u8 sp1F;
     f32 temp_fa0;
@@ -80,7 +81,6 @@ s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
     u8 *temp_v0;
     f32 var_fv0;
     u16 *temp_a3;
-    u8 temp_v0_2;
 
     temp_v0 = (void *)(*(void **)((u8 *)arg0 + 0));
     sp38 = (void *)(temp_v0 + 0x58);
@@ -96,12 +96,9 @@ s32 func_1519EF90(u8 *arg0, u8 arg1, u8 *arg2) {
         var_ft5 = temp_fa1 * temp_fv1;
         sp28 = temp_fa0 * temp_fv1;
     } else {
-        sp3C = temp_a3;
-        temp_v0_2 = func_15143E08(temp_a3);
-        sp1F = temp_v0_2;
-        sp2C = func_151423D8(temp_v0_2 & 0xFF);
-        var_ft5 = sp2C;
-        sp28 = func_151423D8((sp1F - 0x40) & 0xFF);
+        sp1F = func_15143E08(temp_a3);
+        var_ft5 = func_151423D8(sp1F & 0xFF);
+        sp28 = func_151423D8(sp1F - 0x40);
         var_ft4 = *(f32 *)((u8 *)temp_a3 + 0x14);
     }
     if (arg1 == 6) {
@@ -159,6 +156,118 @@ void func_1519F168(Game1CC440State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F168 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")
+typedef struct Game1CC440Vector {
+    f32 x, y, z;
+} Game1CC440Vector;
+
+typedef struct Game1CC440Spawn {
+    Game1CC440Vector position;
+    s16 duration;
+    u16 flags;
+    s32 mode;
+    u8 pad14;
+    u8 field15;
+    u8 pad16[2];
+} Game1CC440Spawn;
+
+typedef struct Game1CC440Config {
+    void *owner;
+    u8 type;
+    u8 pad5[3];
+    f32 field8;
+    f32 fieldC;
+    Game1CC440Vector position;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    s16 field28;
+    u8 color[3];
+    u8 pad2D;
+    s16 field2E;
+    s16 field30;
+    s16 field32;
+    s16 field34;
+    u8 pad36[2];
+    f32 field38;
+    f32 field3C;
+    u8 field40;
+    u8 field41;
+    u8 field42;
+    u8 field43;
+    u8 field44;
+    u8 field45;
+    s16 field46;
+    s16 field48;
+    s16 field4A;
+    f32 field4C;
+} Game1CC440Config;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15147A80(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+u8 func_151D8E20(void);
+s32 func_1519EF90(u8 *, u8, u8 *);
+extern f32 D_800A8CE8;
+extern f32 D_800A8CEC;
+extern u8 D_800AB414[][3];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F1C8 CURRENT (2508) */
+s32 func_1519F1C8(void *arg0, u8 arg1, ...) {
+    u8 *actor;
+    Game1CC440Spawn spawn;
+    Game1CC440Config config;
+    void *saved;
+    u8 color_id;
+    u8 *color;
+    void *result;
+
+    actor = *(u8 **)((u8 *)arg0 + 0x18);
+    color_id = func_151D8E20();
+    spawn.flags = 0x42;
+    spawn.duration = 0x12C;
+    spawn.field15 = 0xA;
+    config.field2E = 0xC8;
+    config.field40 = 3;
+    config.owner = arg0;
+    config.type = 6;
+    config.field41 = 0x55;
+    config.field42 = 3;
+    config.field43 = 0x55;
+    config.field44 = 0x88;
+    config.field45 = 0xC4;
+    config.field28 = 0;
+    config.field46 = 0;
+    config.field30 = 0xFF;
+    config.field32 = 0x28;
+    config.field34 = 0x19;
+    config.field48 = 6;
+    config.field4A = 0x325;
+    config.field8 = D_800A8CE8;
+    config.field38 = D_800A8CEC;
+    config.field3C = 1.0f;
+    config.fieldC = 0.0f;
+    config.field1C = 0.0f;
+    spawn.mode = arg1;
+    config.field4C = 1.5f;
+    config.field20 = *(f32 *)(actor + 0x14);
+    config.field24 = *(f32 *)(actor + 0x1C);
+    if (func_1519EF90((u8 *)&config, arg1 & 0xFF, (u8 *)&spawn.position) != 0) {
+        config.position = spawn.position;
+        spawn.flags |= 4;
+    }
+    color = D_800AB414[color_id];
+    config.color[0] = color[0];
+    config.color[1] = color[1];
+    config.color[2] = color[2];
+    result = func_15147A80(&spawn, (void *)0x50, 0x24, 5, 5, 5, 0, 0,
+                           (s32)((u8 *)arg0 + 0x34), 0xFF, 1);
+    if (result != 0) {
+        saved = result;
+        func_10022EC0(*(void **)((u8 *)result + 0x98), &config, 0x50U);
+        result = saved;
+    }
+    return (s32)result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519F1C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F1C8.s")
 s32 func_1519F1C8(void *, u8, ...);
 

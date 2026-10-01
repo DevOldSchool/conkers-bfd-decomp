@@ -10,7 +10,6 @@
  * - func_1504AF10
  * - func_1504B0FC
  * - func_1504BA38
- * - func_1504BC38
  * - func_1504BE2C
  * - func_1504C0E8
  * - func_1504C8BC
@@ -70,6 +69,69 @@ s32 func_1504AEF4(s32 arg0, s32 arg1) {
     }
     return 0;
 }
+typedef struct Game77BE0AttachmentActor {
+    u8 pad0[0x14];
+    f32 position[3];
+    u8 pad20[0x70];
+    s16 height;
+    u16 attachment;
+} Game77BE0AttachmentActor;
+
+typedef struct Game77BE0Attachment {
+    u8 pad0[0x10];
+    s16 position[3];
+    u8 pad16[0x38];
+    s8 owner;
+    u8 flags;
+    u8 pad50[0x50];
+} Game77BE0Attachment;
+
+extern s32 D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504AF10 CURRENT (680) */
+void func_1504AF10(Game77BE0AttachmentActor *arg0, s32 arg1, s32 arg2) {
+    s32 selected;
+    s32 index;
+    s32 type;
+    s32 attachment;
+    Game77BE0Attachment *entry;
+
+    attachment = arg0->attachment;
+    if ((attachment != 0) && ((arg1 != 0) || ((attachment >> 15) == 0))) {
+        type = attachment >> 12;
+        type &= 7;
+        selected = attachment & 0x7FFF;
+        if (type == 0) {
+            selected = func_1504AEF4(selected, (s32)&index);
+            type = selected;
+            if (selected != 0) {
+                arg0->attachment = (selected << 12) | index;
+            }
+        }
+        index = arg0->attachment & 0xFFF;
+        if (type == 3) {
+            if (arg2 != 0) {
+                ((Game77BE0Attachment *)D_800DBEF4)[index].owner = 0;
+                arg0->attachment = 0;
+                return;
+            }
+            ((Game77BE0Attachment *)D_800DBEF4)[index].owner =
+                ((u8 *)arg0 - D_800CC2D0) / 0x32C + 0x64;
+            if (arg1 != 0) {
+                ((Game77BE0Attachment *)D_800DBEF4)[index].owner = 0;
+                return;
+            }
+            entry = &((Game77BE0Attachment *)D_800DBEF4)[index];
+            entry->flags &= 0xFF9F;
+            entry = &((Game77BE0Attachment *)D_800DBEF4)[index];
+            entry->flags |= 0x20;
+            ((Game77BE0Attachment *)D_800DBEF4)[index].position[0] = (s32)arg0->position[0];
+            ((Game77BE0Attachment *)D_800DBEF4)[index].position[1] = (s32)(arg0->position[1] + arg0->height);
+            ((Game77BE0Attachment *)D_800DBEF4)[index].position[2] = (s32)arg0->position[2];
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1504AF10 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504AF10.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504B0FC.s")
 extern s8 D_80099140[];
@@ -144,7 +206,89 @@ void func_1504BB88(u8 *arg0) {
         *(s32 *)(arg0 + 0x25C) = var_v0 & ~2;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BC38.s")
+typedef struct {
+    u8 pad0[0x44];
+    s8 field44;
+    u8 pad45[5];
+    s8 field4A;
+    s8 field4B;
+    u8 pad4C[6];
+    u8 field52;
+    u8 pad53;
+    s8 field54;
+    s8 field55;
+    u8 pad56[0x34];
+    s16 field_8A;
+    u16 field_8C;
+    s8 field_8E;
+    s8 field_8F;
+    u8 pad90[0x10E];
+    u16 field19E;
+    u16 field1A0;
+} Game77BE0TimerState;
+
+typedef struct {
+    u8 pad0[0x89];
+    u8 field89;
+    u8 field8A;
+    u8 pad8B[0x23];
+    u8 fieldAE;
+    u8 padAF[0x58];
+    u8 field107;
+    u8 pad108[0x1D];
+    u8 field125;
+    u8 pad126[0xAA];
+    s8 field1D0;
+    u8 pad1D1[0x57];
+    u8 field228;
+    u8 pad229[0xF3];
+    Game77BE0TimerState *field_31C;
+} Game77BE0State;
+
+extern u8 D_800BE9A0;
+extern s32 D_800BE9E4;
+
+void func_1504BC38(Game77BE0State *arg0) {
+
+    if (arg0->field89 != 0 && arg0->field89 < 250) {
+        if (D_800BE9A0 >= arg0->field89) arg0->field89 = 0;
+        else arg0->field89 = arg0->field89 - D_800BE9A0;
+    }
+    if (arg0->field228 != 0) {
+        s32 timer = arg0->field228;
+        if (D_800BE9A0 >= arg0->field228) arg0->field228 = 0;
+        else arg0->field228 = timer - D_800BE9A0;
+    }
+    if (arg0->fieldAE != 0) arg0->fieldAE = arg0->fieldAE - 1;
+    if (arg0->field8A != 255) {
+        if (D_800BE9A0 >= arg0->field8A) arg0->field8A = 0;
+        else arg0->field8A = arg0->field8A - D_800BE9A0;
+    }
+    if (arg0->field125 != 255) {
+        if (D_800BE9A0 >= arg0->field125) arg0->field125 = 0;
+        else arg0->field125 = arg0->field125 - D_800BE9A0;
+    }
+    if (arg0->field_31C->field4A > 0) arg0->field_31C->field4A = arg0->field_31C->field4A - D_800BE9A0;
+    if (arg0->field_31C->field4B > 0) arg0->field_31C->field4B = arg0->field_31C->field4B - D_800BE9A0;
+    if (arg0->field_31C->field44 > 0) arg0->field_31C->field44 = arg0->field_31C->field44 - D_800BE9A0;
+    if (arg0->field107 != 0) arg0->field107 = arg0->field107 - 1;
+    if (arg0->field1D0 > 0) arg0->field1D0 = arg0->field1D0 - D_800BE9A0;
+    if (arg0->field_31C->field54 > 0) arg0->field_31C->field54 = arg0->field_31C->field54 - D_800BE9A0;
+    if (arg0->field_31C->field55 != 0) arg0->field_31C->field55 = arg0->field_31C->field55 - 1;
+    arg0->field_31C->field52 >>= 1;
+    if (arg0->field_31C->field19E != 0) {
+        if (D_800BE9E4 < arg0->field_31C->field19E) arg0->field_31C->field19E = arg0->field_31C->field19E - D_800BE9E4;
+        else arg0->field_31C->field19E = 0;
+    }
+    if (arg0->field_31C->field1A0 != 0) {
+        if (D_800BE9E4 < arg0->field_31C->field1A0) {
+            arg0->field_31C->field1A0 = arg0->field_31C->field1A0 - D_800BE9E4;
+            return;
+        }
+        arg0->field_31C->field1A0 = 0;
+    }
+}
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BE2C.s")
 void func_1507F640(void);
 extern void *D_800D154C;
@@ -168,19 +312,6 @@ s32 func_1504C0B8(void) {
     return 0x1B;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504C0E8.s")
-typedef struct {
-    u8 pad_0[0x8A];
-    s16 field_8A;
-    u16 field_8C;
-    s8 field_8E;
-    s8 field_8F;
-} Game77BE0TimerState;
-
-typedef struct {
-    u8 pad_0[0x31C];
-    Game77BE0TimerState *field_31C;
-} Game77BE0State;
-
 extern u8 D_800BE9A0;
 extern s32 D_800CC288;
 

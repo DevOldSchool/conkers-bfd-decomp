@@ -350,6 +350,110 @@ void func_1513CF9C(s32 arg0, s32 arg1, u8 arg2) {
 void func_1513CFD0(s32 arg0, s32 arg1, s32 arg2) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513CFE4.s")
+typedef struct Game169510Effect {
+    u8 pad0[0x10];
+    s32 active;
+    s32 state;
+    u8 descriptor[0x58];
+    u8 type;
+    u8 variant;
+    u8 flag72;
+    u8 flag73;
+    u8 flag74;
+    u8 pad75[3];
+    f32 scale;
+    u8 pad7C[0x14];
+    s32 field90;
+    u8 flag94;
+    u8 flag95;
+    u8 pad96[2];
+    s32 field98;
+    s32 resource;
+    u8 flagA0;
+    u8 padA1[3];
+    s32 resources[4];
+    void *resourceState;
+    s32 fieldB8;
+    u8 padBC[4];
+    u8 transform[0x40];
+    u8 data[0x10];
+} Game169510Effect;
+
+void func_100226F0(void *, s32);
+extern f32 D_800A5184;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513D2F0 CURRENT (10) */
+void *func_1513D2F0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, u8 arg4,
+    u8 arg5, u8 arg6, s32 arg7, s32 arg8, s32 arg9, u8 arg10, s32 arg11) {
+    Game169510Effect *effect;
+    u8 *cursor;
+    s32 index;
+    s32 kind;
+    s32 flags;
+    s32 count;
+    f32 scale;
+
+    flags = *(s32 *)(arg0 + 0x40);
+    if (flags & 0x800000) {
+        kind = 0x56;
+    } else if (flags & 0x02000000) {
+        kind = 0x49;
+    } else {
+        kind = 0x1C;
+    }
+    if (flags & 0x80000000) {
+        count = 2;
+    } else {
+        count = 1;
+    }
+    effect = func_15167A68(kind, arg11, arg9 + 0x110, 1, arg10, count);
+    if (effect == 0) {
+        return 0;
+    }
+    func_10022EC0(effect->descriptor, (void *)arg0, 0x58);
+    effect->type = arg2;
+    effect->variant = arg3;
+    effect->flag72 = arg4;
+    effect->flag73 = arg5;
+    effect->flag74 = 0;
+    func_100226F0(effect->data, 0x10);
+    cursor = effect->transform;
+    func_1513FFF4(cursor, effect->descriptor[0], arg6);
+    func_151400D0(cursor, (void *)arg1);
+    effect->active = 1;
+    effect->state = 0;
+    scale = D_800A5184;
+    effect->field98 = 0;
+    effect->flag95 = 0;
+    effect->flag94 = 0;
+    effect->field90 = 0;
+    effect->resource = arg7;
+    effect->scale = scale;
+    effect->fieldB8 = arg8;
+    effect->flagA0 = 0;
+    index = 0;
+    cursor = (u8 *)effect;
+    do {
+        index++;
+        cursor += 4;
+        *(s32 *)(cursor + 0xA0) = 0;
+    } while (index < 4);
+    effect->resourceState = 0;
+    if (arg7 != 0) {
+        index = 0;
+        cursor = (u8 *)effect;
+        if (D_80082FA0 >= 0) {
+            do {
+                *(s32 *)(cursor + 0xA4) = func_1515D480(arg7);
+                index++;
+                cursor += 4;
+            } while (D_80082FA0 >= index);
+        }
+        effect->resourceState = func_1515D440();
+    }
+    return effect;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513D2F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513D2F0.s")
 void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
 
@@ -756,6 +860,72 @@ void func_151400D0(void *arg0, void *arg1) {
     *(s8 *)((u8 *)arg0 + 0xF) = (s8) *(s16 *)((u8 *)arg1 + 6);
     *(u16 *)((u8 *)arg0 + 6) = 0U;
 }
+typedef struct Game169510RenderOwner {
+    u8 pad00[0x2C];
+    f32 width, height, x, y, z, rx, ry, rz;
+    u8 pad4C[0x74];
+    u8 templateData[0x40];
+    u8 *buffers[1];
+} Game169510RenderOwner;
+typedef struct Game169510Vertex {
+    s16 x, y, z, flag;
+    u8 other[8];
+} Game169510Vertex;
+void func_151D5D60(void *, s16, s32, void **, u8 *);
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15140190 CURRENT (1466) */
+void *func_15140190(Game169510RenderOwner *arg0, s32 arg1) {
+    Game169510Vertex *vertices;
+    void *result;
+    f32 matrix[4][4];
+    f32 coords[4][3];
+    u8 fresh;
+    f32 *point;
+    u8 index;
+    s16 bufferIndex = (s16)arg1;
+
+    func_151D5D60(arg0->buffers, bufferIndex, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            func_10022EC0(arg0->buffers[bufferIndex], arg0->templateData, 0x40);
+            func_10022EC0(arg0->buffers[bufferIndex] + 0x40, arg0->templateData, 0x40);
+        }
+    } else {
+        return 0;
+    }
+    coords[0][0] = arg0->width;
+    coords[0][1] = arg0->height;
+    coords[0][2] = 0.0f;
+    coords[1][0] = -arg0->width;
+    coords[1][1] = arg0->height;
+    coords[1][2] = 0.0f;
+    coords[2][0] = -arg0->width;
+    coords[2][1] = -arg0->height;
+    coords[2][2] = 0.0f;
+    coords[3][0] = arg0->width;
+    coords[3][1] = -arg0->height;
+    coords[3][2] = 0.0f;
+    func_150A8050(matrix, arg0->rx, arg0->ry, arg0->rz);
+    index = 0;
+    matrix[3][0] = arg0->x;
+    matrix[3][1] = arg0->y;
+    matrix[3][2] = arg0->z;
+    do {
+        point = coords[index];
+        func_150A7960(matrix, point[0], point[1], 0.0f, &point[0], &point[1], &point[2]);
+        vertices->x = (s32)point[0];
+        vertices->y = (s32)point[1];
+        vertices->z = (s32)point[2];
+        vertices->flag = 0;
+        vertices++;
+        index++;
+    } while (index < 4);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15140190 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_15140190.s")
 void func_15169260(void *arg0, s32 arg1, s32 arg2, u8 arg3);
 extern u8 D_800A5168;

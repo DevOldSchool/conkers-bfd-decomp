@@ -175,9 +175,9 @@ void func_151918BC(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151918BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_151918BC.s")
-void func_15169850(s32, s32, s32, s32, s32);
+void func_15169850(void *, u8, s32 *, u8 *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191980 CURRENT (2074) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191980 CURRENT (725) */
 void func_15191980(void *arg0, void *arg1, u8 arg2) {
     void *temp_s0;
 
@@ -198,19 +198,20 @@ void func_15191980(void *arg0, void *arg1, u8 arg2) {
             func_1516972C(temp_s0);
             return;
         }
-        func_15169850((s32)arg1, (s32)arg2, (s32)((u8 *)temp_s0 + 0x10),
-                      (s32)((u8 *)temp_s0 + 0x14), (s32)temp_s0);
+        func_15169850(arg1, arg2, (s32 *)((u8 *)temp_s0 + 0x10),
+                      (u8 *)temp_s0 + 0x14, temp_s0);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15191980 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BDC20/func_15191980.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191A84 CURRENT (2479) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191A84 CURRENT (890) */
 void func_15191A84(void *arg0, void *arg1, u8 arg2) {
     void *temp_a2;
 
+    temp_a2 = (u8 *)arg0 + 0x28;
     if ((arg2 == 0xC) || (arg2 == 0xE) || (arg2 == 0x50)) {
-        if ((*(s32 *)((u8 *)arg0 + 0x28) == *(s32 *)arg1) ||
-            (*(u8 *)((u8 *)arg0 + 0x2C) == *(u8 *)((u8 *)arg1 + 4))) {
+        if ((*(s32 *)temp_a2 == *(s32 *)arg1) ||
+            (*((u8 *)temp_a2 + 4) == *(u8 *)((u8 *)arg1 + 4))) {
             func_1516972C(arg0);
         }
     } else {
@@ -219,16 +220,15 @@ void func_15191A84(void *arg0, void *arg1, u8 arg2) {
             return;
         }
         if (arg2 == 0xD) {
-            if ((*(s32 *)((u8 *)arg0 + 0x28) == *(s32 *)arg1) ||
-                (*(u8 *)((u8 *)arg0 + 0x2C) ==
+            if ((*(s32 *)temp_a2 == *(s32 *)arg1) ||
+                (*((u8 *)temp_a2 + 4) ==
                  *(u8 *)((u8 *)arg1 + 4))) {
                 *(s16 *)((u8 *)arg0 + 0xE) = 0x64;
                 *(u8 *)((u8 *)arg0 + 0xD) |= 1;
             }
         } else {
-            temp_a2 = (u8 *)arg0 + 0x28;
-            func_15169850((s32)arg1, (s32)arg2, (s32)temp_a2,
-                          (s32)((u8 *)temp_a2 + 4), (s32)arg0);
+            func_15169850(arg1, arg2, temp_a2,
+                          (u8 *)temp_a2 + 4, arg0);
         }
     }
 }

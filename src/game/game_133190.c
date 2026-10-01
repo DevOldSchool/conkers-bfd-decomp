@@ -15,11 +15,9 @@
  * - func_151072BC
  * - func_15107604
  * - func_15107700
- * - func_15107924
  * - func_15107AE0
  * - func_15107B78
  * - func_15107C1C
- * - func_15107E48
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -411,7 +409,106 @@ void func_151076A4(void *arg0, s32 arg1, u8 arg2) {
         (*(void (**)(void *, s32, u8))(((u8 (*)[4])&D_80088C38)[*(volatile u8 *)((u8 *)arg0 + 0x68)]))(arg0, arg1, arg2);
     }
 }
+typedef struct Game133190Vector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game133190Vector;
+
+typedef struct Game133190Color {
+    u8 bytes[4];
+} Game133190Color;
+
+typedef struct Game133190Contact {
+    u8 pad0[8];
+    Game133190Vector point;
+    u8 pad14[0x45];
+    u8 hit;
+    u8 pad5A[0xA];
+} Game133190Contact;
+
+typedef struct Game133190Beam {
+    s16 life;
+    s8 enabled;
+    u8 pad3;
+    Game133190Vector position;
+    Game133190Vector axis0;
+    Game133190Vector axis1;
+    Game133190Vector contact;
+    s8 flag;
+    u8 pad35[3];
+    s32 count;
+    f32 width;
+    f32 scale;
+    s16 lower;
+    s16 upper;
+    Game133190Color color;
+    s8 mode;
+    u8 pad4D[3];
+} Game133190Beam;
+
+typedef struct Game133190Owner {
+    void *owner;
+    u8 kind;
+    u8 pad5;
+    s16 first;
+    s16 second;
+    u8 padA[2];
+} Game133190Owner;
+
+/* Pointer-leading ABI proved by raw actor dereference and independent caller. */
+void func_15081690(void *, f32, f32, f32, f32, f32, f32,
+                   void *, f32, s32, s32, s32, s32, s32, s32);
+void func_15107A20(void *, s16, s16, void *, void *);
+void func_15107AE0(void *, void *, void *, void *);
+Game133190Object *func_15105CE0(Game133190Beam *, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107700 CURRENT (3417) */
+Game133190Object *func_15107700(void *arg0, s32 arg1, s32 arg2, s32 arg3,
+                              s32 arg4, f32 arg5, f32 arg6, s32 arg7,
+                              s32 arg8, Game133190Color *arg9, s32 arg10, s32 arg11) {
+    Game133190Owner owner;
+    Game133190Object *result;
+    Game133190Beam beam;
+    Game133190Contact contact;
+    Game133190Vector origin;
+    s8 enabled;
+
+    arg1 = (s16)arg1;
+    arg2 = (s16)arg2;
+    arg3 = (s16)arg3;
+    if (*(void **)((u8 *)arg0 + 0x1D4) == 0) return 0;
+    owner.owner = arg0;
+    owner.first = arg1;
+    owner.second = arg2;
+    owner.kind = *((u8 *)arg0 + 0x3B);
+    if (arg3 == -1) beam.life = 300; else beam.life = arg3;
+    if (arg3 == -1) enabled = 0; else enabled = 1;
+    beam.enabled = enabled;
+    beam.flag = 0;
+    beam.count = arg4;
+    beam.width = arg5;
+    beam.scale = arg6;
+    beam.lower = (s16)arg7;
+    beam.upper = (s16)arg8;
+    beam.color = *arg9;
+    beam.mode = 2;
+    func_15107A20(arg0, (s16)arg1, (s16)arg2, &beam.position, &origin);
+    func_15081690(arg0, beam.position.x, beam.position.y, beam.position.z,
+                  beam.position.x-origin.x, beam.position.y-origin.y,
+                  beam.position.z-origin.z, &contact, 0.0f, 0, 1, 1, -1, 0, 0);
+    if (contact.hit == 0) return 0;
+    beam.contact = contact.point;
+    func_15107AE0(&beam.position, &beam.contact, &beam.axis0, &beam.axis1);
+    result = func_15105CE0(&beam, 12, (u8)arg10, arg11);
+    if (result != 0) {
+        func_10022EC0(result->holder, &owner, sizeof(owner));
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15107700 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107700.s")
+
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
 void func_151078E4(void *arg0, s32 arg1, u8 arg2) {
@@ -429,41 +526,32 @@ typedef struct Game133190VectorWords {
     s32 z;
 } Game133190VectorWords;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107924 CURRENT (99) */
 s32 func_15107924(void *arg0, s8 *arg1) {
     typedef struct { f32 x; f32 y; f32 z; } Vector;
-    void *sp38;
-    void *sp28;
-    void *temp_a3;
-    void *temp_t6;
     void *temp_v0;
+    void *temp_t6;
     Vector sp2C;
 
     temp_v0 = *(void **)((u8 *)arg0 + 0x60);
     temp_t6 = *(void **)temp_v0;
-    sp38 = temp_t6;
     if ((*(s32 *)temp_t6 == 0) ||
-        (temp_a3 = (u8 *)arg0 + 0x14,
-         (*(u8 *)((u8 *)temp_v0 + 4) !=
-          *(u8 *)((u8 *)temp_t6 + 0x3B)))) {
+        (*(u8 *)((u8 *)temp_v0 + 4) !=
+         *(u8 *)((u8 *)temp_t6 + 0x3B))) {
         return 0;
     }
     *arg1 = 0;
-    sp2C = *(Vector *)temp_a3;
-    sp28 = temp_a3;
-    func_15107A20(sp38, *(s16 *)((u8 *)temp_v0 + 6),
-                   *(s16 *)((u8 *)temp_v0 + 8), temp_a3, 0);
+    sp2C = *(Vector *)((u8 *)arg0 + 0x14);
+    func_15107A20(temp_t6, *(s16 *)((u8 *)temp_v0 + 6),
+                   *(s16 *)((u8 *)temp_v0 + 8), ((u8 *)arg0 + 0x14), 0);
     if ((sp2C.x != *(f32 *)((u8 *)arg0 + 0x14)) ||
         (sp2C.y != *(f32 *)((u8 *)arg0 + 0x18)) ||
         (sp2C.z != *(f32 *)((u8 *)arg0 + 0x1C))) {
         *arg1 = 1;
-        func_15107AE0(sp28, (u8 *)arg0 + 0x38,
+        func_15107AE0((u8 *)arg0 + 0x14, (u8 *)arg0 + 0x38,
                       (u8 *)arg0 + 0x20, (u8 *)arg0 + 0x2C);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15107924 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107924.s")
 void func_15143794(s16, s16, f32, void *);
 void func_1515C244(void *, f32 *, f32 *, f32 *);
 
@@ -536,11 +624,8 @@ void func_15107B78(void *arg0, s16 arg1, s16 arg2, u8 arg3, s32 arg4) {
 void func_15107F54(void *, u8, f32 *, f32 *);
 void func_15107AE0(void *, void *, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15107E48 CURRENT (34) */
 s32 func_15107E48(u8 *arg0, s8 *arg1) {
     typedef struct { f32 values[3]; } Copy3;
-    f32 *sp20;
-    f32 *temp_a3;
     u8 *temp_s1;
     u8 *temp_v0;
     f32 sp24[3];
@@ -550,22 +635,18 @@ s32 func_15107E48(u8 *arg0, s8 *arg1) {
     if ((*(s32 *)((u8 *)temp_s1 + 0) == 0) || (*(u8 *)((u8 *)temp_v0 + 4) != *(u8 *)((u8 *)temp_s1 + 0x3B))) {
         return 0;
     }
-    temp_a3 = (void *)(arg0 + 0x14);
     if (*(s32 *)((u8 *)temp_s1 + 0x1D4) == 0) {
         return 0;
     }
     *arg1 = 0;
-    *(Copy3 *)sp24 = *(Copy3 *)temp_a3;
-    sp20 = temp_a3;
-    func_15107F54(temp_s1, *(u8 *)((u8 *)temp_v0 + 0x14), (f32 *) (temp_v0 + 8), temp_a3);
+    *(Copy3 *)sp24 = *(Copy3 *)(arg0 + 0x14);
+    func_15107F54(temp_s1, *(u8 *)((u8 *)temp_v0 + 0x14), (f32 *) (temp_v0 + 8), (f32 *)(arg0 + 0x14));
     if ((sp24[0] != *(f32 *)((u8 *)arg0 + 0x14)) || (sp24[1] != *(f32 *)((u8 *)arg0 + 0x18)) || (sp24[2] != *(f32 *)((u8 *)arg0 + 0x1C))) {
         *arg1 = 1;
-        func_15107AE0(sp20, arg0 + 0x38, arg0 + 0x20, arg0 + 0x2C);
+        func_15107AE0((f32 *)(arg0 + 0x14), arg0 + 0x38, arg0 + 0x20, arg0 + 0x2C);
     }
     return 1;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15107E48 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107E48.s")
 /* Call context: func_15143134: unique active project prototype */
 void func_15143134(f32 *, f32 *, s32);
 

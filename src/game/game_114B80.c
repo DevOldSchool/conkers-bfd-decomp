@@ -95,6 +95,81 @@ void func_150E7FEC(f32 arg0, u8 arg1, s32 arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E7FEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7FEC.s")
+typedef struct GameE81A8Position {
+    f32 x, y, z;
+} GameE81A8Position;
+
+typedef struct GameE81A8Effect {
+    s16 field00, field02, field04, field06;
+    s32 field08, field0C;
+    GameE81A8Position position;
+    f32 field1C, field20, field24, field28, field2C, field30;
+    s32 field34, field38;
+    f32 field3C, field40, field44, field48;
+    s16 field4C, field4E, field50, field52, field54, field56;
+    s8 field58;
+} GameE81A8Effect;
+
+typedef struct GameE81A8Event {
+    s8 field0;
+    s16 field2;
+    s8 field4, field5, field6;
+} GameE81A8Event;
+
+void func_1514FCE8(s16 *, s32, s32);
+void func_151D3FF4(s32, u8, s32);
+void *func_151D8868(s8 *, s32, s32, s32);
+extern GameE81A8Position D_800A1290[];
+extern f32 D_800A1354, D_800A1358, D_800A135C, D_800A1360, D_800A1364;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E81A8 CURRENT (1696) */
+void func_150E81A8(s32 arg0, s32 arg1, s32 arg2) {
+    GameE81A8Position position;
+    GameE81A8Effect effect;
+    GameE81A8Event event;
+    s32 selector;
+
+    selector = arg0 & 0xFF;
+    if (selector == 4 || selector == 5 || selector == 6 || selector == 7) {
+        position = D_800A1290[selector];
+        position.y += 200.0f;
+        func_151D3FF4((s32)&position, (u8)arg1, arg2);
+        effect.field00 = 0;
+        effect.field02 = 0xFF;
+        effect.field04 = -0x40;
+        effect.field06 = 0x4D;
+        effect.field08 = 0xA;
+        effect.field0C = 5;
+        effect.position = position;
+        effect.field1C = 252.0f;
+        effect.field20 = 117.0f;
+        effect.field24 = 308.0f;
+        effect.field28 = 256.0f;
+        effect.field34 = 4;
+        effect.field38 = 7;
+        effect.field4C = 0x19;
+        effect.field4E = 0xF;
+        effect.field50 = 0x64;
+        effect.field52 = 0x64;
+        effect.field54 = 0xC;
+        effect.field56 = 0x14;
+        effect.field58 = 0;
+        effect.field2C = D_800A1354;
+        effect.field30 = D_800A1358;
+        effect.field3C = 27.0f;
+        effect.field40 = D_800A135C;
+        effect.field44 = D_800A1360;
+        effect.field48 = D_800A1364;
+        func_1514FCE8(&effect.field00, (u8)arg1, arg2);
+        event.field0 = 1;
+        event.field2 = ((u32)func_150ADA20() % 11U) + 0x1E;
+        event.field4 = 8;
+        event.field6 = -1;
+        event.field5 = 1;
+        func_151D8868(&event.field0, 0, 0xFF, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E81A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E81A8.s")
 void func_10022EC0(void *, void *, s32);
 u8 *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);

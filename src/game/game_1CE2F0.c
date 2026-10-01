@@ -18,7 +18,6 @@
  * - func_151A26EC
  * - func_151A2960
  * - func_151A2C24
- * - func_151A2F0C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -381,4 +380,120 @@ void func_151A2BD0(s32 arg0, s16 arg1, s16 arg2, f32 arg3, f32 arg4, void *arg5)
     func_15143794(arg1, arg2, (1.0f - arg4) * arg3, arg5);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A2C24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1CE2F0/func_151A2F0C.s")
+typedef struct Game1CE2F0EmitterVector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1CE2F0EmitterVector;
+
+typedef struct Game1CE2F0EmitterParticle {
+    s32 field0;
+    s32 field4;
+    Game1CE2F0EmitterVector position8;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    s16 field2C;
+    s16 field2E;
+    s16 field30;
+    s16 field32;
+    s32 field34;
+    s32 field38;
+    s16 field3C;
+    s16 field3E;
+    s16 field40;
+    u8 fields42[23];
+    s32 field5C;
+    s32 field60;
+    s16 field64;
+    s16 field66;
+    s16 field68;
+    u8 field6A;
+    f32 field6C;
+    s8 fields70[4];
+} Game1CE2F0EmitterParticle;
+
+typedef struct Game1CE2F0EmitterOwner {
+    u8 pad0;
+    u8 field1;
+    u8 pad2[0xA];
+    u8 fieldC;
+    u8 padD[0x2B];
+    f32 field38;
+    f32 field3C;
+    Game1CE2F0EmitterVector position40;
+    Game1CE2F0EmitterVector offset4C;
+    u8 pad58[0x10];
+    s32 flags68;
+} Game1CE2F0EmitterOwner;
+
+void func_15152B38(void *, s32, s32, void *);
+extern f32 D_800A8D30;
+extern f32 D_800A8D34;
+extern f32 D_800A8D38;
+
+void func_151A2F0C(Game1CE2F0EmitterOwner *arg0) {
+    Game1CE2F0EmitterParticle descriptor;
+
+    descriptor.field0 = 8;
+    descriptor.field4 = 6;
+    descriptor.position8 = arg0->position40;
+    if (arg0->flags68 & 0x1000) {
+        descriptor.position8.x += arg0->offset4C.x;
+        descriptor.position8.y += arg0->offset4C.y;
+        descriptor.position8.z += arg0->offset4C.z;
+    }
+    descriptor.field14 = (arg0->field38 + arg0->field3C) * 0.5f * D_800A8D30;
+    descriptor.field18 = (arg0->field38 + arg0->field3C) * 0.5f * D_800A8D34;
+    descriptor.field1C = D_800A8D38;
+    descriptor.field20 = 0.0f;
+    descriptor.field24 = 8.0f;
+    descriptor.field28 = 10.0f;
+    descriptor.field2C = 0;
+    descriptor.field2E = 0xFF;
+    descriptor.field30 = -0x40;
+    descriptor.field32 = 0x56;
+    descriptor.field34 = 3;
+    descriptor.field38 = 1;
+    descriptor.field3C = 0x11;
+    descriptor.field3E = 0x12;
+    descriptor.field40 = 1;
+    descriptor.fields42[0] = 4;
+    descriptor.fields42[1] = 2;
+    descriptor.fields42[2] = 3;
+    descriptor.fields42[3] = 0xFF;
+    descriptor.fields42[4] = 0xC8;
+    descriptor.fields42[5] = 0xC8;
+    descriptor.fields42[6] = 0xFF;
+    descriptor.fields42[7] = 0;
+    descriptor.fields42[8] = 0x37;
+    descriptor.fields42[9] = 0x37;
+    descriptor.fields42[10] = 0;
+    descriptor.fields42[11] = 0xFF;
+    descriptor.fields42[12] = 0xFF;
+    descriptor.fields42[13] = 0xFF;
+    descriptor.fields42[14] = 0xFF;
+    descriptor.fields42[15] = 0;
+    descriptor.fields42[16] = 0;
+    descriptor.fields42[17] = 0;
+    descriptor.fields42[18] = 0;
+    descriptor.fields42[19] = 0xFF;
+    descriptor.fields42[20] = 0;
+    descriptor.fields42[21] = 1;
+    descriptor.fields42[22] = 0x24;
+    descriptor.field5C = 0x200005;
+    descriptor.field60 = 0x60600;
+    descriptor.field64 = 7;
+    descriptor.field66 = 0x24;
+    descriptor.field68 = 1;
+    descriptor.field6A = 0;
+    descriptor.field6C = 1.0f;
+    descriptor.fields70[0] = -1;
+    descriptor.fields70[1] = 0;
+    descriptor.fields70[2] = -1;
+    descriptor.fields70[3] = -1;
+    func_15152B38(&descriptor, (s32) arg0->fieldC, (s32) arg0->field1, arg0);
+}

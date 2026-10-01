@@ -145,47 +145,45 @@ void *func_151D5E90(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D61B0 CURRENT (6796) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D61B0 CURRENT (90) */
 void func_151D61B0(void *arg0) {
-    s16 temp_t7;
-    s32 temp_t3;
-    s32 var_a2;
-    s32 var_t2;
-    u16 temp_t1;
-    u16 temp_t4;
-    u16 temp_t4_2;
-    u16 var_t0;
-    u16 var_t1;
-    u8 *temp_a3;
-    u8 *var_a0;
-    u8 *var_a1;
+    s32 height;
+    s32 width;
+    s32 y;
+    s32 x;
+    u16 red;
+    u16 green;
+    u16 blue;
+    u16 previous;
+    u16 current;
+    u16 next;
+    u16 *row;
+    u16 *cursor;
 
-    var_a1 = arg0;
-    var_a2 = 0;
-    if (D_800BE624 > 0) {
-        temp_t3 = D_800BE620 - 1;
-        do {
-            temp_a3 = (void *)(var_a1 + 2);
-            var_a0 = temp_a3;
-            var_t0 = *(u16 *)((u8 *)var_a1 + 2);
-            var_t1 = *(u16 *)((u8 *)var_a1 + 4);
-            var_t2 = 1;
-            if ((temp_t3 >= 2) && ((temp_t4 = var_t0, (((D_800BE620 - 2) & 1) == 0)) || (var_t0 = var_t1 & 0xFFFF, var_t1 = *(u16 *)((u8 *)temp_a3 + 4), var_t2 = 2, *(s16 *)((u8 *)temp_a3 + 2) = (s16) (((((((s32) var_t0 >> 0xB) & 0x1F) + (((s32) temp_t4 >> 0xC) & 0xF) + (((s32) var_t1 >> 0xC) & 0xF)) & 0x3E) << 0xA) | ((((((s32) var_t0 >> 6) & 0x1F) + (((s32) temp_t4 >> 7) & 0xF) + (((s32) var_t1 >> 7) & 0xF)) & 0x3E) << 5) | (((((s32) var_t0 >> 1) & 0x1F) + (((s32) temp_t4 >> 2) & 0xF) + (((s32) var_t1 >> 2) & 0xF)) & 0x3E) | 1), var_a0 = temp_a3 + 2, (temp_t3 != 2)))) {
-                do {
-                    temp_t1 = *(u16 *)((u8 *)var_a0 + 4);
-                    temp_t7 = ((((((s32) var_t1 >> 0xB) & 0x1F) + (((s32) var_t0 >> 0xC) & 0xF) + (((s32) temp_t1 >> 0xC) & 0xF)) & 0x3E) << 0xA) | ((((((s32) var_t1 >> 6) & 0x1F) + (((s32) var_t0 >> 7) & 0xF) + (((s32) temp_t1 >> 7) & 0xF)) & 0x3E) << 5) | (((((s32) var_t1 >> 1) & 0x1F) + (((s32) var_t0 >> 2) & 0xF) + (((s32) temp_t1 >> 2) & 0xF)) & 0x3E) | 1;
-                    temp_t4_2 = var_t1;
-                    var_t0 = temp_t1 & 0xFFFF;
-                    *(s16 *)((u8 *)var_a0 + 2) = temp_t7;
-                    var_t1 = *(u16 *)((u8 *)var_a0 + 6);
-                    var_t2 += 2;
-                    *(u16 *)((u8 *)var_a0 + 4) = (u16) (((((((s32) var_t0 >> 0xB) & 0x1F) + (((s32) temp_t4_2 >> 0xC) & 0xF) + (((s32) var_t1 >> 0xC) & 0xF)) & 0x3E) << 0xA) | ((((((s32) var_t0 >> 6) & 0x1F) + (((s32) temp_t4_2 >> 7) & 0xF) + (((s32) var_t1 >> 7) & 0xF)) & 0x3E) << 5) | (((((s32) var_t0 >> 1) & 0x1F) + (((s32) temp_t4_2 >> 2) & 0xF) + (((s32) var_t1 >> 2) & 0xF)) & 0x3E) | 1);
-                    var_a0 += 4;
-                } while (var_t2 != temp_t3);
-            }
-            var_a2 += 1;
-            var_a1 += D_800BE620 * 2;
-        } while (var_a2 != D_800BE624);
+    width = D_800BE620;
+    height = D_800BE624;
+    row = arg0;
+    for (y = 0; y < height; y++) {
+        cursor = row + 1;
+        current = row[1];
+        next = row[2];
+        for (x = 1; x < width - 1; x++) {
+            previous = current;
+            current = next;
+            next = cursor[2];
+            red = (current >> 11) & 31;
+            red += (previous >> 12) & 15;
+            red += (next >> 12) & 15;
+            green = (current >> 6) & 31;
+            green += (previous >> 7) & 15;
+            green += (next >> 7) & 15;
+            blue = (current >> 1) & 31;
+            blue += (previous >> 2) & 15;
+            blue = (blue + ((next >> 2) & 15)) & 0x3E;
+            cursor[1] = ((red & 0x3E) << 10) | ((green & 0x3E) << 5) | blue | 1;
+            cursor++;
+        }
+        row += width;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D61B0 */
@@ -326,4 +324,59 @@ void func_151D66F0(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D66F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D66F0.s")
+void *func_1501A680(void *);
+s32 func_10003C40(s32, s32, s32, s32);
+void *func_151D6418(u8 *, s32, s32, s32);
+void *func_151D5E90(u8 *, s32, s32, s32);
+extern s32 D_8002AAE8[];
+extern u8 D_800BE9C0;
+extern u8 D_800BEAC0;
+
+typedef struct Game203340Command { u32 first, second; } Game203340Command;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6778 CURRENT (4473) */
+u8 *func_151D6778(u8 *arg0) {
+    Game203340Command *cursor = (Game203340Command *)arg0;
+    Game203340Command *command;
+    s32 allocated;
+    s32 *buffer;
+    u32 flags;
+
+    flags = (u8)D_800BE574;
+    if ((flags == 0 && D_800BE9F0 != 0x32 && D_800BE9F0 != 0x33) || D_800BEAC0 != 0) {
+        return (u8 *)cursor;
+    }
+    if (flags != 0) {
+        buffer = &D_800BE570;
+        command = cursor++;
+        command->first = 0xE7000000;
+        command->second = 0;
+        if (*buffer != 0) {
+            cursor = func_151D6418((u8 *)cursor, *buffer, 0, flags);
+        } else {
+            allocated = func_10003C40(D_800BE620 * D_800BE624 * 2, 1, 3, 1);
+            *buffer = allocated;
+            if (allocated == 0) {
+                return (u8 *)cursor;
+            }
+        }
+        command = cursor++;
+        command->first = ((D_800BE620 - 1) & 0xFFF) | 0xFF100000;
+        command->second = *buffer;
+        command = cursor++;
+        command->first = 0xED000000;
+        command->second = (((s32)((f32)D_800BE620 * 4.0f) & 0xFFF) << 12) |
+                           ((s32)((f32)D_800BE624 * 4.0f) & 0xFFF);
+        cursor = func_151D5E90((u8 *)cursor, D_8002AAE8[D_800BE9C0], 0, 4);
+        command = cursor++;
+        command->first = 0xEF082C3F;
+        command->second = 0x552230;
+        command = cursor++;
+        command->first = 0xD9FFFFFF;
+        command->second = 0x220405;
+        cursor = func_1501A680(cursor);
+    }
+    return (u8 *)cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D6778 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6778.s")

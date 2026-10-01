@@ -51,6 +51,7 @@ Getting started
   normalize-source-headers       Move reviewed source-unit comments below includes.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
+    [--exclude-source PATH]       With --ready or --one, skip exact source paths (repeatable).
   blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
@@ -505,7 +506,12 @@ prepare_next_work() {
     local details
     local first_line
     local identifier
-    details="$(python3 "$state_tool" next --one --details)"
+    local -a selectors=("$@")
+    while [[ $# -gt 0 ]]; do
+        [[ "$1" == "--exclude-source" && $# -ge 2 ]] || die "usage: ./conker next --ready [--exclude-source PATH]..."
+        shift 2
+    done
+    details="$(python3 "$state_tool" next --one --details "${selectors[@]}")"
     first_line="${details%%$'\n'*}"
     [[ "$first_line" == "work-item: "* ]] || die "next --one --details did not emit a work-item"
     identifier="${first_line#work-item: }"
@@ -575,8 +581,8 @@ case "$command" in
         ;;
     next)
         if [[ "${1:-}" == "--ready" ]]; then
-            [[ $# -eq 1 ]] || die "usage: ./conker next --ready"
-            prepare_next_work
+            shift
+            prepare_next_work "$@"
         else
             python3 "$state_tool" next "$@"
         fi

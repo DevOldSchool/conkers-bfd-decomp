@@ -139,4 +139,57 @@ void *func_15035FE8(void *arg0, void *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15035FE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15035FE8.s")
+typedef struct Game623D0Actor {
+    s32 active;
+    u8 pad4;
+    u8 kind;
+    u8 pad6[0xE];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[8];
+    f32 speed;
+    u8 pad2C[0xEC];
+    f32 surface;
+    u8 pad11C[0x64];
+    f32 floor;
+} Game623D0Actor;
+
+void func_15035808(s32, s32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_1507C3E0(void *, s16 *, s16 *, s16 *);
+extern f32 D_80097D74;
+extern u8 D_800CC2D0[];
+extern u8 *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15036148 CURRENT (328) */
+void func_15036148(void) {
+    Game623D0Actor *actor;
+    s16 height;
+    s16 output1;
+    s16 output2;
+    f32 missingSurface;
+    s32 index;
+
+    actor = (Game623D0Actor *)D_800CC2D0;
+    index = 0;
+    if (!(*(s32 *)(D_800DBFF0 + 0x5F0) & 1)) {
+        missingSurface = -10000.0f;
+        do {
+            if (actor->active != 0 && (actor->kind == 0 || actor->kind == 1)) {
+                if (missingSurface != actor->surface && actor->surface < actor->y &&
+                    actor->floor < actor->surface && actor->speed > 5.0f) {
+                    func_1507C3E0(actor, &height, &output1, &output2);
+                    if ((f32)height < actor->surface - actor->floor) {
+                        func_15035808(1, index, actor->x, actor->surface,
+                                       actor->z, 0.0f, 0.0f, 100.0f,
+                                       150.0f, 127.0f);
+                    }
+                }
+            }
+            index++;
+            actor = (Game623D0Actor *)((u8 *)actor + 0x32C);
+        } while (index != 25);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15036148 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_623D0/func_15036148.s")

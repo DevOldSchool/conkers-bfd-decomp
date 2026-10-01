@@ -92,9 +92,10 @@ extern f32 D_800A73C0;
 extern f32 D_800A73C4;
 extern f32 D_800A73C8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A214 CURRENT (2190) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518A214 CURRENT (1985) */
 s32 func_1518A214(void *arg0, s8 *arg1) {
     s32 mode;
+    f32 value;
     void *temp_v0_2;
     void *temp_v0_3;
     void *temp_v0_4;
@@ -102,35 +103,38 @@ s32 func_1518A214(void *arg0, s8 *arg1) {
     mode = *(u8 *)(*(u8 **)((u8 *)arg0 + 0x188) + 0x68) - 0xF;
     switch (mode) {
     default:
+        value = D_800A73C0;
         temp_v0_2 = (u8 *)arg0 + 0x110;
-        *(f32 *)((u8 *)temp_v0_2 + 0x18) = D_800A73C0;
-        *(f32 *)((u8 *)temp_v0_2 + 0x1C) = D_800A73C0;
+        *(f32 *)((u8 *)temp_v0_2 + 0x18) = value;
+        *(f32 *)((u8 *)temp_v0_2 + 0x1C) = value;
         *(u8 *)((u8 *)arg0 + 0x2A) = 0;
         *(u8 *)((u8 *)arg0 + 0x29) = 0;
         *(u8 *)((u8 *)arg0 + 0x28) = 0xFF;
-        *arg1 = 1;
+        *(u8 *)arg1 = 1;
         break;
     case 0:
         *(s32 *)((u8 *)arg0 + 0x58) &= ~2;
-        *arg1 = 0;
+        *(u8 *)arg1 = 0;
         break;
     case 1:
+        value = D_800A73C4;
         temp_v0_3 = (u8 *)arg0 + 0x110;
-        *(f32 *)((u8 *)temp_v0_3 + 0x18) = D_800A73C4;
-        *(f32 *)((u8 *)temp_v0_3 + 0x1C) = D_800A73C4;
+        *(f32 *)((u8 *)temp_v0_3 + 0x18) = value;
+        *(f32 *)((u8 *)temp_v0_3 + 0x1C) = value;
         *(u8 *)((u8 *)arg0 + 0x28) = 0x80;
         *(u8 *)((u8 *)arg0 + 0x29) = 0;
         *(u8 *)((u8 *)arg0 + 0x2A) = 0;
-        *arg1 = 1;
+        *(u8 *)arg1 = 1;
         break;
     case 2:
+        value = D_800A73C8;
         temp_v0_4 = (u8 *)arg0 + 0x110;
-        *(f32 *)((u8 *)temp_v0_4 + 0x18) = D_800A73C8;
-        *(f32 *)((u8 *)temp_v0_4 + 0x1C) = D_800A73C8;
+        *(f32 *)((u8 *)temp_v0_4 + 0x18) = value;
+        *(f32 *)((u8 *)temp_v0_4 + 0x1C) = value;
         *(u8 *)((u8 *)arg0 + 0x28) = 0xFF;
         *(u8 *)((u8 *)arg0 + 0x29) = 0;
         *(u8 *)((u8 *)arg0 + 0x2A) = 0;
-        *arg1 = 1;
+        *(u8 *)arg1 = 1;
         break;
     }
     return 1;

@@ -41,6 +41,59 @@ void func_1510B070(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510B070 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B070.s")
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+void func_1510B5F8(s32, void *, f32, f32, f32, f32, f32);
+extern f32 D_800A2C24, D_800A2C28;
+extern f32 D_800C3648, D_800C364C, D_800C3650;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B128 CURRENT (1759) */
+void func_1510B128(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    f32 cosine;
+    f32 angle;
+    f32 sine;
+    f32 projection;
+    f32 field_of_view;
+    f32 depth;
+    s32 offset;
+
+    offset = arg0 * 0x180;
+    *(f32 *)(D_800BE628 + offset + 0x74) =
+        *(f32 *)(D_800BE628 + offset + 0x6C) + arg1 + D_800C3648;
+    *(f32 *)(D_800BE628 + offset + 0x78) =
+        *(f32 *)(D_800BE628 + offset + 0x70) + arg2 + D_800C3648;
+    angle = *(f32 *)(D_800BE628 + offset + 0x74) * D_800A2C24;
+    cosine = func_15047C00(angle);
+    sine = func_15047D60(angle);
+    projection = (cosine * *(f32 *)(D_800BE628 + offset + 0xC)) / sine;
+    *(f32 *)(D_800BE628 + offset + 0x1C) =
+        *(f32 *)(D_800BE628 + offset + 0x7C) *
+        (*(f32 *)(D_800BE628 + offset + 0x14) * projection) * arg3;
+    angle = *(f32 *)(D_800BE628 + offset + 0x78) * D_800A2C28;
+    cosine = func_15047C00(angle);
+    sine = func_15047D60(angle);
+    projection = (cosine * *(f32 *)(D_800BE628 + offset + 0x10)) / sine;
+    *(f32 *)(D_800BE628 + offset + 0x20) =
+        *(f32 *)(D_800BE628 + offset + 0x80) *
+        (*(f32 *)(D_800BE628 + offset + 0x18) * projection) * arg3;
+    if (D_800C364C != 0.0f) {
+        field_of_view = D_800C364C;
+    } else if (arg4 != 0.0f) {
+        field_of_view = arg4;
+    } else {
+        field_of_view = D_800D9B20;
+    }
+    if (D_800C3650 != 0.0f) {
+        depth = D_800C3650;
+    } else {
+        depth = D_800D9B1C;
+    }
+    func_1510B5F8(arg0, (void *)(offset + D_800BE628 + 0xB8),
+                   *(f32 *)(D_800BE628 + offset + 0x78),
+                   *(f32 *)(D_800BE628 + offset + 0x74),
+                   field_of_view, depth, arg3);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510B128 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B128.s")
 void func_1510B128(s32, f32, f32, f32, f32);
 extern f32 D_800D9AC0[];

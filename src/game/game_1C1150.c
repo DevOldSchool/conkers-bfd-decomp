@@ -169,6 +169,74 @@ void func_15194588(s32 arg0, s32 arg1, s32 arg2) {
     func_150C7020(arg0, 0x1F4, 0xFF, 1);
     func_15194408(arg0, (Game1C1150Event *)arg1);
 }
+typedef struct Game1C1150Vec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1C1150Vec3;
+
+u32 func_151B4CD0(void *, u8, s32);
+extern u8 D_800A3FE6[];
+s32 func_15134070(void *);
+
+extern f64 D_800A82A0;
+extern f32 D_800A82A8;
+extern f32 D_800A82AC;
+extern f32 D_800A82B0;
+extern f32 D_800A82B4;
+extern f32 D_800A82B8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151945CC CURRENT (180) */
+void func_151945CC(void *arg0, u8 *arg1, s32 volatile arg2) {
+    Game1C1150Vec3 position;
+    s16 angle;
+    Game194408Packet packet;
+    u8 scratch[0x24];
+    s32 index;
+
+    angle = (*(u16 *)((u8 *)arg0 + 0x7A) >> 8) - 0x40;
+    position.x = *(f32 *)(arg1 + 0x14);
+    position.y = (f32)((f64)*(f32 *)(arg1 + 0x18) + D_800A82A0);
+    position.z = *(f32 *)(arg1 + 0x1C);
+    func_1504715C(scratch, (s32)arg1);
+    index = func_15134070(arg1);
+    if (index != 0x63) {
+        index = D_800A3FE6[index * 0x10];
+        if (index != 2) {
+            *(Game1C1150Vec3 *)packet.position = position;
+            packet.field14 = D_800A82A8;
+            packet.field2C = 0xF;
+            packet.field2E = 0xC;
+            packet.field00 = angle - 0x40;
+            packet.field02 = 0x80;
+            packet.field04 = -0xA0;
+            packet.field06 = 0x20;
+            packet.field30 = 3;
+            packet.field32 = 1;
+            packet.field34 = 0x1F;
+            packet.field36 = 0x13;
+            packet.field38 = 0x9B;
+            packet.field3A = 0x64;
+            packet.field44 = 0x10;
+            packet.field46 = 0xF;
+            packet.field48 = 0;
+            packet.field18 = D_800A82AC;
+            packet.field1C = D_800A82B0;
+            packet.field20 = 0.0f;
+            packet.field24 = D_800A82B4;
+            packet.field28 = D_800A82B8;
+            packet.field40 = 0.5f;
+            if (index == 1) {
+                packet.field3C = 1;
+            } else {
+                packet.field3C = 0;
+            }
+            func_15153F18(&packet.field00, packet.position, (s32)scratch, 0xFF, 1);
+            func_151B4CD0(arg1, 0xFF, 1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151945CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151945CC.s")
 void func_151B01B8(u8 *, s32); /* extern */
 void func_151B09BC(u8 *, s32, s32, s32, s32); /* extern */
@@ -187,6 +255,77 @@ void func_15194794(u8 *arg0, Game1C1150Event *arg1, s8 *arg2) {
             break;
     }
 }
+typedef struct {
+    u8 field_0;
+    u8 pad1;
+    s16 value;
+    u8 field_4;
+    u8 field_5;
+    s8 field_6;
+    u8 pad7;
+} Game1C1150EventPacket;
+
+extern f32 D_800A82E4;
+extern f32 D_800A82E8;
+extern f32 D_800A82EC;
+void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);
+u32 func_150ADA20(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194810 CURRENT (120) */
+void func_15194810(s32 arg0, Game1C1150Event *arg1, s32 arg2) {
+    Game1C1150Vec3 position;
+    Game194408Packet packet;
+    u8 scratch[0x24];
+    Game1C1150EventPacket event;
+
+    switch (arg1->type) {
+    case 0: goto spawn;
+    case 1: goto spawn;
+    case 2: goto spawn;
+    case 3: goto spawn;
+    case 4: goto spawn;
+    case 0x53: goto spawn;
+    }
+    return;
+
+spawn:
+    position.x = *(f32 *)((u8 *)arg1 + 0x14);
+    position.y = *(f32 *)((u8 *)arg1 + 0x18) + 95.0f;
+    position.z = *(f32 *)((u8 *)arg1 + 0x1C);
+    func_1504715C(scratch, (s32)arg1);
+    *(Game1C1150Vec3 *)packet.position = position;
+    packet.field2C = 0xF;
+    packet.field2E = 0xA;
+    packet.field02 = 0xFF;
+    packet.field04 = -0x3F;
+    packet.field00 = 0;
+    packet.field06 = 0x39;
+    packet.field30 = 3;
+    packet.field32 = 2;
+    packet.field34 = 0x46;
+    packet.field36 = 0x16;
+    packet.field38 = 0x9B;
+    packet.field3A = 0x64;
+    packet.field44 = 0x10;
+    packet.field46 = 0xF;
+    packet.field48 = 0;
+    packet.field3C = 0;
+    packet.field18 = 5.0f;
+    packet.field24 = 5.0f;
+    packet.field14 = 10.0f;
+    packet.field1C = D_800A82E4;
+    packet.field20 = D_800A82E8;
+    packet.field28 = D_800A82EC;
+    packet.field40 = 0.5f;
+    func_15153F18(&packet.field00, packet.position, (s32)scratch, 0xFF, 1);
+    event.field_0 = 1;
+    event.value = func_150ADA20() % 11U + 0x14;
+    event.field_4 = 8;
+    event.field_6 = -1;
+    event.field_5 = 1;
+    func_151D8868(&event, 0, 0xFF, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15194810 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194810.s")
 void func_151949E0(s32 arg0, s32 arg1, s32 arg2) {
 }
@@ -244,7 +383,6 @@ void func_15194AB4(void *arg0) {
         func_15083568(arg0, var_a1, 0x3F800000, 0);
     }
 }
-s32 func_15134070(void *);
 void func_15138120(void *, s32, s32);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 
@@ -419,7 +557,97 @@ void func_15194F48(s32 arg0, Game1C1150Position *arg1, s32 arg2) {
     func_15145A50((u8 *)arg1);
     func_1507CD64((u8 *)arg1, 6);
 }
+void *func_10022EC0(void *, const void *, u32);
+s32 func_1518F51C(void *, u8, s16, s8, s8, s8, u8, s32, u8, s32);
+void func_15190518(void *);
+
+typedef struct Game1C1150SpawnInfo {
+    s32 duration;
+    s32 mode;
+    void *owner;
+} Game1C1150SpawnInfo;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15194FF4 CURRENT (1260) */
+void func_15194FF4(s32 arg0, s32 arg1, s32 arg2) {
+    s32 result;
+    s32 enabled;
+    s32 amount;
+    s32 second;
+    s32 first;
+    u8 mode;
+    u8 owner;
+    u8 *state;
+    Game1C1150SpawnInfo info;
+
+    func_15190518((void *)arg1);
+    mode = arg2;
+    switch (((Game1C1150Event *)arg1)->type) {
+    case 0x0:
+    case 0x1:
+    case 0x2:
+    case 0x3:
+    case 0x4:
+    case 0x11:
+    case 0x14:
+    case 0x16:
+    case 0x3B:
+    case 0x50:
+    case 0x53:
+    case 0x58:
+    case 0x5A:
+    case 0x5F:
+    case 0x70:
+    case 0x74:
+    case 0x75:
+    case 0x7A:
+    case 0x80:
+    case 0x87:
+    case 0x88:
+    case 0x90:
+    case 0x96:
+    case 0x98:
+    case 0x99:
+    case 0x9C:
+    case 0x9D:
+    case 0x9F:
+    case 0xA0:
+    case 0xB0:
+    case 0xB1:
+    case 0xB2:
+    case 0xB4:
+        if (D_800BE616 != 0) {
+            info.duration = 125;
+            info.mode = 5;
+            if (((Game1C1150Event *)arg0)->type == 0xFF &&
+                (owner = *(u8 *)(arg0 + 0x124)) != 0) {
+                info.owner = D_800CC2D0 + owner * 0x32C - 0x32C;
+            } else {
+                info.owner = (void *)arg0;
+            }
+            if (mode != 0) first = 0; else first = -1;
+            if (mode != 0) second = 0; else second = -1;
+            if (mode != 0) enabled = 1; else enabled = 0;
+            if (mode != 0) amount = 12; else amount = 0;
+            result = func_1518F51C((void *)arg1, 0, 250, (s8)first, (s8)second,
+                                  8, (u8)enabled, amount, 255, 1);
+            if (result != 0 && (u8)arg2 != 0) {
+                func_10022EC0((void *)(result + 0x90), &info, sizeof(info));
+                state = *(u8 **)(arg1 + 0x31C);
+                if (state != 0) {
+                    state[0x1AC] = 1;
+                    return;
+                }
+            }
+        } else {
+            func_1518F51C((void *)arg1, 0, 300, -1, -1, 8, 0, 0, 255, 1);
+            return;
+        }
+        break;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15194FF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_15194FF4.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1C1150/func_151951E0.s")
 void func_15137610(void *, void *, void *, s32, s32, s32);
 void func_1514373C(f32, f32, f32 *, f32 *);
@@ -485,15 +713,7 @@ void func_15195698(void *arg0, u8 *arg1, s32 arg2) {
         *(s8 *)((u8 *)arg0 + 0x1CA) = 0;
     }
 }
-typedef struct {
-    u8 field_0;
-    u8 pad1;
-    s16 value;
-    u8 field_4;
-    u8 field_5;
-    s8 field_6;
-    u8 pad7;
-} Game1C1150EventPacket;
+
 
 u32 func_150ADA20(void);
 void func_151D8868(Game1C1150EventPacket *, s32, s32, s32);

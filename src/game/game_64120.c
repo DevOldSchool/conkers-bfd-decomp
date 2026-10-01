@@ -81,6 +81,63 @@ void func_15036C70(Game64120InitState *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036CE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036F34.s")
+extern s32 D_800CC4A4;
+void func_15038468(f32 *, f32 *, f32, f32, f32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15037698 CURRENT (3313) */
+s32 func_15037698(s32 arg0, s32 arg1, s32 arg2, f32 arg3, f32 arg4,
+                   f32 arg5, f32 *arg6, f32 arg7, s32 arg8, s32 arg9) {
+    f32 delta[3];
+    f32 basis[3];
+    f32 *second;
+    f32 angle;
+    f32 elevation;
+    f32 deltaZ;
+    f32 deltaY;
+    f32 *first;
+
+    if (arg8 != 0) {
+        arg6[0] = arg3;
+        arg6[1] = arg4;
+        arg6[2] = arg5;
+        return 1;
+    }
+    arg0 = *(s32 *)((u8 *)&D_800CC4A4 + (arg0 * 0x32C));
+    first = (f32 *)(arg0 + (arg1 << 6));
+    if (arg0 == 0) {
+        return 0;
+    }
+    second = (f32 *)(arg0 + (arg2 << 6));
+    second[11] = 0.0f;
+    second[7] = 0.0f;
+    second[3] = 0.0f;
+    first[3] = 0.0f;
+    first[7] = 0.0f;
+    first[11] = 0.0f;
+    second[15] = 1.0f;
+    first[15] = 1.0f;
+    basis[0] = first[4];
+    basis[1] = first[5];
+    basis[2] = first[6];
+    delta[0] = arg3 - first[12];
+    deltaY = arg4 - first[13];
+    delta[1] = deltaY;
+    deltaZ = arg5 - first[14];
+    delta[2] = deltaZ;
+    func_15038468(&angle, &elevation,
+                  (second[2] * deltaZ) + ((delta[0] * second[0]) + (deltaY * second[1])),
+                  (second[6] * deltaZ) + ((delta[0] * second[4]) + (deltaY * second[5])),
+                  (second[10] * deltaZ) + ((delta[0] * second[8]) + (deltaY * second[9])),
+                  arg9);
+    if ((angle < arg7) && (-arg7 < angle)) {
+        arg6[0] = arg3;
+        arg6[1] = arg4;
+        arg6[2] = arg5;
+        return 1;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15037698 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15037698.s")
 extern f32 D_8009862C;
 extern s16 D_800C3FF4[];

@@ -13,12 +13,76 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_1515FDA0.s")
-typedef struct {
-    u8 pad0[0xE];
+typedef struct ColourFramebufferEffect {
+    u8 pad0[8];
+    struct ColourFramebufferEffect *next;
+    u8 padC[2];
     u8 payload[8];
     u8 pad16[2];
 } ColourFramebufferEffect;
+
+typedef struct ColourFramebufferGroup {
+    ColourFramebufferEffect *head;
+    u8 pad4[0x19C];
+} ColourFramebufferGroup;
+
+extern ColourFramebufferGroup D_800DCF20[];
+extern ColourFramebufferEffect *D_800DD198[];
+extern s8 D_800DD190;
+extern u8 D_800C35EA;
+extern void (*D_8008B0D8[])(ColourFramebufferEffect *, s32);
+s32 func_1517EF00(s32);
+s32 func_15181CC8(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515FDA0 CURRENT (5566) */
+void func_1515FDA0(s32 arg0) {
+    s32 group;
+    s32 enabled;
+    s32 slot_offset;
+    s8 depth;
+    u8 flags;
+    ColourFramebufferEffect **slot;
+    ColourFramebufferEffect *effect;
+
+    group = 0;
+    do {
+        effect = D_800DCF20[group].head;
+        depth = D_800DD190 + 1;
+        D_800DD190 = depth;
+        if (effect != 0) {
+            slot = &D_800DD198[depth];
+            do {
+                *slot = effect->next;
+                flags = effect->payload[0];
+                if (flags & 4) {
+                    effect->payload[0] = flags & ~4;
+                    slot_offset = D_800DD190 * 4;
+                    goto reload_slot;
+                }
+                if ((s8)effect->payload[2] != -1) {
+                    enabled = 1;
+                    if ((flags & 2) && D_800C35EA == 1) {
+                        enabled = 0;
+                    }
+                    if ((flags & 8) && (func_15181CC8(0) == 0 || func_1517EF00(0) != 0)) {
+                        enabled = 0;
+                    }
+                    if (enabled != 0) {
+                        D_8008B0D8[(s8)effect->payload[2]](effect, arg0);
+                    }
+                    slot_offset = D_800DD190 * 4;
+reload_slot:
+                    slot = (ColourFramebufferEffect **)((u8 *)D_800DD198 + slot_offset);
+                }
+                effect = *slot;
+            } while (effect != 0);
+        }
+        D_800DD190--;
+        group = (group + 1) & 0xFF;
+    } while (group < 2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515FDA0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/colourframebuffer/func_1515FDA0.s")
 
 void func_10022EC0(void *, void *, s32);
 ColourFramebufferEffect *func_15167A68(s32, s32, s32, s32, u8, u8);

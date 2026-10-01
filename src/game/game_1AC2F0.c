@@ -271,6 +271,67 @@ void func_1517F7B4(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517F7B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F7B4.s")
+typedef struct Game1AC2F0Viewport {
+    u8 pad00[0xC];
+    f32 halfWidth, halfHeight;
+    u8 pad14[0x10];
+    f32 offsetY;
+    u8 pad28[4];
+    f32 offsetX;
+    u8 pad30[0x150];
+} Game1AC2F0Viewport;
+void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
+extern u8 D_800D9D10[];
+extern s32 D_800BE628;
+extern u8 D_800DDDE8[];
+extern f32 D_800A7280, D_800A7284, D_800A7288;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F814 CURRENT (234) */
+void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
+    f32 lower;
+    Game1AC2F0Viewport *view;
+    f32 *output;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 w;
+
+    if (arg0 == 0) {
+        func_150A7A00(D_800D9D10 + (arg4 << 6), arg1, arg2, arg3, &x, &y, &z, &w);
+        if (w == 0.0f) {
+            w = 1.0f;
+        }
+        view = &((Game1AC2F0Viewport *)D_800BE628)[arg4];
+        x = (view->halfWidth * x) / w;
+        y = (view->halfHeight * y) / w;
+        x += view->halfWidth;
+        y = view->halfHeight - y;
+        x += view->offsetX;
+        y += view->offsetY;
+    } else {
+        x = arg1;
+        y = arg2;
+        view = &((Game1AC2F0Viewport *)D_800BE628)[arg4];
+    }
+    if (D_800A7280 < x) {
+        lower = D_800A7284;
+        x = D_800A7280;
+    } else {
+        lower = D_800A7288;
+        if (x < lower) {
+            x = lower;
+        }
+    }
+    if (D_800A7280 < y) {
+        y = D_800A7280;
+    } else if (y < lower) {
+        y = lower;
+    }
+    output = (f32 *)(D_800DDDE8 + arg4 * 8);
+    output[0] = x - view->halfWidth;
+    output[1] = y - view->halfHeight;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517F814 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F814.s")
 extern s32 D_800BE628;
 

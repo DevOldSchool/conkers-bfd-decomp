@@ -19,7 +19,7 @@ typedef struct Game1BFC70State {
     s8 unk3B;
 } Game1BFC70State;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151927C0 */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151927C0 CURRENT (75) */
 s32 func_151927C0(Game1BFC70State *arg0) {
     s32 value = arg0->unk14;
     s32 packed = (s16)((value & 0xFF) >> 1) * 0x10001;

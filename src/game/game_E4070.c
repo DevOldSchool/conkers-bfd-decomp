@@ -103,19 +103,22 @@ extern s32 D_800D9898;
 extern s32 D_800D98A4;
 extern s8 D_800D9890;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (2720) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (70) */
 void func_150B6D34(void) {
     u8 *var_v1;
     void *temp_v0;
+    u32 end = (u32)&D_800D98A4;
 
     var_v1 = (u8 *) &D_800D9898;
-    do {
+loop:
         temp_v0 = *(void **)(var_v1 + 0x14);
         var_v1 += 4;
         if (temp_v0 != 0) {
             *(s32 *)((u8 *)temp_v0 + 0x20) = 1;
         }
-    } while (var_v1 != (u8 *) &D_800D98A4);
+    if ((u32)var_v1 != end) {
+        goto loop;
+    }
     D_800D9890 = 3;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B6D34 */
@@ -198,6 +201,98 @@ void func_150B71A8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B71A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B71A8.s")
+typedef struct {
+    void *resource;
+    void *resource2;
+    s32 field08;
+    s32 field0C;
+    s32 field10;
+    s16 position[3];
+    u8 pad1A[2];
+    f32 scale_x;
+    f32 scale_y;
+    s16 field24;
+    s16 field26;
+    s16 field28;
+    s16 field2A;
+    s16 field2C;
+    s16 field2E;
+    u8 field30;
+    u8 field31;
+    u8 field32;
+    u8 field33;
+    u8 field34;
+    u8 field35;
+    u8 field36;
+    u8 field37;
+    u8 field38;
+    u8 field39;
+} GameE4070Descriptor;
+
+void *func_15169900(void *, s32);
+extern u8 D_80091924;
+extern s32 D_800BE638;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B7220 CURRENT (4246) */
+void func_150B7220(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    GameE4070Descriptor descriptor;
+    s32 packed_x;
+    s32 packed_y;
+    s32 extent;
+    s32 top, bottom, left, right;
+
+    packed_x = (u32)arg0 << 16;
+    packed_y = arg1 & 0xFFFF;
+    descriptor.field2A = 0x1000;
+    descriptor.resource = &D_80091924;
+    descriptor.field08 = packed_x | packed_y;
+    descriptor.field28 = 0x1000;
+    descriptor.field0C = arg2;
+    descriptor.position[0] = arg2;
+    descriptor.position[2] = 0;
+    descriptor.field24 = 0;
+    descriptor.field26 = 0;
+    descriptor.field2C = 0x10;
+    descriptor.field2E = 0x10;
+    descriptor.field30 = 7;
+    descriptor.field31 = 2;
+    descriptor.field32 = 0xFF;
+    descriptor.field33 = 0;
+    descriptor.field34 = 0;
+    descriptor.field35 = 0xFF;
+    descriptor.field36 = 7;
+    descriptor.field37 = 0x11;
+    if (arg0 < (D_800BE638 >> 1)) {
+        extent = D_800BE638 - arg0;
+    } else {
+        extent = arg0;
+    }
+    top = arg1 - extent;
+    descriptor.field10 = packed_x | (top & 0xFFFF);
+    descriptor.field39 = 0;
+    descriptor.position[1] = 0;
+    descriptor.scale_x = arg0;
+    descriptor.scale_y = top;
+    func_15169900(&descriptor, arg3);
+    bottom = arg1 + extent;
+    descriptor.field10 = packed_x | (bottom & 0xFFFF);
+    descriptor.field39 = 8;
+    descriptor.scale_y = bottom;
+    func_15169900(&descriptor, arg3);
+    left = arg0 - extent;
+    descriptor.scale_x = left;
+    descriptor.field10 = ((u32)left << 16) | packed_y;
+    descriptor.field39 = 4;
+    descriptor.position[1] = 0x100;
+    descriptor.scale_y = arg1;
+    func_15169900(&descriptor, arg3);
+    right = arg0 + extent;
+    descriptor.field10 = ((u32)right << 16) | packed_y;
+    descriptor.field39 = 0;
+    descriptor.scale_x = right;
+    func_15169900(&descriptor, arg3);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B7220 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B7220.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B73F0 CURRENT (80) */
 void func_150B73F0(void *arg0) {
@@ -221,31 +316,7 @@ void func_150B73F0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150B73F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B73F0.s")
-typedef struct {
-    void *resource;
-    void *resource2;
-    u8 pad08[0xC];
-    s16 position[3];
-    u8 pad1A[2];
-    f32 scale_x;
-    f32 scale_y;
-    s16 field24;
-    s16 field26;
-    s16 field28;
-    s16 field2A;
-    s16 field2C;
-    s16 field2E;
-    u8 field30;
-    u8 field31;
-    u8 field32;
-    u8 field33;
-    u8 field34;
-    u8 field35;
-    u8 field36;
-    u8 field37;
-    u8 field38;
-    u8 field39;
-} GameE4070Descriptor;
+
 
 extern u8 D_800918DC;
 s32 func_15169968(void *);

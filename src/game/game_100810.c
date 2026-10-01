@@ -10,7 +10,6 @@
  * - func_150D3FD4
  * - func_150D4300
  * - func_150D49C0
- * - func_150D4C2C
  * - func_150D4CC4
  * - func_150D4D58
  * - func_150D5124
@@ -231,18 +230,15 @@ void func_1516972C(s32);
 extern s8 D_8008FD8C;
 void func_150D5124(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D4C2C CURRENT (118) */
 void func_150D4C2C(s32 arg0) {
-    void *sp20;
     void *temp_s0;
 
     temp_s0 = *(void **)((u8 *)arg0 + 0x98);
     if (D_8008FD8C < 5) {
         func_1000FD38((void *)&func_150D5124, temp_s0, 0x5B3);
     }
-    sp20 = (void *)&func_150D5124;
     func_1000FD38((void *)&func_150D5124, temp_s0, 0x5B4);
-    func_1000FD38(sp20, temp_s0, 0x5BC);
+    func_1000FD38((void *)&func_150D5124, temp_s0, 0x5BC);
     if (*(s32 *)((u8 *)temp_s0 + 0xC) != 0) {
         func_1516972C(*(s32 *)((u8 *)temp_s0 + 0xC));
     }
@@ -250,8 +246,6 @@ void func_150D4C2C(s32 arg0) {
         func_1516972C(*(s32 *)((u8 *)temp_s0 + 0x10));
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150D4C2C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_100810/func_150D4C2C.s")
 extern s32 D_800BE9E4;
 extern s32 D_800A09C0[];
 extern f32 D_800A0A14;

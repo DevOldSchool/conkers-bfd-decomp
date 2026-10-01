@@ -234,7 +234,7 @@ void func_1514D564(u8 *arg0) {
     }
 }
 /* Raw US callees establish pointer arguments and the stack byte parameters. */
-s32 func_15189FF0(s32, void *, void *, s32, u8, u8, u8);
+s32 func_15189FF0(void *, void *, void *, s32, u8, u8, u8);
 void *func_1515D5F8(s32, s32, s32, s32, s32, s32, s32, s32, s32, u8);
 extern u8 D_800A58D0[];
 extern u8 D_800A58E4[];
@@ -301,9 +301,9 @@ typedef struct {
         s8 sp123;
 } Game179F30D64CSetup;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D64C CURRENT (7859) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514D64C CURRENT (5162) */
 void func_1514D64C(void *arg0) {
-    void *second_setup;
+    s32 allocated;
     Game179F30D64CSetup setup;
 
     setup.sp74 = 3;
@@ -347,8 +347,8 @@ void func_1514D64C(void *arg0) {
     setup.sp5C = 25.0f;
     setup.sp68 = 75.0f;
     setup.sp114 = 1.0f;
-    func_1514EC1C(func_15189FF0((s32)((u8 *)&setup.sp76 - 2), &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U), (s32) arg0, 9);
-    second_setup = &setup.sp74;
+    allocated = func_15189FF0(&setup.sp74, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U);
+    func_1514EC1C(allocated, (s32)arg0, 9);
     setup.sp74 = 3;
     setup.sp7C = 0;
     setup.sp80 = 0;
@@ -390,7 +390,8 @@ void func_1514D64C(void *arg0) {
     setup.sp64 = 20.0f;
     setup.sp68 = -140.0f;
     setup.sp114 = 1.0f;
-    func_1514EC1C(func_15189FF0((s32)second_setup, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U), (s32) arg0, 0xA);
+    allocated = func_15189FF0(&setup.sp74, &setup.spCC, &setup.sp54, 2, 0U, 0U, 0U);
+    func_1514EC1C(allocated, (s32)arg0, 0xA);
     func_15160A58(arg0, 5, &setup.sp54, 2, 0x12C, 0x28, 0xFF, 0, 0, 0xFF, 0, 1, 0, 0, 0xFF, 1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514D64C */
@@ -731,7 +732,7 @@ void func_1514E00C(void *arg0) {
     setup.sp34 = 59.0f;
     setup.sp40 = D_800A5E0C;
     setup.spEC = 1.0f;
-    func_1514EC1C(func_15189FF0((s32) &setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
+    func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
 }
 
@@ -835,7 +836,7 @@ void func_1514E194(void *arg0) {
     setup.sp34 = 59.0f;
     setup.sp40 = D_800A5E14;
     setup.spEC = 1.0f;
-    func_1514EC1C(func_15189FF0((s32) &setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
+    func_1514EC1C(func_15189FF0(&setup.sp4C, &setup.spA4, &setup.sp2C, 2, 0U, 0U, 0U), (s32) arg0, 6);
     func_151D74B0((s32) arg0, 5, -1, 0xFF, 1);
 }
 
@@ -938,7 +939,7 @@ void func_1514E31C(void *arg0) {
     setup.sp64 = 100.0f;
     setup.sp70 = 600.0f;
     setup.sp11C = 1.0f;
-    func_1514EC1C(func_15189FF0((s32) &setup.sp7C, &setup.spD4, &setup.sp5C, 2, 3U, 0U, 0U), (s32) arg0, 7);
+    func_1514EC1C(func_15189FF0(&setup.sp7C, &setup.spD4, &setup.sp5C, 2, 3U, 0U, 0U), (s32) arg0, 7);
     {
         f32 effect_position[3];
 
@@ -1294,6 +1295,97 @@ void func_1514EE70(u8 *arg0) {
     temp_v0 = func_1515BE50(&sp20, 0, 0xFF, 1);
     func_1514EC1C((s32)temp_v0, (s32)arg0, 0x16);
 }
+typedef struct Game179F30TrialVector {
+    s32 x, y, z;
+} Game179F30TrialVector;
+extern Game179F30TrialVector D_800A5934, D_800A5940, D_800A594C;
+extern f32 D_800A5E48, D_800A5E4C, D_800A5E50, D_800A5E54;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514EECC CURRENT (5880) */
+void func_1514EECC(void *arg0) {
+    struct {
+        void *owner;
+        u8 mode;
+        u8 ownerId;
+        u8 kind;
+        u8 pad1F;
+        f32 sp68, sp6C, sp70, sp74, sp78, sp7C, sp80, sp84, sp88;
+        u8 pad44[0x24];
+        f32 spB0;
+        u8 pad6C[8];
+        u8 spBC, spBD, spBE, spBF;
+        u8 pad78[4];
+        u8 spC4, spC5;
+        s16 spC6, spC8;
+        u8 pad82[2];
+        s32 spCC, spD0;
+        u8 spD4, spD5, spD6, spD7;
+        f32 spD8, spDC, spE0, spE4, spE8, spEC, spF0, spF4, spF8, spFC, sp100;
+        s32 sp104;
+        u8 sp108, sp109, sp10A, sp10B;
+        s32 sp10C;
+        u8 sp110;
+        u8 padC9[3];
+        s32 sp114;
+        s16 sp118, sp11A;
+    } setup;
+    Game179F30TrialVector second;
+    Game179F30TrialVector first;
+    func_1514EC1C((s32)func_15160A58(arg0, 1, &D_800A5934, 2, 0x12C, 2, 0xFF, 0, 0, 0xFF, 0, 3, 0, 0, 0xFF, 1), (s32) arg0, 0x19);
+    setup.spC4 = 0x69;
+    setup.sp104 = 0x04ED200A;
+    setup.spC8 = 0x12C;
+    setup.spCC = 0;
+    setup.spD0 = 0;
+    setup.sp109 = 0xFF;
+    setup.spD4 = 0xFF;
+    setup.spD5 = 0;
+    setup.spD6 = 0;
+    setup.spD7 = 0xFF;
+    setup.spC6 = 0x4403;
+    setup.spE0 = 0.0f;
+    setup.spE4 = 0.0f;
+    setup.spE8 = 0.0f;
+    setup.spEC = 0.0f;
+    setup.spF0 = 0.0f;
+    setup.spF4 = 0.0f;
+    setup.spC5 = 3;
+    setup.spDC = 100.0f;
+    setup.spD8 = 100.0f;
+    setup.spF8 = 1.0f;
+    setup.spFC = 1.0f;
+    setup.sp100 = 1.0f;
+    setup.sp108 = 0xFF;
+    setup.sp10A = 0;
+    setup.sp10B = 6;
+    setup.sp10C = 0;
+    setup.sp110 = 0xFF;
+    setup.sp114 = 0;
+    setup.sp118 = 1;
+    setup.sp11A = 0xFF;
+    setup.sp6C = 95.0f;
+    setup.sp68 = 95.0f;
+    setup.sp74 = 65.0f;
+    setup.sp70 = 65.0f;
+    setup.sp78 = D_800A5E48;
+    setup.sp7C = D_800A5E48;
+    setup.sp80 = D_800A5E4C;
+    setup.sp84 = D_800A5E50;
+    setup.sp88 = D_800A5E54;
+    setup.owner = arg0;
+    setup.ownerId = *(u8 *)((u8 *)arg0 + 0x3B);
+    first = D_800A5940;
+    second = D_800A594C;
+    setup.mode = 1;
+    setup.spBC = 0;
+    setup.spBD = 0;
+    setup.spBE = 0;
+    setup.spBF = 0;
+    setup.spB0 = 1.0f;
+    setup.kind = 3;
+    func_15189FF0(&setup.spC4, &setup.sp68, &first, 2, 0U, 0U, 0U);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514EECC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_179F30/func_1514EECC.s")
 void func_1514F110(void) {
     func_1514F194();
