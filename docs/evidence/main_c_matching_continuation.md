@@ -322,3 +322,52 @@ following the partial-type refinements: `BATCH_COMPLETE`, full US ROM match,
 This checkpoint adds **no new C matches**. The cumulative accepted result
 remains **29 functions / 1,796 bytes**, with **2,662** accepted US C functions.
 Both best candidates and the failed source hypotheses are preserved.
+
+## Ninth batch: complete MP3 adapter C coverage
+
+All seven members of `init_12560.c` are newly matched over their full registered
+spans, totaling 704 bytes:
+
+| Function | Bytes | Proven behavior |
+| --- | ---: | --- |
+| `func_80012560` | 40 | Three-argument text callback forwards the actual text and length to the ring transport |
+| `func_80012588` | 68 | Forwards the real initialization argument, initializes the transport and installs its callback |
+| `func_800125CC` | 112 | Reads playback state once, preserves the exclusion gate, then fades or stops |
+| `func_8001263C` | 172 | Resolves a resource path, retains pointer/size across calls and applies volume, pan and filter settings |
+| `func_800126E8` | 48 | Reads transport text and returns the count expected by its active consumer |
+| `func_80012718` | 184 | Uses observed position fields and the spatial helper, or the centered-pan path |
+| `func_800127D0` | 80 | Reports the selected playback states, including the entire terminal registered span |
+
+The matched MP3 decoder consumer declares the text callback as
+`void (s32, u8 *, s32)` and passes all three arguments. The first adapter thus
+preserves a1/a2 forwarding that its one-argument starter omitted. Similarly,
+the initialization callee consumes the wrapper's incoming argument, and the
+active `game_AD6B0.c` consumer tests the text-reader return count. These are
+actual call contracts, not incidental register values. The ring helpers use
+the existing four-word transport layout and the resource lookup retains its
+existing variadic path-component interface. The mapped MP3 stop routine takes
+no arguments; its incidental incoming zero is not declared as a parameter.
+
+For `80012718`, pre-existing active declarations in `game_981E0.c` and
+`game_A28B0.c` establish its first u16 and fourth s16 arguments. Its fifth
+argument remains s32, with an explicit u16 value conversion; it was not
+narrowed merely to obtain the halfword reload. Only the three position floats
+and word at 0x318 are described by the local object view. The latter retains
+an opaque field name and does not establish a character or model identity.
+
+The six nonterminal members matched on their first implementation forms.
+`800127D0` had exact 68-byte code initially but lacked the three trailing words
+of its registered 80-byte span: offset 0x9C in a 0xE0-byte stripped C text
+section. With all six genuine companions present, the unchanged body moved
+to offset 0x270 in a 0x2C0-byte section, and normal 16-byte alignment supplied
+all 12 trailing bytes. Its complete span then reached CURRENT (0). No padding,
+compiler or reference change was used. Future changes to this C prefix must
+revalidate the terminal function's full span.
+
+The clean seven-function batch returned `BATCH_COMPLETE`: full US ROM match,
+1,328 tests run with 12 skipped, reviewed symbol layout, metadata, progress
+and whitespace passed. This adds **7 functions / 704 bytes**, giving
+**36 / 2,500 bytes** since the fresh baseline and **2,669** accepted US C
+functions. The complete source remains in raw-ASM integration mode, following
+its required stop action; C coverage and integration are separate claims.
+No accepted IDs remain pending at this checkpoint.

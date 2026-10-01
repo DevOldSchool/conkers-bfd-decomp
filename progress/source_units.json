@@ -20140,7 +20140,7 @@
         "us": {
           "end": "0x12820",
           "start": "0x12560",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/main/init_12560.c"

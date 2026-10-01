@@ -3,10 +3,10 @@
     "us"
   ],
   "code_bytes": {
-    "fully_matched_source_unit_bytes": 182160,
-    "fully_matched_source_unit_percentage": 8.141622,
+    "fully_matched_source_unit_bytes": 182864,
+    "fully_matched_source_unit_percentage": 8.173087,
     "library_text_bytes": 147232,
-    "matched_bytes": 433236,
+    "matched_bytes": 433940,
     "overlays": {
       "game": {
         "fully_matched_source_unit_bytes": 83648,
@@ -35,11 +35,11 @@
         "total_bytes": 2072880
       },
       "main": {
-        "fully_matched_source_unit_bytes": 98512,
-        "fully_matched_source_unit_percentage": 59.881346,
+        "fully_matched_source_unit_bytes": 99216,
+        "fully_matched_source_unit_percentage": 60.309278,
         "library_text_bytes": 98512,
-        "matched_bytes": 100900,
-        "percentage": 61.332912,
+        "matched_bytes": 101604,
+        "percentage": 61.760844,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -50,18 +50,18 @@
             "total_bytes": 165328
           },
           "us": {
-            "fully_matched_source_unit_bytes": 98512,
-            "fully_matched_source_unit_percentage": 59.881346,
+            "fully_matched_source_unit_bytes": 99216,
+            "fully_matched_source_unit_percentage": 60.309278,
             "library_text_bytes": 98512,
-            "matched_bytes": 100900,
-            "percentage": 61.332912,
+            "matched_bytes": 101604,
+            "percentage": 61.760844,
             "total_bytes": 164512
           }
         },
         "total_bytes": 164512
       }
     },
-    "percentage": 19.363437,
+    "percentage": 19.394903,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 0,
@@ -72,11 +72,11 @@
         "total_bytes": 2240240
       },
       "us": {
-        "fully_matched_source_unit_bytes": 182160,
-        "fully_matched_source_unit_percentage": 8.141622,
+        "fully_matched_source_unit_bytes": 182864,
+        "fully_matched_source_unit_percentage": 8.173087,
         "library_text_bytes": 147232,
-        "matched_bytes": 433236,
-        "percentage": 19.363437,
+        "matched_bytes": 433940,
+        "percentage": 19.394903,
         "total_bytes": 2237392
       }
     },
@@ -95,7 +95,7 @@
     },
     "main": {
       "known_functions": 229,
-      "target_matched": 34
+      "target_matched": 41
     }
   },
   "regions": {
@@ -103,15 +103,15 @@
       "blocked": 7,
       "candidate": 0,
       "in_progress": 0,
-      "matched": 2662,
+      "matched": 2669,
       "original_asm": 22,
-      "raw_asm": 2762
+      "raw_asm": 2755
     }
   },
   "schema_version": 1,
   "source_units": 742,
-  "target_matched": 2662,
+  "target_matched": 2669,
   "target_original_asm": 22,
-  "target_remaining": 2791,
+  "target_remaining": 2784,
   "unassigned_functions": 0
 }
