@@ -90,11 +90,11 @@ entries corroborate those bodies but do not account for the extra empty entry.
 
 PAL does not close the main boundary frontier. Do not repeat this same retail
 comparison without a new lead or reinterpret the negative checks as proof.
-At this checkpoint the next planned input was the user's owned debug build.
+At this checkpoint the next planned comparison was with the debug build.
 Both beta inputs were subsequently examined on 2026-10-01; see
-[the completed beta comparison](main_boundary_beta_comparison.md). The user
-confirmed that no original debug map is available and cautioned that the debug build may add little information. This
-is a bounded investigation opportunity, not a promised route to completion.
+[the completed beta comparison](main_boundary_beta_comparison.md). No original
+debug map was available for this review. Cross-version resemblance alone does
+not resolve ownership or entry uncertainty.
 The existing `beta-index` correlations concern game overlays; main needs its
 own targeted review.
 

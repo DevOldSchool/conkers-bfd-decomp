@@ -63,11 +63,11 @@ independent original map or meaningful cross-version correlation appears. The
 owned PAL ROM has now been checksum-validated and used for a
 [targeted regional comparison](main_boundary_pal_comparison.md): it preserves
 the ambiguous entries and supplies no new selection or ownership evidence for
-them. The subsequently uploaded debug/ECTS inputs provide positive selected
+them. The subsequent debug/ECTS comparison provides positive selected
 counterparts and a specific hardware-domain relationship for `0x38E0:0x3920`;
 that complete pair is now reviewed. They do not resolve the three remaining
 ranges. See the [beta evidence and bounded result](main_boundary_beta_comparison.md).
-The user confirmed that no original debug map is available.
+No original debug map was available for this review.
 A negative runtime trace would not establish an original boundary or prove
 unreachability.
 
