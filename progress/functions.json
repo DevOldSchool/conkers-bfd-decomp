@@ -55110,6 +55110,12 @@
       "symbol": "func_1515589C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4991,
+        "reason": "Correct matched matrix-helper ABI and actual per-command pointer/cursor state:8293/7533/4991. Full-width arg2 preserved because no qualifying narrow declaration. Retain4991; frame/FP scheduling and normalization timing remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71897,6 +71903,12 @@
       "symbol": "func_15117798"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2220,
+        "reason": "Correct pointer-leading callback contract and real mode state; scores2220/2355/2355. Normalized baseline/option lifetime forms worsen allocation; restore2220. Exact frame, remaining dataflow scheduling/register differences.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74889,6 +74901,12 @@
       "symbol": "func_15113C88"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3071,
+        "reason": "Fresh callback traversal3071; shared cross-loop local reuse3176 rejected. Remaining outer-index spill/hoisted stride and register scheduling; no supported next form. Preserve3071 and full attempts.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

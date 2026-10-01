@@ -570,3 +570,28 @@ The clean batch returned BATCH_COMPLETE in 93.767 seconds: full game/mapped
 rodata identical, 1,092 tests passed / 12 skipped, metadata/progress/whitespace
 passed. The accepted task total is 35 functions / 13,008 bytes. The source unit
 remains mixed and no batch IDs remain pending.
+
+## Bounded callback and display-list continuation
+
+Three more normal-ready 508-byte functions entered the source loop after
+raw-duplicate/prior-attempt screening:
+
+- `func_15113E54`: 3071 → 3176. Reusing the same real source values across two
+  sequential traversals recovers some register roles but worsens the result.
+  Best 3071 remains. The compiler hoists a record-byte offset and spills the
+  outer index; raw recomputes that offset inside the inner traversal.
+- `func_151177C0`: 2220 → 2355 → 2355. The callback's existing one-pointer void
+  contract replaces misleading incidental-register arguments in the starter.
+  Separate normalized baseline/option values and compound byte updates do
+  not recover the raw mode-value lifetime. Best 2220 remains.
+- `func_15155CFC`: 8293 → 7533 → 4991. The matched integer-leading, ten-argument
+  matrix helper contract replaces the starter's stale leading-float guess.
+  Separate real command-write pointers and reuse of the advancing formal
+  recover the raw display-list register roles. The third formal stays `s32`
+  with explicit narrowing: raw entry normalization alone is not an existing
+  narrow declaration. Frame, FP lifetime and normalization scheduling remain.
+
+All eight scored forms, best candidates and rejected revisions are retained.
+Original ASM remains active for these three functions. Incremental full
+US game/mapped-rodata equality, progress and whitespace pass; no empty clean
+batch was run. Accepted total remains 35 / 13,008 bytes.
