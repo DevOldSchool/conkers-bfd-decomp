@@ -94080,6 +94080,12 @@
       "symbol": "func_80007DAC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1115,
+        "reason": "Independent helper contracts and compact phase state recover frame 0x38: 1917 to 1136 to 1115. Preserve best form with exact normalization/division behavior; remaining range/distance allocation and byte-fold scheduling need new evidence. No further local-order search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -94093,6 +94099,12 @@
       "symbol": "func_8000A420"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 23980,
+        "reason": "Typed 8-byte point records and verified vector/13-argument contracts give a coherent nearest-segment candidate. First form 23980 is better than the explicit byte-offset lifetime form 30441. Compiler unroll and allocation differ; stop without manual unrolling or layout enumeration.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -94106,6 +94118,12 @@
       "symbol": "func_8000A750"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 319,
+        "reason": "Float helper contract corrected from existing matched definition. Full rounded angle plus narrowed output improves 1069 to 319. Mapped mode home with separate pan state fixes storage but worsens allocation to 340. Preserve both forms; retain best 319 without further search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

@@ -848,3 +848,43 @@ the source-local type updates: `BATCH_COMPLETE`, full US ROM match, 1,346 tests
 with 12 skipped, metadata, progress and whitespace passed. Accepted totals
 remain **60 / 6,536 bytes**, with **2,693** accepted US C functions. No new
 matches or accepted pending IDs are credited to this candidate-only batch.
+
+## Twentieth batch: spatial-audio contracts and candidates
+
+This pass preserves three assembly-backed candidates and adds no accepted C.
+Independent raw caller/callee review establishes one meaningful float input for
+`850487E0`: its extra formal in the existing game-side C definition is overwritten
+before use, and `8000A420` supplies only F12. The source-local main alias now uses
+that actual input contract without inventing a second value; the matched provider
+is unchanged. The planar-distance helper consumes four full-word coordinates,
+and the spatial-distance helper consumes three. The unused Y formal in `A420`
+remains full-width.
+
+`8000B060` improved from 1069 to 319 by retaining the full rounded angle before
+its halfword transforms. A separately preserved storage reconstruction puts the
+real mode halfword at the correct home but worsens allocation to 340; it was not
+accepted in preference to the lower-scoring form. The corrected helper-contract
+recheck remains 319.
+
+`8000A420` improved from 1917 to 1136 and then 1115. Reusing phase-local values
+and a measured storage layout restores its 0x38-byte frame and mode/gain/distance
+homes while keeping the real cross-call states. The last form lets the compiler
+retain the repeated immutable-limit difference without an extra source-level
+name. Range/distance allocation and the byte-fold output path remain unresolved.
+
+`8000A750` now has a typed nearest-point and adjacent-segment projection candidate.
+The point table contains 8-byte records with signed coordinates at 0/2/4; it is
+not the existing grid type whose values have an 8-byte header prefix. Two real
+three-float stack vectors use the independently verified dot-product, length and
+in-place scale contracts. The 13-argument interface and zero-count return leave
+output-pointer behavior intact. Its first form scores 23980; explicit byte-offset
+lifetimes and a changed cursor update worsen this to 30441. The clearer first
+form is retained. The compiler's two-way scan unroll differs from the reference's
+four-way form; no handcrafted unroll or layout search was introduced.
+
+The clean dependency regression rechecked the already-matched angle and vector
+scale providers: `BATCH_COMPLETE`, integrated US game-code and linked rodata
+byte checks, 1,346 tests with 12 skipped, metadata, progress and whitespace
+passed. A supplemental main build also matched the US ROM. Accepted totals
+remain **60 / 6,536 bytes**, with **2,693** accepted US C functions and no
+accepted pending IDs. This candidate-only pass does not add match credit.
