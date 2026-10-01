@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_emission_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514F640
  * - func_1514F808
  * - func_1514F8F8
  * - func_1514FCE8
@@ -41,21 +40,16 @@ f32 func_15144A74(void *, void *);                  /* extern */
 s32 func_15144E80(void *, void *, void *, void *);  /* extern */
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);      /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F640 CURRENT (8) */
 void func_1514F640(s32 arg0, u8 *arg1) {
-    void *temp_a3;
 
     *(s8 *)((u8 *)arg1 + 0) = 2;
-    temp_a3 = (void *)(arg1 + 4);
     *(f32 *)((u8 *)arg1 + 0x28) = (f32) *(f32 *)(arg0 + 0x20);
-    if ((func_15144E80((void *)(arg0 + 0xC), arg1 + 0x10, arg1 + 0x1C, temp_a3) != 0) && (func_15144A74(temp_a3, (void *)arg0) < 0.0f)) {
+    if ((func_15144E80((void *)(arg0 + 0xC), arg1 + 0x10, arg1 + 0x1C, (arg1 + 4)) != 0) && (func_15144A74((arg1 + 4), (void *)arg0) < 0.0f)) {
         *(f32 *)((u8 *)arg1 + 4) = (f32) -*(f32 *)((u8 *)arg1 + 4);
         *(f32 *)((u8 *)arg1 + 8) = (f32) -*(f32 *)((u8 *)arg1 + 8);
         *(f32 *)((u8 *)arg1 + 0xC) = (f32) -*(f32 *)((u8 *)arg1 + 0xC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514F640 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F640.s")
 s32 func_15146078();
 
 s32 func_1514F6E8(void *arg0) {

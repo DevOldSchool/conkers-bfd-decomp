@@ -740,18 +740,16 @@ extern u8 D_800C3868[];
 extern void *D_800C3A50[];
 extern f32 D_800969D4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501FC8C CURRENT (633) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501FC8C CURRENT (567) */
 void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5) {
     f32 time;
     s32 key_index;
     s32 sample_index;
     f32 positions[6];
     f32 *times;
+    f32 numerator;
     f32 ratio;
-    void **resource_slot;
-    s32 byte_offset;
 
-    resource_slot = &D_800C3A50[arg5];
     if (*(u16 *)((u8 *)D_800C35C8[arg5] + arg0 * 2) >= 2) {
         if (arg1 > 100.0f) {
             arg1 = 100.0f;
@@ -759,15 +757,14 @@ void func_1501FC8C(s32 arg0, f32 arg1, f32 *arg2, f32 *arg3, f32 *arg4, s32 arg5
         if (arg1 < 0.0f) {
             arg1 = 0.0f;
         }
-        byte_offset = arg0 << 6;
-        time = *(f32 *)((u8 *)*resource_slot + byte_offset) * arg1 * D_800969D4;
+        time = *(f32 *)((u8 *)D_800C3A50[arg5] + (arg0 << 6)) * arg1 * D_800969D4;
         sample_index = func_1501F72C(arg0, time, positions, arg5, &key_index);
         if (*(u16 *)(*(u8 **)(D_800C3868 + arg5 * 0x78 + arg0 * 4) + key_index * 8 + 6) == 0) {
-            times = *(f32 **)((u8 *)*resource_slot + byte_offset + 0x38) + sample_index;
+            times = *(f32 **)((u8 *)D_800C3A50[arg5] + (arg0 << 6) + 0x38) + sample_index;
             arg1 = times[1] - times[0];
-            ratio = time - times[0];
+            numerator = time - times[0];
             if (arg1 != 0.0f) {
-                ratio /= arg1;
+                ratio = numerator / arg1;
             } else {
                 ratio = 0.0f;
             }

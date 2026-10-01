@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15183290
  * - func_151838B0
- * - func_15183974
  * - func_15183ACC
  * - func_15183BA4
  * - func_15183C28
@@ -53,21 +52,15 @@ void func_151838B0(s32 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151838B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_151838B0.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15183974 CURRENT (16) */
 void func_15183974(s32 arg0) {
-    Game1B0740Slot *slot;
-
-    slot = &D_800DDE80[arg0];
-    if (slot->field0 == 0) {
+    if (D_800DDE80[arg0].field0 == 0) {
         func_15183ACC(arg0);
     }
-    if (slot[1].field0 == 0) {
+    if ((&D_800DDE80[arg0])[1].field0 == 0) {
         func_15183ACC(arg0 + 1);
-        slot[1].fieldC = slot->fieldC;
+        (&D_800DDE80[arg0])[1].fieldC = D_800DDE80[arg0].fieldC;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15183974 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B0740/func_15183974.s")
 extern u8 D_800DDF68[];
 void func_151839F0(s32 arg0, s32 arg1) {
     Game1B0740Slot *second;

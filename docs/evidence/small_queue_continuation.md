@@ -363,3 +363,46 @@ progress and whitespace passed. This adds one match / 320 bytes, for a total
 25 functions / 10,612 bytes. No pending batch IDs remain. This is a second
 successful application of the storage diagnosis, still not a controlled
 measurement of overall throughput.
+
+## Direct-address family, plus two informative near-misses
+
+The storage lesson was applied to three already-preserved functions with one
+named derived address and otherwise exact code. Each direct-expression form
+was tested once:
+
+- `func_151239CC`, camera, 136 bytes: 8 → 0. Removing the named owner/index
+  halfword-base address moved its compiler spill from 0x18 to the required
+  0x1C without changing the 0x20 frame.
+- `func_1514F640`, geometry, 168 bytes: 8 → 0. Using `arg1 + 4` directly moved
+  the derived call-argument spill from 0x20 to 0x24, preserving the 0x28 frame.
+- `func_15183974`, paired table slots, 124 bytes: 16 → 0. Direct accesses to the
+  same array slots recovered all four pointer spill/reload homes at 0x1C.
+
+The fourth proposed sibling `func_1518F7C4` falsified the same storage hypothesis:
+removing its one-pointer wrapper made the compiler rematerialize payload fields
+from the owner instead of retaining a derived pointer, shrinking frame 0x28 to
+0x18 and worsening 8 → 1355. Its original best8 was restored. No additional
+formal reuse or allocation permutation was attempted.
+
+Two separate candidates improved without matching:
+
+- `func_1501FC8C`: independent `.mdebug` and raw dataflow justified a distinct
+  numerator from the branch-merged interpolation ratio, plus direct slot/offset
+  expressions. The exact reviewed body improved 633 → 567; real buffer/time/key
+  homes stayed exact, derived spills moved to the predicted 0x24/0x28, and the
+  time/numerator/ratio identities became f2/f14/f0. Resource data is still
+  reloaded after the helper. Duplicate zero and endpoint FP scheduling remain.
+- `func_1513A48C`: removing two named constant-value homes improved 692 → 610,
+  restoring frame0x68 and config0x2C. No stack/register/control difference
+  remains, but a global constant load and field stores still move across
+  independent operations. No speculative scheduling sequence followed.
+
+These results show both the usefulness and limits of removing source-level
+address names. Correct compiler preservation must be verified independently
+for every target; no general equivalence or matching rule replaces full gates.
+
+The three-function clean batch returned BATCH_COMPLETE in 86.613 seconds:
+full US game code and mapped rodata identical, 1,092 tests passed / 12 skipped,
+metadata/progress/whitespace passed. The three source units remain mixed.
+This adds 3 functions / 428 bytes, bringing the task total to 28 / 11,040 bytes.
+The two improved candidates stay disabled, and no batch IDs remain pending.

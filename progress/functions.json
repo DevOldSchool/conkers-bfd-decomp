@@ -1383,8 +1383,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 692,
-        "reason": "best verified CURRENT (692) after two manual revisions; instruction/register shape is otherwise exact, but explicit FPU lifetimes add 8 bytes to the frame and shift the entire local config from 0x2c to 0x34",
+        "current_score": 610,
+        "reason": "Direct constant-value expressions remove two redundant FP source homes:692 to610, frame68/config2C now exact, no stack/register/control rows. Remaining global-constant preload and independent field-store scheduling; no further grounded dependency. Preserve one new form and prior692 in blood-config-review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7401,17 +7401,16 @@
       "symbol": "func_15123934"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "CURRENT8 improved688: pass actual owner helper argument, direct returns, inline word-base calculations. Body/frame exact; halfword-base spill18 vs raw1C. Two-used-base and result/base records both10 with oversized28 frame. Best8 preserved after five revisions.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151239CC",
           "vram": "0x151239CC"
         }
@@ -38749,8 +38748,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 633,
-        "reason": "Raw callee1501F72C returns sample index in v0; corrected stale void declaration. Typed six-float output and interval interpolation first933, reduced real temporaries738, explicit numerator stage633. Frame now exact; resource/offset spill positions and FP allocation/scheduling remain. No invented return value or M2C unset-register placeholder.",
+        "current_score": 567,
+        "reason": "Independent exact proposal improved633 to567: actual numerator separate from ratio, direct slot/offset expressions preserve reload after call. Frame and real homes unchanged; derived spills24/28 and time/numerator/ratio FP identities now exact. Remaining duplicate-zero/FP interpolation scheduling; full proposal and proof in resource-slot-review.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46590,17 +46589,16 @@
       "symbol": "func_151838B0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 16,
-        "reason": "Reconfirmed best full-span CURRENT (16): four pointer spill/reloads use sp+0x18 instead of raw sp+0x1C. Proven sibling two-word padded aggregate moves pointer to sp+0x1C but expands frame from raw 0x20 to 0x28 and moves arg home; prior alias/union attempts had same tradeoff. Restored best candidate and exhausted this stack-shape approach.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 124,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15183974",
           "vram": "0x15183974"
         }
@@ -51372,17 +51370,16 @@
       "symbol": "func_1514C858"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 8,
-        "reason": "US CURRENT (8): only pointer spill/reload at sp+0x20 instead of raw sp+0x24 within correct 0x28 frame; padded pointer record moves spill to sp+0x24 but enlarges frame to 0x30 and shifts arg0 home from sp+0x28 to sp+0x30, scoring 42; this stack-shape approach did not improve best candidate",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1514F640",
           "vram": "0x1514F640"
         }
@@ -79685,7 +79682,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 8,
-        "reason": "CURRENT (8): full-span US pointer spill/reload remains at sp+0x18 versus raw sp+0x1C; combined selector-and-pointer semantic struct retained 0x28 frame but did not move pointer, while prior padding moved it only with a wrong 0x30 frame",
+        "reason": "Best8 restored. New direct payload-address expressions scored1355: compiler rematerializes fields from owner and removes required derived spill, shrinking frame28 to18. Local-removal hypothesis falsified here; previous pointer-record/formal hypotheses remain exhausted. See derived-address-family.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

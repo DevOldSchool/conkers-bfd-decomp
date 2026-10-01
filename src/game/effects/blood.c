@@ -1154,14 +1154,10 @@ extern f32 D_800A4954;
 extern f32 D_800A4958;
 extern f32 D_800A495C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A48C CURRENT (692) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A48C CURRENT (610) */
 void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
     BloodA48CConfig config;
-    register f32 repeated;
-    register f32 zero_value;
 
-    repeated = D_800A4950;
-    zero_value = 0.0f;
     config.field_0 = 8;
     config.field_4 = 4;
     config.position = *arg0;
@@ -1171,14 +1167,14 @@ void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
     config.field_1A = 0x20;
     config.field_2C = 0x28;
     config.field_2E = 0x14;
-    config.field_30 = repeated;
-    config.field_34 = repeated;
+    config.field_30 = D_800A4950;
+    config.field_34 = D_800A4950;
     config.field_1C = 10.0f;
     config.field_20 = 9.0f;
     config.field_24 = D_800A4954;
     config.field_28 = D_800A4958;
     config.field_38 = D_800A495C;
-    func_15152190(&config, D_800A4260, D_800A4264, 1, zero_value, 1,
+    func_15152190(&config, D_800A4260, D_800A4264, 1, 0.0f, 1,
                   (s32)arg1, arg2);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513A48C */
