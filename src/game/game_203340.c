@@ -324,4 +324,59 @@ void func_151D66F0(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D66F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D66F0.s")
+void *func_1501A680(void *);
+s32 func_10003C40(s32, s32, s32, s32);
+void *func_151D6418(u8 *, s32, s32, s32);
+void *func_151D5E90(u8 *, s32, s32, s32);
+extern s32 D_8002AAE8[];
+extern u8 D_800BE9C0;
+extern u8 D_800BEAC0;
+
+typedef struct Game203340Command { u32 first, second; } Game203340Command;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6778 CURRENT (4473) */
+u8 *func_151D6778(u8 *arg0) {
+    Game203340Command *cursor = (Game203340Command *)arg0;
+    Game203340Command *command;
+    s32 allocated;
+    s32 *buffer;
+    u32 flags;
+
+    flags = (u8)D_800BE574;
+    if ((flags == 0 && D_800BE9F0 != 0x32 && D_800BE9F0 != 0x33) || D_800BEAC0 != 0) {
+        return (u8 *)cursor;
+    }
+    if (flags != 0) {
+        buffer = &D_800BE570;
+        command = cursor++;
+        command->first = 0xE7000000;
+        command->second = 0;
+        if (*buffer != 0) {
+            cursor = func_151D6418((u8 *)cursor, *buffer, 0, flags);
+        } else {
+            allocated = func_10003C40(D_800BE620 * D_800BE624 * 2, 1, 3, 1);
+            *buffer = allocated;
+            if (allocated == 0) {
+                return (u8 *)cursor;
+            }
+        }
+        command = cursor++;
+        command->first = ((D_800BE620 - 1) & 0xFFF) | 0xFF100000;
+        command->second = *buffer;
+        command = cursor++;
+        command->first = 0xED000000;
+        command->second = (((s32)((f32)D_800BE620 * 4.0f) & 0xFFF) << 12) |
+                           ((s32)((f32)D_800BE624 * 4.0f) & 0xFFF);
+        cursor = func_151D5E90((u8 *)cursor, D_8002AAE8[D_800BE9C0], 0, 4);
+        command = cursor++;
+        command->first = 0xEF082C3F;
+        command->second = 0x552230;
+        command = cursor++;
+        command->first = 0xD9FFFFFF;
+        command->second = 0x220405;
+        cursor = func_1501A680(cursor);
+    }
+    return (u8 *)cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D6778 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6778.s")

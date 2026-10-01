@@ -293,3 +293,33 @@ The required regression-only clean batch then returned `BATCH_COMPLETE`, with
 full game-code/mapped-rodata equality, 1,092 tests passed/12 skipped, and valid
 metadata/progress. The wrapper is an existing match, so it adds no functions or
 bytes. All six new candidates remain disabled and no batch IDs are pending.
+
+## Eighth related group, then audit pause
+
+Six targets received 17 manual variants, with no new exact match. All best
+candidates are disabled with original ASM active. Fresh selection was paused
+at the user's request after the current work was safely checkpointed, to audit
+the low conversion rate rather than repeat the same queue method.
+
+| Target | Scores | Retained evidence |
+| --- | --- | --- |
+| `func_151AABC4` | 911, 776, 776 | Real impact packet and collision/vector records; actual height-local placement recovers major homes. Splitting header/body leaves output unchanged; FP setup and short-store scheduling remain |
+| `func_151EC1F0` | 2550, 655, 655 | Actual helper return contract, macro-style command updates and staged clamps improve code. Official SDK Gfx alignment view has no effect; pointer/store scheduling remains |
+| `func_1509759C` | 604, 562, 1050 | One-argument actor lookup and existing view fields; real result local recovers frame. Third form recovers stack homes but worsens zero-return control flow, so second retained |
+| `func_15156190` | 1591, 993, 933 | Correct pointer return, direct selector switch, real-local and FP operand order recover most construction. Pointer/clear-call scheduling and one saved home remain |
+| `func_151D6778` | 5750, 4473 | Two-word display commands, cursor progression and saved pre-write flags improve the source; pointer/global-address lifetimes remain broad |
+| `func_1501E540` | 909, 271, 271 | Consolidated actual resource-slot pointers and byte offset recover most instructions. Register qualification does nothing; oversized frame and tail pointer scheduling remain |
+
+The source-local `func_15096934` prototype now returns a pointer. Its raw body
+adds eight to incoming a0 at 1509694C and places that pointer in v0 at 15096958;
+its preserved C definition agrees. The unrelated callee source is unchanged.
+The selected `func_15156190` also has an explicit pointer result in raw code:
+failure returns zero, and success reloads the allocated pointer into v0 after
+clearing memory. Its local declaration was corrected, and the existing wrapper
+`func_15156388` still matches exactly without changing its body.
+
+After all candidates were deferred, canonical regression verification and the
+clean batch for 15156388 passed full US game-code/mapped-rodata equality,
+1,092 tests passed/12 skipped, metadata, progress and whitespace. This is an
+existing-match regression, not new matched bytes. The accepted task total stays
+23 functions / 9,784 bytes. There are no pending match or regression IDs.

@@ -38659,6 +38659,12 @@
       "symbol": "func_1501E400"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 271,
+        "reason": "Bounded source-only group eight independently reproduced; hypotheses, helper/return-contract evidence and full differences retained in worker-group-8/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -43928,6 +43934,12 @@
       "symbol": "func_151EC178"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 655,
+        "reason": "Three bounded forms scored 2550/655/655. Raw helper15096934 explicitly returns input+8, so corrected local return annotation. Macro-like command writes and staged clamp arithmetic improve; SDK Gfx alignment view is unchanged. Pointer bumps, store and call-argument scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56886,6 +56898,12 @@
       "symbol": "func_15096D78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 562,
+        "reason": "Three forms scored 604/562/1050. Actual actor lookup has one argument, and existing view fields are extended without moving prior members. Real result local fixes frame; reordered result home fixes stack but shared zero label worsens control flow. Best562 retained; third snapshot preserves exact stack-home lead.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61284,6 +61302,12 @@
       "symbol": "func_151D66F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4473,
+        "reason": "Bounded source-only group eight independently reproduced; hypotheses, helper/return-contract evidence and full differences retained in worker-group-8/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65470,6 +65494,12 @@
       "symbol": "func_151AABA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 776,
+        "reason": "Three bounded forms scored 911/776/776. Real impact packet, collision record and vectors; placing actual height local recovers all major stack homes. Separate header/body records emit the same result. FP setup and short-store scheduling remain; second form retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -66633,6 +66663,12 @@
       "symbol": "func_151087FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 933,
+        "reason": "Bounded source-only group eight independently reproduced; hypotheses, helper/return-contract evidence and full differences retained in worker-group-8/report.json.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

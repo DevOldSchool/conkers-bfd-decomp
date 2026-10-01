@@ -656,6 +656,79 @@ void func_1501E400(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501E400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501E400.s")
+void func_10004074(s32);
+extern s32 D_800C35E0[];
+extern void *D_800C3A50[];
+extern u8 *D_800C3958[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E540 CURRENT (271) */
+void func_1501E540(s32 arg0) {
+    s32 *saved;
+    void **slot0;
+    void **slot1;
+    void **slot2;
+    void **used;
+    s32 index;
+    s32 offset;
+    s32 record;
+    u16 *count;
+    s32 data;
+    s32 slot_offset;
+
+    slot_offset = arg0 * 4;
+    saved = &D_800C3668[arg0];
+    data = *saved;
+    if (data != 0) {
+        count = *(u16 **)data;
+        index = 0;
+        if ((s32)*count > 0) {
+            offset = 0;
+            do {
+                slot0 = &D_800C3A50[arg0];
+                if (*(u16 *)((u8 *)D_800C35C8[arg0] + offset) != 0) {
+                    record = index << 6;
+                    func_10004074(*(s32 *)((u8 *)*slot0 + record + 4));
+                    func_10004074(*(s32 *)((u8 *)*slot0 + record + 0x38));
+                }
+                index++;
+                offset += 2;
+            } while (index < (s32)*count);
+            index = 0;
+        }
+        slot0 = &D_800C3A50[arg0];
+        used = &D_800C35C8[arg0];
+        func_10004074((s32)*slot0);
+        slot1 = (void **)&D_800C3958[arg0];
+        *slot0 = 0;
+        func_10004074((s32)*slot1);
+        *slot1 = 0;
+        if ((s32)*count > 0) {
+            slot0 = (void **)((u8 *)D_800C3960 + arg0 * 0x78);
+            do {
+                func_10004074((s32)*slot0);
+                *slot0 = 0;
+                index++;
+                slot0++;
+            } while (index < (s32)*count);
+        }
+        func_10004074((s32)*used);
+        slot0 = (void **)((u8 *)&D_800C35D0 + slot_offset);
+        func_10004074((s32)*slot0);
+        slot1 = (void **)&D_800C35D8[arg0];
+        func_10004074((s32)*slot1);
+        slot2 = (void **)&D_800C35E0[arg0];
+        func_10004074((s32)*slot2);
+        *used = 0;
+        *slot0 = 0;
+        *slot1 = 0;
+        *slot2 = 0;
+        func_10004074(D_800C3D50);
+        D_800C3D50 = 0;
+        func_10004074(*saved);
+        *saved = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501E540 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501E540.s")
 void *func_15083E90(u8);
 void func_1507EABC(void *);
