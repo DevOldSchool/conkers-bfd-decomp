@@ -75015,6 +75015,12 @@
       "symbol": "func_15113180"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4727,
+        "reason": "Preserve matrix updater CURRENT (4727): three-float array recovers raw translation storage and sole F20 save (8676 to6348); explicit count lifetime improves to4727. Proven actor stride, helper contracts and u16 table entries retained. Frame and register/scheduling differences remain; no artificial padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75028,6 +75034,12 @@
       "symbol": "func_15113218"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4056,
+        "reason": "Preserve best renderer at CURRENT (4056). Real cross-call view offset restores the flag slot and frame (5473 to5081); typed eight-byte command cursor improves to4056. Fullword view formal retained; register allocation, reload and global-address scheduling differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -54,7 +54,240 @@ void func_15113180(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15113180 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113180.s")
+typedef struct {
+    u8 transform[0x30];
+    f32 position_x;
+    f32 position_y;
+    f32 position_z;
+    u8 pad_3C[4];
+} Game13F9D0Transform;
+
+typedef struct {
+    f32 field_0;
+    f32 field_4;
+    f32 field_8;
+} Game13F9D0TransformArgs;
+
+typedef struct {
+    s32 field_0;
+    s32 field_4;
+    s32 field_8;
+    s32 field_C;
+    s32 field_10;
+    s32 field_14;
+    s32 field_18;
+    s32 field_1C;
+    s32 field_20;
+    s32 field_24;
+    s32 field_28;
+    s32 field_2C;
+    s32 field_30;
+    s32 field_34;
+    u32 field_38;
+    f32 field_3C;
+} Game13F9D0Matrix;
+
+typedef struct {
+    u8 pad_0[0x10];
+    s16 field_10;
+    s16 field_12;
+    s16 field_14;
+    u8 pad_16[2];
+    f32 field_18;
+    u8 pad_1C[0x10];
+    s32 field_2C;
+    s32 field_30;
+    s32 field_34;
+    u8 pad_38[0x16];
+    u8 kind4E;
+    u8 pad_4F[0x21];
+    u8 flags70;
+} Game13F9D0MotionArgs;
+
+typedef struct Game13F9D0DrawEntry {
+    u16 index;
+    u16 value;
+} Game13F9D0DrawEntry;
+
+void *func_151733D8(void *, s32);
+s32 func_151137D4(s32, void *, s32, s32, s32, s32);
+s32 func_1515E544(s32, s32, s32, s32, void *);
+extern u8 **D_80089240;
+extern u8 **D_80089250[];
+extern u8 D_80089470;
+extern u8 D_800BE9C0;
+extern u8 D_800D9BD0[];
+extern s32 D_800D9E10[];
+extern u8 D_800D9E20;
+extern u8 D_800D9E21;
+extern u16 D_800DBEE8[];
+
+typedef struct Game13F9D0AttachedActor {
+    u8 pad0[0x14];
+    f32 xyz[3];
+    u8 pad20[0x70];
+    s16 field90;
+    u8 pad92[0x142];
+    Game13F9D0Transform *transform1D4;
+    u8 pad1D8[0x154];
+} Game13F9D0AttachedActor;
+
+s32 func_150859AC(s32, s32);
+void func_150A7790(void *, s32);
+void func_150A7B80(void *);
+void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
+void func_150442C0(f32 [4][4], f32, f32, f32);
+void func_1511490C(Game13F9D0Transform *, Game13F9D0MotionArgs *);
+extern s32 D_80082FA0;
+extern u8 D_800CC2D0;
+extern u8 D_800DBF08[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15113218 CURRENT (4727) */
+void func_15113218(void) {
+    Game13F9D0Transform matrix;
+    s32 view;
+    f32 translation[3];
+    s32 offset;
+    u16 *count;
+    u8 ***table;
+    Game13F9D0MotionArgs *motion;
+    Game13F9D0AttachedActor *actor;
+    Game13F9D0Transform *parent;
+    u16 index;
+    u16 countValue;
+    u8 kind;
+
+    if (D_80082FA0 >= 0) {
+        view = 0;
+        do {
+            if (func_150859AC((s16)view, 0) != 0) {
+                count = &D_800DBEE8[view];
+                countValue = *count;
+                if (countValue > 0) {
+                    table = &D_80089240 + view;
+                    offset = 0;
+                    do {
+                        index = ((Game13F9D0DrawEntry *)(**table + offset))->index;
+                        motion = (Game13F9D0MotionArgs *)(index * 0xA0 + D_800DBEF4);
+                        if ((motion->flags70 & 1) == 1) {
+                            func_150A7B80(*D_80089250[D_800BE9C0] + (index << 6));
+                            countValue = *count;
+                        } else {
+                            kind = motion->kind4E;
+                            if (kind == 3) {
+                            } else if (kind < 3) {
+                                func_1511490C(&matrix, motion);
+                                func_150A7790(&matrix,
+                                    (s32)(*D_80089250[D_800BE9C0] +
+                                    (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
+                                countValue = *count;
+                            } else if (kind >= 0x65 && kind < 0x7D) {
+                                actor = &((Game13F9D0AttachedActor *)&D_800CC2D0)[kind - 100];
+                                if (actor->transform1D4 == 0) {
+                                    func_150A7CB0((Game13F9D0Matrix *)&matrix,
+                                        motion->field_2C, motion->field_30, motion->field_34);
+                                    matrix.position_x = actor->xyz[0];
+                                    matrix.position_y = actor->xyz[1];
+                                    matrix.position_z = actor->xyz[2];
+                                    func_150A7790(&matrix,
+                                        (s32)(*D_80089250[D_800BE9C0] +
+                                        (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
+                                    countValue = *count;
+                                } else {
+                                    translation[2] = 0.0f;
+                                    translation[0] = translation[2];
+                                    translation[1] = (f32)actor->field90;
+                                    parent = actor->transform1D4;
+                                    func_150A7CB0((Game13F9D0Matrix *)&matrix,
+                                        motion->field_2C, motion->field_30, motion->field_34);
+                                    matrix.position_x = parent->position_x;
+                                    matrix.position_y = parent->position_y;
+                                    matrix.position_z = parent->position_z;
+                                    func_150442C0((f32 (*)[4])&matrix,
+                                        translation[0], translation[1], translation[2]);
+                                    motion->field_10 = (s32)matrix.position_x;
+                                    motion->field_12 = (s32)matrix.position_y;
+                                    motion->field_14 = (s32)matrix.position_z;
+                                    func_150A7790(&matrix,
+                                        (s32)(*D_80089250[D_800BE9C0] +
+                                        (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
+                                    countValue = *count;
+                                }
+                            } else {
+                                func_150A7790(D_800DBF08 + (D_800BE9C0 << 6),
+                                    (s32)(*D_80089250[D_800BE9C0] + (index << 6)));
+                                countValue = *count;
+                            }
+                        }
+                        offset += 4;
+                    } while (offset < countValue * 4);
+                }
+            }
+            view++;
+        } while (D_80082FA0 >= view);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15113218 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_15113218.s")
+
+
+typedef struct Game13F9D0Command {
+    u32 word0;
+    u32 word1;
+} Game13F9D0Command;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151135C4 CURRENT (4056) */
+void *func_151135C4(Game13F9D0Command *arg0, s32 arg1, s32 arg2) {
+    s32 viewOffset;
+    s32 flags;
+    s32 index;
+    s32 offset;
+    u16 *count;
+    u8 ***table;
+    Game13F9D0DrawEntry *entry;
+    Game13F9D0Command *command;
+
+    if (arg1 == 0) {
+        flags = 0;
+    } else {
+        flags = 0x10;
+    }
+    command = func_151733D8(arg0, 0);
+    command[0].word0 = 0xD9A3FFFF;
+    command[0].word1 = 0;
+    command[1].word1 = 0x20000;
+    command[1].word0 = 0xD9FFFFFF;
+    viewOffset = (s16)arg2 * 4;
+    arg0 = (Game13F9D0Command *)func_1515E544((s32)(command + 2),
+                          *(s32 *)((u8 *)D_800D9E10 + viewOffset),
+                          D_800D9E20, D_800D9E21,
+                          D_800D9BD0 + (s16)arg2 * 0x10 + D_800BE9C0 * 8);
+    count = &D_800DBEE8[(s16)arg2];
+    index = 0;
+    if (*count > 0) {
+        table = (u8 ***)((u8 *)&D_80089240 + viewOffset);
+        offset = 0;
+        do {
+            entry = (Game13F9D0DrawEntry *)(**table + offset);
+            arg0 = (Game13F9D0Command *)func_151137D4((s32)arg0, (void *)(entry->index * 0xA0 + D_800DBEF4),
+                                  (s32)(*D_80089250[D_800BE9C0] + (entry->index << 6)),
+                                  (s16)arg2, entry->value, flags);
+            index++;
+            offset += 4;
+        } while (index < *count);
+    }
+    command = arg0++;
+    command->word0 = 0xDA380003;
+    command->word1 = (u32)&D_80089470;
+    command = arg0++;
+    command->word0 = 0xD9AFFDFF;
+    command->word1 = 0;
+    command = arg0++;
+    command->word1 = 0x20000;
+    command->word0 = 0xD9FFFFFF;
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151135C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151135C4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_151137D4.s")
 s32 func_15022B08(s32, s32);
@@ -364,51 +597,7 @@ void func_1511473C(Game13F9D0MovingActor *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511473C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13F9D0/func_1511473C.s")
-typedef struct {
-    u8 transform[0x30];
-    f32 position_x;
-    f32 position_y;
-    f32 position_z;
-    u8 pad_3C[4];
-} Game13F9D0Transform;
 
-typedef struct {
-    f32 field_0;
-    f32 field_4;
-    f32 field_8;
-} Game13F9D0TransformArgs;
-
-typedef struct {
-    s32 field_0;
-    s32 field_4;
-    s32 field_8;
-    s32 field_C;
-    s32 field_10;
-    s32 field_14;
-    s32 field_18;
-    s32 field_1C;
-    s32 field_20;
-    s32 field_24;
-    s32 field_28;
-    s32 field_2C;
-    s32 field_30;
-    s32 field_34;
-    u32 field_38;
-    f32 field_3C;
-} Game13F9D0Matrix;
-
-typedef struct {
-    u8 pad_0[0x10];
-    s16 field_10;
-    s16 field_12;
-    s16 field_14;
-    u8 pad_16[2];
-    f32 field_18;
-    u8 pad_1C[0x10];
-    s32 field_2C;
-    s32 field_30;
-    s32 field_34;
-} Game13F9D0MotionArgs;
 
 void func_150A7A48(void *, void *, void *);
 void func_150A8050(void *, f32, f32, f32);

@@ -1219,3 +1219,40 @@ the main PI initializer. Full US ROM, integrated game/rodata, 1,346 tests with
 12 skipped, metadata, progress and whitespace gates pass with `BATCH_COMPLETE`.
 No new matches are credited: cumulative totals remain **63 / 7,684 bytes**,
 with **2,696** accepted US C functions and no accepted pending IDs.
+
+## Thirty-first batch: draw tables and matrix contracts
+
+The draw-list candidate `151135C4` in `game_13F9D0.c` improves 5473 to 5081
+by preserving the raw view-table byte offset across a helper call, recovering
+its flag spill and frame. Typed eight-byte commands and post-increment cursor
+lifetimes improve it to 4056. The view formal remains s32 because no existing
+narrow declaration was found. Pointer-table indirection, unsigned-halfword
+record fields and the four-byte record stride are independently established.
+The candidate remains disabled with allocation and scheduling differences.
+
+Its matrix-updating sibling `15113218` improves 8676 to 6348 when the actual
+three-component translation vector is expressed as a float array. This restores
+stack-resident component transport and removes the extra saved floating
+register. Explicitly preserving the count on the no-call path, and reloading
+it after helper calls, improves the result to 4727. The final 0xD0 frame still
+differs from 0xD8. Actor stride 0x32C, fields at 0x14/0x18/0x1C, halfword at
+0x90 and transform pointer at 0x1D4 are grounded in raw and project evidence.
+Existing matrix and motion views retain their established fields. No padding
+or fictitious state is introduced to explain the remaining gap.
+
+The unset second identity-matrix argument came from an incorrect declaration.
+The complete raw body of `150A7B80` reads only its output pointer, and its
+existing deferred provider already has that one-pointer contract. The sole
+contrary active declaration and call in `game_168A90.c` are corrected together.
+The computed output pointer is unchanged. Its matched caller `1513B968` is
+exact before and after, including the source-unit layout gate. The shared diff
+received independent review. `150442C0` uses its established matrix-plus-three-
+float signature; no integer argument slots are invented for its float bits.
+
+A clean 15-target batch verifies all 13 existing matches in the two affected
+units, the floating transform helper and the main PI initializer. Full US ROM,
+integrated game/rodata, 1,346 tests with 12 skipped, metadata, progress and
+whitespace gates pass with `BATCH_COMPLETE`. The deferred renderer remains
+4056 after the type-view changes. No new matches are credited: totals remain
+**63 / 7,684 bytes**, with **2,696** accepted US C functions and no accepted
+pending IDs.
