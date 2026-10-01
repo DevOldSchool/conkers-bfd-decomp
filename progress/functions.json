@@ -51068,7 +51068,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 270,
-        "reason": "Best bounded candidate CURRENT (270); exact frame and call sequence match, but local temporary pointers remain at sp+0x30/sp+0x24 instead of target sp+0x34/sp+0x28.",
+        "reason": "Real two-vector outputs replace oversized untyped buffer; homes now exact at34/28. CURRENT270 unchanged because three instruction moves remain. Conditional-expression scale is code-neutral. First typed form retained, older body and both diffs preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51087,8 +51087,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D8B88",
           "vram": "0x150D8B88"
         }

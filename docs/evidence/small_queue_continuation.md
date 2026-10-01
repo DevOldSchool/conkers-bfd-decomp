@@ -541,3 +541,32 @@ The clean related-group batch returned BATCH_COMPLETE in 87.132 seconds: full
 US game image and mapped rodata identical, 1,092 tests passed / 12 skipped,
 metadata/progress/whitespace passed. The unit remains mixed. Accepted total is
 34 functions / 12,500 bytes, with no pending batch IDs.
+
+## Fresh packet-copy match with a predicted source-home gap
+
+The next normal-ready target, `func_150D8B88` (508 bytes), initially compiled
+at 81. Its real 0x1C spawn descriptor, 0x50 copied payload and 12-byte coordinate
+snapshot reproduced every instruction, register and control-flow operation.
+Only 19 payload/snapshot address rows differed, all by four bytes; the spawn
+and 0xC8 frame were already exact.
+
+The object `.mdebug` placed source homes at entry-SP offsets -28 (spawn), -108
+(payload), -120 (snapshot), -124 (returned object) and -128 (entity). The raw
+layout has a four-byte gap immediately below the spawn, followed by the payload
+and snapshot four bytes lower. Moving the existing returned-object declaration
+into that gap, without adding any storage or changing expressions, predicted
+all remaining accesses. The one test reached CURRENT (0) in 6.724 seconds
+(initial form: 2.166 seconds). This is a specific recovered source-home layout,
+not a general license to permute declarations or insert unused words.
+
+The adjacent helper `func_150D8B3C` had an oversized untyped 0x1C output buffer.
+Matched callers and its raw callee establish two actual 12-byte vector outputs.
+Using those vectors corrects their two homes to 0x34/0x28, while three moved
+instructions remain and the score stays 270. A conditional-expression scale
+selection was code-neutral. The first typed form is retained inactive, with
+the old buffer candidate and both tests preserved; no further schedule probe.
+
+The clean batch returned BATCH_COMPLETE in 93.767 seconds: full game/mapped
+rodata identical, 1,092 tests passed / 12 skipped, metadata/progress/whitespace
+passed. The accepted task total is 35 functions / 13,008 bytes. The source unit
+remains mixed and no batch IDs remain pending.
