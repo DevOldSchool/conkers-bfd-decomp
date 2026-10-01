@@ -664,7 +664,7 @@ extern f32 D_800A8FD4;
 extern f32 D_800A8FD8;
 extern f32 D_800A8FDC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AABC4 CURRENT (776) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AABC4 CURRENT (746) */
 void func_151AABC4(u8 *arg0, s32 arg1) {
     Game1D6E80Vec3 joint;
     Game1D6E80ImpactHit hit;
@@ -678,9 +678,9 @@ void func_151AABC4(u8 *arg0, s32 arg1) {
         color = func_151D8E20();
         func_15142314(*(s32 *)(arg0 + 0x1D4), D_800A8F70[(u8)arg1], &joint);
         func_1504715C(&hit, arg0);
+        query.x = joint.x;
         height = joint.y + 50.0f;
         query.y = height;
-        query.x = joint.x;
         query.z = joint.z;
         if (func_1504697C(&query, 0, height - 100.0f, &hit) != 0) {
             position.x = joint.x;
@@ -688,9 +688,9 @@ void func_151AABC4(u8 *arg0, s32 arg1) {
             position.z = joint.z;
             func_151DBCBC(color, 40.0f, 150, (s32)hit.geometry, &position.x, 255, 1);
             packet.position = position;
+            packet.value2C = 3;
             packet.value2E = 3;
             packet.scale = 2.5f;
-            packet.value2C = 3;
             packet.alpha = 255;
             packet.angle = -64;
             packet.variant = 26;

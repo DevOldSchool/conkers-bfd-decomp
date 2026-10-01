@@ -328,7 +328,8 @@ restore toolchain and owned ROM privately, then rerun setup and baseline checks.
 When a bounded candidate has stable operations but still differs in frame,
 stack homes or address temporaries, do not infer difficulty from its score.
 The [matching conversion audit](evidence/matching_conversion_audit.md) records
-one fully verified example of the following evidence-led process:
+the initial verified example of the following evidence-led process; later
+packet and address cases are recorded in the [continuation ledger](evidence/small_queue_continuation.md):
 
 1. Preserve the best source and full diff before investigation. Record exact
    source/object hashes, compiler settings, raw span and prior failed forms.
@@ -351,3 +352,12 @@ one fully verified example of the following evidence-led process:
 This is a diagnostic method, not a universal local-count formula or a measured
 throughput guarantee. If raw/source evidence cannot justify another form,
 record that negative result instead of repeating allocation guesses.
+
+Expression form and declared storage must be checked separately. In the
+`151B01B8` packet case, a nested conditional recovered the exact control-flow
+merge but enlarged the frame; reducing it to an outer `if` restored the frame
+while losing that merge. Keeping the correct conditional and removing one
+redundant named table address recovered both. The compiler still preserved the
+necessary derived-address spill. Conversely, other vector cases keep identical
+declared homes while total frame size differs, so debug local offsets alone
+are not a complete allocation model.

@@ -54063,6 +54063,12 @@
       "symbol": "func_1517D7B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6620,
+        "reason": "Natural15-record cleanup6620; explicit prefix/four-way body7640 caused extra compiler unrolling, discarded. Keep6620 with true16/104-byte views; global-base/cursor induction remains, no shared declaration mutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65531,8 +65537,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 776,
-        "reason": "Three bounded forms scored 911/776/776. Real impact packet, collision record and vectors; placing actual height local recovers all major stack homes. Separate header/body records emit the same result. FP setup and short-store scheduling remain; second form retained.",
+        "current_score": 746,
+        "reason": "Related impact-packet followup776\u2192746/746. Query x-first recovers all initialFPregisters; dimensionpair fixeshalfwordhome pairing. Preserve second746, exactframe; remaining independent aggregate/constant scheduling not guessed.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82509,8 +82515,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 512,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151B01B8",
           "vram": "0x151B01B8"
         }

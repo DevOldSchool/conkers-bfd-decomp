@@ -636,3 +636,38 @@ did not recover normalization, vector-frame or FP scheduling. The initial valid
 
 Both remain deferred. Incremental full game/mapped-rodata equality, progress
 and whitespace pass. No pending matches or empty clean batch; total 35 / 13,008.
+
+## Impact-packet merge and derived-address storage
+
+`func_1517DE5C` preserves a 6620 natural 15-record cleanup candidate. It produces
+the expected three-entry prefix and four-way loop, but global-base materialization
+and cursor induction differ. Explicitly copying the starter's unrolled body
+triggered additional compiler unrolling and worsened to 7640; that form was
+rejected. Existing shared global declarations were left alone.
+
+The new `func_151B01B8` (512 bytes) reached full CURRENT (0) in five justified
+forms: 1432 → 856 → 299 → 1445 → 0. Its actual 0x4C impact packet, shade byte
+and 36-byte collision record are supported by the same helper family. A nested
+classification conditional restores the raw merge branch; initializing the
+actual dimension pair before the shade-derived type restores every register
+and scheduling row. The remaining 299 consists only of uniform eight-byte
+frame/home differences.
+
+An outer-if/inner-conditional test recovers the frame but loses the merge and
+is rejected. Removing only the redundant named table-record address from the
+exact-control form lets IDO retain the required derived-address spill at 0x20
+while eliminating the extra declared home. Frame 0xA0 and all packet/hit/shade
+homes become exact. No fabricated storage, ABI change or permutation search.
+The five `finish` times were 2.281, 2.399, 2.401, 2.194 and 6.784 seconds.
+
+Related impact-packet sibling `func_151AABC4` improves 776 → 746. Reading query
+x before computing query height restores all five initial FP-register rows.
+A second actual dimension-pair ordering also corrects one halfword pairing,
+with total score unchanged. Remaining independent aggregate-address and
+constant-store scheduling has no supported further form. Best 746 and the
+older 776 are both retained; original ASM remains active for this sibling.
+
+The clean batch returned BATCH_COMPLETE in 79.844 seconds: full game/mapped
+rodata identical, 1,092 tests passed / 12 skipped, metadata/progress/whitespace
+passed. The impact source unit remains mixed. Accepted total is 36 functions /
+13,520 bytes, with no pending batch IDs.

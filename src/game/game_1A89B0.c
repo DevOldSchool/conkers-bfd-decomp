@@ -257,6 +257,51 @@ s32 func_1517D690(s32 arg0, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517D690 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517D690.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517D7B0.s")
+typedef struct Game1A89B0ActiveRecord {
+    s32 data0, data4, data8;
+    u8 active;
+    u8 padD[3];
+} Game1A89B0ActiveRecord;
+typedef struct Game1A89B0StateSlot {
+    s32 active;
+    u8 pad4[0x64];
+} Game1A89B0StateSlot;
+void func_1517BBAC(s32, s32, s32, s32, f32, s32, s32, s32);
+extern u8 D_800CC2D0[];
+extern u8 D_800DDB80[];
+extern s32 D_800DDD20;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517DE5C CURRENT (6620) */
+void func_1517DE5C(void) {
+    Game1A89B0ActiveRecord *record;
+    Game1A89B0StateSlot *state;
+    s32 index;
+
+    record = (Game1A89B0ActiveRecord *)&D_800DDA90;
+    if (D_800DDD20 != 0) {
+        do {
+            record->active = 0;
+            record++;
+        } while ((u32)record < (u32)D_800DDB80);
+        func_1517BBAC((s32)*(f32 *)(D_800CC2D0 + 0x14),
+            (s32)*(f32 *)(D_800CC2D0 + 0x18),
+            (s32)*(f32 *)(D_800CC2D0 + 0x1C), 1500,
+            *(f32 *)((u8 *)D_800DBFF0 + 0x380),
+            (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x2F8),
+            (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x2FC),
+            (s32)*(f32 *)((u8 *)D_800DBFF0 + 0x300));
+        state = (Game1A89B0StateSlot *)D_800DD478;
+        for (index = 0; index < 15; index++) {
+            record = (Game1A89B0ActiveRecord *)&D_800DDA90 + index;
+            if (state->active != 0 && record->active == 0) {
+                state->active = 0;
+                record->data8 = 0;
+            }
+            state++;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517DE5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A89B0/func_1517DE5C.s")
 void func_1517E05C(s32 arg0, s32 arg1, s32 arg2) {
     D_800DD470[0] = arg0;
