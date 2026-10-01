@@ -1044,3 +1044,39 @@ PI initializer: `BATCH_COMPLETE`, full US ROM, integrated game/rodata checks,
 `151A361C`, `151A4638` and `151A4A38` retain scores 190, 470 and 463 respectively.
 This candidate-only batch adds no matches: totals remain **62 / 7,164 bytes**,
 with **2,695** accepted US C functions and no accepted pending IDs.
+
+## Twenty-sixth batch: controller block and actor selection
+
+Three related candidates in `game_64120.c` remain ASM-backed. The existing
+initialization block still occupies 0x48 bytes, now exposing its observed byte
+channels at 0x30/0x33/0x36 and halfword arrays at 0x3A/0x40. The actor record
+retains its 0x32C stride and existing fields, with its block pointer at 0x324.
+No new global storage or shared header is introduced.
+
+`15039CC8` improves 730 to 650 after recovering table-pointer/count evaluation
+order, then to 345 with the observed pre-increment byte cursor. Removing a
+redundant original-pointer alias gives 280. Its natural table scan reproduces
+the compiler's four-way unrolling; the remaining differences concern the
+three-channel initializer's pointer/register and constant setup. `15036CE8`
+has a first-form sparse-switch candidate at 1995. Its 0x58 frame differs from
+the original 0x78 frame, with different mode/flag storage. No missing storage
+is invented to fill that gap. Its complete jump-table values still require
+independent verification before any future acceptance.
+
+Raw `150380C0` explicitly returns zero on failure or the selected actor's byte
+at 0x13B plus one on success. Its caller at `15037C70` immediately consumes V0.
+The old source-local void declaration is therefore corrected to `s32`, and
+the seventh argument is a float pointer as proven by raw loads and stores.
+The deferred forwarding caller's pointer formal is updated coherently; all
+integer formals remain full-width. The selector candidate improves 9015 to
+5717 with natural early-continue paths, then to 5123 after removing a redundant
+next-index alias, restoring its 0x80 frame. Its remaining physical pointer
+spill, floating-point allocation and expression differences are preserved
+rather than hidden with artificial state. All tested forms remain archived.
+
+The clean batch rechecked all five existing matches in this source unit and
+the main PI initializer. Full US ROM, integrated game/rodata, 1,346 tests with
+12 skipped, metadata, progress and whitespace checks passed with
+`BATCH_COMPLETE`. Four deferred regressions retain scores 450, 280, 1995 and
+5123. This candidate-only batch adds no matches: totals remain **62 / 7,164
+bytes**, with **2,695** accepted US C functions and no accepted pending IDs.

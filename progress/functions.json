@@ -42832,6 +42832,12 @@
       "symbol": "func_15036C70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1995,
+        "reason": "Natural sparse switch and typed controller block candidate CURRENT1995. Control flow and switch shape recovered, but frame58 versus78 and real mode/flag storage allocation differ. No justified missing storage or lifetime correction; preserve first form without artificial locals or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42908,6 +42914,12 @@
       "symbol": "func_150379DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5123,
+        "reason": "Correct s32 result and float output-pointer contract grounded by raw callee and consumer. Natural actor scan improves9015 to5717, removal of redundant next-index alias gives5123 and restores80frame. Owner spill and expression/FP/control differences remain; preserve best with no invented state or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42990,6 +43002,12 @@
       "symbol": "func_15039A78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 280,
+        "reason": "Typed actor/block view and natural table scan; bounded manual forms improve 730 to 650 to 345 to 280. Remaining initializer pointer/register and constant setup differences; no further evidence-backed form. Preserve best single mutable pointer candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
