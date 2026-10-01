@@ -19671,15 +19671,15 @@
       "functions": [
         "func_800037F0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x38C0",
           "start": "0x37F0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_37F0.c"
+      "source": "src/game/done/init_37F0.c"
     },
     {
       "boundary_evidence": {

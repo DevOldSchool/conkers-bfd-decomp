@@ -90429,6 +90429,12 @@
       "symbol": "func_800014C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 845,
+        "reason": "Pinned SDK proves noarg AI busy helper and true held buffer state. Best845 preserves justified MMIO volatility; unqualified symbols1060 and literal MMIO855 do not solve ordinary flag address CSE. Retain first form, do not invent volatile flag or unreviewed data ownership.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90553,13 +90559,18 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800037F0",
           "vram": "0x800037F0"
         }
       },
-      "source": "src/main/init_37F0.c",
+      "source": "src/game/done/init_37F0.c",
       "symbol": "func_800037F0"
     },
     {

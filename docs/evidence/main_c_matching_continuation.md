@@ -733,3 +733,37 @@ run with 12 skipped, metadata, progress and whitespace. This adds **1 function /
 accepted US C functions. The memory-limit source unit is integrated; the
 allocator initializer remains an assembly-backed candidate. No accepted IDs
 remain pending.
+
+## Seventeenth batch: thread context initialization
+
+`func_800037F0` (208 bytes) uses a source-local partial view of the SDK thread
+layout. The first form scored 1114. Restoring the SDK initialization order,
+with priority immediately after ID, and its unsigned 64-bit saved-register
+storage produced a full-span zero. Argument and address conversions still
+sign-extend through `s32`/`s64`, and the initial stack subtracts 16 in 64-bit
+arithmetic. The thread pointer and saved interrupt mask are genuine state.
+
+The pinned interrupt object at 0x22DC0 establishes the no-argument disable
+helper and one-argument restore helper at 0x22DE0. They enclose insertion into
+the active-thread list. The raw `D_10007BF8` address remains opaque and exact;
+its use in the saved return-address slot does not establish a semantic symbol
+name. Independent review checked the partial layout and these contracts.
+
+The mandatory integration moved this complete singleton to
+`src/game/done/init_37F0.c`, preserving the reviewed 0x37F0–0x38C0 interval.
+The resulting full US ROM was byte-identical.
+
+The AI-buffer wrapper `80002DB0` remains assembly-backed at 845. Pinned SDK
+source establishes a no-argument busy helper and the real buffer pointer held
+across that call. Ordinary direct MMIO symbols worsened the result to 1060;
+the SDK-style literal volatile MMIO form scored 855. The best symbol-based
+hardware-register view is retained. The ordinary workaround flag still has
+an address-allocation difference; no unsupported volatile flag or new data
+ownership was introduced.
+
+The clean batch checked the new initializer and rechecked `80003930`:
+`BATCH_COMPLETE`, full US ROM match, 1,332 tests with 12 skipped, metadata,
+progress and whitespace passed. This adds **1 function / 208 bytes**, giving
+**58 / 5,964 bytes** since the fresh baseline and **2,691** accepted US C
+functions. Both reviewed initializer units are integrated, and no accepted
+IDs remain pending.
