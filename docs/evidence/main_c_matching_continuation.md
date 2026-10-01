@@ -284,3 +284,41 @@ whitespace passed. This adds **6 functions / 360 bytes**, giving
 **29 / 1,796 bytes** since the fresh baseline and **2,662** accepted US C
 functions. The audio-driver unit remains in progress and no accepted IDs
 remain pending at this checkpoint.
+
+## Eighth checkpoint: cache-list candidates and regression validation
+
+The source-local audio-buffer view now names the observed next/previous links,
+saved word and writable owner slot, while retaining the independently proven
+byte fields. The bank manager's active-list and free-anchor fields remain one
+coherent object. This does not establish the unknown field at 0x10, total
+record stride, or a pointer meaning for the saved word. No shared header changed.
+
+Two related 216-byte functions remain inactive candidates:
+
+- `func_80009BE4`: initial scores 1470, 1560 and 1960. Independent SDK list
+  evidence justified a scoped insertion block, improving the best to 810.
+  A subsequent real owner-slot snapshot restored the load order but scored
+  900, so the 810 form is retained. Manager-address scheduling, symbolic
+  aliases and copied-anchor allocation still differ.
+- `func_8000A348`: scores 985, 920, 475 and 475. The owner-slot snapshot fixed
+  its load order; the scoped insertion block then recovered the raw
+  branch-likely/store merge. Both arguments cast to a distinct two-pointer
+  SDK-prefix view were code-neutral, so the simpler 475 form is retained.
+  The missing anchor copy and dependent register assignments remain, and the
+  entire registered terminal span is not yet equal.
+
+The concrete insertion evidence is SDK `alLink` in `sl.c` and the existing
+`CONKER_AUDIO_LINK` scoped expansion in `n_audio_list.h`. The latter is project
+reconstruction evidence, not proof of the original source spelling. Both raw
+cleanup functions exhibit the same insertion pattern. The list walker keeps
+its genuine pre-store next snapshot for traversal and head replacement while
+reloading links during unlink after owner restoration; it also clears the
+owner slot, unlike the single-record helper. No padding, volatile accesses,
+overlapping independent globals or unsupported argument types were introduced.
+
+A clean regression batch rechecked all six accepted audio-driver siblings
+following the partial-type refinements: `BATCH_COMPLETE`, full US ROM match,
+1,328 tests run with 12 skipped, metadata, progress and whitespace passed.
+This checkpoint adds **no new C matches**. The cumulative accepted result
+remains **29 functions / 1,796 bytes**, with **2,662** accepted US C functions.
+Both best candidates and the failed source hypotheses are preserved.

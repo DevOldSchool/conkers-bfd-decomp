@@ -91136,6 +91136,12 @@
       "symbol": "func_80009B90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 810,
+        "reason": "Typed cache cleanup improved from 1470 to 810 with evidence-backed scoped SDK insertion. Owner-slot capture fixes load role but scores 900, so retain 810. Manager hoist, symbolic aliases and copied-anchor allocation remain; no volatile or overlapping-global workaround.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91193,6 +91199,12 @@
       "symbol": "func_8000A03C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 475,
+        "reason": "Cache-list walk preserves genuine next snapshot and post-owner-store link reloads. Scores 985, 920, 475, 475; scoped SDK insertion recovered control flow, distinct prefix-type casts were code-neutral. Best simpler scoped form retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
