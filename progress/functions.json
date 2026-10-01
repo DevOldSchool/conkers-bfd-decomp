@@ -90911,8 +90911,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011FB0",
           "vram": "0x80011FB0"
         }
@@ -90942,8 +90947,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011FEC",
           "vram": "0x80011FEC"
         }
@@ -90952,6 +90962,12 @@
       "symbol": "func_80011FEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 495,
+        "reason": "Manual switch improved591 to495 with evidence-led loop-index declaration placement; frame/homes exact. Remaining FP allocation, table/array aliases and duplicate byte mask; keep full-width helper ABI.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
