@@ -92135,8 +92135,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000EF40",
           "vram": "0x8000EF40"
         }
@@ -92184,6 +92189,12 @@
       "symbol": "func_8000F248"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 324,
+        "reason": "Real one-argument sound-state query and handle/index fallback preserved. Full-width formal with explicit low-16 normalization scores 324; no active existing declaration proves a narrow formal, so retain the candidate without repeating unsupported ABI changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92340,6 +92351,12 @@
       "symbol": "func_8000FDF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 18,
+        "reason": "Typed 48-byte record and actual one-argument sound-handle contract. Scores 720, 18, 20: direct returns remove redundant result state; explicit handle capture fixes the pointer spill location but enlarges the frame. Retain score 18 with two spill offsets and one commuted address addition unresolved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92392,6 +92409,12 @@
       "symbol": "func_8001001C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 330,
+        "reason": "Typed tuple replacement preserves the real count snapshot across record writes. Scores 1186, 2983, 330, 330: removing named end address needs the explicit count snapshot; declaration order alone is code-neutral. Retain frameless best 330; cursor/base register allocation and extra moves remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92486,8 +92509,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 136,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010894",
           "vram": "0x80010894"
         }
@@ -92512,8 +92540,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800109D0",
           "vram": "0x800109D0"
         }
@@ -92525,8 +92558,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010A3C",
           "vram": "0x80010A3C"
         }
@@ -92593,6 +92631,12 @@
       "symbol": "func_80010F30"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Existing active declarations support only the second u16 formal; all other word formals retained with explicit value conversions. Scores 120, 670, 120: pre-normalizing the full-word input worsens code; a real s16 local is code-neutral. Best form differs only in two instructions scheduled later; no unsupported formal narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92622,8 +92666,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800111C8",
           "vram": "0x800111C8"
         }
@@ -92632,6 +92681,12 @@
       "symbol": "func_800111C8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 321,
+        "reason": "Existing active caller declares a full-width handle. Explicit low-16 normalization and real queue/fallback-stop contracts score 321; incoming argument home and dependent frame/spill offsets remain. Preserve the full-width candidate rather than infer a narrow ABI from the raw mask.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

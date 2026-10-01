@@ -514,3 +514,59 @@ This adds **2 functions / 180 bytes**, giving **45 / 3,832 bytes** since the
 fresh baseline and **2,678** accepted US C functions. The best candidates,
 failed hypotheses and linked-byte diagnostic are preserved. No accepted IDs
 remain pending at this checkpoint.
+
+## Thirteenth batch: sound owners, handles and stop callback
+
+Five related `init_EB00.c` functions are newly accepted:
+
+| Function | Bytes | Behavior |
+| --- | ---: | --- |
+| `func_800109D0` | 108 | Stops the owner's secondary handle, or its matching callback/owner/tag tuple, then clears the handle |
+| `func_80010A3C` | 108 | Performs the corresponding primary-handle stop |
+| `func_8000EF40` | 116 | Clears the observed record flag and stops/clears an inactive sound before zeroing the callback output |
+| `func_800111C8` | 116 | Validates a handle entry, clears its ID/value, stops its actual sound state and clears that state pointer |
+| `func_80010894` | 136 | Checks the owner's handle or matching tuple, clearing the stale handle when neither is active |
+
+The owner view preserves only observed fields at 0x3B, 0x8C, 0x8E and 0x318.
+The 0x30-byte record and 0xC-byte handle-entry views likewise expose only
+observed fields. SDK symbol mappings establish the one-pointer stop helper
+and pointer-to-state-pointer query helper, correcting extra starter arguments.
+Existing active game declarations for the `func_100111C8` main alias,
+including `game_1A6360.c` and the camera source, support `800111C8`'s `u16`
+formal. Other handle inputs with active full-width declarations remain `s32`.
+
+`8000EF40` has seven callback argument slots, even though two intermediate
+stack arguments are unused. The existing callback declaration and dispatcher's
+three stack-argument stores establish that its output is the seventh argument;
+the starter's omission of unused slots is not a five-argument contract.
+
+Four functions matched on their first source forms. `800111C8` improved from
+18 to 0 by removing a redundant cached state-field value while retaining the
+real entry pointer across the stop call, and expressing the field-left ID
+comparison. The actual entry-pointer spill moved from SP+0x18 to SP+0x1C with
+the same 0x28 frame; no storage was added.
+
+Five bounded candidates remain inactive with assembly retained:
+
+- `8000FE88`: 720 to 18 after direct returns removed the unnecessary result
+  local. A real handle snapshot moved the pointer spill but enlarged the frame,
+  scoring 20; the simpler score-18 form is preserved.
+- `800100E0`: a real count snapshot recovered frameless tuple replacement at
+  330, improving the initial 1186. Naming the end pointer introduced a frame;
+  omitting the snapshot reloaded the count across writes. Moving only genuine
+  declarations was code-neutral, so no further ordering search was attempted.
+- `80010F88`: 120 with the supported second-argument `u16` contract and explicit
+  value conversions for full-width inputs. Entry normalization scored 670 and
+  a signed-short local was code-neutral. The remaining incoming-home schedule
+  does not establish narrow formal types.
+- `8000F3D0`: 324 with the actual one-argument state query and full-width handle
+  normalization. Incoming-value identity remains unresolved.
+- `8001123C`: 321 with its existing full-width handle contract, queued-stop
+  attempt and immediate-stop fallback. No unsupported narrowing was tried.
+
+The clean batch checked all five new functions and four affected earlier sound
+functions: `BATCH_COMPLETE`, full US ROM match, 1,328 tests run with 12 skipped,
+metadata, progress and whitespace passed. This adds **5 functions / 584 bytes**,
+giving **50 / 4,416 bytes** since the fresh baseline and **2,683** accepted US
+C functions. The source remains in progress. No accepted IDs remain pending
+at this checkpoint.
