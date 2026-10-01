@@ -1420,7 +1420,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 847,
-        "reason": "Best measured candidate CURRENT (847): aggregate construction and call are semantically aligned, but keeping 4.0f and D_800A4960 live reserves two stack slots, enlarging the frame from 0x68 to 0x70 and shifting aggregate/argument offsets; 1 register, 23 operand, 8 missing/extra remain.",
+        "reason": "Best847 restored. One research-led direct-constant form recovered exact frame68/config2C but worsened overall945 through FP identities/preload scheduling. Both preserved in derived-address-tail; no further dependency-backed revision or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58220,17 +58220,16 @@
       "symbol": "func_150D4C00"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 118,
-        "reason": "Recovered all calls, guards, and data accesses; three source-only variants remain nonzero because IDO allocates the saved func_150D5124 pointer at a different stack offset/frame size (best CURRENT 118).",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 152,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D4C2C",
           "vram": "0x150D4C2C"
         }
@@ -63131,17 +63130,16 @@
       "symbol": "func_1518C900"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Corrected stale &D800DF7D0 whole-array arithmetic to actual byte-array decay, valid CURRENT40. Removed unused offsetcopy/widenedvalue; sharedcount/offset65 regresses. Frame30vs20 and pointer/value registers remain. Three revisions; historical40 source had become incompatible with current declaration.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 124,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1518CA04",
           "vram": "0x1518CA04"
         }

@@ -10364,7 +10364,7 @@
         "us": {
           "end": "0x18CA80",
           "start": "0x18C900",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1B9DB0.c"

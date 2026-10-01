@@ -437,3 +437,24 @@ The three-function follow-up clean batch returned BATCH_COMPLETE in 82.421
 seconds, with full US game/mapped-rodata equality, 1,092 tests passed / 12
 skipped, and metadata/progress/whitespace passing. This adds 3 functions /
 676 bytes, for a task total of 31 / 11,716 bytes. No batch IDs remain pending.
+
+## Counter and immutable callback-address follow-up
+
+- `func_1518CA04` (124 bytes), 40 → 25 → 0. Direct table expressions remove
+  the derived counter/offset names; direct decrement-and-zero testing then
+  removes the two transient scalar names, preserving byte semantics and all
+  required helper calls. Frame0x30 becomes the exact0x20.
+- `func_150D4C2C` (152 bytes): the preserved inventory score118 refreshed to18
+  on current inputs. Removing its named immutable callback address, while
+  retaining the true owner snapshot, recovers CURRENT(0), frame 0x28 and the
+  callback-address spill at0x20. No helper contract or argument changed.
+- A bounded read-only eight-body triage promoted one adjacent config experiment,
+  `func_1513A5E0`. Removing its two constant-value names recovered frame0x68
+  and config0x2C, but worsened847→945 through FP identities/preload scheduling.
+  Its original847 was restored, with the alternative preserved. No second
+  sufficiently grounded lead emerged from that pass.
+
+The two-function clean batch returned BATCH_COMPLETE in 85.636 seconds: full
+US game code and mapped rodata identical, 1,092 tests passed / 12 skipped, with
+metadata/progress/whitespace passing. The accepted task total is 33 functions /
+11,992 bytes; no batch IDs remain pending. Both units remain mixed.
