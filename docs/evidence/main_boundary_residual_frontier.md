@@ -71,6 +71,63 @@ No original debug map was available for this review.
 A negative runtime trace would not establish an original boundary or prove
 unreachability.
 
+## Bounded runtime observations, 2026-10-01
+
+The recorded US retail session used the ROM with SHA-1
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`, a Mupen64Plus debugger build
+and working Rice video. This summarizes the recorded debugger observations;
+the documentation update does not constitute an independent emulator replay.
+Raw traces, memory, saves and screenshots remain private and are not included.
+The default dummy-video backend is not equivalent for this test: it omits
+graphics-task completion, as described in [runtime tracing](../runtime-tracing.md).
+
+Six execution-watch windows covered all instructions in the three disputed
+entry ranges through both address aliases. Ranges below are half-open:
+
+| Main alias | Cached alias | Hits in the recorded passes |
+| --- | --- | ---: |
+| `0x100038C0:0x100038E0` | `0x800038C0:0x800038E0` | 0 |
+| `0x100039B0:0x100039C0` | `0x800039B0:0x800039C0` | 0 |
+| `0x10005298:0x100052A0` | `0x80005298:0x800052A0` | 0 |
+
+The watches remained enabled throughout both bounded passes, including their
+final paused states. Positive controls distinguish these observations from a
+trace that never reached the relevant startup or reset path:
+
+- **Cold boot to title.** The live-byte/alias calibration verified the call
+  `0x100011A4 -> 0x10005218`. The actual return was single-stepped through
+  `0x10005290 -> 0x10005294 -> 0x100011AC`, rather than inferred only from
+  the saved return address. Controls at `0x10005218`, `0x100052A0` and
+  `0x100050A0` all hit. Title arrival was visually confirmed at 07:41 UTC;
+  the run was then paused at `0x80000180` with zero disputed hits.
+- **Pre-NMI path.** The installed build's F9 soft-reset path was checked to
+  schedule pre-NMI followed by NMI; a hard reboot or manually injected guest
+  flag/message was not substituted. The guest flag at `0x8002BD18` changed
+  from zero to one, message `5` was received, and execution reached
+  `0x100052EC` and then the shutdown loop at `0x10005524`. The final pause
+  was at `0x10005524`, with zero disputed hits. A duplicate pending-NMI
+  warning prevents certifying a clean single-trigger reset; the subsequent
+  NMI reboot was not observed.
+
+To repeat the scoped experiment with an independently owned, checksum-validated
+ROM, use a debugger with functioning graphics-task completion, verify the live
+bytes and aliases, and arm every instruction in the six windows above before
+cold boot. Capture the positive controls and actual return sequence, continue
+to a visually confirmed title, then pause and verify that the watches survived.
+For a separate pre-NMI pass, first verify the installed build's genuine
+soft-reset mechanism and the zero flag baseline. Retain all disputed watches
+while recording the flag transition, received message, continuation and shutdown
+endpoint. Stop at the bounded endpoint and record any duplicate-event warning;
+do not infer reboot completion from pre-NMI delivery. Preserve the emulator
+configuration and bounded raw evidence privately for replay.
+
+These passes establish **bounded non-observation**, not unused-code proof,
+complete gameplay/reset coverage or original ownership. They do not select the
+extra `0x5298` proposal or justify shortening `0x5218:0x52A0`. No source-unit,
+function-span, original-assembly or C-match credit changes. The CPU interval
+remains **99.2194% accounted for**, with **1,280 bytes unresolved**; that measure
+includes the separately classified zero tail and is not the matched-C percentage.
+
 ## The unselected `0x5298` proposal
 
 Both unsplit and independently range-scoped spimdisasm 1.33.0 IDO analyses
