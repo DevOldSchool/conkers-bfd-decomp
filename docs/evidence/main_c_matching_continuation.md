@@ -1327,3 +1327,30 @@ tests with 12 skipped, metadata, progress and whitespace gates pass with
 `BATCH_COMPLETE`. Game sources remain unchanged from their preceding verified
 batch. Totals remain **63 / 7,684 bytes**, with **2,696** accepted US C functions
 and no accepted pending IDs.
+
+## Thirty-fourth batch: sequence mode and group updates
+
+The mode update `8000E054` improves from 50 to zero when its redundant byte snapshot is removed. Every use of that byte precedes the first side-effecting call on its path; the actual record pointer remains live across calls. Raw helper bodies establish unary arguments, replacing the starter's stale live-register extras. The full frame and record spill agree, and the existing byte at offset 0x15 retains provisional semantics.
+
+The group dispatcher `8000DE1C` uses a provider-proven three-word output array: every append in `8000B548` is guarded by count less than three, and its result is the count. A normal counted loop improves the first pointer-loop form from 727 to 10 and reproduces all instructions and saved registers. One mapped declaration layout places the two real loop-control homes before the array, moving it from SP3C to the observed SP34 with the same frame and no additional storage; the result is zero. All four forms, including the worsening intermediate bound expression, are preserved.
+
+The optional owner update `8000E654` matches its complete 176-byte span on the first form. The established runtime alias confirms four full-width parameters. Its optional owner lookup still occurs before the primary null test, and its immediate helper path returns without writing record fields. Observed words at offsets 0x20 and 0x24 are exposed within the existing partial record view without moving any older fields or changing its size.
+
+The flags callback `8000CAE4` matches all 196 bytes on its first form. All four
+formals remain s32; the explicit unsigned-byte view is applied only at the
+observed helper call. The two real flag states, conditional helper calls and
+32-bit OR return are retained.
+
+The first new function changes the terminal `8000EA94` padding and scores 100;
+the first two score 300. With all four genuine implementations present, its
+complete 108-byte registered span is again exact. No padding, reference or
+comparator change is used. Every future active C prefix change still requires
+this complete-span regression.
+
+Independent source review found no blocking issue. A clean 19-target main batch
+verifies the four additions, all 14 pre-existing unit matches and the main PI
+initializer. Full US ROM equality, 1,346 tests with 12 skipped, metadata,
+progress and whitespace pass with `BATCH_COMPLETE`. Game sources remain
+unchanged from their preceding separately verified batch. This adds **4 C
+functions / 704 bytes**, bringing fresh-base totals to **67 / 8,388 bytes** and
+accepted US C inventory to **2,700**, with no pending IDs.

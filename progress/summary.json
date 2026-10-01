@@ -6,7 +6,7 @@
     "fully_matched_source_unit_bytes": 183584,
     "fully_matched_source_unit_percentage": 8.205268,
     "library_text_bytes": 147232,
-    "matched_bytes": 439124,
+    "matched_bytes": 439828,
     "overlays": {
       "game": {
         "fully_matched_source_unit_bytes": 83648,
@@ -38,8 +38,8 @@
         "fully_matched_source_unit_bytes": 99936,
         "fully_matched_source_unit_percentage": 60.746936,
         "library_text_bytes": 98512,
-        "matched_bytes": 106024,
-        "percentage": 64.447578,
+        "matched_bytes": 106728,
+        "percentage": 64.875511,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -53,15 +53,15 @@
             "fully_matched_source_unit_bytes": 99936,
             "fully_matched_source_unit_percentage": 60.746936,
             "library_text_bytes": 98512,
-            "matched_bytes": 106024,
-            "percentage": 64.447578,
+            "matched_bytes": 106728,
+            "percentage": 64.875511,
             "total_bytes": 164512
           }
         },
         "total_bytes": 164512
       }
     },
-    "percentage": 19.626601,
+    "percentage": 19.658066,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 0,
@@ -75,8 +75,8 @@
         "fully_matched_source_unit_bytes": 183584,
         "fully_matched_source_unit_percentage": 8.205268,
         "library_text_bytes": 147232,
-        "matched_bytes": 439124,
-        "percentage": 19.626601,
+        "matched_bytes": 439828,
+        "percentage": 19.658066,
         "total_bytes": 2237392
       }
     },
@@ -95,7 +95,7 @@
     },
     "main": {
       "known_functions": 229,
-      "target_matched": 66
+      "target_matched": 70
     }
   },
   "regions": {
@@ -103,15 +103,15 @@
       "blocked": 7,
       "candidate": 0,
       "in_progress": 0,
-      "matched": 2696,
+      "matched": 2700,
       "original_asm": 22,
-      "raw_asm": 2728
+      "raw_asm": 2724
     }
   },
   "schema_version": 1,
   "source_units": 742,
-  "target_matched": 2696,
+  "target_matched": 2700,
   "target_original_asm": 22,
-  "target_remaining": 2757,
+  "target_remaining": 2753,
   "unassigned_functions": 0
 }

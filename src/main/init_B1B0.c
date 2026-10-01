@@ -23,22 +23,18 @@
  * - func_8000C7E8
  * - func_8000C934
  * - func_8000CA18
- * - func_8000CAE4
  * - func_8000CC54
  * - func_8000CDA0
  * - func_8000CEAC
  * - func_8000D2F8
  * - func_8000D758
  * - func_8000D96C
- * - func_8000DE1C
  * - func_8000DEC4
  * - func_8000DF68
- * - func_8000E054
  * - func_8000E17C
  * - func_8000E2F4
  * - func_8000E46C
  * - func_8000E588
- * - func_8000E654
  * - func_8000E7A0
  * - func_8000E934
  *
@@ -50,7 +46,10 @@ typedef struct SequenceRecordState {
     s32 id;
     u8 pad8[8];
     struct SequenceRecordState *owner;
-    u8 pad14[0x18];
+    u8 pad14[0xC];
+    s32 field20;
+    s32 field24;
+    u8 pad28[4];
     s32 target;
     s32 current;
     u8 pad34[0x1A];
@@ -203,7 +202,32 @@ s32 func_8000BC28(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C7E8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C934.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CA18.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CAE4.s")
+void func_80011FA0(s32);
+void func_80008790(s32, s32, s32, s32);
+extern s32 D_800BE9F0;
+
+s32 func_8000CAE4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 bit2;
+
+    bit2 = arg0 & 2;
+    arg0 &= 1;
+    if (D_800BE9F0 == 0x42) {
+        func_80011FA0(4);
+        if (arg0 == 0) {
+            arg0 = 1;
+            func_8000E704(0x58, 1, 0xFFFF);
+        }
+    } else if (arg0 != 0) {
+        func_8000E704(0x58, 0, 0xFFFF);
+        func_8000E40C(0x58, 0x3E80);
+        arg0 = 0;
+    }
+    if (bit2 == 0) {
+        func_80008790((u8)arg1, 0x1000, 0, 1);
+        bit2 = 2;
+    }
+    return bit2 | arg0;
+}
 void func_8000CBA8(s32 arg0) {
     if (D_800417B0[0] != 0) {
         D_800417B0[0]->value = arg0;
@@ -258,7 +282,30 @@ s32 func_8000CD40(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D2F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D758.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D96C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DE1C.s")
+s32 func_8000B548(s32 (*)[]);
+void func_8000DEC4(void);
+void func_8000D96C(s32, s32, s32);
+
+void func_8000DE1C(s32 arg0, s32 arg1) {
+    s32 count;
+    s32 i;
+    s32 ids[3];
+    s32 value;
+
+    arg0 &= 0xFFF;
+    if (arg0 == 0) {
+        func_8000DEC4();
+        count = func_8000B548(&ids);
+        for (i = 0; i < count; i++) {
+            value = ids[i];
+            if (value > 0) {
+                func_8000D96C(0, value, arg1);
+            }
+        }
+    } else {
+        func_8000D96C(0, arg0, arg1);
+    }
+}
 s32 func_8000853C(s32);
 extern SequenceRecordState D_800419A8[];
 extern u8 D_80041E58[];
@@ -287,7 +334,31 @@ void func_8000DEC4(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DEC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DF68.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E054.s")
+s32 *func_8000B1B0(s32);
+void func_800084D8(s32);
+void func_80008F58(s32);
+void func_8000CC54(s32);
+
+void func_8000E054(s32 arg0, s32 arg1) {
+    SequenceRecordState *record;
+
+    record = (SequenceRecordState *)func_8000B1B0(arg0);
+    if (record != 0) {
+        if (record->pad14[1] == 2 && arg1 == 0) {
+            func_800084D8(((u8 *)record)[3]);
+            record->pad14[1] = 0;
+            record->current = -1;
+            func_8000CC54(record->index);
+            return;
+        }
+        if (record->pad14[1] != 2 && arg1 != 0) {
+            if (record->pad14[1] != 1) {
+                func_80008F58(((u8 *)record)[3]);
+            }
+            record->pad14[1] = 2;
+        }
+    }
+}
 void *func_8000B1FC(s32);
 
 s32 func_8000E0F8(s32 arg0) {
@@ -338,8 +409,31 @@ void func_8000E40C(s32 arg0, s32 arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E46C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E588.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E654.s")
-s32 *func_8000B1B0(s32);
+void func_80008C6C(s32, s32);
+
+s32 func_8000E654(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    SequenceRecordState *record;
+    SequenceRecordState *owner;
+
+    record = func_8000B1FC(arg0);
+    owner = 0;
+    if (arg3 >= 0) {
+        owner = func_8000B1FC(arg3);
+    }
+    if (record != 0) {
+        if (arg2 == 0 && record->index >= 0) {
+            func_80008C6C(record->index & 0xFF, (arg1 - 1) & 0xFF);
+            return 1;
+        }
+        record->field24 = arg1;
+        record->field20 = arg2;
+        if (owner != 0) {
+            record->owner = owner;
+        }
+        return 1;
+    }
+    return 0;
+}
 void func_80008A94(s32, s32, s32);
 
 s32 func_8000E704(s32 arg0, s32 arg1, s32 arg2) {
@@ -388,7 +482,6 @@ s32 func_8000E8F0(s32 arg0) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E934.s")
-void func_8000D96C(s32, s32, s32);
 
 u16 func_8000EA94(s32 arg0) {
     u16 selection;
