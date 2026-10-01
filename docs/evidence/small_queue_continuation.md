@@ -485,3 +485,26 @@ The best 1278 C is disabled with original ASM active. Incremental full game and
 mapped-rodata equality, progress and whitespace pass; no empty clean batch was
 run. The accepted total remains 33 functions / 11,992 bytes. This fresh example
 also limits generalization from the successful selected storage cohort.
+
+## Light return-state reconstruction
+
+A fresh `.mdebug` decode for `func_15160B74` distinguishes real state from
+unused source homes: the actual return-byte spill belongs to `result`, while
+`saved_result` is an optimized-away copy that still reserves a source home.
+The zero-distance `object` alias and transient selector/transform names also
+reserve homes independently of required runtime values.
+
+A coherent form retaining the actual return byte, slot, entity and 12-byte
+transformed output improves 669 → 610 and recovers all four predictions:
+frame 0x38, buffer 0x20, return byte 0x37 and derived slot spill 0x1C. Matrix
+pointer typing is code-neutral and was discarded for the next isolated test.
+Expressing the signed selector as a real branch-produced value, adjacent to
+the genuine return byte without increasing the source-home region, then improves
+610 → 90. The selector reads now occur on the raw branch exits.
+
+The remaining differences are a commuted transform-address add and selector/
+table-base register scheduling. No padding, dummy values or permutation search
+was introduced. Best 90 is deferred with original ASM active; all previous
+forms, object hashes, source-home records and full differences are retained.
+Incremental full game/mapped-rodata equality, progress and whitespace pass.
+There is no pending match and the accepted total remains 33 / 11,992 bytes.

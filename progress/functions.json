@@ -1683,8 +1683,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 669,
-        "reason": "CURRENT (669): frame 0x40 versus raw 0x38, transformed vector and saved-result stack offsets differ, one transform-index add operand order and branch-delay scheduling row; aggregate and declaration-order probes did not improve",
+        "current_score": 90,
+        "reason": "Object-backed real-state reconstruction669->610: frame38/vector20/result37/slot1C exact. Matrix-pointer typing neutral610, discarded. Actual signed selector produced on both branch exits improves90 with no new source-home bytes. Remaining add operand order and selector GPR/table-base scheduling; no padding or permutation. light-result-review preserves proofs.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -385,44 +385,39 @@ s32 func_15160A58(void *arg0, u8 arg1, void *arg2, u8 arg3, s16 arg4,
 void func_15143134(f32 *, f32 *, s32);
 extern u8 (*D_8008B1F8[])(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160B74 CURRENT (669) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15160B74 CURRENT (90) */
 u8 func_15160B74(void *arg0) {
-    u8 *object = (u8 *)arg0;
+    u8 result;
+    s8 selector;
     u8 *slot;
     u8 *entity;
-    u8 result;
     f32 transformed[3];
-    u8 saved_result;
-    s8 selector;
-    s32 transform;
 
-    entity = *(u8 **)(object + 0x18);
+    entity = *(u8 **)((u8 *)arg0 + 0x18);
     result = 1;
-    slot = object + 0x18;
+    slot = (u8 *)arg0 + 0x18;
     if (*(s32 *)entity == 0) {
         return 0;
     }
     if (slot[4] != entity[0x3B]) {
         return 0;
     }
-    transform = *(s32 *)(entity + 0x1D4);
-    if (transform != 0 && (entity[0x74] & 0xF) != 0xF) {
-        saved_result = 1;
+    if (*(s32 *)(entity + 0x1D4) != 0 && (entity[0x74] & 0xF) != 0xF) {
         func_15143134((f32 *)(slot + 8), transformed,
-                       transform + (slot[5] << 6));
-        result = saved_result;
-        *(s16 *)(*(u8 **)(object + 0x14) + 0xE) = (s16)(s32)transformed[0];
-        *(s16 *)(*(u8 **)(object + 0x14) + 0x10) = (s16)(s32)transformed[1];
-        *(s16 *)(*(u8 **)(object + 0x14) + 0x12) = (s16)(s32)transformed[2];
+                       *(s32 *)(entity + 0x1D4) + (slot[5] << 6));
+        *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0xE) = (s16)(s32)transformed[0];
+        *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x10) = (s16)(s32)transformed[1];
+        *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) = (s16)(s32)transformed[2];
+        selector = *(s8 *)(slot + 0x14);
     } else {
-        *(s16 *)(*(u8 **)(object + 0x14) + 0xE) =
+        *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0xE) =
             (s16)(s32)*(f32 *)(entity + 0x14);
-        *(s16 *)(*(u8 **)(object + 0x14) + 0x10) =
+        *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x10) =
             (s16)(s32)*(f32 *)(entity + 0x18);
-        *(s16 *)(*(u8 **)(object + 0x14) + 0x12) =
+        *(s16 *)(*(u8 **)((u8 *)arg0 + 0x14) + 0x12) =
             (s16)(s32)*(f32 *)(entity + 0x1C);
+        selector = *(s8 *)(slot + 0x14);
     }
-    selector = *(s8 *)(slot + 0x14);
     if (selector != -1) {
         result = D_8008B1F8[selector](arg0);
     }
