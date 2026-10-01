@@ -61,7 +61,183 @@ void func_151669A0(s32 arg0, s32 arg1, s32 arg2, f32 arg3, u8 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151669A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_151669A0.s")
+typedef struct EffectDescriptor193E50 {
+    u8 *resource;
+    s32 field04;
+    s32 field08;
+    s16 field0C;
+    s16 field0E;
+    s16 x;
+    s16 y;
+    s16 z;
+    s16 field16;
+    s16 field18;
+    s16 field1A;
+    u8 pad1C[3];
+    u8 kind;
+    s16 field20;
+    s16 field22;
+    s16 field24;
+    s16 field26;
+    s16 field28;
+    u8 field2A;
+    u8 field2B;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 alpha;
+    u8 pad30[4];
+    s16 field34;
+} EffectDescriptor193E50;
+
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+void func_15167D84(void *, s32, s32, s32, u8, s32);
+void func_1516972C(u8 *);
+void func_151EFEB8(void *, s32);
+extern u8 *D_8008CA4C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15166B50 CURRENT (3691) */
+void func_15166B50(u8 *object) {
+    f32 transform[4][4];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 *matrix;
+    s32 offset;
+    s32 remaining;
+    EffectDescriptor193E50 effect;
+
+    remaining = --object[0xD0];
+    if (remaining == 5) {
+        effect.resource = D_8008CA4C[0];
+        effect.field04 = 0;
+        effect.field08 = 4;
+        effect.field0C = 0;
+        effect.field16 = 0;
+        effect.field18 = 0;
+        effect.field1A = 0;
+        effect.kind = 5;
+        effect.field20 = 0;
+        effect.field22 = 0;
+        offset = 0;
+        matrix = object + 0x10;
+        effect.field24 = (s32) (*(f32 *) (object + 0xD8) * 4000.0f);
+        effect.field28 = 0x200;
+        effect.field2A = 0;
+        effect.field2B = 0;
+        effect.red = 0xFF;
+        effect.green = 0xFF;
+        effect.blue = 0xFF;
+        effect.alpha = 0xFF;
+        effect.field34 = 0;
+        effect.field26 = (s32) (*(f32 *) (object + 0xD8) * 4000.0f);
+        do {
+            func_151EFEB8(transform, (s32) matrix);
+            func_150A7960(transform, -400.0f, 10.0f, 0.0f, &x, &y, &z);
+            effect.field0E = (func_150ADA20() & 0x7F) + 0x55;
+            effect.x = (s32) x;
+            effect.y = (s32) y;
+            effect.z = (s32) z;
+            func_15167D84(&effect, 0, 0, -1, object[0xC], object[1]);
+            offset += 0x40;
+            matrix += 0x40;
+        } while (offset != 0xC0);
+        return;
+    }
+    if (remaining == 0) {
+        func_1516972C(object);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15166B50 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_15166B50.s")
+typedef struct DisplayCommand193E50 {
+    u32 word0;
+    u32 word1;
+} DisplayCommand193E50;
+
+extern u8 D_8008B3E0[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15166D68 CURRENT (2685) */
+DisplayCommand193E50 *func_15166D68(DisplayCommand193E50 *displayList,
+                                     u8 *object, s32 unused) {
+    u8 *matrix;
+    s32 offset;
+    s32 vertical;
+    u32 upper;
+    u32 lower;
+
+    offset = 0;
+    matrix = object + 0x10;
+    do {
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0xDA380003;
+            command->word1 = (u32) matrix;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x0100600C;
+            command->word1 = (u32) D_8008B3E0;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            vertical = 0x2800 - ((object[0xD0] << 12) / 10);
+            upper = (u32) vertical << 16;
+            command->word0 = 0x02140000;
+            command->word1 = upper + 0x2000;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x02140002;
+            command->word1 = upper + 0x2000;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x02140004;
+            command->word1 = upper + 0x2400;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            lower = (u32) (vertical + 0x800) << 16;
+            command->word0 = 0x02140006;
+            command->word1 = lower + 0x2000;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x02140008;
+            command->word1 = lower + 0x2000;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x0214000A;
+            command->word1 = lower + 0x2400;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x050A0600;
+            command->word1 = 0;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x05040A00;
+            command->word1 = 0;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x0502080A;
+            command->word1 = 0;
+        }
+        {
+            DisplayCommand193E50 *command = displayList++;
+            command->word0 = 0x05020A04;
+            command->word1 = 0;
+        }
+        offset += 0x40;
+        matrix += 0x40;
+    } while (offset != 0xC0);
+    return displayList;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15166D68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_15166D68.s")
 
 void func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);

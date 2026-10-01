@@ -947,3 +947,32 @@ A fresh clean regression of `800030A0` after recovery passed: `BATCH_COMPLETE`,
 full US ROM match, 1,346 tests with 12 skipped, metadata, progress and whitespace.
 This pass adds no C matches; totals remain **61 / 6,920 bytes**, with **2,694**
 accepted US C functions and no accepted pending IDs.
+
+## Twenty-third batch: display-command and effect descriptor candidates
+
+The related `game_193E50` pass adds two preserved candidates, with no accepted
+C functions. `15166D68` emits twelve display commands for each of three matrix
+instances. Giving each packet the block-scoped pointer lifetime used by the
+pinned SDK graphics macros improves 6465 to 2685. Explicitly advancing the
+cursor after the stores instead worsens the score to 4385, so the scoped
+post-increment form is retained. All forms preserve the reference's 0x30 frame;
+constant hoisting, allocation and scheduling remain unresolved.
+
+For `15166B50`, independent review of raw `15167D84` establishes a 0x38-byte
+input copy and corroborates the existing descriptor field widths. A source-local
+0x38-byte structure uses that evidence without extending it into the gap before
+the float outputs. The original callback declaration supplies the narrow fifth
+formal; no new parameter narrowing is inferred from stores. The retained
+remaining count, matrix cursor and byte offset are real source state. Their
+compiler debug homes agree with the predicted relative layout, but the complete
+frame is 0xF8 rather than 0x100, leaving the buffers eight bytes early. Moving
+the resource assignment earlier recovers the observed global/constant ordering
+and improves 3991 to 3691. No artificial local, alignment or padded descriptor
+was introduced to close the unexplained frame difference.
+
+The best forms, earlier failures and storage evidence are retained. A clean
+regression checked the existing effect-release helper `1516972C` and integrated
+PI initializer `800030A0`: `BATCH_COMPLETE`, full US ROM match, integrated game
+code and linked rodata checks, 1,346 tests with 12 skipped, metadata, progress and
+whitespace passed. Accepted totals remain **61 / 6,920 bytes**, with **2,694**
+US C functions and no accepted pending IDs.

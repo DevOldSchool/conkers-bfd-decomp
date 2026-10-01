@@ -60364,6 +60364,12 @@
       "symbol": "func_151669A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3691,
+        "reason": "Preserve independently typed 0x38 descriptor candidate at 3691; actual buffer homes are eight bytes early and initialization scheduling differs, without adding padding or artificial state",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60377,6 +60383,12 @@
       "symbol": "func_15166B50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2685,
+        "reason": "Preserve SDK packet-lifetime candidate at 2685; explicit post-store cursor advances worsen allocation, constant hoisting and scheduling remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
