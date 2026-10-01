@@ -19,8 +19,8 @@ def validate_metadata(entry: dict) -> None:
         if original is not None:
             raise ValueError("original assembly metadata requires original_asm state")
         return
-    if entry.get("blocked") or entry.get("deferred") or entry.get("overlay") != "game":
-        raise ValueError("verified original assembly must be a non-deferred US game span")
+    if entry.get("blocked") or entry.get("deferred") or entry.get("overlay") not in {"game", "main"}:
+        raise ValueError("verified original assembly must be a non-deferred US main or game span")
     if not isinstance(original, dict):
         raise ValueError("original assembly requires classification evidence")
     for key in ("reason", "reference", "recorded_revision"):
@@ -55,18 +55,25 @@ def validate_source(root: Path, entry: dict) -> None:
             raise ValueError("retained original assembly changed since verification")
 
 
+def reference_image(root: Path, entry: dict) -> tuple[bytes, int, str]:
+    if entry.get("overlay") == "game":
+        return rom_span.game_code(root)
+    if entry.get("overlay") == "main":
+        return rom_span.main_code(root)
+    raise ValueError("original assembly verification supports US main and game spans")
+
+
 def verify(root: Path, entry: dict) -> dict:
     import diff
     import project_state
-    if entry.get("overlay") != "game":
-        raise ValueError("original assembly verification currently supports US game spans")
+    code, base, digest = reference_image(root, entry)
+    game_reference = entry["overlay"] == "game"
     validate_source(root, entry)
     region = entry["regions"]["us"]
     symbol, start = region["symbol"], int(region["vram"], 16)
     size = diff.expected_function_size("us", symbol)
     assembly = root / project_state.nonmatching_asm_path(entry["source"], symbol)
-    raw = diff.ensure_reference_function("us", symbol, game_reference=True)
-    code, base, digest = rom_span.game_code(root)
+    raw = diff.ensure_reference_function("us", symbol, game_reference=game_reference)
     expected = rom_span.raw_span(raw.read_text(), start, size, code, base)
     # Check the words recorded in the retained source, then independently
     # assemble/link its actual directives too. Comments alone are not proof.
@@ -77,16 +84,26 @@ def verify(root: Path, entry: dict) -> dict:
     # GLOBAL_ASM snippets inherit these settings from the assembly processor;
     # they intentionally omit the standalone raw-reference prelude.
     copy.write_text('.set noat\n.set noreorder\n.set gp=64\n' + assembly.read_text())
-    path = diff.reference_object("us", symbol, game_reference=True, assembly=copy)
+    path = diff.reference_object("us", symbol, game_reference=game_reference, assembly=copy)
     obj = Object32(path.read_bytes())
     symbols = {}
     for table in obj.symbols.values():
         for name, value, _, section in table:
             if name and section == 0:
                 match = re.fullmatch(r"(?:D|func|jtbl)_([0-9A-Fa-f]{8})(?:_[A-Za-z0-9]+)?", name)
-                if match is None or value:
+                if match is None and not game_reference:
+                    # Raw main also uses unpadded D_ names for literal constants
+                    # (for example D_63FFFF); keep function identities strict.
+                    match = re.fullmatch(r"D_([0-9A-Fa-f]{1,7})", name)
+                # Main handwritten spans may branch into a neighbouring retained
+                # span. Resolve only the disassembler's exact CPU-address label
+                # form; the actual linked branch still must equal the ROM word.
+                local = re.fullmatch(r"\.L([0-9A-Fa-f]{8})", name) if not game_reference else None
+                if local and not base <= int(local[1], 16) < base + len(code):
+                    raise ValueError(f"original assembly local target is outside main CPU text: {name}")
+                if (match is None and local is None) or value:
                     raise ValueError(f"unsupported original assembly external symbol: {name}")
-                symbols[name] = int(match[1], 16)
+                symbols[name] = int((match or local)[1], 16)
     payload = linked_aliases.linked_span(path, obj, symbol, start, size, symbols,
                                         output / "original", reference=True)
     if payload != expected:
@@ -107,7 +124,7 @@ def read_proof(root: Path, entry: dict, proof: Path) -> dict:
     region = entry["regions"]["us"]
     symbol = region["symbol"]
     assembly = root / project_state.nonmatching_asm_path(entry["source"], symbol)
-    code, base, digest = rom_span.game_code(root)
+    code, base, digest = reference_image(root, entry)
     payload = rom_span.raw_span(assembly.read_text(), int(region["vram"], 16),
                                 diff.expected_function_size("us", symbol), code, base)
     if (root / "build/us/original-asm" / symbol / "span.bin").read_bytes() != payload:

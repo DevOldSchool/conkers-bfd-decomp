@@ -238,7 +238,7 @@ asm-differ gate. Unsupported relocations keep the normal symbolic comparison;
 original objects still supply switch-table evidence. Watch mode remains symbolic
 and requires a fresh `finish` afterward.
 
-Reviewed handwritten game routines can be retained as verified original assembly:
+Reviewed handwritten main or game routines can be retained as verified original assembly:
 
 ```sh
 ./conker verify-original-asm <id> --reason "reviewed custom ABI" --evidence-reference docs/evidence/<review>.md
@@ -251,6 +251,11 @@ transactionally. The `original_asm` state removes the item from C-candidate
 selection and is reported separately; it contributes no C matches or matched
 bytes and does not complete a C source unit. `verify-batch` accepts these items
 alongside C matches and revalidates their assembly proofs.
+Main proofs use the checksum-validated CPU interval, excluding the boot blob
+and RSP payloads. Main batches require full-ROM equality, while game batches
+require the independently rebuilt game overlay. This classification does not
+enable mixed main C/ASM integration or turn internal branch labels into ordinary
+C-function entries.
 
 The full scan is an explicit, long-running operation:
 

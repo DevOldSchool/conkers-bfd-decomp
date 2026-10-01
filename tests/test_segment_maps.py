@@ -73,6 +73,22 @@ class SegmentMapTests(unittest.TestCase):
     def test_production_source_tree_has_no_fixture_directory(self) -> None:
         self.assertFalse((ROOT / "src" / "fixtures").exists())
 
+    def test_main_zero_tail_is_text_ordered_data_without_function_credit(self) -> None:
+        profile = yaml.safe_load((ROOT / "config/profiles/us.yaml").read_text())
+        main = next(segment for segment in profile["segments"] if segment.get("name") == "main")
+        entries = main["subsegments"]
+        index = next(i for i, entry in enumerate(entries)
+                     if isinstance(entry, dict) and entry.get("start") == 0x226B0)
+        self.assertEqual({"start": 0x226B0, "type": "data", "name": "main/data/padding_226B0",
+                          "linker_section_order": ".text"}, entries[index])
+        self.assertEqual([0x22460, "lib", "libultrare", "n_resample", ".text"], entries[index - 1])
+        self.assertEqual([0x226F0, "lib", "libultra_2_0G", "bzero", ".text"], entries[index + 1])
+        functions = json.loads((ROOT / "progress/functions.json").read_text())["functions"]
+        for function in functions:
+            region = function.get("regions", {}).get("us")
+            if function.get("overlay", "main") == "main" and region:
+                self.assertFalse(0x800226B0 <= int(region["vram"], 0) < 0x800226F0)
+
     def test_working_maps_preserve_reference_main_boundaries(self) -> None:
         # xprintf's rodata uses an explicit dictionary to preserve linker order.
         expected_counts = {"us": (204, 167), "eu": (119, 119)}

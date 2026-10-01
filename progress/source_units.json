@@ -19551,6 +19551,748 @@
         }
       },
       "source": "src/main/init_1420.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80002DB0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x2E50",
+          "start": "0x2DB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_2DB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80002E50"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x30A0",
+          "start": "0x2E50",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_2E50.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800030A0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3220",
+          "start": "0x30A0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_30A0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003220",
+        "func_80003330",
+        "func_8000349C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x34E0",
+          "start": "0x3220",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3220.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800034E0",
+        "func_80003658"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x37F0",
+          "start": "0x34E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_34E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800037F0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x38C0",
+          "start": "0x37F0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_37F0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003920"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3930",
+          "start": "0x3920",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3920.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003930"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x39B0",
+          "start": "0x3930",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3930.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800039C0",
+        "func_80003ACC"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3BD0",
+          "start": "0x39C0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_39C0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_system_wrapper_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003BD0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3C40",
+          "start": "0x3BD0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3BD0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80003C40",
+        "func_80003C6C",
+        "func_80004074",
+        "func_80004250",
+        "func_80004308",
+        "func_800043B4",
+        "func_8000440C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x4470",
+          "start": "0x3C40",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_3C40.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80004470",
+        "func_80004514",
+        "func_80004674",
+        "func_800046E4",
+        "func_8000480C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x49E0",
+          "start": "0x4470",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_4470.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800049E0",
+        "func_80004DB0",
+        "func_80004F00",
+        "func_80004FE0",
+        "func_80005020"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x50A0",
+          "start": "0x49E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_49E0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80005570",
+        "func_800056A0",
+        "func_800057E0",
+        "func_80005948"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x5AB0",
+          "start": "0x5570",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_5570.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_allocator_transfer_controller_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80011FA0",
+        "func_80011FB0",
+        "func_80011FDC",
+        "func_80011FEC",
+        "func_80012020"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x12560",
+          "start": "0x11FA0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_11FA0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_audio_driver_sequence_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80008F90",
+        "func_800093CC",
+        "func_80009400",
+        "func_800095A0",
+        "func_800097CC",
+        "func_80009980",
+        "func_800099BC",
+        "func_80009B2C",
+        "func_80009B4C",
+        "func_80009B90",
+        "func_80009BE4",
+        "func_80009CBC",
+        "func_80009FFC",
+        "func_8000A03C",
+        "func_8000A348"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0xA420",
+          "start": "0x8F90",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_8F90.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_audio_driver_sequence_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_8000B1B0",
+        "func_8000B1FC",
+        "func_8000B294",
+        "func_8000B2F4",
+        "func_8000B3D4",
+        "func_8000B548",
+        "func_8000B638",
+        "func_8000B830",
+        "func_8000B8B8",
+        "func_8000BA18",
+        "func_8000BAFC",
+        "func_8000BBE8",
+        "func_8000BC28",
+        "func_8000BCBC",
+        "func_8000BF60",
+        "func_8000C350",
+        "func_8000C530",
+        "func_8000C7E8",
+        "func_8000C934",
+        "func_8000CA18",
+        "func_8000CAE4",
+        "func_8000CBA8",
+        "func_8000CBF0",
+        "func_8000CC54",
+        "func_8000CD40",
+        "func_8000CDA0",
+        "func_8000CEAC",
+        "func_8000D2F8",
+        "func_8000D758",
+        "func_8000D96C",
+        "func_8000DE1C",
+        "func_8000DEC4",
+        "func_8000DF68",
+        "func_8000E054",
+        "func_8000E0F8",
+        "func_8000E134",
+        "func_8000E17C",
+        "func_8000E2F4",
+        "func_8000E40C",
+        "func_8000E46C",
+        "func_8000E588",
+        "func_8000E654",
+        "func_8000E704",
+        "func_8000E75C",
+        "func_8000E770",
+        "func_8000E7A0",
+        "func_8000E8C4",
+        "func_8000E8F0",
+        "func_8000E934",
+        "func_8000EA94"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0xEB00",
+          "start": "0xB1B0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_B1B0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_sound_record_family_boundary.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_8000EB00",
+        "func_8000EBC4",
+        "func_8000EC24",
+        "func_8000ECCC",
+        "func_8000EDA0",
+        "func_8000EE70",
+        "func_8000EF40",
+        "func_8000EFB4",
+        "func_8000F1A8",
+        "func_8000F248",
+        "func_8000F3D0",
+        "func_8000F44C",
+        "func_8000F4D8",
+        "func_8000F568",
+        "func_8000F6B8",
+        "func_8000F85C",
+        "func_8000F91C",
+        "func_8000F9D4",
+        "func_8000FA64",
+        "func_8000FC18",
+        "func_8000FD38",
+        "func_8000FDF4",
+        "func_8000FE88",
+        "func_8000FEF0",
+        "func_8000FF90",
+        "func_8001001C",
+        "func_800100E0",
+        "func_80010154",
+        "func_80010344",
+        "func_80010558",
+        "func_80010630",
+        "func_80010720",
+        "func_800107F8",
+        "func_80010894",
+        "func_8001091C",
+        "func_800109D0",
+        "func_80010A3C",
+        "func_80010AA8",
+        "func_80010BE8",
+        "func_80010E78",
+        "func_80010F30",
+        "func_80010F88",
+        "func_80010FFC",
+        "func_800111C8",
+        "func_8001123C",
+        "func_800112BC",
+        "func_80011310",
+        "func_8001147C",
+        "func_800114D0",
+        "func_80011624",
+        "func_80011BB8",
+        "func_80011E88",
+        "func_80011E94",
+        "func_80011EB8"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x11FA0",
+          "start": "0xEB00",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_EB00.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_sequence_api_mp3_adapter_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80008180",
+        "func_800084D8",
+        "func_8000853C",
+        "func_80008570",
+        "func_800085A4",
+        "func_800085B8",
+        "func_800085F8",
+        "func_8000862C",
+        "func_80008660",
+        "func_800086FC",
+        "func_80008744",
+        "func_80008790",
+        "func_80008824",
+        "func_8000886C",
+        "func_800088F0",
+        "func_80008988",
+        "func_80008A4C",
+        "func_80008A94",
+        "func_80008B2C",
+        "func_80008B60",
+        "func_80008BC0",
+        "func_80008C04",
+        "func_80008C6C",
+        "func_80008CE8",
+        "func_80008EE0",
+        "func_80008F24",
+        "func_80008F58"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x8F90",
+          "start": "0x8180",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_8180.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_sequence_api_mp3_adapter_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80012560",
+        "func_80012588",
+        "func_800125CC",
+        "func_8001263C",
+        "func_800126E8",
+        "func_80012718",
+        "func_800127D0"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x12820",
+          "start": "0x12560",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_12560.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_tlb_alias_boundary.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80008120"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x8180",
+          "start": "0x8120",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_8120.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_handwritten_family_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80005AB0",
+        "func_80005B04",
+        "func_80005BE0",
+        "func_80005C2C",
+        "func_800061F8"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x6240",
+          "start": "0x5AB0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_5AB0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_handwritten_family_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_80006240",
+        "func_8000625C",
+        "func_8000632C",
+        "func_80006380",
+        "func_80006424",
+        "func_80006828",
+        "func_8000692C",
+        "func_8000696C",
+        "func_80006E00",
+        "func_8000709C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x71D0",
+          "start": "0x6240",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_6240.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_handwritten_family_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800071D0",
+        "func_8000777C",
+        "func_800079D8",
+        "func_80007A24",
+        "func_80007A38",
+        "func_80007C74",
+        "func_80007DA0",
+        "func_80007DAC"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x8120",
+          "start": "0x71D0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_71D0.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_spatial_audio_boundaries.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_8000A420",
+        "func_8000A750",
+        "func_8000B060"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0xB1B0",
+          "start": "0xA420",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_A420.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_boundary_beta_comparison.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800038E0",
+        "func_8000390C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3920",
+          "start": "0x38E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_38E0.c"
     }
   ]
 }

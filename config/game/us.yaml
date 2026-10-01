@@ -785,7 +785,7 @@ segments:
       - [0x1F2960, lib, libultrare, playback, .text]
       - [0x1F3DE0, lib, libultrare, decoder, .text]
       - [0x1F7F60, lib, libultrare, main, .text]
-      # Rare MP3 bit/Huffman utility variant; raw until a complete object matches.
+      # Verified complete Rare MP3 bit/Huffman utility object.
       # Evidence: docs/evidence/libultrare_us_mp3_util_boundaries.md
       - [0x1F8870, lib, libultrare, util, .text]
       - [0x1F8CF0, lib, libultrare, lib_46650, .text]

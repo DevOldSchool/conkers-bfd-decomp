@@ -134,7 +134,9 @@ segments:
       - [0x214F0, lib, libultrare, n_load, .text]
       - [0x22040, lib, libultrare, n_resample2, .text]
       - [0x22460, lib, libultrare, n_resample, .text]
-      - [0x226B0, asm]
+      # Zero-filled tail outside the adjacent exact library objects; no C credit.
+      # Evidence: docs/evidence/main_text_zero_tail_226b0.md
+      - {start: 0x226B0, type: data, name: main/data/padding_226B0, linker_section_order: .text}
       # Reviewed stock and Rare-modified libultra object boundaries. Link archive members
       # where GNU ld accepts the object and all referenced sections are mapped;
       # every comparison range remains raw ASM in config/reference/us.yaml.

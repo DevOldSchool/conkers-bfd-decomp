@@ -90427,6 +90427,3112 @@
       },
       "source": "src/main/init_1420.c",
       "symbol": "func_800014C4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 160,
+          "state": "raw_asm",
+          "symbol": "func_80002DB0",
+          "vram": "0x80002DB0"
+        }
+      },
+      "source": "src/main/init_2DB0.c",
+      "symbol": "func_80002DB0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 592,
+          "state": "raw_asm",
+          "symbol": "func_80002E50",
+          "vram": "0x80002E50"
+        }
+      },
+      "source": "src/main/init_2E50.c",
+      "symbol": "func_80002E50"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 384,
+          "state": "raw_asm",
+          "symbol": "func_800030A0",
+          "vram": "0x800030A0"
+        }
+      },
+      "source": "src/main/init_30A0.c",
+      "symbol": "func_800030A0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 272,
+          "state": "raw_asm",
+          "symbol": "func_80003220",
+          "vram": "0x80003220"
+        }
+      },
+      "source": "src/main/init_3220.c",
+      "symbol": "func_80003220"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 364,
+          "state": "raw_asm",
+          "symbol": "func_80003330",
+          "vram": "0x80003330"
+        }
+      },
+      "source": "src/main/init_3220.c",
+      "symbol": "func_80003330"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_8000349C",
+          "vram": "0x8000349C"
+        }
+      },
+      "source": "src/main/init_3220.c",
+      "symbol": "func_8000349C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 376,
+          "state": "raw_asm",
+          "symbol": "func_800034E0",
+          "vram": "0x800034E0"
+        }
+      },
+      "source": "src/main/init_34E0.c",
+      "symbol": "func_800034E0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 408,
+          "state": "raw_asm",
+          "symbol": "func_80003658",
+          "vram": "0x80003658"
+        }
+      },
+      "source": "src/main/init_34E0.c",
+      "symbol": "func_80003658"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 208,
+          "state": "raw_asm",
+          "symbol": "func_800037F0",
+          "vram": "0x800037F0"
+        }
+      },
+      "source": "src/main/init_37F0.c",
+      "symbol": "func_800037F0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 16,
+          "state": "raw_asm",
+          "symbol": "func_80003920",
+          "vram": "0x80003920"
+        }
+      },
+      "source": "src/main/init_3920.c",
+      "symbol": "func_80003920"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 128,
+          "state": "raw_asm",
+          "symbol": "func_80003930",
+          "vram": "0x80003930"
+        }
+      },
+      "source": "src/main/init_3930.c",
+      "symbol": "func_80003930"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 268,
+          "state": "raw_asm",
+          "symbol": "func_800039C0",
+          "vram": "0x800039C0"
+        }
+      },
+      "source": "src/main/init_39C0.c",
+      "symbol": "func_800039C0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 260,
+          "state": "raw_asm",
+          "symbol": "func_80003ACC",
+          "vram": "0x80003ACC"
+        }
+      },
+      "source": "src/main/init_39C0.c",
+      "symbol": "func_80003ACC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 112,
+          "state": "raw_asm",
+          "symbol": "func_80003BD0",
+          "vram": "0x80003BD0"
+        }
+      },
+      "source": "src/main/init_3BD0.c",
+      "symbol": "func_80003BD0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 44,
+          "state": "raw_asm",
+          "symbol": "func_80003C40",
+          "vram": "0x80003C40"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_80003C40"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1032,
+          "state": "raw_asm",
+          "symbol": "func_80003C6C",
+          "vram": "0x80003C6C"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_80003C6C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 476,
+          "state": "raw_asm",
+          "symbol": "func_80004074",
+          "vram": "0x80004074"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_80004074"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 184,
+          "state": "raw_asm",
+          "symbol": "func_80004250",
+          "vram": "0x80004250"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_80004250"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 172,
+          "state": "raw_asm",
+          "symbol": "func_80004308",
+          "vram": "0x80004308"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_80004308"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 88,
+          "state": "raw_asm",
+          "symbol": "func_800043B4",
+          "vram": "0x800043B4"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_800043B4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 100,
+          "state": "raw_asm",
+          "symbol": "func_8000440C",
+          "vram": "0x8000440C"
+        }
+      },
+      "source": "src/main/init_3C40.c",
+      "symbol": "func_8000440C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 164,
+          "state": "raw_asm",
+          "symbol": "func_80004470",
+          "vram": "0x80004470"
+        }
+      },
+      "source": "src/main/init_4470.c",
+      "symbol": "func_80004470"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 352,
+          "state": "raw_asm",
+          "symbol": "func_80004514",
+          "vram": "0x80004514"
+        }
+      },
+      "source": "src/main/init_4470.c",
+      "symbol": "func_80004514"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 112,
+          "state": "raw_asm",
+          "symbol": "func_80004674",
+          "vram": "0x80004674"
+        }
+      },
+      "source": "src/main/init_4470.c",
+      "symbol": "func_80004674"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 296,
+          "state": "raw_asm",
+          "symbol": "func_800046E4",
+          "vram": "0x800046E4"
+        }
+      },
+      "source": "src/main/init_4470.c",
+      "symbol": "func_800046E4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 468,
+          "state": "raw_asm",
+          "symbol": "func_8000480C",
+          "vram": "0x8000480C"
+        }
+      },
+      "source": "src/main/init_4470.c",
+      "symbol": "func_8000480C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 976,
+          "state": "raw_asm",
+          "symbol": "func_800049E0",
+          "vram": "0x800049E0"
+        }
+      },
+      "source": "src/main/init_49E0.c",
+      "symbol": "func_800049E0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 336,
+          "state": "raw_asm",
+          "symbol": "func_80004DB0",
+          "vram": "0x80004DB0"
+        }
+      },
+      "source": "src/main/init_49E0.c",
+      "symbol": "func_80004DB0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 224,
+          "state": "raw_asm",
+          "symbol": "func_80004F00",
+          "vram": "0x80004F00"
+        }
+      },
+      "source": "src/main/init_49E0.c",
+      "symbol": "func_80004F00"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 64,
+          "state": "raw_asm",
+          "symbol": "func_80004FE0",
+          "vram": "0x80004FE0"
+        }
+      },
+      "source": "src/main/init_49E0.c",
+      "symbol": "func_80004FE0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 128,
+          "state": "raw_asm",
+          "symbol": "func_80005020",
+          "vram": "0x80005020"
+        }
+      },
+      "source": "src/main/init_49E0.c",
+      "symbol": "func_80005020"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 304,
+          "state": "raw_asm",
+          "symbol": "func_80005570",
+          "vram": "0x80005570"
+        }
+      },
+      "source": "src/main/init_5570.c",
+      "symbol": "func_80005570"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 320,
+          "state": "raw_asm",
+          "symbol": "func_800056A0",
+          "vram": "0x800056A0"
+        }
+      },
+      "source": "src/main/init_5570.c",
+      "symbol": "func_800056A0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 360,
+          "state": "raw_asm",
+          "symbol": "func_800057E0",
+          "vram": "0x800057E0"
+        }
+      },
+      "source": "src/main/init_5570.c",
+      "symbol": "func_800057E0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 360,
+          "state": "raw_asm",
+          "symbol": "func_80005948",
+          "vram": "0x80005948"
+        }
+      },
+      "source": "src/main/init_5570.c",
+      "symbol": "func_80005948"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 16,
+          "state": "raw_asm",
+          "symbol": "func_80011FA0",
+          "vram": "0x80011FA0"
+        }
+      },
+      "source": "src/main/init_11FA0.c",
+      "symbol": "func_80011FA0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 44,
+          "state": "raw_asm",
+          "symbol": "func_80011FB0",
+          "vram": "0x80011FB0"
+        }
+      },
+      "source": "src/main/init_11FA0.c",
+      "symbol": "func_80011FB0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 16,
+          "state": "raw_asm",
+          "symbol": "func_80011FDC",
+          "vram": "0x80011FDC"
+        }
+      },
+      "source": "src/main/init_11FA0.c",
+      "symbol": "func_80011FDC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80011FEC",
+          "vram": "0x80011FEC"
+        }
+      },
+      "source": "src/main/init_11FA0.c",
+      "symbol": "func_80011FEC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1344,
+          "state": "raw_asm",
+          "symbol": "func_80012020",
+          "vram": "0x80012020"
+        }
+      },
+      "source": "src/main/init_11FA0.c",
+      "symbol": "func_80012020"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1084,
+          "state": "raw_asm",
+          "symbol": "func_80008F90",
+          "vram": "0x80008F90"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80008F90"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_800093CC",
+          "vram": "0x800093CC"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_800093CC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 416,
+          "state": "raw_asm",
+          "symbol": "func_80009400",
+          "vram": "0x80009400"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009400"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 556,
+          "state": "raw_asm",
+          "symbol": "func_800095A0",
+          "vram": "0x800095A0"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_800095A0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 436,
+          "state": "raw_asm",
+          "symbol": "func_800097CC",
+          "vram": "0x800097CC"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_800097CC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 60,
+          "state": "raw_asm",
+          "symbol": "func_80009980",
+          "vram": "0x80009980"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009980"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 368,
+          "state": "raw_asm",
+          "symbol": "func_800099BC",
+          "vram": "0x800099BC"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_800099BC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 32,
+          "state": "raw_asm",
+          "symbol": "func_80009B2C",
+          "vram": "0x80009B2C"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009B2C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80009B4C",
+          "vram": "0x80009B4C"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009B4C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 84,
+          "state": "raw_asm",
+          "symbol": "func_80009B90",
+          "vram": "0x80009B90"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009B90"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 216,
+          "state": "raw_asm",
+          "symbol": "func_80009BE4",
+          "vram": "0x80009BE4"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009BE4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 832,
+          "state": "raw_asm",
+          "symbol": "func_80009CBC",
+          "vram": "0x80009CBC"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009CBC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 64,
+          "state": "raw_asm",
+          "symbol": "func_80009FFC",
+          "vram": "0x80009FFC"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_80009FFC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 780,
+          "state": "raw_asm",
+          "symbol": "func_8000A03C",
+          "vram": "0x8000A03C"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_8000A03C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 216,
+          "state": "raw_asm",
+          "symbol": "func_8000A348",
+          "vram": "0x8000A348"
+        }
+      },
+      "source": "src/main/init_8F90.c",
+      "symbol": "func_8000A348"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_8000B1B0",
+          "vram": "0x8000B1B0"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B1B0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 152,
+          "state": "raw_asm",
+          "symbol": "func_8000B1FC",
+          "vram": "0x8000B1FC"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B1FC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 96,
+          "state": "raw_asm",
+          "symbol": "func_8000B294",
+          "vram": "0x8000B294"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B294"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 224,
+          "state": "raw_asm",
+          "symbol": "func_8000B2F4",
+          "vram": "0x8000B2F4"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B2F4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 372,
+          "state": "raw_asm",
+          "symbol": "func_8000B3D4",
+          "vram": "0x8000B3D4"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B3D4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 240,
+          "state": "raw_asm",
+          "symbol": "func_8000B548",
+          "vram": "0x8000B548"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B548"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 504,
+          "state": "raw_asm",
+          "symbol": "func_8000B638",
+          "vram": "0x8000B638"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B638"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 136,
+          "state": "raw_asm",
+          "symbol": "func_8000B830",
+          "vram": "0x8000B830"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B830"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 352,
+          "state": "raw_asm",
+          "symbol": "func_8000B8B8",
+          "vram": "0x8000B8B8"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000B8B8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 228,
+          "state": "raw_asm",
+          "symbol": "func_8000BA18",
+          "vram": "0x8000BA18"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000BA18"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 236,
+          "state": "raw_asm",
+          "symbol": "func_8000BAFC",
+          "vram": "0x8000BAFC"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000BAFC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 64,
+          "state": "raw_asm",
+          "symbol": "func_8000BBE8",
+          "vram": "0x8000BBE8"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000BBE8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 148,
+          "state": "raw_asm",
+          "symbol": "func_8000BC28",
+          "vram": "0x8000BC28"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000BC28"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 676,
+          "state": "raw_asm",
+          "symbol": "func_8000BCBC",
+          "vram": "0x8000BCBC"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000BCBC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1008,
+          "state": "raw_asm",
+          "symbol": "func_8000BF60",
+          "vram": "0x8000BF60"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000BF60"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 480,
+          "state": "raw_asm",
+          "symbol": "func_8000C350",
+          "vram": "0x8000C350"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000C350"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 696,
+          "state": "raw_asm",
+          "symbol": "func_8000C530",
+          "vram": "0x8000C530"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000C530"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 332,
+          "state": "raw_asm",
+          "symbol": "func_8000C7E8",
+          "vram": "0x8000C7E8"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000C7E8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 228,
+          "state": "raw_asm",
+          "symbol": "func_8000C934",
+          "vram": "0x8000C934"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000C934"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 204,
+          "state": "raw_asm",
+          "symbol": "func_8000CA18",
+          "vram": "0x8000CA18"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CA18"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 196,
+          "state": "raw_asm",
+          "symbol": "func_8000CAE4",
+          "vram": "0x8000CAE4"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CAE4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_8000CBA8",
+          "vram": "0x8000CBA8"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CBA8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 100,
+          "state": "raw_asm",
+          "symbol": "func_8000CBF0",
+          "vram": "0x8000CBF0"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CBF0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 236,
+          "state": "raw_asm",
+          "symbol": "func_8000CC54",
+          "vram": "0x8000CC54"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CC54"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 96,
+          "state": "raw_asm",
+          "symbol": "func_8000CD40",
+          "vram": "0x8000CD40"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CD40"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 268,
+          "state": "raw_asm",
+          "symbol": "func_8000CDA0",
+          "vram": "0x8000CDA0"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CDA0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1100,
+          "state": "raw_asm",
+          "symbol": "func_8000CEAC",
+          "vram": "0x8000CEAC"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000CEAC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1120,
+          "state": "raw_asm",
+          "symbol": "func_8000D2F8",
+          "vram": "0x8000D2F8"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000D2F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 532,
+          "state": "raw_asm",
+          "symbol": "func_8000D758",
+          "vram": "0x8000D758"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000D758"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1200,
+          "state": "raw_asm",
+          "symbol": "func_8000D96C",
+          "vram": "0x8000D96C"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000D96C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 168,
+          "state": "raw_asm",
+          "symbol": "func_8000DE1C",
+          "vram": "0x8000DE1C"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000DE1C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 164,
+          "state": "raw_asm",
+          "symbol": "func_8000DEC4",
+          "vram": "0x8000DEC4"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000DEC4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 236,
+          "state": "raw_asm",
+          "symbol": "func_8000DF68",
+          "vram": "0x8000DF68"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000DF68"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 164,
+          "state": "raw_asm",
+          "symbol": "func_8000E054",
+          "vram": "0x8000E054"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E054"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 60,
+          "state": "raw_asm",
+          "symbol": "func_8000E0F8",
+          "vram": "0x8000E0F8"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E0F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_8000E134",
+          "vram": "0x8000E134"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E134"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 376,
+          "state": "raw_asm",
+          "symbol": "func_8000E17C",
+          "vram": "0x8000E17C"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E17C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 280,
+          "state": "raw_asm",
+          "symbol": "func_8000E2F4",
+          "vram": "0x8000E2F4"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E2F4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 96,
+          "state": "raw_asm",
+          "symbol": "func_8000E40C",
+          "vram": "0x8000E40C"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E40C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 284,
+          "state": "raw_asm",
+          "symbol": "func_8000E46C",
+          "vram": "0x8000E46C"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E46C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 204,
+          "state": "raw_asm",
+          "symbol": "func_8000E588",
+          "vram": "0x8000E588"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E588"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 176,
+          "state": "raw_asm",
+          "symbol": "func_8000E654",
+          "vram": "0x8000E654"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E654"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 88,
+          "state": "raw_asm",
+          "symbol": "func_8000E704",
+          "vram": "0x8000E704"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E704"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_8000E75C",
+          "vram": "0x8000E75C"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E75C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 48,
+          "state": "raw_asm",
+          "symbol": "func_8000E770",
+          "vram": "0x8000E770"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E770"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 292,
+          "state": "raw_asm",
+          "symbol": "func_8000E7A0",
+          "vram": "0x8000E7A0"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E7A0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 44,
+          "state": "raw_asm",
+          "symbol": "func_8000E8C4",
+          "vram": "0x8000E8C4"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E8C4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_8000E8F0",
+          "vram": "0x8000E8F0"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E8F0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 352,
+          "state": "raw_asm",
+          "symbol": "func_8000E934",
+          "vram": "0x8000E934"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000E934"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 108,
+          "state": "raw_asm",
+          "symbol": "func_8000EA94",
+          "vram": "0x8000EA94"
+        }
+      },
+      "source": "src/main/init_B1B0.c",
+      "symbol": "func_8000EA94"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 196,
+          "state": "raw_asm",
+          "symbol": "func_8000EB00",
+          "vram": "0x8000EB00"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EB00"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 96,
+          "state": "raw_asm",
+          "symbol": "func_8000EBC4",
+          "vram": "0x8000EBC4"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EBC4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 168,
+          "state": "raw_asm",
+          "symbol": "func_8000EC24",
+          "vram": "0x8000EC24"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EC24"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 212,
+          "state": "raw_asm",
+          "symbol": "func_8000ECCC",
+          "vram": "0x8000ECCC"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000ECCC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 208,
+          "state": "raw_asm",
+          "symbol": "func_8000EDA0",
+          "vram": "0x8000EDA0"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EDA0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 208,
+          "state": "raw_asm",
+          "symbol": "func_8000EE70",
+          "vram": "0x8000EE70"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EE70"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 116,
+          "state": "raw_asm",
+          "symbol": "func_8000EF40",
+          "vram": "0x8000EF40"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EF40"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 500,
+          "state": "raw_asm",
+          "symbol": "func_8000EFB4",
+          "vram": "0x8000EFB4"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000EFB4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 160,
+          "state": "raw_asm",
+          "symbol": "func_8000F1A8",
+          "vram": "0x8000F1A8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F1A8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 392,
+          "state": "raw_asm",
+          "symbol": "func_8000F248",
+          "vram": "0x8000F248"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F248"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 124,
+          "state": "raw_asm",
+          "symbol": "func_8000F3D0",
+          "vram": "0x8000F3D0"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F3D0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 140,
+          "state": "raw_asm",
+          "symbol": "func_8000F44C",
+          "vram": "0x8000F44C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F44C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 144,
+          "state": "raw_asm",
+          "symbol": "func_8000F4D8",
+          "vram": "0x8000F4D8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F4D8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 336,
+          "state": "raw_asm",
+          "symbol": "func_8000F568",
+          "vram": "0x8000F568"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F568"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 420,
+          "state": "raw_asm",
+          "symbol": "func_8000F6B8",
+          "vram": "0x8000F6B8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F6B8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 192,
+          "state": "raw_asm",
+          "symbol": "func_8000F85C",
+          "vram": "0x8000F85C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F85C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 184,
+          "state": "raw_asm",
+          "symbol": "func_8000F91C",
+          "vram": "0x8000F91C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F91C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 144,
+          "state": "raw_asm",
+          "symbol": "func_8000F9D4",
+          "vram": "0x8000F9D4"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000F9D4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 436,
+          "state": "raw_asm",
+          "symbol": "func_8000FA64",
+          "vram": "0x8000FA64"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FA64"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 288,
+          "state": "raw_asm",
+          "symbol": "func_8000FC18",
+          "vram": "0x8000FC18"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FC18"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 188,
+          "state": "raw_asm",
+          "symbol": "func_8000FD38",
+          "vram": "0x8000FD38"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FD38"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 148,
+          "state": "raw_asm",
+          "symbol": "func_8000FDF4",
+          "vram": "0x8000FDF4"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FDF4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 104,
+          "state": "raw_asm",
+          "symbol": "func_8000FE88",
+          "vram": "0x8000FE88"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FE88"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 160,
+          "state": "raw_asm",
+          "symbol": "func_8000FEF0",
+          "vram": "0x8000FEF0"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FEF0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 140,
+          "state": "raw_asm",
+          "symbol": "func_8000FF90",
+          "vram": "0x8000FF90"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8000FF90"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 196,
+          "state": "raw_asm",
+          "symbol": "func_8001001C",
+          "vram": "0x8001001C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8001001C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 116,
+          "state": "raw_asm",
+          "symbol": "func_800100E0",
+          "vram": "0x800100E0"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_800100E0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 496,
+          "state": "raw_asm",
+          "symbol": "func_80010154",
+          "vram": "0x80010154"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010154"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 532,
+          "state": "raw_asm",
+          "symbol": "func_80010344",
+          "vram": "0x80010344"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010344"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 216,
+          "state": "raw_asm",
+          "symbol": "func_80010558",
+          "vram": "0x80010558"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010558"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 240,
+          "state": "raw_asm",
+          "symbol": "func_80010630",
+          "vram": "0x80010630"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010630"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 216,
+          "state": "raw_asm",
+          "symbol": "func_80010720",
+          "vram": "0x80010720"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010720"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 156,
+          "state": "raw_asm",
+          "symbol": "func_800107F8",
+          "vram": "0x800107F8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_800107F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 136,
+          "state": "raw_asm",
+          "symbol": "func_80010894",
+          "vram": "0x80010894"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010894"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 180,
+          "state": "raw_asm",
+          "symbol": "func_8001091C",
+          "vram": "0x8001091C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8001091C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 108,
+          "state": "raw_asm",
+          "symbol": "func_800109D0",
+          "vram": "0x800109D0"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_800109D0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 108,
+          "state": "raw_asm",
+          "symbol": "func_80010A3C",
+          "vram": "0x80010A3C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010A3C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 320,
+          "state": "raw_asm",
+          "symbol": "func_80010AA8",
+          "vram": "0x80010AA8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010AA8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 656,
+          "state": "raw_asm",
+          "symbol": "func_80010BE8",
+          "vram": "0x80010BE8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010BE8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 184,
+          "state": "raw_asm",
+          "symbol": "func_80010E78",
+          "vram": "0x80010E78"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010E78"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 88,
+          "state": "raw_asm",
+          "symbol": "func_80010F30",
+          "vram": "0x80010F30"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010F30"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 116,
+          "state": "raw_asm",
+          "symbol": "func_80010F88",
+          "vram": "0x80010F88"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010F88"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 460,
+          "state": "raw_asm",
+          "symbol": "func_80010FFC",
+          "vram": "0x80010FFC"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80010FFC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 116,
+          "state": "raw_asm",
+          "symbol": "func_800111C8",
+          "vram": "0x800111C8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_800111C8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 128,
+          "state": "raw_asm",
+          "symbol": "func_8001123C",
+          "vram": "0x8001123C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8001123C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 84,
+          "state": "raw_asm",
+          "symbol": "func_800112BC",
+          "vram": "0x800112BC"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_800112BC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 364,
+          "state": "raw_asm",
+          "symbol": "func_80011310",
+          "vram": "0x80011310"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80011310"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 84,
+          "state": "raw_asm",
+          "symbol": "func_8001147C",
+          "vram": "0x8001147C"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_8001147C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 340,
+          "state": "raw_asm",
+          "symbol": "func_800114D0",
+          "vram": "0x800114D0"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_800114D0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 1428,
+          "state": "raw_asm",
+          "symbol": "func_80011624",
+          "vram": "0x80011624"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80011624"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 720,
+          "state": "raw_asm",
+          "symbol": "func_80011BB8",
+          "vram": "0x80011BB8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80011BB8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 12,
+          "state": "raw_asm",
+          "symbol": "func_80011E88",
+          "vram": "0x80011E88"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80011E88"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 36,
+          "state": "raw_asm",
+          "symbol": "func_80011E94",
+          "vram": "0x80011E94"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80011E94"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 232,
+          "state": "raw_asm",
+          "symbol": "func_80011EB8",
+          "vram": "0x80011EB8"
+        }
+      },
+      "source": "src/main/init_EB00.c",
+      "symbol": "func_80011EB8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 856,
+          "state": "raw_asm",
+          "symbol": "func_80008180",
+          "vram": "0x80008180"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008180"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 100,
+          "state": "raw_asm",
+          "symbol": "func_800084D8",
+          "vram": "0x800084D8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800084D8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_8000853C",
+          "vram": "0x8000853C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_8000853C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80008570",
+          "vram": "0x80008570"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008570"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_800085A4",
+          "vram": "0x800085A4"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800085A4"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 64,
+          "state": "raw_asm",
+          "symbol": "func_800085B8",
+          "vram": "0x800085B8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800085B8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_800085F8",
+          "vram": "0x800085F8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800085F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_8000862C",
+          "vram": "0x8000862C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_8000862C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 156,
+          "state": "raw_asm",
+          "symbol": "func_80008660",
+          "vram": "0x80008660"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008660"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_800086FC",
+          "vram": "0x800086FC"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800086FC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_80008744",
+          "vram": "0x80008744"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008744"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 148,
+          "state": "raw_asm",
+          "symbol": "func_80008790",
+          "vram": "0x80008790"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008790"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_80008824",
+          "vram": "0x80008824"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008824"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 132,
+          "state": "raw_asm",
+          "symbol": "func_8000886C",
+          "vram": "0x8000886C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_8000886C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 152,
+          "state": "raw_asm",
+          "symbol": "func_800088F0",
+          "vram": "0x800088F0"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_800088F0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 196,
+          "state": "raw_asm",
+          "symbol": "func_80008988",
+          "vram": "0x80008988"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008988"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 72,
+          "state": "raw_asm",
+          "symbol": "func_80008A4C",
+          "vram": "0x80008A4C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008A4C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 152,
+          "state": "raw_asm",
+          "symbol": "func_80008A94",
+          "vram": "0x80008A94"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008A94"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80008B2C",
+          "vram": "0x80008B2C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008B2C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 96,
+          "state": "raw_asm",
+          "symbol": "func_80008B60",
+          "vram": "0x80008B60"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008B60"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80008BC0",
+          "vram": "0x80008BC0"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008BC0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 104,
+          "state": "raw_asm",
+          "symbol": "func_80008C04",
+          "vram": "0x80008C04"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008C04"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 124,
+          "state": "raw_asm",
+          "symbol": "func_80008C6C",
+          "vram": "0x80008C6C"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008C6C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 504,
+          "state": "raw_asm",
+          "symbol": "func_80008CE8",
+          "vram": "0x80008CE8"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008CE8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80008EE0",
+          "vram": "0x80008EE0"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008EE0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 52,
+          "state": "raw_asm",
+          "symbol": "func_80008F24",
+          "vram": "0x80008F24"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008F24"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 56,
+          "state": "raw_asm",
+          "symbol": "func_80008F58",
+          "vram": "0x80008F58"
+        }
+      },
+      "source": "src/main/init_8180.c",
+      "symbol": "func_80008F58"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 40,
+          "state": "raw_asm",
+          "symbol": "func_80012560",
+          "vram": "0x80012560"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_80012560"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 68,
+          "state": "raw_asm",
+          "symbol": "func_80012588",
+          "vram": "0x80012588"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_80012588"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 112,
+          "state": "raw_asm",
+          "symbol": "func_800125CC",
+          "vram": "0x800125CC"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_800125CC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 172,
+          "state": "raw_asm",
+          "symbol": "func_8001263C",
+          "vram": "0x8001263C"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_8001263C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 48,
+          "state": "raw_asm",
+          "symbol": "func_800126E8",
+          "vram": "0x800126E8"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_800126E8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 184,
+          "state": "raw_asm",
+          "symbol": "func_80012718",
+          "vram": "0x80012718"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_80012718"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 80,
+          "state": "raw_asm",
+          "symbol": "func_800127D0",
+          "vram": "0x800127D0"
+        }
+      },
+      "source": "src/main/init_12560.c",
+      "symbol": "func_800127D0"
+    },
+    {
+      "original_asm": {
+        "reason": "CP0 TLB setup with preserved hazard-delay instructions",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_tlb_alias_boundary.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "3192d0fd89ced9fd65f862ad4821007e3570d18c9282098c8625d85f0c9f4d4f",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "a45e7497d9b1ae318665a675d85972e06b9865a413346ccd382da7c89e7d7fa4",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 96,
+          "state": "original_asm",
+          "symbol": "func_80008120",
+          "vram": "0x80008120"
+        }
+      },
+      "source": "src/main/init_8120.c",
+      "symbol": "func_80008120"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "e7ccfcabb369fe60ecf51abce7c12d8af3cb41810a8d4d0bc830bc3848a085f2",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "4009845455f592c3e452157a4ed5c7be73c1b29e6588fc69fdc0dfa931dc7bac",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 84,
+          "state": "original_asm",
+          "symbol": "func_80005AB0",
+          "vram": "0x80005AB0"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005AB0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "3d2c013dac751f7cd8b374250d9ce6e68e19b0f062189f8d0e7add786bd2a117",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "7af930e4b18ebf75f6d73ba7e60376c1fade280643387a06bfe8e37246713522",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 220,
+          "state": "original_asm",
+          "symbol": "func_80005B04",
+          "vram": "0x80005B04"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005B04"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_80005BE0",
+          "vram": "0x80005BE0"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005BE0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "94dcef6ff3438c73ff120635dd77d544836e233519bedeb0d4141682bcc52122",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "2b3182a83025e61e6ec0bac798683fc13ae348da0ef15f952758208eff3986e7",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1484,
+          "state": "original_asm",
+          "symbol": "func_80005C2C",
+          "vram": "0x80005C2C"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_80005C2C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "811b03281b6492b830a9ccdbb0de8d4607ab7f106692015159f96d78c750f8fa",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "e405f82e418a59b413b3b63d1b8fd915410e688883dacfd1f73ac94ec25b9882",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 72,
+          "state": "original_asm",
+          "symbol": "func_800061F8",
+          "vram": "0x800061F8"
+        }
+      },
+      "source": "src/main/init_5AB0.c",
+      "symbol": "func_800061F8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 28,
+          "state": "raw_asm",
+          "symbol": "func_80006240",
+          "vram": "0x80006240"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006240"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "2f0fd6d794b6d20948601d0990b1387b9c61fee8d2402960be30ae15d7304a22",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "87ffd007accce1a3e8e8f0cc1ff32f1342691bb532fadbf882dfc4641e681beb",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 208,
+          "state": "original_asm",
+          "symbol": "func_8000625C",
+          "vram": "0x8000625C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000625C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "53acfc934254663c95aab56411385ceb50917b764eed06e43dbeb0fe552a248f",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "9af14aa38a71c93b7f25b610e59c63405e4e03ed3bd6f86becfe4c6608459107",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 84,
+          "state": "original_asm",
+          "symbol": "func_8000632C",
+          "vram": "0x8000632C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000632C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "c5b3aff37cc60925c59311f318f9d106ed52034fd7765ab1c15cafde4f717990",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "2c19b92d66310a78ac0df70a08704c249f4ef6e708320659f80298ec55ad0174",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 164,
+          "state": "original_asm",
+          "symbol": "func_80006380",
+          "vram": "0x80006380"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006380"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "bbda0f3b339172f90940227f35a0bbe56b16df4c8ed6380e0790994a94e3bd50",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "40f835450a499e50052e1737edfade8b336c3add82f129da5a8b6de7600cba6a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1028,
+          "state": "original_asm",
+          "symbol": "func_80006424",
+          "vram": "0x80006424"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006424"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "dc62e59b83a2b9a45e9864b816bf0c61d89834abf0e1fc54a6ceda7a781d0250",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "f4f01aceaebcbe190ba42cc9519797ac3c96a94a17e3e7558801480cd5722cc4",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 260,
+          "state": "original_asm",
+          "symbol": "func_80006828",
+          "vram": "0x80006828"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006828"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "51bef6d2969d477ec1fa6d4038da64cd09ac6dbdf799fe05db52a6c3101d788e",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "809c761eea27e3f786f2274524b7bf59319d2af693bbc8965d0e8c9befcf56f7",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 64,
+          "state": "original_asm",
+          "symbol": "func_8000692C",
+          "vram": "0x8000692C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000692C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "e84019a149dd4610a47c5d62e7278cb36f497a3dbcdc9d93243d86d0de22c50e",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "671a7926edb4a0b13a0fda7de90eb090cd9211b8f364aef7f6950d915b3b8b5f",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1172,
+          "state": "original_asm",
+          "symbol": "func_8000696C",
+          "vram": "0x8000696C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000696C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "4acb6c4cc92ec62c9ae822b756678c0c7809dbd83a224bc65fe94fc34cad4ff0",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "9991b45e6425503146d321b1a31b8a114c5932e8c029101ea0942c42c06d4895",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 668,
+          "state": "original_asm",
+          "symbol": "func_80006E00",
+          "vram": "0x80006E00"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_80006E00"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "a7a131a3e6fded854895150a8c0eea1686fc7652fc773061fcc633efb8f2f481",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "90798a221f87431b9125a9629322775fc3e9ffc523a266b6e81b37346018b361",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 308,
+          "state": "original_asm",
+          "symbol": "func_8000709C",
+          "vram": "0x8000709C"
+        }
+      },
+      "source": "src/main/init_6240.c",
+      "symbol": "func_8000709C"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "0ad5583de681023f0acd3d20a1f571485c1bd3d33929a9e36f153c8fc7fb1b37",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "ba78a6087cf100fa46f4045a57ad85b6536e88184af72914420e3cb9719cb908",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1452,
+          "state": "original_asm",
+          "symbol": "func_800071D0",
+          "vram": "0x800071D0"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_800071D0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "677db688b6eb574ff80ffcae49bb9e79b516bb47143849be0d43241089d8ff70",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "ef1762f1c120268b65c5abd50988486039d959748fc046cef8aad972ec539a99",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 604,
+          "state": "original_asm",
+          "symbol": "func_8000777C",
+          "vram": "0x8000777C"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_8000777C"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 76,
+          "state": "raw_asm",
+          "symbol": "func_800079D8",
+          "vram": "0x800079D8"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_800079D8"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_80007A24",
+          "vram": "0x80007A24"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007A24"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "31a00e3bacff1d4c5551d34fd67b7e3a0d2dd10f9e14b72a6eeca09d4d874e99",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "848a39a0cd94a308a553dbfeee3ddc38b72fac6e889ebe6552620df2475e48d2",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 572,
+          "state": "original_asm",
+          "symbol": "func_80007A38",
+          "vram": "0x80007A38"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007A38"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "827419f1f35f1c786420b4d925bad05147abd3570e81bf533bef6f81bd74ab23",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "cefd5d67e93c79dcd04c2b932a491f100fa71294c5088e3b6bc7041bf33ab623",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 300,
+          "state": "original_asm",
+          "symbol": "func_80007C74",
+          "vram": "0x80007C74"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007C74"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed privileged or shared-frame/custom-register ABI with retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "d7cabf0420f0782f268a13d4db96c727156ed27cf0bd1f158eba4f75c9c6b1e4",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "93a82a1b5ea7573dcc02d0ec39a725e0531ef38269410216133b8518e27c4652",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 12,
+          "state": "original_asm",
+          "symbol": "func_80007DA0",
+          "vram": "0x80007DA0"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007DA0"
+    },
+    {
+      "original_asm": {
+        "reason": "Reviewed diagnostic custom-register ABI and retained interior entries",
+        "recorded_revision": "working-tree",
+        "reference": "docs/evidence/main_handwritten_family_boundaries.md"
+      },
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "evidence": {
+            "assembly_sha256": "011647f65fa1dfa9c31dc5b4bbc73a04d56de8f5e680b1ba9c9485017c016b0a",
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "span_sha256": "99c643c8698f78f90aae3800d4fa030773ff099291c01f0e5d18fbec662042e2",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 884,
+          "state": "original_asm",
+          "symbol": "func_80007DAC",
+          "vram": "0x80007DAC"
+        }
+      },
+      "source": "src/main/init_71D0.c",
+      "symbol": "func_80007DAC"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 816,
+          "state": "raw_asm",
+          "symbol": "func_8000A420",
+          "vram": "0x8000A420"
+        }
+      },
+      "source": "src/main/init_A420.c",
+      "symbol": "func_8000A420"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 2320,
+          "state": "raw_asm",
+          "symbol": "func_8000A750",
+          "vram": "0x8000A750"
+        }
+      },
+      "source": "src/main/init_A420.c",
+      "symbol": "func_8000A750"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 336,
+          "state": "raw_asm",
+          "symbol": "func_8000B060",
+          "vram": "0x8000B060"
+        }
+      },
+      "source": "src/main/init_A420.c",
+      "symbol": "func_8000B060"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 44,
+          "state": "raw_asm",
+          "symbol": "func_800038E0",
+          "vram": "0x800038E0"
+        }
+      },
+      "source": "src/main/init_38E0.c",
+      "symbol": "func_800038E0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_8000390C",
+          "vram": "0x8000390C"
+        }
+      },
+      "source": "src/main/init_38E0.c",
+      "symbol": "func_8000390C"
     }
   ],
   "schema_version": 1
