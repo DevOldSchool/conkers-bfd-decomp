@@ -19740,7 +19740,7 @@
         "us": {
           "end": "0x3BD0",
           "start": "0x39C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_39C0.c"
@@ -19862,7 +19862,7 @@
         "us": {
           "end": "0x5AB0",
           "start": "0x5570",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_5570.c"

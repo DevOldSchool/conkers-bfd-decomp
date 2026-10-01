@@ -90614,8 +90614,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800039C0",
           "vram": "0x800039C0"
         }
@@ -90624,6 +90629,12 @@
       "symbol": "func_800039C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1390,
+        "reason": "Real second-buffer pointer snapshot and explicit first-cursor update improve3880 to1390. Signed arithmetic form is code-neutral1390; retain unsigned intermediates, fullword RGB parameters, no manual unrolling or allocation tricks. Remaining count/color lifetimes and terminal alignment unresolved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90961,8 +90972,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 304,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80005570",
           "vram": "0x80005570"
         }
@@ -90971,6 +90987,17 @@
       "symbol": "func_80005570"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "layout_failure": {
+          "focused_current_differences": 0,
+          "object_sha256": "89ba7084abde0763f7166fadcab60b0ef58358af8021844b3dc49ddf45e8a58f",
+          "reason": "func_800057E0 offset 0x264, expected 0x270 (delta -12); func_80005948 offset 0x3CC, expected 0x3D8 (delta -12)",
+          "source_sha256": "0bff17e22e771a262a59287ab757f887b6211f678e188b28de7c46a1affc87fe"
+        },
+        "reason": "Full320-byte focused match; reviewed mixed unit still shifts following57E0/5948 members12 bytes early. Exact source/object/comparison/layout evidence archived before ASM restoration. Requires genuine layout recovery; not accepted C.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

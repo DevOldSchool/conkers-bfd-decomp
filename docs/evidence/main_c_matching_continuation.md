@@ -767,3 +767,51 @@ progress and whitespace passed. This adds **1 function / 208 bytes**, giving
 **58 / 5,964 bytes** since the fresh baseline and **2,691** accepted US C
 functions. Both reviewed initializer units are integrated, and no accepted
 IDs remain pending.
+
+## Eighteenth batch: framebuffer and controller setup
+
+`func_800039C0` (268 bytes) reaches a full-span zero after replacing the
+derived video-mode pointer with a direct conditional call argument. The
+first form scored 260; the direct selection reproduces the raw branch
+join. Reading the initialized width and height globals preserves the
+observed integer-to-float conversions, rather than replacing their ratios
+with precomputed constants. The allocator contract is already matched;
+the mode-selection and buffer-swap helpers agree with their pinned SDK
+objects. A source-local opaque mode type suffices for these pointer calls.
+
+The related two-buffer fill `80003ACC` remains deferred at 1390. Its real
+second-buffer snapshot prevents repeated potentially aliasing global
+loads, improving the first form's 3880. An explicit first-cursor advance
+also preserves its observed store scheduling. Signed arithmetic spelling
+was code-neutral, so unsigned intermediate arithmetic is retained. All
+three RGB parameters remain full-width, and neither loop is manually
+unrolled. Register/count lifetimes and natural terminal alignment remain
+unresolved.
+
+The controller-pak transaction `80005570` (304 bytes) initially matched every
+instruction except five stack operands (score 29). Compiler debug homes and
+the raw frame identify four real locals: the channel-byte cursor, returned
+status, loop index and 40-byte SDK-compatible packet copy. One recorded
+storage-layout prediction placed those locals at their observed homes. That
+single reconstruction produced zero without changing the 0x50-byte frame,
+adding state or searching declaration permutations. The SI access and release
+helpers both take no arguments; the returned status remains live across release.
+
+Its paired transaction `800056A0` has an exact focused 320-byte span but remains
+**unaccepted**: the mixed source object moves both following assembly members
+12 bytes early. The existing deferral launcher rejected every focused zero,
+leaving this failed-layout candidate unable to finish or be preserved through
+the supported workflow. A reviewed, fail-closed recovery now archives exact
+comparison output, source, mixed object and fingerprinted layout evidence before
+restoring assembly. It independently re-extracts object measurements and rejects
+stale or altered proof, a preserved layout, nonexact comparison, or tool failure.
+Source/inventory write failures roll back both originals. No comparison or
+layout-acceptance rule was relaxed; the paired candidate receives no match credit.
+
+The clean checkpoint batch checked both new functions and rechecked the two
+integrated initializers: `BATCH_COMPLETE`, full US ROM match, 1,346 tests with
+12 skipped, metadata, progress and whitespace passed. The recovery and both
+new C bodies received independent review. This adds **2 functions / 572 bytes**,
+giving **60 / 6,536 bytes** since the fresh baseline and **2,693** accepted US
+C functions. No accepted IDs remain pending. The exact-but-layout-invalid
+paired transaction remains disabled and excluded from those totals.
