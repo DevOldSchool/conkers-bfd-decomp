@@ -36,6 +36,10 @@ matches the work you intend to do.
 - [RZIP and asset extraction](rzip-assets.md) documents the ROM asset layout,
   extraction commands, proven audio, texture, interface, and model formats, and
   their evidence boundaries.
+- [Model appearance extraction](model-appearance.md) covers guarded ROM materials,
+  explicit capture-scoped presets, diagnostics, coverage and their proof limits.
+- [Resumable model batches](model-batches.md) coordinates corpus refresh, review
+  and current blocker reporting.
 - [Future asset editing and recomp integration](asset-editing.md) describes the
   reversible editing commands and what can or cannot yet be inserted safely.
 - [Asset extraction roadmap](asset-roadmap.md) tracks completed format work and

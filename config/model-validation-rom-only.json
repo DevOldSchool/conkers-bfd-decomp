@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "textures": "build/assets/textures",
+  "activity": null,
+  "scenes": null,
+  "runtime_catalogs": [],
+  "corpora": [
+    {
+      "name": "rom-only",
+      "root": "build/assets/models/rom-only",
+      "banks": [1, 3, 4, 9]
+    }
+  ]
+}

@@ -41,6 +41,16 @@ def read(path: Path):
     return json.loads(path.read_text())
 
 
+def optional_evidence_path(config: dict, name: str) -> Path | None:
+    """Omitted/null evidence stays unobserved; named missing inputs still fail."""
+    value = config.get(name)
+    if value is None:
+        return None
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(f'{name} must be a nonempty evidence path or null')
+    return ROOT / value
+
+
 def write(path: Path, value) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     temporary = path.with_suffix(path.suffix + '.tmp')
@@ -150,8 +160,34 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morp
     preview_fingerprint(path)  # Validate dependency locality before opening buffers.
     buffers = [(path.parent / unquote(b['uri'])).read_bytes() for b in document.get('buffers', [])]
     models.verify_gltf_material_spans(document, run_records)
+    scoped_proofs = {}
+    for field, gltf_field in (('rom_ui_material_state', 'romUiMaterialState'),
+                              ('rom_special_attachment_material_state', 'romSpecialAttachmentMaterialState')):
+        proofs = [row[field] for row in run_records if row.get(field) is not None]
+        proof = proofs[0] if proofs else None
+        if (any(identity(p) != identity(proof) for p in proofs)
+                or identity(document.get('extras', {}).get(gltf_field)) != identity(proof)):
+            raise ValueError('exported guarded document proof differs from manifest')
+        if proof is not None:
+            scoped_proofs[field] = proof
+    if len(scoped_proofs) > 1:
+        raise ValueError('conflicting guarded consumer proofs')
+    if scoped_proofs:
+        proof = next(iter(scoped_proofs.values()))
+        doc_extras = document.get('extras', {})
+        if 'characterColorState' in doc_extras or 'characterMatrixState' in doc_extras:
+            raise ValueError('guarded consumer has unsupported generic character provenance')
+        for field in ('attachmentColorState', 'attachmentMatrixState'):
+            if field in doc_extras and doc_extras[field].get('renderer') != proof['renderer']:
+                raise ValueError('guarded consumer document renderer contradicts source proof')
     for material in document.get('materials', []):
         extras = material.get('extras', {})
+        if scoped_proofs and 'characterColorState' in extras:
+            raise ValueError('guarded consumer material has unsupported generic character provenance')
+        if scoped_proofs:
+            for field in ('attachmentColorState', 'attachmentMatrixState'):
+                if field in extras and extras[field].get('renderer') != proof['renderer']:
+                    raise ValueError('guarded consumer material renderer contradicts source proof')
         index = extras.get('materialRun')
         if isinstance(index, int) and extras.get('romTextureStateConsensus') != run_records[index].get('rom_texture_state_consensus'):
             raise ValueError('exported ROM texture-state evidence differs from source')
@@ -161,7 +197,25 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morp
             raise ValueError('glTF ROM object texture binding differs from manifest')
         if isinstance(index, int) and extras.get('romSceneTextureState') != run_records[index].get('rom_scene_texture_state'):
             raise ValueError('exported ROM scene texture evidence differs from source')
+        if isinstance(index, int) and extras.get('romParticleTextureState') != run_records[index].get('rom_particle_texture_state'):
+            raise ValueError('exported ROM particle texture evidence differs from source')
+        if isinstance(index, int) and extras.get('romUiMaterialState') != run_records[index].get('rom_ui_material_state'):
+            raise ValueError('exported ROM UI material evidence differs from source')
+        if isinstance(index, int) and extras.get('romSpecialAttachmentMaterialState') != run_records[index].get('rom_special_attachment_material_state'):
+            raise ValueError('exported ROM specialized attachment evidence differs from source')
         if isinstance(index, int):
+            record = run_records[index]
+            if any(record.get(field) is not None for field in GUARDED_OBJECT_PROOFS):
+                binding = material.get('pbrMetallicRoughness', {}).get('baseColorTexture')
+                source = record.get('texture')
+                if (binding is None) != (source is None):
+                    raise ValueError('exported guarded image binding differs from source')
+                if source is not None:
+                    image = document['images'][document['textures'][binding['index']]['source']]
+                    actual = (path.parent / unquote(image['uri'])).resolve()
+                    expected_image = models._validated_preview_source(preview_root or path.parent, source['file'])
+                    if actual != expected_image.resolve():
+                        raise ValueError('exported guarded image binding differs from source')
             run = geometry.material_runs[index]
             detail = (models.detail_texture_preview_record(run)
                       if run.preview_coordinate_state is not None else None)
@@ -442,6 +496,64 @@ def evidence_checks(model: dict, runs: list[dict]) -> dict:
     return result
 
 
+GUARDED_OBJECT_PROOFS = ('rom_particle_texture_state', 'rom_ui_material_state',
+                         'rom_special_attachment_material_state')
+ROM_OBJECT_PROOFS = ('rom_texture_state_consensus', 'rom_object_texture_animation',
+                     'rom_scene_texture_state', 'rom_object_texture_binding', *GUARDED_OBJECT_PROOFS)
+
+
+def rom_object_material_dependencies(path: Path, runtime_path: Path | None = None, *,
+                                     digest_file=None) -> dict:
+    """Cache the actual images, including guarded families, not claimed PNG hashes."""
+    digest_file = digest if digest_file is None else digest_file
+    dependencies = {str(path): digest_file(path)}
+    if runtime_path is not None:
+        dependencies[str(runtime_path)] = digest_file(runtime_path)
+    for model in read(path)['models']:
+        for run in model['material_runs']:
+            if run.get('texture') and any(run.get(field) is not None for field in ROM_OBJECT_PROOFS):
+                image = models._validated_preview_source(path.parent, run['texture']['file'])
+                dependencies[str(image)] = digest_file(image)
+    return dependencies
+
+
+def verified_object_preview_geometry(geometry, data, context, flat, runtime, record):
+    """Rebuild guarded source substitutions before comparing manifest claims."""
+    geometry, update = models.apply_rom_attachment_preview_update(data, geometry, context, runtime)
+    if record.get('rom_attachment_update') != update:
+        raise ValueError('attachment texture/UV manifest update differs from ROM')
+    proofs = {}
+    for field, module in (('rom_ui_material_state', models.model_ui_materials),
+                          ('rom_special_attachment_material_state', models.model_special_attachment_materials)):
+        geometry, proof = module.apply_preview_geometry(geometry, data, context, flat, runtime)
+        # JSON normalizes integer segment-map keys while keeping bool/int distinct.
+        proof = json.loads(json.dumps(proof))
+        if identity(record.get(field)) != identity(proof):
+            raise ValueError(f'ROM guarded model proof differs: {field}')
+        proofs[field] = proof
+    return geometry, update, proofs
+
+
+def verify_guarded_object_texture(record, texture, status, directory, key):
+    """Check selected source identity and independently decoded PNG bytes."""
+    source = record.get('texture')
+    if record.get('status') != status:
+        raise ValueError(f'ROM guarded material status differs for {key}')
+    if texture is None:
+        if source is not None:
+            raise ValueError(f'ROM guarded material has an unsupported texture for {key}')
+        return
+    expected = {'flat_index': texture.flat_index, 'format': texture.format, 'size': texture.size,
+                'width': texture.width, 'height': texture.height, 'source_family': texture.family,
+                'png_sha1': texture.sha1, 'pixel_byte_offset': texture.pixel_byte_offset,
+                'palette_byte_offset': texture.palette_byte_offset}
+    if source is None or identity({field: source.get(field) for field in expected}) != identity(expected):
+        raise ValueError(f'ROM guarded texture selection differs for {key}')
+    png = texture.png_data if texture.png_data is not None else texture.source.read_bytes()
+    if models._validated_preview_source(directory, source['file']).read_bytes() != png:
+        raise ValueError(f'ROM guarded texture PNG differs for {key}')
+
+
 def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime: dict) -> dict:
     manifest = read(path)
     bank = manifest['bank_index']
@@ -461,22 +573,36 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
             geometry = models.parse_segment_geometry(segment, bank)
             key = (bank, bundle.index, segment.index)
             material_records = {i: runtime[(*key, i)] for i in range(len(geometry.material_runs)) if (*key, i) in runtime}
-            geometry, attachment_update = models.apply_rom_attachment_preview_update(
-                segment.data, geometry, contexts.get(key), material_records)
-            if records[key[1:]].get('rom_attachment_update') != attachment_update:
-                raise ValueError('attachment texture/UV manifest update differs from ROM')
+            model_record = records[key[1:]]
+            geometry, attachment_update, guarded = verified_object_preview_geometry(
+                geometry, segment.data, contexts.get(key), flat, material_records, model_record)
             geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
+            if len(model_record['material_runs']) != len(geometry.material_runs):
+                raise ValueError('ROM object material run count differs')
             for index, run in enumerate(geometry.material_runs):
                 record = records[key[1:]]['material_runs'][index]
+                for field, proof in guarded.items():
+                    if identity(record.get(field)) != identity(proof):
+                        raise ValueError(f'ROM guarded run proof differs for {key}:{index}: {field}')
                 if (*key, index) in runtime:
-                    if record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state') or record.get('rom_object_texture_binding'):
+                    if any(record.get(field) is not None for field in ROM_OBJECT_PROOFS):
                         raise ValueError('captured material was replaced with ROM object consensus')
                     continue
                 texture, status = models.choose_preview_texture(run, catalog, flat)
                 evidence = None
                 if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
-                    texture, status, evidence = models.rom_object_preview_texture(
+                    candidate, candidate_status, candidate_evidence = models.rom_object_preview_texture(
                         run, catalog, flat, tables, contexts.get(key))
+                    if candidate is not None:
+                        texture, status, evidence = candidate, candidate_status, candidate_evidence
+                particle_evidence = None
+                if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+                    candidate, candidate_status, candidate_evidence = models.model_particle203_materials.preview_texture(
+                        run, flat, contexts.get(key), segment.data, *key)
+                    if candidate is not None:
+                        texture, status, particle_evidence = candidate, candidate_status, candidate_evidence
+                if identity(record.get('rom_particle_texture_state')) != identity(particle_evidence):
+                    raise ValueError(f'ROM guarded particle proof differs for {key}:{index}')
                 animation_evidence = None
                 if texture is None and status == 'runtime-segment':
                     texture, animation_status, animation_evidence = models.rom_object_animation_preview_texture(
@@ -525,6 +651,13 @@ def compare_rom_object_materials(path: Path, flat: dict, catalog: dict, runtime:
                         raise ValueError(f'ROM object texture differs for {key}:{index}')
                     linked += 1
                     faces += run.face_count
+                if particle_evidence is not None or any(proof is not None for proof in guarded.values()):
+                    if texture is not None and (not run.texture_enabled or not run.texture_coordinates_proven):
+                        texture, status = None, 'runtime-texture-observed-coordinate-state-unresolved'
+                    verify_guarded_object_texture(record, texture, status, path.parent, (*key, index))
+                    if texture is not None:
+                        linked += 1
+                        faces += run.face_count
     return {'consensus_texture_runs': linked, 'consensus_texture_faces': faces,
             'export_capture_inputs': [], 'scope': 'Texture bytes on reviewed object and scene draw paths with explicit preview states; native appearance incomplete'}
 
@@ -728,7 +861,8 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
         _, _, bank_digest, bundles, _ = models.load_model_bundles('us', None, bank)
         update_contexts = ({(r['bank'], r['entry'], r['segment']): r
                            for r in models.load_object_material_context('us', None, bank_digest, bank)['models']
-                           if r.get('geometry_update')} if bank == 9 else {})
+                           if r.get('geometry_update') or r.get('ui_material_state')
+                           or r.get('special_attachment_material_state')} if bank == 9 else {})
         if bank == 1:
             morph_manifest = models.load_character_morph_manifest('us', None, bundles)
             source_morphs = {record['character_entry']: record for record in morph_manifest['models']}
@@ -793,14 +927,8 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
             runtime_path = manifest.get('runtime_material_manifest')
             runtime = runtime_catalogs.get(str((ROOT / runtime_path).resolve()), {}) if runtime_path else {}
             if bank in (3, 4, 9):
-                dependencies = {str(manifest_path): manifest_digest}
-                if runtime_path:
-                    dependencies[runtime_path] = digest(ROOT / runtime_path)
-                for record in manifest['models']:
-                    for run in record['material_runs']:
-                        if run.get('texture') and (run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state') or run.get('rom_object_texture_binding')):
-                            image = models._validated_preview_source(directory, run['texture']['file'])
-                            dependencies[str(image)] = digest(image)
+                dependencies = rom_object_material_dependencies(
+                    manifest_path, ROOT / runtime_path if runtime_path else None, digest_file=digest)
                 report['checks'][f'rom-objects:{corpus["name"]}:{bank:02x}'] = stage(
                     'rom-objects', {'rom': rom_key, 'dependencies': dependencies},
                     lambda: compare_rom_object_materials(manifest_path, flat, catalog, runtime))
@@ -817,8 +945,8 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                 attachment_update = None
                 if key in attachment_inputs:
                     data, context = attachment_inputs[key]
-                    geometry, attachment_update = models.apply_rom_attachment_preview_update(
-                        data, geometry, context, material_records)
+                    geometry, attachment_update, _ = verified_object_preview_geometry(
+                        geometry, data, context, flat, material_records, record)
                 if record.get('rom_attachment_update') != attachment_update:
                     raise ValueError('preview attachment texture/UV update differs from ROM')
                 geometry, _, _ = models.omit_zero_area_preview_faces(geometry)
@@ -831,7 +959,8 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
                                    compare_geometry(p, g, j, r['material_runs'], m, d,
                                                     flat_payloads=flat, runtime_materials=rm, preview_root=directory,
                                                     attachment_update=au))
-                if morph or draw_pass or any(run.get('rom_texture_state_consensus') or run.get('rom_object_texture_animation') or run.get('rom_scene_texture_state') or run.get('rom_object_texture_binding') for run in record['material_runs']):
+                if morph or draw_pass or any(run.get(field) is not None
+                        for run in record['material_runs'] for field in ROM_OBJECT_PROOFS):
                     animated = directory / record['gltf_file']
                     report['checks'][f'animated-geometry:{corpus["name"]}:{model_key}'] = stage(
                         'geometry', {**inputs, 'fingerprint': preview_fingerprint(animated)},
@@ -1006,8 +1135,9 @@ def _validate_batch(config_path: Path, output: Path, *, blender: Path | None = N
         from scripts.model_coverage import extract_coverage
         coverage = extract_coverage('us', None, ROOT / config['corpora'][0]['root'], texture_root,
             output / 'coverage.json', tuple(ROOT / p for p in config['runtime_catalogs']),
-            ROOT / config['activity'], output / (config['corpora'][0]['name'] + '-blender-validation.json'),
-            ROOT / config['scenes'])
+            optional_evidence_path(config, 'activity'),
+            output / (config['corpora'][0]['name'] + '-blender-validation.json'),
+            optional_evidence_path(config, 'scenes'))
         by_model = {row['key']: row for row in coverage['models']}
         runs_by_model = {}
         for run in coverage['material_runs']:

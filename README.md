@@ -58,6 +58,7 @@ verification in detail.
 | Current progress | [Generated progress report](docs/progress.md) |
 | Clean-room baseline and ROM profiles | [Bootstrap guide](docs/bootstrap.md) |
 | Asset extraction and format research | [RZIP and asset extraction](docs/rzip-assets.md) |
+| Model previews and scoped material evidence | [Model appearance extraction](docs/model-appearance.md) |
 | Future asset editing and ROM insertion | [Asset editing](docs/asset-editing.md) |
 | Remaining asset research | [Asset roadmap](docs/asset-roadmap.md) |
 | Nintendo 64 library reconstruction | [Library track](docs/library-track.md) |

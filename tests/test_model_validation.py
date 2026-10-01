@@ -25,6 +25,23 @@ def geometry():
 
 
 class ModelValidationTests(unittest.TestCase):
+    def test_optional_evidence_distinguishes_absent_and_requested_inputs(self):
+        self.assertIsNone(validation.optional_evidence_path({}, 'activity'))
+        self.assertIsNone(validation.optional_evidence_path({'activity': None}, 'activity'))
+        with tempfile.TemporaryDirectory() as directory, \
+                mock.patch.object(validation, 'ROOT', Path(directory)):
+            expected = Path(directory) / 'missing-capture.json'
+            self.assertFalse(expected.exists())
+            # Do not turn an explicitly requested missing capture into a skip.
+            self.assertEqual(expected, validation.optional_evidence_path(
+                {'activity': 'missing-capture.json'}, 'activity'))
+            with self.assertRaises(FileNotFoundError):
+                validation.read(validation.optional_evidence_path(
+                    {'activity': 'missing-capture.json'}, 'activity'))
+        for value in ('', '  ', False, [], {}):
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, 'nonempty evidence path'):
+                validation.optional_evidence_path({'activity': value}, 'activity')
+
     def test_attachment_update_requires_matching_provenance_and_actual_uvs(self):
         run = models.ModelMaterialRun(0, 1, True,
             models.ModelTextureBinding(0xFD180000, segment=6, offset=0,

@@ -36,7 +36,8 @@ as proof of an untextured draw.
 review is missing or stale. Existing approved gallery entries remain selected;
 their remaining material blockers are still visible in their report rows.
 
-Reviewed fragments and the stationary tank's appearance blocker are retained in
+Reviewed fragments and the purple flamethrower imp's (model 66) appearance
+blocker are retained in
 [model-batch-reviews.json](../config/model-batch-reviews.json). Each decision binds
 the manifest record and the actual glTF, buffer and texture contents. Changed
 inputs reopen visual review. The initial decisions carry forward existing review
@@ -86,6 +87,14 @@ scan, and standalone verification remains uncached. This requires two whole-set 
 of published assemblies. Focused tests
 cover reuse, separate scans, changed manifests between lookups and component,
 selection or output changes before the final phase.
+
+## Explicit material inspection
+
+[Model appearance extraction](model-appearance.md) documents the capture-scoped
+Scene60, Library155, Haybot and boat presets, separate ROM Haybot variants,
+guarded bank09 consumers, event diagnostics and coverage semantics. These
+explicit presets do not approve gallery publication or change the ROM-only
+corpus by themselves.
 
 ## Character alpha frontier
 

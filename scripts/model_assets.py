@@ -21,7 +21,7 @@ from statistics import median
 from typing import Any
 
 try:
-    from scripts import model_character_defaults, model_morphs, model_emission_points, model_character_parts, model_object_materials, model_bank09_materials
+    from scripts import model_expression_constructors, model_character_defaults, model_morphs, model_emission_points, model_character_parts, model_object_materials, model_bank09_materials, model_particle203_materials, model_ui_materials, model_special_attachment_materials
     from scripts.model_effect_format import (
         EffectModelSource, is_effect_model, parse_effect_model, encode_effect_model,
         verify_effect_consumers, resolve_effect_sources,
@@ -69,12 +69,16 @@ try:
         refresh_trace_model_correlations,
     )
 except ModuleNotFoundError:
+    import model_expression_constructors
     import model_character_defaults
     import model_morphs
     import model_emission_points
     import model_character_parts
     import model_object_materials
     import model_bank09_materials
+    import model_particle203_materials
+    import model_ui_materials
+    import model_special_attachment_materials
     from model_effect_format import (
         EffectModelSource, is_effect_model, parse_effect_model, encode_effect_model,
         verify_effect_consumers, resolve_effect_sources,
@@ -6264,7 +6268,90 @@ def verify_gltf_vertex_colors(gltf: dict[str, Any], runs: list[dict[str, Any]]) 
                 raise ValueError("preview glTF texture-only color binding changed")
 
 
-def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
+def _verify_selected_preview_inventory(
+    manifest: dict[str, Any], expected_entries: frozenset[int]
+) -> None:
+    """Check explicit selection and accounting; ROM identity needs source guards."""
+    if (
+        not isinstance(expected_entries, frozenset)
+        or not expected_entries
+        or any(type(entry) is not int or entry < 0 for entry in expected_entries)
+    ):
+        raise ValueError("preview expected entries must be a nonempty integer frozenset")
+    if type(manifest.get("bank_index")) is not int or manifest["bank_index"] != 1:
+        raise ValueError("selected preview verification requires bank-01")
+    models = manifest.get("models")
+    if not isinstance(models, list):
+        raise ValueError("selected preview model records are missing")
+    entries = []
+    for model in models:
+        if (
+            not isinstance(model, dict)
+            or type(model.get("bank_entry")) is not int
+            or model["bank_entry"] < 0
+            or type(model.get("segment")) is not int
+            or model["segment"] != 0
+        ):
+            raise ValueError("selected preview model identity changed")
+        entries.append(model["bank_entry"])
+    if (
+        len(entries) != len(expected_entries)
+        or set(entries) != expected_entries
+        or type(manifest.get("model_count")) is not int
+        or manifest["model_count"] != len(entries)
+    ):
+        raise ValueError("selected preview entry coverage changed")
+    if "selected_entries" in manifest:
+        selected = manifest["selected_entries"]
+        if (
+            not isinstance(selected, list)
+            or any(type(entry) is not int for entry in selected)
+            or selected != sorted(expected_entries)
+        ):
+            raise ValueError("selected preview entry metadata changed")
+    for field in (
+        "animation_clip_count", "animation_frame_count", "incompatible_animation_clip_count"
+    ):
+        values = [model.get(field) for model in models]
+        total = manifest.get(field)
+        if (
+            type(total) is not int
+            or total < 0
+            or any(type(value) is not int or value < 0 for value in values)
+            or total != sum(values)
+        ):
+            raise ValueError("selected preview animation accounting changed: " + field)
+    if manifest["incompatible_animation_clip_count"] != 0:
+        raise ValueError("selected preview has incompatible animation clips")
+
+
+def verify_preview_output(
+    output: Path,
+    manifest: dict[str, Any],
+    *,
+    expected_entries: frozenset[int] | None = None,
+) -> None:
+    """Verify files with full-bank defaults or an explicit bank-01 selection.
+
+    A selection checks exact record coverage and animation accounting. It does
+    not establish the selected entries' ROM clip/frame inventory; callers must
+    retain their independent source guards. Manifest metadata cannot opt in.
+    """
+    if "source_zero_area_faces_preserved" in manifest:
+        if manifest["source_zero_area_faces_preserved"] is not True:
+            raise ValueError("preview source-face preservation marker must be true")
+        if expected_entries is None or manifest.get("bank_index") != 1:
+            raise ValueError("preview source-face preservation requires explicit bank-01 verification")
+        if manifest["omitted_zero_area_face_count"] != 0 or any(
+            model["omitted_zero_area_face_count"] != 0
+            or model["omitted_zero_area_faces"]
+            or any(run["omitted_zero_area_face_count"] != 0
+                   for run in model["material_runs"])
+            for model in manifest["models"]
+        ):
+            raise ValueError("preview source-face preservation conflicts with omitted faces")
+    if expected_entries is not None:
+        _verify_selected_preview_inventory(manifest, expected_entries)
     instructions_path = output / manifest["instructions_file"]
     if not instructions_path.is_file():
         raise ValueError("preview instructions are missing")
@@ -6273,7 +6360,7 @@ def verify_preview_output(output: Path, manifest: dict[str, Any]) -> None:
     }
     runtime_mip_files = set()
     runtime_multitexture_files = set()
-    if manifest["bank_index"] == 1 and (
+    if expected_entries is None and manifest["bank_index"] == 1 and (
         manifest["animation_clip_count"] != 2621
         or manifest["animation_frame_count"] != 57732
         or manifest["incompatible_animation_clip_count"] != 0
@@ -13770,6 +13857,39 @@ def load_object_material_context(profile: str, rom_argument: Path | None, digest
             raise ValueError('attachment update and other object material contexts overlap')
         context['models'].extend(update_context['models'])
         context['attachment_update_consumers'] = update_context['consumers']
+        # Bank06 command bytes must be authenticated at this ROM-aware layer;
+        # executable/data-only constructor discovery cannot admit script selectors.
+        try:
+            from scripts import model_script_object_materials as script_objects
+        except ModuleNotFoundError:
+            import model_script_object_materials as script_objects
+        script_context = script_objects.material_context(rom, layout, game)
+        identities = {(r['bank'], r['entry'], r['segment']) for r in context['models']}
+        if any((r['bank'], r['entry'], r['segment']) in identities for r in script_context['models']):
+            raise ValueError('script object and other material contexts overlap')
+        context['models'].extend(script_context['models'])
+        context['script_object_consumers'] = script_context['consumers']
+        particle_context = model_particle203_materials.material_context(
+            game.code, layout['game_vram'], game.data, layout['game_data_vram'])
+        identities = {(r['bank'], r['entry'], r['segment']) for r in context['models']}
+        if any((r['bank'], r['entry'], r['segment']) in identities for r in particle_context['models']):
+            raise ValueError('particle203 and other material contexts overlap')
+        context['models'].extend(particle_context['models'])
+        context['particle203_consumers'] = particle_context['consumers']
+        ui_context = model_ui_materials.material_context(
+            game.code, layout['game_vram'], game.data, layout['game_data_vram'])
+        identities = {(r['bank'], r['entry'], r['segment']) for r in context['models']}
+        if any((r['bank'], r['entry'], r['segment']) in identities for r in ui_context['models']):
+            raise ValueError('UI and other material contexts overlap')
+        context['models'].extend(ui_context['models'])
+        context['ui_consumers'] = ui_context['consumers']
+        special_context = model_special_attachment_materials.material_context(
+            game.code, layout['game_vram'], game.data, layout['game_data_vram'])
+        identities = {(r['bank'], r['entry'], r['segment']) for r in context['models']}
+        if any((r['bank'], r['entry'], r['segment']) in identities for r in special_context['models']):
+            raise ValueError('special attachment and other material contexts overlap')
+        context['models'].extend(special_context['models'])
+        context['special_attachment_consumers'] = special_context['consumers']
         return {'normalized_sha1': digest, **context}
     if bank_index not in (3, 4):
         raise ValueError('object materials require bank 03, 04 or 09')
@@ -14006,7 +14126,8 @@ def rom_scene_preview_texture(run, catalog, payloads, context):
 
 
 def rom_object_preview_texture(run, catalog, payloads, tables, context):
-    if (context is None or 'scene_texture_state' in context
+    if (context is None or 'scene_texture_state' in context or 'particle_texture_state' in context or 'ui_material_state' in context
+            or 'special_attachment_material_state' in context
             or context.get('texture_binding', {}).get('kind') in ('attachment-payload', 'direct-pixel-segments')):
         return None, 'rom-object-renderer-unresolved', None
     texture, status, evidence = rom_render_state_preview_texture(run, catalog, payloads, tables)
@@ -14017,7 +14138,7 @@ def rom_object_preview_texture(run, catalog, payloads, tables, context):
 
 
 def add_rom_texture_state_evidence(encoded: bytes, run_records: list[dict]) -> bytes:
-    if not any(record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state') or record.get('rom_object_texture_binding') or (record.get('texture') or {}).get('tmem_source_loads') for record in run_records):
+    if not any(record.get('rom_texture_state_consensus') or record.get('rom_object_texture_animation') or record.get('rom_scene_texture_state') or record.get('rom_particle_texture_state') or record.get('rom_ui_material_state') or record.get('rom_special_attachment_material_state') or record.get('rom_object_texture_binding') or (record.get('texture') or {}).get('tmem_source_loads') for record in run_records):
         return encoded
     document = json.loads(encoded)
     for material in document.get('materials', []):
@@ -14040,6 +14161,46 @@ def add_rom_texture_state_evidence(encoded: bytes, run_records: list[dict]) -> b
             extras['romObjectTextureBinding'] = run_records[index]['rom_object_texture_binding']
         if isinstance(index, int) and run_records[index].get('rom_scene_texture_state'):
             extras['romSceneTextureState'] = run_records[index]['rom_scene_texture_state']
+        if isinstance(index, int) and run_records[index].get('rom_particle_texture_state'):
+            extras['romParticleTextureState'] = run_records[index]['rom_particle_texture_state']
+        if isinstance(index, int) and run_records[index].get('rom_ui_material_state'):
+            extras['romUiMaterialState'] = run_records[index]['rom_ui_material_state']
+        if isinstance(index, int) and run_records[index].get('rom_special_attachment_material_state'):
+            extras['romSpecialAttachmentMaterialState'] = run_records[index]['rom_special_attachment_material_state']
+    ui_states = [r['rom_ui_material_state'] for r in run_records if r.get('rom_ui_material_state')]
+    if ui_states:
+        proof = ui_states[0]
+        if any(p != proof for p in ui_states):
+            raise ValueError('conflicting UI material evidence')
+        extras = document.setdefault('extras', {})
+        extras['romUiMaterialState'] = proof
+        if 'attachmentColorState' in extras:
+            extras['attachmentColorState'] = {'renderer': proof['renderer'],
+                'status': 'dynamic-colour-opacity-unresolved', 'scope': proof['scope']}
+        if 'attachmentMatrixState' in extras:
+            extras['attachmentMatrixState'] = {'renderer': proof['renderer'],
+                'status': 'stored-geometry-neutral-joints',
+                'scope': 'Native UI transforms, animation and projection are not reconstructed.'}
+    special_states = [r['rom_special_attachment_material_state'] for r in run_records if r.get('rom_special_attachment_material_state')]
+    if special_states:
+        proof = special_states[0]
+        if ui_states or any(p != proof for p in special_states):
+            raise ValueError('conflicting specialized attachment material evidence')
+        extras = document.setdefault('extras', {})
+        extras['romSpecialAttachmentMaterialState'] = proof
+        if 'attachmentColorState' in extras:
+            extras['attachmentColorState'] = {'renderer': proof['renderer'],
+                'status': 'dynamic-colour-opacity-unresolved', 'scope': proof['scope']}
+        if 'attachmentMatrixState' in extras:
+            extras['attachmentMatrixState'] = {'renderer': proof['renderer'],
+                'status': 'stored-geometry-neutral-joints',
+                'scope': 'Native specialized attachment deformation and transforms are not reconstructed.'}
+    if ui_states or special_states:
+        # The generic skinned writer cannot identify these specialized
+        # consumers. Their scoped ROM proof does not establish the ordinary
+        # character colour resolver or native lighting for any model material.
+        for material in document.get('materials', []):
+            material.get('extras', {}).pop('characterColorState', None)
     return (json.dumps(document, indent=2) + '\n').encode()
 
 
@@ -14054,6 +14215,8 @@ def load_character_defaults(profile: str, rom_argument: Path | None, digest: str
     draw_tables = model_character_parts.verify_consumers(game.code, layout['game_vram'])
     expression_consumers = model_character_defaults.verify_expression_consumers(game.code, layout['game_vram']) if include_expressions else None
     expression_programs = model_character_defaults.parse_expression_animation_programs(game.data, layout['game_data_vram']) if include_expressions else None
+    expression_constructors = model_expression_constructors.parse_expression_constructor_programs(
+        game.code, layout['game_vram'], game.data, layout['game_data_vram']) if include_expressions else None
     expression_texture_consumers = model_character_defaults.expression_texture_consumers(
         game.code, layout['game_vram'])
     bank = next(bank for bank in parse_asset_banks(normalized, layout['asset_table']) if bank.index == 0x11)
@@ -14083,7 +14246,8 @@ def load_character_defaults(profile: str, rom_argument: Path | None, digest: str
             'expression_preview_presets': {
                 entry: {'index': index, 'consumer_sha1': expression_texture_consumers}
                 for entry, index in model_character_defaults.EXPRESSION_PREVIEW_PRESETS.items()},
-            **({'expression_consumers': expression_consumers, 'expression_animation_programs': expression_programs} if include_expressions else {}),
+            **({'expression_consumers': expression_consumers, 'expression_animation_programs': expression_programs,
+                'expression_constructors': expression_constructors} if include_expressions else {}),
             'capture_inputs': [], 'normalized_sha1': digest}
 
 
@@ -14092,7 +14256,9 @@ def load_character_expression_manifest(profile: str, rom_argument: Path | None, 
     records = [{'character_entry': entry, 'bundle_sha1': record['sha1'],
                 'default_header_sha1': record['header_sha1'],
                 'source_offset': record['expression_offset'], 'decoded_size': record['expression_size'],
-                'presets': record['expression_presets']}
+                'presets': [{**preset, 'action_selector': preset['animation_selector'],
+                             'action_parameter_raw': preset['animation_duration_raw']}
+                            for preset in record['expression_presets']]}
                for entry, record in source['entries'].items() if record['expression_presets']]
     return {'schema_version': 1, 'family': 'ROM-character-expression-presets',
             'normalized_sha1': digest, 'bank_index': 0x11,
@@ -14101,7 +14267,12 @@ def load_character_expression_manifest(profile: str, rom_argument: Path | None, 
             'decoded_size': sum(record['decoded_size'] for record in records),
             'consumer_sha1': source['expression_consumers'], 'models': records,
             'animation_programs': source['expression_animation_programs'],
-            'scope': 'Native ten-byte expression presets. Morph duration may be overridden by the caller; zero texture overrides select the initializer defaults. Nonzero animation selectors resolve to native action programs, not direct clip indices. Expression names, triggers and complete playback timelines remain unresolved.',
+            'action_programs': source['expression_animation_programs'],
+            'attachment_constructors': source['expression_constructors'],
+            'legacy_field_names': {'animation_programs': 'action_programs',
+                                   'animation_selector': 'action_selector',
+                                   'animation_duration_raw': 'action_parameter_raw'},
+            'scope': 'Native ten-byte expression presets. Morph duration may be overridden by the caller; zero texture overrides select the initializer defaults. Nonzero action selectors resolve to native action programs. The raw action parameter is ignored by the six attachment-constructor records; legacy animation-named keys remain compatibility aliases, not clip or lifetime claims. Expression names, triggers and complete playback timelines remain unresolved.',
             'capture_inputs': []}
 
 
@@ -14327,7 +14498,23 @@ def extract_model_preview(
     runtime_material_path: Path | None = None,
     runtime_appearance: tuple[int, int] | None = None,
     rom_defaults: bool = False,
+    entry_filter: frozenset[int] | None = None,
+    preserve_zero_area_faces: bool = False,
 ) -> dict[str, Any]:
+    """Export all models by default, or an explicit checked bank-01 subset."""
+    if entry_filter is not None:
+        if (
+            not isinstance(entry_filter, frozenset)
+            or not entry_filter
+            or any(type(entry) is not int or entry < 0 for entry in entry_filter)
+        ):
+            raise ValueError("preview entry filter must be a nonempty integer frozenset")
+        if type(bank_index) is not int or bank_index != 1:
+            raise ValueError("preview entry filtering requires bank-01")
+    if type(preserve_zero_area_faces) is not bool:
+        raise ValueError("preview source-face preservation option must be boolean")
+    if preserve_zero_area_faces and (bank_index != 1 or entry_filter is None):
+        raise ValueError("preserving source zero-area faces requires explicit bank-01 entry filter")
     if rom_defaults and (bank_index != 0x01 or runtime_material_path is not None or runtime_appearance is not None):
         raise ValueError('--rom-defaults requires bank 01 and excludes runtime material inputs')
     if runtime_appearance is not None and runtime_material_path is None:
@@ -14335,6 +14522,23 @@ def extract_model_preview(
     rom_path, source_order, digest, bundles, render_state_tables = load_model_bundles(
         profile, rom_argument, bank_index
     )
+    selected_bundles = bundles
+    if entry_filter is not None:
+        selected_bundles = [bundle for bundle in bundles if bundle.index in entry_filter]
+        if (
+            len(selected_bundles) != len(entry_filter)
+            or {bundle.index for bundle in selected_bundles} != entry_filter
+            or any(
+                type(bundle.index) is not int
+                or len(bundle.segments) != 1
+                or type(bundle.segments[0].index) is not int
+                or bundle.segments[0].index != 0
+                or not bundle.segments[0].data
+                for bundle in selected_bundles
+            )
+        ):
+            raise ValueError("preview entry filter does not identify unique bank-01 models")
+    # Full-source morph checks still need unselected model bundles.
     flat_payloads = load_flat_asset_payloads(profile, rom_argument, digest)
     default_manifest = load_character_defaults(profile, rom_argument, digest) if rom_defaults else None
     object_material_context = load_object_material_context(profile, rom_argument, digest, bank_index) if bank_index in (3, 4, 9) else None
@@ -14366,7 +14570,7 @@ def extract_model_preview(
     reason_counts: dict[str, int] = {}
     reason_face_counts: dict[str, int] = {}
     linked_run_count = linked_face_count = 0
-    for bundle in bundles:
+    for bundle in selected_bundles:
         for segment in bundle.segments:
             if not segment.data:
                 continue
@@ -14446,9 +14650,19 @@ def extract_model_preview(
             geometry, attachment_update = apply_rom_attachment_preview_update(
                 segment.data, geometry, object_contexts.get((bank_index, bundle.index, segment.index)),
                 update_runtime_materials)
-            geometry, omitted_zero_area_faces, omitted_zero_area_by_run = (
-                omit_zero_area_preview_faces(geometry)
-            )
+            geometry, ui_material_state = model_ui_materials.apply_preview_geometry(
+                geometry, segment.data, object_contexts.get((bank_index, bundle.index, segment.index)),
+                flat_payloads, update_runtime_materials)
+            geometry, special_material_state = model_special_attachment_materials.apply_preview_geometry(
+                geometry, segment.data, object_contexts.get((bank_index, bundle.index, segment.index)),
+                flat_payloads, update_runtime_materials)
+            if preserve_zero_area_faces:
+                omitted_zero_area_faces = ()
+                omitted_zero_area_by_run = (0,) * len(geometry.material_runs)
+            else:
+                geometry, omitted_zero_area_faces, omitted_zero_area_by_run = (
+                    omit_zero_area_preview_faces(geometry)
+                )
             texture_files: dict[str, str] = {}
             gltf_texture_files: dict[str | int, str] = {}
             model_runtime_materials: dict[int, dict[str, Any]] = {}
@@ -14494,6 +14708,14 @@ def extract_model_preview(
                         object_contexts.get((bank_index, bundle.index, segment.index)))
                     if candidate is not None:
                         texture, status, state_consensus_evidence = candidate, candidate_status, evidence
+                particle_evidence = None
+                if runtime_material is None and texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+                    candidate, candidate_status, evidence = model_particle203_materials.preview_texture(
+                        run, flat_payloads,
+                        object_contexts.get((bank_index, bundle.index, segment.index)),
+                        segment.data, bank_index, bundle.index, segment.index)
+                    if candidate is not None:
+                        texture, status, particle_evidence = candidate, candidate_status, evidence
                 animation_evidence = None
                 if runtime_material is None and texture is None and status == 'runtime-segment':
                     texture, animation_status, animation_evidence = rom_object_animation_preview_texture(
@@ -14552,6 +14774,9 @@ def extract_model_preview(
                     **({"rom_object_texture_animation": animation_evidence} if animation_evidence else {}),
                     **({"rom_object_texture_binding": binding_evidence} if binding_evidence else {}),
                     **({"rom_scene_texture_state": scene_evidence} if scene_evidence else {}),
+                    **({"rom_particle_texture_state": particle_evidence} if particle_evidence else {}),
+                    **({"rom_ui_material_state": ui_material_state} if ui_material_state else {}),
+                    **({"rom_special_attachment_material_state": special_material_state} if special_material_state else {}),
                     **({"rom_texture_state_consensus": state_consensus_evidence} if state_consensus_evidence else {}),
                     "runtime_material": (
                         runtime_material_consensus(runtime_material)
@@ -14736,6 +14961,8 @@ def extract_model_preview(
                        if bundle.index in morph_models else {}),
                     **({'character_draw_pass': character_draw_pass} if character_draw_pass is not None else {}),
                     **({'rom_attachment_update': attachment_update} if attachment_update is not None else {}),
+                    **({'rom_ui_material_state': ui_material_state} if ui_material_state else {}),
+                    **({'rom_special_attachment_material_state': special_material_state} if special_material_state else {}),
                     "material_file": f"geometry/{stem}.mtl",
                     "gltf_file": f"geometry/{stem}.gltf",
                     "gltf_binary_file": f"geometry/{stem}.bin",
@@ -14875,6 +15102,8 @@ def extract_model_preview(
 
     manifest = {
         "schema_version": 1,
+        **({"source_zero_area_faces_preserved": True} if preserve_zero_area_faces else {}),
+        **({"selected_entries": sorted(entry_filter)} if entry_filter is not None else {}),
         "family": f"indexed-bank-{bank_index:02x}-model-preview",
         "profile": "us",
         "source_rom": manifest_source(rom_path),
@@ -15099,8 +15328,13 @@ def extract_model_preview(
             "OBJ/MTL cannot preserve the vertex-color multiply used by the common "
             "RDP combine mode; use the glTF preview for material inspection",
             "surface metadata and secondary runtime regions remain raw sidecar evidence",
-            "source-authentic zero-area display-list triangles remain counted and indexed "
-            "in the manifest but are omitted from OBJ/glTF preview geometry",
+            (
+                "source-authentic zero-area display-list triangles are preserved in "
+                "OBJ/glTF preview geometry for this explicit bank-01 selection"
+                if preserve_zero_area_faces
+                else "source-authentic zero-area display-list triangles remain counted and indexed "
+                "in the manifest but are omitted from OBJ/glTF preview geometry"
+            ),
             (
                 "bank-01 glTFs include compatible bank-02 rotation, scale, and masked "
                 "joint-translation channels with descriptor-relative keyframe spacing "
@@ -15174,13 +15408,16 @@ def extract_model_preview(
         "\n"
         + {
             0x01: (
-                "Start with geometry/0000-00-bind.gltf. It contains the assembled neutral "
-                "Conker hierarchy without animation data, so Blender cannot silently select "
+                f"Start with geometry/{min(entry_filter) if entry_filter is not None else 0:04d}-00-bind.gltf. "
+                "It contains the assembled neutral "
+                f"{'character' if entry_filter is not None else 'Conker'} hierarchy without animation data, "
+                "so Blender cannot silently select "
                 "an arbitrary imported Action while geometry is being inspected. Source "
                 "vertices are joint-local in the ROM. The joint-table translations are "
                 "parent-relative, so the exporter accumulates their model-space pivots "
                 "before baking vertices and inverse-bind transforms. Use "
-                "geometry/0000-00.gltf for the animated version, then expand the armature in "
+                f"geometry/{min(entry_filter) if entry_filter is not None else 0:04d}-00.gltf "
+                "for the animated version, then expand the armature in "
                 "Blender's Outliner. Compatible bank-02 clips import as named Actions; the first "
                 "logical game animation ID routed to a pair appears as anim_NNNN in the "
                 "Action name, and every routed ID is retained in the Action extras. Choose "
@@ -15249,8 +15486,13 @@ def extract_model_preview(
             if runtime_material_catalog
             else ""
         )
-        + "Zero-area triangles emitted by the source display lists are recorded by source "
-        "face index but omitted from OBJ/glTF previews because they rasterize no surface. "
+        + (
+            "Zero-area triangles emitted by the source display lists are preserved in "
+            "OBJ/glTF previews for this explicit bank-01 selection. "
+            if preserve_zero_area_faces
+            else "Zero-area triangles emitted by the source display lists are recorded by source "
+            "face index but omitted from OBJ/glTF previews because they rasterize no surface. "
+        )
         + (
             "Bank-01 glTF files preserve the runtime hierarchy and rigid display-matrix "
             "assignments. They replay Conker's separate signed X/Y normal stream with "
@@ -15274,7 +15516,7 @@ def extract_model_preview(
         ),
         encoding="utf-8",
     )
-    verify_preview_output(output, manifest)
+    verify_preview_output(output, manifest, expected_entries=entry_filter)
     return manifest
 
 
@@ -15529,9 +15771,14 @@ def verify_models(
         expressions = load_character_expression_manifest(profile, rom_argument, digest)
         if (expressions['source_bundle_count'], expressions['model_count'], expressions['preset_count'], expressions['decoded_size']) != (186, 22, 258, 2580):
             raise ValueError('US bank-11 character expression inventory changed')
-        programs = expressions['animation_programs']
+        programs = expressions['action_programs']
         if (len(programs), sum(p['record_count'] for p in programs), sum(p['decoded_size'] for p in programs)) != (5, 6, 96):
             raise ValueError('US expression action-program inventory changed')
+        constructors = expressions['attachment_constructors']
+        if (constructors['operation_count'] != 6
+                or [[r['entry'] for r in p['operations']] for p in constructors['programs']]
+                != [[132], [15], [16], [18], [132, 18]]):
+            raise ValueError('US expression attachment-constructor inventory changed')
         animations, _ = load_character_animation_manifest(
             profile, rom_argument, include_files=False
         )
@@ -15718,6 +15965,10 @@ def parse_args() -> argparse.Namespace:
         help="bank-01 preview with ROM default facial selectors, without capture inputs",
     )
     parser.add_argument(
+        "--rom-character-presets", action="store_true",
+        help="coverage only: add a separate dimension for explicit ROM character inspection presets",
+    )
+    parser.add_argument(
         "--model-root", type=Path, help="existing model outputs for coverage"
     )
     parser.add_argument(
@@ -15792,6 +16043,8 @@ def parse_args() -> argparse.Namespace:
     args = parser.parse_args()
     if args.rom_defaults and args.action != 'preview':
         parser.error('--rom-defaults applies only to preview')
+    if args.rom_character_presets and args.action != 'coverage':
+        parser.error('--rom-character-presets applies only to coverage')
     return args
 
 
@@ -15913,6 +16166,7 @@ def main() -> int:
                 args.activity_manifest.resolve() if args.activity_manifest else None,
                 (args.blender_validation or root / "blender-validation.json").resolve(),
                 args.scene_manifest.resolve() if args.scene_manifest else None,
+                rom_character_presets=args.rom_character_presets,
             )
             summary = manifest["summary"]
             print(

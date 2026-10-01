@@ -3,7 +3,7 @@
     "01:0066:00": {
       "decision": "appearance-blocked",
       "fingerprint": "7bb9551a6aa9706673702ebe38f735c01a4ea6ba7bdfc6146f1fde572699d01f",
-      "reason": "Stationary tank helmet/body/pack appearance remains unresolved; the renderer already selects the exported descriptor."
+      "reason": "Purple flamethrower imp (model 66 / 0x42) helmet/body/pack appearance remains unresolved; the renderer already selects the exported descriptor."
     },
     "03:0049:00": {
       "decision": "review-deferred",

@@ -1,0 +1,1252 @@
+{
+  "context": {
+    "animation24_action74_activation": "unobserved",
+    "bank": 9,
+    "entry": 47,
+    "parent_entry": 88,
+    "parent_id": 42,
+    "parent_transform": "required-at-runtime; not-baked-or-reconstructed",
+    "part": 0
+  },
+  "flat4195": {
+    "compressed_rom_end": "0x77a435",
+    "compressed_rom_start": "0x77a09a",
+    "compressed_sha256": "4dbddc469a6a7578c8693442716a5c7692f36ed50e36a16ca883142d2850bdfb",
+    "decoded_bytes": 1536,
+    "decoded_sha1": "93e690bc7f4f4d3731034177c532422b84ba31cf",
+    "decoded_sha256": "5b003cfe29f5f09a8a363c31d26170e1b3038c29b4e7b128814999446f1b1e4a",
+    "index": 4195,
+    "palette": {
+      "bytes": 512,
+      "decoded_offset": "0x400",
+      "entries": 256,
+      "format": "RGBA16",
+      "sha256": "19fb1c51dd3faae03b6cbe7ae8823d7d9791a8dc5594c95077447e347005aab4"
+    },
+    "pixels": {
+      "bytes": 1024,
+      "decoded_offset": "0x0",
+      "format": "CI8",
+      "height": 32,
+      "sha256": "4b14a7c160a9f05d3e131a2e0e49d099a7fc8879ecdf10e15f7ccb75034728bc",
+      "width": 32
+    }
+  },
+  "geometry": {
+    "faces": 36,
+    "joints": 0,
+    "parts": 1,
+    "texture_coordinates": 50,
+    "textured_faces_after": 36,
+    "textured_faces_before": 28,
+    "vertices": 50
+  },
+  "identity": {
+    "model_bytes": 1464,
+    "model_sha1": "49de3d165b0800cd50d507b71d5c01c315354eff",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "materials": [
+    {
+      "captured_colours": {
+        "alpha": 0,
+        "environment": {
+          "command": 4211081216,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ]
+        },
+        "primitive": {
+          "command": 4194365952,
+          "rgba": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "captured_texture": {
+        "coordinate_state": {
+          "bounds_evidence": "captured-command-replay",
+          "render_tile": [
+            4110944256,
+            606800
+          ],
+          "texture_dimensions": null,
+          "texture_scale": [
+            3607101442,
+            4294967295
+          ],
+          "tile_bounds": [
+            4060094466,
+            516222
+          ]
+        },
+        "file": "textures/runtime-ci8-32x32-f118b20610f8.png",
+        "format": "ci8",
+        "height": 32,
+        "mip_level_count": 1,
+        "mip_levels": [],
+        "palette_sha256": "5c67e4b692ec8ead13546f32a4a01d49b363a185892c03964b42cd0e93ce0dab",
+        "pixel_sha256": "9ef534b28aca1a85fd2934a4fe64a545f2e0d36c7ae09a250d1fe58bd304c357",
+        "png_sha1": "f118b20610f895a6242d3596b813bd5f566a5b30",
+        "source_byte_offset": 0,
+        "status": "runtime-captured-indexed-texture",
+        "texture1_image": null,
+        "texture1_mip_level_count": 0,
+        "texture1_mip_levels": [],
+        "texture_lut": "rgba16",
+        "tmem_byte_offset": 0,
+        "width": 32
+      },
+      "combine_decoded": {
+        "cycles": [
+          {
+            "alpha": [
+              "TEXEL0",
+              "ZERO",
+              "SHADE",
+              "ZERO"
+            ],
+            "color": [
+              "ZERO",
+              "ZERO",
+              "ZERO",
+              "TEXEL0"
+            ]
+          },
+          {
+            "alpha": [
+              "COMBINED",
+              "ZERO",
+              "ENVIRONMENT",
+              "ZERO"
+            ],
+            "color": [
+              "SHADE",
+              "ENVIRONMENT",
+              "COMBINED",
+              "PRIMITIVE"
+            ]
+          }
+        ],
+        "formula": "(A - B) * C + D",
+        "inputs": [
+          "ENVIRONMENT",
+          "PRIMITIVE",
+          "SHADE",
+          "TEXEL0"
+        ]
+      },
+      "combine_words": [
+        "0xfcff9880",
+        "0xf514feff"
+      ],
+      "decode_status": "runtime-composed-character-texture",
+      "decoded_png_sha1": "f118b20610f895a6242d3596b813bd5f566a5b30",
+      "face_count": 8,
+      "first_face": 0,
+      "flat": 4198,
+      "mapped_palette_mode": 1,
+      "mapped_pixel_mode": 0,
+      "other_mode_decoded": {
+        "alpha_compare": "none",
+        "coverage_times_alpha": false,
+        "cycle_type": "two-cycle",
+        "force_blend": false,
+        "gltf_alpha_mode": "OPAQUE",
+        "gltf_alpha_status": "direct-opaque",
+        "gltf_sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987
+        },
+        "mode_high": "0x18AC3F",
+        "mode_low": "0x04D12078",
+        "texture_detail": "clamp",
+        "texture_filter": "bilinear",
+        "texture_lod": "tile",
+        "texture_lut": "rgba16",
+        "z_mode": "opaque"
+      },
+      "other_mode_words": [
+        "0xef18ac3f",
+        "0x4d12078"
+      ],
+      "run": 0,
+      "source_contract": {
+        "combine_mode": [
+          4244609152,
+          4111793919
+        ],
+        "detail_tile_bounds": [],
+        "face_count": 8,
+        "first_face": 0,
+        "matrix_index": 0,
+        "other_mode": null,
+        "other_mode_partial": null,
+        "palette": {
+          "external": false,
+          "flat_index": 4198,
+          "image_command": 4245684224,
+          "load_command": [
+            4026531840,
+            104841216
+          ],
+          "mode": 1,
+          "offset": null,
+          "segment": null
+        },
+        "pixel": {
+          "external": false,
+          "flat_index": 4198,
+          "image_command": 4245684224,
+          "load_command": [
+            4076863488,
+            119533568
+          ],
+          "mode": 0,
+          "offset": null,
+          "segment": null
+        },
+        "preview_coordinate_state": null,
+        "render_tile": [
+          4110944256,
+          606800
+        ],
+        "render_tiles": [
+          [
+            0,
+            4110944256,
+            606800
+          ],
+          [
+            6,
+            4110418176,
+            100663296
+          ],
+          [
+            7,
+            4111466496,
+            117440512
+          ]
+        ],
+        "runtime_render_state_offset": 64,
+        "texture_coordinates_proven": true,
+        "texture_dimensions": null,
+        "texture_enabled": true,
+        "texture_loads": [
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ]
+        ],
+        "texture_scale": [
+          3607101442,
+          4294967295
+        ],
+        "tile_bounds": [
+          4060094466,
+          516222
+        ]
+      }
+    },
+    {
+      "captured_colours": {
+        "alpha": 0,
+        "environment": {
+          "command": 4211081216,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ]
+        },
+        "primitive": {
+          "command": 4194365952,
+          "rgba": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "captured_texture": {
+        "coordinate_state": {
+          "bounds_evidence": "captured-command-replay",
+          "render_tile": [
+            4110944256,
+            623184
+          ],
+          "texture_dimensions": null,
+          "texture_scale": [
+            3607101442,
+            4294967295
+          ],
+          "tile_bounds": [
+            4060094466,
+            516350
+          ]
+        },
+        "file": "textures/runtime-ci8-32x64-64ff704e5f4d.png",
+        "format": "ci8",
+        "height": 64,
+        "mip_level_count": 1,
+        "mip_levels": [],
+        "palette_sha256": "fe5ea052aa55551a2d5c26e799226874a0e77b1477e153a648615d3df20bb289",
+        "pixel_sha256": "465a5d5f1ee8018901480d43c1ede3de5410f53a639a5c7ca210fba26e832f75",
+        "png_sha1": "64ff704e5f4d486595f0c183ab0502eafe0608fc",
+        "source_byte_offset": 0,
+        "status": "runtime-captured-indexed-texture",
+        "texture1_image": null,
+        "texture1_mip_level_count": 0,
+        "texture1_mip_levels": [],
+        "texture_lut": "rgba16",
+        "tmem_byte_offset": 0,
+        "width": 32
+      },
+      "combine_decoded": {
+        "cycles": [
+          {
+            "alpha": [
+              "TEXEL0",
+              "ZERO",
+              "SHADE",
+              "ZERO"
+            ],
+            "color": [
+              "ZERO",
+              "ZERO",
+              "ZERO",
+              "TEXEL0"
+            ]
+          },
+          {
+            "alpha": [
+              "COMBINED",
+              "ZERO",
+              "ENVIRONMENT",
+              "ZERO"
+            ],
+            "color": [
+              "SHADE",
+              "ENVIRONMENT",
+              "COMBINED",
+              "PRIMITIVE"
+            ]
+          }
+        ],
+        "formula": "(A - B) * C + D",
+        "inputs": [
+          "ENVIRONMENT",
+          "PRIMITIVE",
+          "SHADE",
+          "TEXEL0"
+        ]
+      },
+      "combine_words": [
+        "0xfcff9880",
+        "0xf514feff"
+      ],
+      "decode_status": "runtime-composed-character-texture",
+      "decoded_png_sha1": "64ff704e5f4d486595f0c183ab0502eafe0608fc",
+      "face_count": 20,
+      "first_face": 8,
+      "flat": 4216,
+      "mapped_palette_mode": 1,
+      "mapped_pixel_mode": 0,
+      "other_mode_decoded": {
+        "alpha_compare": "none",
+        "coverage_times_alpha": false,
+        "cycle_type": "two-cycle",
+        "force_blend": false,
+        "gltf_alpha_mode": "OPAQUE",
+        "gltf_alpha_status": "direct-opaque",
+        "gltf_sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987
+        },
+        "mode_high": "0x18AC3F",
+        "mode_low": "0x04D12078",
+        "texture_detail": "clamp",
+        "texture_filter": "bilinear",
+        "texture_lod": "tile",
+        "texture_lut": "rgba16",
+        "z_mode": "opaque"
+      },
+      "other_mode_words": [
+        "0xef18ac3f",
+        "0x4d12078"
+      ],
+      "run": 1,
+      "source_contract": {
+        "combine_mode": [
+          4244609152,
+          4111793919
+        ],
+        "detail_tile_bounds": [],
+        "face_count": 20,
+        "first_face": 8,
+        "matrix_index": 0,
+        "other_mode": null,
+        "other_mode_partial": null,
+        "palette": {
+          "external": false,
+          "flat_index": 4216,
+          "image_command": 4245684224,
+          "load_command": [
+            4026531840,
+            104841216
+          ],
+          "mode": 1,
+          "offset": null,
+          "segment": null
+        },
+        "pixel": {
+          "external": false,
+          "flat_index": 4216,
+          "image_command": 4245684224,
+          "load_command": [
+            4076863488,
+            121630720
+          ],
+          "mode": 0,
+          "offset": null,
+          "segment": null
+        },
+        "preview_coordinate_state": null,
+        "render_tile": [
+          4110944256,
+          623184
+        ],
+        "render_tiles": [
+          [
+            0,
+            4110944256,
+            623184
+          ],
+          [
+            6,
+            4110418176,
+            100663296
+          ],
+          [
+            7,
+            4111466496,
+            117440512
+          ]
+        ],
+        "runtime_render_state_offset": 64,
+        "texture_coordinates_proven": true,
+        "texture_dimensions": null,
+        "texture_enabled": true,
+        "texture_loads": [
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4216,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                121630720
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4216,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ]
+        ],
+        "texture_scale": [
+          3607101442,
+          4294967295
+        ],
+        "tile_bounds": [
+          4060094466,
+          516350
+        ]
+      }
+    },
+    {
+      "captured_colours": {
+        "alpha": 0,
+        "environment": {
+          "command": 4211081216,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ]
+        },
+        "primitive": {
+          "command": 4194365952,
+          "rgba": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "captured_texture": {
+        "coordinate_state": {
+          "bounds_evidence": "captured-command-replay",
+          "render_tile": [
+            4110944256,
+            606800
+          ],
+          "texture_dimensions": null,
+          "texture_scale": [
+            3607101442,
+            4294967295
+          ],
+          "tile_bounds": [
+            4060094466,
+            516222
+          ]
+        },
+        "file": "textures/runtime-ci8-32x32-e41d857be7fe.png",
+        "format": "ci8",
+        "height": 32,
+        "mip_level_count": 1,
+        "mip_levels": [],
+        "palette_sha256": "19fb1c51dd3faae03b6cbe7ae8823d7d9791a8dc5594c95077447e347005aab4",
+        "pixel_sha256": "4b14a7c160a9f05d3e131a2e0e49d099a7fc8879ecdf10e15f7ccb75034728bc",
+        "png_sha1": "e41d857be7fe46f21cb9f2b91eb39f85b0484518",
+        "source_byte_offset": 0,
+        "status": "runtime-captured-indexed-texture",
+        "texture1_image": null,
+        "texture1_mip_level_count": 0,
+        "texture1_mip_levels": [],
+        "texture_lut": "rgba16",
+        "tmem_byte_offset": 0,
+        "width": 32
+      },
+      "combine_decoded": {
+        "cycles": [
+          {
+            "alpha": [
+              "TEXEL0",
+              "ZERO",
+              "SHADE",
+              "ZERO"
+            ],
+            "color": [
+              "ZERO",
+              "ZERO",
+              "ZERO",
+              "TEXEL0"
+            ]
+          },
+          {
+            "alpha": [
+              "COMBINED",
+              "ZERO",
+              "ENVIRONMENT",
+              "ZERO"
+            ],
+            "color": [
+              "SHADE",
+              "ENVIRONMENT",
+              "COMBINED",
+              "PRIMITIVE"
+            ]
+          }
+        ],
+        "formula": "(A - B) * C + D",
+        "inputs": [
+          "ENVIRONMENT",
+          "PRIMITIVE",
+          "SHADE",
+          "TEXEL0"
+        ]
+      },
+      "combine_words": [
+        "0xfcff9880",
+        "0xf514feff"
+      ],
+      "decode_status": "runtime-composed-character-texture",
+      "decoded_png_sha1": "e41d857be7fe46f21cb9f2b91eb39f85b0484518",
+      "face_count": 4,
+      "first_face": 28,
+      "flat": 4195,
+      "mapped_palette_mode": 1,
+      "mapped_pixel_mode": 0,
+      "other_mode_decoded": {
+        "alpha_compare": "none",
+        "coverage_times_alpha": false,
+        "cycle_type": "two-cycle",
+        "force_blend": false,
+        "gltf_alpha_mode": "OPAQUE",
+        "gltf_alpha_status": "direct-opaque",
+        "gltf_sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987
+        },
+        "mode_high": "0x18AC3F",
+        "mode_low": "0x04D12078",
+        "texture_detail": "clamp",
+        "texture_filter": "bilinear",
+        "texture_lod": "tile",
+        "texture_lut": "rgba16",
+        "z_mode": "opaque"
+      },
+      "other_mode_words": [
+        "0xef18ac3f",
+        "0x4d12078"
+      ],
+      "run": 2,
+      "source_contract": {
+        "combine_mode": [
+          4244609152,
+          4111793919
+        ],
+        "detail_tile_bounds": [],
+        "face_count": 4,
+        "first_face": 28,
+        "matrix_index": 0,
+        "other_mode": null,
+        "other_mode_partial": null,
+        "palette": {
+          "external": false,
+          "flat_index": null,
+          "image_command": 4245684224,
+          "load_command": [
+            4026531840,
+            104841216
+          ],
+          "mode": null,
+          "offset": 1024,
+          "segment": 7
+        },
+        "pixel": {
+          "external": false,
+          "flat_index": null,
+          "image_command": 4245684224,
+          "load_command": [
+            4076863488,
+            119533568
+          ],
+          "mode": null,
+          "offset": 0,
+          "segment": 7
+        },
+        "preview_coordinate_state": null,
+        "render_tile": [
+          4110944256,
+          606800
+        ],
+        "render_tiles": [
+          [
+            0,
+            4110944256,
+            606800
+          ],
+          [
+            6,
+            4110418176,
+            100663296
+          ],
+          [
+            7,
+            4111466496,
+            117440512
+          ]
+        ],
+        "runtime_render_state_offset": 64,
+        "texture_coordinates_proven": true,
+        "texture_dimensions": null,
+        "texture_enabled": true,
+        "texture_loads": [
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4216,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                121630720
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4216,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": null,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": null,
+              "offset": 0,
+              "segment": 7
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": null,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": null,
+              "offset": 1024,
+              "segment": 7
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ]
+        ],
+        "texture_scale": [
+          3607101442,
+          4294967295
+        ],
+        "tile_bounds": [
+          4060094466,
+          516222
+        ]
+      }
+    },
+    {
+      "captured_colours": {
+        "alpha": 0,
+        "environment": {
+          "command": 4211081216,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ]
+        },
+        "primitive": {
+          "command": 4194365952,
+          "rgba": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "captured_texture": {
+        "coordinate_state": {
+          "bounds_evidence": "captured-command-replay",
+          "render_tile": [
+            4110944256,
+            606800
+          ],
+          "texture_dimensions": null,
+          "texture_scale": [
+            3607101442,
+            4294967295
+          ],
+          "tile_bounds": [
+            4060094466,
+            516222
+          ]
+        },
+        "file": "textures/runtime-ci8-32x32-e41d857be7fe.png",
+        "format": "ci8",
+        "height": 32,
+        "mip_level_count": 1,
+        "mip_levels": [],
+        "palette_sha256": "19fb1c51dd3faae03b6cbe7ae8823d7d9791a8dc5594c95077447e347005aab4",
+        "pixel_sha256": "4b14a7c160a9f05d3e131a2e0e49d099a7fc8879ecdf10e15f7ccb75034728bc",
+        "png_sha1": "e41d857be7fe46f21cb9f2b91eb39f85b0484518",
+        "source_byte_offset": 0,
+        "status": "runtime-captured-indexed-texture",
+        "texture1_image": null,
+        "texture1_mip_level_count": 0,
+        "texture1_mip_levels": [],
+        "texture_lut": "rgba16",
+        "tmem_byte_offset": 0,
+        "width": 32
+      },
+      "combine_decoded": {
+        "cycles": [
+          {
+            "alpha": [
+              "TEXEL0",
+              "ZERO",
+              "SHADE",
+              "ZERO"
+            ],
+            "color": [
+              "ZERO",
+              "ZERO",
+              "ZERO",
+              "TEXEL0"
+            ]
+          },
+          {
+            "alpha": [
+              "COMBINED",
+              "ZERO",
+              "ENVIRONMENT",
+              "ZERO"
+            ],
+            "color": [
+              "SHADE",
+              "ENVIRONMENT",
+              "COMBINED",
+              "PRIMITIVE"
+            ]
+          }
+        ],
+        "formula": "(A - B) * C + D",
+        "inputs": [
+          "ENVIRONMENT",
+          "PRIMITIVE",
+          "SHADE",
+          "TEXEL0"
+        ]
+      },
+      "combine_words": [
+        "0xfcff9880",
+        "0xf514feff"
+      ],
+      "decode_status": "runtime-composed-character-texture",
+      "decoded_png_sha1": "e41d857be7fe46f21cb9f2b91eb39f85b0484518",
+      "face_count": 4,
+      "first_face": 32,
+      "flat": 4195,
+      "mapped_palette_mode": 1,
+      "mapped_pixel_mode": 0,
+      "other_mode_decoded": {
+        "alpha_compare": "none",
+        "coverage_times_alpha": false,
+        "cycle_type": "two-cycle",
+        "force_blend": false,
+        "gltf_alpha_mode": "OPAQUE",
+        "gltf_alpha_status": "direct-opaque",
+        "gltf_sampler": {
+          "magFilter": 9729,
+          "minFilter": 9987
+        },
+        "mode_high": "0x18AC3F",
+        "mode_low": "0x04D12078",
+        "texture_detail": "clamp",
+        "texture_filter": "bilinear",
+        "texture_lod": "tile",
+        "texture_lut": "rgba16",
+        "z_mode": "opaque"
+      },
+      "other_mode_words": [
+        "0xef18ac3f",
+        "0x4d12078"
+      ],
+      "run": 3,
+      "source_contract": {
+        "combine_mode": [
+          4244609152,
+          4111793919
+        ],
+        "detail_tile_bounds": [],
+        "face_count": 4,
+        "first_face": 32,
+        "matrix_index": 0,
+        "other_mode": null,
+        "other_mode_partial": null,
+        "palette": {
+          "external": false,
+          "flat_index": null,
+          "image_command": 4245684224,
+          "load_command": [
+            4026531840,
+            104841216
+          ],
+          "mode": null,
+          "offset": 1024,
+          "segment": 6
+        },
+        "pixel": {
+          "external": false,
+          "flat_index": null,
+          "image_command": 4245684224,
+          "load_command": [
+            4076863488,
+            119533568
+          ],
+          "mode": null,
+          "offset": 0,
+          "segment": 6
+        },
+        "preview_coordinate_state": null,
+        "render_tile": [
+          4110944256,
+          606800
+        ],
+        "render_tiles": [
+          [
+            0,
+            4110944256,
+            606800
+          ],
+          [
+            6,
+            4110418176,
+            100663296
+          ],
+          [
+            7,
+            4111466496,
+            117440512
+          ]
+        ],
+        "runtime_render_state_offset": 64,
+        "texture_coordinates_proven": true,
+        "texture_dimensions": null,
+        "texture_enabled": true,
+        "texture_loads": [
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4198,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4216,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                121630720
+              ],
+              "mode": 0,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": 4216,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": 1,
+              "offset": null,
+              "segment": null
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": null,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": null,
+              "offset": 0,
+              "segment": 7
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": null,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": null,
+              "offset": 1024,
+              "segment": 7
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": null,
+              "image_command": 4245684224,
+              "load_command": [
+                4076863488,
+                119533568
+              ],
+              "mode": null,
+              "offset": 0,
+              "segment": 6
+            },
+            [
+              4111466496,
+              117440512
+            ]
+          ],
+          [
+            {
+              "external": false,
+              "flat_index": null,
+              "image_command": 4245684224,
+              "load_command": [
+                4026531840,
+                104841216
+              ],
+              "mode": null,
+              "offset": 1024,
+              "segment": 6
+            },
+            [
+              4110418176,
+              100663296
+            ]
+          ]
+        ],
+        "texture_scale": [
+          3607101442,
+          4294967295
+        ],
+        "tile_bounds": [
+          4060094466,
+          516222
+        ]
+      }
+    }
+  ],
+  "preset": "shc-boat-captured-parent42",
+  "provenance": {
+    "draw_proof_sha256": "665265eab6e085e668a0ac96b32d7d4307d648bda20f1affe7b962a1e42a08a9",
+    "excluded_draws": [
+      {
+        "draw": 1,
+        "reason": "missing/conflicting memory at 0x8010CC18"
+      }
+    ],
+    "handoff_sha256": "f6dc3f940d142ad97418ba2acfcfb1093e6f3c071ffaedf03782927b46885574",
+    "source_state_sha256": "f18c9607ba17a9e18359d0167a27cfdb165ee93b09054875748445c019f01fdf",
+    "trace_sha256": "53781c2d5829a80209278056643dc5080b322759a304379f77ec1ddad9cd0ac2",
+    "verified_instances": [
+      {
+        "draw": 0,
+        "event": 2,
+        "faces": 36,
+        "root_sha256": "087b60618a29ef098dd964ee87ad741a2a55bcd4cbdc3fb6dbad0112f5ea457b"
+      },
+      {
+        "draw": 2,
+        "event": 7,
+        "faces": 36,
+        "root_sha256": "e2d435dc005056ba9e22a9843adf031c2e8e3ea9e71f26eba5669af30bab4868"
+      }
+    ]
+  },
+  "reconstruction": "derived-from-captured-draw-proof-and-authenticated-US-ROM",
+  "schema": "conker-shc-boat-captured-appearance-v1"
+}

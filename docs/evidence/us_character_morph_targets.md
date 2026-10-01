@@ -55,26 +55,33 @@ consumer hashes against the validated ROM.
 | 0, 1 | Blink selectors plus ten, stored as bytes at actor `0x6C/0x6D` |
 | 2 | Morph shape stored at actor `0x134` |
 | 3 | Morph transition duration at `0x135`, when the shape changes and the caller supplies no override |
-| 4 | Indirect animation selector passed to `func_1507EA44` |
+| 4 | Indirect action selector passed to `func_1507EA44` |
 | 5 | Preserved; this consumer does not read it |
-| 6–7 | Big-endian raw animation-duration parameter |
+| 6–7 | Big-endian raw action parameter; ignored by the six attachment constructors |
 | 8, 9 | Texture descriptor overrides at actor `0x68/0x69`; zero restores the corresponding default |
 
-`func_1507EA44` resolves a nonzero animation selector through a separate byte
-table before starting an action program. `func_1507E9F8` exposes the five bytes
-at `0x8009D910` only for Conker: selectors 1–5 map to native actions
-5, 6, 7, 10 and 11. `func_15083568` indexes eight-byte descriptors at
-`0x80086CC4`, then dispatches consecutive sixteen-byte program records.
-The five selected descriptors reference six records, including two operations
-for action 11. Their 96 bytes and all descriptor bytes are preserved under
-`animation_programs`; each preset retains its selector, duration and resolved
-`native_action`. The records' dispatch kind is decoded, while operation
-parameters remain raw. Both complete consumers are hash-checked.
+`func_1507EA44` resolves a nonzero action selector through the byte table at
+`0x8009D910`: selectors1–5 map to native actions5,6,7,10,11. The gate in
+`func_1507E9F8` checks the current actor representation via `func_150849A0`;
+it is not a direct static model-ID check. The stored nonzero references are
+in character0 presets, which is a separate source observation.
 
-These programs are not direct clip indices or an authored playback timeline.
-Runtime expression triggers and caller duration
-overrides remain unresolved. These presets are extracted ROM data, not clips
-inferred from save states.
+`func_15083568` dispatches six attachment-constructor records across those
+five actions: `[132]`, `[15]`, `[16]`, `[18]`, `[132,18]`. The exported
+`attachment_constructors` report pins the complete consumers, headers and
+records and describes their descriptor writes and creation conditions.
+`action_programs`, `action_selector` and `action_parameter_raw` are canonical
+report labels. Earlier animation-named fields remain explicit compatibility
+aliases listed under `legacy_field_names`. The expression u16+6 is converted
+and scaled by the caller but ignored by these kind1/2 constructor branches;
+it is not an attachment lifetime. Morph transition duration at byte3 remains
+a distinct field.
+
+These are stored constructor requests, not observed allocations, clip indices
+or an authored playback timeline. Action11 attempts both records and returns
+only the last result. Runtime triggers, allocation success, placement,
+materials and playback remain unresolved. See
+[constructor evidence](us_expression_attachment_constructors.md).
 
 Independent comparison finds preset 67 active in Save-Game-10 and Save-Game-15:
 shape 9, duration 22, blink codes 40/40 and descriptor indices 14/14 all agree
