@@ -91011,6 +91011,12 @@
       "symbol": "func_800056A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "First-form10 only two symbolic endpoint operands: D_8003BE30+0x20 versus adjacentD_8003BE50. SDK32-byte buffers and all operations match; preserve natural indexedloop rather than invent alias-dependent source or alter comparator. No C acceptance.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91024,6 +91030,12 @@
       "symbol": "func_800057E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 200,
+        "reason": "SDK body/signature and compatible callers justify u16 address;1078to200 recovers allbodyinstructions/frame58. Only two terminal alignment nops absent from full360span. Preserve candidate; require genuine neighboring-C layout recovery, no padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

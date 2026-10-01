@@ -815,3 +815,36 @@ new C bodies received independent review. This adds **2 functions / 572 bytes**,
 giving **60 / 6,536 bytes** since the fresh baseline and **2,693** accepted US
 C functions. No accepted IDs remain pending. The exact-but-layout-invalid
 paired transaction remains disabled and excluded from those totals.
+
+## Nineteenth batch: preserved motor-packet candidates
+
+This related source pass adds no accepted C functions. The motor initializer
+`800057E0` (360 bytes) matches every instruction except the symbolic loop
+endpoint `D_8003BE30 + 0x20` versus adjacent `D_8003BE50` (score 10). Pinned SDK
+source provides the two 32-byte stop/start buffers and matching transaction
+flow. The natural indexed-loop form is retained; no alias-dependent source
+rewrite or comparison exception was introduced. The source-local device view
+now records the supported active-bank byte at 0x65.
+
+The packet builder `80005948` improves from 1078 to 200. Its full body matches
+the pinned SDK `_MakeMotorData` declaration and implementation, including the
+15-word clear, PIF status, packet fields, address CRC, 32-byte payload, channel
+prefix and final structure copy. That concrete declaration supplies a `u16`
+address formal; both raw callers pass 0x600. Correcting only this formal removes
+the artificial converted-address spill and recovers the entire instruction
+body and 0x58-byte frame. This is supported by the SDK contract, not inferred
+from halfword stores alone. Both callers remain compatible, and the initializer's
+focused recheck stays at 10.
+
+The builder is still unaccepted because its complete registered 360-byte span
+needs two more natural terminal alignment `nop` words than the current stripped
+C prefix supplies. Its best source, object and failed full-width form are
+preserved without padding. Together with the earlier exact-but-layout-invalid
+`800056A0`, these three candidates remain assembly-backed until genuine symbol
+or source-layout recovery is available.
+
+The clean regression checkpoint rechecked the earlier `80005570` match after
+the source-local type updates: `BATCH_COMPLETE`, full US ROM match, 1,346 tests
+with 12 skipped, metadata, progress and whitespace passed. Accepted totals
+remain **60 / 6,536 bytes**, with **2,693** accepted US C functions. No new
+matches or accepted pending IDs are credited to this candidate-only batch.
