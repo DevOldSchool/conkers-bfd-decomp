@@ -50,6 +50,84 @@ void func_800093CC(void) {
         func_80022E00(D_8003E3A0);
     }
 }
+typedef struct MessageQueue MessageQueue;
+typedef struct AudioTaskRecord AudioTaskRecord;
+
+typedef struct AudioSchedulerClient {
+    struct AudioSchedulerClient *next;
+    MessageQueue *queue;
+    u32 flags;
+} AudioSchedulerClient;
+
+typedef struct {
+    s16 type;
+    u8 pad2[2];
+    AudioTaskRecord *record;
+} AudioCompletionMessage;
+
+void func_800051C8(AudioSchedulerClient *, MessageQueue *);
+s32 func_800095A0(AudioTaskRecord *, AudioTaskRecord *);
+void func_80018E0C(void *);
+s32 func_80023440(MessageQueue *, void **, s32);
+extern u8 D_8002AC5C;
+extern u32 D_8002AE44;
+extern AudioTaskRecord *D_8003E390[3];
+extern MessageQueue D_8003E5D0;
+extern MessageQueue D_8003E608;
+extern u8 D_8003E640[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009400 CURRENT (1050) */
+void func_80009400(s32 arg0) {
+    s32 done;
+    AudioTaskRecord *previous;
+    void *message;
+    s32 first;
+    AudioSchedulerClient client;
+    u32 cadence;
+    s16 type;
+
+    done = 0;
+    message = 0;
+    previous = 0;
+    cadence = 0;
+    first = 1;
+    client.flags = 0;
+    func_800051C8(&client, &D_8003E5D0);
+    do {
+        func_80023440(&D_8003E5D0, &message, 1);
+        if (D_8002AC5C != 0) {
+            *(s16 *)message = 4;
+        }
+        type = *(s16 *)message;
+        switch (type) {
+        case 1:
+            if (cadence >= 2) {
+                cadence = 0;
+            }
+            if (cadence == 0 &&
+                func_800095A0(D_8003E390[D_8002AE44 % 3U], previous) != 0) {
+                if (first == 0) {
+                    func_80023440(&D_8003E608, &message, 1);
+                    previous = ((AudioCompletionMessage *)message)->record;
+                }
+                first = 0;
+            }
+            cadence++;
+            break;
+        case 4:
+            done = 1;
+            break;
+        case 10:
+            done = 1;
+            break;
+        }
+    } while (done == 0);
+    func_80018E0C(D_8003E640);
+    for (;;) {
+        func_80023440(&D_8003E5D0, &message, 1);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_80009400 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_80009400.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800095A0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800097CC.s")
@@ -76,6 +154,69 @@ ALDMAproc func_80009980(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
+typedef struct AudioDmaNode {
+    struct AudioDmaNode *next;
+    struct AudioDmaNode *prev;
+    u8 pad8[4];
+    u32 frame;
+} AudioDmaNode;
+
+extern MessageQueue D_80041298;
+extern u32 D_8002AE48;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (976) */
+void func_800099BC(void) {
+    u32 i;
+    void *message;
+    AudioDmaNode *record;
+    AudioDmaNode *next;
+    AudioDmaNode *anchor;
+
+    message = 0;
+    i = 0;
+    if (D_8002AE48 != 0) {
+        do {
+            if (func_80023440(&D_80041298, &message, 0) == -1) {
+                func_80023440(&D_80041298, &message, 1);
+            }
+            i++;
+        } while (i < D_8002AE48);
+    }
+    record = (AudioDmaNode *)D_80040F78.field4;
+    if (record != 0) {
+        do {
+            next = record->next;
+            if (record->frame + 1 < D_8002AE44) {
+                if (record == (AudioDmaNode *)D_80040F78.field4) {
+                    D_80040F78.field4 = (s32)next;
+                }
+                if (record->next != 0) {
+                    record->next->prev = record->prev;
+                }
+                if (record->prev != 0) {
+                    record->prev->next = record->next;
+                }
+                anchor = D_80040F78.base;
+                if (anchor != 0) {
+                    record->next = anchor->next;
+                    record->prev = anchor;
+                    if (anchor->next != 0) {
+                        anchor->next->prev = record;
+                    }
+                    anchor->next = record;
+                } else {
+                    D_80040F78.base = record;
+                    record->next = 0;
+                    record->prev = 0;
+                }
+            }
+            record = next;
+        } while (next != 0);
+    }
+    D_8002AE48 = 0;
+    D_8002AE44++;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_800099BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8F90/func_800099BC.s")
 void func_80009B2C(void *arg0) {
     if (((u32)arg0 & 1) == 0) {

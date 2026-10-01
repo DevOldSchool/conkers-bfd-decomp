@@ -1386,3 +1386,36 @@ progress and whitespace pass with `BATCH_COMPLETE`. Game sources remain
 unchanged from their preceding separately verified batch. No new C matches are
 credited: fresh-base totals remain **67 / 8,388 bytes**, accepted US C inventory
 is **2,700**, and there are no pending IDs.
+
+## Thirty-sixth batch: audio DMA and thread candidates
+
+The DMA completion cleanup `800099BC` reuses the existing opaque message-queue
+receive contract and a single message pointer. A source-local linked-node
+prefix exposes only observed fields; the existing manager address carriers
+and matched initializer remain unchanged. The first form scores 1166. The
+pinned SDK's `alLink` assignment order agrees with the raw load-before-store
+sequence and improves it to 976. Its ordinary `alLink` and `alUnlink` functions
+provide no extra local variables or macro scopes explaining the remaining
+16-byte frame difference. The best form stays disabled without invented storage.
+
+The audio thread `80009400` has a proved 12-byte scheduler client. Registration
+writes its next and queue pointers, and the actual list consumer reads the
+third word's low bit to suppress delivery. The zero at SP54 initializes that
+observed flags word. Completion messages independently establish a halfword
+kind and a pointer at offset four; initialization proves the three-entry
+frame pointer table. The shutdown helper is the mapped `n_alClose`, with a
+single ignored pointer and void return. Queue and audio-global storage remain
+opaque where no caller-side extent is needed.
+
+The first thread form scores 1050 with the exact frame, message, client and
+flags homes. Its event cases, nullable previous-buffer handling, shutdown and
+final infinite receive loop are retained. Limiting the processing-only pointer
+and cadence counter to a phase scope is code-neutral, so the simpler first
+form is preserved. Register allocation, constant reuse and compiler-generated
+late initializations remain unresolved; no artificial dead stores are added.
+
+A clean seven-target main batch verifies every existing match in the unit and
+the PI initializer. Full US ROM equality, 1,346 tests with 12 skipped, metadata,
+progress and whitespace pass with `BATCH_COMPLETE`. Game sources remain
+unchanged from their preceding separately verified batch. Totals remain
+**67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.

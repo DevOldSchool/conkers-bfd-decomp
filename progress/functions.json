@@ -91317,6 +91317,12 @@
       "symbol": "func_800093CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1050,
+        "reason": "Preserve manual candidate 1050: proven client flags and message contracts give exact frame and homes; phase scope is code-neutral and late initialization/register differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91374,6 +91380,12 @@
       "symbol": "func_80009980"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 976,
+        "reason": "Preserve manual best 976: SDK-supported link assignment order improves the candidate, but the 16-byte frame difference lacks source storage evidence; no synthetic aliases or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
