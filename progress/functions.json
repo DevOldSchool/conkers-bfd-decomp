@@ -33147,11 +33147,15 @@
       "symbol": "func_151DADA0"
     },
     {
+      "blocked": {
+        "reason": "Exact476-byte raw duplicate of exhausted func_151AC810 (prior best796), SHA256c2c069b6daa71470e88cedcf4ab4617dd73692b7c5eeba7022ef36c664fdf42f. Already screened in workflow pilot; no qualifying target formal declaration or new source-shape evidence. Preserve zero-compilation screen in fresh-ready-1.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 476,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151DAE28",
           "vram": "0x151DAE28"
         }
@@ -38691,6 +38695,12 @@
       "symbol": "func_1501E73C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1278,
+        "reason": "Fresh typed owner transition1478->1278; conditional selector recovers raw branch. Full-word mode local1533 regresses; restore1278. Exactframe48 and major state/derived-address homes; scalar payload43 versusraw40 and global/call scheduling remain. Receiver proves only1-byte payload; no widening/padding. fresh-ready-2 ledger.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

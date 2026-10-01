@@ -458,3 +458,30 @@ The two-function clean batch returned BATCH_COMPLETE in 85.636 seconds: full
 US game code and mapped rodata identical, 1,092 tests passed / 12 skipped, with
 metadata/progress/whitespace passing. The accepted task total is 33 functions /
 11,992 bytes; no batch IDs remain pending. Both units remain mixed.
+
+## One fresh-ready trial after the storage cohort
+
+The ready selector first returned `func_151DAE28`. A repeated raw-byte screen
+confirmed its 476-byte SHA-256 equals the already-exhausted 151AC810 body
+(`c2c069b6daa71470e88cedcf4ab4617dd73692b7c5eeba7022ef36c664fdf42f`).
+It was blocked through the supported workflow, with no compilation or source
+change, so the same unchanged duplicate does not repeatedly consume selection.
+
+The next selected function, `func_1501E81C` in `game_49D30.c`, was a genuinely
+new 508-byte owner-transition attempt. Its first typed source retains actual
+context/event/selector/mode values and lets the compiler derive table addresses.
+One missing forward declaration for the existing void func_150233E4 definition was fixed
+before the first scored result. Scores were 1478,1278,1533: a conditional-expression
+selector recovers the raw unconditional branch; widening the local mode value
+regresses allocation, so the second form is retained.
+
+The 0x48 frame, context/old-mode snapshots and major derived-address homes are
+already exact. The remaining byte payload sits at 0x43 instead of 0x40, and global
+reload/call-argument scheduling differs. Read-only callee/receiver evidence
+supports only one payload byte for event codes 0xF/0x10. Other larger descriptors
+belong to different event contracts, so no padding or wider payload was invented.
+
+The best 1278 C is disabled with original ASM active. Incremental full game and
+mapped-rodata equality, progress and whitespace pass; no empty clean batch was
+run. The accepted total remains 33 functions / 11,992 bytes. This fresh example
+also limits generalization from the successful selected storage cohort.

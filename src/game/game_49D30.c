@@ -730,6 +730,78 @@ void func_1501E73C(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501E73C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501E73C.s")
+typedef struct Game49D30TransitionView {
+    u8 pad0[0x19C];
+    f32 field19C;
+    f32 field1A0;
+} Game49D30TransitionView;
+
+void func_1501D348(s32, s32, s32, u8, s32);
+void func_1501EA18(s32);
+void func_150233E4(void);
+void func_1510B32C(s32, f32, f32, f32);
+void func_15169040(s32, u8);
+extern u8 D_800C35C3;
+extern s8 D_800C3671;
+extern s8 D_800C3683;
+extern u8 D_800C3C90;
+extern s32 D_800C3C94;
+extern void *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E81C CURRENT (1278) */
+void func_1501E81C(s32 arg0, s32 arg1) {
+    Game49D30TransitionView *view;
+    u8 event;
+    s32 code;
+    s32 previousMode;
+    u8 mode;
+
+    view = D_800DBFF0;
+    if (D_800C35EA[arg1] != 0) {
+        event = (&D_800C35E8)[arg1];
+        code = arg0 != 0 ? 0xF : 0x10;
+        func_15169040((s32)&event, (u8)code);
+        D_800C35B8[arg1] = -0x64;
+        D_800C35B0[arg1] = D_800C3C8E;
+        func_1501D258(D_800BE9F0, (&D_800C35E8)[arg1]);
+        D_800C35EA[arg1] = 0;
+        D_800C3638 = 0;
+        func_1501E73C(arg1);
+        func_150233E4();
+        D_800C3662 = 0;
+        D_800C3683 = 0;
+        func_150235DC(arg1);
+        func_1501EA18(arg1);
+        func_1501E540(arg1);
+        D_800C3648 = 0.0f;
+        D_800C364C = 0.0f;
+        D_800C3650 = 0.0f;
+        func_1510B32C(0, view->field19C, view->field1A0, 1.0f);
+        if (D_800C35C2 != 0) {
+            D_800C35EA[arg1] = 2;
+            mode = D_800C35C3;
+            if (mode == 0x25) {
+                previousMode = D_800BE9F0;
+                D_800BE9F0 = 0x25;
+                mode = 0x25;
+            }
+            D_800C3671 = 0;
+            func_1501D348(mode, D_800C35C2 - 1, arg1,
+                         D_800C3C90, D_800C3C94);
+            if (D_800C35C3 == 0x25) {
+                D_800BE9F0 = previousMode;
+            }
+        } else {
+            if (D_800C3C8B != 0) {
+                func_1517EE40(0, 0, 0, 0x1E, 0, 0);
+            }
+            D_8008FD84 = 0;
+            D_800C3670 = 0;
+            D_800C3671 = 0;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1501E81C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501E81C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EA18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1501EC38.s")
