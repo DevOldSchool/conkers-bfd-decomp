@@ -593,6 +593,58 @@ void func_1506C43C(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506C460.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506CE6C.s")
+void func_1505A184(s32, f32, f32, f32 *, f32 *, f32 *);
+s32 func_15083E0C(s32);
+void *func_1505EEF4(s32);
+void func_151A3390(u8 *, u8);
+extern f32 D_80099D44;
+extern s32 D_800D2104;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506D2E8 CURRENT (650) */
+void func_1506D2E8(void) {
+    u8 *actor;
+    f32 x;
+    f32 z;
+    f32 y;
+    u16 heading;
+    s32 actor_id;
+    f32 offset;
+
+    actor_id = D_800D1580;
+    actor_id = func_15083E0C(actor_id & 0xFF);
+    actor = func_1505EEF4(actor_id);
+    if (actor != 0) {
+        offset = 0.0f;
+        func_151A3390(actor, 0xFF);
+        if (D_800D1580 & 0xFF00) {
+            offset = *(f32 *)(*(u8 **)(D_800D154C + 0x318) + 0x780) - 15.0f;
+        }
+        heading = *(u16 *)(D_800D154C + 0x7A);
+        *(u16 *)(actor + 0x78) = heading;
+        *(u16 *)(actor + 0x7A) = heading;
+        *(u16 *)(actor + 0x76) = heading;
+        func_1505A184(heading & 0xFFFF, 5000.0f, offset, &x, &z, &y);
+        *(s16 *)(*(u8 **)(D_800D2104 + actor[0x13F] * 4) + 8) = (s32)(*(f32 *)(D_800D154C + 0x14) + x);
+        *(s16 *)(*(u8 **)(D_800D2104 + actor[0x13F] * 4) + 0xC) = (s32)(*(f32 *)(D_800D154C + 0x1C) + z);
+        *(s16 *)(*(u8 **)(D_800D2104 + actor[0x13F] * 4) + 0xA) = (s32)(*(f32 *)(D_800D154C + 0x18) + y);
+        actor[0x65] = 0;
+        *(s32 *)(actor + 0x218) = 0;
+        if (D_800D1580 & 0xFF00) {
+            *(f32 *)(actor + 0x18) = *(f32 *)(D_800D154C + 0x18) + 70.0f;
+            actor[0x232] = 4;
+            *(f32 *)(actor + 0x14C) = 0.25f;
+            *(f32 *)(actor + 0x150) = 0.25f;
+            return;
+        }
+        actor[0x232] = 2;
+        *(f32 *)(actor + 0x3C) = -15.0f;
+        *(f32 *)(actor + 0x20) = 34.0f;
+        *(f32 *)(actor + 0x14C) = 0.5f;
+        *(f32 *)(actor + 0x150) = 0.5f;
+        *(f32 *)(actor + 0x24) = D_80099D44;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1506D2E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506D2E8.s")
 void func_1506D4EC(void) {
 }

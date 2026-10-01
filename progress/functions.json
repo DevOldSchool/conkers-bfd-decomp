@@ -19365,6 +19365,12 @@
       "symbol": "func_1506CE6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 650,
+        "reason": "Real lookup result and staged state1303/1295/650. Best650 has exactframe/homes and instructioncount; first selector temporary causes GPRcascade, two independent store-order differences remain. No extra unsupported probe.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -46990,6 +46996,12 @@
       "symbol": "func_150FEFD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2758,
+        "reason": "First real-vector/point-output source2758. Byte-formal conversion cache and source-lifetime/frame differences remain; known full-width declaration retained. Source-local lookup return contract corrected and accepted wrapper rechecked after restoring ASM layout.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67180,8 +67192,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1872,
-        "reason": "CURRENT (1872) on recheck: 39 differing rows, first control-flow branch target raw +0x7C and FP allocation diverge, followed by reordered interpolation work. Prior source marker CURRENT (20) was stale against current compilation; no source-local edit made in this pass.",
+        "current_score": 1862,
+        "reason": "Rechecked with raw-proven semantic float third argument and outputs for1505A184, replacing bit-pattern s32 annotation. Original body retained otherwise; baseline1872 remains archived.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67229,6 +67241,12 @@
       "symbol": "func_150B1484"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 230,
+        "reason": "Independent raw-proven helper contract1249 to470, then first-branch state ordering230. Exact frame, homes, count, opcodes/control; remaining one commuted add and conversion-driven FP allocation permutation plus tail GPRs. No unsupported register chase.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77058,17 +77076,16 @@
       "symbol": "func_150FB8C0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 235,
-        "reason": "Manual split mask lifetime and explicit byte conversion both neutral at full CURRENT235; complement/AND result creates extra move and shifts call constants. Preserved defined unsigned-shift candidate; two nonimproving revisions exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 208,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FC368",
           "vram": "0x150FC368"
         }
@@ -77099,8 +77116,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 516,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150FC614",
           "vram": "0x150FC614"
         }
@@ -77186,6 +77208,12 @@
       "symbol": "func_150E7FEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1696,
+        "reason": "Two coherent packet forms both 1696; repeated byte conversion is cached across calls unlike raw and frame is eight bytes larger. Full-width formals retained because no existing narrow target declaration; no ABI or byte-address workaround.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

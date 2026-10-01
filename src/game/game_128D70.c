@@ -6,9 +6,7 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_150FB8C0
- * - func_150FC368
  * - func_150FC438
- * - func_150FC614
  * - func_150FC818
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -18,9 +16,8 @@
 /* Call context: func_151C3B0C: unique active project prototype */
 void func_151C3B0C(void *, f32, f32, f32, f32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FC368 CURRENT (235) */
 void func_150FC368(void *arg0) {
-    s32 var_v0;
+    u8 var_v0;
     void *temp_v0;
     void *temp_v1;
     void *temp_v1_2;
@@ -29,13 +26,10 @@ void func_150FC368(void *arg0) {
     if ((temp_v0 == 0) || (*(s32 *)((u8 *)temp_v0 + 0) == 0) || (*(u8 *)((u8 *)temp_v0 + 4) == 0xFF) || (*(u8 *)((u8 *)arg0 + 0x1A4) != *(u8 *)((u8 *)temp_v0 + 0x3B)) || (temp_v1 = *(void **)((u8 *)temp_v0 + 0x31C), (temp_v1 == 0)) || (*(u8 *)((u8 *)temp_v1 + 0x84) != 0) || (*(u8 *)((u8 *)temp_v0 + 0x127) == 0xFF) || (temp_v1_2 = *(void **)((u8 *)temp_v0 + 0x318), (temp_v1_2 == 0))) {
         var_v0 = 0xFF;
     } else {
-        var_v0 = 1U << *(u8 *)((u8 *)temp_v1_2 + 0x23D);
-        var_v0 = ~var_v0 & 0xFF;
+        var_v0 = ~(1U << *(u8 *)((u8 *)temp_v1_2 + 0x23D)) & 0xFF;
     }
     func_151C3B0C(arg0, 1.0f, 1.0f, 0.6f, 0.0f, 0xFF, 0xFF, var_v0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150FC368 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_128D70/func_150FC368.s")
 typedef struct Game128D70Player {
     u8 pad0[0x23D];
     u8 index;
@@ -141,7 +135,61 @@ void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, s32 arg2, u8 ar
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FC438 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_128D70/func_150FC438.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_128D70/func_150FC614.s")
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_150FB8C0(void *, s32, f32, s32, s32, s32);
+void *func_151D8868(s8 *, s32, s32, s32);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+extern u8 D_800C35EA;
+
+void func_150FC614(u8 *arg0) {
+    u8 *actor;
+    Game128D70Owner *owner;
+    s8 event[8];
+    u8 *state;
+
+    actor = *(u8 **)(arg0 + 0x28);
+    if (*(s32 *)actor == 0 ||
+        (owner = (Game128D70Owner *)(arg0 + 0x28), actor[4] == 0xFF) ||
+        owner->type != actor[0x3B] || D_800C35EA == 1) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    if (owner->field1D != *(u16 *)(actor + 0x84)) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    owner->value -= D_800BE9A4;
+    if (owner->value < 0.0f) {
+        do {
+            func_150FB8C0(actor, owner->fieldC, -owner->value, owner->mode,
+                           arg0[0xC], arg0[1]);
+            owner->fieldC ^= 1;
+            if (owner->other != 0) {
+                state = *(u8 **)((u8 *)owner->other + 0x31C);
+                if (state != 0) {
+                    *(s16 *)(state + 0x1AA) += 1;
+                }
+            }
+            owner->value += 4.0f + func_150ADA68() * 4.0f;
+        } while (owner->value < 0.0f);
+    }
+    if (owner->player != -1) {
+        owner->field14 -= D_800BE9E4;
+        if (owner->field14 < 0) {
+            event[0] = 1;
+            func_150ADA20();
+            *(s16 *)&event[2] = 0x1E;
+            event[5] = 1 << owner->player;
+            event[4] = (func_150ADA20() % 6U) + 3;
+            event[6] = -1;
+            func_151D8868(event, 0, arg0[0xC], arg0[1]);
+            func_150ADA20();
+            owner->field14 = 0xFA;
+        }
+    }
+}
 void func_1516972C(u8 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150FC818 CURRENT (1585) */

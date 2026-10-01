@@ -15441,7 +15441,7 @@
         "us": {
           "end": "0xFC930",
           "start": "0xFB8C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_128D70.c"

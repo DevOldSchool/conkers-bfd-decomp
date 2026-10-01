@@ -41,10 +41,71 @@ void func_150FEFD0(void *arg0, s16 arg1, void *arg2) {
     sp30 = arg2;
     func_1514654C(arg0, result, 0, (void **)&sp34, &sp30, 1);
 }
+s32 func_150ADA20(void);
+s32 func_150FF288(void *);
+void func_150FF2AC(void *, void *, void *, void *);
+void func_150FF2D4(u8 *, void *, f32 *, void *, void *, f32 *, s32, s32,
+                    s32, s32, s32, s32, f32 *, f32 *, s32);
+void func_150FF474(void *, void *, u8, s32);
+void func_151D3F14(void *, u8, s32);
+void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
+void func_151D5148(void *);
+void func_150F7470(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32,
+                    void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A2114, D_800A2118;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF084 CURRENT (2758) */
+void func_150FF084(u8 *arg0, s32 arg1, s32 arg2) {
+    f32 position[3];
+    f32 endpoint[3];
+    f32 direction[3];
+    f32 axis0[3];
+    f32 axis1[3];
+    f32 hit[3];
+    f32 normal[3];
+    f32 output0[3];
+    f32 output1[3];
+    f32 points[6][3];
+    s32 value0;
+    s32 value1;
+    s32 lookup;
+    u8 valid;
+    s32 enabled;
+
+    lookup = func_150FF288(arg0);
+    if (lookup != 0) {
+        func_151D5148(arg0);
+        func_150FF2AC(arg0, direction, axis0, axis1);
+        if (*(s32 *)(arg0 + 0x1D4) != 0) {
+            valid = 1;
+        } else {
+            valid = 0;
+        }
+        func_150FF2D4(&valid, points, position, hit, normal, direction,
+                        (s32)axis0, (s32)axis1, (s32)output0, (s32)output1,
+                        (s32)&value0, (s32)&value1, endpoint, (f32 *)arg0, lookup);
+        enabled = 1;
+        if (value1 == 0) {
+            enabled = 0;
+        }
+        func_150F7470(position, direction, value0, value1, enabled, 0,
+                        D_800A2114, D_800A2118, 300.0f, arg0, 1, 1, 1, 0,
+                        0x1A, 1, ((u32)func_150ADA20() % 5U) + 0x327, 0,
+                        (u8)arg1, arg2);
+        if (valid != 0) {
+            func_151D3F14(position, (u8)arg1, arg2);
+            func_151D4408(hit, normal,
+                            *(s32 *)(arg0 + 0x1D4) + (*(u8 *)(lookup + 2) << 6),
+                            arg0, 1.0f, (u8)arg1, arg2);
+            func_150FF474(position, points, (u8)arg1, arg2);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FF084 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF084.s")
 
-void func_150FF288(void *arg0) {
-    func_1503195C(arg0, 0x82, 0);
+s32 func_150FF288(void *arg0) {
+    return func_1503195C(arg0, 0x82, 0);
 }
 void func_15145740(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4);
 extern f32 D_800A211C;

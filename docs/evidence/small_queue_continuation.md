@@ -671,3 +671,50 @@ The clean batch returned BATCH_COMPLETE in 79.844 seconds: full game/mapped
 rodata identical, 1,092 tests passed / 12 skipped, metadata/progress/whitespace
 passed. The impact source unit remains mixed. Accepted total is 36 functions /
 13,520 bytes, with no pending batch IDs.
+
+## Owner event and byte-mask batch after continuation recovery
+
+`func_150FC614` (516 bytes) reached CURRENT (0) in three forms: 55, 55, 0.
+The initial source already reproduced every instruction and register, but its
+frame and event packet were eight bytes too high. An accepted sibling had an
+11-byte buffer; inspecting the actual receiving callee proved an eight-byte
+copy at `151D89B8`/`151D89BC`. Correcting that contract and placing the actual
+owner declaration before the packet was code-neutral. The candidate's debug
+homes then identified actor, owner, packet, other and state at entry-SP offsets
+-4, -8, -16, -20 and -24. Removing only the transient `other` snapshot lets the
+compiler retain the same derived pointer while reducing frame 0x68 to 0x60 and
+packet 0x58 to 0x50. No unused storage or ABI change was added.
+
+A related read-only review of `func_150FC368` found no proven storage problem.
+A fresh baseline confirmed its recorded 235 and exact 0x28 frame; the remaining
+code contained a redundant move after the complement-and-mask expression.
+Combining that expression was code-neutral. Giving the actual final byte mask
+an unsigned-byte local type then recovered full CURRENT (0), including all
+register assignments. Its 208 bytes are newly accepted; no formal was narrowed.
+This distinguishes genuine local result width from unsupported parameter ABI
+changes. The other nearby constructor's existing narrow-formal blocker was
+reviewed without repeating an exhausted compile.
+
+The independent `func_150B17DC` contract review proved the third argument and
+all three outputs of `func_1505A184` are floats, using the raw callee and accepted
+callers. Correcting both source-local declarations and both deferred consumers
+improved 1249 to 470; the older `func_150B10F0` improved 1872 to 1862. A second
+review restored the first branch's placement-before-reset source order, reducing
+150B17DC to 230 with exact frame, homes, count and control flow. One commuted
+addition, a conversion-driven FP permutation and tail GPR allocation remain.
+Best sources are retained inactive; no permutation or unsupported ABI probe ran.
+
+Two normal-ready candidates also remain inactive: `func_150E81A8` at 1696 after
+two code-equivalent packet forms, and `func_150FF084` at 2758 after one coherent
+vector/output form. Both retain existing full-width parameter contracts rather
+than forcing narrow formals to avoid conversion caching. The latter exposed an
+incorrect void annotation on existing wrapper `func_150FF288`; returning the
+already-established `func_1503195C` result keeps its complete machine code exact.
+Its source-unit layout was rechecked after restoring the larger candidate's ASM.
+The existing match is excluded from new-match counts. The predecessor's 650
+`func_1506D2E8` candidate is preserved unchanged.
+
+The clean batch returned BATCH_COMPLETE: full US game code and mapped rodata
+identical, 1,092 tests passed / 12 skipped, metadata/progress/whitespace passed.
+The owner unit remains mixed. This adds 2 functions / 724 bytes, for an accepted
+task total of 38 functions / 14,244 bytes. No batch IDs remain pending.
