@@ -55469,6 +55469,12 @@
       "symbol": "func_1517EC1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2175,
+        "reason": "Bounded constructor reconstruction improves 2297 to 2175 after separating first-use random values from retained range/half state. Fullword formals retain observed local conversions; no narrow declaration exists. Frame and two spill homes plus argument reload and division scheduling differences remain. Preserve both valid forms without adding or removing true state.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55519,6 +55525,12 @@
       "symbol": "func_1517A394"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4278,
+        "reason": "Preserve best manual renderer candidate CURRENT4278; fullword view formal, existing matrix word-carrier contract and explicit float-bit transport retained. Cursor lifetime improved5337to4278; view reload, helper transport, global CSE and flag offset remain. No unsupported narrowing or synthetic storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55532,6 +55544,12 @@
       "symbol": "func_1517A3A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 560,
+        "reason": "Verified scalar output and existing s16 target formals support a typed particle creator. Removing redundant converted Y restores frame and actual homes (873 to 750); coordinate initialization order improves to 560. Remaining differences are temporary registers and two wide-formal reloads. Preserve best; no further formal narrowing is justified.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

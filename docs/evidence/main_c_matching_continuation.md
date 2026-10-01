@@ -1150,3 +1150,44 @@ initializer. Full US ROM, integrated game/rodata, 1,346 tests with 12 skipped,
 metadata, progress and whitespace gates pass with `BATCH_COMPLETE`. This
 candidate-only batch adds no matches: totals remain **63 / 7,684 bytes**,
 with **2,696** accepted US C functions and no accepted pending IDs.
+
+## Twenty-ninth batch: motion constructors and renderer contracts
+
+The related constructors and renderer in `game_1A7490.c` remain ASM-backed.
+The existing motion view now exposes the observed byte at 0x9F, float at
+0xA8 and signed halfword at 0xB0 without inventing the allocation's tail.
+`1517A644` improves 873 to 750 after removing a redundant converted-coordinate
+local, recovering the 0x60 frame and actual output/half-value homes. Coordinate
+initialization order improves it to 560. Its pre-existing declaration proves
+two s16 formals; the other integer formals remain full-width. Following the
+verified `1510E82C` forwarding edge into `1510E950` establishes that the output
+is exactly one float, so no buffer size is inferred from a stack gap.
+
+`15179FE0` improves 2297 to 2175 by distinguishing first-use random expressions
+from the range and half-range values retained across calls. All eleven formals
+remain s32, with explicit signed-byte, halfword and unsigned-byte value views.
+No qualifying narrow declaration was found. Its frame, physical spills and
+argument reloads remain different, and both source forms are preserved.
+
+The renderer `1517A3A0` improves 5337 to 4278 after removing a redundant pointer
+alias and retaining the evolving cursor in the existing address formal. The
+raw S1 cursor lifetime is recovered. The matrix builder's existing word-carrier
+ABI is preserved with explicit float-bit transport; the downstream transform
+proves that this value contains float bits, and the output converter proves
+32 halfword writes spanning 0x00 through 0x3E. Remaining view reload, transport,
+global-address scheduling and flag-home differences are deferred. Its signed
+halfword view uses do not justify narrowing the target's s32 formal.
+
+Raw `1510AEE0` and its existing deferred C body agree on a matrix pointer,
+seven float inputs and two optional float outputs. The stale declaration in
+`game_1A20A0.c` and its disabled caller now express that contract coherently.
+The caller reads the same coordinate bits as floats; it does not numerically
+convert integer values. Fresh before/after diagnostics both score 3270. The
+shared contract correction received independent review with no blocking issue.
+
+A clean batch rechecks all three active motion-family functions, the matched
+matrix builder and the main PI initializer. Full US ROM, integrated game and
+rodata, 1,346 tests with 12 skipped, metadata, progress and whitespace gates
+pass with `BATCH_COMPLETE`. This candidate-only batch adds no matches: totals
+remain **63 / 7,684 bytes**, with **2,696** accepted US C functions and no
+accepted pending IDs.

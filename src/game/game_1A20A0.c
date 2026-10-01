@@ -33,7 +33,7 @@ typedef struct Game1770C8Packet {
 
 void func_150A7790(void *, s32);
 void func_150A8050(void *, s32, s32, s32);
-s32 func_1510AEE0(void *, s32, s32, s32, f32, f32, f32, f32, s32, s32);
+s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
 void *func_15176DF0(void *, void *, s16);
 extern u8 D_800BE9C0;
 extern f32 D_800D35E0;
@@ -48,9 +48,9 @@ void *func_151770C8(u8 *arg0, u8 *arg1, s16 arg2) {
     u8 temp_v0;
 
     var_s1 = arg0;
-    if (func_1510AEE0(D_800D9C10 + (arg2 << 6),
-                       *(s32 *)(arg1 + 0x98), *(s32 *)(arg1 + 0x9C),
-                       *(s32 *)(arg1 + 0xA0), D_800D9B20, 4000.0f,
+    if (func_1510AEE0((f32 *)(D_800D9C10 + (arg2 << 6)),
+                       *(f32 *)(arg1 + 0x98), *(f32 *)(arg1 + 0x9C),
+                       *(f32 *)(arg1 + 0xA0), D_800D9B20, 4000.0f,
                        D_800D35E0, *(&D_800D35E0 + 1), 0, 0) == 0) {
         temp_v0 = arg1[0x91];
         switch (temp_v0) {
