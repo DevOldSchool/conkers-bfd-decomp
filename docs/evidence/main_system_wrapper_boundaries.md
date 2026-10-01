@@ -94,7 +94,10 @@ These checks establish bounded working units, not original data/BSS ownership.
   [library audit](libultra_us_residual_boundary_audit.md) also rejected assigning
   `ackramromread` or `ackramromwrite` solely from this common template.
 
-These 112 bytes remain unreviewed. The bounded negative call scan is not proof
+At this checkpoint these 112 bytes remained unreviewed. The subsequent
+[owned beta comparison](main_boundary_beta_comparison.md) supplies positive
+structural-family evidence for the complete 64-byte hardware pair, now reviewed;
+the other 48 bytes remain unresolved. The bounded negative call scan is not proof
 that they are unreachable, and no original source or library identity is assigned.
 
 ## Reproduction and integration limits

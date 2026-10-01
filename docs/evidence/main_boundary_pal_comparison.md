@@ -1,9 +1,12 @@
 # US main boundary frontier: bounded PAL comparison
 
-The 2026-09-30 comparison found a PAL counterpart for all four unresolved US
-ranges, but no new entry-selection or original-grouping evidence that resolves
-them. The frontier remains **four ranges, 1,344 US bytes**. No source ownership,
-function registration, map, implementation, or progress state changes.
+Historical result: the 2026-09-30 comparison found a PAL counterpart for all
+four unresolved US ranges, but no new entry-selection or original-grouping evidence that resolves
+them. At that checkpoint the frontier remained **four ranges, 1,344 US bytes**.
+The later [owned beta comparison](main_boundary_beta_comparison.md) resolves
+the 64-byte hardware-init/probe family and leaves three ranges, 1,280 bytes.
+The PAL-only trial changed no ownership, registration, map, implementation
+or progress state.
 
 ## Independently validated inputs
 
@@ -88,16 +91,17 @@ entries corroborate those bodies but do not account for the extra empty entry.
 
 PAL does not close the main boundary frontier. Do not repeat this same retail
 comparison without a new lead or reinterpret the negative checks as proof.
-The next planned input is the user's owned debug build, which they intend to
-upload later on 2026-09-30. The user confirmed that no original debug map is
-available and cautioned that the debug build may add little information. This
+At this checkpoint the next planned input was the user's owned debug build.
+Both beta inputs were subsequently uploaded and examined on 2026-10-01; see
+[the completed beta comparison](main_boundary_beta_comparison.md). The user
+confirmed that no original debug map is available and cautioned that the debug build may add little information. This
 is a bounded investigation opportunity, not a promised route to completion.
 The existing `beta-index` correlations concern game overlays; main needs its
 own targeted review.
 
-The current private assets inventory supplies US and PAL, not those prototypes
-or an original symbol map. Prototype hashes and canonical input names are
-documented in [beta evidence](../beta-evidence.md) and `config/rzip_layouts.json`;
+The private assets inventory at this historical checkpoint supplied US and PAL,
+but not those prototypes or an original symbol map. Prototype hashes and
+canonical input names are documented in [beta evidence](../beta-evidence.md) and `config/rzip_layouts.json`;
 their bytes were not available for this trial. A prototype correlation would
 still require positive entry/grouping evidence before changing US spans.
 

@@ -92733,6 +92733,32 @@
       },
       "source": "src/main/init_A420.c",
       "symbol": "func_8000B060"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 44,
+          "state": "raw_asm",
+          "symbol": "func_800038E0",
+          "vram": "0x800038E0"
+        }
+      },
+      "source": "src/main/init_38E0.c",
+      "symbol": "func_800038E0"
+    },
+    {
+      "overlay": "main",
+      "regions": {
+        "us": {
+          "size_bytes": 20,
+          "state": "raw_asm",
+          "symbol": "func_8000390C",
+          "vram": "0x8000390C"
+        }
+      },
+      "source": "src/main/init_38E0.c",
+      "symbol": "func_8000390C"
     }
   ],
   "schema_version": 1

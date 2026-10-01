@@ -6,8 +6,10 @@ separate from the complete game-overlay ownership map and ASM-to-C progress.
 ## Verified progress
 
 Eight registration batches added 25 reviewed working units, 220 registered
-spans and 62,768 bytes. With the two existing bootstrap units, main has
-27 reviewed units, 227 registered spans and 64,048 reviewed source bytes.
+spans and 62,768 bytes. The subsequent
+[owned beta comparison](main_boundary_beta_comparison.md) adds a 64-byte, two-member hardware-init/probe working family. With the two existing
+bootstrap units, main now has 28 reviewed units, 229 registered spans and
+64,112 reviewed source bytes.
 The nineteen custom/privileged spans in the seventh batch and the earlier
 96-byte fixed-TLB routine are separately verified original assembly: twenty
 spans, 9,736 bytes, with no C matching credit. All earlier registration and
@@ -18,9 +20,9 @@ as text-ordered data without assigning an original object owner.
 | Classification in CPU interval `0x1050:0x290D0` | Bytes |
 | --- | ---: |
 | Already exact CPU library text | 98,512 |
-| Reviewed working units, canonically raw | 64,048 |
+| Reviewed working units, canonically raw | 64,112 |
 | Known zero-filled text tail | 64 |
-| Four remaining raw navigation ranges | 1,344 |
+| Three remaining raw navigation ranges | 1,280 |
 | Total | 163,968 |
 
 The handwritten entry `0x1000:0x1050` lies outside this interval. The existing
@@ -38,6 +40,7 @@ The complete memberships and evidence are in:
 - [Handwritten families and complete interior-entry accounting](main_handwritten_family_boundaries.md)
 - [Spatial-audio calculations](main_spatial_audio_boundaries.md)
 - [Zero-filled text tail](main_text_zero_tail_226b0.md)
+- [Beta-selected hardware-init/probe family](main_boundary_beta_comparison.md)
 
 These are working families, not claims that every historical filename or
 original object boundary has been recovered. The handwritten inventory records
@@ -49,7 +52,6 @@ inside their owners rather than becoming overlapping ordinary C work items.
 | US ROM range | Bytes | Current result | Required next evidence/action |
 | --- | ---: | --- | --- |
 | `0x38C0:0x38E0` | 32 | Varargs-style empty stub | Owned selector/reference or independent original grouping |
-| `0x38E0:0x3920` | 64 | Hardware-writing `0x38E0` and zero-return `0x390C` | Common ownership or a justified finer representation; internal start is not 16-byte aligned |
 | `0x39B0:0x39C0` | 16 | Ambiguous no-op return | Preserve uncertainty without an unsupported stock identity |
 | `0x50A0:0x5570` | 1,232 | Five raw spans but six independent-index proposals | Resolve ownership and the unselected empty `0x5298` proposal without shrinking a span for matching credit |
 
@@ -61,8 +63,10 @@ independent original map or meaningful cross-version correlation appears. The
 owned PAL ROM has now been checksum-validated and used for a
 [targeted regional comparison](main_boundary_pal_comparison.md): it preserves
 the ambiguous entries and supplies no new selection or ownership evidence for
-them. The documented debug/ECTS inputs were not available for that trial;
-the next targeted check awaits the user's planned owned-debug-build upload.
+them. The subsequently uploaded debug/ECTS inputs provide positive selected
+counterparts and a specific hardware-domain relationship for `0x38E0:0x3920`;
+that complete pair is now reviewed. They do not resolve the three remaining
+ranges. See the [beta evidence and bounded result](main_boundary_beta_comparison.md).
 The user confirmed that no original debug map is available.
 A negative runtime trace would not establish an original boundary or prove
 unreachability.
@@ -102,7 +106,7 @@ stub ranges above.
    registration transactions onto the chosen baseline instead of replacing its
    inventories; this preserves newer game matches and source-unit states.
 2. Spatial-family ownership and zero-tail classification now pass full-ROM
-   equality. Retain the four unknown stub/entry ranges explicitly rather than
+   equality. Retain the three unknown stub/entry ranges explicitly rather than
    registering them to obtain a completion percentage.
 3. For any later positive empty-stub evidence, regenerate references independently
    and reconcile complete memberships before changing registered spans.
@@ -124,7 +128,9 @@ The earlier five batch reports remain historical records of the checks available
 at that time. The spatial/padding batch also reproduces the full US ROM after
 regeneration, with a dedicated map test for text ordering and no invented
 function credit. The final expanded suite passes 1,071 tests with 12 declared
-skips. Private ROMs, generated raw assembly and binaries remain ignored.
+skips. Private ROMs, generated raw assembly and binaries remain ignored. The later
+hardware-pair registration and its final checks are recorded separately in
+[the beta comparison](main_boundary_beta_comparison.md#reproduction-and-verification).
 
 ## Separate game function-span caveat
 

@@ -20271,6 +20271,28 @@
         }
       },
       "source": "src/main/init_A420.c"
+    },
+    {
+      "boundary_evidence": {
+        "us": {
+          "kind": "structural_analysis",
+          "reference": "docs/evidence/main_boundary_beta_comparison.md",
+          "reviewed": true
+        }
+      },
+      "functions": [
+        "func_800038E0",
+        "func_8000390C"
+      ],
+      "integration": "raw_asm",
+      "regions": {
+        "us": {
+          "end": "0x3920",
+          "start": "0x38E0",
+          "state": "raw_asm"
+        }
+      },
+      "source": "src/main/init_38E0.c"
     }
   ]
 }

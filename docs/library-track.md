@@ -7,18 +7,18 @@ Nintendo 64 library code builds from `lib/`, separately from Conker-specific
 
 | Area | Audited bytes | Exact CPU library text | Reviewed source units | Known data/padding | Classified | Unresolved |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: |
-| Main CPU `0x1050:0x290D0` | 163,968 | 98,512 | 64,048 | 64 | 162,624 (99.1803%) | 1,344 (0.8197%) |
+| Main CPU `0x1050:0x290D0` | 163,968 | 98,512 | 64,112 | 64 | 162,688 (99.2194%) | 1,280 (0.7806%) |
 | Game overlay `0x0:0x1FA130` | 2,072,880 | 48,720 | 2,022,064 | 2,096 | 2,072,880 (100%) | 0 |
 
-**Boundary ownership is separate from matching C.** Main has 27 reviewed
+**Boundary ownership is separate from matching C.** Main has 28 reviewed
 working units; the game overlay has 714. These are evidence-backed working
 families, not a claim that every original filename or compilation unit has
 been recovered. ASM-backed members can have reviewed ownership without a C
 implementation. See generated [implementation progress](progress.md) for matches.
 
-- **Main:** reviewed source units plus exact library text cover 162,560 bytes
-  (99.1413% of the audited CPU interval). Separately classifying the 64-byte
-  zero tail brings classification to 99.1803%; it earns no function credit.
+- **Main:** reviewed source units plus exact library text cover 162,624 bytes
+  (99.1803% of the audited CPU interval). Separately classifying the 64-byte
+  zero tail brings classification to 99.2194%; it earns no function credit.
   Main source units remain canonically raw because mixed main C/ASM integration
   is not supported. Verified original assembly is excluded from C matches.
   See the [main boundary review](evidence/main_boundary_residual_frontier.md).
@@ -39,12 +39,13 @@ boundary classification or silently change their calculation.
 | US ROM range | Bytes | Unresolved question |
 | --- | ---: | --- |
 | `0x38C0:0x38E0` | 32 | Ownership of an empty varargs-style stub |
-| `0x38E0:0x3920` | 64 | Common ownership or a justified split for the hardware-writing and zero-return entries |
 | `0x39B0:0x39C0` | 16 | Ambiguous no-op return; no proven SDK identity |
 | `0x50A0:0x5570` | 1,232 | Five retained raw spans versus six index proposals, including the unselected `0x5298` entry |
 
-These ranges need new positive ownership or entry evidence. Repeating the
-completed bounded static scans, guessing object names or shortening spans for
+The owned [beta comparison](evidence/main_boundary_beta_comparison.md) resolves
+the complete 64-byte hardware-init/probe family at `0x38E0:0x3920`.
+The three remaining ranges need new positive ownership or entry evidence.
+Repeating the completed bounded static scans, guessing object names or shortening spans for
 matching credit would not resolve them. Required evidence and entry conflicts
 are recorded in the [residual review](evidence/main_boundary_residual_frontier.md#remaining-exact-ranges).
 
