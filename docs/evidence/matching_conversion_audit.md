@@ -142,3 +142,18 @@ to SP+0x38, with 17 register rows and three operand rows remaining (one classifi
 as stack-only). It remains nonmatching. The improved 132 source is deferred;
 older 271 and 720 forms are preserved as separate proof artifacts. No further
 permutations were run, and no accepted function or byte count changed.
+
+### Faithful byte-offset initializer
+
+The typed-array cursor trial began before the reviewer's exact initializer
+arrived. One explicitly approved correction then tested the proposed
+`(s32 *)((u8 *)D_800C3960 + arg0 * 0x78)` with every other line unchanged.
+This distinction matters: typed-array indexing had introduced a different
+intermediate register for the final scaling operation.
+
+The faithful form returned CURRENT(12) in 2.250 seconds. All 17 temporary-register
+differences disappeared. Every instruction, ordering and control-flow shape
+now agrees, with frame 0x50 exact. Only three accesses to the saved owner pointer
+use SP+0x38 instead of SP+0x3C. This confirms the specific expression prediction;
+it does not establish an accepted match. The improved 12 form is deferred and
+all earlier forms are preserved. No padding or automated search was introduced.

@@ -38661,8 +38661,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 132,
-        "reason": "Independent storage reconstruction: direct expressions recovered frame0x50; real block-local row cursor removes two extra instructions, improves271 to132. Saved owner now0x38 vs0x3C and temporary registers differ; no opcode/missing rows. Two review-led hypotheses preserved.",
+        "current_score": 12,
+        "reason": "Independent review exact byte-offset cursor recovers all registers/instructions; CURRENT12 only saved-owner stack home0x38 vs0x3C in three accesses, exactframe0x50. Previous271/720/132 forms preserved. No padding or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

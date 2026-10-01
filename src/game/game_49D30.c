@@ -661,7 +661,7 @@ extern s32 D_800C35E0[];
 extern void *D_800C3A50[];
 extern u8 *D_800C3958[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E540 CURRENT (132) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501E540 CURRENT (12) */
 void func_1501E540(s32 arg0) {
     s32 *saved;
     s32 index;
@@ -688,7 +688,7 @@ void func_1501E540(s32 arg0) {
         if ((s32)*count > 0) {
             s32 *cursor;
 
-            cursor = &D_800C3960[arg0 * 30];
+            cursor = (s32 *)((u8 *)D_800C3960 + arg0 * 0x78);
             do {
                 func_10004074(*cursor);
                 *cursor = 0;
