@@ -19633,7 +19633,7 @@
         "us": {
           "end": "0x34E0",
           "start": "0x3220",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_3220.c"
@@ -19813,7 +19813,7 @@
         "us": {
           "end": "0x49E0",
           "start": "0x4470",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_4470.c"

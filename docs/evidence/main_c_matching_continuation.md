@@ -463,3 +463,54 @@ existing sequence no-op regression: `BATCH_COMPLETE`, full US ROM match,
 This adds **4 functions / 752 bytes**, giving **43 / 3,652 bytes** since the
 fresh baseline and **2,676** accepted US C functions. Both source units remain
 in progress, and no accepted IDs remain pending at this checkpoint.
+
+## Twelfth batch: SP start and transfer completion wait
+
+Two system-I/O functions are newly accepted:
+
+- `func_8000349C` (68 bytes): the actual task-pointer interface, SP-busy poll
+  and unsigned hardware-status call, matching on its first source form.
+- `func_80004674` (112 bytes): consumes completion messages while re-reading
+  the live byte counter. Its initial if/do form scored 120 solely from the
+  index initialization schedule; a normal counted for-loop recovered zero.
+
+The reviewed task and transfer families also retain six bounded candidates:
+
+| Function | Best | Remaining evidence |
+| --- | ---: | --- |
+| `80003220` | 5623 | A coherent SDK task view preserves the real copy input and seven address conversions, but the compiler retains its common base instead of the raw field-address schedule |
+| `80003330` | 10 | Literal uncached-segment address versus absolute-symbol HI/LO spelling |
+| `80004470` | 70 | Explicit loop-end state improved 655 to 70; address initialization order and the array-end alias remain |
+| `800046E4` | 20 | Exact operations and registers with an eight-byte frame/local-address shift |
+| `80004514` | 1369 | Three valid control/type forms were code-neutral; incoming size storage and the register cascade remain |
+| `8000480C` | 2223 | First typed direct-I/O candidate preserves the interlock and word/halfword copy behavior; layout, scheduling and segment aliases remain |
+
+For `80003330`, independent linkage of the unmodified best candidate at its
+registered address produces exactly the complete 364-byte ROM span, SHA-256
+`0bd1f0bef956bb81e87810b86b5500858b616b9dc7c1eb6ff894f1cc4bdb21ce`.
+The existing symbolic gate still reports CURRENT (10), and its linked-alias
+path does not support this main-executable literal-versus-symbol case.
+Therefore this remains a diagnostic result: assembly is active, no comparison
+or reference tool was changed, and no C match is counted. Expressing the
+verified absolute linker symbol directly instead scored 250 and was discarded.
+
+For `800046E4`, object/debug evidence separates the request and response's
+actual stack addresses from derived-value homes. Removing a redundant
+remaining-count name was code-neutral at 20. Reusing the disjoint queue-index
+and transfer-size roles recovered the frame but changed register/control
+allocation, scoring 528; the simpler score-20 form is retained.
+
+The direct-I/O candidate's visibility qualifiers have specific protocol
+support. The manager thread reads the direct-reader interlock, marks itself
+suspended, sets/clears the DMA-active byte and is explicitly resumed by this
+helper. Those shared communication bytes, the PI status register and uncached
+device reads require observable accesses. No unrelated RAM or local was made
+volatile to alter code generation. The 24-byte queue and I/O-message views
+come from the SDK contracts, with original full-width arguments retained.
+
+The clean two-function batch returned `BATCH_COMPLETE`: full US ROM match,
+1,328 tests run with 12 skipped, metadata, progress and whitespace passed.
+This adds **2 functions / 180 bytes**, giving **45 / 3,832 bytes** since the
+fresh baseline and **2,678** accepted US C functions. The best candidates,
+failed hypotheses and linked-byte diagnostic are preserved. No accepted IDs
+remain pending at this checkpoint.

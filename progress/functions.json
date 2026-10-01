@@ -90468,6 +90468,12 @@
       "symbol": "func_800030A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5623,
+        "reason": "SDK task-copy layout and actual bcopy input forwarding preserved, including seven physical-address fields in one coherent object. Score 5623: compiler retains shared base in s0 instead of raw independent address materialization. No overlapping globals, volatile RAM or compiler-flag workaround.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90481,6 +90487,12 @@
       "symbol": "func_80003220"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "SDK loader body retains exact operations and register schedule at score 10; only literal uncached-segment constant versus raw absolute-symbol HI/LO spelling differs. Using the verified linker symbol scores 250, so retain literal form. No reference or comparison-tool changes; not an accepted C match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90497,8 +90509,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 68,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000349C",
           "vram": "0x8000349C"
         }
@@ -90740,6 +90757,12 @@
       "symbol": "func_8000440C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 70,
+        "reason": "Concrete SDK queue layout and three-message loop preserved. Explicit invariant end pointer improves score 655 to 70 by eliminating per-iteration endpoint recomputation. Remaining address-initializer scheduling and array-end alias differ; no invented independent endpoint object.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90753,6 +90776,12 @@
       "symbol": "func_80004470"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1369,
+        "reason": "Typed blocking/asynchronous transfer paths preserve the observed byte counters and queue contracts. Three valid forms score 1369: structured merge, shared transfer label, and full-width signed size with explicit unsigned comparison are code-neutral. Incoming size home and register cascade remain; preserve simplest first form.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90769,8 +90798,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80004674",
           "vram": "0x80004674"
         }
@@ -90779,6 +90813,12 @@
       "symbol": "func_80004674"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "SDK I/O message and actual transfer contracts preserve all instructions and registers at score 20, with frame/local addresses eight bytes high. Removing a redundant remaining value is code-neutral; reusing disjoint index/chunk state recovers frame but scores 528. Retain simpler score-20 form without padding or fake locals.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90792,6 +90832,12 @@
       "symbol": "func_800046E4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2223,
+        "reason": "Direct PI copy uses actual manager-thread interlock visibility and MMIO/device reads, with a real word/halfword view and one-argument thread resume contract. First typed form scores 2223; frame, register allocation, control schedule and absolute-segment aliases remain. Preserve evidence before further independent lifetime review.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
