@@ -570,3 +570,78 @@ metadata, progress and whitespace passed. This adds **5 functions / 584 bytes**,
 giving **50 / 4,416 bytes** since the fresh baseline and **2,683** accepted US
 C functions. The source remains in progress. No accepted IDs remain pending
 at this checkpoint.
+
+## Fourteenth batch: sound callback state and spatial updates
+
+Five more members of `init_EB00.c` are newly accepted:
+
+| Function | Bytes | Behavior |
+| --- | ---: | --- |
+| `func_800107F8` | 156 | Checks the secondary owner sound, preserving the word-zero early exit |
+| `func_8000F1A8` | 160 | Resets sound state, initializes the first sixteen handle-entry sequence fields and stops no-decay playback |
+| `func_8000F91C` | 184 | Computes spatial gain and posts the four observed sound parameters |
+| `func_8000EB00` | 196 | Seven-slot callback that gates activity and updates the randomized delay/sound fields |
+| `func_8001001C` | 196 | Updates pitch and the word value of records matching a callback/owner/key tuple |
+
+`800107F8` and `8001001C` matched on their first forms. The owner view adds
+only the observed word at zero. The record view adds its word at 0xC and float
+at 0x2C, retaining the proven 0x30-byte stride. The handle-entry view exposes
+the initialized halfword at two, retaining its 0xC-byte stride. The reset's
+0x180-byte clear and sixteen-entry initialization are kept as distinct observed
+operations; neither is used to invent a narrower global-array extent.
+
+The reset improved from 300 through 460 to 0. An indexed initialization loop
+removed a redundant named cursor and recovered the compiler's exact unrolled
+loop. Chaining the final flag resets recovered the address materialization,
+but the starter-derived signed-byte annotations introduced an extra reload.
+The actual consumer, `80011BB8`, reads both `D_80041F60` and `D_80041F61` with
+`lbu` and copies one into the other. Correcting those local declarations to
+`u8` removed the reload and produced full-span zero. This does not narrow a
+parameter or add storage.
+
+`8000F91C` uses the existing active runtime-alias declaration: only the first
+formal is `u16` and the third is `s16`; the remaining formals stay full width
+with explicit value conversions. The first two forms scored 10 from one
+commuted multiply. Reversing the nested expression was code-neutral. Naming
+the real returned scale before the unsigned multiplication recovered the raw
+operand order, with the original frame and output-word address unchanged.
+
+`8000EB00` preserves all seven callback slots and uses the actual no-argument
+unsigned PRNG contract. Its initial score of 65 was entirely register identity.
+Removing the redundant remaining-timer local, while retaining direct state
+updates and the actual state pointer across both calls, recovered zero.
+
+Eleven bounded candidates remain inactive with their best forms retained:
+
+| Function | Best score | Unresolved evidence |
+| --- | ---: | --- |
+| `8000F44C` | 425 | Full-width handle reload/normalization versus a raw halfword reload |
+| `8000FF90` | 290 | Single-loop control recovered from 1355; pointer/count/owner allocation remains |
+| `8000F4D8` | 40 | Existing `u16` declaration reduced 435; endpoint address schedule and equality order remain |
+| `8000F9D4` | 1794 | Full-width wrapper argument homes and conversion schedule |
+| `8000FDF4` | 956 | Normalized handle identity and count/register schedule |
+| `8000FEF0` | 2265 | Frameless candidate versus raw saved-register state |
+| `8000EC24` | 888 | Stack-supplied output-pointer promotion/reload; the timer snapshot before possibly aliasing stores is preserved |
+| `8001091C` | 210 | One incoming-value reload and coherent array-member address spelling |
+| `80010E78` | 855 | Direct returns recover the 0x30 frame; argument-expression temporaries remain |
+| `8000FD38` | 280 | Count reload placement around callback and record writes |
+| `8000F85C` | 3166 | Event-parameter storage, spill schedule and coherent state-member address spelling |
+
+The local `80010BE8` return annotation now reflects every raw exit: zero or an
+unsigned-halfword handle. Its full-width parameter annotations are unchanged.
+This supports a deferred candidate and adds no match by itself. No unsupported
+parameter narrowing, array extent, overlapping global, volatile reload,
+permutation search or compiler/reference change was used.
+
+Object-symbol review confirms that the reset calls `sndp_stop_nodecays(void)`
+at US 0x176EC, rather than the adjacent `sndp_stop_all` at 0x176C4. The exact
+callee contract has no arguments; the loop-bound value remaining in a register
+is not an argument. The cents conversion and sound-event contracts also agree
+with their pinned library definitions.
+
+The clean batch checked all five new functions and eight affected earlier
+functions: `BATCH_COMPLETE`, full US ROM match, 1,328 tests run with 12 skipped,
+metadata, progress and whitespace passed. This adds **5 functions / 892 bytes**,
+giving **55 / 5,308 bytes** since the fresh baseline and **2,688** accepted US
+C functions. The source remains in progress. No accepted IDs remain pending
+at this checkpoint.

@@ -92051,8 +92051,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 196,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000EB00",
           "vram": "0x8000EB00"
         }
@@ -92080,6 +92085,12 @@
       "symbol": "func_8000EBC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 888,
+        "reason": "Seven-slot delayed callback preserves the true signed-halfword timer snapshot before possibly aliasing stores and full-word timer update. Scores 888 twice; naming the stack-supplied output pointer is code-neutral. Remaining output-pointer promotion/reload and register schedule require new storage evidence; retain simpler first form.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92166,8 +92177,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F1A8",
           "vram": "0x8000F1A8"
         }
@@ -92208,6 +92224,12 @@
       "symbol": "func_8000F3D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 425,
+        "reason": "Critical-section state flag query preserves disable/read/restore order and full-width input contract. First score 425 is the known word-reload plus low-16 normalization shape rather than a narrow halfword reload; no independent existing narrow formal was established. Retain valid candidate without unsupported ABI changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92221,6 +92243,12 @@
       "symbol": "func_8000F44C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 40,
+        "reason": "Existing active runtime-alias declaration in game_981E0 supports u16 formal; correcting the initial conservative s32 contract improves 435 to 40. Named end-pointer state plus field-left equality scores 73 by reallocating saved registers. Retain simpler best40: endpoint address schedule and equality operand order remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92260,6 +92288,12 @@
       "symbol": "func_8000F6B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3166,
+        "reason": "Actual one-argument cents conversion, typed sound-event helper and float/word union preserve behavior. Scores3166,3775,3170: reusing full-width event parameter worsens; removing derived handle name does not recover frame. Keep first valid candidate and full-width event formal; raw state-field address alias and parameter/spill scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92276,8 +92310,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F91C",
           "vram": "0x8000F91C"
         }
@@ -92286,6 +92325,12 @@
       "symbol": "func_8000F91C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1794,
+        "reason": "Typed seven-argument spatial helper and actual three-argument event helper preserve behavior. No existing narrow declaration for this wrapper was found; full-width formals with explicit signed-coordinate and unsigned-handle conversions score 1794. Incoming homes and conversion schedule remain; no unsupported narrowing tried.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92325,6 +92370,12 @@
       "symbol": "func_8000FC18"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 280,
+        "reason": "Typed tuple stop loop scores280 from count-reload placement around callback and record writes. Explicit count snapshot refreshed after callbacks introduces an extra saved base register and worsens to863. Retain simpler first form; independent array-extent/type evidence is needed before changing alias assumptions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92338,6 +92389,12 @@
       "symbol": "func_8000FD38"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 956,
+        "reason": "Sound-record handle scan preserves live count reload after stop callbacks and the record flag update. Existing narrow formal declaration was not found; full-width normalized handle scores 956 with incoming-home and register schedule differences. Preserve first valid form without unsupported narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92370,6 +92427,12 @@
       "symbol": "func_8000FE88"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2265,
+        "reason": "Typed handle/owner/key finder with flag filter and live global bound, reusing explicit single-loop back edge. Full-width handle normalization scores 2265; no existing narrow formal declaration found. Candidate is frameless unlike raw saved-register form; preserve without padding or unsupported narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92383,6 +92446,12 @@
       "symbol": "func_8000FEF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 290,
+        "reason": "Tuple finder improved 1355 to 725 to 290. Explicit back-edge avoids counted-loop unrolling; removing redundant read-only count snapshot restores raw signed loop test and index identity. Remaining pointer/count/owner register allocation and missing initial owner move require new evidence; no permutations tried.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92399,8 +92468,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 196,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8001001C",
           "vram": "0x8001001C"
         }
@@ -92496,8 +92570,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 156,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800107F8",
           "vram": "0x800107F8"
         }
@@ -92524,6 +92603,12 @@
       "symbol": "func_80010894"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 210,
+        "reason": "Typed owner event update and coherent record value-at-0xC view score210. Remaining raw incoming-value reload versus cached move, plus D_80041FEC versus D_80041FE0+0xC address spelling. Preserve coherent array and full-width value; no overlapping globals or forced volatile reload.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92599,6 +92684,12 @@
       "symbol": "func_80010BE8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 855,
+        "reason": "Preserved actual third-u16 wrapper declaration and full-width remaining inputs. Scores1757,1987,855: moving default-result initialization alone does not solve storage; direct returns and one evolving volume value recover frame0x30. All callee10BE8 returns are zero or an unsigned-halfword handle, correcting local return annotation. Remaining argument-expression temporaries and register schedule do not authorize narrower helper parameters.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
