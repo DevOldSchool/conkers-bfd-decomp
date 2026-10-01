@@ -1354,3 +1354,35 @@ progress and whitespace pass with `BATCH_COMPLETE`. Game sources remain
 unchanged from their preceding separately verified batch. This adds **4 C
 functions / 704 bytes**, bringing fresh-base totals to **67 / 8,388 bytes** and
 accepted US C inventory to **2,700**, with no pending IDs.
+
+## Thirty-fifth batch: spatial selection and queue candidates
+
+The spatial selector `800114D0` preserves the existing target and twelve-argument
+helper declarations, including the floating fourth helper input and three s32
+output pointers. Its source-local record has the independently observed 0x1C
+stride: six words followed by one float. The external array remains unsized.
+The unsigned nearest-distance comparison and inclusive unsigned upper index
+are retained, as is the single scalar output used by the final scaled product.
+Its frame and output home agree from the first form. Reusing the initial record
+pointer is code-neutral at 1401; explicitly capturing the actual loop bound
+improves to 1210. Constant-address hoisting and register scheduling still differ,
+so that third form remains disabled.
+
+The queue processor `80011310` retains its unusual persistent flag exactly as
+the raw body does. It uses unsigned views of the existing signed queue fields,
+advances by one four-byte entry, copies the full alignment-two structure, and
+decrements its saved output count for every zero-operation record even when
+IDs differ. The current endpoint count is explicitly refreshed immediately
+after the callback, before the handle's state pointer is cleared; it remains
+cached across the other stores. This improves 4599 to 4063. Capturing the actual
+comparison address before the callback improves to 4058, but the compiler still
+strength-reduces the scalar output index and retains constant addresses where
+the raw body rematerializes them. All three forms are preserved, and the best
+is disabled without added dummy uses, padding or volatile qualifiers.
+
+A clean 16-target main batch verifies all 15 existing unit matches and the PI
+initializer. Full US ROM equality, 1,346 tests with 12 skipped, metadata,
+progress and whitespace pass with `BATCH_COMPLETE`. Game sources remain
+unchanged from their preceding separately verified batch. No new C matches are
+credited: fresh-base totals remain **67 / 8,388 bytes**, accepted US C inventory
+is **2,700**, and there are no pending IDs.

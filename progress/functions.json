@@ -93107,6 +93107,12 @@
       "symbol": "func_800112BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4058,
+        "reason": "Preserve manual best 4058: exact raw flag and callback count lifecycle, but index strength reduction, address reuse, and register scheduling remain after three bounded forms.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93138,6 +93144,12 @@
       "symbol": "func_8001147C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1210,
+        "reason": "Preserve manual best 1210: exact frame and output scalar home, but constant base hoisting and register scheduling differ; bounded source attempts exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
