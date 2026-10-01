@@ -103,3 +103,42 @@ changes or weaker verification are involved.
 
 The pending trial is outside the audited hour. Its outcome must be recorded
 separately. Fresh queue selection remains paused for review.
+
+## Single independent-review trial (2026-10-01, outside the window)
+
+The proposed three-local form was compiled once at 00:04 UTC. `finish` took
+2.322 seconds and returned CURRENT(720), compared with the retained 271.
+The specific storage prediction held: frame 0x70 became the exact 0x50, incoming
+argument homes became exact, saved owner remained at SP+0x3C, and saved-register
+slots were unchanged. No stack-only rows remained.
+
+The full match prediction did not hold. The indexed second-loop form now
+includes `index * 4` in its row-start calculation, adding two instructions;
+raw initializes a real advancing cursor independently of index. The new
+preheader and downstream temporary-register assignments account for the
+worsening score (18 register rows, two operand rows, one opcode/alignment row,
+four missing/extra rows). These categories are not proof of semantic defects.
+
+The prior 271 source was restored byte-for-byte and deferred through the
+supported tool, with progress and whitespace checks passing. Both forms and
+full diffs are preserved. No match was claimed and no empty clean batch was run.
+The result supports distinguishing expression-only storage from genuine
+loop-carried cursor state, rather than indiscriminately deleting all locals.
+Any follow-up needs a separately justified source form; no blind sequence of
+local permutations was started.
+
+### One isolated cursor follow-up
+
+Independent inspection showed the first trial had also repaired the original
+pair of reordered instructions and tail saved-pointer rotation. One additional
+bounded form therefore retained the three-local body and restored only a real
+block-local `s32 *cursor` in the second loop. Its row base was expressed as
+`&D_800C3960[arg0 * 30]`; the cursor advances after each free-and-clear pair.
+
+This returned CURRENT(132) in 2.192 seconds. The predicted extra index shift
+and add disappeared; frame stayed at the exact 0x50. There are now no opcode/
+control or missing/extra rows. The saved owner moved from the correct SP+0x3C
+to SP+0x38, with 17 register rows and three operand rows remaining (one classified
+as stack-only). It remains nonmatching. The improved 132 source is deferred;
+older 271 and 720 forms are preserved as separate proof artifacts. No further
+permutations were run, and no accepted function or byte count changed.

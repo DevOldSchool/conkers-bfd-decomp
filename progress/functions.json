@@ -38661,8 +38661,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 271,
-        "reason": "Bounded source-only group eight independently reproduced; hypotheses, helper/return-contract evidence and full differences retained in worker-group-8/report.json.",
+        "current_score": 132,
+        "reason": "Independent storage reconstruction: direct expressions recovered frame0x50; real block-local row cursor removes two extra instructions, improves271 to132. Saved owner now0x38 vs0x3C and temporary registers differ; no opcode/missing rows. Two review-led hypotheses preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
