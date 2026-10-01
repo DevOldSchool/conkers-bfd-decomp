@@ -918,3 +918,32 @@ The clean batch checked the new PI initializer and rechecked `800037F0` and
 metadata, progress and whitespace passed. This adds **1 function / 384 bytes**,
 giving **61 / 6,920 bytes** since the fresh baseline and **2,694** accepted US
 C functions. No accepted IDs remain pending.
+
+## Twenty-second batch: exact PI callback, deferred integration
+
+`func_80002E50` reaches a focused zero over its full 592-byte span on the first
+form, with its local text layout preserved. The device-manager and I/O-message
+fields agree with the pinned SDK. The raw routine additionally coordinates with
+`8000480C` through three byte flags; that sibling's repeated polling supplies
+independent evidence for their volatile declarations. The stop-thread call is
+resumable. The active-read flag remains set when DMA returns an error, as in the
+raw code; no inferred cleanup behavior was added. The callback received an
+independent source and ABI review.
+
+Seven dispatch targets were independently checked in the checksum-validated US
+image. However, mandatory integration fails: the compiler emits a duplicate
+32-byte switch table at 0x8002C450 rather than using the existing 0x8002C080
+table, changing the load address and growing the ROM by 32 bytes. The following
+ROM tail is identical after that insertion. The original table also uses
+0x1000xxxx target aliases, which require reviewed ownership and address handling.
+Focused text equality does not resolve those data-placement requirements.
+
+The supported `reopen-match` transaction preserves the exact C, restores its
+assembly body, removes focused match evidence and regenerates progress. No
+comparison or acceptance rule changed. The callback is **unaccepted** and stays
+disabled, with its candidate object and integration diagnosis preserved.
+
+A fresh clean regression of `800030A0` after recovery passed: `BATCH_COMPLETE`,
+full US ROM match, 1,346 tests with 12 skipped, metadata, progress and whitespace.
+This pass adds no C matches; totals remain **61 / 6,920 bytes**, with **2,694**
+accepted US C functions and no accepted pending IDs.

@@ -90448,6 +90448,11 @@
       "symbol": "func_80002DB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "Exact focused C fails whole-ROM integration: duplicate 32-byte switch rodata at 0x8002C450 instead of existing 0x8002C080; original 0x1000xxxx table targets require reviewed ownership/address handling",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
