@@ -695,3 +695,41 @@ earlier functions: `BATCH_COMPLETE`, full US ROM match, 1,328 tests run with
 320 bytes**, giving **56 / 5,628 bytes** since the fresh baseline and **2,689**
 accepted US C functions. No accepted IDs remain pending; the source remains
 in progress.
+
+## Sixteenth batch: memory-limit initialization and C integration
+
+`func_80003930` (128 bytes) matched on its first source form. It uses the
+observed unsigned byte flag to select the two memory-limit address sets and
+preserves all four global stores in each branch. The independent comparison
+covers the complete registered span, including its natural final alignment.
+
+This singleton's terminal action explicitly required integration. The
+supported integration transaction moved it to `src/game/done/init_3930.c`,
+changed only its existing profile entry from assembly to C, and marked the
+reviewed source unit complete. The resulting complete US ROM was byte-identical.
+No boundary was enlarged or newly inferred, and no reference or compiler flag
+was changed. Progress and whitespace were rechecked after the transition.
+
+The adjacent allocator initializer `80003BD0` remains deferred at 1520. Its
+source-local header and free-link views agree with the already reviewed
+allocation operations. The compiler coalesces repeated global-head loads that
+remain in the raw routine. An opaque heap-start view with sequential final
+copies scored 1915; aligned word initialization was code-neutral at 1915.
+The clearer, lower-scoring typed form is preserved. No forced volatile access
+or fabricated alias was introduced, and this initializer is not integrated.
+
+The first clean batch exposed a boundary-test assumption that every non-library
+main entry must retain its assembly tuple. The test now accepts a C transition
+only for the identical raw assembly interval and successor, with one reviewed
+complete source unit, exact source ownership, and contiguous zero-difference
+matched-member coverage. Rejection cases cover missing or unreviewed metadata,
+misnamed sources, changed extents, invalid members, gaps and overlaps. The
+reference maps and function comparator are unchanged. This narrow correction
+received independent review before acceptance.
+
+The fresh clean retry passed: `BATCH_COMPLETE`, full US ROM match, 1,332 tests
+run with 12 skipped, metadata, progress and whitespace. This adds **1 function /
+128 bytes**, giving **57 / 5,756 bytes** since the fresh baseline and **2,690**
+accepted US C functions. The memory-limit source unit is integrated; the
+allocator initializer remains an assembly-backed candidate. No accepted IDs
+remain pending.

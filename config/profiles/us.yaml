@@ -63,7 +63,7 @@ segments:
       - [0x38C0, asm]
       - [0x38E0, asm]
       - [0x3920, asm]
-      - [0x3930, asm]
+      - [0x3930, c, game/done/init_3930]
       - [0x39B0, asm]
       - [0x39C0, asm]
       - [0x3BD0, asm]

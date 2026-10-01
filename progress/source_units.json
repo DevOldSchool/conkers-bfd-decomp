@@ -19713,15 +19713,15 @@
       "functions": [
         "func_80003930"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x39B0",
           "start": "0x3930",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_3930.c"
+      "source": "src/game/done/init_3930.c"
     },
     {
       "boundary_evidence": {

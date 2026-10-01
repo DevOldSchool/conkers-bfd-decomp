@@ -90585,13 +90585,18 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80003930",
           "vram": "0x80003930"
         }
       },
-      "source": "src/main/init_3930.c",
+      "source": "src/game/done/init_3930.c",
       "symbol": "func_80003930"
     },
     {
@@ -90621,6 +90626,12 @@
       "symbol": "func_80003ACC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1520,
+        "reason": "Coherent existing allocator-header/free-link layouts preserve heap initialization, size arithmetic and pointer copies. Scores1520,1915,1915: an opaque heap marker plus sequential copies and aligned word-store view do not recover repeated global-head reloads. Retain besttypedfirstform; no forcedvolatile or alias fabrication, integration remains blocked by nonzero diff.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

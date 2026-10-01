@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import re
 import unittest
+from copy import deepcopy
 from pathlib import Path
 
 import yaml
@@ -39,6 +40,134 @@ def segment_subsegments(path: Path, name: str) -> list[tuple[int, str, str | Non
 
 
 class SegmentMapTests(unittest.TestCase):
+    def assert_reviewed_main_c_entries(self, working, reference, units, functions, region):
+        """Allow only complete C replacements of an unchanged raw ASM interval."""
+        reference_ranges = {
+            entry[0]: (entry, following[0])
+            for entry, following in zip(reference, reference[1:])
+        }
+        verified = set()
+        for index, entry in enumerate(working):
+            start, kind, name = entry
+            if kind != "c":
+                continue
+            self.assertIn(start, reference_ranges)
+            raw_entry, end = reference_ranges[start]
+            self.assertEqual("asm", raw_entry[1])
+            self.assertLess(index + 1, len(working))
+            self.assertEqual(end, working[index + 1][0])
+            self.assertIsNotNone(name)
+            source = f"src/{name}.c"
+            owners = [unit for unit in units if unit.get("source") == source]
+            self.assertEqual(1, len(owners))
+            unit = owners[0]
+            self.assertEqual("c", unit.get("integration"))
+            boundary = unit.get("boundary_evidence", {}).get(region, {})
+            self.assertIs(True, boundary.get("reviewed"))
+            self.assertTrue(boundary.get("reference"))
+            state = unit.get("regions", {}).get(region, {})
+            self.assertEqual("complete", state.get("state"))
+            self.assertEqual(hex(start).lower(), str(state.get("start")).lower())
+            self.assertEqual(hex(end).lower(), str(state.get("end")).lower())
+            members = unit.get("functions", [])
+            self.assertTrue(members)
+            self.assertEqual(len(members), len(set(members)))
+            spans = []
+            for symbol in members:
+                self.assertIn(symbol, functions)
+                function = functions[symbol]
+                self.assertEqual("main", function.get("overlay"))
+                self.assertEqual(source, function.get("source"))
+                match = function.get("regions", {}).get(region, {})
+                self.assertEqual("matched", match.get("state"))
+                self.assertEqual(0, match.get("evidence", {}).get("current_differences"))
+                self.assertIn("vram", match)
+                self.assertGreater(match.get("size_bytes", 0), 0)
+                spans.append((int(match["vram"], 0) - 0x80000000, match["size_bytes"]))
+            cursor = start
+            for offset, size in sorted(spans):
+                self.assertEqual(cursor, offset)
+                cursor += size
+            self.assertEqual(end, cursor)
+            verified.add(start)
+        return verified
+
+    def reviewed_main_c_fixture(self):
+        source = "src/game/done/example.c"
+        working = [(0x1000, "c", "game/done/example"), (0x1020, "asm", None)]
+        reference = [(0x1000, "asm", None), (0x1020, "asm", None)]
+        units = [{
+            "source": source, "integration": "c", "functions": ["first", "second"],
+            "boundary_evidence": {"us": {"reviewed": True, "reference": "docs/evidence/example.md"}},
+            "regions": {"us": {"start": "0x1000", "end": "0x1020", "state": "complete"}},
+        }]
+        functions = {
+            symbol: {"source": source, "overlay": "main", "regions": {"us": {
+                "vram": hex(0x80001000 + index * 0x10), "size_bytes": 0x10,
+                "state": "matched", "evidence": {"current_differences": 0},
+            }}}
+            for index, symbol in enumerate(("first", "second"))
+        }
+        return working, reference, units, functions, "us"
+
+    def test_reviewed_main_c_transition_preserves_raw_interval(self) -> None:
+        self.assertEqual({0x1000}, self.assert_reviewed_main_c_entries(*self.reviewed_main_c_fixture()))
+
+    def test_main_c_transition_rejects_missing_or_unreviewed_identity(self) -> None:
+        mutations = {
+            "missing unit": lambda args: args[2].clear(),
+            "duplicate unit": lambda args: args[2].append(deepcopy(args[2][0])),
+            "misnamed source": lambda args: args[0].__setitem__(0, (0x1000, "c", "game/done/other")),
+            "unreviewed": lambda args: args[2][0]["boundary_evidence"]["us"].update(reviewed=False),
+            "missing evidence": lambda args: args[2][0]["boundary_evidence"]["us"].pop("reference"),
+            "not integrated": lambda args: args[2][0].update(integration="asm"),
+            "incomplete": lambda args: args[2][0]["regions"]["us"].update(state="in_progress"),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label):
+                args = self.reviewed_main_c_fixture()
+                mutate(args)
+                with self.assertRaises(AssertionError):
+                    self.assert_reviewed_main_c_entries(*args)
+
+    def test_main_c_transition_rejects_changed_boundaries(self) -> None:
+        mutations = {
+            "new start": lambda args: args[0].__setitem__(0, (0x1004, "c", "game/done/example")),
+            "changed end": lambda args: args[0].__setitem__(1, (0x1024, "asm", None)),
+            "non ASM reference": lambda args: args[1].__setitem__(0, (0x1000, "data", None)),
+            "metadata start": lambda args: args[2][0]["regions"]["us"].update(start="0x1004"),
+            "metadata end": lambda args: args[2][0]["regions"]["us"].update(end="0x1024"),
+            "missing successor": lambda args: args[0].pop(),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label):
+                args = self.reviewed_main_c_fixture()
+                mutate(args)
+                with self.assertRaises(AssertionError):
+                    self.assert_reviewed_main_c_entries(*args)
+
+    def test_main_c_transition_rejects_invalid_member_coverage(self) -> None:
+        mutations = {
+            "empty members": lambda args: args[2][0].update(functions=[]),
+            "unknown member": lambda args: args[2][0].update(functions=["missing"]),
+            "duplicate member": lambda args: args[2][0].update(functions=["first", "first"]),
+            "wrong overlay": lambda args: args[3]["first"].update(overlay="game"),
+            "wrong source": lambda args: args[3]["first"].update(source="src/game/done/other.c"),
+            "unmatched": lambda args: args[3]["first"]["regions"]["us"].update(state="candidate"),
+            "nonzero comparison": lambda args: args[3]["first"]["regions"]["us"]["evidence"].update(current_differences=1),
+            "missing comparison": lambda args: args[3]["first"]["regions"]["us"].pop("evidence"),
+            "gap": lambda args: args[3]["second"]["regions"]["us"].update(vram="0x80001014"),
+            "overlap": lambda args: args[3]["second"]["regions"]["us"].update(vram="0x8000100C"),
+            "incomplete coverage": lambda args: args[3]["second"]["regions"]["us"].update(size_bytes=12),
+            "excess coverage": lambda args: args[3]["second"]["regions"]["us"].update(size_bytes=20),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(label):
+                args = self.reviewed_main_c_fixture()
+                mutate(args)
+                with self.assertRaises(AssertionError):
+                    self.assert_reviewed_main_c_entries(*args)
+
     def test_us_stock_libultra_mappings_use_2_0g(self) -> None:
         main_map = (ROOT / "config/profiles/us.yaml").read_text(encoding="utf-8")
         game_map = (ROOT / "config/game/us.yaml").read_text(encoding="utf-8")
@@ -92,6 +221,11 @@ class SegmentMapTests(unittest.TestCase):
     def test_working_maps_preserve_reference_main_boundaries(self) -> None:
         # xprintf's rodata uses an explicit dictionary to preserve linker order.
         expected_counts = {"us": (204, 167), "eu": (119, 119)}
+        units = json.loads((ROOT / "progress/source_units.json").read_text())["source_units"]
+        functions = {
+            function["symbol"]: function
+            for function in json.loads((ROOT / "progress/functions.json").read_text())["functions"]
+        }
         for region, (working_count, reference_count) in expected_counts.items():
             working = segment_subsegments(ROOT / "config" / "profiles" / f"{region}.yaml", "main")
             reference = segment_subsegments(ROOT / "config" / "reference" / f"{region}.yaml", "main")
@@ -100,6 +234,9 @@ class SegmentMapTests(unittest.TestCase):
             self.assertEqual(0x1050, working[0][0])
             self.assertEqual(sorted({offset for offset, _, _ in working}), [entry[0] for entry in working])
             working_by_offset = {entry[0]: entry for entry in working}
+            reviewed_c = self.assert_reviewed_main_c_entries(working, reference, units, functions, region)
+            for offset in reviewed_c:
+                self.assertTrue((ROOT / f"src/{working_by_offset[offset][2]}.c").is_file())
             for reference_entry in reference:
                 if region == "us" and reference_entry[0] == 0x17C00:
                     # The raw navigation split lies inside the complete,
@@ -118,7 +255,7 @@ class SegmentMapTests(unittest.TestCase):
                     self.assertIn(0x2A110, working_by_offset)
                     continue
                 working_entry = working_by_offset[reference_entry[0]]
-                if working_entry[1] != "lib":
+                if working_entry[1] != "lib" and working_entry[0] not in reviewed_c:
                     self.assertEqual(reference_entry, working_entry)
 
     def test_us_libultra_objects_keep_raw_reference_ranges(self) -> None:
