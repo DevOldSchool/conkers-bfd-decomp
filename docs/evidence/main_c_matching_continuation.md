@@ -145,3 +145,30 @@ This adds **3 functions / 204 bytes**, giving **10 / 384 bytes** since the
 fresh baseline and **2,643** accepted US C functions. Source units remain in
 progress or raw as recorded; no new unit completion is claimed. No accepted
 IDs remain pending at this checkpoint.
+
+## Fourth batch: scalar controls and guarded lookups
+
+Five related members of `init_B1B0.c` are newly accepted:
+
+| Function | Bytes | Source evidence and attempts |
+| --- | ---: | --- |
+| `func_8000E8C4` | 44 | Full-width bit test and word flag clear; first form matched |
+| `func_8000E770` | 48 | Independently nullable word outputs followed by flags read, retaining alias-sensitive order; first form matched |
+| `func_8000E0F8` | 60 | Guarded pointer lookup and aligned state word; 410 to 0 by normalizing the existing full-width formal before the call instead of only in its argument expression |
+| `func_8000BBE8` | 64 | Initial-state callback with three unused argument homes and a proven three-word helper call; first form matched |
+| `func_8000E8F0` | 68 | Forwarded full-width selector, guarded leading record word and unsigned-byte table read; first form matched |
+
+The raw `func_8000B1B0` body consumes incoming a0, so the final wrapper explicitly
+forwards its argument rather than adopting the starter's guessed no-argument
+contract. The existing runtime-alias declaration supports its `s32` result.
+The adjacent `8000E704` body establishes the three real arguments and boolean
+return used by the callback. No formal narrowing or shared dependency change
+was needed.
+
+All five passed independent full-span CURRENT (0), reviewed symbol layout,
+progress and whitespace. The clean batch also rechecked existing `8000E75C`:
+`BATCH_COMPLETE`, full US ROM match, 1,328 tests run with 12 skipped, and
+metadata/progress/whitespace passed. This adds **5 functions / 284 bytes**,
+giving **15 / 668 bytes** since the fresh baseline and **2,648** accepted US
+C functions. The source unit remains in progress and no accepted IDs remain
+pending at this checkpoint.
