@@ -246,3 +246,41 @@ metadata/progress/whitespace passed. This adds **3 functions / 344 bytes**,
 giving **23 / 1,436 bytes** since the fresh baseline and **2,656** accepted US
 C functions. The source unit remains in progress. No accepted IDs remain
 pending at this checkpoint.
+
+## Seventh batch: audio-driver callbacks
+
+Six members of `init_8F90.c` are newly accepted, each reaching instruction zero
+on its first implementation form:
+
+| Function | Bytes | Contract and behavior |
+| --- | ---: | --- |
+| `func_80009B2C` | 32 | Full-width tagged handle and signed byte decrement |
+| `func_800093CC` | 52 | Initialized flag guards the mapped `osStopThread` call on the owned thread object |
+| `func_80009980` | 60 | SDK DMA factory, one-time manager initialization and clearing the actual DMA-state pointer slot |
+| `func_80009FFC` | 64 | Distinct custom bank-fetch factory with its own manager initialization |
+| `func_80009B4C` | 68 | Tagged-handle release, separate decrement and byte reload, then forwarding the unchanged handle |
+| `func_80009B90` | 84 | Proven signed-count/unsigned-state byte transitions and early return |
+
+Independent consumer review establishes the function-pointer contracts rather
+than inferring them from incidental registers. `PR/libaudio.h` defines
+`ALDMAproc` as `s32 (s32, s32, void *)`; the driver constructor passes a DMA-state
+slot through `ALDMANew`. That SDK contract is expressed locally using project
+scalar aliases. The separate `ConkerBankFetch` type in `n_seqplayer.c` is
+`void * (void *, s32)` and its factory takes no arguments. Its pointer-slot
+consumer and mode argument are distinct from the SDK DMA interface. Both raw
+runtime worker-address aliases are retained.
+
+The release and retain consumer slots establish `void (void *)` callback
+interfaces. In particular, the initializer's Config+0x18 release slot is copied
+to the synthesizer and called with `voice->releaseData`. Refining `80009B2C`'s
+initial full-width integer annotation to that proven pointer annotation kept
+CURRENT (0); it is counted only once. No parameter was narrowed from byte
+loads/stores, and the constant in v0 inside `80009B90` was not treated as a
+return value. No shared header or compiler setting changed.
+
+The clean six-function batch returned `BATCH_COMPLETE`: full US ROM match,
+1,328 tests run with 12 skipped, reviewed layout, metadata, progress and
+whitespace passed. This adds **6 functions / 360 bytes**, giving
+**29 / 1,796 bytes** since the fresh baseline and **2,662** accepted US C
+functions. The audio-driver unit remains in progress and no accepted IDs
+remain pending at this checkpoint.

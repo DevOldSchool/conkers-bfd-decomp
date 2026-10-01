@@ -19922,7 +19922,7 @@
         "us": {
           "end": "0xA420",
           "start": "0x8F90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_8F90.c"
