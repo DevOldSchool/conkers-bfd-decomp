@@ -1295,3 +1295,35 @@ units plus the PI initializer, including the terminal guard. The full US ROM,
 `BATCH_COMPLETE`. Game sources are unchanged from the preceding verified batch.
 No new matches are credited: totals remain **63 / 7,684 bytes**, with **2,696**
 accepted US C functions and no accepted pending IDs.
+
+## Thirty-third batch: sequence lookup and pool cleanup
+
+The two-pass lookup `8000B1FC` retains the existing pointer-return contract and
+record layout. Its first pass gives every direct record priority over every
+nested state match; the second pass then checks nested states in slot order.
+The first endpoint comparison is unsigned address ordering, and the second is
+equality. Both advance by one four-byte pointer slot. The starter's typed
+`+= 4` would advance sixteen bytes and is corrected before the first candidate.
+An explicit second-pass exit removes automatic unrolling and improves 1950 to
+1555. Separate lexical scopes are code-neutral, so the simpler form is retained.
+The compiler still shares constant bounds where the raw body rematerializes them.
+
+The pool cleanup `8000DEC4` reuses the established 0x64 record, reloads its slot
+index after the helper call, and clears the child link on every path. Its first
+form scores 55, with the complete loop and frame agreeing. Only three low-address
+setup instructions and one commutative branch operand order differ. Reversing
+the written comparison is code-neutral; explicit invariant pointers worsen
+setup scheduling to 70. The first form is preserved without further assignment
+or declaration permutations.
+
+The complete 108-byte `8000EA94` guard scores 300 with the unaccepted lookup
+active and 100 with the cleanup active. Each supported deferral restores its
+original exact span. These effects remain part of the evidence for future
+active-prefix changes; neither candidate is counted as a match.
+
+A clean 15-target main batch verifies all 14 existing matches in this unit and
+the PI initializer, including the terminal guard. Full US ROM equality, 1,346
+tests with 12 skipped, metadata, progress and whitespace gates pass with
+`BATCH_COMPLETE`. Game sources remain unchanged from their preceding verified
+batch. Totals remain **63 / 7,684 bytes**, with **2,696** accepted US C functions
+and no accepted pending IDs.

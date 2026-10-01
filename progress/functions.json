@@ -91542,6 +91542,12 @@
       "symbol": "func_8000B1B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1555,
+        "reason": "Preserve two-pass sequence lookup at CURRENT (1555), improved from1950 by explicit second-pass exit. Correct four-byte typed stride and direct-record priority retained. Separate lexical scopes are code-neutral; compiler still shares bounds across passes. No further equivalent trials or forced storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91969,6 +91975,12 @@
       "symbol": "func_8000DE1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 55,
+        "reason": "Preserve sequence-pool cleanup at CURRENT (55). Existing 0x64 record view, post-call index reload and unconditional state clear reproduce all loop/frame instructions. Operand reversal is neutral; explicit invariant pointers worsen70. Retain first form; three address-setup rows and one branch operand order remain, with no further permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

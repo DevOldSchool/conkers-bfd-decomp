@@ -86,6 +86,36 @@ s32 *func_8000B1B0(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000B1B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B1B0.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B1FC CURRENT (1555) */
+void *func_8000B1FC(s32 arg0) {
+    SequenceRecordState **cursor;
+    SequenceRecordState *record;
+    SequenceRecordState *child;
+
+    cursor = D_800417B0;
+    do {
+        record = *cursor;
+        cursor++;
+        if (record != 0 && arg0 == record->id) {
+            return record;
+        }
+    } while ((u32)cursor < (u32)D_800417BC);
+    cursor = D_800417B0;
+    for (;;) {
+        record = *cursor;
+        cursor++;
+        if (record != 0) {
+            child = record->state;
+            if (child != 0 && arg0 == child->id) {
+                return child;
+            }
+        }
+        if (cursor == D_800417BC) {
+            return 0;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000B1FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B1FC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B294 CURRENT (140) */
 void func_8000B294(SequenceRecordState *arg0) {
@@ -229,6 +259,32 @@ s32 func_8000CD40(s32 arg0, s32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D758.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D96C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DE1C.s")
+s32 func_8000853C(s32);
+extern SequenceRecordState D_800419A8[];
+extern u8 D_80041E58[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 CURRENT (55) */
+void func_8000DEC4(void) {
+    SequenceRecordState *record;
+    s32 index;
+
+    record = D_800419A8;
+    do {
+        index = record->index;
+        if (index == -1) {
+            if (record->id != -1) {
+                record->id = -1;
+            }
+        } else if (func_8000853C(index & 0xFF) == 0) {
+            D_800417B0[record->index] = 0;
+            record->index = -1;
+            record->id = -1;
+        }
+        record++;
+        record[-1].state = 0;
+    } while ((u8 *)record != D_80041E58);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DEC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DF68.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E054.s")
