@@ -1191,3 +1191,31 @@ rodata, 1,346 tests with 12 skipped, metadata, progress and whitespace gates
 pass with `BATCH_COMPLETE`. This candidate-only batch adds no matches: totals
 remain **63 / 7,684 bytes**, with **2,696** accepted US C functions and no
 accepted pending IDs.
+
+## Thirtieth batch: effect packet extents
+
+Two related candidates in `game_EF410.c` remain disabled. `150C29F0` uses the
+existing 0x48 particle layout, independently confirmed by `15149550`: its
+highest input read is a float at offset 0x44, and it never forwards the input
+pointer. The typed emitter prefix preserves the observed byte, halfword and
+float accesses. A direct second-scale expression compiles identically to its
+first form at 3947. The saved input register, 0x98 versus 0x88 frame, packet
+homes and floating-point scheduling remain unresolved.
+
+The dual-packet initializer `150C1F60` retains its first form at 5019. A single
+normalization of its full-width formal worsens the result to 5228 and is
+rejected. The existing larger packet's 0x88 extent is independently supported:
+`15151A38` unconditionally reads the final word at offset 0x84. That previously
+opaque tail is now an s32 field at the same offset and size. The raw caller
+leaves this consumed word uninitialized, and the candidate preserves that
+behavior. The second packet's 0x48 extent is also confirmed by `15150178`.
+The observed position transfer is expressed as a three-float aggregate copy.
+No existing declaration supports narrowing the target's s32 formal.
+
+The preserved sibling candidates remain at their fresh baselines of 1893 and
+3119; the new particle emitter remains 3947 after the type-view changes. A
+clean batch verifies both existing active functions in the source unit and
+the main PI initializer. Full US ROM, integrated game/rodata, 1,346 tests with
+12 skipped, metadata, progress and whitespace gates pass with `BATCH_COMPLETE`.
+No new matches are credited: cumulative totals remain **63 / 7,684 bytes**,
+with **2,696** accepted US C functions and no accepted pending IDs.

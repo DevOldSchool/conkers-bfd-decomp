@@ -31172,6 +31172,12 @@
       "symbol": "func_150AEDF8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5019,
+        "reason": "Preserve dual-packet initializer at CURRENT (5019). Independent callees prove 0x88 and 0x48 input extents, including consumed word at +0x84. Fullword target formal retained. Single byte normalization worsens to5228; restore first form. Duplicate conversion spills, shifted frame and store scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31317,6 +31323,12 @@
       "symbol": "func_150C2898"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3947,
+        "reason": "Preserve typed 0x48 particle candidate at CURRENT (3947). Direct second-scale expression is code-neutral. Saved input-pointer register, frame 0x98 versus 0x88, packet homes and floating scheduling remain different; no supported state or storage changes justify further variants.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

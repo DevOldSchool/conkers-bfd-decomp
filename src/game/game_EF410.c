@@ -25,7 +25,6 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
 typedef struct GameC2290Packet {
     f32 floats[9];
     s16 shorts[10];
@@ -35,8 +34,151 @@ typedef struct GameC2290Packet {
     s32 words70[9];
     u8 bytes94[4];
     s16 shorts98[2];
-    u8 pad9C[4];
+    s32 field84;
 } GameC2290Packet;
+
+typedef struct {
+    s16 field00;
+    s16 field02;
+    s16 field04;
+    s16 field06;
+    f32 position[3];
+    s16 field14;
+    s16 field16;
+    f32 field18;
+    f32 field1C;
+    s16 field20;
+    s16 field22;
+    f32 field24;
+    f32 field28;
+    s8 field2C;
+    s8 field2D;
+    u8 pad2E[2];
+    f32 field30;
+    f32 field34;
+    s8 field38;
+    s8 field39;
+    u8 pad3A[2];
+    f32 field3C;
+    s8 field40;
+    u8 pad41[3];
+    f32 field44;
+} GameEF410Spawn;
+
+typedef struct GameEF410Vector {
+    f32 x;
+    f32 y;
+    f32 z;
+} GameEF410Vector;
+
+void func_15150178(s16 *, f32 *, s32, u8, s32);
+void func_15151A38(f32 *, s32, s32);
+extern f32 D_800A0230;
+extern f32 D_800A0234;
+extern f32 D_800A0238;
+extern f32 D_800A023C;
+extern f32 D_800A0240;
+extern f32 D_800A0244;
+extern f32 D_800A0248;
+extern f32 D_800A024C;
+extern f32 D_800A0250;
+extern f32 D_800A0254;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C1F60 CURRENT (5019) */
+void func_150C1F60(s32 arg0) {
+    GameC2290Packet packet;
+    GameEF410Spawn spawn;
+
+    packet.floats[0] = D_800A0230;
+    packet.shorts[0] = 0xC;
+    packet.floats[1] = 40.0f;
+    packet.shorts[2] = -0xA0;
+    packet.shorts[4] = -0x3C;
+    packet.shorts[3] = 0x45;
+    packet.shorts[5] = 0x43;
+    packet.shorts[6] = 3;
+    packet.shorts[7] = 5;
+    packet.shorts[9] = 0x1F;
+    packet.bytes50[0] = 0xB;
+    packet.floats[2] = D_800A0234;
+    packet.shorts[1] = 0xD;
+    packet.shorts[8] = 0x32;
+    packet.bytes50[2] = 0x28;
+    packet.words54[0] = 1;
+    packet.words54[1] = 4;
+    packet.bytes6C[0] = 0xFF;
+    packet.bytes6C[1] = 0xFF;
+    packet.words70[0] = 3;
+    packet.bytes50[1] = 1;
+    packet.words54[2] = 0;
+    packet.words54[3] = 0;
+    packet.words54[4] = 0;
+    packet.words54[5] = 0;
+    packet.bytes6C[2] = 0;
+    packet.words70[1] = 0xFF;
+    packet.words70[2] = 0;
+    packet.words70[3] = 0x220005;
+    packet.words70[4] = 0x1D0600;
+    packet.words70[5] = 1;
+    packet.words70[6] = 0x3B;
+    packet.words70[7] = 0x80;
+    packet.words70[8] = 0x20;
+    packet.bytes94[0] = 0;
+    packet.bytes94[1] = 7;
+    packet.shorts98[0] = 0xC;
+    packet.shorts98[1] = 0x15;
+    packet.floats[7] = D_800A0238;
+    packet.floats[8] = D_800A023C;
+    packet.floats[3] = 9.0f;
+    packet.floats[4] = D_800A0240;
+    packet.floats[5] = D_800A0244;
+    packet.floats[6] = 0.5f;
+    /* The raw caller leaves the consumed word at packet+0x84 uninitialized. */
+    func_15151A38(packet.floats, (u8)arg0, 1);
+    packet.shorts[0] = 2;
+    packet.shorts[1] = 3;
+    packet.shorts[2] = -0x6C;
+    packet.shorts[4] = -0x16;
+    packet.shorts[3] = 0x15;
+    packet.shorts[5] = 0x16;
+    packet.shorts[6] = 7;
+    packet.shorts[7] = 0;
+    packet.shorts[8] = 0x30;
+    packet.shorts[9] = 0x15;
+    packet.floats[7] = 100.0f;
+    packet.floats[8] = 57.5f;
+    packet.floats[3] = D_800A0248;
+    packet.floats[4] = 39.0f;
+    packet.floats[5] = D_800A024C;
+    packet.floats[6] = 1.0f;
+    func_15151A38(packet.floats, (u8)arg0, 1);
+    *(GameEF410Vector *)spawn.position = *(GameEF410Vector *)packet.floats;
+    spawn.field14 = 0x19;
+    spawn.field16 = 0x12;
+    spawn.field00 = -0x9F;
+    spawn.field02 = 0x44;
+    spawn.field04 = -0x34;
+    spawn.field06 = 0x26;
+    spawn.field20 = 0x19;
+    spawn.field22 = 0x19;
+    spawn.field2C = 0x9B;
+    spawn.field2D = 0x64;
+    spawn.field38 = 1;
+    spawn.field39 = 6;
+    spawn.field3C = 0.0f;
+    spawn.field40 = 1;
+    spawn.field44 = 0.0f;
+    spawn.field18 = 40.0f;
+    spawn.field1C = 35.0f;
+    spawn.field24 = D_800A0250;
+    spawn.field28 = D_800A0254;
+    spawn.field30 = 1152.0f;
+    spawn.field34 = 848.0f;
+    func_15150178(&spawn.field00, spawn.position, 0, arg0, 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C1F60 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C1F60.s")
+
 
 void func_15151A38(f32 *, s32, s32);
 extern f32 D_800A0258;
@@ -194,33 +336,7 @@ s32 func_150C2558(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2558 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2558.s")
-typedef struct {
-    s16 field00;
-    s16 field02;
-    s16 field04;
-    s16 field06;
-    f32 position[3];
-    s16 field14;
-    s16 field16;
-    f32 field18;
-    f32 field1C;
-    s16 field20;
-    s16 field22;
-    f32 field24;
-    f32 field28;
-    s8 field2C;
-    s8 field2D;
-    u8 pad2E[2];
-    f32 field30;
-    f32 field34;
-    s8 field38;
-    s8 field39;
-    u8 pad3A[2];
-    f32 field3C;
-    s8 field40;
-    u8 pad41[3];
-    f32 field44;
-} GameEF410Spawn;
+
 
 void func_15150178(s16 *, f32 *, s32, u8, s32);
 extern f32 D_800A0274;
@@ -329,6 +445,101 @@ void func_150C2898(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2898 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2898.s")
+typedef struct GameEF410Particle {
+    f32 position[3];
+    f32 field0C;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    s16 field20;
+    s16 field22;
+    s16 field24;
+    u8 color26[4];
+    s16 field2A;
+    u8 field2C;
+    u8 field2D;
+    u8 field2E;
+    u8 field2F;
+    s32 field30;
+    u8 field34;
+    u8 pad35[3];
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+} GameEF410Particle;
+
+typedef struct GameEF410Emitter {
+    u8 pad0;
+    u8 field1;
+    u8 pad2[0xA];
+    u8 fieldC;
+    u8 padD;
+    s16 timerE;
+    u8 pad10[0x18];
+    f32 field28[4];
+} GameEF410Emitter;
+
+f32 func_151423D8(u8);
+void func_15149550(f32 *, s32, s32, s32, s32, s32);
+extern f32 D_800A02A0;
+extern f32 D_800A02A4;
+extern f32 D_800A02A8;
+extern f32 D_800A02AC;
+extern f32 D_800A02B0;
+extern f32 D_800A02B4;
+extern f32 D_800A02B8;
+extern f32 D_800A02BC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C29F0 CURRENT (3947) */
+void func_150C29F0(GameEF410Emitter *arg0) {
+    GameEF410Particle packet;
+    f32 firstScale;
+    u8 angle;
+    f32 waveX;
+    f32 waveZ;
+    f32 radius;
+    f32 *position;
+    f32 secondScale;
+
+    angle = func_150ADA20();
+    waveX = func_151423D8(angle - 0x40);
+    waveZ = func_151423D8(angle);
+    radius = func_150ADA68() * arg0->field28[2];
+    position = arg0->field28;
+    packet.field22 = 0x1A4D;
+    packet.field20 = 0x6231;
+    packet.color26[0] = 0;
+    packet.color26[1] = 0;
+    packet.color26[2] = 0;
+    packet.color26[3] = 0xFF;
+    packet.field2C = 0xFF;
+    packet.field2D = 0xFF;
+    packet.field30 = 0;
+    packet.field2A = 1;
+    packet.field2E = 0;
+    packet.field2F = 1;
+    packet.field24 = (func_150ADA20() % 201U) + 100;
+    packet.field34 = 0xF;
+    packet.field40 = D_800A02A0;
+    packet.field38 = 0.0f;
+    packet.field44 = D_800A02A4;
+    packet.position[0] = position[0] + radius * waveX;
+    packet.position[1] = position[3];
+    packet.field3C = D_800A02A8;
+    packet.position[2] = position[1] + radius * waveZ;
+    firstScale = func_150ADA68() * 0.5f + 1.0f;
+    secondScale = func_150ADA68() * 0.5f + 1.0f;
+    packet.field0C = D_800A02AC * firstScale;
+    packet.field14 = D_800A02B0 * firstScale;
+    packet.field10 = D_800A02B4 * secondScale;
+    packet.field18 = D_800A02B8 * secondScale;
+    packet.field1C = D_800A02BC * secondScale;
+    func_15149550(packet.position, 0xA, 1, 0, arg0->fieldC, arg0->field1);
+    arg0->timerE = (func_150ADA20() % 51U) + 25;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C29F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C29F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2C00.s")
 extern f32 D_800BE9A4;
