@@ -240,7 +240,7 @@ DisplayCommand193E50 *func_15166D68(DisplayCommand193E50 *displayList,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15166D68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193E50/func_15166D68.s")
 
-void func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70(s32, void *, s32, void *, s32, s32, s32, s32, s32);
 extern u8 D_8009054C;
 extern s32 D_800DD220;
 extern s32 D_800DD224;

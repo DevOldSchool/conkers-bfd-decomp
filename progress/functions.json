@@ -30337,8 +30337,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 520,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1508F7BC",
           "vram": "0x1508F7BC"
         }
@@ -30404,6 +30409,12 @@
       "symbol": "func_150900F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2940,
+        "reason": "Typed two-pass display candidate with verified cursor-return contracts scores 3135. Actual sprite extent 0x14 and entry stride 0x10 are grounded; frame 0xC0 differs from raw 0xB8, plus packet scheduling, scalar and global-address lifetimes. Preserve first form and flush pending batch after session interruption; no synthetic storage changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30462,6 +30473,12 @@
       "symbol": "func_15091534"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8,
+        "reason": "Timer formatting candidate improves 469 to 433 to 8 with mapped hundredths storage and removal of redundant x alias. Frame 0x48 and all instructions agree except seconds physical spill 0x34 versus raw 0x30. Preserve fullword target formal; existing u8 helper contract gives exact byte load. No artificial state or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30524,6 +30541,12 @@
       "symbol": "func_15093878"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2285,
+        "reason": "Four-digit display-list candidate improves 2490 to 2285 with explicit first-command cursor timing. Integer-coordinate local form was code-neutral; compiler still folds the three float call arguments rather than raw integer-to-float conversions. Preserve natural command loop without forced storage, volatile, or helper ABI changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

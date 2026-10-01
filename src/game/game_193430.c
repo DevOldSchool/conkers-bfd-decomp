@@ -146,7 +146,7 @@ void func_15166204(Game193430State *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_193430/func_15166268.s")
 void *func_15142FBC(void *, s32, s32, u8 *);
-void *func_15094F70(void *, void *, s32, void *, s32, s32, s32, s32, s32);
+s32 func_15094F70(void *, void *, s32, void *, s32, s32, s32, s32, s32);
 extern s32 D_800903F4;
 extern s32 D_800A4AC8;
 extern s32 D_800D2C9C;
@@ -171,7 +171,7 @@ void func_151668B8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     D_800DD224 = 1;
     func_15142FBC(
-        func_15094F70(arg0, D_800DD228, D_800DD220, &D_800DD230, 0, 0, 0, 1, 3),
+        (void *)func_15094F70(arg0, D_800DD228, D_800DD220, &D_800DD230, 0, 0, 0, 1, 3),
         D_800D2C9C | 0x80000 | 0x2CA0,
         *(s32 *)((u8 *)&D_800A4AC8 + 0x18) | *(s32 *)((u8 *)&D_800A4AC8 + 0x1C),
         &sp37);

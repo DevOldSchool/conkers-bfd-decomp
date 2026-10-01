@@ -1080,3 +1080,48 @@ the main PI initializer. Full US ROM, integrated game/rodata, 1,346 tests with
 `BATCH_COMPLETE`. Four deferred regressions retain scores 450, 280, 1995 and
 5123. This candidate-only batch adds no matches: totals remain **62 / 7,164
 bytes**, with **2,695** accepted US C functions and no accepted pending IDs.
+
+## Twenty-seventh batch: linked-node initialization and display returns
+
+`1508F7BC` matches its complete **520-byte** span on the first manual C form.
+The observed 0xB8 allocation contains a link at 0x80 and the float/byte fields
+initialized by the raw function. A natural 4x4 matrix buffer and one shared
+discarded output recover the 0x88 frame and buffer homes exactly. Unsigned
+random-number conversions, square root and all six random calls are retained.
+The source unit remains in mixed C/ASM mode.
+
+The related timer formatter `150916B4` improves 469 to 433 after one mapped
+storage reconstruction, then to 8 after removing a redundant X-coordinate
+alias. Its full-width target formal is retained; the existing formatter's u8
+parameter independently supplies the observed byte conversion. The remaining
+difference is the seconds value's physical spill at SP+0x34 rather than
+SP+0x30. No artificial state or padding is added. The digit-command candidate
+`150938BC` remains at 2285: integer-coordinate locals compile identically to
+literal casts, leaving the original runtime conversions unresolved.
+
+`15090630` reveals that callers consume V0 from wrappers whose C definitions
+were void. Independent raw checks establish that `150950D4` returns its final
+display-list cursor, `15094F70` and `15094FE8` forward that result unchanged,
+and `15095A48` forwards the existing result of `15095A90`. Their return
+contracts now use the existing s32 address representation, with explicit
+forwarding returns and explicit pointer casts at two callers. All known return
+declarations agree. Parameter declarations and storage are unchanged;
+pre-existing pointer/integer parameter variations across units are outside
+this correction. The final contract diff received independent review.
+
+The new two-pass display candidate preserves the observed 0x10 entry stride
+and 0x14 sprite descriptor. Its initial finish scored 3135; supported deferral
+and a fresh diagnostic report 2940 for the retained source form. It remains
+disabled, with frame and lifetime differences unresolved. Four deferred callers
+retain their fresh baselines of 440, 684, 5531 and 883. The 684 caller's earlier
+recorded score was 584, but exact saved pre-patch and corrected sources both
+compile at 684; this is not a return-contract regression.
+
+The clean **27-target** batch verifies the new function, all 20 existing
+matches in the changed dependency units, the active result-consuming caller,
+the other four active functions in this source unit, and a main initializer.
+Full US ROM, integrated game/rodata, 1,346 tests with 12 skipped, metadata,
+progress and whitespace gates pass with `BATCH_COMPLETE`. The three corrected
+wrappers remain exact and receive no new match credit. Totals are now
+**63 functions / 7,684 bytes** since the fresh baseline, with **2,696** accepted
+US C functions and no accepted pending IDs.
