@@ -1256,3 +1256,42 @@ whitespace gates pass with `BATCH_COMPLETE`. The deferred renderer remains
 4056 after the type-view changes. No new matches are credited: totals remain
 **63 / 7,684 bytes**, with **2,696** accepted US C functions and no accepted
 pending IDs.
+
+## Thirty-second batch: main audio and inclusive bitmap candidates
+
+The main sequence wrapper `8000862C` now preserves its actual incoming channel
+argument when calling `80017C00`. The generated starter had substituted the
+masked player index for that argument. Its first valid form scores 225, with
+the same four argument-home/register differences as the preserved sibling
+wrappers. No canonical or runtime-alias declaration supports narrowing the
+index formal, so no equivalent source-search sequence is repeated.
+
+The bitmap initializer `80005BE0` fills its last byte inclusively. Its producer
+sets the endpoint to base plus the rounded byte count minus one; the raw loop
+stores first, compares the old pointer, then increments in the branch delay
+slot. The generated starter's exclusive loop is therefore incorrect. A correct
+post-increment form scores 1275, and an equivalent explicit-exit loop improves
+to 1140. Captured bounds and the low-order partial-byte mask are retained.
+The existing boundary evidence leaves this member an ordinary C candidate;
+no new original-assembly classification or credit is claimed.
+
+The audio clamp callback `8000BC28` improves 942 to 400. Its getter independently
+masks both full-width inputs and returns an unsigned byte, so removing redundant
+caller casts removes the derived index spill. The final frame, two real spills,
+arithmetic and control flow match. Only two word-versus-byte parameter reloads
+remain. All four callback formals stay s32 because no qualifying declaration
+supports narrowing. Both tested forms remain preserved.
+
+The existing complete 108-byte `8000EA94` guard is exact before this attempt.
+While the unaccepted callback is active, the changed C prefix removes one
+terminal padding word and the guard scores 100. Supported callback deferral
+restores the original prefix and returns the guard to `CURRENT (0)`. No padding
+or reference change is used to conceal this effect; a future genuine active
+prefix change must recheck the complete span again.
+
+A clean 16-target main batch verifies every existing match in the affected
+units plus the PI initializer, including the terminal guard. The full US ROM,
+1,346 tests with 12 skipped, metadata, progress and whitespace gates pass with
+`BATCH_COMPLETE`. Game sources are unchanged from the preceding verified batch.
+No new matches are credited: totals remain **63 / 7,684 bytes**, with **2,696**
+accepted US C functions and no accepted pending IDs.

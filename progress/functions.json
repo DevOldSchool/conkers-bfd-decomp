@@ -91701,6 +91701,12 @@
       "symbol": "func_8000BBE8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 400,
+        "reason": "Preserve audio clamp callback at CURRENT (400). Getter independently masks both fullword inputs, so removing redundant caller casts restores exact frame, spills and all arithmetic/control flow. Only two word-versus-byte reloads remain; no qualifying target declaration permits narrowing. First942 and improved400 forms archived.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93308,6 +93314,12 @@
       "symbol": "func_800085F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Preserve corrected sequence-player wrapper at CURRENT (225). Incoming channel is forwarded unchanged; both integer formals stay full-width. Four-row argument-home/register pattern matches exhausted siblings, with no qualifying narrow declaration. No repeated index variants or forced parameter storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93766,6 +93778,12 @@
       "symbol": "func_80005B04"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1140,
+        "reason": "Preserve inclusive bitmap initializer at CURRENT (1140), improved from1275 by explicit exit. Producer proves last-byte endpoint; generated starter was incorrectly exclusive. Captured bounds and partial-byte mask retain raw behavior. Branch structure, shift lowering and register differences remain; no padding or assembly substitution.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

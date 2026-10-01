@@ -74,6 +74,13 @@ void func_800085F8(s32 arg0, s32 channel) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800085F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085F8.s")
+void func_80017C00(SequencePlayer *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000862C CURRENT (225) */
+void func_8000862C(s32 arg0, s32 channel) {
+    func_80017C00(D_8003C900[arg0 & 0xFF], channel);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000862C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_8000862C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008660.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800086FC.s")

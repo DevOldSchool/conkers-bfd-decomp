@@ -143,6 +143,28 @@ s32 func_8000BBE8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
+u8 func_80008A4C(s32, s32);
+void func_850C851C(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BC28 CURRENT (400) */
+s32 func_8000BC28(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+    s32 value;
+    u8 first;
+
+    first = func_80008A4C(arg1, 0);
+    value = func_80008A4C(arg1, 6) + first + 1;
+    if (value >= 0x100) {
+        value = 0xFF;
+    } else if (value < 0x10) {
+        value = 1;
+    }
+    if (value != arg0) {
+        func_850C851C(value - 1);
+        arg0 = value;
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000BC28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BC28.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BCBC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BF60.s")
