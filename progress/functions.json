@@ -91176,6 +91176,12 @@
       "symbol": "func_8000A348"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 290,
+        "reason": "Typed pointer-table lookup improves1655 to290 with explicit sentinel exit. Base-pointer cast is code-neutral; initial input move and register allocation remain. No padding or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91202,6 +91208,12 @@
       "symbol": "func_8000B1FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 140,
+        "reason": "Owner/child pointer cleanup improves1935 to765 to140. Explicit sentinel exit and direct primary-record access recover raw count/control flow; pointer register allocation remains.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91457,8 +91469,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000CBA8",
           "vram": "0x8000CBA8"
         }
@@ -91496,8 +91513,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000CD40",
           "vram": "0x8000CD40"
         }
@@ -91644,8 +91666,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E134",
           "vram": "0x8000E134"
         }
@@ -91683,8 +91710,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 96,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E40C",
           "vram": "0x8000E40C"
         }
@@ -91735,8 +91767,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E704",
           "vram": "0x8000E704"
         }

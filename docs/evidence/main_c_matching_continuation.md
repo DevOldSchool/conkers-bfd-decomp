@@ -172,3 +172,39 @@ metadata/progress/whitespace passed. This adds **5 functions / 284 bytes**,
 giving **15 / 668 bytes** since the fresh baseline and **2,648** accepted US
 C functions. The source unit remains in progress and no accepted IDs remain
 pending at this checkpoint.
+
+## Fifth batch: shared record fields and updates
+
+Five further `init_B1B0.c` members matched on their first source forms:
+
+| Function | Bytes | Recovered behavior |
+| --- | ---: | --- |
+| `func_8000CBA8` | 72 | Independently guard two table records, store the input halfword and duration, retaining pointer-table reloads |
+| `func_8000E134` | 72 | Preserve the signed upper-bound test, 16-byte table stride and two accepted masked modes |
+| `func_8000E704` | 88 | Guard a shared-record lookup and forward its low index byte and two full-width parameters |
+| `func_8000CD40` | 96 | Signed approach/clamp arithmetic, including the negative-result guard and conditional step read |
+| `func_8000E40C` | 96 | Clamp before lookup, then update the proven word fields according to the record's signed leading word |
+
+The source-local partial record now includes independently observed index/id,
+owner and child pointers, word fields at 0x2C/0x30 and halfwords at 0x4E/0x50.
+Unused gaps retain only the offsets established by the raw accesses. The
+previous word-only zero test at 0x60 is now a pointer-null test on the same
+field; its machine code was explicitly revalidated. No shared header changed.
+
+Two related pointer loops remain inactive candidates. `func_8000B1B0` improved
+1655 to 290 after an explicit sentinel exit avoided the compiler's loop
+transformation; a base-pointer return cast was code-neutral. Its missing
+initial input relocation and register allocation remain. `func_8000B294`
+improved 1935 to 765 to 140: the sentinel exit removed unrolling, then direct
+primary-record expressions removed a redundant retained address. Its complete
+96-byte instruction/control shape is now exact, while pointer-register
+allocation and address-initializer ordering differ. Independent review of the
+retained object found only real cursor and child state; no further unsupported
+source experiment was proposed. Neither candidate contributes a new match.
+
+The clean batch checked all five new matches and all six earlier accepted
+members of the modified source unit. `BATCH_COMPLETE` confirms the full US
+ROM match, 1,328 tests run with 12 skipped, metadata, progress and whitespace.
+This adds **5 functions / 424 bytes**, giving **20 / 1,092 bytes** since the
+fresh baseline and **2,653** accepted US C functions. The unit remains in
+progress and no accepted IDs remain pending at this checkpoint.
