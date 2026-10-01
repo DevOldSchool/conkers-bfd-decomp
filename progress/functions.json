@@ -38640,17 +38640,16 @@
       "symbol": "func_1501E2F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 58,
-        "reason": "Manual2293->58: remove unsupported volatile offset/dead snapshots, correct call to existing one-argument declaration, consistent byte-offset lifetime. All instructions/registers exact; remaining frame38vs28 and previous-pointer home18vs20. Formal-reuse2980 regressed; restored58. Ledger deferred-manual-20260928.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 320,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501E400",
           "vram": "0x1501E400"
         }
@@ -38680,7 +38679,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 70,
-        "reason": "Natural loop and explicit count cache improve1825->330->70. All instructions/control match; countV0 and entryV1 oppose raw. Reusing pointer for call result regressed834/frame30. Restore best70; no further useful lifetime hypothesis.",
+        "reason": "Preserved best70; direct derived entry-address expressions produced identical eleven count/entry register differences. Earlier pointer reuse834 exhausted; no justified further source relation. See table-owner-sibling ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -187,3 +187,38 @@ US game code and all mapped external rodata matched, 1,092 tests passed with
 86.522 seconds, including 24.697 seconds for the Python tests. This adds one
 accepted function / 508 bytes, bringing the task total to 24 / 10,292 bytes.
 The source unit remains mixed; no boundary or shared declaration was changed.
+
+## Next storage review: useful negative, no compile
+
+A 271-second independent read-only review of `func_151AC61C` retained its best
+209 form. Candidate `.mdebug` accounts for 44 bytes of declared source homes,
+rounded to a 48-byte local region in frame 0x80. Raw has a 64-byte region in
+frame 0x90 with the same 40 bytes of observed live vectors/RNG samples and
+24 unaccessed bytes whose source identities are unknown. Vectors need +4-byte
+home shifts while random samples need -4; saved registers already agree.
+
+Matched helper/caller evidence supports genuine three-float vectors, and each
+random sample must survive calls. Original debug symbols are unavailable.
+Adding unused scalars or enlarging vectors would therefore invent storage.
+No new body was proposed or compiled; this avoids replaying a superficially
+similar cleanup fix on a different storage problem. Four FP load rows visibly
+differ, two also in stack operands, so the classifier's two register-only rows
+must not be read as only two differing FP instructions. Full offsets, object
+hashes and cited proof are preserved in the private attempt archive.
+
+## Follow-up scheduling review and independent implementation
+
+The separate `func_15071B18` read-only review also recommended no compile.
+Its three moved instructions cross independent operations. Matched siblings
+that store their size fields earlier immediately reuse the involved FP
+registers, a dependency absent here. Callee code confirms the pair are genuine
+float base/spread parameters, so array/type reinterpretation is unsupported.
+The original 390 source remains intact; full findings are in the attempt archive.
+
+Meanwhile, direct owner-table access solved the related `func_1501E400` on its
+first new source form (58 → 0), recovering both frame and pointer-spill homes.
+Its 320 bytes passed the complete clean batch. A second related entry-address
+probe on 1501E73C was unchanged at 70 and stopped. See the
+[continuation ledger](small_queue_continuation.md) for acceptance details.
+These results support running concrete implementation leads alongside bounded
+read-only diagnosis, rather than stopping both streams behind every review.

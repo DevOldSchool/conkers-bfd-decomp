@@ -340,3 +340,26 @@ tests passed / 12 skipped. This is one new accepted function, for a cumulative
 24 functions / 10,292 bytes. The source unit remains mixed and no batch IDs
 remain pending. See the [audit and experiment](matching_conversion_audit.md)
 for predictions, failures, timings and limits on throughput claims.
+
+## Reuse on the related owner-table update
+
+`func_1501E400` in `game_49D30.c` was preserved at 58: all instructions/registers
+agreed, but four named derived addresses/offset/limit values left frame 0x38
+instead of 0x28 and the previous-value pointer home at 0x18 instead of 0x20.
+Replacing those names with direct table lvalues recovered both predicted homes
+and CURRENT(0) on the first source revision (320 bytes). The source-local
+151F2CDC declaration/call now uses its existing `(void)` contract: raw code
+replaces incoming a0 before any use and consumes no incoming arguments.
+Its old three arguments represented incidental live registers, not callee inputs.
+
+The nearby `func_1501E73C` was also inspected. Removing only its named derived
+entry address left the same eleven count/entry register differences (70) after
+one 2.490-second source trial. Its original best was restored and deferred;
+no permutation or additional speculative variant followed.
+
+The owner-update clean batch returned BATCH_COMPLETE in 93.332 seconds, with
+full game/mapped-rodata equality, 1,092 tests passed / 12 skipped, metadata,
+progress and whitespace passed. This adds one match / 320 bytes, for a total
+25 functions / 10,612 bytes. No pending batch IDs remain. This is a second
+successful application of the storage diagnosis, still not a controlled
+measurement of overall throughput.

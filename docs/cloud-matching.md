@@ -322,3 +322,32 @@ objects, not ignored ROMs, generated outputs, submodule working trees, login
 state, or pending uncommitted work. Record those gaps explicitly. After a reset,
 verify artifact hashes, restore/verify the branch, initialize pinned submodules,
 restore toolchain and owned ROM privately, then rerun setup and baseline checks.
+
+## Diagnose persistent storage and address near-misses
+
+When a bounded candidate has stable operations but still differs in frame,
+stack homes or address temporaries, do not infer difficulty from its score.
+The [matching conversion audit](evidence/matching_conversion_audit.md) records
+one fully verified example of the following evidence-led process:
+
+1. Preserve the best source and full diff before investigation. Record exact
+   source/object hashes, compiler settings, raw span and prior failed forms.
+2. Separate actual loop-carried values and aggregate storage from names that
+   merely hold a recomputable expression or address. Map every differing stack
+   access; a larger frame is not necessarily a uniform shift of all objects.
+3. Inspect object/debug evidence where available. Debug variable homes can
+   describe pre-optimization storage, so distinguish them from runtime spills.
+   State a predicted instruction/home change before editing.
+4. Apply the reviewer's exact proposed source. Equivalent C spellings can
+   allocate different intermediate registers; an unannounced substitution
+   invalidates the intended experiment. Change one supported source relation,
+   then run authoritative `finish` and inspect the prediction separately from
+   the total score. A register cascade may arise from one expression choice.
+5. Retain the best valid candidate and every informative experiment. Follow
+   normal layout/integration and clean-batch gates for a focused zero. Never
+   add padding, dummy values, volatile accesses or declaration permutations
+   merely to consume bytes or force a frame.
+
+This is a diagnostic method, not a universal local-count formula or a measured
+throughput guarantee. If raw/source evidence cannot justify another form,
+record that negative result instead of repeating allocation guesses.
