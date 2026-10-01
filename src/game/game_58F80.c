@@ -334,6 +334,72 @@ u8 func_1502C3BC(s32 arg0) {
     }
     return var_v1;
 }
+typedef struct Game58F80Sprite {
+    s16 x, y, z;
+    s16 width, height;
+    u8 alpha, green, blue, mode;
+    void *output;
+} Game58F80Sprite;
+void *func_15094F70(void *, void *, s32, void *, s32, s32, s32, s32, s32);
+void *func_15095760(void *, s16 *);
+extern u8 D_800873D0[];
+extern u8 D_80087408[];
+extern u8 *D_8008CA4C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C408 CURRENT (5531) */
+void *func_1502C408(void *arg0, s32 arg1) {
+    Game58F80Sprite sprite;
+    s32 width;
+    s32 height;
+    s16 angle;
+    s32 alpha;
+    u8 *actor;
+    s32 scale;
+    u8 texture;
+
+    if (D_800BEAC0 != 0) {
+        return arg0;
+    }
+    actor = &D_800CC2D0 + arg1 * 0x32C;
+    alpha = actor[7];
+    scale = actor[0x122];
+    angle = *(s16 *)(actor + 0x60);
+    if (alpha == 0) {
+        return arg0;
+    }
+    height = scale * 19;
+    width = height;
+    if (*(s32 *)actor == 3) {
+        height = scale * 15;
+        width = height;
+    }
+    texture = func_1502C3BC(arg1);
+    {
+        u32 *command = arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command[0] = 0xDE000000;
+        command[1] = (u32)D_800873D0;
+    }
+    {
+        u32 *command = arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command[0] = 0xE7000000;
+        command[1] = 0;
+    }
+    arg0 = func_15094F70(arg0, D_8008CA4C[texture], angle, &sprite, 0, 0, 0, 2, 3);
+    sprite.mode = 0;
+    sprite.alpha = alpha;
+    sprite.width = width;
+    sprite.height = height;
+    sprite.x = (s32)*(f32 *)(actor + 0x14);
+    sprite.z = (s32)*(f32 *)(actor + 0x1C);
+    sprite.y = (s32)(*(f32 *)(actor + 0x18) + (f32)(scale / 2));
+    arg0 = func_15095760(arg0, &sprite.x);
+    *(u32 *)arg0 = 0xDE000000;
+    *(u32 *)((u8 *)arg0 + 4) = (u32)D_80087408;
+    return (u8 *)arg0 + 8;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502C408 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C408.s")
 typedef struct Game58F80ActorC608 {
     u8 pad0[7];

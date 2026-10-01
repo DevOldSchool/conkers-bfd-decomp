@@ -39611,6 +39611,12 @@
       "symbol": "func_1502C3BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5531,
+        "reason": "Typed20-byte sprite and actual state5531. Equal-dimension and signed-scale lifetimes are commoned differently across helper calls;78 vs80frame. No evidence for volatile or artificial wrapper, so preserve initial valid candidate without extra probes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50416,6 +50422,12 @@
       "symbol": "func_151872B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1154,
+        "reason": "Bounds-query4451/1154/2507; best1154 recovers count/result and max-select flow. Coordinate-name reuse regressed. Exact frame; argument and cursor/radius allocation remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64843,6 +64855,12 @@
       "symbol": "func_1516A7B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 825,
+        "reason": "Wrapper825, otherwise exact frame/arguments/control. Four word-vs-byte formal reloads and selectorregister remain; no qualifying narrow declaration for target arg1. No byte-addressing workaround or extra unsupported trial.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

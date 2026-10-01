@@ -595,3 +595,26 @@ All eight scored forms, best candidates and rejected revisions are retained.
 Original ASM remains active for these three functions. Incremental full
 US game/mapped-rodata equality, progress and whitespace pass; no empty clean
 batch was run. Accepted total remains 35 / 13,008 bytes.
+
+## Avoiding unsupported ABI and aliasing probes
+
+- `func_15171600` reached 825 on its first form. All arguments, frame and
+  control flow agree except four full-word versus byte reloads of the incoming
+  second argument and one selector-register choice. The helper's existing byte
+  prototype lets IDO omit redundant caller casts. No existing narrow declaration
+  was found for this wrapper itself, so its formal stays full-width and no
+  byte-addressing workaround was tried.
+- `func_151873E4` improved 4451 → 1154 by using the actual incoming count as the
+  updated result, advancing the output before bounds writes and expressing a
+  full-word maximum selection. A third coordinate-lifetime reuse worsened to
+  2507 and was discarded. Initial saved-argument and scan-pointer/radius register
+  choices remain different, with an exact frame.
+- `func_1502C408` has one preserved 5531 form. Callee evidence establishes a
+  real 20-byte sprite including an output pointer at +0x10. The compiler merges
+  equal dimensions and retains unsigned scale knowledge across calls, unlike
+  raw, and uses a 0x78 rather than 0x80 frame. No evidence supports a volatile
+  workaround or an artificial locals wrapper, so no additional probe was run.
+
+All best sources remain inactive behind supported deferrals. Incremental full
+US game/mapped-rodata equality, progress and whitespace pass. There are no
+pending matches; the accepted total remains 35 / 13,008 bytes.
