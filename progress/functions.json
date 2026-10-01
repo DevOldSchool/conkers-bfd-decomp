@@ -51856,6 +51856,12 @@
       "symbol": "func_1515452C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2632,
+        "reason": "Restore three outgoing random-derived arguments omitted by starter; full11-argument call.2632/2922/2632; retain initial2632. Formal normalization, frame and FP/predicate scheduling remain; no further supported form.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84170,6 +84176,12 @@
       "symbol": "func_150E0348"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1008,
+        "reason": "Three actual vectors and scalar/random state1008; vector-struct representation code-neutral. Declared source homes verified by mdebug, but98 vs90frame and timestep constant scheduling remain; no unsupported stack fix.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

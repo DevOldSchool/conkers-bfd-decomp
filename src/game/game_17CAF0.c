@@ -264,6 +264,43 @@ s32 func_1515452C(u8 *arg0) {
     return 1;
     }
 }
+void func_15143794(s16, s16, f32, void *);
+void func_151C5F44(s32, f32 *, f32, s32, s32, s32, f32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154684 CURRENT (2632) */
+void func_15154684(void *arg0, s32 arg1, s32 arg2) {
+    s32 mode;
+    f32 direction[3];
+    f32 size_random;
+    f32 speed_random;
+    s32 count;
+    u32 random_a;
+    u32 random_b;
+
+    count = (func_150ADA20() % (u32)(*(s16 *)((u8 *)arg0 + 2) + 1)) + *(s16 *)arg0;
+    if (count > 0) {
+        do {
+            random_a = func_150ADA20();
+            random_b = func_150ADA20();
+            func_15143794((s16)(random_a & 0xFF),
+                (s16)((random_b % (u32)(*(s16 *)((u8 *)arg0 + 0xE) + 1)) + *(s16 *)((u8 *)arg0 + 0xA)),
+                (func_150ADA68() * *(f32 *)((u8 *)arg0 + 0x14)) + *(f32 *)((u8 *)arg0 + 0x10), direction);
+            size_random = func_150ADA68();
+            random_a = func_150ADA20();
+            random_b = func_150ADA20();
+            speed_random = func_150ADA68();
+            mode = func_150ADA68() < *(f32 *)((u8 *)arg0 + 0x34) ? 1 : 0;
+            func_151C5F44(*(s32 *)((u8 *)arg0 + 4), direction,
+                (size_random * *(f32 *)((u8 *)arg0 + 0x1C)) + *(f32 *)((u8 *)arg0 + 0x18),
+                *(s32 *)((u8 *)arg0 + 0x20),
+                (random_a % (u32)(((u8 *)arg0)[0x25] + 1)) + ((u8 *)arg0)[0x24],
+                (random_b % (u32)(*(s16 *)((u8 *)arg0 + 0x28) + 1)) + *(s16 *)((u8 *)arg0 + 0x26),
+                speed_random * *(f32 *)((u8 *)arg0 + 0x30) + *(f32 *)((u8 *)arg0 + 0x2C), mode, *(s32 *)((u8 *)arg0 + 0x38), arg1 & 0xFF, arg2);
+            count--;
+        } while (count > 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15154684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154684.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154884.s")
 /* Call context: func_15047D60: unique active project prototype */

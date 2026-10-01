@@ -618,3 +618,21 @@ batch was run. Accepted total remains 35 / 13,008 bytes.
 All best sources remain inactive behind supported deferrals. Incremental full
 US game/mapped-rodata equality, progress and whitespace pass. There are no
 pending matches; the accepted total remains 35 / 13,008 bytes.
+
+## Two bounded random-vector emitters
+
+`func_150E03F8` retains 1008 after two code-equivalent vector representations.
+Three actual vectors and scalar/random state reproduce the proposed declared
+source homes, confirmed by `.mdebug`, but the total frame is 0x98 rather than
+0x90. Global timestep/constant scheduling also differs. This is another example
+where declared-home accounting alone does not determine final frame size.
+
+`func_15154684` required restoring three real outgoing arguments omitted by the
+starter: two random-derived integers at outgoing +0x10/+0x14 and a random-derived
+float at +0x18. The raw caller proves an eleven-argument call. Full source forms
+scored 2632, 2922, 2632; explicit sample retention and inline predicate evaluation
+did not recover normalization, vector-frame or FP scheduling. The initial valid
+2632 form is retained with every random draw and outgoing operation present.
+
+Both remain deferred. Incremental full game/mapped-rodata equality, progress
+and whitespace pass. No pending matches or empty clean batch; total 35 / 13,008.
