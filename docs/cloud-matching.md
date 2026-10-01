@@ -1,6 +1,6 @@
 # Cloud matching and reset recovery
 
-A reproducible handoff for ChatGPT dot and other contributors working on
+A reproducible handoff for contributors working on
 `DevOldSchool/conkers-bfd-decomp` in a cloud Linux executor. This is a setup and
 coordination guide, not a replacement for [AGENTS.md](../AGENTS.md),
 [CONTRIBUTING.md](../CONTRIBUTING.md), or the
@@ -22,31 +22,37 @@ checkouts have no `.agents/skills` directory.
   Review shared changes explicitly rather than letting multiple workers edit
   them concurrently.
 
+Take the requested branch from the current task or handoff, rather than from a
+past session. Set `branch` to that explicitly assigned value before cloning:
+
 ```sh
-git clone https://github.com/DevOldSchool/conkers-bfd-decomp.git conkers
+branch='your-assigned-branch'  # Replace with the requested branch.
+git check-ref-format --branch "$branch"
+git clone --branch "$branch" https://github.com/DevOldSchool/conkers-bfd-decomp.git conkers
 cd conkers
 git remote get-url origin
 git fetch origin
-git switch --track origin/<requested-branch>
-git rev-parse HEAD
+git rev-parse HEAD "origin/$branch^{commit}"
 git status --short
 git submodule update --init --recursive
 git submodule status --recursive
 ```
 
-Use an explicit recorded commit when resuming a checkpoint; do not assume a
-branch name still identifies that checkpoint. At the September 30, 2026
-recovery point, the published checkpoints were:
+When reproducing a checkpoint, obtain its full commit from the task's recovery
+manifest and verify that exact revision in a new isolated checkout. A branch
+name may have moved since the manifest was written. When continuing live work,
+compare the fetched remote tip with the recorded checkpoint and resume newer
+accepted work when appropriate; never reset it to an older handoff. Record the
+selected branch, full commit, and ownership in the new handoff, not in this
+reusable guide.
 
-- `feature/asm-to-c`: `9189c0498065748a2c8560751958f6d0bae51f4a`
-- `feature/main-boundaries`: `e31152eee24e3a1856d75828979f9df497326467`
-
-These are historical anchors, not instructions to reset newer work. Verify the
-current remote and resume its newer accepted work when appropriate. The
-`lib/ultralib` submodule at this checkpoint is pinned to
-`87af1e4d8ed666f2ad407dc11c6e47736094f2f8`. Initialize submodules in every
-checkout that builds: `doctor` can pass while a missing submodule breaks the
-first real game/full build. Never substitute the submodule's latest branch.
+Submodule and toolchain revisions are dependency pins, not project-progress
+checkpoints. The `lib/ultralib` dependency pin is
+`87af1e4d8ed666f2ad407dc11c6e47736094f2f8`; verify the selected checkout's gitlink
+with `git ls-tree HEAD lib/ultralib`. Initialize the exact recorded submodules
+in every checkout that builds: `doctor` can pass while a missing submodule
+breaks the first real game/full build. Never substitute the submodule's latest
+branch.
 
 ## 2. Restore the exact compiler environment
 
@@ -56,6 +62,14 @@ use the reviewed namespace adapter in
 [`toolchain/cloud-bootstrap`](../toolchain/cloud-bootstrap/README.md). It keeps
 normal `./conker` commands and the exact CPU compiler environment. It is a
 narrow compatibility adapter, not Docker Engine.
+
+Its wrapper is named `bin/docker` so existing `./conker` scripts can keep using
+their supported Docker CLI calls. Putting that directory on `PATH` routes those
+calls through `unshare` and `bwrap` into the verified image root filesystem,
+without a Docker daemon. It implements only the project's required command
+subset, not general Docker builds or arbitrary images; enhanced renderer/debug
+images are outside its scope. Unsupported operations stop rather than falling
+back to weaker isolation. Prefer normal Docker whenever it is available.
 
 Current immutable pins, also checked against `toolchain/tools.lock.json`:
 
@@ -138,11 +152,15 @@ work. No ROM, extracted/generated ROM-derived payload, credentials, or private
 input identifiers may be committed, attached to a public issue, or included in
 a public artifact.
 
-Before matching new work, prove a known match and the full environment:
+Before matching new work, select an accepted C function from the selected
+checkout's `progress/functions.json`: its `regions.us.state` must be `matched`.
+Use that entry's top-level `symbol` as `known_match` and confirm its recorded
+source contains the C implementation. Then prove that match and the full
+environment:
 
 ```sh
-# Known accepted actor playback-rate match at the checkpoint above.
-./conker diff func_1505841C
+known_match='accepted-work-item-id'  # Replace with the inventory symbol above.
+./conker diff "$known_match"
 ./conker rsp
 ./conker build --all
 ./conker game-build --refresh
@@ -150,13 +168,13 @@ Before matching new work, prove a known match and the full environment:
 git -c core.whitespace=cr-at-eol diff --check
 ```
 
-First verify that `func_1505841C` is still an accepted C function on the selected
-branch; if absent, select an existing accepted ID from that branch's inventory.
-The quick check must report `CURRENT (0)` against independent raw assembly. It
-is a smoke check, not permission to skip full baseline gates or record new
-matches. `rsp` verifies the configured ROM-backed RSP payloads; the main ROM and
-game-image builds cover different outputs. Preserve logs with the tested
-commit and tool pins. A doctor-only success is not a ROM baseline success.
+The quick check must report `CURRENT (0)` against independent raw assembly. If
+the checkout has no accepted C function, report that smoke-check limitation and
+still run the other baseline gates; do not invent or record a match. This smoke
+check does not replace full baseline gates. `rsp` verifies the configured
+ROM-backed RSP payloads; the main ROM and game-image builds cover different
+outputs. Preserve logs with the tested commit and tool pins. A doctor-only
+success is not a ROM baseline success.
 
 ## 4. Match efficiently without repeating exhausted work
 
@@ -262,11 +280,11 @@ exists, reuse it; do not create another credential. Do not print, read, copy, or
 package the credential store.
 
 If fresh authentication is necessary, stop for explicit user approval of the
-persistent grant. Explain the scopes actually requested: GitHub CLI 2.46's
-default login requested account-wide `repo`, `read:org`, and `gist` scopes, not
-single-repository access. If no secure credential store is available, disclose
-the plaintext fallback before proceeding. The user completes the secure/device
-flow; never ask for a token or password in chat.
+persistent grant. Explain the scopes actually requested by the installed
+GitHub CLI; scopes such as `repo`, `read:org`, and `gist` grant account-wide
+access rather than single-repository access. If no secure credential store is
+available, disclose the plaintext fallback before proceeding. The user
+completes the secure/device flow; never ask for a token or password in chat.
 
 For a read-only home directory, use a writable private configuration directory
 outside all repositories and create it mode 700 before login. Answer **No** to
@@ -282,7 +300,9 @@ gh auth login --hostname github.com --git-protocol https --web
 gh api user --jq .login
 git remote get-url origin
 
-branch=feature/asm-to-c  # Use only the explicitly assigned branch.
+# Restore the assigned branch value if this is a new shell; do not guess it.
+: "${branch:?Set branch to the explicitly assigned destination branch}"
+test "$(git branch --show-current)" = "$branch" || exit 1
 sha=$(git rev-parse HEAD)
 GIT_TERMINAL_PROMPT=0 git -c credential.helper= \
   -c 'credential.helper=!gh auth git-credential' \
@@ -353,11 +373,11 @@ This is a diagnostic method, not a universal local-count formula or a measured
 throughput guarantee. If raw/source evidence cannot justify another form,
 record that negative result instead of repeating allocation guesses.
 
-Expression form and declared storage must be checked separately. In the
-`151B01B8` packet case, a nested conditional recovered the exact control-flow
-merge but enlarged the frame; reducing it to an outer `if` restored the frame
-while losing that merge. Keeping the correct conditional and removing one
-redundant named table address recovered both. The compiler still preserved the
-necessary derived-address spill. Conversely, other vector cases keep identical
-declared homes while total frame size differs, so debug local offsets alone
-are not a complete allocation model.
+Expression form and declared storage must be checked separately. A nested
+conditional can recover a control-flow merge while enlarging the frame;
+reducing it to an outer `if` may restore the frame while losing that merge.
+Removing a redundant named address may recover both, but a necessary derived
+address can still require a spill. Conversely, identical declared homes do not
+guarantee identical total frame sizes, so debug local offsets alone are not a
+complete allocation model. Use the linked evidence records for concrete cases
+and validate each new hypothesis independently.
