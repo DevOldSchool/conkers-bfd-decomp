@@ -323,3 +323,20 @@ clean batch for 15156388 passed full US game-code/mapped-rodata equality,
 1,092 tests passed/12 skipped, metadata, progress and whitespace. This is an
 existing-match regression, not new matched bytes. The accepted task total stays
 23 functions / 9,784 bytes. There are no pending match or regression IDs.
+
+## Independent storage review closes a deferred cleanup routine
+
+After the conversion audit paused broad selection, an independent review of
+`func_1501E540` in `game_49D30.c` separated real loop state from named expression
+storage. Four narrowly justified forms (720, 132, 12, 0) followed the earlier
+271 candidate. Direct table access removes excess named address storage; a
+real block-local cursor preserves raw second-loop induction; the raw byte-offset
+initializer recovers destructive arithmetic; direct owner-table access removes
+the final redundant address declaration. No padding or permutation was used.
+
+The 508-byte full span, reviewed symbol layout, progress and whitespace match.
+A clean batch verified the complete game image and mapped rodata, with 1,092
+tests passed / 12 skipped. This is one new accepted function, for a cumulative
+24 functions / 10,292 bytes. The source unit remains mixed and no batch IDs
+remain pending. See the [audit and experiment](matching_conversion_audit.md)
+for predictions, failures, timings and limits on throughput claims.

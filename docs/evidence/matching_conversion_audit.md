@@ -157,3 +157,33 @@ now agrees, with frame 0x50 exact. Only three accesses to the saved owner pointe
 use SP+0x38 instead of SP+0x3C. This confirms the specific expression prediction;
 it does not establish an accepted match. The improved 12 form is deferred and
 all earlier forms are preserved. No padding or automated search was introduced.
+
+### Direct owner access closes the focused difference
+
+A further independent read of the candidate object's `.mdebug` showed four
+abstract declared-word locations (`saved`, `index`, `count`, `cursor`). Those
+are pre-optimization metadata, not final runtime locations. Together with the
+observed three-local frame/spill behavior, they supported a specific prediction:
+remove the redundant named owner address, retain the three real state variables,
+and let the compiler retain the direct owner-table address across calls.
+
+The exact reviewed body was applied without expression substitutions. It replaces
+only the named `saved` declaration/assignment and its owner-table uses with
+`D_800C3668[arg0]`; the real block-local byte-offset cursor remains. This returned
+full-span CURRENT(0) for 508 bytes, with reviewed layout, progress and whitespace
+passing. The 0x50 frame and SP+0x3C owner-address spill are now exact. Focused
+finish took 7.690 seconds including successful match metadata gates.
+
+The four compiled forms in this review sequence were 720, 132, 12 and 0. One was
+an unintended typed-array variation of the proposed initializer; recording that
+mistake matters for reproducibility. Summed finish command time was 14.454
+seconds; read-only investigation, editing, coordination and durable checkpoints
+were separate. This is one resolved case and does not establish a general
+throughput improvement or justify dropping any acceptance gate.
+
+The clean singleton batch then returned `BATCH_COMPLETE`: full 2,072,880-byte
+US game code and all mapped external rodata matched, 1,092 tests passed with
+12 skipped, and metadata/progress/whitespace passed. Batch wall time was
+86.522 seconds, including 24.697 seconds for the Python tests. This adds one
+accepted function / 508 bytes, bringing the task total to 24 / 10,292 bytes.
+The source unit remains mixed; no boundary or shared declaration was changed.

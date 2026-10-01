@@ -38659,17 +38659,16 @@
       "symbol": "func_1501E400"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 12,
-        "reason": "Independent review exact byte-offset cursor recovers all registers/instructions; CURRENT12 only saved-owner stack home0x38 vs0x3C in three accesses, exactframe0x50. Previous271/720/132 forms preserved. No padding or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501E540",
           "vram": "0x1501E540"
         }
