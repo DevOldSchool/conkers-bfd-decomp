@@ -1125,3 +1125,28 @@ progress and whitespace gates pass with `BATCH_COMPLETE`. The three corrected
 wrappers remain exact and receive no new match credit. Totals are now
 **63 functions / 7,684 bytes** since the fresh baseline, with **2,696** accepted
 US C functions and no accepted pending IDs.
+
+## Twenty-eighth batch: callback emitter candidates
+
+Two related emitters remain ASM-backed in `game_1797A0.c`. The line emitter
+`1514C470` retains its best first form at 2403. Its parity branches, three
+current coordinates, three cross-call increments and signed-halfword callback
+index are explicit. Capturing the final byte argument once worsens the score
+to 3078, and introducing a separate decreasing-count local worsens it to 4051.
+The retained form has a 0xA0 frame rather than 0xA8, with floating-register and
+spill differences. All attempted forms are preserved.
+
+The related sampler `1514C858` has a first-form candidate at 4809. It preserves
+the initial trigonometric calls, signed-halfword range/index wrapping,
+unsigned random modulus, the two products held across callbacks, and the
+observed coordinate evaluation order. Its frame is 0xD0 rather than 0xD8;
+argument reloads and floating lifetimes also differ. Both targets retain
+full-width integer formals with explicit low-halfword or byte conversions.
+No qualifying narrow target declaration was found, and no forced stack view,
+artificial padding or volatile state was introduced.
+
+A clean batch rechecks four existing caller-unit functions and the main PI
+initializer. Full US ROM, integrated game/rodata, 1,346 tests with 12 skipped,
+metadata, progress and whitespace gates pass with `BATCH_COMPLETE`. This
+candidate-only batch adds no matches: totals remain **63 / 7,684 bytes**,
+with **2,696** accepted US C functions and no accepted pending IDs.

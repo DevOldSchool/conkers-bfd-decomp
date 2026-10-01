@@ -51401,6 +51401,12 @@
       "symbol": "func_1514C2F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2403,
+        "reason": "Callback line emitter best first form 2403. One-time final-byte capture worsens to 3078 and separate remaining-count state worsens to 4051. Keep fullword target formals and existing callback contract; frame and floating-register/spill allocation remain unresolved. Preserve best without padding, volatile, or declaration search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51433,6 +51439,12 @@
       "symbol": "func_1514C678"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4809,
+        "reason": "Typed callback sampler first form scores 4809. Fullword integer formals retain explicit observed low-halfword/byte semantics; no existing narrow target declaration was found. Frame 0xD0 versus raw 0xD8, argument reloads and floating lifetimes differ. Preserve first form; no speculative parameter narrowing or forced stack views.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
