@@ -508,3 +508,36 @@ was introduced. Best 90 is deferred with original ASM active; all previous
 forms, object hashes, source-home records and full differences are retained.
 Incremental full game/mapped-rodata equality, progress and whitespace pass.
 There is no pending match and the accepted total remains 33 / 11,992 bytes.
+
+## Fresh descriptor match and related sibling
+
+The normal ready queue selected the previously unattempted 508-byte
+`func_150BFFE0` in `game_EC420.c`. Duplicate screening found no identical raw
+body. A real 0x6C callee-consumed spawn descriptor and three-coordinate snapshot
+immediately reproduced its 0xA0 frame and all actual storage. Three forms scored
+1418 → 26 → 0 (2.325, 2.113 and 7.195 seconds of `finish` time). Unsigned byte
+fields are backed by the receiving function's byte loads; sequential descriptor
+initialization followed by its alpha-before-RGB group recovers the emitted
+constant/register order. The full registered span, layout, progress and
+whitespace gates passed.
+
+The adjacent `func_150C01DC` reuses that same descriptor. Its additional burst
+packet, copied words and coordinate snapshot also reproduce the exact frame
+and homes on the first form. Three forms scored 1651, 1651, 910: grouping the
+actual packet members was code-neutral; the exact ROM-backed repeated f32
+literal (bits `3e8624de`) recovers the shared constant's early load. Initial
+aggregate-copy scheduling and two constant stores remain different. Best 910
+is preserved inactive with original ASM active; earlier forms and full diffs
+are retained. No speculative padding or declaration search was used.
+
+The earlier duplicate quad-contract review also found no qualifying narrow
+formal declaration: the ROM identifies `func_151AC810` and `func_151DAE28` in
+`D_80089E1C`, and raw dispatcher `func_1513DB00` sign-normalizes its second
+argument, but the table has no existing typed C contract. The separate typed
+`D_80089C28` callback table does not establish this one. The existing candidate
+and duplicate block therefore remain unchanged, with no compile.
+
+The clean related-group batch returned BATCH_COMPLETE in 87.132 seconds: full
+US game image and mapped rodata identical, 1,092 tests passed / 12 skipped,
+metadata/progress/whitespace passed. The unit remains mixed. Accepted total is
+34 functions / 12,500 bytes, with no pending batch IDs.

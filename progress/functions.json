@@ -83458,8 +83458,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150BFFE0",
           "vram": "0x150BFFE0"
         }
@@ -83468,6 +83473,12 @@
       "symbol": "func_150BFFE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 910,
+        "reason": "Related spawn descriptor reconstruction: 1651/1651/910. Exact frame and homes; ROM-backed repeated 0x3e8624de literal restores constant lifetime. Remaining initial copied-word/vector scheduling; no further evidenced source form.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
