@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D2AB0
  * - func_151D2B4C
  * - func_151D2DCC
  * - func_151D2E14
@@ -25,21 +24,15 @@ extern s32 D_800E0990[];
 extern u16 D_800AB140[];
 extern s16 D_800E0968[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2AB0 CURRENT (42) */
 void func_151D2AB0(s32 arg0) {
-    s32 sp18;
-    u8 *temp_v0;
     u32 sp1C;
 
-    temp_v0 = &D_800E0950[arg0];
-    if (++*temp_v0 < 2) {
-        sp18 = arg0 * 2;
-        D_800E0990[arg0] = (s32)func_1502B5C8(&sp1C, 2, 9, *(u16 *)((u8 *)D_800AB140 + sp18));
-        *(s16 *)((u8 *)D_800E0968 + sp18) = (s16)(sp1C >> 4);
+    if (++D_800E0950[arg0] < 2) {
+        D_800E0990[arg0] = (s32)func_1502B5C8(&sp1C, 2, 9,
+            *(u16 *)((u8 *)D_800AB140 + arg0 * 2));
+        *(s16 *)((u8 *)D_800E0968 + arg0 * 2) = (s16)(sp1C >> 4);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2AB0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2AB0.s")
 void func_100043B4(s32, s32, s32);
 extern u8 D_800E0950[];
 extern s32 D_800E0990[];

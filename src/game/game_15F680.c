@@ -44,11 +44,20 @@ typedef struct Game15F680TransformState {
     f32 field58;
     u8 pad5C[4];
     s32 flags60;
-    u8 pad64[8];
+    s16 lifetime64;
+    u8 pad66[6];
     s32 field6C;
-    u8 pad70[8];
+    u8 alpha70;
+    u8 update71;
+    u8 secondary72;
+    u8 pad73[3];
+    u8 cleanup76;
+    u8 special77;
     u8 field78;
-    u8 pad79[0xBB];
+    u8 pad79[9];
+    s16 threshold82;
+    s16 rate84;
+    u8 pad86[0xAE];
     f32 origin[3];
     u8 pad140[4];
     f32 field144;
@@ -59,6 +68,63 @@ typedef struct Game15F680TransformState {
 
 void func_15142838(s32, f32, f32, f32, f32, f32, f32, f32, f32);
 
+typedef s32 (*Game15F680Update)(Game15F680TransformState *);
+typedef void (*Game15F680Cleanup)(Game15F680TransformState *);
+extern Game15F680Update D_800898B0[];
+extern Game15F680Update D_80089914[];
+extern Game15F680Update D_80089988[];
+extern Game15F680Cleanup D_8008997C[];
+extern s32 D_800BE9E4;
+s32 func_1514672C(f32 *);
+void func_1516972C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151321D0 CURRENT (260) */
+void func_151321D0(Game15F680TransformState *arg0) {
+    s32 alpha;
+    u8 dead;
+    s16 remaining;
+
+    dead = 0;
+    if (((arg0->flags60 &= 0xFFDFFFFF) & 0x10) && (arg0->flags148 & 0x18)) {
+        if (D_80089988[arg0->special77](arg0) == 0) {
+            dead = 1;
+        }
+    } else if (arg0->update71 != 0) {
+        if (D_800898B0[arg0->update71](arg0) == 0) {
+            dead = 1;
+        }
+    }
+    if (arg0->secondary72 != 0 && dead == 0) {
+        if (D_80089914[arg0->secondary72](arg0) == 0) {
+            dead = 1;
+        }
+    }
+    if ((arg0->flags60 & 0x80) && dead == 0) {
+        arg0->lifetime64 -= D_800BE9E4;
+        if (arg0->lifetime64 < 0) {
+            dead = 1;
+        }
+    }
+    if ((arg0->flags60 & 0x2000) && dead == 0) {
+        remaining = arg0->lifetime64;
+        if (remaining < arg0->threshold82) {
+            alpha = remaining * arg0->rate84;
+            if (alpha < arg0->alpha70) {
+                arg0->alpha70 = alpha;
+            }
+        }
+    }
+    if (dead == 0 && !(arg0->flags60 & 0x80000)) {
+        dead = func_1514672C(&arg0->field38) == 0;
+    }
+    if (dead != 0) {
+        if (arg0->cleanup76 != 0) {
+            D_8008997C[arg0->cleanup76](arg0);
+        }
+        func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151321D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_151321D0.s")
 extern void (*D_800899B0[])(void);
 

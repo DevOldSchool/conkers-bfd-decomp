@@ -130,17 +130,18 @@ void func_1515728C(void *arg0) {
     func_15169824((s32) arg0);
 }
 extern s32 D_800BE9E4;
-extern s32 (*D_8008AD90[])(u8 *, u8 *, u8);
-extern s32 (*D_8008ADA0[])(u8 *, u8 *, u8);
-void func_1503F4B0(s32, u8 *, u8);
+extern s32 (*D_8008AD90[])(u8 *);
+extern s32 (*D_8008ADA0[])(u8 *);
+void func_1503F4B0(void *);
 void func_1516972C(u8 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151572D0 CURRENT (3363) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151572D0 CURRENT (2291) */
 void func_151572D0(u8 *arg0) {
     u8 stopped = 0;
     s8 index;
     s16 count;
     s32 product;
+    s32 callback_result;
 
     if (*(u8 *)(arg0 + 0x10) & 1) {
         *(s16 *)(arg0 + 0x16) = *(s16 *)(arg0 + 0x16) - D_800BE9E4;
@@ -150,16 +151,22 @@ void func_151572D0(u8 *arg0) {
     }
     if (stopped == 0) {
         index = *(s8 *)(arg0 + 0x11);
-        if (index != -1 && D_8008AD90[index](arg0, arg0, stopped) == 0) {
-            stopped = 1;
+        if (index != -1) {
+            callback_result = D_8008AD90[index](arg0);
+            if (callback_result == 0) {
+                stopped = 1;
+            }
         }
         index = *(s8 *)(arg0 + 0x12);
-        if (index != -1 && D_8008ADA0[index](arg0, arg0, stopped) == 0) {
-            stopped = 1;
+        if (index != -1) {
+            callback_result = D_8008ADA0[index](arg0);
+            if (callback_result == 0) {
+                stopped = 1;
+            }
         }
     }
     if (stopped == 0) {
-        func_1503F4B0(*(s32 *)(arg0 + 0x68), arg0, stopped);
+        func_1503F4B0(*(void **)(arg0 + 0x68));
     }
     if (stopped == 0 && (*(u8 *)(arg0 + 0x10) & 0x20)) {
         count = *(s16 *)(arg0 + 0x16);

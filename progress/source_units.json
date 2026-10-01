@@ -8823,7 +8823,7 @@
         "us": {
           "end": "0x42D50",
           "start": "0x415E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_6EA90.c"
@@ -10291,15 +10291,15 @@
         "func_150B3AB0",
         "func_150B3C0C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xB3DD0",
           "start": "0xB3AB0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_E0F60.c"
+      "source": "src/game/done/game_E0F60.c"
     },
     {
       "boundary_evidence": {
@@ -10364,7 +10364,7 @@
         "us": {
           "end": "0x18CA80",
           "start": "0x18C900",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_1B9DB0.c"
@@ -11411,15 +11411,15 @@
         "func_150B2494",
         "func_150B2570"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xB2740",
           "start": "0xB2480",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_DF930.c"
+      "source": "src/game/done/game_DF930.c"
     },
     {
       "boundary_evidence": {
@@ -12510,7 +12510,7 @@
         "us": {
           "end": "0x14A6A0",
           "start": "0x149FD0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_177480.c"
@@ -12968,15 +12968,15 @@
       "functions": [
         "func_15052590"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x52760",
           "start": "0x52590",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_7FA40.c"
+      "source": "src/game/done/game_7FA40.c"
     },
     {
       "boundary_evidence": {
@@ -13283,15 +13283,15 @@
       "functions": [
         "func_151A3150"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x1A3390",
           "start": "0x1A3150",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1D0600.c"
+      "source": "src/game/done/game_1D0600.c"
     },
     {
       "boundary_evidence": {
@@ -15441,7 +15441,7 @@
         "us": {
           "end": "0xFC930",
           "start": "0xFB8C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_128D70.c"
@@ -18704,15 +18704,15 @@
       "functions": [
         "func_1504A400"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x4A5E0",
           "start": "0x4A400",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_778B0.c"
+      "source": "src/game/done/game_778B0.c"
     },
     {
       "boundary_evidence": {

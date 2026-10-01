@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_emission_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1514F640
  * - func_1514F808
  * - func_1514F8F8
  * - func_1514FCE8
@@ -41,21 +40,16 @@ f32 func_15144A74(void *, void *);                  /* extern */
 s32 func_15144E80(void *, void *, void *, void *);  /* extern */
 s32 func_15145128(f32 *, f32 *, f32 *, f32 *);      /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514F640 CURRENT (8) */
 void func_1514F640(s32 arg0, u8 *arg1) {
-    void *temp_a3;
 
     *(s8 *)((u8 *)arg1 + 0) = 2;
-    temp_a3 = (void *)(arg1 + 4);
     *(f32 *)((u8 *)arg1 + 0x28) = (f32) *(f32 *)(arg0 + 0x20);
-    if ((func_15144E80((void *)(arg0 + 0xC), arg1 + 0x10, arg1 + 0x1C, temp_a3) != 0) && (func_15144A74(temp_a3, (void *)arg0) < 0.0f)) {
+    if ((func_15144E80((void *)(arg0 + 0xC), arg1 + 0x10, arg1 + 0x1C, (arg1 + 4)) != 0) && (func_15144A74((arg1 + 4), (void *)arg0) < 0.0f)) {
         *(f32 *)((u8 *)arg1 + 4) = (f32) -*(f32 *)((u8 *)arg1 + 4);
         *(f32 *)((u8 *)arg1 + 8) = (f32) -*(f32 *)((u8 *)arg1 + 8);
         *(f32 *)((u8 *)arg1 + 0xC) = (f32) -*(f32 *)((u8 *)arg1 + 0xC);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1514F640 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514F640.s")
 s32 func_15146078();
 
 s32 func_1514F6E8(void *arg0) {
@@ -270,7 +264,129 @@ s32 func_1515452C(u8 *arg0) {
     return 1;
     }
 }
+void func_15143794(s16, s16, f32, void *);
+void func_151C5F44(s32, f32 *, f32, s32, s32, s32, f32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154684 CURRENT (2632) */
+void func_15154684(void *arg0, s32 arg1, s32 arg2) {
+    s32 mode;
+    f32 direction[3];
+    f32 size_random;
+    f32 speed_random;
+    s32 count;
+    u32 random_a;
+    u32 random_b;
+
+    count = (func_150ADA20() % (u32)(*(s16 *)((u8 *)arg0 + 2) + 1)) + *(s16 *)arg0;
+    if (count > 0) {
+        do {
+            random_a = func_150ADA20();
+            random_b = func_150ADA20();
+            func_15143794((s16)(random_a & 0xFF),
+                (s16)((random_b % (u32)(*(s16 *)((u8 *)arg0 + 0xE) + 1)) + *(s16 *)((u8 *)arg0 + 0xA)),
+                (func_150ADA68() * *(f32 *)((u8 *)arg0 + 0x14)) + *(f32 *)((u8 *)arg0 + 0x10), direction);
+            size_random = func_150ADA68();
+            random_a = func_150ADA20();
+            random_b = func_150ADA20();
+            speed_random = func_150ADA68();
+            mode = func_150ADA68() < *(f32 *)((u8 *)arg0 + 0x34) ? 1 : 0;
+            func_151C5F44(*(s32 *)((u8 *)arg0 + 4), direction,
+                (size_random * *(f32 *)((u8 *)arg0 + 0x1C)) + *(f32 *)((u8 *)arg0 + 0x18),
+                *(s32 *)((u8 *)arg0 + 0x20),
+                (random_a % (u32)(((u8 *)arg0)[0x25] + 1)) + ((u8 *)arg0)[0x24],
+                (random_b % (u32)(*(s16 *)((u8 *)arg0 + 0x28) + 1)) + *(s16 *)((u8 *)arg0 + 0x26),
+                speed_random * *(f32 *)((u8 *)arg0 + 0x30) + *(f32 *)((u8 *)arg0 + 0x2C), mode, *(s32 *)((u8 *)arg0 + 0x38), arg1 & 0xFF, arg2);
+            count--;
+        } while (count > 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15154684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154684.s")
+typedef struct Game154884Descriptor {
+    f32 field00, field04, field08, field0C;
+    Game17CAF0Vec3f angles;
+    Game17CAF0Vec3f scale;
+    Game17CAF0Vec3f position;
+    Game17CAF0Vec3f velocity;
+    f32 field40, field44, field48, field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58;
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70;
+    s16 field72, field74;
+} Game154884Descriptor;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A601C, D_800A6020, D_800A6024, D_800A6028, D_800A602C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154884 CURRENT (200) */
+void *func_15154884(Game17CAF0Vec3f *arg0, f32 arg1, f32 arg2,
+                    f32 arg3, s32 arg4, s32 arg5) {
+    u8 *result;
+    f32 random;
+    Game154884Descriptor descriptor;
+    f32 payload[5];
+
+    if (arg1 <= 0.0f) {
+        return 0;
+    }
+    payload[0] = arg1;
+    payload[1] = arg2;
+    payload[3] = 0.0f;
+    descriptor.field08 = 0.0f;
+    descriptor.field0C = 0.0f;
+    descriptor.field00 = 1.0f;
+    descriptor.field04 = 1.0f;
+    payload[2] = arg3;
+    payload[4] = D_800A601C / arg1;
+    descriptor.angles.x = func_150ADA68() * 360.0f;
+    descriptor.angles.y = func_150ADA68() * 360.0f;
+    random = func_150ADA68();
+    descriptor.scale.x = 1.0f;
+    descriptor.scale.y = 1.0f;
+    descriptor.scale.z = 1.0f;
+    descriptor.angles.z = random * 360.0f;
+    descriptor.position = *arg0;
+    descriptor.velocity.x = 0.0f;
+    descriptor.velocity.y = 0.0f;
+    descriptor.velocity.z = 0.0f;
+    random = func_150ADA68();
+    descriptor.field44 = 0.0f;
+    descriptor.field40 = (random * D_800A6020) + D_800A6024;
+    descriptor.field48 = func_150ADA68() * D_800A6028 + D_800A602C;
+    descriptor.field4C = 0.0f;
+    descriptor.field50 = 0x140;
+    descriptor.field56 = 0x55;
+    descriptor.field58 = 0;
+    descriptor.field5C = 0;
+    descriptor.field60 = 0xFF;
+    descriptor.field61 = 0x12;
+    descriptor.field62 = 0;
+    descriptor.field63 = 0;
+    descriptor.field64 = 0;
+    descriptor.field65 = 0;
+    descriptor.field66 = 0;
+    descriptor.field67 = 0;
+    descriptor.field68 = 2;
+    descriptor.field6A = 0;
+    descriptor.field6C = 0;
+    descriptor.field70 = 0;
+    descriptor.field72 = 1;
+    descriptor.field74 = 0xFF;
+    descriptor.field54 = 0x12C;
+    result = func_15132A4C(&descriptor, 0, 0, 0x14, (u8)arg4, arg5);
+    if (result != 0) {
+        func_10022EC0(result + 0x170, payload, 0x14);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15154884 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15154884.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);

@@ -618,7 +618,106 @@ s32 func_151AABA0(void *arg0) {
     *(u8 *)((u8 *)arg0 + 0x84) = 0U;
     return var_v1;
 }
+typedef struct Game1D6E80ImpactPacket {
+    s16 type;
+    s16 alpha;
+    s16 angle;
+    s16 variant;
+    Game1D6E80Vec3 position;
+    f32 scale;
+    f32 value18;
+    f32 value1C;
+    f32 value20;
+    f32 value24;
+    f32 value28;
+    s16 value2C;
+    s16 value2E;
+    s16 value30;
+    s16 value32;
+    s16 value34;
+    s16 value36;
+    s16 value38;
+    s16 value3A;
+    u8 color;
+    u8 pad3D[3];
+    f32 value40;
+    s16 value44;
+    s16 value46;
+    s32 value48;
+} Game1D6E80ImpactPacket;
+
+typedef struct Game1D6E80ImpactHit {
+    f32 height;
+    u8 geometry[0x20];
+} Game1D6E80ImpactHit;
+
+void func_15142314(s32, s32, void *);
+void func_15153F18(s16 *, void *, s32, s32, s32);
+u8 func_151D8E20(void);
+s32 func_1504697C(void *, u16, f32, void *);
+void func_1504715C(void *, void *);
+void func_151DBCBC(s32, f32, s32, s32, f32 *, s32, s32);
+extern u8 D_800A8F70[];
+extern f32 D_800A8FCC;
+extern f32 D_800A8FD0;
+extern f32 D_800A8FD4;
+extern f32 D_800A8FD8;
+extern f32 D_800A8FDC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151AABC4 CURRENT (746) */
+void func_151AABC4(u8 *arg0, s32 arg1) {
+    Game1D6E80Vec3 joint;
+    Game1D6E80ImpactHit hit;
+    f32 height;
+    Game1D6E80Vec3 query;
+    u8 color;
+    Game1D6E80Vec3 position;
+    Game1D6E80ImpactPacket packet;
+
+    if (arg0 != 0 && *(s32 *)(arg0 + 0x1D4) != 0) {
+        color = func_151D8E20();
+        func_15142314(*(s32 *)(arg0 + 0x1D4), D_800A8F70[(u8)arg1], &joint);
+        func_1504715C(&hit, arg0);
+        query.x = joint.x;
+        height = joint.y + 50.0f;
+        query.y = height;
+        query.z = joint.z;
+        if (func_1504697C(&query, 0, height - 100.0f, &hit) != 0) {
+            position.x = joint.x;
+            position.y = hit.height;
+            position.z = joint.z;
+            func_151DBCBC(color, 40.0f, 150, (s32)hit.geometry, &position.x, 255, 1);
+            packet.position = position;
+            packet.value2C = 3;
+            packet.value2E = 3;
+            packet.scale = 2.5f;
+            packet.alpha = 255;
+            packet.angle = -64;
+            packet.variant = 26;
+            packet.type = 0;
+            packet.value30 = 3;
+            packet.value32 = 1;
+            packet.value34 = 30;
+            packet.value36 = 20;
+            packet.value38 = 155;
+            packet.value3A = 100;
+            packet.value44 = 16;
+            packet.value46 = 15;
+            packet.value48 = 0;
+            packet.value18 = D_800A8FCC;
+            packet.value1C = D_800A8FD0;
+            packet.value20 = D_800A8FD4;
+            packet.value24 = D_800A8FD8;
+            packet.value28 = D_800A8FDC;
+            packet.color = color;
+            packet.value40 = 0.0f;
+            func_15153F18(&packet.type, &packet.position, (s32)&hit, 255, 1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151AABC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6E80/func_151AABC4.s")
+
 s32 func_151AADBC(void *arg0) {
     s32 var_v1;
     void *temp_v0;

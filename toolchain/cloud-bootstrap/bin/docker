@@ -1,0 +1,187 @@
+#!/usr/bin/env python3
+"""Narrow Conker Docker-CLI compatibility adapter, not a Docker daemon.
+
+Every execution enters a fresh network-isolated unprivileged namespace. Named
+'warm containers' store mount recipes only, never bypassing sandbox setup.
+Unsupported Docker commands and security-affecting options fail closed.
+"""
+import hashlib, json, os, pathlib, re, resource, shutil, subprocess, sys
+HOME=pathlib.Path(__file__).resolve().parent.parent
+STATE=HOME/'state'
+BASE='ghcr.io/devoldschool/conkers-bfd-decomp-toolchain@sha256:b3e29a92f2c26f11a58fbafde2d5d3b1184416e21b635e07b2a6303591ed5c8b'
+REV='156f78f6bccfc07498578ac491ce7fe2a1e807a6'
+
+def fail(message): raise RuntimeError(message)
+def load(name): return json.loads((STATE/name).read_text())
+def sha(p): return hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest()
+def base_record(): return load('base-image.json')
+def image(ref):
+ base=base_record()
+ if ref==BASE:
+  return {'Id':base['config_digest'],'Config':base['config']['config'],'armips':False}
+ try: images=load('images.json')
+ except FileNotFoundError: images={}
+ if ref not in images: fail('Unknown/unbuilt image: '+ref)
+ receipt=load('armips.json')
+ if sha(HOME/'armips/install/armips')!=receipt['sha256']: fail('armips binary integrity failed')
+ return images[ref]
+def save(name,data):
+ p=STATE/name; tmp=p.with_suffix('.tmp.'+str(os.getpid()))
+ tmp.write_text(json.dumps(data,indent=2)+'\n'); os.replace(tmp,p)
+def container_path(name):
+ if not re.fullmatch(r'conker-toolchain-[0-9a-f]{12}',name): fail('Unsupported container name')
+ return 'container-'+name+'.json'
+def inspect(data,fmt):
+ if fmt is None: print(json.dumps([data])); return
+ if fmt=='{{.Id}}': print(data['Id'])
+ elif fmt=='{{.Image}}': print(data['Image'])
+ elif fmt=='{{.State.Running}}': print('true')
+ elif 'org.devoldschool.conker.warm-schema' in fmt: print(data['Config']['Labels'].get('org.devoldschool.conker.warm-schema',''))
+ elif 'org.devoldschool.conker.diff-watch' in fmt: print(data['Config'].get('Labels',{}).get('org.devoldschool.conker.diff-watch',''))
+ else: fail('Unsupported inspect format '+fmt)
+def parse_options(args,exec_mode=False):
+ opts={'mounts':[],'tmpfs':[],'labels':{},'env':{}}
+ flags={'--rm':'rm','--detach':'detach','-d':'detach','--read-only':'readonly','--interactive':'interactive','--tty':'tty','-i':'interactive','-t':'tty'}
+ vals={'--platform':'platform','--network':'network','--cap-drop':'capdrop','--security-opt':'security','--pids-limit':'pids','--user':'user','--tmpfs':'tmpfs','--mount':'mounts','--workdir':'workdir','-w':'workdir','--name':'name','--label':'labels','--entrypoint':'entrypoint','--env':'env','-e':'env'}
+ i=0
+ while i<len(args) and args[i].startswith('-'):
+  a=args[i]
+  if a in flags: opts[flags[a]]=True; i+=1; continue
+  if a not in vals or i+1>=len(args): fail('Unsupported Docker option '+a)
+  key=vals[a]; value=args[i+1]; i+=2
+  if key in ('mounts','tmpfs'): opts[key].append(value)
+  elif key in ('labels','env'):
+   k,sep,v=value.partition('=')
+   if not sep: fail('Explicit option value required')
+   opts[key][k]=v
+  else: opts[key]=value
+ return opts,args[i:]
+def validate_source(src):
+ p=pathlib.Path(src).resolve(strict=True)
+ roots=[pathlib.Path(x).resolve() for x in load('allowed-workspaces.json')]
+ if not any(p==r or r in p.parents for r in roots): fail('Bind source is outside explicitly configured checkout roots: '+str(p))
+ return p
+
+def launch(opts,ref,cmd):
+ rec=image(ref)
+ checks={'platform':'linux/amd64','network':'none','capdrop':'ALL','security':'no-new-privileges','pids':'512','user':f'{os.getuid()}:{os.getgid()}'}
+ for key,expected in checks.items():
+  if key in opts and opts[key]!=expected: fail('Unsupported '+key+'; required '+expected)
+ if not cmd: cmd=rec['Config'].get('Cmd') or ['/bin/bash']
+ if opts.get('entrypoint'): cmd=[opts['entrypoint']]+cmd
+ # unshare creates an empty network namespace. bwrap does not configure lo,
+ # avoiding a NETLINK_ROUTE call denied by the enclosing sandbox. No network
+ # namespace is shared with the host; the independent namespace is mandatory.
+ args=['/usr/bin/unshare','--user','--map-current-user','--net','/usr/bin/bwrap',
+       '--unshare-user','--unshare-pid','--unshare-ipc','--unshare-uts','--unshare-cgroup',
+       '--die-with-parent','--new-session','--cap-drop','ALL','--disable-userns',
+       '--ro-bind',str(HOME/'rootfs'),'/', '--proc','/proc','--dev','/dev',
+       '--clearenv','--setenv','HOME','/tmp','--setenv','PATH','/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin']
+ for item in rec['Config'].get('Env',[]):
+  k,_,v=item.partition('='); args+=['--setenv',k,v]
+ for k,v in opts['env'].items(): args+=['--setenv',k,v]
+ seen_tmp=set()
+ for item in opts['tmpfs']:
+  dest,_,values=item.partition(':')
+  if dest not in ('/tmp','/workspace'): fail('Unsupported tmpfs target')
+  sizes={'/tmp':1073741824,'/workspace':268435456}
+  expected={'/tmp':'1g','/workspace':'256m'}
+  params=dict(p.split('=',1) if '=' in p else (p,'') for p in values.split(','))
+  if params.get('size',expected[dest])!=expected[dest]: fail('Unsupported tmpfs size')
+  if any(k not in ('rw','nosuid','nodev','size','mode') for k in params): fail('Unsupported tmpfs option')
+  args+=['--size',str(sizes[dest]),'--perms','1777','--tmpfs',dest]; seen_tmp.add(dest)
+ if '/tmp' not in seen_tmp: args+=['--size','1073741824','--perms','1777','--tmpfs','/tmp']
+ for item in opts['mounts']:
+  params=dict(p.split('=',1) if '=' in p else (p,'') for p in item.split(','))
+  if params.get('type')!='bind' or set(params)-{'type','source','target','readonly'}: fail('Unsupported bind mount')
+  src=validate_source(params['source']); dest=params['target']
+  if not (dest.startswith('/workspace/') or dest=='/tmp/ido-smoke.c') or '..' in pathlib.PurePosixPath(dest).parts: fail('Unsupported bind target '+dest)
+  args+=['--ro-bind' if 'readonly' in params else '--bind',str(src),dest]
+ if rec['armips']: args+=['--ro-bind',str(HOME/'armips/install'),'/opt/armips']
+ wd=opts.get('workdir','/workspace')
+ if wd!='/workspace' and not wd.startswith('/workspace/'): fail('Unsupported working directory')
+ args+=['--chdir',wd,'--']+cmd
+ # The outer sandbox denies cgroup writes. RLIMIT_NPROC retains a process cap
+ # (per real host UID, stricter than an independent 512-process cgroup).
+ soft,hard=resource.getrlimit(resource.RLIMIT_NPROC)
+ limit=min(512,hard) if hard!=resource.RLIM_INFINITY else 512
+ resource.setrlimit(resource.RLIMIT_NPROC,(limit,limit))
+ os.execv(args[0],args)
+
+def main(args):
+ if not args: fail('This is the Conker-only bwrap adapter, not Docker')
+ action=args.pop(0)
+ if action in ('info','version'):
+  base_record()
+  print('Conker bwrap adapter 1 (no Docker daemon)'); return
+ if action in ('image','container'):
+  if not args or args.pop(0)!='inspect': fail('Only inspect is supported')
+  fmt=None
+  if args[0]=='--format': fmt=args[1]; args=args[2:]
+  if len(args)!=1: fail('Expected one inspect target')
+  data=image(args[0]) if action=='image' else load(container_path(args[0]))
+  inspect(data,fmt); return
+ if action=='pull':
+  if args==['--platform','linux/amd64',BASE] or args==[BASE]:
+   subprocess.run([sys.executable,str(HOME/'pull_oci.py')],check=True); return
+  fail('Only the reviewed digest-pinned image may be pulled')
+ if action=='build':
+  opts={}; buildargs={}; i=0
+  while i<len(args)-1:
+   if args[i] not in ('--platform','--tag','--build-arg','-f','--file'): fail('Unsupported build option')
+   key,value=args[i:i+2]; i+=2
+   if key=='--build-arg':
+    k,_,v=value.partition('='); buildargs[k]=v
+   else: opts[key]=value
+  if opts.get('--platform')!='linux/amd64' or buildargs!={'BASE_IMAGE':BASE,'ARMIPS_REV':REV}: fail('Only the pinned RSP extension build is supported')
+  file=validate_source(opts.get('-f',opts.get('--file','')))
+  receipt=load('armips.json')
+  if sha(file)!=receipt['dockerfile_sha256']: fail('RSP Dockerfile changed; explicit adapter update required')
+  image_id=base_record()['config_digest']
+  key=hashlib.sha256(file.read_bytes()+image_id.encode()+REV.encode()).hexdigest()[:16]
+  tag='conkers-bfd-rsp:'+key
+  if opts.get('--tag')!=tag: fail('Unexpected RSP tag')
+  if sha(HOME/'armips/install/armips')!=receipt['sha256']: fail('armips binary integrity failed')
+  rec=image(BASE); rec['Id']='sha256:'+hashlib.sha256((image_id+receipt['sha256']+REV+receipt['dockerfile_sha256']).encode()).hexdigest(); rec['armips']=True
+  try: images=load('images.json')
+  except FileNotFoundError: images={}
+  images[tag]=rec; save('images.json',images)
+  print('Registered verified pinned armips extension:',tag); return
+ if action=='run':
+  opts,rest=parse_options(args)
+  if not rest: fail('Missing image')
+  ref,*cmd=rest; rec=image(ref)
+  if opts.get('detach'):
+   if cmd!=['sleep','infinity']: fail('Only inert Conker warm recipes may be detached')
+   name=opts.get('name',''); container_path(name)
+   # Validate all sources before accepting the recipe. Real isolation is
+   # established afresh on every exec and failure is never ignored.
+   for m in opts['mounts']:
+    d=dict(p.split('=',1) if '=' in p else (p,'') for p in m.split(',')); validate_source(d['source'])
+   save(container_path(name),{'Image':rec['Id'],'Ref':ref,'Config':{'Labels':opts['labels']},'State':{'Running':True},'opts':opts})
+   print(name); return
+  launch(opts,ref,cmd)
+ if action=='exec':
+  extra,rest=parse_options(args,True)
+  if not rest: fail('Missing container')
+  name,*cmd=rest; rec=load(container_path(name)); opts=rec['opts']
+  for key in ('workdir','interactive','tty'):
+   if key in extra: opts[key]=extra[key]
+  opts['env'].update(extra['env'])
+  launch(opts,rec['Ref'],cmd)
+ if action=='cp':
+  if len(args)!=2: fail('Expected cp source and destination')
+  name,sep,src=args[0].partition(':'); load(container_path(name))
+  if not sep or src!='/opt/tools/mips_to_c/.': fail('Only pinned mips_to_c cache copy is supported')
+  dest=validate_source(args[1]); shutil.copytree(HOME/'rootfs/opt/tools/mips_to_c',dest,dirs_exist_ok=True,symlinks=True); return
+ if action=='rm':
+  if len(args)!=2 or args[0]!='--force': fail('Expected rm --force NAME')
+  (STATE/container_path(args[1])).unlink(); print(args[1]); return
+ if action=='start':
+  if len(args)!=1: fail('Expected start NAME')
+  load(container_path(args[0])); print(args[0]); return
+ fail('Unsupported Docker command '+action)
+if __name__=='__main__':
+ try: main(sys.argv[1:])
+ except (RuntimeError,FileNotFoundError,KeyError,ValueError,subprocess.CalledProcessError) as e:
+  print('conker-bwrap-adapter:',e,file=sys.stderr); sys.exit(1)

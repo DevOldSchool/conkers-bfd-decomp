@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_151B0050
- * - func_151B01B8
  * - func_151B03B8
  * - func_151B09BC
  * - func_151B0B88
@@ -53,8 +52,188 @@ s32 func_151B0050(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s3
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B0050 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0050.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B01B8.s")
+typedef struct Game1DD500Impact {
+    s16 field00;
+    s16 field02;
+    s16 field04;
+    s16 field06;
+    f32 position[3];
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    s16 field2C;
+    s16 field2E;
+    s16 field30;
+    s16 field32;
+    s16 field34;
+    s16 field36;
+    s16 field38;
+    s16 field3A;
+    s8 field3C;
+    f32 field40;
+    s16 field44;
+    s16 field46;
+    s32 field48;
+} Game1DD500Impact;
+typedef struct Game1DD500Hit { f32 height; u8 geometry[0x20]; } Game1DD500Hit;
+void func_1504715C(void *, void *);
+s32 func_15134070(void *);
+void func_15143134(f32 *, f32 *, s32);
+void func_15153F18(s16 *, void *, s32, s32, s32);
+extern u8 D_800A3FD8[];
+extern f32 D_800AA120;
+extern f32 D_800AA2A0;
+extern f32 D_800AA2A4;
+extern f32 D_800AA2A8;
+extern f32 D_800AA2AC;
+extern f32 D_800AA2B0;
+
+void func_151B01B8(void *arg0, void *arg1) {
+    Game1DD500Impact packet;
+    u8 shade;
+    Game1DD500Hit hit;
+    s32 kind;
+
+    if ((arg0 != 0) && (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) && ((*(u8 *)((u8 *)arg0 + 0x74) & 0xF) != 0xF)) {
+        func_1504715C(&hit, arg0);
+        kind = arg1 != 0 ?
+            ((*(u8 *)((u8 *)arg1 + 4) == 0x53 || *(u8 *)((u8 *)arg1 + 4) == 0xA5) ?
+                4 : func_15134070(arg1)) : 4;
+        if (kind != 0x63) {
+            if (D_800A3FD8[kind * 0x10 + 0xE] != 2) {
+                shade = ((s32) *(u16 *)((u8 *)arg0 + 0x7A) >> 8) + 0x40;
+                func_15143134(&D_800AA120, &packet.position[0], *(s32 *)((u8 *)arg0 + 0x1D4) + 0x180);
+                packet.field2C = 0xA;
+                packet.field2E = 0x14;
+                packet.field00 = shade - 0x68;
+                packet.field14 = D_800AA2A0;
+                packet.field02 = 0xD0;
+                packet.field04 = -0x1B;
+                packet.field06 = 0x36;
+                packet.field30 = 3;
+                packet.field32 = 2;
+                packet.field34 = 0x1E;
+                packet.field36 = 0x28;
+                packet.field38 = 0x9B;
+                packet.field3A = 0x64;
+                packet.field18 = D_800AA2A4;
+                packet.field1C = D_800AA2A8;
+                packet.field20 = D_800AA2AC;
+                packet.field24 = 6.0f;
+                packet.field28 = D_800AA2B0;
+                packet.field40 = 0.5f;
+                if (D_800A3FD8[kind * 0x10 + 0xE] == 1) {
+                    packet.field3C = 1;
+                } else {
+                    packet.field3C = 0;
+                }
+                packet.field44 = 0x10;
+                packet.field46 = 0xF;
+                packet.field48 = 0;
+                func_15153F18(&packet.field00, &packet.position[0], (s32) &hit, 0xFF, 1);
+            }
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B03B8.s")
+void *func_10022EC0(void *, const void *, u32);
+/* The independent wrapper preserves the allocator result in v0. */
+void *func_151491F4(s16, s8, s8, u8, u8, s32, u8, s32);
+void func_151494E0(s32, u8);
+s32 func_15134070(void *);
+extern u8 D_800A3FE6[];
+
+typedef struct Game1DD500Owner {
+    u8 pad0[0x3B];
+    u8 id;
+} Game1DD500Owner;
+
+typedef struct Game1DD500Node {
+    s32 object;
+    s32 state;
+    s32 value;
+} Game1DD500Node;
+
+typedef struct Game1DD500Packet {
+    Game1DD500Owner *owner;
+    u8 id;
+    s32 count;
+    Game1DD500Node nodes[11];
+    f32 time;
+    u8 kind;
+} Game1DD500Packet;
+
+typedef struct Game1DD500Marker {
+    Game1DD500Owner *owner;
+    u8 id;
+} Game1DD500Marker;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B09BC CURRENT (1476) */
+void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4) {
+    void *saved;
+    Game1DD500Packet packet;
+    Game1DD500Marker marker;
+    s32 classification;
+    u8 kind;
+    u8 timed;
+    s16 lifetime;
+    s32 index;
+    void *result;
+
+    if (arg0 == 0) {
+        return 0;
+    }
+    classification = 4;
+    if (arg1 != 0) {
+        if ((arg1[4] == 0x53) || (arg1[4] == 0xA5)) {
+            classification = 4;
+        } else {
+            classification = func_15134070(arg1);
+        }
+    }
+    if (classification == 0x63) {
+        return 0;
+    }
+    kind = D_800A3FE6[classification * 0x10];
+    if (kind == 2) {
+        return 0;
+    }
+    if (kind == 1) {
+        packet.kind = 1;
+    } else {
+        packet.kind = 0;
+    }
+    marker.owner = arg0;
+    marker.id = arg0->id;
+    func_151494E0((s32)&marker, 0x13);
+    timed = 0;
+    if (arg2 == -1) {
+        lifetime = 0x12C;
+    } else {
+        lifetime = arg2;
+        timed = 1;
+    }
+    packet.owner = arg0;
+    packet.id = arg0->id;
+    packet.count = 0;
+    packet.time = 0.0f;
+    for (index = 0; index < 11; index++) {
+        packet.nodes[index].object = 0;
+        packet.nodes[index].state = 0;
+        packet.nodes[index].value = 0;
+    }
+    result = func_151491F4(lifetime, -1, 0x13, timed, 0xF, 0x98, arg3, arg4);
+    if (result != 0) {
+        saved = result;
+        func_10022EC0((u8 *)result + 0x28, &packet, 0x98);
+        result = saved;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B09BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B09BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0B88.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B118C.s")

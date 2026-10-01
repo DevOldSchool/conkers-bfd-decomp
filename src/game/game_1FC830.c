@@ -270,7 +270,53 @@ s32 func_151D10E4(s32 arg0, s32 arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D10E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D10E4.s")
+s32 func_1510F8CC(s32);
+f32 func_15143E64(void *);
+void func_151D13E0();
+void func_151D1448(u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D1138 CURRENT (1022) */
+void func_151D1138(void *volatile arg0) {
+    void *actor;
+    u8 failed;
+    Game1FC830ParticlePacket *packet;
+    s32 mode;
+    f32 distance;
+
+    packet = (Game1FC830ParticlePacket *)((u8 *)arg0 + 0x28);
+    actor = packet->object;
+    failed = 0;
+    if (*(s32 *)actor == 0 || packet->object_type != *((u8 *)actor + 0x3B)) {
+        *(s16 *)((u8 *)arg0 + 0xE) = -1;
+        return;
+    }
+    packet->position = packet->callback_position;
+    if (D_8008FC30[packet->type](actor, &packet->callback_position) == 0) {
+        failed = 1;
+        packet->callback_position = packet->position;
+    }
+    *(f32 *)&packet->default_position.x = *(f32 *)&packet->callback_position.x - *(f32 *)&packet->position.x;
+    *(f32 *)&packet->default_position.y = *(f32 *)&packet->callback_position.y - *(f32 *)&packet->position.y;
+    *(f32 *)&packet->default_position.z = *(f32 *)&packet->callback_position.z - *(f32 *)&packet->position.z;
+    packet->field_30 = func_15143E64(&packet->default_position);
+    mode = func_1510F8CC(*(s32 *)((u8 *)actor + 0x184));
+    distance = packet->field_30;
+    if (distance > 300.0f || distance <= 0.0f ||
+        *(f32 *)((u8 *)actor + 0x28) != 0.0f || *((u8 *)actor + 0xAD) != 0 ||
+        mode == 5 || mode == 6 || mode == 9 || mode == 13 || mode == 14) {
+        failed = 1;
+    }
+    if (failed != 0) {
+        func_151D13E0(arg0);
+        return;
+    }
+    if (packet->field_08 == 0) {
+        func_151D1448(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D1138 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1FC830/func_151D1138.s")
+
 void func_151D1328(s32 arg0, s32 arg1, u8 arg2) {
     func_15169850(arg1, (s32) arg2, arg0 + 0x28, arg0 + 0x2C, arg0);
 }

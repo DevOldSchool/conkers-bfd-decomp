@@ -8,7 +8,6 @@
  * - func_15149550
  * - func_15149838
  * - func_15149A94
- * - func_15149D18
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -112,44 +111,48 @@ void func_151D5D60(void *, s16, s32, void **, u8 *);
 extern f32 D_800DD1D8[];
 extern f32 D_800DD1E8[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15149D18 CURRENT (208) */
-void *func_15149D18(void *arg0, s16 arg1) {
-    void *segment;
-    void *result;
-    u8 copy;
-    u8 *object = arg0;
-    f32 offset_x;
-    f32 offset_z;
+typedef struct Game176A00QuadVertex {
+    s16 x, y, z, flag;
+    u8 other[8];
+} Game176A00QuadVertex;
 
-    func_151D5D60(object + 0x100, arg1, 0x40, &segment, &copy);
-    result = segment;
-    if (segment != 0) {
-        if (copy != 0) {
-            func_10022EC0(*(u8 **)(object + 0x100 + (arg1 * 4)), object + 0xC0, 0x40);
-            func_10022EC0(*(u8 **)(object + 0x100 + (arg1 * 4)) + 0x40, object + 0xC0, 0x40);
+typedef struct Game176A00QuadOwner {
+    u8 pad0[0x2C];
+    f32 scale;
+    f32 height;
+    f32 x, y, z;
+    u8 pad40[0x80];
+    u8 templateData[0x40];
+    u8 *buffers[1];
+} Game176A00QuadOwner;
+
+void *func_15149D18(Game176A00QuadOwner *arg0, s16 arg1) {
+    Game176A00QuadVertex *vertices;
+    void *result;
+    f32 offsetZ;
+    f32 offsetX;
+    u8 fresh;
+
+    func_151D5D60(arg0->buffers, arg1, 0x40, (void **)&vertices, &fresh);
+    result = vertices;
+    if (vertices != 0) {
+        if (fresh != 0) {
+            func_10022EC0(arg0->buffers[arg1], arg0->templateData, 0x40);
+            func_10022EC0(arg0->buffers[arg1] + 0x40, arg0->templateData, 0x40);
         }
     } else {
         return 0;
     }
-
-    offset_z = D_800DD1D8[arg1] * *(f32 *)(object + 0x2C);
-    offset_x = D_800DD1E8[arg1] * *(f32 *)(object + 0x2C);
-    *(s16 *)segment = *(s16 *)((u8 *)segment + 0x30) =
-        (s32)(*(f32 *)(object + 0x34) + offset_x);
-    *(s16 *)((u8 *)segment + 2) = *(s16 *)((u8 *)segment + 0x12) =
-        (s32)*(f32 *)(object + 0x38);
-    *(s16 *)((u8 *)segment + 4) = *(s16 *)((u8 *)segment + 0x34) =
-        (s32)(*(f32 *)(object + 0x3C) - offset_z);
-    *(s16 *)((u8 *)segment + 0x10) = *(s16 *)((u8 *)segment + 0x20) =
-        (s32)(*(f32 *)(object + 0x34) - offset_x);
-    *(s16 *)((u8 *)segment + 0x22) = *(s16 *)((u8 *)segment + 0x32) =
-        (s32)(*(f32 *)(object + 0x30) + *(f32 *)(object + 0x38));
-    *(s16 *)((u8 *)segment + 0x14) = *(s16 *)((u8 *)segment + 0x24) =
-        (s32)(*(f32 *)(object + 0x3C) + offset_z);
+    offsetZ = D_800DD1D8[arg1] * arg0->scale;
+    offsetX = D_800DD1E8[arg1] * arg0->scale;
+    vertices[0].x = vertices[3].x = (s32)(arg0->x + offsetX);
+    vertices[0].y = vertices[1].y = (s32)arg0->y;
+    vertices[0].z = vertices[3].z = (s32)(arg0->z - offsetZ);
+    vertices[1].x = vertices[2].x = (s32)(arg0->x - offsetX);
+    vertices[2].y = vertices[3].y = (s32)(arg0->y + arg0->height);
+    vertices[1].z = vertices[2].z = (s32)(arg0->z + offsetZ);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15149D18 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149D18.s")
 typedef struct {
     s32 values[3];
 } Game176A00Position;

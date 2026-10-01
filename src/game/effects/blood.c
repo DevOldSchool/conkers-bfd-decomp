@@ -1043,7 +1043,81 @@ void func_15138BC0(Blood1380B4State *arg0, u8 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138BC0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138C80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138E98.s")
+typedef struct Blood39578Particle {
+    u8 pad0;
+    u8 color;
+    u8 pad2[0xA];
+    u8 kind;
+    u8 padD[3];
+    f32 height;
+    f32 bounce;
+    f32 size0;
+    f32 size1;
+    u8 pad20[0x10];
+    f32 mode;
+    u8 pad34[4];
+    BloodVec3 position;
+    BloodVec3 velocity;
+    BloodVec3 rotation;
+    f32 acceleration;
+    s32 flags;
+} Blood39578Particle;
+
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A48F8;
+extern f32 D_800A48FC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15139578 CURRENT (1477) */
+s32 func_15139578(Blood39578Particle *arg0, s32 arg1, s32 arg2,
+                   s32 arg3, f32 arg4, s32 arg5) {
+    BloodVec3 position;
+    u32 random;
+    f32 randomScale;
+    s32 mode;
+    f32 horizontal;
+    f32 vertical;
+    f32 bounce;
+
+    bounce = arg0->bounce;
+    horizontal = arg0->velocity.x * bounce;
+    arg0->velocity.y *= -bounce;
+    arg0->position.y = arg0->height + arg4;
+    vertical = fabsf(arg0->velocity.y);
+    arg0->velocity.x = horizontal;
+    arg0->velocity.z *= bounce;
+    arg0->rotation.x *= bounce;
+    arg0->rotation.y *= bounce;
+    arg0->rotation.z *= bounce;
+    if (vertical < 4.0f) {
+        arg0->velocity.x = 0.0f;
+        arg0->flags &= ~0x69;
+        arg0->velocity.y = 0.0f;
+        arg0->velocity.z = 0.0f;
+        arg0->rotation.x = 0.0f;
+        arg0->rotation.y = 0.0f;
+        arg0->rotation.z = 0.0f;
+        arg0->acceleration = 0.0f;
+    }
+    if (arg0->mode != 2.0f) {
+        position.y = arg4;
+        position.x = arg0->position.x;
+        position.z = arg0->position.z;
+        if (arg0->mode != 0.0f) mode = 1; else mode = 0;
+        randomScale = func_150ADA68();
+        random = func_150ADA20();
+        func_151D9B8C((u8)mode,
+            ((randomScale * D_800A48F8) + D_800A48FC) *
+                ((arg0->size0 + arg0->size1) * 0.5f),
+            ((random % 101U) + 100) & 0xFF, arg5, &position.x,
+            (func_150ADA20() % 144U) + 80, 1, 1, 0, arg0->kind, arg0->color);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15139578 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139578.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139768.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15139D74.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513A24C.s")
@@ -1080,14 +1154,10 @@ extern f32 D_800A4954;
 extern f32 D_800A4958;
 extern f32 D_800A495C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A48C CURRENT (692) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513A48C CURRENT (610) */
 void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
     BloodA48CConfig config;
-    register f32 repeated;
-    register f32 zero_value;
 
-    repeated = D_800A4950;
-    zero_value = 0.0f;
     config.field_0 = 8;
     config.field_4 = 4;
     config.position = *arg0;
@@ -1097,14 +1167,14 @@ void func_1513A48C(BloodA48CPosition *arg0, u8 arg1, s32 arg2) {
     config.field_1A = 0x20;
     config.field_2C = 0x28;
     config.field_2E = 0x14;
-    config.field_30 = repeated;
-    config.field_34 = repeated;
+    config.field_30 = D_800A4950;
+    config.field_34 = D_800A4950;
     config.field_1C = 10.0f;
     config.field_20 = 9.0f;
     config.field_24 = D_800A4954;
     config.field_28 = D_800A4958;
     config.field_38 = D_800A495C;
-    func_15152190(&config, D_800A4260, D_800A4264, 1, zero_value, 1,
+    func_15152190(&config, D_800A4260, D_800A4264, 1, 0.0f, 1,
                   (s32)arg1, arg2);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513A48C */

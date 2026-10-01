@@ -12,6 +12,9 @@ matches the work you intend to do.
   verification requirements for accepted changes.
 - [Clean-room bootstrap](bootstrap.md) documents ROM validation, the raw
   byte-identical baseline, and the active and future regional profiles.
+- [Cloud matching and reset recovery](cloud-matching.md) gives dot and other
+  contributors a reproducible cloud setup, isolated parallel workflow, and
+  verified checkpoint/push procedure.
 - [Continuous integration](ci.md) explains public checks and protected
   full-ROM verification.
 

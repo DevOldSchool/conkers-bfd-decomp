@@ -81,7 +81,53 @@ void func_150FAA40(u8 arg0, s32 arg1) {
         }
     }
 }
+typedef struct Game127060Emission {
+    s32 first;
+    s32 second;
+    f32 count;
+} Game127060Emission;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_1514470C(s32, void *);
+void func_150F4570(f32 *, f32 *, u8, f32, f32, f32, s32, s32, s32, s32);
+extern u8 D_80088B2C;
+extern u8 *D_80088B30;
+extern f32 *D_80088B34;
+extern f32 D_800A1DB8;
+extern f32 D_800A1DBC;
+extern f32 D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FAAEC CURRENT (2754) */
+void func_150FAAEC(u8 *arg0) {
+    f32 first[3];
+    f32 second[3];
+    f32 duration;
+    f32 random;
+    f32 range;
+    s32 index;
+    Game127060Emission *emission;
+
+    emission = (Game127060Emission *)(arg0 + 0x28);
+    emission->count += (D_800A1DB8 + func_150ADA68() * D_800A1DBC) * D_800BE9A4;
+    if (emission->count > 1.0f) {
+        range = 1.0f;
+        do {
+            func_1514470C(emission->first, first);
+            func_1514470C(emission->second, second);
+            index = (func_150ADA20() % D_80088B2C) & 0xFF;
+            duration = func_150ADA68() * 25.0f + 30.0f;
+            random = func_150ADA68();
+            func_150F4570(first, second, D_80088B30[index * 2 + 1], duration,
+                1.0f / duration, (random * range + range) * D_80088B34[index],
+                1, func_150ADA20() % 3U + 750, arg0[0xC], arg0[1]);
+            emission->count -= 1.0f;
+        } while (emission->count > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FAAEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FAAEC.s")
+
 extern void func_1516972C(s32 arg0);
 
 void func_150FACE4(s32 arg0, s32 arg1, u8 arg2) {

@@ -42,6 +42,19 @@ declarations, generated assembly, bounded raw US call sites, and an m2c starter.
 Treat its `allowed-edit`, `target-file-dirty`, `source-unit-state`, and
 `post-match-action` fields as authoritative.
 
+For parallel workers in isolated worktrees, omit sources owned by another worker:
+
+```sh
+./conker next --ready --exclude-source src/game/first.c --exclude-source src/game/second.c
+```
+
+Each exclusion matches only the exact repository-relative inventory source path,
+not a directory, prefix, or glob. It also works with `next --one`, including
+`--details`. Selection still validates the project, skips ineligible and unchanged
+failed attempts, and emits the same readiness context. If no eligible source
+remains, selection fails before toolchain preparation. Exclusions do not claim or
+lock files; coordinate source ownership and keep one integrator.
+
 `./conker next` lists the broader queue in ascending US byte size. Use
 `./conker next --one --details` only when bounded read-only context is wanted
 without prewarming and generating the starter. When the output says

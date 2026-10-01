@@ -493,7 +493,7 @@ class SegmentMapTests(unittest.TestCase):
         ranges = {a: (b, kind, name) for (a, kind, name), (b, _, _) in zip(entries, entries[1:])}
         self.assertEqual((0x1F8870, "lib", "libultrare, main, .text"), ranges[0x1F7F60])
         self.assertEqual((0x1F7F60, "lib", "libultrare, decoder, .text"), ranges[0x1F3DE0])
-        self.assertEqual((0x4A5E0, "c", "game/game_778B0"), ranges[0x4A400])
+        self.assertEqual((0x4A5E0, "c", "game/done/game_778B0"), ranges[0x4A400])
         self.assertEqual((0x1F9BF0, "lib", "libultrare, lib_46650, .text"), ranges[0x1F8CF0])
         from scripts.prepare_game_reference import raw_reference_map
         profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))

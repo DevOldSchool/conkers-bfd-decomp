@@ -77,6 +77,86 @@ void func_15017868(void) {
     func_1509BA04(0);
     func_1509B4A0(*(s16 *) ((u8 *) &D_800BE9F0 + 2), 1);
 }
+typedef struct Game44C40Entry {
+    u8 pad0[0x15];
+    u8 type;
+    u8 pad16;
+    u8 mode;
+    u8 pad18[8];
+    s32 state;
+    u8 pad24[0x10];
+} Game44C40Entry;
+
+void *func_10003C40(s32, s32, s32, s32);
+void func_15017B20(s32, u32);
+u32 func_1502B7F0(s32 *, s32, ...);
+extern u32 D_800D3094;
+extern s32 D_800D3098;
+extern u8 D_800D30D0[];
+extern u8 D_800D30F0[];
+extern s32 *D_800D3270;
+extern s32 D_800D3274;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15017930 CURRENT (2145) */
+void func_15017930(s32 arg0) {
+    s32 *allocated;
+    s32 *out;
+    s32 type;
+    s32 offset;
+    s32 nextOffset;
+    u32 index;
+    u32 nextIndex;
+    u8 mode;
+    u8 nextMode;
+    Game44C40Entry *entry;
+    Game44C40Entry *next;
+
+    D_800D3094 = func_1502B7F0(&D_800D3098, 3, 12, arg0, 5);
+    D_800D3094 /= 52U;
+    func_15017B20(D_800D3098, D_800D3094);
+    D_800D3274 = 0;
+    D_800D3270 = 0;
+    index = 0;
+    if (D_800D3094 != 0) {
+        offset = 0;
+        do {
+            index++;
+            entry = (Game44C40Entry *)(D_800D3098 + offset);
+            type = (s32)entry->type >> 2;
+            if (type == 1 && ((mode = entry->mode) == 2 || mode == 0 || mode == 6)) {
+                D_800D3274++;
+                type = (s32)entry->type >> 2;
+            }
+            if (type == 2 || type == 7) entry->state = 0;
+            offset += sizeof(Game44C40Entry);
+        } while (index < D_800D3094);
+    }
+    if (D_800D3274 != 0) {
+        allocated = func_10003C40(D_800D3274 * 4, 1, 0, 0);
+        D_800D3270 = allocated;
+        if (allocated != 0) {
+            out = allocated;
+            nextIndex = 0;
+            nextOffset = 0;
+            if (D_800D3094 != 0) {
+                do {
+                    nextIndex++;
+                    next = (Game44C40Entry *)(D_800D3098 + nextOffset);
+                    if (((s32)next->type >> 2) == 1 &&
+                        ((nextMode = next->mode) == 2 || nextMode == 0 || nextMode == 6)) {
+                        *out = nextOffset + D_800D3098;
+                        out++;
+                    }
+                    nextOffset += sizeof(Game44C40Entry);
+                } while (nextIndex < D_800D3094);
+            }
+        }
+    }
+    func_100226F0(D_800D30F0, 0x180);
+    func_100226F0(D_800D30D0, 0x20);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15017930 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017930.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017B20.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_44C40/func_15017FA4.s")

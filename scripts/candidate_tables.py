@@ -28,6 +28,26 @@ class Table:
     load: int
     targets: tuple[int, ...]
 
+def direct_target(word: int, address: int) -> int | None:
+    """Decode only architectural direct control transfers, not a full CFG."""
+    op, rs, rt = word >> 26, (word >> 21) & 31, (word >> 16) & 31
+    if op in (2, 3):
+        return ((address + 4) & 0xF0000000) | ((word & 0x03FFFFFF) << 2)
+    conditional = (op in (4, 5, 6, 7, 20, 21, 22, 23)
+                   or (op == 1 and rt in (0, 1, 2, 3, 16, 17, 18, 19))
+                   or (op in (16, 17, 18) and rs == 8))
+    if conditional:
+        displacement = word & 0xFFFF
+        if displacement & 0x8000:
+            displacement -= 0x10000
+        return address + 4 + displacement * 4
+    return None
+
+
+def is_transfer(word: int, address: int) -> bool:
+    return (direct_target(word, address) is not None
+            or (word >> 26 == 0 and (word & 63) in (8, 9)))
+
 
 def reference_tables(assembly: str, code: bytes, data: bytes,
                      code_vram: int, data_vram: int) -> tuple[int, list[Table]]:
@@ -46,13 +66,16 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
     rs = lambda word: (word >> 21) & 31
     rt = lambda word: (word >> 16) & 31
     rd = lambda word: (word >> 11) & 31
+    direct_edges = [direct_target(word, start + i * 4) for i, word in enumerate(words)]
     tables = []
     for index, row in enumerate(rows):
         name = re.search(r"%lo\(jtbl_([0-9A-Fa-f]{8})(?:_\w+)?\)", row[0])
         if name is None:
             continue
-        if index < 5 or index + 1 >= len(rows):
+        if index < 5 or index + 2 >= len(rows):
             raise TableEvidenceError("truncated switch dispatch")
+        if is_transfer(words[index + 2], start + (index + 2) * 4):
+            raise TableEvidenceError("control transfer in switch jump delay slot")
         shift, upper, add, load, jump = words[index - 3:index + 2]
         if not (shift >> 26 == 0 and shift & 0x7FF == 0x80 and rs(shift) == 0 and rd(shift) != 0
                 and upper >> 26 == 0x0F and rs(upper) == 0 and rt(upper) not in (0, rd(shift))
@@ -62,16 +85,18 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                 and jump == ((rt(load) << 21) | 8)):
             raise TableEvidenceError("unsupported switch dispatch shape")
         counts = []
-        # Permit up to two independent loads between the bounds check and
-        # branch, and a load/store delay slot before the index shift. This is
-        # the scheduled form in func_1501C730; no arbitrary CFG inference.
-        for guard_index in range(max(0, index - 8), index - 4):
+        # Permit up to three independent instructions before the branch and
+        # one delay slot before the shift. The boolean xori/sltiu scheduling
+        # in func_1511DD98 cannot overwrite the index or guard result. swc1
+        # names an FPR in rt, not a protected GPR. Direct-edge vetoes below
+        # reject bypasses for the new schedule, without inferring a full CFG.
+        for guard_index in range(max(0, index - 9), index - 4):
             guard = words[guard_index]
             if not (guard >> 26 == 0x0B and rs(guard) == rt(shift) and rt(guard) != 0
                     and rt(guard) != rs(guard) and 0 < (guard & 0xFFFF) <= 1024):
                 continue
             for branch_index in (index - 4, index - 5):
-                if not guard_index < branch_index <= guard_index + 3:
+                if not guard_index < branch_index <= guard_index + 4:
                     continue
                 branch = words[branch_index]
                 if not (branch >> 26 == 4 and rs(branch) == rt(guard) and rt(branch) == 0
@@ -79,9 +104,23 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
                         and start + branch_index * 4 + 4 + (branch & 0xFFFF) * 4 in addresses):
                     continue
                 independent = words[guard_index + 1:branch_index] + words[branch_index + 1:index - 3]
+                extended = (branch_index - guard_index > 3
+                            or any(word >> 26 in (0x0E, 0x0B) for word in independent))
+                # New boolean schedules require a single direct entry at the
+                # guard. Legacy forms include reviewed guard-in-delay and
+                # loop-entry shapes; do not reinterpret those with this local
+                # check. Resolving arbitrary indirect entries is not a CFG
+                # proof supplied by this recognizer.
+                if extended:
+                    guard_address = start + guard_index * 4
+                    dispatch_end = start + (index + 2) * 4  # jr delay slot
+                    if (guard_index and is_transfer(words[guard_index - 1], guard_address - 4)
+                            or any(target is not None and guard_address < target <= dispatch_end
+                                   for target in direct_edges)):
+                        continue
                 protected = {rs(guard), rt(guard)}
-                if any(not (word == 0 or word >> 26 in (0x28, 0x29, 0x2B)
-                            or (word >> 26 == 0x23 and rt(word) not in protected))
+                if any(not (word == 0 or word >> 26 in (0x28, 0x29, 0x2B, 0x39)
+                            or (word >> 26 in (0x23, 0x0E, 0x0B) and rt(word) not in protected))
                        for word in independent):
                     continue
                 counts.append(guard & 0xFFFF)

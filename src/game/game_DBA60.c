@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150AE5B0
  * - func_150AE790
  * - func_150AEB9C
  * - func_150AED4C
@@ -14,7 +13,58 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE5B0.s")
+typedef struct GameDBA60Camera {
+    u8 pad00[0x2C];
+    s32 flags2C;
+    u8 pad30[0x54];
+    u32 flags84;
+    u8 pad88[0xAC];
+    s32 field134;
+    u8 pad138[0x7C];
+    s16 mode1B4;
+} GameDBA60Camera;
+s32 func_1509BE40(s32, ...);
+s32 func_15123934(void *, s32, s32, s32, s32);
+s32 func_151239CC(void *, s32);
+void func_151254F4(void *, s32);
+void func_15124B18(u8 *);
+extern u8 D_800CC335;
+extern u8 *D_800D2E4C;
+
+void func_150AE5B0(GameDBA60Camera *arg0) {
+    s32 flags;
+
+    if (!(D_800D2E4C[4] & 0x80)) {
+        if (func_1509BE40(0, 0x2000, 0xBB) != -1) {
+            if (func_15123934(arg0, arg0->flags2C, 0, arg0->field134, 8) != 0) {
+                arg0->flags84 |= 0x01000000;
+                func_151254F4(arg0, D_800CC335 - 1);
+            }
+        } else if (func_151239CC(arg0, 8) != 0) {
+            func_151254F4(arg0, 0);
+        }
+    }
+    arg0->flags84 &= ~0x4000;
+    if (!(D_800D2E4C[1] & 4)) {
+        if (func_1509BE40(1, 0x2000, 0x95, func_1509BE40(0, 0x2014, 0xB7) | 0x2000) != 0) {
+            arg0->flags84 |= 0x01000000;
+            flags = arg0->flags2C;
+            if ((flags & 1) && (func_15123934(arg0, flags, 0, arg0->field134, 0) != 0)) {
+                arg0->mode1B4 = 3;
+                arg0->flags84 &= ~4;
+                func_15124B18((u8 *)arg0);
+            }
+        } else if (func_151239CC(arg0, 0) != 0) {
+            func_15124B18((u8 *)arg0);
+            arg0->flags84 &= 0xFEFFFFFF;
+        }
+    }
+    if (func_1509BE40(1, 0x4082, 6, 0x9000) != 0) {
+        arg0->flags84 |= 0x10000;
+        return;
+    }
+    arg0->flags84 &= 0xFFFEFFFF;
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DBA60/func_150AE790.s")
 typedef struct {
     u8 field_0;
@@ -83,14 +133,14 @@ void func_150AECCC(void *arg0) {
 }
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED4C CURRENT (245) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AED4C CURRENT (60) */
 void func_150AED4C(void *arg0) {
-    s16 temp_v1;
+    s32 value;
+    s32 limit;
 
-    temp_v1 = *(s16 *)((u8 *)arg0 + 0x2A);
-    *(s16 *)((u8 *)arg0 + 0x34) = (s16) (*(s16 *)((u8 *)arg0 + 0x34) + (*(s32 *)((u8 *)arg0 + 0x14) * D_800BE9E4));
-    if (temp_v1 < *(s16 *)((u8 *)arg0 + 0x34)) {
-        *(s16 *)((u8 *)arg0 + 0x34) = temp_v1;
+    *(s16 *)((u8 *)arg0 + 0x34) += *(s32 *)((u8 *)arg0 + 0x14) * D_800BE9E4;
+    if ((limit = *(s16 *)((u8 *)arg0 + 0x2A)) < (value = *(s16 *)((u8 *)arg0 + 0x34))) {
+        *(s16 *)((u8 *)arg0 + 0x34) = limit;
         *(s8 *)((u8 *)arg0 + 0x3A) = 0x46;
     }
     *(s16 *)((u8 *)arg0 + 0x36) = *(s16 *)((u8 *)arg0 + 0x34);
