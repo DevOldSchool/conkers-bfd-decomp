@@ -2,7 +2,10 @@
 
 Current US roadmap. Model inventory and validation checked **16 September 2026**.
 This tracks what is supported and what remains to do; detailed byte and consumer
-evidence lives in the linked documents.
+evidence lives in the linked documents. For the integrated material presets,
+consumer proofs and diagnostic commands, see [model appearance extraction](model-appearance.md).
+Regenerate coverage and batch reports for current backlog counts; the dated
+inventory below is not a new verification result.
 
 The goal is reversible extraction directly from the ROM. Save states, native
 captures and external models are comparison references, not substitutes for ROM
@@ -41,7 +44,7 @@ All remaining records are available in the **Extracted review** tab. Their curre
 | Review status | Records | Next action |
 | --- | ---: | --- |
 | Material blocked | 26 | Prove missing texture bindings, layouts or render state |
-| Appearance blocked | 1 | Resolve stationary tank part visibility and colour state |
+| Appearance blocked | 1 | Resolve purple flamethrower imp (66) part visibility and colour state |
 | Reviewed fragments and variants | 594 | Identify useful standalone exports and inspect variants in scene or effect context |
 | No drawable faces | 2 | Preserve source records for completeness |
 
@@ -338,8 +341,9 @@ selection and output changes still fail the final check.
    live capture.
    Attachments 165 and 185 have no references in this event protocol.
    Keep caller-selected variants explicit instead of inventing a default.
-2. Resolve the four unpublished drawable bank-01 records. Entry `0066` has
-   white helmet/body/pack surfaces despite selecting the proven stationary
+2. Resolve the four unpublished drawable bank-01 records. Entry `0066`, the
+   purple flamethrower imp, has
+   white helmet/body/pack surfaces despite selecting the exported
    renderer descriptor; investigate part visibility and colour state. Entries
    `0154`, `0155` and `0162` have 570 textured faces using zero-alpha CI4
    palettes. The [ROM alpha audit](evidence/us_character_alpha_frontier.md)

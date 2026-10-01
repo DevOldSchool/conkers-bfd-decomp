@@ -1,0 +1,900 @@
+{
+  "context": {
+    "actor": 6,
+    "args": [
+      255,
+      2147686152,
+      1,
+      0
+    ],
+    "caller": "1502CBD0",
+    "core": "Mupen64Plus2.5.9",
+    "descriptor_part_slot": 2148287924,
+    "model_runtime_base": 2149270848,
+    "name": "Haybot fight",
+    "palette_address": "801B1F30",
+    "pixel_address": "801B1730",
+    "save_renderpointer": "8012E000",
+    "scene": 16,
+    "selected_parts": [
+      0,
+      1,
+      2,
+      3,
+      6,
+      7
+    ],
+    "slot": 7,
+    "task_hook": "10023DF0",
+    "trace_events": 54
+  },
+  "flat3823": {
+    "alpha_values": [
+      255
+    ],
+    "bytes": 2080,
+    "compressed_rom_range": [
+      "0x6f933f",
+      "0x6f9683"
+    ],
+    "compressed_sha256": "a49257af36f2b6837fed3cd40136fc213d75ca1df4a0e746731776e90f2fc3de",
+    "format": "CI4+RGBA16TLUT16",
+    "mip_levels": 1,
+    "palette": [
+      2048,
+      32,
+      "19c53e64dc5e9175ada7916bc76c9892c317509c40337bfd8917f169d0dc49ce"
+    ],
+    "pixel": [
+      0,
+      2048,
+      "770f113c009987234b175c78f706d07eff5ff9ebafcd7741ba1bafacdbff8750"
+    ],
+    "png_sha1": "814fcc0bf99858300c9d5a380b03add786eec3c7",
+    "png_sha256": "0c984d18d271a89a163e648c9b7801bd6ad8b7984df56f419390ee087c31f78d",
+    "rgba_sha256": "eb0a143d36615ad5de7a8e71e53bde722429f125215da3a5812881d0c3844e7d",
+    "sha1": "4484f089736e1ac45952ea1e9b17d03c5f97e094",
+    "sha256": "6c0857a5cd8a7cccd98e77179c69e4ed8a7e3c75b3228d8ea6810613315af04d",
+    "size": [
+      64,
+      64
+    ]
+  },
+  "flat3839_rejection": {
+    "bytes": 1888,
+    "reason": "Requested palette offset2048 exceeds1888-byte payload; captured pixel/TLUT each uniquely match3823.",
+    "sha1": "db7d3317f83738067659803775b59b20554f7cb6"
+  },
+  "geometry": {
+    "animation_bytes": 21736,
+    "animation_sha1": "83fb569f9ca8c7eeec4fe22f808ae7d656b31827",
+    "clip_frame_counts": [
+      13,
+      13,
+      19,
+      14,
+      9,
+      9,
+      48,
+      13,
+      12,
+      20,
+      19,
+      5,
+      21,
+      64,
+      12
+    ],
+    "clip_frames": 291,
+    "joints": 45,
+    "logical_routes": 20,
+    "observed_selected_faces": 868,
+    "procedural_joint_indices": [
+      20,
+      null
+    ],
+    "section_columns": [
+      "name",
+      "hex_offset",
+      "bytes",
+      "sha1"
+    ],
+    "sections": [
+      [
+        "primary_display_list_pointer_table",
+        "0x65C8",
+        44,
+        "ef533f1f184506b3cecfff7fdd0d315174647922"
+      ],
+      [
+        "joint_table",
+        "0x65F4",
+        720,
+        "cd5f5dd36656356a8cf223471ac86c5fdaadf877"
+      ],
+      [
+        "texture_descriptor_table",
+        "0x68C4",
+        312,
+        "c49b57b37157a6b794abef027f2a9e7391a767c0"
+      ],
+      [
+        "custom_movemem_auxiliary_data",
+        "0x9770",
+        3712,
+        "150467055ce8f8cbad038c6b14202f0663b3ec70"
+      ],
+      [
+        "procedural_animation_joint_index_table",
+        "0xA5F0",
+        2,
+        "39d0939fc7c6e07adf3aad1d247aae3c24273c5f"
+      ]
+    ],
+    "source_dl_sha256": "5605ff4abfa781adf68aaa2a3da5b3f4d01d69342795654f1668a080e58118ba",
+    "stored_clips": 15,
+    "target_faces": 24,
+    "target_first_face": 368,
+    "uvs": 1625,
+    "vertex_sha256": "4a14fde4bac347c759605e9e2071d97785bef8986da9391dcad48f7a74f77356",
+    "vertices": 1625,
+    "whole_faces": 1226
+  },
+  "identity": {
+    "original_proof_sha256": "a73f44df07027baa0471b041204ccfab8276ff6231f97a2b4d396108d9b3055c",
+    "plist_sha256": "2c3d6e3a551c1767504a4a95e6ba2d4bed8e51ddffad9b6e5d95a01611b537cc",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "screenshot_sha256": "2c23113e58e03a60cbb89a4536d6a520e4b4b1d8775c821344c2acd9d2561a51",
+    "source_bytes": 42488,
+    "source_sha1": "6c1e3f04cb7e1cfc56239324dcd745f41c706ed9",
+    "source_sha256": "09f6c4551ca0d12b46109a45f01703fb21ba7f10d15764aa807a4c9701936e81",
+    "state_sha256": "42163b7d85d5627b587d56f2ddbcce4e6ff2e04a0ca3c734263ceafc14aba9de",
+    "trace_sha256": "cceab5ea38d772293946612d3958d2621a3036b841d0185546e4d9fa78e3ab1e"
+  },
+  "material": {
+    "colours": {
+      "alpha": 0,
+      "environment": {
+        "command": 4211081216,
+        "rgba": [
+          0,
+          0,
+          0,
+          255
+        ]
+      },
+      "primitive": {
+        "command": 4194365952,
+        "rgba": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "combine_mode": [
+      4244609152,
+      4111793919
+    ],
+    "convert_mode": [
+      3959422976,
+      255
+    ],
+    "other_mode": [
+      4011371583,
+      80814200
+    ],
+    "segments": {
+      "0": 0,
+      "1": 2149270848,
+      "10": 2149259056,
+      "11": 2148899328,
+      "3": 2148720640,
+      "6": 2149255248,
+      "7": 2148919680,
+      "8": 2148020544
+    },
+    "tile_bounds": {
+      "0": [
+        4060094466,
+        1040638
+      ],
+      "1": [
+        4060332034,
+        17293342
+      ],
+      "2": [
+        4060213250,
+        33808398
+      ],
+      "3": [
+        4060094466,
+        50389006
+      ],
+      "4": [
+        4060094466,
+        67625086
+      ],
+      "5": [
+        4060094466,
+        84402302
+      ]
+    },
+    "tiles": [
+      {
+        "argument": 623200,
+        "command": 4110419968,
+        "index": 0,
+        "tmem_word": 4
+      },
+      {
+        "argument": 16827473,
+        "command": 4110944384,
+        "index": 1,
+        "tmem_word": 4
+      },
+      {
+        "argument": 33589314,
+        "command": 4110943392,
+        "index": 2,
+        "tmem_word": 2
+      },
+      {
+        "argument": 50892323,
+        "command": 4110942888,
+        "index": 3,
+        "tmem_word": 1
+      },
+      {
+        "argument": 67190864,
+        "command": 4110944256,
+        "index": 4,
+        "tmem_word": 4
+      },
+      {
+        "argument": 83968080,
+        "command": 4110944256,
+        "index": 5,
+        "tmem_word": 4
+      },
+      {
+        "argument": 100663296,
+        "command": 4110418176,
+        "index": 6,
+        "tmem_word": 0
+      },
+      {
+        "argument": 117440512,
+        "command": 4111466496,
+        "index": 7,
+        "tmem_word": 0
+      }
+    ]
+  },
+  "preserve": "Preserve all1226 source faces,1625 vertices/UVs,45joints,15clips/291frames/20routes,procedural[20,null],source normals and unselected parts. Do not bake capturedpose or delete unselected parts. Guard source and flat identities, run contract, texture spans, caller/part/context and submittedproof. Native framebuffer reproduction unverified.",
+  "preset": "haybot-captured-selector15",
+  "reconstruction": {
+    "capture_audit_sha256": "99e3b3f1b3eab6b7834718e7007ceff69a987147d2531e9513db7f6aac8ce382",
+    "classification": "Derived from captured renderer evidence and the authenticated US ROM.",
+    "matrix_qualification": "For each of the two submissions, all 35 segment-3 character matrices equal nearest signed 16.16 conversion of return float32 affine matrices, round(f32 * 65536), with unused fourth column canonicalized to (0,0,0,1). Maximum decoded absolute error is 7.62939453125e-06, half a 16.16 unit. Raw bytes differ by representation. Non-segment-3 address 0x800C3E98 is excluded.",
+    "output_scope": "All 1226 ROM source faces, 1625 vertices/UVs, 45 joints and 15 clips/291 frames; only run 16 receives the captured selector 15 texture. Captured pose, visibility, playback timing and native framebuffer equivalence are not reproduced.",
+    "preserved_packet_sha256": "254846215d32ece3913f2adcb8bef94909f1492fbc95b0d70e11d16f0c16615d",
+    "preserved_trace_sha256": "cceab5ea38d772293946612d3958d2621a3036b841d0185546e4d9fa78e3ab1e",
+    "rom_audit_sha256": "88a1170f438bb6246e64c23af5352b90ed78c22136027bea649bc4547e322e79",
+    "scene_identification": "Scene 16 is identified by preserved stage1 save metadata; its scene scalar was not independently redecoded.",
+    "schema": "haybot-captured-appearance-v1",
+    "submission_scope": "Two unchanged, single-occurrence captured renderer command ranges; 868 selected triangles and 24 target run 16 triangles each. No new native execution or framebuffer replay."
+  },
+  "run16": {
+    "combine_mode": [
+      4244609152,
+      4111793919
+    ],
+    "detail_tile_bounds": [],
+    "face_count": 24,
+    "first_face": 368,
+    "load_history": [
+      [
+        4418,
+        0,
+        null,
+        null,
+        120254464
+      ],
+      [
+        4418,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3834,
+        0,
+        null,
+        null,
+        121630720
+      ],
+      [
+        3834,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3833,
+        0,
+        null,
+        null,
+        121630720
+      ],
+      [
+        3833,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3836,
+        0,
+        null,
+        null,
+        119533568
+      ],
+      [
+        3836,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3820,
+        0,
+        null,
+        null,
+        120254464
+      ],
+      [
+        3820,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        null,
+        null,
+        7,
+        0,
+        119533568
+      ],
+      [
+        null,
+        null,
+        7,
+        1024,
+        104841216
+      ],
+      [
+        3839,
+        0,
+        null,
+        null,
+        120254464
+      ],
+      [
+        3839,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3820,
+        0,
+        null,
+        null,
+        120254464
+      ],
+      [
+        3820,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3818,
+        0,
+        null,
+        null,
+        121630720
+      ],
+      [
+        3818,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        1661,
+        0,
+        null,
+        null,
+        120254464
+      ],
+      [
+        1661,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3819,
+        0,
+        null,
+        null,
+        121630720
+      ],
+      [
+        3819,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3825,
+        0,
+        null,
+        null,
+        120254464
+      ],
+      [
+        3825,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3834,
+        0,
+        null,
+        null,
+        121630720
+      ],
+      [
+        3834,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3833,
+        0,
+        null,
+        null,
+        121630720
+      ],
+      [
+        3833,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        3829,
+        0,
+        null,
+        null,
+        120188928
+      ],
+      [
+        3829,
+        1,
+        null,
+        null,
+        104841216
+      ],
+      [
+        null,
+        null,
+        10,
+        0,
+        121630720
+      ],
+      [
+        null,
+        null,
+        10,
+        2048,
+        100909056
+      ]
+    ],
+    "load_history_columns": [
+      "flat",
+      "mode",
+      "segment",
+      "offset",
+      "loadSecond"
+    ],
+    "load_history_shared": {
+      "external": false,
+      "image_command": 4245684224,
+      "order": "alternating pixels,palette",
+      "palette_load_first": 4026531840,
+      "palette_tile": [
+        4110418176,
+        100663296
+      ],
+      "pixel_load_first": 4076863488,
+      "pixel_tile": [
+        4111466496,
+        117440512
+      ]
+    },
+    "matrix_index": 4,
+    "other_mode": null,
+    "other_mode_partial": null,
+    "palette": {
+      "external": false,
+      "flat_index": null,
+      "image_command": 4245684224,
+      "load_command": [
+        4026531840,
+        100909056
+      ],
+      "mode": null,
+      "offset": 2048,
+      "segment": 10
+    },
+    "pixel": {
+      "external": false,
+      "flat_index": null,
+      "image_command": 4245684224,
+      "load_command": [
+        4076863488,
+        121630720
+      ],
+      "mode": null,
+      "offset": 0,
+      "segment": 10
+    },
+    "preview_coordinate_state": null,
+    "render_tile": [
+      4110419968,
+      623200
+    ],
+    "render_tiles": [
+      [
+        0,
+        4110419968,
+        623200
+      ],
+      [
+        1,
+        4110944384,
+        16827473
+      ],
+      [
+        2,
+        4110943392,
+        33589314
+      ],
+      [
+        3,
+        4110942888,
+        50892323
+      ],
+      [
+        6,
+        4110418176,
+        100663296
+      ],
+      [
+        7,
+        4111466496,
+        117440512
+      ]
+    ],
+    "runtime_render_state_offset": 64,
+    "texture_coordinates_proven": true,
+    "texture_dimensions": null,
+    "texture_enabled": true,
+    "texture_scale": [
+      3607101442,
+      4294967295
+    ],
+    "tile_bounds": [
+      4060094466,
+      1040638
+    ]
+  },
+  "scope": "Captured scene16 model75 run16, caller1502CBD0 opacity255 mode1 secondary0; selected primary parts0,1,2,3,6,7. Fixed captured appearance only; mechanism investigation separate. No universal3839->3823 rewrite.",
+  "selector_evidence": {
+    "actor_field": "0x68",
+    "captured_phase": 5,
+    "captured_selector": 15,
+    "scope": "Fixed preserved selector 15/phase 5 only; no phase cycle or playback timeline is inferred here.",
+    "updater_range": [
+      "15061FA8",
+      "1506208C"
+    ],
+    "updater_sha1": "25d117471183b27fc8cda611ef624343a0d1f559"
+  },
+  "source_run_sha256": "48730d68b4aa72d6e74caf7ca428e3e5b658601561caa87ef84977ae892fa4fc",
+  "source_triangle_offsets": [
+    30312,
+    30320,
+    30328,
+    30336,
+    30344,
+    30352
+  ],
+  "tasks": [
+    {
+      "events": [
+        15,
+        22,
+        26
+      ],
+      "fog": [
+        23528,
+        4160749568,
+        255,
+        [
+          2148584376
+        ]
+      ],
+      "fog_columns": [
+        "effective_byte_offset",
+        "command",
+        "value",
+        "origin"
+      ],
+      "parts": [
+        [
+          16,
+          0,
+          2149297984,
+          4376,
+          "ab36709d740e4359c20b169b1f7dec349723d302177734a1f4f416421432266a"
+        ],
+        [
+          17,
+          1,
+          2149302360,
+          416,
+          "db66f9e3daa41271993596de67d7c6634e48af9027b760c592733ae39ebbd536"
+        ],
+        [
+          18,
+          2,
+          2149302776,
+          672,
+          "faad2a5112d3af9ec837b4fc491bdcb5802a36d1945b9499f2931a9a04139a56"
+        ],
+        [
+          19,
+          3,
+          2149303448,
+          672,
+          "362ec489859b27ef6d940d2f34c78aeddaec8c2b81bf11d4f79af59377905aca"
+        ],
+        [
+          20,
+          6,
+          2149305640,
+          864,
+          "80319291541ea9c8ee1c097bc4d477199b5899c138f023b681ea542124f310d2"
+        ],
+        [
+          21,
+          7,
+          2149306504,
+          864,
+          "0b2ce2aff1632291efd61ee23eec9821485699e773f48dfd78cd0abd458153a0"
+        ]
+      ],
+      "parts_columns": [
+        "event",
+        "part",
+        "pointer",
+        "bytes",
+        "sha256"
+      ],
+      "state_hashes": [
+        "226e36144ee1fb04e8ba683ccd2e0e31249dc8edffc8eaa101ea80b1f4a843fe",
+        "aab67a5315ae88dbaf344e3112e7683e0d1ed44e1c1c7f02578116ed8364e52e",
+        "9d24282bc04b1c692c2061d34121c7dca4321dc2a846ed54dbceda6648fbfe21"
+      ],
+      "submission": {
+        "command_buffer_end": 2148584496,
+        "command_buffer_start": 2148584224,
+        "command_sha256": "8aa0bb64be9caeba029e48b453a9505c249113b694621cfac15ed60d87cd8486",
+        "event_index": 26,
+        "matrices_changed_after_return": [],
+        "status": "captured-range-executed-once-in-next-graphics-task",
+        "triangle_count": 868
+      },
+      "task_root_probes": [
+        {
+          "length": 64,
+          "name": "task",
+          "resolved_address": "0x80036B60",
+          "sha256": "14e87a3238d2f02a4660c9970f4170c36b5baaf517d25032c10b4504dc380e02"
+        },
+        {
+          "length": 14424,
+          "name": "command-buffer",
+          "resolved_address": "0x8010AE00",
+          "sha256": "bd3c14c287e3c3dd06301d4d3a60a6800b183430570b6112024379d3cfd7fc72"
+        }
+      ],
+      "triangle_effective_offsets": [
+        26936,
+        26944,
+        26952,
+        26960,
+        26968,
+        26976
+      ]
+    },
+    {
+      "events": [
+        42,
+        49,
+        53
+      ],
+      "fog": [
+        23512,
+        4160749568,
+        255,
+        [
+          2148651576
+        ]
+      ],
+      "fog_columns": [
+        "effective_byte_offset",
+        "command",
+        "value",
+        "origin"
+      ],
+      "material_overrides": {
+        "segments": {
+          "0": 0,
+          "1": 2149270848,
+          "10": 2149259056,
+          "11": 2148899328,
+          "3": 2148736704,
+          "6": 2149255248,
+          "7": 2148919680,
+          "8": 2148020544
+        },
+        "tile_bounds": {
+          "0": [
+            4060094466,
+            1040638
+          ],
+          "1": [
+            4060323842,
+            17293342
+          ],
+          "2": [
+            4060209154,
+            33808398
+          ],
+          "3": [
+            4060094466,
+            50389006
+          ],
+          "4": [
+            4060094466,
+            67625086
+          ],
+          "5": [
+            4060094466,
+            84402302
+          ]
+        }
+      },
+      "parts": [
+        [
+          43,
+          0,
+          2149297984,
+          4376,
+          "cd6503056047a7a3f63a49945a175377628e1b08f20e6fc0a4d935de8fdcd5db"
+        ],
+        [
+          44,
+          1,
+          2149302360,
+          416,
+          "db66f9e3daa41271993596de67d7c6634e48af9027b760c592733ae39ebbd536"
+        ],
+        [
+          45,
+          2,
+          2149302776,
+          672,
+          "faad2a5112d3af9ec837b4fc491bdcb5802a36d1945b9499f2931a9a04139a56"
+        ],
+        [
+          46,
+          3,
+          2149303448,
+          672,
+          "362ec489859b27ef6d940d2f34c78aeddaec8c2b81bf11d4f79af59377905aca"
+        ],
+        [
+          47,
+          6,
+          2149305640,
+          864,
+          "80319291541ea9c8ee1c097bc4d477199b5899c138f023b681ea542124f310d2"
+        ],
+        [
+          48,
+          7,
+          2149306504,
+          864,
+          "0b2ce2aff1632291efd61ee23eec9821485699e773f48dfd78cd0abd458153a0"
+        ]
+      ],
+      "parts_columns": [
+        "event",
+        "part",
+        "pointer",
+        "bytes",
+        "sha256"
+      ],
+      "state_hashes": [
+        "3fff5838e6096e4703dd82a2259bdf7f1b0c02d291390091da6bb8cbe5bd51c1",
+        "55e8394547cb8f83e85c033d242cef3ba83fa9c0c1342995ead25d9abf66ea43",
+        "8337af5c5a608ed344781aaf7d237454d471ec96e7dede28be2d314ccd3f6ed6"
+      ],
+      "submission": {
+        "command_buffer_end": 2148651696,
+        "command_buffer_start": 2148651424,
+        "command_sha256": "55f4340cc9a5937cfbba6ed64e8d796faa1b584ebf912e4a2f71f176078a4c61",
+        "event_index": 53,
+        "matrices_changed_after_return": [],
+        "status": "captured-range-executed-once-in-next-graphics-task",
+        "triangle_count": 868
+      },
+      "task_root_probes": [
+        {
+          "length": 64,
+          "name": "task",
+          "resolved_address": "0x80036B60",
+          "sha256": "587422f107e41229a935d2b4e025d033b98f5a2cd2efede33034955077736b00"
+        },
+        {
+          "length": 14208,
+          "name": "command-buffer",
+          "resolved_address": "0x8011B490",
+          "sha256": "39008a9c7685fb87c726c5499a27c023067ec8be563c3b8a527094bb78c134e9"
+        }
+      ],
+      "triangle_effective_offsets": [
+        26920,
+        26928,
+        26936,
+        26944,
+        26952,
+        26960
+      ]
+    }
+  ],
+  "triangles_per_command": 4
+}

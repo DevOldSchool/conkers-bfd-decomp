@@ -151,6 +151,7 @@ class ModelCoverageTests(unittest.TestCase):
                  mock.patch.object(model_assets, "load_model_bundles", return_value=(root / "rom", "z64", "digest", [bundle], ())), \
                  mock.patch.object(model_assets, "load_preview_texture_catalog", return_value={}), \
                  mock.patch.object(model_assets, "PREVIEW_TEXTURE_FAMILIES", ()), \
+                 mock.patch.object(model_assets, "load_object_material_context", return_value={"normalized_sha1": "digest", "models": []}), \
                  mock.patch.object(model_assets, "load_flat_asset_payloads", return_value={}), \
                  mock.patch.object(model_assets, "load_object_placement_manifest", return_value=(placements, {})):
                 report = model_coverage.extract_coverage("us", None, root, root, root / "report.json")
@@ -192,6 +193,7 @@ class ModelCoverageTests(unittest.TestCase):
                  mock.patch.object(model_assets, "parse_geometry_for_bank", return_value=geometry), \
                  mock.patch.object(model_assets, "load_preview_texture_catalog", return_value={}), \
                  mock.patch.object(model_assets, "PREVIEW_TEXTURE_FAMILIES", ()), \
+                 mock.patch.object(model_assets, "load_object_material_context", return_value={"normalized_sha1": "digest", "models": []}), \
                  mock.patch.object(model_assets, "load_flat_asset_payloads", return_value={}), \
                  mock.patch.object(model_assets, "load_object_placement_manifest", return_value=({"scenes": [], "unresolved_bank_11_dispatch_references": []}, {})):
                 report = model_coverage.extract_coverage("us", None, root, root, root / "report.json", activity_path=activity)

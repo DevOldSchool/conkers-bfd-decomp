@@ -1,0 +1,58 @@
+{
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "model_sha256": "09f6c4551ca0d12b46109a45f01703fb21ba7f10d15764aa807a4c9701936e81",
+  "descriptor_cycle": [
+    15,
+    16,
+    17,
+    17,
+    16,
+    15
+  ],
+  "updater_start": "15061FA8",
+  "updater_end": "1506208C",
+  "updater_sha1": "25d117471183b27fc8cda611ef624343a0d1f559",
+  "run_index": 16,
+  "variants": {
+    "15": {
+      "flat": 3823,
+      "bytes": 2080,
+      "sha256": "6c0857a5cd8a7cccd98e77179c69e4ed8a7e3c75b3228d8ea6810613315af04d",
+      "pixel_sha256": "770f113c009987234b175c78f706d07eff5ff9ebafcd7741ba1bafacdbff8750",
+      "palette_sha256": "19c53e64dc5e9175ada7916bc76c9892c317509c40337bfd8917f169d0dc49ce",
+      "png_sha1": "814fcc0bf99858300c9d5a380b03add786eec3c7",
+      "png_sha256": "0c984d18d271a89a163e648c9b7801bd6ad8b7984df56f419390ee087c31f78d",
+      "width": 64,
+      "height": 64,
+      "pixel_offset": 0,
+      "palette_offset": 2048
+    },
+    "16": {
+      "flat": 3822,
+      "bytes": 2080,
+      "sha256": "ec904c32f940e8de54a0fc09033dbd3f1471976dc5b1133562a5fa4af2b5af10",
+      "pixel_sha256": "51485d98af06591df432de309f9f6fc2ecf283ab7571b2dc90bef12fd53417cd",
+      "palette_sha256": "b5c2e6d28da2f353ce4720ab7d47378177c7d6e88fd3ac76b94e7a485bb8ffbc",
+      "png_sha1": "266acaea499330f27b5defefa78849e50ac5bb17",
+      "png_sha256": "1290ef17797b01c2c9d01272c1ab0842f1f02d3092ef53263d8d9ab23e291999",
+      "width": 64,
+      "height": 64,
+      "pixel_offset": 0,
+      "palette_offset": 2048
+    },
+    "17": {
+      "flat": 3824,
+      "bytes": 2080,
+      "sha256": "7a2225bc44fe95f69a88a3ac86fe9456624c13a5303a88d6083b61925742c4b7",
+      "pixel_sha256": "e2bc9d61bb730c020b938a639c23f45ff0a4f55b21d059b20374b9fc3f73d4c7",
+      "palette_sha256": "f83ac4b10bf7fde6f24bc5cb4d08f24d909e2fd8dbce452339457e489e32149c",
+      "png_sha1": "27f0273578c544b34603181ca4eef4e6e2b012a8",
+      "png_sha256": "c09a6887c481458b29463c423aad762d1b383e413f9412945e9cf72ac38d1479",
+      "width": 64,
+      "height": 64,
+      "pixel_offset": 0,
+      "palette_offset": 2048
+    }
+  },
+  "limits": "Conditional native selector bindings only. No captured phase, playback timing, pose, visibility or native framebuffer equivalence asserted. Descriptor0 and universal defaults unchanged."
+}

@@ -101,9 +101,21 @@ def summarize(model_records: list[dict], rows: list[dict]) -> dict:
     def counts(records: list[dict], field: str) -> dict:
         return dict(sorted(Counter(record[field]["status"] for record in records).items()))
 
+    static_faces = Counter()
+    preset_faces = Counter()
+    preset_rows = [row for row in rows if 'rom_preset_texture' in row]
+    for row in rows:
+        static_faces[row['static_texture']['status']] += row['source_face_count']
+    for row in preset_rows:
+        preset = row['rom_preset_texture']
+        preset_faces[preset['status']] += preset['source_face_count']
     return {
         "model_count": len(model_records), "material_run_count": len(rows),
         "source_face_count": sum(record["source_face_count"] for record in model_records),
+        "static_texture_face_counts": dict(sorted(static_faces.items())),
+        **({'rom_preset_texture': counts(preset_rows, 'rom_preset_texture'),
+            'rom_preset_texture_face_counts': dict(sorted(preset_faces.items())),
+            'rom_preset_source_face_count': sum(preset_faces.values())} if preset_rows else {}),
         "standalone_geometry": counts(model_records, "standalone_geometry"),
         "blender_interchange": counts(model_records, "blender_interchange"),
         "scene_association": counts(model_records, "scene_association"),
@@ -168,10 +180,155 @@ def attachment_source_faces(data: bytes, records: list[dict]) -> tuple[set[int],
     return faces, owners, bones
 
 
+def _same_face_domain(source, mapped):
+    """Runtime material/UV updates must not change full-source row identities."""
+    if (source.faces != mapped.faces or source.face_source_indices != mapped.face_source_indices
+            or source.face_command_offsets != mapped.face_command_offsets
+            or len(source.vertices) != len(mapped.vertices)
+            or [(r.first_face, r.face_count) for r in source.material_runs]
+            != [(r.first_face, r.face_count) for r in mapped.material_runs]):
+        raise ValueError('coverage ROM update changed source face/run identity')
+    for original, changed in zip(source.vertices, mapped.vertices):
+        if (original.x, original.y, original.z, original.flag, original.color) != (
+                changed.x, changed.y, changed.z, changed.flag, changed.color):
+            raise ValueError('coverage ROM material update changed source vertices')
+
+
+def rom_coverage_geometry(data, geometry, context, payloads):
+    """Apply authenticated ROM inspection updates without runtime catalog state."""
+    mapped, evidence = models.apply_rom_attachment_preview_update(data, geometry, context)
+    proofs = {'rom_attachment_update': evidence} if evidence else {}
+    if (context or {}).get('ui_material_state'):
+        try:
+            from scripts import model_ui_materials
+        except ModuleNotFoundError:
+            import model_ui_materials
+        mapped, proof = model_ui_materials.apply_preview_geometry(mapped, data, context, payloads)
+        if proof:
+            proofs['rom_ui_material_state'] = proof
+    if (context or {}).get('special_attachment_material_state'):
+        try:
+            from scripts import model_special_attachment_materials
+        except ModuleNotFoundError:
+            import model_special_attachment_materials
+        mapped, proof = model_special_attachment_materials.apply_preview_geometry(mapped, data, context, payloads)
+        if proof:
+            proofs['rom_special_attachment_material_state'] = proof
+    _same_face_domain(geometry, mapped)
+    return mapped, proofs
+
+
+def rom_static_texture(run, catalog, payloads, tables, context, data, key):
+    """Mirror ROM-only exporter fallbacks; never consume preview status strings."""
+    texture, status = models.choose_preview_texture(run, catalog, payloads)
+    proof = None
+    if texture is None and ('lookup-mode-unresolved' in status or status == 'no-proven-texture'):
+        candidate, reason, evidence = models.rom_object_preview_texture(run, catalog, payloads, tables, context)
+        if candidate is not None:
+            texture, status, proof = candidate, reason, {'rom_texture_state_consensus': evidence}
+    for resolver, name in ((models.rom_object_animation_preview_texture, 'rom_object_texture_animation'),
+                           (models.rom_object_binding_preview_texture, 'rom_object_texture_binding')):
+        if texture is None and status == 'runtime-segment':
+            candidate, reason, evidence = resolver(run, catalog, payloads, tables, context)
+            if candidate is not None:
+                texture, status, proof = candidate, reason, {name: evidence}
+    if texture is None and status == 'runtime-segment':
+        candidate, reason, evidence = models.rom_scene_preview_texture(run, catalog, payloads, context)
+        if candidate is not None:
+            texture, status, proof = candidate, reason, {'rom_scene_texture_state': evidence}
+    if (texture is None and (context or {}).get('particle_texture_state')
+            and ('lookup-mode-unresolved' in status or status == 'no-proven-texture')):
+        try:
+            from scripts import model_particle203_materials
+        except ModuleNotFoundError:
+            import model_particle203_materials
+        texture, status, evidence = model_particle203_materials.preview_texture(
+            run, payloads, context, data, *key)
+        if evidence:
+            proof = {'rom_particle_texture_state': evidence}
+    if texture is not None and (not run.texture_enabled or not run.texture_coordinates_proven):
+        texture, status, proof = None, 'runtime-texture-observed-coordinate-state-unresolved', None
+    return texture, status, proof
+
+
+def checked_primary_geometry(data, source, layout):
+    """Keep primary selection indices in the full-source domain, including gaps."""
+    selected, proof = models.model_character_parts.primary_preview(data, source, layout)
+    indices = tuple(selected.face_source_indices) if proof else tuple(range(len(source.faces)))
+    if (len(indices) != len(selected.faces) or len(set(indices)) != len(indices)
+            or any(type(i) is not int or not 0 <= i < len(source.faces) for i in indices)
+            or tuple(source.faces[i] for i in indices) != selected.faces
+            or len(source.material_runs) != len(selected.material_runs)):
+        raise ValueError('coverage primary selection source mapping changed')
+    for original, mapped in zip(source.material_runs, selected.material_runs):
+        mapped_indices = indices[mapped.first_face:mapped.first_face + mapped.face_count]
+        if any(not original.first_face <= i < original.first_face + original.face_count for i in mapped_indices):
+            raise ValueError('coverage primary selection crosses a source material run')
+    return selected, proof, indices
+
+
+def validate_preview_source(preview, bank, data, full_geometry):
+    """Check a primary preview against a fresh ROM selection, never its own count."""
+    declared = preview.get('character_draw_pass')
+    if declared is None:
+        expected = len(full_geometry.faces)
+    else:
+        if bank != 1:
+            raise ValueError('coverage primary preview requires bank01')
+        source, layout = models.parse_character_model_geometry(data)
+        if source != full_geometry:
+            raise ValueError('coverage character source geometry changed')
+        selected, proof, _ = checked_primary_geometry(data, source, layout)
+        if declared != proof:
+            raise ValueError('coverage preview source hash or primary face mapping changed')
+        expected = len(selected.faces)
+    if type(preview.get('source_face_count')) is not int or preview['source_face_count'] != expected:
+        raise ValueError('preview source span changed')
+    return expected
+
+
+def rom_character_preset_rows(data, source, entry, default_manifest, catalog, payloads, tables):
+    """Explicit inspection coverage, separately mapped to full-source material rows."""
+    parsed, layout = models.parse_character_model_geometry(data)
+    if parsed != source:
+        raise ValueError('coverage ROM character geometry changed')
+    selected, _, indices = checked_primary_geometry(data, source, layout)
+    defaults = models.model_character_defaults.preview_defaults(default_manifest, entry)
+    rows = []
+    for run in selected.material_runs:
+        source_indices = indices[run.first_face:run.first_face + run.face_count]
+        texture, reason = models.choose_preview_texture(run, catalog, payloads)
+        evidence = None
+        if texture is None and ('lookup-mode-unresolved' in reason or reason == 'no-proven-texture'):
+            candidate, status, proof = models.rom_render_state_preview_texture(run, catalog, payloads, tables)
+            if candidate is not None:
+                texture, reason, evidence = candidate, status, proof
+        if run.pixel is not None and run.pixel.segment in (6, 7, 10, 11):
+            if defaults is None:
+                texture, reason, evidence = None, 'rom-default-header-missing', None
+            else:
+                texture, reason, evidence = models.rom_default_preview_texture(
+                    run, defaults, layout['texture_descriptors'], payloads, tables)
+        if texture is not None and (not run.texture_enabled or not run.texture_coordinates_proven):
+            texture, reason, evidence = None, 'runtime-texture-observed-coordinate-state-unresolved', None
+        if not run.face_count:
+            texture, reason, evidence = None, 'excluded-secondary-draw-pass', None
+        rows.append({'status': 'excluded' if not run.face_count else 'resolved' if texture else
+                     'not-required' if run.texture_enabled is False else 'missing',
+                     'reason': reason, 'png_sha1': texture.sha1 if texture else None,
+                     'source_face_indices': list(source_indices), 'source_face_count': len(source_indices),
+                     'evidence': evidence,
+                     'scope': 'Explicit ROM inspection preset; not a universal or observed gameplay state'})
+    return rows
+
+
 def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                      output: Path, runtime_paths: tuple[Path, ...] = (),
                      activity_path: Path | None = None, blender_path: Path | None = None,
-                     scene_path: Path | None = None) -> dict:
+                     scene_path: Path | None = None, *,
+                     rom_character_presets: bool = False) -> dict:
+    if type(rom_character_presets) is not bool:
+        raise ValueError('coverage ROM character presets option must be boolean')
     _, _, digest, _, _ = models.load_model_bundles(profile, rom, 9)
     inputs = {}
 
@@ -247,14 +404,24 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                 if association not in associations[key]:
                     associations[key].append(association)
 
+    default_manifest = models.load_character_defaults(profile, rom, digest) if rom_character_presets else None
     model_records, rows = [], []
     seen_runtime = set()
     seen_composition = set()
     seen_attachments = set()
     for bank in models.BANK_INDICES:
-        _, _, bank_digest, bundles, _ = models.load_model_bundles(profile, rom, bank)
+        _, _, bank_digest, bundles, render_state_tables = models.load_model_bundles(profile, rom, bank)
         if bank_digest != digest:
             raise ValueError("ROM changed during coverage scan")
+        context_report = models.load_object_material_context(profile, rom, digest, bank) if bank in (3, 4, 9) else None
+        contexts = {}
+        for context in (context_report or {}).get('models', []):
+            context_key = tuple(context[k] for k in ('bank', 'entry', 'segment'))
+            if context_key in contexts or context_key[0] not in ((3, 4) if bank in (3, 4) else (bank,)):
+                raise ValueError('coverage ROM material context identity is duplicated or outside its bank')
+            contexts[context_key] = context
+        if context_report is not None and context_report.get('normalized_sha1') != digest:
+            raise ValueError('coverage ROM material context identity changed')
         extraction_root = root / f"us-bank-{bank:02x}"
         preview_root = root / f"us-bank-{bank:02x}-preview"
         extracted = {}
@@ -309,8 +476,7 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                 preview = previews.get(key[1:])
                 files = []
                 if preview is not None:
-                    if preview["source_face_count"] != len(geometry.faces):
-                        raise ValueError(f"preview source span changed: {key}")
+                    validate_preview_source(preview, bank, segment.data, geometry)
                     for field in ("gltf_file", "bind_gltf_file"):
                         if preview.get(field):
                             path = preview_root / preview[field]
@@ -334,10 +500,15 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                         "parent_bones": sorted(attached_bones), "previews": [r["preview"] for r in attachment_records[key]]},
                 }
                 model_records.append(model_record)
+                mapped_geometry, update_proofs = rom_coverage_geometry(
+                    segment.data, geometry, contexts.get(key), flat_payloads)
+                preset_rows = rom_character_preset_rows(segment.data, geometry, bundle.index,
+                    default_manifest, catalog, flat_payloads, render_state_tables) if bank == 1 and rom_character_presets else None
                 for index, run in enumerate(geometry.material_runs):
                     run_key = (*key, index)
-                    texture, reason = models.choose_preview_texture(
-                        run, catalog, flat_payloads)
+                    texture, reason, static_proof = rom_static_texture(
+                        mapped_geometry.material_runs[index], catalog, flat_payloads,
+                        render_state_tables, contexts.get(key), segment.data, key)
                     material, captured, dynamic = runtime_coverage(runtime[run_key], model_hash, run.first_face, run.face_count, run.runtime_render_state_offset)
                     seen_runtime.add(run_key)
                     faces = composition_faces.get((run_key, model_hash), set())
@@ -352,7 +523,10 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                         "key": f"{model_record['key']}:{index:04d}", "model_key": model_record["key"],
                         "bank": bank, "entry": bundle.index, "segment": segment.index, "material_run": index,
                         "source_first_face": run.first_face, "source_face_count": run.face_count,
-                        "static_texture": {"status": "resolved" if texture else "not-required" if run.texture_enabled is False else "missing", "reason": reason, "png_sha1": texture.sha1 if texture else None},
+                        "static_texture": {"status": "resolved" if texture else "not-required" if run.texture_enabled is False else "missing", "reason": reason, "png_sha1": texture.sha1 if texture else None,
+                            **({"rom_evidence": static_proof} if static_proof else {}),
+                            **({"rom_geometry_update": update_proofs} if update_proofs else {})},
+                        **({"rom_preset_texture": preset_rows[index]} if preset_rows is not None else {}),
                         "runtime_material": material, "runtime_texture": captured, "dynamic_segment_8": dynamic,
                         "character_composition": {"status": "not-applicable" if bank != 1 else "unobserved" if not faces else "observed" if len(faces) == run.face_count else "partial", "observed_source_face_count": len(faces), "renderer_entries": sorted(composition_owners.get(run_key, set()))},
                         "attachment_composition": {"status": "not-applicable" if not is_attachment else "unobserved" if not attached_run_faces else "observed" if len(attached_run_faces) == run.face_count else "partial",
@@ -368,7 +542,7 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
     if {key for key, values in attachment_records.items() if values}.difference(seen_attachments):
         raise ValueError("attachment coverage refers to a missing model")
     result = {
-        "schema_version": 1, "family": "model-coverage-gaps", "profile": profile,
+        "schema_version": 2, "family": "model-coverage-gaps", "profile": profile,
         "normalized_sha1": digest, "input_manifests_sha256": dict(sorted(inputs.items())),
         "evidence_availability": {
             "runtime_material_catalog_count": len(set(runtime_paths)),
@@ -377,6 +551,7 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
             "blender_file_records": len(blender),
             "semantic_name_registry": "not-supplied",
             "attachment_trace_count": attachment_trace_count,
+            "rom_character_presets": "explicit-inspection-presets" if rom_character_presets else "not-requested",
         },
         "summary": summarize(model_records, rows),
         "by_bank": {f"{bank:02x}": summarize([r for r in model_records if r["bank"] == bank], [r for r in rows if r["bank"] == bank]) for bank in models.BANK_INDICES},
@@ -385,8 +560,11 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
         "limitations": [
             "Material rows inherit geometry, interchange, scene and naming evidence through model_key.",
             "Runtime observation is existential within the supplied corpus, not exhaustive state or face coverage.",
-            "Static texture status uses the conservative exporter policy, including known runtime loader contracts.",
-            "Missing scene association means absent from recovered consumers, not unused by the game.",
+            "Static textures are recomputed from ROM source, guarded consumer contexts and exporter fallbacks; preview manifest statuses grant no resolution.",
+            "static_texture.missing means no PNG resolved under this ROM policy; it does not prove that the combiner requires an image or that a capture is required.",
+            "static_texture.not-required means texture_enabled is explicitly false. The combiner-aware model_batch material backlog is a separate measure.",
+            "ROM character preset coverage is optional and separate; its face indices address full-source geometry, not compacted primary-preview rows.",
+            "Missing scene association means absent from reviewed consumers, not unused by the game.",
             "A captured attachment parent does not establish a numeric scene identity; those dimensions remain separate.",
             "Semantic names require a reviewed numeric-ID/caller registry; none is supplied here.",
             "Legacy aggregate Blender reports do not validate individual current files.",

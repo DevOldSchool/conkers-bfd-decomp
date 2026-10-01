@@ -101,18 +101,16 @@ runs across entries 0, 1 and 130 with existing captured PNGs. All 12 match byte
 for byte. This proves those texture selections, not native raster, lighting,
 expression animation, UV-origin or part-visibility parity.
 
-The local audit under
-`build/assets/models/reference/rom-defaults-work/export_without_captures.py`
-regenerates the corpus while rejecting capture/research-output reads; its
-`export-read-audit.json` records actual file reads. No captures are required.
-Tests cover descriptor bounds, changed consumer instructions, explicit palette
+The supported `./conker model-assets preview --bank 01 --rom-defaults` path
+regenerates the corpus from authenticated ROM and texture catalogs without
+capture inputs. Tests cover descriptor bounds, changed consumer instructions, explicit palette
 offsets, odd-row swizzling, incomplete load state, disagreement between ROM
 lookup tables and rejection of captured material inputs.
 
 The inspection index starts with `conker-rom-defaults.glb` (rig, 764 ROM
 animation Actions and 16 stored shape keys) and `haybot-rom-defaults.glb`.
-Only ROM-derived exports are displayed; captured copies remain archived as
-comparison evidence. [Bank-13 position morphs](us_character_morph_targets.md)
+Only ROM-derived exports are displayed; capture comparisons remain a separate
+evidence scope. [Bank-13 position morphs](us_character_morph_targets.md)
 add shape keys to ROM-default models 0000 and 0058 without changing their neutral
 pose. Initial reference renders remain separate from pre-existing baselines.
 
@@ -264,5 +262,9 @@ consumer evidence. The normal texture decoders still check descriptor, format,
 load, palette and pixel extents. Together with the earlier fixes, this pass
 links 24 previously unresolved material runs on 350 faces across twelve entries.
 All 88 newly published model sources reproduce without capture reads. The
-remaining white surfaces on character 0066 are not resolved by these selectors,
-and that variant remains outside the gallery.
+remaining white surfaces on character 0066, the purple flamethrower imp, are
+not resolved by these selectors, and that variant remains outside the gallery.
+The [mkst/conker Research model list](https://github.com/mkst/conker/wiki/Research)
+identifies hexadecimal 42 (decimal 66) as the purple imp with blowtorch. It is
+distinct from the playable tank, decimal 40 (hexadecimal 28); the stationary
+tank presets above retain their correct identities.

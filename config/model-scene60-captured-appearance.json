@@ -1,0 +1,628 @@
+{
+  "captured_state_common": {
+    "K5": 255,
+    "alpha_compare": 0,
+    "alpha_cvg_select": true,
+    "colours": {
+      "alpha": 0,
+      "environment": {
+        "command": 4211081216,
+        "rgba": [
+          0,
+          0,
+          0,
+          255
+        ]
+      },
+      "primitive": {
+        "command": 4194365952,
+        "rgba": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "convert_mode": [
+      "0xEC000000",
+      "0x000000FF"
+    ],
+    "cvg_times_alpha": false,
+    "force_blend": false
+  },
+  "captured_states": {
+    "A": {
+      "combine_mode": [
+        "0xFC26A080",
+        "0x151492FF"
+      ],
+      "other_mode": [
+        "0xEF19AC3F",
+        "0x04D12078"
+      ],
+      "state_subset_sha256": "8421a7e9037b90fb81f00b1a04c958d65ccd873cf8c5115bd127ff088be06e34"
+    },
+    "B": {
+      "combine_mode": [
+        "0xFCFF9880",
+        "0xF514FEFF"
+      ],
+      "other_mode": [
+        "0xEF18AC3F",
+        "0x04D12078"
+      ],
+      "state_subset_sha256": "6d27162ffa5036aa3ddee7609a127fc9753db90589b02670231bddb5710d6f91"
+    },
+    "C": {
+      "combine_mode": [
+        "0xFCFF9880",
+        "0xF514FEFF"
+      ],
+      "other_mode": [
+        "0xEF18AC3F",
+        "0x04D12278"
+      ],
+      "state_subset_sha256": "99ff4fbb402c98e9a1027def97d26167a1a65d9f2e01ca4ba9c63a201cb1e124"
+    }
+  },
+  "identities": {
+    "proof_sha256": "27726010630fbf5e588a64f9c04c8b7768303be7c36cf6cb269f262f952abc34",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "screenshot_sha256": "dd821fce4ba9029c9ae1fa0cf1ae60fe62f79ac40323293d6e12cbe0ece9a48c",
+    "state_sha256": "c6c7d6006f2adcfefd9931796a977463b478c4ab454fcc87e139606147a81642",
+    "trace_sha256": "877b32beb7d22dea28c59daac1bab003c8e625a6923e860d8e9daa5472c54008"
+  },
+  "inspection_scope": "Only captured scene60 primary appearances: model154 mode2 and model162 mode1, opacity255, normal part0, secondary0. Original zero-alpha PNGs are retained; OPAQUE unlit material is a pre-blender black inspection approximation; native fog colour, framebuffer blending and visibility are not reproduced. Fog RGBA was not captured; FORCE_BL false does not bypass the first blender cycle. Fractional edge coverage and native framebuffer parity remain unproved. No local raw-trace replay, captured pose, model155 or universal default admission.",
+  "local_source_guards": {
+    "material_run_sha256": {
+      "154": {
+        "0": "72811485312eed178a7c0c3dbc9d6f408e4f77b9a56cf6e5bf719a18248f5418",
+        "1": "67359422aa766b1b112ed7ebb648c8f8db599e87a1868aef4cf115558ad92cb8",
+        "11": "ef392bd0f60037e26e8eafc8d5f82900585fadd711caaf5225baecedc046fa64",
+        "14": "0cc01cf01cbd7f4e7cc151a37d51ba70f0e62093161e3543c30b852d08d2eb16",
+        "18": "39928eb9d6a59f5bcedfdff0348144683abb184f8cae27ec1134a9ea0cb0f666",
+        "3": "416272f20c7286fd489b726b6debcaab15b75abcf00b21665a54c8f9fbf17a22",
+        "5": "a689a89a9e75d63eef4ea6db20da331e1c807e619963a175ee98841e1bc96373",
+        "6": "7cc7315a59c966f980c3dda8bb53a90b6d5febbdd0b5ab2b0b110a3e4bd3e0ef",
+        "8": "7323cb0c161578a25a7a13fdcfae58f646d7325bd585522419713ac13bb6b414"
+      },
+      "162": {
+        "0": "72811485312eed178a7c0c3dbc9d6f408e4f77b9a56cf6e5bf719a18248f5418",
+        "1": "67359422aa766b1b112ed7ebb648c8f8db599e87a1868aef4cf115558ad92cb8",
+        "12": "9ca38a930f25421ad3091420065b31d80596ba2941978c4bd8a373925b7a3e97",
+        "13": "6422da3ac0b95b5ddd0d21eafcd2e8cfb3a96aba1ecfcae0012eeb160932f953",
+        "14": "6f175f49d953fc28716562e3c44291a8f0c35eee5353efdc64d3adc1d0eda015",
+        "15": "204573c6288b18318198ca60ea50982d4ea76ef41ae737e10cdce794efd63887",
+        "20": "5e225b03ef34b962ed588a056e18a07534d3f35f8f2d5fa5bde5012986aade26",
+        "23": "dd8c0734940c747abb7c383c6b3227639a62e59abe67746ef074de9b942dfb0c",
+        "4": "dad588e50777ac3520a4b833561fd2349d7ad74fba9897be758fd85a9b1aa6f5",
+        "7": "fa5591cc34a5457edf9ed71790e7cd1ea0078694e2f3471f6a73b204eb2da1f5",
+        "8": "e61fb1ab4132898312114ff9bf33a103ba3dfa7252d23dc1bfb43752457b8730"
+      }
+    },
+    "origin": "New ROM checks against the independently preserved full blocked-run contracts."
+  },
+  "models": {
+    "154": {
+      "blocked_faces": 174,
+      "caller_arguments": [
+        255,
+        2147686152,
+        2,
+        0
+      ],
+      "capture_events": {
+        "entry_event": 7,
+        "entry_state_hash": "34a3c5184e106fa5c92164decc4900f1574b387258c8dd569dc23736b98005a1",
+        "return_event": 9,
+        "return_state_hash": "0ed2d45bdab797446e5dfe32d95ca3668e663a4a9081ac9c772f9cc0b4b43543",
+        "submission": {
+          "command_buffer_end": 2148632288,
+          "command_buffer_start": 2148632096,
+          "command_sha256": "3ba0810b8617d990d8277f13244218d559b973132b0d9f8154f307d04e0af7bb",
+          "event_index": 10,
+          "matrices_changed_after_return": [],
+          "status": "captured-range-executed-once-in-next-graphics-task",
+          "triangle_count": 403
+        }
+      },
+      "joints": 36,
+      "runs": [
+        [
+          0,
+          0,
+          13,
+          903,
+          1,
+          7680,
+          7704
+        ],
+        [
+          1,
+          13,
+          1,
+          905,
+          1,
+          7808,
+          7808
+        ],
+        [
+          3,
+          28,
+          23,
+          903,
+          2,
+          8168,
+          8216
+        ],
+        [
+          5,
+          56,
+          13,
+          903,
+          1,
+          8536,
+          8560
+        ],
+        [
+          6,
+          69,
+          1,
+          905,
+          1,
+          8664,
+          8664
+        ],
+        [
+          8,
+          84,
+          23,
+          903,
+          2,
+          9024,
+          9072
+        ],
+        [
+          11,
+          136,
+          22,
+          905,
+          1,
+          9480,
+          9640
+        ],
+        [
+          14,
+          166,
+          20,
+          914,
+          13,
+          9968,
+          10000
+        ],
+        [
+          18,
+          285,
+          58,
+          926,
+          13,
+          10744,
+          11008
+        ]
+      ],
+      "selected_part": {
+        "display_list_address": 2149685544,
+        "display_list_bytes": 5056,
+        "display_list_sha256": "92083edad2ebdd81ec37681bb93ef4f6a78ee2c32d4f028b949ddfd7c4cf8cfb",
+        "display_model": 154,
+        "draw_mode": 2,
+        "part": 0,
+        "secondary_model": 0,
+        "table": "normal",
+        "table_slot_address": 2148288240
+      },
+      "selected_primary_faces": 403,
+      "source_bytes": 17080,
+      "source_sha1": "8595d9090f169e7f5706d69ad50484ad4b270675",
+      "vertices": 408,
+      "whole_model_faces": 806
+    },
+    "162": {
+      "blocked_faces": 210,
+      "caller_arguments": [
+        255,
+        2147686152,
+        1,
+        0
+      ],
+      "capture_events": {
+        "entry_event": 4,
+        "entry_state_hash": "12c5e6e7e0fd0d6086a43785e197193eb7e061b16c1084262da1571da8a4674e",
+        "return_event": 6,
+        "return_state_hash": "106f53ce0711dc09bb4c61874197cb0e030749e7869f6097d0069cff6c3120d3",
+        "submission": {
+          "command_buffer_end": 2148630496,
+          "command_buffer_start": 2148630304,
+          "command_sha256": "40b759c718cb753f47ee2a80e7233d80f3ab72b3fb8a2f15fcc0ef041ab99019",
+          "event_index": 10,
+          "matrices_changed_after_return": [],
+          "status": "captured-range-executed-once-in-next-graphics-task",
+          "triangle_count": 508
+        }
+      },
+      "joints": 39,
+      "runs": [
+        [
+          0,
+          0,
+          13,
+          903,
+          1,
+          8944,
+          8968
+        ],
+        [
+          1,
+          13,
+          1,
+          905,
+          1,
+          9072,
+          9072
+        ],
+        [
+          4,
+          52,
+          20,
+          914,
+          4,
+          9696,
+          9728
+        ],
+        [
+          7,
+          102,
+          13,
+          903,
+          1,
+          10352,
+          10376
+        ],
+        [
+          8,
+          115,
+          1,
+          905,
+          1,
+          10480,
+          10480
+        ],
+        [
+          12,
+          188,
+          5,
+          905,
+          3,
+          11088,
+          11096
+        ],
+        [
+          13,
+          193,
+          37,
+          905,
+          2,
+          11192,
+          11264
+        ],
+        [
+          14,
+          230,
+          4,
+          905,
+          25,
+          11296,
+          11296
+        ],
+        [
+          15,
+          234,
+          70,
+          926,
+          4,
+          11456,
+          11648
+        ],
+        [
+          20,
+          410,
+          23,
+          903,
+          2,
+          12504,
+          12552
+        ],
+        [
+          23,
+          447,
+          23,
+          903,
+          2,
+          13112,
+          13160
+        ]
+      ],
+      "selected_part": {
+        "display_list_address": 2150113112,
+        "display_list_bytes": 5240,
+        "display_list_sha256": "b4d76e885bb92d8376a28c05022d6f3ea4a59948cb48719124af66a3ee2e6f2e",
+        "display_model": 162,
+        "draw_mode": 1,
+        "part": 0,
+        "secondary_model": 0,
+        "table": "normal",
+        "table_slot_address": 2148288272
+      },
+      "selected_primary_faces": 508,
+      "source_bytes": 19304,
+      "source_sha1": "4ad4407283a3804feea427d39d518a8cd2b1eece",
+      "vertices": 486,
+      "whole_model_faces": 1016
+    }
+  },
+  "preset": "scene60-captured-primary-opacity255",
+  "provenance": {
+    "packet_sha256": "0bebc53e7ac41acd51c849b891b869d3b784f4d402a8ac27909ff5551a6a887f",
+    "sources": {
+      "material_proof": {
+        "bytes": 291429,
+        "sha256": "27726010630fbf5e588a64f9c04c8b7768303be7c36cf6cb269f262f952abc34"
+      },
+      "packet": {
+        "bytes": 11679,
+        "sha256": "0bebc53e7ac41acd51c849b891b869d3b784f4d402a8ac27909ff5551a6a887f"
+      },
+      "save_metadata": {
+        "bytes": 533,
+        "sha256": "8bb4e503b64528b61221618a995d62bfcefcbb7315a262fc63c7b91576eb9ca4"
+      },
+      "save_state": {
+        "bytes": 1976101,
+        "sha256": "c6c7d6006f2adcfefd9931796a977463b478c4ab454fcc87e139606147a81642"
+      },
+      "screenshot": {
+        "bytes": 301210,
+        "sha256": "dd821fce4ba9029c9ae1fa0cf1ae60fe62f79ac40323293d6e12cbe0ece9a48c"
+      },
+      "trace": {
+        "bytes": 33179747,
+        "sha256": "877b32beb7d22dea28c59daac1bab003c8e625a6923e860d8e9daa5472c54008"
+      }
+    },
+    "verification_scope": "Source byte identities, retained packet/proof consistency, recorded trace event hashes, and independent ROM geometry/material/pixel checks. No local raw-trace command replay or native framebuffer validation."
+  },
+  "schema_version": 1,
+  "scope": "Captured scene60 primary opaque appearance only. Entry154 mode2; entry162 mode1; opacity255; normal part0; secondary0; caller1502CBD0. No155, blended or secondary generalization. All384 blocked faces verified submitted. Native per-face framebuffer visibility not captured.",
+  "source_contracts": {
+    "903": {
+      "captured_state": "A",
+      "combine_mode": [
+        4230389888,
+        353669887
+      ],
+      "pixel_load": [
+        4076863488,
+        118943744
+      ],
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "runtime_render_state_offset": 256,
+      "texture_scale": [
+        3607107586,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "905": {
+      "captured_state": "B",
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "pixel_load": [
+        4076863488,
+        118484992
+      ],
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "914": {
+      "captured_state": "B",
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "pixel_load": [
+        4076863488,
+        118484992
+      ],
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "926": {
+      "captured_state": "C",
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "pixel_load": [
+        4076863488,
+        119533568
+      ],
+      "render_tile": [
+        4110418944,
+        623184
+      ],
+      "runtime_render_state_offset": 112,
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516350
+      ]
+    }
+  },
+  "task": {
+    "event": 10,
+    "probes": [
+      {
+        "length": 64,
+        "name": "task",
+        "resolved_address": "0x80036B60",
+        "sha256": "412eb84b72762b3385c58013c22ac6e8d470c0c2ff7b2dfca431f41a22a9921c"
+      },
+      {
+        "length": 8776,
+        "name": "command-buffer",
+        "resolved_address": "0x80116670",
+        "sha256": "fd56709d54d12286ad0bb8b46714ed30019b8d00caca4d1f97052a0e3935b4b4"
+      }
+    ],
+    "state_hash": "7cc82619bad7080a3c9b226c9b1936d5e1d836fea161e16d013d500779fe90fc"
+  },
+  "texture_common": {
+    "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
+  },
+  "textures": {
+    "903": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 736,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "b80119a44463c72c96a7b5781e366bded23ffd6ba1caf9533527271c1b81d07b",
+      "compressed_rom_range": [
+        "0x3145A2",
+        "0x3147BF"
+      ],
+      "compressed_sha256": "4398281fae3ee51765329c9bd60687d763b540caabf108f94e4687e2afcbfe9d",
+      "flat_bytes": 1920,
+      "flat_sha1": "ba4940bbba4c6e9d2b83159afaf18f73191a2330",
+      "flat_sha256": "ca365ddee25d8453975cb9352b7b9eb7e83bec104511a5253cb65bb12434fdd2",
+      "format": "ci4",
+      "height": 32,
+      "palette_bytes": 32,
+      "palette_offset": 1888,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "6de1b36f60979a3db51bc608b11413530a6b3b00",
+      "rgb_nonzero": false,
+      "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "width": 32
+    },
+    "905": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 512,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "9116b120845a84f89f0bb25d423d7b8ef2e01c75bfcad51192e55f62a1290a35",
+      "compressed_rom_range": [
+        "0x314950",
+        "0x314A6E"
+      ],
+      "compressed_sha256": "8178aeacaf86eab51ed94eb3689d7b1ccac09f2fce385f61e860eca38a1286a5",
+      "flat_bytes": 1536,
+      "flat_sha1": "1bb9866c6d9f3f0ea4ee1fb2a885efbbaf78514d",
+      "flat_sha256": "0b3b2042659dc79400a11db732f285c7fba3fb37b3e16cd51bfc4cf47912fc91",
+      "format": "ci4",
+      "height": 32,
+      "palette_bytes": 32,
+      "palette_offset": 1504,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "4dc573aa5fea405812fac318362d1067c4ef6f18",
+      "rgb_nonzero": false,
+      "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "width": 32
+    },
+    "914": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 512,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "37fcce9bf9bb7c1c479f9ddd9fc6fcba99dd1face0247982fd77fe4b05643f4f",
+      "compressed_rom_range": [
+        "0x316B1A",
+        "0x316C72"
+      ],
+      "compressed_sha256": "5fa026392d808330ad45fba25f89045007ac62bcfc4c398a3403f9d58ac70671",
+      "flat_bytes": 1536,
+      "flat_sha1": "980fd43399601d97df992857f9612ac037b91eb3",
+      "flat_sha256": "3e2e84c73c5910f62a1a9c6d1b24f5842cdf529a218fe9619d420254567bb52d",
+      "format": "ci4",
+      "height": 32,
+      "palette_bytes": 32,
+      "palette_offset": 1504,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "779b8dea00f4ab5afbf43004bb95956b8c62ef63",
+      "rgb_nonzero": false,
+      "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "width": 32
+    },
+    "926": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 1024,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "0a9360b6f495ec1225e2db18aa84ac0262d5c3b1b5941bbd9c832f4ac1254ca9",
+      "compressed_rom_range": [
+        "0x318F29",
+        "0x319186"
+      ],
+      "compressed_sha256": "217721b4bc4d02eaf7270e82c0c7df66e1a53a140fd7fcabfec94ba69870e5f2",
+      "flat_bytes": 2560,
+      "flat_sha1": "7acd8c2426a838f2f4053dbed5eb2f59246c18e6",
+      "flat_sha256": "0f9bc90b26bf187548c2612fe8a827990d165b4e2f8752c5b284f2032aa86f05",
+      "format": "ci4",
+      "height": 64,
+      "palette_bytes": 32,
+      "palette_offset": 2528,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "ec704fc013234fd13401b97a533f9c40d6e067d2",
+      "rgb_nonzero": false,
+      "rgba_sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+      "width": 32
+    }
+  }
+}

@@ -1,0 +1,5328 @@
+{
+  "captured_state_common": {
+    "K5": 255,
+    "alpha_compare": 0,
+    "alpha_cvg_select": true,
+    "colours": {
+      "alpha": 0,
+      "environment": {
+        "command": 4211081216,
+        "rgba": [
+          0,
+          0,
+          0,
+          255
+        ]
+      },
+      "primitive": {
+        "command": 4194365952,
+        "rgba": [
+          0,
+          0,
+          0,
+          0
+        ]
+      }
+    },
+    "convert_mode": [
+      "EC000000",
+      "000000FF"
+    ],
+    "cvg_times_alpha": false,
+    "force_blend": false
+  },
+  "captured_states": {
+    "A": {
+      "combine_mode": [
+        "FC26A080",
+        "151492FF"
+      ],
+      "other_mode": [
+        "EF19AC3F",
+        "04D12078"
+      ],
+      "state_subset_sha256": "8421a7e9037b90fb81f00b1a04c958d65ccd873cf8c5115bd127ff088be06e34"
+    },
+    "B": {
+      "combine_mode": [
+        "FCFF9880",
+        "F514FEFF"
+      ],
+      "other_mode": [
+        "EF18AC3F",
+        "04D12078"
+      ],
+      "state_subset_sha256": "6d27162ffa5036aa3ddee7609a127fc9753db90589b02670231bddb5710d6f91"
+    }
+  },
+  "identities": {
+    "original_proof_sha256": "8764bb216095cd963f8d66d7742cc5ff93ab1334a44e03776191afe1ffba42eb",
+    "plist_sha256": "2a1aef970419b8a8e11c94cf5a4f0078c912f5d2ee48d2b374f9e3267da532dd",
+    "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "screenshot_sha256": "2c269d93a9d82e0abc3990c1c8c63c46d5e268071c2d757a643047f6475957f3",
+    "source_bytes": 11400,
+    "source_sha1": "f5247b7c7d91be66589863d66341d891fd55e7c0",
+    "source_sha256": "7c13d0045a2847d661066b4633729e1dfd0e8c46c4dd06853d8ccf1f035791d1",
+    "state_sha256": "f24065bf126ee41943e0cb6d14879bd77ad55d28c1bbed567384ce6aa1072650",
+    "trace_sha256": "9978ebe2a61e38724fbb7df4a1c2cad9fa18a90b32f28da123676c1ab4647b89"
+  },
+  "inspection_scope": "Scene60 Library bats 2 model155 captured primary normal part0, mode1, opacity255, secondary0, caller1502CBD0, actor35/slot13 only. Original zero-alpha PNGs retained. OPAQUE unlit pre-blender black inspection approximation; native fog, framebuffer blending, visibility and fractional edge coverage are not reproduced. Additive effective fog evidence is black RGBA(0,0,0,255), separate from the unchanged recorded material-state hashes. No native per-pixel framebuffer parity, captured-pose export, runtime-animation absence or universal default admission.",
+  "local_source_guards": {
+    "material_run_sha256": {
+      "155": {
+        "0": "72811485312eed178a7c0c3dbc9d6f408e4f77b9a56cf6e5bf719a18248f5418",
+        "1": "67359422aa766b1b112ed7ebb648c8f8db599e87a1868aef4cf115558ad92cb8",
+        "11": "579ce1ea90c1bea03f6e8c0f33b0f30c49c735e4dde25c4fcc21df4c71b7d8ba",
+        "13": "ce974a6f637f4e35a568a3d1f71dba43c5321ae802fc7698b1bdf122ffc9ba45",
+        "14": "0ea9b218ccd7ace933d94a728afd699e0b2fc9ce1758a57d9c7d47075d797669",
+        "18": "a5e05bdd33f73d979287317de15fe914c5090b2462eb54d19c7c5754ff82d861",
+        "20": "69809f6ec609b4667c657eb95a4d47f5d9d21d35034386200f64570b21395739",
+        "3": "416272f20c7286fd489b726b6debcaab15b75abcf00b21665a54c8f9fbf17a22",
+        "5": "a689a89a9e75d63eef4ea6db20da331e1c807e619963a175ee98841e1bc96373",
+        "6": "7cc7315a59c966f980c3dda8bb53a90b6d5febbdd0b5ab2b0b110a3e4bd3e0ef",
+        "8": "7323cb0c161578a25a7a13fdcfae58f646d7325bd585522419713ac13bb6b414"
+      }
+    },
+    "origin": "Full canonical ROM states checked against exact integration-packet contracts."
+  },
+  "material_contracts": {
+    "0": {
+      "combine_mode": [
+        4230389888,
+        353669887
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 13,
+      "first_face": 0,
+      "matrix_index": 1,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118943744
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110418496,
+          17368641
+        ],
+        [
+          2,
+          4110418512,
+          34130482
+        ],
+        [
+          3,
+          4110418520,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 256,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607107586,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "1": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 1,
+      "first_face": 13,
+      "matrix_index": 1,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 905,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 905,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118484992
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110418496,
+          17368641
+        ],
+        [
+          2,
+          4110418512,
+          34130482
+        ],
+        [
+          3,
+          4110418520,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "11": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 10,
+      "first_face": 115,
+      "matrix_index": 13,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 914,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 914,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118484992
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110943360,
+          17368641
+        ],
+        [
+          2,
+          4110942880,
+          34130482
+        ],
+        [
+          3,
+          4110942888,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "13": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 16,
+      "first_face": 136,
+      "matrix_index": 13,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 926,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 926,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          119533568
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        623184
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          623184
+        ],
+        [
+          1,
+          4110943360,
+          17368641
+        ],
+        [
+          2,
+          4110942880,
+          34130482
+        ],
+        [
+          3,
+          4110942888,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516350
+      ]
+    },
+    "14": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 44,
+      "first_face": 152,
+      "matrix_index": 13,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 914,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 914,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118484992
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110943360,
+          17368641
+        ],
+        [
+          2,
+          4110942880,
+          34130482
+        ],
+        [
+          3,
+          4110942888,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "18": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 22,
+      "first_face": 236,
+      "matrix_index": 1,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 905,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 905,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118484992
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110943360,
+          17368641
+        ],
+        [
+          2,
+          4110942880,
+          34130482
+        ],
+        [
+          3,
+          4110942888,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": null,
+            "offset": 0,
+            "segment": 7
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": null,
+            "offset": 1024,
+            "segment": 7
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": null,
+            "offset": 0,
+            "segment": 6
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": null,
+            "offset": 1024,
+            "segment": 6
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 907,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 907,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "20": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 20,
+      "first_face": 266,
+      "matrix_index": 13,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 914,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 914,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118484992
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110943360,
+          17368641
+        ],
+        [
+          2,
+          4110942880,
+          34130482
+        ],
+        [
+          3,
+          4110942888,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 926,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": null,
+            "offset": 0,
+            "segment": 7
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": null,
+            "offset": 1024,
+            "segment": 7
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": null,
+            "offset": 0,
+            "segment": 6
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": null,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": null,
+            "offset": 1024,
+            "segment": 6
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 907,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              119533568
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 907,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 928,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 928,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 914,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "3": {
+      "combine_mode": [
+        4230389888,
+        353669887
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 23,
+      "first_face": 28,
+      "matrix_index": 2,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118943744
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110418496,
+          17368641
+        ],
+        [
+          2,
+          4110418512,
+          34130482
+        ],
+        [
+          3,
+          4110418520,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 256,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607107586,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "5": {
+      "combine_mode": [
+        4230389888,
+        353669887
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 13,
+      "first_face": 56,
+      "matrix_index": 1,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118943744
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110418496,
+          17368641
+        ],
+        [
+          2,
+          4110418512,
+          34130482
+        ],
+        [
+          3,
+          4110418520,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 256,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607107586,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "6": {
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 1,
+      "first_face": 69,
+      "matrix_index": 1,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 905,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 905,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118484992
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110418496,
+          17368641
+        ],
+        [
+          2,
+          4110418512,
+          34130482
+        ],
+        [
+          3,
+          4110418520,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "8": {
+      "combine_mode": [
+        4230389888,
+        353669887
+      ],
+      "detail_tile_bounds": [],
+      "face_count": 23,
+      "first_face": 84,
+      "matrix_index": 2,
+      "other_mode": null,
+      "other_mode_partial": null,
+      "palette": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4026531840,
+          100909056
+        ],
+        "mode": 2,
+        "offset": null,
+        "segment": null
+      },
+      "pixel": {
+        "external": false,
+        "flat_index": 903,
+        "image_command": 4245684224,
+        "load_command": [
+          4076863488,
+          118943744
+        ],
+        "mode": 0,
+        "offset": null,
+        "segment": null
+      },
+      "preview_coordinate_state": null,
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "render_tiles": [
+        [
+          0,
+          4110418944,
+          606800
+        ],
+        [
+          1,
+          4110418496,
+          17368641
+        ],
+        [
+          2,
+          4110418512,
+          34130482
+        ],
+        [
+          3,
+          4110418520,
+          50892323
+        ],
+        [
+          6,
+          4110418176,
+          100663296
+        ],
+        [
+          7,
+          4111466496,
+          117440512
+        ]
+      ],
+      "runtime_render_state_offset": 256,
+      "texture_coordinates_proven": true,
+      "texture_dimensions": null,
+      "texture_enabled": true,
+      "texture_loads": [
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118484992
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 905,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              120254464
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 932,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              104841216
+            ],
+            "mode": 1,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4076863488,
+              118943744
+            ],
+            "mode": 0,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4111466496,
+            117440512
+          ]
+        ],
+        [
+          {
+            "external": false,
+            "flat_index": 903,
+            "image_command": 4245684224,
+            "load_command": [
+              4026531840,
+              100909056
+            ],
+            "mode": 2,
+            "offset": null,
+            "segment": null
+          },
+          [
+            4110418176,
+            100663296
+          ]
+        ]
+      ],
+      "texture_scale": [
+        3607107586,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    }
+  },
+  "models": {
+    "155": {
+      "blocked_faces": 186,
+      "caller_arguments": [
+        255,
+        2147686152,
+        1,
+        0
+      ],
+      "joints": 36,
+      "runs": [
+        [
+          0,
+          0,
+          13,
+          903,
+          1,
+          6424,
+          6448
+        ],
+        [
+          1,
+          13,
+          1,
+          905,
+          1,
+          6552,
+          6552
+        ],
+        [
+          3,
+          28,
+          23,
+          903,
+          2,
+          6912,
+          6960
+        ],
+        [
+          5,
+          56,
+          13,
+          903,
+          1,
+          7280,
+          7304
+        ],
+        [
+          6,
+          69,
+          1,
+          905,
+          1,
+          7408,
+          7408
+        ],
+        [
+          8,
+          84,
+          23,
+          903,
+          2,
+          7768,
+          7816
+        ],
+        [
+          11,
+          115,
+          10,
+          914,
+          13,
+          8152,
+          8168
+        ],
+        [
+          13,
+          136,
+          16,
+          926,
+          13,
+          8376,
+          8520
+        ],
+        [
+          14,
+          152,
+          44,
+          914,
+          13,
+          8616,
+          8808
+        ],
+        [
+          18,
+          236,
+          22,
+          905,
+          1,
+          9304,
+          9464
+        ],
+        [
+          20,
+          266,
+          20,
+          914,
+          13,
+          9784,
+          9816
+        ]
+      ],
+      "runtime_animation_absence_proven": false,
+      "selected_part": {
+        "display_list_address": 2149893488,
+        "display_list_bytes": 4280,
+        "display_list_sha256": "5720ab68420e50a3dc4695e72a31546855b0c5418cd50e7d53355bf2c12810b0",
+        "display_model": 155,
+        "draw_mode": 1,
+        "part": 0,
+        "secondary_model": 0,
+        "table": "normal",
+        "table_slot_address": 2148288244
+      },
+      "selected_primary_faces": 314,
+      "source_bytes": 11400,
+      "source_dl_sha256": "31d35450b3fe44a8a6255e407eea18c5884e2efa9c81bdae40c464863ed9da51",
+      "source_sha1": "f5247b7c7d91be66589863d66341d891fd55e7c0",
+      "source_sha256": "7c13d0045a2847d661066b4633729e1dfd0e8c46c4dd06853d8ccf1f035791d1",
+      "source_vertex_sha256": "449229321cfdb01053dfcec9ecdfbb06fbe51af53a22f219423c41e26ab85e3d",
+      "stored_clips": 0,
+      "vertices": 335,
+      "whole_model_faces": 314
+    }
+  },
+  "preset": "library-bat155-captured-primary-opacity255",
+  "provenance": {
+    "packet_sha256": "c282311b2f49b955ad936f29dfa173a444609a510ba3ed58428c2ae15ab0c346",
+    "sources": {
+      "material_proof": {
+        "bytes": 2868895,
+        "sha256": "8764bb216095cd963f8d66d7742cc5ff93ab1334a44e03776191afe1ffba42eb"
+      },
+      "packet": {
+        "bytes": 125111,
+        "sha256": "c282311b2f49b955ad936f29dfa173a444609a510ba3ed58428c2ae15ab0c346"
+      },
+      "save_metadata": {
+        "bytes": 527,
+        "sha256": "2a1aef970419b8a8e11c94cf5a4f0078c912f5d2ee48d2b374f9e3267da532dd"
+      },
+      "save_state": {
+        "bytes": 2039172,
+        "sha256": "f24065bf126ee41943e0cb6d14879bd77ad55d28c1bbed567384ce6aa1072650"
+      },
+      "scene_metadata": {
+        "bytes": 2959,
+        "sha256": "972a6e7d52777756193968611206adb2a330c9f02c27c80bde0ce20185ca6283"
+      },
+      "screenshot": {
+        "bytes": 403929,
+        "sha256": "2c269d93a9d82e0abc3990c1c8c63c46d5e268071c2d757a643047f6475957f3"
+      },
+      "topology": {
+        "bytes": 1838398,
+        "sha256": "2286b48cdadf7049f6dbebfe81df96f7e4658e0766919b33157a103ff886564c"
+      },
+      "trace": {
+        "bytes": 51128281,
+        "sha256": "9978ebe2a61e38724fbb7df4a1c2cad9fa18a90b32f28da123676c1ab4647b89"
+      }
+    },
+    "verification_scope": "Pinned source byte identities, raw-trace material row equality and recorded event hashes, independently checked ROM source/load histories and all seven image levels. Raw task headers, renderer range bytes, fog words and 35 transforms per task independently checked. Float-to-fixed matrix components agree within native quantization; memory bytes change. Effective last-preceding fog coverage/flattened offsets remain separately recorded analysis; no local command replay, new capture or native framebuffer validation."
+  },
+  "schema_version": 1,
+  "scope": "Scene60 Library bats 2 model155 captured primary normal part0, mode1, opacity255, secondary0, caller1502CBD0, actor35/slot13 only. Original zero-alpha PNGs retained. OPAQUE unlit pre-blender black inspection approximation; native fog, framebuffer blending, visibility and fractional edge coverage are not reproduced. Additive effective fog evidence is black RGBA(0,0,0,255), separate from the unchanged recorded material-state hashes. No native per-pixel framebuffer parity, captured-pose export, runtime-animation absence or universal default admission.",
+  "source_contracts": {
+    "903": {
+      "captured_state": "A",
+      "combine_mode": [
+        4230389888,
+        353669887
+      ],
+      "pixel_load": [
+        4076863488,
+        118943744
+      ],
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "runtime_render_state_offset": 256,
+      "texture_scale": [
+        3607107586,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "905": {
+      "captured_state": "B",
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "pixel_load": [
+        4076863488,
+        118484992
+      ],
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "914": {
+      "captured_state": "B",
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "pixel_load": [
+        4076863488,
+        118484992
+      ],
+      "render_tile": [
+        4110418944,
+        606800
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516222
+      ]
+    },
+    "926": {
+      "captured_state": "B",
+      "combine_mode": [
+        4244609152,
+        4111793919
+      ],
+      "pixel_load": [
+        4076863488,
+        119533568
+      ],
+      "render_tile": [
+        4110418944,
+        623184
+      ],
+      "runtime_render_state_offset": 64,
+      "texture_scale": [
+        3607101442,
+        4294967295
+      ],
+      "tile_bounds": [
+        4060094466,
+        516350
+      ]
+    }
+  },
+  "task": {
+    "actor": 35,
+    "caller": "1502CBD0",
+    "event_indexing": "Zero-based draw_state events excluding session",
+    "scene": 60,
+    "slot": 13,
+    "submissions": [
+      {
+        "effective_fog": {
+          "applies_to": "Every blocked triangle according to the pinned additive analysis; last preceding F8, no unresolved targets",
+          "flattened_byte_offset": 25720,
+          "flattened_offset_independently_recomputed": false,
+          "origin": 2148635024,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "words": [
+            "F8000000",
+            "000000FF"
+          ]
+        },
+        "event_columns": [
+          "entry",
+          "part",
+          "return",
+          "submit"
+        ],
+        "events": [
+          9,
+          10,
+          11,
+          12
+        ],
+        "execution_count": 1,
+        "matrix_evidence": {
+          "affine_components_compared": 420,
+          "entry_event": 9,
+          "flattened_fog_offset_independently_recomputed": false,
+          "fog_origin": 2148635024,
+          "fog_root_buffer_offset": 11040,
+          "matrix_byte_blocks_changed": 35,
+          "matrix_count": 35,
+          "matrix_maximum_absolute_error": 7.599592208862305e-06,
+          "matrix_status": "float-to-split-fixed-affine-components-agree-within-precision",
+          "matrix_tolerance": 1.52587890625e-05,
+          "recorded_flattened_fog_offset": 25720,
+          "return_event": 11,
+          "root_address": 2148623984,
+          "submit_event": 12,
+          "target_draw_offsets": [
+            26056,
+            29560
+          ],
+          "task_address": 2147707744,
+          "verified_fog_words": [
+            4160749568,
+            255
+          ]
+        },
+        "probes": [
+          {
+            "length": 64,
+            "name": "task",
+            "resolved_address": "0x80036B60",
+            "sha256": "85d92fe80f5be586a09fbdf52c16085a6d9e4cab74192668dd1d83f46dd5a010"
+          },
+          {
+            "length": 12592,
+            "name": "command-buffer",
+            "resolved_address": "0x80116670",
+            "sha256": "ed814ca9ac17b843e14b18cc67808fba51e12a82c2e551c759488854b8d94739"
+          }
+        ],
+        "recorded_matrix_report": [],
+        "state_sha256": [
+          "3cc30ffdc6c1e4506f0f25995121971ff8fc0417c93c1c058cc888376794d788",
+          "5265c92e2bbd742d4fc294650a7f931fb0e38353e84e669ce285c197b4f4e720",
+          "a65d8b44958785c6a37f29b584459db415b927cd45aedb2d459860f8dfeabaec"
+        ],
+        "submission": {
+          "command_buffer_end": 2148635064,
+          "command_buffer_start": 2148634872,
+          "command_sha256": "f9485f5b08f28c40c6b9c819e66edb65fd0b93175deded93b122b71cb4563185",
+          "event_index": 12,
+          "matrices_changed_after_return": [],
+          "status": "captured-range-executed-once-in-next-graphics-task",
+          "triangle_count": 314
+        },
+        "triangles": 314
+      },
+      {
+        "effective_fog": {
+          "applies_to": "Every blocked triangle according to the pinned additive analysis; last preceding F8, no unresolved targets",
+          "flattened_byte_offset": 25736,
+          "flattened_offset_independently_recomputed": false,
+          "origin": 2148587824,
+          "rgba": [
+            0,
+            0,
+            0,
+            255
+          ],
+          "words": [
+            "F8000000",
+            "000000FF"
+          ]
+        },
+        "event_columns": [
+          "entry",
+          "part",
+          "return",
+          "submit"
+        ],
+        "events": [
+          22,
+          23,
+          24,
+          25
+        ],
+        "execution_count": 1,
+        "matrix_evidence": {
+          "affine_components_compared": 420,
+          "entry_event": 22,
+          "flattened_fog_offset_independently_recomputed": false,
+          "fog_origin": 2148587824,
+          "fog_root_buffer_offset": 11056,
+          "matrix_byte_blocks_changed": 35,
+          "matrix_count": 35,
+          "matrix_maximum_absolute_error": 7.62939453125e-06,
+          "matrix_status": "float-to-split-fixed-affine-components-agree-within-precision",
+          "matrix_tolerance": 1.52587890625e-05,
+          "recorded_flattened_fog_offset": 25736,
+          "return_event": 24,
+          "root_address": 2148576768,
+          "submit_event": 25,
+          "target_draw_offsets": [
+            26072,
+            29576
+          ],
+          "task_address": 2147707744,
+          "verified_fog_words": [
+            4160749568,
+            255
+          ]
+        },
+        "probes": [
+          {
+            "length": 64,
+            "name": "task",
+            "resolved_address": "0x80036B60",
+            "sha256": "5f96c971b1b9ee805e617696d0eeb472099f975ddcb9d963a6b3d12293a4c8ba"
+          },
+          {
+            "length": 12608,
+            "name": "command-buffer",
+            "resolved_address": "0x8010AE00",
+            "sha256": "8f5262b6d4fed72824f1e5f04be916f9cdf52ed9baa6fd11b1cbc2cbe24f0a74"
+          }
+        ],
+        "recorded_matrix_report": [],
+        "state_sha256": [
+          "5035f67e606e5efea41f1f2db54def66375697d7ef7011b926bf733a64f86907",
+          "639a5f6e5415f2da16dfc3ce9daf5471adb8f2f2d7f17282a61bb57289f1fb26",
+          "29f144aadcd571396c4c82d3f795623173e31fc98d29be0650dd61bdf79a762c"
+        ],
+        "submission": {
+          "command_buffer_end": 2148587864,
+          "command_buffer_start": 2148587672,
+          "command_sha256": "cf6b6adac13b3f5857a4cd776fe2aea4c783963a8fa5b0fcee2623ebf9053641",
+          "event_index": 25,
+          "matrices_changed_after_return": [],
+          "status": "captured-range-executed-once-in-next-graphics-task",
+          "triangle_count": 314
+        },
+        "triangles": 314
+      }
+    ]
+  },
+  "texture_common": {
+    "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
+  },
+  "textures": {
+    "903": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 736,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "b80119a44463c72c96a7b5781e366bded23ffd6ba1caf9533527271c1b81d07b",
+      "compressed_rom_range": [
+        "0x3145A2",
+        "0x3147BF"
+      ],
+      "compressed_sha256": "4398281fae3ee51765329c9bd60687d763b540caabf108f94e4687e2afcbfe9d",
+      "flat_bytes": 1920,
+      "flat_sha1": "ba4940bbba4c6e9d2b83159afaf18f73191a2330",
+      "flat_sha256": "ca365ddee25d8453975cb9352b7b9eb7e83bec104511a5253cb65bb12434fdd2",
+      "format": "ci4",
+      "height": 32,
+      "levels": [
+        {
+          "all_rgba_zero": true,
+          "height": 32,
+          "png_sha1": "6de1b36f60979a3db51bc608b11413530a6b3b00",
+          "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+          "source_byte_offset": 0,
+          "tmem_byte_offset": 0,
+          "width": 32
+        },
+        {
+          "all_rgba_zero": true,
+          "height": 16,
+          "level": 1,
+          "png_sha1": "5c8e1a5256d1d4a685dff50a20d3e7dea2b9e05a",
+          "rgba_sha256": "5f70bf18a086007016e948b04aed3b82103a36bea41755b6cddfaf10ace3c6ef",
+          "source_byte_offset": 512,
+          "tmem_byte_offset": 512,
+          "width": 16
+        },
+        {
+          "all_rgba_zero": true,
+          "height": 8,
+          "level": 2,
+          "png_sha1": "ec03e837acf87bdf5cfeccfab445600315a42301",
+          "rgba_sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+          "source_byte_offset": 640,
+          "tmem_byte_offset": 640,
+          "width": 8
+        },
+        {
+          "all_rgba_zero": true,
+          "height": 4,
+          "level": 3,
+          "png_sha1": "d959d6b2dd42eaa2515f29c8505385a891e89518",
+          "rgba_sha256": "f5a5fd42d16a20302798ef6ed309979b43003d2320d9f0e8ea9831a92759fb4b",
+          "source_byte_offset": 704,
+          "tmem_byte_offset": 704,
+          "width": 4
+        }
+      ],
+      "mip_count": 4,
+      "old_flat_match": true,
+      "palette_bytes": 32,
+      "palette_offset": 1888,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "6de1b36f60979a3db51bc608b11413530a6b3b00",
+      "rgb_nonzero": false,
+      "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "texel1_mip_count": 0,
+      "width": 32
+    },
+    "905": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 512,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "9116b120845a84f89f0bb25d423d7b8ef2e01c75bfcad51192e55f62a1290a35",
+      "compressed_rom_range": [
+        "0x314950",
+        "0x314A6E"
+      ],
+      "compressed_sha256": "8178aeacaf86eab51ed94eb3689d7b1ccac09f2fce385f61e860eca38a1286a5",
+      "flat_bytes": 1536,
+      "flat_sha1": "1bb9866c6d9f3f0ea4ee1fb2a885efbbaf78514d",
+      "flat_sha256": "0b3b2042659dc79400a11db732f285c7fba3fb37b3e16cd51bfc4cf47912fc91",
+      "format": "ci4",
+      "height": 32,
+      "levels": [
+        {
+          "all_rgba_zero": true,
+          "height": 32,
+          "png_sha1": "4dc573aa5fea405812fac318362d1067c4ef6f18",
+          "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+          "source_byte_offset": 0,
+          "tmem_byte_offset": 0,
+          "width": 32
+        }
+      ],
+      "mip_count": 1,
+      "old_flat_match": true,
+      "palette_bytes": 32,
+      "palette_offset": 1504,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "4dc573aa5fea405812fac318362d1067c4ef6f18",
+      "rgb_nonzero": false,
+      "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "texel1_mip_count": 0,
+      "width": 32
+    },
+    "914": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 512,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "37fcce9bf9bb7c1c479f9ddd9fc6fcba99dd1face0247982fd77fe4b05643f4f",
+      "compressed_rom_range": [
+        "0x316B1A",
+        "0x316C72"
+      ],
+      "compressed_sha256": "5fa026392d808330ad45fba25f89045007ac62bcfc4c398a3403f9d58ac70671",
+      "flat_bytes": 1536,
+      "flat_sha1": "980fd43399601d97df992857f9612ac037b91eb3",
+      "flat_sha256": "3e2e84c73c5910f62a1a9c6d1b24f5842cdf529a218fe9619d420254567bb52d",
+      "format": "ci4",
+      "height": 32,
+      "levels": [
+        {
+          "all_rgba_zero": true,
+          "height": 32,
+          "png_sha1": "779b8dea00f4ab5afbf43004bb95956b8c62ef63",
+          "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+          "source_byte_offset": 0,
+          "tmem_byte_offset": 0,
+          "width": 32
+        }
+      ],
+      "mip_count": 1,
+      "old_flat_match": true,
+      "palette_bytes": 32,
+      "palette_offset": 1504,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "779b8dea00f4ab5afbf43004bb95956b8c62ef63",
+      "rgb_nonzero": false,
+      "rgba_sha256": "ad7facb2586fc6e966c004d7d1d16b024f5805ff7cb47c7a85dabd8b48892ca7",
+      "texel1_mip_count": 0,
+      "width": 32
+    },
+    "926": {
+      "alpha_values": [
+        0
+      ],
+      "captured_pixel_bytes": 1024,
+      "captured_pixel_offset": 0,
+      "captured_pixel_sha256": "0a9360b6f495ec1225e2db18aa84ac0262d5c3b1b5941bbd9c832f4ac1254ca9",
+      "compressed_rom_range": [
+        "0x318F29",
+        "0x319186"
+      ],
+      "compressed_sha256": "217721b4bc4d02eaf7270e82c0c7df66e1a53a140fd7fcabfec94ba69870e5f2",
+      "flat_bytes": 2560,
+      "flat_sha1": "7acd8c2426a838f2f4053dbed5eb2f59246c18e6",
+      "flat_sha256": "0f9bc90b26bf187548c2612fe8a827990d165b4e2f8752c5b284f2032aa86f05",
+      "format": "ci4",
+      "height": 64,
+      "levels": [
+        {
+          "all_rgba_zero": true,
+          "height": 64,
+          "png_sha1": "ec704fc013234fd13401b97a533f9c40d6e067d2",
+          "rgba_sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+          "source_byte_offset": 0,
+          "tmem_byte_offset": 0,
+          "width": 32
+        }
+      ],
+      "mip_count": 1,
+      "old_flat_match": true,
+      "palette_bytes": 32,
+      "palette_offset": 2528,
+      "palette_sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925",
+      "png_sha1": "ec704fc013234fd13401b97a533f9c40d6e067d2",
+      "rgb_nonzero": false,
+      "rgba_sha256": "9f1dcbc35c350d6027f98be0f5c8b43b42ca52b7604459c0c42be3aa88913d47",
+      "texel1_mip_count": 0,
+      "width": 32
+    }
+  }
+}
