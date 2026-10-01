@@ -371,3 +371,53 @@ and whitespace passed. This adds **7 functions / 704 bytes**, giving
 functions. The complete source remains in raw-ASM integration mode, following
 its required stop action; C coverage and integration are separate claims.
 No accepted IDs remain pending at this checkpoint.
+
+## Tenth batch: allocator wrappers and tag walks
+
+Three related functions are newly accepted:
+
+- `func_80003C40` (44 bytes): preserves the existing full-width allocator
+  contract, inserts the helper's fourth zero argument and returns its result.
+- `func_80004308` (172 bytes): reads the list under the interrupt mask, runs
+  the existing text-reset helper, releases tags 1–4 and restores the mask.
+- `func_80004250` (184 bytes): releases tag 2 and reduces tags 3/4 while
+  preserving the low 24 bits, then reloads the next link after the possible
+  free operation. It reuses the proven sibling storage shape and matched on
+  its first implementation form.
+
+For `80004308`, the first score was 10: every instruction and actual stack
+access matched except the frame size, 0x38 instead of 0x40. The retained
+object's debug homes were mask -4, tag -8 and block -12. Moving only the
+existing cross-call mask declaration after the two genuine locals changed its
+debug home to -12 and recovered the raw 0x40 frame while keeping the actual
+mask spill at SP+0x34. The specific prediction was verified separately from
+CURRENT (0). No storage or dummy values were added.
+
+Three other members remain inactive candidates:
+
+- `func_800043B4` keeps its best score 160 after 160/160/879. The observed
+  12-byte allocation header and tag store are represented, but the delayed
+  header-address adjustment and store schedule differ.
+- `func_80004074` improved 2807 to 1191 to 1026. Correct successor lifetimes
+  eliminated spurious reload/control changes; using the just-written
+  destination links then removed redundant named pointer state. Initial
+  pointer identity, stack homes and scheduling still differ.
+- `func_8000440C` improved 12 to focused zero when the real maximum
+  accumulator was declared before the retained largest-block pointer. Debug
+  and runtime evidence both confirmed its home moving from -4/SP+4 to
+  -8/SP+0 in the same eight-byte frame. Later genuine sibling additions
+  changed the stripped C prefix, so the exact 88-byte body now lacks one
+  terminal word of its registered 100-byte span, scoring 100. The supported
+  reopen transaction restored assembly and preserved the candidate. It was
+  never batch-accepted and contributes no new match.
+
+The local free-record view distinguishes the 12-byte allocated header from
+free-list links occupying the following payload words. No shared header,
+argument narrowing, artificial alignment or reference change was used.
+
+The clean three-function batch returned `BATCH_COMPLETE`: full US ROM match,
+1,328 tests run with 12 skipped, metadata, progress and whitespace passed.
+This adds **3 functions / 400 bytes**, giving **39 / 2,900 bytes** since the
+fresh baseline and **2,672** accepted US C functions. The source remains in
+progress with the best deferred candidates retained. No accepted IDs remain
+pending at this checkpoint.

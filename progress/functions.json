@@ -90620,8 +90620,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 44,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80003C40",
           "vram": "0x80003C40"
         }
@@ -90643,6 +90648,12 @@
       "symbol": "func_80003C6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1026,
+        "reason": "Coalescing/free-list candidate improves2807 to1191 to1026 after correcting successor lifetimes and reusing destination links. Keep best typed form; source storage/initial pointer identity, manager scheduling and register allocation remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90659,8 +90670,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80004250",
           "vram": "0x80004250"
         }
@@ -90672,8 +90688,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 172,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80004308",
           "vram": "0x80004308"
         }
@@ -90682,6 +90703,12 @@
       "symbol": "func_80004308"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 160,
+        "reason": "Proven 12-byte allocation-header view, full-width tag parameter and masked update. Scores160,160,879. Missing final derived-header adjustment and store delay schedule remain; preserve simplest valid160 form without dummy pointer effects.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -90695,6 +90722,11 @@
       "symbol": "func_800043B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "reason": "New genuine allocator siblings changed stripped C prefix; exact instruction body now lacks one terminal word of registered100-byte span. Previous focusedzero never batch accepted. Reopen and preserve for later genuine companion alignment.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {

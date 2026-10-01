@@ -19788,7 +19788,7 @@
         "us": {
           "end": "0x4470",
           "start": "0x3C40",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_3C40.c"
