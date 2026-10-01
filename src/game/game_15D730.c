@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_text_view_descriptor_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15130280
  * - func_151303EC
  * - func_15130A9C
  * - func_15131828
@@ -44,48 +43,48 @@ typedef struct Game15D730CopyBlock {
 void *func_10022EC0(void *, const void *, u32);
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15130280 CURRENT (1455) */
-void func_15130280(void *arg0, u8 arg1, Game15D730CopyBlock *arg2,
+void *func_15130280(void *arg0, u8 arg1, Game15D730CopyBlock *arg2,
                    s32 arg3, u8 arg4, s32 arg5) {
     void *sp24;
     s32 var_a0;
 
-    if (arg1 != 0) {
-        if (arg1 != 1) {
-            var_a0 = 0x47;
-            if (arg1 != 2) {
-                var_a0 = 0x2B;
-            }
-        } else {
-            var_a0 = 0x52;
-        }
-    } else {
+    switch (arg1) {
+    case 0:
         var_a0 = 0x2B;
+        break;
+    case 1:
+        var_a0 = 0x52;
+        break;
+    case 2:
+        var_a0 = 0x47;
+        break;
+    default:
+        var_a0 = 0x2B;
+        break;
     }
     sp24 = func_15167A68(var_a0, arg5, arg3 + 0xA8, 1, arg4, 1);
     if (sp24 == 0) {
-        return;
+        return 0;
     }
     func_10022EC0((u8 *)sp24 + 0x10, arg0, 0x70);
     if (arg2 != 0) {
         *(Game15D730CopyBlock *)((u8 *)sp24 + 0x80) = *arg2;
-        return;
+    } else {
+        *(s8 *)((u8 *)sp24 + 0x9C) = 0;
     }
-    *(s8 *)((u8 *)sp24 + 0x9C) = 0;
-}
-#endif /* CONKER_DEFERRED_CANDIDATE func_15130280 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130280.s")
-
-void func_15130280(void *, u8, Game15D730CopyBlock *, s32, u8, s32);
-
-void func_15130374(s32 arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
-    func_15130280((void *)arg0, arg1, 0, arg2, arg3, arg4);
+    return sp24;
 }
 
-void func_15130374(s32, u8, s32, u8, s32);
+void *func_15130280(void *, u8, Game15D730CopyBlock *, s32, u8, s32);
 
-void func_151303BC(s32 arg0, u8 arg1, s32 arg2) {
-    func_15130374(arg0, arg1, arg2, 0xFF, 0);
+void *func_15130374(s32 arg0, u8 arg1, s32 arg2, u8 arg3, s32 arg4) {
+    return func_15130280((void *)arg0, arg1, 0, arg2, arg3, arg4);
+}
+
+void *func_15130374(s32, u8, s32, u8, s32);
+
+void *func_151303BC(s32 arg0, u8 arg1, s32 arg2) {
+    return func_15130374(arg0, arg1, arg2, 0xFF, 0);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_151303EC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15130A9C.s")

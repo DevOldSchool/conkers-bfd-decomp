@@ -293,6 +293,109 @@ void func_151A4590(void *arg0, u8 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A4590 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4590.s")
+typedef struct Game1D0840EmitterPacket {
+    u32 field00;
+    s32 field04;
+    u16 field08;
+    s16 lifetime;
+    s32 field0C;
+    s32 field10;
+    u8 field14;
+    u8 field15;
+    u8 field16;
+    u8 field17;
+    u8 field18;
+    u8 field19;
+    u8 field1A;
+    u8 field1B;
+    u8 field1C;
+    u8 callback;
+    s16 field1E;
+    s16 field20;
+    s16 field22;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    Game1D0840Vec3 position;
+    u8 pad3C[0xC];
+    Game1D0840Vec3 velocity;
+    f32 field54;
+    u32 flags58;
+    u8 pad5C[4];
+    u8 field60;
+    u8 field61;
+    u8 field62;
+    s8 field63;
+    u8 pad64[0xC];
+} Game1D0840EmitterPacket;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void *func_15130374(s32, u8, s32, u8, s32);
+extern f32 D_800A8D60;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A4638 CURRENT (470) */
+void func_151A4638(f32 x, f32 y, f32 z, f32 velocityX, f32 velocityY,
+                   f32 velocityZ, u8 *owner) {
+    Game1D0840EmitterPacket packet;
+    f32 scale;
+    s16 parameters[6];
+    u8 *result;
+
+    packet.callback = 0x27;
+    packet.field08 = 0x1401;
+    packet.field00 = 0x200005;
+    packet.field04 = 0;
+    packet.lifetime = (func_150ADA20() % 5U) + 0xF;
+    packet.field0C = 0;
+    packet.field10 = 0;
+    packet.field14 = 0x8A;
+    packet.field15 = 0;
+    packet.field16 = 0;
+    packet.field17 = 0xFF;
+    packet.field18 = 0;
+    packet.field19 = 0;
+    packet.field1A = 0;
+    packet.field1E = 1;
+    packet.field20 = 0xFF;
+    packet.field22 = 1;
+    packet.field24 = 1.0f;
+    packet.field28 = func_150ADA68() * 50.0f + 500.0f;
+    packet.position.x = x;
+    packet.position.y = y;
+    packet.position.z = z;
+    scale = D_800A8D60 * D_800BE9A8;
+    packet.velocity.x = -velocityX * scale;
+    packet.velocity.y = -velocityY * scale;
+    packet.flags58 = 0xD;
+    packet.field60 = 1;
+    packet.field61 = 1;
+    packet.field2C = packet.field28;
+    packet.velocity.z = -velocityZ * scale;
+    packet.field54 = 0.0f;
+    if (func_150ADA20() & 1) {
+        packet.flags58 |= 0x40;
+    }
+    if (func_150ADA20() & 1) {
+        packet.flags58 |= 0x80;
+    }
+    packet.field1B = 0xFF;
+    packet.field1C = 0xFF;
+    packet.field62 = 0;
+    packet.field63 = -1;
+    parameters[0] = 0x10;
+    parameters[1] = 0xF;
+    parameters[2] = 0xD;
+    parameters[3] = 0x13;
+    parameters[4] = 0x11;
+    parameters[5] = -0x18;
+    result = func_15130374((s32) &packet, 0, 0xC, owner[0xC], 1);
+    if (result != 0) {
+        func_10022EC0(result + 0xA8, parameters, 0xC);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A4638 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D0840/func_151A4638.s")
 extern s32 D_800BE9E4;
 

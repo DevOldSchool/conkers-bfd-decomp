@@ -44646,17 +44646,16 @@
       "symbol": "func_15111AF4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1455,
-        "reason": "CURRENT (1455) best candidate: allocation, memcpy, and copy semantics recovered; branch CFG around mode selection/null return and temp lifetime remain compiler-shape mismatches after two targeted revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 244,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15130280",
           "vram": "0x15130280"
         }
@@ -54418,6 +54417,12 @@
       "symbol": "func_151A4590"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 470,
+        "reason": "Preserve exact frame/register/arithmetic candidate at 470, with five packet-store ordering differences; approved extra lifetime form worsened and was archived",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

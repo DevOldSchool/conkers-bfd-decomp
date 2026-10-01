@@ -332,7 +332,7 @@ typedef struct Game1E37D0ParticleSpawn {
 
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);
-void func_15130280(void *, u8, void *, s32, u8, s32);
+void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern f32 D_800AA47C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151B7144 CURRENT (493) */

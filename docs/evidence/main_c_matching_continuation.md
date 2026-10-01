@@ -976,3 +976,41 @@ PI initializer `800030A0`: `BATCH_COMPLETE`, full US ROM match, integrated game
 code and linked rodata checks, 1,346 tests with 12 skipped, metadata, progress and
 whitespace passed. Accepted totals remain **61 / 6,920 bytes**, with **2,694**
 US C functions and no accepted pending IDs.
+
+## Twenty-fourth batch: recovered allocation return contract
+
+Raw `151A4638` tests the value returned by `15130374` before copying twelve
+bytes to the returned object. Its matched wrapper had a `void` C declaration,
+which hid that result from the starter. Independent review establishes the
+underlying `15130280` contract: allocation failure explicitly returns null;
+success returns the allocated pointer after copying 0x70 input bytes and either
+a 0x24-byte optional block or clearing byte 0x9C. Both forwarding wrappers leave
+V0 unchanged after the call. An existing caller already declares and uses the
+pointer return.
+
+The provider and wrappers now return that pointer coherently. Five other
+source-local prototypes have only their return type corrected; all argument
+widths are unchanged. The former void provider candidate is preserved as
+historical evidence. Correct pointer returns improve its score from the old
+1455 to 625; explicit null and a shared success return give 220. A natural
+three-case mode switch then reaches zero over **244 bytes**, preserving mode
+0/default as 0x2B, mode 1 as 0x52 and mode 2 as 0x47. The existing wrappers
+remain exact and receive no new match credit. The final source received
+independent review.
+
+The dependent `151A4638` now has a valid 0x70-byte packet and result contract.
+Its candidate improves 3311 to 1641 after removing a redundant speed alias and
+recovering its frame and buffer homes, then to 470 after grouping position
+initialization before the shared velocity scale. All registers and arithmetic
+agree; five packet stores remain reordered. One approved additional lifetime
+form worsens to 2529 and is retained separately. The 470 form remains disabled
+and unaccepted, with no padding or inferred parameter narrowing.
+
+The clean batch verified the new provider and **42 existing matches** across
+all affected source units, including both wrappers. Eight deferred callers
+retain their earlier focused scores, including the pointer-result consumer.
+`BATCH_COMPLETE`, integrated game code and linked rodata checks, 1,346 tests
+with 12 skipped, metadata, progress and whitespace passed. A supplemental main
+build also matches the US ROM. This adds **1 function / 244 bytes**, giving
+**62 / 7,164 bytes** since the fresh baseline and **2,695** accepted US C
+functions. No accepted IDs remain pending.
