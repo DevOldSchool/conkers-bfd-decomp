@@ -55,7 +55,7 @@ inventory is **2,638 functions**. No accepted IDs remain pending in this batch.
   forms. Both prior best candidates remain unchanged.
 
 Detailed source snapshots, scores, hypotheses and command logs are retained in
-the private task ledger. No permutation, artificial storage, volatile access,
+the private task ledger. In the first batch, no permutation, artificial storage, volatile access,
 narrow-formal inference, handwritten C-body assembly or weakened gate was used.
 
 ## Second batch: selector transitions and reset
@@ -98,3 +98,50 @@ the two new members: `BATCH_COMPLETE`, full US ROM match, 1,328 tests run with
 progress. This adds **2 functions / 96 bytes**, giving **7 / 180 bytes** since
 the fresh baseline and **2,640** accepted US C functions. No batch IDs remain
 pending at this checkpoint.
+
+## Third batch: sound-control records
+
+Three functions are newly accepted in `init_EB00.c`:
+
+- `func_80011E94` (36 bytes): full-width boolean test and two byte stores,
+  including the observed early return; first source form matched.
+- `func_800112BC` (84 bytes): typed four-byte queue record, full-width formals
+  and real count snapshot. The initial 660 source reloaded the count after byte
+  stores. Preserving the raw once-loaded count removed that alias-driven reload
+  and recovered CURRENT (0).
+- `func_8001147C` (84 bytes): the initial full-width formal plus normalized
+  local scored 365. The pre-existing active runtime-alias declaration
+  `s32 func_1001147C(u16)` in `src/game/game_13F9D0.c`, outside its deferred
+  caller body, supplies the narrow contract; the caller passes a `u16` sound
+  field. Using that declared contract reduced the score to 10. Reversing the
+  source integer-equality operands recovered the sole remaining branch-register
+  order and CURRENT (0). The formal was not narrowed from a store instruction.
+
+The same group preserves the following nonmatches:
+
+- `func_8000853C` and `func_80008570` retain 225 each. Exact SDK/library and raw
+  caller evidence establish the get-state result, single player input and
+  queue setter's actual pointer argument. The generated starters' incidental
+  register arguments were rejected. The existing full-width wrapper contracts
+  remain; the incoming argument-home differences are unresolved.
+- `func_80010F30` retains 248 with verified seven-argument forwarding and a
+  returned sound handle. Full-width existing contracts and explicit use-site
+  casts were retained instead of unsupported formal narrowing.
+- `func_8000EBC4` improved 320 to 125 when its real value snapshot was moved
+  before the timer branch, matching raw load order. A named step snapshot was
+  code-neutral and discarded. Fourteen register rows remain.
+- `func_800038E0` improved 845 to 410 by expressing the observed hardware write
+  through its direct MMIO address. Only the genuine hardware pointee is
+  volatile; the RAM globals are not. This is a semantic MMIO qualification,
+  not an allocation technique. Independent review found no evidence for a
+  signedness or extra-volatility experiment to defeat the remaining constant
+  reuse. The conditional whole-unit alignment lead for `func_8000390C` remains
+  unaccepted until this genuine companion matches; no padding was added.
+
+The clean batch included the three new functions plus existing `80011E88`
+and `800085A4` regressions. It returned `BATCH_COMPLETE`: full US ROM match,
+1,328 tests run with 12 skipped, and metadata/progress/whitespace passed.
+This adds **3 functions / 204 bytes**, giving **10 / 384 bytes** since the
+fresh baseline and **2,643** accepted US C functions. Source units remain in
+progress or raw as recorded; no new unit completion is claimed. No accepted
+IDs remain pending at this checkpoint.

@@ -91844,6 +91844,12 @@
       "symbol": "func_8000EB00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 125,
+        "reason": "Typed timer callback improves320 to125 by preserving value snapshot before branch. Explicit step local is unchanged; retain simpler125 source with14register rows.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92351,6 +92357,12 @@
       "symbol": "func_80010E78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 248,
+        "reason": "Verified seven-argument sound helper and return use; full-width wrapper contracts with use-site casts score248. Incoming narrow-home/reload schedule differs; no unsupported formal narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92419,8 +92431,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800112BC",
           "vram": "0x800112BC"
         }
@@ -92445,8 +92462,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 84,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8001147C",
           "vram": "0x8001147C"
         }
@@ -92515,8 +92537,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 36,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011E94",
           "vram": "0x80011E94"
         }
@@ -92564,6 +92591,12 @@
       "symbol": "func_800084D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Verified one-player SDK getter and s32 wrapper return. Both full-width normalized-index forms score225; incoming argument home and three temporary registers differ. No narrow-formal evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92577,6 +92610,12 @@
       "symbol": "func_8000853C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Verified queue setter contract and full-width existing wrapper declaration. Score225 repeats sibling incoming-formal home and temporary-register mismatch; no supported narrow-formal change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93556,6 +93595,12 @@
       "symbol": "func_8000B060"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 410,
+        "reason": "Real MMIO initializer improves845 to410 with direct hardware address; duplicate constant materialization remains. Volatile qualifies actual hardware, no source padding. Companion alignment lead remains unaccepted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
