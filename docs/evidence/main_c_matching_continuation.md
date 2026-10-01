@@ -645,3 +645,53 @@ metadata, progress and whitespace passed. This adds **5 functions / 892 bytes**,
 giving **55 / 5,308 bytes** since the fresh baseline and **2,688** accepted US
 C functions. The source remains in progress. No accepted IDs remain pending
 at this checkpoint.
+
+## Fifteenth batch: owner cleanup and callback evidence
+
+This ten-function related pass adds `func_80010AA8` (320 bytes), matching on
+its first form. It stops both owner handles through the direct-state or
+record-lookup paths and clears both fields. The real record index stays live
+across the query/stop calls; the subsequent record pointer serves the observed
+read/modify/write. Those states are retained rather than mechanically removing
+every local name.
+
+The source-local owner view now also describes floats at 0x14/0x18/0x1C and
+the word at 0x184. The callback copies those coordinates to record halfwords
+2/4/6, and checks the owner's word zero and byte 0x3B against the saved key's
+low byte. These are offset and behavior findings, not character/model names.
+The record view also exposes the unsigned halfword at eight without changing
+its 0x30-byte stride. No shared project header was changed.
+
+Nine other bounded results are retained with assembly active:
+
+| Function | Scores | Result |
+| --- | --- | --- |
+| `8000EDA0` | 925, 325, 85 | Full-width normalized timer state preserves both observed sign extensions; removing a redundant packed-word name leaves only register differences |
+| `8000EE70` | 350, 700, 120 | An eager full-word masked-key snapshot recovers the raw control flow; a byte cast instead narrowed the load and was discarded |
+| `8000ECCC` | 55, 55, 55 | Shared timer pattern matches all operations; chained halfword writes and a consumer-supported unsigned header field do not resolve allocation |
+| `80010558` | 1530, 1530, 1530 | Existing first-`u16` contract retained; alternate supported helper annotations and a named handle are code-neutral |
+| `80010720` | 2202 | Full-width sibling input retained; the exhausted neighboring wrapper experiments were not repeated |
+| `80011EB8` | 885, 100 | Keeping the selected sound full-width until the final mask recovers every body instruction; one terminal alignment `nop` is still missing |
+| `80010630` | 2124, 2195 | Naming the flags word does not recover the raw saved-volume lifetime; simpler first form retained |
+| `8000FC18` | 1281 | Existing signed-coordinate-only contract retained; first/fifth inputs remain full-width values |
+| `8000F568` | 1085, 495, 725 | Word-sized availability improves the nonrepeating selector; collapsing its initial-byte and mask identities worsens allocation |
+
+`80011EB8` is **not accepted**. Its 228-byte instruction body is exact, but
+acceptance covers the full registered 232 bytes. The current genuine C prefix
+leaves no final padding where the reference has one `nop`. Its best object,
+source and layout evidence are preserved for a later genuine neighboring-C
+change; no padding or comparison exception was introduced.
+
+The selector's actual contracts are one full-width argument for the game-side
+mapping helper and two full-width arguments for `8000F568`, correcting the
+starter's surplus arguments. The nonrepeating selector preserves its initial
+unsigned remainder, signed retry remainder, byte-state stores and required
+global-base reload after the potentially aliasing byte write.
+
+The coherent source-type/candidate pass is checkpointed before moving to a
+different family. Its clean batch checked the new function and six affected
+earlier functions: `BATCH_COMPLETE`, full US ROM match, 1,328 tests run with
+12 skipped, metadata, progress and whitespace passed. This adds **1 function /
+320 bytes**, giving **56 / 5,628 bytes** since the fresh baseline and **2,689**
+accepted US C functions. No accepted IDs remain pending; the source remains
+in progress.

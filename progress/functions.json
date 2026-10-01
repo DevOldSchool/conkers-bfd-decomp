@@ -92104,6 +92104,12 @@
       "symbol": "func_8000EC24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 55,
+        "reason": "Shared packed-timer callback pattern gives55 with exact frame/control/opcodes. Chaining the two halfword writes removes a redundant sound-value name but only changes register identities, still55. Correcting header halfword0 to u16 agrees with the record consumer lhu and is code-neutral. Preserve chain form; ten register rows remain, no permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92117,6 +92123,12 @@
       "symbol": "func_8000ECCC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 85,
+        "reason": "Seven-slot packed-delay callback improves925 to325 to85. Full-width normalized timer state preserves both observed sign extensions; removing redundant packed-word snapshot removes extra copy. Bestform has exact frame/control/opcodes and fifteen register rows remaining. True timer snapshot and shared output value retained; no permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92130,6 +92142,12 @@
       "symbol": "func_8000EDA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Seven-slot owner-position callback scores350,700,120. Explicit byte cast incorrectly narrows the raw word load; eager full-word masked-key snapshot recovers exact control/opcodes and leaves18registerrows. Owner word0/byte3B gates, coordinates14/18/1C, flags184 and record coordinate halfwords are directly observed; no model identity inferred.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92262,6 +92280,12 @@
       "symbol": "func_8000F4D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 495,
+        "reason": "Full-width two-argument nonrepeating random selection preserves unsigned initial modulo, signed retry modulo, byte state and global-base reload after a potentially aliasing byte store. Scores1085,495,725: word-sized availability removes premature truncation; collapsing initial byte/availability identities worsens. Retain495, no further variants.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92357,6 +92381,12 @@
       "symbol": "func_8000FA64"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1281,
+        "reason": "Existing coordinate-only s16 contract preserved, with full-width first/fifth inputs and explicit value masks. Typed record-position stop scan scores1281; first-input home and known stop-loop count-reload shape remain. No repetition of exhausted sibling counter-snapshot or unsupported narrow-formal changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92528,6 +92558,12 @@
       "symbol": "func_80010344"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1530,
+        "reason": "Existing first-u16 wrapper contract and observed owner coordinates preserve both immediate/delayed paths. Three forms allscore1530: alternate existing wide allocation-helper annotations and explicit handle name are code-neutral. Retain simpler wrapper with conservative fullword helper parameters; incoming normalization and callback-address schedule remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92541,6 +92577,12 @@
       "symbol": "func_80010558"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2124,
+        "reason": "Typed owner-mode dispatch preserves first-u16 contract, full-width remaining parameters and real twelve-slot positional callback. Scores2124 then2195: naming the observed flags word does not recover the raw saved-volume register and worsens scheduling. Retain simpler form; parameter-home versus saved-register lifetime requires independent evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92554,6 +92596,12 @@
       "symbol": "func_80010630"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2202,
+        "reason": "Delayed owner-sound sibling preserves full-width input contract because no existing narrow declaration was found. First score2202 has the already exhausted incoming-home and callback-address shape from10558; preserve without repeating its code-neutral helper-annotation or local-copy forms.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92661,8 +92709,13 @@
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 320,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010AA8",
           "vram": "0x80010AA8"
         }
@@ -92915,6 +92968,12 @@
       "symbol": "func_80011E94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Sound-table lookup improves885 to100 by keeping the selected sound full-width until the final low16 mask. Every body instruction now matches; full232-byte span lacks one terminal alignment nop at current genuine C prefix. Retain228-byte body, no padding or accepted count; retry only after real neighboring C changes restore layout.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
