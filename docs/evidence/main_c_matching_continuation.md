@@ -888,3 +888,33 @@ byte checks, 1,346 tests with 12 skipped, metadata, progress and whitespace
 passed. A supplemental main build also matched the US ROM. Accepted totals
 remain **60 / 6,536 bytes**, with **2,693** accepted US C functions and no
 accepted pending IDs. This candidate-only pass does not add match credit.
+
+## Twenty-first batch: PI manager initialization
+
+`func_800030A0` (384 bytes) matches on its first source form. The pinned SDK
+`pimgr.c` and `os_pi.h` establish the device-manager fields, queue initialization,
+raw DMA callback signatures, priority raise/restore, and interrupt-protected
+installation. Original callback address symbols remain unchanged. The reviewed
+unit is fully integrated at the unchanged 0x30A0–0x3220 interval.
+
+The observed stack-top argument and event queue share address `D_80036B40`.
+That address coincidence is preserved; it does **not** assert that the queue
+allocation is the thread stack or establish a new BSS extent. Opaque thread
+and queue types suffice, with no shared-header or data-ownership changes.
+The complete initializer received independent source review.
+
+The related VI initializer `800034E0` remains deferred at 350. Its queue and
+stack-top address are merged by the compiler, whereas the reference materializes
+them separately. The corresponding SDK uses a distinct stack endpoint, but the
+candidate does not invent an unproven stack object or inhibit common-expression
+optimization. Its callback `80003658` improves from 1860 to 1484 by retaining the
+observed transient retrace value. The context prefix and unsigned 64-bit timer
+accumulation are recovered, while the external retrace address still receives
+an extra saved register compared with the SDK's static-local pattern. Both VI
+candidates remain disabled and assembly-backed, with earlier forms preserved.
+
+The clean batch checked the new PI initializer and rechecked `800037F0` and
+`80003930`: `BATCH_COMPLETE`, full US ROM match, 1,346 tests with 12 skipped,
+metadata, progress and whitespace passed. This adds **1 function / 384 bytes**,
+giving **61 / 6,920 bytes** since the fresh baseline and **2,694** accepted US
+C functions. No accepted IDs remain pending.

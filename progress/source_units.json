@@ -19605,15 +19605,15 @@
       "functions": [
         "func_800030A0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x3220",
           "start": "0x30A0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_30A0.c"
+      "source": "src/game/done/init_30A0.c"
     },
     {
       "boundary_evidence": {
