@@ -76477,17 +76477,16 @@
       "symbol": "func_15103254"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Two ABI-focused source variants were tested; the best reached CURRENT (100). The remaining difference is the required placement of the forwarded callback pointer in a3 without an emitted move or unused-parameter homes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 72,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150CF530",
           "vram": "0x150CF530"
         }
@@ -79601,8 +79600,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2679,
-        "reason": "Best manual candidate CURRENT (2679): nested early guards and trig call sequence improve alignment, but local frame is 0x70 vs raw 0x68 with effect/position slots +8 and copy lowered as FP stores rather than raw 3-word copy. Padding probe enlarged frame; two revisions exhausted.",
+        "current_score": 432,
+        "reason": "Coherent void-pointer/f32/f32 and exact Game71820XZ/hit interface repaired; persistent36-byte hit owner and genuine12-byte XYZ/16-byte effect objects replace invalid scalar/global and all-locals aggregate. Initial2733, whole-XYZ payload936, raw Y-initialization order432. Final full436-byte CURRENT432 contains24 stack operands only. Two supported source-local revisions exhausted; no permutation, fake storage or declaration-order search. Historical invalid2679 and both earlier valid trials preserved separately.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82375,7 +82374,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Manual20260927 improved20 to10 by removing named sum. Only raw addu t7,v0,t6 versus candidate t7,t6,v0 remains. Removing cached first field too is neutral10; retain readable best. Two manual revisions; operand-order hypothesis needed.",
+        "reason": "Coherent three-input void-pointer/f32/f32 collision-height contract repaired and measured CURRENT10 over full72-byte registered span. Signed-halfword-to-float computations unchanged; phantom fourth argument removed. Only reversed addu operands remain. Prior operand-order search stays closed; one initial validity repair and no extra target revisions. Identical unsized0x32C actor owner view synchronized without changing AF200 body. Historical invalid10 preserved separately.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
