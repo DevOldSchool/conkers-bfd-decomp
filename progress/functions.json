@@ -33559,6 +33559,12 @@
       "symbol": "func_151DC034"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1543,
+        "reason": "Independent descriptor constructor initial CURRENT 1543 with exact frame/record positions. Same fullword-byte conversion spill and second-stage scheduling barrier as sibling; no repeated shaping, parameter-home forcing or unsupported ABI narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33572,6 +33578,12 @@
       "symbol": "func_151DC260"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2910,
+        "reason": "Genuine 0x4C and 0x48 descriptor construction recovers exact 0xB8 frame and record positions. Bounded CURRENT 3129 -> 2910 -> 2910; fullword input byte conversion, compiler spill and initialization scheduling remain. Preserve valid records without home forcing or ABI narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41451,6 +41463,12 @@
       "symbol": "func_15046460"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 953,
+        "reason": "Existing matched owning-hit record pattern with independently declared target ABI and fullword callee contract. Direct/mask/cast sequence CURRENT 1378 -> 953 -> 1378; preserve numeric-mask best. Early-mask versus late parameter-home load scheduling remains; no unsupported callee narrowing or storage tricks.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -41464,6 +41482,12 @@
       "symbol": "func_150466F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 953,
+        "reason": "Independent related hit-selector reconstruction from matched owning-record pattern. Initial CURRENT 953 reaches the same early-mask/home-load scheduling barrier as its sibling; no repeated equivalent revisions or unsupported callee narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
