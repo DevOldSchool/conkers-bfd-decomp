@@ -1,8 +1,11 @@
-# Conker's Bad Fur Day decompilation
+# Conker's Bad Fur Day Decompilation for Nintendo 64 (N64)
 
-A decompilation project for *Conker's Bad Fur Day*. The North American release
-is the active target; Europe/PAL is preserved as a future goal and does not
-currently gate progress.
+A work-in-progress matching decompilation of *Conker's Bad Fur Day* for
+Nintendo 64 (N64), with asset extraction tools, model-preview generation,
+and documented asset-format research.
+
+The North American (US) release is the active target; Europe/PAL remains a
+future goal and does not currently gate progress.
 
 ## Project progress
 
@@ -81,3 +84,20 @@ activation but do not affect the active completion percentage.
 Generated assembly, extracted assets, and build products stay ignored. The
 canonical inventories are maintained through `./conker`; contributors should
 not edit their JSON files manually.
+
+## Credits
+
+Thanks to the authors and maintainers of:
+
+- **Compilation and assembly:** [IDO static recompilation](https://github.com/decompals/ido-static-recomp),
+  [asm-processor](https://github.com/simonlindholm/asm-processor), and
+  [armips](https://github.com/Kingcom/armips)
+- **Decompilation and matching:** [splat](https://github.com/ethteck/splat),
+  [spimdisasm](https://github.com/Decompollaborate/spimdisasm),
+  [m2c](https://github.com/matt-kempster/m2c),
+  [asm-differ](https://github.com/simonlindholm/asm-differ),
+  and [objdiff](https://github.com/encounter/objdiff)
+- **Reused work:** [rareunzip](tools/third_party/README.md),
+  [ultralib](https://github.com/decompals/ultralib),
+  [Rare-modified library sources](lib/libultrare/README.md), and
+  [RSP sources](src/rsp/README.md), with detailed attribution in their existing notices
