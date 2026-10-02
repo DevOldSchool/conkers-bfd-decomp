@@ -344,6 +344,7 @@ class RepositorySafetyTests(unittest.TestCase):
             encoding="utf-8"
         )
         contribution_guide = (ROOT / "CONTRIBUTING.md").read_text(encoding="utf-8")
+        automation_guide = (ROOT / "docs" / "automation.md").read_text(encoding="utf-8")
 
         self.assertIn("automate [--limit N | --all | --function ID]", dispatch)
         self.assertIn('python3 scripts/automate.py "$@"', automation_case)
@@ -363,7 +364,8 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertIn("command_log", automation)
         self.assertIn("repair_compile_diagnostics", automation)
         self.assertIn("stage_fingerprint", automation)
-        self.assertIn("./conker automate --all --defer-best", contribution_guide)
+        self.assertIn("(docs/automation.md)", contribution_guide)
+        self.assertIn("./conker automate --all --defer-best", automation_guide)
 
     def test_docker_access_is_checked_before_image_download(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")
