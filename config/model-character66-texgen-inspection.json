@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "model": [
+    1,
+    66,
+    0
+  ],
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "model_sha256": "57c4a724b2302de7f9515e058fad86c600bcc709991009e0410c361b3b0d1c17",
+  "source_gltf": "build/assets/models/rom-only/us-bank-01-preview/geometry/0066-00.gltf",
+  "source_gltf_sha256": "ce9d4d11fdc5fd4650226e2ec13acdade2662b6dc93fb1dece87a5c66caaafd3",
+  "resources": {
+    "0066-00.bin": "a8033a444cf314c24828674c84f78601962d8ea63549ba3b91cbb9d7ea34e953",
+    "../textures/us-character-runtime-composed-4563-32x64-37429fa769e9.png": "7d312f984d2f42c7a8fd0f9e57f68d2f3ca1f96a3fe2b574fd29f97770d7d5e5",
+    "../textures/us-character-runtime-composed-2375-32x64-ce3c8bb4096f.png": "a3cc313d23d937f4f5a82241b59ca1fc341e3d94144c6e1c765521f89454b59c",
+    "../textures/us-character-runtime-composed-2302-32x32-1c9a84e790f5.png": "0c85c5e49d82fa80b5dd9965c19faaa428559257a943a71cc317121f2d665cc8",
+    "../textures/us-character-runtime-composed-4564-64x32-2be183f8f95c.png": "758fd988637d427eb620abbaf29bbf3e211a0f3078d854ef561c116cd4cdfeb0",
+    "../textures/us-character-runtime-composed-4110-16x32-e1035aae4102.png": "4a26f2522e313ae9287940fd7fdf474c00db3ede87fc1b6b4dc324063dee4415",
+    "../textures/us-character-runtime-composed-4559-32x32-54d3396cea04.png": "6e79b19337df3cb75be204b498be4e6ff67b4afde58aa560874a7aa791fef134",
+    "../textures/us-rom-default-2327-32x32-7352e088265c.png": "0fb05e278efa58dcaab9109d5fa0e57982cd5adf3bbc7f3da7aac953ddd52175",
+    "../textures/us-character-runtime-composed-3521-32x16-4cb9fdb8a135.png": "0a2889db095a77fe62acd8db5d8290a89ad5cdd2d33af931e6dc89211777c4b6",
+    "../textures/us-character-runtime-composed-2373-32x32-e2034013f503.png": "06a1d26ff07663e4341c6e08d08d72c876736c0b52fd4ff1c91ebdbba6496345",
+    "../textures/us-character-runtime-composed-2337-32x32-b746f8ec6886.png": "e520bc55bee7ba0c0e383b180e3803f2171c838d52617972cb0665f9d35657b0",
+    "../textures/us-character-runtime-composed-2300-32x32-d13b9a840d2d.png": "3f30cb294165e9764df87144cae69e8891c036cc3a77ad5bb509a6a2052c10fc",
+    "../textures/us-character-runtime-composed-3795-16x32-79570f867df4.png": "f4195e508691e8c08ade6582941d122a72ee8dd8a2b06bd65404d6c844ee2087",
+    "../textures/us-character-runtime-composed-3106-64x32-51950618eb8f.png": "2a9bd7adeb56ab13b28df1493839548ab9055c205a0e40e2a20c295694444bf8",
+    "../textures/us-character-runtime-composed-2301-32x32-57ea9cbec0c9.png": "051c59801ca7c112fc7b86c41c21fd8ff79cd7b06be8461b793b80e9168956ba",
+    "../textures/us-character-runtime-composed-2336-32x16-3462028825e5.png": "63dedecdc6be0647609e9bb739e7994337e21d784249ba3dda68871a7d0d2e53",
+    "../textures/us-character-runtime-composed-2335-32x32-6221be014970.png": "03e0b7fd98646dc71a8f748e6a9d5870e82fa88beeb7d2e1dbf8a64f592fcc71",
+    "../textures/us-rom-default-1343-32x32-afaeed401ba2.png": "4200ae60aba7d973cbf0f77cb15218b859f10b1a1116cfc4c776c2099f69374f"
+  },
+  "affected_runs": {
+    "20": 21,
+    "21": 2,
+    "31": 41,
+    "32": 39
+  },
+  "material_runs": {
+    "20": 20,
+    "21": 21,
+    "31": 31,
+    "32": 32,
+    "33": 32,
+    "34": 32
+  },
+  "inspection_state": {
+    "lighting": true,
+    "linear": false,
+    "lookat_enabled": true,
+    "view_axes": [
+      [
+        1,
+        0,
+        0
+      ],
+      [
+        0,
+        1,
+        0
+      ]
+    ],
+    "pose": "neutral translation-only",
+    "normal_scale": "signed byte /127 without normalization"
+  },
+  "scope": "Neutral-pose Blender inspection with view-dependent coordinates for 103 source-proven faces. Selected lit/nonlinear/canonical-look-at state, not a captured gameplay default. Original geometry, ST, images, rig and three animation clips remain in source files; the inspection Blend has no Actions. Animated joint rotation and native raster parity are unresolved."
+}

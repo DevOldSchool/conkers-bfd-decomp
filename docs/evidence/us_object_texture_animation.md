@@ -85,3 +85,9 @@ Local evidence is under
 `preview-bank04/`, and reviewed renders. See the
 [asset roadmap](../asset-roadmap.md) for current validation totals and remaining
 work.
+
+## Complete frame-set export
+
+The separate [texture-sequence export](us_model_texture_sequences.md) now
+materializes all admitted frame images and source-material links. Existing
+model previews retain their selected inspection frame.

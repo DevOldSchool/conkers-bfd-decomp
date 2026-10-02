@@ -4,6 +4,14 @@ Current US investigation targets, checked 16 September 2026. These findings
 do not grant export eligibility; scene publication is tracked separately.
 The checksum-validated ROM is `4cbadd3c4e0729dec46af64ad018050eada4f47a`.
 
+The **2 October 2026** gallery has **22 material-blocked records** after exact
+recovery-helper reuse resolved bank-09 entries165,185,203 and213. The dated
+investigations below retain their original counts and reopening conditions;
+those four entries are no longer material blockers. See the
+[current roadmap](../asset-roadmap.md) for the current inventory. Entry66 has
+separate [positive native submission evidence](us_character66_animated_texgen.md#native-submission-evidence-2-october-2026),
+but its appearance review remains open.
+
 ## Resolved decoder gap: bank-09 entry 110
 
 `09:0110:00` now has complete material coverage: all 20 faces, including the
@@ -85,6 +93,16 @@ loads, the duplicate segments, the two CI8 reference lists and the action
 record below. Run it from the repository root with Python. `audit.json`
 records exact material state and hashes of the reviewed code spans. It is
 read-only with respect to exporters and gallery assets.
+
+## Static red flag: CI8 contract conflict
+
+The 1 October follow-up isolates `03:0090:00`'s two unresolved faces. Flat
+1637 contains 160 bytes, while this model requests a 16 x 16 CI8 image and
+256-entry TLUT. A rigged flag uses the same flat with a complete CI4 contract,
+but has different geometry and animation data. No reviewed runtime rewrite
+justifies substituting that contract. Scene 48 placement 18 gives a concrete
+submission target; the source stays material-blocked. See the
+[raw loads, reviewed updater and capture boundary](us_static_flag_texture_conflict.md).
 
 ## Bank-09 renderer candidates
 

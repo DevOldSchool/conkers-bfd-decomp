@@ -24,9 +24,12 @@ palette at 2048. All four controller phases are decoded as correlated pairs:
 
 The explicit preview selects the first source phase. Later phases are evidence,
 not a claim about the active gameplay phase or independent Cartesian choices.
-Entry185 reaches112/170 linked faces; run 0's58 external-texture faces remain
-unresolved. The native controller also deforms vertices. The export deliberately
-retains ROM geometry, so it does not establish the active HUD pose.
+Entry185 has 112 texture-sampling faces, all linked. Run 0's other 58 faces
+use SHADE, ENVIRONMENT, K5 and PRIMITIVE without a TEXEL input; their colour
+state remains unresolved, rather than a missing-image claim. The raw
+`external-runtime-texture` classification remains source metadata. The native
+controller also deforms vertices. The export deliberately retains ROM geometry,
+so it does not establish the active HUD pose.
 
 Combined, exactly45 faces in six runs gain bindings. No vertices, faces, source
 UVs, matrix assignments, joints, source bytes or unrelated runs change. This

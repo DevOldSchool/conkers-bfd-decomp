@@ -26,13 +26,18 @@ CATEGORIES = {
     'collectables': ('Collectables', 'Cash, keys, food and multiplayer objectives.'),
     'scene-items': ('Scene items', 'Scenery, props, vehicles, weapons and equipment.'),
     'parts-effects': ('Parts & effects', 'Detached parts, attachments, debris and effects.'),
-    'extracted-review': ('Extracted review', 'Remaining ROM exports for review. Includes unfinished materials, fragments, variants and records with no drawable faces.'),
+    'extracted-review': ('Extracted review', 'Remaining ROM exports for review. Includes unfinished materials, fragments, variants and records with no drawable faces. Assembled components and identical exported presentations are shown on their corresponding gallery cards.'),
 }
 
 
 def validate_gallery_metadata(models: list[dict]) -> None:
     """Require deliberate categorization without treating labels as ROM evidence."""
     for model in models:
+        if any(key in model for key in ('download_file', 'download_sha256', 'download_format',
+                                       'texgen_inspection', 'scene55_inspection', 'embedded_type13_inspection', 'embedded_type06_inspection', 'haybot_inspection')):
+            raise ValueError('inspection downloads must be derived from verified artifacts')
+        if 'gallery_represented_by' in model or 'gallery_equivalent_to' in model:
+            raise ValueError('review representation must be derived from verified source evidence')
         if model.get('category') not in CATEGORIES:
             raise ValueError(f'invalid or missing inspection category: {model["name"]}')
         aliases = model.get('aliases', [])
@@ -51,9 +56,27 @@ def validate_gallery_metadata(models: list[dict]) -> None:
                     or not identification.get('reference_label')):
                 raise ValueError(f'invalid visual identification reference: {model["name"]}')
 
+    by_name = {model.get('name'): model for model in models}
+    for model in models:
+        replacement = model.get('gallery_replaced_by')
+        if replacement is None:
+            continue
+        target = by_name.get(replacement) if isinstance(replacement, str) else None
+        if (target is None or target.get('gallery_replaced_by') is not None
+                or target['category'] != model['category']):
+            raise ValueError(f'invalid gallery replacement: {model["name"]}')
+
+
+def gallery_records(records: list[dict]) -> list[dict]:
+    """Keep replaced source exports in evidence, but offer only their replacement."""
+    return [record for record in records
+            if record.get('gallery_replaced_by') is None and not record.get('gallery_represented_by')
+            and not record.get('gallery_equivalent_to')]
+
 
 def gallery_page(records: list[dict], output: Path) -> str:
     """Render a standalone, offline gallery with category and alias filtering."""
+    records = gallery_records(records)
     cards = []
     for record in records:
         if record.get('preview'):
@@ -63,8 +86,10 @@ def gallery_page(records: list[dict], output: Path) -> str:
                        f'alt="{html.escape(record["label"], quote=True)}">')
         else:
             preview = '<div class="preview-placeholder">No drawable faces</div>'
-        model_link = record['file'] + '?v=' + record['glb_sha256']
-        search_text = ' '.join([record['label'], record['file'], record.get('review_label', ''), *record.get('aliases', [])])
+        download = record.get('download_file', record['file'])
+        model_link = download + '?v=' + record.get('download_sha256', record['glb_sha256'])
+        search_text = ' '.join([record['label'], record['file'], download,
+                                record.get('review_label', ''), *record.get('aliases', [])])
         identification = record.get('identification')
         reference = ''
         if identification:
@@ -80,9 +105,9 @@ def gallery_page(records: list[dict], output: Path) -> str:
             f'data-review-status="{html.escape(record.get("review_status", ""), quote=True)}" '
             f'data-search="{html.escape(search_text, quote=True)}">'
             f'<a href="{html.escape(model_link, quote=True)}">'
-            f'{preview}<h2>{html.escape(title)}</h2></a>{badge}<code>{html.escape(record["file"])}</code>'
+            f'{preview}<h2>{html.escape(title)}</h2></a>{badge}<code>{html.escape(download)}</code>'
             f'<details><summary>Export details</summary><p>{html.escape(record["note"])}</p>{reference}</details></article>')
-    categories = {**CATEGORIES, 'all': ('All models', 'Every model currently extracted and published for inspection.')}
+    categories = {**CATEGORIES, 'all': ('All models', 'Standalone models, scene assemblies and remaining records for review.')}
     tabs = []
     for category, (label, description) in categories.items():
         count = sum(category == 'all' or row['category'] == category for row in records)
@@ -239,6 +264,137 @@ def rom_source_evidence(source: Path, *, assembly_cache=None) -> dict:
             'source': 'ROM', 'capture_inputs': []}
 
 
+def prepare_texgen_inspection(options: dict, review_records: list[dict], output: Path,
+                              pending: list[tuple[Path, bytes]]) -> tuple:
+    """Replace one visible download after verification; retain its raw GLB evidence.
+
+    Only prepares in-memory publication records and bytes. The returned artifact
+    proof must be rechecked immediately before the publisher writes any files.
+    """
+    try:
+        from scripts.model_inspection_options import texgen_options
+    except ModuleNotFoundError:
+        from model_inspection_options import texgen_options
+    mode, artifact_output = texgen_options(options, ROOT)
+    name = 'review-bank01-0066-00-rom'
+    candidates = [record for record in review_records if record.get('name') == name
+                  or (record.get('bank'), record.get('entry'), record.get('segment')) == (1, 66, 0)]
+    if len(candidates) != 1:
+        raise ValueError('texgen inspection requires one current character66 review record')
+    record = candidates[0]
+    if (record.get('name') != name or (record.get('bank'), record.get('entry'), record.get('segment')) != (1, 66, 0)
+            or record.get('category') != 'extracted-review'
+            or record.get('review_status') != 'appearance-blocked'
+            or record.get('status') != 'extracted-for-review'
+            or record.get('native_visual_parity') != 'incomplete'
+            or record.get('file') != 'review/' + name + '.glb'
+            or any(record.get(key) for key in ('gallery_replaced_by', 'gallery_represented_by', 'gallery_equivalent_to'))):
+        raise ValueError('texgen inspection review identity or scope changed')
+    rom_source = record.get('rom_source', {})
+    if ((rom_source.get('bank'), rom_source.get('entry'), rom_source.get('segment')) != (1, 66, 0)
+            or rom_source.get('source') != 'ROM' or rom_source.get('capture_inputs') != []):
+        raise ValueError('texgen inspection requires the matching ROM source evidence')
+    raw_exports = [data for path, data in pending if path == output / record['file']]
+    if len(raw_exports) != 1 or digest(raw_exports[0]) != record.get('glb_sha256'):
+        raise ValueError('texgen inspection raw GLB evidence changed')
+    if mode == 'animated':
+        try:
+            from scripts import model_character_animated_texgen as backend
+        except ModuleNotFoundError:
+            import model_character_animated_texgen as backend
+    else:
+        try:
+            from scripts import model_character_texgen as backend
+        except ModuleNotFoundError:
+            import model_character_texgen as backend
+    artifact = backend.inspection_artifact(artifact_output)
+    proof, blend, image, scope = (artifact[key] for key in ('proof', 'blend', 'preview', 'scope'))
+    if (not isinstance(proof, dict) or proof.get('kind') != f'character66-{mode}-texgen'
+            or proof.get('model') != [1, 66, 0]
+            or proof.get('output') != str(artifact_output.relative_to(ROOT))
+            or proof.get('source') != record['source']
+            or proof.get('source_fingerprint') != record['source_fingerprint']
+            or proof.get('source_gltf_sha256') != record['source_fingerprint']['gltf_sha256']
+            or preview_fingerprint(ROOT / record['source']) != record['source_fingerprint']):
+        raise ValueError('texgen inspection artifact does not match the current review source')
+    if (not isinstance(blend, bytes) or not blend or not isinstance(image, bytes)
+            or not image.startswith(b'\x89PNG\r\n\x1a\n') or not isinstance(scope, str) or not scope
+            or digest(blend) != proof.get('blend_sha256')
+            or digest(image) != proof.get('preview_sha256')):
+        raise ValueError('texgen inspection artifact bytes or scope changed')
+    if not record.get('preview'):
+        raise ValueError('texgen inspection requires the current review preview')
+    preview_target = ROOT / record['preview']
+    # Remove the prepared raw thumbnail so publication never writes it and then
+    # overwrites it with a different inspection state in the same transaction.
+    if sum(path == preview_target for path, _ in pending) != 1:
+        raise ValueError('texgen inspection review preview publication is ambiguous')
+    download = 'review/' + name + f'-{mode}-texgen.blend'
+    pending[:] = [(path, data) for path, data in pending if path != preview_target]
+    pending.extend(((output / download, blend), (preview_target, image)))
+    record.update(download_file=download, download_sha256=digest(blend), download_format='blend',
+                  preview_sha256=digest(image), texgen_inspection=copy.deepcopy(proof),
+                  label=('Bank 01 / 0066 / 00 — ' + ('animated' if mode == 'animated' else 'neutral-pose')
+                         + ' Blender inspection'),
+                  note=scope + ' Original review: ' + record['note'])
+    return backend.inspection_artifact_current, artifact_output, proof
+
+
+def prepare_scene55_inspection(options: dict, records: list[dict], output: Path,
+                               pending: list[tuple[Path, bytes]]) -> tuple:
+    """Admit one independently sampled scene material without another scene card."""
+    try:
+        from scripts.model_inspection_options import scene55_output
+        from scripts import model_scene55_inspection as backend
+    except ModuleNotFoundError:
+        from model_inspection_options import scene55_output
+        import model_scene55_inspection as backend
+    artifact_output = scene55_output(options, ROOT)
+    name = 'scene-55-assembly-rom'
+    candidates = [r for r in records if r.get('name') == name]
+    if len(candidates) != 1:
+        raise ValueError('scene55 inspection requires one current assembly record')
+    record = candidates[0]
+    source = record.get('rom_source', {})
+    if (record.get('category') != 'scene-items' or record.get('status') != 'ready-for-inspection'
+            or record.get('native_visual_parity') != 'incomplete'
+            or record.get('file') != name + '.glb'
+            or source.get('source') != 'ROM' or source.get('kind') != 'static-scene-assembly'
+            or source.get('scene_index') != 55 or source.get('capture_inputs') != []
+            or any(record.get(k) for k in ('gallery_replaced_by', 'gallery_represented_by', 'gallery_equivalent_to'))):
+        raise ValueError('scene55 inspection assembly identity or scope changed')
+    raw = [data for path, data in pending if path == output / record['file']]
+    if len(raw) != 1 or digest(raw[0]) != record.get('glb_sha256'):
+        raise ValueError('scene55 inspection raw GLB evidence changed')
+    artifact = backend.inspection_artifact(artifact_output)
+    proof, blend, image, scope = (artifact[k] for k in ('proof', 'blend', 'preview', 'scope'))
+    if (not isinstance(proof, dict) or proof.get('kind') != 'scene55-dual-texture'
+            or proof.get('scene_index') != 55
+            or proof.get('output') != str(artifact_output.relative_to(ROOT))
+            or proof.get('source') != record['source']
+            or proof.get('source_fingerprint') != record['source_fingerprint']
+            or proof.get('source_gltf_sha256') != record['source_fingerprint']['gltf_sha256']
+            or preview_fingerprint(ROOT / record['source']) != record['source_fingerprint']):
+        raise ValueError('scene55 inspection artifact does not match the current assembly source')
+    if (not isinstance(blend, bytes) or not blend or not isinstance(image, bytes)
+            or not image.startswith(b'\x89PNG\r\n\x1a\n') or not isinstance(scope, str) or not scope
+            or digest(blend) != proof.get('blend_sha256') or digest(image) != proof.get('preview_sha256')):
+        raise ValueError('scene55 inspection artifact bytes or scope changed')
+    if not record.get('preview'):
+        raise ValueError('scene55 inspection requires the current assembly preview')
+    target = ROOT / record['preview']
+    if sum(path == target for path, _ in pending) != 1:
+        raise ValueError('scene55 inspection preview publication is ambiguous')
+    download = name + '-dual-texture.blend'
+    pending[:] = [(p, b) for p, b in pending if p != target]
+    pending.extend(((output / download, blend), (target, image)))
+    record.update(download_file=download, download_sha256=digest(blend), download_format='blend',
+                  preview_sha256=digest(image), scene55_inspection=copy.deepcopy(proof),
+                  label=record['label'] + ' — Blender inspection',
+                  note=scope + ' Original assembly: ' + record['note'])
+    return backend.inspection_artifact_current, artifact_output, proof
+
+
 def publish_inspection(config_path: Path, output: Path) -> dict:
     config = json.loads(config_path.read_text())
     validate_gallery_metadata(config['models'])
@@ -300,6 +456,24 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
             from model_inspection_review import prepare_review
         review_records, review_files = prepare_review(config['extracted_review'], records, report, output, previews)
         pending.extend(review_files)
+    artifact_preflights = []
+    if 'texgen_inspection' in config:
+        if not config.get('rom_only'):
+            raise ValueError('texgen inspection requires ROM-only publication')
+        artifact_preflights.append(prepare_texgen_inspection(config['texgen_inspection'], review_records, output, pending))
+    if 'scene55_inspection' in config:
+        if not config.get('rom_only'):
+            raise ValueError('scene55 inspection requires ROM-only publication')
+        artifact_preflights.append(prepare_scene55_inspection(config['scene55_inspection'], records, output, pending))
+    if 'haybot_inspection' in config:
+        if not config.get('rom_only'):
+            raise ValueError('Haybot inspection requires ROM-only publication')
+        try:
+            from scripts.model_inspection_haybot import prepare_haybot
+        except ModuleNotFoundError:
+            from model_inspection_haybot import prepare_haybot
+        artifact_preflights.append(prepare_haybot(
+            config['haybot_inspection'], records, ROOT, output, pending))
     # Validate the complete set before updating any published file.
     # Never reuse preparation evidence here: component/placement changes during
     # packaging must trigger fresh whole-set recomposition before publication.
@@ -310,27 +484,82 @@ def publish_inspection(config_path: Path, output: Path) -> dict:
         if config.get('rom_only') and rom_source_evidence(
                 ROOT / record['source'], assembly_cache=assembly_cache) != record['rom_source']:
             raise ValueError('ROM inspection provenance changed before publication')
+    if review_records and config.get('rom_only'):
+        try:
+            from scripts.model_review_representation import apply_representation
+        except ModuleNotFoundError:
+            from model_review_representation import apply_representation
+        apply_representation(records, review_records)
+        try:
+            from scripts.model_review_equivalence import apply_equivalence, bind_equivalence_decisions
+        except ModuleNotFoundError:
+            from model_review_equivalence import apply_equivalence, bind_equivalence_decisions
+        bind_equivalence_decisions(review_records, ROOT, ROOT / config['extracted_review']['reviews'])
+        apply_equivalence(records, review_records, ROOT)
+    # Embedded primitives have no indexed bank identity. Their independent
+    # source reconstruction, Khronos check and fresh Blender verification happen
+    # before admission; do not feed them through indexed review/equivalence.
+    if 'embedded_type13_inspection' in config:
+        if not config.get('rom_only'):
+            raise ValueError('embedded inspection requires ROM-only publication')
+        try:
+            from scripts.model_inspection_embedded import prepare_type13
+        except ModuleNotFoundError:
+            from model_inspection_embedded import prepare_type13
+        record, additions, preflight = prepare_type13(
+            config['embedded_type13_inspection'], ROOT, output, previews)
+        if any(row['name'] == record['name'] or row['source'] == record['source']
+               for row in records + review_records):
+            raise ValueError('duplicate embedded inspection source or name')
+        records.append(record)
+        pending.extend(additions)
+        artifact_preflights.append(preflight)
+    if 'embedded_type06_inspection' in config:
+        if not config.get('rom_only'):
+            raise ValueError('embedded inspection requires ROM-only publication')
+        try:
+            from scripts.model_inspection_embedded_type06 import prepare_type06
+        except ModuleNotFoundError:
+            from model_inspection_embedded_type06 import prepare_type06
+        record, additions, preflight = prepare_type06(
+            config['embedded_type06_inspection'], ROOT, output, previews)
+        if any(row['name'] == record['name'] or row['source'] == record['source']
+               for row in records + review_records):
+            raise ValueError('duplicate embedded inspection source or name')
+        records.append(record)
+        pending.extend(additions)
+        artifact_preflights.append(preflight)
+    visible = gallery_records(records + review_records)
     manifest = {'schema_version': 1, 'family': 'model-inspection-set', 'models': records,
                 'review_models': review_records,
                 'curated_count': len(records), 'review_count': len(review_records),
+                'gallery_count': len(visible),
+                'gallery_curated_count': len(gallery_records(records)),
+                'gallery_review_count': len(gallery_records(review_records)),
+                'represented_review_count': sum(bool(row.get('gallery_represented_by')) for row in review_records),
+                'equivalent_review_count': sum(bool(row.get('gallery_equivalent_to')) for row in review_records),
                 'rom_only': bool(config.get('rom_only')),
                 'categories': [{'id': key, 'label': value[0], 'description': value[1]}
                                for key, value in CATEGORIES.items()],
                 'validation_report': str(report_path.relative_to(ROOT)),
-                'scope': 'Self-contained copies preserve source geometry, rigs, animations and image bytes; native visual parity remains incomplete.'}
-    start_file = records[0]['file'] if records else ''
-    lines = ['# Models to inspect', '', 'Import a named `.glb` into Blender and use Material Preview. Each file embeds its textures.',
+                'scope': 'Self-contained GLBs preserve source geometry, rigs, animations and image bytes. Optional Blender inspections document their selected-state limits and retain the source exports; native visual parity remains incomplete.'}
+    start_file = visible[0].get('download_file', visible[0]['file']) if visible else ''
+    lines = ['# Models to inspect', '', 'Import a named `.glb` into Blender and use Material Preview, or open a `.blend` file directly. Each download embeds its textures.',
              f'Start with **{start_file}**.', '',
              'Previews show the neutral pose for animated rigs. Native appearance is still under investigation.', '',
              '| Model | Category | Blender file | Preview | Notes |', '| --- | --- | --- | --- | --- |']
-    for record in records + review_records:
+    for record in visible:
         image_link = (f"[Preview]({os.path.relpath(ROOT / record['preview'], output)})"
                       if record.get('preview') else 'No drawable faces')
-        lines.append(f"| {record['label']} | {CATEGORIES[record['category']][0]} | [{record['file']}]({record['file']}) | {image_link} | {record['note']} |")
+        download = record.get('download_file', record['file'])
+        lines.append(f"| {record['label']} | {CATEGORIES[record['category']][0]} | [{download}]({download}) | {image_link} | {record['note']} |")
     lines += ['', 'Refresh after validation: `./conker model-assets inspect`.',
               'The manifest records the original paths and content hashes. Packaging does not modify those sources.', '']
     page = gallery_page(records + review_records, output)
     pending += [(output / 'README.md', '\n'.join(lines).encode()), (output / 'index.html', page.encode())]
+    for recheck, artifact_output, proof in artifact_preflights:
+        if recheck(artifact_output, proof) is False:
+            raise ValueError('inspection artifact changed before publication')
     for path, data in pending:
         write_if_changed(path, data)
     write_if_changed(output / 'manifest.json', (json.dumps(manifest, indent=2) + '\n').encode())

@@ -87,3 +87,9 @@ lighting and blending remain unresolved. Reproduction scripts, source
 snapshots and final-file checks live under
 `build/assets/models/reference/attachment80-20260913/`. Current publication and
 validation totals are in the [asset roadmap](../asset-roadmap.md).
+
+## Conditional controller export
+
+The separate [attachment-80 controller export](us_attachment80_controller.md)
+now recovers both ROM textures and later conditional UV states. It keeps the
+initial model preset above unchanged and does not infer a gameplay timeline.
