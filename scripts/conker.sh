@@ -147,7 +147,6 @@ After the raw base split map is available
                                  Correlate manifest-only asset fingerprints across profiles.
   beta-index [--refresh]         Correlate beta functions/source paths with retail US.
   library-audit [--json]        Scan raw US main ranges for complete I-L libultra sections.
-  rareunzip <input> <output>     Decompress one RZIP chunk (paths inside this repository).
   libultra [--version G|I|J|K|L]
                                  Build a pinned 2.0 libultra ROM archive (default: L).
   rsp                          Assemble and byte-verify the configured US RSP payloads.
@@ -292,7 +291,7 @@ workspace_mount_args() {
 
     add_workspace_mount Makefile
     add_workspace_mount Dockerfile
-    for path in config docs include lib progress scripts src tests toolchain tools; do
+    for path in config docs include lib progress scripts src tests toolchain; do
         access=readonly
         if [[ "$mode" == "integrate" ]]; then
             case "$path" in
@@ -1075,10 +1074,6 @@ case "$command" in
     library-audit)
         [[ $# -eq 0 || ( $# -eq 1 && "$1" == "--json" ) ]] || die "usage: ./conker library-audit [--json]"
         python3 scripts/audit_library_boundaries.py "$@"
-        ;;
-    rareunzip)
-        [[ $# -eq 2 ]] || die "usage: ./conker rareunzip <input> <output>"
-        run_in_container python3 tools/third_party/rareunzip.py "$@"
         ;;
     libultra)
         libultra_version=L
