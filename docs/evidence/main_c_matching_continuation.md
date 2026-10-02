@@ -1654,3 +1654,37 @@ affected game units and the PI initializer. Full US ROM equality, integrated
 game and rodata checks, 1,353 tests with 12 skipped, metadata, progress and
 whitespace pass with `BATCH_COMPLETE` in 78.581 seconds. Totals remain
 **67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.
+
+## Forty-third batch: actor emission siblings
+
+The new vector emitter `151B86F4` reuses the independently proved three-vector
+contract and declaration map of the preserved `151BC370` sibling. Its distinct
+constants, modulo expressions and final actor bytes remain explicit, with RNG
+order integer, integer, float, float, float, float, integer, integer. One form
+scores 1110, reproducing the sibling's unexplained eight-byte frame excess and
+uniform home shift. It is deferred without replaying the exhausted storage
+variants.
+
+The related constructor `151B8908` must return the allocation pointer: its raw
+caller stores V0 immediately after the call, and the target forwards the
+provider's V0 unchanged. The current matched `15130280` provider independently
+copies 0x70 bytes. Its standalone descriptor therefore includes explicit unknown
+bytes through offset 0x6F, with the three vector members represented as opaque
+12-byte word copies. The four-word choice table and byte/halfword writes retain
+the observed widths and order; no unknown tail bytes are initialized.
+
+The first form scores 2006. Removing a derived choice value and mapping existing
+virtual homes worsens the score to 2732, retaining the frame gap and moving the
+first random call past two local stores. The first storage form is restored.
+Defining the first random flag with a conditional expression after its RNG call
+then restores the original branch merge and single spill across the second RNG,
+improving to 1068. The prior zero initialization had extended its lifetime across
+the first call unnecessarily. All forms remain archived; frame, actual-home and
+register differences keep the best third form deferred.
+
+Independent review finds no semantic issue in either retained candidate. A clean
+four-target batch verifies all three existing source-unit matches and the PI
+initializer. Full US ROM equality, integrated game and rodata checks, 1,353
+tests with 12 skipped, metadata, progress and whitespace pass with
+`BATCH_COMPLETE` in 77.001 seconds. Totals remain **67 / 8,388 bytes**, with
+**2,700** accepted US C functions and no pending IDs.

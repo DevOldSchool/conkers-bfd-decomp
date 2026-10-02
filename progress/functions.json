@@ -80764,6 +80764,12 @@
       "symbol": "func_151B8668"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1110,
+        "reason": "One contract-grounded sibling form scores1110. Three provider-proved 12-byte vectors and real RNG lifetimes preserved; same unexplained +8 frame/home shift and time-global/zero-store scheduling as prior sibling. No repeated storage variants.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80777,6 +80783,12 @@
       "symbol": "func_151B86F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1068,
+        "reason": "Pointer return consumed by raw caller; provider-proved 0x70 descriptor retained with unknown tail. Scores2006/2732/1068, third best. Defining first random flag after RNG restores branch merge and real spill; frame/home and register differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
