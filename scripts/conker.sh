@@ -128,8 +128,8 @@ After the raw base split map is available
                                  Separate game code/data and indexed asset files.
   rzip-pack --profile us --input <packed-assets> [--output <rom>] [--force]
                                  Rebuild the fixed US flat RZIP region into a ROM.
-  font-assets <extract|pack|verify> [options]
-                                 Extract, rebuild, or byte-verify the RLE font table.
+  font-assets <extract|pack|preview|verify> [options]
+                                 Extract, rebuild, preview, or byte-verify the RLE font table.
   mp3-assets <extract|pack|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
   audio-assets <survey|extract|preview|sample-preview|verify> [options]
@@ -989,7 +989,7 @@ case "$command" in
         python3 scripts/rzip_pack.py "$@"
         ;;
     font-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker font-assets <extract|pack|verify> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker font-assets <extract|pack|preview|verify> [options]"
         python3 scripts/font_assets.py "$@"
         ;;
     mp3-assets)

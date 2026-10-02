@@ -203,6 +203,7 @@ def extract_fonts(
         record_size = 8 + len(glyph.encoded)
         records.append(
             {
+                # Legacy ordinal, retained for packing compatibility; see font preview for the input map.
                 "codepoint": glyph.codepoint,
                 "width": glyph.width,
                 "height": glyph.height,
@@ -308,6 +309,12 @@ def parse_args() -> argparse.Namespace:
     extract_parser.add_argument("--output", type=Path)
     extract_parser.add_argument("--force", action="store_true")
 
+    preview_parser = subparsers.add_parser("preview")
+    preview_parser.add_argument("--profile", choices=("us",), default="us")
+    preview_parser.add_argument("--rom", type=Path)
+    preview_parser.add_argument("--output", type=Path)
+    preview_parser.add_argument("--force", action="store_true")
+
     pack_parser = subparsers.add_parser("pack")
     pack_parser.add_argument("--input", type=Path, required=True)
     pack_parser.add_argument("--output", type=Path, required=True)
@@ -315,6 +322,7 @@ def parse_args() -> argparse.Namespace:
     verify_parser = subparsers.add_parser("verify")
     verify_parser.add_argument("--profile", choices=("us", "debug", "ects"), default="us")
     verify_parser.add_argument("--rom", type=Path)
+    verify_parser.add_argument("--preview", type=Path, help="also verify a generated font atlas directory")
     return parser.parse_args()
 
 
@@ -330,6 +338,16 @@ def main() -> int:
                 f"Extracted {manifest['record_count']} {args.profile} font glyphs to "
                 f"{display_path(output)}"
             )
+        elif args.command == "preview":
+            try:
+                from scripts import font_preview
+            except ModuleNotFoundError:
+                import font_preview
+            output = args.output or (ROOT / "build" / "fonts" / args.profile / "preview")
+            if not output.is_absolute():
+                output = ROOT / output
+            manifest = font_preview.preview_fonts(args.profile, args.rom, output, args.force)
+            print(f"Previewed {manifest['glyph_count']} glyphs and {manifest['distinct_input_byte_count']} input bytes in {display_path(output)}")
         elif args.command == "pack":
             input_dir = args.input if args.input.is_absolute() else ROOT / args.input
             output = args.output if args.output.is_absolute() else ROOT / args.output
@@ -338,6 +356,14 @@ def main() -> int:
         else:
             count, size = verify_fonts(args.profile, args.rom)
             print(f"Verified {args.profile} fonts: {count} glyphs, {size} bytes, byte-identical")
+            if args.preview:
+                try:
+                    from scripts import font_preview
+                except ModuleNotFoundError:
+                    import font_preview
+                directory = args.preview if args.preview.is_absolute() else ROOT / args.preview
+                preview_count, files = font_preview.verify_preview(args.profile, args.rom, directory)
+                print(f"Verified font atlas: {preview_count} glyphs, {files} files and consumer evidence")
     except (KeyError, OSError, TypeError, ValueError, json.JSONDecodeError) as error:
         print(f"error: {error}")
         return 1

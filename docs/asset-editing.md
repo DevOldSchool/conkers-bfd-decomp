@@ -23,6 +23,12 @@ table and alignment padding into a separate file:
 The encoder preserves scanline boundaries and the original maximum 16-pixel
 run contract.
 
+For a labelled PNG atlas, source metrics and sample text, run
+`./conker font-assets preview`. Verify it with
+`./conker font-assets verify --preview build/fonts/us/preview`. The atlas is a
+source-pixel inspection/export; editing still uses the original PGM workflow.
+See [the consumer mapping evidence](evidence/us_font_atlas.md).
+
 ## MP3 streams
 
 Extract the sparse stream bank, edit or replace supported stream files, then

@@ -16,7 +16,7 @@ preserve unrelated code-matching work.
 
 | Family | Current state | Remaining work |
 | --- | --- | --- |
-| Grayscale RLE fonts | Reversible glyph extraction and packing | Semantic use and interface integration |
+| Grayscale RLE fonts | Reversible extraction, source-verified character mapping, metrics and PNG atlas | Native text effects and interface integration |
 | MP3 audio | Reversible stream and decoder-table extraction | Dialogue, speaker and event associations |
 | Other audio | Sound-bank graph, samples, sequences and previews extracted | Reversible editing and runtime names |
 | Textures and materials | Proven indexed/direct formats and guarded ROM selectors supported | Unsupported material formulas and runtime-dependent state |
@@ -637,6 +637,24 @@ See [scene consumers](evidence/us_model_scene_consumers.md).
   unchanged-ROM behavior are proven.
 
 ## Dialogue, cutscenes and interface
+
+- [x] Export a [95-glyph font atlas](evidence/us_font_atlas.md) with verified
+  input mapping, offsets and spacing; preserve two shadowed duplicate mappings.
+- [x] Provide 92 visually named HUD selectors and 97 named PNG downloads with
+  search and reference links. All selectors were reviewed against the supplied
+  sheets; 85 have visual matches and seven are explicitly reference-unmatched.
+  Resource IDs preserve the two empty runtime table slots. Names do not imply runtime use.
+- [x] Export 40 additional artwork groups outside the selector table, including
+  Nintendo, Rare, all coloured digits 0–9, dollar, menu headings and native small
+  icons, with 74 exact raw sources and 52 PNG downloads (12 individual icon crops).
+- [x] Compare all 12 Spriters Resource sheets with current exports and record a
+  [reverse coverage audit](evidence/us_interface_reference_review.md#full-game-page-coverage-audit).
+- [x] Add the 18 menu/icon groups matched to 49 US resources, including large
+  headings, PAUSED, skull, dark START and packed small icons. Preserve exact
+  column-major skull layout and export all twelve native 16×16 icon regions.
+- [ ] Recover remaining intro graphics, secondary fonts/buttons, story thumbnails,
+  complete photo compositions, weapon/effect/bee/Haybot artwork; track unused/beta
+  variants separately from retail US coverage.
 
 - [x] Extract the code-backed HUD/menu layout-node schema, glyph map, 92 sprite
   selectors, their 159-resource spans and renderer-derived selector previews.

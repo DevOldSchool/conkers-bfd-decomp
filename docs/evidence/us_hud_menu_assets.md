@@ -65,72 +65,147 @@ example. The conversion does not vertically flip the source: these sprites are
 stored top-to-bottom, unlike the bottom-origin texture families. That
 distinction is visible in directional artwork and menu words such as `GAME`.
 
-Visual review establishes that the shared RGBA32/TMEM rule is not a truthful
-preview rule for every referenced payload. Flat index 2202 forms coherent
-RGBA32 artwork only in linear row order and backs selector 57. The 2,048-byte
-payloads at flat indices 2171, 2198, and 2215 are not 32x32 RGBA5551 images:
-that construction halves their horizontal resolution and invents magenta and
-green colour. They instead form clean 64x32 I8 `Dang...`, `Poops`, and `Total`
-labels after the narrower odd-row TMEM word swap.
+## Runtime IDs and complete visual review
 
-The Spriters Resource
-[Pause Menu & Multi Results sheet](https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/)
-provides a visual cross-check for several smaller assets. Selector 4's
-1,024-byte flat 2199 is a 32x32 I8 question-mark icon, and selector 52's
-2,048-byte flat 2172 is a 64x32 I8 `Dino` label. Both require the narrower
-odd-row TMEM word swap. The same sheet also exposes selector 59's failure as a
-source-size problem: all 4,096 bytes of flat 2224 form the green `0` digit as a
-32x32 RGBA32 image, while the selector's flag still records a 16x16 renderer
-dimension. The manifest retains both dimensions and labels these three reviewed
-identities explicitly.
+The compressed-size table `D_80091D20` is authoritative for resource IDs.
+`func_1510D0EC` indexes its 7,762 unsigned-halfword entries and returns an empty
+sentinel for zero-size slots. `func_1510D374` sums preceding entries onto ROM
+base `0x1A37E0`. Slots 1767 and 1768 are empty, so there are 7,760 physical
+streams. A physical stream ordinal is not the resource ID. The extractor now
+uses `iter_indexed_flat_rzip_entries`, validating every extent and preserving
+those slots. The full US ROM hash and loader instruction signatures are checked.
 
-Selectors 76 and 89 deliberately share flat indices 2147-2148. The ROM table
-distinguishes them with scale bytes rather than different pixels: selector 76
-uses `0x80` (1.0), while selector 89 uses `0x55` (0.6640625). Their extracted
-source PNGs are consequently byte-identical. The HTML gallery applies the
-recorded scale to its displayed thumbnails and labels the relationship so this
-runtime reuse is not mistaken for an extraction duplicate.
+The previous iterator skipped these empty slots, selecting every HUD payload
+two streams too late. Earlier I8, size, rotation and extra-tile exceptions were
+based on those wrong payloads and are superseded. The corrected 159 sources
+all use RGBA32, the code-selected dimensions and standard odd-row TMEM layout.
+All 92 selectors now have previews, with no raw-only resources. Selector 26
+contains all six analog-stick frames; selectors 59 and 60 are 16x16 C-left and
+C-right buttons. Selector 69 is the complete BARN BOYS label.
 
-Flat index 2041 (selector 23) and flat index 2225 (selector 60) remain raw-only.
-The reference sheet narrows the expected artwork but does not supply the missing
-storage contract. Flat 2041 is 3,072 bytes and does not contain the 4,096-byte
-RGBA32 window selected by its 32x32 renderer metadata. Flat 2225 is 1,440 bytes;
-none of its aligned 1,024-byte windows forms the 16x16 RGBA32 image selected by
-its flag, and bounded RGBA16, intensity, and CI alternatives remain incoherent.
-The tool therefore does not replace either payload with a visual guess.
-Selector 69 remains a valid three-tile TMEM preview: it is a rolling window
-across adjacent menu-label fragments, not one standalone named sprite.
+All 92 selectors and 97 exported PNGs were individually reviewed against the
+seven supplied sheets. There are 85 visual matches and seven coherent images
+absent from the supplied sheets. Every selector has a descriptive name and
+named PNG; unmatched references are explicitly noted. See the
+[complete checklist and reference evidence](us_interface_reference_review.md).
 
-Selector 61 has a reviewed identification from a supplied visual reference: it
-is the N64 directional C-button row, ordered C-left, C-up, C-right, C-down. Its
-1,024-byte base payload at flat index 2222 is a 16x16 TMEM-ordered RGBA32 C-left
-button, not a 32x8 linear strip. The adjacent flat index 2223 is the matching
-C-right button. Pixel comparison against the reference establishes C-up and
-C-down as clockwise and counter-clockwise quarter-turns of the C-left pixels.
-The manifest records those presentation transforms and their source indices;
-the raw payloads remain byte-identical.
+The user-identified Uga Buga artwork belongs to selector 10, resource 2220.
+Selector 56 is the tank turret icon (resource 2218), corroborated by the
+user-supplied Tank setup screenshot; selector 57 is radar. The previous
+"Green tank" name remains a search alias and its export filename is retained. The previously pictured Rare
+logo is physical stream 2202, runtime resource 2204, outside this selector set.
+The complete prior gallery, source and metadata were preserved under
+`build/hud-reference-review/before-index-fix/` before regenerating outputs.
 
-Selector 87 has a reviewed identification as the Nintendo wordmark. Its two
-runtime-span resources, flat indices 2139 and 2140, are not useful RGBA32
-previews: that construction compresses four intensity samples into one coloured
-pixel. Treating each 4,096-byte resource as a 64x64 I8 tile and undoing the
-narrower-format odd-row TMEM word swap reconstructs only `Ninten`. The adjacent
-flat 2141 is the matching `do` plus registered-mark continuation. The preview
-therefore records the runtime span as 2139-2140 while separately recording the
-reviewed logical composition 2139-2141; the latter produces the complete
-monochrome wordmark without hiding the metadata discrepancy.
+Selectors 76–79 share source pixels with 89–92, respectively. The former use
+scale 1.0, the latter 85/128. The gallery applies the recorded scale while
+keeping both selector IDs and source PNGs. Dark/bright labels describe source
+pixels; they do not claim a selected/disabled runtime state.
 
-The resulting preview contains 159 resource PNGs and 90 previewable selectors
-while preserving all 161 raw payloads. A short payload that contains a whole
-number of source rows is emitted at that encoded height rather than padded. The
-manifest records the code-selected renderer size separately from any reviewed
-source-pixel dimensions, along with preview size, format, row layout, bytes
-used, trailing-byte count, and any raw-only reason for every resource.
+Selector 26 is independently animation-backed: `func_15043384` compares the
+record address with `D_80085AA8` and adds a six-value triangular time offset to
+resource ID `0x7e7`. The six reachable runtime IDs are `0x7e7` through `0x7ec`.
 
-Selector 26 is independently animation-backed. `func_15043384` compares its
-selected record address with `D_80085AA8` and adds a six-value triangular time
-offset to base flat index `0x7e7`. The manifest records the reachable indices
-`0x7e7` through `0x7ec` without naming the animation.
+## Additional artwork outside the selector table
+
+Correcting the resource index initially removed artwork that had appeared under
+incorrect selectors. The gallery now includes 40 named artwork groups from 74
+separate runtime resources under **Additional artwork**, without assigning them
+a HUD selector or claiming runtime placement. The latest batch adds the 18
+menu/icon groups identified by the full reference audit:
+
+| Artwork | Runtime resource IDs | Export size | Source format |
+|---|---|---|---|
+| Nintendo wordmark | 2141–2143 | 192×64 | I8 |
+| Rare logo | 2204 | 16×16 | RGBA32 |
+| Blue A buttons, dark and bright | 2164–2165 | 64×32 | RGBA32 |
+| Green B button, dark | 2168 | 32×32 | RGBA32 |
+| Green B button, bright | 2169 | 32×32 | RGBA32 |
+| Red circular button | 2207 | 32×32 | RGBA32 |
+| Red six digit | 2210 | 32×32 | RGBA32 |
+| Green zero digit | 2226 | 32×32 | RGBA32 |
+| Digit 1 | 2192 | 32×32 | RGBA32 |
+| Digit 2 | 2219 | 32×32 | RGBA32 |
+| Digit 3 | 2216 | 32×32 | RGBA32 |
+| Digit 4 | 2178 | 32×32 | RGBA32 |
+| Digit 5 | 2177 | 32×32 | RGBA32 |
+| Digit 7 | 2209 | 32×32 | RGBA32 |
+| Digit 8 | 2176 | 32×32 | RGBA32 |
+| Digit 9 | 2191 | 32×32 | RGBA32 |
+| Dollar symbol ($) | 2038 | 32×32 | RGBA32 |
+| Dang... label | 2173 | 64×32 | IA8 |
+| Dino label | 2174 | 64×32 | IA8 |
+| Poops label | 2200 | 64×32 | IA8 |
+| Question-mark icon | 2201 | 32×32 | IA8 |
+| Total label | 2217 | 64×32 | IA8 |
+| START button, dark | 2206 | 32×32 | RGBA32 |
+| BEACH heading | 1977–1979 | 96×32 | RGBA32 |
+| Skull icon | 1980–1983 | 64×64 | RGBA32 |
+| CHAPTERS heading | 1994–1996 | 96×32 | RGBA32 |
+| GAME1 heading | 2011–2013 | 96×32 | RGBA32 |
+| GAME2 heading | 2014–2016 | 96×32 | RGBA32 |
+| GAME3 heading | 2017–2019 | 96×32 | RGBA32 |
+| OPTIONS heading | 2035–2037 | 96×32 | RGBA32 |
+| RACE heading | 2056–2058 | 96×32 | RGBA32 |
+| RAPTOR heading | 2059–2061 | 96×32 | RGBA32 |
+| WAR heading | 2082–2084 | 96×32 | RGBA32 |
+| BACK heading | 2097–2098 | 64×32 | RGBA32 |
+| Small P1–P4 badges | 2115 | 32×32 atlas; four 16×16 crops | RGBA32 |
+| HEIST heading | 2180–2182 | 96×32 | RGBA32 |
+| Small statistics icons | 2183–2184 | 64×32 atlas; eight 16×16 crops | RGBA32 |
+| MULTI heading | 2188–2190 | 96×32 | RGBA32 |
+| PAUSED heading | 2193–2195 | 96×32 | RGBA32 |
+| TANK heading | 2212–2214 | 96×32 | RGBA32 |
+
+The five IA8 images previously used I8, which lost their separate intensity and
+alpha nibbles. IA8 correctly retains transparent `0xF0` background pixels;
+Nintendo remains I8. These reviewed source-image contracts consume complete
+payloads with standard TMEM row conversion, without padding or truncation.
+Nintendo and Rare have Intro Credits reference links; A/B artwork has Text
+reference links. These identify artwork, not an exact brightness variant or a
+runtime screen.
+
+The complete coloured digits 0–9 and dollar symbol also match the Pause Menu &
+Multi Results sheet (62744). Every opaque pixel matches the located reference
+crop exactly; the PNGs preserve the original ROM alpha. Reference boxes and
+PNG hashes are recorded in the machine-readable interface review. These are
+individual 32×32 RGBA32 images, not regions cut from a larger atlas.
+
+The ordered digit tables at `D_80090074` and `D_80090B34` contain runtime IDs
+`2226, 2192, 2219, 2216, 2178, 2177, 2210, 2209, 2176, 2191`.
+`func_151EADFC` divides the displayed number by powers of ten, indexes the first
+table with the quotient (`0x151EAEC8`–`0x151EAF28`), and issues RGBA32 commands
+with a 32×32 tile extent (`0x151EAF3C`, `0x151EAFD0`–`0x151EAFD4`).
+`func_151EB06C` loads dollar resource `0x7F6` (2038) at `0x151EB870`, draws it
+through `func_151ED430`, then invokes the decimal renderer. The normalized US
+ROM confirms these tables and instruction words; the digit table SHA-1 is
+`f86d7092a64500d66e3f92524291d4211e52def1`. The dollar payload SHA-1 is
+`bbefdcfc5eb0045640edb74a9471c7e54fb49679`.
+
+The skull combines four tiles in column-major 2×2 order: 1980 at top left,
+1981 at bottom left, 1982 at top right and 1983 at bottom right. The other new
+multi-resource headings use horizontal tile order. Every source tile retains
+its full RGBA32 payload and standard TMEM odd-row conversion.
+
+The two packed groups also provide twelve individual 16×16 PNG downloads.
+Resource 2115 contains P1–P4 in top-left, top-right, bottom-left, bottom-right
+order. Resource 2183 contains the stopwatch, money bag, RIP gravestone and green
+roll; resource 2184 contains the skull, green crosshair, gray projectile and
+purple head with impact marks in the same quadrant order. Their two full atlas
+previews remain available. Crops copy exact decoded RGBA bytes without scaling,
+vertical flipping or alpha changes. Each crop record retains its coordinates
+in the composed atlas (`x`/`y`), dimensions, original raw resource ID
+(`source_resource_id`) and output path.
+
+Each additional group has a PNG download and raw resource links. The manifest
+retains ROM extents, runtime IDs and payload hashes, and verification checks
+metadata and every exported byte, including the twelve crops. The forty group
+previews and twelve crops make **52 additional PNGs**. Existing selector PNGs,
+named copies and raw sources are unchanged. The gallery contains **132 cards:
+92 selectors and 40 additional groups**; crops appear within their atlas cards.
+Historical exports remain preserved in the recovery snapshot. The full
+reference audit records unresolved image families separately; this batch does
+not establish complete coverage of every reference sheet.
 
 ## Reproduction
 
@@ -141,6 +216,11 @@ offset to base flat index `0x7e7`. The manifest records the reachable indices
 ./conker hud-assets verify
 ```
 
-Verification checks the owned US ROM checksum, the relevant game-code
-instructions, both raw data tables, the exact table boundary, the generated
-manifest, and byte identity of the extracted binary metadata.
+Verification checks the owned US ROM checksum, consumer and loader instructions,
+both raw metadata tables, table boundaries, runtime resource identity, exact ROM
+extents, decoded pixels, named PNG equivalence and generated gallery HTML.
+Names and reference links describe visual artwork, not runtime screen placement.
+
+The grayscale font has a separately proven connection to the input map; see
+[US font atlas](us_font_atlas.md). Its independent storage is unaffected by the
+flat-resource indexing fix.
