@@ -362,10 +362,12 @@ def main() -> int:
                 stop_reason = "tooling_failure"
                 break
             attempted += 1
-            if score == 0 and args.profile == "us" and entry.get("overlay") == "game":
+            if score == 0 and args.profile == "us" and entry.get("overlay") in {"game", "debugger"}:
                 try:
+                    table_options = ({"overlay": "debugger", "expected_start": int(entry["regions"]["us"]["vram"], 16)}
+                                     if entry.get("overlay") == "debugger" else {})
                     candidate_tables.verify_candidate(directory / "candidate.o", symbol,
-                                                      reference_assembly, expected_size)
+                                                      reference_assembly, expected_size, **table_options)
                 except (ValueError, OSError) as error:
                     failure = f"candidate table gate: {error}"
                     stop_reason = "table_gate_failure"

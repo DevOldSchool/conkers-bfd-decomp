@@ -21,7 +21,7 @@ address in an INFO section with four-byte input alignment. This preserves
 the original placement despite IDO marking the input sections as 16-byte aligned. The linker assertions enforce the reviewed sizes;
 the existing integrated-build verifier compares every linked pool against ROM
 game data. Object basename patterns continue to select the same source after
-supported integration moves it into `src/game/done/`.
+supported integration moves it into `src/done/game/`.
 
 Before these mappings, the integrated payload grew by 32 bytes from the first
 and third pools, with 32 differing instruction bytes confined to eight pool

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import re
 from pathlib import Path
 
@@ -19,7 +20,7 @@ def reference_function_blocks(profile: str, overlay: str) -> dict[str, str]:
     if not root.is_dir():
         preparation = (
             f"./conker _prepare-reference --profile {profile}"
-            if overlay == "main"
+            if overlay != "game"
             else f"./conker game-asm --profile {profile}"
         )
         raise project_state.ProjectStateError(
@@ -75,9 +76,6 @@ def materialize(
                 f"source unit mixes executable overlays: {source}"
             )
         overlay = overlays.pop()
-        if overlay not in blocks_by_overlay:
-            blocks_by_overlay[overlay] = reference_function_blocks(profile, overlay)
-        blocks = blocks_by_overlay[overlay]
         source_path = ROOT / source
         if not source_path.is_file():
             continue
@@ -87,12 +85,23 @@ def materialize(
             if region is None or region["state"] == "matched":
                 continue
             regional_symbol = region["symbol"]
-            body = blocks.get(regional_symbol)
+            output = ROOT / project_state.nonmatching_asm_path(source, member["symbol"])
+            if region["state"] == "original_asm" and output.is_file():
+                expected.add(output)
+                if hashlib.sha256(output.read_bytes()).hexdigest() != region["evidence"]["assembly_sha256"]:
+                    raise project_state.ProjectStateError(
+                        f"{member['symbol']}: retained original assembly changed; "
+                        "use ./conker verify-original-asm <id> --refresh for independent re-verification")
+                # New disassembly spelling is not permission to replace a
+                # separately verified retained assembly artifact.
+                continue
+            if overlay not in blocks_by_overlay:
+                blocks_by_overlay[overlay] = reference_function_blocks(profile, overlay)
+            body = blocks_by_overlay[overlay].get(regional_symbol)
             if body is None:
                 raise project_state.ProjectStateError(
                     f"missing {regional_symbol} in generated {profile} {overlay} reference"
                 )
-            output = ROOT / project_state.nonmatching_asm_path(source, member["symbol"])
             write_if_changed(output, body)
             expected.add(output)
             written.append(output)

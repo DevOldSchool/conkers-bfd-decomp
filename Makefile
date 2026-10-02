@@ -229,7 +229,7 @@ $(BUILD_DIR)/$(ROM_NAME): $(BUILD_DIR)/conker.$(PROFILE).elf
 	$(OBJCOPY) -O binary $< $@
 
 $(BOOTSTRAP_SYMBOLS): $(ASM_SRCS) $(C_SRCS) scripts/create_bootstrap_symbols.py
-	python3 scripts/create_bootstrap_symbols.py --output $@ asm/$(PROFILE) src/game/done
+	python3 scripts/create_bootstrap_symbols.py --output $@ asm/$(PROFILE) $(C_SRCS)
 
 $(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS)
 	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
@@ -405,7 +405,7 @@ $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.bin: $(GAME_INTEGRATED_BU
 	$(OBJCOPY) -O binary $< $@
 
 $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS): $(GAME_INTEGRATED_ASM_SRCS) $(GAME_INTEGRATED_C_SRCS) scripts/create_bootstrap_symbols.py
-	python3 scripts/create_bootstrap_symbols.py --output $@ asm/game_integrated/$(GAME_PROFILE) src/game
+	python3 scripts/create_bootstrap_symbols.py --output $@ asm/game_integrated/$(GAME_PROFILE) $(GAME_INTEGRATED_C_SRCS)
 
 $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.elf: $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) $(GAME_LIB) $(GAME_RARE_LIB) $(GAME_LIB_SYMBOLS) $(GAME_RODATA_SCRIPT)
 	$(LD) -m elf32btsmip -T $(GAME_LIB_SYMBOLS) -T $(GAME_RODATA_SCRIPT) -T $(GAME_INTEGRATED_BUILD_DIR)/conker.game.us.integrated.ld -T $(GAME_INTEGRATED_BOOTSTRAP_SYMBOLS) -o $@ $(GAME_INTEGRATED_ASM_OBJS) $(GAME_INTEGRATED_C_OBJS) --whole-archive $(GAME_LIB) $(GAME_RARE_LIB) --no-whole-archive

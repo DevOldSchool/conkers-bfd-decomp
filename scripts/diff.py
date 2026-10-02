@@ -15,7 +15,7 @@ from typing import Callable
 import candidate_tables
 import compile_c
 import linked_aliases
-from m2c import extract_function, locate_function, registered_symbols
+from m2c import extract_function, locate_function, registered_symbols, registered_debugger_span
 import project_state
 
 
@@ -60,6 +60,15 @@ def find_work_item_by_id(identifier: str, profile: str) -> tuple[Path, str, bool
             raise ValueError(f"{identifier} is not registered for the {profile} profile")
         return ROOT / function["source"], region["symbol"], function.get("overlay", "main") == "game"
     raise ValueError(f"unknown work-item ID: {identifier}")
+
+
+def work_item_overlay(profile: str, symbol: str) -> str:
+    inventory = json.loads((ROOT / "progress/functions.json").read_text())
+    matches = [entry.get("overlay", "main") for entry in inventory["functions"]
+               if entry.get("regions", {}).get(profile, {}).get("symbol") == symbol]
+    if len(matches) != 1:
+        raise ValueError(f"{symbol} needs one registered {profile} overlay")
+    return matches[0]
 
 
 def expected_function_size(profile: str, symbol: str) -> int:
@@ -296,8 +305,13 @@ def ensure_reference_function(
             reference=not game_reference,
             game_reference=game_reference,
         )
+    span_options = {}
+    if not game_reference:
+        byte_span = registered_debugger_span(profile, symbol)
+        if byte_span is not None:
+            span_options["byte_span"] = byte_span
     return extract_function(
-        assembly, symbol, boundary_symbols=registered_symbols(profile)
+        assembly, symbol, boundary_symbols=registered_symbols(profile), **span_options
     )
 
 
@@ -775,6 +789,7 @@ def main() -> int:
     parser.add_argument("symbol")
     mode = parser.add_mutually_exclusive_group()
     mode.add_argument("--game", action="store_true", help="compare a registered game-overlay candidate")
+    mode.add_argument("--debugger", action="store_true", help="compare a registered debugger-overlay candidate")
     mode.add_argument("--auto-overlay", action="store_true", help="resolve the overlay from the work-item ID")
     parser.add_argument("--require-match", action="store_true", help="fail unless asm-differ reports CURRENT (0)")
     parser.add_argument("--compact-mismatch", action="store_true", help="summarize failed --require-match evidence without rerunning the differ")
@@ -799,7 +814,7 @@ def main() -> int:
             source, symbol = find_work_item(
                 arguments.symbol,
                 arguments.profile,
-                overlay="game" if game_reference else None,
+                overlay="game" if game_reference else "debugger" if arguments.debugger else None,
             )
         reference_assembly = ensure_reference_function(
             arguments.profile,
@@ -844,10 +859,14 @@ def main() -> int:
         return EXIT_BLOCKED_TOOLING
 
     table_options = {}
-    if arguments.profile == "us" and game_reference:
+    try:
+        overlay = "game" if game_reference else work_item_overlay(arguments.profile, symbol)
+    except (ValueError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return EXIT_BLOCKED_TOOLING
+    if arguments.profile == "us" and overlay in {"game", "debugger"}:
         original_candidate = candidate
-        table_options["table_check"] = lambda: candidate_tables.verify_candidate(
-            original_candidate, symbol, reference_assembly, expected_size)
+        overlay_options = {"overlay": "debugger"} if overlay == "debugger" else {}
         # Keep the original objects for table verification. Equivalent bootstrap
         # address aliases may use a linked comparison only after independent
         # full-span raw-reference and checksum-validated ROM byte proof.
@@ -859,9 +878,13 @@ def main() -> int:
             # previously linked bytes. A later finish performs this proof anew.
             pair = None if arguments.watch else linked_aliases.prepare(
                 ROOT, candidate, reference, reference_assembly,
-                symbol, int(region["vram"], 16), expected_size)
+                symbol, int(region["vram"], 16), expected_size, **overlay_options)
             if pair is not None:
                 candidate, reference = pair
+            candidate_options = ({"overlay": "debugger", "expected_start": int(region["vram"], 16)}
+                                 if overlay == "debugger" else {})
+            table_options["table_check"] = lambda: candidate_tables.verify_candidate(
+                original_candidate, symbol, reference_assembly, expected_size, **candidate_options)
         except (ValueError, OSError, subprocess.CalledProcessError) as error:
             print(f"error: address-alias verification failed: {error}", file=sys.stderr)
             return EXIT_BLOCKED_TOOLING

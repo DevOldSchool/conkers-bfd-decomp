@@ -69,6 +69,7 @@ baserom.*
 *.z64
 *.n64*
 *.v64
+*.rar
 
 # Local editor state
 .idea/

@@ -98,8 +98,9 @@ override report symbols. All targets in an overlay are linked at their original
 addresses, with a size assertion for every unit. Splat's unresolved-address
 definitions supply external symbols while target definitions resolve internal
 references. The linked bytes must exactly reproduce the original main CPU-code
-range and the freshly decompressed game code. Both inputs are
-checksum-validated.
+range, the loader-proven debugger code interval, and the freshly decompressed
+game code. All inputs are checksum-validated. Provisional debugger collections
+remain unassigned report ranges until their source boundaries are reviewed.
 
 For SDK objects, unambiguous target-to-base symbol names are mapped at
 identical offsets within their canonically mapped object. Units without C or
@@ -139,7 +140,7 @@ command exit status. See each unit's `build.log` for diagnostics.
 ### Scope
 
 This is an exhaustive report of the project's **tracked US CPU-code ranges**,
-not a claim of full ROM reconstruction. Main/game data, BSS, assets, boot code
+not a claim of full ROM reconstruction. Main/game/debugger data, BSS, assets, boot code
 outside those ranges, and RSP microcode are not measured. In particular,
 objdiff emits 100% data fields for a zero data denominator; those fields do not
 establish any data coverage. EU/PAL remains outside the active target.

@@ -21,6 +21,16 @@ SPEC.loader.exec_module(project_state)
 
 
 class ProjectStateTests(unittest.TestCase):
+    def test_completed_sources_keep_original_raw_reference_paths(self) -> None:
+        for overlay in ("main", "game"):
+            with self.subTest(overlay=overlay):
+                self.assertEqual(
+                    project_state.nonmatching_asm_path(f"src/{overlay}/system/test.c", "func_test"),
+                    project_state.nonmatching_asm_path(f"src/done/{overlay}/system/test.c", "func_test"),
+                )
+                with self.assertRaisesRegex(project_state.ProjectStateError, "completed-source"):
+                    project_state.validate_registration_source(f"src/done/{overlay}/test.c", overlay)
+
     def test_current_inventory_includes_the_first_game_work_item(self) -> None:
         _, functions = project_state.validate_project()
         entry = next(
@@ -317,13 +327,13 @@ class ProjectStateTests(unittest.TestCase):
     def test_completed_source_requires_an_exact_c_map_entry(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
-            source = root / "src" / "game" / "done" / "test.c"
+            source = root / "src" / "done" / "main" / "test.c"
             source.parent.mkdir(parents=True)
             source.write_text("void func_test(void) {}\n", encoding="utf-8")
             profile = root / "config" / "profiles" / "us.yaml"
             profile.parent.mkdir(parents=True)
             profile.write_text(
-                "      - [0x10, c, game/done/test]\n      - [0x20, asm]\n",
+                "      - [0x10, c, done/main/test]\n      - [0x20, asm]\n",
                 encoding="utf-8",
             )
             overlays = root / "config" / "overlays.json"
@@ -346,11 +356,11 @@ class ProjectStateTests(unittest.TestCase):
             )
             function = {
                 "symbol": "func_test",
-                "source": "src/game/done/test.c",
+                "source": "src/done/main/test.c",
                 "regions": {"us": {"state": "matched"}},
             }
             unit = {
-                "source": "src/game/done/test.c",
+                "source": "src/done/main/test.c",
                 "functions": ["func_test"],
                 "integration": "c",
                 "boundary_evidence": {
@@ -371,6 +381,12 @@ class ProjectStateTests(unittest.TestCase):
                     {"schema_version": 1, "source_units": [unit]},
                     [function],
                 )
+                function["overlay"] = "game"
+                with self.assertRaisesRegex(project_state.ProjectStateError, "overlay-compatible"):
+                    project_state.validate_source_units(
+                        {"schema_version": 1, "source_units": [unit]}, [function]
+                    )
+                del function["overlay"]
                 profile.write_text("      - [0x10, asm]\n      - [0x20, asm]\n", encoding="utf-8")
                 with self.assertRaises(project_state.ProjectStateError):
                     project_state.validate_source_units(
@@ -379,7 +395,7 @@ class ProjectStateTests(unittest.TestCase):
                     )
                 unit["regions"]["us"]["end"] = "0x18"
                 profile.write_text(
-                    "      - [0x10, c, game/done/test]\n      - [0x18, asm]\n",
+                    "      - [0x10, c, done/main/test]\n      - [0x18, asm]\n",
                     encoding="utf-8",
                 )
                 with self.assertRaises(project_state.ProjectStateError):
@@ -394,7 +410,7 @@ class ProjectStateTests(unittest.TestCase):
     def test_completed_source_requires_reviewed_boundary_evidence(self) -> None:
         function = {
             "symbol": "func_test",
-            "source": "src/game/done/test.c",
+            "source": "src/done/main/test.c",
             "regions": {
                 "us": {
                     "state": "matched",
@@ -409,7 +425,7 @@ class ProjectStateTests(unittest.TestCase):
             },
         }
         unit = {
-            "source": "src/game/done/test.c",
+            "source": "src/done/main/test.c",
             "functions": ["func_test"],
             "integration": "c",
             "regions": {"us": {"state": "complete", "start": "0x10", "end": "0x20"}},
@@ -2274,7 +2290,7 @@ class GameInventoryTests(unittest.TestCase):
                 project_state.mark_matched(SimpleNamespace(profile="us", symbol=symbol))
 
         if integration == "c":
-            completed_source = "src/game/done/reviewed_unit.c"
+            completed_source = "src/done/game/reviewed_unit.c"
             completed_path = self.root / completed_source
             completed_path.parent.mkdir(parents=True)
             source_path.rename(completed_path)
@@ -2290,7 +2306,7 @@ class GameInventoryTests(unittest.TestCase):
             project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
             (self.root / "config/game/us.yaml").write_text(
                 "    subsegments:\n"
-                "      - [0x0, c, game/done/reviewed_unit]\n"
+                "      - [0x0, c, done/game/reviewed_unit]\n"
                 "      - [0x10, asm]\n",
                 encoding="utf-8",
             )

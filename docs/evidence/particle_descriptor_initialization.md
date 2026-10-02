@@ -42,7 +42,7 @@ conditionally adds the offset under flag 0x1000, then initializes the remaining
 independent descriptor fields in physical order. Its first manual candidate
 matched the entire 576-byte registered span with `CURRENT (0)`.
 
-The required source-unit transition moved it to `src/game/done/game_1D0600.c`
+The required source-unit transition moved it to `src/done/game/game_1D0600.c`
 and the integrated US game-code image remained byte-identical. No shared type,
 compiler flag, assembly body, or linker mapping changed for this emitter.
 Its clean singleton batch (required by the integration boundary) also returned

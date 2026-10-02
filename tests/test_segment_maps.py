@@ -93,8 +93,8 @@ class SegmentMapTests(unittest.TestCase):
         return verified
 
     def reviewed_main_c_fixture(self):
-        source = "src/game/done/example.c"
-        working = [(0x1000, "c", "game/done/example"), (0x1020, "asm", None)]
+        source = "src/done/game/example.c"
+        working = [(0x1000, "c", "done/game/example"), (0x1020, "asm", None)]
         reference = [(0x1000, "asm", None), (0x1020, "asm", None)]
         units = [{
             "source": source, "integration": "c", "functions": ["first", "second"],
@@ -117,7 +117,7 @@ class SegmentMapTests(unittest.TestCase):
         mutations = {
             "missing unit": lambda args: args[2].clear(),
             "duplicate unit": lambda args: args[2].append(deepcopy(args[2][0])),
-            "misnamed source": lambda args: args[0].__setitem__(0, (0x1000, "c", "game/done/other")),
+            "misnamed source": lambda args: args[0].__setitem__(0, (0x1000, "c", "done/game/other")),
             "unreviewed": lambda args: args[2][0]["boundary_evidence"]["us"].update(reviewed=False),
             "missing evidence": lambda args: args[2][0]["boundary_evidence"]["us"].pop("reference"),
             "not integrated": lambda args: args[2][0].update(integration="asm"),
@@ -132,7 +132,7 @@ class SegmentMapTests(unittest.TestCase):
 
     def test_main_c_transition_rejects_changed_boundaries(self) -> None:
         mutations = {
-            "new start": lambda args: args[0].__setitem__(0, (0x1004, "c", "game/done/example")),
+            "new start": lambda args: args[0].__setitem__(0, (0x1004, "c", "done/game/example")),
             "changed end": lambda args: args[0].__setitem__(1, (0x1024, "asm", None)),
             "non ASM reference": lambda args: args[1].__setitem__(0, (0x1000, "data", None)),
             "metadata start": lambda args: args[2][0]["regions"]["us"].update(start="0x1004"),
@@ -152,7 +152,7 @@ class SegmentMapTests(unittest.TestCase):
             "unknown member": lambda args: args[2][0].update(functions=["missing"]),
             "duplicate member": lambda args: args[2][0].update(functions=["first", "first"]),
             "wrong overlay": lambda args: args[3]["first"].update(overlay="game"),
-            "wrong source": lambda args: args[3]["first"].update(source="src/game/done/other.c"),
+            "wrong source": lambda args: args[3]["first"].update(source="src/done/game/other.c"),
             "unmatched": lambda args: args[3]["first"]["regions"]["us"].update(state="candidate"),
             "nonzero comparison": lambda args: args[3]["first"]["regions"]["us"]["evidence"].update(current_differences=1),
             "missing comparison": lambda args: args[3]["first"]["regions"]["us"].pop("evidence"),
@@ -630,7 +630,7 @@ class SegmentMapTests(unittest.TestCase):
         ranges = {a: (b, kind, name) for (a, kind, name), (b, _, _) in zip(entries, entries[1:])}
         self.assertEqual((0x1F8870, "lib", "libultrare, main, .text"), ranges[0x1F7F60])
         self.assertEqual((0x1F7F60, "lib", "libultrare, decoder, .text"), ranges[0x1F3DE0])
-        self.assertEqual((0x4A5E0, "c", "game/done/game_778B0"), ranges[0x4A400])
+        self.assertEqual((0x4A5E0, "c", "done/game/game_778B0"), ranges[0x4A400])
         self.assertEqual((0x1F9BF0, "lib", "libultrare, lib_46650, .text"), ranges[0x1F8CF0])
         from scripts.prepare_game_reference import raw_reference_map
         profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))
@@ -679,11 +679,11 @@ class SegmentMapTests(unittest.TestCase):
     def test_named_us_splits_keep_identity_after_source_integration(self) -> None:
         entries = segment_subsegments(ROOT / "config" / "game" / "us.yaml", "game")
         names = {offset: name for offset, _, name in entries if name is not None}
-        self.assertEqual("game/done/game_3BFD0", names[0xEB20])
-        self.assertEqual("game/done/game_1765E0", names[0x149130])
-        self.assertEqual("game/done/game_1A6300", names[0x178E50])
+        self.assertEqual("done/game/game_3BFD0", names[0xEB20])
+        self.assertEqual("done/game/game_1765E0", names[0x149130])
+        self.assertEqual("done/game/game_1A6300", names[0x178E50])
         self.assertEqual("game/game_1BFC70", names[0x1927C0])
-        self.assertIn((0x149130, "c", "game/done/game_1765E0"), entries)
+        self.assertIn((0x149130, "c", "done/game/game_1765E0"), entries)
 
         from scripts.prepare_game_reference import raw_reference_map
         profile = yaml.safe_load(raw_reference_map((ROOT / "config/game/us.yaml").read_text()))

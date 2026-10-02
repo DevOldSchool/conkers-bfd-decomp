@@ -25,7 +25,7 @@ Two local caller representations retain the complete object:
 | Caller | Current source type | Recorded raw object interval |
 | --- | --- | --- |
 | `func_15154884` | `Game154884Descriptor` in [game_17CAF0.c](../../src/game/game_17CAF0.c) | `SP+0x40..SP+0xBB` |
-| `func_150BB498` | `GameE8710Packet` in [game_E8710.c](../../src/game/done/game_E8710.c) | `SP+0x2C..SP+0xA7`; address formed at `150BB6C4`, forwarding call at `150BB6D8` |
+| `func_150BB498` | `GameE8710Packet` in [game_E8710.c](../../src/done/game/game_E8710.c) | `SP+0x2C..SP+0xA7`; address formed at `150BB6C4`, forwarding call at `150BB6D8` |
 
 Both types end with `u8 unknown76[6]`, covering offsets `0x76..0x7B` and giving
 the full 0x7C extent. The former two-byte tail described only 0x78 bytes and

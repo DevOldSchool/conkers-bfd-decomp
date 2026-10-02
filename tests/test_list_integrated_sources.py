@@ -62,10 +62,10 @@ class MappedSourceTests(unittest.TestCase):
     def test_game_keeps_its_separate_map(self) -> None:
         with patch.object(
             list_integrated_sources.project_state, "mapped_subsegments",
-            return_value=[(0, "c", "game/done/example"), (16, "asm", None)],
+            return_value=[(0, "c", "done/game/example"), (16, "asm", None)],
         ) as mapping:
             self.assertEqual(
-                ["src/game/done/example.c"],
+                ["src/done/game/example.c"],
                 list_integrated_sources.mapped_sources("us", overlay="game"),
             )
         mapping.assert_called_once_with("us", "game")

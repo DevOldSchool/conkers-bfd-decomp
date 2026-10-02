@@ -19,8 +19,8 @@ def validate_metadata(entry: dict) -> None:
         if original is not None:
             raise ValueError("original assembly metadata requires original_asm state")
         return
-    if entry.get("blocked") or entry.get("deferred") or entry.get("overlay") not in {"game", "main"}:
-        raise ValueError("verified original assembly must be a non-deferred US main or game span")
+    if entry.get("blocked") or entry.get("deferred") or entry.get("overlay") not in {"game", "main", "debugger"}:
+        raise ValueError("verified original assembly must be a non-deferred US main, game or debugger span")
     if not isinstance(original, dict):
         raise ValueError("original assembly requires classification evidence")
     for key in ("reason", "reference", "recorded_revision"):
@@ -38,7 +38,7 @@ def validate_metadata(entry: dict) -> None:
         raise ValueError("original assembly evidence needs verified_revision")
 
 
-def validate_source(root: Path, entry: dict) -> None:
+def validate_source(root: Path, entry: dict, *, allow_stale_hash: bool = False) -> None:
     import project_state
     source = entry.get("source")
     if not isinstance(source, str) or not (root / source).is_file():
@@ -51,39 +51,40 @@ def validate_source(root: Path, entry: dict) -> None:
         if not reference.is_relative_to(root.resolve()) or not reference.is_file():
             raise ValueError("original assembly requires an existing repository evidence document")
         assembly = root / project_state.nonmatching_asm_path(source, symbol)
-        if assembly.is_file() and hashlib.sha256(assembly.read_bytes()).hexdigest() != entry["regions"]["us"]["evidence"]["assembly_sha256"]:
+        if not allow_stale_hash and assembly.is_file() and hashlib.sha256(assembly.read_bytes()).hexdigest() != entry["regions"]["us"]["evidence"]["assembly_sha256"]:
             raise ValueError("retained original assembly changed since verification")
 
 
 def reference_image(root: Path, entry: dict) -> tuple[bytes, int, str]:
-    if entry.get("overlay") == "game":
-        return rom_span.game_code(root)
-    if entry.get("overlay") == "main":
-        return rom_span.main_code(root)
-    raise ValueError("original assembly verification supports US main and game spans")
+    return rom_span.code_image(root, entry.get("overlay", "main"))
 
 
-def verify(root: Path, entry: dict) -> dict:
+def verify(root: Path, entry: dict, *, refresh: bool = False) -> dict:
     import diff
     import project_state
     code, base, digest = reference_image(root, entry)
     game_reference = entry["overlay"] == "game"
-    validate_source(root, entry)
+    if refresh:
+        validate_source(root, entry, allow_stale_hash=True)
+    else:
+        validate_source(root, entry)
     region = entry["regions"]["us"]
     symbol, start = region["symbol"], int(region["vram"], 16)
     size = diff.expected_function_size("us", symbol)
     assembly = root / project_state.nonmatching_asm_path(entry["source"], symbol)
+    assembly_data = assembly.read_bytes()
+    assembly_text = assembly_data.decode("utf-8")
     raw = diff.ensure_reference_function("us", symbol, game_reference=game_reference)
     expected = rom_span.raw_span(raw.read_text(), start, size, code, base)
     # Check the words recorded in the retained source, then independently
     # assemble/link its actual directives too. Comments alone are not proof.
-    rom_span.raw_span(assembly.read_text(), start, size, code, base)
+    rom_span.raw_span(assembly_text, start, size, code, base)
     output = root / "build/us/original-asm" / symbol
     output.mkdir(parents=True, exist_ok=True)
     copy = output / "original.s"
     # GLOBAL_ASM snippets inherit these settings from the assembly processor;
     # they intentionally omit the standalone raw-reference prelude.
-    copy.write_text('.set noat\n.set noreorder\n.set gp=64\n' + assembly.read_text())
+    copy.write_bytes(b'.set noat\n.set noreorder\n.set gp=64\n' + assembly_data)
     path = diff.reference_object("us", symbol, game_reference=game_reference, assembly=copy)
     obj = Object32(path.read_bytes())
     symbols = {}
@@ -100,7 +101,7 @@ def verify(root: Path, entry: dict) -> dict:
                 # form; the actual linked branch still must equal the ROM word.
                 local = re.fullmatch(r"\.L([0-9A-Fa-f]{8})", name) if not game_reference else None
                 if local and not base <= int(local[1], 16) < base + len(code):
-                    raise ValueError(f"original assembly local target is outside main CPU text: {name}")
+                    raise ValueError(f"original assembly local target is outside {entry['overlay']} CPU text: {name}")
                 if (match is None and local is None) or value:
                     raise ValueError(f"unsupported original assembly external symbol: {name}")
                 symbols[name] = int((match or local)[1], 16)
@@ -109,9 +110,22 @@ def verify(root: Path, entry: dict) -> dict:
     if payload != expected:
         raise ValueError("assembled original span differs from the US ROM")
     (output / "span.bin").write_bytes(payload)
-    return {"rom_sha1": digest, "span_sha256": hashlib.sha256(payload).hexdigest(),
-            "assembly_sha256": hashlib.sha256(assembly.read_bytes()).hexdigest(),
-            "verified_revision": "working-tree"}
+    evidence = {"rom_sha1": digest, "span_sha256": hashlib.sha256(payload).hexdigest(),
+                "assembly_sha256": hashlib.sha256(assembly_data).hexdigest(),
+                "verified_revision": "working-tree"}
+    if refresh:
+        require_unchanged_span(entry, evidence)
+    return evidence
+
+
+def require_unchanged_span(entry: dict, evidence: dict) -> None:
+    """A text refresh cannot change the classified ROM image or instruction span."""
+    validate_metadata(entry)
+    if entry["regions"]["us"]["state"] != "original_asm":
+        raise ValueError("refresh requires an already classified original assembly span")
+    old = entry["regions"]["us"]["evidence"]
+    if any(evidence.get(key) != old[key] for key in ("rom_sha1", "span_sha256")):
+        raise ValueError("original assembly refresh changed the recorded ROM or span hash")
 
 
 def read_proof(root: Path, entry: dict, proof: Path) -> dict:
@@ -125,12 +139,13 @@ def read_proof(root: Path, entry: dict, proof: Path) -> dict:
     symbol = region["symbol"]
     assembly = root / project_state.nonmatching_asm_path(entry["source"], symbol)
     code, base, digest = reference_image(root, entry)
-    payload = rom_span.raw_span(assembly.read_text(), int(region["vram"], 16),
+    assembly_data = assembly.read_bytes()
+    payload = rom_span.raw_span(assembly_data.decode("utf-8"), int(region["vram"], 16),
                                 diff.expected_function_size("us", symbol), code, base)
     if (root / "build/us/original-asm" / symbol / "span.bin").read_bytes() != payload:
         raise ValueError("assembled original proof is stale or differs from ROM")
     expected = {"rom_sha1": digest, "span_sha256": hashlib.sha256(payload).hexdigest(),
-                "assembly_sha256": hashlib.sha256(assembly.read_bytes()).hexdigest(),
+                "assembly_sha256": hashlib.sha256(assembly_data).hexdigest(),
                 "verified_revision": "working-tree"}
     if data.get("evidence") != expected:
         raise ValueError("original assembly proof does not match current inputs")
