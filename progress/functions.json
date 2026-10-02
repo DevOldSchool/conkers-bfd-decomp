@@ -7016,20 +7016,25 @@
           "vram": "0x15008E00"
         }
       },
-      "source": "src/game/game_362B0.c",
+      "source": "src/done/game/game_362B0.c",
       "symbol": "func_15008E00"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 832,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15008E10",
           "vram": "0x15008E10"
         }
       },
-      "source": "src/game/game_362B0.c",
+      "source": "src/done/game/game_362B0.c",
       "symbol": "func_15008E10"
     },
     {
@@ -52075,8 +52080,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2632,
-        "reason": "Restore three outgoing random-derived arguments omitted by starter; full11-argument call.2632/2922/2632; retain initial2632. Formal normalization, frame and FP/predicate scheduling remain; no further supported form.",
+        "current_score": 2250,
+        "reason": "Valid declaration-backed u8 formal and compatible complete 0x3C caller packet. Recover whole descriptor from initial-member pointer; use actual f32 field20 through corrected local fourth-f32 callee slot and preserve signed-byte field25 as an explicit u8 read. CURRENT2250 after one approved validity repair. Historical2632/2445/2813 forms have incoherent descriptor access and are superseded; remaining frame/predicate/register differences, no new match.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

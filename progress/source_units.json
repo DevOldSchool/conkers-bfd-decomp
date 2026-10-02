@@ -2841,15 +2841,15 @@
         "func_15008E00",
         "func_15008E10"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x9150",
           "start": "0x8E00",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_362B0.c"
+      "source": "src/done/game/game_362B0.c"
     },
     {
       "boundary_evidence": {

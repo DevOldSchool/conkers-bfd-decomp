@@ -78,7 +78,7 @@ segments:
       - [0x8B90, c, done/game/game_36040]
       - [0x8BF0, c, game/game_360A0]
       - [0x8DD0, c, game/game_36280]
-      - [0x8E00, c, game/game_362B0]
+      - [0x8E00, c, done/game/game_362B0]
       - [0x9150, c, done/game/game_36600]
       - [0x91D0, c, game/game_36680]
       - [0xC1E0, c, game/game_39690]
