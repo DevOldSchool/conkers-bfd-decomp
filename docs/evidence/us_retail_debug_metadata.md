@@ -18,18 +18,20 @@ ROM SHA-1s match `config/roms.json`: US
 `ee7bc6656fd1e1d9ffb3d19add759f28b88df710`. Europe is a research comparison;
 US remains the only matching/integration gate.
 
-The screenshots report version 163 for US and 19 for Europe. Those numeric
-values have not yet been traced to the rendering code. Finding the literal
-`Version` label and timestamp strings does not independently verify them.
-The US strings fall after the configured game archive end (`0x19EA88`) and
-before the flat-asset start (`0x1A37E0`), in the current raw-ROM portion of
-the main build map. Their containing code/data ownership and runtime load
-address remain unreviewed. They do not justify a new source-unit boundary.
+A subsequent independent loader and instruction review confirms version 163
+for US and 19 for Europe. The renderer arguments are at US ROM `0x19EC58`
+and European ROM `0x19EFB8`. The US strings belong to the separately loaded
+debugger image `[0x19EA88, 0x1A33E8)`, mapped at `0x16000000`, with entry
+`0x16000B14`. Its code/data boundary and remaining ownership limits are
+recorded in [US retail debugger overlay](us_debugger_overlay.md).
+The image boundary does not establish original source-unit boundaries.
 
 The screenshot's cheat `XFYHIJERPWAL IELWZS`, A-button menu entry, and
 GameShark pair `D0042A15 0008` / `800E0B94 0002` are unverified activation
-leads. No cheat, memory patch, crash, or emulator session was executed during
-this investigation. The target byte `0x800E0B94` is already used as an index
+leads. These particular activation leads have not been executed. A later bounded
+emulator attempt using independently identified fault/loader flags did not
+establish live debugger entry; see the overlay report. The target byte
+`0x800E0B94` is already used as an index
 by the [reviewed state/drawing dispatchers](game_raw_connected_controller_groups.md#game_215960c),
 so it must not be renamed as a dedicated debug-enable flag from this report.
 `0x80042A15` lies inside the mapped libultra controller BSS object beginning
