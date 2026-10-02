@@ -197,10 +197,20 @@
     },
     {
       "name": "character-bank01-0026-rom",
-      "label": "Spiky fish \u2014 ROM bank 01 / 0026",
+      "label": "Catfish \u2014 skeletal remains \u2014 ROM bank 01 / 0026",
       "render_case": "character-bank01-0026-rom",
       "note": "Primary draw table and textures extracted from ROM. No capture inputs. Runtime part visibility, lighting and exact native appearance remain unverified.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "dead catfish",
+        "skeletal catfish",
+        "Former label: Spiky fish"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Catfish reference",
+        "reference_url": "https://conker.fandom.com/wiki/Catfish"
+      }
     },
     {
       "name": "character-bank01-0043-rom",
@@ -382,10 +392,20 @@
     },
     {
       "name": "character-bank01-0165-rom",
-      "label": "Red dinosaur \u2014 ROM bank 01 / 0165",
+      "label": "Red Dinosaur \u2014 ROM bank 01 / 0165",
       "render_case": "character-bank01-0165-rom",
       "note": "Geometry, textures, rig and primary draw table extracted from ROM. No capture inputs. Runtime lighting, part visibility and native appearance remain unverified.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Red Dinosaurs",
+        "red baby raptor",
+        "temple dinosaur"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Red Dinosaurs reference",
+        "reference_url": "https://conker.fandom.com/wiki/Red_Dinosaurs"
+      }
     },
     {
       "name": "effect-bank09-0173-rom",
@@ -816,10 +836,19 @@
     },
     {
       "name": "character-bank01-0005-rom",
-      "label": "Bee \u2014 ROM bank 01 / 0005",
+      "label": "Wasp \u2014 ROM bank 01 / 0005",
       "render_case": "character-bank01-0005-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 4 animation Actions. The remaining untextured runs use colour-only combiners; their native colour and lighting are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "wasp",
+        "Former label: Bee"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Wasp reference",
+        "reference_url": "https://conker.fandom.com/wiki/Wasp"
+      }
     },
     {
       "name": "character-bank01-0034-rom",
@@ -839,10 +868,19 @@
     },
     {
       "name": "character-bank01-0068-rom",
-      "label": "Helmeted wasp \u2014 ROM bank 01 / 0068",
+      "label": "Dung Beetle \u2014 ROM bank 01 / 0068",
       "render_case": "character-bank01-0068-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 49 animation Actions. The remaining untextured runs use colour-only combiners; their native colour and lighting are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "beetle",
+        "Former label: Helmeted wasp"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Dung Beetle reference",
+        "reference_url": "https://conker.fandom.com/wiki/Dung_Beetle"
+      }
     },
     {
       "name": "character-bank01-0109-rom",
@@ -880,24 +918,54 @@
     },
     {
       "name": "character-bank01-0173-rom",
-      "label": "Bee variant 1 \u2014 ROM bank 01 / 0173",
+      "label": "Wayne \u2014 cigar \u2014 ROM bank 01 / 0173",
       "render_case": "character-bank01-0173-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. The remaining untextured runs use colour-only combiners; their native colour and lighting are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Wasp",
+        "Wayne and the Wankas",
+        "Former label: Bee variant 1"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Wayne and the Wankas reference",
+        "reference_url": "https://conker.fandom.com/wiki/Wayne_and_the_Wankas"
+      }
     },
     {
       "name": "character-bank01-0174-rom",
-      "label": "Bee variant 2 \u2014 ROM bank 01 / 0174",
+      "label": "Wanka \u2014 fat wasp \u2014 ROM bank 01 / 0174",
       "render_case": "character-bank01-0174-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. The remaining untextured runs use colour-only combiners; their native colour and lighting are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Wasp",
+        "Wayne and the Wankas",
+        "Former label: Bee variant 2"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Wayne and the Wankas reference",
+        "reference_url": "https://conker.fandom.com/wiki/Wayne_and_the_Wankas"
+      }
     },
     {
       "name": "character-bank01-0175-rom",
-      "label": "Bee variant 3 \u2014 ROM bank 01 / 0175",
+      "label": "Wanka \u2014 skinny wasp \u2014 ROM bank 01 / 0175",
       "render_case": "character-bank01-0175-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. The remaining untextured runs use colour-only combiners; their native colour and lighting are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Wasp",
+        "Wayne and the Wankas",
+        "Former label: Bee variant 3"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Wayne and the Wankas reference",
+        "reference_url": "https://conker.fandom.com/wiki/Wayne_and_the_Wankas"
+      }
     },
     {
       "name": "character-bank01-0179-rom",
@@ -917,10 +985,19 @@
     },
     {
       "name": "character-bank01-0014-rom",
-      "label": "Corn sack character \u2014 ROM bank 01 / 0014",
+      "label": "Corn Bag \u2014 unused \u2014 ROM bank 01 / 0014",
       "render_case": "character-bank01-0014-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 6 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Corn sack character",
+        "Former label: Corn sack character"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Corn Bag reference",
+        "reference_url": "https://conker.fandom.com/wiki/Corn_Bag"
+      }
     },
     {
       "name": "character-bank01-0016-rom",
@@ -2173,18 +2250,19 @@
     },
     {
       "name": "character-bank01-0024-rom",
-      "label": "Metal Box \u2014 ROM bank 01 / 0024",
+      "label": "Jack \u2014 metal box \u2014 ROM bank 01 / 0024",
       "render_case": "character-bank01-0024-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 6 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
       "aliases": [
+        "Metal Box",
         "Metal crate character",
-        "Metal Boxes"
+        "Former label: Metal Box"
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "Barn Boys encounters",
-        "reference_url": "https://conker.fandom.com/wiki/Barn_Boys"
+        "reference_label": "Jack reference",
+        "reference_url": "https://conker.fandom.com/wiki/Jack"
       }
     },
     {
@@ -2252,18 +2330,19 @@
     },
     {
       "name": "character-bank01-0052-rom",
-      "label": "Dino Baby \u2014 barrel variant \u2014 ROM bank 01 / 0052",
+      "label": "TNT Imp \u2014 ROM bank 01 / 0052",
       "render_case": "character-bank01-0052-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 15 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
       "category": "characters",
       "aliases": [
-        "Purple dinosaur carrying a barrel",
-        "baby dinosaur"
+        "purple imp",
+        "TNT keg",
+        "Former label: Dino Baby \u2014 barrel variant"
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "Dino Baby reference",
-        "reference_url": "https://conker.fandom.com/wiki/Dino_Baby"
+        "reference_label": "TNT Imp reference",
+        "reference_url": "https://conker.fandom.com/wiki/TNT_Imp"
       }
     },
     {
@@ -2504,10 +2583,19 @@
     },
     {
       "name": "character-bank01-0107-rom",
-      "label": "Blue fish \u2014 ROM bank 01 / 0107",
+      "label": "Electric Eel \u2014 ROM bank 01 / 0107",
       "render_case": "character-bank01-0107-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 2 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "eel",
+        "Former label: Blue fish"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Electric Eel reference",
+        "reference_url": "https://conker.fandom.com/wiki/Electric_Eel"
+      }
     },
     {
       "name": "character-bank01-0108-rom",
@@ -2554,10 +2642,20 @@
     },
     {
       "name": "character-bank01-0125-rom",
-      "label": "Carrot character \u2014 ROM bank 01 / 0125",
+      "label": "Franky the Pitchfork \u2014 broken upper part \u2014 ROM bank 01 / 0125",
       "render_case": "character-bank01-0125-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 5 animation Actions. Untextured colour-only runs retain unresolved native colour and lighting. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "Franky",
+        "broken handle",
+        "Former label: Carrot character"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Franky the Pitchfork reference",
+        "reference_url": "https://conker.fandom.com/wiki/Franky_the_Pitchfork"
+      }
     },
     {
       "name": "character-bank01-0128-rom",
@@ -2800,24 +2898,52 @@
     },
     {
       "name": "character-bank01-0015-rom",
-      "label": "Orange flower character",
+      "label": "Lady Cog \u2014 red",
       "render_case": "character-bank01-0015-rom",
       "note": "ROM geometry, rig, animations and textures. Explicit IA8 mip chain verified; preview uses LOD zero. Native colour, lighting and distance-dependent mip interpolation remain unverified.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "red cog",
+        "orange cog",
+        "Former label: Orange flower character"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Lady Cogs reference",
+        "reference_url": "https://conker.fandom.com/wiki/Lady_Cogs"
+      }
     },
     {
       "name": "character-bank01-0070-rom",
-      "label": "Blue flower character",
+      "label": "Lady Cog \u2014 blue",
       "render_case": "character-bank01-0070-rom",
       "note": "ROM geometry, rig, animations and textures. Explicit IA8 mip chain verified; preview uses LOD zero. Native colour, lighting and distance-dependent mip interpolation remain unverified.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "blue cog",
+        "Former label: Blue flower character"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Lady Cogs reference",
+        "reference_url": "https://conker.fandom.com/wiki/Lady_Cogs"
+      }
     },
     {
       "name": "character-bank01-0076-rom",
-      "label": "Green flower character",
+      "label": "Lady Cog \u2014 green",
       "render_case": "character-bank01-0076-rom",
       "note": "ROM geometry, rig, animations and textures. Explicit IA8 mip chain verified; preview uses LOD zero. Native colour, lighting and distance-dependent mip interpolation remain unverified.",
-      "category": "characters"
+      "category": "characters",
+      "aliases": [
+        "green cog",
+        "Former label: Green flower character"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Lady Cogs reference",
+        "reference_url": "https://conker.fandom.com/wiki/Lady_Cogs"
+      }
     },
     {
       "name": "character-bank01-0119-rom",
@@ -6140,10 +6266,20 @@
     },
     {
       "name": "character-bank01-0010-rom",
-      "label": "Catfish \u2014 glasses variant \u2014 ROM 01 / 0010 / 00",
+      "label": "Mrs. Catfish \u2014 ROM 01 / 0010 / 00",
       "render_case": "character-bank01-0010-rom",
       "category": "characters",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "aliases": [
+        "Catfish",
+        "yellow glasses",
+        "Former label: Catfish \u2014 glasses variant"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Mrs. Catfish reference",
+        "reference_url": "https://conker.fandom.com/wiki/Mrs._Catfish"
+      }
     },
     {
       "name": "object-bank04-0002-00-rom",
