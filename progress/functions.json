@@ -91090,6 +91090,12 @@
       "symbol": "func_8000480C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2624,
+        "reason": "Manual scheduler switch from ROM-validated table improves2845 to2690 to2624. Explicit AI FIFO-full bit restores shift; genuine message/delay storage recovers68-byte frame and raw local homes. Global address allocation, constant reuse and control schedule remain; unresolved main switch-rodata ownership also prevents integration. Best typed source retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93410,6 +93416,12 @@
       "symbol": "func_800085A4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 892,
+        "reason": "Existing n_cspchan definition proves pointer,s32,u8 helper with unchanged incoming channel. Conservative full-width wrapper masks player and value;892 remains argument homes and scheduling. No supported narrow wrapper formals, no sibling-shaping repeat.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93474,6 +93486,12 @@
       "symbol": "func_80008660"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1309,
+        "reason": "Mapped n_alCSPChanSurround pointer,s32,u8 contract; wrapper masks three full-width inputs according to raw. First1309 differs in argument homes/mask scheduling. No source evidence authorizes narrow wrapper formals; no repeated shaping.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93487,6 +93505,12 @@
       "symbol": "func_800086FC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1307,
+        "reason": "Mapped n_alCSPSetChlPan establishes pointer,u8,u8 helper. Full-width wrapper with explicit masks1307 has incoming-home and mask scheduling differences; no narrow-wrapper declaration supports further shaping.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93513,6 +93537,12 @@
       "symbol": "func_80008790"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1309,
+        "reason": "Mapped n_alCSPChanFadeForce pointer,s32,u8 contract; all wrapper inputs stay full-width with explicit masks.1309 repeats actual incoming-home/mask scheduling differences from86FC, no qualifying narrow declarations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93565,6 +93595,12 @@
       "symbol": "func_80008988"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 955,
+        "reason": "Existing caller proves u8 return/full-width inputs; raw and recovered audio channel layout prove player+60, channel stride3C and fade byteD. Conservative typed view955 misses input homes and copies. No supported narrow wrapper declaration or dummy storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93591,6 +93627,12 @@
       "symbol": "func_80008A94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Mapped cspgettempo contract proves one SequencePlayer pointer and s32 result. Full-width masked index reproduces exhausted sibling home/register mismatch at225; no existing narrow-formal evidence, no repeated shaping.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93617,6 +93659,12 @@
       "symbol": "func_80008B60"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Existing full-width index/f32/f32 wrapper declaration and mapped effect-mix helper establish exact float ABI. First225 reproduces only index argument-home/register blocker; no unsupported narrow index or lifetime retries.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93669,6 +93717,12 @@
       "symbol": "func_80008CE8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 295,
+        "reason": "Mapped n_alCSPSetVol proves pointer/s16 helper; conservative wrapper uses full-width inputs and explicit signed-half conversion.295 retains index-home/allocation differences; no narrow wrapper evidence or new repair.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93682,6 +93736,12 @@
       "symbol": "func_80008EE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Raw mapped n_cspevent12 consumes only player pointer; wrapper result ignored. Full-width index225 repeats prior argument-home/register blocker, no supported narrow declaration.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93695,6 +93755,12 @@
       "symbol": "func_80008F24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 225,
+        "reason": "Mapped n_cspstop contract is void(player*); caller declaration is full-width s32. First candidate225 repeats known incoming-home/register blocker; do not narrow or repeat exhausted forms.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -93973,6 +94039,12 @@
       "symbol": "func_800061F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 245,
+        "reason": "Natural three-argument decompression wrapper CURRENT245: compiler uses required 24-byte call frame/ra+20, raw handwritten wrapper uses16-byte frame/ra+0 and delay-slot teardown. Return and forwarding ABI verified; no padding, compiler flags or hand assembly permitted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -94250,6 +94322,12 @@
       "symbol": "func_8000777C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1275,
+        "reason": "Typed SDK queue insertion CURRENT1275 in both guarded-do and simpler while forms. Exact fields and behavior retained; handwritten t9/t8/t7 allocation and nop-filled branches differ from compiler v0/v1/a2 and branch-likely schedule. No artificial lifetime or compiler scheduling workaround.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -94263,6 +94341,12 @@
       "symbol": "func_800079D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Typed SDK queue pop preserves all five instructions at CURRENT(10); only temporary t6 versus handwritten t9 differs. Pinned SDK independently identifies the assembly ABI and register selection. No source-backed lifetime change or artificial register pressure justified.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
