@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_80003220
- * - func_80003330
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -72,7 +71,6 @@ s32 func_80023DB0(u32);
 s32 func_80023DF0(s32, u32, void *, u32);
 s32 func_80023E80(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003330 CURRENT (10) */
 void func_80003330(SpTask *arg0) {
     SpTask *task;
 
@@ -96,8 +94,6 @@ void func_80003330(SpTask *arg0) {
     while (func_80023DF0(1, 0x04001000, task->t.ucodeBoot, task->t.ucodeBootSize) == -1) {
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80003330 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3220/func_80003330.s")
 void func_80023DA0(u32);
 s32 func_80023E80(void);
 

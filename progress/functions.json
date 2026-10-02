@@ -90681,17 +90681,16 @@
       "symbol": "func_80003220"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "SDK loader body retains exact operations and register schedule at score 10; only literal uncached-segment constant versus raw absolute-symbol HI/LO spelling differs. Using the verified linker symbol scores 250, so retain literal form. No reference or comparison-tool changes; not an accepted C match.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80003330",
           "vram": "0x80003330"
         }
@@ -90978,16 +90977,16 @@
       "symbol": "func_800043B4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "reason": "New genuine allocator siblings changed stripped C prefix; exact instruction body now lacks one terminal word of registered100-byte span. Previous focusedzero never batch accepted. Reopen and preserve for later genuine companion alignment.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000440C",
           "vram": "0x8000440C"
         }
@@ -91223,17 +91222,16 @@
       "symbol": "func_800056A0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "First-form10 only two symbolic endpoint operands: D_8003BE30+0x20 versus adjacentD_8003BE50. SDK32-byte buffers and all operations match; preserve natural indexedloop rather than invent alias-dependent source or alter comparator. No C acceptance.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 360,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800057E0",
           "vram": "0x800057E0"
         }
@@ -91242,17 +91240,16 @@
       "symbol": "func_800057E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "SDK body/signature and compatible callers justify u16 address;1078to200 recovers allbodyinstructions/frame58. Only two terminal alignment nops absent from full360span. Preserve candidate; require genuine neighboring-C layout recovery, no padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 360,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80005948",
           "vram": "0x80005948"
         }
@@ -92211,8 +92208,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 55,
-        "reason": "Preserve sequence-pool cleanup at CURRENT (55). Existing 0x64 record view, post-call index reload and unconditional state clear reproduce all loop/frame instructions. Operand reversal is neutral; explicit invariant pointers worsen70. Retain first form; three address-setup rows and one branch operand order remain, with no further permutations.",
+        "current_score": 45,
+        "reason": "Fresh direct record-index comparison and call remove an unnecessary value snapshot, improving CURRENT 55 to 45 and restoring branch operand order. Three global-address setup rows remain reordered. Preserve the simpler best candidate; prior address-order forms remain exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92724,17 +92721,16 @@
       "symbol": "func_8000F1A8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Exact instruction, register and frame shape at CURRENT 20; four symbolic rows use coherent D_80041F54+2 rather than raw D_80041F56. Do not manufacture overlapping globals.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 392,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F248",
           "vram": "0x8000F248"
         }
@@ -94836,17 +94832,16 @@
       "symbol": "func_800038E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Natural zero-return body matches instructions but independent registered 20-byte span includes one additional trailing nop beyond the 16-byte candidate object; no source padding added.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 20,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000390C",
           "vram": "0x8000390C"
         }

@@ -20289,7 +20289,7 @@
         "us": {
           "end": "0x3920",
           "start": "0x38E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_38E0.c"

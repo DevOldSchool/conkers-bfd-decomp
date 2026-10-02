@@ -15,6 +15,8 @@ from typing import Callable
 import candidate_tables
 import compile_c
 import linked_aliases
+import layout_check
+import prepare_nonmatching_asm
 from m2c import extract_function, locate_function, registered_symbols, registered_debugger_span
 import project_state
 
@@ -217,6 +219,43 @@ def require_c_implementation(source: Path, identifier: str) -> None:
         raise ValueError(
             f"{identifier} is still supplied by GLOBAL_ASM; remove its pragma and add C before diffing"
         )
+
+
+def prepare_main_comparison(source: Path, candidate: Path, reference: Path, assembly: Path,
+                            symbol: str, start: int, size: int, *,
+                            deferred_symbol: str | None = None) -> tuple[Path, Path] | None:
+    """Rebuild real neighbors for the narrow main alias/alignment proof.
+
+    Nothing here changes a function's extent or supplies missing instructions.
+    This snapshot is never used by watch, which rebuilds the live focused object.
+    """
+    if not linked_aliases.main_eligible(candidate, reference, symbol, size):
+        return None
+    relative = source.relative_to(ROOT).as_posix()
+    # The ordinary finish layout gate materializes these after its focused
+    # comparison. This proof needs the same generated raw neighbors earlier.
+    prepare_nonmatching_asm.materialize("us", relative)
+    inputs = layout_check.failure_inputs(ROOT, relative)
+    content = source.read_text(encoding="utf-8")
+    if deferred_symbol is not None:
+        content = activate_deferred_candidate(content, source, deferred_symbol)
+    if re.search(r'#pragma\s+GLOBAL_ASM\("[^"\n]*/' + re.escape(symbol) + r'\.s"\)', content):
+        raise ValueError(f"{symbol} is still supplied by GLOBAL_ASM")
+    directory = ROOT / "build/us/linked-aliases" / symbol
+    directory.mkdir(parents=True, exist_ok=True)
+    mixed_source, mixed_object = directory / "source.c", directory / "mixed.o"
+    mixed_source.write_text(content, encoding="utf-8")
+    subprocess.run(compile_c.compile_command("us", mixed_source, mixed_object), cwd=ROOT, check=True)
+    try:
+        pair = linked_aliases.prepare_main(ROOT, relative, mixed_object, reference, assembly,
+                                           symbol, start, size)
+    except layout_check.LayoutMismatch:
+        # Keep focused-zero/layout-failure diagnostics and archived deferral
+        # working. No mixed proof is granted; finish still rejects this layout.
+        pair = None
+    if inputs != layout_check.failure_inputs(ROOT, relative):
+        raise ValueError("main comparison inputs changed during proof; rebuild the candidate")
+    return pair
 
 
 def reference_object(
@@ -864,7 +903,22 @@ def main() -> int:
     except (ValueError, OSError) as error:
         print(f"error: {error}", file=sys.stderr)
         return EXIT_BLOCKED_TOOLING
-    if arguments.profile == "us" and overlay in {"game", "debugger"}:
+    if arguments.profile == "us" and overlay == "main" and not arguments.watch:
+        try:
+            inventory = json.loads((ROOT / "progress/functions.json").read_text())
+            regions = [entry["regions"]["us"] for entry in inventory["functions"]
+                       if entry["regions"].get("us", {}).get("symbol") == symbol]
+            if len(regions) != 1:
+                raise ValueError("main comparison requires one registered function")
+            pair = prepare_main_comparison(
+                source, candidate, reference, reference_assembly, symbol,
+                int(regions[0]["vram"], 16), expected_size, deferred_symbol=deferred_symbol)
+            if pair is not None:
+                candidate, reference = pair
+        except (ValueError, OSError, subprocess.CalledProcessError, project_state.ProjectStateError) as error:
+            print(f"error: main comparison verification failed: {error}", file=sys.stderr)
+            return EXIT_BLOCKED_TOOLING
+    elif arguments.profile == "us" and overlay in {"game", "debugger"}:
         original_candidate = candidate
         overlay_options = {"overlay": "debugger"} if overlay == "debugger" else {}
         # Keep the original objects for table verification. Equivalent bootstrap

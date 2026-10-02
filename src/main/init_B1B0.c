@@ -1514,19 +1514,17 @@ s32 func_8000853C(s32);
 extern SequenceRecordState D_800419A8[];
 extern u8 D_80041E58[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 CURRENT (55) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 CURRENT (45) */
 void func_8000DEC4(void) {
     SequenceRecordState *record;
-    s32 index;
 
     record = D_800419A8;
     do {
-        index = record->index;
-        if (index == -1) {
+        if (record->index == -1) {
             if (record->id != -1) {
                 record->id = -1;
             }
-        } else if (func_8000853C(index & 0xFF) == 0) {
+        } else if (func_8000853C(record->index & 0xFF) == 0) {
             D_800417B0[record->index] = 0;
             record->index = -1;
             record->id = -1;

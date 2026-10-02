@@ -10,7 +10,6 @@
  * - func_8000ECCC
  * - func_8000EDA0
  * - func_8000EE70
- * - func_8000F248
  * - func_8000F3D0
  * - func_8000F44C
  * - func_8000F4D8
@@ -395,7 +394,6 @@ extern s32 D_80041FDC;
 extern f32 D_8002C3F8;
 extern f32 D_8002C3FC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F248 CURRENT (20) */
 void func_8000F248(s32 mode) {
     func_8000F1A8();
     if (mode == 4) {
@@ -432,8 +430,6 @@ void func_8000F248(s32 mode) {
     func_80017780(1, ((u16 *)&D_80041F54)[1]);
     func_80017780(2, 0x59D8);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F248 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F248.s")
 void func_80017594(struct sndstate *);
 
 s32 func_800173C4(struct sndstate **);
