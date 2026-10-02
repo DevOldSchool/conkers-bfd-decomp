@@ -238,4 +238,17 @@ segments:
   - type: bin
     start: 0x2D4B0
     follows_vram: main
+  # Loader-proven image; see docs/evidence/us_debugger_overlay.md.
+  # These broad raw ranges do not identify original source objects.
+  - name: debugger
+    type: code
+    start: 0x19EA88
+    vram: 0x16000000
+    align: 8
+    subsegments:
+      - [0x19EA88, asm, debugger/debugger]
+      - [0x1A2178, data, debugger/data]
+  - type: bin
+    start: 0x1A33E8
+    follows_vram: debugger
   - [0x4000000]

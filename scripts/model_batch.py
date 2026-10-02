@@ -326,6 +326,84 @@ def run(root, config, output, state, banks, blender=None, *, runner=execute):
     if changed:
         write(output / 'render-review.json', {'status': 'review-needed', 'renders': changed})
         raise ValueError('changed render exceptions need review; gallery not refreshed (render-review.json)')
+    inspection = read(root / config['inspection_config'])
+    if 'texgen_inspection' in inspection:
+        options = inspection['texgen_inspection']
+        try:
+            from scripts.model_inspection_options import texgen_options
+        except ModuleNotFoundError:
+            from model_inspection_options import texgen_options
+        mode, destination = texgen_options(options, root)
+        action = 'texgen-animation-inspection' if mode == 'animated' else 'texgen-inspection'
+        args = command + [action, '--rom', config['rom'], '--output', str(destination)]
+        # Existing artifacts are evidence: incomplete or stale state must fail
+        # verification, never be overwritten by a resumed batch.
+        if destination.exists() or (root / options['output']).is_symlink():
+            args += ['--verify']
+        if blender:
+            args += ['--blender', str(blender)]
+        stage(root, output, state, 'texgen-inspection', args, {}, destination,
+              reusable=False, runner=runner)
+    if 'scene55_inspection' in inspection:
+        try:
+            from scripts.model_inspection_options import scene55_output
+        except ModuleNotFoundError:
+            from model_inspection_options import scene55_output
+        options = inspection['scene55_inspection']
+        destination = scene55_output(options, root)
+        args = command + ['scene55-inspection', '--rom', config['rom'], '--output', str(destination)]
+        if destination.exists() or (root / options['output']).is_symlink():
+            args += ['--verify']
+        if blender:
+            args += ['--blender', str(blender)]
+        stage(root, output, state, 'scene55-inspection', args, {}, destination,
+              reusable=False, runner=runner)
+    if 'embedded_type13_inspection' in inspection:
+        try:
+            from scripts.model_inspection_options import embedded_type13_output
+        except ModuleNotFoundError:
+            from model_inspection_options import embedded_type13_output
+        options = inspection['embedded_type13_inspection']
+        destination = embedded_type13_output(options, root)
+        args = command + ['embedded-geometry', '--primitive', 'type13',
+                          '--material-inspection', 'counter5', '--rom', config['rom'],
+                          '--output', str(destination)]
+        if destination.exists() or (root / options['output']).is_symlink():
+            args += ['--verify']
+        if blender:
+            args += ['--blender', str(blender)]
+        stage(root, output, state, 'embedded-type13-inspection', args, {}, destination,
+              reusable=False, runner=runner)
+    if 'embedded_type06_inspection' in inspection:
+        try:
+            from scripts.model_inspection_options import embedded_type06_output
+        except ModuleNotFoundError:
+            from model_inspection_options import embedded_type06_output
+        options = inspection['embedded_type06_inspection']
+        destination = embedded_type06_output(options, root)
+        args = command + ['embedded-geometry', '--primitive', 'type06',
+                          '--material-inspection', 'elapsed0', '--rom', config['rom'],
+                          '--output', str(destination)]
+        if destination.exists() or (root / options['output']).is_symlink():
+            args += ['--verify']
+        if blender:
+            args += ['--blender', str(blender)]
+        stage(root, output, state, 'embedded-type06-inspection', args, {}, destination,
+              reusable=False, runner=runner)
+    if 'haybot_inspection' in inspection:
+        try:
+            from scripts.model_inspection_options import haybot_output
+        except ModuleNotFoundError:
+            from model_inspection_options import haybot_output
+        options = inspection['haybot_inspection']
+        destination = haybot_output(options, root)
+        args = command + ['haybot-inspection', '--rom', config['rom'], '--output', str(destination)]
+        if destination.exists() or (root / options['output']).is_symlink():
+            args += ['--verify']
+        if blender:
+            args += ['--blender', str(blender)]
+        stage(root, output, state, 'haybot-inspection', args, {}, destination,
+              reusable=False, runner=runner)
     stage(root, output, state, 'inspect', command + ['inspect', '--inspection-config', config['inspection_config']],
           {}, reusable=False, runner=runner)
     write(output / 'render-review.json', {'status': 'unchanged-exceptions', 'renders': exceptions})

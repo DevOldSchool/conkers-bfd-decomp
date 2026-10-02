@@ -95,11 +95,89 @@ class ModelInspectionTests(unittest.TestCase):
                     inspection.publish_inspection(root / 'config.json', root / 'inspect')
                 self.assertEqual(before, output.read_bytes())
 
+    def test_replaced_source_has_one_gallery_download_but_retains_validated_export(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            source, _, _ = self.fixture(root)
+            (root / 'preview.png').write_bytes(PNG)
+            report = {'status': 'incomplete', 'summary': {'completed': True},
+                'files': [{'path': str(source), 'input_fingerprint': inspection.preview_fingerprint(source),
+                    'checks': {'gltf': {'status': 'passed'}, 'blender': {'status': 'passed'}}}],
+                'renders': [{'id': 'test', 'source': str(source), 'image': str(root / 'preview.png'),
+                    'check': {'current_sha256': inspection.digest(PNG)}}]}
+            (root / 'report.json').write_text(json.dumps(report))
+            base = {'name': 'base', 'label': 'Base geometry', 'category': 'scene-items',
+                    'note': 'Source component', 'render_case': 'test', 'gallery_replaced_by': 'assembly'}
+            assembly = {'name': 'assembly', 'label': 'Scene assembly', 'category': 'scene-items',
+                        'note': 'Assembled scene', 'render_case': 'test', 'aliases': ['Base geometry']}
+            config = {'validation_report': 'report.json', 'previews': 'previews', 'models': [base, assembly]}
+            (root / 'config.json').write_text(json.dumps(config))
+            with mock.patch.object(inspection, 'ROOT', root):
+                manifest = inspection.publish_inspection(root / 'config.json', root / 'inspect')
+                self.assertEqual(2, manifest['curated_count'])
+                self.assertEqual(1, manifest['gallery_curated_count'])
+                self.assertEqual(1, manifest['gallery_count'])
+                self.assertEqual(['base', 'assembly'], [r['name'] for r in manifest['models']])
+                self.assertTrue((root / 'inspect/base.glb').is_file())
+                page = (root / 'inspect/index.html').read_text()
+                self.assertEqual(1, page.count('<article '))
+                self.assertNotIn('href="base.glb', page)
+                self.assertIn('href="assembly.glb', page)
+                self.assertIn('Base geometry', page)
+                readme = (root / 'inspect/README.md').read_text()
+                self.assertNotIn('[base.glb]', readme)
+                self.assertIn('[assembly.glb]', readme)
+                self.assertIn('Start with **assembly.glb**', readme)
+
+    def test_unverified_non_rom_publication_cannot_derive_review_representation(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp).resolve()
+            source, _, _ = self.fixture(root)
+            (root / 'preview.png').write_bytes(PNG)
+            fingerprint = inspection.preview_fingerprint(source)
+            report = {'status': 'incomplete', 'summary': {'completed': True},
+                'files': [{'path': str(source), 'input_fingerprint': fingerprint,
+                    'checks': {'gltf': {'status': 'passed'}, 'blender': {'status': 'passed'}}}],
+                'renders': [{'id': 'test', 'source': str(source), 'image': str(root / 'preview.png'),
+                    'check': {'current_sha256': inspection.digest(PNG)}}]}
+            (root / 'report.json').write_text(json.dumps(report))
+            case = {'name': 'assembly', 'label': 'Unverified assembly claim', 'category': 'scene-items',
+                    'note': 'Config claim alone cannot hide a review source.', 'render_case': 'test',
+                    'rom_source': {'kind': 'static-scene-assembly'}}
+            config = {'validation_report': 'report.json', 'previews': 'previews', 'models': [case],
+                      'rom_only': False, 'extracted_review': {'enabled': True}}
+            (root / 'config.json').write_text(json.dumps(config))
+            review_record = {'name': 'review-source', 'label': 'Review source', 'category': 'extracted-review',
+                'note': 'Unresolved.', 'file': 'review/source.glb', 'glb_sha256': 'hash',
+                'source': str(source.relative_to(root)), 'source_fingerprint': fingerprint}
+            with mock.patch.object(inspection, 'ROOT', root), \
+                 mock.patch('scripts.model_inspection_review.prepare_review', return_value=([review_record], [])), \
+                 mock.patch('scripts.model_review_representation.apply_representation') as derive, \
+                 mock.patch('scripts.model_review_equivalence.apply_equivalence') as equivalent:
+                manifest = inspection.publish_inspection(root / 'config.json', root / 'inspect')
+            derive.assert_not_called()
+            equivalent.assert_not_called()
+            self.assertEqual(1, manifest['gallery_review_count'])
+            self.assertEqual(0, manifest['represented_review_count'])
+            self.assertEqual(2, manifest['gallery_count'])
+
+    def test_gallery_replacement_rejects_missing_targets_chains_and_wrong_categories(self):
+        base = {'name': 'base', 'category': 'scene-items', 'gallery_replaced_by': 'assembly'}
+        assembly = {'name': 'assembly', 'category': 'scene-items'}
+        inspection.validate_gallery_metadata([base, assembly])
+        for replacement in ('missing', 'base', '', [], 1):
+            with self.subTest(replacement=replacement), self.assertRaisesRegex(ValueError, 'gallery replacement'):
+                inspection.validate_gallery_metadata([{**base, 'gallery_replaced_by': replacement}, assembly])
+        for target in ({**assembly, 'gallery_replaced_by': 'base'}, {**assembly, 'category': 'characters'}):
+            with self.assertRaisesRegex(ValueError, 'gallery replacement'):
+                inspection.validate_gallery_metadata([base, target])
+
     def test_gallery_metadata_rejects_uncategorized_models_and_unsafe_references(self):
         model = {'name': 'test', 'category': 'characters', 'aliases': ['old name']}
         inspection.validate_gallery_metadata([model])
         inspection.validate_gallery_metadata([{**model, 'preview_rotation': [180, 0, 0]}])
         for bad in ({'category': 'character-bank'}, {'category': None}, {'aliases': 'name'},
+                    {'gallery_represented_by': ['assembly']}, {'gallery_equivalent_to': 'model'},
                     {'preview_rotation': [180, 0]}, {'preview_rotation': [0, float('nan'), 0]},
                     {'preview_rotation': [0, True, 0]}, {'preview_rotation': '180,0,0'},
                     {'identification': {'basis': 'visual-reference', 'reference_label': 'Wiki',

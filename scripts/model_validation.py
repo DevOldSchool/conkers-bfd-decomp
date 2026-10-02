@@ -199,7 +199,7 @@ def compare_geometry(path: Path, geometry, joints, run_records: list[dict], morp
             raise ValueError('exported ROM scene texture evidence differs from source')
         if isinstance(index, int) and extras.get('romParticleTextureState') != run_records[index].get('rom_particle_texture_state'):
             raise ValueError('exported ROM particle texture evidence differs from source')
-        if isinstance(index, int) and extras.get('romUiMaterialState') != run_records[index].get('rom_ui_material_state'):
+        if isinstance(index, int) and identity(extras.get('romUiMaterialState')) != identity(run_records[index].get('rom_ui_material_state')):
             raise ValueError('exported ROM UI material evidence differs from source')
         if isinstance(index, int) and extras.get('romSpecialAttachmentMaterialState') != run_records[index].get('rom_special_attachment_material_state'):
             raise ValueError('exported ROM specialized attachment evidence differs from source')

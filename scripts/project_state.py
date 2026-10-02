@@ -150,6 +150,13 @@ def parse_assembly_functions(region: str, overlay: str) -> list[AssemblyFunction
         if current_symbol is not None and current_offset is not None and current_vram is not None:
             discovered.append((current_symbol, current_offset, current_vram, mnemonics))
 
+    if overlay == "main":
+        # The full-ROM reference also contains separately loaded overlays.
+        # Exclude them before assigning adjacent function endpoints. Keep the
+        # bootstrap entry below the progress range's start discoverable.
+        _, code_end = validate_code_ranges(load_json(OVERLAYS_FILE))[overlay][region]
+        discovered = [item for item in discovered if item[1] < code_end]
+
     if not discovered:
         raise ProjectStateError(f"no functions found in {root.relative_to(ROOT)}")
 
