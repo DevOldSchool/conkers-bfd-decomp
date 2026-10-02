@@ -240,7 +240,7 @@ typedef struct Game1EF500EmitterSpawn {
     u8 fields66[0xA];
 } Game1EF500EmitterSpawn;
 
-void func_15130280(void *, u8, void *, s32, u8, s32);
+void *func_15130280(void *, u8, void *, s32, u8, s32);
 extern f32 D_800AAA54;
 extern f32 D_800AAA58;
 extern f32 D_800AAA5C;

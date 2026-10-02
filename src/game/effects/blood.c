@@ -577,6 +577,107 @@ s32 func_15135BF8(u8 *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135BF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135DD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136404.s")
+typedef struct BloodVec3 {
+    f32 x;
+    f32 y;
+    f32 z;
+} BloodVec3;
+
+typedef struct {
+    s32 values[4];
+} Blood36698Kinds;
+
+typedef struct {
+    u8 kind;
+    u8 pad01;
+    s16 mode;
+    s16 lifetime;
+    u8 pad06[2];
+    s32 field08;
+    s32 field0C;
+    u8 color[4];
+    f32 scale14;
+    f32 scale18;
+    BloodVec3 position;
+    BloodVec3 velocity;
+    BloodVec3 scale;
+    s32 flags;
+    u8 field44;
+    u8 field45;
+    u8 unknown46[0x12];
+} Blood36698Descriptor;
+
+extern Blood36698Kinds D_80089BAC;
+u32 func_150ADA20(void);
+void *func_1513D594(s32, s32, u8, u8, u8, u8, s16, f32, f32,
+                    s32, s32, s32, s32, u8, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136698 CURRENT (1952) */
+void *func_15136698(f32 arg0, f32 arg1, s32 arg2, s32 arg3, s32 arg4,
+                   s32 arg5, void *arg6, s32 arg7, s32 arg8, s32 arg9,
+                   s32 arg10) {
+    u8 *result;
+    Blood36698Descriptor descriptor;
+    f32 rate;
+    Blood36698Kinds kinds;
+    s32 option;
+    s32 intensity;
+    s32 mode;
+    u32 random1;
+    u32 random0;
+
+    kinds = D_80089BAC;
+    rate = arg1;
+    descriptor.kind = kinds.values[func_150ADA20() & 3];
+    if ((u8)arg7 != 0) {
+        mode = 2;
+    } else {
+        mode = 1;
+    }
+    descriptor.mode = mode + 0x300;
+    descriptor.field08 = 0;
+    descriptor.field0C = 0;
+    descriptor.color[0] = 0;
+    descriptor.color[1] = 0;
+    descriptor.color[2] = 0;
+    descriptor.color[3] = 0xFF;
+    descriptor.scale18 = arg0;
+    descriptor.scale14 = arg0;
+    descriptor.position = *(BloodVec3 *)arg6;
+    descriptor.flags = 0;
+    descriptor.scale.x = 1.0f;
+    descriptor.scale.y = 1.0f;
+    descriptor.scale.z = 1.0f;
+    descriptor.velocity.x = 0.0f;
+    descriptor.velocity.y = 0.0f;
+    descriptor.velocity.z = 0.0f;
+    if ((s16)arg4 == -1) {
+        descriptor.lifetime = 0x12C;
+    } else {
+        descriptor.lifetime = (s16)arg4 + 0x20;
+        descriptor.flags = 1;
+    }
+    descriptor.field44 = (u8)arg2;
+    descriptor.field45 = (u8)arg3;
+    if ((u8)arg8 != 0) {
+        option = 3;
+        intensity = 0xFF;
+    } else {
+        option = 0;
+        intensity = 0;
+    }
+    random0 = func_150ADA20();
+    random1 = func_150ADA20();
+    result = func_1513D594((s32)&descriptor, 0, 0, 0x1A, 0,
+                          (random1 & 1) + (random0 & 1),
+                          func_150ADA20() & 0xFF, 500.0f, 500.0f, 0,
+                          arg5, option, intensity, 0, 4, (u8)arg9, arg10);
+    if (result != 0) {
+        func_10022EC0(result + 0x128, &rate, 4);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15136698 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136698.s")
 extern f32 D_800BE9A4;
 
@@ -725,14 +826,8 @@ void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136F50.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513783C.s")
-typedef struct BloodVec3 {
-    f32 x;
-    f32 y;
-    f32 z;
-} BloodVec3;
-
 s32 func_15145128(BloodVec3 *, BloodVec3 *, f32 *, f32 *);
-s32 func_15146078(BloodVec3 *, s32, s32);
+s32 func_15146078(void *, void *, void *);
 
 s32 func_15137C64(BloodVec3 *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
                     s32 arg3, s32 arg4, BloodVec3 *arg5,
@@ -768,7 +863,7 @@ have_positions:
     } else {
         *arg2 = *arg7;
     }
-    if (func_15146078(arg2, arg3, arg4) == 0) {
+    if (func_15146078(arg2, (void *)arg3, (void *)arg4) == 0) {
         return 2;
     }
     return 1;
@@ -1013,6 +1108,85 @@ void func_151382E0(f32 *arg0, s32 arg1, void *arg2, u8 arg3, s32 arg4) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151382E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151382E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138424.s")
+typedef struct Blood39578Particle {
+    u8 pad0;
+    u8 color;
+    u8 pad2[0xA];
+    u8 kind;
+    u8 padD[3];
+    f32 height;
+    f32 bounce;
+    f32 size0;
+    f32 size1;
+    u8 pad20[0x10];
+    f32 mode;
+    u8 pad34[4];
+    BloodVec3 position;
+    BloodVec3 velocity;
+    BloodVec3 rotation;
+    f32 acceleration;
+    s32 flags;
+} Blood39578Particle;
+
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+extern f32 D_800A486C;
+extern f32 D_800A4870;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151389A8 CURRENT (1477) */
+s32 func_151389A8(Blood39578Particle *arg0, s32 arg1, s32 arg2,
+                  s32 arg3, f32 arg4, s32 arg5) {
+    BloodVec3 position;
+    u32 random;
+    f32 randomScale;
+    s32 mode;
+    f32 horizontal;
+    f32 vertical;
+    f32 bounce;
+
+    bounce = arg0->bounce;
+    horizontal = arg0->velocity.x * bounce;
+    arg0->velocity.y *= -bounce;
+    arg0->position.y = arg0->height + arg4;
+    vertical = fabsf(arg0->velocity.y);
+    arg0->velocity.x = horizontal;
+    arg0->velocity.z *= bounce;
+    arg0->rotation.x *= bounce;
+    arg0->rotation.y *= bounce;
+    arg0->rotation.z *= bounce;
+    if (vertical < 4.0f) {
+        arg0->velocity.x = 0.0f;
+        arg0->flags &= ~0x69;
+        arg0->velocity.y = 0.0f;
+        arg0->velocity.z = 0.0f;
+        arg0->rotation.x = 0.0f;
+        arg0->rotation.y = 0.0f;
+        arg0->rotation.z = 0.0f;
+        arg0->acceleration = 0.0f;
+    }
+    if (arg0->mode != 2.0f) {
+        position.y = arg4;
+        position.x = arg0->position.x;
+        position.z = arg0->position.z;
+        if (arg0->mode != 0.0f) {
+            mode = 1;
+        } else {
+            mode = 0;
+        }
+        randomScale = func_150ADA68();
+        random = func_150ADA20();
+        func_151D9B8C((u8)mode,
+            ((randomScale * D_800A486C) + D_800A4870) *
+                ((arg0->size0 + arg0->size1) * 0.5f),
+            ((random % 101U) + 0x64) & 0xFF, arg5, &position.x,
+            (func_150ADA20() % 101U) + 0x50, 1, 1, 0,
+            arg0->kind, arg0->color);
+        *(f32 *)((u8 *)arg0 + 0x2C) = 0.0f;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151389A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151389A8.s")
 s32 func_15134070(Blood1380B4State *);
 void func_15138120(Blood1380B4State *, s32, s32);
@@ -1041,31 +1215,88 @@ void func_15138BC0(Blood1380B4State *arg0, u8 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15138BC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138BC0.s")
+typedef struct {
+    f32 height;
+    u8 geometry[0x20];
+} BloodHitRecord;
+
+void func_1504715C(void *, void *);
+void func_151036B4(void *, u8, s32);
+void func_151382E0(f32 *, s32, void *, u8, s32);
+void func_15138E98(Blood1380B4State *, f32 *, s32, void *, s32, s32);
+void func_15139768(Blood1380B4State *, f32 *, f32, void *, s32, s32);
+void func_15139D74(Blood1380B4State *, f32 *, void *, s32, s32);
+void func_1513A6E0(Blood1380B4State *, f32 *, void *, s32, s32);
+void func_1513ABB8(Blood1380B4State *, f32 *, s32, void *, s32, s32);
+void func_1513B0F8(Blood1380B4State *, f32 *, void *, s32, s32);
+void func_1513A594(void *, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15138C80 CURRENT (3009) */
+void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
+    s32 kind;
+    BloodVec3 position;
+    u8 valid;
+    BloodHitRecord hit;
+
+    arg1 = arg1 & 0xFF;
+    kind = func_15134070(arg0);
+    if (kind != 0x63) {
+        valid = func_151380B4(arg0, kind, &position.x);
+        func_15138120(arg0, kind, 1);
+        if (valid != 0) {
+            func_1504715C(&hit, arg0);
+            func_151382E0(&position.x, kind, &hit, arg1 & 0xFF, arg2);
+            switch (kind) {
+            case 16:
+                func_1513B0F8(arg0, &position.x, &hit, arg1 & 0xFF, arg2);
+                return;
+            case 17:
+                func_151036B4(&position.x, arg1 & 0xFF, arg2);
+                return;
+            case 0:
+            case 7:
+                func_1513A6E0(arg0, &position.x, &hit, arg1 & 0xFF, arg2);
+                return;
+            case 3:
+                func_15138E98(arg0, &position.x, 1, &hit, arg1, arg2);
+                return;
+            case 5:
+            case 6:
+                func_15138E98(arg0, &position.x, 0, &hit, arg1, arg2);
+                return;
+            case 15:
+                func_15139768(arg0, &position.x, 0.6f, &hit, arg1, arg2);
+                return;
+            case 2:
+                func_15139768(arg0, &position.x, 1.0f, &hit, arg1, arg2);
+                return;
+            case 4:
+                func_1513A594(arg0, (s32)&position.x, (s32)&hit, arg1 & 0xFF, arg2);
+                return;
+            case 8:
+            case 9:
+                func_1513ABB8(arg0, &position.x, (kind == 9) & 0xFF,
+                             &hit, arg1, arg2);
+                return;
+            case 10:
+            case 11:
+            case 14:
+            case 18:
+            case 19:
+                return;
+            case 1:
+            case 12:
+            case 13:
+            default:
+                func_15139D74(arg0, &position.x, &hit, arg1 & 0xFF, arg2);
+                break;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15138C80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138C80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15138E98.s")
-typedef struct Blood39578Particle {
-    u8 pad0;
-    u8 color;
-    u8 pad2[0xA];
-    u8 kind;
-    u8 padD[3];
-    f32 height;
-    f32 bounce;
-    f32 size0;
-    f32 size1;
-    u8 pad20[0x10];
-    f32 mode;
-    u8 pad34[4];
-    BloodVec3 position;
-    BloodVec3 velocity;
-    BloodVec3 rotation;
-    f32 acceleration;
-    s32 flags;
-} Blood39578Particle;
-
-f32 fabsf(f32);
-#pragma intrinsic(fabsf)
-void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
 extern f32 D_800A48F8;
 extern f32 D_800A48FC;
 

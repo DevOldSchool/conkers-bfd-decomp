@@ -168,5 +168,145 @@ void func_151B8668(s32 arg0, u8 arg1, s32 arg2) {
     packet.extra = 0;
     func_15134908((s32 *)&packet, 0, arg1, arg2);
 }
+void func_15143794(s16, s16, f32, void *);
+void func_151A26EC(f32 *, f32 *, f32 *, f32, f32, f32, s32, s32, s32,
+                    s32, s32, s32, s32, s32, s32, s32, s32);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800AA4CC;
+extern f32 D_800AA4D0;
+extern f32 D_800AA4D4;
+extern f32 D_800AA4D8;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B86F4 CURRENT (1110) */
+void func_151B86F4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
+                   f32 arg5, void *arg6) {
+    f32 position[3];
+    f32 velocity[3];
+    f32 zero[3];
+    f32 velocityScale;
+    f32 randomScale1;
+    u32 random1;
+    u32 random0;
+    f32 randomScale0;
+
+    position[0] = arg0;
+    position[1] = arg1;
+    position[2] = arg2;
+    random0 = func_150ADA20();
+    random1 = func_150ADA20();
+    func_15143794((s16)(random0 & 0xFF), (s16)((random1 % 65U) - 0x20),
+                   func_150ADA68() * D_800AA4CC * D_800AA4D0, velocity);
+    velocityScale = ((func_150ADA68() * 157.0f) + 604.0f) * D_800AA4D4;
+    zero[0] = 0.0f;
+    zero[1] = 0.0f;
+    zero[2] = 0.0f;
+    velocity[0] += -arg3 * D_800BE9A8 * velocityScale;
+    velocity[1] += -arg4 * D_800BE9A8 * velocityScale;
+    velocity[2] += -arg5 * D_800BE9A8 * velocityScale;
+    randomScale0 = func_150ADA68();
+    randomScale1 = func_150ADA68();
+    random0 = func_150ADA20();
+    func_151A26EC(position, zero, velocity, 1.0f,
+                   ((randomScale0 * 157.0f) + -151.0f) * D_800AA4D8,
+                   (randomScale1 * 55.0f) + 75.0f,
+                   (random0 % 26U) + 0x19, (func_150ADA20() % 101U) + 0x64,
+                   0xA, 0x19, 0, -1, 0, 0, 0,
+                   *(u8 *)((u8 *)arg6 + 0xC), *(u8 *)((u8 *)arg6 + 1));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B86F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B86F4.s")
+typedef struct Game1E58B0ActorDescriptor {
+    s32 field00;
+    s32 field04;
+    s16 field08;
+    s16 field0A;
+    s32 field0C;
+    s32 field10;
+    u8 fields14[9];
+    u8 field1D;
+    s16 field1E;
+    s16 field20;
+    s16 field22;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    Game1E58B0Vec3 field30;
+    Game1E58B0Vec3 field3C;
+    Game1E58B0Vec3 field48;
+    f32 field54;
+    s32 field58;
+    s32 field5C;
+    s8 fields60[6];
+    u8 field66;
+    u8 unknown67[9];
+} Game1E58B0ActorDescriptor;
+
+typedef struct Game1E58B0ChoiceTable {
+    s32 values[4];
+} Game1E58B0ChoiceTable;
+
+struct Game15D730CopyBlock;
+void *func_15130280(void *, u8, struct Game15D730CopyBlock *, s32, u8, s32);
+extern Game1E58B0ChoiceTable D_800AA4B8;
+extern Game1E58B0Vec3 D_800A5480;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B8908 CURRENT (1068) */
+void *func_151B8908(void *arg0) {
+    Game1E58B0ActorDescriptor descriptor;
+    Game1E58B0ChoiceTable choices;
+    f32 size;
+    s32 selected;
+    s32 secondFlags;
+    s32 firstFlags;
+
+    choices = D_800AA4B8;
+    selected = choices.values[func_150ADA20() & 3];
+    descriptor.field08 = 0x1303;
+    descriptor.field00 = 0x200005;
+    descriptor.field1D = (u8)selected;
+    descriptor.field04 = 0;
+    descriptor.field0A = 0x12C;
+    descriptor.field0C = 0;
+    descriptor.field10 = 0;
+    descriptor.fields14[0] = 0xFF;
+    descriptor.fields14[1] = 0xFF;
+    descriptor.fields14[2] = 0xFF;
+    descriptor.fields14[3] = 0xFF;
+    descriptor.fields14[4] = 0xFF;
+    descriptor.fields14[5] = 0xFF;
+    descriptor.fields14[6] = 0xFF;
+    descriptor.fields14[7] = 0xFF;
+    descriptor.fields14[8] = 0xFF;
+    size = (func_150ADA68() * 500.0f) + 900.0f;
+    descriptor.field2C = size;
+    descriptor.field28 = size;
+    descriptor.field30 = *(Game1E58B0Vec3 *)((u8 *)arg0 + 0x38);
+    descriptor.field3C = D_800A5480;
+    descriptor.field48 = D_800A5480;
+    descriptor.field1E = 1;
+    descriptor.field20 = 0xFF;
+    descriptor.field22 = 1;
+    descriptor.field54 = 0.0f;
+    descriptor.field24 = 1.0f;
+    firstFlags = (func_150ADA20() & 1) ? 0x40 : 0;
+    if (func_150ADA20() & 1) {
+        secondFlags = 0x80;
+    } else {
+        secondFlags = 0;
+    }
+    descriptor.field58 = secondFlags | firstFlags | 0xC000 | 0x40000 | 0x800000;
+    descriptor.fields60[0] = 6;
+    descriptor.fields60[1] = 5;
+    descriptor.fields60[2] = -1;
+    descriptor.fields60[3] = -1;
+    descriptor.fields60[4] = -1;
+    descriptor.fields60[5] = 0;
+    descriptor.field5C = 0;
+    descriptor.field66 = 0xFF;
+    return func_15130280(&descriptor, 1, 0, 0,
+                          *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B8908 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E58B0/func_151B8908.s")

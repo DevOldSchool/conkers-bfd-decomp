@@ -99,7 +99,7 @@ typedef struct Game130240Descriptor {
 } Game130240Descriptor;
 
 u32 func_150ADA20(void);
-void func_15130374(s32, u8, s32, u8, s32);
+void *func_15130374(s32, u8, s32, u8, s32);
 extern s32 D_80088BD0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15103254 CURRENT (828) */

@@ -19605,15 +19605,15 @@
       "functions": [
         "func_800030A0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x3220",
           "start": "0x30A0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_30A0.c"
+      "source": "src/game/done/init_30A0.c"
     },
     {
       "boundary_evidence": {
@@ -19633,7 +19633,7 @@
         "us": {
           "end": "0x34E0",
           "start": "0x3220",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_3220.c"
@@ -19671,15 +19671,15 @@
       "functions": [
         "func_800037F0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x38C0",
           "start": "0x37F0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_37F0.c"
+      "source": "src/game/done/init_37F0.c"
     },
     {
       "boundary_evidence": {
@@ -19713,15 +19713,15 @@
       "functions": [
         "func_80003930"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x39B0",
           "start": "0x3930",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_3930.c"
+      "source": "src/game/done/init_3930.c"
     },
     {
       "boundary_evidence": {
@@ -19740,7 +19740,7 @@
         "us": {
           "end": "0x3BD0",
           "start": "0x39C0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_39C0.c"
@@ -19788,7 +19788,7 @@
         "us": {
           "end": "0x4470",
           "start": "0x3C40",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_3C40.c"
@@ -19813,7 +19813,7 @@
         "us": {
           "end": "0x49E0",
           "start": "0x4470",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_4470.c"
@@ -19838,7 +19838,7 @@
         "us": {
           "end": "0x50A0",
           "start": "0x49E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_49E0.c"
@@ -19862,7 +19862,7 @@
         "us": {
           "end": "0x5AB0",
           "start": "0x5570",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_5570.c"
@@ -19887,7 +19887,7 @@
         "us": {
           "end": "0x12560",
           "start": "0x11FA0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_11FA0.c"
@@ -19922,7 +19922,7 @@
         "us": {
           "end": "0xA420",
           "start": "0x8F90",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_8F90.c"
@@ -19992,7 +19992,7 @@
         "us": {
           "end": "0xEB00",
           "start": "0xB1B0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_B1B0.c"
@@ -20066,7 +20066,7 @@
         "us": {
           "end": "0x11FA0",
           "start": "0xEB00",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_EB00.c"
@@ -20113,7 +20113,7 @@
         "us": {
           "end": "0x8F90",
           "start": "0x8180",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_8180.c"
@@ -20140,7 +20140,7 @@
         "us": {
           "end": "0x12820",
           "start": "0x12560",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/main/init_12560.c"

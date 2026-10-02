@@ -16,9 +16,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_15179FE0.s")
 typedef struct Game1A7490Motion {
-    u8 pad0[0x90];
+    u8 kind;
+    u8 pad1[0x8F];
     s16 pos90;
     s16 pos92;
     s16 pos94;
@@ -28,20 +28,66 @@ typedef struct Game1A7490Motion {
     s8 inc9C;
     s8 inc9D;
     s8 inc9E;
-    u8 pad9F;
+    u8 field9F;
     s16 speedA0;
     s16 speedA2;
     s16 speedA4;
     u16 timerA6;
-    u8 padA8[4];
+    f32 fieldA8;
     u16 stateAC;
     u16 divisorAE;
-    u8 padB0[2];
+    s16 posB0;
     u8 phaseB2;
     u8 fadeB3;
 } Game1A7490Motion;
 
 u32 func_150ADA20(void);
+void *func_15167A68(s32, s32, s32, s32, u8, u8);
+extern f32 D_800A7220;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15179FE0 CURRENT (2175) */
+void func_15179FE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    Game1A7490Motion *effect;
+    u32 range;
+    s32 half;
+
+    effect = func_15167A68(arg10, 0, 0xB8, 1, 0xFF, 1);
+    if (effect != 0) {
+        effect->pos90 = arg1;
+        effect->pos92 = arg2;
+        effect->pos94 = arg3;
+        effect->speedA2 = (s8)arg4;
+        effect->speedA0 = (func_150ADA20() % (u8)arg7) - ((s32)(u8)arg7 >> 1);
+        half = (s32)(u8)arg7 >> 1;
+        range = (u8)arg7;
+        effect->speedA4 = (func_150ADA20() % range) - half;
+        if ((u16)arg6 == 5) {
+            effect->pos90 += effect->speedA0 * 4;
+            effect->pos92 -= effect->speedA2 * 4;
+            effect->pos94 += effect->speedA4 * 4;
+        }
+        effect->pos96 = 0;
+        effect->pos98 = 0;
+        effect->pos9A = 0;
+        effect->inc9C = (func_150ADA20() % (u8)arg8) - ((s32)(u8)arg8 >> 1);
+        half = (s32)(u8)arg8 >> 1;
+        range = (u8)arg8;
+        effect->inc9D = (func_150ADA20() % range) - half;
+        effect->inc9E = (func_150ADA20() % range) - half;
+        effect->fieldA8 = (f32)(s32)((func_150ADA20() & 0x7FU) + 0x8C) * D_800A7220;
+        effect->timerA6 = arg5;
+        effect->field9F = arg0;
+        effect->stateAC = arg6;
+        effect->phaseB2 = 0;
+        effect->fadeB3 = 0xFF;
+        effect->divisorAE = (u8)arg9;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15179FE0 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_15179FE0.s")
+
+
 void func_1516972C(u8 *);
 extern s32 D_800BE9E4;
 
@@ -105,7 +151,126 @@ void func_1517A1EC(Game1A7490Motion *arg0) {
 s32 func_1517A394(s32 arg0) {
     return arg0;
 }
+s32 func_1510AEE0(f32 *, f32, f32, f32, f32, f32, f32, f32, f32 *, f32 *);
+s32 func_1517A9A8(s32, s32);
+void func_15043D90(s32, f32, f32, s32, f32, f32, f32, f32, f32, f32);
+void *func_15142FBC(void *, s32, s32, u8 *);
+extern u8 D_800D9C10[];
+extern f32 D_800D35E0[2];
+extern f32 D_800D9B20;
+extern f32 D_800D9B1C;
+extern u8 D_800BE9C0;
+extern s16 D_800DD450;
+extern s32 D_800D2C9C;
+extern u8 D_8008CDF0[];
+
+typedef union Game1A7490FloatWord {
+    f32 value;
+    s32 bits;
+} Game1A7490FloatWord;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 CURRENT (4278) */
+s32 func_1517A3A0(s32 arg0, Game1A7490Motion *effect, s32 view) {
+    u8 flag;
+    f32 scale;
+    Game1A7490FloatWord angle;
+    s32 mode;
+    u32 *command;
+
+    if (effect->kind != 0xC && effect->kind != 0x59 &&
+        func_1510AEE0((f32 *)(D_800D9C10 + ((s16)view * 0x40)),
+                       (f32)effect->pos90, (f32)effect->pos92, (f32)effect->pos94,
+                       D_800D9B20, D_800D9B1C, D_800D35E0[0], D_800D35E0[1],
+                       0, 0) != 0) {
+        if (effect->kind == 8 && (effect->phaseB2 & (1 << (s16)view))) {
+            effect->phaseB2 |= 0x10 << (s16)view;
+        }
+        return arg0;
+    }
+    if (effect->kind != 9) {
+        effect->phaseB2 |= 1 << (s16)view;
+    }
+    arg0 = func_1517A9A8(arg0, effect->field9F);
+    scale = effect->fieldA8;
+    /* The existing matrix helper carries its third float angle in an s32 slot. */
+    angle.value = (f32)effect->pos9A;
+    func_15043D90((s32)((u8 *)effect + (D_800BE9C0 << 6) + 0x10),
+                   (f32)effect->pos96, (f32)effect->pos98, angle.bits,
+                   scale, scale, scale,
+                   (f32)effect->pos90, (f32)effect->pos92, (f32)effect->pos94);
+    command = (u32 *)arg0;
+    command[0] = 0xDA380003;
+    arg0 += 8;
+    command[1] = (u32)((u8 *)effect + (D_800BE9C0 << 6) + 0x10);
+    if (effect->fadeB3 != D_800DD450) {
+        command = (u32 *)arg0;
+        command[0] = 0xE7000000;
+        arg0 += 8;
+        command[1] = 0;
+        command = (u32 *)arg0;
+        command[0] = 0xFA000000;
+        arg0 += 8;
+        command[1] = effect->fadeB3;
+        D_800DD450 = effect->fadeB3;
+    }
+    flag = 0;
+    if (effect->kind == 8 || effect->kind == 9) {
+        mode = 0x5049D8;
+    } else {
+        mode = 0x504240;
+    }
+    command = func_15142FBC((void *)arg0, D_800D2C9C | 0x82CA0, mode, &flag);
+    command[0] = 0xDE000000;
+    command[1] = (u32)D_8008CDF0;
+    return (s32)(command + 2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517A3A0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A3A0.s")
+void func_1510E82C(s32, s32, s32, s32, s32, s32,
+                   f32, f32, f32, f32, u16, s32);
+extern f32 D_800A7224;
+extern f32 D_800A7228;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A644 CURRENT (560) */
+void func_1517A644(f32 arg0, s32 arg1, s16 arg2, s16 arg3, s32 arg4) {
+    s32 divisor;
+    Game1A7490Motion *effect;
+    f32 height;
+    s32 newHeight;
+    s32 random;
+    s32 half;
+
+    divisor = (s32)arg0;
+    if (divisor != 0) {
+        effect = func_15167A68(9, 0, 0xB8, 1, 0xFF, 1);
+        if (effect != 0) {
+            func_1510E82C(0, 0, (s32)&height, 0, 0, 0,
+                          (f32)arg2, (f32)arg3, (f32)(s16)arg4, (f32)arg3, 0, 0);
+            newHeight = (s32)(height + 3.0f);
+            effect->posB0 = newHeight;
+            effect->pos92 = newHeight;
+            effect->pos90 = arg2;
+            effect->pos94 = (s16)arg4;
+            effect->pos96 = 0x5A;
+            effect->pos98 = func_150ADA20() % 360U;
+            effect->pos9A = 0;
+            effect->speedA0 = 0;
+            effect->speedA4 = 0;
+            effect->field9F = arg1;
+            random = (func_150ADA20() % 80U) + 100;
+            effect->fieldA8 = (f32)random * D_800A7224;
+            effect->speedA2 = (s32)(arg0 * D_800A7228);
+            random = func_150ADA20() % (u32)divisor;
+            half = (s32)(arg0 * 0.5f);
+            effect->inc9C = random - half;
+            effect->inc9D = (func_150ADA20() % (u32)divisor) - half;
+            effect->inc9E = (func_150ADA20() % (u32)divisor) - half;
+            effect->timerA6 = 0;
+            effect->fadeB3 = 0xFF;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517A644 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A7490/func_1517A644.s")
 void func_1516972C(u8 *);
 extern s32 D_800BE9E4;

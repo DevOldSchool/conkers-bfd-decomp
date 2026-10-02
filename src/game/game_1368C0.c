@@ -138,7 +138,7 @@ typedef struct Game1368C0EmitterOwner {
     u8 fieldC;
 } Game1368C0EmitterOwner;
 
-void func_15130374(s32, u8, s32, u8, s32);
+void *func_15130374(s32, u8, s32, u8, s32);
 void func_15152B38(void *, s32, s32);
 s32 func_150ADA20();
 f32 func_150ADA68();

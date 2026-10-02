@@ -44,6 +44,66 @@ s32 func_150BCFB8(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4) {
     return 1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD070.s")
+f32 func_150ADA68(void);
+void func_15143134(f32 *, f32 *, s32);
+void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
+extern f32 D_8009FF40[12];
+extern f32 D_8009FF70[12];
+extern f32 D_8009FFA0[12];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BD740 CURRENT (2337) */
+void func_150BD740(u8 *arg0, s32 arg1, s32 arg2) {
+    f32 pointsA[12];
+    f32 pointsB[12];
+    f32 pointsC[12];
+    f32 direction1[3];
+    f32 direction0[3];
+    f32 *endC;
+    f32 *outC;
+    f32 *inA;
+    f32 *outA;
+    f32 *inB;
+    f32 *outB;
+    f32 *inC;
+
+    if (arg0 != 0) {
+        inA = D_8009FF40;
+        outA = pointsA;
+        if (*(s32 *)(arg0 + 0x1D4) != 0) {
+            inC = D_8009FFA0;
+            inB = D_8009FF70;
+            outB = pointsB;
+            outC = pointsC;
+            endC = pointsC + 12;
+            do {
+                func_15143134(inA, outA, *(s32 *)(arg0 + 0x1D4));
+                func_15143134(inB, outB, *(s32 *)(arg0 + 0x1D4));
+                func_15143134(inC, outC, *(s32 *)(arg0 + 0x1D4));
+                outC += 3;
+                inA += 3;
+                outA += 3;
+                inB += 3;
+                outB += 3;
+                inC += 3;
+            } while (outC != endC);
+            direction0[0] = pointsC[6] - pointsB[6];
+            direction0[1] = pointsC[7] - pointsB[7];
+            direction0[2] = pointsC[8] - pointsB[8];
+            func_1514C470(pointsA[6], pointsA[7], pointsA[8],
+                           pointsA[9], pointsA[10], pointsA[11],
+                           (func_150ADA68() * 6.0f) + 14.0f,
+                           0xD, 0, 0.0f, (s32)direction0, (u8)arg1);
+            direction1[0] = pointsC[9] - pointsB[9];
+            direction1[1] = pointsC[10] - pointsB[10];
+            direction1[2] = pointsC[11] - pointsB[11];
+            func_1514C470(pointsA[9], pointsA[10], pointsA[11],
+                           pointsA[0], pointsA[1], pointsA[2],
+                           (func_150ADA68() * 6.0f) + 14.0f,
+                           0xD, 0, 0.0f, (s32)direction1, (u8)arg1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BD740 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E8C10/func_150BD740.s")
 u32 func_150ADA20(void);
 f32 func_150ADA68(void);

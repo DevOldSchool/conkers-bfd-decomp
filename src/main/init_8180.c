@@ -9,7 +9,6 @@
  * - func_800084D8
  * - func_8000853C
  * - func_80008570
- * - func_800085A4
  * - func_800085B8
  * - func_800085F8
  * - func_8000862C
@@ -38,11 +37,50 @@
 
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008180.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800084D8.s")
+typedef struct SequencePlayer SequencePlayer;
+
+extern SequencePlayer *D_8003C900[];
+s32 func_80017A80(SequencePlayer *player);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000853C CURRENT (225) */
+s32 func_8000853C(s32 arg0) {
+    arg0 &= 0xFF;
+    return func_80017A80(D_8003C900[arg0]);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000853C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_8000853C.s")
+void func_80017AF0(SequencePlayer *player, void *value);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008570 CURRENT (225) */
+void func_80008570(s32 arg0, void *arg1) {
+    s32 index;
+
+    index = arg0 & 0xFF;
+    func_80017AF0(D_8003C900[index], arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_80008570 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008570.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085A4.s")
+void func_800085A4(s32 arg0, s32 arg1, s32 arg2) {
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085B8.s")
+void func_80017BB8(SequencePlayer *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800085F8 CURRENT (225) */
+void func_800085F8(s32 arg0, s32 channel) {
+    s32 index;
+
+    index = arg0 & 0xFF;
+    func_80017BB8(D_8003C900[index], channel);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_800085F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800085F8.s")
+void func_80017C00(SequencePlayer *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000862C CURRENT (225) */
+void func_8000862C(s32 arg0, s32 channel) {
+    func_80017C00(D_8003C900[arg0 & 0xFF], channel);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_8000862C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_8000862C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008660.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_800086FC.s")

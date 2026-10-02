@@ -19,6 +19,10 @@ The **PR validation** workflow exposes separate check rows:
 | GitHub workflow syntax | Checksum-pinned actionlint validates repository workflows |
 | All public PR checks passed | Every public job succeeded; failed, cancelled or skipped jobs fail the aggregate |
 
+The compilation job checks out the pinned public ultralib submodule and mounts
+only its headers read-only alongside the project sources. It does not require
+ROM inputs or private credentials.
+
 Disabled deferred candidates remain disabled. Compilation and metadata checks
 are not instruction-match evidence. File hygiene catches common paths,
 extensions and N64 signatures, not deliberately obfuscated data.

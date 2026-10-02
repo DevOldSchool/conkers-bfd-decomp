@@ -53,16 +53,16 @@ struct GameC2350Output;
 struct GameC2350Owner;
 
 void func_15095060(struct GameC2350Input *, s32, struct GameC2350Owner *);
-void func_150950D4(s32, struct GameC2350Output *, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_150950D4(s32, struct GameC2350Output *, s32, s32, s32, s32, s32, s32, s32, s32);
 extern struct GameC2350Output D_800D2C90;
 
-void func_15094F70(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
+s32 func_15094F70(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
     func_15095060(arg1, arg2, arg3);
-    func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, 0x100, 0x100, arg8);
+    return func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, 0x100, 0x100, arg8);
 }
-void func_15094FE8(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+s32 func_15094FE8(s32 arg0, struct GameC2350Input *arg1, s32 arg2, struct GameC2350Owner *arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     func_15095060(arg1, arg2, arg3);
-    func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, arg8, arg9, arg10);
+    return func_150950D4(arg0, &D_800D2C90, arg4, arg5, 0, arg6, arg7, arg8, arg9, arg10);
 }
 
 typedef struct GameC2350Input {
@@ -199,8 +199,8 @@ void *func_150958B0(void *arg0, u8 *arg1, s32 *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150958B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C2350/func_150958B0.s")
-void func_15095A48(s32 arg0, void *arg1, f32 arg2, f32 arg3) {
-    func_15095A90(arg0, arg1, arg2, arg3, 4096.0f, 0, 0, 0, 0);
+s32 func_15095A48(s32 arg0, void *arg1, f32 arg2, f32 arg3) {
+    return func_15095A90(arg0, arg1, arg2, arg3, 4096.0f, 0, 0, 0, 0);
 }
 s32 func_15095D34(s32, void *, s32, s32, s32);      /* extern */
 

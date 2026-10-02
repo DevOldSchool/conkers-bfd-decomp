@@ -95,7 +95,7 @@ typedef struct GameE8710Packet {
     u8 pad71[0x1];
     s16 field72;
     s16 field74;
-    u8 pad76[2];
+    u8 unknown76[6];
 } GameE8710Packet;
 
 u32 func_150ADA20(void);
@@ -118,8 +118,8 @@ s32 func_150BB498(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     f32 spB0;
     f32 spAC;
     f32 temp_fa0;
-    f32 temp_fv1;
     GameE8710Packet packet;
+    f32 temp_fv1;
 
     spB8 = func_151423D8((arg8 - 0x40) & 0xFF);
     spB4 = func_151423D8((u8) arg8);

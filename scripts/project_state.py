@@ -15,6 +15,7 @@ from pathlib import Path
 from typing import Any, NamedTuple
 
 import original_asm
+import layout_check
 
 ROOT = Path(__file__).resolve().parent.parent
 ROMS_FILE = ROOT / "config" / "roms.json"
@@ -1478,7 +1479,20 @@ def mark_matched(args: argparse.Namespace) -> None:
         unit_members = [
             entry for entry in functions if entry["symbol"] in source_unit["functions"]
         ]
-        unit_region["state"] = source_unit_work_state(unit_members)
+        owned_symbols = {
+            entry["symbol"]
+            for entry in functions
+            if entry.get("source") == source_unit["source"]
+        }
+        # Rechecking a member must preserve a previously validated C integration.
+        # Raw and mixed units still require their separate integration transition.
+        if not (
+            source_unit["integration"] == "c"
+            and unit_region["state"] == "complete"
+            and set(source_unit["functions"]) == owned_symbols
+            and all(is_complete(member) for member in unit_members)
+        ):
+            unit_region["state"] = source_unit_work_state(unit_members)
 
     validated_functions = validate_functions(functions_data)
     validate_source_units(source_units_data, validated_functions)
@@ -1620,6 +1634,7 @@ def unblock_raw_function(args: argparse.Namespace) -> None:
 def defer_function(args: argparse.Namespace) -> None:
     """Temporarily remove a stubborn raw-ASM item from automatic selection."""
 
+    original_inventory = FUNCTIONS_FILE.read_bytes()
     functions_data = load_json(FUNCTIONS_FILE)
     functions = validate_functions(functions_data)
     function = next((entry for entry in functions if entry["symbol"] == args.symbol), None)
@@ -1638,31 +1653,54 @@ def defer_function(args: argparse.Namespace) -> None:
     reason = args.reason.strip()
     if not reason:
         raise ProjectStateError("defer requires a non-empty reason")
-    if args.score <= 0:
-        raise ProjectStateError("defer requires a positive nonzero focused-diff score")
+    proof = getattr(args, "layout_failure_proof", None)
+    if args.score < 0 or (args.score == 0 and proof is None):
+        raise ProjectStateError("defer requires a positive score or verified layout-failure proof")
+    if args.score > 0 and proof is not None:
+        raise ProjectStateError("layout-failure proof applies only to an exact focused candidate")
     source = function.get("source")
     if not isinstance(source, str) or not source:
         raise ProjectStateError(f"{args.symbol} needs an assigned source before deferral")
+    receipt = None
+    if proof is not None:
+        proof_path = Path(proof)
+        if not proof_path.is_absolute():
+            proof_path = ROOT / proof_path
+        try:
+            receipt = layout_check.validate_failure_proof(ROOT, proof_path, function, "us")
+        except (ValueError, OSError, KeyError, TypeError, ZeroDivisionError) as error:
+            raise ProjectStateError(f"invalid layout-failure proof: {error}") from error
     source_path, old_source, deferred_source = preserve_deferred_candidate(
         source,
         args.symbol,
-        args.score,
+        args.score if args.score > 0 else None,
         function["regions"][TARGET_REGIONS[0]]["symbol"],
     )
+    if receipt is not None and hashlib.sha256(old_source.encode("utf-8")).hexdigest() != receipt["source_sha256"]:
+        raise ProjectStateError("candidate source changed after layout proof validation")
     function["deferred"] = {
         "reason": reason,
-        "current_score": args.score,
         "recorded_revision": "working-tree",
         "candidate_preserved": True,
     }
+    if args.score > 0:
+        function["deferred"]["current_score"] = args.score
+    else:
+        function["deferred"]["layout_failure"] = {
+            "focused_current_differences": 0,
+            "source_sha256": receipt["source_sha256"],
+            "object_sha256": receipt["object_sha256"],
+            "reason": receipt["error"],
+        }
     for region in TARGET_REGIONS:
         function["regions"][region]["state"] = "raw_asm"
     validate_functions(functions_data)
-    source_path.write_text(deferred_source, encoding="utf-8")
     try:
+        source_path.write_text(deferred_source, encoding="utf-8")
         write_json(FUNCTIONS_FILE, functions_data)
     except Exception:
         source_path.write_text(old_source, encoding="utf-8")
+        FUNCTIONS_FILE.write_bytes(original_inventory)
         raise
     print(f"Deferred {args.symbol}; preserved its C candidate in {source}: {reason}")
 
@@ -3138,6 +3176,7 @@ def parse_args() -> argparse.Namespace:
     defer_parser.add_argument("symbol")
     defer_parser.add_argument("--reason", required=True)
     defer_parser.add_argument("--score", required=True, type=int)
+    defer_parser.add_argument("--layout-failure-proof")
     block_raw_parser = subparsers.add_parser("block-raw")
     block_raw_parser.add_argument("symbol")
     block_raw_parser.add_argument("--reason", required=True)

@@ -600,8 +600,20 @@ case "$command" in
         ensure_warm_container
         deferred_score="$(run_in_warm_container python3 scripts/diff.py us "$deferred_symbol" --auto-overlay --score-only)"
         [[ "$deferred_score" =~ ^[0-9]+$ ]] || die "focused diff did not return a numeric score"
-        [[ "$deferred_score" -gt 0 ]] || die "cannot defer an exact CURRENT (0) candidate; run finish instead"
-        python3 "$state_tool" defer "$@" --score "$deferred_score"
+        deferred_extra=()
+        if [[ "$deferred_score" -eq 0 ]]; then
+            mkdir -p "$repo_root/build/us/deferred-layout"
+            deferred_archive="$(mktemp -d "$repo_root/build/us/deferred-layout/candidate.XXXXXXXX")"
+            deferred_relative="${deferred_archive#"$repo_root/"}"
+            layout_status=0
+            run_in_warm_container python3 scripts/layout_check.py us "$deferred_symbol" \
+                --failure-archive "$deferred_relative" || layout_status=$?
+            [[ "$layout_status" -ne 0 ]] || die "cannot defer an exact candidate with preserved layout; run finish instead"
+            [[ "$layout_status" -eq 1 && -f "$deferred_archive/proof.json" ]] || \
+                die "exact candidate deferral requires archived, verified layout failure"
+            deferred_extra=(--layout-failure-proof "$deferred_archive/proof.json")
+        fi
+        python3 "$state_tool" defer "$@" --score "$deferred_score" "${deferred_extra[@]}"
         ;;
     block-raw|unblock-raw)
         python3 "$state_tool" "$command" "$@"

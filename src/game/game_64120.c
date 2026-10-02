@@ -26,7 +26,14 @@
 typedef struct Game64120InitBlock {
     f32 first[3];
     f32 second[3];
-    u8 pad18[0x30];
+    u8 pad18[0x18];
+    u8 field30[3];
+    u8 field33[3];
+    u8 field36[3];
+    u8 pad39;
+    s16 field3A[3];
+    s16 field40[3];
+    u8 pad46[2];
 } Game64120InitBlock;
 
 typedef struct Game64120InitState {
@@ -58,7 +65,9 @@ typedef struct Game64120Record {
     f32 z;
     u8 pad17C[0x58];
     Game64120Output *output;
-    u8 pad1D8[0x154];
+    u8 pad1D8[0x14C];
+    Game64120InitBlock *block324;
+    u8 pad328[4];
 } Game64120Record;
 
 extern Game64120Record D_800CC2D0[];
@@ -79,6 +88,89 @@ void func_15036C70(Game64120InitState *arg0) {
         offset += 4;
     } while (offset != 0xC);
 }
+void func_150379DC(f32 *, s32, s32, s32, f32, s32, s32);
+void func_15038620(s32, s32, f32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern f32 D_80098354;
+extern f32 D_80098358;
+extern f32 D_8009835C;
+extern u8 D_800C35EA;
+extern f32 D_800C3FE8[3];
+extern void *D_800D154C;
+extern u8 D_800C3E78;
+extern u8 D_800C3FFA;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15036CE8 CURRENT (1995) */
+void func_15036CE8(void) {
+    Game64120Record *record;
+    Game64120InitBlock *block;
+    f32 value;
+    s32 first;
+    s32 last;
+    s32 mode;
+
+    record = &D_800CC2D0[D_800C3E78];
+    block = record->block324;
+    if (block != 0) {
+        switch (record->pad0[4]) {
+        case 0x3B:
+        case 0x75:
+        case 0x80:
+        case 0x88:
+        case 0x90:
+        case 0x96:
+        case 0x98:
+        case 0x9C:
+        case 0x9D:
+        case 0x9F:
+        case 0xA0:
+        case 0xB0:
+        case 0xB1:
+        case 0xB2:
+        case 0xB4:
+            if (D_800C3FFA == 0) {
+                D_800C3FFA = 1;
+                return;
+            }
+            break;
+        }
+        if (D_800C35EA == 1 && D_800C3FFA == 0) {
+            D_800C3FFA = 1;
+            return;
+        }
+        first = 0;
+        last = 1;
+        if (D_800C3FFA == 0) {
+            mode = 7;
+            last = 0;
+            first = 1;
+            if (*(u16 *)((u8 *)D_800D154C + 0x2F8) & 0x100) {
+                block->field3A[0] = 0x2D;
+                block->field40[0] = 0x40;
+                value = D_80098354;
+            } else {
+                value = D_80098358;
+                if (value == block->first[0]) {
+                    D_800C3FFA = 1;
+                    return;
+                }
+            }
+        } else {
+            mode = 0xC;
+            value = D_8009835C;
+        }
+        if (D_800C3FFA == 0 && !(*(u16 *)((u8 *)D_800D154C + 0x2F8) & 0x100)) {
+            D_800C3FE8[0] = value;
+            D_800C3FE8[1] = value;
+            D_800C3FE8[2] = value;
+        } else {
+            func_150379DC(D_800C3FE8, mode, 0, D_800C3E78, 90.0f, 0xFF, 0);
+        }
+        func_15038620(mode, 0, D_800C3FE8, D_800C3E78, first, 0,
+                       D_800C3FFA, 3, 0, 0, 0, last, 0);
+        D_800C3FFA++;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15036CE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036CE8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15036F34.s")
 extern s32 D_800CC4A4;
@@ -176,6 +268,112 @@ s32 func_15037880(s32 arg0, f32 *arg1) {
     return 0;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150379DC.s")
+s32 func_15037698(s32, s32, s32, f32, f32, f32, f32 *, f32, s32, s32);
+extern f32 D_8009863C;
+extern f32 D_80098640;
+extern f32 D_80098644;
+extern u8 D_800CC40B[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150380C0 CURRENT (5123) */
+s32 func_150380C0(f32 *output, s32 arg1, s32 arg2, s32 ownerIndex, f32 arg4,
+                   s32 preferredType, f32 *bestDistance, s32 arg7,
+                   s32 arg8, s32 arg9, s32 arg10) {
+    s32 index;
+    f32 distance;
+    f32 dx;
+    f32 dz;
+    f32 dy;
+    s32 found;
+    f32 radius;
+    s32 type;
+    s32 ownerLink;
+    s32 includeSameType;
+    s32 excludedType;
+    Game64120Record *owner;
+    Game64120Record *record;
+    s32 candidateType;
+
+    found = -1;
+    includeSameType = 1;
+    excludedType = -1;
+    if (D_800C35EA == 1 || *((u8 *)&D_800C35EA + 1) == 1) {
+        dx = D_8009863C;
+        output[0] = dx;
+        output[1] = dx;
+        output[2] = dx;
+        return 0;
+    }
+    owner = &D_800CC2D0[ownerIndex];
+    type = owner->pad0[4];
+    ownerLink = ownerIndex + 1;
+    if (type == 5 || type == 0xAD || type == 0xAE || type == 0xAF) {
+        includeSameType = 0;
+    }
+    if (type == 0x2D) {
+        excludedType = 0x2C;
+    }
+    index = 0;
+    if (arg9 == 0) {
+        radius = (f32)(owner->pad1D8[0x65] * 8);
+        radius = radius * radius;
+    } else {
+        radius = D_80098640;
+    }
+    for (record = D_800CC2D0; index != 0x19; index++, record++) {
+        if (*(s32 *)record == 0) {
+            continue;
+        }
+        candidateType = record->pad0[4];
+        if (candidateType == 0xFF) {
+            continue;
+        }
+        if (index == ownerIndex) {
+            continue;
+        }
+        if (ownerLink == record->pad1C[0x49]) {
+            continue;
+        }
+        if (index + 1 != owner->pad1C[0x49] &&
+            (includeSameType != 0 || type != candidateType) &&
+            excludedType != candidateType &&
+            ((arg8 == 0 && (*(u16 *)((u8 *)owner + 0x2F8) & 7) != 4) ||
+             record->pad1C[0x10B] != 0xFF) &&
+            ((*(u16 *)((u8 *)owner + 0x2F8) & 7) != 5 ||
+             record->pad1C[0x10B] == 0xFF)) {
+            dx = *(f32 *)((u8 *)owner + 0x14) - *(f32 *)((u8 *)record + 0x14);
+            dz = *(f32 *)((u8 *)owner + 0x1C) - *(f32 *)((u8 *)record + 0x1C);
+            dy = owner->y - record->y;
+            distance = (dx * dx) + (dz * dz) + (dy * dy);
+            if (index == owner->pad1D8[0x4A] &&
+                (owner->pad1D8[0x4B] == 1 || owner->pad1D8[0x4B] == 0xC)) {
+                distance = 0.0f;
+            }
+            if ((distance < radius && distance < *bestDistance) ||
+                preferredType == candidateType) {
+                if (func_15037698(ownerIndex, arg1, arg2,
+                                  (f32)*(s16 *)((u8 *)record + 0x1A4),
+                                  (f32)*(s16 *)((u8 *)record + 0x1AA),
+                                  (f32)*(s16 *)((u8 *)record + 0x1A8),
+                                  output, arg4, arg7, arg10) != 0) {
+                    *bestDistance = distance;
+                    found = index;
+                    if (preferredType == record->pad0[4]) {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+    if (found != -1) {
+        return D_800CC40B[found * sizeof(Game64120Record)] + 1;
+    }
+    dx = D_80098644;
+    output[0] = dx;
+    output[1] = dx;
+    output[2] = dx;
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150380C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_150380C0.s")
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_150484A0(f32, f32);
@@ -337,6 +535,78 @@ block_34:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15039A78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039A78.s")
+typedef struct Game64120ControllerView {
+    s32 kind;
+    u8 type;
+    u8 pad05[0x37];
+    f32 field3C;
+    u8 pad40[0x44];
+    u16 animation;
+    u8 pad86[0x27];
+    u8 fieldAD;
+    u8 padAE[0x11C];
+    u8 field1CA;
+    u8 pad1CB[0x130];
+    u8 flags2FB;
+    u8 pad2FC[0x20];
+    u8 *extra31C;
+    u8 pad320[4];
+    Game64120InitBlock *block324;
+} Game64120ControllerView;
+
+extern u16 *D_80084380[];
+extern u8 D_80097E7C[];
+extern u8 D_80098050[];
+extern u8 D_800BE9B4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039CC8 CURRENT (280) */
+void func_15039CC8(Game64120ControllerView *object) {
+    u8 *block;
+    s32 type;
+    s32 group;
+    s32 count;
+    s32 index;
+    u16 *animations;
+
+    block = (u8 *) object->block324;
+    if (block != 0) {
+        type = object->type;
+        if (((type == 0x53) && (object->animation == 0x15)) ||
+            (D_800BE9B4 != 0)) {
+            index = 0;
+            do {
+                index++;
+                block++;
+                block[0x2F] = 0x28;
+                block[0x32] = 0;
+                block[0x35] = 4;
+            } while (index != 3);
+        }
+        group = D_80097E7C[type];
+        if (group != 0) {
+            group--;
+            animations = D_80084380[group];
+            count = D_80098050[group];
+            for (index = 0; index < count; index++) {
+                if (object->animation == animations[index]) {
+                    object->flags2FB |= 4;
+                    return;
+                }
+            }
+            if (object->kind == 1) {
+                if ((object->field1CA == 0) ||
+                    ((object->fieldAD != 0) && (object->field3C < 5.0f)) ||
+                    (object->extra31C[0x197] != 0) ||
+                    (object->field3C > 20.0f)) {
+                    object->flags2FB |= 4;
+                }
+            } else if (object->field1CA == 0) {
+                object->flags2FB |= 4;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15039CC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_15039CC8.s")
 void func_15039A78(f32 *, f32 *, f32 *, f32 *, f32, f32, s32);
 
@@ -495,13 +765,13 @@ void func_1503A7F0(void) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_64120/func_1503A830.s")
 s32 func_15037880(s32, f32 *);
-void func_150380C0(void *, s32, s32, s32, f32, s32, s32, s32, s32, s32, s32);
+s32 func_150380C0(f32 *, s32, s32, s32, f32, s32, f32 *, s32, s32, s32, s32);
 extern f32 D_800986EC;
 extern f32 D_800C3FD0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503B708 CURRENT (450) */
 void func_1503B708(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
-                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+                   s32 arg5, f32 *arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     f32 *scratch;
     f32 value;
 

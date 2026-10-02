@@ -164,6 +164,15 @@ use the supported deferral flow after agreeing to move past it:
 source block, restores the canonical pragma, and excludes the item from
 automatic selection. `resume` restores the candidate byte-for-byte.
 
+An exact focused candidate that fails its reviewed source-unit layout may also
+be deferred. This path reruns the exact comparison and layout check, then
+archives the candidate source, mixed object, comparison log and fingerprinted
+failure receipt under `build/us/deferred-layout/` before restoring assembly.
+Only a measured member-offset or extent mismatch permits this recovery;
+successful layout, compilation/tool failures and stale evidence do not. The
+item remains raw assembly with preserved C, receives no match credit, and must
+pass the unchanged `finish` and clean-batch gates after genuine layout recovery.
+
 If a raw item cannot enter the C candidate loop at all (for example, its
 registered span is `.word`-only and the starter finds no instructions), use a
 separate, reversible blocker transaction after reviewing the evidence:

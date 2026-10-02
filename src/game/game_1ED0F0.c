@@ -77,32 +77,110 @@ void func_151C0418(void *, u8, s32);
 void func_151C04F8(s32, u8, s32);
 void func_151C05A4(s32, u8, s32);
 void func_151C05F0(s32, u8, s32);
-void func_1514FB98(f32 *, s32, s32);
+void func_1514FB98(void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 CURRENT (1108) */
-void func_151BFDA0(void *arg0, f32 *arg1, u8 arg2, s32 arg3, s32 arg4) {
-    typedef struct { s32 words[3]; } Copy3;
-    u8 sp34[0x51];
-    f32 sp30;
-    f32 sp24[3];
-    u8 temp_s1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 CURRENT (848) */
+void func_151BFDA0(void *arg0, f32 *arg1, s32 arg2, s32 arg3, s32 arg4) {
+    typedef struct { f32 x, y, z; } Vec3;
+    typedef struct {
+        s32 field00, field04;
+        Vec3 position;
+        f32 field14, field18, field1C, field20, field24, field28;
+        s32 field2C, field30;
+        f32 field34, field38, field3C, field40;
+        s16 fields44[6];
+        s8 field50;
+    } Config;
+    struct {
+        Vec3 velocity;
+        f32 scale;
+        Config config;
+    } effect;
 
-    temp_s1 = arg3;
-    func_151C0418(arg0, temp_s1, arg4);
-    func_151C04F8((s32)arg0, temp_s1, arg4);
-    func_151C05A4((s32)arg0, temp_s1, arg4);
-    func_151C05F0((s32)arg0, temp_s1, arg4);
-    if (arg2 != 0) {
-        sp24[0] = -arg1[0];
-        sp24[1] = -arg1[1];
-        sp24[2] = -arg1[2];
-        func_151BFC40(sp34, &sp30);
-        *(Copy3 *)(sp34 + 8) = *(Copy3 *)arg0;
-        func_1514FB98(sp24, temp_s1, arg4);
+    arg3 &= 0xFF;
+    func_151C0418(arg0, (u8)arg3, arg4);
+    func_151C04F8((s32)arg0, (u8)arg3, arg4);
+    func_151C05A4((s32)arg0, (u8)arg3, arg4);
+    func_151C05F0((s32)arg0, (u8)arg3, arg4);
+    if ((u8)arg2 != 0) {
+        effect.velocity.x = -arg1[0];
+        effect.velocity.y = -arg1[1];
+        effect.velocity.z = -arg1[2];
+        func_151BFC40(&effect.config, &effect.scale);
+        effect.config.position = *(Vec3 *)arg0;
+        func_1514FB98(&effect, (u8)arg3, arg4);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFDA0.s")
+s32 func_15144E80(void *, void *, void *, void *);
+void func_151C0644(s32, u8, s32);
+void func_151C0360(s32, s32, u8, s32);
+void func_1514FBFC(void *, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFE84 CURRENT (6715) */
+void func_151BFE84(void *arg0, void *arg1, void *arg2,
+                   s32 arg3, s32 arg4, s32 arg5) {
+    typedef struct { f32 x, y, z; } Vec3;
+    typedef struct { s16 values[9]; } Triangle;
+    typedef struct {
+        s32 field00, field04;
+        Vec3 position;
+        f32 field14, field18, field1C, field20, field24, field28;
+        s32 field2C, field30;
+        f32 field34, field38, field3C, field40;
+        s16 fields44[6];
+        s8 field50;
+    } Config;
+    typedef struct {
+        Vec3 velocity;
+        Triangle triangle;
+        f32 scale;
+        Config config;
+    } Upper;
+    typedef struct {
+        Vec3 velocity;
+        f32 scale;
+        Config config;
+    } Lower;
+    Vec3 first;
+    Vec3 second;
+    Vec3 third;
+    Upper upper;
+    Lower lower;
+
+    func_151C0418(arg1, (u8)arg4, arg5);
+    func_151C04F8((s32)arg1, (u8)arg4, arg5);
+    func_151C05A4((s32)arg1, (u8)arg4, arg5);
+    func_151C05F0((s32)arg1, (u8)arg4, arg5);
+    if (arg0 != 0 && (u8)arg3 != 0 &&
+        func_15144E80(arg0, &first, &second, &third) != 0 &&
+        third.y < 0.0f) {
+        func_151C0644((s32)arg1, (u8)arg4, arg5);
+    }
+    if (arg0 != 0 && (u8)arg3 != 0) {
+        func_151C0360((s32)arg0, (s32)arg1, (u8)arg4, arg5);
+    }
+    if ((u8)arg3 != 0) {
+        if (arg0 != 0) {
+            upper.velocity.x = -((f32 *)arg2)[0];
+            upper.velocity.y = -((f32 *)arg2)[1];
+            upper.velocity.z = -((f32 *)arg2)[2];
+            upper.triangle = *(Triangle *)arg0;
+            upper.config.position = *(Vec3 *)arg1;
+            func_151BFC40(&upper.config, &upper.scale);
+            func_1514FBFC(&upper, (u8)arg4, arg5);
+            return;
+        }
+        lower.velocity.x = -((f32 *)arg2)[0];
+        lower.velocity.y = -((f32 *)arg2)[1];
+        lower.velocity.z = -((f32 *)arg2)[2];
+        func_151BFC40(&lower.config, &lower.scale);
+        lower.config.position = *(Vec3 *)arg1;
+        func_1514FB98(&lower, (u8)arg4, arg5);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BFE84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFE84.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C0098.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C02E4 CURRENT (450) */

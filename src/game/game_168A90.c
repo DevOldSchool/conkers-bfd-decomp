@@ -180,11 +180,11 @@ void *func_1513B83C(void *arg0, Game168A90RenderState *arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513B83C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_168A90/func_1513B83C.s")
-extern void func_150A7B80(s32 arg0, s32 arg1);
+void func_150A7B80(void *);
 extern u8 D_800BE9C0;
 
 s32 func_1513B968(s32 arg0, s32 arg1) {
-    func_150A7B80((s32)(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x78), arg0);
+    func_150A7B80(((u8 (*)[0x40])arg0)[D_800BE9C0] + 0x78);
     return 1;
 }
 void func_100043B4(s32 arg0, s32 arg1, void *arg2);
