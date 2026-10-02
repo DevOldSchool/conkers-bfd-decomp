@@ -16,6 +16,21 @@ SPEC.loader.exec_module(bootstrap_symbols)
 
 
 class BootstrapSymbolsTests(unittest.TestCase):
+    def test_collects_explicit_completed_sources_alongside_assembly_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            assembly = root / "asm"
+            assembly.mkdir()
+            (assembly / "main.s").write_text("jal func_80001050\n")
+            source = root / "src/done/platform/system.c"
+            source.parent.mkdir(parents=True)
+            source.write_text("extern int D_8002D4B0;\n")
+            (source.parent / "unmapped.c").write_text("extern int D_8002FFFF;\n")
+
+            symbols = bootstrap_symbols.collect_symbols([assembly, source])
+
+        self.assertEqual({"func_80001050": 0x80001050, "D_8002D4B0": 0x8002D4B0}, symbols)
+
     def test_collects_only_address_bearing_reference_labels(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             source = Path(temporary_directory) / "main.s"

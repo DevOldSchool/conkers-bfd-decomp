@@ -35,10 +35,10 @@ class PrepareGameIntegrationTests(unittest.TestCase):
             "    subsegments:\n"
             "      - [0x0, asm]\n"
             "      - [0x10, asm]\n"
-            "      - [0x20, c, game/done/first]\n"
+            "      - [0x20, c, done/game/first]\n"
             "      - [0x30, asm]\n"
             "      - [0x40, asm]\n"
-            "      - [0x50, c, game/done/second]\n"
+            "      - [0x50, c, done/game/second]\n"
             "      - [0x60, asm]\n"
             "      - [0x70, asm]\n"
         )
@@ -47,10 +47,10 @@ class PrepareGameIntegrationTests(unittest.TestCase):
 
         self.assertIn("- [0x0, asm]", result)
         self.assertNotIn("- [0x10, asm]", result)
-        self.assertIn("- [0x20, c, game/done/first]", result)
+        self.assertIn("- [0x20, c, done/game/first]", result)
         self.assertIn("- [0x30, asm]", result)
         self.assertNotIn("- [0x40, asm]", result)
-        self.assertIn("- [0x50, c, game/done/second]", result)
+        self.assertIn("- [0x50, c, done/game/second]", result)
         self.assertIn("- [0x60, asm]", result)
         self.assertNotIn("- [0x70, asm]", result)
 

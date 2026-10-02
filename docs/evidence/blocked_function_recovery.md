@@ -33,7 +33,7 @@ as a word. Its local declaration preserves those widths.
 `func_150121C0` passes focused `CURRENT (0)` and layout. An explicit `for`
 increment with the original unsigned-byte narrowing reproduces the initialization
 schedule. The supported `finish` transaction recorded the match; its single-function
-source unit is complete at `src/game/done/game_3F670.c`, with a byte-identical
+source unit is complete at `src/done/game/game_3F670.c`, with a byte-identical
 integrated US image.
 
 `func_151DD710` also passes authoritative `CURRENT (0)` and layout. Its preserved

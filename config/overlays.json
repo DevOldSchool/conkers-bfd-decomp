@@ -13,6 +13,15 @@
         }
       }
     },
+    "debugger": {
+      "code_ranges": {
+        "us": {
+          "start": "0x19EA88",
+          "end": "0x1A2178"
+        }
+      },
+      "vram": "0x16000000"
+    },
     "game": {
       "code_ranges": {
         "eu": {

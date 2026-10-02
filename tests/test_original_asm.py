@@ -115,9 +115,9 @@ class OriginalAssemblyTests(unittest.TestCase):
             project_state.batch_plan(["func_test"])
         self.assertEqual("main\n", output.getvalue())
         entry["overlay"] = "rsp"
-        with self.assertRaisesRegex(ValueError, "main or game"):
+        with self.assertRaisesRegex(ValueError, "main, game or debugger"):
             original_asm.validate_metadata(entry)
-        with self.assertRaisesRegex(ValueError, "main and game"):
+        with self.assertRaisesRegex(ValueError, "unsupported US code overlay"):
             original_asm.reference_image(Path("."), entry)
 
     def test_main_verifier_assembles_independent_full_span_and_rejects_changed_bytes(self):

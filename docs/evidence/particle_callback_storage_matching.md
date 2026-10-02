@@ -16,7 +16,7 @@ the original floating operand order. The second candidate passed full-span
 `CURRENT (0)` for all 464 registered bytes.
 
 The required source-unit transition moved the unit to
-`src/game/done/game_DF930.c`. Full integrated US game code and mapped external
+`src/done/game/game_DF930.c`. Full integrated US game code and mapped external
 rodata remained byte-identical. The clean boundary batch returned
 `BATCH_COMPLETE`, with 1,068 tests passing, 12 skipped, and metadata,
 generated-progress and whitespace checks passing. No assembly, compiler flags,
@@ -78,7 +78,7 @@ those first parameters as `void *` and passing `&particle` directly removed the
 integer-expression spill and produced full-span `CURRENT (0)`. This is a new
 argument-type correction, not a repeat of the earlier address-spelling probes.
 
-The source unit moved to `src/game/done/game_E0F60.c`. Its required clean
+The source unit moved to `src/done/game/game_E0F60.c`. Its required clean
 boundary batch returned `BATCH_COMPLETE`: full US game code and external
 rodata identical, 1,068 tests passing with 12 skipped, and metadata, progress
 and whitespace gates passing. The two related callbacks add 916 verified bytes

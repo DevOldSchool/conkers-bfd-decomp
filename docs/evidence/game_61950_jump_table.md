@@ -36,5 +36,5 @@ zero bytes before `0x80097D40` remain supplied by the original data archive.
 
 The linker entry now starts at `0x80097D1C` with `SUBALIGN(4)` to preserve
 this original address despite the object's stronger default section alignment.
-The wildcard object path supports finalization into `src/game/done/`; the
+The wildcard object path supports finalization into `src/done/game/`; the
 32-byte size assertion and integrated ROM comparison remain in effect.

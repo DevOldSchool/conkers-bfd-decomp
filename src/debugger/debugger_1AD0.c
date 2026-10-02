@@ -8,7 +8,7 @@
  * This grouping is for scaffolding; original source-object ownership is
  * unreviewed. It is not registered as a source unit and earns no C-match
  * credit. Preserve each generated full-span GLOBAL_ASM body and its order
- * until the debugger matching workflow and original boundaries are reviewed.
+ * until original source boundaries are independently reviewed.
  * Loaded data and the privileged TLB capture routine remain separate raw ASM.
  */
 

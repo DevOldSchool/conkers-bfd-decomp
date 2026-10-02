@@ -243,7 +243,9 @@ the MP3 stream's used `0x8480`-byte extent, window and scaling-table extents,
 and the sound player's used view, while retaining unresolved original BSS
 ownership; see [workspace bounds](libultrare_us_workspace_bounds.md).
 The [power follow-up](libultrare_us_math_helpers.md) records four further
-compiler-mode candidates without an exact match. Exact CPU library text
+compiler-mode candidates without an exact match. That historical candidate
+has since been superseded by the completed C power helper; see the current
+status in the math-helper note. Exact CPU library text
 remains 146,304 bytes; this pass claims no new archive member.
 
 After removing the temporary power build, `./conker libultrare` passes all

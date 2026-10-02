@@ -31,8 +31,12 @@ by main's count initialization at ROM `0x25498/0x254A0` and the debugger's
 six-byte stride at `0x160018B0`. `align: 8` preserves the image endpoints.
 
 Keep privileged TLB instructions and loaded data in raw assembly. The
-independent reference remains wholly raw. Debugger functions are not registered
-in progress inventory and receive no C-match or source-unit credit.
+independent reference remains wholly raw. The matching workflow now supports
+individual debugger registration and explicitly reviewed debugger source units;
+see the [workflow](../decompilation-workflow.md#source-unit-boundaries-and-integration).
+The two provisional collections have not been registered or marked reviewed,
+and receive no C-match or source-unit credit. The 14,064-byte code interval is
+included as a separate US progress area; no EU/PAL interval is inferred.
 
 ## Supporting evidence
 

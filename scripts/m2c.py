@@ -14,7 +14,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_signatures
+import project_state
 import rzip_archive
+import rom_span
 
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -202,14 +204,34 @@ def registered_symbols(profile: str) -> set[str]:
     }
 
 
+def registered_debugger_span(profile: str, symbol: str) -> tuple[int, int] | None:
+    """Return the reviewed byte interval independently of other registered IDs."""
+    inventory = json.loads((ROOT / "progress/functions.json").read_text())
+    matches = [entry for entry in inventory["functions"]
+               if entry.get("regions", {}).get(profile, {}).get("symbol") == symbol]
+    if not any(entry.get("overlay") == "debugger" for entry in matches):
+        return None
+    if profile != "us" or len(matches) != 1:
+        raise ValueError(f"{symbol} needs one registered US debugger span")
+    region = matches[0]["regions"][profile]
+    size = region.get("size_bytes")
+    start = int(region["vram"], 16)
+    if (not isinstance(size, int) or isinstance(size, bool) or size <= 0 or size % 4
+            or start % 4 or not 0x16000000 <= start < start + size <= 0x160036F0):
+        raise ValueError(f"{symbol} has an invalid registered debugger byte span")
+    return start, size
+
+
 def nonmatching_function_source(source: Path, identifier: str, symbol: str) -> Path | None:
-    """Return the existing raw per-function assembly for a reviewed game unit."""
+    """Return canonical per-function assembly for a registered overlay source."""
 
     try:
-        relative = source.relative_to(ROOT / "src" / "game").with_suffix("")
+        relative = source.relative_to(ROOT).as_posix()
     except ValueError:
         return None
-    path = ROOT / "asm" / "nonmatchings" / relative / f"{identifier}.s"
+    if not relative.startswith(("src/game/", "src/done/game/", "src/debugger/", "src/done/debugger/")):
+        return None
+    path = ROOT / project_state.nonmatching_asm_path(relative, identifier)
     if not path.is_file():
         return None
     labels = [match.group(1) for match in LABEL_PATTERN.finditer(path.read_text(encoding="utf-8"))]
@@ -271,9 +293,9 @@ def existing_reference_function(
 
 def locate_registered_function(profile: str, identifier: str) -> tuple[Path, str]:
     work_item, source, symbol, game_reference = resolve_work_item(profile, identifier)
-    if game_reference:
+    if game_reference or source.relative_to(ROOT).as_posix().startswith(("src/debugger/", "src/done/debugger/")):
         reference = existing_reference_function(
-            profile, symbol, game_reference=True
+            profile, symbol, game_reference=game_reference
         )
         if reference is not None:
             return reference, symbol
@@ -284,13 +306,16 @@ def locate_registered_function(profile: str, identifier: str) -> tuple[Path, str
 
 
 def extract_function(
-    source: Path, symbol: str, *, boundary_symbols: set[str] | None = None
+    source: Path, symbol: str, *, boundary_symbols: set[str] | None = None,
+    byte_span: tuple[int, int] | None = None,
 ) -> Path:
     """Write one registered function and its assembler preamble for m2c.
 
     Raw game functions can contain globally named secondary entries. When the
     registered inventory is available, only another registered work item ends
     the extraction; internal ``glabel`` targets must remain visible to m2c.
+    An explicit byte span instead bounds debugger extraction even when following
+    functions have not been registered. Every selected instruction must be present.
     """
     text = source.read_text(encoding="utf-8")
     labels = list(LABEL_PATTERN.finditer(text))
@@ -300,6 +325,21 @@ def extract_function(
     if boundary_symbols is not None:
         following = [label for label in following if label.group(1) in boundary_symbols]
     end = following[0].start() if following else len(text)
+    if byte_span is not None:
+        start, size = byte_span
+        if start % 4 or size <= 0 or size % 4:
+            raise ValueError(f"{symbol} has an invalid extraction byte span")
+        rows = list(re.finditer(
+            r"(?m)^[ \t]*/\*\s+[0-9A-Fa-f]+\s+([0-9A-Fa-f]{8})\s+[0-9A-Fa-f]{8}\s*\*/[^\n]*(?:\n|$)",
+            text[target.start():]))
+        count = size // 4
+        if len(rows) < count:
+            raise ValueError(f"{symbol} raw reference is truncated before its registered endpoint")
+        if any(int(row[1], 16) != start + index * 4 for index, row in enumerate(rows[:count])):
+            raise ValueError(f"{symbol} raw reference does not cover its contiguous registered byte span")
+        # Stop at the final instruction line, excluding the next function's
+        # labels and any loaded data. Preserve interior secondary-entry labels.
+        end = target.start() + rows[count - 1].end()
     preamble = text[: labels[0].start()]
 
     extracted = preamble + text[target.start() : end]
@@ -412,9 +452,24 @@ def add_game_jump_tables(
 
 
 def prepare_game_jump_tables(assembly: str, profile: str) -> str:
-    """Read only a checksum-validated regional ROM; no generated build inputs."""
+    """Read checksum-validated overlay bytes; keep the existing game API."""
     if not re.search(r"%lo\(jtbl_[0-9A-Fa-f]{8}(?:_\w+)?\)", assembly):
         return assembly
+    first = re.search(r"/\*\s+[0-9A-Fa-f]+\s+([0-9A-Fa-f]{8})\s+[0-9A-Fa-f]{8}\s*\*/", assembly)
+    if first is not None and 0x16000000 <= int(first[1], 16) < 0x160036F0:
+        if profile != "us":
+            raise ValueError("debugger jump table recovery supports only the US profile")
+        code, data, base, data_base, _ = rom_span.debugger_image(ROOT)
+        # Recover only supported dispatches; unresolved debugger tables must be
+        # reported rather than producing a misleading, incomplete C starter.
+        from candidate_tables import reference_tables
+        reference_tables(assembly, code, data, base, data_base)
+        recovered = add_game_jump_tables(assembly, code, data, base, data_base)
+        names = set(re.findall(r"%lo\((jtbl_[0-9A-Fa-f]{8}(?:_\w+)?)\)", assembly))
+        for name in names:
+            if not re.search(rf"(?m)^\s*(?:glabel|dlabel)\s+{re.escape(name)}\s*$", recovered):
+                raise ValueError(f"unsupported debugger jump table recovery: {name}")
+        return recovered
     layouts = json.loads((ROOT / "config" / "rzip_layouts.json").read_text())
     layout = layouts["profiles"].get(profile)
     if layout is None or layout.get("game_format") != "rzip":
@@ -724,9 +779,18 @@ def main() -> int:
         print(f"error: {error}", file=sys.stderr)
         return 1
     boundaries = registered_symbols(args.profile) if args.auto_overlay else None
-    extracted_source = extract_function(
-        source, symbol, boundary_symbols=boundaries
-    )
+    try:
+        span_options = {}
+        if args.auto_overlay:
+            byte_span = registered_debugger_span(args.profile, symbol)
+            if byte_span is not None:
+                span_options["byte_span"] = byte_span
+        extracted_source = extract_function(
+            source, symbol, boundary_symbols=boundaries, **span_options
+        )
+    except (ValueError, OSError) as error:
+        print(f"error: {error}", file=sys.stderr)
+        return 1
 
     command = mips_to_c_command(extracted_source, symbol, context_source)
     assembly = extracted_source.read_text(encoding="utf-8")

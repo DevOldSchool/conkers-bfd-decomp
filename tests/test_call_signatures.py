@@ -367,6 +367,35 @@ func_151F0000 = other_sdk_function;
         self.assertIsNone(calls.raw_callee_path(self.root, 'func_target'))
         self.assertEqual((), calls.recover(WRAPPER, '', root=self.root, allow_raw=True).declarations)
 
+    def test_completed_game_source_retains_raw_callee_and_m2c_reference(self):
+        path = self.write_raw()
+        inventory_path = self.root / 'progress/functions.json'
+        inventory = json.loads(inventory_path.read_text())
+        entry = inventory['functions'][0]
+        entry['source'] = entry['source'].replace('src/game/', 'src/done/game/')
+        inventory_path.write_text(json.dumps(inventory))
+
+        self.assertEqual(path, calls.raw_callee_path(self.root, 'func_target'))
+        with patch.object(m2c, 'ROOT', self.root):
+            self.assertEqual(path, m2c.nonmatching_function_source(
+                self.root / entry['source'], entry['symbol'], 'func_target'))
+
+    def test_debugger_raw_callee_uses_its_own_canonical_path(self):
+        game_path = self.write_raw()
+        inventory_path = self.root / 'progress/functions.json'
+        inventory = json.loads(inventory_path.read_text())
+        entry = inventory['functions'][0]
+        entry['overlay'] = 'debugger'
+        entry['source'] = 'src/debugger/transport/serial.c'
+        entry['regions']['us']['vram'] = '0x16001000'
+        inventory_path.write_text(json.dumps(inventory))
+        path = self.root / 'asm/us/nonmatchings/debugger/transport/serial' / (entry['symbol'] + '.s')
+        path.parent.mkdir(parents=True)
+        path.write_text(game_path.read_text().replace('15001', '16001'))
+        self.assertEqual(path, calls.raw_callee_path(self.root, 'func_target'))
+        path.write_text(path.read_text().replace('16001004', '16009004'))
+        self.assertIsNone(calls.raw_callee_path(self.root, 'func_target'))
+
     def test_existing_prototype_precedes_raw_and_conflicts_block_fallback(self):
         self.write_raw()
         self.source.write_text('s32 func_target(void *arg0, s32 arg1, s32 arg2);\n')
