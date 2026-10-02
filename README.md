@@ -97,7 +97,6 @@ Thanks to the authors and maintainers of:
   [m2c](https://github.com/matt-kempster/m2c),
   [asm-differ](https://github.com/simonlindholm/asm-differ),
   and [objdiff](https://github.com/encounter/objdiff)
-- **Reused work:** [rareunzip](tools/third_party/README.md),
-  [ultralib](https://github.com/decompals/ultralib),
+- **Reused work:** [ultralib](https://github.com/decompals/ultralib),
   [Rare-modified library sources](lib/libultrare/README.md), and
   [RSP sources](src/rsp/README.md), with detailed attribution in their existing notices
