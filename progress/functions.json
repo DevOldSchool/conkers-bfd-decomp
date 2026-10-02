@@ -13876,6 +13876,12 @@
       "symbol": "func_150039BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2519,
+        "reason": "Valid allocation initializer with fullword parameters, true word varargs, coherent signed-count declaration and byte-pointer storage. CURRENT 2519; two targeted revisions did not improve. Raw repeated signed16 normalization, global-address retention and parameter-home allocation remain different. No artificial storage, ABI narrowing or permutation attempted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37791,8 +37797,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 544,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1507EC38",
           "vram": "0x1507EC38"
         }
@@ -44239,6 +44250,12 @@
       "symbol": "func_151EDBDC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 611,
+        "reason": "Bounded structural pass 1721/1096/611. Direct owner-global initialization restores address bases; ordered opcode EF word updates restore constant allocation. Remaining frame/spill -8, w1 store forwarding versus raw reload, ID initialization scheduling and loader constant setup. Real owner/resource/vertex extents and KSEG0 arithmetic preserved; three candidate forms exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62485,6 +62502,12 @@
       "symbol": "func_1512D6F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1835,
+        "reason": "Valid pointer-plus-two-fullword envelope initializer with real 0x68 record, ten preset values and preserved float association. Initial 2005 -> 2725 -> 1835 across two targeted revisions. Best retained; remaining FP scheduling and natural spill-frame differences. No synthetic stack homes, ABI narrowing, added storage or shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
