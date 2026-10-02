@@ -31230,8 +31230,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1643,
-        "reason": "Best candidate CURRENT (1643): inferred second parameter as f32, matching register argument values, but the 12-argument call still allocates a 0x40 frame and emits an extra outgoing arg spill versus the 0x38 reference frame.",
+        "current_score": 840,
+        "reason": "Correct provider third-f32 contract and exact -328.0f/-580.0f literal bits improve1643to840; raw common FP constant reuse recovered, no numeric conversion. Existing matched unit code/relocations unchanged; frame and scheduling differences remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -70320,6 +70320,12 @@
       "symbol": "func_151A6350"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1110,
+        "reason": "Three provider-proved 12-byte vectors and established RNG/helper contracts; scores1150/1110, second retained. All relative local homes correct but frame has unexplained eight-byte excess; independent lifetime review recommends no speculative storage edit.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84072,6 +84078,12 @@
       "symbol": "func_150BD070"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2337,
+        "reason": "Grounded four-XYZ transform groups and corrected float provider contract; scores2488/2337. Named true loop endpoint removes repeated address computation; best2337 retains proven arrays and fullword formals. Frame/register/color-reload differences remain without justified extra storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

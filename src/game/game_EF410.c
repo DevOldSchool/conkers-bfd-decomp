@@ -239,16 +239,16 @@ void func_150C2290(u8 arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C2290 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_EF410/func_150C2290.s")
 f32 func_150ADA68(void);
-void func_1514C470(f32, f32, s32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
+void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
 extern f32 D_800A0268;
 extern f32 D_800A026C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2424 CURRENT (1643) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2424 CURRENT (840) */
 void func_150C2424(u8 arg0) {
-    func_1514C470(D_800A0268, -490.0f, 0xC3A40000, D_800A0268,
+    func_1514C470(D_800A0268, -490.0f, -328.0f, D_800A0268,
                   -490.0f, 328.0f, (func_150ADA68() * 8.0f) + 8.0f,
                   1, 0, 0.0f, 0, (s32)arg0);
-    func_1514C470(D_800A026C, -560.0f, 0xC4110000, 8117.0f,
+    func_1514C470(D_800A026C, -560.0f, -580.0f, 8117.0f,
                   -560.0f, -580.0f, (func_150ADA68() * 3.0f) + 4.0f,
                   3, 0, 0.0f, 0, (s32)arg0);
 }

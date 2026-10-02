@@ -1535,3 +1535,43 @@ batch. Full US ROM equality, integrated game and rodata checks, 1,346 tests with
 12 skipped, metadata, progress and whitespace pass with `BATCH_COMPLETE`.
 Totals remain **67 / 8,388 bytes**, with **2,700** accepted US C functions and
 no pending IDs.
+
+## Fortieth batch: vector emitters and coordinate contract correction
+
+The singleton `151BC370` uses three independently proved 12-byte vectors,
+no-argument random helpers and the existing 17-argument emission contract.
+Its two integer samples and two later float samples retain the required call
+lifetimes. Removing a single-use arithmetic intermediate and mapping the reused
+velocity multiplier before those samples improves 1150 to 1110. Every observed
+local then has the correct offset relative to the incoming stack pointer, but
+the frame remains eight bytes larger. Independent review found no evidence for
+reusing the distinct raw sample homes or filling that unexplained gap, so the
+second form remains disabled.
+
+`150BD740` transforms four XYZ vectors from each of three tables, with each
+cursor advancing three floats. It keeps the existing pointer and two fullword
+parameter contract, including the unused third argument. The two emissions use
+the third-to-fourth and fourth-to-first endpoints, with their corresponding
+transformed-vector differences. Naming the true one-past loop endpoint removes
+its repeated address calculation and improves 2488 to 2337. Proven array extents
+are retained; remaining frame, register and color-reload differences are deferred.
+
+The shared emission helper `1514C470` requires a float third coordinate. Its
+raw body stores the incoming word, reloads it with a float load, and subtracts
+it from the sixth coordinate. The existing deferred provider already had this
+float formal. The older declaration in `game_EF410.c` now agrees, and its
+disabled caller uses -328.0f and -580.0f, preserving exactly the previous
+0xC3A40000 and 0xC4110000 payloads.
+
+Fresh baseline checks pass for all four existing matches in the affected units.
+The corrected disabled caller improves from 1643 to 840: the compiler now
+reuses the second call's -580.0f value for both float coordinate arguments,
+recovering the original FP sequence. That candidate's code changes, while the
+two existing matched functions' text and relocations remain identical. The
+caller stays deferred, and the scoped shared repair received independent review.
+
+A clean five-target batch rechecks all four affected matches and the PI
+initializer. Full US ROM equality, integrated game and rodata checks, 1,346
+tests with 12 skipped, metadata, progress and whitespace pass with
+`BATCH_COMPLETE`. Totals remain **67 / 8,388 bytes**, with **2,700** accepted US
+C functions and no pending IDs.
