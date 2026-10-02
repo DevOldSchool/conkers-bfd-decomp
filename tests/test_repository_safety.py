@@ -69,6 +69,25 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual(set(required["needs"]), set(workflow["jobs"]) - {"required"})
         self.assertIn("job['result'] == 'success'", required["steps"][0]["run"])
 
+    def test_public_compile_fetches_pinned_sdk_and_mounts_only_its_headers(self) -> None:
+        workflow = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
+        steps = workflow["jobs"]["compile"]["steps"]
+        checkout = steps[0]
+        self.assertTrue(checkout["uses"].startswith("actions/checkout@"))
+        self.assertIs(checkout["with"]["submodules"], True)
+        self.assertIs(checkout["with"]["persist-credentials"], False)
+        self.assertNotIn("ref", checkout["with"])
+        command = next(step["run"] for step in steps if "docker run " in step.get("run", ""))
+        mounts = re.findall(r'--mount "([^"]+)"', command)
+        sdk_mounts = [mount for mount in mounts if "/lib" in mount]
+        self.assertEqual(sdk_mounts, [
+            "type=bind,source=$PWD/lib/ultralib/include,target=/workspace/lib/ultralib/include,readonly"
+        ])
+        self.assertIn("--network none --read-only", command)
+        for mount in mounts:
+            self.assertNotIn("roms", mount)
+            self.assertNotIn("assets", mount)
+
     def test_default_container_image_is_digest_locked_and_sandboxed(self) -> None:
         lock = json.loads((ROOT / "toolchain" / "tools.lock.json").read_text(encoding="utf-8"))
         image = lock["container_image"]
