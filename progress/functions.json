@@ -20885,8 +20885,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 892,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506F1A8",
           "vram": "0x1506F1A8"
         }
@@ -62316,6 +62321,12 @@
       "symbol": "func_15015920"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8173,
+        "reason": "Bounded valid bank-zero 95-glyph corpus trial: CURRENT 8173 best with genuine 224-byte slot view and unsized pointer tables; raw extra RLE row preserved. Original BSS capacities unknown, writable-slot precondition explicit. Initial12828, pointer grouping12828, slot view8173; three-attempt budget exhausted. Repeated slot displacement recovered, but RLE run unroll and register/frame differences remain. Independent all95 raw-loop trace and source review passed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
