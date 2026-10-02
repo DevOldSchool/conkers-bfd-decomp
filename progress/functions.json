@@ -36385,6 +36385,12 @@
       "symbol": "func_1517EFDC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2105,
+        "reason": "CURRENT (2105) over the full 788-byte US span. Three ordinary C forms tested: typed cursor 4840, incoming s32 cursor advanced from each real packet 2105, named packet pointers 3885. Best retains genuine five-command output and initialized viewport fields; global-address hoisting, command scheduling and register allocation remain different. Manual initial plus two revisions exhausted; no new supported hypothesis or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77261,6 +77267,12 @@
       "symbol": "func_150CDB6C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4765,
+        "reason": "Preserve owner-proven two-pointer texture selector at CURRENT 4765. Raw float intervals, f32 operation order, pinned reciprocal symbols and nine-entry used prefix are retained. One sequential weight-lifetime revision was code-neutral. Six multiply-by-two sites strength-reduce to add.s, leaving float allocation and shorter span. No supported additional source hypothesis; no storage, ABI or compiler tricks.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
