@@ -6,8 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_800056A0
- * - func_800057E0
- * - func_80005948
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -103,7 +101,6 @@ void func_80005948(s32, u16, u8 *, u8 *);
 extern u8 D_8003BE30[32];
 extern u8 D_8003BE50[32];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800057E0 CURRENT (10) */
 s32 func_800057E0(MessageQueue *queue, PakDevice *device, s32 channel) {
     s32 i;
     s32 result;
@@ -138,11 +135,8 @@ s32 func_800057E0(MessageQueue *queue, PakDevice *device, s32 channel) {
     func_80005948(channel, 0x600, D_8003BE30, D_8003BC30[channel]);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800057E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_5570/func_800057E0.s")
 u8 func_80025FD0(u16);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80005948 CURRENT (200) */
 void func_80005948(s32 channel, u16 address, u8 *data, u8 *command) {
     u8 *ptr = command;
     PakReply reply;
@@ -170,5 +164,3 @@ void func_80005948(s32 channel, u16 address, u8 *data, u8 *command) {
     ptr += sizeof(PakReply);
     *ptr = 0xFE;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80005948 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_5570/func_80005948.s")

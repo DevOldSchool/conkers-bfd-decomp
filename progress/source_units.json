@@ -20135,15 +20135,15 @@
         "func_80012718",
         "func_800127D0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x12820",
           "start": "0x12560",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_12560.c"
+      "source": "src/done/main/init_12560.c"
     },
     {
       "boundary_evidence": {
@@ -20289,7 +20289,7 @@
         "us": {
           "end": "0x3920",
           "start": "0x38E0",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/main/init_38E0.c"

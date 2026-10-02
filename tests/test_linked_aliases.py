@@ -116,3 +116,14 @@ class LinkedAliasToolchainTests(unittest.TestCase):
             candidate = self.assemble(root, "candidate", "D_800E0A30+0x40", tail="jal unknown_function")
             reference = self.assemble(root, "reference", "D_800E0A70")
             self.assertIsNone(self.prepare(root, candidate, reference, 0x800E0A70))
+
+    def test_literal_eligibility_is_explicit_and_does_not_establish_equality(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary)
+            reference = self.assemble(root, "reference", "D_A0000000")
+            for literal in ("0xA0000000", "0xA0000004"):
+                candidate = self.assemble(root, "candidate", literal)
+                current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
+                self.assertFalse(linked_aliases.address_alias_present(current, raw, "func_15000000", 16))
+                self.assertTrue(linked_aliases.address_alias_present(
+                    current, raw, "func_15000000", 16, literals=True))
