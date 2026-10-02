@@ -16984,8 +16984,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1836,
-        "reason": "CURRENT (1836): variadic cursor and loop behavior are represented; volatile count removed the extra saved register, but the compiler places mutable state at sp44 instead of reference sp38 and retains related scheduling differences after two bounded revisions",
+        "current_score": 50,
+        "reason": "Source-valid genuine pinned IDO varargs with ordinary real state/count and defined zero-count behavior. CURRENT1836 legacy form replaced by103 ->50 ->50 across three bounded trials. Exact frame, register allocation and operands; two loop-end stores exchange normal/branch-delay positions. No volatility, scalar-formal traversal or invented storage.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40358,6 +40358,12 @@
       "symbol": "func_15030468"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1667,
+        "reason": "Valid source-backed 0x5C linked-node allocation and initialization lifecycle with fullword scalar formals. Bounded CURRENT3830 ->1889 ->1667; remaining eight-byte frame extent and scheduling/operand differences. No artificial storage or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40819,6 +40825,12 @@
       "symbol": "func_15033AD8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Valid real sound-owner/actor callback. Successive1050 ->440 ->130 improvements justified one final raw-backed comparison/zero-exit revision to120. Only store/return scheduling remains; preserve best without artificial dependencies or storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58020,8 +58032,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1097,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1097)",
+        "current_score": 170,
+        "reason": "Valid CURRENT170 after correcting the real zero-input RNG call, removing two unread spill-remnant locals and using conservative fullword return. Historical1097 and intermediate203 are superseded. No shape alternatives; same-source context repaired so the preserved callback compiles under the required declaration.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58160,6 +58172,12 @@
       "symbol": "func_150C6438"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5460,
+        "reason": "Valid CURRENT5460 with genuine 0x28 descriptor, 0x20 custom state and actual float/word representation for the current factory slot. Bounded source-supported forms plateaued; preserve real state without fake padding, conflicting float declaration or alias tricks. Shared factory union trial failed and was completely restored.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58334,6 +58352,12 @@
       "symbol": "func_150C6D68"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5460,
+        "reason": "Valid CURRENT5460 with genuine 0x28 descriptor, 0x20 custom state and actual float/word representation for the current factory slot. Bounded source-supported forms plateaued; preserve real state without fake padding, conflicting float declaration or alias tricks. Shared factory union trial failed and was completely restored.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
