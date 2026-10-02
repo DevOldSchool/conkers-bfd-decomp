@@ -1456,6 +1456,234 @@ void func_15197A7C(void *arg0);
 void func_1506F524(s32 arg0) {
     func_15197A7C(D_800D154C);
 }
+/* The provider copies descriptor ranges [0x04,0x50), [0x58,0x9C),
+ * [0x9C,0xE0), and [0xE0,0x11C), including the final two halfwords.
+ * The internal opaque gaps preserve the copied object representation. */
+typedef struct Game981E0FlameDescriptor {
+    s32 field_000; /* +0x000 */
+    u8 * field_004; /* +0x004 */
+    u8 field_008; /* +0x008 */
+    u8 field_009; /* +0x009 */
+    u8 opaque_00A[0x2];
+    f32 field_00C; /* +0x00C */
+    f32 field_010; /* +0x010 */
+    f32 field_014; /* +0x014 */
+    f32 field_018; /* +0x018 */
+    f32 field_01C; /* +0x01C */
+    f32 field_020; /* +0x020 */
+    f32 field_024; /* +0x024 */
+    f32 field_028; /* +0x028 */
+    f32 field_02C; /* +0x02C */
+    f32 field_030; /* +0x030 */
+    f32 field_034; /* +0x034 */
+    u8 field_038; /* +0x038 */
+    s8 field_039; /* +0x039 */
+    u8 field_03A; /* +0x03A */
+    u8 field_03B; /* +0x03B */
+    u8 field_03C; /* +0x03C */
+    u8 field_03D; /* +0x03D */
+    u8 field_03E; /* +0x03E */
+    u8 opaque_03F[0x1];
+    f32 field_040; /* +0x040 */
+    f32 field_044; /* +0x044 */
+    f32 field_048; /* +0x048 */
+    s8 field_04C; /* +0x04C */
+    u8 opaque_04D[0x3];
+    u8 field_050; /* +0x050 */
+    u8 field_051; /* +0x051 */
+    u8 field_052; /* +0x052 */
+    u8 field_053; /* +0x053 */
+    u8 field_054; /* +0x054 */
+    u8 opaque_055[0x3];
+    f32 field_058; /* +0x058 */
+    f32 field_05C; /* +0x05C */
+    s16 field_060; /* +0x060 */
+    s16 field_062; /* +0x062 */
+    f32 field_064; /* +0x064 */
+    f32 field_068; /* +0x068 */
+    f32 field_06C; /* +0x06C */
+    f32 field_070; /* +0x070 */
+    f32 field_074; /* +0x074 */
+    f32 field_078; /* +0x078 */
+    f32 field_07C; /* +0x07C */
+    f32 field_080; /* +0x080 */
+    f32 field_084; /* +0x084 */
+    f32 field_088; /* +0x088 */
+    s16 field_08C; /* +0x08C */
+    s16 field_08E; /* +0x08E */
+    f32 field_090; /* +0x090 */
+    u8 field_094; /* +0x094 */
+    u8 field_095; /* +0x095 */
+    u8 opaque_096[0x2];
+    f32 field_098; /* +0x098 */
+    f32 field_09C; /* +0x09C */
+    f32 field_0A0; /* +0x0A0 */
+    f32 field_0A4; /* +0x0A4 */
+    f32 field_0A8; /* +0x0A8 */
+    f32 field_0AC; /* +0x0AC */
+    s32 field_0B0; /* +0x0B0 */
+    s32 field_0B4; /* +0x0B4 */
+    s16 field_0B8; /* +0x0B8 */
+    s16 field_0BA; /* +0x0BA */
+    f32 field_0BC; /* +0x0BC */
+    f32 field_0C0; /* +0x0C0 */
+    f32 field_0C4; /* +0x0C4 */
+    f32 field_0C8; /* +0x0C8 */
+    f32 field_0CC; /* +0x0CC */
+    f32 field_0D0; /* +0x0D0 */
+    f32 field_0D4; /* +0x0D4 */
+    s16 field_0D8; /* +0x0D8 */
+    s16 field_0DA; /* +0x0DA */
+    s16 field_0DC; /* +0x0DC */
+    s16 field_0DE; /* +0x0DE */
+    f32 field_0E0; /* +0x0E0 */
+    f32 field_0E4; /* +0x0E4 */
+    f32 field_0E8; /* +0x0E8 */
+    f32 field_0EC; /* +0x0EC */
+    f32 field_0F0; /* +0x0F0 */
+    s16 field_0F4; /* +0x0F4 */
+    s16 field_0F6; /* +0x0F6 */
+    s16 field_0F8; /* +0x0F8 */
+    s16 field_0FA; /* +0x0FA */
+    f32 field_0FC; /* +0x0FC */
+    f32 field_100; /* +0x100 */
+    f32 field_104; /* +0x104 */
+    f32 field_108; /* +0x108 */
+    f32 field_10C; /* +0x10C */
+    f32 field_110; /* +0x110 */
+    f32 field_114; /* +0x114 */
+    s16 field_118; /* +0x118 */
+    s16 field_11A; /* +0x11A */
+} Game981E0FlameDescriptor;
+
+extern void *func_151994B8(s32, Game981E0FlameDescriptor *, s32, s32);
+
+extern f32 D_80099E24;
+extern f32 D_80099E28;
+extern f32 D_80099E2C;
+extern f32 D_80099E30;
+extern f32 D_80099E34;
+extern f32 D_80099E38;
+extern f32 D_80099E3C;
+extern f32 D_80099E40;
+extern f32 D_80099E44;
+extern f32 D_80099E48;
+extern f32 D_80099E4C;
+extern f32 D_80099E50;
+extern f32 D_80099E54;
+extern f32 D_80099E58;
+extern f32 D_80099E5C;
+extern f32 D_80099E60;
+extern f32 D_80099E64;
+extern f32 D_80099E68;
+extern f32 D_80099E6C;
+extern f32 D_80099E70;
+extern f32 D_80099E74;
+extern f32 D_80099E78;
+extern f32 D_80099E7C;
+extern f32 D_80099E80;
+extern f32 D_80099E84;
+extern f32 D_80099E88;
+extern f32 D_80099E8C;
+extern f32 D_80099E90;
+extern f32 D_80099E94;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506F54C CURRENT (1162) */
+void func_1506F54C(s32 arg0) {
+    Game981E0FlameDescriptor descriptor;
+
+    descriptor.field_004 = D_800D154C;
+    descriptor.field_008 = D_800D154C[0x3B];
+    descriptor.field_009 = 13;
+    descriptor.field_00C = 22.0f;
+    descriptor.field_010 = 22.0f;
+    descriptor.field_014 = 165.0f;
+    descriptor.field_018 = 22.0f;
+    descriptor.field_01C = 22.0f;
+    descriptor.field_020 = 193.0f;
+    descriptor.field_024 = D_80099E2C;
+    descriptor.field_028 = D_80099E30;
+    descriptor.field_02C = 370.0f;
+    descriptor.field_040 = D_80099E34;
+    descriptor.field_030 = D_80099E38;
+    descriptor.field_034 = D_80099E3C;
+    descriptor.field_03E = 159;
+    descriptor.field_038 = 0;
+    descriptor.field_039 = -1;
+    descriptor.field_03A = 0;
+    descriptor.field_03B = 0;
+    descriptor.field_03C = 0;
+    descriptor.field_03D = 0;
+    descriptor.field_044 = -191.0f;
+    descriptor.field_048 = D_80099E40;
+    descriptor.field_04C = -1;
+    descriptor.field_000 = 15;
+    descriptor.field_054 = 1;
+    descriptor.field_050 = 60;
+    descriptor.field_051 = 255;
+    descriptor.field_052 = 235;
+    descriptor.field_053 = 82;
+    descriptor.field_058 = D_80099E44;
+    descriptor.field_05C = D_80099E48;
+    descriptor.field_060 = 35;
+    descriptor.field_062 = 10;
+    descriptor.field_064 = D_80099E4C;
+    descriptor.field_06C = D_80099E50;
+    descriptor.field_068 = D_80099E54;
+    descriptor.field_070 = D_80099E58;
+    descriptor.field_074 = D_80099E5C;
+    descriptor.field_078 = D_80099E60;
+    descriptor.field_07C = 0.0f;
+    descriptor.field_080 = D_80099E64;
+    descriptor.field_084 = D_80099E68;
+    descriptor.field_088 = D_80099E6C;
+    descriptor.field_08C = 15;
+    descriptor.field_08E = 17;
+    descriptor.field_090 = D_80099E70;
+    descriptor.field_094 = 80;
+    descriptor.field_095 = 80;
+    descriptor.field_098 = D_80099E74;
+    descriptor.field_09C = 22.0f;
+    descriptor.field_0A0 = 58.0f;
+    descriptor.field_0A4 = 212.0f;
+    descriptor.field_0A8 = D_80099E24;
+    descriptor.field_0AC = D_80099E78;
+    descriptor.field_0B0 = 3;
+    descriptor.field_0B4 = 2;
+    descriptor.field_0B8 = 25;
+    descriptor.field_0BA = 10;
+    descriptor.field_0BC = 6.0f;
+    descriptor.field_0C0 = 10.0f;
+    descriptor.field_0C4 = D_80099E7C;
+    descriptor.field_0C8 = D_80099E24;
+    descriptor.field_0CC = 37.0f;
+    descriptor.field_0D0 = D_80099E80;
+    descriptor.field_0D4 = D_80099E84;
+    descriptor.field_0D8 = 80;
+    descriptor.field_0DA = 80;
+    descriptor.field_0DC = 15;
+    descriptor.field_0DE = 17;
+    descriptor.field_0E0 = 22.0f;
+    descriptor.field_0E4 = 130.0f;
+    descriptor.field_0E8 = 306.0f;
+    descriptor.field_0EC = D_80099E88;
+    descriptor.field_0F0 = D_80099E8C;
+    descriptor.field_0F4 = 35;
+    descriptor.field_0F6 = 15;
+    descriptor.field_0F8 = 80;
+    descriptor.field_0FA = 100;
+    descriptor.field_0FC = 198.0f;
+    descriptor.field_100 = 102.0f;
+    descriptor.field_104 = D_80099E28;
+    descriptor.field_108 = D_80099E28;
+    descriptor.field_10C = 89.0f;
+    descriptor.field_110 = D_80099E90;
+    descriptor.field_114 = D_80099E94;
+    descriptor.field_118 = 15;
+    descriptor.field_11A = 17;
+    func_151994B8(0, &descriptor, 0xFF, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1506F54C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506F54C.s")
 /* Call context: func_1519EF70: unique active project prototype */
 void func_1519EF70(s32, s32, s32);
