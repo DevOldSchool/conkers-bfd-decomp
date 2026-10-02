@@ -566,6 +566,90 @@ void func_15031A50(u8 *arg0, u8 *arg1) {
         break;
     }
 }
+typedef struct {
+    void *object;
+    u8 id;
+} GameCoreMessage;
+
+void func_1000FD38(void *, void *, s32);
+s32 func_15033BDC();
+void func_15100180(void *);
+void func_151027E8(void *);
+void func_15147D64(s32, s32);
+void func_151494E0(s32, u8);
+void func_151616D0(u8, u8, s32);
+void func_151BD7F4(void *);
+void func_151D4668(void *);
+void func_151D747C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031C14 CURRENT (440) */
+void func_15031C14(void *arg0) {
+    u8 *object;
+    GameCoreMessage first;
+    GameCoreMessage second;
+    GameCoreMessage *message;
+
+    object = func_15083E90(*(u8 *)arg0);
+    if (object != 0) {
+        switch (((u8 *)arg0)[1]) {
+        case 0x5A:
+            if (*(u8 **)(object + 0x31C) != 0) {
+                *(u16 *)(*(u8 **)(object + 0x31C) + 0x1A6) -= 0xAA;
+            }
+            break;
+        case 0x90:
+            *(u32 *)(object + 0x9C) &= ~0x70;
+            break;
+        case 0x8F:
+            *(u32 *)(object + 0x9C) &= ~0xE00;
+            break;
+        case 0x37:
+        case 0x4B:
+        case 0x4C:
+            func_1000FD38((void *)&func_15033BDC, arg0, (s32)object);
+            if (((u8 *)arg0)[1] == 0x37) {
+                func_15100180(object);
+            }
+            break;
+        case 0x49:
+            first.object = object;
+            first.id = object[0x3B];
+            func_151616D0(0x10, 0x29, (s32)&first);
+            break;
+        case 0x5D:
+            second.object = object;
+            message = &second;
+            second.id = object[0x3B];
+            func_15147D64((s32)&second, 0x2E);
+            func_151494E0((s32)message, 0x2F);
+            break;
+        case 0x3D:
+            func_151BD7F4(object);
+            break;
+        case 0x1A:
+        case 0x1B:
+        case 0x5F:
+        case 0x65:
+        case 0x66:
+            func_151D4668(object);
+            break;
+        case 0x1D:
+        case 0x82:
+            func_151D747C(object);
+            break;
+        case 0x5E:
+        case 0x85:
+            *(u32 *)(object + 0x9C) &= ~0x6000;
+            break;
+        }
+        if ((((u8 *)arg0)[6] == 0x16) || (((u8 *)arg0)[6] == 0x63) ||
+            (((u8 *)arg0)[6] == 0x89)) {
+            func_151027E8(object);
+            func_151D4668(object);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15031C14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031C14.s")
 typedef struct {
     u8 pad_0[0x18];

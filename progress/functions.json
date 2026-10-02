@@ -40519,6 +40519,12 @@
       "symbol": "func_15031A50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 440,
+        "reason": "Typed cleanup switch and real owner/id payloads improve CURRENT 612 to 440 by removing redundant derived snapshots, recovering the exact frame and stack homes. Owner-field address spelling is neutral. Saved-message pointer rematerialization and final byte-selector lifetime remain; preserve the simpler valid candidate without artificial storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45361,8 +45367,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 564,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1503E3C4",
           "vram": "0x1503E3C4"
         }
@@ -68019,8 +68030,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 610,
-        "reason": "CURRENT (610): spacer and byte cast fixed all stack/call-layout differences; remaining branch-likely collapse, one commutative multiply operand order, and one missing common setup instruction persisted; explicit goto reconstruction regressed",
+        "current_score": 626,
+        "reason": "Removed an unused volatile spacer that had no source-state evidence. Valid candidate CURRENT 626 retains the actual value/clamp lifecycle; prior 610 relied on artificial local storage and is not retained as a valid best.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -68057,7 +68068,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 550,
-        "reason": "CURRENT (550); bounded pointer/lifetime and constant-materialization variants did not resolve the remaining IDO constant scheduling and branch-layout mismatch; preserved the best ABI-correct candidate.",
+        "reason": "Matched caller and raw v0 lifetime prove the scalar cursor return. Corrected void to s32 and retained the actual second-call result; CURRENT 550 is code-neutral. Existing pointer/constant scheduling and duplicate move differences remain; no repeated shaping.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
