@@ -305,4 +305,91 @@ void func_15019E60(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15019E60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_45B80/func_15019E60.s")
+void func_150A019C(void);
+extern f32 D_800BE5E8[10];
+extern u32 D_800BE610;
+extern u8 D_800BE619;
+extern u8 D_800BE61A;
+extern u8 D_800BE9A0;
+extern f32 D_800BE9A4;
+extern f32 D_800BE9A8;
+extern s32 D_800BE9AC;
+extern s32 D_800BE9B0;
+extern f32 D_800BE9B8;
+extern f32 D_800BE9BC;
+extern s32 D_800BEA08;
+extern u8 D_800BEA0C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15019F20 CURRENT (4090) */
+void func_15019F20(void) {
+    s32 ticks;
+    u32 accumulated;
+    u32 divisor;
+    u32 quotient;
+    f32 total;
+    s32 i;
+
+    ticks = D_800BE9E4;
+    D_800BEA08 = ticks;
+    divisor = D_800BEA0C;
+    if (divisor != 0) {
+        if (divisor == 1) {
+            D_800BE9E4 = 0;
+            D_800BE5E0 = 0;
+            ticks = 0;
+            D_800BE9A4 = 0.0f;
+        } else {
+            accumulated = D_800BE610 + (u32)ticks;
+            D_800BE9A4 = (f32)ticks / (f32)divisor;
+            D_800BE9E4 = (s32)D_800BE9A4;
+            D_800BE9A4 *= 0.5f;
+            if (accumulated >= divisor) {
+                quotient = accumulated / divisor;
+                D_800BE9E4 = (s32)quotient;
+                ticks = (s32)quotient;
+                D_800BE610 = accumulated - quotient * accumulated;
+            } else {
+                D_800BE610 = accumulated;
+                D_800BE9E4 = 0;
+                ticks = 0;
+            }
+        }
+    } else {
+        D_800BE9A4 = (f32)ticks * 0.5f;
+    }
+    D_800BE5E0 = (u8)D_800BE5E0 & 1;
+    D_800BE5E0 = (u8)((u32)(u8)D_800BE5E0 + (u32)ticks);
+    D_800BE9A0 = (u8)D_800BE5E0 >> 1;
+    if (D_800BE9A4 != 0.0f) {
+        D_800BE9A8 = 1.0f / D_800BE9A4;
+    } else {
+        D_800BE9A4 = 0.0f;
+        D_800BE9A8 = 0.0f;
+    }
+    D_800BE9AC = (s32)((u32)D_800BE9AC + (u32)ticks);
+    D_800BE9B0 = D_800BE9AC % 30;
+    D_800BE5E8[D_800BE619] = D_800BE9A4;
+    D_800BE619++;
+    if (D_800BE619 == 10) {
+        D_800BE619 = 0;
+    }
+    if (D_800BE61A < 10) {
+        D_800BE61A++;
+        D_800BE9B8 = D_800BE9A4;
+        D_800BE9BC = D_800BE9A8;
+    } else {
+        total = 0.0f;
+        for (i = 0; i < 10; i++) {
+            total += D_800BE5E8[i];
+        }
+        D_800BE9B8 = total * 0.1f;
+        if (D_800BE9B8 != 0.0f) {
+            D_800BE9BC = 1.0f / D_800BE9B8;
+        } else {
+            D_800BE9BC = 0.0f;
+        }
+    }
+    func_150A019C();
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15019F20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_45B80/func_15019F20.s")

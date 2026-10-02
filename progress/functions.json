@@ -29420,6 +29420,12 @@
       "symbol": "func_15019E60"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4090,
+        "reason": "Valid zero-input timing/history update with a real ten-float ring and SDK clock contract. Initial4090 ->4535 ->4105; two nonimproving targeted revisions exhausted, best4090 restored. Remaining integer lifetimes, global address formation and float-zero scheduling; no fake volatility, overlapping aliases or storage forcing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50150,6 +50156,12 @@
       "symbol": "func_151D87AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1794,
+        "reason": "Valid void actor-output helper CURRENT1794 after element-index2569 and explicit guarded byte-loop2074. Proven count range[-4,65535] keeps byte bound safe. Remaining void early-exit, frame and register/scheduling differences; no supported return-contract change.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64037,6 +64049,12 @@
       "symbol": "func_1511F980"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 370,
+        "reason": "Valid actor cache with four genuine 8-byte records, proved count range and real actor/owner fields; fullword mode. Initial695 ->370 ->3265 across two targeted revisions, best370 retained. Remaining64 register-only rows; no operand/control/length/stack mismatch. No parameter-home forcing, padding, volatility or permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

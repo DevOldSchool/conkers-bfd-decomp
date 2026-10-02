@@ -19,15 +19,85 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184150.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184368.s")
+typedef struct Game184150Matrix {
+    f32 values[16];
+} Game184150Matrix;
+
 typedef struct Game184DF0Actor {
     u8 pad0[0x14];
     f32 x;
     f32 y;
     f32 z;
-    u8 pad20[0x30C];
+    u8 pad20[0x12C];
+    f32 scaleXZ;
+    f32 scaleY;
+    u8 pad154[0x80];
+    Game184150Matrix *matrices;
+    u8 pad1D8[0x154];
 } Game184DF0Actor;
+
+extern Game184DF0Actor D_800CC2D0[];
+extern u8 D_800C3E90;
+extern u8 *D_800D1C90[];
+s32 func_1502DB20(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15184150 CURRENT (1794) */
+void func_15184150(s32 arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
+    s32 kind;
+    Game184DF0Actor *actor;
+    Game184150Matrix *matrix;
+    u8 *model;
+    s32 count;
+    s32 i;
+    f32 x;
+    f32 y;
+    f32 z;
+    f32 radius;
+
+    actor = &D_800CC2D0[arg0];
+    kind = actor->pad0[4];
+    *arg3 = 0.0f;
+    *arg2 = 0.0f;
+    *arg1 = 0.0f;
+    if (actor->matrices == 0 || D_800C3E90 != 0) {
+        return;
+    }
+    count = func_1502DB20(kind);
+    for (i = 0; i < count * 0x40; i += 0x40) {
+        matrix = (Game184150Matrix *) ((u8 *) actor->matrices + i);
+        x = matrix->values[12] - actor->x;
+        y = matrix->values[13] - actor->y;
+        z = matrix->values[14] - actor->z;
+        if (x < 0.0f) {
+            x = -x;
+        }
+        if (*arg1 < x) {
+            *arg1 = x;
+        }
+        if (y < 0.0f) {
+            y = -y;
+        }
+        if (*arg2 < y) {
+            *arg2 = y;
+        }
+        if (z < 0.0f) {
+            z = -z;
+        }
+        if (*arg3 < z) {
+            *arg3 = z;
+        }
+    }
+    if (*arg1 == 0.0f || *arg2 == 0.0f || *arg3 == 0.0f) {
+        radius = actor->scaleXZ * (f32) *(s16 *)(D_800D1C90[actor->pad0[4]] + 0x1A);
+        *arg3 = radius;
+        *arg1 = radius;
+        model = D_800D1C90[actor->pad0[4]];
+        *arg2 = actor->scaleY * (f32) (*(s16 *)(model + 0x1E) + *(s16 *)(model + 0x1C));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15184150 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184150.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15184368.s")
 
 typedef struct Game184DF0Camera {
     u8 pad0[0x2F8];
@@ -39,7 +109,6 @@ typedef struct Game184DF0Camera {
 
 s32 func_150AD9A0(s32, s32, s32);
 void func_15184150(s32, f32 *, f32 *, f32 *);
-extern Game184DF0Actor D_800CC2D0[];
 extern Game184DF0Camera *D_800DBFF0;
 extern f32 D_800A7378;
 extern f32 D_800D3688;
