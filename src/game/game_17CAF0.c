@@ -175,6 +175,75 @@ void func_1514FBFC(void *arg0, u8 arg1, s32 arg2) {
             arg2);
     }
 }
+typedef struct {
+    s16 firstBase;
+    s16 firstRange;
+    s16 secondBase;
+    s16 secondRange;
+    s32 countBase;
+    s32 countRange;
+    Game17CAF0Vec3f position;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    s32 field34;
+    s32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    f32 field48;
+    s16 field4C;
+    s16 field4E;
+    s16 field50;
+    s16 field52;
+    s16 field54;
+    s16 field56;
+    s8 field58;
+} Game17CAF0RangeConfig;
+
+void func_151A2A14(s32, s16, s16, f32, f32, f32, s32, f32, f32, f32,
+                    f32, s16, s16, s16, s16, s16, s16, s8, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514FCE8 CURRENT (492) */
+void func_1514FCE8(s16 *arg0, s32 arg1, s32 arg2) {
+    Game17CAF0RangeConfig *config;
+    f32 randomX;
+    f32 randomY;
+    f32 randomZ;
+    s32 count;
+    u32 randomB;
+    u32 randomA;
+    u8 color;
+
+    config = (Game17CAF0RangeConfig *)arg0;
+    color = (u8)arg1;
+    count = (func_150ADA20() % (u32)(config->countRange + 1)) + config->countBase;
+    if (count != 0) {
+        do {
+            randomA = func_150ADA20();
+            randomB = func_150ADA20();
+            randomX = func_150ADA68();
+            randomY = func_150ADA68();
+            randomZ = func_150ADA68();
+            func_151A2A14((s32)&config->position,
+                (s16)((randomA % (u32)(config->firstRange + 1)) + config->firstBase),
+                (s16)((randomB % (u32)(config->secondRange + 1)) + config->secondBase),
+                (randomX * config->field20) + config->field1C,
+                (randomY * config->field28) + config->field24,
+                (randomZ * config->field30) + config->field2C,
+                (func_150ADA20() % (u32)(config->field38 + 1)) + config->field34,
+                config->field3C, config->field40, config->field44, config->field48,
+                config->field4C, config->field4E, config->field50,
+                config->field52, config->field54, config->field56,
+                config->field58, color, arg2);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514FCE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514FCE8.s")
 void func_1514F640(s32, u8 *);
 void func_1514FF44(void *, s32, s32, u8, s32);
@@ -319,6 +388,7 @@ typedef struct Game154884Descriptor {
     s32 field6C;
     u8 field70;
     s16 field72, field74;
+    u8 unknown76[6];
 } Game154884Descriptor;
 
 void *func_10022EC0(void *, const void *, u32);
@@ -329,9 +399,9 @@ extern f32 D_800A601C, D_800A6020, D_800A6024, D_800A6028, D_800A602C;
 void *func_15154884(Game17CAF0Vec3f *arg0, f32 arg1, f32 arg2,
                     f32 arg3, s32 arg4, s32 arg5) {
     u8 *result;
-    f32 random;
     Game154884Descriptor descriptor;
     f32 payload[5];
+    f32 random;
 
     if (arg1 <= 0.0f) {
         return 0;

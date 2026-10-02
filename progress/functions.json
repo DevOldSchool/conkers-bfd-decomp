@@ -51592,6 +51592,12 @@
       "symbol": "func_1514FBFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 492,
+        "reason": "Exact existing fullword target contract and typed range config; scores1402/492/492, second retained. Byte local improves register allocation; entry-mask/home and multiply operand differences remain. No unsupported formal narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51972,7 +51978,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 200,
-        "reason": "270 to200 by retaining the actual unscaled RNG sample and scaling only in its consuming field expression. Exact frame, packet homes, registers, count and scheduling; only full-word vs byte reload of fifth formal differs. Existing full-width contract retained, no unsupported ABI change.",
+        "reason": "Provider-proved 0x7C descriptor extent corrected with explicit unknown tail. Mapped existing register-only random home below payload restores baseline200 text/relocations exactly; fullword fifth formal remains, unresolved byte reload unchanged. Historical undersized form archived.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

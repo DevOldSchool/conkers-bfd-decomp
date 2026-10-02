@@ -1472,7 +1472,20 @@ def mark_matched(args: argparse.Namespace) -> None:
         unit_members = [
             entry for entry in functions if entry["symbol"] in source_unit["functions"]
         ]
-        unit_region["state"] = source_unit_work_state(unit_members)
+        owned_symbols = {
+            entry["symbol"]
+            for entry in functions
+            if entry.get("source") == source_unit["source"]
+        }
+        # Rechecking a member must preserve a previously validated C integration.
+        # Raw and mixed units still require their separate integration transition.
+        if not (
+            source_unit["integration"] == "c"
+            and unit_region["state"] == "complete"
+            and set(source_unit["functions"]) == owned_symbols
+            and all(is_complete(member) for member in unit_members)
+        ):
+            unit_region["state"] = source_unit_work_state(unit_members)
 
     validated_functions = validate_functions(functions_data)
     validate_source_units(source_units_data, validated_functions)

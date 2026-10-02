@@ -2226,6 +2226,143 @@ class GameInventoryTests(unittest.TestCase):
         with self.assertRaises(project_state.ProjectStateError):
             project_state.mark_matched(SimpleNamespace(profile="us", symbol="missing"))
 
+    def prepare_matched_unit_for_recheck(self, integration: str = "c") -> tuple[str, list[str]]:
+        source = "src/game/reviewed_unit.c"
+        with redirect_stdout(io.StringIO()):
+            project_state.register_source_unit(
+                SimpleNamespace(
+                    source=source,
+                    functions=None,
+                    register_members=True,
+                    us_start="0x0",
+                    us_end="0x10",
+                    evidence_kind="structural_analysis",
+                    evidence_reference="docs/evidence/reviewed.md",
+                )
+            )
+            units = project_state.load_json(project_state.SOURCE_UNITS_FILE)
+            symbols = units["source_units"][0]["functions"]
+            source_path = self.root / source
+            content = source_path.read_text(encoding="utf-8")
+            for symbol in symbols:
+                content = content.replace(
+                    project_state.global_asm_pragma(source, symbol),
+                    f"void {symbol}(void) {{}}",
+                )
+            source_path.write_text(content, encoding="utf-8")
+            for symbol in symbols:
+                project_state.mark_matched(SimpleNamespace(profile="us", symbol=symbol))
+
+        if integration == "c":
+            completed_source = "src/game/done/reviewed_unit.c"
+            completed_path = self.root / completed_source
+            completed_path.parent.mkdir(parents=True)
+            source_path.rename(completed_path)
+            functions = project_state.load_json(project_state.FUNCTIONS_FILE)
+            for function in functions["functions"]:
+                function["source"] = completed_source
+            units = project_state.load_json(project_state.SOURCE_UNITS_FILE)
+            unit = units["source_units"][0]
+            unit["source"] = completed_source
+            unit["integration"] = "c"
+            unit["regions"]["us"]["state"] = "complete"
+            project_state.write_json(project_state.FUNCTIONS_FILE, functions)
+            project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
+            (self.root / "config/game/us.yaml").write_text(
+                "    subsegments:\n"
+                "      - [0x0, c, game/done/reviewed_unit]\n"
+                "      - [0x10, asm]\n",
+                encoding="utf-8",
+            )
+            source = completed_source
+        return source, symbols
+
+    def assert_recheck_rejected_without_writes(self, symbol: str, message: str) -> None:
+        before = {
+            path.relative_to(self.root): path.read_bytes()
+            for path in self.root.rglob("*")
+            if path.is_file()
+        }
+        with self.assertRaisesRegex(project_state.ProjectStateError, message):
+            project_state.mark_matched(SimpleNamespace(profile="us", symbol=symbol))
+        after = {
+            path.relative_to(self.root): path.read_bytes()
+            for path in self.root.rglob("*")
+            if path.is_file()
+        }
+        self.assertEqual(before, after)
+
+    def test_mark_matched_preserves_completed_c_unit(self) -> None:
+        source, symbols = self.prepare_matched_unit_for_recheck()
+        units_before = project_state.load_json(project_state.SOURCE_UNITS_FILE)
+        source_before = (self.root / source).read_bytes()
+        map_before = (self.root / "config/game/us.yaml").read_bytes()
+
+        with redirect_stdout(io.StringIO()):
+            project_state.mark_matched(SimpleNamespace(profile="us", symbol=symbols[0]))
+
+        self.assertEqual(units_before, project_state.load_json(project_state.SOURCE_UNITS_FILE))
+        self.assertEqual(source_before, (self.root / source).read_bytes())
+        self.assertEqual(map_before, (self.root / "config/game/us.yaml").read_bytes())
+        functions = project_state.load_json(project_state.FUNCTIONS_FILE)["functions"]
+        self.assertEqual(len(symbols), sum(project_state.is_complete(item) for item in functions))
+        self.assertTrue(all(item["source"] == source for item in functions))
+        self.assertEqual(0, functions[0]["regions"]["us"]["evidence"]["current_differences"])
+
+    def test_mark_matched_keeps_raw_unit_candidate(self) -> None:
+        source, symbols = self.prepare_matched_unit_for_recheck(integration="raw_asm")
+        with redirect_stdout(io.StringIO()):
+            project_state.mark_matched(SimpleNamespace(profile="us", symbol=symbols[0]))
+        unit = project_state.load_json(project_state.SOURCE_UNITS_FILE)["source_units"][0]
+        self.assertEqual(source, unit["source"])
+        self.assertEqual("raw_asm", unit["integration"])
+        self.assertEqual("candidate", unit["regions"]["us"]["state"])
+
+    def test_mark_matched_rejects_c_unit_with_unfinished_member(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        functions = project_state.load_json(project_state.FUNCTIONS_FILE)
+        region = functions["functions"][1]["regions"]["us"]
+        region["state"] = "raw_asm"
+        region.pop("evidence")
+        project_state.write_json(project_state.FUNCTIONS_FILE, functions)
+        self.assert_recheck_rejected_without_writes(symbols[0], "unfinished function")
+
+    def test_mark_matched_rejects_omitted_owned_member(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        functions = project_state.load_json(project_state.FUNCTIONS_FILE)
+        region = functions["functions"][1]["regions"]["us"]
+        region["state"] = "raw_asm"
+        region.pop("evidence")
+        units = project_state.load_json(project_state.SOURCE_UNITS_FILE)
+        units["source_units"][0]["functions"].remove(symbols[1])
+        project_state.write_json(project_state.FUNCTIONS_FILE, functions)
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
+        self.assert_recheck_rejected_without_writes(
+            symbols[0], "uses C integration but is not complete"
+        )
+
+    def test_mark_matched_rejects_inconsistent_c_unit_state(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        units = project_state.load_json(project_state.SOURCE_UNITS_FILE)
+        units["source_units"][0]["regions"]["us"]["state"] = "candidate"
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
+        self.assert_recheck_rejected_without_writes(symbols[0], "uses C integration but is not complete")
+
+    def test_mark_matched_rejects_unmapped_completed_c_unit(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        (self.root / "config/game/us.yaml").write_text(
+            "    subsegments:\n      - [0x0, asm]\n      - [0x10, asm]\n",
+            encoding="utf-8",
+        )
+        self.assert_recheck_rejected_without_writes(symbols[0], "is not mapped as C")
+
+    def test_mark_matched_rejects_unreviewed_completed_c_unit(self) -> None:
+        _, symbols = self.prepare_matched_unit_for_recheck()
+        units = project_state.load_json(project_state.SOURCE_UNITS_FILE)
+        units["source_units"][0]["boundary_evidence"]["us"]["reviewed"] = False
+        project_state.write_json(project_state.SOURCE_UNITS_FILE, units)
+        self.assert_recheck_rejected_without_writes(symbols[0], "boundary evidence is not reviewed")
+
     def test_reopen_match_restores_pragma_and_preserves_candidate(self) -> None:
         project_state.register_game(
             SimpleNamespace(

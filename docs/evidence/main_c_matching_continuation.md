@@ -1575,3 +1575,82 @@ initializer. Full US ROM equality, integrated game and rodata checks, 1,346
 tests with 12 skipped, metadata, progress and whitespace pass with
 `BATCH_COMPLETE`. Totals remain **67 / 8,388 bytes**, with **2,700** accepted US
 C functions and no pending IDs.
+
+## Forty-first batch: randomized emission and copied descriptor extent
+
+The new `1514FCE8` candidate keeps its existing pointer and two fullword
+formals, the independently recovered configuration field widths, and the
+established twenty-argument emission call. Each iteration retains two integer
+samples followed by three float samples and the final integer draw. Replacing
+a redundant fullword masked alias with an explicit byte local improves 1402 to
+492 without narrowing the formal. Reversing the written float multiplication
+operands is code-neutral; the second form remains disabled at 492. The exact
+frame and spill homes do not resolve the entry-mask, incoming-home and FP
+operand differences. Independent review found no blocking source issue, while
+leaving extreme-value signed-overflow behavior unclaimed.
+
+A separate read-only caller investigation follows the unchanged first argument
+through `15132A4C` into `1513264C`. The provider copies exactly 0x7C bytes from
+that pointer at 151328BC..151328C8. This exposes an undersized standalone
+0x78-byte descriptor in the older disabled `15154884` candidate. Its original
+caller passes SP+0x40, so the copied object extends through SP+0xBB. The type
+now includes an explicit unknown tail through offset 0x7B, without invented
+field semantics or initialization.
+
+The tail-only form shifts buffer homes and scores 379. Compiler debug homes
+and raw instruction lifetimes show the existing random sample is register-only.
+Moving that declaration below the real descriptor and payload restores their
+raw homes and the entire compiled text and relocation sections to the saved
+200 baseline. The fifth formal remains fullword, and its unresolved byte reload
+remains deferred. The historical undersized form is retained as evidence rather
+than treated as the valid canonical candidate.
+
+The held `150BB760` caller receives no speculative return-contract change:
+its existing void declaration and unused result do not justify inventing source
+side effects solely to reproduce a leftover return register on one early path.
+No source form was compiled for that target.
+
+A clean nine-target batch rechecks all eight existing matches in `game_17CAF0.c`
+and the PI initializer. Full US ROM, integrated game and rodata equality,
+1,346 tests with 12 skipped, metadata, progress and whitespace pass. No new
+function is accepted.
+
+## Forty-second batch: preserve an accepted packet's true copied extent
+
+The same independently established 0x7C-byte copy also applies to the standalone
+packet in the already matched `150BB498`. The raw caller passes SP+0x2C at
+150BB6C4 and invokes the forwarding helper at 150BB6D8. Its declared 0x78-byte
+object previously ended at SP+0xA3, while the actual copy extends through
+SP+0xA7. Replacing the two-byte unknown tail with six unknown bytes represents
+the proved object extent without assigning meaning to the copied tail.
+
+Only the existing `temp_fv1` declaration moves below the packet. Its compiler
+home was SP+0xA4, but neither actual lifetime spills there: both use register f2.
+The packet keeps SP+0x2C, and that unused virtual home moves to SP+0x28.
+Fresh baseline checks cover all four completed source-unit members. The repaired
+616-byte target returns `CURRENT (0)` over its complete span, including three
+terminal NOPs. Independent review recomputes equality of all 1,184 unit text
+bytes, 200 relocation bytes, symbol tables, register metadata and options.
+This repairs the declared source extent while preserving an existing match.
+
+The fresh baseline exposed a bookkeeping defect: `mark_matched` downgraded a
+previously complete C unit to candidate even when every required member remained
+matched, then rejected its own metadata. The narrow repair preserves complete
+only for an already complete C integration with exact equality between listed
+members and all functions owned by that source, with every member complete.
+Raw units still take the existing candidate transition. Initial and final
+metadata validation remain in place, as do every instruction, layout and image
+gate.
+
+The original completed-unit recheck and omitted-owned-member regressions both
+fail before their respective fixes. Seven added tests cover successful complete
+rechecks, raw-unit candidate behavior, unfinished members, omitted owned
+members, inconsistent integration state, missing C mapping and unreviewed
+boundaries. Every rejected case checks that no fixture file changes. All 82
+project-state tests pass, and the final patch received independent review.
+
+A clean thirteen-target batch verifies all twelve existing matches in the two
+affected game units and the PI initializer. Full US ROM equality, integrated
+game and rodata checks, 1,353 tests with 12 skipped, metadata, progress and
+whitespace pass with `BATCH_COMPLETE` in 78.581 seconds. Totals remain
+**67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.
