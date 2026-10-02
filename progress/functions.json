@@ -10906,17 +10906,16 @@
       "symbol": "func_1513B968"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Live CURRENT (200): candidate adds unused a1 home store at sp+0x1C while raw only homes a0, and full registered span needs one trailing nop; register-qualified dummy second parameter did not alter either row",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513B9A8",
           "vram": "0x1513B9A8"
         }
@@ -10925,17 +10924,16 @@
       "symbol": "func_1513B9A8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Sibling of deferred func_1513B9A8: semantically correct three-argument wrapper is blocked by the same ABI artifact, with target passing incoming a2 through while IDO homes the unused intermediate C parameter.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 52,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1513B9DC",
           "vram": "0x1513B9DC"
         }
@@ -21829,8 +21827,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 572,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15070D24",
           "vram": "0x15070D24"
         }
@@ -89389,6 +89392,12 @@
       "symbol": "func_150B06B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1055,
+        "reason": "Best valid command-emitter candidate CURRENT 1055 after initial plus two targeted revisions (2520,1055,2895). Real per-command block-local cursor lifetimes recovered all register allocation; four unsigned f32 conversions and full suffix from offset0x108 match. Remaining prefix instruction scheduling includes increment/store order and constant construction. Fill-then-advance regressed and was rejected. Manual budget exhausted; no permutation, dummy storage, volatile, alias or ABI workaround is justified.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

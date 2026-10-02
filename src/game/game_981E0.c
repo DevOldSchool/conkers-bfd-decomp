@@ -35,7 +35,6 @@
  * - func_15070300
  * - func_15070898
  * - func_15070C40
- * - func_15070D24
  * - func_15070F60
  * - func_150717E0
  * - func_15071B18
@@ -2021,7 +2020,50 @@ void func_15070CDC(s32 arg0) {
 void func_15070D00(s32 arg0) {
     func_15070C40(0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070D24.s")
+typedef struct Game981E0CopiedVector {
+    f32 values[3];
+} Game981E0CopiedVector;
+
+extern Game981E0CopiedVector D_80099B88;
+extern Game981E0CopiedVector D_80099B94;
+extern f32 D_80099F2C;
+void func_15143134(f32 *, f32 *, s32);
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32,
+                   s32, s32, s32, s32, s32, s32);
+
+void func_15070D24(s32 arg0) {
+    Game981E0CopiedVector input;
+    Game981E0CopiedVector second;
+    f32 ranges[2];
+    f32 transformed[3];
+    Game981E0Descriptor descriptor;
+    s32 position[3];
+
+    input = D_80099B88;
+    second = D_80099B94;
+    if ((*(s32 *)(D_800D154C + 0x1D4) != 0) &&
+        ((D_800D154C[0x74] & 0xF) != 0xF)) {
+        ranges[0] = func_150ADA68() * 101.0f + 151.0f;
+        ranges[1] = func_150ADA68() * 4.0f + 4.0f;
+        func_15143134(input.values, transformed,
+                      *(s32 *)(D_800D154C + 0x1D4) + 0x40);
+        func_15102B38((s32)D_800D154C, 1, (s32)&input, (s32)&second,
+                      ranges, func_150ADA20() % 6U + 5,
+                      func_150ADA20() % 156U + 100,
+                      func_150ADA68() * 2496.0f + D_80099F2C,
+                      (s32)transformed, 0xFF, 0, -1, 0xFF, 0);
+        descriptor.type = 3;
+        descriptor.neg_one = -1;
+        descriptor.lifetime = func_150ADA20() % 6U + 10;
+        descriptor.zero = 0;
+        position[0] = (s32)transformed[0];
+        position[1] = (s32)transformed[1];
+        position[2] = (s32)transformed[2];
+        func_151602C0((u8 *)&descriptor, position,
+                      func_150ADA20() % 201U + 55,
+                      0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 0);
+    }
+}
 void func_15070F60(s32 arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070F60.s")
