@@ -30,7 +30,6 @@
  * - func_1506EEF4
  * - func_1506EF5C
  * - func_1506F1A8
- * - func_1506F54C
  * - func_1506FD30
  * - func_15070300
  * - func_15070898
@@ -1557,37 +1556,6 @@ typedef struct Game981E0FlameDescriptor {
 
 extern void *func_151994B8(s32, Game981E0FlameDescriptor *, s32, s32);
 
-extern f32 D_80099E24;
-extern f32 D_80099E28;
-extern f32 D_80099E2C;
-extern f32 D_80099E30;
-extern f32 D_80099E34;
-extern f32 D_80099E38;
-extern f32 D_80099E3C;
-extern f32 D_80099E40;
-extern f32 D_80099E44;
-extern f32 D_80099E48;
-extern f32 D_80099E4C;
-extern f32 D_80099E50;
-extern f32 D_80099E54;
-extern f32 D_80099E58;
-extern f32 D_80099E5C;
-extern f32 D_80099E60;
-extern f32 D_80099E64;
-extern f32 D_80099E68;
-extern f32 D_80099E6C;
-extern f32 D_80099E70;
-extern f32 D_80099E74;
-extern f32 D_80099E78;
-extern f32 D_80099E7C;
-extern f32 D_80099E80;
-extern f32 D_80099E84;
-extern f32 D_80099E88;
-extern f32 D_80099E8C;
-extern f32 D_80099E90;
-extern f32 D_80099E94;
-
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506F54C CURRENT (1162) */
 void func_1506F54C(s32 arg0) {
     Game981E0FlameDescriptor descriptor;
 
@@ -1600,12 +1568,12 @@ void func_1506F54C(s32 arg0) {
     descriptor.field_018 = 22.0f;
     descriptor.field_01C = 22.0f;
     descriptor.field_020 = 193.0f;
-    descriptor.field_024 = D_80099E2C;
-    descriptor.field_028 = D_80099E30;
+    descriptor.field_024 = 1.13800001f;
+    descriptor.field_028 = 0.795000017f;
     descriptor.field_02C = 370.0f;
-    descriptor.field_040 = D_80099E34;
-    descriptor.field_030 = D_80099E38;
-    descriptor.field_034 = D_80099E3C;
+    descriptor.field_040 = 0.61500001f;
+    descriptor.field_030 = 17.8000011f;
+    descriptor.field_034 = 4.9000001f;
     descriptor.field_03E = 159;
     descriptor.field_038 = 0;
     descriptor.field_039 = -1;
@@ -1614,7 +1582,7 @@ void func_1506F54C(s32 arg0) {
     descriptor.field_03C = 0;
     descriptor.field_03D = 0;
     descriptor.field_044 = -191.0f;
-    descriptor.field_048 = D_80099E40;
+    descriptor.field_048 = 7.8499999f;
     descriptor.field_04C = -1;
     descriptor.field_000 = 15;
     descriptor.field_054 = 1;
@@ -1622,42 +1590,42 @@ void func_1506F54C(s32 arg0) {
     descriptor.field_051 = 255;
     descriptor.field_052 = 235;
     descriptor.field_053 = 82;
-    descriptor.field_058 = D_80099E44;
-    descriptor.field_05C = D_80099E48;
+    descriptor.field_058 = 0.00289999996f;
+    descriptor.field_05C = 0.00234999997f;
     descriptor.field_060 = 35;
     descriptor.field_062 = 10;
-    descriptor.field_064 = D_80099E4C;
-    descriptor.field_06C = D_80099E50;
-    descriptor.field_068 = D_80099E54;
-    descriptor.field_070 = D_80099E58;
-    descriptor.field_074 = D_80099E5C;
-    descriptor.field_078 = D_80099E60;
+    descriptor.field_064 = 0.802000046f;
+    descriptor.field_06C = 0.367000014f;
+    descriptor.field_068 = 0.589000046f;
+    descriptor.field_070 = 0.307000011f;
+    descriptor.field_074 = 0.614000022f;
+    descriptor.field_078 = 0.299000025f;
     descriptor.field_07C = 0.0f;
-    descriptor.field_080 = D_80099E64;
-    descriptor.field_084 = D_80099E68;
-    descriptor.field_088 = D_80099E6C;
+    descriptor.field_080 = 0.738000035f;
+    descriptor.field_084 = 0.962646008f;
+    descriptor.field_088 = 0.961867988f;
     descriptor.field_08C = 15;
     descriptor.field_08E = 17;
-    descriptor.field_090 = D_80099E70;
+    descriptor.field_090 = 0.369000018f;
     descriptor.field_094 = 80;
     descriptor.field_095 = 80;
-    descriptor.field_098 = D_80099E74;
+    descriptor.field_098 = 0.0240000002f;
     descriptor.field_09C = 22.0f;
     descriptor.field_0A0 = 58.0f;
     descriptor.field_0A4 = 212.0f;
-    descriptor.field_0A8 = D_80099E24;
-    descriptor.field_0AC = D_80099E78;
+    descriptor.field_0A8 = 0.200000003f;
+    descriptor.field_0AC = 0.105000004f;
     descriptor.field_0B0 = 3;
     descriptor.field_0B4 = 2;
     descriptor.field_0B8 = 25;
     descriptor.field_0BA = 10;
     descriptor.field_0BC = 6.0f;
     descriptor.field_0C0 = 10.0f;
-    descriptor.field_0C4 = D_80099E7C;
-    descriptor.field_0C8 = D_80099E24;
+    descriptor.field_0C4 = 0.300000012f;
+    descriptor.field_0C8 = 0.200000003f;
     descriptor.field_0CC = 37.0f;
-    descriptor.field_0D0 = D_80099E80;
-    descriptor.field_0D4 = D_80099E84;
+    descriptor.field_0D0 = 0.751000047f;
+    descriptor.field_0D4 = 0.322000027f;
     descriptor.field_0D8 = 80;
     descriptor.field_0DA = 80;
     descriptor.field_0DC = 15;
@@ -1665,25 +1633,23 @@ void func_1506F54C(s32 arg0) {
     descriptor.field_0E0 = 22.0f;
     descriptor.field_0E4 = 130.0f;
     descriptor.field_0E8 = 306.0f;
-    descriptor.field_0EC = D_80099E88;
-    descriptor.field_0F0 = D_80099E8C;
+    descriptor.field_0EC = 0.208000004f;
+    descriptor.field_0F0 = 0.193000004f;
     descriptor.field_0F4 = 35;
     descriptor.field_0F6 = 15;
     descriptor.field_0F8 = 80;
     descriptor.field_0FA = 100;
     descriptor.field_0FC = 198.0f;
     descriptor.field_100 = 102.0f;
-    descriptor.field_104 = D_80099E28;
-    descriptor.field_108 = D_80099E28;
+    descriptor.field_104 = 0.0400000028f;
+    descriptor.field_108 = 0.0400000028f;
     descriptor.field_10C = 89.0f;
-    descriptor.field_110 = D_80099E90;
-    descriptor.field_114 = D_80099E94;
+    descriptor.field_110 = -0.495000035f;
+    descriptor.field_114 = 0.443000019f;
     descriptor.field_118 = 15;
     descriptor.field_11A = 17;
     func_151994B8(0, &descriptor, 0xFF, 0);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1506F54C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506F54C.s")
 /* Call context: func_1519EF70: unique active project prototype */
 void func_1519EF70(s32, s32, s32);
 

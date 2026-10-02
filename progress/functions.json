@@ -20913,17 +20913,16 @@
       "symbol": "func_1506F524"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1162,
-        "reason": "One approved integration-recovery trial replaces29 actual ROM scalar float objects (31 literal occurrences) after literal-pool CURRENT0 appended128bytes and broke game equality. Source-valid real0x11C descriptor and coherent callback/provider contracts retained. Genuine external constants produce CURRENT1162: three prologue constant loads relocate into initialization, with constant/store scheduling differences; no further shaping authorized. Original focused-zero, pool-growth proof and recovery source are preserved in build/us/manual-attempts/game-structured-effect-constructor-20261002.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 884,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506F54C",
           "vram": "0x1506F54C"
         }
