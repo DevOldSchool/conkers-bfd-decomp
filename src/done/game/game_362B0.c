@@ -12,7 +12,10 @@ typedef struct Game362B0Sample {
 } Game362B0Sample;
 
 typedef struct Game362B0Preset {
-    u8 unknown00[0x14];
+    f32 force00;
+    f32 damping04;
+    f32 scale08;
+    u8 unknown0C[0x8];
     s16 initial14;
     u8 unknown16;
     u8 state17;

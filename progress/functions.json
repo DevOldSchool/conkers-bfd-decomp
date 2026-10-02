@@ -61955,6 +61955,12 @@
       "symbol": "func_1500FFCC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 560,
+        "reason": "Coherent 24-byte preset owner and exact constructor sample type correction preserves CURRENT560 after one approved validity-correction measurement. Constructor/reset bodies unchanged; accepted constructor/reset/clamp/caller regressions CURRENT0. Original 3817/560/1195 search exhausted; no extra declaration-order or storage-shape search. Preserve source-valid complete records, real 38-word contributions and ordinary global reloads.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
