@@ -41,14 +41,21 @@ including duplicate literals and padding, compare directly after relocation.
 Linker `NOLOAD` placement and exact size assertions preserve the executable
 overlay target's format; this does not claim to regenerate the data asset.
 
-## Power remains a candidate
+## Historical power candidates
 
-`0x4A400:0x4A5E0` remains raw assembly. Four bounded candidate compiles did
-not reproduce its saved floating-point register allocation. The latest
+The trials below predate the full-span match of `func_1504A400` in
+[`src/done/game/game_778B0.c`](../../src/done/game/game_778B0.c). The canonical
+map now links that completed C unit over all 480 bytes. The obsolete disabled
+`src/libultrare/gu/powf.c` candidate was removed during source-tree cleanup;
+its unsuccessful trials remain documented here as historical evidence.
+
+At the time of these trials, `0x4A400:0x4A5E0` remained raw assembly. Four
+bounded candidate compiles did not reproduce its saved floating-point register
+allocation. The latest
 candidate emits 448 text bytes instead of 480, with 106 different compared
 words after resolving both calls. Its object MD5 is
-`cef03357541642c8742d20609548fc15`. The C candidate is preserved, disabled,
-in `src/libultrare/gu/powf.c`; it is not included in the archive or counted
+`cef03357541642c8742d20609548fc15`. The C candidate was preserved, disabled,
+in `src/libultrare/gu/powf.c`; it was not included in the archive or counted
 as an exact match. No reference or target assembly was edited.
 
 ## Integration verification
@@ -87,7 +94,7 @@ result accumulator. None reproduced the target's saved `$f20` allocation.
 All three emitted text only and were checked after resolving the two library
 calls. The target extent remains 480 bytes. The explicit cast placement did
 not resolve the allocation difference; the second object reproduces the
-previous candidate exactly. The original disabled source is retained unchanged
+previous candidate exactly. The original disabled source was retained unchanged
 under `src/libultrare/gu/powf.c`. The temporary archive source and build entry
 were removed, leaving the canonical map raw and all accepted object checksums
 unchanged. No power function is credited or linked from these candidates.
@@ -119,7 +126,7 @@ optimization/debug variants add parameter spills and a `0x38`-byte frame.
 None improves the preserved candidate.
 
 The temporary archive source and per-object settings were removed, restoring
-the accepted Makefile exactly. The disabled candidate's body and raw map stay
-unchanged. This brings the recorded total to eleven candidate builds; none
+the accepted Makefile exactly. The disabled candidate's body and raw map stayed
+unchanged during that pass. This brings the recorded total to eleven candidate builds; none
 provides zero-difference evidence for power. Repeating these modes or the
 earlier register qualifiers is not a new lead.

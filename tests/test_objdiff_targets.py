@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import struct
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -106,6 +109,109 @@ class TargetValidationTests(unittest.TestCase):
             self.assertEqual(config['segments'][0]['subsegments'],
                              [[0,'c','000000'],[16,'asm','000010']])
             self.assertEqual(config['sha1'],'test-sha1')
+
+
+    def test_debugger_uses_full_rom_symbols_and_eight_byte_alignment(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(targets, 'ROOT', Path(tmp)):
+            root = Path(tmp)
+            binary = root / 'roms/baserom.us.z64'
+            binary.parent.mkdir()
+            binary.write_bytes(bytes(0x1A33E8))
+            units = [{'start': 0x19EA88, 'end': 0x1A2178, 'kind': 'unassigned',
+                      'overlay': 'debugger', 'key': 'debugger/19EA88'}]
+            config = targets.config_document(units, root / 'report/targets/debugger', binary, 'us-sha1')
+            self.assertEqual(config['options']['target_path'], 'roms/baserom.us.z64')
+            self.assertEqual(config['options']['symbol_addrs_path'], ['config/symbols/us.txt'])
+            self.assertEqual(config['segments'][0], [0, 'bin', 'prefix'])
+            self.assertEqual(config['segments'][1]['vram'], 0x16000000)
+            self.assertEqual(config['segments'][1]['align'], 8)
+            self.assertEqual(config['segments'][1]['subsegments'], [[0x19EA88, 'asm', '19EA88']])
+            self.assertEqual(config['segments'][2], [0x1A2178, 'bin', 'suffix'])
+            script = targets.linker_script(units, [Path('debugger.o')], '')
+            self.assertIn('.unit0 0x16000000', script)
+            self.assertIn('ASSERT(SIZEOF(.unit0) == 14064', script)
+
+    def test_debugger_plan_must_cover_checked_text_including_raw_tail(self):
+        code = bytes.fromhex('03e0000800000000')
+        start = targets.DEBUGGER_ROM_START
+        rom = bytes(start) + code
+        units = [{'overlay': 'debugger', 'start': start, 'end': start + len(code)}]
+        with patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, 'sha1')):
+            self.assertEqual(targets.debugger_target_bytes(units, rom, 'sha1'), code)
+            invalid = [[], [{**units[0], 'start': start + 4}], [{**units[0], 'end': start + 4}],
+                       [{'overlay': 'debugger', 'start': start, 'end': start + 4},
+                        {'overlay': 'debugger', 'start': start + 8, 'end': start + 8}]]
+            for plan in invalid:
+                with self.subTest(plan=plan), self.assertRaisesRegex(ValueError, 'complete checked text'):
+                    targets.debugger_target_bytes(plan, rom, 'sha1')
+            with self.assertRaisesRegex(ValueError, 'checked ROM image'):
+                targets.debugger_target_bytes(units, rom[:-1] + b'\1', 'sha1')
+        for image in ((code, 0x80000000, 'sha1'), (code, 0x16000000, 'different-sha1')):
+            with patch.object(targets.rom_span, 'debugger_code', return_value=image), \
+                    self.assertRaisesRegex(ValueError, 'checked ROM image'):
+                targets.debugger_target_bytes(units, rom, 'sha1')
+
+    def test_prepare_rejects_omitted_debugger_before_running_tools(self):
+        with patch.object(targets.subprocess, 'run') as run:
+            with self.assertRaisesRegex(ValueError, 'every US CPU overlay'):
+                targets.prepare([{'overlay': 'main'}, {'overlay': 'game'}], Path('unused'))
+        run.assert_not_called()
+
+    def test_prepare_proves_debugger_linked_bytes_and_rejects_corruption(self):
+        for corrupt in (False, True):
+            with self.subTest(corrupt=corrupt), tempfile.TemporaryDirectory() as tmp, \
+                    patch.object(targets, 'ROOT', Path(tmp)):
+                root, start = Path(tmp), targets.DEBUGGER_ROM_START
+                code = bytes.fromhex('03e0000800000000')
+                game = bytes.fromhex('0800000400000000')
+                rom = code + bytes(start - len(code)) + code
+                digest = hashlib.sha1(rom).hexdigest()
+                (root / 'roms').mkdir()
+                (root / 'roms/baserom.us.z64').write_bytes(rom)
+                (root / 'config').mkdir()
+                (root / 'config/roms.json').write_text(json.dumps({'profiles': {'us': {
+                    'size_bytes': len(rom), 'sha1': digest}}}))
+                (root / 'config/overlays.json').write_text(json.dumps({'overlays': {'game': {
+                    'profiles': {'us': {'sha1': hashlib.sha1(game).hexdigest()}}}}}))
+                specs = [{'overlay': overlay, 'start': offset, 'end': offset + 8,
+                          'kind': 'unassigned', 'key': f'{overlay}/{offset:06X}'}
+                         for overlay, offset in [('main', 0), ('game', 0), ('debugger', start)]]
+                commands = []
+                def run(command, **kwargs):
+                    commands.append(command)
+                    if command[0] == 'splat':
+                        config = json.loads(Path(command[2]).read_text())
+                        directory = root / config['options']['asm_path']
+                        directory.mkdir(parents=True)
+                        segment = next(s for s in config['segments'] if isinstance(s, dict))
+                        for offset, _, name in segment['subsegments']:
+                            (directory / (name + '.s')).write_text('glabel f\n')
+                        for name in ('undefined_funcs.txt', 'undefined_syms.txt'):
+                            (directory.parent / name).write_text('')
+                    elif command[0] == 'mips-linux-gnu-as':
+                        Path(command[command.index('-o') + 1]).write_bytes(bytes(8))
+                    elif command[0] == 'mips-linux-gnu-objcopy':
+                        path = Path(command[-1])
+                        data = game if path.parent.name == 'game' else code
+                        if corrupt and path.parent.name == 'debugger':
+                            data = data[:-1] + b'\1'
+                        path.write_bytes(data)
+                    return subprocess.CompletedProcess(command, 0)
+                with patch.object(targets.extract_game_code, 'extract_code', return_value=game), \
+                        patch.object(targets.rom_span, 'debugger_code', return_value=(code, 0x16000000, digest)), \
+                        patch.object(targets, 'text_extent', return_value=8), \
+                        patch.object(targets.subprocess, 'run', side_effect=run):
+                    if corrupt:
+                        with self.assertRaisesRegex(ValueError, 'debugger linked target differs'):
+                            targets.prepare(specs, root / 'report')
+                    else:
+                        prepared, verified = targets.prepare(specs, root / 'report')
+                        self.assertEqual(set(verified), {'main', 'game', 'debugger'})
+                        self.assertEqual(verified['debugger']['bytes'], 8)
+                        self.assertEqual(verified['debugger']['input_sha1'], digest)
+                        self.assertTrue(verified['debugger']['matches_original'])
+                        self.assertEqual(set(prepared), {s['key'] for s in specs})
+                self.assertEqual(sum(c[0] == 'mips-linux-gnu-ld' for c in commands), 3)
 
 
 if __name__ == '__main__':

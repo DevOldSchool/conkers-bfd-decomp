@@ -95,7 +95,7 @@ def linked_span(path: Path, obj: Object32, symbol: str, start: int, size: int,
 
 
 def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
-            symbol: str, start: int, size: int) -> tuple[Path, Path] | None:
+            symbol: str, start: int, size: int, *, overlay: str = "game") -> tuple[Path, Path] | None:
     current = Object32(candidate.read_bytes())
     raw = Object32(reference.read_bytes())
     # Ordinary size mismatches remain useful symbolic diagnostics, not tooling failures.
@@ -108,7 +108,7 @@ def prepare(root: Path, candidate: Path, reference: Path, assembly: Path,
     current_symbols, raw_symbols = definitions(current), definitions(raw)
     if current_symbols is None or raw_symbols is None:
         return None
-    code, base, _ = rom_span.game_code(root)
+    code, base, _ = rom_span.code_image(root, overlay)
     expected = rom_span.raw_span(assembly.read_text(), start, size, code, base)
     output = root / "build/us/linked-aliases" / symbol
     output.mkdir(parents=True, exist_ok=True)

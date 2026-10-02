@@ -17,7 +17,7 @@ def mapped_sources(profile: str, *, overlay: str | None = None,
         return [f"src/{name}.c" for _, kind, name in entries if kind == "c" and name]
 
     # Full-ROM profiles contain multiple executable images. Select the named
-    # segment explicitly; debugger C collections are not main source units.
+    # segment explicitly; debugger source units are separate from main units.
     segment_name = profile_segment if profile_segment is not None else overlay
     path = project_state.ROOT / "config/profiles" / f"{profile}.yaml"
     configuration = yaml.safe_load(path.read_text(encoding="utf-8"))

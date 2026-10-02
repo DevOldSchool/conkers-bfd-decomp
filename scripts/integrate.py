@@ -21,7 +21,7 @@ def replace_map_range(path: Path, start: int, end: int, mapped_name: str) -> Non
     lines = path.read_text(encoding="utf-8").splitlines()
     entry_pattern = re.compile(
         r"^(?P<indent>\s*)-\s*\[(?P<offset>0x[0-9A-Fa-f]+),\s*"
-        r"(?P<kind>asm|hasm|c|lib)(?:,\s*(?P<name>[^\]]+))?\]\s*$"
+        r"(?P<kind>asm|hasm|c|lib|data|rodata)(?:,\s*(?P<name>[^\]]+))?\]\s*$"
     )
     matches: list[tuple[int, re.Match[str]]] = []
     offsets: set[int] = set()
@@ -95,7 +95,7 @@ def integrate(symbol: str, profile: str) -> None:
     members = [entry for entry in functions if entry["symbol"] in unit["functions"]]
     unfinished = [entry["symbol"] for entry in members if not project_state.is_complete(entry)]
     integration = unit["integration"]
-    if integration == "c" or source.startswith("src/game/done/"):
+    if integration == "c" or source.startswith("src/done/"):
         raise project_state.ProjectStateError(f"source unit is already integrated: {source}")
 
     source_path = ROOT / source
@@ -104,20 +104,20 @@ def integrate(symbol: str, profile: str) -> None:
     region = unit["regions"][profile]
     start = int(region["start"], 0)
     end = int(region["end"], 0)
-    if start % 0x10 or end % 0x10:
+    alignment = project_state.source_unit_alignment(overlay)
+    if start % alignment or end % alignment:
         raise project_state.ProjectStateError(
-            f"{source}/{profile} must use 16-byte IDO object boundaries before integration"
+            f"{source}/{profile} must use {alignment}-byte object boundaries before integration"
         )
-    map_directory = "profiles" if overlay == "main" else "game"
-    map_path = ROOT / "config" / map_directory / f"{profile}.yaml"
+    map_path = project_state.profile_map_path(profile, overlay)
     mapped_name = source.removeprefix("src/").removesuffix(".c")
     source_content = source_path.read_text(encoding="utf-8")
 
     finalizing = integration == "mixed" or (integration == "raw_asm" and not unfinished)
     if integration == "raw_asm":
-        if unfinished and overlay != "game":
+        if unfinished and overlay not in {"game", "debugger"}:
             raise project_state.ProjectStateError(
-                "mixed C/ASM integration currently supports game-overlay source units only"
+                "mixed C/ASM integration currently supports game and debugger source units only"
             )
         missing_placeholders = [
             identifier
@@ -141,7 +141,7 @@ def integrate(symbol: str, profile: str) -> None:
     else:
         raise project_state.ProjectStateError(f"unsupported source-unit integration state: {integration}")
 
-    done_source = f"src/game/done/{source_path.name}"
+    done_source = project_state.completed_source_path(source, overlay)
     done_path = ROOT / done_source
     if finalizing and done_path.exists():
         raise project_state.ProjectStateError(f"integration destination already exists: {done_source}")
@@ -152,6 +152,7 @@ def integrate(symbol: str, profile: str) -> None:
         project_state.SOURCE_UNITS_FILE,
         project_state.SUMMARY_FILE,
         project_state.DOCUMENT_FILE,
+        *project_state.BADGE_FILES.values(),
     )
     snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked_paths}
     done_directory_existed = done_path.parent.exists()
@@ -178,18 +179,14 @@ def integrate(symbol: str, profile: str) -> None:
 
         # The build validates the on-disk project state. Publish the transactional
         # inventory changes before invoking it so finalized units point at the
-        # source after it has moved into src/game/done/. The snapshots above
+        # source after it has moved into src/done/. The snapshots above
         # restore these files if validation or the build fails.
         validated_functions = project_state.validate_functions(functions_data)
         project_state.validate_source_units(units_data, validated_functions)
         project_state.write_json(project_state.FUNCTIONS_FILE, functions_data)
         project_state.write_json(project_state.SOURCE_UNITS_FILE, units_data)
 
-        build_target = "build" if overlay == "main" else "game-integrated-refresh"
-        command = ["make", "--silent", "--jobs", "4", build_target]
-        if overlay == "main":
-            command.append(f"PROFILE={profile}")
-        subprocess.run(command, cwd=ROOT, check=True)
+        build_overlays({overlay}, profile)
 
         project_state.render_progress(validated_functions)
     except BaseException:
@@ -221,27 +218,46 @@ def integrate(symbol: str, profile: str) -> None:
         )
 
 
+def build_overlays(overlays: set[str], profile: str) -> None:
+    """Build each required image once; main and debugger share the full ROM."""
+
+    if overlays & {"main", "debugger"}:
+        subprocess.run(
+            ["make", "--silent", "--jobs", "4", "build", f"PROFILE={profile}"],
+            cwd=ROOT, check=True,
+        )
+    if "game" in overlays:
+        subprocess.run(
+            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
+            cwd=ROOT, check=True,
+        )
+
+
 def integrate_all_reviewed(profile: str) -> None:
-    """Integrate or finalize every pending reviewed game unit in one build."""
+    """Integrate eligible reviewed units transactionally across executable images."""
 
     functions_data = project_state.load_json(project_state.FUNCTIONS_FILE)
     units_data = project_state.load_json(project_state.SOURCE_UNITS_FILE)
     functions = project_state.validate_functions(functions_data)
     units = project_state.validate_source_units(units_data, functions)
     functions_by_id = {entry["symbol"]: entry for entry in functions}
-    candidates: list[tuple[dict, list[dict], Path, int, int, str, bool]] = []
-    map_path = ROOT / "config" / "game" / f"{profile}.yaml"
+    candidates = []
+    maps: set[Path] = set()
+    overlays: set[str] = set()
+    destinations: set[Path] = set()
 
     for unit in units:
         integration = unit["integration"]
         if integration not in {"raw_asm", "mixed"}:
             continue
         members = [functions_by_id[identifier] for identifier in unit["functions"]]
-        if any(member.get("overlay", "main") != "game" for member in members):
-            continue
+        member_overlays = {member.get("overlay", "main") for member in members}
+        if len(member_overlays) != 1:
+            raise project_state.ProjectStateError(f"source unit spans multiple overlays: {unit['source']}")
+        overlay = member_overlays.pop()
         unfinished = [member["symbol"] for member in members if not project_state.is_complete(member)]
         finalizing = not unfinished
-        if integration == "mixed" and not finalizing:
+        if not finalizing and (integration == "mixed" or overlay == "main"):
             continue
         source = unit["source"]
         evidence = unit.get("boundary_evidence", {}).get(profile)
@@ -258,11 +274,12 @@ def integrate_all_reviewed(profile: str) -> None:
                 raise project_state.ProjectStateError(
                     f"completed source unit still contains GLOBAL_ASM placeholders: {source}"
                 )
-            done_source = f"src/game/done/{source_path.name}"
-            if (ROOT / done_source).exists():
+            done_path = ROOT / project_state.completed_source_path(source, overlay)
+            if done_path.exists() or done_path.is_symlink() or done_path in destinations:
                 raise project_state.ProjectStateError(
-                    f"integration destination already exists: {done_source}"
+                    f"integration destination already exists: {done_path.relative_to(ROOT)}"
                 )
+            destinations.add(done_path)
         else:
             missing = [
                 identifier
@@ -276,33 +293,46 @@ def integrate_all_reviewed(profile: str) -> None:
         region = unit["regions"][profile]
         start = int(region["start"], 0)
         end = int(region["end"], 0)
+        alignment = project_state.source_unit_alignment(overlay)
+        if start % alignment or end % alignment:
+            raise project_state.ProjectStateError(
+                f"{source}/{profile} must use {alignment}-byte object boundaries before integration"
+            )
+        map_path = project_state.profile_map_path(profile, overlay)
         mapped_name = source.removeprefix("src/").removesuffix(".c")
         candidates.append(
-            (unit, members, source_path, start, end, mapped_name, finalizing)
+            (unit, members, source_path, start, end, mapped_name, finalizing, overlay, map_path)
         )
+        maps.add(map_path)
+        overlays.add(overlay)
 
     if not candidates:
-        print("No reviewed game source units are awaiting integration or finalization.")
+        print("No reviewed source units are awaiting integration or finalization.")
         return
 
     tracked_paths = (
-        map_path,
+        *maps,
         project_state.FUNCTIONS_FILE,
         project_state.SOURCE_UNITS_FILE,
         project_state.SUMMARY_FILE,
         project_state.DOCUMENT_FILE,
+        *project_state.BADGE_FILES.values(),
     )
     snapshots = {path: path.read_bytes() if path.exists() else None for path in tracked_paths}
-    moved_sources: list[tuple[Path, Path, bool]] = []
+    moved_sources: list[tuple[Path, Path]] = []
+    created_directories: set[Path] = set()
     try:
-        for unit, members, source_path, start, end, mapped_name, finalizing in candidates:
+        for unit, members, source_path, start, end, mapped_name, finalizing, overlay, map_path in candidates:
             if finalizing:
-                done_source = f"src/game/done/{source_path.name}"
+                done_source = project_state.completed_source_path(unit["source"], overlay)
                 done_path = ROOT / done_source
-                done_directory_existed = done_path.parent.exists()
+                parent = done_path.parent
+                while not parent.exists():
+                    created_directories.add(parent)
+                    parent = parent.parent
                 done_path.parent.mkdir(parents=True, exist_ok=True)
                 source_path.rename(done_path)
-                moved_sources.append((source_path, done_path, done_directory_existed))
+                moved_sources.append((source_path, done_path))
                 done_mapped_name = done_source.removeprefix("src/").removesuffix(".c")
                 if unit["integration"] == "mixed":
                     replace_c_mapping(map_path, start, mapped_name, done_mapped_name)
@@ -322,11 +352,7 @@ def integrate_all_reviewed(profile: str) -> None:
         project_state.validate_source_units(units_data, validated_functions)
         project_state.write_json(project_state.FUNCTIONS_FILE, functions_data)
         project_state.write_json(project_state.SOURCE_UNITS_FILE, units_data)
-        subprocess.run(
-            ["make", "--silent", "--jobs", "4", "game-integrated-refresh"],
-            cwd=ROOT,
-            check=True,
-        )
+        build_overlays(overlays, profile)
         project_state.render_progress(validated_functions)
     except BaseException:
         for path, content in snapshots.items():
@@ -335,22 +361,19 @@ def integrate_all_reviewed(profile: str) -> None:
             else:
                 path.parent.mkdir(parents=True, exist_ok=True)
                 path.write_bytes(content)
-        for source_path, done_path, done_directory_existed in reversed(moved_sources):
+        for source_path, done_path in reversed(moved_sources):
             if done_path.exists() and not source_path.exists():
                 source_path.parent.mkdir(parents=True, exist_ok=True)
                 done_path.rename(source_path)
-            if not done_directory_existed and done_path.parent.exists():
-                try:
-                    done_path.parent.rmdir()
-                except OSError:
-                    pass
+        for directory in sorted(created_directories, key=lambda path: len(path.parts), reverse=True):
+            directory.rmdir()
         raise
 
-    finalized = sum(finalizing for *_, finalizing in candidates)
+    finalized = sum(candidate[6] for candidate in candidates)
     mixed = len(candidates) - finalized
     print(
-        f"Integrated {mixed} reviewed game source unit(s) as mixed C/ASM and "
-        f"finalized {finalized} complete unit(s); the {profile.upper()} game build is byte-identical."
+        f"Integrated {mixed} reviewed source unit(s) as mixed C/ASM and "
+        f"finalized {finalized} complete unit(s); required {profile.upper()} builds are byte-identical."
     )
 
 

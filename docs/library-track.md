@@ -71,9 +71,9 @@ in [`config/game/us-sdk.ld`](../config/game/us-sdk.ld). Independent comparison
 maps retain raw assembly. The linked evidence records byte-identical full US
 ROM and game-overlay builds; object resemblance alone is not acceptance.
 
-Remaining library research includes the non-exact
-[`powf` candidate](../src/libultrare/gu/powf.c) and original external workspace
-ownership. See the [library residual audit](evidence/libultra_us_residual_boundary_audit.md)
+The former `powf` candidate is superseded by the matched power helper in
+[`game_778B0.c`](../src/done/game/game_778B0.c). Original external workspace
+ownership remains under research. See the [library residual audit](evidence/libultra_us_residual_boundary_audit.md)
 and [workspace review](evidence/libultrare_us_workspace_bounds.md).
 
 ## Contributor commands

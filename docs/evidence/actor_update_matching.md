@@ -11,7 +11,7 @@ value, produced authoritative full-span `CURRENT (0)` on the second candidate.
 No compiler setting, raw assembly, shared header or source boundary changed.
 
 The required source-unit transition moved the function to
-`src/game/done/game_7FA40.c` and kept the complete US game-code image and mapped
+`src/done/game/game_7FA40.c` and kept the complete US game-code image and mapped
 external rodata byte-identical. The clean integration-boundary batch passed:
 1,068 tests, 12 skipped, metadata, generated-progress and whitespace gates.
 The result was `BATCH_COMPLETE`. This is one new verified match and one

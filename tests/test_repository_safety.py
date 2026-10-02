@@ -260,19 +260,7 @@ class RepositorySafetyTests(unittest.TestCase):
         )
 
         self.assertEqual([], libultra_sources)
-        self.assertEqual(
-            [
-                "src/libultrare/gu/powf.c",
-            ],
-            libultrare_sources,
-        )
-        # A non-exact Rare reconstruction must remain outside the archive.
-        candidate = (ROOT / "src/libultrare/gu/powf.c").read_text(encoding="utf-8")
-        self.assertIn("#if 0\n", candidate)
-        self.assertNotIn(
-            "src/libultrare/gu/powf.c",
-            (ROOT / "lib/libultrare/Makefile").read_text(encoding="utf-8"),
-        )
+        self.assertEqual([], libultrare_sources)
 
     def test_agent_workflow_prewarms_and_composes_the_per_function_gate(self) -> None:
         script = (ROOT / "scripts" / "conker.sh").read_text(encoding="utf-8")

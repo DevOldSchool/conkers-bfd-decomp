@@ -53,7 +53,7 @@ def plan() -> list[dict]:
     by_id = {f['symbol']: f for f in functions}
     ranges = state.validate_code_ranges(state.load_json(state.OVERLAYS_FILE))
     result = []
-    for overlay in ('main', 'game'):
+    for overlay in state.OVERLAYS:
         start, end = ranges[overlay]['us']
         owned = []
         for unit in units:
@@ -122,7 +122,7 @@ def prepare() -> None:
     specs = plan()
     targets, target_verification = objdiff_targets.prepare(specs, OUTPUT)
     linked = {overlay: (OUTPUT / 'targets' / overlay / 'targets.bin').read_bytes()
-              for overlay in ('main', 'game')}
+              for overlay in state.OVERLAYS}
     origins = {overlay: min(s['start'] for s in specs if s['overlay'] == overlay)
                for overlay in linked}
     common = digest_files([p for p in (ROOT / 'include').rglob('*') if p.is_file()] + [Path(__file__),
@@ -142,7 +142,7 @@ def prepare() -> None:
         base_source = ROOT / spec['source'] if spec['kind'] == 'source' else None
         archive = None
         if spec['kind'] == 'sdk':
-            libdir = 'build/us/lib' if spec['overlay'] == 'main' else 'build/game-libs/us'
+            libdir = 'build/game-libs/us' if spec['overlay'] == 'game' else 'build/us/lib'
             archive = ROOT / libdir / (spec['archive'] + '.a')
         digest = hashlib.sha256((common + target['sha256'] + json.dumps(spec, sort_keys=True)).encode())
         if base_source:
@@ -226,7 +226,7 @@ def prepare() -> None:
             if field in item:
                 unit[field] = item[field]
         units.append(unit)
-    coverage = {'scope': 'All US main/game CPU code ranges; data and RSP excluded',
+    coverage = {'scope': 'All US main/game/debugger CPU code ranges; data and RSP excluded',
                 'mapped_code_bytes': sum(u['code_bytes'] for u in built),
                 'expected_code_bytes': sum(u['report_code_bytes'] for u in built),
                 'excluded_zero_bytes': sum(u['excluded_zero_bytes'] for u in built),
@@ -237,7 +237,8 @@ def prepare() -> None:
     objdiff.write_json(OUTPUT / 'coverage.json', coverage)
     objdiff.write_json(OUTPUT / 'objdiff.json', {'build_target': False, 'build_base': False,
         'units': units, 'progress_categories': [{'id': k, 'name': n} for k,n in
-            [('main','Main executable'),('game','Game overlay'),('project','Project code'),('sdk','SDK libraries')]]})
+            [('main','Main executable'),('game','Game overlay'),('debugger','Debugger overlay'),
+             ('project','Project code'),('sdk','SDK libraries')]]})
 
 
 def validate_report(report: dict, coverage: dict, config: dict) -> None:
@@ -261,7 +262,8 @@ def input_fingerprint() -> str:
     for directory in ('src', 'include', 'config', 'progress'):
         paths.extend(p for p in (ROOT / directory).rglob('*') if p.is_file())
     paths.extend([ROOT / 'Makefile', ROOT / 'toolchain/tools.lock.json', Path(__file__), ROOT / 'scripts/objdiff.py', ROOT / 'scripts/objdiff_targets.py',
-                  ROOT / 'scripts/extract_game_code.py', ROOT / 'scripts/compile_c.py',
+                  ROOT / 'scripts/extract_game_code.py', ROOT / 'scripts/rom_span.py',
+                  ROOT / 'scripts/project_state.py', ROOT / 'scripts/compile_c.py',
                   ROOT / 'scripts/normalize_asm.py', ROOT / 'scripts/conker.sh'])
     return digest_files(paths)
 

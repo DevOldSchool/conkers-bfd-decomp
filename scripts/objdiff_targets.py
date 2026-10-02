@@ -13,9 +13,12 @@ import subprocess
 
 import extract_game_code
 import normalize_asm
+import rom_span
 
 ROOT = Path(__file__).resolve().parent.parent
-ORIGINS = {'main': 0x80000000, 'game': 0x15000000}
+DEBUGGER_ROM_START = 0x19EA88
+ORIGINS = {'main': 0x80000000, 'game': 0x15000000,
+           'debugger': 0x16000000 - DEBUGGER_ROM_START}
 
 
 def sha256(path: Path) -> str:
@@ -39,7 +42,7 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
         'disassemble_all': True, 'asm_emit_size_directive': True,
         'asm_function_macro': 'glabel', 'asm_data_macro': 'glabel',
         'asm_jtbl_label_macro': 'jlabel', 'mips_abi_float_regs': 'o32',
-        'symbol_addrs_path': ['config/symbols/' + ('us' if overlay == 'main' else 'game-us') + '.txt'],
+        'symbol_addrs_path': ['config/symbols/' + ('game-us' if overlay == 'game' else 'us') + '.txt'],
     }
     segments = []
     if specs[0]['start']:
@@ -47,6 +50,7 @@ def config_document(specs: list[dict], directory: Path, binary: Path, sha1: str)
     segments.append({
         'name': overlay, 'type': 'code', 'start': specs[0]['start'],
         'vram': ORIGINS[overlay] + specs[0]['start'],
+        **({'align': 8} if overlay == 'debugger' else {}),
         'subsegments': [[s['start'], 'c' if s['kind'] == 'source' else 'asm', f"{s['start']:06X}"]
                         for s in specs],
     })
@@ -126,8 +130,26 @@ def symbol_coverage(original: bytes, symbols: dict) -> dict:
             'excluded_zero_ranges': gaps}
 
 
+def debugger_target_bytes(specs: list[dict], rom: bytes, digest: str) -> bytes:
+    """Keep the complete checked debugger text, including its raw TLB tail."""
+    code, base, checked_digest = rom_span.debugger_code(ROOT)
+    units = [s for s in specs if s['overlay'] == 'debugger']
+    start = DEBUGGER_ROM_START
+    end = start + len(code)
+    if (base != ORIGINS['debugger'] + start or checked_digest != digest
+            or rom[start:end] != code):
+        raise ValueError('debugger target input differs from the checked ROM image')
+    if (not units or units[0]['start'] != start or units[-1]['end'] != end
+            or any(s['end'] <= s['start'] for s in units)
+            or any(a['end'] != b['start'] for a, b in zip(units, units[1:]))):
+        raise ValueError('debugger target plan does not cover the complete checked text interval')
+    return code
+
+
 def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     """Fresh split, independent assembly, and whole-overlay link validation."""
+    if {s['overlay'] for s in specs} != set(ORIGINS):
+        raise ValueError('target plan must include every US CPU overlay')
     directory = output / 'targets'
     directory.mkdir(parents=True, exist_ok=True)
     rom = ROOT / 'roms/baserom.us.z64'
@@ -139,11 +161,14 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
     game_sha1 = json.loads((ROOT / 'config/overlays.json').read_text())['overlays']['game']['profiles']['us']['sha1']
     if hashlib.sha1(game_bytes).hexdigest() != game_sha1:
         raise ValueError('decompressed game code checksum mismatch')
+    debugger_bytes = debugger_target_bytes(specs, rom_bytes, profile['sha1'])
     game = directory / 'game.code.bin'
     game.write_bytes(game_bytes)
     targets, verification = {}, {}
-    for overlay, binary, original, digest in (
-        ('main', rom, rom_bytes, profile['sha1']), ('game', game, game_bytes, game_sha1)
+    for overlay, binary, original, origin, digest in (
+        ('main', rom, rom_bytes, 0, profile['sha1']),
+        ('game', game, game_bytes, 0, game_sha1),
+        ('debugger', rom, debugger_bytes, DEBUGGER_ROM_START, profile['sha1'])
     ):
         units = [s for s in specs if s['overlay'] == overlay]
         dest = directory / overlay
@@ -186,7 +211,7 @@ def prepare(specs: list[dict], output: Path) -> tuple[dict, dict]:
             subprocess.run(['mips-linux-gnu-objcopy', '-O', 'binary', str(elf), str(linked)],
                            cwd=ROOT, stdout=log, stderr=log, check=True)
         verification[overlay] = verify_linked_bytes(linked.read_bytes(),
-            original[units[0]['start']:units[-1]['end']], overlay)
+            original[units[0]['start'] - origin:units[-1]['end'] - origin], overlay)
         verification[overlay].update({'unit_count': len(units), 'input_sha1': digest,
                                       'config_sha256': sha256(config)})
         targets.update(prepared)

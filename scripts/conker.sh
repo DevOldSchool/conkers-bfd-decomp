@@ -47,8 +47,9 @@ Getting started
   progress integrate <work-item-id>
                                  Verify and record a byte-identical source-unit integration.
   progress integrate --all-reviewed
-                                 Integrate or finalize all pending reviewed game units in one build.
+                                 Integrate or finalize eligible reviewed units with one build per image.
   normalize-source-headers       Move reviewed source-unit comments below includes.
+  normalize-done-sources         Move completed sources into src/done/<overlay>/.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
     [--exclude-source PATH]       With --ready or --one, skip exact source paths (repeatable).
@@ -67,7 +68,7 @@ Getting started
                                  Skip a raw item that cannot enter the C candidate loop;
                                  retain its GLOBAL_ASM and record the blocker.
   unblock-raw <work-item-id>     Return a blocked raw item to manual selection.
-  verify-original-asm <id> --reason <text> --evidence-reference <path>
+  verify-original-asm <id> [--refresh | --reason <text> --evidence-reference <path>]
                                  Verify retained handwritten ASM against the full US ROM span;
                                  classify separately from C matches. --check revalidates it.
   resume <work-item-id>          Restore its C candidate and return it to automatic selection.
@@ -106,9 +107,11 @@ After the raw base split map is available
                                  Register one US game-overlay function for matching work.
   register-main --id <id> --us <symbol> --source <path>
                                  Register one US main-executable function for matching work.
+  register-debugger --id <id> --us <symbol> --source <path>
+                                 Register one US debugger function for matching work.
   record-region-size <id> --profile <region> --size <bytes>
                                  Preserve a reviewed legacy function span as function metadata.
-  register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset>
+  register-source-unit [--overlay main|game|debugger] --source <path> (--function <id>...|--register-members) --us-start <offset>
                        [--replace-unreviewed-source <path>]
       --us-end <offset> --evidence-kind <kind> --evidence-reference <reference>
                                  Register a separately reviewed source/object boundary.
@@ -494,6 +497,10 @@ verify_and_record_match() {
     if [[ "$diff_status" -ne 0 ]]; then
         return "$diff_status"
     fi
+    if ! run_in_warm_container python3 scripts/prepare_nonmatching_asm.py \
+        --profile "$selected_profile" --identifier "$selected_value"; then
+        return 3
+    fi
     if ! run_in_warm_container python3 scripts/layout_check.py "$selected_profile" "$selected_value"; then
         return 1
     fi
@@ -511,7 +518,8 @@ prepare_next_work() {
         [[ "$1" == "--exclude-source" && $# -ge 2 ]] || die "usage: ./conker next --ready [--exclude-source PATH]..."
         shift 2
     done
-    details="$(python3 "$state_tool" next --one --details "${selectors[@]}")"
+    # Bash 3 treats an empty array as unset under nounset.
+    details="$(python3 "$state_tool" next --one --details ${selectors[@]+"${selectors[@]}"})"
     first_line="${details%%$'\n'*}"
     [[ "$first_line" == "work-item: "* ]] || die "next --one --details did not emit a work-item"
     identifier="${first_line#work-item: }"
@@ -565,7 +573,13 @@ case "$command" in
                 shift
                 parse_profile_and_value "usage: ./conker progress integrate [--profile us] <work-item-id>|--all-reviewed" "$@"
                 python3 "$state_tool" setup-check --profile "$selected_profile"
-                run_in_container_libultra make --silent game-libs
+                integration_overlays="$(python3 "$state_tool" integration-plan "$selected_value")"
+                if [[ " $integration_overlays " == *" main "* || " $integration_overlays " == *" debugger "* ]]; then
+                    run_in_container_libultra make --silent profile-libs PROFILE="$selected_profile"
+                fi
+                if [[ " $integration_overlays " == *" game "* ]]; then
+                    run_in_container_libultra make --silent game-libs
+                fi
                 if [[ "$selected_value" == "--all-reviewed" ]]; then
                     run_in_container_integrating python3 scripts/integrate.py --profile "$selected_profile" --all-reviewed
                 else
@@ -578,6 +592,10 @@ case "$command" in
     normalize-source-headers)
         [[ $# -eq 0 ]] || die "usage: ./conker normalize-source-headers"
         python3 "$state_tool" normalize-source-headers
+        ;;
+    normalize-done-sources)
+        [[ $# -eq 0 ]] || die "usage: ./conker normalize-done-sources"
+        python3 "$state_tool" normalize-done-sources
         ;;
     next)
         if [[ "${1:-}" == "--ready" ]]; then
@@ -619,11 +637,21 @@ case "$command" in
         python3 "$state_tool" "$command" "$@"
         ;;
     verify-original-asm)
-        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --reason TEXT --evidence-reference PATH]"
-        python3 "$state_tool" setup-check --profile us
-        run_in_container python3 scripts/prepare_nonmatching_asm.py --profile us --identifier "$1"
+        [[ $# -gt 0 ]] || die "usage: ./conker verify-original-asm <id> [--check | --refresh | --reason TEXT --evidence-reference PATH]"
+        original_refresh_flag=""
+        for original_argument in "$@"; do
+            if [[ "$original_argument" == "--refresh" ]]; then
+                original_refresh_flag="--refresh"
+            fi
+        done
+        if [[ -n "$original_refresh_flag" ]]; then
+            python3 "$state_tool" setup-check --profile us --reverify-original-asm "$1"
+        else
+            python3 "$state_tool" setup-check --profile us
+            run_in_container python3 scripts/prepare_nonmatching_asm.py --profile us --identifier "$1"
+        fi
         original_proof="build/us/original-asm/$1/proof.json"
-        run_in_container python3 scripts/project_state.py verify-original-asm "$1" --proof-output "$original_proof"
+        run_in_container python3 scripts/project_state.py verify-original-asm "$1" ${original_refresh_flag:+"$original_refresh_flag"} --proof-output "$original_proof"
         python3 "$state_tool" verify-original-asm "$@" --proof "$repo_root/$original_proof"
         ;;
     resume)
@@ -730,7 +758,11 @@ case "$command" in
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1
         fi
-        if [[ " $batch_overlays " == *" main "* ]]; then
+        if [[ " $batch_overlays " == *" main "* || " $batch_overlays " == *" debugger "* ]]; then
+            if ! run_in_container_libultra make --silent profile-libs PROFILE=us; then
+                printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+                exit 1
+            fi
             if ! run_in_container make --silent --jobs 4 build PROFILE=us; then
                 printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
                 exit 1
@@ -914,12 +946,20 @@ case "$command" in
         fi
         python3 "$state_tool" register-main "$@"
         ;;
+    register-debugger)
+        [[ $# -eq 6 ]] || die "usage: ./conker register-debugger --id <id> --us <symbol> --source <path>"
+        python3 "$state_tool" setup-check --profile us
+        if [[ ! -f "$repo_root/reference/us/asm/debugger/debugger.s" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        fi
+        python3 "$state_tool" register-debugger "$@"
+        ;;
     record-region-size)
         [[ $# -eq 5 ]] || die "usage: ./conker record-region-size <id> --profile <region> --size <bytes>"
         python3 "$state_tool" record-region-size "$@"
         ;;
     register-source-unit)
-        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference> [--replace-unreviewed-source <path>]"
+        [[ $# -gt 0 ]] || die "usage: ./conker register-source-unit [--overlay main|game|debugger] --source <path> (--function <id>...|--register-members) --us-start <offset> --us-end <offset> --evidence-kind <kind> --evidence-reference <reference> [--replace-unreviewed-source <path>]"
         python3 "$state_tool" setup-check --profile us
         registration_overlay=game
         previous_argument=""
@@ -930,7 +970,9 @@ case "$command" in
             fi
             previous_argument="$argument"
         done
-        if [[ "$registration_overlay" == "main" && ! -d "$repo_root/reference/us/asm" ]]; then
+        if [[ "$registration_overlay" == "debugger" && ! -f "$repo_root/reference/us/asm/debugger/debugger.s" ]]; then
+            run_in_container make prepare-reference PROFILE=us >&2
+        elif [[ "$registration_overlay" != "game" && ! -d "$repo_root/reference/us/asm" ]]; then
             run_in_container make prepare-reference PROFILE=us >&2
         elif [[ "$registration_overlay" == "game" && ! -d "$repo_root/reference/game/us/asm" ]]; then
             run_in_container make game-asm GAME_REFERENCE_PROFILE=us >&2

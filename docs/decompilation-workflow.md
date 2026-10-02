@@ -317,7 +317,8 @@ Or deliberately derive all members from a reviewed range:
 ```
 
 `--overlay game` is the compatibility default; specify `--overlay main` for
-main-executable work. Accepted evidence kinds are `linker_map`,
+main-executable work or `--overlay debugger` for the US debugger image.
+Accepted evidence kinds are `linker_map`,
 `object_symbols`, and `structural_analysis`.
 
 Registration preserves existing sources and otherwise creates a minimal
@@ -330,9 +331,32 @@ into the canonical mixed C/ASM build with:
 
 Run integration when a reviewed raw unit first enters mixed mode. Run it again
 only after every function in that mixed unit matches; successful verification
-then moves the assembly-free source under `src/game/done/`. Use
-`./conker progress integrate --all-reviewed` to promote multiple reviewed raw
-units transactionally.
+then moves the assembly-free source from `src/<path>.c` to
+`src/done/<path>.c`, preserving every source subdirectory. For example,
+`src/game/camera/example.c` becomes `src/done/game/camera/example.c`.
+The path rule is generic and supports main, game and debugger sources. Use
+`./conker progress integrate --all-reviewed` to promote eligible reviewed
+units transactionally, building the full ROM and/or game image as needed.
+Incomplete raw main units remain pending until fully matched.
+`./conker normalize-done-sources` migrates legacy
+completed-source paths, mappings and inventory together; verify main and game
+with a clean `verify-batch` before handoff.
+
+For an individual debugger function, use `./conker register-debugger --id <id>
+--us <symbol> --source src/debugger/<file>.c`, then the normal `next --ready`,
+`m2c`, `finish` and `verify-batch` commands. Reference extraction and build
+verification use the full ROM; debugger code is never read from the compressed
+game overlay. Full-span US ROM bytes and debugger jump tables remain required
+focused-match evidence. There is no reviewed EU/PAL debugger range.
+
+Debugger source-unit offsets are absolute ROM offsets within
+`0x19EA88:0x1A2178`; virtual addresses begin at `0x16000000`. The image uses
+8-byte boundary alignment. Existing C collections are provisional scaffolds,
+so registering a function does not establish a source-unit boundary. Only an
+explicit `register-source-unit --overlay debugger` with reviewed evidence may
+adopt an exact existing C mapping as mixed C/ASM. Once every member matches,
+integration verifies the full ROM and moves the unit to `src/done/debugger/`.
+Keep the loaded data and privileged TLB routine raw unless separately reviewed.
 
 If later evidence invalidates an untouched game boundary, use
 `./conker withdraw-source-unit --source src/game/<unit>.c`. It restores the
@@ -341,12 +365,13 @@ discard modified or matched C work.
 
 ## Verified original assembly
 
-Reviewed handwritten main/game routines may remain unchanged `GLOBAL_ASM` bodies
+Reviewed handwritten main/game/debugger routines may remain unchanged `GLOBAL_ASM` bodies
 with independent full-span ROM proof (for example, routines with a custom ABI):
 
 ```sh
 ./conker verify-original-asm <id> --reason "reviewed custom ABI" --evidence-reference docs/evidence/<review>.md
 ./conker verify-original-asm <id> --check
+./conker verify-original-asm <id> --refresh
 ```
 
 The command assembles/links the original body, verifies its entire registered ROM
@@ -355,8 +380,14 @@ state excludes the item from C-candidate selection and reports it separately. It
 contributes no C matches/matched bytes and cannot complete a C source unit.
 `verify-batch` accepts these items alongside C matches and revalidates their proofs.
 
+Use `--refresh` when regenerated assembly text changes but the routine's recorded
+ROM bytes remain identical. It reassembles the complete span and updates the text
+hash transactionally, preserving the existing classification. Changed ROM/span
+hashes are rejected; normal validation and `--check` continue to reject stale
+evidence. Materialization preserves existing verified original assembly.
+
 Main proofs use the checksum-validated CPU interval, excluding the boot blob and
-RSP payloads. Main batches require full-ROM equality; game batches require the
+RSP payloads. Main and debugger batches require full-ROM equality; game batches require the
 independently rebuilt game overlay. This does not enable mixed main C/ASM integration
 or turn internal branch labels into ordinary C-function entries.
 

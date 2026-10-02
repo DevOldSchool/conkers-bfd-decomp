@@ -21,13 +21,16 @@ SYMBOL_PATTERN = re.compile(
 
 
 def collect_symbols(source_directories: list[Path] | Path) -> dict[str, int]:
-    """Return label-to-address mappings encoded in bootstrap source names."""
+    """Collect address-bearing labels from directories or explicit source files."""
 
     if isinstance(source_directories, Path):
         source_directories = [source_directories]
     symbols: dict[str, int] = {}
     for directory in source_directories:
-        for source in sorted(path for path in directory.rglob("*") if path.is_file()):
+        sources = [directory] if directory.is_file() else sorted(
+            path for path in directory.rglob("*") if path.is_file()
+        )
+        for source in sources:
             for match in SYMBOL_PATTERN.finditer(source.read_text(encoding="utf-8")):
                 symbols[match.group("name")] = int(match.group("address"), 16)
     return symbols

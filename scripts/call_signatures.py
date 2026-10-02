@@ -18,6 +18,7 @@ from pathlib import Path
 
 import candidate_syntax
 import declaration_facts
+import project_state
 
 
 WORD_TYPES = frozenset(('s32', 'u32', 'int', 'unsigned int', 'signed int'))
@@ -285,14 +286,13 @@ def raw_callee_path(root: Path, symbol: str, profile: str = 'us') -> Path | None
     stat = inventory.stat()
     entries = [e for e in _inventory(str(inventory), stat.st_mtime_ns, stat.st_size)
                if e.get('regions', {}).get(profile, {}).get('symbol') == symbol]
-    if len(entries) != 1 or entries[0].get('overlay', 'main') != 'game':
+    if len(entries) != 1 or entries[0].get('overlay', 'main') not in {'game', 'debugger'}:
         return None
     entry = entries[0]
     try:
-        relative = Path(entry['source']).relative_to('src/game').with_suffix('')
+        path = root / project_state.nonmatching_asm_path(entry['source'], entry['symbol'])
     except (KeyError, ValueError):
         return None
-    path = root / 'asm/nonmatchings' / relative / (entry['symbol'] + '.s')
     if not path.is_file():
         return None
     text = path.read_text()

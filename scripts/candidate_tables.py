@@ -1,4 +1,4 @@
-"""Additional candidate-time gate for ROM-backed IDO game switch tables.
+"""Additional candidate-time gate for ROM-backed IDO overlay switch tables.
 
 Run only after a full-span instruction CURRENT (0): instruction offsets then
 identify the candidate's dispatch relocations. This does not prove final linker
@@ -14,6 +14,7 @@ import struct
 import hashlib
 import json
 import rzip_archive
+import rom_span
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -130,7 +131,7 @@ def reference_tables(assembly: str, code: bytes, data: bytes,
         address = (((upper & 0xFFFF) << 16) + (lower if lower < 0x8000 else lower - 0x10000)) & 0xFFFFFFFF
         offset = address - data_vram
         if address != int(name[1], 16) or offset < 0 or offset % 4 or offset + counts[0] * 4 > len(data):
-            raise TableEvidenceError("switch table outside ROM game data")
+            raise TableEvidenceError("switch table outside ROM overlay data")
         targets = tuple(int.from_bytes(data[pos:pos + 4], "big")
                         for pos in range(offset, offset + counts[0] * 4, 4))
         if any(target not in addresses for target in targets):
@@ -235,8 +236,22 @@ def verify_object(data: bytes, symbol: str, raw_start: int, tables: list[Table],
                 raise TableEvidenceError(f"switch table case {index} differs from US ROM")
 
 
-def verify_candidate(candidate: Path, symbol: str, assembly: Path, expected_size: int) -> None:
+def verify_candidate(candidate: Path, symbol: str, assembly: Path, expected_size: int,
+                     *, overlay: str = "game", expected_start: int | None = None) -> None:
     raw = assembly.read_text()
+    if overlay == "debugger":
+        code, data, base, data_base, _ = rom_span.debugger_image(ROOT)
+        rows = re.findall(r"/\*\s+[0-9A-Fa-f]+\s+([0-9A-Fa-f]{8})\s+[0-9A-Fa-f]{8}\s*\*/", raw)
+        if not rows:
+            raise TableEvidenceError("debugger reference has no raw instruction addresses")
+        rom_span.raw_span(raw, int(rows[0], 16) if expected_start is None else expected_start,
+                          expected_size, code, base)
+        if re.search(r"%lo\(jtbl_", raw):
+            start, tables = reference_tables(raw, code, data, base, data_base)
+            verify_object(candidate.read_bytes(), symbol, start, tables, expected_size)
+        return
+    if overlay != "game":
+        raise TableEvidenceError(f"unsupported candidate table overlay: {overlay}")
     if not re.search(r"%lo\(jtbl_", raw):
         return
     layout = json.loads((ROOT / "config/rzip_layouts.json").read_text())["profiles"]["us"]
