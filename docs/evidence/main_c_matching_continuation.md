@@ -1457,3 +1457,33 @@ tests with 12 skipped, metadata, progress and whitespace pass with
 `BATCH_COMPLETE`. Game sources remain unchanged from their preceding separately
 verified batch. Totals remain **67 / 8,388 bytes**, with **2,700** accepted US C
 functions and no pending IDs.
+
+## Thirty-eighth batch: allocator core reconstruction
+
+The preserved `80003C6C` candidate keeps all five fullword formals and the
+existing allocator block views. The two alignment tables contain five signed
+halfwords each; ordinary structure assignment reproduces their exact ten-byte
+copies without extending either table. All address calculations use explicit
+word-width byte arithmetic, and fit and fragment-size comparisons are unsigned.
+Forward small tails are absorbed into the allocation; backward small prefixes
+recompute the earliest aligned payload before replacing the free block.
+Original argument diagnostics, tag bits, overlapping-header update order and
+interrupt restoration agree with independent raw-assembly review.
+
+The initial form scores 3959. Moving the table definitions into declaration
+initializers is code-neutral. Reusing the actual evolving alignment result
+removes an unnecessary input-argument home but worsens the full diff to 4299.
+The first form is restored and retained disabled. The unresolved frame gap and
+mixed register/control differences do not justify extra storage or further
+source-shape enumeration.
+
+A read-only scheduler pass also recovers all seven switch targets for
+`800049E0` from the existing data assembly. Its reviewed source claim excludes
+the table's ownership, so the case map is preserved without changing code,
+reference data, or source boundaries.
+
+A clean four-target main batch verifies the three existing allocator matches
+and the PI initializer. Full US ROM equality, 1,346 tests with 12 skipped,
+metadata, progress and whitespace pass with `BATCH_COMPLETE`. Game sources
+remain unchanged from their preceding separately verified batch. Totals remain
+**67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.

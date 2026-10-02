@@ -90831,6 +90831,12 @@
       "symbol": "func_80003C40"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3959,
+        "reason": "Bounded manual allocator reconstruction: exact ten-byte table copies and observed byte arithmetic/list ordering; best CURRENT3959 retained after neutral initializer and worse address-lifetime revision. Frame and register/control differences remain; no synthetic storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
