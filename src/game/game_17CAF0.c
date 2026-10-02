@@ -50,7 +50,7 @@ void func_1514F640(s32 arg0, u8 *arg1) {
         *(f32 *)((u8 *)arg1 + 0xC) = (f32) -*(f32 *)((u8 *)arg1 + 0xC);
     }
 }
-s32 func_15146078();
+s32 func_15146078(void *, void *, void *);
 
 s32 func_1514F6E8(void *arg0) {
     f32 *temp_a0;
@@ -129,17 +129,16 @@ typedef struct {
     u8 field_10;
 } Game17CAF0Emitter;
 
-s32 func_15146078(Game17CAF0Emitter *, Game17CAF0Vec3f *,
-                  Game17CAF0Vec3f *, s32);
 void func_1514F8F8(void *, Game17CAF0Emitter *, Game17CAF0Vec3f *,
                    Game17CAF0Vec3f *, f32, s32, s32);
 
-void func_1514FB98(Game17CAF0Emitter *arg0, u8 arg1, s32 arg2, s32 arg3) {
+void func_1514FB98(void *arg0, u8 arg1, s32 arg2) {
     Game17CAF0Vec3f sp34;
     Game17CAF0Vec3f sp28;
 
-    if (func_15146078(arg0, &sp34, &sp28, arg3) != 0) {
-        func_1514F8F8(&arg0->field_10, arg0, &sp34, &sp28, arg0->field_C,
+    if (func_15146078(arg0, &sp34, &sp28) != 0) {
+        func_1514F8F8(&((Game17CAF0Emitter *)arg0)->field_10, arg0, &sp34, &sp28,
+                      ((Game17CAF0Emitter *)arg0)->field_C,
                       arg1, arg2);
     }
 }

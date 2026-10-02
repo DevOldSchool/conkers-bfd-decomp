@@ -33655,8 +33655,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1386,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1386)",
+        "current_score": 940,
+        "reason": "Raw-proved three-pointer helper contract removes phantom float argument; previous source and score1386 preserved. Corrected call uses original s3/s4/s5 address carriers. Remaining arithmetic/register differences deferred.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -36775,7 +36775,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1108,
+        "current_score": 913,
         "reason": "Manual aggregate vector copy improved CURRENT 1415 to 1108. Frame/locals remain eight bytes high with s0/s1 assignment and arg3 home/mask differences. Wide local with explicit masks regressed1671; typed packet neutral1108. Two nonimproving revisions; best preserved without parameter ABI changes.",
         "recorded_revision": "working-tree"
       },
@@ -36792,6 +36792,12 @@
       "symbol": "func_151BFDA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6715,
+        "reason": "Provider- and consumer-proved complete records: upper0x78, lower0x64, three12-byte output vectors. First6715 has exact relative object homes but extra saved-parameter lifetimes/frame130 vs120. Fullword target flags preserved; no declaration evidence permits narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -827,7 +827,7 @@ void func_15136AE4(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4,
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15137610.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_1513783C.s")
 s32 func_15145128(BloodVec3 *, BloodVec3 *, f32 *, f32 *);
-s32 func_15146078(BloodVec3 *, s32, s32);
+s32 func_15146078(void *, void *, void *);
 
 s32 func_15137C64(BloodVec3 *arg0, BloodVec3 *arg1, BloodVec3 *arg2,
                     s32 arg3, s32 arg4, BloodVec3 *arg5,
@@ -863,7 +863,7 @@ have_positions:
     } else {
         *arg2 = *arg7;
     }
-    if (func_15146078(arg2, arg3, arg4) == 0) {
+    if (func_15146078(arg2, (void *)arg3, (void *)arg4) == 0) {
         return 2;
     }
     return 1;

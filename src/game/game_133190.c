@@ -122,9 +122,9 @@ f32 func_15106558(f32);
 f32 func_15106584(f32);
 f32 func_151065BC(f32);
 f32 func_151065EC(f32);
-s32 func_15146078(f32, s32, s32, s32);              /* extern */
+s32 func_15146078(void *, void *, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106214 CURRENT (1386) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15106214 CURRENT (940) */
 void func_15106214(s32 arg0) {
     f32 sp78;
     f32 sp64;
@@ -171,7 +171,7 @@ void func_15106214(s32 arg0) {
             *(f32 *)((u8 *)var_s1 + 0x14) = (f32) ((*(f32 *)((u8 *)arg0 + 0x3C) * temp_fv0) + ((*(f32 *)((u8 *)arg0 + 0x18) * temp_fs2) + (*(f32 *)((u8 *)arg0 + 0x24) * temp_fs3) + (*(f32 *)((u8 *)arg0 + 0x30) * temp_fs4)));
             *(f32 *)((u8 *)var_s1 + 0x18) = (f32) ((*(f32 *)((u8 *)arg0 + 0x40) * temp_fv0) + ((*(f32 *)((u8 *)arg0 + 0x1C) * temp_fs2) + (*(f32 *)((u8 *)arg0 + 0x28) * temp_fs3) + (*(f32 *)((u8 *)arg0 + 0x34) * temp_fs4)));
             var_s2 += 1;
-            if (func_15146078(sp64, var_s3, var_s4, var_s5) == 0) {
+            if (func_15146078((void *)var_s3, (void *)var_s4, (void *)var_s5) == 0) {
                 *(f32 *)((u8 *)var_s1 + 0x1C) = 0.0f;
                 *(f32 *)((u8 *)var_s1 + 0x20) = 0.0f;
                 *(f32 *)((u8 *)var_s1 + 0x24) = 0.0f;

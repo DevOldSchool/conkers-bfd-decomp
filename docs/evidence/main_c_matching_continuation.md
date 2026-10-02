@@ -1688,3 +1688,55 @@ initializer. Full US ROM equality, integrated game and rodata checks, 1,353
 tests with 12 skipped, metadata, progress and whitespace pass with
 `BATCH_COMPLETE` in 77.001 seconds. Totals remain **67 / 8,388 bytes**, with
 **2,700** accepted US C functions and no pending IDs.
+
+## Forty-fourth batch: vector-helper contracts and complete dispatch records
+
+Raw `15146078` consumes three pointers. At 15146094 it overwrites incoming A3
+with A0 before its first use, so the unchanged A3 forwarded by `1514FB98` was
+not a fourth input. The matched wrapper's phantom fourth formal and forwarding
+argument are removed. Its three-argument boundary now consistently uses an
+opaque record pointer, the already established byte argument, and a fullword
+argument. Known declarations of both helpers agree; existing typed local views
+remain inside the wrapper without introducing a new local alias.
+
+The older disabled `15106214` call had incorrectly supplied a leading float
+argument. Raw 151062FC, 15106300 and 15106308 establish A0=S3, A1=S4 and A2=S5.
+The corrected call passes those existing address carriers as pointers and leaves
+the arithmetic sample used elsewhere unchanged. The blood caller retains its
+own fullword address-carrier parameters and casts them explicitly at the helper
+boundary. This scoped five-source correction received independent review.
+
+Before applying it, six focused baselines cover all five compiled source units,
+and a clean batch verifies all 72 existing affected matches and full US/game/
+rodata equality. The three disabled caller baselines reproduce 1386, 1108 and
+3507. After the correction, focused checks remain exact, and all five active
+C units' complete text and relocation sections are byte-identical. The disabled
+callers recheck at 940, 913 and 3507 respectively. The first two improvements
+change their candidate code; neither is an accepted match.
+
+The newly selected dispatcher `151BFE84` needs complete enclosing records rather
+than the generated starter's separate address-taken scalar locals. Its geometry
+helper reads nine signed halfwords and writes three 12-byte vectors. The common
+configuration writer and consumer independently establish fields through signed
+byte 0x50, with natural four-byte alignment giving size 0x54. Its position field
+is exactly 12 bytes, confirmed through the forwarding chain to `151A26EC`.
+
+The upper record contains a 12-byte velocity, an 18-byte halfword-aligned
+triangle, the natural two-byte alignment gap, a float at 0x20, and configuration
+at 0x24, for size 0x78. The lower record contains velocity, a float at 0xC, and
+configuration at 0x10, for size 0x64. The consumers explain the distinction:
+one derives its basis from the copied triangle, while the other derives it from
+the supplied vector. Both branch-specific copy orders remain explicit.
+
+The first complete-record form scores 6715. All five objects have the correct
+offsets relative to incoming SP, while parameter caching adds saved registers
+and increases the frame from 0x120 to 0x130. No active target declaration proves
+narrow flag formals, so they remain fullword with explicit byte uses. Independent
+review finds no semantic issue, and the form remains disabled without invented
+storage, volatile accesses or unsupported narrowing.
+
+The final clean 73-target batch verifies all 72 affected existing matches and
+the PI initializer. Full US ROM equality, integrated game and rodata checks,
+1,353 tests with 12 skipped, metadata, progress and whitespace pass with
+`BATCH_COMPLETE` in 85.256 seconds. Totals remain **67 / 8,388 bytes**, with
+**2,700** accepted US C functions and no pending IDs.

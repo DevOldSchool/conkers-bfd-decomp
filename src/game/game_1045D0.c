@@ -78,7 +78,7 @@ typedef struct GameD728CPayload {
 
 void func_151BFC40(void *, f32 *);
 void func_1514FBFC(void *, u8, s32);
-void func_1514FB98(f32 *, u8, s32);
+void func_1514FB98(void *, u8, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150D728C CURRENT (3507) */
 void func_150D728C(GameD728CPayload *arg0, Game1045D0Position *arg1,
