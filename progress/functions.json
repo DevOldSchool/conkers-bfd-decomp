@@ -57505,6 +57505,12 @@
       "symbol": "func_1501BB20"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 13530,
+        "reason": "Valid four-element SDK pad array and existing fullword address-return contract. CURRENT 17121 -> 14965 -> 13530 across initial and two targeted revisions. Best valid conditional-sign and mapped-field store-order form retained; remaining 0x70 versus 0x60 frame, error-loop expansion and register/global scheduling. No artificial storage, aliases, narrowing or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -57574,6 +57580,12 @@
       "symbol": "func_1501C17C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 730,
+        "reason": "Valid SDK queue and 0x68-byte Pak records with four-lane arrays. CURRENT 730 across initial and two nonimproving revisions; preserved best valid direct-array source. Frame matches; remaining register priority, global-base/load-store scheduling and phase-loop join. No ABI, storage or shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
