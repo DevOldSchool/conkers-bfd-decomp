@@ -33515,8 +33515,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4174,
-        "reason": "Initialmanual candidateCURRENT4174; frame80vs78, formalhome/signextension and arg5LWvsLBU discrepancies; canonical C73C fifths32 contract produces word loads vs raw float transfer. Exact approved arg2 widening retained, no other ABI changes. Saved initialbody/full diff; no matching revisions, defer pending concrete ABI/lifetime path.",
+        "current_score": 3624,
+        "reason": "Coherent direct-float X-coordinate interface: local fifth-slot f32 and arg4[0] replace obsolete scalar pointer pun. Valid CURRENT3624 with real0x28 descriptor and used locals. Remaining frame/formal-home/register differences; one transition measurement and no other ABI or shape changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58185,8 +58185,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5460,
-        "reason": "Valid CURRENT5460 with genuine 0x28 descriptor, 0x20 custom state and actual float/word representation for the current factory slot. Bounded source-supported forms plateaued; preserve real state without fake padding, conflicting float declaration or alias tricks. Shared factory union trial failed and was completely restored.",
+        "current_score": 5102,
+        "reason": "Coherent direct-float C73C interface transition only: real float query X replaces old word view, ordinary three-float storage. Single CURRENT 5102 measurement; frame0xE0 vs0xD8 and initializer/register scheduling remain. Historical5460 retained in prior artifacts; no shape search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58365,8 +58365,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5460,
-        "reason": "Valid CURRENT5460 with genuine 0x28 descriptor, 0x20 custom state and actual float/word representation for the current factory slot. Bounded source-supported forms plateaued; preserve real state without fake padding, conflicting float declaration or alias tricks. Shared factory union trial failed and was completely restored.",
+        "current_score": 5102,
+        "reason": "Coherent direct-float C73C interface transition only: real float query X replaces old word view, ordinary three-float storage. Single CURRENT 5102 measurement; frame0xE0 vs0xD8 and initializer/register scheduling remain. Historical5460 retained in prior artifacts; no shape search.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72997,8 +72997,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 233,
-        "reason": "CURRENT (233): full instruction/control-flow count aligns after hoisting third random call; packet/sp5C stack base is +8 and sp50/sp54 spills +12 versus raw, with related register allocation; same stack plateau as sibling func_150DE12C",
+        "current_score": 315,
+        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73016,8 +73016,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 233,
-        "reason": "CURRENT (233): instruction count and control flow align with raw US, but packet and scalar local stack slots differ (packet base sp68 versus raw sp60) after bounded source-layout revisions",
+        "current_score": 315,
+        "reason": "Coherent f32 C73C interface with genuine0x28 owning descriptor and complete-object pointer. Single transition/extent measurement CURRENT315; old undersized233 and word-union925 are obsolete. Frame0x98 vs0x90, packet/scalar/RNG spill offsets and registers remain. No shape revisions.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

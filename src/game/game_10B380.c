@@ -70,9 +70,11 @@ typedef struct {
     u8 pad_16[2];
     s32 field_18;
     u32 pad_1C;
+    /* func_1513C350 copies the complete 0x28-byte descriptor. */
+    u8 unknown_20[8];
 } Game10B380Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDFAC CURRENT (233) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DDFAC CURRENT (315) */
 s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
     void *sp8C;
     s32 sp88;
@@ -110,7 +112,7 @@ s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     sp54 = func_150ADA20();
     sp4C = func_150ADA20();
     entry = (u8 *)(sp88 + ((s8)arg0[0x2D] * 0x14));
-    func_1513C73C(&packet.field_00, 5, 0, arg5, *(f32 *)entry, arg4,
+    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)entry, arg4,
                    *(f32 *)(entry + 8), sp5C, sp5C, sp50 & 0xFF,
                    (sp4C & 1) + (sp54 & 1), 0, arg0[0xC], arg0[1]);
     return 1;
@@ -118,7 +120,7 @@ s32 func_150DDFAC(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DDFAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10B380/func_150DDFAC.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE12C CURRENT (233) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DE12C CURRENT (315) */
 s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) {
     void *sp8C;
     s32 sp88;
@@ -156,7 +158,7 @@ s32 func_150DE12C(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4, void *arg5) 
     sp54 = func_150ADA20();
     sp4C = func_150ADA20();
     entry = (u8 *)(sp88 + ((s8)arg0[0x2D] * 0x14));
-    func_1513C73C(&packet.field_00, 5, 0, arg5, *(f32 *)entry, arg4, *(f32 *)(entry + 8), sp5C, sp5C, sp50 & 0xFF, (sp4C & 1) + (sp54 & 1), 0, arg0[0xC], arg0[1]);
+    func_1513C73C((s32 *)&packet, 5, 0, arg5, *(f32 *)entry, arg4, *(f32 *)(entry + 8), sp5C, sp5C, sp50 & 0xFF, (sp4C & 1) + (sp54 & 1), 0, arg0[0xC], arg0[1]);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DE12C */

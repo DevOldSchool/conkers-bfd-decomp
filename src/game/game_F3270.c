@@ -207,11 +207,6 @@ typedef struct GameF3270Vector {
     f32 coordinates[3];
 } GameF3270Vector;
 
-typedef union GameF3270Position {
-    f32 coordinates[3];
-    s32 words[3];
-} GameF3270Position;
-
 typedef struct GameF3270ParticleDescriptor {
     s32 field0;
     s16 field4;
@@ -245,7 +240,7 @@ typedef struct GameF3270ParticleState {
     f32 interpolation;
 } GameF3270ParticleState;
 
-void *func_1513C73C(s32, u8, u8, s32, s32, f32, f32, f32, f32,
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32,
                    u8, u8, s32, u8, s32);
 void func_15143134(f32 *, f32 *, s32);
 u8 func_151D8E20(void);
@@ -254,12 +249,12 @@ extern f32 D_800A043C;
 extern f32 D_800A0440;
 extern u8 D_800AB414[][3];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C6460 CURRENT (5460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C6460 CURRENT (5102) */
 s32 func_150C6460(void *arg0) {
     void *result;
     GameF3270Vector position;
     GameF3270Vector anchor;
-    GameF3270Position query;
+    GameF3270Vector query;
     GameF3270ParticleDescriptor descriptor;
     GameF3270ParticleState state;
     f32 scale;
@@ -316,7 +311,7 @@ s32 func_150C6460(void *arg0) {
         firstRandom = func_150ADA20();
         secondRandom = func_150ADA20();
         particle = func_1513C73C((s32)&descriptor, 8, 2, (s32)((u8 *)arg0 + 0x38),
-                                 query.words[0], query.coordinates[1], query.coordinates[2],
+                                 query.coordinates[0], query.coordinates[1], query.coordinates[2],
                                  scale, scale, (u8)(firstRandom & 0xFF),
                                  (u8)(((func_150ADA20() & 1) * 2) + (secondRandom & 1)),
                                  0x20, *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));

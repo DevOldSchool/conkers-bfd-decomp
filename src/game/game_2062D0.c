@@ -742,9 +742,9 @@ typedef struct Game1DBCBCPacket {
 } Game1DBCBCPacket;
 
 void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
-void *func_1513C73C(s32, u8, u8, s32, s32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (4174) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (3624) */
 void func_151DBCBC(s32 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4, s32 arg5, s32 arg6) {
     Game1DBCBCPacket packet;
     s32 random1;
@@ -777,7 +777,7 @@ void func_151DBCBC(s32 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4, s32 arg5, 
         random1 = func_150ADA20();
         random2 = func_150ADA20();
         func_1513C73C((s32)&packet, 0, 0, arg3,
-                       *(s32 *)&arg4[0], arg4[1], arg4[2], arg1, arg1,
+                       arg4[0], arg4[1], arg4[2], arg1, arg1,
                        random1 & 0xFF, ((func_150ADA20() & 1) * 2) + (random2 & 1),
                        0, (u8)arg5, arg6);
         return;

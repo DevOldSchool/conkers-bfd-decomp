@@ -154,7 +154,7 @@ void *func_1513C5B0(s32 arg0, s32 arg1, u8 arg2, u8 arg3, f32 arg4,
     func_1513E13C(temp_v0, arg4, arg5, arg6, arg7, arg8, (u8) (s32) arg9);
     return sp3C;
 }
-s32 func_1513E2AC(void *, s32, s32, s32, f32, f32, f32, f32, s32);
+s32 func_1513E2AC(void *, s32, s32, f32, f32, f32, f32, f32, s32);
 void func_1516972C();
 
 void *func_1513C650(s32 arg0, u8 arg1, u8 arg2, s32 arg3, f32 arg4,
@@ -175,7 +175,7 @@ void *func_1513C650(s32 arg0, u8 arg1, u8 arg2, s32 arg3, f32 arg4,
     if (object == 0) {
         return 0;
     }
-    if (func_1513E2AC(object, 0, arg3, *(s32 *)&arg4, arg5, arg6, arg7, arg8,
+    if (func_1513E2AC(object, 0, arg3, arg4, arg5, arg6, arg7, arg8,
                       (s32)arg9) == 0) {
         func_1516972C(object);
         return 0;
@@ -183,7 +183,7 @@ void *func_1513C650(s32 arg0, u8 arg1, u8 arg2, s32 arg3, f32 arg4,
     return object;
 }
 
-void *func_1513C73C(s32 arg0, u8 arg1, u8 arg2, s32 arg3, s32 arg4,
+void *func_1513C73C(s32 arg0, u8 arg1, u8 arg2, s32 arg3, f32 arg4,
     f32 arg5, f32 arg6, f32 arg7, f32 arg8, u8 arg9, u8 arg10, s32 arg11,
     u8 arg12, s32 arg13) {
     void *temp_v0;
@@ -201,7 +201,7 @@ void *func_1513C73C(s32 arg0, u8 arg1, u8 arg2, s32 arg3, s32 arg4,
     return temp_v0;
 }
 void *func_1513C804(s32 arg0, s32 arg1, u8 arg2, u8 arg3, s32 arg4,
-                    s32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9,
+                    f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9,
                     u8 arg10, u8 arg11, s32 arg12, u8 arg13, s32 arg14) {
     void *result;
 
