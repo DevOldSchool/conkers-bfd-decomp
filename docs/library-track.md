@@ -96,5 +96,5 @@ archives. After building the I-L normal/debug/ROM targets, use
 Promote a candidate into an archive only after reviewing its complete object
 boundary, non-text ownership, symbols and relocations, and passing the
 byte-identical full-image checks. Preserve the independent raw comparison
-range. Follow [the contribution rules](../CONTRIBUTING.md#integration-and-review)
+range. Follow [the contribution rules](../CONTRIBUTING.md#review-and-handoff)
 and [workflow reference](decompilation-workflow.md) for registration and integration.

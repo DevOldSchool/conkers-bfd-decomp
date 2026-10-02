@@ -29,7 +29,7 @@ For function work, include exact output for the active US target:
 
 ```text
 ./conker finish <work-item-id>
-# Only after reviewed boundary evidence and every source-unit member matches:
+# When post-match-action requests a reviewed source-unit transition:
 ./conker progress integrate <work-item-id>
 # If integration ran after finish:
 ./conker progress check && git -c core.whitespace=cr-at-eol diff --check

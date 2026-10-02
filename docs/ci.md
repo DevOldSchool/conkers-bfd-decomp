@@ -96,7 +96,7 @@ copied ROM; remaining generated files disappear with the disposable hosted runne
 
 Build/report failures block report publication. They occur after merge and
 cannot retroactively prevent it; maintainers must handle the failure promptly.
-See the [objdiff guide](objdiff.md#scope-and-first-full-test) for coverage limits.
+See the [objdiff guide](objdiff.md#scope) for coverage limits.
 
 ## Toolchain and reporting
 

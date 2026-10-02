@@ -23,6 +23,9 @@ matches the work you intend to do.
 - [Decompilation workflow](decompilation-workflow.md) is the command guide for
   selecting functions, producing C candidates, running focused diffs,
   registering source units, integrating them, and verifying a batch.
+- [Matching automation](automation.md) covers authorized bounded runs, saved outcomes,
+  full scans, recovery and maintainer validation.
+- [Objdiff comparison](objdiff.md) documents the optional comparison pilot and its limits.
 - [Runtime tracing](runtime-tracing.md) covers the pinned Mupen64Plus debugger
   used when static code or display-list evidence cannot identify a consumer.
 - [Library track](library-track.md) records Nintendo 64 library boundary work,
@@ -33,6 +36,8 @@ matches the work you intend to do.
 
 ## Assets and research
 
+- [Research evidence index](evidence/README.md) groups boundary, matching, library,
+  asset and runtime proof records.
 - [RZIP and asset extraction](rzip-assets.md) documents the ROM asset layout,
   extraction commands, proven audio, texture, interface, and model formats, and
   their evidence boundaries.
@@ -48,6 +53,15 @@ matches the work you intend to do.
   loader-proven US image, provisional C bases, and unresolved runtime storage.
 - [Beta evidence](beta-evidence.md) explains how debug and ECTS material may be
   used without treating it as US match or source-boundary proof.
+
+## Keeping guides focused
+
+Keep contributor rules in `CONTRIBUTING.md`, agent-specific operating instructions
+in `AGENTS.md`, and command behavior in the relevant workflow/reference guide.
+Link to those owners instead of copying whole procedures. Keep claim-specific
+proofs in `docs/evidence/` and per-task progress/retry logs in local attempt ledgers.
+Active guides should explain how to use a capability and link to its proof. The asset roadmap owns the dated asset-status summary.
+Preserve evidence paths referenced by source or metadata when editing guides.
 
 ## Sources of truth
 

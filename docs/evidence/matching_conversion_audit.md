@@ -218,8 +218,7 @@ The original 390 source remains intact; full findings are in the attempt archive
 Meanwhile, direct owner-table access solved the related `func_1501E400` on its
 first new source form (58 → 0), recovering both frame and pointer-spill homes.
 Its 320 bytes passed the complete clean batch. A second related entry-address
-probe on 1501E73C was unchanged at 70 and stopped. See the
-[continuation ledger](small_queue_continuation.md) for acceptance details.
+probe on 1501E73C was unchanged at 70 and stopped.
 These results support running concrete implementation leads alongside bounded
 read-only diagnosis, rather than stopping both streams behind every review.
 
@@ -254,3 +253,22 @@ A short explicit follow-up on 1501FC8C's remaining duplicate-zero behavior found
 no matched local precedent or compiler proof for changing the float comparison
 to an unsuffixed double zero. No additional source form was justified; the
 improved 567 remains preserved.
+
+## Reusing a storage hypothesis
+
+Removing an address alias must preserve any actual value snapshot across calls.
+In `func_15107924`, the three-coordinate copy survives a helper that can change
+those coordinates; replacing the copy with fresh loads would erase the change
+detection. The retained source in
+[game_133190.c](../../src/game/game_133190.c) distinguishes that real snapshot
+from recomputable addresses. Required fresh loads must likewise remain fresh.
+
+A gap between aggregate homes can belong to another genuine local rather than
+missing packet bytes. In `func_150D8B88`, placing the existing returned-object
+declaration between the spawn descriptor and copied payload accounted for the
+observed gap without adding storage or changing expressions. The retained
+[game_105FC0.c](../../src/game/game_105FC0.c) shows that layout. This supports
+one prediction from debug homes and raw accesses, not arbitrary declaration
+permutations. Check the predicted home changes and the complete instruction
+difference independently; recovering homes alone does not prove frame size,
+scheduling or equality.
