@@ -10,8 +10,8 @@ EU/PAL remains non-gating future metadata.
 
 ## Toolchain lifecycle
 
-Docker is the only supported host dependency. The first build-tool command
-starts a repository-scoped, network-disabled container using the pinned image.
+Local builds use Docker; managed executors may use the supported
+[cloud namespace adapter](cloud-matching.md). The first build-tool command starts a repository-scoped, network-disabled container using the pinned image.
 Source changes are visible through the existing workspace mounts, so later
 `m2c`, `diff`, and build commands reuse the warm container.
 
@@ -130,6 +130,21 @@ The terminal action states describe the next step:
 paths. Do not run `progress match` after a successful `finish`, and do not edit
 the progress inventories manually.
 
+### Switch tables and linked data
+
+At instruction zero, US game switches receive an additional check in
+`diagnose-diff`, `permute` and authoritative focused diffs. Candidate-object switch
+relocations are resolved and case targets compared with the checksum-validated
+ROM. Unsupported dispatches fail closed; layout and clean-batch verification
+remain required.
+
+US game candidates with different address-bearing data aliases may use linked comparison.
+Both original objects are linked independently at the registered address; their
+entire registered spans must equal each other and the checksum-validated ROM before
+those bytes enter the same bounded asm-differ gate. Unsupported relocations retain
+symbolic comparison; original objects still supply switch-table evidence. Watch
+mode remains symbolic and requires a fresh `finish` afterward.
+
 ## Focused iteration
 
 In an interactive terminal, a persistent watcher avoids restarting the focused
@@ -204,17 +219,11 @@ change. Different displacements and absolute jump targets remain differences.
 Nonzero results include a five-row excerpt and save the full text and JSON
 under `build/us/diff/<work-item-id>/`, using the same comparison evidence.
 Reuse the latest `finish` diagnosis when its source and compile inputs are
-unchanged; a separate diagnosis is then unnecessary. For purely register-only
-differences, agents use bounded permutation only when an untried transformation
-supported by the permuter plausibly addresses the diff and the task permits it.
-Classification alone does not justify a search. Otherwise inspect the saved full
-diff, make one targeted source revision, and rerun `finish`. The default budget
-after the initial candidate is two manual revisions and at most one eligible
-search of up to 32 variants per distinct candidate and settings. An explicit
-task budget overrides this ceiling, but not evidence-based plateau stopping.
-Exhaustion produces a candidate report, followed by deferral only when moving
-past it is authorized. A focused
-zero followed by a layout failure requires layout recovery, not permutation.
+unchanged. Follow the [manual attempt rules](../CONTRIBUTING.md#match-a-function)
+for revision/search budgets, task permission and plateau stopping. Diagnosis is a
+search hint, not behavior proof. A focused zero with failed layout needs layout
+recovery, not permutation.
+
 `permute` searches deterministic declaration-order and first-assignment
 lifetime variants with the pinned compiler. A nonzero best result is written
 below `build/us/permute/` while project source remains untouched. An exact
@@ -223,16 +232,6 @@ Each search initializes its own differ settings. Compiler-rejected variants may
 be skipped; scorer failures stop with `BLOCKED_TOOLING` and diagnostic evidence,
 preserving any already scored best candidate. If no candidate was scored, the
 command reports that explicitly and does not claim a saved best file.
-When `automate` applies this search to deferred work, a strictly lower nonzero
-score replaces the disabled candidate and inventory score transactionally;
-equal or worse results preserve the existing source block.
-The permutation search writes each improved `best.c` immediately. If the
-subprocess is killed with exit 137/SIGKILL, `automate` restores or preserves
-project source, records the interrupted candidate, and advances rather than
-terminating an `--all` traversal. With `--defer-best`, a completed positive
-best score can still be preserved before advancing; if no permutation finished,
-the previously measured initial C candidate is preserved instead.
-
 If an older focused match is invalidated by mixed-object layout evidence, do
 not edit progress JSON. Reopen it transactionally:
 
@@ -244,98 +243,12 @@ The command preserves the old C body as a deferred candidate, restores its
 canonical `GLOBAL_ASM` pragma and TODO entry, removes invalid match evidence,
 and regenerates progress.
 
-Use the unified automation for raw m2c starters and preserved deferred
-candidates:
+## Automation
 
-```sh
-./conker automate --limit 5 --max-attempts 20 --rewrite-budget 32
-```
-
-Target one eligible raw or deferred function without waiting for scheduler
-order with:
-
-```sh
-./conker automate --function func_15012C84 --rewrite-budget 25 \
-  --defer-best --skip-final-build
-```
-
-The scheduler alternates between size-ordered raw work and score-ordered
-deferred work. Raw starters use evidence-backed declaration recovery, aligned
-scalar or pointer field cleanup with expression bases and signed offsets,
-explicit integer-backed address casts for IDO, and bounded source-shape
-rewrites. Both pools use compact `diagnose-diff` preflight before permutation.
-Pure register-allocation differences qualify; register differences with only
-one to three missing/extra rows receive a probe capped at 32 variants.
-Structural mismatches skip search. Raw candidates preserve the proposed source
-and diagnostic log under `build/us/automate/artifacts/<work-item-id>/` and
-restore project source even with `--defer-best`. The
-command requires warning-free compilation, restores unsuccessful source
-attempts, and retains only `CURRENT (0)` results through `finish`. Compiler
-failures retain the proposed source, complete output, and structured diagnostics
-under `build/us/automate/artifacts/<work-item-id>/`. Before restoration, up to
-three compiler-guided target-function repairs cover proven mechanical failures
-such as undefined `NULL` and byte-address pointer arithmetic. A deferred
-`CURRENT (0)` candidate is sent directly through authoritative recovery rather
-than being classified as a structural mismatch. A focused exact candidate that
-still fails mixed-object layout is preserved with a `finish`/`layout_gate`
-blocker and the measured offset delta; retained unlabeled instructions are not
-silently claimed as C or promoted to a new function boundary. With explicit authorization,
-`--defer-best` preserves the best compiling nonzero raw candidate through the
-ordinary transactional `defer` path.
-
-The exact-permutation handoff is also transactional. If `finish` rejects the
-mixed-object layout before recording a match, the source file and deferred
-inventory metadata are restored from the same host-side snapshot.
-
-Add `--skip-final-build` for a quick local automation experiment. This skips
-only the concluding clean `verify-batch`; each retained function still passes
-its focused diff, mixed-object layout, progress, and whitespace checks through
-`finish`. The command prints the exact batch command still required. Until it
-succeeds, the result is intentionally not commit-ready or handoff-ready.
-
-To consider every function in the active US inventory, use:
-
-```sh
-./conker automate --all --defer-best
-```
-
-Full mode has no attempt or match cap but keeps the same safety exclusions. It
-does not guess ambiguous declarations or cross source-unit integration
-transitions. `build/us/automate/all-report.json` is replaced atomically after
-each attempt and classifies every inventory entry, including already matched
-and explicitly excluded functions. A complete traversal sets `full_scan` and
-`scan_complete` to true and leaves no `not_attempted` entries. Do not combine
-`--all` with `--max-attempts`. An interrupted run resumes completed outcomes
-from the report. Pending exact matches are reconciled against the current
-inventory both on resume and before the final batch gate, so functions reopened
-or deferred by later mixed-source integration are not sent to `verify-batch`.
-Bounded runs and `next --ready` also consult the shared local
-`build/us/automate/attempt-history.json`. Relevant input changes invalidate saved
-outcomes automatically; `--restart` explicitly retries the selected scope while
-preserving pending verification. The default rewrite budget is 32. Identical
-nonmatching permutation searches reuse saved results until their inputs change.
-Use `./conker blockers` to rank declaration and placeholder blockers across
-saved reports. See CONTRIBUTING.md for cache behavior and token metrics.
-
-All automation runs use compact output by default. Detailed
-subprocess output is written to
-`build/us/automate/logs/<work-item-id>.log`, and the corresponding report entry
-records that path. Stdout contains important events and a progress summary
-every 50 candidates. Add `--verbose` to restore the complete live stream.
-
-Attempted report entries include the terminal pipeline stage, a blocker code,
-repair actions, and a fingerprint over the candidate source, canonical
-assembly, and only that stage's relevant tooling and options. Resume skips only
-entries whose stage fingerprint still matches, so preparation, compilation,
-or search changes selectively requeue the affected frontier. Legacy entries
-without stage metadata are retried once.
-
-Run `./conker automate --all --analyze` to measure preparation coverage without
-editing tracked source or inventory and without compiling, permuting, deferring,
-finishing, or running the batch gate. It writes the separately resumable
-`build/us/automate/analysis-report.json`; ignored m2c caches and that report are
-the only outputs. Use `--restart` to intentionally rebuild the complete
-analysis report.
+For authorized automated work, use the [automation reference](automation.md).
+It covers bounded runs, declaration recovery, saved outcomes, interruption recovery,
+full scans and experimental search. Automation retains the same focused and clean
+batch gates; manual-only tasks must not use it.
 
 ## Game reference assembly and work registration
 
@@ -426,6 +339,27 @@ If later evidence invalidates an untouched game boundary, use
 range to raw assembly while retaining its function work items and refuses to
 discard modified or matched C work.
 
+## Verified original assembly
+
+Reviewed handwritten main/game routines may remain unchanged `GLOBAL_ASM` bodies
+with independent full-span ROM proof (for example, routines with a custom ABI):
+
+```sh
+./conker verify-original-asm <id> --reason "reviewed custom ABI" --evidence-reference docs/evidence/<review>.md
+./conker verify-original-asm <id> --check
+```
+
+The command assembles/links the original body, verifies its entire registered ROM
+span including embedded data, and records proof transactionally. The `original_asm`
+state excludes the item from C-candidate selection and reports it separately. It
+contributes no C matches/matched bytes and cannot complete a C source unit.
+`verify-batch` accepts these items alongside C matches and revalidates their proofs.
+
+Main proofs use the checksum-validated CPU interval, excluding the boot blob and
+RSP payloads. Main batches require full-ROM equality; game batches require the
+independently rebuilt game overlay. This does not enable mixed main C/ASM integration
+or turn internal branch labels into ordinary C-function entries.
+
 ## Sustained manual matching
 
 Use this workflow for an authorized continuing group of functions. Keep the
@@ -484,13 +418,19 @@ how the change addresses the remaining mismatch. Existing automation and
 permutation caches complement this ledger; they do not record every manual
 hypothesis. Never edit inventory JSON or automatic cache records to maintain it.
 
-After two non-improving manual revisions, preserve the best candidate and stop
-unless a concrete new evidence-backed hypothesis and the task budget permit
-continuation. If moving on is authorized, use `defer` with the measured remaining
-mismatch. Extra attempts are a ceiling, not a quota. A purely register-only
-diagnosis permits a budget-32 search only when a relevant, untried supported
-transformation exists and the task allows permutation. Do not repeat equivalent
-exhausted searches or increase budgets without evidence or improvement.
+Follow the [manual attempt limits](../CONTRIBUTING.md#match-a-function) when
+consulting exhausted hypotheses. Preserve candidates transactionally when moving
+on is authorized.
+
+### Low-usage manual m2c mode
+
+When minimizing model/tool-output usage, use one candidate cycle per ready function:
+`next --ready`, inspect the emitted starter/assembly, make one narrow source-only
+replacement, then `finish`. Prefer small functions. Do not repeat context commands,
+rerun unchanged `finish`, or search broadly after context is available. Inspect more
+diffs or make further variants only when additional effort is authorized and a
+narrow, promising hypothesis exists. Defer nonzero candidates when moving on is
+authorized; all focused, layout, progress, whitespace and batch gates still apply.
 
 ### Measuring improvement
 
@@ -526,9 +466,9 @@ only after clean success. If blocked, report the pending group and its blocker.
 ./conker verify-batch <work-item-id> [<work-item-id>...]
 ```
 
-It verifies that every listed item is matched, selects the required main or
-game builds, runs the Python suite, and checks metadata, generated progress, and
-whitespace. `--incremental` is available for repeated local iteration, but the
+It accepts matched C and verified `original_asm` items, selects the required
+main/game builds, revalidates original-assembly proofs, runs the Python suite, and
+checks metadata, generated progress and whitespace. `--incremental` is available for repeated local iteration, but the
 default clean form is required before committing, handing off, or opening a
 pull request.
 

@@ -19,8 +19,9 @@ The repository contains no ROMs or extracted game assets. Read
 
 ## Quick start
 
-Docker is the only supported host dependency. It provides the pinned
-IDO-compatible toolchain on Linux, Intel macOS, and Apple Silicon.
+Local builds use Docker for the pinned IDO-compatible toolchain on Linux,
+Intel macOS and Apple Silicon. Managed Linux executors can use the supported
+[cloud setup](docs/cloud-matching.md).
 
 ```sh
 git clone https://github.com/DevOldSchool/conkers-bfd-decomp.git

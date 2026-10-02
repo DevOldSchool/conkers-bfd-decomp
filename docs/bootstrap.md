@@ -1,8 +1,8 @@
 # Clean-room bootstrap
 
-The project intentionally begins without imported C sources, symbols, or
-extracted assets. The bootstrap goal is a raw-assembly rebuild of the active US
-ROM before any C function is promoted.
+This guide covers owned-ROM setup and the independently derived raw-assembly
+baseline. Start with [contributor setup and scope](../CONTRIBUTING.md#setup);
+fresh or reset cloud executors also need [cloud setup and recovery](cloud-matching.md).
 
 ## Local ROM setup
 
@@ -17,75 +17,49 @@ Copy an owned US ROM into the ignored `roms/` directory and record it through
 the supported setup command:
 
 ```sh
+mkdir -p roms
 cp /path/to/your-us-rom.z64 roms/baserom.us.z64
 ./conker setup --us roms/baserom.us.z64
 ```
 
 `setup` validates the checksum and stores the local state used by build tools.
 It also accepts a ROM held elsewhere. Use `./conker rom-info <path>` to inspect
-a ROM before setup. Maintainers may record the future ROM with `--eu`, but it is
-not required by active contributor commands or progress.
+a ROM before setup. ROMs, generated assembly, extracted assets and build outputs
+remain ignored; do not commit or distribute them.
 
 ## Established baseline
 
-1. The reviewed US ROM SHA-1 is pinned as the active target in `config/roms.json`.
-   The EU/PAL SHA-1 and maps are retained for the future regional target.
-2. The profile maps were independently derived from the owned ROMs. Their generated
-   assembly and asset output remains ignored.
-3. `./conker build --all` rebuilds all active profiles (currently US) from
-   untouched generated assembly and verifies the byte-for-byte ROM baseline.
-4. `./conker m2c` and `./conker diff` provide the first shared C candidate
-   workflow. `m2c` prepares the raw reference profile, while `diff` reuses an
-   existing reference and prepares it automatically only when it is missing.
+The profile maps were independently derived from the owned ROMs. The project's
+clean-room baseline is a byte-identical raw-assembly rebuild, established before
+C functions are promoted. Verify the selected checkout's active full-ROM build:
 
-`./conker m2c <work-item-id>` produces a C starting point. It does not claim
-that the output is type-correct or matched. `./conker diff <work-item-id>`
-compiles the registered C candidate with the pinned IDO
-compiler and compares it with the generated reference object.
+```sh
+./conker build --all
+```
 
-Use `./conker finish <work-item-id>` for the ordinary focused gate. A nonzero
-result displays the normal diff and changes no inventory. When it reports
-`CURRENT (0)`, it updates the canonical function inventory and any separately
-assigned source unit, refreshes generated progress without a second compilation,
-then checks progress and whitespace. `./conker diff --record` and `./conker
-progress match` remain compatibility paths. Do not edit those JSON inventories
-manually.
+Only US is currently active. The [build and batch reference](decompilation-workflow.md#builds-and-batch-verification)
+explains the separate canonical game-overlay build and checks required after
+source changes. A successful baseline build does not establish a C match or an
+original source-file boundary.
 
-Function registration does not imply a C-file boundary. Use `./conker
-register-source-unit` only after recording reviewed linker-map, object-symbol,
-or structural-analysis evidence and registering every function in that range.
-The command creates the reviewed unit's C skeleton without replacing an existing
-file. It adds ordered `GLOBAL_ASM` pragmas for unmatched functions and generates
-their assembly locally from the owned ROM. Run `./conker progress integrate
-<work-item-id>` to put the reviewed unit into the canonical build as one
-mixed C/ASM object, retained only after byte-identical verification.
+Continue with [matching a function](../CONTRIBUTING.md#match-a-function) and the
+[workflow reference](decompilation-workflow.md). That reference owns starter
+generation, focused comparison, registration, integration and interactive watch
+mode; [acceptance and integration](../CONTRIBUTING.md#acceptance-and-integration)
+defines the required evidence.
 
-Replace each function's pragma with C at the same source position. Focused diff
-refuses to test a target still backed by its pragma. When every function in the
-mixed unit is matched, run `progress integrate` again. It moves the source under
-`src/game/done/`, updates the active map and inventories, and retains those
-changes only if the complete ROM or game overlay remains byte-identical.
-
-Use `./conker diff --watch <work-item-id>` while iterating. It keeps
-the pinned Docker environment and asm-differ process alive, automatically
-chooses the registered overlay, and recompiles after source or header changes.
-Exit the watcher and run `finish` once for authoritative evidence and the full
-per-function gate.
-
-Do not copy C sources, function names, comments, symbols, or generated files
-from another decompilation repository. Reviewed raw-assembly boundary maps are
-the sole exception: each imported offset must be confirmed against the owned
-regional ROM reference and must never be used as match evidence. External tool
-dependencies may be used only under their own licenses and must be pinned.
+Do not copy C sources, names, comments, symbols or generated files from another
+decompilation repository. Reviewed raw-assembly boundary maps are the sole
+exception: confirm each imported offset against the owned regional ROM, and
+never treat those maps as match evidence. External tools must be pinned and used
+under their own licenses. See [LEGAL.md](../LEGAL.md).
 
 ## Regional targets
 
-Compile and verify the C source under `PROFILE=us`. A function is matched after
-the US diff reports `CURRENT (0)`. This records a matched function; a source
-unit is complete only after it is also integrated into the US full-ROM link and
-moved under `src/game/done/`.
-
-EU/PAL remains a future goal. Its checksum, split maps, and existing inventory
-records are preserved, but no EU/PAL ROM, build, or diff is required for active
-work. When that target is activated, regional differences belong in narrowly
-scoped build macros or data/configuration rather than a forked source tree.
+Contributor commands default to US; direct profile-based builds use `PROFILE=us`.
+EU/PAL checksums, split maps and inventory records remain future metadata. An
+EU/PAL ROM, build or diff is not required for active work; maintainers may record
+that owned ROM with `setup --eu`. When activated, regional differences belong
+in narrowly scoped build macros or data/configuration, rather than a forked
+source tree. See [regional and progress rules](decompilation-workflow.md#regional-and-progress-rules)
+for the distinction between function matching and source-unit completion.
