@@ -91707,6 +91707,12 @@
       "symbol": "func_8000B2F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1820,
+        "reason": "Preserve typed record attach at CURRENT (1820). Parent replacement, allocation failure and queued-child ownership behavior are recovered. Argument-home load, pointer registers and branch shape differ; no padding or speculative ABI change attempted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91739,6 +91745,12 @@
       "symbol": "func_8000B548"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2000,
+        "reason": "Preserve fullword callback at CURRENT (2000). Removing redundant caller masks using proven callee masking restores exact frame, then bit extraction order restores all register/instruction/control rows. Only ten LW-versus-LBU argument reloads remain. No declaration permits narrowing; stop without ABI invention.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91770,6 +91782,12 @@
       "symbol": "func_8000B830"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 930,
+        "reason": "Preserve fullword-channel float callback at CURRENT (930). Runtime callback chain proves float coordinates and corrected local C530 prototype. Arithmetic/control body matches; entry channel-home store, masking and final argument moves differ. No declaration supports narrowing channel formal.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91858,6 +91876,12 @@
       "symbol": "func_8000BC28"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2443,
+        "reason": "Preserve float-coordinate callback at CURRENT (2443), improved from3958 by in-place relative coordinates and one reused distance local. Combining non-overlapping byte volume states gave2660 and was not retained. Standard unsigned float conversions replace m2c FCSR placeholders. Fullword channel ABI retained; three attempts.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91871,6 +91895,12 @@
       "symbol": "func_8000BCBC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5485,
+        "reason": "Preserve packed spatial callback at CURRENT (5485). Three independent spatial outputs, original packed comparisons, signed countdown and mode transitions retained with established helper contracts. Fullword channel loads, stack/local lifetimes and expression scheduling differ; no narrowing or blind register search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91884,6 +91914,12 @@
       "symbol": "func_8000BF60"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3573,
+        "reason": "Preserve level callback at CURRENT (3573). Fullword formals and channel byte local recover behavior; parameter normalization worsens4482 and fullword channel local worsens4298. Raw preserves initial channel register and repeated byte masks differently. Stop after two non-improving source revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91897,6 +91933,12 @@
       "symbol": "func_8000C350"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4254,
+        "reason": "Preserve packed-state controller at CURRENT (4254). Proven helper arities and float forwarding; signed global packed-high extraction, unsigned high-byte decay and original-state comparisons retained. Chained field snapshots and redundant caller-mask removal worsen4709. Remaining frame/spill/register/control differences need new evidence; no permutations.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91910,6 +91952,12 @@
       "symbol": "func_8000C530"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2005,
+        "reason": "Preserve fullword/float callback at CURRENT (2005). Initial 3100 used an external sqrt call; established source-local sqrtf intrinsic reduces to2635 and separate relative-coordinate local improves2005. Remaining float parameter homes, allocation and clamp scheduling are nonzero. Three bounded attempts; no compiler flags changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92069,6 +92117,12 @@
       "symbol": "func_8000CDA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9425,
+        "reason": "Preserve typed queue/event updater at CURRENT (9425). SDK-proved message queue ABI, 16-channel arrays, word mode table and halfword event masks replace all placeholders. Preserve raw uninitialized step and in-place halving. Remaining frame, alias lifetimes and branch scheduling are broad; no unsupported initialization, volatile memory or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92082,6 +92136,12 @@
       "symbol": "func_8000CEAC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5820,
+        "reason": "Preserve typed sequence activation/update at CURRENT (5820). Raw-proved float callback ABI and metadata row, marker/owner masks, allocation failure and repeated slot reloads retained. Record field refinements preserve 0x64 stride. Remaining frame, snapshots and pointer-register lifetimes are broad; no dummy storage or narrowing.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92095,6 +92155,12 @@
       "symbol": "func_8000D2F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 164,
+        "reason": "Preserve proven three-float dispatcher at CURRENT (164). Raw instruction/branch/register behavior agrees except bound-address scheduling and stack extent/homes. Explicit ID snapshot and actual metadata base pointer are both code-neutral. No dummy local, extra formal or padding added.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92108,6 +92174,12 @@
       "symbol": "func_8000D758"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5230,
+        "reason": "Preserve typed transition controller at CURRENT (5230). Existing incoming restoration, distinct mode4/mode6 ownership paths, queued-record reuse and generic transition masks retained. Early duplicate-exit branches simplify naturally; frame/spill/register differences remain. No padding, new ABI or search performed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92231,6 +92303,12 @@
       "symbol": "func_8000E134"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1730,
+        "reason": "Preserve three-pass typed pool cleanup at CURRENT (1730). Correct inactive invalidation, related-pointer cleanup and active stop calls; compiler carries pool base between passes rather than rematerializing raw bounds. Equivalent scope/address-order approaches were already exhausted in B1FC; no repeated search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92389,6 +92467,12 @@
       "symbol": "func_8000E770"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1525,
+        "reason": "Preserve control setter at CURRENT (1525). Fullword state/flag behavior recovered; repeated constant and global-address allocation differ. Explicit else-if structure is code-neutral. No arbitrary aliasing, volatility or permutation attempted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -92438,6 +92522,12 @@
       "symbol": "func_8000E8F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 840,
+        "reason": "Preserve controller reset at CURRENT (840), improved from2926 by raw-supported four-record cleanup groups. Typed endpoint comparison was neutral. Exact frame and outer table initialization now agree; final pool-address reuse and outer loop termination differ. Three bounded attempts; no artificial padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
