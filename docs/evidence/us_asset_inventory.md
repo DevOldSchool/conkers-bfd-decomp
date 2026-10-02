@@ -47,7 +47,8 @@ ROM `0x40F10:0x42443` contains 95 records followed by 13 alignment bytes before
 the game archive. Each record has:
 
 - width and height bytes at `+0x0` and `+0x1`;
-- two still-unknown metadata bytes at `+0x2` and `+0x3`;
+- unsigned horizontal and vertical offsets at `+0x2` and `+0x3`, now
+  [proven through the font consumers](us_font_atlas.md);
 - a big-endian total record size at `+0x4`;
 - grayscale RLE bytes from `+0x8`, with the high nibble as intensity and the
   low nibble plus one as run length.

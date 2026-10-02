@@ -14,10 +14,11 @@ from pathlib import Path
 from typing import Any
 
 try:
+    from scripts import hud_additional_artwork
     from scripts import texture_assets as texture_base
     from scripts import texture_native
     from scripts.rzip_archive import (
-        iter_flat_rzip_entries,
+        iter_indexed_flat_rzip_entries,
         normalize_rom,
         parse_game_archive,
     )
@@ -29,10 +30,11 @@ try:
         prepare_output,
     )
 except ModuleNotFoundError:
+    import hud_additional_artwork  # type: ignore[no-redef]
     import texture_assets as texture_base  # type: ignore[no-redef]
     import texture_native  # type: ignore[no-redef]
     from rzip_archive import (  # type: ignore[no-redef]
-        iter_flat_rzip_entries,
+        iter_indexed_flat_rzip_entries,
         normalize_rom,
         parse_game_archive,
     )
@@ -64,128 +66,880 @@ SMALL_SPRITE_TILE_WIDTH = 16
 SMALL_SPRITE_TILE_HEIGHT = 16
 HUD_SOURCE_ORIGIN = "top-left"
 HUD_PREVIEW_ORIGIN = "top-left"
+# All selector sources use the renderer's RGBA32 dimensions and TMEM layout.
+# Runtime IDs retain the empty slots in D_80091D20; stream ordinals do not.
+RUNTIME_FLAT_ASSET_COUNT = 0x1E52
+RUNTIME_FLAT_SIZE_TABLE = 0x80091D20
+RUNTIME_FLAT_IDENTITY = {
+    "index_space": "runtime-compressed-size-table",
+    "size_table_vram": "0x80091D20",
+    "runtime_slot_count": RUNTIME_FLAT_ASSET_COUNT,
+    "empty_runtime_slots": [1767, 1768],
+    "physical_stream_count": RUNTIME_FLAT_ASSET_COUNT - 2,
+}
+# Previous overrides described different physical payloads. The complete
+# replacement catalog below was reviewed after resolving runtime IDs.
+# Prior source and outputs are preserved in build/hud-reference-review/.
 REVIEWED_RGBA16_FLAT_INDICES = frozenset()
-REVIEWED_LINEAR_RGBA32_FLAT_INDICES = frozenset((2202,))
-REVIEWED_NATIVE_PREVIEW_CONTRACTS = {
-    2139: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2140: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2141: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2171: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2172: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2198: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2199: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2215: ("i8", texture_base.ROW_LAYOUT_TMEM, "reviewed-i8-tmem-preview"),
-    2224: (
-        "rgba32",
-        texture_base.ROW_LAYOUT_TMEM,
-        "reviewed-rgba32-32x32-source-preview",
-    ),
-}
-REVIEWED_RESOURCE_DIMENSIONS = {
-    2139: (64, 64),
-    2140: (64, 64),
-    2141: (64, 64),
-    2171: (64, 32),
-    2172: (64, 32),
-    2198: (64, 32),
-    2199: (32, 32),
-    2215: (64, 32),
-    2222: (16, 16),
-    2223: (16, 16),
-    2224: (32, 32),
-}
-REVIEWED_RAW_ONLY_FLAT_INDICES = {
-    2041: (
-        "the 3,072-byte payload does not form the RGBA32 tile window selected "
-        "by the renderer; alternate RGBA16 and CI8 constructions are also incoherent"
-    ),
-    2225: (
-        "none of the aligned 1,024-byte windows in the 1,440-byte payload forms "
-        "a coherent 16x16 RGBA32 image; alternate RGBA16, intensity, and CI "
-        "constructions are also incoherent"
-    ),
-}
-SELECTOR_PREVIEW_NOTES = {
-    69: (
-        "code-selected three-tile rolling menu-label window; the adjacent text "
-        "fragments are not one standalone named sprite"
-    ),
-    76: (
-        "native-scale use of flats 2147-2148; selector 89 deliberately reuses "
-        "the same pixels at scale 0.6640625"
-    ),
-    89: (
-        "scaled use of flats 2147-2148 at 0.6640625; selector 76 deliberately "
-        "reuses the same pixels at native scale"
-    ),
-}
-SELECTOR_REVIEWED_IDENTITIES = {
-    3: {
-        "name": "poops-label",
-        "display_name": "Poops label",
-        "elements": ["Poops"],
-        "evidence": "decoded 64x32 I8 pixels",
-    },
-    4: {
-        "name": "question-mark-icon",
-        "display_name": "Question-mark icon",
-        "elements": ["?"],
-        "evidence": "reference-sheet identification corroborated by decoded pixels",
-    },
-    5: {
-        "name": "dang-label",
-        "display_name": "Dang... label",
-        "elements": ["Dang..."],
-        "evidence": "decoded 64x32 I8 pixels",
-    },
-    8: {
-        "name": "total-label",
-        "display_name": "Total label",
-        "elements": ["Total"],
-        "evidence": "decoded 64x32 I8 pixels",
-    },
-    52: {
-        "name": "dino-label",
-        "display_name": "Dino label",
-        "elements": ["Dino"],
-        "evidence": "reference-sheet identification corroborated by decoded pixels",
-    },
-    59: {
-        "name": "green-zero-digit",
-        "display_name": "Green zero digit",
-        "elements": ["0"],
-        "evidence": "reference-sheet identification corroborated by decoded pixels",
-    },
-    61: {
-        "name": "n64-c-buttons-direction-row",
-        "display_name": "N64 C-buttons: left, up, right, down",
-        "elements": ["C-left", "C-up", "C-right", "C-down"],
-        "evidence": "user-supplied visual reference",
-    },
-    87: {
-        "name": "nintendo-wordmark",
-        "display_name": "Nintendo wordmark",
-        "elements": ["Nintendo"],
-        "evidence": "user-supplied identification corroborated by decoded pixels",
-    },
-}
-SELECTOR_REVIEWED_VARIANTS = {
-    61: [
-        {"name": "left", "flat_index": 2222, "clockwise_quarter_turns": 0},
-        {"name": "up", "flat_index": 2222, "clockwise_quarter_turns": 1},
-        {"name": "right", "flat_index": 2223, "clockwise_quarter_turns": 0},
-        {"name": "down", "flat_index": 2222, "clockwise_quarter_turns": 3},
-    ],
-}
-SELECTOR_REVIEWED_COMPOSITIONS = {
-    87: {
-        "name": "nintendo-wordmark",
-        "flat_indices": [2139, 2140, 2141],
-        "tile_columns": 3,
-        "tile_rows": 1,
-        "evidence": "adjacent third tile completes the reviewed wordmark",
-    },
-}
+REVIEWED_LINEAR_RGBA32_FLAT_INDICES = frozenset()
+REVIEWED_NATIVE_PREVIEW_CONTRACTS = {}
+REVIEWED_RESOURCE_DIMENSIONS = {}
+REVIEWED_RAW_ONLY_FLAT_INDICES = {}
+SELECTOR_PREVIEW_NOTES = {}
+SELECTOR_REVIEWED_VARIANTS = {}
+SELECTOR_REVIEWED_COMPOSITIONS = {}
+SELECTOR_REVIEWED_IDENTITIES = {1: {'name': 'red-p1-badge',
+     'display_name': 'Red P1 badge',
+     'elements': ['P1'],
+     'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                 'identification, runtime use unproven',
+     'category': 'word-art',
+     'flat_indices': [2196],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+     'reference_title': 'Main Menu Text & Icons reference sheet',
+     'reference_status': 'matched'},
+ 2: {'name': 'blue-p2-badge',
+     'display_name': 'Blue P2 badge',
+     'elements': ['P2'],
+     'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                 'identification, runtime use unproven',
+     'category': 'word-art',
+     'flat_indices': [2197],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+     'reference_title': 'Main Menu Text & Icons reference sheet',
+     'reference_status': 'matched'},
+ 3: {'name': 'green-p3-badge',
+     'display_name': 'Green P3 badge',
+     'elements': ['P3'],
+     'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                 'identification, runtime use unproven',
+     'category': 'word-art',
+     'flat_indices': [2198],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+     'reference_title': 'Main Menu Text & Icons reference sheet',
+     'reference_status': 'matched'},
+ 4: {'name': 'yellow-p4-badge',
+     'display_name': 'Yellow P4 badge',
+     'elements': ['P4'],
+     'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                 'identification, runtime use unproven',
+     'category': 'word-art',
+     'flat_indices': [2199],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+     'reference_title': 'Main Menu Text & Icons reference sheet',
+     'reference_status': 'matched'},
+ 5: {'name': 'purple-figure-icon',
+     'display_name': 'Purple figure icon',
+     'elements': ['purple figure'],
+     'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                 'identification, runtime use unproven',
+     'category': 'icon',
+     'flat_indices': [2171],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+     'reference_title': 'Main Menu Text & Icons reference sheet',
+     'reference_status': 'matched'},
+ 6: {'name': 'ai-label',
+     'display_name': 'Ai label',
+     'elements': ['Ai'],
+     'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                 'identification, runtime use unproven',
+     'category': 'word-art',
+     'flat_indices': [2166],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+     'reference_title': 'Main Menu Text & Icons reference sheet',
+     'reference_status': 'matched'},
+ 7: {'name': 'four-direction-arrows',
+     'display_name': 'Four directional arrows',
+     'elements': ['up', 'down', 'left', 'right'],
+     'evidence': 'decoded retail US resource pixels visually match ECTS demo reference artwork; '
+                 'beta reference only, retail runtime use unproven',
+     'category': 'icon',
+     'flat_indices': [2167],
+     'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62893/',
+     'reference_title': 'ECTS Demo reference sheet (visual comparison only)',
+     'reference_status': 'matched'},
+ 8: {'name': 'tediz-head-icon',
+      'display_name': 'Tediz head icon',
+      'elements': ['Tediz'],
+      'evidence': 'user-supplied character identification; decoded pixels match the reference-sheet '
+                  'artwork; runtime use unproven',
+      'category': 'character',
+      'flat_indices': [2215],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 9: {'name': 'shc-soldier-head-icon',
+      'display_name': 'SHC Soldier head icon',
+      'elements': ['SHC Soldier'],
+      'evidence': 'user-supplied character identification; decoded pixels match the reference-sheet '
+                  'artwork; runtime use unproven',
+      'category': 'character',
+      'flat_indices': [2211],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 10: {'name': 'uga-buga-head-icon',
+      'display_name': 'Uga Buga head icon',
+      'elements': ['Uga Buga'],
+      'evidence': 'user-supplied character identification; decoded pixels match the reference-sheet '
+                  'artwork; runtime use unproven',
+      'category': 'character',
+      'flat_indices': [2220],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 11: {'name': 'raptor-head-icon',
+      'display_name': 'Raptor head icon',
+      'elements': ['Raptor'],
+      'evidence': 'user-supplied character identification; decoded pixels match the reference-sheet '
+                  'artwork; runtime use unproven',
+      'category': 'character',
+      'flat_indices': [2203],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 12: {'name': 'cont-label-dark',
+      'display_name': 'CONT... label (dark)',
+      'elements': ['CONT...'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2003, 2004],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet',
+      'reference_status': 'matched'},
+ 13: {'name': 'cont-label-bright',
+      'display_name': 'CONT... label (bright)',
+      'elements': ['CONT...'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2005, 2006],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet',
+      'reference_status': 'matched'},
+ 14: {'name': 'quit-label-dark',
+      'display_name': 'QUIT label (dark)',
+      'elements': ['QUIT'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2044, 2045],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet',
+      'reference_status': 'matched'},
+ 15: {'name': 'quit-label-bright',
+      'display_name': 'QUIT label (bright)',
+      'elements': ['QUIT'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2046, 2047],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet',
+      'reference_status': 'matched'},
+ 16: {'name': 'cheats-label',
+      'display_name': 'CHEATS label',
+      'elements': ['CHEATS'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [1997, 1998],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 17: {'name': 'off-speech-bubble',
+      'display_name': 'OFF speech bubble',
+      'elements': ['OFF'],
+      'evidence': 'decoded retail US resource pixels visually match ECTS demo reference artwork; '
+                  'beta reference only, retail runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [1988],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62893/',
+      'reference_title': 'ECTS Demo reference sheet (visual comparison only)',
+      'reference_status': 'matched'},
+ 18: {'name': 'on-speech-bubble',
+      'display_name': 'ON speech bubble',
+      'elements': ['ON'],
+      'evidence': 'decoded retail US resource pixels visually match ECTS demo reference artwork; '
+                  'beta reference only, retail runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [1989],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62893/',
+      'reference_title': 'ECTS Demo reference sheet (visual comparison only)',
+      'reference_status': 'matched'},
+ 19: {'name': 'speaker-pair',
+      'display_name': 'Speaker pair',
+      'elements': ['speakers'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'icon',
+      'flat_indices': [2072, 2073],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 20: {'name': 'five-speaker-arrangement',
+      'display_name': 'Five-speaker arrangement',
+      'elements': ['speakers'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'icon',
+      'flat_indices': [2074, 2075],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 21: {'name': 'single-speaker',
+      'display_name': 'Single speaker',
+      'elements': ['speaker'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'icon',
+      'flat_indices': [2029],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 22: {'name': 'play-label-dark',
+      'display_name': 'PLAY label (dark)',
+      'elements': ['PLAY'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2039, 2040],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 23: {'name': 'play-label-bright',
+      'display_name': 'PLAY label (bright)',
+      'elements': ['PLAY'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2041, 2042],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 24: {'name': 'erase-label-dark',
+      'display_name': 'ERASE label (dark)',
+      'elements': ['ERASE'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2007, 2008],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 25: {'name': 'erase-label-bright',
+      'display_name': 'ERASE label (bright)',
+      'elements': ['ERASE'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2009, 2010],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 26: {'name': 'analog-stick-animation',
+      'display_name': 'Analog stick animation',
+      'elements': ['analog stick'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'controller',
+      'flat_indices': [2023, 2024, 2025, 2026, 2027, 2028],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 27: {'name': 'set-up-label-dark',
+      'display_name': 'SET-UP label (dark)',
+      'elements': ['SET-UP'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2066, 2067],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 28: {'name': 'set-up-label-bright',
+      'display_name': 'SET-UP label (bright)',
+      'elements': ['SET-UP'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2068, 2069],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 29: {'name': 'n-button-dark',
+      'display_name': 'N button (dark)',
+      'elements': ['N'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2033],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 30: {'name': 'n-button-bright',
+      'display_name': 'N button (bright)',
+      'elements': ['N'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2034],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 31: {'name': 'y-button-dark',
+      'display_name': 'Y button (dark)',
+      'elements': ['Y'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2095],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 32: {'name': 'y-button-bright',
+      'display_name': 'Y button (bright)',
+      'elements': ['Y'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2096],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 33: {'name': 'restart-label-dark',
+      'display_name': 'RESTART label (dark)',
+      'elements': ['RESTART'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2062, 2063],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet',
+      'reference_status': 'matched'},
+ 34: {'name': 'restart-label-bright',
+      'display_name': 'RESTART label (bright)',
+      'elements': ['RESTART'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2064, 2065],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet',
+      'reference_status': 'matched'},
+ 35: {'name': 'race-a-label-dark',
+      'display_name': 'RACE A label (dark)',
+      'elements': ['RACE A'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2048, 2049],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 36: {'name': 'race-a-label-bright',
+      'display_name': 'RACE A label (bright)',
+      'elements': ['RACE A'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2050, 2051],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 37: {'name': 'race-b-label-dark',
+      'display_name': 'RACE B label (dark)',
+      'elements': ['RACE B'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2052, 2053],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 38: {'name': 'race-b-label-bright',
+      'display_name': 'RACE B label (bright)',
+      'elements': ['RACE B'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2054, 2055],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 39: {'name': 'temple-label-dark',
+      'display_name': 'TEMPLE label (dark)',
+      'elements': ['TEMPLE'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2076, 2077],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 40: {'name': 'temple-label-bright',
+      'display_name': 'TEMPLE label (bright)',
+      'elements': ['TEMPLE'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2078, 2079],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 41: {'name': 'the-vault-label-dark',
+      'display_name': 'THE VAULT label (dark)',
+      'elements': ['THE VAULT'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2085, 2086],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 42: {'name': 'the-vault-label-bright',
+      'display_name': 'THE VAULT label (bright)',
+      'elements': ['THE VAULT'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [2087, 2088],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 43: {'name': 'total-war-label-dark',
+      'display_name': 'TOTAL WAR label (dark)',
+      'elements': ['TOTAL WAR'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [1984, 1985],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 44: {'name': 'total-war-label-bright',
+      'display_name': 'TOTAL WAR label (bright)',
+      'elements': ['TOTAL WAR'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [1986, 1987],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 45: {'name': 'colors-label-dark',
+      'display_name': 'COLORS label (dark)',
+      'elements': ['COLORS'],
+      'evidence': 'decoded selector pixels corroborated by the reference sheet; visual '
+                  'identification, runtime use unproven',
+      'category': 'word-art',
+      'flat_indices': [1999, 2000],
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet',
+      'reference_status': 'matched'},
+ 46: {'name': 'colors-label-bright',
+      'display_name': 'COLORS label (bright)',
+      'elements': ['COLORS label (bright)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2001, 2002],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 47: {'name': 'bunker-label-dark',
+      'display_name': 'BUNKER label (dark)',
+      'elements': ['BUNKER label (dark)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [1990, 1991],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 48: {'name': 'bunker-label-bright',
+      'display_name': 'BUNKER label (bright)',
+      'elements': ['BUNKER label (bright)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [1992, 1993],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 49: {'name': 'new-game-label-bright',
+      'display_name': 'NEW GAME label (bright)',
+      'elements': ['NEW GAME label (bright)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2030, 2031, 2032],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 50: {'name': 'restart-label-bright',
+      'display_name': 'RESTART label (bright)',
+      'elements': ['RESTART label (bright)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2064, 2065],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 51: {'name': 'quit-label-bright',
+      'display_name': 'QUIT label (bright)',
+      'elements': ['QUIT label (bright)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2046, 2047],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 52: {'name': 'gray-character-brown-hat',
+      'display_name': 'Gray character with brown hat',
+      'elements': ['Gray character with brown hat'],
+      'evidence': 'Matches reference character icon visually; exact character/species name '
+                  'deliberately not inferred.',
+      'flat_indices': [2172],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 53: {'name': 'blue-player-group',
+      'display_name': 'Blue group of player pieces',
+      'elements': ['Blue group of player pieces'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2187],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 54: {'name': 'lap-checkered-flag',
+      'display_name': 'LAP checkered flag',
+      'elements': ['LAP checkered flag'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2186],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 55: {'name': 'red-running-figures',
+      'display_name': 'Red running figures',
+      'elements': ['Red running figures'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2185],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 56: {'name': 'green-tank',
+      'display_name': 'Tank turret icon',
+      'elements': ['Tank turret', 'Green tank'],
+      'evidence': 'Source pixels agree with the reference artwork and the green turret in the '
+                  'user-supplied Tank setup screenshot; visual screen association.',
+      'flat_indices': [2218],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 57: {'name': 'green-radar',
+      'display_name': 'Green radar',
+      'elements': ['Green radar'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2202],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 58: {'name': 'gold-balance-scales',
+      'display_name': 'Gold balance scales',
+      'elements': ['Gold balance scales'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2208],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 59: {'name': 'c-left-button',
+      'display_name': 'N64 C-left button',
+      'elements': ['N64 C-left button'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2224],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 60: {'name': 'c-right-button',
+      'display_name': 'N64 C-right button',
+      'elements': ['N64 C-right button'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2225],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 61: {'name': 'stopwatch',
+      'display_name': 'Stopwatch',
+      'elements': ['Stopwatch'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2222],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 62: {'name': 'opposed-red-arrows',
+      'display_name': 'Two opposed red arrows',
+      'elements': ['Two opposed red arrows'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2205],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 63: {'name': 'snowy-mountains-clouds',
+      'display_name': 'Snowy mountains and clouds',
+      'elements': ['Snowy mountains and clouds'],
+      'evidence': 'No matching icon found in supplied reference sheets.',
+      'flat_indices': [2116],
+      'reference_status': 'not-in-supplied-sheets'},
+ 64: {'name': 'money-bag',
+      'display_name': 'Money bag',
+      'elements': ['Money bag'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2114],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 65: {'name': 'score-circle',
+      'display_name': 'SCORE circular icon',
+      'elements': ['SCORE circular icon'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2149],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 66: {'name': 'hungover-label',
+      'display_name': 'HUNGOVER label',
+      'elements': ['HUNGOVER label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2108, 2109, 2110],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 67: {'name': 'windy-label',
+      'display_name': 'WINDY label',
+      'elements': ['WINDY label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2126, 2127, 2128],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 68: {'name': 'batstower-label',
+      'display_name': 'BATSTOWER label',
+      'elements': ['BATSTOWER label'],
+      'evidence': 'Readable text; no matching word art found in supplied reference sheets.',
+      'flat_indices': [2102, 2103, 2104],
+      'reference_status': 'not-in-supplied-sheets'},
+ 69: {'name': 'barn-boys-label',
+      'display_name': 'BARN BOYS label',
+      'elements': ['BARN BOYS label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2099, 2100, 2101],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 70: {'name': 'sloprano-label',
+      'display_name': 'SLOPRANO label',
+      'elements': ['SLOPRANO label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2117, 2118, 2119],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 71: {'name': 'uga-buga-label',
+      'display_name': 'UGA BUGA label',
+      'elements': ['UGA BUGA label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2123, 2124, 2125],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 72: {'name': 'spooky-label',
+      'display_name': 'SPOOKY label',
+      'elements': ['SPOOKY label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2120, 2121, 2122],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 73: {'name': 'its-war-label',
+      'display_name': "IT'S WAR label",
+      'elements': ["IT'S WAR label"],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2111, 2112, 2113],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 74: {'name': 'heist-label',
+      'display_name': 'HEIST label',
+      'elements': ['HEIST label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2105, 2106, 2107],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 75: {'name': 'stats-label',
+      'display_name': 'STATS label',
+      'elements': ['STATS label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2070, 2071],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 76: {'name': 'reds-label',
+      'display_name': 'REDS label',
+      'elements': ['REDS label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2147, 2148],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 77: {'name': 'blues-label',
+      'display_name': 'BLUES label',
+      'elements': ['BLUES label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2129, 2130],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 78: {'name': 'greens-label',
+      'display_name': 'GREENS label',
+      'elements': ['GREENS label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2136, 2137, 2138],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 79: {'name': 'yellows-label',
+      'display_name': 'YELLOWS label',
+      'elements': ['YELLOWS label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2159, 2160, 2161],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 80: {'name': 'squirrels-label',
+      'display_name': 'SQUIRRELS label',
+      'elements': ['SQUIRRELS label'],
+      'evidence': 'Readable text; no matching word art found in supplied reference sheets.',
+      'flat_indices': [2150, 2151, 2152],
+      'reference_status': 'not-in-supplied-sheets'},
+ 81: {'name': 'tediz-label',
+      'display_name': 'TEDIZ label',
+      'elements': ['TEDIZ label'],
+      'evidence': 'Readable text; no matching word art found in supplied reference sheets.',
+      'flat_indices': [2153, 2154],
+      'reference_status': 'not-in-supplied-sheets'},
+ 82: {'name': 'you-label',
+      'display_name': 'YOU label',
+      'elements': ['YOU label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2162, 2163],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 83: {'name': 'ugas-label',
+      'display_name': 'UGAS label',
+      'elements': ['UGAS label'],
+      'evidence': 'Readable text; no matching word art found in supplied reference sheets.',
+      'flat_indices': [2155, 2156],
+      'reference_status': 'not-in-supplied-sheets'},
+ 84: {'name': 'raptors-label',
+      'display_name': 'RAPTORS label',
+      'elements': ['RAPTORS label'],
+      'evidence': 'Readable text; no matching word art found in supplied reference sheets.',
+      'flat_indices': [2144, 2145, 2146],
+      'reference_status': 'not-in-supplied-sheets'},
+ 85: {'name': 'frenchys-label',
+      'display_name': 'FRENCHYS label',
+      'elements': ['FRENCHYS label'],
+      'evidence': 'Readable text; no matching word art found in supplied reference sheets.',
+      'flat_indices': [2133, 2134, 2135],
+      'reference_status': 'not-in-supplied-sheets'},
+ 86: {'name': 'win-label',
+      'display_name': 'WIN label',
+      'elements': ['WIN label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2157, 2158],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 87: {'name': 'lose-label',
+      'display_name': 'LOSE label',
+      'elements': ['LOSE label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2139, 2140],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 88: {'name': 'draw-label',
+      'display_name': 'DRAW label',
+      'elements': ['DRAW label'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2131, 2132],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62744/',
+      'reference_title': 'Pause Menu & Multi Results reference sheet'},
+ 89: {'name': 'reds-label-small',
+      'display_name': 'REDS label (smaller display scale)',
+      'elements': ['REDS label (smaller display scale)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2147, 2148],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 90: {'name': 'blues-label-small',
+      'display_name': 'BLUES label (smaller display scale)',
+      'elements': ['BLUES label (smaller display scale)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2129, 2130],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 91: {'name': 'greens-label-small',
+      'display_name': 'GREENS label (smaller display scale)',
+      'elements': ['GREENS label (smaller display scale)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2136, 2137, 2138],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'},
+ 92: {'name': 'yellows-label-small',
+      'display_name': 'YELLOWS label (smaller display scale)',
+      'elements': ['YELLOWS label (smaller display scale)'],
+      'evidence': 'Source pixels agree with the reference artwork; this does not establish a '
+                  'runtime screen association.',
+      'flat_indices': [2159, 2160, 2161],
+      'reference_status': 'matched',
+      'reference_url': 'https://www.spriters-resource.com/nintendo_64/conkersbadfurday/asset/62742/',
+      'reference_title': 'Main Menu Text & Icons reference sheet'}}
 LAYOUT_CALL_WORDS = {
     "positioned_template_calls": (0x0D410B65, 87, "func_15042D94"),
     "current_position_template_calls": (0x0D410B8F, 35, "func_15042E3C"),
@@ -231,6 +985,29 @@ GAME_CODE_SIGNATURES = {
     0x151ED628: 0x9258000A,  # descriptor image format
     0x151ED5E0: 0x0D44343B,  # jal func_1510D0EC
     0x151ED89C: 0x26940001,  # advance to the next flat entry
+    # Loader ID bounds, empty-slot handling and cumulative u16 ROM offsets.
+    0x1510D140: 0x2A011E52,
+    0x1510D150: 0x0010C040,
+    0x1510D15C: 0x3C038009,
+    0x1510D164: 0x94631D20,
+    0x1510D170: 0x14600007,
+    0x1510D180: 0x3C0B8000,
+    0x1510D1CC: 0x02002025,
+    0x1510D1D8: 0x0D4434DD,
+    0x1510D374: 0x3C03001A,
+    0x1510D378: 0x246337E0,
+    0x1510D390: 0x3C0F8009,
+    0x1510D394: 0x25EF1D20,
+    0x1510D3A0: 0x94B80000,
+    0x1510D3A8: 0x24A50002,
+    0x1510D3B0: 0x00781821,
+    0x1510D3C4: 0x00044840,
+    0x1510D3D0: 0x94AA0000,
+    0x1510D3D4: 0x94AB0002,
+    0x1510D3D8: 0x94AC0004,
+    0x1510D3E0: 0x94AD0006,
+    0x1510D3F4: 0x006D1821,
+
 }
 
 LAYOUT_RECORD_SCHEMA = (
@@ -472,15 +1249,23 @@ def load_reachable_flat_assets(
     profile: str,
     rom_argument: Path | None,
     sprites: tuple[SpriteMetadata, ...],
+    extra_resource_ids: tuple[int, ...] = (),
 ) -> dict[int, FlatHudAsset]:
     rom_path, layout = resolve_rom(profile, rom_argument)
     normalized, _ = normalize_rom(rom_path.read_bytes())
     digest = hashlib.sha1(normalized).hexdigest()
     if digest not in layout["normalized_sha1"]:
         raise ValueError(f"US normalized ROM SHA-1 mismatch: got {digest}")
-    wanted = set(reachable_flat_indices(sprites))
+    wanted = set(reachable_flat_indices(sprites)) | set(extra_resource_ids)
     flat_start = layout["flat_assets_start"]
     flat_end = layout["flat_assets_end"]
+    game = parse_game_archive(normalized[layout["game_start"] : layout["game_end"]])
+    validate_code(game.code, layout["game_vram"])
+    size_bytes = data_slice(game.data, layout["game_data_vram"],
+        RUNTIME_FLAT_SIZE_TABLE, RUNTIME_FLAT_SIZE_TABLE + RUNTIME_FLAT_ASSET_COUNT * 2)
+    compressed_sizes = struct.unpack(f">{RUNTIME_FLAT_ASSET_COUNT}H", size_bytes)
+    if [index for index, size in enumerate(compressed_sizes) if not size] != RUNTIME_FLAT_IDENTITY["empty_runtime_slots"]:
+        raise ValueError("US runtime flat asset empty slots changed")
     assets = {
         entry.index: FlatHudAsset(
             flat_index=entry.index,
@@ -488,7 +1273,8 @@ def load_reachable_flat_assets(
             rom_end=flat_start + entry.end,
             data=entry.data,
         )
-        for entry in iter_flat_rzip_entries(normalized[flat_start:flat_end])
+        for entry in iter_indexed_flat_rzip_entries(
+            normalized[flat_start:flat_end], compressed_sizes)
         if entry.index in wanted
     }
     missing = sorted(wanted - assets.keys())
@@ -631,6 +1417,7 @@ def build_manifest(
             "sprite_renderer": "func_151ED430",
             "flat_asset_loader": "func_1510D0EC",
             "verified_instruction_count": len(GAME_CODE_SIGNATURES),
+            "resource_identity": RUNTIME_FLAT_IDENTITY,
             "sprite_descriptor": {
                 "vram": f"0x{SPRITE_DESCRIPTOR_VRAM:X}",
                 "default_width": SPRITE_TILE_WIDTH,
@@ -1014,6 +1801,17 @@ def selector_frame_indices(sprite: SpriteMetadata) -> list[list[int]]:
     ]
 
 
+def named_exports(record: dict[str, Any]) -> list[dict[str, str]]:
+    identity = record.get("reviewed_identity")
+    if not identity:
+        return []
+    prefix = f"{record['selector']:04d}"
+    return [
+        {"source": path, "file": f"named/{prefix}-{identity['name']}{Path(path).stem[len(prefix):]}.png"}
+        for path in record["preview_files"]
+    ]
+
+
 def preview_html(manifest: dict[str, Any], glyph_map: bytes) -> str:
     cards = []
     for record in manifest["selectors"]:
@@ -1039,19 +1837,44 @@ def preview_html(manifest: dict[str, Any], glyph_map: bytes) -> str:
         note = record.get("preview_note")
         note_line = f'<p class="note">{html.escape(note)}</p>' if note else ""
         identity = record.get("reviewed_identity")
-        identity_line = (
-            f'<p class="identity">{html.escape(identity["display_name"])}</p>'
-            if identity
-            else ""
+        title = identity["display_name"] if identity else f'Selector {record["selector"]}'
+        source_indices = sorted({index for frame in record.get("frames", [[record["flat_asset_index"]]]) for index in frame})
+        source_indices = sorted(set(source_indices)
+            | {item["flat_index"] for item in (record.get("reviewed_variants") or [])}
+            | set((record.get("reviewed_composition") or {}).get("flat_indices", [])))
+        category = "raw" if not record["preview_files"] else ("named" if identity else "numeric")
+        exports = record.get("named_exports", [])
+        downloads = " ".join(
+            f'<a href="{html.escape(item["file"])}" download>PNG {index + 1}</a>'
+            for index, item in enumerate(exports)
+        ) or " ".join(
+            f'<a href="{html.escape(path)}" download>PNG {index + 1}</a>'
+            for index, path in enumerate(record["preview_files"])
         )
+        source_downloads = " ".join(
+            f'<a href="resources/{index:04d}.bin" download>flat {index}</a>'
+            for index in source_indices
+        )
+        evidence = html.escape(identity["evidence"]) if identity else "Identity unresolved."
+        reference = ""
+        if identity and identity.get("reference_url"):
+            reference = (
+                f'<p><a href="{html.escape(identity["reference_url"], quote=True)}">'
+                f'{html.escape(identity["reference_title"])}</a></p>'
+            )
+        search = " ".join([str(record["selector"]), f'{record["selector"]:04d}', title,
+            identity["name"] if identity else "", " ".join(map(str, source_indices)),
+            " ".join(record["preview_files"]), " ".join(item["file"] for item in exports)])
         cards.append(
-            '<article class="card">'
-            f'<h2>Selector {record["selector"]}</h2>'
+            f'<article class="card" data-search="{html.escape(search.lower(), quote=True)}" data-kind="{category}">'
+            f'<h2>{html.escape(title)}</h2>'
+            f'<p class="source-id">Selector {record["selector"]}</p>'
             f'<div class="images">{images}</div>'
-            f'<p>flat {record["flat_asset_index"]} · '
+            f'<p>resource {record["flat_asset_index"]} · '
             f'{record["tile_columns"]}×{record["tile_rows"]} tiles · '
             f'scale {record["scale"]:g} · flags {record["flags_raw"]}</p>'
-            f'{identity_line}{mode_line}{note_line}'
+            f'{mode_line}{note_line}<p class="downloads">{downloads}</p>'
+            f'<details><summary>Source and naming evidence</summary><p>{evidence}</p>{reference}<p>{source_downloads}</p></details>'
             '</article>'
         )
     glyphs = "".join(
@@ -1068,10 +1891,13 @@ def preview_html(manifest: dict[str, Any], glyph_map: bytes) -> str:
 <title>Conker US HUD/menu selector preview</title>
 <style>
 :root {{ color-scheme: dark; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }}
+* {{ box-sizing: border-box; }}
+[hidden] {{ display:none !important; }}
+a {{ color:#a6dbff; }}
 body {{ margin: 0; padding: 24px; background: #171a1f; color: #eef1f5; }}
 h1 {{ margin: 0 0 8px; }} .summary {{ color: #aeb7c4; margin-bottom: 24px; }}
-.grid {{ display: grid; grid-template-columns: repeat(auto-fill,minmax(230px,1fr)); gap: 12px; }}
-.card {{ background: #232830; border: 1px solid #3b4350; border-radius: 8px; padding: 12px; }}
+.grid {{ display: grid; grid-template-columns: repeat(auto-fill,minmax(min(100%,260px),1fr)); gap: 12px; }}
+.card {{ min-width:0; overflow-wrap:anywhere; background: #232830; border: 1px solid #3b4350; border-radius: 8px; padding: 12px; }}
 .card h2 {{ font-size: 14px; margin: 0 0 10px; }}
 .card p {{ color: #b9c2ce; font-size: 11px; margin: 10px 0 0; }}
 .card .identity {{ color: #f5df59; font-weight: 700; }}
@@ -1080,18 +1906,49 @@ h1 {{ margin: 0 0 8px; }} .summary {{ color: #aeb7c4; margin-bottom: 24px; }}
   padding: 8px; background-color: #cbd0d6;
   background-image: linear-gradient(45deg,#9da4ac 25%,transparent 25%),linear-gradient(-45deg,#9da4ac 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#9da4ac 75%),linear-gradient(-45deg,transparent 75%,#9da4ac 75%);
   background-size: 16px 16px; background-position: 0 0,0 8px,8px -8px,-8px 0; }}
-.images img {{ image-rendering: pixelated; width: auto; object-fit: contain; }}
+.images img {{ max-width:100%; image-rendering: pixelated; width: auto; object-fit: contain; }}
 .unresolved {{ color: #5d220d; background: #ffd6c5; padding: 15px; text-align: center; width: 100%; font-size: 11px; }}
 .glyphs {{ display: grid; grid-template-columns: repeat(auto-fill,minmax(72px,1fr)); gap: 6px; margin: 12px 0 28px; }}
 .glyph {{ display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: center; background: #232830; padding: 7px; }}
 .glyph span,.glyph code {{ color: #9fa9b7; font-size: 10px; }} .glyph b {{ font-size: 20px; text-align: center; }}
+.toolbar {{ display:flex; flex-wrap:wrap; align-items:end; gap:12px; margin:24px 0 12px; }}
+.toolbar label {{ display:grid; gap:6px; font-size:13px; }}
+input,select {{ padding:10px; border:1px solid #647185; border-radius:5px; background:#232830; color:#fff; max-width:100%; font:inherit; }}
+input {{ width:340px; }} .card details {{ margin-top:12px; font-size:11px; color:#c6d0dc; }}
+.downloads {{ display:flex; gap:12px; flex-wrap:wrap; }}
+.regions {{ display:grid; grid-template-columns:repeat(auto-fit,minmax(96px,1fr)); gap:10px; margin-top:10px; }}
+.region {{ display:grid; gap:5px; font-size:11px; }}
+.regions .images {{ min-height:64px; justify-content:center; padding:6px; }}
+.regions img {{ width:48px; height:48px; }}
+@media(max-width:600px) {{ body {{ padding:16px; }} h1 {{ font-size:25px; }} .toolbar label {{ width:100%; }} input,select {{ width:100%; }} }}
 </style>
 </head>
 <body>
-<h1>US HUD/menu metadata preview</h1>
-<p class="summary">{manifest['previewable_selector_count']} of {manifest['selector_count']} selectors have defensible previews. Source rows stay top-to-bottom; reviewed layout and structural-format exceptions are labelled on their cards, while unresolved payloads remain raw-only.</p>
-<h2>Glyph input map</h2><div class="glyphs">{glyphs}</div>
-<h2>Sprite selectors</h2><main class="grid">{''.join(cards)}</main>
+<h1>HUD &amp; menu artwork</h1>
+<p><a href="preview-manifest.json" download>Download source manifest</a></p>
+<p class="summary">{manifest['previewable_selector_count']} of {manifest['selector_count']} selectors have defensible previews. All selector images use the renderer’s RGBA32 dimensions and TMEM row layout. Runtime resource IDs preserve empty table slots.</p>
+<p class="summary">{len(manifest.get("additional_artwork", []))} additional artwork groups include logos, controller buttons and labels outside the HUD selector table; {manifest.get("additional_region_count", 0)} small icons also have individual PNG downloads.</p>
+<p class="summary">Names describe visible artwork. They do not assign a gameplay action or screen. Numeric IDs, raw bytes and unresolved entries are retained.</p>
+<details><summary>Glyph input map (metadata, not font bitmaps)</summary><div class="glyphs">{glyphs}</div></details>
+<div class="toolbar"><label>Search artwork<input id="search" type="search" placeholder="Name, selector or flat resource ID"></label>
+<label>Show<select id="filter"><option value="all">All artwork</option><option value="selectors">HUD selectors</option><option value="additional">Additional artwork</option><option value="named">Named artwork</option><option value="numeric">Unidentified artwork</option><option value="raw">Raw only</option></select></label></div>
+<p id="result-count" role="status"></p><p id="empty" hidden>No artwork matches your search.</p>
+<main class="grid">{''.join(cards)}{hud_additional_artwork.gallery_cards(manifest.get("additional_artwork", []))}</main>
+<script>
+const search = document.querySelector('#search'), filter = document.querySelector('#filter');
+const cards = [...document.querySelectorAll('.card')];
+function update() {{
+  const terms = search.value.toLowerCase().trim().split(/\\s+/).filter(Boolean);
+  let count = 0;
+  for (const card of cards) {{
+    const show = (filter.value === 'all' || card.dataset.kind === filter.value || (filter.value === 'selectors' && card.dataset.kind !== 'additional') || (filter.value === 'named' && card.dataset.kind === 'additional')) && terms.every(term => card.dataset.search.includes(term));
+    card.hidden = !show; count += Number(show);
+  }}
+  document.querySelector('#result-count').textContent = `${{count}} of ${{cards.length}} items`;
+  document.querySelector('#empty').hidden = count !== 0;
+}}
+search.addEventListener('input', update); filter.addEventListener('change', update); update();
+</script>
 </body>
 </html>
 """
@@ -1102,6 +1959,7 @@ def build_preview(
     assets: dict[int, FlatHudAsset],
     output: Path,
     force: bool,
+    include_additional: bool = False,
 ) -> dict[str, Any]:
     prepare_output(output, force)
     raw_directory = output / "resources"
@@ -1260,10 +2118,23 @@ def build_preview(
             }
         )
 
+    (output / "named").mkdir()
+    for record in selector_records:
+        record["named_exports"] = named_exports(record)
+        for item in record["named_exports"]:
+            (output / item["file"]).write_bytes((output / item["source"]).read_bytes())
+    additional_artwork = (hud_additional_artwork.write_preview(assets, output)
+        if include_additional else [])
     previewable = sum(bool(record["preview_files"]) for record in selector_records)
     manifest = {
         "schema_version": 1,
         "family": "hud-menu-selector-preview",
+        "additional_artwork": additional_artwork,
+        "additional_artwork_count": len(additional_artwork),
+        "additional_region_count": sum(len(record.get("regions", [])) for record in additional_artwork),
+        "additional_png_count": len(additional_artwork) + sum(len(record.get("regions", [])) for record in additional_artwork),
+        "additional_resource_count": len(hud_additional_artwork.RESOURCE_IDS) if include_additional else 0,
+        "resource_identity": RUNTIME_FLAT_IDENTITY,
         "default_row_layout": texture_base.ROW_LAYOUT_TMEM,
         "source_origin": HUD_SOURCE_ORIGIN,
         "preview_origin": HUD_PREVIEW_ORIGIN,
@@ -1276,17 +2147,17 @@ def build_preview(
         "previewable_resource_count": len(preview_pixels),
         "raw_only_resource_count": len(resource_records) - len(preview_pixels),
         "selector_count": len(selector_records),
+        "named_selector_count": sum(bool(record["reviewed_identity"]) for record in selector_records),
+        "named_png_count": sum(len(record["named_exports"]) for record in selector_records),
         "previewable_selector_count": previewable,
         "raw_only_selector_count": len(selector_records) - previewable,
         "resources": resource_records,
         "selectors": selector_records,
         "limitations": [
             "Row-complete short payloads are previewed at their encoded height without padding; the raw file remains authoritative.",
-            "For flag-bit-1 selectors, only the code-selected 16x16 RGBA32 render window is previewed and trailing raw bytes remain preserved.",
-            "Four reviewed payloads expose recognizable RGBA5551 artwork but disagree with the shared RGBA32 renderer descriptor; their PNGs are structural candidates, not a resolved runtime-format claim.",
-            "Two reviewed payloads remain raw-only because tested RGBA32, RGBA16, and CI8 constructions did not produce a defensible image.",
-            "Selector 61's four presentation variants retain their source flat indices and reviewed quarter-turn transforms.",
-            "Other selector and resource names remain numeric until a call site, runtime trace, or supplied visual reference proves their semantics.",
+            "Resource IDs follow the runtime compressed-size table, preserving empty slots; physical stream ordinals are different IDs.",
+            "All current selector sources use their code-selected dimensions and RGBA32 TMEM layout without per-resource exceptions.",
+            "Artwork names are visual identifications; runtime use remains unproven. Unidentified selectors retain numeric names.",
             "This preview does not claim complete named menu screens or final runtime placements.",
         ],
     }
@@ -1303,11 +2174,27 @@ def verify_preview(
     family: HudAssetFamily,
     assets: dict[int, FlatHudAsset],
     preview_directory: Path,
+    include_additional: bool = False,
 ) -> tuple[int, int]:
     manifest_path = preview_directory / "preview-manifest.json"
     if not manifest_path.is_file() or not (preview_directory / "index.html").is_file():
         raise ValueError("HUD selector preview manifest or index.html is missing")
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("resource_identity") != RUNTIME_FLAT_IDENTITY:
+        raise ValueError("HUD resource identity space is stale")
+    additional_artwork = manifest.get("additional_artwork", [])
+    if include_additional:
+        hud_additional_artwork.verify_preview(assets, preview_directory, additional_artwork)
+    elif additional_artwork:
+        raise ValueError("Unexpected additional artwork in selector-only preview")
+    expected_additional_count = len(hud_additional_artwork.ARTWORK) if include_additional else 0
+    expected_additional_resources = len(hud_additional_artwork.RESOURCE_IDS) if include_additional else 0
+    expected_regions = sum(len(regions) for regions in hud_additional_artwork.REGIONS.values()) if include_additional else 0
+    if (manifest.get("additional_artwork_count") != expected_additional_count
+            or manifest.get("additional_region_count") != expected_regions
+            or manifest.get("additional_png_count") != expected_additional_count + expected_regions
+            or manifest.get("additional_resource_count") != expected_additional_resources):
+        raise ValueError("Additional artwork counts are stale")
     expected_indices = reachable_flat_indices(family.sprites)
     resources = manifest.get("resources")
     if not isinstance(resources, list) or [record.get("flat_index") for record in resources] != list(expected_indices):
@@ -1321,7 +2208,10 @@ def verify_preview(
         raw_file = preview_directory / record["raw_file"]
         if raw_file.read_bytes() != asset.data:
             raise ValueError(f"HUD raw resource {flat_index} is not byte-identical")
-        if record["decoded_size"] != len(asset.data) or record["sha1"] != hashlib.sha1(asset.data).hexdigest():
+        if (record["decoded_size"] != len(asset.data)
+                or record["sha1"] != hashlib.sha1(asset.data).hexdigest()
+                or record["rom_start"] != f"0x{asset.rom_start:X}"
+                or record["rom_end"] != f"0x{asset.rom_end:X}"):
             raise ValueError(f"HUD resource {flat_index} provenance is stale")
         texture_file = record.get("texture_file")
         width, nominal_height = preview_dimensions[flat_index]
@@ -1389,7 +2279,16 @@ def verify_preview(
     previewable = 0
     for sprite, record in zip(family.sprites, selectors, strict=True):
         frames = selector_frame_indices(sprite)
-        if record.get("selector") != sprite.selector or record.get("frames") != frames:
+        expected_metadata = {
+            "selector": sprite.selector,
+            "frames": frames,
+            "flat_asset_index": sprite.flat_asset_index,
+            "tile_columns": sprite.tile_columns,
+            "tile_rows": sprite.tile_rows,
+            "scale": sprite.scale,
+            "flags_raw": sprite.flags_raw,
+        }
+        if any(record.get(key) != value for key, value in expected_metadata.items()):
             raise ValueError(f"HUD selector {sprite.selector} preview metadata is stale")
         expected_unresolved = []
         expected_modes = []
@@ -1415,6 +2314,8 @@ def verify_preview(
                 )
                 if frame_is_previewable and resource_status not in expected_modes:
                     expected_modes.append(resource_status)
+        if record.get("unresolved_sizes") != sorted({item["decoded_size"] for item in expected_unresolved}):
+            raise ValueError(f"HUD selector {sprite.selector} unresolved sizes are stale")
         if record.get("unresolved_resources") != expected_unresolved:
             raise ValueError(f"HUD selector {sprite.selector} unresolved metadata is stale")
         if record.get("preview_modes") != expected_modes:
@@ -1446,9 +2347,19 @@ def verify_preview(
             expected_files.append(relative)
         if record.get("preview_files") != expected_files:
             raise ValueError(f"HUD selector {sprite.selector} preview file list is stale")
+        expected_exports = named_exports(record)
+        if record.get("named_exports") != expected_exports:
+            raise ValueError(f"HUD selector {sprite.selector} named exports are stale")
+        for item in expected_exports:
+            if (preview_directory / item["file"]).read_bytes() != (preview_directory / item["source"]).read_bytes():
+                raise ValueError(f"HUD selector {sprite.selector} named PNG is stale")
         previewable += bool(expected_files)
     if manifest.get("previewable_resource_count") != len(preview_pixels) or manifest.get("previewable_selector_count") != previewable:
         raise ValueError("HUD preview summary counts are stale")
+    if manifest.get("named_selector_count") != sum(bool(record["reviewed_identity"]) for record in selectors) or manifest.get("named_png_count") != sum(len(named_exports(record)) for record in selectors):
+        raise ValueError("HUD named export counts are stale")
+    if (preview_directory / "index.html").read_text(encoding="utf-8") != preview_html(manifest, family.glyph_map):
+        raise ValueError("HUD gallery HTML is stale")
     return len(preview_pixels), previewable
 
 
@@ -1534,13 +2445,16 @@ def main() -> int:
             )
         elif args.command == "preview":
             _, _, _, family = load_profile_hud_assets(args.profile, args.rom)
-            assets = load_reachable_flat_assets(args.profile, args.rom, family.sprites)
+            assets = load_reachable_flat_assets(args.profile, args.rom, family.sprites,
+                extra_resource_ids=hud_additional_artwork.RESOURCE_IDS)
             output = args.output or default_preview_output(args.profile)
-            manifest = build_preview(family, assets, output, args.force)
+            manifest = build_preview(family, assets, output, args.force, include_additional=True)
             print(
                 f"Previewed {manifest['previewable_selector_count']} of "
                 f"{manifest['selector_count']} HUD/menu selectors from "
                 f"{manifest['previewable_resource_count']} reviewed resource windows; "
+                f"{manifest['additional_artwork_count']} additional artwork previews and "
+                f"{manifest['additional_region_count']} icon crops; "
                 f"{manifest['raw_only_resource_count']} resources remain raw-only in "
                 f"{display_path(output)}"
             )
@@ -1554,14 +2468,16 @@ def main() -> int:
             if preview_directory.is_dir():
                 _, _, _, family = load_profile_hud_assets(args.profile, args.rom)
                 assets = load_reachable_flat_assets(
-                    args.profile, args.rom, family.sprites
+                    args.profile, args.rom, family.sprites,
+                    extra_resource_ids=hud_additional_artwork.RESOURCE_IDS
                 )
                 resource_count, selector_count = verify_preview(
-                    family, assets, preview_directory
+                    family, assets, preview_directory, include_additional=True
                 )
                 preview_summary = (
                     f"; {resource_count} PNG resources and {selector_count} "
-                    "selector previews verified"
+                    f"selector previews and {len(hud_additional_artwork.ARTWORK)} additional groups "
+                    f"with {sum(len(regions) for regions in hud_additional_artwork.REGIONS.values())} icon crops verified"
                 )
             print(
                 f"Verified {args.profile} HUD/menu metadata: {glyph_count} table glyphs, "

@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import struct
 import tempfile
 import unittest
+import zlib
+from types import SimpleNamespace
 from pathlib import Path
 from unittest.mock import patch
 
@@ -31,6 +34,110 @@ def sample_family() -> hud_assets.HudAssetFamily:
 
 
 class HudAssetsTests(unittest.TestCase):
+    def test_loader_preserves_empty_ids_and_exact_rom_extents(self) -> None:
+        def chunk(payload: bytes) -> bytes:
+            compressor = zlib.compressobj(wbits=-15)
+            return struct.pack(">I", len(payload)) + compressor.compress(payload) + compressor.flush()
+
+        chunks = [chunk(value) for value in (b"first", b"correct target", b"wrong ordinal")]
+        rom_bytes = bytes.fromhex("80371240") + b"".join(chunks)
+        sizes = (len(chunks[0]), 0, 0, len(chunks[1]), len(chunks[2]))
+        game = SimpleNamespace(code=b"", data=struct.pack(">5H", *sizes))
+        layout = {"normalized_sha1": [hashlib.sha1(rom_bytes).hexdigest()],
+            "flat_assets_start": 4, "flat_assets_end": len(rom_bytes),
+            "game_start": 0, "game_end": 4, "game_vram": 0,
+            "game_data_vram": hud_assets.RUNTIME_FLAT_SIZE_TABLE}
+        with tempfile.TemporaryDirectory() as directory:
+            rom = Path(directory) / "owned.z64"
+            rom.write_bytes(rom_bytes)
+            with patch.object(hud_assets, "resolve_rom", return_value=(rom, layout)), \
+                 patch.object(hud_assets, "parse_game_archive", return_value=game), \
+                 patch.object(hud_assets, "validate_code"), \
+                 patch.object(hud_assets, "RUNTIME_FLAT_ASSET_COUNT", 5), \
+                 patch.dict(hud_assets.RUNTIME_FLAT_IDENTITY, {"empty_runtime_slots": [1, 2]}):
+                assets = hud_assets.load_reachable_flat_assets("us", rom,
+                    (hud_assets.SpriteMetadata(1, 1, 1, 128, 0, 3),))
+                self.assertEqual(set(assets), {3})
+                self.assertEqual(assets[3].data, b"correct target")
+                self.assertEqual(assets[3].rom_start, 4 + len(chunks[0]))
+                self.assertEqual(assets[3].rom_end, 4 + len(chunks[0]) + len(chunks[1]))
+                with self.assertRaisesRegex(ValueError, "missing flat indices"):
+                    hud_assets.load_reachable_flat_assets("us", rom,
+                        (hud_assets.SpriteMetadata(1, 1, 1, 128, 0, 1),))
+
+    def test_changed_loader_table_instruction_is_rejected(self) -> None:
+        base = 0x15000000
+        code = bytearray(max(hud_assets.GAME_CODE_SIGNATURES) - base + 4)
+        for address, word in hud_assets.GAME_CODE_SIGNATURES.items():
+            struct.pack_into(">I", code, address - base, word)
+        hud_assets.validate_code(bytes(code), base)
+        struct.pack_into(">I", code, 0x1510D164 - base, 0)
+        with self.assertRaises(ValueError):
+            hud_assets.validate_code(bytes(code), base)
+
+    def test_resource_provenance_and_identity_space_are_verified(self) -> None:
+        sprite = hud_assets.SpriteMetadata(59, 1, 1, 128, 2, 2224)
+        family = hud_assets.HudAssetFamily(b"A", b"", (sprite,))
+        asset = hud_assets.FlatHudAsset(2224, 123, 234, bytes([255]) * 1024)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "preview"
+            manifest = hud_assets.build_preview(family, {2224: asset}, output, False)
+            self.assertEqual(hud_assets.verify_preview(family, {2224: asset}, output), (1, 1))
+            self.assertEqual(manifest["resources"][0]["preview_width"], 16)
+            self.assertEqual(manifest["resources"][0]["preview_height"], 16)
+            path = output / "preview-manifest.json"
+            manifest["resources"][0]["rom_start"] = "0xBAD"
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, "provenance"):
+                hud_assets.verify_preview(family, {2224: asset}, output)
+            manifest["resources"][0]["rom_start"] = "0x7B"
+            manifest["resource_identity"] = {"index_space": "physical-stream-ordinal"}
+            path.write_text(json.dumps(manifest))
+            with self.assertRaisesRegex(ValueError, "identity space"):
+                hud_assets.verify_preview(family, {2224: asset}, output)
+
+    def test_named_exports_keep_selector_identity_and_animation_suffixes(self) -> None:
+        records = [
+            {"selector": selector, "reviewed_identity": hud_assets.SELECTOR_REVIEWED_IDENTITIES[selector],
+             "preview_files": [f"selectors/{selector:04d}.png"]}
+            for selector in (34, 50)
+        ]
+        paths = [hud_assets.named_exports(record)[0]["file"] for record in records]
+        self.assertEqual(paths, ["named/0034-restart-label-bright.png", "named/0050-restart-label-bright.png"])
+        animated = {"selector": 26, "reviewed_identity": hud_assets.SELECTOR_REVIEWED_IDENTITIES[26],
+                    "preview_files": ["selectors/0026-frame-5.png"]}
+        self.assertEqual(hud_assets.named_exports(animated)[0]["file"], "named/0026-analog-stick-animation-frame-5.png")
+
+    def test_named_png_and_identity_corruption_are_rejected(self) -> None:
+        sprite = hud_assets.SpriteMetadata(1, 1, 1, 128, 0, 2196)
+        family = hud_assets.HudAssetFamily(b"A", b"", (sprite,))
+        asset = hud_assets.FlatHudAsset(2196, 0, 4096, bytes([255]) * 4096)
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            output = Path(temporary_directory) / "preview"
+            manifest = hud_assets.build_preview(family, {2196: asset}, output, False)
+            self.assertEqual(hud_assets.verify_preview(family, {2196: asset}, output), (1, 1))
+            named = output / manifest["selectors"][0]["named_exports"][0]["file"]
+            named.write_bytes(b"corrupted")
+            with self.assertRaisesRegex(ValueError, "named PNG"):
+                hud_assets.verify_preview(family, {2196: asset}, output)
+
+    def test_consistently_corrupted_gallery_metadata_is_rejected(self) -> None:
+        sprite = hud_assets.SpriteMetadata(1, 1, 1, 128, 0, 2196)
+        family = hud_assets.HudAssetFamily(b"A", b"", (sprite,))
+        asset = hud_assets.FlatHudAsset(2196, 123, 234, bytes([255]) * 4096)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "preview"
+            original = hud_assets.build_preview(family, {2196: asset}, output, False)
+            for field, value in {"flat_asset_index": 9999, "tile_columns": 99,
+                    "tile_rows": 99, "scale": 0.1, "flags_raw": 99}.items():
+                with self.subTest(field=field):
+                    manifest = json.loads(json.dumps(original))
+                    manifest["selectors"][0][field] = value
+                    (output / "preview-manifest.json").write_text(json.dumps(manifest))
+                    (output / "index.html").write_text(hud_assets.preview_html(manifest, family.glyph_map))
+                    with self.assertRaisesRegex(ValueError, "preview metadata"):
+                        hud_assets.verify_preview(family, {2196: asset}, output)
+
     def test_glyph_lookup_matches_ascii_folding_and_space_case(self) -> None:
         glyph_map = sample_family().glyph_map
         self.assertEqual(10, hud_assets.glyph_index_for_byte(ord("A"), glyph_map))
@@ -148,119 +255,6 @@ class HudAssetsTests(unittest.TestCase):
         self.assertEqual(bytes((255, 0, 0, 255)) * 4, pixels[:16])
         self.assertEqual(bytes((0, 0, 255, 255)) * 4, pixels[16:])
 
-    def test_reviewed_resource_preview_contracts_are_explicit(self) -> None:
-        linear = hud_assets.resource_preview_image(
-            2202, bytes((1, 2, 3, 4)) * (32 * 8), 32, 32
-        )
-        i8_linear = bytes(range(64)) * 64
-        i8_stored = hud_assets.texture_native.convert_row_layout(
-            i8_linear,
-            hud_assets.texture_base.ROW_LAYOUT_TMEM,
-            "i8",
-            64,
-            64,
-        )
-        i8 = hud_assets.resource_preview_image(2139, i8_stored, 64, 64)
-        label_linear = bytes(range(64)) * 32
-        label_stored = hud_assets.texture_native.convert_row_layout(
-            label_linear,
-            hud_assets.texture_base.ROW_LAYOUT_TMEM,
-            "i8",
-            64,
-            32,
-        )
-        label = hud_assets.resource_preview_image(2198, label_stored, 64, 32)
-        question_linear = bytes(range(32)) * 32
-        question_stored = hud_assets.texture_native.convert_row_layout(
-            question_linear,
-            hud_assets.texture_base.ROW_LAYOUT_TMEM,
-            "i8",
-            32,
-            32,
-        )
-        question = hud_assets.resource_preview_image(
-            2199, question_stored, 32, 32
-        )
-        zero = hud_assets.resource_preview_image(2224, bytes(4096), 32, 32)
-
-        self.assertIsNotNone(linear)
-        self.assertEqual(hud_assets.texture_base.ROW_LAYOUT_LINEAR, linear.row_layout)
-        self.assertEqual("reviewed-linear-rgba32-short-preview", linear.status)
-        self.assertIsNotNone(i8)
-        self.assertEqual("i8", i8.texture_format)
-        self.assertEqual(hud_assets.texture_base.ROW_LAYOUT_TMEM, i8.row_layout)
-        self.assertEqual("reviewed-i8-tmem-preview", i8.status)
-        self.assertEqual(
-            hud_assets.texture_native.payload_to_rgba(i8_linear, "i8"), i8.pixels
-        )
-        self.assertEqual("i8", label.texture_format)
-        self.assertEqual(
-            hud_assets.texture_native.payload_to_rgba(label_linear, "i8"),
-            label.pixels,
-        )
-        self.assertEqual("i8", question.texture_format)
-        self.assertEqual(
-            hud_assets.texture_native.payload_to_rgba(question_linear, "i8"),
-            question.pixels,
-        )
-        self.assertEqual("rgba32", zero.texture_format)
-        self.assertEqual("reviewed-rgba32-32x32-source-preview", zero.status)
-        self.assertIsNone(
-            hud_assets.resource_preview_image(2041, bytes(3072), 32, 32)
-        )
-
-    def test_reference_sheet_identities_use_reviewed_source_dimensions(self) -> None:
-        sprites = (
-            hud_assets.SpriteMetadata(3, 1, 1, 0x80, 0, 2198),
-            hud_assets.SpriteMetadata(4, 1, 1, 0x80, 0, 2199),
-            hud_assets.SpriteMetadata(5, 1, 1, 0x80, 0, 2171),
-            hud_assets.SpriteMetadata(8, 1, 1, 0x80, 0, 2215),
-            hud_assets.SpriteMetadata(52, 1, 1, 0x80, 0, 2172),
-            hud_assets.SpriteMetadata(59, 1, 1, 0x80, 2, 2224),
-        )
-
-        self.assertEqual(
-            {
-                2198: (64, 32),
-                2199: (32, 32),
-                2171: (64, 32),
-                2215: (64, 32),
-                2172: (64, 32),
-                2224: (32, 32),
-            },
-            hud_assets.resource_preview_dimensions(sprites),
-        )
-        self.assertEqual(
-            {
-                2198: (32, 32),
-                2199: (32, 32),
-                2171: (32, 32),
-                2215: (32, 32),
-                2172: (32, 32),
-                2224: (16, 16),
-            },
-            hud_assets.resource_render_dimensions(sprites),
-        )
-        self.assertEqual(
-            "poops-label", hud_assets.SELECTOR_REVIEWED_IDENTITIES[3]["name"]
-        )
-        self.assertEqual(
-            "question-mark-icon", hud_assets.SELECTOR_REVIEWED_IDENTITIES[4]["name"]
-        )
-        self.assertEqual(
-            "dang-label", hud_assets.SELECTOR_REVIEWED_IDENTITIES[5]["name"]
-        )
-        self.assertEqual(
-            "total-label", hud_assets.SELECTOR_REVIEWED_IDENTITIES[8]["name"]
-        )
-        self.assertEqual(
-            "dino-label", hud_assets.SELECTOR_REVIEWED_IDENTITIES[52]["name"]
-        )
-        self.assertEqual(
-            "green-zero-digit",
-            hud_assets.SELECTOR_REVIEWED_IDENTITIES[59]["name"],
-        )
-
     def test_shared_source_selectors_render_at_their_recorded_scales(self) -> None:
         selectors = []
         for selector, scale in ((76, 1.0), (89, 85 / 128)):
@@ -290,87 +284,6 @@ class HudAssetsTests(unittest.TestCase):
 
         self.assertIn('style="height:64px" src="selectors/0076.png"', rendered)
         self.assertIn('style="height:42px" src="selectors/0089.png"', rendered)
-
-    def test_selector_61_has_reviewed_c_button_identity_and_order(self) -> None:
-        identity = hud_assets.SELECTOR_REVIEWED_IDENTITIES[61]
-        variants = hud_assets.SELECTOR_REVIEWED_VARIANTS[61]
-
-        self.assertEqual("n64-c-buttons-direction-row", identity["name"])
-        self.assertEqual(
-            ["C-left", "C-up", "C-right", "C-down"], identity["elements"]
-        )
-        self.assertEqual("user-supplied visual reference", identity["evidence"])
-        self.assertEqual(
-            ["left", "up", "right", "down"],
-            [variant["name"] for variant in variants],
-        )
-        self.assertEqual(
-            [2222, 2222, 2223, 2222], [v["flat_index"] for v in variants]
-        )
-        self.assertEqual(
-            [0, 1, 0, 3], [v["clockwise_quarter_turns"] for v in variants]
-        )
-
-    def test_selector_61_uses_16x16_tmem_sources_and_reviewed_rotations(self) -> None:
-        sprite = hud_assets.SpriteMetadata(61, 1, 1, 0x80, 0, 2222)
-        left = bytearray(16 * 16 * 4)
-        left[0:4] = bytes((255, 0, 0, 255))
-        left[-4:] = bytes((0, 255, 0, 255))
-        right = bytes((0, 0, 255, 255)) * (16 * 16)
-        previews = {2222: (16, 16, bytes(left)), 2223: (16, 16, right)}
-
-        outputs = hud_assets.selector_preview_outputs(sprite, previews)
-
-        self.assertEqual(
-            ["-left", "-up", "-right", "-down"], [x[0] for x in outputs]
-        )
-        self.assertEqual((255, 0, 0, 255), tuple(outputs[1][4][15 * 4 : 16 * 4]))
-        self.assertEqual((255, 0, 0, 255), tuple(outputs[3][4][-16 * 4 : -15 * 4]))
-        self.assertEqual(right, outputs[2][4])
-        self.assertEqual(
-            {2222: (16, 16), 2223: (16, 16)},
-            hud_assets.resource_preview_dimensions((sprite,)),
-        )
-        self.assertEqual(
-            {2222: (32, 32)}, hud_assets.resource_render_dimensions((sprite,))
-        )
-
-    def test_selector_87_has_reviewed_nintendo_identity_and_two_tile_order(self) -> None:
-        identity = hud_assets.SELECTOR_REVIEWED_IDENTITIES[87]
-        composition = hud_assets.SELECTOR_REVIEWED_COMPOSITIONS[87]
-        sprite = hud_assets.SpriteMetadata(87, 2, 1, 0x80, 0, 2139)
-
-        self.assertEqual("nintendo-wordmark", identity["name"])
-        self.assertEqual("Nintendo wordmark", identity["display_name"])
-        self.assertEqual(["Nintendo"], identity["elements"])
-        self.assertEqual([[2139, 2140]], hud_assets.selector_frame_indices(sprite))
-        self.assertEqual(
-            [2139, 2140, 2141], composition["flat_indices"]
-        )
-        self.assertEqual(3, composition["tile_columns"])
-        self.assertEqual(
-            {2139: (64, 64), 2140: (64, 64), 2141: (64, 64)},
-            hud_assets.resource_preview_dimensions((sprite,)),
-        )
-        preview = hud_assets.resource_preview_image(
-            2139, bytes(64 * 64), 64, 64
-        )
-        self.assertEqual(
-            hud_assets.texture_base.ROW_LAYOUT_TMEM,
-            preview.row_layout,
-        )
-        self.assertEqual("i8", preview.texture_format)
-
-        outputs = hud_assets.selector_preview_outputs(
-            sprite,
-            {
-                flat_index: (64, 64, bytes((flat_index - 2138,)) * 64 * 64 * 4)
-                for flat_index in composition["flat_indices"]
-            },
-        )
-        self.assertEqual(1, len(outputs))
-        self.assertEqual((2139, 2140, 2141), outputs[0][1])
-        self.assertEqual((192, 64), outputs[0][2:4])
 
     def test_extract_and_verify_round_trip(self) -> None:
         family = sample_family()
