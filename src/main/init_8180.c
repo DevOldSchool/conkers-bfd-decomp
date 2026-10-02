@@ -35,10 +35,185 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008180.s")
 typedef struct SequencePlayer SequencePlayer;
+typedef struct {
+    u8 *address;
+    s32 length;
+} SequenceFileEntry;
 
+typedef struct {
+    s16 revision;
+    s16 count;
+    SequenceFileEntry entries[1];
+} SequenceFile;
+
+typedef struct AudioHeap AudioHeap;
+typedef struct AudioBank AudioBank;
+
+typedef struct {
+    s16 revision;
+    s16 count;
+    AudioBank *banks[1];
+} AudioBankFile;
+
+typedef struct {
+    s32 maxVoices;
+    s32 maxPhysicalVoices;
+    s32 maxUpdates;
+    s32 maxFxBuses;
+    void *dma;
+    void *fetch;
+    void *release;
+    void *retain;
+    void *releaseNow;
+    void *waveBase;
+    AudioHeap *heap;
+    s32 outputRate;
+    u8 fxTypes[2];
+    u8 pad32[2];
+    s32 *params[2];
+} AudioDriverConfig;
+
+typedef struct {
+    u32 frequency;
+    u32 frames;
+    s32 maxCommands;
+} AudioDeviceConfig;
+
+typedef struct {
+    s32 maxVoices;
+    s32 maxEvents;
+    u8 maxChannels;
+    u8 debugFlags;
+    u8 padA[2];
+    AudioHeap *heap;
+    void *initOsc;
+    void *updateOsc;
+    void *stopOsc;
+} SequencePlayerConfig;
+
+typedef struct {
+    s32 maxStates;
+    s32 maxEvents;
+    s32 maxSounds;
+    AudioHeap *heap;
+    void *waveBase;
+    u16 maxVolumes;
+} AudioSoundConfig;
+
+void func_800046E4(u32, void *, u32);
+void func_80008F90(AudioDriverConfig *, s32, AudioDeviceConfig *);
+void func_80012820(AudioHeap *, u8 *, s32);
+void *func_80012844(u8 *, s32, AudioHeap *, s32, s32);
+void func_800128D0(SequenceFile *, u8 *);
+void func_80012934(AudioBankFile *, u8 *, s32);
+void func_800131FC(SequencePlayerConfig *, s32);
+void func_80013320(SequencePlayer *, SequencePlayerConfig *);
+void func_80015550(SequencePlayer *, AudioBank *);
+void func_800155A0(AudioSoundConfig *);
+void func_80017870(u8);
+void func_80017944(s32, s32);
+void *func_8502B020(s32 *, s32, ...);
+s32 func_8502B8E0(void *, s32, s32, ...);
+s32 func_8502B9B4(s32, ...);
+extern AudioBank *D_8003E368;
+extern AudioHeap D_8003E370;
+extern u8 D_80044B20[];
+s32 func_80003C40(s32, s32, s32, s32);
+void func_80004074(s32);
 extern SequencePlayer *D_8003C900[];
+extern u16 D_8003C910[];
+extern u16 D_8003CA3C[];
+extern s32 D_8003CA48[];
+extern SequenceFile *D_8003CD40;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008180 CURRENT (1235) */
+void func_80008180(void) {
+    AudioSoundConfig soundConfig;
+    AudioDriverConfig driverConfig;
+    SequencePlayerConfig playerConfig;
+    AudioDeviceConfig deviceConfig;
+    u8 *waveBase;
+    AudioBankFile *bankFile;
+    SequenceFile *header;
+    s32 bankSize;
+    s32 sequenceSize;
+    u32 bankAddress;
+    u32 sequenceAddress;
+    s32 i;
+    SequencePlayer **player;
+    SequencePlayer **end;
+    u16 *current;
+    s32 *buffer;
+
+    func_80012820(&D_8003E370, D_80044B20, 0x3E000);
+    driverConfig.maxVoices = 0x2C;
+    driverConfig.maxPhysicalVoices = 0x28;
+    driverConfig.maxUpdates = 0x40;
+    driverConfig.maxFxBuses = 2;
+    driverConfig.dma = 0;
+    driverConfig.fxTypes[0] = 6;
+    driverConfig.fxTypes[1] = 6;
+    driverConfig.outputRate = 0;
+    driverConfig.heap = &D_8003E370;
+    deviceConfig.frequency = 0x5604;
+    deviceConfig.frames = 1;
+    deviceConfig.maxCommands = 0xC00;
+    driverConfig.waveBase = func_8502B020(0, 2, 0x17, 2);
+    func_80008F90(&driverConfig, 0xC, &deviceConfig);
+    bankSize = func_8502B9B4(2, 0x17, 0);
+    bankFile = (AudioBankFile *)func_80003C40(bankSize, 0xFF, 2, 0);
+    func_8502B8E0(bankFile, bankSize, 2, 0x17, 0);
+    bankAddress = (u32)func_8502B020(0, 2, 0x17, 1);
+    waveBase = func_8502B020(0, 2, 0x17, 2);
+    func_80012934(bankFile, waveBase, bankAddress);
+    D_8003E368 = bankFile->banks[0];
+    sequenceAddress = (u32)func_8502B020(0, 2, 0x17, 3);
+    header = (SequenceFile *)func_80003C40(0x10, 1, 2, 0);
+    func_800046E4(sequenceAddress, header, 0x10);
+    sequenceSize = header->count * 8 + 4;
+    func_80004074((s32)header);
+    D_8003CD40 = (SequenceFile *)func_80003C40(sequenceSize, 0xFF, 2, 0);
+    func_800046E4(sequenceAddress, D_8003CD40, (sequenceSize + 0xF) & ~0xF);
+    func_800128D0(D_8003CD40, (u8 *)sequenceAddress);
+    for (i = 0; i < 150; i++) {
+        D_8003C910[i] = D_8003CD40->entries[i].length;
+        if (D_8003C910[i] & 1) {
+            D_8003C910[i]++;
+        }
+    }
+    playerConfig.maxVoices = 0x2C;
+    playerConfig.maxEvents = 0x68;
+    playerConfig.debugFlags = 0;
+    playerConfig.maxChannels = 0x10;
+    playerConfig.heap = &D_8003E370;
+    func_800131FC(&playerConfig, 0x58);
+    end = &D_8003C900[3];
+    current = D_8003CA3C;
+    buffer = D_8003CA48;
+    for (player = D_8003C900; player != end; player++) {
+        *current = 0xFFFF;
+        *buffer = 0;
+        *player = func_80012844(0, 0, &D_8003E370, 1, 0x90);
+        func_80013320(*player, &playerConfig);
+        func_80015550(*player, bankFile->banks[0]);
+        current++;
+        buffer++;
+    }
+    soundConfig.maxEvents = 0x40;
+    soundConfig.maxStates = 0x40;
+    soundConfig.maxSounds = 0x14;
+    soundConfig.maxVolumes = 8;
+    soundConfig.heap = &D_8003E370;
+    soundConfig.waveBase = waveBase;
+    func_800155A0(&soundConfig);
+    func_80017870(4);
+    func_80017944(0, 2);
+    func_80017944(1, 2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_80008180 */
+#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008180.s")
+
 s32 func_80017A80(SequencePlayer *player);
 void func_80017AA0(SequencePlayer *);
 
@@ -307,28 +482,12 @@ void func_80008C6C(s32 arg0, s32 marker) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80008C6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008C6C.s")
-typedef struct {
-    u8 *address;
-    s32 length;
-} SequenceFileEntry;
 
-typedef struct {
-    s16 revision;
-    s16 count;
-    SequenceFileEntry entries[1];
-} SequenceFile;
-
-s32 func_80003C40(s32, s32, s32, s32);
-void func_80004074(s32);
 s32 func_80004514(s32, void *, u32, s32);
 void func_80017B30(SequencePlayer *);
 void func_80017F80(SequenceData *, u8 *);
 void func_80018C60(SequencePlayer *);
 void func_80018CB0(SequencePlayer *, SequenceData *);
-extern u16 D_8003C910[];
-extern u16 D_8003CA3C[];
-extern s32 D_8003CA48[];
-extern SequenceFile *D_8003CD40;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_80008CE8 CURRENT (1867) */
 s32 func_80008CE8(s32 arg0, s32 sequence) {

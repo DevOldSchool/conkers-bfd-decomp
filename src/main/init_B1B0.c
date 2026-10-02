@@ -238,9 +238,9 @@ s32 func_8000B830(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B8B8.s")
 s32 func_8000E588(s32, s32, s32);
 s32 func_8000C530(s32, s32, f32, f32, f32);
-void func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
+s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BA18 CURRENT (20) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BA18 CURRENT (10) */
 s32 func_8000BA18(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 volume;
     s32 pan;
@@ -260,7 +260,7 @@ s32 func_8000BA18(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000BA18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BA18.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BAFC CURRENT (30) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BAFC CURRENT (10) */
 s32 func_8000BAFC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 volume;
     s32 pan;
@@ -345,7 +345,7 @@ s32 func_8000C934(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000C934 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C934.s")
-void func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
+s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 extern s32 D_800BE9F0;
 
 s32 func_8000CA18(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {

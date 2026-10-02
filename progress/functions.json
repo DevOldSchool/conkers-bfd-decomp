@@ -91352,6 +91352,12 @@
       "symbol": "func_80012020"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 17629,
+        "reason": "Recovered driver config/callbacks, exact528-byte effect table, DMA/cache ring and task layouts with SDK helper contracts. Conservative17629; SDK-prefix scoped list insertion17690; counted do-loop neutral17629. Remaining unrolled cache loop, lifetime/scheduling, aliases and frame278 versus270; no shared flags, false globals or padding.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91550,6 +91556,12 @@
       "symbol": "func_80009BE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1394,
+        "reason": "Actual ConkerBankFetch pointer-return ABI and allocator/cache/DMA contracts. Typed candidate2937 improves1877 with separate tagged return, then1394 with real owner-slot snapshot. Remaining frame50 versus58, manager symbol alias/copy and insertion allocation are unsupported; three attempts exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91581,6 +91593,12 @@
       "symbol": "func_80009FFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1761,
+        "reason": "Raw-backed buffer+10/pending-list+C views, instrument count/sound pointer layout and neutral wave byteA. Typed completion/cache cleanup1761; second-list do/while code-neutral. Remaining copied-anchor registers, frame70 versus78 and loop scheduling lack a supported repair; no artificial storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
@@ -91767,8 +91785,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Raw float caller chain through D758 and D2F8 proves the forwarded coordinates are f32. Corrected coordinates and C530 declaration are instruction-neutral; remaining callback temporary allocation and final OR operand order are unchanged. No unsupported unused-formal changes or permutation.",
+        "current_score": 10,
+        "reason": "Concrete 114D0 scalar-return contract recovers output-register allocation; CURRENT 10 retains only final commutative OR operand order. Coordinate formals are f32 from the raw D758/D2F8 caller chain. Prior operand reversal was neutral; no repeat or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -91786,8 +91804,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Raw float caller chain through D758 and D2F8 proves the forwarded coordinates are f32. Corrected coordinates and C530 declaration are instruction-neutral; remaining callback temporary allocation and final OR operand order are unchanged. No unsupported unused-formal changes or permutation.",
+        "current_score": 10,
+        "reason": "Concrete 114D0 scalar-return contract recovers output-register allocation; CURRENT 10 retains only final commutative OR operand order. Coordinate formals are f32 from the raw D758/D2F8 caller chain. Prior operand reversal was neutral; no repeat or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -91908,7 +91926,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 264,
-        "reason": "Preserve callback at CURRENT (264), improved from 1025 by explicit default branch and by-value output snapshot. Remaining output register allocation and spill slot need a distinct lifetime hypothesis; no unsupported storage or permutation.",
+        "reason": "Concrete 114D0 scalar-return annotation is code-neutral at CURRENT 264. Explicit default branch and by-value output snapshot remain best; output allocation and spill slot need distinct lifetime evidence. No repeated source shaping.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93460,6 +93478,12 @@
       "symbol": "func_80011EB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1235,
+        "reason": "Recovered SDK/Rare driver, sequence, sound and bank config contracts plus raw-proven variadic resource APIs. First1667 improved1235 with genuine three-player endpoint snapshot. Remaining actual config/local frame100 versusF0, descriptor-loop induction and endpoint symbol alias lack a supported layout fix; no padding or alias workaround.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "main",
       "regions": {
         "us": {
