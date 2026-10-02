@@ -32208,17 +32208,16 @@
       "symbol": "func_151D2AB0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "CURRENT (30): five register-only rows swap byte-slot address v0 and value v1; s32 value, volatile pointer and integer-address variants neutral; previous permutation unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151D2B4C",
           "vram": "0x151D2B4C"
         }
@@ -68647,8 +68646,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 955,
-        "reason": "CURRENT (955): vector layout, arithmetic, calls, stores, and stack frame match; remaining 14 rows come from IDO folding the branch-local arg0+0x18 base into direct offsets, which also changes final boolean control flow. Typed, volatile-pointee, and raw void-pointer forms plateaued identically after the array-size fix.",
+        "current_score": 972,
+        "reason": "CURRENT (972): coherent owner/hit/f32 validity repair independently supported by actual 0x58 allocation, 0x40 payload and 0x24 hit; exact callback and collision ABI, real 12-byte XYZ, no scalar-root traversal. Full 788-byte producer remains CURRENT (0) after exactly five member renames. Remaining four XYZ stack rows and folded branch-local payload-base/boolean tail lack a new supported semantic hypothesis; prior typed/volatile/raw-pointer, array-size/layout/register forms remain exhausted. Preserve this valid candidate rather than historical invalid 955.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
