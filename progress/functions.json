@@ -992,6 +992,12 @@
       "symbol": "func_15136404"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1952,
+        "reason": "Provider-proved 0x58-byte descriptor and fullword target formals; scores1968/1952, mapped real sample homes improve1952. Eight-byte frame shift, FP scheduling and unsupported narrow-formal reload differences remain; retain second form.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -1076,7 +1082,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "CURRENT (48): identical six scalar spill offset +8 rows as func_150C2898; separate and grouped local declaration-order probes on twin function did not improve layout",
+        "reason": "Fresh full-span recheck remains48: exact frame and two provider-proved twelve-byte vectors, six real sample spill offsets differ by eight. One transient multiplier does not justify the two-word gap; no invented locals or padded vectors.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -1273,6 +1279,12 @@
       "symbol": "func_15138424"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1477,
+        "reason": "Typed bounce sibling and grounded vector/RNG contracts; direct form2722, raw delayed-horizontal-store form1477 retained. Existing sibling evidence exhausts equivalent allocation variants; frame and FP differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -1303,6 +1315,12 @@
       "symbol": "func_15138BC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3009,
+        "reason": "Verified 20-case table restores five no-op routes omitted by starter; provider-proved hit24/vector12 and float third-argument contract. Best valid form3009 after fullword parameter-lifetime cleanup, exact frame70; masked-value allocation remains. Invalid first routing excluded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

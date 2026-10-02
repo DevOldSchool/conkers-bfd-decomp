@@ -1487,3 +1487,51 @@ and the PI initializer. Full US ROM equality, 1,346 tests with 12 skipped,
 metadata, progress and whitespace pass with `BATCH_COMPLETE`. Game sources
 remain unchanged from their preceding separately verified batch. Totals remain
 **67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.
+
+## Thirty-ninth batch: blood effect constructor and dispatch contracts
+
+Three new blood-effect candidates are retained disabled. `15136698` uses the
+provider-proved 0x58-byte descriptor: the matched forwarding helper passes its
+first argument unchanged to the routine that copies exactly 0x58 bytes. The
+unknown trailing descriptor bytes therefore have an independent extent rather
+than a size inferred from the caller frame. Its four-word choice table is an
+ordinary aggregate snapshot. Integer formals remain fullword, with explicit
+low-byte and signed-halfword uses. The established random helper takes no
+arguments. Mapping the two real random-sample homes improves 1968 to 1952;
+an eight-byte frame shift, FP scheduling and byte-versus-word reloads remain.
+
+The bounce callback `151389A8` shares its initial raw instruction sequence with
+an existing deferred sibling. Direct field updates score 2722; preserving the
+observed vertical store/reload and delayed horizontal store improves to 1477.
+Its distinct constants, two unsigned modulo-101 operations and post-call field
+clear remain explicit. The sibling's exhausted allocation alternatives are
+recorded rather than repeated further.
+
+The dispatcher `15138C80` uses a 0x24-byte collision record, whose provider writes
+through offset 0x20, and a separate three-float position. Callee instructions
+prove that the third argument of `15139768` is float; 0.6f and 1.0f preserve the
+observed argument bits. Other byte-used flags retain fullword contracts. The
+new void declarations fit the inspected callees' varying leftover return
+registers and this dispatcher's unused results; they do not claim recovery of
+historical source declarations.
+
+Reading every original switch-table entry exposes a semantic omission in the
+generated starter: cases 10, 11, 14, 18 and 19 return without a further helper.
+Cases 1, 12 and 13, plus out-of-range inputs, call the default helper. The first
+incorrect routing form is archived as invalid and excluded from best-candidate
+selection. Correcting table contents leaves its nonzero instruction score
+unchanged, illustrating why instruction similarity alone cannot establish
+switch equivalence. Updating the existing fullword argument after its initial
+byte mask removes a redundant local and improves the valid candidate from 3469
+to 3009 with the exact frame. Masked-value register allocation remains unresolved.
+
+The older `15136AE4` candidate rechecks at 48 without a new source form. Its
+frame and two provider-proved 12-byte vectors are exact; only six scalar spill
+rows differ by eight bytes. The unused words do not establish missing locals,
+so neither enlarged vectors nor extra named values are introduced to fill them.
+
+All 25 existing blood matches and the PI initializer pass a clean 26-target
+batch. Full US ROM equality, integrated game and rodata checks, 1,346 tests with
+12 skipped, metadata, progress and whitespace pass with `BATCH_COMPLETE`.
+Totals remain **67 / 8,388 bytes**, with **2,700** accepted US C functions and
+no pending IDs.
