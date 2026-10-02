@@ -13,8 +13,6 @@
  * - func_8000B548
  * - func_8000B638
  * - func_8000B8B8
- * - func_8000BA18
- * - func_8000BAFC
  * - func_8000BC28
  * - func_8000BCBC
  * - func_8000BF60
@@ -389,7 +387,6 @@ s32 func_8000E588(s32, s32, s32);
 s32 func_8000C530(s32, s32, f32, f32, f32);
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BA18 CURRENT (10) */
 s32 func_8000BA18(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 volume;
     s32 pan;
@@ -405,11 +402,11 @@ s32 func_8000BA18(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         arg0 = volume;
         func_8000E588(0x4D, (u32)volume >> 24, 0x6000);
     }
-    return arg0 | (func_8000C530(state, (u8)arg1, arg2, arg3, arg4) & 0xFFFFFF);
+    state = func_8000C530(state, (u8)arg1, arg2, arg3, arg4);
+    state &= 0xFFFFFF;
+    arg0 |= state;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000BA18 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BA18.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BAFC CURRENT (10) */
 s32 func_8000BAFC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 volume;
     s32 pan;
@@ -424,10 +421,11 @@ s32 func_8000BAFC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         arg0 = volume;
         func_8000E588(0x93, (u32)volume >> 24, 0x6000);
     }
-    return arg0 | (func_8000C530(state, (u8)arg1, arg2, arg3, arg4) & 0xFFFFFF);
+    state = func_8000C530(state, (u8)arg1, arg2, arg3, arg4);
+    state &= 0xFFFFFF;
+    arg0 |= state;
+    return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000BAFC */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BAFC.s")
 s32 func_8000E704(s32, s32, s32);
 
 s32 func_8000BBE8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {

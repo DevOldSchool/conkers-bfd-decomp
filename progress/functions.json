@@ -91055,7 +91055,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "SDK I/O message and actual transfer contracts preserve all instructions and registers at score 20, with frame/local addresses eight bytes high. Removing a redundant remaining value is code-neutral; reusing disjoint index/chunk state recovers frame but scores 528. Retain simpler score-20 form without padding or fake locals.",
+        "reason": "Retain best CURRENT20. Fresh unsigned phase-state repair recovers exact frame and request/response homes but scores60 from one queue-address instruction scheduled before the final limit OR; naming the genuine transfer bound is code-neutral. Preserve both artifacts; no dummy storage or repeated shaping.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -91801,17 +91801,16 @@
       "symbol": "func_8000B8B8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Concrete 114D0 scalar-return contract recovers output-register allocation; CURRENT 10 retains only final commutative OR operand order. Coordinate formals are f32 from the raw D758/D2F8 caller chain. Prior operand reversal was neutral; no repeat or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 228,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000BA18",
           "vram": "0x8000BA18"
         }
@@ -91820,17 +91819,16 @@
       "symbol": "func_8000BA18"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "Concrete 114D0 scalar-return contract recovers output-register allocation; CURRENT 10 retains only final commutative OR operand order. Coordinate formals are f32 from the raw D758/D2F8 caller chain. Prior operand reversal was neutral; no repeat or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000BAFC",
           "vram": "0x8000BAFC"
         }
