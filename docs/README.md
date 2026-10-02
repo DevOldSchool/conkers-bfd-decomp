@@ -44,6 +44,8 @@ matches the work you intend to do.
   reversible editing commands and what can or cannot yet be inserted safely.
 - [Asset extraction roadmap](asset-roadmap.md) tracks completed format work and
   the unresolved research frontier.
+- [Retail debugger overlay](evidence/us_debugger_overlay.md) records the
+  loader-proven US image, provisional C bases, and unresolved runtime storage.
 - [Beta evidence](beta-evidence.md) explains how debug and ECTS material may be
   used without treating it as US match or source-boundary proof.
 

@@ -17,6 +17,8 @@ options:
   header_encoding: ASCII
   o_as_suffix: true
   use_legacy_include_asm: false
+  create_asm_dependencies: true
+  named_regs_for_c_funcs: false
   mips_abi_float_regs: o32
   asm_function_macro: glabel
   asm_jtbl_label_macro: jlabel
@@ -288,4 +290,20 @@ segments:
   - type: bin
     start: 0x2D4B0
     follows_vram: main
+  # Loader-proven image; see docs/evidence/us_debugger_overlay.md.
+  # These provisional ranges do not identify original source objects.
+  - name: debugger
+    type: code
+    start: 0x19EA88
+    vram: 0x16000000
+    align: 8
+    subsegments:
+      # Provisional C collections, not reviewed original source objects.
+      - [0x19EA88, c, debugger/debugger_0000]
+      - [0x1A0558, c, debugger/debugger_1AD0]
+      - [0x1A20D8, asm, debugger/tlb]
+      - [0x1A2178, data, debugger/data]
+  - type: bin
+    start: 0x1A33E8
+    follows_vram: debugger
   - [0x4000000]

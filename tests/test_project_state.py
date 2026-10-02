@@ -1532,6 +1532,26 @@ class GameInventoryTests(unittest.TestCase):
         self.assertEqual((0, 4), (functions[0].offset, functions[0].end))
         self.assertEqual((4, 12), (functions[1].offset, functions[1].end))
 
+    def test_main_discovery_excludes_other_overlays_before_bounding_functions(self) -> None:
+        configuration = project_state.load_json(project_state.OVERLAYS_FILE)
+        configuration["overlays"]["main"]["code_ranges"]["us"]["start"] = "0x4"
+        project_state.write_json(project_state.OVERLAYS_FILE, configuration)
+        expected = project_state.parse_main_functions("us")
+        # Discovery retains the bootstrap entry below the progress start.
+        self.assertEqual(0, expected[0].offset)
+        assembly = self.root / "reference/us/asm/debugger/debugger.s"
+        assembly.parent.mkdir(parents=True)
+        assembly.write_text(
+            "glabel func_16000000\n"
+            "    /* 19EA88 16000000 03E00008 */  jr         $ra\n"
+            "    /* 19EA8C 16000004 00000000 */   nop\n",
+            encoding="utf-8",
+        )
+        self.assertEqual(expected, project_state.parse_main_functions("us"))
+        self.assertEqual(12, expected[-1].end)
+        with self.assertRaisesRegex(project_state.ProjectStateError, "not present"):
+            project_state.find_assembly_function("us", "main", "func_16000000")
+
     def test_register_main_and_reviewed_source_unit(self) -> None:
         source = "src/libultrare/libc/xprintf.c"
         for identifier, symbol in (

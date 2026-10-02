@@ -21,11 +21,12 @@ ROM_NAME := conker.$(PROFILE).z64
 ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
 ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
-C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null)
+C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null) \
+	$(shell python3 scripts/list_integrated_sources.py --profile-segment debugger --profile $(PROFILE) 2>/dev/null)
 C_OBJS := $(patsubst src/%.c,$(BUILD_DIR)/src/%.o,$(C_SRCS))
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
-ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin
+ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin assets/1A33E8.bin
 ASSET_BINS_eu := assets/boot.bin assets/2D810.bin
 ASSET_BINS := $(ASSET_BINS_$(PROFILE))
 ASSET_OBJS := $(patsubst assets/%.bin,$(BUILD_DIR)/assets/%.o,$(ASSET_BINS))
@@ -433,3 +434,6 @@ rsp:
 
 $(PROFILE_LIB_RSP_us): $(wildcard src/rsp/*.s) scripts/build_rsp.py config/rsp/us.json toolchain/tools.lock.json
 	python3 scripts/build_rsp.py
+
+# Splat emits dependencies for the generated GLOBAL_ASM bodies in C scaffolds.
+-include $(C_OBJS:.o=.asmproc.d)
