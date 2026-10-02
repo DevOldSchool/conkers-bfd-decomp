@@ -245,6 +245,99 @@ s32 func_15157918(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15157918 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157918.s")
+/* Slot 0 of D_8008AD90 receives the live owner. The selected constructor
+ * paths reserve 0x158 bytes and copy 0x38 bytes at +0x120. These partial
+ * views name only observed fields; unknown bytes remain opaque. The local
+ * vector is the actual 12-byte velocity snapshot. Timing globals and the
+ * live owner remain stable apart from these writes during normal execution,
+ * with matching nontrapping binary32 operations.
+ */
+typedef struct Game1844C0MotionVector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1844C0MotionVector;
+
+typedef struct Game1844C0MotionOwnerPrefix {
+    u8 unknown00[0x54];
+    f32 positionX54;
+    f32 positionY58;
+    f32 positionZ5C;
+} Game1844C0MotionOwnerPrefix;
+
+typedef struct Game1844C0MotionExtension {
+    f32 value00;
+    f32 value04;
+    f32 value08;
+    u8 unknown0C[4];
+    Game1844C0MotionVector velocity10;
+    f32 rate1C;
+    f32 rate20;
+    f32 rate24;
+    f32 acceleration28;
+    f32 damping2C;
+    u8 flags30;
+} Game1844C0MotionExtension;
+
+extern f32 D_800BE9A4;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157AA8 CURRENT (121) */
+s32 func_15157AA8(u8 *arg0) {
+    Game1844C0MotionOwnerPrefix *owner;
+    Game1844C0MotionExtension *motion;
+    Game1844C0MotionVector initialVelocity;
+    u32 remaining;
+    f32 accelerationX;
+    f32 accelerationY;
+    f32 accelerationZ;
+
+    owner = (Game1844C0MotionOwnerPrefix *)arg0;
+    motion = (Game1844C0MotionExtension *)(arg0 + 0x120);
+    if (motion->flags30 & 1U) {
+        initialVelocity = motion->velocity10;
+        if (motion->flags30 & 8U) {
+            remaining = (u32)D_800BE9E4;
+            if (remaining != 0U) {
+                do {
+                    motion->velocity10.x =
+                        motion->velocity10.x * motion->damping2C;
+                    motion->velocity10.z =
+                        motion->velocity10.z * motion->damping2C;
+                    remaining -= 1U;
+                } while (remaining != 0U);
+            }
+        }
+
+        if (motion->flags30 & 4U) {
+            accelerationY = motion->acceleration28;
+            motion->velocity10.y =
+                motion->velocity10.y + accelerationY * D_800BE9A4;
+        } else {
+            accelerationY = 0.0f;
+        }
+
+        accelerationX =
+            (motion->velocity10.x - initialVelocity.x) * D_800BE9A8;
+        accelerationZ =
+            (motion->velocity10.z - initialVelocity.z) * D_800BE9A8;
+
+        owner->positionX54 = owner->positionX54 +
+            (initialVelocity.x + (0.5f * accelerationX) * D_800BE9A4) * D_800BE9A4;
+        owner->positionY58 = owner->positionY58 +
+            (initialVelocity.y + (0.5f * accelerationY) * D_800BE9A4) * D_800BE9A4;
+        owner->positionZ5C = owner->positionZ5C +
+            (initialVelocity.z + (0.5f * accelerationZ) * D_800BE9A4) * D_800BE9A4;
+    }
+
+    if (motion->flags30 & 2U) {
+        motion->value00 = motion->value00 + motion->rate1C * D_800BE9A4;
+        motion->value04 = motion->value04 + motion->rate20 * D_800BE9A4;
+        motion->value08 = motion->value08 + motion->rate24 * D_800BE9A4;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15157AA8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157AA8.s")
 extern void func_15169850(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 

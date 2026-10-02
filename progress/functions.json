@@ -49494,6 +49494,12 @@
       "symbol": "func_15157918"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 121,
+        "reason": "Bounded motion trial: initial816, direct-field/global lifetime simplification121, owner-alias removal with multiply-bound y acceleration305. Best121 preserves real 12-byte snapshot and fullword unsigned countdown; remaining frame/snapshot displacement and y-acceleration/timestep registers. Two manual revisions exhausted; no permutation or artificial storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -89457,6 +89463,12 @@
       "symbol": "func_1512E5F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3906,
+        "reason": "Bounded source-only affine inverse trial exhausted: best CURRENT 3906 retains valid void pointer ABI and actual disjoint 64-byte matrix views with exact arithmetic association, but uses a 0x40 frame with saved f20 and differs in determinant/cofactor/translation scheduling. Initial plus two targeted revisions scored 4397,3906,5971; no permutations or declaration-order search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
