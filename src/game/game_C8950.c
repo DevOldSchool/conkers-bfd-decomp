@@ -1,4 +1,5 @@
 #include "types.h"
+#include "../lib/ultralib/include/compiler/ido/stdarg.h"
 
 /*
  * Reviewed source unit: src/game/game_C8950.c
@@ -332,52 +333,68 @@ void func_1509BA04(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BBA0.s")
 extern s32 D_800D2F60[];
 extern s32 D_800D3840;
-extern void (*D_80088498[])(s32, s32, s32 *, s32);
+extern s32 (*D_80088498[])(s32, s32, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BE40 CURRENT (7368) */
-void func_1509BE40(s32 count, s32 descriptor, s32 first, ...) {
-    s32 *args;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BE40 CURRENT (929) */
+s32 func_1509BE40(s32 count, ...) {
+    va_list args;
     s32 old_count;
-    s32 payload;
+    s32 descriptor;
+    s32 first;
+    s32 type;
     s32 index;
+    s32 result;
 
+    va_start(args, count);
+    descriptor = va_arg(args, s32);
+    first = va_arg(args, s32);
     old_count = D_800D3840;
-    payload = descriptor & 0xFFF;
-    D_800D2F60[0] = payload;
+    type = ((descriptor & 0xF000) >> 12) - 1;
+    descriptor &= 0xFFF;
+    D_800D2F60[0] = descriptor;
     D_800D2F60[1] = first;
-    args = &first + 1;
     for (index = 0; index < count; index++) {
-        D_800D2F60[index + 2] = *args++;
+        D_800D2F60[index + 2] = va_arg(args, s32);
     }
+    va_end(args);
     D_800D3840 = count + 2;
-    D_80088498[((descriptor & 0xF000) >> 12) - 1](payload, first, D_800D2F60, payload);
+    result = D_80088498[type](descriptor, first, D_800D2F60);
     D_800D3840 = old_count;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509BE40 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BE40.s")
-extern void (*D_800884D4[])(s32, s32, s32 *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BFB0 CURRENT (7368) */
-void func_1509BFB0(s32 count, s32 descriptor, s32 first, s32 arg3, s32 arg4) {
-    s32 *args;
+extern s32 (*D_800884D4[])(s32, s32, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509BFB0 CURRENT (929) */
+void func_1509BFB0(s32 count, ...) {
+    va_list args;
     s32 old_count;
-    s32 payload;
+    s32 descriptor;
+    s32 first;
+    s32 type;
     s32 index;
 
+    va_start(args, count);
+    descriptor = va_arg(args, s32);
+    first = va_arg(args, s32);
     old_count = D_800D3840;
-    payload = descriptor & 0xFFF;
-    D_800D2F60[0] = payload;
+    type = ((descriptor & 0xF000) >> 12) - 1;
+    descriptor &= 0xFFF;
+    D_800D2F60[0] = descriptor;
     D_800D2F60[1] = first;
-    args = &first + 1;
     for (index = 0; index < count; index++) {
-        D_800D2F60[index + 2] = *args++;
+        D_800D2F60[index + 2] = va_arg(args, s32);
     }
+    va_end(args);
     D_800D3840 = count + 2;
-    D_800884D4[((descriptor & 0xF000) >> 12) - 1](payload, first, D_800D2F60, payload);
+    D_800884D4[type](descriptor, first, D_800D2F60);
     D_800D3840 = old_count;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509BFB0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C8950/func_1509BFB0.s")
+
 s32 func_150ADA20(void);
 extern void *D_800D2E4C;
 
@@ -433,7 +450,7 @@ typedef struct {
     u8 flags_F;
 } GameC8950GlobalState;
 
-void func_1509BFB0(s32, s32, s32, s32, s32);
+void func_1509BFB0(s32, ...);
 extern u8 D_800D2E68;
 
 void func_1509C228(void) {

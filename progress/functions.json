@@ -30774,8 +30774,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7368,
-        "reason": "Candidate uses a source-local stack-pointer walk for variadic arguments; first finish was BLOCKED_TOOLING by source header include placement, and stdarg.h is unavailable under -nostdinc. Preserving this unverified manual candidate to advance rather than changing shared headers/tooling.",
+        "current_score": 929,
+        "reason": "Valid CURRENT 929. Genuine pinned IDO va_list with coherent D_800D2F60 array owner; scalar interior-symbol alias removed. Observed callback result returned; remaining entry scheduling and argument-home allocation differ from raw. Bounded source-backed forms exhausted; no artificial padding or nonstandard va_start.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -30793,8 +30793,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7368,
-        "reason": "CURRENT (7368): mirrored variadic-dispatch C shape from func_1509BE40 with callback table D_800884D4; exact raw stack alignment/unrolled four-word copy is absent, candidate frame 0x38 vs raw 0x30 and flow/register scheduling diverges. Existing fixed five-argument declaration retained. Further manual variants have no new hypothesis.",
+        "current_score": 929,
+        "reason": "Valid CURRENT 929. Genuine pinned IDO va_list with coherent D_800D2F60 array owner; scalar interior-symbol alias removed. Variable arity independently supported; conservative void return retained; remaining entry scheduling and argument-home allocation differ from raw. Bounded source-backed forms exhausted; no artificial padding or nonstandard va_start.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45314,6 +45314,12 @@
       "symbol": "func_1503DF0C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2426,
+        "reason": "Valid CURRENT 2426. Recovered state lifecycle dispatcher with actual 0x68-byte allocation/record stride and checksum-proven callback tables. Remaining register/control-flow mismatch after bounded source-supported revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45382,6 +45388,12 @@
       "symbol": "func_1503E3C4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3575,
+        "reason": "Valid CURRENT 3575. Recovered matrix decomposition using one real flat 16-float matrix, genuine vector outputs and normalization lifetimes. Invalid traversal across separate row arrays superseded. Remaining code-generation mismatch is preserved without artificial padding or aliases.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45395,6 +45407,12 @@
       "symbol": "func_1503E5F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 432,
+        "reason": "Valid CURRENT 432. Recovered transform traversal with actual matrix and entity lifetimes; preserved valid bounded best after neutral structural revision. Remaining operand scheduling and allocation differences.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -45446,6 +45464,12 @@
       "symbol": "func_1503EB78"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 290,
+        "reason": "Valid CURRENT 290. Particle bounce/update loop with honest byte-object extent and coherent slot owner; supersedes the invalid field-array overrun zero. Actual field behavior retained, scheduling and branch layout remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75965,6 +75989,12 @@
       "symbol": "func_151A0AF8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1179,
+        "reason": "Source-supported 0x38-byte segment record with coherent fields, real random draw order and full-width arg14 followed by explicit byte conversion. Valid CURRENT 1179; lower narrow-formal scores are withdrawn. Preserve supported packet semantics rather than ABI narrowing or artificial storage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78261,8 +78291,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5300,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5300)",
+        "current_score": 970,
+        "reason": "Recovered all seven checksum-proven getter cases using one coherent 0x1C player record and full-word formals. Valid CURRENT 970 replaces empty switch CURRENT 5300; the lower overlapping-array form is invalid and superseded. Remaining allocation/address materialization differs; no alias or storage tricks.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -80819,6 +80849,12 @@
       "symbol": "func_151B8908"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 17614,
+        "reason": "Validity-corrected final-context remeasurement CURRENT 17614; s32 public word parameters with explicit value casts at observed byte uses. All selected bodies and declarations preserved; no artificial homes/storage, padding-only locals, volatile invention or permutation. Earlier narrowed-formal or earlier-context scores are superseded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80923,6 +80959,12 @@
       "symbol": "func_151D3FF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1532,
+        "reason": "Validity-corrected final-context remeasurement CURRENT 1532; s32 public word parameters with explicit value casts at observed byte uses. All selected bodies and declarations preserved; no artificial homes/storage, padding-only locals, volatile invention or permutation. Earlier narrowed-formal or earlier-context scores are superseded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80955,6 +80997,12 @@
       "symbol": "func_151D42E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2268,
+        "reason": "Validity-corrected final-context remeasurement CURRENT 2268; s32 public word parameters with explicit value casts at observed byte uses. All selected bodies and declarations preserved; no artificial homes/storage, padding-only locals, volatile invention or permutation. Earlier narrowed-formal or earlier-context scores are superseded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81004,6 +81052,12 @@
       "symbol": "func_151D469C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 11658,
+        "reason": "Validity-corrected final-context remeasurement CURRENT 11658; s32 public word parameters with explicit value casts at observed byte uses. All selected bodies and declarations preserved; no artificial homes/storage, padding-only locals, volatile invention or permutation. Earlier narrowed-formal or earlier-context scores are superseded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81072,6 +81126,12 @@
       "symbol": "func_151D4D58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 650,
+        "reason": "Validity-corrected final-context remeasurement CURRENT 650; s32 public word parameters with explicit value casts at observed byte uses. All selected bodies and declarations preserved; no artificial homes/storage, padding-only locals, volatile invention or permutation. Earlier narrowed-formal or earlier-context scores are superseded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81215,6 +81275,12 @@
       "symbol": "func_151D5714"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 180,
+        "reason": "Validity-corrected final-context remeasurement CURRENT 180; s32 public word parameters with explicit value casts at observed byte uses. All selected bodies and declarations preserved; no artificial homes/storage, padding-only locals, volatile invention or permutation. Earlier narrowed-formal or earlier-context scores are superseded.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85876,6 +85942,12 @@
       "symbol": "func_15122170"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4420,
+        "reason": "Bounded source-supported pass: coherent 0x32C actor records, cached count and endpoint, real in-place arithmetic lifetimes. CURRENT 5944 -> 5719 -> 4420. Remaining floating allocation, scheduling and control flow mismatch; preserve the valid best form without artificial pressure.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88695,6 +88767,12 @@
       "symbol": "func_150006E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2441,
+        "reason": "Validity-corrected reviewed candidate CURRENT 2441. Numeric truncation casts and explicit byte-low-high RNG draw sequence replace invalid scalar-parameter home forcing and incorrect prior RNG order. Old score 795 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88708,6 +88786,12 @@
       "symbol": "func_15102920"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3721,
+        "reason": "Validity-corrected reviewed candidate CURRENT 3721. Numeric truncation casts, genuine float-word union, and actual result pointer replace invalid scalar-parameter home forcing, scalar pointer punning, and dummy pressure locals. Old score 1511 is superseded and invalid for comparison. Measurement-only correction; no shape experiments authorized.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

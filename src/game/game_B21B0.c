@@ -79,32 +79,48 @@ u8 func_15085420(GameB21B0Object *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085430.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_15085710.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150859AC CURRENT (5300) */
-void func_150859AC(s16 arg0, s16 arg1) {
+/* Fields recovered from the shared 0x1C-byte player records. */
+typedef struct GameB21B0PlayerRecord {
+    s32 field_0;
+    s32 field_4;
+    s8 field_8;
+    s8 field_9;
+    u8 field_A;
+    u8 padB;
+    s32 field_C;
+    u8 pad10[0xC];
+} GameB21B0PlayerRecord;
+
+extern GameB21B0PlayerRecord D_800D213C[];
+extern u16 D_800D2340;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150859AC CURRENT (970) */
+s32 func_150859AC(s32 arg0, s32 arg1) {
+    arg0 = (s16)arg0;
+    arg1 = (s16)arg1;
     if (arg0 >= 0xFF) {
-        return;
+        return 0;
     }
     switch (arg1) {
     case 0:
-        return;
+        return D_800D2340 & (1 << arg0);
     case 1:
-        return;
+        return D_800D213C[arg0].field_0;
     case 2:
-        return;
+        return D_800D213C[arg0].field_4;
     case 3:
-        return;
+        return D_800D213C[arg0].field_8;
     case 4:
-        return;
+        return D_800D213C[arg0].field_9;
     case 5:
-        return;
+        return D_800D213C[arg0].field_A;
     case 6:
-        /* fallthrough */
-    default:
-        return;
+        return D_800D213C[arg0].field_C;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150859AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B21B0/func_150859AC.s")
+
 void func_15085710(s16, s32, u8);
 extern u8 D_800CC2D0[];
 extern u8 D_800D18A8;
