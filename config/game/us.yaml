@@ -65,7 +65,7 @@ segments:
       - [0x5FB0, c, done/game/game_33460]
       - [0x6010, c, done/game/game_334C0]
       - [0x6170, c, done/game/game_33620]
-      - [0x61B0, c, game/game_33660]
+      - [0x61B0, c, done/game/game_33660]
       - [0x64E0, c, game/game_33990]
       - [0x7830, c, game/entrypoint]
       - [0x7A20, c, done/game/game_34ED0]

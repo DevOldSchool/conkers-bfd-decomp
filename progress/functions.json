@@ -6980,20 +6980,25 @@
           "vram": "0x150061B0"
         }
       },
-      "source": "src/game/game_33660.c",
+      "source": "src/done/game/game_33660.c",
       "symbol": "func_150061B0"
     },
     {
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 684,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15006234",
           "vram": "0x15006234"
         }
       },
-      "source": "src/game/game_33660.c",
+      "source": "src/done/game/game_33660.c",
       "symbol": "func_15006234"
     },
     {
@@ -43657,6 +43662,12 @@
       "symbol": "func_150B6DFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 625,
+        "reason": "Valid pointer-only effect leaf with consumer-proven 0x4C owner and 0x3C payload, no calls or frame. Initial625 ->11480 ->1085 across two source-supported revisions; preserve625 best. Remaining register allocation and load/store scheduling; no repeated variants, artificial storage or ABI changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

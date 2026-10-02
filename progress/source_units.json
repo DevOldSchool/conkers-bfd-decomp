@@ -2819,15 +2819,15 @@
         "func_150061B0",
         "func_15006234"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x64E0",
           "start": "0x61B0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_33660.c"
+      "source": "src/done/game/game_33660.c"
     },
     {
       "boundary_evidence": {
