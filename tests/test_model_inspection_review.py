@@ -33,8 +33,10 @@ class ExtractedReviewTests(unittest.TestCase):
                 (directory / 'manifest.json').write_text(json.dumps({'family': f'indexed-bank-{bank:02x}-model-preview',
                     'profile': 'us', 'bank_index': bank, 'models': models}))
             (root / 'reviews.json').write_text(json.dumps({'models': decisions}))
-            curated = [{'rom_source': {'bank': 9, 'entry': 0, 'segment': 0}},
-                       {'rom_source': {'kind': 'static-scene-assembly'}}]
+            # A replaced base remains published; it must not reappear in review.
+            curated = [{'name': 'base', 'gallery_replaced_by': 'assembly',
+                        'rom_source': {'bank': 9, 'entry': 0, 'segment': 0}},
+                       {'name': 'assembly', 'rom_source': {'kind': 'static-scene-assembly'}}]
             with mock.patch.object(review, 'ROOT', root):
                 rows = review.collect_review(config, curated, files)
                 self.assertEqual([1, 3, 2], [r['entry'] for r in rows])

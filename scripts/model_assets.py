@@ -15929,6 +15929,14 @@ def parse_args() -> argparse.Namespace:
         "action",
         choices=(
             "batch",
+            "attachment-controller",
+            "embedded-geometry",
+            "texgen-inspection",
+            "texgen-animation-inspection",
+            "scene55-inspection",
+            "haybot-inspection",
+            "texture-sequences",
+            "vertex-color-targets",
             "survey",
             "extract",
             "preview",
@@ -16049,6 +16057,54 @@ def parse_args() -> argparse.Namespace:
 
 
 def main() -> int:
+    if len(sys.argv) > 1 and sys.argv[1] == "haybot-inspection":
+        try:
+            from scripts.model_haybot_inspection import main as haybot_inspection_main
+        except ModuleNotFoundError:
+            from model_haybot_inspection import main as haybot_inspection_main
+        return haybot_inspection_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "scene55-inspection":
+        try:
+            from scripts.model_scene55_inspection import main as scene55_inspection_main
+        except ModuleNotFoundError:
+            from model_scene55_inspection import main as scene55_inspection_main
+        return scene55_inspection_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "texgen-animation-inspection":
+        try:
+            from scripts.model_character_animated_texgen import main as animated_texgen_main
+        except ModuleNotFoundError:
+            from model_character_animated_texgen import main as animated_texgen_main
+        return animated_texgen_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "texgen-inspection":
+        try:
+            from scripts.model_character_texgen import main as texgen_main
+        except ModuleNotFoundError:
+            from model_character_texgen import main as texgen_main
+        return texgen_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "embedded-geometry":
+        try:
+            from scripts.model_embedded_geometry import main as embedded_main
+        except ModuleNotFoundError:
+            from model_embedded_geometry import main as embedded_main
+        return embedded_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "vertex-color-targets":
+        try:
+            from scripts.model_vertex_color_targets import main as color_targets_main
+        except ModuleNotFoundError:
+            from model_vertex_color_targets import main as color_targets_main
+        return color_targets_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "texture-sequences":
+        try:
+            from scripts.model_texture_sequences import main as sequences_main
+        except ModuleNotFoundError:
+            from model_texture_sequences import main as sequences_main
+        return sequences_main(sys.argv[2:])
+    if len(sys.argv) > 1 and sys.argv[1] == "attachment-controller":
+        try:
+            from scripts.model_attachment_controller import main as controller_main
+        except ModuleNotFoundError:
+            from model_attachment_controller import main as controller_main
+        return controller_main(sys.argv[2:])
     if len(sys.argv) > 1 and sys.argv[1] == "batch":
         try:
             from scripts.model_batch import main as batch_main

@@ -1,0 +1,323 @@
+{
+  "schema_version": 1,
+  "scene_index": 55,
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "source_gltf": "build/assets/models/rom-scene-assemblies/geometry/scene-55.gltf",
+  "source_gltf_sha256": "c637b845aadde253f2975e2e4e66d1242f90f0544f19356105ce847f1e20d232",
+  "source_binary_sha256": "518f4733d57572cd8efa1ddd84535d36ebd4876b8f7cb3d1fb5c754f62dd39c0",
+  "model_root": "build/assets/models/rom-only",
+  "selection": {
+    "scene_index": 55,
+    "exclude_models": [
+      {
+        "model": [
+          3,
+          51,
+          0
+        ],
+        "reason": "Untextured effect planes need runtime appearance state; omitted from this static inspection selection."
+      }
+    ]
+  },
+  "scene_input_sha256": "128d1300fd82ac800b0ad3b15e129decda90cf9107fb1e7ddd288b6b34491880",
+  "assembly_record_sha256": "704af7f62b8444aacdfba4afe2832debbc50849149b3b23fd7f36c4200dcb76a",
+  "components": [
+    {
+      "model": [
+        4,
+        55,
+        0
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-00.gltf",
+      "fingerprint": {
+        "gltf_sha256": "fbc34e591f4a21dc49a920883b98a5e237e15a95836ebd4c1d30d9ed798cfa0d",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-0045-64x32-0b82808d0c57.png": "314de53b8376b5dbdbd8ce6d87b5e99ec590fcb6f4f755dc7e1cc1d0c64b237f",
+          "../textures/us-direct-runtime-composed-0252-32x64-d2f703e1f233.png": "fa2be881fedda499a486214f5e45b09d8b76d6a80f9c4ff0c2e158f7a0182407",
+          "../textures/us-direct-runtime-composed-0332-64x64-07148366ade8.png": "6725030796e7a6599fc7e62c1731304cdd54267b011c431d14e97272e7d0fa1b",
+          "../textures/us-direct-runtime-composed-0813-32x8-f3f17d273f78.png": "857f60f979d6fb427a364fbcdb3ca4201b2cda45baa623175bcf5651cb947887",
+          "../textures/us-direct-runtime-composed-1082-64x64-36cb6785283f.png": "426885517d8844814210e22062fa5772bdaee867b72a39cc1ca895885d68c183",
+          "../textures/us-direct-runtime-composed-1332-64x16-8dc078d081a6.png": "7f2f410e64a390addee9cfa6d1274ba7e328a7951f663290b441b3c217d885ac",
+          "../textures/us-direct-runtime-composed-1460-64x64-27c9de8e5c39.png": "ece51a62786cded6cd5e948520ed27e5d0d78fe170f67c318c02919c33155ec1",
+          "../textures/us-direct-runtime-composed-1461-64x64-581932f7df1b.png": "1cdaf4a8c55da3a37ba5aed2b6af41798c793a9bcc3251f8335efae75804048b",
+          "../textures/us-direct-runtime-composed-1462-64x64-49375619aa61.png": "db4fd32c311c8e771ab6d35a7490e5cfe9deab8dcb89807c06015a451f5c4905",
+          "../textures/us-direct-runtime-composed-1464-64x64-41583f3c90c0.png": "07cf243d1b857a47c7de62b5cad165a5a796792e333dd00b239fc3e452778ea8",
+          "../textures/us-direct-runtime-composed-1465-64x64-bcb943e9c721.png": "f532e586bb24ef0dd00b9609670519b3dc4c14726a1a386fe1da66b4aea04622",
+          "../textures/us-direct-runtime-composed-1466-64x64-42f7ff64d98e.png": "ab49e95546a175e283b20f266b66086a4ed8d37ce46db5474c88e10ac051d47b",
+          "../textures/us-direct-runtime-composed-1603-64x32-b91e9369f1f6.png": "a85dd375ea574204542136773323a72820b8f2db63e6d1b7c92aeb5cb6a8d3bc",
+          "../textures/us-direct-runtime-composed-1651-16x16-31a75e72293f.png": "d94d3e8f157e03a0d239a966e69ef8cd04e17b94162c375697987519380c517b",
+          "../textures/us-direct-runtime-composed-1666-64x32-af115154d3d5.png": "5b85786e95a7f47761438ab7c1800ab9f761d30bf7c8d0b5cfbc7b9f29716a1d",
+          "../textures/us-direct-runtime-composed-2248-64x32-3c02bba772a2.png": "e60c2ecd3108d92a364b918b0a0bf61d2a22a424bfc05162ca28a24c5e5eebcf",
+          "../textures/us-direct-runtime-composed-2623-64x16-1faf1550a4fa.png": "9736b3c1674339e74097a2242cb3f10f9c39823f5a9c1de96dc02f383859cb45",
+          "../textures/us-direct-runtime-composed-2696-32x32-8e0aa44e83c7.png": "0465c5cff9aac8ac7a7127b6327d562efd60f09a1b4c7f176c3edffafa40e914",
+          "../textures/us-direct-runtime-composed-2714-64x32-9171f3ab9ee6.png": "9410cec557e8232217e37855a0e77d945647571a32412cec383abf9b32634b38",
+          "../textures/us-direct-runtime-composed-2948-32x32-cc50d3d9c90d.png": "b841c41fe74973df604b84fc7de56d7a559f651f6f52887772b293fb61d1b084",
+          "../textures/us-direct-runtime-composed-3243-32x32-85e649b85d93.png": "c0679552efd13a3858be65ec2daf7871747557d594a84045938e426c1933c509",
+          "../textures/us-direct-runtime-composed-3508-32x32-ee222e57282b.png": "cdee0e5d18396aa5cb2506c73e006deb19b777c2e6b8cd3efb1d35a659caa532",
+          "../textures/us-direct-runtime-composed-3555-32x32-7eb7c754e098.png": "c865e467013b1e7974d1a77afbcc0879d6d85ed38c91c6492c94bc7f141b49ab",
+          "../textures/us-direct-runtime-composed-3619-32x64-377c9194907d.png": "21fbd83d88c60e5232174eeb280b65c403958b6409473bbe7495ab5177af0946",
+          "../textures/us-direct-runtime-composed-3620-32x64-7bc2acbb2145.png": "f7e7ed4d46bb1ea0350d7d5448c8554c086e245af801f66302fa0afc4739d027",
+          "../textures/us-direct-runtime-composed-3621-32x64-956deff30629.png": "80cb39602ab289895ebdf7fb3830a736afbea3a8a1fa414f2276252e8e4f550b",
+          "../textures/us-direct-runtime-composed-3765-64x64-5149d1048ac8.png": "a27bd416f751d54862f9f077aba6ede76eb024a359cf96675c112b250d1d3cd8",
+          "../textures/us-direct-runtime-composed-4025-32x32-f356e1b964f2.png": "95989f48ac3f42529fed199aa22ed9a2502aa735b816d3e409831e7ca5fbfadd",
+          "../textures/us-direct-runtime-composed-4346-32x32-b3608b4e9952.png": "7630eade310f07359b7fed5a99ad52ff6d7cd91a914366e3dbffeed8ad28da7f",
+          "../textures/us-direct-runtime-composed-4348-32x32-b32e9778f93f.png": "542d27547d92189bb6916f138702cb1b98979baf845ba2b2b47d74db56b18f27",
+          "../textures/us-direct-runtime-composed-4349-16x32-b3d338c63647.png": "56a73ade20f0a569d167c9a5a669c686798b17ab33c8d9d34409cfe0aab3d2e7",
+          "../textures/us-direct-runtime-composed-4385-32x32-c68fd57a0d48.png": "5500328b905762e62c508d829d9db816331c55da001ca548a5e5ad1ce73e8086",
+          "../textures/us-direct-runtime-composed-4423-32x32-fb02fc9adac6.png": "5b1a4100d6c3622ff6191f944d263755251068b1b713e70a8bfc387cd7ef0d2b",
+          "../textures/us-direct-runtime-composed-4425-32x64-2c89810b5dc1.png": "bfaa292c5392ebbb1cf7bfebe04c273f099af497a5e10238aae95dfca5bc62cd",
+          "../textures/us-direct-runtime-composed-7131-64x64-d04464208a55.png": "8f5a138d47b3022f75fc0422b6e1c4d1b96ba2a1a0d46ff5f7eba9cd0b621344",
+          "../textures/us-direct-runtime-composed-7667-32x32-ceaa9cdce389.png": "eb06627593e20181ca07345fee88049a394a36bcb6c111851023a9908733f74f",
+          "../textures/us-direct-runtime-composed-7670-32x64-512b1af5088b.png": "78c2e67e77971d18338881e5ed1c7a6ec26e1f972d65c334da4ce8a3107f0438",
+          "../textures/us-direct-runtime-composed-7672-64x32-ae1fd6a363ad.png": "abad632f501ee997901b0a1fe148be904f3b9ee28abd48c0294094ed21303287",
+          "0055-00.bin": "a7a222e3fc778132a929f36fcf4fb470888bcaf2fdd37758e69339479447570a"
+        }
+      },
+      "model_sha256": "30d7344841b0bab43bc1b26ea2fc75a3db720b4c7253cd9a6deb628a9b7babab"
+    },
+    {
+      "model": [
+        4,
+        55,
+        1
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-01.gltf",
+      "fingerprint": {
+        "gltf_sha256": "b6509bdeb16200dee984b97fe6dc7e1ee7a3b9f27e8396446cf45d85a89988fc",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-0045-64x32-0b82808d0c57.png": "314de53b8376b5dbdbd8ce6d87b5e99ec590fcb6f4f755dc7e1cc1d0c64b237f",
+          "../textures/us-direct-runtime-composed-0252-32x64-d2f703e1f233.png": "fa2be881fedda499a486214f5e45b09d8b76d6a80f9c4ff0c2e158f7a0182407",
+          "../textures/us-direct-runtime-composed-0332-64x64-07148366ade8.png": "6725030796e7a6599fc7e62c1731304cdd54267b011c431d14e97272e7d0fa1b",
+          "../textures/us-direct-runtime-composed-1461-64x64-581932f7df1b.png": "1cdaf4a8c55da3a37ba5aed2b6af41798c793a9bcc3251f8335efae75804048b",
+          "../textures/us-direct-runtime-composed-1462-64x64-49375619aa61.png": "db4fd32c311c8e771ab6d35a7490e5cfe9deab8dcb89807c06015a451f5c4905",
+          "../textures/us-direct-runtime-composed-1464-64x64-41583f3c90c0.png": "07cf243d1b857a47c7de62b5cad165a5a796792e333dd00b239fc3e452778ea8",
+          "../textures/us-direct-runtime-composed-1465-64x64-bcb943e9c721.png": "f532e586bb24ef0dd00b9609670519b3dc4c14726a1a386fe1da66b4aea04622",
+          "../textures/us-direct-runtime-composed-1466-64x64-42f7ff64d98e.png": "ab49e95546a175e283b20f266b66086a4ed8d37ce46db5474c88e10ac051d47b",
+          "../textures/us-direct-runtime-composed-2696-32x32-8e0aa44e83c7.png": "0465c5cff9aac8ac7a7127b6327d562efd60f09a1b4c7f176c3edffafa40e914",
+          "../textures/us-direct-runtime-composed-3243-32x32-85e649b85d93.png": "c0679552efd13a3858be65ec2daf7871747557d594a84045938e426c1933c509",
+          "../textures/us-direct-runtime-composed-3621-32x64-956deff30629.png": "80cb39602ab289895ebdf7fb3830a736afbea3a8a1fa414f2276252e8e4f550b",
+          "../textures/us-direct-runtime-composed-4423-32x32-fb02fc9adac6.png": "5b1a4100d6c3622ff6191f944d263755251068b1b713e70a8bfc387cd7ef0d2b",
+          "0055-01.bin": "ddbbadb2b10804e75daea48f3683f9b86fe3fe3615318ab9de33ff1c0d0597df"
+        }
+      },
+      "model_sha256": "0b22071ca5689bdb516b83ee103296579e02ae697bf8552530f655f3899a7531"
+    },
+    {
+      "model": [
+        4,
+        55,
+        4
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-04.gltf",
+      "fingerprint": {
+        "gltf_sha256": "a143c2636bf48feeb7aa70e0366c2658a2ef7b1941a17dbe25eb1c163d895da0",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-0737-64x32-b0e22e2bc861.png": "bc053ccc783c64e3e40912851570dd8a67a2270991a3cb5dd9745a021c1da2c7",
+          "0055-04.bin": "da05ab872b5d7283fc5a60fa8a8c9fd06ffdb70d585ef45b842d4abc9d3aaffa"
+        }
+      },
+      "model_sha256": "da822d9ddac7f0f4e6e7fec8458b0b93258396e9e0629c1a387a8424d36be6d2"
+    },
+    {
+      "model": [
+        4,
+        55,
+        5
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-05.gltf",
+      "fingerprint": {
+        "gltf_sha256": "645f3d787b19c0bb7ae74c309a9d052db673994b923438b8b320befafee19774",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-0737-64x32-b0e22e2bc861.png": "bc053ccc783c64e3e40912851570dd8a67a2270991a3cb5dd9745a021c1da2c7",
+          "0055-05.bin": "0e5bb962b793701e081c3041a2356504788378aaeea6b2b17a8b33fad14aa584"
+        }
+      },
+      "model_sha256": "8a3ce805129422875f5050f0a4798d2e5e4926b381c0756ae125ca6a542a9c35"
+    },
+    {
+      "model": [
+        4,
+        55,
+        8
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-08.gltf",
+      "fingerprint": {
+        "gltf_sha256": "7eea936372376e54d998893293a28634e343636c9f638374aa23b346ab0dbb4c",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-4160-32x32-7ed72679ab4d.png": "1d740aeb859200f071c7f498e43e15c8934f4aa20c6db5fa7a549164fdfcbe47",
+          "0055-08.bin": "85670fae7599fbcff4a6225a7146cee5d79694766858ff2445de4072969387ca"
+        }
+      },
+      "model_sha256": "a78dc4337016d346ffc702aa337e041f5118d5f8ef86b7abcea5c203d6d13209"
+    },
+    {
+      "model": [
+        4,
+        55,
+        9
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-09.gltf",
+      "fingerprint": {
+        "gltf_sha256": "7498b8130419ec5505d3c206c1bf4d67944f91eec053fb9a6f21cb75df6fae4c",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-1011-32x32-4fe3c0d80db9.png": "05e82409e8a83ce3ba065486704b50385c6a59b5ee05c01100f3df4c4e388312",
+          "0055-09.bin": "e45f000101a3a1a37434d0071cea8087f41a862fbcf03ccaad7cdc6b7e20186b"
+        }
+      },
+      "model_sha256": "1aa226498e5997d59aec4abf95cacb207d0886120ab273235ea8b56f27660709"
+    },
+    {
+      "model": [
+        4,
+        55,
+        10
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-10.gltf",
+      "fingerprint": {
+        "gltf_sha256": "2760a54ad18c2cff9ea4a70b8a4c731bff7d96472b9373fcecd20ab5a3276695",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-1011-32x32-4fe3c0d80db9.png": "05e82409e8a83ce3ba065486704b50385c6a59b5ee05c01100f3df4c4e388312",
+          "0055-10.bin": "98182d2ff338d8898283d1b1e568ce72be71467cc81e7c32c1d167fee2f547ea"
+        }
+      },
+      "model_sha256": "b8d7540db6de0067ceee66d428b0a5cb3014c23f205f97dbb66d62941e5f3ba9"
+    },
+    {
+      "model": [
+        4,
+        55,
+        11
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-11.gltf",
+      "fingerprint": {
+        "gltf_sha256": "a669b48a35b8f584e954fe7992aea79dedcebfac36c2572f0809baaf66e9ec87",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-1011-32x32-4fe3c0d80db9.png": "05e82409e8a83ce3ba065486704b50385c6a59b5ee05c01100f3df4c4e388312",
+          "../textures/us-direct-runtime-composed-3508-32x32-ee222e57282b.png": "cdee0e5d18396aa5cb2506c73e006deb19b777c2e6b8cd3efb1d35a659caa532",
+          "../textures/us-direct-runtime-composed-3555-32x32-7eb7c754e098.png": "c865e467013b1e7974d1a77afbcc0879d6d85ed38c91c6492c94bc7f141b49ab",
+          "0055-11.bin": "565238f85cce5d906c01a29eea6810f10a547cb6cd5080a75936f65526537917"
+        }
+      },
+      "model_sha256": "157bb97a6fe939c4541b7273a0924e170d943998e7d5acdff384debdfb8256ab"
+    },
+    {
+      "model": [
+        4,
+        55,
+        6
+      ],
+      "path": "build/assets/models/rom-only/us-bank-04-preview/geometry/0055-06.gltf",
+      "fingerprint": {
+        "gltf_sha256": "d1d1a3f1a471c15729f83c8f94e952faeb4788331df7d2b5ca6792c7906e7405",
+        "dependencies_sha256": {
+          "../textures/us-direct-runtime-composed-0736-64x32-f3dc7644ba18.png": "16f854a299074327ecbc61fa58a8e6fb502e65981cda22d458b53bb8637c6b21",
+          "0055-06.bin": "66b255fce8509974b916d3f7edb3d16b81f5ecdd66435d4714a6086d09575b8e"
+        }
+      },
+      "model_sha256": "a1d9d3c8b6166a16deea67b862c4b37d5e04827c03477b11cca4acc8ee652cb8"
+    },
+    {
+      "model": [
+        3,
+        3,
+        0
+      ],
+      "path": "build/assets/models/rom-only/us-bank-03-preview/geometry/0003-00.gltf",
+      "fingerprint": {
+        "gltf_sha256": "f3a87c46819259d2f6a99d1bed3bf415ef8184ab81fa7c90d9f82e96478c0346",
+        "dependencies_sha256": {
+          "../textures/us-rom-state-consensus-0187-64x64-999a43112907.png": "1f8dca574a905374060781b0a4960ea9ed2310f8a45cd5f0adeb5e5dfb01ac6f",
+          "0003-00.bin": "8cc82c05a08c9f88c06ae208b2babb343e25238ea06c1080d02b66e548d7f3d6"
+        }
+      },
+      "model_sha256": "a59171baa05d3282d76464ec8fab6a9c0b0144cde1e3ef64097da2d36f4f06d4"
+    }
+  ],
+  "consumers": [
+    {
+      "address": "0x150039E0",
+      "size": 2964,
+      "sha256": "3a55de2e33c4c47cf412d1b8c601ab53de1edf0a721abc039a4c2c9da5358e28"
+    },
+    {
+      "address": "0x151137D4",
+      "size": 1204,
+      "sha256": "47b7a19b8df6ae78e3d711bee14a7e47a8cf8a1e2ae86f9a0785c9c6c0fcb8e0"
+    },
+    {
+      "address": "0x1510B9D0",
+      "size": 1424,
+      "sha256": "f59554f3363a554c0c29fe157bd3cc48cfedb10e97bcb2b8ea31cc8fc9a52c7f"
+    },
+    {
+      "address": "0x150CF5E8",
+      "size": 152,
+      "sha256": "b39d56d42f6394f273cef878c9f8f4a90861ebd3ebd9199bb7492324d9482fc6"
+    },
+    {
+      "address": "0x150CF578",
+      "size": 112,
+      "sha256": "9380ec55443833e5ed9950f30c40317a0bd33d130dbcba4a2a34e2aa36427898"
+    },
+    {
+      "address": "0x150D0E90",
+      "size": 596,
+      "sha256": "066ec1b0fce0c9958e9bc24f13400b8e1adc1419bcd7210f24f173ccbc00cf5c"
+    },
+    {
+      "address": "0x1510CDB8",
+      "size": 168,
+      "sha256": "a1b386a82d28205880c5f04ac0e29057a9f2836f6b607d682b106490da0c2bc4"
+    }
+  ],
+  "flat737": {
+    "sha1": "6efffd09da18f157c1f2f77daf5f3f7f51873008",
+    "decoded_size": 2080,
+    "rom_span": [
+      "0x2da085",
+      "0x2da68c"
+    ],
+    "compressed_sha256": "b88ff4038c8bdf1545b90e24b44964e0914f54f37d9655d1283ca7e12450046f",
+    "pixel_load_bytes": 2048,
+    "TLUT_payload_range": [
+      2048,
+      2080
+    ]
+  },
+  "affected": [
+    {
+      "model": [
+        4,
+        55,
+        4
+      ],
+      "mesh": 2,
+      "material": 59,
+      "faces": 38
+    },
+    {
+      "model": [
+        4,
+        55,
+        5
+      ],
+      "mesh": 3,
+      "material": 60,
+      "faces": 46
+    }
+  ],
+  "inspection_state": {
+    "scroll_words": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "shade": "stored-source-RGBA",
+    "texture_samples": "independent-raw-byte-linear-repeat",
+    "source_RGBA_attribute": "FLOAT_COLOR corner",
+    "alpha": "source126/255",
+    "native_parity": false
+  },
+  "scope": "Scene55 inspection with ROM-data-initial zero scroll and explicitly selected stored vertex RGBA. Two independently filtered CI4 planes preserve source geometry, placement, UVs and color bytes. Native current SHADE/lighting, scene timing, activation, three-point filtering, coverage and RDP blending are not established."
+}

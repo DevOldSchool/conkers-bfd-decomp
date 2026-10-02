@@ -2,6 +2,13 @@
   "rom_only": true,
   "validation_report": "build/assets/models/validation/report.json",
   "previews": "build/assets/models/previews",
+  "texgen_inspection": {
+    "mode": "animated",
+    "output": "build/assets/models/character66-animated-texgen-inspection"
+  },
+  "scene55_inspection": {
+    "output": "build/assets/models/scene55-material-inspection"
+  },
   "models": [
     {
       "name": "conker-rom-defaults",
@@ -14,7 +21,7 @@
       "name": "haybot-rom-defaults",
       "label": "Haybot \u2014 ROM defaults and animations",
       "render_case": "haybot-rom-defaults",
-      "note": "Geometry, rig, animations and two recovered facial materials from ROM data, including a validated mipmap base image. One facial material run exceeds its selected ROM payload and remains unresolved.",
+      "note": "Geometry, rig, animations and two recovered facial materials from ROM data, including a validated mipmap base image. One material run on the rear button exceeds its initial descriptor payload; its selected texture phase is supplied by the separate Blender inspection.",
       "category": "characters"
     },
     {
@@ -76,7 +83,7 @@
       "name": "character-bank01-0094-rom",
       "label": "Heinrich \u2014 ROM bank 01 / 0094",
       "render_case": "character-bank01-0094-rom",
-      "note": "Includes 42 ROM animations; three alpha-dependent material runs remain unresolved. No capture inputs. Runtime part visibility, lighting and exact native appearance remain unverified.",
+      "note": "Includes 42 ROM animations and decoded textures for all 622 exported faces. No capture inputs. Runtime part visibility, lighting, dynamic opacity and exact native appearance remain unverified.",
       "category": "characters",
       "aliases": [
         "Alien",
@@ -2854,7 +2861,8 @@
       "label": "Round hive structure \u2014 ROM 04 / 0039 / 00",
       "render_case": "object-bank04-0039-00-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "scene-items",
+      "gallery_replaced_by": "scene-39-assembly-rom"
     },
     {
       "name": "object-bank04-0002-27-rom",
@@ -2875,7 +2883,8 @@
       "label": "Moss-covered walkway \u2014 ROM 04 / 0066 / 00",
       "render_case": "object-bank04-0066-00-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "scene-items",
+      "gallery_replaced_by": "scene-66-assembly-rom"
     },
     {
       "name": "object-bank04-0035-15-rom",
@@ -3521,7 +3530,7 @@
       "label": "Wall-mounted flame \u2014 ROM 09 / 0162 / 00",
       "render_case": "object-bank09-0162-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "ROM geometry with the recovered UI constructor material state; all 108 faces have decoded textures. Stored geometry and neutral joints are preserved. Native UI animation, pose, lighting, visibility, environment opacity and exact appearance remain unresolved. No capture inputs."
     },
     {
       "name": "object-bank09-0317-00-rom",
@@ -3591,7 +3600,12 @@
       "label": "Upright cash bundle \u2014 ROM 09 / 0164 / 00",
       "render_case": "object-bank09-0164-00-rom",
       "category": "collectables",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "ROM geometry with the recovered UI constructor first-draw material state, including both eye textures. Stored geometry and neutral joints are preserved. Blink animation, native pose, lighting, visibility, environment opacity and exact appearance remain unresolved. No capture inputs. This card also represents model09:0165 with identical stored geometry, rig and texture images; its distinct attachment alpha mode is retained in the export manifest.",
+      "aliases": [
+        "Bank09 /0165 /00",
+        "object-bank09-0165-00-rom.glb",
+        "review-bank09-0165-00-rom.glb"
+      ]
     },
     {
       "name": "object-bank09-0327-00-rom",
@@ -3724,7 +3738,8 @@
       "label": "Lava cavern geometry \u2014 scene 55 \u2014 ROM 04 / 0055 / 00",
       "render_case": "object-bank04-0055-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-55-assembly-rom"
     },
     {
       "name": "object-bank04-0014-00-rom",
@@ -3745,7 +3760,8 @@
       "label": "Cliffside courtyard \u2014 scene 48 \u2014 ROM 04 / 0048 / 00",
       "render_case": "object-bank04-0048-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-48-assembly-rom"
     },
     {
       "name": "object-bank04-0025-00-rom",
@@ -3773,7 +3789,8 @@
       "label": "Industrial chamber geometry \u2014 scene 10 \u2014 ROM 04 / 0010 / 00",
       "render_case": "object-bank04-0010-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-10-assembly-rom"
     },
     {
       "name": "object-bank04-0067-00-rom",
@@ -3801,28 +3818,32 @@
       "label": "Pipe chamber geometry \u2014 scene 16 \u2014 ROM 04 / 0016 / 00",
       "render_case": "object-bank04-0016-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-16-assembly-rom"
     },
     {
       "name": "object-bank04-0001-00-rom",
       "label": "Wooden room geometry \u2014 scene 1 \u2014 ROM 04 / 0001 / 00",
       "render_case": "object-bank04-0001-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-01-assembly-rom"
     },
     {
       "name": "object-bank04-0061-00-rom",
       "label": "Fountain and courtyard \u2014 scene 61 \u2014 ROM 04 / 0061 / 00",
       "render_case": "object-bank04-0061-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-61-assembly-rom"
     },
     {
       "name": "object-bank04-0056-00-rom",
       "label": "Hall interior geometry \u2014 scene 56 \u2014 ROM 04 / 0056 / 00",
       "render_case": "object-bank04-0056-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-56-assembly-rom"
     },
     {
       "name": "object-bank04-0000-00-rom",
@@ -3850,7 +3871,8 @@
       "label": "Metal walkway and enclosure \u2014 ROM 04 / 0064 / 00",
       "render_case": "object-bank04-0064-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-64-assembly-rom"
     },
     {
       "name": "object-bank04-0030-00-rom",
@@ -3864,7 +3886,8 @@
       "label": "Beach terrain geometry \u2014 scene 4 \u2014 ROM 04 / 0004 / 00",
       "render_case": "object-bank04-0004-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-04-assembly-rom"
     },
     {
       "name": "object-bank04-0047-00-rom",
@@ -3878,7 +3901,8 @@
       "label": "Metal bridge entrance \u2014 scene 58 \u2014 ROM 04 / 0058 / 00",
       "render_case": "object-bank04-0058-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-58-assembly-rom"
     },
     {
       "name": "object-bank04-0018-00-rom",
@@ -5397,7 +5421,8 @@
       "label": "Ribbed silver panel \u2014 ROM 04 / 0061 / 02",
       "render_case": "object-bank04-0061-02-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-61-assembly-rom"
     },
     {
       "name": "object-bank09-0056-00-rom",
@@ -6139,7 +6164,8 @@
       "label": "Stone column and grassy cliff section \u2014 ROM 04 / 0007 / 00",
       "render_case": "object-bank04-0007-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs.",
+      "gallery_replaced_by": "scene-07-assembly-rom"
     },
     {
       "name": "object-bank04-0012-00-rom",
@@ -6314,7 +6340,8 @@
       "label": "Stone courtyard and sand pits \u2014 ROM 04 / 0019 / 00",
       "render_case": "object-bank04-0019-00-rom",
       "category": "scene-items",
-      "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs."
+      "note": "ROM primary terrain and reviewed scene texture selectors. Explicit inspection state: zero phase and inactive switches; lava channels retain native phase offsets and texture type groups. Alternative frame indices are retained in the GLB metadata. Current gameplay state, visibility, lighting and complete appearance remain unverified. Descriptive label; no capture inputs.",
+      "gallery_replaced_by": "scene-19-assembly-rom"
     },
     {
       "name": "object-bank04-0020-00-rom",
@@ -6791,7 +6818,8 @@
       "label": "Curved room section \u2014 base geometry",
       "render_case": "object-bank04-0038-00-rom",
       "note": "Connected curved room geometry from scene 38. This is one ROM segment, not a complete scene assembly; props, placements and other segments are separate. Front and rear ROM-export views reviewed with complete current material coverage. Native lighting, visibility and exact appearance remain unverified.",
-      "category": "scene-items"
+      "category": "scene-items",
+      "gallery_replaced_by": "scene-38-assembly-rom"
     },
     {
       "name": "scene-25-assembly-rom",
@@ -7128,11 +7156,376 @@
         "attachment"
       ],
       "note": "ROM model 09:0110:00, all 20 faces textured. Selected four-bit tile retains flat 1552 indices after the smaller flat 1553 load and selects bank zero of its 256-entry palette. Descriptive visual label, not a ROM-proven name. Parent placement, effective render pass, runtime colours and native appearance remain unresolved."
+    },
+    {
+      "name": "scene-38-assembly-rom",
+      "label": "Twin circular chambers and corridor \u2014 static ROM scene 38",
+      "render_case": "scene-38-assembly-rom",
+      "note": "7 instances from 4 ROM model components; 1,633 source faces. Includes five object placements with distinct ROM transforms. Retains primary slot 0 and the overlapping secondary slot 1 as separate meshes and materials, following their renderer submission paths. Geometry, textures and transforms come from ROM. Descriptive visual label, not a recovered level name. Static inspection selection; native secondary-pass blending, visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 38",
+        "bank04 0038",
+        "scene assembly",
+        "Curved room section \u2014 base geometry",
+        "object-bank04-0038-00-rom.glb",
+        "object-bank04-0038-00-rom"
+      ]
+    },
+    {
+      "name": "scene-39-assembly-rom",
+      "label": "Honeycomb chamber and winding ramp \u2014 static ROM scene 39",
+      "render_case": "scene-39-assembly-rom",
+      "note": "2 instances from 2 ROM model components; 1,107 source faces. Retains primary slot 0 and the overlapping secondary slot 1 as separate meshes and materials, following their renderer submission paths. Geometry, textures and transforms come from ROM. Descriptive visual label, not a recovered level name. Static inspection selection; native secondary-pass blending, visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 39",
+        "bank04 0039",
+        "scene assembly",
+        "Round hive structure \u2014 ROM 04 / 0039 / 00",
+        "object-bank04-0039-00-rom.glb",
+        "object-bank04-0039-00-rom",
+        "Round hive structure"
+      ]
+    },
+    {
+      "name": "scene-66-assembly-rom",
+      "label": "Mossy loop and shallow passages \u2014 static ROM scene 66",
+      "render_case": "scene-66-assembly-rom",
+      "note": "2 instances from 2 ROM model components; 451 source faces. Retains primary slot 0 and the overlapping secondary slot 1 as separate meshes and materials, following their renderer submission paths. Geometry, textures and transforms come from ROM. Descriptive visual label, not a recovered level name. Static inspection selection; native secondary-pass blending, visibility, animation, lighting, fog and exact appearance remain unresolved.",
+      "category": "scene-items",
+      "aliases": [
+        "scene 66",
+        "bank04 0066",
+        "scene assembly",
+        "Moss-covered walkway \u2014 ROM 04 / 0066 / 00",
+        "object-bank04-0066-00-rom.glb",
+        "object-bank04-0066-00-rom",
+        "Moss-covered walkway"
+      ]
+    },
+    {
+      "name": "object-bank09-0112-00-rom",
+      "label": "Hexagonal dumbbell",
+      "render_case": "object-bank09-0112-00-rom",
+      "note": "Coherent dumbbell-shaped prop with two capped hexagonal weights joined by a handle. All 62 source faces have current ROM material coverage; front and rear exports were reviewed. Descriptive visual label; attachment parent, gameplay use, native lighting and visibility remain unverified.",
+      "category": "scene-items",
+      "aliases": [
+        "Bank 09 / 0112 / 00",
+        "09:0112:00",
+        "review-bank09-0112-00-rom.glb",
+        "review/review-bank09-0112-00-rom.glb"
+      ]
+    },
+    {
+      "name": "scene-61-assembly-rom",
+      "label": "Hilltop house and winding path \u2014 static ROM scene 61",
+      "render_case": "scene-61-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 61",
+        "bank04 0061",
+        "scene assembly",
+        "Fountain and courtyard \u2014 scene 61 \u2014 ROM 04 / 0061 / 00",
+        "object-bank04-0061-00-rom",
+        "object-bank04-0061-00-rom.glb",
+        "Ribbed silver panel \u2014 ROM 04 / 0061 / 02",
+        "object-bank04-0061-02-rom",
+        "object-bank04-0061-02-rom.glb"
+      ],
+      "note": "Three ROM scene slots assembled at their native coordinates: primary terrain and house, secondary surface pass, and fitted panel. 1,760 exported triangles; the existing source exporter omits two zero-area triangles. All 14 distinct panel vertex positions coincide with base vertices. The 247 coincident primary/secondary triangles retain their separate materials and source alpha. Descriptive visual label, not a recovered level name. Native secondary-pass blending, visibility, animation, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "scene-55-assembly-rom",
+      "label": "Lava cavern, pipes and fans \u2014 static ROM scene 55",
+      "render_case": "scene-55-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 55",
+        "bank04 0055",
+        "scene assembly",
+        "Lava cavern geometry \u2014 scene 55 \u2014 ROM 04 / 0055 / 00",
+        "object-bank04-0055-00-rom",
+        "object-bank04-0055-00-rom.glb"
+      ],
+      "note": "Ten ROM source models in 22 native static placements, including cavern surfaces, pipes, floor and rim, and five paired fan assemblies. All 3,958 exported triangles and source materials are preserved. The base contains ten repeated index triples that Blender normalizes during import. Untextured effect planes remain explicitly excluded. Descriptive visual label; native visibility, motion, secondary-pass blending, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "scene-07-assembly-rom",
+      "label": "Stone tower, waterfall and channels \u2014 static ROM scene 7",
+      "render_case": "scene-07-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 7",
+        "bank04 0007",
+        "scene assembly",
+        "Stone column and grassy cliff section \u2014 ROM 04 / 0007 / 00",
+        "object-bank04-0007-00-rom",
+        "object-bank04-0007-00-rom.glb"
+      ],
+      "note": "Sixteen ROM source models in 20 native static placements, including the tower, waterfall, water channels and intact wooden bridge. All 1,682 exported triangles, partial vertex alpha and overlapping water layers are preserved. The damaged bridge alternative, untextured surface and effect planes are explicitly omitted. Original open tower-top geometry is unchanged. Descriptive visual label; native visibility, motion, blending, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "object-bank09-0029-00-rom",
+      "label": "Cigar \u2014 ROM 09 / 0029 / 00",
+      "render_case": "object-bank09-0029-00-rom",
+      "category": "parts-effects",
+      "aliases": [
+        "Bank 09 / 0029 / 00",
+        "review-bank09-0029-00-rom",
+        "review/review-bank09-0029-00-rom.glb",
+        "review-bank09-0029-00-rom.glb",
+        "09:0029:00"
+      ],
+      "note": "Twenty ROM triangles form a brown cigar with a pale tip. Fresh ROM decoding reproduces the existing geometry and 16 x 32 CI8 flat-806 texture exactly. Action 68 selects this attachment; the reviewed caller creates it with military helmet action 35 on the same parent. Cigar is a descriptive visual label; actor identity, parent pose, visibility and native appearance remain unverified."
+    },
+    {
+      "name": "scene-48-assembly-rom",
+      "label": "Cliffside courtyards and placed props \u2014 static ROM scene 48",
+      "render_case": "scene-48-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 48",
+        "bank04 0048",
+        "scene assembly",
+        "Cliffside courtyard \u2014 scene 48 \u2014 ROM 04 / 0048 / 00",
+        "object-bank04-0048-00-rom",
+        "object-bank04-0048-00-rom.glb"
+      ],
+      "note": "Twelve ROM source models in 20 native static placements. All 3,300 exported triangles and source materials are preserved; Blender normalizes 160 repeated index triangles on import. The separate tower at the origin is omitted because its stored placement floats above the courtyard, and static red flag 03:0090 remains omitted with two unresolved CI8 faces. Descriptive visual label; native visibility, motion, blending, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "scene-16-assembly-rom",
+      "label": "Circular machinery chamber \u2014 static ROM scene 16",
+      "render_case": "scene-16-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 16",
+        "bank04 0016",
+        "scene assembly",
+        "Pipe chamber geometry \u2014 scene 16 \u2014 ROM 04 / 0016 / 00",
+        "object-bank04-0016-00-rom",
+        "object-bank04-0016-00-rom.glb"
+      ],
+      "note": "Nine ROM source models in 14 native static placements. The three doorway pairs share boundaries without overlapping faces; all 2,034 exported triangles, source materials and source vertex alpha are preserved. Blender normalizes four repeated index triangles on import. Small origin-positioned machinery and the broad inactive water surface are omitted pending runtime placement or visibility evidence. Descriptive visual label; native visibility, motion, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "object-bank09-0228-00-rom",
+      "label": "Green and yellow starburst \u2014 ROM 09 / 0228 / 00",
+      "render_case": "object-bank09-0228-00-rom",
+      "category": "parts-effects",
+      "aliases": [
+        "Bank 09 / 0228 / 00",
+        "review-bank09-0228-00-rom",
+        "review/review-bank09-0228-00-rom.glb",
+        "review-bank09-0228-00-rom.glb",
+        "09:0228:00"
+      ],
+      "note": "Coherent stored part with 20 ROM triangles and complete current material coverage; geometry and textures are preserved exactly. Descriptive visual identification; actor identity, runtime debris motion, native lighting, colour, alpha and exact appearance remain unresolved. No capture inputs."
+    },
+    {
+      "name": "object-bank09-0288-00-rom",
+      "label": "Grey lower leg with pink shoe \u2014 ROM 09 / 0288 / 00",
+      "render_case": "object-bank09-0288-00-rom",
+      "category": "parts-effects",
+      "aliases": [
+        "Bank 09 / 0288 / 00",
+        "review-bank09-0288-00-rom",
+        "review/review-bank09-0288-00-rom.glb",
+        "review-bank09-0288-00-rom.glb",
+        "09:0288:00"
+      ],
+      "note": "Coherent stored part with 23 ROM triangles and complete current material coverage; geometry and textures are preserved exactly. Descriptive visual identification; actor identity, runtime debris motion, native lighting, colour, alpha and exact appearance remain unresolved. No capture inputs."
+    },
+    {
+      "name": "object-bank09-0401-00-rom",
+      "label": "Grey lower leg with black shoe \u2014 ROM 09 / 0401 / 00",
+      "render_case": "object-bank09-0401-00-rom",
+      "category": "parts-effects",
+      "aliases": [
+        "Bank 09 / 0401 / 00",
+        "review-bank09-0401-00-rom",
+        "review/review-bank09-0401-00-rom.glb",
+        "review-bank09-0401-00-rom.glb",
+        "09:0401:00"
+      ],
+      "note": "Coherent stored part with 22 ROM triangles and complete current material coverage; geometry and textures are preserved exactly. Descriptive visual identification; actor identity, runtime debris motion, native lighting, colour, alpha and exact appearance remain unresolved. No capture inputs."
+    },
+    {
+      "name": "object-bank09-0404-00-rom",
+      "label": "Dark lower leg with broad black boot \u2014 ROM 09 / 0404 / 00",
+      "render_case": "object-bank09-0404-00-rom",
+      "category": "parts-effects",
+      "aliases": [
+        "Bank 09 / 0404 / 00",
+        "review-bank09-0404-00-rom",
+        "review/review-bank09-0404-00-rom.glb",
+        "review-bank09-0404-00-rom.glb",
+        "09:0404:00"
+      ],
+      "note": "Coherent stored part with 22 ROM triangles and complete current material coverage; geometry and textures are preserved exactly. Descriptive visual identification; actor identity, runtime debris motion, native lighting, colour, alpha and exact appearance remain unresolved. No capture inputs."
+    },
+    {
+      "name": "scene-19-assembly-rom",
+      "label": "Stone basin, channels and raised paths \u2014 static ROM scene 19",
+      "render_case": "scene-19-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 19",
+        "bank04 0019",
+        "scene assembly",
+        "Stone courtyard and sand pits \u2014 ROM 04 / 0019 / 00",
+        "object-bank04-0019-00-rom",
+        "object-bank04-0019-00-rom.glb"
+      ],
+      "note": "Thirteen ROM source models in 24 native static placements, including 12 placed amber objects. Complementary edge pieces and overlapping water passes are retained with their original textures and alpha; all 4,947 exported triangles are preserved. Blender normalizes one repeated index triangle on import. The detached dish, origin-positioned small props and untextured effect plane are omitted pending runtime placement, visibility or appearance evidence. Descriptive visual label; native motion, blending, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "object-bank04-0060-14-rom",
+      "label": "Corner cobweb \u2014 ROM 04 / 0060 / 14",
+      "render_case": "object-bank04-0060-14-rom",
+      "category": "scene-items",
+      "aliases": [
+        "Bank 04 / 0060 / 14",
+        "review-bank04-0060-14-rom",
+        "review/review-bank04-0060-14-rom.glb",
+        "review-bank04-0060-14-rom.glb",
+        "04:0060:14"
+      ],
+      "note": "Eight ROM triangles with four decoded IA8 textures; geometry and images are preserved exactly. Descriptive visual identification of a static stored mesh. Parent scene composition, runtime visibility, lighting and exact native appearance remain unresolved. Distinct from the scene 19 spiderweb; the seven-web scene 60 layout remains deferred. No capture inputs."
+    },
+    {
+      "name": "scene-04-assembly-rom",
+      "label": "Fortified beach and surf \u2014 static ROM scene 4",
+      "render_case": "scene-04-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 4",
+        "bank04 0004",
+        "scene assembly",
+        "Beach terrain geometry \u2014 scene 4 \u2014 ROM 04 / 0004 / 00",
+        "object-bank04-0004-00-rom",
+        "object-bank04-0004-00-rom.glb"
+      ],
+      "note": "Twenty-five ROM source models in 29 native static placements. Distinct water and shoreline texture passes, complementary barrier pieces and the initial tint surface are retained. All 2,427 exported triangles are preserved; Blender normalizes 28 repeated index triangles on import. The detached water plane, origin prop and inactive debris are omitted pending runtime placement or visibility evidence. Descriptive visual label; native motion, blending, lighting, fog and exact appearance remain unresolved."
+    },
+    {
+      "name": "scene-01-assembly-rom",
+      "label": "Timber-framed interior and chained platform \u2014 static ROM scene 1",
+      "render_case": "scene-01-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 1",
+        "bank04 0001",
+        "scene assembly",
+        "Wooden room geometry \u2014 scene 1 \u2014 ROM 04 / 0001 / 00",
+        "object-bank04-0001-00-rom",
+        "object-bank04-0001-00-rom.glb"
+      ],
+      "note": "10 ROM source models in 18 native static placements, preserving all 1,918 exported triangles and 46 embedded images. Original bright portal/tint surfaces and source culling retained. Initial inactive singleton groups09/10/12\u201322 and untextured effect03:51 omitted; no complete native visibility or appearance claim. Native motion, blending, lighting, fog and exact appearance remain unresolved. Descriptive visual label."
+    },
+    {
+      "name": "scene-56-assembly-rom",
+      "label": "Dark stone chamber and raised floor \u2014 static ROM scene 56",
+      "render_case": "scene-56-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 56",
+        "bank04 0056",
+        "scene assembly",
+        "Hall interior geometry \u2014 scene 56 \u2014 ROM 04 / 0056 / 00",
+        "object-bank04-0056-00-rom",
+        "object-bank04-0056-00-rom.glb"
+      ],
+      "note": "2 ROM source models in 2 native static placements, preserving all 1,497 exported triangles and 15 embedded images. Original dark outer surfaces and floor geometry retained. Six inactive singleton picture alternatives04\u201309 and bank03 props97/112 omitted; bank03 default flags independently checked. No complete native frame claim. Native motion, blending, lighting, fog and exact appearance remain unresolved. Descriptive visual label."
+    },
+    {
+      "name": "scene-58-assembly-rom",
+      "label": "Industrial corridor and round hatch \u2014 static ROM scene 58",
+      "render_case": "scene-58-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 58",
+        "bank04 0058",
+        "scene assembly",
+        "Metal bridge entrance \u2014 scene 58 \u2014 ROM 04 / 0058 / 00",
+        "object-bank04-0058-00-rom",
+        "object-bank04-0058-00-rom.glb"
+      ],
+      "note": "9 ROM source models in 9 native static placements, preserving all 782 exported triangles and 59 embedded images. Original roof geometry, long passage, culling and native metal-door placements retained. Six inactive singleton instances of source09 at the origin omitted; no complete native frame claim. Native motion, blending, lighting, fog and exact appearance remain unresolved. Descriptive visual label."
+    },
+    {
+      "name": "scene-64-assembly-rom",
+      "label": "Industrial chamber with orange panels \u2014 static ROM scene 64",
+      "render_case": "scene-64-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 64",
+        "bank04 0064",
+        "scene assembly",
+        "Metal walkway and enclosure \u2014 ROM 04 / 0064 / 00",
+        "object-bank04-0064-00-rom",
+        "object-bank04-0064-00-rom.glb"
+      ],
+      "note": "11 ROM source models in 16 native static placements, preserving all 1,265 exported triangles and 58 embedded images. Original dark surfaces and stored roof geometry retained. Four source09 placements have distinct native positions and rotations. Initial inactive singleton groups14\u201324 and bank03 prop112 omitted; no complete native frame claim. Native motion, blending, lighting, fog and exact appearance remain unresolved. Descriptive visual label."
+    },
+    {
+      "name": "scene-10-assembly-rom",
+      "label": "Metal chamber with pipes and stairs \u2014 static ROM scene 10",
+      "render_case": "scene-10-assembly-rom",
+      "category": "scene-items",
+      "aliases": [
+        "scene 10",
+        "bank04 0010",
+        "scene assembly",
+        "Industrial chamber geometry \u2014 scene 10 \u2014 ROM 04 / 0010 / 00",
+        "object-bank04-0010-00-rom",
+        "object-bank04-0010-00-rom.glb"
+      ],
+      "note": "8 ROM source models in 10 native static placements, preserving all 1,953 exported triangles and 86 embedded images. Seventeen initial inactive singleton placements from eleven sources omitted, including below-floor model06. Source base geometry, dark surfaces and culling preserved. All1953 exported triangles retained; Blender normalizes14 repeated unordered index triples in base primitive3 to1939polygons. No complete native frame claim. Native motion, blending, lighting, fog and exact appearance remain unresolved. Descriptive visual label."
+    },
+    {
+      "name": "object-bank09-0165-00-rom",
+      "label": "Upright cash bundle - attachment variant \u2014 ROM 09 / 0165 / 00",
+      "render_case": "object-bank09-0165-00-rom",
+      "category": "collectables",
+      "note": "ROM geometry and all 65 textured faces, including both pupils, from the specialized attachment constructor. Shares the stored mesh, rig and texture images of model 09:0164; native consumer alpha handling differs. Neutral joints are preserved. Native pose, visibility, dynamic colour/opacity and raster appearance remain unresolved. No capture inputs.",
+      "gallery_replaced_by": "object-bank09-0164-00-rom"
+    },
+    {
+      "name": "object-bank09-0185-00-rom",
+      "label": "Conker HUD head - first texture phase \u2014 ROM 09 / 0185 / 00",
+      "render_case": "object-bank09-0185-00-rom",
+      "category": "parts-effects",
+      "note": "ROM HUD head with the first correlated texture phase from its dedicated controller. All 112 texture-sampling faces have decoded images; 58 colour-only faces use no texture inputs. Stored geometry is preserved. Native HUD deformation, current phase, colours, opacity and raster appearance remain unresolved. No capture inputs."
+    },
+    {
+      "name": "object-bank09-0203-00-rom",
+      "label": "Fiery particle polyhedron \u2014 ROM 09 / 0203 / 00",
+      "render_case": "object-bank09-0203-00-rom",
+      "category": "parts-effects",
+      "note": "ROM particle geometry and CI4 image from its verified initial type 16 constructor. Its combiner does not sample texture alpha. Runtime particle colour, opacity, motion, lifetime, activation and native raster appearance remain unresolved. No capture inputs."
+    },
+    {
+      "name": "object-bank09-0213-00-rom",
+      "label": "Tapered yellow spike \u2014 ROM 09 / 0213 / 00",
+      "render_case": "object-bank09-0213-00-rom",
+      "category": "parts-effects",
+      "note": "ROM geometry and CI4 mip base image from a verified stored-script selector 13 and its initial object consumer. All four faces retain source UVs. Descriptive label from the export; scene activation, placement, dynamic flags, opacity and native raster appearance remain unresolved. No capture inputs."
     }
   ],
   "extracted_review": {
     "model_root": "build/assets/models/rom-only",
     "reviews": "config/model-batch-reviews.json",
     "cache": "build/assets/models/inspection-review-cache"
+  },
+  "embedded_type13_inspection": {
+    "output": "build/assets/models/embedded-type13-material-inspection"
+  },
+  "haybot_inspection": {
+    "output": "build/assets/models/haybot-phase0-inspection"
+  },
+  "embedded_type06_inspection": {
+    "output": "build/assets/models/embedded-type06-material-inspection"
   }
 }

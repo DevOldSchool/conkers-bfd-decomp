@@ -96,3 +96,9 @@ Local proof is under `build/assets/models/reference/scene-bindings-20260911/`:
 `rom-proof.json`, `read-audit-bank04.json`, `preview-bank04/`, `recovered.json`
 and reviewed renders. Current publication counts and remaining work are in the
 [asset roadmap](../asset-roadmap.md).
+
+## Complete frame-set export
+
+The separate [texture-sequence export](us_model_texture_sequences.md) now
+materializes all admitted frame images and source-material links. Existing
+model previews retain their selected inspection frame.
