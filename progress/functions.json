@@ -36775,8 +36775,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 913,
-        "reason": "Manual aggregate vector copy improved CURRENT 1415 to 1108. Frame/locals remain eight bytes high with s0/s1 assignment and arg3 home/mask differences. Wide local with explicit masks regressed1671; typed packet neutral1108. Two nonimproving revisions; best preserved without parameter ABI changes.",
+        "current_score": 848,
+        "reason": "Complete consumer-proved 0x64 record replaces separate scratch objects. Conservative fullword condition formal retained; reusing the existing masked fullword parameter removes redundant byte local and improves913 to848 with exact frame/record homes. Register order and argument home remain unmatched.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -85979,8 +85979,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3507,
-        "reason": "CURRENT (3507): separate branch locals collapse the raw 0x108 frame to 0x78, and unobserved payload/position copies are optimized away; grouped stack-layout reconstruction is still required.",
+        "current_score": 1322,
+        "reason": "Complete upper0x78/lower0x64 records and proved halfword triangle replace undersized separate scratch. Fullword masked parameter retained without narrow declaration proof. Improved3507 to1322 with exact frame and record addresses; payload type cleanup is code-neutral. Register/home/scheduling differences remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -73,41 +73,58 @@ void func_150D7120(Game1045D0Position *arg0, u8 arg1, s32 arg2) {
     func_1514FCE8((s16 *)&effect, arg1, arg2);
 }
 typedef struct GameD728CPayload {
-    u8 bytes[0x12];
+    s16 values[9];
 } GameD728CPayload;
 
 void func_151BFC40(void *, f32 *);
 void func_1514FBFC(void *, u8, s32);
 void func_1514FB98(void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D728C CURRENT (3507) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D728C CURRENT (1322) */
 void func_150D728C(GameD728CPayload *arg0, Game1045D0Position *arg1,
-                   f32 *arg2, u8 arg3, s32 arg4) {
-    f32 negative[3];
-    f32 scratch_f;
-    Game1045D0Position scratch_position;
-    GameD728CPayload payload;
-    u8 scratch[0x20];
+                   f32 *arg2, s32 arg3, s32 arg4) {
+    typedef struct { f32 x, y, z; } Vec3;
+    typedef struct {
+        s32 field00, field04;
+        Game1045D0Position position;
+        f32 field14, field18, field1C, field20, field24, field28;
+        s32 field2C, field30;
+        f32 field34, field38, field3C, field40;
+        s16 fields44[6];
+        s8 field50;
+    } Config;
+    struct {
+        Vec3 velocity;
+        GameD728CPayload triangle;
+        f32 scale;
+        Config config;
+    } upper;
+    struct {
+        Vec3 velocity;
+        f32 scale;
+        Config config;
+    } lower;
 
-    func_151C04F8((s32)arg1, arg3, arg4);
-    func_151C05A4((s32)arg1, arg3, arg4);
-    func_151C05F0((s32)arg1, arg3, arg4);
+    arg3 &= 0xFF;
+    func_151C04F8((s32)arg1, (u8)arg3, arg4);
+    func_151C05A4((s32)arg1, (u8)arg3, arg4);
+    func_151C05F0((s32)arg1, (u8)arg3, arg4);
     if (arg0 != 0) {
-        negative[0] = -arg2[0];
-        negative[1] = -arg2[1];
-        negative[2] = -arg2[2];
-        payload = *arg0;
-        scratch_position = *arg1;
-        func_151BFC40(scratch, &scratch_f);
-        func_1514FBFC(negative, arg3, arg4);
+        upper.velocity.x = -arg2[0];
+        upper.velocity.y = -arg2[1];
+        upper.velocity.z = -arg2[2];
+        upper.triangle = *arg0;
+        upper.config.position = *arg1;
+        func_151BFC40(&upper.config, &upper.scale);
+        func_1514FBFC(&upper, (u8)arg3, arg4);
         return;
     }
-    negative[0] = -arg2[0];
-    negative[1] = -arg2[1];
-    negative[2] = -arg2[2];
-    func_151BFC40(scratch, &scratch_f);
-    scratch_position = *arg1;
-    func_1514FB98(negative, arg3, arg4);
+    lower.velocity.x = -arg2[0];
+    lower.velocity.y = -arg2[1];
+    lower.velocity.z = -arg2[2];
+    func_151BFC40(&lower.config, &lower.scale);
+    lower.config.position = *arg1;
+    func_1514FB98(&lower, (u8)arg3, arg4);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150D728C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1045D0/func_150D728C.s")

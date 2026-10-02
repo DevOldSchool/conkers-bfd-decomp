@@ -1740,3 +1740,43 @@ the PI initializer. Full US ROM equality, integrated game and rodata checks,
 1,353 tests with 12 skipped, metadata, progress and whitespace pass with
 `BATCH_COMPLETE` in 85.256 seconds. Totals remain **67 / 8,388 bytes**, with
 **2,700** accepted US C functions and no pending IDs.
+
+## Forty-fifth batch: repair enclosing records in older callers
+
+The complete consumer layouts also repair two older disabled callers. The
+single-record `151BFDA0` now uses one 0x64-byte aggregate for velocity, scalar
+and configuration, replacing adjacent but separate scratch objects. This first
+repair preserves score 913. No independent declaration supports its old narrow
+condition formal, so the formal is fullword and the low-byte test is explicit.
+
+Its byte local duplicated the masked fourth parameter, whose original high
+bits are never used. Reusing that existing fullword parameter removes the
+redundant home and improves to 848, restoring the exact 0x88 frame and every
+record address. Saved-register order and the missing original argument-home
+store remain unresolved. The earlier wide-local experiment is not repeated;
+this form retains the required state in the existing parameter.
+
+The two-branch `150D728C` used a 0x20-byte scratch array for a configuration
+writer that reaches byte 0x50. It now has the independently proved 0x78-byte
+upper and 0x64-byte lower records, preserving their different copy orders.
+The payload is represented as nine signed halfwords, supported by the target's
+final halfword load and the triangle consumer's signed reads. Its extent is
+0x12 with alignment two. Both known caller setups agree with that requirement.
+
+The fullword fourth parameter is masked explicitly because no independent
+narrow declaration exists. The new record form improves 3507 to 1322, recovering
+the exact 0x108 frame, all object addresses, and full triangle and position
+copies. Replacing the temporary casted triangle view with the corrected
+source-local payload type leaves the whole compiled text and relocations
+identical at 1322. Both old forms remain archived as historical evidence.
+
+Independent review finds no repair defect in either candidate. No unobserved
+initialization or filler members are introduced, and both remain disabled with
+active original assembly. A previously started initializer baseline reproduces
+60 without a new source form; its prior deferred state is restored.
+
+A clean sixteen-target batch verifies all fifteen existing matches in the two
+affected source units and the PI initializer. Full US ROM equality, integrated
+game and rodata checks, 1,353 tests with 12 skipped, metadata, progress and
+whitespace pass with `BATCH_COMPLETE` in 82.011 seconds. Totals remain
+**67 / 8,388 bytes**, with **2,700** accepted US C functions and no pending IDs.

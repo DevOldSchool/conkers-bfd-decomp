@@ -79,26 +79,36 @@ void func_151C05A4(s32, u8, s32);
 void func_151C05F0(s32, u8, s32);
 void func_1514FB98(void *, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 CURRENT (913) */
-void func_151BFDA0(void *arg0, f32 *arg1, u8 arg2, s32 arg3, s32 arg4) {
-    typedef struct { s32 words[3]; } Copy3;
-    u8 sp34[0x51];
-    f32 sp30;
-    f32 sp24[3];
-    u8 temp_s1;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 CURRENT (848) */
+void func_151BFDA0(void *arg0, f32 *arg1, s32 arg2, s32 arg3, s32 arg4) {
+    typedef struct { f32 x, y, z; } Vec3;
+    typedef struct {
+        s32 field00, field04;
+        Vec3 position;
+        f32 field14, field18, field1C, field20, field24, field28;
+        s32 field2C, field30;
+        f32 field34, field38, field3C, field40;
+        s16 fields44[6];
+        s8 field50;
+    } Config;
+    struct {
+        Vec3 velocity;
+        f32 scale;
+        Config config;
+    } effect;
 
-    temp_s1 = arg3;
-    func_151C0418(arg0, temp_s1, arg4);
-    func_151C04F8((s32)arg0, temp_s1, arg4);
-    func_151C05A4((s32)arg0, temp_s1, arg4);
-    func_151C05F0((s32)arg0, temp_s1, arg4);
-    if (arg2 != 0) {
-        sp24[0] = -arg1[0];
-        sp24[1] = -arg1[1];
-        sp24[2] = -arg1[2];
-        func_151BFC40(sp34, &sp30);
-        *(Copy3 *)(sp34 + 8) = *(Copy3 *)arg0;
-        func_1514FB98(sp24, temp_s1, arg4);
+    arg3 &= 0xFF;
+    func_151C0418(arg0, (u8)arg3, arg4);
+    func_151C04F8((s32)arg0, (u8)arg3, arg4);
+    func_151C05A4((s32)arg0, (u8)arg3, arg4);
+    func_151C05F0((s32)arg0, (u8)arg3, arg4);
+    if ((u8)arg2 != 0) {
+        effect.velocity.x = -arg1[0];
+        effect.velocity.y = -arg1[1];
+        effect.velocity.z = -arg1[2];
+        func_151BFC40(&effect.config, &effect.scale);
+        effect.config.position = *(Vec3 *)arg0;
+        func_1514FB98(&effect, (u8)arg3, arg4);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BFDA0 */
