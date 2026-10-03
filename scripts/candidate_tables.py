@@ -152,6 +152,7 @@ class Object32:
             raise TableEvidenceError("candidate is not a supported ELF32 MIPS REL object")
         self.sections = [self.unpack(">10I", header[6] + 40 * i) for i in range(header[12])]
         self.symbols = {}
+        self.non_section_symbols = []
         self.relocations = {}
         for section in self.sections:
             if section[1] != 2:
@@ -166,6 +167,8 @@ class Object32:
                 if end < name:
                     raise TableEvidenceError("invalid symbol name")
                 symbols.append((strings[name:end].decode("ascii"), value, size, shndx))
+                if info & 15 != 3:  # STT_SECTION describes the whole section.
+                    self.non_section_symbols.append(symbols[-1])
             self.symbols[self.sections.index(section)] = symbols
         for section in self.sections:
             if section[1] == 4:
@@ -216,8 +219,25 @@ def verify_object(data: bytes, symbol: str, raw_start: int, tables: list[Table],
     if len(functions) != 1:
         raise TableEvidenceError("candidate function symbol is missing or ambiguous")
     _, origin, size, text = functions[0]
-    if size != expected_size:
+    payload = obj.section(text)
+    end = origin + expected_size
+    if (size <= 0 or origin % 4 or size % 4 or expected_size % 4
+            or size > expected_size or end > len(payload)):
         raise TableEvidenceError("candidate function extent differs from registered span")
+    if size < expected_size:
+        # IDO excludes final .text alignment from STT_FUNC size. The caller
+        # still compares every registered instruction, including these bytes.
+        # Accept only the section's final zero-filled alignment to 16 bytes;
+        # never absorb another symbol, relocation, or executable word.
+        tail = origin + size
+        if (end != len(payload) or end != ((tail + 15) & ~15)
+                or any(payload[tail:end])
+                or any(section == text and tail <= offset < end
+                       for section, offset in obj.relocations)
+                or any(section == text and value < end
+                       and (value >= tail or value + extent > tail)
+                       for _, value, extent, section in obj.non_section_symbols)):
+            raise TableEvidenceError("candidate function extent is not final zero alignment")
     for table in tables:
         high = obj.relocation(text, origin + table.upper, 5)
         low = obj.relocation(text, origin + table.load, 6)

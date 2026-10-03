@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/game/entrypoint.c
  * Boundary evidence: docs/evidence/game_medium_single_function_units.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15007830
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 void func_10023790(void *, void *, s32);
@@ -43,12 +38,11 @@ extern u8 D_800BEA10[];
 extern u8 D_800BEA28[];
 extern s16 D_800BEA68[];
 extern s16 D_800BEAA8;
-extern s8 D_800BEAAA;
+extern u8 D_800BEAAA;
 extern s8 D_800BEAAB;
 extern s32 D_800D2C28;
 extern u8 D_800E0B94;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007830 CURRENT (755) */
 void func_15007830(void) {
     func_15007A20();
     D_800D2C28 = 0;
@@ -75,10 +69,8 @@ void func_15007830(void) {
     D_800BEA00 = 1;
     D_800BEAAA = 1;
     func_1509C120();
-    for (;;) {
+    while (1) {
         switch (D_800BE615) {
-        case 4:
-            break;
         case 1:
         case 5:
             func_151E50C8();
@@ -88,11 +80,13 @@ void func_15007830(void) {
             if (D_800E0B94 == 2) {
                 func_150ADACC(0x81280783);
             }
-            func_15007A70((s16)D_800BEA04, (s16)D_800BEA00, (s16)D_800BE9F4);
+            func_15007A70(((s16 *)&D_800BEA04)[1], ((s16 *)&D_800BEA00)[1], ((s16 *)&D_800BE9F4)[1]);
             /* fallthrough */
         case 3:
             func_15007B3C();
             D_800BE615 = 0;
+            break;
+        case 4:
             break;
         }
         func_100051E8();
@@ -100,5 +94,3 @@ void func_15007830(void) {
         func_150186D0();
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15007830 */
-#pragma GLOBAL_ASM("asm/nonmatchings/entrypoint/func_15007830.s")
