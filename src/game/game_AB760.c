@@ -62,52 +62,58 @@ void func_1507E2B0(struct GameAB760State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E2B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E2B0.s")
+/* Descriptive role: actor_update_lady_cog_eye_parts.
+ * Models 15/70/76 select paired eye parts from actor +0x6C/+0x6D; set bits
+ * in actor +0x94 hide parts. Channel order does not establish left/right.
+ * Evidence: docs/evidence/lady_cog_eye_part_semantics.md.
+ * Naming only: the excluded candidate remains unmatched.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 CURRENT (757) */
-void func_1507E3C0(void *arg0) {
-    s32 values[2];
-    s32 *var_v1;
-    s32 temp_t2;
-    u8 temp_v0;
-    u8 *var_a1;
-    u8 *state;
+void func_1507E3C0(void *actor) {
+    s32 eyePartStates[2];
+    s32 *eyePartStateCursor;
+    s32 partHideMask;
+    u8 modelIndex;
+    u8 *eyeCodeCursor;
+    u8 *actorBytes;
 
-    state = arg0;
-    temp_v0 = state[4];
-    var_v1 = values;
-    var_a1 = state;
-    if ((temp_v0 == 0xF) || (temp_v0 == 0x46) || (temp_v0 == 0x4C)) {
+    actorBytes = actor;
+    modelIndex = actorBytes[4];
+    eyePartStateCursor = eyePartStates;
+    eyeCodeCursor = actorBytes;
+    if ((modelIndex == 0xF) || (modelIndex == 0x46) || (modelIndex == 0x4C)) {
         do {
-            *var_v1 = var_a1[0x6C];
-            if (*var_v1 >= 0xA) {
-                *var_v1 -= 0xA;
-                if (*var_v1 == 5) {
-                    *var_v1 = 0;
-                } else if (*var_v1 == 1) {
-                    *var_v1 = 1;
+            *eyePartStateCursor = eyeCodeCursor[0x6C];
+            if (*eyePartStateCursor >= 0xA) {
+                *eyePartStateCursor -= 0xA;
+                if (*eyePartStateCursor == 5) {
+                    *eyePartStateCursor = 0;
+                } else if (*eyePartStateCursor == 1) {
+                    *eyePartStateCursor = 1;
                 } else {
-                    *var_v1 = 2;
+                    *eyePartStateCursor = 2;
                 }
-            } else if (*var_v1 < 2) {
-                *var_v1 += 1;
+            } else if (*eyePartStateCursor < 2) {
+                *eyePartStateCursor += 1;
             }
-            var_v1++;
-            var_a1++;
-        } while (var_v1 != &values[2]);
-        temp_t2 = *(s32 *)(state + 0x94) | 0x7E;
-        *(s32 *)(state + 0x94) = temp_t2;
-        if (values[0] == 0) {
-            *(s32 *)(state + 0x94) = temp_t2 & ~8;
-        } else if (values[0] == 1) {
-            *(s32 *)(state + 0x94) &= ~0x10;
+            eyePartStateCursor++;
+            eyeCodeCursor++;
+        } while (eyePartStateCursor != &eyePartStates[2]);
+        partHideMask = *(s32 *)(actorBytes + 0x94) | 0x7E;
+        *(s32 *)(actorBytes + 0x94) = partHideMask;
+        if (eyePartStates[0] == 0) {
+            *(s32 *)(actorBytes + 0x94) = partHideMask & ~8;
+        } else if (eyePartStates[0] == 1) {
+            *(s32 *)(actorBytes + 0x94) &= ~0x10;
         } else {
-            *(s32 *)(state + 0x94) &= ~4;
+            *(s32 *)(actorBytes + 0x94) &= ~4;
         }
-        if (values[1] == 0) {
-            *(s32 *)(state + 0x94) &= ~0x20;
-        } else if (values[1] == 1) {
-            *(s32 *)(state + 0x94) &= ~0x40;
+        if (eyePartStates[1] == 0) {
+            *(s32 *)(actorBytes + 0x94) &= ~0x20;
+        } else if (eyePartStates[1] == 1) {
+            *(s32 *)(actorBytes + 0x94) &= ~0x40;
         } else {
-            *(s32 *)(state + 0x94) &= ~2;
+            *(s32 *)(actorBytes + 0x94) &= ~2;
         }
     }
 }
@@ -121,96 +127,109 @@ s32 func_1507E968(void *);
 u8 *func_1507E9F8(void *, s32 *);
 extern void *D_800D1C90[];
 
-void func_1507E500(u8 *arg0, s32 arg1, s32 arg2) {
-    u8 *record;
-    u8 *values;
+/* Descriptive role: actor_set_expression.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+void func_1507E500(u8 *actor, s32 expressionIndex, s32 morphDurationOverride) {
+    u8 *previousExpression;
+    u8 *actionIds;
 
-    if (arg1 < func_1507E968(arg0)) {
-        record = func_1507E908(arg0, arg0[0x6F]);
-        if (record[4] != 0) {
-            values = func_1507E9F8(arg0, 0);
-            if (values != 0) {
-                func_150302F0(arg0, values[record[4] - 1]);
+    if (expressionIndex < func_1507E968(actor)) {
+        previousExpression = func_1507E908(actor, actor[0x6F]);
+        if (previousExpression[4] != 0) {
+            actionIds = func_1507E9F8(actor, 0);
+            if (actionIds != 0) {
+                func_150302F0(actor, actionIds[previousExpression[4] - 1]);
             }
         }
-        arg0[0x6F] = arg1;
-        func_1507E5C8(arg0, arg2);
-        if (arg2 != 0) {
-            arg0[0x135] = arg2;
+        actor[0x6F] = expressionIndex;
+        func_1507E5C8(actor, morphDurationOverride);
+        if (morphDurationOverride != 0) {
+            actor[0x135] = morphDurationOverride;
             return;
         }
-        arg0[0x135] = func_1507E908(arg0, arg1)[3];
+        actor[0x135] = func_1507E908(actor, expressionIndex)[3];
     }
 }
-void func_1507E5C8(u8 *arg0, s32 arg1) {
-    u8 *record;
+/* Semantic role: actor_apply_current_expression, including its action and selectors.
+ * See docs/evidence/character_expression_semantics.md; keep the linked symbol stable.
+ */
+void func_1507E5C8(u8 *actor, s32 morphDurationOverride) {
+    u8 *expressionRecord;
     u8 value;
 
-    record = func_1507E908(arg0, arg0[0x6F]);
-    if (record != 0) {
-        func_1507EA44(arg0, record[4], *(u16 *)(record + 6));
-        value = record[2];
-        if (value != arg0[0x134]) {
-            arg0[0x134] = value;
-            if (arg1 == 0) {
-                arg0[0x135] = record[3];
+    expressionRecord = func_1507E908(actor, actor[0x6F]);
+    if (expressionRecord != 0) {
+        func_1507EA44(actor, expressionRecord[4], *(u16 *)(expressionRecord + 6));
+        value = expressionRecord[2];
+        if (value != actor[0x134]) {
+            actor[0x134] = value;
+            if (morphDurationOverride == 0) {
+                actor[0x135] = expressionRecord[3];
             } else {
-                arg0[0x135] = arg1;
+                actor[0x135] = morphDurationOverride;
             }
         }
-        arg0[0x6C] = record[0] + 0xA;
-        arg0[0x6D] = record[1] + 0xA;
-        value = record[8];
+        actor[0x6C] = expressionRecord[0] + 0xA;
+        actor[0x6D] = expressionRecord[1] + 0xA;
+        value = expressionRecord[8];
         if (value != 0) {
-            arg0[0x68] = value;
+            actor[0x68] = value;
         } else {
-            arg0[0x68] = *((u8 *)D_800D1C90[arg0[4]] + 0x3B);
+            actor[0x68] = *((u8 *)D_800D1C90[actor[4]] + 0x3B);
         }
-        value = record[9];
+        value = expressionRecord[9];
         if (value != 0) {
-            arg0[0x69] = value;
+            actor[0x69] = value;
             return;
         }
-        arg0[0x69] = *((u8 *)D_800D1C90[arg0[4]] + 0x3C);
+        actor[0x69] = *((u8 *)D_800D1C90[actor[4]] + 0x3C);
     }
 }
 s32 func_150849A0();                                /* extern */
 
-s32 func_1507E6B8(void *arg0) {
-    s32 temp_v0;
-    u8 value;
+/* Descriptive role: actor_can_update_blink.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+s32 func_1507E6B8(void *actor) {
+    s32 representationModelIndex;
+    u8 expressionIndex;
 
-    if (*(u8 *)((u8 *)arg0 + 0x1CA) == 0) {
+    if (*(u8 *)((u8 *)actor + 0x1CA) == 0) {
         return 0;
     }
-    if (*(u8 *)((u8 *)arg0 + 0x70) == *(u8 *)((u8 *)arg0 + 0x6F)) {
+    if (*(u8 *)((u8 *)actor + 0x70) == *(u8 *)((u8 *)actor + 0x6F)) {
         return 1;
     }
-    temp_v0 = func_150849A0();
-    value = *(u8 *)((u8 *)arg0 + 0x6F);
-    if (temp_v0 == 0) {
-        if (value == 0x15) {
+    representationModelIndex = func_150849A0();
+    expressionIndex = *(u8 *)((u8 *)actor + 0x6F);
+    if (representationModelIndex == 0) {
+        if (expressionIndex == 0x15) {
             return 1;
         }
         goto block_9;
     }
-    if (temp_v0 == 0x52) {
+    if (representationModelIndex == 0x52) {
         return 1;
     }
 block_9:
     return 0;
 }
 
+/* Source-local actor byte view; channel order is numeric, not left/right.
+ * The expression timer retains its 0xFFFE/0xFFFF sentinel meanings.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
 typedef struct GameAB760State {
     u8 pad0[0x6A];
-    u8 field_6A;
-    u8 field_6B;
-    u8 field_6C;
-    u8 field_6D;
+    u8 blinkControl0;
+    u8 blinkControl1;
+    u8 blinkCode0;
+    u8 blinkCode1;
     u8 pad6E[2];
     u8 field_70;
-    u8 field_71;
-    u16 field_72;
+    u8 expressionPriority;
+    u16 expressionTimer;
 } GameAB760State;
 
 void func_1507E2B0(GameAB760State *);
@@ -223,7 +242,7 @@ void func_1507E73C(GameAB760State *arg0) {
     u16 temp_v1;
 
     if (arg0->pad0[5] != 2) {
-        temp_v1 = arg0->field_72;
+        temp_v1 = arg0->expressionTimer;
         if (temp_v1 != 0) {
             if (temp_v1 == 0xFFFE) {
                 return;
@@ -231,16 +250,16 @@ void func_1507E73C(GameAB760State *arg0) {
             temp_v0 = (u32)temp_v1;
             if (temp_v1 != 0xFFFF) {
                 if (D_800BE9E4 < (s32)temp_v0) {
-                    arg0->field_72 = temp_v0 - D_800BE9E4;
+                    arg0->expressionTimer = temp_v0 - D_800BE9E4;
                 } else {
-                    arg0->field_72 = 0;
+                    arg0->expressionTimer = 0;
                 }
             }
         }
         if (func_1507E6B8(arg0) != 0) {
             func_1507E2B0(arg0);
         }
-        if ((arg0->field_72 == 0) && (arg0->field_70 != arg0->pad6E[1])) {
+        if ((arg0->expressionTimer == 0) && (arg0->field_70 != arg0->pad6E[1])) {
             func_1507EABC(arg0);
         }
     }
@@ -254,11 +273,11 @@ void func_1507E7E4(GameAB760State *arg0, u8 arg1, u8 arg2, u16 arg3, s32 arg4) {
     u8 temp_v1;
 
     temp_v1 = arg0->pad6E[1];
-    if (((arg1 != temp_v1) || (arg2 != arg0->field_71) ||
-         (arg0->field_72 != arg3)) &&
+    if (((arg1 != temp_v1) || (arg2 != arg0->expressionPriority) ||
+         (arg0->expressionTimer != arg3)) &&
         ((arg2 == 3) || (temp_v1 == arg0->field_70) ||
-         (temp_v1 == arg1) || (arg0->field_72 == 0) ||
-         ((s32)arg0->field_71 < arg2))) {
+         (temp_v1 == arg1) || (arg0->expressionTimer == 0) ||
+         ((s32)arg0->expressionPriority < arg2))) {
         if ((s32)arg1 < func_1507E968(arg0)) {
             temp_v0 = func_1507E908(arg0, (s32)arg0->pad6E[1]);
             if (temp_v0[4] != 0) {
@@ -268,8 +287,8 @@ void func_1507E7E4(GameAB760State *arg0, u8 arg1, u8 arg2, u16 arg3, s32 arg4) {
                 }
             }
             arg0->pad6E[1] = arg1;
-            arg0->field_72 = arg3;
-            arg0->field_71 = arg2;
+            arg0->expressionTimer = arg3;
+            arg0->expressionPriority = arg2;
             func_1507E5C8(arg0->pad0, arg4);
         }
     }
@@ -277,41 +296,48 @@ void func_1507E7E4(GameAB760State *arg0, u8 arg1, u8 arg2, u16 arg3, s32 arg4) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E7E4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E7E4.s")
 
+/* Relocated eight-byte indexed-asset descriptor; field widths are unchanged. */
 typedef struct GameAB760ValueRecord {
-    s32 value;
-    s32 pad4;
+    s32 dataAddress;
+    s32 sizeBytes;
 } GameAB760ValueRecord;
 
-u8 *func_1507E908(void *arg0, s32 arg1) {
-    s32 value;
-    GameAB760ValueRecord *record;
+/* Descriptive role: actor_get_expression_record.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+u8 *func_1507E908(void *actor, s32 expressionIndex) {
+    s32 expressionAddress;
+    GameAB760ValueRecord *descriptor;
 
-    record = D_800D1C90[func_150849A0(arg0)];
-    if (record != 0) {
-        value = (--record)->value;
-        if (value != 0) {
-            return (u8 *)((arg1 * 0xA) + value);
+    descriptor = D_800D1C90[func_150849A0(actor)];
+    if (descriptor != 0) {
+        expressionAddress = (--descriptor)->dataAddress;
+        if (expressionAddress != 0) {
+            return (u8 *)((expressionIndex * 0xA) + expressionAddress);
         }
     }
     return 0;
 }
-s32 func_1507E968(void *arg0) {
-    GameAB760ValueRecord *record;
-    s32 kind;
-    s32 index;
+/* Descriptive role: actor_get_expression_count.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+s32 func_1507E968(void *actor) {
+    GameAB760ValueRecord *descriptor;
+    s32 modelIndex;
+    s32 defaultsModelIndex;
 
-    kind = *(u8 *)((u8 *)arg0 + 4);
-    if (kind != 0x96) {
-        index = func_150849A0(arg0);
+    modelIndex = *(u8 *)((u8 *)actor + 4);
+    if (modelIndex != 0x96) {
+        defaultsModelIndex = func_150849A0(actor);
     } else {
-        index = kind;
+        defaultsModelIndex = modelIndex;
     }
-    if (index == 0xFF) {
+    if (defaultsModelIndex == 0xFF) {
         return 0;
     }
-    record = D_800D1C90[index];
-    if (record != 0) {
-        return (u32)(--record)->pad4 / 10U;
+    descriptor = D_800D1C90[defaultsModelIndex];
+    if (descriptor != 0) {
+        return (u32)(--descriptor)->sizeBytes / 10U;
     }
     return 0;
 }
@@ -319,15 +345,18 @@ void func_1507E9E8(s32 arg0, s32 arg1) {
 }
 extern u8 D_8009D910[];
 
-u8 *func_1507E9F8(void *arg0, s32 *arg1) {
-    if (func_150849A0(arg0) == 0) {
-        if (arg1 != 0) {
-            *arg1 = 5;
+/* Descriptive role: actor_get_expression_action_table.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+u8 *func_1507E9F8(void *actor, s32 *countOut) {
+    if (func_150849A0(actor) == 0) {
+        if (countOut != 0) {
+            *countOut = 5;
         }
         return D_8009D910;
     }
-    if (arg1 != 0) {
-        *arg1 = 0;
+    if (countOut != 0) {
+        *countOut = 0;
     }
     return 0;
 }
@@ -335,35 +364,44 @@ u8 *func_1507E9F8(void *, s32 *);
 void func_15083568(void *, s32, f32, s32);
 extern f32 D_8009B8A0;
 
-void func_1507EA44(void *arg0, s32 arg1, s32 arg2) {
-    u8 *values;
+/* Descriptive role: actor_dispatch_expression_action.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+void func_1507EA44(void *actor, s32 actionSelector, s32 actionParameterRaw) {
+    u8 *actionIds;
 
-    if (arg1 != 0) {
-        values = func_1507E9F8(arg0, 0);
-        if (values != 0) {
-            func_15083568(arg0, values[arg1 - 1], (f32)arg2 * D_8009B8A0, 0);
+    if (actionSelector != 0) {
+        actionIds = func_1507E9F8(actor, 0);
+        if (actionIds != 0) {
+            func_15083568(actor, actionIds[actionSelector - 1], (f32)actionParameterRaw * D_8009B8A0, 0);
         }
     }
 }
 void func_1507E7E4(GameAB760State *, u8, u8, s32, s32);
 
-void func_1507EABC(GameAB760State *arg0) {
-    func_1507E7E4(arg0, arg0->field_70, 3, 0xFFFF, 0xA);
-    arg0->field_71 = 0;
-    arg0->field_72 = 0;
-    if (arg0->field_6C >= 0xA) {
-        arg0->field_6C = 0;
-        arg0->field_6A = 0;
+/* Descriptive role: actor_restore_default_expression.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+void func_1507EABC(GameAB760State *actor) {
+    func_1507E7E4(actor, actor->field_70, 3, 0xFFFF, 0xA);
+    actor->expressionPriority = 0;
+    actor->expressionTimer = 0;
+    if (actor->blinkCode0 >= 0xA) {
+        actor->blinkCode0 = 0;
+        actor->blinkControl0 = 0;
     }
-    if (arg0->field_6D >= 0xA) {
-        arg0->field_6D = 0;
-        arg0->field_6B = 0;
+    if (actor->blinkCode1 >= 0xA) {
+        actor->blinkCode1 = 0;
+        actor->blinkControl1 = 0;
     }
 }
 void func_1507EB4C(GameAB760State *arg0, s32 arg1);
 
-void func_1507EB2C(GameAB760State *arg0) {
-    func_1507EB4C(arg0, 0);
+/* Descriptive role: actor_set_default_expression_zero.
+ * Evidence: docs/evidence/character_expression_semantics.md.
+ */
+void func_1507EB2C(GameAB760State *actor) {
+    func_1507EB4C(actor, 0);
 }
 
 void func_1507EB4C(GameAB760State *arg0, s32 arg1) {

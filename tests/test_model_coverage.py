@@ -7,6 +7,7 @@ import struct
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest import mock
 
 from scripts import model_assets, model_coverage, model_scene_consumers
@@ -111,6 +112,58 @@ class ModelCoverageTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 model_coverage.runtime_coverage([record], "model", 7, 2, None)
 
+    def extract_scene_consumer_fixture(self, code):
+        # Synthetic code keeps the span regression independent of owned ROMs.
+        normalized = b"scene consumer test ROM"
+        digest = hashlib.sha1(normalized).hexdigest()
+        placements = {"scenes": [], "record_count": 0,
+                      "unresolved_bank_11_record_count": 0,
+                      "unresolved_bank_11_dispatch_references": []}
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            rom = root / "rom"
+            rom.write_bytes(normalized)
+            output = root / "consumers.json"
+            with mock.patch.object(model_assets, "load_model_bundles",
+                                   return_value=(rom, "z64", digest, [], ())), \
+                 mock.patch.object(model_assets, "load_object_placement_manifest",
+                                   return_value=(placements, {})), \
+                 mock.patch.object(model_assets, "resolve_rom",
+                                   return_value=(rom, {"game_start": 0, "game_end": len(normalized)})), \
+                 mock.patch.object(model_assets, "normalize_rom", return_value=(normalized, "z64")), \
+                 mock.patch.object(model_assets, "parse_game_archive", return_value=SimpleNamespace(code=code)):
+                result = model_scene_consumers.extract_scene_consumers("us", rom, output)
+            self.assertEqual(result, json.loads(output.read_text()))
+            return result
+
+    def test_scene_consumer_hashes_use_complete_separate_functions(self):
+        code = bytes(range(256)) * 0x10C0
+        result = self.extract_scene_consumer_fixture(code)
+        self.assertEqual({
+            "func_150031EC": hashlib.sha256(code[0x31EC:0x34B4]).hexdigest(),
+            "func_1510B9D0": hashlib.sha256(code[0x10B9D0:0x10BF60]).hexdigest(),
+            "func_15003668": hashlib.sha256(code[0x3668:0x38A0]).hexdigest(),
+        }, result["evidence"]["code_sha256"])
+
+    def test_collision_pin_includes_end_delay_slot_but_excludes_adjacent_functions(self):
+        code = bytes(range(256)) * 0x10C0
+        baseline = self.extract_scene_consumer_fixture(code)
+        for offset in (0x3668, 0x3898, 0x389C, 0x389F):
+            changed = bytearray(code)
+            changed[offset] ^= 0xFF
+            with self.subTest(included_offset=hex(offset)):
+                result = self.extract_scene_consumer_fixture(bytes(changed))
+                self.assertNotEqual(baseline["evidence"]["code_sha256"]["func_15003668"],
+                                    result["evidence"]["code_sha256"]["func_15003668"])
+                result["evidence"]["code_sha256"]["func_15003668"] = \
+                    baseline["evidence"]["code_sha256"]["func_15003668"]
+                self.assertEqual(baseline, result)
+        for offset in (0x3667, 0x38A0, 0x390C, 0x39B0, 0x39BB):
+            changed = bytearray(code)
+            changed[offset] ^= 0xFF
+            with self.subTest(excluded_offset=hex(offset)):
+                self.assertEqual(baseline, self.extract_scene_consumer_fixture(bytes(changed)))
+
     def test_scene_slots_keep_collision_separate_from_rendering(self):
         payload = triangle_payload()
         segments = tuple(model_assets.ModelSegment(i, 0, len(payload), i == 3, payload) for i in range(4))
@@ -121,8 +174,15 @@ class ModelCoverageTests(unittest.TestCase):
         self.assertEqual("absent", scenes[17]["bank_04_status"])
         slots = scenes[5]["initial_slots"]
         self.assertEqual("0x800B0E08", slots[2]["display_list"]["runtime_storage"])
-        self.assertEqual(["conditional-display-list-submission"], [item["kind"] for item in slots[2]["consumers"]])
-        self.assertEqual(["collision-input"], [item["kind"] for item in slots[3]["consumers"]])
+        renderer = {"function": "func_1510B9D0", "kind": "conditional-display-list-submission"}
+        collision = {"function": "func_15003668", "kind": "collision-input"}
+        self.assertEqual([
+            [renderer, dict(collision, collision_array=0)],
+            [renderer], [renderer], [dict(collision, collision_array=1)],
+        ], [slot["consumers"] for slot in slots])
+        for slot, association in zip(slots, associations):
+            self.assertEqual("not-established-by-static-consumer-edge", slot["runtime_draw_status"])
+            self.assertEqual(slot["consumers"], association["associations"][0]["downstream_consumers"])
 
     def test_placements_keep_bank_identity_and_missing_references(self):
         placements = {"scenes": [

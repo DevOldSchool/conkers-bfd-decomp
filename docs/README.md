@@ -28,6 +28,12 @@ matches the work you intend to do.
 - [Objdiff comparison](objdiff.md) documents the optional comparison pilot and its limits.
 - [Runtime tracing](runtime-tracing.md) covers the pinned Mupen64Plus debugger
   used when static code or display-list evidence cannot identify a consumer.
+- [Naming confidence and evidence](evidence/model_name_confidence_review.md)
+  separates exact ROM source identity from unconfirmed semantic labels.
+  [Character descriptions](evidence/character_semantic_naming.md),
+  [placed props](evidence/prop_model_semantics.md) and
+  [attachment/UI props](evidence/attachment_prop_semantics.md) retain the
+  domain-specific observations and conditional consumer contracts.
 - [Library track](library-track.md) records Nintendo 64 library boundary work,
   archive integration, and the associated commands.
 - [Decompilation progress](progress.md) is generated from the canonical

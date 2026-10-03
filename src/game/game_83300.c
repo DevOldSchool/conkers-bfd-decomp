@@ -250,7 +250,7 @@ typedef struct Game83300Inner {
 
 typedef struct Game83300Actor {
     u8 pad0[4];
-    u8 field_4;
+    u8 modelIndex; /* +0x04: bank-01 model index; not an actor-instance ID. */
     u8 pad5[0x23];
     f32 vertical;
     u8 pad2C[0x10];
@@ -1335,7 +1335,7 @@ void func_1505DFDC(Game83300Actor *arg0) {
     sp18 = arg0->field_2D0;
     *(u16 *)&arg0->field_84 = 0xFFFF;
     if (sp18 != 0) {
-        sp1C = arg0->field_4;
+        sp1C = arg0->modelIndex;
         sp18->field_28 = 0;
         func_100226F0((u8 *)sp18 + 0x40, 0x3A0);
         temp_v1 = &D_800C4ED0[sp1C];
@@ -1380,7 +1380,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     u8 *temp_v0_2;
 
     var_fa0 = *(f32 *)&arg3;
-    temp_a2 = arg0->field_4;
+    temp_a2 = arg0->modelIndex;
     if (D_800C3638 != 0) {
         if (D_800C3654 == 0) {
             return;
@@ -1390,7 +1390,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
             return;
         }
     }
-    temp_v1 = arg0->field_4;
+    temp_v1 = arg0->modelIndex;
     if (temp_v1 == 0xFF) {
         return;
     }
@@ -2281,6 +2281,10 @@ loop_16:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150619A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150619A8.s")
+/* Shared model-specific updates. The 0x15061FA8..0x1506208C branch selects
+ * model 75 (Haybot); within that branch +0x69 is its selector phase.
+ * Do not name this entire routine or the shared actor field after Haybot.
+ */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15061B4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150623F4.s")
 extern s32 D_800D121C;

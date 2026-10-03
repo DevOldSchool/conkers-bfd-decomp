@@ -47,6 +47,31 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Reviewed bank-01 model records; descriptive labels, not original symbols.
+ * See config/model-semantic-names.json.
+ */
+enum {
+    MODEL_CONKER = 0,
+    MODEL_CONKER_VARIANT_1 = 1,
+    MODEL_CONKER_VARIANT_2 = 2,
+    MODEL_CONKER_VARIANT_3 = 3,
+    MODEL_CONKER_VARIANT_4 = 4,
+    MODEL_ROCKMAN = 16,
+    MODEL_BUGGER_LUGS = 33,
+    MODEL_BIG_BIG_GUY = 43,
+    MODEL_DINO_BABY = 54,
+    MODEL_HAYBOT_HAY_COVERED = 69,
+    MODEL_HAYBOT = 75,
+    MODEL_FANGY = 83,
+    MODEL_BUGA_THE_KNUT = 84,
+    MODEL_SHC_SOLDIER = 88,
+    MODEL_COW = 121,
+    MODEL_THE_EXPERIMENT = 123,
+    MODEL_ROCKWOMAN = 145,
+    MODEL_CONKER_BLACK_OUTFIT = 150,
+    MODEL_RED_DINOSAUR = 165
+};
+
 void func_1514EDF0(s32 arg0, s32 arg1);
 
 void func_15141970(s32 *arg0) {
@@ -148,37 +173,43 @@ void func_15141A7C(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15141A7C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141A7C.s")
-s32 func_15141C0C(void *arg0) {
-    switch (*(u8 *)((u8 *)arg0 + 4)) {
-    case 0x79:
+/*
+ * Descriptive role: actor_get_effect_selector_callback_index.
+ * Actor model byte +0x04 selects one of 12 callbacks in D_8008A084;
+ * default 11 is the null slot. A selected callback returns a separate
+ * D_8008A0B4 effect-handler index, or -1 when no handler is selected.
+ */
+s32 func_15141C0C(void *actor) {
+    switch (*(u8 *)((u8 *)actor + 4)) {
+    case MODEL_COW:
         return 0xA;
-    case 0x21:
+    case MODEL_BUGGER_LUGS:
         return 9;
-    case 0x7B:
+    case MODEL_THE_EXPERIMENT:
         return 8;
-    case 0x0:
-    case 0x1:
-    case 0x2:
-    case 0x3:
-    case 0x4:
-    case 0x96:
+    case MODEL_CONKER:
+    case MODEL_CONKER_VARIANT_1:
+    case MODEL_CONKER_VARIANT_2:
+    case MODEL_CONKER_VARIANT_3:
+    case MODEL_CONKER_VARIANT_4:
+    case MODEL_CONKER_BLACK_OUTFIT:
         return 0;
-    case 0x10:
-    case 0x91:
+    case MODEL_ROCKMAN:
+    case MODEL_ROCKWOMAN:
         return 1;
-    case 0x2B:
+    case MODEL_BIG_BIG_GUY:
         return 2;
-    case 0x54:
+    case MODEL_BUGA_THE_KNUT:
         return 5;
-    case 0x36:
-    case 0x53:
-    case 0xA5:
+    case MODEL_DINO_BABY:
+    case MODEL_FANGY:
+    case MODEL_RED_DINOSAUR:
         return 6;
-    case 0x58:
+    case MODEL_SHC_SOLDIER:
         return 7;
-    case 0x45:
+    case MODEL_HAYBOT_HAY_COVERED:
         return 3;
-    case 0x4B:
+    case MODEL_HAYBOT:
         return 4;
     default:
         return 0xB;
@@ -231,14 +262,20 @@ extern s32 D_8008A084[];
 extern s32 D_8008A0B4[];
 extern u8 D_800BE616;
 
-void func_15141DA4(s32 arg0, s32 arg1, s32 arg2) {
-    s32 *temp_v0;
+/*
+ * Descriptive role: actor_request_timed_effect_handler.
+ * Checks the separate 12-callback and 20-handler index domains, their null
+ * slots and the global gate; requests a handler only for a positive duration.
+ * actorAddress retains the existing integer ABI.
+ */
+void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandlerIndex) {
+    s32 *handlerRecord;
 
-    if ((arg1 < 0xC) && (arg1 >= 0) && (arg2 < 0x14) && (arg2 >= 0) &&
-        (D_800BE616 == 0) && (D_8008A084[arg1] != 0) && (arg2 != -1)) {
-        temp_v0 = (s32 *)((u8 *)D_8008A0B4 + arg2 * 8);
-        if ((temp_v0[0] != 0) && (temp_v0[1] > 0)) {
-            func_15141E38((void *)arg0, arg2);
+    if ((selectorCallbackIndex < 0xC) && (selectorCallbackIndex >= 0) && (effectHandlerIndex < 0x14) && (effectHandlerIndex >= 0) &&
+        (D_800BE616 == 0) && (D_8008A084[selectorCallbackIndex] != 0) && (effectHandlerIndex != -1)) {
+        handlerRecord = (s32 *)((u8 *)D_8008A0B4 + effectHandlerIndex * 8);
+        if ((handlerRecord[0] != 0) && (handlerRecord[1] > 0)) {
+            func_15141E38((void *)actorAddress, effectHandlerIndex);
         }
     }
 }

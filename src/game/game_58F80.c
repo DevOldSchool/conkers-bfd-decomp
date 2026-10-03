@@ -483,6 +483,12 @@ extern u8 D_800C35EA;
 u8 func_150849A0(void *);
 void func_150837D4(s32, u8, s32, void *);
 
+/* Semantic role: actor_update_distance_representation.
+ * With override +1C9 zero, choose from the automatic prefix by view distance,
+ * subject to kind, state, actor +3C and count checks; record applied ordinal +1C8.
+ * These conditions do not establish unconditional distance bands.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C6E8 CURRENT (1493) */
 void func_1502C6E8(s32 arg0, s16 arg1, s32 arg2) {
     Game58F80LodView *view;
@@ -580,6 +586,12 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
         func_1502EC34(arg0, arg10, arg11, arg12, arg13);
     }
 }
+/* Semantic role: actor_emit_model_display_lists.
+ * Prepares the selected actor model and emits parts not suppressed by +0x94.
+ * Mode 3 uses the secondary table; other modes use the primary table.
+ * Also performs render-state setup and actor/model usage updates.
+ * See docs/evidence/actor_model_display_list_semantics.md.
+ */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502CCFC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (335) */
 void func_1502D54C(s32 arg0, void *arg1) {
@@ -1054,6 +1066,12 @@ void func_150837D4(s32, u8, s32, void *);
 void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
 void func_1507EABC(void *);
 
+/* Semantic role: actor_apply_representation_override.
+ * Zero returns; 0xFF clears the override and applies entry zero. Other selectors
+ * apply a changed, in-range one-based entry, then check routes and expression.
+ * Rejected nonzero selectors remain stored and still inhibit automatic choice.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502FBE8 CURRENT (979) */
 void func_1502FBE8(void *arg0) {
     u8 *actor = arg0;

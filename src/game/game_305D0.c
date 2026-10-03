@@ -175,34 +175,37 @@ extern s32 D_800B0E58;
 extern s32 D_800B0E5C;
 extern s32 D_800B0E60[];
 
-s32 func_1500390C(s32 arg0) {
-    s32 *entries;
-    s32 result;
+/* Descriptive role: flat_asset_find_cached_index.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+s32 func_1500390C(s32 cachedAddress) {
+    s32 *cachedAddresses;
+    s32 resourceIndex;
 
-    if (arg0 == D_800B0E58) {
+    if (cachedAddress == D_800B0E58) {
         return 0;
     }
-    if (arg0 == D_800B0E5C) {
+    if (cachedAddress == D_800B0E5C) {
         return 1;
     }
-    entries = D_800B0E60;
-    result = 2;
+    cachedAddresses = D_800B0E60;
+    resourceIndex = 2;
 loop:
-        if (arg0 == entries[0]) {
-            return result;
+        if (cachedAddress == cachedAddresses[0]) {
+            return resourceIndex;
         }
-        if (arg0 == entries[1]) {
-            return result + 1;
+        if (cachedAddress == cachedAddresses[1]) {
+            return resourceIndex + 1;
         }
-        if (arg0 == entries[2]) {
-            return result + 2;
+        if (cachedAddress == cachedAddresses[2]) {
+            return resourceIndex + 2;
         }
-        if (arg0 == entries[3]) {
-            return result + 3;
+        if (cachedAddress == cachedAddresses[3]) {
+            return resourceIndex + 3;
         }
-        result += 4;
-        entries += 4;
-    if (result != 0x1E52) {
+        resourceIndex += 4;
+        cachedAddresses += 4;
+    if (resourceIndex != 0x1E52) {
         goto loop;
     }
     return -1;

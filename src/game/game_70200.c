@@ -3,6 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_70200.c
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
+ * HUD layout naming evidence: docs/evidence/hud_layout_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15043384
@@ -34,36 +35,39 @@ extern s16 D_800CBD70;
 extern s16 D_800CBD72;
 void func_15042ECC();
 
-void func_15042D78(u8 arg0) {
-    D_800CBD74 = arg0;
+/* hud_set_layout_flags: set raw flags for subsequently queued layout nodes. */
+void func_15042D78(u8 flagsRaw) {
+    D_800CBD74 = flagsRaw;
 }
-void func_15042D94(s32 arg0, s32 arg1, u8 arg2, s32 arg3, ...) {
+/* hud_queue_layout_at: set position/flags and pass sixteen argument words to the parser. */
+void func_15042D94(s32 x, s32 y, u8 flagsRaw, s32 format, ...) {
     Game70200VaList args;
-    s32 storage[16];
-    s32 i;
+    s32 argumentWords[16];
+    s32 argumentIndex;
 
-    D_800CBD74 = arg2;
-    D_800CBD70 = arg0;
-    D_800CBD72 = arg1;
-    GAME70200_VA_START(args, arg3);
-    for (i = 0; i < 16; i++) {
-        storage[i] = GAME70200_VA_ARG(args, s32);
+    D_800CBD74 = flagsRaw;
+    D_800CBD70 = x;
+    D_800CBD72 = y;
+    GAME70200_VA_START(args, format);
+    for (argumentIndex = 0; argumentIndex < 16; argumentIndex++) {
+        argumentWords[argumentIndex] = GAME70200_VA_ARG(args, s32);
     }
     GAME70200_VA_END(args);
-    func_15042ECC(arg3, storage);
+    func_15042ECC(format, argumentWords);
 }
 
-void func_15042E3C(s32 arg0, ...) {
+/* hud_queue_layout_at_current_position: pass sixteen argument words to the parser. */
+void func_15042E3C(s32 format, ...) {
     Game70200VaList args;
-    s32 storage[16];
-    s32 i;
+    s32 argumentWords[16];
+    s32 argumentIndex;
 
-    GAME70200_VA_START(args, arg0);
-    for (i = 0; i < 16; i++) {
-        storage[i] = GAME70200_VA_ARG(args, s32);
+    GAME70200_VA_START(args, format);
+    for (argumentIndex = 0; argumentIndex < 16; argumentIndex++) {
+        argumentWords[argumentIndex] = GAME70200_VA_ARG(args, s32);
     }
     GAME70200_VA_END(args);
-    func_15042ECC(arg0, storage);
+    func_15042ECC(format, argumentWords);
 }
 
 typedef struct Game70200Anchor {
@@ -73,17 +77,18 @@ typedef struct Game70200Anchor {
     f32 z;
 } Game70200Anchor;
 
+/* 0x5C-byte queued layout node; field_12..field_15 remain unresolved. */
 typedef struct Game70200TextNode {
-    Game70200Anchor *field_0;
-    f32 field_4;
-    s16 field_8;
-    s16 field_A;
-    u8 field_C;
-    u8 field_D;
-    u8 field_E;
-    u8 field_F;
-    u8 field_10;
-    u8 field_11;
+    Game70200Anchor *attachedObject;
+    f32 scale;
+    s16 x;
+    s16 yOrVerticalOffset;
+    u8 flagsRaw;
+    u8 kindSelector;
+    u8 primaryRed;
+    u8 primaryGreen;
+    u8 primaryBlue;
+    u8 primaryAlpha;
     u8 field_12;
     u8 field_13;
     u8 field_14;
@@ -113,7 +118,8 @@ extern s32 D_800CBD78;
 extern s16 D_800CBD7C;
 extern f32 D_800CBD80;
 
-void func_15042ECC(u8 *format, s32 *arg_data) {
+/* hud_parse_and_queue_layout: append text or 1-based HUD sprite-selector nodes. */
+void func_15042ECC(u8 *format, s32 *argumentWords) {
     struct {
         Game70200TextNode *node;
         s32 pad;
@@ -122,13 +128,13 @@ void func_15042ECC(u8 *format, s32 *arg_data) {
     } local;
     Game70200TextNode *node;
     u8 *out;
-    s32 arg_index;
-    s32 format_index;
+    s32 argumentIndex;
+    s32 conversionIndex;
     u8 ch;
     u8 flags;
     u8 *conversion;
 
-    arg_index = 0;
+    argumentIndex = 0;
     conversion = &D_80085CC4;
     while (*format != 0) {
         local.node = func_10003C40(sizeof(Game70200TextNode), 1, 0, 1);
@@ -143,14 +149,14 @@ void func_15042ECC(u8 *format, s32 *arg_data) {
             D_800CBD68->next = local.node;
         }
         out = local.node->text;
-        local.node->field_D = 0;
+        local.node->kindSelector = 0;
         do {
             ch = *format;
             if (ch == '%') {
                 format++;
                 *conversion = '%';
-                for (format_index = 1; format_index != 0; format_index++, format++) {
-                    u8 *destination = &(&D_80085CC4)[format_index];
+                for (conversionIndex = 1; conversionIndex != 0; conversionIndex++, format++) {
+                    u8 *destination = &(&D_80085CC4)[conversionIndex];
 
                     destination[0] = *format;
                     destination[1] = 0;
@@ -159,15 +165,15 @@ void func_15042ECC(u8 *format, s32 *arg_data) {
                     case 'd':
                     case 'x':
                         func_151EFF94(out, &D_80085CC4,
-                                     arg_data[arg_index++]);
+                                     argumentWords[argumentIndex++]);
                         while (*out != 0) {
                             out++;
                         }
-                        format_index = -1;
+                        conversionIndex = -1;
                         break;
                     case 'F':
                     case 'f': {
-                        f32 *number = (f32 *)arg_data[arg_index++];
+                        f32 *number = (f32 *)argumentWords[argumentIndex++];
                         f32 value = *number;
 
                         func_151EFF94(out, D_80085CC0, &D_80098B90,
@@ -176,28 +182,28 @@ void func_15042ECC(u8 *format, s32 *arg_data) {
                         while (*out != 0) {
                             out++;
                         }
-                        format_index = -1;
+                        conversionIndex = -1;
                         break;
                     }
                     case 's':
                         func_151EFF94(out, &D_80085CC4,
-                                     arg_data[arg_index++]);
+                                     argumentWords[argumentIndex++]);
                         while (*out != 0) {
                             out++;
                         }
-                        format_index = -1;
+                        conversionIndex = -1;
                         break;
                     case '%':
                         *out++ = *format;
                         *out = 0;
-                        format_index = -1;
+                        conversionIndex = -1;
                         break;
                     default:
                         break;
                     }
                 }
             } else if (ch == '#') {
-                local.node->field_D = arg_data[arg_index++];
+                local.node->kindSelector = argumentWords[argumentIndex++];
                 format += 2;
             } else if (ch == '\n') {
                 format++;
@@ -213,35 +219,35 @@ void func_15042ECC(u8 *format, s32 *arg_data) {
         } while (local.finished == 0);
 
         node = local.node;
-        node->field_C = D_800CBD74;
-        node->field_0 = (Game70200Anchor *)D_800CBD78;
-        if (node->field_0 != 0) {
-            node->field_A = D_800CBD7C;
-            flags = node->field_C | 1;
-            node->field_C = (node->field_C = flags);
+        node->flagsRaw = D_800CBD74;
+        node->attachedObject = (Game70200Anchor *)D_800CBD78;
+        if (node->attachedObject != 0) {
+            node->yOrVerticalOffset = D_800CBD7C;
+            flags = node->flagsRaw | 1;
+            node->flagsRaw = (node->flagsRaw = flags);
             if (D_8008FD90 >= 2) {
-                node->field_4 = D_800CBD80 + D_800CBD80;
+                node->scale = D_800CBD80 + D_800CBD80;
             } else {
-                node->field_4 = D_800CBD80;
+                node->scale = D_800CBD80;
             }
         } else {
-            node->field_8 = D_800CBD70;
-            node->field_A = D_800CBD72;
-            node->field_4 = D_800CBD80;
+            node->x = D_800CBD70;
+            node->yOrVerticalOffset = D_800CBD72;
+            node->scale = D_800CBD80;
         }
-        node->field_E = D_800CBD60;
-        node->field_F = D_800CBD61;
-        node->field_10 = D_800CBD62;
-        node->field_11 = D_800CBD63;
+        node->primaryRed = D_800CBD60;
+        node->primaryGreen = D_800CBD61;
+        node->primaryBlue = D_800CBD62;
+        node->primaryAlpha = D_800CBD63;
         node->field_12 = D_800CBD6C;
         node->field_13 = D_800CBD6D;
         node->field_14 = D_800CBD6E;
         node->field_15 = D_800CBD6F;
         D_800CBD68 = node;
-        if (node->field_D != 0) {
-            node->field_E = 0xFF;
-            node->field_F = 0xFF;
-            node->field_10 = 0xFF;
+        if (node->kindSelector != 0) {
+            node->primaryRed = 0xFF;
+            node->primaryGreen = 0xFF;
+            node->primaryBlue = 0xFF;
         } else {
             D_800CBD72 += 0xB;
         }
@@ -250,37 +256,42 @@ void func_15042ECC(u8 *format, s32 *arg_data) {
 }
 extern f32 D_800CBD80;
 
-void func_150432BC(f32 arg0) {
-    D_800CBD80 = arg0;
+/* hud_set_layout_scale: set scale for subsequently queued layout nodes. */
+void func_150432BC(f32 scale) {
+    D_800CBD80 = scale;
 }
 extern s32 D_800CBD78;
 extern s16 D_800CBD7C;
 
-void func_150432CC(s32 arg0, s32 arg1) {
+/* hud_attach_layout_to_object: set the object and pre-projection vertical offset. */
+void func_150432CC(s32 attachedObject, s32 verticalOffset) {
     D_800CBD74 = (D_800CBD74 |= 1);
-    D_800CBD7C = arg1;
-    D_800CBD78 = arg0;
+    D_800CBD7C = verticalOffset;
+    D_800CBD78 = attachedObject;
 }
-void func_150432FC(s16 arg0, s16 arg1) {
-    D_800CBD70 = arg0;
-    D_800CBD72 = arg1;
+/* hud_set_layout_position: set X/Y for subsequently queued screen layout nodes. */
+void func_150432FC(s16 x, s16 y) {
+    D_800CBD70 = x;
+    D_800CBD72 = y;
 }
 extern u8 D_800CBD60;
 extern u8 D_800CBD61;
 extern u8 D_800CBD62;
 extern u8 D_800CBD63;
 
-void func_1504332C(u8 arg0, u8 arg1, u8 arg2, u8 arg3) {
-    D_800CBD60 = arg0;
-    D_800CBD61 = arg1;
-    D_800CBD62 = arg2;
-    D_800CBD63 = arg3;
+/* hud_set_primary_rgba: set primary color bytes for subsequently queued nodes. */
+void func_1504332C(u8 red, u8 green, u8 blue, u8 alpha) {
+    D_800CBD60 = red;
+    D_800CBD61 = green;
+    D_800CBD62 = blue;
+    D_800CBD63 = alpha;
 }
+/* Partial renderer descriptor; field_4 remains unresolved. */
 typedef struct Game70200TextureInfo {
-    s32 field_0;
+    s32 flatAssetIndex;
     s16 field_4;
-    s16 field_6;
-    s16 field_8;
+    s16 tileWidth;
+    s16 tileHeight;
 } Game70200TextureInfo;
 
 void func_10004074(s32);
@@ -291,12 +302,13 @@ s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
 void *func_151ED430(void *, Game70200TextureInfo *, s16, s16, s32, s32, f32, s32);
 extern s32 D_80082FA4;
 extern u8 D_800859A0[];
+/* Eight-byte HUD selector metadata at D_800859E0; scaleByte is divided by 128. */
 typedef struct Game70200Effect {
-    u8 width;
-    u8 height;
-    u8 scale;
-    u8 flags;
-    s32 data;
+    u8 tileColumns;
+    u8 tileRows;
+    u8 scaleByte;
+    u8 flagsRaw;
+    s32 flatAssetIndex;
 } Game70200Effect;
 extern Game70200Effect D_800859E0[];
 extern Game70200Effect D_80085AA8;
@@ -337,102 +349,102 @@ s32 func_15043384(Game70200Command *dl) {
         GAME70200_COMMAND(dl, 0xDE000000, (s32)D_800859A0);
         GAME70200_COMMAND(dl, 0xEF002C3F, 0x00504240);
         while (text != 0) {
-                if (text->field_D == 0) {
+                if (text->kindSelector == 0) {
                     visible = 1;
                     extra_pass = 0;
-                    if (text->field_C & 0x40) {
-                        text->field_C &= ~0x40;
+                    if (text->flagsRaw & 0x40) {
+                        text->flagsRaw &= ~0x40;
                     } else {
-                        text->field_8 = (s32)((f32)text->field_8 * D_8008FE1C);
-                        text->field_A = (s32)((f32)text->field_A * D_8008FE20);
+                        text->x = (s32)((f32)text->x * D_8008FE1C);
+                        text->yOrVerticalOffset = (s32)((f32)text->yOrVerticalOffset * D_8008FE20);
                     }
-                    if (text->field_C & 0x80) {
+                    if (text->flagsRaw & 0x80) {
                         extra_pass = 1;
-                        text->field_C &= ~0x80;
+                        text->flagsRaw &= ~0x80;
                     }
-                    base = (s32)text->field_0;
+                    base = (s32)text->attachedObject;
                     if (base != 0) {
                         D_80082FA4 = 0;
                         visible = func_1509563C(
                             ((Game70200Anchor *)base)->x,
-                            ((Game70200Anchor *)base)->y + (f32)text->field_A,
+                            ((Game70200Anchor *)base)->y + (f32)text->yOrVerticalOffset,
                             ((Game70200Anchor *)base)->z,
                             &projected_x, &projected_y,
                             &projected_z, &projected_w,
                             D_80098C64);
                         if (visible != 0) {
-                            text->field_8 = (s32)projected_x;
-                            text->field_A = (s32)projected_y;
+                            text->x = (s32)projected_x;
+                            text->yOrVerticalOffset = (s32)projected_y;
                         }
                     }
-                    if ((text->field_C == 1) || (text->field_15 != 0)) {
+                    if ((text->flagsRaw == 1) || (text->field_15 != 0)) {
                         func_150428D4(text->text, &width,
                                       &unused1, &unused2);
-                        width = (s32)((f32)width * text->field_4);
+                        width = (s32)((f32)width * text->scale);
                     }
-                    if (text->field_C == 1) {
-                        text->field_8 -= width >> 1;
+                    if (text->flagsRaw == 1) {
+                        text->x -= width >> 1;
                     }
                     if (visible != 0) {
-                        scale = text->field_4 * 4096.0f;
+                        scale = text->scale * 4096.0f;
                         if (extra_pass != 0) {
                             dl = func_150417AC(dl,
-                                (f32)(text->field_8 + 1), (f32)(text->field_A + 1), text->text,
-                                0, 0, 0, text->field_11, scale, scale,
+                                (f32)(text->x + 1), (f32)(text->yOrVerticalOffset + 1), text->text,
+                                0, 0, 0, text->primaryAlpha, scale, scale,
                                 func_10022EEC(text->text));
                         }
                         dl = func_150417AC(dl,
-                            (f32)text->field_8, (f32)text->field_A, text->text,
-                            text->field_E, text->field_F, text->field_10, text->field_11,
+                            (f32)text->x, (f32)text->yOrVerticalOffset, text->text,
+                            text->primaryRed, text->primaryGreen, text->primaryBlue, text->primaryAlpha,
                             scale, scale, func_10022EEC(text->text));
                     }
                     GAME70200_COMMAND(dl, 0xE7000000, 0);
                 } else {
-                    pulse = text->field_D - 1;
+                    pulse = text->kindSelector - 1;
                     effect = &D_800859E0[pulse];
-                    scale = (f32)effect->scale * 0.0078125f;
+                    scale = (f32)effect->scaleByte * 0.0078125f;
                     GAME70200_COMMAND(dl, 0xFC12D225, 0xFFA7FFFF);
-                    base = effect->flags;
+                    base = effect->flagsRaw;
                     if (base & 2) {
-                        D_80090060.field_6 = 0x10;
-                        D_80090060.field_8 = 0x10;
+                        D_80090060.tileWidth = 0x10;
+                        D_80090060.tileHeight = 0x10;
                     }
                     if (base & 1) {
                         GAME70200_COMMAND(dl, 0xE7000000, 0);
-                        GAME70200_COMMAND(dl, 0xFB000000, (text->field_E << 24) | (text->field_F << 16) |
-                                (text->field_10 << 8) | text->field_11);
-                        D_80090060.field_0 = effect[-1].data;
-                        dl = func_151ED430(dl, &D_80090060, text->field_8, text->field_A,
-                                          effect[-1].width, effect[-1].height, scale, 0);
+                        GAME70200_COMMAND(dl, 0xFB000000, (text->primaryRed << 24) | (text->primaryGreen << 16) |
+                                (text->primaryBlue << 8) | text->primaryAlpha);
+                        D_80090060.flatAssetIndex = effect[-1].flatAssetIndex;
+                        dl = func_151ED430(dl, &D_80090060, text->x, text->yOrVerticalOffset,
+                                          effect[-1].tileColumns, effect[-1].tileRows, scale, 0);
                         pulse = (D_800BE9AC * 2) & 0x7F;
                         if (pulse >= 0x40) {
                             pulse = 0x7F - pulse;
                         }
-                        alpha = (s32)(text->field_11 * ((pulse + pulse + pulse) + 0x3F)) >> 8;
+                        alpha = (s32)(text->primaryAlpha * ((pulse + pulse + pulse) + 0x3F)) >> 8;
                         if (alpha >= 0x100) {
                             alpha = 0xFF;
                         }
-                        text->field_11 = alpha;
+                        text->primaryAlpha = alpha;
                     }
                     GAME70200_COMMAND(dl, 0xE7000000, 0);
-                    GAME70200_COMMAND(dl, 0xFB000000, (text->field_E << 24) | (text->field_F << 16) |
-                            (text->field_10 << 8) | text->field_11);
-                    base = effect->data;
-                    D_80090060.field_0 = base;
+                    GAME70200_COMMAND(dl, 0xFB000000, (text->primaryRed << 24) | (text->primaryGreen << 16) |
+                            (text->primaryBlue << 8) | text->primaryAlpha);
+                    base = effect->flatAssetIndex;
+                    D_80090060.flatAssetIndex = base;
                     if (effect == &D_80085AA8) {
                         pulse = (D_80085CD0 >> 1) % 10;
                         if (pulse >= 6) {
                             pulse = 10 - pulse;
                         }
-                        D_80090060.field_0 = base + pulse;
+                        D_80090060.flatAssetIndex = base + pulse;
                     }
-                    dl = func_151ED430(dl, &D_80090060, text->field_8, text->field_A,
-                                      effect->width, effect->height, scale, 0);
+                    dl = func_151ED430(dl, &D_80090060, text->x, text->yOrVerticalOffset,
+                                      effect->tileColumns, effect->tileRows, scale, 0);
                     GAME70200_COMMAND(dl, 0xDE000000, (s32)D_800859A0);
         GAME70200_COMMAND(dl, 0xEF002C3F, 0x00504240);
-                    if (effect->flags & 2) {
-                        D_80090060.field_6 = 0x20;
-                        D_80090060.field_8 = 0x20;
+                    if (effect->flagsRaw & 2) {
+                        D_80090060.tileWidth = 0x20;
+                        D_80090060.tileHeight = 0x20;
                     }
                 }
             {

@@ -72,19 +72,23 @@ extern s32 D_800DBEF0;
 extern s32 D_800DBEF8;
 extern s32 D_800DBEFC;
 
+/* Semantic role: placed_object_reset_vertex_cache_slots.
+ * Clear per-object cache-pointer/countdown slots without freeing payloads.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
 void func_15004A4C(void) {
-    s32 var_v0;
-    s32 var_v1;
+    s32 objectIndex;
+    s32 cacheSlotOffset;
 
-    var_v0 = 0;
-    var_v1 = 0;
+    objectIndex = 0;
+    cacheSlotOffset = 0;
     if (D_800DBEF0 > 0) {
         do {
-            *(s32 *)(D_800DBEF8 + var_v1) = 0;
-            var_v1 += 4;
-            *(u8 *)(D_800DBEFC + var_v0) = 0;
-            var_v0 += 1;
-        } while (var_v0 < D_800DBEF0);
+            *(s32 *)(D_800DBEF8 + cacheSlotOffset) = 0;
+            cacheSlotOffset += 4;
+            *(u8 *)(D_800DBEFC + objectIndex) = 0;
+            objectIndex += 1;
+        } while (objectIndex < D_800DBEF0);
     }
 }
 extern u16 D_800BE2A0;
@@ -148,38 +152,43 @@ void func_15004AAC(u8 *arg0, s32 arg1) {
 extern s32 D_800DBEF0;
 extern u8 D_800DBF00;
 
+/* Semantic role: placed_object_choose_id.
+ * Exhaustion returns 255 in ascending mode or the starting ID in descending
+ * mode; uniqueness is not guaranteed. arg0 is reused as start/fallback.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
 s32 func_15004BF0(s32 arg0) {
-    typedef struct { u8 before[0x72]; u8 id; u8 after[0x2D]; } Entry;
-    s32 index;
-    s32 value;
+    typedef struct { u8 before[0x72]; u8 objectId; u8 after[0x2D]; } Entry;
+    s32 objectIndex;
+    s32 candidateObjectId;
 
     if (arg0 == 0) {
-        value = 1;
-        for (index = (arg0 = D_800DBF00); index < D_800DBEF0; index++) {
-            if (value == ((Entry *)D_800DBEF4)[index].id) {
-                value++;
-                index = arg0 - 1;
+        candidateObjectId = 1;
+        for (objectIndex = (arg0 = D_800DBF00); objectIndex < D_800DBEF0; objectIndex++) {
+            if (candidateObjectId == ((Entry *)D_800DBEF4)[objectIndex].objectId) {
+                candidateObjectId++;
+                objectIndex = arg0 - 1;
             }
-            if (value >= 0x100) {
-                value = 0xFF;
+            if (candidateObjectId >= 0x100) {
+                candidateObjectId = 0xFF;
                 break;
             }
         }
     } else {
         arg0 = 0xFF - D_800DBF00;
-        value = arg0;
-        for (index = 0; index < D_800DBEF0; index++) {
-            if (value == ((Entry *)D_800DBEF4)[index].id) {
-                value--;
-                index = -1;
+        candidateObjectId = arg0;
+        for (objectIndex = 0; objectIndex < D_800DBEF0; objectIndex++) {
+            if (candidateObjectId == ((Entry *)D_800DBEF4)[objectIndex].objectId) {
+                candidateObjectId--;
+                objectIndex = -1;
             }
-            if (value <= 0) {
-                value = arg0;
+            if (candidateObjectId <= 0) {
+                candidateObjectId = arg0;
                 break;
             }
         }
     }
-    return value;
+    return candidateObjectId;
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15004CE0 CURRENT (1310) */
 void func_15004CE0(s8 *arg0, s32 arg1) {

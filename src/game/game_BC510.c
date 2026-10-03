@@ -341,13 +341,16 @@ void func_150916B4(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 void func_15093878(void);
 extern u8 D_800D2458;
 
-void func_15093818(s32 arg0) {
-    if ((arg0 != 0) && (D_800D2458 == 0)) {
+/* Descriptive role: timer_display_set_enabled.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+void func_15093818(s32 enabled) {
+    if ((enabled != 0) && (D_800D2458 == 0)) {
         D_800D2458 = 1;
         func_15093878();
         return;
     }
-    if ((arg0 == 0) && (D_800D2458 != 0)) {
+    if ((enabled == 0) && (D_800D2458 != 0)) {
         D_800D2458 = 0;
     }
 }
@@ -356,6 +359,9 @@ extern s32 func_1518C900(s32 arg0);
 extern s32 D_800D2448;
 extern void *D_800D244C;
 
+/* Descriptive role: timer_display_init.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
 void func_15093878(void) {
     D_800D2448 = func_1518C900(0xBA);
     D_800D244C = func_10003C40(0x80, 1, 1, 0);

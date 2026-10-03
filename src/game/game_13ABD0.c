@@ -87,6 +87,10 @@ void func_1510D7AC(s32 arg0) {
 extern s8 D_800D9ED0;
 extern u8 D_800D9ED8[];
 
+/* Semantic role: placed_object_reset_texture_binding_count.
+ * Clear only the binding count; stored records and texture payloads remain.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
 void func_1510D864(void) {
     D_800D9ED0 = 0;
 }

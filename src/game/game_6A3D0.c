@@ -21,6 +21,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Semantic role: model_load_bank01_resources.
+ * Install model-indexed geometry/draw/texture tables; this is a shared loader.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503CF20.s")
 void func_1503D438(s32 *, s32);
 
@@ -54,12 +58,16 @@ void func_1503D368(s8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1503D368 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6A3D0/func_1503D368.s")
-void func_1503D438(s32 *arg0, s32 arg1) {
-    s32 temp_v0;
+/* Semantic role: asset_relocate_untagged_offset (shared with display lists).
+ * Only nonzero values with (value & 0x0F000000) == 0 receive the base address.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
+void func_1503D438(s32 *offsetSlot, s32 baseAddress) {
+    s32 offset;
 
-    temp_v0 = *arg0;
-    if ((temp_v0 != 0) && !(temp_v0 & 0x0F000000)) {
-        *arg0 = temp_v0 + arg1;
+    offset = *offsetSlot;
+    if ((offset != 0) && !(offset & 0x0F000000)) {
+        *offsetSlot = offset + baseAddress;
     }
 }
 void func_1503D45C(s32 *arg0, s32 arg1) {
@@ -76,19 +84,24 @@ void func_1503D45C(s32 *arg0, s32 arg1) {
 }
 extern s16 D_800C5A90[];
 
-void func_1503D484(u8 *arg0, s32 arg1) {
-    u16 *temp_s1;
+/* Semantic role: animation_routes_relocate_event_offsets.
+ * Eight-byte routes end at descriptor 999; optional event offsets at +4 are
+ * relative to the route-record base. Store the route count by model index.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
+void func_1503D484(u8 *routeRecord, s32 modelIndex) {
+    u16 *routeBase;
 
-    temp_s1 = (u16 *)arg0;
-    if (*(u16 *)arg0 != 0x3E7) {
+    routeBase = (u16 *)routeRecord;
+    if (*(u16 *)routeRecord != 0x3E7) {
         do {
-            if (*(s32 *)((u8 *)arg0 + 4) != 0) {
-                func_1503D438((s32 *)((u8 *)arg0 + 4), (s32)temp_s1);
+            if (*(s32 *)((u8 *)routeRecord + 4) != 0) {
+                func_1503D438((s32 *)((u8 *)routeRecord + 4), (s32)routeBase);
             }
-            arg0 += 8;
-        } while (*(u16 *)arg0 != 0x3E7);
+            routeRecord += 8;
+        } while (*(u16 *)routeRecord != 0x3E7);
     }
-    D_800C5A90[arg1] = (s16)(((s32)((u8 *)arg0 - (u8 *)temp_s1)) >> 3);
+    D_800C5A90[modelIndex] = (s16)(((s32)((u8 *)routeRecord - (u8 *)routeBase)) >> 3);
 }
 extern u8 *D_80084410[];
 extern u8 D_80098888[];
@@ -256,6 +269,10 @@ s32 func_1503D660(s32 arg0, s32 arg1, s32 arg2, u32 arg3) {
 s32 *func_1502B6BC(s32 *, s32, s32, s32, s32, s32);
 extern s32 D_800D1C90[];
 
+/* Semantic role: model_load_bank11_defaults.
+ * The first relocated descriptor pointer becomes D_800D1C90[modelIndex].
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D774 CURRENT (317) */
 s32 func_1503D774(s32 arg0, void *arg1) {
     s32 sp2C;
@@ -440,6 +457,10 @@ extern void func_1510D7AC(s32 arg0);
 extern u8 *D_800C5338[];
 extern u16 D_800C5628[];
 
+/* Semantic role: model_load_descriptor_flat_textures.
+ * Twelve-byte descriptors supply flat IDs at +4 and receive loaded bases at +0.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1503DC3C CURRENT (573) */
 s32 func_1503DC3C(s32 arg0) {
     s32 *temp_s0;
