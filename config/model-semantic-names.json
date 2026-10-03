@@ -6,6 +6,370 @@
   "models": [
     {
       "bank": 1,
+      "entry": 0,
+      "segment": 0,
+      "name": "Conker",
+      "model_sha1": "9014df04d045150b5f0368eec09871406811c5d4",
+      "model_sha256": "904f48cd49d5929df81f881ef68a865c6ffa64d7c22c828cef5ca72bb9a92e3f",
+      "source_bytes": 24184,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 1,
+      "segment": 0,
+      "name": "Conker — variant 1",
+      "model_sha1": "d41f85c31c7a9bb5a1d8545bd5750f190f02e185",
+      "model_sha256": "505e636d49fa8a426e466eebb42c41165bcf4bfa6ccdff4d9275a0fca5103937",
+      "source_bytes": 21608,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 2,
+      "segment": 0,
+      "name": "Conker — variant 2",
+      "model_sha1": "e647ece5c93d2091981ce79c3234aef95e3b99b5",
+      "model_sha256": "619df50957651d33c25629446ad7dc1d834d9a58757eb560451f77ae15886e08",
+      "source_bytes": 14264,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 3,
+      "segment": 0,
+      "name": "Conker — variant 3",
+      "model_sha1": "65e4ab0f9de5ed45d3b66f39b70f389554442609",
+      "model_sha256": "e4049c34b4a2dd7e2a584bf14a8a7981bf3118ddfef5c94a28529fd95e556f60",
+      "source_bytes": 12200,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 4,
+      "segment": 0,
+      "name": "Conker — variant 4",
+      "model_sha1": "44d70488862ba7c371e65b47696859657d097a14",
+      "model_sha256": "065b27fac659612de561cf62ea98e816f81fc8ed61166b4edcaba1d14f778eae",
+      "source_bytes": 9592,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
       "entry": 5,
       "segment": 0,
       "name": "Wasp",
@@ -146,6 +510,79 @@
         "Shared bank-01 consumers do not identify character-exclusive controller functions.",
         "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 12,
+      "segment": 0,
+      "name": "Franky the Pitchfork",
+      "model_sha1": "3baf148c4d768c9af4e3004e7409021c50128ac4",
+      "model_sha256": "38cd4b2959c985658c23c0c493e1996d0ff6ea315a6ef55ae13365dfc951e828",
+      "source_bytes": 5608,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md",
+        "docs/evidence/us_gallery_character_names.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
       ]
     },
     {
@@ -518,6 +955,224 @@
     },
     {
       "bank": 1,
+      "entry": 55,
+      "segment": 0,
+      "name": "Franky the Pitchfork — rope variant",
+      "model_sha1": "6e3756ea1f88e99c3fc8d2ee9e3b5bac4852c017",
+      "model_sha256": "bb0f96be042e17c07ac281acb67673ac48379910f17ce0e0d97e8aaff10f6441",
+      "source_bytes": 8344,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "The visible rope identifies this model variant; no hanging event or animation execution is established."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 58,
+      "segment": 0,
+      "name": "Fire Imp",
+      "model_sha1": "1197b73abfa060fc42c4983328a5c09cbf3a9aff",
+      "model_sha256": "8f37d00e468c10adc83415d3b5c2561e1f3c3e2808a040124cb2e9bc19c5bbb2",
+      "source_bytes": 17976,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 61,
+      "segment": 0,
+      "name": "Fire Imp — grey variant",
+      "model_sha1": "e34ddc449c5ee07f1e66d3d108667b384a99be0c",
+      "model_sha256": "d56e847e89d95a4bea15bcead00d3500b5b432ee7b30a33c0d48ec15de3778d0",
+      "source_bytes": 18072,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Grey describes this exact visible model; no extinguishing event or runtime transition is established."
+      ]
+    },
+    {
+      "bank": 1,
       "entry": 68,
       "segment": 0,
       "name": "Dung Beetle",
@@ -846,6 +1501,297 @@
     },
     {
       "bank": 1,
+      "entry": 82,
+      "segment": 0,
+      "name": "Carl / Quentin",
+      "model_sha1": "d497e85e1512abdc2aaa3089c718f188157e1873",
+      "model_sha256": "649a9e055e93f8e10d225bed8f01a8f80343cf645e5cc26828d62fde9b4a5706",
+      "source_bytes": 8776,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "The current preview expression does not define the model identity or establish personality switching."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 83,
+      "segment": 0,
+      "name": "Fangy the Raptor",
+      "model_sha1": "2ee1110ccaaef2a4fab6707b4e58c47a3f963e4a",
+      "model_sha256": "c389875830fe43f09c4bbc8b18f44b013d4ff9a066358e9dbb7646cfc02e4c35",
+      "source_bytes": 19560,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 90,
+      "segment": 0,
+      "name": "Tediz",
+      "model_sha1": "d0432d38f7a4f7de2d828c1bd98bb30db39daa0a",
+      "model_sha256": "0295b0baee36cf3c89f348a337e1c76d7da4489b8ec8cd7e309cda9d0b04b8df",
+      "source_bytes": 11080,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md",
+        "docs/evidence/us_model_reference_corrections.md",
+        "docs/evidence/us_tediz_submitted_rig_validation.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 95,
+      "segment": 0,
+      "name": "Tediz — ammunition belt",
+      "model_sha1": "41763e50d3039896f270cde275d8a831680b1119",
+      "model_sha256": "2a9e1a90c76461a9c4a3cf7d5178e27f0e18740d92effb1dc49cffb9372d9237",
+      "source_bytes": 12936,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
       "entry": 107,
       "segment": 0,
       "name": "Electric Eel",
@@ -918,6 +1864,441 @@
     },
     {
       "bank": 1,
+      "entry": 112,
+      "segment": 0,
+      "name": "Gregg the Grim Reaper — scythe",
+      "model_sha1": "41232356b37dacbc5f1adfe8036b62a34482a670",
+      "model_sha256": "a71ee26dcc0b3b234994c1cb8a7a56fe5037e635df846a533cc61b1ef628de47",
+      "source_bytes": 24728,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 114,
+      "segment": 0,
+      "name": "Berri — pink outfit",
+      "model_sha1": "9570420ff5c4cc20788d9b42079780494f7823a7",
+      "model_sha256": "8d0692a4f0663ce18da927a6b92eac7798e74c7c6b75a7d09b4738e2347c3777",
+      "source_bytes": 24376,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 116,
+      "segment": 0,
+      "name": "Tediz — variant 1",
+      "model_sha1": "554f849c5a31efd3c72542b2cdd994343d814816",
+      "model_sha256": "5149e7b9aa1f54bbbb208bad2bc89566f64f4fdcfdef5ceb641b8db25474c4ee",
+      "source_bytes": 6152,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 117,
+      "segment": 0,
+      "name": "Tediz — variant 2",
+      "model_sha1": "bb27834703a15b6fd0d252785bc8342bf4a05d5f",
+      "model_sha256": "c93eac95475e43d85dd7d4cdf8abfc271b2751a082752fa25086fae10c170772",
+      "source_bytes": 5512,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 118,
+      "segment": 0,
+      "name": "Panther King",
+      "model_sha1": "0ca2ea79abcd5c15fdfd24a48a2a92a34d32a2ec",
+      "model_sha256": "ccaa47d2f65248bafdeef2681806bd2468065f430d0d06b528edeae8d89d7dfb",
+      "source_bytes": 32824,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 122,
+      "segment": 0,
+      "name": "Tediz — variant 3",
+      "model_sha1": "a27d473c520c2f8b1ebc12adc10438e1ff4aaac8",
+      "model_sha256": "ba46038d985c068968035ea2e1a901d84fbf761faca0e2943928bab0bc2a7d4e",
+      "source_bytes": 4664,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Variant numbering distinguishes reviewed records only; no automatic selection, distance threshold, or LOD tier is asserted."
+      ]
+    },
+    {
+      "bank": 1,
       "entry": 125,
       "segment": 0,
       "name": "Franky the Pitchfork — broken upper part",
@@ -986,6 +2367,224 @@
         "Shared bank-01 consumers do not identify character-exclusive controller functions.",
         "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 141,
+      "segment": 0,
+      "name": "Tediz — medic",
+      "model_sha1": "a080f331a11efd8df86dce2fbb4353a5477e8ef2",
+      "model_sha256": "62dc3157360ee626fcba1fe246056b6193faf0b280a67a0738e007cff8400abe",
+      "source_bytes": 6376,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Medic describes visible costume features; no gameplay class or behavior is established."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 150,
+      "segment": 0,
+      "name": "Conker — black outfit",
+      "model_sha1": "e393a6303309467ba2c2dd9258347a92e535ce75",
+      "model_sha256": "16790fc5385075a4510569d78e842a1f68c1b1d81ccb436c513d42c9853e21b0",
+      "source_bytes": 28856,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed.",
+        "Black outfit is the visible bounded label; sunglasses and scene-specific identity are not established."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 164,
+      "segment": 0,
+      "name": "Count Batula",
+      "model_sha1": "e39be279c426eabd00f42dcfafda1f67caa8931e",
+      "model_sha256": "dd47e1a2211916c05eb560c6a8e24275b0736babb2ceb9921fd8e2d361c8f96e",
+      "source_bytes": 21160,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
       ]
     },
     {
@@ -1274,6 +2873,150 @@
         "Shared bank-01 consumers do not identify character-exclusive controller functions.",
         "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 178,
+      "segment": 0,
+      "name": "Gregg the Grim Reaper — hooded",
+      "model_sha1": "517b7288b37d65ee9211d0ac123e259a659edd79",
+      "model_sha256": "2a32494c1209d040e5af4d7278c9bbe06c2c251360e8af7550890394718e68b2",
+      "source_bytes": 10296,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
+      ]
+    },
+    {
+      "bank": 1,
+      "entry": 180,
+      "segment": 0,
+      "name": "Gregg the Grim Reaper — without robe",
+      "model_sha1": "77123dff95a543f7583cd081952ff779c9c4f5f1",
+      "model_sha256": "27425e14e84e20d86c91985bab69d2685e7c0cad43f694971be478f9c1e79c88",
+      "source_bytes": 13944,
+      "evidence": [
+        "docs/evidence/more_character_semantic_registry_expansion.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; shared path, not character-exclusive"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
+        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing.",
+        "Identity uses previously reviewed canonical metadata and a fresh owned-ROM render; no fresh independent external pixel comparison is claimed."
       ]
     },
     {

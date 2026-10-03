@@ -3,8 +3,10 @@
 This records the [Haybot naming pilot](character_semantic_naming.md) expansion
 to 17 exact bank-01 model identities. The subsequent
 [object-model expansion](object_semantic_registry_expansion.md) adds 20 bank-03
-and bank-09 identities, bringing the registry to 37. Counts and validation
-results below describe the 17-model stage. The pilot's totals remain historical.
+and bank-09 identities, bringing that stage to 37. A further
+[character-model review](more_character_semantic_registry_expansion.md) adds
+24 exact identities, bringing the registry to 61. Counts and validation results
+below describe the 17-model stage. The pilot's totals remain historical.
 The additions change descriptive model labels and naming-audit metadata only;
 no linked symbol, character controller, C expression, ABI or match status follows
 from them.
