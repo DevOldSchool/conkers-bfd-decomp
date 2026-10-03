@@ -32,6 +32,137 @@ void func_80005020(void);
 extern u8 D_8003A582;
 extern u8 D_8003B238;
 
+typedef struct SchedulerClient {
+    struct SchedulerClient *next;
+    SchedulerMessageQueue *queue;
+    u32 flags;
+} SchedulerClient;
+
+void func_80004DB0(void);
+void func_80004FE0(void);
+void func_80003330(u8 *);
+void func_8000349C(u8 *);
+s32 func_80023440(SchedulerMessageQueue *, void **, s32);
+u32 func_80024A30(void);
+s32 func_80024A40(void *, u64, u64, SchedulerMessageQueue *, void *);
+u32 func_80024B20(u8 *);
+void func_80024BA0(void);
+void func_80024BC0(void *);
+extern SchedulerTask *D_8002AC54;
+extern s8 D_8002AC6C;
+extern s8 D_8003A580;
+extern u8 D_8003A581;
+extern u8 D_8003A583;
+extern u8 D_8003A584;
+extern u8 D_8003A588;
+extern u16 D_8003A5C8;
+extern SchedulerMessageQueue D_8003B200;
+extern SchedulerMessageQueue D_8003B218;
+extern SchedulerClient *D_8003B234;
+extern u8 D_8003B23A;
+extern u8 D_8003B240[];
+extern u8 D_800BE900[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800049E0 CURRENT (2624) */
+void func_800049E0(void *unused) {
+    SchedulerClient *client;
+    void *message;
+    u64 delay;
+
+    D_8003A581 = 0;
+    D_8003A582 = 0;
+    D_8003A584 = 1;
+    D_8003A583 = 0;
+    *(u16 *)D_8003B240 = 1;
+    message = 0;
+    D_8003A5C8 = 4;
+    for (;;) {
+        func_80023440(&D_8003B218, &message, 1);
+        switch ((s32)message) {
+        case 0:
+            client = D_8003B234;
+            while (client != 0) {
+                if ((client->flags & 1) == 0) {
+                    func_80023580(client->queue, D_8003B240, 0);
+                }
+                client = client->next;
+            }
+            if ((D_8003B238 != 0xFF) && (D_8003B238 < 0xFF)) {
+                D_8003B238++;
+            }
+            if (D_8003B23A != 0) {
+                D_8003B23A--;
+            }
+            if ((D_8003A581 == 0) && (D_8002AC6C == 0)) {
+                if (func_80023440(&D_8003B200, (void **)&D_8002AC54, 0) == 0) {
+                    delay = 200000;
+                    if ((D_8003A582 != 0) || ((func_80024A30() & 0x80000000U) == 0)) {
+                        delay = 20000;
+                    }
+                    func_80024A40(&D_8003A588, delay, 0, &D_8003B218, (void *)3);
+                    D_8002AC6C = 1;
+                }
+            }
+            if (D_8003A581 == 0) {
+                func_80004DB0();
+            }
+            break;
+        case 2:
+            if (D_8003A582 == 3) {
+                if (func_80024B20(D_8002AC50->task) == 1) {
+                    func_80003330(D_8002AC54->task);
+                    func_8000349C(D_8002AC54->task);
+                    D_8003A581 = 1;
+                    D_8003A582 = 4;
+                } else {
+                    D_8003A582 = 1;
+                    func_80003330(D_8002AC54->task);
+                    func_8000349C(D_8002AC54->task);
+                    D_8003A581 = 1;
+                    D_8003A583 = 0;
+                }
+            } else if (D_8003A581 != 0) {
+                func_80023580(D_8002AC54->completionQueue, D_8002AC54->completionMessage, 1);
+                D_8003A581 = 0;
+                if (D_8003A582 == 4) {
+                    func_80003330(D_8002AC50->task);
+                    func_8000349C(D_8002AC50->task);
+                    D_8003A580 = 1;
+                    D_8003A582 = 1;
+                }
+            } else {
+                D_8003A583 = 0;
+                if (D_8003A584 == 1) {
+                    func_80004FE0();
+                }
+            }
+            break;
+        case 1:
+            D_8003A584 = 1;
+            if (D_8003A583 == 0) {
+                func_80004FE0();
+            }
+            break;
+        case 3:
+            D_8002AC6C = 0;
+            if (D_8003A583 != 0) {
+                func_80024BA0();
+                D_8003A582 = 3;
+            } else {
+                func_80003330(D_8002AC54->task);
+                func_8000349C(D_8002AC54->task);
+                D_8003A581 = 1;
+            }
+            break;
+        case 6:
+            if (D_8002AC5C == 0) {
+                func_80024BC0(D_800BE900);
+            }
+            break;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_800049E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_49E0/func_800049E0.s")
 void func_80004F00(void);
 void func_80004FE0(void);

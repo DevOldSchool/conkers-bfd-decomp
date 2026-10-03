@@ -82,7 +82,8 @@ See [main formatter provenance](libultrare_us_xprintf_reconstruction.md).
 
 ## Validation
 
-The initial scaffold validation on 2026-10-02 `./conker build --all` and reproduced the complete US ROM. All 94
+The initial scaffold validation on 2026-10-02 reproduced the complete US ROM
+with `./conker build --all`. All 94
 relevant tests, progress, and whitespace checks passed. The 3,516 scaffold/TLB
 words equal the independent raw reference; all data-map hashes and ranges
 were checked against the ROM. Main discovery remains 542 functions, ending

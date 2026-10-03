@@ -8,7 +8,6 @@
  * - func_80003C6C
  * - func_80004074
  * - func_800043B4
- * - func_8000440C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -379,7 +378,6 @@ void func_800043B4(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800043B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_800043B4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000440C */
 void func_8000440C(void) {
     s32 maximum;
     AllocatorFreeBlock *largest;
@@ -401,5 +399,3 @@ void func_8000440C(void) {
     D_800380B0 = largest;
     D_8002AC30 = maximum;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000440C */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_8000440C.s")
