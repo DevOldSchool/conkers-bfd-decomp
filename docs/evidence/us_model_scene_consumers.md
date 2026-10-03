@@ -91,9 +91,12 @@ Evidence dimensions remain independent:
   distinct from lists matching the effective draw state.
 - Character composition coverage unions exact source-face spans. Partially
   observed runs stay partial; overlapping catalogs do not inflate face counts.
-- A resolved scene edge means a recovered consumer association. Naming requires
-  a reviewed machine-readable ID/caller registry; none is supplied, so names are
-  recorded as unknown even where prose documentation identifies a character.
+- A resolved scene edge means a recovered consumer association. Naming uses a
+  separate reviewed machine-readable ID/caller registry. The
+  [semantic naming audit](character_semantic_naming.md) supplies exact reviewed
+  ROM/model identities; unlisted models remain unknown even where prose
+  documentation identifies a character. Names do not grant scene or runtime
+  evidence.
 
 The initial audit also found that the stored bank-03 extraction manifest's
 placement section predated bank-04 dispatch resolution. Coverage uses the current

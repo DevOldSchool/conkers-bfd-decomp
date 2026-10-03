@@ -142,36 +142,39 @@ void func_1507E500(u8 *arg0, s32 arg1, s32 arg2) {
         arg0[0x135] = func_1507E908(arg0, arg1)[3];
     }
 }
-void func_1507E5C8(u8 *arg0, s32 arg1) {
-    u8 *record;
+/* Semantic role: actor_apply_current_expression, including its action and selectors.
+ * See docs/evidence/character_semantic_naming.md; keep the linked symbol stable.
+ */
+void func_1507E5C8(u8 *actor, s32 arg1) {
+    u8 *expressionRecord;
     u8 value;
 
-    record = func_1507E908(arg0, arg0[0x6F]);
-    if (record != 0) {
-        func_1507EA44(arg0, record[4], *(u16 *)(record + 6));
-        value = record[2];
-        if (value != arg0[0x134]) {
-            arg0[0x134] = value;
+    expressionRecord = func_1507E908(actor, actor[0x6F]);
+    if (expressionRecord != 0) {
+        func_1507EA44(actor, expressionRecord[4], *(u16 *)(expressionRecord + 6));
+        value = expressionRecord[2];
+        if (value != actor[0x134]) {
+            actor[0x134] = value;
             if (arg1 == 0) {
-                arg0[0x135] = record[3];
+                actor[0x135] = expressionRecord[3];
             } else {
-                arg0[0x135] = arg1;
+                actor[0x135] = arg1;
             }
         }
-        arg0[0x6C] = record[0] + 0xA;
-        arg0[0x6D] = record[1] + 0xA;
-        value = record[8];
+        actor[0x6C] = expressionRecord[0] + 0xA;
+        actor[0x6D] = expressionRecord[1] + 0xA;
+        value = expressionRecord[8];
         if (value != 0) {
-            arg0[0x68] = value;
+            actor[0x68] = value;
         } else {
-            arg0[0x68] = *((u8 *)D_800D1C90[arg0[4]] + 0x3B);
+            actor[0x68] = *((u8 *)D_800D1C90[actor[4]] + 0x3B);
         }
-        value = record[9];
+        value = expressionRecord[9];
         if (value != 0) {
-            arg0[0x69] = value;
+            actor[0x69] = value;
             return;
         }
-        arg0[0x69] = *((u8 *)D_800D1C90[arg0[4]] + 0x3C);
+        actor[0x69] = *((u8 *)D_800D1C90[actor[4]] + 0x3C);
     }
 }
 s32 func_150849A0();                                /* extern */

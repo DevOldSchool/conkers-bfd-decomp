@@ -448,45 +448,48 @@ extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 void func_15036C70(void *);
 
-void func_150839B8(void *arg0, s32 arg1, void *arg2) {
-    u16 temp_v1;
-    s32 var_a1;
-    u8 *temp_v0;
+/* Semantic role: actor_apply_character_defaults (shared, not character-specific).
+ * See docs/evidence/character_semantic_naming.md; keep the linked symbol stable.
+ */
+void func_150839B8(void *actor, s32 modelIndex, void *spawnRecord) {
+    u16 spawnOverride;
+    s32 value;
+    u8 *defaults;
 
-    var_a1 = arg1;
-    if (var_a1 != 0xFF) {
-        temp_v0 = D_800D1C90[var_a1];
-        if (arg2 != 0) {
-            temp_v1 = *(u16 *)((u8 *)arg2 + 0x2C);
-            var_a1 = temp_v1;
-            if (temp_v1 == 0) {
-                *(u16 *)((u8 *)arg0 + 0x10) = *(u16 *)(temp_v0 + 0x2A);
-            } else if (var_a1 == 1) {
-                *(u16 *)((u8 *)arg0 + 0x10) = 0;
+    value = modelIndex;
+    if (value != 0xFF) {
+        defaults = D_800D1C90[value];
+        if (spawnRecord != 0) {
+            spawnOverride = *(u16 *)((u8 *)spawnRecord + 0x2C);
+            value = spawnOverride;
+            if (spawnOverride == 0) {
+                *(u16 *)((u8 *)actor + 0x10) = *(u16 *)(defaults + 0x2A);
+            } else if (value == 1) {
+                *(u16 *)((u8 *)actor + 0x10) = 0;
             } else {
-                *(u16 *)((u8 *)arg0 + 0x10) = temp_v1;
+                *(u16 *)((u8 *)actor + 0x10) = spawnOverride;
             }
             if (D_800BE9F0 == 0x1D) {
-                *(u16 *)((u8 *)arg0 + 0x10) = 0x3E8;
+                *(u16 *)((u8 *)actor + 0x10) = 0x3E8;
             }
         } else {
-            *(u16 *)((u8 *)arg0 + 0x10) = 0;
+            *(u16 *)((u8 *)actor + 0x10) = 0;
         }
-        *(u8 *)((u8 *)arg0 + 0x13B) = temp_v0[0x39];
-        *(s8 *)((u8 *)arg0 + 0x2CB) = *(s8 *)(temp_v0 + 0x33);
-        *(s32 *)((u8 *)arg0 + 0x2CC) = *(s32 *)(temp_v0 + 0x34);
-        *(u8 *)((u8 *)arg0 + 5) = temp_v0[0x12];
-        *(u8 *)((u8 *)arg0 + 0x68) = temp_v0[0x3B];
-        *(u8 *)((u8 *)arg0 + 0x69) = temp_v0[0x3C];
-        *(s16 *)((u8 *)arg0 + 0x160) = *(s16 *)(temp_v0 + 2);
-        if (temp_v0[4] != 0) {
-            *(u8 **)((u8 *)arg0 + 0x2C4) = D_80086CAC[temp_v0[5]];
-            *(u8 *)((u8 *)arg0 + 0x2C8) = temp_v0[4];
+        *(u8 *)((u8 *)actor + 0x13B) = defaults[0x39];
+        *(s8 *)((u8 *)actor + 0x2CB) = *(s8 *)(defaults + 0x33);
+        *(s32 *)((u8 *)actor + 0x2CC) = *(s32 *)(defaults + 0x34);
+        *(u8 *)((u8 *)actor + 5) = defaults[0x12];
+        *(u8 *)((u8 *)actor + 0x68) = defaults[0x3B];
+        *(u8 *)((u8 *)actor + 0x69) = defaults[0x3C];
+        *(s16 *)((u8 *)actor + 0x160) = *(s16 *)(defaults + 2);
+        if (defaults[4] != 0) {
+            *(u8 **)((u8 *)actor + 0x2C4) = D_80086CAC[defaults[5]];
+            *(u8 *)((u8 *)actor + 0x2C8) = defaults[4];
         }
-        *(u8 *)((u8 *)arg0 + 0x2C9) =
-            temp_v0[0x38] + *(u8 *)((u8 *)arg0 + 0x2C8);
-        if (temp_v0[0x29] != 0) {
-            func_15036C70(arg0);
+        *(u8 *)((u8 *)actor + 0x2C9) =
+            defaults[0x38] + *(u8 *)((u8 *)actor + 0x2C8);
+        if (defaults[0x29] != 0) {
+            func_15036C70(actor);
         }
     }
 }

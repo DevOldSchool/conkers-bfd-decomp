@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "profile": "us",
+  "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "name_kind": "reviewed-descriptive-model-label",
+  "models": [
+    {
+      "bank": 1,
+      "entry": 75,
+      "segment": 0,
+      "name": "Haybot",
+      "model_sha1": "6c1e3f04cb7e1cfc56239324dcd745f41c706ed9",
+      "model_sha256": "09f6c4551ca0d12b46109a45f01703fb21ba7f10d15764aa807a4c9701936e81",
+      "source_bytes": 42488,
+      "evidence": [
+        "docs/evidence/us_haybot_appearance.md",
+        "docs/evidence/us_rom_character_defaults.md",
+        "docs/evidence/us_character_draw_tables.md",
+        "docs/evidence/character_semantic_naming.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1503CF20",
+          "vram": "0x1503CF20",
+          "size_bytes": 1096,
+          "sha1": "2335fa3855313510f1f46512cfa704ab301814d1",
+          "role": "load bank-01 model and install indexed draw/texture tables"
+        },
+        {
+          "symbol": "func_15082A44",
+          "vram": "0x15082A44",
+          "size_bytes": 2152,
+          "sha1": "df94e52b3063e063c091fac537096563d3e47620",
+          "role": "initialize an actor from a spawn record; generic path, not Haybot-specific"
+        },
+        {
+          "symbol": "func_150837D4",
+          "vram": "0x150837D4",
+          "size_bytes": 280,
+          "sha1": "7bd9c8414be99e3bc26944fe08eb04064933a30d",
+          "role": "store the model index at actor offset 0x04"
+        },
+        {
+          "symbol": "func_150839B8",
+          "vram": "0x150839B8",
+          "size_bytes": 272,
+          "sha1": "83514e60fb88c39b8e225ba6b68a54a5094c2dff",
+          "role": "actor_apply_character_defaults"
+        },
+        {
+          "symbol": "func_1507E5C8",
+          "vram": "0x1507E5C8",
+          "size_bytes": 240,
+          "sha1": "77b08fc8d2ec99c73d27527f43df6c9952d0c5fa",
+          "role": "actor_apply_current_expression"
+        },
+        {
+          "symbol": "func_15061B4C",
+          "vram": "0x15061B4C",
+          "size_bytes": 2216,
+          "sha1": "778f796c508ca226bd8703d61321a62d0f05e8d3",
+          "role": "shared model-specific update dispatcher; Haybot branch 0x15061FA8..0x1506208C"
+        },
+        {
+          "symbol": "func_1502F01C",
+          "vram": "0x1502F01C",
+          "size_bytes": 584,
+          "sha1": "a9ae1253feb21fae8ecc3c314d949162c3e6afa5",
+          "role": "bind actor-selected texture descriptors"
+        },
+        {
+          "symbol": "func_1502CCFC",
+          "vram": "0x1502CCFC",
+          "size_bytes": 2128,
+          "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
+          "role": "submit primary or secondary character parts"
+        }
+      ],
+      "model_specific_branch": {
+        "symbol": "func_15061B4C",
+        "start": "0x15061FA8",
+        "end": "0x1506208C",
+        "sha1": "25d117471183b27fc8cda611ef624343a0d1f559",
+        "model_index": 75,
+        "texture_selector_offset": "0x68",
+        "phase_offset": "0x69",
+        "descriptor_cycle": [
+          15,
+          16,
+          17,
+          17,
+          16,
+          15
+        ]
+      },
+      "limitations": [
+        "Descriptive model label, not a recovered original symbol or a unique actor type.",
+        "Shared consumers are not Haybot-only functions.",
+        "The actor offset 0x69 is a phase only in this Haybot branch; it is also a texture selector elsewhere.",
+        "No scene-specific spawn record, runtime activation, universal appearance, or playback timing is asserted."
+      ]
+    }
+  ]
+}
