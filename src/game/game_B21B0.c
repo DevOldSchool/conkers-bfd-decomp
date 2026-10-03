@@ -22,7 +22,7 @@ typedef struct GameB21B0Inner {
 
 typedef struct GameB21B0Object {
     u8 pad0[4];
-    u8 field_4;
+    u8 modelIndex;
     u8 pad5[0x317];
     GameB21B0Inner *inner;
 } GameB21B0Object;
@@ -40,7 +40,7 @@ s32 func_15084D00(GameB21B0Object *arg0) {
     s32 group_size;
     s32 value;
 
-    value = arg0->field_4;
+    value = arg0->modelIndex;
     count = &D_8009D954;
     group_index = 0;
 loop_groups:
