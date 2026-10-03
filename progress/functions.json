@@ -41905,8 +41905,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 935,
-        "reason": "Repaired missing temp_v1 declaration; fresh full CURRENT935. Local file-scope func_1515D480(u8) conflicts with raw full-word callee and existing s32 declarations, forcing extra ANDI; correction proposal awaits approval. Loop/control lifetime differences remain.",
+        "current_score": 735,
+        "reason": "Correct local void *(s32) helper contract with target-defined u32 address-word storage and compatible signed-word zero test. Full-word selected value/load locals retain their proven byte range. Source-valid CURRENT 735 improves prior valid 935; selector-branch scheduling and pointer/index registers remain. Earlier pointer-object/integer-lvalue forms are rejected diagnostic history, not valid candidates. No callee rewrite, source search, forced storage, or aliasing bypass.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
