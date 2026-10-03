@@ -318,33 +318,41 @@ void func_wrapper(s32 arg0) {
             self.assertEqual("build/m2c/game/func_test.s", command[-1])
 
     def test_intrinsic_pragmas_keep_source_context_without_changing_source(self) -> None:
-        with tempfile.TemporaryDirectory() as temporary_directory:
-            root = Path(temporary_directory)
-            source = root / "src" / "game" / "test.c"
-            source.parent.mkdir(parents=True)
-            original = (
-                '#include "types.h"\n'
-                'typedef struct State { s32 value; } State;\n'
-                'f32 sqrtf(f32);\n#pragma intrinsic(sqrtf)\n'
-                'f32 fabsf(f32);\n#pragma intrinsic ( fabsf )\n'
-                'extern State *D_state;\n'
-            )
-            source.write_text(original)
-            with patch.object(m2c_helper, "ROOT", root):
-                command = m2c_helper.mips_to_c_command(root / "input.s", "func_test", source)
-            self.assertIn("--context", command)
-            context = (root / command[command.index("--context") + 1]).read_text()
-            self.assertIn('typedef struct State', context)
-            self.assertIn('f32 sqrtf(f32);', context)
-            self.assertIn('extern State *D_state;', context)
-            self.assertNotIn('#pragma', context)
-            self.assertEqual(original, source.read_text())
+        for sqrt_marker, fabs_marker in (
+            ('#pragma intrinsic(sqrtf)', '#pragma intrinsic ( fabsf )'),
+            ('__pragma(1, sqrtf);', '  __pragma ( 1 , fabsf ) ;  '),
+        ):
+            with self.subTest(sqrt_marker=sqrt_marker), tempfile.TemporaryDirectory() as temporary_directory:
+                root = Path(temporary_directory)
+                source = root / "src" / "game" / "test.c"
+                source.parent.mkdir(parents=True)
+                original = (
+                    '#include "types.h"\n'
+                    'typedef struct State { s32 value; } State;\n'
+                    f'f32 sqrtf(f32);\n{sqrt_marker}\n'
+                    f'f32 fabsf(f32);\n{fabs_marker}\n'
+                    'extern State *D_state;\n'
+                )
+                source.write_text(original)
+                with patch.object(m2c_helper, "ROOT", root):
+                    command = m2c_helper.mips_to_c_command(root / "input.s", "func_test", source)
+                self.assertIn("--context", command)
+                context = (root / command[command.index("--context") + 1]).read_text()
+                self.assertIn('typedef struct State', context)
+                self.assertIn('f32 sqrtf(f32);', context)
+                self.assertIn('f32 fabsf(f32);', context)
+                self.assertIn('extern State *D_state;', context)
+                self.assertNotIn('#pragma', context)
+                self.assertNotIn('__pragma', context)
+                self.assertEqual(original, source.read_text())
 
     def test_other_pragmas_still_reject_context(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             source = Path(temporary_directory) / "test.c"
             for directive in ('#pragma intrinsic(other)', '#pragma pack(1)',
-                              '#pragma intrinsic(sqrtf) unexpected'):
+                              '#pragma intrinsic(sqrtf) unexpected',
+                              '__pragma(2, sqrtf);', '__pragma(1, other);',
+                              '__pragma(1, sqrtf)', '__pragma(1, sqrtf); side_effect();'):
                 with self.subTest(directive=directive):
                     source.write_text(directive + '\nvoid func_test(void);\n')
                     self.assertIsNone(m2c_helper.flattened_source_context(source))
@@ -396,9 +404,10 @@ void func_wrapper(s32 arg0) {
             recovery = m2c_helper.call_signatures.Recovery((), ())
             error = SimpleNamespace(returncode=0, stdout='M2C_ERROR(/* unset */)')
             good = SimpleNamespace(returncode=0, stdout='void f(void) {}')
-            for intrinsic in (False, True):
-                with self.subTest(intrinsic=intrinsic):
-                    source.write_text('#pragma intrinsic(sqrtf)\n' if intrinsic else 'void f(void);\n')
+            for marker in (None, '#pragma intrinsic(sqrtf)', '__pragma(1, sqrtf);'):
+                intrinsic = marker is not None
+                with self.subTest(marker=marker):
+                    source.write_text(marker + '\n' if intrinsic else 'void f(void);\n')
                     with (patch.object(m2c_helper, 'ROOT', root),
                           patch.object(m2c_helper.call_signatures, 'recover', return_value=recovery),
                           patch.object(m2c_helper.call_signatures, 'wrapper_call', return_value=None),
