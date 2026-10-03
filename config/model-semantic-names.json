@@ -232,7 +232,8 @@
         "docs/evidence/us_gallery_character_names.md",
         "docs/evidence/us_rom_character_defaults.md",
         "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_registry_expansion.md"
+        "docs/evidence/character_semantic_registry_expansion.md",
+        "docs/evidence/lady_cog_eye_part_semantics.md"
       ],
       "consumers": [
         {
@@ -283,12 +284,19 @@
           "size_bytes": 2128,
           "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
           "role": "submit primary or secondary character parts"
+        },
+        {
+          "symbol": "func_1507E3C0",
+          "vram": "0x1507E3C0",
+          "size_bytes": 320,
+          "sha1": "eb9bcf2cd630cf7c6dde5111e846ebb8934d575d",
+          "role": "actor_update_lady_cog_eye_parts; exact model gate 15/70/76, raw-ROM semantics only"
         }
       ],
       "limitations": [
         "Descriptive model label, not a recovered original symbol or a unique actor type.",
-        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
-        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Shared bank-01 consumers remain generic; the separately pinned eye-part updater gates exactly model indices 15/70/76.",
+        "No scene-specific spawn record, runtime activation, or unused status is asserted; the eye-part routine remains raw assembly with an excluded unmatched C candidate.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
       ]
     },
@@ -592,7 +600,8 @@
         "docs/evidence/us_gallery_character_names.md",
         "docs/evidence/us_rom_character_defaults.md",
         "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_registry_expansion.md"
+        "docs/evidence/character_semantic_registry_expansion.md",
+        "docs/evidence/lady_cog_eye_part_semantics.md"
       ],
       "consumers": [
         {
@@ -643,12 +652,19 @@
           "size_bytes": 2128,
           "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
           "role": "submit primary or secondary character parts"
+        },
+        {
+          "symbol": "func_1507E3C0",
+          "vram": "0x1507E3C0",
+          "size_bytes": 320,
+          "sha1": "eb9bcf2cd630cf7c6dde5111e846ebb8934d575d",
+          "role": "actor_update_lady_cog_eye_parts; exact model gate 15/70/76, raw-ROM semantics only"
         }
       ],
       "limitations": [
         "Descriptive model label, not a recovered original symbol or a unique actor type.",
-        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
-        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Shared bank-01 consumers remain generic; the separately pinned eye-part updater gates exactly model indices 15/70/76.",
+        "No scene-specific spawn record, runtime activation, or unused status is asserted; the eye-part routine remains raw assembly with an excluded unmatched C candidate.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
       ]
     },
@@ -760,7 +776,8 @@
         "docs/evidence/us_gallery_character_names.md",
         "docs/evidence/us_rom_character_defaults.md",
         "docs/evidence/us_character_draw_tables.md",
-        "docs/evidence/character_semantic_registry_expansion.md"
+        "docs/evidence/character_semantic_registry_expansion.md",
+        "docs/evidence/lady_cog_eye_part_semantics.md"
       ],
       "consumers": [
         {
@@ -811,12 +828,19 @@
           "size_bytes": 2128,
           "sha1": "2176c655198fed8b1867b28f059cb4765bced897",
           "role": "submit primary or secondary character parts"
+        },
+        {
+          "symbol": "func_1507E3C0",
+          "vram": "0x1507E3C0",
+          "size_bytes": 320,
+          "sha1": "eb9bcf2cd630cf7c6dde5111e846ebb8934d575d",
+          "role": "actor_update_lady_cog_eye_parts; exact model gate 15/70/76, raw-ROM semantics only"
         }
       ],
       "limitations": [
         "Descriptive model label, not a recovered original symbol or a unique actor type.",
-        "Shared bank-01 consumers do not identify character-exclusive controller functions.",
-        "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
+        "Shared bank-01 consumers remain generic; the separately pinned eye-part updater gates exactly model indices 15/70/76.",
+        "No scene-specific spawn record, runtime activation, or unused status is asserted; the eye-part routine remains raw assembly with an excluded unmatched C candidate.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
       ]
     },

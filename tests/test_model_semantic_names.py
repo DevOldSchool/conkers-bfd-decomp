@@ -82,8 +82,26 @@ class ModelSemanticNameTests(unittest.TestCase):
             if (record["bank"], record["entry"], record["segment"]) != (1, 75, 0):
                 self.assertNotIn("model_specific_branch", record)
                 if record["bank"] == 1:
-                    self.assertEqual(7, len(record["consumers"]))
+                    self.assertEqual(8 if record["entry"] in (15, 70, 76) else 7,
+                                     len(record["consumers"]))
                 self.assertNotIn("func_15061B4C", {c["symbol"] for c in record["consumers"]})
+
+    def test_lady_cog_eye_part_consumer_is_full_span_and_exactly_scoped(self):
+        registry = names.load_registry()
+        consumer = {
+            "symbol": "func_1507E3C0", "vram": "0x1507E3C0", "size_bytes": 320,
+            "sha1": "eb9bcf2cd630cf7c6dde5111e846ebb8934d575d",
+            "role": "actor_update_lady_cog_eye_parts; exact model gate 15/70/76, raw-ROM semantics only",
+        }
+        selected = {(1, entry, 0) for entry in (15, 70, 76)}
+        for record in registry["models"]:
+            key = tuple(record[field] for field in ("bank", "entry", "segment"))
+            matches = [c for c in record["consumers"] if c["symbol"] == consumer["symbol"]]
+            with self.subTest(key=key):
+                self.assertEqual([consumer] if key in selected else [], matches)
+                if key in selected:
+                    self.assertIn("docs/evidence/lady_cog_eye_part_semantics.md", record["evidence"])
+                    self.assertNotIn("model_specific_branch", record)
 
     def test_object_models_keep_their_reviewed_consumer_domains(self):
         registry = names.load_registry()
@@ -426,8 +444,8 @@ class ModelSemanticNameTests(unittest.TestCase):
     @unittest.skipUnless((names.ROOT / "roms/baserom.us.z64").is_file(), "reviewed US ROM not available")
     def test_owned_rom_confirms_all_models_and_complete_consumer_spans(self):
         report = names.audit_registry(names.ROOT / "roms/baserom.us.z64")
-        self.assertEqual(41, report["consumer_count"])
-        self.assertEqual(204, report["consumer_reference_count"])
+        self.assertEqual(42, report["consumer_count"])
+        self.assertEqual(207, report["consumer_reference_count"])
         self.assertEqual(1, report["model_specific_branch_count"])
         self.assertEqual([1, 3, 9], report["banks"])
         self.assertEqual([REVIEWED_NAMES[key] for key in sorted(REVIEWED_NAMES)],

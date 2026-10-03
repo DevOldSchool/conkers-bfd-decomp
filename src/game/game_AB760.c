@@ -62,52 +62,58 @@ void func_1507E2B0(struct GameAB760State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E2B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E2B0.s")
+/* Descriptive role: actor_update_lady_cog_eye_parts.
+ * Models 15/70/76 select paired eye parts from actor +0x6C/+0x6D; set bits
+ * in actor +0x94 hide parts. Channel order does not establish left/right.
+ * Evidence: docs/evidence/lady_cog_eye_part_semantics.md.
+ * Naming only: the excluded candidate remains unmatched.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 CURRENT (757) */
-void func_1507E3C0(void *arg0) {
-    s32 values[2];
-    s32 *var_v1;
-    s32 temp_t2;
-    u8 temp_v0;
-    u8 *var_a1;
-    u8 *state;
+void func_1507E3C0(void *actor) {
+    s32 eyePartStates[2];
+    s32 *eyePartStateCursor;
+    s32 partHideMask;
+    u8 modelIndex;
+    u8 *eyeCodeCursor;
+    u8 *actorBytes;
 
-    state = arg0;
-    temp_v0 = state[4];
-    var_v1 = values;
-    var_a1 = state;
-    if ((temp_v0 == 0xF) || (temp_v0 == 0x46) || (temp_v0 == 0x4C)) {
+    actorBytes = actor;
+    modelIndex = actorBytes[4];
+    eyePartStateCursor = eyePartStates;
+    eyeCodeCursor = actorBytes;
+    if ((modelIndex == 0xF) || (modelIndex == 0x46) || (modelIndex == 0x4C)) {
         do {
-            *var_v1 = var_a1[0x6C];
-            if (*var_v1 >= 0xA) {
-                *var_v1 -= 0xA;
-                if (*var_v1 == 5) {
-                    *var_v1 = 0;
-                } else if (*var_v1 == 1) {
-                    *var_v1 = 1;
+            *eyePartStateCursor = eyeCodeCursor[0x6C];
+            if (*eyePartStateCursor >= 0xA) {
+                *eyePartStateCursor -= 0xA;
+                if (*eyePartStateCursor == 5) {
+                    *eyePartStateCursor = 0;
+                } else if (*eyePartStateCursor == 1) {
+                    *eyePartStateCursor = 1;
                 } else {
-                    *var_v1 = 2;
+                    *eyePartStateCursor = 2;
                 }
-            } else if (*var_v1 < 2) {
-                *var_v1 += 1;
+            } else if (*eyePartStateCursor < 2) {
+                *eyePartStateCursor += 1;
             }
-            var_v1++;
-            var_a1++;
-        } while (var_v1 != &values[2]);
-        temp_t2 = *(s32 *)(state + 0x94) | 0x7E;
-        *(s32 *)(state + 0x94) = temp_t2;
-        if (values[0] == 0) {
-            *(s32 *)(state + 0x94) = temp_t2 & ~8;
-        } else if (values[0] == 1) {
-            *(s32 *)(state + 0x94) &= ~0x10;
+            eyePartStateCursor++;
+            eyeCodeCursor++;
+        } while (eyePartStateCursor != &eyePartStates[2]);
+        partHideMask = *(s32 *)(actorBytes + 0x94) | 0x7E;
+        *(s32 *)(actorBytes + 0x94) = partHideMask;
+        if (eyePartStates[0] == 0) {
+            *(s32 *)(actorBytes + 0x94) = partHideMask & ~8;
+        } else if (eyePartStates[0] == 1) {
+            *(s32 *)(actorBytes + 0x94) &= ~0x10;
         } else {
-            *(s32 *)(state + 0x94) &= ~4;
+            *(s32 *)(actorBytes + 0x94) &= ~4;
         }
-        if (values[1] == 0) {
-            *(s32 *)(state + 0x94) &= ~0x20;
-        } else if (values[1] == 1) {
-            *(s32 *)(state + 0x94) &= ~0x40;
+        if (eyePartStates[1] == 0) {
+            *(s32 *)(actorBytes + 0x94) &= ~0x20;
+        } else if (eyePartStates[1] == 1) {
+            *(s32 *)(actorBytes + 0x94) &= ~0x40;
         } else {
-            *(s32 *)(state + 0x94) &= ~2;
+            *(s32 *)(actorBytes + 0x94) &= ~2;
         }
     }
 }
