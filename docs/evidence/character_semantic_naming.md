@@ -61,7 +61,7 @@ cycle. Constants remain numeric in the unchanged assembly.
 | Existing symbol or field | Descriptive role or source name | Scope |
 | --- | --- | --- |
 | `func_150839B8` | `actor_apply_character_defaults` | Comment only; linked symbol retained. Parameters become `actor`, `modelIndex`, `spawnRecord`; locals become `defaults`, `spawnOverride`, `value`. |
-| `func_1507E5C8` | `actor_apply_current_expression` | Comment only; linked symbol retained. `actor` and `expressionRecord` describe the proven pointers; unresolved `arg1` remains unchanged. |
+| `func_1507E5C8` | `actor_apply_current_expression` | Comment only; linked symbol retained. `actor` and `expressionRecord` describe the proven pointers; the [expression audit](character_expression_semantics.md) resolves the caller override as `morphDurationOverride`. |
 | `Game83300Actor.field_4` | `modelIndex` | Same unsigned byte at `+0x04`, matching the existing source-local morph view. |
 
 The defaults function reuses its full-width `value` for the spawn override;
