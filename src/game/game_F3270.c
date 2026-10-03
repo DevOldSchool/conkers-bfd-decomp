@@ -31,15 +31,13 @@ void func_150C5DC0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C5DC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C5DC0.s")
-u32 func_150ADA20(void *, s8);                      /* extern */
+u32 func_150ADA20(void);                      /* extern */
 f32 func_150ADA68();                                /* extern */
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5E0C CURRENT (1097) */
-s8 func_150C5E0C(u8 *arg0) {
-    s8 sp27;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C5E0C CURRENT (170) */
+s32 func_150C5E0C(u8 *arg0) {
     s8 var_a2;
-    void *sp1C;
     s32 temp_a0;
     u8 *temp_v1;
 
@@ -51,9 +49,7 @@ s8 func_150C5E0C(u8 *arg0) {
     *(s8 *)((u8 *)temp_v1 + 4) = 0;
     *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) (*(s16 *)((u8 *)temp_v1 + 0x14) - D_800BE9E4);
     if (*(s16 *)((u8 *)temp_v1 + 0x14) < 0) {
-        sp1C = temp_v1;
-        sp27 = var_a2;
-        *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) ((func_150ADA20(arg0, var_a2) % (u32) (*(s16 *)((u8 *)temp_v1 + 0x18) + 1)) + *(s16 *)((u8 *)temp_v1 + 0x16));
+        *(s16 *)((u8 *)temp_v1 + 0x14) = (s16) ((func_150ADA20() % (u32) (*(s16 *)((u8 *)temp_v1 + 0x18) + 1)) + *(s16 *)((u8 *)temp_v1 + 0x16));
         *(f32 *)((u8 *)temp_v1 + 0x10) = (f32) ((func_150ADA68() * *(f32 *)((u8 *)temp_v1 + 0xC)) + *(f32 *)((u8 *)temp_v1 + 8));
     }
     temp_a0 = *(s32 *)((u8 *)arg0 + 0x24);
@@ -207,4 +203,124 @@ void func_150C6438(u8 *arg0) {
     *(s32 *)(temp_v0 + 4) = 0;
     func_1513470C();
 }
+typedef struct GameF3270Vector {
+    f32 coordinates[3];
+} GameF3270Vector;
+
+typedef struct GameF3270ParticleDescriptor {
+    s32 field0;
+    s16 field4;
+    u8 field6;
+    u8 field7;
+    s32 field8;
+    s32 fieldC;
+    u8 field10;
+    u8 field11;
+    u8 field12;
+    u8 field13;
+    u8 field14;
+    u8 field15;
+    u8 field16;
+    u8 field17;
+    s32 field18;
+    u8 pad1C[6];
+    s16 field22;
+    s16 field24;
+} GameF3270ParticleDescriptor;
+
+typedef struct GameF3270ParticleState {
+    void *owner;
+    u8 request;
+    f32 base;
+    f32 range;
+    f32 current;
+    s16 timer;
+    s16 basePeriod;
+    s16 periodRange;
+    f32 interpolation;
+} GameF3270ParticleState;
+
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32,
+                   u8, u8, s32, u8, s32);
+void func_15143134(f32 *, f32 *, s32);
+u8 func_151D8E20(void);
+extern GameF3270Vector D_800887D0;
+extern f32 D_800A043C;
+extern f32 D_800A0440;
+extern u8 D_800AB414[][3];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C6460 CURRENT (5102) */
+s32 func_150C6460(void *arg0) {
+    void *result;
+    GameF3270Vector position;
+    GameF3270Vector anchor;
+    GameF3270Vector query;
+    GameF3270ParticleDescriptor descriptor;
+    GameF3270ParticleState state;
+    f32 scale;
+    u8 color;
+    u32 firstRandom;
+    u32 secondRandom;
+    void *actor;
+    void *particle;
+    u8 *rgb;
+
+    result = 0;
+    actor = *(void **)((u8 *)arg0 + 0x18);
+    if (*(s32 *)((u8 *)actor + 0x1D4) != 0) {
+        anchor = D_800887D0;
+        func_15143134(anchor.coordinates, position.coordinates,
+                      *(s32 *)((u8 *)actor + 0x1D4));
+    } else {
+        position.coordinates[0] = *(f32 *)((u8 *)actor + 0x14);
+        position.coordinates[1] = *(f32 *)((u8 *)actor + 0x18);
+        position.coordinates[2] = *(f32 *)((u8 *)actor + 0x1C);
+    }
+    query.coordinates[1] = position.coordinates[1] + 200.0f;
+    query.coordinates[0] = position.coordinates[0];
+    query.coordinates[2] = position.coordinates[2];
+    if (func_15045800(query.coordinates, 0, position.coordinates[1] - 200.0f,
+                      (u8 *)arg0 + 0x34) != 0) {
+        color = func_151D8E20();
+        query.coordinates[1] = *(f32 *)((u8 *)arg0 + 0x34);
+        scale = func_150ADA68() * 50.0f + 100.0f;
+        state.owner = arg0;
+        state.request = 1;
+        state.base = D_800A043C;
+        state.range = 32768.0f;
+        state.current = 0.0f;
+        state.timer = 0;
+        state.basePeriod = 10;
+        state.periodRange = 10;
+        state.interpolation = D_800A0440;
+        descriptor.field0 = 0x20300;
+        descriptor.field4 = 0x12C;
+        descriptor.field6 = 0x38;
+        descriptor.field8 = 0;
+        descriptor.fieldC = (s32)(state.base + state.range * 0.5f);
+        descriptor.field10 = 0x96;
+        descriptor.field11 = 0xFF;
+        rgb = D_800AB414[color];
+        descriptor.field12 = rgb[0];
+        descriptor.field13 = rgb[1];
+        descriptor.field14 = rgb[2];
+        descriptor.field15 = 0xFF;
+        descriptor.field16 = 0;
+        descriptor.field17 = 6;
+        descriptor.field18 = 0x440001;
+        firstRandom = func_150ADA20();
+        secondRandom = func_150ADA20();
+        particle = func_1513C73C((s32)&descriptor, 8, 2, (s32)((u8 *)arg0 + 0x38),
+                                 query.coordinates[0], query.coordinates[1], query.coordinates[2],
+                                 scale, scale, (u8)(firstRandom & 0xFF),
+                                 (u8)(((func_150ADA20() & 1) * 2) + (secondRandom & 1)),
+                                 0x20, *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
+        result = particle;
+        if (particle != 0) {
+            func_10022EC0((u8 *)particle + 0xB0, &state, 0x20);
+        }
+    }
+    return (s32)result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C6460 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3270/func_150C6460.s")

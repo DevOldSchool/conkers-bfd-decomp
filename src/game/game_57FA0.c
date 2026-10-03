@@ -1,4 +1,5 @@
 #include "types.h"
+#include "../lib/ultralib/include/compiler/ido/stdarg.h"
 
 /*
  * Reviewed source unit: src/game/game_57FA0.c
@@ -89,27 +90,27 @@ s32 func_1502AF04(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
 s32 func_1502AC88(u8 *, s32, s32 *);
 extern u8 D_AB1950[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B020 CURRENT (1836) */
-u8 *func_1502B020(s32 *arg0, volatile s32 arg1, s32 arg2, s32 arg3) {
-    volatile s32 state;
-    u8 *cursor;
-    s32 count;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B020 CURRENT (50) */
+u8 *func_1502B020(s32 *arg0, s32 arg1, ...) {
+    va_list cursor;
+    s32 component;
     u8 *output;
+    s32 state;
 
     state = 1;
     output = D_AB1950;
-    cursor = (u8 *)&arg2;
+    va_start(cursor, arg1);
     if (arg1 != 0) {
         do {
-            cursor = (u8 *)(((s32)(cursor + 3) & ~3) + 4);
+            component = va_arg(cursor, s32);
             if (state != 0) {
-                output += func_1502AC88(output, *(s32 *)(cursor - 4), (s32 *)&state);
+                output += func_1502AC88(output, component, &state);
             }
-            count = arg1 - 1;
-            arg1 = count;
+            arg1--;
             state &= 0x0FFFFFFF;
-        } while (count != 0);
+        } while (arg1 != 0);
     }
+    va_end(cursor);
     if (arg0 != 0) {
         *arg0 = state & 0x0FFFFFFF;
     }
@@ -120,6 +121,7 @@ u8 *func_1502B020(s32 *arg0, volatile s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502B020 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B020.s")
+
 s32 func_1502AF04(u8 *, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B110 CURRENT (2420) */

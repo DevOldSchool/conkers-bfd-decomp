@@ -29,13 +29,10 @@
  * - func_1506EBC0
  * - func_1506EEF4
  * - func_1506EF5C
- * - func_1506F1A8
- * - func_1506F54C
  * - func_1506FD30
  * - func_15070300
  * - func_15070898
  * - func_15070C40
- * - func_15070D24
  * - func_15070F60
  * - func_150717E0
  * - func_15071B18
@@ -1450,13 +1447,301 @@ void func_150AEEB0(u8 *arg0, s32 arg1);
 void func_1506F17C(s32 arg0) {
     func_150AEEB0(D_800D154C, 0xFF);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506F1A8.s")
+/* The provider copies descriptor ranges [0x04,0x50), [0x58,0x9C),
+ * [0x9C,0xE0), and [0xE0,0x11C), including the final two halfwords.
+ * The internal opaque gaps preserve the copied object representation. */
+typedef struct Game981E0FlameDescriptor {
+    s32 field_000; /* +0x000 */
+    u8 * field_004; /* +0x004 */
+    u8 field_008; /* +0x008 */
+    u8 field_009; /* +0x009 */
+    u8 opaque_00A[0x2];
+    f32 field_00C; /* +0x00C */
+    f32 field_010; /* +0x010 */
+    f32 field_014; /* +0x014 */
+    f32 field_018; /* +0x018 */
+    f32 field_01C; /* +0x01C */
+    f32 field_020; /* +0x020 */
+    f32 field_024; /* +0x024 */
+    f32 field_028; /* +0x028 */
+    f32 field_02C; /* +0x02C */
+    f32 field_030; /* +0x030 */
+    f32 field_034; /* +0x034 */
+    s8 field_038; /* +0x038 */
+    s8 field_039; /* +0x039 */
+    s8 field_03A; /* +0x03A */
+    u8 field_03B; /* +0x03B */
+    u8 field_03C; /* +0x03C */
+    u8 field_03D; /* +0x03D */
+    u8 field_03E; /* +0x03E */
+    u8 opaque_03F[0x1];
+    f32 field_040; /* +0x040 */
+    f32 field_044; /* +0x044 */
+    f32 field_048; /* +0x048 */
+    s8 field_04C; /* +0x04C */
+    u8 opaque_04D[0x3];
+    u8 field_050; /* +0x050 */
+    u8 field_051; /* +0x051 */
+    u8 field_052; /* +0x052 */
+    u8 field_053; /* +0x053 */
+    u8 field_054; /* +0x054 */
+    u8 opaque_055[0x3];
+    f32 field_058; /* +0x058 */
+    f32 field_05C; /* +0x05C */
+    s16 field_060; /* +0x060 */
+    s16 field_062; /* +0x062 */
+    f32 field_064; /* +0x064 */
+    f32 field_068; /* +0x068 */
+    f32 field_06C; /* +0x06C */
+    f32 field_070; /* +0x070 */
+    f32 field_074; /* +0x074 */
+    f32 field_078; /* +0x078 */
+    f32 field_07C; /* +0x07C */
+    f32 field_080; /* +0x080 */
+    f32 field_084; /* +0x084 */
+    f32 field_088; /* +0x088 */
+    s16 field_08C; /* +0x08C */
+    s16 field_08E; /* +0x08E */
+    f32 field_090; /* +0x090 */
+    u8 field_094; /* +0x094 */
+    u8 field_095; /* +0x095 */
+    u8 opaque_096[0x2];
+    f32 field_098; /* +0x098 */
+    f32 field_09C; /* +0x09C */
+    f32 field_0A0; /* +0x0A0 */
+    f32 field_0A4; /* +0x0A4 */
+    f32 field_0A8; /* +0x0A8 */
+    f32 field_0AC; /* +0x0AC */
+    s32 field_0B0; /* +0x0B0 */
+    s32 field_0B4; /* +0x0B4 */
+    s16 field_0B8; /* +0x0B8 */
+    s16 field_0BA; /* +0x0BA */
+    f32 field_0BC; /* +0x0BC */
+    f32 field_0C0; /* +0x0C0 */
+    f32 field_0C4; /* +0x0C4 */
+    f32 field_0C8; /* +0x0C8 */
+    f32 field_0CC; /* +0x0CC */
+    f32 field_0D0; /* +0x0D0 */
+    f32 field_0D4; /* +0x0D4 */
+    s16 field_0D8; /* +0x0D8 */
+    s16 field_0DA; /* +0x0DA */
+    s16 field_0DC; /* +0x0DC */
+    s16 field_0DE; /* +0x0DE */
+    f32 field_0E0; /* +0x0E0 */
+    f32 field_0E4; /* +0x0E4 */
+    f32 field_0E8; /* +0x0E8 */
+    f32 field_0EC; /* +0x0EC */
+    f32 field_0F0; /* +0x0F0 */
+    s16 field_0F4; /* +0x0F4 */
+    s16 field_0F6; /* +0x0F6 */
+    s16 field_0F8; /* +0x0F8 */
+    s16 field_0FA; /* +0x0FA */
+    f32 field_0FC; /* +0x0FC */
+    f32 field_100; /* +0x100 */
+    f32 field_104; /* +0x104 */
+    f32 field_108; /* +0x108 */
+    f32 field_10C; /* +0x10C */
+    f32 field_110; /* +0x110 */
+    f32 field_114; /* +0x114 */
+    s16 field_118; /* +0x118 */
+    s16 field_11A; /* +0x11A */
+} Game981E0FlameDescriptor;
+
+extern void *func_151994B8(s32, Game981E0FlameDescriptor *, s32, s32);
+
+void func_1506F1A8(s32 arg0) {
+    Game981E0FlameDescriptor descriptor;
+
+    descriptor.field_004 = D_800D154C;
+    descriptor.field_008 = D_800D154C[0x3B];
+    descriptor.field_009 = 12;
+    descriptor.field_00C = 0.0f;
+    descriptor.field_010 = 0.0f;
+    descriptor.field_014 = 80.0f;
+    descriptor.field_018 = 0.0f;
+    descriptor.field_01C = 0.0f;
+    descriptor.field_020 = 102.0f;
+    descriptor.field_024 = 0.122299999f;
+    descriptor.field_028 = 0.600000024f;
+    descriptor.field_02C = 1200.0f;
+    descriptor.field_040 = 0.656000018f;
+    descriptor.field_030 = 26.0f;
+    descriptor.field_034 = 4.80000019f;
+    descriptor.field_03E = 200;
+    descriptor.field_038 = -1;
+    descriptor.field_039 = 2;
+    descriptor.field_03A = -1;
+    descriptor.field_03B = 0;
+    descriptor.field_03C = 0;
+    descriptor.field_03D = 0;
+    descriptor.field_044 = -187.0f;
+    descriptor.field_048 = 4.63999987f;
+    descriptor.field_04C = -1;
+    descriptor.field_000 = 15;
+    descriptor.field_054 = 1;
+    descriptor.field_050 = 60;
+    descriptor.field_051 = 255;
+    descriptor.field_052 = 235;
+    descriptor.field_053 = 82;
+    descriptor.field_058 = 0.00502000004f;
+    descriptor.field_05C = 0.00300000003f;
+    descriptor.field_060 = 30;
+    descriptor.field_062 = 15;
+    descriptor.field_064 = 0.606000006f;
+    descriptor.field_06C = 0.418000013f;
+    descriptor.field_068 = 0.239000008f;
+    descriptor.field_070 = 0.205000013f;
+    descriptor.field_074 = 1.17700005f;
+    descriptor.field_078 = 0.572000027f;
+    descriptor.field_07C = 0.819000065f;
+    descriptor.field_080 = 0.846000016f;
+    descriptor.field_084 = 0.940859973f;
+    descriptor.field_088 = 0.942411005f;
+    descriptor.field_08C = 12;
+    descriptor.field_08E = 21;
+    descriptor.field_090 = 0.39200002f;
+    descriptor.field_094 = 80;
+    descriptor.field_095 = 120;
+    descriptor.field_098 = 0.00800000038f;
+    descriptor.field_09C = 0.0f;
+    descriptor.field_0A0 = 5.0f;
+    descriptor.field_0A4 = 100.0f;
+    descriptor.field_0A8 = 0.249000013f;
+    descriptor.field_0AC = 0.352000028f;
+    descriptor.field_0B0 = 4;
+    descriptor.field_0B4 = 2;
+    descriptor.field_0B8 = 30;
+    descriptor.field_0BA = 17;
+    descriptor.field_0BC = 14.0f;
+    descriptor.field_0C0 = 9.0f;
+    descriptor.field_0C4 = 0.5f;
+    descriptor.field_0C8 = 0.5f;
+    descriptor.field_0CC = 25.0f;
+    descriptor.field_0D0 = 0.440000027f;
+    descriptor.field_0D4 = 0.451000035f;
+    descriptor.field_0D8 = 80;
+    descriptor.field_0DA = 120;
+    descriptor.field_0DC = 16;
+    descriptor.field_0DE = 15;
+    descriptor.field_0E0 = 0.0f;
+    descriptor.field_0E4 = 5.0f;
+    descriptor.field_0E8 = 100.0f;
+    descriptor.field_0EC = 0.309000015f;
+    descriptor.field_0F0 = 0.312000006f;
+    descriptor.field_0F4 = 40;
+    descriptor.field_0F6 = 15;
+    descriptor.field_0F8 = 80;
+    descriptor.field_0FA = 80;
+    descriptor.field_0FC = 402.0f;
+    descriptor.field_100 = 303.0f;
+    descriptor.field_104 = 0.101000004f;
+    descriptor.field_108 = 0.198000014f;
+    descriptor.field_10C = 45.0f;
+    descriptor.field_110 = -0.655000031f;
+    descriptor.field_114 = 0.308000028f;
+    descriptor.field_118 = 20;
+    descriptor.field_11A = 12;
+    func_151994B8(0, &descriptor, 0xFF, 0);
+}
 void func_15197A7C(void *arg0);
 
 void func_1506F524(s32 arg0) {
     func_15197A7C(D_800D154C);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506F54C.s")
+void func_1506F54C(s32 arg0) {
+    Game981E0FlameDescriptor descriptor;
+
+    descriptor.field_004 = D_800D154C;
+    descriptor.field_008 = D_800D154C[0x3B];
+    descriptor.field_009 = 13;
+    descriptor.field_00C = 22.0f;
+    descriptor.field_010 = 22.0f;
+    descriptor.field_014 = 165.0f;
+    descriptor.field_018 = 22.0f;
+    descriptor.field_01C = 22.0f;
+    descriptor.field_020 = 193.0f;
+    descriptor.field_024 = 1.13800001f;
+    descriptor.field_028 = 0.795000017f;
+    descriptor.field_02C = 370.0f;
+    descriptor.field_040 = 0.61500001f;
+    descriptor.field_030 = 17.8000011f;
+    descriptor.field_034 = 4.9000001f;
+    descriptor.field_03E = 159;
+    descriptor.field_038 = 0;
+    descriptor.field_039 = -1;
+    descriptor.field_03A = 0;
+    descriptor.field_03B = 0;
+    descriptor.field_03C = 0;
+    descriptor.field_03D = 0;
+    descriptor.field_044 = -191.0f;
+    descriptor.field_048 = 7.8499999f;
+    descriptor.field_04C = -1;
+    descriptor.field_000 = 15;
+    descriptor.field_054 = 1;
+    descriptor.field_050 = 60;
+    descriptor.field_051 = 255;
+    descriptor.field_052 = 235;
+    descriptor.field_053 = 82;
+    descriptor.field_058 = 0.00289999996f;
+    descriptor.field_05C = 0.00234999997f;
+    descriptor.field_060 = 35;
+    descriptor.field_062 = 10;
+    descriptor.field_064 = 0.802000046f;
+    descriptor.field_06C = 0.367000014f;
+    descriptor.field_068 = 0.589000046f;
+    descriptor.field_070 = 0.307000011f;
+    descriptor.field_074 = 0.614000022f;
+    descriptor.field_078 = 0.299000025f;
+    descriptor.field_07C = 0.0f;
+    descriptor.field_080 = 0.738000035f;
+    descriptor.field_084 = 0.962646008f;
+    descriptor.field_088 = 0.961867988f;
+    descriptor.field_08C = 15;
+    descriptor.field_08E = 17;
+    descriptor.field_090 = 0.369000018f;
+    descriptor.field_094 = 80;
+    descriptor.field_095 = 80;
+    descriptor.field_098 = 0.0240000002f;
+    descriptor.field_09C = 22.0f;
+    descriptor.field_0A0 = 58.0f;
+    descriptor.field_0A4 = 212.0f;
+    descriptor.field_0A8 = 0.200000003f;
+    descriptor.field_0AC = 0.105000004f;
+    descriptor.field_0B0 = 3;
+    descriptor.field_0B4 = 2;
+    descriptor.field_0B8 = 25;
+    descriptor.field_0BA = 10;
+    descriptor.field_0BC = 6.0f;
+    descriptor.field_0C0 = 10.0f;
+    descriptor.field_0C4 = 0.300000012f;
+    descriptor.field_0C8 = 0.200000003f;
+    descriptor.field_0CC = 37.0f;
+    descriptor.field_0D0 = 0.751000047f;
+    descriptor.field_0D4 = 0.322000027f;
+    descriptor.field_0D8 = 80;
+    descriptor.field_0DA = 80;
+    descriptor.field_0DC = 15;
+    descriptor.field_0DE = 17;
+    descriptor.field_0E0 = 22.0f;
+    descriptor.field_0E4 = 130.0f;
+    descriptor.field_0E8 = 306.0f;
+    descriptor.field_0EC = 0.208000004f;
+    descriptor.field_0F0 = 0.193000004f;
+    descriptor.field_0F4 = 35;
+    descriptor.field_0F6 = 15;
+    descriptor.field_0F8 = 80;
+    descriptor.field_0FA = 100;
+    descriptor.field_0FC = 198.0f;
+    descriptor.field_100 = 102.0f;
+    descriptor.field_104 = 0.0400000028f;
+    descriptor.field_108 = 0.0400000028f;
+    descriptor.field_10C = 89.0f;
+    descriptor.field_110 = -0.495000035f;
+    descriptor.field_114 = 0.443000019f;
+    descriptor.field_118 = 15;
+    descriptor.field_11A = 17;
+    func_151994B8(0, &descriptor, 0xFF, 0);
+}
 /* Call context: func_1519EF70: unique active project prototype */
 void func_1519EF70(s32, s32, s32);
 
@@ -1793,7 +2078,50 @@ void func_15070CDC(s32 arg0) {
 void func_15070D00(s32 arg0) {
     func_15070C40(0);
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070D24.s")
+typedef struct Game981E0CopiedVector {
+    f32 values[3];
+} Game981E0CopiedVector;
+
+extern Game981E0CopiedVector D_80099B88;
+extern Game981E0CopiedVector D_80099B94;
+extern f32 D_80099F2C;
+void func_15143134(f32 *, f32 *, s32);
+void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32,
+                   s32, s32, s32, s32, s32, s32);
+
+void func_15070D24(s32 arg0) {
+    Game981E0CopiedVector input;
+    Game981E0CopiedVector second;
+    f32 ranges[2];
+    f32 transformed[3];
+    Game981E0Descriptor descriptor;
+    s32 position[3];
+
+    input = D_80099B88;
+    second = D_80099B94;
+    if ((*(s32 *)(D_800D154C + 0x1D4) != 0) &&
+        ((D_800D154C[0x74] & 0xF) != 0xF)) {
+        ranges[0] = func_150ADA68() * 101.0f + 151.0f;
+        ranges[1] = func_150ADA68() * 4.0f + 4.0f;
+        func_15143134(input.values, transformed,
+                      *(s32 *)(D_800D154C + 0x1D4) + 0x40);
+        func_15102B38((s32)D_800D154C, 1, (s32)&input, (s32)&second,
+                      ranges, func_150ADA20() % 6U + 5,
+                      func_150ADA20() % 156U + 100,
+                      func_150ADA68() * 2496.0f + D_80099F2C,
+                      (s32)transformed, 0xFF, 0, -1, 0xFF, 0);
+        descriptor.type = 3;
+        descriptor.neg_one = -1;
+        descriptor.lifetime = func_150ADA20() % 6U + 10;
+        descriptor.zero = 0;
+        position[0] = (s32)transformed[0];
+        position[1] = (s32)transformed[1];
+        position[2] = (s32)transformed[2];
+        func_151602C0((u8 *)&descriptor, position,
+                      func_150ADA20() % 201U + 55,
+                      0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 0);
+    }
+}
 void func_15070F60(s32 arg0);
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070F60.s")

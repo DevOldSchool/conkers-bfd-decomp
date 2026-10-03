@@ -15,19 +15,29 @@ typedef struct Game117FC0Vec2 {
     f32 y;
 } Game117FC0Vec2;
 
+typedef struct Game71820XZ {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game71820XZ;
+
+typedef struct Game71820Hit {
+    f32 height;
+    s16 points[9];
+    s32 object;
+    u8 flags;
+    u8 active;
+    u8 pad1E[2];
+    s32 field20;
+} Game71820Hit;
+
 typedef struct Game117FC0Effect {
     Game117FC0Vec2 position;
     Game117FC0Vec2 velocity;
     f32 height;
     f32 field14;
     f32 lifetime;
-    f32 field1C;
-    u8 pad20[0x14];
-    s32 field34;
-    s8 field38;
-    s8 field39;
-    u8 pad3A[2];
-    s32 field3C;
+    Game71820Hit hit;
 } Game117FC0Effect;
 
 typedef struct Game117FC0Descriptor {
@@ -77,11 +87,11 @@ void func_150EAB10(Game117FC0Actor *arg0) {
     emitter = &arg0->emitter;
     emitter->values[12] += (emitter->values[10] + func_150ADA68() * emitter->values[11]) * D_800BE9A4;
     if (emitter->values[12] > 1.0f) {
-        effect.field34 = 0;
-        effect.field38 = 0;
-        effect.field39 = 0;
-        effect.field3C = 0;
-        effect.field1C = D_800A1460;
+        effect.hit.object = 0;
+        effect.hit.flags = 0;
+        effect.hit.active = 0;
+        effect.hit.field20 = 0;
+        effect.hit.height = D_800A1460;
         effect.height = emitter->values[8];
         effect.field14 = emitter->values[9];
         descriptor.field0 = 2;
@@ -139,41 +149,35 @@ typedef struct {
 typedef struct {
     u8 pad0[0x14];
     Game117FC0Position *position;
-    f32 x;
-    f32 y;
-    f32 velocityX;
-    f32 velocityY;
-    f32 z;
-    s32 field2C;
-    f32 timer;
-    f32 alternateHeight;
+    Game117FC0Effect effect;
 } Game117FC0Motion;
 
-s32 func_15046C80(f32 *, s32, s32, void *);
+s32 func_15046C80(Game71820XZ *, u16, f32, Game71820Hit *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EAE24 CURRENT (955) */
-s32 func_150EAE24(Game117FC0Motion *arg0) {
-    f32 position[4];
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EAE24 CURRENT (972) */
+s32 func_150EAE24(void *arg0) {
+    Game71820XZ position;
     s32 result;
-    void *values;
+    Game117FC0Effect *effect;
+    Game117FC0Motion *motion = arg0;
 
-    arg0->x += arg0->velocityX * D_800BE9A4;
-    arg0->y += arg0->velocityY * D_800BE9A4;
-    position[0] = arg0->x;
-    position[1] = arg0->z;
-    position[2] = arg0->y;
-    arg0->position->x = (s16) (s32) arg0->x;
-    arg0->position->y = (s16) (s32) arg0->y;
-    if (func_15046C80(position, 0, arg0->field2C, &arg0->alternateHeight) != 0) {
-        values = &arg0->x;
-        arg0->position->height = (s16) (s32) *((f32 *) ((u8 *) values + 0x1C));
+    motion->effect.position.x += motion->effect.velocity.x * D_800BE9A4;
+    motion->effect.position.y += motion->effect.velocity.y * D_800BE9A4;
+    position.x = motion->effect.position.x;
+    position.y = motion->effect.height;
+    position.z = motion->effect.position.y;
+    motion->position->x = (s16) (s32) motion->effect.position.x;
+    motion->position->y = (s16) (s32) motion->effect.position.y;
+    if (func_15046C80(&position, 0, motion->effect.field14, &motion->effect.hit) != 0) {
+        effect = &motion->effect;
+        motion->position->height = (s16) (s32) effect->hit.height;
     } else {
-        values = &arg0->x;
-        arg0->position->height = (s16) (s32) *((f32 *) ((u8 *) values + 0x10));
+        effect = &motion->effect;
+        motion->position->height = (s16) (s32) effect->height;
     }
-    *((f32 *) ((u8 *) values + 0x18)) -= D_800BE9A4;
+    effect->lifetime -= D_800BE9A4;
     result = 1;
-    if (*((f32 *) ((u8 *) values + 0x18)) <= 0.0f) {
+    if (effect->lifetime <= 0.0f) {
         result = 0;
     }
     return result;

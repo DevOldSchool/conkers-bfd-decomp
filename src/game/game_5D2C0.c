@@ -300,6 +300,146 @@ s32 func_150303E4(void *arg0) {
     return var_s1;
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030468.s")
+typedef struct GameCoreNode {
+    u8 owner;
+    u8 type;
+    u8 index;
+    u8 visible;
+    u8 flags;
+    u8 field_5;
+    u8 tag;
+    u8 callback;
+    u8 allocated;
+    u8 loaded;
+    u16 x;
+    u16 y;
+    u16 z;
+    u8 pad_10[3];
+    u8 field_13;
+    u8 field_14;
+    u8 field_15;
+    u8 field_16;
+    s8 mode;
+    s16 field_18;
+    s16 field_1A;
+    u16 field_1C;
+    u16 child;
+    u16 childOffset;
+    u16 field_22;
+    void *field_24;
+    void *field_28;
+    void *field_2C;
+    void *field_30;
+    void *field_34;
+    s32 field_38;
+    s32 field_3C;
+    f32 scale;
+    void *field_44;
+    void *field_48;
+    void *field_4C;
+    void *field_50;
+    struct GameCoreNode *next;
+    struct GameCoreNode *previous;
+} GameCoreNode;
+
+s32 func_1502FFD8(u8 *, u8 *);
+void func_15031A50(u8 *, u8 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030AF4 CURRENT (1667) */
+GameCoreNode *func_15030AF4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3,
+                           s32 arg4, s32 arg5, s32 arg6, s32 arg7,
+                           s32 arg8, u16 *arg9, s32 arg10, s32 arg11,
+                           s32 arg12) {
+    s32 failed;
+    GameCoreNode *node;
+    GameCoreNode *next;
+    void *matrices;
+    u8 owner;
+
+    owner = arg0[0x3B];
+    if (owner == 0) {
+        return 0;
+    }
+    if (!(arg3 & 8)) {
+        node = D_800C3EE0;
+        while (node != 0) {
+            next = node->next;
+            if ((owner == node->owner) && (arg7 == node->tag) &&
+                (arg1 == node->type)) {
+                return 0;
+            }
+            node = next;
+        }
+    }
+    node = func_10003C40(0x5C, 1, 0, 2);
+    if (node == 0) {
+        return 0;
+    }
+    failed = 0;
+    if (D_800C3EE0 != 0) {
+        ((GameCoreNode *)D_800C3EE0)->previous = node;
+    }
+    node->next = D_800C3EE0;
+    node->previous = 0;
+    D_800C3EE0 = node;
+    node->owner = arg0[0x3B];
+    node->type = arg1;
+    node->field_24 = 0;
+    node->field_28 = 0;
+    node->field_2C = 0;
+    node->field_30 = 0;
+    node->visible = 0xFF;
+    node->field_44 = 0;
+    node->flags = arg3;
+    node->tag = arg7;
+    node->scale = 1.0f;
+    node->index = arg2;
+    node->field_38 = 0;
+    node->field_3C = 0;
+    node->allocated = 0;
+    node->loaded = 0;
+    node->field_18 = 0;
+    node->field_1A = 0;
+    node->callback = arg8;
+    node->x = arg9[0];
+    node->y = arg9[1];
+    node->z = arg9[2];
+    node->field_48 = 0;
+    node->mode = arg10;
+    node->field_16 = arg5;
+    node->field_15 = arg4;
+    node->child = arg11;
+    node->field_13 = 0;
+    node->field_4C = 0;
+    node->field_50 = 0;
+    node->field_5 = 0;
+    node->field_22 = 0;
+    node->childOffset = arg12;
+    if ((arg5 == 4) || (arg3 & 4)) {
+        matrices = func_10003C40(0x80, 1, 2, 2);
+        node->field_34 = matrices;
+        if (matrices == 0) {
+            failed = 1;
+        }
+    } else {
+        node->field_34 = 0;
+    }
+    if (arg6 == 0) {
+        node->field_1C = 0xFFFF;
+    } else {
+        node->field_1C = arg6;
+    }
+    if (failed == 0) {
+        failed |= func_1502FFD8((u8 *)node, arg0);
+    }
+    if (failed != 0) {
+        func_15030158((u8 *)node, 1);
+        return 0;
+    }
+    func_15031A50((u8 *)node, arg0);
+    return node;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15030AF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030AF4.s")
 extern void *func_10003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
@@ -566,6 +706,90 @@ void func_15031A50(u8 *arg0, u8 *arg1) {
         break;
     }
 }
+typedef struct {
+    void *object;
+    u8 id;
+} GameCoreMessage;
+
+void func_1000FD38(void *, void *, s32);
+s32 func_15033BDC();
+void func_15100180(void *);
+void func_151027E8(void *);
+void func_15147D64(s32, s32);
+void func_151494E0(s32, u8);
+void func_151616D0(u8, u8, s32);
+void func_151BD7F4(void *);
+void func_151D4668(void *);
+void func_151D747C(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031C14 CURRENT (440) */
+void func_15031C14(void *arg0) {
+    u8 *object;
+    GameCoreMessage first;
+    GameCoreMessage second;
+    GameCoreMessage *message;
+
+    object = func_15083E90(*(u8 *)arg0);
+    if (object != 0) {
+        switch (((u8 *)arg0)[1]) {
+        case 0x5A:
+            if (*(u8 **)(object + 0x31C) != 0) {
+                *(u16 *)(*(u8 **)(object + 0x31C) + 0x1A6) -= 0xAA;
+            }
+            break;
+        case 0x90:
+            *(u32 *)(object + 0x9C) &= ~0x70;
+            break;
+        case 0x8F:
+            *(u32 *)(object + 0x9C) &= ~0xE00;
+            break;
+        case 0x37:
+        case 0x4B:
+        case 0x4C:
+            func_1000FD38((void *)&func_15033BDC, arg0, (s32)object);
+            if (((u8 *)arg0)[1] == 0x37) {
+                func_15100180(object);
+            }
+            break;
+        case 0x49:
+            first.object = object;
+            first.id = object[0x3B];
+            func_151616D0(0x10, 0x29, (s32)&first);
+            break;
+        case 0x5D:
+            second.object = object;
+            message = &second;
+            second.id = object[0x3B];
+            func_15147D64((s32)&second, 0x2E);
+            func_151494E0((s32)message, 0x2F);
+            break;
+        case 0x3D:
+            func_151BD7F4(object);
+            break;
+        case 0x1A:
+        case 0x1B:
+        case 0x5F:
+        case 0x65:
+        case 0x66:
+            func_151D4668(object);
+            break;
+        case 0x1D:
+        case 0x82:
+            func_151D747C(object);
+            break;
+        case 0x5E:
+        case 0x85:
+            *(u32 *)(object + 0x9C) &= ~0x6000;
+            break;
+        }
+        if ((((u8 *)arg0)[6] == 0x16) || (((u8 *)arg0)[6] == 0x63) ||
+            (((u8 *)arg0)[6] == 0x89)) {
+            func_151027E8(object);
+            func_151D4668(object);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15031C14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031C14.s")
 typedef struct {
     u8 pad_0[0x18];
@@ -1012,6 +1236,102 @@ s32 func_15033AD8(void *arg0, void *arg1) {
     }
     return 0;
 }
+typedef struct {
+    u8 pad_0;
+    u8 type;
+    u8 pad_2[0x36];
+    s32 sound;
+    s32 handle;
+} GameCoreSoundOwner;
+
+typedef struct {
+    u8 pad_0[0x19C];
+    u16 timer;
+} GameCoreSoundChild;
+
+typedef struct {
+    s32 active;
+    u8 pad_4[0x10];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad_20[0x64];
+    u16 kind;
+    u8 pad_86[0x296];
+    GameCoreSoundChild *child;
+} GameCoreSoundActor;
+
+typedef struct {
+    u8 pad_0[2];
+    s16 x;
+    s16 y;
+    s16 z;
+    u8 pad_8[0x10];
+    GameCoreSoundOwner *owner;
+    GameCoreSoundActor *actor;
+    u8 pad_20[4];
+    u16 sound;
+} GameCoreSoundHandle;
+
+void func_10010FFC(s32, s32, s32, s32, s32, void *);
+void func_100111C8(s32, void *);
+u32 func_150ADA20(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15033BDC CURRENT (120) */
+s32 func_15033BDC(GameCoreSoundHandle *arg0, s32 arg1, s32 *arg2,
+                  s32 arg3, s32 arg4, s32 arg5, s16 *arg6) {
+    GameCoreSoundOwner *owner;
+    GameCoreSoundActor *actor;
+    GameCoreSoundChild *child;
+    s32 sound;
+    s32 previousSound;
+    u16 kind;
+    u16 handle;
+
+    owner = arg0->owner;
+    actor = arg0->actor;
+    if ((owner != 0) && (actor != 0) && (actor->active != 0)) {
+        arg0->x = (s16)(s32)actor->x;
+        arg0->y = (s16)(s32)actor->y;
+        arg0->z = (s16)(s32)actor->z;
+        if (*arg2 != 0) {
+            if (owner->type == 0x37) {
+                previousSound = owner->sound;
+                kind = actor->kind;
+                sound = -1;
+                if ((kind != (previousSound & 0xFFFF)) && (kind == 0x15F)) {
+                    sound = (func_150ADA20() & 3) + 0x444;
+                }
+                if (sound != -1) {
+                    func_10010FFC(0, sound, 0x5DC0, 0, 0, actor);
+                }
+                owner->sound = actor->kind;
+            } else {
+                child = actor->child;
+                if ((child != 0) && (child->timer < 0x78) && (owner->sound == 0x513)) {
+                    owner->sound = 0x3A1;
+                    owner->handle = func_1000FA64(
+                        0x3A1, (s16)(s32)actor->x, (s16)(s32)actor->y,
+                        (s16)(s32)actor->z, 0x7D00, 0x3E8, 0x1F4,
+                        (void *)&func_15033BDC, owner, actor, 0, 0);
+                    return 1;
+                }
+            }
+            return 0;
+        }
+        if (owner->type == 0x37) {
+            handle = arg0->sound;
+            if (handle != 0) {
+                func_100111C8(handle, arg0);
+                arg0->sound = 0;
+            }
+            *arg6 = 0;
+            return 0;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15033BDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15033BDC.s")
 s32 func_15033E00(s32 arg0, void *arg1) {
     if (*(u8 *)((u8 *)arg1 + 5) == 3) {

@@ -52,6 +52,113 @@ void func_15048B10(u8 *arg0, void *arg1) {
     func_150A7A48(locals.sp74, locals.sp134, locals.sp34);
     func_150A7A48(locals.sp34, locals.sp174, arg1);
 }
+typedef struct Game75FC0Numerator5 {
+    u8 unknown00[4];
+    f32 c1, c2, c3, c4, c5;
+} Game75FC0Numerator5;
+
+typedef struct Game75FC0Denominator4 {
+    f32 c0, c1, c2, c3;
+} Game75FC0Denominator4;
+
+typedef struct Game75FC0Numerator3 {
+    u8 unknown00[4];
+    f32 c1, c2, c3;
+} Game75FC0Numerator3;
+
+typedef struct Game75FC0Denominator3 {
+    f32 c0, c1, c2;
+} Game75FC0Denominator3;
+
+extern Game75FC0Numerator5 D_80099020;
+extern Game75FC0Denominator4 D_80099038;
+extern Game75FC0Numerator3 D_8009904C;
+extern Game75FC0Denominator3 D_8009905C;
+extern f32 D_80085FD0;
+extern f32 D_80085FD4;
+extern f32 D_80085FD8;
+extern f32 D_80085FDC;
+extern f32 D_80085FE0;
+extern f32 D_80085FE4;
+extern f32 D_80085FE8;
+f32 fabsf(f32);
+f32 sqrtf(f32);
+#pragma intrinsic(fabsf)
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15048C30 CURRENT (2955) */
+f32 func_15048C30(f32 arg0, f32 arg1) {
+    union {
+        f32 value;
+        s32 word;
+    } input;
+    s32 word;
+    s32 exponent;
+    f32 square;
+    f32 reduced;
+    f32 numerator;
+    f32 denominator;
+    f32 root;
+    f32 correction;
+
+    input.value = arg0;
+    word = input.word;
+    exponent = (word >> 23) & 0xFF;
+    if (exponent < 126) {
+        if (exponent >= 99) {
+            square = input.value * input.value;
+            numerator = D_80099020.c1 +
+                (((D_80099020.c5 * square + D_80099020.c4) * square +
+                  D_80099020.c3) * square + D_80099020.c2) * square;
+            denominator = D_80099038.c0 +
+                (((square + D_80099038.c3) * square + D_80099038.c2) *
+                  square + D_80099038.c1) * square;
+            return ((square * numerator) * input.value) / denominator + input.value;
+        }
+        return input.value;
+    }
+    if (exponent < 127) {
+        square = fabsf(input.value);
+        if (square < D_80085FE8) {
+            square = input.value * input.value;
+            reduced = (square + square) - D_80085FD0;
+            square = reduced * reduced;
+            numerator = D_80099020.c1 +
+                (((D_80099020.c5 * square + D_80099020.c4) * square +
+                  D_80099020.c3) * square + D_80099020.c2) * square;
+            denominator = D_80099038.c0 +
+                (((square + D_80099038.c3) * square + D_80099038.c2) *
+                  square + D_80099038.c1) * square;
+            correction = ((square * numerator) * reduced) / denominator + reduced;
+            if (word > 0) {
+                return 0.5f * correction + D_80085FD8;
+            }
+            return D_80085FE0 - 0.5f * correction;
+        }
+        reduced = (D_80085FD0 - square) * 0.5f;
+        root = sqrtf(reduced);
+        numerator = D_8009904C.c1 +
+            (D_8009904C.c3 * reduced + D_8009904C.c2) * reduced;
+        denominator = D_8009905C.c0 +
+            ((reduced + D_8009905C.c2) * reduced + D_8009905C.c1) * reduced;
+        correction = ((reduced * numerator) * root) / denominator + root;
+        if (word > 0) {
+            return D_80085FDC - (correction + correction);
+        }
+        return (correction + correction) + D_80085FE4;
+    }
+    if (input.value != input.value) {
+        return 0.0f;
+    }
+    if (input.value == D_80085FD0) {
+        return D_80085FDC;
+    }
+    if (input.value == D_80085FD4) {
+        return D_80085FE4;
+    }
+    return 0.0f;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15048C30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048C30.s")
 void func_15048F20(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg1 + 0) + *(f32 *)((u8 *)arg0 + 0));

@@ -742,9 +742,9 @@ typedef struct Game1DBCBCPacket {
 } Game1DBCBCPacket;
 
 void *func_1513C5B0(s32, s32, u8, u8, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
-void *func_1513C73C(s32, u8, u8, s32, s32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (4174) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DBCBC CURRENT (3624) */
 void func_151DBCBC(s32 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4, s32 arg5, s32 arg6) {
     Game1DBCBCPacket packet;
     s32 random1;
@@ -777,7 +777,7 @@ void func_151DBCBC(s32 arg0, f32 arg1, s32 arg2, s32 arg3, f32 *arg4, s32 arg5, 
         random1 = func_150ADA20();
         random2 = func_150ADA20();
         func_1513C73C((s32)&packet, 0, 0, arg3,
-                       *(s32 *)&arg4[0], arg4[1], arg4[2], arg1, arg1,
+                       arg4[0], arg4[1], arg4[2], arg1, arg1,
                        random1 & 0xFF, ((func_150ADA20() & 1) * 2) + (random2 & 1),
                        0, (u8)arg5, arg6);
         return;
@@ -874,5 +874,159 @@ void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DBE80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBE80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC034.s")
+/* The second descriptor has the same 0x48-byte layout used by
+ * GameEF410Spawn; position-relative fields are consumed by func_15150178. */
+typedef struct {
+    s16 field00;
+    s16 field02;
+    s16 field04;
+    s16 field06;
+    Game2062D0Vector3 vector;
+    s16 field14;
+    s16 field16;
+    f32 field18;
+    f32 field1C;
+    s16 field20;
+    s16 field22;
+    f32 field24;
+    f32 field28;
+    u8 field2C;
+    u8 field2D;
+    u8 pad2E[2];
+    f32 field30;
+    f32 field34;
+    s8 field38;
+    u8 field39;
+    u8 pad3A[2];
+    f32 field3C;
+    s8 field40;
+    u8 pad41[3];
+    f32 field44;
+} Game2062D0SecondaryParams;
+
+void func_15150178(s16 *, f32 *, s32, u8, s32);
+extern f32 D_800AB4E4;
+extern f32 D_800AB4E8;
+extern f32 D_800AB4EC;
+extern f32 D_800AB4F0;
+extern f32 D_800AB4F4;
+
+extern f32 D_800AB4D0;
+extern f32 D_800AB4D4;
+extern f32 D_800AB4D8;
+extern f32 D_800AB4DC;
+extern f32 D_800AB4E0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC260 CURRENT (1543) */
+void func_151DC260(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    Game2062D0Params params;
+    Game2062D0SecondaryParams secondary;
+
+    params.vector = *arg0;
+    params.field50 = 0xA;
+    params.field52 = 0xA;
+    params.field26 = 0xFF;
+    params.field28 = -0x40;
+    params.field2A = 0x28;
+    params.field38 = 3.0f;
+    params.field24 = 0;
+    params.field54 = 3;
+    params.field56 = 1;
+    params.field58 = 0x3C;
+    params.field5A = 0x28;
+    params.field5C = 0x64;
+    params.field5E = 0x64;
+    params.field68 = 0x10;
+    params.field6A = 0xF;
+    params.field6C = 0;
+    params.field3C = 4.0f;
+    params.field40 = D_800AB4D0;
+    params.field44 = D_800AB4D4;
+    params.field48 = 12.0f;
+    params.field4C = 11.0f;
+    params.field64 = 1.0f;
+    params.field60 = (u8)arg2;
+    func_15153F18(&params.field24, &params.vector, arg1, (u8)arg3, arg4);
+    secondary.vector = *arg0;
+    secondary.field14 = 0xC;
+    secondary.field16 = 6;
+    secondary.field02 = 0xFF;
+    secondary.field18 = 6.0f;
+    secondary.field1C = 8.0f;
+    secondary.field00 = 0;
+    secondary.field04 = -0x40;
+    secondary.field06 = 0x24;
+    secondary.field20 = 0x23;
+    secondary.field22 = 0xF;
+    secondary.field2C = 0x9B;
+    secondary.field2D = 0x64;
+    secondary.field38 = 1;
+    secondary.field40 = 1;
+    secondary.field24 = D_800AB4D8;
+    secondary.field28 = D_800AB4DC;
+    secondary.field30 = 123.0f;
+    secondary.field34 = 134.0f;
+    secondary.field39 = (u8)arg2;
+    secondary.field3C = D_800AB4E0;
+    secondary.field44 = 0.0f;
+    func_15150178(&secondary.field00, (f32 *)&secondary.vector, arg1, arg3, arg4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151DC260 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC260.s")
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC484 CURRENT (2910) */
+void func_151DC484(Game2062D0Vector3 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    Game2062D0Params params;
+    Game2062D0SecondaryParams secondary;
+
+    params.vector = *arg0;
+    params.field50 = 8;
+    params.field52 = 6;
+    params.field26 = 0xFF;
+    params.field28 = -0x40;
+    params.field38 = 3.0f;
+    params.field24 = 0;
+    params.field2A = 0x28;
+    params.field54 = 3;
+    params.field56 = 0;
+    params.field58 = 0x3C;
+    params.field5A = 0x28;
+    params.field5C = 0x64;
+    params.field5E = 0x64;
+    params.field68 = 0x10;
+    params.field6A = 0xF;
+    params.field6C = 0;
+    params.field3C = 2.0f;
+    params.field40 = D_800AB4E4;
+    params.field44 = D_800AB4E8;
+    params.field48 = 8.0f;
+    params.field4C = 5.0f;
+    params.field64 = 1.0f;
+    params.field60 = (u8)arg2;
+    func_15153F18(&params.field24, &params.vector, arg1, (u8)arg3, arg4);
+    secondary.vector = *arg0;
+    secondary.field14 = 0xC;
+    secondary.field16 = 6;
+    secondary.field02 = 0xFF;
+    secondary.field00 = 0;
+    secondary.field04 = -0x40;
+    secondary.field06 = 0x1A;
+    secondary.field20 = 0x23;
+    secondary.field22 = 0xF;
+    secondary.field2C = 0x9B;
+    secondary.field2D = 0x64;
+    secondary.field30 = 59.0f;
+    secondary.field34 = 59.0f;
+    secondary.field38 = 1;
+    secondary.field40 = 1;
+    secondary.field44 = 0.0f;
+    secondary.field18 = 7.0f;
+    secondary.field1C = 3.0f;
+    secondary.field24 = D_800AB4EC;
+    secondary.field28 = D_800AB4F0;
+    secondary.field39 = (u8)arg2;
+    secondary.field3C = D_800AB4F4;
+    func_15150178(&secondary.field00, (f32 *)&secondary.vector, arg1, arg3, arg4);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151DC484 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC484.s")

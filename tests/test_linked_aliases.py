@@ -125,5 +125,6 @@ class LinkedAliasToolchainTests(unittest.TestCase):
                 candidate = self.assemble(root, "candidate", literal)
                 current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
                 self.assertFalse(linked_aliases.address_alias_present(current, raw, "func_15000000", 16))
+                self.assertFalse(linked_aliases.game_eligible(candidate, reference, "func_15000000", 16))
                 self.assertTrue(linked_aliases.address_alias_present(
                     current, raw, "func_15000000", 16, literals=True))

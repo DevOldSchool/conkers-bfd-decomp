@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_resource_helper_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_1507EC38
  * - func_1507EEB8
  * - func_1507EFD0
  * - func_1507F454
@@ -47,7 +46,79 @@ void func_1507EBB8(s32 arg0, s32 *arg1, s32 arg2) {
         *arg1 += copy.count;
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507EC38.s")
+s32 func_1507EC38(u8 *candidates, s32 candidate_count, u8 *output,
+                   s32 *output_count, u8 *history) {
+    s32 result;
+    s32 i;
+    s32 j;
+    s32 duplicate;
+    s32 scratch_count;
+    u8 scratch[5];
+    s32 take;
+
+    result = 0;
+    *output_count = 0;
+    i = 0;
+    if (candidate_count > 0) {
+        do {
+            duplicate = 0;
+            for (j = 0; j < *output_count; j++) {
+                if (output[j] == candidates[i]) {
+                    duplicate = 1;
+                    break;
+                }
+            }
+            if (duplicate == 0) {
+                for (j = 0; j != 5; j++) {
+                    if (history[j] == candidates[i]) {
+                        duplicate = 1;
+                        break;
+                    }
+                }
+                if (duplicate == 0) {
+                    output[*output_count] = candidates[i];
+                    *output_count += 1;
+                }
+            }
+            i++;
+        } while (i != candidate_count);
+    }
+    scratch_count = 0;
+    if (*output_count == 0) {
+        for (i = 0; i < 5; i++) {
+            if (history[i] != 0) {
+                j = 0;
+                if (candidate_count > 0) {
+                    do {
+                        if (history[i] == candidates[j]) {
+                            scratch[scratch_count] = history[i];
+                            scratch_count++;
+                            break;
+                        }
+                        j++;
+                    } while (j != candidate_count);
+                }
+            }
+        }
+        if (scratch_count == 0) {
+            output[0] = 0;
+            *output_count = 1;
+        } else {
+            take = scratch_count >> 1;
+            if (take == 0) {
+                take = 1;
+            }
+            while (take != 0) {
+                scratch_count--;
+                output[*output_count] = scratch[scratch_count];
+                *output_count += 1;
+                take--;
+            }
+            result = 1;
+        }
+    }
+    return result;
+}
 void func_1507EE58(volatile u8 arg0, u8 *arg1) {
     s32 value;
 

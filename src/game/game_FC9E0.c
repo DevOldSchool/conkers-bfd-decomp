@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150CF530
  * - func_150CF5E8
  * - func_150CF680
  * - func_150CF800
@@ -13,15 +12,20 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern void func_151CF898(void *arg0, f32 arg1, f32 arg2, void *arg3);
-extern s32 D_800CC2D0;
+extern void func_151CF898(void *arg0, f32 arg1, f32 arg2);
+typedef struct GameCollisionHeightActor {
+    u8 pad00[0x18];
+    f32 y;
+    u8 pad1C[0x2FC];
+    void *entity;
+    u8 pad31C[0x10];
+} GameCollisionHeightActor;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF530 CURRENT (100) */
-void func_150CF530(s32 arg0, void *arg3) {
-    func_151CF898(&D_800CC2D0, *(f32 *)((u8 *)&D_800CC2D0 + 0x18) + 300.0f, -10000.0f, arg3);
+extern GameCollisionHeightActor D_800CC2D0[];
+
+void func_150CF530(s32 arg0) {
+    func_151CF898(&D_800CC2D0[0], D_800CC2D0[0].y + 300.0f, -10000.0f);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_150CF530 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FC9E0/func_150CF530.s")
 extern s32 D_80088890;
 extern s32 D_80088894;
 extern s32 D_80088898;

@@ -557,6 +557,100 @@ void func_151EDB58(void *arg0) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDBDC.s")
+/* The 0x1A8 owner contains two text banks and thirty 12-byte resources. */
+typedef struct {
+    Game215960Command *commands;
+} Game215960ResourceHeader;
+
+typedef struct {
+    Game215960Command *commands;
+    Game215960ResourceHeader *allocation;
+    void *dependencies;
+} Game215960Resource;
+
+typedef struct {
+    u8 text[2][0x20];
+    Game215960Resource resources[30];
+} Game215960ResourceState;
+
+typedef struct {
+    s16 position[3];
+    u16 flag;
+    s16 texture[2];
+    u8 color[4];
+} Game215960Vertex;
+
+s32 func_10003C40(s32, s32, s32, s32);
+s32 func_1502B6BC(s32 *, s32, s32 *, s32, ...);
+s32 func_1510CE60(s32, s32, s32, s32, void *);
+extern Game215960Resource *D_80090138;
+extern Game215960ResourceState *D_800E0C7C;
+extern s8 D_800E0C80;
+extern s8 D_800E0C81;
+extern s8 D_800E0C82;
+extern s8 D_800E0C83;
+extern s8 D_800E0C84;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDF4C CURRENT (611) */
+void func_151EDF4C(void) {
+    s32 resourceId;
+    s32 index;
+    Game215960ResourceHeader *resource;
+    Game215960Command *command;
+    Game215960Vertex *vertex;
+    u32 opcode;
+
+    D_80090138 = 0;
+    D_800E0C7C = (Game215960ResourceState *)func_10003C40(0x1A8, 1, 0, 0);
+    if (D_800E0C7C != 0) {
+        D_80090138 = D_800E0C7C->resources;
+        resourceId = 0x1C5;
+        index = 0;
+        do {
+            resource = (Game215960ResourceHeader *)func_1502B6BC(0, 1, 0, 2, 9, resourceId);
+            D_80090138[index].allocation = resource;
+            D_80090138[index].commands = resource->commands;
+            func_1510CE60((s32)D_80090138[index].commands, 0, 1, 0x3E,
+                         &D_80090138[index].dependencies);
+            command = D_80090138[index].commands;
+            do {
+                opcode = (command->w0 >> 24) & 0xFF;
+                if (opcode == 1) {
+                    command->w1 += (u32)resource;
+                    vertex = (Game215960Vertex *)(command->w1 | 0x80000000U);
+                    vertex->color[0] = 0;
+                    vertex->color[1] = 0;
+                    vertex->color[2] = 0;
+                    vertex->color[3] = 0xFF;
+                    vertex++;
+                    vertex->color[0] = 0;
+                    vertex->color[1] = 0;
+                    vertex->color[2] = 0;
+                    vertex->color[3] = 0xFF;
+                }
+                if (opcode == 0xFC) {
+                    command->w0 = 0xFC127E05;
+                    command->w1 = 0xFFFFF3F8;
+                }
+                if (opcode == 0xEF) {
+                    command->w0 |= 0x100000;
+                    command->w1 = 0x0F0A4000;
+                }
+                command++;
+            } while (opcode != 0xDF);
+            resourceId++;
+            index++;
+        } while (resourceId != 0x1E3);
+        D_800E0C80 = 0;
+        D_800E0C81 = 0;
+        D_800E0C82 = 0;
+        D_800E0C83 = 0;
+        D_800E0C7C->text[0][0] = 0;
+        D_800E0C7C->text[1][0] = 0;
+        D_800E0C84 = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151EDF4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDF4C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEBE8.s")

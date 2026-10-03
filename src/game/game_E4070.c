@@ -156,6 +156,92 @@ void func_150B6DFC(void *arg0) {
         *(s16 *)((u8 *)arg0 + 0x34) = -0xC00;
     }
 }
+/* The effect allocator reserves 0x4C bytes and copies its 0x3C-byte payload at +0x10. */
+typedef struct {
+    u8 unknown00[0x10];
+    void *resource;
+    u8 unknown14[4];
+    s32 target_phase;
+    s32 target_y;
+    s32 cycles;
+    s16 lifetime;
+    s16 phase;
+    u8 unknown28[4];
+    f32 x;
+    f32 y;
+    u8 unknown34[8];
+    s16 width;
+    s16 height;
+    s8 callback;
+    u8 frame_count;
+    u8 unknown42[3];
+    u8 opacity;
+    u8 unknown46[6];
+} GameE4070Effect;
+
+extern u8 D_80091918;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6E3C CURRENT (625) */
+void func_150B6E3C(GameE4070Effect *effect) {
+    s32 distance;
+    s32 opacity;
+
+    if (effect->cycles == 0 || effect->target_phase != effect->phase ||
+        (effect->y < (f32)effect->target_y ?
+            -(effect->y - (f32)effect->target_y) :
+            effect->y - (f32)effect->target_y) > (f32)(D_800BE9E4 * 3)) {
+        effect->y -= (f32)(D_800BE9E4 * 3);
+        if (effect->y <= 140.0f) {
+            effect->phase += 0x100;
+            if (effect->phase >= (effect->frame_count << 8)) {
+                effect->phase = 0;
+            }
+            effect->y = 200.0f - (140.0f - effect->y);
+        }
+        if (effect->y < 170.0f) {
+            distance = (s32)-(effect->y - 170.0f);
+        } else {
+            distance = (s32)(effect->y - 170.0f);
+        }
+        opacity = 0xFF - distance * 8;
+        if (opacity < 0) {
+            opacity = 0;
+        }
+        effect->opacity = opacity;
+    } else {
+        effect->y = (f32)effect->target_y;
+        if (effect->target_y == 170) {
+            opacity = effect->opacity + D_800BE9E4 * 8;
+            if (opacity >= 0x100) {
+                opacity = 0;
+                effect->cycles++;
+                if (effect->cycles == 3) {
+                    effect->resource = &D_80091918;
+                    effect->callback = 8;
+                    effect->opacity = 0xFF;
+                    effect->width = 0x80;
+                    effect->height = 0x10;
+                    effect->phase = 0;
+                    effect->target_phase = 0;
+                    return;
+                }
+            }
+            effect->opacity = opacity;
+        } else {
+            if (effect->y < 170.0f) {
+                distance = (s32)-(effect->y - 170.0f);
+            } else {
+                distance = (s32)(effect->y - 170.0f);
+            }
+            opacity = 0xFF - distance * 9;
+            if (opacity < 0) {
+                opacity = 0;
+            }
+            effect->opacity = opacity;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B6E3C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E4070/func_150B6E3C.s")
 void func_150B709C(void *arg0) {
     s32 var_v0;

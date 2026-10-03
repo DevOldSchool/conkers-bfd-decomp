@@ -30,58 +30,69 @@ void func_151CF844(void *arg0, s32 arg1, u8 arg2) {
         func_15169850(arg1, (s32) arg2, (s32) temp_v0, (s32) temp_v0 + 4, (s32) arg0);
     }
 }
-typedef struct Game1CF898Locals {
-    f32 effect[4];
-    f32 distance;
-    f32 angle;
-    f32 yaw;
-    f32 *camera;
-    f32 position[3];
-    void *entity;
-} Game1CF898Locals;
+typedef struct Game71820XZ {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game71820XZ;
+
+typedef struct Game71820Hit {
+    f32 height;
+    s16 points[9];
+    s32 object;
+    u8 flags;
+    u8 active;
+    u8 pad1E[2];
+    s32 field20;
+} Game71820Hit;
 
 f32 func_150ADA68(void);
 u32 func_150ADA20(void);
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
-s32 func_15046C80(f32 *, s32, s32, f32 *);
+s32 func_15046C80(Game71820XZ *, u16, f32, Game71820Hit *);
 f32 func_15144AA8(s32);
 s32 func_15144B34(s32);
 void *func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AB020;
 extern f32 D_800AB024;
-extern f32 D_800D9860;
+extern Game71820Hit D_800D9860;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF898 CURRENT (2679) */
-void func_151CF898(u8 *arg0, f32 arg1, s32 arg2) {
-    Game1CF898Locals locals;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CF898 CURRENT (432) */
+void func_151CF898(void *arg0, f32 arg1, f32 arg2) {
+    struct {
+        Game71820XZ position;
+        f32 extra;
+    } effect;
+    f32 distance;
+    f32 angle;
+    f32 yaw;
+    f32 *camera;
+    Game71820XZ position;
     void *entity;
     void *result;
     s32 choice;
 
-    entity = *(void **)(arg0 + 0x318);
+    entity = *(void **)((u8 *)arg0 + 0x318);
     if (entity != 0 && func_150ADA68() < D_800AB020) {
-    locals.entity = entity;
-    locals.camera = (f32 *)func_15144B34(*(u8 *)((u8 *)entity + 0x23D));
-    locals.yaw = func_15144AA8(*(u8 *)((u8 *)entity + 0x23D));
-    locals.angle = ((func_150ADA68() * 80.0f) + (locals.yaw - 40.0f)) * D_800AB024;
-    locals.distance = func_150ADA68() * 2000.0f;
-    locals.position[1] = arg1;
-    locals.position[0] = locals.camera[0] - (func_15047D60(locals.angle) * locals.distance);
-    locals.position[2] = locals.camera[2] - (func_15047C00(locals.angle) * locals.distance);
-    if (func_15046C80(locals.position, 0, arg2, &D_800D9860) != 0) {
-        locals.position[1] = D_800D9860;
-        locals.effect[0] = locals.position[0];
-        locals.effect[1] = locals.position[1];
-        locals.effect[2] = locals.position[2];
-        locals.effect[3] = 0.0f;
-        choice = (s16)((func_150ADA20() % 131U) + 0x33);
-        result = func_15149130(choice, -1, 0x20, -1, 1, 0, 0x10, 0xFF, 1);
-        if (result != 0) {
-            func_10022EC0((u8 *)result + 0x28, locals.effect, 0x10);
+        camera = (f32 *)func_15144B34(*(u8 *)((u8 *)entity + 0x23D));
+        yaw = func_15144AA8(*(u8 *)((u8 *)entity + 0x23D));
+        angle = ((func_150ADA68() * 80.0f) + (yaw - 40.0f)) * D_800AB024;
+        distance = func_150ADA68() * 2000.0f;
+        position.x = camera[0] - (func_15047D60(angle) * distance);
+        position.y = arg1;
+        position.z = camera[2] - (func_15047C00(angle) * distance);
+        if (func_15046C80(&position, 0, arg2, &D_800D9860) != 0) {
+            position.y = D_800D9860.height;
+            effect.position = position;
+            effect.extra = 0.0f;
+            choice = (s16)((func_150ADA20() % 131U) + 0x33);
+            result = func_15149130(choice, -1, 0x20, -1, 1, 0, 0x10, 0xFF, 1);
+            if (result != 0) {
+                func_10022EC0((u8 *)result + 0x28, &effect, 0x10);
+            }
         }
-    }
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151CF898 */

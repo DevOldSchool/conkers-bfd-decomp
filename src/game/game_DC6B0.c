@@ -22,7 +22,15 @@
 
 s32 func_151149AC(u8);
 void func_1505D024(s32, s32, s32, s32);
-extern u8 D_800CC2D0;
+typedef struct GameCollisionHeightActor {
+    u8 pad00[0x18];
+    f32 y;
+    u8 pad1C[0x2FC];
+    void *entity;
+    u8 pad31C[0x10];
+} GameCollisionHeightActor;
+
+extern GameCollisionHeightActor D_800CC2D0[];
 extern u8 D_800CC3D4;
 extern s32 D_800DBEF4;
 extern s32 D_800DBF94;
@@ -48,14 +56,14 @@ void func_150AF200(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AF200 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF200.s")
-extern void func_151CF898(void *arg0, f32 arg1, f32 arg2, void *arg3);
+extern void func_151CF898(void *arg0, f32 arg1, f32 arg2);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 CURRENT (10) */
 void func_150AF2E0(void *arg0, void *arg1) {
     s32 temp_v0;
 
     temp_v0 = *(s16 *)((u8 *)arg1 + 2);
-    func_151CF898(arg0, (f32)(temp_v0 + *(s16 *)((u8 *)arg1 + 8)), (f32)temp_v0, arg1);
+    func_151CF898(arg0, (f32)(temp_v0 + *(s16 *)((u8 *)arg1 + 8)), (f32)temp_v0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150AF2E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150AF2E0.s")

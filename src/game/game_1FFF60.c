@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151D2B4C
  * - func_151D2DCC
  * - func_151D2E14
  * - func_151D2E5C
@@ -33,28 +32,20 @@ void func_151D2AB0(s32 arg0) {
         *(s16 *)((u8 *)D_800E0968 + arg0 * 2) = (s16)(sp1C >> 4);
     }
 }
-void func_100043B4(s32, s32, s32);
+void func_100043B4(void *, s32);
 extern u8 D_800E0950[];
 extern s32 D_800E0990[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D2B4C CURRENT (30) */
 void func_151D2B4C(s32 arg0) {
-    u8 *temp_v0;
-    u8 temp_t7;
-    u8 temp_v1;
+    u8 *refcount;
 
-    temp_v0 = &D_800E0950[arg0];
-    temp_v1 = *temp_v0;
-    temp_t7 = temp_v1 - 1;
-    if (temp_v1 != 0) {
-        *temp_v0 = temp_t7;
-        if (!(temp_t7 & 0xFF)) {
-            func_100043B4(D_800E0990[arg0], 4, arg0);
+    refcount = &D_800E0950[arg0];
+    if (*refcount != 0) {
+        if (--*refcount == 0) {
+            func_100043B4((void *)D_800E0990[arg0], 4);
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151D2B4C */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1FFF60/func_151D2B4C.s")
 void *func_15167A68(s32, s32, s32, s32, u8, u8);
 void func_10022EC0(void *, void *, s32);
 void func_151D3308(void *);

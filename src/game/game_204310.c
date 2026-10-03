@@ -45,9 +45,8 @@ void func_1504332C(u8, u8, u8, u8);
 s32 func_15042E3C(s32 *, s32);
 extern s32 D_800AB254;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7000 CURRENT (610) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7000 CURRENT (626) */
 s32 func_151D7000(u8 *arg0) {
-    volatile s32 spacer;
     u8 *entry;
     u8 *object;
     s16 value;
@@ -86,8 +85,9 @@ extern u8 D_80083740[];
 extern u8 D_800838C0[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151D710C CURRENT (550) */
-void func_151D710C(void *arg0, void *arg1, s32 arg2, s32 arg3, s8 *arg4) {
+s32 func_151D710C(void *arg0, void *arg1, s32 arg2, s32 arg3, s8 *arg4) {
     void *temp_v0;
+    s32 result;
 
     temp_v0 = arg0;
     if (*(u8 *)((u8 *)arg1 + 0x43) < 0xFF) {
@@ -99,8 +99,9 @@ void func_151D710C(void *arg0, void *arg1, s32 arg2, s32 arg3, s8 *arg4) {
         *(u8 **)((u8 *)temp_v0 + 4) = D_800838C0;
         arg0 = (u8 *)arg0 + 8;
     }
-    func_15133EEC(func_15133EEC((s32)arg0, 0xC3, 6, 3), 0xC3, 7, 3);
+    result = func_15133EEC(func_15133EEC((s32)arg0, 0xC3, 6, 3), 0xC3, 7, 3);
     *arg4 = 1;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D710C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204310/func_151D710C.s")

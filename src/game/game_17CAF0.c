@@ -333,10 +333,34 @@ s32 func_1515452C(u8 *arg0) {
     }
 }
 void func_15143794(s16, s16, f32, void *);
-void func_151C5F44(s32, f32 *, f32, s32, s32, s32, f32, s32, s32, s32, s32);
+void func_151C5F44(s32, f32 *, f32, f32, s32, s32, f32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154684 CURRENT (2632) */
-void func_15154684(void *arg0, s32 arg1, s32 arg2) {
+typedef struct {
+    s16 field00;
+    s16 field02;
+    s32 field04;
+    s16 field08;
+    s16 field0A;
+    s16 field0C;
+    s16 field0E;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    u8 field24;
+    s8 field25;
+    s16 field26;
+    s16 field28;
+    u8 pad2A[2];
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+    s32 field38;
+} Game17CAF0Packet;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15154684 CURRENT (2250) */
+void func_15154684(s16 *arg0, u8 arg1, s32 arg2) {
     s32 mode;
     f32 direction[3];
     f32 size_random;
@@ -344,26 +368,28 @@ void func_15154684(void *arg0, s32 arg1, s32 arg2) {
     s32 count;
     u32 random_a;
     u32 random_b;
+    Game17CAF0Packet *packet;
 
-    count = (func_150ADA20() % (u32)(*(s16 *)((u8 *)arg0 + 2) + 1)) + *(s16 *)arg0;
+    packet = (Game17CAF0Packet *)arg0;
+    count = (func_150ADA20() % (u32)(packet->field02 + 1)) + packet->field00;
     if (count > 0) {
         do {
             random_a = func_150ADA20();
             random_b = func_150ADA20();
             func_15143794((s16)(random_a & 0xFF),
-                (s16)((random_b % (u32)(*(s16 *)((u8 *)arg0 + 0xE) + 1)) + *(s16 *)((u8 *)arg0 + 0xA)),
-                (func_150ADA68() * *(f32 *)((u8 *)arg0 + 0x14)) + *(f32 *)((u8 *)arg0 + 0x10), direction);
+                (s16)((random_b % (u32)(packet->field0E + 1)) + packet->field0A),
+                (func_150ADA68() * packet->field14) + packet->field10, direction);
             size_random = func_150ADA68();
             random_a = func_150ADA20();
             random_b = func_150ADA20();
             speed_random = func_150ADA68();
-            mode = func_150ADA68() < *(f32 *)((u8 *)arg0 + 0x34) ? 1 : 0;
-            func_151C5F44(*(s32 *)((u8 *)arg0 + 4), direction,
-                (size_random * *(f32 *)((u8 *)arg0 + 0x1C)) + *(f32 *)((u8 *)arg0 + 0x18),
-                *(s32 *)((u8 *)arg0 + 0x20),
-                (random_a % (u32)(((u8 *)arg0)[0x25] + 1)) + ((u8 *)arg0)[0x24],
-                (random_b % (u32)(*(s16 *)((u8 *)arg0 + 0x28) + 1)) + *(s16 *)((u8 *)arg0 + 0x26),
-                speed_random * *(f32 *)((u8 *)arg0 + 0x30) + *(f32 *)((u8 *)arg0 + 0x2C), mode, *(s32 *)((u8 *)arg0 + 0x38), arg1 & 0xFF, arg2);
+            mode = func_150ADA68() < packet->field34 ? 1 : 0;
+            func_151C5F44(packet->field04, direction,
+                (size_random * packet->field1C) + packet->field18,
+                packet->field20,
+                (random_a % (u32)((u8)packet->field25 + 1)) + packet->field24,
+                (random_b % (u32)(packet->field28 + 1)) + packet->field26,
+                speed_random * packet->field30 + packet->field2C, mode, packet->field38, arg1, arg2);
             count--;
         } while (count > 0);
     }

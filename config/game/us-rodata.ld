@@ -5,6 +5,11 @@
  */
 SECTIONS
 {
+    /* Constructor literals: docs/evidence/game_981e0_constructor_literal_pool.md. */
+    .game_rodata_981e0 0x80099DAC (INFO) : SUBALIGN(4)
+    {
+        *game_981E0.o(.rodata)
+    }
     /* ROM-verified constant: docs/evidence/game_11d830_float_constant.md. */
     .game_rodata_11d830 0x800A1854 (INFO) : SUBALIGN(4)
     {
@@ -145,3 +150,9 @@ __game_rodata_1483e0_payload_size = 0xD8;
 
 ASSERT(SIZEOF(.game_rodata_61490) == 0xA0, "game_61490 table extent changed")
 __game_rodata_61490_payload_size = 0x94;
+
+ASSERT(SIZEOF(.game_rodata_981e0) == 0xF0,
+       "game_981E0 constructor literal pool extent changed")
+__game_rodata_981e0_payload_size = 0xEC;
+ASSERT(__game_rodata_981e0_payload_size == 0xEC,
+       "game_981E0 constructor literal payload extent changed")

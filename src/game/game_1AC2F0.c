@@ -111,6 +111,57 @@ s32 func_1517EFDC(void) {
     }
     return 0;
 }
+typedef struct Game1AC2F0FillCommand {
+    u32 word0;
+    u32 word1;
+} Game1AC2F0FillCommand;
+
+typedef struct Game1AC2F0FillViewportPrefix {
+    u8 unknown00[0x24];
+    f32 top24;
+    f32 bottom28;
+    f32 left2C;
+    f32 right30;
+} Game1AC2F0FillViewportPrefix;
+
+extern s32 D_800BE628;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F08C CURRENT (2105) */
+s32 func_1517F08C(s32 cursor, s32 alpha, s32 red, s32 green, s32 blue,
+                 s32 viewport_index) {
+    Game1AC2F0FillCommand *command;
+    Game1AC2F0FillViewportPrefix *view;
+
+    command = (Game1AC2F0FillCommand *)cursor;
+    cursor = (s32)(command + 1);
+    command->word0 = 0xE7000000;
+    command->word1 = 0;
+    command = (Game1AC2F0FillCommand *)cursor;
+    cursor = (s32)(command + 1);
+    command->word0 = 0xFCFFFFFF;
+    command->word1 = 0xFFFDF6FB;
+    command = (Game1AC2F0FillCommand *)cursor;
+    cursor = (s32)(command + 1);
+    command->word0 = 0xFA000000;
+    command->word1 = ((u32)red << 24) | (((u32)green & 0xFF) << 16) |
+                     (((u32)blue & 0xFF) << 8) | ((u32)alpha & 0xFF);
+    command = (Game1AC2F0FillCommand *)cursor;
+    cursor = (s32)(command + 1);
+    command->word0 = 0xEF002CFF;
+    command->word1 = 0x00504344;
+    command = (Game1AC2F0FillCommand *)cursor;
+    cursor = (s32)(command + 1);
+    view = (Game1AC2F0FillViewportPrefix *)
+        ((u8 *)D_800BE628 + viewport_index * 0x180);
+    command->word0 = 0xF6000000 | (((u32)view->bottom28 & 0x3FF) << 2) |
+                     (((u32)view->right30 & 0x3FF) << 14);
+    view = (Game1AC2F0FillViewportPrefix *)
+        ((u8 *)D_800BE628 + viewport_index * 0x180);
+    command->word1 = (((u32)view->top24 & 0x3FF) << 2) |
+                     (((u32)view->left2C & 0x3FF) << 14);
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517F08C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F08C.s")
 
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);

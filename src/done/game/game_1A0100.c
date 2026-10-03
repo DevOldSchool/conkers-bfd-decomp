@@ -3,17 +3,11 @@
 /*
  * Reviewed source unit: src/game/game_1A0100.c
  * Boundary evidence: docs/evidence/game_raw_slot_view_controller_groups.md
- *
- * TODO: Implement these source-unit functions:
- * - func_15172C50
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-extern s8 D_800DD2B0[16];
-extern u8 D_800DD2C0[16];
+extern s8 D_800DD2B0[];
+extern u8 D_800DD2C0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15172C50 CURRENT (10) */
 void func_15172C50(s32 arg0) {
     s32 i;
 
@@ -23,8 +17,6 @@ void func_15172C50(s32 arg0) {
     }
     D_800DD2C0[0] = arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15172C50 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1A0100/func_15172C50.s")
 
 void func_1517EE40(s32, s32, s32, s32, s32, s32);
 

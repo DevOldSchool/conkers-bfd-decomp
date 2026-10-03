@@ -339,6 +339,175 @@ def main_eligible(candidate: Path, reference: Path, symbol: str, size: int) -> b
         return False
 
 
+def game_eligible(candidate: Path, reference: Path, symbol: str, size: int) -> bool:
+    """GAME only admits exact-extent, symbolic data-address aliases."""
+    try:
+        return address_alias_present(Object32(candidate.read_bytes()),
+                                     Object32(reference.read_bytes()), symbol, size)
+    except ValueError:
+        return False
+
+
+def game_unit_registered(root: Path, source: str, symbol: str) -> bool:
+    """Registered units cannot fall back to a focused-only alias proof."""
+    path = root / "progress/source_units.json"
+    if not path.is_file():
+        return False
+    units = json.loads(path.read_text())["source_units"]
+    return any(unit["source"] == source or symbol in unit["functions"] for unit in units)
+
+
+def game_context(root: Path, source: str, symbol: str, start: int, size: int):
+    """Resolve one complete, contiguous, reviewed US GAME source unit."""
+    inventory = json.loads((root / "progress/functions.json").read_text())["functions"]
+    matches = [entry for entry in inventory
+               if entry.get("regions", {}).get("us", {}).get("symbol") == symbol]
+    if len(matches) != 1:
+        raise ValueError("game comparison requires one registered function")
+    entry = matches[0]
+    if (entry.get("overlay") != "game" or entry["source"] != source
+            or Path(source).as_posix() != source or Path(source).is_absolute()
+            or ".." in Path(source).parts
+            or int(entry["regions"]["us"]["vram"], 16) != start):
+        raise ValueError("game comparison source, address or full span differs from registration")
+    units = json.loads((root / "progress/source_units.json").read_text())["source_units"]
+    owners = [unit for unit in units
+              if unit["source"] == source or entry["symbol"] in unit["functions"]]
+    if (len(owners) != 1 or owners[0]["source"] != source
+            or entry["symbol"] not in owners[0]["functions"]
+            or owners[0].get("boundary_evidence", {}).get("us", {}).get("reviewed") is not True):
+        raise ValueError("game comparison requires one reviewed source-unit owner")
+    unit = owners[0]
+    identifiers = unit["functions"]
+    if len(set(identifiers)) != len(identifiers) or not identifiers:
+        raise ValueError("game comparison has ambiguous source-unit membership")
+    members = []
+    for identifier in identifiers:
+        found = [member for member in inventory if member["symbol"] == identifier]
+        if (len(found) != 1 or found[0]["source"] != source
+                or found[0].get("overlay") != "game" or "us" not in found[0]["regions"]
+                or any(other is not unit and identifier in other["functions"] for other in units)):
+            raise ValueError("game comparison has an ambiguous or foreign source-unit member")
+        members.append(found[0])
+    if {member["symbol"] for member in inventory if member.get("source") == source} != set(identifiers):
+        raise ValueError("game comparison omits a registered source-unit member")
+    bounds = unit["regions"]["us"]
+    boundary_start, boundary_end = int(bounds["start"], 16), int(bounds["end"], 16)
+    extent = boundary_end - boundary_start
+    game_identifiers = {member["symbol"] for member in inventory
+                        if member.get("overlay") == "game" and "us" in member.get("regions", {})}
+    for other in units:
+        region = other.get("regions", {}).get("us")
+        if other is unit or region is None or not game_identifiers.intersection(other["functions"]):
+            continue
+        other_start, other_end = int(region["start"], 16), int(region["end"], 16)
+        if other_start < 0 or other_end <= other_start:
+            raise ValueError("game comparison has invalid foreign source-unit bounds")
+        # Ownership comes from registered unit intervals even when a foreign
+        # final member has no size_bytes. Touching half-open boundaries are safe.
+        if boundary_start < other_end and other_start < boundary_end:
+            raise ValueError("game comparison overlaps another registered GAME source unit")
+    unit_start = int(members[0]["regions"]["us"]["vram"], 16)
+    cursor = unit_start
+    addresses = {}
+    spans = {}
+    for index, member in enumerate(members):
+        region = member["regions"]["us"]
+        address = int(region["vram"], 16)
+        end = (int(members[index + 1]["regions"]["us"]["vram"], 16)
+               if index + 1 < len(members) else unit_start + extent)
+        span = region.get("size_bytes", end - address)
+        if (address != cursor or not isinstance(span, int) or span <= 0 or span % 4
+                or region["symbol"] != f"func_{address:08X}" or region["symbol"] in addresses):
+            raise ValueError("game comparison member spans are not contiguous and unambiguous")
+        addresses[region["symbol"]] = address
+        spans[region["symbol"]] = span
+        cursor += span
+    if spans[symbol] != size:
+        raise ValueError("game comparison does not cover the full registered span")
+    if unit_start % 16 or extent <= 0 or extent % 16 or cursor != unit_start + extent:
+        raise ValueError("game comparison has an invalid complete unit extent or alignment")
+    for member in inventory:
+        region = member.get("regions", {}).get("us")
+        if member.get("overlay") != "game" or region is None or member in members:
+            continue
+        address = int(region["vram"], 16)
+        if (region["symbol"] in addresses or unit_start <= address < cursor
+                or address < unit_start < address + int(region.get("size_bytes", 0))):
+            raise ValueError("game comparison unit overlaps another registered function")
+    return entry, unit, members, addresses, unit_start, extent, spans
+
+
+def game_definitions(obj: Object32, addresses: dict[str, int], section: int,
+                     base: int) -> dict[str, int] | None:
+    """Inspect the entire object, including dependencies outside the target."""
+    names = [name for symbols in obj.symbols.values() for name, _, _, _ in symbols if name]
+    if len(names) != len(set(names)):
+        return None
+    for (location_section, offset), (kind, (_, _, _, defined_section)) in obj.relocations.items():
+        # This capability has no data/jump-table ownership or non-text fixups.
+        if location_section != section:
+            return None
+        word = obj.word(location_section, offset)
+        if defined_section and (kind != 4 or word >> 26 != 3 or word & 0x03FFFFFF):
+            return None
+    if any(index != section and header[1] in (1, 8) and header[2] & 6 and header[5]
+           for index, header in enumerate(obj.sections)):
+        return None
+    return definitions(obj, text_addresses=addresses, text_section=section, text_base=base)
+
+
+def prepare_game(root: Path, source: str, candidate: Path, reference: Path, assembly: Path,
+                 symbol: str, start: int, size: int) -> tuple[Path, Path] | None:
+    """Prove the target and every physical byte of its freshly built GAME unit."""
+    entry, unit, members, addresses, unit_start, extent, spans = game_context(root, source, symbol, start, size)
+    current, raw = Object32(candidate.read_bytes()), Object32(reference.read_bytes())
+    if not address_alias_present(current, raw, symbol, size):
+        return None
+    measured, text_size, alignment = layout_check.archived_object_layout(current.data)
+    layout_check.validate_layout(entry, unit, measured, text_size, alignment, "us", root=root)
+    origin, section = function(current, symbol, size)
+    if alignment != 16 or text_size != extent or start - origin != unit_start:
+        raise layout_check.LayoutMismatch("game comparison needs the exact unit extent, origin and alignment")
+    current_symbols = game_definitions(current, addresses, section, unit_start)
+    raw_origin, raw_section = function(raw, symbol, size, reference=True)
+    raw_symbols = game_definitions(raw, {}, raw_section, start - raw_origin)
+    if current_symbols is None or raw_symbols is None:
+        return None
+    for member in members:
+        region = member["regions"]["us"]
+        position, member_section = function(current, region["symbol"], spans[region["symbol"]], padding=True)
+        if member_section != section or position != addresses[region["symbol"]] - unit_start:
+            raise layout_check.LayoutMismatch("game comparison member has an incorrect text position")
+    code, base, _ = rom_span.game_code(root)
+    if unit_start != base + int(unit["regions"]["us"]["start"], 16):
+        raise ValueError("game comparison unit base differs from the US ROM")
+    expected = rom_span.raw_span(assembly.read_text(), start, size, code, base)
+    unit_offset = unit_start - base
+    expected_unit = code[unit_offset:unit_offset + extent]
+    if unit_offset < 0 or len(expected_unit) != extent:
+        raise ValueError("game comparison unit exceeds the US ROM")
+    output = root / "build/us/linked-aliases" / symbol
+    output.mkdir(parents=True, exist_ok=True)
+    raw_bytes = linked_span(reference, raw, symbol, start, size, raw_symbols,
+                            output / "reference", reference=True)
+    if raw_bytes != expected:
+        raise ValueError("linked raw-reference span differs from the US ROM")
+    current_bytes = linked_span(candidate, current, symbol, start, size, current_symbols,
+                                output / "candidate", reference=False)
+    # linked_span writes the whole real .text section before extracting the
+    # bounded display span. No fabricated alignment or cropped unit is accepted.
+    complete = (output / "candidate.bin").read_bytes()
+    if candidate.read_bytes() != current.data or reference.read_bytes() != raw.data:
+        raise ValueError("game comparison objects changed during proof")
+    if current_bytes != expected or complete != expected_unit:
+        return None
+    paths = output / "candidate.o", output / "reference.o"
+    for path, payload in zip(paths, (current_bytes, raw_bytes)):
+        path.write_bytes(comparison_object(payload, symbol))
+    return paths
+
+
 def prepare_main(root: Path, source: str, candidate: Path, reference: Path, assembly: Path,
                  symbol: str, start: int, size: int) -> tuple[Path, Path] | None:
     """Prove a freshly compiled mixed main object, without altering its layout."""
