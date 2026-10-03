@@ -282,7 +282,8 @@ def canonical_digest(value):
 class ScenePropSemanticNameTests(unittest.TestCase):
     def test_all_91_prior_records_and_haybot_branch_are_unchanged(self):
         registry = names.load_registry()
-        retained = [r for r in registry["models"] if r["bank"] != 4]
+        retained = [r for r in registry["models"] if r["bank"] != 4
+                    and "docs/evidence/remaining_character_semantic_registry_expansion.md" not in r["evidence"]]
         self.assertEqual(91, len(retained))
         self.assertEqual("daab097c956a0343961bba5e5d20d4641fef1b0758a8cbd03ec677e6197561b0", canonical_digest(retained))
         self.assertEqual([(1, 75, 0)], [(r["bank"], r["entry"], r["segment"])
@@ -304,7 +305,7 @@ class ScenePropSemanticNameTests(unittest.TestCase):
                 self.assertTrue(any("initial-slot renderer" in s for s in record["limitations"]))
                 self.assertTrue(any("bank-0C child 2 does not supply" in s for s in record["limitations"]))
         self.assertEqual(44, len({c["symbol"] for r in records for c in r["consumers"]}))
-        self.assertEqual(685, sum(len(r["consumers"]) for r in records))
+        self.assertEqual(923, sum(len(r["consumers"]) for r in records))
 
     def test_source_names_do_not_spread_to_other_banks_or_neighbor_segments(self):
         registry = names.load_registry()

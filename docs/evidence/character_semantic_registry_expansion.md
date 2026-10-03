@@ -9,7 +9,9 @@ and bank-09 identities, bringing that stage to 37. A further
 [character-model expansion](additional_character_semantic_registry_expansion.md)
 adds 30 bounded identities, bringing that stage to 91. The
 [scene-prop expansion](scene_prop_semantic_registry_expansion.md) adds 20
-bank-04 identities, bringing the registry to 111. Counts and validation results
+bank-04 identities, bringing that stage to 111. The
+[remaining-character expansion](remaining_character_semantic_registry_expansion.md)
+adds 34 bounded bank-01 identities, bringing the registry to 145. Counts and validation results
 below describe the 17-model stage. The pilot's totals remain historical.
 The additions change descriptive model labels and naming-audit metadata only;
 no linked symbol, character controller, C expression, ABI or match status follows
