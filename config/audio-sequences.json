@@ -1,0 +1,3102 @@
+{
+  "schema_version": 1,
+  "family": "conker-us-music-sequence-labels",
+  "profile": "us",
+  "identity": "Compact-sequence index within indexed bank 0x17, entry 3",
+  "notice": "Labels are descriptive identifications made by ear from local previews. They are not recovered source names and do not prove runtime use. The sequence index remains the ROM identity.",
+  "evidence": "docs/evidence/us_music_track_names.md",
+  "categories": [
+    "Chapter 1: Hung Over",
+    "Chapter 2: Windy",
+    "Chapter 3: Barn Boys",
+    "Chapter 4: Bats Tower",
+    "Chapter 5: Sloprano",
+    "Chapter 6: Uga Buga",
+    "Chapter 7: Spooky",
+    "Chapter 8: It's War",
+    "Chapter 9: The Heist",
+    "Multiplayer",
+    "SFX",
+    "Menu",
+    "Other"
+  ],
+  "references": [
+    {
+      "key": "story",
+      "description": "Public story-mode playthrough recording",
+      "url": "https://www.youtube.com/watch?v=3PftWpkdcTc"
+    },
+    {
+      "key": "multiplayer1",
+      "description": "Public multiplayer recording 1",
+      "url": "https://www.youtube.com/watch?v=EiUtagv_SaU"
+    },
+    {
+      "key": "multiplayer2",
+      "description": "Public multiplayer recording 2",
+      "url": "https://www.youtube.com/watch?v=tYOWg_OJO14"
+    },
+    {
+      "key": "multiplayer3",
+      "description": "Public multiplayer recording 3",
+      "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY"
+    }
+  ],
+  "sequences": [
+    {
+      "index": 0,
+      "name": "Blank",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 1,
+      "name": "MainTheme",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": false,
+      "multiplayer": false,
+      "note": "Buzzing bees version",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1116,
+          "end_seconds": 1190,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1116s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 1262,
+          "end_seconds": 1326,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1262s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 1385,
+          "end_seconds": 1477,
+          "sequence_offset_seconds": 96,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1385s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 1508,
+          "end_seconds": 1553,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1508s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 1589,
+          "end_seconds": 1907,
+          "sequence_offset_seconds": 136,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1589s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 2058,
+          "end_seconds": 2696,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=2058s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 3217,
+          "end_seconds": 3278,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3217s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 3441,
+          "end_seconds": 3468,
+          "sequence_offset_seconds": 136,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3441s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 3520,
+          "end_seconds": 3603,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3520s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 3630,
+          "end_seconds": 3659,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3630s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 4500,
+          "end_seconds": 4667,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4500s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 6092,
+          "end_seconds": 6164,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6092s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 6197,
+          "end_seconds": 6225,
+          "sequence_offset_seconds": 64,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6197s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 9992,
+          "end_seconds": 10008,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9992s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10098,
+          "end_seconds": 10175,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10098s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10416,
+          "end_seconds": 10481,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10416s"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "name": "SadSong3",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the queen bee is crying over her hive, when Frank is split into two and when Conker farewells his TRex. Possibly reprises elswhere too.",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1135,
+          "end_seconds": 1168,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1135s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 3007,
+          "end_seconds": 3039,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3007s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 9770,
+          "end_seconds": 9795,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9770s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10006,
+          "end_seconds": 10102,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10006s"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1469,
+          "end_seconds": 1516,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1469s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 6159,
+          "end_seconds": 6202,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6159s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10475,
+          "end_seconds": 10514,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10475s"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "name": "WaspChase",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1198,
+          "end_seconds": 1230,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1198s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 2737,
+          "end_seconds": 2768,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=2737s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 5731,
+          "end_seconds": 5848,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5731s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10169,
+          "end_seconds": 10380,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10169s"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "name": "BeehiveJingle",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": false,
+      "multiplayer": false,
+      "note": "Related to the stuff with the beehive",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1227,
+          "end_seconds": 1259,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1227s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10377,
+          "end_seconds": 10402,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10377s"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "name": "BeeChase",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "Maybe",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1990,
+          "end_seconds": 2060,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1990s"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "name": "MarvinExplodes",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the cheese rat (Marvin?) explodes",
+      "heard_at": []
+    },
+    {
+      "index": 8,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Fuckin weird blank file?",
+      "heard_at": []
+    },
+    {
+      "index": 9,
+      "name": "UngaBungaIntro",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "Played at the start of Unga Bunga",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 7449,
+          "end_seconds": 7504,
+          "sequence_offset_seconds": 104,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7449s"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "name": "PisstasticBackground",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when pissing on the fire imps",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 5632,
+          "end_seconds": 5667,
+          "sequence_offset_seconds": 48,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5632s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10506,
+          "end_seconds": 10526,
+          "sequence_offset_seconds": 48,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10506s"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "name": "FireImpPassive",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": false,
+      "multiplayer": false,
+      "note": "?",
+      "heard_at": []
+    },
+    {
+      "index": 12,
+      "name": "TerminatorThing",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": true,
+      "multiplayer": false,
+      "note": "Also related to the fight with the haybail",
+      "heard_at": []
+    },
+    {
+      "index": 13,
+      "name": "JawsThemeThing",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": true,
+      "multiplayer": false,
+      "note": "Before or after the cog thing",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 4678,
+          "end_seconds": 4703,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4678s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 5170,
+          "end_seconds": 5187,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5170s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 5259,
+          "end_seconds": 5284,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5259s"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle",
+      "heard_at": []
+    },
+    {
+      "index": 15,
+      "name": "BatTowerBackground",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays during the bats tower/unga bunga",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 4775,
+          "end_seconds": 4823,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4775s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 4856,
+          "end_seconds": 5171,
+          "sequence_offset_seconds": 112,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4856s"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "name": "MultiplayerMenu1",
+      "confidence": "identified",
+      "category": "Menu",
+      "story": false,
+      "multiplayer": true,
+      "note": "Where the kegs are I think",
+      "heard_at": []
+    },
+    {
+      "index": 17,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle",
+      "heard_at": []
+    },
+    {
+      "index": 18,
+      "name": "CogBackgroundMusic",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": true,
+      "multiplayer": false,
+      "note": "Story mode",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 4712,
+          "end_seconds": 4768,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4712s"
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "name": "GunfireAndRicochets1",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": true,
+      "note": "Bullets and ricochets",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 14355,
+          "end_seconds": 14380,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14355s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 437,
+          "end_seconds": 477,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=437s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2998,
+          "end_seconds": 3022,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2998s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5946,
+          "end_seconds": 5986,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5946s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 7238,
+          "end_seconds": 7270,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=7238s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 3003,
+          "end_seconds": 3035,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=3003s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 3267,
+          "end_seconds": 3291,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=3267s"
+        },
+        {
+          "reference": "multiplayer3",
+          "start_seconds": 368,
+          "end_seconds": 392,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY&t=368s"
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Death/Grim Reaper scene?",
+      "heard_at": []
+    },
+    {
+      "index": 21,
+      "name": "Gameboy",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "Idle animation music; plays when no input is received from the player",
+      "heard_at": []
+    },
+    {
+      "index": 22,
+      "name": "MoreGameboy",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Idle animation music; plays when no input is received from the player",
+      "heard_at": []
+    },
+    {
+      "index": 23,
+      "name": "GameboyYetAgain",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "Idle animation music; plays when no input is received from the player",
+      "heard_at": []
+    },
+    {
+      "index": 24,
+      "name": "IntroOST",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": true,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 85,
+          "end_seconds": 210,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=85s"
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "name": "ColosseumCrowd",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "Played during the fight with the giant",
+      "heard_at": []
+    },
+    {
+      "index": 26,
+      "name": "Horn",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays in the colosseum",
+      "heard_at": []
+    },
+    {
+      "index": 27,
+      "name": null,
+      "confidence": "unidentified",
+      "category": "Multiplayer",
+      "story": true,
+      "multiplayer": true,
+      "note": "No fucking idea really",
+      "heard_at": []
+    },
+    {
+      "index": 28,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Rock a by baby thing, don't remember this at all",
+      "heard_at": []
+    },
+    {
+      "index": 29,
+      "name": "TRexIntro",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "When the TRex enters the colosseum and eats a caveman",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 9278,
+          "end_seconds": 9318,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9278s"
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "name": "HeistMPBackgroundMusic",
+      "confidence": "identified",
+      "category": "Multiplayer",
+      "story": false,
+      "multiplayer": true,
+      "note": "Played in the background of the multiplayer minigame \"Heist\"",
+      "heard_at": [
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 793,
+          "end_seconds": 889,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=793s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2207,
+          "end_seconds": 2328,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2207s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2447,
+          "end_seconds": 2573,
+          "sequence_offset_seconds": 192,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2447s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 6215,
+          "end_seconds": 6311,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=6215s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 7343,
+          "end_seconds": 7439,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=7343s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 7503,
+          "end_seconds": 7536,
+          "sequence_offset_seconds": 176,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=7503s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 1251,
+          "end_seconds": 1291,
+          "sequence_offset_seconds": 48,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=1251s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 1425,
+          "end_seconds": 1521,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=1425s"
+        },
+        {
+          "reference": "multiplayer3",
+          "start_seconds": 1141,
+          "end_seconds": 1238,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY&t=1141s"
+        },
+        {
+          "reference": "multiplayer3",
+          "start_seconds": 1293,
+          "end_seconds": 1444,
+          "sequence_offset_seconds": 152,
+          "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY&t=1293s"
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "name": "GregGrimReaperCutsceneBackground",
+      "confidence": "identified",
+      "category": "Other",
+      "story": true,
+      "multiplayer": false,
+      "note": "From story mode",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 10792,
+          "end_seconds": 10937,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10792s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 11909,
+          "end_seconds": 11973,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=11909s"
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "name": "WarBackground",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": true,
+      "note": "Background music used in story and multiplayer, war related",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13835,
+          "end_seconds": 13907,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13835s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14217,
+          "end_seconds": 14242,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14217s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14315,
+          "end_seconds": 14340,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14315s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 413,
+          "end_seconds": 461,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=413s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 713,
+          "end_seconds": 746,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=713s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2627,
+          "end_seconds": 2696,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2627s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2757,
+          "end_seconds": 2846,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2757s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2998,
+          "end_seconds": 3123,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2998s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 3213,
+          "end_seconds": 3262,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=3213s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 3487,
+          "end_seconds": 3560,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=3487s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 3589,
+          "end_seconds": 3621,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=3589s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5492,
+          "end_seconds": 5516,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5492s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5585,
+          "end_seconds": 5657,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5585s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5922,
+          "end_seconds": 5962,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5922s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 6116,
+          "end_seconds": 6165,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=6116s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 7120,
+          "end_seconds": 7177,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=7120s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 7230,
+          "end_seconds": 7308,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=7230s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 1672,
+          "end_seconds": 1712,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=1672s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 1749,
+          "end_seconds": 2022,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=1749s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2066,
+          "end_seconds": 2107,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2066s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2152,
+          "end_seconds": 2302,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2152s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 3166,
+          "end_seconds": 3299,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=3166s"
+        },
+        {
+          "reference": "multiplayer3",
+          "start_seconds": 157,
+          "end_seconds": 206,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY&t=157s"
+        },
+        {
+          "reference": "multiplayer3",
+          "start_seconds": 328,
+          "end_seconds": 454,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY&t=328s"
+        },
+        {
+          "reference": "multiplayer3",
+          "start_seconds": 1070,
+          "end_seconds": 1118,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=VpmG9i2-uVY&t=1070s"
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "name": "Waves",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays throughout the WW2 chapter when you are near waves",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 12887,
+          "end_seconds": 12911,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12887s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14466,
+          "end_seconds": 14483,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14466s"
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "name": "CockAndThePluckerBackgroundMusic",
+      "confidence": "identified",
+      "category": "Menu",
+      "story": false,
+      "multiplayer": false,
+      "note": "Main menu",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 55,
+          "end_seconds": 88,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=55s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 377,
+          "end_seconds": 414,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=377s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 762,
+          "end_seconds": 794,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=762s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 929,
+          "end_seconds": 962,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=929s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 1088,
+          "end_seconds": 1120,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=1088s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2023,
+          "end_seconds": 2039,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2023s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2572,
+          "end_seconds": 2589,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2572s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2947,
+          "end_seconds": 2963,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2947s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 3323,
+          "end_seconds": 3406,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=3323s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 3664,
+          "end_seconds": 3739,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=3664s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5152,
+          "end_seconds": 5176,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5152s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5461,
+          "end_seconds": 5493,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5461s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5682,
+          "end_seconds": 5702,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5682s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5909,
+          "end_seconds": 5926,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5909s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 6197,
+          "end_seconds": 6216,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=6197s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 6396,
+          "end_seconds": 6431,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=6396s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 6601,
+          "end_seconds": 6612,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=6601s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 7315,
+          "end_seconds": 7347,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=7315s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 73,
+          "end_seconds": 106,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=73s"
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "name": "MultiplayerMenu2",
+      "confidence": "identified",
+      "category": "Menu",
+      "story": false,
+      "multiplayer": true,
+      "note": "Multiplayer Menu background maybe",
+      "heard_at": []
+    },
+    {
+      "index": 36,
+      "name": "FinalBoss1",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": true,
+      "multiplayer": false,
+      "note": "I think this might be from the end where the alien is fighting conker",
+      "heard_at": []
+    },
+    {
+      "index": 37,
+      "name": "WW2End2",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "Also played throughout the WW2 Chapter?",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13182,
+          "end_seconds": 13206,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13182s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 15024,
+          "end_seconds": 15040,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15024s"
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "name": "FootstepTurn4",
+      "confidence": "identified",
+      "category": "SFX",
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 39,
+      "name": "FootstepTurn3",
+      "confidence": "identified",
+      "category": "SFX",
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 40,
+      "name": "Footsteps1",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 41,
+      "name": "Footsteps2",
+      "confidence": "identified",
+      "category": "SFX",
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 42,
+      "name": "FootstepTurn",
+      "confidence": "identified",
+      "category": "SFX",
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 43,
+      "name": "FootstepTurn2",
+      "confidence": "identified",
+      "category": "SFX",
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 44,
+      "name": "TedizDen",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays after conker makes it through the normandy landing and gets inside the Tediz \"den\"",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13219,
+          "end_seconds": 13259,
+          "sequence_offset_seconds": 1,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13219s"
+        }
+      ]
+    },
+    {
+      "index": 45,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 46,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle/alert",
+      "heard_at": []
+    },
+    {
+      "index": 47,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle",
+      "heard_at": []
+    },
+    {
+      "index": 48,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "I think this is played underground after the fight with the haybail and there is all the electrical wiring and piss/water streaming in",
+      "heard_at": []
+    },
+    {
+      "index": 49,
+      "name": "Escape",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": false,
+      "multiplayer": false,
+      "note": "Part of the WW2 chapter and escaping Tediz island",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 14294,
+          "end_seconds": 14315,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14294s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 15147,
+          "end_seconds": 15161,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15147s"
+        }
+      ]
+    },
+    {
+      "index": 50,
+      "name": "AirRaidSiren2",
+      "confidence": "identified",
+      "category": null,
+      "story": true,
+      "multiplayer": true,
+      "note": "Another air raid siren. Maybe used seperately for Multiplayer. Total War?",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13997,
+          "end_seconds": 14013,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13997s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 1762,
+          "end_seconds": 1778,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=1762s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2927,
+          "end_seconds": 2944,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2927s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 4959,
+          "end_seconds": 4975,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=4959s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5038,
+          "end_seconds": 5054,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5038s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5081,
+          "end_seconds": 5098,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5081s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5316,
+          "end_seconds": 5333,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5316s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5375,
+          "end_seconds": 5392,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5375s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2023,
+          "end_seconds": 2039,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2023s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2475,
+          "end_seconds": 2491,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2475s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2526,
+          "end_seconds": 2542,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2526s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2663,
+          "end_seconds": 2680,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2663s"
+        }
+      ]
+    },
+    {
+      "index": 51,
+      "name": "AirRaidSiren1",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": true,
+      "note": "Plays during a bombing raid in the WW2 chapter when you are with Rodent. Also total war in multiplayer.",
+      "heard_at": [
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 2927,
+          "end_seconds": 2948,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=2927s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 5038,
+          "end_seconds": 5057,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=5038s"
+        },
+        {
+          "reference": "multiplayer2",
+          "start_seconds": 2023,
+          "end_seconds": 2044,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=tYOWg_OJO14&t=2023s"
+        }
+      ]
+    },
+    {
+      "index": 52,
+      "name": "SpiderChase",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays as conker is chased deep into the Tediz bunker by robot spiders",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13331,
+          "end_seconds": 13356,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13331s"
+        }
+      ]
+    },
+    {
+      "index": 53,
+      "name": "Poo",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "When you have to push shit up a hill",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 3846,
+          "end_seconds": 3894,
+          "sequence_offset_seconds": 27,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3846s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 4347,
+          "end_seconds": 4506,
+          "sequence_offset_seconds": 27,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4347s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 6308,
+          "end_seconds": 6499,
+          "sequence_offset_seconds": 170,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6308s"
+        }
+      ]
+    },
+    {
+      "index": 54,
+      "name": "IntroMusic",
+      "confidence": "identified",
+      "category": "Menu",
+      "story": false,
+      "multiplayer": false,
+      "note": "Played alongside the N64 logo getting chopped up with the chainsaw",
+      "heard_at": []
+    },
+    {
+      "index": 55,
+      "name": "ConkerIsDrunk",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": false,
+      "multiplayer": false,
+      "note": "When conker gets tanked",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 5624,
+          "end_seconds": 5640,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5624s"
+        }
+      ]
+    },
+    {
+      "index": 56,
+      "name": "BackgroundAndSuspense",
+      "confidence": "identified",
+      "category": null,
+      "story": true,
+      "multiplayer": false,
+      "note": "Maybe part of cutscenes",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 5959,
+          "end_seconds": 6032,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5959s"
+        }
+      ]
+    },
+    {
+      "index": 57,
+      "name": "BruteIsUnleashed",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": false,
+      "multiplayer": false,
+      "note": "The tether finally snaps and Brute is unleashed",
+      "heard_at": []
+    },
+    {
+      "index": 58,
+      "name": "BruteMaims",
+      "confidence": "identified",
+      "category": "Chapter 4: Bats Tower",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays when Brute the bulldog fish maims one of the catfish",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 6041,
+          "end_seconds": 6057,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6041s"
+        }
+      ]
+    },
+    {
+      "index": 59,
+      "name": "BruteChase",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when Brute the bulldog catfish chases you",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 6056,
+          "end_seconds": 6072,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6056s"
+        }
+      ]
+    },
+    {
+      "index": 60,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when conker is trying to climp up the slippery pier out of the reach of brute the bulldog catifsh",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 6070,
+          "end_seconds": 6092,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6070s"
+        }
+      ]
+    },
+    {
+      "index": 61,
+      "name": "RockSolidClubMusic",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "Played while inside the club \"Rock Solid\"",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 7167,
+          "end_seconds": 7197,
+          "sequence_offset_seconds": 224,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7167s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8322,
+          "end_seconds": 8334,
+          "sequence_offset_seconds": 128,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8322s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8376,
+          "end_seconds": 8416,
+          "sequence_offset_seconds": 40,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8376s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8459,
+          "end_seconds": 8631,
+          "sequence_offset_seconds": 304,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8459s"
+        }
+      ]
+    },
+    {
+      "index": 62,
+      "name": "RockSolidSoundbite",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "Related to the rock solid club music",
+      "heard_at": []
+    },
+    {
+      "index": 63,
+      "name": "HangoverBackgroundMusic",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": true,
+      "multiplayer": false,
+      "note": "Fairly sure?",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 481,
+          "end_seconds": 514,
+          "sequence_offset_seconds": 25,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=481s"
+        }
+      ]
+    },
+    {
+      "index": 64,
+      "name": "EscapeTedizIsland",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays as you leave Normandy",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 15174,
+          "end_seconds": 15198,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15174s"
+        }
+      ]
+    },
+    {
+      "index": 65,
+      "name": "RaceMP",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": true,
+      "note": "Jet/hoverboard over lava background music ory before you meet the giant in the colosseum",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 9050,
+          "end_seconds": 9133,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9050s"
+        }
+      ]
+    },
+    {
+      "index": 66,
+      "name": "GreatMightyPoo",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "Instrumental, no vocals",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 6728,
+          "end_seconds": 7094,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6728s"
+        }
+      ]
+    },
+    {
+      "index": 67,
+      "name": "MatrixStartFight",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": true,
+      "multiplayer": false,
+      "note": "From the Matrix Parody",
+      "heard_at": []
+    },
+    {
+      "index": 68,
+      "name": "WW2Outbreak",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays during the greyscale propaganda advertisement at the start of the WW2 chapter",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 12281,
+          "end_seconds": 12328,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12281s"
+        }
+      ]
+    },
+    {
+      "index": 69,
+      "name": "LeavingThePlucker",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when you are leaving the Cock and the Plucker and you spew on the lizard with the stone tablet",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 311,
+          "end_seconds": 344,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=311s"
+        }
+      ]
+    },
+    {
+      "index": 70,
+      "name": "GraveyardBackground",
+      "confidence": "tentative",
+      "category": "Chapter 7: Spooky",
+      "story": true,
+      "multiplayer": false,
+      "note": "Maybe it is played on to the run up to the graveyard or Dracula castle",
+      "heard_at": []
+    },
+    {
+      "index": 71,
+      "name": "PantherKingOverture",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Related to the Panther King, possibly plays at the start and end of the game",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 382,
+          "end_seconds": 406,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=382s"
+        }
+      ]
+    },
+    {
+      "index": 72,
+      "name": "SpiltMilk",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": true,
+      "multiplayer": false,
+      "note": "Missing table leg from the Panther King intro",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 428,
+          "end_seconds": 453,
+          "sequence_offset_seconds": 2,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=428s"
+        }
+      ]
+    },
+    {
+      "index": 73,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 74,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle",
+      "heard_at": []
+    },
+    {
+      "index": 75,
+      "name": "GreatMightyPooLair",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "Inside the lair of the Great Mighty Poo",
+      "heard_at": []
+    },
+    {
+      "index": 76,
+      "name": "PissSilo",
+      "confidence": "tentative",
+      "category": "Chapter 4: Bats Tower",
+      "story": true,
+      "multiplayer": false,
+      "note": "Seems like it might be the background sound to the bank vault at the end of Bats Towers",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 5316,
+          "end_seconds": 5389,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5316s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 5935,
+          "end_seconds": 5959,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5935s"
+        }
+      ]
+    },
+    {
+      "index": 77,
+      "name": "NormandyLandingMaybe",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 78,
+      "name": "TedizBunker",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "Fairly sure this relates to the TedizBunker",
+      "heard_at": []
+    },
+    {
+      "index": 79,
+      "name": "FryingTonightPrelude",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays before the squirrel gets the electric chair",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13572,
+          "end_seconds": 13617,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13572s"
+        }
+      ]
+    },
+    {
+      "index": 80,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 81,
+      "name": "Jingle2",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle",
+      "heard_at": []
+    },
+    {
+      "index": 82,
+      "name": "Jingle",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "Wonder if these jingles are like multiplayer menu sound effects or something",
+      "heard_at": []
+    },
+    {
+      "index": 83,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Jingle",
+      "heard_at": []
+    },
+    {
+      "index": 84,
+      "name": "TRex",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": true,
+      "note": "Might appear in MP and in Story",
+      "heard_at": [
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 960,
+          "end_seconds": 1038,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=960s"
+        },
+        {
+          "reference": "multiplayer1",
+          "start_seconds": 6613,
+          "end_seconds": 6677,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=EiUtagv_SaU&t=6613s"
+        }
+      ]
+    },
+    {
+      "index": 85,
+      "name": "MatrixFightPrelude",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": true,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 15661,
+          "end_seconds": 15694,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15661s"
+        }
+      ]
+    },
+    {
+      "index": 86,
+      "name": "MatrixSoundbite",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": true,
+      "multiplayer": false,
+      "note": "Related to the matrix parody from the story",
+      "heard_at": []
+    },
+    {
+      "index": 87,
+      "name": "DinosaurStatueDramatic",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "When you first lay eyes on the dinosaur statue",
+      "heard_at": []
+    },
+    {
+      "index": 88,
+      "name": "Cavemen",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 7611,
+          "end_seconds": 7651,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7611s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 7773,
+          "end_seconds": 7869,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7773s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 7981,
+          "end_seconds": 8101,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7981s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8151,
+          "end_seconds": 8232,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8151s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8290,
+          "end_seconds": 8322,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8290s"
+        }
+      ]
+    },
+    {
+      "index": 89,
+      "name": "WindGales1",
+      "confidence": "identified",
+      "category": null,
+      "story": true,
+      "multiplayer": false,
+      "note": "Used throughout the game as wind",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 11908,
+          "end_seconds": 11973,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=11908s"
+        }
+      ]
+    },
+    {
+      "index": 90,
+      "name": "Dracula",
+      "confidence": "identified",
+      "category": "Chapter 7: Spooky",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays during the dracula parody chapter, maybe when you are flying around as a bat?",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 11338,
+          "end_seconds": 11629,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=11338s"
+        }
+      ]
+    },
+    {
+      "index": 91,
+      "name": "GraveyardCemetery",
+      "confidence": "tentative",
+      "category": "Chapter 7: Spooky",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays when you are inside the haunted dracula mansion",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 11674,
+          "end_seconds": 11877,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=11674s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 12016,
+          "end_seconds": 12104,
+          "sequence_offset_seconds": 64,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12016s"
+        }
+      ]
+    },
+    {
+      "index": 92,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 93,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Also maybe the pier/boardwalk getting chewed up? Not sure.",
+      "heard_at": []
+    },
+    {
+      "index": 94,
+      "name": "BombRun",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays during the bomb run in unga bunga",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 8889,
+          "end_seconds": 8910,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8889s"
+        }
+      ]
+    },
+    {
+      "index": 95,
+      "name": "WindGales2",
+      "confidence": "identified",
+      "category": null,
+      "story": true,
+      "multiplayer": false,
+      "note": "Used throughout the game as wind",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 3469,
+          "end_seconds": 3525,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3469s"
+        }
+      ]
+    },
+    {
+      "index": 96,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 97,
+      "name": "GreatMightyPooLair2",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "Inside the lair of the Great Mighty Poo",
+      "heard_at": []
+    },
+    {
+      "index": 98,
+      "name": "MatadorBackgroundMusic",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "When Conker is trying to attract the bull",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 4000,
+          "end_seconds": 4302,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=4000s"
+        }
+      ]
+    },
+    {
+      "index": 99,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Matador related",
+      "heard_at": []
+    },
+    {
+      "index": 100,
+      "name": "MatadorEnd",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": false,
+      "multiplayer": false,
+      "note": "Matador related",
+      "heard_at": []
+    },
+    {
+      "index": 101,
+      "name": "WW2Background2",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 12484,
+          "end_seconds": 12646,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12484s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 12683,
+          "end_seconds": 12716,
+          "sequence_offset_seconds": 48,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12683s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 12767,
+          "end_seconds": 12973,
+          "sequence_offset_seconds": 112,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12767s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14345,
+          "end_seconds": 14425,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14345s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14560,
+          "end_seconds": 14696,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14560s"
+        }
+      ]
+    },
+    {
+      "index": 102,
+      "name": "WW2FinalBoss",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays for the WW2 Teddiz final boss",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 14739,
+          "end_seconds": 14915,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14739s"
+        }
+      ]
+    },
+    {
+      "index": 103,
+      "name": "RidingFranky",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays when you are riding frank to attack the haybail, reprises elsewhere possibly",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1201,
+          "end_seconds": 1226,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1201s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 2740,
+          "end_seconds": 2780,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=2740s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 5734,
+          "end_seconds": 5805,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=5734s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 10172,
+          "end_seconds": 10374,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10172s"
+        }
+      ]
+    },
+    {
+      "index": 104,
+      "name": "TerminatorHayBailBackground",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": true,
+      "multiplayer": false,
+      "note": "Background music from the final fight with the terminator haybail (robot version)",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 2823,
+          "end_seconds": 2991,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=2823s"
+        }
+      ]
+    },
+    {
+      "index": 105,
+      "name": "PantherKing",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Panther King",
+      "heard_at": []
+    },
+    {
+      "index": 106,
+      "name": "PantherKingNotesShort",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Panther King Fanfare",
+      "heard_at": []
+    },
+    {
+      "index": 107,
+      "name": "KriplespacLaboratoryShort",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Short notes relating to von Kriplespac's laboratory",
+      "heard_at": []
+    },
+    {
+      "index": 108,
+      "name": "KriplespacLaboratory2",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays during the cutscene of von Kriplespac's Laboratory",
+      "heard_at": []
+    },
+    {
+      "index": 109,
+      "name": "FetchMeTheSquirrel",
+      "confidence": "identified",
+      "category": null,
+      "story": true,
+      "multiplayer": false,
+      "note": "Probably panther king related also",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 3794,
+          "end_seconds": 3815,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3794s"
+        }
+      ]
+    },
+    {
+      "index": 110,
+      "name": "KriplespacLaboratory1",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": false,
+      "multiplayer": false,
+      "note": "Crazy Scientist Professor Von Kriplespac background sound from the cutscene with his laboratory",
+      "heard_at": []
+    },
+    {
+      "index": 111,
+      "name": "BirdyHangoverBackground",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": false,
+      "multiplayer": false,
+      "note": "Fairly sure",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 519,
+          "end_seconds": 671,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=519s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 1328,
+          "end_seconds": 1377,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1328s"
+        }
+      ]
+    },
+    {
+      "index": 112,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Fanfare",
+      "heard_at": []
+    },
+    {
+      "index": 113,
+      "name": "EndCredits",
+      "confidence": "identified",
+      "category": "Other",
+      "story": true,
+      "multiplayer": false,
+      "note": "End Credits",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 16980,
+          "end_seconds": 17202,
+          "sequence_offset_seconds": 138,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=16980s"
+        }
+      ]
+    },
+    {
+      "index": 114,
+      "name": "OminousHaybale",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays as the haybail descends from the rafters of the barn",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 2159,
+          "end_seconds": 2196,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=2159s"
+        }
+      ]
+    },
+    {
+      "index": 115,
+      "name": "SweetCornTaken",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the sweet corn is dragged below the surface by The Great Mighty Poo",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 6616,
+          "end_seconds": 6637,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=6616s"
+        }
+      ]
+    },
+    {
+      "index": 116,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 117,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Fanfare",
+      "heard_at": []
+    },
+    {
+      "index": 118,
+      "name": "TerminatorAgain",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": true,
+      "multiplayer": false,
+      "note": "Also related to the fight with the haybail",
+      "heard_at": []
+    },
+    {
+      "index": 119,
+      "name": "SadSong1",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the queen bee is crying over her hive, when Frank is split into two and when Conker farewells his TRex. Possibly reprises elswhere too.",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 1135,
+          "end_seconds": 1168,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=1135s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 3007,
+          "end_seconds": 3039,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3007s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 9762,
+          "end_seconds": 9795,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9762s"
+        }
+      ]
+    },
+    {
+      "index": 120,
+      "name": "AnvilFanfare",
+      "confidence": "identified",
+      "category": "Chapter 3: Barn Boys",
+      "story": false,
+      "multiplayer": false,
+      "note": "Fanfare that plays when the anvil drop after climbing all the way to the top",
+      "heard_at": []
+    },
+    {
+      "index": 121,
+      "name": "BerriDanceRadio",
+      "confidence": "identified",
+      "category": "Chapter 1: Hung Over",
+      "story": true,
+      "multiplayer": false,
+      "note": "Pretty sure",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 7167,
+          "end_seconds": 7197,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7167s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8395,
+          "end_seconds": 8412,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8395s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8509,
+          "end_seconds": 8589,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8509s"
+        }
+      ]
+    },
+    {
+      "index": 122,
+      "name": "BerriKidnapped",
+      "confidence": "identified",
+      "category": "Chapter 2: Windy",
+      "story": true,
+      "multiplayer": false,
+      "note": "When Berri is kidnapped from her apartment by one of the rock people",
+      "heard_at": []
+    },
+    {
+      "index": 123,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 124,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Fanfare",
+      "heard_at": []
+    },
+    {
+      "index": 125,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 126,
+      "name": "DinosaurStatueOpening",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the mouth of the dinosaur statue open and the lizard priest you spewed on at the start of the game walks out and down it's tongue",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 7896,
+          "end_seconds": 7918,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=7896s"
+        }
+      ]
+    },
+    {
+      "index": 127,
+      "name": "DinosaurStatueSneezes",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 128,
+      "name": "MafiaWeasels",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Associated with Mafia Weasels",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 8630,
+          "end_seconds": 8684,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8630s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 8720,
+          "end_seconds": 8838,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8720s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 16142,
+          "end_seconds": 16161,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=16142s"
+        }
+      ]
+    },
+    {
+      "index": 129,
+      "name": "WeaselMafiaSuspense",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays in one of the long table scenes involving the weasel mafia",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 8688,
+          "end_seconds": 8717,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8688s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 15542,
+          "end_seconds": 15571,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15542s"
+        }
+      ]
+    },
+    {
+      "index": 130,
+      "name": "SadSong2",
+      "confidence": "identified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the queen bee is crying over her hive, when Frank is split into two and when Conker farewells his TRex. Possibly reprises elswhere too.",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 3007,
+          "end_seconds": 3039,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=3007s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 9762,
+          "end_seconds": 9803,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9762s"
+        }
+      ]
+    },
+    {
+      "index": 131,
+      "name": "Babe",
+      "confidence": "identified",
+      "category": "Chapter 6: Uga Buga",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays when Conker meets Babe after defeating the giant caveman",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 9844,
+          "end_seconds": 9896,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=9844s"
+        }
+      ]
+    },
+    {
+      "index": 132,
+      "name": "BarrelBreak",
+      "confidence": "identified",
+      "category": "Chapter 7: Spooky",
+      "story": false,
+      "multiplayer": false,
+      "note": "Plays when the barrel breaks the dam which lets you swim to spooky chapter to meet Greg where he is fishing for catfish",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 10524,
+          "end_seconds": 10548,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=10524s"
+        }
+      ]
+    },
+    {
+      "index": 133,
+      "name": "GunfireAndRicochets2",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "Bullets and ricochets",
+      "heard_at": []
+    },
+    {
+      "index": 134,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Fanfare",
+      "heard_at": []
+    },
+    {
+      "index": 135,
+      "name": "WW2Background1",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays through WW2 chapter",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 12500,
+          "end_seconds": 12646,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12500s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 12683,
+          "end_seconds": 12716,
+          "sequence_offset_seconds": 48,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12683s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 12767,
+          "end_seconds": 12973,
+          "sequence_offset_seconds": 112,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=12767s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14361,
+          "end_seconds": 14425,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14361s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 14564,
+          "end_seconds": 14696,
+          "sequence_offset_seconds": 24,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=14564s"
+        }
+      ]
+    },
+    {
+      "index": 136,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Multiplayer?",
+      "heard_at": []
+    },
+    {
+      "index": 137,
+      "name": "FinalBoss2",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": true,
+      "multiplayer": false,
+      "note": "Airlock open possibly",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 16448,
+          "end_seconds": 16481,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=16448s"
+        }
+      ]
+    },
+    {
+      "index": 138,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "French National Anthem?",
+      "heard_at": []
+    },
+    {
+      "index": 139,
+      "name": "WW2End",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "Used through the WW2 Chapter, when squirrel comrades die, when Rodent dies and at the end of the chapter a couple of times too",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 13182,
+          "end_seconds": 13199,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=13182s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 15024,
+          "end_seconds": 15048,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15024s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 15250,
+          "end_seconds": 15303,
+          "sequence_offset_seconds": 16,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15250s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 15455,
+          "end_seconds": 15527,
+          "sequence_offset_seconds": 0,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=15455s"
+        }
+      ]
+    },
+    {
+      "index": 140,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Panther King related",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 8629,
+          "end_seconds": 8645,
+          "sequence_offset_seconds": 80,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=8629s"
+        },
+        {
+          "reference": "story",
+          "start_seconds": 16064,
+          "end_seconds": 16187,
+          "sequence_offset_seconds": 9,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=16064s"
+        }
+      ]
+    },
+    {
+      "index": 141,
+      "name": "FinalBossStem",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": true,
+      "multiplayer": false,
+      "note": "Plays as matrix Berri dies and the Panther King starts coughing",
+      "heard_at": []
+    },
+    {
+      "index": 142,
+      "name": "PantherKingAlienReveal",
+      "confidence": "identified",
+      "category": "Chapter 9: The Heist",
+      "story": false,
+      "multiplayer": false,
+      "note": "When the Panther King turns into Alien",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 16325,
+          "end_seconds": 16453,
+          "sequence_offset_seconds": 32,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=16325s"
+        }
+      ]
+    },
+    {
+      "index": 143,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "Fanfare",
+      "heard_at": []
+    },
+    {
+      "index": 144,
+      "name": "AlienReturns",
+      "confidence": "tentative",
+      "category": "Chapter 9: The Heist",
+      "story": false,
+      "multiplayer": false,
+      "note": "Seems to be when the Alien returns after being thrown outside the airlock",
+      "heard_at": []
+    },
+    {
+      "index": 145,
+      "name": "EndCutscene",
+      "confidence": "identified",
+      "category": "Other",
+      "story": false,
+      "multiplayer": false,
+      "note": "End cutscene when conker is on the throne before the credits role",
+      "heard_at": [
+        {
+          "reference": "story",
+          "start_seconds": 16920,
+          "end_seconds": 16983,
+          "sequence_offset_seconds": 8,
+          "url": "https://www.youtube.com/watch?v=3PftWpkdcTc&t=16920s"
+        }
+      ]
+    },
+    {
+      "index": 146,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "No idea what this, wondering if it is part of the Greg underworld where he grabs his first tail?",
+      "heard_at": []
+    },
+    {
+      "index": 147,
+      "name": "NormandyLanding2",
+      "confidence": "identified",
+      "category": "Chapter 8: It's War",
+      "story": true,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    },
+    {
+      "index": 148,
+      "name": null,
+      "confidence": "unidentified",
+      "category": null,
+      "story": false,
+      "multiplayer": false,
+      "note": "",
+      "heard_at": []
+    }
+  ]
+}
