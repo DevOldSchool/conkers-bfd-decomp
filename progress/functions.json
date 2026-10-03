@@ -7744,7 +7744,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 295,
-        "reason": "Manual raw pass best CURRENT295: bound snapshot fixes reloads; outer ADD reversal neutral, shared phase/scale lifetime regresses910. Remaining FP allocation/operand ordering and frame48vs38; preserve best, no padding.",
+        "reason": "CURRENT295 preserved. Camera completion pass: inline repeated derived addresses instead of first/second locals is neutral295; frame48vs38 and FP phase allocation unchanged. Prior bound snapshot improved; outer ADD reversal neutral and shared phase/scale regressed910. No artificial storage. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7763,7 +7763,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT10 improved from530: explicit null-target else restores all control flow and full328B extent. Only frame38 vs30 differs. Direct flags regressed30 (homes +4); scoped target neutral10. Best saved camera-manual-20260930; no padding. Prior FP-chain/declaration/call probes exhausted.",
+        "reason": "CURRENT10 preserved. Camera completion pass: shared type/tail-flags local regressed50; removing named target pointer was neutral10. Raw frame30 vs compiler38 remains; spill homes/body exact. Prior direct flags/scoped target and FP/declaration/call probes exhausted; no padding. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7984,6 +7984,12 @@
       "symbol": "func_15127FEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2548,
+        "reason": "Fresh owned-ROM-derived candidate3498 to2548; real disjoint locals restore exact frame30, unsigned timer subtraction preserves raw wrapping. Completion returns target pointer proven preserved through FP helper chain; defined C reloads it. Return/control, FP/GPR scheduling and NaN operand order unresolved. No undefined return/invented ABI. Evidence camera-completion-20261003.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8089,8 +8095,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Referenced upstream C reproduces every semantic instruction exactly; CURRENT (300) is only three trailing NOPs retained by this checkout's reviewed 108-byte span",
+        "current_score": 200,
+        "reason": "Fresh owned-ROM-derived C replaces historical candidate/types and agrees with existing caller prototype. CURRENT200: all100 executable bytes including return-delay NOP exact; only final two section-alignment NOPs absent from stripped focused prefix (0xCFC rather than authentic0x5C94 phase). Requires natural preceding C integration, no padding or span trimming. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
