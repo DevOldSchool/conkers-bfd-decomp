@@ -19,8 +19,15 @@ typedef struct Game1765E0EffectHeader {
 Game1765E0EffectHeader *func_15167A68();
 void func_100226F0(void *, s32);
 
-Game1765E0EffectHeader *func_15149130(s16 arg0, s8 arg1, s8 arg2, s8 arg3,
-                                      u8 arg4, u8 arg5, s32 arg6, u8 arg7,
+/*
+ * Descriptive role: timer_callback_object_create.
+ * Allocates 0x28 base bytes plus extraBytes, selects kind 0x23/0x5F from
+ * flag bit 1, initializes the signed timer and callback selectors, and
+ * clears only bytes +0x14..+0x23. Both kinds share the timer/draw dispatch.
+ * arg7 and arg8 retain their unresolved forwarding roles.
+ */
+Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
+                                      u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7,
                                       s32 arg8) {
     volatile struct {
         s32 pad_20;
@@ -28,29 +35,34 @@ Game1765E0EffectHeader *func_15149130(s16 arg0, s8 arg1, s8 arg2, s8 arg3,
         s32 pad_28;
         Game1765E0EffectHeader *sp2C;
     } locals;
-    Game1765E0EffectHeader *temp_v0;
-    u8 var_v0;
+    Game1765E0EffectHeader *object;
+    u8 objectKind;
 
-    locals.sp24 = arg6 + 0x28;
-    var_v0 = (arg4 & 2) ? 0x5F : 0x23;
-    temp_v0 = func_15167A68(var_v0, arg8, locals.sp24, 1, arg7, 1);
-    if (temp_v0 == 0) {
+    locals.sp24 = extraBytes + 0x28;
+    objectKind = (flags & 2) ? 0x5F : 0x23;
+    object = func_15167A68(objectKind, arg8, locals.sp24, 1, arg7, 1);
+    if (object == 0) {
         return 0;
     }
-    temp_v0->timer = arg0;
-    temp_v0->callback_expired = arg1;
-    temp_v0->callback_tick = arg2;
-    temp_v0->callback_other = arg3;
-    temp_v0->flags = arg4;
-    temp_v0->field_13 = arg5;
-    locals.sp2C = temp_v0;
-    func_100226F0(temp_v0->data, 0x10);
+    object->timer = initialTimer;
+    object->callback_expired = expiryCallbackIndex;
+    object->callback_tick = tickCallbackIndex;
+    object->callback_other = drawCallbackIndex;
+    object->flags = flags;
+    object->field_13 = callbackSetIndex;
+    locals.sp2C = object;
+    func_100226F0(object->data, 0x10);
     return locals.sp2C;
 }
 
-void func_151491F4(s16 arg0, s8 arg1, s8 arg2, u8 arg3, u8 arg4,
-                   s32 arg5, u8 arg6, s32 arg7) {
-    func_15149130(arg0, arg1, arg2, -1, arg3, arg4, arg5, arg6, arg7);
+/*
+ * Descriptive role: timer_callback_object_create_without_draw_callback.
+ * Uses draw-callback selector -1; the existing void wrapper discards the
+ * constructor result. arg6 and arg7 remain unresolved forwarding arguments.
+ */
+void func_151491F4(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
+                   s32 extraBytes, u8 arg6, s32 arg7) {
+    func_15149130(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
 }
 typedef struct Game1765E0Effect {
     u8 pad_0[0xD];
@@ -65,28 +77,34 @@ extern void (*D_8008A4C0[])(Game1765E0Effect *);
 extern void (*D_8008A4E8[])(Game1765E0Effect *);
 void func_1516972C(Game1765E0Effect *);
 
-void func_15149264(Game1765E0Effect *arg0) {
-    s16 var_v0;
-    s8 temp_v0;
-    s8 temp_v1;
+/*
+ * Descriptive role: timer_callback_object_update.
+ * Optionally decrements the signed timer by D_800BE9E4, then invokes the
+ * selected tick callback. If negative, the timer permits the expiry callback.
+ * Removal requires a negative timer even after any expiry callback and reload.
+ */
+void func_15149264(Game1765E0Effect *object) {
+    s16 timerValue;
+    s8 tickCallbackIndex;
+    s8 expiryCallbackIndex;
 
-    if (arg0->flags & 1) {
-        arg0->timer = arg0->timer - D_800BE9E4;
+    if (object->flags & 1) {
+        object->timer = object->timer - D_800BE9E4;
     }
-    temp_v0 = arg0->callback_tick;
-    if (temp_v0 != -1) {
-        D_8008A4E8[temp_v0](arg0);
+    tickCallbackIndex = object->callback_tick;
+    if (tickCallbackIndex != -1) {
+        D_8008A4E8[tickCallbackIndex](object);
     }
-    var_v0 = arg0->timer;
-    if (var_v0 < 0) {
-        temp_v1 = arg0->callback_expired;
-        if (temp_v1 != -1) {
-            D_8008A4C0[temp_v1](arg0);
-            var_v0 = arg0->timer;
+    timerValue = object->timer;
+    if (timerValue < 0) {
+        expiryCallbackIndex = object->callback_expired;
+        if (expiryCallbackIndex != -1) {
+            D_8008A4C0[expiryCallbackIndex](object);
+            timerValue = object->timer;
         }
     }
-    if (var_v0 < 0) {
-        func_1516972C(arg0);
+    if (timerValue < 0) {
+        func_1516972C(object);
     }
 }
 void func_15149318(s32 arg0) {

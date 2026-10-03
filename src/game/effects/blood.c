@@ -936,17 +936,24 @@ typedef struct {
 void func_15143134(f32 *, f32 *, s32);
 extern Blood1380B4Vector D_800A3FD8[];
 
-s32 func_151380B4(Blood1380B4State *arg0, s32 arg1, f32 *arg2) {
-    u8 *temp_v0;
+/*
+ * Descriptive role: actor_transform_effect_profile_offset.
+ * Transforms the profile's first three floats through actorMatrices +0x300.
+ * Returns zero without writing outPosition when actor +0x1D4 is null or
+ * (+0x74 & 0xF) is 0xF; otherwise returns one. The descriptor's fourth word
+ * contains packed selector/variant data, not another offset component.
+ */
+s32 func_151380B4(Blood1380B4State *actor, s32 effectProfileIndex, f32 *outPosition) {
+    u8 *actorMatrices;
 
-    temp_v0 = arg0->field_1D4;
-    if (temp_v0 == 0) {
+    actorMatrices = actor->field_1D4;
+    if (actorMatrices == 0) {
         return 0;
     }
-    if ((arg0->field_74 & 0xF) == 0xF) {
+    if ((actor->field_74 & 0xF) == 0xF) {
         return 0;
     }
-    func_15143134(D_800A3FD8[arg1].values, arg2, (s32)(temp_v0 + 0x300));
+    func_15143134(D_800A3FD8[effectProfileIndex].values, outPosition, (s32)(actorMatrices + 0x300));
     return 1;
 }
 extern u8 D_800A4058;

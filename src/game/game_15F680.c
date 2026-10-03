@@ -416,6 +416,13 @@ void func_15168E54(s32, s32 *);
 extern s32 D_800A3880[];
 extern u8 D_800DC640[];
 
+/*
+ * Descriptive role: model_resource_load_by_lookup_selector.
+ * Maps arg0 through D_800A3880 to bank09, loads and relocates the model
+ * resource, writes its base through arg1, and prepares its first display
+ * list. Returns zero for a null load, otherwise one; downstream allocation
+ * success is not checked here. No local selector bounds check is performed.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151336A8 CURRENT (473) */
 s32 func_151336A8(s32 arg0, s32 **arg1, s32 arg2) {
     s32 sp2C;
