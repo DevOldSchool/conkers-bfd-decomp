@@ -137,7 +137,11 @@ writes the supplied model byte at `15083820`, in a branch delay slot. For model
 `0xFF`, it writes the original field reset/default values; otherwise it reads
 model defaults, updates `+0xC8`, calls `15062BDC`, and writes the kind byte at
 `+5`. It then derives the animation-model byte through `15084D00`, writes it
-at `+6`, and conditionally loads the associated route resource into `+0x58`.
+at `+6`, and, when the separate bank-0F route count for that representative
+is nonzero, caches the bank-02 ROM/archive address resolved by `1502B020`
+at `+0x58`. A zero count leaves the existing cache unchanged. This is an
+archive-address lookup, not a load of the route payload; see the
+[animation-model representative audit](actor_animation_model_group_semantics.md).
 Its four direct callers are automatic selection, override application, actor
 creation and actor replacement. The role does not assert an immutable spawn
 identity or describe unrelated actor state. Its existing parameter widths and

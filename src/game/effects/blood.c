@@ -69,6 +69,45 @@ typedef struct BloodState {
 void func_151BC5A4(BloodState *arg0, s32 arg1, u8 arg2);
 void func_1513A5E0(s32 arg0, s32 arg1, s32 arg2);
 
+enum {
+    MODEL_CONKER = 0,
+    MODEL_CONKER_VARIANT_1 = 1,
+    MODEL_CONKER_VARIANT_2 = 2,
+    MODEL_CONKER_VARIANT_3 = 3,
+    MODEL_CONKER_VARIANT_4 = 4,
+    MODEL_ROCKMAN = 16,
+    MODEL_WEASEL_GUARD_TALL_VARIANT = 17,
+    MODEL_WEASEL_GUARD_SHORT_SHIELD_VARIANT = 20,
+    MODEL_UGA_BUGA_BLUE_HEADGEAR = 22,
+    MODEL_TNT_IMP = 52,
+    MODEL_ROCKMAN_BOW_TIE = 56,
+    MODEL_WISE_GUY = 59,
+    MODEL_ROBO_SPIDER = 71,
+    MODEL_SHC_SOLDIER = 88,
+    MODEL_TEDIZ = 90,
+    MODEL_RODENT = 91,
+    MODEL_TEDIZ_AMMUNITION_BELT = 95,
+    MODEL_GREGG_THE_GRIM_REAPER_SCYTHE = 112,
+    MODEL_TEDIZ_VARIANT_1 = 116,
+    MODEL_TEDIZ_VARIANT_2 = 117,
+    MODEL_TEDIZ_VARIANT_3 = 122,
+    MODEL_SHC_SOLDIER_VARIANT = 128,
+    MODEL_SHC_SOLDIER_DECORATED_UNIFORM = 135,
+    MODEL_UGA_BUGA = 136,
+    MODEL_SURF_PUNK_SUNGLASSES = 144,
+    MODEL_ROCKWOMAN = 145,
+    MODEL_CONKER_BLACK_OUTFIT = 150,
+    MODEL_WEASEL_BLACK_HELMET_AND_UNIFORM = 152,
+    MODEL_VILLAGER_BROWN_HAT = 156,
+    MODEL_VILLAGER_STRIPED_BONNET = 157,
+    MODEL_ZOMBIE_DARK_SUIT = 159,
+    MODEL_ZOMBIE_PURPLE_DRESS = 160,
+    MODEL_SHC_SOLDIER_DECORATED_UNIFORM_VARIANT = 176,
+    MODEL_TEDIZ_BROAD_SHOULDERED_VARIANT = 177,
+    MODEL_GREGG_THE_GRIM_REAPER_HOODED = 178,
+    MODEL_GREGG_THE_GRIM_REAPER_WITHOUT_ROBE = 180,
+};
+
 /*
  * Descriptive role: actor_get_fragment_effect_profile_index.
  * Actor model byte +0x04 selects a shared 20-entry descriptor/fragment
@@ -81,63 +120,63 @@ s32 func_15134070(void *arg0) {
 
     temp_v0 = *(u8 *)((u8 *)arg0 + 4);
     switch ((s32) temp_v0) {                        /* irregular */
-    case 0x87:
-    case 0xB0:
+    case MODEL_SHC_SOLDIER_DECORATED_UNIFORM:
+    case MODEL_SHC_SOLDIER_DECORATED_UNIFORM_VARIANT:
         return 0xE;
-    case 0xB1:
+    case MODEL_TEDIZ_BROAD_SHOULDERED_VARIANT:
         return 0xF;
-    case 0xB4:
+    case MODEL_GREGG_THE_GRIM_REAPER_WITHOUT_ROBE:
         return 0x10;
-    case 0x70:
-    case 0xB2:
+    case MODEL_GREGG_THE_GRIM_REAPER_SCYTHE:
+    case MODEL_GREGG_THE_GRIM_REAPER_HOODED:
         return 0x11;
     case 0xAB:
         return 0x12;
-    case 0x10:
-    case 0x38:
-    case 0x91:
+    case MODEL_ROCKMAN:
+    case MODEL_ROCKMAN_BOW_TIE:
+    case MODEL_ROCKWOMAN:
         return 0xD;
-    case 0x98:
+    case MODEL_WEASEL_BLACK_HELMET_AND_UNIFORM:
         return 0xC;
-    case 0x34:
+    case MODEL_TNT_IMP:
         return 0xB;
-    case 0x47:
+    case MODEL_ROBO_SPIDER:
         return 0xA;
-    case 0x11:
-    case 0x14:
-    case 0x3B:
+    case MODEL_WEASEL_GUARD_TALL_VARIANT:
+    case MODEL_WEASEL_GUARD_SHORT_SHIELD_VARIANT:
+    case MODEL_WISE_GUY:
         return 1;
-    case 0x5A:
-    case 0x5F:
-    case 0x74:
-    case 0x75:
-    case 0x7A:
+    case MODEL_TEDIZ:
+    case MODEL_TEDIZ_AMMUNITION_BELT:
+    case MODEL_TEDIZ_VARIANT_1:
+    case MODEL_TEDIZ_VARIANT_2:
+    case MODEL_TEDIZ_VARIANT_3:
         return 2;
-    case 0x58:
-    case 0x5B:
-    case 0x80:
+    case MODEL_SHC_SOLDIER:
+    case MODEL_RODENT:
+    case MODEL_SHC_SOLDIER_VARIANT:
         return 3;
-    case 0x16:
-    case 0x88:
-    case 0x90:
+    case MODEL_UGA_BUGA_BLUE_HEADGEAR:
+    case MODEL_UGA_BUGA:
+    case MODEL_SURF_PUNK_SUNGLASSES:
         return 4;
-    case 0x9C:
+    case MODEL_VILLAGER_BROWN_HAT:
         return 5;
-    case 0x9D:
+    case MODEL_VILLAGER_STRIPED_BONNET:
         return 6;
-    case 0x96:
+    case MODEL_CONKER_BLACK_OUTFIT:
         return 7;
-    case 0xA0:
+    case MODEL_ZOMBIE_PURPLE_DRESS:
         return 8;
-    case 0x9F:
+    case MODEL_ZOMBIE_DARK_SUIT:
         return 9;
     case 0x9A:
         return 0x13;
-    case 0x0:
-    case 0x1:
-    case 0x2:
-    case 0x3:
-    case 0x4:
+    case MODEL_CONKER:
+    case MODEL_CONKER_VARIANT_1:
+    case MODEL_CONKER_VARIANT_2:
+    case MODEL_CONKER_VARIANT_3:
+    case MODEL_CONKER_VARIANT_4:
         return 0;
     default:
         return 0x63;

@@ -1,5 +1,12 @@
 # Reviewed US character-model registry expansion
 
+Historical checkpoint: the reviewed/named totals below count source-bound
+descriptive labels, not confirmed semantic identities or distinct characters.
+Gallery labels and source hashes do not establish human confirmation. The
+[current confidence review](model_name_confidence_review.md) supersedes the
+old reviewed/unknown naming status; source pins and validation history remain
+evidence for their stated scope.
+
 This records the [Haybot naming pilot](character_semantic_naming.md) expansion
 to 17 exact bank-01 model identities. The subsequent
 [object-model expansion](object_semantic_registry_expansion.md) adds 20 bank-03
@@ -11,7 +18,17 @@ adds 30 bounded identities, bringing that stage to 91. The
 [scene-prop expansion](scene_prop_semantic_registry_expansion.md) adds 20
 bank-04 identities, bringing that stage to 111. The
 [remaining-character expansion](remaining_character_semantic_registry_expansion.md)
-adds 34 bounded bank-01 identities, bringing the registry to 145. Counts and validation results
+adds 34 bounded bank-01 identities, bringing that stage to 145. The
+[placed-prop expansion](placed_prop_semantic_registry_expansion.md) adds 25
+bank-03 descriptive identities, bringing that stage to 170. The
+[attachment-prop expansion](attachment_prop_semantic_registry_expansion.md) adds 32
+bank-09 descriptive identities, bringing that stage to 202. The
+[key-model expansion](key_model_semantic_registry_expansion.md) adds thirty
+exact text-entry key resources, bringing that stage to 232. The
+[held-character review](held_character_semantic_registry_expansion.md) adds five
+bounded bank-01 labels, bringing the registry to 237. The
+[remaining scene-prop review](remaining_scene_prop_semantic_registry_expansion.md)
+adds thirty bank-03 labels, bringing the registry to 267. Counts and validation results
 below describe the 17-model stage. The pilot's totals remain historical.
 The additions change descriptive model labels and naming-audit metadata only;
 no linked symbol, character controller, C expression, ABI or match status follows

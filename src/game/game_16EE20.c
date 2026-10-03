@@ -63,7 +63,11 @@ enum {
     MODEL_HAYBOT_HAY_COVERED = 69,
     MODEL_HAYBOT = 75,
     MODEL_FANGY = 83,
+    MODEL_BUGA_THE_KNUT = 84,
+    MODEL_SHC_SOLDIER = 88,
     MODEL_COW = 121,
+    MODEL_THE_EXPERIMENT = 123,
+    MODEL_ROCKWOMAN = 145,
     MODEL_CONKER_BLACK_OUTFIT = 150,
     MODEL_RED_DINOSAUR = 165
 };
@@ -181,7 +185,7 @@ s32 func_15141C0C(void *actor) {
         return 0xA;
     case MODEL_BUGGER_LUGS:
         return 9;
-    case 0x7B:
+    case MODEL_THE_EXPERIMENT:
         return 8;
     case MODEL_CONKER:
     case MODEL_CONKER_VARIANT_1:
@@ -191,17 +195,17 @@ s32 func_15141C0C(void *actor) {
     case MODEL_CONKER_BLACK_OUTFIT:
         return 0;
     case MODEL_ROCKMAN:
-    case 0x91:
+    case MODEL_ROCKWOMAN:
         return 1;
     case MODEL_BIG_BIG_GUY:
         return 2;
-    case 0x54:
+    case MODEL_BUGA_THE_KNUT:
         return 5;
     case MODEL_DINO_BABY:
     case MODEL_FANGY:
     case MODEL_RED_DINOSAUR:
         return 6;
-    case 0x58:
+    case MODEL_SHC_SOLDIER:
         return 7;
     case MODEL_HAYBOT_HAY_COVERED:
         return 3;

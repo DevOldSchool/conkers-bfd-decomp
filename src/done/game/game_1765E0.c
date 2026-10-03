@@ -11,8 +11,8 @@ typedef struct Game1765E0EffectHeader {
     s16 timer;
     s8 callback_expired;
     s8 callback_tick;
-    s8 callback_other;
-    u8 field_13;
+    s8 drawCallbackIndex;
+    u8 callbackSetIndex;
     u8 data[0x10];
 } Game1765E0EffectHeader;
 
@@ -47,9 +47,9 @@ Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, 
     object->timer = initialTimer;
     object->callback_expired = expiryCallbackIndex;
     object->callback_tick = tickCallbackIndex;
-    object->callback_other = drawCallbackIndex;
+    object->drawCallbackIndex = drawCallbackIndex;
     object->flags = flags;
-    object->field_13 = callbackSetIndex;
+    object->callbackSetIndex = callbackSetIndex;
     locals.sp2C = object;
     func_100226F0(object->data, 0x10);
     return locals.sp2C;
@@ -125,7 +125,7 @@ void func_15149368(s32 arg0) {
 }
 typedef struct {
     u8 pad_0[0x13];
-    u8 field_13;
+    u8 callbackSetIndex;
 } Game1765E0State;
 
 extern void (*D_8008A688[])(void);
@@ -133,7 +133,7 @@ extern void (*D_8008A688[])(void);
 void func_15149394(Game1765E0State *arg0) {
     s32 temp_v0;
 
-    temp_v0 = arg0->field_13;
+    temp_v0 = arg0->callbackSetIndex;
     if (temp_v0 < 0) {
         temp_v0 = 0;
     } else if (temp_v0 >= 0x4A) {
@@ -146,7 +146,7 @@ extern void (*D_8008A7B0[])(void);
 void func_151493E4(Game1765E0State *arg0) {
     s32 temp_v0;
 
-    temp_v0 = arg0->field_13;
+    temp_v0 = arg0->callbackSetIndex;
     if (temp_v0 < 0) {
         temp_v0 = 0;
     } else if (temp_v0 >= 0x4A) {
@@ -169,7 +169,7 @@ void func_15149434(void *arg0, void *arg1, u8 arg2) {
 }
 typedef struct {
     u8 pad_0[0x12];
-    s8 field_12;
+    s8 drawCallbackIndex;
 } Game1765E0DispatchState;
 
 extern s32 (*D_8008A670[])(s32, Game1765E0DispatchState *, s16);
@@ -177,7 +177,7 @@ extern s32 (*D_8008A670[])(s32, Game1765E0DispatchState *, s16);
 s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
     s8 temp_v0;
 
-    temp_v0 = arg1->field_12;
+    temp_v0 = arg1->drawCallbackIndex;
     if (temp_v0 != -1) {
         arg0 = D_8008A670[temp_v0](arg0, arg1, arg2);
     }

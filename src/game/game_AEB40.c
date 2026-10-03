@@ -388,7 +388,9 @@ s8 func_15084D00(void *);
 
 /* Semantic role: actor_assign_model.
  * Writes the mutable model byte at +4, handles model 0xFF, applies related
- * defaults, and updates the animation-model byte and optional route resource.
+ * defaults, and updates the animation-model byte. A nonzero bank-0F route count
+ * gates caching the resolved bank-02 ROM/archive address at +0x58; zero leaves
+ * that cache unchanged.
  * See docs/evidence/actor_representation_selection_semantics.md.
  */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150837D4 CURRENT (568) */

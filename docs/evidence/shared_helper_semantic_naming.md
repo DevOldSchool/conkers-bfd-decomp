@@ -152,7 +152,7 @@ Source-only patch SHA-256: `5ef636aff0e56cd916dbb94f133a5af0d00141efa5ca1bc3ab40
 
 This preparation ran no compiler, focused comparator, source-unit layout gate,
 game build, matching/queue transaction, commit or push. It adds zero C matches.
-Independent focused `CURRENT (0)` rechecks remain pending for `func_151380B4`,
+At preparation, independent focused `CURRENT (0)` rechecks were pending for `func_151380B4`,
 `func_15149130`, `func_151491F4` and `func_15149264`, followed by reviewed layout,
 clean batch, full US ROM/mapped-layout, progress/whitespace and complete-suite
 gates. Raw/deferred `151336A8` is not promoted by its comment.

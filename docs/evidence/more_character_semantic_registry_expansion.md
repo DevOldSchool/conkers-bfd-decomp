@@ -1,5 +1,12 @@
 # Additional reviewed US character-model identities
 
+Historical checkpoint: the reviewed/named totals below count source-bound
+descriptive labels, not confirmed semantic identities or distinct characters.
+Gallery labels and source hashes do not establish human confirmation. The
+[current confidence review](model_name_confidence_review.md) supersedes the
+old reviewed/unknown naming status; source pins and validation history remain
+evidence for their stated scope.
+
 This expansion adds 24 bank-01 model labels to the 37-model registry, yielding
 61 reviewed identities. It preserves every field of those earlier 37 records,
 including the three [Lady Cog eye-part consumers](lady_cog_eye_part_semantics.md)

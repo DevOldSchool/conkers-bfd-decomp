@@ -1,5 +1,12 @@
 # Remaining reviewed US character-model identities
 
+Historical checkpoint: the reviewed/named totals below count source-bound
+descriptive labels, not confirmed semantic identities or distinct characters.
+Gallery labels and source hashes do not establish human confirmation. The
+[current confidence review](model_name_confidence_review.md) supersedes the
+old reviewed/unknown naming status; source pins and validation history remain
+evidence for their stated scope.
+
 This source-only expansion adds 34 exact bank-01 model labels to the
 [111-model checkpoint](scene_prop_semantic_registry_expansion.md), yielding
 145 reviewed identities and 1,342 unknown identities. All fields of the 111

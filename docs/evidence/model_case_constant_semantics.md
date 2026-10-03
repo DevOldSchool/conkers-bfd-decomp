@@ -1,5 +1,12 @@
 # Bounded model case constants
 
+Historical checkpoint: the reviewed/named totals below count source-bound
+descriptive labels, not confirmed semantic identities or distinct characters.
+Gallery labels and source hashes do not establish human confirmation. The
+[current confidence review](model_name_confidence_review.md) supersedes the
+old reviewed/unknown naming status; source pins and validation history remain
+evidence for their stated scope.
+
 Prepared against `f6134c662678e4e0e1b7b1afb9b306b8a0abf79d`.
 Only `src/game/game_16EE20.c` changes. The 15 existing input case labels in
 matched `func_15141C0C` use one anonymous source-local enum, after the reviewed

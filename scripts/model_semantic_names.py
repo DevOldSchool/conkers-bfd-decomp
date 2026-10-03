@@ -1,12 +1,15 @@
-"""Reviewed model labels keyed by ROM, bank, entry, segment and source bytes.
+"""Source-bound legacy labels with separately reviewed naming confidence.
 
 These descriptive names do not rename linked symbols, define actor types or
-establish runtime activation. The fixed registry is reviewed source evidence.
+establish runtime activation. Source hashes and consumer roles do not confirm
+semantic identity. The original registry is preserved; a pinned sidecar records
+the confidence correction without inventing identities or human approval.
 """
 
 from __future__ import annotations
 
 import argparse
+from collections import Counter
 import hashlib
 import json
 from pathlib import Path
@@ -14,9 +17,27 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "config/model-semantic-names.json"
-REGISTRY_SHA256 = "41b043cb6d15e4ae51033f54f91ddcf43f8590742b728cc6bef909e0bec0e416"
+REGISTRY_SHA256 = "b4ebcee9f60a2eb345ea6de56055ffa1b4ce5912e6a59a47605daed6a1caf364"
+CONFIDENCE_PATH = ROOT / "config/model-name-confidence.json"
+CONFIDENCE_SHA256 = "6f14325893892eb48b7222bed80bc71557618d1553e6c4171aaf8d4dce65999d"
 SUPPORTED_BANKS = (0x01, 0x03, 0x04, 0x09)
 NAME_KIND = "reviewed-descriptive-model-label"
+CONFIDENCE_STATUSES = {
+    "earlier_reviewed_character_label": "prior_character_review",
+    "historical_character_label_pending_confirmation": "tentative_historical_character_label",
+    "appearance_only_description": "identity_unknown_or_not_applicable",
+}
+SOURCE_FIELDS = ("source_bytes", "model_sha1", "model_sha256")
+
+
+def registry_key(record: dict) -> str:
+    return f"{record['bank']:02x}:{record['entry']:04d}:{record['segment']:02d}"
+
+
+def source_record_sha256(record: dict) -> str:
+    """Pin every original record field, including label, evidence and caveats."""
+    return hashlib.sha256(json.dumps(record, sort_keys=True,
+                                     separators=(",", ":"), ensure_ascii=False).encode()).hexdigest()
 
 
 def _fields(value: object, required: set[str], context: str,
@@ -163,9 +184,71 @@ def load_registry() -> dict:
     return registry
 
 
+def validate_confidence(confidence: dict, registry: dict) -> None:
+    """Check exact bindings, not file provenance; load_confidence pins the file.
+
+    Explicit in-memory registry/confidence pairs also support synthetic unit
+    fixtures. They receive the same structural and cross-record checks, but do
+    not replace either production file loader or its immutable byte digest.
+    """
+    validate_registry(registry)
+    _fields(confidence, {"schema_version", "registry_sha256", "profile", "rom_sha1",
+                         "rom_sha256", "rom_size_bytes", "models"}, "confidence")
+    _integer(confidence["schema_version"], "confidence schema version", 1, 1)
+    if confidence["registry_sha256"] != REGISTRY_SHA256:
+        raise ValueError("model-name confidence registry digest mismatch")
+    for field in ("profile", "rom_sha1", "rom_sha256", "rom_size_bytes"):
+        if type(confidence[field]) is not type(registry[field]) or confidence[field] != registry[field]:
+            raise ValueError("model-name confidence ROM/profile mismatch")
+    if not isinstance(confidence["models"], list) or not confidence["models"]:
+        raise ValueError("model-name confidence requires a nonempty classification list")
+    records = {registry_key(record): record for record in registry["models"]}
+    seen = set()
+    for classification in confidence["models"]:
+        _fields(classification, {"registry_key", "bank", "entry", "segment",
+                                 "source_record_sha256", *SOURCE_FIELDS, "classification"},
+                "model confidence")
+        for field in ("bank", "entry", "segment"):
+            _integer(classification[field], "confidence " + field)
+        key = registry_key(classification)
+        if classification["registry_key"] != key:
+            raise ValueError("model-name confidence numeric key mismatch")
+        if key in seen:
+            raise ValueError("duplicate model-name confidence classification")
+        seen.add(key)
+        if key not in records:
+            raise ValueError("model-name confidence contains an unlisted registry key")
+        if (not isinstance(classification["classification"], str)
+                or classification["classification"] not in CONFIDENCE_STATUSES):
+            raise ValueError("unsupported model-name confidence classification")
+        record = records[key]
+        for field in SOURCE_FIELDS:
+            if (type(classification[field]) is not type(record[field])
+                    or classification[field] != record[field]):
+                raise ValueError("model-name confidence source identity mismatch")
+        if classification["source_record_sha256"] != source_record_sha256(record):
+            raise ValueError("model-name confidence source record mismatch")
+    if seen != records.keys():
+        raise ValueError("model-name confidence is missing registry classifications")
+
+
+def load_confidence(registry: dict) -> dict:
+    raw = CONFIDENCE_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != CONFIDENCE_SHA256:
+        raise ValueError("reviewed model-name confidence sidecar changed")
+    confidence = json.loads(raw, object_pairs_hook=_unique_json_object)
+    validate_confidence(confidence, registry)
+    return confidence
+
+
 def resolve_name(registry: dict, profile: str, rom_sha1: str,
-                 key: tuple[int, int, int], data: bytes) -> dict:
-    """Resolve only exact reviewed identities; unrelated models remain unknown."""
+                 key: tuple[int, int, int], data: bytes, *,
+                 confidence: dict | None = None) -> dict:
+    """Resolve a source-bound description, never inferred human confirmation.
+
+    `name` remains a legacy descriptive-label alias of `descriptor`; it is not a
+    confirmed semantic identity. Unknown-model responses remain unchanged.
+    """
     unknown = {"status": "unknown", "name": None}
     if len(key) != 3 or any(type(value) is not int for value in key):
         raise ValueError("model-name key requires integer bank, entry and segment")
@@ -182,9 +265,19 @@ def resolve_name(registry: dict, profile: str, rom_sha1: str,
             or hashlib.sha1(data).hexdigest() != record["model_sha1"]
             or hashlib.sha256(data).hexdigest() != record["model_sha256"]):
         raise ValueError("named model source identity changed")
-    return {"status": "reviewed", "name": record["name"],
-            "kind": registry["name_kind"],
-            "registry_key": f"{key[0]:02x}:{key[1]:04d}:{key[2]:02d}",
+    if confidence is None:
+        confidence = load_confidence(registry)
+    else:
+        validate_confidence(confidence, registry)
+    classification = next(item["classification"] for item in confidence["models"]
+                          if item["registry_key"] == registry_key(record))
+    return {"status": classification, "name": record["name"],
+            "descriptor": record["name"], "kind": "legacy-descriptive-model-label",
+            "semantic_identity_status": CONFIDENCE_STATUSES[classification],
+            "semantic_identity_confirmed": False,
+            "human_confirmation_status": "not_individually_audited",
+            "qualifier_confirmation_status": "not_individually_audited",
+            "registry_key": registry_key(record),
             "evidence": list(record["evidence"])}
 
 
@@ -225,6 +318,7 @@ def audit_registry(rom: Path | None = None) -> dict:
     if (digest != registry["rom_sha1"] or len(normalized) != registry["rom_size_bytes"]
             or hashlib.sha256(normalized).hexdigest() != registry["rom_sha256"]):
         raise ValueError("model-name registry belongs to a different ROM")
+    confidence = load_confidence(registry)
     game = models.parse_game_archive(normalized[layout["game_start"]:layout["game_end"]])
     consumer_count = verify_consumers(game.code, layout["game_vram"], registry)
     sources = {}
@@ -244,9 +338,12 @@ def audit_registry(rom: Path | None = None) -> dict:
         key = tuple(record[field] for field in ("bank", "entry", "segment"))
         if key not in sources:
             raise ValueError("named model is absent from the ROM")
-        names.append(resolve_name(registry, "us", digest, key, sources[key]))
+        names.append(resolve_name(registry, "us", digest, key, sources[key], confidence=confidence))
     return {"profile": "us", "rom_sha1": digest, "rom_sha256": registry["rom_sha256"],
             "rom_size_bytes": len(normalized), "banks": banks, "models": names,
+            "registry_sha256": REGISTRY_SHA256, "confidence_sha256": CONFIDENCE_SHA256,
+            "confidence_counts": dict(sorted(Counter(item["status"] for item in names).items())),
+            "confirmed_semantic_identity_model_count": 0,
             "consumer_count": consumer_count,
             "consumer_reference_count": sum(len(record["consumers"]) for record in registry["models"]),
             "model_specific_branch_count": sum("model_specific_branch" in record for record in registry["models"])}
@@ -257,8 +354,10 @@ def main() -> None:
     parser.add_argument("--rom", type=Path)
     args = parser.parse_args()
     report = audit_registry(args.rom)
-    print("Verified US model names: " + ", ".join(
-        f"{record['name']} [{record['registry_key']}]" for record in report["models"]))
+    print(f"Source-verified US model descriptions: {len(report['models'])} records")
+    for status, count in report["confidence_counts"].items():
+        print(f"  {status}: {count}")
+    print("Human confirmation was not individually audited; qualifiers remain unconfirmed.")
     print(f"{report['consumer_count']} unique full consumer spans and "
           f"{report['model_specific_branch_count']} model-specific branches verified")
 

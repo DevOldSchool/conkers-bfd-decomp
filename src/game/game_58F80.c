@@ -586,6 +586,12 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
         func_1502EC34(arg0, arg10, arg11, arg12, arg13);
     }
 }
+/* Semantic role: actor_emit_model_display_lists.
+ * Prepares the selected actor model and emits parts not suppressed by +0x94.
+ * Mode 3 uses the secondary table; other modes use the primary table.
+ * Also performs render-state setup and actor/model usage updates.
+ * See docs/evidence/actor_model_display_list_semantics.md.
+ */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502CCFC.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (335) */
 void func_1502D54C(s32 arg0, void *arg1) {

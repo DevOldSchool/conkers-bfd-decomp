@@ -1,5 +1,12 @@
 # Reviewed US scene-prop model names
 
+Historical checkpoint: the reviewed/named totals below count source-bound
+descriptive labels, not confirmed semantic identities or distinct characters.
+Gallery labels and source hashes do not establish human confirmation. The
+[current confidence review](model_name_confidence_review.md) supersedes the
+old reviewed/unknown naming status; source pins and validation history remain
+evidence for their stated scope.
+
 This source-only expansion adds 20 bank-04 descriptive model identities to the
 [91-name character/object checkpoint](additional_character_semantic_registry_expansion.md),
 for **111 reviewed names and 1,376 unknown models**. All 91 prior registry records,

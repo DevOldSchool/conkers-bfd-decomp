@@ -121,6 +121,9 @@ def summarize(model_records: list[dict], rows: list[dict]) -> dict:
         "blender_interchange": counts(model_records, "blender_interchange"),
         "scene_association": counts(model_records, "scene_association"),
         "semantic_name": counts(model_records, "semantic_name"),
+        "confirmed_semantic_identity_model_count": sum(
+            record["semantic_name"].get("semantic_identity_confirmed") is True
+            for record in model_records),
         "runtime_material_observed_model_count": len({
             row["model_key"] for row in rows if row["runtime_material"]["status"] == "observed"
         }),
@@ -337,7 +340,9 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
         inputs[models.manifest_source(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
 
     names = model_semantic_names.load_registry()
+    name_confidence = model_semantic_names.load_confidence(names)
     remember(model_semantic_names.REGISTRY_PATH)
+    remember(model_semantic_names.CONFIDENCE_PATH)
     runtime = defaultdict(list)
     for path in dict.fromkeys(runtime_paths):
         remember(path)
@@ -492,7 +497,8 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
                     "standalone_geometry": {"status": standalone, "rom_rebuild": "byte-identical"},
                     "blender_interchange": {"status": "validated" if statuses == {"validated"} else "missing-preview" if not files else "stale-validation" if "stale-validation" in statuses else "unvalidated", "files": files},
                     "scene_association": {"status": "resolved" if associations.get(key) else "missing", "associations": associations.get(key, [])},
-                    "semantic_name": model_semantic_names.resolve_name(names, profile, digest, key, segment.data),
+                    "semantic_name": model_semantic_names.resolve_name(
+                        names, profile, digest, key, segment.data, confidence=name_confidence),
                     "vertex_transforms": {
                         "status": "vertex-load-matrix-assignment" if bank == 1 or is_attachment else "no-local-character-palette",
                         "faces_differing_from_draw_matrix": models.vertex_matrix_mismatch_face_count(geometry),
@@ -552,7 +558,7 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
             "character_activity": "supplied" if activity_path else "not-supplied",
             "scene_consumers": "supplied" if scene_path else "placements-only",
             "blender_file_records": len(blender),
-            "semantic_name_registry": "reviewed-registry" if (profile, digest) == (names["profile"], names["rom_sha1"]) else "not-applicable",
+            "semantic_name_registry": "source-bound-labels-with-confidence" if (profile, digest) == (names["profile"], names["rom_sha1"]) else "not-applicable",
             "attachment_trace_count": attachment_trace_count,
             "rom_character_presets": "explicit-inspection-presets" if rom_character_presets else "not-requested",
         },
@@ -569,7 +575,8 @@ def extract_coverage(profile: str, rom: Path | None, root: Path, textures: Path,
             "ROM character preset coverage is optional and separate; its face indices address full-source geometry, not compacted primary-preview rows.",
             "Missing scene association means absent from reviewed consumers, not unused by the game.",
             "A captured attachment parent does not establish a numeric scene identity; those dimensions remain separate.",
-            "Semantic names use the reviewed ROM/model/consumer registry; unlisted models remain unknown. Names do not establish actor type, activation or visibility.",
+            "Legacy descriptions use the pinned registry and exact confidence sidecar; unlisted models remain unknown. Appearance-only descriptions are not confirmed semantic identities.",
+            "Earlier character review and historical gallery labels do not establish individually audited human confirmation, including variant and subpart qualifiers. Source hashes and consumer roles do not confirm names, actor type, activation or visibility.",
             "Legacy aggregate Blender reports do not validate individual current files.",
             "Interchange validation does not establish N64 lighting, combiner, mipmap or raster parity.",
         ],

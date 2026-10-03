@@ -594,6 +594,12 @@ extern s8 D_800E0C82;
 extern s8 D_800E0C83;
 extern s8 D_800E0C84;
 
+/* Descriptive role: ui_text_entry_key_models_load.
+ * Loads bank-09 entries 453..482 into thirty 12-byte resource records and
+ * initializes text-entry state and model commands. Per-model load results
+ * are dereferenced without a local failure check.
+ * Evidence: docs/evidence/text_entry_model_role_names.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151EDF4C CURRENT (611) */
 void func_151EDF4C(void) {
     s32 resourceId;
@@ -655,6 +661,11 @@ void func_151EDF4C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151EDF4C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EDF4C.s")
+/* Descriptive role: ui_text_entry_update_and_draw.
+ * Updates selection/text, evaluates submitted text against loaded tables,
+ * and submits all thirty key display lists with selected-key state.
+ * Evidence: docs/evidence/text_entry_model_role_names.md.
+ */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EE184.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EEBE8.s")
 extern s32 D_800E9D00;

@@ -1,5 +1,12 @@
 # Reviewed US object-model names
 
+Historical checkpoint: the reviewed/named totals below count source-bound
+descriptive labels, not confirmed semantic identities or distinct characters.
+Gallery labels and source hashes do not establish human confirmation. The
+[current confidence review](model_name_confidence_review.md) supersedes the
+old reviewed/unknown naming status; source pins and validation history remain
+evidence for their stated scope.
+
 This source-only expansion adds 20 exact bank-03/bank-09 identities to the
 [17 bank-01 character models](character_semantic_registry_expansion.md), for
 37 reviewed descriptive names. It changes the fixed registry, its review pin,

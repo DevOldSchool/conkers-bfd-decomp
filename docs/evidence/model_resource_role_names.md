@@ -33,10 +33,10 @@ Allocation tagging is not described as immediate deallocation: the helper
 continues reading the owner after tagging it. No named character or world
 placement is inferred from this UI path.
 
-## Helmet and cigar requests
+## Attachment action 35 and 68 requests
 
 `func_1514DCAC` has the bounded role
-`actor_request_military_helmet_and_cigar`; its pointer parameter is `parentActor`.
+`actor_request_attachment_actions_35_and_68`; its pointer parameter is `parentActor`.
 It first stores numeric `0x6000` at parent `+0x9C`, whose meaning is left unnamed,
 then unconditionally requests action 35 followed by action 68 on the same
 saved pointer. Its existing raw `s32` argument words, including `0x3F800000`,
@@ -46,8 +46,10 @@ Action 35 has one kind-two record: model byte 133, animation selector two.
 The descriptor selector at `+0x17` therefore takes the animated loader path
 through `func_1503F62C` and `func_1502FE10`. Action 68 has one kind-one record:
 model byte 29 and selector -1, taking `func_1502FE10` directly. Both loaders
-resolve bank 09. Fresh numeric-ROM/preview joins and private visual inspection
-confirm model 133 as the military helmet and model 29 as the cigar.
+resolve bank 09. Numeric-ROM/preview joins identify the exact source records. Prior visual
+inspection supports only helmet-like and cigar-like appearance descriptions for
+models 133 and 29 respectively. Their item identities, military role and
+gameplay use are not confirmed by those images or earlier gallery labels.
 
 Action selectors 35/68 are not model IDs 133/29. Parent `+0x3B` equal to zero,
 duplicate suppression, allocation failure or model-load failure can prevent
@@ -70,10 +72,10 @@ The inspected `00:00` texture selection is an explicit preview preset, not an
 initial or observed runtime timer reading. Timer units and the existing
 excluded renderer candidate remain unchanged.
 
-## Exact model identities and full spans
+## Exact model source identities and full spans
 
 All evidence uses normalized US ROM SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a`. The three named source models are
+`4cbadd3c4e0729dec46af64ad018050eada4f47a`. The three source-bound model records are
 bank09, segment zero; IDs are decimal:
 
 | Entry | Source bytes | SHA-1 | SHA-256 |
@@ -115,7 +117,7 @@ This adds seven descriptive function roles and no C matches or matched bytes.
 ## Bounded source-local action constants
 
 The two calls in `func_1514DCAC` now spell their reviewed selectors as
-`ACTION_MILITARY_HELMET = 35` and `ACTION_CIGAR = 68`. These anonymous enum
+`ACTION_SELECTOR_35 = 35` and `ACTION_SELECTOR_68 = 68`. These anonymous enum
 constants are declared after the reviewed source-unit comment and before use.
 They describe action-table selectors, not model IDs or guaranteed creation.
 Only the two unsuffixed integer call operands change spelling. Signatures,
@@ -138,3 +140,12 @@ optional ROM-enabled pinned skip). Independent review confirms the exact
 source inverse, constructor distinction, and retained source-context/discovery
 behavior. This accepts two source-local action-selector constants and no new
 C match or linked name.
+
+## Confidence correction before publication
+
+The two source-local constants and the request-role comment use neutral action
+selector numbers. Earlier helmet/cigar wording was an appearance-based inference,
+not a confirmed item identity. The proved selector-to-model routing and
+conditional request behavior remain unchanged. See the
+[confidence review](model_name_confidence_review.md) for the current distinction
+between character-label provenance, appearance descriptions and semantic identity.

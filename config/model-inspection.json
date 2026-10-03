@@ -1729,10 +1729,13 @@
     },
     {
       "name": "object-bank03-0068-rom",
-      "label": "Door edge and handle \u2014 ROM bank 03 / 0068",
+      "label": "Wooden door with round handle \u2014 ROM bank 03 / 0068",
       "render_case": "object-bank03-0068-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone part or attachment; runtime placement is unresolved. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone part or attachment; runtime placement is unresolved. Native colours, lighting and appearance remain unverified. No capture inputs. Fresh material and vertex inspection identifies a wood-grained door panel with a round handle; the one-sided broad panel is mostly hidden from the original front view. One exact bank-0C child-2 placement record is authenticated; runtime activation and visibility remain unresolved. The former label is retained only for search/history, not as corroborating evidence.",
+      "category": "scene-items",
+      "aliases": [
+        "Door edge and handle \u2014 ROM bank 03 / 0068"
+      ]
     },
     {
       "name": "object-bank03-0069-rom",
@@ -1743,10 +1746,13 @@
     },
     {
       "name": "object-bank03-0070-rom",
-      "label": "Green launcher \u2014 ROM bank 03 / 0070",
+      "label": "Black-and-green tube prop \u2014 ROM bank 03 / 0070",
       "render_case": "object-bank03-0070-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Fresh inspection supports a black-and-green tube-like prop with flared ends and two flat downward green appendages. The former launcher interpretation is not independently established. The former label is retained only for search/history, not as corroborating evidence.",
+      "category": "scene-items",
+      "aliases": [
+        "Green launcher \u2014 ROM bank 03 / 0070"
+      ]
     },
     {
       "name": "object-bank03-0071-rom",
@@ -1785,10 +1791,14 @@
     },
     {
       "name": "object-bank03-0076-rom",
-      "label": "Radioactive barrel \u2014 ROM bank 03 / 0076",
+      "label": "Red warning barrel \u2014 ROM bank 03 / 0076",
       "render_case": "object-bank03-0076-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. The visible yellow panel bears a black exclamation warning. Radioactive contents and gameplay behavior are not established by this source-model appearance.",
+      "category": "scene-items",
+      "aliases": [
+        "Radioactive barrel (former label)",
+        "Radioactive barrel \u2014 ROM bank 03 / 0076 (former label)"
+      ]
     },
     {
       "name": "object-bank03-0077-rom",
@@ -3472,10 +3482,14 @@
     },
     {
       "name": "object-bank09-0020-rom",
-      "label": "Milk carton \u2014 ROM 09 / 0020",
+      "label": "Lighter-fluid container \u2014 ROM 09 / 0020",
       "render_case": "object-bank09-0020-rom",
-      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. The exact linked texture pixels read LIGHTER FLUID beside flame icons; the diagnostic vertex view shows a rectangular container with a narrow spout. Current material views expose only part of the form, especially from front and rear. This descriptive label does not establish actual contents or gameplay use. Native visibility remains unverified.",
+      "category": "scene-items",
+      "aliases": [
+        "Milk carton (former label)",
+        "Milk carton \u2014 ROM 09 / 0020 (former label)"
+      ]
     },
     {
       "name": "object-bank09-0099-rom",
@@ -3507,17 +3521,25 @@
     },
     {
       "name": "object-bank09-0123-rom",
-      "label": "Cleaver \u2014 ROM 09 / 0123",
+      "label": "Bone-handled knife \u2014 ROM 09 / 0123",
       "render_case": "object-bank09-0123-rom",
-      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. Fresh material and diagnostic vertex views show a broad pointed blade with a pale bone-shaped handle, supporting a descriptive knife label. The exact ROM source remains distinct from the wrapped-handle variant. Handle material composition, gameplay use and native visibility remain unverified.",
+      "category": "scene-items",
+      "aliases": [
+        "Cleaver (former label)",
+        "Cleaver \u2014 ROM 09 / 0123 (former label)"
+      ]
     },
     {
       "name": "object-bank09-0124-rom",
-      "label": "Cleaver \u2014 wrapped handle \u2014 ROM 09 / 0124",
+      "label": "Wrapped-handle knife \u2014 ROM 09 / 0124",
       "render_case": "object-bank09-0124-rom",
-      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. Fresh material and diagnostic vertex views show a broad pointed blade with a pale wrap-patterned handle and a red band, supporting a descriptive knife label. The exact ROM source remains distinct from the bone-shaped-handle variant. Gameplay use and native visibility remain unverified.",
+      "category": "scene-items",
+      "aliases": [
+        "Cleaver \u2014 wrapped handle (former label)",
+        "Cleaver \u2014 wrapped handle \u2014 ROM 09 / 0124 (former label)"
+      ]
     },
     {
       "name": "object-bank09-0022-rom",
@@ -6001,10 +6023,13 @@
     },
     {
       "name": "object-bank03-0079-00-rom",
-      "label": "Yellow-red hazard panel \u2014 ROM 03 / 0079 / 00",
+      "label": "Yellow-red striped panel \u2014 ROM 03 / 0079 / 00",
       "render_case": "object-bank03-0079-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Red/yellow diagonal stripes are visible; hazard behavior is not established. The former label is retained only for search/history.",
+      "aliases": [
+        "Yellow-red hazard panel \u2014 ROM 03 / 0079 / 00 (former label)"
+      ]
     },
     {
       "name": "object-bank04-0006-08-rom",
@@ -6169,10 +6194,13 @@
     },
     {
       "name": "object-bank03-0111-00-rom",
-      "label": "Lava wall surface \u2014 ROM 03 / 0111 / 00",
+      "label": "Lava-pattern wall surface \u2014 ROM 03 / 0111 / 00",
       "render_case": "object-bank03-0111-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Lava-like pattern on a plane is visible; lava substance or gameplay behavior is not established. The former label is retained only for search/history.",
+      "aliases": [
+        "Lava wall surface \u2014 ROM 03 / 0111 / 00 (former label)"
+      ]
     },
     {
       "name": "object-bank04-0007-16-rom",
@@ -6341,10 +6369,13 @@
     },
     {
       "name": "object-bank03-0045-00-rom",
-      "label": "Damaged footbridge and scorched ledge \u2014 ROM 03 / 0045 / 00",
+      "label": "Damaged footbridge and dark ledge \u2014 ROM 03 / 0045 / 00",
       "render_case": "object-bank03-0045-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Darkened appearance is visible; a scorching event is not established. The former label is retained only for search/history.",
+      "aliases": [
+        "Damaged footbridge and scorched ledge \u2014 ROM 03 / 0045 / 00 (former label)"
+      ]
     },
     {
       "name": "object-bank04-0004-27-rom",

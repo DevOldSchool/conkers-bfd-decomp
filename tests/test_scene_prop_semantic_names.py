@@ -6,8 +6,16 @@ import json
 import struct
 import unittest
 
+from test_model_name_confidence import resolve_synthetic_name
+
 from scripts import model_assets as models
 from scripts import model_semantic_names as names
+from test_attachment_prop_semantic_names import ATTACHMENT_PROP_NAMES, restore_attachment_corrections
+from test_placed_prop_semantic_names import CANONICAL_INDEX as PLACED_INDEX, CANONICAL_BEFORE as PLACED_BEFORE, CANONICAL_AFTER as PLACED_AFTER
+from test_key_model_semantic_names import KEY_MODEL_NAMES
+from test_held_character_semantic_names import HELD_CHARACTER_NAMES
+from test_remaining_scene_prop_semantic_names import (REMAINING_SCENE_PROP_NAMES,
+    restore_remaining_scene_corrections, historical_canonical_bytes)
 
 SCENE_PROP_NAMES = {(4, 1, 9): 'Hanging pull ring',
  (4, 2, 29): 'Rock Solid lettering',
@@ -283,7 +291,12 @@ class ScenePropSemanticNameTests(unittest.TestCase):
     def test_all_91_prior_records_and_haybot_branch_are_unchanged(self):
         registry = names.load_registry()
         retained = [r for r in registry["models"] if r["bank"] != 4
-                    and "docs/evidence/remaining_character_semantic_registry_expansion.md" not in r["evidence"]]
+                    and "docs/evidence/remaining_character_semantic_registry_expansion.md" not in r["evidence"]
+                    and "docs/evidence/placed_prop_semantic_registry_expansion.md" not in r["evidence"]
+                    and (r["bank"], r["entry"], r["segment"]) not in ATTACHMENT_PROP_NAMES
+                    and (r["bank"], r["entry"], r["segment"]) not in KEY_MODEL_NAMES
+                    and (r["bank"], r["entry"], r["segment"]) not in HELD_CHARACTER_NAMES
+                    and (r["bank"], r["entry"], r["segment"]) not in REMAINING_SCENE_PROP_NAMES]
         self.assertEqual(91, len(retained))
         self.assertEqual("daab097c956a0343961bba5e5d20d4641fef1b0758a8cbd03ec677e6197561b0", canonical_digest(retained))
         self.assertEqual([(1, 75, 0)], [(r["bank"], r["entry"], r["segment"])
@@ -304,8 +317,8 @@ class ScenePropSemanticNameTests(unittest.TestCase):
                 self.assertNotIn("model_specific_branch", record)
                 self.assertTrue(any("initial-slot renderer" in s for s in record["limitations"]))
                 self.assertTrue(any("bank-0C child 2 does not supply" in s for s in record["limitations"]))
-        self.assertEqual(44, len({c["symbol"] for r in records for c in r["consumers"]}))
-        self.assertEqual(923, sum(len(r["consumers"]) for r in records))
+        self.assertEqual(47, len({c["symbol"] for r in records for c in r["consumers"]}))
+        self.assertEqual(1375, sum(len(r["consumers"]) for r in records))
 
     def test_source_names_do_not_spread_to_other_banks_or_neighbor_segments(self):
         registry = names.load_registry()
@@ -314,10 +327,10 @@ class ScenePropSemanticNameTests(unittest.TestCase):
             record.update(source_bytes=len(payload), model_sha1=hashlib.sha1(payload).hexdigest(),
                           model_sha256=hashlib.sha256(payload).hexdigest())
         for key, label in SCENE_PROP_NAMES.items():
-            self.assertEqual(label, names.resolve_name(registry, "us", registry["rom_sha1"], key, payload)["name"])
-        for key in ((4, 20, 8), (4, 67, 5), (4, 0, 0), (4, 20, 0), (3, 20, 9), (9, 67, 6), (1, 171, 0)):
+            self.assertEqual(label, resolve_synthetic_name(registry, "us", registry["rom_sha1"], key, payload)["name"])
+        for key in ((4, 20, 8), (4, 67, 5), (4, 0, 0), (4, 20, 0), (3, 20, 9), (9, 67, 6), (1, 171, 1)):
             self.assertEqual({"status": "unknown", "name": None},
-                             names.resolve_name(registry, "us", registry["rom_sha1"], key, payload))
+                             resolve_synthetic_name(registry, "us", registry["rom_sha1"], key, payload))
 
     def test_exact_two_canonical_labels_aliases_and_original_caveats(self):
         canonical = json.loads((names.ROOT / "config/model-inspection.json").read_text())
@@ -330,7 +343,11 @@ class ScenePropSemanticNameTests(unittest.TestCase):
             for field in old.keys() - {"label", "note", "aliases"}:
                 self.assertEqual(old[field], actual[field])
             canonical["models"][index] = copy.deepcopy(old)
-        # Restoring exactly the two corrections must recover every prior canonical field.
+        self.assertEqual(PLACED_AFTER, canonical["models"][PLACED_INDEX])
+        canonical["models"][PLACED_INDEX] = copy.deepcopy(PLACED_BEFORE)
+        restore_remaining_scene_corrections(self, canonical)
+        restore_attachment_corrections(self, canonical)
+        # Restore separately pinned later corrections before the historical full-file guard.
         self.assertEqual("9dfc780720519fdd905113607443a6e2cdfad0f49ddc095777bfaa32a96650b0", canonical_digest(canonical))
 
     def test_static_scene_selection_validation_paths_and_historical_hashes_stay_unchanged(self):

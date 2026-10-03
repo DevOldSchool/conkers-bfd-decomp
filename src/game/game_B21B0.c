@@ -30,6 +30,12 @@ typedef struct GameB21B0Object {
 extern s32 D_80087240;
 extern u8 D_8009D954;
 
+/* Semantic role: actor_get_animation_model_representative.
+ * Scans seven model-sharing groups, returning the first member of the first
+ * matching group or the current model byte unchanged. Model assignment stores
+ * this bank-02 animation-resource model index separately at actor +6.
+ * See docs/evidence/actor_animation_model_group_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15084D00 CURRENT (1665) */
 s32 func_15084D00(GameB21B0Object *arg0) {
     s32 entry_index;
