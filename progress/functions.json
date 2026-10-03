@@ -8856,11 +8856,15 @@
       "symbol": "func_151C9B64"
     },
     {
+      "blocked": {
+        "reason": "Source-valid starter blocked: raw151C9BF8 indexes D_800CBFA8 by an owner byte times0x32C after only a nonzero guard. Bounded source/include, reviewed evidence and prior-ledger search found no complete array base/extent or index invariant. Do not declare a scalar alias as an array or force integer-address walking. Related151CA6A0/151CAD28 call contracts also need review before source translation. Retain original assembly; no candidate or match credit.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 584,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151C9BA0",
           "vram": "0x151C9BA0"
         }
@@ -9176,6 +9180,12 @@
       "symbol": "func_151CC290"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Fresh callback with source-backed void(void*,void**,u8) table ABI, actual s32 event/payload identity, initialized finite source colors and complete owner. Initial source CURRENT10 differs only in two identity-load register assignments. Equality reversal remains10; explicit guarded message local regresses480. Preserve simplest valid10; all four unsigned conversion sequences and stores otherwise exact. Three-form budget exhausted; no forced storage or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9189,6 +9199,12 @@
       "symbol": "func_151CC2BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5208,
+        "reason": "One ordinary constructor trial after reviewed local void-return and SDK memcpy contracts. Two genuine0x58 locals, typed owner pointer matching accepted updater, initialized payload prefix, reserved byte tail and defined unsigned masked shift. CURRENT5208 with0xE8 frame versus raw0xE0 and store/flag/call scheduling residuals. Preserve valid candidate; no truncated descriptor, forced storage, invented return or narrowed six fullword formals. Rotate to the related callback under the scoped trial budget.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42387,6 +42403,12 @@
       "symbol": "func_15049C40"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3127,
+        "reason": "Fresh two-pointer matrix-to-quaternion translation with complete caller matrices/outputs, ROM-proven initialized three-index table, preserved arithmetic grouping and scalar stores. Direct form3571; explicit if/else with branch-local table3127; common scalar reuse3162. Retain source-valid3127; output-pointer allocation, frame and FP/row scheduling remain. Three-form budget exhausted; no forced storage, narrowed ABI, operand sweep or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
