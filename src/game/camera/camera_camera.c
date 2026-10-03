@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_beta_camera_rope_bee.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15122AE0
  * - func_15122C5C
  * - func_15123070
  * - func_1512317C
@@ -45,33 +44,26 @@ extern u8 D_800C35EA;
 extern s32 D_800D2DB4;
 extern u8 *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15122AE0 CURRENT (290) */
 void func_15122AE0(void) {
     f32 scale = (f32)D_800BEA08 * D_800A34D0;
     s32 i;
     u8 *camera;
 
-    if (D_80082FA0 >= 0) {
-        i = 0;
-        do {
-            camera = D_800DBFF0 + i * 0x9A0;
-            if (func_150859AC((s16)i, 0) != 0 || i == 0) {
-                *(f32 *)(camera + 0x7B4) = scale;
-                if (D_800BEAC0 == 0 || D_800C35EA != 0 || D_800D2DB4 != 0) {
-                    func_151239CC(camera, 5);
-                    func_15122C5C(camera);
-                } else {
-                    func_15123934(camera, 0x2000, 0, *(s32 *)(camera + 0x134), 5);
-                    func_1512C490(camera);
-                }
+    for (i = 0; D_80082FA0 >= i; i = (s16)(i + 1)) {
+        camera = D_800DBFF0 + i * 0x9A0;
+        if (func_150859AC((s16)i, 0) != 0 || i == 0) {
+            *(f32 *)(camera + 0x7B4) = scale;
+            if (D_800BEAC0 == 0 || D_800C35EA != 0 || D_800D2DB4 != 0) {
+                func_151239CC(camera, 5);
+                func_15122C5C(camera);
+            } else {
+                func_15123934(camera, 0x2000, 0, *(s32 *)(camera + 0x134), 5);
+                func_1512C490(camera);
             }
-            i = (s16)(i + 1);
-        } while (D_80082FA0 >= i);
+        }
     }
     D_800894B0++;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15122AE0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/camera/camera_camera/func_15122AE0.s")
 void func_15097798(s32);
 void func_1510B128(s32, f32, f32, f32, f32);
 void func_15123070(void *);
@@ -993,14 +985,11 @@ extern f32 D_800A3510;
 extern f32 D_800A3514;
 extern f32 D_800A3518;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15124C38 CURRENT (3598) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15124C38 CURRENT (3092) */
 void func_15124C38(void *arg0, s32 arg1) {
     s16 sp52;
     s16 sp50;
     s16 sp4E;
-    f32 sp48;
-    f32 sp44;
-    f32 sp40;
     f32 zero;
     f32 temp_ft4;
     f32 value;
@@ -1051,6 +1040,10 @@ void func_15124C38(void *arg0, s32 arg1) {
             temp_v1 = (*(void **)((u8 *)(arg0) + 0x3D4));
         }
         if ((*(u8 *)((u8 *)temp_v1 + 0x120)) != 0) {
+            f32 sp48;
+            f32 sp44;
+            f32 sp40;
+
             func_1507E1D0((*(void **)((u8 *)(arg0) + 0x3D0)), &sp40, &sp44, &sp48);
             func_150495B0((f32 *)((u8 *)arg0 + 0x2C0), sp44, (f32 *)((u8 *)arg0 + 0x2A0), 4.0f, 8.0f, (*(f32 *)((u8 *)(arg0) + 0x7B4)));
             return;

@@ -2,7 +2,7 @@
 
 This source-local pass continues `src/game/camera/camera_camera.c` from the
 reviewed 45-member range at game offsets `0x122AE0:0x1287E0`. The unit remains
-mixed and in progress: 23 functions are accepted C matches, while all 22
+mixed and in progress: 24 functions are accepted C matches, while all 21
 remaining members retain assembly. Deferred C is evidence for further work,
 not match credit or a completed source unit.
 
@@ -52,8 +52,8 @@ the final two section-alignment NOPs at `0x151287D8` and `0x151287DC`. The
 initial focused object omitted those last two words, yielding CURRENT 200.
 
 Matching `func_15125924` below adds its genuine 328-byte C body to the focused
-prefix. The final function then starts at `0xE44`, with the same modulo-16
-position as its authentic unit offset `0x5C94`. The compiler naturally emits
+prefix. At that checkpoint, the final function starts at `0xE44`, with the same
+modulo-16 position as its authentic unit offset `0x5C94`. The compiler naturally emits
 the required two final zero words. The unchanged comparator now reports
 CURRENT 0 over all 108 bytes, and the full source-unit layout passes. No
 comparison-tool extension or manually added padding is included.
@@ -82,6 +82,28 @@ The same review found unchanged `0x48` frames in all three versions of
 `func_15125A6C`; those bodies provide no basis for inventing extra locals or
 padding in its still-deferred candidate.
 
+## Camera update loop
+
+`func_15122AE0` now expresses its existing signed camera-index induction as a
+single for-loop, retaining the same 16-bit increment conversion and every body
+operation. This places the initial zero in the raw entry branch's delay slot
+and matches the complete 380-byte span at CURRENT 0. No loop bounds, calls,
+field operations, or compiler settings change.
+
+## Further scoped evidence
+
+For `func_15124C38`, the three retail-only float output scalars now live in
+their existing early-return branch. The debug body retains the same `0x60` frame; neither earlier body
+contains that float-output call. Keeping their original order and identities improves
+CURRENT 3598 to 3092, but the frame, output homes and FP/control scheduling
+remain different. The implementation stays deferred.
+
+The callback helper contract used by `func_151277B0` is now established through
+the documented MAIN link/runtime mapping: runtime `func_100111C8` refers to
+matched `func_800111C8`, defined as `void func_800111C8(u16)`. The existing
+camera declaration is correct; its frame/register differences remain and no
+body change was made for this contract review.
+
 ## Bounded negative results
 
 - `func_15125924`: sharing the disjoint initial type and later flags local
@@ -90,10 +112,14 @@ padding in its still-deferred candidate.
   branch-local declarations above produced an exact match
 - `func_151256BC`: replacing named derived-address locals with their repeated
   typed expressions leaves CURRENT 295 and the `0x48` versus `0x38` frame
-  unchanged. The earlier candidate is preserved
+  unchanged. A later true-arm declaration-scope probe regresses to 867 and
+  enlarges the frame; the original CURRENT 295 candidate is preserved
 - `func_15125490`: its stale deferred parameter declaration was repaired to
   agree with the existing void-pointer prototype, retaining the same project
   typed field view internally. It compiles again and remains CURRENT 560
+- `func_15123A54`: scoping the real retail-only old-distance scalar to its
+  collision-success branch is neutral at CURRENT 5742. The prior candidate
+  is preserved; it is not merged with the separate entry-distance snapshot
 - `func_15123568`: a proposed unsigned shift-mask literal was not tried after
   fresh diagnosis showed that the relevant shift-one and shift instructions
   already match. CURRENT 230 remains unchanged
