@@ -14,9 +14,5 @@ earlier Conker decompilation or any other decompilation project. External
 tools and explicitly recorded Git submodules are separate dependencies and
 must be pinned to immutable revisions.
 
-The sole checked-in third-party source exception is
-`tools/third_party/rareunzip.py`, a standalone CC0 RZIP utility whose exact
-upstream source and revision are recorded in `tools/third_party/README.md`.
-
 By submitting a contribution, you confirm that you have the right to submit it
 under the repository license and that it complies with this policy.

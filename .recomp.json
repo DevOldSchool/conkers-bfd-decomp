@@ -2,5 +2,10 @@
   "$schema": "https://recomp.fyi/schema/v1.json",
   "game": "Conker's Bad Fur Day",
   "system": "N64",
-  "type": "decomp"
+  "type": "decomp",
+  "original": {
+    "region": "USA",
+    "sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a"
+  },
+  "status": "in-progress"
 }

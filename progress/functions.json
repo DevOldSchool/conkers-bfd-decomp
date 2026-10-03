@@ -29934,6 +29934,12 @@
       "symbol": "func_15048B10"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2955,
+        "reason": "Bounded source-valid union trial: initial CURRENT 5533; coherent union value/word snapshot 3996; guarded rational branch 2955. Best retains real initialized representation union, two-float ABI, fixed coefficient views and ordered expressions. Remaining local 8-byte frame, unused-formal spill, FP operands/registers and return layout require new source evidence. No parameter-home or pointer-punning workaround.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78895,6 +78901,12 @@
       "symbol": "func_1511BA24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6550,
+        "reason": "Bounded ordinary-C UV-cache trial 8449/6695/6550. Best preserves the observed 0x84 partial view of the real 0xA0 owner, real count-sized buffers/cache, exact-alias copy/add order, unknown vertex bytes, and finite-representable float contract. Remaining dominant mismatch is naturally halfword-aligned aggregate copying versus raw aligned words; no fabricated word/alignment members or unsafe casts. Two arithmetic-staging revisions exhausted; retain valid best for independent review.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -4,6 +4,10 @@ A work-in-progress matching decompilation of *Conker's Bad Fur Day* for
 Nintendo 64 (N64), with asset extraction tools, model-preview generation,
 and documented asset-format research.
 
+<p align="center">
+  <img src="docs/images/readme-banner.png" alt="Conker's Bad Fur Day decompilation project logo" width="100%">
+</p>
+
 The North American (US) release is the active target; Europe/PAL remains a
 future goal and does not currently gate progress.
 
@@ -97,7 +101,6 @@ Thanks to the authors and maintainers of:
   [m2c](https://github.com/matt-kempster/m2c),
   [asm-differ](https://github.com/simonlindholm/asm-differ),
   and [objdiff](https://github.com/encounter/objdiff)
-- **Reused work:** [rareunzip](tools/third_party/README.md),
-  [ultralib](https://github.com/decompals/ultralib),
+- **Reused work:** [ultralib](https://github.com/decompals/ultralib),
   [Rare-modified library sources](lib/libultrare/README.md), and
   [RSP sources](src/rsp/README.md), with detailed attribution in their existing notices
