@@ -1,14 +1,8 @@
 # Text-entry key model roles
 
-These are descriptive roles inferred from the reviewed US ROM, not recovered
-original source names. Two raw functions gain comments only. Linked symbols,
-ABI, fields, globals, command values and the excluded candidate remain unchanged.
-No new C match or runtime-activation claim follows.
-
-| Symbol | Descriptive role | Evidence boundary |
-| --- | --- | --- |
-| `func_151EDF4C` | `ui_text_entry_key_models_load` | Allocates the text/resource owner, loads thirty bank-09 key resources and initializes their commands and text state |
-| `func_151EE184` | `ui_text_entry_update_and_draw` | Updates selection and text, evaluates submissions against loaded tables and submits all thirty key display lists |
+`func_151EDF4C` has comment role `ui_text_entry_key_models_load`;
+`func_151EE184` has comment role `ui_text_entry_update_and_draw`. Both remain raw;
+`151EDF4C` retains its excluded `CURRENT (611)` candidate.
 
 ## Exact keys and input mapping
 
@@ -72,7 +66,7 @@ reviewed US ROM; its first subentry has 200 records, including the menu text
 code-entry role without claiming a captured selector value or invocation.
 
 The adjacent `151EEBE8` follows a different image/rectangle route and does not
-consume the thirty-key array. It receives no descriptive role in this change.
+consume the thirty-key array. No key role is assigned to it.
 
 ## Stored appearance and runtime limits
 
@@ -89,29 +83,18 @@ proof against computed pointers or all other execution contexts. No exclusive
 ownership, gameplay activation, named voice/character, player-name use or native
 raster equivalence is claimed.
 
-## Full-span provenance
+## Direct key-model source evidence
 
-All evidence uses normalized US ROM SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a`. Fresh decoding reproduces the complete
-raw/reference instruction spans, including all branches and delay slots:
+The thirty entries join exact preview-manifest, validation and canonical records
+and original compressed extents. Geometry, ordered faces, UVs/colours and 31 linked
+flat textures reproduce the reviewed source previews. Five contact sheets were
+inspected; their glyphs support appearance descriptions, not confirmed gameplay
+identities. Canonical “Letter block” labels and source paths are unchanged.
 
-| Symbol | Bytes | SHA-256 |
-| --- | ---: | --- |
-| `151EDF4C` | 568 | `ed938cbc88a615a4016a14d354f99c939dbcb914b9256aff5d2d84c324c8a513` |
-| `151EE184` | 2660 | `e301de4277f149817e6e569a8b205d23ccea8bfb188ba8b17d5b7e9cd36475ea` |
-| `151EEBE8` | 1032 | `da2a4cf8dc9ed491c7637a6e9f7aef16c878dab43c4b5c66eee435c904a13722` |
-
-`151EDF4C` remains raw with its excluded `CURRENT (611)` candidate. Acceptance of
-a comment change is separate from C matching, layout and build/batch verification.
-
-## Accepted integration
-
-The comment-only changes pass reviewed source-unit layout and full-span US
-`CURRENT (0)` neighbor checks, a clean combined `BATCH_COMPLETE`, exact full
-US ROM and integrated game/data/rodata, progress and whitespace. Both complete
-suites pass all 1,756 tests (37 host environment/tool skips; one optional
-validator skip in the ROM-enabled pinned suite). All allocated UI-object
-sections and all 235 ELF symbol records are unchanged; only nonallocated
-`.mdebug` information differs. Independent review confirms the exact two-comment
-inverse, all eight deferred workflows, complete spans and the qualified roles.
-Both functions remain raw. These are two role comments, not new C matches.
+Every source has a 40-byte direct header and ten faces. Primary lists start at
+232 except entry 482 at 264; list sizes are 208 bytes through entry 480 and 224
+for 481–482. Normal keys span 40 units, return 80 and blank 240. Blank geometry
+alone does not prove its space action. Grid rows are 6/6/6/6/5/1, with zero-based
+slots in the mapping above; input bit `0x10` activates the selected action.
+UI state 3, slot, bank entry, character byte and flat texture index are distinct.
+Exact model hashes and the two complete consumers are in the registry.

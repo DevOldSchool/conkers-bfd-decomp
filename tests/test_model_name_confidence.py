@@ -13,41 +13,8 @@ import unittest
 from unittest.mock import patch
 
 from scripts import model_semantic_names as names
-
-
-RESULT_FIELDS = {"status", "name", "descriptor", "kind", "registry_key", "evidence",
-                 "semantic_identity_status", "semantic_identity_confirmed",
-                 "human_confirmation_status", "qualifier_confirmation_status"}
-EXPECTED_COUNTS = {"earlier_reviewed_character_label": 17,
-                   "historical_character_label_pending_confirmation": 74,
-                   "appearance_only_description": 176}
-
-
-def synthetic_confidence(registry, *, classifications=None):
-    """Rebind only test fixtures; production loaders never call this helper.
-
-    Source bytes are deliberately synthetic in existing resolver tests. Copy
-    the pinned classification at the same numeric key, unless a test explicitly
-    supplies a classification for an invented fixture key. Recompute every
-    binding so tests exercise the real cross-record checks, not a bypass flag.
-    """
-    original = names.load_confidence(names.load_registry())
-    by_key = {r["registry_key"]: r["classification"] for r in original["models"]}
-    by_key.update(classifications or {})
-    original.update({field: registry[field] for field in
-                     ("profile", "rom_sha1", "rom_sha256", "rom_size_bytes")})
-    original["models"] = [{
-        "registry_key": names.registry_key(record),
-        **{field: record[field] for field in ("bank", "entry", "segment", *names.SOURCE_FIELDS)},
-        "source_record_sha256": names.source_record_sha256(record),
-        "classification": by_key[names.registry_key(record)],
-    } for record in registry["models"]]
-    return original
-
-
-def resolve_synthetic_name(registry, profile, rom_sha1, key, data):
-    return names.resolve_name(registry, profile, rom_sha1, key, data,
-                              confidence=synthetic_confidence(registry))
+from model_name_fixtures import (EXPECTED_COUNTS, RESULT_FIELDS,
+                                 resolve_synthetic_name, synthetic_confidence)
 
 
 class ModelNameConfidenceTests(unittest.TestCase):
@@ -56,7 +23,7 @@ class ModelNameConfidenceTests(unittest.TestCase):
         self.confidence = names.load_confidence(self.registry)
 
     def test_exact_registry_bytes_and_all_267_record_bindings(self):
-        self.assertEqual("b4ebcee9f60a2eb345ea6de56055ffa1b4ce5912e6a59a47605daed6a1caf364",
+        self.assertEqual(names.REGISTRY_SHA256,
                          hashlib.sha256(names.REGISTRY_PATH.read_bytes()).hexdigest())
         self.assertEqual(names.CONFIDENCE_SHA256,
                          hashlib.sha256(names.CONFIDENCE_PATH.read_bytes()).hexdigest())

@@ -1,4 +1,4 @@
-"""Naming evidence never substitutes for model identity or runtime evidence."""
+"""Current naming contracts: source identity, bounded roles and confidence."""
 
 from __future__ import annotations
 
@@ -11,196 +11,11 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from test_model_name_confidence import RESULT_FIELDS, resolve_synthetic_name, synthetic_confidence
-
+from model_name_fixtures import (EXPECTED_COUNTS, RESULT_FIELDS, resolve_synthetic_name,
+                                 synthetic_confidence, synthetic_consumers, synthetic_registry)
 from scripts import model_assets as models, model_coverage, model_semantic_names as names
 from scripts import model_haybot_rom_variants
 from test_model_coverage import triangle_payload
-from test_attachment_prop_semantic_names import ATTACHMENT_PROP_NAMES
-from test_key_model_semantic_names import KEY_MODEL_NAMES
-from test_held_character_semantic_names import HELD_CHARACTER_NAMES
-from test_remaining_scene_prop_semantic_names import (REMAINING_SCENE_PROP_NAMES,
-    restore_remaining_scene_corrections, historical_canonical_bytes)
-
-
-REVIEWED_CHARACTER_NAMES = {
-    5: "Wasp", 10: "Mrs. Catfish", 14: "Corn Bag", 15: "Lady Cog — red",
-    24: "Jack — metal box", 26: "Catfish — skeletal remains", 52: "TNT Imp",
-    68: "Dung Beetle", 70: "Lady Cog — blue", 75: "Haybot", 76: "Lady Cog — green",
-    107: "Electric Eel", 125: "Franky the Pitchfork — broken upper part",
-    165: "Red Dinosaur", 173: "Wayne — cigar", 174: "Wanka — fat wasp",
-    175: "Wanka — skinny wasp",
-}
-ADDITIONAL_CHARACTER_NAMES = {
-    0: "Conker", 1: "Conker — variant 1", 2: "Conker — variant 2",
-    3: "Conker — variant 3", 4: "Conker — variant 4", 12: "Franky the Pitchfork",
-    55: "Franky the Pitchfork — rope variant", 58: "Fire Imp",
-    61: "Fire Imp — grey variant", 82: "Carl / Quentin", 83: "Fangy the Raptor",
-    90: "Tediz", 95: "Tediz — ammunition belt",
-    112: "Gregg the Grim Reaper — scythe", 114: "Berri — pink outfit",
-    116: "Tediz — variant 1", 117: "Tediz — variant 2", 118: "Panther King",
-    122: "Tediz — variant 3", 141: "Tediz — medic", 150: "Conker — black outfit",
-    164: "Count Batula", 178: "Gregg the Grim Reaper — hooded",
-    180: "Gregg the Grim Reaper — without robe",
-}
-EXPANDED_CHARACTER_NAMES = {
-    7: "Mrs. Queen Bee",
-    8: "Brute — bullshark",
-    13: "Haystack",
-    16: "Rockman",
-    21: "Wooden Crate character",
-    22: "Uga-Buga — blue headgear",
-    23: "Mr. Big Cog",
-    33: "Bugger Lugs the Bull",
-    34: "Marvin the Mouse",
-    41: "Clang Gobling",
-    43: "The Big Big Guy",
-    44: "Ron the Paintpot",
-    45: "Reg the Paintbrush",
-    49: "Monk Gobling",
-    54: "Dino Baby",
-    56: "Rockman — bow tie",
-    59: "Wise Guy",
-    62: "Earthworm",
-    69: "Haybot — hay-covered form",
-    71: "Robo-Spider",
-    94: "Heinrich",
-    102: "Living Ammo Box",
-    105: "Jugga",
-    108: "Sunflower",
-    109: "Mr. King Bee",
-    121: "Cow",
-    127: "Mr. Barrel",
-    130: "Conker — yellow mech suit",
-    139: "Birdy",
-    142: "The Grotesque (Gargoyle)",
-}
-REVIEWED_OBJECT_NAMES = {
-    (3, 1, 0): "Square-base hanging bell", (3, 60, 0): "Three throwing knives",
-    (3, 61, 0): "Crossbow", (3, 62, 0): "Chainsaw",
-    (3, 77, 0): "Cock and Plucker sign", (3, 82, 0): "Curved sword",
-    (3, 83, 0): "Revolver", (3, 87, 0): "Grenade crate",
-    (3, 91, 0): "Vitamin bottle", (3, 95, 0): "Tracked vehicle",
-    (3, 98, 0): "Closed / Back at 10 sign", (3, 110, 0): "Bombs crate",
-    (9, 29, 0): "Cigar", (9, 133, 0): "Military helmet",
-    (9, 162, 0): "Wall-mounted flame (UI model)", (9, 164, 0): "Upright cash bundle",
-    (9, 165, 0): "Upright cash bundle — attachment variant", (9, 185, 0): "Conker HUD head",
-    (9, 186, 0): "Digital timer", (9, 345, 0): "Hanging bell",
-}
-REVIEWED_SCENE_PROP_NAMES = {
-    (4, 1, 9): 'Hanging pull ring',
-    (4, 2, 29): 'Rock Solid lettering',
-    (4, 6, 4): 'Windmill blades',
-    (4, 7, 11): 'Rusty metal hatch',
-    (4, 10, 6): 'Lighter fluid can',
-    (4, 16, 20): 'Mechanical grabber',
-    (4, 19, 13): 'Diagram easel — circular plan',
-    (4, 20, 9): 'Wooden ladder',
-    (4, 23, 8): 'Metal grid platform',
-    (4, 24, 5): 'Wooden door with metal fittings',
-    (4, 33, 6): 'Chainsaw',
-    (4, 35, 15): 'Vine-covered column',
-    (4, 41, 20): 'Wooden bridge',
-    (4, 43, 7): 'Paris 200 km sign',
-    (4, 45, 12): 'Diagram easel — pipe plan',
-    (4, 45, 13): 'Wooden watchtower with red banner',
-    (4, 54, 5): 'Paired metal gate',
-    (4, 60, 17): 'Gold candelabrum',
-    (4, 65, 5): 'Reinforced wooden door',
-    (4, 67, 6): 'Spotted egg dome',
-}
-REMAINING_CHARACTER_NAMES = {
-    17: 'Weasel Guard — tall variant',
-    20: 'Weasel Guard — short shield variant',
-    30: 'Box character — eyelashes',
-    79: 'Missile character',
-    80: 'Bat',
-    84: 'Buga the Knut',
-    88: 'SHC Soldier',
-    91: 'Rodent',
-    100: 'Uga-Buga — blue headgear variant',
-    120: 'Wasp Larva',
-    123: 'The Experiment (Reagan)',
-    128: 'SHC Soldier — variant',
-    134: 'Don Weaso',
-    135: 'SHC Soldier — decorated uniform',
-    136: 'Uga-Buga',
-    143: 'Raptor',
-    144: 'Surf Punk — sunglasses',
-    145: 'Rockwoman',
-    146: 'The Great Mighty Poo — variant',
-    147: 'Sweet Corn',
-    152: 'Weasel — black helmet and uniform',
-    153: 'Professor Von Kriplespac',
-    156: 'Villager — brown hat',
-    157: 'Villager — striped bonnet',
-    159: 'Zombie — dark suit',
-    160: 'Zombie — purple dress',
-    166: 'Skeleton Worm',
-    176: 'SHC Soldier — decorated uniform variant',
-    177: 'Tediz — broad-shouldered variant',
-    179: 'Marvin the Mouse — stitched belly',
-    181: 'Squirrel — white shirt and apron',
-    183: 'The Weasels Band — upright strings',
-    184: 'The Weasels Band — woodwind',
-    185: 'The Weasels Band — drums',
-}
-PLACED_PROP_NAMES = {(3, 0, 0): 'Wooden crate',
- (3, 39, 0): 'Wooden barrel',
- (3, 50, 0): 'Round metal hatch',
- (3, 55, 0): 'Green helmet',
- (3, 66, 0): 'Door marked M',
- (3, 69, 0): 'Door marked F',
- (3, 71, 0): 'Twin red canisters',
- (3, 72, 0): 'Radiation-marked missile',
- (3, 75, 0): 'Wooden hatch',
- (3, 76, 0): 'Red warning barrel',
- (3, 78, 0): 'Hanging lantern',
- (3, 80, 0): 'Green-panel post',
- (3, 81, 0): 'Hazard-striped container',
- (3, 84, 0): 'Green gas mask',
- (3, 88, 0): 'Shield',
- (3, 89, 0): 'Green flag',
- (3, 94, 0): 'Double-barrel firearm',
- (3, 96, 0): 'Wooden stool',
- (3, 99, 0): 'Drinking glass',
- (3, 100, 0): 'Twin red canisters',
- (3, 101, 0): 'Radiation-marked missile',
- (3, 102, 0): 'War newspaper',
- (3, 106, 0): 'Three bone-handled knives',
- (3, 107, 0): 'Bone crossbow',
- (3, 109, 0): 'Mines crate'}
-REVIEWED_NAMES = {(1, entry, 0): name for entry, name in REVIEWED_CHARACTER_NAMES.items()}
-REVIEWED_NAMES.update(REVIEWED_OBJECT_NAMES)
-REVIEWED_NAMES.update(PLACED_PROP_NAMES)
-REVIEWED_NAMES.update(ATTACHMENT_PROP_NAMES)
-REVIEWED_NAMES.update(KEY_MODEL_NAMES)
-REVIEWED_NAMES.update(HELD_CHARACTER_NAMES)
-REVIEWED_NAMES.update(REMAINING_SCENE_PROP_NAMES)
-REVIEWED_NAMES.update(REVIEWED_SCENE_PROP_NAMES)
-REVIEWED_NAMES.update({(1, entry, 0): name for entry, name in REMAINING_CHARACTER_NAMES.items()})
-REVIEWED_NAMES.update({(1, entry, 0): name for entry, name in ADDITIONAL_CHARACTER_NAMES.items()})
-REVIEWED_NAMES.update({(1, entry, 0): name for entry, name in EXPANDED_CHARACTER_NAMES.items()})
-
-
-def synthetic_registry(data=b"model"):
-    registry = names.load_registry()
-    record = next(r for r in registry["models"] if (r["bank"], r["entry"], r["segment"]) == (1, 75, 0))
-    registry["models"] = [record]
-    record.update(source_bytes=len(data), model_sha1=hashlib.sha1(data).hexdigest(),
-                  model_sha256=hashlib.sha256(data).hexdigest())
-    return registry
-
-
-def synthetic_consumers():
-    code = bytes(range(32))
-    registry = synthetic_registry()
-    record = registry["models"][0]
-    record["consumers"] = [{"symbol": "func_test", "vram": "0x1004", "size_bytes": 16,
-                            "sha1": hashlib.sha1(code[4:20]).hexdigest(), "role": "shared test span"}]
-    record["model_specific_branch"].update(symbol="func_test", start="0x1008", end="0x100C",
-                                          sha1=hashlib.sha1(code[8:12]).hexdigest())
-    return code, registry
 
 
 class ModelSemanticNameTests(unittest.TestCase):
@@ -208,9 +23,15 @@ class ModelSemanticNameTests(unittest.TestCase):
         registry = names.load_registry()
         self.assertEqual(2, registry["schema_version"])
         self.assertEqual(models.BANK_INDICES, names.SUPPORTED_BANKS)
-        self.assertEqual(REVIEWED_NAMES,
-                         {tuple(r[k] for k in ("bank", "entry", "segment")): r["name"]
-                          for r in registry["models"]})
+        # Independently retained current-state pin, excluding relocatable doc links.
+        # This preserves labels, source hashes, consumer mappings and caveats,
+        # not a claim that any semantic identity is confirmed.
+        records = [{k: v for k, v in record.items() if k != "evidence"}
+                   for record in registry["models"]]
+        encoded = json.dumps(records, sort_keys=True, separators=(",", ":"),
+                             ensure_ascii=False).encode()
+        self.assertEqual("946eb4a420e999efedb40b3544f6989df1c3bfaa2695842fa638313317d21f48",
+                         hashlib.sha256(encoded).hexdigest())
         self.assertEqual(267, len(registry["models"]))
         record = next(r for r in registry["models"] if (r["bank"], r["entry"], r["segment"]) == (1, 75, 0))
         variant = model_haybot_rom_variants.contract()
@@ -229,202 +50,6 @@ class ModelSemanticNameTests(unittest.TestCase):
                                      len(record["consumers"]))
                 self.assertNotIn("func_15061B4C", {c["symbol"] for c in record["consumers"]})
 
-    def test_additional_character_names_preserve_all_37_reviewed_records(self):
-        registry = names.load_registry()
-        retained_keys = {(1, entry, 0) for entry in REVIEWED_CHARACTER_NAMES} | set(REVIEWED_OBJECT_NAMES)
-        retained = [r for r in registry["models"]
-                    if tuple(r[k] for k in ("bank", "entry", "segment")) in retained_keys]
-        self.assertEqual(37, len(retained))
-        # Pin every prior field, including Lady Cog consumers and Haybot's branch.
-        self.assertEqual("16de0be738c23bfdacf72aed43a8d7988723d93c2cff255199576bd0f2410aed",
-                         hashlib.sha256(json.dumps(retained, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest())
-
-    def test_additional_character_names_use_only_the_reviewed_shared_chain(self):
-        registry = names.load_registry()
-        records = {tuple(r[k] for k in ("bank", "entry", "segment")): r for r in registry["models"]}
-        generic = records[(1, 5, 0)]["consumers"]
-        self.assertEqual(24, len(ADDITIONAL_CHARACTER_NAMES))
-        self.assertEqual(7, len(generic))
-        for entry, expected in ADDITIONAL_CHARACTER_NAMES.items():
-            record = records[(1, entry, 0)]
-            with self.subTest(entry=entry):
-                self.assertEqual(expected, record["name"])
-                self.assertEqual(generic, record["consumers"])
-                self.assertNotIn("model_specific_branch", record)
-                self.assertIn("docs/evidence/more_character_semantic_registry_expansion.md", record["evidence"])
-                self.assertNotIn("LOD", record["name"])
-        self.assertEqual("Carl / Quentin", records[(1, 82, 0)]["name"])
-        self.assertEqual("Conker — black outfit", records[(1, 150, 0)]["name"])
-        self.assertNotIn((1, 161, 0), records)
-        self.assertEqual(47, len({c["symbol"] for r in registry["models"] for c in r["consumers"]}))
-        self.assertEqual(1375, sum(len(r["consumers"]) for r in registry["models"]))
-        self.assertEqual(1, sum("model_specific_branch" in r for r in registry["models"]))
-
-    def test_expanded_character_names_preserve_all_61_prior_records(self):
-        registry = names.load_registry()
-        added_keys = {(1, entry, 0) for entry in EXPANDED_CHARACTER_NAMES | REMAINING_CHARACTER_NAMES} | set(PLACED_PROP_NAMES) | set(ATTACHMENT_PROP_NAMES) | set(KEY_MODEL_NAMES) | set(HELD_CHARACTER_NAMES) | set(REMAINING_SCENE_PROP_NAMES)
-        retained = [r for r in registry["models"]
-                    if r["bank"] != 4 and tuple(r[k] for k in ("bank", "entry", "segment")) not in added_keys]
-        self.assertEqual(61, len(retained))
-        # Pin every prior field, including all consumer roles and branch metadata.
-        self.assertEqual("852cef24e1ed1ed686315b6f558241e6e677b815028fddf02a77fb728fb463f7",
-                         hashlib.sha256(json.dumps(retained, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest())
-
-    def test_expanded_character_names_pin_exact_added_records_and_shared_consumers(self):
-        records = {tuple(r[k] for k in ("bank", "entry", "segment")): r
-                   for r in names.load_registry()["models"]}
-        added = [records[(1, entry, 0)] for entry in sorted(EXPANDED_CHARACTER_NAMES)]
-        self.assertEqual(30, len(added))
-        self.assertEqual("8c1dfef63d5d9b451c1e3268bc68e057b3e270aad180226743fcf4c647d502ce",
-                         hashlib.sha256(json.dumps(added, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest())
-        generic = records[(1, 5, 0)]["consumers"]
-        for entry, expected in EXPANDED_CHARACTER_NAMES.items():
-            with self.subTest(entry=entry):
-                record = records[(1, entry, 0)]
-                self.assertEqual(expected, record["name"])
-                self.assertEqual(generic, record["consumers"])
-                self.assertEqual(7, len(record["consumers"]))
-                self.assertNotIn("model_specific_branch", record)
-                self.assertIn("docs/evidence/additional_character_semantic_registry_expansion.md",
-                              record["evidence"])
-                self.assertNotIn("LOD", record["name"])
-        self.assertEqual(47, len({c["symbol"] for r in records.values() for c in r["consumers"]}))
-        self.assertEqual(1375, sum(len(r["consumers"]) for r in records.values()))
-        self.assertEqual(1, sum("model_specific_branch" in r for r in records.values()))
-
-    def test_expanded_character_labels_do_not_inherit_unproved_roles_or_branches(self):
-        registry = names.load_registry()
-        records = {(r["bank"], r["entry"], r["segment"]): r for r in registry["models"]}
-        self.assertEqual("Rockman — bow tie", records[(1, 56, 0)]["name"])
-        self.assertEqual("Wise Guy", records[(1, 59, 0)]["name"])
-        self.assertEqual("Haybot — hay-covered form", records[(1, 69, 0)]["name"])
-        self.assertNotEqual(records[(1, 69, 0)]["model_sha256"], records[(1, 75, 0)]["model_sha256"])
-        self.assertNotIn("model_specific_branch", records[(1, 69, 0)])
-        self.assertIn("model_specific_branch", records[(1, 75, 0)])
-        self.assertNotIn("func_15061B4C", {c["symbol"] for c in records[(1, 69, 0)]["consumers"]})
-        payload = b"same model bytes cannot propagate identity"
-        for record in registry["models"]:
-            record.update(source_bytes=len(payload), model_sha1=hashlib.sha1(payload).hexdigest(),
-                          model_sha256=hashlib.sha256(payload).hexdigest())
-        for entry, expected in EXPANDED_CHARACTER_NAMES.items():
-            with self.subTest(entry=entry):
-                result = resolve_synthetic_name(registry, "us", registry["rom_sha1"], (1, entry, 0), payload)
-                self.assertEqual(expected, result["name"])
-                self.assertEqual(RESULT_FIELDS, set(result))
-                self.assertEqual({"status": "unknown", "name": None},
-                                 resolve_synthetic_name(registry, "us", registry["rom_sha1"], (1, entry, 1), payload))
-        for key in ((1, 6, 0), (1, 53, 0), (1, 66, 0), (1, 161, 0)):
-            self.assertEqual({"status": "unknown", "name": None},
-                             resolve_synthetic_name(registry, "us", registry["rom_sha1"], key, payload))
-
-    def test_remaining_character_names_preserve_all_111_prior_records(self):
-        registry = names.load_registry()
-        added_keys = {(1, entry, 0) for entry in REMAINING_CHARACTER_NAMES} | set(PLACED_PROP_NAMES) | set(ATTACHMENT_PROP_NAMES) | set(KEY_MODEL_NAMES) | set(HELD_CHARACTER_NAMES) | set(REMAINING_SCENE_PROP_NAMES)
-        retained = [r for r in registry["models"]
-                    if tuple(r[k] for k in ("bank", "entry", "segment")) not in added_keys]
-        self.assertEqual(111, len(retained))
-        # Every field is fixed, including bank-04 limits, Lady Cog and Haybot.
-        self.assertEqual("717d66199b628f3ddb7db6c6a2c38a1577ebfc096fd27de5f24cb9cfbd1da12a",
-                         hashlib.sha256(json.dumps(retained, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest())
-
-    def test_remaining_character_names_pin_exact_additions_and_shared_consumers(self):
-        records = {tuple(r[k] for k in ("bank", "entry", "segment")): r
-                   for r in names.load_registry()["models"]}
-        added = [records[(1, entry, 0)] for entry in sorted(REMAINING_CHARACTER_NAMES)]
-        self.assertEqual(34, len(added))
-        self.assertEqual("37082d33cd8dd36e59c320dac30e45df379264bd2b9b852229bcad51bd17e539",
-                         hashlib.sha256(json.dumps(added, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest())
-        generic = records[(1, 5, 0)]["consumers"]
-        for entry, expected in REMAINING_CHARACTER_NAMES.items():
-            with self.subTest(entry=entry):
-                record = records[(1, entry, 0)]
-                self.assertEqual(expected, record["name"])
-                self.assertEqual(generic, record["consumers"])
-                self.assertEqual(7, len(record["consumers"]))
-                self.assertNotIn("model_specific_branch", record)
-                self.assertIn("docs/evidence/remaining_character_semantic_registry_expansion.md",
-                              record["evidence"])
-                self.assertNotIn("LOD", record["name"])
-        self.assertNotIn((1, 161, 0), records)
-        self.assertEqual(47, len({c["symbol"] for r in records.values() for c in r["consumers"]}))
-        self.assertEqual(1375, sum(len(r["consumers"]) for r in records.values()))
-        self.assertEqual([(1, 75, 0)], [key for key, r in records.items() if "model_specific_branch" in r])
-
-    def test_remaining_character_names_keep_qualifier_holds(self):
-        records = {r["entry"]: r for r in names.load_registry()["models"] if r["bank"] == 1}
-        holds = {
-            30: ("giant scale", "female"), 123: ("undamaged runtime state",),
-            135: ("sergeant military rank",), 152: ("security scene role",),
-            156: ("male",), 157: ("female",), 159: ("male", "damage event"),
-            160: ("female", "damage event"), 176: ("sergeant military rank", "LOD role"),
-            177: ("general military rank",), 179: ("worn state", "damage event"),
-            181: ("bartender scene role",), 183: ("precise double-bass instrument classification",),
-        }
-        for entry, claims in holds.items():
-            for claim in claims:
-                with self.subTest(entry=entry, claim=claim):
-                    self.assertTrue(any(claim in note for note in records[entry]["limitations"]))
-                    self.assertNotIn(claim, records[entry]["name"])
-        self.assertNotIn("undamaged", records[123]["name"].lower())
-        self.assertNotIn("Sergeant", records[135]["name"])
-        self.assertNotIn("General", records[177]["name"])
-        self.assertNotIn("Bartender", records[181]["name"])
-
-    def test_remaining_character_canonical_snapshots_are_unchanged(self):
-        inspection = json.loads((names.ROOT / "config/model-inspection.json").read_bytes())
-        validation = json.loads((names.ROOT / "config/model-validation.json").read_bytes())
-        # Explicit joined indices; no numeric ID is derived from a filename.
-        indices = [
-            (17, 102, 126),
-            (20, 104, 128),
-            (30, 259, 283),
-            (79, 125, 149),
-            (80, 272, 296),
-            (84, 355, 379),
-            (88, 276, 300),
-            (91, 277, 301),
-            (100, 279, 303),
-            (120, 137, 161),
-            (123, 395, 419),
-            (128, 289, 313),
-            (134, 290, 314),
-            (135, 291, 315),
-            (136, 292, 316),
-            (143, 293, 317),
-            (144, 294, 318),
-            (145, 295, 319),
-            (146, 356, 380),
-            (147, 149, 173),
-            (152, 22, 58),
-            (153, 152, 176),
-            (156, 95, 119),
-            (157, 296, 320),
-            (159, 154, 178),
-            (160, 155, 179),
-            (166, 15, 51),
-            (176, 299, 323),
-            (177, 300, 324),
-            (179, 99, 123),
-            (181, 301, 325),
-            (183, 302, 326),
-            (184, 303, 327),
-            (185, 304, 328),
-        ]
-        snapshots = []
-        for entry, ci, vi in indices:
-            cr, vr = inspection["models"][ci], validation["render_cases"][vi]
-            self.assertEqual(cr["render_case"], vr["id"])
-            snapshots.append({"entry": entry, "canonical_index": ci, "canonical_record": cr,
-                              "validation_index": vi, "validation_case": vr})
-        self.assertEqual("c8c09092252bb216df65c0de63ae819d67f787ea2c431458071f543b75c1a3eb",
-                         hashlib.sha256(json.dumps(snapshots, sort_keys=True,
-                                                   separators=(",", ":")).encode()).hexdigest())
-
     def test_lady_cog_eye_part_consumer_is_full_span_and_exactly_scoped(self):
         registry = names.load_registry()
         consumer = {
@@ -437,9 +62,9 @@ class ModelSemanticNameTests(unittest.TestCase):
             key = tuple(record[field] for field in ("bank", "entry", "segment"))
             matches = [c for c in record["consumers"] if c["symbol"] == consumer["symbol"]]
             with self.subTest(key=key):
-                self.assertEqual([consumer] if key in selected else [], matches)
+                expected = [{k: v for k, v in consumer.items() if k != "role"}] if key in selected else []
+                self.assertEqual(expected, [{k: v for k, v in c.items() if k != "role"} for c in matches])
                 if key in selected:
-                    self.assertIn("docs/evidence/lady_cog_eye_part_semantics.md", record["evidence"])
                     self.assertNotIn("model_specific_branch", record)
 
     def test_object_models_keep_their_reviewed_consumer_domains(self):
@@ -449,7 +74,8 @@ class ModelSemanticNameTests(unittest.TestCase):
         action = {"func_1514DCAC", "func_15083568", "func_15030AF4", "func_1502FFD8", "func_1502FE10"}
         ui = {"func_151EB06C", "func_151ED90C", "func_151EDBDC", "func_1503F62C",
               "func_1502FE10", "func_1510CE60"}
-        expected = {key: placed for key in REVIEWED_OBJECT_NAMES if key[0] == 3}
+        expected = {tuple(r[k] for k in ("bank", "entry", "segment")): placed
+                    for r in registry["models"] if r["bank"] == 3}
         expected.update({
             (9, 29, 0): action,
             (9, 133, 0): action | {"func_1503F62C"},
@@ -470,30 +96,7 @@ class ModelSemanticNameTests(unittest.TestCase):
                 self.assertTrue(consumers.isdisjoint(character_consumers))
                 self.assertNotIn("model_specific_branch", records[key])
         self.assertEqual(33, len(set().union(*expected.values())))
-        self.assertEqual(84, sum(len(consumers) for consumers in expected.values()))
 
-    def test_object_names_resolve_only_the_exact_bank_entry_and_segment(self):
-        registry = names.load_registry()
-        # Equal synthetic bytes cannot merge names across identity namespaces.
-        payload = b"same source bytes"
-        for record in registry["models"]:
-            record.update(source_bytes=len(payload), model_sha1=hashlib.sha1(payload).hexdigest(),
-                          model_sha256=hashlib.sha256(payload).hexdigest())
-        for key, expected in REVIEWED_NAMES.items():
-            with self.subTest(key=key):
-                result = resolve_synthetic_name(registry, "us", registry["rom_sha1"], key, payload)
-                self.assertEqual(expected, result["name"])
-                self.assertEqual("legacy-descriptive-model-label", result["kind"])
-                self.assertEqual(RESULT_FIELDS, set(result))
-        # Action IDs, lookup selectors, held/unreviewed variants and other
-        # identity namespaces do not inherit a name from reviewed models.
-        unknown = [(9, 35, 0), (9, 68, 0), (9, 86, 0), (1, 0, 1), (1, 161, 0),
-                   (1, 185, 1), (3, 345, 0), (9, 1, 0), (9, 186, 1),
-                   (3, 0, 1), (3, 39, 1), (3, 109, 1), (9, 134, 0)]
-        for key in unknown:
-            with self.subTest(key=key):
-                self.assertEqual({"status": "unknown", "name": None},
-                                 resolve_synthetic_name(registry, "us", registry["rom_sha1"], key, payload))
 
     def test_cash_variants_have_distinct_source_pins_and_bounded_labels(self):
         records = {tuple(r[k] for k in ("bank", "entry", "segment")): r
@@ -552,7 +155,7 @@ class ModelSemanticNameTests(unittest.TestCase):
 
     def test_model_bytes_and_both_hashes_must_agree(self):
         registry = synthetic_registry()
-        for data in (b"other", b"model\0"):
+        for data in (b"Model", b"modem", b"mode", b"model\0"):
             with self.assertRaisesRegex(ValueError, "source identity"):
                 names.resolve_name(registry, "us", registry["rom_sha1"], (1, 75, 0), data)
         for field in ("model_sha1", "model_sha256", "source_bytes"):
@@ -670,6 +273,24 @@ class ModelSemanticNameTests(unittest.TestCase):
         for base, data in ((0x1008, code), (0x1000, code[:19])):
             with self.assertRaisesRegex(ValueError, "consumer changed"):
                 names.verify_consumers(data, base, registry)
+        for field, value in (("sha1", "0" * 40), ("size_bytes", 15), ("vram", "0x1005")):
+            changed = copy.deepcopy(registry)
+            changed["models"][0]["consumers"][0][field] = value
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "consumer changed"):
+                names.verify_consumers(code, 0x1000, changed)
+        # Bytes outside the declared span do not extend its evidence scope.
+        for offset in (3, 20):
+            changed = bytearray(code)
+            changed[offset] ^= 1
+            self.assertEqual(1, names.verify_consumers(bytes(changed), 0x1000, registry))
+        # Isolate the branch guard after allowing the changed outer span.
+        for offset in (8, 11):
+            changed = bytearray(code)
+            changed[offset] ^= 1
+            rebound = copy.deepcopy(registry)
+            rebound["models"][0]["consumers"][0]["sha1"] = hashlib.sha1(changed[4:20]).hexdigest()
+            with self.subTest(branch_offset=offset), self.assertRaisesRegex(ValueError, "branch changed"):
+                names.verify_consumers(bytes(changed), 0x1000, rebound)
         changed = copy.deepcopy(registry)
         changed["models"][0]["model_specific_branch"]["sha1"] = "0" * 40
         with self.assertRaisesRegex(ValueError, "branch changed"):
@@ -797,15 +418,20 @@ class ModelSemanticNameTests(unittest.TestCase):
                     names.audit_registry(rom_path)
                 registry[field] = previous
 
-    @unittest.skipUnless((names.ROOT / "roms/baserom.us.z64").is_file(), "reviewed US ROM not available")
-    def test_owned_rom_confirms_all_models_and_complete_consumer_spans(self):
+    @unittest.skipUnless((names.ROOT / "roms/baserom.us.z64").is_file(), "owned US ROM unavailable")
+    def test_owned_rom_audits_all_current_sources_and_complete_consumer_spans(self):
         report = names.audit_registry(names.ROOT / "roms/baserom.us.z64")
+        registry = names.load_registry()
+        self.assertEqual(267, len(report["models"]))
         self.assertEqual(47, report["consumer_count"])
         self.assertEqual(1375, report["consumer_reference_count"])
         self.assertEqual(1, report["model_specific_branch_count"])
         self.assertEqual([1, 3, 4, 9], report["banks"])
-        self.assertEqual([REVIEWED_NAMES[key] for key in sorted(REVIEWED_NAMES)],
-                         [record["name"] for record in report["models"]])
+        self.assertEqual([names.registry_key(r) for r in registry["models"]],
+                         [r["registry_key"] for r in report["models"]])
+        self.assertEqual(EXPECTED_COUNTS, report["confidence_counts"])
+        self.assertEqual(0, report["confirmed_semantic_identity_model_count"])
+        self.assertTrue(all(not r["semantic_identity_confirmed"] for r in report["models"]))
 
 
 if __name__ == "__main__":

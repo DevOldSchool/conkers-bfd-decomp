@@ -1,9 +1,7 @@
 # Lady Cog eye-part selection
 
-`func_1507E3C0` has the descriptive role `actor_update_lady_cog_eye_parts`.
-The linked symbol remains unchanged. This is original-ROM semantic evidence;
-the existing C candidate remains excluded at `CURRENT (757)`, with its adjacent
-`GLOBAL_ASM` retained. No C match, runtime observation or new actor type is claimed.
+`func_1507E3C0` has role `actor_update_lady_cog_eye_parts`; its excluded
+`CURRENT (757)` candidate and raw fallback stay intact.
 
 ## Exact model gate and mask
 
@@ -47,11 +45,11 @@ Every alternative is an eight-face part using flat texture ID 2246. In primary
 part zero, the corresponding matrix-5 and matrix-6 surfaces use the two dynamic
 eye texture segments 6 and 7. The independent model identities are:
 
-| Entry | Decoded bytes | Model SHA-1 |
-| --- | ---: | --- |
-| 15 | 8,152 | `8b9477089976c5430ea25468fe488d23354e003f` |
-| 70 | 8,152 | `ab769fdae8b95fc8c9c0fd7f9222f869fe4108f3` |
-| 76 | 8,168 | `9479657a917ffafdba00fdf3e40a5256274278e5` |
+| Entry | Decoded bytes |
+| --- | ---: |
+| 15 | 8,152 |
+| 70 | 8,152 |
+| 76 | 8,168 |
 
 The direct caller, `func_1502EEF4`, steps both eye codes and calls the routine
 at `0x1502EFF0` with `D_800CC2D0 + actorIndex * 0x32C`. Its complete 296-byte
@@ -63,36 +61,8 @@ orientation, open/half/closed labels, eyelid-versus-eyelash anatomy, playback
 timing, or a scene-specific live actor. Earlier defaults notes calling these
 models flowers are superseded by the reviewed gallery identities.
 
-## Bounded source change and verification
-
-Only the role comment and identifiers inside the existing excluded candidate
-change. The inverse map is `actor` to `arg0`, `eyePartStates` to `values`,
-`eyePartStateCursor` to `var_v1`, `partHideMask` to `temp_t2`, `modelIndex` to
-`temp_v0`, `eyeCodeCursor` to `var_a1`, and `actorBytes` to `state`. Applying
-that whole-word map within the candidate and removing only the new comment
-reconstructs the entire previous source byte-for-byte. Types, expressions,
-constants, declaration order, linked symbols and all enabled source remain
-unchanged; the end marker stays immediately adjacent to its assembly pragma.
-
-The owned-ROM recheck authenticates all 80 words of the full routine. A limited
-instruction interpreter passes 84,736 cases: every byte-code pair on model 15,
-plus all 256 model IDs with 75 mask/code combinations each. These checks support
-the exact gate and bit selection; they are neither a general emulator nor a C
-comparison/layout gate. The preserved score is historical, not a new comparison.
-
-Integration must keep the candidate disabled, verify the unchanged source-unit
-layout and enabled code, and run the applicable batch, progress and whitespace
-gates. The neighboring matched functions `func_1507E500`, `func_1507E5C8` and
-`func_1507E6B8` provide focused layout checks. The previously documented terminal
-`func_1507EB4C` registered-padding discrepancy is unrelated and must not be hidden
-by changing its boundary, comparator or compiler settings.
-
-The accepted naming-only change passed the three neighboring focused comparisons
-at `CURRENT (0)` with source-unit layouts preserved, a clean three-function
-`BATCH_COMPLETE`, integrated game/data/rodata checks, a full byte-exact US ROM
-build, progress and whitespace checks. All 1,722 tests pass in both the host
-suite (37 tool/environment skips) and the ROM-enabled pinned-toolchain suite
-(one optional Khronos-validator skip). An independent read-only review verified
-the source inverse, complete ROM span, model-part evidence and registry scope.
-Coverage remains 37 reviewed identities and 1,450 unknowns; only the three Lady
-Cog records gain evidence, with all non-naming model and material data unchanged.
+The original-word interpreter checked every byte-code pair on model 15 and
+all 256 model IDs with 75 mask/code combinations each. This supports the gate
+and part selection, not timing or a fresh C comparison. The terminal
+`1507EB4C` padding discrepancy in the [expression audit](character_expression_semantics.md) must not be concealed by boundary or
+comparator changes.

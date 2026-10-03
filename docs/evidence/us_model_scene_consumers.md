@@ -108,10 +108,10 @@ Evidence dimensions remain independent:
   observed runs stay partial; overlapping catalogs do not inflate face counts.
 - A resolved scene edge means a recovered consumer association. Naming uses a
   separate reviewed machine-readable ID/caller registry. The
-  [semantic naming audit](character_semantic_naming.md) supplies exact reviewed
-  ROM/model identities; unlisted models remain unknown even where prose
-  documentation identifies a character. Names do not grant scene or runtime
-  evidence.
+  [naming confidence contract](model_name_confidence_review.md) separates exact
+  ROM/model source authentication from unconfirmed semantic labels. Unlisted
+  keys remain unknown even where prose identifies a character. Names do not
+  grant scene or runtime evidence.
 
 The initial audit also found that the stored bank-03 extraction manifest's
 placement section predated bank-04 dispatch resolution. Coverage uses the current
@@ -147,8 +147,5 @@ this evidence note. Generated coverage, consumer graphs, the refreshed bank-03
 extraction manifest, and Blender evidence remain under ignored `build/` paths.
 
 The per-function fingerprint correction was independently reviewed and re-extracted
-from the owned ROM. Before/after generated manifests differ only at that one
-provenance hash. The integrated checkpoint passes all 1,726 host tests (37
-expected environment/tool skips), all 1,726 ROM-enabled pinned-toolchain tests
-(one optional validator skip), the complete US ROM build and progress/whitespace
-gates. No scene/model association or runtime visibility claim changes.
+from the owned ROM. The compared generated manifests differed only at that one
+provenance hash; scene/model associations and runtime-visibility claims were unchanged.

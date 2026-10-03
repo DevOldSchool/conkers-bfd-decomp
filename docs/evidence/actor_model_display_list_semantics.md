@@ -1,16 +1,10 @@
 # Shared actor model display-list emission
 
-`func_1502CCFC` has the inferred descriptive role
-`actor_emit_model_display_lists`. This is a comment on the existing raw
-placeholder, not a recovered developer identifier or a C implementation.
-`func_1503CF20` already has the accepted role `model_load_bank01_resources`;
-its comment and source file are unchanged. This proposal also corrects the
-existing `actor_assign_model` description of actor `+0x58`. It adds one raw
-function role and gives no new-role credit to the loader or assignment helper.
-
-No identifier, declaration, signature, ABI, type, field, padding, numeric
-symbol, executable expression, source order, candidate guard or score changes.
-No character-exclusive function or model identity is inferred.
+The shared `func_1502CCFC` role is `actor_emit_model_display_lists`. It remains
+raw; names do not provide an implementation or identify an exclusive character
+controller. See [confidence/provenance](model_name_confidence_review.md) and
+[representation selection](actor_representation_selection_semantics.md) for the independent
+identity and mutable-model contracts.
 
 ## Actor and representation selection
 
@@ -162,93 +156,6 @@ in `1502DB84` and `1503DAF4` in `1503DA9C`, both actor resource consumers.
 Nothing justifies replacing the existing generic loader role with a
 character-specific name, nor is an additional loader-comment edit needed.
 
-## Exact assignment-description correction
-
-The existing `actor_assign_model` comment and its earlier
-[selection document](actor_representation_selection_semantics.md) called
-actor `+0x58` an optional route resource. The independently reviewed
-[animation-model representative audit](actor_animation_model_group_semantics.md)
-and freshly checked original bytes distinguish two resource domains:
-
-- `150837D4` writes the representative returned by `15084D00` to actor `+6`
-- It reads unsigned `D_800C5A90[representative]` at `150838B8`. A nonzero
-  value gates `1502B020(0, 2, 2, representative)` at `150838CC`
-- That resolver walks bank path `[2, representative]` and returns a ROM/archive
-  address. Its returned value, including zero, is cached at actor `+0x58`
-  by `150838D4`. A zero gating count skips the resolver and leaves the
-  previous `+0x58` value unchanged
-- The gating count is produced by the separate bank-0F route system. The
-  animation consumer `1505E0C4` uses the cached bank-02 archive, or resolves
-  bank 02 using actor `+6`, to fetch descriptor/frame resources. The current
-  model at `+4` remains the bank-0F route-selection domain
-
-The correction says exactly that `+0x58` caches a resolved bank-02 ROM/archive
-address under a separate nonzero bank-0F route-count gate. It neither calls
-this a route payload nor claims the resolver loads the archive contents.
-It leaves the `CURRENT (568)` body, its widths, byte mask, sentinel behavior
-and inconsistent existing source views untouched. No model-group identity,
-new field layout or safe out-of-domain access is inferred.
-
-## Independent checks and limits
-
-The normalized owned US ROM is 67,108,864 bytes, SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a`, SHA-256
-`32e6a8b970ec12ac5f782344945aa0c98a193832eefb687529d03bab6948714b`.
-Fresh in-memory raw-deflate decoding produced the 2,072,880-byte game code
-and 189,088-byte loaded data. The complete original reference binary agrees.
-Every reference instruction-word comment agrees with the ROM where present;
-none of the reviewed spans crosses the reference's unrelated
-`150A9C40..150AA470` comment gap.
-
-Registration and relevant source were read at checkpoint
-`de5c0b4499c6146146c4417c2186875e73c491a4`. The complete 1,096-byte loader and 2,128-byte renderer, including
-their return delay slots, agree with both raw-assembly copies and contiguous
-independent reference words. The following complete support spans were also
-checked. A reference/raw-body extent is explicitly marked when no registered
-size exists; no source-unit ownership is inferred from such a boundary.
-
-| Symbol | Bytes | Extent | Full-span SHA-1 |
-| --- | ---: | --- | --- |
-| `func_1503CF20` | 1096 | registered | `2335fa3855313510f1f46512cfa704ab301814d1` |
-| `func_1502CCFC` | 2128 | registered | `2176c655198fed8b1867b28f059cb4765bced897` |
-| `func_1502B6BC` | 308 | registered | `91ed9cccb2168331f871d0b5b3597f9cfc8f558f` |
-| `func_1503D438` | 36 | registered | `add9aec5cb5ff6df58ba80704156c1463b4a2071` |
-| `func_1503D368` | 208 | registered | `abef1711e0dda14ca8b45eb3689aa144f101bb5f` |
-| `func_1503DC3C` | 224 | registered | `4d0a13f114d5f3ecad9c56068bdde74a052935af` |
-| `func_1503D984` | 184 | registered | `56cdd8e4b82b2a4222f4e661e22b08cdca30d293` |
-| `func_1503D804` | 384 | registered | `486bab26201a574421a430fed7e156346e60b68e` |
-| `func_150028BC` | 1668 | reference/raw body | `cffdfd5fb609badb5d60111edaf1c040c4e727cc` |
-| `func_1503D774` | 144 | registered | `546821f215679e4d341cd39d98c9a9d6256110d2` |
-| `func_1503D660` | 276 | registered | `698addad07c12e755805e484a22441109dd90252` |
-| `func_1503DD1C` | 180 | registered | `8488f03d16dd306923361422c315a5db5ec5c746` |
-| `func_1510CE60` | 652 | registered | `9a12376e197e0ae05d6d351d5d538865aa7dcc68` |
-| `func_1503DA9C` | 416 | registered | `c45efcf48e1487e1c0401c7592c959cd2ddb6898` |
-| `func_150849CC` | 76 | registered | `f406a1972f5f0f73bdcce7b9fb373af650daf567` |
-| `func_1502F01C` | 584 | registered | `a9ae1253feb21fae8ecc3c314d949162c3e6afa5` |
-| `func_1502F9FC` | 492 | registered | `cf59732557feef6b94d12cf90dc99c728f582097` |
-| `func_1502CC34` | 200 | registered | `c4fa4d82300818f349512dcc7d9a8cbba96d026a` |
-| `func_1515D914` | 2404 | registered | `a0ca1f285c354276fa25543fe54a68ef023f1813` |
-| `func_151EFE88` | 48 | reference/raw body | `fef97dc8413dff2d4e193eb0791fb9cc5ed1a906` |
-| `func_1502FD70` | 160 | registered | `d88f7df50a833ec02f2c1086371360004e018238` |
-| `func_15030F94` | 220 | registered | `244e8f3ea6dd995d239f1b7a561547fa9eb94543` |
-| `func_150837D4` | 280 | registered | `7bd9c8414be99e3bc26944fe08eb04064933a30d` |
-| `func_15084D00` | 112 | registered | `ff9dc54618c437070a653923b6cedc81f1484759` |
-| `func_1502B020` | 240 | registered | `cf808816ca9e3df778eb77490c317e7eb4b57c02` |
-| `func_1502AC88` | 636 | registered | `24f02469c9605e212ed65a4c75b216d50ef8577e` |
-| `func_1505E0C4` | 1420 | registered | `3e17bb649f54edb53a448676e71fbea0adce0e10` |
-| `func_1502AF04` | 284 | registered | `b8f786b34a0b0f6db12c039c68a860a08bd52d1b` |
-| `func_1502B110` | 276 | registered | `34a60e9d42e7e0e2a914bc3a2f37c13d0aba4f8a` |
-| `func_1505E650` | 380 | registered | `7ff7faebb700286719b32f4b7390b9c9f772236b` |
-| `func_1505F188` | 272 | registered | `c4b6d2297e2dc2c7f3c7c5724781e9042b9d3204` |
-| `func_15084044` | 776 | registered | `f738e7d7f7530302ba4dade50252079f56071472` |
-| `func_1502B4A8` | 288 | registered | `d1a82190ae64677a9404302b5a61653a5770a7dc` |
-| `func_151EFE00` | 136 | reference/raw body | `7c13fb05d050330f14f1bfea0340c49362420b40` |
-| `func_151EFD00` | 256 | reference/raw body | `8c96268b9cafd0f7e12c9df375e2feadda57a659` |
-| `func_1502DB84` | 948 | registered | `a2c545e39bfb534f09979e2d431919fedbe62f20` |
-| `func_1502C974` | 704 | registered | `166b05f7f97b828a9ebad3c9a7e51e8a6b748eea` |
-| `func_15035FE8` | 352 | registered | `9cc4055fa7f2aaa872df8f2b0af7f5865cf0e11f` |
-| `func_15184FA4` | 1200 | registered | `87e9098d44db54c3a41260244ceea5997557bd69` |
-
 A bounded original-instruction harness exercised 1,392 synthetic renderer
 cases and every one of its 532 instruction addresses. It explicitly stubs
 resource preparation, texture setup, lighting, matrix initialization and
@@ -268,26 +175,5 @@ path. Testing every input byte, including `0xFF`, is synthetic and does not
 make the real caller's following table accesses safe. The bank resolver and
 assignment-default callback are explicitly stubbed.
 
-These are static and bounded synthetic evidence, not gameplay traces, a full
-engine execution, a matching attempt or a new C-match result. Exact inverse
-comment removal/replacement reconstructs both whole source files byte for
-byte. Every disabled-candidate guard, score, body, end marker and adjacent raw
-pragma is unchanged, as are source-definition discovery and raw-placeholder
-inventories. The assignment-document replacement is one precise passage;
-other existing documentation is unchanged. Preparation performs no tracked
-source edit, compiler/build invocation, extraction command, queue operation,
-finish, commit, push or publication. Independent review and binary/layout/progress gates are still required before acceptance.
-
-
-## Accepted integration
-
-Independent review approved the exact comment/document patch and repeated both
-bounded instruction harnesses. Eight already-matched neighbors in the two source
-units remain full-span `CURRENT (0)` with reviewed layout preserved. Their clean
-verification batch, full US ROM, integrated game/data/rodata, progress and
-whitespace gates passed. Host and pinned ROM-aware suites each passed 1,783 tests
-(37 host skips; one optional pinned validator skip). Every allocated section and
-all ELF symbol records are identical in the renderer unit (179 symbols) and
-assignment unit (145 symbols); only nonallocated `.mdebug` differs. The loader
-role/source remains unchanged. This adds one raw-function role and one existing
-role-description correction, with zero new C matches, bytes or source units.
+Those harnesses are bounded synthetic checks, not gameplay traces, exhaustive
+state/path coverage, full-engine execution or C matching.

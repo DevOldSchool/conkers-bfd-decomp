@@ -1,8 +1,8 @@
 # Character expression semantic names
 
-These are inferred descriptive names from the US ROM and reviewed consumers,
-not recovered original source names. Linked `func_` symbols, declarations,
-field widths, offsets, padding and operation order remain unchanged.
+These are inferred descriptive names; linked symbols, widths, offsets, padding
+and operation order remain unchanged. See [shared provenance](model_name_confidence_review.md)
+for independent full-span support and the distinction from matching/runtime proof.
 
 ## Record and representation contracts
 
@@ -73,54 +73,10 @@ allows later blink processing. Timer units remain unnamed, and the two-byte
 `pad6E` stays intact. Names are propagated into the two existing excluded C
 candidates only for field consistency; neither candidate is promoted.
 
-## Independent ROM spans
-
-All spans below were read from the normalized US ROM SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a` using the current registered extent.
-They include branches, delay slots and any registered terminal padding.
-
-| Symbol suffix | Bytes | SHA-1 |
-| --- | ---: | --- |
-| `1507E500` | 200 | `a2a542a0b6aea78ccbc269507a5ee977e6443ccf` |
-| `1507E5C8` | 240 | `77b08fc8d2ec99c73d27527f43df6c9952d0c5fa` |
-| `1507E6B8` | 132 | `059fe16ca29114f79874eb5bba055de0c5c3b12c` |
-| `1507E908` | 96 | `c602e20a2b335d94feb349539cbdb76d69957d50` |
-| `1507E968` | 128 | `94fb99b2aabedd05d7d1404d8013af047b86a5af` |
-| `1507E9F8` | 76 | `31fcadb16432eb6925dc6fcf17d561857102493d` |
-| `1507EA44` | 120 | `c4818df6a7fca422de2d463163d68866d05b090f` |
-| `1507EABC` | 112 | `27ec4fab9d1d702ca425ce9c513356ac032b71e8` |
-| `1507EB2C` | 32 | `cb97140a9e2b5a1832f8869e6c2b105743ab4ab9` |
-| `1507EB4C` | 52 | `0bea04c46acdb0648becca735aff57ee5f402765` |
-| `1507E2B0` | 272 | `25c3adf8ab6e48111023c6f0a7dfcb74cbdb2f80` |
-| `1507E73C` | 168 | `9454da6931491edc5fb0cca9ea911b19f6ac70e8` |
-| `1507E7E4` | 292 | `064a319797f11d4c28456b90634bb51481889bcc` |
-| `1502EE8C` | 104 | `39abe4f6339af44beba31d4d2ab7603b2530ff22` |
-| `1502EEF4` | 296 | `2da422b7989f9b16b67dc448f60332131031e4f0` |
-| `1502F01C` | 584 | `a9ae1253feb21fae8ecc3c314d949162c3e6afa5` |
-| `1502B4A8` | 288 | `d1a82190ae64677a9404302b5a61653a5770a7dc` |
-| `150849A0` | 44 | `62d89a7ec36b39096dfd2c98896619b96b71866a` |
-
-Acceptance requires full-span focused zeros for the nine renamed matched
-functions, unchanged source-unit layout, clean batch/game/data/rodata checks,
-full tests, progress and whitespace. It adds no C matches or matched bytes.
-
 ## Held terminal-function naming
 
-`func_1507EB4C` has a registered 52-byte span. Both the unchanged baseline and
-the identifier-only proposal produce `CURRENT (100)`: the focused candidate
+`func_1507EB4C` has a registered 52-byte span. The baseline and
+identifier-only audit both produced `CURRENT (100)`: the focused candidate
 ends before the final registered NOP at offset `0x30`. No instructions, compiler
 settings, comparator policy or boundary records were changed to conceal this.
-Its C definition and the shared `field_70` spelling remain unchanged in this
-batch. The independent semantic role above is retained as evidence only.
-
-## Accepted naming result
-
-All nine selected matched functions retain full-span `CURRENT (0)` and their
-reviewed source-unit layouts. Clean `verify-batch` reached `BATCH_COMPLETE`;
-the integrated game image, mapped rodata, full ROM, progress and whitespace
-gates pass. Both complete 1,712-test suites pass: 37 host skips and one optional skip
-in the ROM-enabled pinned-toolchain source fixture. Independent read-only review verified
-all 18 raw-ROM spans and identifier-only equivalence of the C change.
-
-This accepts eight newly descriptive function roles and eight existing local
-field names beyond the earlier pilot. No new function or byte match is added.
+Its C definition and the shared `field_70` spelling remain unchanged. The independent semantic role above is retained as evidence only.

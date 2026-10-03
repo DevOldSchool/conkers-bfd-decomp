@@ -1,24 +1,16 @@
-# Bounded model case constants
+# Bounded source-local model case constants
 
-Historical checkpoint: the reviewed/named totals below count source-bound
-descriptive labels, not confirmed semantic identities or distinct characters.
-Gallery labels and source hashes do not establish human confirmation. The
-[current confidence review](model_name_confidence_review.md) supersedes the
-old reviewed/unknown naming status; source pins and validation history remain
-evidence for their stated scope.
+Enum spellings retain the exact registry descriptors and the
+[record's confidence class](model_name_confidence_review.md); they provide no
+additional semantic or qualifier confirmation. Constants distinguish bank-01
+model bytes from callback/handler/profile results. Linked symbols and `s32`
+interfaces remain unchanged; there is no enum-typed ABI or shared header.
 
-Prepared against `f6134c662678e4e0e1b7b1afb9b306b8a0abf79d`.
-Only `src/game/game_16EE20.c` changes. The 15 existing input case labels in
-matched `func_15141C0C` use one anonymous source-local enum, after the reviewed
-source-unit comment and before every use. The role remains the shared
-`actor_get_effect_selector_callback_index`; the numeric exported symbol and
-its `s32 func_15141C0C(void *actor)` ABI are retained.
+## Active callback-selector cases
 
-## Names and scope
-
-The accepted 91-model `config/model-semantic-names.json` is the identity
-source. These are descriptive model-record labels, not recovered original
-symbols or character-exclusive controller identities.
+`src/game/game_16EE20.c` defines 19 explicitly valued source-local constants
+before use by `func_15141C0C`, whose role remains
+`actor_get_effect_selector_callback_index`. The initial fifteen are:
 
 | Constant | Bank-01 model entry |
 | --- | ---: |
@@ -38,86 +30,116 @@ symbols or character-exclusive controller identities.
 | `MODEL_CONKER_BLACK_OUTFIT` | 150 |
 | `MODEL_RED_DINOSAUR` | 165 |
 
-Each enumerator has an explicit unsuffixed integer value within signed-int
-range. No enum-typed parameter, return, object or shared header is introduced.
-Variant numbering distinguishes the four reviewed Conker records; it does not
-assert LOD tiers, distances or selection rules. Entry 150 denotes the black
-outfit, not a scene-specific role. Hay-covered Haybot 69 remains distinct from
-Haybot 75. Supporting identity evidence is in the registry's cited
-`additional_character_semantic_registry_expansion.md`,
-`more_character_semantic_registry_expansion.md`,
-`character_semantic_registry_expansion.md`, `us_haybot_appearance.md`, and
-`character_semantic_naming.md`.
 
-Cases `0x7B`, `0x91`, `0x54` and `0x58` remain numeric. Return values, actor
-field access, every other literal, masks, fields, globals, declarations and
-function signatures are unchanged. This does not name callback/handler indices
-or infer effects, scene activation, runtime use, anatomy or appearance.
+The remaining four preserve their original results:
 
-## Preservation and actual tool support
+| Constant | Bank-01 entry | Replaced case | Unchanged return |
+| --- | ---: | --- | ---: |
+| `MODEL_BUGA_THE_KNUT` | 84 | `0x54` | 5 |
+| `MODEL_SHC_SOLDIER` | 88 | `0x58` | 7 |
+| `MODEL_THE_EXPERIMENT` | 123 | `0x7B` | 8 |
+| `MODEL_ROCKWOMAN` | 145 | `0x91` | 1 |
 
-- Replacing exactly the 15 case identifiers with their original literal
-  spellings and removing only the added enum/comment recovers the whole source
-  byte-for-byte. An isolated patch apply/reverse also recovers the original
-- All 34 deferred guard-through-pragma blocks, including scores and raw
-  placeholders, are unchanged. All 1,559 live tracked files remained byte-identical
-  during isolated preparation
-- Exhaustive evaluation of all 256 model-byte inputs produces identical
-  before/after callback-index maps. These also equal the map recovered by
-  pinned m2c from independently ROM-checked reference code and jump tables
-- Complete declaration/discovery snapshots compare equal: 94 active source
-  signatures, 51 active definition signatures, 85 discovered C definitions
-  including preserved disabled candidates, 70 object declaration results,
-  121 numeric function-symbol identities, and the full 4,082-entry project
-  signature index. Function bodies are compared after only the authorized
-  case inverse; no selected-line proxy is used
-- Current `prepare_m2c_context` generates both complete source contexts,
-  including preserved deferred bodies. Removing the added enum and reversing
-  the 15 case substitutions makes those complete contexts byte-identical
-- Actual pinned m2c `09e0e72337804a713e2c3b8d522abe85838470ea` parses both full
-  contexts for the changed classifier and the same-unit `func_15141970` wrapper.
-  All four invocations exit 0, have empty stderr, no context fallback and no
-  `M2C_ERROR`; each before/after output is byte-identical. No cache or modified
-  runtime recipe is used. The wrapper's recovered call declaration also agrees
+Variant numbers distinguish records, not LOD tiers. The black-outfit and
+hay-covered descriptors do not establish scenes, transitions or identities beyond
+their classified source records. Only case operands change spelling; the actor
+byte read, all returns, masks, globals and other literals stay unchanged.
 
-The 180-byte raw classifier span independently matches the normalized US ROM,
-with SHA-256
-`94e412a0d3fc5d286a38dfc6d4cab08ce7bfa4dd0c1a82fa8d912dab0c0c0c8d`.
-Both raw switch tables are supplied through existing checksum-validated
-`prepare_game_jump_tables` support.
+## Disabled fragment-profile cases
 
-The parser regenerates numeric case literals; it does not automatically recover
-these semantic names. Existing enum declarations must remain before their uses.
-The current declaration-repair API still rejects a supplied enum declaration as
-an unresolved composite declaration. This trial does not extend that API or
-claim enum-typed ABI support.
+`src/game/effects/blood.c` defines 36 constants used only inside the disabled
+`func_15134070` candidate. The enum is outside its guard, immediately before the
+role comment, so function-only extraction/replacement and restore retain the
+required declarations without adding an enum prefix to the candidate artifact.
+The raw function retains `CURRENT (2310)`, its exact signature, switch order,
+returns and adjacent fallback. Entries 154 and 171 remain numeric cases: later
+appearance-only descriptions do not retroactively extend this constant set.
 
-## Frozen source pins
+| Entry | Retained descriptor | Constant | Unchanged profile return |
+| ---: | --- | --- | ---: |
+| 0 | Conker | `MODEL_CONKER` | 0 |
+| 1 | Conker — variant 1 | `MODEL_CONKER_VARIANT_1` | 0 |
+| 2 | Conker — variant 2 | `MODEL_CONKER_VARIANT_2` | 0 |
+| 3 | Conker — variant 3 | `MODEL_CONKER_VARIANT_3` | 0 |
+| 4 | Conker — variant 4 | `MODEL_CONKER_VARIANT_4` | 0 |
+| 16 | Rockman | `MODEL_ROCKMAN` | 13 |
+| 17 | Weasel Guard — tall variant | `MODEL_WEASEL_GUARD_TALL_VARIANT` | 1 |
+| 20 | Weasel Guard — short shield variant | `MODEL_WEASEL_GUARD_SHORT_SHIELD_VARIANT` | 1 |
+| 22 | Uga-Buga — blue headgear | `MODEL_UGA_BUGA_BLUE_HEADGEAR` | 4 |
+| 52 | TNT Imp | `MODEL_TNT_IMP` | 11 |
+| 56 | Rockman — bow tie | `MODEL_ROCKMAN_BOW_TIE` | 13 |
+| 59 | Wise Guy | `MODEL_WISE_GUY` | 1 |
+| 71 | Robo-Spider | `MODEL_ROBO_SPIDER` | 10 |
+| 88 | SHC Soldier | `MODEL_SHC_SOLDIER` | 3 |
+| 90 | Tediz | `MODEL_TEDIZ` | 2 |
+| 91 | Rodent | `MODEL_RODENT` | 3 |
+| 95 | Tediz — ammunition belt | `MODEL_TEDIZ_AMMUNITION_BELT` | 2 |
+| 112 | Gregg the Grim Reaper — scythe | `MODEL_GREGG_THE_GRIM_REAPER_SCYTHE` | 17 |
+| 116 | Tediz — variant 1 | `MODEL_TEDIZ_VARIANT_1` | 2 |
+| 117 | Tediz — variant 2 | `MODEL_TEDIZ_VARIANT_2` | 2 |
+| 122 | Tediz — variant 3 | `MODEL_TEDIZ_VARIANT_3` | 2 |
+| 128 | SHC Soldier — variant | `MODEL_SHC_SOLDIER_VARIANT` | 3 |
+| 135 | SHC Soldier — decorated uniform | `MODEL_SHC_SOLDIER_DECORATED_UNIFORM` | 14 |
+| 136 | Uga-Buga | `MODEL_UGA_BUGA` | 4 |
+| 144 | Surf Punk — sunglasses | `MODEL_SURF_PUNK_SUNGLASSES` | 4 |
+| 145 | Rockwoman | `MODEL_ROCKWOMAN` | 13 |
+| 150 | Conker — black outfit | `MODEL_CONKER_BLACK_OUTFIT` | 7 |
+| 152 | Weasel — black helmet and uniform | `MODEL_WEASEL_BLACK_HELMET_AND_UNIFORM` | 12 |
+| 156 | Villager — brown hat | `MODEL_VILLAGER_BROWN_HAT` | 5 |
+| 157 | Villager — striped bonnet | `MODEL_VILLAGER_STRIPED_BONNET` | 6 |
+| 159 | Zombie — dark suit | `MODEL_ZOMBIE_DARK_SUIT` | 9 |
+| 160 | Zombie — purple dress | `MODEL_ZOMBIE_PURPLE_DRESS` | 8 |
+| 176 | SHC Soldier — decorated uniform variant | `MODEL_SHC_SOLDIER_DECORATED_UNIFORM_VARIANT` | 14 |
+| 177 | Tediz — broad-shouldered variant | `MODEL_TEDIZ_BROAD_SHOULDERED_VARIANT` | 15 |
+| 178 | Gregg the Grim Reaper — hooded | `MODEL_GREGG_THE_GRIM_REAPER_HOODED` | 17 |
+| 180 | Gregg the Grim Reaper — without robe | `MODEL_GREGG_THE_GRIM_REAPER_WITHOUT_ROBE` | 16 |
 
-| Artifact | SHA-256 |
-| --- | --- |
-| Before source | `f77eb80ee051c164f8609366e2a70691c0e22e717bfe218df0da8ac3f3e0d51b` |
-| After source | `b950cbd2276f847cdf93719a7169091055e5ddbf1e8c8409b7830d53e90d3df0` |
-| Source-only patch | `dfe8dec78fcc4ae52dbbf2a8a92b5c28df88d23eaa3302d5057c2e979627c4cc` |
-| Classifier m2c output, both contexts | `b96a16690ed739b7d50936cfe46d6a755bf7545e2078bc26a79512ca005e6277` |
-| Wrapper m2c output, both contexts | `980f5114e0f9831d155de1036a71ceee6bdf76d1acaaa9642c4aef84bbf04755` |
+Costume, descriptive appearance and numbered variant distinctions follow the
+retained labels literally. They do not establish military rank, LOD order,
+damage state, transitions, runtime activation, exclusive controllers or native
+rendering. These identifiers are descriptive project names, not recovered
+original symbols.
 
-## Acceptance remains separate
+As established by [actor effect-selector evidence](model_resource_role_names.md),
+this shared classifier returns one of 20 profile indices or unsupported 99.
+Profiles index `D_800A3FD8`, `D_80089A20` and `D_800A3F14`; they are neither bank
+nor model IDs. Character model identity does not make this helper character-exclusive.
+No return value or profile-domain name is changed.
 
-This source-only preparation ran no compiler, focused comparator, source-unit
-layout gate, build, matching/queue or inventory transaction, commit or push.
-Acceptance still requires independent full-span US `CURRENT (0)` and reviewed
-source-unit layout for `func_15141C0C`, a clean batch, full US ROM and mapped
-layout verification, progress/whitespace checks and the required complete
-suites. This patch adds no C match or matched bytes.
+## Reproducible source and parser boundary
 
-## Accepted integration
+Exact case-token inverses and removal of the enum declarations reconstruct the
+prior whole sources. The disabled guards and other function bodies are preserved.
+Exhaustive maps for all 256 input bytes agree between before/after source,
+original ROM instruction execution (including delay slots), and recovered m2c
+switches. Complete discovery, signature, declaration and project-index snapshots
+are unchanged; full contexts retain deferred bodies. Candidate extraction,
+replacement, restore/preserve and focused-source reconstruction preserve the
+function-only boundary.
 
-The classifier remains full-span US `CURRENT (0)` with its reviewed source-unit
-layout preserved. The combined five-function naming batch returned
-`BATCH_COMPLETE`; integrated game/data/rodata checks, the byte-exact full US ROM
-build, progress and whitespace passed. All 1,737 tests pass in the host suite
-(37 environment/tool skips) and ROM-enabled pinned-toolchain suite (one optional
-validator skip). Independent review reinterpreted all 256 model inputs from ROM,
-recomputed declaration/discovery contexts, and reran all four pinned m2c calls.
-This adds exactly 15 source-local case constants, no linked symbol or C match.
+Pinned m2c `09e0e72337804a713e2c3b8d522abe85838470ea` parsed complete before/after
+contexts for `15141C0C`/`15141970` and `15134070`/`151380B4`; explicit uncached
+review runs succeeded with empty stderr, no fallback and byte-identical outputs.
+It regenerates numeric cases rather than semantic names. Declaration repair still
+rejects an enum prefix as an unresolved composite declaration; successful full
+context parsing does not extend declaration repair or enum-typed ABI support.
+The wrapper declaration remains `void func_1514EDF0(s32, s32);`; the profile
+helper recovers `void func_15143134(f32 *, f32 *, s32);`.
+
+Classifier jump tables are at `800A5218` (45 words, SHA-256
+`86f8fce2e3e2d2274ea6428cbe145990fc2ea9b20cf12c370643b74901d20b4c`)
+and `800A52CC` (89 words, SHA-256
+`08235b758331733ee7a2f57c4be96c13c31c0a87a4ff9b7ee4b5213e8fb400de`).
+The 180-byte classifier SHA-256 is
+`94e412a0d3fc5d286a38dfc6d4cab08ce7bfa4dd0c1a82fa8d912dab0c0c0c8d`;
+the 32-byte wrapper SHA-256 is
+`29cd3f295eff584c7858c32207eee6a699b49db47e39fed487b07da0d1a33980`.
+
+The retained [fragment evidence JSON](fragment_model_case_constant_semantics.json)
+owns its exact 36-record source pins, jump tables, complete ROM spans, all-input
+map digest and uncached parser-output fingerprints. Its historical registry and
+acceptance metadata describe that audit, not today's confidence or test totals.
+The integrated object comparison found allocated sections and symbols unchanged,
+with no emitted `MODEL_` symbols; nonallocated `.mdebug` differed, so whole-object
+byte equality was not claimed. There are 19 active case uses and 36 disabled-only
+constants, with no C-match or matched-byte credit from naming.

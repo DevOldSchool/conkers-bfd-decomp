@@ -1,70 +1,118 @@
-# Reviewed US attachment-prop semantic registry expansion
+# Bank-09 attachment and UI prop descriptions
 
-Historical checkpoint: the reviewed/named totals below count source-bound
-descriptive labels, not confirmed semantic identities or distinct characters.
-Gallery labels and source hashes do not establish human confirmation. The
-[current confidence review](model_name_confidence_review.md) supersedes the
-old reviewed/unknown naming status; source pins and validation history remain
-evidence for their stated scope.
+All labels here are [appearance-only descriptions](model_name_confidence_review.md),
+not confirmed item, character, gameplay or original developer identities. Bank-09
+entry numbers are distinct from action, lookup, animation and character-bank
+indices. Source hashes and complete consumer pins live in the registry.
 
-This metadata-only expansion adds 32 exact bank-09 segment-0 source identities to the prior 170-record registry, for 202 reviewed names and 1,285 unknown records in the complete 1,487-model coverage corpus. All prior records, consumer associations and the single model-specific branch remain field-for-field unchanged. These are descriptive source-model labels, not recovered original symbols or gameplay identities. No C, header, ABI, parser, export or material logic changes; the production script change is only the reviewed registry byte pin.
+## Specialized source observations and routes
 
-## Provenance and exact joins
+These segment-zero records were inspected as ROM-only neutral source renders;
+cigar-like and helmet-like shapes also had individual views. Stored texture
+phases and inspection presets are not native runtime state.
 
-The supplied owned normalized US ROM is 67,108,864 bytes, SHA-1 `4cbadd3c4e0729dec46af64ad018050eada4f47a`, SHA-256 `32e6a8b970ec12ac5f782344945aa0c98a193832eefb687529d03bab6948714b`. Each canonical render_case joins the exact validation case and source-relative glTF path, then the unique manifest bank/entry/segment record. The reviewed private export root is `build/assets/models/rom-only/us-bank-09-preview`; legacy validation roots are explicitly overridden only for private inspection and no configured paths change. The manifest SHA-256 is `f191011cd994a2e19be32ec8ac5086d9a505447f20c38fcb1d066281aa9ea47f`.
+| Bank:entry:segment | Label | Bounded visual basis |
+| --- | --- | --- |
+| `09:0029:00` | Cigar | Brown cylindrical body and pale tip |
+| `09:0133:00` | Military helmet | Green dome, white marking and two straps |
+| `09:0162:00` | Wall-mounted flame (UI model) | Tapered flame-like surface with a small wall plate |
+| `09:0164:00` | Upright cash bundle | Folded green banknotes, red band and eyes |
+| `09:0165:00` | Upright cash bundle — attachment variant | Similar imagery to 164, distinct source and specialized consumer |
+| `09:0185:00` | Conker HUD head | Orange squirrel head, cream muzzle and black eyes |
+| `09:0186:00` | Digital timer | Four-digit device; displayed digits belong to an inspection preset |
+| `09:0345:00` | Hanging bell | Small green bell hanging from a dark cord |
 
-All 32 source payloads were freshly decoded, checked for exact source hashes and geometry counts, and round-tripped through the native attachment format. Across them: 2,313 source vertices, 1,955 source faces and 136 unchanged glTF dependency references. Exact source and glTF/dependency fingerprints authenticate the inspected pixels; they do not establish native rendering parity. Six material contact sheets and four supplemental sheets plus exact entry20 linked pixels were independently inspected. No third-party decompilation metadata or names supply the authority.
 
-All entries below are decimal, bank09, segment0. Canonical indices are JSON `/models/` indices. Counts are bytes and vertices/faces/joints.
+- **Action attachments, 09:29 and 09:133.** `1514DCAC` requests action **35**
+  followed by **68** on the same parent. Action 35's header `80086DD4` points
+  to one record at `8009D1E0` (model **133**, kind 2, animation selector 2).
+  Action 68's header `80086EDC` points to one record at `8009D1F0` (model
+  **29**, kind 1, selector -1). `15083568` passes the distinct fields through
+  `15030AF4` and `1502FFD8`; the animated path uses `1503F62C`, while both
+  reach explicit bank-09 loading in `1502FE10`. Owner checks, duplicate
+  suppression, allocation and loading can prevent creation. No Conker parent,
+  smoking controller or guaranteed creation is inferred.
+- **Direct timer, 09:186.** `15093878` calls `1518C900` with model 186 and
+  stores its primary list at `800D2448`. `150938BC` derives digit textures
+  from `800D2450`, binds four pixel segments and submits that retained list.
+  The registry also pins the relocation and texture/matrix helpers selected
+  by the [direct-binding evidence](us_direct_segment_texture_bindings.md).
+  The rendered 00:00 is an explicit inspection preset, never an initial or
+  observed gameplay time. The label therefore omits the preset.
+- **Dedicated HUD head, 09:185.** `1509093C` loads model 185 through
+  `1502FE10`, retains its list at state `800D24C8+0x80` and maintains four
+  correlated texture selectors. `150911F4` uses `1510D0EC` to bind them and
+  submits the retained list. This is separate from bank-01 Conker model 0,
+  which has its own separately classified record. The label does not select a texture phase or native
+  HUD deformation. See [specialized consumers](us_special_attachment_materials.md).
+- **Copied-list UI, 09:162 and 09:164.** `151EB06C` requests model 164 /
+  animation 23 at `151EB5BC`, and model 162 / animation 8 at `151EB5D8`.
+  `151ED90C` constructs the copied lists; `151EDBDC` renders them. Their
+  shared animation/model/texture helpers are pinned separately from the
+  specialized attachment path. The flame's shape is not world-placement or
+  damage-controller evidence. See [UI constructors](us_ui_constructor_materials.md).
+- **Specialized cash attachment, 09:165.** `150FAE18` or `151D6BFC` passes
+  model 165 to `15157010`. Callbacks `150FB1E8` / `151D710C` bind descriptor
+  195 through `15133EEC`; type-54 renderer `15157420` submits the model.
+  Source hashes, size and native alpha handling differ from UI model 164,
+  even though displayed mesh/rig/images agree. Neither identity collapses
+  into the other, or into bank-01 character 165. Whole constructors have
+  broader unproved event purposes. See [specialized consumers](us_special_attachment_materials.md).
+- **Ordinary lookup, 09:345.** `15010A60` stores lookup selector **86** at
+  template `+0x56` and flags `0x0D00` at `+0x50`, then calls `1513264C`.
+  The table at `800A3880` maps selector 86 to model **345**; `151336A8`
+  loads it and `15132B80` submits its list. The reviewed initial callback
+  flag is clear. This is not ringing behavior, and neither 86 nor 345 is
+  the square-base bank-03 bell. See [ordinary objects](us_bank09_object_materials.md).
 
-| Entry | Descriptive name | Actions | Bytes | V/F/J | Canonical index | Source SHA-1 |
-|---:|---|---|---:|---|---:|---|
-|13|Bottle|4|2920|127/78/0|357|`c797e85cd02b78f84259599779f365d0ca26c2d0`|
-|20|Lighter-fluid container|12|2088|72/56/0|375|`e6515b3edcbf7252a56612f1dfa98b266e1c0338`|
-|24|Frying pan|16|2744|94/92/0|224|`b446a4accec4b5c3c070635ec6bd325160f93a61`|
-|25|Yellow handheld console|21|1768|62/40/0|804|`b83e20489a3601405d99fa450929e7d85c504af5`|
-|28|Mask and snorkel|32|2152|76/72/0|361|`76395e784b49aee4b9b796072bb5c773e6ef8f62`|
-|42|Toilet-paper roll|147|808|26/20/0|854|`abae03a6276138887fd09fc2581b5038d26e5451`|
-|43|Crown|62|3880|166/135/0|227|`afb6e6ddd54e837d86c2d406a1b9f0c960cd1644`|
-|44|Travel suitcase|63|2360|83/66/0|366|`22e49fd6ba2303889817e08713bddf003bc286c7`|
-|55|Chainsaw|86|3688|143/110/0|229|`8fe793337ad6ec3b2e5007e675cc49017120285f`|
-|58|Curved sword|88, 166|1320|42/30/0|501|`68e9971f62968c5b88b713fd555c2a31365b5659`|
-|61|Paired red canisters|92|2568|72/54/0|377|`315e4ff27de8d33b08fe03c90facf08fd03f1246`|
-|65|Revolver|22|5256|176/146/0|230|`ca320dfb920fde11c3f94740f7cb9ddf944e6912`|
-|70|Black gas mask|37|3032|85/74/0|359|`a421e7012382d76334f144cc3b8b92e071957fb2`|
-|71|Green gas mask|38|2936|85/74/0|360|`f9f57439782eea93101eb69f27c16063c264b6f5`|
-|73|Green ring-pull can|96|1768|48/40/0|387|`38146b78ee17c1b3327695338fda061181fa4192`|
-|75|Flashlight|100|936|28/28/0|855|`bb3da2655f6118b43817fea5de583d657405f23a`|
-|83|Scalpel|107|968|22/28/0|856|`f0047e782f27803e128e0037eaa960a1ec3a5c6f`|
-|84|Syringe|108|1848|47/44/0|385|`c484669cc17a48d830945443233b4a47f0da2e24`|
-|93|Skull bandana|121, 122|1912|64/50/0|419|`08293c2b54c50f893f8b1744d470f110f0f71849`|
-|96|Open milk carton|125|1576|57/32/0|495|`2338e4ab6915d09104edff6c1ac8c2534bd8e942`|
-|99|Headphones|127|1704|59/56/0|376|`21bf31ee3435df2c3bc45fe6b87e665dbec27b7f`|
-|111|Drumstick|149, 162|1384|42/70/0|365|`244056a7057b58a8362c523191776eb8d568cf43`|
-|112|Hexagonal dumbbell|150, 163|1336|49/62/0|896|`8106c82ce82f846d644a2ca42f1cdaf07069aff1`|
-|113|Scythe|151|1384|47/54/0|378|`634a279593ad33f76fb075659ddf68b3d17bcd0f`|
-|114|Pitchfork|154|1480|59/40/0|388|`d1eb9c986b65def75e1e53d92cd57b942ad44119`|
-|118|Red-tipped scalpel|153|952|22/28/0|857|`1515834d38ba574a6b4f735e4537309e440c7129`|
-|121|Black sunglasses|48|1112|38/24/0|816|`c6169fe570476bdb324d923af61f513cec01655c`|
-|123|Bone-handled knife|47|1272|45/50/0|380|`82907ec6e1df4a91e34989a233650ba699217006`|
-|124|Wrapped-handle knife|34|1272|45/50/0|381|`0b28c8793de6165ff695b894f8725710c23616d1`|
-|125|White mug|110|1480|50/58/0|371|`0edf28484ed651125fd26ef98eea1613bb79a598`|
-|131|Three coloured balls|43|3352|132/72/4|362|`035a1cc7cbef643f5abdb75c80976ce2571903f8`|
-|139|Handled net|51|3736|150/122/5|239|`69122c031457e8f6b0afcf8b502a2ed70f75f79f`|
+The legacy `Cigar`, `Military helmet`, `Conker HUD head`, and other table
+wording is retained descriptive provenance. The pixels and routing do not confirm
+a proper item/character identity, military role, exclusive parent or behavior.
 
-## Shared conditional consumer identities
+## Generic action attachment records
 
-Each listed consumer is a complete active-inventory span. All six were independently checked against owned ROM; every recorded instruction word in the five retained assembly bodies matched contiguously. The full generic initializer C was read as supplemental evidence. Function names remain generic and no exclusive control is implied.
+Canonical render cases join exact validation paths, unique numeric manifest rows
+and independent ROM-decoded payloads. Manifest SHA-256:
+`f191011cd994a2e19be32ec8ac5086d9a505447f20c38fcb1d066281aa9ea47f`.
+The review round-tripped source geometry through the native attachment format,
+checked glTF dependencies, and inspected six material and four supplemental sheets
+plus entry 20's linked pixels. Canonical indices below are `/models/` indices;
+entries are bank 09, segment 0. V/F/J are source vertices/faces/joints.
 
-| Function | Complete bytes | SHA-1 | SHA-256 |
-|---|---:|---|---|
-|`func_15083568`|356|`419012702249e321c26fc2badb49949b0aafa0fc`|`d8aacdfe6c03aaca1c64a407d72442f23db41774d5f66fe400ece74c7ecac25e`|
-|`func_15030AF4`|608|`f506f08cf457bc3d9bb7a751c0c1381e2ddd39a9`|`df3db6ad291d258a6637444cd9eb2255b9b26093be45ce03388d5c784b0a6436`|
-|`func_1502FFD8`|384|`d03a13f16beb1aacae4a2c964a393164e8a477c4`|`350a1659cffbc17db7b22f3c9e454a3e9bf7cf6a75e47ab9b60d429b4d3d628d`|
-|`func_1502FE10`|456|`8637778facf0ce5e9a4cd03316b390e02fdf84e2`|`3a2d548de707ff5c0745082d60aeb4529939d8db04a9a3bf3b5332aad1008b17`|
-|`func_1503F62C`|396|`b678946246dbc937322777d197d874c3dbd0839b`|`3c244ff9deede29a9099f11aea1b466e510eacfc0a13a3840bca14af7dd94d7a`|
-|`func_15031A50`|452|`433d396431907cf2bdef8fc872dbcd46dd31d274`|`5380c13c365b6630ec406d7bdebaf094676b2067365e5785def03280f21f8edd`|
-
+| Entry | Descriptive name | Actions | V/F/J | Canonical index |
+| ---: | --- | --- | --- | ---: |
+| 13 | Bottle | 4 | 127/78/0 | 357 |
+| 20 | Lighter-fluid container | 12 | 72/56/0 | 375 |
+| 24 | Frying pan | 16 | 94/92/0 | 224 |
+| 25 | Yellow handheld console | 21 | 62/40/0 | 804 |
+| 28 | Mask and snorkel | 32 | 76/72/0 | 361 |
+| 42 | Toilet-paper roll | 147 | 26/20/0 | 854 |
+| 43 | Crown | 62 | 166/135/0 | 227 |
+| 44 | Travel suitcase | 63 | 83/66/0 | 366 |
+| 55 | Chainsaw | 86 | 143/110/0 | 229 |
+| 58 | Curved sword | 88, 166 | 42/30/0 | 501 |
+| 61 | Paired red canisters | 92 | 72/54/0 | 377 |
+| 65 | Revolver | 22 | 176/146/0 | 230 |
+| 70 | Black gas mask | 37 | 85/74/0 | 359 |
+| 71 | Green gas mask | 38 | 85/74/0 | 360 |
+| 73 | Green ring-pull can | 96 | 48/40/0 | 387 |
+| 75 | Flashlight | 100 | 28/28/0 | 855 |
+| 83 | Scalpel | 107 | 22/28/0 | 856 |
+| 84 | Syringe | 108 | 47/44/0 | 385 |
+| 93 | Skull bandana | 121, 122 | 64/50/0 | 419 |
+| 96 | Open milk carton | 125 | 57/32/0 | 495 |
+| 99 | Headphones | 127 | 59/56/0 | 376 |
+| 111 | Drumstick | 149, 162 | 42/70/0 | 365 |
+| 112 | Hexagonal dumbbell | 150, 163 | 49/62/0 | 896 |
+| 113 | Scythe | 151 | 47/54/0 | 378 |
+| 114 | Pitchfork | 154 | 59/40/0 | 388 |
+| 118 | Red-tipped scalpel | 153 | 22/28/0 | 857 |
+| 121 | Black sunglasses | 48 | 38/24/0 | 816 |
+| 123 | Bone-handled knife | 47 | 45/50/0 | 380 |
+| 124 | Wrapped-handle knife | 34 | 45/50/0 | 381 |
+| 125 | White mug | 110 | 50/58/0 | 371 |
+| 131 | Three coloured balls | 43 | 132/72/4 | 362 |
+| 139 | Handled net | 51 | 150/122/5 | 239 |
 
 - 15083568 at 150835A0–150835BC computes 80086CC4 + (action - 1) * 8, reads u8 count at header +4 and program pointer at +0. The loop advances records by 16 at 1508368C. Only the 36 explicit selected headers are accepted here; no whole-table extent is inferred.
 - Record kind 0 at +3 follows 150835E0–15083614 to 15083AC8; byte +0 in that ABI is not admitted as a bank 09 index. The selected kinds 1/2 instead use 15083620–1508367C. Record +0 goes to constructor a1, record +1 to a2, record +7 to a3. Record +2 is a separate updater selector. Action ID is a separate stack parameter, not the model entry.
@@ -136,23 +184,6 @@ Exactly three canonical label/note corrections are admitted:
 - Entry123: Cleaver becomes Bone-handled knife. A pointed blade and bone-shaped handle support the descriptive label; handle composition remains unknown.
 - Entry124: Cleaver with wrapped handle becomes Wrapped-handle knife. The pointed blade, pale wrap pattern and red band remain a distinct exact ROM/material identity from123.
 
-All existing notes/caveats remain verbatim and the new evidence is appended. Old aliases and former full display labels are retained. Names, IDs, render cases, categories and paths are unchanged. The prior entry76 Red warning barrel correction is retained exactly. Historical scene/placed-prop tests verify the three exact new rows and restore only those rows before running their original full-file digest guards; original row guards and prior-record digests are unchanged.
+All existing notes/caveats remain verbatim and the new evidence is appended. Old aliases and former full display labels are retained. Names, IDs, render cases, categories and paths are unchanged. The prior entry76 Red warning barrel correction is retained exactly. Former labels remain provenance, not support for stronger semantic claims.
 
 Separate visual leads134 Anvil,138 Green two-button device and166 Light bulb remain excluded. The earlier bounded queries1..255 do not prove unused status or absence of indirect use. Action166 is a different namespace and positively requests model58 (Curved sword).
-
-## Validation contract
-
-The private metadata package under `build/us/manual-attempts/semantic-naming-20261003/attachment-prop-registry/` contains actual-before and candidate identity audit outputs, target-specific adverse tests, independent action/consumer/event audit, isolated source tests, corpus invariance results and exact patch input/output hashes. Before any adverse mutation, the unmodified actual170-record input and precisely allowed202-record candidate pass. Mutations must reach their designated rejection, rather than an unrelated stale whole-config guard.
-
-Source tests pin all170 prior records and every new record, all36 headers and records, six full consumer identities, ten actions with positive stored-create witnesses, namespace exclusions, byte identity and exactly three canonical corrections. Stored events prove stored requests only. Complete corpus comparison admits exactly32 semantic-name changes; source, geometry, material, scene and evidence fields remain unchanged. No game build, commit, push or publication is part of this preparation.
-
-## Accepted integration
-
-The combined naming checkpoint passes a clean `BATCH_COMPLETE`, exact full
-US ROM and integrated game/data/rodata, progress and whitespace. All 1,756
-tests pass in both the host suite (37 environment/tool skips) and ROM-enabled
-pinned suite (one optional validator skip). Fresh integrated coverage equals
-the independently reviewed 202-name candidate exactly. Independent review
-approved all nine metadata files and repeated the positive/adverse, consumer,
-model, source-preservation and full-corpus audits. This adds 32 model-record
-labels and the three bounded canonical corrections, no C matches or bytes.

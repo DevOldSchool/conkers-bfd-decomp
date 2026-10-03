@@ -1,12 +1,9 @@
-# Actor representation selection semantics
+# Actor representation selection and mutable model bytes
 
-These are descriptive roles inferred from the checksum-validated US ROM, not
-recovered original names. They refine the earlier
-[representation and asset audit](actor_representation_asset_semantics.md) and
-[expression audit](character_expression_semantics.md). The linked numeric
-symbols, declarations, types, offsets, source order and executable expressions
-are unchanged. Only one matched local identifier is renamed. The other five
-role changes are comments, including four on raw/deferred functions.
+These are inferred roles with original linked symbols and ABI preserved.
+[Confidence and provenance](model_name_confidence_review.md) distinguish code
+behavior from model descriptions and runtime activation. Full consumer pins are
+in the registry; additional complete support spans are in that note.
 
 ## Override control and applied state
 
@@ -70,6 +67,10 @@ Neither getter recognizes the `0xFF` reset request or checks the ordinal
 against either count. In particular, an unconsumed `0xFF` selector yields
 ordinal 254 rather than a normalized fallback. Naming must not add a safety
 check or imply that one exists.
+
+The getter zero branch is at `150849A4`; nonzero list selection is at
+`150849B0..150849B8`. Initializer `1505F188` installs the actor-byte fallback
+through `1505F1F4/1505F20C`.
 
 ## Actor-script setter
 
@@ -173,91 +174,55 @@ for a model-150-created list. The generic selector-six stores at
 `150669D4/15099758` therefore do not establish a costume label. No new character,
 costume, appearance, enum or asset name is introduced.
 
-## Independent full registered spans
 
-These spans were reread from normalized US ROM SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a` (67,108,864 bytes). Extents use
-`progress/functions.json` at checkpoint
-`f395dbbf606db66977a64165f98e8b1d92bde416`, descended from fresh-main base
-`fb053d62`. Every role span includes all registered bytes, delay slots and
-terminal padding. Existing raw or indexed reference assembly was independently
-checked for contiguous addresses and exact whole-span ROM equality. These
-checks establish evidence identity, not a new compiler match.
+## Source-local model-byte fields
 
-| Role symbol | State | Bytes | SHA-1 |
-| --- | --- | ---: | --- |
-| `func_150849A0` | `matched` | 44 | `62d89a7ec36b39096dfd2c98896619b96b71866a` |
-| `func_150791F0` | `matched` | 56 | `4211581561b3dcc5ec600d3a413aacdf8c7b49a4` |
-| `func_150849CC` | `raw_asm` | 76 | `f406a1972f5f0f73bdcce7b9fb373af650daf567` |
-| `func_1502C6E8` | `raw_asm` | 652 | `a168f14ac1b2fe5bb064d8e6194c3b486dc00023` |
-| `func_1502FBE8` | `raw_asm` | 392 | `86363abf6467595cc9d78c3c1b6577bb4374835f` |
-| `func_150837D4` | `raw_asm` | 280 | `7bd9c8414be99e3bc26944fe08eb04064933a30d` |
+`Game83300Actor.modelIndex`, `GameA28B0State.modelIndex` and
+`GameB21B0Object.modelIndex` name existing unsigned bytes at `+4`; no shared ABI
+is introduced. The latter two partial views remain size `0x320`, alignment four,
+with inner pointers at `+0x31C`; the pool stride is `0x32C`, so the last twelve
+bytes are outside those views. `modelIndex` is mutable and includes sentinel
+`0xFF`, separate from actor slot, kind, override selector, ordinal and byte `+6`.
 
-The same complete role spans have these SHA-256 values:
+## Actor provenance and every member access
 
-- `func_150849A0`: `a9c2b556bc04c94bc24acdaab75d2f6c1fb49c949ada74fef06f7b2eb09c7e57`
-- `func_150791F0`: `7817c73825f853e532b0a31e79d7687fd3a6990615cf0ae183efebf457a85aef`
-- `func_150849CC`: `69dd64e52454a5db16aa031021fd5e6ee7c1a1a0140673367baad3924113ab24`
-- `func_1502C6E8`: `b6ef1881263be8caaa57f6e0096dc3565202e9c5466c953ae254ec22996e3a40`
-- `func_1502FBE8`: `ad1d536ed4dfd8a5b9a285ead4a92591ca5bbbf39cb9ebcd8da4a797981eb8e4`
-- `func_150837D4`: `0e24df9eeed925ffd2e61947bf0b1e365a6f375df88e373a673ad6bd781e5af5`
+The original actor traversal `1504A730` forms the pool base `800CC2D0` at
+`1504A7C0/1504A7E4`, stores the current slot in `800D154C` at `1504A8A0`, and
+advances it by `0x32C` at `1504AC84` over 25 slots. A second traversal
+`1504ADD0` independently stores the active actor at `1504AE58`. The A28B0
+receivers are this current-actor global or `other`, explicitly derived from
+the same pool in `150768DC`. The local current-actor save/restore paths retain
+actor provenance; `15072208` returns only pool slots or null.
 
-Supporting full-span identity checks:
+`150837D4` computes a pool slot, stores the supplied model at `15083820`,
+and calls `15084D00` with that actor at `1508389C/150838A0`. The latter is the
+only direct game-overlay caller of B21B0's model-byte consumer. Its returned
+model-sharing representative is stored separately at actor `+6` at `150838B0`.
+The same B21B0 view's two other typed consumers, `15085410` and `15085420`,
+access only the inner pointer. Their proven callers obtain actor slots from
+`1505EEF4`; their complete C bodies and signatures remain byte-identical.
 
-| Symbol | Bytes | SHA-1 |
-| --- | ---: | --- |
-| `func_1505F188` | 272 | `c4b6d2297e2dc2c7f3c7c5724781e9042b9d3204` |
-| `func_150839B8` | 272 | `83514e60fb88c39b8e225ba6b68a54a5094c2dff` |
-| `func_1507BC14` | 412 | `e04f71fcd2150534ad374b1be8b77050eb1be2bd` |
-| `func_1507E6B8` | 132 | `059fe16ca29114f79874eb5bba055de0c5c3b12c` |
-| `func_1507E908` | 96 | `c602e20a2b335d94feb349539cbdb76d69957d50` |
-| `func_1507E968` | 128 | `94fb99b2aabedd05d7d1404d8013af047b86a5af` |
-| `func_1507E9F8` | 76 | `31fcadb16432eb6925dc6fcf17d561857102493d` |
-| `func_1502C974` | 704 | `166b05f7f97b828a9ebad3c9a7e51e8a6b748eea` |
-| `func_1502CCFC` | 2128 | `2176c655198fed8b1867b28f059cb4765bced897` |
-| `func_1502460C` | 8128 | `363af55b580310f7cfa3dee99c50a0065274dffd` |
-| `func_15065A5C` | 19348 | `7f60cbcdfdc421e08122fd361bcebabd913da9dc` |
-| `func_15097A8C` | 8584 | `652bb7dc25c580be9d73f138b68687333da7ce6d` |
+| Function | Original instruction address | Member operation |
+| --- | --- | --- |
+| `15075548` | `15075604` | Read current model for comparison with `0x28` |
+| `150768DC` | `150769B4`, `150769B8` | Compare current and other actor models |
+| `150768DC` | `15076A0C` | Index model defaults in `D_800D1C90` |
+| `15079790` | `150797BC`, `150797CC` | Store `0xFF` or `0x3A` directly |
+| `1507BB28` | `1507BB38` | Index model-keyed route/script resources in `D_800D1588` |
+| `15084D00` | `15084D04` | Read the actor model before searching model-sharing groups |
 
-## Source equivalence and required acceptance
+Those are all eight member accesses, plus the two declarations. The model
+loader `1503CF20` uses bank 01; `1503D774` uses the same index for bank-11
+defaults. The script-resource loader `1503D660` resolves bank-0F metadata.
+The script-entry key bytes subsequently read in `1507BB28` are a separate
+domain and are unchanged. Automatic selection and explicit application both
+call `150837D4`; `1505F188` initializes the actor model to `0xFF`. These facts
+establish mutability and sentinel behavior without asserting observed gameplay
+execution, appearance or complete indirect-call reachability.
 
-An inverse whole-word replacement within `func_150849A0` restores all four
-occurrences of its original local selector. The replacement name is absent
-from the original function. Reversing only the exact role-comment additions
-and correction then reconstructs all three complete source files byte-for-byte.
-All 55 disabled candidates in those files, including their scores, guards,
-end markers and adjacent raw-assembly pragmas, are byte-identical. The complete
-expression source is unchanged, including its argumentless helper call.
-There are no new types, fields, headers, enums, linked symbols, ABI changes or
-source-unit changes, and no altered sentinel or overflow behavior.
-
-Preparation performed no build, matching attempt, inventory edit, commit or
-push. Fresh acceptance must recheck these two existing matched IDs:
-
-```sh
-./conker finish func_150849A0
-./conker finish func_150791F0
-./conker verify-batch func_150849A0 func_150791F0
-./conker progress check
-git -c core.whitespace=cr-at-eol diff --check
-```
-
-The first has a local identifier change; the second has only a role comment.
-Both must retain complete `CURRENT (0)` and reviewed source-unit layout, with
-clean batch/game/data/rodata, progress and whitespace gates. The four raw
-functions remain raw and must not be promoted or sent through candidate repair
-for this semantic-only batch. No additional callers require semantic edits
-because linked names, prototypes, fields and declarations are unchanged.
-
-## Accepted integration checkpoint
-
-Both matched targets passed independent full-span US `CURRENT (0)` comparisons
-and reviewed source-unit layout checks. The clean two-function batch returned
-`BATCH_COMPLETE`; integrated game/data/rodata checks, a byte-exact full US ROM
-build, progress and whitespace checks passed. All 1,726 tests pass in the host
-suite (37 environment/tool skips) and ROM-enabled pinned-toolchain suite (one
-optional Khronos-validator skip). Independent read-only review authenticated
-all 44 complete supporting spans, the direct selector census, all 186 defaults
-and 11 nontrivial lists, and exact source inverse preservation. This adds one
-matched-C descriptive role and four raw-function role comments, refines the
-existing getter role, and adds no C match, field or shared declaration.
+`GameB21B0PlayerRecord.field_4` remains an `s32` in a separate `0x1C`-byte
+player record; both its declaration and use are unchanged.
+`Func1506AC0CPacket.field_4` remains an unsigned byte in an eight-byte stack
+packet. Original `1506AC2C/1506AC44` copies argument byte `+0x3B` to this packet,
+not actor byte `+4`. Its entire source file is unchanged. No `field_70` name,
+appearance label, shared declaration or ABI repair is part of this change.

@@ -1,42 +1,15 @@
 # Placed-object helper semantics
 
-This naming pass covers eight existing matched-C helpers in
-`src/game/game_13F9D0.c`, `src/game/game_30E90.c`, and
-`src/game/game_13ABD0.c`. Descriptive role comments are not linked aliases or
-claims about original source names. Only existing source-local member,
-parameter, and local-variable spellings change. Types, signedness, layout,
-declaration/expression order, constants, numeric symbols, and fallback behavior
-are preserved. No shared header, type, alias, inventory, or matching metadata
-change is part of this pass.
+Eight existing matched helpers in `game_13F9D0.c`, `game_30E90.c` and
+`game_13ABD0.c` receive descriptive roles and local names without type, ABI,
+layout or operation changes. [Shared provenance](model_name_confidence_review.md)
+retains the complete original-ROM spans; original reference splits are
+`reference/game/us/asm/112520.s`, `39E0.s` and `10D720.s` respectively.
+Direct J/JAL and aligned-data scans found no aligned game-data pointer to these
+eight targets; this does not exclude indirect callers or other overlays.
 
-## Independent US evidence
-
-The legally supplied US ROM is normalized and checked against SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a`. Each full CURRENT registered span
-below was freshly decoded, hash-checked, and compared word-for-word with its
-independent raw reference. All eight retain matched status in the inventory;
-these provenance checks do not substitute for post-edit focused and batch gates.
-
-| Numeric symbol | Bytes | Full raw-span SHA-1 | Source suffix |
-| --- | ---: | --- | --- |
-| `func_151148A8` | 100 | `982eaba37b6c1dba097b1c79a4acafeb014eead9` | `13F9D0` |
-| `func_1511490C` | 160 | `629429fa4dce5a8dfb8eab6df18755a557d07775` | `13F9D0` |
-| `func_151149AC` | 112 | `a831c20eb614451ce4fc3c1acbd67b004a69cf0a` | `13F9D0` |
-| `func_15004BF0` | 240 | `15e1c9c9fc16add33571bf01d2bac5efc1a896a6` | `30E90` |
-| `func_1510D864` | 16 | `3a6d8325150a08f6fe3ea9f0ea7dc37235ac6db4` | `13ABD0` |
-| `func_15004A4C` | 96 | `87f97f9b889fba82269bb7776e8200310b5fecf8` | `30E90` |
-| `func_15114050` | 116 | `9b5c4e91d95b8961111576d69dcdcf1af92f2cb9` | `13F9D0` |
-| `func_151140C4` | 196 | `d32672c225acb89d77c3adbadbb2261e3fd7d58a` | `13F9D0` |
-
-The references are `reference/game/us/asm/112520.s`, `39E0.s`, and `10D720.s`
-respectively. The same fresh audit authenticates 23 supporting full registered
-spans, including loader `150039E0`, matrix helpers `150A8050/150A7CB0/150A7A48`,
-vertex consumer `150A44F0`, mask producers `150AB1F0/1510E950`, mask consumer
-`15114188`, expiry consumer `15114A1C`, binding append/replay
-`1510D874/1510D8C0`, updater callers, and renderer consumers. All aligned
-game-code J/JAL sites and game-data function-pointer sites were rechecked;
-none of these eight targets has an aligned game-data pointer. This does not
-exclude indirect calls or uses in other overlays.
+Complete supporting consumers include vertex path `150A44F0`, mask producers
+`150AB1F0/1510E950`, mask consumer `15114188`, and expiry consumer `15114A1C`.
 
 ## Orientation and transform
 
@@ -126,25 +99,3 @@ the first set-bit index. Zero also represents an unset gate or no set bit,
 so it is not a distinct no-result sentinel. The names `actorIndex`, `actorMask`,
 and `actorBit` preserve the exact scan and fallback; the separate 25-actor
 consumer does not justify narrowing it.
-
-## Scope checks
-
-From source baseline `ae3d4388513227b5370a8b2b412823924fd41ee4`, scoped inverse
-renaming restores every token in all three complete source files, including
-disabled candidates. Removing only the eight newly added comments also
-reconstructs the original files byte-for-byte. No ABI or matching claim is
-based on the names; focused US checks and the clean eight-function batch are
-separate integration requirements. This pass does not infer scene activation,
-render visibility, collision semantics beyond the mask, or raster parity.
-
-## Accepted result
-
-All eight selected helpers retain full-span `CURRENT (0)` and reviewed
-source-unit layout. Their combined batch with the separate two-constant action
-trial reaches `BATCH_COMPLETE`. Full ROM, integrated game code, mapped rodata,
-progress and whitespace gates pass. Both 1,721-test suites pass (37 host skips;
-one optional ROM-enabled pinned skip). Independent read-only review confirms
-all 31 raw-ROM spans and whole-source inverse equivalence.
-
-This adds eight descriptive function roles and clarifies eleven existing
-source-local member names. It adds no C matches, bytes or source-unit claims.

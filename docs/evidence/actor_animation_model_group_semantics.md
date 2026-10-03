@@ -1,14 +1,12 @@
 # Actor animation-model representative
 
-`func_15084D00` has the descriptive role
-`actor_get_animation_model_representative`. This is an inferred role, not a
-recovered original developer name. The change is one comment immediately
-before its existing disabled-candidate guard in `src/game/game_B21B0.c`.
-No identifier, declaration, type, field, ABI, numeric symbol or expression
-changes. The complete `CURRENT (1665)` candidate and raw-assembly placeholder
-remain unchanged.
+`func_15084D00` has descriptive role `actor_get_animation_model_representative`.
+The 112-byte helper remains raw with its unchanged disabled `CURRENT (1665)`
+candidate. [Shared provenance](model_name_confidence_review.md) records the
+full original-ROM support spans; this is a resource-sharing role, not character
+identity or LOD evidence.
 
-## Exact selection contract
+## Animation-model representative: exact selection
 
 The complete 112-byte function reads the unsigned current model byte at actor
 `+4` at `15084D04`. It scans seven byte-counted model groups in table order,
@@ -48,7 +46,7 @@ Group membership must not be called character identity or level of detail.
 For example, the first group includes Conker, Wise Guy, Uga-Buga, Tediz,
 SHC Soldier, villager, zombie and Gregg models. Group five includes models
 83 and 165, separately reviewed as Fangy the Raptor and Red Dinosaur. The
-model labels come from the existing reviewed model registry; no additional
+model labels come from the existing source-bound model registry; no additional
 appearance labels or aliases are proposed here.
 
 ## Actor provenance and distinct domains
@@ -132,75 +130,10 @@ existing disabled helper's `s32` return and caller's `s8` declaration are
 inconsistent source views and remain untouched, along with the caller's
 explicit byte mask and store.
 
-## Independent identity and preservation checks
-
-The normalized US ROM is 67,108,864 bytes, SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a`, SHA-256
-`32e6a8b970ec12ac5f782344945aa0c98a193832eefb687529d03bab6948714b`.
-Its 2,072,880-byte decompressed game code has SHA-1
-`90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5`; two local extraction
-implementations and the complete independent reference binary agree. Its
-189,088-byte loaded game data has SHA-1
-`42bbe7f02702ca7af5da499fb5cf2f34b7d3d23b`.
-
-Every listed complete registered span was compared against contiguous original
-reference words and, where a raw placeholder remains, both raw assembly copies.
-Delay slots and all terminal bytes are included. Matched support spans use the
-independent original reference, never a candidate compilation. Registration
-was read at checkpoint `f440e93689daf8c8425fa70279d0d2a20b3f454b`.
-
-| Symbol | Bytes | Full-span SHA-1 |
-| --- | ---: | --- |
-| `func_15084D00` | 112 | `ff9dc54618c437070a653923b6cedc81f1484759` |
-| `func_150837D4` | 280 | `7bd9c8414be99e3bc26944fe08eb04064933a30d` |
-| `func_1502AC88` | 636 | `24f02469c9605e212ed65a4c75b216d50ef8577e` |
-| `func_1502AF04` | 284 | `b8f786b34a0b0f6db12c039c68a860a08bd52d1b` |
-| `func_1502B020` | 240 | `cf808816ca9e3df778eb77490c317e7eb4b57c02` |
-| `func_1502B110` | 276 | `34a60e9d42e7e0e2a914bc3a2f37c13d0aba4f8a` |
-| `func_1505E0C4` | 1420 | `3e17bb649f54edb53a448676e71fbea0adce0e10` |
-| `func_1505E650` | 380 | `7ff7faebb700286719b32f4b7390b9c9f772236b` |
-| `func_1503D438` | 36 | `add9aec5cb5ff6df58ba80704156c1463b4a2071` |
-| `func_1503D484` | 140 | `40f757370bbf19e10e675591d24421010455453d` |
-| `func_1503D510` | 224 | `fcd02fbf98cbada218432bd315b28508048f85d0` |
-| `func_1503D5F0` | 112 | `6b19502694fdcbcee75fc751b4d136adc57685df` |
-| `func_1503D660` | 276 | `698addad07c12e755805e484a22441109dd90252` |
-| `func_1505F188` | 272 | `c4b6d2297e2dc2c7f3c7c5724781e9042b9d3204` |
-| `func_1504A730` | 1696 | `cc2b08465267b571c76efcafa9a65573047775e6` |
-| `func_1504ADD0` | 292 | `4af7dbe53fe4c060205be766f8efb2afd7b39701` |
-| `func_1502D824` | 764 | `e4854df5924f1d8f104a242c76187da4401a88b2` |
-| `func_150627D4` | 44 | `c3fd4d04b4ecfd0f07acb2628b040150aaf7709b` |
-| `func_1502C6E8` | 652 | `a168f14ac1b2fe5bb064d8e6194c3b486dc00023` |
-| `func_1502FBE8` | 392 | `86363abf6467595cc9d78c3c1b6577bb4374835f` |
-| `func_15082A44` | 2152 | `df94e52b3063e063c091fac537096563d3e47620` |
-| `func_15083AC8` | 728 | `03be5dc12ab3c26e354c7a830572be800c3b9dc6` |
-
-The complete target span also has SHA-256
-`3b3e792efd6c29d299a34033d671ade846af96083c28773f36a40ab1e1006588`.
-The seven-byte count table has SHA-256
+The representative helper is `func_15084D00`, 112 bytes, role
+`actor_get_animation_model_representative`. Its comment leaves the disabled
+`CURRENT (1665)` candidate intact. Decompressed game-code SHA-1 is
+`90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5` (2,072,880 bytes); loaded game-data
+SHA-1 is `42bbe7f02702ca7af5da499fb5cf2f34b7d3d23b` (189,088 bytes).
+The seven-byte count-table SHA-256 is
 `d0f0777946a33dcf07ba684c4df647a57f77cfe02c14eb049a3fa476dc2d84a9`.
-The pointer table and member ranges were independently bounded and hashed.
-The original reference assembly's unrelated `150A9C40..150AA470` interval is
-not represented by instruction-word comments; no reviewed span intersects
-that gap. Full reference-binary equality is checked separately.
-
-Removing the exact added role comment reconstructs the entire source file
-byte-for-byte. All disabled-candidate guards, scores, bodies, end markers and
-adjacent raw-assembly pragmas remain byte-identical. This preparation makes no
-tracked source changes and runs no compiler, build, matching attempt, queue
-operation, commit or publication. It adds one descriptive raw-function role
-and no C match. Integration must preserve the existing raw state and must not
-send this `CURRENT (1665)` candidate through matching or repair.
-
-
-## Accepted integration
-
-Independent review approved the exact role comment and full semantic proof.
-The two already-matched neighbors `15085410` and `15085420` remain full-span
-`CURRENT (0)` with reviewed source-unit layout preserved. A clean nine-function
-verification batch, full US ROM, integrated game/data/rodata, progress and
-whitespace gates passed. Host and pinned ROM-aware suites each passed 1,764
-tests (37 host skips; one optional pinned validator skip). All 49 ELF symbol
-records and every allocated section of the source object are identical; only
-nonallocated `.mdebug` differs. The raw helper remains disabled at its existing
-`CURRENT (1665)` score. This adds one descriptive raw-function role, zero C
-matches, zero matched bytes and no source-unit progress.

@@ -1,17 +1,8 @@
 # HUD layout naming evidence
 
-This identifier/comment-only clarification covers `src/game/game_70200.c`.
-Original linked symbols, parameter types, field widths, padding, expressions,
-statement order and literal values are retained. The eight queue/state helpers
-were already registered `matched`; this change earns no new C-match credit.
-`func_15043384` remains a disabled `CURRENT (3873)` candidate with its existing
-`GLOBAL_ASM` fallback and registered `raw_asm` state.
-
-Evidence comes from the owned normalized US ROM, with no external decompilation
-source or inferred scene, character, screen or music identity:
-
-- ROM SHA-1: `4cbadd3c4e0729dec46af64ad018050eada4f47a`
-- ROM SHA-256: `32e6a8b970ec12ac5f782344945aa0c98a193832eefb687529d03bab6948714b`
+These inferred names preserve source-local types, widths, padding, expressions
+and linked symbols. No new C match follows. [Confidence/provenance](model_name_confidence_review.md)
+separates source descriptors, conditional behavior and runtime appearance.
 
 ## Queue and state roles
 
@@ -89,42 +80,6 @@ Table SHA-1: `90d9e1abd749d082969413520cdb4d63bf91a7a6`
 Table SHA-256: `399170eaeb28e9c23fab2a4fbfc999d07c44b6ea103c8979cefeb679a468b62f`
 Flat size-table SHA-256: `51b40c4080feea4e04b7e4921bce202c67a5d1c27f04ee92086255b6b38d6454`
 
-## Full registered raw-ROM spans
-
-These SHA-1/SHA-256 values cover each complete registered span decoded directly
-from the normalized ROM, including the raw consumers used to justify the fields.
-They are semantic provenance, not substitutes for authoritative matching gates.
-End addresses are exclusive.
-
-| Function | VRAM span | Bytes / registered state | SHA-1 | SHA-256 |
-|---|---|---|---|---|
-| `func_15042D78` | `0x15042d78`–`0x15042d94` | 28 / `matched` | `38fc2a649e741f130d03ae9158e9b5e15fb80981` | `f3a875ebe1cbc2d6827ab4c42b5ba2484919664b81f27b82bae5546244ce1570` |
-| `func_15042D94` | `0x15042d94`–`0x15042e3c` | 168 / `matched` | `a2b953e07350ede14afc773966ea4f658dec1f91` | `8c5bf4eb9cbb5300bfdd0b3f1a2446145df8e98a1da7bc2ec7c52c7a369b137e` |
-| `func_15042E3C` | `0x15042e3c`–`0x15042ecc` | 144 / `matched` | `66a68b65b070ce34fad5125d65ab84433be65a38` | `960b46d7d58ab64501ae1b5c769920c38ce12c5d9833b30f0abfee63db919a0a` |
-| `func_15042ECC` | `0x15042ecc`–`0x150432bc` | 1008 / `matched` | `79a05875c18667f06098187ba5cffc5a58463bbc` | `60d41bf0bda9299e4e28568a77b906117b497c17963292ec4031e00c453fc8fa` |
-| `func_150432BC` | `0x150432bc`–`0x150432cc` | 16 / `matched` | `2bdb9d828c000138badbbc7a8f8650dc01738ea5` | `c894b1bb6a591c2cb7349f40560e095216675de806ba4dae460c8b892af56dcf` |
-| `func_150432CC` | `0x150432cc`–`0x150432fc` | 48 / `matched` | `5f0352a1700b304bb94dedc6f389d046e3800498` | `f39cbb07cc79742fe200fe5b577beaa13539451ebce8863ecdeb16a168667250` |
-| `func_150432FC` | `0x150432fc`–`0x1504332c` | 48 / `matched` | `f10d1c316b6cbc684d92a840f3f2cf86d8bfdecb` | `84b4565f67a3af1fd205ea61239b3dab3a2c41f3e401636ec2aaf20a131f4765` |
-| `func_1504332C` | `0x1504332c`–`0x15043384` | 88 / `matched` | `1d976bd9d669e23482346fac2b64b57bdc64041f` | `27d8962c610304258752efd393afc1223980202c7b44d5763c56d9660107a69b` |
-| `func_15043384` | `0x15043384`–`0x15043a00` | 1660 / `raw_asm` | `7cac7bc6fe71941e6513d45d18caf1b83f99dc02` | `45ce8b202f578a1a75a2d27768dce5cf15d7f6bd033bc9756267d37b48755d43` |
-| `func_151ED430` | `0x151ed430`–`0x151ed90c` | 1244 / `raw_asm` | `900522a88e522f04c6834172be22b92ee7cfe7cd` | `788c9e4d96c2e4b017374a813b5e2471992c3db7da411e0ebbe3b04694938747` |
-| `func_1510D0EC` | `0x1510d0ec`–`0x1510d374` | 648 / `raw_asm` | `47b67aab9ed8a4eb1706ced5424981ff21373aba` | `4a073d41f9ff67477c0ad6e8dcf73df2b875d7280a472319fbccd8667aff1f4c` |
-| `func_1510D374` | `0x1510d374`–`0x1510d404` | 144 / `matched` | `b56e9f67e46ac44069b229680a76dde3e42baba0` | `f7f5772ba3623a9370e5013672480c7011e8285fb53031a1ebaff445b5c2aaac` |
-
-For the existing instruction/table verifier, run `./conker hud-assets survey`.
-See [HUD/menu metadata](us_hud_menu_assets.md) for the established extraction
-contracts. Accept this source edit only after the eight existing matches pass
-`finish`/batch verification and the integration layout, full-ROM, test and
-whitespace gates. Renaming fields in a disabled candidate does not change its
-status or establish any C match.
-
-## Accepted result
-
-All eight selected functions retain full-span `CURRENT (0)` and reviewed
-source-unit layout. The clean batch reaches `BATCH_COMPLETE`, with byte-exact
-full ROM, integrated game code and mapped rodata, plus current progress and
-clean whitespace. The combined HUD/registry checkpoint passes 1,718 tests on
-the host (37 skips) and in the ROM-enabled pinned fixture (one optional skip).
-Independent review confirms all twelve raw consumer spans and whole-source
-identifier equivalence. This adds eight descriptive roles and eighteen local
-field names; it adds no C matches or matched bytes.
+Use `./conker hud-assets survey` for the instruction/table verifier;
+[HUD/menu metadata](us_hud_menu_assets.md) owns the extraction contracts.
+`func_15043384` remains raw with its disabled `CURRENT (3873)` candidate.

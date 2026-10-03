@@ -1,53 +1,9 @@
-# Actor representation and asset relocation names
+# Actor representation resources and asset relocation
 
-These are descriptive roles inferred from the checksum-validated owned US ROM,
-not recovered original symbols. The linked names, argument and local types,
-argument widths, arithmetic, constants, declaration order and source positions
-stay intact. The initial slice renamed only function-local identifiers in four
-existing matched definitions and added role comments for three raw functions.
-The later [selection refinement](actor_representation_selection_semantics.md)
-tightens the getter role and distinguishes override control from applied state.
-No shared structure, header, alias, runtime observation, model identity or C-match
-claim is introduced. Excluded candidates are preserved byte-for-byte.
-
-## Override-or-base representation lookup
-
-`func_150849A0` reads an unsigned selector at actor `+0x1C9`. At
-`150849A4` selector zero branches to the first byte through the pointer at
-`+0x2C4`; nonzero selectors return byte `selector - 1` through the same pointer
-at `150849B0..150849B8`. The names `actor` and
-`representationOverrideSelector` describe those local roles. The comment role
-is `actor_get_override_or_base_representation_model`. It never reads the applied
-ordinal at `+0x1C8`: selector zero returns the first list entry even when automatic
-selection has applied another entry. The model byte at actor `+0x04` is mutable,
-written by `150837D4`. Neither a `0xFF` sentinel check nor a bounds check occurs
-in this getter; no exclusivity to any one character is claimed.
-
-The full initialization helper `1505F188` first clears the 0x32C-byte actor and
-sets `+0x2C4` to actor `+0x04` (`1505F1F4/1505F20C`), with counts one at
-`+0x2C8/+0x2C9`. The full defaults consumer `150839B8` replaces that pointer
-with `D_80086CAC[defaults[5]]` when defaults byte four is nonzero, copies that
-byte into `+0x2C8`, and adds defaults byte `0x38` for `+0x2C9`. This proves the
-single-model fallback and alternate representation-list relationship. The
-[selection refinement](actor_representation_selection_semantics.md) identifies
-`+0x2C8` as the automatic prefix count and `+0x2C9` as the total count; suffix
-entries require explicit selection rather than ordinary distance selection.
-Neither count implies distinct models or a gameplay identity for each entry.
-
-The seven direct calls found in the raw CPU images are:
-
-- `1502C7C4`, in `1502C6E8`
-- `1507E6EC`, in `1507E6B8`
-- `1507E914`, in `1507E908`
-- `1507E980`, in `1507E968`
-- `1507EA00`, in `1507E9F8`
-- `15083210`, in `15082A44`
-- `1517AD68`, in `1517AD00`
-
-The [expression audit](character_expression_semantics.md) and
-[morph audit](us_character_morph_targets.md) establish the override-or-base
-resource consumers. In particular, the existing argumentless call in `1507E6B8` is not
-changed or explained away by a local parameter name.
+These inferred role names retain linked numeric symbols, types and ABI. See
+[representation selection](actor_representation_selection_semantics.md) for the
+exact override-or-base getter, initializer fallback, list counts and call sites.
+[Shared provenance](model_name_confidence_review.md) records full original spans.
 
 ## Representation resource loading
 
@@ -132,86 +88,4 @@ failure test and `0x10` result flag stay unchanged. The defaults audit confirms
 the texture descriptor contract; neither dimensions nor material appearance
 are inferred by this name.
 
-The initial patch omitted raw spawn-initializer and model-assignment comments.
-The [selection refinement](actor_representation_selection_semantics.md) later
-adds a bounded model-assignment role comment; the spawn initializer remains
-chain evidence only.
-
-## Fresh independent full-span evidence
-
-All bytes below were read from the owned ROM, normalized SHA-1
-`4cbadd3c4e0729dec46af64ad018050eada4f47a`, rather than generated candidate
-assembly. Extents come from `progress/functions.json` at naming checkpoint
-`b01bc28`, unchanged in this slice. Each listed span includes every registered byte, including delay
-slots and terminal padding. Existing raw assembly files were separately checked
-for contiguous addresses and exact full-span byte equality against the ROM.
-
-| Symbol suffix | Registered bytes | SHA-1 |
-| --- | ---: | --- |
-| `150849A0` | 44 | `62d89a7ec36b39096dfd2c98896619b96b71866a` |
-| `15084488` | 208 | `73e99fd512f1d521f6620a98947843257844411d` |
-| `1503D438` | 36 | `add9aec5cb5ff6df58ba80704156c1463b4a2071` |
-| `1503D484` | 140 | `40f757370bbf19e10e675591d24421010455453d` |
-| `1503CF20` | 1096 | `2335fa3855313510f1f46512cfa704ab301814d1` |
-| `1503D774` | 144 | `546821f215679e4d341cd39d98c9a9d6256110d2` |
-| `1503DC3C` | 224 | `4d0a13f114d5f3ecad9c56068bdde74a052935af` |
-| `15082A44` | 2152 | `df94e52b3063e063c091fac537096563d3e47620` |
-| `150837D4` | 280 | `7bd9c8414be99e3bc26944fe08eb04064933a30d` |
-| `1503D368` | 208 | `abef1711e0dda14ca8b45eb3689aa144f101bb5f` |
-| `1503D660` | 276 | `698addad07c12e755805e484a22441109dd90252` |
-| `150839B8` | 272 | `83514e60fb88c39b8e225ba6b68a54a5094c2dff` |
-| `1505F188` | 272 | `c4b6d2297e2dc2c7f3c7c5724781e9042b9d3204` |
-| `1505E0C4` | 1420 | `3e17bb649f54edb53a448676e71fbea0adce0e10` |
-| `1505E650` | 380 | `7ff7faebb700286719b32f4b7390b9c9f772236b` |
-| `1507E908` | 96 | `c602e20a2b335d94feb349539cbdb76d69957d50` |
-| `1517AD00` | 2048 | `a16226b408961566109c7c0088fd15ae34c76f1c` |
-| `1502CCFC` | 2128 | `2176c655198fed8b1867b28f059cb4765bced897` |
-
-Direct-call observations scan aligned J/JAL instructions in both the raw main
-CPU interval and decompressed game CPU image. They exclude indirect calls and
-other overlays and do not establish runtime reachability. All reported direct
-sites have a unique current inventory owner. No matching call to these symbols
-was found in the scanned main CPU interval.
-
-## Source equivalence and required acceptance
-
-A scope-local inverse rename followed by removal of only the exact inserted
-comments reconstructs both complete input files byte-for-byte. This includes
-all excluded C candidates, raw-assembly pragmas and unchanged declarations,
-not just the four edited function bodies. Every replacement name is absent
-from its original function scope, and the mappings are one-to-one. No runtime
-expression, type, constant, field, ABI, store order or source-unit boundary
-changes. The existing allocation-related fixes are left intact.
-
-This preparation performed no build, focused comparison, inventory update,
-commit or push. Identifier equivalence is not a fresh matching claim. Before
-acceptance the exact edited matched IDs are:
-
-```sh
-./conker finish func_15084488
-./conker finish func_150849A0
-./conker finish func_1503D438
-./conker finish func_1503D484
-./conker verify-batch func_15084488 func_150849A0 func_1503D438 func_1503D484
-./conker progress check
-git -c core.whitespace=cr-at-eol diff --check
-```
-
-All four must preserve full-span `CURRENT (0)` and current source-unit layouts,
-followed by clean batch/game/data/rodata, progress and whitespace gates. The
-three role-only raw functions remain raw. No additional caller validation ID
-is introduced because this patch changes no linked names, types, fields,
-prototypes or shared declarations.
-
-## Accepted result
-
-The four renamed matched functions retain full-span `CURRENT (0)` and reviewed
-source-unit layout. The clean batch reaches `BATCH_COMPLETE`; complete ROM,
-integrated game code, mapped rodata, progress and whitespace gates pass. The
-combined representation/object-registry checkpoint passes all 1,721 tests on
-the host (37 skips) and in the ROM-enabled pinned fixture (one optional skip).
-Independent review confirms all 18 raw-ROM spans and whole-source inverse
-renaming, including preservation of all 23 excluded candidates.
-
-This accepts four descriptive roles on matched C and three comment-only roles
-on unchanged raw loaders. It adds no C matches, matched bytes or field layouts.
+The spawn initializer is chain evidence, not an additional role rename.
