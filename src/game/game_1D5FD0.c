@@ -24,11 +24,15 @@ typedef struct Game1D5FD0Payload {
     u8 flags;
     u8 pad1[3];
     s16 *owner;
-    u8 pad8[8];
+    f32 rate;
+    f32 randomRate;
     f32 x, y, z;
     f32 value1C;
     f32 radius;
-    u8 pad24[4];
+    u8 pad24;
+    s8 testCallback;
+    s8 emitCallback;
+    u8 pad27;
     f32 time;
     f32 limit;
     u8 pad30[0x14];
@@ -86,15 +90,66 @@ void *func_151A8B20(void *arg0, s16 arg1, s32 arg2, u8 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A8B20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D5FD0/func_151A8B20.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D5FD0/func_151A8CEC.s")
 typedef struct {
     u8 pad_0[0x2C];
     s32 field_2C;
 } Game1D5FD0State;
 
-void func_151432BC(s32, f32 *, f32 *, f32 *, s32);
+f32 func_150ADA68(void);
+s32 func_151464B8(void *);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_151A8F1C(Game1D5FD0State *, f32 *, f32 *, f32 *);
+void func_151A8F6C(Game1D5FD0State *, f32 *, f32 *, f32 *);
+extern s32 (*D_8008F980[])(Game1D5FD0State *);
+extern void (*D_8008F970[])(Game1D5FD0State *, f32 *, f32, u8);
+extern f32 D_800BE9A4;
 
-void func_151A8F1C(Game1D5FD0State *arg0, f32 *arg1, f32 *arg2, s32 arg3) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8CEC CURRENT (1025) */
+void func_151A8CEC(Game1D5FD0State *arg0) {
+    register Game1D5FD0Payload *payload;
+    void (*generate)(Game1D5FD0State *, f32 *, f32 *, f32 *);
+    f32 position[3];
+    f32 lower;
+    f32 upper;
+    u8 unavailable;
+
+    if (*(volatile s8 *)((u8 *)arg0 + 0x4D) != -1 &&
+        D_8008F980[*(s8 *)((u8 *)arg0 + 0x4D)](arg0) == 0) {
+        *(s16 *)((u8 *)arg0 + 0xE) = -1;
+        return;
+    }
+    payload = (Game1D5FD0Payload *)((s32)arg0 + 0x28);
+    if ((!(payload->flags & 4) || payload->node == 0 ||
+         func_151464B8(payload->node) == 0) && (payload->flags & 1)) {
+        payload->time += (payload->rate + func_150ADA68() * payload->randomRate) *
+                         D_800BE9A4 * payload->squaredRadius;
+        if (payload->time > 1.0f) {
+            generate = ((payload->flags & 2) && payload->owner != 0) ?
+                       func_151A8F1C : func_151A8F6C;
+            do {
+                generate(arg0, position, &upper, &lower);
+                if (payload->flags & 8) {
+                    unavailable = 1;
+                    position[1] = lower;
+                } else if (func_15046C80(position, 0, lower, &payload->limit) != 0) {
+                    position[1] = payload->limit;
+                } else {
+                    position[1] = lower;
+                    unavailable = 1;
+                }
+                if (payload->emitCallback != -1) {
+                    D_8008F970[payload->emitCallback](arg0, position, upper, unavailable);
+                }
+                payload->time -= 1.0f;
+            } while (payload->time > 1.0f);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A8CEC */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D5FD0/func_151A8CEC.s")
+void func_151432BC(s32, f32 *, f32 *, f32 *, f32 *);
+
+void func_151A8F1C(Game1D5FD0State *arg0, f32 *arg1, f32 *arg2, f32 *arg3) {
     func_151432BC(arg0->field_2C, arg1, arg1 + 2, arg2, arg3);
     arg1[1] = *arg2;
 }

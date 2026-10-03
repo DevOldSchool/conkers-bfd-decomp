@@ -8,7 +8,6 @@
  * - func_151BFC40
  * - func_151BFDA0
  * - func_151BFE84
- * - func_151C0098
  * - func_151C02E4
  * - func_151C0698
  * - func_151C1180
@@ -182,7 +181,87 @@ void func_151BFE84(void *arg0, void *arg1, void *arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BFE84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151BFE84.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1ED0F0/func_151C0098.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1ED0F0Vector;
+
+typedef struct {
+    s16 angleBase, angleRange, pitchBase, pitchRange;
+    s32 countBase, countRange;
+    Game1ED0F0Vector position;
+    f32 field1C, field20, field24, field28, field2C, field30;
+    s32 field34, field38;
+    f32 field3C, field40, field44, field48;
+    s16 field4C, field4E, field50, field52, field54, field56;
+    u8 field58;
+    u8 pad59[3];
+} Game1C0098Config;
+
+typedef struct {
+    f32 height;
+    u8 surface[0x20];
+} Game1C0098Hit;
+
+void func_1514FCE8(s16 *, u8, s32);
+void func_1504715C(Game1C0098Hit *, void *);
+s32 func_15046C80(Game1ED0F0Vector *, u16, f32, Game1C0098Hit *);
+extern f32 D_800AA990, D_800AA994, D_800AA998;
+
+void func_151C0098(Game1ED0F0Vector *arg0, void *arg1, s32 arg2, u8 arg3, s32 arg4) {
+    Game1C0098Config config;
+    Game1ED0F0Vector start;
+    Game1C0098Hit hit;
+    Game1ED0F0Vector position;
+
+    func_151C0418(arg0, arg3, arg4);
+    func_151C04F8((s32)arg0, arg3, arg4);
+    func_151C05A4((s32)arg0, arg3, arg4);
+    func_151C05F0((s32)arg0, arg3, arg4);
+    if (((u8 *)&arg2)[3] != 0) {
+        config.angleBase = 0;
+        config.angleRange = 0xFF;
+        config.pitchBase = -0x40;
+        config.pitchRange = 0x47;
+        config.countBase = 6;
+        config.countRange = 4;
+        config.position = *arg0;
+        config.field1C = 23.0f;
+        config.field20 = 30.0f;
+        config.field24 = 45.0f;
+        config.field28 = 53.0f;
+        config.field34 = 7;
+        config.field38 = 3;
+        config.field4C = 0x19;
+        config.field4E = 0xF;
+        config.field50 = 0x64;
+        config.field52 = 0x64;
+        config.field54 = 0xC;
+        config.field56 = 0x14;
+        config.field58 = 0;
+        config.field2C = 203.0f;
+        config.field30 = 414.0f;
+        config.field3C = 15.0f;
+        config.field40 = D_800AA990;
+        config.field44 = D_800AA994;
+        config.field48 = D_800AA998;
+        func_1514FCE8(&config.angleBase, arg3, arg4);
+    }
+    if ((u8)arg2 != 0 && arg1 != 0) {
+        start.x = arg0->x;
+        start.y = arg0->y + 100.0f;
+        start.z = arg0->z;
+        func_1504715C(&hit, arg1);
+        if (func_15046C80(&start, 0, arg0->y - 1000.0f, &hit) != 0) {
+            position.x = start.x;
+            position.y = hit.height;
+            position.z = start.z;
+            func_151C0360((s32)hit.surface, (s32)&position, arg3, arg4);
+            func_151C0644((s32)arg0, arg3, arg4);
+        }
+    }
+}
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151C02E4 CURRENT (450) */
 s32 func_151C02E4(void *arg0, void *arg1, s32 arg2, void **arg3) {
     s32 temp_t6;
@@ -383,11 +462,6 @@ void func_151C1654(void *arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
         return;
     }
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1ED0F0Vector;
 
 typedef struct {
     u8 pad0[4];

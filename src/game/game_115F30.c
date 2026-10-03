@@ -40,6 +40,76 @@ void func_150E8A80(void) {
         func_10022EC0(temp_v0 + 0x28, &packet, 0xC);
     }
 }
+typedef struct Game115F30WeightedNode {
+    void *region;
+    s32 unknown4;
+    f32 weight;
+    struct Game115F30WeightedNode *next;
+} Game115F30WeightedNode;
+
+f32 func_150ADA68(void);
+s32 func_15144B34(s32);
+void func_1514470C(void *, f32 *);
+extern f32 D_800A1384;
+extern f32 D_800A1388;
+extern f32 D_800A138C;
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E8;
+extern f32 D_800DCD90;
+extern Game115F30WeightedNode *D_800DCDC4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E8B1C CURRENT (413) */
+void func_150E8B1C(u8 *arg0) {
+    f32 *state;
+    f32 *reference;
+    Game115F30WeightedNode *node;
+    s32 result;
+    f32 packet[6];
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    f32 distanceLimit;
+    f32 scale;
+    f32 speed;
+    f32 selection;
+    f32 weight;
+
+    reference = (f32 *)func_15144B34(D_800BE9E8);
+    state = (f32 *)(arg0 + 0x28);
+    state[2] += (state[0] + func_150ADA68() * state[1]) * D_800BE9A4 * D_800DCD90;
+    if (state[2] > 1.0f) {
+        speed = D_800A1384;
+        scale = D_800A1388;
+        distanceLimit = D_800A138C;
+        do {
+            selection = func_150ADA68() * D_800DCD90;
+            node = D_800DCDC4;
+            weight = node->weight;
+            while (weight < selection) {
+                node = node->next;
+                selection -= weight;
+                weight = node->weight;
+            }
+            func_1514470C(node->region, packet);
+            dx = packet[0] - reference[0];
+            dy = packet[1] - reference[1];
+            dz = packet[2] - reference[2];
+            if (dx * dx + dy * dy + dz * dz < distanceLimit) {
+                packet[3] = scale;
+                packet[4] = speed;
+                packet[5] = 0.0f;
+                result = func_15149130((s16)((func_150ADA20() % 13U) + 5),
+                                      -1, 0x34, -1, 1, 0, 0x18,
+                                      arg0[0xC], arg0[1]);
+                if (result != 0) {
+                    func_10022EC0(result + 0x28, packet, 0x18);
+                }
+            }
+            state[2] -= 1.0f;
+        } while (state[2] > 1.0f);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E8B1C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E8B1C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_115F30/func_150E8D5C.s")
 void func_150E90DC(void) {

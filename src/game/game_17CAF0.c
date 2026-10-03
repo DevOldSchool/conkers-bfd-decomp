@@ -20,7 +20,6 @@
  * - func_15151D6C
  * - func_15152190
  * - func_15152520
- * - func_15152874
  * - func_15152B38
  * - func_15152F70
  * - func_15153298
@@ -245,7 +244,7 @@ void func_1514FCE8(s16 *arg0, s32 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514FCE8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514FCE8.s")
 void func_1514F640(s32, u8 *);
-void func_1514FF44(void *, s32, s32, u8, s32);
+void func_1514FF44(void *, s32, s32, s32, s32);
 
 void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     u8 sp24[0x30];
@@ -253,6 +252,77 @@ void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     func_1514F640(arg0, sp24 + 4);
     func_1514FF44(sp24 + 4, arg1, arg2, arg3, arg4);
 }
+typedef struct {
+    Game17CAF0Vec3f position;
+    s16 countBase;
+    s16 countRange;
+    f32 directionBase;
+    f32 directionRange;
+    s16 lifeBase;
+    s16 lifeRange;
+    f32 speedBase;
+    f32 speedRange;
+    u8 alphaBase;
+    u8 alphaRange;
+    u8 pad26[2];
+    f32 sizeBase;
+    f32 sizeRange;
+    u8 pad30;
+    u8 kind;
+    u8 pad32[2];
+    f32 variantChance;
+    u8 flag;
+    u8 pad39[3];
+    f32 flagChance;
+} Game17CAF0ParticleConfig;
+
+void func_1514F808(u8 *, f32, f32 *);
+void *func_151D9014(f32 *, f32 *, s32, f32, s32, s32, f32, s32,
+                      f32, f32, s32, void *, s32, s32, s32, s32);
+extern f32 D_800A5FF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514FF44 CURRENT (940) */
+void func_1514FF44(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
+    f32 randomSize;
+    f32 randomVariant;
+    f32 randomSpeed;
+    f32 constant;
+    f32 direction[3];
+    f32 randomFlag;
+    s32 count;
+    u32 randomLife;
+    u32 randomAlpha;
+    Game17CAF0ParticleConfig *config;
+
+    config = (Game17CAF0ParticleConfig *)arg1;
+    if (func_1514F6E8(arg0) != 0) {
+        count = (func_150ADA20() % (u32)(config->countRange + 1)) + config->countBase;
+        if (count != 0) {
+            constant = D_800A5FF0;
+            do {
+                func_1514F808(arg0,
+                    func_150ADA68() * config->directionRange + config->directionBase,
+                    direction);
+                randomSpeed = func_150ADA68();
+                randomLife = func_150ADA20();
+                randomAlpha = func_150ADA20();
+                randomSize = func_150ADA68();
+                randomVariant = func_150ADA68();
+                randomFlag = func_150ADA68();
+                func_151D9014(&config->position.x, direction, config->kind,
+                    randomSpeed * config->speedRange + config->speedBase,
+                    (randomLife % (u32)(config->lifeRange + 1)) + config->lifeBase,
+                    (randomAlpha % (u32)(config->alphaRange + 1)) + config->alphaBase,
+                    randomSize * config->sizeRange + config->sizeBase,
+                    randomVariant < config->variantChance,
+                    constant, constant, 1, (void *)arg2, config->flag,
+                    randomFlag < config->flagChance, arg3 & 0xFF, arg4);
+                count--;
+            } while (count != 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514FF44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514FF44.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150178.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150400.s")
@@ -265,7 +335,6 @@ void func_1514FEFC(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151D6C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152190.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152520.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152874.s")
 typedef struct {
     u8 red;
     u8 green;
@@ -273,6 +342,70 @@ typedef struct {
     u8 alpha;
 } Game17CAF0Color;
 
+typedef struct {
+    s32 countBase, countRange;
+    Game17CAF0Vec3f position;
+    s16 angleBase, angleRange, pitchBase, pitchRange;
+    f32 speedBase, speedRange, field24;
+    f32 scaleBase, scaleRange;
+    s8 colorIndex;
+    u8 pad31;
+    s16 lifeBase, lifeRange;
+    u8 pad36[2];
+    f32 field38, field3C, field40, field44, field48;
+} Game152874Config;
+
+typedef struct {
+    Game17CAF0Vec3f position, direction;
+    f32 field18, field1C;
+    Game17CAF0Color color;
+    s32 lifetime;
+    f32 field28, field2C, field30;
+} Game152874Packet;
+
+void func_15143794(s16, s16, f32, void *);
+void *func_150CCEB0(Game152874Packet *, u8, u8);
+extern void (*D_8008AC60[])(Game17CAF0Color *);
+
+void func_15152874(Game152874Config *arg0, u8 arg1, s32 arg2) {
+    u8 mode;
+    Game152874Packet packet;
+    s32 count;
+    u32 randomPitch;
+    u8 priority;
+
+    mode = arg1;
+    count = (func_150ADA20() % (u32)(arg0->countRange + 1)) + arg0->countBase;
+    packet.position = arg0->position;
+    packet.field18 = arg0->field24;
+    packet.field30 = arg0->field48;
+    priority = arg2;
+    if (count != 0) {
+        do {
+            arg2 = func_150ADA20();
+            randomPitch = func_150ADA20();
+            func_15143794(
+                ((u32)arg2 % (u32)(arg0->angleRange + 1)) + arg0->angleBase,
+                (randomPitch % (u32)(arg0->pitchRange + 1)) + arg0->pitchBase,
+                func_150ADA68() * arg0->speedRange + arg0->speedBase,
+                &packet.direction);
+            packet.field1C = func_150ADA68() * arg0->scaleRange + arg0->scaleBase;
+            packet.lifetime = (func_150ADA20() % (u32)(arg0->lifeRange + 1)) + arg0->lifeBase;
+            packet.field28 = func_150ADA68() * arg0->field40 + arg0->field38;
+            packet.field2C = func_150ADA68() * arg0->field44 + arg0->field3C;
+            if (arg0->colorIndex != -1) {
+                D_8008AC60[arg0->colorIndex](&packet.color);
+            } else {
+                packet.color.red = 0xFF;
+                packet.color.green = 0xFF;
+                packet.color.blue = 0xFF;
+                packet.color.alpha = 0xFF;
+            }
+            func_150CCEB0(&packet, mode, priority);
+            count--;
+        } while (count != 0);
+    }
+}
 u32 func_150ADA20(); /* extern */
 extern u8 D_800A5FE0[];
 
@@ -294,15 +427,74 @@ void func_15152ABC(Game17CAF0Color *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153634.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151539B4.s")
 void func_1514F640(s32, u8 *);
-void func_15153CCC(void *, s32, s32, u8, s32);
+typedef struct {
+    Game17CAF0Vec3f position;
+    f32 magnitudeBase, magnitudeRange;
+    f32 scaleBase, scaleRange;
+    f32 directionBase, directionRange;
+    s16 countBase, countRange;
+    s16 variantBase, variantRange;
+    s16 lifeBase, lifeRange;
+    s16 modeBase, modeRange;
+    u8 kind;
+    u8 pad35[3];
+    f32 chance;
+    s16 field3C, field3E;
+    s32 field40;
+} Game153CCCConfig;
+
+void func_15153CCC(void *, Game153CCCConfig *, void *, s32, s32);
 
 void func_15153C84(s32 arg0, s32 arg1, s32 arg2, u8 arg3, s32 arg4) {
     u8 sp24[0x30];
 
     func_1514F640(arg0, sp24 + 4);
-    func_15153CCC(sp24 + 4, arg1, arg2, arg3, arg4);
+    func_15153CCC(sp24 + 4, (Game153CCCConfig *)arg1, (void *)arg2, arg3, arg4);
 }
+
+void *func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32,
+                    f32, f32, s32, s32, void *, s32, s32, s32, s32, s32);
+extern f32 D_800A5FFC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15153CCC CURRENT (54) */
+void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32 arg4) {
+    f32 randomMagnitude;
+    f32 randomScale;
+    f32 constant;
+    f32 direction[3];
+    s32 count;
+    u32 randomLife;
+    u32 randomMode;
+    u32 randomVariant;
+
+    if (func_1514F6E8(arg0) != 0) {
+        count = (func_150ADA20() % (u32)(arg1->countRange + 1)) + arg1->countBase;
+        if (count != 0) {
+            constant = D_800A5FFC;
+            do {
+                func_1514F808(arg0, func_150ADA68() * arg1->directionRange + arg1->directionBase, direction);
+                randomScale = func_150ADA68();
+                randomLife = func_150ADA20();
+                randomMode = func_150ADA20();
+                randomMagnitude = func_150ADA68();
+                randomVariant = func_150ADA20();
+                func_151DA6F8(&arg1->position.x, direction,
+                    randomScale * arg1->scaleRange + arg1->scaleBase,
+                    (randomLife % (u32)(arg1->lifeRange + 1)) + arg1->lifeBase,
+                    (randomMode % (u32)(arg1->modeRange + 1)) + arg1->modeBase,
+                    randomMagnitude * arg1->magnitudeRange + arg1->magnitudeBase,
+                    (randomVariant % (u32)(arg1->variantRange + 1)) + arg1->variantBase,
+                    func_150ADA68() < arg1->chance, constant, constant, 1,
+                    arg1->kind, arg2, arg1->field3C, arg1->field3E,
+                    arg1->field40, ((u8 *)&arg3)[3], arg4);
+                count--;
+            } while (count != 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15153CCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153CCC.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153F18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151541B8.s")
 extern f32 D_800BE9A4;

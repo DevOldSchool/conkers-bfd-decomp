@@ -20,7 +20,6 @@
  * - func_151DA6F8
  * - func_151DA938
  * - func_151DAA88
- * - func_151DAB58
  * - func_151DADA0
  * - func_151DAE28
  * - func_151DB5D0
@@ -391,9 +390,130 @@ s32 func_151DA6A8(u8 *arg0) {
     }
     return 1;
 }
+typedef struct {
+    s32 words[3];
+} Game2062D0Vector3;
+
+typedef struct {
+    Game2062D0Vector3 position;
+    s16 lifetime, kind;
+    s32 enabled;
+    s8 mode, variant;
+    u8 pad16[2];
+    s32 field18;
+} Game1DA6F8Descriptor;
+
+typedef struct {
+    f32 magnitude;
+    Game2062D0Vector3 vector;
+    f32 scale, decay;
+    u8 flags, mode, alpha, variant;
+    s16 field1C, field1E;
+} Game1DA6F8Config;
+
+typedef struct {
+    f32 scaleX, scaleY;
+    u8 kind;
+    u8 pad9[3];
+} Game1DA6F8Extension;
+
+typedef struct {
+    s32 words[7];
+    u8 field1C, field1D;
+    u8 pad1E[2];
+} Game1DA6F8Preset;
+
+typedef struct {
+    u8 pad0[0x98];
+    u8 *data;
+} Game1DA6F8Object;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32,
+                   s32, s32, s32, void *, void *, u8, s32);
+extern u8 D_800AB3F4[], D_800AB404[], D_800AB330[];
+extern f32 D_800AB498;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DA6F8 CURRENT (3065) */
+void *func_151DA6F8(Game2062D0Vector3 *arg0, Game2062D0Vector3 *arg1,
+                    f32 arg2, s16 arg3, u8 arg4, f32 arg5, s32 arg6,
+                    u8 arg7, f32 arg8, f32 arg9, u8 arg10, u8 arg11,
+                    void *arg12, s16 arg13, s16 arg14, s32 arg15,
+                    u8 arg16, s32 arg17) {
+    Game1DA6F8Object *saved;
+    Game1DA6F8Descriptor descriptor;
+    Game1DA6F8Config config;
+    Game1DA6F8Extension extension;
+    s32 mode0;
+    s32 mode1;
+    s32 flagA;
+    s32 flagB;
+    Game1DA6F8Preset preset;
+    register s32 flags;
+    Game1DA6F8Object *result;
+
+    descriptor.variant = arg6;
+    descriptor.position = *arg0;
+    descriptor.lifetime = arg3 + 0x10;
+    descriptor.kind = 0x35;
+    descriptor.enabled = 1;
+    descriptor.mode = -1;
+    descriptor.field18 = arg15;
+    config.magnitude = arg5;
+    config.vector = *arg1;
+    config.scale = arg2;
+    config.decay = D_800AB498;
+    flagA = D_800AB404[arg11] != 0 ? 0x20 : 0;
+    flagB = D_800AB330[arg11] != 0 ? 0x80 : 0;
+    flags = (flagB | 8 | flagA | 0x40) & 0xFF;
+    config.alpha = 0xFF;
+    config.mode = D_800AB3F4[arg11];
+    config.variant = arg4;
+    config.field1C = arg13;
+    config.field1E = arg14;
+    if (arg7 != 0) {
+        mode0 = 7;
+        config.flags = flags | 3;
+        mode1 = 4;
+    } else {
+        config.flags = flags;
+        mode0 = 0;
+        mode1 = 0;
+    }
+    extension.kind = arg11;
+    extension.scaleX = arg8;
+    extension.scaleY = arg9;
+    preset.words[0] = 0;
+    preset.words[1] = 0x220005;
+    preset.words[2] = 0x50600;
+    preset.words[3] = 3;
+    preset.words[4] = 0x46;
+    preset.words[5] = 0x80;
+    preset.words[6] = 0x20;
+    preset.field1C = 0;
+    preset.field1D = 0xC;
+    if (arg10 != 0) {
+        flagB = 2;
+        flagA = 0xFF;
+    } else {
+        flagB = 0;
+        flagA = 0;
+    }
+    result = func_15147DA0(&descriptor, &config, 0x10, 1, 0, 0,
+                           mode0, mode1, 0, flagB, flagA, &preset,
+                           arg12, arg16, arg17);
+    if (result != 0) {
+        saved = result;
+        func_10022EC0(result->data + 0x48, &extension, 0xC);
+        result = saved;
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151DA6F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DA6F8.s")
+
 void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
-void func_151DAB58(u8, f32, u8, f32 *, s32, s32, s32);
+void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
 extern f32 D_800AB49C;
 typedef struct {
     f32 x;
@@ -461,7 +581,110 @@ s32 func_151DAA88(void *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DAA88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DAA88.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DAB58.s")
+typedef struct Game1DAB58Packet {
+    u8 kind, mode;
+    s16 flags;
+    s16 lifetime;
+    u8 pad6[2];
+    s32 field8, fieldC;
+    u8 color[4];
+    f32 scaleX, scaleY;
+    Game2062D0Vector3 position;
+    f32 direction[3];
+    f32 scale[3];
+    s32 field40;
+    u8 variant, alpha, field46, field47;
+    s32 field48;
+    u8 field4C;
+    u8 pad4D[3];
+    s32 field50;
+    s16 field54, field56;
+} Game1DAB58Packet;
+
+typedef struct Game1DAB58Extension {
+    u8 phase, step;
+    u8 pad2[2];
+    f32 scaleX, scaleY;
+} Game1DAB58Extension;
+
+extern s32 (*D_8008FCD0[])(void);
+extern u8 D_800A4AA0[0x28];
+extern f32 D_800AB4A0, D_800AB4A4, D_800AB4A8, D_800AB4AC;
+void *func_1513D2F0(void *, void *, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+
+void func_151DAB58(u8 arg0, f32 arg1, u8 arg2, f32 *arg3, s32 arg4, u8 arg5, s32 arg6) {
+    s32 resource;
+    Game1DAB58Packet packet;
+    Game1DAB58Extension extension;
+    s32 mode;
+    s32 flags;
+    register u8 *effect;
+
+    packet.kind = D_8008FCD0[arg0]();
+    if (((u8 *)&arg4)[3] != 0) {
+        mode = 0x3B;
+    } else {
+        mode = 0x22;
+    }
+    packet.flags = (mode << 8) + 3;
+    packet.lifetime = 0x64;
+    packet.color[2] = 0;
+    packet.color[1] = 0;
+    packet.color[0] = 0;
+    packet.color[3] = 0xFF;
+    packet.variant = arg2;
+    packet.alpha = 0xFF;
+    packet.position = *(Game2062D0Vector3 *)arg3;
+    if (D_800AB330[arg0] != 0) {
+        mode = 0x40000000;
+    } else {
+        mode = 0;
+    }
+    packet.field40 = mode | 0x0CDC0009;
+    packet.direction[0] = 0.0f;
+    packet.direction[1] = 0.0f;
+    packet.direction[2] = 0.0f;
+    packet.scale[0] = 1.0f;
+    packet.scale[1] = 1.0f;
+    packet.scale[2] = 1.0f;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.scaleY = arg1;
+    packet.scaleX = arg1;
+    packet.field46 = 0;
+    packet.field47 = 7;
+    extension.phase = 0;
+    extension.step = (func_150ADA20() % 3U) + 6;
+    extension.scaleX = func_150ADA68() * D_800AB4A0 + D_800AB4A4;
+    extension.scaleY = func_150ADA68() * D_800AB4A8 + D_800AB4AC;
+    packet.mode = 0;
+    packet.field48 = 0;
+    packet.field4C = 0xFF;
+    packet.field50 = 0;
+    packet.field54 = 0x20;
+    packet.field56 = 7;
+    if (func_150ADA20() & 1) {
+        flags = 1;
+    } else {
+        flags = 0;
+    }
+    mode = (u8)arg4;
+    if (mode != 0) {
+        resource = 3;
+    } else {
+        resource = 0;
+    }
+    if (mode != 0) {
+        mode = 0xFF;
+    } else {
+        mode = 0;
+    }
+    effect = func_1513D2F0(&packet, D_800A4AA0, 0, 0x14, 0, 0xE,
+                           flags | 2, resource, mode, 0xC, (u8)arg5, arg6);
+    if (effect != 0) {
+        func_10022EC0(effect + 0x110, &extension, 0xC);
+    }
+}
 /* Call context: func_151423D8: unique active project prototype */
 f32 func_151423D8(u8);
 extern f32 D_800AB4B0;
@@ -620,9 +843,6 @@ s32 func_151DB97C(u8 *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DB97C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DB97C.s")
-typedef struct {
-    s32 words[3];
-} Game2062D0Vector3;
 
 typedef struct {
     s16 field24;
@@ -873,7 +1093,96 @@ void func_151DBE80(s32 arg0, f32 arg1, f32 arg2, s16 arg3, s32 *arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151DBE80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DBE80.s")
+typedef struct {
+    s32 field00;
+    s32 field04;
+    s16 field08;
+    s16 field0A;
+    s32 field0C;
+    s32 field10;
+    u8 field14, field15, field16, field17;
+    u8 field18, field19, field1A, field1B, field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, scaleY, scaleX;
+    Game2062D0Vector3 position;
+    Game2062D0Vector3 vector3C;
+    Game2062D0Vector3 vector48;
+    f32 field54;
+    s32 flags;
+    s32 field5C;
+    s8 field60, field61, field62, field63, field64, field65;
+    u8 field66;
+    u8 pad67;
+    s16 field68;
+    u8 pad6A[2];
+    f32 field6C;
+} Game1DC034Packet;
+
+void *func_15130280(void *, u8, void *, s32, u8, s32);
+extern u8 D_800AB320[];
+extern u8 D_800AB330[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151DC034 CURRENT (125) */
+void func_151DC034(Game2062D0Vector3 *arg0, f32 arg1, u8 arg2,
+                   s16 arg3, u8 arg4, u8 arg5, s32 arg6) {
+    Game1DC034Packet packet;
+    s32 random2;
+    s32 flags;
+    register s32 random1;
+
+    packet.field1D = D_800AB320[arg4];
+    packet.field08 = 0x4403;
+    packet.field00 = 0x200005;
+    packet.field04 = 0x9F0600;
+    packet.field0A = arg3;
+    packet.field0C = 0;
+    packet.field10 = 0;
+    packet.field14 = 0xFF;
+    packet.field15 = 0xFF;
+    packet.field16 = 0xFF;
+    packet.field17 = 0xFF;
+    packet.field18 = 0xFF;
+    packet.field19 = 0xFF;
+    packet.field1A = 0xFF;
+    packet.field1B = arg2;
+    packet.field1C = 0xFF;
+    packet.scaleX = arg1;
+    packet.scaleY = arg1;
+    packet.position = *arg0;
+    packet.vector3C = *(Game2062D0Vector3 *)&D_800A5480;
+    packet.vector48 = *(Game2062D0Vector3 *)&D_800A5480;
+    packet.field1E = 4;
+    packet.field20 = 0x3F;
+    packet.field22 = 1;
+    packet.field54 = 0.0f;
+    packet.field24 = 1.0f;
+    random1 = (func_150ADA20() & 1) ? 0x80 : 0;
+    if (func_150ADA20() & 1) {
+        random2 = 0x40;
+    } else {
+        random2 = 0;
+    }
+    if (D_800AB330[arg4] != 0) {
+        flags = 0x800000;
+    } else {
+        flags = 0;
+    }
+    packet.flags = flags | 1 | random2 | random1 | 0xC200 | 0x10000;
+    packet.field60 = 6;
+    packet.field61 = 8;
+    packet.field62 = -1;
+    packet.field63 = -1;
+    packet.field64 = -1;
+    packet.field65 = 0;
+    packet.field5C = 0;
+    packet.field66 = 0xFF;
+    packet.field68 = 0x3E8;
+    packet.field6C = 1000.0f;
+    func_15130280(&packet, 1, 0, 0, arg5, arg6);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151DC034 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151DC034.s")
+
 /* The second descriptor has the same 0x48-byte layout used by
  * GameEF410Spawn; position-relative fields are consumed by func_15150178. */
 typedef struct {

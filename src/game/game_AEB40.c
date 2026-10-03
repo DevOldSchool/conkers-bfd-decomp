@@ -729,6 +729,98 @@ u8 func_150849CC(void *arg0, s32 *arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150849CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_150849CC.s")
+void func_10004074(s32);
+void func_1510D720(s32);
+extern u8 *D_800C5338[];
+extern u16 D_800C5628[];
+extern s32 D_800C5C08[];
+extern u8 D_800D121C;
+extern u8 D_800D2040[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084A18 CURRENT (4549) */
+void func_15084A18(void) {
+    u8 *countdown;
+    u8 **resources;
+    u8 *count;
+    u8 *slot;
+    u8 *state;
+    u8 *current;
+    s32 byte_offset;
+    s32 index;
+    s32 resource_count;
+    s32 resource_index;
+    s32 offset;
+    u16 *length;
+    u8 timer;
+    void **resource;
+    u8 *entry;
+    GameAEB40State *state_fields;
+
+    countdown = D_800D2040;
+    resource_index = 0;
+    do {
+        timer = *countdown;
+        if ((timer != 0xFF) && (timer != 0)) {
+            byte_offset = resource_index * 4;
+            if (timer == 1) {
+                resource = (void **)((u8 *)D_800D19A0 + byte_offset);
+                if (*resource != 0) {
+                    state = (u8 *)&D_800CC2D0;
+                    if (*(s32 *)((u8 *)D_800C5C08 + byte_offset) == 0) {
+                        length = &D_800C5628[resource_index];
+                        count = &D_800D1F80[resource_index];
+                        resources = (u8 **)((u8 *)D_800C5338 + byte_offset);
+                        do {
+                            state_fields = (GameAEB40State *)state;
+                            if (*(s32 *)state != 0) {
+                                index = 0;
+                                slot = state;
+                                if ((s32)((GameAEB40State *)state)->field_2C9 > 0) {
+                                    do {
+                                        offset = 0;
+                                        current = slot;
+                                        do {
+                                            offset += 4;
+                                            if (*(void **)(current + 0x28C) == *resource) {
+                                                *(void **)(current + 0x28C) = 0;
+                                            }
+                                            current += 4;
+                                        } while (offset != 8);
+                                        if (resource_index == ((GameAEB40State *)state)->field_2C4[index]) {
+                                            func_150843AC((GameAEB40State *)state, index);
+                                        }
+                                        index++;
+                                        slot += 8;
+                                    } while (index < (s32)state_fields->field_2C9);
+                                }
+                            }
+                            state += 0x32C;
+                        } while ((u32)state < (u32)&D_800D121C);
+                        resource_count = 0;
+                        entry = *resources;
+                        if ((s32)*length > 0) {
+                            do {
+                                if (*(u32 *)entry >= 0x10000000U) {
+                                    func_1510D720(*(s32 *)(entry + 4));
+                                }
+                                resource_count++;
+                                entry += 0xC;
+                            } while (resource_count < (s32)*length);
+                        }
+                        func_10004074((s32)((u8 *)*resource - 0x38));
+                        *count = 0;
+                        *resource = 0;
+                        timer = *countdown;
+                    }
+                }
+            }
+            *countdown = timer - 1;
+        }
+        resource_index++;
+        countdown++;
+    } while (resource_index != 0xBB);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15084A18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084A18.s")
 u32 func_150ADA20();                                /* extern */
 

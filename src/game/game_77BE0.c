@@ -289,7 +289,66 @@ void func_1504BC38(Game77BE0State *arg0) {
     }
 }
 
+void func_1507EB2C(void *);
+f32 func_150AD78C(f32);
+u32 func_150ADA20(void);
+extern f32 D_800991D8;
+extern u16 D_800CC2B2;
+extern f32 D_800CC2B4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504BE2C CURRENT (1853) */
+void func_1504BE2C(Game77BE0State *arg0, u16 *arg1, f32 *arg2, s8 *arg3) {
+    f32 phase;
+    u8 *state;
+    u16 type;
+
+    phase = (f32)(u32)*((u8 *)arg0->field_31C + 0xB) * D_800991D8;
+    D_800CC2B4 = 16.0f;
+    if (*((u8 *)arg0->field_31C + 0x16) != 0) {
+        if (*((u8 *)arg0->field_31C + 0x16) == 0) {
+            func_1507EB2C(arg0);
+            *(s16 *)((u8 *)arg0->field_31C + 8) = 0;
+        }
+    }
+    if (*(u16 *)((u8 *)arg0->field_31C + 0xE) == 0) {
+        *(u16 *)((u8 *)arg0->field_31C + 0xE) = 0xA6;
+    }
+    *((u8 *)arg0->field_31C + 0x3C) = 5;
+    if ((*arg2 > 4.0f) && (*(u16 *)((u8 *)arg0 + 0x84) == 0xAA)) {
+        *((u8 *)arg0->field_31C + 0x3C) = 1;
+        *(u16 *)((u8 *)arg0->field_31C + 0x10) = *arg1;
+    }
+    func_150AD78C(phase);
+    state = (u8 *)arg0->field_31C;
+    state[0xB] += 2;
+    if (*((u8 *)arg0->field_31C + 0x16) != 0) {
+        *((u8 *)arg0 + 0xAA) = 0x19;
+    } else if (*(u16 *)((u8 *)arg0 + 0x84) == 0xA7) {
+        *((u8 *)arg0 + 0xAA) = 0x32;
+    } else {
+        *((u8 *)arg0 + 0xAA) = 0x20;
+    }
+    type = *(u16 *)((u8 *)arg0 + 0x84);
+    *(f32 *)((u8 *)arg0 + 0x54) *= 0.5f;
+    if ((type == 0x2C) || (type == 0xE0)) {
+        *arg3 = *((s8 *)D_800CC284 + 3) >> 1;
+    } else {
+        if (!(func_150ADA20() & 0x3F)) {
+            *(s16 *)((u8 *)arg0->field_31C + 0x14) = func_150ADA20() % 25000U - 0x30D4;
+        }
+        D_800CC2B2 = *(u16 *)((u8 *)arg0->field_31C + 0x14);
+        if (*((u8 *)arg0->field_31C + 0x16) != 0) {
+            D_800CC2B2 = (s16)D_800CC2B2 / 3;
+        }
+    }
+    if ((D_800C35EA == 0) && (*((u8 *)arg0->field_31C + 0x16) == 0)) {
+        *(s16 *)((u8 *)arg0 + 0x282) = 0x1E;
+        *((u8 *)arg0 + 0x276) = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1504BE2C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_77BE0/func_1504BE2C.s")
+
 void func_1507F640(void);
 extern void *D_800D154C;
 

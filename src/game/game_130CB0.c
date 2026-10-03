@@ -196,4 +196,55 @@ s32 func_15103AA0(Game130CB0Record *arg0, s32 arg1, s32 arg2, s32 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15103AA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103AA0.s")
+typedef s32 (*Game130CB0SoundCallback)(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
+
+u16 func_1000FA64(s32, s32, s32, s32, s32, s32, s32,
+                   Game130CB0SoundCallback, s32, void *, s32, s32);
+s32 func_10010894(void *);
+void *func_1505EEF4(s32);
+u32 func_150ADA20(void);
+s32 func_15103910(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
+s32 func_15103AA0(void *, s32 *, u32 *, s32 *, s32 *, s32 *, u16 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103C14 CURRENT (166) */
+void func_15103C14(s32 arg0, s32 arg1, u32 arg2, s32 arg3, s32 arg4) {
+    u16 *saved;
+    Game130CB0Source *actor;
+    u16 *timer;
+    s32 special;
+
+    timer = &D_800D9AB0[arg3];
+    special = 0;
+    if (*timer == 0 || arg0 == 0x58D) {
+        saved = timer;
+        actor = func_1505EEF4(arg1);
+        if (actor != 0 && func_10010894(actor) == 0) {
+            if (arg2 != 0) {
+                if (arg4 != 0) {
+                    arg0 += (func_150ADA20() % arg2) * 2;
+                } else {
+                    arg0 += func_150ADA20() % arg2;
+                }
+            }
+            if (*(s32 *)((u8 *)actor + 0x318) != 0) {
+                special = 1;
+            } else if (arg4 != 0) {
+                arg0 += 1;
+            }
+            if (special != 0) {
+                func_1000FA64(arg0 & 0xFFFF, (s16)(s32)actor->x,
+                    (s16)(s32)actor->y, (s16)(s32)actor->z,
+                    0x7530, 0x7FFF, 0x7FFE, func_15103910,
+                    0x14, actor, 0x100, 0);
+            } else {
+                func_1000FA64(arg0 & 0xFFFF, (s16)(s32)actor->x,
+                    (s16)(s32)actor->y, (s16)(s32)actor->z,
+                    0x7FBC, 0x7FFF, 0x7FFE, func_15103AA0,
+                    (arg4 << 15) | 0x14, actor, 0x100, 0);
+            }
+            *saved = 0x258;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15103C14 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130CB0/func_15103C14.s")

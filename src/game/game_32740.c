@@ -73,4 +73,73 @@ void func_15005290(s32 resource, s32 mode) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15005290 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_15005290.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_150054C4.s")
+typedef struct {
+    f32 x, y, z;
+} Game5818Vector;
+
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+void func_1510E7A4(s32, s32, s32, s32, s32, s32, f32, f32, f32, f32, u16, s32, f32, f32);
+void func_15123070(void *);
+void func_1512523C(void *);
+void func_15125330(void *);
+void func_1512D560(void *, s32, s32);
+void func_15124B18(u8 *);
+extern f32 D_800959F0;
+extern s32 D_800BE9F0;
+extern u8 D_800C35EA;
+typedef struct {
+    u8 pad0[0xC];
+    f32 fieldC;
+    u8 tail10[0x1C];
+} Game5818FixedView;
+extern Game5818FixedView D_800C3600;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15005818 CURRENT (185) */
+void func_15005818(u8 *arg0, u8 *arg1, Game5818Vector *volatile arg2) {
+    f32 value;
+
+    arg0[0x23C] = 1;
+    *(f32 *)(arg0 + 0x2F8) = arg2->x;
+    *(f32 *)(arg0 + 0x2FC) = arg2->y;
+    *(f32 *)(arg0 + 0x300) = arg2->z;
+    *(Game5818Vector *)(arg0 + 0x27C) = *(Game5818Vector *)(arg0 + 0x2F8);
+    *(Game5818Vector *)(arg0 + 0x304) = *(Game5818Vector *)(arg0 + 0x2F8);
+    func_1510E7A4((s32)(arg0 + 0x644), (s32)(arg0 + 0x648),
+                   (s32)(arg0 + 0x354), (s32)(arg0 + 0x360),
+                   (s32)(arg0 + 0x640), 0,
+                   *(f32 *)(arg0 + 0x2F8), *(f32 *)(arg0 + 0x2FC),
+                   *(f32 *)(arg0 + 0x300), *(f32 *)(arg0 + 0x2FC),
+                   0, 0, D_800959F0, *(f32 *)(arg0 + 0x2FC));
+    value = *(f32 *)(arg0 + 0x354);
+    *(f32 *)(arg0 + 0x358) = value;
+    *(f32 *)(arg0 + 0x35C) = value;
+    *(f32 *)(arg0 + 0x2A4) = *(f32 *)(arg1 + 0x14);
+    *(f32 *)(arg0 + 0x2A8) = *(f32 *)(arg1 + 0x18);
+    *(f32 *)(arg0 + 0x2AC) = *(f32 *)(arg1 + 0x1C);
+    *(Game5818Vector *)(arg0 + 0x2BC) = *(Game5818Vector *)(arg0 + 0x2A4);
+    value = sqrtf(
+        (*(f32 *)(arg0 + 0x2AC) - *(f32 *)(arg0 + 0x300)) *
+        (*(f32 *)(arg0 + 0x2AC) - *(f32 *)(arg0 + 0x300)) +
+        (*(f32 *)(arg0 + 0x2A4) - *(f32 *)(arg0 + 0x2F8)) *
+        (*(f32 *)(arg0 + 0x2A4) - *(f32 *)(arg0 + 0x2F8)));
+    *(Game5818Vector *)(arg0 + 0x2B0) = *(Game5818Vector *)(arg0 + 0x2A4);
+    *(f32 *)(arg0 + 0x34C) = *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
+    *(f32 *)(arg0 + 0x348) = *(f32 *)(arg0 + 0x2FC) - *(f32 *)(arg0 + 0x354);
+    *(f32 *)(arg0 + 0x374) = value;
+    *(Game5818Vector *)(arg0 + 0x2E0) = *(Game5818Vector *)(arg0 + 0x2BC);
+    *(Game5818Vector *)(arg0 + 0x2EC) = *(Game5818Vector *)(arg0 + 0x2F8);
+    func_15124B18(arg0);
+    func_15125330(arg0);
+    func_1512523C(arg0);
+    func_15123070(arg0);
+    *(s32 *)(arg0 + 0x5F0) |= 4;
+    if (D_800BE9F0 != 0x21 && D_800C35EA != 1) {
+        func_1512D560(arg0, 5, 0);
+        D_800C3600.fieldC = *(f32 *)(arg0 + 0x37C);
+        func_1512D560(arg0, 8, (s32)&D_800C3600);
+        func_1512D560(arg0, 6, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15005818 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_32740/func_15005818.s")

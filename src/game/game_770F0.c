@@ -23,6 +23,65 @@ void func_15049C40(void *arg0, void *arg1) {
         *(f32 *)((u8 *)arg1 + 0xC) = (f32) -*(f32 *)((u8 *)arg1 + 0xC);
     }
 }
+typedef struct {
+    s32 indices[3];
+} Game770F0IndexCycle;
+
+f32 func_10026530(f32);
+extern Game770F0IndexCycle D_80085FF0;
+extern f32 D_80099090;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049CB8 CURRENT (3005) */
+void func_15049CB8(f32 matrix[4][4], f32 *arg1) {
+    f32 *result;
+    f32 trace;
+    f32 root;
+    f32 scale;
+    f32 diagonal;
+    s32 i;
+    s32 j;
+    s32 k;
+    f32 *rowI;
+    f32 *rowJ;
+    f32 *rowK;
+
+    result = arg1;
+    trace = matrix[2][2] + (matrix[0][0] + matrix[1][1]) + 1.0f;
+    if (D_80099090 < trace) {
+        root = func_10026530(trace);
+        scale = 0.5f / root;
+        result[0] = root * 0.5f;
+        result[1] = (matrix[1][2] - matrix[2][1]) * scale;
+        result[2] = (matrix[2][0] - matrix[0][2]) * scale;
+        result[3] = (matrix[0][1] - matrix[1][0]) * scale;
+    } else {
+    Game770F0IndexCycle cycle;
+
+    cycle = D_80085FF0;
+    i = 0;
+    if (matrix[0][0] < matrix[1][1]) {
+        i = 1;
+    }
+    rowI = matrix[i];
+    diagonal = rowI[i];
+    if (diagonal < matrix[2][2]) {
+        rowI = matrix[2];
+        diagonal = rowI[2];
+        i = 2;
+    }
+    j = cycle.indices[i];
+    k = cycle.indices[j];
+    rowJ = matrix[j];
+    rowK = matrix[k];
+    root = func_10026530((diagonal - rowJ[j] - rowK[k]) + 1.0f);
+    scale = 0.5f / root;
+    result[i + 1] = root * 0.5f;
+    result[0] = (rowJ[k] - rowK[j]) * scale;
+    result[j + 1] = (rowJ[i] + rowI[j]) * scale;
+    result[k + 1] = (rowK[i] + rowI[k]) * scale;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15049CB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_770F0/func_15049CB8.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_15048360: unique active project prototype */

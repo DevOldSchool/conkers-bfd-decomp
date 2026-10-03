@@ -18,7 +18,6 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514A6A0.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AB5C.s")
 typedef struct { f32 x, y, z; } Game177B50Vector;
 typedef struct {
     Game177B50Vector position;
@@ -45,9 +44,67 @@ typedef struct {
     f32 field44;
 } Game177B50Particle;
 
-void func_15149550(f32 *, s32, s32, s32, s32, s32);
+void *func_15149550(f32 *, u8, u8, u8, u8, s32);
 f32 func_150ADA68(void);
 u32 func_150ADA20(void);
+f32 func_151423D8(u8);
+extern f32 D_800A57B0, D_800A57B4, D_800A57B8, D_800A57BC;
+extern f32 D_800A57C0, D_800A57C4, D_800A57C8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1514AB5C CURRENT (14) */
+void func_1514AB5C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, s16 arg4,
+                   f32 arg5, f32 arg6, f32 arg7, f32 arg8,
+                   s16 arg9, s16 arg10, u8 arg11) {
+    Game177B50Particle particle;
+    f32 radius;
+    f32 xScale;
+    f32 sine;
+    f32 cosine;
+    f32 yScale;
+    u8 angle;
+
+    if (arg4 > 0) {
+        particle.field20 = 0x6231;
+        particle.field22 = 0x1A4D;
+        particle.color26[0] = 0;
+        particle.color26[1] = 0;
+        particle.color26[2] = 0;
+        particle.color26[3] = 0xFF;
+        particle.field2A = 1;
+        particle.field2C = 0xFF;
+        particle.field2D = 0xFF;
+        particle.field30 = 0;
+        particle.field2E = 0;
+        particle.field2F = arg11;
+        particle.field34 = 0xF;
+        particle.position.y = arg1;
+        particle.field38 = 0.0f;
+        particle.field40 = 0.045f;
+        particle.field44 = 0.7f;
+        do {
+            angle = func_150ADA20() & 0xFF;
+            sine = func_151423D8(angle - 0x40);
+            cosine = func_151423D8(angle);
+            radius = func_150ADA68() * arg3;
+            xScale = func_150ADA68() * arg6 + arg5;
+            yScale = func_150ADA68();
+            particle.position.x = radius * sine + arg0;
+            particle.position.z = radius * cosine + arg2;
+            particle.field0C = 22.6f * xScale;
+            particle.field14 = 13.786f * xScale;
+            yScale = yScale * arg8 + arg7;
+            particle.field10 = 57.969f * yScale;
+            particle.field18 = 42.714f * yScale;
+            particle.field1C = 118.763f * yScale;
+            particle.field24 = func_150ADA20() % (u32)(arg10 + 1) + arg9;
+            func_15149550(&particle.position.x, 0xA, 0, 0, 0xFF, 1);
+            arg4 -= 1;
+        } while (arg4 != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1514AB5C */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_177B50/func_1514AB5C.s")
+
 extern f32 D_800A57CC, D_800A57D0, D_800A57D4, D_800A57D8;
 extern f32 D_800A57DC, D_800A57E0, D_800A57E4, D_800A57E8;
 extern f32 D_800A57EC, D_800A57F0, D_800A57F4, D_800A57F8;
