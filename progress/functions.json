@@ -73819,8 +73819,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2309,
-        "reason": "CURRENT (2309): full extra-argument layout compiles through a compatible function-pointer cast, but indirect jalr and scheduling differ from the historical direct unprototyped call",
+        "current_score": 1662,
+        "reason": "All-caller 28-slot helper contract restores direct JAL and removes incompatible cast; CURRENT 2309 to 1662. Actual scale/selector locals scored 1666; used u8 selector scored 1662. Argument homes and constant/store scheduling remain different. Full-word wrapper formals and the simplest direct-call candidate are preserved; no forced storage or unsupported narrowing.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73838,8 +73838,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2309,
-        "reason": "CURRENT (2309): same direct-unprototyped-call ABI blocker as sibling func_151A0E40; compatible cast compiles but emits jalr and different scheduling",
+        "current_score": 1662,
+        "reason": "All-caller 28-slot helper contract and floating slot 4 recover direct JAL; CURRENT 2309 to 1662. Argument homes and constant/store scheduling differ exactly as in independently inspected sibling 151A0E40. Its two non-improving real-dataflow revisions were not repeated here. Direct-call candidate preserved without narrowing or forced storage.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
