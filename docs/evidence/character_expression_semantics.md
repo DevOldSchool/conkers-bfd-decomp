@@ -114,8 +114,8 @@ batch. The independent semantic role above is retained as evidence only.
 All nine selected matched functions retain full-span `CURRENT (0)` and their
 reviewed source-unit layouts. Clean `verify-batch` reached `BATCH_COMPLETE`;
 the integrated game image, mapped rodata, full ROM, progress and whitespace
-gates pass. Both complete 1,712-test suites pass: 37 host skips and six skips
-in the pinned-toolchain source fixture. Independent read-only review verified
+gates pass. Both complete 1,712-test suites pass: 37 host skips and one optional skip
+in the ROM-enabled pinned-toolchain source fixture. Independent read-only review verified
 all 18 raw-ROM spans and identifier-only equivalence of the C change.
 
 This accepts eight newly descriptive function roles and eight existing local
