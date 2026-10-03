@@ -1,5 +1,10 @@
 # US character semantic naming
 
+This note records the original Haybot slice and its current-main revalidation.
+The [reviewed registry expansion](character_semantic_registry_expansion.md)
+now supplies 17 exact model identities. The one-model coverage totals below
+belong to the original port stage.
+
 The first naming pilot covers Haybot, bank `01`, decimal entry `75` (`0x4B`),
 segment `0`. These are reviewed descriptive names, not recovered original
 developer symbols. Model identity is not actor-instance identity or a unique
@@ -15,10 +20,10 @@ requires a new reviewed registry and pin. Duplicate identities cannot resolve
 to a name. A known key with changed source bytes is rejected, and a different
 ROM, profile, bank, entry or segment receives no naming credit.
 
-`model-assets coverage` now reports this one exact model's name as `reviewed`,
+The initial `model-assets coverage` run reported this exact model's name as `reviewed`,
 with evidence links and the stable key `01:0075:00`. Its independent geometry,
 material, scene, visibility and runtime evidence dimensions remain unchanged.
-Other models, including other Haybot forms, remain unknown in this pilot.
+Other models, including other Haybot forms, remained unknown in that pilot.
 
 The existing [Haybot appearance evidence](us_haybot_appearance.md) supplies the
 reviewed character identity. The [ROM selector contract](../../config/model-haybot-rom-variants.json)
@@ -116,7 +121,7 @@ and their source-unit layouts. Its clean batch reached `BATCH_COMPLETE` with
 rodata, and clean progress/whitespace gates. The unedited baseline separately
 verified the complete US ROM and RSP payloads. No new C match is claimed.
 
-The fresh ROM-backed coverage audit contains 1,487 models, 10,394 material runs
+The port-stage ROM-backed coverage audit contains 1,487 models, 10,394 material runs
 and 232,162 source faces. Exactly `01:0075:00` receives the reviewed Haybot name;
 1,486 remain unknown. No model-export or runtime-observation manifest was
 supplied, and naming grants no credit in those independent dimensions.
