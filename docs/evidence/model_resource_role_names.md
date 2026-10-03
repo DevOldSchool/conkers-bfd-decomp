@@ -2,9 +2,10 @@
 
 These are descriptive names inferred from the reviewed US ROM, not recovered
 original source names. Seven existing matched C functions gain role comments
-and supported parameter/local names. Linked symbols, types, declarations,
-literals, operation order and layouts remain unchanged. No new C match or
-runtime-activation claim follows.
+and supported parameter/local names. Linked symbols, types, existing declarations,
+numeric values, operation order and layouts remain unchanged. The later bounded
+enum trial below additionally replaces the spelling of two reviewed action
+operands with named constants. No new C match or runtime-activation claim follows.
 
 ## Shared resource helpers
 
@@ -98,7 +99,10 @@ Acceptance requires full-span focused zeros, unchanged source-unit layout, a
 clean batch, byte-exact ROM/game and mapped data/rodata, full tests, progress
 and whitespace. None of the existing raw or deferred consumers is promoted.
 
-## Accepted result
+## Accepted resource-role slice
+
+This acceptance describes the original seven-role slice, before the separate
+enum trial below.
 
 All seven functions retain full-span `CURRENT (0)` and reviewed source-unit
 layout. Clean batch verification reaches `BATCH_COMPLETE`; full ROM, integrated
@@ -107,3 +111,30 @@ game code, mapped rodata, progress and whitespace gates pass. Both complete
 pinned fixture. Independent review authenticates the selected raw spans,
 source-wide identifier equivalence, model pins and caller/constructor chains.
 This adds seven descriptive function roles and no C matches or matched bytes.
+
+## Bounded source-local action constants
+
+The two calls in `func_1514DCAC` now spell their reviewed selectors as
+`ACTION_MILITARY_HELMET = 35` and `ACTION_CIGAR = 68`. These anonymous enum
+constants are declared after the reviewed source-unit comment and before use.
+They describe action-table selectors, not model IDs or guaranteed creation.
+Only the two unsuffixed integer call operands change spelling. Signatures,
+parameter types, numeric function definitions, other literals and linked symbols
+remain intact; no shared header or enum-typed ABI is introduced.
+
+Whole-source m2c context remains available and all recovered signatures are
+unchanged. Running the pinned m2c parser on the same raw function with the full
+pre/post contexts succeeds in both cases and produces identical output. That
+output retains numeric literals, so regeneration does not automatically preserve
+the semantic spelling. The enum declarations must remain before their uses.
+This result does not authorize enum replacements for unsigned literals, masks,
+address offsets, pointer arithmetic, signatures or automatic declaration repair.
+
+The bounded enum trial retains full-span `CURRENT (0)` and the source-unit
+layout for `func_1514DCAC`. Its combined nine-function batch reaches
+`BATCH_COMPLETE`, with byte-exact ROM/game and mapped rodata, clean progress
+and whitespace, and both full 1,721-test suites passing (37 host skips; one
+optional ROM-enabled pinned skip). Independent review confirms the exact
+source inverse, constructor distinction, and retained source-context/discovery
+behavior. This accepts two source-local action-selector constants and no new
+C match or linked name.
