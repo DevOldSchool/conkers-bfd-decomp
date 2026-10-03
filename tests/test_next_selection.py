@@ -76,6 +76,66 @@ class NextSelectionTests(unittest.TestCase):
             "--exclude-source", "src/game/b.c",
         ))
 
+    def test_explicit_function_selects_known_sibling_with_full_context(self) -> None:
+        self.assertEqual("func_a_sibling\n", self.select(
+            "--one", "--id-only", "--function", "func_a_sibling"))
+        with patch.object(project_state, "print_next_details") as details:
+            self.select("--one", "--details", "--function", "func_b",
+                        "--exclude-source", "src/game/a.c")
+        details.assert_called_once_with(self.functions[2], 12, self.functions, [])
+
+    def test_explicit_function_requires_bounded_selection(self) -> None:
+        with self.assertRaisesRegex(project_state.ProjectStateError, "--function requires --one"):
+            self.select("--function", "func_b")
+        project_state.validate_project.assert_not_called()
+
+    def test_explicit_function_never_falls_back_for_unknown_or_excluded_items(self) -> None:
+        for identifier, extra in (("unknown", ()), ("func_a_", ()), ("", ()),
+                                  ("func_b", ("--exclude-source", "src/game/b.c"))):
+            with self.subTest(identifier=identifier), patch.object(project_state, "print_next_details") as details:
+                with self.assertRaisesRegex(project_state.ProjectStateError, "no alternative was selected"):
+                    self.select("--one", "--details", "--function", identifier, *extra)
+                details.assert_not_called()
+
+    def test_explicit_function_preserves_raw_eligibility_and_claim_checks(self) -> None:
+        entry = self.functions[2]
+        for state, extra in (("matched", {}), ("candidate", {}), ("blocked", {}),
+                             ("raw_asm", {"deferred": {"reason": "prior attempt"}}),
+                             ("raw_asm", {"issue": "https://example.invalid/issues/1"})):
+            with self.subTest(state=state, extra=extra):
+                self.functions[2] = dict(entry, **extra, regions={
+                    "us": dict(entry["regions"]["us"], state=state)})
+                with self.assertRaisesRegex(project_state.ProjectStateError, "not an eligible"):
+                    self.select("--one", "--id-only", "--function", "func_b")
+        self.functions[2] = entry
+
+    def test_explicit_function_preserves_validation_and_required_sizes(self) -> None:
+        project_state.validate_project.side_effect = project_state.ProjectStateError("invalid inventory")
+        with self.assertRaisesRegex(project_state.ProjectStateError, "invalid inventory"):
+            self.select("--one", "--function", "func_b")
+        project_state.validate_project.side_effect = None
+        del self.functions[0]["regions"]["us"]["size_bytes"]
+        with self.assertRaisesRegex(project_state.ProjectStateError, "cannot determine function size for: func_a"):
+            self.select("--one", "--function", "func_b")
+
+    def test_explicit_function_preserves_attempt_freshness_without_fallback(self) -> None:
+        import automate
+        import call_signatures
+        attempt_history.load.return_value = {"functions": [{
+            "symbol": "func_b", "stage": "test", "outcome": "skipped",
+            "pool": "raw", "fingerprint": "unchanged",
+        }]}
+        with (
+            patch.object(automate, "stage_fingerprint_seeds", return_value={"test": "seed"}),
+            patch.object(automate, "candidate_fingerprint", return_value="unchanged") as fingerprint,
+            patch.object(call_signatures, "signature_index", return_value={}),
+            patch.object(automate.declaration_facts, "object_evidence_index", return_value={}),
+        ):
+            with self.assertRaisesRegex(project_state.ProjectStateError, "unchanged failed attempt"):
+                self.select("--one", "--id-only", "--function", "func_b")
+            fingerprint.return_value = "new-inputs"
+            self.assertEqual("func_b\n", self.select("--one", "--id-only", "--function", "func_b"))
+
     def test_exclusions_match_only_exact_inventory_source_paths(self) -> None:
         for value in ("src/game", "src/game/", "src/game/a", "src/game/a.c*",
                       "a.c", "./src/game/a.c", "src/game/a.c.extra"):
@@ -145,7 +205,7 @@ class NextSelectionTests(unittest.TestCase):
 
 
 class ReadySelectionShellTests(unittest.TestCase):
-    def run_ready(self, *options: str, selection_status: int = 0):
+    def run_ready(self, *options: str, selection_status: int = 0, prerequisite_status: int = 0):
         # Execute the real dispatcher and preparation function with fake toolchain
         # boundaries; no ROM, Docker, or compiler is needed for argument/gate tests.
         script = (ROOT / "scripts/conker.sh").read_text(encoding="utf-8")
@@ -153,13 +213,15 @@ class ReadySelectionShellTests(unittest.TestCase):
         dispatch = "    next)" + script.split("    next)", 1)[1].split("        ;;", 1)[0] + "        ;;\n"
         harness = '''set -euo pipefail
 state_tool=state-tool
+repo_root=/fixture
 warm_container_name=test
 die() { printf 'error: %s\\n' "$*" >&2; exit 1; }
 python3() {
     printf 'state:' >&2
     printf ' <%s>' "$@" >&2
     printf '\\n' >&2
-    if [[ "$2" == next ]]; then
+    if [[ "$1" == /fixture/scripts/matching_prerequisites.py ]]; then return "$prerequisite_status"; fi
+    if [[ "${2:-}" == next ]]; then
         if [[ "$selection_status" != 0 ]]; then return "$selection_status"; fi
         printf 'work-item: func_b\\nallowed-edit: src/game/b.c\\n'
     fi
@@ -167,13 +229,16 @@ python3() {
 ensure_warm_container() { printf 'prewarm\\n' >&2; }
 run_host_mips_to_c() { printf 'starter:' >&2; printf ' <%s>' "$@" >&2; printf '\\n' >&2; }
 '''
-        harness += f"selection_status={selection_status}\n" + prepare + 'case next in\n' + dispatch + 'esac\n'
+        harness += f"selection_status={selection_status}\nprerequisite_status={prerequisite_status}\n" + prepare + 'case next in\n' + dispatch + 'esac\n'
         return subprocess.run(["bash", "-c", harness, "test", "--ready", *options],
                               text=True, capture_output=True, check=False)
 
     def test_ready_default_and_repeatable_paths_keep_context_and_toolchain_order(self) -> None:
         for options, suffix in (
             ((), ""),
+            (("--function", "func_b"), " <--function> <func_b>"),
+            (("--function", "func_b", "--exclude-source", "src/game/a.c"),
+             " <--function> <func_b> <--exclude-source> <src/game/a.c>"),
             (("--exclude-source", "src/game/a.c", "--exclude-source", "src/game/with space.c"),
              " <--exclude-source> <src/game/a.c> <--exclude-source> <src/game/with space.c>"),
         ):
@@ -182,14 +247,18 @@ run_host_mips_to_c() { printf 'starter:' >&2; printf ' <%s>' "$@" >&2; printf '\
                 self.assertEqual(0, result.returncode, result.stderr)
                 self.assertEqual([
                     "state: <state-tool> <next> <--one> <--details>" + suffix,
+                    "state: <scripts/matching_history.py> <prepare> <func_b>",
                     "state: <state-tool> <setup-check> <--profile> <us>",
+                    "state: </fixture/scripts/matching_prerequisites.py>",
                     "prewarm",
                     "starter: <us> <func_b> <--auto-overlay> <--ready-output>",
+                    "state: <scripts/matching_context.py> <func_b> <--limit> <2>",
                 ], result.stderr.splitlines())
                 self.assertEqual("work-item: func_b\nallowed-edit: src/game/b.c\ntoolchain: warm (test)\n", result.stdout)
 
     def test_ready_rejects_missing_paths_or_output_mode_changes(self) -> None:
         for options in (("--exclude-source",), ("--id-only",), ("--one",),
+                        ("--function",), ("--function", "func_b", "--details"),
                         ("--exclude-source", "src/game/a.c", "--details")):
             with self.subTest(options=options):
                 result = self.run_ready(*options)
@@ -198,13 +267,22 @@ run_host_mips_to_c() { printf 'starter:' >&2; printf ' <%s>' "$@" >&2; printf '\
                 self.assertNotIn("state:", result.stderr)
                 self.assertEqual("", result.stdout)
 
-    def test_ready_selection_failure_never_prewarms_or_generates_starter(self) -> None:
-        result = self.run_ready("--exclude-source", "src/game/a.c", selection_status=1)
-        self.assertEqual(1, result.returncode)
-        self.assertEqual("", result.stdout)
-        self.assertNotIn("setup-check", result.stderr)
+    def test_ready_prerequisite_failure_never_prewarms_or_generates_starter(self) -> None:
+        result = self.run_ready(prerequisite_status=2)
+        self.assertEqual(2, result.returncode)
+        self.assertIn("matching_prerequisites.py", result.stderr)
         self.assertNotIn("prewarm", result.stderr)
         self.assertNotIn("starter:", result.stderr)
+
+    def test_ready_selection_failure_never_prewarms_or_generates_starter(self) -> None:
+        for options in (("--exclude-source", "src/game/a.c"), ("--function", "func_b")):
+            with self.subTest(options=options):
+                result = self.run_ready(*options, selection_status=1)
+                self.assertEqual(1, result.returncode)
+                self.assertEqual("", result.stdout)
+                self.assertNotIn("setup-check", result.stderr)
+                self.assertNotIn("prewarm", result.stderr)
+                self.assertNotIn("starter:", result.stderr)
 
 
 if __name__ == "__main__":
