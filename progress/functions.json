@@ -12535,6 +12535,12 @@
       "symbol": "func_15144CEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1615,
+        "reason": "Fresh full-vector translation produced396 then focused0/layout with natural x/y/z edge order, but independent source review rejected aggregate destination typing for a known declared-byte-buffer caller. Reopened exact form: no match credit. Final ordinary SDK-compatible memcpy12B form is target-source-valid CURRENT1615, emits a call; existing caller byte-storage/f32 contract remains unproved. Preserve safe-copy candidate, retain aggregate forms diagnostic-only; three-form budget exhausted, no invented intrinsic/padding/punning.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67129,6 +67135,12 @@
       "symbol": "func_151564F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1075,
+        "reason": "Fresh real0x48/0x70 descriptor split with producer-backed0x8C input prefix and genuine f32 aggregates. Conservative s32 selector with call-site low-byte casts gives1949; normalizing that same formal once improves1075 with exact0xE0 frame/all descriptor offsets. Residual argument-home/byte-extraction and resulting GPR schedule differ. No active target declaration proves a u8 formal, so do not narrow solely for codegen or force homes. Preserve valid1075 after two forms; source review pending.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67161,6 +67173,12 @@
       "symbol": "func_15156B54"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2335,
+        "reason": "Fresh complete0x90 combined-record producer follows all raw stores, memcpy12B point, exact float constants, all PRNG calls including discarded call, and established u8 selector. Initial real record+scale form CURRENT2335; direct record scale reuse2527 does not recover raw0xA8 frame (candidate0xB0). Retain best source-valid2335; do not truncate required producer storage, invent separate dead scalar, force alignment, or repeat known random-flag donor forms.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68985,8 +69003,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1558,
-        "reason": "Manual low-usage attempt improved CURRENT from 1709 to 1558; cleanup semantics align but frame/register scheduling still differs.",
+        "current_score": 2446,
+        "reason": "Corrected source-local cleanup contract and forwards the consumed original owner as a full32bit word. First repaired form CURRENT2446 versus historical1558 that omitted this argument. Remaining owner-home, interior-pointer reload and helper-mask scheduling differences have no fresh source-backed storage hypothesis. Keep corrected candidate; no forced spills or repeated sibling lifetime experiments.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69004,8 +69022,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 444,
-        "reason": "Manual2583->1656->444: correct1516979Cvoid(u8*) andpreservestateacrossfrees; volatileowner/two snapshots. RemaininginitialGPR/spill1Cvs18 andmissingfinalownerarg. Concrete1513CAA0onearg ABI conflictslocalvoid prototypealsousedbymatched15101210; requirescoordinatedaudit beyondselectedregion. Ledger deferred-manual-20260927.",
+        "current_score": 1223,
+        "reason": "Corrected consumed original-owner argument and local void(s32) cleanup contract, and removed unsupported volatile parameter qualifier. First source-valid repaired form CURRENT1223; old444 used a storage-forcing qualifier and omitted a consumed argument, so is not a valid best-source comparator. Remaining argument-home/GPR/frame and interior-pointer scheduling differences lack new source evidence; no volatile/padding/forced storage trial. Preserve valid candidate and rotate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -89173,8 +89191,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7674,
-        "reason": "Manual plane-test translation remained CURRENT (7674) over full 400-byte US span: IDO emitted jal fabsf twice and a 0x28 frame, while raw uses abs.s inline and a leaf 0x10 frame. Project-used __builtin_fabsf form produced the same call sequence; no source-only intrinsic evidence remains, so preserve candidate and advance.",
+        "current_score": 1394,
+        "reason": "Approved source-local fabsf intrinsic removes the two erroneous calls. Three new evidence-backed forms: intrinsic only2737, genuine projection intermediates1477, reuse existing vertical-result local1394. Best valid candidate preserves ten-argument ABI, arithmetic grouping and raw0x10 leaf frame/sp0 spill. Residual register/evaluation order and full registered extent remain; no padding, volatile, forced storage, or permutation. Bounded attempts exhausted; preserve candidate and rotate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -1730,6 +1730,60 @@ s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15144CEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144CEC.s")
+void func_151450B4(void *, void *, void *);
+void *memcpy(void *, const void *, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144E80 CURRENT (1615) */
+s32 func_15144E80(void *arg0, void *arg1, void *arg2, void *arg3) {
+    typedef struct {
+        f32 x;
+        f32 y;
+        f32 z;
+    } TriangleVector;
+    TriangleVector vertices[3];
+    TriangleVector normal;
+    TriangleVector first_edge;
+    TriangleVector second_edge;
+
+    if (arg3 == 0) {
+        arg3 = &normal;
+    }
+    vertices[0].x = (f32)((s16 *)arg0)[0];
+    vertices[0].y = (f32)((s16 *)arg0)[1];
+    vertices[0].z = (f32)((s16 *)arg0)[2];
+    vertices[1].x = (f32)((s16 *)arg0)[3];
+    vertices[1].y = (f32)((s16 *)arg0)[4];
+    vertices[1].z = (f32)((s16 *)arg0)[5];
+    vertices[2].x = (f32)((s16 *)arg0)[6];
+    vertices[2].y = (f32)((s16 *)arg0)[7];
+    vertices[2].z = (f32)((s16 *)arg0)[8];
+    if ((vertices[0].x == vertices[1].x) &&
+        (vertices[0].y == vertices[1].y) &&
+        (vertices[0].z == vertices[1].z)) {
+        return 0;
+    }
+    if ((vertices[0].x == vertices[2].x) &&
+        (vertices[0].y == vertices[2].y) &&
+        (vertices[0].z == vertices[2].z)) {
+        return 0;
+    }
+    if ((vertices[1].x == vertices[2].x) &&
+        (vertices[1].y == vertices[2].y) &&
+        (vertices[1].z == vertices[2].z)) {
+        return 0;
+    }
+    first_edge.x = vertices[0].x - vertices[1].x;
+    first_edge.y = vertices[0].y - vertices[1].y;
+    first_edge.z = vertices[0].z - vertices[1].z;
+    second_edge.x = vertices[2].x - vertices[1].x;
+    second_edge.y = vertices[2].y - vertices[1].y;
+    second_edge.z = vertices[2].z - vertices[1].z;
+    func_151450B4(&first_edge, &second_edge, arg3);
+    func_151450B4(&first_edge, arg3, arg1);
+    memcpy(arg2, &first_edge, sizeof(first_edge));
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15144E80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144E80.s")
 void func_151450B4(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) ((*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 8)) - (*(f32 *)((u8 *)arg1 + 4) * *(f32 *)((u8 *)arg0 + 8)));
