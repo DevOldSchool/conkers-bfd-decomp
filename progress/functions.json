@@ -51128,17 +51128,16 @@
       "symbol": "func_15133A94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3577,
-        "reason": "Preserved concrete fabsf float prototype and existing six-argument signature, liveCURRENT3577 from5607. IDO needs file-scope intrinsic directive (rawabs.s); function-scoped directive rejected. Proposed two-line declaration awaits shared-scope approval.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15133B98",
           "vram": "0x15133B98"
         }
