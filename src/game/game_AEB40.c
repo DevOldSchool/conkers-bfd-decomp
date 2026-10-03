@@ -663,47 +663,56 @@ void func_1503D774(s32, s32);
 extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 
-void func_15084488(u8 *arg0, s32 arg1, s32 arg2) {
-    s32 count;
-    s32 i;
-    u8 *record;
-    u8 *entry;
-    u8 *entries;
-    u8 index;
+/* Semantic role: actor_load_representation_resources.
+ * Load bank-11 defaults and bank-0F routes for the spawn model's representation
+ * list. arg1 is unused here; arg2 is forwarded without assigning it a role.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
+void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
+    s32 modelCount;
+    s32 modelOffset;
+    u8 *defaults;
+    u8 *modelEntry;
+    u8 *modelIndices;
+    u8 modelIndex;
 
-    index = arg0[4];
-    if (index != 0xFF) {
-        func_1503D774(index, arg2);
-        record = D_800D1C90[index];
-        entries = arg0 + 4;
-        count = record[4];
-        if (count == 0) {
-            count = 1;
+    modelIndex = spawnRecord[4];
+    if (modelIndex != 0xFF) {
+        func_1503D774(modelIndex, arg2);
+        defaults = D_800D1C90[modelIndex];
+        modelIndices = spawnRecord + 4;
+        modelCount = defaults[4];
+        if (modelCount == 0) {
+            modelCount = 1;
         } else {
-            entries = D_80086CAC[record[5]];
+            modelIndices = D_80086CAC[defaults[5]];
         }
-        i = 0;
-        entry = entries;
-        count += record[0x38];
-        if (count > 0) {
+        modelOffset = 0;
+        modelEntry = modelIndices;
+        modelCount += defaults[0x38];
+        if (modelCount > 0) {
             do {
-                func_1503D774(*entry, arg2);
-                func_1503D660(*entry, arg2);
-                i++;
-                entry++;
-            } while (i != count);
+                func_1503D774(*modelEntry, arg2);
+                func_1503D660(*modelEntry, arg2);
+                modelOffset++;
+                modelEntry++;
+            } while (modelOffset != modelCount);
         }
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084558.s")
-u8 func_150849A0(void *arg0) {
-    u8 temp_v1;
+/* Semantic role: actor_get_current_representation_model.
+ * Selector zero uses the first model; nonzero selectors are one-based.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
+u8 func_150849A0(void *actor) {
+    u8 representationSelector;
 
-    temp_v1 = *(u8 *)((u8 *)arg0 + 0x1C9);
-    if (temp_v1 != 0) {
-        return *(*(u8 **)((u8 *)arg0 + 0x2C4) + temp_v1 - 1);
+    representationSelector = *(u8 *)((u8 *)actor + 0x1C9);
+    if (representationSelector != 0) {
+        return *(*(u8 **)((u8 *)actor + 0x2C4) + representationSelector - 1);
     }
-    return **(u8 **)((u8 *)arg0 + 0x2C4);
+    return **(u8 **)((u8 *)actor + 0x2C4);
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150849CC CURRENT (235) */
 u8 func_150849CC(void *arg0, s32 *arg1) {
