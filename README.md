@@ -4,6 +4,10 @@ A work-in-progress matching decompilation of *Conker's Bad Fur Day* for
 Nintendo 64 (N64), with asset extraction tools, model-preview generation,
 and documented asset-format research.
 
+<p align="center">
+  <img src="docs/images/readme-banner.png" alt="Conker's Bad Fur Day decompilation project logo" width="100%">
+</p>
+
 The North American (US) release is the active target; Europe/PAL remains a
 future goal and does not currently gate progress.
 
