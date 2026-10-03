@@ -852,7 +852,89 @@ void func_1502EEF4(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502EEF4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502EEF4.s")
+typedef struct Game58F80TileExtent {
+    u32 words[2];
+    u16 width;
+    u16 height;
+} Game58F80TileExtent;
+
+typedef struct Game58F80TileCommand {
+    u32 word0;
+    u32 word1;
+} Game58F80TileCommand;
+
+extern Game58F80TileExtent *D_800C5338[];
+
+u8 *func_1507E908(void *, s32);
+extern void *D_800D1C90[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F01C CURRENT (2693) */
+void *func_1502F01C(Game58F80TileCommand *arg0, s32 arg1) {
+    u8 selected[2];
+    u8 *actor;
+    u8 *record;
+    u8 kind;
+    s32 index;
+    s32 values[2];
+    void **slot;
+    Game58F80TileExtent *tiles;
+
+    actor = &D_800CC2D0 + arg1 * 0x32C;
+    kind = actor[4];
+    record = 0;
+    index = 0;
+    do {
+        u8 selection = actor[index + 0x6C];
+        slot = &D_800D1C90[kind];
+        if (selection >= 10) {
+            selected[index] = selection - 10;
+        } else {
+            u8 animation = actor[0x6F];
+            selected[index] = ((u8 *)*slot)[index * 3 + selection + 8];
+            if (animation != 0 && record == 0) {
+                record = func_1507E908(actor, animation);
+            }
+            if (record != 0) {
+                values[0] = record[0];
+                values[1] = record[1];
+                if (record != 0) {
+                    if (values[index] == ((u8 *)*slot)[index * 3 + 10] ||
+                        actor[index + 0x6C] == 0) {
+                        selected[index] = values[index];
+                    }
+                }
+            }
+        }
+        index++;
+    } while (index != 2);
+    tiles = D_800C5338[actor[4]];
+    if (tiles != 0) {
+        {
+            Game58F80TileCommand *command = arg0++;
+            command->word0 = 0xDB060018;
+            command->word1 = tiles[selected[0]].words[0];
+        }
+        {
+            Game58F80TileCommand *command = arg0++;
+            command->word0 = 0xDB06001C;
+            command->word1 = tiles[selected[1]].words[0];
+        }
+        {
+            Game58F80TileCommand *command = arg0++;
+            command->word0 = 0xDB060028;
+            command->word1 = tiles[actor[0x68]].words[0];
+        }
+        {
+            Game58F80TileCommand *command = arg0++;
+            command->word0 = 0xDB06002C;
+            command->word1 = tiles[actor[0x69]].words[0];
+        }
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502F01C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F01C.s")
+
 extern s32 D_80082FA0;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F264 CURRENT (1275) */
@@ -970,19 +1052,7 @@ void func_1502F948(void *arg0) {
     }
     func_10023A10(*(void **)((u8 *)arg0 + 0x1D4), *(void **)((u8 *)arg0 + 0x1D8), D_800C4ED0[temp_v1] << 6);
 }
-typedef struct Game58F80TileExtent {
-    u32 words[2];
-    u16 width;
-    u16 height;
-} Game58F80TileExtent;
-
-typedef struct Game58F80TileCommand {
-    u32 word0;
-    u32 word1;
-} Game58F80TileCommand;
-
 void *func_150C3160(void *, void *);
-extern Game58F80TileExtent *D_800C5338[];
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F9FC CURRENT (4582) */
 void *func_1502F9FC(void *arg0, s32 arg1) {

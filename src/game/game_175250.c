@@ -7,8 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15147EB8
  * - func_1514803C
- * - func_151488C4
- * - func_15148BA4
  * - func_15148DE0
  * - func_15148F1C
  * - func_151490C8
@@ -108,7 +106,119 @@ s8 func_15147EB8(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15147EB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_175250/func_15147EB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_175250/func_1514803C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_175250/func_151488C4.s")
+typedef struct {
+    f32 x, y, z;
+    f32 velocity;
+    u16 phase;
+    u8 pad12[2];
+} Game175250Point;
+
+typedef struct {
+    f32 field0;
+    f32 speedX;
+    f32 speedY;
+    f32 speedZ;
+    f32 gravity;
+    u8 pad14[4];
+    u8 flags;
+    u8 pad19[7];
+    s8 state;
+    u8 pad21[2];
+    u8 callback23;
+    u8 callback24;
+    u8 pad25[3];
+} Game175250Motion;
+
+typedef struct {
+    f32 height;
+    u8 data[0x19];
+    u8 kind;
+    u8 pad1E[0x16];
+} Game175250Collision;
+
+typedef struct {
+    u8 pad0[0x10];
+    Game175250Vec3 position;
+    u8 pad1C[9];
+    u8 capacity;
+    u8 pad26[6];
+    s8 count;
+    s8 start;
+    s8 end;
+    u8 pad2F[0x31];
+    Game175250Collision collision;
+    Game175250Point *points;
+    Game175250Motion *motion;
+} Game175250Trail;
+
+extern f32 D_800BE9A4;
+
+s32 func_151488C4(Game175250Trail *arg0) {
+    Game175250Point *points;
+    Game175250Motion *motion;
+    s32 phase;
+    struct {
+        u16 step;
+        u8 pad2[2];
+    } interval;
+    s32 index;
+    s32 count;
+    s32 phaseIndex;
+    Game175250Point *point;
+
+    points = arg0->points;
+    motion = arg0->motion;
+    index = arg0->start;
+    if (index != arg0->end) {
+        do {
+            point = (Game175250Point *)((u32)points + index * 0x14);
+            index++;
+            point->velocity -= motion->gravity * D_800BE9A4;
+            point->x += motion->speedX * D_800BE9A4;
+            point->y += point->velocity * D_800BE9A4;
+            point->z += motion->speedZ * D_800BE9A4;
+            if (index == arg0->capacity) {
+                index = 0;
+            }
+        } while (index != arg0->end);
+    }
+    count = arg0->count;
+    if (count < arg0->capacity - 1) {
+        phase = (motion->flags & 0x20) ? 0x1000 : 0;
+        if (count != 0) {
+            interval.step = 0x1000 / count;
+        }
+        arg0->count = count + 1;
+        *(Game175250Vec3 *)&points[arg0->end] = arg0->position;
+        points[arg0->end].velocity = motion->speedY;
+        arg0->end++;
+        if (arg0->end == arg0->capacity) {
+            arg0->end = 0;
+        }
+        phaseIndex = arg0->start;
+        if (phaseIndex != arg0->end) {
+            do {
+                points[phaseIndex].phase = phase;
+                if (motion->flags & 0x20) {
+                    phase = (phase - interval.step) & 0xFFFF;
+                } else {
+                    phase += interval.step;
+                    phase &= 0xFFFF;
+                }
+                phaseIndex++;
+                if (phaseIndex == arg0->capacity) {
+                    phaseIndex = 0;
+                }
+            } while (phaseIndex != arg0->end);
+        }
+    } else if (motion->flags & 0x17) {
+        motion->state = 3;
+    } else {
+        motion->state = 2;
+    }
+    return 1;
+}
+
 extern f32 D_800BE9A4;
 
 s32 func_15148AF4(void *arg0) {
@@ -132,7 +242,69 @@ s32 func_15148AF4(void *arg0) {
     } while (var_a1 != *(s8 *)((u8 *)arg0 + 0x2D));
     return 1;
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_175250/func_15148BA4.s")
+typedef struct {
+    f32 x, y, z;
+} Game175250Position;
+
+typedef s32 (*Game175250HitCallback)(void *, f32, f32, f32, f32, void *);
+extern Game175250HitCallback D_8008A430[];
+extern Game175250HitCallback D_8008A450[];
+s32 func_15046C80(f32 *, u16, f32, void *);
+
+s32 func_15148BA4(Game175250Trail *arg0) {
+    s32 index;
+    Game175250Motion *motion;
+    s32 points;
+    Game175250Position oldPosition;
+    Game175250Position position;
+    u8 callback;
+
+    motion = arg0->motion;
+    points = (s32)arg0->points;
+    index = arg0->end;
+    if (motion->flags & 7) {
+        oldPosition = *(Game175250Position *)((u32)points + arg0->start * 0x14);
+    }
+    do {
+        index--;
+        if (index < 0) {
+            index = arg0->capacity - 1;
+        }
+        ((Game175250Point *)((u32)points + index * 0x14))->velocity -= motion->gravity * D_800BE9A4;
+        ((Game175250Point *)((u32)points + index * 0x14))->x += motion->speedX * D_800BE9A4;
+        ((Game175250Point *)((u32)points + index * 0x14))->y += ((Game175250Point *)((u32)points + index * 0x14))->velocity * D_800BE9A4;
+        ((Game175250Point *)((u32)points + index * 0x14))->z += motion->speedZ * D_800BE9A4;
+    } while (index != arg0->start);
+    if (motion->flags & 0x17) {
+        if (((Game175250Point *)((u32)points + arg0->start * 0x14))->y < oldPosition.y) {
+            position.x = ((Game175250Point *)((u32)points + arg0->start * 0x14))->x;
+            position.y = oldPosition.y;
+            position.z = ((Game175250Point *)((u32)points + arg0->start * 0x14))->z;
+            if (func_15046C80(&position.x, 0, ((Game175250Point *)((u32)points + arg0->start * 0x14))->y,
+                              &arg0->collision) != 0) {
+                if (arg0->collision.kind == 3) {
+                    callback = motion->callback24;
+                    if (callback != 0 &&
+                        D_8008A450[callback](arg0, oldPosition.x, oldPosition.y,
+                                             oldPosition.z, arg0->collision.height,
+                                             arg0->collision.data) == 0) {
+                        return 0;
+                    }
+                } else {
+                    callback = motion->callback23;
+                    if (callback != 0 &&
+                        D_8008A430[callback](arg0, oldPosition.x, oldPosition.y,
+                                             oldPosition.z, arg0->collision.height,
+                                             arg0->collision.data) == 0) {
+                        return 0;
+                    }
+                }
+            }
+        }
+    }
+    return 1;
+}
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15148DE0 CURRENT (1050) */
 s32 func_15148DE0(void *arg0) {
     s32 var_v0;

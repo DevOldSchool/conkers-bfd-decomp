@@ -377,4 +377,78 @@ void func_1507FF94(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507FF94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FF94.s")
+typedef struct GameAC030Position {
+    u8 pad0[0x14];
+    f32 position[3];
+} GameAC030Position;
+
+typedef struct GameAC030Target {
+    u8 pad0[8];
+    struct GameAC030Target *next;
+    u8 padC[0x8C];
+    f32 position[3];
+} GameAC030Target;
+
+typedef struct GameAC030TargetGroups {
+    s32 entries[3];
+} GameAC030TargetGroups;
+
+s32 func_150A3194(s32, s32, s32, s32, s32);
+s32 func_15037698(s32, s32, s32, f32, f32, f32, f32 *, f32, s32, s32);
+extern GameAC030TargetGroups D_80086C50;
+extern f32 D_8009BD04;
+extern u8 D_800CC2D0[];
+extern GameAC030Target *D_800DCE50[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FFD8 CURRENT (1911) */
+s32 func_1507FFD8(void *arg0) {
+    f32 dz;
+    f32 z;
+    f32 limit;
+    GameAC030TargetGroups groups;
+    f32 x;
+    f32 y;
+    f32 dx;
+    f32 dy;
+    f32 output[3];
+    register f32 squared;
+    s32 *group;
+    GameAC030Target *target;
+    s32 *end;
+
+    if (func_150A3194(4, 5, (s32)((GameAC030Position *)arg0)->position[0],
+                           (s32)((GameAC030Position *)arg0)->position[1],
+                           (s32)((GameAC030Position *)arg0)->position[2]) ||
+        func_150A3194(4, 11, (s32)((GameAC030Position *)arg0)->position[0],
+                               (s32)((GameAC030Position *)arg0)->position[1],
+                               (s32)((GameAC030Position *)arg0)->position[2])) {
+        groups = D_80086C50;
+        limit = D_8009BD04;
+        group = groups.entries;
+        end = groups.entries + 3;
+        do {
+            target = D_800DCE50[*group];
+            if (target != 0) {
+                do {
+                    x = target->position[0];
+                    y = target->position[1];
+                    dx = x - ((GameAC030Position *)arg0)->position[0];
+                    z = target->position[2];
+                    dy = y - ((GameAC030Position *)arg0)->position[1];
+                    dz = z - ((GameAC030Position *)arg0)->position[2];
+                    squared = dx * dx + dy * dy + dz * dz;
+                    if ((squared < limit) &&
+                        func_15037698(((u8 *)arg0 - D_800CC2D0) / 812,
+                                      0, 0, x, y, z, output, 90.0f, 0, 0) != 0) {
+                        return 1;
+                    }
+                    target = target->next;
+                } while (target != 0);
+            }
+            group++;
+        } while (group != end);
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507FFD8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FFD8.s")

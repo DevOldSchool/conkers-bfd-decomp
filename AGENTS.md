@@ -13,6 +13,7 @@ only as needed. Fresh/reset cloud executors first follow [cloud recovery](docs/c
    emits declarations, raw US call sites and an m2c starter. Request Docker access on
    the first Docker-backed call when sandboxed. Do not separately run `next`, `m2c`,
    `doctor` or list the queue.
+   For a known in-scope sibling, use `next --ready --function <id>` through the same gates.
 3. Obey `allowed-edit`, `target-file-dirty`, `source-unit-state` and `post-match-action`.
    Stop on unclear overlapping ownership. Read/claim only recorded issues;
    `issue: none recorded` means no GitHub lookup.
@@ -23,6 +24,11 @@ only as needed. Fresh/reset cloud executors first follow [cloud recovery](docs/c
    padded structure. Add concrete required declarations; follow CONTRIBUTING's ABI rules.
    Replace only the target `GLOBAL_ASM` at its current position and immediately run
    `./conker finish <id>`. Never alter shared dependencies or assembly to force a match.
+   Confirm the edit succeeded and inspect its diff first. A failed helper stops the
+   sequence; inspect any partial changes before retrying. Use separate tool calls
+   for editing/inspection and `finish`; shell preparation steps must propagate errors
+   with `&&` or equivalent. Unchanged reruns need an
+   explicit recheck reason and never count as new hypotheses.
 
 ## Follow the terminal action
 
@@ -46,11 +52,15 @@ only exact results through transactional `finish`.
 
 - Prefer short spans, concrete declaration/type fixes and proven sibling patterns.
   A low `CURRENT` score does not establish an easy match. After a match, make at most
-  one bounded sibling lookup within scope, then inspect and `finish` each independently.
+  one bounded sibling lookup within scope. Prefer an eligible sibling with a recorded
+  ASM/ABI hypothesis via `next --ready --function <id>` before returning to size-based
+  selection; inspect and `finish` each independently. Do not broaden scope, clear
+  exhausted history or construct queue-wide exclusions to force a selection.
 - Keep a task-owned ledger under `build/us/manual-attempts/<task-id>/` and consult
   relevant prior ledgers across passes and compactions. Record fingerprints, hypotheses,
   tested changes, scores/classes, best artifacts, exhausted approaches and pending IDs.
-  This is an agent-maintained record, not automatic inventory/history support. Follow
+  `finish` also saves portable candidate/result snapshots; annotate useful hypotheses
+  and exhaustion with `matching-history note`. Follow
   the [ledger reference](docs/decompilation-workflow.md#durable-manual-attempt-ledger).
 - Stop plateaued work under CONTRIBUTING's attempt rules; an expanded budget is a ceiling,
   not a quota. Keep model settings unchanged unless requested. Measure newly batch-verified
@@ -78,3 +88,6 @@ only exact results through transactional `finish`.
 Give one brief start update; then report failures, blockers or commands over 60 seconds.
 For function work report function/source, changed files, shared dependency (yes/no),
 US focused diff, whitespace, status (`matched`/`candidate`/`blocked`) and attempts.
+For timed work, distinguish setup/restarts, clean verification, report creation and
+end-to-end completion. Include final audit/handoff in workflow time; if final-delivery
+timing is unavailable, say so. A saved report does not establish zero final overrun.

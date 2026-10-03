@@ -18,7 +18,6 @@
  * - func_15161A68
  * - func_15161F4C
  * - func_15162034
- * - func_151621B8
  * - func_151623F4
  * - func_15162510
  * - func_15162740
@@ -881,7 +880,25 @@ void func_15162110(s32 arg0) {
         func_10022EC0((u8 *)temp_v0 + 0x28, payload.values, 0x20);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151621B8.s")
+f32 func_15047D60(f32);
+f32 func_15144B68(f32);
+void func_1515D4D4(s32, s32, s32, s32);
+
+void func_151621B8(void *volatile arg0) {
+    f32 factor;
+    s32 red;
+    f32 *state;
+    s32 priority;
+
+    factor = func_15047D60(*(f32 *)((u8 *)arg0 + 0x40));
+    state = (f32 *)((u8 *)arg0 + 0x28);
+    priority = 0;
+    func_1515D4D4(red = (u32)(factor * state[3] + state[0]) & 0xFF,
+                   (u32)(factor * state[4] + state[1]) & 0xFF,
+                   (u32)(factor * state[5] + state[2]) & 0xFF, priority);
+    state[6] += state[7] * D_800BE9A4;
+    state[6] = func_15144B68(state[6]);
+}
 extern s32 D_800A670C[];
 extern s32 D_800A6730[];
 extern f32 D_800A6754[];
@@ -921,6 +938,24 @@ void *func_151623F4(s32 arg0, u8 arg1, u8 arg2, u8 arg3, s8 arg4,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151623F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_151623F4.s")
+f32 func_15047D60(f32);
+f32 func_15144B68(f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15162510 CURRENT (896) */
+s32 func_15162510(void *arg0) {
+    f32 factor;
+    f32 *state;
+
+    factor = func_15047D60(*(f32 *)((u8 *)arg0 + 0x30));
+    state = (f32 *)((s32)arg0 + 0x18);
+    (*(s8 **)((u8 *)arg0 + 0x14))[5] = (s8)(u32)(state[0] + factor * state[3]);
+    (*(s8 **)((u8 *)arg0 + 0x14))[6] = (s8)(u32)(state[1] + factor * state[4]);
+    (*(s8 **)((u8 *)arg0 + 0x14))[7] = (s8)(u32)(state[2] + factor * state[5]);
+    state[6] += state[7] * D_800BE9A4;
+    state[6] = func_15144B68(state[6]);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15162510 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/light/func_15162510.s")
 extern f32 D_800A6760[];
 extern f32 D_800A67C0[];

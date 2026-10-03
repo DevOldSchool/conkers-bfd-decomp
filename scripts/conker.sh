@@ -52,7 +52,11 @@ Getting started
   normalize-done-sources         Move completed sources into src/done/<overlay>/.
   next [--one [--details]]       List functions ready to claim; optionally show one with local context.
   next --ready                   Select one function, prewarm Docker, and include its m2c starter.
-    [--exclude-source PATH]       With --ready or --one, skip exact source paths (repeatable).
+    [--function ID]              With --ready or --one, select one known eligible item; no fallback.
+    [--exclude-source PATH]      With --ready or --one, skip exact source paths (repeatable).
+  matching-history <command>     Show, annotate, export or import saved finish attempts.
+  matching-context <id>          Retrieve bounded contract/storage matching hypotheses.
+  matching-callers <callee>...   List possible matched direct callers needing review.
   blockers [--limit N] [--json]  Rank saved declaration and placeholder blockers (read-only).
   automate [--limit N | --all | --function ID] [--max-attempts N] [--rewrite-budget N]
            [--exhaustive] [--stack-shapes] (opt-in storage-shape pilot)
@@ -514,7 +518,8 @@ prepare_next_work() {
     local identifier
     local -a selectors=("$@")
     while [[ $# -gt 0 ]]; do
-        [[ "$1" == "--exclude-source" && $# -ge 2 ]] || die "usage: ./conker next --ready [--exclude-source PATH]..."
+        [[ ( "$1" == "--exclude-source" || "$1" == "--function" ) && $# -ge 2 ]] \
+            || die "usage: ./conker next --ready [--function ID] [--exclude-source PATH]..."
         shift 2
     done
     # Bash 3 treats an empty array as unset under nounset.
@@ -523,10 +528,13 @@ prepare_next_work() {
     [[ "$first_line" == "work-item: "* ]] || die "next --one --details did not emit a work-item"
     identifier="${first_line#work-item: }"
     printf '%s\n' "$details"
+    python3 scripts/matching_history.py prepare "$identifier"
     python3 "$state_tool" setup-check --profile us
+    python3 "$repo_root/scripts/matching_prerequisites.py"
     ensure_warm_container
     printf 'toolchain: warm (%s)\n' "$warm_container_name"
     run_host_mips_to_c us "$identifier" --auto-overlay --ready-output
+    python3 scripts/matching_context.py "$identifier" --limit 2
 }
 
 command="${1:-help}"
@@ -535,6 +543,15 @@ shift || true
 case "$command" in
     help|-h|--help)
         usage
+        ;;
+    matching-history)
+        python3 scripts/matching_history.py "$@"
+        ;;
+    matching-context)
+        python3 scripts/matching_context.py "$@"
+        ;;
+    matching-callers)
+        python3 scripts/matching_callers.py "$@"
         ;;
     doctor)
         ensure_image
@@ -617,6 +634,7 @@ case "$command" in
         ensure_warm_container
         deferred_score="$(run_in_warm_container python3 scripts/diff.py us "$deferred_symbol" --auto-overlay --score-only)"
         [[ "$deferred_score" =~ ^[0-9]+$ ]] || die "focused diff did not return a numeric score"
+        python3 scripts/matching_history.py summary "$deferred_symbol" --current-score "$deferred_score"
         deferred_extra=()
         if [[ "$deferred_score" -eq 0 ]]; then
             mkdir -p "$repo_root/build/us/deferred-layout"
@@ -630,7 +648,8 @@ case "$command" in
                 die "exact candidate deferral requires archived, verified layout failure"
             deferred_extra=(--layout-failure-proof "$deferred_archive/proof.json")
         fi
-        python3 "$state_tool" defer "$@" --score "$deferred_score" "${deferred_extra[@]}"
+        # Bash 3 treats an empty array as unset under nounset.
+        python3 "$state_tool" defer "$@" --score "$deferred_score" ${deferred_extra[@]+"${deferred_extra[@]}"}
         ;;
     block-raw|unblock-raw)
         python3 "$state_tool" "$command" "$@"
@@ -707,6 +726,9 @@ case "$command" in
         ;;
     finish)
         parse_profile_and_value "usage: ./conker finish [--profile us] <work-item-id>" "$@"
+        if [[ "${CONKER_MATCHING_RECORD_ACTIVE:-}" != "1" ]]; then
+            exec python3 scripts/matching_history.py record "$selected_value"
+        fi
         match_status=0
         verify_and_record_match --compact-mismatch || match_status=$?
         if [[ "$match_status" -eq 1 ]]; then
@@ -799,7 +821,9 @@ case "$command" in
                 exit 1
             fi
         done <<< "$original_asm_items"
-        if ! python3 -m unittest discover -s tests -q -b; then
+        # macOS /var and /tmp aliases must agree with resolved fixture paths.
+        host_test_tmpdir="$(python3 -c 'import os, tempfile; print(os.path.realpath(tempfile.gettempdir()))')"
+        if ! TMPDIR="$host_test_tmpdir" python3 -m unittest discover -s tests -q -b; then
             printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
             exit 1
         fi

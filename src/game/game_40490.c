@@ -91,7 +91,7 @@ s32 func_1501374C(u8 *arg0) {
 }
 void func_10022EC0(void *, void *, s32);
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_150A8050(f32 *, s32, s32, s32);
+void func_150A8050(f32 *, f32, f32, f32);
 s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_1000FA64(s32, s32, s32, s32, s32, s32, s32, void *, s32, s32, s32, s32);
 extern u8 D_1000EF40[];
@@ -503,7 +503,7 @@ typedef struct {
     u8 pad52[2];
 } Game40490ParticlePacket;
 
-void func_150A8050(f32 *, s32, s32, s32);
+void func_150A8050(f32 *, f32, f32, f32);
 u32 func_150ADA20(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15014F6C CURRENT (800) */
@@ -694,4 +694,59 @@ s32 func_15015644(void *arg0, void *arg1) {
     }
     return 1;
 }
+typedef struct Game40490Point {
+    f32 x, y, z;
+} Game40490Point;
+
+typedef struct Game40490BoundsRequest {
+    u8 index;
+    u8 pad1[3];
+    Game40490Point upper;
+    Game40490Point lower;
+    f32 height;
+    u8 flag;
+    u8 pad21[3];
+} Game40490BoundsRequest;
+
+void func_151ACBD4(Game40490BoundsRequest *, s32);
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150156F4 CURRENT (100) */
+s32 func_150156F4(u8 *arg0) {
+    Game40490Point points[2];
+    f32 matrix[4][4];
+    Game40490BoundsRequest request;
+
+    if (D_800BE9F0 == 0xB) {
+        if (*(u32 *)(arg0 + 0x18) < 6U) {
+            return 1;
+        }
+    } else if (D_800BE9F0 == 0x2C) {
+        if (*(u32 *)(arg0 + 0x18) < 7U) {
+            return 1;
+        }
+    } else if (D_800BE9F0 == 0x26) {
+        if (*(u32 *)(arg0 + 0x18) < 2U) {
+            return 1;
+        }
+    }
+    func_150A8050(&matrix[0][0], *(f32 *)(arg0 + 0xC), *(f32 *)(arg0 + 0x10), 0.0f);
+    matrix[3][0] = (f32)*(s16 *)(arg0 + 0);
+    matrix[3][1] = (f32)*(s16 *)(arg0 + 2);
+    matrix[3][2] = (f32)*(s16 *)(arg0 + 4);
+    func_150A7960(matrix, 0.0f, (f32)*(s16 *)(arg0 + 8), 0.0f,
+                  &points[1].x, &points[1].y, &points[1].z);
+    points[0].x = (f32)*(s16 *)(arg0 + 0);
+    points[0].y = (f32)*(s16 *)(arg0 + 2);
+    points[0].z = (f32)*(s16 *)(arg0 + 4);
+    request.index = *(u32 *)(arg0 + 0x18);
+    request.upper = points[points[0].y < points[1].y];
+    request.lower = points[points[1].y < points[0].y];
+    request.flag = 0;
+    request.height = fabsf(points[1].y - points[0].y);
+    func_151ACBD4(&request, 0);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150156F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150156F4.s")
