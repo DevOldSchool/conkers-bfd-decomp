@@ -31,12 +31,22 @@ Obey the emitted `allowed-edit`, `target-file-dirty`, `source-unit-state`, requi
 declarations and `post-match-action`. Stop when overlapping ownership is unclear.
 Read/claim an issue only when recorded; `issue: none recorded` needs no GitHub lookup.
 
+Run `finish` only after the edit succeeds and its diff has been inspected, using
+separate tool calls for editing/inspection and verification. Shell preparation
+steps must stop on failure with `&&` or equivalent; that exit-status guard does
+not replace diff inspection. On helper failure, inspect possible partial changes before
+retrying. An unchanged rerun requires an explicit verification reason and is not
+a new matching hypothesis.
+
 Use `types.h` aliases and existing structures. For incomplete local evidence, use
 a typed pointer or source-local partial structure. Resolve unknown types from
 project evidence and add concrete required declarations before `finish`. Keep
 `sb`/`sh` parameters as `s32` unless existing declarations prove otherwise. Never
 copy `M2C_FIELD`/`M2C_UNK`, invent an ABI, add inline or handwritten assembly, or
 change assembly, compiler flags, shared tooling or headers to force a match.
+Extra argument homes, conversions or union spills justify reviewing the callee
+contract and its caller family. After an approved declaration change, recheck
+affected existing matches; a same-source caller sample is not a complete impact audit.
 
 Use the latest `finish` diagnosis; run `diagnose-diff` only if evidence is stale
 or missing. After the initial candidate, the default ceiling is two targeted
@@ -50,6 +60,20 @@ task budget justify more. Never repeat an equivalent exhausted search; larger
 budgets require evidence or improvement. Exhaustion means `candidate`. When moving
 on is authorized, preserve the best candidate with `defer <id> --reason ...`; use `resume` or
 `reopen-match` for recovery. See the [manual ledger and sustained workflow](docs/decompilation-workflow.md#sustained-manual-matching).
+Carry exhausted hypotheses and the overall task/function allocation across
+continuations. A falling score alone does not reset that allocation or establish
+a credible route to completion. Keep real snapshots/cursors distinct from
+recomputable address locals, and record the predicted assembly change as well as
+the score. `finish` saves each candidate automatically; history annotations and
+imported records never establish correctness or replace acceptance gates.
+When rejecting a candidate for incorrect behavior, unsupported accesses or insufficient
+storage, immediately annotate its saved attempt with `matching-history note <id>
+<attempt> --assessment invalid --hypothesis "<reason>"` before restoring or deferring.
+Record the reason in the ledger too; ledger text alone does not update automatic history.
+Within a continuing group, prioritise one proven sibling found by the permitted
+bounded lookup using `./conker next --ready --function <id>`. It retains normal
+eligibility/readiness checks and never falls back to another item. Record the
+independent ASM/ABI hypothesis; similarity alone does not justify new attempts.
 
 ## Acceptance and integration
 
@@ -96,6 +120,11 @@ For function work,
 report function/source, changed files, shared dependency required (yes/no), US
 focused diff, whitespace, status (`matched`/`candidate`/`blocked`) and attempts.
 For tooling or documentation changes, report the relevant checks instead.
+For timed pilots, distinguish the original workflow start, excluded setup/restart
+intervals, clean-batch completion, report creation and final audit/handoff. Report
+end-to-end elapsed time and any overrun separately from the measured matching
+window. Mark final-delivery timing unavailable when it cannot yet be observed;
+do not use report creation as the endpoint for an end-to-end or zero-overrun claim.
 
 ## Task references
 
