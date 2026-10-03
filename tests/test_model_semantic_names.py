@@ -36,6 +36,38 @@ ADDITIONAL_CHARACTER_NAMES = {
     164: "Count Batula", 178: "Gregg the Grim Reaper — hooded",
     180: "Gregg the Grim Reaper — without robe",
 }
+EXPANDED_CHARACTER_NAMES = {
+    7: "Mrs. Queen Bee",
+    8: "Brute — bullshark",
+    13: "Haystack",
+    16: "Rockman",
+    21: "Wooden Crate character",
+    22: "Uga-Buga — blue headgear",
+    23: "Mr. Big Cog",
+    33: "Bugger Lugs the Bull",
+    34: "Marvin the Mouse",
+    41: "Clang Gobling",
+    43: "The Big Big Guy",
+    44: "Ron the Paintpot",
+    45: "Reg the Paintbrush",
+    49: "Monk Gobling",
+    54: "Dino Baby",
+    56: "Rockman — bow tie",
+    59: "Wise Guy",
+    62: "Earthworm",
+    69: "Haybot — hay-covered form",
+    71: "Robo-Spider",
+    94: "Heinrich",
+    102: "Living Ammo Box",
+    105: "Jugga",
+    108: "Sunflower",
+    109: "Mr. King Bee",
+    121: "Cow",
+    127: "Mr. Barrel",
+    130: "Conker — yellow mech suit",
+    139: "Birdy",
+    142: "The Grotesque (Gargoyle)",
+}
 REVIEWED_OBJECT_NAMES = {
     (3, 1, 0): "Square-base hanging bell", (3, 60, 0): "Three throwing knives",
     (3, 61, 0): "Crossbow", (3, 62, 0): "Chainsaw",
@@ -51,6 +83,7 @@ REVIEWED_OBJECT_NAMES = {
 REVIEWED_NAMES = {(1, entry, 0): name for entry, name in REVIEWED_CHARACTER_NAMES.items()}
 REVIEWED_NAMES.update(REVIEWED_OBJECT_NAMES)
 REVIEWED_NAMES.update({(1, entry, 0): name for entry, name in ADDITIONAL_CHARACTER_NAMES.items()})
+REVIEWED_NAMES.update({(1, entry, 0): name for entry, name in EXPANDED_CHARACTER_NAMES.items()})
 
 
 def synthetic_registry(data=b"model"):
@@ -81,7 +114,7 @@ class ModelSemanticNameTests(unittest.TestCase):
         self.assertEqual(REVIEWED_NAMES,
                          {tuple(r[k] for k in ("bank", "entry", "segment")): r["name"]
                           for r in registry["models"]})
-        self.assertEqual(61, len(registry["models"]))
+        self.assertEqual(91, len(registry["models"]))
         record = next(r for r in registry["models"] if (r["bank"], r["entry"], r["segment"]) == (1, 75, 0))
         variant = model_haybot_rom_variants.contract()
         self.assertEqual(variant["rom_sha1"], registry["rom_sha1"])
@@ -128,8 +161,67 @@ class ModelSemanticNameTests(unittest.TestCase):
         self.assertEqual("Conker — black outfit", records[(1, 150, 0)]["name"])
         self.assertNotIn((1, 151, 0), records)
         self.assertEqual(42, len({c["symbol"] for r in registry["models"] for c in r["consumers"]}))
-        self.assertEqual(375, sum(len(r["consumers"]) for r in registry["models"]))
+        self.assertEqual(585, sum(len(r["consumers"]) for r in registry["models"]))
         self.assertEqual(1, sum("model_specific_branch" in r for r in registry["models"]))
+
+    def test_expanded_character_names_preserve_all_61_prior_records(self):
+        registry = names.load_registry()
+        added_keys = {(1, entry, 0) for entry in EXPANDED_CHARACTER_NAMES}
+        retained = [r for r in registry["models"]
+                    if tuple(r[k] for k in ("bank", "entry", "segment")) not in added_keys]
+        self.assertEqual(61, len(retained))
+        # Pin every prior field, including all consumer roles and branch metadata.
+        self.assertEqual("852cef24e1ed1ed686315b6f558241e6e677b815028fddf02a77fb728fb463f7",
+                         hashlib.sha256(json.dumps(retained, sort_keys=True,
+                                                   separators=(",", ":")).encode()).hexdigest())
+
+    def test_expanded_character_names_pin_exact_added_records_and_shared_consumers(self):
+        records = {tuple(r[k] for k in ("bank", "entry", "segment")): r
+                   for r in names.load_registry()["models"]}
+        added = [records[(1, entry, 0)] for entry in sorted(EXPANDED_CHARACTER_NAMES)]
+        self.assertEqual(30, len(added))
+        self.assertEqual("8c1dfef63d5d9b451c1e3268bc68e057b3e270aad180226743fcf4c647d502ce",
+                         hashlib.sha256(json.dumps(added, sort_keys=True,
+                                                   separators=(",", ":")).encode()).hexdigest())
+        generic = records[(1, 5, 0)]["consumers"]
+        for entry, expected in EXPANDED_CHARACTER_NAMES.items():
+            with self.subTest(entry=entry):
+                record = records[(1, entry, 0)]
+                self.assertEqual(expected, record["name"])
+                self.assertEqual(generic, record["consumers"])
+                self.assertEqual(7, len(record["consumers"]))
+                self.assertNotIn("model_specific_branch", record)
+                self.assertIn("docs/evidence/additional_character_semantic_registry_expansion.md",
+                              record["evidence"])
+                self.assertNotIn("LOD", record["name"])
+        self.assertEqual(42, len({c["symbol"] for r in records.values() for c in r["consumers"]}))
+        self.assertEqual(585, sum(len(r["consumers"]) for r in records.values()))
+        self.assertEqual(1, sum("model_specific_branch" in r for r in records.values()))
+
+    def test_expanded_character_labels_do_not_inherit_unproved_roles_or_branches(self):
+        registry = names.load_registry()
+        records = {(r["bank"], r["entry"], r["segment"]): r for r in registry["models"]}
+        self.assertEqual("Rockman — bow tie", records[(1, 56, 0)]["name"])
+        self.assertEqual("Wise Guy", records[(1, 59, 0)]["name"])
+        self.assertEqual("Haybot — hay-covered form", records[(1, 69, 0)]["name"])
+        self.assertNotEqual(records[(1, 69, 0)]["model_sha256"], records[(1, 75, 0)]["model_sha256"])
+        self.assertNotIn("model_specific_branch", records[(1, 69, 0)])
+        self.assertIn("model_specific_branch", records[(1, 75, 0)])
+        self.assertNotIn("func_15061B4C", {c["symbol"] for c in records[(1, 69, 0)]["consumers"]})
+        payload = b"same model bytes cannot propagate identity"
+        for record in registry["models"]:
+            record.update(source_bytes=len(payload), model_sha1=hashlib.sha1(payload).hexdigest(),
+                          model_sha256=hashlib.sha256(payload).hexdigest())
+        for entry, expected in EXPANDED_CHARACTER_NAMES.items():
+            with self.subTest(entry=entry):
+                result = names.resolve_name(registry, "us", registry["rom_sha1"], (1, entry, 0), payload)
+                self.assertEqual(expected, result["name"])
+                self.assertEqual({"status", "name", "kind", "registry_key", "evidence"}, set(result))
+                self.assertEqual({"status": "unknown", "name": None},
+                                 names.resolve_name(registry, "us", registry["rom_sha1"], (1, entry, 1), payload))
+        for key in ((1, 6, 0), (1, 53, 0), (1, 66, 0), (1, 151, 0)):
+            self.assertEqual({"status": "unknown", "name": None},
+                             names.resolve_name(registry, "us", registry["rom_sha1"], key, payload))
 
     def test_lady_cog_eye_part_consumer_is_full_span_and_exactly_scoped(self):
         registry = names.load_registry()
@@ -245,11 +337,11 @@ class ModelSemanticNameTests(unittest.TestCase):
         cases = [("eu", registry["rom_sha1"], (1, 75, 0)),
                  ("us", "0" * 40, (1, 75, 0)),
                  ("us", registry["rom_sha1"], (9, 75, 0)),
-                 ("us", registry["rom_sha1"], (1, 69, 0)),
+                 ("us", registry["rom_sha1"], (1, 6, 0)),
                  ("us", registry["rom_sha1"], (1, 75, 1)),
                  ("us", registry["rom_sha1"], (1, 0, 1)),
                  ("us", registry["rom_sha1"], (1, 151, 0)),
-                 ("us", registry["rom_sha1"], (1, 54, 0)),
+                 ("us", registry["rom_sha1"], (1, 53, 0)),
                  ("us", registry["rom_sha1"], (1, 66, 0))]
         for profile, digest, key in cases:
             with self.subTest(profile=profile, digest=digest, key=key):
@@ -490,7 +582,7 @@ class ModelSemanticNameTests(unittest.TestCase):
     def test_owned_rom_confirms_all_models_and_complete_consumer_spans(self):
         report = names.audit_registry(names.ROOT / "roms/baserom.us.z64")
         self.assertEqual(42, report["consumer_count"])
-        self.assertEqual(375, report["consumer_reference_count"])
+        self.assertEqual(585, report["consumer_reference_count"])
         self.assertEqual(1, report["model_specific_branch_count"])
         self.assertEqual([1, 3, 9], report["banks"])
         self.assertEqual([REVIEWED_NAMES[key] for key in sorted(REVIEWED_NAMES)],
