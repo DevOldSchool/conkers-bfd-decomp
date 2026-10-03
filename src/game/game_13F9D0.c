@@ -63,9 +63,9 @@ typedef struct {
 } Game13F9D0Transform;
 
 typedef struct {
-    f32 field_0;
-    f32 field_4;
-    f32 field_8;
+    f32 rotationXDegrees;
+    f32 rotationYDegrees;
+    f32 rotationZDegrees;
 } Game13F9D0TransformArgs;
 
 typedef struct {
@@ -89,15 +89,15 @@ typedef struct {
 
 typedef struct {
     u8 pad_0[0x10];
-    s16 field_10;
-    s16 field_12;
-    s16 field_14;
+    s16 positionX;
+    s16 positionY;
+    s16 positionZ;
     u8 pad_16[2];
-    f32 field_18;
+    f32 verticalOffset;
     u8 pad_1C[0x10];
-    s32 field_2C;
-    s32 field_30;
-    s32 field_34;
+    s32 scaleXBits;
+    s32 scaleYBits;
+    s32 scaleZBits;
     u8 pad_38[0x16];
     u8 kind4E;
     u8 pad_4F[0x21];
@@ -185,7 +185,7 @@ void func_15113218(void) {
                                 actor = &((Game13F9D0AttachedActor *)&D_800CC2D0)[kind - 100];
                                 if (actor->transform1D4 == 0) {
                                     func_150A7CB0((Game13F9D0Matrix *)&matrix,
-                                        motion->field_2C, motion->field_30, motion->field_34);
+                                        motion->scaleXBits, motion->scaleYBits, motion->scaleZBits);
                                     matrix.position_x = actor->xyz[0];
                                     matrix.position_y = actor->xyz[1];
                                     matrix.position_z = actor->xyz[2];
@@ -199,15 +199,15 @@ void func_15113218(void) {
                                     translation[1] = (f32)actor->field90;
                                     parent = actor->transform1D4;
                                     func_150A7CB0((Game13F9D0Matrix *)&matrix,
-                                        motion->field_2C, motion->field_30, motion->field_34);
+                                        motion->scaleXBits, motion->scaleYBits, motion->scaleZBits);
                                     matrix.position_x = parent->position_x;
                                     matrix.position_y = parent->position_y;
                                     matrix.position_z = parent->position_z;
                                     func_150442C0((f32 (*)[4])&matrix,
                                         translation[0], translation[1], translation[2]);
-                                    motion->field_10 = (s32)matrix.position_x;
-                                    motion->field_12 = (s32)matrix.position_y;
-                                    motion->field_14 = (s32)matrix.position_z;
+                                    motion->positionX = (s32)matrix.position_x;
+                                    motion->positionY = (s32)matrix.position_y;
+                                    motion->positionZ = (s32)matrix.position_z;
                                     func_150A7790(&matrix,
                                         (s32)(*D_80089250[D_800BE9C0] +
                                         (((Game13F9D0DrawEntry *)(**table + offset))->index << 6)));
@@ -465,31 +465,39 @@ typedef struct Game13F9D0Entry {
 
 extern u32 *D_800DBF94;
 
-s32 func_15114050(Game13F9D0Entry *arg0, s32 arg1) {
-    if (arg0->flags & 0x80) {
-        if (arg1 == -1) {
+/* Semantic role: placed_object_test_actor_mask.
+ * Require flag 0x80; -1 accepts that flag without consulting the actor mask.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
+s32 func_15114050(Game13F9D0Entry *placedObject, s32 actorIndexOrAny) {
+    if (placedObject->flags & 0x80) {
+        if (actorIndexOrAny == -1) {
             return 1;
         }
-        if (D_800DBF94[arg0 - (Game13F9D0Entry *)D_800DBEF4] &
-            (1 << arg1)) {
+        if (D_800DBF94[placedObject - (Game13F9D0Entry *)D_800DBEF4] &
+            (1 << actorIndexOrAny)) {
             return 1;
         }
     }
     return 0;
 }
-s32 func_151140C4(u8 *arg0) {
-    s32 var_v1;
-    u32 temp_v0;
-    u32 bits;
+/* Semantic role: placed_object_first_actor_mask_index.
+ * Require flag 0x80 and scan bits 0..31; zero also represents no set bit.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
+s32 func_151140C4(u8 *placedObject) {
+    s32 actorIndex;
+    u32 actorMask;
+    u32 actorBit;
 
-    var_v1 = 0;
-    if (*(u8 *)((u8 *)arg0 + 0x4F) & 0x80) {
-        temp_v0 = D_800DBF94[(s32) (arg0 - D_800DBEF4) / 160];
-        for (; var_v1 < 32; var_v1++) {
-            bits = temp_v0;
-            bits &= 1U << var_v1;
-            if (bits) {
-                return var_v1;
+    actorIndex = 0;
+    if (*(u8 *)((u8 *)placedObject + 0x4F) & 0x80) {
+        actorMask = D_800DBF94[(s32) (placedObject - D_800DBEF4) / 160];
+        for (; actorIndex < 32; actorIndex++) {
+            actorBit = actorMask;
+            actorBit &= 1U << actorIndex;
+            if (actorBit) {
+                return actorIndex;
             }
         }
     }
@@ -602,50 +610,62 @@ void func_1511473C(Game13F9D0MovingActor *arg0, s32 arg1) {
 void func_150A7A48(void *, void *, void *);
 void func_150A8050(void *, f32, f32, f32);
 
-void func_151148A8(Game13F9D0Transform *arg0, Game13F9D0TransformArgs *arg1) {
-    Game13F9D0Transform sp18;
+/* Semantic role: placed_object_build_orientation.
+ * Compose placement-derived X/Y/Z rotations, expressed in degrees.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
+void func_151148A8(Game13F9D0Transform *orientation, Game13F9D0TransformArgs *rotation) {
+    Game13F9D0Transform xzRotation;
 
-    func_150A8050(arg0, 0.0f, arg1->field_4, 0.0f);
-    func_150A8050(&sp18, arg1->field_0, 0.0f, arg1->field_8);
-    func_150A7A48(&sp18, arg0, arg0);
+    func_150A8050(orientation, 0.0f, rotation->rotationYDegrees, 0.0f);
+    func_150A8050(&xzRotation, rotation->rotationXDegrees, 0.0f, rotation->rotationZDegrees);
+    func_150A7A48(&xzRotation, orientation, orientation);
 }
 void func_150A7CB0(Game13F9D0Matrix *, s32, s32, s32);
 
-void func_1511490C(Game13F9D0Transform *arg0,
-                   Game13F9D0MotionArgs *arg1) {
-    Game13F9D0Matrix sp20;
+/* Semantic role: placed_object_build_transform.
+ * Add the vertical offset to Y; pass scale bit patterns through unchanged.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
+void func_1511490C(Game13F9D0Transform *transform,
+                   Game13F9D0MotionArgs *placedObject) {
+    Game13F9D0Matrix scaleMatrix;
 
-    func_151148A8(arg0, (Game13F9D0TransformArgs *)arg1);
-    arg0->position_x = (f32)arg1->field_10;
-    arg0->position_y = (f32)arg1->field_12 + arg1->field_18;
-    arg0->position_z = (f32)arg1->field_14;
-    func_150A7CB0(&sp20, arg1->field_2C, arg1->field_30, arg1->field_34);
-    func_150A7A48(&sp20, arg0, arg0);
+    func_151148A8(transform, (Game13F9D0TransformArgs *)placedObject);
+    transform->position_x = (f32)placedObject->positionX;
+    transform->position_y = (f32)placedObject->positionY + placedObject->verticalOffset;
+    transform->position_z = (f32)placedObject->positionZ;
+    func_150A7CB0(&scaleMatrix, placedObject->scaleXBits, placedObject->scaleYBits, placedObject->scaleZBits);
+    func_150A7A48(&scaleMatrix, transform, transform);
 }
-s32 func_151149AC(u8 arg0) {
-    s32 temp_t6;
-    s32 var_a2;
-    s32 var_a3;
-    s32 var_v1;
-    s32 base;
+/* Semantic role: placed_object_find_by_id.
+ * Return the first matching object address; zero ID or no match returns zero.
+ * See docs/evidence/placed_object_helper_semantics.md.
+ */
+s32 func_151149AC(u8 objectId) {
+    s32 requestedObjectId;
+    s32 objectOffset;
+    s32 objectAddress;
+    s32 objectIndex;
+    s32 objectPoolBase;
 
-    temp_t6 = arg0;
-    if (temp_t6 == 0) {
+    requestedObjectId = objectId;
+    if (requestedObjectId == 0) {
         return 0;
     }
-    var_v1 = 0;
+    objectIndex = 0;
     if (D_800DBEF0 > 0) {
-        base = D_800DBEF4;
-        var_a2 = 0;
-        var_a3 = base;
+        objectPoolBase = D_800DBEF4;
+        objectOffset = 0;
+        objectAddress = objectPoolBase;
         do {
-            var_v1 += 1;
-            if (temp_t6 == *(u8 *)((u8 *)var_a3 + 0x72)) {
-                return var_a2 + base;
+            objectIndex += 1;
+            if (requestedObjectId == *(u8 *)((u8 *)objectAddress + 0x72)) {
+                return objectOffset + objectPoolBase;
             }
-            var_a2 += 0xA0;
-            var_a3 += 0xA0;
-        } while (var_v1 < D_800DBEF0);
+            objectOffset += 0xA0;
+            objectAddress += 0xA0;
+        } while (objectIndex < D_800DBEF0);
     }
     return 0;
 }
