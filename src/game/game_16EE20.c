@@ -29,6 +29,7 @@
  * - func_15144A74
  * - func_15144B68
  * - func_15144CEC
+ * - func_15144E80
  * - func_151452C4
  * - func_1514563C
  * - func_15145740
@@ -623,10 +624,10 @@ void func_15142600(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 
-void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
+void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
     f32 transform[4][4];
 
-    func_150A8050(transform, arg3, *(f32 *)&arg4, arg5);
+    func_150A8050(transform, arg3, arg4, arg5);
     transform[3][0] = arg6;
     transform[3][1] = arg7;
     transform[3][2] = arg8;
@@ -1736,50 +1737,60 @@ typedef struct {
 } Game16EE20Vector3;
 
 void func_151450B4(void *, void *, void *);
+void *memcpy(void *, const void *, u32);
 
-s32 func_15144E80(s16 *arg0, Game16EE20Vector3 *arg1,
-                  Game16EE20Vector3 *arg2, Game16EE20Vector3 *arg3) {
-    struct {
-        Game16EE20Vector3 secondEdge;
-        Game16EE20Vector3 firstEdge;
-        Game16EE20Vector3 fallback;
-        Game16EE20Vector3 first;
-        Game16EE20Vector3 second;
-        Game16EE20Vector3 third;
-    } locals;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144E80 CURRENT (1615) */
+s32 func_15144E80(void *arg0, void *arg1, void *arg2, void *arg3) {
+    typedef struct {
+        f32 x;
+        f32 y;
+        f32 z;
+    } TriangleVector;
+    TriangleVector vertices[3];
+    TriangleVector normal;
+    TriangleVector first_edge;
+    TriangleVector second_edge;
 
     if (arg3 == 0) {
-        arg3 = &locals.fallback;
+        arg3 = &normal;
     }
-    locals.first.x = arg0[0];
-    locals.first.y = arg0[1];
-    locals.first.z = arg0[2];
-    locals.second.x = arg0[3];
-    locals.second.y = arg0[4];
-    locals.second.z = arg0[5];
-    locals.third.x = arg0[6];
-    locals.third.y = arg0[7];
-    locals.third.z = arg0[8];
-    if (locals.first.x == locals.second.x && locals.first.y == locals.second.y && locals.first.z == locals.second.z) {
+    vertices[0].x = (f32)((s16 *)arg0)[0];
+    vertices[0].y = (f32)((s16 *)arg0)[1];
+    vertices[0].z = (f32)((s16 *)arg0)[2];
+    vertices[1].x = (f32)((s16 *)arg0)[3];
+    vertices[1].y = (f32)((s16 *)arg0)[4];
+    vertices[1].z = (f32)((s16 *)arg0)[5];
+    vertices[2].x = (f32)((s16 *)arg0)[6];
+    vertices[2].y = (f32)((s16 *)arg0)[7];
+    vertices[2].z = (f32)((s16 *)arg0)[8];
+    if ((vertices[0].x == vertices[1].x) &&
+        (vertices[0].y == vertices[1].y) &&
+        (vertices[0].z == vertices[1].z)) {
         return 0;
     }
-    if (locals.first.x == locals.third.x && locals.first.y == locals.third.y && locals.first.z == locals.third.z) {
+    if ((vertices[0].x == vertices[2].x) &&
+        (vertices[0].y == vertices[2].y) &&
+        (vertices[0].z == vertices[2].z)) {
         return 0;
     }
-    if (locals.second.x == locals.third.x && locals.second.y == locals.third.y && locals.second.z == locals.third.z) {
+    if ((vertices[1].x == vertices[2].x) &&
+        (vertices[1].y == vertices[2].y) &&
+        (vertices[1].z == vertices[2].z)) {
         return 0;
     }
-    locals.firstEdge.x = locals.first.x - locals.second.x;
-    locals.firstEdge.y = locals.first.y - locals.second.y;
-    locals.firstEdge.z = locals.first.z - locals.second.z;
-    locals.secondEdge.x = locals.third.x - locals.second.x;
-    locals.secondEdge.y = locals.third.y - locals.second.y;
-    locals.secondEdge.z = locals.third.z - locals.second.z;
-    func_151450B4(&locals.firstEdge, &locals.secondEdge, arg3);
-    func_151450B4(&locals.firstEdge, arg3, arg1);
-    *arg2 = locals.firstEdge;
+    first_edge.x = vertices[0].x - vertices[1].x;
+    first_edge.y = vertices[0].y - vertices[1].y;
+    first_edge.z = vertices[0].z - vertices[1].z;
+    second_edge.x = vertices[2].x - vertices[1].x;
+    second_edge.y = vertices[2].y - vertices[1].y;
+    second_edge.z = vertices[2].z - vertices[1].z;
+    func_151450B4(&first_edge, &second_edge, arg3);
+    func_151450B4(&first_edge, arg3, arg1);
+    memcpy(arg2, &first_edge, sizeof(first_edge));
     return 1;
 }
+#endif /* CONKER_DEFERRED_CANDIDATE func_15144E80 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144E80.s")
 void func_151450B4(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) ((*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 8)) - (*(f32 *)((u8 *)arg1 + 4) * *(f32 *)((u8 *)arg0 + 8)));
     *(f32 *)((u8 *)arg2 + 4) = (f32) ((*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 0)) - (*(f32 *)((u8 *)arg1 + 8) * *(f32 *)((u8 *)arg0 + 0)));

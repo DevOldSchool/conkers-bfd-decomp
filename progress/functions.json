@@ -7301,17 +7301,16 @@
       "symbol": "func_15011A78"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 290,
-        "reason": "CURRENT (290): full span, frame, registers and body match; only loop-index zero initialization is scheduled at 0x5c instead of raw branch delay slot 0x70, shifting three address addiu instructions; source-position probe unchanged",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 380,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15122AE0",
           "vram": "0x15122AE0"
         }
@@ -7472,7 +7471,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 5742,
-        "reason": "Manual initial10206 improved5742; frame130vs118; output stack offsets, V0/V1 roles, FP operand and branch scheduling remain. Six revisions; last two non-improving. Best4 saved in camera-lifetimes-manual-20260930.",
+        "reason": "CURRENT5742 preserved. Beta-supported retail-only old_distance scope was neutral5742 with unchanged frame130vs118; original restored. Collision buffers are genuine and debug agrees with raw118 layout; no extra storage justified. Prior six lifetime revisions and final two neutral probes remain exhausted. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7564,8 +7563,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3598,
-        "reason": "Manual lifetime pass5934 to3598 in12revisions: real FP/integer lifetime reuse, branch results, pointer snapshots and ADD operand order improved; vector and else-scope probes neutral. Remaining frame70vs60, outputhomes+1C, FPzero/ordering and flags/call scheduling. Best preserved in camera-lifetimes-manual-20260930; two final non-improving probes exhausted.",
+        "current_score": 3092,
+        "reason": "Beta-supported true-arm scope for real retail-added float outputs improves3598 to3092; scalar identities/order and operations unchanged. Frame70vs60 remains; float homes30/34/38 vs40/44/48, halfword homes+1C, FP/control scheduling unresolved. Prior vector/else-scope probes not repeated. Best preserved in camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7656,7 +7655,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 560,
-        "reason": "CURRENT560 preserved; camera-manual-20260930 float-local/anonymous integer conversion neutral560. Prior outer else and declaration ordering failed; named integer removal did not change allocation. No shared changes.",
+        "reason": "CURRENT560 reverified after fixing stale candidate parameter declaration to agree with the existing void-pointer prototype; original typed field view retained locally, ABI/body unchanged. Prior float-local/outer-else/declaration hypotheses exhausted. Explicit pointer middle-range return remains, no undefined return. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7767,7 +7766,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 295,
-        "reason": "Manual raw pass best CURRENT295: bound snapshot fixes reloads; outer ADD reversal neutral, shared phase/scale lifetime regresses910. Remaining FP allocation/operand ordering and frame48vs38; preserve best, no padding.",
+        "reason": "CURRENT295 preserved. Inline derived pointers neutral295; beta-supported true-arm-only declaration scope regressed867 and frame48to58. Original restored/reverified. Prior bound snapshot improved; outer ADD neutral and phase/scale reuse regressed910. No further scope variants without new evidence. camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7783,17 +7782,16 @@
       "symbol": "func_151256BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT10 improved from530: explicit null-target else restores all control flow and full328B extent. Only frame38 vs30 differs. Direct flags regressed30 (homes +4); scoped target neutral10. Best saved camera-manual-20260930; no padding. Prior FP-chain/declaration/call probes exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125924",
           "vram": "0x15125924"
         }
@@ -7935,7 +7933,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1522,
-        "reason": "Manual raw callback3637\u21921522 best: unsigned bit views/shared mask, single-arg existing helper pattern, explicit else/shared cleanup. Formal reuse, float address view, 2/4-arg helper shapes exhausted. Frame/register/mask scheduling unresolved; helper ABI not independently established. See camera-raw-manual-20260930.",
+        "reason": "CURRENT1522 retained. Helper contract now established: game runtime100111C8 maps to matched MAIN800111C8, void(u16), so current one-argument call is correct. Prior formal/float-address/2or4-argument shapes exhausted; frame/register/mask scheduling remain. No source-body change in contract refresh. camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -8007,6 +8005,12 @@
       "symbol": "func_15127FEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2548,
+        "reason": "Fresh owned-ROM-derived candidate3498 to2548; real disjoint locals restore exact frame30, unsigned timer subtraction preserves raw wrapping. Completion returns target pointer proven preserved through FP helper chain; defined C reloads it. Return/control, FP/GPR scheduling and NaN operand order unresolved. No undefined return/invented ABI. Evidence camera-completion-20261003.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8110,17 +8114,16 @@
       "symbol": "func_1512868C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Referenced upstream C reproduces every semantic instruction exactly; CURRENT (300) is only three trailing NOPs retained by this checkout's reviewed 108-byte span",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15128774",
           "vram": "0x15128774"
         }
@@ -8885,17 +8888,15 @@
       "symbol": "func_151C9B64"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 90,
-        "reason": "CURRENT90 after5 hypotheses: frame28 and instruction/control sequence exact, 16 register rows around index/type/switch allocation plus2 rodata operands. Directarg1, wordlocals and declarationorder plateau. ROM table includes empty12/18/38/3B; case9 default lowerbound reconstructed. If future0, full CC-byte table mapping at800AADBC requires mixedrodata audit, no mapping added.",
+      "blocked": {
+        "reason": "Source-valid starter blocked: raw151C9BF8 indexes D_800CBFA8 by an owner byte times0x32C after only a nonzero guard. Bounded source/include, reviewed evidence and prior-ledger search found no complete array base/extent or index invariant. Do not declare a scalar alias as an array or force integer-address walking. Related151CA6A0/151CAD28 call contracts also need review before source translation. Retain original assembly; no candidate or match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 584,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151C9BA0",
           "vram": "0x151C9BA0"
         }
@@ -9211,6 +9212,12 @@
       "symbol": "func_151CC290"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10,
+        "reason": "Fresh callback with source-backed void(void*,void**,u8) table ABI, actual s32 event/payload identity, initialized finite source colors and complete owner. Initial source CURRENT10 differs only in two identity-load register assignments. Equality reversal remains10; explicit guarded message local regresses480. Preserve simplest valid10; all four unsigned conversion sequences and stores otherwise exact. Three-form budget exhausted; no forced storage or permutation.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -9224,6 +9231,12 @@
       "symbol": "func_151CC2BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5208,
+        "reason": "One ordinary constructor trial after reviewed local void-return and SDK memcpy contracts. Two genuine0x58 locals, typed owner pointer matching accepted updater, initialized payload prefix, reserved byte tail and defined unsigned masked shift. CURRENT5208 with0xE8 frame versus raw0xE0 and store/flag/call scheduling residuals. Preserve valid candidate; no truncated descriptor, forced storage, invented return or narrowed six fullword formals. Rotate to the related callback under the scoped trial budget.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -12570,16 +12583,17 @@
       "symbol": "func_15144CEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1615,
+        "reason": "Fresh full-vector translation produced396 then focused0/layout with natural x/y/z edge order, but independent source review rejected aggregate destination typing for a known declared-byte-buffer caller. Reopened exact form: no match credit. Final ordinary SDK-compatible memcpy12B form is target-source-valid CURRENT1615, emits a call; existing caller byte-storage/f32 contract remains unproved. Preserve safe-copy candidate, retain aggregate forms diagnostic-only; three-form budget exhausted, no invented intrinsic/padding/punning.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
-          "evidence": {
-            "current_differences": 0,
-            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-            "verified_revision": "working-tree"
-          },
           "size_bytes": 564,
-          "state": "matched",
+          "state": "raw_asm",
           "symbol": "func_15144E80",
           "vram": "0x15144E80"
         }
@@ -42055,8 +42069,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 935,
-        "reason": "Repaired missing temp_v1 declaration; fresh full CURRENT935. Local file-scope func_1515D480(u8) conflicts with raw full-word callee and existing s32 declarations, forcing extra ANDI; correction proposal awaits approval. Loop/control lifetime differences remain.",
+        "current_score": 735,
+        "reason": "Correct local void *(s32) helper contract with target-defined u32 address-word storage and compatible signed-word zero test. Full-word selected value/load locals retain their proven byte range. Source-valid CURRENT 735 improves prior valid 935; selector-branch scheduling and pointer/index registers remain. Earlier pointer-object/integer-lvalue forms are rejected diagnostic history, not valid candidates. No callee rewrite, source search, forced storage, or aliasing bypass.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -51331,17 +51345,16 @@
       "symbol": "func_15133A94"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 3577,
-        "reason": "Preserved concrete fabsf float prototype and existing six-argument signature, liveCURRENT3577 from5607. IDO needs file-scope intrinsic directive (rawabs.s); function-scoped directive rejected. Proposed two-line declaration awaits shared-scope approval.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15133B98",
           "vram": "0x15133B98"
         }
@@ -67471,6 +67484,12 @@
       "symbol": "func_151564F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1075,
+        "reason": "Fresh real0x48/0x70 descriptor split with producer-backed0x8C input prefix and genuine f32 aggregates. Conservative s32 selector with call-site low-byte casts gives1949; normalizing that same formal once improves1075 with exact0xE0 frame/all descriptor offsets. Residual argument-home/byte-extraction and resulting GPR schedule differ. No active target declaration proves a u8 formal, so do not narrow solely for codegen or force homes. Preserve valid1075 after two forms; source review pending.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -67503,6 +67522,12 @@
       "symbol": "func_15156B54"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2335,
+        "reason": "Fresh complete0x90 combined-record producer follows all raw stores, memcpy12B point, exact float constants, all PRNG calls including discarded call, and established u8 selector. Initial real record+scale form CURRENT2335; direct record scale reuse2527 does not recover raw0xA8 frame (candidate0xB0). Retain best source-valid2335; do not truncate required producer storage, invent separate dead scalar, force alignment, or repeat known random-flag donor forms.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -69338,8 +69363,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1558,
-        "reason": "Manual low-usage attempt improved CURRENT from 1709 to 1558; cleanup semantics align but frame/register scheduling still differs.",
+        "current_score": 2446,
+        "reason": "Corrected source-local cleanup contract and forwards the consumed original owner as a full32bit word. First repaired form CURRENT2446 versus historical1558 that omitted this argument. Remaining owner-home, interior-pointer reload and helper-mask scheduling differences have no fresh source-backed storage hypothesis. Keep corrected candidate; no forced spills or repeated sibling lifetime experiments.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69357,8 +69382,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 444,
-        "reason": "Manual2583->1656->444: correct1516979Cvoid(u8*) andpreservestateacrossfrees; volatileowner/two snapshots. RemaininginitialGPR/spill1Cvs18 andmissingfinalownerarg. Concrete1513CAA0onearg ABI conflictslocalvoid prototypealsousedbymatched15101210; requirescoordinatedaudit beyondselectedregion. Ledger deferred-manual-20260927.",
+        "current_score": 1223,
+        "reason": "Corrected consumed original-owner argument and local void(s32) cleanup contract, and removed unsupported volatile parameter qualifier. First source-valid repaired form CURRENT1223; old444 used a storage-forcing qualifier and omitted a consumed argument, so is not a valid best-source comparator. Remaining argument-home/GPR/frame and interior-pointer scheduling differences lack new source evidence; no volatile/padding/forced storage trial. Preserve valid candidate and rotate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74177,8 +74202,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2309,
-        "reason": "CURRENT (2309): full extra-argument layout compiles through a compatible function-pointer cast, but indirect jalr and scheduling differ from the historical direct unprototyped call",
+        "current_score": 1662,
+        "reason": "All-caller 28-slot helper contract restores direct JAL and removes incompatible cast; CURRENT 2309 to 1662. Actual scale/selector locals scored 1666; used u8 selector scored 1662. Argument homes and constant/store scheduling remain different. Full-word wrapper formals and the simplest direct-call candidate are preserved; no forced storage or unsupported narrowing.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74196,8 +74221,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2309,
-        "reason": "CURRENT (2309): same direct-unprototyped-call ABI blocker as sibling func_151A0E40; compatible cast compiles but emits jalr and different scheduling",
+        "current_score": 1662,
+        "reason": "All-caller 28-slot helper contract and floating slot 4 recover direct JAL; CURRENT 2309 to 1662. Argument homes and constant/store scheduling differ exactly as in independently inspected sibling 151A0E40. Its two non-improving real-dataflow revisions were not repeated here. Direct-call candidate preserved without narrowing or forced storage.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -89626,8 +89651,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7674,
-        "reason": "Manual plane-test translation remained CURRENT (7674) over full 400-byte US span: IDO emitted jal fabsf twice and a 0x28 frame, while raw uses abs.s inline and a leaf 0x10 frame. Project-used __builtin_fabsf form produced the same call sequence; no source-only intrinsic evidence remains, so preserve candidate and advance.",
+        "current_score": 1394,
+        "reason": "Approved source-local fabsf intrinsic removes the two erroneous calls. Three new evidence-backed forms: intrinsic only2737, genuine projection intermediates1477, reuse existing vertical-result local1394. Best valid candidate preserves ten-argument ABI, arithmetic grouping and raw0x10 leaf frame/sp0 spill. Residual register/evaluation order and full registered extent remain; no padding, volatile, forced storage, or permutation. Bounded attempts exhausted; preserve candidate and rotate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
