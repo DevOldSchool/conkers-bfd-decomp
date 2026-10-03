@@ -375,10 +375,12 @@ class GameComparisonWorkflowTests(unittest.TestCase):
                      "opt-in integration tests require the pinned toolchain and reviewed US ROM")
 class RegisteredGameComparisonTests(unittest.TestCase):
     def test_real_preceding_unit_cannot_claim_the_initializer_interval(self):
-        root, source, symbol = diff.ROOT, "src/game/game_1A0100.c", "func_15172C50"
+        root, symbol = diff.ROOT, "func_15172C50"
+        source_path, _ = diff.find_work_item(symbol, "us", overlay="game")
+        source = source_path.relative_to(root).as_posix()
         functions = json.loads((root / "progress/functions.json").read_text())
         units = json.loads((root / "progress/source_units.json").read_text())
-        previous = next(unit for unit in units["source_units"] if unit["source"] == "src/game/game_19F150.c")
+        previous = next(unit for unit in units["source_units"] if unit["functions"][-1] == "func_15172B20")
         self.assertEqual("0x172C50", previous["regions"]["us"]["end"])
         final_member = next(entry for entry in functions["functions"] if entry["symbol"] == previous["functions"][-1])
         final_member["regions"]["us"].pop("size_bytes", None)
@@ -400,29 +402,49 @@ class RegisteredGameComparisonTests(unittest.TestCase):
         root, symbol = diff.ROOT, "func_15172C50"
         source, _ = diff.find_work_item(symbol, "us", overlay="game")
         relative = source.relative_to(root)
+        mixed_relative = Path(relative.as_posix().replace("src/done/", "src/", 1))
         original = source.read_bytes()
         content = source.read_text()
         if diff.work_item_is_deferred(symbol):
             content = diff.activate_deferred_candidate(content, source, symbol)
         neighbor = "func_15172CA8"
         start, end = project_state.c_function_span(content, neighbor)
-        content = content[:start] + project_state.global_asm_pragma(relative.as_posix(), neighbor) + "\n" + content[end:]
+        content = content[:start] + project_state.global_asm_pragma(mixed_relative.as_posix(), neighbor) + "\n" + content[end:]
         with tempfile.TemporaryDirectory(dir=root / "build") as temporary:
             fixture = Path(temporary)
-            for directory in ("scripts", "progress", "src"):
+            for directory in ("scripts", "progress", "src", "config"):
                 shutil.copytree(root / directory, fixture / directory)
-            for directory in ("config", "include", "reference", "roms", "toolchain", "tools", "docs"):
+            for directory in ("include", "reference", "roms", "toolchain", "docs"):
                 (fixture / directory).symlink_to(root / directory, target_is_directory=True)
             for name in ("Dockerfile", "Makefile"):
                 shutil.copy2(root / name, fixture / name)
-            (fixture / relative).write_text(content)
+            if mixed_relative != relative:
+                (fixture / relative).unlink()
+                mapping_path = fixture / "config/game/us.yaml"
+                mapping = mapping_path.read_text()
+                old_mapping = relative.relative_to("src").with_suffix("").as_posix()
+                new_mapping = mixed_relative.relative_to("src").with_suffix("").as_posix()
+                self.assertEqual(1, mapping.count(old_mapping))
+                mapping_path.write_text(mapping.replace(old_mapping, new_mapping))
+            (fixture / mixed_relative).write_text(content)
             inventory_path = fixture / "progress/functions.json"
             inventory = json.loads(inventory_path.read_text())
             for entry in inventory["functions"]:
+                if entry.get("source") == relative.as_posix():
+                    entry["source"] = mixed_relative.as_posix()
                 if entry["symbol"] in (symbol, neighbor):
                     entry.pop("deferred", None)
                     entry["regions"]["us"]["state"] = "raw_asm"
             inventory_path.write_text(json.dumps(inventory))
+            units_path = fixture / "progress/source_units.json"
+            units = json.loads(units_path.read_text())
+            unit = next(unit for unit in units["source_units"] if unit["source"] == relative.as_posix())
+            unit["source"] = mixed_relative.as_posix()
+            unit["integration"] = "mixed"
+            members = [entry for entry in inventory["functions"] if entry["symbol"] in unit["functions"]]
+            unit["regions"]["us"]["state"] = project_state.source_unit_work_state(members)
+            self.assertEqual("in_progress", unit["regions"]["us"]["state"])
+            units_path.write_text(json.dumps(units))
             result = subprocess.run([sys.executable, "scripts/diff.py", "us", symbol, "--game", "--require-match"],
                                     cwd=fixture, capture_output=True, text=True)
             self.assertEqual(0, result.returncode, result.stdout + result.stderr)
