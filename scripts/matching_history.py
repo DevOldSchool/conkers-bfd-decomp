@@ -241,6 +241,10 @@ def summarize(root: Path, identifier: str, limit: int = 5, *, compact: bool = Fa
         if current_score is not None and best["score"] < current_score:
             print("history-warning: deferring a higher score; review the archived alternative and its "
                   "context before selecting a candidate (no automatic restoration)")
+            print(f"history-assessment: if rejected for correctness, annotate the saved attempt: "
+                  f"./conker matching-history note {identifier} {best['attempt_id']} "
+                  '--assessment invalid --hypothesis "<specific correctness reason>"; '
+                  "manual ledger notes do not update this assessment")
     for row in rows[-limit:]:
         note = row["note"]
         print(f"attempt: {row['attempt_id']} score={row.get('score')} status={row['status']} "

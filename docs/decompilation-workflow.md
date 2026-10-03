@@ -488,6 +488,7 @@ batch IDs in a small checkpoint updated after each match and clean batch.
 ./conker matching-history show <id>
 ./conker matching-history note <id> <attempt> --hypothesis "real cursor, derived row address" --expected "frame contracts; cursor advance unchanged" --assessment structural
 ./conker matching-history note <id> <attempt> --exhausted
+./conker matching-history note <id> <rejected-attempt> --assessment invalid --hypothesis "Unsupported memory access; raw code does not read this field"
 ./conker matching-history export <id> /private/tmp/attempts.zip
 ./conker matching-history import /private/tmp/attempts.zip
 ./conker matching-context <id> --mechanism real-state
@@ -495,7 +496,13 @@ batch IDs in a small checkpoint updated after each match and clean batch.
 ```
 
 Assessments are `unreviewed`, `valid`, `invalid`, or `structural`: reviewer notes,
-not automated correctness checks. The lowest observed score is reported only for
+not automated correctness checks. Mark an attempt `invalid` as soon as it is
+rejected for incorrect behavior, unsupported accesses or insufficient storage,
+before restoring another candidate or deferring. Include the concrete reason in
+its hypothesis annotation and the task ledger. Ledger text is not parsed into
+automatic assessments; each rejected attempt ID must be annotated explicitly.
+A worse score or a plateau alone is not an invalidity finding.
+The lowest observed score is reported only for
 compatible recorded context, excluding explicitly invalid or changed candidates.
 It is distinct from a useful structural experiment or a reviewed valid candidate.
 The latest recorded `finish` action and score remain visible separately, even when

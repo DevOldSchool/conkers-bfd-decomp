@@ -66,6 +66,10 @@ a credible route to completion. Keep real snapshots/cursors distinct from
 recomputable address locals, and record the predicted assembly change as well as
 the score. `finish` saves each candidate automatically; history annotations and
 imported records never establish correctness or replace acceptance gates.
+When rejecting a candidate for incorrect behavior, unsupported accesses or insufficient
+storage, immediately annotate its saved attempt with `matching-history note <id>
+<attempt> --assessment invalid --hypothesis "<reason>"` before restoring or deferring.
+Record the reason in the ledger too; ledger text alone does not update automatic history.
 Within a continuing group, prioritise one proven sibling found by the permitted
 bounded lookup using `./conker next --ready --function <id>`. It retains normal
 eligibility/readiness checks and never falls back to another item. Record the

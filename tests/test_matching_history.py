@@ -154,6 +154,25 @@ class MatchingHistoryTests(unittest.TestCase):
         self.assertNotEqual(row["attempt_id"], another["attempt_id"])
         self.assertIn("2 finish calls, 1 distinct inputs", self.show())
 
+    def test_higher_score_warning_explains_how_to_exclude_invalid_alternative(self):
+        _, row = self.record()
+        source_before = (self.root / "src/test.c").read_bytes()
+        inventory_before = (self.root / "progress/functions.json").read_bytes()
+        output = self.show(current_score=100)
+        self.assertIn("history-warning:", output)
+        self.assertIn(f"./conker matching-history note func_test {row['attempt_id']} "
+                      '--assessment invalid --hypothesis "<specific correctness reason>"', output)
+        self.assertIn("manual ledger notes do not update this assessment", output)
+        history.annotate(self.root, "func_test", row["attempt_id"], assessment="invalid",
+                         hypothesis="Unsupported memory access absent from the raw code")
+        output = self.show(current_score=100)
+        self.assertNotIn("history-warning:", output)
+        self.assertNotIn("history-assessment:", output)
+        self.assertNotIn("lowest-observed:", output)
+        self.assertIn("assessment=invalid", output)
+        self.assertEqual(source_before, (self.root / "src/test.c").read_bytes())
+        self.assertEqual(inventory_before, (self.root / "progress/functions.json").read_bytes())
+
     def test_source_drift_is_explicit_and_never_best(self):
         self.child("from pathlib import Path\nPath('src/test.c').write_text('void func_test(void) { int a; }\\n')\n"
                    "print('func_test: CURRENT (0)')\nprint('AGENT_ACTION: STOP_MATCHED')\n")
