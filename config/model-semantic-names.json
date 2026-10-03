@@ -1251,6 +1251,1008 @@
         "No model-specific branch, scene-specific spawn record, runtime activation, or unused status is asserted.",
         "Naming does not establish native appearance, material fidelity, animation state, visibility, or playback timing."
       ]
+    },
+    {
+      "bank": 3,
+      "entry": 1,
+      "segment": 0,
+      "name": "Square-base hanging bell",
+      "model_sha1": "0b795c25556a2d8d2c54f6b746e2cd40901e85f6",
+      "model_sha256": "8cb44594b869bb0e996ad2bd7a6bc8fc9dcb7928a5e5e1d6e1375f7386f823f5",
+      "source_bytes": 2632,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 60,
+      "segment": 0,
+      "name": "Three throwing knives",
+      "model_sha1": "dda7b222766f523006c34a174be96dd118c1012c",
+      "model_sha256": "fdd7766f39ed7a08b848e55265e67fde9ff3a39daabb969ff8322964b7aa36f1",
+      "source_bytes": 2488,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 61,
+      "segment": 0,
+      "name": "Crossbow",
+      "model_sha1": "0d205a68f1f68118faa55a1eab0b9529ee4101a7",
+      "model_sha256": "096a7b44aae27581e202ac7be01089b08e23b28a1b91d84f881cbdfcc3a956c1",
+      "source_bytes": 3672,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 62,
+      "segment": 0,
+      "name": "Chainsaw",
+      "model_sha1": "5ba5d7de3afe88cb434d89ed8bc8ece66724c199",
+      "model_sha256": "b7c7aade90f975bba762f9b19f85f386ba9226e4d0853f7b54aa125cd199ab40",
+      "source_bytes": 2920,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 77,
+      "segment": 0,
+      "name": "Cock and Plucker sign",
+      "model_sha1": "8963d7467ab1a3a59106e16d026c2f02619e6c4b",
+      "model_sha256": "e8da1451b79fc304d45f6cb940578f051cfc0caba877c068d9d44a32aefbb976",
+      "source_bytes": 2264,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 82,
+      "segment": 0,
+      "name": "Curved sword",
+      "model_sha1": "7f2051512e10517a858d4a570f5c2cc6981bed48",
+      "model_sha256": "62d56ea6ae55c54fe7a969b64dfd72f5fcde6745bd915baa5842ef69f52efb84",
+      "source_bytes": 872,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 83,
+      "segment": 0,
+      "name": "Revolver",
+      "model_sha1": "b67220d399af223a0bfb7690b4d7e585b4ca1436",
+      "model_sha256": "9eec9129c407338f9a38b2ca82286a9b69f3f941614b330f676ad71e0929dfe8",
+      "source_bytes": 4600,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 87,
+      "segment": 0,
+      "name": "Grenade crate",
+      "model_sha1": "36f3c33de08e9cbf932d7106ede145ddc0354818",
+      "model_sha256": "818938c7ade06f444d2a3f2b3710eefdfb547962b998c53bcaa50dbe0897924d",
+      "source_bytes": 792,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 91,
+      "segment": 0,
+      "name": "Vitamin bottle",
+      "model_sha1": "335606c70c319b66aee6e6bf0039353490308680",
+      "model_sha256": "13f9c3163141fd4df80c7b6fec578f9f2809edda4a2d33de6a56b17dcce5f7e7",
+      "source_bytes": 792,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 95,
+      "segment": 0,
+      "name": "Tracked vehicle",
+      "model_sha1": "b2f3d4a35bc2ab6913496302099dd546bbe93256",
+      "model_sha256": "4c03680dc777df4669dd8d0c2377b5a22814a1654d76c403eddf6a29a4aa3410",
+      "source_bytes": 4792,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 98,
+      "segment": 0,
+      "name": "Closed / Back at 10 sign",
+      "model_sha1": "0d6ae864d411ee363fbb897fda06dac845647c77",
+      "model_sha256": "000fa0e5a6a5a1b72a883c22608b059c862416284d7ec23008cb7402cdb36ae6",
+      "source_bytes": 680,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 3,
+      "entry": 110,
+      "segment": 0,
+      "name": "Bombs crate",
+      "model_sha1": "c31edd51f79482dfeca8eb268647a98712dae6ac",
+      "model_sha256": "79e0312ad74920e2315503fb81193e4cab2fea3c02bba32c59e4188337dbe1ca",
+      "source_bytes": 792,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_object_material_consensus.md",
+        "docs/evidence/us_model_scene_consumers.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "load the bank-03 model index from placement record +0x10 and retain its primary list"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Reviewed static placement records admit the ordinary direct draw path; no scene name, live visibility or model-exclusive controller is asserted."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 29,
+      "segment": 0,
+      "name": "Cigar",
+      "model_sha1": "48ddf0a838a1d41c2bf79ae90b00f02e512bc684",
+      "model_sha256": "a080b44823b83bae5639e1d89b1b8da26ccc535a835394f430562ae56c040efc",
+      "source_bytes": 552,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_model_review_selections.md",
+        "docs/evidence/us_model_reference_corrections.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1514DCAC",
+          "vram": "0x1514DCAC",
+          "size_bytes": 72,
+          "sha1": "39365f94e0a7a6b0bfa482f77edee0c0c042b57b",
+          "role": "request actions 35 and 68 for the same parent; downstream creation may fail"
+        },
+        {
+          "symbol": "func_15083568",
+          "vram": "0x15083568",
+          "size_bytes": 356,
+          "sha1": "419012702249e321c26fc2badb49949b0aafa0fc",
+          "role": "dispatch action records while preserving parent and distinct model/kind/animation fields"
+        },
+        {
+          "symbol": "func_15030AF4",
+          "vram": "0x15030AF4",
+          "size_bytes": 608,
+          "sha1": "f506f08cf457bc3d9bb7a751c0c1381e2ddd39a9",
+          "role": "construct an attachment from the selected action record; shared attachment path"
+        },
+        {
+          "symbol": "func_1502FFD8",
+          "vram": "0x1502FFD8",
+          "size_bytes": 384,
+          "sha1": "d03a13f16beb1aacae4a2c964a393164e8a477c4",
+          "role": "select direct or animated attachment loading from the signed animation selector"
+        },
+        {
+          "symbol": "func_1502FE10",
+          "vram": "0x1502FE10",
+          "size_bytes": 456,
+          "sha1": "8637778facf0ce5e9a4cd03316b390e02fdf84e2",
+          "role": "load the explicit bank-09 model index; shared model loader"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Action 68 is not model 29; the parent actor, event purpose and successful creation are not identified."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 133,
+      "segment": 0,
+      "name": "Military helmet",
+      "model_sha1": "06e1fe5e7dbfad273d74fb96fd936e01db76681f",
+      "model_sha256": "6e9e414e702b8cc63ceb100e06ed76c051c812cc27b6d6c222e39e5567c2ea5b",
+      "source_bytes": 2072,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_model_review_selections.md",
+        "docs/evidence/us_model_reference_corrections.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1514DCAC",
+          "vram": "0x1514DCAC",
+          "size_bytes": 72,
+          "sha1": "39365f94e0a7a6b0bfa482f77edee0c0c042b57b",
+          "role": "request actions 35 and 68 for the same parent; downstream creation may fail"
+        },
+        {
+          "symbol": "func_15083568",
+          "vram": "0x15083568",
+          "size_bytes": 356,
+          "sha1": "419012702249e321c26fc2badb49949b0aafa0fc",
+          "role": "dispatch action records while preserving parent and distinct model/kind/animation fields"
+        },
+        {
+          "symbol": "func_15030AF4",
+          "vram": "0x15030AF4",
+          "size_bytes": 608,
+          "sha1": "f506f08cf457bc3d9bb7a751c0c1381e2ddd39a9",
+          "role": "construct an attachment from the selected action record; shared attachment path"
+        },
+        {
+          "symbol": "func_1502FFD8",
+          "vram": "0x1502FFD8",
+          "size_bytes": 384,
+          "sha1": "d03a13f16beb1aacae4a2c964a393164e8a477c4",
+          "role": "select direct or animated attachment loading from the signed animation selector"
+        },
+        {
+          "symbol": "func_1503F62C",
+          "vram": "0x1503F62C",
+          "size_bytes": 396,
+          "sha1": "b678946246dbc937322777d197d874c3dbd0839b",
+          "role": "load an animated bank-09 model through the shared model loader"
+        },
+        {
+          "symbol": "func_1502FE10",
+          "vram": "0x1502FE10",
+          "size_bytes": 456,
+          "sha1": "8637778facf0ce5e9a4cd03316b390e02fdf84e2",
+          "role": "load the explicit bank-09 model index; shared model loader"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Action 35 is not model 133; animation selector 2 does not establish a live pose or successful creation."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 162,
+      "segment": 0,
+      "name": "Wall-mounted flame (UI model)",
+      "model_sha1": "495cde88325beee15d1dfd5cf299bb07a3629f1e",
+      "model_sha256": "56e39222546b14ee29a91f118dfa6ba20644010bd6b2872f8f9a09b9905b13d3",
+      "source_bytes": 2728,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_ui_constructor_materials.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_151EB06C",
+          "vram": "0x151EB06C",
+          "size_bytes": 2244,
+          "sha1": "321cdb6b0234419d3d38a4acc4151786d502aeea",
+          "role": "request copied-list UI models including cash 164 and flame 162; shared initialization"
+        },
+        {
+          "symbol": "func_151ED90C",
+          "vram": "0x151ED90C",
+          "size_bytes": 588,
+          "sha1": "4477ab2487888005b9b981d746d3e4827632f631",
+          "role": "construct an animated bank-09 UI model with copied lists; shared UI path"
+        },
+        {
+          "symbol": "func_151EDBDC",
+          "vram": "0x151EDBDC",
+          "size_bytes": 880,
+          "sha1": "2a0fcb728902c350ede39802852cee5080623817",
+          "role": "draw copied UI model lists with caller/model-selected texture state; shared UI renderer"
+        },
+        {
+          "symbol": "func_1503F62C",
+          "vram": "0x1503F62C",
+          "size_bytes": 396,
+          "sha1": "b678946246dbc937322777d197d874c3dbd0839b",
+          "role": "load an animated bank-09 model through the shared model loader"
+        },
+        {
+          "symbol": "func_1502FE10",
+          "vram": "0x1502FE10",
+          "size_bytes": 456,
+          "sha1": "8637778facf0ce5e9a4cd03316b390e02fdf84e2",
+          "role": "load the explicit bank-09 model index; shared model loader"
+        },
+        {
+          "symbol": "func_1510CE60",
+          "vram": "0x1510CE60",
+          "size_bytes": 652,
+          "sha1": "9a12376e197e0ae05d6d351d5d538865aa7dcc68",
+          "role": "resolve flat texture commands in the model display list; shared texture helper"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "The shared copied-list UI consumer proves neither world placement nor a model-exclusive controller."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 164,
+      "segment": 0,
+      "name": "Upright cash bundle",
+      "model_sha1": "becd009254e612e93cba4f3dd9483096cb9613cc",
+      "model_sha256": "c88b7dc1379313e31c2da6e232ae64491d63ce45993175f8003489d214887bbd",
+      "source_bytes": 3256,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_ui_constructor_materials.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_151EB06C",
+          "vram": "0x151EB06C",
+          "size_bytes": 2244,
+          "sha1": "321cdb6b0234419d3d38a4acc4151786d502aeea",
+          "role": "request copied-list UI models including cash 164 and flame 162; shared initialization"
+        },
+        {
+          "symbol": "func_151ED90C",
+          "vram": "0x151ED90C",
+          "size_bytes": 588,
+          "sha1": "4477ab2487888005b9b981d746d3e4827632f631",
+          "role": "construct an animated bank-09 UI model with copied lists; shared UI path"
+        },
+        {
+          "symbol": "func_151EDBDC",
+          "vram": "0x151EDBDC",
+          "size_bytes": 880,
+          "sha1": "2a0fcb728902c350ede39802852cee5080623817",
+          "role": "draw copied UI model lists with caller/model-selected texture state; shared UI renderer"
+        },
+        {
+          "symbol": "func_1503F62C",
+          "vram": "0x1503F62C",
+          "size_bytes": 396,
+          "sha1": "b678946246dbc937322777d197d874c3dbd0839b",
+          "role": "load an animated bank-09 model through the shared model loader"
+        },
+        {
+          "symbol": "func_1502FE10",
+          "vram": "0x1502FE10",
+          "size_bytes": 456,
+          "sha1": "8637778facf0ce5e9a4cd03316b390e02fdf84e2",
+          "role": "load the explicit bank-09 model index; shared model loader"
+        },
+        {
+          "symbol": "func_1510CE60",
+          "vram": "0x1510CE60",
+          "size_bytes": 652,
+          "sha1": "9a12376e197e0ae05d6d351d5d538865aa7dcc68",
+          "role": "resolve flat texture commands in the model display list; shared texture helper"
+        },
+        {
+          "symbol": "func_1510D0EC",
+          "vram": "0x1510D0EC",
+          "size_bytes": 648,
+          "sha1": "47b67aab9ed8a4eb1706ced5424981ff21373aba",
+          "role": "resolve a flat texture payload for the caller-selected binding"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "The shared copied-list UI consumer proves neither world placement nor a model-exclusive controller."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 165,
+      "segment": 0,
+      "name": "Upright cash bundle — attachment variant",
+      "model_sha1": "8bcdaa72c1639c141d4717222b8703a3dc41ae5c",
+      "model_sha256": "d7f6622a97fa5fdb6152711688d42f5c1cd5fb6c7d0e1033f8d067b1f839ca73",
+      "source_bytes": 3320,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_special_attachment_materials.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150FAE18",
+          "vram": "0x150FAE18",
+          "size_bytes": 880,
+          "sha1": "f1d0b07180ae21e324293f911e9358d0039e3145",
+          "role": "pass model 165 to the specialized descriptor constructor; wider event purpose unnamed"
+        },
+        {
+          "symbol": "func_151D6BFC",
+          "vram": "0x151D6BFC",
+          "size_bytes": 612,
+          "sha1": "34b5db66b4e644e1e8d204ee5ee137de0007d8c3",
+          "role": "pass model 165 to the specialized descriptor constructor; wider event purpose unnamed"
+        },
+        {
+          "symbol": "func_15157010",
+          "vram": "0x15157010",
+          "size_bytes": 436,
+          "sha1": "7513f331bff62bd4b58cec4ffd7cc5f4888ae40d",
+          "role": "construct the descriptor-selected animated attachment; shared specialized path"
+        },
+        {
+          "symbol": "func_150FB1E8",
+          "vram": "0x150FB1E8",
+          "size_bytes": 88,
+          "sha1": "4e94b65e23281c6ca6c87b9504ad5ea682fd7aa2",
+          "role": "wrap the specialized texture callback with matrix setup"
+        },
+        {
+          "symbol": "func_151D710C",
+          "vram": "0x151D710C",
+          "size_bytes": 164,
+          "sha1": "e15b7253fcc1d86f8fb47c8ebc10cfb35e7f7557",
+          "role": "bind descriptor 195 to segments 6 and 7 for the specialized attachment"
+        },
+        {
+          "symbol": "func_15157420",
+          "vram": "0x15157420",
+          "size_bytes": 1088,
+          "sha1": "e2c01ccf96e364cf5c2c04cf7c82216b4536ed9a",
+          "role": "submit the specialized type-54 model using its callback-selected texture state"
+        },
+        {
+          "symbol": "func_15133EEC",
+          "vram": "0x15133EEC",
+          "size_bytes": 236,
+          "sha1": "022514849c4aa339cf0d13c9b00324f7681f7140",
+          "role": "bind a descriptor-selected texture to the requested segment; shared binding helper"
+        },
+        {
+          "symbol": "func_1503F62C",
+          "vram": "0x1503F62C",
+          "size_bytes": 396,
+          "sha1": "b678946246dbc937322777d197d874c3dbd0839b",
+          "role": "load an animated bank-09 model through the shared model loader"
+        },
+        {
+          "symbol": "func_1502FE10",
+          "vram": "0x1502FE10",
+          "size_bytes": 456,
+          "sha1": "8637778facf0ce5e9a4cd03316b390e02fdf84e2",
+          "role": "load the explicit bank-09 model index; shared model loader"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Bank-09 attachment 165 remains distinct from UI cash 164 and bank-01 character identities despite similar imagery."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 185,
+      "segment": 0,
+      "name": "Conker HUD head",
+      "model_sha1": "67baa7d6bb38261e4bce23dc28ec1cf73bf3d7fa",
+      "model_sha256": "d6824736a89130f76ad128c4b957b02b6e9e879f63265b058a65d09f10e85fc0",
+      "source_bytes": 5768,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_special_attachment_materials.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_1509093C",
+          "vram": "0x1509093C",
+          "size_bytes": 2232,
+          "sha1": "7f181f001e790262a58c7cc718fe9f4352ef2bd9",
+          "role": "load HUD head model 185 and maintain its retained list and correlated texture selectors"
+        },
+        {
+          "symbol": "func_150911F4",
+          "vram": "0x150911F4",
+          "size_bytes": 832,
+          "sha1": "80b64b061f9d7b4f36d648cbd47b73aa424000de",
+          "role": "bind the dedicated HUD head texture selectors and submit its retained model list"
+        },
+        {
+          "symbol": "func_1502FE10",
+          "vram": "0x1502FE10",
+          "size_bytes": 456,
+          "sha1": "8637778facf0ce5e9a4cd03316b390e02fdf84e2",
+          "role": "load the explicit bank-09 model index; shared model loader"
+        },
+        {
+          "symbol": "func_1510D0EC",
+          "vram": "0x1510D0EC",
+          "size_bytes": 648,
+          "sha1": "47b67aab9ed8a4eb1706ced5424981ff21373aba",
+          "role": "resolve a flat texture payload for the caller-selected binding"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Dedicated bank-09 HUD head identity, separate from bank-01 Conker model 0; no active phase or HUD deformation is asserted."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 186,
+      "segment": 0,
+      "name": "Digital timer",
+      "model_sha1": "80f62bb6324297fde4ab3ad5f05cb0efe89641ea",
+      "model_sha256": "efd0fb9de977d69539b88b9539c0d642642a378aa372527d19e5d108207bfbd2",
+      "source_bytes": 1928,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_direct_segment_texture_bindings.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_15093878",
+          "vram": "0x15093878",
+          "size_bytes": 68,
+          "sha1": "c56384d3d2abd16a21d08fd633b729741368243f",
+          "role": "load bank-09 model 186 and allocate the timer matrix buffer"
+        },
+        {
+          "symbol": "func_1518C900",
+          "vram": "0x1518C900",
+          "size_bytes": 260,
+          "sha1": "38d05a33437a0f688bda1b2cf2ac6299b9aede8e",
+          "role": "load a bank-09 direct model and retain its primary display list"
+        },
+        {
+          "symbol": "func_150938BC",
+          "vram": "0x150938BC",
+          "size_bytes": 668,
+          "sha1": "408ac2cab82dc86156ae7babdaa7190a63162942",
+          "role": "derive four timer digits, bind their pixel segments and submit the retained timer list"
+        },
+        {
+          "symbol": "func_15168E54",
+          "vram": "0x15168E54",
+          "size_bytes": 180,
+          "sha1": "cbc1245a3f5d3846756b7c360d39675df6521c34",
+          "role": "walk a direct model list and relocate model-relative vertex and MoveMem addresses"
+        },
+        {
+          "symbol": "func_15168E34",
+          "vram": "0x15168E34",
+          "size_bytes": 32,
+          "sha1": "edfbe5742959d43dfa06d389f8a448dd015aa75f",
+          "role": "add the model base only to addresses whose segment bits are zero"
+        },
+        {
+          "symbol": "func_1510D0EC",
+          "vram": "0x1510D0EC",
+          "size_bytes": 648,
+          "sha1": "47b67aab9ed8a4eb1706ced5424981ff21373aba",
+          "role": "resolve a flat texture payload for the caller-selected binding"
+        },
+        {
+          "symbol": "func_150A7D00",
+          "vram": "0x150A7D00",
+          "size_bytes": 160,
+          "sha1": "3d54de78c27073ce272064b1221db73d683a2611",
+          "role": "write the translation matrix used by the timer renderer; shared matrix helper"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "The 00:00 render is an explicit inspection preset, not an initial or observed timer value."
+      ]
+    },
+    {
+      "bank": 9,
+      "entry": 345,
+      "segment": 0,
+      "name": "Hanging bell",
+      "model_sha1": "5aa8a69c2dd9476bb2603f8129499637b88c6bdc",
+      "model_sha256": "4d9e9147a54343277a5a3635d18c59a40a26e05d8ca841e78ad6f6857dae16d9",
+      "source_bytes": 872,
+      "evidence": [
+        "docs/evidence/object_semantic_registry_expansion.md",
+        "docs/evidence/us_bank09_object_materials.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_15010A60",
+          "vram": "0x15010A60",
+          "size_bytes": 1360,
+          "sha1": "4dd66da12b20985c586e17b952c2eb48682cc317",
+          "role": "construct an ordinary object using lookup selector 86 and initial flags 0x0D00"
+        },
+        {
+          "symbol": "func_1513264C",
+          "vram": "0x1513264C",
+          "size_bytes": 1024,
+          "sha1": "b022e07fc63bd600c1da1ce8de6da11a8a352733",
+          "role": "resolve template lookup selector +0x56 and retain the loaded bank-09 model wrapper"
+        },
+        {
+          "symbol": "func_151336A8",
+          "vram": "0x151336A8",
+          "size_bytes": 184,
+          "sha1": "2432f6c82170d429bdbad3f281b65ca8e0663945",
+          "role": "map the ordinary lookup selector through 0x800A3880 and load the bank-09 model"
+        },
+        {
+          "symbol": "func_15132B80",
+          "vram": "0x15132B80",
+          "size_bytes": 604,
+          "sha1": "d0b8f621187945c259efddd0f31cdc77bb6eba9a",
+          "role": "submit the ordinary object primary list with flag-controlled material callbacks"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model label, not a recovered original symbol or a unique actor type.",
+        "Naming does not establish runtime activation, visibility, native appearance, animation state or playback timing.",
+        "Lookup selector 86 maps to bank-09 model 345; neither value names a bell-exclusive controller or ringing behavior."
+      ]
     }
   ],
   "rom_size_bytes": 67108864,

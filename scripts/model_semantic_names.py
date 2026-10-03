@@ -14,7 +14,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY_PATH = ROOT / "config/model-semantic-names.json"
-REGISTRY_SHA256 = "b82bc5aa33d94f22bed31e86d95113ed41d29ff3ca9975a1205e5a4f8783848c"
+REGISTRY_SHA256 = "0ceab4b5b15baff9041b127bd209d5a7a9a6c1d4652394a9ba740092b459513c"
 SUPPORTED_BANKS = (0x01, 0x03, 0x04, 0x09)
 NAME_KIND = "reviewed-descriptive-model-label"
 

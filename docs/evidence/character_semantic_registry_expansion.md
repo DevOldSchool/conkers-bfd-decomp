@@ -1,7 +1,10 @@
 # Reviewed US character-model registry expansion
 
-This expands the [Haybot naming pilot](character_semantic_naming.md) to 17 exact
-model identities. The pilot's original validation totals remain historical.
+This records the [Haybot naming pilot](character_semantic_naming.md) expansion
+to 17 exact bank-01 model identities. The subsequent
+[object-model expansion](object_semantic_registry_expansion.md) adds 20 bank-03
+and bank-09 identities, bringing the registry to 37. Counts and validation
+results below describe the 17-model stage. The pilot's totals remain historical.
 The additions change descriptive model labels and naming-audit metadata only;
 no linked symbol, character controller, C expression, ABI or match status follows
 from them.
@@ -44,7 +47,8 @@ All listed identities are bank `01`, segment `0`; entries are decimal:
 Corn Bag's label deliberately makes no claim that the model is unused. Naming
 Franky's broken upper part does not name entry 12 or other Franky variants.
 Red Dinosaur does not identify this model as Fangy, Fire Imp or Dino Baby.
-Conker entry 0 and all other unlisted identities remain unknown in this registry.
+Conker entry 0 remains unknown; no name in this stage extends to an unlisted
+bank/entry/segment identity.
 
 ## Fixed provenance and schema
 

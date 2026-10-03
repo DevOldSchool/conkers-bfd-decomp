@@ -1,9 +1,10 @@
 # US character semantic naming
 
 This note records the original Haybot slice and its current-main revalidation.
-The [reviewed registry expansion](character_semantic_registry_expansion.md)
-now supplies 17 exact model identities. The one-model coverage totals below
-belong to the original port stage.
+The [character registry expansion](character_semantic_registry_expansion.md)
+supplies 17 exact bank-01 identities; the subsequent
+[object-model expansion](object_semantic_registry_expansion.md) brings the total
+to 37. The one-model coverage totals below belong to the original port stage.
 
 The first naming pilot covers Haybot, bank `01`, decimal entry `75` (`0x4B`),
 segment `0`. These are reviewed descriptive names, not recovered original

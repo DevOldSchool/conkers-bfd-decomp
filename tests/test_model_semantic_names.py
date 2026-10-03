@@ -16,7 +16,7 @@ from scripts import model_haybot_rom_variants
 from test_model_coverage import triangle_payload
 
 
-REVIEWED_NAMES = {
+REVIEWED_CHARACTER_NAMES = {
     5: "Wasp", 10: "Mrs. Catfish", 14: "Corn Bag", 15: "Lady Cog — red",
     24: "Jack — metal box", 26: "Catfish — skeletal remains", 52: "TNT Imp",
     68: "Dung Beetle", 70: "Lady Cog — blue", 75: "Haybot", 76: "Lady Cog — green",
@@ -24,11 +24,25 @@ REVIEWED_NAMES = {
     165: "Red Dinosaur", 173: "Wayne — cigar", 174: "Wanka — fat wasp",
     175: "Wanka — skinny wasp",
 }
+REVIEWED_OBJECT_NAMES = {
+    (3, 1, 0): "Square-base hanging bell", (3, 60, 0): "Three throwing knives",
+    (3, 61, 0): "Crossbow", (3, 62, 0): "Chainsaw",
+    (3, 77, 0): "Cock and Plucker sign", (3, 82, 0): "Curved sword",
+    (3, 83, 0): "Revolver", (3, 87, 0): "Grenade crate",
+    (3, 91, 0): "Vitamin bottle", (3, 95, 0): "Tracked vehicle",
+    (3, 98, 0): "Closed / Back at 10 sign", (3, 110, 0): "Bombs crate",
+    (9, 29, 0): "Cigar", (9, 133, 0): "Military helmet",
+    (9, 162, 0): "Wall-mounted flame (UI model)", (9, 164, 0): "Upright cash bundle",
+    (9, 165, 0): "Upright cash bundle — attachment variant", (9, 185, 0): "Conker HUD head",
+    (9, 186, 0): "Digital timer", (9, 345, 0): "Hanging bell",
+}
+REVIEWED_NAMES = {(1, entry, 0): name for entry, name in REVIEWED_CHARACTER_NAMES.items()}
+REVIEWED_NAMES.update(REVIEWED_OBJECT_NAMES)
 
 
 def synthetic_registry(data=b"model"):
     registry = names.load_registry()
-    record = next(r for r in registry["models"] if r["entry"] == 75)
+    record = next(r for r in registry["models"] if (r["bank"], r["entry"], r["segment"]) == (1, 75, 0))
     registry["models"] = [record]
     record.update(source_bytes=len(data), model_sha1=hashlib.sha1(data).hexdigest(),
                   model_sha256=hashlib.sha256(data).hexdigest())
@@ -51,10 +65,11 @@ class ModelSemanticNameTests(unittest.TestCase):
         registry = names.load_registry()
         self.assertEqual(2, registry["schema_version"])
         self.assertEqual(models.BANK_INDICES, names.SUPPORTED_BANKS)
-        self.assertEqual(REVIEWED_NAMES, {r["entry"]: r["name"] for r in registry["models"]})
-        self.assertEqual({(1, entry, 0) for entry in REVIEWED_NAMES},
-                         {tuple(r[k] for k in ("bank", "entry", "segment")) for r in registry["models"]})
-        record = next(r for r in registry["models"] if r["entry"] == 75)
+        self.assertEqual(REVIEWED_NAMES,
+                         {tuple(r[k] for k in ("bank", "entry", "segment")): r["name"]
+                          for r in registry["models"]})
+        self.assertEqual(37, len(registry["models"]))
+        record = next(r for r in registry["models"] if (r["bank"], r["entry"], r["segment"]) == (1, 75, 0))
         variant = model_haybot_rom_variants.contract()
         self.assertEqual(variant["rom_sha1"], registry["rom_sha1"])
         self.assertEqual(variant["model_sha256"], record["model_sha256"])
@@ -64,10 +79,72 @@ class ModelSemanticNameTests(unittest.TestCase):
         for record in registry["models"]:
             for evidence in record["evidence"]:
                 self.assertTrue((names.ROOT / evidence).is_file(), evidence)
-            if record["entry"] != 75:
+            if (record["bank"], record["entry"], record["segment"]) != (1, 75, 0):
                 self.assertNotIn("model_specific_branch", record)
-                self.assertEqual(7, len(record["consumers"]))
+                if record["bank"] == 1:
+                    self.assertEqual(7, len(record["consumers"]))
                 self.assertNotIn("func_15061B4C", {c["symbol"] for c in record["consumers"]})
+
+    def test_object_models_keep_their_reviewed_consumer_domains(self):
+        registry = names.load_registry()
+        records = {tuple(r[k] for k in ("bank", "entry", "segment")): r for r in registry["models"]}
+        placed = {"func_150039E0", "func_151135C4", "func_151137D4"}
+        action = {"func_1514DCAC", "func_15083568", "func_15030AF4", "func_1502FFD8", "func_1502FE10"}
+        ui = {"func_151EB06C", "func_151ED90C", "func_151EDBDC", "func_1503F62C",
+              "func_1502FE10", "func_1510CE60"}
+        expected = {key: placed for key in REVIEWED_OBJECT_NAMES if key[0] == 3}
+        expected.update({
+            (9, 29, 0): action,
+            (9, 133, 0): action | {"func_1503F62C"},
+            (9, 162, 0): ui,
+            (9, 164, 0): ui | {"func_1510D0EC"},
+            (9, 165, 0): {"func_150FAE18", "func_151D6BFC", "func_15157010", "func_150FB1E8",
+                          "func_151D710C", "func_15157420", "func_15133EEC", "func_1503F62C", "func_1502FE10"},
+            (9, 185, 0): {"func_1509093C", "func_150911F4", "func_1502FE10", "func_1510D0EC"},
+            (9, 186, 0): {"func_15093878", "func_1518C900", "func_150938BC", "func_15168E54",
+                          "func_15168E34", "func_1510D0EC", "func_150A7D00"},
+            (9, 345, 0): {"func_15010A60", "func_1513264C", "func_151336A8", "func_15132B80"},
+        })
+        character_consumers = {c["symbol"] for r in registry["models"] if r["bank"] == 1
+                               for c in r["consumers"]}
+        for key, consumers in expected.items():
+            with self.subTest(key=key):
+                self.assertEqual(consumers, {c["symbol"] for c in records[key]["consumers"]})
+                self.assertTrue(consumers.isdisjoint(character_consumers))
+                self.assertNotIn("model_specific_branch", records[key])
+        self.assertEqual(33, len(set().union(*expected.values())))
+        self.assertEqual(84, sum(len(consumers) for consumers in expected.values()))
+
+    def test_object_names_resolve_only_the_exact_bank_entry_and_segment(self):
+        registry = names.load_registry()
+        # Equal synthetic bytes cannot merge names across identity namespaces.
+        payload = b"same source bytes"
+        for record in registry["models"]:
+            record.update(source_bytes=len(payload), model_sha1=hashlib.sha1(payload).hexdigest(),
+                          model_sha256=hashlib.sha256(payload).hexdigest())
+        for key, expected in REVIEWED_NAMES.items():
+            with self.subTest(key=key):
+                result = names.resolve_name(registry, "us", registry["rom_sha1"], key, payload)
+                self.assertEqual(expected, result["name"])
+                self.assertEqual("reviewed-descriptive-model-label", result["kind"])
+                self.assertEqual({"status", "name", "kind", "registry_key", "evidence"}, set(result))
+        # Action IDs 35/68, lookup selector 86, nearby variants, and Conker's
+        # bank-01 body gain no name from the newly reviewed bank-09 models.
+        unknown = [(9, 35, 0), (9, 68, 0), (9, 86, 0), (1, 0, 0), (1, 164, 0),
+                   (1, 185, 0), (3, 345, 0), (9, 1, 0), (9, 186, 1),
+                   (3, 0, 0), (3, 39, 0), (3, 109, 0), (9, 42, 0)]
+        for key in unknown:
+            with self.subTest(key=key):
+                self.assertEqual({"status": "unknown", "name": None},
+                                 names.resolve_name(registry, "us", registry["rom_sha1"], key, payload))
+
+    def test_cash_variants_have_distinct_source_pins_and_bounded_labels(self):
+        records = {tuple(r[k] for k in ("bank", "entry", "segment")): r
+                   for r in names.load_registry()["models"]}
+        for field in ("model_sha1", "model_sha256", "source_bytes"):
+            self.assertNotEqual(records[(9, 164, 0)][field], records[(9, 165, 0)][field])
+        self.assertEqual("Digital timer", records[(9, 186, 0)]["name"])
+        self.assertEqual("Conker HUD head", records[(9, 185, 0)]["name"])
 
     def test_replaced_registry_is_not_accepted_as_its_own_evidence(self):
         registry = names.load_registry()
@@ -349,11 +426,11 @@ class ModelSemanticNameTests(unittest.TestCase):
     @unittest.skipUnless((names.ROOT / "roms/baserom.us.z64").is_file(), "reviewed US ROM not available")
     def test_owned_rom_confirms_all_models_and_complete_consumer_spans(self):
         report = names.audit_registry(names.ROOT / "roms/baserom.us.z64")
-        self.assertEqual(8, report["consumer_count"])
-        self.assertEqual(120, report["consumer_reference_count"])
+        self.assertEqual(41, report["consumer_count"])
+        self.assertEqual(204, report["consumer_reference_count"])
         self.assertEqual(1, report["model_specific_branch_count"])
-        self.assertEqual([1], report["banks"])
-        self.assertEqual([REVIEWED_NAMES[entry] for entry in sorted(REVIEWED_NAMES)],
+        self.assertEqual([1, 3, 9], report["banks"])
+        self.assertEqual([REVIEWED_NAMES[key] for key in sorted(REVIEWED_NAMES)],
                          [record["name"] for record in report["models"]])
 
 
