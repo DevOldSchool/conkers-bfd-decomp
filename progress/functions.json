@@ -7278,17 +7278,16 @@
       "symbol": "func_15011A78"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 290,
-        "reason": "CURRENT (290): full span, frame, registers and body match; only loop-index zero initialization is scheduled at 0x5c instead of raw branch delay slot 0x70, shifting three address addiu instructions; source-position probe unchanged",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 380,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15122AE0",
           "vram": "0x15122AE0"
         }
@@ -7449,7 +7448,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 5742,
-        "reason": "Manual initial10206 improved5742; frame130vs118; output stack offsets, V0/V1 roles, FP operand and branch scheduling remain. Six revisions; last two non-improving. Best4 saved in camera-lifetimes-manual-20260930.",
+        "reason": "CURRENT5742 preserved. Beta-supported retail-only old_distance scope was neutral5742 with unchanged frame130vs118; original restored. Collision buffers are genuine and debug agrees with raw118 layout; no extra storage justified. Prior six lifetime revisions and final two neutral probes remain exhausted. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7541,8 +7540,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3598,
-        "reason": "Manual lifetime pass5934 to3598 in12revisions: real FP/integer lifetime reuse, branch results, pointer snapshots and ADD operand order improved; vector and else-scope probes neutral. Remaining frame70vs60, outputhomes+1C, FPzero/ordering and flags/call scheduling. Best preserved in camera-lifetimes-manual-20260930; two final non-improving probes exhausted.",
+        "current_score": 3092,
+        "reason": "Beta-supported true-arm scope for real retail-added float outputs improves3598 to3092; scalar identities/order and operations unchanged. Frame70vs60 remains; float homes30/34/38 vs40/44/48, halfword homes+1C, FP/control scheduling unresolved. Prior vector/else-scope probes not repeated. Best preserved in camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7633,7 +7632,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 560,
-        "reason": "CURRENT560 preserved; camera-manual-20260930 float-local/anonymous integer conversion neutral560. Prior outer else and declaration ordering failed; named integer removal did not change allocation. No shared changes.",
+        "reason": "CURRENT560 reverified after fixing stale candidate parameter declaration to agree with the existing void-pointer prototype; original typed field view retained locally, ABI/body unchanged. Prior float-local/outer-else/declaration hypotheses exhausted. Explicit pointer middle-range return remains, no undefined return. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7744,7 +7743,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 295,
-        "reason": "Manual raw pass best CURRENT295: bound snapshot fixes reloads; outer ADD reversal neutral, shared phase/scale lifetime regresses910. Remaining FP allocation/operand ordering and frame48vs38; preserve best, no padding.",
+        "reason": "CURRENT295 preserved. Inline derived pointers neutral295; beta-supported true-arm-only declaration scope regressed867 and frame48to58. Original restored/reverified. Prior bound snapshot improved; outer ADD neutral and phase/scale reuse regressed910. No further scope variants without new evidence. camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7760,17 +7759,16 @@
       "symbol": "func_151256BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT10 improved from530: explicit null-target else restores all control flow and full328B extent. Only frame38 vs30 differs. Direct flags regressed30 (homes +4); scoped target neutral10. Best saved camera-manual-20260930; no padding. Prior FP-chain/declaration/call probes exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125924",
           "vram": "0x15125924"
         }
@@ -7912,7 +7910,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1522,
-        "reason": "Manual raw callback3637\u21921522 best: unsigned bit views/shared mask, single-arg existing helper pattern, explicit else/shared cleanup. Formal reuse, float address view, 2/4-arg helper shapes exhausted. Frame/register/mask scheduling unresolved; helper ABI not independently established. See camera-raw-manual-20260930.",
+        "reason": "CURRENT1522 retained. Helper contract now established: game runtime100111C8 maps to matched MAIN800111C8, void(u16), so current one-argument call is correct. Prior formal/float-address/2or4-argument shapes exhausted; frame/register/mask scheduling remain. No source-body change in contract refresh. camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7984,6 +7982,12 @@
       "symbol": "func_15127FEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2548,
+        "reason": "Fresh owned-ROM-derived candidate3498 to2548; real disjoint locals restore exact frame30, unsigned timer subtraction preserves raw wrapping. Completion returns target pointer proven preserved through FP helper chain; defined C reloads it. Return/control, FP/GPR scheduling and NaN operand order unresolved. No undefined return/invented ABI. Evidence camera-completion-20261003.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -8087,17 +8091,16 @@
       "symbol": "func_1512868C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 300,
-        "reason": "Referenced upstream C reproduces every semantic instruction exactly; CURRENT (300) is only three trailing NOPs retained by this checkout's reviewed 108-byte span",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15128774",
           "vram": "0x15128774"
         }
