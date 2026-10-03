@@ -177,7 +177,7 @@ s32 func_151C87E0(s32 arg0, void *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151C87E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C87E0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151C899C.s")
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 extern f32 D_800AAC70;
 extern f32 D_800AAC74;
 extern f32 D_800AAC78;
@@ -474,7 +474,7 @@ s32 func_151C9B64(void *arg0, s8 *arg1) {
 void func_150BDE90(s32, u8, s32);
 s32 func_151C9F38(s32, s32, s32, s8, s32);
 s32 func_151CB5FC(s32, s32, s32, s8, s32);
-s32 func_151CC524(s32, s32, s32, s32, s32, s32);
+void func_151CC524(s32, s32, s32, s32, s32, s32);
 s32 func_151CC840(s32, s32, s32, s32, s32, s32);
 s32 func_151CCF08(s32, s32, s8, s32);
 extern s32 D_800BE9F0;
@@ -544,7 +544,7 @@ void func_151CAACC(void *arg0, void **arg1, volatile u8 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CAACC.s")
 extern s32 D_80082FA0;
 void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CAB78 CURRENT (1557) */
 void func_151CAB78(u8 *arg0, u8 arg1) {
@@ -884,7 +884,141 @@ void func_151CC290(s32 arg0) {
     sp1C = arg0;
     func_1515572C(&sp1C, 0x46, arg0);
 }
+typedef struct SightFlashPayload {
+    s32 owner_word;
+    u8 pad04[8];
+    u8 flags;
+    u8 selector;
+    u8 pad0E[0x1E];
+    f32 red;
+    f32 green;
+    f32 blue;
+    f32 alpha;
+    u8 pad3C[0x14];
+    f32 timer;
+} SightFlashPayload;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC2BC CURRENT (10) */
+void func_151CC2BC(void *arg0, void **arg1, u8 arg2) {
+    SightFlashPayload *state;
+
+    state = (SightFlashPayload *)((u8 *)arg0 + 0x70);
+    if (arg2 == 0x46) {
+        if (*(s32 *)arg1 == state->owner_word) {
+            state->flags |= 2;
+            state->timer = 35.0f;
+            ((u8 *)arg0)[0x2B] = (u8)(u32)state->red;
+            ((u8 *)arg0)[0x2C] = (u8)(u32)state->green;
+            ((u8 *)arg0)[0x2D] = (u8)(u32)state->blue;
+            ((u8 *)arg0)[0x2E] = (u8)(u32)state->alpha;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CC2BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC2BC.s")
+typedef struct SightTwinPayload {
+    u8 *owner;
+    f32 value_04;
+    f32 value_08;
+    u8 flags;
+    u8 selector;
+    u8 reserved_0E[0x4A];
+} SightTwinPayload;
+
+typedef struct SightTwinSpawn {
+    f32 x, y, z, value_0C;
+    u8 kind;
+    u8 reserved_11;
+    s16 lifetime;
+    u16 flags;
+    s16 value_16;
+    s16 value_18;
+    u8 value_1A, red, green, blue;
+    u8 value_1E, value_1F, value_20, value_21, value_22, value_23;
+    s32 value_24;
+    u32 value_28;
+    s32 value_2C, value_30, value_34, value_38, value_3C;
+    u8 value_40, value_41;
+    u8 reserved_42[2];
+    u8 value_44;
+    u8 reserved_45[3];
+    f32 value_48, value_4C, value_50, value_54;
+} SightTwinSpawn;
+
+extern f32 D_800AAEC4;
+extern f32 D_800AAEC8;
+extern f32 D_800AAECC;
+extern f32 D_800AAED0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CC524 CURRENT (5208) */
+void func_151CC524(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+                   s32 arg4, s32 arg5) {
+    SightTwinSpawn spawn;
+    SightTwinPayload payload;
+    u32 flags;
+    void *object;
+
+    payload.value_04 = 0.0f;
+    payload.selector = 0;
+    payload.flags = 0;
+    spawn.value_50 = 0.0f;
+    spawn.value_54 = 0.0f;
+    spawn.lifetime = 300;
+    payload.owner = (u8 *)arg0;
+    payload.value_08 = 130.0f;
+    if ((u8)arg4 != 0) {
+        flags = 0x40;
+    } else {
+        flags = 0;
+    }
+    spawn.value_16 = 1;
+    spawn.flags = flags | 0x390U |
+                  (1U << ((((u8 *)arg0)[0x23D] + 11) & 31));
+    spawn.red = (u8)arg1;
+    spawn.green = (u8)arg2;
+    spawn.value_1A = 7;
+    spawn.value_1E = 0x82;
+    spawn.value_1F = 255;
+    spawn.value_20 = 255;
+    spawn.value_21 = 255;
+    spawn.blue = (u8)arg3;
+    spawn.value_18 = 255;
+    spawn.value_22 = 255;
+    spawn.value_23 = 255;
+    spawn.value_24 = 0;
+    spawn.value_28 = 0x200004;
+    spawn.value_2C = 0x1F0601;
+    spawn.value_30 = 8;
+    spawn.value_34 = 0x44;
+    spawn.value_38 = 0x80;
+    spawn.value_3C = 0x20;
+    spawn.value_40 = 0;
+    spawn.value_41 = 10;
+    spawn.kind = 0x9A;
+    spawn.x = 0.0f;
+    spawn.value_48 = D_800AAEC4;
+    spawn.value_44 = ((u8 *)arg0)[0x23D];
+    spawn.value_4C = 1.0f;
+    spawn.z = 28.0f;
+    spawn.value_0C = D_800AAEC8;
+    spawn.y = -37.0f;
+    object = func_1515548C(&spawn, 9, 0, 0, 0x58, (u8)arg5, 1);
+    if (object != 0) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+    spawn.kind = 0x9B;
+    spawn.y = 0.0f;
+    spawn.value_48 = 1.0f;
+    spawn.value_4C = D_800AAECC;
+    spawn.z = D_800AAED0;
+    spawn.value_0C = 28.0f;
+    spawn.x = -37.0f;
+    object = func_1515548C(&spawn, 9, 0, 0, 0x58, (u8)arg5, 1);
+    if (object != 0) {
+        func_10022EC0((u8 *)object + 0x70, &payload, 0x58);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151CC524 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sight/func_151CC524.s")
 void func_15145974(void *, f32 *, f32 *);
 extern f32 D_800AAED4;
@@ -964,7 +1098,7 @@ typedef struct SightEffectSpawn {
 } SightEffectSpawn;
 
 void *func_1515548C(void *, s32, s32, s32, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151CCD1C CURRENT (2834) */
 void func_151CCD1C(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
@@ -1020,7 +1154,7 @@ typedef struct SightSpawnOwner {
 
 extern u8 D_800BE616;
 s32 func_151A4FD0(s32, s32, s32, s32, s32, s32, s32, s32);
-void func_10022EC0(void *, void *, s32);
+void *func_10022EC0(void *, const void *, u32);
 
 void func_151CCE94(SightSpawnOwner *arg0) {
     s32 object;
