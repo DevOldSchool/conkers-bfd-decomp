@@ -19,10 +19,8 @@ Both objects keep their external data ownership. The existing
 
 The candidate uses real row pointers and column offsets, scalar float output
 stores, and the original operation grouping. No speculative aggregate write or
-uninitialized local is required. The direct form measured 3571; an explicit
-if/else with a branch-local table improved to 3127. Reusing the conceptual root,
-scale and trace/diagonal scalars regressed to 3162. The 3127 form is retained;
-frame, output-pointer allocation and arithmetic scheduling remain unmatched.
+uninitialized local is required. It measures `CURRENT (3127)`; frame,
+output-pointer allocation and arithmetic scheduling remain unmatched.
 
 ## Sight dispatcher blocker: 151C9BA0
 
@@ -90,12 +88,10 @@ for all four conversions. Event dispatch is synchronous, and the reviewed
 retirement paths retain owner storage through this callback. No FCSR instructions
 were handwritten or hidden behind a helper.
 
-The first form measured CURRENT (10): only the two identity-load register
+The retained form measures CURRENT (10): only the two identity-load register
 assignments differ; the entire conversion sequences, control flow and stores
-otherwise match. Reversing equality operands remained 10; capturing the guarded
-message identity in a scalar regressed to 480. The simplest valid 10 form is
-retained. These are exhausted bounded trials, not an exact match or a reason for
-an automatic register search.
+otherwise match. The candidate remains assembly-backed and receives no exact
+match credit.
 
 ## Acceptance scope
 

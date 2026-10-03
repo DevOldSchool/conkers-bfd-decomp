@@ -13,9 +13,9 @@ The already established file-scope `f32 fabsf(f32);` and
 `#pragma intrinsic(fabsf)` mechanism removes those calls without changing the ten
 argument slots, arithmetic grouping, comparisons or optional outputs.
 
-Three bounded forms measured 2737, 1477 and 1394, versus the historical 7674.
-The retained form names the actual horizontal and vertical projections and reuses
-each scalar for its scaled magnitude. It naturally recovers the raw 0x10 frame
+The retained form measures `CURRENT (1394)`. It names the actual horizontal and
+vertical projections and reuses each scalar for its scaled magnitude. It
+naturally recovers the raw 0x10 frame
 and vertical-result spill. Register/evaluation order and extent differences remain.
 No volatile, artificial storage, padding, flag change or permutation was used.
 
@@ -33,9 +33,9 @@ IDO representation; it is not a portable pointer encoding or an lvalue-punning
 operation. Callee implementations and shared headers are unchanged.
 
 The unsupported top-level volatile parameter on `15101148` was removed.
-Corrected 15101148 measures 1223; corrected 15101090 measures 2446. Historical scores 444
-and 1558 omitted the consumed argument, and the former also used the qualifier;
-these are not valid best-source comparisons. Both changed accepted wrappers
+Corrected 15101148 measures 1223; corrected 15101090 measures 2446. Earlier forms
+omitted the consumed argument, so their lower scores do not establish valid
+source improvements. Both changed accepted wrappers
 retain full focused CURRENT (0).
 
 The wrappers' pre-existing s32 clear at linked-owner +0x138 has an unresolved
@@ -89,16 +89,15 @@ Unknown trailing fields retain neutral names rather than invented meanings.
 
 The splitter has no pre-existing concrete declaration establishing a narrow
 selector formal. It retains s32 and explicitly normalizes the low byte.
-The first form measured 1949; normalizing the same formal once improved it to
-1075 and recovered the exact 0xE0 frame and every descriptor offset. Argument-home
-and GPR scheduling differences remain. No narrow ABI was inferred to remove them.
+Normalizing the same formal once produces `CURRENT (1075)`, the exact 0xE0 frame,
+and every descriptor offset. Argument-home and GPR scheduling differences remain.
+No narrow ABI was inferred to remove them.
 
 The 624-byte producer retains its established `(void *, u8)` interface, all actual
 field stores, the exact external float constants, all seven calls including a
 discarded PRNG result, and both independent flag updates. Its complete record and
-genuine scale-local form measures 2335. Direct field reuse regressed to 2527 and
-was discarded. The larger candidate frame is not a reason to truncate the record,
-introduce an unused scalar or force alignment.
+genuine scale-local form measures 2335. The larger candidate frame does not
+justify truncating the record, introducing an unused scalar or forcing alignment.
 
 ## Validation scope
 

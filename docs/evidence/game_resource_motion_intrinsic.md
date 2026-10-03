@@ -5,19 +5,16 @@ float fields, updates another float field, and clears the scaled fields and
 selected flags when the resulting `+0x48` magnitude is below 4.0f.
 
 Its independent raw body in `reference/game/us/asm/1321D0.s` uses `abs.s`
-at `15133BFC`, with no function call or stack frame. The preserved candidate
-had a correct float declaration for `fabsf`, but only at block scope. It
-therefore compiled an ordinary call. A previously attempted block-scope
-intrinsic directive was rejected; its file-scope counterpart had not been
-tried because it required a separate source-local scope review.
+at `15133BFC`, with no function call or stack frame. The previous block-scope
+float declaration for `fabsf` compiled an ordinary call.
 
 Moving `f32 fabsf(f32);` to file scope and adding the existing project-standard
-`#pragma intrinsic(fabsf)` restored the frameless absolute-value instruction,
-improving `CURRENT (3577)` to `CURRENT (1790)`. The same declaration/directive
-pair is already used by matched `func_15117518` in `game_1449A0.c`.
+`#pragma intrinsic(fabsf)` restores the frameless absolute-value instruction.
+The same declaration/directive pair is already used by matched `func_15117518`
+in `game_1449A0.c`.
 Only `15133B98` calls `fabsf` in this unit. No compiler flag or tool changed.
 
-The second candidate orders the independent updates by actual field position:
+The accepted source orders the independent updates by actual field position:
 `+0x3C`, `+0x44`, `+0x48`, `+0x4C`, `+0x50`, `+0x54`, and `+0x58`, followed
 by the magnitude test on the updated `+0x48` field. All fields are distinct
 four-byte locations, the scale remains captured from `+0x14`, and the same
@@ -28,8 +25,7 @@ and preserved the reviewed mixed-unit symbol layout.
 The accepted direct callers `15133C58` and `15133D20` keep their existing
 six-argument calls. Independent source review found no narrowed formals,
 arithmetic reassociation, artificial storage, aliasing workaround, or
-unrelated source changes. The older permutation search and rejected
-block-scope directive were not repeated.
+unrelated source changes.
 
 This adds one 192-byte C match. The source unit remains mixed; the match does
 not complete its other assembly-backed members.

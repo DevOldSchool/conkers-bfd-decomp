@@ -38,14 +38,7 @@ The source-valid corrected candidate scores `CURRENT (735)`. Both promoted
 locals receive only an unsigned-byte load or constants 3 and 5, so their
 value range and the final byte store are preserved. The original loop,
 branches, word test at `+0x300`, byte store at `+0x301`, and unrelated final
-call are unchanged. Rejected pointer-object variants are diagnostic history,
-not valid intermediate candidates.
-
-The last valid prior candidate scored 935. An older 830 record predates the
-repair of an undeclared local and is stale. Exact older variant artifacts
-were unavailable; the recorded generic 250-variant search was not repeated.
-The pass stops after the initial contract trial, two targeted revisions, and
-the required source-validity correction; no further matching search is made.
+call are unchanged.
 
 The best 735 candidate remains deferred with original assembly active. The
 remaining differences concern selector-branch scheduling, pointer/index

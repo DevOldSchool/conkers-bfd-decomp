@@ -31,13 +31,9 @@ signedness, or historical declared arity. The declaration represents the
 concrete compatible contract supplied by all known callers. No narrow formal
 types were introduced.
 
-Both constant wrappers now express direct calls and improve from historical
-`CURRENT (2309)` to full-span `CURRENT (1662)`. Their `0x78` frames agree,
-but entry argument homes and constant/selector store scheduling remain
-different. Naming the real float and selector values scored 1666; a byte
-selector local scored 1662. The simpler direct-call form is retained after
-these two non-improvements. Equivalent probes were not repeated for the
-independently inspected sibling.
+Both direct-call candidates measure full-span `CURRENT (1662)`, with the
+correct `0x78` frames; argument-home and constant/selector scheduling
+differences remain.
 
 Both wrappers remain deferred with original assembly active and contribute
 no new matched bytes. The scaled wrapper's implementation and incoming
