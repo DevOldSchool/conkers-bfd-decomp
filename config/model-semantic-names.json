@@ -5721,6 +5721,1153 @@
       ]
     },
     {
+      "bank": 4,
+      "entry": 1,
+      "segment": 9,
+      "name": "Hanging pull ring",
+      "model_sha1": "15b4ad1e03b2dcbe65d8b25a462c4ee23ff29160",
+      "model_sha256": "a68755ba5479f1d989c48742567f5f69e56556373b6bc0512c5cc0862f33f280",
+      "source_bytes": 1224,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 1 placement record 5 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 2,
+      "segment": 29,
+      "name": "Rock Solid lettering",
+      "model_sha1": "d4322997d3b25c33c1dc548689f0b01a02cd9e6e",
+      "model_sha256": "928abfca3701a726365bbb8b7dc4cf7cac5643e426a6c4f27771ae97998e3765",
+      "source_bytes": 408,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 2 placement record 23 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 6,
+      "segment": 4,
+      "name": "Windmill blades",
+      "model_sha1": "32108ff02ccffcb8dba4569bfd9347b60cf8a78d",
+      "model_sha256": "73adf909681d5de4330748fa194244ebfbff65d54fd85351af50a2e85aabbfa0",
+      "source_bytes": 7224,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 6 placement record 3 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 7,
+      "segment": 11,
+      "name": "Rusty metal hatch",
+      "model_sha1": "c0285710721f5f1369e064eb031fd6704ea9f0a6",
+      "model_sha256": "3c7fcd0d105bf52cb2254aa0d7e6cd8663d7ce99f851c39e6475c240d67cb311",
+      "source_bytes": 3992,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 7 placement record 3 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 10,
+      "segment": 6,
+      "name": "Lighter fluid can",
+      "model_sha1": "e36e65beb7d5ec638459b825bc1af2d0f0215a3a",
+      "model_sha256": "100c827e19a8fe519248d8ca87a68470e25d887a38c6bf2ceb73ee5476462361",
+      "source_bytes": 2024,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 10 placement record 5 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 16,
+      "segment": 20,
+      "name": "Mechanical grabber",
+      "model_sha1": "b00579abb1f1de1eb259cb21c059a8516819d006",
+      "model_sha256": "4638d16db8cfb3844b3bbdd972d07b2da23bf5c6f9f5fbbd10df89873f5bf611",
+      "source_bytes": 3800,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 16 placement record 14 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 19,
+      "segment": 13,
+      "name": "Diagram easel — circular plan",
+      "model_sha1": "958cdf029986e0a8c139b1530de9a20a909b11a9",
+      "model_sha256": "99ad37be8589e674e4d88f4980e9414c3bd1e6a312ac2c3ca2fc28d30d7bae1a",
+      "source_bytes": 2456,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 19 placement record 7 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 20,
+      "segment": 9,
+      "name": "Wooden ladder",
+      "model_sha1": "608df209f27b92938fde1bdbec5ce71919e9f0c7",
+      "model_sha256": "85bff8534acfedc36ad3e65483f8cff59922ffed833f31d5817d08c52dcb450c",
+      "source_bytes": 1416,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Canonical Wooden post lead is rejected; recommended Wooden ladder describes current ROM-linked pixels. Climbability or gameplay behavior remains unproven.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 20 placement records 5, 6 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 23,
+      "segment": 8,
+      "name": "Metal grid platform",
+      "model_sha1": "09ca9a76f092db6358e6272191ec7507dd19744f",
+      "model_sha256": "b7cc7cb0e42807385d5183aae1135ad3ce026683fd8a2d97755c2384e60883a3",
+      "source_bytes": 4072,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 23 placement record 1 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 24,
+      "segment": 5,
+      "name": "Wooden door with metal fittings",
+      "model_sha1": "5771979dfece3bdfaac31d346a63465591cab56c",
+      "model_sha256": "e1868122c22d358370a62bc7c864dba32d1dcf99ab690b5caee829c6f1d92612",
+      "source_bytes": 4952,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 24 placement record 1 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 33,
+      "segment": 6,
+      "name": "Chainsaw",
+      "model_sha1": "8bccca7cf6ab502fb62d9586d10346023b708f87",
+      "model_sha256": "bb7fdd676becc65e0353df96b2b66bd2df351a95e7f93276d005cd276d16849a",
+      "source_bytes": 3560,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 33 placement record 2 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 35,
+      "segment": 15,
+      "name": "Vine-covered column",
+      "model_sha1": "8425a2630d8b758cc87616fddaf462273e02afd2",
+      "model_sha256": "bcc57b81742090d5ec31fc2cb0d0b980a2e0104ec0990728fda1770bf6a97b7f",
+      "source_bytes": 10776,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 35 placement record 11 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 41,
+      "segment": 20,
+      "name": "Wooden bridge",
+      "model_sha1": "4b236599e27fde9054b90f3f56361988bf11929a",
+      "model_sha256": "1e79c82de7ed07cc29f29d3222f17c1a4a1cfb465e7294ec716e59960ac8cb76",
+      "source_bytes": 2728,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Two placements; object70 bit0x01 uses transformed vertex copies, so runtime vertices must not receive placement twice.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 41 placement records 0, 1 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 43,
+      "segment": 7,
+      "name": "Paris 200 km sign",
+      "model_sha1": "18c57956a7c9289060cd8e71625f8f3fb685c5f6",
+      "model_sha256": "2fcbea3f1de0eeb2b97842c0f8a009ed2e3cad224aa1758ceeea14fabab7bbb0",
+      "source_bytes": 3560,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 43 placement record 3 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 45,
+      "segment": 12,
+      "name": "Diagram easel — pipe plan",
+      "model_sha1": "08a54b6e7bffc9ab652d6771a90ae73c72e83755",
+      "model_sha256": "1e7d6565f990bcc48c68c1e47573a3a98eaa53245d5812c2c70c54ac5d5483d6",
+      "source_bytes": 3000,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Scene45 records8/9 are colocated alternatives with differing control bytes; their simultaneous visibility or mutual-exclusion logic is unproven.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 45 placement record 8 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 45,
+      "segment": 13,
+      "name": "Wooden watchtower with red banner",
+      "model_sha1": "8f3c50c4f772cfff0a9d44ec2fd888fb6ab04e1c",
+      "model_sha256": "3b01abb4b18cdfdb665362121e57c9ceb0dffe3ae65bbf89c3239096ca1fa26e",
+      "source_bytes": 4072,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Scene45 records8/9 are colocated alternatives with differing control bytes; their simultaneous visibility or mutual-exclusion logic is unproven.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 45 placement record 9 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 54,
+      "segment": 5,
+      "name": "Paired metal gate",
+      "model_sha1": "a929344c614d7edb0b01f3744cbfcc5cdab25bc9",
+      "model_sha256": "ea1160f43991fa7fcaf7f3fc2527083363a707aeab0c4088849cebf2392725a5",
+      "source_bytes": 3432,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 54 placement record 0 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 60,
+      "segment": 17,
+      "name": "Gold candelabrum",
+      "model_sha1": "cf3eec760f991c9c4a7f2c0fddb05d46020cc2d6",
+      "model_sha256": "07231c1ba8f177e0b51008936a81d2c0f65a8b6be2aec0d53344ec5730144e7a",
+      "source_bytes": 7368,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Scene60 whole-assembly detached/elevated-geometry hold remains; it does not invalidate this isolated candelabrum identity.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 60 placement record 11 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 65,
+      "segment": 5,
+      "name": "Reinforced wooden door",
+      "model_sha1": "4322e20e5b0c13eb4f1507fe4e8b6752522e4e30",
+      "model_sha256": "41aa66db65f2be1ff28510d1ed03e901a175ce65178d6df016f8c34111c23141",
+      "source_bytes": 1672,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Loader updater151150B0 is cleared at15004724 during initialization.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 65 placement record 1 provides the static association; bank-0C child 2 does not supply this bank-04 relationship.",
+        "The decoded initial inactive/flag gates do not exclude these singleton records; runtime view, distance, state, activation and draw-pass conditions remain unresolved."
+      ]
+    },
+    {
+      "bank": 4,
+      "entry": 67,
+      "segment": 6,
+      "name": "Spotted egg dome",
+      "model_sha1": "42c1fbc9d5f1ff0844035f54e66be1350558b41d",
+      "model_sha256": "9da3d15f3fed58f4ea36b69b465faaaa8f37aadd32e45284e42809ea579fbdac",
+      "source_bytes": 2744,
+      "evidence": [
+        "docs/evidence/scene_prop_semantic_registry_expansion.md",
+        "docs/evidence/us_model_scene_consumers.md",
+        "docs/evidence/us_object_material_consensus.md"
+      ],
+      "consumers": [
+        {
+          "symbol": "func_150031EC",
+          "vram": "0x150031EC",
+          "size_bytes": 712,
+          "sha1": "ed48d58ffb38dab90c140a0d547dbdae13f3225a",
+          "role": "load bank-04 scene bundle and relocate all model descriptors, including later segments outside initial slots 0..3"
+        },
+        {
+          "symbol": "func_150039E0",
+          "vram": "0x150039E0",
+          "size_bytes": 2964,
+          "sha1": "b7b5ae00e5b5a3c5a0d28ad82582a25479a3bc66",
+          "role": "resolve bank-0B kind-1/2 placement +0x10 through the bank-04 descriptor table and retain its primary list at object +0x1C"
+        },
+        {
+          "symbol": "func_15112A80",
+          "vram": "0x15112A80",
+          "size_bytes": 1792,
+          "sha1": "7b060425a0e9d27a05fa6f7c819a8b0811c91552",
+          "role": "build per-view candidate groups from placed objects under inactive, flag, alpha, state, distance and view gates"
+        },
+        {
+          "symbol": "func_151135C4",
+          "vram": "0x151135C4",
+          "size_bytes": 528,
+          "sha1": "04f7c62d81e7232c89b3309fdeade178adab34aa",
+          "role": "select the placed-object runtime record for the shared draw path"
+        },
+        {
+          "symbol": "func_151137D4",
+          "vram": "0x151137D4",
+          "size_bytes": 1204,
+          "sha1": "95326ee5c7b73267556e889aedfdef799930e221",
+          "role": "submit the placed-object primary list on the ordinary direct branch"
+        }
+      ],
+      "limitations": [
+        "Descriptive source-model identity only; no original symbol or level name, runtime activation/visibility, native lighting/colour, animation, combiner or raster parity claim.",
+        "Initially inactive singleton candidate group; static association does not establish initial candidate-list visibility or global impossibility through alternate entry paths.",
+        "Open ten-edge lower boundary at Y=-515 and no bottom faces; complete egg and equivalence to bank01 egg remain unproven.",
+        "Shared placed-object consumers are not prop-exclusive controllers; no new model-specific branch or initial-slot renderer edge is asserted.",
+        "Bank-0B scene 67 placement record 2 provides the static association; bank-0C child 2 does not supply this bank-04 relationship."
+      ]
+    },
+    {
       "bank": 9,
       "entry": 29,
       "segment": 0,

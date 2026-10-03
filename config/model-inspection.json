@@ -577,10 +577,14 @@
     },
     {
       "name": "object-bank04-0020-09-rom",
-      "label": "Wooden post \u2014 ROM 04 / 0020 / 09",
+      "label": "Wooden ladder \u2014 ROM 04 / 0020 / 09",
       "render_case": "object-bank04-0020-09-rom",
-      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified. The exact source has two long wooden rails and repeated horizontal rungs, including the transparent rung texture. This supports a descriptive ladder label; climbability and gameplay behavior are unproven.",
+      "category": "scene-items",
+      "aliases": [
+        "Wooden post (former label)",
+        "Wooden post \u2014 ROM 04 / 0020 / 09 (former label)"
+      ]
     },
     {
       "name": "object-bank04-0028-13-rom",
@@ -3105,10 +3109,14 @@
     },
     {
       "name": "object-bank04-0067-06-rom",
-      "label": "Spotted egg \u2014 ROM 04 / 0067 / 06",
+      "label": "Spotted egg dome \u2014 ROM 04 / 0067 / 06",
       "render_case": "object-bank04-0067-06-rom",
-      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. The exact source is an open-bottom dome: 113 vertices, 94 faces, ten boundary edges at Y=-515 and no bottom-plane faces. A complete egg, closed bottom or equivalence to the bank-01 egg is not established.",
+      "category": "scene-items",
+      "aliases": [
+        "Spotted egg (former label)",
+        "Spotted egg \u2014 ROM 04 / 0067 / 06 (former label)"
+      ]
     },
     {
       "name": "object-bank04-0020-08-rom",
