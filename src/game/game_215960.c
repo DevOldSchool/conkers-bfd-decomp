@@ -538,21 +538,24 @@ void *func_151ED29C(u32 *arg0, u8 *arg1, s32 *arg2) {
 void func_100043B4(void *, s32);
 void func_1503F7B8(s32);
 
-void func_151EDB58(void *arg0) {
-    s32 var_s0;
-    void *var_s1;
+/* Descriptive role: ui_release_model_resources.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+void func_151EDB58(void *uiModel) {
+    s32 displayListIndex;
+    void *displayListCursor;
 
-    if (arg0 != 0) {
-        func_1503F7B8(*(s32 *)((u8 *)arg0 + 0x24));
-        func_100043B4(arg0, 4);
-        var_s0 = 0;
-        var_s1 = arg0;
-        if ((s32) *(u8 *)((u8 *)arg0 + 0x14) > 0) {
+    if (uiModel != 0) {
+        func_1503F7B8(*(s32 *)((u8 *)uiModel + 0x24));
+        func_100043B4(uiModel, 4);
+        displayListIndex = 0;
+        displayListCursor = uiModel;
+        if ((s32) *(u8 *)((u8 *)uiModel + 0x14) > 0) {
             do {
-                func_100043B4(*(void **)((u8 *)var_s1 + 4), 4);
-                var_s0 += 1;
-                var_s1 = (void *)((u8 *)var_s1 + 4);
-            } while (var_s0 < (s32) *(u8 *)((u8 *)arg0 + 0x14));
+                func_100043B4(*(void **)((u8 *)displayListCursor + 4), 4);
+                displayListIndex += 1;
+                displayListCursor = (void *)((u8 *)displayListCursor + 4);
+            } while (displayListIndex < (s32) *(u8 *)((u8 *)uiModel + 0x14));
         }
     }
 }

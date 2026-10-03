@@ -544,10 +544,13 @@ void func_1514DCAC(void *arg0);
 
 void *func_15083568(void *, s32, s32, s32);
 
-void func_1514DCAC(void *arg0) {
-    *(s32 *)((u8 *)arg0 + 0x9C) = 0x6000;
-    func_15083568(arg0, 0x23, 0x3F800000, 0);
-    func_15083568(arg0, 0x44, 0x3F800000, 0);
+/* Descriptive role: actor_request_military_helmet_and_cigar.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+void func_1514DCAC(void *parentActor) {
+    *(s32 *)((u8 *)parentActor + 0x9C) = 0x6000;
+    func_15083568(parentActor, 0x23, 0x3F800000, 0);
+    func_15083568(parentActor, 0x44, 0x3F800000, 0);
 }
 void *func_15083568(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 
