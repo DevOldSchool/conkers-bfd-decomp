@@ -7774,15 +7774,15 @@
         "func_15172D80",
         "func_15172E7C"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x172F70",
           "start": "0x172C50",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1A0100.c"
+      "source": "src/done/game/game_1A0100.c"
     },
     {
       "boundary_evidence": {

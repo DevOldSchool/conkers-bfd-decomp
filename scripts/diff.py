@@ -4,9 +4,11 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import importlib.util
 import json
 import re
+import shutil
 import subprocess
 import sys
 from pathlib import Path
@@ -258,12 +260,80 @@ def prepare_main_comparison(source: Path, candidate: Path, reference: Path, asse
     return pair
 
 
+def game_comparison_inputs(source: str, assembly: Path) -> dict[str, str]:
+    """Fingerprint proof inputs, compiler identity and relevant build settings."""
+    inputs = layout_check.failure_inputs(ROOT, source)
+    paths = {assembly, ROOT / "Dockerfile", ROOT / "Makefile",
+             ROOT / "config/rzip_layouts.json", ROOT / "config/roms.json",
+             ROOT / "config/overlays.json", ROOT / "config/reference/us.yaml",
+             ROOT / "config/profiles/us.yaml"}
+    for directory in ("config/game", "config/symbols", "config/relocs", "scripts"):
+        paths.update(path for path in (ROOT / directory).rglob("*")
+                     if path.is_file() and "__pycache__" not in path.parts)
+    paths.update((ROOT / "src").rglob("*.h"))
+    layout = json.loads((ROOT / "config/rzip_layouts.json").read_text())["profiles"]["us"]
+    paths.add(ROOT / layout["default_rom"])
+    for path in sorted(paths):
+        inputs[str(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
+    # IDO invokes sibling compiler passes and asm-processor imports adjacent
+    # modules. Include both installations, excluding non-input cache files.
+    runtime = {Path(sys.executable), compile_c.IDO_CC, compile_c.ASM_PROCESSOR,
+               compile_c.ASM_PROCESSOR_PRELUDE}
+    for directory in (compile_c.IDO_CC.parent, compile_c.ASM_PROCESSOR.parent):
+        runtime.update(path for path in directory.rglob("*")
+                       if path.is_file() and not {".git", "__pycache__"}.intersection(path.parts))
+    for name in (compile_c.ASSEMBLER, "mips-linux-gnu-ld", "mips-linux-gnu-objcopy", "python3"):
+        executable = shutil.which(name)
+        if executable is None:
+            raise ValueError(f"game comparison requires {name}")
+        runtime.add(Path(executable))
+        inputs["command:" + name] = str(Path(executable).resolve())
+    for path in sorted(runtime):
+        inputs["tool:" + str(path)] = hashlib.sha256(path.read_bytes()).hexdigest()
+    inputs["compiler_flags"] = json.dumps(compile_c.compiler_flags("us"))
+    return inputs
+
+
+def prepare_game_comparison(source: Path, candidate: Path, reference: Path, assembly: Path,
+                            symbol: str, start: int, size: int, *,
+                            deferred_symbol: str | None = None) -> tuple[Path, Path] | None:
+    """Build complete, fresh GAME context without trusting focused/cache layout."""
+    if not linked_aliases.game_eligible(candidate, reference, symbol, size):
+        return None
+    relative = source.relative_to(ROOT).as_posix()
+    linked_aliases.game_context(ROOT, relative, symbol, start, size)
+    prepare_nonmatching_asm.materialize("us", relative)
+    inputs = game_comparison_inputs(relative, assembly)
+    content = source.read_text(encoding="utf-8")
+    if deferred_symbol is not None:
+        content = activate_deferred_candidate(content, source, deferred_symbol)
+    if re.search(r'#pragma\s+GLOBAL_ASM\("[^"\n]*/' + re.escape(symbol) + r'\.s"\)', content):
+        raise ValueError(f"{symbol} is still supplied by GLOBAL_ASM")
+    directory = ROOT / "build/us/linked-aliases" / symbol
+    directory.mkdir(parents=True, exist_ok=True)
+    mixed_source, mixed_object = directory / "source.c", directory / "mixed.o"
+    mixed_source.write_text(content, encoding="utf-8")
+    mixed_object.unlink(missing_ok=True)
+    fresh_reference = reference_object("us", symbol, game_reference=True, assembly=assembly, force=True)
+    subprocess.run(compile_c.compile_command("us", mixed_source, mixed_object), cwd=ROOT, check=True)
+    try:
+        pair = linked_aliases.prepare_game(ROOT, relative, mixed_object, fresh_reference, assembly,
+                                          symbol, start, size)
+    except layout_check.LayoutMismatch:
+        pair = None  # Preserve symbolic diagnostics; finish still has its layout gate.
+    if (inputs != game_comparison_inputs(relative, assembly)
+            or mixed_source.read_text(encoding="utf-8") != content):
+        raise ValueError("game comparison inputs changed during proof; rebuild the candidate")
+    return pair
+
+
 def reference_object(
     profile: str,
     symbol: str,
     *,
     game_reference: bool = False,
     assembly: Path | None = None,
+    force: bool = False,
 ) -> Path:
     if assembly is None:
         assembly = locate_function(
@@ -281,11 +351,13 @@ def reference_object(
     normalized.parent.mkdir(parents=True, exist_ok=True)
     output.parent.mkdir(parents=True, exist_ok=True)
     dependencies = (assembly, NORMALIZE_ASM, ASSEMBLY_MACROS, TOOLCHAIN_DEFINITION)
-    if output.is_file() and all(
+    if not force and output.is_file() and all(
         dependency.is_file() and output.stat().st_mtime_ns >= dependency.stat().st_mtime_ns
         for dependency in dependencies
     ):
         return output
+    if force:
+        output.unlink(missing_ok=True)
     subprocess.run(
         ["python3", "scripts/normalize_asm.py", str(assembly.relative_to(ROOT)), str(normalized.relative_to(ROOT))],
         cwd=ROOT,
@@ -926,20 +998,31 @@ def main() -> int:
         # full-span raw-reference and checksum-validated ROM byte proof.
         try:
             inventory = json.loads((ROOT / "progress/functions.json").read_text())
-            region = next(entry["regions"]["us"] for entry in inventory["functions"]
-                          if entry["regions"].get("us", {}).get("symbol") == symbol)
+            regions = [entry["regions"]["us"] for entry in inventory["functions"]
+                       if entry["regions"].get("us", {}).get("symbol") == symbol]
+            if len(regions) != 1:
+                raise ValueError("comparison requires one registered function")
+            region = regions[0]
             # Watch rebuilds the live C object; never point it at a snapshot of
             # previously linked bytes. A later finish performs this proof anew.
-            pair = None if arguments.watch else linked_aliases.prepare(
-                ROOT, candidate, reference, reference_assembly,
-                symbol, int(region["vram"], 16), expected_size, **overlay_options)
+            pair = None
+            if not arguments.watch:
+                if (overlay == "game" and linked_aliases.game_unit_registered(
+                        ROOT, source.relative_to(ROOT).as_posix(), symbol)):
+                    pair = prepare_game_comparison(
+                        source, candidate, reference, reference_assembly, symbol,
+                        int(region["vram"], 16), expected_size, deferred_symbol=deferred_symbol)
+                else:
+                    pair = linked_aliases.prepare(
+                        ROOT, candidate, reference, reference_assembly,
+                        symbol, int(region["vram"], 16), expected_size, **overlay_options)
             if pair is not None:
                 candidate, reference = pair
             candidate_options = ({"overlay": "debugger", "expected_start": int(region["vram"], 16)}
                                  if overlay == "debugger" else {})
             table_options["table_check"] = lambda: candidate_tables.verify_candidate(
                 original_candidate, symbol, reference_assembly, expected_size, **candidate_options)
-        except (ValueError, OSError, subprocess.CalledProcessError) as error:
+        except (ValueError, OSError, subprocess.CalledProcessError, project_state.ProjectStateError) as error:
             print(f"error: address-alias verification failed: {error}", file=sys.stderr)
             return EXIT_BLOCKED_TOOLING
     directory = write_settings(arguments.profile, source)

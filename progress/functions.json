@@ -53327,22 +53327,21 @@
       "symbol": "func_150D7068"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT10 endpoint relocations only. Explicit endpoint pointer loop1720 adds runtime unrolling; restored10. No useful new hypothesis without changing verifier.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15172C50",
           "vram": "0x15172C50"
         }
       },
-      "source": "src/game/game_1A0100.c",
+      "source": "src/done/game/game_1A0100.c",
       "symbol": "func_15172C50"
     },
     {
@@ -53360,7 +53359,7 @@
           "vram": "0x15172CA8"
         }
       },
-      "source": "src/game/game_1A0100.c",
+      "source": "src/done/game/game_1A0100.c",
       "symbol": "func_15172CA8"
     },
     {
@@ -53378,7 +53377,7 @@
           "vram": "0x15172D28"
         }
       },
-      "source": "src/game/game_1A0100.c",
+      "source": "src/done/game/game_1A0100.c",
       "symbol": "func_15172D28"
     },
     {
@@ -53396,7 +53395,7 @@
           "vram": "0x15172D80"
         }
       },
-      "source": "src/game/game_1A0100.c",
+      "source": "src/done/game/game_1A0100.c",
       "symbol": "func_15172D80"
     },
     {
@@ -53414,7 +53413,7 @@
           "vram": "0x15172E7C"
         }
       },
-      "source": "src/game/game_1A0100.c",
+      "source": "src/done/game/game_1A0100.c",
       "symbol": "func_15172E7C"
     },
     {

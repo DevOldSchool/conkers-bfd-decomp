@@ -599,7 +599,7 @@ segments:
       - [0x171600, c, game/game_19EAB0]
       - [0x1718F0, c, game/game_19EDA0]
       - [0x171CA0, c, game/game_19F150]
-      - [0x172C50, c, game/game_1A0100]
+      - [0x172C50, c, done/game/game_1A0100]
       - [0x172F70, c, game/game_1A0420]
       - [0x1732E0, c, game/game_1A0790]
       - [0x1739B0, c, game/game_1A0E60]
