@@ -94465,6 +94465,694 @@
       },
       "source": "src/main/init_38E0.c",
       "symbol": "func_8000390C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 12,
+          "state": "matched",
+          "symbol": "func_160016F4",
+          "vram": "0x160016F4"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_160016F4"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 32,
+          "state": "matched",
+          "symbol": "func_16001AB0",
+          "vram": "0x16001AB0"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001AB0"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 36,
+          "state": "matched",
+          "symbol": "func_16001984",
+          "vram": "0x16001984"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001984"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 40,
+          "state": "matched",
+          "symbol": "func_16000000",
+          "vram": "0x16000000"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000000"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 48,
+          "state": "matched",
+          "symbol": "func_16000028",
+          "vram": "0x16000028"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000028"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 40,
+          "state": "matched",
+          "symbol": "func_16001B8C",
+          "vram": "0x16001B8C"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16001B8C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 48,
+          "state": "matched",
+          "symbol": "func_16001AD0",
+          "vram": "0x16001AD0"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16001AD0"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 52,
+          "state": "matched",
+          "symbol": "func_16001B00",
+          "vram": "0x16001B00"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16001B00"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 68,
+          "state": "matched",
+          "symbol": "func_16001A6C",
+          "vram": "0x16001A6C"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001A6C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 88,
+          "state": "matched",
+          "symbol": "func_16001338",
+          "vram": "0x16001338"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001338"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 108,
+          "state": "matched",
+          "symbol": "func_1600160C",
+          "vram": "0x1600160C"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_1600160C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 124,
+          "state": "matched",
+          "symbol": "func_16001678",
+          "vram": "0x16001678"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001678"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 88,
+          "state": "matched",
+          "symbol": "func_16001B34",
+          "vram": "0x16001B34"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16001B34"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 112,
+          "state": "matched",
+          "symbol": "func_16000314",
+          "vram": "0x16000314"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000314"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 136,
+          "state": "matched",
+          "symbol": "func_160012B0",
+          "vram": "0x160012B0"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_160012B0"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 140,
+          "state": "matched",
+          "symbol": "func_16001830",
+          "vram": "0x16001830"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001830"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 200,
+          "state": "matched",
+          "symbol": "func_160018BC",
+          "vram": "0x160018BC"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_160018BC"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 160,
+          "state": "matched",
+          "symbol": "func_16000384",
+          "vram": "0x16000384"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000384"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 184,
+          "state": "matched",
+          "symbol": "func_16002D2C",
+          "vram": "0x16002D2C"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16002D2C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 184,
+          "state": "matched",
+          "symbol": "func_16000A5C",
+          "vram": "0x16000A5C"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000A5C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 184,
+          "state": "matched",
+          "symbol": "func_16000F8C",
+          "vram": "0x16000F8C"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000F8C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 192,
+          "state": "matched",
+          "symbol": "func_160006CC",
+          "vram": "0x160006CC"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_160006CC"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 196,
+          "state": "matched",
+          "symbol": "func_160019A8",
+          "vram": "0x160019A8"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_160019A8"
+    },
+    {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 100,
+        "reason": "Signed pixel result20 regressed2535 and register glyph21 is identical100; best12 restored and freshly checked.17 register substitutions remain; tested conversion and storage-class hypotheses exhausted.",
+        "recorded_revision": "working-tree"
+      },
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "size_bytes": 284,
+          "state": "raw_asm",
+          "symbol": "func_160014F0",
+          "vram": "0x160014F0"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_160014F0"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 352,
+          "state": "matched",
+          "symbol": "func_16001390",
+          "vram": "0x16001390"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001390"
+    },
+    {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 20,
+        "reason": "Integer end-address attempt9 is byte-identical; restored best3 and rechecked20. Two LUI destination/order differences remain; pointer/integer bound family exhausted.",
+        "recorded_revision": "working-tree"
+      },
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "size_bytes": 304,
+          "state": "raw_asm",
+          "symbol": "func_16001700",
+          "vram": "0x16001700"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001700"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1608,
+          "state": "matched",
+          "symbol": "func_16001BB4",
+          "vram": "0x16001BB4"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16001BB4"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 680,
+          "state": "matched",
+          "symbol": "func_160033A8",
+          "vram": "0x160033A8"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_160033A8"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1476,
+          "state": "matched",
+          "symbol": "func_16002DE4",
+          "vram": "0x16002DE4"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_16002DE4"
+    },
+    {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 145,
+        "reason": "Attempts19 isolated register bits and20 reversed first-loop footer both compile identically145. Best10 restored and freshly checked;23 saved-register substitutions remain and both new hypotheses are exhausted.",
+        "recorded_revision": "working-tree"
+      },
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "size_bytes": 316,
+          "state": "raw_asm",
+          "symbol": "func_16000590",
+          "vram": "0x16000590"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000590"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 364,
+          "state": "matched",
+          "symbol": "func_16000424",
+          "vram": "0x16000424"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000424"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 460,
+          "state": "matched",
+          "symbol": "func_16000058",
+          "vram": "0x16000058"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000058"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 240,
+          "state": "matched",
+          "symbol": "func_16000224",
+          "vram": "0x16000224"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000224"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1184,
+          "state": "matched",
+          "symbol": "func_1600288C",
+          "vram": "0x1600288C"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_1600288C"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 620,
+          "state": "matched",
+          "symbol": "func_16001044",
+          "vram": "0x16001044"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16001044"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 720,
+          "state": "matched",
+          "symbol": "func_1600078C",
+          "vram": "0x1600078C"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_1600078C"
+    },
+    {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1600,
+        "reason": "Best19 freshly rechecked after21 narrowed odd flag still rematerializes mask and scores1775; preserve signed-store constant sharing and SDK-backed u32 TLB types.",
+        "recorded_revision": "working-tree"
+      },
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "size_bytes": 1144,
+          "state": "raw_asm",
+          "symbol": "func_16000B14",
+          "vram": "0x16000B14"
+        }
+      },
+      "source": "src/debugger/debugger_0000.c",
+      "symbol": "func_16000B14"
+    },
+    {
+      "overlay": "debugger",
+      "regions": {
+        "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
+          "size_bytes": 1680,
+          "state": "matched",
+          "symbol": "func_160021FC",
+          "vram": "0x160021FC"
+        }
+      },
+      "source": "src/debugger/debugger_1AD0.c",
+      "symbol": "func_160021FC"
     }
   ],
   "schema_version": 1

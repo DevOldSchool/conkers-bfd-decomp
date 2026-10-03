@@ -16,7 +16,11 @@ CFLAGS := -c -32 -G 0 -Xfullwarn -Xcpluscomm -signed -nostdinc -non_shared -Wab,
 PROFILE_CFLAGS_us := -DPROFILE_US=1
 PROFILE_CFLAGS_eu := -DPROFILE_EU=1
 PROFILE_CFLAGS := $(PROFILE_CFLAGS_$(PROFILE))
-LDFLAGS := -m elf32btsmip -T $(BUILD_DIR)/conker.$(PROFILE).ld
+PROFILE_RODATA_SCRIPT_us := config/debugger/us-rodata.ld
+PROFILE_RODATA_SCRIPT := $(PROFILE_RODATA_SCRIPT_$(PROFILE))
+PROFILE_RODATA_VERIFY_us := scripts/verify_debugger_rodata.py
+PROFILE_RODATA_VERIFY := $(PROFILE_RODATA_VERIFY_$(PROFILE))
+LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 ROM_NAME := conker.$(PROFILE).z64
 ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
@@ -219,7 +223,10 @@ prepare-reference:
 build: prepare
 	$(MAKE) --no-print-directory raw-build PROFILE=$(PROFILE)
 
-raw-build: $(BUILD_DIR)/$(ROM_NAME)
+raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY)
+ifneq ($(PROFILE_RODATA_VERIFY),)
+	python3 $(PROFILE_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+endif
 	@cmp -s "$(BUILD_DIR)/$(ROM_NAME)" "$(ROM_PATH)" || { \
 		printf '%s\n' "build mismatch: $(BUILD_DIR)/$(ROM_NAME)" >&2; exit 1; \
 	}
@@ -231,7 +238,7 @@ $(BUILD_DIR)/$(ROM_NAME): $(BUILD_DIR)/conker.$(PROFILE).elf
 $(BOOTSTRAP_SYMBOLS): $(ASM_SRCS) $(C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/$(PROFILE) $(C_SRCS)
 
-$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS)
+$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT)
 	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py

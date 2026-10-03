@@ -9,8 +9,9 @@ reviewed library code; external screenshots were discovery leads only.
 
 ## Mapping decisions
 
-All range ends are exclusive. C files contain `GLOBAL_ASM` scaffolds;
-their grouping is provisional, not recovered original source ownership.
+All range ends are exclusive. The two C collections contain individually
+verified C functions and preserved deferred candidates with active `GLOBAL_ASM`
+bodies. Their grouping is provisional, not recovered original source ownership.
 
 | Region | US ROM range | Virtual range |
 | --- | --- | --- |
@@ -34,9 +35,13 @@ Keep privileged TLB instructions and loaded data in raw assembly. The
 independent reference remains wholly raw. The matching workflow now supports
 individual debugger registration and explicitly reviewed debugger source units;
 see the [workflow](../decompilation-workflow.md#source-unit-boundaries-and-integration).
-The two provisional collections have not been registered or marked reviewed,
-and receive no C-match or source-unit credit. The 14,064-byte code interval is
-included as a separate US progress area; no EU/PAL interval is inferred.
+The two provisional collections have not been registered or marked reviewed
+as source units, so neither receives completed source-unit credit. Individual
+function matches are counted separately: 24 of the 28 debugger/UI spans and
+all 10 library-helper spans have full-span US `CURRENT (0)` and clean batch
+verification. The four remaining candidates retain their original assembly.
+The 14,064-byte code interval is included as a separate US progress area;
+no EU/PAL interval is inferred.
 
 ## Supporting evidence
 
@@ -77,7 +82,7 @@ See [main formatter provenance](libultrare_us_xprintf_reconstruction.md).
 
 ## Validation
 
-On 2026-10-02, `./conker build --all` reproduced the complete US ROM. All 94
+The initial scaffold validation on 2026-10-02 `./conker build --all` and reproduced the complete US ROM. All 94
 relevant tests, progress, and whitespace checks passed. The 3,516 scaffold/TLB
 words equal the independent raw reference; all data-map hashes and ranges
 were checked against the ROM. Main discovery remains 542 functions, ending
