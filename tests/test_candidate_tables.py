@@ -9,17 +9,25 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
 from candidate_tables import Table, TableEvidenceError, Object32, verify_object, reference_tables, direct_target
 
 
-def object_fixture(*, wrong_case=False, missing_relocation=False, origin=32, table_offset=4):
-    text = bytearray(origin + 32)
+def object_fixture(*, wrong_case=False, missing_relocation=False, origin=32, table_offset=4,
+                   function_size=32, text_size=32, tail_word=0, tail_symbol=False,
+                   tail_relocation=False):
+    text = bytearray(origin + text_size)
+    if tail_word:
+        struct.pack_into('>I', text, origin + function_size, tail_word)
     struct.pack_into('>I', text, origin, 0x3C010000 + (1 if table_offset >= 0x8000 else 0))
     struct.pack_into('>I', text, origin + 8, 0x8C220000 + table_offset)
     rodata = bytearray(table_offset + 8)
     struct.pack_into('>II', rodata, table_offset, origin + 16, origin + (16 if wrong_case else 20))
     strings = b'\0func_test\0'
     symbol = lambda name, value, size, info, section: struct.pack('>IIIBBH', name, value, size, info, 0, section)
-    symbols = (bytes(16) + symbol(1, origin, 32, 0x12, 1)
-               + symbol(0, 0, 0, 3, 1) + symbol(0, 0, 0, 3, 2))
+    symbols = (bytes(16) + symbol(1, origin, function_size, 0x12, 1)
+               + symbol(0, 0, origin + text_size, 3, 1) + symbol(0, 0, 0, 3, 2))
+    if tail_symbol:
+        symbols += symbol(0, origin + function_size, 4, 0x12, 1)
     reltext = struct.pack('>IIII', origin, 3 << 8 | 5, origin + 8, 3 << 8 | 6)
+    if tail_relocation:
+        reltext += struct.pack('>II', origin + function_size, 2 << 8 | 2)
     reltable = struct.pack('>II', table_offset, 2 << 8 | 2)
     if not missing_relocation:
         reltable += struct.pack('>II', table_offset + 4, 2 << 8 | 2)
@@ -86,6 +94,32 @@ class CandidateTableTests(unittest.TestCase):
             verify_object(object_fixture(missing_relocation=True), 'func_test', 0x15000000, self.tables, 32)
         with self.assertRaisesRegex(TableEvidenceError, 'extent'):
             verify_object(object_fixture(), 'func_test', 0x15000000, self.tables, 28)
+
+    def test_final_text_alignment_is_checked_without_shortening_registered_span(self):
+        for origin in (0, 4, 32):
+            # Function ends four bytes before the next section alignment.
+            verify_object(object_fixture(origin=origin, function_size=28 - origin % 16,
+                                         text_size=32 - origin % 16),
+                          'func_test', 0x15000000, self.tables, 32 - origin % 16)
+        with self.assertRaisesRegex(TableEvidenceError, 'case 1 differs'):
+            verify_object(object_fixture(function_size=28, wrong_case=True),
+                          'func_test', 0x15000000, self.tables, 32)
+
+    def test_padding_cannot_hide_instructions_symbols_or_relocations(self):
+        for options in ({'tail_word': 0x03E00008}, {'tail_symbol': True},
+                        {'tail_relocation': True}, {'text_size': 48}):
+            with self.subTest(options=options), self.assertRaisesRegex(TableEvidenceError, 'extent'):
+                verify_object(object_fixture(function_size=28, **options),
+                              'func_test', 0x15000000, self.tables, 32)
+
+    def test_invalid_extents_cannot_be_treated_as_alignment(self):
+        for function_size, text_size, expected_size in ((0, 32, 32), (27, 32, 32),
+                                                       (16, 32, 32), (28, 28, 32),
+                                                       (28, 36, 36), (32, 32, 36)):
+            with self.subTest(size=function_size, text=text_size, expected=expected_size):
+                with self.assertRaisesRegex(TableEvidenceError, 'extent'):
+                    verify_object(object_fixture(function_size=function_size, text_size=text_size),
+                                  'func_test', 0x15000000, self.tables, expected_size)
 
     def test_truncated_or_foreign_objects_fail_closed(self):
         for data in (b'', object_fixture()[:80], b'not ELF' + object_fixture()[7:]):

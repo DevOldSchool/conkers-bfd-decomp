@@ -5,6 +5,11 @@
  */
 SECTIONS
 {
+    /* Entrypoint dispatch: docs/evidence/entrypoint_jump_table.md. */
+    .game_rodata_entrypoint 0x80095A30 (INFO) : SUBALIGN(4)
+    {
+        *entrypoint.o(.rodata)
+    }
     /* Constructor literals: docs/evidence/game_981e0_constructor_literal_pool.md. */
     .game_rodata_981e0 0x80099DAC (INFO) : SUBALIGN(4)
     {
@@ -156,3 +161,6 @@ ASSERT(SIZEOF(.game_rodata_981e0) == 0xF0,
 __game_rodata_981e0_payload_size = 0xEC;
 ASSERT(__game_rodata_981e0_payload_size == 0xEC,
        "game_981E0 constructor literal payload extent changed")
+
+ASSERT(SIZEOF(.game_rodata_entrypoint) == 0x20, "entrypoint table extent changed")
+__game_rodata_entrypoint_payload_size = 0x14;

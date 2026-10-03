@@ -2620,15 +2620,15 @@
       "functions": [
         "func_15007830"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x7A20",
           "start": "0x7830",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/entrypoint.c"
+      "source": "src/done/game/entrypoint.c"
     },
     {
       "boundary_evidence": {
