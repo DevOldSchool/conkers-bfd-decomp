@@ -47,6 +47,27 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Reviewed bank-01 model records; descriptive labels, not original symbols.
+ * See config/model-semantic-names.json.
+ */
+enum {
+    MODEL_CONKER = 0,
+    MODEL_CONKER_VARIANT_1 = 1,
+    MODEL_CONKER_VARIANT_2 = 2,
+    MODEL_CONKER_VARIANT_3 = 3,
+    MODEL_CONKER_VARIANT_4 = 4,
+    MODEL_ROCKMAN = 16,
+    MODEL_BUGGER_LUGS = 33,
+    MODEL_BIG_BIG_GUY = 43,
+    MODEL_DINO_BABY = 54,
+    MODEL_HAYBOT_HAY_COVERED = 69,
+    MODEL_HAYBOT = 75,
+    MODEL_FANGY = 83,
+    MODEL_COW = 121,
+    MODEL_CONKER_BLACK_OUTFIT = 150,
+    MODEL_RED_DINOSAUR = 165
+};
+
 void func_1514EDF0(s32 arg0, s32 arg1);
 
 void func_15141970(s32 *arg0) {
@@ -156,35 +177,35 @@ void func_15141A7C(void *arg0, s32 arg1) {
  */
 s32 func_15141C0C(void *actor) {
     switch (*(u8 *)((u8 *)actor + 4)) {
-    case 0x79:
+    case MODEL_COW:
         return 0xA;
-    case 0x21:
+    case MODEL_BUGGER_LUGS:
         return 9;
     case 0x7B:
         return 8;
-    case 0x0:
-    case 0x1:
-    case 0x2:
-    case 0x3:
-    case 0x4:
-    case 0x96:
+    case MODEL_CONKER:
+    case MODEL_CONKER_VARIANT_1:
+    case MODEL_CONKER_VARIANT_2:
+    case MODEL_CONKER_VARIANT_3:
+    case MODEL_CONKER_VARIANT_4:
+    case MODEL_CONKER_BLACK_OUTFIT:
         return 0;
-    case 0x10:
+    case MODEL_ROCKMAN:
     case 0x91:
         return 1;
-    case 0x2B:
+    case MODEL_BIG_BIG_GUY:
         return 2;
     case 0x54:
         return 5;
-    case 0x36:
-    case 0x53:
-    case 0xA5:
+    case MODEL_DINO_BABY:
+    case MODEL_FANGY:
+    case MODEL_RED_DINOSAUR:
         return 6;
     case 0x58:
         return 7;
-    case 0x45:
+    case MODEL_HAYBOT_HAY_COVERED:
         return 3;
-    case 0x4B:
+    case MODEL_HAYBOT:
         return 4;
     default:
         return 0xB;
