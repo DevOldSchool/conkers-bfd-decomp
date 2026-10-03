@@ -386,6 +386,11 @@ s32 func_1502B020(s32, s32, s32, s32);
 void func_15062BDC(void *, s32, s32, s32);
 s8 func_15084D00(void *);
 
+/* Semantic role: actor_assign_model.
+ * Writes the mutable model byte at +4, handles model 0xFF, applies related
+ * defaults, and updates the animation-model byte and optional route resource.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150837D4 CURRENT (568) */
 void func_150837D4(s32 arg0, s32 arg1, s32 arg2) {
     u8 **sp20;
@@ -701,19 +706,26 @@ void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084558.s")
-/* Semantic role: actor_get_current_representation_model.
- * Selector zero uses the first model; nonzero selectors are one-based.
- * See docs/evidence/actor_representation_asset_semantics.md.
+/* Semantic role: actor_get_override_or_base_representation_model.
+ * Override selector zero uses the first model, not the applied ordinal at +1C8.
+ * Nonzero selectors are one-based; no sentinel or bounds normalization occurs.
+ * See docs/evidence/actor_representation_selection_semantics.md.
  */
 u8 func_150849A0(void *actor) {
-    u8 representationSelector;
+    u8 representationOverrideSelector;
 
-    representationSelector = *(u8 *)((u8 *)actor + 0x1C9);
-    if (representationSelector != 0) {
-        return *(*(u8 **)((u8 *)actor + 0x2C4) + representationSelector - 1);
+    representationOverrideSelector = *(u8 *)((u8 *)actor + 0x1C9);
+    if (representationOverrideSelector != 0) {
+        return *(*(u8 **)((u8 *)actor + 0x2C4) + representationOverrideSelector - 1);
     }
     return **(u8 **)((u8 *)actor + 0x2C4);
 }
+/* Semantic role: actor_get_override_or_last_automatic_model.
+ * A nonzero override selects its one-based entry; otherwise use the last
+ * automatic entry, or entry zero when the automatic count is zero.
+ * Optionally output that ordinal; no sentinel or bounds normalization occurs.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150849CC CURRENT (235) */
 u8 func_150849CC(void *arg0, s32 *arg1) {
     s32 var_v1;

@@ -1582,6 +1582,11 @@ void func_1507911C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507911C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507911C.s")
+/* Semantic role: actor_script_set_representation_override.
+ * Script operand D_800D1890 is stored at actor +1C9, or 0xFF if it exceeds
+ * total count +2C9. Zero is stored unchanged; this handler does not apply it.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 void func_150791F0(void) {
     if ((s32) *(u8 *)((u8 *)D_800D154C + 0x2C9) < (s32) D_800D1890) {
         D_800D154C->pad10F[0xBA] = 0xFF;

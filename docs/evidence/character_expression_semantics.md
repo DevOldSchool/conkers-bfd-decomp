@@ -15,11 +15,15 @@ fields `dataAddress` and `sizeBytes`, without changing their representation.
 The predecrement from the defaults pointer accesses the second descriptor at
 bundle offset eight; `func_1502B4A8` has already masked its size flags.
 
-The lookup uses `func_150849A0`, which selects a model through actor `+0x1C9`
-and `+0x2C4`. It is not generally the actor's static model byte at `+0x04`.
-The expression-count helper preserves its special static-model `0x96` case
-and `0xFF` sentinel. `func_1507E6B8` retains its existing argumentless call to
-`func_150849A0`; naming does not change that calling convention.
+The lookup uses `func_150849A0`, which selects an override-or-base model through
+actor `+0x1C9` and `+0x2C4`. Selector zero chooses the first list entry; a nonzero
+selector chooses entry `selector - 1`. It never reads the applied ordinal at
+`+0x1C8`, and neither normalizes the `0xFF` reset request nor checks list bounds.
+This lookup can differ from the mutable applied model byte at actor `+0x04`.
+The expression-count helper preserves its special `+0x04 == 0x96` case and its
+`0xFF` model sentinel. `func_1507E6B8` retains its existing argumentless call to
+`func_150849A0`; naming does not change that calling convention. See the
+[selection refinement](actor_representation_selection_semantics.md).
 
 ## Function roles
 
@@ -28,9 +32,9 @@ and `0xFF` sentinel. `func_1507E6B8` retains its existing argumentless call to
 | `func_1507E500` | `actor_set_expression` | Handles the old action, stores the requested index, applies it and sets morph duration; no lower-bound check is claimed |
 | `func_1507E5C8` | `actor_apply_current_expression` | Applies action, morph shape/duration, blink codes and texture selectors |
 | `func_1507E6B8` | `actor_can_update_blink` | Its result gates the blink-control update in `func_1507E73C` |
-| `func_1507E908` | `actor_get_expression_record` | Address lookup using current representation, with ten-byte stride |
+| `func_1507E908` | `actor_get_expression_record` | Address lookup using the override-or-base model, with ten-byte stride |
 | `func_1507E968` | `actor_get_expression_count` | Expression segment byte size divided by ten |
-| `func_1507E9F8` | `actor_get_expression_action_table` | Current representation zero exposes five action IDs |
+| `func_1507E9F8` | `actor_get_expression_action_table` | Override-or-base model zero exposes five action IDs |
 | `func_1507EA44` | `actor_dispatch_expression_action` | One-based selector resolves an action ID before dispatch |
 | `func_1507EABC` | `actor_restore_default_expression` | Requests the default and clears priority/timer and direct blink codes |
 | `func_1507EB2C` | `actor_set_default_expression_zero` | Delegates with zero; an unchanged default does not force a reset |

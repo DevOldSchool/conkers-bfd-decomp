@@ -3,28 +3,36 @@
 These are descriptive roles inferred from the checksum-validated owned US ROM,
 not recovered original symbols. The linked names, argument and local types,
 argument widths, arithmetic, constants, declaration order and source positions
-stay intact. This slice renames only function-local identifiers in four existing
-matched definitions, and adds role comments for three existing raw functions.
+stay intact. The initial slice renamed only function-local identifiers in four
+existing matched definitions and added role comments for three raw functions.
+The later [selection refinement](actor_representation_selection_semantics.md)
+tightens the getter role and distinguishes override control from applied state.
 No shared structure, header, alias, runtime observation, model identity or C-match
 claim is introduced. Excluded candidates are preserved byte-for-byte.
 
-## Current representation lookup
+## Override-or-base representation lookup
 
 `func_150849A0` reads an unsigned selector at actor `+0x1C9`. At
 `150849A4` selector zero branches to the first byte through the pointer at
 `+0x2C4`; nonzero selectors return byte `selector - 1` through the same pointer
-at `150849B0..150849B8`. The names `actor` and `representationSelector` describe
-those local roles. The comment role is `actor_get_current_representation_model`.
-This does not rename the actor's static model byte at `+0x04`, nor assert a
-bounds check or exclusivity to any one character.
+at `150849B0..150849B8`. The names `actor` and
+`representationOverrideSelector` describe those local roles. The comment role
+is `actor_get_override_or_base_representation_model`. It never reads the applied
+ordinal at `+0x1C8`: selector zero returns the first list entry even when automatic
+selection has applied another entry. The model byte at actor `+0x04` is mutable,
+written by `150837D4`. Neither a `0xFF` sentinel check nor a bounds check occurs
+in this getter; no exclusivity to any one character is claimed.
 
 The full initialization helper `1505F188` first clears the 0x32C-byte actor and
 sets `+0x2C4` to actor `+0x04` (`1505F1F4/1505F20C`), with counts one at
 `+0x2C8/+0x2C9`. The full defaults consumer `150839B8` replaces that pointer
 with `D_80086CAC[defaults[5]]` when defaults byte four is nonzero, copies that
 byte into `+0x2C8`, and adds defaults byte `0x38` for `+0x2C9`. This proves the
-single-model fallback and alternate representation-list relationship without
-assigning a gameplay meaning to individual representation ordinals.
+single-model fallback and alternate representation-list relationship. The
+[selection refinement](actor_representation_selection_semantics.md) identifies
+`+0x2C8` as the automatic prefix count and `+0x2C9` as the total count; suffix
+entries require explicit selection rather than ordinary distance selection.
+Neither count implies distinct models or a gameplay identity for each entry.
 
 The seven direct calls found in the raw CPU images are:
 
@@ -37,8 +45,8 @@ The seven direct calls found in the raw CPU images are:
 - `1517AD68`, in `1517AD00`
 
 The [expression audit](character_expression_semantics.md) and
-[morph audit](us_character_morph_targets.md) establish the current-representation
-consumers. In particular, the existing argumentless call in `1507E6B8` is not
+[morph audit](us_character_morph_targets.md) establish the override-or-base
+resource consumers. In particular, the existing argumentless call in `1507E6B8` is not
 changed or explained away by a local parameter name.
 
 ## Representation resource loading
@@ -124,8 +132,10 @@ failure test and `0x10` result flag stay unchanged. The defaults audit confirms
 the texture descriptor contract; neither dimensions nor material appearance
 are inferred by this name.
 
-The optional raw spawn-initializer and model-assignment comments are omitted
-from this patch. Those spans are retained as chain evidence only.
+The initial patch omitted raw spawn-initializer and model-assignment comments.
+The [selection refinement](actor_representation_selection_semantics.md) later
+adds a bounded model-assignment role comment; the spawn initializer remains
+chain evidence only.
 
 ## Fresh independent full-span evidence
 
