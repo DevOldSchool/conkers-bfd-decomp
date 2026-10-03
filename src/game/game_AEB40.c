@@ -179,16 +179,16 @@ void func_150829D8(GameAEB40State *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15082A44.s")
 s32 func_1515D440();                                /* extern */
-s32 func_1515D480(u8);                              /* extern */
+void *func_1515D480(s32);                              /* extern */
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150832AC CURRENT (935) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150832AC CURRENT (735) */
 void func_150832AC(u8 *arg0) {
     void *temp_v1;
-    s32 var_s1;
-    u8 temp_a0;
-    u8 var_s3;
     u8 *var_s0;
+    s32 var_s1;
+    s32 temp_a0;
+    s32 var_s3;
 
     temp_v1 = (void *)(*(void **)((u8 *)arg0 + 0x144));
     if (temp_v1 != 0) {
@@ -205,7 +205,7 @@ void func_150832AC(u8 *arg0) {
         var_s1 = 0;
         if (D_80082FA0 >= 0) {
             do {
-                *(s32 *)((u8 *)var_s0 + 0x304) = func_1515D480(var_s3);
+                *(u32 *)((u8 *)var_s0 + 0x304) = (u32)func_1515D480(var_s3);
                 var_s1 += 1;
                 var_s0 += 4;
             } while (D_80082FA0 >= var_s1);

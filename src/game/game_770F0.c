@@ -23,6 +23,79 @@ void func_15049C40(void *arg0, void *arg1) {
         *(f32 *)((u8 *)arg1 + 0xC) = (f32) -*(f32 *)((u8 *)arg1 + 0xC);
     }
 }
+typedef struct {
+    s32 entries[3];
+} Game770F0IndexOrder;
+
+f32 func_10026530(f32);
+extern Game770F0IndexOrder D_80085FF0;
+extern f32 D_80099090;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049CB8 CURRENT (3127) */
+void func_15049CB8(void *arg0, void *arg1) {
+    f32 trace;
+    f32 first_root;
+    f32 first_factor;
+    f32 root;
+    f32 factor;
+    f32 diagonal;
+    s32 index;
+    s32 column;
+    s32 next;
+    s32 last;
+    s32 next_column;
+    s32 last_column;
+    u8 *row;
+    u8 *next_row;
+    u8 *last_row;
+
+    trace = *(f32 *)((u8 *)arg0 + 0x28) +
+            (*(f32 *)arg0 + *(f32 *)((u8 *)arg0 + 0x14)) + 1.0f;
+    if (D_80099090 < trace) {
+        first_root = func_10026530(trace);
+        first_factor = 0.5f / first_root;
+        *(f32 *)arg1 = first_root * 0.5f;
+        *(f32 *)((u8 *)arg1 + 4) =
+            (*(f32 *)((u8 *)arg0 + 0x18) - *(f32 *)((u8 *)arg0 + 0x24)) * first_factor;
+        *(f32 *)((u8 *)arg1 + 8) =
+            (*(f32 *)((u8 *)arg0 + 0x20) - *(f32 *)((u8 *)arg0 + 8)) * first_factor;
+        *(f32 *)((u8 *)arg1 + 0xC) =
+            (*(f32 *)((u8 *)arg0 + 4) - *(f32 *)((u8 *)arg0 + 0x10)) * first_factor;
+    } else {
+        Game770F0IndexOrder order;
+
+        index = 0;
+        order = D_80085FF0;
+        if (*(f32 *)arg0 < *(f32 *)((u8 *)arg0 + 0x14)) {
+            index = 1;
+        }
+        row = (u8 *)arg0 + index * 0x10;
+        column = index * 4;
+        diagonal = *(f32 *)(row + column);
+        if (diagonal < *(f32 *)((u8 *)arg0 + 0x28)) {
+            row = (u8 *)arg0 + 0x20;
+            diagonal = *(f32 *)(row + 8);
+            column = 8;
+        }
+        next = *(s32 *)((u8 *)order.entries + column);
+        next_column = next * 4;
+        last = order.entries[next];
+        next_row = (u8 *)arg0 + next * 0x10;
+        last_row = (u8 *)arg0 + last * 0x10;
+        last_column = last * 4;
+        root = func_10026530(((diagonal - *(f32 *)(next_row + next_column)) -
+                               *(f32 *)(last_row + last_column)) + 1.0f);
+        factor = 0.5f / root;
+        *(f32 *)((u8 *)arg1 + column + 4) = root * 0.5f;
+        *(f32 *)arg1 = (*(f32 *)(next_row + last_column) -
+                       *(f32 *)(last_row + next_column)) * factor;
+        *(f32 *)((u8 *)arg1 + next_column + 4) =
+            (*(f32 *)(next_row + column) + *(f32 *)(row + next_column)) * factor;
+        *(f32 *)((u8 *)arg1 + last_column + 4) =
+            (*(f32 *)(last_row + column) + *(f32 *)(row + last_column)) * factor;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15049CB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_770F0/func_15049CB8.s")
 /* Call context: func_15047D60: unique active project prototype */
 /* Call context: func_15048360: unique active project prototype */
