@@ -63999,17 +63999,16 @@
       "symbol": "func_150A00F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): body is exact; only loop-end relocation spells the equivalent address as D_800D3010+0x78 instead of D_800D3088. Direct pointer-sentinel and symbolic index-bound rewrites regressed to CURRENT (1970)/(1175), so the original best candidate was restored",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150A019C",
           "vram": "0x150A019C"
         }
@@ -71558,6 +71557,12 @@
       "symbol": "func_1514BF7C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 800,
+        "reason": "Bounded manual trial exhausted: initial 14240, real extension base 800, shorter address lifetime/removed owner alias 1735. Preserve valid CURRENT 800 model with actual 12-byte snapshot and unsigned fullword countdown; remaining frame slot, address lifetime and scheduling mismatch. Live initialized 0x168 slot33 owner and stable disjoint timing/finite-intermediate preconditions; no universal lifecycle claim. No permutation, forced storage, ABI or shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
