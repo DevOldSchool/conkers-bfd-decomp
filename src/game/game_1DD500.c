@@ -91,19 +91,24 @@ extern f32 D_800AA2A8;
 extern f32 D_800AA2AC;
 extern f32 D_800AA2B0;
 
+/*
+ * The optional arg1 actor supplies the effect profile; arg0 supplies the
+ * position/transform. Model bytes 83/165 or an absent arg1 select profile 4
+ * locally, before the descriptor-variant checks.
+ */
 void func_151B01B8(void *arg0, void *arg1) {
     Game1DD500Impact packet;
     u8 shade;
     Game1DD500Hit hit;
-    s32 kind;
+    s32 effectProfileIndex;
 
     if ((arg0 != 0) && (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) && ((*(u8 *)((u8 *)arg0 + 0x74) & 0xF) != 0xF)) {
         func_1504715C(&hit, arg0);
-        kind = arg1 != 0 ?
+        effectProfileIndex = arg1 != 0 ?
             ((*(u8 *)((u8 *)arg1 + 4) == 0x53 || *(u8 *)((u8 *)arg1 + 4) == 0xA5) ?
                 4 : func_15134070(arg1)) : 4;
-        if (kind != 0x63) {
-            if (D_800A3FD8[kind * 0x10 + 0xE] != 2) {
+        if (effectProfileIndex != 0x63) {
+            if (D_800A3FD8[effectProfileIndex * 0x10 + 0xE] != 2) {
                 shade = ((s32) *(u16 *)((u8 *)arg0 + 0x7A) >> 8) + 0x40;
                 func_15143134(&D_800AA120, &packet.position[0], *(s32 *)((u8 *)arg0 + 0x1D4) + 0x180);
                 packet.field2C = 0xA;
@@ -125,7 +130,7 @@ void func_151B01B8(void *arg0, void *arg1) {
                 packet.field24 = 6.0f;
                 packet.field28 = D_800AA2B0;
                 packet.field40 = 0.5f;
-                if (D_800A3FD8[kind * 0x10 + 0xE] == 1) {
+                if (D_800A3FD8[effectProfileIndex * 0x10 + 0xE] == 1) {
                     packet.field3C = 1;
                 } else {
                     packet.field3C = 0;

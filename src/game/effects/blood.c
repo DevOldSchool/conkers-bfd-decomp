@@ -69,6 +69,12 @@ typedef struct BloodState {
 void func_151BC5A4(BloodState *arg0, s32 arg1, u8 arg2);
 void func_1513A5E0(s32 arg0, s32 arg1, s32 arg2);
 
+/*
+ * Descriptive role: actor_get_fragment_effect_profile_index.
+ * Actor model byte +0x04 selects a shared 20-entry descriptor/fragment
+ * profile, or 99 when unsupported. The profile indexes D_800A3FD8,
+ * D_80089A20 and D_800A3F14; it is not a bank or model ID.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15134070 CURRENT (2310) */
 s32 func_15134070(void *arg0) {
     u8 temp_v0;

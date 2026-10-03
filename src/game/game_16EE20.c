@@ -148,8 +148,14 @@ void func_15141A7C(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15141A7C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15141A7C.s")
-s32 func_15141C0C(void *arg0) {
-    switch (*(u8 *)((u8 *)arg0 + 4)) {
+/*
+ * Descriptive role: actor_get_effect_selector_callback_index.
+ * Actor model byte +0x04 selects one of 12 callbacks in D_8008A084;
+ * default 11 is the null slot. A selected callback returns a separate
+ * D_8008A0B4 effect-handler index, or -1 when no handler is selected.
+ */
+s32 func_15141C0C(void *actor) {
+    switch (*(u8 *)((u8 *)actor + 4)) {
     case 0x79:
         return 0xA;
     case 0x21:
@@ -231,14 +237,20 @@ extern s32 D_8008A084[];
 extern s32 D_8008A0B4[];
 extern u8 D_800BE616;
 
-void func_15141DA4(s32 arg0, s32 arg1, s32 arg2) {
-    s32 *temp_v0;
+/*
+ * Descriptive role: actor_request_timed_effect_handler.
+ * Checks the separate 12-callback and 20-handler index domains, their null
+ * slots and the global gate; requests a handler only for a positive duration.
+ * actorAddress retains the existing integer ABI.
+ */
+void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandlerIndex) {
+    s32 *handlerRecord;
 
-    if ((arg1 < 0xC) && (arg1 >= 0) && (arg2 < 0x14) && (arg2 >= 0) &&
-        (D_800BE616 == 0) && (D_8008A084[arg1] != 0) && (arg2 != -1)) {
-        temp_v0 = (s32 *)((u8 *)D_8008A0B4 + arg2 * 8);
-        if ((temp_v0[0] != 0) && (temp_v0[1] > 0)) {
-            func_15141E38((void *)arg0, arg2);
+    if ((selectorCallbackIndex < 0xC) && (selectorCallbackIndex >= 0) && (effectHandlerIndex < 0x14) && (effectHandlerIndex >= 0) &&
+        (D_800BE616 == 0) && (D_8008A084[selectorCallbackIndex] != 0) && (effectHandlerIndex != -1)) {
+        handlerRecord = (s32 *)((u8 *)D_8008A0B4 + effectHandlerIndex * 8);
+        if ((handlerRecord[0] != 0) && (handlerRecord[1] > 0)) {
+            func_15141E38((void *)actorAddress, effectHandlerIndex);
         }
     }
 }
