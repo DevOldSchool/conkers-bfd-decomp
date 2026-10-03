@@ -2,7 +2,7 @@
 
 This source-local pass continues `src/game/camera/camera_camera.c` from the
 reviewed 45-member range at game offsets `0x122AE0:0x1287E0`. The unit remains
-mixed and in progress: 21 functions are accepted C matches, while all 24
+mixed and in progress: 23 functions are accepted C matches, while all 22
 remaining members retain assembly. Deferred C is evidence for further work,
 not match credit or a completed source unit.
 
@@ -45,29 +45,55 @@ partial structures. The new definition agrees with the existing camera caller
 prototype. One real coordinate scalar is reused for three ordered load/store
 pairs; no storage or instructions are added for alignment.
 
-The complete 100-byte executable sequence, including the return-delay NOP,
-compiles exactly. The required registered span is still 108 bytes: the raw
-return is at `0x151287D0`, its delay slot at `0x151287D4`, and the final two
-section-alignment NOPs at `0x151287D8` and `0x151287DC`. Those two words are
-missing from the focused C object, yielding CURRENT 200. They are not trimmed
-from the comparison and the function is not marked matched.
+The initial reconstruction compiled the complete 100-byte executable sequence,
+including the return-delay NOP, exactly. Its required registered span remains
+108 bytes: the raw return is at `0x151287D0`, its delay slot at `0x151287D4`, and
+the final two section-alignment NOPs at `0x151287D8` and `0x151287DC`. The
+initial focused object omitted those last two words, yielding CURRENT 200.
 
-The focused compiler omits remaining assembly members. The current accepted
-C prefix is `0xCFC` bytes, while this member's authentic unit offset is
-`0x5C94`; their modulo-16 alignment differs. Future preceding C matches may
-restore the natural compiler section tail. That must be demonstrated by a
-fresh full-span comparison and source-unit layout/integration gates, rather
-than simulated with dummy storage, extra functions, or manual padding.
+Matching `func_15125924` below adds its genuine 328-byte C body to the focused
+prefix. The final function then starts at `0xE44`, with the same modulo-16
+position as its authentic unit offset `0x5C94`. The compiler naturally emits
+the required two final zero words. The unchanged comparator now reports
+CURRENT 0 over all 108 bytes, and the full source-unit layout passes. No
+comparison-tool extension or manually added padding is included.
+
+## Retail-only branch locals
+
+Owned earlier-build evidence supplies a useful source-lifetime clue for
+`func_15125924`. Debug `func_1512B258` and ECTS `func_151167E4` retain the
+retail `0x30` frame and the type/value homes at SP+`0x2C`/`0x28`. Retail adds a
+flags/difference restoration tail without increasing that frame. The two
+values used only in that tail have non-overlapping lifetimes with the values
+consumed by the outer decision.
+
+Placing `s32 flags` and `f32 difference` declarations in the existing else
+branch recovers the original frame and matches the complete 328-byte retail
+span at CURRENT 0. No operations, fields, calls, or storage objects are added.
+This does not establish the original source text; the independent retail
+instruction comparison and layout gate establish the accepted result.
+
+The earlier inputs were independently normalized and verified:
+
+- Debug ROM SHA-1: `3b99222ee76f6277a963142cd807b3df25d5174f`
+- ECTS ROM SHA-1: `06597dc935651f8995bfacc30fde6e621d44c3e1`
+
+The same review found unchanged `0x48` frames in all three versions of
+`func_15125A6C`; those bodies provide no basis for inventing extra locals or
+padding in its still-deferred candidate.
 
 ## Bounded negative results
 
 - `func_15125924`: sharing the disjoint initial type and later flags local
   worsens CURRENT 10 to 50; removing the named target pointer is neutral at
-  10. The best candidate is preserved. Its only remaining differences are
-  the `0x38` versus `0x30` stack adjustment instructions
+  10. Those probes were rejected before the distinct beta-supported
+  branch-local declarations above produced an exact match
 - `func_151256BC`: replacing named derived-address locals with their repeated
   typed expressions leaves CURRENT 295 and the `0x48` versus `0x38` frame
   unchanged. The earlier candidate is preserved
+- `func_15125490`: its stale deferred parameter declaration was repaired to
+  agree with the existing void-pointer prototype, retaining the same project
+  typed field view internally. It compiles again and remains CURRENT 560
 - `func_15123568`: a proposed unsigned shift-mask literal was not tried after
   fresh diagnosis showed that the relevant shift-one and shift instructions
   already match. CURRENT 230 remains unchanged

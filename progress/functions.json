@@ -7633,7 +7633,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 560,
-        "reason": "CURRENT560 preserved; camera-manual-20260930 float-local/anonymous integer conversion neutral560. Prior outer else and declaration ordering failed; named integer removal did not change allocation. No shared changes.",
+        "reason": "CURRENT560 reverified after fixing stale candidate parameter declaration to agree with the existing void-pointer prototype; original typed field view retained locally, ABI/body unchanged. Prior float-local/outer-else/declaration hypotheses exhausted. Explicit pointer middle-range return remains, no undefined return. Evidence camera-completion-20261003.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7760,17 +7760,16 @@
       "symbol": "func_151256BC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT10 preserved. Camera completion pass: shared type/tail-flags local regressed50; removing named target pointer was neutral10. Raw frame30 vs compiler38 remains; spill homes/body exact. Prior direct flags/scoped target and FP/declaration/call probes exhausted; no padding. Evidence camera-completion-20261003.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 328,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15125924",
           "vram": "0x15125924"
         }
@@ -8093,17 +8092,16 @@
       "symbol": "func_1512868C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 200,
-        "reason": "Fresh owned-ROM-derived C replaces historical candidate/types and agrees with existing caller prototype. CURRENT200: all100 executable bytes including return-delay NOP exact; only final two section-alignment NOPs absent from stripped focused prefix (0xCFC rather than authentic0x5C94 phase). Requires natural preceding C integration, no padding or span trimming. Evidence camera-completion-20261003.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 108,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15128774",
           "vram": "0x15128774"
         }
