@@ -46,6 +46,21 @@ nonempty collision inputs, not a replacement count for the existing 96 exported
 static collision meshes, whose primary surface-table acceptance is stricter.
 Slot three must not be added to visible scene geometry based on this evidence.
 
+The `func_15003668` fingerprint covers the complete registered function,
+game-code offsets `[0x3668, 0x38A0)` (568 bytes), including the return at
+`0x15003898` and its delay slot at `0x1500389C`. Both the raw per-function
+assembly and the original reference split agree word-for-word with the
+checksum-validated US ROM. Its SHA-256 is
+`037389d80d9cb875146b35dfbb060ab53e4ba77eacc38158a4273f66c1ea3d2e`
+and SHA-1 is `3e497dc6c7cfb6ff13e573f61830877611c79397`.
+The former endpoint `0x39BC` also included the separate `func_150038A0`
+(108 bytes), `func_1500390C` (164 bytes), and `func_150039B0` (12 bytes).
+The recorded collision-input call sites above are inside `func_15003668`;
+they do not depend on treating those adjacent functions as one span. This
+corrects only that function's generated provenance hash; the other consumer
+fingerprints, schema, scene/model associations, and conditional-rendering
+and collision distinctions remain unchanged.
+
 The five initial-slot secondary regions retain their source offsets and runtime
 storage locations. Their meanings are still unresolved. An earlier bounded US
 symbol-reference search found no direct use of `D_800B0E20..2C` beyond the
@@ -91,9 +106,12 @@ Evidence dimensions remain independent:
   distinct from lists matching the effective draw state.
 - Character composition coverage unions exact source-face spans. Partially
   observed runs stay partial; overlapping catalogs do not inflate face counts.
-- A resolved scene edge means a recovered consumer association. Naming requires
-  a reviewed machine-readable ID/caller registry; none is supplied, so names are
-  recorded as unknown even where prose documentation identifies a character.
+- A resolved scene edge means a recovered consumer association. Naming uses a
+  separate reviewed machine-readable ID/caller registry. The
+  [naming confidence contract](model_name_confidence_review.md) separates exact
+  ROM/model source authentication from unconfirmed semantic labels. Unlisted
+  keys remain unknown even where prose identifies a character. Names do not
+  grant scene or runtime evidence.
 
 The initial audit also found that the stored bank-03 extraction manifest's
 placement section predated bank-04 dispatch resolution. Coverage uses the current
@@ -127,3 +145,7 @@ Implementation files for this slice: `scripts/model_coverage.py`,
 `scripts/conker.sh`, `tests/test_model_coverage.py`, `docs/asset-roadmap.md`, and
 this evidence note. Generated coverage, consumer graphs, the refreshed bank-03
 extraction manifest, and Blender evidence remain under ignored `build/` paths.
+
+The per-function fingerprint correction was independently reviewed and re-extracted
+from the owned ROM. The compared generated manifests differed only at that one
+provenance hash; scene/model associations and runtime-visibility claims were unchanged.

@@ -81,6 +81,29 @@ A decoded image, successful import, active actor or bounded negative trace prove
 only its stated scope. See [model appearance extraction](../model-appearance.md)
 for supported presets and the separation between ROM facts and captured state.
 
+## Semantic naming
+
+Start with [confidence, authentication and reproduction](model_name_confidence_review.md).
+A ROM/model hash authenticates a source; it does not confirm a name, qualifier,
+actor identity, runtime state or visibility. The notes below preserve unique
+observations and contracts without the historical expansion/test journals.
+
+- [Bank-01 descriptions](character_semantic_naming.md),
+  [bank-03/04 props](prop_model_semantics.md) and
+  [bank-09 attachment/UI props](attachment_prop_semantics.md)
+- [Representation selection and model bytes](actor_representation_selection_semantics.md),
+  [resource loading/relocation](actor_representation_asset_semantics.md) and
+  [animation sharing](actor_animation_model_group_semantics.md)
+- [Model display-list submission](actor_model_display_list_semantics.md),
+  [expressions](character_expression_semantics.md) and
+  [Lady Cog eye parts](lady_cog_eye_part_semantics.md)
+- [Shared effects/resources/timers](model_resource_role_names.md),
+  [placed-object helpers](placed_object_helper_semantics.md),
+  [HUD layout](hud_layout_semantics.md) and
+  [text-entry keys](text_entry_model_role_names.md)
+- [Model case constants](model_case_constant_semantics.md), including the retained
+  [fragment evidence metadata](fragment_model_case_constant_semantics.json)
+
 ## Other assets and debugger research
 
 - [Non-MP3 audio](us_non_mp3_audio_assets.md) and [MP3 cues](us_mp3_cue_assets.md)

@@ -42,17 +42,20 @@ void *func_1510CDB8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 extern u8 D_1A37E0;
 extern u8 D_80091D20;
 
-u8 *func_1510D374(s32 arg0) {
-    u8 *var_v1;
-    s32 var_v0;
+/* Descriptive role: flat_asset_rom_address.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+u8 *func_1510D374(s32 resourceIndex) {
+    u8 *romAddress;
+    s32 sizeIndex;
 
-    var_v1 = &D_1A37E0;
-    var_v0 = 0;
-    while (var_v0 < arg0) {
-        var_v1 += ((u16 *)&D_80091D20)[var_v0];
-        var_v0++;
+    romAddress = &D_1A37E0;
+    sizeIndex = 0;
+    while (sizeIndex < resourceIndex) {
+        romAddress += ((u16 *)&D_80091D20)[sizeIndex];
+        sizeIndex++;
     }
-    return var_v1;
+    return romAddress;
 }
 void func_10004074(s32);
 void func_10006240(s32, void *, s32);
@@ -132,13 +135,16 @@ void func_1510D404(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D404.s")
 extern s8 D_800BC448[];
 
-void func_1510D608(s32 arg0, s32 arg1) {
-    s8 *temp_v0;
-    s8 temp_v1;
+/* Descriptive role: flat_asset_update_nonzero_state.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+void func_1510D608(s32 resourceIndex, s32 stateBits) {
+    s8 *resourceState;
+    s8 previousState;
 
-    temp_v0 = &D_800BC448[arg0];
-    temp_v1 = *temp_v0;
-    if (temp_v1 != 0) {
-        *temp_v0 = (temp_v1 & 0x40) | arg1;
+    resourceState = &D_800BC448[resourceIndex];
+    previousState = *resourceState;
+    if (previousState != 0) {
+        *resourceState = (previousState & 0x40) | stateBits;
     }
 }

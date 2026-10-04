@@ -386,12 +386,16 @@ void func_15194AB4(void *arg0) {
 void func_15138120(void *, s32, s32);
 void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
 
+/*
+ * The shared effect-profile index is used by the guarded func_15138120 call.
+ * The following calls also run when the selector returns unsupported (99).
+ */
 void func_15194B1C(void *arg0) {
-    s32 type;
+    s32 effectProfileIndex;
 
-    type = func_15134070(arg0);
-    if (type != 0x63) {
-        func_15138120(arg0, type, 0);
+    effectProfileIndex = func_15134070(arg0);
+    if (effectProfileIndex != 0x63) {
+        func_15138120(arg0, effectProfileIndex, 0);
     }
     func_15136C3C(arg0, 1, 1, 1, 1, 1, 0xFF, 1);
     func_15194AB4(arg0);

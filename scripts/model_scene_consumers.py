@@ -89,7 +89,7 @@ def extract_scene_consumers(profile: str, rom: Path | None, output: Path) -> dic
     # consumer meaning comes from review, not a nearby matching instruction.
     spans = {"func_150031EC": (0x31EC, 0x34B4),
              "func_1510B9D0": (0x10B9D0, 0x10BF60),
-             "func_15003668": (0x3668, 0x39BC)}
+             "func_15003668": (0x3668, 0x38A0)}
     scenes, associations = build_scene_graph(bundles, placements)
     slots = [slot for scene in scenes for slot in scene["initial_slots"]]
     manifest = {

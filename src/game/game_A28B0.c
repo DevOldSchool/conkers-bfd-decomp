@@ -42,7 +42,7 @@ typedef struct GameA28B0NestedState {
 
 typedef struct GameA28B0State {
     s32 field_0;
-    u8 pad4;
+    u8 modelIndex;
     u8 field_5;
     u8 pad6[0xE];
     f32 position_x;
@@ -159,7 +159,7 @@ void func_15075548(void) {
         if (*(f32 *)((u8 *)D_800D154C + 0x44) == 1.0f) {
             *(f32 *)((u8 *)D_800D154C + 0x44) = 0.5f;
         }
-        if ((D_800BE616 != 0) && (D_800D154C->pad4 == 0x28) && (*(u8 *)((u8 *)D_800D154C->nested_31C + 0x128) & 1)) {
+        if ((D_800BE616 != 0) && (D_800D154C->modelIndex == 0x28) && (*(u8 *)((u8 *)D_800D154C->nested_31C + 0x128) & 1)) {
             *(f32 *)((u8 *)D_800D154C + 0x44) = (f32) (*(f32 *)((u8 *)D_800D154C + 0x44) * D_8009A13C);
         }
     }
@@ -677,11 +677,11 @@ void func_150768DC(void) {
     do {
         if ((other->field_0 != 0) && (*(u8 *)((u8 *)other + 0x1CA) != 0) &&
             (*(s32 *)((u8 *)other + 0xF8) & 0x20) && (index != current_index) &&
-            ((D_800D1891 != 0) || (other->pad4 != D_800D154C->pad4)) &&
+            ((D_800D1891 != 0) || (other->modelIndex != D_800D154C->modelIndex)) &&
             !(fabsf(D_800D154C->position_y - other->position_y) > 50.0f)) {
             distance = func_1505A72C(D_800D154C, (s32 *)other);
             if (distance < nearest) {
-                record = D_800D1C90[D_800D154C->pad4];
+                record = D_800D1C90[D_800D154C->modelIndex];
                 width = record[0x17];
                 direction = func_1505A630(other->position_x - D_800D154C->position_x,
                     D_800D154C->position_z - other->position_z, 0) >> 8;
@@ -1582,6 +1582,11 @@ void func_1507911C(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507911C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507911C.s")
+/* Semantic role: actor_script_set_representation_override.
+ * Script operand D_800D1890 is stored at actor +1C9, or 0xFF if it exceeds
+ * total count +2C9. Zero is stored unchanged; this handler does not apply it.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 void func_150791F0(void) {
     if ((s32) *(u8 *)((u8 *)D_800D154C + 0x2C9) < (s32) D_800D1890) {
         D_800D154C->pad10F[0xBA] = 0xFF;
@@ -1737,10 +1742,10 @@ void func_15079790(void) {
     s16 z;
 
     if (D_800D1892 != 0) {
-        D_800D154C->pad4 = 0xFF;
+        D_800D154C->modelIndex = 0xFF;
         return;
     }
-    D_800D154C->pad4 = 0x3A;
+    D_800D154C->modelIndex = 0x3A;
     x = (func_150ADA20() % 500U) - 250;
     z = (func_150ADA20() % 500U) - 250;
     D_800D154C->position_x = (f32) (*(s16 *) D_800D2104[D_800D154C->pad10F[0x30]] + x);
@@ -2632,7 +2637,7 @@ s32 func_1507BB28(s32 arg0, s32 arg1) {
     GameA28B0ScriptEntry *cursor;
     s32 index;
 
-    data = D_800D1588[D_800D154C->pad4];
+    data = D_800D1588[D_800D154C->modelIndex];
     if (data == 0) {
         return (s32)D_8009A120;
     }

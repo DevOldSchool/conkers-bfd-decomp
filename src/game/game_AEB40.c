@@ -386,6 +386,13 @@ s32 func_1502B020(s32, s32, s32, s32);
 void func_15062BDC(void *, s32, s32, s32);
 s8 func_15084D00(void *);
 
+/* Semantic role: actor_assign_model.
+ * Writes the mutable model byte at +4, handles model 0xFF, applies related
+ * defaults, and updates the animation-model byte. A nonzero bank-0F route count
+ * gates caching the resolved bank-02 ROM/archive address at +0x58; zero leaves
+ * that cache unchanged.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150837D4 CURRENT (568) */
 void func_150837D4(s32 arg0, s32 arg1, s32 arg2) {
     u8 **sp20;
@@ -448,45 +455,48 @@ extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 void func_15036C70(void *);
 
-void func_150839B8(void *arg0, s32 arg1, void *arg2) {
-    u16 temp_v1;
-    s32 var_a1;
-    u8 *temp_v0;
+/* Semantic role: actor_apply_character_defaults (shared, not character-specific).
+ * See docs/evidence/character_semantic_naming.md; keep the linked symbol stable.
+ */
+void func_150839B8(void *actor, s32 modelIndex, void *spawnRecord) {
+    u16 spawnOverride;
+    s32 value;
+    u8 *defaults;
 
-    var_a1 = arg1;
-    if (var_a1 != 0xFF) {
-        temp_v0 = D_800D1C90[var_a1];
-        if (arg2 != 0) {
-            temp_v1 = *(u16 *)((u8 *)arg2 + 0x2C);
-            var_a1 = temp_v1;
-            if (temp_v1 == 0) {
-                *(u16 *)((u8 *)arg0 + 0x10) = *(u16 *)(temp_v0 + 0x2A);
-            } else if (var_a1 == 1) {
-                *(u16 *)((u8 *)arg0 + 0x10) = 0;
+    value = modelIndex;
+    if (value != 0xFF) {
+        defaults = D_800D1C90[value];
+        if (spawnRecord != 0) {
+            spawnOverride = *(u16 *)((u8 *)spawnRecord + 0x2C);
+            value = spawnOverride;
+            if (spawnOverride == 0) {
+                *(u16 *)((u8 *)actor + 0x10) = *(u16 *)(defaults + 0x2A);
+            } else if (value == 1) {
+                *(u16 *)((u8 *)actor + 0x10) = 0;
             } else {
-                *(u16 *)((u8 *)arg0 + 0x10) = temp_v1;
+                *(u16 *)((u8 *)actor + 0x10) = spawnOverride;
             }
             if (D_800BE9F0 == 0x1D) {
-                *(u16 *)((u8 *)arg0 + 0x10) = 0x3E8;
+                *(u16 *)((u8 *)actor + 0x10) = 0x3E8;
             }
         } else {
-            *(u16 *)((u8 *)arg0 + 0x10) = 0;
+            *(u16 *)((u8 *)actor + 0x10) = 0;
         }
-        *(u8 *)((u8 *)arg0 + 0x13B) = temp_v0[0x39];
-        *(s8 *)((u8 *)arg0 + 0x2CB) = *(s8 *)(temp_v0 + 0x33);
-        *(s32 *)((u8 *)arg0 + 0x2CC) = *(s32 *)(temp_v0 + 0x34);
-        *(u8 *)((u8 *)arg0 + 5) = temp_v0[0x12];
-        *(u8 *)((u8 *)arg0 + 0x68) = temp_v0[0x3B];
-        *(u8 *)((u8 *)arg0 + 0x69) = temp_v0[0x3C];
-        *(s16 *)((u8 *)arg0 + 0x160) = *(s16 *)(temp_v0 + 2);
-        if (temp_v0[4] != 0) {
-            *(u8 **)((u8 *)arg0 + 0x2C4) = D_80086CAC[temp_v0[5]];
-            *(u8 *)((u8 *)arg0 + 0x2C8) = temp_v0[4];
+        *(u8 *)((u8 *)actor + 0x13B) = defaults[0x39];
+        *(s8 *)((u8 *)actor + 0x2CB) = *(s8 *)(defaults + 0x33);
+        *(s32 *)((u8 *)actor + 0x2CC) = *(s32 *)(defaults + 0x34);
+        *(u8 *)((u8 *)actor + 5) = defaults[0x12];
+        *(u8 *)((u8 *)actor + 0x68) = defaults[0x3B];
+        *(u8 *)((u8 *)actor + 0x69) = defaults[0x3C];
+        *(s16 *)((u8 *)actor + 0x160) = *(s16 *)(defaults + 2);
+        if (defaults[4] != 0) {
+            *(u8 **)((u8 *)actor + 0x2C4) = D_80086CAC[defaults[5]];
+            *(u8 *)((u8 *)actor + 0x2C8) = defaults[4];
         }
-        *(u8 *)((u8 *)arg0 + 0x2C9) =
-            temp_v0[0x38] + *(u8 *)((u8 *)arg0 + 0x2C8);
-        if (temp_v0[0x29] != 0) {
-            func_15036C70(arg0);
+        *(u8 *)((u8 *)actor + 0x2C9) =
+            defaults[0x38] + *(u8 *)((u8 *)actor + 0x2C8);
+        if (defaults[0x29] != 0) {
+            func_15036C70(actor);
         }
     }
 }
@@ -660,48 +670,64 @@ void func_1503D774(s32, s32);
 extern u8 *D_80086CAC[];
 extern u8 *D_800D1C90[];
 
-void func_15084488(u8 *arg0, s32 arg1, s32 arg2) {
-    s32 count;
-    s32 i;
-    u8 *record;
-    u8 *entry;
-    u8 *entries;
-    u8 index;
+/* Semantic role: actor_load_representation_resources.
+ * Load bank-11 defaults and bank-0F routes for the spawn model's representation
+ * list. arg1 is unused here; arg2 is forwarded without assigning it a role.
+ * See docs/evidence/actor_representation_asset_semantics.md.
+ */
+void func_15084488(u8 *spawnRecord, s32 arg1, s32 arg2) {
+    s32 modelCount;
+    s32 modelOffset;
+    u8 *defaults;
+    u8 *modelEntry;
+    u8 *modelIndices;
+    u8 modelIndex;
 
-    index = arg0[4];
-    if (index != 0xFF) {
-        func_1503D774(index, arg2);
-        record = D_800D1C90[index];
-        entries = arg0 + 4;
-        count = record[4];
-        if (count == 0) {
-            count = 1;
+    modelIndex = spawnRecord[4];
+    if (modelIndex != 0xFF) {
+        func_1503D774(modelIndex, arg2);
+        defaults = D_800D1C90[modelIndex];
+        modelIndices = spawnRecord + 4;
+        modelCount = defaults[4];
+        if (modelCount == 0) {
+            modelCount = 1;
         } else {
-            entries = D_80086CAC[record[5]];
+            modelIndices = D_80086CAC[defaults[5]];
         }
-        i = 0;
-        entry = entries;
-        count += record[0x38];
-        if (count > 0) {
+        modelOffset = 0;
+        modelEntry = modelIndices;
+        modelCount += defaults[0x38];
+        if (modelCount > 0) {
             do {
-                func_1503D774(*entry, arg2);
-                func_1503D660(*entry, arg2);
-                i++;
-                entry++;
-            } while (i != count);
+                func_1503D774(*modelEntry, arg2);
+                func_1503D660(*modelEntry, arg2);
+                modelOffset++;
+                modelEntry++;
+            } while (modelOffset != modelCount);
         }
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084558.s")
-u8 func_150849A0(void *arg0) {
-    u8 temp_v1;
+/* Semantic role: actor_get_override_or_base_representation_model.
+ * Override selector zero uses the first model, not the applied ordinal at +1C8.
+ * Nonzero selectors are one-based; no sentinel or bounds normalization occurs.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
+u8 func_150849A0(void *actor) {
+    u8 representationOverrideSelector;
 
-    temp_v1 = *(u8 *)((u8 *)arg0 + 0x1C9);
-    if (temp_v1 != 0) {
-        return *(*(u8 **)((u8 *)arg0 + 0x2C4) + temp_v1 - 1);
+    representationOverrideSelector = *(u8 *)((u8 *)actor + 0x1C9);
+    if (representationOverrideSelector != 0) {
+        return *(*(u8 **)((u8 *)actor + 0x2C4) + representationOverrideSelector - 1);
     }
-    return **(u8 **)((u8 *)arg0 + 0x2C4);
+    return **(u8 **)((u8 *)actor + 0x2C4);
 }
+/* Semantic role: actor_get_override_or_last_automatic_model.
+ * A nonzero override selects its one-based entry; otherwise use the last
+ * automatic entry, or entry zero when the automatic count is zero.
+ * Optionally output that ordinal; no sentinel or bounds normalization occurs.
+ * See docs/evidence/actor_representation_selection_semantics.md.
+ */
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150849CC CURRENT (235) */
 u8 func_150849CC(void *arg0, s32 *arg1) {
     s32 var_v1;
