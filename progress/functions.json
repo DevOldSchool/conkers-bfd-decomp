@@ -91673,7 +91673,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1026,
-        "reason": "Coalescing/free-list candidate improves2807 to1191 to1026 after correcting successor lifetimes and reusing destination links. Keep best typed form; source storage/initial pointer identity, manager scheduling and register allocation remain.",
+        "reason": "Best full-span US CURRENT1026 restored and independently rechecked3ce7fe6192d547b580d34d179120359c. One distinct owning pointer interpretation after inherited2807/1191/1026 worsens to1690: input copy recovered in a3, header remainsa2, frame grows30to38 and homes drift. Exact owning s32 declaration, same-unit caller casts and entire original source restored. No retained source/ABI changes; pointer/objectview/frame/storage families exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94035,17 +94035,16 @@
       "symbol": "func_80010BE8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 855,
-        "reason": "Preserved actual third-u16 wrapper declaration and full-width remaining inputs. Scores1757,1987,855: moving default-result initialization alone does not solve storage; direct returns and one evolving volume value recover frame0x30. All callee10BE8 returns are zero or an unsigned-halfword handle, correcting local return annotation. Remaining argument-expression temporaries and register schedule do not authorize narrower helper parameters.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 184,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010E78",
           "vram": "0x80010E78"
         }

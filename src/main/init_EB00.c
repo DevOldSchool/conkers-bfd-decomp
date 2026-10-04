@@ -26,7 +26,6 @@
  * - func_80010630
  * - func_80010720
  * - func_80010BE8
- * - func_80010E78
  * - func_80010F30
  * - func_80010FFC
  * - func_80011310
@@ -1222,7 +1221,6 @@ return_result:
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010BE8.s")
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010E78 CURRENT (855) */
 u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
                  s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
     s32 value;
@@ -1233,13 +1231,11 @@ u16 func_80010E78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, s32 arg4,
     volume = ((u32)arg2 * volume) >> 15;
     if (volume != 0) {
         return func_80010BE8((u16)arg0, arg1, (u16)volume,
-                             value & 0x7F, (s16)arg3,
+                             value & 0x7F, ((s16 *)&arg3)[1],
                              (value & 0x80) | (u8)arg4, D_80041FD9);
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80010E78 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010E78.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_80010F30 CURRENT (248) */
 s32 func_80010F30(s32 arg0, s32 arg1, s32 arg2, s16 arg3, s32 arg4) {
     return func_80010BE8(0, arg0, (u16)((u32 *)&arg1)[0], ((u8 *)&arg2)[3],
