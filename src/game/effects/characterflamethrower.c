@@ -843,6 +843,107 @@ s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151987CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151987CC.s")
 
+typedef struct CharacterFlamethrowerGroups {
+    u8 ids[3];
+} CharacterFlamethrowerGroups;
+
+extern CharacterFlamethrowerGroups D_8008F8A0;
+extern u8 D_800DCE50[];
+extern s8 D_800DD190;
+extern void *D_800DD198[];
+extern u8 D_800DDE80[];
+void func_15183ACC(s32);
+void func_15168B10(s32, s32);
+s32 func_1510F8D8(s32, s32, s32, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519897C CURRENT (3849) */
+s32 func_1519897C(CharacterFlamethrowerActor *arg0) {
+    s32 points;
+    CharacterFlamethrowerGroups groups;
+    CharacterFlamethrowerPosition position;
+    u8 *group;
+    register CharacterFlamethrowerIdentity *owner;
+    register void *control;
+    register void *node;
+    register void **slot;
+    register s32 index;
+    register s32 depth;
+    register f32 x;
+    register f32 y;
+    register f32 z;
+    register f32 dx;
+    register f32 dy;
+    register f32 dz;
+    register f32 radius;
+    register u8 *point;
+
+    points = (s32)arg0->points;
+    groups = D_8008F8A0;
+    owner = arg0->state->identity;
+    control = *(void **)((u8 *)owner + 0x31C);
+    if (control == 0) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)control + 0x58) != 1) {
+        *(u16 *)((u8 *)owner + 0x2F8) &= 0xFEFF;
+        return 0;
+    }
+    group = groups.ids;
+    do {
+        control = *(void **)(D_800DCE50 + *group * 4);
+        node = control;
+        if (control != 0) {
+            index = arg0->point_end;
+            depth = D_800DD190 + 1;
+            D_800DD190 = depth;
+            if (control != 0) {
+                slot = &D_800DD198[(s8)depth];
+                do {
+                    *slot = *(void **)((u8 *)node + 8);
+                    x = *(f32 *)((u8 *)node + 0x98);
+                    y = *(f32 *)((u8 *)node + 0x9C);
+                    z = *(f32 *)((u8 *)node + 0xA0);
+                    if (index != arg0->point_index) {
+                        do {
+                            index--;
+                            if (index < 0) {
+                                index = arg0->point_capacity - 1;
+                            }
+                            point = (u8 *)(points + index * 0x24);
+                            position = *(CharacterFlamethrowerPosition *)point;
+                            dx = position.x - x;
+                            radius = *(f32 *)(point + 0x18);
+                            dy = position.y - y;
+                            dz = position.z - z;
+                            if (dx * dx + dy * dy + dz * dz < radius * radius + 900.0f) {
+                                func_15183ACC(5);
+                                func_15168B10((s32)node, 0x18);
+                                dx = *(f32 *)((u8 *)node + 0x98);
+                                dy = *(f32 *)((u8 *)node + 0x9C);
+                                dz = *(f32 *)((u8 *)node + 0xA0);
+                                *(s8 *)((u8 *)node + 0xED) = 5;
+                                *(s16 *)((u8 *)node + 0x92) = 9;
+                                *(f32 *)((u8 *)node + 0xB8) = 40.0f;
+                                *(f32 *)((u8 *)node + 0xA8) = 40.0f;
+                                *(f32 *)((u8 *)node + 0xB4) = 0.0f;
+                                *(s32 *)((u8 *)node + 0x94) = *(s32 *)(D_800DDE80 + 0x6C);
+                                depth = func_1510F8D8((s32)dx, (s32)dy, (s32)dz, 0);
+                                *(s8 *)((u8 *)node + 0x91) = 4;
+                                *(f32 *)((u8 *)node + 0xC8) = (f32)depth;
+                            }
+                        } while (index != arg0->point_index);
+                        slot = &D_800DD198[D_800DD190];
+                    }
+                    node = *slot;
+                } while (node != 0);
+            }
+            D_800DD190--;
+        }
+        group++;
+    } while (group != groups.ids + 3);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519897C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519897C.s")
 void func_15198C60(void) {
     func_10010F30(0x1AA, 0x7FFF, 0x40, 0, 0);

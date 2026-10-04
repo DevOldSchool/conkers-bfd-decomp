@@ -164,4 +164,112 @@ s32 func_150B378C(PipeExplodeActor *arg0) {
     }
     return 1;
 }
+typedef struct {
+    s32 flags;
+    s16 life;
+    u8 kind, reserved7;
+    s32 frame, rate;
+    u8 colors[6], reserved16[2];
+    s32 renderMode;
+    u8 inactiveOptions[12];
+} PipeExplodeParticle;
+
+typedef struct {
+    f32 position[3];
+    s16 life, flags;
+    s32 mode;
+    u8 reserved14, capacity, reserved16[2];
+    u8 inactiveOptions[4];
+} PipeExplodeTrail;
+
+typedef struct {
+    f32 width, velocityX, velocityY, velocityZ, acceleration;
+    u8 reserved14[4];
+    u8 flags, texture, color, alpha;
+    u8 inactiveFade[4];
+} PipeExplodeMotion;
+
+typedef struct {
+    s32 words[7];
+    u8 colorMode, alphaMode, reserved1E[2];
+} PipeExplodeRender;
+
+typedef struct { s16 kind[3]; } PipeExplodeKinds;
+
+void *func_1513C73C(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, u8, s32);
+void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32, s32, s32, void *, s32, u8, s32);
+u32 func_150ADA20(void);
+extern PipeExplodeKinds D_80088700;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B37C8 CURRENT (1894) */
+s32 func_150B37C8(PipeExplodeActor *arg0, s32 arg1, s32 arg2, s32 arg3,
+                   f32 arg4, s32 arg5) {
+    s32 points;
+    PipeExplodeParticle particle;
+    f32 size;
+    PipeExplodeKinds kinds;
+    PipeExplodeTrail trail;
+    PipeExplodeMotion motion;
+    PipeExplodeRender render;
+    u32 first, second;
+    register u32 third;
+    register u8 *state;
+    register u8 *point;
+
+    state = (u8 *)arg0->state;
+    points = *(s32 *)((u8 *)arg0 + 0x94);
+    kinds = D_80088700;
+    state[0x20] = 4;
+    size = func_150ADA68() * 50.0f + 50.0f;
+    particle.kind = kinds.kind[func_150ADA20() % 3U];
+    particle.frame = 0;
+    particle.rate = 0;
+    particle.flags = 0x11;
+    particle.life = 0x96;
+    particle.colors[0] = state[0x1B];
+    particle.colors[1] = state[0x1A];
+    particle.colors[2] = 0;
+    particle.colors[3] = 0;
+    particle.colors[4] = 0;
+    particle.colors[5] = 0xFF;
+    particle.renderMode = 0x30002;
+    /* The disabled option flags leave these copied bytes unused. */
+    first = func_150ADA20();
+    second = func_150ADA20();
+    third = func_150ADA20();
+    point = (u8 *)(points + *(s8 *)((u8 *)arg0 + 0x2D) * 0x14);
+    func_1513C73C((s32)&particle, 1, 0, arg5, *(f32 *)point, arg4,
+                  *(f32 *)(point + 8), size, size, first & 0xFF,
+                  (third & 1) + (second & 1), 0, ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+    render.words[0] = 0;
+    render.words[1] = 1;
+    render.words[2] = 0x160600;
+    render.words[3] = 3;
+    render.words[4] = 0x10;
+    render.words[5] = 0x80;
+    render.words[6] = 0x20;
+    render.colorMode = 0;
+    render.alphaMode = 9;
+    trail.mode = 1;
+    trail.flags = 1;
+    motion.texture = state[0x19];
+    motion.flags = 8;
+    motion.color = state[0x1A];
+    motion.alpha = state[0x1B];
+    size = arg4;
+    trail.position[0] = *(f32 *)(points + *(s8 *)((u8 *)arg0 + 0x2D) * 0x14);
+    trail.position[1] = size;
+    trail.position[2] = *(f32 *)(points + *(s8 *)((u8 *)arg0 + 0x2D) * 0x14 + 8);
+    trail.life = 0x3C;
+    trail.capacity = ((u8 *)arg0)[0x25];
+    motion.width = *(f32 *)state * 0.75f;
+    motion.acceleration = *(f32 *)(state + 0x10);
+    motion.velocityX = *(f32 *)(state + 4);
+    motion.velocityY = func_150ADA68() * 15.0f + 15.0f;
+    motion.velocityZ = *(f32 *)(state + 0xC);
+    func_15147DA0(&trail, &motion, 0, 1, 7, 0, 0, 0, 0, 0, 0, &render, 0,
+                  ((u8 *)arg0)[0xC], ((u8 *)arg0)[1]);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B37C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/pipeexplode/func_150B37C8.s")

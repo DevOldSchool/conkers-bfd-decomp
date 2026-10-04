@@ -92,7 +92,86 @@ s32 func_15191BE0(u8 *arg0, Game1BF090Vector *arg1, s32 arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15191BE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15191BE0.s")
+struct Game1BF090Packed;
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_15143134(f32 *, f32 *, s32);
+s32 func_1514672C(f32 *);
+s32 func_15046F84(f32 *, u16, f32, void *);
+void *func_1519203C(Game1BF090Vector *, Game1BF090Vector *, f32, s32, s32,
+                    s32, f32, s32, f32, struct Game1BF090Packed *, s32, s32, s32);
+extern f32 D_800A80E8, D_800A80EC, D_800A80F0, D_800BE9A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15191D54 CURRENT (994) */
+void func_15191D54(u8 *arg0) {
+    Game1BF090Vector position;
+    Game1BF090Vector direction;
+    f32 limit;
+    f32 height;
+    u32 lifeRandom, modeRandom;
+    s32 enabled;
+    s32 transform;
+    u8 *owner;
+    Game1BF090Payload *payload;
+
+    owner = *(u8 **)(arg0 + 0x28);
+    payload = (Game1BF090Payload *)(arg0 + 0x28);
+    if (*(s32 *)owner == 0 || ((u8 *)payload)[4] != owner[0x3B]) {
+        *(s16 *)(arg0 + 0xE) = -1;
+        return;
+    }
+    payload->zero += (payload->start + func_150ADA68() * payload->end) * D_800BE9A4;
+    if (payload->zero > 1.0f) {
+        transform = *(s32 *)(owner + 0x1D4);
+        if (transform != 0) {
+            func_15143134((f32 *)&payload->origin, (f32 *)&position, transform + payload->radius);
+            if (payload->field60 > 0.0f) {
+                if (func_1514672C((f32 *)&position) == 0) {
+                    height = D_800A80E8;
+                } else {
+                    limit = D_800A80EC;
+                    if (func_15046F84((f32 *)&position, 0, limit, payload->scratch) != 0) {
+                        height = *(f32 *)payload->scratch;
+                    } else {
+                        height = limit;
+                    }
+                }
+            } else {
+                height = D_800A80F0;
+            }
+            do {
+                limit = func_150ADA68();
+                enabled = 0;
+                if (limit < payload->field60) {
+                    enabled = 1;
+                }
+                ((f32 *)&direction)[0] = 0.0f;
+                ((f32 *)&direction)[1] = 0.0f;
+                ((f32 *)&direction)[2] = 0.0f;
+                limit = func_150ADA68();
+                lifeRandom = func_150ADA20();
+                modeRandom = func_150ADA20();
+                func_1519203C(&position, &direction,
+                    limit * payload->scaleY + payload->scaleX,
+                    (s16)(lifeRandom % (u32)(payload->field52 + 1) + payload->field50),
+                    modeRandom % (u32)(payload->field55 + 1) + payload->field54,
+                    0xFF, func_150ADA68() * payload->field5C + payload->scaleZ,
+                    enabled, height, (struct Game1BF090Packed *)(payload->scratch + 4),
+                    payload->field64, arg0[0xC], arg0[1]);
+                payload->zero -= 1.0f;
+            } while (payload->zero > 1.0f);
+            return;
+        }
+        if (payload->zero > 1.0f) {
+            do {
+                payload->zero -= 1.0f;
+            } while (payload->zero > 1.0f);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15191D54 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1BF090/func_15191D54.s")
+
 typedef struct Game1BF090Spawn {
     s32 header;
     s32 owner;

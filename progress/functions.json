@@ -2944,6 +2944,12 @@
       "symbol": "func_150B378C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1894,
+        "reason": "Manual budget exhausted: best CURRENT 1894; float phase reuse recovers paired Y/X stores, frame100 versus F8 and packet/spill offsets plus schedule and GPR differences remain. Full packet copies audited: unwritten option fields are disabled for selected flags and callbacks; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -3512,6 +3518,12 @@
       "symbol": "func_151987CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3849,
+        "reason": "Best CURRENT 3849; word ring index and full position copy preserved, phase reuse lowers E0 frame to D0 but C8 frame, native point spill, homes and scheduling remain; bounded manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55654,6 +55666,12 @@
       "symbol": "func_15191BE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 994,
+        "reason": "Best CURRENT994 retained after three comparisons: native C8 frame/most arithmetic and helper calls exact, but vector offsets BC/B0 versus B4/A4, S4/S5/S6 rotation, chance branch and commuted operands remain. Existing payload and complete vectors retained; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74684,11 +74702,15 @@
       "symbol": "func_151A2BD0"
     },
     {
+      "blocked": {
+        "reason": "Selected matched callbacks have incompatible active C types: 151A2B84(void*,s32,s32,s32,f32,void*) versus 151A2BD0(s32,s16,s16,f32,f32,void*). Native 151A2D80-9C passes A3 float bits and signed halfword A1/A2 through one jalr. A local cast would call through an incompatible function type; shared callback signature repair and affected-match audit required before C.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 744,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151A2C24",
           "vram": "0x151A2C24"
         }
@@ -78052,11 +78074,15 @@
       "symbol": "func_150EF784"
     },
     {
+      "blocked": {
+        "reason": "Shared return contract: matched func_1513D524 is void but raw wrapper forwards func_1513D2F0 pointer/zero V0; target consumes it at15149808, copies0x50 toresult+0x110 and returnsresult. Requires separately authorized shared return repair and affected-match audit; no target C edits or comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 744,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15149550",
           "vram": "0x15149550"
         }
