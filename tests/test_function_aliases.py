@@ -19,6 +19,8 @@ class FunctionAliasTests(unittest.TestCase):
                   '/* find_object */\nchar *label = "find_object";\n')
         expected = source.replace('s32 find_object(', 's32 func_151149AC(')
         self.assertEqual(expected, facts.function_alias_text(source))
+        self.assertEqual(expected.replace(self.directive.rstrip(), ''),
+                         facts.function_alias_text(source, strip_definitions=True))
 
     def test_unsupported_macros_remain_unresolved(self):
         for directives in (
@@ -41,6 +43,7 @@ class FunctionAliasTests(unittest.TestCase):
             source = directives + self.definition
             with self.subTest(directives=directives):
                 self.assertEqual(source, facts.function_alias_text(source))
+                self.assertEqual(source, facts.function_alias_text(source, strip_definitions=True))
 
     def test_signature_and_body_lookup_keep_registered_address(self):
         source = self.directive + self.definition

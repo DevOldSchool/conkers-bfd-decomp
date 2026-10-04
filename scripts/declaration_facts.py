@@ -131,15 +131,16 @@ def active_text(text: str) -> str:
     return "".join(output)
 
 
-def function_alias_text(text: str) -> str:
+def function_alias_text(text: str, *, strip_definitions: bool = False) -> str:
     """Canonical parsing view for simple, unconditional address-symbol aliases.
 
     This is not a preprocessor: conditional, repeated, undefined, continued or
-    chained macros remain unresolved. Never rewrite comments, strings or directives.
+    chained macros remain unresolved. Comments and strings stay intact; parser-only
+    contexts may remove the accepted alias definitions after expansion.
     """
     if not re.search(r"#\s*define\b", text) or re.search(r"\\\r?\n", text):
         return text
-    definitions: dict[str, list[tuple[int, str | None]]] = {}
+    definitions: dict[str, list[tuple[int, int, str | None]]] = {}
     depth = 0
     for token in candidate_syntax.TOKEN.finditer(text):
         directive = token.group()
@@ -159,21 +160,27 @@ def function_alias_text(text: str) -> str:
             continue
         target = re.fullmatch(r"\s+(func_[0-9A-Fa-f]{8})\s*", directive[match.end():])
         value = target.group(1) if target and not depth and match[1] == "define" else None
-        definitions.setdefault(match[2], []).append((token.end(), value))
+        definitions.setdefault(match[2], []).append((token.start(), token.end(), value))
     items = candidate_syntax.tokens(text)
     aliases = {}
     for name, records in definitions.items():
         if len(records) != 1:
             continue
-        end, target = records[0]
+        start, end, target = records[0]
         if (target is not None and target not in definitions
                 and not any(item.text == name and item.start < end for item in items)):
             aliases[name] = (end, target)
-    for item in reversed(items):
+    replacements = []
+    if strip_definitions:
+        replacements.extend((definitions[name][0][0], definitions[name][0][1], "")
+                            for name in aliases)
+    for item in items:
         if item.text in aliases:
             end, target = aliases[item.text]
             if item.start >= end:
-                text = text[:item.start] + target + text[item.end:]
+                replacements.append((item.start, item.end, target))
+    for start, end, replacement in sorted(replacements, reverse=True):
+        text = text[:start] + replacement + text[end:]
     return text
 
 

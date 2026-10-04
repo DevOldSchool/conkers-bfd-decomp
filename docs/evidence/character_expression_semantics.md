@@ -1,6 +1,7 @@
 # Character expression semantic names
 
-These are inferred descriptive names; linked symbols, widths, offsets, padding
+The nine matched helpers in the function-role table use descriptive C names
+through source-local aliases. Linked address symbols, widths, offsets, padding
 and operation order remain unchanged. See [shared provenance](model_name_confidence_review.md)
 for independent full-span support and the distinction from matching/runtime proof.
 

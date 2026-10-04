@@ -346,6 +346,24 @@ void func_wrapper(s32 arg0) {
                 self.assertNotIn('__pragma', context)
                 self.assertEqual(original, source.read_text())
 
+    def test_address_aliases_keep_source_context_without_changing_source(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary_directory:
+            root = Path(temporary_directory)
+            source = root / 'test.c'
+            original = ('#define apply_expression func_1507E5C8\n'
+                        'typedef struct State { s32 value; } State;\n'
+                        'void apply_expression(State *actor) { actor->value = 1; }\n')
+            source.write_text(original)
+            with patch.object(m2c_helper, 'ROOT', root):
+                context = m2c_helper.flattened_source_context(source)
+                self.assertIsNotNone(context)
+                self.assertIn('void func_1507E5C8(State *actor)', context)
+                self.assertNotIn('#define', context)
+                self.assertEqual(original, source.read_text())
+                for extra in ('#define MODE 1\n', '#undef apply_expression\n'):
+                    source.write_text(original + extra)
+                    self.assertIsNone(m2c_helper.flattened_source_context(source))
+
     def test_other_pragmas_still_reject_context(self) -> None:
         with tempfile.TemporaryDirectory() as temporary_directory:
             source = Path(temporary_directory) / "test.c"

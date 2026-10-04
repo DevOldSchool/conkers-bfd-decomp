@@ -13,6 +13,17 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_set_expression func_1507E500
+#define actor_apply_current_expression func_1507E5C8
+#define actor_can_update_blink func_1507E6B8
+#define actor_get_expression_record func_1507E908
+#define actor_get_expression_count func_1507E968
+#define actor_get_expression_action_table func_1507E9F8
+#define actor_dispatch_expression_action func_1507EA44
+#define actor_restore_default_expression func_1507EABC
+#define actor_set_default_expression_zero func_1507EB2C
+
 struct GameAB760State;
 u32 func_150ADA20(void);
 extern u8 D_800C35EA;
@@ -120,47 +131,47 @@ void func_1507E3C0(void *actor) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E3C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E3C0.s")
 void func_150302F0(void *, s32);
-void func_1507E5C8(u8 *, s32);
-u8 *func_1507E908(void *, s32);
-void func_1507EA44(void *, s32, s32);
-s32 func_1507E968(void *);
-u8 *func_1507E9F8(void *, s32 *);
+void actor_apply_current_expression(u8 *, s32);
+u8 *actor_get_expression_record(void *, s32);
+void actor_dispatch_expression_action(void *, s32, s32);
+s32 actor_get_expression_count(void *);
+u8 *actor_get_expression_action_table(void *, s32 *);
 extern void *D_800D1C90[];
 
 /* Descriptive role: actor_set_expression.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-void func_1507E500(u8 *actor, s32 expressionIndex, s32 morphDurationOverride) {
+void actor_set_expression(u8 *actor, s32 expressionIndex, s32 morphDurationOverride) {
     u8 *previousExpression;
     u8 *actionIds;
 
-    if (expressionIndex < func_1507E968(actor)) {
-        previousExpression = func_1507E908(actor, actor[0x6F]);
+    if (expressionIndex < actor_get_expression_count(actor)) {
+        previousExpression = actor_get_expression_record(actor, actor[0x6F]);
         if (previousExpression[4] != 0) {
-            actionIds = func_1507E9F8(actor, 0);
+            actionIds = actor_get_expression_action_table(actor, 0);
             if (actionIds != 0) {
                 func_150302F0(actor, actionIds[previousExpression[4] - 1]);
             }
         }
         actor[0x6F] = expressionIndex;
-        func_1507E5C8(actor, morphDurationOverride);
+        actor_apply_current_expression(actor, morphDurationOverride);
         if (morphDurationOverride != 0) {
             actor[0x135] = morphDurationOverride;
             return;
         }
-        actor[0x135] = func_1507E908(actor, expressionIndex)[3];
+        actor[0x135] = actor_get_expression_record(actor, expressionIndex)[3];
     }
 }
 /* Semantic role: actor_apply_current_expression, including its action and selectors.
  * See docs/evidence/character_expression_semantics.md; keep the linked symbol stable.
  */
-void func_1507E5C8(u8 *actor, s32 morphDurationOverride) {
+void actor_apply_current_expression(u8 *actor, s32 morphDurationOverride) {
     u8 *expressionRecord;
     u8 value;
 
-    expressionRecord = func_1507E908(actor, actor[0x6F]);
+    expressionRecord = actor_get_expression_record(actor, actor[0x6F]);
     if (expressionRecord != 0) {
-        func_1507EA44(actor, expressionRecord[4], *(u16 *)(expressionRecord + 6));
+        actor_dispatch_expression_action(actor, expressionRecord[4], *(u16 *)(expressionRecord + 6));
         value = expressionRecord[2];
         if (value != actor[0x134]) {
             actor[0x134] = value;
@@ -191,7 +202,7 @@ s32 func_150849A0();                                /* extern */
 /* Descriptive role: actor_can_update_blink.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-s32 func_1507E6B8(void *actor) {
+s32 actor_can_update_blink(void *actor) {
     s32 representationModelIndex;
     u8 expressionIndex;
 
@@ -233,7 +244,7 @@ typedef struct GameAB760State {
 } GameAB760State;
 
 void func_1507E2B0(GameAB760State *);
-void func_1507EABC(GameAB760State *);
+void actor_restore_default_expression(GameAB760State *);
 extern s32 D_800BE9E4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E73C CURRENT (220) */
@@ -305,7 +316,7 @@ typedef struct GameAB760ValueRecord {
 /* Descriptive role: actor_get_expression_record.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-u8 *func_1507E908(void *actor, s32 expressionIndex) {
+u8 *actor_get_expression_record(void *actor, s32 expressionIndex) {
     s32 expressionAddress;
     GameAB760ValueRecord *descriptor;
 
@@ -321,7 +332,7 @@ u8 *func_1507E908(void *actor, s32 expressionIndex) {
 /* Descriptive role: actor_get_expression_count.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-s32 func_1507E968(void *actor) {
+s32 actor_get_expression_count(void *actor) {
     GameAB760ValueRecord *descriptor;
     s32 modelIndex;
     s32 defaultsModelIndex;
@@ -348,7 +359,7 @@ extern u8 D_8009D910[];
 /* Descriptive role: actor_get_expression_action_table.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-u8 *func_1507E9F8(void *actor, s32 *countOut) {
+u8 *actor_get_expression_action_table(void *actor, s32 *countOut) {
     if (func_150849A0(actor) == 0) {
         if (countOut != 0) {
             *countOut = 5;
@@ -360,18 +371,18 @@ u8 *func_1507E9F8(void *actor, s32 *countOut) {
     }
     return 0;
 }
-u8 *func_1507E9F8(void *, s32 *);
+u8 *actor_get_expression_action_table(void *, s32 *);
 void func_15083568(void *, s32, f32, s32);
 extern f32 D_8009B8A0;
 
 /* Descriptive role: actor_dispatch_expression_action.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-void func_1507EA44(void *actor, s32 actionSelector, s32 actionParameterRaw) {
+void actor_dispatch_expression_action(void *actor, s32 actionSelector, s32 actionParameterRaw) {
     u8 *actionIds;
 
     if (actionSelector != 0) {
-        actionIds = func_1507E9F8(actor, 0);
+        actionIds = actor_get_expression_action_table(actor, 0);
         if (actionIds != 0) {
             func_15083568(actor, actionIds[actionSelector - 1], (f32)actionParameterRaw * D_8009B8A0, 0);
         }
@@ -382,7 +393,7 @@ void func_1507E7E4(GameAB760State *, u8, u8, s32, s32);
 /* Descriptive role: actor_restore_default_expression.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-void func_1507EABC(GameAB760State *actor) {
+void actor_restore_default_expression(GameAB760State *actor) {
     func_1507E7E4(actor, actor->field_70, 3, 0xFFFF, 0xA);
     actor->expressionPriority = 0;
     actor->expressionTimer = 0;
@@ -400,7 +411,7 @@ void func_1507EB4C(GameAB760State *arg0, s32 arg1);
 /* Descriptive role: actor_set_default_expression_zero.
  * Evidence: docs/evidence/character_expression_semantics.md.
  */
-void func_1507EB2C(GameAB760State *actor) {
+void actor_set_default_expression_zero(GameAB760State *actor) {
     func_1507EB4C(actor, 0);
 }
 

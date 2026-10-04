@@ -14,6 +14,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import call_signatures
+import declaration_facts
 import project_state
 import rzip_archive
 import rom_span
@@ -604,7 +605,9 @@ def flattened_source_context(source: Path) -> str | None:
 
     lines: list[str] = []
     disabled_depth = 0
-    for line in source.read_text(encoding="utf-8").splitlines(keepends=True):
+    content = declaration_facts.function_alias_text(
+        source.read_text(encoding="utf-8"), strip_definitions=True)
+    for line in content.splitlines(keepends=True):
         if call_signatures.ABI_MARKER in line:
             continue
         if (TYPES_INCLUDE_PATTERN.match(line) or GLOBAL_ASM_PATTERN.match(line)
