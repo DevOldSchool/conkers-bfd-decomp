@@ -5,25 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Conker models to inspect</title>
   <style>
-    * { box-sizing: border-box; }
-    body { font: 16px/1.5 system-ui; margin: 32px; background: #171b20; color: #eee; }
-    a { color: #a7d9ff; }
+{{PREVIEW_STYLES}}
     header, .controls { max-width: 1200px; }
-    h1 { margin-bottom: 8px; }
-    header p { color: #bcc7d0; margin: 8px 0; }
     .controls { margin: 28px 0 20px; }
-    .tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
-    button, input, select { font: inherit; color: inherit; border: 1px solid #677580; border-radius: 6px; }
-    button { padding: 10px 14px; background: #252b33; cursor: pointer; }
-    button:hover { border-color: #a7d9ff; }
-    [aria-selected="true"] { background: #a7d9ff; border-color: #a7d9ff; color: #14202c; }
     .tab-count { display: inline-block; margin-left: 6px; font-size: 14px; font-variant-numeric: tabular-nums; }
-    label { display: block; margin-bottom: 8px; }
-    input { width: 100%; max-width: 620px; padding: 12px; background: #252b33; }
-    select { padding: 10px 12px; background: #252b33; max-width: 100%; }
     .review-filters { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px; }
     .review-filters label { font-size: 14px; }
-    :focus-visible { outline: 2px solid #a7d9ff; outline-offset: 3px; }
     #category-description { color: #bcc7d0; margin-bottom: 4px; }
     #model-count { margin-top: 4px; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(min(260px,100%),1fr)); gap: 24px; }
@@ -34,14 +21,7 @@
     .preview-placeholder { aspect-ratio: 1; display: grid; place-items: center; background: #20262d; color: #bcc7d0; border-radius: 4px; }
     .review-badge { font-size: 13px; color: #d3dee6; margin: 0 0 10px; }
     .review-badge[data-status="material-blocked"], .review-badge[data-status="appearance-blocked"] { color: #ffcc83; }
-    h2 { font-size: 20px; line-height: 1.35; margin: 16px 0 8px; }
-    code { overflow-wrap: anywhere; font-size: 13px; color: #c5d0da; }
-    details { margin-top: 16px; color: #bcc7d0; font-size: 14px; }
-    summary { cursor: pointer; }
-    [hidden] { display: none !important; }
     #no-models { padding: 24px; background: #252b33; border-radius: 8px; }
-    footer { margin-top: 32px; color: #bcc7d0; }
-    @media (max-width: 600px) { body { margin: 20px 16px; } h1 { font-size: 28px; } .tabs { gap: 6px; } }
   </style>
 </head>
 <body>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Conker · Soundtrack listening desk</title><link rel="stylesheet" href="preview-common.css"><link rel="stylesheet" href="preview.css">
+<script id="preview-data" type="application/json">{{PREVIEW_DATA}}</script>
+<script defer src="preview.js"></script></head>
+<body>
+<header><h1>Soundtrack listening desk</h1>
+<p>Listen, compare, and give each sequence a name. Numeric IDs always stay with the source.</p>
+<p id="coverage" role="status">Loading preview…</p></header>
+<main>
+<nav class="tabs preview-navigation" aria-label="Soundtrack sections"><a href="#collection">Sequences</a><a href="#listening">Listening and naming</a><a href="#references">Reference albums</a></nav>
+<div class="toolbar"><label>Search sequences<input id="search" type="search" placeholder="ID, title, chapter, or note"></label>
+<label>Label confidence<select id="confidence"><option value="">All labels</option><option value="identified">Identified by contributor</option><option value="tentative">Tentative</option><option value="unidentified">Unidentified</option></select></label>
+<label>Category<select id="category"><option value="">All categories</option></select></label>
+<button id="export" type="button">Prepare naming export</button></div>
+<p id="status" role="status" aria-live="polite"></p>
+<details id="export-preview" class="reference" hidden><summary>Prepared naming export · JSON</summary><label>Exported naming JSON<textarea id="export-json" readonly rows="8"></textarea></label><button id="download-export" type="button">Download prepared JSON</button><p class="muted">Copy this JSON or download it. Only the download button may ask your browser for a save destination.</p></details>
+<div class="workspace"><section id="collection" aria-label="Sequence collection"><div class="section-top"><h2>Sequence collection</h2><span id="count"></span></div>
+<p class="muted">Music, jingles, ambience and sequenced effects. Album titles lead where audio supports a candidate; uncertain matches stay marked. Contributor names remain searchable aliases.</p>
+<div id="tracks" class="tracks"></div></section>
+<section id="listening" class="desk" aria-label="Listening and naming"><p class="eyebrow" id="identity">SELECT A SEQUENCE</p><h2 id="title">Ready to listen</h2>
+<audio id="player" controls preload="metadata"></audio><button type="button" id="play" disabled>Play selected sequence</button>
+<p id="details" class="muted"></p><p id="album-name" class="muted"></p><p id="note"></p><p id="downloads"></p>
+<details><summary>Supporting recording references</summary><div id="evidence"></div></details>
+<details><summary>Album comparison leads</summary><div id="comparisons"></div></details>
+<form id="draft"><h3>Naming draft</h3><p id="storage-notice" class="muted">Drafts stay in this browser when storage is available. Prepare and copy JSON to keep a reviewable copy. Repository labels remain unchanged.</p>
+<label>Proposed name<input id="draft-name" disabled maxlength="200"></label>
+<label>Draft confidence<select id="draft-confidence" disabled><option value="tentative">Tentative</option><option value="identified">Identified by listening</option><option value="unidentified">Unidentified</option></select></label>
+<label>Comparison / listening notes<textarea id="draft-note" disabled rows="3" maxlength="2000"></textarea></label>
+<button type="submit" id="save" disabled>Save draft</button><button type="button" id="clear" disabled>Remove this draft</button></form></section></div>
+<details id="references" class="reference"><summary>Reference albums · compare by ear</summary><p id="reference-notice"></p><div id="albums"></div></details>
+<details class="reference"><summary>MP3 song segments · separate stream IDs</summary><div id="music-streams"></div></details>
+<details class="reference"><summary>Instrument samples · separate from full sequences</summary>
+<p>These are decoded instrument/sample ranges, not 2,258 soundtrack tracks. No music / speech / effect identity is inferred from the sample number.</p>
+<label>Sample ID<input id="sample-id" type="number" min="0" step="1" value="0"></label><button type="button" id="sample-play">Load sample</button>
+<audio id="sample-player" controls preload="none"></audio><p id="sample-details"></p></details>
+<details class="reference"><summary>Playback scope and confidence</summary><p id="notice"></p><ul id="limitations"></ul></details>
+</main><footer>ROM-derived audio stays local. No external scripts, uploads or automatic album matches.</footer>
+</body></html>

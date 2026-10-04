@@ -1536,6 +1536,20 @@ def parse_args() -> argparse.Namespace:
     )
     sample_preview_parser.add_argument("--output", type=Path)
     sample_preview_parser.add_argument("--force", action="store_true")
+    soundtrack_parser = subparsers.add_parser("soundtrack-preview")
+    soundtrack_parser.add_argument(
+        "--input", type=Path, default=Path("build/assets/audio/us")
+    )
+    soundtrack_parser.add_argument(
+        "--output", type=Path, default=Path("build/assets/soundtracks/us")
+    )
+    soundtrack_parser.add_argument(
+        "--labels", type=Path, default=Path("config/audio-sequences.json")
+    )
+    soundtrack_parser.add_argument(
+        "--mp3-input", type=Path,
+        help="Include nominated music-stream candidates from a matching MP3 extraction",
+    )
     return parser.parse_args()
 
 
@@ -1571,6 +1585,19 @@ def main() -> int:
                 f"looped samples and {duration:.1f} seconds of source audio, at "
                 f"{display_path(output)}"
             )
+        elif args.command == "soundtrack-preview":
+            # The renderer imports this module; import it only after CLI parsing.
+            sys.path.insert(0, str(ROOT))
+            from scripts.soundtrack_preview import build_soundtrack_preview
+
+            def rooted(path: Path) -> Path:
+                return path if path.is_absolute() else ROOT / path
+
+            manifest = build_soundtrack_preview(
+                rooted(args.input), rooted(args.output), rooted(args.labels),
+                rooted(args.mp3_input) if args.mp3_input else None,
+            )
+            print(f"Prepared soundtrack preview: {manifest['coverage']}")
         else:
             family, size, loop_validation = verify_audio_assets(args.profile, args.rom)
             verb = "Surveyed" if args.command == "survey" else "Verified"

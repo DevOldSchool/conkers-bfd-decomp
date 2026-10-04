@@ -1,0 +1,49 @@
+/* Page layout; colors and controls come from preview-common.css. */
+:root { color-scheme: dark; }
+header, .toolbar, .preview-navigation { max-width: 1200px; }
+main { margin-top: 28px; }
+p { margin: 8px 0; }
+h3 { font-size: 18px; margin: 20px 0 8px; }
+.muted, .eyebrow { color: #bcc7d0; font-size: 14px; }
+.eyebrow { font-family: ui-monospace, monospace; font-size: 13px; }
+.preview-navigation a { padding: 10px 14px; background: #252b33; border: 1px solid #677580; border-radius: 6px; text-decoration: none; color: #eee; }
+.preview-navigation a:hover { border-color: #a7d9ff; color: #a7d9ff; }
+.toolbar { display: flex; gap: 16px; align-items: end; flex-wrap: wrap; margin: 0 0 20px; }
+.toolbar label { margin: 0; font-size: 14px; }
+.toolbar label:first-child { flex: 1; min-width: 230px; }
+input, select, textarea { display: block; margin-top: 8px; }
+textarea { width: 100%; font: inherit; color: inherit; padding: 12px; background: #252b33; border: 1px solid #677580; border-radius: 6px; }
+button:disabled { opacity: .45; cursor: default; }
+.workspace { display: grid; grid-template-columns: 1.1fr 1fr; gap: 24px; }
+.workspace > section, .album-grid > section { min-width: 0; }
+.section-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+#count { white-space: nowrap; font-size: 14px; font-variant-numeric: tabular-nums; }
+.tracks { max-height: 710px; overflow: auto; padding: 3px; margin: 16px -3px 0; }
+.track { display: block; width: 100%; text-align: left; margin: 0 0 8px; padding: 16px; border-color: transparent; border-radius: 8px; }
+.track[aria-pressed=true] { background: #a7d9ff; border-color: #a7d9ff; color: #14202c; }
+.track-title { font-size: 18px; font-weight: 600; display: block; overflow-wrap: anywhere; }
+.track-id { font: 13px ui-monospace, monospace; color: #c5d0da; margin-right: 12px; }
+.track-meta { display: block; font-size: 13px; color: #bcc7d0; margin-top: 8px; }
+.track[aria-pressed=true] .track-id, .track[aria-pressed=true] .track-meta { color: #14202c; }
+.desk { background: #252b33; padding: 16px; border-radius: 8px; align-self: start; }
+.desk h2 { margin-top: 8px; }
+.desk audio { width: 100%; margin: 16px 0; }
+form { border-top: 1px solid #677580; margin-top: 20px; }
+form label { margin: 16px 0; font-size: 14px; }
+form button { margin: 6px 8px 0 0; }
+.reference { padding: 16px; background: #252b33; border-radius: 8px; margin-top: 24px; }
+.album-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.reference audio { display: block; margin: 16px 0; width: min(100%,420px); }
+.reference input { max-width: 200px; }
+.reference button { margin-top: 10px; }
+#status { min-height: 24px; font-size: 14px; }
+#export-json { font: 13px/1.5 ui-monospace, monospace; }
+footer { font-size: 14px; }
+li { margin: 6px 0; }
+@media (max-width: 800px) { .workspace, .album-grid { grid-template-columns: 1fr; } .tracks { max-height: 350px; } .toolbar label { flex: 1; min-width: 145px; } }
+
+.album-grid li { margin: 12px 0; overflow-wrap: anywhere; }
+.album-grid li details { padding: 10px 0; border-bottom: 1px solid #677580; }
+.album-grid li summary { line-height: 1.5; }
+.candidate-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.candidate-buttons button { font-size: 14px; padding: 8px 12px; }

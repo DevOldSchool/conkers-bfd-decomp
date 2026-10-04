@@ -1,0 +1,22 @@
+/* Shared asset preview styles, derived from the model inspection page. */
+* { box-sizing: border-box; }
+body { font: 16px/1.5 system-ui; margin: 32px; background: #171b20; color: #eee; }
+a { color: #a7d9ff; }
+h1 { margin-bottom: 8px; }
+header p { color: #bcc7d0; margin: 8px 0; }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+button, input, select { font: inherit; color: inherit; border: 1px solid #677580; border-radius: 6px; }
+button { padding: 10px 14px; background: #252b33; cursor: pointer; }
+button:hover { border-color: #a7d9ff; }
+[aria-selected="true"] { background: #a7d9ff; border-color: #a7d9ff; color: #14202c; }
+label { display: block; margin-bottom: 8px; }
+input { width: 100%; max-width: 620px; padding: 12px; background: #252b33; }
+select { padding: 10px 12px; background: #252b33; max-width: 100%; }
+:focus-visible { outline: 2px solid #a7d9ff; outline-offset: 3px; }
+h2 { font-size: 20px; line-height: 1.35; margin: 16px 0 8px; }
+code { overflow-wrap: anywhere; font-size: 13px; color: #c5d0da; }
+details { margin-top: 16px; color: #bcc7d0; font-size: 14px; }
+summary { cursor: pointer; }
+[hidden] { display: none !important; }
+footer { margin-top: 32px; color: #bcc7d0; }
+@media (max-width: 600px) { body { margin: 20px 16px; } h1 { font-size: 28px; } .tabs { gap: 6px; } }
