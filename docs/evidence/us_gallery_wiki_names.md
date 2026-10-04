@@ -40,14 +40,11 @@ Bank numbers are hexadecimal; padded entry and segment numbers are decimal.
 | `object-bank09-0031-rom` | Blowtorch attachment | [Blowtorch](https://conker.fandom.com/wiki/Blowtorch), `Lata_de_fuego.png`: red bottle with flame mark, black ribbed grip and angled nozzle. |
 | `object-bank09-0110-rom` | Confidence pills attachment | [Confidence Pills](https://conker.fandom.com/wiki/Confidence_Pills): N64 montage, blue/white hexagonal bottle held by Conker. Existing CI4/material evidence is retained. |
 | `object-bank03-0085-00-rom` | Gas canister | [Canister](https://conker.fandom.com/wiki/Canister): N64 carried green cylinder with pale end caps and carrying ring. Multiplayer objective context is contextual evidence, not a numeric consumer mapping. |
-| `object-bank03-0003-00-rom` | Chocolate | [Chocolate wiki reference](https://conker.fandom.com/wiki/Anti-Gravity_Chocolate), `Chocolate.jpg`: beveled square brown/orange piece in the N64 six-piece health bar. One piece only; lighting/material parity remains unresolved. |
+| `object-bank03-0003-00-rom` | Anti-Gravity Chocolate — single piece | [Anti-Gravity Chocolate](https://conker.fandom.com/wiki/Anti-Gravity_Chocolate), `Chocolate.jpg`: beveled square brown/orange piece in the N64 six-piece health bar. One piece only; lighting/material parity remains unresolved. |
 | `object-bank09-0025-rom` | Game Boy attachment — yellow | [Game Boy](https://conker.fandom.com/wiki/Game_Boy), `Conker_Plays_Game_Boy.gif`: N64 idle animation, yellow casing, dark screen, cross-shaped pad and coloured buttons. |
 | `scene-bank04-0018-10-rom` | Bat's Tower Wheel — letter puzzle | [Bat's Tower Wheel](https://conker.fandom.com/wiki/Bat%27s_Tower_Wheel), `Glide64_CONKER_BFD_107.png`: octagonal letter plate and clockwise sequence P,U,N,H,O,T,E,S. The article explicitly distinguishes the remake's arrow puzzle. This is the exported letter plate, not the complete assembly. |
 | `object-bank09-0162-00-rom` | Squirrel Tail — extra life | [Squirrel Tails](https://conker.fandom.com/wiki/Squirrel_Tails), `Conkertail.gif`: matching orange/white fur and metal wall hook. Corrects the earlier wall-mounted flame description. |
 | `character-bank01-0170-rom` | Pikachu tail — unused | [Bad Fur Day](https://conker.fandom.com/wiki/Conker%27s_Bad_Fur_Day), `Pikatailbeta.png`: matching yellow zigzag, brown base and pale tip. The removed-cutscene history comes from the wiki; no recovered symbol or runtime consumer establishes that history independently. |
-
-The user corrected the item name to **Chocolate** after the survey. The linked
-wiki page retains its own title; the gallery uses the corrected name.
 
 ## Context added to already described props
 
@@ -57,7 +54,7 @@ wiki page retains its own title; the gallery uses the corrected name.
 | `character-bank01-0019-rom`, `character-bank01-0035-rom` | Mrs. Bee's Hive — closed/armed | [Mrs. Bee's Hive](https://conker.fandom.com/wiki/Mrs._Bee%27s_Hive), `Bee_Hive.png`: yellow layered hive, open roof and central perforated twin barrels. Side launchers in the armed export are not established by this particular reference image. |
 | `object-bank09-0453-00-rom` through `object-bank09-0482-00-rom` | Cheat keyboard — individual keys | [Cheat Codes](https://conker.fandom.com/wiki/Cheat_Codes), `Cheat_screen.jpg`: 26 wooden letter keys, DEL, dot, curved return-arrow and long blank block. These 30 records are one contextual family, not 30 newly discovered distinct items. |
 
-The blowtorch is now in Weapons. Chocolate, the gas canister and the squirrel
+The blowtorch is now in Weapons. Anti-Gravity Chocolate, the gas canister and the squirrel
 tail are in Collectables. Existing prop/attachment categories are otherwise
 retained. No extracted-review acceptance state was promoted.
 
