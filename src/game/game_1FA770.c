@@ -86,7 +86,7 @@ s32 func_151CD4C0(void *, u8, s32, u8, s32);
 typedef struct Game1FA770Object Game1FA770Object;
 void func_151CE47C(Game1FA770Object *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD3CC CURRENT (458) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD3CC CURRENT (558) */
 void func_151CD3CC(Game1FA770DispatchOwner *arg0, s32 *arg1, u8 arg2) {
     Game1FA770DispatchState *state;
     s32 temp_a2;

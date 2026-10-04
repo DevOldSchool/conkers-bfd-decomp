@@ -638,41 +638,38 @@ void func_1506BF1C(void) {
 s32 func_1000F568(s32, s32);
 extern s32 D_800D187C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506C32C CURRENT (645) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506C32C CURRENT (632) */
 void func_1506C32C(void) {
+    s32 value;
+    s32 selector;
     s32 values[4];
-    s32 temp_t2;
-    s32 temp_t6;
-    s32 temp_t8;
-    s32 temp_v0;
-    s32 var_a1;
 
-    temp_t6 = D_800D187C - 1;
+    value = (s32)((u32)D_800D187C - 1U);
     if (D_800D187C != 0) {
-        D_800D187C = temp_t6;
-        values[0] = temp_t6 & 0x7FF;
-        temp_t2 = ((s32) D_800D1580 >> 0x16) & 0x7FF;
+        D_800D187C = value;
+        values[0] = value & 0x7FF;
+        value = ((s32) D_800D1580 >> 0x16) & 0x7FF;
         values[1] = D_800D1580 & 0x7FF;
         values[2] = ((s32) D_800D1580 >> 0xB) & 0x7FF;
-        values[3] = temp_t2;
-        if (temp_t2 != 0) {
-            var_a1 = 4;
+        values[3] = value;
+        if (value != 0) {
+            selector = 4;
         } else if (values[2] != 0) {
-            var_a1 = 3;
+            selector = 3;
         } else {
-            var_a1 = 0;
+            selector = 0;
             if (values[1] != 0) {
-                var_a1 = 2;
+                selector = 2;
             }
         }
-        if (var_a1 != 0) {
-            var_a1 = func_1000F568(values[0], var_a1) - values[0];
+        if (selector != 0) {
+            selector = func_1000F568(values[0], selector) - values[0];
         }
-        temp_v0 = values[var_a1];
-        if (temp_v0 != 0) {
-            temp_t8 = D_800D187C & 0xFFFEF800;
-            D_800D187C = temp_t8;
-            D_800D1580 = temp_v0 | temp_t8;
+        value = values[selector];
+        if (value != 0) {
+            selector = D_800D187C & 0xFFFEF800;
+            D_800D187C = selector;
+            D_800D1580 = value | selector;
             func_1506BF5C();
         }
     }

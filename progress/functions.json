@@ -19406,8 +19406,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 645,
-        "reason": "Manual compiler/type repair; warning-free candidate remains CURRENT (645). See build/fix-blockers-2/func_1506C32C-finish.log.",
+        "current_score": 632,
+        "reason": "Best valid632 with explicit wrapping packed-counter decrement and two actual reused scalars. Historical645 signed subtraction lacked a proved lower bound; wrap repair machine-neutral645. Lifetime reuse recovers frame38, array20 versusraw24 and shift/register/branch scheduling remain. Three finishes/two revisions exhausted; no padding/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -25285,7 +25285,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1080,
-        "reason": "Manual guarded object-slot scan preserved; remaining common-address hoisting and register allocation mismatch (best focused score 1080).",
+        "reason": "Valid1080 retained after fresh full-span check. Actual ownerA1, guarded typed812-byte walk, frame20/index1C already recovered; compiler common-base hoisting and transient register allocation remain. Prior guarded scan work preserved, one finish/zero fresh revisions; no new justified hypothesis or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59207,7 +59207,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1106,
-        "reason": "CURRENT (1106): call semantics and early product lifetimes recovered, but the compiler spills the fourth float argument and uses a 0x30 frame instead of retaining it in f14 with the reference 0x40 frame; register forcing did not change codegen.",
+        "reason": "Valid1106 retained after fresh full-span check. Unsigned halfword FP correction already exact, so proposed wider conversion lacks a residual target. Prior early-product/register-forcing work preserved; arg3 spill/frame30 versusrawF14/frame40 and product schedule remain. One finish/zero fresh revisions, no new justified hypothesis or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63303,7 +63303,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 582,
-        "reason": "CURRENT (582): aggregate preserves the 0x5A8 payload and runtime division; remaining frame placement is 0x10 high plus call-spill scheduling",
+        "reason": "Valid original aggregate582 retained. Fresh redundant-scalar elimination/consumed arg2 and storedscale reuse regressed2506: frame5E8/packet38 but new S0 save and lost incoming A2 home. Runtime division retained; original frame5F0/packet40 and return-spill scheduling remain. Two finishes/one fresh revision exhausted alongside prior aggregate work; no forced padding/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -83183,8 +83183,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 458,
-        "reason": "CURRENT (458): semantics and nearly all instructions recovered; remaining 0x38-vs-0x40 frame, initial pointer scheduling, and one delay-slot placement need further source-shape work",
+        "current_score": 558,
+        "reason": "Valid dispatch baseline CURRENT558; frame38 versus raw40, initial state-pointer scheduling and event17 epilogue delay-slot differ. Fresh explicit return machine-neutral; historical frame/state probes exhausted. Historical458 now558 includes final registered-span row; keep original C without artificial padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
