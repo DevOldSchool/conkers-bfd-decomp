@@ -728,7 +728,78 @@ s32 func_15015300(Game40490State *arg0) {
     }
     return 1;
 }
+typedef struct Game15354Point { f32 x, y, z; } Game15354Point;
+typedef struct Game15354Packet {
+    void *owner;
+    s16 index;
+    f32 elapsed;
+    Game15354Point corners[4];
+    Game15354Point edges[4];
+    s32 region;
+    s32 zero;
+} Game15354Packet;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015354 CURRENT (354) */
+void func_15015354(void *arg0) {
+    Game15354Packet packet;
+    Game15354Point origin;
+    Game15354Point corners[4];
+    f32 matrix[16];
+    register u8 index;
+    s32 result;
+
+    packet.owner = arg0;
+    packet.index = -1;
+    packet.elapsed = 0.0f;
+    *((u8 *)arg0 + 0x14) = 1;
+    origin.x = *(s16 *)arg0;
+    origin.y = *(s16 *)((u8 *)arg0 + 2);
+    origin.z = *(s16 *)((u8 *)arg0 + 4);
+    corners[0].x = *(s16 *)((u8 *)arg0 + 6);
+    corners[0].y = 0.0f;
+    corners[0].z = *(s16 *)((u8 *)arg0 + 0xA);
+    corners[1].x = *(s16 *)((u8 *)arg0 + 6);
+    corners[1].y = 0.0f;
+    corners[1].z = -*(s16 *)((u8 *)arg0 + 0xA);
+    corners[2].x = -*(s16 *)((u8 *)arg0 + 6);
+    corners[2].y = 0.0f;
+    corners[2].z = -*(s16 *)((u8 *)arg0 + 0xA);
+    corners[3].x = -*(s16 *)((u8 *)arg0 + 6);
+    corners[3].y = 0.0f;
+    corners[3].z = *(s16 *)((u8 *)arg0 + 0xA);
+    func_150A8050(matrix, *(f32 *)((u8 *)arg0 + 0xC), *(f32 *)((u8 *)arg0 + 0x10), 0.0f);
+    index = 0;
+    matrix[12] = origin.x;
+    matrix[13] = origin.y;
+    matrix[14] = origin.z;
+    do {
+        func_150A7960(matrix, corners[index].x, corners[index].y, corners[index].z,
+                     &packet.corners[index].x, &packet.corners[index].y, &packet.corners[index].z);
+        index++;
+    } while (index < 4);
+    packet.edges[0].x = packet.corners[1].x - packet.corners[0].x;
+    packet.edges[0].y = packet.corners[1].y - packet.corners[0].y;
+    packet.edges[0].z = packet.corners[1].z - packet.corners[0].z;
+    packet.edges[1].x = packet.corners[2].x - packet.corners[1].x;
+    packet.edges[1].y = packet.corners[2].y - packet.corners[1].y;
+    packet.edges[1].z = packet.corners[2].z - packet.corners[1].z;
+    packet.edges[2].x = packet.corners[3].x - packet.corners[2].x;
+    packet.edges[2].y = packet.corners[3].y - packet.corners[2].y;
+    packet.edges[2].z = packet.corners[3].z - packet.corners[2].z;
+    packet.edges[3].x = packet.corners[0].x - packet.corners[3].x;
+    packet.edges[3].y = packet.corners[0].y - packet.corners[3].y;
+    packet.edges[3].z = packet.corners[0].z - packet.corners[3].z;
+    func_1510F800(0);
+    packet.region = func_1510FD20(*(s16 *)arg0, *(s16 *)((u8 *)arg0 + 4), arg0);
+    packet.zero = 0;
+    result = func_15149130(300, -1, 0x3D, -1, 0, 0x2E, sizeof(packet), 0xFF, 0);
+    if (result != 0) {
+        func_10022EC0((void *)(result + 0x28), &packet, sizeof(packet));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15015354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
+
 extern f32 func_15144598(void *arg0, void *arg1);
 
 s32 func_15015644(void *arg0, void *arg1) {

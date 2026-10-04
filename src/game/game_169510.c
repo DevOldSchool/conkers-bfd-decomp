@@ -40,7 +40,95 @@ void func_15169804(s32 arg0);
 void func_15169824(s32 arg0);
 void func_1513CAD4(s32 arg0);
 
+void func_1516972C(void *);
+extern s32 (*D_80089C70[])(u8 *);
+extern s32 (*D_80089CA8[])(u8 *);
+extern u8 D_80090B64[];
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513C060 CURRENT (2813) */
+void func_1513C060(u8 *arg0) {
+    s8 expired;
+    s32 flags, lifetime, product, speed, boundary, value;
+    u8 callback;
+
+    if (!(*(s32 *)(arg0 + 0x10) & 1)) return;
+    expired = 0;
+    if (*(s32 *)(arg0 + 0x18) & 1) {
+        *(s16 *)(arg0 + 0x1C) -= D_800BE9E4;
+        if (*(s16 *)(arg0 + 0x1C) < 0) expired = 1;
+    }
+    callback = arg0[0x80];
+    if (callback != 0) {
+        if (D_80089C70[callback](arg0) == 0) expired = 1;
+    }
+    flags = *(s32 *)(arg0 + 0x18);
+    if ((flags & 0x8000) && expired == 0) {
+        lifetime = *(s16 *)(arg0 + 0x1C);
+        if (lifetime < *(s16 *)(arg0 + 0x3A)) {
+            product = lifetime * *(s16 *)(arg0 + 0x3C);
+            if (product < arg0[0x28]) {
+                arg0[0x28] = product;
+                flags = *(s32 *)(arg0 + 0x18);
+            }
+        }
+    }
+    if ((flags & 0x10000) && expired == 0) {
+        lifetime = *(s16 *)(arg0 + 0x1C);
+        if (lifetime < *(s16 *)(arg0 + 0x3A)) {
+            product = lifetime * *(s16 *)(arg0 + 0x3C);
+            if (product < arg0[0x28]) arg0[0x2D] = product;
+        }
+    }
+    if (expired == 0) {
+        speed = *(s32 *)(arg0 + 0x24);
+        if (speed != 0) {
+            boundary = (D_80090B64[arg0[0x1E] * 12] << 16) - 1;
+            value = (s32)((u32)*(s32 *)(arg0 + 0x20) + (u32)speed * (u32)D_800BE9E4);
+            *(s32 *)(arg0 + 0x20) = value;
+            if (boundary < value) {
+                flags = *(s32 *)(arg0 + 0x18);
+                if (flags & 2) expired = 1;
+                else if (flags & 0x40) {
+                    *(s32 *)(arg0 + 0x24) = 0;
+                    *(s32 *)(arg0 + 0x20) = boundary;
+                } else if (flags & 4) {
+                    *(s32 *)(arg0 + 0x20) = boundary - value % boundary;
+                    *(s32 *)(arg0 + 0x24) = (s32)(0U - (u32)speed);
+                } else {
+                    do {
+                        value = (s32)((u32)value - (u32)boundary);
+                        *(s32 *)(arg0 + 0x20) = value;
+                    } while (boundary < value);
+                }
+            } else if (value < 0) {
+                flags = *(s32 *)(arg0 + 0x18);
+                if (flags & 8) expired = 1;
+                else if (flags & 0x80) {
+                    *(s32 *)(arg0 + 0x24) = 0;
+                    *(s32 *)(arg0 + 0x20) = 0;
+                } else if (flags & 4) {
+                    *(s32 *)(arg0 + 0x20) = (s32)(0U - (u32)value) % boundary;
+                    *(s32 *)(arg0 + 0x24) = (s32)(0U - (u32)speed);
+                } else {
+                    do {
+                        value = (s32)((u32)value + (u32)boundary);
+                        *(s32 *)(arg0 + 0x20) = value;
+                    } while (value < 0);
+                }
+            }
+        }
+    }
+    if (expired != 0) {
+        callback = arg0[0x81];
+        if (callback != 0) {
+            if (D_80089CA8[callback](arg0) != 0) func_1516972C(arg0);
+        } else func_1516972C(arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513C060 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513C060.s")
+
 typedef struct Game169510Vec3 {
     s32 x;
     s32 y;

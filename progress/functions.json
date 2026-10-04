@@ -16767,6 +16767,12 @@
       "symbol": "func_15015300"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 354,
+        "reason": "Best CURRENT 354 retained after three comparisons; complete matrix/corners/origin, native XYZ scheduling. Scratch offsets plus4 and existing ignored third FD20 argument remain; no shared contract changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -28302,6 +28308,12 @@
       "symbol": "func_1507BC14"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2813,
+        "reason": "Best CURRENT (2813) retained; native flag shift, post-store flag reload, phase MOVEs, expired spill offset and register allocation remain after two targeted revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55230,6 +55242,12 @@
       "symbol": "func_151090DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2838,
+        "reason": "Best CURRENT 2838 after three comparisons; full64matrix/12point/16vertices and native FP arithmetic preserved. Native108frame recovered; output84 versus94, FP colors and argument setup remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90933,6 +90951,12 @@
       "symbol": "func_15172F70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 349,
+        "reason": "Best CURRENT (349): full loop instructions, control and 0x48 frame recovered; FP load order/colors, three snapshot stack homes and byte-count scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90946,6 +90970,12 @@
       "symbol": "func_15165C80"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3515,
+        "reason": "Best CURRENT 3515 after three comparisons; complete display-list packets, native20frame/clamp/division and real caller contracts recovered. Global width rematerialization, packet colors and cursor scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
