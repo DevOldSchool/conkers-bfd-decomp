@@ -36,6 +36,78 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct { u32 first, second; } Game58F80Command;
+typedef struct {
+    s32 active;
+    u8 model, kind;
+    u8 pad6[0x17E];
+    u32 flags;
+    u8 pad188[0x1A4];
+} Game58F80DrawActor;
+extern u8 D_800CC2D0;
+extern u32 D_8003C8E0;
+extern u32 D_80084160[], D_80084190[];
+s32 func_1506196C(u8 *, s32);
+void *func_1502C408(void *, s32);
+s32 func_1502C974(s32, s32, s16, s32, s32);
+void *func_150368C4(s32, s32, s16);
+s32 func_15030E08(s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502BAD0 CURRENT (1940) */
+Game58F80Command *func_1502BAD0(Game58F80Command *commands, s32 mode, register s16 arg2) {
+    Game58F80DrawActor *actor;
+    s32 index, kind;
+    s32 one = 1, seven = 7;
+    Game58F80Command *opening, *closing;
+
+    opening = commands;
+    commands++;
+    opening->first = 0xDE000000;
+    opening->second = (u32)D_80084160;
+    actor = (Game58F80DrawActor *)&D_800CC2D0;
+    index = 0;
+    do {
+        D_8003C8E0 = (index & 0xFFFFFF) | 0x01000000;
+        kind = actor->active;
+        if (kind == 0) goto next_actor;
+        kind = actor->kind;
+        if (kind == 3 || kind == 5) goto next_actor;
+        if (kind == 2) {
+            if (mode != 2) goto next_actor;
+        } else if (actor->model == 0xFF) goto next_actor;
+        if (mode == 6) {
+            if (kind != seven) goto next_actor;
+        } else if (mode == 0) {
+            if (!((actor->flags >> 9) & 1)) goto next_actor;
+        } else if (mode == one) {
+            if (kind == seven || kind == one) goto next_actor;
+            if (kind == 0 && func_1506196C((u8 *)actor, arg2) < 0xFF) goto next_actor;
+        } else if (mode == 2 && kind != 2) {
+            if (kind == seven || (kind != 0 && kind != one)) goto next_actor;
+            if (kind == 0 && func_1506196C((u8 *)actor, arg2) == 0xFF) goto next_actor;
+        }
+        if (actor->kind == 2) {
+            commands = func_1502C408(commands, index);
+        } else {
+            commands = (Game58F80Command *)func_1502C974((s32)commands, index, arg2, mode, 0);
+            if (index == 0) commands = func_150368C4((s32)commands, index, arg2);
+        }
+next_actor:
+        index++;
+        actor++;
+    } while (index != 25);
+    D_8003C8E0 = 0x01FFFFFF;
+    if (mode == one) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 0);
+    else if (mode == 2) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 1);
+    else if (mode == 6) commands = (Game58F80Command *)func_15030E08((s32)commands, arg2, 2);
+    closing = commands;
+    commands++;
+    closing->first = 0xDE000000;
+    closing->second = (u32)D_80084190;
+    D_8003C8E0 = 0;
+    return commands;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502BAD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502BAD0.s")
 typedef struct Game58F80BD84Actor {
     s32 field0;

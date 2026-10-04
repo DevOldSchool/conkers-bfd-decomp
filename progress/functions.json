@@ -39929,6 +39929,12 @@
       "symbol": "func_1502A8A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1940,
+        "reason": "Best CURRENT (1940); frame and entry agree, helper narrowing, constant ownership and command scheduling remain after three manual comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42900,6 +42906,12 @@
       "symbol": "func_1512D6B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2332,
+        "reason": "Best CURRENT2332 restored after three comparisons; complete typed color/vertex layouts, raw stride recovered; frame38 versus40, parameter/limit homes and GPR scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -46186,6 +46198,12 @@
       "symbol": "func_150A0D14"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1208,
+        "reason": "Best CURRENT (1208); frame/distance sequence agree, constant caching and FP call scheduling remain after three manual comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65035,11 +65053,15 @@
       "symbol": "func_15053694"
     },
     {
+      "blocked": {
+        "reason": "Handwritten raw function saves all GPRs/GP and both halves F20-F31 in separate 0x30/0x38 frames; helper150A613C consumes T4/S2 and returns T3/F13-F15 while callers retain caller-saved values. Cannot reproduce full span through ordinary compiler C without prohibited custom assembly/ABI tooling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 692,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A5B90",
           "vram": "0x150A5B90"
         }
@@ -71277,6 +71299,12 @@
       "symbol": "func_151A3150"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3944,
+        "reason": "Best final CURRENT3944 after three manual comparisons; complete four-vertex writer with corrected starter stores, setup recovered; frame, pointer homes, constant/FP scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
