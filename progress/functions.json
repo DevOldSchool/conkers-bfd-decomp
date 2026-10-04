@@ -30991,6 +30991,12 @@
       "symbol": "func_1509BA04"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1290,
+        "reason": "Best CURRENT 1290 restored; frame and entry saved registers agree, key/flags lifetime and extra moves remain after three manual comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47534,6 +47540,12 @@
       "symbol": "func_1509F77C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3188,
+        "reason": "Best CURRENT3188 retained; full output buffers/frame/homes agree, byte-home address materialization and call scheduling remain after three comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52089,6 +52101,12 @@
       "symbol": "func_1514F808"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2199,
+        "reason": "Best CURRENT2199 retained; FP schedule and initial saved registers agree, frame/homes and hoisted pointer lifetimes differ after three comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -57670,6 +57688,12 @@
       "symbol": "func_150969A0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4205,
+        "reason": "Manual budget exhausted; retain best CURRENT 4205, frame and state/helper scheduling differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71018,6 +71042,12 @@
       "symbol": "func_150D0730"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 951,
+        "reason": "Best CURRENT 951 restored after three manual comparisons; frame, pointer setup and floating scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
