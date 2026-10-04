@@ -6730,6 +6730,12 @@
       "symbol": "func_15004FE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1672,
+        "reason": "Best CURRENT1672 restored after three manual comparisons; clamp recovered, zero-product folding, stack homes and FP scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59876,6 +59882,12 @@
       "symbol": "func_150E68B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1907,
+        "reason": "Best CURRENT 1907 restored after three manual comparisons; frame and entry saves match, direction/time homes and FP scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65290,6 +65302,12 @@
       "symbol": "func_150DF8C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1696,
+        "reason": "Best CURRENT 1696 restored after three manual comparisons; frame 48 versus 70, command pointer home, GPR allocation and scan folding remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75975,6 +75993,12 @@
       "symbol": "func_150EB484"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 466,
+        "reason": "Manual ceiling reached: best CURRENT466; all opcodes/control/FP rows agree, stack homes and GPR lifetime assignments remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -81609,6 +81633,12 @@
       "symbol": "func_150F9BB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2446,
+        "reason": "Best final CURRENT2446 after three manual comparisons; frameA8 recovered, remaining buffer homes, pointer folding, FP scheduling and GPR ownership.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
