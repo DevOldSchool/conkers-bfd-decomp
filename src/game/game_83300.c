@@ -1173,30 +1173,24 @@ extern s32 D_800CC268;
 extern s8 D_800CC26C;
 extern s8 D_800CC26D;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D408 CURRENT (5876) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505D408 CURRENT (2569) */
 void func_1505D408(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, s32 arg7) {
-    f32 temp_ft2;
-    f32 temp_ft3;
     f32 temp_ft5;
     f32 temp_fv0;
-    f32 var_fa0;
-    f32 var_fa1;
     f32 var_fv1;
     s32 temp_a2;
     s32 temp_t0;
     s32 var_v0;
     s32 var_v1;
 
-    var_fa1 = arg2;
-    var_fa0 = arg5;
     var_fv1 = D_80099524;
     var_v0 = 0;
     var_v1 = 0;
-    if (var_fa0 < 1.0f) {
-        var_fa0 = D_80099528;
+    if (arg5 < 1.0f) {
+        arg5 = D_80099528;
     }
-    if ((var_fa1 == 0.0f) && (arg4 == 0.0f)) {
-        var_fa1 = 1.0f;
+    if ((arg2 == 0.0f) && (arg4 == 0.0f)) {
+        arg2 = 1.0f;
     }
     D_800CC268 |= 1 << arg7;
     if (!(*(s32 *)((u8 *)arg1 + 0xF8) & 0x10) || (D_800CC26C = (s8) arg7, var_fv1 = D_8009952C, (*(u8 *)((u8 *)arg1 + 4) != 0x61)) || (*(s32 *)((u8 *)arg0 + 0) != 1)) {
@@ -1218,16 +1212,16 @@ void func_1505D408(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
             if ((temp_a2 & 0x400) && (*(f32 *)((u8 *)arg1 + 0x28) == 0.0f)) {
                 D_800CC26D = arg7 + 0x64;
             }
-            temp_fv0 = sqrtf(var_fa0);
+            temp_fv0 = sqrtf(arg5);
             temp_ft5 = 1.0f / temp_fv0;
-            temp_ft2 = arg6 - temp_fv0;
-            arg6 = temp_ft2;
-            temp_ft3 = temp_ft2 * var_fv1;
+            arg6 -= temp_fv0;
+            arg2 *= temp_ft5;
             arg3 *= temp_ft5;
-            arg6 = temp_ft3;
-            *(f32 *)((u8 *)arg0 + 0x14) = (f32) (*(f32 *)((u8 *)arg0 + 0x14) + (temp_ft3 * (var_fa1 * temp_ft5)));
-            *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)arg0 + 0x1C) + (arg6 * (arg4 * temp_ft5)));
-            *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x18) + (arg6 * arg3));
+            arg4 *= temp_ft5;
+            arg6 *= var_fv1;
+            *(f32 *)((u8 *)arg0 + 0x14) += arg6 * arg2;
+            *(f32 *)((u8 *)arg0 + 0x1C) += arg6 * arg4;
+            *(f32 *)((u8 *)arg0 + 0x18) += arg6 * arg3;
         }
     }
 }

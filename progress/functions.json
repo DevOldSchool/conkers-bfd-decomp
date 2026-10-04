@@ -10010,8 +10010,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5876,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5876)",
+        "current_score": 2569,
+        "reason": "Manual best valid CURRENT (2569), 2 revisions exhausted: actual float parameters normalized in raw sequence reduce baseline4714; remaining saved f20/frame10 vs leaf, flag/pointer allocation and homes/output scheduling. Volatile body views regress2582 via alias spills. No shared changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59754,8 +59754,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2115,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2115)",
+        "current_score": 1840,
+        "reason": "Manual best valid CURRENT (1840), 2 revisions exhausted: actual saved RNG snapshot/in-place arithmetic and X-before-zeroY lifetime recover initial0..68/frame20; remaining FP constant allocation, coefficient branch/NEG/MOV and first-X-product/zeroY scheduling. No ABI/shared changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71512,8 +71512,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1942,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1942)",
+        "current_score": 2065,
+        "reason": "Manual best valid CURRENT (2065), 2 revisions exhausted: target-only func_15047C00 corrected to raw one-float contract and state read moved after call; invalid two-arg baseline rejected. Count unconditional spill/frame28 versus raw30 and FP allocation remain. No shared declarations or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73658,8 +73658,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 640,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (640)",
+        "current_score": 105,
+        "reason": "Manual best valid CURRENT (105), 2 revisions exhausted: raw early byte lifetime and direct accumulator field recover entire integer tail/address/control/length; remaining16 FP allocation/commutative ADD rows only. Future explicit real angle/product temporaries untried; no permutation or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -75871,8 +75871,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2263,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2263)",
+        "current_score": 1361,
+        "reason": "Manual best valid CURRENT (1361), 2 revisions exhausted: corrected word callback accesses and per-path count reloads; remaining D_800DBEF0 address hoisting, saved-register allocation and LUI/load operands. Baseline byte accesses invalid; no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -86236,8 +86236,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 400,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (400)",
+        "current_score": 60,
+        "reason": "Manual best valid CURRENT (60), 2 revisions exhausted: promoted s32 local removes unsupported v1 copy/branch differences; only adjacent LW field84 and float MTC1 ordering remains. Used local constant revision neutral; simpler candidate retained. No permutation/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90664,8 +90664,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 9040,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (9040)",
+        "current_score": 10115,
+        "reason": "Blocked manual C matching: full registered 416B includes alternate entries/shared return and separate 150A64C8 wrapper; raw mode-dependent CVT.W.S differs from starter truncation, CURRENT (10115) invalid. No revisions; preserve historical starter only, not a valid best candidate. See raw handwritten entry family evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
