@@ -32,8 +32,7 @@
       "clues": "Matching operations but different call-delay scheduling or argument-home order; check whether a nested result scope or redundant value lifetime explains those exact rows.",
       "success": "Camera 1512523C and 15125330 matched after lifting result declarations; 1512623C matched after moving an existing assignment into a call argument expression.",
       "counterexample": "Camera 15123070 scope restriction worsened 265 to 730. Narrower callback scopes worsened 151572D0; a quad suffix-scope experiment also failed.",
-      "evidence": ["src/game/camera/camera_camera.c", "docs/evidence/particle_callback_storage_matching.md", "docs/evidence/quad_vertex_storage_matching.md"],
-      "historical_chats": ["01a0e545-a8bb-7e22-a963-391f6914fac9", "01a0efd5-3c9f-7f13-92cd-4cde6a120dff"]
+      "evidence": ["src/game/camera/camera_camera.c", "docs/evidence/particle_callback_storage_matching.md", "docs/evidence/quad_vertex_storage_matching.md"]
     }
   ]
 }
