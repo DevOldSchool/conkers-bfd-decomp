@@ -338,7 +338,7 @@ s32 func_8000B830(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 extern s32 D_800BE9F0;
 extern s32 D_80041F08;
 extern s32 D_80041F0C;
-s32 func_8000C530(s32, s32, f32, f32, f32);
+s32 func_8000C530(s32, u8, f32, f32, f32);
 s32 func_8000E46C(s32, s32, s32, s32);
 s32 func_8000E588(s32, s32, s32);
 void func_8000DF68(s32, s32, s32);
@@ -373,7 +373,7 @@ s32 func_8000B8B8(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000B8B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B8B8.s")
 s32 func_8000E588(s32, s32, s32);
-s32 func_8000C530(s32, s32, f32, f32, f32);
+s32 func_8000C530(s32, u8, f32, f32, f32);
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 
 s32 func_8000BA18(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
@@ -666,8 +666,8 @@ void func_800086FC(s32, s32, s32);
 void func_80008744(s32, s32, s32);
 void func_80008824(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (4254) */
-s32 func_8000C530(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (2426) */
+s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 mode;
     s32 countdown;
     s32 low;
@@ -707,29 +707,29 @@ s32 func_8000C530(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     }
     if (mode != oldMode) {
         if (oldMode != 0) {
-            func_800085F8((u8)arg1, oldMode + 9);
+            func_800085F8(((u8 *)&arg1)[0], oldMode + 9);
         }
         if (mode != 0) {
             channel = (mode + 9) & 0xFF;
-            func_80008824((u8)arg1, channel, (u8)low);
-            func_800086FC((u8)arg1, (u8)channel, (high >> 7) & 0xFF);
-            func_80008744((u8)arg1, (u8)channel, high & 0x7F);
+            func_80008824(((u8 *)&arg1)[0], channel, (u8)low);
+            func_800086FC(((u8 *)&arg1)[0], (u8)((u32 *)&channel)[0], (high >> 7) & 0xFF);
+            func_80008744(((u8 *)&arg1)[0], (u8)((u32 *)&channel)[0], high & 0x7F);
         }
     } else if (oldMode != 0 && D_80041F08 != 0 && upper != D_80041F0C) {
         if (low != oldLow) {
-            func_80008824((u8)arg1, (oldMode + 9) & 0xFF, (u8)low);
+            func_80008824(((u8 *)&arg1)[0], (oldMode + 9) & 0xFF, (u8)low);
         }
         if (high != oldHigh) {
             if ((high ^ oldHigh) & 0x80) {
-                func_800086FC((u8)arg1, (mode + 9) & 0xFF, (high >> 7) & 0xFF);
+                func_800086FC(((u8 *)&arg1)[0], (mode + 9) & 0xFF, (high >> 7) & 0xFF);
             }
-            func_80008744((u8)arg1, (mode + 9) & 0xFF, high & 0x7F);
+            func_80008744(((u8 *)&arg1)[0], (mode + 9) & 0xFF, high & 0x7F);
         }
     }
     if (D_80041F04 & 0x10) {
         D_80041F04 &= ~0x10;
         if (initialFade == 0) {
-            func_8000886C((u8)arg1, 0xC0, 0x80);
+            func_8000886C(((u8 *)&arg1)[0], 0xC0, 0x80);
         }
         fade = 0xFF000000;
     }
@@ -738,7 +738,7 @@ s32 func_8000C530(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if (decrement < fade) {
             fade -= decrement;
         } else {
-            func_80008790((u8)arg1, 0xC0, 0, 0x5A);
+            func_80008790(((u8 *)&arg1)[0], 0xC0, 0, 0x5A);
             fade = 0;
         }
     }

@@ -92689,8 +92689,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4254,
-        "reason": "Preserve packed-state controller at CURRENT (4254). Proven helper arities and float forwarding; signed global packed-high extraction, unsigned high-byte decay and original-state comparisons retained. Chained field snapshots and redundant caller-mask removal worsen4709. Remaining frame/spill/register/control differences need new evidence; no permutations.",
+        "current_score": 2426,
+        "reason": "Preserve packed-state controller at CURRENT2426 (fresh4254). Three new supported forms4254/3441/2426 recover source-local u8 channel input contract, actual stored local-channel byte reads and repeated actual input-byte reads. Own two forward declarations aligned; fullword packed state and three float ABI inputs/callee controls unchanged. Remaining frame60vs58, packed-state snapshot stack ordering, high-value call-mask scheduling and register allocation unresolved. Prior snapshots/redundant-mask removal4709 and current typed input/object reads exhausted; no extra homes, dummy storage/padding, shared dependency changes or permutations. Retained own declaration requires BA18/BAFC full caller rechecks before checkpoint acceptance.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92709,7 +92709,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2005,
-        "reason": "Preserve fullword/float callback at CURRENT (2005). Initial 3100 used an external sqrt call; established source-local sqrtf intrinsic reduces to2635 and separate relative-coordinate local improves2005. Remaining float parameter homes, allocation and clamp scheduling are nonzero. Three bounded attempts; no compiler flags changed.",
+        "reason": "Preserve fullword/float callback at CURRENT2005. Inherited3100/2635/2005 sqrt-intrinsic and separate-relative-local forms exhausted. Fresh2005; current in-place coordinate formal regresses2635 and repeats inherited family; entry-time actual coordinate snapshot is code-neutral2005. Two non-improving forms stopped, exact original2005 restored. Raw MTCa2f14 before a2 reuse remains SWa2home20/LWC in compiled C; floating allocation/load/clamp scheduling unresolved. Do not repeat parameter mutation, entry snapshots, sqrt/clamp or frame shaping without independent new evidence. No ABI, shared dependency or compiler flag changes; no permutations.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
