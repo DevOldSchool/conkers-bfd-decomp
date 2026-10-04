@@ -38,6 +38,107 @@ void *func_1510CDB8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510CDB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CDB8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CE60.s")
+void func_10004074(s32);
+void func_10004514(s32, s32, s32, s32);
+void func_10006240(s32, void *, s32);
+u8 *func_1510D374(s32);
+u8 *func_10003C6C(s32, s32, s32, s32, s32);
+extern u8 D_80091D20;
+extern u16 D_800B87A0[];
+extern u8 D_800D9F68[];
+extern s32 D_800B0E58[];
+extern s8 D_800BC448[];
+extern s32 D_800D9F58, D_800D9F5C, D_8003809C;
+extern u8 D_800DBDBA;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D0EC CURRENT (2543) */
+s32 func_1510D0EC(s32 arg0, s32 *arg1, volatile s32 arg2, s32 arg3) {
+    register s32 compressedSize;
+    register s32 romAddress;
+    register s32 buffer;
+    register s32 output;
+    register s32 odd;
+    register s32 offset;
+    register s32 *entry;
+    register s32 alignedSize;
+    register s32 size;
+    register s32 result;
+    s8 *state;
+    u8 *count;
+    s32 previousCount;
+
+    if (arg0 < D_800D9F58) {
+        D_800D9F58 = arg0;
+    }
+    if (D_800D9F5C < arg0) {
+        D_800D9F5C = arg0;
+    }
+    if (arg0 >= 0x1E52 || arg0 < 0) {
+        return (s32)0x80000000U;
+    }
+    offset = arg0 * 2;
+    compressedSize = *(u16 *)(&D_80091D20 + offset);
+    if (compressedSize == 0) {
+        entry = &D_800B0E58[arg0];
+        *entry = (s32)0x80000000U;
+        goto ready;
+    }
+    entry = &D_800B0E58[arg0];
+    if (*entry == -1) {
+        D_800DBDBA = 5;
+        if (arg2 == 0x3F) {
+            arg2 = 0x3E;
+        }
+        size = (s32)func_1510D374(arg0);
+        romAddress = size;
+        if (size & 1) {
+            romAddress = (s32)((u32)size - 1U);
+            odd = 1;
+        } else {
+            odd = 0;
+        }
+        size = compressedSize + odd;
+        if (size & 1) {
+            size++;
+        }
+        alignedSize = (size + 15) & ~15;
+        buffer = (s32)func_10003C6C(alignedSize, 1, 2, 1, 2);
+        if (buffer == 0) {
+            return (s32)0x80000000U;
+        }
+        func_10004514(romAddress, buffer, alignedSize, 1);
+        output = (s32)func_10003C6C(*(u16 *)((u8 *)D_800B87A0 + offset),
+                                    1, 1, 0, 2);
+        if (output == 0) {
+            func_10004074(buffer);
+            return (s32)0x80000000U;
+        }
+        func_10006240((s32)((u32)buffer + (u32)odd),
+                       (void *)output, D_8003809C);
+        func_10004074(buffer);
+        *entry = output;
+        D_800D9F68[arg0] = 0;
+    }
+ready:
+    if (arg1 != 0) {
+        *arg1 = *(u16 *)((u8 *)D_800B87A0 + offset);
+    }
+    result = *entry;
+    state = &D_800BC448[arg0];
+    size = arg2;
+    if (*state < size) {
+        *state = size;
+    }
+    count = &D_800D9F68[arg0];
+    if (arg3 != 0) {
+        previousCount = *count;
+        if (previousCount < 255) {
+            *count = previousCount + 1;
+        }
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510D0EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510D0EC.s")
 extern u8 D_1A37E0;
 extern u8 D_80091D20;

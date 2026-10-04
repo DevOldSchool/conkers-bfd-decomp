@@ -9566,8 +9566,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 644,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15059140",
           "vram": "0x15059140"
         }
@@ -60805,6 +60810,12 @@
       "symbol": "func_150F6DB0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1758,
+        "reason": "Best1758 retained after explicit packet cursor/child alias worsened2916. Complete120/112byte objects; frame138 vs130, descriptor50 vs3C, spawnC0 vsB8, target40 vs38 and scheduling remain structural; no guessed frame padding or shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -63585,6 +63596,12 @@
       "symbol": "func_151D275C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3025,
+        "reason": "Best3025 retained; frame20 and most post-call command pointer GPRs exact, but parameter home, narrowing schedule and command increment/store timing remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -73831,6 +73848,12 @@
       "symbol": "func_150DE32C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 767,
+        "reason": "Best767 retained; frame68 exact, but FP ownership, output word64 vs54, loop GPR assignment and scheduling remain after three manual candidates.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78971,6 +78994,12 @@
       "symbol": "func_1510CE60"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2543,
+        "reason": "Best2543 after three bounded candidates. Word parameters and unsigned address wrap preserved; volatile arg2 snapshot avoids duplicate tail load. Frame68 vs50, spill homes, packed-size/odd/entry registers and scheduling remain. No active callee/shared ABI changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -16,7 +16,6 @@
  * - func_15058898
  * - func_15058EA4
  * - func_15058F24
- * - func_15059140
  * - func_150593C4
  * - func_15059444
  * - func_1505959C
@@ -416,7 +415,106 @@ void func_15058F24(void *arg0, f32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15058F24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058F24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059140.s")
+void func_150511E8(u8 *);
+void func_15055E50(u8 *, u8);
+void func_15056150(void *);
+void func_15056258(void *);
+void func_15056B08(u8 *);
+void func_15058898(u8 *, s32);
+/* Raw caller supplies an unused third float in a2. */
+void func_15058F24(void *, f32, f32);
+void func_15059444(s32);
+void func_15059C84(void *);
+void func_1505A250(f32, f32, f32, f32 *, f32 *);
+void func_1505A770(void *);
+void func_1505B5F8(u8 *, f32);
+void func_1505C7D8(s32 *, s32);
+void func_1505D6F0(u8 *, u8);
+extern s32 D_800CC268;
+extern u8 D_800C3E78;
+extern u8 D_800BE9A0;
+extern f32 D_800994A8;
+extern f32 D_800994AC;
+extern f32 D_800994B0;
+extern f32 D_800994B4;
+
+void func_15059140(u8 *arg0) {
+    f32 scale;
+    s32 flags;
+    s32 value;
+    s32 step;
+
+    scale = 0.5f;
+    D_800CC268 = 0;
+    if ((arg0[0x13D] == 0 || *(u16 *)(arg0 + 0x21C) < 16) &&
+        arg0[0x223] != 8) {
+        func_15059C84(arg0);
+        func_1505A770(arg0);
+    }
+    func_1505D6F0(arg0, D_800C3E78);
+    func_15055E50(arg0, arg0[0x1E4]);
+    if (arg0[4] == 8) {
+        func_15056150(arg0);
+    }
+    if (arg0[0x13D] < 100) {
+        func_15058898(arg0, *(s32 *)(arg0 + 0x30));
+    }
+    flags = *(s32 *)(arg0 + 0xF4);
+    if ((flags & 0x40000) && ((flags & 0x12000) || D_800CC268 != 0)) {
+        *(u16 *)(arg0 + 0x21C) = 0;
+    }
+    value = *(s8 *)(arg0 + 0xB0);
+    if (value != 0) {
+        func_15058F24(arg0, (f32)value * D_800994A8, 1.0f);
+    }
+    if (*(s32 *)(arg0 + 0xF8) & 0x20000) {
+        func_15056258(arg0);
+    }
+    if (arg0[0xAD] != 0) {
+        func_15059444((s32)arg0);
+    }
+    if (arg0[4] == 10) {
+        *(f32 *)(arg0 + 0x180) = D_800994AC;
+    }
+    if (*(s32 *)(arg0 + 0xF8) & 0x180000) {
+        func_150511E8(arg0);
+    }
+    func_1505B5F8(arg0, *(f32 *)(arg0 + 0x180));
+    if ((*(s32 *)(arg0 + 0xF4) & 0x1000) &&
+        *(f32 *)(arg0 + 0x28) < D_800994B0) {
+        func_15056B08(arg0);
+    }
+    if (*(s32 *)(arg0 + 0xF8) & 0x80000) {
+        scale = D_800994B4;
+    }
+    func_1505A250(0.0f, 0.0f, scale,
+                   (f32 *)(arg0 + 0x164), (f32 *)(arg0 + 0x168));
+    if (arg0[0xD0] != 0) {
+        func_1505C7D8((s32 *)arg0, D_800C3E78);
+    }
+    if (arg0[0x13D] == 0) {
+        value = D_800BE9A0;
+        step = arg0[0x10F];
+        if (value >= step) {
+            arg0[0x10F] = 0;
+        } else {
+            arg0[0x10F] = step - value;
+        }
+    }
+    value = arg0[0x107];
+    if (value != 0) {
+        arg0[0x107] = value - 1;
+    }
+    step = arg0[0x125];
+    if (step != 255) {
+        value = D_800BE9A0;
+        if (value >= step) {
+            arg0[0x125] = 0;
+        } else {
+            arg0[0x125] = step - value;
+        }
+    }
+}
 void func_1505A184(u16, f32, s32, f32 *, f32 *, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150593C4 CURRENT (309) */
