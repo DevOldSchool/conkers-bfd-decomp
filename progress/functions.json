@@ -91377,7 +91377,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "SDK-proven private static byte flag recovers original register and address lifetimes. Current distinct storage-root forms 410/20/410; best full160 CURRENT20 preserved with actual aligned volatile MMIO writes. Prior external-flag MMIO forms845/1060/855 remain exhausted. No opcode, register, stack or extra/missing rows; private .data alias and literal-versus-named MMIO operand references remain. No shared/tool/ASM/flag changes, no match credit. Further equivalent storage, qualifier, address or body retries need independent evidence and a justified budget.",
+        "reason": "Preserve SDK-proven private static byte flag and true aligned volatile MMIO writes at full US CURRENT20. Historical external-flag forms845/1060/855 exhausted; private-storage root410/20/410 plus one SDK-backed named volatile array0 view410 exhausted. Supplemental attempt23cce4fb05a04e3cb583e8385f6ff44f retains both extra ADDIU instructions; exact literal20 restored. Structured diff score20 is four immediate-colored MMIO rows; six private .data versus named flag rows are uncolored and excluded from numeric score, though diagnostic classifies all ten as operand differences. Private data placement still requires independent full-ROM integration proof. No new match/unit, ABI/shared/SDK/ASM/compiler/matching-tool changes. No further equivalent field/address/array/storage revisions without independent new evidence and justified budget.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

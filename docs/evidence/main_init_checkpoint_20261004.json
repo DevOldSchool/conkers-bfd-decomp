@@ -62,7 +62,7 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved disabled 2DB0 candidate improves prior845 to20 under independently SDK-backed private flag storage. No new C match or completed unit. A real focused-check overwrite of the integrated 2E50 object caused a table verification failure; canonical build now always compiles physical table addends and applies the reviewed runtime alias once. Fresh existing 2E50/30A0 full-span zero/layout checks and changed-state clean recovery batch pass.",
+    "scope": "Evidence checkpoint only: one SDK-backed volatile named-array MMIO form410 rejected, exact source20 restored; no source implementation/shared dependency changes, new matches or units. Existing 2E50/30A0 context revalidated by clean full US ROM/table/test/metadata/progress/whitespace batch. Nonzero2DB0 remains unaccepted. Prior independent full-span zero/layout receipts retained in previous_checkpoint_validation; not new focused checks this turn.",
     "batch_ids": [
       "func_80002E50",
       "func_800030A0"
@@ -70,30 +70,17 @@
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1833,
     "skipped": 37,
-    "test_seconds": 34.805,
+    "test_seconds": 35.681,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T23:38:09.390602+00:00",
-    "additional_focused_checks": {
-      "func_80002E50": {
-        "score": 0,
-        "attempt_record": "7e82581956884d988eaf39aa8b492b24",
-        "layout": "preserved"
-      },
-      "func_800030A0": {
-        "score": 0,
-        "attempt_record": "0c13e8fc01744f1ebbb96ef6b74562e7",
-        "layout": "preserved"
-      }
-    },
+    "completed_utc": "2026-10-04T23:54:24.521426+00:00",
     "linked_table": {
       "section": ".main_rodata_init_2e50",
       "vma": "0x8002C080",
       "size_bytes": 32,
       "rom_equal": true
-    },
-    "cache_regression_test": "tests/test_main_queue_object_build.py: newer focused-check object overwritten, canonical build prepares it again, repeated build does not double-adjust."
+    }
   },
   "historical_score_sequences": {
     "func_800056A0": [
@@ -531,6 +518,7 @@
       855,
       410,
       20,
+      410,
       410
     ]
   },
@@ -815,13 +803,13 @@
     "func_80002DB0": {
       "status": "candidate",
       "current_score": 20,
-      "new_forms_used": 3,
+      "new_forms_used": 4,
       "targeted_revisions_remaining": 0,
       "inherited_forms": 3,
-      "reason": "Private flag storage410 plus actual volatile MMIO fields20 recovered original register/control/stack/length rows. Named-symbol volatile-pointer form410 rejected; exact20 restored. Residual private .data alias and numeric-versus-named MMIO operand references remain. No further equivalent storage, qualifier, address or body retries without independent evidence and justified budget."
+      "reason": "Private-storage root410/20/410 plus independently SDK-backed supplemental volatile array0 view410 exhausted; same two address ADDIU remain. Exact literal20 restored. Numeric score driven four MMIO immediate-colored rows, six private.data symbol rows uncolored; placement remains unaccepted. No further equivalent scalar/array/qualifier/address/storage retries without independent evidence and justified budget."
     }
   },
-  "ledger_note": "2DB0 new private-storage root410/20/410 improves preserved845 to20; original ABI, helper declarations and actual MMIO volatility retained, canonical assembly restored by supported defer. Three earlier MMIO forms remain exhausted; three current forms complete, final best diagnosis independently refreshed. No new C match or unit. Found and fixed 2E50 focused-check/canonical-object cache collision through a narrow Makefile refresh prerequisite and actual Make/ELF regression test; no matching-tool, SDK, ASM, header or compiler-flag changes. Fresh existing2E50/30A0 full0/layout and clean BATCH_COMPLETE1833 tests37skip exact table/USROM/metadata/progress/white. Cumulative38 new matches/two completed units,22 init files87 candidates20 originalASM remain; full goal incomplete, no memory.",
+  "ledger_note": "2DB0 private-storage root410/20/410 plus one independently SDK-backed volatile named-array view410 exhausted; exact literal20 source restored byte-for-byte and supported defer independently20. Numeric score is four MMIO immediate-colored rows; six private.data symbolic rows uncolored, though full data placement still requires independent integration proof. No source/shared implementation changes, new match or completed unit this turn. Clean BATCH_COMPLETE1833 tests35.681s37skip exact full US ROM, main/debugger tables, metadata/progress/whitespace. Prior focused zero/layout and cache repair receipts retained. Cumulative38 matches/two completed units;22 current init files87 candidates20 originalASM remain; full goal active, no memory.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
     "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
@@ -1857,14 +1845,15 @@
       "historical_preserved_score": 845,
       "focused_score": 20,
       "attempt_record": "c24fa5c493d14091903746f471a63e10",
-      "diagnostic_refreshed_after_recovery": true,
+      "diagnostic_refreshed_after_recovery": false,
       "status": "candidate",
       "shared_dependency": false,
-      "new_forms": 3,
+      "new_forms": 4,
       "inherited_forms": 3,
       "scores": [
         410,
         20,
+        410,
         410
       ],
       "change": "Restore SDK-proven function-local static byte state and true aligned volatile MMIO writes. Candidate remains disabled beside original assembly.",
@@ -1886,7 +1875,55 @@
         "operand_or_constant": 10,
         "missing_or_extra": 0,
         "stack_rows": 0
+      },
+      "supplemental_attempt": {
+        "attempt_record": "23cce4fb05a04e3cb583e8385f6ff44f",
+        "score": 410,
+        "form": "extern volatile u32 one-element field views at each named AI hardware address, accessed at index0",
+        "evidence": "Pinned SDK rcp.h589/592/596 aligned word fields; structured literal20 diff assigns immediate coloring only to four MMIO rows. Prior root improvement and new scored-residual evidence justify one bounded supplemental form, no budget reset.",
+        "outcome": "Both ADDIU address instructions remain; exact literal20 source restored and supported defer independently scores20. No further equivalent view/address probes."
+      },
+      "scored_residual": {
+        "score": 20,
+        "immediate_colored_rows": 4,
+        "uncolored_private_data_reference_rows": 6,
+        "note": "Diagnostic operand10 counts differing symbol text; uncolored six private.data rows do not contribute numeric CURRENT score. Private data mapping still requires independent integration proof."
       }
     }
+  },
+  "previous_checkpoint_validation": {
+    "result": "BATCH_COMPLETE",
+    "scope": "Preserved disabled 2DB0 candidate improves prior845 to20 under independently SDK-backed private flag storage. No new C match or completed unit. A real focused-check overwrite of the integrated 2E50 object caused a table verification failure; canonical build now always compiles physical table addends and applies the reviewed runtime alias once. Fresh existing 2E50/30A0 full-span zero/layout checks and changed-state clean recovery batch pass.",
+    "batch_ids": [
+      "func_80002E50",
+      "func_800030A0"
+    ],
+    "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "tests": 1833,
+    "skipped": 37,
+    "test_seconds": 34.805,
+    "metadata": "valid",
+    "progress": "current",
+    "whitespace": "passed",
+    "completed_utc": "2026-10-04T23:38:09.390602+00:00",
+    "additional_focused_checks": {
+      "func_80002E50": {
+        "score": 0,
+        "attempt_record": "7e82581956884d988eaf39aa8b492b24",
+        "layout": "preserved"
+      },
+      "func_800030A0": {
+        "score": 0,
+        "attempt_record": "0c13e8fc01744f1ebbb96ef6b74562e7",
+        "layout": "preserved"
+      }
+    },
+    "linked_table": {
+      "section": ".main_rodata_init_2e50",
+      "vma": "0x8002C080",
+      "size_bytes": 32,
+      "rom_equal": true
+    },
+    "cache_regression_test": "tests/test_main_queue_object_build.py: newer focused-check object overwritten, canonical build prepares it again, repeated build does not double-adjust."
   }
 }
