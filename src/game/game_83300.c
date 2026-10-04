@@ -2883,6 +2883,90 @@ loop_16:
  * Do not name this entire routine or the shared actor field after Haybot.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15061B4C.s")
+s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
+extern f32 D_80099694;
+extern s32 D_800BE628;
+extern u8 D_800D9C10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150623F4 CURRENT (1405) */
+s32 func_150623F4(u8 *actor) {
+    f32 radius;
+    f32 height;
+    f32 margin;
+    register f32 dx, dz, centerX, centerZ, radiusSquared;
+    register s32 count, owner, players;
+    s32 index, offset, clear;
+    u32 sum;
+    register u32 circleRadius;
+    register u8 *header, *cursor, *end, *circle;
+    u8 *matrix;
+
+    header = *(u8 **)(actor + 0x144);
+    if (header != 0) radius = (f32)(u32)*(u16 *)(header + 0x2A);
+    else radius = 0.0f;
+    if (radius == 0.0f) return 1;
+    if (actor[0x127] != 0xFF) return 1;
+    if (D_800C3638 != 0 && func_150229E4(actor) != 0) return 1;
+    sum = 0;
+    cursor = actor;
+    count = D_80082FA0;
+    if (count >= 0) {
+        end = count + actor;
+        do {
+            sum += cursor[0xB];
+            cursor++;
+        } while ((u32)cursor <= (u32)end);
+    }
+    if (sum == 0) return 0;
+    if ((actor[0x74] & 0xF) != 0xF) return 1;
+    owner = actor[0x13F];
+    if (*(owner + (u8 *)D_800D2108) != 0) {
+        players = D_8008FD8C;
+        clear = 1;
+        index = 0;
+        if (players > 0) {
+            circle = ((u8 **)D_800D2104)[owner];
+            cursor = (u8 *)&D_800CC2D0;
+            circleRadius = *(u16 *)(circle + 6);
+            centerX = *(s16 *)circle;
+            centerZ = *(s16 *)(circle + 4);
+            radiusSquared = (f32)(s32)(circleRadius * circleRadius);
+circle_next:
+            index++;
+            dx = centerX - *(f32 *)(cursor + 0x14);
+            dz = centerZ - *(f32 *)(cursor + 0x1C);
+            if (dx * dx + dz * dz < radiusSquared) {
+                clear = 0;
+            } else {
+                cursor += 0x32C;
+                if (index < players) goto circle_next;
+            }
+        }
+        if (clear == 0) return 1;
+    }
+    height = (f32)*(s16 *)(D_800D1C90[actor[4]] + 0x10) * *(f32 *)(actor + 0x150);
+    matrix = D_800D9C10;
+    index = 0;
+    offset = 0;
+    if (count >= 0) {
+        clear = 1;
+        margin = D_80099694;
+        do {
+            if (func_150A6360(offset + (u8 *)D_800BE628, matrix,
+                *(f32 *)(actor + 0x14), *(f32 *)(actor + 0x18) + height,
+                *(f32 *)(actor + 0x1C), radius, radius, margin) != 0) {
+                clear = 0;
+                break;
+            }
+            index++;
+            offset += 0x180;
+            matrix += 0x40;
+        } while (D_80082FA0 >= index);
+    }
+    if (clear == 0) return 1;
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150623F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150623F4.s")
 extern s32 D_800D121C;
 

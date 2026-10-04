@@ -1325,7 +1325,63 @@ s32 func_1508B9BC(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508B9BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B9BC.s")
 
+f32 func_150ADA68(void);
+extern s8 D_8008FD8C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BC20 CURRENT (3749) */
+void func_1508BC20(void) {
+    s8 used[16];
+    f32 countFloat;
+    s32 count, divisor, baseStep, row;
+    s32 index, direction, brightness, step, written;
+    s8 *output, *cursor, *mark;
+
+    count = D_8008FD8C;
+    output = (s8 *)D_800D23B0 + 0x15B4;
+    divisor = count >> 1;
+    if (divisor < 2) divisor = 2;
+    baseStep = 0xAA / divisor;
+    row = 0;
+    if (count > 0) {
+        countFloat = count;
+        do {
+            cursor = used;
+            direction = -1;
+            brightness = 0x55;
+            step = baseStep;
+            do {
+                *cursor++ = 0;
+            } while (cursor != used + 16);
+            index = (s32)(func_150ADA68() * countFloat);
+            if (func_150ADA68() > 0.5f) direction = 1;
+            mark = used + index;
+            written = 0;
+            row++;
+            while (*mark != 0) {
+                index += direction;
+                if (index < 0) index = count - 1;
+                if (index >= count) index = 0;
+                mark = used + index;
+            }
+            *mark = 1;
+            if (count > 0) {
+                do {
+                    if (brightness < 0x100) output[index] = brightness;
+                    else output[index] = 0xFF;
+                    index++;
+                    brightness += step;
+                    if (index >= count) index = 0;
+                    written++;
+                    if (brightness >= 0x100) step = -step;
+                } while (written != count);
+            }
+            output += 0x10;
+        } while (row != count);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1508BC20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508BC20.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BF14 CURRENT (11632) */
 s32 func_1508BF14(void) {
     s32 spA4;

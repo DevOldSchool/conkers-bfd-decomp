@@ -10725,6 +10725,12 @@
       "symbol": "func_15061B4C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1405,
+        "reason": "Best CURRENT (1405) restored after three bounded manual comparisons. Native flag snapshots and return branches recovered; frame 0x90 versus 0x68, register ownership, stack flag home 0x58 versus 0x5C, and circle-loop relational comparison remain. Negative cached count forces the earlier zero-sum return, proving the skipped flag initialization cannot reach a functional read. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42168,11 +42174,15 @@
       "symbol": "func_150472C0"
     },
     {
+      "blocked": {
+        "reason": "Raw A7BC0 uses only its matrix pointer and initializes all 64 bytes; project one-pointer declarations conflict with the allowed source two-word declaration, which its saved 47700 candidate also uses. Starter fabricates a second argument from arg1 float bits. Preserve the saved candidate; local shared declaration reconciliation is needed before implementing this fresh caller. No comparisons or source edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 760,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15047390",
           "vram": "0x15047390"
         }
@@ -56077,8 +56087,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 756,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150F26A0",
           "vram": "0x150F26A0"
         }
@@ -89725,6 +89740,12 @@
       "symbol": "func_1508B9BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3749,
+        "reason": "Best CURRENT (3749) restored after three bounded comparisons. Clear-loop unrolling, saved-register ownership, frame 0x98 versus 0x88 and counter lifetime differ; native game-count domain remains required before acceptance.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -89974,11 +89995,15 @@
       "symbol": "func_1508E780"
     },
     {
+      "blocked": {
+        "reason": "Native 1508E938 forwards full signed V0 from 150859AC to 15085710 A2 without byte masking. Existing project declarations disagree between u8 and word third arguments; raw helper has full-word stores/arithmetic as well as byte arms. Requires separately authorized shared contract reconciliation and affected-caller checks before local C; no comparisons or game edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 756,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1508E89C",
           "vram": "0x1508E89C"
         }
