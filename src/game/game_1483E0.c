@@ -70,7 +70,99 @@ void func_1511AF30(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1511AF30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511AF30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511B07C.s")
+typedef struct Game1483E0Rotation {
+    u8 pad0[8];
+    f32 angle;
+    u8 padC[0x30];
+    s32 flags;
+    u8 pad40[0x33];
+    u8 mode;
+    u8 pad74[8];
+    f32 restitution, acceleration, velocity;
+} Game1483E0Rotation;
+
+f32 func_15048A70(f32, f32);
+void func_15173C60(s32, s32);
+void func_1518804C(s32, f32);
+f32 fabsf(f32);
+__pragma(1, fabsf);
+extern f32 D_800A31BC, D_800A31C0, D_800A31C4, D_800A31C8;
+extern u8 D_800BE9B4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511B51C CURRENT (1528) */
+void func_1511B51C(Game1483E0Rotation *arg0) {
+    s32 target;
+    s32 mode;
+    f32 original;
+    f32 desired, angle, velocity, restitution, acceleration;
+    f32 difference, fraction;
+    s32 sound, index;
+    u32 flags;
+
+    target = ((s16 *)&arg0->flags)[1];
+    mode = arg0->mode & 3;
+    original = (f32)target;
+    desired = original;
+    angle = arg0->angle;
+    velocity = arg0->velocity;
+    if ((mode == 0) || (mode == 1)) {
+        desired = 0.0f;
+    }
+    if ((mode == 0) || (mode == 3)) {
+        angle = desired;
+        velocity = 0.0f;
+    }
+    if ((angle != desired) || (velocity != 0.0f)) {
+        restitution = arg0->restitution;
+        if (restitution == 0.0f) {
+            restitution = D_800A31BC;
+        }
+        acceleration = arg0->acceleration;
+        if (acceleration == 0.0f) {
+            acceleration = 0.5f;
+        }
+        angle += velocity;
+        difference = func_15048A70(angle, desired);
+        if (fabsf(difference) < fabsf(velocity)) {
+            velocity = -velocity * restitution;
+            if (fabsf(velocity) < acceleration * D_800A31C0) {
+                velocity = 0.0f;
+                angle = desired;
+                if (desired == 0.0f) {
+                    mode = 0;
+                } else {
+                    mode = 3;
+                }
+            }
+        } else if (difference > 0.0f) {
+            velocity += (acceleration - velocity) * D_800A31C4;
+        } else {
+            velocity -= (acceleration + velocity) * D_800A31C8;
+        }
+        if (angle < 0.0f) {
+            angle += 360.0f;
+        } else if (angle >= 360.0f) {
+            angle -= 360.0f;
+        }
+        flags = arg0->mode & 0xFFFC;
+        arg0->mode = flags;
+        arg0->mode = flags | mode;
+    }
+    arg0->velocity = velocity;
+    if ((D_800BE9B4 != 0) || (angle != arg0->angle)) {
+        arg0->angle = angle;
+        sound = (arg0->flags >> 24) & 0xFF;
+        if ((sound != 0) && (target != 0)) {
+            index = sound - 1;
+            fraction = fabsf((angle - original) / original);
+            func_1518804C(index, fraction);
+            func_15173C60((s32)((1.0f - fraction) * 255.0f), index);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1511B51C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511B51C.s")
+
 f32 func_15047C00(f32);
 f32 func_15047D60(f32);
 extern u8 D_800A2F70;

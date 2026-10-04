@@ -29571,11 +29571,15 @@
       "symbol": "func_150195A0"
     },
     {
+      "blocked": {
+        "reason": "Active allowed-source func_1517EFAC(void) is contradicted by raw forwarding of A0 to func_1517EF00, which indexes D_800DDDC0 and related tables; target passes explicit zero. Shared ABI correction required.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 700,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150198FC",
           "vram": "0x150198FC"
         }
@@ -53427,6 +53431,12 @@
       "symbol": "func_150E4E04"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 40,
+        "reason": "Best CURRENT (40); eight F0/F12 ownership differences remain after three manual comparisons",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59298,6 +59308,12 @@
       "symbol": "func_150C9BDC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 991,
+        "reason": "Best CURRENT (991); FP and GPR ownership recovered, but frame and all buffers remain eight bytes high after three comparisons",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68527,6 +68543,12 @@
       "symbol": "func_150B2340"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3154,
+        "reason": "Best CURRENT (3154); saved registers and FP arithmetic recovered, but buffer homes and cached global addresses differ after three comparisons",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79822,6 +79844,12 @@
       "symbol": "func_1511B07C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1528,
+        "reason": "Best CURRENT (1528); explicit call snapshot and phase reuse worsen FP ownership after three comparisons",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

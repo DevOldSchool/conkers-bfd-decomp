@@ -143,5 +143,102 @@ void func_150E4CBC(void *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E4CBC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4CBC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E4E04.s")
+typedef struct Game111670Effect {
+    f32 field0, field4, field8, fieldC;
+    f32 angle[3], scale[3], position[3], velocity[3], acceleration[3];
+    f32 field4C;
+    s32 flags;
+    s16 duration, kind;
+    u8 field58, pad59[3];
+    s32 field5C;
+    u8 color[9], pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70, pad71;
+    s16 field72, field74;
+    u8 pad76[6];
+} Game111670Effect;
+
+void func_100226F0(void *, s32);
+f32 func_150484A0(f32, f32);
+f32 func_150ADA68(void);
+s32 func_151EF610(void);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A1140, D_800A1144, D_800A1148, D_800A114C;
+extern f32 D_800A1150, D_800A1154, D_800A1158, D_800A115C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E5558 CURRENT (40) */
+void func_150E5558(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
+                   f32 arg4, f32 arg5, s32 arg6, s32 arg7) {
+    Game111670Effect packet;
+    f32 pitch;
+    register f32 yaw;
+    f32 fraction, one;
+
+    func_100226F0(&packet, 0x7C);
+    if (arg4 != 0.0f) {
+        pitch = func_150484A0(arg3, arg4) * D_800A1140;
+    } else {
+        pitch = 90.0f;
+    }
+    if (arg5 != 0.0f) {
+        yaw = func_150484A0(arg3, arg5) * D_800A1144;
+    } else {
+        yaw = 90.0f;
+    }
+    one = 1.0f;
+    packet.angle[1] = yaw;
+    packet.angle[2] = pitch;
+    packet.scale[0] = one;
+    packet.scale[1] = one;
+    packet.scale[2] = one;
+    packet.field0 = one;
+    packet.field8 = D_800A1148;
+    packet.fieldC = D_800A1148;
+    packet.position[0] = arg0;
+    packet.position[1] = arg1;
+    packet.position[2] = arg2;
+    packet.angle[0] = 0.0f;
+    if (arg6 == 4) {
+        packet.kind = 6;
+        packet.field4 = D_800A114C;
+    } else if (arg6 == 9) {
+        packet.kind = 8;
+        packet.field4 = D_800A1150;
+    } else {
+        packet.kind = 7;
+        packet.field4 = D_800A1154;
+    }
+    packet.duration = func_151EF610() % 60 + 60;
+    packet.flags = 0x29E9;
+    fraction = func_150ADA68();
+    packet.field4C = D_800A1158;
+    yaw = fraction * D_800A115C + 1.5f;
+    packet.velocity[0] = yaw * arg3;
+    packet.velocity[1] = -yaw * arg4;
+    packet.velocity[2] = yaw * arg5;
+    packet.acceleration[0] = func_150ADA68() * 6.0f + -3.0f;
+    packet.acceleration[2] = func_150ADA68() * 6.0f + -3.0f;
+    fraction = func_150ADA68() * 6.0f + -3.0f;
+    packet.field58 = 0;
+    packet.field5C = 0;
+    packet.acceleration[1] = fraction;
+    packet.color[0] = 0xFF;
+    packet.color[1] = 1;
+    packet.color[2] = 0;
+    packet.color[3] = 3;
+    packet.color[4] = 0;
+    packet.color[5] = 0;
+    packet.color[6] = 0;
+    packet.color[7] = 0;
+    packet.color[8] = 0;
+    packet.field6A = 2;
+    packet.field6C = 0;
+    packet.field70 = 0;
+    packet.field72 = 0x20;
+    packet.field74 = 7;
+    func_15132A4C(&packet, 3, 0xFF, 0, 0xFF, 0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E5558 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E5558.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E5810.s")
