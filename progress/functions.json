@@ -6773,11 +6773,15 @@
       "symbol": "func_150F6B00"
     },
     {
+      "blocked": {
+        "reason": "Native EFF8/F074/F0D8/F154 consumes151491F4 V0 pointer and copies16bytes to actor28. Matched src/done/game/game_1765E0.c defines151491F4 void and calls15149130 without returning. Raw49130 returns allocated pointer or0; wrapper preservesV0. Local pointer redeclaration would contradict shared matched C type. Requires separately authorized shared return/caller-family audit; no C edit or finish.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 752,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1500EF20",
           "vram": "0x1500EF20"
         }
@@ -45875,6 +45879,12 @@
       "symbol": "func_15131DEC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1463,
+        "reason": "Best CURRENT1463 after3316/3316/1463. Complete112-byte spawn and20-byte extension; checksum-proven type52 dispatch and selected flags exclude unwritten size fields. Native B0 frame and FP colors recovered; resource-store scheduling, flag spill24 versus20 and word versus byte input forwarding remain. Manual budget exhausted; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -66237,6 +66247,12 @@
       "symbol": "func_151A5F70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5395,
+        "reason": "Manual budget exhausted; initial best CURRENT5395 restored after6359/6609. Complete88/28/6/12byte packets and selected callback reads audited. E0 versus nativeD8 frame, packet offsets, FP/GPR scheduling and cached byte argument remain; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -83006,6 +83022,12 @@
       "symbol": "func_15054A94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 989,
+        "reason": "Best CURRENT989 restored after1209/989/2590; native counter reloads and yaw/count phase reuse preserved. Frame60 versus58, scalar output offsets54/58/5C versus48/4C/50, mode/base colors and epilogue scheduling remain; manual budget exhausted, no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84339,6 +84361,12 @@
       "symbol": "func_151B0B88"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5955,
+        "reason": "Best CURRENT5955 restored after7938/5955/7248. Complete collision/effect positions, native zero-angle four-slot collision ABI and existing effect prototypes preserved. Shared blend snapshot helps; native98 versusA8 frame, missing native velocity spills, FP colors and collision/effect stack offsets remain. Manual budget exhausted; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
