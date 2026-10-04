@@ -983,12 +983,12 @@ extern u8 D_1000ECCC[];
 void func_80010558(u16 sound, SoundOwnerState *owner, s32 volume,
                   s32 arg3, s32 arg4, s32 delay) {
     if (delay <= 0) {
-        func_80010344(sound, owner, volume, (s16)arg3, (u16)arg4);
+        func_80010344(sound, owner, volume, (s16)arg3, ((u16 *)&arg4)[1]);
         return;
     }
     func_8000FA64(sound, (s16)(s32)owner->field14,
                   (s16)(s32)owner->field18, (s16)(s32)owner->field1C,
-                  volume, (u16)arg4, (s16)arg3, D_1000ECCC,
+                  volume, ((u16 *)&arg4)[1], ((s16 *)&arg3)[1], D_1000ECCC,
                   delay, (s32)owner, 0, 0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80010558 */

@@ -93854,7 +93854,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1530,
-        "reason": "Existing first-u16 wrapper contract and observed owner coordinates preserve both immediate/delayed paths. Three forms allscore1530: alternate existing wide allocation-helper annotations and explicit handle name are code-neutral. Retain simpler wrapper with conservative fullword helper parameters; incoming normalization and callback-address schedule remain.",
+        "reason": "Full216 CURRENT1530 after distinct low-halfword reads from actual four-byte arg3/arg4 input objects; fresh1749 7167ed8ad1cc48e4afe1fea73d4d6f4f, final1530 9fb9470339c84878918ed0ee2126f2b9. Recovers three LH/LHU loads, frame40 exact. Initial sound normalization, callback-address and outgoing-store/temp scheduling remain. One bounded current field-read form plus inherited three helper/handle/callback forms exhausted; no equivalent type, sound normalization, callback, storage or frame probes. No signature/shared/SDK/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

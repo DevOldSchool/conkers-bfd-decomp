@@ -63,46 +63,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Accepted spatial wrapper 10E78: all 184 US bytes CURRENT (0), source-unit layout, progress and whitespace pass. Actual signed low-halfword input read recovers the sole opcode mismatch; all declarations and shared dependencies unchanged. Existing 10F88 remains exact. Allocator 04074 pointer experiment regressed and was fully restored; all three known active callers 04250, 04308 and 014C4 remain exact. Clean canonical US ROM, tests and metadata pass. One new C match; no completed source unit.",
+    "scope": "Preserved disabled 10558 candidate improves fresh1749 to1530; no new C match or completed unit. Existing same-unit 10E78 and10F88 independently pass full-span US CURRENT (0), reviewed layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; this batch does not accept the nonzero candidate.",
     "batch_ids": [
       "func_80010E78",
-      "func_80010F88",
-      "func_80004250",
-      "func_80004308",
-      "func_800014C4"
+      "func_80010F88"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.577,
+    "test_seconds": 33.931,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T16:34:37.191926+00:00",
+    "completed_utc": "2026-10-04T16:49:13.228123+00:00",
     "additional_focused_checks": {
       "func_80010E78": {
         "score": 0,
-        "attempt_record": "6063a20e262d402385efaf82df0a9f21",
+        "attempt_record": "7d27af37bf524464846b67eebae66b89",
         "layout": "preserved"
       },
       "func_80010F88": {
         "score": 0,
-        "attempt_record": "42a0c8e37626435887b09d74be81c7a0",
-        "layout": "preserved"
-      },
-      "func_80004250": {
-        "score": 0,
-        "attempt_record": "7b169c58f4c84686bbf9c7cb434fd8fd",
-        "layout": "preserved"
-      },
-      "func_80004308": {
-        "score": 0,
-        "attempt_record": "e2da5a18906f4caa80d26ec868499183",
-        "layout": "preserved"
-      },
-      "func_800014C4": {
-        "score": 0,
-        "attempt_record": "9d919b78af0c4aceb6542c3f4b3c5836",
+        "attempt_record": "df59c78d67724d6b945fa84b4a82d2c8",
         "layout": "preserved"
       }
     }
@@ -525,6 +507,13 @@
     "func_80010E78": [
       200,
       0
+    ],
+    "func_80010558": [
+      1530,
+      1530,
+      1530,
+      1749,
+      1530
     ]
   },
   "preserved_candidate_scores": {
@@ -570,7 +559,8 @@
     "func_800099BC": 976,
     "func_800097CC": 1135,
     "func_8000A420": 1115,
-    "func_80004074": 1026
+    "func_80004074": 1026,
+    "func_80010558": 1530
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -788,33 +778,56 @@
     "func_80010E78": {
       "status": "matched",
       "reason": "Independent full-span CURRENT (0), layout, progress and whitespace passed. Post-match stop; source unit still incomplete."
+    },
+    "func_80010558": {
+      "status": "candidate",
+      "targeted_revisions_remaining": 0,
+      "reason": "One bounded distinct field-read form complete; inherited helper, handle and callback families exhausted. Initial sound normalization, callback and outgoing-store/temp scheduling remain. No equivalent type, object, normalization, callback or frame probes."
     }
   },
-  "ledger_note": "Accepted 10E78 full-span US match raises the task total to 38. Allocator 04074 remains an unchanged disabled candidate after complete restoration; its three active callers pass. Five-ID clean BATCH_COMPLETE validates the new match, its caller, canonical US ROM, tests, metadata, progress and whitespace. Ignored task ledgers preserve detailed attempts; historical results do not reset exhausted budgets. Full source-unit goal remains incomplete.",
+  "ledger_note": "10558 recovers three halfword loads through proven subfield reads from actual four-byte inputs. One new form improves fresh1749 to1530; inherited helper/handle/callback families remain exhausted. Supported defer preserves the nonzero candidate. Clean same-unit E78/F88 batch validates canonical US ROM/build safety, not candidate acceptance. Cumulative38 matches and one completed38E0 unit; full goal remains incomplete.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Four candidate reviews retain exact original bodies and canonical assembly: 095A0 operand form remains 1682; 099BC insertion-order regression restored to 976; 097CC baseline remains 1135 with zero new forms; A420 range-lifetime regression restored to 1115. Existing 09980 and 09B2C independently pass full-span CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass. No new C matches, completed source units, ABI changes, shared dependencies or assembly changes.",
+    "scope": "Accepted spatial wrapper 10E78: all 184 US bytes CURRENT (0), source-unit layout, progress and whitespace pass. Actual signed low-halfword input read recovers the sole opcode mismatch; all declarations and shared dependencies unchanged. Existing 10F88 remains exact. Allocator 04074 pointer experiment regressed and was fully restored; all three known active callers 04250, 04308 and 014C4 remain exact. Clean canonical US ROM, tests and metadata pass. One new C match; no completed source unit.",
     "batch_ids": [
-      "func_80009980",
-      "func_80009B2C"
+      "func_80010E78",
+      "func_80010F88",
+      "func_80004250",
+      "func_80004308",
+      "func_800014C4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.25,
+    "test_seconds": 35.577,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T16:11:04.728417+00:00",
+    "completed_utc": "2026-10-04T16:34:37.191926+00:00",
     "additional_focused_checks": {
-      "func_80009980": {
+      "func_80010E78": {
         "score": 0,
-        "attempt_record": "32caa6e08c20491cbbfc5f50dc348299",
+        "attempt_record": "6063a20e262d402385efaf82df0a9f21",
         "layout": "preserved"
       },
-      "func_80009B2C": {
+      "func_80010F88": {
         "score": 0,
-        "attempt_record": "26cc33be17954b2bb937bdbd655e19f8",
+        "attempt_record": "42a0c8e37626435887b09d74be81c7a0",
+        "layout": "preserved"
+      },
+      "func_80004250": {
+        "score": 0,
+        "attempt_record": "7b169c58f4c84686bbf9c7cb434fd8fd",
+        "layout": "preserved"
+      },
+      "func_80004308": {
+        "score": 0,
+        "attempt_record": "e2da5a18906f4caa80d26ec868499183",
+        "layout": "preserved"
+      },
+      "func_800014C4": {
+        "score": 0,
+        "attempt_record": "9d919b78af0c4aceb6542c3f4b3c5836",
         "layout": "preserved"
       }
     }
@@ -1240,6 +1253,34 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Four candidate reviews retain exact original bodies and canonical assembly: 095A0 operand form remains 1682; 099BC insertion-order regression restored to 976; 097CC baseline remains 1135 with zero new forms; A420 range-lifetime regression restored to 1115. Existing 09980 and 09B2C independently pass full-span CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass. No new C matches, completed source units, ABI changes, shared dependencies or assembly changes.",
+      "batch_ids": [
+        "func_80009980",
+        "func_80009B2C"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.25,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T16:11:04.728417+00:00",
+      "additional_focused_checks": {
+        "func_80009980": {
+          "score": 0,
+          "attempt_record": "32caa6e08c20491cbbfc5f50dc348299",
+          "layout": "preserved"
+        },
+        "func_80009B2C": {
+          "score": 0,
+          "attempt_record": "26cc33be17954b2bb937bdbd655e19f8",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -1515,6 +1556,19 @@
       "retained_source_change": false,
       "change": "Owning pointer interpretation worsened 1026 to 1690 and expanded the frame; exact original signature, same-unit caller casts and source restored. Pointer/object-view/frame/storage families exhausted.",
       "caller_audit": "Complete known C/include lookup and eight raw direct call sites; incomplete matched-caller index confirms active 014C4, 04250 and 04308. All restored declarations and callers independently rechecked."
+    },
+    "func_80010558": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 216,
+      "fresh_baseline": 1749,
+      "focused_score": 1530,
+      "baseline_attempt_record": "7167ed8ad1cc48e4afe1fea73d4d6f4f",
+      "attempt_record": "9fb9470339c84878918ed0ee2126f2b9",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "inherited_forms": 3,
+      "change": "Read the proven aligned low halfwords of actual four-byte input objects. Recovers three raw LH/LHU loads; frame40 exact. Declarations unchanged. Nonzero candidate remains disabled beside canonical assembly."
     }
   }
 }
