@@ -192,5 +192,46 @@
       "rom_equal": true
     },
     "integrated_source": "src/done/main/init_2E50.c"
+  },
+  "object_cache_recovery": {
+    "failure": "Focused compile wrote physical-address addends into the canonical 2E50 object at a newer timestamp; ordinary Make dependencies skipped runtime-alias preparation. Exact table verifier rejected the resulting 0x8000 case pointers.",
+    "fix": "A phony prerequisite refreshes only this integrated C object on every canonical build. Compile physical addends first, then prepare exactly seven relocations once. Matching tools, compiler flags and function instructions unchanged.",
+    "regression_test": "tests/test_main_queue_object_build.py",
+    "test_result": "passed: physical object newer than sources is prepared again; repeated builds remain once-adjusted, all other ELF bytes preserved.",
+    "acceptance": {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved disabled 2DB0 candidate improves prior845 to20 under independently SDK-backed private flag storage. No new C match or completed unit. A real focused-check overwrite of the integrated 2E50 object caused a table verification failure; canonical build now always compiles physical table addends and applies the reviewed runtime alias once. Fresh existing 2E50/30A0 full-span zero/layout checks and changed-state clean recovery batch pass.",
+      "batch_ids": [
+        "func_80002E50",
+        "func_800030A0"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1833,
+      "skipped": 37,
+      "test_seconds": 34.805,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T23:38:09.390602+00:00",
+      "additional_focused_checks": {
+        "func_80002E50": {
+          "score": 0,
+          "attempt_record": "7e82581956884d988eaf39aa8b492b24",
+          "layout": "preserved"
+        },
+        "func_800030A0": {
+          "score": 0,
+          "attempt_record": "0c13e8fc01744f1ebbb96ef6b74562e7",
+          "layout": "preserved"
+        }
+      },
+      "linked_table": {
+        "section": ".main_rodata_init_2e50",
+        "vma": "0x8002C080",
+        "size_bytes": 32,
+        "rom_equal": true
+      },
+      "cache_regression_test": "tests/test_main_queue_object_build.py: newer focused-check object overwritten, canonical build prepares it again, repeated build does not double-adjust."
+    }
   }
 }

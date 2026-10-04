@@ -91376,8 +91376,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 845,
-        "reason": "Pinned SDK proves noarg AI busy helper and true held buffer state. Best845 preserves justified MMIO volatility; unqualified symbols1060 and literal MMIO855 do not solve ordinary flag address CSE. Retain first form, do not invent volatile flag or unreviewed data ownership.",
+        "current_score": 20,
+        "reason": "SDK-proven private static byte flag recovers original register and address lifetimes. Current distinct storage-root forms 410/20/410; best full160 CURRENT20 preserved with actual aligned volatile MMIO writes. Prior external-flag MMIO forms845/1060/855 remain exhausted. No opcode, register, stack or extra/missing rows; private .data alias and literal-versus-named MMIO operand references remain. No shared/tool/ASM/flag changes, no match credit. Further equivalent storage, qualifier, address or body retries need independent evidence and a justified budget.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

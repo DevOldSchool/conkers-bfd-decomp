@@ -62,34 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
+    "scope": "Preserved disabled 2DB0 candidate improves prior845 to20 under independently SDK-backed private flag storage. No new C match or completed unit. A real focused-check overwrite of the integrated 2E50 object caused a table verification failure; canonical build now always compiles physical table addends and applies the reviewed runtime alias once. Fresh existing 2E50/30A0 full-span zero/layout checks and changed-state clean recovery batch pass.",
     "batch_ids": [
       "func_80002E50",
-      "func_800030A0",
-      "func_800038E0"
+      "func_800030A0"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-    "tests": 1832,
+    "tests": 1833,
     "skipped": 37,
-    "test_seconds": 36.923,
+    "test_seconds": 34.805,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T23:08:34.895725+00:00",
+    "completed_utc": "2026-10-04T23:38:09.390602+00:00",
     "additional_focused_checks": {
       "func_80002E50": {
         "score": 0,
-        "attempt_record": "4a5d7ca2cb0a431d9f9696a8138c9369",
+        "attempt_record": "7e82581956884d988eaf39aa8b492b24",
         "layout": "preserved"
       },
       "func_800030A0": {
         "score": 0,
-        "attempt_record": "0f2467b477734effa1ec34d77f20bde4",
-        "layout": "preserved"
-      },
-      "func_800038E0": {
-        "score": 0,
-        "attempt_record": "13a286d0d67548c087aa94904081cc88",
+        "attempt_record": "0c13e8fc01744f1ebbb96ef6b74562e7",
         "layout": "preserved"
       }
     },
@@ -97,11 +91,9 @@
       "section": ".main_rodata_init_2e50",
       "vma": "0x8002C080",
       "size_bytes": 32,
-      "flags": 0,
-      "sha1": "30e14dd49ee0665729e3ffc5cb9a42b665be8107",
       "rom_equal": true
     },
-    "integrated_source": "src/done/main/init_2E50.c"
+    "cache_regression_test": "tests/test_main_queue_object_build.py: newer focused-check object overwritten, canonical build prepares it again, repeated build does not double-adjust."
   },
   "historical_score_sequences": {
     "func_800056A0": [
@@ -532,6 +524,14 @@
       1530,
       1749,
       1530
+    ],
+    "func_80002DB0": [
+      845,
+      1060,
+      855,
+      410,
+      20,
+      410
     ]
   },
   "preserved_candidate_scores": {
@@ -579,7 +579,8 @@
     "func_8000A420": 1115,
     "func_80004074": 1026,
     "func_80010558": 1530,
-    "func_80007A24": 10
+    "func_80007A24": 10,
+    "func_80002DB0": 20
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -810,36 +811,59 @@
       "status": "candidate",
       "targeted_revisions_remaining": 0,
       "reason": "One new contract form plus three inherited valid body forms exhausted. Original788 body retained, 8790/886C declaration families restored after regressions, sole8A4C forward retained with allfive currentcallerchecks0/layout. No equivalent helper, volume, body or frame probes."
+    },
+    "func_80002DB0": {
+      "status": "candidate",
+      "current_score": 20,
+      "new_forms_used": 3,
+      "targeted_revisions_remaining": 0,
+      "inherited_forms": 3,
+      "reason": "Private flag storage410 plus actual volatile MMIO fields20 recovered original register/control/stack/length rows. Named-symbol volatile-pointer form410 rejected; exact20 restored. Residual private .data alias and numeric-versus-named MMIO operand references remain. No further equivalent storage, qualifier, address or body retries without independent evidence and justified budget."
     }
   },
-  "ledger_note": "Resolved the 2E50 source-unit integration blocker with a checksum-backed external table placement and exact ROM verifier. Existing full592 CURRENT (0) independently rechecked, body unchanged, supported integration completes unit. Clean three-function BATCH_COMPLETE: 1832 tests,37 skipped, exact table/full US ROM, layout, metadata, progress and whitespace. Cumulative38 new matches unchanged; two completed units38E0/2E50. Remaining22 current init files,87 candidates,20 original ASM; full goal incomplete, inherited manual limits and consumed search permission persist. Earlier extra build-scope approval hold was an overbroad interpretation, corrected under original completion/integration authorization. No memory used.",
+  "ledger_note": "2DB0 new private-storage root410/20/410 improves preserved845 to20; original ABI, helper declarations and actual MMIO volatility retained, canonical assembly restored by supported defer. Three earlier MMIO forms remain exhausted; three current forms complete, final best diagnosis independently refreshed. No new C match or unit. Found and fixed 2E50 focused-check/canonical-object cache collision through a narrow Makefile refresh prerequisite and actual Make/ELF regression test; no matching-tool, SDK, ASM, header or compiler-flag changes. Fresh existing2E50/30A0 full0/layout and clean BATCH_COMPLETE1833 tests37skip exact table/USROM/metadata/progress/white. Cumulative38 new matches/two completed units,22 init files87 candidates20 originalASM remain; full goal incomplete, no memory.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Authorized one-search checkpoint for 7A24. Both available variants scored 10; original disabled C body and canonical assembly restored. No new C match or completed unit. Two established matches independently pass full-span US CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; these checks do not accept the nonzero candidate.",
+    "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
     "batch_ids": [
-      "func_80010E78",
-      "func_80010F88"
+      "func_80002E50",
+      "func_800030A0",
+      "func_800038E0"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-    "tests": 1823,
+    "tests": 1832,
     "skipped": 37,
-    "test_seconds": 35.648,
+    "test_seconds": 36.923,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T22:08:17.206573+00:00",
+    "completed_utc": "2026-10-04T23:08:34.895725+00:00",
     "additional_focused_checks": {
-      "func_80010E78": {
+      "func_80002E50": {
         "score": 0,
-        "attempt_record": "674db2f1539044fbb1553573b3ce76db",
+        "attempt_record": "4a5d7ca2cb0a431d9f9696a8138c9369",
         "layout": "preserved"
       },
-      "func_80010F88": {
+      "func_800030A0": {
         "score": 0,
-        "attempt_record": "ed2ce994f33f414ba8b9c2616f40a2d2",
+        "attempt_record": "0f2467b477734effa1ec34d77f20bde4",
+        "layout": "preserved"
+      },
+      "func_800038E0": {
+        "score": 0,
+        "attempt_record": "13a286d0d67548c087aa94904081cc88",
         "layout": "preserved"
       }
-    }
+    },
+    "linked_table": {
+      "section": ".main_rodata_init_2e50",
+      "vma": "0x8002C080",
+      "size_bytes": 32,
+      "flags": 0,
+      "sha1": "30e14dd49ee0665729e3ffc5cb9a42b665be8107",
+      "rom_equal": true
+    },
+    "integrated_source": "src/done/main/init_2E50.c"
   },
   "accidental_equivalent_repeats": {
     "func_8000F568": "byte availability1085 already in inherited defer reason; not new eligible budget",
@@ -1421,6 +1445,34 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Authorized one-search checkpoint for 7A24. Both available variants scored 10; original disabled C body and canonical assembly restored. No new C match or completed unit. Two established matches independently pass full-span US CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; these checks do not accept the nonzero candidate.",
+      "batch_ids": [
+        "func_80010E78",
+        "func_80010F88"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.648,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T22:08:17.206573+00:00",
+      "additional_focused_checks": {
+        "func_80010E78": {
+          "score": 0,
+          "attempt_record": "674db2f1539044fbb1553573b3ce76db",
+          "layout": "preserved"
+        },
+        "func_80010F88": {
+          "score": 0,
+          "attempt_record": "ed2ce994f33f414ba8b9c2616f40a2d2",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -1798,6 +1850,43 @@
         "baseline",
         "real thread pointer declaration at its first assignment in an inner scope"
       ]
+    },
+    "func_80002DB0": {
+      "source": "src/main/init_2DB0.c",
+      "full_span_bytes": 160,
+      "historical_preserved_score": 845,
+      "focused_score": 20,
+      "attempt_record": "c24fa5c493d14091903746f471a63e10",
+      "diagnostic_refreshed_after_recovery": true,
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 3,
+      "inherited_forms": 3,
+      "scores": [
+        410,
+        20,
+        410
+      ],
+      "change": "Restore SDK-proven function-local static byte state and true aligned volatile MMIO writes. Candidate remains disabled beside original assembly.",
+      "proof": {
+        "sdk_source": "lib/ultralib/src/io/aisetnextbuf.c",
+        "sdk_private_flag": "static u8 hdwrBugFlag = FALSE",
+        "raw_reference": "reference/us/asm/2DB0.s",
+        "known_flag_references": "Only this routine in the full raw main reference; source/include lookup finds only owning source. No exhaustive indirect-alias claim.",
+        "initial_rom_data_range": [
+          "0x2AB40",
+          "0x2AB50"
+        ],
+        "initial_rom_data": "16 zero bytes, matching SDK object data extent",
+        "data_ownership_limit": "Source-object integration and data mapping remain unaccepted; supported full-span zero/layout/ROM gates are still required."
+      },
+      "residual_rows": {
+        "register_only": 0,
+        "opcode_or_control_flow": 0,
+        "operand_or_constant": 10,
+        "missing_or_extra": 0,
+        "stack_rows": 0
+      }
     }
   }
 }

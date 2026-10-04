@@ -260,8 +260,12 @@ $(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
 
-# Full-word switch entries execute through the main runtime alias. Preserve text.
-build/us/src/done/main/init_2E50.o: src/done/main/init_2E50.c scripts/compile_c.py scripts/prepare_main_library_object.py Makefile
+# Focused checks can overwrite this object with physical-address table addends.
+# Refresh its compiler output before applying the runtime alias on every build.
+.PHONY: main-queue-thread-object-refresh
+main-queue-thread-object-refresh:
+
+build/us/src/done/main/init_2E50.o: src/done/main/init_2E50.c scripts/compile_c.py scripts/prepare_main_library_object.py Makefile main-queue-thread-object-refresh
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile us --output $@.unprepared $<
 	python3 scripts/prepare_main_library_object.py $@.unprepared $@ --delta=-0x70000000 --expected-relocations 7

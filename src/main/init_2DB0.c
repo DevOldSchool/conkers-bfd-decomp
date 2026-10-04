@@ -12,12 +12,10 @@
 
 s32 func_80023390(void);
 u32 func_800233C0(void *);
-extern u8 D_8002AB40;
-extern volatile u32 D_A4500000;
-extern volatile u32 D_A4500004;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80002DB0 CURRENT (845) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80002DB0 CURRENT (20) */
 s32 func_80002DB0(void *arg0, u32 arg1) {
+    static u8 D_8002AB40 = 0;
     u8 *buffer;
 
     buffer = arg0;
@@ -32,8 +30,8 @@ s32 func_80002DB0(void *arg0, u32 arg1) {
     if (func_80023390() != 0) {
         return -1;
     }
-    D_A4500000 = func_800233C0(buffer);
-    D_A4500004 = arg1;
+    *(volatile u32 *)0xA4500000 = func_800233C0(buffer);
+    *(volatile u32 *)0xA4500004 = arg1;
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80002DB0 */
