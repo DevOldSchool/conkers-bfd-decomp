@@ -3132,6 +3132,12 @@
       "symbol": "func_15195A84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1786,
+        "reason": "New manual binding candidate; CURRENT 3114 -> 3746 -> 1786 best. Two revisions exhausted. Separate slot indices align saved registers (3 register-only rows remain). Frame 0x78 vs raw0x60, count home and allocation/return branch scheduling remain. Volatile arg4 preserves raw status-home load/store without ABI width change; existing panel and five-entry arrays retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -47158,11 +47164,15 @@
       "symbol": "func_15184118"
     },
     {
+      "blocked": {
+        "reason": "Fresh target cannot enter a correct C loop with current callee contracts: raw returns values from func_1509F6B0 and matched func_1509F5A8, but existing same-source contracts are void. Starter contains M2C_ERROR reads from unset v0 and drops the final encoded return. Repairing the matched callee contract/body exceeds target-only edits. No candidate attempted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 600,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1509EFF0",
           "vram": "0x1509EFF0"
         }
@@ -69732,6 +69742,12 @@
       "symbol": "func_151152A8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5503,
+        "reason": "New manual candidate; CURRENT 5996, 7827 invalid double arithmetic, 5503 best. Two revisions exhausted. Typed motion fields and single-precision float lifetimes retained; frame size, redundant flags stores/reloads and timing/register scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70431,6 +70447,12 @@
       "symbol": "func_151B9310"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1305,
+        "reason": "New manual matrix helper; CURRENT 3394 -> 1305 -> 1305. Valid16-float matrix/output aggregate plus independent source snapshot; full matrix/call prefix and all homes agree. Two revisions exhausted. Final state-base folding, dx spill, float operand/scheduling and return-span differences remain; last revision produces identical assembly.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87577,6 +87599,12 @@
       "symbol": "func_151B5E8C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2231,
+        "reason": "Fresh manual packet candidate; CURRENT 2525 -> 2265 -> 2231 best. Two revisions exhausted. Nested transforms restore frame 0x78 but address-taken homes are +4; final flags/register and command store scheduling remain. Texture sampled after preceding calls as raw requires; concrete matched callee contracts retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
