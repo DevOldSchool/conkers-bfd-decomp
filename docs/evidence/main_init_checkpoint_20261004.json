@@ -44,14 +44,16 @@
     "func_80008988",
     "func_8001091C",
     "func_80010F88",
-    "func_8000F9D4"
+    "func_8000F9D4",
+    "func_8000CDA0",
+    "func_8000B3D4"
   ],
   "completed_source_units": [
     "src/done/main/init_38E0.c"
   ],
   "remaining": {
     "current_init_files": 23,
-    "c_candidates": 90,
+    "c_candidates": 88,
     "original_asm": 20
   },
   "integration_blockers": {
@@ -60,21 +62,19 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "One new full-span US match F9D4 and existing caller checks EFB4/F91C/1091C after source-local contract updates; canonical full US ROM and metadata/progress/whitespace gates required.",
+    "scope": "Two new full-span US matches CDA0/B3D4 in init_B1B0; canonical full US ROM and metadata/progress/whitespace gates passed. B1B0 remains incomplete.",
     "batch_ids": [
-      "func_8000EFB4",
-      "func_8000F9D4",
-      "func_8000F91C",
-      "func_8001091C"
+      "func_8000CDA0",
+      "func_8000B3D4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.755,
+    "test_seconds": 34.737,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T12:07:37.360378+00:00"
+    "completed_utc": "2026-10-04T12:25:53.564208+00:00"
   },
   "historical_score_sequences": {
     "func_800056A0": [
@@ -353,6 +353,16 @@
       934,
       529,
       519
+    ],
+    "func_8000CDA0": [
+      1586,
+      1070,
+      0
+    ],
+    "func_8000B3D4": [
+      1820,
+      10,
+      0
     ]
   },
   "preserved_candidate_scores": {
@@ -429,64 +439,102 @@
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Clean canonical full US ROM, 34 new function matches and 12 existing caller or companion matches. Canonical raw mappings do not prove pending C-unit integration.",
+    "scope": "One new full-span US match F9D4 and existing caller checks EFB4/F91C/1091C after source-local contract updates; canonical full US ROM and metadata/progress/whitespace gates required.",
     "batch_ids": [
-      "func_8000EBC4",
-      "func_80002E50",
-      "func_8000EDA0",
-      "func_800038E0",
-      "func_8000F44C",
-      "func_8000F3D0",
-      "func_8001123C",
-      "func_8000BC28",
-      "func_8000B638",
-      "func_8000853C",
-      "func_80008570",
-      "func_800085F8",
-      "func_8000862C",
-      "func_80008B2C",
-      "func_80008BC0",
-      "func_80008A4C",
-      "func_80008C6C",
-      "func_80008C04",
-      "func_80008F58",
-      "func_80008F24",
-      "func_80008EE0",
-      "func_800085B8",
-      "func_800086FC",
-      "func_80008744",
-      "func_80008824",
-      "func_80008B60",
-      "func_80008660",
-      "func_8000886C",
-      "func_80008790",
-      "func_80008A94",
-      "func_800088F0",
-      "func_80008988",
-      "func_8001091C",
-      "func_80010F88",
-      "func_80010AA8",
-      "func_800107F8",
-      "func_80010894",
-      "func_8000E654",
-      "func_8000E054",
-      "func_8000E46C",
-      "func_8000E588",
-      "func_8000CAE4",
-      "func_8000E704",
-      "func_8000CC54",
       "func_8000EFB4",
-      "func_8000390C"
+      "func_8000F9D4",
+      "func_8000F91C",
+      "func_8001091C"
     ],
-    "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.921,
-    "metadata_progress_whitespace": "passed",
-    "completed_utc": "2026-10-04T11:27:58.833660+00:00"
+    "test_seconds": 35.755,
+    "metadata": "valid",
+    "progress": "current",
+    "whitespace": "passed",
+    "completed_utc": "2026-10-04T12:07:37.360378+00:00"
   },
   "accidental_equivalent_repeats": {
     "func_8000F568": "byte availability1085 already in inherited defer reason; not new eligible budget",
     "func_80010720": "callback-address snapshot repeats exhausted sibling10558 pattern; code-neutral1530"
-  }
+  },
+  "latest_match_evidence": {
+    "func_8000CDA0": {
+      "new_forms": 2,
+      "fresh_baseline": 1586,
+      "full_span_bytes": 268,
+      "focused_score": 0,
+      "attempt_record": "bcf4eed2bbff437c845482c850c13096",
+      "change": "Source-local u8 mask contract with explicit rejection exits; only low-byte input consumption and raw SW/ANDI establish the contract. Complete known caller audit found four disabled C calls and corresponding raw byte-mask inputs. No affected existing matched callers."
+    },
+    "func_8000B3D4": {
+      "new_forms": 2,
+      "fresh_baseline": 1820,
+      "full_span_bytes": 372,
+      "focused_score": 0,
+      "attempt_record": "15b07149dcd94130b27f1ea03c48f452",
+      "change": "Same-type reads of the actual parent-pointer parameter object recover raw SW/LW homes; equality operand order recovers ID load order. Pointer contracts unchanged."
+    }
+  },
+  "earlier_clean_validations": [
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Clean canonical full US ROM, 34 new function matches and 12 existing caller or companion matches. Canonical raw mappings do not prove pending C-unit integration.",
+      "batch_ids": [
+        "func_8000EBC4",
+        "func_80002E50",
+        "func_8000EDA0",
+        "func_800038E0",
+        "func_8000F44C",
+        "func_8000F3D0",
+        "func_8001123C",
+        "func_8000BC28",
+        "func_8000B638",
+        "func_8000853C",
+        "func_80008570",
+        "func_800085F8",
+        "func_8000862C",
+        "func_80008B2C",
+        "func_80008BC0",
+        "func_80008A4C",
+        "func_80008C6C",
+        "func_80008C04",
+        "func_80008F58",
+        "func_80008F24",
+        "func_80008EE0",
+        "func_800085B8",
+        "func_800086FC",
+        "func_80008744",
+        "func_80008824",
+        "func_80008B60",
+        "func_80008660",
+        "func_8000886C",
+        "func_80008790",
+        "func_80008A94",
+        "func_800088F0",
+        "func_80008988",
+        "func_8001091C",
+        "func_80010F88",
+        "func_80010AA8",
+        "func_800107F8",
+        "func_80010894",
+        "func_8000E654",
+        "func_8000E054",
+        "func_8000E46C",
+        "func_8000E588",
+        "func_8000CAE4",
+        "func_8000E704",
+        "func_8000CC54",
+        "func_8000EFB4",
+        "func_8000390C"
+      ],
+      "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.921,
+      "metadata_progress_whitespace": "passed",
+      "completed_utc": "2026-10-04T11:27:58.833660+00:00"
+    }
+  ]
 }

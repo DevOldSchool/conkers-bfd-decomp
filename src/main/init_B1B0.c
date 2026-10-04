@@ -9,7 +9,6 @@
  * - func_8000B1FC
  * - func_8000B294
  * - func_8000B2F4
- * - func_8000B3D4
  * - func_8000B548
  * - func_8000B8B8
  * - func_8000BCBC
@@ -18,7 +17,6 @@
  * - func_8000C530
  * - func_8000C7E8
  * - func_8000C934
- * - func_8000CDA0
  * - func_8000CEAC
  * - func_8000D2F8
  * - func_8000D758
@@ -198,7 +196,6 @@ SequenceRecordState *func_8000B2F4(s32 arg0) {
 SequenceRecordState *func_8000B2F4(s32);
 void func_8000B294(SequenceRecordState *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B3D4 CURRENT (1820) */
 void func_8000B3D4(SequenceRecordState *arg0, SequenceRecordState *arg1) {
     SequenceRecordState *found;
     SequenceRecordState **slot;
@@ -207,16 +204,16 @@ void func_8000B3D4(SequenceRecordState *arg0, SequenceRecordState *arg1) {
 
     found = 0;
     i = 0;
-    if (arg1 != 0) {
-        record = arg1->state;
+    if (((SequenceRecordState **)&arg1)[0] != 0) {
+        record = ((SequenceRecordState **)&arg1)[0]->state;
         if (record != 0 && arg0 != record) {
-            if (arg0->id == record->id) {
+            if (record->id == arg0->id) {
                 arg0->id = -1;
                 return;
             }
             record->id = -1;
         }
-        arg1->state = arg0;
+        ((SequenceRecordState **)&arg1)[0]->state = arg0;
         return;
     }
     do {
@@ -245,8 +242,6 @@ void func_8000B3D4(SequenceRecordState *arg0, SequenceRecordState *arg1) {
         i++;
     } while (i != 3);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B3D4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B3D4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B548 CURRENT (1145) */
 s32 func_8000B548(s32 (*arg0)[]) {
     SequenceRecordState *record;
@@ -954,9 +949,7 @@ extern SequenceModeEntry D_8002B078[];
 extern u8 D_800418AC[];
 s32 func_8000853C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CDA0 CURRENT (1586) */
-s32 func_8000CDA0(s32 arg0, SequenceRecordState *record) {
-    arg0 &= 0xFF;
+s32 func_8000CDA0(u8 arg0, SequenceRecordState *record) {
     if (arg0 == 0) {
         return 1;
     }
@@ -971,15 +964,15 @@ s32 func_8000CDA0(s32 arg0, SequenceRecordState *record) {
             if (!(D_8002B078[record->id].flags & 0x20)) {
                 D_800418AC[record->index] |= 3;
             }
-            arg0 = (arg0 & ~D_800418AC[record->index]) & 0xFF;
-            return arg0 == 0;
+            arg0 &= ~D_800418AC[record->index];
+        } else {
+            return 1;
         }
+    } else {
         return 1;
     }
-    return 1;
+    return arg0 == 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000CDA0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CDA0.s")
 typedef struct MessageQueue MessageQueue;
 
 extern s32 D_800417C0[][16];
@@ -1100,7 +1093,7 @@ void func_8000CEAC(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000CEAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000CEAC.s")
-s32 func_8000CDA0(s32, SequenceRecordState *);
+s32 func_8000CDA0(u8, SequenceRecordState *);
 void func_8000B3D4(SequenceRecordState *, SequenceRecordState *);
 void func_80008C6C(s32, s32);
 void func_80008660(s32, s32, s32, s32);

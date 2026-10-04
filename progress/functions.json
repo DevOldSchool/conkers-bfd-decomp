@@ -92466,17 +92466,16 @@
       "symbol": "func_8000B2F4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1820,
-        "reason": "Preserve typed record attach at CURRENT (1820). Parent replacement, allocation failure and queued-child ownership behavior are recovered. Argument-home load, pointer registers and branch shape differ; no padding or speculative ABI change attempted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 372,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B3D4",
           "vram": "0x8000B3D4"
         }
@@ -92853,17 +92852,16 @@
       "symbol": "func_8000CD40"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1586,
-        "reason": "Preserve fullword mask predicate at CURRENT (1586). Record/table/byte state semantics are recovered, but raw argument-home store and masked parameter register lifetime differ. No existing narrow declaration supports changing the ABI; no narrow formal or padding attempted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000CDA0",
           "vram": "0x8000CDA0"
         }
