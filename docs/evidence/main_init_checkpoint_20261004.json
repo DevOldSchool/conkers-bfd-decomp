@@ -50,44 +50,58 @@
     "func_80010E78"
   ],
   "completed_source_units": [
-    "src/done/main/init_38E0.c"
+    "src/done/main/init_38E0.c",
+    "src/done/main/init_2E50.c"
   ],
   "remaining": {
-    "current_init_files": 23,
+    "current_init_files": 22,
     "c_candidates": 87,
     "original_asm": 20
   },
-  "integration_blockers": {
-    "func_80002E50": "switch rodata emitted at2C450 instead of2C080; +32 bytes whole ROM"
-  },
+  "integration_blockers": {},
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Authorized one-search checkpoint for 7A24. Both available variants scored 10; original disabled C body and canonical assembly restored. No new C match or completed unit. Two established matches independently pass full-span US CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; these checks do not accept the nonzero candidate.",
+    "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
     "batch_ids": [
-      "func_80010E78",
-      "func_80010F88"
+      "func_80002E50",
+      "func_800030A0",
+      "func_800038E0"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-    "tests": 1823,
+    "tests": 1832,
     "skipped": 37,
-    "test_seconds": 35.648,
+    "test_seconds": 36.923,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T22:08:17.206573+00:00",
+    "completed_utc": "2026-10-04T23:08:34.895725+00:00",
     "additional_focused_checks": {
-      "func_80010E78": {
+      "func_80002E50": {
         "score": 0,
-        "attempt_record": "674db2f1539044fbb1553573b3ce76db",
+        "attempt_record": "4a5d7ca2cb0a431d9f9696a8138c9369",
         "layout": "preserved"
       },
-      "func_80010F88": {
+      "func_800030A0": {
         "score": 0,
-        "attempt_record": "ed2ce994f33f414ba8b9c2616f40a2d2",
+        "attempt_record": "0f2467b477734effa1ec34d77f20bde4",
+        "layout": "preserved"
+      },
+      "func_800038E0": {
+        "score": 0,
+        "attempt_record": "13a286d0d67548c087aa94904081cc88",
         "layout": "preserved"
       }
-    }
+    },
+    "linked_table": {
+      "section": ".main_rodata_init_2e50",
+      "vma": "0x8002C080",
+      "size_bytes": 32,
+      "flags": 0,
+      "sha1": "30e14dd49ee0665729e3ffc5cb9a42b665be8107",
+      "rom_equal": true
+    },
+    "integrated_source": "src/done/main/init_2E50.c"
   },
   "historical_score_sequences": {
     "func_800056A0": [
@@ -570,7 +584,7 @@
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
     "permutation_permission": "Direct user Yes authorized one 7A24 search with budget 32; completed with both available variants at 10. This search permission is consumed; no other searches or stack-shape exploration authorized.",
-    "shared_changes": "No shared headers, SDK contracts, compiler flags, tooling or assembly changes."
+    "shared_changes": "No shared headers, SDK contracts, compiler flags or assembly changes to force matches. Narrow main 2E50 table placement/build wiring and ROM verifier added to complete required integration; matching tools and existing alias preparer unchanged."
   },
   "rejected_forms": {
     "func_80001194": "Legacy score 60 used three empty shaping conditions; removed. Valid preserved candidate scores 90.",
@@ -798,49 +812,31 @@
       "reason": "One new contract form plus three inherited valid body forms exhausted. Original788 body retained, 8790/886C declaration families restored after regressions, sole8A4C forward retained with allfive currentcallerchecks0/layout. No equivalent helper, volume, body or frame probes."
     }
   },
-  "ledger_note": "7A24 approved budget-32 search completed: two available variants compiled, both CURRENT (10), zero improvements. Original source restored transactionally; only inventory reason and portable evidence changed. Two established matches full-span CURRENT (0) and layout preserved; clean BATCH_COMPLETE, 1823 tests, 37 skipped, exact US ROM, metadata, progress and whitespace. No new C matches or completed units; total 38 matches and one completed 38E0 unit, with 87 candidates and 20 original assembly functions remaining. Full goal incomplete; manual limits and consumed search permission persist. No memory used.",
+  "ledger_note": "Resolved the 2E50 source-unit integration blocker with a checksum-backed external table placement and exact ROM verifier. Existing full592 CURRENT (0) independently rechecked, body unchanged, supported integration completes unit. Clean three-function BATCH_COMPLETE: 1832 tests,37 skipped, exact table/full US ROM, layout, metadata, progress and whitespace. Cumulative38 new matches unchanged; two completed units38E0/2E50. Remaining22 current init files,87 candidates,20 original ASM; full goal incomplete, inherited manual limits and consumed search permission persist. Earlier extra build-scope approval hold was an overbroad interpretation, corrected under original completion/integration authorization. No memory used.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Source-local 8A4C forward aligned with matched byte-input definition. BCBC original disabled body remains full676 candidate788. Regressing8790/886C forward changes fully restored; allfive affected or restored existing matches independently full-span US CURRENT (0) with canonical layout. Clean US ROM, tests, metadata, progress and whitespace pass. No new C match or completed unit.",
+    "scope": "Authorized one-search checkpoint for 7A24. Both available variants scored 10; original disabled C body and canonical assembly restored. No new C match or completed unit. Two established matches independently pass full-span US CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; these checks do not accept the nonzero candidate.",
     "batch_ids": [
-      "func_8000BC28",
-      "func_8000B638",
-      "func_8000CAE4",
-      "func_8000E46C",
-      "func_8000E588"
+      "func_80010E78",
+      "func_80010F88"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.26,
+    "test_seconds": 35.648,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T17:05:10.584809+00:00",
+    "completed_utc": "2026-10-04T22:08:17.206573+00:00",
     "additional_focused_checks": {
-      "func_8000BC28": {
+      "func_80010E78": {
         "score": 0,
-        "attempt_record": "d427feb87fdf471a9aee2d82bc9e9a57",
+        "attempt_record": "674db2f1539044fbb1553573b3ce76db",
         "layout": "preserved"
       },
-      "func_8000B638": {
+      "func_80010F88": {
         "score": 0,
-        "attempt_record": "85886691f8a845c0a2d38b9c9f95c508",
-        "layout": "preserved"
-      },
-      "func_8000CAE4": {
-        "score": 0,
-        "attempt_record": "485eb902e5e94b44ab8b0e3c4dddb414",
-        "layout": "preserved"
-      },
-      "func_8000E46C": {
-        "score": 0,
-        "attempt_record": "7be831ffa71a4adcb3415c45553dd162",
-        "layout": "preserved"
-      },
-      "func_8000E588": {
-        "score": 0,
-        "attempt_record": "ef8d2edc2d8f4885aed357d45efb11d7",
+        "attempt_record": "ed2ce994f33f414ba8b9c2616f40a2d2",
         "layout": "preserved"
       }
     }
@@ -886,6 +882,17 @@
           "layout": "preserved"
         }
       }
+    },
+    "func_80002E50": {
+      "source": "src/done/main/init_2E50.c",
+      "full_span_bytes": 592,
+      "focused_score": 0,
+      "attempt_record": "4a5d7ca2cb0a431d9f9696a8138c9369",
+      "source_unit_complete": true,
+      "shared_build_dependency": true,
+      "new_body_forms": 0,
+      "new_match": false,
+      "integration": "Supported transaction passed; all 32 relocated table bytes and full US ROM match original."
     }
   },
   "earlier_clean_validations": [
@@ -1365,6 +1372,52 @@
         "func_80010F88": {
           "score": 0,
           "attempt_record": "df59c78d67724d6b945fa84b4a82d2c8",
+          "layout": "preserved"
+        }
+      }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Source-local 8A4C forward aligned with matched byte-input definition. BCBC original disabled body remains full676 candidate788. Regressing8790/886C forward changes fully restored; allfive affected or restored existing matches independently full-span US CURRENT (0) with canonical layout. Clean US ROM, tests, metadata, progress and whitespace pass. No new C match or completed unit.",
+      "batch_ids": [
+        "func_8000BC28",
+        "func_8000B638",
+        "func_8000CAE4",
+        "func_8000E46C",
+        "func_8000E588"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.26,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T17:05:10.584809+00:00",
+      "additional_focused_checks": {
+        "func_8000BC28": {
+          "score": 0,
+          "attempt_record": "d427feb87fdf471a9aee2d82bc9e9a57",
+          "layout": "preserved"
+        },
+        "func_8000B638": {
+          "score": 0,
+          "attempt_record": "85886691f8a845c0a2d38b9c9f95c508",
+          "layout": "preserved"
+        },
+        "func_8000CAE4": {
+          "score": 0,
+          "attempt_record": "485eb902e5e94b44ab8b0e3c4dddb414",
+          "layout": "preserved"
+        },
+        "func_8000E46C": {
+          "score": 0,
+          "attempt_record": "7be831ffa71a4adcb3415c45553dd162",
+          "layout": "preserved"
+        },
+        "func_8000E588": {
+          "score": 0,
+          "attempt_record": "ef8d2edc2d8f4885aed357d45efb11d7",
           "layout": "preserved"
         }
       }

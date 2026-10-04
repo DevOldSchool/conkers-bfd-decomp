@@ -91407,7 +91407,7 @@
           "vram": "0x80002E50"
         }
       },
-      "source": "src/main/init_2E50.c",
+      "source": "src/done/main/init_2E50.c",
       "symbol": "func_80002E50"
     },
     {

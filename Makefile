@@ -20,7 +20,6 @@ PROFILE_RODATA_SCRIPT_us := config/debugger/us-rodata.ld
 PROFILE_RODATA_SCRIPT := $(PROFILE_RODATA_SCRIPT_$(PROFILE))
 PROFILE_RODATA_VERIFY_us := scripts/verify_debugger_rodata.py
 PROFILE_RODATA_VERIFY := $(PROFILE_RODATA_VERIFY_$(PROFILE))
-LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 ROM_NAME := conker.$(PROFILE).z64
 ROM_PATH := roms/baserom.$(PROFILE).z64
 ASM_SRCS := $(shell find asm/$(PROFILE) -type f -name '*.s' ! -path '*/nonmatchings/*' 2>/dev/null)
@@ -28,6 +27,12 @@ ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
 C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null) \
 	$(shell python3 scripts/list_integrated_sources.py --profile-segment debugger --profile $(PROFILE) 2>/dev/null)
 C_OBJS := $(patsubst src/%.c,$(BUILD_DIR)/src/%.o,$(C_SRCS))
+# The queue-thread table is external to its reviewed text unit.
+PROFILE_MAIN_RODATA_SCRIPT_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_2E50.o,$(C_OBJS)),config/main/us-rodata.ld)
+PROFILE_MAIN_RODATA_SCRIPT := $(PROFILE_MAIN_RODATA_SCRIPT_$(PROFILE))
+PROFILE_MAIN_RODATA_VERIFY_us := $(if $(PROFILE_MAIN_RODATA_SCRIPT),scripts/verify_main_rodata.py)
+PROFILE_MAIN_RODATA_VERIFY := $(PROFILE_MAIN_RODATA_VERIFY_$(PROFILE))
+LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
 ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin assets/1A33E8.bin
@@ -223,9 +228,12 @@ prepare-reference:
 build: prepare
 	$(MAKE) --no-print-directory raw-build PROFILE=$(PROFILE)
 
-raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY)
+raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY) $(PROFILE_MAIN_RODATA_VERIFY)
 ifneq ($(PROFILE_RODATA_VERIFY),)
 	python3 $(PROFILE_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+endif
+ifneq ($(PROFILE_MAIN_RODATA_VERIFY),)
+	python3 $(PROFILE_MAIN_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
 endif
 	@cmp -s "$(BUILD_DIR)/$(ROM_NAME)" "$(ROM_PATH)" || { \
 		printf '%s\n' "build mismatch: $(BUILD_DIR)/$(ROM_NAME)" >&2; exit 1; \
@@ -238,7 +246,7 @@ $(BUILD_DIR)/$(ROM_NAME): $(BUILD_DIR)/conker.$(PROFILE).elf
 $(BOOTSTRAP_SYMBOLS): $(ASM_SRCS) $(C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/$(PROFILE) $(C_SRCS)
 
-$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT)
+$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT)
 	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py
@@ -251,6 +259,12 @@ $(BUILD_DIR)/asm/%.o: $(NORMALIZED_ASM_DIR)/%.s
 $(BUILD_DIR)/asm/$(PROFILE)/header.o: src/header.c
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile $(PROFILE) --output $@ $<
+
+# Full-word switch entries execute through the main runtime alias. Preserve text.
+build/us/src/done/main/init_2E50.o: src/done/main/init_2E50.c scripts/compile_c.py scripts/prepare_main_library_object.py Makefile
+	@mkdir -p "$(@D)"
+	python3 scripts/compile_c.py --profile us --output $@.unprepared $<
+	python3 scripts/prepare_main_library_object.py $@.unprepared $@ --delta=-0x70000000 --expected-relocations 7
 
 $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"

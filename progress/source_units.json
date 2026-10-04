@@ -19584,15 +19584,15 @@
       "functions": [
         "func_80002E50"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x30A0",
           "start": "0x2E50",
-          "state": "candidate"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_2E50.c"
+      "source": "src/done/main/init_2E50.c"
     },
     {
       "boundary_evidence": {
