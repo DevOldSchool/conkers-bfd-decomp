@@ -29731,6 +29731,12 @@
       "symbol": "func_15040D9C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2465,
+        "reason": "Best CURRENT (2465) retained after three manual comparisons; original frame and all pixel stores agree, register ownership and loop scheduling remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -55591,6 +55597,12 @@
       "symbol": "func_15191D54"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 210,
+        "reason": "Manual budget exhausted: best valid CURRENT 210; complete112byte descriptor/40byte payload and all stack/control/constant rows recovered; 31 register allocation rows remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -68732,6 +68744,12 @@
       "symbol": "func_150DB630"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 268,
+        "reason": "Manual budget exhausted: best CURRENT 268; original frame and FP ownership recovered, template spill and reference-base load schedule remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74749,11 +74767,15 @@
       "symbol": "func_15085DF8"
     },
     {
+      "blocked": {
+        "reason": "Raw func_15086C70 forwards func_150A3194 pointer-or-zero return, consumed at 1508611C/15086120; matched shared definition declares void. Correct C requires reviewed shared return-contract repair outside this target.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 716,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15086098",
           "vram": "0x15086098"
         }
@@ -78230,11 +78252,15 @@
       "symbol": "func_150D7928"
     },
     {
+      "blocked": {
+        "reason": "Raw func_1513D524 forwards func_1513D2F0 allocated pointer-or-zero return, consumed at 150CD148 and used as memcpy destination +0x110; matched shared definition declares void. Requires reviewed shared return-contract repair outside this target.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 716,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150CCEB0",
           "vram": "0x150CCEB0"
         }
