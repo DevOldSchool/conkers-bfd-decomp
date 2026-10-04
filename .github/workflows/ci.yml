@@ -69,7 +69,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install public test dependencies
-        run: python3 -m pip install PyYAML
+        run: python3 -m pip install PyYAML numpy scipy soundfile
       - name: Check shell entry points
         run: bash -n conker scripts/conker.sh
       - name: Run tooling and public-check regression tests

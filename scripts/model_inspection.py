@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = {
     'characters': ('Characters', 'Characters, creatures and living objects.'),
     'collectables': ('Collectables', 'Cash, keys, food and multiplayer objectives.'),
-    'scene-items': ('Scene items', 'Scenery, props, vehicles, weapons and equipment.'),
+    'weapons': ('Weapons', 'Guns, crossbows, melee weapons, explosives and projectiles.'),
+    'scene-items': ('Scene items', 'Scenery, props, vehicles and equipment.'),
     'parts-effects': ('Parts & effects', 'Detached parts, attachments, debris and effects.'),
     'extracted-review': ('Extracted review', 'Remaining ROM exports for review. Includes unfinished materials, fragments, variants and records with no drawable faces. Assembled components and identical exported presentations are shown on their corresponding gallery cards.'),
 }
