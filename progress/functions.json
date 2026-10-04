@@ -9814,8 +9814,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 22180,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (22180)",
+        "current_score": 190,
+        "reason": "Valid manual candidate CURRENT190; checksum-validated ROM0.1/0.05 literals and one high-level loop reproduce original IDO unrolling. Two revisions exhausted; regressing tail-time revision restored. Rodata references, setup FP allocation and tail scheduling remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -11751,8 +11751,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 13609,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13609)",
+        "current_score": 10388,
+        "reason": "Valid manual candidate CURRENT10388; invalid scalar-address matrix repaired to contiguous4x4 storage and raw sqrt.s intrinsic pattern. Two revisions exhausted; regressing stack/register revision restored. Frame, scalar homes and FP allocation remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -35970,8 +35970,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 11155,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (11155)",
+        "current_score": 6470,
+        "reason": "Manual baseline11850 after missing declaration repair; best valid6470 restores mutable cursor and packet snapshots. Two targeted revisions exhausted; distinct snapshot/load-order revision regressed7609 and was restored. Frame18 and actual cursor home18 match; packet lifetimes, load/expression ordering and offset folding remain. Full-width argument ABI unchanged; no shared dependency edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

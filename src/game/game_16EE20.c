@@ -570,23 +570,10 @@ void func_151424F4(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, f32 arg5, f
 /* Call context: func_150A7790: unique active declaration in the allowed source */
 f32 sqrtf(f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142600 CURRENT (13609) */
+#pragma intrinsic(sqrtf)
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15142600 CURRENT (10388) */
 void func_15142600(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11) {
-    f32 spB0;
-    f32 spAC;
-    f32 spA8;
-    f32 spA4;
-    f32 spA0;
-    f32 sp9C;
-    f32 sp98;
-    f32 sp94;
-    f32 sp90;
-    f32 sp8C;
-    f32 sp88;
-    f32 sp84;
-    f32 sp80;
-    f32 sp7C;
-    f32 sp78;
+    f32 transform[4][4];
     f32 sp70;
     f32 sp6C;
     f32 sp68;
@@ -629,31 +616,29 @@ void func_15142600(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     temp_fa0_2 = 1.0f / sqrtf((temp_fa1 * temp_fa1) + (temp_ft0 * temp_ft0));
     temp_fv1 = temp_fa1 * temp_fa0_2;
     temp_fs0 = temp_ft0 * temp_fa0_2;
-    sp7C = 0.0f;
-    sp84 = 0.0f;
-    sp94 = 0.0f;
-    spA4 = 0.0f;
+    transform[0][1] = 0.0f;
+    transform[0][3] = 0.0f;
+    transform[1][3] = 0.0f;
+    transform[2][3] = 0.0f;
     temp_ft3_2 = sp6C * temp_fs0;
     sp50 = temp_ft3_2;
     temp_ft0_2 = (sp68 * temp_fv1) - (sp70 * temp_fs0);
     sp4C = temp_ft0_2;
     sp48 = -sp6C * temp_fv1;
     temp_fa0_3 = 1.0f / sqrtf((temp_ft3_2 * temp_ft3_2) + (sp4C * temp_ft0_2) + (sp48 * sp48));
-    sp78 = temp_fv1 * arg3 * arg1;
-    sp88 = temp_ft3_2 * temp_fa0_3 * arg3 * arg2;
-    spA8 = sp28;
-    sp98 = sp70 * arg3 * arg1;
-    sp8C = sp4C * temp_fa0_3 * arg4 * arg2;
-    spAC = arg7;
-    sp9C = sp6C * arg4 * arg1;
-    sp80 = temp_fs0 * arg5 * arg1;
-    sp90 = sp48 * temp_fa0_3 * arg5 * arg2;
-    {
-        f32 spB4 = 1.0f;
-    spB0 = arg8;
-    spA0 = sp68 * arg5 * arg1;
-    func_150A7790(&sp78, arg0);
-    }
+    transform[0][0] = temp_fv1 * arg3 * arg1;
+    transform[1][0] = temp_ft3_2 * temp_fa0_3 * arg3 * arg2;
+    transform[3][0] = sp28;
+    transform[2][0] = sp70 * arg3 * arg1;
+    transform[1][1] = sp4C * temp_fa0_3 * arg4 * arg2;
+    transform[3][1] = arg7;
+    transform[2][1] = sp6C * arg4 * arg1;
+    transform[0][2] = temp_fs0 * arg5 * arg1;
+    transform[1][2] = sp48 * temp_fa0_3 * arg5 * arg2;
+    transform[3][3] = 1.0f;
+    transform[3][2] = arg8;
+    transform[2][2] = sp68 * arg5 * arg1;
+    func_150A7790(transform, arg0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15142600 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15142600.s")
