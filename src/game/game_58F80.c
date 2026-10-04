@@ -593,7 +593,7 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
  * See docs/evidence/actor_model_display_list_semantics.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502CCFC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (335) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (135) */
 void func_1502D54C(s32 arg0, void *arg1) {
     s32 temp_t1;
     void *temp_v0;
@@ -606,7 +606,7 @@ void func_1502D54C(s32 arg0, void *arg1) {
             (s32)(*(u8 *)((u8 *)temp_v0 + 0x1E1) + *(u8 *)((u8 *)temp_v0 + 0x1DE)) / 2;
         temp_t1 = (s32)(*(u8 *)((u8 *)temp_v0 + 0x1E2) +
                               *(u8 *)((u8 *)temp_v0 + 0x1DF)) / 2;
-        *(s32 *)((u8 *)arg1 + 8) = temp_t1;
+        *(volatile s32 *)((u8 *)arg1 + 8) = temp_t1;
         *(s32 *)((u8 *)arg1 + 0) = 0xFF - *(s32 *)((u8 *)arg1 + 0);
         *(s32 *)((u8 *)arg1 + 4) = 0xFF - *(s32 *)((u8 *)arg1 + 4);
         *(s32 *)((u8 *)arg1 + 8) = 0xFF - temp_t1;

@@ -22765,7 +22765,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 370,
-        "reason": "CURRENT (370): control flow and operations exact; remaining parameter/global pointer allocation is register-only plus one missing preservation move",
+        "reason": "Valid original370 retained; one fresh ordinal snapshot/incoming cursor-end reuse regressed480 and did not recover preservation move. Two finishes/one fresh revision exhausted; pointer/parameter registers remain, leaf/stack exact. No shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -26445,7 +26445,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 740,
-        "reason": "Manual threshold and byte-stride recovery improves 2735 to 740; selector copy/mask scheduling and state/coordinate register allocation remain.",
+        "reason": "Prior valid threshold and byte-stride candidate740 retained. One fresh byte selector/masked-snapshot revision regressed1285 with extra FF masks; exhausted alongside prior threshold/stride work. Frame18 exact; selector copies and state/coordinate allocation remain, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39998,8 +39998,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 335,
-        "reason": "CURRENT 335 best candidate restored after volatile output stores regressed; control flow and operand order align, with one optimized-away intermediate store and remaining register allocation differences",
+        "current_score": 135,
+        "reason": "Best valid135 via one observed intermediate field8 volatile store, distinct from failed prior broad output volatility. Full228B opcodes/operands/control/count/stack exact; 20 register rows remain. Two finishes/one fresh revision exhausted alongside prior work; no permutation/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62071,8 +62071,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 255,
-        "reason": "CURRENT 255 after explicit base/range and value-lifetime recovery; body and control flow align, leaving nine register-allocation rows plus one zero-initialization scheduling displacement",
+        "current_score": 130,
+        "reason": "Best valid130 via consumed incoming-argument reuse for S1 result (baseline255). Zero-init placement recovered; transient registers and arithmetic interleaving remain. Frame30/stack exact. Two finishes/one fresh revision exhausted alongside prior explicit base/range work; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -85115,7 +85115,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 970,
-        "reason": "Unified deferred preparation improved CURRENT (2505) to CURRENT (970) with diagnostic-guided source preparation",
+        "reason": "Valid original970 retained; lower-bound snapshot regressed1185 without recovering early load, scaled-term scalar reuse neutral970. Three finishes/two revisions exhausted. Bound load/255 constant folding and FP scheduling remain; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
