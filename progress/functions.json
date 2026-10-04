@@ -980,6 +980,12 @@
       "symbol": "func_15135DD0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1329,
+        "reason": "Best CURRENT (1329): complete 36-byte collision hit and two vectors; persistent register ownership recovered, but frame F0 versus E0, local buffers +24, FP constant order and word-to-byte home scheduling remain. Three manual candidates exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -16548,6 +16554,12 @@
       "symbol": "func_150142EC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 207,
+        "reason": "Manual budget exhausted: best CURRENT 207; all instructions, registers and control flow match, with 30 stack-only rows. Final complete scratch aggregate leaves frame C8 versus C0 and all buffer/packet homes eight bytes too high.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50421,6 +50433,12 @@
       "symbol": "func_151D792C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 574,
+        "reason": "Best CURRENT (574): complete 28-byte trail entries, all FP schedules and spill homes recovered; 16 rows remain, chiefly frame D8 versus C8, endpoint CC versus B4, cursor 7C versus 88, loop delay slot and symmetric branch operand order. Three manual candidates exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -66504,11 +66522,15 @@
       "symbol": "func_151AADBC"
     },
     {
+      "blocked": {
+        "reason": "Active source-local func_150ADA20(void *, s32) declarations conflict with the independently audited no-input RNG. Target has three calls with unset argument registers; correcting pre-existing declarations/contracts is outside the target-only matching scope. Original pragma untouched; no C attempt.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 664,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151AADF8",
           "vram": "0x151AADF8"
         }
@@ -75634,6 +75656,12 @@
       "symbol": "func_151E5FF4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3149,
+        "reason": "Best CURRENT (3149): independently proven one-word size output and variadic loader; raw byte scans and cleanup retained. Frame 50 versus 40, length 4C versus 30, index 48 versus 2C, cursor/byte/offset register ownership and allocation scheduling remain. Three candidates plus one compile repair exhausted; simpler second candidate retained.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

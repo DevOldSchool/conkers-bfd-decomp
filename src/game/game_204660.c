@@ -412,6 +412,123 @@ s32 func_151D792C(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D792C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D792C.s")
+typedef struct Game204660TrailOwner {
+    u8 unknown0[0x2D];
+    u8 flags;
+    u8 unknown2E[2];
+    Game204660Position position;
+} Game204660TrailOwner;
+
+typedef struct Game204660TrailState {
+    Game204660TrailOwner *owner;
+    Game204660Position previous;
+    f32 time;
+    f32 phase;
+} Game204660TrailState;
+
+typedef struct Game204660TrailPoint {
+    Game204660Position position;
+    f32 velocity;
+    f32 value10;
+    u8 active;
+    u8 unknown15[3];
+    f32 value18;
+} Game204660TrailPoint;
+
+typedef struct Game204660Trail {
+    u8 unknown0[0x10];
+    Game204660Position position;
+    u8 unknown1C[9];
+    u8 capacity;
+    u8 unknown26[6];
+    s8 count;
+    s8 start;
+    s8 end;
+    u8 unknown2F[0x65];
+    Game204660TrailPoint *points;
+    Game204660TrailState *state;
+} Game204660Trail;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D7A38 CURRENT (574) */
+s32 func_151D7A38(Game204660Trail *trail) {
+    Game204660Position endpoint;
+    Game204660Position *previous;
+    f32 phase;
+    f32 reciprocal;
+    f32 xDifference;
+    f32 yDifference;
+    f32 zDifference;
+    f32 time;
+    f32 timeStep;
+    f32 xStep;
+    f32 yStep;
+    f32 zStep;
+    Game204660TrailPoint *points;
+    Game204660TrailPoint *point;
+    Game204660TrailState *state;
+    Game204660TrailOwner *owner;
+    s32 start;
+    s32 end;
+    Game204660Position position;
+    register Game204660Position *cursor = &position;
+
+    state = trail->state;
+    points = trail->points;
+    owner = state->owner;
+    if (!(owner->flags & 1)) {
+        return 0;
+    }
+    endpoint = owner->position;
+    trail->position = endpoint;
+    state->phase += 0.25f * D_800BE9A4;
+    phase = *(volatile f32 *)&state->phase;
+    if (phase > 1.0f) {
+        reciprocal = 1.0f / phase;
+        previous = &state->previous;
+        time = state->time + D_800BE9A4;
+        *cursor = *previous;
+        xDifference = endpoint.x - state->previous.x;
+        yDifference = endpoint.y - state->previous.y;
+        zDifference = endpoint.z - state->previous.z;
+        timeStep = time * reciprocal;
+        xStep = xDifference * reciprocal;
+        yStep = yDifference * reciprocal;
+        zStep = zDifference * reciprocal;
+        do {
+            point = &points[trail->end];
+            point->position = *cursor;
+            point->velocity = 0.0f;
+            point->value10 = 0.0f;
+            point->active = 0;
+            point->value18 = 0.0f;
+            func_151D8718(point, &point->velocity, time);
+            trail->end++;
+            time -= timeStep;
+            end = *(volatile s8 *)&trail->end;
+            if (trail->capacity == end) {
+                trail->end = 0;
+                end = *(volatile s8 *)&trail->end;
+            }
+            start = trail->start;
+            trail->count++;
+            if (start == end) {
+                trail->start = start + 1;
+                if (trail->capacity == *(volatile s8 *)&trail->start) {
+                    trail->start = 0;
+                }
+                trail->count--;
+            }
+            cursor->x += xStep;
+            cursor->y += yStep;
+            cursor->z += zStep;
+            state->phase -= 1.0f;
+        } while (*(volatile f32 *)&state->phase > 1.0f);
+        *previous = *cursor;
+        state->time = time;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D7A38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7A38.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D7CD0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_204660/func_151D80C4.s")

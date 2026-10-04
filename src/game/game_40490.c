@@ -487,6 +487,60 @@ s32 func_150142EC(Game40490CallbackState *arg0) {
     }
     return 1;
 }
+typedef struct Game40490144B8Packet {
+    void *owner;
+    s32 choice;
+    s32 low;
+    s32 range;
+    s16 countX, countY;
+    f32 sizeX, sizeY;
+    f32 angleX, angleY;
+    f32 arc, factor;
+    f32 steps, inverse, height;
+} Game40490144B8Packet;
+
+f32 func_150484A0(f32, f32);
+void func_15145974(void *, f32 *, f32 *);
+u32 func_150ADA20(void);
+extern f32 D_80096688;
+extern f32 D_8009668C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150144B8 CURRENT (207) */
+s32 func_150144B8(u8 *arg0) {
+    Game40490144B8Packet packet;
+    register u32 value;
+    struct { f32 direction[3]; f32 matrix[16]; } scratch;
+
+    arg0[0x16] |= 4;
+    if (D_80082FA0 >= 2) {
+        return 1;
+    }
+    func_150A8050(scratch.matrix, *(f32 *)(arg0 + 0xC), *(f32 *)(arg0 + 0x10), 0.0f);
+    func_150A7960(scratch.matrix, 0.0f, 100.0f, 0.0f, &scratch.direction[0], &scratch.direction[1], &scratch.direction[2]);
+    func_15145974(scratch.direction, &packet.angleX, &packet.angleY);
+    packet.angleX *= D_80096688;
+    packet.angleY *= D_80096688;
+    packet.low = *(u32 *)(arg0 + 0x18) & 0xFFU;
+    packet.range = (*(u32 *)(arg0 + 0x18) >> 8) & 0xFFU;
+    value = func_150ADA20();
+    packet.owner = arg0;
+    packet.choice = value % (u32)(packet.range + 1) + packet.low;
+    packet.countX = (*(u32 *)(arg0 + 0x18) >> 16) & 0xFFU;
+    packet.countY = (*(u32 *)(arg0 + 0x18) >> 24) & 0xFFU;
+    packet.sizeX = (f32)(*(u32 *)(arg0 + 0x1C) & 0xFFU) * 0.015625f;
+    packet.sizeY = (f32)((*(u32 *)(arg0 + 0x1C) >> 8) & 0xFFU) * 0.015625f;
+    packet.steps = (f32)((*(u32 *)(arg0 + 0x1C) >> 24) & 0xFFU);
+    packet.inverse = 1.0f / packet.steps;
+    packet.height = (f32)*(s16 *)(arg0 + 8) * packet.inverse;
+    packet.arc = func_150484A0((f32)*(s16 *)(arg0 + 6), (f32)*(s16 *)(arg0 + 8));
+    packet.factor = (f32)((*(u32 *)(arg0 + 0x1C) >> 16) & 0xFFU) * 0.00390625f * D_8009668C;
+    value = func_15149130(0x12C, -1, 0x2A, -1, 0, 0, 0x38, 0xFF, 0);
+    if (value != 0) {
+        func_10022EC0((void *)((u32)value + 0x28U), &packet, 0x38);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150144B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150144B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501474C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014B60.s")
