@@ -54671,6 +54671,12 @@
       "symbol": "func_1517E05C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 886,
+        "reason": "Manual budget exhausted; preserved initial CURRENT886. Frame100/first packet match; saved pointer FC versus2C, second packet28 versus30, float-immediate and owner-store scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -58036,6 +58042,12 @@
       "symbol": "func_1501C57C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5622,
+        "reason": "Best CURRENT 5622 (8a2cea1725804728a514608a6d9b8127), restored typed effect/texture and eight-vertex array; existing word-sized parameter contract retained. Two candidates plus duplicate-declaration compile repair. IDO frame growth, narrow incoming loads and quad-loop unrolling remain; cursor/volatile-store revision worsened to 8110.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64141,6 +64153,12 @@
       "symbol": "func_1509DFC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 265,
+        "reason": "Best CURRENT 265 (56a14667dee14f93a35904c70d0ed659), two manual candidates; all registers match, remaining default-zero placement, epilogue padding and jump-table relocation. Raw table audited all 22 cases; starter void return discarded real results. Preserved complete typed candidate; no shared ABI repair claimed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72997,6 +73015,12 @@
       "symbol": "func_151194D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 13134,
+        "reason": "Manual budget exhausted; preserved initial CURRENT13134. Sum loop unrolled four ways, scale spilled, frame70 versus40; group volatility and halfword local count did not recover raw loop.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -84788,6 +84812,12 @@
       "symbol": "func_150E90DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 585,
+        "reason": "Best CURRENT 585 (bd926ecd74a949eb8636863143118d3e); real 60-byte packet arrays, typed weighted list and selective accumulator reloads. No missing/extra rows; remaining frame/packet homes, saved global/divisor ownership and constant FPR allocation. Three bounded manual candidates exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

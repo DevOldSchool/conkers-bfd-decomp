@@ -17,7 +17,128 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    f32 values[5];
+    s32 lifetime;
+    u8 field18;
+    u8 pad19[3];
+    s32 field1C;
+    u8 field20;
+    u8 pad21[3];
+} Game135D00Parameters;
+
+typedef struct {
+    s8 type, field1, field2, pad3;
+    s16 lifetime;
+    u8 pad6[2];
+    s32 field8, fieldC, field10, field14, field18, field1C, field20;
+    u8 field24, field25;
+    u8 pad26[0xA];
+    s32 field30, field34;
+    u8 field38;
+    u8 pad39[3];
+} Game135D00SpawnDescriptor;
+
+typedef struct {
+    Game135D00Parameters parameters;
+    Game135D00SpawnDescriptor descriptor;
+} Game135D00SpawnWork;
+
+typedef struct {
+    void *owner;
+    u8 mode, intensity;
+    s16 lifetime;
+    u8 kind;
+    u8 pad9[3];
+} Game135D00LightWork;
+
+void *func_1513B5E0(s8 *, u8, s32, u8, s32);
+void *func_1516037C(void *, s32, void *, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108850 CURRENT (886) */
+void func_15108850(s32 arg0) {
+    void *saved;
+    Game135D00SpawnWork first;
+    Game135D00LightWork light;
+    Game135D00SpawnWork second;
+    void *object;
+    void *lamp;
+
+    first.parameters.lifetime = 999;
+    first.parameters.field18 = 0xFF;
+    first.parameters.field1C = -1;
+    first.parameters.field20 = 1;
+    first.descriptor.field2 = 1;
+    first.descriptor.lifetime = 300;
+    first.descriptor.field30 = 9;
+    first.parameters.values[0] = 0.0f;
+    first.parameters.values[1] = 0.0f;
+    first.parameters.values[2] = 0.0f;
+    first.parameters.values[3] = 0.0f;
+    first.descriptor.type = 0;
+    first.descriptor.field1 = 0;
+    first.descriptor.field34 = 427;
+    first.descriptor.field8 = 1;
+    first.descriptor.fieldC = 0x220205;
+    first.descriptor.field10 = 0x40600;
+    first.descriptor.field24 = 0;
+    first.descriptor.field25 = 0;
+    first.descriptor.field14 = 1;
+    first.descriptor.field18 = 0x36;
+    first.descriptor.field1C = 0x80;
+    first.descriptor.field20 = 0x20;
+    first.descriptor.field38 = 1;
+    first.parameters.values[4] = 226.0f;
+    object = func_1513B5E0(&first.descriptor.type, 1, 0x24, 0xFF, 1);
+    if (object != 0) {
+        saved = object;
+        func_10022EC0((u8 *)object + *(s32 *)((u8 *)object + 0x50) + 0xF8,
+                      &first.parameters, 0x24);
+        light.owner = saved;
+        light.mode = 2;
+        light.intensity = 8;
+        light.lifetime = 300;
+        light.kind = 0x13;
+        lamp = func_1516037C(&light.mode, arg0, (void *)4, 0xFF, 1);
+        if (lamp != 0) {
+            func_10022EC0((u8 *)lamp + 0x18, &light.owner, 4);
+        }
+    }
+    second.parameters.lifetime = 999;
+    second.parameters.field18 = 0xFF;
+    second.parameters.field1C = -1;
+    second.parameters.field20 = 1;
+    second.descriptor.field1 = 1;
+    second.descriptor.field2 = 4;
+    second.descriptor.lifetime = 300;
+    second.descriptor.field30 = 9;
+    second.parameters.values[0] = 0.0f;
+    second.parameters.values[1] = 0.0f;
+    second.parameters.values[2] = 0.0f;
+    second.parameters.values[3] = 0.0f;
+    second.descriptor.type = 0;
+    second.descriptor.field34 = 428;
+    second.descriptor.field8 = 1;
+    second.descriptor.fieldC = 0x220205;
+    second.descriptor.field10 = 0x40600;
+    second.descriptor.field24 = 0;
+    second.descriptor.field25 = 0;
+    second.descriptor.field14 = 1;
+    second.descriptor.field18 = 0x36;
+    second.descriptor.field1C = 0x80;
+    second.descriptor.field20 = 0x20;
+    second.descriptor.field38 = 1;
+    second.parameters.values[4] = 226.0f;
+    object = func_1513B5E0(&second.descriptor.type, 1, 0x24, 0xFF, 1);
+    if (object != 0) {
+        func_10022EC0((u8 *)object + *(s32 *)((u8 *)object + 0x50) + 0xF8,
+                      &second.parameters, 0x24);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15108850 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108850.s")
+
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */

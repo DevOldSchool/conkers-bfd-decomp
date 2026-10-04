@@ -1126,7 +1126,7 @@ void func_1508B2A8(u8 arg0, u8 *state) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B2A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B3F8.s")
-void func_1508C5B8(s32, s32);
+s32 func_1508C5B8(s32, s32);
 void func_1508A1BC(void);
 extern f32 D_8009DA60;
 extern f32 D_8009DA64;
