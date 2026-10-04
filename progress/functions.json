@@ -23157,6 +23157,12 @@
       "symbol": "func_15072AF8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 120,
+        "reason": "Manual 3-attempt limit; best CURRENT120 retained. Registers and stack homes agree; two jump-table index subtractions scheduled later, shifting branch offsets. Starter default nesting corrected.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30305,6 +30311,12 @@
       "symbol": "func_1507D1D8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 879,
+        "reason": "Manual 3-attempt limit; best CURRENT879 retained. Word/halfword snapshot fixes undefined starter local; frame28 vs30, folded second actor base and missing inner reload after byte-global update remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51156,6 +51168,12 @@
       "symbol": "func_15132A88"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3377,
+        "reason": "Manual3-attempt limit; restored best CURRENT3377. Corrected starter flag sampling before helpers; saved cursor/state ownership, flag-branch join, frame78 vs70 and homes remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77683,6 +77701,12 @@
       "symbol": "func_150CD17C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2665,
+        "reason": "Manual 3-attempt limit; restored best CURRENT2665. Real16-float matrix with translation and4x3 corners replaces unsafe scalar starter. Index allocation, frameE0 vsD8, homes+8 and zero-store scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -80957,6 +80981,12 @@
       "symbol": "func_150F0A24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 135,
+        "reason": "Manual3-candidate limit plus1 compile-name repair; restored best CURRENT135. FrameB0 and all homes/instruction counts agree;23 register rows and last-byte immediate signedness remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -3072,6 +3072,96 @@ void func_15072A7C(void) {
 void func_15072AF8(void) {
     func_1505E650(D_800D154C, (*(u16 *)((u8 *)D_800D154C + 0x84) + 1) & 0xFFFF, 1.0f, 6.0f, 0.0f, 0.0f, 0);
 }
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15072B44 CURRENT (120) */
+void func_15072B44(void) {
+    s32 model;
+    s32 next;
+
+    next = -1;
+    model = *(u16 *)(D_800D154C + 0x84);
+    switch (model) {
+    case 0x26F:
+    case 0x270:
+    case 0x271:
+    case 0x272:
+    case 0x273:
+        next = model + 1;
+        break;
+    case 0x274:
+        next = 0x26F;
+        break;
+    case 0x1D6:
+        next = 0x1D7;
+        break;
+    case 0x1D7:
+        next = 0x1D8;
+        break;
+    case 0x175:
+        next = 0x177;
+        break;
+    case 0x176:
+        next = 0x177;
+        break;
+    case 0x35:
+        next = 0x3A;
+        break;
+    case 0x3F:
+        next = 0x3A;
+        break;
+    case 0x1CD:
+        next = 0x1CE;
+        break;
+    case 0x1CF:
+        next = 0x1CE;
+        break;
+    case 0xFD:
+        next = 0xFE;
+        break;
+    case 0x10A:
+        next = 0x10A;
+        break;
+    case 0x12C:
+        next = 0x12D;
+        break;
+    case 0x142:
+        next = 0x12D;
+        break;
+    case 0x138:
+        next = 0x3E;
+        break;
+    case 0x10C:
+        if ((*(u8 **)(D_800D154C + 0x31C))[0x197] != 0) {
+            next = 0x10A;
+        } else {
+            func_1507F640();
+        }
+        break;
+    case 0x156:
+        if ((*(u8 **)(D_800D154C + 0x31C))[0x197] != 0) {
+            next = 0x157;
+        } else {
+            func_1507F640();
+        }
+        break;
+    case 0x167:
+        if ((*(u8 **)(D_800D154C + 0x31C))[0x197] != 0) {
+            next = 0x165;
+        } else {
+            func_1507F640();
+        }
+        break;
+    default:
+        if (model == 0xBE || (model == 0xC1 &&
+            !(*(s32 *)(*(u8 **)(D_800D154C + 0x31C) + 0x38) & 0x2000))) {
+            next = 0xBF;
+        }
+        break;
+    }
+    if (next != -1) {
+        func_1505E650(D_800D154C, next & 0xFFFF, 1.0f, 4.0f, 0.0f, 0.0f, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15072B44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15072B44.s")
 void func_15072DA0(void) {
     *(u16 *)((u8 *)D_800D154C + 0x2F8) = (u16) (*(u16 *)((u8 *)D_800D154C + 0x2F8) & 0xFFF8);

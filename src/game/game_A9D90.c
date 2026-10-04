@@ -70,6 +70,77 @@ void func_1507D158(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     func_1509BFB0(3, temp_v0 | 0x2000, arg1, arg2, arg3, arg4);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D1D8.s")
+void func_1501C730(s32, s32, s32, s32, s32);
+s32 func_150859AC(s32, s32);
+void func_1509C3A0(void);
+void func_1507D1D8(GameA9D90Object *);
+void func_15085710(s32, s32, s32);
+extern s8 D_80087260;
+extern s8 D_8008726C;
+extern s8 D_8008FD94;
+extern s8 D_8008FDA8;
+extern u16 D_8008FDBC;
+extern u8 D_800BE616;
+extern s8 D_800BE618;
+extern u16 D_800D18A0;
+extern s8 D_800D2E43;
+extern u8 *D_800D2E4C;
+extern s8 D_800E0C20;
+extern s8 D_800BE3DF;
+extern u8 D_800BE3E0;
+extern u8 D_800D18A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 CURRENT (879) */
+void func_1507D4F8(s32 arg0) {
+    union {
+        s32 word;
+        s16 halves[2];
+    } index;
+    GameA9D90Object *actor;
+    u8 *actor2;
+
+    if (!(D_8008FDBC & 1)) {
+        func_15085710((s16)arg0, 4, 1);
+    }
+    index.word = (s16)arg0;
+    if (func_150859AC(index.word, 3) != 0) {
+        func_15085710(index.halves[1], 5, D_8008726C);
+        actor = (GameA9D90Object *)(&D_800CC2D0 + arg0 * 0x32C);
+        *(s16 *)((u8 *)actor + 0xB2) = 0;
+        if (D_800BE616 != 0) {
+            if (D_800E0C20 == 0) {
+                func_1507D1D8(actor);
+                return;
+            }
+            actor->field_31C->field_120 = 0xA;
+            return;
+        }
+        D_800D18A8 = 1;
+        if (!(D_800D2E4C[0x19] & 4) && D_8008FDA8 >= 0) {
+            func_1501C730(1, 0x22, 0, 0, 0);
+            return;
+        }
+        func_1501C730(2, D_800BE3DF, D_800BE3E0, 0, 0);
+        return;
+    }
+    if (D_800BE616 == 0) {
+        D_800D2E43 = 1;
+        func_1509C3A0();
+        D_800D18A8 = 1;
+        func_15085710(index.halves[1], 5, D_8008726C);
+        func_15085710(index.halves[1], 2, D_80087260);
+        func_1501C730(1, 0x18, 0, 0, 0);
+    } else {
+        D_800D18A0 |= 1U << arg0;
+    }
+    actor2 = &D_800CC2D0 + arg0 * 0x32C;
+    if ((*(u8 **)(actor2 + 0x31C))[0x84] == 0) {
+        D_8008FD94 -= 1;
+    }
+    (*(u8 **)(actor2 + 0x31C))[0x120] = 0xA;
+    D_800BE618 -= 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")
 void func_1503DE70(void *arg0, s32 arg1, s32 arg2);
