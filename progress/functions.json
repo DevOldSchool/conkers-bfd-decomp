@@ -93815,8 +93815,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5230,
-        "reason": "Typed twelve-argument sound wrapper preserves actual ABI and observed mode paths at CURRENT 5230. Incoming normalization/storage and argument scheduling remain; no unsupported narrow formals or fake storage.",
+        "current_score": 3570,
+        "reason": "Preserve full-span US CURRENT3570 (0ba543df01ff4dc49cdc2ec671047206), improved fresh5043 via own raw-proven u16sound/s16arg3/u16farDistance contracts4900 and actual mutable near-distance parameter3570. Exact raw entry normalization and argument SH/LH home identity recovered relative to frame48 versus50. Fullword volume preserved; no own C/raw direct caller/prototype or matched caller found by complete spelling audit and incomplete caller index. One inherited form plus two current forms; callback address recomputation, result-halfword spills/normalization, frame and scheduling remain. No equivalent type/near-distance copy/mutation/frame shaping without independent new evidence. SDK/helper/shared contracts unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93834,8 +93834,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1590,
-        "reason": "Typed owner/source sound constructor improves 1930 to 1828 to 1590 through actual parameter reuse and fullword owner-field access. Incoming normalization, frame and register schedule remain; no unsupported narrow ABI.",
+        "current_score": 1103,
+        "reason": "Preserve full-span US CURRENT1103 (00c7eb21e9c14617a87ebbeedf0d9985), improved fresh1205 after actual far-distance object reads1287 and own raw-proven u16farDistance contract1103. Exact same-type u16 object reads remove unobserved early far-distance word spill and recover post-FD38 LHU; register-only differences zero. Fullword sound/volume, existing nearDistance s16, return and SDK/helper contracts unchanged. Own local forward aligned; both raw callers supply halfwords, complete C spelling audit shows only disabled ECCC/10558 and incomplete matched-caller index empty. Two new distinct input-lifetime/contract forms plus inherited1930/1828/1590 body-shape forms; frame48 versus58, callback constant reuse and store/return scheduling remain. No equivalent views/types/storage/frame or prior body-reuse retries without independent new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93873,7 +93873,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2124,
-        "reason": "Typed owner-mode dispatch preserves first-u16 contract, full-width remaining parameters and real twelve-slot positional callback. Scores2124 then2195: naming the observed flags word does not recover the raw saved-volume register and worsens scheduling. Retain simpler form; parameter-home versus saved-register lifetime requires independent evidence.",
+        "reason": "Preserve full-span US CURRENT2124 owner-mode dispatch (68453e4f0fc642fa97f874113785ae65), improved fresh2319 by raw-proven own s16arg3/u16arg4 contracts and one local forward declaration. Both raw callers supply LH/LHU values; active EDA0 matching caller still CURRENT0 (0f85e5b9a6274b8aa3e3e0144f6b1017), but active candidate adds8 bytes to later unit layout; restore canonical assembly before final caller layout check. Fullword volume/owner and SDK/helper contracts unchanged. One current form plus inherited2124/2195; actual saved-volume versus parameter home, callback address and register scheduling unresolved. No equivalent type/flag/saved-register shaping without independent new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
