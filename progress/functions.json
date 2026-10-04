@@ -9702,8 +9702,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10389,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10389)",
+        "current_score": 3520,
+        "reason": "Best valid CURRENT3520 versus fresh3711/stale10389: four real motion values recover raw frame10 and stack0/4; volatile arg2 preserves home update and output views preserve raw readbacks. Three-field record4092 regressed. Target arg1 still homed, x-zero guard rewrites subtraction, FP/control scheduling differs; two revisions exhausted, no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -10074,8 +10074,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2589,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2589)",
+        "current_score": 1964,
+        "reason": "Saved candidate invalid word-scaled actor stride, signed byte index and implicit float return. Canonical local five-arg declaration/call plus byte stride/unsigned index valid1964. Output-record revision1977 regressed; restored1964 after two revisions. Frame78vs70, mask/register scheduling and unread sixth-zero home remain; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -16048,8 +16048,7 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1795,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1795)",
+        "reason": "Full344-byte focused CURRENT0 retained; canonical clean batch FIX_INTEGRATION: GAME2072944 versusROM2072880 (+64 rodata), four differing table-address bytes. Proposed ROM-verified 800961D0 mapping remains unapproved. Restore canonical ASM for clean checkpoint; preserve exact C and docs/evidence/game_3ba70_jump_table.patch for later resume after approval.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -42592,7 +42591,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 4804,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (4804)",
+        "reason": "Validbaseline4804 retained. Two targeted revisions: volatile observed stack products/reloads5676 and contiguous all-used record/register-first-input hint5676, both nonimproving. Raw frame48 versus compiler78 baseline, product spill/scheduling and FP allocation remain. No dummy padding/shared changes; stop plateau.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54346,8 +54345,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 993,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (993)",
+        "current_score": 863,
+        "reason": "Fresh1093 stale three-arg callee contract rejected; canonical local one-pointer15142A5C call valid863. Actual pointer/float lifetime revision1246 regressed; restored863 after two revisions. Spill18vs1C, FP constant/allocation and return scheduling remain. Target-only declaration, no known matched C callers or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69746,8 +69745,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1575,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1575)",
+        "current_score": 226,
+        "reason": "Manual baseline1975 invalid implicit fabsf; local f32 intrinsic910, volatile saved s16 best226. Two targeted revisions exhausted; raw early SH/final LH and all opcode/control rows restored. Frame20 versus28, FP allocation and final ADD operand order remain. Preserve valid226; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78992,8 +78991,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3460,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3460)",
+        "current_score": 3560,
+        "reason": "BLOCKED contract scope; historical starter CURRENT3560 rejected. Local four-arg1514ECE0 prototype disagrees with canonical matched pointer/s16/output-pointer three-arg callee and produces false pointerarg3. Duplicated declaration affects existing matched1515A920 outside target edit scope. Zero manual revisions; retain historical candidate only, not validbest.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88427,8 +88426,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2887,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2887)",
+        "current_score": 1432,
+        "reason": "Manual compile-only local prototype repair, compiledbaseline3167. Two lifetime revisions1432/1613; restored valid1432. Frame8 and arg1LBU recovered; added arg0LW, masked-register allocation and FF comparison operands remain. IDO top-level qualifier agreement repaired; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

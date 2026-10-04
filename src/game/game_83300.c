@@ -704,49 +704,46 @@ void func_1505A184(u16 arg0, register f32 arg1, s32 arg2, f32 *arg3,
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A184.s")
 extern f32 D_800D1550;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A250 CURRENT (10389) */
-void func_1505A250(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
-    f32 sp4;
-    f32 sp0;
-    f32 temp_ft3;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505A250 CURRENT (3520) */
+void func_1505A250(f32 arg0, register f32 arg1, volatile f32 arg2, f32 *arg3, f32 *arg4) {
+    struct { f32 stepX; f32 length; f32 stepY; f32 factor; } motion;
     f32 temp_ft4;
     f32 temp_fv0;
-    f32 temp_fv0_2;
     f32 temp_fv1;
     f32 temp_ft5;
 
-    temp_ft4 = *arg3;
+    temp_ft4 = *(volatile f32 *)arg3;
     temp_fv1 = arg0 - temp_ft4;
-    temp_ft5 = arg1 - *arg4;
+    temp_ft5 = arg1 - *(volatile f32 *)arg4;
     if ((temp_fv1 != 0.0f) || (temp_ft5 != 0.0f)) {
-        temp_ft3 = D_800D1550 * arg2;
+        motion.factor = arg2 * D_800D1550;
         temp_fv0 = sqrtf((temp_fv1 * temp_fv1) + (temp_ft5 * temp_ft5));
-        arg2 = temp_ft3;
-        sp4 = temp_fv0;
-        sp0 = fabsf((temp_fv1 / temp_fv0) * temp_ft3);
-        temp_fv0_2 = fabsf((temp_ft5 / sp4) * temp_ft3);
+        arg2 = motion.factor;
+        motion.length = temp_fv0;
+        motion.stepX = fabsf((temp_fv1 / temp_fv0) * motion.factor);
+        motion.stepY = fabsf((temp_ft5 / motion.length) * motion.factor);
         if (temp_fv1 >= 0.0f) {
-            *arg3 = temp_ft4 + sp0;
-            if (arg0 < *arg3) {
+            *(volatile f32 *)arg3 = temp_ft4 + motion.stepX;
+            if (arg0 < *(volatile f32 *)arg3) {
                 goto block_6;
             }
         } else {
-            *arg3 = temp_ft4 - sp0;
-            if (*arg3 < arg0) {
+            *(volatile f32 *)arg3 = temp_ft4 - motion.stepX;
+            if (*(volatile f32 *)arg3 < arg0) {
 block_6:
-                *arg3 = arg0;
+                *(volatile f32 *)arg3 = arg0;
             }
         }
         if (temp_ft5 >= 0.0f) {
-            *arg4 += temp_fv0_2;
-            if (arg1 < *arg4) {
+            *(volatile f32 *)arg4 += motion.stepY;
+            if (arg1 < *(volatile f32 *)arg4) {
                 goto block_11;
             }
         } else {
-            *arg4 -= temp_fv0_2;
-            if (*arg4 < arg1) {
+            *(volatile f32 *)arg4 -= motion.stepY;
+            if (*(volatile f32 *)arg4 < arg1) {
 block_11:
-                *arg4 = arg1;
+                *(volatile f32 *)arg4 = arg1;
             }
         }
     }
@@ -1268,23 +1265,25 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
 extern s32 D_80082FA0;
 extern s32 D_800CC2D0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DDA8 CURRENT (2589) */
+f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DDA8 CURRENT (1964) */
 s8 func_1505DDA8(void *arg0, s32 arg1, s32 arg2, f32 arg3) {
     s16 sp6C;
     f32 sp68;
     f32 temp_fs0;
     s32 temp_s2;
     f32 sp64;
-    s8 temp_t6;
-    s8 var_s0;
+    u8 temp_t6;
+    u8 var_s0;
 
     temp_s2 = arg2 & 0xFFFF;
     var_s0 = 0;
     if (D_80082FA0 >= 0) {
 loop_2:
-        if (*(&D_800CC2D0 + (var_s0 * 0x32C)) != 0) {
+        if (*(s32 *)((u8 *)&D_800CC2D0 + (var_s0 * 0x32C)) != 0) {
             temp_fs0 = *(f32 *)((u8 *)arg0 + 0x3C) * arg3 * 0.5f;
-            if ((func_1505DF10(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64, /* extra? */ 0) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
+            if ((func_1505DF10(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
                 return var_s0;
             }
             goto block_7;

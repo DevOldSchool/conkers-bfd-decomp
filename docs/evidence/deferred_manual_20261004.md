@@ -1,27 +1,26 @@
 # Deferred matching: 2026-10-04
 
-Latest eight-function checkpoints; US, manual only. Shared change: approved ROM-backed linker table mapping.
+Latest eight items; US, manual ASM-to-C. Shared dependency changes: no.
 
-| Function | Source under src/game/ | Result | Revisions |
+| Function | Source under src/game/ | Status / full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 1509C7C8 | game_C98F0.c | Matched5950→0; ROM table placement verified | 1 |
-| 1509C440 | game_C98F0.c | Candidate5371→3026; boolean returns restored | 2 |
-| 1511AF30 | game_1483E0.c | Candidate791; float intrinsic/call repaired | 2 + compile repair |
-| 1512DD50 | game_15B200.c | Candidate5756→4780; vector ABI/storage repaired | 2 |
-| 150ADA20 | game_DAE50.c | Valid candidate3600; 64-bit instruction barrier | 1 |
-| 150AD9A0 | game_DAE50.c | Candidate2775 retained; trapping-opcode barrier | 0 |
-| 151BE558 | game_1EB6C0.c | Candidate2322→275; branch/exit scheduling remains | 2 |
-| 151BE210 | game_1EB6C0.c | Valid candidate2480→1010; shared float snapshot restored | 2 |
+| 1500E738 | game_3BA70.c | Focused candidate0 retained; table approval pending | 1 |
+| 1505A250 | game_83300.c | Valid candidate3711→3520; FP lifetimes remain | 2 |
+| 1511617C | game_1435C0.c | Valid candidate226; intrinsic repaired, frame/FP remain | 2 |
+| 150888A8 | game_B4080.c | Valid candidate3167→1432; prototype/homes repaired | 2 + 2 compile repairs |
+| 1505DDA8 | game_83300.c | Valid candidate1964; byte stride/index/call repaired | 2 |
+| 1515942C | game_1865D0.c | Blocked3560; conflicting shared caller contract | 0 |
+| 151C7038 | game_1F4350.c | Valid candidate863; one-pointer call repaired | 2 |
+| 1504A140 | game_770F0.c | Valid candidate4804 retained; regressions rejected | 2 |
 
-Clean verify-batch: BATCH_COMPLETE; full GAME and external rodata match ROM.
-Layout, progress and whitespace passed; 1,823 tests passed, 37 skipped.
-Seven best candidates remain deferred; no shared headers or compiler changes.
-Owning-source matches151BE4B8/151BE604 rechecked at0 and clean-verified; no new credit.
+Six valid nonzero candidates and exact C preserved transactionally; blocked starter annotated invalid.
+Canonical func_1500E738 linking failed +64bytes; reopen-match restored ASM without losing C.
+Recovered clean verify-batch: BATCH_COMPLETE; full GAME and external rodata match ROM.
+Suite: 1,823 tests, OK with 37 skipped. Layout, metadata, progress and whitespace passed.
+Existing 1500E70C/15087DCC/1505DF10 rechecked at0; no new match credit.
+Pending [mapping proof/proposal](game_3ba70_jump_table.md); shared linker remains unchanged.
 
-Workflow findings:
-- Audit raw returns, case coverage and callee inputs before trusting m2c starters.
-- Audit vector storage, intrinsic declarations and global snapshot timing.
-- Triage handwritten opcode barriers before revisions; rank valid candidates first.
-- Report external table placement during ready/finish; focused zero cannot prove linking.
-
-Details: [table evidence](game_c98f0_jump_table.md). Task commits use DevOldSchool-AI-Agent.
+Speed: audit callee contracts, intrinsics and byte strides before register revisions.
+Confirmed workflow issue: call_signatures.py:198–246 trusts local prototypes before matched definitions.
+Improve ready with an early conflict warning and external-table placement check.
+Commit identity: DevOldSchool-AI-Agent. No personal memory or permutation used.

@@ -1,0 +1,82 @@
+{
+  "object": "build/us/layout-check/src/game/game_3BA70.o",
+  "sha256": "860bd71c152a4e50d845710f15a526440821dd77c46e7709aa6b12210b7e3f14",
+  "text_base": "0x1500E5C0",
+  "table_vram": "0x800961D0",
+  "object_size": 64,
+  "payload_size": 64,
+  "targets": [
+    "0x1500e870",
+    "0x1500e7f0",
+    "0x1500e810",
+    "0x1500e810",
+    "0x1500e830",
+    "0x1500e830",
+    "0x1500e830",
+    "0x1500e830",
+    "0x1500e850",
+    "0x1500e850",
+    "0x1500e850",
+    "0x1500e850",
+    "0x1500e850",
+    "0x1500e850",
+    "0x1500e850",
+    "0x1500e850"
+  ],
+  "rom_checksum_validated": true,
+  "relocated_payload_matches_rom": true,
+  "focused_attempt": "ac43878bde59457f9c0186ea95aacd2b",
+  "temporary_full_link": {
+    "game_size": 2072880,
+    "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5",
+    "game_matches_rom": true,
+    "all_external_rodata_matches_rom": true,
+    "object_substitution": "build/us/layout-check/src/game/game_3BA70.o",
+    "scope": "Temporary proposed linker placement; not BATCH_COMPLETE"
+  },
+  "canonical_link_failure": {
+    "action": "FIX_INTEGRATION",
+    "linked_size": 2072944,
+    "rom_size": 2072880,
+    "linked_sha1": "66e74cb9e49881937739ba752233586f8f2b28cf",
+    "common_span_differences": [
+      {
+        "offset": "0xe7de",
+        "rom": 128,
+        "linked": 21
+      },
+      {
+        "offset": "0xe7df",
+        "rom": 9,
+        "linked": 32
+      },
+      {
+        "offset": "0xe7e6",
+        "rom": 97,
+        "linked": 161
+      },
+      {
+        "offset": "0xe7e7",
+        "rom": 208,
+        "linked": 48
+      }
+    ],
+    "extra_bytes": 64
+  },
+  "state": "Exact focused C preserved by reopen-match; canonical ASM restored; mapping approval pending",
+  "recovery_batch": {
+    "action": "BATCH_COMPLETE",
+    "items": [
+      "func_1500E70C",
+      "func_15087DCC",
+      "func_1505DF10"
+    ],
+    "game_matches_rom": true,
+    "external_rodata_matches_rom": true,
+    "tests": 1823,
+    "skipped": 37,
+    "new_match_credit": false,
+    "game_size": 2072880,
+    "game_sha1": "90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5"
+  }
+}

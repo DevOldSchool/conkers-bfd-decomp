@@ -153,7 +153,7 @@ s32 func_15159370(void *arg0, s8 *arg1) {
 /* Call context: func_1514ECE0: unique active declaration in the allowed source */
 s32 func_1514ECE0(s32, s32, void **, void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515942C CURRENT (3460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515942C CURRENT (3560) */
 u8 func_1515942C(void *arg0, s16 arg1, s16 arg2, void *arg3, s16 arg4, s16 arg5) {
     void *sp38;
     u8 sp37;

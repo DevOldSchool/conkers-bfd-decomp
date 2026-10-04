@@ -251,6 +251,8 @@ void func_15087CC0(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15087CC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087CC0.s")
+s32 func_150888A8(volatile s32, volatile u8, s8);
+
 void func_15087DCC(s32 arg0, s32 arg1) {
     u8 *temp_v1;
     void *sp1C;
@@ -709,19 +711,19 @@ void func_15088824(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x49) = 0;
     *(f32 *)((u8 *)arg0 + 0x10) = 1.0f;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150888A8 CURRENT (2887) */
-s32 func_150888A8(s32 arg0, u8 arg1, s8 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150888A8 CURRENT (1432) */
+s32 func_150888A8(volatile s32 arg0, volatile u8 arg1, s8 arg2) {
     s32 temp_s0;
     s32 var_a0;
     s32 var_a3;
     s32 var_t0;
     s32 var_t4;
     s32 var_v1;
-    u8 temp_a2_2;
-    u8 temp_a2_3;
-    u8 temp_t0;
-    u8 temp_t2;
-    u8 temp_t3_2;
+    s32 temp_a2_2;
+    s32 temp_a2_3;
+    s32 temp_t0;
+    s32 temp_t2;
+    s32 temp_t3_2;
     u8 *temp_a2;
     u8 *temp_t1;
     u8 *temp_t2_2;
