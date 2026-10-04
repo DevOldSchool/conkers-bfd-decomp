@@ -13,6 +13,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define placed_object_reset_texture_binding_count func_1510D864
+
 void func_1510D608(s32, s32);
 extern s8 D_800BC448[];
 extern s32 D_800D9F58;
@@ -91,7 +94,7 @@ extern u8 D_800D9ED8[];
  * Clear only the binding count; stored records and texture payloads remain.
  * See docs/evidence/placed_object_helper_semantics.md.
  */
-void func_1510D864(void) {
+void placed_object_reset_texture_binding_count(void) {
     D_800D9ED0 = 0;
 }
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D874 CURRENT (505) */

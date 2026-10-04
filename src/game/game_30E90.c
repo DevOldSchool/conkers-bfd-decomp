@@ -15,6 +15,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define placed_object_reset_vertex_cache_slots func_15004A4C
+#define placed_object_choose_candidate_id func_15004BF0
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_30E90/func_150039E0.s")
 extern s32 D_800DBEF4;
 extern u8 D_800DBF88;
@@ -76,7 +80,7 @@ extern s32 D_800DBEFC;
  * Clear per-object cache-pointer/countdown slots without freeing payloads.
  * See docs/evidence/placed_object_helper_semantics.md.
  */
-void func_15004A4C(void) {
+void placed_object_reset_vertex_cache_slots(void) {
     s32 objectIndex;
     s32 cacheSlotOffset;
 
@@ -152,12 +156,12 @@ void func_15004AAC(u8 *arg0, s32 arg1) {
 extern s32 D_800DBEF0;
 extern u8 D_800DBF00;
 
-/* Semantic role: placed_object_choose_id.
+/* Semantic role: placed_object_choose_candidate_id.
  * Exhaustion returns 255 in ascending mode or the starting ID in descending
  * mode; uniqueness is not guaranteed. arg0 is reused as start/fallback.
  * See docs/evidence/placed_object_helper_semantics.md.
  */
-s32 func_15004BF0(s32 arg0) {
+s32 placed_object_choose_candidate_id(s32 arg0) {
     typedef struct { u8 before[0x72]; u8 objectId; u8 after[0x2D]; } Entry;
     s32 objectIndex;
     s32 candidateObjectId;

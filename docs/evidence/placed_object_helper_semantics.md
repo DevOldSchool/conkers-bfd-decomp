@@ -1,8 +1,22 @@
 # Placed-object helper semantics
 
 Eight existing matched helpers in `game_13F9D0.c`, `game_30E90.c` and
-`game_13ABD0.c` receive descriptive roles and local names without type, ABI,
-layout or operation changes. [Shared provenance](model_name_confidence_review.md)
+`game_13ABD0.c` use descriptive C names through source-local macro aliases.
+The linked symbols, registered IDs, types, ABI, layout and operations remain
+unchanged. The names describe N64 code behavior; no model identity is inferred.
+
+| US address | C name |
+| --- | --- |
+| `15114050` | `placed_object_test_actor_mask` |
+| `151140C4` | `placed_object_first_actor_mask_index` |
+| `151148A8` | `placed_object_build_orientation` |
+| `1511490C` | `placed_object_build_transform` |
+| `151149AC` | `placed_object_find_by_id` |
+| `15004A4C` | `placed_object_reset_vertex_cache_slots` |
+| `15004BF0` | `placed_object_choose_candidate_id` |
+| `1510D864` | `placed_object_reset_texture_binding_count` |
+
+[Shared provenance](model_name_confidence_review.md)
 retains the complete original-ROM spans; original reference splits are
 `reference/game/us/asm/112520.s`, `39E0.s` and `10D720.s` respectively.
 Direct J/JAL and aligned-data scans found no aligned game-data pointer to these

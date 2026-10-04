@@ -131,6 +131,52 @@ def active_text(text: str) -> str:
     return "".join(output)
 
 
+def function_alias_text(text: str) -> str:
+    """Canonical parsing view for simple, unconditional address-symbol aliases.
+
+    This is not a preprocessor: conditional, repeated, undefined, continued or
+    chained macros remain unresolved. Never rewrite comments, strings or directives.
+    """
+    if not re.search(r"#\s*define\b", text) or re.search(r"\\\r?\n", text):
+        return text
+    definitions: dict[str, list[tuple[int, str | None]]] = {}
+    depth = 0
+    for token in candidate_syntax.TOKEN.finditer(text):
+        directive = token.group()
+        if not directive.startswith("#"):
+            continue
+        if directive.rstrip().endswith("\\"):
+            return text
+        directive = re.sub(r"/\*.*?\*/|//[^\n]*", " ", directive)
+        if "/*" in directive:
+            return text
+        if PREPROCESSOR_IF.match(directive):
+            depth += 1
+        elif PREPROCESSOR_ENDIF.match(directive):
+            depth = max(0, depth - 1)
+        match = re.match(r"#\s*(define|undef)\s+([A-Za-z_]\w*)", directive)
+        if match is None:
+            continue
+        target = re.fullmatch(r"\s+(func_[0-9A-Fa-f]{8})\s*", directive[match.end():])
+        value = target.group(1) if target and not depth and match[1] == "define" else None
+        definitions.setdefault(match[2], []).append((token.end(), value))
+    items = candidate_syntax.tokens(text)
+    aliases = {}
+    for name, records in definitions.items():
+        if len(records) != 1:
+            continue
+        end, target = records[0]
+        if (target is not None and target not in definitions
+                and not any(item.text == name and item.start < end for item in items)):
+            aliases[name] = (end, target)
+    for item in reversed(items):
+        if item.text in aliases:
+            end, target = aliases[item.text]
+            if item.start >= end:
+                text = text[:item.start] + target + text[item.end:]
+    return text
+
+
 def evidence_files(root: Path = ROOT) -> list[Path]:
     files: list[Path] = []
     for directory, suffixes in ((root / "src", {".c", ".h"}), (root / "include", {".h"})):
@@ -297,6 +343,7 @@ def object_declaration(symbol: str, *, root: Path = ROOT, source: str = "") -> D
 
 
 def declaration_already_present(source: str, declaration: Declaration) -> bool:
+    source = function_alias_text(source)
     if "(*" in declaration.text:
         pointer = re.compile(
             rf"(?m)^\s*(?:extern\s+|static\s+)?{TYPE_TEXT}\s*\(\s*\*\s*"
@@ -382,6 +429,7 @@ def resolve_required_declarations(
 
 def file_scope_matches(pattern: re.Pattern, source: str):
     """Yield declarations at file scope, excluding comments and disabled C."""
+    source = function_alias_text(source)
     active = active_text(re.sub(r"/\*.*?\*/|//[^\n]*", "", source, flags=re.S))
     depth = 0
     top_level = set()
