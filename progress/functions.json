@@ -41648,6 +41648,12 @@
       "symbol": "func_15045880"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1065,
+        "reason": "Best CURRENT 1065 (eb3bde757ee240cf830d1e81671c96f7); exact frame and scan prefix, remaining copy-cursor scheduling, surface-address lifetime and scratch-register allocation; bounded manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44391,6 +44397,12 @@
       "symbol": "func_151EC1F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3247,
+        "reason": "Three bounded manual candidates: best CURRENT 3247 restored, including nonvolatile ramp declaration. Existing command structure, full 16-byte option records and audited one-pointer helpers retained; second argument of EEBE8 stays a full word. Frame 0x30 and tail registers agree, but global-address reuse, cursor folding and initial register ownership differ. Final incoming-cursor/volatile-ramp revision worsened to 4508.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70922,13 +70934,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 608,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15103430",
           "vram": "0x15103430"
         }
       },
-      "source": "src/game/game_1308E0.c",
+      "source": "src/done/game/game_1308E0.c",
       "symbol": "func_15103430"
     },
     {
@@ -71014,6 +71031,12 @@
       "symbol": "func_151C4820"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2540,
+        "reason": "Three bounded manual candidates: best CURRENT 2540 restored with volatile head declaration. Full 0x28 point records, cached word indices/head/count and post-call distance loads preserve raw data lifetimes; frame 0x60 and saved-register homes agree. Zero/one constant sharing, interpolation FPR allocation and loop scheduling remain. Final destructive-delta/loop revision worsened to 2815.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88823,6 +88846,12 @@
       "symbol": "func_1508B3F8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3260,
+        "reason": "Best CURRENT 3260 (c925d80f65ee44cfbd17a7f702498dab); explicit scale snapshots and byte-offset search preserve raw semantics, but IDO folds the weight cursor and uses a 0x40 frame/five saved GPRs instead of 0x60/four; bounded manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

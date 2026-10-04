@@ -386,7 +386,95 @@ Game215960Command *func_151EC1F0(Game215960Command *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151EC1F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC1F0.s")
 
+typedef struct {
+    f32 amount;
+    u8 pad04[4];
+    f32 transition;
+    u8 pad0C[0x20];
+    s8 selection;
+    u8 pad2D[0x11];
+    s8 mode;
+} Game215960Menu;
+
+typedef struct {
+    s32 value;
+    u8 id;
+    u8 pad05[0xB];
+} Game215960MenuOption;
+
+extern Game215960Menu *D_8008FDD4;
+extern s8 D_8008FEF8;
+extern s32 D_80090060;
+extern s32 D_800900BC[];
+extern u8 D_800900D4;
+extern u8 D_800BE3F8[];
+extern s32 D_800BE9E4;
+extern u8 D_800C35EA;
+extern u8 D_800E0A95;
+void *func_151EC648(void *);
+void *func_151EE184(void *);
+void *func_151EEBE8(void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EC3E8 CURRENT (3247) */
+Game215960Command *func_151EC3E8(Game215960Command *arg0) {
+    s32 fade;
+    s32 selection;
+    s32 mode;
+    Game215960Command *cursor;
+    Game215960Command *command;
+    Game215960Command *next;
+    Game215960MenuOption *option;
+
+    cursor = arg0;
+    if (D_800C35EA == 1) {
+        D_800900D4 = 0;
+        return cursor;
+    }
+    fade = D_800900D4 + D_800BE9E4 * 4;
+    if (fade >= 0x100) fade = 0xFF;
+    D_800900D4 = fade;
+    command = cursor++;
+    command->w0 = 0xDE000000;
+    command->w1 = (u32)D_80090028;
+    mode = D_8008FDD4->mode;
+    if (1 == mode) return func_151EC648(cursor);
+    if (mode == 0) {
+        selection = D_8008FDD4->selection;
+        if (1 == selection && D_8008FEF8 != 0) {
+            cursor = func_151EE184(cursor);
+        } else {
+            s32 alpha;
+            alpha = (s32)((D_8008FDD4->amount - 0.5f) * 512.0f);
+            if (alpha < 0) alpha = -alpha;
+            if (alpha >= 0x100) alpha = 0xFF;
+            if (D_800900D4 < alpha) alpha = D_800900D4;
+            if (1 == selection) {
+                alpha = (D_800E0A95 * alpha) >> 8;
+                if (alpha >= 0xFE) alpha = 0xFF;
+            }
+            command = cursor++;
+            command->w1 = (alpha & 0xFF) | ~0xFF;
+            command->w0 = 0xFB000000;
+            next = cursor;
+            next->w0 = 0xEF002C3F;
+            next->w1 = 0x00504244;
+            cursor++;
+            D_80090060 = D_800900BC[D_8008FDD4->selection];
+            cursor = func_151ED430(cursor, &D_80090060, 0x94, 0x1E, 3, 1, 1.0f, 0);
+        }
+        if (D_8008FDD4->transition >= 0.5f) {
+            selection = D_8008FDD4->selection;
+            if (selection >= 3) {
+                option = (Game215960MenuOption *)(D_800BE3F8 + selection * 0x10 - 0x28);
+                if (option->value != -1) cursor = func_151EEBE8(cursor, option->id);
+            }
+        }
+    }
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151EC3E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC3E8.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EC648.s")
 void *func_15096934(void *);
 void *func_151ED430(void *, void *, s32, s32, s32, s32, f32, s32);

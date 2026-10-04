@@ -1126,7 +1126,116 @@ void func_1508B2A8(u8 arg0, u8 *state) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B2A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B3F8.s")
+void func_1508C5B8(s32, s32);
+void func_1508A1BC(void);
+extern f32 D_8009DA60;
+extern f32 D_8009DA64;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B9BC CURRENT (3260) */
+s32 func_1508B9BC(void) {
+    s32 current;
+    s32 *active;
+    s32 *neighbors;
+    s32 *costs;
+    s32 mode;
+    register s32 count;
+    register s32 *targets;
+    register u8 *base;
+    register u8 *weights;
+    s32 winner;
+    s32 minimum;
+    s32 index;
+    s32 cost;
+    s32 first;
+    s32 end;
+    s32 cursor;
+    s32 neighbor;
+    f32 weight_scale;
+    f32 preferred_scale;
+    f32 value;
+    f32 dx;
+    f32 dz;
+    GameB4080SearchActor *actor;
+    GameB4080SearchActor *other;
+
+    base = (u8 *)D_800D23B0;
+    mode = 1;
+    count = *(s32 *)(base + 0x10);
+    current = *(s32 *)(base + 4);
+    active = (s32 *)(base + 0x39C);
+    neighbors = (s32 *)(base + 0x5DC);
+    costs = (s32 *)(base + 0x9DC);
+    targets = (s32 *)(base + 0x11C);
+    if (count >= 9) {
+        mode = 4;
+    }
+    func_1508C5B8(0, mode);
+    func_1508A1BC();
+    base = (u8 *)D_800D23B0;
+    weights = base + current * 16 + 0x15B4;
+    winner = -1;
+    minimum = 10000000;
+    index = 0;
+    if (count > 0) {
+        preferred_scale = D_8009DA60;
+        weight_scale = D_8009DA64;
+        do {
+            if (*active > 0) {
+                cost = -1;
+                if (index != current) {
+                    first = index * 16;
+                    end = first + 16;
+                    cursor = first;
+                    if (first < end) {
+                        if (neighbors[first] != -1) {
+                            first *= 4;
+                            neighbor = *(s32 *)((u8 *)neighbors + first);
+                            do {
+                                cursor++;
+                                if (current == neighbor) {
+                                    cost = *(s32 *)((u8 *)costs + first);
+                                    cursor = end;
+                                }
+                                if (cursor >= end) {
+                                    break;
+                                }
+                                first = cursor * 4;
+                                neighbor = *(s32 *)((u8 *)neighbors + first);
+                            } while (neighbor != -1);
+                        }
+                    }
+                    if (cost != -1) {
+                        value = (f32)(u32)weights[index] * weight_scale;
+                        if (index == targets[current]) {
+                            value *= preferred_scale;
+                        }
+                        cost = (s32)((f32)cost * value);
+                        if (cost < minimum) {
+                            minimum = cost;
+                            winner = index;
+                        }
+                    }
+                }
+            }
+            index++;
+            active++;
+        } while (index != count);
+    }
+    *(s32 *)(base + current * 4 + 0x49C) = winner;
+    if (winner != -1) {
+        actor = (GameB4080SearchActor *)((u8 *)&D_800CC2D0 + current * 0x32C);
+        other = (GameB4080SearchActor *)((u8 *)&D_800CC2D0 + winner * 0x32C);
+        dx = actor->field14 - other->field14;
+        dz = actor->field1C - other->field1C;
+        *(s32 *)((u8 *)D_800D23B0 + current * 4 + 0x45C) = (s32)sqrtf(dx * dx + dz * dz);
+    } else {
+        *(s32 *)((u8 *)D_800D23B0 + current * 4 + 0x45C) = minimum;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1508B9BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B9BC.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508BC20.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BF14 CURRENT (11632) */
 s32 func_1508BF14(void) {

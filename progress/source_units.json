@@ -13241,15 +13241,15 @@
       "functions": [
         "func_15103430"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x103690",
           "start": "0x103430",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1308E0.c"
+      "source": "src/done/game/game_1308E0.c"
     },
     {
       "boundary_evidence": {
