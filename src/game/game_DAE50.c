@@ -68,21 +68,24 @@ u32 func_150ADA20(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DAE50/func_150ADA20.s")
 extern f32 D_8009F740;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ADA68 CURRENT (8885) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ADA68 CURRENT (5000) */
 f32 func_150ADA68(void) {
-    s64 temp_a0;
-    u64 temp_a2;
+    u64 state;
+    u64 next;
 
-    temp_a2 = (((u64) (D_800885B0 << 0x3F) >> 0x1F) | ((u64) (D_800885B0 << 0x1F) >> 0x20)) ^ ((u64) (D_800885B0 << 0x2C) >> 0x20);
-    temp_a0 = ((temp_a2 >> 0x14) & 0xFFF) ^ temp_a2;
-    D_800885B0 = temp_a0;
-    return (f32) (((s64) (temp_a0 << 0x20) >> 0x20) & 0xFFFF) * D_8009F740;
+    state = (u64) D_800885B0;
+    next = (((state << 63) >> 31) | ((state << 31) >> 32)) ^
+           ((state << 44) >> 32);
+    next ^= (next >> 20) & 0xFFF;
+    *(u64 *)&D_800885B0 = next;
+    return (f32) (s32) ((u32) next & 0xFFFF) * D_8009F740;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150ADA68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DAE50/func_150ADA68.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ADACC */
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ADACC CURRENT (1520) */
 void func_150ADACC(s32 arg0) {
-    D_800885B0 = arg0 + 1;
+    D_800885B0 = (s64) arg0 + 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150ADACC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DAE50/func_150ADACC.s")

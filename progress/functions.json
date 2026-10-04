@@ -7150,8 +7150,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8885,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8885)",
+        "current_score": 5000,
+        "reason": "Valid unsigned RNG state transition and low16 float conversion CURRENT 5000. Handwritten LD/SD/DSLL/DSRL reference versus IDO mips2 helper calls; prior integer sibling confirms compiler lowering barrier. One correctness revision exhausted useful local hypotheses; no compiler or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7169,7 +7169,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "reason": "o32 C lowers the 64-bit assignment into paired 32-bit operations; best candidate reached CURRENT (800)",
+        "current_score": 1520,
+        "reason": "Valid signed64 seed addition CURRENT 1520; starter signed32 addition rejected for INT_MAX overflow. IDO o32 carry/paired stores differ from handwritten DADDIU/SD plus explicit a0 clear and registered trailing nops. One correctness revision; stop proven ISA barrier without compiler/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -9158,8 +9159,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2370,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2370)",
+        "current_score": 1330,
+        "reason": "Baseline FIX_COMPILE missing owner argument repaired; two targeted revisions exhausted. Best valid CURRENT (1330), cache interpolation constant once before four byte stores. Frame18 and stack rows exact; FP register/operand and payload-base folding remain. In-place entry FP rewrite regressed1630 and was restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -41905,8 +41906,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 16646,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (16646)",
+        "current_score": 12607,
+        "reason": "First baseline FIX_COMPILE; matrix definition and one-pointer initializer repaired. Two FP-lifetime revisions exhausted. Best valid CURRENT (12607); frameC0 vs68, FP register allocation, clamp/saved-home scheduling remain. IDO local qualifier repair required; no shared dependency changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -90927,8 +90928,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3370,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3370)",
+        "current_score": 2015,
+        "reason": "Best valid CURRENT (2015), repaired endpoint and stride for eight 8-byte copies. Handwritten raw LD/SD versus fixed IDO -mips2 paired 32-bit accesses/unroll is an ISA lowering barrier. One semantic revision; no compiler/assembly/shared changes authorized.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

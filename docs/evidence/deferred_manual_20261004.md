@@ -1,32 +1,31 @@
 # Deferred matching: 2026-10-04
 
-Latest five items; US, manual ASM-to-C. Shared dependency changes: no.
+Latest five candidates; US, manual ASM-to-C. Shared dependency changes: no.
 
 | Function | Source under src/game/ | Best valid full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 1512D980 | game_15ABA0.c | 3944 → 2045; call snapshots/FP homes | 2 |
-| 151CD7BC | game_1FA770.c | 5037; vector/call-lifetime repairs | 2 |
-| 15094AB8 | game_C1D70.c | 11032 → 9301; concrete record loop | 2 |
-| 150611E8 | game_83300.c | 20162 → 10964; path pointer/loop | 2 |
-| 151438D8 | game_16EE20.c | 9169 → 2428; actual saved masks | 2 |
+| 15047700 | game_71820.c | 15907 → 12607; matrix ABI/FP lifetimes | 2 |
+| 151CBC60 | effects/effects_sight.c | 2885 → 1330; cached conversion scale | 2 |
+| 150A81A0 | game_D5650.c | 2015; corrected 64-byte copy stride | 1 |
+| 150ADA68 | game_DAE50.c | 5000; unsigned RNG shifts | 1 |
+| 150ADACC | game_DAE50.c | 1520; widen seed before addition | 1 |
 
-15 candidate finish calls. Invalid: D980=5244, CD7BC=9095/7640, 611E8=20177.
+15 candidate finish calls. Invalid: A81A0=2020, ADA68=4605, ADACC=1100.
 Best valid candidates deferred; canonical ASM retained; no new match credit.
-Frames (candidate/raw, hex): 28/28, E0/C0, 30/40, 38/38, 40/60.
-D980 stack rows exact; CD7BC six FP save offsets exact.
-94AB8 retains input reloads after output stores; unroll4 versus raw2 remains.
-611E8 retains the raw uninitialized saved-index behavior; no invented default.
-438D8 native u16 accumulators were neutral; earlier candidate restored.
-Local clamp declaration has no indexed matched C callers (incomplete coverage).
-Nine existing owners/callers passed CURRENT0/layout/progress/whitespace.
-Clean verify-batch: BATCH_COMPLETE; rebuilt US GAME/mapped rodata equal ROM.
+Local matrix/getter declarations repaired; no shared header/compiler changes.
+CBC60 frame/stack exact; payload-base folding and FP allocation remain.
+Three handwritten 64-bit functions hit IDO o32 lowering barriers.
+Seven affected callers passed CURRENT0/layout/progress/whitespace.
+47B80 focused100 lacks one final nop: committed and edited focused objects
+have identical text/relocations (text SHA256 424dfb4ae1f78d6988fb9ddfcd3331ff8eed30a777be928dd7af1edf236e257d).
+Focused stripping removes raw neighbors and changes final alignment; no padding added.
+Mixed object supplies all 128 bytes at the correct offset, including both padding nops.
+Clean verify-batch: BATCH_COMPLETE; US GAME/mapped rodata equal ROM.
 1,823 tests passed, 37 skipped; repository whitespace passed.
 
-Workflow: check pointer-load widths and field loads across calls before ranking.
-Recover contiguous vectors and one unsigned conversion; do not duplicate correction.
-Simple loops can recover frames/unrolls, but compare the complete registered span.
-Actual saved masks greatly improved 438D8; speed leads remain unbenchmarked.
-Resumed-body context still omits the function; canonical ABI conflict warning useful.
+Speed leads: flag canonical ABI conflicts before starters, retain resumed-body context,
+and triage handwritten 64-bit ISA before matching. CBC60 scale reuse helped;
+these workflow changes remain unimplemented and unbenchmarked.
 Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); linker unchanged.
 1515942C shared contract and 150A6360 full-span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.
