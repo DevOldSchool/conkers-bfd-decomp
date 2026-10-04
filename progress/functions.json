@@ -92891,8 +92891,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5820,
-        "reason": "Preserve typed sequence activation/update at CURRENT (5820). Raw-proved float callback ABI and metadata row, marker/owner masks, allocation failure and repeated slot reloads retained. Record field refinements preserve 0x64 stride. Remaining frame, snapshots and pointer-register lifetimes are broad; no dummy storage or narrowing.",
+        "current_score": 3869,
+        "reason": "Preserve typed sequence activation/update at CURRENT3869; fresh baseline6132 (historical5820). Three new supported forms3869/4761/4414 exhausted. Restored and independently rechecked3869 after full rollback of seven source-local narrow helper declaration experiments: CDA0 regressed785, E654250, source unit+8. Status-before-slot ordering and actual fullword arg0/byte channel reads retained; fullword slot index and three float callback inputs unchanged. Remaining frame30vs40, scaled index snapshot, pointer reloads/lifetimes and field/address scheduling unresolved. No further equivalent object, mask, declaration, frame or snapshot shaping without independent new evidence; no dummy storage/padding, unsupported narrowing, shared dependencies or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

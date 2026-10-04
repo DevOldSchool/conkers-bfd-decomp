@@ -62,28 +62,34 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "B1B0 source-local byte helper declarations, improved deferred E2F4 and 8180/D758 exhaustion evidence. Affected existing matched CC54/E054 retain independent full-span CURRENT0 and source-unit layout. Clean canonical US ROM, metadata/progress/whitespace passed. No new C matches.",
+    "scope": "Preserved improved D2F8 disabled candidate; seven helper declaration experiments fully rolled back after CDA0/E654 regression. Existing B638/CDA0/E654 independently retain full-span CURRENT0 and source-unit layout. Clean canonical full US ROM, metadata/progress/whitespace passed. No new C matches.",
     "batch_ids": [
-      "func_8000CC54",
-      "func_8000E054"
+      "func_8000B638",
+      "func_8000CDA0",
+      "func_8000E654"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 39.226,
+    "test_seconds": 34.183,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T13:32:56.659692+00:00",
+    "completed_utc": "2026-10-04T13:53:07.900184+00:00",
     "additional_focused_checks": {
-      "func_8000CC54": {
+      "func_8000B638": {
         "score": 0,
-        "attempt_record": "3509ecc019a44922a98900df7f470bf2",
+        "attempt_record": "c40aa380f9304c43988ef80c8dccc3a3",
         "layout": "preserved"
       },
-      "func_8000E054": {
+      "func_8000CDA0": {
         "score": 0,
-        "attempt_record": "f866549cb82b4626b34c47322092245f",
+        "attempt_record": "2cacd45d12e54680b0936c45fd15a6eb",
+        "layout": "preserved"
+      },
+      "func_8000E654": {
+        "score": 0,
+        "attempt_record": "1bdfce7c32c84b0499bade7289dcff45",
         "layout": "preserved"
       }
     }
@@ -416,6 +422,13 @@
     ],
     "func_8000D758": [
       164
+    ],
+    "func_8000D2F8": [
+      6132,
+      3869,
+      4761,
+      4414,
+      3869
     ]
   },
   "preserved_candidate_scores": {
@@ -443,7 +456,8 @@
     "func_80011624": 1422,
     "func_80008180": 1235,
     "func_8000E2F4": 196,
-    "func_8000D758": 164
+    "func_8000D758": 164,
+    "func_8000D2F8": 3869
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -551,24 +565,37 @@
       "targeted_revisions_remaining": 0,
       "current_score": 164,
       "reason": "Fresh full-span164 confirms actual parameter stores/reloads already agree relative to frame; proposed object views not edited. Frame38 versus40 and base scheduling remain; prior ID/base shapes exhausted."
-    }
+    },
+    "func_8000D2F8": "Three new forms3869/4761/4414 exhausted; restored3869 recheck exact. Declaration family regresses existing CDA0/E654 (785/250, unit+8) and was fully rolled back. No equivalent data-flow/object-byte views, masks, snapshots or frame shaping without independent new evidence."
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Two new full-span US matches CDA0/B3D4 in init_B1B0; canonical full US ROM and metadata/progress/whitespace gates passed. B1B0 remains incomplete.",
+    "scope": "B1B0 source-local byte helper declarations, improved deferred E2F4 and 8180/D758 exhaustion evidence. Affected existing matched CC54/E054 retain independent full-span CURRENT0 and source-unit layout. Clean canonical US ROM, metadata/progress/whitespace passed. No new C matches.",
     "batch_ids": [
-      "func_8000CDA0",
-      "func_8000B3D4"
+      "func_8000CC54",
+      "func_8000E054"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 34.737,
+    "test_seconds": 39.226,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T12:25:53.564208+00:00"
+    "completed_utc": "2026-10-04T13:32:56.659692+00:00",
+    "additional_focused_checks": {
+      "func_8000CC54": {
+        "score": 0,
+        "attempt_record": "3509ecc019a44922a98900df7f470bf2",
+        "layout": "preserved"
+      },
+      "func_8000E054": {
+        "score": 0,
+        "attempt_record": "f866549cb82b4626b34c47322092245f",
+        "layout": "preserved"
+      }
+    }
   },
   "accidental_equivalent_repeats": {
     "func_8000F568": "byte availability1085 already in inherited defer reason; not new eligible budget",
@@ -724,6 +751,22 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Two new full-span US matches CDA0/B3D4 in init_B1B0; canonical full US ROM and metadata/progress/whitespace gates passed. B1B0 remains incomplete.",
+      "batch_ids": [
+        "func_8000CDA0",
+        "func_8000B3D4"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 34.737,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T12:25:53.564208+00:00"
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -783,6 +826,23 @@
       "shared_dependency": false,
       "new_forms": 0,
       "change": "Fresh comparison disproves proposed parameter-view hypothesis; no body edit."
+    },
+    "func_8000D2F8": {
+      "source": "src/main/init_B1B0.c",
+      "full_span_bytes": 1120,
+      "fresh_baseline": 6132,
+      "historical_preserved_score": 5820,
+      "focused_score": 3869,
+      "attempt_record": "7c9fd3652d104c4ebdec9186396d826d",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 3,
+      "change": "Recover raw status-before-slot evaluation order and actual fullword input/byte channel data flow. Candidate remains disabled beside canonical assembly. Seven helper declaration changes rolled back entirely after existing caller regressions.",
+      "restored_matched_callers": {
+        "func_8000B638": "c40aa380f9304c43988ef80c8dccc3a3",
+        "func_8000CDA0": "2cacd45d12e54680b0936c45fd15a6eb",
+        "func_8000E654": "1bdfce7c32c84b0499bade7289dcff45"
+      }
     }
   }
 }
