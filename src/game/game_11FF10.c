@@ -135,11 +135,11 @@ s32 func_150F3214(void *arg0) {
         (transform = *(s32 *)(link + 0x1D4)) == 0) {
         return 0;
     }
-    func_15143134(&D_800A1950, (f32 *)(owner + 0x34), transform + 0x3C0);
+    func_15143134(&D_800A1950, (f32 *)(owner + 0x34), (s32)((u32)transform + 0x3C0U));
     *(f32 *)(owner + 0x2C) = *(f32 *)(owner + 0x30) =
         *(f32 *)(slot + 0x10) * sqrtf(*(f32 *)(slot + 8));
     *(s8 *)(owner + 0x5C) = (s8)(u32)(*(f32 *)(slot + 0x14) -
-        (*(f32 *)(slot + 0x18) * *(f32 *)(slot + 8) * *(f32 *)(slot + 8)));
+        (*(f32 *)(slot + 8) * (*(f32 *)(slot + 0x18) * *(f32 *)(slot + 8))));
     *(f32 *)(slot + 8) += D_800BE9A4;
     if (*(f32 *)(slot + 0xC) < *(f32 *)(slot + 8)) {
         return 0;

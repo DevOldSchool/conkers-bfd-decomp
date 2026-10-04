@@ -17130,8 +17130,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3092,
-        "reason": "Manual candidate CURRENT (3092): compiler uses 0x48 frame and t0/spills instead of reference 0x30 frame with s0, plus allocation branch/control-flow differences. Needs source lifetime/ABI shape hypothesis.",
+        "current_score": 1571,
+        "reason": "Valid actual input/transfer/output/result lifetimes: CURRENT1571 from3092, S0 recovered and frame48to38 versus raw30. Register hint neutral; stack/constant/branch scheduling remains. Baseline plus two revisions exhausted; retain best.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38849,17 +38849,16 @@
       "symbol": "func_1501DF04"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 2125,
-        "reason": "Manual candidate CURRENT (2125): early 0x1D/0x21 branches compile to shorter branch-likely exits than reference, causing 7 control-flow and 10 missing/extra rows; remaining body mostly aligns. Needs a new branch-shape hypothesis.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 344,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1501E05C",
           "vram": "0x1501E05C"
         }
@@ -40321,8 +40320,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1275,
-        "reason": "CURRENT (1275): parent pointer and transform register scheduling diverge, with final copy-loop control differences; targeted loop preload regressed to CURRENT (2615)",
+        "current_score": 4130,
+        "reason": "Valid wrapping actor/parent/transform addresses and unbounded copy word arithmetic: CURRENT4130; invalid1275 signed/scalar-walk form excluded. Unsigned literal multiply chains remain; actual shared stride regressed4385, earlier preload2615 not repeated. Two fresh exhausted, keep simpler valid repair.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -41835,8 +41834,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1010,
-        "reason": "Manual typed collision-state candidate; unaligned triangle copy recovered, remaining coordinate conversion and instruction scheduling mismatch 1010.",
+        "current_score": 1740,
+        "reason": "Valid wrapping table base and coordinate offsets with full converted word widths: CURRENT1740, invalid1010 signed base form excluded. Actual FP input snapshots/bounded signed index product regressed1760; FP/store/table scheduling remain. Baseline plus two revisions exhausted; keep simpler valid.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -69219,7 +69218,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 36,
-        "reason": "CURRENT (36): frame is 0x30 versus raw 0x28 with a3 spill at +0x30 versus +0x28 and one mul.s operand order; changing arg0 to u8* enlarged stack-row differences, so original candidate retained.",
+        "reason": "Valid wrapping transform pointer addition: CURRENT36 with raw360B frame/home+8 and one multiplication operand swap. Commute final product only moves swap; void* incoming owner reuse regressed44 through slot spill+4. Prior u8* signature probe carried; two fresh exhausted, retain best valid.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

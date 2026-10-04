@@ -194,57 +194,45 @@ s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return size;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (3092) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (1571) */
 s32 func_1502B350(u8 *arg0, s32 arg1, s32 *arg2) {
-    s32 sp2C;
-    s32 sp28;
-    s32 sp20;
-    s32 temp_a0;
-    s32 temp_t4;
-    s32 temp_v0;
-    s32 temp_v0_2;
-    s32 var_s0;
-    s32 var_t0;
-    s32 var_t0_2;
+    s32 size;
+    s32 transfer_size;
+    s32 input;
+    s32 expanded;
+    s32 result;
 
-    temp_a0 = ((arg1 & 0x0FFFFFFF) + 1) & ~1;
-    sp20 = temp_a0;
-    sp2C = temp_a0;
-    temp_v0 = func_10003C40(temp_a0, 1, 2, 2);
-    var_s0 = temp_v0;
-    if (temp_v0 == 0) {
+    size = ((arg1 & 0x0FFFFFFF) + 1) & ~1;
+    transfer_size = size;
+    input = func_10003C40(transfer_size, 1, 2, 2);
+    result = input;
+    if (input == 0) {
         return 0;
     }
-    sp28 = temp_v0;
-    func_10004514((s32)arg0, temp_v0, (sp20 + 0xF) & ~0xF, 1);
-    var_t0 = sp2C;
+    func_10004514((s32)arg0, input, (transfer_size + 0xF) & ~0xF, 1);
     if ((arg1 & 0x70000000) == 0x10000000) {
-        temp_t4 = *(s32 *)sp28 & 0x7FFFFFFF;
-        *arg2 = temp_t4;
-        if (temp_t4 != 0) {
-            var_s0 = 0;
-            if ((u32)temp_t4 < 0xF4240U) {
-                temp_v0_2 = func_10003C40(temp_t4, 1, 2, 2);
-                var_s0 = temp_v0_2;
-                if (temp_v0_2 != 0) {
-                    var_t0_2 = func_10006240(sp28, temp_v0_2, D_8003809C);
+        expanded = *(s32 *)input & 0x7FFFFFFF;
+        *arg2 = expanded;
+        if (expanded != 0) {
+            result = 0;
+            if ((u32)expanded < 0xF4240U) {
+                result = func_10003C40(expanded, 1, 2, 2);
+                if (result != 0) {
+                    size = func_10006240(input, result, D_8003809C);
                 } else {
-                    goto block_10;
+                    size = 0;
                 }
             } else {
-                goto block_10;
+                size = 0;
             }
         } else {
-            var_s0 = 0;
-block_10:
-            var_t0_2 = 0;
+            result = 0;
+            size = 0;
         }
-        sp2C = var_t0_2;
-        func_10004074(sp28);
-        var_t0 = var_t0_2;
+        func_10004074(input);
     }
-    *arg2 = var_t0;
-    return var_s0;
+    *arg2 = size;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502B350 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B350.s")

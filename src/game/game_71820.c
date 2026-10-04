@@ -1294,12 +1294,12 @@ typedef struct Game71820CollisionState {
 s32 func_15145C90(s32);
 extern s32 D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504715C CURRENT (1010) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504715C CURRENT (1740) */
 void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
-    s16 x;
-    s16 y;
-    s16 z;
-    s16 right;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 right;
     s32 index;
     s32 active;
     u16 id;
@@ -1309,12 +1309,12 @@ void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
         x = (s32)arg1->x;
         y = (s32)arg1->height;
         z = (s32)arg1->z;
-        right = x + 1000;
+        right = (s32)((u32)x + 1000U);
         arg0->points[0] = right;
-        arg0->points[3] = x - 1000;
-        arg0->points[2] = z + 1000;
+        arg0->points[3] = (u32)x - 1000U;
+        arg0->points[2] = (u32)z + 1000U;
         arg0->points[6] = right;
-        arg0->points[8] = z - 1000;
+        arg0->points[8] = (u32)z - 1000U;
         arg0->points[1] = y;
         arg0->points[4] = y;
         arg0->points[7] = y;
@@ -1328,7 +1328,7 @@ void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
     index = id - 1;
     if (id != 0) {
         arg0->active = 2;
-        arg0->field20 = D_800DBEF4 + index * 0xA0;
+        arg0->field20 = (s32)((u32)D_800DBEF4 + (u32)index * 0xA0U);
         if (func_15145C90(index) != 0) {
             active = 1;
         } else {
