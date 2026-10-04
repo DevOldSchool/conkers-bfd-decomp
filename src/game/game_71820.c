@@ -172,7 +172,71 @@ void func_1504452C(s32 *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
 void func_15044658(void) {
 
 }
+void func_1507C3E0(void *, s16 *, s16 *, s16 *);
+extern s8 D_8008FD8C;
+extern f32 D_800CBDD8;
+extern f32 D_800CBDDC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044660 CURRENT (1370) */
+void func_15044660(Game71820Global *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    struct {
+        volatile s32 prior_index;
+        u8 pad4[6];
+        s16 depth;
+        s16 width;
+        s16 height;
+    } work;
+    s32 index;
+    s32 kind;
+
+    func_1507C3E0(arg0, &work.height, &work.width, &work.depth);
+    kind = *(s32 *)arg0;
+    if (kind == 0x2D || kind == 0x2E || kind == 0x2C) {
+        index = work.prior_index;
+        D_800CBDDC = 0.0f;
+        D_800CBDD8 = (f32)work.height;
+    } else {
+        index = ((u8 *)arg0 - D_800CC2D0) / 0x32C;
+        work.height = (s16)(s32)((f32)work.height + fabsf(arg2 - arg0->y));
+    }
+    if (arg0->pad0[5] == 5) {
+        D_800CBDDC = 0.0f;
+        D_800CBDD8 = (f32)work.height;
+        return;
+    }
+    if (arg0->pad20[0x8D] != 0) {
+        D_800CBDD8 = (f32)work.height;
+        D_800CBDDC = (f32)(work.height >> 1);
+        return;
+    }
+    kind = arg0->pad0[4];
+    if (kind == 0x53) {
+        D_800CBDD8 = (f32)work.height;
+        D_800CBDDC = (f32)(work.height >> 1);
+        return;
+    }
+    if (kind == 0x28) {
+        D_800CBDD8 = (f32)(work.height - 20);
+        D_800CBDDC = 20.0f + D_800CBDD8 * 0.5f;
+        return;
+    }
+    if (index >= 0 && index < D_8008FD8C && *(f32 *)((u8 *)arg0 + 0x28) != 0.0f) {
+        D_800CBDD8 = (f32)work.height;
+        D_800CBDDC = (f32)(work.height >> 1);
+        return;
+    }
+    if (kind == 0x25) {
+        kind = work.height / 2;
+        D_800CBDD8 = (f32)(work.height - kind);
+        D_800CBDDC = (f32)kind + D_800CBDD8 * 0.5f;
+        return;
+    }
+    D_800CBDD8 = (f32)work.height;
+    D_800CBDDC = (f32)(work.height >> 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15044660 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044660.s")
+
 void *func_15044964(s32, s32, s32, void *, s32, s32, s32, s32);
 
 void *func_150448D0(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {

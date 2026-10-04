@@ -41301,6 +41301,12 @@
       "symbol": "func_15044658"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1370,
+        "reason": "Best 1370 after three bounded candidates; frame and all local homes now exact. Global-address lifetime, index/height registers, redundant halfword reloads and FP scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70920,6 +70926,12 @@
       "symbol": "func_150E1860"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 195,
+        "reason": "Best 195 after three bounded candidates; complete instruction order, frame and homes agree. Remaining 33 rows differ only in integer and float register allocation; manual-only budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -73093,11 +73105,15 @@
       "symbol": "func_15119938"
     },
     {
+      "blocked": {
+        "reason": "Raw caller passes eight arguments to func_151D5404, including explicit words 0xFF and zero at stack18/1C; the registered matched definition has only six parameters. Requires reviewed caller/callee contract reconciliation before exact source-local matching.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 624,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151A6C90",
           "vram": "0x151A6C90"
         }
@@ -76329,11 +76345,15 @@
       "symbol": "func_151BC074"
     },
     {
+      "blocked": {
+        "reason": "Caller consumes the pointer returned by func_15134908, but its existing project declaration and deferred definition return void. Raw callee explicitly returns the created pointer or zero. Requires reviewed return-contract repair across callers.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 620,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151BC104",
           "vram": "0x151BC104"
         }
@@ -84485,6 +84505,12 @@
       "symbol": "func_1512C200"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2316,
+        "reason": "Best 2316 after three bounded candidates; complete vector buffers and raw point readbacks retained. Frame78 versus70, homes+8, late saved point address, aggregate rematerialization and FP scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
