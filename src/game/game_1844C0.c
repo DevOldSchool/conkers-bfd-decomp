@@ -10,7 +10,6 @@
  * - func_15157420
  * - func_15157918
  * - func_15157AA8
- * - func_15157DEC
  * - func_15157F80
  * - func_15157FE8
  *
@@ -349,44 +348,33 @@ s32 func_15157DC8(s32 arg0) {
     func_15157DEC((u8 *)arg0, (u8 *)(arg0 + 0x120));
     return 1;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157DEC CURRENT (320) */
 void func_15157DEC(u8 *arg0, u8 *arg1) {
     u8 *temp_v0;
-    u8 *temp_v0_2;
-    u8 *temp_v0_3;
-    u8 *temp_v0_4;
-    u8 *temp_v0_5;
-    u8 *temp_v0_6;
-    u8 *temp_v0_7;
-    u8 *temp_v0_8;
-    u8 *temp_v0_9;
 
     func_150A8050((u8 *)((s32)arg0 + (D_800BE9C0 << 6) + 0x7C),
                    *(f32 *)(arg1 + 0), *(s32 *)(arg1 + 4), *(f32 *)(arg1 + 8));
     *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xAC) = *(f32 *)(arg0 + 0x54);
     *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xB0) = *(f32 *)(arg0 + 0x58);
     *(f32 *)(arg0 + (D_800BE9C0 << 6) + 0xB4) = *(f32 *)(arg0 + 0x5C);
-    temp_v0 = arg0 + (D_800BE9C0 << 6);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
     *(f32 *)(temp_v0 + 0x7C) *= *(f32 *)(arg1 + 0xC);
-    temp_v0_2 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_2 + 0x80) *= *(f32 *)(arg1 + 0xC);
-    temp_v0_3 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_3 + 0x84) *= *(f32 *)(arg1 + 0xC);
-    temp_v0_4 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_4 + 0x8C) *= *(f32 *)(arg1 + 0x10);
-    temp_v0_5 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_5 + 0x90) *= *(f32 *)(arg1 + 0x10);
-    temp_v0_6 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_6 + 0x94) *= *(f32 *)(arg1 + 0x10);
-    temp_v0_7 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_7 + 0x9C) *= *(f32 *)(arg1 + 0xC);
-    temp_v0_8 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_8 + 0xA0) *= *(f32 *)(arg1 + 0xC);
-    temp_v0_9 = arg0 + (D_800BE9C0 << 6);
-    *(f32 *)(temp_v0_9 + 0xA4) *= *(f32 *)(arg1 + 0xC);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0x80) *= *(f32 *)(arg1 + 0xC);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0x84) *= *(f32 *)(arg1 + 0xC);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0x8C) *= *(f32 *)(arg1 + 0x10);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0x90) *= *(f32 *)(arg1 + 0x10);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0x94) *= *(f32 *)(arg1 + 0x10);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0x9C) *= *(f32 *)(arg1 + 0xC);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0xA0) *= *(f32 *)(arg1 + 0xC);
+    temp_v0 = (u8 *)((u32)arg0 + (D_800BE9C0 << 6));
+    *(f32 *)(temp_v0 + 0xA4) *= *(f32 *)(arg1 + 0xC);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15157DEC */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1844C0/func_15157DEC.s")
 typedef struct Game1844C0DisplayCommand {
     u32 word0;
     void *word1;

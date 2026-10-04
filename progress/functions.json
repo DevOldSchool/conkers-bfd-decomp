@@ -12566,8 +12566,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4258,
-        "reason": "CURRENT (4258): optional-pointer interpolation draft compiles, but IDO allocates a 0x50 rather than raw 0x48 frame and changes control flow, floating-point scheduling, and output-register lifetime.",
+        "current_score": 3547,
+        "reason": "Actual vertical-product snapshot before horizontal store restores raw alias order, CURRENT4258 to3547 and14 to10 missing/extra; frame58/raw48 and FP/control differences remain. Actual arg4 home reuse neutral3547 identical instructions; retain snapshot-only revision. Two fresh revisions exhausted; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40409,7 +40409,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 979,
-        "reason": "CURRENT (979): raw call ABI improved with f32 arguments and s32 selection, but frame is 0x48 versus raw 0x40, actor-index subtraction is delayed past the initial branch, and register/control-flow scheduling differs around the helper calls. Width probe regressed to 1204 and was reverted; existing dirty-file candidates were preserved.",
+        "reason": "Valid wrapping actor word subtraction then signed DIV812 CURRENT979; replaces invalid scalar-object pointer subtraction. Actual mode/value reuse neutral979, prior narrow widths1204 worse. Remaining frame48/raw40, delayed SUBU, selection/byte registers and merged mode reload; two fresh revisions exhausted. No ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49767,17 +49767,16 @@
       "symbol": "func_15157DC8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 320,
-        "reason": "CURRENT (320): instruction sequence and operands match, but 44 register-allocation rows differ, chiefly the global-byte address in v0 rather than raw v1; manual pointer-expression probe improved only one row.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 404,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15157DEC",
           "vram": "0x15157DEC"
         }
@@ -54829,8 +54828,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 190,
-        "reason": "CURRENT (190): full-span control flow and stack align; 19 register-only rows cluster in inner ring-index update and final vector copy, with li v0,1 placed at epilogue rather than before final branch. Branch-local return experiment regressed.",
+        "current_score": 115,
+        "reason": "Valid wrapping tick products/subtractions plus actual current ring-index snapshot and byte-store reloads CURRENT190 to115;19 to6 register rows. Remaining reversed branch operands, final vector cursor v0/rawt8 and return1 placement. Prior branch-local returns regressed; two fresh revisions exhausted. No ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87453,7 +87452,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1095,
-        "reason": "CURRENT (1095): frame and most operations align, but raw keeps initial arg0 in s0 and output pointer in s1, whereas C spills arg0 and uses s0 for output; 20 register-only, 3 control-flow and 6 missing/extra rows. Register-lifetime probe regressed; ABI-width probe did not change score.",
+        "reason": "Valid wrapping count SLL6 with signed allocator word CURRENT1095; FE10 raw SRL4 permits0x0fffffff, so legacy signed shift invalid. Frame40 correct; model spills instead of raw s0, output s0/raw s1, actor snapshot spills,20 register and6 missing/extra rows. Prior lifetime and width probes exhausted; no new supported hypothesis. One fresh correctness revision; no ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -1145,7 +1145,7 @@ void func_1507EABC(void *);
 void func_1502FBE8(void *arg0) {
     u8 *actor = arg0;
     u8 current = actor[0x1C9];
-    s32 actor_index = (actor - &D_800CC2D0) / 0x32C;
+    s32 actor_index = (s32)((u32)actor - (u32)&D_800CC2D0) / 0x32C;
     void *old;
     s32 next;
     s32 selection;

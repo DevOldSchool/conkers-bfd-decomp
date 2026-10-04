@@ -1714,7 +1714,7 @@ extern f32 D_800D9B20;
 extern u8 *D_800BE628;
 extern u8 D_800D9D10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144CEC CURRENT (4258) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15144CEC CURRENT (3547) */
 s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
                   f32 *arg4, u8 arg5) {
     f32 sp44;
@@ -1722,6 +1722,7 @@ s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
     f32 sp3C;
     f32 *var_t0;
     f32 temp_fv0;
+    f32 vertical_product;
     s32 temp_t9;
     u8 *temp_v1;
 
@@ -1745,10 +1746,11 @@ s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
         *var_t0 = 1.0f / temp_fv0;
         temp_t9 = arg5 * 0x180;
         temp_v1 = D_800BE628 + temp_t9;
+        vertical_product = arg1[1] * (*(f32 *)(temp_v1 + 0x10) + 5.0f);
         arg1[0] = (*var_t0 * (arg1[0] * (*(f32 *)(temp_v1 + 0xC) + 5.0f))) +
                   *(f32 *)(temp_v1 + 0x34);
         arg1[1] = *(f32 *)(D_800BE628 + temp_t9 + 0x38) -
-                  (*var_t0 * (arg1[1] * (*(f32 *)(temp_v1 + 0x10) + 5.0f)));
+                  (*var_t0 * vertical_product);
         return 1;
     }
     return 0;
