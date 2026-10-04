@@ -29556,6 +29556,12 @@
       "symbol": "func_1501905C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1415,
+        "reason": "Best CURRENT 1415; native frame and lifecycle calls retained, counter loop receives extra compiler unrolling and cleanup; bounded manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53333,6 +53339,12 @@
       "symbol": "func_150ED234"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6825,
+        "reason": "Best CURRENT 6825 after three comparisons and one missing-header compile repair; native SQRT.S and B8 frame restored, but matrix54 versus3C, output homes, scalar spills and control/register scheduling remain. Full64byte matrix and one-input cosine proved; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64787,6 +64799,12 @@
       "symbol": "func_1509F850"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1193,
+        "reason": "Best CURRENT 1193; all ROM-proven switch cases recovered, extra cursor spill removed, but frame/homes, scheduling and table relocation remain; bounded manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71163,6 +71181,12 @@
       "symbol": "func_150D08C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2195,
+        "reason": "Best CURRENT 2195 after three bounded comparisons; true float snapshots recover branch spills and most FP arithmetic, but clamp control/precoloring, home30 versus34, eliminated intermediate flag store and schedules remain. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79615,11 +79639,15 @@
       "symbol": "func_15085420"
     },
     {
+      "blocked": {
+        "reason": "Native target forwards full A1 unchanged to 15084D70; matched caller declares target second argument s32. Active shared 15084D70 prototype is u8, but raw helper stores/loads full word and tests -1 at 15084E08 before 0FFF mask. Narrowing loses sentinel and adds nonnative conversion; shared helper contract audit/repair requires separate authorization. Target untouched.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 736,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15085430",
           "vram": "0x15085430"
         }
