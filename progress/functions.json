@@ -38183,6 +38183,12 @@
       "symbol": "func_1507F640"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2919,
+        "reason": "Manual-only budget exhausted; best CURRENT2919 preserved. Frame50 vs48, mask/sequence homes and branch scheduling remain; old-value sound cycle corrected.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -44302,6 +44308,12 @@
       "symbol": "func_151EA15C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3192,
+        "reason": "Best 3192 after three bounded candidates; prologue saves now agree. FrameA0 versusA8, power homes+8, divisor-base reuse, packet cursor scheduling and scratch registers remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52148,6 +52160,12 @@
       "symbol": "func_1515080C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 979,
+        "reason": "Manual budget exhausted; best CURRENT979 retained. FrameD0 and saved-register ownership restored; output homes, parameter mask/store timing and scratch/FP registers remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -74611,11 +74629,15 @@
       "symbol": "func_151A25E0"
     },
     {
+      "blocked": {
+        "reason": "Raw function explicitly returns zero in v0, but project caller-family declarations are void (game_10D7B0, game_1D4AC0, game_1E58B0, game_1E9820). Reconcile the shared return contract before exact C matching; no candidate or shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 628,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151A26EC",
           "vram": "0x151A26EC"
         }
@@ -86978,6 +87000,12 @@
       "symbol": "func_150BABE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2488,
+        "reason": "Manual budget exhausted; best CURRENT2488 retained. FrameB8 exact; packet/angle/trig stack homes, byte-address rematerialization and float scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

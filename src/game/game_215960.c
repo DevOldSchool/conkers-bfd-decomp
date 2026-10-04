@@ -228,7 +228,76 @@ void *func_151E86E4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E966C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151E9D18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EA15C.s")
+typedef struct GameEADFCCommand { u32 upper; u32 lower; } GameEADFCCommand;
+typedef struct GameEADFCPowers { s32 value[7]; } GameEADFCPowers;
+extern GameEADFCPowers D_8009009C;
+extern s32 D_80090074[];
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+void *func_151E86E4(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151EADFC CURRENT (3192) */
+void *func_151EADFC(GameEADFCCommand *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    GameEADFCPowers powers;
+    s32 *cursor;
+    s32 *first;
+    s32 *textures;
+    s32 digit;
+    s32 divisor;
+    s32 started;
+    s32 texture;
+    GameEADFCCommand *command;
+
+    powers = D_8009009C;
+    arg1 = (u32)arg1 << 2;
+    arg2 = (u32)arg2 << 2;
+    if (arg3 >= 10000000) arg3 = 9999999;
+    started = 0;
+    if (arg3 < 0) arg3 = 0;
+    textures = D_80090074;
+    first = powers.value;
+    cursor = &powers.value[6];
+    do {
+        divisor = *cursor;
+        digit = arg3 / divisor;
+        arg3 %= divisor;
+        if (digit > 0 || started != 0 || cursor == first) {
+            started = 1;
+            texture = func_1510D0EC(textures[digit], 0, 3, 0);
+            if ((u32)texture != 0x80000000U) {
+                command = arg0++;
+                command->upper = 0xFD180000;
+                command->lower = texture;
+                command = arg0++;
+                command->upper = 0xF5180000;
+                command->lower = 0x07094250;
+                command = arg0++;
+                command->upper = 0xE6000000;
+                command->lower = 0;
+                command = arg0++;
+                command->lower = 0x073FF000;
+                command->upper = 0xF3000000;
+                command = arg0++;
+                command->upper = 0xE7000000;
+                command->lower = 0;
+                command = arg0++;
+                command->upper = 0xF5181000;
+                command->lower = 0x94250;
+                command = arg0++;
+                command->upper = 0xF2000000;
+                command->lower = 0x7C07C;
+                arg0 = func_151E86E4((u8 *)arg0, arg1, arg2,
+                         (u32)arg1 + 0x80, (u32)arg2 + 0x80,
+                         0, 0, 0, 0x400, 0x400);
+            }
+            arg1 = (u32)arg1 + 0x60;
+        }
+        cursor = (s32 *)((u32)cursor - 4);
+    } while ((u32)cursor >= (u32)powers.value);
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151EADFC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EADFC.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_215960/func_151EB06C.s")
 extern s16 D_8008FDCC;
 extern s32 func_151EA15C(s32, s32, s16, s32);
