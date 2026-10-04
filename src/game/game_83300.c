@@ -2822,7 +2822,121 @@ void func_150627D4(void *arg0) {
     func_1503B840(arg0);
     func_15039CC8(arg0);
 }
+typedef struct Game83300SwapChild {
+    u8 pad0[0x197];
+    u8 field197;
+} Game83300SwapChild;
+
+typedef struct Game83300SwapView {
+    u8 pad0[0x3D4];
+    Game83300SwapChild *child;
+    u8 pad3D8[0x5C8];
+} Game83300SwapView;
+
+/* Whole actor copies and bank arithmetic prove strides 0x32C and 0x9A0. */
+typedef struct Game83300SwapActor {
+    s32 active;
+    u8 pad4[0x37];
+    u8 generation;
+    u8 pad3C[0x29];
+    u8 owner;
+    u8 pad66[0xC1];
+    s8 slot127;
+    u8 pad128[0x14];
+    u8 link;
+    u8 peer;
+    u8 pad13E;
+    s8 slot13F;
+    u8 pad140[4];
+    s32 header;
+    u8 pad148[0x18C];
+    u8 *effect;
+    u8 pad2D8[0x40];
+    Game83300SwapView *view;
+    Game83300SwapChild *child;
+    u8 pad320[0xC];
+} Game83300SwapActor;
+
+void func_15146508(void *, void *);
+void func_15033EC4(s32, s32);
+void func_150615DC(void *);
+extern Game83300SwapView *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15062800 CURRENT (4339) */
+void func_15062800(Game83300SwapActor *arg0, Game83300SwapActor *arg1) {
+    Game83300SwapActor copy;
+    s32 secondIndex;
+    s32 firstIndex;
+    s32 secondGeneration;
+    s32 firstGeneration;
+    s32 header;
+    s32 viewOffset;
+    s32 i;
+    s32 owner;
+    Game83300SwapActor *actor;
+    Game83300SwapActor *table;
+
+    func_15146508(arg0, arg1);
+    func_10023A10(arg1, &copy, 0x32C);
+    func_10023A10(arg0, arg1, 0x32C);
+    func_10023A10(&copy, arg0, 0x32C);
+    table = (Game83300SwapActor *) &D_800CC2D0;
+    secondIndex = ((s32) arg1 - (s32) table) / 0x32C;
+    firstIndex = ((s32) arg0 - (s32) table) / 0x32C;
+    secondGeneration = secondIndex + 1;
+    arg1->slot127 = secondIndex;
+    arg1->generation = secondGeneration;
+    arg1->slot13F = secondIndex;
+    viewOffset = secondIndex * 0x9A0;
+    arg1->view = (Game83300SwapView *) ((u8 *) D_800DBFF0 + viewOffset);
+    firstGeneration = firstIndex + 1;
+    arg0->slot127 = firstIndex;
+    arg0->generation = firstGeneration;
+    arg0->slot13F = firstIndex;
+    arg0->view = 0;
+    header = arg0->header;
+    arg0->header = arg1->header;
+    arg1->header = header;
+    ((Game83300SwapView *) ((u8 *) D_800DBFF0 + viewOffset))->child = arg1->child;
+    arg1->child->field197 = 0;
+    func_15033EC4(arg1->generation, arg0->generation);
+    if (arg1->effect != 0) {
+        func_1516972C(arg1->effect);
+        arg1->effect = 0;
+    }
+    if (arg0->effect != 0) {
+        func_1516972C(arg0->effect);
+        arg0->effect = 0;
+    }
+    func_150615DC(arg1);
+    i = 0;
+    do {
+        if (i != secondIndex && i != firstIndex) {
+            actor = (Game83300SwapActor *) ((u8 *) &D_800CC2D0 + i * 0x32C);
+            if (actor->active != 0) {
+                owner = actor->owner;
+                if (owner != 0) {
+                    owner--;
+                    if (owner == secondIndex) {
+                        actor->owner = firstGeneration;
+                    } else if (owner == firstIndex) {
+                        actor->owner = secondGeneration;
+                    }
+                }
+            }
+        }
+        i++;
+    } while (i != 25);
+    owner = arg1->link;
+    if (owner >= 100) {
+        actor = (Game83300SwapActor *) ((u8 *) &D_800CC2D0 + ((owner - 100) & 0xFF) * 0x32C);
+        actor->peer = secondIndex + 100;
+    }
+    func_150627D4(arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15062800 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062800.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15062AC4 CURRENT (260) */
 void func_15062AC4(void *arg0) {
     f32 temp_fv0;

@@ -16,7 +16,103 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game114B80Choices {
+    s32 value[3];
+} Game114B80Choices;
+
+typedef struct Game114B80Rectangle {
+    f32 x, y, width, height;
+    s8 kind, pad11;
+    s16 lifetime;
+    u16 flags;
+    s16 field16, field18;
+    u8 field1A, field1B, field1C, field1D, field1E;
+    u8 field1F, field20, field21, field22, field23;
+    s32 field24, field28, field2C, field30;
+    s32 field34, field38, field3C;
+    u8 field40, field41, pad42[2], field44, pad45[3];
+    f32 scaleX, scaleY, offsetX, offsetY;
+} Game114B80Rectangle;
+
+s32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void *func_1515548C(Game114B80Rectangle *, s32, s32, s32, s32, s32, s32);
+extern Game114B80Choices D_80088A68, D_80088A74;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E76D0 CURRENT (1082) */
+void func_150E76D0(f32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    s32 random;
+    Game114B80Rectangle rectangle;
+    u8 selector;
+    Game114B80Choices horizontal;
+    Game114B80Choices vertical;
+
+    random = func_150ADA20();
+    rectangle.lifetime = *((s16 *) &arg1 + 1);
+    rectangle.field18 = *((s16 *) &arg6 + 1);
+    selector = random & 3;
+    rectangle.flags = *((u8 *) &arg2 + 3) & 0xFFF9;
+    rectangle.field1A = 5;
+    rectangle.field1B = 255;
+    rectangle.field1C = 230;
+    rectangle.field1D = 190;
+    rectangle.field1F = 255;
+    rectangle.field16 = *((s16 *) &arg5 + 1);
+    rectangle.field1E = *((u8 *) &arg3 + 3);
+    rectangle.field20 = 255;
+    rectangle.field21 = 255;
+    rectangle.field22 = 255;
+    rectangle.field24 = 1;
+    rectangle.field28 = 0;
+    rectangle.field2C = 0;
+    rectangle.field40 = 0;
+    rectangle.field41 = 10;
+    rectangle.field30 = 7;
+    rectangle.field34 = 60;
+    rectangle.field38 = 128;
+    rectangle.field3C = 32;
+    rectangle.height = arg0;
+    rectangle.width = arg0;
+    rectangle.field23 = *((u8 *) &arg4 + 3);
+    /* The sole raw caller supplies flags 9; optional scale/offset fields are inactive. */
+    switch (selector) {
+    case 0:
+    case 1:
+        horizontal = D_80088A68;
+        rectangle.kind = horizontal.value[(u32) func_150ADA20() % 3U];
+        rectangle.y = func_150ADA68() * 160.0f + -80.0f;
+        switch (selector) {
+        case 0:
+            rectangle.flags |= 2;
+            rectangle.x = 145.0f - arg0;
+            break;
+        case 1:
+            rectangle.x = arg0 - 145.0f;
+            break;
+        }
+        break;
+    case 2:
+    case 3:
+        vertical = D_80088A74;
+        rectangle.kind = vertical.value[(u32) func_150ADA20() % 3U];
+        rectangle.x = func_150ADA68() * 260.0f + -130.0f;
+        switch (selector) {
+        case 2:
+            rectangle.flags |= 4;
+            rectangle.y = 110.0f - arg0;
+            break;
+        case 3:
+            rectangle.y = arg0 - 110.0f;
+            break;
+        }
+        break;
+    }
+    func_1515548C(&rectangle, 0, arg7, arg8, 0, *((u8 *) &arg9 + 3), arg10);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E76D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E76D0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7994.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_114B80/func_150E7C9C.s")
 typedef struct GameE7FECLocals {

@@ -10741,6 +10741,12 @@
       "symbol": "func_150627D4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4339,
+        "reason": "Three manual comparisons exhausted; best CURRENT 4339 retains complete 812-byte actor copy and two-input helper; divide-check scheduling, index allocation and stack layout remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50230,6 +50236,12 @@
       "symbol": "func_151B2348"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4223,
+        "reason": "Three manual comparisons exhausted; best CURRENT 4223 preserves complete 56/48/40-byte records; extra owner lifetime, stack bases and FP scheduling remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60909,6 +60921,12 @@
       "symbol": "func_150F48D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1667,
+        "reason": "Manual budget exhausted; bestCURRENT1667; frame68vs60, extra nested pointer home, delta/distance bases and flags/control schedule remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78508,6 +78526,12 @@
       "symbol": "func_150FC818"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1082,
+        "reason": "Manual budget exhausted; bestCURRENT1082 exactframeB0/alllocaladdresses; initializer register ownership and branch-tail schedule remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -83739,6 +83763,12 @@
       "symbol": "func_150B031C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1851,
+        "reason": "Manual budget exhausted; retain best CURRENT1851 typed108-byte burst and60-byte emission, exact frame and argument homes; initial global-load/store scheduling remains",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
