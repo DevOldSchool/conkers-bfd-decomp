@@ -12,6 +12,74 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game11FF10Actor {
+    u8 pad0[0x120];
+    u8 disabled;
+    u8 pad121[0x1C3];
+    s32 scroll;
+    u8 pad2E8[0x44];
+} Game11FF10Actor;
+
+void func_10010630(u16, void *, s32, s16, u16);
+void func_15060F28(u8 *, s32);
+void func_1507CD64(void *, s32);
+void *func_15083E90(u8);
+s32 func_151149AC(u8);
+void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void func_15145A50(u8 *);
+void func_15196318(void *, s32, s32);
+extern void **D_800BE4F0;
+extern u8 D_800CC2D0;
+extern u8 D_800CC40C;
+extern s8 D_800CC49A;
+extern void *D_800CC5EC;
+extern s32 D_800DBEF4;
+extern s32 D_800DBF94;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F2A60 CURRENT (3125) */
+void func_150F2A60(s32 arg0) {
+    s32 negative;
+    s32 resource;
+    s32 i;
+    s32 index;
+    Game11FF10Actor *actor;
+
+    if (D_800CC5EC != 0) {
+        i = 0;
+        if (((Game11FF10Actor *)D_800CC5EC)->disabled == 0) {
+loop:
+            {
+                resource = func_151149AC((u8)(0xFA - i));
+                i++;
+                index = (resource - D_800DBEF4) / 160;
+                if (*(s32 *)(D_800DBF94 + index * 4) & 1) {
+                    if (D_800CC40C != 0) {
+                        func_15060F28((u8 *)(D_800CC40C * 0x32C - 81200 + (u32)&D_800CC2D0), 0);
+                    }
+                    D_800CC49A = 0;
+                    func_15136C3C(&D_800CC2D0, 0, 0, 1, 1, 0, 0xFF, 1);
+                    func_10010630(0x627, &D_800CC2D0, 0x6D60, 0x1F4, 0x3E8);
+                    func_15145A50(&D_800CC2D0);
+                    func_1507CD64(&D_800CC2D0, 6);
+                } else if (i < 2) {
+                    goto loop;
+                }
+            }
+            actor = func_15083E90(0xE);
+            if (actor != 0) {
+                i = actor->scroll;
+            } else {
+                i = 0;
+            }
+            func_15196318(D_800BE4F0[0], i, 0);
+            negative = -i;
+            func_15196318(D_800BE4F0[1], 0, negative);
+            func_15196318(D_800BE4F0[2], i, 0);
+            func_15196318(D_800BE4F0[3], negative, 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F2A60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11FF10/func_150F2A60.s")
 void func_10022EC0(void *, void *, s32);
 s32 func_15149130(s32, s32, s32, s32, s32, s32, s32, s32, s32);

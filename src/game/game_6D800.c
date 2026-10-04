@@ -220,7 +220,98 @@ void func_15040A60(s32 arg0) {
 void func_15040A6C(s32 arg0) {
 
 }
+typedef struct {
+    u32 word0;
+    u32 word1;
+} Game6D800Command;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15040A78 CURRENT (5288) */
+void func_15040A78(u32 arg0, u32 arg1, u32 arg2) {
+    u32 stack[20];
+    u8 active;
+    s32 depth;
+    s32 *segment;
+    u32 current;
+    u8 opcode;
+    u32 address;
+    u32 word;
+    s32 offset;
+    s32 count;
+    s32 index;
+
+    depth = 0;
+    for (segment = D_800C6860; segment != D_800C6860 + 16; segment++) {
+        *segment = -1;
+    }
+    D_800C6860[0] = 0;
+    active = 0;
+    current = arg0;
+    if (arg2 >= current) {
+        do {
+            if (current == arg1) {
+                active = 1;
+            }
+            opcode = *(u8 *)current;
+            if (active) {
+                D_800844B0[opcode]((void *)current);
+            }
+            if (current == arg2) {
+                active = 0;
+            }
+            switch (opcode) {
+            case 0xDF:
+                depth--;
+                current = stack[depth];
+                break;
+            case 0xDE:
+                stack[depth] = current + 8;
+                address = ((Game6D800Command *)current)->word1;
+                depth++;
+                current += 8;
+                if (D_800C6860[(address >> 24) & 0xF] != -1) {
+                    current = ((address & 0xFFFFFF) + D_800C6860[(address >> 24) & 0xF]) | 0x80000000;
+                } else {
+                    depth--;
+                }
+                break;
+            case 0xDB:
+                word = ((Game6D800Command *)current)->word0;
+                address = ((Game6D800Command *)current)->word1;
+                offset = word & 0xFFFF;
+                if (((word >> 16) & 0xFF) == 6) {
+                    D_800C6860[offset >> 2] = address;
+                }
+                current += 8;
+                break;
+            case 1:
+                if (active) {
+                    word = ((Game6D800Command *)current)->word0;
+                    count = (word >> 12) & 0xFF;
+                    index = 0;
+                    if (count > 0) {
+                        do {
+                            index++;
+                        } while (index != count);
+                    }
+                }
+                current += 8;
+                break;
+            case 0xDA:
+                current += 8;
+                break;
+            case 0xDC:
+                current += 8;
+                break;
+            default:
+                current += 8;
+                break;
+            }
+        } while (arg2 >= current || depth > 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15040A78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6D800/func_15040A78.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15040CC8 CURRENT (1908) */
 void func_15040CC8(s32 arg0) {
     s32 var_s0;

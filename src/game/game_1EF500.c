@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_dense_pointer_families_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_151C2050
  * - func_151C229C
  * - func_151C2734
  * - func_151C2AD0
@@ -20,7 +19,68 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2050.s")
+typedef struct Game1EF500EmitterVector {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game1EF500EmitterVector;
+
+typedef struct {
+    u8 pad0[0x3A0];
+    f32 angle;
+} Game1C2050Player;
+
+typedef struct {
+    u8 pad0[0x318];
+    Game1C2050Player *player;
+} Game1C2050Owner;
+
+typedef struct {
+    u8 pad0[0x2C];
+    s16 id;
+} Game1C2050Scene;
+
+void func_1000E7A0(u32, s32);
+s32 func_100114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
+s32 func_1510F8CC(s32);
+s32 func_1000B060(f32, f32, u32);
+extern f32 D_800AAA30, D_800AAA34;
+extern Game1C2050Scene *D_800B0DF0;
+extern u8 D_800BE616;
+
+void func_151C2050(Game1C2050Owner *arg0, Game1EF500EmitterVector *arg1,
+                    Game1EF500EmitterVector *arg2, s32 arg3, f32 arg4) {
+    s32 pan;
+    s32 volume;
+    s16 scene;
+    s32 direction;
+    s16 playerScene;
+    Game1C2050Player *player;
+    f32 intensity;
+
+    if (arg0 != 0) {
+        if (D_800BE616 != 0 || (player = arg0->player) == 0) {
+            scene = D_800B0DF0->id;
+            if (scene == 0x24 || scene == 0x13 || scene == 0x4D || scene == 0x85 || scene == 0x93) {
+                func_100114D0((s32)arg1->x, (s32)arg1->y, (s32)arg1->z,
+                    0x7FFF, 0x3E8, 0x64, &pan, &volume, 0);
+                if ((u32)volume >= 0x1001U) {
+                    volume = (u32)volume >> 7;
+                    func_1000E7A0(8, (func_1510F8CC(arg3) + 1) | (volume << 8) | (pan << 16));
+                }
+            }
+        } else {
+            playerScene = D_800B0DF0->id;
+            if (playerScene == 0x24 || playerScene == 0x13) {
+                intensity = 255.0f - arg4 * D_800AAA30;
+                if (intensity > 16.0f) {
+                    direction = func_1000B060(arg2->x, arg2->z, (u32)(player->angle * D_800AAA34));
+                    func_1000E7A0(8, (func_1510F8CC(arg3) + 1) | ((s32)intensity << 8) | (direction << 16));
+                }
+            }
+        }
+    }
+}
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C229C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2734.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EF500/func_151C2AD0.s")
@@ -58,11 +118,6 @@ void func_15081690(f32, s32, s32, s32, f32, f32, f32, void *, f32,
 void func_151C2EF0(s32 arg0, s32 arg1, void *arg2, s32 arg3, s32 arg4, s32 arg5) {
     func_151D4DAC(arg0, arg1, arg3, arg4, arg5, *(s32 *)((u8 *)arg2 + 0x1B4), (u8 *)arg2 + 0x170, *(u8 *)((u8 *)arg2 + 0xC), *(u8 *)((u8 *)arg2 + 1));
 }
-typedef struct Game1EF500EmitterVector {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game1EF500EmitterVector;
 
 typedef struct Game1EF500EmitterParticle {
     s32 field0;

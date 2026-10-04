@@ -53,6 +53,60 @@ void *func_151A7950(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7950.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7A90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7D6C.s")
+typedef struct {
+    u8 pad0[0x64];
+    f32 (*points)[6];
+} Game1D4E00Curve;
+
+f32 func_150ADA68(void);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A8340 CURRENT (5170) */
+void func_151A8340(Game1D4E00Curve *arg0, s16 arg1, s16 arg2, f32 arg3, s32 arg4) {
+    f32 random;
+    f32 width;
+    f32 bias;
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    s16 firstIndex;
+    s16 lastIndex;
+    s16 middle;
+    s16 nextDepth;
+    s32 span;
+    f32 *first;
+    f32 *last;
+
+    firstIndex = arg1;
+    lastIndex = arg2;
+    span = lastIndex - firstIndex;
+    if (span >= 2) {
+loop:
+        if (((s16 *)&arg4)[1] > 0) {
+        middle = firstIndex + (span >> 1);
+        first = arg0->points[firstIndex];
+        last = arg0->points[lastIndex];
+        dx = last[0] - first[0];
+        dy = last[1] - first[1];
+        dz = last[2] - first[2];
+        random = func_150ADA68();
+        width = arg3 + arg3;
+        bias = -arg3;
+        arg0->points[middle][0] = (first[0] + dx * 0.5f) + (random * width + bias);
+        arg0->points[middle][1] = (first[1] + dy * 0.5f) + (func_150ADA68() * width + bias);
+        arg0->points[middle][2] = first[2] + dz * 0.5f;
+        nextDepth = ((s16 *)&arg4)[1] - 1;
+        func_151A8340(arg0, firstIndex, middle, arg3, nextDepth);
+        lastIndex = lastIndex;
+        span = lastIndex - middle;
+        firstIndex = middle;
+        ((s16 *)&arg4)[1] = nextDepth;
+        if (span >= 2) {
+            goto loop;
+        }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A8340 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8340.s")
 void func_151A8560(s32 arg0) {
     func_151D5E30(arg0 + 0x6C, arg0);
@@ -205,6 +259,101 @@ void *func_151A8624(u8 *arg0, Game1D4E00Vector *arg1, s32 arg2, s32 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A8624 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A8624.s")
+typedef struct Game1D4E00Owner {
+    s32 active;
+    u8 type;
+    u8 pad5[0xF];
+    Game1D4E00Vector position;
+    u8 pad20[0x1B];
+    u8 generation;
+    u8 pad3C[0x198];
+    u8 *transform;
+} Game1D4E00Owner;
+
+typedef struct Game1D4E00Beam {
+    u8 pad0[0x1C];
+    u8 flags;
+    u8 pad1D[0x13];
+    Game1D4E00Vector position;
+    Game1D4E00Vector endpoint;
+    Game1D4E00Vector perpendicular;
+    f32 length;
+    f32 inverse_length;
+    u8 pad5C[4];
+    Game1D4E00OwnerData *owner_data;
+} Game1D4E00Beam;
+
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *, f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+void func_15143134(f32 *, f32 *, s32);
+f32 func_15143E64(void *);
+s32 func_15145C90(s32);
+s32 func_15146078(void *, void *, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A87F8 CURRENT (2941) */
+s32 func_151A87F8(Game1D4E00Beam *arg0) {
+    Game1D4E00OwnerData *data;
+    Game1D4E00Owner *owner;
+    Game1D4E00Vector delta;
+    s32 hit;
+    f32 x;
+    f32 z;
+    f32 y;
+    Game1D4E00Vector scratch;
+    f32 length;
+    u8 *transform;
+    f32 dx;
+    f32 dy;
+
+    data = arg0->owner_data;
+    owner = data->owner;
+    if (owner->active == 0 || owner->generation != data->generation || owner->type == 0xFF) {
+        return 0;
+    }
+    transform = owner->transform;
+    if (transform != 0) {
+        func_15143134(&data->position.x, &arg0->position.x, (s32)(transform + (data->style << 6)));
+        if (!(data->flag25 & 1)) {
+            x = arg0->position.x;
+            z = arg0->position.z;
+            y = arg0->position.y;
+            if (func_150AC9C0(x, y, z,
+                              dx = x - (owner->position.x + data->offset.x),
+                              dy = y - (owner->position.y + data->offset.y),
+                              z - (owner->position.z + data->offset.z),
+                              0, 0, &arg0->endpoint.x, &arg0->endpoint.y, &arg0->endpoint.z,
+                              0, &hit, 0, 0.0f) != 0) {
+                if (func_15145C90(hit) != 0) {
+                    data->flag25 |= 1;
+                } else {
+                    arg0->flags &= ~2;
+                    return 1;
+                }
+            } else {
+                arg0->flags &= ~2;
+                return 1;
+            }
+        }
+        delta.x = arg0->endpoint.x - arg0->position.x;
+        delta.y = arg0->endpoint.y - arg0->position.y;
+        delta.z = arg0->endpoint.z - arg0->position.z;
+        length = func_15143E64(&delta);
+        arg0->length = length;
+        if (length != 0.0f) {
+            arg0->inverse_length = 1.0f / arg0->length;
+            func_15146078(&delta, &scratch, &arg0->perpendicular);
+            arg0->flags |= 2;
+            goto done;
+        } else {
+            arg0->flags &= ~2;
+            goto done;
+        }
+    } else {
+        arg0->flags &= ~2;
+    }
+done:
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A87F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A87F8.s")
 typedef void (*Game1D4E00Callback)(void *, s32, u8);
 

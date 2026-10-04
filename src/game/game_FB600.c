@@ -53,9 +53,20 @@ void *func_150CE150(void *arg0, s16 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150CE150 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_FB600/func_150CE150.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FB600/func_150CE200.s")
+typedef struct {
+    s32 active;
+    u8 pad4[0x37];
+    u8 generation;
+    u8 pad3C[0x198];
+    s32 transform;
+} GameFB600LinkedObject;
+
 typedef struct GameFB600Remap {
-    u8 pad0[0x10];
+    GameFB600LinkedObject *object;
+    u8 generation;
+    u8 pad5[3];
+    f32 width;
+    f32 height;
     s32 step;
     u8 flags;
     u8 pad15[3];
@@ -63,7 +74,7 @@ typedef struct GameFB600Remap {
     u32 top;
     u32 right;
     u32 bottom;
-    u8 pad28[8];
+    f32 center[2];
     s16 columns[0x280];
     s16 rows[0x280];
 } GameFB600Remap;
@@ -72,6 +83,74 @@ typedef struct GameFB600Actor {
     u8 pad0[0x18];
     GameFB600Remap remap;
 } GameFB600Actor;
+
+void func_15143134(f32 *, f32 *, s32);
+s32 func_15144CEC(f32 *, f32 *, f32 *, f32 *, f32 *, s32);
+extern s32 D_80082FA4;
+extern f32 D_800A07F0[3];
+extern f32 D_800A0800;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CE200 CURRENT (960) */
+s32 func_150CE200(GameFB600Actor *arg0) {
+    f32 transformed[3];
+    f32 projectedZ;
+    f32 projectedW;
+    f32 scale;
+    GameFB600Remap *remap;
+    f32 width;
+    f32 height;
+    f32 maxX;
+    s32 transform;
+
+    remap = &arg0->remap;
+    if (arg0->remap.object->active == 0) {
+        return 0;
+    }
+    if (remap->generation != remap->object->generation) {
+        return 0;
+    }
+    transform = remap->object->transform;
+    if (transform == 0) {
+        remap->flags &= 0xFFFE;
+    } else {
+        func_15143134(D_800A07F0, transformed, transform + 0xD00);
+        if (func_15144CEC(transformed, remap->center, &projectedZ, &projectedW, &scale, D_80082FA4)) {
+            maxX = D_800A0800;
+            width = remap->width * scale;
+            height = remap->height * scale;
+            remap->left = (s32)(remap->center[0] - width);
+            remap->top = (s32)(remap->center[1] - height);
+            remap->right = (s32)(remap->center[0] + width);
+            remap->bottom = (s32)(remap->center[1] + height);
+            if (maxX < (f32)(s32)remap->left ||
+                (f32)(s32)remap->right < 0.0f ||
+                (f32)(s32)remap->top > 215.0f ||
+                (f32)(s32)remap->bottom < 0.0f) {
+                remap->flags &= 0xFFFE;
+            } else {
+                if ((f32)(s32)remap->left < 0.0f) {
+                    remap->left = 0;
+                }
+                if ((f32)(s32)remap->top < 0.0f) {
+                    remap->top = 0;
+                }
+                if (maxX < (f32)(s32)remap->right) {
+                    remap->right = 0x123;
+                }
+                if ((f32)(s32)remap->bottom > 215.0f) {
+                    remap->bottom = 0xD7;
+                }
+                remap->flags |= 1;
+                return 1;
+            }
+        } else {
+            remap->flags &= 0xFFFE;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150CE200 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_FB600/func_150CE200.s")
 
 void *func_10022EC0(void *, const void *, u32);
 extern s32 D_800BE620;

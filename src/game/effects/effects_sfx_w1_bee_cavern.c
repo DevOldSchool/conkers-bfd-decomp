@@ -30,6 +30,89 @@ void func_150BDE90(s32 arg0, u8 arg1, s32 arg2) {
         func_10022EC0(effect + 0x28, &packet, sizeof(packet));
     }
 }
+typedef struct {
+    f32 field0, field4, field8, fieldC;
+    u8 field10, pad11;
+    s16 field12;
+    u16 field14, field16, field18;
+    u8 field1A, field1B, field1C, field1D, field1E;
+    u8 field1F, field20, field21, field22, field23;
+    s32 field24, field28, field2C, field30, field34, field38, field3C;
+    u8 field40, field41, pad42[2], field44, pad45[3];
+    f32 field48, field4C, field50, field54;
+} BeeCavernSpawn;
+
+typedef struct {
+    void *owner;
+    u8 pad4[8];
+    u8 fieldC, fieldD, padE[2];
+    f32 field10;
+    u8 tail14[0x44];
+} BeeCavernPayload;
+
+s32 func_150ADA20(void);
+f32 func_150ADA68(void);
+u8 *func_1515548C(void *, u8, s32 *, s32, s32, u8, s32);
+extern f32 D_800A0000, D_800A0004;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BDF0C CURRENT (630) */
+void func_150BDF0C(u8 *arg0) {
+    f32 product;
+    BeeCavernSpawn spawn;
+    u8 *effect;
+    BeeCavernPayload payload;
+    BeeCavernEffectPacket *state;
+
+    *(s16 *)(arg0 + 0x2C) -= D_800BE9E4;
+    if (*(s16 *)(arg0 + 0x2C) < 0) {
+        product = func_150ADA68() * 270.0f;
+        spawn.field0 = product + -135.0f;
+        spawn.field4 = -120.0f;
+        spawn.field8 = func_150ADA68() * 10.0f + 3.0f;
+        spawn.fieldC = func_150ADA68() * 17.0f + 9.0f;
+        spawn.field10 = 0xAB;
+        spawn.field12 = 1000;
+        spawn.field14 = 0x31;
+        spawn.field16 = 1;
+        spawn.field18 = 0xFF;
+        spawn.field1A = 7;
+        spawn.field1B = 0xFF;
+        spawn.field1C = 0xFF;
+        spawn.field1D = 0xFF;
+        spawn.field1E = (u32)func_150ADA20() % 156U + 100;
+        spawn.field1F = 0xFF;
+        spawn.field20 = 0xFF;
+        spawn.field21 = 0xFF;
+        spawn.field22 = 0xFF;
+        spawn.field23 = 0xFF;
+        spawn.field24 = 0;
+        spawn.field28 = 0x200004;
+        spawn.field2C = 0x1F0601;
+        spawn.field30 = 3;
+        spawn.field34 = 0x22;
+        spawn.field38 = 0x80;
+        spawn.field3C = 0x20;
+        spawn.field40 = 0;
+        spawn.field41 = 7;
+        state = (BeeCavernEffectPacket *)((s32)arg0 + 0x28);
+        spawn.field44 = ((u8 *)state->value)[0x23D];
+        spawn.field48 = 1.0f;
+        spawn.field4C = 1.0f;
+        spawn.field50 = 0.0f;
+        spawn.field54 = 0.0f;
+        payload.owner = (void *)state->value;
+        payload.fieldD = 0;
+        payload.fieldC = 0;
+        payload.field10 = func_150ADA68() * D_800A0000 + D_800A0004;
+        effect = func_1515548C(&spawn, 10, 0, 0, 0x58, arg0[0xC], 0);
+        if (effect != 0) {
+            func_10022EC0(effect + 0x70, &payload, 0x58);
+        }
+        state->field4 = (u32)func_150ADA20() % 151U + 25;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150BDF0C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/effects_sfx_w1_bee_cavern/func_150BDF0C.s")
 
 typedef struct BeeCavernActor {

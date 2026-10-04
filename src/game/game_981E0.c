@@ -41,7 +41,6 @@
  * - func_150721A4
  * - func_15072208
  * - func_150722F0
- * - func_15072420
  * - func_1507266C
  * - func_150727F0
  * - func_15072B44
@@ -62,7 +61,105 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    f32 time;
+    u8 pad4[3];
+    u8 id;
+    s32 parameter;
+} Game6AD30Event;
+
+typedef struct {
+    u8 pad0[8];
+    f32 time;
+    u8 padC[0x1C];
+    s32 token;
+} Game6AD30State;
+
+typedef struct {
+    u8 pad0[5];
+    u8 kind;
+    u8 pad6[0xAE];
+    f32 previousTime;
+    u8 padB8[0x80];
+    u8 index;
+    u8 pad139[0x8B];
+    Game6AD30Event *events;
+    u8 pad1C8[0x108];
+    Game6AD30State *state;
+} Game6AD30Actor;
+
+typedef void Game6AD30Callback(void);
+extern Game6AD30Callback *D_800863FC[];
+extern u8 D_80099A30[];
+extern u8 D_800C35EA, D_800C365E;
+extern s32 D_800D1580, D_800D1880;
+extern f32 D_800D1874, D_800D1878;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506AD30 CURRENT (1499) */
+f32 func_1506AD30(Game6AD30Actor *arg0, f32 arg1, u8 arg2) {
+    Game6AD30Event *event;
+    s32 token;
+    s32 currentToken;
+    Game6AD30State *state;
+    u8 *allowed;
+    u8 id;
+    u8 entry;
+
+    if (arg0->kind == 4) {
+        return 0.0f;
+    }
+    D_800D1878 = 0.0f;
+    if (arg1 < arg0->previousTime) {
+        arg0->index = 0;
+    }
+    D_800D1880 = 1;
+    if (arg0->events != 0) {
+        event = &arg0->events[arg0->index];
+        while (event->time <= arg1 && D_800D1880 != 0) {
+            if (event->time < 900.0f) {
+                D_800D1580 = event->parameter;
+                D_800D1874 = *(f32 *)&D_800D1580;
+                state = arg0->state;
+                currentToken = state->token;
+                token = currentToken;
+                if (D_800C35EA == 0 || D_800C365E != 0) {
+                    id = arg0->events[arg0->index].id;
+                    if (arg2 != 0) {
+                        allowed = D_80099A30;
+                        while (arg2 != 0) {
+                            entry = *allowed;
+                            if (entry == 0) {
+                                id = 0;
+                            }
+                            if (id == entry) {
+                                break;
+                            }
+                            allowed++;
+                        }
+                    }
+                    if (id != 0) {
+                        D_800863FC[id]();
+                        state = arg0->state;
+                        currentToken = state->token;
+                    }
+                }
+                if (token != currentToken) {
+                    arg1 = state->time;
+                } else {
+                    arg0->index++;
+                }
+            }
+            if (arg0->events == 0) {
+                break;
+            }
+            event = &arg0->events[arg0->index];
+        }
+    }
+    return D_800D1878;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1506AD30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_1506AD30.s")
+
 /* Call context: func_1505E650: unique active project prototype */
 void func_1505E650(u8 *, s32, f32, f32, f32, f32, s32);
 extern u8 * D_800D154C;
@@ -2738,7 +2835,91 @@ void func_150723E0(void) {
         func_15060F28(temp_v0, 0);
     }
 }
-#pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15072420.s")
+typedef struct {
+    u8 pad0[2];
+    u8 field2;
+    u8 pad3[0x2D];
+} Game72420Entry;
+
+typedef struct {
+    u8 pad0[4];
+    u8 kind;
+    u8 pad5[0xF];
+    f32 x, y, z;
+    u8 pad20[0x3C];
+    s32 parameter;
+    u8 pad60[5];
+    u8 parent;
+    u8 pad66[0x2E];
+    s32 flags;
+    u8 pad98[0x69];
+    u8 mode;
+    u8 pad102[0x22];
+    u8 owner;
+    u8 pad125[0xFD];
+    u8 child;
+    u8 pad223[0xF];
+    u8 value;
+    u8 pad233[0xF9];
+} Game72420Actor;
+
+void func_1505F188(u32);
+s32 func_15082A44(Game72420Entry *, s32, s32, s32, s32);
+extern Game72420Entry *D_800D20FC;
+extern u8 *D_800D210C;
+extern u8 D_800BE616;
+
+void func_15072420(void) {
+    u8 *object;
+    s32 value;
+    s32 parameter;
+    s32 index;
+    s32 result;
+    s32 enabled;
+    Game72420Actor *actor;
+
+    parameter = (D_800D1580 >> 8) & 0x7F;
+    enabled = (D_800D1580 >> 15) & 1;
+    value = (D_800D1580 >> 16) & 0xFF;
+    result = func_15083E0C(D_800D1580 & 0xFF);
+    if (result != -1) {
+        D_800D210C[result] = 0;
+        index = result;
+        if (!(value & 0x80)) {
+            index = result;
+            object = func_1505EEF4(result);
+            if (object != 0) {
+                func_15060F28(object, 0);
+                func_1505F188((u32)object);
+            }
+        }
+        D_800D20FC[index].field2 = 0;
+        result = func_15082A44(&D_800D20FC[index], index, 0, 0, 0);
+        if (result != 0) {
+            actor = (Game72420Actor *)&D_800CC2D0 + result - 1;
+            if (actor != 0) {
+                actor->parent = ((Game72420Actor *)D_800D154C - (Game72420Actor *)&D_800CC2D0) + 1;
+                actor->parameter = parameter;
+                if (enabled != 0) {
+                    actor->mode = 0;
+                } else {
+                    actor->mode = 4;
+                }
+                actor->value = value & 0x7F;
+                actor->owner = D_800C3E78 + 1;
+                actor->x = ((Game72420Actor *)D_800D154C)->x;
+                actor->y = ((Game72420Actor *)D_800D154C)->y;
+                actor->z = ((Game72420Actor *)D_800D154C)->z;
+                if (D_800BE616 != 0 && ((Game72420Actor *)D_800D154C)->kind == 0x53) {
+                    ((Game72420Actor *)D_800D154C)->child = actor - (Game72420Actor *)&D_800CC2D0;
+                }
+                if (D_800BE9F0 == 0x3F && actor->kind == 0x16) {
+                    actor->flags |= 2;
+                }
+            }
+        }
+    }
+}
 void func_151B5BA0(void *, void *, s32, s32 *);
 extern u8 D_800BE616;
 

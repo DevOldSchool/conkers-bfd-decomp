@@ -17,7 +17,6 @@
  * - func_15107700
  * - func_15107AE0
  * - func_15107B78
- * - func_15107C1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -620,7 +619,76 @@ void func_15107B78(void *arg0, s16 arg1, s16 arg2, u8 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15107B78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107B78.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_133190/func_15107C1C.s")
+typedef struct Game133190Attachment {
+    void *owner;
+    u8 kind;
+    u8 pad5[3];
+    Game133190Vector offset;
+    u8 transform;
+    u8 pad15[3];
+} Game133190Attachment;
+
+void func_15107F54(void *, u8, f32 *, f32 *);
+
+Game133190Object *func_15107C1C(void *arg0, u8 arg1, f32 *arg2,
+                               s16 arg3, s16 arg4, s16 arg5, s32 arg6,
+                               f32 arg7, f32 arg8, s16 arg9, s16 arg10,
+                               Game133190Color *arg11, u8 arg12, s32 arg13) {
+    Game133190Attachment attachment;
+    Game133190Object *result;
+    Game133190Beam beam;
+    Game133190Contact contact;
+    Game133190Vector direction;
+    s8 enabled;
+
+    if (*(s32 *)((u8 *)arg0 + 0x1D4) == 0) {
+        return 0;
+    }
+    attachment.owner = arg0;
+    attachment.kind = *(u8 *)((u8 *)arg0 + 0x3B);
+    attachment.offset = *(Game133190Vector *)arg2;
+    attachment.transform = arg1;
+    if (arg5 == -1) {
+        beam.life = 300;
+    } else {
+        beam.life = arg5;
+    }
+    if (arg5 == -1) {
+        enabled = 0;
+    } else {
+        enabled = 1;
+    }
+    beam.enabled = enabled;
+    beam.flag = 1;
+    beam.count = arg6;
+    beam.width = arg7;
+    beam.scale = arg8;
+    beam.lower = arg9;
+    beam.upper = arg10;
+    beam.color = *arg11;
+    beam.mode = 3;
+    func_15107F54(arg0, arg1, arg2, &beam.position.x);
+    func_15143794(arg3, arg4, 1.0f, &direction);
+    func_15081690(arg0, beam.position.x, beam.position.y, beam.position.z,
+                  direction.x, direction.y, direction.z,
+                  &contact, 300.0f, 0, 1, 1, -1, 0, 0);
+    if (contact.hit == 0) {
+        beam.contact.x = beam.position.x;
+        beam.contact.x += direction.x * 300.0f;
+        beam.contact.y = beam.position.y;
+        beam.contact.y += direction.y * 300.0f;
+        beam.contact.z = beam.position.z;
+        beam.contact.z += direction.z * 300.0f;
+    } else {
+        beam.contact = contact.point;
+    }
+    func_15107AE0(&beam.position, &beam.contact, &beam.axis0, &beam.axis1);
+    result = func_15105CE0(&beam, 0x18, arg12, arg13);
+    if (result != 0) {
+        func_10022EC0(result->holder, &attachment, sizeof(attachment));
+    }
+    return result;
+}
 void func_15107F54(void *, u8, f32 *, f32 *);
 void func_15107AE0(void *, void *, void *, void *);
 
