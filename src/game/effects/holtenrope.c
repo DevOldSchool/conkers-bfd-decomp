@@ -300,26 +300,26 @@ s32 func_151B3A7C(u8 *);
 extern f32 D_800AA3B0;
 extern f32 D_800AA3B4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3FDC CURRENT (13877) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3FDC CURRENT (8437) */
 s32 func_151B3FDC(u8 *arg0) {
-    f32 sp110;
-    f32 sp108;
-    f32 sp104;
-    f32 sp100;
-    f32 spFC;
-    f32 spF8;
-    f32 spF4;
-    f32 spF0;
-    f32 spEC;
-    f32 spE8;
-    f32 spD0;
-    f32 spAC;
-    f32 spA4;
-    f32 sp98;
-    f32 sp6C;
-    f32 sp68;
-    f32 sp64;
-    f32 sp5C;
+    volatile f32 sp110;
+    volatile f32 sp108;
+    volatile f32 sp104;
+    volatile f32 sp100;
+    volatile f32 spFC;
+    volatile f32 spF8;
+    volatile f32 spF4;
+    volatile f32 spF0;
+    volatile f32 spEC;
+    volatile f32 spE8;
+    volatile f32 spD0;
+    volatile f32 spAC;
+    volatile f32 spA4;
+    volatile f32 sp98;
+    volatile f32 sp6C;
+    volatile f32 sp68;
+    volatile f32 sp64;
+    volatile f32 sp5C;
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa1;
@@ -353,7 +353,10 @@ s32 func_151B3FDC(u8 *arg0) {
     f32 var_fs0;
     s32 var_s1;
     u8 *var_s2;
+    u8 *node;
+    f32 threshold;
 
+    threshold = D_800AA3B0;
     temp_fs4 = *(f32 *)((u8 *)arg0 + 0x20);
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x14);
     temp_fs5 = *(f32 *)((u8 *)arg0 + 0x24);
@@ -365,7 +368,7 @@ s32 func_151B3FDC(u8 *arg0) {
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x1C);
     sp5C = temp_ft4;
     temp_fs3 = temp_ft4 - temp_fa1;
-    if ((D_800AA3B0 < temp_fv0) || (D_800AA3B0 < fabsf(temp_fs3))) {
+    if ((threshold < temp_fv0) || (threshold < fabsf(temp_fs3))) {
         temp_ft4_2 = temp_fv1 + (temp_fs0 * 0.5f);
         sp100 = temp_ft4_2;
         temp_ft5 = temp_fa0 + (sp110 * 0.5f);
@@ -398,23 +401,24 @@ s32 func_151B3FDC(u8 *arg0) {
         temp_fs2 = temp_ft5_2 * temp_fv1_3;
         temp_ft1 = temp_ft0 * 0.25f;
         sp6C = temp_ft1;
-        if (temp_ft3_2 < sp6C) {
-            return func_151B3A7C(temp_fa0, temp_fa1);
+        if (sp68 < sp6C) {
+            return func_151B3A7C(arg0);
         }
         var_fs0 = 0.0f;
         var_s1 = 0;
         var_s2 = (void *)(arg0 + 0x48);
-        sp98 = sqrtf(sp68 - temp_ft1);
+        sp98 = sqrtf(sp68 - sp6C);
         do {
+            node = var_s2;
             temp_fs3_2 = func_15047D60(var_fs0);
             var_s1 += 0x18;
             temp_fv1_4 = spAC * func_15047C00(var_fs0);
+            var_s2 += 0x18;
             temp_fa0_2 = sp98 * temp_fs3_2;
             temp_fa1_2 = (temp_fv1_4 * temp_fs1_2) - (temp_fa0_2 * temp_fs2);
-            *(f32 *)((u8 *)var_s2 + 0) = (f32) ((temp_fa1_2 * temp_fs5_2) + sp100);
-            *(f32 *)((u8 *)var_s2 + 4) = (f32) (((temp_fv1_4 * temp_fs2) - (temp_fa0_2 * temp_fs1_2)) + sp104);
-            *(f32 *)((u8 *)var_s2 + 8) = (f32) ((temp_fa1_2 * temp_fs4_2) + sp108);
-            var_s2 += 0x18;
+            *(f32 *)((u8 *)node + 0) = (f32) ((temp_fa1_2 * temp_fs5_2) + sp100);
+            *(f32 *)((u8 *)node + 4) = (f32) (((temp_fv1_4 * temp_fs2) - (temp_fa0_2 * temp_fs1_2)) + sp104);
+            *(f32 *)((u8 *)node + 8) = (f32) ((temp_fa1_2 * temp_fs4_2) + sp108);
             var_fs0 += D_800AA3B4;
         } while (var_s1 != 0xF0);
         goto block_6;

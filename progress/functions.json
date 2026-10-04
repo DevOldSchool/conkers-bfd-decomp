@@ -8258,8 +8258,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 13877,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13877)",
+        "current_score": 8437,
+        "reason": "Invalid two-float sibling call repaired to raw one-pointer ABI. Valid baseline12880; two lifetime revisions improve to8437 with frame118. Remaining save/home offsets, extra constant-base register, FP allocation/scheduling. Budget exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61946,8 +61946,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 13204,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13204)",
+        "current_score": 4830,
+        "reason": "Manual baseline13204; two raw lifetime revisions improve to best valid4830. Actual packet cursor, entry width/height snapshots and real bound home match frame40/save set/home34. Invariant order, induction/constant allocation and cursor scheduling remain; budget exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79748,8 +79748,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5435,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5435)",
+        "current_score": 2670,
+        "reason": "Invalid scalar-as-vector starter and conflicting local three-argument vector-length prototype repaired to canonical one-pointer ABI. First valid6246; raw pre-loop step products/divisor home improve to2670. FrameB0/rawA0, local homes and FP scheduling remain; two revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

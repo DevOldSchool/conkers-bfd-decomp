@@ -188,112 +188,150 @@ void func_151D61B0(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D61B0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D61B0.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (13204) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D6418 CURRENT (4830) */
 void *func_151D6418(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 var_t5;
-    u32 temp_a2;
-    u32 temp_s0;
-    u32 temp_t0;
-    u32 temp_v1;
-    u32 var_a2;
-    u32 var_t1;
-    u32 var_t2;
-    u32 var_t3;
-    u8 *temp_a0;
-    u8 *temp_a0_10;
-    u8 *temp_a0_11;
-    u8 *temp_a0_12;
-    u8 *temp_a0_13;
-    u8 *temp_a0_14;
-    u8 *temp_a0_2;
-    u8 *temp_a0_3;
-    u8 *temp_a0_4;
-    u8 *temp_a0_5;
-    u8 *temp_a0_6;
-    u8 *temp_a0_7;
-    u8 *temp_a0_8;
-    u8 *temp_a0_9;
-    u8 *var_a0;
+    typedef struct { u32 first, second; } Packet;
+    s32 width;
+    s32 height;
+    volatile s32 sp34;
+    s32 address;
+    u32 doubleWidth;
+    u32 loadSize;
+    u32 stride;
+    u32 y;
+    u32 nextY;
+    u32 size;
+    u32 numerator;
+    u32 denominator;
 
-    var_t5 = arg1;
-    *(s32 *)((u8 *)arg0 + 0) = 0xFA000000;
-    *(s32 *)((u8 *)arg0 + 4) = (s32) ((arg3 & 0xFF) | ~0xFF);
-    temp_a0 = (void *)(arg0 + 8);
-    *(s32 *)((u8 *)temp_a0 + 4) = -0x805;
-    *(s32 *)((u8 *)arg0 + 8) = 0xFC11FE23;
-    temp_a0_2 = (void *)(temp_a0 + 8);
-    *(s32 *)((u8 *)temp_a0 + 8) = 0xEF000CFF;
-    *(s32 *)((u8 *)temp_a0_2 + 4) = 0x504340;
-    temp_a0_3 = (void *)(temp_a0_2 + 8);
-    *(s32 *)((u8 *)temp_a0_2 + 8) = 0xD9000000;
-    *(s32 *)((u8 *)temp_a0_3 + 4) = 0;
-    temp_a0_4 = (void *)(temp_a0_3 + 8);
-    *(s32 *)((u8 *)temp_a0_4 + 4) = -1;
-    *(s32 *)((u8 *)temp_a0_3 + 8) = 0xD7000002;
-    var_a0 = (void *)(temp_a0_4 + 8);
-    var_t3 = 0;
+    width = D_800BE620;
+    height = D_800BE624;
+    address = arg1;
     {
-        s32 sp34 = D_800BE624;
-    if (D_800BE624 != 0) {
-        temp_v1 = D_800BE620 * 2;
-        temp_s0 = (D_800BE620 * 4) - 1;
-        temp_t0 = temp_v1 >> 3;
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xFA000000;
+        command->second = (arg3 & 0xFF) | ~0xFF;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->second = -0x805;
+        command->first = 0xFC11FE23;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xEF000CFF;
+        command->second = 0x00504340;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xD9000000;
+        command->second = 0;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->second = -1;
+        command->first = 0xD7000002;
+    }
+    y = 0;
+    sp34 = height;
+    if (height != 0) {
+        doubleWidth = width * 2;
+        loadSize = (width * 4) - 1;
+        stride = doubleWidth >> 3;
         do {
-            *(s32 *)((u8 *)var_a0 + 4) = (s32) (var_t5 + 0x80000000);
-            *(s32 *)((u8 *)var_a0 + 0) = 0xFD100000;
-            temp_a0_5 = (void *)(var_a0 + 8);
-            *(s32 *)((u8 *)var_a0 + 8) = 0xF5100000;
-            *(s32 *)((u8 *)temp_a0_5 + 4) = 0x07000000;
-            temp_a0_6 = (void *)(temp_a0_5 + 8);
-            *(s32 *)((u8 *)temp_a0_5 + 8) = 0xE6000000;
-            *(s32 *)((u8 *)temp_a0_6 + 4) = 0;
-            temp_a0_7 = (void *)(temp_a0_6 + 8);
-            *(s32 *)((u8 *)temp_a0_6 + 8) = 0xF3000000;
-            temp_a0_8 = (void *)(temp_a0_7 + 8);
-            if (temp_s0 < 0x7FFU) {
-                var_t1 = temp_s0;
-            } else {
-                var_t1 = 0x7FF;
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->second = address + 0x80000000;
+                command->first = 0xFD100000;
             }
-            if (temp_t0 == 0) {
-                var_t2 = 1;
-            } else {
-                var_t2 = temp_t0;
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xF5100000;
+                command->second = 0x07000000;
             }
-            if (temp_t0 == 0) {
-                var_a2 = 1;
-            } else {
-                var_a2 = temp_t0;
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xE6000000;
+                command->second = 0;
             }
-            *(s32 *)((u8 *)temp_a0_7 + 4) = (s32) ((((u32) (var_t2 + 0x7FF) / var_a2) & 0xFFF) | 0x07000000 | ((var_t1 & 0xFFF) << 0xC));
-            temp_a0_9 = (void *)(temp_a0_8 + 8);
-            *(s32 *)((u8 *)temp_a0_7 + 8) = 0xE7000000;
-            *(s32 *)((u8 *)temp_a0_8 + 4) = 0;
-            *(s32 *)((u8 *)temp_a0_8 + 8) = (s32) (((((u32) (temp_v1 + 7) >> 3) & 0x1FF) << 9) | 0xF5100000);
-            *(s32 *)((u8 *)temp_a0_9 + 4) = 0;
-            temp_a0_10 = (void *)(temp_a0_9 + 8);
-            *(s32 *)((u8 *)temp_a0_9 + 8) = 0xF2000000;
-            *(s32 *)((u8 *)temp_a0_10 + 4) = (s32) (((((D_800BE620 - 1) * 4) & 0xFFF) << 0xC) | 0xC);
-            temp_a0_11 = (void *)(temp_a0_10 + 8);
-            temp_a2 = var_t3 + 4;
-            *(s32 *)((u8 *)temp_a0_10 + 8) = (s32) (((((D_800BE620 - arg2) * 4) & 0xFFF) << 0xC) | 0xE4000000 | ((temp_a2 * 4) & 0xFFF));
-            *(s32 *)((u8 *)temp_a0_11 + 4) = (s32) ((var_t3 * 4) & 0xFFF);
-            temp_a0_12 = (void *)(temp_a0_11 + 8);
-            *(s32 *)((u8 *)temp_a0_11 + 8) = 0xE1000000;
-            *(s32 *)((u8 *)temp_a0_12 + 4) = 0;
-            temp_a0_13 = (void *)(temp_a0_12 + 8);
-            *(s32 *)((u8 *)temp_a0_12 + 8) = 0xF1000000;
-            *(s32 *)((u8 *)temp_a0_13 + 4) = 0x04000400;
-            temp_a0_14 = (void *)(temp_a0_13 + 8);
-            *(s32 *)((u8 *)temp_a0_13 + 8) = 0xE7000000;
-            *(s32 *)((u8 *)temp_a0_14 + 4) = 0;
-            var_a0 = (void *)(temp_a0_14 + 8);
-            var_t3 = temp_a2;
-            var_t5 += D_800BE620 * 8;
-        } while (temp_a2 < (u32) sp34);
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xF3000000;
+                if (loadSize < 0x7FFU) {
+                    size = loadSize;
+                } else {
+                    size = 0x7FF;
+                }
+                if (stride == 0) {
+                    numerator = 1;
+                } else {
+                    numerator = stride;
+                }
+                if (stride == 0) {
+                    denominator = 1;
+                } else {
+                    denominator = stride;
+                }
+                command->second = (((numerator + 0x7FF) / denominator) & 0xFFF) |
+                                  0x07000000 | ((size & 0xFFF) << 12);
+            }
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xE7000000;
+                command->second = 0;
+            }
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = (((((u32)(doubleWidth + 7) >> 3) & 0x1FF) << 9) | 0xF5100000);
+                command->second = 0;
+            }
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xF2000000;
+                command->second = ((((width - 1) * 4) & 0xFFF) << 12) | 0xC;
+            }
+            nextY = y + 4;
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = ((((width - arg2) * 4) & 0xFFF) << 12) | 0xE4000000 | ((nextY * 4) & 0xFFF);
+                command->second = (y * 4) & 0xFFF;
+            }
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xE1000000;
+                command->second = 0;
+            }
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xF1000000;
+                command->second = 0x04000400;
+            }
+            {
+                Packet *command = (Packet *)arg0;
+                arg0 += sizeof(Packet);
+                command->first = 0xE7000000;
+                command->second = 0;
+            }
+            y = nextY;
+            address += width * 8;
+        } while (nextY < (u32)sp34);
     }
-    return var_a0;
-    }
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D6418 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D6418.s")
