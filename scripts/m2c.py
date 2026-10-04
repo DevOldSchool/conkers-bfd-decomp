@@ -33,8 +33,10 @@ PREPROCESSOR_PATTERN = re.compile(r"^\s*#")
 TYPES_INCLUDE_PATTERN = re.compile(r'^\s*#include\s+"types\.h"\s*$')
 GLOBAL_ASM_PATTERN = re.compile(r"^\s*#pragma\s+GLOBAL_ASM\b")
 INTRINSIC_PRAGMA_PATTERN = re.compile(
-    r"^\s*#pragma\s+intrinsic\s*\(\s*(?:sqrtf|fabsf)\s*\)\s*$"
+    r"^\s*(?:#pragma\s+intrinsic\s*\(\s*(?:sqrtf|fabsf)\s*\)"
+    r"|__pragma\s*\(\s*1\s*,\s*(?:sqrtf|fabsf)\s*\)\s*;)\s*$"
 )
+IDO_PRAGMA_PATTERN = re.compile(r"^\s*__pragma\b")
 DISABLED_BLOCK_START_PATTERN = re.compile(r"^\s*#if\s+0(?:\s|$)")
 DISABLED_BLOCK_END_PATTERN = re.compile(r"^\s*#endif\b")
 
@@ -614,7 +616,7 @@ def flattened_source_context(source: Path) -> str | None:
         if disabled_depth and DISABLED_BLOCK_END_PATTERN.match(line):
             disabled_depth -= 1
             continue
-        if PREPROCESSOR_PATTERN.match(line):
+        if PREPROCESSOR_PATTERN.match(line) or IDO_PRAGMA_PATTERN.match(line):
             return None
         lines.append(line)
     if disabled_depth:

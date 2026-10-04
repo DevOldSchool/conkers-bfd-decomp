@@ -3206,6 +3206,7 @@ def next_function(args: argparse.Namespace | None = None) -> None:
     details = bool(args and args.details)
     id_only = bool(args and getattr(args, "id_only", False))
     excluded_sources = set(getattr(args, "exclude_source", []) or [])
+    requested_function = getattr(args, "function", None)
     if details and not one:
         raise ProjectStateError("--details requires --one to keep output bounded")
     if id_only and not one:
@@ -3214,6 +3215,8 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         raise ProjectStateError("--id-only and --details cannot be combined")
     if excluded_sources and not one:
         raise ProjectStateError("--exclude-source requires --one to keep selection bounded")
+    if requested_function is not None and not one:
+        raise ProjectStateError("--function requires --one to keep selection bounded")
     _, functions = validate_project()
     source_units = validate_source_units(load_json(SOURCE_UNITS_FILE), functions)
     sizes = active_function_sizes(functions, source_units)
@@ -3226,7 +3229,7 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         and not entry.get("deferred")
     ]
     if not available:
-        if id_only or excluded_sources:
+        if id_only or excluded_sources or requested_function is not None:
             raise ProjectStateError("no unclaimed raw-ASM functions are registered yet")
         print("No unclaimed raw-ASM functions are registered yet.")
         return
@@ -3241,6 +3244,13 @@ def next_function(args: argparse.Namespace | None = None) -> None:
         available = [entry for entry in available if entry.get("source") not in excluded_sources]
         if not available:
             raise ProjectStateError("no unclaimed raw-ASM functions remain after source exclusions")
+    if requested_function is not None:
+        available = [entry for entry in available if entry["symbol"] == requested_function]
+        if not available:
+            raise ProjectStateError(
+                f"requested function {requested_function!r} is not an eligible unclaimed raw-ASM item "
+                "after source exclusions; no alternative was selected"
+            )
     available.sort(key=lambda entry: (sizes[entry["symbol"]], entry["symbol"]))
     import attempt_history
     try:
@@ -3271,6 +3281,11 @@ def next_function(args: argparse.Namespace | None = None) -> None:
                 break
         available = fresh
         if not available:
+            if requested_function is not None:
+                raise ProjectStateError(
+                    f"requested function {requested_function!r} has an unchanged failed attempt; "
+                    "inspect saved evidence and the attempt budget; no alternative was selected"
+                )
             raise ProjectStateError("no fresh raw candidates; inspect ./conker blockers or explicitly retry with automate --function ID --restart")
     if one:
         available = available[:1]
@@ -3446,6 +3461,11 @@ def parse_args() -> argparse.Namespace:
         default=[],
         metavar="PATH",
         help="with --one, exclude an exact repository-relative source path (repeatable)",
+    )
+    next_parser.add_argument(
+        "--function",
+        metavar="ID",
+        help="with --one, select this exact eligible raw work item without falling back to another",
     )
     batch_plan_parser = subparsers.add_parser("batch-plan")
     batch_plan_parser.add_argument("symbols", nargs="+")

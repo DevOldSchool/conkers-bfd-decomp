@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "mechanisms": [
+    {
+      "name": "contracts",
+      "symbols": ["func_150B2570", "func_150B3C0C", "func_151572D0", "func_1514D64C", "func_1506D4F4", "func_1506D74C"],
+      "callees": ["func_15156190", "func_15156388", "func_15189FF0", "func_1505E650", "func_1505A184", "func_151494E0"],
+      "reason_patterns": ["\\bABI\\b", "argument.*(?:home|spill|contract)", "(?:declaration|prototype|contract).*(?:wrong|incorrect|pointer|float|argument)", "(?:wrong|incorrect).*(?:declaration|prototype|contract)"],
+      "hypothesis": "Audit the actual callee contract and affected caller family before tuning conversions or argument homes.",
+      "clues": "Extra argument homes, integer casts of packet addresses, float-word conversions, or values merely live across a call; inspect consumption by callee/callback targets.",
+      "success": "150B3C0C reached full-span zero after pointer submission declarations removed an integer-expression spill; its sibling packet was independently checked.",
+      "counterexample": "151572D0 and 1514D64C improved after supported contract repairs but remained candidates. Live A1/A2 do not by themselves prove callback parameters.",
+      "evidence": ["docs/evidence/particle_callback_storage_matching.md", "docs/evidence/descriptor_pointer_contract.md"]
+    },
+    {
+      "name": "real-state",
+      "symbols": ["func_1501E540", "func_1501E400", "func_1501E73C", "func_1518F7C4", "func_15107924", "func_15149FD0", "func_15149D18"],
+      "callees": [],
+      "reason_patterns": ["\\bframe\\b", "(?:pointer|owner|address).*(?:spill|home|alias|temporary)", "(?:spill|home).*(?:pointer|owner|address)"],
+      "hypothesis": "Separate real loop state and value snapshots from names for recomputable addresses; test one supported storage change.",
+      "clues": "Extra frame space without matching runtime spill traffic; redundant owner/address locals. Preserve loop-carried cursors, loads across calls, and genuine coordinate snapshots.",
+      "success": "1501E540 and 1501E400 matched with direct owner access while preserving real cursor state; 15149FD0/15149D18 removed redundant buffer-address homes.",
+      "counterexample": "Deleting cursor state first worsened 1501E540 despite fixing its frame; address removal rematerialized work in 1518F7C4. 15107924 requires its coordinate snapshot across a mutating helper.",
+      "evidence": ["docs/evidence/matching_conversion_audit.md", "docs/evidence/quad_vertex_storage_matching.md", "src/game/game_133190.c"]
+    },
+    {
+      "name": "scope-lifetime",
+      "symbols": ["func_1512523C", "func_15125330", "func_15123070", "func_1512623C", "func_151572D0", "func_15149FD0"],
+      "callees": [],
+      "reason_patterns": ["\\b(?:scope|lifetime)\\b", "(?:schedule|scheduling).*(?:spill|call|zero)", "(?:spill|call|zero).*(?:schedule|scheduling)"],
+      "hypothesis": "Use raw value lifetimes and expression boundaries to explain scheduling; neither shorter nor longer scopes is universally better.",
+      "clues": "Matching operations but different call-delay scheduling or argument-home order; check whether a nested result scope or redundant value lifetime explains those exact rows.",
+      "success": "Camera 1512523C and 15125330 matched after lifting result declarations; 1512623C matched after moving an existing assignment into a call argument expression.",
+      "counterexample": "Camera 15123070 scope restriction worsened 265 to 730. Narrower callback scopes worsened 151572D0; a quad suffix-scope experiment also failed.",
+      "evidence": ["src/game/camera/camera_camera.c", "docs/evidence/particle_callback_storage_matching.md", "docs/evidence/quad_vertex_storage_matching.md"]
+    }
+  ]
+}
