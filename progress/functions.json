@@ -9530,8 +9530,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8705,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8705)",
+        "current_score": 2480,
+        "reason": "Valid manual candidate CURRENT2480; actual register parameter and merged sequential float lifetimes restore leaf frame10. Two targeted revisions exhausted; FP copies, zero constant lifetime and scheduling remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44938,8 +44938,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5653,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5653)",
+        "current_score": 4062,
+        "reason": "Valid manual candidate CURRENT4062; mutable command cursor and packet snapshots improve baseline6018. Two targeted revisions exhausted; neutral register revision restored to simpler best. Saved cursor, folded packet offsets and scheduling remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49475,8 +49475,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8475,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8475)",
+        "current_score": 2690,
+        "reason": "Valid manual candidate CURRENT2690; leaf frame/prologue and cached stores match. Two targeted revisions exhausted; FP allocation and unsigned dimension conversion scheduling remain. Neutral final revision restored to simpler best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87811,8 +87811,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5643,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5643)",
+        "current_score": 3528,
+        "reason": "Valid manual candidate CURRENT3528; repaired post-call reads, duplicate unsigned corrections and real bound slots. Frame/homes match. Two targeted revisions exhausted; FP allocation, arithmetic/load scheduling and pointer reloads remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
