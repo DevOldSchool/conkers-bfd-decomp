@@ -487,6 +487,78 @@ void func_15059444(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15059444 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059444.s")
+typedef struct Game83300AnimationRecord {
+    u8 pad00[0x15];
+    u8 flags;
+    u8 pad16[2];
+} Game83300AnimationRecord;
+
+extern u16 D_800860C0[];
+extern f32 D_800860CC[];
+extern u16 D_800860E4[];
+extern void *D_800D1588[];
+s32 func_1505A630(f32, f32, s32);
+u32 func_1505E7CC(s32, void *);
+void func_1505E874(u8, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505959C CURRENT (852) */
+void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
+    Game83300Actor *other;
+    s32 selection;
+    s32 offset;
+
+    *(u32 *)((u8 *)arg0 + 0xF8) &= 0xFF7FFFFF;
+    *((u8 *)arg0 + 0x13D) = arg1 + 0x64;
+    *(u16 *)((u8 *)arg0 + 0x21C) = 0;
+    *(u32 *)((u8 *)arg0 + 0x25C) &= ~8;
+    other = (Game83300Actor *)((u8 *)&D_800CC2D0 + arg1 * 0x32C);
+    *(f32 *)((u8 *)arg0 + 0x24) = 4.0f;
+    other->pad40[0x43] = 0xFF;
+    other->pad86[3] = 0xFF;
+    arg2 = (void *)(u32)*((u8 *)arg0 + 4);
+    selection = 0;
+    if ((u32)arg2 == 0x57) selection = 1;
+    if (other->modelIndex == 0x9B) selection = 2;
+    if ((u32)arg2 == 0x5E) selection = 3;
+    if ((u32)arg2 == 0x3C) {
+        other->pad86[0xB6] = 0;
+        selection = 4;
+        *(u16 *)((u8 *)other + 0x76) = func_1505A630(
+            *(f32 *)((u8 *)arg0 + 0x14) - *(f32 *)((u8 *)other + 0x14),
+            *(f32 *)((u8 *)other + 0x1C) - *(f32 *)((u8 *)arg0 + 0x1C), 0);
+        arg2 = (void *)(u32)*((u8 *)arg0 + 4);
+    }
+    if ((u32)arg2 == 0x89) selection = 5;
+    offset = selection * 2;
+    func_1505E650(other, *(u16 *)((u8 *)D_800860C0 + offset), D_800860CC[selection],
+        0.0f, 0.0f, 0.0f, 0);
+    *((u8 *)arg0 + 0x104) = 0xFE;
+    *((u8 *)arg0 + 0x105) = 0;
+    *((u8 *)arg0 + 0x106) = func_1505E7CC(*(u16 *)((u8 *)D_800860E4 + offset), arg0);
+    *(u16 *)((u8 *)arg0 + 0x84) = 0xFFFF;
+    func_1505E874(D_800C3E78, arg0);
+    {
+        void *entry;
+        Game83300AnimationRecord *animations;
+        entry = D_800D1588[*((u8 *)arg0 + 4)];
+        if (entry != 0) {
+            animations = *(Game83300AnimationRecord **)((u8 *)entry - 8);
+            if (animations != 0 && (animations[*((u8 *)arg0 + 0x106)].flags & 2)) {
+                *(u16 *)((u8 *)arg0 + 0x7A) = *(u16 *)((u8 *)other + 0x7A);
+            }
+            if (animations == 0 || !(animations[*((u8 *)arg0 + 0x106)].flags & 1)) {
+                *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
+                    *(u16 *)((u8 *)other + 0x7A)) >> 8;
+                return;
+            }
+            *((u8 *)arg0 + 0x13E) = 0;
+            return;
+        }
+        *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
+            *(u16 *)((u8 *)other + 0x7A)) >> 8;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505959C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505959C.s")
 typedef struct Game83300InteractionState {
     u8 pad0[0x18];

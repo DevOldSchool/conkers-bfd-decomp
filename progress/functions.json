@@ -9610,6 +9610,12 @@
       "symbol": "func_15059444"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 852,
+        "reason": "Best bounded candidate CURRENT 852: overwriting the unused incoming slot removed its spill and recovered all later register allocations; frame 0x50 vs 0x48, selection home 0x48 vs 0x3C, and initial load/constant scheduling remain. Preserves the established three-slot ABI and post-angle flag reloads.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90091,11 +90097,15 @@
       "symbol": "func_150499A0"
     },
     {
+      "blocked": {
+        "reason": "Raw target branches on v0 from func_1513D524, copies 0x30 bytes to returned pointer+0x110, and returns that pointer. Its matched C definition is void and forwards func_1513D2F0; raw wrapper leaves that callee result in v0. Target-only C cannot consume the matched void result without a shared return-contract repair and caller-family verification.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 608,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150E5FD0",
           "vram": "0x150E5FD0"
         }
@@ -90104,11 +90114,15 @@
       "symbol": "func_150E5FD0"
     },
     {
+      "blocked": {
+        "reason": "Handwritten call/frame convention: saves ra at sp+0 and six callee-saved FPRs with single-word swc1 at offsets 4..18; separately pushes arg0, then adjusts sp by -8/+8 around each of six trigonometric calls. IDO o32 C emits a fixed frame with caller argument homes and paired FPR saves; target-only C cannot reproduce this dynamic frame and save sequence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 608,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A7DF0",
           "vram": "0x150A7DF0"
         }
@@ -90117,6 +90131,12 @@
       "symbol": "func_150A7DF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5406,
+        "reason": "Three manual candidates; best CURRENT 5406 retained. Full 16-float matrix and 0x32C actor types preserve field geometry and scale reloads; integer address formation handles null matrix base safely. IDO simplifies zero/one cross-product multiplies and changes vector/spill lifetimes; explicit arrays and float locals restore stores but grow frame 98 versus 78, with arithmetic/control scheduling unresolved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90802,11 +90822,15 @@
       "symbol": "func_150A6360"
     },
     {
+      "blocked": {
+        "reason": "Handwritten multi-entry family: this span includes wrapper 150A6500, unlabeled 150A6538, func_150A6568 and internal func_150A66FC; 6568 saves s0-s7/fp in f0-f8 and branches backward to .L150A64C0 in the neighboring ASM span. Raw caller also consumes returned v0 and passes a2/a3 beyond the two-arg starter. Target-only portable C cannot preserve these entries, cross-span branch and register-save ABI.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 608,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A6500",
           "vram": "0x150A6500"
         }
