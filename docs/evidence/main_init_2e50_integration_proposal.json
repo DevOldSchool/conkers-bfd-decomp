@@ -109,5 +109,40 @@
     "patch_apply_check": "git apply --check --unidiff-zero docs/evidence/main_init_2e50_integration_proposal.patch"
   },
   "scope_approval": "Pending direct user response; canonical build files remain unchanged.",
-  "patch_format": "Zero-context unified diff avoids whitespace-only context lines in the tracked patch artifact; apply with --unidiff-zero only after scope approval."
+  "patch_format": "Zero-context unified diff avoids whitespace-only context lines in the tracked patch artifact; apply with --unidiff-zero only after scope approval.",
+  "read_only_text_relocation_model": {
+    "object_path": "build/us/src/main/init_2E50.o",
+    "object_sha256": "1180a6aea9efc693e50e89643dfd19ac7ea14929913c62a86dab6087d33d6fa7",
+    "canonical_elf_path": "build/us/conker.us.elf",
+    "canonical_elf_sha256": "7c94474f8eaea9e64b1c408780a511a9b9efdb37ad36ac0dae9daa7bc100f754",
+    "method": "Resolve all object .rel.text records using current canonical ELF external symbols, text VMA 0x80002E50 and proposed rodata VMA 0x8002C080. Apply standard REL R_MIPS_26, paired HI16 and signed LO16 semantics in memory, preserving all non-relocated instruction bits. Compare every resulting byte to the checksum-validated US ROM at 0x2E50:0x30A0.",
+    "relocation_counts": {
+      "R_MIPS_26": 10,
+      "R_MIPS_HI16": 5,
+      "R_MIPS_LO16": 5
+    },
+    "unresolved_symbols": 0,
+    "unsupported_relocation_types": 0,
+    "unpaired_high_relocations": 0,
+    "compared_text_bytes": 592,
+    "modeled_correct_mapping_equals_ROM": true,
+    "modeled_text_sha1": "af1230ec9aca968871852af33c38df0436e3665a",
+    "legacy_mapping_control": {
+      "rodata_vma": "0x8002C450",
+      "differences": [
+        {
+          "rom_offset": "0x2EE2",
+          "expected": "C0",
+          "modeled": "C4"
+        },
+        {
+          "rom_offset": "0x2EE3",
+          "expected": "80",
+          "modeled": "50"
+        }
+      ],
+      "reproduces_recorded_first_difference": true
+    },
+    "proof_limits": "Read-only relocation model on saved object bytes; not a fresh compiler run, GNU linker trial, focused finish, layout or integration acceptance. Existing approval and acceptance requirements remain unchanged."
+  }
 }
