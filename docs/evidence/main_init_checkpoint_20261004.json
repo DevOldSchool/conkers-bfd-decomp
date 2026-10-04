@@ -63,46 +63,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Source-local 8A4C forward aligned with matched byte-input definition. BCBC original disabled body remains full676 candidate788. Regressing8790/886C forward changes fully restored; allfive affected or restored existing matches independently full-span US CURRENT (0) with canonical layout. Clean US ROM, tests, metadata, progress and whitespace pass. No new C match or completed unit.",
+    "scope": "Authorized one-search checkpoint for 7A24. Both available variants scored 10; original disabled C body and canonical assembly restored. No new C match or completed unit. Two established matches independently pass full-span US CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; these checks do not accept the nonzero candidate.",
     "batch_ids": [
-      "func_8000BC28",
-      "func_8000B638",
-      "func_8000CAE4",
-      "func_8000E46C",
-      "func_8000E588"
+      "func_80010E78",
+      "func_80010F88"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.26,
+    "test_seconds": 35.648,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T17:05:10.584809+00:00",
+    "completed_utc": "2026-10-04T22:08:17.206573+00:00",
     "additional_focused_checks": {
-      "func_8000BC28": {
+      "func_80010E78": {
         "score": 0,
-        "attempt_record": "d427feb87fdf471a9aee2d82bc9e9a57",
+        "attempt_record": "674db2f1539044fbb1553573b3ce76db",
         "layout": "preserved"
       },
-      "func_8000B638": {
+      "func_80010F88": {
         "score": 0,
-        "attempt_record": "85886691f8a845c0a2d38b9c9f95c508",
-        "layout": "preserved"
-      },
-      "func_8000CAE4": {
-        "score": 0,
-        "attempt_record": "485eb902e5e94b44ab8b0e3c4dddb414",
-        "layout": "preserved"
-      },
-      "func_8000E46C": {
-        "score": 0,
-        "attempt_record": "7be831ffa71a4adcb3415c45553dd162",
-        "layout": "preserved"
-      },
-      "func_8000E588": {
-        "score": 0,
-        "attempt_record": "ef8d2edc2d8f4885aed357d45efb11d7",
+        "attempt_record": "ed2ce994f33f414ba8b9c2616f40a2d2",
         "layout": "preserved"
       }
     }
@@ -582,11 +564,12 @@
     "func_800097CC": 1135,
     "func_8000A420": 1115,
     "func_80004074": 1026,
-    "func_80010558": 1530
+    "func_80010558": 1530,
+    "func_80007A24": 10
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
-    "permutation_permission": "not granted",
+    "permutation_permission": "Direct user Yes authorized one 7A24 search with budget 32; completed with both available variants at 10. This search permission is consumed; no other searches or stack-shape exploration authorized.",
     "shared_changes": "No shared headers, SDK contracts, compiler flags, tooling or assembly changes."
   },
   "rejected_forms": {
@@ -609,9 +592,12 @@
       "reason": "Manual ceiling reached or two non-improving forms; preserve canonical GLOBAL_ASM and do not repeat exhausted hypotheses."
     },
     "func_80007A24": {
+      "status": "candidate",
       "current_score": 10,
-      "new_forms_used": 0,
-      "reason": "Only t9 versus t6 next-pointer load/store temporary. No supported new manual hypothesis; permutation remains unauthorized."
+      "new_manual_forms": 0,
+      "authorized_searches_completed": 1,
+      "targeted_revisions_remaining": 0,
+      "reason": "Both available baseline and real thread first-assignment scope variants scored 10. Full 20-byte span differs only in the next-pointer LW/SW temporary t6 versus t9. Original body retained; no supported untried hypothesis or further search permission."
     },
     "func_8000F85C": {
       "new_forms_used": 3,
@@ -812,31 +798,49 @@
       "reason": "One new contract form plus three inherited valid body forms exhausted. Original788 body retained, 8790/886C declaration families restored after regressions, sole8A4C forward retained with allfive currentcallerchecks0/layout. No equivalent helper, volume, body or frame probes."
     }
   },
-  "ledger_note": "BCBC fresh788, one new three-helper declaration form838, two mandatory context-recovery checks788. 8790/886C families completely restored after target/E46C regressions; sole8A4C forward retained and original candidate body unchanged. Allfive knownaffected/restored existingcallers0/layout plus clean BATCH_COMPLETE. Total38 newCmatches/onecompleted38E0unit,87C20originalASM remain; inherited budgets persist, fullgoal incomplete.",
+  "ledger_note": "7A24 approved budget-32 search completed: two available variants compiled, both CURRENT (10), zero improvements. Original source restored transactionally; only inventory reason and portable evidence changed. Two established matches full-span CURRENT (0) and layout preserved; clean BATCH_COMPLETE, 1823 tests, 37 skipped, exact US ROM, metadata, progress and whitespace. No new C matches or completed units; total 38 matches and one completed 38E0 unit, with 87 candidates and 20 original assembly functions remaining. Full goal incomplete; manual limits and consumed search permission persist. No memory used.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved disabled 10558 candidate improves fresh1749 to1530; no new C match or completed unit. Existing same-unit 10E78 and10F88 independently pass full-span US CURRENT (0), reviewed layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; this batch does not accept the nonzero candidate.",
+    "scope": "Source-local 8A4C forward aligned with matched byte-input definition. BCBC original disabled body remains full676 candidate788. Regressing8790/886C forward changes fully restored; allfive affected or restored existing matches independently full-span US CURRENT (0) with canonical layout. Clean US ROM, tests, metadata, progress and whitespace pass. No new C match or completed unit.",
     "batch_ids": [
-      "func_80010E78",
-      "func_80010F88"
+      "func_8000BC28",
+      "func_8000B638",
+      "func_8000CAE4",
+      "func_8000E46C",
+      "func_8000E588"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 33.931,
+    "test_seconds": 35.26,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T16:49:13.228123+00:00",
+    "completed_utc": "2026-10-04T17:05:10.584809+00:00",
     "additional_focused_checks": {
-      "func_80010E78": {
+      "func_8000BC28": {
         "score": 0,
-        "attempt_record": "7d27af37bf524464846b67eebae66b89",
+        "attempt_record": "d427feb87fdf471a9aee2d82bc9e9a57",
         "layout": "preserved"
       },
-      "func_80010F88": {
+      "func_8000B638": {
         "score": 0,
-        "attempt_record": "df59c78d67724d6b945fa84b4a82d2c8",
+        "attempt_record": "85886691f8a845c0a2d38b9c9f95c508",
+        "layout": "preserved"
+      },
+      "func_8000CAE4": {
+        "score": 0,
+        "attempt_record": "485eb902e5e94b44ab8b0e3c4dddb414",
+        "layout": "preserved"
+      },
+      "func_8000E46C": {
+        "score": 0,
+        "attempt_record": "7be831ffa71a4adcb3415c45553dd162",
+        "layout": "preserved"
+      },
+      "func_8000E588": {
+        "score": 0,
+        "attempt_record": "ef8d2edc2d8f4885aed357d45efb11d7",
         "layout": "preserved"
       }
     }
@@ -1336,6 +1340,34 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved disabled 10558 candidate improves fresh1749 to1530; no new C match or completed unit. Existing same-unit 10E78 and10F88 independently pass full-span US CURRENT (0), reviewed layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass; this batch does not accept the nonzero candidate.",
+      "batch_ids": [
+        "func_80010E78",
+        "func_80010F88"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 33.931,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T16:49:13.228123+00:00",
+      "additional_focused_checks": {
+        "func_80010E78": {
+          "score": 0,
+          "attempt_record": "7d27af37bf524464846b67eebae66b89",
+          "layout": "preserved"
+        },
+        "func_80010F88": {
+          "score": 0,
+          "attempt_record": "df59c78d67724d6b945fa84b4a82d2c8",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -1682,6 +1714,37 @@
           "layout": "preserved"
         }
       }
+    },
+    "func_80007A24": {
+      "source": "src/main/init_71D0.c",
+      "full_span_bytes": 20,
+      "focused_score": 10,
+      "attempt_record": "012458cde91d46ea88caa1845e718975",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_manual_forms": 0,
+      "retained_source_change": false,
+      "change": "Single explicitly authorized bounded search exhausted both available variants without improvement. Original body remains disabled beside canonical assembly.",
+      "search_command": "./conker permute func_80007A24 --budget 32",
+      "permission": "Direct user Yes; one invocation completed, permission consumed. No stack shapes, exhaustive search or shared changes.",
+      "search_report": {
+        "fingerprint": "d3c51a211a4ebdfcd803ee32b5d0f4c5dc748f4fb773c25101a7671d61d6b7ed",
+        "best_sha256": "7edc8806593f545d0ab1aa38c420809a490aacfb9128245faa8136cf954111e0",
+        "budget": 32,
+        "exhaustive": false,
+        "strategy": "general",
+        "generated": 2,
+        "compiled": 2,
+        "invalid": 0,
+        "improvements": 0,
+        "best_score": 10,
+        "stop_reason": "variants_exhausted",
+        "elapsed_seconds": 1.2359000840224326
+      },
+      "variants": [
+        "baseline",
+        "real thread pointer declaration at its first assignment in an inner scope"
+      ]
     }
   }
 }

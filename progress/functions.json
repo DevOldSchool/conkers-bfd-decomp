@@ -95370,7 +95370,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Full 20-byte span CURRENT 10: only next-pointer temporary t6 vs t9 in two rows. No supported new manual hypothesis; permutation remains unauthorized.",
+        "reason": "Full20 US candidate CURRENT10: only next-pointer temporary t6 versus t9 in LW/SW rows. Direct user Yes approved one bounded permute --budget32 search; it tested both available variants (baseline and real thread first-assignment scope), both score10, no exact match. Search exhausted without source/declaration/shared/SDK/ASM changes; best original body retained. No further permutation or artificial storage/register-pressure forms authorized.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
