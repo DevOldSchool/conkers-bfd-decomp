@@ -19,6 +19,28 @@ static AUDIO_INFO audio;
 static FILE *output;
 static uint32_t frequency = 33600, data_bytes, part;
 static int failed;
+static void fail(const char *message);
+static FILE *request_log;
+static int last_request = -1;
+static double audio_seconds;
+
+/* Reviewed retail-US main adapter stores its last requested MP3 ID here.
+ * This samples state changes at AI DMA boundaries, not every call or decoding
+ * onset. Same-ID retriggers can be missed; a retained ID need not still play.
+ */
+static void log_us_request(void) {
+    if (request_log && audio.RDRAM) {
+        const uint32_t address = 0x427f4;
+        int value = (audio.RDRAM[address ^ 3] << 8) | audio.RDRAM[(address + 1) ^ 3];
+        if (value != last_request) {
+            if (fprintf(request_log, "%.9f,%d\n", audio_seconds, value) < 0) {
+                fail("AI MP3 request-state log write failed");
+            }
+            last_request = value;
+            if (fflush(request_log)) fail("AI MP3 request-state log flush failed");
+        }
+    }
+}
 static void *debug_context;
 static void (*debug_callback)(void *, int, const char *);
 static void fail(const char *message) {
@@ -47,9 +69,10 @@ EXPORT m64p_error CALL PluginStartup(m64p_dynlib_handle core, void *context,
                                      void (*debug)(void *, int, const char *)) {
     (void)core; debug_context = context; debug_callback = debug;
     failed = 0; part = 0; data_bytes = 0; frequency = 33600;
+    last_request = -1; audio_seconds = 0;
     return M64ERR_SUCCESS;
 }
-EXPORT m64p_error CALL PluginShutdown(void) { close_part(); return M64ERR_SUCCESS; }
+EXPORT m64p_error CALL PluginShutdown(void) { RomClosed(); return M64ERR_SUCCESS; }
 EXPORT m64p_error CALL PluginGetVersion(m64p_plugin_type *type, int *version,
                                        int *api, const char **name, int *caps) {
     if (type) *type = M64PLUGIN_AUDIO;
@@ -60,8 +83,23 @@ EXPORT m64p_error CALL PluginGetVersion(m64p_plugin_type *type, int *version,
     return M64ERR_SUCCESS;
 }
 EXPORT int CALL InitiateAudio(AUDIO_INFO info) { audio = info; return 1; }
-EXPORT int CALL RomOpen(void) { return getenv("CONKER_AUDIO_CAPTURE_DIR") != NULL; }
-EXPORT void CALL RomClosed(void) { close_part(); }
+EXPORT int CALL RomOpen(void) {
+    const char *directory = getenv("CONKER_AUDIO_CAPTURE_DIR");
+    char filename[1024];
+    if (!directory) return 0;
+    if (getenv("CONKER_AUDIO_US_MP3_REQUEST_LOG")) {
+        int written = snprintf(filename, sizeof(filename), "%s/us-mp3-requests.csv", directory);
+        if (written < 0 || (size_t)written >= sizeof(filename)) return 0;
+        request_log = fopen(filename, "wx");
+        if (!request_log) { fail("AI MP3 request-state log already exists or cannot open"); return 0; }
+        fputs("audio_seconds,last_requested_id\n", request_log);
+    }
+    return 1;
+}
+EXPORT void CALL RomClosed(void) {
+    close_part();
+    if (request_log) { fclose(request_log); request_log = NULL; }
+}
 EXPORT void CALL AiDacrateChanged(int system) {
     uint32_t clock = system == 1 ? 49656530 : system == 2 ? 48628316 : 48681812;
     uint32_t next = clock / ((uint64_t)*audio.AI_DACRATE_REG + 1);
@@ -84,6 +122,7 @@ EXPORT void CALL AiLenChanged(void) {
         if (!output) { fail("AI capture rejected an invalid DAC rate or unsafe output"); return; }
         data_bytes = 0; header(output, 0); fseek(output, 44, SEEK_SET);
     }
+    log_us_request();
     for (uint32_t offset = 0; offset < length;) {
         uint32_t count = length - offset;
         if (count > sizeof(converted)) count = sizeof(converted);
@@ -94,7 +133,7 @@ EXPORT void CALL AiLenChanged(void) {
             converted[i + 2] = p[0]; converted[i + 3] = p[1];
         }
         if (fwrite(converted, 1, count, output) != count) { fail("AI capture write failed"); break; }
-        data_bytes += count; offset += count;
+        data_bytes += count; offset += count; audio_seconds += count / (frequency * 4.0);
     }
 }
 EXPORT void CALL ProcessAList(void) {}

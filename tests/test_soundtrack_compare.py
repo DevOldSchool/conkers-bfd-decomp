@@ -26,3 +26,25 @@ class SoundtrackComparisonTests(unittest.TestCase):
         self.assertEqual(comparison.compare(np.zeros((61, 2)), np.zeros((61, 100))), [])
         with self.assertRaisesRegex(ValueError, "finite"):
             comparison.compare(np.full((61, 80), np.nan), np.zeros((61, 100)))
+
+class WaveformClockTests(unittest.TestCase):
+    def test_observed_clock_restores_alignment_and_gain(self):
+        import tempfile
+        from pathlib import Path
+        import soundfile as sf
+        from scripts.soundtrack_compare import waveform_alignment
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            rng = np.random.default_rng(17)
+            source = rng.normal(0, 0.15, 24000)
+            sf.write(root / 'source.wav', source, 12000, subtype='FLOAT')
+            # The same samples played at the reference hardware clock, delayed
+            # by exactly one second and scaled, should recover both values.
+            reference = np.pad(source * 0.4, (11000, 11000))
+            sf.write(root / 'reference.wav', reference, 11000, subtype='FLOAT')
+            corrected = waveform_alignment(root / 'source.wav', root / 'reference.wav', 1, 11000)
+            wrong = waveform_alignment(root / 'source.wav', root / 'reference.wav', 1)
+            self.assertGreater(corrected['correlation'], 0.99)
+            self.assertAlmostEqual(corrected['reference_seconds'], 1.0, places=3)
+            self.assertAlmostEqual(corrected['least_squares_gain'], 0.4, places=3)
+            self.assertLess(wrong['correlation'], 0.1)

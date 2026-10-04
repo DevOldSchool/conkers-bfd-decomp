@@ -218,3 +218,23 @@ Model generation embeds them to retain its standalone HTML behavior; soundtrack
 generation copies them beside the HTML. Both use the same charcoal panels, blue
 accents, system typography, margins, controls and focus states. Page-specific
 layout remains separate; other generated previews were not overwritten.
+
+### Add qualified native captures without replacing a preview
+
+`python3 -m scripts.soundtrack_native_review --preview <existing-preview>
+--captures <local-capture-spec.json> --output <fresh-review-folder>` creates a
+metadata overlay with copied, hash-guarded stereo PCM16 captures. It shares the
+existing sequence/sample/MP3 assets with sibling previews. Keep those folders
+together. The specification supplies the same normalized US ROM SHA1, a notice,
+and capture records with relative `file`, `wav_sha1`, `sequence_index`, `kind`
+(`native-game-mix` or `measured-stream-cue`), `title` and qualified `note` fields.
+Paths stay within the specification directory; captures must be at most five
+minutes. Existing outputs and changed source hashes are rejected.
+
+The local targeted checkpoint is `build/assets/soundtracks/us-native-review/index.html`;
+select sequence 0066, then use the expanded in-game comparison section. It has
+the complete existing collection plus two bounded Sloprano game mixes and an
+observed-clock six-second resource 0239 cue audition. These do not verify the
+entire boss arrangement. See the [fidelity evidence](evidence/us_soundtrack_renderer_fidelity.md#targeted-sloprano-saved-state-checkpoint)
+for measured onset, clock and gain qualifications. No server is needed to open
+the HTML; browser `file://` media and draft-storage policy can vary.

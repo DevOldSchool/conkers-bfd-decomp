@@ -238,6 +238,18 @@ async function initialize() {
     for (const other of document.querySelectorAll('audio')) other.addEventListener('play', () => audio.pause());
     section.append(title, note, audio); $('experiments').append(section);
   }
+  for (const capture of manifest.native_captures || []) {
+    const section = document.createElement('section');
+    const title = document.createElement('h3'); title.textContent = capture.title;
+    const note = document.createElement('p'); note.textContent = capture.note;
+    const audio = document.createElement('audio'); audio.controls = true; audio.preload = 'none'; audio.src = capture.file;
+    audio.setAttribute('aria-label', capture.title);
+    audio.addEventListener('play', () => { for (const other of document.querySelectorAll('audio')) if (other !== audio) other.pause(); });
+    for (const other of document.querySelectorAll('audio')) other.addEventListener('play', () => audio.pause());
+    section.append(title, note, audio); $('native-captures').append(section);
+  }
+  $('native-notice').textContent = manifest.native_review_notice || '';
+  $('native-section').hidden = !(manifest.native_captures || []).length;
   $('experiment-section').hidden = !(manifest.experiments || []).length;
   renderTracks();
   const requested = Number(new URLSearchParams(location.search).get('sequence') || 1);

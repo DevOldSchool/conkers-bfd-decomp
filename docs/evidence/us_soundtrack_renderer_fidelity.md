@@ -132,3 +132,50 @@ asset reuse and finite/infinite loop safety. Browser checks exercise native
 players, mutual pause, relative source links and responsive layout. Remaining
 work is native filters/wet buses, frame/integer rounding, game marker/channel
 selection and MP3 playback details, rather than guessed DSP parameters.
+
+## Targeted Sloprano saved-state checkpoint
+
+The two supplied opening/fight OpenEmu saves were found, copied into private
+ignored build inputs and successfully loaded with the existing isolated emulator.
+Both use the owned US ROM and compatible Mupen save format. Screenshots confirm
+the boss opening and fight. Originals and the user's emulator session were
+preserved; no controller input or software installation was performed.
+
+[Native review measurements](../../config/soundtrack-native-review-audit.json)
+record capture hashes and qualifications. Opening audio lasts 142.550 seconds;
+fight audio lasts 135.263 seconds. The opening eventually changes scene and the
+unattended fight reaches death. These are full game mixes, not clean music stems
+or a complete successful boss playthrough.
+
+The optional `CONKER_AUDIO_US_MP3_REQUEST_LOG=1` capture probe samples the reviewed
+retail-US adapter's last-request halfword at physical RDRAM `0x427f4`, using the
+core's word-swapped memory layout. It logs state changes at AI DMA boundaries,
+exclusively creates its CSV and performs no RAM writes. This is deliberately
+US-specific. Same-ID retriggers can be missed; an initial or retained ID does
+not prove playback. In the opening, the state changes from retained 457 to 239
+at 35.388954492 captured-audio seconds. Fight state remains 239. None of the
+later distinct song IDs is observed in these bounded unattended replays.
+
+The extracted MP3 0239 nominal clock is 22,050 Hz; native AI PCM is 22,018 Hz.
+An explicit observed-clock comparison of its first six seconds raises waveform
+correlation from 0.123452 to 0.935334. Audible alignment is 35.490249 seconds,
+about 101.295 ms after the request-state observation. Two/four/six-second
+projection gains are 0.471240, 0.472386 and 0.473394. This supports this cue's
+clock, excerpt timing and approximate relative amplitude. It does not establish
+an exact decoder delay or every cue's gain. The old five-cue experiment applies
+0.710459 overall peak attenuation; its relative vocal level remains unverified.
+A separate six-second 0239 audition uses the observed clock and 0.473394 gain.
+Default sequence renders and the full timed assembly are preserved unchanged.
+
+The new private `us-native-review` preview reuses all 149 sequence WAVs,
+149 MIDI/CSeq pairs, 2,258 samples and 11 MP3 candidates from sibling previews.
+It adds the two captures and the measured cue audition in a clearly qualified
+section. Numeric IDs, canonical candidate titles and confidence metadata remain
+unchanged. Sixty-nine Python tests pass, including clock/gain recovery and
+capture hash/ROM/path/overwrite guards. Focused C tests cover request-state byte
+order, change suppression and overwrite refusal in addition to existing PCM
+checks. Browser validation confirms all three new players ready, advancing
+playback, mutual pause and no console errors. Direct-file browser automation is
+blocked by browser protocol policy; direct-open file integrity is checked but
+actual `file://` playback/storage remains unverified. The temporary loopback
+validation server is stopped after testing.

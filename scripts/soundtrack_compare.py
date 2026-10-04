@@ -16,7 +16,7 @@ from pathlib import Path
 import numpy as np
 import soundfile as sf
 from scipy.fft import irfft, next_fast_len, rfft
-from scipy.signal import resample_poly, stft
+from scipy.signal import fftconvolve, resample_poly, stft
 
 HOP = 2048 / 11025
 
@@ -76,6 +76,47 @@ def compare(source: np.ndarray, reference: np.ndarray, seconds: float = 8) -> li
                         "reference_seconds": round(match * HOP, 4),
                         "seconds": round(length * HOP, 4)})
     return sorted(windows, key=lambda window: window["score"], reverse=True)
+
+
+
+def waveform_alignment(source_path: Path, reference_path: Path, seconds: float = 6,
+                       source_playback_rate: int | None = None) -> dict:
+    """Align the first source excerpt at an explicitly supplied playback clock.
+
+    The gain is a least-squares projection onto a mixed recording, not an
+    isolated stem measurement. A rate override changes comparison timing only;
+    it never modifies source bytes or silently retunes the spectral comparison.
+    """
+    if not 1 <= seconds <= 30:
+        raise ValueError("waveform excerpt duration must be 1..30 seconds")
+    source, nominal_rate = sf.read(source_path, always_2d=True)
+    reference, reference_rate = sf.read(reference_path, always_2d=True)
+    playback_rate = source_playback_rate if source_playback_rate is not None else nominal_rate
+    if not 4000 <= playback_rate <= 192000:
+        raise ValueError("source playback clock must be 4000..192000 Hz")
+    def mono_resample(pcm: np.ndarray, rate: int) -> np.ndarray:
+        divisor = gcd(rate, 11025)
+        return resample_poly(pcm.mean(axis=1), 11025 // divisor, rate // divisor)
+    chunk = mono_resample(source, playback_rate)[:round(seconds * 11025)]
+    reference = mono_resample(reference, reference_rate)
+    if len(chunk) < 11025 or len(reference) < len(chunk):
+        raise ValueError("waveform recordings are too short")
+    chunk -= chunk.mean()
+    energy = float(np.dot(chunk, chunk))
+    if energy < 1e-10 or not np.all(np.isfinite(reference)):
+        raise ValueError("waveform excerpt must be audible and finite")
+    dot = fftconvolve(reference, chunk[::-1], mode="valid")
+    cumulative = np.cumsum(np.pad(reference * reference, (1, 0)))
+    local_energy = cumulative[len(chunk):] - cumulative[:-len(chunk)]
+    scores = dot / np.sqrt(np.maximum(local_energy * energy, 1e-10))
+    offset = int(np.argmax(scores))
+    return {"correlation": float(np.clip(scores[offset], -1, 1)),
+            "reference_seconds": offset / 11025,
+            "excerpt_seconds": len(chunk) / 11025,
+            "least_squares_gain": float(dot[offset] / energy),
+            "nominal_source_rate": nominal_rate, "source_playback_rate": playback_rate,
+            "reference_rate": reference_rate,
+            "notice": "Mixed-audio waveform projection; gain and onset are excerpt estimates, not decoder parameters or full-song identity."}
 
 
 def main() -> None:
