@@ -2879,6 +2879,12 @@
       "symbol": "func_150B2740"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1342,
+        "reason": "Manual budget exhausted; retain best CURRENT1342 complete packet with argument homes recovered",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -51231,6 +51237,12 @@
       "symbol": "func_15187978"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2728,
+        "reason": "Best valid CURRENT (2728); three manual comparisons exhausted; native matrix homes and command scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60010,11 +60022,15 @@
       "symbol": "func_1503CB98"
     },
     {
+      "blocked": {
+        "reason": "Matched shared func_151491F4 declares void, but raw wrapper forwards func_15149130 allocated pointer/zero; target uses V0 at E6B60-E6B70 as memcpy destination. Requires shared return-contract audit outside target-only scope.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 724,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150E68B0",
           "vram": "0x150E68B0"
         }
@@ -67233,6 +67249,12 @@
       "symbol": "func_150C7968"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 983,
+        "reason": "Best valid CURRENT (983); three manual comparisons exhausted; frame, scalar homes and register allocation remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90470,11 +90492,15 @@
       "symbol": "func_15103E40"
     },
     {
+      "blocked": {
+        "reason": "Matched shared func_1510F800 declares void input but forwards A0 to func_150A49F4, which reads table index and stores it; target passes zero. Requires shared input-contract audit outside target-only scope.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 720,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151BE850",
           "vram": "0x151BE850"
         }
