@@ -367,8 +367,8 @@ s32 func_150A29C8(u32 arg0, s32 arg1) {
         }
         return 1;
     }
-    return func_150A1DA0((arg0 * 0x32C) + &D_800CC2D0,
-                          (arg1 * 0x34) + D_800D3098, 1);
+    return func_150A1DA0((GameCDE80Actor *)((u32)&D_800CC2D0 + arg0 * 0x32CU),
+                          (s32)((u32)arg1 * 0x34U + (u32)D_800D3098), 1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A29C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A29C8.s")

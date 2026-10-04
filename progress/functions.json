@@ -37763,8 +37763,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 132,
-        "reason": "CURRENT (132): exact instruction/control sequence; remaining differences are frame 0x38 vs 0x30, two spill slots shifted (sp24/sp34 vs sp20/sp2C), incoming argument home offsets, and one t8/t9 load allocation",
+        "current_score": 258,
+        "reason": "Best valid CURRENT258 after canonical s32 arg3 repair (legacy132 no longer compiles against existing source declaration; low-half casts retain raw semantics), scoped actual pointer locals316 and removed consumed byte snapshot258. Frame30 and record spill2C recovered; arg1 spill24/raw20, timer LW/rawLHU and load colors/order remain. Two fresh revisions plus one compile repair exhausted; no shared declarations changed.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39437,8 +39437,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3455,
-        "reason": "Initial semantic recovery remains control-flow/register divergent; preserve the candidate for later early-return expression recovery.",
+        "current_score": 2640,
+        "reason": "Best valid CURRENT2640: scalar-global out-of-object pointer addition replaced with integer address arithmetic (legacy3455 invalid), recovering global A2 sequence. Widen count2640 neutral, original byte local retained; raw SLT vs compiler equality-only loop, global base CSE and branch scheduling remain. Two fresh revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46206,7 +46206,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 485,
-        "reason": "CURRENT (485): exact frame, counts, constants, and full control flow; remaining 24 register allocations plus the func_10026800 a2/a3 scheduling pair; inline CSE regressed to 935",
+        "reason": "Best valid CURRENT485: repaired scalar-global out-of-object actor address and wrapping target-base addition using existing GameCDE80Actor pointer type. Legacy485 rejected; full frame/instruction/control counts retained. Raw arg0 homes already correct, prior inline CSE935 failed; residual24 register rows and helperA2/A3 setup order. One fresh correctness revision, no eligible untried manual hypothesis; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49381,8 +49381,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1375,
-        "reason": "CURRENT (1375): exact call setup, frame, bounds control, and integer addressing; reusing arg1 fixes f14, but reciprocal/result FPU allocation and interleaving differ with eight extra/missing rows; staged float temporaries regressed to 1780",
+        "current_score": 800,
+        "reason": "Best valid CURRENT800: uint wrapping matrix/record addresses plus both output-result snapshots via consumed arg2/arg1 before stores. Legacy1375 invalid signed addressing and aliased-output sequence (raw reads both outputs/fields before stores); address-only1375 remains invalid. Prior staged float temps1780 not repeated; two fresh correctness revisions exhausted. Frame/call/bounds exact; FPU scheduling/colors and extra full-span instruction remain; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -83615,7 +83615,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 900,
-        "reason": "CURRENT (900): exact frame and call/control skeleton, but saved-register allocation differs, D_800D154C address is hoisted instead of direct, local buffer lands at sp54 vs sp48, and loop-limit load adds six rows; typed local/counter rewrite regressed to 1300",
+        "reason": "Best valid CURRENT900: actual u8 buffer[6] repairs legacy s32[4-byte] bzero6 overflow (helper SDK bzero mapping), buffer sp50/raw48; frame58 exact. Prior typed-local/counter1300 rejected; remaining global address CSE, saved-register allocation, limit materialization/full-span extra instruction. One fresh correctness revision; no supported extra padding or new counter hypothesis; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

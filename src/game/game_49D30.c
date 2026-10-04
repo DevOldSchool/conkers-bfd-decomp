@@ -1396,7 +1396,7 @@ void func_15022998(s32 *arg0) {
 }
 extern u8 D_800CBFDF;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150229E4 CURRENT (3455) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150229E4 CURRENT (2640) */
 s32 func_150229E4(void *arg0) {
     s32 var_a0;
     s32 var_v0;
@@ -1421,7 +1421,7 @@ s32 func_150229E4(void *arg0) {
     }
     temp_a1 = *(u8 *)((u8 *)arg0 + 0x65);
     if (temp_a1 != 0) {
-        var_a2 = *(u8 *)((u8 *)&D_800CBFDF + (temp_a1 * 0x32C));
+        var_a2 = *(u8 *)((u32)&D_800CBFDF + (u32)temp_a1 * 0x32CU);
     } else {
         var_a2 = *(u8 *)((u8 *)arg0 + 0x3B);
     }

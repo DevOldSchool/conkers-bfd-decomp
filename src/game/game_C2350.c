@@ -114,23 +114,25 @@ void func_150A7A00(void *, f32, f32, f32, f32 *, f32 *, f32 *, f32 *);
 extern s32 D_80082FA4;
 extern f32 D_800D9B20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509563C CURRENT (1375) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509563C CURRENT (800) */
 s32 func_1509563C(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4,
                   f32 *arg5, f32 *arg6, f32 arg7) {
     u8 *temp_v1;
 
-    func_150A7A00(D_800D2CA8 + (D_80082FA4 << 6), arg0, arg1, arg2,
+    func_150A7A00((void *)((u32)D_800D2CA8 + ((u32)D_80082FA4 << 6)), arg0, arg1, arg2,
                   arg3, arg4, arg5, arg6);
     arg1 = *arg6;
     if ((arg7 <= arg1) || (arg1 <= D_800D9B20)) {
         return 0;
     }
     arg0 = 1.0f / arg1;
-    temp_v1 = (u8 *)D_800BE628 + (D_80082FA4 * 0x180);
-    *arg3 = ((*(f32 *)(temp_v1 + 0xC) + 5.0f) * *arg3 * arg0) +
+    temp_v1 = (u8 *)((u32)D_800BE628 + (u32)D_80082FA4 * 0x180U);
+    arg2 = ((*(f32 *)(temp_v1 + 0xC) + 5.0f) * *arg3 * arg0) +
             *(f32 *)(temp_v1 + 0x34);
-    *arg4 = *(f32 *)(temp_v1 + 0x38) -
+    arg1 = *(f32 *)(temp_v1 + 0x38) -
             ((*(f32 *)(temp_v1 + 0x10) + 5.0f) * *arg4 * arg0);
+    *arg3 = arg2;
+    *arg4 = arg1;
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1509563C */
