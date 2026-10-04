@@ -752,6 +752,77 @@ void *func_1513E83C(Game169510ScaledOwner *owner, s32 arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1513E83C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513E83C.s")
 
+extern f32 D_800DD1D8[], D_800DD1E8[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 CURRENT (3745) */
+void func_1513EAD8(void *arg0, s32 arg1, s16 arg2) {
+    Game169510ScaledVertex *vertices;
+    s16 coords[4][3];
+    u8 fresh;
+    Game169510ScaledOwner *owner;
+    u8 **slot;
+    u8 *templateData;
+    register f32 width, height, heightScale, directionZ, directionX;
+
+    owner = arg0;
+    func_151D5D60((u8 *)arg0 + 0x100, arg2, 0x40, (void **)&vertices, &fresh);
+    if (vertices == 0) {
+        return;
+    }
+    if (fresh != 0) {
+        slot = (u8 **)((u8 *)arg0 + arg2 * 4 + 0x100);
+        templateData = (u8 *)arg0 + 0xC0;
+        func_10022EC0(*slot, templateData, 0x40);
+        func_10022EC0(*slot + 0x40, templateData, 0x40);
+    }
+    directionZ = D_800DD1D8[arg2];
+    directionX = D_800DD1E8[arg2];
+    width = owner->width;
+    height = owner->height;
+    heightScale = owner->sy;
+    vertices[0].flag = 0;
+    directionZ *= width;
+    vertices[1].flag = 0;
+    directionX *= width;
+    vertices[2].flag = 0;
+    heightScale *= height;
+    vertices[3].flag = 0;
+    height -= heightScale;
+    coords[3][0] = coords[0][0] = (s16)(s32)(owner->x + directionX);
+    coords[1][1] = coords[0][1] = (s16)(s32)(owner->y - heightScale);
+    coords[3][2] = coords[0][2] = (s16)(s32)(owner->z - directionZ);
+    coords[2][0] = coords[1][0] = (s16)(s32)(owner->x - directionX);
+    coords[3][1] = coords[2][1] = (s16)(s32)(owner->y + height);
+    coords[2][2] = coords[1][2] = (s16)(s32)(owner->z + directionZ);
+    if (*(u8 *)((u8 *)&arg1 + 3) != 0) {
+        vertices[0].x = coords[1][0];
+        vertices[0].y = coords[1][1];
+        vertices[0].z = coords[1][2];
+        vertices[1].x = coords[2][0];
+        vertices[1].y = coords[2][1];
+        vertices[1].z = coords[2][2];
+        vertices[2].x = coords[3][0];
+        vertices[2].y = coords[3][1];
+        vertices[2].z = coords[3][2];
+        vertices[3].x = coords[0][0];
+        vertices[3].y = coords[0][1];
+        vertices[3].z = coords[0][2];
+    } else {
+        vertices[0].x = coords[0][0];
+        vertices[0].y = coords[0][1];
+        vertices[0].z = coords[0][2];
+        vertices[1].x = coords[1][0];
+        vertices[1].y = coords[1][1];
+        vertices[1].z = coords[1][2];
+        vertices[2].x = coords[2][0];
+        vertices[2].y = coords[2][1];
+        vertices[2].z = coords[2][2];
+        vertices[3].x = coords[3][0];
+        vertices[3].y = coords[3][1];
+        vertices[3].z = coords[3][2];
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513EAD8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513EAD8.s")
 void func_1513EAD8(void *arg0, s32 arg1, s16 arg2);
 

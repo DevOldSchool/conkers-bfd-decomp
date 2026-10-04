@@ -122,12 +122,12 @@
   },
   "regions": {
     "us": {
-      "blocked": 31,
+      "blocked": 32,
       "candidate": 0,
       "in_progress": 0,
       "matched": 2791,
       "original_asm": 22,
-      "raw_asm": 2647
+      "raw_asm": 2646
     }
   },
   "schema_version": 1,

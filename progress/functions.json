@@ -28932,6 +28932,12 @@
       "symbol": "func_1513E83C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3745,
+        "reason": "Best CURRENT 3745 after three bounded comparisons; float phase reuse improves frame 88 to 78 and product order, but coordinate homes and existing void return contract prevent exact match; no shared ABI edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -30504,6 +30510,12 @@
       "symbol": "func_1507DB44"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7590,
+        "reason": "Best CURRENT 7590 after three bounded comparisons; scoped packets and actual first-formal cursor recover exact28frame/prologue and packet snapshots, but increment scheduling, coordinate arithmetic, byte/register and control differences remain. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -33416,11 +33428,15 @@
       "symbol": "func_151D9FC0"
     },
     {
+      "blocked": {
+        "reason": "Native 151DA334 consumes V0 from 1513D668 and copies 1C bytes to returned pointer+128; active shared helper definition and same-source prototype are void. Full raw D668 forwards D594 pointer-or-zero unchanged, D594 explicitly returns that value. Requires separately authorized shared helper return-contract repair; target remains untouched.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 732,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151DA08C",
           "vram": "0x151DA08C"
         }
@@ -55768,6 +55784,12 @@
       "symbol": "func_151A7950"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1970,
+        "reason": "Best CURRENT 1970 after three comparisons; phase reuse reduces frame 78 to 70, but boolean word spill, vector homes, FP registers and callback control remain; no shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -88248,6 +88270,12 @@
       "symbol": "func_15052F58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2443,
+        "reason": "Best CURRENT 2443 after three bounded comparisons; register pointer removes duplicate address, but extra S1 save/frame50, argument homes, register and control schedules remain. Caller D7CC0 uses residual V0 requiring wider return-contract audit before acceptance.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
