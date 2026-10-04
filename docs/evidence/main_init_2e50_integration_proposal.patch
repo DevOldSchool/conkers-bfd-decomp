@@ -1,0 +1,226 @@
+--- a/Makefile
++++ b/Makefile
+@@ -23 +22,0 @@
+-LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
+@@ -30,0 +30,6 @@
++# The queue-thread table is external to its reviewed text unit.
++PROFILE_MAIN_RODATA_SCRIPT_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_2E50.o,$(C_OBJS)),config/main/us-rodata.ld)
++PROFILE_MAIN_RODATA_SCRIPT := $(PROFILE_MAIN_RODATA_SCRIPT_$(PROFILE))
++PROFILE_MAIN_RODATA_VERIFY_us := $(if $(PROFILE_MAIN_RODATA_SCRIPT),scripts/verify_main_rodata.py)
++PROFILE_MAIN_RODATA_VERIFY := $(PROFILE_MAIN_RODATA_VERIFY_$(PROFILE))
++LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
+@@ -226 +231 @@
+-raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY)
++raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY) $(PROFILE_MAIN_RODATA_VERIFY)
+@@ -228,0 +234,3 @@
++endif
++ifneq ($(PROFILE_MAIN_RODATA_VERIFY),)
++	python3 $(PROFILE_MAIN_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+@@ -241 +249 @@
+-$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT)
++$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT)
+@@ -253,0 +262,6 @@
++
++# Full-word switch entries execute through the main runtime alias. Preserve text.
++build/us/src/done/main/init_2E50.o: src/done/main/init_2E50.c scripts/compile_c.py scripts/prepare_main_library_object.py Makefile
++	@mkdir -p "$(@D)"
++	python3 scripts/compile_c.py --profile us --output $@.unprepared $<
++	python3 scripts/prepare_main_library_object.py $@.unprepared $@ --delta=-0x70000000 --expected-relocations 7
+--- /dev/null
++++ b/config/main/us-rodata.ld
+@@ -0,0 +1,14 @@
++/* Reviewed main queue-thread switch table; see the ROM-backed 2E50 evidence.
++ * Keep relocated bytes for verification while original raw data supplies ROM bytes.
++ */
++SECTIONS
++{
++    __main_rodata_saved_dot = ABSOLUTE(.);
++    .main_rodata_init_2e50 0x8002C080 (INFO) : SUBALIGN(4)
++    {
++        *init_2E50.o(.rodata)
++    }
++    . = __main_rodata_saved_dot;
++}
++ASSERT(SIZEOF(.main_rodata_init_2e50) == 0x20,
++       "main queue-thread switch table extent changed")
+--- /dev/null
++++ b/scripts/verify_main_rodata.py
+@@ -0,0 +1,98 @@
++#!/usr/bin/env python3
++"""Verify the integrated main queue-thread table against the validated US ROM."""
++
++from __future__ import annotations
++
++import argparse
++import hashlib
++import json
++from pathlib import Path
++import struct
++
++ROOT = Path(__file__).resolve().parent.parent
++SECTION_NAME = ".main_rodata_init_2e50"
++SECTION_VRAM = 0x8002C080
++SECTION_SIZE = 0x20
++ROM_START = 0x2C080
++
++
++def external_payload(elf: bytes) -> bytes:
++    def checked_slice(offset: int, size: int, description: str) -> bytes:
++        if offset < 0 or size < 0 or offset + size > len(elf):
++            raise ValueError(f"truncated {description}")
++        return elf[offset:offset + size]
++
++    header = struct.unpack(">16sHHIIIIIHHHHHH", checked_slice(0, 52, "ELF header"))
++    if (header[0][:7] != b"\x7fELF\x01\x02\x01" or header[1:4] != (2, 8, 1)
++            or header[8] != 52):
++        raise ValueError("expected ELF32 big-endian MIPS executable")
++    offset, entry_size, count, string_index = header[6], header[11], header[12], header[13]
++    if offset < 52 or entry_size != 40 or count == 0 or not 0 < string_index < count:
++        raise ValueError("unsupported ELF section table")
++    checked_slice(offset, count * entry_size, "ELF section table")
++    sections = [struct.unpack_from(">10I", elf, offset + index * entry_size)
++                for index in range(count)]
++    strings = sections[string_index]
++    if strings[1] != 3:
++        raise ValueError("invalid ELF section-name string table")
++    names = checked_slice(strings[4], strings[5], "ELF section names")
++    payload = None
++    for section in sections:
++        name_start = section[0]
++        name_end = names.find(b"\0", name_start)
++        if name_start >= len(names) or name_end < name_start:
++            raise ValueError("invalid ELF section name")
++        try:
++            name = names[name_start:name_end].decode("ascii")
++        except UnicodeDecodeError as error:
++            raise ValueError("invalid ELF section name") from error
++        if not name.startswith(".main_rodata"):
++            continue
++        if name != SECTION_NAME:
++            raise ValueError(f"unreviewed external main section: {name}")
++        if payload is not None:
++            raise ValueError("duplicate external main table")
++        if section[1] != 1 or section[2] != 0:
++            raise ValueError(f"{name}: expected non-allocated read-only INFO PROGBITS")
++        if (section[3], section[5]) != (SECTION_VRAM, SECTION_SIZE):
++            raise ValueError(f"{name}: address or size differs from reviewed mapping")
++        payload = checked_slice(section[4], section[5], "main table payload")
++    if payload is None:
++        raise ValueError("linked image has no reviewed external main table")
++    return payload
++
++
++def verify_bytes(linked: bytes, rom: bytes) -> None:
++    if len(linked) != SECTION_SIZE:
++        raise ValueError("main table dump has incorrect size")
++    if ROM_START + SECTION_SIZE > len(rom):
++        raise ValueError("main table is outside the US ROM")
++    if linked != rom[ROM_START:ROM_START + SECTION_SIZE]:
++        raise ValueError(f"main table differs from ROM at 0x{ROM_START:X}")
++
++
++def verify(elf: Path, root: Path = ROOT) -> None:
++    import rzip_archive
++
++    linked = external_payload(elf.read_bytes())
++    metadata = json.loads((root / "config/roms.json").read_text())["profiles"]["us"]
++    rom, _ = rzip_archive.normalize_rom((root / "roms/baserom.us.z64").read_bytes())
++    if hashlib.sha1(rom).hexdigest() != metadata["sha1"] or len(rom) != metadata["size_bytes"]:
++        raise ValueError("main table verification requires a checksum-validated US ROM")
++    verify_bytes(linked, rom)
++    print(f"{SECTION_NAME}: {SECTION_SIZE} linked bytes at 0x{SECTION_VRAM:X} match US ROM data")
++
++
++def main() -> int:
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument("elf", type=Path)
++    args = parser.parse_args()
++    try:
++        verify(args.elf)
++    except (ValueError, OSError, KeyError, struct.error) as error:
++        parser.exit(1, f"error: {error}\n")
++    return 0
++
++
++if __name__ == "__main__":
++    raise SystemExit(main())
+--- /dev/null
++++ b/tests/test_verify_main_rodata.py
+@@ -0,0 +1,77 @@
++from pathlib import Path
++import struct
++import sys
++import unittest
++
++sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
++import verify_main_rodata as verifier
++
++
++def image(*, name=verifier.SECTION_NAME, flags=0, address=verifier.SECTION_VRAM,
++          size=verifier.SECTION_SIZE, duplicate=False, include=True):
++    names = b"\0.shstrtab\0" + name.encode() + b"\0"
++    data_offset = 52 + len(names)
++    payload = bytes(range(32))
++    section_offset = data_offset + len(payload)
++    sections = [(0,) * 10, (1, 3, 0, 0, 52, len(names), 0, 0, 1, 0)]
++    if include:
++        sections.append((11, 1, flags, address, data_offset, size, 0, 0, 4, 0))
++    if duplicate:
++        sections.append(sections[-1])
++    header = struct.pack(">16sHHIIIIIHHHHHH", b"\x7fELF\x01\x02\x01" + bytes(9),
++                         2, 8, 1, 0, 0, section_offset, 0, 52, 0, 0, 40, len(sections), 1)
++    return header + names + payload + b"".join(struct.pack(">10I", *s) for s in sections)
++
++
++class MainRodataTests(unittest.TestCase):
++    def test_reviewed_info_payload(self):
++        self.assertEqual(verifier.external_payload(image()), bytes(range(32)))
++
++    def test_missing_and_duplicate_tables(self):
++        for blob in [image(include=False), image(duplicate=True)]:
++            with self.subTest(blob_size=len(blob)), self.assertRaises(ValueError):
++                verifier.external_payload(blob)
++
++    def test_unreviewed_table(self):
++        with self.assertRaisesRegex(ValueError, "unreviewed"):
++            verifier.external_payload(image(name=".main_rodata_other"))
++
++    def test_allocated_or_writable_sections_rejected(self):
++        for flags in [1, 2, 3, 4]:
++            with self.subTest(flags=flags), self.assertRaisesRegex(ValueError, "non-allocated read-only"):
++                verifier.external_payload(image(flags=flags))
++
++    def test_wrong_address_or_extent_rejected(self):
++        for blob in [image(address=verifier.SECTION_VRAM + 4), image(size=28), image(size=36)]:
++            with self.subTest(blob_size=len(blob)), self.assertRaisesRegex(ValueError, "mapping"):
++                verifier.external_payload(blob)
++
++    def test_truncated_headers_and_sections(self):
++        blob = image()
++        for length in [0, 51, 52, len(blob) - 1]:
++            with self.subTest(length=length), self.assertRaises(ValueError):
++                verifier.external_payload(blob[:length])
++
++    def test_unsupported_elf_identity(self):
++        for at, value in [(0, 0), (4, 2), (5, 1), (17, 1), (19, 3)]:
++            blob = bytearray(image()); blob[at] = value
++            with self.subTest(at=at), self.assertRaises(ValueError):
++                verifier.external_payload(bytes(blob))
++
++    def test_full_payload_and_padding_compared(self):
++        linked = bytes(range(32))
++        rom = bytes(verifier.ROM_START) + linked
++        verifier.verify_bytes(linked, rom)
++        for at in [0, 27, 28, 31]:
++            changed = bytearray(linked); changed[at] ^= 1
++            with self.subTest(at=at), self.assertRaisesRegex(ValueError, "differs"):
++                verifier.verify_bytes(bytes(changed), rom)
++
++    def test_truncated_rom_and_wrong_payload_size(self):
++        for linked, rom in [(bytes(32), bytes(verifier.ROM_START + 31)), (bytes(28), bytes(verifier.ROM_START + 32))]:
++            with self.subTest(length=len(linked)), self.assertRaises(ValueError):
++                verifier.verify_bytes(linked, rom)
++
++
++if __name__ == "__main__":
++    unittest.main()
