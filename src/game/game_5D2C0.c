@@ -229,7 +229,7 @@ void func_15030158(u8 *arg0, s32 volatile arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15030158 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030158.s")
-void func_15030310(void *arg0, s32 arg1, s32 arg2);
+s32 func_15030310(void *arg0, s32 arg1, s32 arg2);
 
 void func_150302F0(void *arg0, s32 arg1) {
     func_15030310(arg0, arg1, 0xFF);
@@ -238,39 +238,42 @@ void func_150302F0(void *arg0, s32 arg1) {
 void func_15030158(u8 *, s32 volatile);
 extern void * D_800C3EE0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030310 CURRENT (2735) */
-void func_15030310(void *arg0, s32 arg1, s32 arg2) {
-    s32 var_s0;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15030310 CURRENT (814) */
+s32 func_15030310(void *arg0, s32 arg1, s32 arg2) {
     void *temp_s1;
     void *var_a0;
+    s32 var_s5;
 
-    var_s0 = arg2;
     if (*(u8 *)((u8 *)arg0 + 0x3B) == 0) {
-        return;
+        return 0;
     }
     var_a0 = D_800C3EE0;
+    var_s5 = 0;
     if (var_a0 != 0) {
-loop_3:
+loop:
         temp_s1 = *(void **)((u8 *)var_a0 + 0x54);
-        if ((*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)((u8 *)var_a0 + 0)) && (arg1 == *(u8 *)((u8 *)var_a0 + 6))) {
-            if ((var_s0 != 0xFF) && (var_s0 != 0)) {
-                var_s0 -= 1;
+        if ((*(u8 *)((u8 *)arg0 + 0x3B) == *(u8 *)var_a0) &&
+            (arg1 == *(u8 *)((u8 *)var_a0 + 6))) {
+            if ((arg2 != 0xFF) && (arg2 != 0)) {
+                arg2 -= 1;
                 var_a0 = temp_s1;
-                goto block_10;
+                goto advance;
             }
+            var_s5 = 1;
             func_15030158(var_a0, 0);
-            if (var_s0 != 0) {
-                goto block_9;
+            if (arg2 != 0) {
+                goto next;
             }
         } else {
-block_9:
+next:
             var_a0 = temp_s1;
-block_10:
+advance:
             if (var_a0 != 0) {
-                goto loop_3;
+                goto loop;
             }
         }
     }
+    return var_s5;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15030310 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15030310.s")
