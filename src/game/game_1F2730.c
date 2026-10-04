@@ -91,7 +91,116 @@ void func_151C5E74(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
     func_151D9014(position, vector, 1, value, count, (u8)alpha, scale, 0,
                   1.0f, 1.0f, 1, 0, 1, 0, arg5[0xC], arg5[1]);
 }
+typedef struct { f32 x, y, z; } Game1F2730Vector;
+
+typedef struct {
+    s32 field00, field04;
+    s16 field08, lifetime;
+    s32 field0C, field10;
+    u8 colors[8];
+    u8 field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, field28, field2C;
+    Game1F2730Vector position, velocity, direction;
+    f32 field54;
+    s32 flags, field5C;
+    s8 controls[6];
+    u8 pad66[0xA];
+} Game1F2730SpawnInit;
+
+typedef struct {
+    u8 enabled, field01;
+    u8 pad02[2];
+    f32 scale;
+} Game1F2730SpawnExtra;
+
+void *func_10022EC0(void *, const void *, u32);
+s32 func_15130280(void *, s32, s32, s32, s32, s32);
+extern f32 D_800AAAF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5F44 CURRENT (1597) */
+s32 func_151C5F44(Game1F2730Vector *arg0, Game1F2730Vector *arg1,
+                   f32 arg2, f32 arg3, s32 arg4, s32 arg5,
+                   f32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10) {
+    Game1F2730SpawnInit packet;
+    f32 value;
+    s32 result;
+    Game1F2730SpawnExtra extra;
+    s32 first_flag;
+    s32 has_lifetime;
+    s32 second_flag;
+
+    value = arg3;
+    packet.field1D = 0x6C;
+    packet.field08 = 0x5103;
+    packet.field00 = 0x200005;
+    packet.field04 = 0;
+    packet.field0C = 0;
+    packet.field10 = 0;
+    packet.field1E = 0x14;
+    packet.field20 = 0xC;
+    if (func_150ADA20() & 1) {
+        first_flag = 0x40;
+    } else {
+        first_flag = 0;
+    }
+    has_lifetime = 1;
+    if ((s16)arg5 == -1) {
+        has_lifetime = 0;
+    }
+    if (func_150ADA20() & 1) {
+        second_flag = 0x80;
+    } else {
+        second_flag = 0;
+    }
+    packet.flags = second_flag | has_lifetime | 6 | first_flag | 0xC200 | 0x800000;
+    packet.controls[0] = 8;
+    packet.controls[1] = 6;
+    if ((u8)arg7 != 0) {
+        packet.controls[2] = 0x1D;
+    } else {
+        packet.controls[2] = 0xA;
+    }
+    packet.field22 = 1;
+    packet.controls[3] = -1;
+    packet.controls[4] = -1;
+    packet.controls[5] = 0;
+    extra.enabled = 1;
+    extra.field01 = 0;
+    packet.colors[0] = 0xE2;
+    packet.colors[1] = 0xB2;
+    packet.colors[2] = 0x60;
+    packet.colors[3] = 0xFF;
+    packet.colors[4] = 0x39;
+    packet.colors[5] = 0xF;
+    packet.colors[6] = 0;
+    packet.field1C = 0xFF;
+    packet.field24 = 1.0f;
+    extra.scale = D_800AAAF0;
+    packet.position = *arg0;
+    packet.velocity.x = 0.0f;
+    packet.velocity.y = 0.0f;
+    packet.velocity.z = 0.0f;
+    packet.direction = *arg1;
+    packet.field54 = arg2;
+    packet.colors[7] = arg4;
+    if ((s16)arg5 == -1) {
+        packet.lifetime = 0x12C;
+    } else {
+        packet.lifetime = arg5;
+    }
+    packet.field2C = arg6;
+    packet.field28 = arg6;
+    result = func_15130280(&packet, 1, arg8, 0x10, (u8)arg9, arg10);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0xA8, &value, 4U);
+        func_10022EC0((u8 *)result + 0xB0, &extra, 8U);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C5F44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C5F44.s")
+
 typedef struct {
     s16 field00;
     s16 field02;

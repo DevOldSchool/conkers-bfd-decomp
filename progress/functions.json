@@ -3458,6 +3458,12 @@
       "symbol": "func_15198110"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 9204,
+        "reason": "Manual3-attempt limit; best CURRENT9204 retained. Raw callee disproves starter phantom float arguments; full12-byte position and word loop index fixed. Geometry load ordering, float saves/frameB0 and ring allocation remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -37369,6 +37375,12 @@
       "symbol": "func_151C196C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2360,
+        "reason": "Three manual candidates; best CURRENT 2360. Real 12-byte vectors and 18-byte halfword-aligned surface copy reproduce raw transfer instructions; frame A8 agrees. Loop flag is still hoisted into a saved register, displacing final word argument; local vector homes are +4 and surface-tail store/control scheduling differ.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77378,6 +77390,12 @@
       "symbol": "func_15149550"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 660,
+        "reason": "Manual3-attempt limit; restored best CURRENT660. Corrected starter snapshot sampling before random calls; frame/stack agree. First motion base rematerialization and six commutative operand orders remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85111,6 +85129,12 @@
       "symbol": "func_151C5E74"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1597,
+        "reason": "Three manual candidates; restored best CURRENT 1597. Real 0x70-byte packet, vector copies, float fourth argument and eight-byte trailer reproduce prologue/frame B0 and all packet homes. Word parameter narrowing preserves stored bits; IDO carries lifetime across RNG, spills flags at different homes, reorders control-byte stores and branches. Explicit halfword snapshots and volatile control bytes worsened scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -89491,6 +89515,12 @@
       "symbol": "func_150000B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1220,
+        "reason": "Three manual candidates; restored best CURRENT 1220. Prefix through first helper is exact, frame 30 and allocation-loop instruction sequence agree except saved global-base ownership. Incoming word contract retained; raw allocation helper has one word input, ambient a1 is ignored. Corrected player-count resampling after every allocation. Remaining paired-byte loop strength reduction/scheduling, saved-base registers and final float-loop address scheduling.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
