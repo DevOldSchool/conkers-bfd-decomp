@@ -2248,7 +2248,139 @@ void func_15060D54(Game83300ActorLink *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15060D54 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060D54.s")
 
+typedef struct Game83300CleanupHeader {
+    u16 flags;
+    u8 released;
+} Game83300CleanupHeader;
+typedef struct Game83300CleanupChild {
+    u8 pad0[0x11C];
+    s32 allocation;
+} Game83300CleanupChild;
+typedef struct Game83300CleanupActor {
+    u8 pad0[5], kind, pad6[0x139], slot, pad140[4];
+    Game83300CleanupHeader *header;
+    u8 pad148[0x90];
+    s32 allocation1D8;
+    u8 pad1DC[0x84];
+    s32 allocations[4];
+    u8 pad270[0x60];
+    s32 allocation2D0;
+    u8 *effect;
+    u8 pad2D8[0x2C];
+    s32 viewAllocations[4], allocation314;
+    u8 pad318[4];
+    Game83300CleanupChild *child;
+    u8 pad320[4];
+    s32 allocation324;
+} Game83300CleanupActor;
+
+s32 func_1514D310(void *);
+void func_151695F0(void *, u8);
+void func_1516972C(u8 *);
+void func_15084558(void *);
+void func_150626EC(s32, s32);
+void func_1504AF10(void *, s32, s32);
+void func_1503E260(s32);
+void func_10004074(s32);
+void func_100043B4(s32, s32);
+void func_10010AA8(u8 *);
+s32 func_150303E4(void *);
+void func_15060D54(Game83300ActorLink *);
+void func_15188AD0(s32);
+extern u8 *D_800D210C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060F28 CURRENT (2525) */
+void func_15060F28(u8 *arg0, s32 arg1) {
+    Game83300CleanupActor *actor;
+    Game83300CleanupHeader *header;
+    Game83300CleanupChild *child;
+    u8 *entry;
+    s32 slot, flags;
+    s32 allocation;
+    u8 *effect;
+
+    actor = (Game83300CleanupActor *)arg0;
+    func_1514D310(arg0);
+    func_151695F0(arg0, 0);
+    if (actor->kind != 2 && actor->kind != 3) {
+        func_15084558(arg0);
+        func_150626EC((s32)arg0, arg1);
+    }
+    if (arg1 == 1) {
+        func_1504AF10(arg0, 1, 0);
+        func_1503E260((arg0 - (u8 *)&D_800CC2D0) / 0x32C);
+    }
+    slot = actor->slot;
+    if (slot != 0xFF) {
+        if (arg1 != 2) {
+            header = actor->header;
+            if (header != 0) {
+                flags = header->flags;
+                if (flags & 0x20) {
+                    header->released = 1;
+                    D_800D210C[actor->slot] = 0;
+                } else {
+                    if (flags & 1) {
+                        entry = D_800D210C + slot;
+                        goto clear_entry;
+                    }
+                    header->released = 1;
+                    entry = actor->slot + D_800D210C;
+                    *entry &= 0x80;
+                }
+            } else {
+                entry = slot + D_800D210C;
+                *entry &= 0x80;
+            }
+        } else {
+            entry = D_800D210C + slot;
+clear_entry:
+            *entry = 0;
+        }
+    }
+    allocation = actor->allocations[0];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocations[1];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocations[2];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocations[3];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocation1D8;
+    if (allocation != 0) func_10004074(allocation);
+    effect = actor->effect;
+    if (effect != 0) func_1516972C(effect);
+    if (actor->viewAllocations[0] != 0) {
+        arg1 = 0;
+        if (D_80082FA0 >= 0) {
+            do {
+                func_100043B4(actor->viewAllocations[arg1], 4);
+                arg1 = (arg1 + 1) & 0xFF;
+            } while (D_80082FA0 >= arg1);
+        }
+    }
+    allocation = actor->allocation314;
+    if (allocation != 0) func_100043B4(allocation, 4);
+    allocation = actor->allocation2D0;
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocation324;
+    if (allocation != 0) func_10004074(allocation);
+    child = actor->child;
+    if (child != 0) {
+        allocation = child->allocation;
+        if (allocation != 0) func_10004074(allocation);
+    }
+    func_10010AA8(arg0);
+    func_150303E4(arg0);
+    func_15060D54((Game83300ActorLink *)arg0);
+    func_15188AD0((s32)arg0);
+    child = actor->child;
+    if (child != 0) func_10004074((s32)child);
+    func_1505F188((u32)arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15060F28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060F28.s")
+
 /* Call context: func_1505A630: unique active declaration in the allowed source */
 extern f32 D_8009968C;
 extern s32 D_800D2104;

@@ -10546,6 +10546,12 @@
       "symbol": "func_15060D54"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2525,
+        "reason": "Manual budget exhausted; restored simplest best CURRENT2525. Frame20 and opening sequence exact; pointer/resource ownership and clear-branch joins remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -31960,6 +31966,12 @@
       "symbol": "func_15105548"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 335,
+        "reason": "Manual budget exhausted; retain best CURRENT335 with exact opcodes/control flow, remaining stack homes and saved-pointer ownership.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40114,6 +40126,12 @@
       "symbol": "func_1502C6E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6018,
+        "reason": "Manual budget exhausted; restored best CURRENT6018. Full16byte color recovered; narrow declared view input, actor saved register and frame70vs58 remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64371,6 +64389,12 @@
       "symbol": "func_1509D780"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 648,
+        "reason": "Manual budget exhausted; best CURRENT648. Frame40/GPR/FP ownership exact, request bases+4 and range/default branch joins remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65962,6 +65986,12 @@
       "symbol": "func_1516A770"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3139,
+        "reason": "Three manual comparisons exhausted; best CURRENT 3139 retains typed descriptor, object and complete outputs; saved-address promotion and stack/FP scheduling remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

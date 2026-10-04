@@ -631,7 +631,83 @@ void func_1502C6E8(s32 arg0, s16 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502C6E8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C6E8.s")
 
+typedef struct Game58F80RenderChild {
+    u8 pad0[0x2C];
+    s32 kind;
+} Game58F80RenderChild;
+typedef struct Game58F80RenderActor {
+    u8 pad0[0x74], hiddenViews, pad75[0xB2], view127, pad128[0xA0];
+    u8 lod, pad1C9[0xB];
+    s32 model;
+    u8 pad1D8[0x140];
+    Game58F80RenderChild *child;
+} Game58F80RenderActor;
+
+void func_1502C6E8(s32, s16, s32);
+void func_1502D54C(s32, void *);
+void func_1502D630(Game58F80Actor *, s32 *, s32);
+void *func_1502CCFC(void *, s32, void *, s32, s32, s32 *, s32, s32);
+u8 func_150849CC(void *, s32 *);
+extern void *D_800B0DF0;
+extern s32 D_800BE9C8[], D_800BEBA4, D_800DF7C0;
+extern u8 D_800DF7C4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502C974 CURRENT (6018) */
+s32 func_1502C974(s32 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4) {
+    struct {
+        s32 original, model;
+        s32 color[4];
+        s32 selected;
+    } work;
+    Game58F80RenderActor *actor;
+    Game58F80RenderChild *child;
+    s32 mask, opacity, result, exceeded;
+
+    work.original = arg0;
+    if (D_800C3638 != 0 && D_800C3656 == 0 &&
+        func_150229E4(&D_800CC2D0 + arg1 * 0x32C) == 0) {
+        return arg0;
+    }
+    actor = (Game58F80RenderActor *)(&D_800CC2D0 + arg1 * 0x32C);
+    mask = 1 << arg2;
+    if (mask == (actor->hiddenViews & mask)) return arg0;
+    if (func_1506196C((u8 *)actor, arg2) == 0) return arg0;
+    if (actor->model == 0) return arg0;
+    if (arg3 != 4 && arg3 != 5 && arg3 != 3) {
+        func_1502C6E8(arg1, arg2, arg3);
+        work.selected = actor->lod;
+    } else {
+        func_150849CC(actor, &work.selected);
+    }
+    func_1502D54C(arg1, work.color);
+    if (*(s16 *)((u8 *)D_800B0DF0 + 0x3E) != 0) {
+        func_1502D630((Game58F80Actor *)actor, work.color, arg2);
+    } else {
+        work.color[3] = 0xFF;
+    }
+    opacity = func_1506196C((u8 *)actor, arg2);
+    if (opacity < 0xFF) {
+        child = actor->child;
+        if (child != 0 && child->kind == 0x100 && arg2 != actor->view127) {
+            opacity = 0xFF;
+        }
+    }
+    if (arg3 == 4) {
+        work.model = D_800DF7C0;
+        opacity = (D_800DF7C4 * opacity) >> 8;
+    } else {
+        work.model = actor->model;
+    }
+    result = (s32)func_1502CCFC((void *)arg0, arg1, (void *)(s32)arg2,
+                             work.model, opacity, work.color, arg3, arg4);
+    exceeded = 0;
+    if (D_800BEBA4 < ((result - D_800BE9C8[D_800BE9C0]) >> 3)) exceeded = 1;
+    if (exceeded != 0) return work.original;
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502C974 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502C974.s")
+
 void func_1502EC34(u8 *, s32 *, s32 *, s32 *, s32 *);
 extern u8 D_800D9B68[];
 extern u8 D_800D9B78[];
