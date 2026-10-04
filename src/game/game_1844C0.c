@@ -144,7 +144,7 @@ void func_151572D0(u8 *arg0) {
     s32 callback_result;
 
     if (*(u8 *)(arg0 + 0x10) & 1) {
-        *(s16 *)(arg0 + 0x16) = *(s16 *)(arg0 + 0x16) - D_800BE9E4;
+        *(s16 *)(arg0 + 0x16) = (s16)((u32)(s32)*(s16 *)(arg0 + 0x16) - (u32)D_800BE9E4);
         if (*(s16 *)(arg0 + 0x16) < 0) {
             stopped = 1;
         }

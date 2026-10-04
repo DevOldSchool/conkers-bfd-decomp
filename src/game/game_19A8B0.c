@@ -512,11 +512,11 @@ void func_1516ED68(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1516ED68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516ED68.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516EED4 CURRENT (2667) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516EED4 CURRENT (2997) */
 void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     u8 *timer;
 
-    timer = &D_800DD2A0[arg0];
+    timer = (u8 *)((u32)D_800DD2A0 + (u32)arg0);
     if (arg0 < 4 && *timer >= arg1) {
         *timer = 0;
         func_1516D99C(0, 0, 0, 4, 0, 0xFF, 0xFF, 0xFF,

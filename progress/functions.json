@@ -6862,7 +6862,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 210,
-        "reason": "Best CURRENT (210): the typed 12-byte packet, 16-argument setup call, object creation/copy, callback assignment, and conditional spawn are instruction-identical except for IDO scheduling the D_800D3098 load ahead of the D_800E0934 callback store.",
+        "reason": "Valid wrapping packet pointer words: CURRENT210, callback store/base-load reorder remains. Actual qualified store/read revision regressed1115 due address materialization; baseline plus two revisions exhausted, keep valid210.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40789,8 +40789,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2460,
-        "reason": "CURRENT (2460): corrected double indirection and explicit -14 sentinel, but compiler strength-reduces the indexed 8-byte scan to pointer induction and hoists loop count; 5 control-flow and 12 missing/extra rows remain",
+        "current_score": 1205,
+        "reason": "Valid unsigned indexed scan and actual FP product/result reuse: CURRENT1205, improved from2460; outer count hoist/address reuse and register scheduling remain. Baseline plus two targeted revisions exhausted; retain best permitted candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46629,8 +46629,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2667,
-        "reason": "Manual timer-gated spawn candidate 2667; timer store and outgoing argument scheduling remain.",
+        "current_score": 2997,
+        "reason": "Valid word timer address preserves raw ADDU domain outside four-byte array: CURRENT2997; invalid baseline2667 excluded. Actual index snapshot neutral, duplicate input load/timer store/outgoing zero-store order remain. Baseline plus two revisions exhausted; keep simpler best valid.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49630,7 +49630,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2291,
-        "reason": "New rawcallee/fullROMtable evidence proves only first callback/helperargument consumed; prior livea1/a2 rationale did not establish arity. Corrected one-argument contracts and nested named callback results improve3363to2291; suffix-scoped locals2511 discarded. Byteflag/register/spill/control scheduling remains. No duplicate save-restore locals, padding or volatile added.",
+        "reason": "Valid wrapping duration subtraction before s16 narrowing: CURRENT2291 neutral correctness repair. Prior one-argument callback/helper and result/suffix-local scheduling work carried; no supported new frame hypothesis. Keep corrected best candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -75081,8 +75081,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3785,
-        "reason": "initial manual form has substantial FP/frame/control-flow drift; defer for later source-structure recovery",
+        "current_score": 170,
+        "reason": "Valid wrapping arithmetic and explicit unsigned FP cast with actual state-word reuse: CURRENT170 from3785, 27 register-only rows. Baseline plus two targeted revisions exhausted; manual-only, retain best.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

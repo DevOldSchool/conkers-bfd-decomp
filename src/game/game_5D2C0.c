@@ -827,13 +827,13 @@ s32 func_15031E2C(Game5D2C0State *arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_5D2C0/func_15031E2C.s")
 extern f32 D_800970DC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E7C CURRENT (2460) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15031E7C CURRENT (1205) */
 s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     u8 *object;
-    s32 commands;
+    u32 commands;
     f32 factor;
     f32 progress;
-    s32 index;
+    u32 index;
     s32 count;
     s32 marker;
     u16 kind;
@@ -842,7 +842,7 @@ s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     if (object == 0) {
         return 0;
     }
-    commands = **(s32 **)(arg0 + 0x24);
+    commands = **(u32 **)(arg0 + 0x24);
     if (commands == 0) {
         return 0;
     }
@@ -855,7 +855,8 @@ s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     } else {
         progress = *(f32 *)(object + 8);
         if ((progress >= 0.0f) && (progress <= 120.0f)) {
-            factor = 1.0f - progress * D_800970DC;
+            factor = progress * D_800970DC;
+            factor = 1.0f - factor;
         } else {
             factor = 0.0f;
         }
@@ -864,16 +865,16 @@ s32 func_15031E7C(u8 *arg0, u8 *arg1) {
     count = 4;
     do {
         count--;
-        if (*(s8 *)(commands + index * 8) != marker) {
+        if (*(s8 *)(commands + (index << 3)) != marker) {
             do {
                 index++;
-            } while (*(s8 *)(commands + index * 8) != marker);
+            } while (*(s8 *)(commands + (index << 3)) != marker);
         }
         if (count != 0) {
             index++;
         }
     } while (count != 0);
-    *(s32 *)(commands + index * 8) = (((s32)(25.0f * factor + 2.0f)) & 0xFFF) | 0xF2002000;
+    *(s32 *)(commands + (index << 3)) = (((s32)(25.0f * factor + 2.0f)) & 0xFFF) | 0xF2002000;
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15031E7C */
