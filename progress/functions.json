@@ -47180,7 +47180,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 740,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (740)",
+        "reason": "CURRENT740 preserved. Parameter-reuse revision regressed1549 with extra saved register. Remaining narrow-call normalization and scheduling need a supported target-local hypothesis; no callee/header changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
