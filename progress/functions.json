@@ -17187,8 +17187,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 919,
-        "reason": "CURRENT 919; full variadic relocation behavior retained, but local state/component record is placed 16 bytes high with a 0x58 frame instead of 0x50 and several branch/register differences; individual-local m2c shape regressed to 2511",
+        "current_score": 566,
+        "reason": "Valid566 using canonical four fixed parameters plus SDK variadic access, two actual state fields without unsupported pad, wrapping output/count arithmetic. Raw frame50/cursor60 recovered from legacy invalid919; state4C/component48 versus raw44/38, count registers/operand and branch scheduling remain. Actual argument/count reuse neutral566; prior individual-local2511 not repeated. Three finish/two fresh exhausted; retain clearer revision1, audit three external matched callers before batch.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58439,8 +58439,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 390,
-        "reason": "CURRENT (390): exact stack/operands/control, but IDO delays zero-float materialization and three packet stores until after argument setup; chained equivalent unchanged, extra temp enlarges frame. Preserve best candidate.",
+        "current_score": 257,
+        "reason": "Valid257 with minimal ray record without unsupported4B gap, canonical local15045800 u16 selector and1513418C pointer return/s32 address, actual zero fields volatile/ascending stores. Legacy390 invalid gap/type conflicts; valid repair407, targeted zero-field qualifier257. Raw frame70 and copied source/flag/result homes exact; coordinate homes+4 and interleaved zero loads/stores remain. Three finish/two fresh exhausted; prior chain/extra scalar temp not repeated, no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58619,8 +58619,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 390,
-        "reason": "CURRENT (390): parallel packet-spawn family shares exact remaining IDO zero-float scheduling and three delayed stores with func_150C5F94; no new hypothesis from this raw span. Preserve typed candidate.",
+        "current_score": 257,
+        "reason": "Valid257 reuses independently checked sibling minimal ray record, canonical local selector/return contracts and actual zero-field qualifiers; own scale80/globals/byte constants preserved. Legacy390 invalid gap/type conflicts. Same twelve coordinate+4 and zero load/store timing rows as C5F94; raw frame70/source-copy homes exact. Two finish/one fresh, inherited family hypotheses exhausted, no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78383,8 +78383,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6065,
-        "reason": "CURRENT (6065): reconstructed all twelve display-list commands and return pointer; remaining mismatch is volatile-store/pointer-temporary lowering, constant scheduling and register allocation.",
+        "current_score": 7170,
+        "reason": "Valid CURRENT7170, actual eight-byte union packet cursor with separate lexical command snapshots and all twelve raw word pairs. Fresh baseline8300; shared nonvolatile snapshot10300 regressed, separate macro-style blocks7170 improved but cursor increments still folded to base offsets and broad scheduling/register differences remain. Historical6065 was not reproduced over current full span. Three finish/two fresh exhausted; no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79816,8 +79816,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 215,
-        "reason": "CURRENT (215): exact frame, operands, and control flow; only active/id temporary registers differ and the active-byte store is scheduled early rather than with the aggregate stores.",
+        "current_score": 120,
+        "reason": "Valid120 canonical void-pointer two-argument15134DAC contract; move active aggregate store after object gives exact ID/active registers/store order. Remaining three rows are LI T7,1 in initializer cluster versus raw null-branch delay slot occupied by C LUI41F8. Baseline215 invalid old-style s32/three-argument first call; revision1 canonical contract neutral215, revision2 improved120. Three finish/two fresh exhausted; no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

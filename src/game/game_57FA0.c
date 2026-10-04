@@ -353,15 +353,15 @@ s32 func_1502B5C8(s32 *arg0, volatile s32 arg1, s32 arg2, s32 arg3) {
 s32 func_1502B350(u8 *, s32, s32 *);
 s32 func_1502B4A8(Game57FA0Reloc *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B6BC CURRENT (919) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B6BC CURRENT (566) */
 s32 func_1502B6BC(s32 *arg0, volatile s32 arg1, s32 *arg2,
-                   volatile s32 arg3, s32 arg4) {
+                   volatile s32 arg3, ...) {
     volatile struct {
         s32 component_state;
-        u8 pad3C[8];
         s32 state;
     } locals;
-    u8 *cursor;
+    va_list cursor;
+    s32 argument;
     volatile s32 *state;
     s32 count;
     s32 result;
@@ -373,19 +373,20 @@ s32 func_1502B6BC(s32 *arg0, volatile s32 arg1, s32 *arg2,
     }
     *state = 1;
     output = D_AB1950;
-    cursor = (u8 *)&arg4;
+    va_start(cursor, arg3);
     if (arg3 != 0) {
         do {
-            cursor = (u8 *)(((s32)(cursor + 3) & ~3) + 4);
+            argument = va_arg(cursor, s32);
             if (*state != 0) {
-                output += func_1502AC88(output, *(s32 *)(cursor - 4),
-                                        (s32 *)&locals.component_state);
+                output = (u8 *)((u32)output + (u32)func_1502AC88(output, argument,
+                                        (s32 *)&locals.component_state));
             }
             *state = locals.component_state & 0x0FFFFFFF;
-            count = arg3 - 1;
+            count = (s32)((u32)arg3 - 1U);
             arg3 = count;
         } while (count != 0);
     }
+    va_end(cursor);
     if (*state != 0) {
         result = func_1502B350(output, locals.component_state, (s32 *)state);
         if ((*state != 0) && (result != 0)) {

@@ -297,16 +297,15 @@ typedef struct {
 } Game1E9A30Spawn;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15134DAC();
+void *func_15134DAC(u8 *, s32);
 extern f32 D_800AA850;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 CURRENT (215) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 CURRENT (120) */
 void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
     Game1E9A30Spawn spawn;
-    s32 result;
+    void *result;
 
     if (arg0 != 0) {
-        spawn.active = 1;
         spawn.id = *(u8 *)((u8 *)arg0 + 0x3B);
         spawn.x1 = 31.0f;
         spawn.y1 = -34.0f;
@@ -316,6 +315,7 @@ void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
         spawn.z2 = -182.0f;
         spawn.scale = D_800AA850;
         spawn.object = arg0;
+        spawn.active = 1;
         spawn.field28 = 0;
         spawn.field2A = 0x32;
         spawn.field2C = 0x64;
@@ -326,7 +326,7 @@ void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
         spawn.field3C = 5;
         spawn.field3D = -1;
         spawn.copyValue = 0;
-        result = func_15134DAC(&spawn.id, 2, arg0);
+        result = func_15134DAC(&spawn.id, 2);
         if (result != 0) {
             func_10022EC0((u8 *)result + 0x80, &spawn.copyValue, 2);
         }
