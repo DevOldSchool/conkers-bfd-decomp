@@ -47836,8 +47836,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1925,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1925)",
+        "current_score": 1955,
+        "reason": "Manual limit: best valid1955 after16-byte stride repair; simple-loop11355 regressed. Raw zero argument conflicts with existing matched func1510F800(void); contract not changed. Residual unroll/register schedule. Restored best valid snapshot.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -68387,8 +68387,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4588,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (4588)",
+        "current_score": 3310,
+        "reason": "Manual limit: best valid3310 from actual volatile counter field and pre-angle minute quotient. Call-home revision3712 regressed despite30frame; restored best. Raw40frame, multu60 and register schedule remain; signed DIV/traps retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72708,8 +72708,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 10363,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (10363)",
+        "current_score": 10629,
+        "reason": "Manual limit: packed-word/low16/absolute-magnitude widths and raw three-input AD9A0 contract repaired. Best valid10629 with actual scalar/FP homes, frame48 vs58 and register/lifetime schedule remain; old baseline11800 invalid.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82611,8 +82611,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7417,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (7417)",
+        "current_score": 4548,
+        "reason": "Manual baseline plus two revisions; real vectors and corrected local one-pointer norm ABI, pre-loop steps and real scalar homes. Best valid CURRENT4548; frameC0 vsB8, vector/pointer homes and FP scheduling remain. Exhausted. Other norm call remains inside disabled151B77F4.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88011,8 +88011,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 9527,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (9527)",
+        "current_score": 7578,
+        "reason": "Manual baseline plus two revisions; raw crossing statements and in-place normal reuse, with actual saved parameter/local homes. Best CURRENT7578; frame98 vs90, extra integer save, FP lifetimes and branch schedule remain. Exhausted; ABI unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

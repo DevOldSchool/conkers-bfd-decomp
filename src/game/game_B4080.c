@@ -125,10 +125,10 @@ s32 func_15086D48(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D48.s")
 s32 func_15085DA8(f32);                             /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D94 CURRENT (9527) */
-f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    f32 sp54;
-    f32 sp50;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D94 CURRENT (7578) */
+f32 func_15086D94(f32 arg0, f32 arg1, volatile f32 arg2, volatile f32 arg3, f32 arg4) {
+    volatile f32 sp54;
+    volatile f32 sp50;
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa1;
@@ -172,21 +172,39 @@ f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                         var_t0 += 1;
                         if ((temp_v1 != 0xFF) && (var_t3 < (s32) temp_v1)) {
                             temp_a1 = (void *)((temp_v1 * 0x10) + D_800D2350);
-                            if ((*(u8 *)((u8 *)temp_a1 + 0xE) == 1) && (((temp_a2 = *(s16 *)((u8 *)temp_a1 + 4), temp_v1_2 = *(s16 *)((u8 *)temp_t2 + 4), temp_a0 = *(s16 *)((u8 *)temp_t2 + 0), temp_a3 = *(s16 *)((u8 *)temp_a1 + 0), temp_fa0 = (f32) (temp_a2 - temp_v1_2), temp_fs2 = (f32) temp_a0, temp_fs3 = (f32) temp_v1_2, temp_fa1 = -(f32) (temp_a3 - temp_a0), temp_fv0 = -((temp_fs2 * temp_fa0) + (temp_fa1 * temp_fs3)), temp_ft5 = (arg0 * temp_fa0) + (arg2 * temp_fa1) + temp_fv0, var_ft4 = temp_ft5, temp_fv1 = ((arg0 + arg3) * temp_fa0) + ((arg2 + arg4) * temp_fa1) + temp_fv0, var_fs0 = temp_fv1, (temp_fv1 < 0.0f)) && (temp_ft5 >= 0.0f)) || ((temp_ft5 < 0.0f) && (temp_fv1 >= 0.0f)))) {
-                                if (temp_fv1 < 0.0f) {
-                                    var_fs0 = -temp_fv1;
-                                }
-                                if (temp_ft5 < 0.0f) {
-                                    var_ft4 = -temp_ft5;
-                                }
-                                temp_fa0_2 = -temp_fa1;
-                                temp_fv1_2 = var_ft4 / (var_ft4 + var_fs0);
-                                var_fs4 = temp_fv1_2;
-                                temp_fv0_2 = -((temp_fs2 * temp_fa0_2) + (temp_fa0 * temp_fs3));
-                                temp_ft4 = (((temp_fv1_2 * arg3) + arg0) * temp_fa0_2) + (((temp_fv1_2 * arg4) + arg2) * temp_fa0) + temp_fv0_2;
-                                temp_fs0 = ((f32) temp_a3 * temp_fa0_2) + (temp_fa0 * (f32) temp_a2) + temp_fv0_2;
-                                if ((((temp_fs0 > 0.0f) && (temp_ft4 > 0.0f) && (temp_ft4 <= temp_fs0)) || ((temp_fs0 < 0.0f) && (temp_ft4 < 0.0f) && (temp_fs0 <= temp_ft4))) && (var_fs4 < sp50)) {
-                                    sp50 = var_fs4;
+                            if (*(u8 *)(temp_a1 + 0xE) == 1) {
+                                temp_a2 = *(s16 *)(temp_a1 + 4);
+                                temp_v1_2 = *(s16 *)(temp_t2 + 4);
+                                temp_a0 = *(s16 *)(temp_t2 + 0);
+                                temp_a3 = *(s16 *)(temp_a1 + 0);
+                                temp_fa0 = (f32)(temp_a2 - temp_v1_2);
+                                temp_fs2 = (f32)temp_a0;
+                                temp_fs3 = (f32)temp_v1_2;
+                                temp_fa1 = -(f32)(temp_a3 - temp_a0);
+                                temp_fv0 = -((temp_fs2 * temp_fa0) + (temp_fa1 * temp_fs3));
+                                temp_ft5 = (arg0 * temp_fa0) + (arg2 * temp_fa1) + temp_fv0;
+                                var_ft4 = temp_ft5;
+                                temp_fv1 = ((arg0 + arg3) * temp_fa0) + ((arg2 + arg4) * temp_fa1) + temp_fv0;
+                                var_fs0 = temp_fv1;
+                                if (((temp_fv1 < 0.0f) && (temp_ft5 >= 0.0f)) ||
+                                    ((temp_ft5 < 0.0f) && (temp_fv1 >= 0.0f))) {
+                                    if (temp_fv1 < 0.0f) {
+                                        var_fs0 = -temp_fv1;
+                                    }
+                                    if (temp_ft5 < 0.0f) {
+                                        var_ft4 = -temp_ft5;
+                                    }
+                                    temp_fa0_2 = -temp_fa1;
+                                    temp_fv1_2 = var_ft4 / (var_ft4 + var_fs0);
+                                    var_fs4 = temp_fv1_2;
+                                    temp_fa1 = temp_fa0;
+                                    temp_fa0 = temp_fa0_2;
+                                    temp_fv0_2 = -((temp_fs2 * temp_fa0) + (temp_fa1 * temp_fs3));
+                                    temp_ft4 = (((temp_fv1_2 * arg3) + arg0) * temp_fa0) + (((temp_fv1_2 * arg4) + arg2) * temp_fa1) + temp_fv0_2;
+                                    temp_fs0 = ((f32) temp_a3 * temp_fa0) + (temp_fa1 * (f32) temp_a2) + temp_fv0_2;
+                                    if ((((temp_fs0 > 0.0f) && (temp_ft4 > 0.0f) && (temp_ft4 <= temp_fs0)) || ((temp_fs0 < 0.0f) && (temp_ft4 < 0.0f) && (temp_fs0 <= temp_ft4))) && (var_fs4 < sp50)) {
+                                        sp50 = var_fs4;
+                                    }
                                 }
                             }
                         }
@@ -205,6 +223,7 @@ f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15086D94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D94.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150870D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087350.s")
 void func_150891E8(void *, void *);

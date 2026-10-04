@@ -18,8 +18,9 @@ void func_15114D24(s32, s32, s32, s16, s32, s32);
 extern s32 D_800BE3E4;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510AA44 CURRENT (4588) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510AA44 CURRENT (3310) */
 void func_1510AA44(void *arg0) {
+    volatile s32 *counter;
     s32 sp38;
     f32 sp24;
     f32 temp_fv1;
@@ -36,34 +37,36 @@ void func_1510AA44(void *arg0) {
     s32 var_v1;
     u32 temp_hi;
 
-    var_v0 = *(s32 *)((u8 *)arg0 + 0x3C);
+    counter = (volatile s32 *)((u8 *)arg0 + 0x3C);
+    var_v0 = *counter;
     var_v1 = (s32) (var_v0 / 3600) % 60;
     if ((*(s32 *)((u8 *)arg0 + 0x84) == 0) && (D_800BE3E4 != 0)) {
         *(s32 *)((u8 *)arg0 + 0x84) = 1;
         temp_hi = (u32) (D_800BE3E4 * 0xB4) % 43200U;
-        *(s32 *)((u8 *)arg0 + 0x3C) = (s32) temp_hi;
+        *counter = (s32) temp_hi;
         temp_lo = temp_hi * 0x3C;
         var_v0 = temp_lo;
-        *(s32 *)((u8 *)arg0 + 0x3C) = temp_lo;
+        *counter = temp_lo;
         var_v1 = (s32) (temp_lo / 3600) % 60;
     }
     if (var_v1 < 0) {
         var_v1 += 0x3C;
     }
     temp_t9 = var_v0 + D_800BE9E4;
-    *(s32 *)((u8 *)arg0 + 0x3C) = temp_t9;
+    *counter = temp_t9;
     var_v0_2 = temp_t9;
     if (temp_t9 >= 0x278D00) {
         temp_t2 = var_v0_2 + 0xFFD87300;
-        *(s32 *)((u8 *)arg0 + 0x3C) = temp_t2;
+        *counter = temp_t2;
         var_v0_2 = temp_t2;
     }
     temp_lo_2 = var_v0_2 / 60;
+    var_t0 = temp_lo_2 / 60;
     temp_fv1 = (f32) (temp_lo_2 / 300) * 2.5f;
     if (temp_fv1 > 360.0f) {
-        *(s32 *)((u8 *)arg0 + 0x3C) = (s32) (var_v0_2 + 0xFFD87300);
+        *counter = (s32) (var_v0_2 + 0xFFD87300);
     }
-    var_t0 = (s32) (temp_lo_2 / 60) % 60;
+    var_t0 %= 60;
     if (var_t0 < 0) {
         var_t0 += 0x3C;
     }
@@ -97,6 +100,7 @@ void func_1510AA44(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510AA44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_137ED0/func_1510AA44.s")
+
 /* Call context: func_15114D24: unique active project prototype */
 void func_15114D24(s32, s32, s32, s16, s32, s32);
 f32 func_15047C00(f32);                             /* extern */
