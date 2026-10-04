@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Corrected two selector-unit forwards to independently matched byte helper contracts; unchanged12020 body improves495to95, remains disabled beside canonical ASM. 114D0 cursorcopy is code-neutral1210; original body restored. Existing11FA0/1123C independent full-span0/layout/progress/whitespace cover both reviewed units. Clean canonical US ROM, tests, metadata, progress and whitespace pass. No new C matches or completed source units.",
+    "scope": "Four candidate reviews retain exact original bodies and canonical assembly: 095A0 operand form remains 1682; 099BC insertion-order regression restored to 976; 097CC baseline remains 1135 with zero new forms; A420 range-lifetime regression restored to 1115. Existing 09980 and 09B2C independently pass full-span CURRENT (0), layout, progress and whitespace. Clean canonical US ROM, tests and metadata pass. No new C matches, completed source units, ABI changes, shared dependencies or assembly changes.",
     "batch_ids": [
-      "func_80011FA0",
-      "func_8001123C"
+      "func_80009980",
+      "func_80009B2C"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.148,
+    "test_seconds": 35.25,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T15:39:48.812704+00:00",
+    "completed_utc": "2026-10-04T16:11:04.728417+00:00",
     "additional_focused_checks": {
-      "func_80011FA0": {
+      "func_80009980": {
         "score": 0,
-        "attempt_record": "d4f7222f7ef248cba1fac53edd44735e",
+        "attempt_record": "32caa6e08c20491cbbfc5f50dc348299",
         "layout": "preserved"
       },
-      "func_8001123C": {
+      "func_80009B2C": {
         "score": 0,
-        "attempt_record": "81b9b326f8ec47c5943863cf01780190",
+        "attempt_record": "26cc33be17954b2bb937bdbd655e19f8",
         "layout": "preserved"
       }
     }
@@ -479,6 +479,24 @@
       1210,
       1210,
       1210
+    ],
+    "func_800095A0": [
+      1682,
+      1682,
+      1682
+    ],
+    "func_800099BC": [
+      976,
+      1166,
+      976
+    ],
+    "func_800097CC": [
+      1135
+    ],
+    "func_8000A420": [
+      1115,
+      1131,
+      1115
     ]
   },
   "preserved_candidate_scores": {
@@ -519,7 +537,11 @@
     "func_80010FFC": 1595,
     "func_8000F6B8": 929,
     "func_800114D0": 1210,
-    "func_80012020": 95
+    "func_80012020": 95,
+    "func_800095A0": 1682,
+    "func_800099BC": 976,
+    "func_800097CC": 1135,
+    "func_8000A420": 1115
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -712,33 +734,49 @@
       "inherited_forms_tested": 3,
       "targeted_revisions_remaining": 0,
       "reason": "Two own forwards corrected to independently matched byte helper contracts; both raw call ANDIs recovered495to95, target body unchanged. Existing blend/loop families remain exhausted. Remaining FP roles/operand order and main switch/data ownership; no equivalent blend/storage/loop retry."
+    },
+    "func_800095A0": {
+      "status": "candidate",
+      "reason": "Guard operand-order form compiled identically; exact baseline restored. Input homes already correct; MMIO and operand families exhausted. No equivalent retries or automatic budget reset."
+    },
+    "func_800099BC": {
+      "status": "candidate",
+      "reason": "Raw insertion write order worsened 976 to 1166; exact baseline restored. Message loop is exact apart from the frame; no new pointer-copy or storage hypothesis. No equivalent retries or automatic budget reset."
+    },
+    "func_800097CC": {
+      "status": "candidate",
+      "reason": "Fresh baseline review only; fullword input homes, frame and address arithmetic already correct. Prior range-end family exhausted, no independent revision. No equivalent retries or automatic budget reset."
+    },
+    "func_8000A420": {
+      "status": "candidate",
+      "reason": "Actual range-value snapshot worsened 1115 to 1131; exact baseline restored. Own input values are full width; range/distance register roles and stack homes remain reversed. No equivalent retries or automatic budget reset."
     }
   },
-  "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
+  "ledger_note": "Detailed snapshots and task ledgers remain ignored under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004. This portable receipt and transactional inventory preserve scores, rejected forms and exhausted hypotheses. Historical scores are not match proof or a budget reset. Latest four reviews retain exact original bodies; clean canonical validation passed, with no new matches.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved disabled spatial F6B8 candidate CURRENT929 after raw-proven owning s16 coordinate contracts, improving fresh6143. Narrow near/far distance contracts regressed F91C400 and were rolled back; final s32 distances/explicit casts preserve both active matched callers full-span0/layout. Clean canonical US ROM, tests, metadata, progress and whitespace pass. No new C matches or completed source units.",
+    "scope": "Corrected two selector-unit forwards to independently matched byte helper contracts; unchanged12020 body improves495to95, remains disabled beside canonical ASM. 114D0 cursorcopy is code-neutral1210; original body restored. Existing11FA0/1123C independent full-span0/layout/progress/whitespace cover both reviewed units. Clean canonical US ROM, tests, metadata, progress and whitespace pass. No new C matches or completed source units.",
     "batch_ids": [
-      "func_8000F91C",
-      "func_8000F9D4"
+      "func_80011FA0",
+      "func_8001123C"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.725,
+    "test_seconds": 35.148,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T15:21:01.160891+00:00",
+    "completed_utc": "2026-10-04T15:39:48.812704+00:00",
     "additional_focused_checks": {
-      "func_8000F91C": {
+      "func_80011FA0": {
         "score": 0,
-        "attempt_record": "875cf464c372483d82a61b432a54d997",
-        "layout": "preserved after distance-contract rollback"
+        "attempt_record": "d4f7222f7ef248cba1fac53edd44735e",
+        "layout": "preserved"
       },
-      "func_8000F9D4": {
+      "func_8001123C": {
         "score": 0,
-        "attempt_record": "19f68d2c001549bebf72e565a3a41088",
+        "attempt_record": "81b9b326f8ec47c5943863cf01780190",
         "layout": "preserved"
       }
     }
@@ -1088,6 +1126,34 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved disabled spatial F6B8 candidate CURRENT929 after raw-proven owning s16 coordinate contracts, improving fresh6143. Narrow near/far distance contracts regressed F91C400 and were rolled back; final s32 distances/explicit casts preserve both active matched callers full-span0/layout. Clean canonical US ROM, tests, metadata, progress and whitespace pass. No new C matches or completed source units.",
+      "batch_ids": [
+        "func_8000F91C",
+        "func_8000F9D4"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.725,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T15:21:01.160891+00:00",
+      "additional_focused_checks": {
+        "func_8000F91C": {
+          "score": 0,
+          "attempt_record": "875cf464c372483d82a61b432a54d997",
+          "layout": "preserved after distance-contract rollback"
+        },
+        "func_8000F9D4": {
+          "score": 0,
+          "attempt_record": "19f68d2c001549bebf72e565a3a41088",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -1298,6 +1364,56 @@
       "change": "Correct two source-local byte helper declarations; recover two exact ANDI call inputs. Target body remains unchanged and disabled beside canonical assembly.",
       "caller_audit": "Complete known C/include refs only owning definitions/own forwards/three selected calls; incomplete matched-caller index empty.",
       "starter_limitation": "Known main jump table omitted from starter input; existing recovered C and independently inspected raw instructions/prior ROM-decoded case targets used."
+    },
+    "func_800095A0": {
+      "source": "src/main/init_8F90.c",
+      "full_span_bytes": 556,
+      "focused_score": 1682,
+      "attempt_record": "17be9528e9e444bab67e51ba4b2f2c9b",
+      "new_forms": 1,
+      "inherited_forms": 2,
+      "recovery_checks": 1,
+      "change": "Guard operand-order form compiled identically; exact baseline restored. Input homes already correct; MMIO and operand families exhausted.",
+      "status": "candidate",
+      "shared_dependency": false,
+      "retained_source_change": false
+    },
+    "func_800099BC": {
+      "source": "src/main/init_8F90.c",
+      "full_span_bytes": 368,
+      "focused_score": 976,
+      "attempt_record": "6ef45d23cf224a34a5ed5cee1cc44abe",
+      "new_forms": 1,
+      "inherited_forms": 2,
+      "recovery_checks": 1,
+      "change": "Raw insertion write order worsened 976 to 1166; exact baseline restored. Message loop is exact apart from the frame; no new pointer-copy or storage hypothesis.",
+      "status": "candidate",
+      "shared_dependency": false,
+      "retained_source_change": false
+    },
+    "func_800097CC": {
+      "source": "src/main/init_8F90.c",
+      "full_span_bytes": 436,
+      "focused_score": 1135,
+      "attempt_record": "dc906fb1502d44a5aacc88431ef03536",
+      "new_forms": 0,
+      "change": "Fresh baseline review only; fullword input homes, frame and address arithmetic already correct. Prior range-end family exhausted, no independent revision.",
+      "status": "candidate",
+      "shared_dependency": false,
+      "retained_source_change": false
+    },
+    "func_8000A420": {
+      "source": "src/main/init_A420.c",
+      "full_span_bytes": 816,
+      "focused_score": 1115,
+      "attempt_record": "cbcc1be281d8498ca49415fe3998f54e",
+      "new_forms": 1,
+      "inherited_forms": 3,
+      "recovery_checks": 1,
+      "change": "Actual range-value snapshot worsened 1115 to 1131; exact baseline restored. Own input values are full width; range/distance register roles and stack homes remain reversed.",
+      "status": "candidate",
+      "shared_dependency": false,
+      "retained_source_change": false
     }
   }
 }

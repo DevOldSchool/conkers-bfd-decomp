@@ -92170,7 +92170,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1682,
-        "reason": "Preserve candidate 1682 with independently verified task layout and helper contracts; SDK-style MMIO form scores1687, and the 8-byte frame gap has no storage proof.",
+        "reason": "Best full-span US CURRENT 1682 retained. Input parameter homes and AudioTaskRecord lifetimes already match raw assembly relative to the frame. The third total form reversed the guard addition operands and compiled identically at 1682; exact baseline restored and independently rechecked at 1682 (17be9528e9e444bab67e51ba4b2f2c9b). Operand-order and MMIO families exhausted; no supported new storage, ABI, frame or SDK hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92189,7 +92189,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1135,
-        "reason": "Preserve candidate 1135 with established ALDMAproc ABI and correct mixed signed/unsigned bounds; named range-end form is code-neutral, allocation and scheduling remain.",
+        "reason": "Fresh full-span US CURRENT1135 dc906fb1502d44a5aacc88431ef03536 confirms the recorded baseline. Zero new revisions: actual input homes, frame30, mixed bounds and address addition/subtraction already match; differences are range-end temporary assignment, copied insertion-pointer/branch-likely schedule and late buffer/queue-address load scheduling. Prior named range-end form was neutral; no distinct supported ABI, object-lifetime, address-local or storage hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92226,7 +92226,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 976,
-        "reason": "Best 976 remains unchanged after raw-proven DMA node view extension; regression only, no new source hypothesis or match credit.",
+        "reason": "Best full-span US CURRENT 976 retained, independently restored at 6ef45d23cf224a34a5ed5cee1cc44abe. Raw-supported prev-before-next insertion order worsens to1166 because anchor.next load moves and does not recover pointer-copy or branch-likely tail. Inherited initial/node-view extension plus current order form exhausted. Message loop is instruction-exact apart from frame58vs48; no new ABI, SDK, global, address-local or frame-storage hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95486,7 +95486,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1115,
-        "reason": "Independent helper contracts and compact phase state recover frame 0x38: 1917 to 1136 to 1115. Preserve best form with exact normalization/division behavior; remaining range/distance allocation and byte-fold scheduling need new evidence. No further local-order search.",
+        "reason": "Best full-span US CURRENT1115 restored and independently rechecked cbcc1be281d8498ca49415fe3998f54e. One distinct actual range-value lifetime form after inherited1917/1136/1115 worsens to1131: distance/range register roles remain reversed and range spill moves to18 rather than raw1C. Own inputs are raw fullword values; narrowing unsupported. No retained source/ABI change; local-order, range snapshot and frame/storage families exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
