@@ -6,9 +6,8 @@
  * Evidence: docs/evidence/us_debugger_overlay.md
  *
  * Original source-object ownership remains unreviewed; this collection is
- * not registered as a source unit. Individual full-span C matches are tracked
- * independently. Preserve function order and the canonical GLOBAL_ASM bodies
- * for deferred candidates until their full registered spans match.
+ * not registered as a source unit. All 28 registered spans have individual
+ * full-span C matches; preserve function order and their observed boundaries.
  * Loaded data and the privileged TLB capture routine remain separate raw ASM.
  */
 
@@ -211,7 +210,6 @@ extern u8 D_160047A4[];
 extern u8 D_160047AC[];
 void func_16001044(s32 position, s32 mode, u32 value);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_16000590 CURRENT (145) */
 void func_16000590(struct OSThread_s *thread) {
     s32 position;
     s32 i;
@@ -239,14 +237,15 @@ void func_16000590(struct OSThread_s *thread) {
         base = 0x6C;
         page = 0x10;
     }
-    for (; i < 16; base += 2, position += 0x20, i++) {
+    do {
         func_160012B0(position, D_160047AC);
         func_16001044(position + 2, 1, i + page);
         func_16001044(position + 5, 2, words[base + 1]);
-    }
+        base += 2;
+        position += 0x20;
+        i++;
+    } while (i < 16);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_16000590 */
-#pragma GLOBAL_ASM("asm/us/nonmatchings/debugger/debugger_0000/func_16000590.s")
 typedef struct {
     u8 bytes[4];
 } DebuggerLabel;
@@ -380,7 +379,13 @@ typedef struct {
 } DebuggerControllerPad;
 extern u8 D_16003888;
 extern u8 *D_8002AAE8[];
-extern u8 **D_8002BDE0;
+/* Reviewed SDK __osViCurr object; __OSViContext.framep is at +4. */
+typedef struct {
+    u16 state;
+    u16 retraceCount;
+    void *framep;
+} DebuggerViContext;
+extern DebuggerViContext *D_8002BDE0;
 extern u8 D_8002AC5C;
 extern struct OSThread_s D_80031AE0;
 typedef struct {
@@ -411,14 +416,13 @@ void func_10024F10(void);
 s32 func_16001700(void);
 void func_16001830(DebuggerControllerPad *data);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_16000B14 CURRENT (1600) */
 s32 func_16000B14(struct OSThread_s *thread) {
     s32 unused[3];
     s32 first;
     register s32 state;
     register s32 stick;
     register u32 pc;
-    register s32 page;
+    register u32 page;
     register s32 odd;
     register u32 flags;
     register s32 offset;
@@ -444,16 +448,16 @@ s32 func_16000B14(struct OSThread_s *thread) {
     D_1600392C[15] = saved[1];
     D_160039E8 = saved[2];
     D_16003A68 = saved[3];
-    pc = ((u32 *)thread)[0x11C / 4];
-    if ((pc & 0xFF000000) != 0x15000000) {
+    if ((((u32 *)thread)[0x11C / 4] & 0xFF000000) != 0x15000000) {
         D_16003AF0 = 1;
     } else {
-        pc &= ~0xFFF;
-        odd = pc & 0x1000;
-        pc &= ~0x1000;
+        page = ((u32 *)thread)[0x11C / 4] & ~0xFFF;
+        odd = page & 0x1000;
+        pc = page & ~0x1000;
+        page = pc;
         D_16003AF0 = 0;
         for (offset = 0; offset < 32; offset++) {
-            if (pc == D_160039AC[offset]) {
+            if (page == D_160039AC[offset]) {
                 flags = odd ? D_1600392C[offset] : D_160038AC[offset];
                 if (flags & 2) {
                     D_16003AF0 = 1;
@@ -464,7 +468,7 @@ s32 func_16000B14(struct OSThread_s *thread) {
     if ((((u32)D_8003C8E0 >> 24) & 0xFF) == 0xC) {
         thread = &D_80031AE0;
     }
-    if (D_8002BDE0[1] == D_8002AAE8[1]) {
+    if ((saved = (u32 *)D_8002BDE0->framep) == (u32 *)D_8002AAE8[1]) {
         *(s8 *)&D_16003888 = 1;
     }
     D_1600389C = thread;
@@ -493,7 +497,7 @@ s32 func_16000B14(struct OSThread_s *thread) {
             D_16003894 = D_160036F0.button;
             stick = D_160036F0.stick_x;
             if (stick >= 0x33) {
-                D_16003894 = D_160036F0.button | 0x20000;
+                D_16003894 |= 0x20000;
             }
             if (stick < -0x32) {
                 D_16003894 |= 0x10000;
@@ -524,8 +528,6 @@ s32 func_16000B14(struct OSThread_s *thread) {
     }
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_16000B14 */
-#pragma GLOBAL_ASM("asm/us/nonmatchings/debugger/debugger_0000/func_16000B14.s")
 extern s32 D_160038A0;
 extern u8 D_160047D0[];
 extern u8 D_160047D4[];
@@ -677,25 +679,25 @@ void func_16001390(s16 left, s16 top, s16 right, s16 bottom) {
 extern u8 D_16003CE0[];
 extern s32 D_160038A8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_160014F0 CURRENT (100) */
 u8 *func_160014F0(u8 *destination, u8 character) {
     u16 *pixel;
     u16 color;
-    s32 column;
+    u32 column;
     u16 bits;
-    s32 row;
+    u32 row;
     u8 *glyph;
     s32 code;
     u16 value;
 
     pixel = (u16 *)destination;
     color = D_1600388C;
-    code = character;
+    column = character;
+    bits = column;
+    code = bits;
     if (code < 0x20) {
         code = 0x20;
     }
-    glyph = D_16003CE0 + ((code - 0x20) << 3);
-    row = 0;
+    row = 0, glyph = D_16003CE0 + ((code - 0x20) << 3);
     for (; row < 8; row++, glyph++) {
         for (column = 0, bits = *glyph; column < 8; column++) {
             value = (bits & 0x80) ? color : 1;
@@ -706,8 +708,6 @@ u8 *func_160014F0(u8 *destination, u8 character) {
     }
     return destination + 0x10;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_160014F0 */
-#pragma GLOBAL_ASM("asm/us/nonmatchings/debugger/debugger_0000/func_160014F0.s")
 extern u8 D_16003888;
 extern s32 D_160038A8;
 extern u8 *D_8002AAE8[];
@@ -752,9 +752,8 @@ extern u8 D_80042A50;
 extern s32 D_80042A4C;
 void func_160018BC(void);
 s32 func_160019A8(s32 direction, void *buffer);
-s32 func_10024770(void);
+u32 func_10024770(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_16001700 CURRENT (20) */
 s32 func_16001700(void) {
     s32 result;
     s32 dummy;
@@ -774,8 +773,7 @@ s32 func_16001700(void) {
         }
         func_160016F4(dummy);
     }
-    end = (u32 *)&D_80042A50;
-    cursor = (u32 *)D_80042A10;
+    cursor = (u32 *)D_80042A10, end = (u32 *)&D_80042A50;
     do {
         *cursor++ = 0xFF;
     } while (cursor < end);
@@ -790,8 +788,6 @@ s32 func_16001700(void) {
     func_160016F4(read_dummy);
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_16001700 */
-#pragma GLOBAL_ASM("asm/us/nonmatchings/debugger/debugger_0000/func_16001700.s")
 
 
 
