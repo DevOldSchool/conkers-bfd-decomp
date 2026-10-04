@@ -167,6 +167,106 @@ Game13AE20Command *func_1510E120(Game13AE20Command *arg0, Game13AE20RenderState 
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510E120 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13AE20/func_1510E120.s")
+typedef struct { s16 x, y, z; } Game13AE20Point;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510E388 CURRENT (2374) */
+s32 func_1510E388(Game13AE20Point **arg0, Game13AE20Point *arg1, f32 *volatile arg2, f32 *volatile arg3) {
+    register f32 ux, uy, uz, vx, vy, vz;
+    register f32 swap, product, slope;
+    register s32 x, y, z;
+    register s32 iteration, status, origin, next, last, forward;
+    register Game13AE20Point *vertices;
+    register Game13AE20Point **indirect;
+    register Game13AE20Point *first, *second, *third;
+
+    vertices = arg1;
+    indirect = arg0;
+    iteration = 0;
+    if (indirect == 0 && vertices == 0) {
+        *arg3 = 0.0f;
+        *arg2 = 0.0f;
+        return 0;
+    }
+    do {
+        status = 1;
+        if (iteration >= 3) {
+            origin = iteration - 3;
+        } else {
+            origin = iteration;
+        }
+        forward = iteration < 3;
+        if (origin != 2) {
+            next = origin + 1;
+        } else {
+            next = 0;
+        }
+        iteration++;
+        if (next != 2) {
+            last = next + 1;
+        } else {
+            last = 0;
+        }
+        if (vertices != 0) {
+            second = &vertices[next];
+            first = &vertices[origin];
+            x = first->x;
+            y = first->y;
+            ux = (f32)(second->x - x);
+            uy = (f32)(second->y - y);
+            z = first->z;
+            uz = (f32)(second->z - z);
+            third = &vertices[last];
+            vx = (f32)(third->x - x);
+            vy = (f32)(third->y - y);
+            vz = (f32)(third->z - z);
+        } else {
+            second = indirect[next];
+            first = indirect[origin];
+            y = first->y;
+            x = first->x;
+            ux = (f32)(second->x - x);
+            uy = (f32)(second->y - y);
+            z = first->z;
+            uz = (f32)(second->z - z);
+            third = indirect[last];
+            vx = (f32)(third->x - x);
+            vz = (f32)(third->z - z);
+            vy = (f32)(third->y - y);
+        }
+        if (forward == 0) {
+            swap = ux;
+            ux = vx;
+            vx = swap;
+            swap = uy;
+            uy = vy;
+            vy = swap;
+            swap = uz;
+            uz = vz;
+            vz = swap;
+        }
+        product = ux * vz;
+        swap = vx * uz;
+        if (product == swap) {
+            status = 0;
+        }
+        if (vx == 0.0f) {
+            status = 0;
+        }
+        if (iteration == 6) {
+            status = 2;
+        }
+    } while (status == 0);
+    if (status == 2) {
+        *arg2 = 0.0f;
+        *arg3 = 0.0f;
+        return 0;
+    }
+    slope = ((vx * uy) - (ux * vy)) / (swap - product);
+    *arg3 = slope;
+    *arg2 = (vy - (slope * vz)) / vx;
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510E388 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13AE20/func_1510E388.s")
 extern s32 D_80089470;
 

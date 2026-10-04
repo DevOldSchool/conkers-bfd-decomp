@@ -14,7 +14,103 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game139FC0LevelEntry {
+    u8 pad0[0x5F0];
+    s32 flags5F0;
+    u8 pad5F4[0x3AC];
+} Game139FC0LevelEntry;
+extern Game139FC0LevelEntry *D_800DBFF0;
+extern s32 D_800BE9E4;
+extern u16 D_800D9E70[][3];
+extern u8 D_800D9E88[], D_800D9E98[], D_800D9EA8[], D_800D9EB4[], D_800D9EB8[];
+extern u8 D_800D9B68[], D_800D9B78[];
+f32 func_150489B0(u8);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510CB10 CURRENT (6625) */
+void func_1510CB10(s32 arg0) {
+    register u8 *request;
+    register volatile u16 *phase;
+    register u8 *first;
+    register u8 *second;
+    register u8 *current;
+    register u8 *amplitude;
+    register u8 *phaseStep;
+    register s32 step;
+    register s32 index;
+    register s32 enabled;
+    register s32 value;
+    register s32 target;
+    register s32 delta;
+    register s32 magnitude;
+    register f32 wave;
+    register s32 adjustment;
+    register s16 nextPhase;
+
+    if (D_800DBFF0[arg0].flags5F0 & 1) {
+        request = &D_800D9EB8[arg0 * 3];
+        current = &D_800D9EA8[arg0 * 3];
+        enabled = *request;
+        step = D_800BE9E4 * 2;
+        phase = D_800D9E70[arg0];
+        second = &D_800D9B78[arg0 * 3];
+        first = &D_800D9B68[arg0 * 3];
+        phaseStep = &D_800D9E88[arg0 * 3];
+        amplitude = &D_800D9E98[arg0 * 3];
+        index = 0;
+        do {
+            value = *current;
+            if (enabled != 0) {
+                target = D_800D9EB8[arg0 * 3 + index];
+            } else {
+                target = D_800D9EB4[index];
+            }
+            delta = target - value;
+            if (delta != 0) {
+                if (delta < 0) {
+                    magnitude = -delta;
+                } else {
+                    magnitude = delta;
+                }
+                if (magnitude < step) {
+                    value = target;
+                } else if (delta < 0) {
+                    value -= step;
+                } else {
+                    value += step;
+                }
+                *current = value;
+            }
+            wave = func_150489B0((*phase >> 4) & 0xFF);
+            wave *= (f32)(u32)*amplitude;
+            index++;
+            current++;
+            amplitude++;
+            adjustment = (s32)wave + value - 127;
+            if (adjustment >= 0) {
+                *first += adjustment;
+            } else {
+                *second -= adjustment;
+            }
+            if (*first >= 128) {
+                *first = 127;
+            }
+            first++;
+            if (*second >= 128) {
+                *second = 127;
+            }
+            nextPhase = *phase + *phaseStep;
+            phase++;
+            phase[-1] = nextPhase;
+            second++;
+            phaseStep++;
+            phase[-1] = nextPhase & 0xFFF;
+        } while (index != 3);
+        *request = 0;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510CB10 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CB10.s")
+
 extern u8 D_800D9B68[];
 extern u8 D_800D9B78[];
 

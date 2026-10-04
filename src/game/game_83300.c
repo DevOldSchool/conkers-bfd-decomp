@@ -324,7 +324,145 @@ void func_1505841C(Game83300Actor *arg0, f32 arg1) {
         }
     }
 }
+typedef struct Game83300Child585F0 {
+    u8 pad0[0x7D];
+    u8 field7D;
+} Game83300Child585F0;
+
+typedef struct Game83300State585F0 {
+    s32 kind;
+    u8 pad4[0x14];
+    f32 height18;
+    u8 pad1C[4];
+    f32 field20, field24, field28;
+    u8 pad2C[0x10];
+    f32 field3C;
+    u8 pad40[0x36];
+    u16 angle76, angle78, angle7A;
+    u8 pad7C[4];
+    u8 field80, field81, pad82, field83;
+    u8 pad84[0x29];
+    u8 modeAD;
+    u8 padAE[0xA];
+    f32 fieldB8;
+    u8 padBC[0x38];
+    s32 flagsF4, flagsF8;
+    u8 padFC[8];
+    u8 count104;
+    u8 pad105[4];
+    u8 strength109, pad10A, flags10B;
+    s16 timer10C;
+    u8 pad10E[0xA];
+    f32 ground118;
+    u8 pad11C[0xAE];
+    u8 field1CA, pad1CB;
+    f32 height1CC;
+    u8 pad1D0[0x4C];
+    s16 cooldown21C;
+    u8 pad21E[0x1A];
+    u8 owner238, pad239, backup23A;
+    u8 pad23B[0xE1];
+    Game83300Child585F0 *child31C;
+} Game83300State585F0;
+
+void func_1505A3A8(f32, void *, f32, f32, u8);
+void func_150599C8(u8 *, s32, u16);
+void func_1505E874(u8, void *);
+void func_1506B078(void);
+extern f32 D_80099478, D_8009947C, D_80099480, D_80099484;
+extern u8 D_800BE616, D_800C3E78;
+extern s16 D_800CC264;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150585F0 CURRENT (595) */
+void func_150585F0(u8 *arg0, register f32 arg1) {
+    Game83300State585F0 *actor;
+    Game83300Child585F0 *child;
+    f32 strength;
+    f32 value;
+    s32 mode;
+    s32 count;
+    s32 flags;
+    s32 copiedAngle;
+    u16 angle;
+    s32 owner;
+
+    actor = (void *)arg0;
+    strength = (f32)(u32)actor->strength109;
+    func_1505A3A8(0.0f, actor, 1.0f, strength * D_80099478, 0);
+    if (actor->height1CC < D_8009947C) {
+        actor->height1CC = actor->height18;
+    }
+    mode = actor->modeAD;
+    if (mode != 0 && mode < 10) {
+        value = actor->field20;
+        actor->field24 = 0.0f;
+        if (value < 60.0f) {
+            actor->field20 = value * D_80099480;
+        }
+        if ((actor->ground118 - 60.0f) + 40.0f < actor->height18) {
+            actor->field81 = 0;
+            actor->field83 = 0;
+            actor->modeAD = 0;
+            actor->fieldB8 = 0.0f;
+            actor->field24 = 4.0f;
+        }
+    }
+    if (D_800BE616 == 0 || actor->kind != 1) {
+        actor->cooldown21C = 0;
+    }
+    count = actor->count104;
+    if (count != 255) {
+        if (count != 254 && (actor->field1CA != 0 || actor->kind != 1)) {
+            actor->count104 = count - 1;
+        }
+        value = actor->field28;
+        actor->timer10C -= D_800CC264;
+        if (value < D_80099484 && (actor->flagsF4 & 0x100)) {
+            actor->timer10C = 0;
+        }
+        if (actor->timer10C <= 0) {
+            child = actor->child31C;
+            if (child != 0) {
+                child->field7D = 0;
+            }
+            actor->timer10C = 0;
+            func_1505E874(D_800C3E78, actor);
+        }
+        if (actor->count104 == 0) {
+            copiedAngle = actor->angle7A;
+            actor->field3C = 0.0f;
+            actor->field81 = 0;
+            actor->angle78 = copiedAngle;
+            actor->angle76 = copiedAngle;
+            if (actor->modeAD != 0) {
+                actor->field20 = 0.0f;
+                if (actor->kind == 1) {
+                    func_1506B078();
+                }
+            } else if (actor->kind == 1) {
+                actor->flagsF8 &= 0xFFFF7FFF;
+                actor->field24 = 4.0f;
+            }
+            owner = actor->owner238;
+            if (owner != 0) {
+                actor->backup23A = owner;
+            }
+        } else {
+            flags = actor->flags10B;
+            if (!(flags & 2)) {
+                angle = actor->angle76;
+                if (flags & 4) {
+                    angle = (angle ^ 0x8000) & 0xFFFF;
+                }
+                actor->field80 = 10;
+                func_150599C8(arg0, 12, angle);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150585F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150585F0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058898.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15058EA4 CURRENT (155) */
 void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {

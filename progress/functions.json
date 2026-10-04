@@ -9511,6 +9511,12 @@
       "symbol": "func_1505841C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 595,
+        "reason": "Best CURRENT (595), simpler second restored after three manual comparisons; unused parameter home, float registers and constant scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62152,6 +62158,12 @@
       "symbol": "func_1510E120"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2374,
+        "reason": "Best valid CURRENT 2374 retained after initial and two manual revisions; input pointer allocation, product register order, frame and output homes remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -64100,6 +64112,12 @@
       "symbol": "func_151002BC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3080,
+        "reason": "Best CURRENT (3080) after three manual comparisons; frame, argument/buffer homes, checksum registers and scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79093,6 +79111,12 @@
       "symbol": "func_1510B9D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6625,
+        "reason": "Best valid CURRENT 6625 retained after initial and two manual revisions; frame, repeated address calculations and pointer/spill allocation remain. Starter u16 pointer stride corrected against raw ASM.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85789,6 +85813,12 @@
       "symbol": "func_15104170"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2306,
+        "reason": "Best CURRENT (2306) after three bounded manual comparisons; frame, pointer homes, switch/register and constant scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
