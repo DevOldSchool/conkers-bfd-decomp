@@ -10785,8 +10785,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1826,
-        "reason": "CURRENT (1826): reconstructed packed-coordinate update is behaviorally structured, but the compiler delays width calculations and chooses different temporaries; forcing parameter homes with volatile qualifiers regresses to CURRENT (2530)",
+        "current_score": 385,
+        "reason": "Best valid385: actual packed-word lifetime reuse1926to1100 restores early dimensions; only observed arg1 home qualification1100to385. Full276B opcodes/control/operands/count/stack exact,42register rows remain. Prior broad qualifiers2530 rejected; two fresh revisions exhausted, no permutations/shared changes. Direct raw callers use bounded deltas/absolute mode; no matched C caller found.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -37500,8 +37500,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 861,
-        "reason": "CURRENT (861): raw-pointer form aligns nearly all body instructions, but its extra source lifetimes expand the frame to 0x50 instead of 0x38 and shift the saved slot/local; the minimal typed form reduced the frame to 0x40 but regressed register allocation",
+        "current_score": 466,
+        "reason": "Best valid466: correct two-argument ABI proved by three raw callers and existing C caller; original861 four-argument candidate invalid. Actual pointer-phase coalescence restores frame38/output34 but regresses539 via slot20/raw28 and A2/rawV0 coloring. Keep lower466, alternative539 saved; no padding/shared changes; exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44739,8 +44739,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4271,
-        "reason": "CURRENT 3149 best: pointer stack-resident form improved control and missing/extra counts, but accumulator spills instead of s0 and frame is 0x28 vs 0x30; forcing accumulator register makes compiler retain arg0 in s0 and regresses to CURRENT 4271",
+        "current_score": 2569,
+        "reason": "Best valid2569: repaired actual byte decrement with unsigned SUBU semantics; raw pointerhome and real owner/view snapshots improve4271to2569 (older reason3149 snapshot unavailable). Incoming/view reloads recovered; accumulator spillsT0 rather thanS0, frame28/raw30 and constant/branch schedules remain. Two fresh revisions exhausted, no padding/shared changes; no matched C caller found.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61577,8 +61577,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 855,
-        "reason": "best candidate CURRENT (855): list/allocation behavior is aligned; compiler keeps the list cursor in a volatile register instead of s0 and changes argument/setup scheduling",
+        "current_score": 260,
+        "reason": "Best valid260: actual list cursor/allocated node pointer reuse855to785, one pre-search threshold snapshot785to260. Full268B frame20/homes/count and search control correct; thresholdV0/rawT8 cascades registers, node-store/call-constant scheduling remains. Two fresh revisions exhausted, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62635,8 +62635,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 804,
-        "reason": "CURRENT 804 best: parser body is instruction-identical after the initial allocation/copy, but compiler creates a range-pointer home at sp+0x3c, expanding frame 0x38 to 0x50 and shifting initial bound setup; register hint has no effect",
+        "current_score": 1714,
+        "reason": "Best valid1714: raw wrapping u32 address bounds and unsigned packed-length shifts repair invalid804 out-of-object intermediate pointer/signed shift. Typed range access1934 regressed and was discarded. Frame50/raw38, extra rangehome3C and initial/decode scheduling remain. Two fresh revisions exhausted, no padding/shared changes; canonical ASM retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

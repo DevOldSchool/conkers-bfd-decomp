@@ -216,8 +216,8 @@ void func_1503D45C(s32 *, s32);
 void func_1503D484(u8 *, s32);
 void func_1503D510(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D660 CURRENT (861) */
-s32 func_1503D660(s32 arg0, s32 arg1, s32 arg2, u32 arg3) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503D660 CURRENT (466) */
+s32 func_1503D660(s32 arg0, s32 arg1) {
     s32 sp34;
     void ***sp28;
     void ***temp_v1;

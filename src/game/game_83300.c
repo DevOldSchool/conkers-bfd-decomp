@@ -2284,14 +2284,13 @@ void func_15062BDC(u8 *arg0, f32 arg1, f32 arg2) {
 extern u8 D_800C4488[];
 extern u8 D_800D19A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15062D10 CURRENT (1826) */
-void func_15062D10(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15062D10 CURRENT (385) */
+void func_15062D10(s32 arg0, volatile s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                    s32 arg5) {
     s32 temp_a0;
     s32 temp_a1;
     s32 temp_a1_2;
     s32 temp_a2;
-    s32 temp_a2_2;
     s32 temp_v0;
     s32 temp_v1;
     s32 var_v0;
@@ -2306,11 +2305,11 @@ void func_15062D10(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
         temp_a2 = *(s32 *)(temp_a3 + 4);
         temp_v1 = ((temp_a2 >> 0xC) & 0xFFF) + 2;
         temp_a0 = (temp_a2 & 0xFFF) + 2;
-        temp_a2_2 = *(s32 *)temp_a3;
+        temp_a2 = *(s32 *)temp_a3;
         if (arg5 != 0) {
             var_v0 = arg2 & 0xFFF;
         } else {
-            temp_a1 = ((temp_a2_2 >> 0xC) & 0xFFF) + arg2;
+            temp_a1 = ((temp_a2 >> 0xC) & 0xFFF) + arg2;
             var_v0 = temp_a1;
             if (temp_v1 < temp_a1) {
                 var_v0 = temp_a1 - temp_v1;
@@ -2321,7 +2320,7 @@ void func_15062D10(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
         if (arg5 != 0) {
             var_v1 = arg3 & 0xFFF;
         } else {
-            temp_a1_2 = (temp_a2_2 & 0xFFF) + arg3;
+            temp_a1_2 = (temp_a2 & 0xFFF) + arg3;
             var_v1 = temp_a1_2;
             if (temp_a0 < temp_a1_2) {
                 var_v1 = temp_a1_2 - temp_a0;
@@ -2329,7 +2328,7 @@ void func_15062D10(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
                 var_v1 = temp_a1_2 + temp_a0;
             }
         }
-        *(s32 *)temp_a3 = (temp_a2_2 & 0xFF000000) |
+        *(s32 *)temp_a3 = (temp_a2 & 0xFF000000) |
                            (var_v1 & 0xFFF) | ((var_v0 & 0xFFF) << 0xC);
     }
 }
