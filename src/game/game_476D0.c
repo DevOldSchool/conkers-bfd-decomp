@@ -129,7 +129,7 @@ extern s32 D_800BE620;
 extern s32 D_800BE624;
 extern s32 D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A490 CURRENT (2115) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1501A490 CURRENT (1325) */
 void *func_1501A490(u8 *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
     f32 sp3C;
     f32 sp38;
@@ -138,16 +138,17 @@ void *func_1501A490(u8 *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) 
     f32 temp_fv0;
     f32 temp_fv1;
     u8 *temp_v0;
-    void *var_s0;
+    u8 *packet;
 
-    *(s32 *)((u8 *)arg0 + 0) = 0xE7000000;
-    *(s32 *)((u8 *)arg0 + 4) = 0;
-    {
-        u8 * temp_s0 = (void *)(arg0 + 8);
+    packet = arg0;
+    arg0 += 8;
+    *(s32 *)packet = 0xE7000000;
+    *(s32 *)(packet + 4) = 0;
     if (arg1 == 0xFF) {
-        *(s32 *)((u8 *)arg0 + 8) = 0xED008000;
-        var_s0 = (void *)(temp_s0 + 8);
-        *(s32 *)((u8 *)temp_s0 + 4) = (s32) (((arg5 & 3) << 0x18) | (((s32) ((f32) (D_800BE620 - 2) * 4.0f) & 0xFFF) << 0xC) | ((s32) ((f32) D_800BE624 * 4.0f) & 0xFFF));
+        packet = arg0;
+        arg0 += 8;
+        *(s32 *)packet = 0xED008000;
+        *(s32 *)(packet + 4) = (s32) (((arg5 & 3) << 0x18) | (((s32) ((f32) (D_800BE620 - 2) * 4.0f) & 0xFFF) << 0xC) | ((s32) ((f32) D_800BE624 * 4.0f) & 0xFFF));
     } else {
         temp_v0 = (void *)(D_800BE628 + (arg1 * 0x180));
         sp3C = *(f32 *)((u8 *)temp_v0 + 0x2C);
@@ -165,12 +166,12 @@ void *func_1501A490(u8 *arg0, s16 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) 
             sp30 = *(f32 *)((u8 *)temp_v0 + 0x28);
         }
         func_1501AF44(&sp3C, &sp34, &sp38, &sp30);
-        var_s0 = (void *)(temp_s0 + 8);
-        *(s32 *)((u8 *)arg0 + 8) = (s32) ((((s32) (sp3C * 4.0f) & 0xFFF) << 0xC) | 0xED000000 | ((s32) (sp34 * 4.0f) & 0xFFF));
-        *(s32 *)((u8 *)temp_s0 + 4) = (s32) (((arg5 & 3) << 0x18) | (((s32) (sp38 * 4.0f) & 0xFFF) << 0xC) | ((s32) (sp30 * 4.0f) & 0xFFF));
+        packet = arg0;
+        arg0 += 8;
+        *(s32 *)packet = (s32) ((((s32) (sp3C * 4.0f) & 0xFFF) << 0xC) | 0xED000000 | ((s32) (sp34 * 4.0f) & 0xFFF));
+        *(s32 *)(packet + 4) = (s32) (((arg5 & 3) << 0x18) | (((s32) (sp38 * 4.0f) & 0xFFF) << 0xC) | ((s32) (sp30 * 4.0f) & 0xFFF));
     }
-    return var_s0;
-    }
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1501A490 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_476D0/func_1501A490.s")

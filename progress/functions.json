@@ -9102,8 +9102,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 677,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (677)",
+        "current_score": 70,
+        "reason": "Manual baseline plus two revisions exhausted, one compile-only repair. Invalid starter omitted required object argument; valid best CURRENT 70 restores arg0 call, frame and byte mask. Neutral tail volatile/order revision reverted; one early float load and one ADD operand swap remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -16824,8 +16824,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2115,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2115)",
+        "current_score": 1325,
+        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 1325 models actual mutable command cursor. Revision 2 fixed addressed float offsets but regressed to 1425 by folding initial cursor. Remaining stack offsets, command scheduling and limit FP allocation; retain simpler lower-score revision 1.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72877,8 +72877,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2379,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2379)",
+        "current_score": 1958,
+        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 1958 corrects full-width tag, typed table pointer, shared pass lifetimes and actual seed store. No registered matched C callers found. Frame 0x48 vs 0x50, saved-register allocation, first-pass branch schedule and spill offsets remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78365,8 +78365,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 360,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (360)",
+        "current_score": 70,
+        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 70. All register allocation, length, control, stack and constant operands match; four MUL and three ADD commutative source operand orders remain reversed. Candidate retained; no permutation or extra revision.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
