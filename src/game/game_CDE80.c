@@ -617,45 +617,35 @@ s32 func_150A3058(s32 arg0, s16 arg1, s16 arg2, s16 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A3058 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_CDE80/func_150A3058.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A3194 CURRENT (2346) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A3194 CURRENT (318) */
 s32 func_150A3194(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     GameCDE80Actor actor;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
     s32 var_s0;
     u32 var_s1;
     u8 *temp_v0;
 
-    temp_fv0 = (f32)arg3;
     var_s1 = 0;
-    temp_fv1 = (f32)arg2;
-    actor.y = temp_fv0;
-    actor.field180 = temp_fv0;
-    actor.field30 = temp_fv0;
+    actor.y = (f32)arg3;
+    actor.field180 = (f32)arg3;
+    actor.field30 = (f32)arg3;
     var_s0 = 0;
-    temp_fa0 = (f32)arg4;
-    actor.x = temp_fv1;
-    actor.field2C = temp_fv1;
-    actor.z = temp_fa0;
-    actor.field34 = temp_fa0;
+    actor.x = (f32)arg2;
+    actor.field2C = (f32)arg2;
+    actor.z = (f32)arg4;
+    actor.field34 = (f32)arg4;
     if (D_800D3094 != 0) {
-loop_1:
-        temp_v0 = (u8 *)D_800D3098 + var_s0;
-        if ((temp_v0[0x14] == 0) &&
-            (arg0 == ((s32)temp_v0[0x15] >> 2)) &&
-            (arg1 == temp_v0[0x17]) &&
-            (func_150A1DA0(&actor, var_s0 + D_800D3098, 0) == 0)) {
-            return var_s0 + D_800D3098;
-        }
-        var_s1++;
-        var_s0 += 0x34;
-        if (var_s1 >= D_800D3094) {
-            goto block_7;
-        }
-        goto loop_1;
+        do {
+            temp_v0 = (u8 *)D_800D3098 + var_s0;
+            if ((temp_v0[0x14] == 0) &&
+                (arg0 == ((s32)temp_v0[0x15] >> 2)) &&
+                (arg1 == temp_v0[0x17]) &&
+                (func_150A1DA0(&actor, var_s0 + D_800D3098, 0) == 0)) {
+                return var_s0 + D_800D3098;
+            }
+            var_s1++;
+            var_s0 += 0x34;
+        } while (var_s1 < D_800D3094);
     }
-block_7:
     return 0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150A3194 */

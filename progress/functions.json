@@ -17150,7 +17150,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 3440,
-        "reason": "CURRENT 3440 typed relocation-table implementation; major remaining register/control allocation differences, and raw-pointer starter-style rewrite regressed to 3860",
+        "reason": "Best valid CURRENT (3440): signed relocation additions repaired to wrapping u32 words, preserving signed -1 sentinel; legacy same-score body rejected for signed underflow without proved offset bound. Single indexed-record loop5120 and prior raw-pointer starter3860 regressed. Boolean flag/odd-prefix reload and compiler four-record vs raw two-record loop differences remain; two fresh revisions exhausted, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46357,8 +46357,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2346,
-        "reason": "CURRENT 2346 with behavior-shaped typed actor candidate; frame is 0x380 vs 0x378 and compiler omits the reference persistent global/actor registers; explicit lifetime pointers regressed to 4047",
+        "current_score": 318,
+        "reason": "Best valid CURRENT318: natural do-loop2346->392, direct coordinates->318 restores frame0x378; actor sp+0x4C/raw0x48, FP conversion and init scheduling remain. Two fresh revisions exhausted; prior pointer-lifetime4047 regressed. No shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -54532,8 +54532,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 669,
-        "reason": "Improved to CURRENT (669); multiply semantics match, remaining differences are long-lived register and global-address allocation",
+        "current_score": 478,
+        "reason": "Best valid CURRENT478: unsigned wrapping base/offset repair769 neutral, actual arg0 display cursor reuse->478. Legacy669 freshly769 invalid signed address overflow. Two fresh revisions exhausted; no stack/control mismatches, global address reload and S0/S1 allocation remain; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61793,8 +61793,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2440,
-        "reason": "CURRENT 2440 after exact frame padding and typed call/register lifetimes; remaining saved-register order, allocation, and loop scheduling/control differences",
+        "current_score": 2147,
+        "reason": "Best valid CURRENT (2147): unsupported dummy pad48[0x20] removed (legacy2440 rejected); padding-free2482 improved by actual arg0 display-cursor reuse, restoring prologue saved-register order/owner move. Actual saved word remains0x44; frame0x48/raw0x68, loop/load scheduling and register colors remain. Two fresh revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -68181,7 +68181,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1250,
-        "reason": "CURRENT (1250): exact instruction count after load-order rewrite, but loop strength reduction and resulting register allocation differ; integer-address loop form produced no change",
+        "reason": "Original valid CURRENT (1250) retained. Prior load-order improved; integer-address and fresh u32-index probes neutral. Raw repeated SLL/ADDU remains compiler pointer induction, with register/FP colors differing. AF04 unsigned-index mechanism did not transfer; one fresh revision exhausted, prior budget carried; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

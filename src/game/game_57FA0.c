@@ -279,7 +279,7 @@ s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
             if ((arg0[0].offset == -1) || (arg0[0].flags == 0)) {
                 arg0[0].offset = 0;
             } else {
-                arg0[0].offset += (s32)arg0;
+                arg0[0].offset = (s32)((u32)arg0[0].offset + (u32)arg0);
             }
             var_v0 = 1;
             if (arg1 == 1) {
@@ -293,13 +293,13 @@ s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
             if ((entry[0].offset == -1) || (entry[0].flags == 0)) {
                 entry[0].offset = 0;
             } else {
-                entry[0].offset += (s32)arg0;
+                entry[0].offset = (s32)((u32)entry[0].offset + (u32)arg0);
             }
             entry[1].flags &= 0x0FFFFFFF;
             if ((entry[1].offset == -1) || (entry[1].flags == 0)) {
                 entry[1].offset = 0;
             } else {
-                entry[1].offset += (s32)arg0;
+                entry[1].offset = (s32)((u32)entry[1].offset + (u32)arg0);
             }
             entry += 2;
         } while (entry != end);
