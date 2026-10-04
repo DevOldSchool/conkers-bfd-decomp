@@ -83,7 +83,7 @@ extern struct Game1944C0Node *D_800DCE50[][104];
 extern s8 D_800DD190;
 extern struct Game1944C0Node *D_800DD198[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151670C0 CURRENT (430) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151670C0 CURRENT (2253) */
 void func_151670C0(void) {
     Game1944C0CallbackEntry *entry;
     struct Game1944C0Node **slot;
@@ -93,25 +93,25 @@ void func_151670C0(void) {
 
     row = 0;
     do {
-        entry = (Game1944C0CallbackEntry *)&D_8008B4A8;
+        entry = (Game1944C0CallbackEntry *)(u32)&D_8008B4A8;
         column = 0;
         do {
             if (entry->callback != 0) {
                 node = D_800DCE50[row][column];
                 D_800DD190++;
                 if (node != 0) {
-                    slot = &D_800DD198[D_800DD190];
+                    slot = (struct Game1944C0Node **)((u32)D_800DD198 + ((u32)(s32)D_800DD190 << 2));
                     do {
                         *slot = ((Game1944C0ProcessNode *)node)->next;
                         entry->callback(node);
-                        slot = &D_800DD198[D_800DD190];
+                        slot = (struct Game1944C0Node **)((u32)D_800DD198 + ((u32)(s32)D_800DD190 << 2));
                         node = *slot;
                     } while (node != 0);
                 }
                 D_800DD190--;
             }
             column++;
-            entry++;
+            entry = (Game1944C0CallbackEntry *)((u32)entry + sizeof(*entry));
         } while (column != 0x65);
         row++;
     } while (row != 2);

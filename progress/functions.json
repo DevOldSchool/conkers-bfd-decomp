@@ -13062,8 +13062,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 430,
-        "reason": "CURRENT 430: nested traversal, frame, globals, bounds, and register allocation match; direct callback form emits one extra instruction because next-node store is not scheduled in jalr delay slot, while explicit callback lifetime regressed to 1035",
+        "current_score": 2253,
+        "reason": "Valid2253 with wrapping word callback-table cursor and signed-byte slot addresses. Legacy430 invalid scalar-table pointer arithmetic and unproved nonnegative slot array index. Revision1 valid2253/frame58; revision2 comma callback argument valid2257/frame60 did not recover JALR delay store; restored2253. Two non-improving fresh revisions exhausted. Prior explicit callback temporary1035 not repeated. Raw table/slot address ranges disjoint for all signed-byte indices; residual base CSE/spills, frame and indirect-call scheduling; no shared global/type edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -20427,8 +20427,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1165,
-        "reason": "CURRENT (1165): functional field/call sequence retained, with pointer spill and byte lifetime modeled; compiler still emits frame 0x38 instead of 0x28, moves the zero test ahead of the byte arithmetic, and schedules field 0x65 early. Removing explicit reloads improved CURRENT 1428 to 1165; volatile byte storage regressed to 1189.",
+        "current_score": 1174,
+        "reason": "Valid1174 actor address uses wrapping u32 arithmetic instead of scalar-global pointer indexing. Legacy1165 invalid object arithmetic. Fresh revision1 1174; revision2 byte-index consolidation/unused pointer removal1186 did not shrink frame38 and worsened pointer spill18 to1C, restored1174. Two non-improving fresh revisions exhausted. Raw frame28, bytehome27 versus word1C, early zero branch/field65 schedule and register allocation remain. Prior explicit reload1428 and volatile byte1189 not repeated; no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66585,7 +66585,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 3641,
-        "reason": "CURRENT 3641: complete packet behavior and call sequence modeled, but aggregate locals align at sp24/frame0x58 instead of reference sp1c/frame0x50 and force arg3 through a stack home. Scalar-local form regressed to 5165 by eliminating contiguous packet stores",
+        "reason": "Valid3641 canonical unsigned RNG return; packet frame58 versus raw50 and FP/store scheduling remain. Consumed-argument snapshot trial recovered frame50 but regressed3855 with incoming scaled-word spill; prior scalar-packet5165 failed. Two fresh revisions exhausted; preserve valid revision1.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79009,8 +79009,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 685,
-        "reason": "CURRENT 685: exact frame, local offsets, calls, and registers; remaining mismatches are two commutative float load orders plus one missing duplicated result-zero branch-delay store; explicit operand/branch rewrite regressed to 2850",
+        "current_score": 716,
+        "reason": "Valid716 with canonical local15046C00 scalar contract u16/f32, third argument float field load, actual three-coordinate array; unsupported fourth-float pad removed. Legacy685 invalid scalar contract/padding. Revision2 actual byte-result volatile neutral716; simpler revision1 retained. Two fresh revisions exhausted; prior operand/branch rewrite2850 not repeated. Raw frame48/result47 exact; array38/raw34, commutative load order and duplicate result-zero branch-delay store remain. Audit reports no matched C callers; recheck canonical15046C00 and sourceowner15159370 before clean batch. No shared header/type/tool edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79601,7 +79601,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 600,
-        "reason": "CURRENT (600): corrected 15-argument callee signature gives exact frame/call setup, and a distinct second 20 constant gives exact FP registers. Remaining 9 rows are one four-byte-short switch-default branch-likely shape plus resulting jump-table/branch offsets; positive and negative condition forms compile identically.",
+        "reason": "Valid CURRENT600 with exact frame/call setup; default branch-likely folding leaves one missing branch and relocation/offset residuals. Nested single-case switch neutral600; prior positive/negative if forms also neutral. Two finish/one fresh this pass, plateau exhausted; retain simpler candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

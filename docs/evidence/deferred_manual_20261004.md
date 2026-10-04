@@ -4,25 +4,25 @@ Latest five candidates; manual US ASM-to-C. Shared dependencies: no.
 
 | Function | Source under src/game/ | Best valid CURRENT | Fresh revisions |
 | --- | --- | --- | --- |
-| 150EEC84 | game_11A680.c | 741; wrapping addresses/shift, frame recovered | 2 |
-| 1510B690 | game_138B40.c | 535; wrapping matrix offsets/counter narrowing | 2 |
-| 151406AC | game_169510.c | 1037; partial sentinel, head/cursor reuse | 2 |
-| 1503EB78 | game_6B320.c | 227; cursor/scalar reuse, frame recovered | 2 |
-| 150548E4 | game_80B80.c | 910; word subtraction before signed division | 1 |
+| 1506EA98 | game_981E0.c | 1174; wrapping actor address | 2 |
+| 15159594 | game_1865D0.c | 716; canonical float call, three coordinates | 2 |
+| 151670C0 | game_1944C0.c | 2253; wrapping table/signed slot addresses | 2 |
+| 150C1E34 | game_EEE70.c | 3641; canonical unsigned RNG return | 2 |
+| 151026BC | game_12F400.c | 600; simpler switch default retained | 1 |
 
-14 target finish calls; nine bounded revisions. Best valid C deferred;
-canonical ASM retained. No new exact matches. Five affected matched owners
-passed full-span focused0, layout/progress/whitespace. BATCH_COMPLETE.
-US GAME/mapped rodata equal ROM; 1,823 tests (35.589s), 37 skipped.
+14 target finish calls; nine fresh revisions. Best valid C deferred;
+canonical ASM retained. No new exact matches. Six matched owner/callee
+rechecks passed full-span focused0, layout/progress/whitespace.
+BATCH_COMPLETE: US GAME/mapped rodata equal ROM; 1,823 tests (35.836s),
+37 skipped. Local declaration audits found no affected matched C callers.
 
-Rejected legacy forms: EEC84 signed/unbounded shift (raw SLLV masks count31);
-B690 negative signed shifts after counter rollover; 406AC unsupported EC
-sentinel tail padding; 548E4 unrelated pointer subtraction/scalar indexing.
-Speed lead: reuse consumed inputs for actual loaded values/cursors;
-EB78 frame78→60 and CURRENT395→227, EEC84 frame40→38. Unbenchmarked.
-548E4 starter context-error fallback suggests s32 RNG despite active u32.
-verify-batch omits focused checks: run finish first.
-151898C0 padding/AB04 symbolic alias remain nonzero focused discrepancies;
-complete linked spans equal ROM. Pending [1500E738 mapping](game_3ba70_jump_table.md).
-47B80 padding,1515942C contract,150A6360 span/FPU blockers remain.
+Rejected legacy forms: scalar-object address arithmetic, unsupported fourth
+coordinate padding, and callee scalar/return type conflicts. Lower scores
+from those forms are invalid. Qualifying the actual result byte, a callback
+comma argument and a nested switch did not recover their delay slots.
+C1E34 consumed-word reuse recovered frame50 but worsened CURRENT3641→3855.
+Speed leads: audit canonical types first; reuse ledgers to stop equivalent
+branch/volatile retries. Unbenchmarked. verify-batch omits focused checks;
+run finish first. Padding/alias discrepancies and the pending
+[1500E738 mapping](game_3ba70_jump_table.md) remain unresolved.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.
