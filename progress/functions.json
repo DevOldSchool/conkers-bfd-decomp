@@ -17225,8 +17225,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1202,
-        "reason": "CURRENT (1202) best verified candidate; vararg cursor logic is represented, but the state local remains at sp44 versus sp34 and volatile count reloads alter loop scheduling",
+        "current_score": 523,
+        "reason": "Best valid variadic candidate523; actual va_arg and count snapshot, frame48 recovered. Two revisions exhausted: count home reload/stores, state38 versus34 and result allocation remain; no dummy padding/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -33309,7 +33309,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 653,
-        "reason": "CURRENT (653) best verified candidate; typed 0x14-stride accesses fixed the main mismatch, while three local-slot offsets, load scheduling, and one commutative float multiply remain",
+        "reason": "Prior correct20-byte typed-record candidate CURRENT653 retained. One fresh actual three-float aggregate layout probe (one compiler member repair) canonicalized to the same vector38/saved-state30 offsets and load scheduling; simpler array restored. Frame48 exact; raw vector34/saved-state44 plus load/multiply scheduling remain. Three finish calls/one fresh revision exhausted alongside prior stride work; no padding/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46301,8 +46301,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2525,
-        "reason": "manual descriptor lookup translation remained non-exact at CURRENT (2525)",
+        "current_score": 1130,
+        "reason": "Correct full descriptor pointer (base plus52-byte index) and raw zero-result/positive flag gate retained at CURRENT1130. Preserved2525 offset-only callee argument was invalid; pointer repair1865 then control1130. Frame18/stack exact; mask/index/base allocation and return/argument scheduling with two extra rows remain. Three finish calls/two revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63908,8 +63908,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1439,
-        "reason": "manual resource-wrapper translation remained non-exact at CURRENT (1439)",
+        "current_score": 256,
+        "reason": "Best valid CURRENT256 via raw nested three-call paths and actual original-descriptor snapshot/incoming pointer reuse (fresh baseline1559, nested834). Resource A2 and call paths recovered; frame20 versus raw18, incoming homes/index allocation and two extra rows remain. Three finish calls/two revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -81916,8 +81916,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1085,
-        "reason": "CURRENT (1085) best verified candidate; allocation/control behavior is represented, but parameter homing keeps a 0x30 frame versus reference 0x28 and cascades stack/register differences",
+        "current_score": 826,
+        "reason": "Best valid CURRENT826 via actual allocation-result/entry-value reuse; removes redundant scalar and recovers raw frame28, incoming homes and fallback27 (prior valid1085/frame30). Saved-entry slot, allocator-size-load and branch/register scheduling remain. Two finish calls/one fresh revision exhausted; prior argument-home work retained; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

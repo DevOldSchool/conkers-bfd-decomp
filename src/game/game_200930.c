@@ -1434,12 +1434,11 @@ s32 func_151D5B6C(void *arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4) {
 s32 func_10003C40(s32, s32, s32, s32);
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5D60 CURRENT (1085) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5D60 CURRENT (826) */
 void func_151D5D60(volatile s32 arg0, s16 arg1, s32 arg2, s32 *arg3, u8 *arg4) {
     u8 fallback;
     s32 *entry;
     s32 value;
-    s32 allocated;
     s32 offset;
 
     if (arg4 == 0) {
@@ -1449,9 +1448,9 @@ void func_151D5D60(volatile s32 arg0, s16 arg1, s32 arg2, s32 *arg3, u8 *arg4) {
     entry = (s32 *)(arg0 + (arg1 * 4));
     value = *entry;
     if (value == 0) {
-        allocated = func_10003C40(arg2 * 2, 1, 2, 1);
-        *entry = allocated;
-        if (allocated == 0) {
+        value = func_10003C40(arg2 * 2, 1, 2, 1);
+        *entry = value;
+        if (value == 0) {
             *arg3 = 0;
             return;
         }

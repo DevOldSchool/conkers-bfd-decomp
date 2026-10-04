@@ -440,26 +440,29 @@ s32 func_1502AC88(u8 *, s32, s32 *);
 s32 func_1502B224(u8 *, s32, s32, s32);
 extern u8 D_AB1950[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B8E0 CURRENT (1202) */
-s32 func_1502B8E0(s32 arg0, s32 arg1, volatile s32 arg2, s32 arg3) {
-    s32 state;
-    u8 *cursor;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B8E0 CURRENT (523) */
+s32 func_1502B8E0(s32 arg0, s32 arg1, s32 arg2, ...) {
+    va_list cursor;
     u8 *output;
     s32 result;
+    s32 state;
+    s32 argument;
 
     result = 1;
     output = D_AB1950;
-    cursor = (u8 *)&arg3;
+    va_start(cursor, arg2);
     if (arg2 != 0) {
         do {
-            cursor = (u8 *)(((s32)(cursor + 3) & ~3) + 4);
+            argument = va_arg(cursor, s32);
             if (result != 0) {
-                output += func_1502AC88(output, *(s32 *)(cursor - 4), &state);
+                output += func_1502AC88(output, argument, &state);
             }
-            arg2--;
+            argument = arg2 - 1;
+            arg2 = argument;
             result = state & 0x0FFFFFFF;
-        } while (arg2 != 0);
+        } while (argument != 0);
     }
+    va_end(cursor);
     if (result != 0) {
         result = func_1502B224(output, arg0, state, arg1);
     }
