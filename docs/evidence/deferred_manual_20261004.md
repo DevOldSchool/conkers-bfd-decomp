@@ -4,23 +4,21 @@ Latest three items; US, manual ASM-to-C. Shared dependency changes: no.
 
 | Function | Source under src/game/ | Status / fresh full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 151B3A7C | effects/holtenrope.c | Invalid vector/ABI starter repaired; candidate 9401 → 3908 | 2 |
-| 1508BF14 | game_B4080.c | Invalid widths/strides repaired; candidate 12806 → 4799 | 2 |
-| 151CDB94 | game_1FA770.c | Invalid fabsf ABI repaired; candidate 5385 → 2460 | 2 |
+| 1511F4D0 | game_14C3F0.c | Candidate 6785 → 3279; actual coordinate homes | 2 |
+| 151658DC | game_191C30.c | Candidate 9665 → 4020; aggregate copies and field reloads | 2 |
+| 151E86E4 | game_215960.c | Candidate 6920 → 5240; packet cursor and coordinate lifetime | 2 |
 
-Best valid candidates preserved through defer; ten candidate finish calls,
-including one compile repair. No new match credit; canonical ASM retained.
-Rope pointer prototype corrected locally; fade fabsf uses a local float intrinsic.
-Graph retains the assembly's connected-input requirement for its selected index.
-
-Six existing C owners: CURRENT0/layout/progress/whitespace passed.
+Nine candidate finish calls; exhausted budgets, best valid candidates deferred.
+No new match credit; canonical ASM retained. ABI unchanged.
+Six existing C owners passed CURRENT0/layout/progress/whitespace.
 Clean verify-batch: BATCH_COMPLETE; rebuilt US GAME/mapped rodata equal ROM.
-1,823 tests passed, 37 skipped; no new match credit.
+1,823 tests passed, 37 skipped; repository whitespace passed.
 
-Workflow: validate field widths, strides, contiguous locals and implicit calls
-before ranking candidates. Simple loops avoid repeated compiler unrolling;
-snapshot constants at the lifetimes shown in ASM. These are unbenchmarked leads.
-Ready context still misses resumed bodies; declaration conflicts need canonical checks.
+Workflow: fresh baselines exposed stale saved scores. Actual aggregate copies
+reproduced all 24 integer copy instructions; packet cursors restored argument homes.
+Volatile homes can regress scheduling, so measure and retain the better valid version.
+These are unbenchmarked matching leads. Ready context still misses resumed bodies;
+full-span diagnosis can mistake the next function's frame for a leaf's frame.
 Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); linker unchanged.
 1515942C shared contract and 150A6360 full-span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.

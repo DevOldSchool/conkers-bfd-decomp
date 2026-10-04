@@ -67,8 +67,9 @@ void func_15164EE4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165628.s")
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151658DC CURRENT (8265) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151658DC CURRENT (4020) */
 s32 func_151658DC(u8 *arg0) {
+    typedef struct { f32 x, y, z; } Point;
     f32 temp_fa0;
     f32 temp_fv0;
     f32 temp_fv1;
@@ -81,34 +82,26 @@ s32 func_151658DC(u8 *arg0) {
     *(f32 *)((u8 *)arg0 + 0x104) = (f32) (*(f32 *)((u8 *)arg0 + 0x104) + D_800BE9A4);
     if (*(f32 *)((u8 *)arg0 + 0x104) < *(f32 *)((u8 *)arg0 + 0xF8)) {
         temp_v0_2 = (void *)(arg0 + 0x68);
-        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x68) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 4) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x20) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 8) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0xC) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x10) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x14) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x18) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x1C) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x20) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x24) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x28) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
-        *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x2C) * *(f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)arg0 + 0x68) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x1C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 4) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x20) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 8) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x24) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0xC) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x28) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x10) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x14) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x18) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x34) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x1C) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x38) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x20) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x3C) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x24) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x40) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x28) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
+        *(f32 *)((u8 *)arg0 + 0x44) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x2C) * *(volatile f32 *)((u8 *)temp_v0_2 + 0x9C));
     } else {
         temp_fv1 = *(f32 *)((u8 *)temp_v0 + 0x9C);
         temp_fa0 = *(f32 *)((u8 *)temp_v0 + 0x90) + *(f32 *)((u8 *)temp_v0 + 0x94);
         if (temp_fv1 < temp_fa0) {
-            *(f32 *)((u8 *)arg0 + 0x18) = (f32) *(f32 *)((u8 *)temp_v0 + 0x60);
-            *(f32 *)((u8 *)arg0 + 0x1C) = (f32) *(f32 *)((u8 *)temp_v0 + 0x64);
-            *(f32 *)((u8 *)arg0 + 0x20) = (f32) *(f32 *)((u8 *)temp_v0 + 0x68);
-            *(f32 *)((u8 *)arg0 + 0x24) = (f32) *(f32 *)((u8 *)temp_v0 + 0x6C);
-            *(f32 *)((u8 *)arg0 + 0x28) = (f32) *(f32 *)((u8 *)temp_v0 + 0x70);
-            *(f32 *)((u8 *)arg0 + 0x2C) = (f32) *(f32 *)((u8 *)temp_v0 + 0x74);
-            *(f32 *)((u8 *)arg0 + 0x30) = (f32) *(f32 *)((u8 *)temp_v0 + 0x78);
-            *(f32 *)((u8 *)arg0 + 0x34) = (f32) *(f32 *)((u8 *)temp_v0 + 0x7C);
-            *(f32 *)((u8 *)arg0 + 0x38) = (f32) *(f32 *)((u8 *)temp_v0 + 0x80);
-            *(f32 *)((u8 *)arg0 + 0x3C) = (f32) *(f32 *)((u8 *)temp_v0 + 0x84);
-            *(f32 *)((u8 *)arg0 + 0x40) = (f32) *(f32 *)((u8 *)temp_v0 + 0x88);
-            *(f32 *)((u8 *)arg0 + 0x44) = (f32) *(f32 *)((u8 *)temp_v0 + 0x8C);
+            *(Point *)(arg0 + 0x18) = *(Point *)(temp_v0 + 0x60);
+            *(Point *)(arg0 + 0x24) = *(Point *)(temp_v0 + 0x6C);
+            *(Point *)(arg0 + 0x30) = *(Point *)(temp_v0 + 0x78);
+            *(Point *)(arg0 + 0x3C) = *(Point *)(temp_v0 + 0x84);
         } else if (temp_fv1 < (temp_fa0 + *(f32 *)((u8 *)temp_v0 + 0x98))) {
             temp_fv0 = temp_fv1 - temp_fa0;
             *(f32 *)((u8 *)arg0 + 0x18) = (f32) (*(f32 *)((u8 *)temp_v0 + 0x60) - (*(f32 *)((u8 *)temp_v0 + 0x3C) * temp_fv0));

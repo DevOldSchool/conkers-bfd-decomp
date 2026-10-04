@@ -44160,8 +44160,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6320,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6320)",
+        "current_score": 5240,
+        "reason": "Manual baseline plus two targeted revisions exhausted; best valid CURRENT 5240 from actual packet cursor and in-place coordinate. Remaining FP allocation, early cursor/load scheduling and clipping control flow; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -48249,8 +48249,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8265,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8265)",
+        "current_score": 4020,
+        "reason": "Manual baseline + 2 revisions exhausted. Fresh valid baseline 9665; four three-float aggregate copies reproduce all 24 raw LW/SW copy instructions (4865). Actual elapsed-field volatile reloads improve to best valid CURRENT 4020. First-branch batching/address folding, FP allocation and final branch scheduling remain. Signature unchanged; no shared dependencies.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -71475,8 +71475,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6785,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (6785)",
+        "current_score": 3279,
+        "reason": "Manual baseline + 2 revisions exhausted. Valid baseline 6785; actual saved-coordinate volatile homes improve to 3279. Integer temporary reuse/mask widening/operand correction regresses to 3449; restored best coordinate-only candidate. Frame 8 versus US 28, register allocation and scheduling remain. Signed DIV/trap sequence and transition logic preserved; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
