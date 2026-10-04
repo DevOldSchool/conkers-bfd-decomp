@@ -21,6 +21,8 @@ Starter issues: FC818 word load at arg1+4 emitted as byte;
 Speed lead: actual 8-byte records recovered AF04 loop strength reduction
 (4221 → 1121); historical921 rejected for signed-offset overflow.
 Reject already-correct homes/types before editing; stop regressing patterns.
+AB04 focused10 is a symbolic alias; its full388B linked span equals raw ROM.
+verify-batch omits individual focused checks: run finish first.
 Throughput gains remain unbenchmarked. Prior checkpoint matched B634 full268B.
 Pending [1500E738 mapping](game_3ba70_jump_table.md); linker unchanged.
 47B80 padding,1515942C contract,150A6360 span/FPU blockers remain.
