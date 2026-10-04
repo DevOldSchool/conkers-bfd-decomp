@@ -79029,8 +79029,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3184,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3184)",
+        "current_score": 2734,
+        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 2734 restores result-byte lifetime and actual center reloads. Broader volatile field views regressed. Inner pointer folding/spills, frame 0x50 vs 0x38, call argument and FP allocation remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -79506,8 +79506,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 308,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (308)",
+        "current_score": 213,
+        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 213 preserves both actual flag byte stores and removes unread locals. Neutral storage-class revision rejected; frame 0x38 vs 0x28, state/pointer spill order and FP register/load allocation remain.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -80918,7 +80918,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 533,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (533)",
+        "reason": "Manual baseline plus two revisions exhausted; valid baseline CURRENT 533 retained. Register storage and aligned float indexing both neutral. Early inner pointer folding, s0/s1 allocation and motion-load schedule remain; no new improvement.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

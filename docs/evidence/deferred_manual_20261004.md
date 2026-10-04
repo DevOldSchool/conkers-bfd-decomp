@@ -1,25 +1,23 @@
 # Deferred matching: 2026-10-04
 
-Latest seven items; US, manual ASM-to-C. Shared dependency changes: no.
+Latest three items; US, manual ASM-to-C. Shared dependency changes: no.
 
-| Function | Source under src/game/ | Status / full-span CURRENT | Revisions |
+| Function | Source under src/game/ | Status / fresh full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 15114A1C | game_13F9D0.c | Valid candidate1361; word slots/count paths repaired | 2 |
-| 150A6360 | game_D36C0.c | Blocked10115; starter invalid, alternate entries/FPU rounding | 0 |
-| 1511F788 | game_14C3F0.c | Valid candidate2065; local one-float call repaired | 2 |
-| 1505D408 | game_83300.c | Valid candidate4714→2569; parameter normalization repaired | 2 |
-| 150EA944 | game_117D90.c | Valid candidate645→105; 16 FP register rows remain | 2 |
-| 151216F8 | game_14D110.c | Valid candidate525→60; one adjacent scheduling swap | 2 |
-| 150B0A60 | game_DDF10.c | Valid candidate2115→1840; RNG/output lifetimes repaired | 2 |
+| 1511DBC4 | game_1483E0.c | Valid candidate408→213; both flag stores preserved | 2 |
+| 151596BC | game_1865D0.c | Valid candidate3189→2734; result lifetime/center loads repaired | 2 |
+| 150F0E48 | game_11D830.c | Valid candidate533 retained; pointer-allocation plateau | 2 |
 
-Six valid candidates preserved transactionally; rejected revisions and invalid starters annotated.
-All include one baseline; no permutation. Regressions/neutral revisions reverted to the best valid C.
+Best valid candidates preserved through defer; neutral/regressing revisions reverted.
+Nine candidate finish calls including baselines; no permutation. No new match credit.
+Existing 1511DD98/15159370/150F0A24 rechecked at0; layout/progress/whitespace passed.
 Clean verify-batch: BATCH_COMPLETE; full US GAME/external rodata equal ROM.
-Existing 151149AC/1511F768/1505DF10 rechecked at0; layout/progress/whitespace passed.
-Suite: 1,823 tests, OK with 37 skipped; metadata valid. No new C match credit.
+Suite: 1,823 tests, OK with 37 skipped; metadata/progress/whitespace passed.
 
-Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); shared linker remains unchanged.
-1515942C remains blocked by a shared caller contract; 150A6360 needs full-span/rounding recovery.
-Speed leads, unbenchmarked: warn during ready about prototype conflicts and multi-entry spans;
-audit raw LW/SW widths before register work. Diagnose table placement incrementally, then clean-check before commit.
+Speed observations: register storage and float indexing were neutral for pointer folding;
+broader volatile views regressed. Prefer a specific missing access over broad volatility.
+Earlier workflow leads remain unbenchmarked: flag prototype conflicts/multi-entry spans during ready;
+audit raw load/store widths before register work.
+Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); shared linker unchanged.
+1515942C remains blocked by a shared caller contract; 150A6360 by full-span/FPU semantics.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.
