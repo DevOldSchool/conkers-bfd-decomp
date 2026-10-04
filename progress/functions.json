@@ -96031,17 +96031,16 @@
       "symbol": "func_160019A8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 100,
-        "reason": "Signed pixel result20 regressed2535 and register glyph21 is identical100; best12 restored and freshly checked.17 register substitutions remain; tested conversion and storage-class hypotheses exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "debugger",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 284,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_160014F0",
           "vram": "0x160014F0"
         }
@@ -96068,17 +96067,16 @@
       "symbol": "func_16001390"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Integer end-address attempt9 is byte-identical; restored best3 and rechecked20. Two LUI destination/order differences remain; pointer/integer bound family exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "debugger",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 304,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_16001700",
           "vram": "0x16001700"
         }
@@ -96141,17 +96139,16 @@
       "symbol": "func_16002DE4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 145,
-        "reason": "Attempts19 isolated register bits and20 reversed first-loop footer both compile identically145. Best10 restored and freshly checked;23 saved-register substitutions remain and both new hypotheses are exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "debugger",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 316,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_16000590",
           "vram": "0x16000590"
         }
@@ -96268,17 +96265,16 @@
       "symbol": "func_1600078C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1600,
-        "reason": "Best19 freshly rechecked after21 narrowed odd flag still rematerializes mask and scores1775; preserve signed-store constant sharing and SDK-backed u32 TLB types.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "debugger",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1144,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_16000B14",
           "vram": "0x16000B14"
         }
