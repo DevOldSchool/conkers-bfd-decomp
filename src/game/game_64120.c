@@ -434,35 +434,25 @@ Game64120Entry *func_15039A54(s32 arg0, s32 arg1) {
 }
 extern void * D_800CC5E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039A78 CURRENT (1032) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15039A78 CURRENT (1237) */
 void func_15039A78(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 arg4, f32 arg5, s32 arg6) {
-    void *sp18;
     Game64120Entry *temp_v0;
-    f32 temp_fa0;
-    f32 temp_fa0_2;
-    f32 temp_fa1;
-    f32 temp_fa1_2;
-    f32 temp_fv0;
-    f32 temp_fv0_2;
-    f32 temp_fv0_3;
-    f32 temp_fv0_4;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 temp_fv1_3;
-    f32 temp_fv1_4;
-    f32 temp_fv1_5;
-    void *temp_v1;
-    f32 var_fa0;
-    f32 var_fa0_2;
-    f32 var_fa0_3;
+    register f32 margin;
+    register f32 upperY;
+    register f32 valueX;
+    register f32 lowerY;
+    register f32 upperX;
+    register f32 valueY;
+    register f32 bound;
 
-    temp_v1 = *(&D_800CC5E8 + (arg6 * 0x32C));
-    sp18 = temp_v1;
+    void *temp_v1;
+
+    temp_v1 = *(void **)((u8 *)&D_800CC5E8 + arg6 * 0x32C);
     temp_v0 = func_15039A54(arg6, 0);
     if ((temp_v1 != 0) && (*(s32 *)((u8 *)temp_v1 + 0x2C) != 0x100)) {
-        temp_fa0 = *(f32 *)((u8 *)temp_v0 + 0x10);
-        temp_fv0 = *arg0;
-        if (((*(f32 *)((u8 *)temp_v0 + 0) + temp_fa0) < temp_fv0) || (temp_fv0 < (*(f32 *)((u8 *)temp_v0 + 4) - temp_fa0))) {
+        margin = *(f32 *)((u8 *)temp_v0 + 0x10);
+        valueX = *arg0;
+        if (((*(f32 *)((u8 *)temp_v0 + 0) + margin) < valueX) || (valueX < (*(f32 *)((u8 *)temp_v0 + 4) - margin))) {
             *arg0 = arg4;
             *arg1 = arg5;
             if (arg2 != 0) {
@@ -471,66 +461,66 @@ void func_15039A78(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, f32 arg4, f32 arg
             }
         } else {
             if (arg2 != 0) {
-                *arg2 = temp_fv0;
+                *arg2 = valueX;
                 *arg3 = *arg1;
             }
             if (*arg0 < *(f32 *)((u8 *)temp_v0 + 4)) {
                 *arg0 = *(f32 *)((u8 *)temp_v0 + 4);
             } else {
-                temp_fv1 = *(f32 *)((u8 *)temp_v0 + 0);
-                if (temp_fv1 < *arg0) {
-                    var_fa0 = temp_fv1;
+                upperX = *(f32 *)((u8 *)temp_v0 + 0);
+                if (upperX < *arg0) {
+                    bound = upperX;
                 } else {
-                    var_fa0 = *arg0;
+                    bound = *arg0;
                 }
-                *arg0 = var_fa0;
+                *arg0 = bound;
             }
-            temp_fa1 = *(f32 *)((u8 *)temp_v0 + 8);
-            temp_fa0_2 = *(f32 *)((u8 *)temp_v0 + 0x14);
-            temp_fv1_2 = *arg1;
-            if (((temp_fa1 + temp_fa0_2) < temp_fv1_2) || (temp_fv0_2 = *(f32 *)((u8 *)temp_v0 + 0xC), (temp_fv1_2 < (temp_fv0_2 - temp_fa0_2)))) {
+            upperY = *(f32 *)((u8 *)temp_v0 + 8);
+            margin = *(f32 *)((u8 *)temp_v0 + 0x14);
+            valueY = *arg1;
+            if (((upperY + margin) < valueY) || (lowerY = *(f32 *)((u8 *)temp_v0 + 0xC), (valueY < (lowerY - margin)))) {
                 *arg1 = arg5;
                 return;
             }
-            if (temp_fv1_2 < temp_fv0_2) {
-                *arg1 = temp_fv0_2;
+            if (valueY < lowerY) {
+                *arg1 = lowerY;
                 return;
             }
-            if (temp_fa1 < temp_fv1_2) {
-                var_fa0_2 = temp_fa1;
+            if (upperY < valueY) {
+                bound = upperY;
             } else {
-                var_fa0_2 = temp_fv1_2;
+                bound = valueY;
             }
             goto block_34;
         }
     } else {
-        temp_fv0_3 = *arg0;
-        temp_fv1_3 = *(f32 *)((u8 *)temp_v0 + 4);
-        if (temp_fv0_3 < temp_fv1_3) {
-            *arg0 = temp_fv1_3;
+        valueX = *arg0;
+        upperX = *(f32 *)((u8 *)temp_v0 + 4);
+        if (valueX < upperX) {
+            *arg0 = upperX;
         } else {
-            temp_fv1_4 = *(f32 *)((u8 *)temp_v0 + 0);
-            if (temp_fv1_4 < temp_fv0_3) {
-                var_fa0_3 = temp_fv1_4;
+            upperX = *(f32 *)((u8 *)temp_v0 + 0);
+            if (upperX < valueX) {
+                bound = upperX;
             } else {
-                var_fa0_3 = temp_fv0_3;
+                bound = valueX;
             }
-            *arg0 = var_fa0_3;
+            *arg0 = bound;
         }
-        temp_fv1_5 = *arg1;
-        temp_fv0_4 = *(f32 *)((u8 *)temp_v0 + 0xC);
-        if (temp_fv1_5 < temp_fv0_4) {
-            *arg1 = temp_fv0_4;
+        valueY = *arg1;
+        lowerY = *(f32 *)((u8 *)temp_v0 + 0xC);
+        if (valueY < lowerY) {
+            *arg1 = lowerY;
             return;
         }
-        temp_fa1_2 = *(f32 *)((u8 *)temp_v0 + 8);
-        if (temp_fa1_2 < temp_fv1_5) {
-            var_fa0_2 = temp_fa1_2;
+        upperY = *(f32 *)((u8 *)temp_v0 + 8);
+        if (upperY < valueY) {
+            bound = upperY;
         } else {
-            var_fa0_2 = temp_fv1_5;
+            bound = valueY;
         }
 block_34:
-        *arg1 = var_fa0_2;
+        *arg1 = bound;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15039A78 */

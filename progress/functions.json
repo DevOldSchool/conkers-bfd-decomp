@@ -42571,8 +42571,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2254,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2254)",
+        "current_score": 2044,
+        "reason": "Fresh valid baseline2354; best valid2044 restores sequential actual dot-product partial sums with original FP grouping. Two revisions exhausted; register hints alone unchanged. Frame30 matches; real slot homes, FP allocation/operand scheduling and branch convergence remain. ABI unchanged; no shared dependencies.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43322,8 +43322,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1032,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1032)",
+        "current_score": 1237,
+        "reason": "Invalid retained baseline1812 used4x record stride; corrected raw0x32C byte stride. Best valid1237 merges actual float lifetimes; two revisions exhausted. Frame40 vs raw20, argument homes, FP allocation and branch convergence remain. ABI unchanged; no shared dependency edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62991,8 +62991,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 13205,
-        "reason": "Unified automated m2c and bounded 25-variant source search; best candidate remains CURRENT (13205)",
+        "current_score": 1025,
+        "reason": "Fresh valid baseline2705; best valid1025 restores one unsigned-count high-level color-copy loop and original IDO unrolling. Two revisions exhausted. Main loop integer induction instead of raw cursor endpoint leaves3extra/missing instructions and register allocation differences. ABI unchanged; no shared dependencies.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

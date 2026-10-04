@@ -4,22 +4,20 @@ Latest three items; US, manual ASM-to-C. Shared dependency changes: no.
 
 | Function | Source under src/game/ | Status / fresh full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 15142600 | game_16EE20.c | Invalid scalar-matrix starter repaired; valid 10388 retained | 2 |
-| 1505A770 | game_83300.c | Candidate 10800 → 190; restored high-level loop | 2 |
-| 1515D6D0 | game_18A8F0.c | Candidate 11850 → 6470; mutable graphics cursor | 2 |
+| 15039A78 | game_64120.c | Invalid 4x-stride starter repaired; valid 1787 → 1237 | 2 |
+| 15012C84 | game_3FC60.c | Candidate 2705 → 1025; restored high-level color-copy loop | 2 |
+| 15049EDC | game_770F0.c | Candidate 2354 → 2044; explicit dot-product partial sums | 2 |
 
-Best valid candidates preserved through defer; regressions restored.
-Ten candidate finish calls, including one missing-prototype repair; no new match credit.
-ROM float bits: 800994DC=3dcccccd; 800994E0/800994E4=3d4ccccd.
-These justify loop literals; constant references and scheduling still differ.
-Existing owners/callee: 15142838, 150B9D14, 1505A72C, 1515D69C, 1515EF74.
-All five rechecked at CURRENT0; layout/progress/whitespace passed.
-Clean verify-batch: BATCH_COMPLETE; US GAME and mapped rodata equal ROM.
-1,823 tests passed, 37 skipped. Candidates retain no new match credit.
+Best valid candidates preserved through defer; nine candidate finish calls.
+No new match credit. Signatures unchanged; all three retain canonical ASM.
+Owners 15039A54/15049C40 rechecked at CURRENT0; layout/progress/whitespace passed.
+Clean verify-batch: BATCH_COMPLETE; US GAME/mapped rodata equal ROM.
+1,823 tests passed, 37 skipped. 3FC60 has no matched C owner.
 
-Speed leads: detect already-unrolled starters before IDO unrolls them again;
-use the checksum-validated ROM reader directly for constants; model real matrices.
-Ready context still misses resumed function bodies; stored scores were stale.
+Workflow: fresh scores differ from saved scores; check byte strides before ranking.
+Speed leads: high-level loops avoid repeated compiler unrolling; inspect counter
+induction and real float lifetimes. Quaternion register hints compiled unchanged.
+Ready context misses resumed function bodies; prototype conflicts need canonical checks.
 Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); linker unchanged.
 1515942C shared contract and 150A6360 full-span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.
