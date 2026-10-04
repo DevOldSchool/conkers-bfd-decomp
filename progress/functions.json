@@ -36299,6 +36299,12 @@
       "symbol": "func_1515E544"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 12477,
+        "reason": "Retain initial CURRENT (12477); both bounded control-flow revisions worsen loop duplication and FP/register ownership. Native single loop, 0x70 frame and color pointer save remain unresolved; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -36331,6 +36337,12 @@
       "symbol": "func_1515EB84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6744,
+        "reason": "Keep best CURRENT (6744) after three bounded comparisons; phase-local direction reuse removes FP result spills, but frame 0x98 versus 0x80, scratch homes, pointer packing/load ordering and final copy-loop register ownership remain. No shared dependency edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40318,6 +40330,12 @@
       "symbol": "func_1502D630"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1975,
+        "reason": "Initial CURRENT (1975) restored after three bounded comparisons. Correct three-word transfer contract and full word doubled length recovered; frame 0x60 versus 0x68, pass home 0x4C versus 0x48, source/alignment register ownership, FP constant reuse and scheduling remain. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -65352,11 +65370,15 @@
       "symbol": "func_150A5B90"
     },
     {
+      "blocked": {
+        "reason": "Raw helper 150A613C consumes T4, FS0..FS5 and FT4..FT5, returns T3/F13/F14/F15 and mutates S2; caller keeps A0/A1/A3/T2/T5/T7/T8/T9 live through three calls. Native two-stage 0x30+0x38 frame saves all GPR/FP registers including GP and duplicate RA, with internal global labels and trapping ADD instructions. Ordinary source-local C declarations cannot preserve this private register contract; requires separately authorized helper/caller ABI reconstruction. No comparisons or game-source edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 760,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150A5E44",
           "vram": "0x150A5E44"
         }
@@ -90391,6 +90413,12 @@
       "symbol": "func_151298C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2152,
+        "reason": "Initial CURRENT (2152) restored after two bounded comparisons. Vector initialization, length and clamp math, callee contracts and complete scratch recovered; frame 0x80 versus 0x78, scratch homes, FP load ownership, zero materialization and collision-branch scheduling remain. Phase scoping worsened colors without improving frame; no further supported local hypothesis. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

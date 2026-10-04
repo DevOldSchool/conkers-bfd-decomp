@@ -820,7 +820,101 @@ void func_1502D630(Game58F80Actor *arg0, s32 *arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502D630 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502D630.s")
 
+void func_10004514(s32, s32, s32, s32);
+void func_1000480C(s32, s32, s32);
+void func_1505DFDC(void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D824 CURRENT (1975) */
+void func_1502D824(void *model, s32 actorAddress, s32 output) {
+    u8 *actor;
+    u8 *base;
+    u8 *row;
+    u8 *fields;
+    s32 passes;
+    s32 index;
+    s32 wrap;
+    s32 width;
+    s32 frame;
+    s32 divisor;
+    s32 source;
+    u32 length;
+    u8 misalignment;
+    f32 position;
+    f32 limit;
+    f32 last;
+
+    actor = (u8 *)actorAddress;
+    base = model;
+    passes = 1;
+    if (actor != 0) {
+        if (*(u16 *)(actor + 0x84) == 0xFFFF) func_1505DFDC(actor);
+        base = *(u8 **)(actor + 0x2D0);
+    }
+    if (base != 0) {
+        if (*(s16 *)(base + 0x3C) > 0) passes = 2;
+        index = 0;
+        if (passes > 0) {
+            row = base;
+            do {
+                width = row[0x45];
+                wrap = 0;
+                fields = base + index * 4;
+                if (width == 0) {
+                    base[index + 0x38] = 0;
+                } else {
+                    source = *(s32 *)(fields + 0x28);
+                    if (source != 0) {
+                        position = *(f32 *)(fields + 8);
+                        limit = *(f32 *)(fields + 0x18);
+                        output = ((u32)(output + 15) >> 4) << 4;
+                        length = width * 2;
+                        frame = (s32)position;
+                        if (limit <= (f32)frame) frame = (s32)(limit - 1.0f);
+                        divisor = row[0x48] + 1;
+                        if (divisor >= 2) {
+                            last = limit - 1.0f;
+                            if (last <= (f32)frame) {
+                                frame = (s32)((last + (f32)(divisor - 1)) / (f32)divisor);
+                            } else {
+                                frame /= divisor;
+                            }
+                        }
+                        source = (u32)source + (u32)width * (u32)frame;
+                        misalignment = source & 3;
+                        source -= misalignment;
+                        if (limit <= position + 1.0f) {
+                            wrap = 1;
+                            length = width;
+                        } else {
+                            base[index + 0x38] = width;
+                        }
+                        length += misalignment;
+                        *(s32 *)(fields + 0x30) = misalignment + output;
+                        if (length < 200U) func_1000480C(source, output, length);
+                        else func_10004514(source, output, (length + 15) & ~15U, 1);
+                        output += length;
+                        if (wrap != 0) {
+                            source = *(s32 *)(fields + 0x28);
+                            misalignment = source & 1;
+                            length = misalignment + width;
+                            output = ((u32)(output + 15) >> 4) << 4;
+                            source -= misalignment;
+                            if (length < 200U) func_1000480C(source, output, length);
+                            else func_10004514(source, output, (length + 15) & ~15U, 1);
+                            base[index + 0x38] = (output + misalignment) - *(s32 *)(fields + 0x30);
+                            output += length;
+                        }
+                    }
+                }
+                index++;
+                row += 0x1D0;
+            } while (index != passes);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502D824 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502D824.s")
+
 extern u16 D_800C4ED0[];
 
 s32 func_1502DB20(s32 arg0) {
