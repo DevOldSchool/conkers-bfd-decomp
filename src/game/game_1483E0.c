@@ -71,7 +71,94 @@ void func_1511AF30(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511AF30.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511B07C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511B51C.s")
+f32 func_15047C00(f32);
+f32 func_15047D60(f32);
+extern u8 D_800A2F70;
+extern u8 D_800A2F71[];
+extern f32 D_800A31CC;
+extern u8 D_800BE9C0;
+
+typedef struct Game1483E0RotateVertex {
+    s16 x, y, z;
+    u8 pad06[0xA];
+} Game1483E0RotateVertex;
+
+typedef struct Game1483E0RotateMesh {
+    u8 pad00[8];
+    f32 angle;
+    u8 pad0C[4];
+    s16 x, y, z;
+    u8 pad16[0xA];
+    Game1483E0RotateVertex *buffers[2];
+    Game1483E0RotateVertex *source;
+    u8 pad2C[0x10];
+    s32 flags;
+    u8 pad40[0x3C];
+    s32 updates;
+    f32 previous[2];
+} Game1483E0RotateMesh;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511B7D4 CURRENT (3548) */
+void func_1511B7D4(Game1483E0RotateMesh *mesh) {
+    u8 *saved_pairs;
+    Game1483E0RotateMesh *neighbors[2];
+    u8 *pairs;
+    s32 count;
+    s32 dx, dy;
+    f32 angle, sine, cosine, scale;
+    f32 x, y;
+    Game1483E0RotateMesh *neighbor;
+    Game1483E0RotateVertex *source;
+    Game1483E0RotateVertex *output;
+    s32 offset;
+    s16 z;
+    s32 rotated_x, rotated_y;
+
+    count = 0;
+    if (mesh->flags == 0) {
+        count = D_800A2F70;
+        neighbors[0] = (Game1483E0RotateMesh *)((u8 *)mesh - 0xA0);
+        neighbors[1] = (Game1483E0RotateMesh *)((u8 *)mesh - 0x140);
+        saved_pairs = D_800A2F71;
+    }
+    pairs = saved_pairs;
+    if (mesh->previous[0] != neighbors[0]->angle ||
+        mesh->previous[1] != neighbors[1]->angle) {
+        mesh->previous[0] = neighbors[0]->angle;
+        mesh->updates = 2;
+        mesh->previous[1] = neighbors[1]->angle;
+    }
+    if (mesh->updates != 0) {
+        mesh->updates--;
+        if (count != 0) {
+            count--;
+            scale = D_800A31CC;
+            do {
+                neighbor = neighbors[pairs[1]];
+                dx = neighbor->x - mesh->x;
+                angle = -neighbor->angle * scale;
+                dy = neighbor->y - mesh->y;
+                sine = func_15047D60(angle);
+                cosine = func_15047C00(angle);
+                offset = pairs[0] * 0x10;
+                source = (Game1483E0RotateVertex *)((u8 *)mesh->source + offset);
+                y = (f32)(source->y - dy);
+                x = (f32)(source->x - dx);
+                output = (Game1483E0RotateVertex *)((u8 *)mesh->buffers[D_800BE9C0] + offset);
+                z = source->z + mesh->z;
+                rotated_y = (s32)(y * cosine - x * sine) + dy + mesh->y;
+                rotated_x = (s32)(y * sine + x * cosine) + dx + mesh->x;
+                pairs += 2;
+                output->x = rotated_x;
+                mesh->buffers[D_800BE9C0][pairs[-2]].y = rotated_y;
+                mesh->buffers[D_800BE9C0][pairs[-2]].z = z;
+            } while (count-- != 0);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1511B7D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1483E0/func_1511B7D4.s")
+
 /* Call context: func_15188010: unique active project prototype */
 void func_15188010(s32, f32 *);
 

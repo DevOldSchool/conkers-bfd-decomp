@@ -12897,6 +12897,12 @@
       "symbol": "func_15145EA4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1755,
+        "reason": "New manual basis candidate, best reviewed CURRENT 1755 after initial plus two revisions: 2351, 1902, 1755. Real byte axis/count state, first-component snapshot, existing vector type, exact cross/normalize sequence. Stack frame and byte/float homes agree; floating zero register reuse, axis temporary registers and success-return scheduling remain. Manual budget exhausted; preserve best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -40251,6 +40257,12 @@
       "symbol": "func_1502EAFC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1680,
+        "reason": "New manual attempt: CURRENT 1710 -> 1730 -> 1680; best retained. Two targeted revisions exhausted. Remaining packed-color register lifetime, pre-call alpha extraction/spill, arithmetic operands and return scheduling; no shared changes or automated search.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62401,6 +62413,12 @@
       "symbol": "func_151B9BF0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1910,
+        "reason": "New manual emission-controller candidate, best reviewed CURRENT 1910 after 2115, 3610, 1910. Real signed16 coordinate snapshots and typed count-controller view; full-word lifetime subtraction before narrowing store. Original prologue and saved controller pointer agree. Redundant x/y argument sign extensions and instruction scheduling remain with conservative s32 callee contract. No shared ABI change; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -76669,8 +76687,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 596,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D0E90",
           "vram": "0x150D0E90"
         }
@@ -79276,6 +79299,12 @@
       "symbol": "func_1511B51C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3548,
+        "reason": "New manual candidate, best reviewed CURRENT 3548 after initial plus two revisions (5465 invalid countdown, 4547, 3548). Typed mesh and valid two-entry neighbor array; correct old-value countdown. Pre-store rotated-coordinate snapshots improved scheduling; frame and register/scheduling mismatches remain. Requires flags == 0 as in raw stack-initialization path. Manual budget exhausted; preserve best candidate.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
