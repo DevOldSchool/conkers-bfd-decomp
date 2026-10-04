@@ -11,9 +11,7 @@
  * - func_8000B2F4
  * - func_8000B3D4
  * - func_8000B548
- * - func_8000B638
  * - func_8000B8B8
- * - func_8000BC28
  * - func_8000BCBC
  * - func_8000BF60
  * - func_8000C350
@@ -283,7 +281,6 @@ void func_80008790(s32, s32, s32, s32);
 void func_80011FA0(s32);
 s32 func_8000E704(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B638 CURRENT (2000) */
 s32 func_8000B638(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 bit2;
     SequenceRecordState *record;
@@ -296,23 +293,23 @@ s32 func_8000B638(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     if (D_80041F04 & 1) {
         if (arg0 == 0) {
-            func_800088F0(arg1, 0x8000, 1);
+            func_800088F0(((u8 *)&arg1)[3], 0x8000, 1);
             if (D_800BE9F0 == 1 || D_800BE9F0 == 0xC) {
-                func_80008790(arg1, 0x7000, 0, 0);
+                func_80008790(((u8 *)&arg1)[3], 0x7000, 0, 0);
             } else if (D_800BE9F0 != 7) {
-                func_80008790(arg1, 0xCA, 0, 0);
+                func_80008790(((u8 *)&arg1)[3], 0xCA, 0, 0);
             }
-            func_800085B8(arg1, 0xF, 1);
+            func_800085B8(((u8 *)&arg1)[3], 0xF, 1);
         }
         arg0 = 1;
     } else if (arg0 != 0) {
-        func_800088F0(arg1, 0x8000, 0);
+        func_800088F0(((u8 *)&arg1)[3], 0x8000, 0);
         if (D_800BE9F0 == 1 || D_800BE9F0 == 0xC) {
-            func_80008790(arg1, 0x7000, 0xFF, 0);
+            func_80008790(((u8 *)&arg1)[3], 0x7000, 0xFF, 0);
         } else if (D_800BE9F0 != 7) {
-            func_80008790(arg1, 0xCA, 0xFF, 0);
+            func_80008790(((u8 *)&arg1)[3], 0xCA, 0xFF, 0);
         }
-        func_800085B8(arg1, 0xF, 0);
+        func_800085B8(((u8 *)&arg1)[3], 0xF, 0);
         arg0 = 0;
     }
     if (D_800BE9F0 == 0x27) {
@@ -327,8 +324,6 @@ s32 func_8000B638(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return bit2 | arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B638 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B638.s")
 void func_8000E40C(s32, s32);
 extern u8 *D_800DBFF0;
 
@@ -353,11 +348,10 @@ s32 func_8000E46C(s32, s32, s32, s32);
 s32 func_8000E588(s32, s32, s32);
 void func_8000DF68(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B8B8 CURRENT (930) */
-s32 func_8000B8B8(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B8B8 CURRENT (753) */
+s32 func_8000B8B8(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 volume;
 
-    arg1 &= 0xFF;
     if (D_800BE9F0 == 4) {
         if ((arg0 & 1) && D_80041F0C == 0) {
             func_8000E46C(0x13, 0, 0x1000, 0);
@@ -438,13 +432,12 @@ s32 func_8000BBE8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
 u8 func_80008A4C(s32, s32);
 void func_850C851C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BC28 CURRENT (400) */
 s32 func_8000BC28(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 value;
     u8 first;
 
-    first = func_80008A4C(arg1, 0);
-    value = func_80008A4C(arg1, 6) + first + 1;
+    first = func_80008A4C(((u8 *)&arg1)[3], 0);
+    value = func_80008A4C(((u8 *)&arg1)[3], 6) + first + 1;
     if (value >= 0x100) {
         value = 0xFF;
     } else if (value < 0x10) {
@@ -456,8 +449,6 @@ s32 func_8000BC28(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000BC28 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BC28.s")
 extern f32 D_8002C220;
 extern f32 D_8002C224;
 extern f32 D_8002C228;
@@ -470,15 +461,15 @@ s32 func_850A29C8(s32, s32);
 void func_80008790(s32, s32, s32, s32);
 void func_8000886C(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BCBC CURRENT (2443) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BCBC CURRENT (788) */
 s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 distance;
     s32 volume;
     u8 extra;
 
     if (arg0 == 0) {
-        func_80008790(arg1, 3, 0x10, 0);
-        func_8000886C(arg1, 4, 0);
+        func_80008790(((u8 *)&arg1)[3], 3, 0x10, 0);
+        func_8000886C(((u8 *)&arg1)[3], 4, 0);
         arg0 = 1;
     } else if (D_800BE9F0 == 0x13) {
         arg2 -= 24.0f;
@@ -487,16 +478,17 @@ s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         if (D_8002C224 < distance) {
             volume = 4;
         } else {
-            volume = (u8)(u32)((D_8002C228 - sqrtf(distance)) * D_8002C22C);
+            volume = (u8)((u32)((D_8002C228 - sqrtf(distance)) * D_8002C22C) + 4);
         }
         if (arg0 != volume) {
-            func_8000886C(arg1, 3, volume);
+            func_8000886C(((u8 *)&arg1)[3], 3, volume);
         }
         if (func_850A29C8(0, 0x4041) == 0) {
+            distance = D_8002C230 - arg3;
             if (D_8002C230 < arg3) {
                 extra = 0x20;
             } else {
-                distance = (D_8002C230 - arg3) * D_8002C234;
+                distance *= D_8002C234;
                 if (distance >= 223.0f) {
                     extra = 0xFF;
                 } else {
@@ -506,8 +498,8 @@ s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         } else {
             extra = 0;
         }
-        if (extra != func_80008A4C(arg1, 2)) {
-            func_8000886C(arg1, 4, extra);
+        if (extra != func_80008A4C(((u8 *)&arg1)[3], 2)) {
+            func_8000886C(((u8 *)&arg1)[3], 4, extra);
         }
     }
     return arg0;
@@ -1537,7 +1529,7 @@ void func_8000DEC4(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DEC4.s")
 void *func_8000B1FC(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DF68 CURRENT (670) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DF68 CURRENT (605) */
 void func_8000DF68(s32 arg0, s32 arg1, s32 arg2) {
     SequenceRecordState *record;
     s32 step;
@@ -1559,10 +1551,14 @@ void func_8000DF68(s32 arg0, s32 arg1, s32 arg2) {
             step /= arg2;
             if (step <= 0) {
                 step = 2;
-            } else if (step >= 0x8000) {
+            } else if (step < 0x8000) {
+                record->duration = step;
+                goto interpolation_done;
+            } else {
                 step = 0x7FFF;
             }
             record->duration = step;
+interpolation_done:
             return;
         }
         record->duration = 0x200;

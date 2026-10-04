@@ -19589,7 +19589,7 @@
         "us": {
           "end": "0x30A0",
           "start": "0x2E50",
-          "state": "raw_asm"
+          "state": "candidate"
         }
       },
       "source": "src/main/init_2E50.c"
@@ -20284,15 +20284,15 @@
         "func_800038E0",
         "func_8000390C"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x3920",
           "start": "0x38E0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_38E0.c"
+      "source": "src/done/main/init_38E0.c"
     }
   ]
 }

@@ -63,7 +63,7 @@ segments:
       - [0x34E0, asm]
       - [0x37F0, c, done/main/init_37F0]
       - [0x38C0, asm]
-      - [0x38E0, asm]
+      - [0x38E0, c, done/main/init_38E0]
       - [0x3920, asm]
       - [0x3930, c, done/main/init_3930]
       - [0x39B0, asm]

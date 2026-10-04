@@ -1,0 +1,416 @@
+{
+  "schema_version": 1,
+  "goal": "Complete src/main/init*.c using manual full-span US matching and reviewed source-unit integration.",
+  "goal_complete": false,
+  "branch": "codex/complete-init-20261004",
+  "base_commit": "b57153c7f9a6a2d2c8e224034794bc9b378a1df0",
+  "commit_identity": {
+    "name": "DevOldSchool-AI-Agent",
+    "email": "267263626+DevOldSchool-AI-Agent@users.noreply.github.com"
+  },
+  "memory_used": false,
+  "matched_functions": [
+    "func_8000EBC4",
+    "func_80002E50",
+    "func_8000EDA0",
+    "func_800038E0",
+    "func_8000F44C",
+    "func_8000F3D0",
+    "func_8001123C",
+    "func_8000BC28",
+    "func_8000B638",
+    "func_8000853C",
+    "func_80008570",
+    "func_800085F8",
+    "func_8000862C",
+    "func_80008B2C",
+    "func_80008BC0",
+    "func_80008A4C",
+    "func_80008C6C",
+    "func_80008C04",
+    "func_80008F58",
+    "func_80008F24",
+    "func_80008EE0",
+    "func_800085B8",
+    "func_800086FC",
+    "func_80008744",
+    "func_80008824",
+    "func_80008B60",
+    "func_80008660",
+    "func_8000886C",
+    "func_80008790",
+    "func_80008A94",
+    "func_800088F0",
+    "func_80008988",
+    "func_8001091C",
+    "func_80010F88"
+  ],
+  "completed_source_units": [
+    "src/done/main/init_38E0.c"
+  ],
+  "remaining": {
+    "current_init_files": 23,
+    "c_candidates": 91,
+    "original_asm": 20
+  },
+  "integration_blockers": {
+    "func_80002E50": "switch rodata emitted at2C450 instead of2C080; +32 bytes whole ROM"
+  },
+  "pending_batch": [],
+  "validation": {
+    "result": "BATCH_COMPLETE",
+    "scope": "Clean canonical full US ROM, 34 new function matches and 12 existing caller or companion matches. Canonical raw mappings do not prove pending C-unit integration.",
+    "batch_ids": [
+      "func_8000EBC4",
+      "func_80002E50",
+      "func_8000EDA0",
+      "func_800038E0",
+      "func_8000F44C",
+      "func_8000F3D0",
+      "func_8001123C",
+      "func_8000BC28",
+      "func_8000B638",
+      "func_8000853C",
+      "func_80008570",
+      "func_800085F8",
+      "func_8000862C",
+      "func_80008B2C",
+      "func_80008BC0",
+      "func_80008A4C",
+      "func_80008C6C",
+      "func_80008C04",
+      "func_80008F58",
+      "func_80008F24",
+      "func_80008EE0",
+      "func_800085B8",
+      "func_800086FC",
+      "func_80008744",
+      "func_80008824",
+      "func_80008B60",
+      "func_80008660",
+      "func_8000886C",
+      "func_80008790",
+      "func_80008A94",
+      "func_800088F0",
+      "func_80008988",
+      "func_8001091C",
+      "func_80010F88",
+      "func_80010AA8",
+      "func_800107F8",
+      "func_80010894",
+      "func_8000E654",
+      "func_8000E054",
+      "func_8000E46C",
+      "func_8000E588",
+      "func_8000CAE4",
+      "func_8000E704",
+      "func_8000CC54",
+      "func_8000EFB4",
+      "func_8000390C"
+    ],
+    "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "tests": 1823,
+    "skipped": 37,
+    "test_seconds": 35.921,
+    "metadata_progress_whitespace": "passed",
+    "completed_utc": "2026-10-04T11:27:58.833660+00:00"
+  },
+  "historical_score_sequences": {
+    "func_800056A0": [
+      600
+    ],
+    "func_8000F4D8": [
+      83,
+      30,
+      73
+    ],
+    "func_8000FE88": [
+      83
+    ],
+    "func_8000EBC4": [
+      60,
+      0
+    ],
+    "func_8000ECCC": [
+      525,
+      55,
+      268,
+      55,
+      55
+    ],
+    "func_8000B294": [
+      140,
+      1160
+    ],
+    "func_80012020": [
+      1370,
+      4505
+    ],
+    "func_8000EDA0": [
+      65,
+      0
+    ],
+    "func_800038E0": [
+      0
+    ],
+    "func_800046E4": [
+      20,
+      528,
+      528
+    ],
+    "func_8000EC24": [
+      888,
+      888
+    ],
+    "func_800043B4": [
+      879,
+      879,
+      260
+    ],
+    "func_8000DF68": [
+      670,
+      675,
+      605,
+      885
+    ],
+    "func_80001194": [
+      90,
+      710,
+      285
+    ],
+    "func_8000F44C": [
+      425,
+      20,
+      0
+    ],
+    "func_8000EE70": [
+      370,
+      1522
+    ],
+    "func_8000F3D0": [
+      290,
+      0
+    ],
+    "func_8001123C": [
+      321,
+      0
+    ],
+    "func_8000FDF4": [
+      956,
+      785,
+      1207,
+      775
+    ],
+    "func_8000FEF0": [
+      2255,
+      1974,
+      1984,
+      1969
+    ],
+    "func_8000BC28": [
+      400,
+      1010,
+      942,
+      0
+    ],
+    "func_8000B638": [
+      2000,
+      0
+    ],
+    "func_8000B8B8": [
+      930,
+      753,
+      753,
+      1543
+    ],
+    "func_8000853C": [
+      225,
+      0
+    ],
+    "func_80008570": [
+      225,
+      0
+    ],
+    "func_800085F8": [
+      225,
+      0
+    ],
+    "func_8000862C": [
+      225,
+      0
+    ],
+    "func_80008B2C": [
+      225,
+      0
+    ],
+    "func_80008BC0": [
+      225,
+      0
+    ],
+    "func_800084D8": [
+      277,
+      12,
+      18,
+      18
+    ],
+    "func_80008A4C": [
+      1255,
+      0
+    ],
+    "func_80008C6C": [
+      595,
+      0
+    ],
+    "func_80008C04": [
+      1868,
+      0
+    ],
+    "func_80008F58": [
+      225,
+      0
+    ],
+    "func_80008F24": [
+      225,
+      0
+    ],
+    "func_80008EE0": [
+      295,
+      0
+    ],
+    "func_800085B8": [
+      892,
+      0
+    ],
+    "func_800086FC": [
+      1309,
+      0
+    ],
+    "func_80008744": [
+      1307,
+      0
+    ],
+    "func_80008824": [
+      1309,
+      0
+    ],
+    "func_80008B60": [
+      2449,
+      0
+    ],
+    "func_80008660": [
+      2427,
+      660,
+      0
+    ],
+    "func_8000886C": [
+      830,
+      420,
+      0
+    ],
+    "func_80008790": [
+      2485,
+      0
+    ],
+    "func_80008A94": [
+      1625,
+      0
+    ],
+    "func_800088F0": [
+      600,
+      200,
+      0
+    ],
+    "func_80008988": [
+      665,
+      0
+    ],
+    "func_80008CE8": [
+      1867,
+      417,
+      469,
+      828
+    ],
+    "func_8000BCBC": [
+      1293,
+      1477,
+      788
+    ],
+    "func_8000B2F4": [
+      114,
+      114,
+      114
+    ],
+    "func_80007A24": [
+      10
+    ],
+    "func_800100E0": [
+      330,
+      1421,
+      210,
+      2983
+    ],
+    "func_8001091C": [
+      210,
+      200,
+      0
+    ],
+    "func_80010F88": [
+      120,
+      0
+    ],
+    "func_80010F30": [
+      248,
+      248
+    ],
+    "func_80010BE8": [
+      7343,
+      6507
+    ]
+  },
+  "preserved_candidate_scores": {
+    "func_800043B4": 260,
+    "func_8000DF68": 605,
+    "func_80001194": 90,
+    "func_8000FDF4": 775,
+    "func_8000FEF0": 1969,
+    "func_8000B8B8": 753,
+    "func_800084D8": 12,
+    "func_80008CE8": 417,
+    "func_8000BCBC": 788,
+    "func_8000B2F4": 114,
+    "func_800100E0": 210,
+    "func_80010F30": 248,
+    "func_80010BE8": 6507
+  },
+  "manual_limits": {
+    "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
+    "permutation_permission": "not granted",
+    "shared_changes": "No shared headers, SDK contracts, compiler flags, tooling or assembly changes."
+  },
+  "rejected_forms": {
+    "func_80001194": "Legacy score 60 used three empty shaping conditions; removed. Valid preserved candidate scores 90.",
+    "func_8000BCBC": "Inherited score 2443 omitted required volume +4 after unsigned FP conversion; invalid. Corrected preserved candidate scores 788.",
+    "func_80010F30": "Owning narrow prototype was target-neutral at 248 but regressed matched EFB4 to 2238. Original wide prototype and body restored; EFB4 reverified at CURRENT 0."
+  },
+  "next_review": {
+    "func_80010BE8": {
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 2,
+      "current_score": 6507,
+      "hypothesis": "Review explicit first-entry aliases D_800425E8/D_800425E4 and index-1 pool search against raw call order. Remaining frame 0x60 versus 0x50 and spill/mix lifetimes require independent review.",
+      "contract": "Owning u16 handle, full-word s32 sound key, u16 volume, u8 pan, s16 cents, u8 mix and bus. All known direct C callers are deferred; no existing matched caller found."
+    },
+    "func_80010F30": {
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 2,
+      "current_score": 248,
+      "hypothesis": "Refresh diagnosis only because independently reviewed BE8 owning contract changed. Preserve original F30 word prototype to retain EFB4 match."
+    },
+    "func_80007A24": {
+      "current_score": 10,
+      "new_forms_used": 0,
+      "reason": "Only t9 versus t6 next-pointer load/store temporary. No supported new manual hypothesis; permutation remains unauthorized."
+    }
+  },
+  "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits."
+}
