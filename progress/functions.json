@@ -18884,17 +18884,16 @@
       "symbol": "func_1506B5E4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 840,
-        "reason": "CURRENT (840): exact frame and arithmetic/control structure; compiler coalesces remainder/index lifetimes into two extra moves, cascading register allocation",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 268,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1506B634",
           "vram": "0x1506B634"
         }
@@ -31428,7 +31427,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 625,
-        "reason": "best CURRENT (625): corrected the five-argument call ABI to obtain the exact 0x68 frame and local offsets; remaining differences are float/integer register allocation plus one early field14 store, with no opcode/control-flow mismatch",
+        "reason": "Valid625 with raw155 field2C unsigned-byte store recovered from signed-101; exactframe68/slots, early field14 store and FP/integer allocation remain. Volatile real halfword store regressed1854 and was discarded. Byte-only revision tied625 but matches raw constant; manual budget exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -68634,8 +68633,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 518,
-        "reason": "best candidate CURRENT (518): exact frame and control flow; remaining float-store scheduling/register lifetimes plus one regenerated zero constant and two trailing instructions",
+        "current_score": 514,
+        "reason": "Valid disjoint field20-before-field14 assignment order518to514; exactframe78, control and input coordinates. Store order recovered with global load/register tradeoff; raw separate latezero and field24 scheduling/full-span trailing row remain. Latezero/-4 source reordering neutral; keep simpler514, manual budget exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -86256,7 +86255,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1215,
-        "reason": "CURRENT (1215): semantic/control structure matches; compiler folds the 0x740 subobject pointer and hoists call constants, changing store/conversion scheduling and shortening the function",
+        "reason": "Original valid1215 retained: actual subobject access qualification neutral full diff. Raw owner+740 pointer retained, compiler folds it and advances conversion/stores and call constants. Frame28/control correct; no supported fresh storage/ABI change, stop plateau without fake pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88057,7 +88056,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 844,
-        "reason": "best candidate CURRENT (844): control flow and calls align; compiler hoists D_800D2398 address into an extra saved register instead of materializing each post-call reload",
+        "reason": "Original valid844 retained: rawloop/calls/count semantics agree, compiler hoists count-address into extra savedregister. Shared actual post-call reload join regressed967 and retained address. Count signedLB/SLT already correct; no supported width/storage revision. Stop CSE barrier without fake pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

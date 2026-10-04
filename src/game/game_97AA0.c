@@ -50,7 +50,7 @@ typedef struct {
     s16 field58;
 } Game97AA0Effect;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506A5F0 CURRENT (518) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1506A5F0 CURRENT (514) */
 void func_1506A5F0(void *arg0, s32 arg1) {
     Game97AA0Effect effect;
 
@@ -59,12 +59,12 @@ void func_1506A5F0(void *arg0, s32 arg1) {
     effect.y = *(f32 *)((u8 *)arg0 + 0x18);
     effect.z = *(f32 *)((u8 *)arg0 + 0x1C);
     effect.angle = 0x5A;
-    effect.field14 = D_80099A10;
     effect.field18 = 0;
     effect.field1A = 0xFF;
     effect.field1C = -0x40;
     effect.field1E = 0x28;
     effect.field20 = D_80099A14;
+    effect.field14 = D_80099A10;
     effect.field24 = D_80099A18;
     effect.field30 = 0.0f;
     effect.field34 = 0.0f;

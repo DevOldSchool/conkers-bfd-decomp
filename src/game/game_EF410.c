@@ -359,7 +359,7 @@ s32 func_150C2700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
     spawn.field06 = 0x2E;
     spawn.field20 = 0x64;
     spawn.field22 = 0;
-    spawn.field2C = 0x9B;
+    *(u8 *)&spawn.field2C = 0x9B;
     spawn.field2D = 0x64;
     spawn.field34 = 0.0f;
     spawn.field38 = 1;
