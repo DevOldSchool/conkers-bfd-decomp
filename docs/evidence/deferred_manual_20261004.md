@@ -2,27 +2,26 @@
 
 Latest five functions; manual US ASM-to-C. Shared dependencies: no.
 
-| Function | Source under src/game/ | Best valid CURRENT | Fresh revisions |
+| Function | Source under src/game/ | Best retained CURRENT | Fresh revisions |
 | --- | --- | --- | --- |
-| 15191BE0 | game_1BF090.c | 3280; restored payload mode byte | 2 |
-| 1503A678 | game_64120.c | 482; three actual scale snapshots | 2 |
-| 1505ED34 | game_83300.c | 715; typed cursor, wrapping word steps | 2 |
-| 150C4D20 | game_F21D0.c | 1731; actual timer/velocity state | 2 |
-| 1501FE68 | game_49D30.c | 351; wrapping indexed addresses | 2 |
+| 1502FFD8 | game_5D2C0.c | 1473; wrapping allocation length | 2 |
+| 150CF680 | game_FC9E0.c | 2087; earlier descriptor initialization | 2 |
+| 151AE0E4 | game_1D9F10.c | 1249; wrapping point indices/addresses | 2 |
+| 1500AD84 | game_36680.c | 500; bounded baseline retained | 2 |
+| 15147EB8 | game_175250.c | 2122; explicit raw callback words | 2 |
 
-15 target finish calls: one compile failure, ten fresh revisions. Five valid
-candidates deferred; canonical ASM retained. No new C matches.
-Twelve focused owner/canonical/caller checks passed CURRENT (0); layout,
-progress and whitespace passed. Clean US batch BATCH_COMPLETE:
-1,823 tests, 37 skipped (35.850s suite).
+15 target finish calls, ten fresh revisions; five candidates deferred with
+canonical ASM retained. No new C matches. Eighteen focused owner checks passed
+CURRENT (0). Unchanged 15149104 remains focused100 (one missing padding NOP);
+its complete44B linked span matches raw ROM. No zero or new-match credit.
+Layout, progress and whitespace passed. Clean US batch BATCH_COMPLETE:
+1,823 tests, 37 skipped (35.816s suite). Linked padding proof refreshed.
 
-Speed leads: named actual scale words improved 693→482 and removed array
-address setup. Early velocity snapshot/state restored F0/F2 and pre-sound
-timer spill, 4988→1731. Typed pointer with word steps restored pool frame28→20,
-1097→715. Payload/result grouping regressed; output wrapper was neutral.
-Unbenchmarked. Invalid low scores and unsupported workspace tails excluded.
-Workflow improvement: preserve declaration context with deferred candidates;
-missing payload byte broke resume compilation. Check inventory before treating
-visible C as matched; batch gate still omits focused checks.
+Speed lead: earlier float44 initialization improved CF680 2297→2087.
+Natural point/record state restored E0E4 frame/homes but worsened1249→2275;
+frame agreement alone is insufficient. Options/flags lifetime trials regressed.
+Unbenchmarked. Reject callback candidates that omit observed argument words,
+even with lower scores; ROM tables confirm actor-taking consumers. Workflow: batch gate omits focused checks; linked
+padding can agree while focused diff remains nonzero.
 Pending [1500E738 mapping](game_3ba70_jump_table.md).
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.

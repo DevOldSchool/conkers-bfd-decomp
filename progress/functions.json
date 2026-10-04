@@ -15720,7 +15720,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 500,
-        "reason": "Manual resource-selection candidate improved to 500; flags and options register lifetimes and one early address load remain different.",
+        "reason": "Valid bounded-index resource-selection baseline CURRENT500 retained; raw BEC0 caller index0..14. Entry options snapshot530 and byte-flags local785 worsen allocation; extra parameter copy, flags/options A3/A2 reversal and early base LUI differ. Full388B span checked; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40466,7 +40466,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1473,
-        "reason": "CURRENT (1473): call/control-flow skeleton aligned after nested branch and field reloads, but frame 0x48 versus raw 0x40 shifts sp3C/sp34/arg1 by +8, with remaining early-call scheduling differences; packed-local probe regressed",
+        "reason": "Valid unsigned SUBU end/base length candidate CURRENT1473; duplicate-length removal regressed1489 without reducing frame48/raw40. Short-circuit owner/arg1 load scheduling and 11 stack rows remain; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -52633,7 +52633,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1249,
-        "reason": "CURRENT (1249): behavior/calls align but frame 0x40 vs 0x38, point locals and record spills are offset, float/register schedule differs; separate-point probe regressed and was reverted",
+        "reason": "Valid word-wrapped count/index/address candidate CURRENT1249; actual16B point/record state recovers frame38 but regresses2275 with premature record spill/reloads. Baseline signed overflow repaired; frame40/raw38, FPR schedule, multiply order and BC1TL remain; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -60349,8 +60349,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 885,
-        "reason": "CURRENT (885): callback call ABI/frame and most span align; compiler hoists sltiu before flag branch, uses beqzl for third callback path versus raw beqz with sltiu delay, and differs in multu operand order/list-base register. Goto branch-shape probe regressed to 2656 and was reverted.",
+        "current_score": 2122,
+        "reason": "Corrected callback actor/result/state argument words and unsigned list address candidate CURRENT2122; lower885 baseline omitted raw live arguments. Incoming-actor volatile home restores30 frame but regresses3234 with reloads; restored unqualified R1, unchanged callback declarations. Boolean hoisting and S0/frame38 remain; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -76953,8 +76953,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2297,
-        "reason": "CURRENT (2297): exact 0x98 frame/local offsets and call/tail align; first 0xc8 bytes differ in initialization scheduling/registers for descriptor fields, with 30 mismatched rows; volatile-field probe regressed",
+        "current_score": 2087,
+        "reason": "Valid contiguous104B descriptor CURRENT2087 from2297 by earlier float44 initialization; 27 initialization scheduling/register rows remain, exact98 frame and call tail. Shared coverage scalar neutral; prior volatile-field probe regressed; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

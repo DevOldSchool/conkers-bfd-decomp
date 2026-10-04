@@ -119,7 +119,7 @@ s32 func_1502FFD8(u8 *arg0, u8 *arg1) {
             return 1;
         }
     }
-    size = *(s32 *)(arg0 + 0x24) - (s32)sp3C;
+    size = (s32)(*(u32 *)(arg0 + 0x24) - (u32)sp3C);
     if (!(arg0[4] & 0x10) && ((arg1[0x66] & 0xC) == 8) &&
         *(s32 *)(arg0 + 0x30) != 0) {
         sp34 = size;
