@@ -4,28 +4,26 @@ Latest five candidates; US, manual ASM-to-C. Shared dependency changes: no.
 
 | Function | Source under src/game/ | Best valid full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 15047700 | game_71820.c | 15907 → 12607; matrix ABI/FP lifetimes | 2 |
-| 151CBC60 | effects/effects_sight.c | 2885 → 1330; cached conversion scale | 2 |
-| 150A81A0 | game_D5650.c | 2015; corrected 64-byte copy stride | 1 |
-| 150ADA68 | game_DAE50.c | 5000; unsigned RNG shifts | 1 |
-| 150ADACC | game_DAE50.c | 1520; widen seed before addition | 1 |
+| 150C5DC0 | game_F3270.c | 265; owner argument repaired | 2 |
+| 15079F6C | game_A28B0.c | 50; original retained | 1 |
+| 150D2054 | game_FF0E0.c | 435 → 25; counter increment lifetime | 2 |
+| 15167010 | game_1944C0.c | 550; original retained | 1 |
+| 1519F168 | game_1CC440.c | 635 → 465; original owner lifetime | 2 |
 
-15 candidate finish calls. Invalid: A81A0=2020, ADA68=4605, ADACC=1100.
+14 candidate finish calls. C5DC0 baseline invalid: missing required owner argument.
+D2054 compile repair retains existing s32 formal/wrapper contracts.
 Best valid candidates deferred; canonical ASM retained; no new match credit.
-Local matrix/getter declarations repaired; no shared header/compiler changes.
-CBC60 frame/stack exact; payload-base folding and FP allocation remain.
-Three handwritten 64-bit functions hit IDO o32 lowering barriers.
-Seven affected callers passed CURRENT0/layout/progress/whitespace.
-47B80 focused100 lacks one final nop: committed and edited focused objects
-have identical text/relocations (text SHA256 424dfb4ae1f78d6988fb9ddfcd3331ff8eed30a777be928dd7af1edf236e257d).
-Focused stripping removes raw neighbors and changes final alignment; no padding added.
-Mixed object supplies all 128 bytes at the correct offset, including both padding nops.
+D2054 has only four register rows; all opcodes/control/stack/count match.
+Native u8 next-index revision regressed235; restored25.
+Explicit address/end-pointer probes were neutral; simpler candidates restored.
+Seven existing owners/callers passed CURRENT0/layout/progress/whitespace.
 Clean verify-batch: BATCH_COMPLETE; US GAME/mapped rodata equal ROM.
 1,823 tests passed, 37 skipped; repository whitespace passed.
 
-Speed leads: flag canonical ABI conflicts before starters, retain resumed-body context,
-and triage handwritten 64-bit ISA before matching. CBC60 scale reuse helped;
-these workflow changes remain unimplemented and unbenchmarked.
-Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); linker unchanged.
+Speed leads: separate real counter increment from next-index masking;
+check required arguments before spending effort on delay slots.
+Historical scores omit current span/context differences; remeasure before ranking.
+Prior 47B80 focused-padding issue: unchanged code; complete mixed span/ROM exact.
+Pending [1500E738 mapping proposal](game_3ba70_jump_table.md); linker unchanged.
 1515942C shared contract and 150A6360 full-span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.

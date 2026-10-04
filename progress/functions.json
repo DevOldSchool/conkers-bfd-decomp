@@ -13026,8 +13026,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 424,
-        "reason": "Manual callback-loop candidate recovers all callbacks and bounds; CURRENT 424 is limited to end-pointer/global materialization and callee-saved register allocation.",
+        "current_score": 550,
+        "reason": "Best valid full92B CURRENT550; historical424 stale. Actual endpoint-from-cursor revision constant-folded and was neutral; restore simpler callback loop. Frame20 vs28, raw unused s1 save and end address/S1-vs-S2 allocation remain. One fresh supported hypothesis exhausted; no artificial saves, padding, shared changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -26863,7 +26863,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Preserved best manual CURRENT (50); address-register allocation and or operand ordering remain.",
+        "reason": "Best valid full80B CURRENT50 unchanged. Explicit typed address-of-global pointer cursor canonicalized to original code; eight register rows remain (global address v1 vs a0, low-byte base and OR operands). Restored simpler original candidate. Stop plateau without permutation or artificial pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49073,8 +49073,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 735,
-        "reason": "CURRENT 735 on the confirmed func_1519F108 sibling structure; reused the recovered state/node contract and differs only by final cleanup callee; same remaining IDO nested-address folding and a0/a1 lifetime mismatch",
+        "current_score": 465,
+        "reason": "Best valid full96B CURRENT465; original owner retained and incoming argument rebound to observed data58 address, same field0/8 stores and mode reloads. Frame18 exact; owner copy/final call move recovered, but IDO folds data address and chooses different node/mode registers. Aligned field-pointer revision neutral635; two targeted revisions exhausted, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58366,8 +58366,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 165,
-        "reason": "Best source-only candidate CURRENT (165); remaining difference is compiler delay-slot scheduling of the byte store versus the target epilogue load.",
+        "current_score": 265,
+        "reason": "Valid one-pointer 150C6460 owner contract repaired; CURRENT 265 over full76B span. Raw duplicate RA load versus shared compiler epilogue/SB branch-delay placement remains. Emitted early-return form neutral; earlier valid repaired form restored. Correctness repair plus one fresh scheduling revision exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61404,8 +61404,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 435,
-        "reason": "Manual candidate recovers the six-child cleanup loop; best CURRENT 435 retains IDO loop-counter and address-expression scheduling differences.",
+        "current_score": 25,
+        "reason": "Best valid CURRENT25 over full92B; preserve established s32 formal, increment actual counter before masking. Frame20/stack/opcodes/control/count exact; global base/index ADDU orientation and masked next-index v0 vs t8 remain. Native u8 next/index-plus-base revision regressed235; restored valid25. Two targeted revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
