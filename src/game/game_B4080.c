@@ -205,7 +205,96 @@ f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15086D94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D94.s")
+s32 func_15086D48(s32);
+s32 func_150888A8(s32, u8, s8);
+void func_15088824(void *);
+s32 func_10003C40(s32, s32, s32, s32);
+extern s32 D_800872A0, D_800D2394;
+extern s8 D_800D23A8, D_800D2398, D_800D2399, D_800D239A, D_8008FD90;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150870D0 CURRENT (4028) */
+void func_150870D0(s32 arg0, s32 arg1, register s32 arg2) {
+    u8 start, forward, backward;
+    volatile u8 current, previous, next;
+    u32 firstLink;
+    s32 priority, direction;
+    register s32 index;
+    u8 node, old, link;
+    u32 length, offset;
+    u8 chosen;
+    u8 *base, *cursor, *candidate, *object;
+
+    D_800872A0 = 0;
+    start = func_15086D48(arg0);
+    if ((start & 255) != 255) {
+        direction = D_800D23A8;
+        base = D_800D2350;
+        chosen = 255;
+        index = 0;
+        cursor = base + (start & 255) * 16;
+        priority = (direction * 255) & 255;
+        do {
+            node = cursor[9];
+            index++;
+            if (node != 255) {
+                candidate = base + node * 16;
+                if (candidate[14] == 0 &&
+                    ((direction == 0 && candidate[15] >= priority) ||
+                     (direction != 0 && priority >= candidate[15]))) {
+                    priority = candidate[15] & 255;
+                    chosen = node & 255;
+                }
+            }
+            cursor++;
+        } while (index != 5);
+        if (chosen != 255) {
+            firstLink = func_150888A8(start, chosen & 255, 0) & 255;
+            backward = func_150888A8(chosen & 255, start, 0);
+            forward = firstLink;
+        }
+        if (chosen != 255 && backward != 255 && forward != 255) {
+            index = forward & 255;
+            length = 0;
+            current = chosen;
+            do {
+                old = current;
+                link = index & 255;
+                current = link;
+                next = index;
+                previous = old;
+                index = func_150888A8(old, link, 0) & 255;
+                length++;
+            } while (start != previous);
+            D_800D2399 = arg2;
+            D_800D2398 = arg1;
+            arg1 = (s32)((u32)arg1 + (u32)arg2);
+            next = index;
+            D_800D2394 = 0;
+            D_800872A0 = func_10003C40((s32)((((u32)arg1 << 5) + (u32)arg1) << 2), 1, 0, 0);
+            index = 0;
+            if (arg1 > 0) {
+                offset = 0;
+                do {
+                    object = (u8 *)D_800872A0 + offset;
+                    func_15088824(object);
+                    object[0x2B] = backward;
+                    object[0x2D] = chosen;
+                    object[0x2E] = forward;
+                    object[0x2C] = start;
+                    if (index < D_800D2398) object[0x31] = index;
+                    object[0x26] = length;
+                    offset += 0x84;
+                    object[0x30] = index >= D_8008FD90;
+                    index++;
+                } while (index != arg1);
+            }
+            D_800D239A = 1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150870D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150870D0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087350.s")
 void func_150891E8(void *, void *);
 void func_150896EC(void *, void *, s32);

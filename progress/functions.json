@@ -7109,11 +7109,15 @@
       "symbol": "func_15012470"
     },
     {
+      "blocked": {
+        "reason": "Raw tail consumes func_151491F4 v0 as pointer for a six-byte memcpy, but active matched definition returns void. Shared helper return contract must be reconciled before C.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 640,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150124A0",
           "vram": "0x150124A0"
         }
@@ -59385,6 +59389,12 @@
       "symbol": "func_15035808"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7153,
+        "reason": "Best 7153 retained; extra saved registers, constant/global CSE and command scheduling remain after three manual candidates.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62160,11 +62170,15 @@
       "symbol": "func_151D6778"
     },
     {
+      "blocked": {
+        "reason": "Raw func_15152F70 uses only two incoming arguments, while allowed source declares three for an existing matched caller. Target call prepares only a0/a1 after15196438. Correcting shared helper arity requires reconciliation and caller revalidation before exact C.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 640,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150DB9E0",
           "vram": "0x150DB9E0"
         }
@@ -64335,11 +64349,15 @@
       "symbol": "func_1509E900"
     },
     {
+      "blocked": {
+        "reason": "Independent raw15114050 reads only two incoming arguments, while indexed declaration requires three. Target case20 prepares only a0/a1 after15084000. Shared helper arity must be reconciled and affected callers revalidated before exact C.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 636,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1509ED74",
           "vram": "0x1509ED74"
         }
@@ -88344,6 +88362,12 @@
       "symbol": "func_15086D94"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4028,
+        "reason": "Best4028 retained after three manual candidates; frame48 vs60, byte homes, saved argument ownership and mask/store scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
