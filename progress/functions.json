@@ -36335,8 +36335,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1647,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (1647)",
+        "current_score": 154,
+        "reason": "Manual baseline plus two revisions; corrected local one-float ABI and unsigned color load. Best valid CURRENT154; complete instruction/control/register sequence matches, frame28 vs30 and actual color/float stack homes differ. Exhausted; actual contiguous aggregate stack-layout hypothesis untried.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58751,8 +58751,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7755,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (7755)",
+        "current_score": 6598,
+        "reason": "Manual baseline plus two revisions; corrected source-local pointer/two-argument ABI and 32-bit index. Raw coordinate snapshots, invariant scale and actual local homes retained. Best valid CURRENT6598; frameB8 vs90, extra saved zero register, pointer homes and FP scheduling remain. Exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -61908,8 +61908,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 13508,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (13508)",
+        "current_score": 6213,
+        "reason": "Manual baseline plus two revisions. Corrected raw pre-store width snapshot and used source-local typed packets with mutable cursor, preserving all 17 command pairs and word-store order. Best valid CURRENT6213; frame40 vs98, invariant/register and cursor scheduling remain. Exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

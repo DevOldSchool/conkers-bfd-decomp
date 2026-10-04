@@ -626,50 +626,41 @@ void func_1515F5C4(s32 arg0, s32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F5C4.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
-f32 func_15144B68(f32, f32);                        /* extern */
+f32 func_15144B68(f32);                        /* extern */
 extern f32 D_800A6530;
 extern f32 D_800BE9A4;
 extern f32 D_800DCDA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F850 CURRENT (1647) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515F850 CURRENT (154) */
 void func_1515F850(s32 arg0, s32 arg1) {
-    f32 sp28;
-    f32 sp24;
-    u8 sp1E;
-    u8 sp1D;
-    u8 sp1C;
+    u8 color[3];
     f32 temp_fa1;
     f32 temp_ft4;
     f32 temp_ft5;
     f32 temp_fv0;
 
-    sp1C = (u8) *(s8 *)((u8 *)D_800DCD20 + 0);
-    sp1D = *(u8 *)((u8 *)D_800DCD20 + 1);
-    sp1E = *(u8 *)((u8 *)D_800DCD20 + 2);
+    color[0] = *(u8 *)((u8 *)D_800DCD20 + 0);
+    color[1] = *(u8 *)((u8 *)D_800DCD20 + 1);
+    color[2] = *(u8 *)((u8 *)D_800DCD20 + 2);
     temp_fv0 = func_15047D60(D_800DCDA0);
     temp_fa1 = (temp_fv0 * 29.5f) + 127.5f;
     temp_ft4 = (temp_fv0 * 71.0f) + 109.0f;
-    sp28 = temp_fa1;
-    sp24 = temp_ft4;
     temp_ft5 = (temp_fv0 * 26.0f) + 26.0f;
-    {
-        f32 sp20 = temp_ft5;
     D_800DCDA0 += D_800A6530 * D_800BE9A4;
-    D_800DCDA0 = func_15144B68(D_800DCDA0, temp_fa1);
+    D_800DCDA0 = func_15144B68(D_800DCDA0);
     if (temp_fa1 != D_800DCD94) {
         D_800DCD94 += (temp_fa1 - D_800DCD94) * 0.5f;
-        sp1C = (u8) (u32) D_800DCD94;
+        color[0] = (u8) (u32) D_800DCD94;
     }
     if (temp_ft4 != D_800DCD98) {
         D_800DCD98 += (temp_ft4 - D_800DCD98) * 0.5f;
-        sp1D = (u8) (u32) D_800DCD98;
+        color[1] = (u8) (u32) D_800DCD98;
     }
     if (temp_ft5 != D_800DCD9C) {
         D_800DCD9C += (temp_ft5 - D_800DCD9C) * 0.5f;
-        sp1E = (u8) (u32) D_800DCD9C;
+        color[2] = (u8) (u32) D_800DCD9C;
     }
-    func_1515D4D4((s32) sp1C, (s32) sp1D, (s32) sp1E, 0);
-    }
+    func_1515D4D4((s32) color[0], (s32) color[1], (s32) color[2], 0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515F850 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515F850.s")

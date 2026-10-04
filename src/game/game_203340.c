@@ -17,131 +17,172 @@
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5E90 CURRENT (13508) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D5E90 CURRENT (6213) */
 void *func_151D5E90(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    u32 sp8C;
-    s32 sp84;
-    u32 sp34;
-    s32 temp_a1;
-    s32 temp_s1;
-    s32 temp_t0;
-    s32 temp_t1;
-    s32 temp_t2;
-    s32 temp_t7;
-    s32 var_a1;
-    s32 var_s0;
-    s32 var_v1;
-    u32 var_a2;
-    u32 var_a3;
-    u32 var_a3_2;
-    u32 var_v0;
-    u8 *temp_a0;
-    u8 *temp_a0_10;
-    u8 *temp_a0_11;
-    u8 *temp_a0_12;
-    u8 *temp_a0_13;
-    u8 *temp_a0_14;
-    u8 *temp_a0_2;
-    u8 *temp_a0_3;
-    u8 *temp_a0_4;
-    u8 *temp_a0_5;
-    u8 *temp_a0_6;
-    u8 *temp_a0_7;
-    u8 *temp_a0_8;
-    u8 *temp_a0_9;
-    u8 *var_a0;
+    typedef struct { u32 first, second; } Packet;
+    volatile u32 sp8C;
+    volatile s32 sp84;
+    volatile u32 sp34;
+    s32 width;
+    s32 height;
+    s32 rows;
+    s32 columns;
+    u32 y;
+    u32 nextY;
+    u32 x;
+    u32 nextX;
+    u32 lastX;
+    u32 tile;
+    u32 startX;
+    u32 endX;
+    u32 startY;
+    u32 endY;
 
-    var_v1 = D_800BE624;
-    *(s32 *)((u8 *)arg0 + 0) = 0xE7000000;
-    *(s32 *)((u8 *)arg0 + 4) = 0;
-    temp_a0 = (void *)(arg0 + 8);
-    *(s32 *)((u8 *)arg0 + 8) = 0xFCFFFFFF;
-    *(s32 *)((u8 *)temp_a0 + 4) = 0xFFFCF279;
-    temp_a0_2 = (void *)(temp_a0 + 8);
-    *(s32 *)((u8 *)temp_a0 + 8) = 0xEF000CFF;
-    *(s32 *)((u8 *)temp_a0_2 + 4) = 0x0F0A4000;
-    temp_a0_3 = (void *)(temp_a0_2 + 8);
-    *(s32 *)((u8 *)temp_a0_2 + 8) = 0xD9000000;
-    *(s32 *)((u8 *)temp_a0_3 + 4) = 0;
-    temp_a0_4 = (void *)(temp_a0_3 + 8);
-    *(s32 *)((u8 *)temp_a0_4 + 4) = -1;
-    *(s32 *)((u8 *)temp_a0_3 + 8) = 0xD7000002;
-    var_a0 = (void *)(temp_a0_4 + 8);
-    var_a1 = 0x10;
-    var_v0 = 0;
-    if (var_v1 != 0) {
-        do {
-            var_a3 = var_v0 + var_a1;
-            var_a2 = 0;
-            var_s0 = 0x80;
-            if ((u32) var_v1 < var_a3) {
-                var_a1 = var_v1 - var_v0;
-                var_a3 = var_v0 + var_a1;
-            }
-            if (D_800BE620 != 0) {
-                temp_t7 = (var_v0 * 4) & 0xFFF;
-                temp_s1 = ((var_a3 - 1) * 4) & 0xFFF;
-                sp84 = var_a1;
-                sp8C = (u32) var_v1;
-                sp34 = var_a3;
-                do {
-                    var_a3_2 = var_a2 + var_s0;
-                    if ((u32) D_800BE620 < var_a3_2) {
-                        var_s0 = D_800BE620 - var_a2;
-                        var_a3_2 = var_a2 + var_s0;
-                    }
-                    *(s32 *)((u8 *)var_a0 + 0) = (s32) (((D_800BE620 - 1) & 0xFFF) | 0xFD100000);
-                    temp_a0_5 = (void *)(var_a0 + 8);
-                    *(s32 *)((u8 *)var_a0 + 4) = arg1;
-                    temp_t1 = var_a3_2 - 1;
-                    temp_t2 = ((((u32) (((temp_t1 - var_a2) * 2) + 9) >> 3) & 0x1FF) << 9) | 0xF5100000;
-                    *(s32 *)((u8 *)var_a0 + 8) = temp_t2;
-                    temp_a0_6 = (void *)(temp_a0_5 + 8);
-                    *(s32 *)((u8 *)temp_a0_5 + 4) = 0x07000000;
-                    *(s32 *)((u8 *)temp_a0_5 + 8) = 0xE6000000;
-                    *(s32 *)((u8 *)temp_a0_6 + 4) = 0;
-                    temp_a0_7 = (void *)(temp_a0_6 + 8);
-                    temp_t0 = ((var_a2 * 4) & 0xFFF) << 0xC;
-                    temp_a1 = ((temp_t1 * 4) & 0xFFF) << 0xC;
-                    *(s32 *)((u8 *)temp_a0_6 + 8) = (s32) (temp_t0 | 0xF4000000 | temp_t7);
-                    *(s32 *)((u8 *)temp_a0_7 + 4) = (s32) (temp_a1 | 0x07000000 | temp_s1);
-                    temp_a0_8 = (void *)(temp_a0_7 + 8);
-                    *(s32 *)((u8 *)temp_a0_7 + 8) = 0xE7000000;
-                    *(s32 *)((u8 *)temp_a0_8 + 4) = 0;
-                    temp_a0_9 = (void *)(temp_a0_8 + 8);
-                    *(s32 *)((u8 *)temp_a0_8 + 8) = temp_t2;
-                    *(s32 *)((u8 *)temp_a0_9 + 4) = 0;
-                    temp_a0_10 = (void *)(temp_a0_9 + 8);
-                    *(s32 *)((u8 *)temp_a0_10 + 4) = (s32) (temp_a1 | temp_s1);
-                    *(s32 *)((u8 *)temp_a0_9 + 8) = (s32) (temp_t0 | 0xF2000000 | temp_t7);
-                    temp_a0_11 = (void *)(temp_a0_10 + 8);
-                    *(s32 *)((u8 *)temp_a0_11 + 4) = (s32) (temp_t0 | temp_t7);
-                    *(s32 *)((u8 *)temp_a0_10 + 8) = (s32) ((((var_a3_2 * 4) & 0xFFF) << 0xC) | 0xE4000000 | ((var_a3 * 4) & 0xFFF));
-                    temp_a0_12 = (void *)(temp_a0_11 + 8);
-                    *(s32 *)((u8 *)temp_a0_11 + 8) = 0xE1000000;
-                    *(s32 *)((u8 *)temp_a0_12 + 4) = (s32) ((var_a2 << 0x15) | ((var_v0 << 5) & 0xFFFF));
-                    temp_a0_13 = (void *)(temp_a0_12 + 8);
-                    *(s32 *)((u8 *)temp_a0_12 + 8) = 0xF1000000;
-                    *(s32 *)((u8 *)temp_a0_13 + 4) = 0x04000400;
-                    temp_a0_14 = (void *)(temp_a0_13 + 8);
-                    *(s32 *)((u8 *)temp_a0_13 + 8) = 0xE7000000;
-                    *(s32 *)((u8 *)temp_a0_14 + 4) = 0;
-                    var_a0 = (void *)(temp_a0_14 + 8);
-                    var_a2 = var_a3_2;
-                } while (var_a3_2 < (u32) D_800BE620);
-                var_a3 = sp34;
-                var_a1 = sp84;
-                var_v1 = (s32) sp8C;
-            }
-            var_v0 = var_a3;
-        } while (var_a3 < (u32) var_v1);
+    width = D_800BE620;
+    height = D_800BE624;
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xE7000000;
+        command->second = 0;
     }
-    *(s32 *)((u8 *)var_a0 + 0) = 0xEF080C3F;
-    *(s32 *)((u8 *)var_a0 + 4) = 0x0F0A4000;
-    return var_a0 + 8;
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xFCFFFFFF;
+        command->second = 0xFFFCF279;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xEF000CFF;
+        command->second = 0x0F0A4000;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xD9000000;
+        command->second = 0;
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->second = 0xFFFFFFFF;
+        command->first = 0xD7000002;
+    }
+    rows = 16;
+    y = 0;
+    if (height != 0) {
+        do {
+            nextY = y + rows;
+            x = 0;
+            columns = 128;
+            if ((u32)height < nextY) {
+                rows = height - y;
+                nextY = y + rows;
+            }
+            if (width != 0) {
+                startY = (y * 4) & 0xFFF;
+                endY = ((nextY - 1) * 4) & 0xFFF;
+                sp84 = rows;
+                sp8C = height;
+                sp34 = nextY;
+                do {
+                    nextX = x + columns;
+                    if ((u32)width < nextX) {
+                        columns = width - x;
+                        nextX = x + columns;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = ((width - 1) & 0xFFF) | 0xFD100000;
+                        command->second = arg1;
+                    }
+                    lastX = nextX - 1;
+                    tile = ((((u32)(((lastX - x) * 2) + 9) >> 3) & 0x1FF) << 9) | 0xF5100000;
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = tile;
+                        command->second = 0x07000000;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = 0xE6000000;
+                        command->second = 0;
+                    }
+                    startX = ((x * 4) & 0xFFF) << 12;
+                    endX = ((lastX * 4) & 0xFFF) << 12;
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = startX | 0xF4000000 | startY;
+                        command->second = endX | 0x07000000 | endY;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = 0xE7000000;
+                        command->second = 0;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = tile;
+                        command->second = 0;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->second = endX | endY;
+                        command->first = startX | 0xF2000000 | startY;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->second = startX | startY;
+                        command->first = (((nextX * 4) & 0xFFF) << 12) | 0xE4000000 | ((nextY * 4) & 0xFFF);
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = 0xE1000000;
+                        command->second = (x << 21) | ((y << 5) & 0xFFFF);
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = 0xF1000000;
+                        command->second = 0x04000400;
+                    }
+                    {
+                        Packet *command = (Packet *)arg0;
+                        arg0 += sizeof(Packet);
+                        command->first = 0xE7000000;
+                        command->second = 0;
+                    }
+                    x = nextX;
+                } while (nextX < (u32)width);
+                nextY = sp34;
+                rows = sp84;
+                height = sp8C;
+            }
+            y = nextY;
+        } while (nextY < (u32)height);
+    }
+    {
+        Packet *command = (Packet *)arg0;
+        arg0 += sizeof(Packet);
+        command->first = 0xEF080C3F;
+        command->second = 0x0F0A4000;
+    }
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D5E90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_203340/func_151D5E90.s")
+
 extern s32 D_800BE620;
 extern s32 D_800BE624;
 
