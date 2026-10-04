@@ -1465,7 +1465,7 @@ extern u8 D_800BE615;
 typedef s32 (*SoundRecordCallback)(void *, s32 *, u32 *, s32 *, s32 *,
                                     s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (2840) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (1422) */
 void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     SoundArrayRecord *record;
     s32 pan;
@@ -1487,6 +1487,7 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     s32 fxmix;
     s32 velocity;
     f32 ratio;
+    f32 unclampedRatio;
     s32 bus;
     s32 result;
 
@@ -1597,10 +1598,11 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                             if (velocity >= 0x16F) {
                                 ratio = 2.0f;
                             } else {
-                                ratio = D_8002C400 / (f32)(0x16F - velocity);
-                                if (ratio > 2.0f) {
+                                unclampedRatio = D_8002C400 / (f32)(0x16F - velocity);
+                                ratio = unclampedRatio;
+                                if (unclampedRatio > 2.0f) {
                                     ratio = 2.0f;
-                                } else if (ratio < 0.5f) {
+                                } else if (unclampedRatio < 0.5f) {
                                     ratio = 0.5f;
                                 }
                             }

@@ -62,7 +62,7 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Candidate preservation in init_EB00 plus exhausted-attempt annotations in B1B0; clean canonical US ROM, existing F9D4/B3D4 full-span C and mixed-unit layout checks, metadata/progress/whitespace. No new C matches; unmatched candidates remain disabled beside canonical assembly.",
+    "scope": "Preserved improved11624 disabled C candidate and FF90 exhaustion metadata; clean canonical US ROM, existing F9D4/B3D4 independent full-span C and source-unit layout checks, metadata/progress/whitespace. No new C matches; candidates remain disabled beside canonical assembly.",
     "batch_ids": [
       "func_8000F9D4",
       "func_8000B3D4"
@@ -70,20 +70,20 @@
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 39.323,
+    "test_seconds": 38.92,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T12:54:47.397048+00:00",
+    "completed_utc": "2026-10-04T13:15:57.946364+00:00",
     "additional_focused_checks": {
       "func_8000F9D4": {
         "score": 0,
-        "attempt_record": "de5cf49f93024b8896287b061b57268b",
+        "attempt_record": "97d903f1dc1049ee9b0c60b6e2ab1fc1",
         "layout": "preserved"
       },
       "func_8000B3D4": {
         "score": 0,
-        "attempt_record": "53ddb9acfbe94d7daf065686f699ad31",
+        "attempt_record": "81e37443834646e4893fc425bd97d5bc",
         "layout": "preserved"
       }
     }
@@ -395,6 +395,16 @@
       1281,
       630,
       610
+    ],
+    "func_8000FF90": [
+      290,
+      290
+    ],
+    "func_80011624": [
+      1624,
+      2942,
+      1422,
+      1472
     ]
   },
   "preserved_candidate_scores": {
@@ -417,7 +427,9 @@
     "func_8000B548": 1145,
     "func_8000C934": 264,
     "func_8000FA64": 4811,
-    "func_8000FC18": 610
+    "func_8000FC18": 610,
+    "func_8000FF90": 290,
+    "func_80011624": 1422
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -494,6 +506,18 @@
       "targeted_revisions_remaining": 0,
       "current_score": 610,
       "reason": "Two proved u16 inputs and real promoted sound-ID/equality order. Pool-address and count-reload alias scheduling remain; inherited counter/address shapes exhausted."
+    },
+    "func_8000FF90": {
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 0,
+      "current_score": 290,
+      "reason": "Actual owner pointer copy code-neutral290; original290 restored. Inherited loop/count-snapshot families exhausted. No new supported hypothesis or equivalent type/copy/control retries."
+    },
+    "func_80011624": {
+      "new_forms_used": 3,
+      "targeted_revisions_remaining": 0,
+      "current_score": 1422,
+      "reason": "Real quotient/clamp snapshot improves fresh1624 to1422. Loaded flags2942 and pitch-bits1472 forms rejected; exact best restored. Inherited three traversal forms exhausted. Parameter homes/reloads already exact; no equivalent snapshot, traversal or storage shaping."
     }
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
@@ -611,7 +635,58 @@
       "progress": "current",
       "whitespace": "passed",
       "completed_utc": "2026-10-04T12:07:37.360378+00:00"
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Candidate preservation in init_EB00 plus exhausted-attempt annotations in B1B0; clean canonical US ROM, existing F9D4/B3D4 full-span C and mixed-unit layout checks, metadata/progress/whitespace. No new C matches; unmatched candidates remain disabled beside canonical assembly.",
+      "batch_ids": [
+        "func_8000F9D4",
+        "func_8000B3D4"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 39.323,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T12:54:47.397048+00:00",
+      "additional_focused_checks": {
+        "func_8000F9D4": {
+          "score": 0,
+          "attempt_record": "de5cf49f93024b8896287b061b57268b",
+          "layout": "preserved"
+        },
+        "func_8000B3D4": {
+          "score": 0,
+          "attempt_record": "53ddb9acfbe94d7daf065686f699ad31",
+          "layout": "preserved"
+        }
+      }
     }
   ],
-  "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. A clean batch rechecks existing F9D4/B3D4 for edited unit layout and build/progress safety; it does not prove unmatched candidates or add C matches."
+  "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. A clean batch rechecks existing F9D4/B3D4 for edited unit layout and build/progress safety; it does not prove unmatched candidates or add C matches.",
+  "latest_candidate_evidence": {
+    "func_80011624": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 1428,
+      "fresh_baseline": 1624,
+      "focused_score": 1422,
+      "attempt_record": "274b8704125d40dc89f3a2331bf44d16",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 3,
+      "change": "Separate original floating quotient from clamped ratio, matching independent raw DIV and copy dataflow. Still nonzero; candidate disabled beside canonical ASM."
+    },
+    "func_8000FF90": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 140,
+      "focused_score": 290,
+      "attempt_record": "8375c508bbf741ae8854b337ac6c7ad9",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "change": "Owner pointer copy stayed290; exact original restored and exhaustion recorded."
+    }
+  }
 }
