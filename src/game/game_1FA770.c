@@ -275,16 +275,25 @@ extern f32 D_800AAFDC;
 extern f32 D_800AAFE0;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD7BC CURRENT (8548) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151CD7BC CURRENT (5037) */
 s32 func_151CD7BC(u8 *arg0) {
-    f32 spB0;
-    f32 spAC;
-    f32 spA8;
-    f32 spA0;
-    f32 sp9C;
-    f32 sp90;
-    f32 sp84;
+    typedef struct { f32 x, z; } Position;
+    Position position;
+    volatile f32 spB0;
+    volatile f32 spAC;
+    volatile f32 spA8;
+    volatile f32 sp90;
+    volatile f32 sp84;
     u8 *sp6C;
+    f32 stepX;
+    f32 stepZ;
+    f32 stepPhase;
+    f32 stepAngle;
+    f32 gravity;
+    f32 acceleration;
+    f32 baseVelocity;
+    f32 step;
+    f32 result;
     f32 temp_fs4;
     f32 temp_fs5;
     f32 temp_ft2;
@@ -293,14 +302,14 @@ s32 func_151CD7BC(u8 *arg0) {
     f32 var_fa0;
     f32 var_fa1;
     f32 var_ft4;
-    s32 temp_s3;
+    u8 *temp_s3;
     s8 temp_v1;
     u8 *temp_s1;
     u8 *temp_v0;
     u8 *temp_v0_2;
 
     temp_s1 = (void *)(*(void **)((u8 *)arg0 + 0x98));
-    temp_s3 = *(s32 *)((u8 *)arg0 + 0x94);
+    temp_s3 = *(u8 **)((u8 *)arg0 + 0x94);
     *(f32 *)((u8 *)temp_s1 + 8) = (f32) (*(f32 *)((u8 *)temp_s1 + 8) + (*(f32 *)((u8 *)temp_s1 + 0x10) * D_800BE9A4));
     *(f32 *)((u8 *)temp_s1 + 0xC) = (f32) (*(f32 *)((u8 *)temp_s1 + 0xC) + (*(f32 *)((u8 *)temp_s1 + 0x14) * D_800BE9A4));
     *(f32 *)((u8 *)temp_s1 + 8) = func_15144B68(*(f32 *)((u8 *)temp_s1 + 8));
@@ -320,32 +329,40 @@ s32 func_151CD7BC(u8 *arg0) {
         temp_v0 = (void *)(temp_s1 + 0x18);
         temp_ft4 = *(f32 *)((u8 *)temp_s1 + 0x20) + D_800BE9A4;
         spAC = -(temp_ft4 * temp_fs4);
-        *(f32 *)((u8 *)&sp9C + 0) = *(f32 *)((u8 *)temp_s1 + 0x18);
-        *(s32 *)((u8 *)&sp9C + 4) = (s32) *(s32 *)((u8 *)temp_v0 + 4);
+        position = *(Position *)(temp_s1 + 0x18);
         spB0 = temp_ft4;
         sp6C = temp_v0;
         temp_fs5 = ((func_15047D60(*(f32 *)((u8 *)temp_s1 + 8)) * *(f32 *)((u8 *)temp_s1 + 0)) + *(f32 *)((u8 *)arg0 + 0x10)) - *(f32 *)((u8 *)temp_s1 + 0x18);
         spA8 = ((func_15047D60(*(f32 *)((u8 *)temp_s1 + 0xC)) * *(f32 *)((u8 *)temp_s1 + 4)) + *(f32 *)((u8 *)arg0 + 0x18)) - *(f32 *)((u8 *)temp_s1 + 0x1C);
-        var_fa0 = *(f32 *)((u8 *)temp_s1 + 0x34);
-        var_ft4 = temp_ft4;
-        temp_ft2 = ((func_15047D60(*(f32 *)((u8 *)temp_s1 + 0x2C)) * *(f32 *)((u8 *)temp_s1 + 0x28)) + *(f32 *)((u8 *)temp_s1 + 0x24)) - var_fa0;
+        result = func_15047D60(*(f32 *)(temp_s1 + 0x2C));
+        var_fa0 = *(f32 *)(temp_s1 + 0x34);
+        var_ft4 = spB0;
+        temp_ft2 = ((result * *(f32 *)(temp_s1 + 0x28)) + *(f32 *)(temp_s1 + 0x24)) - var_fa0;
         sp90 = temp_ft2;
         var_fa1 = *(f32 *)((u8 *)temp_s1 + 0x3C);
         sp84 = var_fa1 - *(f32 *)((u8 *)temp_s1 + 0x38);
         if (*(f32 *)((u8 *)temp_s1 + 0x40) > 1.0f) {
+            stepX = temp_fs5 * temp_fs4;
+            stepZ = spA8 * temp_fs4;
+            stepPhase = sp90 * temp_fs4;
+            stepAngle = sp84 * temp_fs4;
+            gravity = D_800AAFD8;
+            acceleration = D_800AAFDC;
+            baseVelocity = D_800AAFE0;
             do {
                 temp_v0_2 = (void *)((*(s8 *)((u8 *)arg0 + 0x2E) * 0x1C) + temp_s3);
-                *(f32 *)((u8 *)temp_v0_2 + 0) = sp9C;
+                *(f32 *)((u8 *)temp_v0_2 + 0) = position.x;
                 *(f32 *)((u8 *)temp_v0_2 + 4) = (f32) *(f32 *)((u8 *)arg0 + 0x14);
-                *(f32 *)((u8 *)temp_v0_2 + 0xC) = (f32) D_800AAFE0;
+                *(f32 *)((u8 *)temp_v0_2 + 0xC) = baseVelocity;
                 *(f32 *)((u8 *)temp_v0_2 + 0x10) = var_fa0;
                 *(s16 *)((u8 *)temp_v0_2 + 0x14) = 0xFF;
                 *(f32 *)((u8 *)temp_v0_2 + 0x18) = var_fa1;
-                *(f32 *)((u8 *)temp_v0_2 + 8) = spA0;
-                var_fa0 += temp_ft2 * temp_fs4;
-                var_fa1 += sp84 * temp_fs4;
-                *(f32 *)((u8 *)temp_v0_2 + 4) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 4) + ((D_800AAFE0 * D_800BE9A4) + (D_800AAFDC * (D_800BE9A4 * D_800BE9A4))));
-                *(f32 *)((u8 *)temp_v0_2 + 0xC) = (f32) (D_800AAFE0 + (D_800AAFD8 * D_800BE9A4));
+                *(f32 *)((u8 *)temp_v0_2 + 8) = position.z;
+                var_fa0 += stepPhase;
+                var_fa1 += stepAngle;
+                step = D_800BE9A4;
+                *(f32 *)(temp_v0_2 + 4) = *(f32 *)(temp_v0_2 + 4) + ((baseVelocity * step) + (acceleration * (step * step)));
+                *(f32 *)(temp_v0_2 + 0xC) = baseVelocity + (gravity * D_800BE9A4);
                 *(s8 *)((u8 *)arg0 + 0x2E) = (s8) (*(s8 *)((u8 *)arg0 + 0x2E) + 1);
                 if (*(u8 *)((u8 *)arg0 + 0x25) == *(s8 *)((u8 *)arg0 + 0x2E)) {
                     *(s8 *)((u8 *)arg0 + 0x2E) = 0;
@@ -359,14 +376,13 @@ s32 func_151CD7BC(u8 *arg0) {
                     }
                     *(s8 *)((u8 *)arg0 + 0x2C) = (s8) (*(s8 *)((u8 *)arg0 + 0x2C) - 1);
                 }
-                sp9C += temp_fs5 * temp_fs4;
+                position.x += stepX;
                 var_ft4 += spAC;
-                spA0 += spA8 * temp_fs4;
+                position.z += stepZ;
                 *(f32 *)((u8 *)temp_s1 + 0x40) = (f32) (*(f32 *)((u8 *)temp_s1 + 0x40) - 1.0f);
             } while (*(f32 *)((u8 *)temp_s1 + 0x40) > 1.0f);
         }
-        *(f32 *)((u8 *)sp6C + 0) = (f32) *(f32 *)((u8 *)&sp9C + 0);
-        *(s32 *)((u8 *)sp6C + 4) = (s32) *(s32 *)((u8 *)&sp9C + 4);
+        *(Position *)sp6C = position;
         *(f32 *)((u8 *)temp_s1 + 0x34) = var_fa0;
         *(f32 *)((u8 *)temp_s1 + 0x38) = var_fa1;
         *(f32 *)((u8 *)temp_s1 + 0x20) = var_ft4;

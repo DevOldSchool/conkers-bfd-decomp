@@ -4,26 +4,29 @@ Latest five items; US, manual ASM-to-C. Shared dependency changes: no.
 
 | Function | Source under src/game/ | Best valid full-span CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 15086D94 | game_B4080.c | 10823 → 7578; crossing lifetimes/homes | 2 |
-| 151B65D4 | game_1E37D0.c | 4723 → 4548; vectors, ABI and steps | 2 |
-| 1510F8D8 | game_13BB20.c | 1955; repaired 16-byte stride | 2 |
-| 151179BC | game_144C70.c | 12233 → 10629; widths, ABI and homes | 2 |
-| 1510AA44 | game_137ED0.c | 4788 → 3310; counter/quotient schedule | 2 |
+| 1512D980 | game_15ABA0.c | 3944 → 2045; call snapshots/FP homes | 2 |
+| 151CD7BC | game_1FA770.c | 5037; vector/call-lifetime repairs | 2 |
+| 15094AB8 | game_C1D70.c | 11032 → 9301; concrete record loop | 2 |
+| 150611E8 | game_83300.c | 20162 → 10964; path pointer/loop | 2 |
+| 151438D8 | game_16EE20.c | 9169 → 2428; actual saved masks | 2 |
 
-15 candidate finish calls; invalid baselines: B65D4=7717, F8D8=2250, 179BC=11800.
+15 candidate finish calls. Invalid: D980=5244, CD7BC=9095/7640, 611E8=20177.
 Best valid candidates deferred; canonical ASM retained; no new match credit.
-Frames (candidate/raw, hex): 98/90, C0/B8, 18/18, 48/58, 70/40.
-Raw 15086D94 reads an uninitialized saved slot; no invented initialization.
-1510F8D8 raw passes zero to matched 1510F800(void); contract unchanged.
-Local declaration repairs affect disabled candidates only; 151B77F4 unchanged.
-12 existing owners/callers passed CURRENT0/layout/progress/whitespace.
+Frames (candidate/raw, hex): 28/28, E0/C0, 30/40, 38/38, 40/60.
+D980 stack rows exact; CD7BC six FP save offsets exact.
+94AB8 retains input reloads after output stores; unroll4 versus raw2 remains.
+611E8 retains the raw uninitialized saved-index behavior; no invented default.
+438D8 native u16 accumulators were neutral; earlier candidate restored.
+Local clamp declaration has no indexed matched C callers (incomplete coverage).
+Nine existing owners/callers passed CURRENT0/layout/progress/whitespace.
 Clean verify-batch: BATCH_COMPLETE; rebuilt US GAME/mapped rodata equal ROM.
 1,823 tests passed, 37 skipped; repository whitespace passed.
 
-Workflow: validate packed/index widths, contiguous vectors and concrete callee ABI
-before ranking. Cache the raw quotient lifetime before its floating-point consumer.
-Simple-loop and call-home rewrites regressed here; restore the best valid candidate.
-These are unbenchmarked speed leads. Resumed-body context still omits the function.
+Workflow: check pointer-load widths and field loads across calls before ranking.
+Recover contiguous vectors and one unsigned conversion; do not duplicate correction.
+Simple loops can recover frames/unrolls, but compare the complete registered span.
+Actual saved masks greatly improved 438D8; speed leads remain unbenchmarked.
+Resumed-body context still omits the function; canonical ABI conflict warning useful.
 Pending [1500E738 mapping proof/proposal](game_3ba70_jump_table.md); linker unchanged.
 1515942C shared contract and 150A6360 full-span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.

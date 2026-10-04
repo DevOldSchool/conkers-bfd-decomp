@@ -10504,8 +10504,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 20193,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (20193)",
+        "current_score": 10964,
+        "reason": "Baseline plus two manual revisions exhausted. Best valid CURRENT (10964), repaired 32-bit path loads and raw unsigned conversion; recovered frame38 and four-way unroll, residual pointer induction/input reloads and saved-index homes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -12168,8 +12168,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 9269,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (9269)",
+        "current_score": 2428,
+        "reason": "Manual baseline plus two revisions exhausted; best valid CURRENT (2428). Actual saved result and six masks recover comparison body; frame40 vs60, saved-mask schedule and pointer registers remain. Native u16 accumulators neutral; earlier candidate restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62896,8 +62896,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5344,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5344)",
+        "current_score": 2045,
+        "reason": "Manual limit: fourth-call snapshots repaired and one unsigned conversion retained; in-place phase chain and actual sign home improve valid3944 to2045. Raw28 frame and stack rows exact; FP schedule/unity multiply and12 missing/extra rows remain. Invalid baseline5244 rejected.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -83240,8 +83240,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8548,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8548)",
+        "current_score": 5037,
+        "reason": "Manual limit: real two-float position copy and post-third-call phase snapshot repaired; actual scalar homes, pre-loop4steps and cached loop constants. Best valid5037, frameE0 vsC0;6FPsave offsets exact but vector/scalar homes and FP schedule remain. Invalid9095/7640 rejected.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -89127,8 +89127,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 19612,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (19612)",
+        "current_score": 9301,
+        "reason": "Manual baseline plus two revisions exhausted; best valid CURRENT (9301), concrete 4/16-byte records. Candidate frame30 vs raw40 and four-way vs two-way unroll; canonical ASM retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
