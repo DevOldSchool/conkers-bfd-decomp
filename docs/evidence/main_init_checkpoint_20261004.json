@@ -62,19 +62,31 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Two new full-span US matches CDA0/B3D4 in init_B1B0; canonical full US ROM and metadata/progress/whitespace gates passed. B1B0 remains incomplete.",
+    "scope": "Candidate preservation in init_EB00 plus exhausted-attempt annotations in B1B0; clean canonical US ROM, existing F9D4/B3D4 full-span C and mixed-unit layout checks, metadata/progress/whitespace. No new C matches; unmatched candidates remain disabled beside canonical assembly.",
     "batch_ids": [
-      "func_8000CDA0",
+      "func_8000F9D4",
       "func_8000B3D4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 34.737,
+    "test_seconds": 39.323,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T12:25:53.564208+00:00"
+    "completed_utc": "2026-10-04T12:54:47.397048+00:00",
+    "additional_focused_checks": {
+      "func_8000F9D4": {
+        "score": 0,
+        "attempt_record": "de5cf49f93024b8896287b061b57268b",
+        "layout": "preserved"
+      },
+      "func_8000B3D4": {
+        "score": 0,
+        "attempt_record": "53ddb9acfbe94d7daf065686f699ad31",
+        "layout": "preserved"
+      }
+    }
   },
   "historical_score_sequences": {
     "func_800056A0": [
@@ -363,6 +375,26 @@
       1820,
       10,
       0
+    ],
+    "func_8000B548": [
+      1145,
+      1270,
+      2005
+    ],
+    "func_8000C934": [
+      264,
+      305
+    ],
+    "func_8000FA64": [
+      6057,
+      6005,
+      6271,
+      4811
+    ],
+    "func_8000FC18": [
+      1281,
+      630,
+      610
     ]
   },
   "preserved_candidate_scores": {
@@ -381,7 +413,11 @@
     "func_80010BE8": 1034,
     "func_8000F568": 495,
     "func_8000F85C": 529,
-    "func_80010720": 1530
+    "func_80010720": 1530,
+    "func_8000B548": 1145,
+    "func_8000C934": 264,
+    "func_8000FA64": 4811,
+    "func_8000FC18": 610
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -434,26 +470,48 @@
       "forms_tested_current_group": 2,
       "equivalent_repeats": 1,
       "inherited_forms_tested": 3
+    },
+    "func_8000B548": {
+      "new_forms_used": 2,
+      "targeted_revisions_remaining": 0,
+      "current_score": 1145,
+      "reason": "Inherited3+current2 non-improving cursor/index forms; exact original signature/prototype/caller restored. No equivalent retries."
+    },
+    "func_8000C934": {
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 0,
+      "current_score": 264,
+      "reason": "Actual-output object return305 rejected for poorer allocation; restored264. Prior direct-output/snapshot/default families stay exhausted."
+    },
+    "func_8000FA64": {
+      "new_forms_used": 3,
+      "targeted_revisions_remaining": 0,
+      "current_score": 4811,
+      "reason": "Six own narrow SW-home inputs, real SDK height/y object, and ten real field snapshots. Inherited2+current3 forms; frame48 versus28 and scheduling remain. No equivalent type/index/object/snapshot revisions."
+    },
+    "func_8000FC18": {
+      "new_forms_used": 2,
+      "targeted_revisions_remaining": 0,
+      "current_score": 610,
+      "reason": "Two proved u16 inputs and real promoted sound-ID/equality order. Pool-address and count-reload alias scheduling remain; inherited counter/address shapes exhausted."
     }
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "One new full-span US match F9D4 and existing caller checks EFB4/F91C/1091C after source-local contract updates; canonical full US ROM and metadata/progress/whitespace gates required.",
+    "scope": "Two new full-span US matches CDA0/B3D4 in init_B1B0; canonical full US ROM and metadata/progress/whitespace gates passed. B1B0 remains incomplete.",
     "batch_ids": [
-      "func_8000EFB4",
-      "func_8000F9D4",
-      "func_8000F91C",
-      "func_8001091C"
+      "func_8000CDA0",
+      "func_8000B3D4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.755,
+    "test_seconds": 34.737,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T12:07:37.360378+00:00"
+    "completed_utc": "2026-10-04T12:25:53.564208+00:00"
   },
   "accidental_equivalent_repeats": {
     "func_8000F568": "byte availability1085 already in inherited defer reason; not new eligible budget",
@@ -535,6 +593,25 @@
       "test_seconds": 35.921,
       "metadata_progress_whitespace": "passed",
       "completed_utc": "2026-10-04T11:27:58.833660+00:00"
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "One new full-span US match F9D4 and existing caller checks EFB4/F91C/1091C after source-local contract updates; canonical full US ROM and metadata/progress/whitespace gates required.",
+      "batch_ids": [
+        "func_8000EFB4",
+        "func_8000F9D4",
+        "func_8000F91C",
+        "func_8001091C"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.755,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T12:07:37.360378+00:00"
     }
-  ]
+  ],
+  "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. A clean batch rechecks existing F9D4/B3D4 for edited unit layout and build/progress safety; it does not prove unmatched candidates or add C matches."
 }

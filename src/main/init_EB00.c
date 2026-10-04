@@ -641,10 +641,21 @@ extern SoundArrayRecord D_80041FE0[];
 void func_80011624(SoundArrayRecord *, s32 *, s32, s32);
 s32 func_85083E0C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (6057) */
-u16 func_8000FA64(s32 sound, s32 x, s32 y, s32 z, s32 volume,
-                  s32 farDistance, s32 nearDistance, void *callback,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (4811) */
+u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
+                  u16 farDistance, s16 nearDistance, void *callback,
                   s32 owner, s32 key, s32 flags, s32 cents) {
+    s16 height;
+    u16 recordSound;
+    s16 recordX;
+    s16 recordY;
+    s16 recordZ;
+    u16 recordFar;
+    s16 recordNear;
+    s32 recordVolume;
+    void *recordCallback;
+    s32 recordOwner;
+    s32 recordKey;
     s32 count;
     s32 index;
     SoundArrayRecord *record;
@@ -663,24 +674,35 @@ u16 func_8000FA64(s32 sound, s32 x, s32 y, s32 z, s32 volume,
         record->flags = (flags & 0x108) | 2;
     }
     if (flags & 0x40) {
-        y = (s16)func_85083E0C((u8)x);
-        if (y == -1) {
+        height = (s16)func_85083E0C((u8)x);
+        y = height;
+        if (height == -1) {
             return 0;
         }
     }
+    recordSound = sound;
+    recordX = x;
+    recordY = ((s16 *)&y)[0];
+    recordZ = z;
+    recordFar = farDistance;
+    recordNear = nearDistance;
+    recordVolume = volume;
+    recordCallback = callback;
+    recordOwner = owner;
+    recordKey = key;
     record->handle = 0;
     record->field23 = 0;
     record->field22 = 0;
-    record->field0 = (u16)sound;
-    record->positionX = (s16)x;
-    record->positionY = (s16)y;
-    record->positionZ = (s16)z;
-    record->field8 = (u16)farDistance;
-    record->fieldA = (s16)nearDistance;
-    record->valueC = volume;
-    record->callback = callback;
-    record->owner = (void *)owner;
-    record->key = key;
+    record->field0 = recordSound;
+    record->positionX = recordX;
+    record->positionY = recordY;
+    record->positionZ = recordZ;
+    record->field8 = recordFar;
+    record->fieldA = recordNear;
+    record->valueC = recordVolume;
+    record->callback = recordCallback;
+    record->owner = (void *)recordOwner;
+    record->key = recordKey;
     record->pitch = func_80019AB0(cents);
     record->field26 = 0;
     record->field28 = 0;
@@ -697,18 +719,19 @@ u16 func_8000FA64(s32 sound, s32 x, s32 y, s32 z, s32 volume,
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FA64.s")
 extern SoundArrayRecord D_80041FE0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FC18 CURRENT (1281) */
-void func_8000FC18(s32 sound, s16 x, s16 y, s16 z, s32 arg4) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FC18 CURRENT (610) */
+void func_8000FC18(u16 sound, s16 x, s16 y, s16 z, u16 arg4) {
     SoundArrayRecord *record;
     s32 index = 0;
+    s32 soundId;
 
-    sound &= 0xFFFF;
+    soundId = sound;
     if (D_80042760 > 0) {
         record = D_80041FE0;
         do {
-            if ((sound == record->field0) && (x == record->positionX) &&
+            if ((soundId == record->field0) && (x == record->positionX) &&
                 (y == record->positionY) && (z == record->positionZ) &&
-                ((u16)arg4 == (record->field8 & 0x7FFF))) {
+                ((record->field8 & 0x7FFF) == arg4)) {
                 if (record->handle != 0) {
                     func_800111C8(record->handle);
                 }
@@ -855,7 +878,7 @@ void func_800100E0(void *callback, void *owner, s32 key,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800100E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_800100E0.s")
-u16 func_8000FA64(s32, s32, s32, s32, s32, s32, s32,
+u16 func_8000FA64(u16, s16, s16, s16, s32, u16, s16,
                   void *, s32, s32, s32, s32);
 void func_8000FD38(void *, void *, s32);
 u16 func_80010BE8(u16, s32, u16, u8, s16, u8, u8);
@@ -954,7 +977,7 @@ s32 func_80010344(s32 sound, void *arg1, u32 volume,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80010344 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010344.s")
-u16 func_8000FA64(s32, s32, s32, s32, s32, s32, s32,
+u16 func_8000FA64(u16, s16, s16, s16, s32, u16, s16,
                   void *, s32, s32, s32, s32);
 extern u8 D_1000ECCC[];
 

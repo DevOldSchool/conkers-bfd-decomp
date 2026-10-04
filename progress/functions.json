@@ -92487,7 +92487,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1145,
-        "reason": "Preserve bounded record scan at CURRENT (1145). Natural typed cursor induced runtime remainder peeling (4910); explicit known pool endpoint fully unrolled (7635). Raw four-record grouping removes peel (1145), but output pointer allocation and intermediate pointer increments differ. Existing pointer-to-array ABI retained; three attempts, no permutation.",
+        "reason": "Preserve valid bounded four-record scan at CURRENT (1145). Inherited three loop forms4910/7635/1145 plus current scalar formal/direct output cursor1270 and indexed group base2005; latter two non-improving, original pointer-to-array signature/prototype/caller restored. Output/id register allocation and intermediate record increments differ. Five total forms; exhausted these loop/cursor hypotheses, no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92728,7 +92728,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 264,
-        "reason": "Concrete 114D0 scalar-return annotation is code-neutral at CURRENT 264. Explicit default branch and by-value output snapshot remain best; output allocation and spill slot need distinct lifetime evidence. No repeated source shaping.",
+        "reason": "Preserve valid packed callback CURRENT (264). Inherited scalar-return/default/by-value output shaping exhausted; current actual output-object corresponding-u32 read305 removes separate30spill but changes output allocation to v1 and loses raw spill-before-call. Exact264 snapshot restored, all contracts unchanged. One distinct new form; no eligible evidence-backed remaining revision without redundant writes or blind register search. Do not repeat output-object/lifetime shapes; no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93645,8 +93645,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6057,
-        "reason": "Typed positional sound constructor retains existing full-width contract and observed record fields. Two width-cast forms remain CURRENT 6057; incoming homes and loop-index allocation unresolved. No unsupported narrowing.",
+        "current_score": 4811,
+        "reason": "Preserve typed positional constructor at CURRENT (4811). Inherited two cast forms6057, current six proved narrow SW-home inputs6005, real height/index views6271, and ten actual field snapshots4811. SDK height SH home and caller-save index now agree; frame48 versus28, interleaved field scheduling, cents/return tails remain. Three current forms plus two inherited, ceiling exhausted; do not repeat input types/object views/index or snapshot shaping. Six own narrow prototypes retain five known disabled C callers/raw positives; fullword controls/cents and SDK contracts unchanged. No shared dependency or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93664,8 +93664,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1281,
-        "reason": "Existing coordinate-only s16 contract preserved, with full-width first/fifth inputs and explicit value masks. Typed record-position stop scan scores1281; first-input home and known stop-loop count-reload shape remain. No repetition of exhausted sibling counter-snapshot or unsupported narrow-formal changes.",
+        "current_score": 610,
+        "reason": "Preserve typed stop scan CURRENT (610), improved1281 through independently proved u16sound/u16arg4 inputs630 and real promoted sound-ID/equality operand order610. Full frame, entry normalization and all field comparison/temp roles agree. Pool-address/MOVE placement and SDK count-reload alias scheduling remain; inherited counter-snapshot/address-order families exhausted. Two current forms, no eligible distinct final revision. No direct C/raw callers, source-local owncontract only; no shared dependency or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
