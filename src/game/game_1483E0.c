@@ -25,12 +25,14 @@
  */
 
 u32 func_150ADA20(void);                        /* extern */
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
 extern f32 D_800A3188;
 extern f32 D_800A318C;
 extern f32 D_800A3190;
 extern f32 D_800A3194;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511AF30 CURRENT (3240) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511AF30 CURRENT (791) */
 void func_1511AF30(void *arg0) {
     f32 sp1C;
     f32 temp_fa0;
@@ -58,9 +60,9 @@ void func_1511AF30(void *arg0) {
         *(f32 *)((u8 *)arg0 + 0x80) = 0.0f;
     } else {
         sp1C = temp_fv0;
-        temp_hi = func_150ADA20(temp_fa0, temp_fa1) % 1000U;
+        temp_hi = func_150ADA20() % 1000U;
         if ((s32) temp_hi < 0x1F4) {
-            *(f32 *)((u8 *)arg0 + 0x84) = (f32) ((f32) temp_hi * 5.0f * temp_fv0 * D_800A318C * D_800A3190);
+            *(f32 *)((u8 *)arg0 + 0x84) = (f32) ((f32) (s32) temp_hi * 5.0f * temp_fv0 * D_800A318C * D_800A3190);
         }
         temp_fv0_2 = *(f32 *)((u8 *)arg0 + 0x80);
         *(f32 *)((u8 *)arg0 + 0x80) = (f32) (temp_fv0_2 + ((*(f32 *)((u8 *)arg0 + 0x84) - temp_fv0_2) * D_800A3194));

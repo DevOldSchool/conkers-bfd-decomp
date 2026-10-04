@@ -87,6 +87,8 @@ SECTIONS
     .game_rodata_61490 0x80097C80 (INFO) : SUBALIGN(4) { *game_61490.o(.rodata) }
     /* Sound-event switch: docs/evidence/game_1483e0_jump_table.md. */
     .game_rodata_1483e0 0x800A3218 (INFO) : SUBALIGN(4) { *game_1483E0.o(.rodata) }
+    /* Six ROM-proven targets: docs/evidence/game_c98f0_jump_table.md. */
+    .game_rodata_c98f0 0x8009E458 (INFO) : SUBALIGN(4) { *game_C98F0.o(.rodata) }
 }
 __game_rodata_16ee20_0_base = ADDR(.game_rodata_16ee20_0);
 __game_rodata_16ee20_b4_base = ADDR(.game_rodata_16ee20_b4) - 0xB4;
@@ -164,3 +166,6 @@ ASSERT(__game_rodata_981e0_payload_size == 0xEC,
 
 ASSERT(SIZEOF(.game_rodata_entrypoint) == 0x20, "entrypoint table extent changed")
 __game_rodata_entrypoint_payload_size = 0x14;
+
+ASSERT(SIZEOF(.game_rodata_c98f0) == 0x20, "game_C98F0 table extent changed")
+__game_rodata_c98f0_payload_size = 0x18;

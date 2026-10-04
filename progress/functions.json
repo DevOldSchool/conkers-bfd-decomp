@@ -7112,8 +7112,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3270,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3270)",
+        "current_score": 2775,
+        "reason": "Fresh CURRENT2775; original candidate retained. Raw handwritten trapping SUB and ADD cannot be emitted by configured target-local C arithmetic; compiler emits SUBU/ADDU. Register/scheduling differences also remain; no exact C hypothesis without shared configuration changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -7131,8 +7131,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 8515,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (8515)",
+        "current_score": 3600,
+        "reason": "Best valid CURRENT3600 uses unsigned64 RNG shifts and u32 return; old signed-shift/64-bit-return candidate invalid. Configured mips2 compiler emits helpers rather than required LD SD DSLL DSRL; no target-local C instruction hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31919,8 +31919,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5856,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5856)",
+        "current_score": 4780,
+        "reason": "Best valid CURRENT4780: pointer-only vector-length contract, real three-float array and direct unsigned conversions; raw frame48 restored. Initial FP snapshots/register graph, array placement and result-pointer forms still differ. Two targeted revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -64273,8 +64273,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5339,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5339)",
+        "current_score": 3026,
+        "reason": "Best valid CURRENT3026 restores boolean returns on1/3/4; raw unspecified paths unchanged. Real global-pointer revision regressed3046. Global address forms, stack copies and canonical fourth-arg byte normalization remain; two targeted revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -64290,17 +64290,16 @@
       "symbol": "func_1509C440"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5950,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (5950)",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 308,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1509C7C8",
           "vram": "0x1509C7C8"
         }
@@ -79231,8 +79230,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3240,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (3240)",
+        "current_score": 791,
+        "reason": "Best valid CURRENT791: repaired fabricated RNG args, local float fabsf intrinsic, and raw signed conversion of remainder0..999. Frame38 vs20, FP registers, spills and two control/span rows remain; two revisions plus one compile repair exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

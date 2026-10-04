@@ -10591,7 +10591,7 @@
         "us": {
           "end": "0x9CA10",
           "start": "0x9C440",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_C98F0.c"
