@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved disabled10FFC candidate CURRENT1595 after owning narrow input contracts and actual volume argument mutation; no new C matches or completed source units. Existing same-unit10F88/1123C independent full-span0/layout/progress/whitespace. Clean canonical US ROM, repository tests, metadata, progress and whitespace pass. Candidate remains unmatched.",
+    "scope": "Preserved disabled spatial F6B8 candidate CURRENT929 after raw-proven owning s16 coordinate contracts, improving fresh6143. Narrow near/far distance contracts regressed F91C400 and were rolled back; final s32 distances/explicit casts preserve both active matched callers full-span0/layout. Clean canonical US ROM, tests, metadata, progress and whitespace pass. No new C matches or completed source units.",
     "batch_ids": [
-      "func_80010F88",
-      "func_8001123C"
+      "func_8000F91C",
+      "func_8000F9D4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 33.73,
+    "test_seconds": 35.725,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T15:09:07.085493+00:00",
+    "completed_utc": "2026-10-04T15:21:01.160891+00:00",
     "additional_focused_checks": {
-      "func_80010F88": {
+      "func_8000F91C": {
         "score": 0,
-        "attempt_record": "8c338b43017e499ab2b1e4ec970e4c90",
-        "layout": "preserved"
+        "attempt_record": "875cf464c372483d82a61b432a54d997",
+        "layout": "preserved after distance-contract rollback"
       },
-      "func_8001123C": {
+      "func_8000F9D4": {
         "score": 0,
-        "attempt_record": "b656c32499f44420a5b3d13af833f20b",
+        "attempt_record": "19f68d2c001549bebf72e565a3a41088",
         "layout": "preserved"
       }
     }
@@ -466,6 +466,12 @@
       3614,
       2024,
       1595
+    ],
+    "func_8000F6B8": [
+      6618,
+      6143,
+      929,
+      929
     ]
   },
   "preserved_candidate_scores": {
@@ -503,7 +509,8 @@
     "func_80010630": 2124,
     "func_80010154": 3570,
     "func_80010344": 1103,
-    "func_80010FFC": 1595
+    "func_80010FFC": 1595,
+    "func_8000F6B8": 929
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -673,33 +680,41 @@
       "inherited_forms_tested": 1,
       "targeted_revisions_remaining": 0,
       "reason": "Own u16handle/volume and s16cents/u8mix contracts plus actual mutable volume recover widths and entry volume normalization. Frame40 exact; handle normalization, multiply strength reduction, temp/result scheduling remain. Three total forms exhausted; no equivalent type/mutation/frame/pressure probes."
+    },
+    "func_8000F6B8": {
+      "current_score": 929,
+      "new_forms_used": 1,
+      "inherited_forms_tested": 2,
+      "contract_recovery_checks": 1,
+      "targeted_revisions_remaining": 0,
+      "reason": "Owning s16 coordinates recover exact entry SLL/SRA/s0-s2 save allocation. Distance narrowing regressed F91C400 and was rolled back, retaining s32 distance ABI and explicit casts; coordinate-only target929 and both callers full0/layout. Frame88 versus80, local offsets and pool/temp scheduling remain. No equivalent contract/frame/pressure probes."
     }
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved improved disabled sound-wrapper candidates10154 CURRENT3570 and10344 CURRENT1103 with raw-proven owning halfword inputs and actual argument lifetimes. Corrected own10630 s16/u16 inputs CURRENT2124; active matching EDA0 caller retains independent full-span0 and layout after canonical defer. ExistingF9D4 full-span0/layout. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass. No new C matches or completed source units.",
+    "scope": "Preserved disabled10FFC candidate CURRENT1595 after owning narrow input contracts and actual volume argument mutation; no new C matches or completed source units. Existing same-unit10F88/1123C independent full-span0/layout/progress/whitespace. Clean canonical US ROM, repository tests, metadata, progress and whitespace pass. Candidate remains unmatched.",
     "batch_ids": [
-      "func_8000EDA0",
-      "func_8000F9D4"
+      "func_80010F88",
+      "func_8001123C"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 36.007,
+    "test_seconds": 33.73,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T14:54:08.412081+00:00",
+    "completed_utc": "2026-10-04T15:09:07.085493+00:00",
     "additional_focused_checks": {
-      "func_8000EDA0": {
+      "func_80010F88": {
         "score": 0,
-        "attempt_record": "d368e65b6bf646d78d1417c66d7409c2",
-        "layout": "preserved after canonical defer"
+        "attempt_record": "8c338b43017e499ab2b1e4ec970e4c90",
+        "layout": "preserved"
       },
-      "func_8000F9D4": {
+      "func_8001123C": {
         "score": 0,
-        "attempt_record": "02a67ed3c7624c8f8d43e8f3bf955095",
+        "attempt_record": "b656c32499f44420a5b3d13af833f20b",
         "layout": "preserved"
       }
     }
@@ -993,6 +1008,34 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved improved disabled sound-wrapper candidates10154 CURRENT3570 and10344 CURRENT1103 with raw-proven owning halfword inputs and actual argument lifetimes. Corrected own10630 s16/u16 inputs CURRENT2124; active matching EDA0 caller retains independent full-span0 and layout after canonical defer. ExistingF9D4 full-span0/layout. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass. No new C matches or completed source units.",
+      "batch_ids": [
+        "func_8000EDA0",
+        "func_8000F9D4"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 36.007,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T14:54:08.412081+00:00",
+      "additional_focused_checks": {
+        "func_8000EDA0": {
+          "score": 0,
+          "attempt_record": "d368e65b6bf646d78d1417c66d7409c2",
+          "layout": "preserved after canonical defer"
+        },
+        "func_8000F9D4": {
+          "score": 0,
+          "attempt_record": "02a67ed3c7624c8f8d43e8f3bf955095",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -1155,6 +1198,29 @@
       "inherited_forms": 1,
       "caller_audit": "Complete known named C/include own refs only definition/comment; no raw direct calls; incomplete matched-caller index empty, indirect calls unknown.",
       "change": "Recover own narrow input contracts and actual mutable volume argument; fullword sound key and FP/SDK/helper contracts unchanged. Candidate disabled beside canonical assembly."
+    },
+    "func_8000F6B8": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 420,
+      "fresh_baseline": 6143,
+      "focused_score": 929,
+      "attempt_record": "29f38821ece249b79eba63292fa49e48",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "inherited_forms": 2,
+      "contract_recovery_checks": 1,
+      "change": "Recover three owning coordinate halfword contracts; distance contracts remain s32 after mandatory regression rollback. Candidate disabled beside canonical assembly.",
+      "caller_audit": "Complete known named C/include own refs: definition/forward, active F91C/F9D4, disabled10E78; three raw caller families signed-half input values; incomplete matched-caller index confirms both active callers.",
+      "affected_matched_callers": {
+        "func_8000F91C": "875cf464c372483d82a61b432a54d997",
+        "func_8000F9D4": "19f68d2c001549bebf72e565a3a41088"
+      },
+      "rejected_contract_form": {
+        "attempt_record": "a3cb8e1b2aa44d4ca09f64c66f5ec4ef",
+        "assessment": "structural",
+        "reason": "Narrow near/far distance declarations regress active F91C to400, two LW instead of raw LH; fully rolled back. This is a matching regression, not an incorrect-runtime-behavior finding."
+      }
     }
   }
 }

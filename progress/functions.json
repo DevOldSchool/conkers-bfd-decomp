@@ -93571,8 +93571,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6143,
-        "reason": "Typed full-width sound insertion candidate improves 6618 to 6143 with observed nonnegative-count guard and inclusive loop. Incoming normalization homes, index lifetimes and allocation remain; no independent narrow-formal evidence.",
+        "current_score": 929,
+        "reason": "Candidate CURRENT929 full420 US, fresh6143. Own s16 three coordinates and source-local forward recover exact entry SLL/SRA/s0-s2 saves. Near/far distance s32 contracts and explicit casts restored after narrowing caused F91C CURRENT400 LW-versus-LH caller regression; coordinate-only recovery remains929. Inherited6618/6143 plus one current exploratory contract form and mandatory partial rollback/recheck, no budget reset. Frame88 versus80, local offsets, pool-address/temp allocation/reload schedule remain. Complete named C/include audit and matched-caller index identify active F91C/F9D4 and disabled10E78; restore canonical target then recheck both active callers. No shared dependency/SDK/ASM or equivalent type/frame/pressure probes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

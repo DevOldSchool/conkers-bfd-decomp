@@ -539,8 +539,8 @@ s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                  s32 *, s32 *, s32 *);
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (6143) */
-s32 func_8000F6B8(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (929) */
+s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                    s32 *output, s32 nearDistance, s32 farDistance) {
     s32 result;
     SoundSpatialRecord *selected;
@@ -551,9 +551,9 @@ s32 func_8000F6B8(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
     s32 dx;
     s32 dy;
     s32 dz;
-    s32 x = (s16)arg1;
-    s32 y = (s16)arg2;
-    s32 z = (s16)arg3;
+    s32 x = arg1;
+    s32 y = arg2;
+    s32 z = arg3;
     u32 distance;
     u32 closest;
 
@@ -614,7 +614,7 @@ void func_8000F85C(u16 arg0, s16 arg1, s32 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000F85C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F85C.s")
 
-s32 func_8000F6B8(s32, s32, s32, s32, s32 *, s32, s32);
+s32 func_8000F6B8(s32, s16, s16, s16, s32 *, s32, s32);
 void func_8000F85C(u16, s16, s32);
 
 void func_8000F91C(u16 arg0, s32 arg1, s16 arg2, s32 arg3, s32 arg4,
