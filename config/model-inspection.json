@@ -535,17 +535,40 @@
     },
     {
       "name": "object-bank03-0003-00-rom",
-      "label": "Amber block \u2014 ROM 03 / 0003 / 00",
+      "label": "Chocolate \u2014 ROM 03 / 0003 / 00",
       "render_case": "object-bank03-0003-00-rom",
-      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified. Wiki visual review 2026-10-04. The N64 six-piece health bar reference matches the beveled square piece shape and brown/orange colouring. This export is one piece, not the complete health bar. Native colour/lighting parity is not established. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership. User naming correction 2026-10-04: Chocolate; the earlier Anti-Gravity wording is not the gallery item name.",
+      "category": "collectables",
+      "aliases": [
+        "Former label: Amber block \u2014 ROM 03 / 0003 / 00",
+        "Wiki review 2026-10-04",
+        "chocolate",
+        "health",
+        "single piece",
+        "Former label: Anti-Gravity Chocolate \u2014 single piece \u2014 ROM 03 / 0003 / 00"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Chocolate",
+        "reference_url": "https://conker.fandom.com/wiki/Anti-Gravity_Chocolate"
+      }
     },
     {
       "name": "object-bank03-0058-00-rom",
-      "label": "Green launcher \u2014 ROM 03 / 0058 / 00",
+      "label": "Bazooka \u2014 ROM 03 / 0058 / 00",
       "render_case": "object-bank03-0058-00-rom",
-      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified. Visual-reference identification reviewed 2026-10-04. The green tube, raised ring sight, silver top panel and yellow/black rear band match the public Bazooka render. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Green launcher \u2014 ROM 03 / 0058 / 00",
+        "gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Bazooka visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Bazooka_(Bad_Fur_Day)"
+      }
     },
     {
       "name": "object-bank03-0091-00-rom",
@@ -1040,7 +1063,7 @@
       "label": "Mounted weapon with beams \u2014 ROM bank 01 / 0018",
       "render_case": "character-bank01-0018-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 1 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "character-bank01-0020-rom",
@@ -1098,8 +1121,16 @@
       "name": "character-bank01-0029-rom",
       "label": "Crossbow \u2014 ROM bank 01 / 0029",
       "render_case": "character-bank01-0029-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 3 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 3 animation Actions. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The transverse bow limbs, string, bolt and rear stock identify the Crossbow family. Bone/wood wording describes the visible stored form, not a recovered variant or gameplay assignment. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "ranged weapon"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Crossbow visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Crossbow"
+      }
     },
     {
       "name": "character-bank01-0032-rom",
@@ -1132,10 +1163,24 @@
     },
     {
       "name": "character-bank01-0038-rom",
-      "label": "Antlered weapon \u2014 ROM bank 01 / 0038",
+      "label": "Rodent remains - rib cage and tail (candidate) \u2014 ROM bank 01 / 0038",
       "render_case": "character-bank01-0038-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs. Visual review corrected 2026-10-04. The user identified this as a rodent rib cage after an explosion. The paired curved pale ribs, red central tissue and long tapering brown tail support skeletal remains rather than an antlered weapon. Marvin the Mouse is an appearance/context candidate: the reference describes his explosion, but no matching gameplay frame or ROM consumer currently ties this exact model ID to Marvin. Animal attribution and post-explosion use remain tentative. No recovered source symbol or verified runtime ownership is claimed.",
+      "category": "parts-effects",
+      "aliases": [
+        "Former label: Antlered weapon \u2014 ROM bank 01 / 0038",
+        "rib cage",
+        "remains",
+        "rodent",
+        "mouse",
+        "rat",
+        "Marvin candidate"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "User-suggested skeletal remains; animal attribution tentative",
+        "reference_url": "https://conker.fandom.com/wiki/Marvin_the_Mouse"
+      }
     },
     {
       "name": "character-bank01-0039-rom",
@@ -1153,10 +1198,20 @@
     },
     {
       "name": "character-bank01-0047-rom",
-      "label": "Bone crossbow \u2014 ROM bank 01 / 0047",
+      "label": "Crossbow - bone model \u2014 ROM bank 01 / 0047",
       "render_case": "character-bank01-0047-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 3 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 3 animation Actions. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The transverse bow limbs, string, bolt and rear stock identify the Crossbow family. Bone/wood wording describes the visible stored form, not a recovered variant or gameplay assignment. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Bone crossbow \u2014 ROM bank 01 / 0047",
+        "ranged weapon",
+        "Bone Crossbow"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Crossbow - bone model visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Crossbow"
+      }
     },
     {
       "name": "character-bank01-0050-rom",
@@ -1214,7 +1269,7 @@
       "label": "Green grenade \u2014 ROM bank 01 / 0077",
       "render_case": "character-bank01-0077-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "character-bank01-0078-rom",
@@ -1225,10 +1280,23 @@
     },
     {
       "name": "character-bank01-0079-rom",
-      "label": "Missile character \u2014 ROM bank 01 / 0079",
+      "label": "Suzie 9mm \u2014 ROM bank 01 / 0079",
       "render_case": "character-bank01-0079-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs.",
-      "category": "characters"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 Haybot screenshot shows the same grey missile body, red nose and fins, green eyes and yellow/black bands. The Xbox render was excluded. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "characters",
+      "aliases": [
+        "Former label: Missile character \u2014 ROM bank 01 / 0079",
+        "Wiki review 2026-10-04",
+        "Suzie",
+        "missile",
+        "rocket",
+        "Haybot"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Suzie 9mm",
+        "reference_url": "https://conker.fandom.com/wiki/Missile"
+      }
     },
     {
       "name": "character-bank01-0089-rom",
@@ -1281,10 +1349,19 @@
     },
     {
       "name": "character-bank01-0110-rom",
-      "label": "Crossbow variant \u2014 ROM bank 01 / 0110",
+      "label": "Crossbow - wooden model variant \u2014 ROM bank 01 / 0110",
       "render_case": "character-bank01-0110-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 3 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 3 animation Actions. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The transverse bow limbs, string, bolt and rear stock identify the Crossbow family. Bone/wood wording describes the visible stored form, not a recovered variant or gameplay assignment. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Crossbow variant \u2014 ROM bank 01 / 0110",
+        "ranged weapon"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Crossbow - wooden model variant visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Crossbow"
+      }
     },
     {
       "name": "character-bank01-0115-rom",
@@ -1364,7 +1441,7 @@
       "label": "Missile \u2014 ROM bank 01 / 0131",
       "render_case": "character-bank01-0131-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "character-bank01-0132-rom",
@@ -1382,10 +1459,22 @@
     },
     {
       "name": "character-bank01-0138-rom",
-      "label": "Mounted twin gun \u2014 ROM bank 01 / 0138",
+      "label": "Machine Gun - mounted twin barrels \u2014 ROM bank 01 / 0138",
       "render_case": "character-bank01-0138-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 1 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 1 animation Actions. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The two perforated barrel jackets, hanging yellow ammunition belts and green upper housing match the mounted Machine Gun in the gameplay screenshots. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Mounted twin gun \u2014 ROM bank 01 / 0138",
+        "gun",
+        "Turret Gun",
+        "Mounted machine gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Machine Gun - mounted twin barrels visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Machine_Gun"
+      }
     },
     {
       "name": "character-bank01-0140-rom",
@@ -1547,10 +1636,22 @@
     },
     {
       "name": "character-bank01-0182-rom",
-      "label": "Clawed weapon \u2014 ROM bank 01 / 0182",
+      "label": "Cow remains - rib cage and tail (candidate) \u2014 ROM bank 01 / 0182",
       "render_case": "character-bank01-0182-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 2 animation Actions. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig and 2 animation Actions. Native appearance remains unverified. No capture inputs. Visual review corrected 2026-10-04. The user identified this as a cow rib cage after an explosion. The pale curved ribs, red tissue, long pale tail and brown/orange terminal tuft support skeletal remains rather than a clawed weapon. The cow reference describes their explosive deaths, but no matching gameplay frame or ROM consumer currently ties this exact model ID to a cow. Animal attribution and post-explosion use remain tentative. No recovered source symbol or verified runtime ownership is claimed.",
+      "category": "parts-effects",
+      "aliases": [
+        "Former label: Clawed weapon \u2014 ROM bank 01 / 0182",
+        "rib cage",
+        "remains",
+        "cow",
+        "cow remains candidate"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "User-suggested skeletal remains; animal attribution tentative",
+        "reference_url": "https://conker.fandom.com/wiki/The_Cows"
+      }
     },
     {
       "name": "character-bank01-0186-rom",
@@ -1666,10 +1767,22 @@
     },
     {
       "name": "object-bank03-0054-rom",
-      "label": "Firearm 1 \u2014 ROM bank 03 / 0054",
+      "label": "Rifle - compact model \u2014 ROM bank 03 / 0054",
       "render_case": "object-bank03-0054-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The compact black receiver with carrying handle and stock, short silver muzzle, magazine and sling support a visual Rifle-family identification against the Heist gameplay images on the Rifle reference page. Compact model describes the stored shape, not a recovered variant name or a verified Heist actor mapping. The separate 03:0092 model retains its longer M16-style Rifle label. This identifies the depicted weapon family; source symbols, runtime ownership and native appearance remain unverified.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm 1 \u2014 ROM bank 03 / 0054",
+        "Rifle",
+        "gun",
+        "guns",
+        "compact rifle"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Compact Rifle gameplay comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Rifle"
+      }
     },
     {
       "name": "object-bank03-0055-rom",
@@ -1687,17 +1800,41 @@
     },
     {
       "name": "object-bank03-0057-rom",
-      "label": "Firearm 2 \u2014 ROM bank 03 / 0057",
+      "label": "Submachine Gun \u2014 ROM bank 03 / 0057",
       "render_case": "object-bank03-0057-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The short rectangular receiver, projecting muzzle and long curved magazine identify the Uzi-shaped submachine gun. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm 2 \u2014 ROM bank 03 / 0057",
+        "gun",
+        "Uzi",
+        "Uzis",
+        "SMG",
+        "Submachine Guns",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Submachine Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Submachine_Guns"
+      }
     },
     {
       "name": "object-bank03-0059-rom",
-      "label": "Firearm 3 \u2014 ROM bank 03 / 0059",
+      "label": "Flamethrower \u2014 ROM bank 03 / 0059",
       "render_case": "object-bank03-0059-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The broad nozzle, yellow/black band, rear stock and pale underbody bottle match the weapon in the multiplayer Flamethrower screenshot. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm 3 \u2014 ROM bank 03 / 0059",
+        "gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Flamethrower visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Flamethrower_(Multi)"
+      }
     },
     {
       "name": "object-bank03-0060-rom",
@@ -1710,15 +1847,23 @@
       "name": "object-bank03-0061-rom",
       "label": "Crossbow \u2014 ROM bank 03 / 0061",
       "render_case": "object-bank03-0061-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The transverse bow limbs, string, bolt and rear stock identify the Crossbow family. Bone/wood wording describes the visible stored form, not a recovered variant or gameplay assignment. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "ranged weapon"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Crossbow visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Crossbow"
+      }
     },
     {
       "name": "object-bank03-0062-rom",
       "label": "Chainsaw \u2014 ROM bank 03 / 0062",
       "render_case": "object-bank03-0062-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank03-0066-rom",
@@ -1766,7 +1911,7 @@
       "label": "Radiation-marked missile \u2014 ROM bank 03 / 0072",
       "render_case": "object-bank03-0072-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank03-0073-rom",
@@ -1830,17 +1975,37 @@
     },
     {
       "name": "object-bank03-0082-rom",
-      "label": "Curved sword \u2014 ROM bank 03 / 0082",
+      "label": "Katana \u2014 ROM bank 03 / 0082",
       "render_case": "object-bank03-0082-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The curved silver blade, orange circular guard and brown/orange diamond-patterned grip match the N64 Katana render. This identifies the depicted weapon family; source symbols, runtime ownership and native appearance remain unverified.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Curved sword \u2014 ROM bank 03 / 0082",
+        "Katana",
+        "sword"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Katana visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Katana"
+      }
     },
     {
       "name": "object-bank03-0083-rom",
       "label": "Revolver \u2014 ROM bank 03 / 0083",
       "render_case": "object-bank03-0083-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The cylinder, long silver barrel, curved grip and upper scope distinguish the scoped Revolver. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "gun",
+        "Hand Cannon",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Revolver visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Revolver"
+      }
     },
     {
       "name": "object-bank03-0084-rom",
@@ -1851,10 +2016,20 @@
     },
     {
       "name": "object-bank03-0086-rom",
-      "label": "Firearm 4 \u2014 ROM bank 03 / 0086",
+      "label": "Sniper Rifle \u2014 ROM bank 03 / 0086",
       "render_case": "object-bank03-0086-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The long silver barrel, black stock and upper scope/laser fittings distinguish the Sniper Rifle. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm 4 \u2014 ROM bank 03 / 0086",
+        "gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Sniper Rifle visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Sniper_Rifle"
+      }
     },
     {
       "name": "object-bank03-0088-rom",
@@ -1872,24 +2047,58 @@
     },
     {
       "name": "object-bank03-0092-rom",
-      "label": "Firearm 5 \u2014 ROM bank 03 / 0092",
+      "label": "Rifle \u2014 ROM bank 03 / 0092",
       "render_case": "object-bank03-0092-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The carrying handle, long perforated barrel, magazine and black stock match the M16-style Rifle. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm 5 \u2014 ROM bank 03 / 0092",
+        "gun",
+        "Semi-Auto Rifle",
+        "M16-style rifle",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Rifle visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Rifle"
+      }
     },
     {
       "name": "object-bank03-0093-rom",
-      "label": "Firearm 6 \u2014 ROM bank 03 / 0093",
+      "label": "Tommy Gun \u2014 ROM bank 03 / 0093",
       "render_case": "object-bank03-0093-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The shoulder stock, magazine, front vertical grip and long barrel match the public Tommy Gun render. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm 6 \u2014 ROM bank 03 / 0093",
+        "gun",
+        "Thompson-style gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Tommy Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Tommy_Gun"
+      }
     },
     {
       "name": "object-bank03-0094-rom",
-      "label": "Double-barrel firearm \u2014 ROM bank 03 / 0094",
+      "label": "Shotgun \u2014 ROM bank 03 / 0094",
       "render_case": "object-bank03-0094-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The two parallel barrels and brown rear stock identify the double-barrel Shotgun. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Double-barrel firearm \u2014 ROM bank 03 / 0094",
+        "gun",
+        "Double-barrel shotgun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Shotgun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Shotgun"
+      }
     },
     {
       "name": "object-bank03-0096-rom",
@@ -1917,7 +2126,7 @@
       "label": "Radiation-marked missile variant \u2014 ROM bank 03 / 0101",
       "render_case": "object-bank03-0101-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank03-0102-rom",
@@ -1942,10 +2151,20 @@
     },
     {
       "name": "object-bank03-0107-rom",
-      "label": "Bone crossbow \u2014 ROM bank 03 / 0107",
+      "label": "Crossbow - bone model \u2014 ROM bank 03 / 0107",
       "render_case": "object-bank03-0107-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. Native colours, lighting and appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The transverse bow limbs, string, bolt and rear stock identify the Crossbow family. Bone/wood wording describes the visible stored form, not a recovered variant or gameplay assignment. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Bone crossbow \u2014 ROM bank 03 / 0107",
+        "ranged weapon",
+        "Bone Crossbow"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Crossbow - bone model visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Crossbow"
+      }
     },
     {
       "name": "object-bank03-0108-rom",
@@ -2005,10 +2224,21 @@
     },
     {
       "name": "object-bank09-0031-rom",
-      "label": "Brush and red pack \u2014 ROM bank 09 / 0031",
+      "label": "Blowtorch attachment \u2014 ROM bank 09 / 0031",
       "render_case": "object-bank09-0031-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 render matches the red fuel bottle with a flame mark, black ribbed grip and angled nozzle. This is the single-player blowtorch form. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Brush and red pack \u2014 ROM bank 09 / 0031",
+        "Wiki review 2026-10-04",
+        "blowtorch",
+        "fuel bottle"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Blowtorch attachment",
+        "reference_url": "https://conker.fandom.com/wiki/Blowtorch"
+      }
     },
     {
       "name": "object-bank09-0040-rom",
@@ -2026,31 +2256,51 @@
     },
     {
       "name": "object-bank09-0048-rom",
-      "label": "Long firearm \u2014 ROM bank 09 / 0048",
+      "label": "Flamethrower attachment \u2014 ROM bank 09 / 0048",
       "render_case": "object-bank09-0048-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The large hazard-striped nozzle, long black body and underbody bottle support the Flamethrower identification; the source model is shown in attachment coordinates. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Long firearm \u2014 ROM bank 09 / 0048",
+        "gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Flamethrower visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Flamethrower_(Multi)"
+      }
     },
     {
       "name": "object-bank09-0055-rom",
       "label": "Chainsaw attachment \u2014 ROM bank 09 / 0055",
       "render_case": "object-bank09-0055-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0065-rom",
       "label": "Revolver attachment \u2014 ROM bank 09 / 0065",
       "render_case": "object-bank09-0065-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The visible cylinder, long barrel and upper scope match the Revolver form; attachment placement remains unresolved. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "gun",
+        "Hand Cannon",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Revolver visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Revolver"
+      }
     },
     {
       "name": "object-bank09-0079-rom",
       "label": "Bloody axe and dark fragment \u2014 ROM bank 09 / 0079",
       "render_case": "object-bank09-0079-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "parts-effects"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0094-rom",
@@ -2061,24 +2311,58 @@
     },
     {
       "name": "object-bank09-0095-rom",
-      "label": "Firearm attachment 1 \u2014 ROM bank 09 / 0095",
+      "label": "Tommy Gun attachment A \u2014 ROM bank 09 / 0095",
       "render_case": "object-bank09-0095-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The receiver, stock, magazine, front grip and barrel match the Tommy Gun form. A side diagnostic of entry 95 makes the magazine and forward grip visible; the letter distinguishes source records, not runtime roles. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm attachment 1 \u2014 ROM bank 09 / 0095",
+        "gun",
+        "Thompson-style gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Tommy Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Tommy_Gun"
+      }
     },
     {
       "name": "object-bank09-0101-rom",
-      "label": "Firearm attachment 2 \u2014 ROM bank 09 / 0101",
+      "label": "Rifle attachment \u2014 ROM bank 09 / 0101",
       "render_case": "object-bank09-0101-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The long perforated barrel, carrying handle, magazine and stock match the M16-style Rifle. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm attachment 2 \u2014 ROM bank 09 / 0101",
+        "gun",
+        "Semi-Auto Rifle",
+        "M16-style rifle",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Rifle visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Rifle"
+      }
     },
     {
       "name": "object-bank09-0127-rom",
-      "label": "Firearm attachment 3 \u2014 ROM bank 09 / 0127",
+      "label": "Tommy Gun attachment B \u2014 ROM bank 09 / 0127",
       "render_case": "object-bank09-0127-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The receiver, stock, magazine, front grip and barrel match the Tommy Gun form. A side diagnostic of entry 95 makes the magazine and forward grip visible; the letter distinguishes source records, not runtime roles. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Firearm attachment 3 \u2014 ROM bank 09 / 0127",
+        "gun",
+        "Thompson-style gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Tommy Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Tommy_Gun"
+      }
     },
     {
       "name": "object-bank09-0132-rom",
@@ -2134,7 +2418,7 @@
       "label": "Firearm attachment 4 \u2014 ROM bank 09 / 0146",
       "render_case": "object-bank09-0146-rom",
       "note": "Geometry and embedded texture images extracted from the ROM. This is a standalone object, part or effect; runtime assembly and placement are unresolved. Native appearance remains unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0171-rom",
@@ -2810,10 +3094,23 @@
     },
     {
       "name": "character-bank01-0170-rom",
-      "label": "Lightning bolt \u2014 ROM bank 01 / 0170",
+      "label": "Pikachu tail \u2014 unused \u2014 ROM bank 01 / 0170",
       "render_case": "character-bank01-0170-rom",
-      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs.",
-      "category": "parts-effects"
+      "note": "Geometry and embedded texture images extracted from the ROM. Includes the ROM rig; no compatible animation clips are available for this entry. Native appearance remains unverified. No capture inputs. Wiki visual review 2026-10-04. The unused-tail image matches the yellow zigzag, brown base and pale tip. The wiki describes it as a remnant of a removed cutscene. No recovered symbol or ROM consumer confirms that historical account. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "parts-effects",
+      "aliases": [
+        "Former label: Lightning bolt \u2014 ROM bank 01 / 0170",
+        "Wiki review 2026-10-04",
+        "Pikachu",
+        "unused",
+        "cut content",
+        "tail"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Pikachu tail \u2014 unused",
+        "reference_url": "https://conker.fandom.com/wiki/Conker%27s_Bad_Fur_Day"
+      }
     },
     {
       "name": "character-bank01-0176-rom",
@@ -2961,10 +3258,21 @@
     },
     {
       "name": "character-bank01-0119-rom",
-      "label": "Green tank with red flag \u2014 ROM 01 / 0119",
+      "label": "Class Twenty-Two Tank \u2014 closed hatch \u2014 ROM 01 / 0119",
       "render_case": "character-bank01-0119-rom",
-      "note": "ROM geometry, rig and textures. Source texture alpha is retained. Compatible ROM animations are included where available. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "ROM geometry, rig and textures. Source texture alpha is retained. Compatible ROM animations are included where available. Native colour, lighting and raster appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 tank render matches the green angular hull, oversized cannon, black/grey tracks and flag. The variant suffix describes the exported hatch state; team assignment and runtime use of this ID remain unresolved. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "scene-items",
+      "aliases": [
+        "Former label: Green tank with red flag \u2014 ROM 01 / 0119",
+        "Wiki review 2026-10-04",
+        "Class 22 Tank",
+        "tank"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Class Twenty-Two Tank \u2014 closed hatch",
+        "reference_url": "https://conker.fandom.com/wiki/Class_Twenty-Two_Tank"
+      }
     },
     {
       "name": "character-bank01-0023-rom",
@@ -3101,7 +3409,7 @@
       "label": "Chainsaw \u2014 ROM 04 / 0033 / 06",
       "render_case": "object-bank04-0033-06-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank04-0045-13-rom",
@@ -3287,17 +3595,41 @@
     },
     {
       "name": "character-bank01-0019-rom",
-      "label": "Beehive \u2014 ROM 01 / 0019",
+      "label": "Mrs. Bee's Hive \u2014 closed \u2014 ROM 01 / 0019",
       "render_case": "character-bank01-0019-rom",
-      "note": "ROM geometry, rig and textures. Source texture alpha is retained. Compatible ROM animations are included where available. Native colour, lighting and raster appearance remain unverified. No capture inputs. Preview uses the verified base level of the RGB mip chain and preserves vertex alpha.",
-      "category": "scene-items"
+      "note": "ROM geometry, rig and textures. Source texture alpha is retained. Compatible ROM animations are included where available. Native colour, lighting and raster appearance remain unverified. No capture inputs. Preview uses the verified base level of the RGB mip chain and preserves vertex alpha. Wiki visual review 2026-10-04. The N64 hive image matches the yellow layered wicker-texture hive; the armed export also has the same open roof and twin perforated central barrels. Additional side launchers in the export are not established by this particular reference image. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "scene-items",
+      "aliases": [
+        "Former label: Beehive \u2014 ROM 01 / 0019",
+        "Wiki review 2026-10-04",
+        "Mrs Bee",
+        "beehive",
+        "hive"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Mrs. Bee's Hive \u2014 closed",
+        "reference_url": "https://conker.fandom.com/wiki/Mrs._Bee%27s_Hive"
+      }
     },
     {
       "name": "character-bank01-0035-rom",
-      "label": "Armed beehive \u2014 ROM 01 / 0035",
+      "label": "Mrs. Bee's Hive \u2014 armed \u2014 ROM 01 / 0035",
       "render_case": "character-bank01-0035-rom",
-      "note": "ROM geometry, rig and textures. Source texture alpha is retained. Compatible ROM animations are included where available. Native colour, lighting and raster appearance remain unverified. No capture inputs. Preview uses the verified base level of the RGB mip chain and preserves vertex alpha.",
-      "category": "scene-items"
+      "note": "ROM geometry, rig and textures. Source texture alpha is retained. Compatible ROM animations are included where available. Native colour, lighting and raster appearance remain unverified. No capture inputs. Preview uses the verified base level of the RGB mip chain and preserves vertex alpha. Wiki visual review 2026-10-04. The N64 hive image matches the yellow layered wicker-texture hive; the armed export also has the same open roof and twin perforated central barrels. Additional side launchers in the export are not established by this particular reference image. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "scene-items",
+      "aliases": [
+        "Former label: Armed beehive \u2014 ROM 01 / 0035",
+        "Wiki review 2026-10-04",
+        "Mrs Bee",
+        "beehive",
+        "hive"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Mrs. Bee's Hive \u2014 armed",
+        "reference_url": "https://conker.fandom.com/wiki/Mrs._Bee%27s_Hive"
+      }
     },
     {
       "name": "character-bank01-0057-rom",
@@ -3363,10 +3695,21 @@
     },
     {
       "name": "object-bank09-0103-rom",
-      "label": "Shotgun \u2014 ROM 09 / 0103",
+      "label": "Shotgun attachment \u2014 ROM 09 / 0103",
       "render_case": "object-bank09-0103-rom",
-      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The paired dark barrels and brown rear stock identify the Shotgun; the attachment export retains its stored orientation. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Shotgun \u2014 ROM 09 / 0103",
+        "gun",
+        "Double-barrel shotgun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Shotgun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Shotgun"
+      }
     },
     {
       "name": "object-bank09-0070-rom",
@@ -3401,7 +3744,7 @@
       "label": "Compact firearm \u2014 ROM 09 / 0087",
       "render_case": "object-bank09-0087-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0059-rom",
@@ -3447,10 +3790,20 @@
     },
     {
       "name": "object-bank09-0077-rom",
-      "label": "Long-barrel firearm \u2014 ROM 09 / 0077",
+      "label": "Sniper Rifle attachment \u2014 ROM 09 / 0077",
       "render_case": "object-bank09-0077-rom",
-      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The long silver barrel and black scoped receiver/stock match the Sniper Rifle form; source orientation is retained. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "category": "weapons",
+      "aliases": [
+        "Former label: Long-barrel firearm \u2014 ROM 09 / 0077",
+        "gun",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Sniper Rifle visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Sniper_Rifle"
+      }
     },
     {
       "name": "object-bank09-0125-rom",
@@ -3510,7 +3863,7 @@
       "label": "Scythe \u2014 ROM 09 / 0113",
       "render_case": "object-bank09-0113-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0159-rom",
@@ -3524,7 +3877,7 @@
       "label": "Bone-handled knife \u2014 ROM 09 / 0123",
       "render_case": "object-bank09-0123-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. Fresh material and diagnostic vertex views show a broad pointed blade with a pale bone-shaped handle, supporting a descriptive knife label. The exact ROM source remains distinct from the wrapped-handle variant. Handle material composition, gameplay use and native visibility remain unverified.",
-      "category": "scene-items",
+      "category": "weapons",
       "aliases": [
         "Cleaver (former label)",
         "Cleaver \u2014 ROM 09 / 0123 (former label)"
@@ -3535,7 +3888,7 @@
       "label": "Wrapped-handle knife \u2014 ROM 09 / 0124",
       "render_case": "object-bank09-0124-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs. Fresh material and diagnostic vertex views show a broad pointed blade with a pale wrap-patterned handle and a red band, supporting a descriptive knife label. The exact ROM source remains distinct from the bone-shaped-handle variant. Gameplay use and native visibility remain unverified.",
-      "category": "scene-items",
+      "category": "weapons",
       "aliases": [
         "Cleaver \u2014 wrapped handle (former label)",
         "Cleaver \u2014 wrapped handle \u2014 ROM 09 / 0124 (former label)"
@@ -3595,14 +3948,14 @@
       "label": "Small knife \u2014 ROM 09 / 0050",
       "render_case": "object-bank09-0050-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0060-rom",
       "label": "Green launcher \u2014 ROM 09 / 0060",
       "render_case": "object-bank09-0060-rom",
       "note": "Geometry and textures extracted from the ROM. Native colour, lighting and raster appearance remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "category": "weapons"
     },
     {
       "name": "object-bank09-0158-rom",
@@ -3638,10 +3991,21 @@
     },
     {
       "name": "character-bank01-0040-rom",
-      "label": "Tank \u2014 stationary \u2014 ROM 01 / 0040",
+      "label": "Class Twenty-Two Tank \u2014 open hatch \u2014 ROM 01 / 0040",
       "render_case": "character-bank01-0040-rom",
-      "note": "Geometry and textures extracted from the ROM. Explicit stationary-state ROM selector preset restores the headlight images. Both motion fields are zero; moving-state transitions and native lighting remain unverified. No capture inputs.",
-      "category": "scene-items"
+      "note": "Geometry and textures extracted from the ROM. Explicit stationary-state ROM selector preset restores the headlight images. Both motion fields are zero; moving-state transitions and native lighting remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 tank render matches the green angular hull, oversized cannon, black/grey tracks and flag. The variant suffix describes the exported hatch state; team assignment and runtime use of this ID remain unresolved. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "category": "scene-items",
+      "aliases": [
+        "Former label: Tank \u2014 stationary \u2014 ROM 01 / 0040",
+        "Wiki review 2026-10-04",
+        "Class 22 Tank",
+        "tank"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Class Twenty-Two Tank \u2014 open hatch",
+        "reference_url": "https://conker.fandom.com/wiki/Class_Twenty-Two_Tank"
+      }
     },
     {
       "name": "character-bank01-0123-rom",
@@ -3683,10 +4047,23 @@
     },
     {
       "name": "object-bank09-0162-00-rom",
-      "label": "Wall-mounted flame \u2014 ROM 09 / 0162 / 00",
+      "label": "Squirrel Tail \u2014 extra life \u2014 ROM 09 / 0162 / 00",
       "render_case": "object-bank09-0162-00-rom",
-      "category": "scene-items",
-      "note": "ROM geometry with the recovered UI constructor material state; all 108 faces have decoded textures. Stored geometry and neutral joints are preserved. Native UI animation, pose, lighting, visibility, environment opacity and exact appearance remain unresolved. No capture inputs."
+      "category": "collectables",
+      "note": "ROM geometry with the recovered UI constructor material state; all 108 faces have decoded textures. Stored geometry and neutral joints are preserved. Native UI animation, pose, lighting, visibility, environment opacity and exact appearance remain unresolved. No capture inputs. Wiki visual review 2026-10-04. The N64 tail render matches the long orange/white fur and metal wall hook. The old flame description mistook fur for fire. The wiki supplies the extra-life context, without establishing a numeric gameplay consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Wall-mounted flame \u2014 ROM 09 / 0162 / 00",
+        "Wiki review 2026-10-04",
+        "squirrel tail",
+        "extra life",
+        "hook",
+        "Gregg"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Squirrel Tail \u2014 extra life",
+        "reference_url": "https://conker.fandom.com/wiki/Squirrel_Tails"
+      }
     },
     {
       "name": "object-bank09-0317-00-rom",
@@ -4407,15 +4784,25 @@
       "name": "object-bank09-0090-00-rom",
       "label": "Round bomb \u2014 ROM 09 / 0090 / 00",
       "render_case": "object-bank09-0090-00-rom",
-      "category": "scene-items",
+      "category": "weapons",
       "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
     },
     {
       "name": "object-bank09-0058-00-rom",
-      "label": "Curved sword \u2014 ROM 09 / 0058 / 00",
+      "label": "Katana attachment \u2014 ROM 09 / 0058 / 00",
       "render_case": "object-bank09-0058-00-rom",
-      "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "category": "weapons",
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Visual-reference identification reviewed 2026-10-04. The curved silver blade, orange circular guard and diamond-patterned grip match the N64 Katana render and the visible form of 03:0082; attachment wording distinguishes this existing source record, not a confirmed actor or gameplay use. This identifies the depicted weapon family; source symbols, runtime ownership and native appearance remain unverified.",
+      "aliases": [
+        "Former label: Curved sword \u2014 ROM 09 / 0058 / 00",
+        "Katana",
+        "sword"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Katana visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Katana"
+      }
     },
     {
       "name": "object-bank09-0106-00-rom",
@@ -4442,7 +4829,7 @@
       "name": "object-bank09-0260-00-rom",
       "label": "Striped rocket \u2014 ROM 09 / 0260 / 00",
       "render_case": "object-bank09-0260-00-rom",
-      "category": "scene-items",
+      "category": "weapons",
       "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
     },
     {
@@ -5191,7 +5578,7 @@
       "name": "object-bank04-0001-21-rom",
       "label": "Kitchen knife \u2014 ROM 04 / 0001 / 21",
       "render_case": "object-bank04-0001-21-rom",
-      "category": "scene-items",
+      "category": "weapons",
       "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
     },
     {
@@ -5729,213 +6116,573 @@
     },
     {
       "name": "object-bank09-0453-00-rom",
-      "label": "Letter block A \u2014 ROM 09 / 0453 / 00",
+      "label": "Cheat keyboard \u2014 A key \u2014 ROM 09 / 0453 / 00",
       "render_case": "object-bank09-0453-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block A \u2014 ROM 09 / 0453 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 A key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0454-00-rom",
-      "label": "Letter block B \u2014 ROM 09 / 0454 / 00",
+      "label": "Cheat keyboard \u2014 B key \u2014 ROM 09 / 0454 / 00",
       "render_case": "object-bank09-0454-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block B \u2014 ROM 09 / 0454 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 B key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0455-00-rom",
-      "label": "Letter block C \u2014 ROM 09 / 0455 / 00",
+      "label": "Cheat keyboard \u2014 C key \u2014 ROM 09 / 0455 / 00",
       "render_case": "object-bank09-0455-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block C \u2014 ROM 09 / 0455 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 C key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0456-00-rom",
-      "label": "Letter block D \u2014 ROM 09 / 0456 / 00",
+      "label": "Cheat keyboard \u2014 D key \u2014 ROM 09 / 0456 / 00",
       "render_case": "object-bank09-0456-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block D \u2014 ROM 09 / 0456 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 D key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0457-00-rom",
-      "label": "Letter block E \u2014 ROM 09 / 0457 / 00",
+      "label": "Cheat keyboard \u2014 E key \u2014 ROM 09 / 0457 / 00",
       "render_case": "object-bank09-0457-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block E \u2014 ROM 09 / 0457 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 E key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0458-00-rom",
-      "label": "Letter block F \u2014 ROM 09 / 0458 / 00",
+      "label": "Cheat keyboard \u2014 F key \u2014 ROM 09 / 0458 / 00",
       "render_case": "object-bank09-0458-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block F \u2014 ROM 09 / 0458 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 F key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0459-00-rom",
-      "label": "Letter block G \u2014 ROM 09 / 0459 / 00",
+      "label": "Cheat keyboard \u2014 G key \u2014 ROM 09 / 0459 / 00",
       "render_case": "object-bank09-0459-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block G \u2014 ROM 09 / 0459 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 G key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0460-00-rom",
-      "label": "Letter block H \u2014 ROM 09 / 0460 / 00",
+      "label": "Cheat keyboard \u2014 H key \u2014 ROM 09 / 0460 / 00",
       "render_case": "object-bank09-0460-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block H \u2014 ROM 09 / 0460 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 H key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0461-00-rom",
-      "label": "Letter block I \u2014 ROM 09 / 0461 / 00",
+      "label": "Cheat keyboard \u2014 I key \u2014 ROM 09 / 0461 / 00",
       "render_case": "object-bank09-0461-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block I \u2014 ROM 09 / 0461 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 I key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0462-00-rom",
-      "label": "Letter block J \u2014 ROM 09 / 0462 / 00",
+      "label": "Cheat keyboard \u2014 J key \u2014 ROM 09 / 0462 / 00",
       "render_case": "object-bank09-0462-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block J \u2014 ROM 09 / 0462 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 J key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0463-00-rom",
-      "label": "Letter block K \u2014 ROM 09 / 0463 / 00",
+      "label": "Cheat keyboard \u2014 K key \u2014 ROM 09 / 0463 / 00",
       "render_case": "object-bank09-0463-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block K \u2014 ROM 09 / 0463 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 K key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0464-00-rom",
-      "label": "Letter block L \u2014 ROM 09 / 0464 / 00",
+      "label": "Cheat keyboard \u2014 L key \u2014 ROM 09 / 0464 / 00",
       "render_case": "object-bank09-0464-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block L \u2014 ROM 09 / 0464 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 L key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0465-00-rom",
-      "label": "Letter block M \u2014 ROM 09 / 0465 / 00",
+      "label": "Cheat keyboard \u2014 M key \u2014 ROM 09 / 0465 / 00",
       "render_case": "object-bank09-0465-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block M \u2014 ROM 09 / 0465 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 M key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0466-00-rom",
-      "label": "Letter block N \u2014 ROM 09 / 0466 / 00",
+      "label": "Cheat keyboard \u2014 N key \u2014 ROM 09 / 0466 / 00",
       "render_case": "object-bank09-0466-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block N \u2014 ROM 09 / 0466 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 N key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0467-00-rom",
-      "label": "Letter block O \u2014 ROM 09 / 0467 / 00",
+      "label": "Cheat keyboard \u2014 O key \u2014 ROM 09 / 0467 / 00",
       "render_case": "object-bank09-0467-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block O \u2014 ROM 09 / 0467 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 O key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0468-00-rom",
-      "label": "Letter block P \u2014 ROM 09 / 0468 / 00",
+      "label": "Cheat keyboard \u2014 P key \u2014 ROM 09 / 0468 / 00",
       "render_case": "object-bank09-0468-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block P \u2014 ROM 09 / 0468 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 P key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0469-00-rom",
-      "label": "Letter block Q \u2014 ROM 09 / 0469 / 00",
+      "label": "Cheat keyboard \u2014 Q key \u2014 ROM 09 / 0469 / 00",
       "render_case": "object-bank09-0469-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block Q \u2014 ROM 09 / 0469 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 Q key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0470-00-rom",
-      "label": "Letter block R \u2014 ROM 09 / 0470 / 00",
+      "label": "Cheat keyboard \u2014 R key \u2014 ROM 09 / 0470 / 00",
       "render_case": "object-bank09-0470-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block R \u2014 ROM 09 / 0470 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 R key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0471-00-rom",
-      "label": "Letter block S \u2014 ROM 09 / 0471 / 00",
+      "label": "Cheat keyboard \u2014 S key \u2014 ROM 09 / 0471 / 00",
       "render_case": "object-bank09-0471-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block S \u2014 ROM 09 / 0471 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 S key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0472-00-rom",
-      "label": "Letter block T \u2014 ROM 09 / 0472 / 00",
+      "label": "Cheat keyboard \u2014 T key \u2014 ROM 09 / 0472 / 00",
       "render_case": "object-bank09-0472-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block T \u2014 ROM 09 / 0472 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 T key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0473-00-rom",
-      "label": "Letter block U \u2014 ROM 09 / 0473 / 00",
+      "label": "Cheat keyboard \u2014 U key \u2014 ROM 09 / 0473 / 00",
       "render_case": "object-bank09-0473-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block U \u2014 ROM 09 / 0473 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 U key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0474-00-rom",
-      "label": "Letter block V \u2014 ROM 09 / 0474 / 00",
+      "label": "Cheat keyboard \u2014 V key \u2014 ROM 09 / 0474 / 00",
       "render_case": "object-bank09-0474-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block V \u2014 ROM 09 / 0474 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 V key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0475-00-rom",
-      "label": "Letter block W \u2014 ROM 09 / 0475 / 00",
+      "label": "Cheat keyboard \u2014 W key \u2014 ROM 09 / 0475 / 00",
       "render_case": "object-bank09-0475-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block W \u2014 ROM 09 / 0475 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 W key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0476-00-rom",
-      "label": "Letter block X \u2014 ROM 09 / 0476 / 00",
+      "label": "Cheat keyboard \u2014 X key \u2014 ROM 09 / 0476 / 00",
       "render_case": "object-bank09-0476-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block X \u2014 ROM 09 / 0476 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 X key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0477-00-rom",
-      "label": "DEL key block \u2014 ROM 09 / 0477 / 00",
+      "label": "Cheat keyboard \u2014 DEL key \u2014 ROM 09 / 0477 / 00",
       "render_case": "object-bank09-0477-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: DEL key block \u2014 ROM 09 / 0477 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 DEL key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0478-00-rom",
-      "label": "Dot key block \u2014 ROM 09 / 0478 / 00",
+      "label": "Cheat keyboard \u2014 Dot key \u2014 ROM 09 / 0478 / 00",
       "render_case": "object-bank09-0478-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Dot key block \u2014 ROM 09 / 0478 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 Dot key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0479-00-rom",
-      "label": "Letter block Y \u2014 ROM 09 / 0479 / 00",
+      "label": "Cheat keyboard \u2014 Y key \u2014 ROM 09 / 0479 / 00",
       "render_case": "object-bank09-0479-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block Y \u2014 ROM 09 / 0479 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 Y key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0480-00-rom",
-      "label": "Letter block Z \u2014 ROM 09 / 0480 / 00",
+      "label": "Cheat keyboard \u2014 Z key \u2014 ROM 09 / 0480 / 00",
       "render_case": "object-bank09-0480-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Letter block Z \u2014 ROM 09 / 0480 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 Z key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0481-00-rom",
-      "label": "Return key block \u2014 ROM 09 / 0481 / 00",
+      "label": "Cheat keyboard \u2014 Return key \u2014 ROM 09 / 0481 / 00",
       "render_case": "object-bank09-0481-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Return key block \u2014 ROM 09 / 0481 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 Return key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank09-0482-00-rom",
-      "label": "Long blank key block \u2014 ROM 09 / 0482 / 00",
+      "label": "Cheat keyboard \u2014 long blank key \u2014 ROM 09 / 0482 / 00",
       "render_case": "object-bank09-0482-00-rom",
       "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs."
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. Native lighting, dynamic material state and complete appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 cheat-screen image shows the same wooden letter blocks, DEL, dot, curved return-arrow and long blank block. Identification establishes the keyboard context and visible glyph, not input handling or a numeric consumer. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Long blank key block \u2014 ROM 09 / 0482 / 00",
+        "Wiki review 2026-10-04",
+        "cheat keyboard",
+        "cheat screen",
+        "Cheat Codes"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Cheat keyboard \u2014 long blank key",
+        "reference_url": "https://conker.fandom.com/wiki/Cheat_Codes"
+      }
     },
     {
       "name": "object-bank03-0098-00-rom",
@@ -6386,10 +7133,24 @@
     },
     {
       "name": "object-bank03-0085-00-rom",
-      "label": "Green hanging canister \u2014 ROM 03 / 0085 / 00",
+      "label": "Gas canister \u2014 ROM 03 / 0085 / 00",
       "render_case": "object-bank03-0085-00-rom",
-      "category": "scene-items",
-      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. The ring uses the proven RGBA32 mip base. Native LOD blending, environment alpha and full gameplay appearance remain unverified. No capture inputs."
+      "category": "collectables",
+      "note": "Geometry and textures extracted directly from the ROM. Descriptive label from the exported geometry; no recovered source name is claimed. The ring uses the proven RGBA32 mip base. Native LOD blending, environment alpha and full gameplay appearance remain unverified. No capture inputs. Wiki visual review 2026-10-04. The N64 canister image matches the long green cylinder, pale metal end caps and circular carrying ring. Multiplayer objective context is supplied by the article; no numeric runtime mapping is established. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Green hanging canister \u2014 ROM 03 / 0085 / 00",
+        "Wiki review 2026-10-04",
+        "gas",
+        "chemical weapon",
+        "Total War",
+        "Tank",
+        "canister"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Gas canister",
+        "reference_url": "https://conker.fandom.com/wiki/Canister"
+      }
     },
     {
       "name": "object-bank04-0006-07-rom",
@@ -6555,10 +7316,22 @@
     },
     {
       "name": "object-bank09-0025-rom",
-      "label": "Yellow handheld console \u2014 ROM 09 / 0025",
+      "label": "Game Boy attachment \u2014 yellow \u2014 ROM 09 / 0025",
       "render_case": "object-bank09-0025-rom",
       "category": "parts-effects",
-      "note": "First ROM texture frame; all three screen frames are decoded and recorded. Current playback phase is unverified. ROM geometry and textures; attachment pose, visibility, lighting and native appearance remain unverified. Descriptive label; no capture inputs."
+      "note": "First ROM texture frame; all three screen frames are decoded and recorded. Current playback phase is unverified. ROM geometry and textures; attachment pose, visibility, lighting and native appearance remain unverified. Descriptive label; no capture inputs. Wiki visual review 2026-10-04. The N64 idle animation shows the yellow handheld, dark screen, cross-shaped pad and coloured buttons. Hardware branding follows the wiki animation caption, not the unrelated original-console photograph. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Yellow handheld console \u2014 ROM 09 / 0025",
+        "Wiki review 2026-10-04",
+        "Game Boy",
+        "handheld console",
+        "idle animation"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Game Boy attachment \u2014 yellow",
+        "reference_url": "https://conker.fandom.com/wiki/Game_Boy"
+      }
     },
     {
       "name": "object-bank09-0049-rom",
@@ -6632,10 +7405,22 @@
     },
     {
       "name": "scene-bank04-0018-10-rom",
-      "label": "Lettered circular plate \u2014 ROM 04 / 0018 / 10",
+      "label": "Bat's Tower Wheel \u2014 letter puzzle \u2014 ROM 04 / 0018 / 10",
       "render_case": "scene-bank04-0018-10-rom",
       "category": "scene-items",
-      "note": "ROM geometry and flat textures, with a pinned renderer context. Descriptive label; attachment pose, assembly, visibility, dynamic lighting and native appearance remain unverified."
+      "note": "ROM geometry and flat textures, with a pinned renderer context. Descriptive label; attachment pose, assembly, visibility, dynamic lighting and native appearance remain unverified. Wiki visual review 2026-10-04. The export has the clockwise letter sequence P,U,N,H,O,T,E,S listed for the N64 puzzle. The N64 screenshot shows the exposed U on the octagonal wheel; the remake uses arrows instead. This exported plate contains the letters, not the complete assembled room. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "aliases": [
+        "Former label: Lettered circular plate \u2014 ROM 04 / 0018 / 10",
+        "Wiki review 2026-10-04",
+        "Bats Tower",
+        "letter wheel",
+        "OPEN puzzle"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Bat's Tower Wheel \u2014 letter puzzle",
+        "reference_url": "https://conker.fandom.com/wiki/Bat%27s_Tower_Wheel"
+      }
     },
     {
       "name": "object-bank09-0121-rom",
@@ -6711,7 +7496,7 @@
       "name": "object-bank09-0277-rom",
       "label": "Single-eye gun turret \u2014 ROM 09 / 0277",
       "render_case": "object-bank09-0277-rom",
-      "category": "parts-effects",
+      "category": "weapons",
       "note": "ROM geometry and flat textures, with a pinned constructor array and disabled texture callback. Descriptive label; assembly, visibility, dynamic lighting and native appearance remain unverified."
     },
     {
@@ -6835,7 +7620,7 @@
       "name": "object-bank09-0147-rom",
       "label": "Black weapon attachment \u2014 first texture preset",
       "render_case": "object-bank09-0147-rom",
-      "category": "parts-effects",
+      "category": "weapons",
       "note": "ROM geometry with two inline-palette texture alternatives. Explicit initializer or parent-field texture preset, with stored neutral joints. Descriptive label; parent ownership, assembly, animation, visibility and native appearance remain unverified."
     },
     {
@@ -6854,24 +7639,66 @@
     },
     {
       "name": "object-bank09-0026-rom",
-      "label": "Black weapon attachment A \u2014 ROM 09 / 0026",
+      "label": "Submachine Gun attachment A \u2014 ROM 09 / 0026",
       "render_case": "object-bank09-0026-rom",
-      "category": "parts-effects",
-      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+      "category": "weapons",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified. Visual-reference identification reviewed 2026-10-04. The box-shaped receiver, short muzzle and curved magazine match the Uzi-shaped submachine gun. The letter distinguishes numeric source records, not handedness or actor ownership. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "aliases": [
+        "Former label: Black weapon attachment A \u2014 ROM 09 / 0026",
+        "gun",
+        "Uzi",
+        "Uzis",
+        "SMG",
+        "Submachine Guns",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Submachine Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Submachine_Guns"
+      }
     },
     {
       "name": "object-bank09-0027-rom",
-      "label": "Black weapon attachment B \u2014 ROM 09 / 0027",
+      "label": "Submachine Gun attachment B \u2014 ROM 09 / 0027",
       "render_case": "object-bank09-0027-rom",
-      "category": "parts-effects",
-      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+      "category": "weapons",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified. Visual-reference identification reviewed 2026-10-04. The box-shaped receiver, short muzzle and curved magazine match the Uzi-shaped submachine gun. The letter distinguishes numeric source records, not handedness or actor ownership. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "aliases": [
+        "Former label: Black weapon attachment B \u2014 ROM 09 / 0027",
+        "gun",
+        "Uzi",
+        "Uzis",
+        "SMG",
+        "Submachine Guns",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Submachine Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Submachine_Guns"
+      }
     },
     {
       "name": "object-bank09-0107-rom",
-      "label": "Horizontal black weapon attachment \u2014 ROM 09 / 0107",
+      "label": "Submachine Gun attachment C \u2014 ROM 09 / 0107",
       "render_case": "object-bank09-0107-rom",
-      "category": "parts-effects",
-      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified."
+      "category": "weapons",
+      "note": "ROM geometry and textures reconstructed from partial CI8 loads and RGBA32 split-bank loads viewed through the stored RGBA8 tile. Every face has texture coverage. Descriptive label; parent ownership, attachment pose, runtime colours and native appearance remain unverified. Visual-reference identification reviewed 2026-10-04. The box-shaped receiver, short muzzle and curved magazine match the Uzi-shaped submachine gun. The letter distinguishes numeric source records, not handedness or actor ownership. This identifies the depicted weapon family; gameplay use, source symbols, parent ownership and variant purpose are not established.",
+      "aliases": [
+        "Former label: Horizontal black weapon attachment \u2014 ROM 09 / 0107",
+        "gun",
+        "Uzi",
+        "Uzis",
+        "SMG",
+        "Submachine Guns",
+        "guns"
+      ],
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "Submachine Gun visual comparison",
+        "reference_url": "https://conker.fandom.com/wiki/Submachine_Guns"
+      }
     },
     {
       "name": "object-bank09-0157-rom",
@@ -7322,15 +8149,25 @@
     },
     {
       "name": "object-bank09-0110-rom",
-      "label": "Blue hexagonal canister attachment \u2014 ROM 09 / 0110",
+      "label": "Confidence pills attachment \u2014 ROM 09 / 0110",
       "render_case": "object-bank09-0110-rom",
       "category": "scene-items",
       "aliases": [
         "bank09 0110",
         "blue canister",
-        "attachment"
+        "attachment",
+        "Former label: Blue hexagonal canister attachment \u2014 ROM 09 / 0110",
+        "Wiki review 2026-10-04",
+        "confidence pills",
+        "swimming",
+        "SWIM"
       ],
-      "note": "ROM model 09:0110:00, all 20 faces textured. Selected four-bit tile retains flat 1552 indices after the smaller flat 1553 load and selects bank zero of its 256-entry palette. Descriptive visual label, not a ROM-proven name. Parent placement, effective render pass, runtime colours and native appearance remain unresolved."
+      "note": "ROM model 09:0110:00, all 20 faces textured. Selected four-bit tile retains flat 1552 indices after the smaller flat 1553 load and selects bank zero of its 256-entry palette. Descriptive visual label, not a ROM-proven name. Parent placement, effective render pass, runtime colours and native appearance remain unresolved. Wiki visual review 2026-10-04. The N64 swimming montage matches the hexagonal blue/white bottle held by Conker. Existing CI4/material and neutral-pose limitations remain unchanged. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
+      "identification": {
+        "basis": "visual-reference",
+        "reference_label": "N64 wiki image and appearance comparison: Confidence pills attachment",
+        "reference_url": "https://conker.fandom.com/wiki/Confidence_Pills"
+      }
     },
     {
       "name": "scene-38-assembly-rom",
