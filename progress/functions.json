@@ -17065,6 +17065,12 @@
       "symbol": "func_1502AB04"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2536,
+        "reason": "Best2536 retained; safe64byte eight-aligned transfer and original automatic four-entry shift body recovered, frameA0 exact. Global-base CSE, saved4C vs3C, aligned30 vs34, result5C vs58 and scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -32984,6 +32990,12 @@
       "symbol": "func_151D9450"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2086,
+        "reason": "Three bounded manual candidates exhausted; best CURRENT2086 retained. Frame60/point50/active5F exact; average spill, float schedule and effect-address folding remain. SDK fabsf intrinsic audited.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -72228,6 +72240,12 @@
       "symbol": "func_15158D00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5871,
+        "reason": "Best manual candidate 5871 retained; frame48 vs50, shift masks preserve low-five-bit raw behavior, saved-register and callback scheduling differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78770,6 +78788,12 @@
       "symbol": "func_15170EC4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6028,
+        "reason": "Best6028 retained; complete96byte packet and28byte entries, frameF0 vsE8, FP spills/constant retention and mask/home/loop scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85979,6 +86003,12 @@
       "symbol": "func_151BEEE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 961,
+        "reason": "Best961 retained; frameC8 and all packet homes, first call and final copy/call tail exact. Second packet immediate ownership/store scheduling differs; three manual candidates exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

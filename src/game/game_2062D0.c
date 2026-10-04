@@ -169,6 +169,68 @@ s32 func_151D9450(s32 arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D9450 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9450.s")
+s32 func_1514672C(f32 *);
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+void func_151D9FC0(u8, f32, u8, s32, f32 *, u8, s32);
+void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+extern f32 D_800AB44C, D_800AB450, D_800AB454, D_800AB458, D_800AB45C, D_800AB460;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D9534 CURRENT (2086) */
+s32 func_151D9534(s32 arg0, s32 arg1) {
+    volatile u8 active;
+    f32 point[3];
+    f32 average;
+    f32 damping;
+    u8 *actor;
+
+    actor = (u8 *)arg0;
+    active = 1;
+    if (*(f32 *)(actor + 0x44) < *(f32 *)(arg1 + 4)) {
+        point[0] = *(f32 *)(actor + 0x40);
+        point[1] = *(f32 *)(arg1 + 4);
+        point[2] = *(f32 *)(actor + 0x48);
+        if (func_1514672C(point) == 0) return 0;
+        if (func_15046C80(point, 0, *(f32 *)(actor + 0x44), actor + 0x80) != 0) {
+            point[1] = *(f32 *)(actor + 0x80) + 2.0f;
+            if (actor[0xC1] & 2) {
+                damping = D_800AB44C;
+                average = *(f32 *)(actor + 0x3C) * D_800AB450 + point[1];
+                *(f32 *)(actor + 0x58) *= damping;
+                *(f32 *)(actor + 0x44) = average;
+                *(f32 *)(actor + 0x5C) *= D_800AB454;
+                *(f32 *)(actor + 0x60) *= damping;
+                if (fabsf(*(f32 *)(actor + 0x5C)) < D_800AB458) {
+                    *(f32 *)(actor + 0x58) = 0.0f;
+                    *(s32 *)(actor + 0x68) &= ~6;
+                    *(f32 *)(actor + 0x5C) = 0.0f;
+                    *(f32 *)(actor + 0x60) = 0.0f;
+                    *(f32 *)(actor + 0x64) = 0.0f;
+                }
+            } else {
+                active = 0;
+                average = (*(f32 *)(actor + 0x38) + *(f32 *)(actor + 0x3C)) * 0.5f;
+                arg1 = (s32)(actor + 0xA8);
+                if (actor[0x9D] == 3) {
+                    func_151D9FC0(*(u8 *)(arg1 + 0x18), *(f32 *)(arg1 + 0x14) * average,
+                        actor[0x2B], (s32)(actor + 0x84), point, actor[0xC], actor[1]);
+                } else if (func_150ADA20() & 1) {
+                    arg1 = (s32)(actor + 0xA8);
+                    func_151D9B8C(*(u8 *)(arg1 + 0x18), average * D_800AB45C * *(f32 *)(arg1 + 0x10),
+                        actor[0x2B], (s32)(actor + 0x84), point, 0x64, 0, 1, 0, actor[0xC], actor[1]);
+                } else {
+                    arg1 = (s32)(actor + 0xA8);
+                    func_151DAB58(*(u8 *)(arg1 + 0x18), average * D_800AB460 * *(f32 *)(arg1 + 0x10),
+                        actor[0x2B], point, 1, actor[0xC], actor[1]);
+                }
+            }
+        }
+    }
+    return active;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151D9534 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_2062D0/func_151D9534.s")
 typedef struct {
     u32 field_0;

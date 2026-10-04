@@ -142,7 +142,114 @@ void *func_151BEEE0(f32 arg0, Game1EC390Position *arg1, s32 arg2,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151BEEE0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BEEE0.s")
+typedef struct {
+    s32 countBase, countRange;
+    Game1EC390Position position;
+    f32 speedBase, speedRange;
+    s16 angleBase, angleRange, pitchBase, pitchRange;
+    f32 directionBase, directionRange, jitter;
+    f32 sizeBase, sizeRange, scale;
+    u8 kind, pad3D;
+    s16 lifeBase, lifeRange;
+} Game150F90Config;
+typedef struct {
+    s16 countBase, countRange;
+    u8 kind, pad5;
+    u16 texture;
+    s32 flags, zeroC;
+    s16 field10, field12;
+    s32 zero14, zero18;
+    u8 field1C, field1D, field1E, field1F, field20;
+    u8 field21, field22, field23, field24, field25;
+    s16 field26, field28, field2A;
+    f32 field2C, field30, field34;
+    Game1EC390Position position;
+    s16 angleBase, angleRange, pitchBase, pitchRange;
+    f32 field4C, field50, field54, field58;
+    s32 field5C;
+    u8 field60;
+    s8 field61;
+    u8 field62, field63, field64;
+    u8 pad65[3];
+    f32 field68;
+} GameBF0C8Burst;
+void func_15150F90(Game150F90Config *, s32, s32, s32);
+void func_15153634(GameBF0C8Burst *, s32, s32, s32);
+extern f32 D_800AA8E8, D_800AA8EC, D_800AA8F0, D_800AA8F4;
+extern f32 D_800AA8F8, D_800AA8FC, D_800AA900;
+extern f32 D_800AA904, D_800AA908, D_800AA90C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BF0C8 CURRENT (961) */
+void func_151BF0C8(f32 *arg0) {
+    Game150F90Config first;
+    GameBF0C8Burst second;
+
+    first.countBase = 24;
+    first.countRange = 10;
+    first.position = *(Game1EC390Position *)arg0;
+    first.angleBase = 0;
+    first.angleRange = 255;
+    first.pitchBase = -50;
+    first.pitchRange = 60;
+    first.directionBase = 13.0f;
+    first.directionRange = 13.0f;
+    first.kind = 3;
+    first.lifeBase = 65;
+    first.lifeRange = 30;
+    first.speedBase = D_800AA8E8;
+    first.speedRange = D_800AA8EC;
+    first.jitter = D_800AA8F0;
+    first.sizeBase = D_800AA8F4;
+    first.sizeRange = D_800AA8F8;
+    first.scale = D_800AA8FC;
+    func_15150F90(&first, 1, 255, 1);
+    second.countBase = 20;
+    second.field1E = 6;
+    second.countRange = 8;
+    second.kind = 108;
+    second.texture = 0x5103;
+    second.flags = 0x200005;
+    second.field10 = 40;
+    second.field12 = 40;
+    second.field1F = 255;
+    second.field1C = 255;
+    second.zeroC = 0;
+    second.zero14 = 0;
+    second.zero18 = 0;
+    second.field1D = 145;
+    second.field20 = 255;
+    second.field21 = 255;
+    second.field22 = 0;
+    second.field23 = 20;
+    second.field24 = 200;
+    second.field25 = 255;
+    second.field26 = 50;
+    second.field28 = 5;
+    second.field2A = 50;
+    second.field2C = D_800AA900;
+    second.field30 = 175.0f;
+    second.field34 = 160.0f;
+    second.position = *(Game1EC390Position *)arg0;
+    second.angleBase = 0;
+    second.angleRange = -51;
+    second.pitchBase = 255;
+    second.pitchRange = 80;
+    second.field5C = 0x840E07;
+    second.field60 = 16;
+    second.field61 = -1;
+    second.field62 = 8;
+    second.field63 = 6;
+    second.field64 = 1;
+    second.field4C = 4.0f;
+    second.field50 = 13.0f;
+    second.field54 = D_800AA904;
+    second.field58 = D_800AA908;
+    second.field68 = D_800AA90C;
+    func_15153634(&second, 255, 255, 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151BF0C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF0C8.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF340.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1EC390/func_151BF81C.s")
 
