@@ -2025,11 +2025,77 @@ void func_1505F188(u32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F298.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1506045C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
 typedef struct {
     u8 pad_0[0x318];
     void *field_318;
 } Game83300DispatchState;
+
+void func_1000F85C(u16, s32, s32);
+void func_1000F91C(u16, s32, s16, s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010BE8(s32, s32, s32, s32, s32, s32, s32);
+s32 func_1001147C(u16);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060778 CURRENT (2818) */
+void func_15060778(s32 arg0, Game83300DispatchState *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+    u32 handle;
+    s32 channel;
+    s32 mode;
+    u16 *slot;
+    u16 result;
+
+    handle = 0;
+    slot = 0;
+    if (arg6 & 8) {
+        channel = 0;
+    } else {
+        channel = (*(u32 *)&arg1->pad_0[0x184] >> 3) & 0x30;
+    }
+    mode = arg6 & 3;
+    switch (mode) {
+    case 1:
+        slot = (u16 *)&arg1->pad_0[0x8C];
+        handle = *(u16 *)&arg1->pad_0[0x8C];
+        break;
+    case 2:
+    case 3:
+        slot = (u16 *)&arg1->pad_0[0x8E];
+        handle = *(u16 *)&arg1->pad_0[0x8E];
+        if (mode == 2) {
+            break;
+        }
+        if ((func_1001147C((u16)handle) == arg0) & 0x7FFF) {
+            if (arg6 & 4) {
+                func_1000F91C((u16)handle, (u16)((u16)arg2 + channel * 50),
+                              (s16)(arg1->pad_0[0x13F] * 10 + arg3), channel & 0xFF, 0,
+                              (s32)*(f32 *)&arg1->pad_0[0x14],
+                              (s32)*(f32 *)&arg1->pad_0[0x18],
+                              (s32)*(f32 *)&arg1->pad_0[0x1C], arg4, arg5);
+            } else {
+                func_1000F85C((u16)handle, 0x10, arg3);
+                func_1000F85C((u16)handle, 8, (u16)arg2 + channel * 50);
+            }
+            return;
+        }
+        arg0 |= 0x8000;
+        break;
+    }
+    if (arg6 & 4) {
+        result = func_10010E78((u16)handle, arg0, (u16)((u16)arg2 + channel * 50),
+                              (s16)arg3, channel, 0,
+                              (s32)*(f32 *)&arg1->pad_0[0x14],
+                              (s32)*(f32 *)&arg1->pad_0[0x18],
+                              (s32)*(f32 *)&arg1->pad_0[0x1C], arg4, arg5);
+    } else {
+        result = func_10010BE8((u16)handle, arg0, (u16)((u16)arg2 + channel * 50),
+                              0x40, arg3, channel, 1);
+    }
+    if (slot != 0) {
+        *slot = result;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15060778 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
 
 /* Call context: func_10010344: unique active project prototype */
 s32 func_10010344(s32, s32, u32, s16, s32);

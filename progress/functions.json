@@ -10399,6 +10399,12 @@
       "symbol": "func_1506045C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2818,
+        "reason": "Best CURRENT (2818); manual budget exhausted; handle promoted to saved GPR, frame and call spill layout remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -11131,6 +11137,12 @@
       "symbol": "func_1513BAE8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 10188,
+        "reason": "Best CURRENT (10188); raw entry saves and intrinsic normalization recovered, but wrapping is sunk into inner loop, frame and FP allocation remain after three comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -48432,6 +48444,12 @@
       "symbol": "func_15164F0C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2709,
+        "reason": "Best CURRENT (2709); manual budget exhausted; float ownership, byte-input homes and stack layout remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62667,6 +62685,12 @@
       "symbol": "func_15182F58"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4870,
+        "reason": "Best CURRENT (4870); full matrix and actual coordinate snapshots recovered; FP/GPR ownership and local buffer layout remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78628,6 +78652,12 @@
       "symbol": "func_15109848"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1265,
+        "reason": "Best CURRENT (1265); frame and almost all FP/register sequence recovered, record and pointer homes remain +4 and tail scheduling differs after three comparisons.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

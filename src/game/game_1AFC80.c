@@ -156,4 +156,69 @@ f32 func_15182F58(s32 arg0, s32 arg1) {
     }
     return var_fv1;
 }
+typedef struct {
+    u8 pad00[0x10];
+    s16 x, y, z;
+    u8 pad16[0x8A];
+} Game1AFC80Placement;
+
+typedef struct {
+    s8 value;
+    u8 pad01[0x17];
+} Game1AFC80Contribution;
+
+extern Game1AFC80Contribution D_8008D066[];
+extern s32 D_800DBEF4;
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182FDC CURRENT (4870) */
+s32 func_15182FDC(void *arg0, s32 arg1, s32 arg2) {
+    f32 deltaX, deltaZ;
+    f32 localX, localY, localZ;
+    f32 matrix[4][4];
+    f32 mappedZ, mappedX;
+    u8 *bank;
+    Game362B0Preset *preset;
+    Game1AFC80Placement *placement;
+    f32 originX, originY, originZ;
+    f32 actorY;
+    s32 sample;
+    s32 contribution;
+
+    bank = &D_800DDE54[arg2];
+    if (*(f32 *)((u8 *)arg0 + 0x28) > 3.0f) {
+        return 0;
+    }
+    preset = &D_8008D050[*bank];
+    placement = (Game1AFC80Placement *)(D_800DBEF4 +
+                 ((s16 *)preset->unknown0C)[3] * 0xA0);
+    originX = (f32)placement->x;
+    originY = D_800DDE60[arg2][arg1].component2 * 0.0625f + (f32)placement->y;
+    originZ = (f32)placement->z;
+    actorY = ((Game1AFC80Actor *)arg0)->y18;
+    if (actorY < originY - 300.0f || originY + 300.0f < actorY) {
+        return 0;
+    }
+    deltaX = ((Game1AFC80Actor *)arg0)->x14 - originX;
+    deltaZ = ((Game1AFC80Actor *)arg0)->z1C - originZ;
+    func_150A8050(matrix, 0.0f, (f32)((s16 *)preset->unknown0C)[2], 0.0f);
+    func_150A7960(matrix, deltaX, 0.0f, deltaZ, &localX, &localY, &localZ);
+    mappedZ = localZ;
+    if (mappedZ > 0.0f ||
+        (preset = &D_8008D050[*bank], mappedX = localX, mappedZ < (f32)((s16 *)preset->unknown0C)[0]) ||
+        mappedX < 0.0f || (f32)((s16 *)preset->unknown0C)[1] < mappedX) {
+        return 0;
+    }
+    sample = (s32)func_15182F58((s32)mappedZ, arg2);
+    contribution = D_8008D066[*bank].value;
+    if (arg1 == sample) {
+        return contribution;
+    }
+    if (arg1 == sample + 1 || arg1 + 1 == sample) {
+        return contribution * 4 / 7;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15182FDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_15182FDC.s")
