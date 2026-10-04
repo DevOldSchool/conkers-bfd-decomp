@@ -266,6 +266,38 @@ class AudioAssetsTests(unittest.TestCase):
         self.assertEqual(2, preview.loop_markers)
         self.assertEqual(96, preview.end_tick)
 
+    def test_cseq_loop_cap_repeats_notes_without_mutating_source(self) -> None:
+        # Native offset points to the delta before the note, after loop-start.
+        prefix = bytes.fromhex("00 FF 2E 00 01")
+        body = bytes.fromhex("00 90 3C 40 10 10 FF 2D FF FF 00 00 00 0E")
+        source = preview_sequence(prefix + body + bytes.fromhex("00 FF 2F"))
+        before = bytes(source)
+        preview = audio_assets.compact_sequence_to_midi(source, loop_repeats=2)
+        self.assertEqual((preview.notes, preview.loop_jumps, preview.end_tick), (3, 2, 48))
+        self.assertEqual(source, before)
+        self.assertEqual(audio_assets.compact_sequence_to_midi(source).notes, 1)
+
+    def test_cseq_finite_loop_uses_current_count_within_cap(self) -> None:
+        source = preview_sequence(bytes.fromhex(
+            "00 FF 2E 00 01 00 90 3C 40 10 10 FF 2D 05 01 00 00 00 0E 00 FF 2F"))
+        preview = audio_assets.compact_sequence_to_midi(source, loop_repeats=8)
+        self.assertEqual((preview.notes, preview.loop_jumps), (2, 1))
+
+    def test_bounded_forever_loop_does_not_fall_through_to_unreachable_section(self) -> None:
+        source = preview_sequence(bytes.fromhex(
+            "00 FF 2E 00 01 00 90 3C 40 10 10 FF 2D FF FF 00 00 00 0E "
+            "00 FF 2D FF FF FF FF FF FF 00 FF 2F"))
+        preview = audio_assets.compact_sequence_to_midi(source, loop_repeats=1)
+        self.assertEqual((preview.notes, preview.loop_jumps, preview.loop_cutoffs), (2, 1, 1))
+
+    def test_cseq_rejects_unsafe_repeat_cap_and_loop_target(self) -> None:
+        source = preview_sequence(bytes.fromhex(
+            "00 FF 2E 00 01 00 90 3C 40 10 10 FF 2D FF FF FF FF FF FF 00 FF 2F"))
+        with self.assertRaisesRegex(ValueError, "loop jump"):
+            audio_assets.compact_sequence_to_midi(source, loop_repeats=1)
+        with self.assertRaisesRegex(ValueError, "repeat cap"):
+            audio_assets.compact_sequence_to_midi(source, loop_repeats=9)
+
     def test_cseq_preview_expands_sdk_back_references(self) -> None:
         track = bytes.fromhex(
             "00 90 3C 40 10 "

@@ -5,6 +5,7 @@ import json
 import struct
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 from scripts import audio_assets, soundtrack_preview as preview
@@ -23,6 +24,72 @@ class SoundtrackPreviewTests(unittest.TestCase):
         self.assertEqual(notes[0]["instrument"], 129)
         self.assertEqual(notes[0]["start"], 0)
         self.assertEqual(notes[0]["end"], 1.5)
+
+    def test_program_defaults_and_held_pitch_bend_use_instrument_range(self) -> None:
+        graph = {"instruments": [{}, {"volume": 60, "pan": 12, "bend_range": 1200}]}
+        notes, diagnostics = preview.schedule_notes(midi([
+            (0, b"\xc0\x01"), (0, b"\x90\x3c\x64"),
+            (240, b"\xe0\x00\x60"), (480, b"\x80\x3c\x00")]), 2, graph)
+        self.assertEqual((notes[0]["volume"], notes[0]["pan"]), (60, 12))
+        self.assertEqual(notes[0]["controls"], [{"time": 0.25, "bend": 600}])
+        self.assertEqual(diagnostics["held_voice_updates"], 1)
+
+    def test_program_selection_does_not_change_held_voice_gain(self) -> None:
+        graph = {"instruments": [{}, {"volume": 60, "pan": 12}, {"volume": 90, "pan": 90}]}
+        notes, _ = preview.schedule_notes(midi([
+            (0, b"\xc0\x01"), (0, b"\x90\x3c\x64"), (120, b"\xc0\x02"),
+            (240, b"\x90\x3d\x64"), (480, b"\x80\x3c\x00"),
+            (480, b"\x80\x3d\x00")]), 3, graph)
+        self.assertEqual([(n["instrument"], n["volume"], n["pan"]) for n in notes],
+                         [(1, 60, 12), (2, 90, 90)])
+        self.assertEqual(notes[0]["controls"], [])
+
+    def test_sustain_defers_note_off_and_volume_changes_reach_held_voice(self) -> None:
+        notes, diagnostics = preview.schedule_notes(midi([
+            (0, b"\xb0\x40\x7f"), (0, b"\x90\x3c\x64"),
+            (240, b"\x80\x3c\x00"), (360, b"\xb0\x07\x20"),
+            (480, b"\xb0\x40\x00")]), 2)
+        self.assertEqual(notes[0]["end"], 0.5)
+        self.assertTrue(notes[0]["sustain_release"])
+        self.assertEqual(notes[0]["controls"], [{"time": 0.375, "volume": 32}])
+        self.assertEqual(diagnostics["sustain_releases"], 1)
+        self.assertEqual(diagnostics["sustained_voices_cut_at_end"], 0)
+
+    def test_pressure_targets_first_matching_key_and_channel_voices(self) -> None:
+        notes, _ = preview.schedule_notes(midi([
+            (0, b"\x90\x3c\x64"), (0, b"\x90\x3d\x64"),
+            (120, b"\xa0\x3c\x28"), (240, b"\xd0\x50"),
+            (480, b"\x80\x3c\x00"), (480, b"\x80\x3d\x00")]), 2)
+        self.assertEqual([c["velocity"] for c in notes[0]["controls"]], [40, 80])
+        self.assertEqual([c["velocity"] for c in notes[1]["controls"]], [80])
+
+    def test_stream_major_is_global_and_tempo_controls_trigger_time(self) -> None:
+        _, diagnostics = preview.schedule_notes(midi([
+            (0, b"\xb1\x1b\x02"), (480, b"\xff\x51\x03\x0f\x42\x40"),
+            (960, b"\xbc\x1a\x27")]), 2)
+        self.assertEqual(diagnostics["stream_triggers"],
+                         [{"index": 239, "seconds": 1.5, "tick": 960, "channel": 12}])
+
+    def test_release_interrupts_attack_from_current_gain(self) -> None:
+        import numpy as np
+        note = {"start": 0, "end": 0.5, "volume": 127, "pan": 0,
+                "velocity": 127, "controls": []}
+        env = {"attack_time_us": 1000000, "decay_time_us": 0,
+               "attack_volume": 127, "decay_volume": 0}
+        gain = preview.voice_gain_curve(note, {"pan": 64, "volume": 127}, env,
+                                        np.array([0.25, 0.5, 0.75, 1.0]), 0.5)
+        np.testing.assert_allclose(gain[:, 0], [0.25, 0.5, 0.25, 0.0])
+        np.testing.assert_allclose(gain[:, 1], 0)
+
+    def test_controller_interrupt_preserves_envelope_endpoint(self) -> None:
+        import numpy as np
+        note = {"start": 0, "end": 2, "volume": 127, "pan": 0, "velocity": 127,
+                "controls": [{"time": 0.5, "volume": 0}]}
+        env = {"attack_time_us": 1000000, "decay_time_us": 0,
+               "attack_volume": 127, "decay_volume": 127}
+        gain = preview.voice_gain_curve(note, {"pan": 64, "volume": 127}, env,
+                                        np.array([0.25, 0.5, 0.75, 1.0]), 0.01)
+        np.testing.assert_allclose(gain[:, 0], [0.25, 0.5, 0.25, 0.0])
 
     def test_invalid_program_retains_previous_instrument(self) -> None:
         notes, _ = preview.schedule_notes(midi([(0, b"\xc0\x02"), (0, b"\xc0\x7f"),
@@ -52,6 +119,57 @@ class SoundtrackPreviewTests(unittest.TestCase):
         self.assertIsNone(preview.lookup_sound(graph, 0, 60, 100))
         self.assertEqual(preview.lookup_sound(graph, 1, 61, 100), graph["sounds"][2])
         self.assertIsNone(preview.lookup_sound(graph, 1, 60, 0))
+
+    def test_stream_cues_replace_previous_stream_at_exact_frame(self) -> None:
+        import numpy as np
+        pcm = np.zeros((8, 2), dtype="<i2").tobytes()
+        cues = [{"index": 239, "seconds": 0.2}, {"index": 240, "seconds": 0.5}]
+        payload, diagnostics = preview.mix_stream_cues(pcm, 10, cues, {
+            239: (np.full((6, 1), 0.25), 10), 240: (np.full((2, 2), -0.25), 10)})
+        result = np.frombuffer(payload, dtype="<i2").reshape(-1, 2)
+        np.testing.assert_array_equal(result[:, 0], [0, 0, 8191, 8191, 8191, -8191, -8191, 0])
+        np.testing.assert_array_equal(result[:, 0], result[:, 1])
+        self.assertEqual(diagnostics["stream_triggers"], cues)
+
+    def test_stream_cue_assembly_rejects_missing_resource_rate_or_order(self) -> None:
+        import numpy as np
+        pcm = np.zeros((8, 2), dtype="<i2").tobytes()
+        cues = [{"index": 239, "seconds": 0.2}]
+        with self.assertRaisesRegex(ValueError, "missing cue"):
+            preview.mix_stream_cues(pcm, 10, cues, {})
+        with self.assertRaisesRegex(ValueError, "sample rates"):
+            preview.mix_stream_cues(pcm, 10, cues, {239: (np.zeros((2, 2)), 11)})
+        with self.assertRaisesRegex(ValueError, "chronological"):
+            preview.mix_stream_cues(pcm, 10, cues + [{"index": 239, "seconds": 0.1}],
+                                    {239: (np.zeros((2, 2)), 10)})
+
+    def test_reused_preview_shares_checked_sources_and_preserves_original(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp); source = root / "input"; source.mkdir()
+            (root / "config").mkdir()
+            (root / "config/soundtrack-reference.json").write_text(json.dumps({"albums": [], "comparisons": []}))
+            cseq = struct.pack(">17I", 68, *([0] * 15), 480) + b"\x00\xff\x2f"
+            digest = hashlib.sha1(cseq).hexdigest(); (source / "0000.cseq").write_bytes(cseq)
+            (source / "manifest.json").write_text(json.dumps({"family": "non-mp3-audio", "profile": "us",
+                "normalized_sha1": "rom", "sequence_bank": {"sequences": [{"index": 0, "file": "0000.cseq", "decoded_sha1": digest}]}}))
+            (source / "sound-bank-graph.json").write_text(json.dumps({"family": "conker-b1-sound-bank-graph",
+                "bank": {"sample_rate": 22050}, "instruments": [{}, {}], "samples": []}))
+            labels = root / "labels.json"; labels.write_text(json.dumps({"family": "conker-us-music-sequence-labels",
+                "profile": "us", "notice": "fixture", "sequences": [{"index": 0, "name": None, "confidence": "unidentified"}]}))
+            baseline, target = root / "baseline", root / "updated"
+            with patch.object(preview, "ROOT", root), patch.object(preview, "write_preview_page"):
+                preview.build_soundtrack_preview(source, baseline, labels)
+                before = {p.relative_to(baseline): p.read_bytes() for p in baseline.rglob('*') if p.is_file()}
+                manifest = preview.build_soundtrack_preview(source, target, labels, reuse_preview=baseline)
+                self.assertEqual(manifest["sequences"][0]["midi_file"], "../baseline/midi/0000.mid")
+                self.assertFalse((target / "samples").exists())
+                self.assertEqual(list((target / "sequences").iterdir()), [])
+                self.assertEqual(before, {p.relative_to(baseline): p.read_bytes() for p in baseline.rglob('*') if p.is_file()})
+                saved = json.loads((baseline / "manifest.json").read_text()); saved["normalized_rom_sha1"] = "other"
+                (baseline / "manifest.json").write_text(json.dumps(saved))
+                with self.assertRaisesRegex(ValueError, "same ROM"):
+                    preview.build_soundtrack_preview(source, root / "wrong", labels, reuse_preview=baseline)
+                self.assertFalse((root / "wrong").exists())
 
     def test_hash_and_path_validation(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
@@ -111,12 +229,13 @@ class SoundtrackPreviewTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             manifest = {"name": "</script><script>bad()</script>"}
-            preview.write_preview_page(root, manifest, {"samples": []})
+            preview.write_preview_page(root, manifest, {"samples": [], "base_path": "../baseline/samples/"})
             page = (root / "index.html").read_text()
             self.assertNotIn("{{PREVIEW_DATA}}", page)
             self.assertNotIn(manifest["name"], page)
             payload = page.split('<script id="preview-data" type="application/json">')[1].split('</script>')[0]
             self.assertEqual(json.loads(payload)["manifest"], manifest)
+            self.assertEqual(json.loads(payload)["samples"]["base_path"], "../baseline/samples/")
             self.assertTrue((root / "preview-common.css").is_file())
 
     def test_album_titles_preserve_aliases_and_separate_match_confidence(self) -> None:

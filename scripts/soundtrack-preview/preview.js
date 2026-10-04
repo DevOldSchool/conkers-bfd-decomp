@@ -59,10 +59,10 @@ function selectTrack(track) {
   $('identity').textContent = `SEQUENCE ${pad(track.index)} / BANK 0x17 · ENTRY 3`;
   $('title').textContent = drafts[track.index]?.name || trackName(track);
   $('album-name').textContent = track.album_title ? `${track.album_variant} · Album match: ${track.album_match_confidence}. Contributor alias: ${track.name || 'Unidentified'}. ${track.album_match_note}` : '';
-  $('details').textContent = `${confidenceLabel(track.confidence)} · ${track.category || 'Unassigned'} · ${duration(track.duration_seconds)} · ${track.mapped_notes}/${track.note_count} notes mapped · ${track.loop_markers} sequence loop markers (not expanded)`;
+  $('details').textContent = `${confidenceLabel(track.confidence)} · ${track.category || 'Unassigned'} · ${duration(track.duration_seconds)} · ${track.mapped_notes}/${track.note_count} notes mapped · ${track.loop_markers} sequence loop markers · ${track.loop_jumps || 0} bounded loop jumps`;
   $('note').textContent = track.note || 'No contributor listening note.';
   $('downloads').replaceChildren();
-  for (const [title, url] of [['WAV', track.file], ['MIDI', `midi/${pad(track.index)}.mid`], ['CSeq source', `sequences/${pad(track.index)}.cseq`]]) {
+  for (const [title, url] of [['WAV', track.file], ['MIDI', track.midi_file || `midi/${pad(track.index)}.mid`], ['CSeq source', track.source_file || `sequences/${pad(track.index)}.cseq`]]) {
     const link = safeLink(url, title);
     link.download = '';
     $('downloads').append(link, '  ');
@@ -139,7 +139,7 @@ $('sample-play').addEventListener('click', async () => {
     const sample = sampleManifest.samples.find((item) => item.index === index);
     if (!Number.isInteger(index) || !sample) throw new Error('Choose a valid sample ID.');
     $('player').pause();
-    $('sample-player').src = `samples/${sample.file}`;
+    $('sample-player').src = `${sampleManifest.base_path || "samples/"}${sample.file}`;
     $('sample-details').textContent = `Sample ${pad(index)} · ${sample.duration_seconds.toFixed(3)} seconds · ${sample.sample_rate} Hz mono · ${sample.loop ? 'Loop metadata retained; WAV plays once' : 'No sample loop'}`;
   } catch (error) { message(error.message); }
 });
@@ -228,6 +228,17 @@ async function initialize() {
     $('music-streams').append(section);
   }
   if (!(manifest.music_streams || []).length) $('music-streams').textContent = 'No MP3 candidates included. Build with --mp3-input to include nominated streams from the same ROM.';
+  for (const experiment of manifest.experiments || []) {
+    const section = document.createElement('section');
+    const title = document.createElement('h3'); title.textContent = `Sequence ${pad(experiment.sequence_index)} · ${experiment.title}`;
+    const note = document.createElement('p'); note.textContent = experiment.note;
+    const audio = document.createElement('audio'); audio.controls = true; audio.preload = 'none'; audio.src = experiment.file;
+    audio.setAttribute('aria-label', `Sequence ${pad(experiment.sequence_index)} ${experiment.title}`);
+    audio.addEventListener('play', () => { for (const other of document.querySelectorAll('audio')) if (other !== audio) other.pause(); });
+    for (const other of document.querySelectorAll('audio')) other.addEventListener('play', () => audio.pause());
+    section.append(title, note, audio); $('experiments').append(section);
+  }
+  $('experiment-section').hidden = !(manifest.experiments || []).length;
   renderTracks();
   const requested = Number(new URLSearchParams(location.search).get('sequence') || 1);
   selectTrack(manifest.sequences.find((t) => t.index === requested) || manifest.sequences[0]);

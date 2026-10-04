@@ -44,6 +44,26 @@ Rendering publishes a complete directory only after success and verifies the
 extracted CSeq and sample hashes. Included MP3s must match the same ROM hash.
 Reference recordings used for comparison are not copied into the listening desk.
 
+A fresh fidelity preview can share checked, unchanged files from the original
+self-contained preview instead of copying samples, MIDI, CSeq and MP3 audio again:
+
+```sh
+./conker audio-assets soundtrack-preview \
+  --mp3-input build/assets/mp3/us \
+  --reuse-preview build/assets/soundtracks/us-albums \
+  --stream-cues --loop-variant 34 \
+  --output build/assets/soundtracks/us-fidelity
+```
+
+Open `build/assets/soundtracks/us-fidelity/index.html?sequence=66`.
+Keep the two sibling directories together; shared links are ordinary relative
+paths, with no metadata fetch or server requirement. Reuse verifies ROM/source,
+MP3, sample WAV and bank graph hashes. The old preview and drafts stay intact.
+For HTTP validation serve `build/assets/soundtracks` on loopback and visit
+`http://127.0.0.1:8797/us-fidelity/index.html?sequence=66`.
+The local fidelity build has 149 renders, 11 separate MP3 players and two alternate
+experiments (timed streams for `0066`, bounded loops for `0034`).
+
 Naming drafts use browser storage when available, keyed by ROM hash and numeric ID.
 Direct-file storage varies by browser and file location; a persistent notice warns
 when storage fails. Drafts then remain only in the open page. Prepare and copy JSON
@@ -65,15 +85,32 @@ volume and pan. It attenuates peaks to prevent clipping without amplifying quiet
 material. Source hashes, loop markers, mapping counts, sample IDs, PCM rate,
 duration, attenuation and WAV hashes are retained in the preview manifest.
 
-These are listening approximations. CSeq loops are not expanded. All tracks
-sound together, without runtime channel mutes, fades or sequence-volume changes.
-Native effects, filters, vibrato and tremolo are absent. Volume, pan and pitch
-bend are captured at note-on; changes to held notes, sustain, runtime channel
-envelope overrides and finite sample-loop counts are not reproduced. The
-renderer is neither native N64 playback nor the album recording. MP3 candidates
-play the exact MPEG frames without synthesis or loop expansion. Browser MP3s omit
-native post-frame `L:` callbacks and trailing metadata; byte-identical original
-streams remain separately under `music-streams/sources/` with source hashes.
+The controller/envelope renderer loads instrument volume, pan and bend range
+on program selection, applies held-note volume/pan/bend/pressure, defers sustained
+note release and interrupts envelopes from their current gain. Ordinary note-off
+uses the bank release time; only sustain release has the native 16 ms minimum.
+Pitch increments use the native ratio ceiling and 1/32768 quantization.
+See [the renderer audit](evidence/us_soundtrack_renderer_fidelity.md) for source
+anchors, comparisons and remaining limits.
+
+The default keeps the original one-pass arrangement. `--loop-repeats 1` follows
+native backwards offsets with an explicit per-loop jump cap, then stops at the
+cap; it does not invent a transition into later marker sections. Alternatively,
+`--loop-variant 34` adds a separate bounded loop player while preserving normal
+naming renders. All tracks sound together without game channel masks, fades,
+sequence-volume control or voice stealing. RSP resampling/frame rounding, native
+filters, effect buses and runtime envelope/oscillator overrides remain approximate
+or absent. The reviewed bank has no nonzero oscillator types and all 491 sample
+loops are infinite; no finite sample-loop behaviour is claimed. MP3 candidates
+play exact MPEG frames. Browser MP3s omit native post-frame `L:` callbacks and
+trailing metadata; original streams keep their source hashes.
+
+`--stream-cues` adds a separately labelled Sloprano experiment using the five
+resource commands present in sequence `0066`, alongside its instrumental render.
+It requires the optional `soundfile` dependency. Cue times/resource IDs are grounded
+in CSeq commands; native gain, decoder delay, crossfades and callbacks remain
+unverified. Streams `0271` and `0272` are available as comparison candidates but
+are not included in this command-driven assembly.
 
 The reviewed local render contains 149 sequence WAVs, 147 with nonzero PCM.
 `0000` has no notes; `0008` has one mapped note but its bank sound volume is zero.
@@ -169,8 +206,9 @@ draft persistence were checked over localhost. The generated page has no metadat
 fetch or HTTP-only resource links. Direct `file://` browser automation was blocked
 by its protocol policy, so direct-file playback and persistence remain unverified
 in that browser. The static server is temporary and is not required by the page. Export JSON was checked
-without requiring a completed browser download. All 149 render hashes also
-matched a repeat generation.
+without requiring a completed browser download. The initial 149 render hashes also
+matched a repeat generation. Later renderer evidence is versioned separately;
+original album-comparison render hashes are retained as historical evidence.
 No function-matching or full-ROM code build is required for this tooling change.
 
 ## Shared preview styling
