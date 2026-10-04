@@ -72986,8 +72986,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2235,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (2235)",
+        "current_score": 1010,
+        "reason": "Best valid CURRENT1010 versus fresh2480 invalid baseline: restored single D_800AA8A4 snapshot before later stores and reused state cursor. Call-free sum reversal neutral1010; simpler valid snapshot retained. Initial cursor folding/branch delay, FP ring allocation and scaleF2 versus rawF14 remain; two revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73023,8 +73023,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2322,
-        "reason": "Recovered one-argument destroy callback contract and the 0xB0 update paths; remaining mismatch is IDO branch/register scheduling after the first manual candidate.",
+        "current_score": 275,
+        "reason": "Best valid CURRENT275 from2322: byte selector, common interior pointer, explicit else and named zero-arm event word restore all registers. Symmetric comparison reversal/second-arm return neutral275; simpler best restored. Remaining BNEL operand order and final SB/B/LWra exit scheduling; two revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
