@@ -39177,6 +39177,12 @@
       "symbol": "func_1502178C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3750,
+        "reason": "Best 3750 after three bounded candidates; frame/prologue exact, but equality loop test, table-offset reuse and scratch-register scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -50897,6 +50903,12 @@
       "symbol": "func_15185F24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5197,
+        "reason": "Best 5197; three bounded candidates exhausted. Frame378 versus370, work homes, count stores, final-argument hoisting and decoder register scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52143,6 +52155,12 @@
       "symbol": "func_15150D1C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1579,
+        "reason": "Best 1579 after three bounded candidates; real vectors preserve raw relative spacing, but frameE0 versusC8, parameter masking/homes and FP sample registers remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59547,11 +59565,15 @@
       "symbol": "func_1517685C"
     },
     {
+      "blocked": {
+        "reason": "Raw caller passes full 32-bit truncated coordinates to func_150AD960, whose project prototype narrows the first two arguments to s16. Handwritten callee subtracts the full words without narrowing; matching requires a reviewed shared ABI correction.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 620,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15176B84",
           "vram": "0x15176B84"
         }
@@ -86419,6 +86441,12 @@
       "symbol": "func_15120158"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1407,
+        "reason": "Best 1407; three bounded candidates exhausted. Frame60 versus58, vector homes, early saved-pointer ownership and FP scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

@@ -328,6 +328,68 @@ void func_1514FF44(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150400.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1515080C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150D1C.s")
+typedef struct {
+    s32 countBase, countRange;
+    f32 position[3];
+    f32 speedBase, speedRange;
+    s16 angleBase, angleRange, pitchBase, pitchRange;
+    f32 directionBase, directionRange, jitter;
+    f32 sizeBase, sizeRange, scale;
+    u8 kind, pad3D;
+    s16 lifeBase, lifeRange;
+} Game150F90Config;
+
+void func_15143794(s16, s16, f32, void *);
+void *func_1518A3C0(void *, f32 *, f32, f32 *, f32 *, f32, f32,
+                    s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15150F90 CURRENT (1579) */
+void func_15150F90(Game150F90Config *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    f32 jitter[3];
+    f32 randomSize;
+    f32 randomSpeed;
+    f32 angles[3];
+    f32 direction[3];
+    f32 width;
+    s32 count;
+    u32 randomAngle;
+    u32 randomPitch;
+    u8 first;
+    u8 second;
+
+    first = arg1;
+    second = arg2;
+    width = arg0->jitter + arg0->jitter;
+    jitter[1] = 0.0f;
+    count = (func_150ADA20() % (u32)(arg0->countRange + 1)) + arg0->countBase;
+    if (count != 0) {
+        do {
+            angles[0] = func_150ADA68() * 360.0f;
+            angles[1] = func_150ADA68() * 360.0f;
+            angles[2] = func_150ADA68() * 360.0f;
+            randomAngle = func_150ADA20();
+            randomPitch = func_150ADA20();
+            func_15143794(
+                (s16)((randomAngle % (u32)(arg0->angleRange + 1)) + arg0->angleBase),
+                (s16)((randomPitch % (u32)(arg0->pitchRange + 1)) + arg0->pitchBase),
+                func_150ADA68() * arg0->directionRange + arg0->directionBase,
+                direction);
+            jitter[0] = func_150ADA68() * width - arg0->jitter;
+            jitter[2] = func_150ADA68() * width - arg0->jitter;
+            randomSpeed = func_150ADA68();
+            randomSize = func_150ADA68();
+            func_1518A3C0(arg0->position, angles,
+                randomSpeed * arg0->speedRange + arg0->speedBase,
+                direction, jitter,
+                randomSize * arg0->sizeRange + arg0->sizeBase,
+                arg0->scale, arg0->kind,
+                (func_150ADA20() % (u32)(arg0->lifeRange + 1)) + arg0->lifeBase,
+                first, 0, second, arg3);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15150F90 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150F90.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151511FC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15151670.s")

@@ -986,6 +986,94 @@ void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15020878.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15020EC4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_1502178C.s")
+typedef struct {
+    u16 kind;
+    u8 actor, pad3[2];
+    s8 index;
+    s16 height;
+} Game49D30Selection;
+
+extern u8 D_800C35EA[];
+extern void *D_800C35F0[];
+extern u8 *D_800C3958[];
+extern f32 D_80096A10;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15021DB8 CURRENT (3750) */
+s32 func_15021DB8(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3, s32 arg4, s32 arg5) {
+    s32 count;
+    s32 index;
+    u16 *enabled;
+    Game49D30Selection *row;
+    Game49D30Selection *selection;
+    u8 *choices;
+    u8 **matrices;
+    s32 tableOffset;
+    s32 wordOffset;
+    s32 matrixOffset;
+    u8 choice;
+    u8 *camera;
+    f32 sentinel;
+
+    if (D_800C35EA[arg5] != 1) {
+        return 0;
+    }
+    count = D_800C363A[arg5];
+    index = 0;
+    if ((s32)count > 0) {
+        enabled = D_800C35C8[arg5];
+scan:
+            if (*enabled != 0) {
+                row = (Game49D30Selection *)((u8 *)D_800C35F0[arg5] + index * 8);
+                if (row->kind == 2 &&
+                    *((u8 *)&D_800CC2D0 + arg4 * 0x32C + 0x3B) == row->actor) {
+                    wordOffset = index * 4;
+                    tableOffset = arg5 * 0x78;
+                    choices = *(u8 **)((u8 *)D_800C3960 + tableOffset + wordOffset);
+                    choice = choices[2];
+                    if (choice != 0xFF) {
+                        selection = (Game49D30Selection *)(*(u8 **)(D_800C3688 + tableOffset + wordOffset) + choice * 8);
+                        matrices = &D_800C3958[arg5];
+                        matrixOffset = selection->index * 0x44;
+                        arg3[0] = *(f32 *)(*matrices + matrixOffset);
+                        arg3[1] = *(f32 *)(*matrices + matrixOffset + 4) + (f32)selection->height;
+                        arg3[2] = *(f32 *)(*matrices + matrixOffset + 8);
+                        return 0;
+                    }
+                    choice = choices[1];
+                    if (choice != 0xFF) {
+                        selection = (Game49D30Selection *)(*(u8 **)(D_800C3688 + arg5 * 0x78 + wordOffset) + choice * 8);
+                        if (selection->index == 0) {
+                            matrices = &D_800C3958[arg5];
+                            matrixOffset = index * 0x44;
+                            *arg0 = *(f32 *)(*matrices + matrixOffset + 0x28);
+                            *arg1 = *(f32 *)(*matrices + matrixOffset + 0x24);
+                            *arg2 = *(f32 *)(*matrices + matrixOffset + 0x2C);
+                            return 1;
+                        }
+                        camera = D_800DBFF0;
+                        arg3[0] = *(f32 *)(camera + 0x2F8);
+                        arg3[1] = *(f32 *)(camera + 0x2FC) + (f32)selection->height;
+                        arg3[2] = *(f32 *)(camera + 0x300);
+                        return 0;
+                    }
+                    sentinel = D_80096A10;
+                    arg3[0] = sentinel;
+                    arg3[1] = sentinel;
+                    arg3[2] = sentinel;
+                    return 0;
+                }
+            }
+            index++;
+            enabled++;
+            if (index >= (s32)count) {
+                goto done;
+            }
+            goto scan;
+    }
+done:
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15021DB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_49D30/func_15021DB8.s")
 extern void *D_800C35C8[];
 extern u8 *D_800C3958[];
