@@ -249,3 +249,26 @@ byte, but survival and the input attempts did not verify later boss/song phases.
 ROM guard, measurements and scope. Earlier previews, unmodified captures and
 normal emulator settings are preserved. No additional cheat or installed
 software is part of this experiment.
+
+The later saved-state checkpoint is `build/assets/soundtracks/us-phase-review/index.html`.
+It adds eight short game mixes and one separately labelled measured MP3 clock/level
+experiment, preserving the prior previews and confidence metadata. Save hit 8
+was paused and resumed with one ordinary Start press. There is no exact hit-6
+save. New captures have cheats disabled; earlier health-enabled recordings keep
+their explicit labels. See the [phase evidence](evidence/us_soundtrack_renderer_fidelity.md#later-saved-state-excerpts-and-measured-stream-experiment)
+for cue coverage, measured onset/clock qualifications and remaining limitations.
+
+To reproduce just the separate experiment from matching existing local assets:
+
+```sh
+python3 -m scripts.soundtrack_stream_experiment \
+  --preview build/assets/soundtracks/us-health-review \
+  --profile config/soundtrack-sloprano-stream-experiment.json \
+  --output build/fidelity/new-stream-experiment.wav
+```
+
+This requires NumPy, SciPy and soundfile. It refuses an existing output and
+checks ROM, sequence, instrumental, cue timing and stream hashes. The native
+review builder also accepts `kind: calibrated-stream-experiment` for an explicitly
+qualified separate WAV. MP3 clock correction applies only to MP3 clips; it does
+not stretch the instrumental sequence or establish full runtime arrangements.

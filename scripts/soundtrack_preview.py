@@ -349,31 +349,57 @@ def render_sequence(midi: bytes, graph: dict, samples: dict, rate: int) -> tuple
 
 
 
-def mix_stream_cues(pcm: bytes, rate: int, cues: list[dict], streams: dict) -> tuple[bytes, dict]:
+def mix_stream_cues(pcm: bytes, rate: int, cues: list[dict], streams: dict,
+                    *, settings: dict[int, dict] | None = None) -> tuple[bytes, dict]:
     """Experimental one-player assembly from exact CC27/26 resource commands.
 
-    Streams replace the preceding stream at each command. Equal sample rates
-    are required: no guessed decoder delay, crossfade or gain correction.
+    Defaults replace streams at command time with equal sample rates. Explicit
+    measured settings affect only MP3 clock, gain and onset; the instrumental
+    timeline stays unchanged. These remain qualified listening experiments.
     """
     import numpy as np
 
     music = np.frombuffer(pcm, dtype="<i2").reshape(-1, 2).astype(np.float32) / 32768
     clips = []
     frames = len(music)
+    starts = []
+    for cue in cues:
+        if settings is not None and (cue["index"] not in settings or
+                not {"playback_rate", "gain", "delay_seconds"} <= settings[cue["index"]].keys()):
+            raise ValueError("missing measured stream setting")
+        setting = settings[cue["index"]] if settings is not None else {}
+        delay = setting.get("delay_seconds", 0)
+        gain = setting.get("gain", 1)
+        clock = setting.get("playback_rate", rate)
+        if (not math.isfinite(delay) or not 0 <= delay <= 0.5 or
+                not math.isfinite(gain) or not 0 <= gain <= 1 or
+                (settings is not None and (not isinstance(clock, int) or not 4000 <= clock <= 192000))):
+            raise ValueError("invalid measured stream setting")
+        if not math.isfinite(cue["seconds"]) or cue["seconds"] < 0:
+            raise ValueError("invalid cue time")
+        if starts and cue["seconds"] < cues[len(starts) - 1]["seconds"]:
+            raise ValueError("cue commands are not chronological")
+        start = round((cue["seconds"] + delay) * rate)
+        if starts and start < starts[-1]:
+            raise ValueError("delayed cue onsets are not chronological")
+        starts.append(start)
     for order, cue in enumerate(cues):
         if cue["index"] not in streams:
             raise ValueError(f"missing cue stream {cue['index']:04d}")
         clip, sample_rate = streams[cue["index"]]
         if sample_rate != rate or clip.ndim != 2 or clip.shape[1] not in (1, 2):
             raise ValueError("cue streams require matching sample rates and mono/stereo PCM")
-        if not math.isfinite(cue["seconds"]) or cue["seconds"] < 0:
-            raise ValueError("invalid cue time")
-        start = round(cue["seconds"] * rate)
+        if not np.all(np.isfinite(clip)):
+            raise ValueError("non-finite stream PCM")
+        if settings is not None:
+            from scipy.signal import resample_poly
+            setting = settings[cue["index"]]
+            clock = setting["playback_rate"]
+            divisor = math.gcd(rate, clock)
+            clip = resample_poly(clip, rate // divisor, clock // divisor, axis=0) * setting["gain"]
+        start = starts[order]
         if order + 1 < len(cues):
-            stop = round(cues[order + 1]["seconds"] * rate)
-            if stop < start:
-                raise ValueError("cue commands are not chronological")
-            clip = clip[:stop - start]
+            clip = clip[:starts[order + 1] - start]
         if start + len(clip) > rate * 900:
             raise ValueError("cue assembly exceeds the 15-minute safety limit")
         if clip.shape[1] == 1:
@@ -388,7 +414,8 @@ def mix_stream_cues(pcm: bytes, rate: int, cues: list[dict], streams: dict) -> t
     scale = min(1.0, 0.9 / peak) if peak else 1.0
     payload = (np.clip(mix * scale, -1, 1) * 32767).astype("<i2").tobytes()
     return payload, {"stream_triggers": cues, "duration_seconds": frames / rate,
-                     "peak_before_attenuation": peak, "attenuation": scale}
+                     "peak_before_attenuation": peak, "attenuation": scale,
+                     "stream_settings": settings, "onset_frames": starts}
 
 def standard_mp3_frames(data: bytes) -> bytes:
     """Retain exact MPEG frames, omitting runtime L: callbacks and trailing data."""

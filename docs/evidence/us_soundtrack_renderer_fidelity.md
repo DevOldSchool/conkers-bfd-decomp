@@ -228,3 +228,70 @@ validation confirms the three added players ready and advancing, mutual pause,
 no console errors or horizontal overflow, and dialog-free JSON preparation.
 The temporary loopback server is stopped; direct-file browser testing retains
 the protocol-policy limitation already described above.
+
+## Later saved-state excerpts and measured stream experiment
+
+[Phase audit](../../config/soundtrack-sloprano-phase-audit.json) records eight
+copied compatible saves: numbered labels 1–5, 7 and 8, plus a separate “first hit”.
+No exact hit-6 save was found. Names and timestamps do not establish chronological
+phase counters. All eight loaded with the existing isolated core; private copies
+were captured for approximately 37–42 seconds each. Original saves and ROM hashes
+remain unchanged. Capture cheats were disabled, though source-save history is
+unknown. Earlier health-enabled recordings retain their explicit cheat labels.
+
+The hit-8 save initially opens on a pause menu. A private controller plugin sends
+one ordinary Start pulse at polls 120–125, then releases it. Screenshots confirm
+resume and the boss collapse/ending scene. It uses the documented input API,
+with no game-memory writes or additional cheat. The paused diagnostic capture
+stays outside the listening preview.
+
+The read-only MP3 request observer plus waveform alignment provides these new
+measurements. Times are captured-audio seconds; six-second excerpts are used
+except 0272, whose available source lasts about 3.32 seconds. Scores are exploratory
+waveform correlations in mixed game audio, not calibrated identity probabilities.
+
+| MP3 ID | Capture label | Request | Aligned onset | Nominal 22,050 Hz score | Observed 22,018 Hz score | Projection gain |
+| --- | --- | ---: | ---: | ---: | ---: | ---: |
+| 0240 | first hit | 3.933 | 4.027 | 0.162 | 0.825 | 0.473 |
+| 0241 | first hit | 13.903 | 14.005 | 0.137 | 0.723 | 0.446 |
+| 0242 | hit 3 | 5.798 | 5.899 | 0.117 | 0.886 | 0.468 |
+| 0238 | hit 7 | 3.359 | 3.459 | 0.057 | 0.980 | 0.470 |
+| 0271 | hit 8, resumed | 4.437 | 4.562 | 0.096 | 0.763 | 0.460 |
+| 0272 | hit 8, resumed | 29.458 | 29.582 | 0.156 | 0.939 | 0.470 |
+
+Hit 1 independently reproduces 0240/0241 with approximately 97/99 ms onset
+lags and similar projections. Combined with the earlier 0239 result, seven
+resource IDs now have bounded native excerpt evidence. IDs 0237 and 0432 remain
+unclassified; initial values may be retained and are not proof of playback.
+The other saves provide game mixes and scene views, not eight distinct verified
+musical sections or a continuous successful boss playthrough.
+
+The [explicit experiment profile](../../config/soundtrack-sloprano-stream-experiment.json)
+uses the observed 22,018 Hz MP3 clock, common approximate gain 0.47 and 100 ms
+onset delay for the five exact CSeq 0066 cues. A common gain avoids mistaking
+background-biased per-excerpt projections for different decoder volumes:
+`__n_cspMP3Trigger` requests the same `0x7fff` volume and `0x40` pan. Ending
+streams 0271/0272 have approximately 124 ms onset lags and no trigger commands
+in the linear CSeq; they remain in the native game mix rather than being spliced
+into an assumed arrangement.
+
+The new renderer resamples only MP3 clips at their explicitly measured clock.
+It preserves the instrumental timeline and applies replacement at delayed cue
+onsets. ROM, sequence, instrumental, cue-timing and both stream-source hashes
+must match the profile. Existing outputs are refused. Default renders and prior
+assemblies remain unchanged. The new assembly needs no additional global peak
+attenuation, but its instrumental synthesis, level, channel/marker arrangement,
+callbacks, filters and wet buses remain approximate. No label confidence or
+album identity is promoted by these measurements.
+
+The fresh private `us-phase-review/index.html` shares the existing 149 sequences,
+2,258 samples and 11 MP3 candidates, and adds eight game mixes plus the separate
+experiment. Its comparison section now has 15 native/cue/experiment players.
+All 73 Python tests pass, including measured clock, gain, delay, replacement,
+source/cue guards and output preservation. The private Start plugin compiles
+with `-Wall -Wextra -Werror`. Static checks resolve all 2,744 assets and check
+available hashes. All nine new players load, advance and mutually pause in the
+local browser, without console errors or horizontal overflow; preparing naming
+JSON does not open a Save dialog. The loopback-only server and validation tab
+are closed. Actual `file://` playback remains unverified under browser protocol
+policy; direct-file assets and embedded metadata are checked.

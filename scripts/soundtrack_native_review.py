@@ -82,7 +82,7 @@ def build_native_review(preview: Path, specification: Path, output: Path) -> dic
     reviewed = []
     for record in captures:
         if (record.get("sequence_index") not in ids or
-                record.get("kind") not in {"native-game-mix", "measured-stream-cue"} or
+                record.get("kind") not in {"native-game-mix", "measured-stream-cue", "calibrated-stream-experiment"} or
                 not record.get("title") or not record.get("note")):
             raise ValueError("captures require an extracted sequence ID, kind, title and qualification")
         path = checked_file(specification.parent, record["file"], record["wav_sha1"])
