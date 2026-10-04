@@ -16289,11 +16289,15 @@
       "symbol": "func_1501396C"
     },
     {
+      "blocked": {
+        "reason": "Fresh mapping-only target. Raw15013C04 call151491F4 consumes v0 as pointer and copies70bytes, while matched game1765E0 definition is void; independent wrapper forwards allocator return unchanged. Raw15013B70 sets only a0/a1 for1510FD20, existing active game40490 contract requires third pointer; independent callee uses only first two inputs. Active1000FA64 declaration void also conflicts with stored v0 halfword. Shared helper/caller contract reconciliation required; untouched pragma, no C attempt.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 652,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150139AC",
           "vram": "0x150139AC"
         }
@@ -52142,6 +52146,12 @@
       "symbol": "func_1514FF44"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1119,
+        "reason": "Best1119 retained after three manual candidates; explicit color/payload/direction snapshots and register homes worsen1765/1757. Complete12byte output and raw16argument helper reconstructed. FrameC8 vsB8, directionB8 vsA8, persistent saved-register ownership and FP/GPR scheduling remain; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -56261,11 +56271,15 @@
       "symbol": "func_1517AB7C"
     },
     {
+      "blocked": {
+        "reason": "Fresh target; eed1124 adds only caller prototype/body, no target attempt. Raw1515B1F0 consumes151491F4 v0 as pointer for24byte memcpy; matched game1765E0 definition is void. Independent raw wrapper forwards allocator return unchanged. Requires shared helper/caller contract reconciliation; untouched pragma, no C attempt.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 652,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1515AF90",
           "vram": "0x1515AF90"
         }
@@ -62553,6 +62567,12 @@
       "symbol": "func_151B9690"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 860,
+        "reason": "Best860 retained after three manual candidates. Source-local typed state and correct zero-input RNG contract, signed masked comparisons, raw phase4F/mode50/height5A/decay5C homes recovered. Frame60 vs70, v0/v1/a0/a1 ownership, height snapshot and helper FP scheduling remain; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78981,6 +79001,12 @@
       "symbol": "func_1510CDB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 7208,
+        "reason": "Best7208 retained after three manual candidates and one NULL-to-zero compile repair. Complete971byte bitmap and one4byte size output, observed uninitialized address/count stack carries preserved. Frame438 vs430, bitmap2C vs30, countS1 vsT4, spill homes and GPR/control scheduling remain. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

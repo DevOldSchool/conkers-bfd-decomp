@@ -324,6 +324,54 @@ void func_1514FF44(void *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514FF44 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1514FF44.s")
+void func_15143794(s16, s16, f32, void *);
+extern f32 D_800A5FF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15150178 CURRENT (1119) */
+void func_15150178(s16 *arg0, f32 *arg1, s32 arg2, u8 arg3, s32 arg4) {
+    Game17CAF0ParticleConfig *config;
+    Game17CAF0Vec3f direction;
+    f32 randomSize;
+    f32 randomVariant;
+    f32 randomSpeed;
+    f32 constant;
+    f32 randomFlag;
+    s32 count;
+    u32 randomA;
+    u32 randomB;
+
+    config = (Game17CAF0ParticleConfig *)arg1;
+    count = (s32)((func_150ADA20() % (u32)(config->countRange + 1)) +
+                  (u32)config->countBase);
+    if (count != 0) {
+        constant = D_800A5FF4;
+        do {
+            randomA = func_150ADA20();
+            randomB = func_150ADA20();
+            func_15143794(
+                (s16)((randomA % (u32)(arg0[1] + 1)) + (u32)arg0[0]),
+                (s16)((randomB % (u32)(arg0[3] + 1)) + (u32)arg0[2]),
+                func_150ADA68() * config->directionRange + config->directionBase,
+                &direction);
+            randomSpeed = func_150ADA68();
+            randomA = func_150ADA20();
+            randomB = func_150ADA20();
+            randomSize = func_150ADA68();
+            randomVariant = func_150ADA68();
+            randomFlag = func_150ADA68();
+            func_151D9014(&config->position.x, &direction.x, config->kind,
+                randomSpeed * config->speedRange + config->speedBase,
+                (randomA % (u32)(config->lifeRange + 1)) + (u32)config->lifeBase,
+                (randomB % (u32)(config->alphaRange + 1)) + config->alphaBase,
+                randomSize * config->sizeRange + config->sizeBase,
+                randomVariant < config->variantChance,
+                constant, constant, 1, (void *)arg2, config->flag,
+                randomFlag < config->flagChance, arg3, arg4);
+            count = (s32)((u32)count - 1U);
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15150178 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150178.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15150400.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_1515080C.s")

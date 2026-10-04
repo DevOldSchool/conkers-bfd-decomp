@@ -37,6 +37,118 @@ void *func_1510CDB8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510CDB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CDB8.s")
+void *func_10003C40(s32, s32, s32, s32);
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510CE60 CURRENT (7208) */
+s32 func_1510CE60(s8 *volatile arg0, volatile s32 arg1, volatile s32 arg2, volatile s32 arg3, s16 **volatile arg4) {
+    register s32 index;
+    s32 size;
+    register s32 flags;
+    register s32 failure;
+    volatile s32 addressHome;
+    register s32 count;
+    register s8 *command;
+    register s32 resource;
+    register s32 address;
+    register s32 bit;
+    register u8 *byte;
+    register s16 *list;
+    register s32 total;
+    register s32 mask;
+    register s32 id;
+    volatile s32 countHome;
+    u8 bitmap[971];
+
+    failure = 0;
+    if (arg4 != 0) {
+        for (index = 0; index < 971; index++) {
+            bitmap[index] = 0;
+        }
+        countHome = 0;
+    }
+    count = countHome;
+    index = 0;
+    command = arg0;
+    if (*command != -0x21) {
+        /* Raw code carries an unset stack word until the first resource load. */
+        address = addressHome;
+        do {
+            if (*command == -3 &&
+                ((resource = *(s32 *)(command + 4), arg1 == 0) || !(resource & 0xFF000000)) &&
+                (u32)(resource & 0xFF000000) < 0x06000000U) {
+                flags = resource >> 22;
+                bit = resource & 0x0F000000;
+                resource &= 0xF03FFFFF;
+                if (bit == 0) {
+                    countHome = count;
+                    address = func_1510D0EC(resource, &size, arg3, arg2);
+                    count = countHome;
+                    *(s32 *)(command + 4) = address;
+                    if (arg4 != 0) {
+                        byte = &bitmap[resource >> 3];
+                        bit = 1 << (resource & 7);
+                        if (!(*byte & bit)) {
+                            *byte |= bit;
+                            count++;
+                        }
+                    }
+                } else {
+                    flags = 0;
+                }
+                if (address == (s32)0x80000000U) {
+                    failure = 1;
+                }
+                if (flags != 0) {
+                    bit = *(s32 *)(command + 4);
+                    if (flags & 1) {
+                        bit = (s32)((u32)bit + (u32)size - 0x200U);
+                        *(s32 *)(command + 4) = bit;
+                    } else if (flags & 2) {
+                        bit = (s32)((u32)bit + (u32)size - 0x20U);
+                        *(s32 *)(command + 4) = bit;
+                    }
+                    *(s32 *)(command + 4) = bit | ((flags & 0x3C) << 22);
+                }
+            }
+            index++;
+            command = (s8 *)((u32)arg0 + ((u32)index << 3));
+        } while (*command != -0x21);
+        addressHome = address;
+    }
+    total = count + 1;
+    if (arg4 != 0) {
+        countHome = count;
+        list = func_10003C40(total * 2, 1, 0, 2);
+        count = countHome;
+        *arg4 = list;
+        if (list != 0) {
+            *list = count;
+            list++;
+            mask = 1;
+            index = 0;
+            id = 0;
+            if (total != 1) {
+                byte = bitmap;
+                do {
+                    if (*byte & mask) {
+                        list[index] = id;
+                        index++;
+                    }
+                    if (mask != 0x80) {
+                        mask *= 2;
+                    } else {
+                        mask = 1;
+                        byte++;
+                    }
+                    id++;
+                } while (index + 1 != total);
+            }
+        }
+    }
+    return failure == 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1510CE60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_139FC0/func_1510CE60.s")
 void func_10004074(s32);
 void func_10004514(s32, s32, s32, s32);
