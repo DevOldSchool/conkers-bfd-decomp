@@ -92633,7 +92633,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 788,
-        "reason": "Valid corrected volume +4 and byte inputs; CURRENT 788 over full 676-byte span, frame 0x28 vs 0x20, 17 stack rows and conversion temporary moves; initial plus two revisions exhausted.",
+        "reason": "Full676 CURRENT788 5bbb7570d2c0460fa7c99589d2727ad8; original corrected +4 arithmetic and actual byte input body unchanged. One new three-helper contract form838 bd25c1d852544fc98ef958815e930597 regressed; 886C family restored, then8790 family fully restored after active E46C750 e8ae465444fe4b6d8f2e0f84b02c485f and +8 layout failure. Only own8A4C forward aligns with matched u8/u8 definition. Fresh788 and two recovery788 checks distinct from one new form. Frame28 versus20, conversion copy/register and stack offsets remain. Three inherited valid body forms plus current contract form exhausted; no equivalent body/volume/helper/frame retries. Recheck all five active callers; no shared/SDK/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

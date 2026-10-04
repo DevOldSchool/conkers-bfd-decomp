@@ -424,7 +424,7 @@ s32 func_8000BBE8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg0;
 }
-u8 func_80008A4C(s32, s32);
+u8 func_80008A4C(u8, u8);
 void func_850C851C(s32);
 
 s32 func_8000BC28(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
