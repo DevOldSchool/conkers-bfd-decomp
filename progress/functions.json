@@ -41184,8 +41184,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Manual two-pass spatial scan; CURRENT 120, total versus fifth-argument saved-register swap and initial readiness-address scheduling remain.",
+        "current_score": 146,
+        "reason": "Valid two-pass spatial scan without dummy pad; CURRENT 146, frame 0x60 versus raw 0x68, total/fifth-argument saved-register swap and readiness-address scheduling remain; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55939,8 +55939,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3405,
-        "reason": "CURRENT (3405): frame and stack now align after independent random-sign lifetimes; 47 register and seven control-flow differences remain, chiefly early motion-field scheduling and random sign branch form. Fade/phase clamp improved but not exact.",
+        "current_score": 1975,
+        "reason": "Valid wrapping timer/fade word arithmetic then signed tests improves CURRENT3405 to1975; initial0x90 sequence recovered and frame18 matches. Actual RNG-word snapshot neutral1975 identical instructions; retain arithmetic-only repair. Remaining sign branches/registers, fade/phase allocation and full-span short-body rows. Prior sign/fade forms not repeated; two fresh revisions exhausted. No ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67760,7 +67760,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 17,
-        "reason": "CURRENT (17): outgoing three-float vector remains at sp+0x3C versus raw sp+0x38; 8-byte-aligned union grows frame to 0x50 and places vector at sp+0x40. Restored best 0x48-frame candidate.",
+        "reason": "Valid wrapping tick arithmetic; CURRENT17, outgoing three-float vector remains at sp3C versus raw38. Existing Vec3 structure neutral; earlier 8-byte union grows frame. Two fresh revisions exhausted without dummy storage.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -70731,8 +70731,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 720,
-        "reason": "CURRENT (720): full frame/stack align; state-update first branch and D_800CC346 load scheduling still differ, with 32 downstream register-only rows and 4 missing/extra instructions after explicit counter/frame-pointer probes",
+        "current_score": 205,
+        "reason": "Valid actual frame snapshot before aliasing actor stores and reused byte-state snapshot; CURRENT205, frame/stack/opcodes align, 33 register-only rows remain. Two fresh revisions exhausted; no permutation authorized.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82726,8 +82726,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 821,
-        "reason": "CURRENT (821): callback ABI now yields zero register-only differences; remaining frame 0x50 versus raw 0x48, 18 stack rows in vector temporaries/saved pointers, and early entries load/order. Explicit aggregate workspace regressed.",
+        "current_score": 757,
+        "reason": "Canonical matched15143E64 one-pointer call fixes stale three-argument compile failure; live A1/A2 do not prove formal args. Actual state/entries then vector declaration order improves CURRENT821 to757; vectors raw+8 instead+16. Frame50/raw48,18 stack rows and early entries scheduling remain. Prior aggregate probe regressed; two fresh revisions exhausted. No ABI/shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -94,7 +94,7 @@ void func_151934B4(u8 *actor) {
         quarter = timer >> 2;
         *(s16 *)(actor + 0xA4) = (quarter * 0x18) / 3;
         *(s16 *)(actor + 0xA2) = (quarter * 6) / 3;
-        *(s16 *)(actor + 0xAA) = timer + D_800BE9E4;
+        *(s16 *)(actor + 0xAA) = (s32)((u32)(s32)timer + (u32)D_800BE9E4);
         return;
     }
 
@@ -102,7 +102,7 @@ void func_151934B4(u8 *actor) {
     if (*(s16 *)(actor + 0x94) >= 0x15) {
         *(s16 *)(actor + 0x94) = 0x14;
     }
-    *(s16 *)(actor + 0x9E) -= ((s32)(*(s16 *)(actor + 0x94) * D_800BE9E4) >> 1);
+    *(s16 *)(actor + 0x9E) = (s32)((u32)(s32)*(s16 *)(actor + 0x9E) - (u32)((s32)((u32)(s32)*(s16 *)(actor + 0x94) * (u32)D_800BE9E4) >> 1));
     if (*(s16 *)(actor + 0x9E) < *(s16 *)(actor + 0xA6)) {
         if (*(s8 *)(actor + 0xB3) == 1) {
             position[0] = *(s16 *)(actor + 0x9C);

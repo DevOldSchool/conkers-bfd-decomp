@@ -91,7 +91,7 @@ void func_15179FE0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4,
 void func_1516972C(u8 *);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A1EC CURRENT (3405) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517A1EC CURRENT (1975) */
 void func_1517A1EC(Game1A7490Motion *arg0) {
     s16 oldA2;
     s16 velocity;
@@ -131,10 +131,10 @@ void func_1517A1EC(Game1A7490Motion *arg0) {
         arg0->speedA4 = velocity + (-signB * random);
         timer = arg0->timerA6;
     }
-    fade = timer - D_800BE9E4;
+    fade = (s32)((u32)timer - (u32)D_800BE9E4);
     if (fade < 0) {
         fade = 0;
-        fadedAlpha = arg0->fadeB3 - D_800BE9E4 * 4;
+        fadedAlpha = (s32)((u32)arg0->fadeB3 - ((u32)D_800BE9E4 << 2));
         if (fadedAlpha < 0) {
             fadedAlpha = 0;
         }

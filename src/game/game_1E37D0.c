@@ -509,12 +509,12 @@ typedef struct Game1E37D0RingObject {
 extern s32 D_800BE9E4;
 extern s32 (*D_8008FB90[])(Game1E37D0RingObject *, Game1E37D0Vec3 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B77F4 CURRENT (821) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B77F4 CURRENT (757) */
 s32 func_151B77F4(Game1E37D0RingObject *arg0) {
-    Game1E37D0Vec3 previous;
-    Game1E37D0Vec3 delta;
     Game1E37D0RingState *state;
     Game1E37D0RingEntry *entries;
+    Game1E37D0Vec3 previous;
+    Game1E37D0Vec3 delta;
     Game1E37D0RingEntry *entry;
     s8 tail;
     f32 distance;
@@ -532,7 +532,7 @@ s32 func_151B77F4(Game1E37D0RingObject *arg0) {
         delta.x = arg0->position.x - previous.x;
         delta.y = arg0->position.y - previous.y;
         delta.z = arg0->position.z - previous.z;
-        distance = func_15143E64(&delta.x, &arg0->position, arg0);
+        distance = func_15143E64(&delta);
         entry = &entries[arg0->head];
         entry->position = arg0->position;
         entry->distance = distance;

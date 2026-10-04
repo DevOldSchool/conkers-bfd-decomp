@@ -101,12 +101,11 @@ void func_15044660(Game71820Global *, f32, f32, f32);
 s32 func_150AB1F0(f32, f32, f32, Game71820Global *, s32);
 void func_150AC3E4(f32, f32, f32, Game71820Global *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (120) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (146) */
 s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4, s32 arg5) {
-    s32 pad[2];
     s32 saved_mode;
     s32 index;
-    s32 total;
+    u32 total;
     u8 *active;
 
     D_800CBDF4 = -32768.0f;
@@ -121,7 +120,7 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
         if (*active == 1 && (index != 3 || !(arg3->flagsF8 & 0x200))) {
             func_1510F800(index);
             if (D_800DBE62 != 0) {
-                total += func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
+                total += (u32)func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
             }
         }
         index--;
@@ -143,7 +142,7 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
     }
     func_1510F800(0);
     D_800CBDD3 = saved_mode;
-    return total;
+    return (s32)total;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044380.s")
