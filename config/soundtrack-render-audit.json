@@ -1,0 +1,488 @@
+{
+  "schema_version": 1,
+  "family": "conker-soundtrack-render-audit",
+  "date": "2026-10-04",
+  "renderer": "controllers-envelope-v2",
+  "notice": "Exploratory automated spectral-window comparisons; not calibrated probabilities or independent listening/identity verification. Reference names remain tentative source correspondence.",
+  "method": {
+    "tool": "scripts/soundtrack_compare.py",
+    "bands": "61 semitone bands, MIDI notes 36..96",
+    "sample_rate": 11025,
+    "hop_samples": 2048,
+    "window_seconds": 8,
+    "aggregation": "Median best alignment per source window; half-window steps, terminal window included. Independent windows may choose different offsets."
+  },
+  "coverage": {
+    "sequences": 149,
+    "audible": 147,
+    "samples": 2258,
+    "confidence": {
+      "identified": 112,
+      "unidentified": 33,
+      "tentative": 4
+    },
+    "unmapped_notes": 1
+  },
+  "representative_sequence_ids": [
+    1,
+    34,
+    53,
+    54,
+    66,
+    93,
+    134,
+    145
+  ],
+  "reference_comparisons": [
+    {
+      "sequence": 1,
+      "reference": "Windy & Co.",
+      "reference_sha1": "04f3ff3783e2e692e3b1bb8555d3d8399dc3a93f",
+      "baseline_sha1": "e3b714515ba3b4e3398c1b621b778a9b30f50a8b",
+      "candidate_sha1": "d303f0941bcd09527676e649a27773f9a45b11e0",
+      "baseline": {
+        "best": {
+          "score": 0.802831,
+          "source_seconds": 128.7314,
+          "reference_seconds": 128.7314,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.7396615
+      },
+      "candidate": {
+        "best": {
+          "score": 0.834423,
+          "source_seconds": 54.6133,
+          "reference_seconds": 54.6133,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.762976
+      }
+    },
+    {
+      "sequence": 1,
+      "reference": "Windy & Co. (Whistling)",
+      "reference_sha1": "bc1754d0a4a2864d66794ae1480480aac4b9c3ff",
+      "baseline_sha1": "e3b714515ba3b4e3398c1b621b778a9b30f50a8b",
+      "candidate_sha1": "d303f0941bcd09527676e649a27773f9a45b11e0",
+      "baseline": {
+        "best": {
+          "score": 0.809631,
+          "source_seconds": 128.7314,
+          "reference_seconds": 128.7314,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.7285095
+      },
+      "candidate": {
+        "best": {
+          "score": 0.845437,
+          "source_seconds": 113.1276,
+          "reference_seconds": 113.1276,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.7598245
+      }
+    },
+    {
+      "sequence": 1,
+      "reference": "Windy & Co. (Bees)",
+      "reference_sha1": "7b9d252c4a856e20ce8161288eee6575eeff068a",
+      "baseline_sha1": "e3b714515ba3b4e3398c1b621b778a9b30f50a8b",
+      "candidate_sha1": "d303f0941bcd09527676e649a27773f9a45b11e0",
+      "baseline": {
+        "best": {
+          "score": 0.720467,
+          "source_seconds": 152.1371,
+          "reference_seconds": 152.1371,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.6321215
+      },
+      "candidate": {
+        "best": {
+          "score": 0.72303,
+          "source_seconds": 0.0,
+          "reference_seconds": 0.0,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.6365529999999999
+      }
+    },
+    {
+      "sequence": 1,
+      "reference": "Windy & Co. (Barn Boys)",
+      "reference_sha1": "7d12fab86de87733ebf2f8e73d739d387bbe3074",
+      "baseline_sha1": "e3b714515ba3b4e3398c1b621b778a9b30f50a8b",
+      "candidate_sha1": "d303f0941bcd09527676e649a27773f9a45b11e0",
+      "baseline": {
+        "best": {
+          "score": 0.774403,
+          "source_seconds": 152.1371,
+          "reference_seconds": 152.1371,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.6589775
+      },
+      "candidate": {
+        "best": {
+          "score": 0.785675,
+          "source_seconds": 0.0,
+          "reference_seconds": 0.0,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.6749205
+      }
+    },
+    {
+      "sequence": 1,
+      "reference": "Windy & Co. (Catfish Pond)",
+      "reference_sha1": "a8f9f911be945de6e2175ee2f85c4d8c26cf8681",
+      "baseline_sha1": "e3b714515ba3b4e3398c1b621b778a9b30f50a8b",
+      "candidate_sha1": "d303f0941bcd09527676e649a27773f9a45b11e0",
+      "baseline": {
+        "best": {
+          "score": 0.730613,
+          "source_seconds": 152.1371,
+          "reference_seconds": 152.1371,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.5747355000000001
+      },
+      "candidate": {
+        "best": {
+          "score": 0.731074,
+          "source_seconds": 152.1371,
+          "reference_seconds": 152.1371,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.5850299999999999
+      }
+    },
+    {
+      "sequence": 34,
+      "reference": "The Cock and Plucker",
+      "reference_sha1": "cd9b95d17a40e29a5615234338308cca962ac29f",
+      "baseline_sha1": "32f5421942927a4460f3cec8d7b2b0f8467118e8",
+      "candidate_sha1": "9008afa6bad250dcbc5482c7e00b953543380574",
+      "baseline": {
+        "best": {
+          "score": 0.959638,
+          "source_seconds": 23.4057,
+          "reference_seconds": 23.4057,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.902013
+      },
+      "candidate": {
+        "best": {
+          "score": 0.959655,
+          "source_seconds": 23.4057,
+          "reference_seconds": 23.4057,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.902635
+      }
+    },
+    {
+      "sequence": 34,
+      "reference": "The Cock and Plucker (Alternate)",
+      "reference_sha1": "8d4229fdf4408f22e20dcd8d8927a438b1dc345a",
+      "baseline_sha1": "32f5421942927a4460f3cec8d7b2b0f8467118e8",
+      "candidate_sha1": "9008afa6bad250dcbc5482c7e00b953543380574",
+      "baseline": {
+        "best": {
+          "score": 0.991618,
+          "source_seconds": 11.7029,
+          "reference_seconds": 11.7029,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.957728
+      },
+      "candidate": {
+        "best": {
+          "score": 0.991708,
+          "source_seconds": 11.7029,
+          "reference_seconds": 11.7029,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.95783
+      }
+    },
+    {
+      "sequence": 53,
+      "reference": "Poo",
+      "reference_sha1": "d4f6a243e20ebedd08aa21d30f63e6e44601181e",
+      "baseline_sha1": "1ac216e483038805c3e583d78a27a9c8ef1bc06f",
+      "candidate_sha1": "85690f79194c4f6d673c069b0d3e1a8296b08e33",
+      "baseline": {
+        "best": {
+          "score": 0.995927,
+          "source_seconds": 66.3162,
+          "reference_seconds": 66.3162,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.930936
+      },
+      "candidate": {
+        "best": {
+          "score": 0.99592,
+          "source_seconds": 31.2076,
+          "reference_seconds": 31.2076,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.939033
+      }
+    },
+    {
+      "sequence": 53,
+      "reference": "Poo (Instrumental)",
+      "reference_sha1": "77a8662977a918a7a891e98cb30945b1c42a85b4",
+      "baseline_sha1": "1ac216e483038805c3e583d78a27a9c8ef1bc06f",
+      "candidate_sha1": "85690f79194c4f6d673c069b0d3e1a8296b08e33",
+      "baseline": {
+        "best": {
+          "score": 0.998613,
+          "source_seconds": 171.6419,
+          "reference_seconds": 171.6419,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.916472
+      },
+      "candidate": {
+        "best": {
+          "score": 0.998626,
+          "source_seconds": 171.6419,
+          "reference_seconds": 171.6419,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.930799
+      }
+    },
+    {
+      "sequence": 54,
+      "reference": "Nintendo & Rare Logos",
+      "reference_sha1": "12f394fbfadb1cadbaad715f858f6f563162e7f3",
+      "baseline_sha1": "3f3132dfb3ce527e1e4ef239716ea0742b3d9830",
+      "candidate_sha1": "f20f2a1467caba12dee04d4f154467536ad112f9",
+      "baseline": {
+        "best": {
+          "score": 0.979213,
+          "source_seconds": 15.6038,
+          "reference_seconds": 15.6038,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.929911
+      },
+      "candidate": {
+        "best": {
+          "score": 0.99662,
+          "source_seconds": 15.6038,
+          "reference_seconds": 15.6038,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.989252
+      }
+    },
+    {
+      "sequence": 66,
+      "reference": "Sloprano",
+      "reference_sha1": "d62ed3cb8d8ebed351aef0c94753a43f4f799533",
+      "baseline_sha1": "86eda8414b46047fa5a0c713a8bb3ef28d75cae3",
+      "candidate_sha1": "4f6cd6f318f4cef70dc54ec34b3b5becd726e713",
+      "baseline": {
+        "best": {
+          "score": 0.980387,
+          "source_seconds": 11.7029,
+          "reference_seconds": 11.7029,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.719297
+      },
+      "candidate": {
+        "best": {
+          "score": 0.980299,
+          "source_seconds": 11.7029,
+          "reference_seconds": 11.7029,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.767413
+      }
+    },
+    {
+      "sequence": 66,
+      "reference": "Sloprano (Instrumental)",
+      "reference_sha1": "8763fc94965efb5a0f5c585437d0cf0eb7128909",
+      "baseline_sha1": "86eda8414b46047fa5a0c713a8bb3ef28d75cae3",
+      "candidate_sha1": "4f6cd6f318f4cef70dc54ec34b3b5becd726e713",
+      "baseline": {
+        "best": {
+          "score": 0.995662,
+          "source_seconds": 19.5048,
+          "reference_seconds": 19.5048,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.93642
+      },
+      "candidate": {
+        "best": {
+          "score": 0.995667,
+          "source_seconds": 19.5048,
+          "reference_seconds": 19.5048,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.936511
+      }
+    },
+    {
+      "sequence": 134,
+      "reference": "Frying Tonight",
+      "reference_sha1": "54500a74209f10ca14a1b389507070f6e0dc8a15",
+      "baseline_sha1": "90caaaddabdc2f98551ffb7b0c9199bdf060e09f",
+      "candidate_sha1": "4bb0b45a9d4f52c937e816ff7b4956109e547d6a",
+      "baseline": {
+        "best": {
+          "score": 0.790218,
+          "source_seconds": 0.0,
+          "reference_seconds": 41.9817,
+          "seconds": 3.5294
+        },
+        "median_best_window_score": 0.790218
+      },
+      "candidate": {
+        "best": {
+          "score": 0.794519,
+          "source_seconds": 0.0,
+          "reference_seconds": 41.9817,
+          "seconds": 3.5294
+        },
+        "median_best_window_score": 0.794519
+      }
+    },
+    {
+      "sequence": 145,
+      "reference": "Conker the King Reprise",
+      "reference_sha1": "bf0a40f591c694d08183644c10b5217fa64f8247",
+      "baseline_sha1": "33de893e2474e0351cd7ed360d74e7115dba70ff",
+      "candidate_sha1": "c87e348259ddf4b4eb1c7b6fd2a99733919fcf98",
+      "baseline": {
+        "best": {
+          "score": 0.960439,
+          "source_seconds": 23.4057,
+          "reference_seconds": 23.4057,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.8567675
+      },
+      "candidate": {
+        "best": {
+          "score": 0.996406,
+          "source_seconds": 58.5143,
+          "reference_seconds": 58.5143,
+          "seconds": 7.9877
+        },
+        "median_best_window_score": 0.988924
+      }
+    }
+  ],
+  "sloprano_experiment": {
+    "sequence_index": 66,
+    "resource_binding": "CC27 global major; CC26 requests major*100+value from bank 0x16",
+    "triggers": [
+      {
+        "index": 239,
+        "seconds": 29.250000000000007,
+        "tick": 23400,
+        "channel": 12
+      },
+      {
+        "index": 240,
+        "seconds": 95.88749999999892,
+        "tick": 76710,
+        "channel": 12
+      },
+      {
+        "index": 241,
+        "seconds": 105.86249999999846,
+        "tick": 84690,
+        "channel": 12
+      },
+      {
+        "index": 242,
+        "seconds": 167.18792943749585,
+        "tick": 136050,
+        "channel": 12
+      },
+      {
+        "index": 238,
+        "seconds": 220.38619199999383,
+        "tick": 197760,
+        "channel": 12
+      }
+    ],
+    "instrumental_median": 0.767413,
+    "five_cue_median": 0.927512,
+    "limitations": "Stream replacement is bounded at the next cue. Gain, MP3 decoder latency, callbacks and transition parameters remain unverified. Streams 271/272 are not commanded by this one-pass sequence.",
+    "assembly_wav_sha1": "48c9bffb58c2e64a47e1146d7f30e99a9ae35ef2"
+  },
+  "native_logo_check": {
+    "source": "Isolated owned-ROM boot; Mupen64Plus 2.6.0, CXD4 audio microcode, Angrylion software graphics; AI DMA PCM before host audio resampling",
+    "pcm_sha1": "6ee9fd8c3e72bc4422bb9eb9156ab386037814c3",
+    "sample_rate": 22018,
+    "sequence_index": 54,
+    "alignment_offset_seconds": 18.3902,
+    "baseline_median": 0.485066,
+    "candidate_median": 0.588026,
+    "candidate_best": {
+      "score": 0.688248,
+      "source_seconds": 19.5048,
+      "reference_seconds": 37.895,
+      "seconds": 7.9877
+    },
+    "limitations": "Opening-game audio mix, not a clean standalone music stem. Material timing supports the logo candidate; remaining difference is substantial. No Sloprano in-game capture verified."
+  },
+  "loop_validation": {
+    "sequences": 149,
+    "backwards_jumps": 694,
+    "bounded_cutoffs": 694,
+    "cap": 1,
+    "native_rule": "Physical end pointer minus offset, mutable current-count tracked separately, reset running status. At the offline cap stop, rather than fall through a forever loop to unreachable marker sections.",
+    "playable_variant_sequence": 34,
+    "variant_jumps": 10,
+    "variant_duration_seconds": 87.50956916099773
+  },
+  "bank_audit": {
+    "instruments": 170,
+    "nonzero_bank_oscillator_types": 0,
+    "sample_loops": 491,
+    "finite_sample_loops": 0,
+    "sample_loop_count": 4294967295,
+    "envelopes_release_below_16ms": 2120,
+    "negative_decay_values": 1044
+  },
+  "remaining_limits": [
+    "Game marker selection, channel masks, fades and sequence volume",
+    "RSP resampling and envelope integer/frame rounding",
+    "Native filter coefficients and wet effect buses",
+    "Runtime envelope/oscillator overrides and voice stealing",
+    "MP3 decoder delay, callbacks, transition parameters and mix gain",
+    "Controller updates during release tails"
+  ],
+  "native_poo_excerpt_check": {
+    "sequence_index": 53,
+    "capture": "Isolated read-only saved-state replay, outside Poo area; game audio mix",
+    "baseline_best": {
+      "score": 0.848122,
+      "source_seconds": 7.8019,
+      "reference_seconds": 3.5294,
+      "seconds": 7.9877
+    },
+    "candidate_best": {
+      "score": 0.848481,
+      "source_seconds": 7.8019,
+      "reference_seconds": 3.5294,
+      "seconds": 7.9877
+    },
+    "notice": "Only an eight-second material excerpt is supported. Best scores essentially unchanged; no full-track or Sloprano runtime verification."
+  }
+}

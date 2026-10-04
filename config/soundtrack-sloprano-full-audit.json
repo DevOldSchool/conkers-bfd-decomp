@@ -1,0 +1,321 @@
+{
+  "schema_version": 1,
+  "normalized_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "title": "Sloprano",
+  "notice": "Provisional continuous reconstruction; incidental coverage remains incomplete. Five CSeq 0066 vocal cues, ROM reaction 0237 near 1:52, captured 0271 \u2192 0272 ending order and sequence 0074 closing-sting candidate. Three exact digital-silence spans are removed. Reaction placement follows the soundtrack excerpt; its level/clock follow native capture estimates. Ending join is editorial. The user-reported throat-clear / \u201cme me me\u201d around 0:24 remains unresolved and is not restored. Other incidental dialogue/effects may be missing. Synthesis and balance remain approximate; no complete or bit-perfect recording identity is claimed. Reference audio is never mixed into this output.",
+  "render": {
+    "sequence_index": 66,
+    "kind": "full-song-reconstruction",
+    "title": "Sloprano",
+    "note": "Provisional continuous reconstruction; incidental coverage remains incomplete. Five CSeq 0066 vocal cues, ROM reaction 0237 near 1:52, captured 0271 \u2192 0272 ending order and sequence 0074 closing-sting candidate. Three exact digital-silence spans are removed. Reaction placement follows the soundtrack excerpt; its level/clock follow native capture estimates. Ending join is editorial. The user-reported throat-clear / \u201cme me me\u201d around 0:24 remains unresolved and is not restored. Other incidental dialogue/effects may be missing. Synthesis and balance remain approximate; no complete or bit-perfect recording identity is claimed. Reference audio is never mixed into this output.",
+    "file": "songs/00-0066-full.wav",
+    "wav_sha1": "d473ec7b272fb9868f66f9fb1ae59ae7b0040a52",
+    "incidental_streams": [
+      {
+        "index": 237,
+        "source_sha1": "d5e6dacd3b6bbfa457bf67171bf858b32f6a4b44",
+        "preview_sha1": "32caae7c310951455486cbfb5b55774ff7c0ae35",
+        "onset_seconds": 112.09541950113379,
+        "playback_rate": 22018,
+        "gain": 0.47,
+        "role": "Incidental vocal / reaction",
+        "note": "Two-second waveform match in soundtrack (0.797) and gamerip (0.871), plus native first-hit capture (0.875). Soundtrack-relative placement; lexical content unverified. One detected occurrence per reference above 0.4 correlation; this is not proof of exhaustive coverage.",
+        "onset_frame": 2471704,
+        "duration_seconds": 2.432925170068027,
+        "nominal_source_rate": 22050
+      }
+    ],
+    "main_duration_seconds": 251.02104308390022,
+    "main_stream_triggers": [
+      {
+        "index": 239,
+        "seconds": 29.25002267573696,
+        "tick": 23400,
+        "channel": 12
+      },
+      {
+        "index": 240,
+        "seconds": 91.9895238095238,
+        "tick": 76710,
+        "channel": 12
+      },
+      {
+        "index": 241,
+        "seconds": 101.9645351473923,
+        "tick": 84690,
+        "channel": 12
+      },
+      {
+        "index": 242,
+        "seconds": 158.93297052154196,
+        "tick": 136050,
+        "channel": 12
+      },
+      {
+        "index": 238,
+        "seconds": 209.12072562358276,
+        "tick": 197760,
+        "channel": 12
+      }
+    ],
+    "source_main_stream_triggers": [
+      {
+        "index": 239,
+        "seconds": 29.250000000000007,
+        "tick": 23400,
+        "channel": 12
+      },
+      {
+        "index": 240,
+        "seconds": 95.88749999999892,
+        "tick": 76710,
+        "channel": 12
+      },
+      {
+        "index": 241,
+        "seconds": 105.86249999999846,
+        "tick": 84690,
+        "channel": 12
+      },
+      {
+        "index": 242,
+        "seconds": 167.18792943749585,
+        "tick": 136050,
+        "channel": 12
+      },
+      {
+        "index": 238,
+        "seconds": 220.38619199999383,
+        "tick": 197760,
+        "channel": 12
+      }
+    ],
+    "removed_silent_frames": 248404,
+    "removed_silent_seconds": 11.265487528344671,
+    "ending_stream_triggers": [
+      {
+        "index": 271,
+        "seconds": 251.02104308390022
+      },
+      {
+        "index": 272,
+        "seconds": 276.0412992379002
+      }
+    ],
+    "ending_onset_frames": [
+      5537754,
+      6089452
+    ],
+    "closing_sequence_index": 74,
+    "closing_onset_seconds": 279.48802721088435,
+    "peak_pcm": 29488,
+    "clipped_samples": 0,
+    "attenuation": 1.0,
+    "duration_seconds": 282.0931065759637,
+    "sample_rate": 22050
+  },
+  "vocal_order": [
+    239,
+    240,
+    241,
+    237,
+    242,
+    238,
+    271,
+    272
+  ],
+  "silent_cuts": [
+    {
+      "start_frame": 1918562,
+      "end_frame": 2004512
+    },
+    {
+      "start_frame": 3449682,
+      "end_frame": 3545754
+    },
+    {
+      "start_frame": 4729398,
+      "end_frame": 4795780
+    }
+  ],
+  "output_validation": {
+    "peak": 0.89990234375,
+    "clipped_samples": 0,
+    "longest_quiet_run_seconds": 0.9777777777777777,
+    "quiet_definition": "10 ms stereo RMS windows below -70 dBFS",
+    "vocal_alignment": [
+      {
+        "index": 239,
+        "correlation": 0.960508159760418,
+        "gain": 0.46986326316549426,
+        "expected_onset_seconds": 29.350022675736962,
+        "aligned_onset_seconds": 29.350022675736962,
+        "onset_error_seconds": 0.0
+      },
+      {
+        "index": 240,
+        "correlation": 0.8452118544714574,
+        "gain": 0.4727370504080381,
+        "expected_onset_seconds": 92.0895238095238,
+        "aligned_onset_seconds": 92.08952380952381,
+        "onset_error_seconds": 1.4210854715202004e-14
+      },
+      {
+        "index": 241,
+        "correlation": 0.7511501758489242,
+        "gain": 0.441136123943996,
+        "expected_onset_seconds": 102.06453514739229,
+        "aligned_onset_seconds": 102.0645804988662,
+        "onset_error_seconds": 4.5351473914934104e-05
+      },
+      {
+        "index": 242,
+        "correlation": 0.8199878029311654,
+        "gain": 0.4241348408896175,
+        "expected_onset_seconds": 159.03297052154196,
+        "aligned_onset_seconds": 159.03292517006804,
+        "onset_error_seconds": -4.5351473914934104e-05
+      },
+      {
+        "index": 238,
+        "correlation": 0.9380698636116465,
+        "gain": 0.44463397279788786,
+        "expected_onset_seconds": 209.22072562358275,
+        "aligned_onset_seconds": 209.22068027210884,
+        "onset_error_seconds": -4.5351473914934104e-05
+      },
+      {
+        "index": 271,
+        "correlation": 0.9999995414836892,
+        "gain": 0.47015424666779604,
+        "expected_onset_seconds": 251.14530617990928,
+        "aligned_onset_seconds": 251.14530612244897,
+        "onset_error_seconds": -5.7460312063994934e-08
+      },
+      {
+        "index": 272,
+        "correlation": 0.9999921615778842,
+        "gain": 0.4702666795323093,
+        "expected_onset_seconds": 276.1656236402267,
+        "aligned_onset_seconds": 276.16562358276644,
+        "onset_error_seconds": -5.7460283642285503e-08
+      }
+    ],
+    "incidental_alignment": {
+      "index": 237,
+      "correlation": 0.93726615643921,
+      "gain": 0.47009870878800947,
+      "onset_seconds": 112.09541950113379,
+      "duration_seconds": 2.432925170068027
+    },
+    "previous_mix_sha1": "dc7938a4f81567b2a86d197111f9985b637f3b68",
+    "all_pcm_outside_incidental_interval_identical": true
+  },
+  "reference_comparison": {
+    "reference_url": "https://downloads.khinsider.com/game-soundtracks/album/conker-s-bad-fur-day-gamerip/35.%2520Sloprano.mp3",
+    "reference_sha1": "d62ed3cb8d8ebed351aef0c94753a43f4f799533",
+    "duration_seconds": 326.712,
+    "vocal_order_match": false,
+    "vocal_excerpt_matches": [
+      {
+        "index": 239,
+        "reference_seconds": 29.24997732426304,
+        "correlation": 0.9356486915865808
+      },
+      {
+        "index": 240,
+        "reference_seconds": 91.98748299319728,
+        "correlation": 0.8255160445983528
+      },
+      {
+        "index": 241,
+        "reference_seconds": 101.96253968253968,
+        "correlation": 0.7681255417595788
+      },
+      {
+        "index": 242,
+        "reference_seconds": 159.08789115646258,
+        "correlation": 0.8619679457129047
+      },
+      {
+        "index": 238,
+        "reference_seconds": 208.97587301587302,
+        "correlation": 0.9699550332180038
+      },
+      {
+        "index": 271,
+        "reference_seconds": 292.10839002267574,
+        "correlation": 0.9607774048153306
+      },
+      {
+        "index": 272,
+        "reference_seconds": 317.11519274376417,
+        "correlation": 0.992612916015342
+      }
+    ],
+    "clock_qualification": "Gamerip excerpts align at nominal 22050 Hz. This listening edit uses the 22018 Hz clock observed in native captures, plus approximate 0.47 vocal gain. It does not reproduce gamerip timing, mastering or looping.",
+    "material_comparison_median": 0.8870480000000001,
+    "material_comparison_method": "Independent centred 8-second semitone-band windows; exploratory, not full-song identity proof",
+    "vocal_order_qualification": "The original seven matched principal vocal streams remain in reference-supported order. Additional reaction 0237 is restored; exhaustive incidental coverage remains unresolved."
+  },
+  "closing_sequence": {
+    "index": 74,
+    "gamerip_spectral_score": 0.838392,
+    "native_spectral_score": 0.873651,
+    "qualification": "Two-second spectral excerpts support the closing-sting candidate. Global sequence confidence remains unidentified; onset after 0272 is a listening arrangement."
+  },
+  "preservation": {
+    "prior_previews": true,
+    "first_draft_preserved": true,
+    "one_new_wav_in_fresh_preview": true,
+    "audio_from_reference_used_in_mix": false,
+    "game_source_or_rom_modified": false,
+    "label_confidence_changed": false,
+    "previous_listening_edit_preserved": "us-sloprano-v1"
+  },
+  "tests": {
+    "python": 67,
+    "asset_links_checked": 2745,
+    "browser_full_song_duration_seconds": 282.093107,
+    "full_and_instrumental_ready_state": 4,
+    "both_players_advanced": true,
+    "mutual_pause": true,
+    "console_errors": [],
+    "horizontal_overflow": false,
+    "prepare_export_dialog": false,
+    "temporary_server_stopped": true,
+    "file_protocol_playback": "unverified under browser protocol policy; embedded metadata and local assets checked",
+    "browser_playback_notice": "Latest reconstruction and instrumental advance, readyState 4, mutual pause, no console errors or overflow; loopback route validated."
+  },
+  "coverage": {
+    "complete": false,
+    "opening_phrase": {
+      "seconds_approx": 24,
+      "description_authority": "User-reported throat clear followed by me me me",
+      "status": "Unresolved ROM source; not inserted; absence from game/version difference not established"
+    },
+    "other_incidental_material": "User reports more missing inter-verse material; no exhaustive list or validated additional source matches yet. Do not claim these are absent or restored.",
+    "restored_reaction": {
+      "index": 237,
+      "soundtrack_onset": 112.095419501,
+      "gamerip_onset": 112.09877551,
+      "native_first_hit_onset": 23.907755102,
+      "correlations": [
+        0.797448,
+        0.87074,
+        0.875362
+      ],
+      "wording": "Incidental vocal / reaction; lexical content unverified"
+    },
+    "search_scope": {
+      "mp3_prefixes": 453,
+      "whole_mp3_sources_at_least_075_seconds": 450,
+      "whole_sample_sources_at_least_075_seconds": 835,
+      "decoded_sample_inventory": 2258,
+      "whole_track_query": "141 soundtrack templates, 0.75 seconds each, every 2 seconds at 2205 Hz; no new validated matches beyond principal streams. This coarse grid misses short events and shifted/pitched or masked material.",
+      "opening_query": "Ten 0.75-second templates from 23\u201327.5 seconds searched inside all eligible complete sources; strongest raw stream correlation 0.501, insufficient to identify phrase. Short sample-prefix scores do not establish speech identity.",
+      "reference_intro_cross_match": "Soundtrack 24\u201328-second waveform excerpt has no strong correspondence in gamerip, instrumental gamerip, native opening or existing reconstruction. This does not establish a studio-only/version-specific phrase."
+    },
+    "next_required_evidence": "Time-stamped ear review of remaining omissions and native sample/voice dispatch with playback pitch, or a source segment with coherent longer waveform/spectral matches."
+  }
+}

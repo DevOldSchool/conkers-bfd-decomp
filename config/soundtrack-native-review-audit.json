@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "family": "conker-us-sloprano-native-review",
+  "notice": "These game captures validate an opening excerpt and a bounded unattended fight, not the complete boss arrangement. MP3 request state changes are sampled at AI DMA boundaries; retained IDs and repeated same-ID calls are not proof of continuing playback.",
+  "capture_method": "Existing isolated Mupen64Plus 2.6.0, software graphics and CXD4 audio microcode; AI DMA before host resampling; copied OpenEmu 2.5.9 saves; no controller input. Originals preserved.",
+  "captures": [
+    {
+      "kind": "native-game-mix",
+      "sequence_index": 66,
+      "resource_index": null,
+      "wav_sha1": "8eb299506715c2286f2d98f7462dfb35c309849c",
+      "title": "Sloprano \u00b7 captured opening",
+      "note": "Exact opening save replay; full game mix with scene sounds. No controller input. Later scene transitions are retained; this is not a clean music stem.",
+      "duration_seconds": 142.55027704605322
+    },
+    {
+      "kind": "native-game-mix",
+      "sequence_index": 66,
+      "resource_index": null,
+      "wav_sha1": "2756065b3def289af74c4a723343f0ca03b87537",
+      "title": "Sloprano \u00b7 captured fight",
+      "note": "Exact fight save replay; full game mix with effects. No controller input, so the replay eventually reaches death rather than completing the boss phases. Later song cues are not validated.",
+      "duration_seconds": 135.26314833318193
+    },
+    {
+      "kind": "measured-stream-cue",
+      "sequence_index": 66,
+      "resource_index": 239,
+      "wav_sha1": "205c937750ca620d8c5c2d370cbcbaa28aa62e6f",
+      "title": "MP3 0239 \u00b7 measured six-second cue",
+      "note": "First six seconds of extracted MP3 0239 played at the observed 22,018 Hz game clock, with a 0.473 waveform-projection gain. Isolated cue audition; this estimate applies to this excerpt only and does not establish the full mix.",
+      "duration_seconds": 6.0
+    }
+  ],
+  "resource_0239": {
+    "source_sha1": "24e2db033ce9e668848e0ecf91fa1b92c07c37a6",
+    "request_audio_seconds": 35.388954492,
+    "nominal_clock": {
+      "correlation": 0.1234517383693175,
+      "reference_seconds": 35.486439909297054,
+      "excerpt_seconds": 6.0,
+      "least_squares_gain": 0.06253478780825762,
+      "nominal_source_rate": 22050,
+      "source_playback_rate": 22050,
+      "reference_rate": 22018,
+      "notice": "Mixed-audio waveform projection; gain and onset are excerpt estimates, not decoder parameters or full-song identity."
+    },
+    "observed_clock": {
+      "correlation": 0.935333687410753,
+      "reference_seconds": 35.49024943310658,
+      "excerpt_seconds": 6.0,
+      "least_squares_gain": 0.4733935289228598,
+      "nominal_source_rate": 22050,
+      "source_playback_rate": 22018,
+      "reference_rate": 22018,
+      "notice": "Mixed-audio waveform projection; gain and onset are excerpt estimates, not decoder parameters or full-song identity."
+    },
+    "observed_clock_windows": [
+      {
+        "correlation": 0.9445314872807078,
+        "reference_seconds": 35.49024943310658,
+        "excerpt_seconds": 2.0,
+        "least_squares_gain": 0.4712397354732184,
+        "nominal_source_rate": 22050,
+        "source_playback_rate": 22018,
+        "reference_rate": 22018,
+        "notice": "Mixed-audio waveform projection; gain and onset are excerpt estimates, not decoder parameters or full-song identity."
+      },
+      {
+        "correlation": 0.9349413158456081,
+        "reference_seconds": 35.49024943310658,
+        "excerpt_seconds": 4.0,
+        "least_squares_gain": 0.4723857891731815,
+        "nominal_source_rate": 22050,
+        "source_playback_rate": 22018,
+        "reference_rate": 22018,
+        "notice": "Mixed-audio waveform projection; gain and onset are excerpt estimates, not decoder parameters or full-song identity."
+      },
+      {
+        "correlation": 0.935333687410753,
+        "reference_seconds": 35.49024943310658,
+        "excerpt_seconds": 6.0,
+        "least_squares_gain": 0.4733935289228598,
+        "nominal_source_rate": 22050,
+        "source_playback_rate": 22018,
+        "reference_rate": 22018,
+        "notice": "Mixed-audio waveform projection; gain and onset are excerpt estimates, not decoder parameters or full-song identity."
+      }
+    ],
+    "request_to_waveform_seconds": 0.10129494110657333,
+    "scope": "Only the first 2/4/6 seconds of this stream; no extrapolation of gain, delay or clock to every track."
+  },
+  "arrangement": "Opening request state changes from retained 457 to 239. Fight state remains 239. No requests for 240/241/242/238/271/272 were observed in these replays; unattended playback does not progress through every boss phase. The offline five-cue assembly remains an experiment.",
+  "renderer_change": "A separate observed-clock six-second cue audition uses the measured projection gain. Default sequence renders and the five-cue experiment are preserved unchanged.",
+  "limitations": [
+    "Captures include effects, dialogue and scene changes; no clean native music stems.",
+    "AI-boundary state logging misses repeated same-ID requests and is not decoder onset.",
+    "Waveform matching is quantitative evidence, not independent human listening.",
+    "Opening reaches another scene and fight reaches death; bounded no-input replay is not a complete playthrough.",
+    "Native filters, effects, runtime marker changes and remaining cue gains/decoder transitions still require evidence."
+  ]
+}

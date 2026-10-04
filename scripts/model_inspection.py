@@ -118,8 +118,9 @@ def gallery_page(records: list[dict], output: Path) -> str:
                     f'{html.escape(label)} <span class="tab-count">{count}</span></button>')
     template = Path(__file__).with_name('model_inspection.html').read_text()
     # Substitute only template tokens, never tokens inside user-facing metadata.
-    values = {'TABS': ''.join(tabs), 'CARDS': ''.join(cards), 'COUNT': str(len(records))}
-    return re.sub(r'\{\{(TABS|CARDS|COUNT)\}\}', lambda match: values[match[1]], template)
+    values = {'TABS': ''.join(tabs), 'CARDS': ''.join(cards), 'COUNT': str(len(records)),
+              'PREVIEW_STYLES': Path(__file__).with_name('preview-common.css').read_text()}
+    return re.sub(r'\{\{(TABS|CARDS|COUNT|PREVIEW_STYLES)\}\}', lambda match: values[match[1]], template)
 
 
 def digest(data: bytes) -> str:
