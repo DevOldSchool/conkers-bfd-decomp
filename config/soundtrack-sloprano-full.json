@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "title": "Sloprano",
+  "normalized_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "sequence_index": 66,
+  "main_profile": "soundtrack-sloprano-stream-experiment.json",
+  "main_profile_sha1": "06a1cebc17e2f8465f92abd68bcf510cd09c3e1f",
+  "notice": "Full reconstruction / continuous listening edit. Uses the five exact CSeq 0066 vocal cues, then the captured 0271 \u2192 0272 ending order and sequence 0074 closing-sting candidate. Three completely silent spans in the linear main render are removed. Joining the ending after the linear instrumental is an editorial transition; interactive waiting/marker loops and gamerip timing are not reproduced. Game-sample synthesis, instrumental level and effects remain approximate. No claim of bit-perfect native playback or full album identity.",
+  "ending_streams": [
+    {
+      "index": 271,
+      "source_sha1": "4c4efb08afd88823c1abc07034de6e4ecd5ec2e6",
+      "preview_sha1": "fbb269cb37e65a0faf050e61c8e29436d484ee51",
+      "seconds_after_main": 0,
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.12426309600907004
+    },
+    {
+      "index": 272,
+      "source_sha1": "3059e7139de0c41be39fa0c88430b5dacd719fcb",
+      "preview_sha1": "e2b14fda37a55102da1e368c57e683ab19d3439c",
+      "seconds_after_main": 25.020256154000002,
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.12432440232652908
+    }
+  ],
+  "closing_sequence": {
+    "index": 74,
+    "source_sha1": "ffdb145f80e5fd3f31dcd90fd68dbd3ae171563f",
+    "wav_sha1": "f5dd30eac27bf1606a01537f777dbcb134726950",
+    "placement": "after-last-vocal",
+    "gain": 1.0,
+    "note": "Strong spectral match to the gamerip closing sting and resumed native ending; global sequence label remains unidentified."
+  },
+  "main_mix_sha1": "759bf97c55bbb7dcc2c3f0fb47e81cec4af762f0",
+  "remove_silent_intervals": [
+    {
+      "start_frame": 1918562,
+      "end_frame": 2004512
+    },
+    {
+      "start_frame": 3449682,
+      "end_frame": 3545754
+    },
+    {
+      "start_frame": 4729398,
+      "end_frame": 4795780
+    }
+  ]
+}

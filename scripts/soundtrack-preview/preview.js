@@ -248,6 +248,36 @@ async function initialize() {
     for (const other of document.querySelectorAll('audio')) other.addEventListener('play', () => audio.pause());
     section.append(title, note, audio); $('native-captures').append(section);
   }
+  for (const song of manifest.reconstructions || []) {
+    const instrumental = manifest.sequences.find((track) => track.index === song.sequence_index);
+    if (!instrumental) throw new Error('Reconstruction instrumental is missing.');
+    const section = document.createElement('section');
+    const title = document.createElement('h3'); title.textContent = song.title;
+    const note = document.createElement('p'); note.textContent = song.note; note.className = 'muted';
+    const pair = document.createElement('div'); pair.className = 'reconstruction-pair';
+    for (const [label, file, seconds] of [
+      [`${song.title} · full reconstruction`, song.file, song.duration_seconds],
+      [instrumental.album_title || 'Instrumental', instrumental.file, instrumental.duration_seconds]
+    ]) {
+      const card = document.createElement('section');
+      const heading = document.createElement('h4'); heading.textContent = `${label} · ${duration(seconds)}`;
+      const audio = document.createElement('audio'); audio.controls = true; audio.preload = 'metadata'; audio.src = file;
+      audio.setAttribute('aria-label', label);
+      audio.addEventListener('play', () => { for (const other of document.querySelectorAll('audio')) if (other !== audio) other.pause(); });
+      for (const other of document.querySelectorAll('audio')) other.addEventListener('play', () => audio.pause());
+      const button = document.createElement('button'); button.type = 'button'; button.textContent = `Play ${label}`;
+      button.addEventListener('click', async () => {
+        try { await audio.play(); message(`Playing ${label}.`); }
+        catch (error) { message(`Playback failed: ${error.message}`); }
+      });
+      const link = safeLink(file, 'Open WAV');
+      card.append(heading, audio, button, document.createTextNode(' '), link); pair.append(card);
+    }
+    section.append(title, pair, note); $('reconstructions').append(section);
+  }
+  const hasFullSongs = (manifest.reconstructions || []).length > 0;
+  $('full-songs').hidden = !hasFullSongs;
+  $('full-navigation').hidden = !hasFullSongs;
   $('native-notice').textContent = manifest.native_review_notice || '';
   $('native-section').hidden = !(manifest.native_captures || []).length;
   $('experiment-section').hidden = !(manifest.experiments || []).length;

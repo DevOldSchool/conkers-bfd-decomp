@@ -272,3 +272,29 @@ checks ROM, sequence, instrumental, cue timing and stream hashes. The native
 review builder also accepts `kind: calibrated-stream-experiment` for an explicitly
 qualified separate WAV. MP3 clock correction applies only to MP3 clips; it does
 not stretch the instrumental sequence or establish full runtime arrangements.
+
+### Full Sloprano listening reconstruction
+
+Open `build/assets/soundtracks/us-sloprano/index.html` directly. Its full-song
+section pairs **Sloprano** (4:42) with the preserved **Sloprano (Instrumental)**.
+The actual stereo PCM16 WAV is `songs/00-0066-full.wav`; no server or Save dialog
+is required. Other sequences, samples, captures and experiments are shared from
+prior previews, with one new WAV in this fresh folder.
+
+```sh
+python3 -m scripts.soundtrack_full_song \
+  --preview build/assets/soundtracks/us-phase-review \
+  --profile config/soundtrack-sloprano-full.json \
+  --output build/assets/soundtracks/new-sloprano-review
+```
+
+The [full-song audit](../config/soundtrack-sloprano-full-audit.json) records
+seven vocal streams in reference-supported order, measured native clock/levels,
+sequence 0074's closing-sting candidate and validation. Three hash-guarded spans
+containing exclusively digital silence are removed; audible PCM cannot be cut.
+The ending joins after the linear main render as an explicit listening edit.
+It does not reproduce interactive waiting, marker loops or the gamerip's timing.
+Reference recordings supply comparison evidence only. Existing outputs are
+refused; all audio stays ignored and local. The first 4:53 draft is preserved in
+`us-sloprano-first-draft`. All 76 targeted Python checks pass; both paired players
+advance and mutually pause in browser QA, without console errors or a Save dialog.

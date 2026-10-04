@@ -47,3 +47,11 @@ li { margin: 6px 0; }
 .album-grid li summary { line-height: 1.5; }
 .candidate-buttons { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
 .candidate-buttons button { font-size: 14px; padding: 8px 12px; }
+
+#full-songs { margin: 0 0 24px; }
+#full-songs h2, #full-songs h3 { margin-top: 0; }
+.reconstruction-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.reconstruction-pair > section { min-width: 0; }
+.reconstruction-pair h4 { margin: 12px 0; }
+#full-songs audio { width: 100%; }
+@media (max-width: 800px) { .reconstruction-pair { grid-template-columns: 1fr; } }
