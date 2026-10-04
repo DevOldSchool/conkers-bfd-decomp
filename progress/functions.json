@@ -92911,7 +92911,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 164,
-        "reason": "Preserve proven three-float dispatcher at CURRENT (164). Raw instruction/branch/register behavior agrees except bound-address scheduling and stack extent/homes. Explicit ID snapshot and actual metadata base pointer are both code-neutral. No dummy local, extra formal or padding added.",
+        "reason": "Preserve full US CURRENT164 three-float dispatcher, fresh baseline d3bbf02abdec431eba628075ffe1c683 confirms all parameter stores/reloads already match relative to frame, so proposed actual parameter-object reads have no residual support and were not edited. Inherited real ID snapshot and metadata pointer both neutral; remaining frame38 versus40 with twelve shifted stack rows and table/pool bound-address scheduling. No dummy storage, extra formal, padding, equivalent view or loop/ID/base retries. Signature and SDK contracts unchanged; no new form this selection.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93077,8 +93077,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 596,
-        "reason": "Preserve fullword global pause callback at CURRENT (596). Byte channel local recovers bounded scan; explicit word masks worsen 906 and separate ID lifetime is neutral 596. Remaining saved-register allocation, address setup and duplicated byte masks require new evidence; no narrow target formal.",
+        "current_score": 196,
+        "reason": "Preserve full US CURRENT196 callback after established source-local u8 helper declarations recover both raw call-boundary byte masks, improving fresh596. Selected pause parameter remains fullword s32; helper own8180 contracts supported by SW homes/byte-only use. Inherited byte-local/wordmask/ID-lifetime596/906/596 exhausted; one distinct declaration form196. Remaining saved-register roles, table/pool address setup and record cursor allocation only; no equivalent loop/mask/input-narrowing retries. Existing CC54/E054 matched callers require independent rechecks, no shared headers/SDK/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94315,7 +94315,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1235,
-        "reason": "Recovered SDK/Rare driver, sequence, sound and bank config contracts plus raw-proven variadic resource APIs. First1667 improved1235 with genuine three-player endpoint snapshot. Remaining actual config/local frame100 versusF0, descriptor-loop induction and endpoint symbol alias lack a supported layout fix; no padding or alias workaround.",
+        "reason": "Preserve full US CURRENT1235 original initializer. Inherited1667/1235 endpoint and config contracts retained; current distinct typed descriptor cursor and signed byte counter regressed1970, exact1235 restored. Three total forms exhausted. Actual frame100 versusF0 and config offsets, descriptor induction and endpoint symbol alias remain; no equivalent cursor/counter/endpoint, padding, storage shaping, ABI or shared changes without new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

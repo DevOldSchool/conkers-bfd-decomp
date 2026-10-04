@@ -898,7 +898,7 @@ void func_8000CBF0(s32 arg0, s32 arg1, s32 arg2) {
     }
 }
 void func_80008988(s32, s32, s32);
-void func_80008EE0(s32, s32);
+void func_80008EE0(u8, s32);
 
 void func_8000CC54(s32 arg0) {
     u32 value;
@@ -985,8 +985,8 @@ extern u8 D_800419A0;
 extern u8 D_800CC2D0[];
 s32 func_80023440(MessageQueue *, void **, s32);
 void func_8507E7E4(void *, s32, s32, s32, s32);
-void func_800084D8(s32);
-void func_80008F58(s32);
+void func_800084D8(u8);
+void func_80008F58(u8);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000CEAC CURRENT (9425) */
 void func_8000CEAC(s32 arg0) {
@@ -1560,8 +1560,8 @@ interpolation_done:
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000DF68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DF68.s")
 s32 *func_8000B1B0(s32);
-void func_800084D8(s32);
-void func_80008F58(s32);
+void func_800084D8(u8);
+void func_80008F58(u8);
 void func_8000CC54(s32);
 
 void func_8000E054(s32 arg0, s32 arg1) {
@@ -1656,7 +1656,7 @@ void func_8000E17C(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E17C.s")
 extern s8 D_80041F00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000E2F4 CURRENT (596) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000E2F4 CURRENT (196) */
 void func_8000E2F4(s32 arg0) {
     SequenceRecordState **slot;
     SequenceRecordState *record;

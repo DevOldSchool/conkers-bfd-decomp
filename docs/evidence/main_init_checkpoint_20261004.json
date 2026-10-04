@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved improved11624 disabled C candidate and FF90 exhaustion metadata; clean canonical US ROM, existing F9D4/B3D4 independent full-span C and source-unit layout checks, metadata/progress/whitespace. No new C matches; candidates remain disabled beside canonical assembly.",
+    "scope": "B1B0 source-local byte helper declarations, improved deferred E2F4 and 8180/D758 exhaustion evidence. Affected existing matched CC54/E054 retain independent full-span CURRENT0 and source-unit layout. Clean canonical US ROM, metadata/progress/whitespace passed. No new C matches.",
     "batch_ids": [
-      "func_8000F9D4",
-      "func_8000B3D4"
+      "func_8000CC54",
+      "func_8000E054"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 38.92,
+    "test_seconds": 39.226,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T13:15:57.946364+00:00",
+    "completed_utc": "2026-10-04T13:32:56.659692+00:00",
     "additional_focused_checks": {
-      "func_8000F9D4": {
+      "func_8000CC54": {
         "score": 0,
-        "attempt_record": "97d903f1dc1049ee9b0c60b6e2ab1fc1",
+        "attempt_record": "3509ecc019a44922a98900df7f470bf2",
         "layout": "preserved"
       },
-      "func_8000B3D4": {
+      "func_8000E054": {
         "score": 0,
-        "attempt_record": "81e37443834646e4893fc425bd97d5bc",
+        "attempt_record": "f866549cb82b4626b34c47322092245f",
         "layout": "preserved"
       }
     }
@@ -405,6 +405,17 @@
       2942,
       1422,
       1472
+    ],
+    "func_80008180": [
+      1235,
+      1970
+    ],
+    "func_8000E2F4": [
+      596,
+      196
+    ],
+    "func_8000D758": [
+      164
     ]
   },
   "preserved_candidate_scores": {
@@ -429,7 +440,10 @@
     "func_8000FA64": 4811,
     "func_8000FC18": 610,
     "func_8000FF90": 290,
-    "func_80011624": 1422
+    "func_80011624": 1422,
+    "func_80008180": 1235,
+    "func_8000E2F4": 196,
+    "func_8000D758": 164
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -518,6 +532,25 @@
       "targeted_revisions_remaining": 0,
       "current_score": 1422,
       "reason": "Real quotient/clamp snapshot improves fresh1624 to1422. Loaded flags2942 and pitch-bits1472 forms rejected; exact best restored. Inherited three traversal forms exhausted. Parameter homes/reloads already exact; no equivalent snapshot, traversal or storage shaping."
+    },
+    "func_80008180": {
+      "new_forms_used": 1,
+      "inherited_forms_tested": 2,
+      "targeted_revisions_remaining": 0,
+      "current_score": 1235,
+      "reason": "Typed descriptor cursor/signed byte counter regressed1970; original1235 restored. Config frame and endpoint proof unresolved; no equivalent cursor/counter/endpoint or storage shaping."
+    },
+    "func_8000E2F4": {
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 0,
+      "current_score": 196,
+      "reason": "Correct existing sequence-helper byte contracts in allowed forward declarations; raw boundary masks recovered596 to196. Prior body local/mask/ID families exhausted; fullword pause formal retained. Affected CC54/E054 full-span0/layout verified."
+    },
+    "func_8000D758": {
+      "new_forms_used": 0,
+      "targeted_revisions_remaining": 0,
+      "current_score": 164,
+      "reason": "Fresh full-span164 confirms actual parameter stores/reloads already agree relative to frame; proposed object views not edited. Frame38 versus40 and base scheduling remain; prior ID/base shapes exhausted."
     }
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
@@ -663,9 +696,37 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved improved11624 disabled C candidate and FF90 exhaustion metadata; clean canonical US ROM, existing F9D4/B3D4 independent full-span C and source-unit layout checks, metadata/progress/whitespace. No new C matches; candidates remain disabled beside canonical assembly.",
+      "batch_ids": [
+        "func_8000F9D4",
+        "func_8000B3D4"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 38.92,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T13:15:57.946364+00:00",
+      "additional_focused_checks": {
+        "func_8000F9D4": {
+          "score": 0,
+          "attempt_record": "97d903f1dc1049ee9b0c60b6e2ab1fc1",
+          "layout": "preserved"
+        },
+        "func_8000B3D4": {
+          "score": 0,
+          "attempt_record": "81e37443834646e4893fc425bd97d5bc",
+          "layout": "preserved"
+        }
+      }
     }
   ],
-  "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. A clean batch rechecks existing F9D4/B3D4 for edited unit layout and build/progress safety; it does not prove unmatched candidates or add C matches.",
+  "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
   "latest_candidate_evidence": {
     "func_80011624": {
       "source": "src/main/init_EB00.c",
@@ -687,6 +748,41 @@
       "shared_dependency": false,
       "new_forms": 1,
       "change": "Owner pointer copy stayed290; exact original restored and exhaustion recorded."
+    },
+    "func_8000E2F4": {
+      "source": "src/main/init_B1B0.c",
+      "full_span_bytes": 280,
+      "fresh_baseline": 596,
+      "focused_score": 196,
+      "attempt_record": "1351ec214d0e46249ccb0c6a77f4a8ae",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "change": "Five source-local forwards corrected to established u8 helper input contracts. Target body and fullword pause input unchanged. Candidate remains disabled beside canonical assembly.",
+      "affected_matched_callers": {
+        "func_8000CC54": "3509ecc019a44922a98900df7f470bf2",
+        "func_8000E054": "f866549cb82b4626b34c47322092245f"
+      }
+    },
+    "func_80008180": {
+      "source": "src/main/init_8180.c",
+      "full_span_bytes": 856,
+      "focused_score": 1235,
+      "attempt_record": "047cb28a5d0040528fcf72092c75dd06",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "change": "Explicit typed descriptor traversal regressed1970; original1235 restored."
+    },
+    "func_8000D758": {
+      "source": "src/main/init_B1B0.c",
+      "full_span_bytes": 532,
+      "focused_score": 164,
+      "attempt_record": "d3bbf02abdec431eba628075ffe1c683",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 0,
+      "change": "Fresh comparison disproves proposed parameter-view hypothesis; no body edit."
     }
   }
 }
