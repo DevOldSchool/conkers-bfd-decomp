@@ -22,7 +22,92 @@
 void func_150238D0(void) {
 
 }
+typedef struct {
+    u8 bytes[0x44];
+} Game50D80DispatchState;
+typedef struct Game50D80Fade {
+    u8 owner, index, enabled, pad3;
+    u16 remaining, total, fadeIn, fadeOut, level;
+    u8 event;
+} Game50D80Fade;
+typedef struct Game50D80FadeOwner {
+    u16 pad0;
+    s16 x, y, z;
+    u8 pad8[8];
+    u32 flags;
+    u8 pad14[4];
+    Game50D80Fade *fade;
+} Game50D80FadeOwner;
+void func_10004074(s32);
+extern s32 D_800BE9E4, D_800C35B0[], D_800C3640[];
+extern u8 D_800C35E8[], D_800C3C88, D_800C3C89;
+extern Game50D80DispatchState *D_800C3958[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150238D8 CURRENT (1150) */
+s32 func_150238D8(Game50D80FadeOwner *arg0, s32 arg1, u32 *arg2,
+    s32 arg3, s32 arg4, s32 arg5, s16 *arg6) {
+    Game50D80Fade *fade;
+    Game50D80DispatchState *state;
+    s32 owner, remaining, ramp;
+    u32 level;
+
+    fade = arg0->fade;
+    if ((fade->enabled != 0 && D_800C35B0[fade->owner] >= D_800C3640[fade->owner]) ||
+        (arg0->flags & 0x80)) {
+        *arg2 = 0;
+        *arg6 = 0;
+        func_10004074((s32)fade);
+        return 1;
+    }
+    owner = fade->owner;
+    if (fade->event == D_800C35E8[owner]) {
+        state = D_800C3958[owner];
+        if (state != 0) {
+            arg0->x = (s16)(s32)*(f32 *)(state[fade->index].bytes + 0);
+            state = &D_800C3958[fade->owner][fade->index];
+            arg0->y = (s16)(s32)(*(f32 *)(state->bytes + 0x38) + *(f32 *)(state->bytes + 4));
+            arg0->z = (s16)(s32)*(f32 *)(D_800C3958[fade->owner][fade->index].bytes + 8);
+        }
+    }
+    remaining = fade->remaining;
+    if (remaining != 0xFFFF) {
+        if (D_800BE9E4 < remaining) {
+            fade->remaining = remaining - D_800BE9E4;
+        } else {
+            *arg2 = 0;
+            *arg6 = 0;
+            func_10004074((s32)fade);
+            return 1;
+        }
+    }
+    level = fade->level;
+    *arg2 = level;
+    ramp = fade->fadeOut;
+    remaining = fade->remaining;
+    if (remaining < ramp) {
+        if (remaining != 0) {
+            *arg2 = level * remaining / (u32)ramp;
+        }
+    } else {
+        ramp = fade->fadeIn;
+        if (ramp != 0 && fade->total - ramp < remaining) {
+            *arg2 = *arg2 * (fade->total - remaining) / (u32)ramp;
+        }
+    }
+    if (fade->remaining != 0xFFFF && D_800C3C88 != 0) {
+        *arg2 = *arg2 * D_800C3C89 / 30U;
+        if (D_800BE9E4 >= D_800C3C89) {
+            *arg2 = 0;
+            *arg6 = 0;
+            func_10004074((s32)fade);
+            return 1;
+        }
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150238D8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_50D80/func_150238D8.s")
+
 typedef struct {
     s8 kind;
     u8 step;
@@ -188,9 +273,6 @@ typedef struct {
     u8 pad3[5];
 } Game50D80DispatchEntry;
 
-typedef struct {
-    u8 bytes[0x44];
-} Game50D80DispatchState;
 
 extern u8 D_800C35E8[];
 extern Game50D80DispatchEntry *D_800C35F0[];

@@ -39845,6 +39845,12 @@
       "symbol": "func_150238D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1150,
+        "reason": "Best CURRENT (1150) restored; two targeted revisions scored 1455 and 1170. Frame/homes exact, register and scheduling differences remain; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -42437,6 +42443,12 @@
       "symbol": "func_150839B8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3475,
+        "reason": "Best CURRENT (3475) retained; lifetime revision 3527. Existing narrow contracts cause extra masking/homes; broader contract audit outside this matching pass.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -59890,6 +59902,12 @@
       "symbol": "func_15176B84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4354,
+        "reason": "Best CURRENT (4354), improved from 6029 and 4717. Frame/prologue exact; matrix homes and RGB folding/scheduling remain. Two manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -62831,6 +62849,12 @@
       "symbol": "func_15182FDC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6044,
+        "reason": "Best valid CURRENT (6044); three manual comparisons exhausted; FP ownership, range/magnitude storage and color scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87973,11 +87997,15 @@
       "symbol": "func_1518BCD0"
     },
     {
+      "blocked": {
+        "reason": "Initialization evidence missing: raw copies unwritten SP+0xC0 (packet+8) into child+0x18; callback func_15178268 reads child+0x18 at 0x15178390 as state. Target-only C cannot invent an initializer or treat this word as padding. Requires wider initialization audit.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 728,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15177F90",
           "vram": "0x15177F90"
         }

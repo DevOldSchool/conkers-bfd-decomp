@@ -12,7 +12,116 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game1E6B40Packet {
+    void *resource;
+    u32 packed;
+    s32 mode;
+    s16 flags, scale;
+    s16 x, y, z, velocityX, velocityZ, decay;
+    u8 pad1C[3], reserved;
+    s16 fall, acceleration, scaleX, scaleZ, contact;
+    u8 enabled, phase, red, green, blue;
+    u8 alpha;
+    u8 pad30[4];
+    s16 trailing;
+    u8 pad36[2];
+} Game1E6B40Packet;
+f32 func_15047D60(f32);
+f32 func_15047C00(f32);
+u32 func_150ADA20(void);
+void func_15167D84(void *, s32, s32, s32, u8, s32);
+extern void *D_8008CA4C[];
+extern f32 D_800AA580;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B9690 CURRENT (6044) */
+void func_151B9690(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5,
+    f32 arg6, s32 arg7, s32 arg8, s32 arg9, s32 arg10, s32 arg11,
+    s32 arg12, s32 arg13, s32 arg14, s32 arg15, s32 arg16) {
+    Game1E6B40Packet packet;
+    s32 initialHeight;
+    f32 deltaX, deltaZ, radius;
+    s32 incrementedHeight;
+    f32 sine, cosine;
+    s32 lifetime;
+    f32 magnitude;
+    u8 red, green, blue;
+    s32 range;
+    f32 angle;
+
+    initialHeight = *(s16 *)((u8 *)&arg3 + 2);
+    arg6 += 180.0f;
+    angle = (arg6 + (f32)(s32)(func_150ADA20() %
+        (u32)*(s16 *)((u8 *)&arg7 + 2) -
+        (u32)(*(s16 *)((u8 *)&arg7 + 2) >> 1))) * D_800AA580;
+    sine = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    angle = (f32)*(s16 *)((u8 *)&arg10 + 2);
+    range = *(s16 *)((u8 *)&arg11 + 2);
+    if (range == 0) {
+        range = 1;
+    }
+    *(s16 *)((u8 *)&arg11 + 2) = range;
+    magnitude = angle + (f32)(s32)(func_150ADA20() %
+        (u32)*(s16 *)((u8 *)&arg11 + 2) -
+        (u32)(*(s16 *)((u8 *)&arg11 + 2) >> 1));
+    radius = (f32)*(s16 *)((u8 *)&arg12 + 2);
+    incrementedHeight = *(s16 *)((u8 *)&arg3 + 2) + 1;
+    *(s16 *)((u8 *)&arg3 + 2) = incrementedHeight;
+    deltaX = (f32)*(s16 *)((u8 *)&arg2 + 2) + radius * sine;
+    deltaZ = (f32)*(s16 *)((u8 *)&arg4 + 2) + radius * cosine;
+    *(s16 *)((u8 *)&arg2 + 2) = (s16)(s32)deltaX;
+    *(s16 *)((u8 *)&arg4 + 2) = (s16)(s32)deltaZ;
+    lifetime = *(s16 *)((u8 *)&arg8 + 2) +
+        (s32)(func_150ADA20() % (u32)*(s16 *)((u8 *)&arg9 + 2) -
+        (u32)(*(s16 *)((u8 *)&arg9 + 2) >> 1));
+    if (arg1 == 0 || arg1 == 1) {
+        blue = 0xFF;
+        green = 0xFF;
+        red = 0xFF;
+    } else {
+        red = 0x68;
+        switch (arg1) {
+        case 2:
+            green = 0x38;
+            blue = 0x10;
+            break;
+        case 3:
+        default:
+            blue = 0xFF;
+            green = 0xFF;
+            red = 0xFF;
+            break;
+        }
+    }
+    packet.packed = ((u32)*(s16 *)((u8 *)&arg13 + 2) << 16) | (initialHeight & 0xFFFF);
+    packet.resource = D_8008CA4C[arg0];
+    packet.scale = 0x100;
+    packet.x = *(s16 *)((u8 *)&arg2 + 2);
+    packet.mode = arg1;
+    packet.flags = 0;
+    packet.decay = *(s16 *)((u8 *)&arg14 + 2);
+    packet.reserved = 0;
+    packet.fall = lifetime;
+    packet.acceleration = -0xA0;
+    packet.scaleX = *(s16 *)((u8 *)&arg14 + 2);
+    packet.scaleZ = *(s16 *)((u8 *)&arg14 + 2);
+    packet.contact = 0x190;
+    packet.enabled = 0;
+    packet.y = *(s16 *)((u8 *)&arg3 + 2);
+    packet.z = *(s16 *)((u8 *)&arg4 + 2);
+    packet.velocityX = (s16)(s32)(magnitude * sine);
+    packet.velocityZ = (s16)(s32)(magnitude * cosine);
+    packet.phase = func_150ADA20();
+    packet.alpha = 0xFF;
+    packet.trailing = 0;
+    packet.red = red;
+    packet.green = green;
+    packet.blue = blue;
+    func_15167D84(&packet, 0, 0, -1, *(u8 *)((u8 *)&arg15 + 3), arg16);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B9690 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1E6B40/func_151B9690.s")
+
 typedef struct Game1E6B40Pulse {
     u8 pad0;
     u8 kind;
