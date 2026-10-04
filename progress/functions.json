@@ -92094,8 +92094,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 495,
-        "reason": "Retain prior495. Case3 real blend snapshot regresses1370 and grows frame78; in-place genuine volume/gain arithmetic regresses4505. Original frame70 and full-width helper ABI preserved. Main starter lacks jump-table input; ROM five targets independently decoded. No repeated blend/loop-index shaping.",
+        "current_score": 95,
+        "reason": "Candidate CURRENT95 full1344 US, fresh495. Corrected own 11FA0 forwards to independently matched 8BC0 u8-first and8B60 four-u8/s32-value contracts; unchanged target body now recovers both raw ANDI a1,a0,FF instead of MOVE. Complete known C/include audit only owning definitions/own forwards/three selected calls; incomplete matched-caller index empty. Remaining FP f14/f2 roles and commutative operand order, plus main jump-table/data symbol ownership remain; no new C match/integration proof. Inherited blend/loop forms remain exhausted; one distinct declaration form, no shared SDK/header/tooling/ASM changes, no equivalent blend/storage/loop retries or unauthorized permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94204,7 +94204,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1210,
-        "reason": "Actual consumer at 11624 stores the helper return, and raw 114D0 preserves A420 v0 through output stores. Corrected source-local return contract is code-neutral at CURRENT 1210; exact frame/output home remain with constant-base hoisting and scheduling differences.",
+        "reason": "Candidate CURRENT1210 full340 US; fresh1210, real cursor initialized from existing best pointer is code-neutral1210; exact original restored and independently rechecked1210. Inherited initial body and code-neutral return correction plus one current cursor form exhaust current three-form ceiling. All owning inputs fullword and frame78/output5Chome exact; early shared constant-base hoist, count/base copies and temp/allocation/scheduling remain. No narrower inputs, equivalent address/cursor copies, frame/storage forcing or unauthorized permutation; ABI/helper/SDK/shared dependencies unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
