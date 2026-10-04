@@ -2291,6 +2291,72 @@ void func_15070D24(s32 arg0) {
 }
 void func_15070F60(s32 arg0);
 
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game981E0Position;
+
+extern Game981E0CopiedVector D_80099BA0, D_80099BAC;
+void func_151D5404(Game981E0Position *, s32, s32, s32, s32, s32, s32, s32);
+void func_151D5334(s32, s32, s32, s32, s32, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15070F60 CURRENT (828) */
+void func_15070F60(s32 arg0) {
+    Game981E0CopiedVector input;
+    Game981E0CopiedVector second;
+    f32 ranges[2];
+    Game981E0Position transformed;
+    Game981E0Descriptor descriptor;
+    s32 position[3];
+    s32 randomSecond;
+    s32 randomFirst;
+    s32 mode;
+    s32 matrix;
+
+    input = D_80099BA0;
+    second = D_80099BAC;
+    if ((*(s32 *)(D_800D154C + 0x1D4) != 0) &&
+        ((D_800D154C[0x74] & 0xF) != 0xF)) {
+        ranges[0] = func_150ADA68() * 180.0f + 150.0f;
+        ranges[1] = 2.0f * func_150ADA68() + 2.5f;
+        if (((u8 *)&arg0)[3] != 0) {
+            matrix = 1;
+        } else {
+            matrix = 2;
+        }
+        func_15143134(input.values, (f32 *)&transformed,
+                      (matrix << 6) + *(s32 *)(D_800D154C + 0x1D4));
+        if (((u8 *)&arg0)[3] != 0) {
+            mode = 1;
+        } else {
+            mode = 2;
+        }
+        randomFirst = func_150ADA20();
+        randomSecond = func_150ADA20();
+        func_15102B38((s32)D_800D154C, ((u8 *)&mode)[3],
+                      (s32)&input, (s32)&second, ranges,
+                      (u32)randomFirst % 5U + 5,
+                      (u32)randomSecond % 156U + 100,
+                      func_150ADA68() * 4000.0f + 4000.0f,
+                      (s32)&transformed, 0xFF, 0, -1, 0xFF, 0);
+        descriptor.type = 3;
+        descriptor.neg_one = -1;
+        descriptor.lifetime = func_150ADA20() % 5U + 3;
+        descriptor.zero = 0;
+        position[0] = (s32)transformed.x;
+        position[1] = (s32)transformed.y;
+        position[2] = (s32)transformed.z;
+        func_151602C0((u8 *)&descriptor, position,
+                      func_150ADA20() % 201U + 55,
+                      0xFF, 0xFF, 0xFF, 0xFF, 0, 0, 0xFF, 0);
+        func_151D5404(&transformed, 0x43FD0000, 0x447D4000,
+                      0x3A8163D3, 0xF, 0x14, 0xFF, 0);
+        func_151D5334((s32)&transformed, 0x43FD0000, 0x447D4000,
+                      0x3A8163D3, 5, 0xFF, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15070F60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_981E0/func_15070F60.s")
 void func_15071230(s32 arg0) {
     func_15070F60(0);
@@ -2412,11 +2478,6 @@ void func_15071690(s32 arg0) {
         func_150B5C38(&sp1C[0], 0xFF, 1);
     }
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game981E0Position;
 
 typedef struct {
     u8 pad0[0x14];

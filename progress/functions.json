@@ -22056,6 +22056,12 @@
       "symbol": "func_15070D24"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 828,
+        "reason": "Best CURRENT (828) retained after three comparisons and one declaration-placement compile repair; original FP sequence recovered, frame A0 versus98 and one cached address spill remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -52578,6 +52584,12 @@
       "symbol": "func_15153634"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1353,
+        "reason": "Manual budget exhausted; retain best CURRENT1353 complete particle packet",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53515,6 +53527,12 @@
       "symbol": "func_150E5558"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 942,
+        "reason": "Best CURRENT (942) retained after three manual comparisons; complete36byte by-value triangle and vector outputs recovered, frame A0 versus98 and buffer bases/entry scheduling remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71103,6 +71121,12 @@
       "symbol": "func_150D1810"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 110,
+        "reason": "Best CURRENT (110) retained after three manual comparisons; all instructions, constants, control and frame agree, 16 stage-register rows remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87341,6 +87365,12 @@
       "symbol": "func_151220D0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 285,
+        "reason": "Manual budget exhausted; retain best CURRENT285 with only FP register differences",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

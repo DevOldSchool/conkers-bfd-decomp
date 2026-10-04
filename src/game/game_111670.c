@@ -241,4 +241,95 @@ void func_150E5558(f32 arg0, f32 arg1, f32 arg2, f32 arg3,
 #endif /* CONKER_DEFERRED_CANDIDATE func_150E5558 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E5558.s")
 
+typedef struct Game111670Point {
+    f32 values[3];
+} Game111670Point;
+
+typedef struct Game111670Triangle {
+    Game111670Point vertices[3];
+} Game111670Triangle;
+
+typedef struct Game111670PackedPoint {
+    s16 values[3];
+} Game111670PackedPoint;
+
+typedef struct Game111670Motion {
+    u8 pad0[0x10];
+    f32 heightFactor, bounce;
+    u8 pad18[0x24];
+    f32 height;
+    u8 pad40[4];
+    f32 velocity[3], acceleration[3];
+    u8 pad5C[4];
+    u32 flags;
+} Game111670Motion;
+
+void func_15048F58(void *, void *, void *);
+void func_15049148(void *, f32, void *);
+f32 func_150AD900(f32 *, f32 *);
+f32 func_150AD930(void *);
+void func_15049350(Game111670Triangle);
+extern f32 D_800A1160, D_800A1164, D_800A1168;
+extern f32 D_800CC210, D_800CC214, D_800CC218;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E5810 CURRENT (942) */
+s32 func_150E5810(Game111670Motion *motion, s32 unused1, s32 unused2, s32 unused3,
+                  f32 height, Game111670PackedPoint *vertices) {
+    Game111670Triangle triangle;
+    f32 value;
+    f32 vertical;
+    f32 factor;
+    register s32 i;
+    f32 velocity[3];
+    f32 normal[3];
+    f32 unit[3];
+
+    motion->height = motion->heightFactor * D_800A1160 + height;
+    vertical = motion->velocity[1];
+    if (vertical > -2.0f) {
+        motion->velocity[0] = 0.0f;
+        motion->flags &= ~0x6FU;
+        motion->velocity[1] = 0.0f;
+        motion->velocity[2] = 0.0f;
+    } else {
+        if (vertices != 0) {
+            for (i = 0; i != 3; i++) {
+                triangle.vertices[i].values[0] = vertices[i].values[0];
+                triangle.vertices[i].values[1] = vertices[i].values[1];
+                triangle.vertices[i].values[2] = vertices[i].values[2];
+            }
+            func_15049350(triangle);
+            normal[0] = -D_800CC210;
+            normal[1] = -D_800CC214;
+            normal[2] = -D_800CC218;
+            value = func_150AD930(normal);
+            if (D_800A1164 < value) {
+                func_15049148(normal, 1.0f / value, unit);
+                velocity[0] = motion->velocity[0];
+                velocity[1] = motion->velocity[1];
+                velocity[2] = motion->velocity[2];
+                func_15049148(unit,
+                              2.0f * func_150AD900(unit, velocity),
+                              normal);
+                func_15048F58(velocity, normal, normal);
+                value = motion->bounce;
+                factor = D_800A1168;
+                motion->velocity[0] = value * normal[0] * factor;
+                motion->velocity[1] = value * normal[1];
+                motion->velocity[2] = value * normal[2] * factor;
+            }
+        } else {
+            value = motion->bounce;
+            motion->velocity[0] *= value;
+            motion->velocity[1] = -vertical * value;
+            motion->velocity[2] *= value;
+        }
+        value = motion->bounce;
+        motion->acceleration[0] *= value;
+        motion->acceleration[1] *= value;
+        motion->acceleration[2] *= value;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150E5810 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_111670/func_150E5810.s")

@@ -654,6 +654,81 @@ void func_15152ABC(Game17CAF0Color *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15152F70.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153298.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153634.s")
+typedef struct {
+    s16 countBase, countRange;
+    Game17CAF0Vec3f position;
+    s16 yawBase, pitchBase, yawRange, pitchRange;
+    f32 speedBase, speedRange, sizeBase, sizeRange;
+    Game17CAF0Color firstColor, secondColor;
+    u8 flags;
+    s16 lifeBase, lifeRange;
+    u16 variant;
+    f32 scaleBase, scaleRange;
+    u8 modeBase, modeRange;
+    s16 fadeStart, fadeRate;
+    u8 kind;
+} Game1539B4Config;
+
+typedef struct {
+    Game17CAF0Vec3f position, direction;
+    f32 speed, size;
+    Game17CAF0Color firstColor, secondColor;
+    u8 flags;
+    s16 lifetime;
+    u16 variant;
+    f32 scale;
+    u8 mode;
+    s16 fadeStart, fadeRate;
+} Game1539B4Packet;
+
+f32 func_151423D8(u8);
+void *func_15156190(s32, u8, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151539B4 CURRENT (1353) */
+void func_151539B4(void *arg0, s32 arg1) {
+    Game1539B4Packet packet;
+    s16 yaw, pitch;
+    f32 pitchSin, pitchCos, yawSin;
+    f32 radius;
+    s32 priority;
+
+    priority = arg1 & 0xFF;
+    arg1 = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->countRange + 1) + ((Game1539B4Config *)arg0)->countBase;
+    packet.position = ((Game1539B4Config *)arg0)->position;
+    packet.firstColor.red = ((Game1539B4Config *)arg0)->firstColor.red;
+    packet.firstColor.green = ((Game1539B4Config *)arg0)->firstColor.green;
+    packet.firstColor.blue = ((Game1539B4Config *)arg0)->firstColor.blue;
+    packet.firstColor.alpha = ((Game1539B4Config *)arg0)->firstColor.alpha;
+    packet.secondColor.red = ((Game1539B4Config *)arg0)->secondColor.red;
+    packet.secondColor.green = ((Game1539B4Config *)arg0)->secondColor.green;
+    packet.secondColor.blue = ((Game1539B4Config *)arg0)->secondColor.blue;
+    packet.secondColor.alpha = ((Game1539B4Config *)arg0)->secondColor.alpha;
+    packet.flags = ((Game1539B4Config *)arg0)->flags;
+    packet.variant = ((Game1539B4Config *)arg0)->variant;
+    packet.fadeStart = ((Game1539B4Config *)arg0)->fadeStart;
+    packet.fadeRate = ((Game1539B4Config *)arg0)->fadeRate;
+    if (arg1 != 0) {
+        do {
+            yaw = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->yawRange + 1) + ((Game1539B4Config *)arg0)->yawBase;
+            pitch = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->pitchRange + 1) + ((Game1539B4Config *)arg0)->pitchBase;
+            pitchSin = func_151423D8(pitch);
+            pitchCos = func_151423D8(pitch - 0x40);
+            yawSin = func_151423D8(yaw);
+            radius = func_151423D8(yaw - 0x40);
+            packet.direction.x = (10.0f * pitchSin) * radius;
+            packet.direction.y = -10.0f * pitchCos;
+            packet.direction.z = (10.0f * pitchSin) * yawSin;
+            packet.speed = func_150ADA68() * ((Game1539B4Config *)arg0)->speedRange + ((Game1539B4Config *)arg0)->speedBase;
+            packet.size = func_150ADA68() * ((Game1539B4Config *)arg0)->sizeRange + ((Game1539B4Config *)arg0)->sizeBase;
+            packet.lifetime = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->lifeRange + 1) + ((Game1539B4Config *)arg0)->lifeBase;
+            packet.scale = func_150ADA68() * ((Game1539B4Config *)arg0)->scaleRange + ((Game1539B4Config *)arg0)->scaleBase;
+            packet.mode = func_150ADA20() % (u32)(((Game1539B4Config *)arg0)->modeRange + 1) + ((Game1539B4Config *)arg0)->modeBase;
+            func_15156190((s32)&packet, ((Game1539B4Config *)arg0)->kind, 0, priority, 0);
+            arg1--;
+        } while (arg1 != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151539B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151539B4.s")
 void func_1514F640(s32, u8 *);
 typedef struct {
