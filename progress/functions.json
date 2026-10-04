@@ -93555,7 +93555,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 495,
-        "reason": "Full-width two-argument nonrepeating random selection preserves unsigned initial modulo, signed retry modulo, byte state and global-base reload after a potentially aliasing byte store. Scores1085,495,725: word-sized availability removes premature truncation; collapsing initial byte/availability identities worsens. Retain495, no further variants.",
+        "reason": "Fresh full336 baseline495 preserved after two non-improving new forms: u8 available1085, signed bounded shifts plus unsigned choice880. Frames/control agree; baseline39 register rows plus two copy/reset rows and one commuted operand remain. No equivalent availability/promotion/choice retries or artificial register pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93592,8 +93592,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3166,
-        "reason": "Actual one-argument cents conversion, typed sound-event helper and float/word union preserve behavior. Scores3166,3775,3170: reusing full-width event parameter worsens; removing derived handle name does not recover frame. Keep first valid candidate and full-width event formal; raw state-field address alias and parameter/spill scheduling remain.",
+        "current_score": 529,
+        "reason": "Manual ceiling3 forms: currentbaseline2807, event input934, actual validation handle529, indexed scalar alias519 rejected invalid C object bounds and annotated. Restore valid529 snapshot4f728..; canonical ASM. Residual frame28 vs20, pitch/handle spill offsets, arg2 store delay and following-span row. F91C/F9D4/1091C full CURRENT0/layout after canonical recovery; retained s16 event prototype independently caller-safe. No equivalent retries.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93627,17 +93627,16 @@
       "symbol": "func_8000F91C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1794,
-        "reason": "Typed seven-argument spatial helper and actual three-argument event helper preserve behavior. No existing narrow declaration for this wrapper was found; full-width formals with explicit signed-coordinate and unsigned-handle conversions score 1794. Incoming homes and conversion schedule remain; no unsupported narrowing tried.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 144,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F9D4",
           "vram": "0x8000F9D4"
         }
@@ -93894,8 +93893,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2202,
-        "reason": "Delayed owner-sound sibling preserves full-width input contract because no existing narrow declaration was found. First score2202 has the already exhausted incoming-home and callback-address shape from10558; preserve without repeating its code-neutral helper-annotation or local-copy forms.",
+        "current_score": 1530,
+        "reason": "Manual 3 form ceiling: fresh2202; own u16 sound1530; original word formal plus actual u16 sound snapshot1530; callback-address snapshot1530. Preserve second form1530 with original external signature. Two neutral revisions; residual early normalization vs late LHU and callback/outgoing-store scheduling. No equivalent type/snapshot/address retries.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94021,8 +94020,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6507,
-        "reason": "Checkpoint for user-authorized commit: first typed form CURRENT 6507 vs fresh 7343, frame 0x60 vs 0x50, first-entry global aliases/pool search control and spill lifetimes remain. One new form; two revisions remain. Owning contract reviewed; no active matched callers.",
+        "current_score": 1034,
+        "reason": "Manual ceiling 3 new forms across passes: typed owning word inputs6507, concrete first-slot aliases/indexed retry search1748, straightline allocation/shared result return1034. Preserve best1034; residual frame60 vs50, first-slot address CSE, mixer input/cents scheduling and real spill offsets. No equivalent loop/return/type retries, padding, extra homes, or register pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94060,7 +94059,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 248,
-        "reason": "CURRENT 248 entry word-home and narrow-load scheduling; owning narrow prototype was neutral for target and regressed matched EFB4. Restored original wide contract and verified EFB4 CURRENT 0; review inner BE8 independently before further attempts.",
+        "reason": "Manual ceiling 3 new forms across passes: prior all-narrow 248 rejected caller regression; current callee context baseline648, actual argument-object reads448, cents-only owning s16 contract248 with EFB4 independently CURRENT0. Residual ten early argument home/load scheduling rows; preserve legal best248, no equivalent signature/object/read retries.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

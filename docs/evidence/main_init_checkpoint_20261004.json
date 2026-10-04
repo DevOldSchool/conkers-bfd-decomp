@@ -43,14 +43,15 @@
     "func_800088F0",
     "func_80008988",
     "func_8001091C",
-    "func_80010F88"
+    "func_80010F88",
+    "func_8000F9D4"
   ],
   "completed_source_units": [
     "src/done/main/init_38E0.c"
   ],
   "remaining": {
     "current_init_files": 23,
-    "c_candidates": 91,
+    "c_candidates": 90,
     "original_asm": 20
   },
   "integration_blockers": {
@@ -59,61 +60,21 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Clean canonical full US ROM, 34 new function matches and 12 existing caller or companion matches. Canonical raw mappings do not prove pending C-unit integration.",
+    "scope": "One new full-span US match F9D4 and existing caller checks EFB4/F91C/1091C after source-local contract updates; canonical full US ROM and metadata/progress/whitespace gates required.",
     "batch_ids": [
-      "func_8000EBC4",
-      "func_80002E50",
-      "func_8000EDA0",
-      "func_800038E0",
-      "func_8000F44C",
-      "func_8000F3D0",
-      "func_8001123C",
-      "func_8000BC28",
-      "func_8000B638",
-      "func_8000853C",
-      "func_80008570",
-      "func_800085F8",
-      "func_8000862C",
-      "func_80008B2C",
-      "func_80008BC0",
-      "func_80008A4C",
-      "func_80008C6C",
-      "func_80008C04",
-      "func_80008F58",
-      "func_80008F24",
-      "func_80008EE0",
-      "func_800085B8",
-      "func_800086FC",
-      "func_80008744",
-      "func_80008824",
-      "func_80008B60",
-      "func_80008660",
-      "func_8000886C",
-      "func_80008790",
-      "func_80008A94",
-      "func_800088F0",
-      "func_80008988",
-      "func_8001091C",
-      "func_80010F88",
-      "func_80010AA8",
-      "func_800107F8",
-      "func_80010894",
-      "func_8000E654",
-      "func_8000E054",
-      "func_8000E46C",
-      "func_8000E588",
-      "func_8000CAE4",
-      "func_8000E704",
-      "func_8000CC54",
       "func_8000EFB4",
-      "func_8000390C"
+      "func_8000F9D4",
+      "func_8000F91C",
+      "func_8001091C"
     ],
-    "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.921,
-    "metadata_progress_whitespace": "passed",
-    "completed_utc": "2026-10-04T11:27:58.833660+00:00"
+    "test_seconds": 35.755,
+    "metadata": "valid",
+    "progress": "current",
+    "whitespace": "passed",
+    "completed_utc": "2026-10-04T12:07:37.360378+00:00"
   },
   "historical_score_sequences": {
     "func_800056A0": [
@@ -360,11 +321,38 @@
     ],
     "func_80010F30": [
       248,
+      248,
+      648,
+      448,
       248
     ],
     "func_80010BE8": [
       7343,
-      6507
+      6507,
+      1748,
+      1034
+    ],
+    "func_8000F568": [
+      495,
+      1085,
+      880
+    ],
+    "func_8000F9D4": [
+      1794,
+      460,
+      0
+    ],
+    "func_80010720": [
+      2202,
+      1530,
+      1530,
+      1530
+    ],
+    "func_8000F85C": [
+      2807,
+      934,
+      529,
+      519
     ]
   },
   "preserved_candidate_scores": {
@@ -380,7 +368,10 @@
     "func_8000B2F4": 114,
     "func_800100E0": 210,
     "func_80010F30": 248,
-    "func_80010BE8": 6507
+    "func_80010BE8": 1034,
+    "func_8000F568": 495,
+    "func_8000F85C": 529,
+    "func_80010720": 1530
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -390,27 +381,112 @@
   "rejected_forms": {
     "func_80001194": "Legacy score 60 used three empty shaping conditions; removed. Valid preserved candidate scores 90.",
     "func_8000BCBC": "Inherited score 2443 omitted required volume +4 after unsigned FP conversion; invalid. Corrected preserved candidate scores 788.",
-    "func_80010F30": "Owning narrow prototype was target-neutral at 248 but regressed matched EFB4 to 2238. Original wide prototype and body restored; EFB4 reverified at CURRENT 0."
+    "func_80010F30": "The earlier all-narrow proposal regressed EFB4 to2238 and was rejected. Current cents-only s16 contract plus actual argument-object views retains EFB4 CURRENT0; preserved248, ceiling3 forms exhausted.",
+    "func_8000F85C": "Attempt8b05439a093a442a97e711de3a3304c8 score519 invalid: indexed char-pointer arithmetic crosses the declared scalar alias object bounds. Automatically annotated; valid529 restored."
   },
   "next_review": {
     "func_80010BE8": {
-      "new_forms_used": 1,
-      "targeted_revisions_remaining": 2,
-      "current_score": 6507,
-      "hypothesis": "Review explicit first-entry aliases D_800425E8/D_800425E4 and index-1 pool search against raw call order. Remaining frame 0x60 versus 0x50 and spill/mix lifetimes require independent review.",
-      "contract": "Owning u16 handle, full-word s32 sound key, u16 volume, u8 pan, s16 cents, u8 mix and bus. All known direct C callers are deferred; no existing matched caller found."
+      "new_forms_used": 3,
+      "targeted_revisions_remaining": 0,
+      "current_score": 1034,
+      "reason": "Manual ceiling reached or two non-improving forms; preserve canonical GLOBAL_ASM and do not repeat exhausted hypotheses."
     },
     "func_80010F30": {
-      "new_forms_used": 1,
-      "targeted_revisions_remaining": 2,
+      "new_forms_used": 3,
+      "targeted_revisions_remaining": 0,
       "current_score": 248,
-      "hypothesis": "Refresh diagnosis only because independently reviewed BE8 owning contract changed. Preserve original F30 word prototype to retain EFB4 match."
+      "reason": "Manual ceiling reached or two non-improving forms; preserve canonical GLOBAL_ASM and do not repeat exhausted hypotheses."
     },
     "func_80007A24": {
       "current_score": 10,
       "new_forms_used": 0,
       "reason": "Only t9 versus t6 next-pointer load/store temporary. No supported new manual hypothesis; permutation remains unauthorized."
+    },
+    "func_8000F85C": {
+      "new_forms_used": 3,
+      "targeted_revisions_remaining": 0,
+      "current_score": 529,
+      "reason": "Manual ceiling reached or two non-improving forms; preserve canonical GLOBAL_ASM and do not repeat exhausted hypotheses."
+    },
+    "func_80010720": {
+      "new_forms_used": 2,
+      "targeted_revisions_remaining": 0,
+      "current_score": 1530,
+      "reason": "Three current forms1530/1530/1530 including equivalent exhausted callback-address pattern. Original word signature plus actual u16 sound snapshot retained; no equivalent retries.",
+      "forms_tested_current_group": 3,
+      "equivalent_exhausted_pattern_repeats": 1
+    },
+    "func_8000F568": {
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 0,
+      "current_score": 495,
+      "reason": "Existing inherited1085/495/725 forms plus current accidental byte-width repeat1085 and non-improving promotion880; restored495. Plateau exhausted; consult original defer reason and do not reset budget.",
+      "forms_tested_current_group": 2,
+      "equivalent_repeats": 1,
+      "inherited_forms_tested": 3
     }
   },
-  "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits."
+  "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
+  "previous_clean_validation": {
+    "result": "BATCH_COMPLETE",
+    "scope": "Clean canonical full US ROM, 34 new function matches and 12 existing caller or companion matches. Canonical raw mappings do not prove pending C-unit integration.",
+    "batch_ids": [
+      "func_8000EBC4",
+      "func_80002E50",
+      "func_8000EDA0",
+      "func_800038E0",
+      "func_8000F44C",
+      "func_8000F3D0",
+      "func_8001123C",
+      "func_8000BC28",
+      "func_8000B638",
+      "func_8000853C",
+      "func_80008570",
+      "func_800085F8",
+      "func_8000862C",
+      "func_80008B2C",
+      "func_80008BC0",
+      "func_80008A4C",
+      "func_80008C6C",
+      "func_80008C04",
+      "func_80008F58",
+      "func_80008F24",
+      "func_80008EE0",
+      "func_800085B8",
+      "func_800086FC",
+      "func_80008744",
+      "func_80008824",
+      "func_80008B60",
+      "func_80008660",
+      "func_8000886C",
+      "func_80008790",
+      "func_80008A94",
+      "func_800088F0",
+      "func_80008988",
+      "func_8001091C",
+      "func_80010F88",
+      "func_80010AA8",
+      "func_800107F8",
+      "func_80010894",
+      "func_8000E654",
+      "func_8000E054",
+      "func_8000E46C",
+      "func_8000E588",
+      "func_8000CAE4",
+      "func_8000E704",
+      "func_8000CC54",
+      "func_8000EFB4",
+      "func_8000390C"
+    ],
+    "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "tests": 1823,
+    "skipped": 37,
+    "test_seconds": 35.921,
+    "metadata_progress_whitespace": "passed",
+    "completed_utc": "2026-10-04T11:27:58.833660+00:00"
+  },
+  "accidental_equivalent_repeats": {
+    "func_8000F568": "byte availability1085 already in inherited defer reason; not new eligible budget",
+    "func_80010720": "callback-address snapshot repeats exhausted sibling10558 pattern; code-neutral1530"
+  }
 }
