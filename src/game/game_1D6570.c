@@ -109,18 +109,23 @@ f32 func_150ADA68(void);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 extern Game1D6570Choices D_8008F9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A91AC CURRENT (584) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A91AC CURRENT (106) */
 void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     Game1D6570Particle particle;
     f32 size;
     Game1D6570Choices choices;
-    u32 random0;
-    u32 random1;
+    struct {
+        u32 first;
+        u32 second;
+        u32 third;
+    } random;
 
     choices = D_8008F9A4;
     size = func_150ADA68() * 50.0f + 50.0f;
     particle.field6 = choices.values[func_150ADA20() % 3U];
     particle.field7 = 0;
+    particle.field16 = 0;
+    particle.field17 = 7;
     particle.field8 = 0;
     particle.fieldC = 0;
     particle.field0 = 0x1701;
@@ -131,14 +136,13 @@ void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3)
     particle.field13 = 0;
     particle.field14 = 0;
     particle.field15 = 0xFF;
-    particle.field16 = 0;
-    particle.field17 = 7;
     particle.field18 = 0x3B0002;
-    random0 = func_150ADA20();
-    random1 = func_150ADA20();
+    random.first = func_150ADA20();
+    random.second = func_150ADA20();
+    random.third = func_150ADA20();
     func_1513C650((s32)&particle, 1, 0, (s32)&arg0->field58,
                   arg1[0], arg1[1], arg1[2], size, size,
-                  random0 & 0xFF, (func_150ADA20() & 1) + (random1 & 1),
+                  random.first & 0xFF, (random.third & 1) + (random.second & 1),
                   3, 0xFF, 0, arg0->fieldC, arg0->field1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A91AC */

@@ -1690,7 +1690,7 @@ void func_1508EDBC(u32 arg0) {
 void func_1503DDD0(s32);
 void func_15114B94(u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508EE0C CURRENT (4678) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508EE0C CURRENT (4543) */
 void func_1508EE0C(s32 arg0, s32 arg1) {
     u32 row;
     u32 rowOffset;
@@ -1699,6 +1699,7 @@ void func_1508EE0C(s32 arg0, s32 arg1) {
     u32 actionOffset;
     u16 count;
     u16 value;
+    s32 operand;
     u16 key;
     u16 group = arg0;
     u16 item = arg1;
@@ -1727,14 +1728,18 @@ void func_1508EE0C(s32 arg0, s32 arg1) {
                         actionOffset = 0;
                         do {
                             value = *(u16 *)(table + (((row << 2) - row) << 3) + actionOffset + 8);
-                            if ((value >> 12) == 2) {
-                                func_15114B94(value & 0xFFF);
+                            operand = value & 0xFFF;
+                            switch (value >> 12) {
+                            case 2:
+                                func_15114B94(operand);
                                 table = (u8 *)D_800D23C0;
                                 count = *(u16 *)(table + rowOffset + 2);
-                            } else if ((value >> 12) == 3) {
-                                func_1503DDD0(value & 0xFFF);
+                                break;
+                            case 3:
+                                func_1503DDD0(operand);
                                 table = (u8 *)D_800D23C0;
                                 count = *(u16 *)(table + rowOffset + 2);
+                                break;
                             }
                             actionIndex++;
                             actionOffset += 2;

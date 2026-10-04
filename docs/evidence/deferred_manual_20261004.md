@@ -4,22 +4,22 @@ Latest five functions; manual US ASM-to-C. Shared dependencies: no.
 
 | Function | Source under src/game/ | Best valid CURRENT | Fresh revisions |
 | --- | --- | --- | --- |
-| 15146BF8 | game_173D40.c | 135; wrapping addresses, byte selector | 2 |
-| 15156028 | game_182C30.c | 1225; wrapping subtraction, signed division | 2 |
-| 151B0050 | game_1DD500.c | 2168; four actual RNG snapshots | 2 |
-| 1500FE30 | game_3D2E0.c | 1370; bounded signed counter | 2 |
-| 1516ED68 | game_19A8B0.c | 0; incoming index reload | 2 |
+| 1500AC14 | game_36680.c | 1688; unsigned size rounding | 2 |
+| 1517EAAC | game_1AB530.c | 583; wrapping view addresses | 2 |
+| 151A91AC | game_1D6570.c | 106; init order, actual RNG snapshots | 2 |
+| 1508EE0C | game_B4080.c | 4543; switch, shared decoded operand | 2 |
+| 15103AA0 | game_130CB0.c | 785; callback signature, unsigned shift | 2 |
 
-15 target finish calls; ten fresh revisions. ED68 full 364B CURRENT (0),
-layout/progress/whitespace passed. Four valid candidates deferred; canonical
-ASM retained. Six focused zero checks passed. Clean US batch
-BATCH_COMPLETE: 1,823 tests, 37 skipped (suite 35.665s).
+15 target finish calls: one compile failure, ten fresh revisions. Five valid
+candidates deferred; canonical ASM retained. No new C matches.
+Five focused owner checks passed CURRENT (0); layout/progress/whitespace
+passed. Clean US batch BATCH_COMPLETE: 1,823 tests, 37 skipped (35.440s suite).
 
-Speed leads: actual incoming index qualifier matched ED68 361→0; scalar
-ABI unchanged, no matched C callers, raw caller unchanged. Signed counter
-recovered FE30 frame 38→30 and SLTI guard, 1463→1370; byte trial regressed.
-RNG snapshot structure improved 2192→2168; IDO still folds raw multiply by
-zero. Selector and mode/index reuse were neutral. Unbenchmarked.
-Invalid lower scores excluded. verify-batch still omits focused checks.
+Speed leads: particle init order improved 584→122, three actual RNG snapshots
+122→106; eight frame/stack rows remain. View word addresses improved 743→583;
+workspace grouping regressed. Two-case switch improved 4678→4543. Narrow load
+types and phase-word reuse regressed. Unbenchmarked.
+Workflow issues: resumed callback failed its existing local declaration; repaired
+without shared edits. Invalid lower scores excluded. Batch gate omits focused checks.
 Pending [1500E738 mapping](game_3ba70_jump_table.md).
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.

@@ -15701,7 +15701,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1688,
-        "reason": "Manual typed resource loader improved to 1688; variadic path ABI and unsigned dimension calculations recovered, register lifetimes and stack frame still differ.",
+        "reason": "CURRENT (1688): wrapping output-size rounding, unsigned dimensions and variadic path ABI retained. Frame0x78 versus raw0x68 and register lifetimes remain; metadata computation already after call, narrow ID/width regressed2123. Two fresh revisions exhausted; wider valid candidate restored.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31697,8 +31697,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 667,
-        "reason": "CURRENT (667): control-flow/opcodes aligned (0 opcode differences), but candidate frame 0x38 versus raw 0x30 with shifted incoming parameter slots, six extra moves, and packed/remaining register lifetime differences; source-local behavior follows raw branches",
+        "current_score": 785,
+        "reason": "Manual budget exhausted: best valid repaired callback CURRENT785; legacy667 fails conflicting callback declaration and has signed trigger-shift overflow. Existing seven-word pointer callback signature and unsigned packed shift repaired. Raw merge/high/sound snapshots809 regressed; frame38 versus30, five stack rows and six extra moves in packed/remaining lifetimes remain. No shared dependency changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55884,8 +55884,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 743,
-        "reason": "CURRENT (743): same instruction count and broad control flow, but transform/output/camera stack slots are +0x10 versus raw; FPR allocation and positive-branch scheduling differ; reversing locals improved from 871, widening scratch regressed and changed frame",
+        "current_score": 583,
+        "reason": "CURRENT (583): wrapping view products/addresses recover raw integer registers; frame0x98 exact. Matrix/output/camera homes+0x10 and FPR/scheduling remain. Natural88B workspace regressed1629; prior scratch widening/local reversal exhausted. Two fresh revisions exhausted; valid best retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77127,8 +77127,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 584,
-        "reason": "CURRENT (584): raw aggregate copy and packet offsets/control flow align; candidate frame 0x80 versus raw 0x90, first random spill sp54 versus sp4C, and packet initialization order has four instruction insertions/deletions",
+        "current_score": 106,
+        "reason": "CURRENT (106): raw packet initializer order and natural three-RNG snapshots recovered; all body instructions/registers/control flow exact. Only eight frame/incoming-home rows: frame0x80 versus raw0x90. No concrete consumer proof supports larger packet or extra storage. Two fresh revisions exhausted; valid best retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -89067,8 +89067,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4678,
-        "reason": "CURRENT (4678): nested scan/action loops remain nonexact; raw frame 0x30/s0-s5 versus candidate 0x38/s0-s7, raw shift-sub row offset versus candidate register-heavy loop, control-flow and reload differences; explicit width and shift expression improved 4943 to 4678",
+        "current_score": 4543,
+        "reason": "CURRENT (4543): two-case action switch/shared actual operand improve4678; count reloads and unsigned row offset preserved. Raw frame0x30/s0-s5 versus C0x38/s0-s7; input masking, row CSE, loop/control scheduling remain. Phase reuse regressed4858. Two fresh revisions exhausted; best valid retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

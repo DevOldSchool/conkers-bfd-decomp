@@ -731,11 +731,11 @@ void func_1500AC14(void) {
         state->size = 0;
         state->active = 0;
         if ((id != 255) && ((D_800BE478[index] != 0) || (id == 0x3B))) {
-            dimensions = (s16 *)((s32)D_800DDB80 + offset);
+            dimensions = (s16 *)((u32)D_800DDB80 + (u32)offset);
             info = &D_80095CE0[id];
             state->data = func_1502B020(&size, 2, 0, id);
             actual_size = size;
-            state->size = (actual_size + 15) & ~15;
+            state->size = (s32)(((u32)actual_size + 15U) & ~15U);
             length = info->length;
             if ((actual_size == 0) || (length == 0)) {
                 length = 0;
