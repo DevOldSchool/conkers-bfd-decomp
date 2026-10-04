@@ -176,20 +176,14 @@ void func_15146BF8(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         s32 work[9];
         f32 position[3];
     } locals;
-    s32 kind;
 
-    if (*(s32 *)(arg0 + 0x1D4) != 0) {
+    if (*(s32 *)((u32)arg0 + 0x1D4U) != 0) {
         saved_arg1 = (u8)arg1;
         if (func_15146890(locals.position, (void *)arg0,
                           (s32)locals.work, (u8)arg1) != 0) {
-            if ((u8)arg3 != 0) {
-                kind = 0xC;
-            } else {
-                kind = 0xB;
-            }
-            func_15141F78(kind & 0xFF, locals.work,
+            func_15141F78((u8)((u8)arg3 != 0 ? 0xC : 0xB), locals.work,
                           (f32)arg2 * D_800A5720,
-                          (u32)(*(f32 *)(arg0 + 0x40) * D_800A5724) & 0xFF,
+                          (u32)(*(f32 *)((u32)arg0 + 0x40U) * D_800A5724) & 0xFF,
                           locals.position, saved_arg1);
             if (arg2 >= 0x73) {
                 func_15142180(2, locals.position, locals.work[6], 1.0f, 1.0f);

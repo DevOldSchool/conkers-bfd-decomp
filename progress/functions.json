@@ -46607,17 +46607,16 @@
       "symbol": "func_1516ECAC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 361,
-        "reason": "Manual state-gated wrapper improved to 361; argument reload and call setup scheduling remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 364,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1516ED68",
           "vram": "0x1516ED68"
         }
@@ -48002,7 +48001,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 135,
-        "reason": "CURRENT (135): instruction flow matches but frame is 0x60 versus raw 0x58, argument spills +8 and work/position/saved locals +4; aggregating saved byte changed call scheduling and regressed",
+        "reason": "CURRENT (135): valid wrapping owner addresses; inline byte selector neutral. Frame 0x60 versus raw 0x58, saved/work/position homes +4 and incoming homes +8; prior saved-byte aggregation regressed. Two fresh revisions exhausted; no synthetic frame changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55762,8 +55761,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1325,
-        "reason": "CURRENT (1325): frame exact, but global-base register selection and two division scheduling/order diverge across both branches; explicit base/stride/difference locals regressed to CURRENT (1745)",
+        "current_score": 1225,
+        "reason": "CURRENT (1225): wrapping actor subtraction before signed division; frame exact. Base register selection and DIV/MFLO scheduling diverge; mode/first quotient reuse neutral and prior base/stride/difference locals regressed. Two fresh revisions exhausted; simpler valid candidate retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62237,8 +62236,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1463,
-        "reason": "CURRENT (1463): first-loop random call and signed -1 store now align, but compiler retains an extra saved register/frame 0x38 versus 0x30, uses bne with constant-10 register instead of slti/bnez, schedules offset/store differently, and second-loop register choices diverge. Reusing offset and <=9 trial regressed.",
+        "current_score": 1370,
+        "reason": "CURRENT (1370): bounded signed16 counter recovers raw frame0x30 and SLTI guard; increment SLL/SRA/MOVE and second-loop registers remain. Byte counter regressed1596/frame38; prior offset reuse/<=9 regressed. Two fresh revisions exhausted; valid best retained.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -83381,8 +83380,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2192,
-        "reason": "CURRENT (2192): first call sequence and frame match, but IDO folds random_float0 * 0.0f while raw retains mul.s; random locals also occupy sp64/sp60/sp5c/sp58 versus raw sp50/sp54/sp58/sp5c, with resulting float scheduling differences. Volatile random trial did not recover multiply.",
+        "current_score": 2168,
+        "reason": "CURRENT (2168): natural four-field real RNG snapshots recover ascending homes but remain +4; frame0x80 and first call exact. IDO folds random_float0*0 while raw MUL.S remains. Direct fifth-result expression regressed2196; prior volatile random did not recover MUL. Two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
