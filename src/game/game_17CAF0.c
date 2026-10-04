@@ -724,6 +724,56 @@ void func_15153CCC(void *arg0, Game153CCCConfig *arg1, void *arg2, s32 arg3, s32
 #endif /* CONKER_DEFERRED_CANDIDATE func_15153CCC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153CCC.s")
 
+void func_15143794(s16, s16, f32, void *);
+extern f32 D_800A6000;
+
+typedef struct Game17CAF0AngleRanges {
+    s16 yawBase, yawRange;
+    s16 pitchBase, pitchRange;
+} Game17CAF0AngleRanges;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15153F18 CURRENT (54) */
+void func_15153F18(Game17CAF0AngleRanges *arg0, f32 *arg1, void *arg2,
+                   s32 arg3, s32 arg4) {
+    register f32 randomMagnitude;
+    register f32 randomScale;
+    register f32 constant;
+    f32 direction[3];
+    register s32 count;
+    register u32 randomYaw;
+    register u32 randomPitch;
+    register u32 randomLife;
+    register Game153CCCConfig *config;
+
+    config = (Game153CCCConfig *)arg1;
+    count = (func_150ADA20() % (u32)(config->countRange + 1)) + config->countBase;
+    if (count != 0) {
+        constant = D_800A6000;
+        do {
+            randomYaw = func_150ADA20();
+            randomPitch = func_150ADA20();
+            func_15143794((s16)((randomYaw % (u32)(arg0->yawRange + 1)) + arg0->yawBase),
+                (s16)((randomPitch % (u32)(arg0->pitchRange + 1)) + arg0->pitchBase),
+                func_150ADA68() * config->directionRange + config->directionBase, direction);
+            randomScale = func_150ADA68();
+            randomLife = func_150ADA20();
+            randomYaw = func_150ADA20();
+            randomMagnitude = func_150ADA68();
+            randomPitch = func_150ADA20();
+            func_151DA6F8(arg1, direction,
+                config->scaleRange * randomScale + config->scaleBase,
+                (s16)((randomLife % (u32)(config->lifeRange + 1)) + config->lifeBase),
+                (randomYaw % (u32)(config->modeRange + 1)) + config->modeBase,
+                config->magnitudeRange * randomMagnitude + config->magnitudeBase,
+                (randomPitch % (u32)(config->variantRange + 1)) + config->variantBase,
+                func_150ADA68() < config->chance, constant, constant, 1,
+                config->kind, arg2, config->field3C, config->field3E, config->field40,
+                ((u8 *)&arg3)[3], arg4);
+            count--;
+        } while (count != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15153F18 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_15153F18.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_17CAF0/func_151541B8.s")
 extern f32 D_800BE9A4;

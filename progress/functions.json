@@ -52511,6 +52511,12 @@
       "symbol": "func_15153CCC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 54,
+        "reason": "Best CURRENT 54 retained after three manual comparisons; direction home matches, frame and FP operand order remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60915,6 +60921,12 @@
       "symbol": "func_150F6DE4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 53,
+        "reason": "Best CURRENT53 retained after three comparisons including rejected first candidate; seven buffer-home rows remain, frame/instructions/registers/control match.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -77571,6 +77583,12 @@
       "symbol": "func_151A931C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5219,
+        "reason": "Three bounded manual candidates; best CURRENT (5219) restored. Concrete descriptor/preset and six-byte light header; frame, argument homes, registers and branch scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -83198,6 +83216,12 @@
       "symbol": "func_151B77F4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3057,
+        "reason": "Best CURRENT 3057 after three manual comparisons; constant snapshots and independent color cursor recovered, FP/frame/control schedule remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85989,6 +86013,12 @@
       "symbol": "func_150F9950"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4146,
+        "reason": "Best CURRENT4146 restored after three manual comparisons; typed buffers retained, intrinsic spills/frame/FP schedule remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

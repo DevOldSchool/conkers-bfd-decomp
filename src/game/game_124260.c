@@ -154,6 +154,100 @@ void *func_150F6DE4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F6DE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124260/func_150F6DE4.s")
+typedef struct Game124260Vector {
+    f32 x, y, z;
+} Game124260Vector;
+
+typedef struct Game124260Owner {
+    s32 live;
+    u8 pad4[0x10];
+    Game124260Vector position;
+    u8 pad20[0x1B];
+    u8 channel;
+} Game124260Owner;
+
+typedef struct Game124260Child {
+    u8 pad0[0x40];
+    Game124260Copy3 position;
+    u8 pad4C[0x28];
+    s8 mode;
+} Game124260Child;
+
+typedef struct Game124260Root {
+    u8 pad0[0xE];
+    s16 status;
+    u8 pad10[0x18];
+    Game124260Spawn state;
+} Game124260Root;
+
+void func_15145740(void *, void *, void *, void *, f32);
+void func_15081690(void *, f32, f32, f32, f32, f32, f32, void *,
+                  f32, s32, s32, s32, s32, s32, s32);
+s32 func_1506196C(u8 *, s32);
+void func_1502EA98(void *, s32, s32, s32, s32, s32, s32);
+extern f32 D_800D9A50[3];
+extern f32 D_800A1BB4, D_800A1BB8;
+extern u8 D_800C35EA;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F706C CURRENT (53) */
+void func_150F706C(Game124260Root *arg0) {
+    struct {
+        Game124260Copy3 copied;
+        Game124260Vector position;
+    } work;
+    Game124260Spawn *state;
+    Game124260Owner *owner;
+
+    owner = arg0->state.owner;
+    state = &arg0->state;
+    if (owner->live == 0 || owner->channel != state->channel) {
+        arg0->status = -1;
+        return;
+    }
+    if (D_800C35EA == 1) {
+        if (state->children[0] != 0 && state->children[1] != 0) {
+            ((Game124260Child *)state->children[0])->mode = 3;
+            ((Game124260Child *)state->children[1])->mode = 3;
+        }
+    } else {
+        work.position.x = owner->position.x;
+        work.position.y = owner->position.y + 46.0f;
+        work.position.z = owner->position.z;
+        func_15145740(owner, D_800D9A50, 0, 0, 0.0f);
+        D_800D9A50[0] *= D_800A1BB4;
+        D_800D9A50[1] *= D_800A1BB4;
+        D_800D9A50[2] *= D_800A1BB4;
+        func_15081690(owner, work.position.x, work.position.y, work.position.z,
+            D_800D9A50[0], D_800D9A50[1], D_800D9A50[2], state->pad10,
+            D_800A1BB8, 0, 0, 1, -1, 0, 0);
+        state->active |= 1;
+        if (state->children[0] != 0 && state->children[1] != 0) {
+            if (state->pad10[0x59] == 0) {
+                ((Game124260Child *)state->children[1])->mode = 3;
+                ((Game124260Child *)state->children[0])->mode =
+                    ((Game124260Child *)state->children[1])->mode;
+                return;
+            }
+            work.copied = *(Game124260Copy3 *)(state->pad10 + 8);
+            ((Game124260Child *)state->children[1])->position = work.copied;
+            ((Game124260Child *)state->children[0])->position = work.copied;
+            if (state->pad10[0x59] == 1) {
+                ((Game124260Child *)state->children[0])->mode = -1;
+                ((Game124260Child *)state->children[1])->mode = 3;
+                return;
+            }
+            if (func_1506196C(*(u8 **)state->pad10, 0) < 255) {
+                ((Game124260Child *)state->children[0])->mode = -1;
+                ((Game124260Child *)state->children[1])->mode = 3;
+                return;
+            }
+            func_1502EA98(*(u8 **)state->pad10, 255, 0, 0, 127, 0, 16);
+            ((Game124260Child *)state->children[0])->mode = 3;
+            ((Game124260Child *)state->children[1])->mode = -1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F706C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_124260/func_150F706C.s")
 void func_15149514(s32, u8, s32, s32, s32);
 
