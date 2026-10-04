@@ -24,75 +24,61 @@ void func_15049C40(void *arg0, void *arg1) {
     }
 }
 typedef struct {
-    s32 entries[3];
-} Game770F0IndexOrder;
+    s32 indices[3];
+} Game770F0IndexCycle;
 
 f32 func_10026530(f32);
-extern Game770F0IndexOrder D_80085FF0;
+extern Game770F0IndexCycle D_80085FF0;
 extern f32 D_80099090;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049CB8 CURRENT (3127) */
-void func_15049CB8(void *arg0, void *arg1) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049CB8 CURRENT (3005) */
+void func_15049CB8(f32 matrix[4][4], f32 *arg1) {
+    f32 *result;
     f32 trace;
-    f32 first_root;
-    f32 first_factor;
     f32 root;
-    f32 factor;
+    f32 scale;
     f32 diagonal;
-    s32 index;
-    s32 column;
-    s32 next;
-    s32 last;
-    s32 next_column;
-    s32 last_column;
-    u8 *row;
-    u8 *next_row;
-    u8 *last_row;
+    s32 i;
+    s32 j;
+    s32 k;
+    f32 *rowI;
+    f32 *rowJ;
+    f32 *rowK;
 
-    trace = *(f32 *)((u8 *)arg0 + 0x28) +
-            (*(f32 *)arg0 + *(f32 *)((u8 *)arg0 + 0x14)) + 1.0f;
+    result = arg1;
+    trace = matrix[2][2] + (matrix[0][0] + matrix[1][1]) + 1.0f;
     if (D_80099090 < trace) {
-        first_root = func_10026530(trace);
-        first_factor = 0.5f / first_root;
-        *(f32 *)arg1 = first_root * 0.5f;
-        *(f32 *)((u8 *)arg1 + 4) =
-            (*(f32 *)((u8 *)arg0 + 0x18) - *(f32 *)((u8 *)arg0 + 0x24)) * first_factor;
-        *(f32 *)((u8 *)arg1 + 8) =
-            (*(f32 *)((u8 *)arg0 + 0x20) - *(f32 *)((u8 *)arg0 + 8)) * first_factor;
-        *(f32 *)((u8 *)arg1 + 0xC) =
-            (*(f32 *)((u8 *)arg0 + 4) - *(f32 *)((u8 *)arg0 + 0x10)) * first_factor;
+        root = func_10026530(trace);
+        scale = 0.5f / root;
+        result[0] = root * 0.5f;
+        result[1] = (matrix[1][2] - matrix[2][1]) * scale;
+        result[2] = (matrix[2][0] - matrix[0][2]) * scale;
+        result[3] = (matrix[0][1] - matrix[1][0]) * scale;
     } else {
-        Game770F0IndexOrder order;
+    Game770F0IndexCycle cycle;
 
-        index = 0;
-        order = D_80085FF0;
-        if (*(f32 *)arg0 < *(f32 *)((u8 *)arg0 + 0x14)) {
-            index = 1;
-        }
-        row = (u8 *)arg0 + index * 0x10;
-        column = index * 4;
-        diagonal = *(f32 *)(row + column);
-        if (diagonal < *(f32 *)((u8 *)arg0 + 0x28)) {
-            row = (u8 *)arg0 + 0x20;
-            diagonal = *(f32 *)(row + 8);
-            column = 8;
-        }
-        next = *(s32 *)((u8 *)order.entries + column);
-        next_column = next * 4;
-        last = order.entries[next];
-        next_row = (u8 *)arg0 + next * 0x10;
-        last_row = (u8 *)arg0 + last * 0x10;
-        last_column = last * 4;
-        root = func_10026530(((diagonal - *(f32 *)(next_row + next_column)) -
-                               *(f32 *)(last_row + last_column)) + 1.0f);
-        factor = 0.5f / root;
-        *(f32 *)((u8 *)arg1 + column + 4) = root * 0.5f;
-        *(f32 *)arg1 = (*(f32 *)(next_row + last_column) -
-                       *(f32 *)(last_row + next_column)) * factor;
-        *(f32 *)((u8 *)arg1 + next_column + 4) =
-            (*(f32 *)(next_row + column) + *(f32 *)(row + next_column)) * factor;
-        *(f32 *)((u8 *)arg1 + last_column + 4) =
-            (*(f32 *)(last_row + column) + *(f32 *)(row + last_column)) * factor;
+    cycle = D_80085FF0;
+    i = 0;
+    if (matrix[0][0] < matrix[1][1]) {
+        i = 1;
+    }
+    rowI = matrix[i];
+    diagonal = rowI[i];
+    if (diagonal < matrix[2][2]) {
+        rowI = matrix[2];
+        diagonal = rowI[2];
+        i = 2;
+    }
+    j = cycle.indices[i];
+    k = cycle.indices[j];
+    rowJ = matrix[j];
+    rowK = matrix[k];
+    root = func_10026530((diagonal - rowJ[j] - rowK[k]) + 1.0f);
+    scale = 0.5f / root;
+    result[i + 1] = root * 0.5f;
+    result[0] = (rowJ[k] - rowK[j]) * scale;
+    result[j + 1] = (rowJ[i] + rowI[j]) * scale;
+    result[k + 1] = (rowK[i] + rowI[k]) * scale;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15049CB8 */

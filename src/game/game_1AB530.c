@@ -8,7 +8,6 @@
  * - func_1517E28C
  * - func_1517E4A8
  * - func_1517EAAC
- * - func_1517EC1C
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -110,7 +109,85 @@ void func_1517E1AC(void) {
         } while (var_v0 != 0);
     }
 }
+typedef union Game1AB530BytePair {
+    u16 word;
+    u8 bytes[2];
+} Game1AB530BytePair;
+
+s32 func_1517E4A8(s32, void *, s32, s32, s32, s32, s8 *);
+s32 func_1517EAAC(f32, f32, f32, f32 *, f32 *);
+s32 func_1517EC1C(void *, s32 *);
+extern f32 *D_8008CFFC[];
+extern Game1AB530BytePair D_8008D004, D_8008D008, D_8008D00C;
+extern void *D_800B0DF0;
+extern u8 D_800DCDD0;
+extern s8 D_800DD2D0, D_800DDD60;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517E28C CURRENT (4232) */
+s32 func_1517E28C(s32 arg0, s32 arg1) {
+    s32 depth;
+    s32 distance;
+    Game1AB530BytePair first;
+    Game1AB530BytePair second;
+    Game1AB530BytePair third;
+    s32 skip;
+    s32 display;
+    s8 *flag;
+    u8 index;
+    f32 *position;
+    Game1AB530Node *node;
+
+    display = arg0;
+    first = D_8008D004;
+    second = D_8008D008;
+    third = D_8008D00C;
+    node = D_800DDD64;
+    D_800DDD60 = 0;
+    if (node != 0) {
+        do {
+            if (*((u8 *)node + 0x30) != 0) {
+                skip = 0;
+                if (*((u8 *)node + 0x2E) & 1) {
+                    if (D_800DCDD0 == 0) {
+                        skip = 1;
+                    } else {
+                        position = D_8008CFFC[*((u8 *)D_800B0DF0 + 0x10)];
+                        depth = 0xFF;
+                        if (func_1517EAAC(position[0], position[1], position[2], &node->field_C, &node->field_10) != 1) {
+                            skip = 1;
+                        }
+                        if (node->field_2A != 0xFFFC) {
+                            depth = -1;
+                        }
+                    }
+                } else {
+                    if (func_1517EC1C(node, &distance) != 1) {
+                        skip = 1;
+                    }
+                    depth = -1;
+                    if ((*(u16 *)((u8 *)node + 0x2C) - distance) < 0x1E) {
+                        depth = 0x100;
+                    }
+                }
+                flag = 0;
+                if (*((u8 *)node + 0x2E) & 2) {
+                    flag = &D_800DD2D0;
+                }
+                if (skip == 0) {
+                    index = *((u8 *)node + 0x2F);
+                    display = func_1517E4A8(display, node, first.bytes[index], second.bytes[index], third.bytes[index], depth, flag);
+                } else if (flag != 0) {
+                    *flag = 0;
+                }
+            }
+            node = node->next;
+        } while (node != 0);
+    }
+    return display;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1517E28C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E28C.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517E4A8.s")
 typedef union Game1AB530DisplayCommand {
     struct {
@@ -190,4 +267,68 @@ s32 func_1517EAAC(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517EAAC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517EAAC.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1AB530/func_1517EC1C.s")
+typedef struct Game1AB530ProjectionNode {
+    f32 position[3];
+    f32 screen[2];
+    f32 direction[3];
+    f32 threshold;
+    void *next;
+    u16 field28;
+    u16 encoded;
+    u16 depth;
+    u8 flags;
+} Game1AB530ProjectionNode;
+
+typedef struct Game1AB530DepthEncoding {
+    s32 shift;
+    s32 base;
+} Game1AB530DepthEncoding;
+
+typedef struct Game1AB530ViewPosition {
+    u8 pad0[0x2F8];
+    f32 position[3];
+} Game1AB530ViewPosition;
+
+typedef struct Game1AB530DepthRange {
+    u8 pad0[0x44];
+    s16 scale;
+    u8 pad46[6];
+    s16 offset;
+} Game1AB530DepthRange;
+
+s32 func_1509563C(f32, f32, f32, f32 *, f32 *, f32 *, f32 *, f32);
+f32 sqrtf(f32);
+__pragma(1, sqrtf);
+extern Game1AB530DepthEncoding D_80089630[];
+extern u8 D_800BE9C0;
+
+s32 func_1517EC1C(void *arg0, s32 *arg1) {
+    f32 dx;
+    f32 dy;
+    f32 dz;
+    u16 encoded;
+    Game1AB530DepthEncoding *encoding;
+    Game1AB530DepthRange *range;
+    f32 projected;
+    f32 distance;
+    if (func_1509563C(((Game1AB530ProjectionNode *)arg0)->position[0], ((Game1AB530ProjectionNode *)arg0)->position[1], ((Game1AB530ProjectionNode *)arg0)->position[2],
+                      &((Game1AB530ProjectionNode *)arg0)->screen[0], &((Game1AB530ProjectionNode *)arg0)->screen[1], &projected, &distance, 4000.0f) == 1) {
+        if (((Game1AB530ProjectionNode *)arg0)->flags & 4) {
+            dx = ((Game1AB530ProjectionNode *)arg0)->position[0] - ((Game1AB530ViewPosition *)D_800DBFF0)->position[0];
+            dy = ((Game1AB530ProjectionNode *)arg0)->position[1] - ((Game1AB530ViewPosition *)D_800DBFF0)->position[1];
+            dz = ((Game1AB530ProjectionNode *)arg0)->position[2] - ((Game1AB530ViewPosition *)D_800DBFF0)->position[2];
+            dx = ((dx * ((Game1AB530ProjectionNode *)arg0)->direction[0] + dy * ((Game1AB530ProjectionNode *)arg0)->direction[1] + dz * ((Game1AB530ProjectionNode *)arg0)->direction[2]) /
+                 sqrtf(dx * dx + dy * dy + dz * dz));
+            if (dx < ((Game1AB530ProjectionNode *)arg0)->threshold) {
+                return 1;
+            }
+        }
+        encoded = ((Game1AB530ProjectionNode *)arg0)->encoded;
+        encoding = &D_80089630[(s32)encoded >> 13];
+        *arg1 = (u32)(encoding->base + ((((s32)encoded >> 2) & 0x7FF) << encoding->shift)) >> 3;
+        range = (Game1AB530DepthRange *)((u32)D_800BE628 + D_800BE9C0 * 0x10);
+        ((Game1AB530ProjectionNode *)arg0)->depth = (u32)(((f32)range->offset + (projected / distance) * (f32)range->scale) * 32.0f);
+        return 1;
+    }
+    return 0;
+}

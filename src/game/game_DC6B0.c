@@ -231,6 +231,102 @@ void func_150B003C(s32 arg0) {
     }
     func_150AF200(0xDF, 0xDE);
 }
+typedef struct GameDC6B0Vector {
+    f32 x, y, z;
+} GameDC6B0Vector;
+
+typedef struct GameDC6B0Packet {
+    f32 field0, field4, field8, fieldC;
+    f32 angle0, angle1, angle2;
+    GameDC6B0Vector scale;
+    GameDC6B0Vector position;
+    GameDC6B0Vector velocity;
+    GameDC6B0Vector field40;
+    f32 field4C;
+    s32 field50;
+    s16 field54, field56;
+    u8 field58;
+    u8 pad59[3];
+    s32 field5C;
+    u8 field60, field61, field62, field63;
+    u8 field64, field65, field66, field67;
+    u8 field68, pad69, field6A, pad6B;
+    s32 field6C;
+    u8 field70, pad71;
+    s16 field72, field74;
+    u8 pad76[2];
+    s32 field78;
+} GameDC6B0Packet;
+
+typedef struct GameDC6B0Link {
+    void *object;
+    s32 zero;
+} GameDC6B0Link;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_1513264C(void *, s32, s32, s32, s32, u8, s32);
+void func_15145974(void *, f32 *, f32 *);
+void *func_151B7328(void *, s32, s32, s32, s32);
+s32 func_15145128(f32 *, f32 *, f32 *, f32 *);
+extern f32 D_8009F7D8;
+extern GameDC6B0Vector D_800A5480;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0094 CURRENT (75) */
+void func_150B0094(GameDC6B0Vector *arg0, GameDC6B0Vector *arg1, u8 arg2, s32 arg3) {
+    GameDC6B0Packet packet;
+    GameDC6B0Vector delta;
+    f32 length;
+    f32 inverse_length;
+    u8 *created;
+    GameDC6B0Link link;
+    void **slot;
+
+    link.zero = 0;
+    delta.x = arg1->x - arg0->x;
+    delta.y = arg1->y - arg0->y;
+    delta.z = arg1->z - arg0->z;
+    if (func_15145128(&delta.x, &delta.x, &length, &inverse_length) != 0) {
+        packet.field4 = packet.field0 = 1.0f;
+        packet.field8 = packet.fieldC = D_8009F7D8;
+        packet.position = *arg0;
+        packet.velocity.x = delta.x * 80.0f;
+        packet.velocity.y = delta.y * 80.0f;
+        packet.velocity.z = delta.z * 80.0f;
+        func_15145974(&packet.velocity, &packet.angle1, &packet.angle0);
+        packet.scale.z = packet.scale.y = packet.scale.x = 1.0f;
+        packet.angle2 = 0.0f;
+        packet.field40 = D_800A5480;
+        packet.field50 = 0x19A0;
+        packet.field54 = 0x12C;
+        packet.field56 = 0xD2;
+        packet.field58 = 7;
+        packet.field5C = 0;
+        packet.field60 = 0xFF;
+        packet.field61 = 8;
+        packet.field62 = 0;
+        packet.field63 = 0;
+        packet.field64 = 0;
+        packet.field65 = 0;
+        packet.field66 = 0;
+        packet.field67 = 0;
+        packet.field68 = 2;
+        packet.field6A = 0;
+        packet.field6C = 0;
+        packet.field70 = 0;
+        packet.field72 = 1;
+        packet.field74 = 0xFF;
+        packet.field78 = 0;
+        packet.field4C = 0.0f;
+        created = func_1513264C(&packet, 3, 0xFF, 0, 4, arg2, arg3);
+        if (created != 0) {
+            slot = (void **)(created + 0x170);
+            func_10022EC0(slot, &link.zero, 4);
+            link.object = created;
+            *slot = func_151B7328(&link, 1, 8, arg2, arg3);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B0094 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0094.s")
 void func_1516972C(void *arg0);
 void func_150B02C0(void *arg0);

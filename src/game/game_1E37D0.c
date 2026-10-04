@@ -440,7 +440,7 @@ s32 func_151B7678(void *arg0, f32 *arg1) {
     return 1;
 }
 void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
-void func_150A8050(f32 *, s32, s32, s32);
+void func_150A8050(f32 *, s32, f32, s32);
 
 typedef struct Game1E37D0TransformLocals {
     u8 pad0[4];
@@ -459,7 +459,7 @@ s32 func_151B76CC(void *arg0, f32 *arg1) {
     entry = *(void **)((u8 *)root + 4);
     data = *(void **)entry;
     func_150A8050(local.matrix, *(s32 *)((u8 *)data + 0x20),
-                    *(s32 *)((u8 *)data + 0x24), *(s32 *)((u8 *)data + 0x28));
+                    *(f32 *)((u8 *)data + 0x24), *(s32 *)((u8 *)data + 0x28));
     local.translation[0] = *(f32 *)((u8 *)data + 0x38);
     local.translation[1] = *(f32 *)((u8 *)data + 0x3C);
     local.translation[2] = *(f32 *)((u8 *)data + 0x40);

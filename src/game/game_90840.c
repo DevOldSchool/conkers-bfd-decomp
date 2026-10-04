@@ -299,6 +299,92 @@ s32 func_15063E84(void *arg0, u16 arg1, u16 arg2, register s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15063E84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063E84.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game90840Vector;
+
+typedef struct {
+    u8 pad0[0xB8];
+    Game90840Vector target;
+    u8 padC4[0x45];
+    u8 aiming;
+    u8 pad10A[0x32];
+    Game90840Vector position;
+    u8 pad148[0x24];
+    f32 heading;
+    f32 pitch;
+} Game90840AimState;
+
+f32 func_15047D60(f32);
+f32 func_15047C00(f32);
+f32 func_150484A0(f32, f32);
+void func_1505A184(s32, f32, f32, f32 *, f32 *, f32 *);
+void *func_1506C460(f32, f32, f32, f32, s32, s32, f32, f32,
+                       f32 *, s32, s32);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+extern f32 D_80099790;
+extern f32 D_80099794;
+extern f32 D_80099798;
+extern f32 D_8009979C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063FA0 CURRENT (382) */
+void func_15063FA0(Game90840Actor *arg0, s32 arg1) {
+    f32 horizontal;
+    f32 verticalVelocity;
+    f32 unusedDirection;
+    f32 magnitude;
+    Game90840Vector position;
+    f32 horizontalOffset[2];
+    f32 height;
+    f32 radius;
+    f32 radians;
+    f32 pitch;
+    f32 heading;
+    f32 deltaX;
+    f32 deltaY;
+    f32 deltaZ;
+    s32 inclination;
+
+    magnitude = 300.0f;
+    height = 0.0f;
+    radius = 0.0f;
+    switch (arg1) {
+    case 2:
+        radius = 27.0f;
+        break;
+    case 3:
+    case 6:
+        height = -11.0f;
+        magnitude = 500.0f;
+        break;
+    }
+    radians = ((Game90840AimState *)arg0->field_31C)->heading * D_80099790;
+    horizontalOffset[0] = func_15047D60(radians) * radius;
+    horizontalOffset[1] = func_15047C00(radians) * radius;
+    position.x = horizontalOffset[0] + ((Game90840AimState *)arg0->field_31C)->position.x;
+    position.y = ((Game90840AimState *)arg0->field_31C)->position.y + height;
+    position.z = horizontalOffset[1] + ((Game90840AimState *)arg0->field_31C)->position.z;
+    if (((Game90840AimState *)arg0->field_31C)->aiming == 0) {
+        pitch = -((Game90840AimState *)arg0->field_31C)->pitch;
+        heading = ((Game90840AimState *)arg0->field_31C)->heading + 90.0f;
+    } else {
+        deltaX = ((Game90840AimState *)arg0->field_31C)->target.x - position.x;
+        deltaY = ((Game90840AimState *)arg0->field_31C)->target.y - position.y;
+        deltaZ = ((Game90840AimState *)arg0->field_31C)->target.z - position.z;
+        pitch = func_150484A0(deltaY, sqrtf(deltaX * deltaX + deltaZ * deltaZ)) * D_80099794;
+        heading = func_150484A0(deltaX, deltaZ) * D_80099798;
+    }
+    inclination = (s32)(pitch * D_8009979C);
+    func_1505A184(inclination & 0xFFFF, magnitude, 0.0f,
+                  &horizontal, &verticalVelocity, &unusedDirection);
+    verticalVelocity = -verticalVelocity;
+    func_1506C460(heading, horizontal, verticalVelocity, 0.0f, 100, arg1,
+                  0.0f, 0.5f, &position.x, 1, 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15063FA0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_15063FA0.s")
 s32 func_1505DADC(void *, u16 *, s32, s32, s32);
 u32 func_150ADA20(void);

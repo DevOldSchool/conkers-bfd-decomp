@@ -304,6 +304,90 @@ void func_15147040(void *volatile arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15147040 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_15147040.s")
+typedef struct Game173D40Particle {
+    s32 flags, field4;
+    s16 kind, duration;
+    s32 fieldC, field10;
+    u8 color0[4], color1[4];
+    u8 field1C, field1D;
+    s16 field1E, field20, field22;
+    f32 field24, size0, size1;
+    f32 position[3];
+    u8 pad3C[0xC];
+    f32 direction[3];
+    f32 field54;
+    s32 flags58;
+    u8 pad5C[4];
+    u8 field60, field61, field62;
+    s8 field63;
+    u8 pad64[0xC];
+} Game173D40Particle;
+
+void *func_10022EC0(void *, const void *, u32);
+void *func_15130374(s32, u8, s32, u8, s32);
+void func_15143794(s16, s16, f32, void *);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800A5730, D_800A5734, D_800A5738;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151470FC CURRENT (150) */
+s32 func_151470FC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4,
+                   s32 arg5, s32 arg6, s32 arg7, s32 arg8, s32 arg9,
+                   s32 arg10, s32 arg11, s32 arg12, s32 arg13, s32 arg14) {
+    void *temp_v0;
+    Game173D40Particle packet;
+    f32 sp2C;
+    f32 fraction;
+    u32 sp24;
+
+    packet.field1D = 0x29;
+    packet.kind = 0xE03;
+    packet.flags = 0x200005;
+    packet.field4 = 0;
+    packet.duration = (func_150ADA20() & 0xFU) + 0x14;
+    packet.fieldC = 0;
+    packet.field10 = 0;
+    packet.color1[0] = 0xB0;
+    packet.color1[1] = 0xA0;
+    packet.color1[2] = 0x2A;
+    packet.color0[0] = 0x40;
+    packet.color0[1] = 0xB;
+    packet.color0[2] = 0x6A;
+    packet.color0[3] = 0xFF;
+    packet.color1[3] = (func_150ADA20() % 101U) + 0x64;
+    packet.field1C = 0xFF;
+    packet.field60 = 3;
+    packet.field61 = 3;
+    packet.size0 = (func_150ADA68() * 95.0f) + 101.0f;
+    packet.position[0] = arg2;
+    packet.position[1] = arg3;
+    packet.position[2] = arg4;
+    packet.size1 = packet.size0;
+    sp24 = func_150ADA20();
+    fraction = func_150ADA68();
+    func_15143794(((s16 *)&arg8)[1], (s16) ((sp24 % 11U) - 0xB), ((fraction * 396.0f) + 202.0f) * D_800A5730, &packet.direction);
+    packet.flags58 = 0xE05;
+    packet.field54 = 0.0f;
+    if (func_150ADA20() & 1) {
+        packet.flags58 |= 0x40;
+    }
+    if (func_150ADA20() & 1) {
+        packet.flags58 |= 0x80;
+    }
+    packet.field62 = 0xA;
+    packet.field63 = -1;
+    packet.field1E = 0x14;
+    packet.field20 = 0xC;
+    packet.field22 = 0x1B;
+    packet.field24 = D_800A5734;
+    sp2C = D_800A5738;
+    temp_v0 = func_15130374((s32) &packet, 1U, 4, ((u8 *)&arg14)[3], 1);
+    if (temp_v0 != 0) {
+        func_10022EC0((u8 *)temp_v0 + 0xA8, &sp2C, 4U);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151470FC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_173D40/func_151470FC.s")
 void func_15142180(u8, f32 *, s32, f32, f32);
 extern s32 (*D_8008FD04)(void);

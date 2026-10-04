@@ -501,7 +501,7 @@ void *func_15142444(u8 arg0, void *arg1) {
 }
 /* Call context: func_150A7790: unique active project prototype */
 void func_150A7790(void *, s32);
-void func_150A8050(void *, f32, s32, f32);
+void func_150A8050(void *, f32, f32, f32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151424F4 CURRENT (316) */
 void func_151424F4(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10, f32 arg11) {
@@ -622,9 +622,9 @@ void func_15142600(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15142600.s")
 /* Call context: func_150A7790: unique active project prototype */
 void func_150A7790(void *, s32);
-void func_150A8050(void *, f32, s32, f32);
+void func_150A8050(void *, f32, f32, f32);
 
-void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
+void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
     f32 transform[4][4];
 
     func_150A8050(transform, arg3, arg4, arg5);
@@ -643,9 +643,9 @@ void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, f32 arg5, f
     func_150A7790(transform, arg0);
 }
 /* Call context: func_150A8050: unique active project prototype */
-void func_150A8050(void *, f32, s32, f32);
+void func_150A8050(void *, f32, f32, f32);
 
-void func_15142914(void *arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
+void func_15142914(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
     func_150A8050(arg0, arg3, arg4, arg5);
     *(f32 *)((u8 *)arg0 + 0x30) = arg6;
     *(f32 *)((u8 *)arg0 + 0x34) = arg7;
@@ -1730,6 +1730,12 @@ s32 func_15144CEC(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15144CEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144CEC.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Game16EE20Vector3;
+
 void func_151450B4(void *, void *, void *);
 void *memcpy(void *, const void *, u32);
 
@@ -1790,12 +1796,6 @@ void func_151450B4(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 4) = (f32) ((*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 0)) - (*(f32 *)((u8 *)arg1 + 8) * *(f32 *)((u8 *)arg0 + 0)));
     *(f32 *)((u8 *)arg2 + 8) = (f32) ((*(f32 *)((u8 *)arg0 + 0) * *(f32 *)((u8 *)arg1 + 4)) - (*(f32 *)((u8 *)arg1 + 0) * *(f32 *)((u8 *)arg0 + 4)));
 }
-typedef struct {
-    f32 x;
-    f32 y;
-    f32 z;
-} Game16EE20Vector3;
-
 s32 func_15145128(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
     f32 *arg2, f32 *arg3) {
     f32 magnitude_squared;
@@ -1968,7 +1968,80 @@ s32 func_1514563C(f32 *arg0, f32 *arg1, f32 *arg2, f32 *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514563C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514563C.s")
+typedef struct {
+    u8 pad0[0x12];
+    s16 rotation;
+    u8 pad14[0x69];
+    u8 active;
+    u8 pad7E[2];
+    s16 yaw;
+    s16 pitch;
+} Game145740Node;
+
+typedef struct {
+    u8 pad0[4];
+    u8 kind;
+    u8 pad5[0x75];
+    u16 yaw;
+    u8 pad7C[0x155];
+    s8 pitch;
+    u8 pad1D2[0x14A];
+    Game145740Node *node;
+} Game145740Actor;
+
+void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
+extern f32 D_800A56B4;
+extern f32 D_800A56B8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15145740 CURRENT (1849) */
+void func_15145740(Game145740Actor *arg0, Game16EE20Vector3 *arg1,
+                   Game16EE20Vector3 *arg2, Game16EE20Vector3 *arg3, f32 arg4) {
+    s16 yaw;
+    f32 pitch;
+    volatile f32 shiftedPitch;
+    volatile f32 radius;
+    f32 yawRadians;
+    f32 pitchRadians;
+    s16 pitchUnits;
+    Game145740Node *node;
+
+    pitchUnits = arg0->kind;
+    if (pitchUnits == 0x96 && (node = arg0->node)->active != 0) {
+        yaw = arg0->yaw + node->yaw;
+    } else {
+        node = arg0->node;
+        if (node != 0) {
+            yaw = arg0->yaw - node->rotation;
+        } else {
+            yaw = arg0->yaw;
+        }
+    }
+    if (pitchUnits == 0x96 && node->active != 0) {
+        pitchUnits = node->pitch + 0x400;
+    } else {
+        pitchUnits = arg0->pitch * 0xC8;
+    }
+    *(volatile f32 *)&pitch = (f32)pitchUnits * 0.0054931640625f;
+    pitchRadians = pitch * D_800A56B4;
+    func_1505A184((u16)yaw, 2000.0f, pitch, &arg1->x, &arg1->z, &arg1->y);
+    if (arg2 != 0) {
+        arg2->y = func_15047C00(pitchRadians) * 1000.0f;
+        radius = func_15047D60(pitchRadians) * 1000.0f;
+        yawRadians = (f32)yaw * D_800A56B8;
+        arg2->x = func_15047C00(yawRadians) * radius;
+        arg2->z = func_15047D60(yawRadians) * -radius;
+        if (arg3 != 0) {
+            shiftedPitch = pitchRadians + arg4;
+            arg3->y = func_15047C00(shiftedPitch) * 1000.0f;
+            radius = func_15047D60(shiftedPitch) * 1000.0f;
+            arg3->x = func_15047C00(yawRadians) * radius;
+            arg3->z = func_15047D60(yawRadians) * -radius;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15145740 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145740.s")
+
 /* Call context: func_150484A0: unique active project prototype */
 f32 func_150484A0(f32, f32);
 extern f32 D_800A56BC;

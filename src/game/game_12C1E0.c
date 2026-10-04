@@ -161,6 +161,81 @@ void func_150FF2D4(u8 *arg0, void *arg1, f32 *arg2, void *arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150FF2D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF2D4.s")
+typedef struct Game12C1E0VectorBits {
+    s32 x, y, z;
+} Game12C1E0VectorBits;
+
+typedef struct Game12C1E0Particle {
+    u8 kind, mode;
+    u16 resource;
+    s16 duration;
+    u8 pad6[2];
+    s32 field8, fieldC;
+    u8 red, green, blue, alpha;
+    f32 size, magnitude;
+    Game12C1E0VectorBits position, direction;
+    f32 zeroX, zeroY, zeroZ;
+    u32 flags;
+    u8 brightness, field45, field46, field47;
+    s32 field48;
+    u8 field4C;
+    u8 tail[0xB];
+} Game12C1E0Particle;
+
+f32 func_150ADA68(void);
+void *func_1513D2F0(s32, s32, u8, u8, u8, u8, u8, s32, s32, s32, u8, s32);
+extern f32 D_800A2124, D_800A2128, D_800A212C;
+extern u8 D_800A4AA0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FF474 CURRENT (1272) */
+void func_150FF474(void *arg0, void *arg1, u8 arg2, s32 arg3) {
+    u8 index;
+    Game12C1E0Particle packet;
+    register f32 sizeRange;
+    register f32 magnitudeRange;
+    register f32 magnitudeBase;
+    register s32 variant;
+
+    packet.kind = 0x5F;
+    packet.mode = 5;
+    packet.resource = 0x2203;
+    packet.field8 = 0;
+    packet.fieldC = 0;
+    packet.red = 0xFF;
+    packet.green = 0xFF;
+    packet.blue = 0xFF;
+    packet.alpha = 0xFF;
+    packet.position = *(Game12C1E0VectorBits *)arg0;
+    packet.zeroX = 0.0f;
+    packet.zeroY = 0.0f;
+    packet.zeroZ = 0.0f;
+    packet.flags = 0x40CC0009;
+    packet.field45 = 0xFF;
+    packet.field46 = 0;
+    packet.field47 = 7;
+    packet.field4C = 0xFF;
+    packet.field48 = 0;
+    packet.duration = (func_150ADA20() & 3) + 3;
+    magnitudeBase = D_800A2124;
+    magnitudeRange = D_800A2128;
+    sizeRange = D_800A212C;
+    index = 0;
+    do {
+        packet.size = func_150ADA68() * sizeRange + 5.0f;
+        packet.magnitude = func_150ADA68() * magnitudeRange + magnitudeBase;
+        packet.direction = ((Game12C1E0VectorBits *)arg1)[index];
+        packet.brightness = ((u32)func_150ADA20() % 156U) + 0x64;
+        if (func_150ADA20() & 1) {
+            variant = 2;
+        } else {
+            variant = 0;
+        }
+        func_1513D2F0((s32)&packet, (s32)&D_800A4AA0,
+                     0, 0, 0, 0x1B, variant + 1, 0, 0, 0, arg2, arg3);
+        index++;
+    } while (index < 6);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FF474 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FF474.s")
 s32 func_150FF6B4(void *arg0, s32 arg1, s32 arg2) {
     if (*(u8 *)((u8 *)arg0 + 4) == 0x98) {

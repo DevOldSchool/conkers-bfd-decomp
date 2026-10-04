@@ -48,12 +48,11 @@ To prioritise one already identified sibling within the task's scope, use:
 ./conker next --ready --function <known-work-item-id>
 ```
 
-This selects that exact ID through the same validation, raw-item eligibility,
-attempt-freshness, ownership context and readiness path. Unknown, unavailable,
-deferred, claimed, excluded or unchanged-failed items fail before toolchain
-preparation; no alternative is selected. It does not discover siblings, reopen
-candidates, reset attempt budgets or expand the task's scope. The read-only
-`next --one` modes also accept `--function`. Without it, selection remains by size.
+`--function` selects only that ID through the usual eligibility, attempt-freshness,
+ownership and readiness checks. Unknown, unavailable, deferred, claimed, excluded
+or unchanged-failed items fail before toolchain preparation, without fallback.
+It does not discover siblings, reopen candidates, reset budgets or expand scope.
+Read-only `next --one` modes also accept it; default selection remains by size.
 
 For parallel workers in isolated worktrees, omit sources owned by another worker:
 
@@ -419,14 +418,11 @@ expression/lifetime mismatch. Do not rank solely by `CURRENT`: a small register
 mismatch may resist many changes, while a larger structural mismatch may have
 a direct fix. Refresh diagnostics when relevant inputs have changed.
 
-After a match, make one bounded lookup for nearby or similar raw-assembly
-siblings within the authorized scope; keep the existing per-target lookup
-limit. If it yields an eligible sibling with a concrete ASM/ABI hypothesis,
-record that lead and prioritise it with `next --ready --function <id>` before
-returning to size-based selection. For an untouched-only task, the sibling must
-also be untouched. If the selector rejects it, retain the lead with its blocker
-and return to ordinary selection; do not clear history or construct queue-wide
-source exclusions to force it through.
+After a match, make at most one bounded sibling lookup within scope. Record a
+concrete ASM/ABI hypothesis and prioritise an eligible result with
+`next --ready --function <id>`; untouched-only tasks require an untouched sibling.
+If rejected, record the blocker and return to ordinary selection. Never clear
+history or construct queue-wide exclusions to bypass the selector.
 
 Useful hypotheses demonstrated in prior manual work include returning
 a floating-point comparison directly, restoring an evidence-backed unused
@@ -437,35 +433,23 @@ pattern establishes a match.
 
 ### Edit completion before verification
 
-Confirm each edit helper returned success and inspect the resulting diff before
-running `finish`. Separate tool calls make that boundary explicit. If combining
-an edit and preparation steps in a shell command, use `&&` to propagate failure;
-a newline or semicolon alone continues after a failed edit. The exit-status guard
-does not replace diff inspection. For example, run `edit-command && git diff --
-<allowed-source>`, inspect the output, then invoke `./conker finish <id>` in a
-separate tool call. A helper may write partially before failing, so inspect the
-source before repairing or retrying it.
-
-Do not run an unchanged candidate as a new hypothesis. Explicit caller rechecks,
-changed compiler/declaration inputs or recovery verification may require a rerun;
-record that reason and count it separately. Log compilation repairs and accidental
-duplicates separately from distinct tested source hypotheses.
+Follow the [edit and recheck rules](../CONTRIBUTING.md#match-a-function).
+Caller checks, changed compiler/declaration inputs and recovery may justify an
+unchanged rerun; record its reason separately from new hypotheses.
 
 ### Durable manual attempt ledger
 
-Every ordinary `./conker finish` saves a unique attempt under
-`build/us/matching-attempts/<id>/<attempt>/` before running the existing gates.
-It retains full source, the exact target definition when extractable, input
-fingerprints, output, newly emitted mismatch evidence, command time, score and
-terminal action. Interrupted starts remain visible. These are local, ignored
-records, not inventory or verification evidence. A focused zero with a failed
-layout gate remains unaccepted; `STOP_MATCHED` does not establish `BATCH_COMPLETE`.
+Each `finish` saves source, the extractable target definition, input fingerprints,
+output, fresh mismatch evidence, command duration, score and terminal action under
+`build/us/matching-attempts/<id>/<attempt>/`. Interrupted starts remain visible.
+These ignored records do not establish acceptance: focused zero with failed layout
+is unaccepted, and `STOP_MATCHED` does not establish `BATCH_COMPLETE`.
 
-Use a task-owned Markdown/JSONL ledger under `build/us/manual-attempts/<task-id>/`
-for reasoning and pending batch IDs. Existing ledgers are not migrated or parsed
-automatically. `next --ready` shows recent automatic history plus bounded matching
-leads; it checks main reference assembly and the SDK pin before prewarming Docker.
-The readiness check reports missing inputs without changing a submodule or building.
+Keep reasoning and pending batch IDs in a task-owned Markdown/JSONL ledger under
+`build/us/manual-attempts/<task-id>/`; existing ledgers are not parsed automatically.
+`next --ready` shows recent history and bounded leads, then checks main reference
+assembly and the SDK pin before prewarming. Missing inputs are reported without
+changing a submodule or building.
 
 Record one compact entry per tested hypothesis:
 
@@ -486,7 +470,7 @@ batch IDs in a small checkpoint updated after each match and clean batch.
 
 ```sh
 ./conker matching-history show <id>
-./conker matching-history note <id> <attempt> --hypothesis "real cursor, derived row address" --expected "frame contracts; cursor advance unchanged" --assessment structural
+./conker matching-history note <id> <attempt> --hypothesis "real cursor" --expected "smaller frame" --assessment structural
 ./conker matching-history note <id> <attempt> --exhausted
 ./conker matching-history note <id> <rejected-attempt> --assessment invalid --hypothesis "Unsupported memory access; raw code does not read this field"
 ./conker matching-history export <id> /private/tmp/attempts.zip
@@ -495,43 +479,35 @@ batch IDs in a small checkpoint updated after each match and clean batch.
 ./conker matching-callers <changed-callee>
 ```
 
-Assessments are `unreviewed`, `valid`, `invalid`, or `structural`: reviewer notes,
-not automated correctness checks. Mark an attempt `invalid` as soon as it is
-rejected for incorrect behavior, unsupported accesses or insufficient storage,
-before restoring another candidate or deferring. Include the concrete reason in
-its hypothesis annotation and the task ledger. Ledger text is not parsed into
-automatic assessments; each rejected attempt ID must be annotated explicitly.
-A worse score or a plateau alone is not an invalidity finding.
-The lowest observed score is reported only for
-compatible recorded context, excluding explicitly invalid or changed candidates.
-It is distinct from a useful structural experiment or a reviewed valid candidate.
-The latest recorded `finish` action and score remain visible separately, even when
-context changes such as generated TODO cleanup exclude that attempt from comparable
-scores. This is a historical result, not fresh verification or batch acceptance;
-the source/context hashes and comparison rules remain strict.
-Deferral warns about a lower compatible archived score but never restores source
-automatically. Review the saved `function.c` and its context before using it in the
-allowed target region; never replace a whole unit to recover one function.
+Assessments (`unreviewed`, `valid`, `invalid`, `structural`) are reviewer notes,
+not correctness checks. Immediately mark each attempt rejected for incorrect
+behavior, unsupported accesses or insufficient storage `invalid`, before restoring
+or deferring. Put the concrete reason in both its hypothesis annotation and the
+task ledger; ledger text alone does not update automatic history. A worse score
+or plateau is not an invalidity finding.
 
-Export/import carries source snapshots, results and notes with integrity checks;
-it does not alter C, inventory, pending batches or match credit. Carry the task
-ledger separately, since ignored evidence does not move with Git commits. New
-source, header, raw-reference or tool inputs can invalidate old comparisons.
-Commands report accumulated command duration separately from workflow wall time.
-The ready snapshot and successive finish snapshots distinguish changed/removed
-source-local declarations from additions, including new function definitions.
-Caller-review reminders cover changes/removals and additions referenced by
-pre-existing active local C bodies. Such additions are review leads, not proof of
-implicit calls: headers or macros may already supply a declaration. Other additions
-are recorded without a caller-review command. This classification uses only the
-two source snapshots, not a repository-wide caller scan. Ambiguous or unavailable
-existing definition bodies retain a conservative reminder for additions, explicitly
-labelled as uncertain coverage. Alternatives after literal `#if 0` also retain
-this reminder because the local active-text filter may omit those branches.
-`matching-callers` searches registered
-matched definitions on demand; direct C spellings are incomplete leads, excluding
-indirect, macro-expanded and raw ASM callers. Review these contracts and recheck
-affected matches. Typedef-definition or expanded-macro changes need manual review.
+The lowest observed score includes only compatible, unchanged, non-invalid
+candidates; it does not establish validity. The latest `finish` result remains
+visible when context changes exclude it from comparison. Neither is fresh or batch
+verification. Deferral warns of a lower compatible score but never restores source.
+Review saved `function.c` and its context; restore only the allowed target region.
+
+Export/import verifies snapshot integrity without changing C, inventory, pending
+batches or match credit. Carry ledgers separately: ignored evidence does not move
+with Git. Changed source, headers, references or tools can invalidate comparisons.
+Command duration is separate from workflow wall time.
+
+Ready/finish snapshots distinguish changed or removed local declarations from
+additions, including definitions. Caller-review reminders cover changes/removals
+and additions referenced by pre-existing active C. Headers or macros may already
+provide declarations, so additions are leads, not proof of implicit calls; other
+additions are only recorded. Ambiguous/missing bodies and alternatives after
+literal `#if 0` retain reminders labelled as uncertain coverage. This comparison
+uses local snapshots, not a repository-wide scan.
+
+`matching-callers` searches registered matched C definitions on demand. Direct
+spellings omit indirect, macro-expanded and raw ASM callers. Review actual caller
+contracts and recheck affected matches; typedef and macro changes need manual review.
 
 Consult the ledger before `resume` or another search. Unchanged inputs and an
 exhausted hypothesis should be skipped. A changed fingerprint permits review,
@@ -556,32 +532,26 @@ authorized; all focused, layout, progress, whitespace and batch gates still appl
 
 ### Measuring improvement
 
-Track newly clean-batch-verified functions per wall-clock hour, keeping rechecks
-and deferred-score improvements separate. Record actual model tokens only when
-available; command output bytes are not token usage. Separate command duration
-from end-to-end workflow time. Save these timing boundaries explicitly:
+Measure new clean-batch-verified matches per wall-clock hour, separately from
+rechecks and candidate improvements. Report actual model tokens when available;
+output bytes are not token usage, and command duration is not workflow time.
 
-- Original workflow start, plus the start/end of each excluded setup or recovery interval.
-- Measured matching start and its deadline; retain the original start if a restart is necessary.
-- Clean-batch completion and report-file creation as separate milestones.
-- Completion of final audit/handoff and final delivery, when observable; otherwise label
-  the endpoint unavailable or state the last observed time instead of claiming completion.
+Record these milestones:
 
-Final review, checkpointing and handoff are workflow work, even after the report
-file has been saved. Compute measured-window and end-to-end durations separately,
-identify the denominator used for throughput, and include late final work in
-overrun reporting. Do not turn an early report timestamp into a zero-overrun claim
-while later work remains. Setup exclusions and restarts must stay visible; an
-interrupted start does not erase attempts, selected targets or elapsed effort.
+- Original workflow start and each excluded setup/recovery interval; retain them across restarts.
+- Measured matching start and deadline.
+- Clean-batch completion and report creation, separately.
+- Final audit, handoff and delivery; label unobservable endpoints unavailable.
 
-Describe exactly what validation checked: game batches verify the independently
-rebuilt US GAME image and mapped data, while main/debugger gates require full-ROM
-equality. Do not relabel a game-image comparison as a whole-ROM rebuild.
+State the throughput denominator and report measured-window and end-to-end time
+separately. Include late audit/handoff work in overruns: an early report timestamp
+does not prove completion or zero overrun. Restarts do not erase attempts or effort.
 
-Compare workflow or model changes on a small,
-comparable candidate cohort and retain all acceptance gates. Keep current model
-settings unless a model experiment is explicitly requested; medium versus high
-reasoning remains an experiment, not an established improvement for this project.
+Describe the validation scope accurately: GAME batches verify the rebuilt US GAME
+image and mapped data; main/debugger gates require full-ROM equality.
+
+Compare workflow changes on a small, comparable cohort with all acceptance gates.
+Keep model settings unchanged unless an experiment is explicitly requested.
 
 ## Builds and batch verification
 
