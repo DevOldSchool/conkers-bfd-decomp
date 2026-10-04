@@ -20057,6 +20057,12 @@
       "symbol": "func_1506DE04"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 275,
+        "reason": "Best CURRENT275 restored; two candidates exhausted. Frame and all case bodies match, only constant-high-half schedule and jump-table relocations differ. Existing whole-object rodata mapping starts80099DAC, but this table is80099D54; acceptance needs separately reviewed shared mapping expansion.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -53412,6 +53418,12 @@
       "symbol": "func_1510C4AC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2898,
+        "reason": "Best2898 retained after three candidates. Scalar carry homes retain raw initial uninitialized halfword reads and final stores; frame60 versus68, extra saved GPR, source-offset lifetimes and narrowing remain. Initial secondary-only record can consume indeterminate carry, a raw behavior caveat.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -61944,6 +61956,12 @@
       "symbol": "func_1510DA84"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3154,
+        "reason": "Best3154 final candidate retained; three manual candidates exhausted. Correct existing float matrix-helper contract, texture snapshot and per-command pointers. Frame28/prefix through helper exact; scratch registers/cursor scheduling, alpha-opacity stack home swap and branch delays remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71976,6 +71994,12 @@
       "symbol": "func_1511A410"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4215,
+        "reason": "Best score 4215 after three bounded candidates; search branches, frame size, and snapshot homes remain structural mismatches.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -86350,6 +86374,12 @@
       "symbol": "func_151D69B4"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3543,
+        "reason": "Best3543 restored body and plain flag declarations. Three manual candidates exhausted; frameA8/first packet homes correct, narrowed-argument reuse, second packet home+4 and initialization/register scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
