@@ -42,11 +42,14 @@ int main(int argc, char **argv) {
         assert(mkdir(directory, 0700) == 0);
         setenv("CONKER_AUDIO_CAPTURE_DIR", directory, 1);
         setenv("CONKER_AUDIO_US_MP3_REQUEST_LOG", "1", 1);
+        setenv("CONKER_AUDIO_US_HEALTH_LOG", "1", 1);
         info.RDRAM = large_ram; address = 0; length = 4; dac = 2210;
         PluginStartup(NULL,NULL,NULL); InitiateAudio(info); assert(RomOpen());
         AiDacrateChanged(0);
+        large_ram[0xcc49a ^ 3] = 6;
         large_ram[0x427f4 ^ 3] = 0; large_ram[0x427f5 ^ 3] = 239;
         AiLenChanged(); AiLenChanged();
+        large_ram[0xcc49a ^ 3] = 5;
         large_ram[0x427f5 ^ 3] = 240; AiLenChanged(); RomClosed();
         snprintf(csv_path, sizeof(csv_path), "%s/us-mp3-requests.csv", directory);
         file = fopen(csv_path, "r"); assert(file);
@@ -54,7 +57,15 @@ int main(int argc, char **argv) {
         assert(fgets(line, sizeof(line), file) && !strcmp(line, "0.000000000,239\n"));
         assert(fgets(line, sizeof(line), file) && strstr(line, ",240\n"));
         assert(!fgets(line, sizeof(line), file)); fclose(file);
+        assert(large_ram[0xcc49a ^ 3] == 5); /* observer performs no writes */
+        snprintf(csv_path, sizeof(csv_path), "%s/us-health.csv", directory);
+        file = fopen(csv_path, "r"); assert(file);
+        assert(fgets(line, sizeof(line), file) && strstr(line, "health_byte"));
+        assert(fgets(line, sizeof(line), file) && !strcmp(line, "0.000000000,6\n"));
+        assert(fgets(line, sizeof(line), file) && strstr(line, ",5\n"));
+        assert(!fgets(line, sizeof(line), file)); fclose(file);
         PluginStartup(NULL,NULL,NULL); assert(!RomOpen()); PluginShutdown();
+        unsetenv("CONKER_AUDIO_US_HEALTH_LOG");
         unsetenv("CONKER_AUDIO_US_MP3_REQUEST_LOG"); free(large_ram);
     }
     puts("AI capture PCM, header, rate, overwrite and DMA safety checks passed");

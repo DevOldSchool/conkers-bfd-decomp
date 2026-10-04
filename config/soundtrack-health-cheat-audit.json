@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "family": "conker-us-health-cheat-audio-capture",
+  "notice": "The added captures explicitly enable only the user-supplied health cheat 800CC49A 0006. They are altered runtime experiments, full game mixes rather than clean music stems. Survival and bounded controller attempts do not verify later boss phases or the complete song arrangement.",
+  "rom_profile": "us",
+  "normalized_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "rom_md5": "00e2920665f2329b95797a7eaabc2390",
+  "cheat": {
+    "code": "800CC49A 0006",
+    "only_code_enabled": true,
+    "mechanism": "Existing Mupen64Plus 2.6.0 --cheats 0, fresh private mupencheat.txt matched to ROM CRC/country. 0x80 code continuously writes one byte 06 at physical 0xCC49A; no extra invulnerability patch.",
+    "core_semantics_source": "https://github.com/mupen64plus/mupen64plus-core/blob/2.6.0/src/main/cheat.c",
+    "console_format_source": "https://github.com/mupen64plus/mupen64plus-ui-console/blob/2.6.0/src/cheat.c",
+    "database_sha1": "ede573525194d2282f54a1437c87f38b38da776c",
+    "rom_or_committed_game_source_patched": false
+  },
+  "capture_method": "Existing isolated software-graphics/CXD4 image, owned ROM mounted read-only, copied fight save, AI DMA stereo PCM before host resampling, independent temporary HOME/config. Capture observer reads health and MP3 state but performs no game-memory writes.",
+  "runs": [
+    {
+      "role": "fight-capture",
+      "wav_sha1": "374b7e07fec1644a0bec4b8db2f5aea98a219699",
+      "duration_seconds": 266.38968116995187,
+      "sample_rate": 22018,
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "1.002815878",
+          "health_byte": "6"
+        },
+        {
+          "audio_seconds": "179.764737942",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "179.771459715",
+          "health_byte": "6"
+        }
+      ],
+      "mp3_request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "239"
+        }
+      ],
+      "controller_log_sha1": null
+    },
+    {
+      "role": "button-capture",
+      "wav_sha1": "830e072ba88051b0bd2415d410326c7d9ded0eef",
+      "duration_seconds": 68.56753565264783,
+      "sample_rate": 22018,
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "1.002815878",
+          "health_byte": "6"
+        }
+      ],
+      "mp3_request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "239"
+        }
+      ],
+      "controller_log_sha1": "7ecc0af909d8b3c8134b9267fc7123509423b65a"
+    },
+    {
+      "role": "throw-capture",
+      "wav_sha1": "38fca1bcf5b167bd48ae74ca5d4b7ae560ad05a5",
+      "duration_seconds": 67.43101099100735,
+      "sample_rate": 22018,
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "1.002815878",
+          "health_byte": "6"
+        }
+      ],
+      "mp3_request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "239"
+        }
+      ],
+      "controller_log_sha1": "bb6bafd9d6a6642a3f3d297da54718c43ec17a7b"
+    }
+  ],
+  "controller_probes": {
+    "api_source": "https://github.com/mupen64plus/mupen64plus-core/blob/2.6.0/src/api/m64p_plugin.h",
+    "scope": "Private bounded GetKeys implementations use only ordinary B/R/Z buttons on controller 0, centred axes, other ports absent. No new cheat or guest memory access. Existing capture image has no installed SDL input driver. Successful attack/aiming effects were not verified.",
+    "b_probe_source_sha1": "3e5529d18ea1822d7d71bcdffdf5bac6cdce314d",
+    "throw_probe_source_sha1": "eefd7d76fb4ab250f8247e4fd212ea7c85d1f876"
+  },
+  "before_after": {
+    "baseline_seconds": 135.263148,
+    "baseline_result": "Unmodified unattended replay reaches death by its final screenshot.",
+    "health_only_seconds": 266.38968116995187,
+    "health_only_result": "Conker remains alive in the final screenshot. Health 5 at 179.764737942 returns to 6 at 179.771459715. No later distinct MP3 request IDs observed.",
+    "health_restore_observation_seconds": 0.006721772999981113
+  },
+  "spectral_comparison": {
+    "method": "Independent six-second centred semitone-band windows; exploratory similarity, not full arrangement validation.",
+    "instrumental_median": 0.702931,
+    "five_cue_assembly_median": 0.695424
+  },
+  "phases_verified": "Original fight encounter only. No later song phase, successful boss hit or complete boss playthrough is verified.",
+  "reconstruction_change": "None: no additional cue timing/gain evidence was obtained, so the existing measured 0239 audition and five-cue experiment are preserved.",
+  "remaining_requirement": "Controlled, correctly timed attacks and aiming, or additional saves already positioned after successful phase transitions. Health alone did not advance this replay. No additional cheat or software installation is assumed.",
+  "tests": {
+    "python": 69,
+    "capture_c_checks": "passed with -Wall -Wextra -Werror, including read-only health byte/change logging",
+    "private_controller_api_checks": "passed expected button masks, centred axes, other ports absent"
+  },
+  "preservation": "Original ROM/saves, normal emulator session, prior previews and unrelated main work remain unchanged; assets stay in ignored local build outputs.",
+  "preview_validation": {
+    "asset_links_checked": 2735,
+    "capture_or_cue_players": 6,
+    "new_players_advancing": true,
+    "mutual_pause": true,
+    "console_errors": [],
+    "horizontal_overflow": false,
+    "prepare_export_dialog": false,
+    "original_rom_and_saves_unchanged": true,
+    "prior_capture_hashes_unchanged": true,
+    "temporary_server_stopped": true,
+    "file_browser_playback": "unverified: protocol policy",
+    "new_player_count": 3,
+    "new_player_ready_state": 4
+  }
+}

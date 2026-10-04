@@ -21,6 +21,8 @@ static uint32_t frequency = 33600, data_bytes, part;
 static int failed;
 static void fail(const char *message);
 static FILE *request_log;
+static FILE *health_log;
+static int last_health = -1;
 static int last_request = -1;
 static double audio_seconds;
 
@@ -38,6 +40,19 @@ static void log_us_request(void) {
             }
             last_request = value;
             if (fflush(request_log)) fail("AI MP3 request-state log flush failed");
+        }
+    }
+}
+/* Optional read-only observation of the exact user-supplied US health byte.
+ * The core cheat facility, not this plugin, applies 800CC49A 0006.
+ */
+static void log_us_health(void) {
+    if (health_log && audio.RDRAM) {
+        int value = audio.RDRAM[0xcc49a ^ 3];
+        if (value != last_health) {
+            if (fprintf(health_log, "%.9f,%d\n", audio_seconds, value) < 0 ||
+                fflush(health_log)) fail("AI health observation log write failed");
+            last_health = value;
         }
     }
 }
@@ -69,7 +84,7 @@ EXPORT m64p_error CALL PluginStartup(m64p_dynlib_handle core, void *context,
                                      void (*debug)(void *, int, const char *)) {
     (void)core; debug_context = context; debug_callback = debug;
     failed = 0; part = 0; data_bytes = 0; frequency = 33600;
-    last_request = -1; audio_seconds = 0;
+    last_request = -1; last_health = -1; audio_seconds = 0;
     return M64ERR_SUCCESS;
 }
 EXPORT m64p_error CALL PluginShutdown(void) { RomClosed(); return M64ERR_SUCCESS; }
@@ -94,11 +109,19 @@ EXPORT int CALL RomOpen(void) {
         if (!request_log) { fail("AI MP3 request-state log already exists or cannot open"); return 0; }
         fputs("audio_seconds,last_requested_id\n", request_log);
     }
+    if (getenv("CONKER_AUDIO_US_HEALTH_LOG")) {
+        int written = snprintf(filename, sizeof(filename), "%s/us-health.csv", directory);
+        if (written < 0 || (size_t)written >= sizeof(filename)) return 0;
+        health_log = fopen(filename, "wx");
+        if (!health_log) { fail("AI health log already exists or cannot open"); return 0; }
+        fputs("audio_seconds,health_byte\n", health_log);
+    }
     return 1;
 }
 EXPORT void CALL RomClosed(void) {
     close_part();
     if (request_log) { fclose(request_log); request_log = NULL; }
+    if (health_log) { fclose(health_log); health_log = NULL; }
 }
 EXPORT void CALL AiDacrateChanged(int system) {
     uint32_t clock = system == 1 ? 49656530 : system == 2 ? 48628316 : 48681812;
@@ -123,6 +146,7 @@ EXPORT void CALL AiLenChanged(void) {
         data_bytes = 0; header(output, 0); fseek(output, 44, SEEK_SET);
     }
     log_us_request();
+    log_us_health();
     for (uint32_t offset = 0; offset < length;) {
         uint32_t count = length - offset;
         if (count > sizeof(converted)) count = sizeof(converted);

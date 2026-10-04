@@ -179,3 +179,52 @@ playback, mutual pause and no console errors. Direct-file browser automation is
 blocked by browser protocol policy; direct-open file integrity is checked but
 actual `file://` playback/storage remains unverified. The temporary loopback
 validation server is stopped after testing.
+
+## Exact user-authorized health cheat experiment
+
+[Health capture audit](../../config/soundtrack-health-cheat-audit.json) records
+three additional runs, clearly marked as altered runtime experiments. The owned
+US ROM MD5/CRC/country were checked. A fresh private `mupencheat.txt` contains
+only `800CC49A 0006`; the existing console lists it as cheat 0 and records its
+activation with `--cheats 0`. The [console format](https://github.com/mupen64plus/mupen64plus-ui-console/blob/2.6.0/src/cheat.c)
+and [core semantics](https://github.com/mupen64plus/mupen64plus-core/blob/2.6.0/src/main/cheat.c)
+show this is a continuous 8-bit write of 06 at physical RDRAM 0xCC49A. No
+additional invulnerability, gameplay, ROM or committed game-source patch is used.
+
+The optional `CONKER_AUDIO_US_HEALTH_LOG=1` capture observer reads that one US
+byte at AI DMA boundaries and exclusively creates its change log. It performs
+no game-memory writes. Health is initially the save's 5, becomes 6 at 1.002816
+captured-audio seconds, falls to 5 at 179.764738 and returns to 6 at 179.771460.
+This observes restoration approximately 6.72 ms after a damage decrement; it
+does not imply the cheat prevents every kind of death or fixes gameplay.
+The health-only capture lasts **266.389681 seconds**, with Conker alive in its
+final screenshot. The preserved 135.263-second unmodified replay reached death.
+
+Survival alone does not advance the encounter in this run. MP3 request state
+remains 0239 throughout; no later distinct song ID is observed. Two separate
+private probes use the documented [Mupen controller API](https://github.com/mupen64plus/mupen64plus-core/blob/2.6.0/src/api/m64p_plugin.h)
+for ordinary button inputs, with centred axes and no guest memory access. One
+pulses B; the other presses B initially, holds R and pulses Z. Dispatch logs and
+focused SDK checks verify their button bits, but **no successful hit, aiming
+effect or later phase is verified**. These bounded recordings last 68.567536
+and 67.431011 seconds. Seeing paper in a screenshot does not establish that a
+probe equipped it, because the saved scene may already include it. The existing
+capture image has no installed SDL input driver; these small project-local
+probes do not install software or change the normal emulator session.
+
+The longer encounter's six-second independently aligned spectral-window median
+is 0.702931 against the instrumental render and 0.695424 against the five-cue
+assembly. These exploratory numbers and the absence of later request IDs do
+not support further cue timing/gain changes. Existing reconstruction outputs,
+canonical candidate titles, numeric IDs and confidence metadata are preserved.
+Correctly timed and aimed attacks, or saves after successful phase transitions,
+are still needed to obtain evidence for later song sections.
+
+The fresh private `us-health-review/index.html` adds all three labelled recordings
+to the previous native review, sharing its files rather than replacing it.
+All 69 Python checks and focused capture/health C tests pass. Private controller
+checks cover expected B/R/Z masks, centred axes and absent other ports. Browser
+validation confirms the three added players ready and advancing, mutual pause,
+no console errors or horizontal overflow, and dialog-free JSON preparation.
+The temporary loopback server is stopped; direct-file browser testing retains
+the protocol-policy limitation already described above.

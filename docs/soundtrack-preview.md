@@ -238,3 +238,14 @@ observed-clock six-second resource 0239 cue audition. These do not verify the
 entire boss arrangement. See the [fidelity evidence](evidence/us_soundtrack_renderer_fidelity.md#targeted-sloprano-saved-state-checkpoint)
 for measured onset, clock and gain qualifications. No server is needed to open
 the HTML; browser `file://` media and draft-storage policy can vary.
+
+The subsequent health experiment is in the fresh local
+`build/assets/soundtracks/us-health-review/index.html`. Its expanded comparison
+section includes the original three native/cue players plus a 266-second
+health-only replay and two bounded controller attempts. Each new player says
+**health cheat enabled: 800CC49A 0006**. The cheat restores the observed health
+byte, but survival and the input attempts did not verify later boss/song phases.
+[The audit](../config/soundtrack-health-cheat-audit.json) records the exact code,
+ROM guard, measurements and scope. Earlier previews, unmodified captures and
+normal emulator settings are preserved. No additional cheat or installed
+software is part of this experiment.
