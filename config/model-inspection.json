@@ -535,9 +535,9 @@
     },
     {
       "name": "object-bank03-0003-00-rom",
-      "label": "Chocolate \u2014 ROM 03 / 0003 / 00",
+      "label": "Anti-Gravity Chocolate \u2014 single piece \u2014 ROM 03 / 0003 / 00",
       "render_case": "object-bank03-0003-00-rom",
-      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified. Wiki visual review 2026-10-04. The N64 six-piece health bar reference matches the beveled square piece shape and brown/orange colouring. This export is one piece, not the complete health bar. Native colour/lighting parity is not established. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership. User naming correction 2026-10-04: Chocolate; the earlier Anti-Gravity wording is not the gallery item name.",
+      "note": "Geometry and textures extracted from ROM. Indexed texture decoding now follows the verified ordinary placement renderer. Runtime colours, lighting, visibility and native raster parity remain unverified. Wiki visual review 2026-10-04. The N64 six-piece health bar reference matches the beveled square piece shape and brown/orange colouring. This export is one piece, not the complete health bar. Native colour/lighting parity is not established. This is an appearance-based gallery identification, not a recovered source symbol or verified runtime ownership.",
       "category": "collectables",
       "aliases": [
         "Former label: Amber block \u2014 ROM 03 / 0003 / 00",
@@ -545,11 +545,11 @@
         "chocolate",
         "health",
         "single piece",
-        "Former label: Anti-Gravity Chocolate \u2014 single piece \u2014 ROM 03 / 0003 / 00"
+        "Former label: Chocolate \u2014 ROM 03 / 0003 / 00"
       ],
       "identification": {
         "basis": "visual-reference",
-        "reference_label": "N64 wiki image and appearance comparison: Chocolate",
+        "reference_label": "N64 wiki image and appearance comparison: Anti-Gravity Chocolate \u2014 single piece",
         "reference_url": "https://conker.fandom.com/wiki/Anti-Gravity_Chocolate"
       }
     },
