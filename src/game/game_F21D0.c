@@ -26,55 +26,48 @@ typedef struct GameF21D0Mover {
 } GameF21D0Mover;
 
 s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
-f32 func_15048A40(s32);
+f32 func_15048A40(u8);
 extern f32 D_800A03F0;
 extern f32 D_800A03F4;
 extern f32 D_800A03F8;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4D20 CURRENT (3828) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C4D20 CURRENT (1731) */
 void func_150C4D20(GameF21D0Mover *arg0) {
-    f32 sp44;
-    s32 sp38;
-    f32 temp_fa0;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 var_fv0;
-    f32 var_fv1;
-    s32 temp_ft0;
-    s32 var_v0;
+    struct {
+        s32 timer;
+        f32 velocity;
+    } state;
+    f32 angle;
+    f32 elapsed;
 
-    var_fv0 = arg0->angle;
-    if (var_fv0 > 180.0f) {
-        var_fv0 -= 360.0f;
+    angle = arg0->angle;
+    state.velocity = arg0->velocity;
+    if (angle > 180.0f) {
+        angle -= 360.0f;
     }
-    var_v0 = arg0->timer + D_800BE9E4;
-    temp_fa0 = (f32)var_v0;
-    temp_fv1 = arg0->velocity - (var_fv0 * D_800A03F0);
-    if (temp_fa0 >= 256.0f) {
-        temp_ft0 = (s32)(temp_fa0 - 256.0f);
-        sp44 = temp_fv1;
-        sp38 = temp_ft0;
+    state.timer = (s32)((u32)arg0->timer + (u32)D_800BE9E4);
+    elapsed = (f32)state.timer;
+    state.velocity -= angle * D_800A03F0;
+    if (elapsed >= 256.0f) {
+        state.timer = (s32)(elapsed - 256.0f);
         func_10010F88(0xF, 0x55F0U, 0, 0, 0, arg0->field10, arg0->field12, arg0->field14, 0x1F4, 0x3E8);
-        var_v0 = temp_ft0;
     }
-    arg0->timer = var_v0;
-    sp44 = temp_fv1;
-    var_fv1 = temp_fv1 + (func_15048A40(var_v0 & 0xFF) * D_800A03F4);
+    arg0->timer = state.timer;
+    state.velocity += func_15048A40(state.timer & 0xFF) * D_800A03F4;
     if ((arg0->flags & 4) == 4) {
-        var_fv1 += D_800A03F4;
+        state.velocity += D_800A03F4;
     }
-    temp_fv1_2 = var_fv1 * D_800A03F8;
-    arg0->velocity = temp_fv1_2;
-    arg0->angle = arg0->angle + temp_fv1_2;
-    temp_fv0 = arg0->angle;
-    if (temp_fv0 < 0.0f) {
-        arg0->angle = temp_fv0 + 360.0f;
+    state.velocity *= D_800A03F8;
+    arg0->velocity = state.velocity;
+    arg0->angle = arg0->angle + state.velocity;
+    angle = arg0->angle;
+    if (angle < 0.0f) {
+        arg0->angle = angle + 360.0f;
         return;
     }
-    if (temp_fv0 >= 360.0f) {
-        arg0->angle = temp_fv0 - 360.0f;
+    if (angle >= 360.0f) {
+        arg0->angle = angle - 360.0f;
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C4D20 */

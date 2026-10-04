@@ -21,6 +21,7 @@ typedef struct Game1BF090Vector {
 
 typedef struct Game1BF090Payload {
     void *owner;
+    u8 mode;
     u8 pad5[3];
     Game1BF090Vector origin;
     s32 radius;

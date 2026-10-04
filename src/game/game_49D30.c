@@ -943,13 +943,13 @@ void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
     f32 sp6C[6];
     s32 sp60;
     u8 sp30[0x30];
-    void **flags = &D_800C35C8[arg3];
-    s32 byteOffset = arg0 * 2;
+    void **flags = (void **)((u32)D_800C35C8 + (u32)arg3 * 4U);
+    u32 byteOffset = (u32)arg0 * 2U;
     void *table;
     f32 x;
     f32 y;
 
-    if (*(u16 *)((u8 *)*flags + byteOffset) < 2) {
+    if (*(u16 *)((u32)*flags + byteOffset) < 2) {
         return;
     }
     if (arg1 > 100.0f) {
@@ -959,14 +959,14 @@ void func_1501FE68(s32 arg0, f32 arg1, f32 *arg2, s32 arg3) {
         arg1 = 0.0f;
     }
     func_1501F72C(arg0,
-                   *(f32 *)((u8 *)D_800C3A50[arg3] + (arg0 << 6)) * arg1 * D_800969D8,
+                   *(f32 *)((u32)*(void **)((u32)D_800C3A50 + (u32)arg3 * 4U) + ((u32)arg0 << 6)) * arg1 * D_800969D8,
                    sp6C, arg3, &sp60);
-    table = *(void **)(D_800C3868 + (arg3 * 0x78) + (arg0 * 4));
-    if (*(u16 *)((u8 *)table + (sp60 * 8) + 6) == 0) {
+    table = *(void **)((u32)D_800C3868 + (u32)arg3 * 0x78U + (u32)arg0 * 4U);
+    if (*(u16 *)((u32)table + (u32)sp60 * 8U + 6U) == 0) {
         x = sp6C[0] - sp6C[3];
         y = sp6C[2] - sp6C[5];
     } else {
-        func_1501FFE8(sp30, table, sp60, *(u16 *)((u8 *)*flags + byteOffset));
+        func_1501FFE8(sp30, table, sp60, *(u16 *)((u32)*flags + byteOffset));
         x = *(f32 *)(sp30 + 0x18) - *(f32 *)(sp30 + 0xC);
         y = *(f32 *)(sp30 + 0x20) - *(f32 *)(sp30 + 0x14);
     }

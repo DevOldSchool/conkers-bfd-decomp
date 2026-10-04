@@ -1407,7 +1407,7 @@ u8 *func_1505ED34(void) {
     if (*(volatile s32 *)&D_800CC2D0 != 0) {
 loop_1:
         var_v0 += 1;
-        var_a0 += 0x32C;
+        var_a0 = (u8 *)((u32)var_a0 + 0x32CU);
         if (var_v0 < 0x19 && *(s32 *)var_a0 != 0) {
             goto loop_1;
         }
@@ -1418,9 +1418,9 @@ loop_1:
         if (*(volatile s32 *)&D_800CC2D0 != 0x27 || D_800CC4A4 != 0) {
 loop_6:
             var_v0 += 1;
-            var_a0 += 0x32C;
+            var_a0 = (u8 *)((u32)var_a0 + 0x32CU);
             if (var_v0 < 0x19 &&
-                (*(s32 *)var_a0 != 0x27 || *(s32 *)(var_a0 + 0x1D4) != 0)) {
+                (*(s32 *)var_a0 != 0x27 || *(s32 *)((u32)var_a0 + 0x1D4U) != 0)) {
                 goto loop_6;
             }
         }
@@ -1434,7 +1434,7 @@ loop_6:
         if (*(volatile s32 *)&D_800CC2D0 != 0x27) {
 loop_14:
             var_v0 += 1;
-            var_a0 += 0x32C;
+            var_a0 = (u8 *)((u32)var_a0 + 0x32CU);
             if (var_v0 < 0x19 && *(s32 *)var_a0 != 0x27) {
                 goto loop_14;
             }

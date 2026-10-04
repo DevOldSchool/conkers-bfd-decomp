@@ -10211,7 +10211,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 715,
-        "reason": "CURRENT (715): all stack rows align, but duplicated raw global-base loads and opening branch/loop-bound scheduling differ; explicit bound local regressed frame, so best candidate restored",
+        "reason": "Best valid CURRENT715: typed cursor steps and field1D4 use unsigned word addresses instead of escaping declared scalar through C byte-pointer arithmetic. Integer cursor1097 enlarged frame28; typed cursor restores raw20 frame/all stack rows. Raw duplicated global-base loads, branch/loop-bound scheduling and15register rows remain; prior explicit bound local failed; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39045,7 +39045,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 351,
-        "reason": "CURRENT (351): full instruction/control-flow count aligned; frame 0x90 vs raw 0x88, output locals at sp74/sp78/sp44 instead of raw sp60/sp6c/sp30, plus float register allocation; packed-local probe regressed",
+        "reason": "Best valid CURRENT351: wrapping flag/time/table/key-index word addresses repair invalid signed products/left shift. Natural24B output-only structure neutral; prior whole packed-local probe failed. Full instruction/control count aligned; frame90 versus88, index74/raw60, positions78/raw6C, scratch44/raw30 and9FPR rows remain. Two fresh revisions exhausted; simpler valid array retained; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43408,8 +43408,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 667,
-        "reason": "CURRENT (667): recovered raw 0xD8 frame and all major call/stack offsets; remaining 30 FPR/GPR register-only rows, factor-scale store order, and one extra word-load setup around func_150A7CB0; union word reinterpretation compiled identically",
+        "current_score": 482,
+        "reason": "Best valid CURRENT482: removed unsupported two scale words and 8B matrix tail from invalid667; named three actual union scale snapshots improve valid693 and recover direct SP-relative LW. FrameC8 versus rawD8, scale homes-8, FPR/GPR allocation and one scale reload remain. Prior union reinterpretation neutral; two fresh revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55208,7 +55208,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 3280,
-        "reason": "CURRENT (3280): 0x68-byte payload offsets are internally aligned but candidate frame 0xB0/payload sp48 versus raw 0xA8/payload sp3C; candidate saves s0 and delays arg2 byte mask, plus branch/setup ordering differs; volatile result regressed to 4127",
+        "reason": "Best valid repaired CURRENT3280: restored concrete payload mode byte at offset4 after legacy candidate failed compilation. Natural104B payload+4B result workspace regressed3430, prior volatile result4127 exhausted. FrameB0/payload48 versus rawA8/3C, owner/resultS0, delayed byte mask and branch/setup ordering remain. No shared changes; two fresh revisions exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -76729,8 +76729,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3828,
-        "reason": "CURRENT (3828): frame 0x50 versus raw 0x48 and float/control-flow scheduling diverge; volatile stack-lifetime probes regressed, so best candidate restored",
+        "current_score": 1731,
+        "reason": "Best valid CURRENT1731: unsigned timer sum restores raw word wrap, canonical local waveform u8 contract, actual timer/velocity state and early velocity snapshot recover initialF0/F2 and integer snapshot before sound call. Invalid3828 excluded; repaired scalar4988 worse. Frame40 versus48, velocity home3C versus44, byte-call setup/FPR/scheduling remain; prior volatile probes exhausted. Two fresh revisions; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

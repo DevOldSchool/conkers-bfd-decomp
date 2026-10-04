@@ -695,10 +695,12 @@ void func_10023A10(void *, void *, s32);
 extern u8 D_80084404[];
 extern u8 D_800C3FFA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503A678 CURRENT (667) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503A678 CURRENT (482) */
 void func_1503A678(void) {
-    Game64120FloatBits scale[5];
-    u8 transform[0x48];
+    Game64120FloatBits scaleZ;
+    Game64120FloatBits scaleY;
+    Game64120FloatBits scaleX;
+    u8 transform[0x40];
     u8 transformed[0x40];
     f32 original[3];
     Game64120Record *record;
@@ -711,13 +713,13 @@ void func_1503A678(void) {
     }
     factor = (f32)(u32)record->pad1D8[0x32] * 0.015625f + 1.0f;
     if (D_800C3FFA == 0) {
-        scale[0].value = factor;
-        scale[1].value = 1.0f;
-        scale[2].value = factor;
+        scaleX.value = factor;
+        scaleY.value = 1.0f;
+        scaleZ.value = factor;
     } else {
-        scale[0].value = 1.0f / factor;
-        scale[1].value = 1.0f;
-        scale[2].value = scale[0].value;
+        scaleX.value = 1.0f / factor;
+        scaleY.value = 1.0f;
+        scaleZ.value = scaleX.value;
     }
     motion = ((Game64120Motion *)record->output) + D_80084404[D_800C3FFA];
     motion->one = 1.0f;
@@ -728,7 +730,7 @@ void func_1503A678(void) {
     original[1] = motion->y;
     original[2] = motion->z;
     func_150A7BC0(transform);
-    func_150A7CB0(transform, scale[0].bits, scale[1].bits, scale[2].bits);
+    func_150A7CB0(transform, scaleX.bits, scaleY.bits, scaleZ.bits);
     func_150A7A48(motion, transform, transformed);
     func_10023A10(transformed, motion, 0x40);
     motion->x = original[0];
