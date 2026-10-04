@@ -45842,8 +45842,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1867,
-        "reason": "single low-usage manual candidate remained CURRENT (1867); count-table address and loop scheduling differ",
+        "current_score": 145,
+        "reason": "Valid signed remainder-to-float repair retained at CURRENT (145): cast modulo20 remainder to s32 before subtracting5, matching raw negative outputs and removing unsigned correction. Actual output-address snapshot/pre-store counter updates regressed705; original simpler repaired candidate restored. Frame30/stack exact; count-table address registers and conversion/counter scheduling remain. Three finish calls/two revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -58347,7 +58347,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 255,
-        "reason": "CURRENT (255); changing arg2 to u8 and keeping the masked event local recovered the target prologue and ABI, while remaining differences are pointer/register allocation and branch-path scheduling; preserved the best candidate.",
+        "reason": "Best valid CURRENT255 retained with prior u8 event/local-mask recovery. One fresh raw A0-to-selected-field rebinding probe regressed515 and lost original owner snapshot. Original restored; first-path field address folds, second-path register/branch scheduling and full-span padding remain. Two finish calls/one fresh revision; prior event-type probe retained, budget exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73764,8 +73764,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3835,
-        "reason": "manual low-usage direct loop remained far from match at CURRENT (3835)",
+        "current_score": 1165,
+        "reason": "Correct opposite-bank reads/active-bank writes and alias-sensitive flag/count reloads retained; full-width loop counter and actual packed-word-to-high-half reuse improve valid1410 to CURRENT1165. Historical3835 candidate wrong bank/self increments/count caching was invalid (fresh3935). Raw leaf restored; allocation/preheader scheduling and shortened full span remain. Three finish calls/two revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -81488,8 +81488,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2377,
-        "reason": "Manual vector-helper m2c candidate reached CURRENT (2377); prologue, register, operand, and expression differences remain.",
+        "current_score": 740,
+        "reason": "Correct four incoming arguments/eight callee arguments and actual midpoint snapshots retained at CURRENT (740). Snapshotting FP before state branch removes incoming pointer spill; reusable coordinate pair snapshots regressed1410. Frame28 exact; coordinate load orientation, branch/integer scheduling and full-span shortening remain. Four finish calls including one compile repair, two targeted revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82262,8 +82262,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 505,
-        "reason": "manual object initializer remained non-exact at CURRENT (505)",
+        "current_score": 25,
+        "reason": "Best valid CURRENT25 retained via actual pre-owner-store global FP load expressed as direct disjoint field assignment. Named float snapshot improved505 to86 but grew frame38; direct assignment restores raw frame30/stack and all192B opcodes/operands/control/count. Five register rows only (child pointer V0vsT0 and following constant). Three finish calls/two revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

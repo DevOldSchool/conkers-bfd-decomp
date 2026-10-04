@@ -424,21 +424,26 @@ void func_151D3E04(void *arg0, f32 *arg1, f32 *arg2, u8 arg3, f32 arg4) {
 extern u8 D_800CC2D0[];
 s32 func_1505D1C4(f32, f32, f32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3E6C CURRENT (2377) */
-void func_151D3E6C(void *arg0, void *arg1, void *arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151D3E6C CURRENT (740) */
+void func_151D3E6C(void *arg0, void *arg1, void *arg2, s32 arg3) {
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 offset;
     u16 var_v1;
     void *temp_v0;
 
+    x = (*(f32 *)arg1 + *(f32 *)arg2) * 0.5f;
+    y = (*(f32 *)((u8 *)arg1 + 4) + *(f32 *)((u8 *)arg2 + 4)) * 0.5f;
+    z = (*(f32 *)((u8 *)arg1 + 8) + *(f32 *)((u8 *)arg2 + 8)) * 0.5f;
+    offset = (s32)arg0 - (s32)D_800CC2D0;
     temp_v0 = *(void **)((u8 *)arg0 + 0x31C);
     if (temp_v0 != 0) {
         var_v1 = (u16)(*(u16 *)((u8 *)arg0 + 0x76) - *(s16 *)((u8 *)temp_v0 + 0x12));
     } else {
         var_v1 = *(u16 *)((u8 *)arg0 + 0x76);
     }
-    func_1505D1C4(((*(f32 *)arg1) + (*(f32 *)arg2)) * 0.5f,
-                  ((*(f32 *)((u8 *)arg1 + 4)) + (*(f32 *)((u8 *)arg2 + 4))) * 0.5f,
-                  ((*(f32 *)((u8 *)arg1 + 8)) + (*(f32 *)((u8 *)arg2 + 8))) * 0.5f,
-                  ((s32)arg0 - (s32)D_800CC2D0) / 0x32C, var_v1, 0, 0);
+    func_1505D1C4(x, y, z, arg3, offset / 0x32C, var_v1, 0, 0);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151D3E6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_200930/func_151D3E6C.s")

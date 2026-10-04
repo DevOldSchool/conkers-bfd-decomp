@@ -606,7 +606,7 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
 extern u8 D_80098914[];
 extern u32 func_150ADA20(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 CURRENT (1867) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 CURRENT (145) */
 void func_1503EFC4(s32 arg0) {
     Game6B320Slot *temp_s2;
     s32 var_s0;
@@ -621,7 +621,7 @@ void func_1503EFC4(s32 arg0) {
     if (temp_s3 > 0) {
         do {
             *(f32 *)((u8 *)temp_s2->entity + var_s1 + 0x4C) =
-                (f32)((func_150ADA20() % 20U) - 5);
+                (f32)((s32)(func_150ADA20() % 20U) - 5);
             var_s0 += 1;
             var_s1 += 0x68;
         } while (var_s0 != temp_s3);

@@ -231,7 +231,7 @@ void func_15060A30(s32, u8 *);
 void func_1507CD64(u8 *, s32);
 extern f32 D_80099418;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15055C88 CURRENT (505) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15055C88 CURRENT (25) */
 void func_15055C88(u8 *arg0) {
     s32 sp2C;
     u8 *child;
@@ -245,8 +245,8 @@ void func_15055C88(u8 *arg0) {
     func_1506160C(arg0, 2, 0, 6, 0);
     arg0[0x89] = 0xC8;
     arg0[0x83] = 0xC8;
-    *(s32 *)arg0 = 0x29;
     *(f32 *)(arg0 + 0x1CC) = D_80099418;
+    *(s32 *)arg0 = 0x29;
     *(f32 *)(arg0 + 0x24) = 0.0f;
     *(f32 *)(arg0 + 0x20) = 0.0f;
     *(f32 *)(arg0 + 0x3C) = 0.0f;
