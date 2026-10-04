@@ -8201,8 +8201,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 21743,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (21743)",
+        "current_score": 3908,
+        "reason": "Manual prototype repair from incorrect(f32,f32) to raw(u8*) ABI. Invalid scalar-address vector starter18549 corrected to real contiguous vectors/aggregate copies; best valid3908 restores high-level node loop. Two revisions exhausted. Frame50 vs raw60, zero/constant scheduling and cursor lifetimes remain. No shared dependencies.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -83259,8 +83259,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7501,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (7501)",
+        "current_score": 2460,
+        "reason": "Manual baseline + 2 revisions exhausted. Starter fabsf lacked a declaration and compiled an incompatible double-argument/integer-return call; corrected local f32 prototype/intrinsic, real byte pointers and full-width ring cursor. Cached raw pre-loop float constants/products restore frame 18 and f20/f22 saves. Best valid CURRENT 2460; entry branch convergence, FP allocation, constant scheduling and s16 store order remain. No signature or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -88730,8 +88730,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 11632,
-        "reason": "Unified automated m2c and bounded 250-variant source search; best candidate remains CURRENT (11632)",
+        "current_score": 4799,
+        "reason": "Manual baseline + 2 revisions exhausted. Invalid starter had byte group/edge/weight/output accesses, four-element s32 strides and a scalar indexed as an array; corrected widths/strides and a real 16-counter buffer (0x40-byte tables), then replaced repeated unrolling with one clear loop and cached weight base. Best valid CURRENT 4799; frame D8 versus B0, output-pointer spills, register lifetimes and store scheduling remain. Original connected-graph selected-index requirement retained; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
