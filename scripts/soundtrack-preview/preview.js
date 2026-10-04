@@ -256,7 +256,7 @@ async function initialize() {
     const note = document.createElement('p'); note.textContent = song.note; note.className = 'muted';
     const pair = document.createElement('div'); pair.className = 'reconstruction-pair';
     for (const [label, file, seconds] of [
-      [`${song.title} · full reconstruction`, song.file, song.duration_seconds],
+      [`${song.title} · provisional reconstruction`, song.file, song.duration_seconds],
       [instrumental.album_title || 'Instrumental', instrumental.file, instrumental.duration_seconds]
     ]) {
       const card = document.createElement('section');

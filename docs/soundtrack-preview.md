@@ -273,9 +273,9 @@ review builder also accepts `kind: calibrated-stream-experiment` for an explicit
 qualified separate WAV. MP3 clock correction applies only to MP3 clips; it does
 not stretch the instrumental sequence or establish full runtime arrangements.
 
-### Full Sloprano listening reconstruction
+### Provisional Sloprano listening reconstruction
 
-Open `build/assets/soundtracks/us-sloprano/index.html` directly. Its full-song
+Open `build/assets/soundtracks/us-sloprano/index.html` directly. Its reconstruction
 section pairs **Sloprano** (4:42) with the preserved **Sloprano (Instrumental)**.
 The actual stereo PCM16 WAV is `songs/00-0066-full.wav`; no server or Save dialog
 is required. Other sequences, samples, captures and experiments are shared from
@@ -285,16 +285,35 @@ prior previews, with one new WAV in this fresh folder.
 python3 -m scripts.soundtrack_full_song \
   --preview build/assets/soundtracks/us-phase-review \
   --profile config/soundtrack-sloprano-full.json \
+  --mp3-bank build/assets/mp3/us \
   --output build/assets/soundtracks/new-sloprano-review
 ```
 
 The [full-song audit](../config/soundtrack-sloprano-full-audit.json) records
-seven vocal streams in reference-supported order, measured native clock/levels,
+seven principal vocal streams plus reaction 0237 near 1:52, measured native clock/levels,
 sequence 0074's closing-sting candidate and validation. Three hash-guarded spans
 containing exclusively digital silence are removed; audible PCM cannot be cut.
 The ending joins after the linear main render as an explicit listening edit.
 It does not reproduce interactive waiting, marker loops or the gamerip's timing.
 Reference recordings supply comparison evidence only. Existing outputs are
 refused; all audio stays ignored and local. The first 4:53 draft is preserved in
-`us-sloprano-first-draft`. All 76 targeted Python checks pass; both paired players
+`us-sloprano-first-draft`. All 67 targeted Python checks pass; both paired players
 advance and mutually pause in browser QA, without console errors or a Save dialog.
+
+
+The previous 4:42 mix is preserved as `us-sloprano-v1`. The current mix restores
+only the independently supported reaction 0237 at 112.095–114.528 seconds, using
+exact MPEG frames verified against the extracted bank's ROM and source hashes.
+Its native-estimated clock is 22,018 Hz and gain is 0.47. The onset follows the
+soundtrack excerpt; this remains an editorial placement. Every PCM frame outside
+that interval is byte-identical to the previous mix; no clipping occurs.
+Incidental clips overlay independently and cannot replace existing singing.
+
+**Coverage remains incomplete.** The user-reported throat clear / “me me me”
+around 0:24 has no validated ROM source yet and is not inserted. Additional
+reported inter-verse material remains unresolved. Bounded searches cover all 453
+MP3 prefixes, complete eligible MP3s and longer samples across the soundtrack,
+and finer opening templates. Negative matches do not establish absence from the
+game or an album-only variant; native pitch, effects and masking remain possible.
+See [incidental coverage evidence](evidence/us_sloprano_incidental_coverage.md).
+Reference audio is never used in the mix. No title confidence is promoted.

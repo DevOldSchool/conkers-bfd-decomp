@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import io
 import json
 import math
 from pathlib import Path
@@ -15,7 +16,7 @@ import tempfile
 import wave
 
 from scripts.soundtrack_native_review import build_native_review
-from scripts.soundtrack_preview import checked_file, mix_stream_cues
+from scripts.soundtrack_preview import checked_file, mix_stream_cues, standard_mp3_frames
 from scripts.soundtrack_stream_experiment import build_stream_experiment
 
 
@@ -38,7 +39,63 @@ def remove_silent_intervals(pcm: bytes, intervals: list[dict]) -> bytes:
     return b"".join(pieces)
 
 
-def build_full_song(preview: Path, profile: Path, output: Path) -> dict:
+def overlay_incidental(pcm: bytes, rate: int, clips: list[tuple[dict, object]]) -> tuple[bytes, list[dict]]:
+    """Layer independently sourced reactions, preserving every frame outside them."""
+    import numpy as np
+    from scipy.signal import resample_poly
+
+    mixed = np.frombuffer(pcm, dtype="<i2").reshape(-1, 2).astype(np.int32)
+    reports = []
+    for setting, decoded in clips:
+        audio, nominal_rate = decoded
+        clock, gain, onset = setting["playback_rate"], setting["gain"], setting["onset_seconds"]
+        if (not isinstance(clock, int) or not 4000 <= clock <= 192000 or
+                not math.isfinite(gain) or not 0 <= gain <= 1 or
+                not math.isfinite(onset) or onset < 0 or
+                audio.ndim != 2 or audio.shape[1] not in (1, 2) or
+                not len(audio) or not np.all(np.isfinite(audio))):
+            raise ValueError("invalid incidental audio, clock, gain or onset")
+        divisor = math.gcd(rate, clock)
+        clip = resample_poly(audio, rate // divisor, clock // divisor, axis=0)
+        start = round(onset * rate)
+        if start + len(clip) > len(mixed):
+            raise ValueError("incidental clip exceeds the existing arrangement")
+        mixed[start:start + len(clip)] += (clip * gain * 32767).astype(np.int32)
+        reports.append({**setting, "onset_frame": start, "duration_seconds": len(clip) / rate,
+                        "nominal_source_rate": nominal_rate})
+    if np.any(mixed > 32767) or np.any(mixed < -32768):
+        raise ValueError("incidental overlay would clip; review its level")
+    return mixed.astype("<i2").tobytes(), reports
+
+
+def load_incidental(bank: Path | None, settings: list[dict], rom_sha1: str) -> list:
+    """Verify ROM provenance and both native and playable bytes before decoding."""
+    import soundfile as sf
+
+    if not settings:
+        return []
+    if bank is None:
+        raise ValueError("incidental clips require the extracted MP3 bank")
+    bank = bank.resolve()
+    manifest = json.loads(checked_file(bank, "manifest.json").read_text())
+    if manifest["normalized_sha1"] != rom_sha1:
+        raise ValueError("incidental MP3 bank ROM changed")
+    streams = {r["entry_index"]: r for r in manifest["stream_bank"]["streams"]}
+    clips = []
+    for setting in settings:
+        record = streams.get(setting["index"])
+        if (record is None or record["decoded_sha1"] != setting["source_sha1"] or
+                not setting.get("note")):
+            raise ValueError("incidental source or qualification changed")
+        source = checked_file(bank, record["file"], setting["source_sha1"])
+        playable = standard_mp3_frames(source.read_bytes())
+        if hashlib.sha1(playable).hexdigest() != setting["preview_sha1"]:
+            raise ValueError("incidental playable bytes changed")
+        clips.append((setting, sf.read(io.BytesIO(playable), dtype="float32", always_2d=True)))
+    return clips
+
+
+def build_full_song(preview: Path, profile: Path, output: Path, mp3_bank: Path | None = None) -> dict:
     import numpy as np
     import soundfile as sf
     from scipy.signal import resample_poly
@@ -50,6 +107,7 @@ def build_full_song(preview: Path, profile: Path, output: Path) -> dict:
     manifest = json.loads(checked_file(preview, "manifest.json").read_text())
     if measured["normalized_rom_sha1"] != manifest["normalized_rom_sha1"] or not measured.get("notice"):
         raise ValueError("full song requires the same ROM and a listening qualification")
+    incidental = load_incidental(mp3_bank, measured.get("incidental_streams", []), measured["normalized_rom_sha1"])
     main_profile = checked_file(profile.parent, measured["main_profile"], measured["main_profile_sha1"])
     main_settings = json.loads(main_profile.read_text())
     if main_settings["sequence_index"] != measured["sequence_index"]:
@@ -122,6 +180,7 @@ def build_full_song(preview: Path, profile: Path, output: Path) -> dict:
         sting_pcm = (np.clip(sting * closing["gain"], -1, 1) * 32767).astype("<i2").tobytes()
         padded[sting_start * 4:] = sting_pcm
         payload, report = mix_stream_cues(bytes(padded), rate, cues, streams, settings=settings)
+        payload, incidental_report = overlay_incidental(payload, rate, incidental)
         song = staging / "full.wav"
         with wave.open(str(song), "wb") as wav:
             wav.setnchannels(2)
@@ -129,7 +188,7 @@ def build_full_song(preview: Path, profile: Path, output: Path) -> dict:
             wav.setframerate(rate)
             wav.writeframes(payload)
         pcm = np.frombuffer(payload, dtype="<i2").reshape(-1, 2)
-        diagnostics = {"main_duration_seconds": main_frames / rate,
+        diagnostics = {"incidental_streams": incidental_report, "main_duration_seconds": main_frames / rate,
                        "main_stream_triggers": listening_cues,
                        "source_main_stream_triggers": main_report["stream_triggers"],
                        "removed_silent_frames": removed_frames,
@@ -154,8 +213,9 @@ def main() -> None:
     parser.add_argument("--preview", type=Path, required=True)
     parser.add_argument("--profile", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--mp3-bank", type=Path, help="Extracted owned-ROM MP3 bank for incidental clips")
     args = parser.parse_args()
-    print(json.dumps(build_full_song(args.preview, args.profile, args.output), indent=2))
+    print(json.dumps(build_full_song(args.preview, args.profile, args.output, args.mp3_bank), indent=2))
 
 
 if __name__ == "__main__":

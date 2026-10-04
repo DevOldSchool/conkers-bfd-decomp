@@ -5,7 +5,7 @@
   "sequence_index": 66,
   "main_profile": "soundtrack-sloprano-stream-experiment.json",
   "main_profile_sha1": "06a1cebc17e2f8465f92abd68bcf510cd09c3e1f",
-  "notice": "Full reconstruction / continuous listening edit. Uses the five exact CSeq 0066 vocal cues, then the captured 0271 \u2192 0272 ending order and sequence 0074 closing-sting candidate. Three completely silent spans in the linear main render are removed. Joining the ending after the linear instrumental is an editorial transition; interactive waiting/marker loops and gamerip timing are not reproduced. Game-sample synthesis, instrumental level and effects remain approximate. No claim of bit-perfect native playback or full album identity.",
+  "notice": "Provisional continuous reconstruction; incidental coverage remains incomplete. Five CSeq 0066 vocal cues, ROM reaction 0237 near 1:52, captured 0271 \u2192 0272 ending order and sequence 0074 closing-sting candidate. Three exact digital-silence spans are removed. Reaction placement follows the soundtrack excerpt; its level/clock follow native capture estimates. Ending join is editorial. The user-reported throat-clear / \u201cme me me\u201d around 0:24 remains unresolved and is not restored. Other incidental dialogue/effects may be missing. Synthesis and balance remain approximate; no complete or bit-perfect recording identity is claimed. Reference audio is never mixed into this output.",
   "ending_streams": [
     {
       "index": 271,
@@ -47,6 +47,18 @@
     {
       "start_frame": 4729398,
       "end_frame": 4795780
+    }
+  ],
+  "incidental_streams": [
+    {
+      "index": 237,
+      "source_sha1": "d5e6dacd3b6bbfa457bf67171bf858b32f6a4b44",
+      "preview_sha1": "32caae7c310951455486cbfb5b55774ff7c0ae35",
+      "onset_seconds": 112.09541950113379,
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "role": "Incidental vocal / reaction",
+      "note": "Two-second waveform match in soundtrack (0.797) and gamerip (0.871), plus native first-hit capture (0.875). Soundtrack-relative placement; lexical content unverified. One detected occurrence per reference above 0.4 correlation; this is not proof of exhaustive coverage."
     }
   ]
 }

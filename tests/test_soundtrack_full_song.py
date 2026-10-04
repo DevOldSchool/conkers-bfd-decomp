@@ -6,11 +6,12 @@ from pathlib import Path
 import tempfile
 import unittest
 import wave
+from unittest.mock import patch
 
 import numpy as np
 import soundfile as sf
 
-from scripts.soundtrack_full_song import build_full_song, remove_silent_intervals
+from scripts.soundtrack_full_song import build_full_song, remove_silent_intervals, overlay_incidental, load_incidental
 from scripts.soundtrack_preview import write_preview_page
 import test_soundtrack_stream_experiment as stream_fixtures
 
@@ -96,3 +97,51 @@ class SilentEditTests(unittest.TestCase):
                      [{"start_frame": 2, "end_frame": 8}, {"start_frame": 7, "end_frame": 12}]]:
             with self.subTest(cuts=cuts), self.assertRaises(ValueError):
                 remove_silent_intervals(pcm, cuts)
+
+
+class IncidentalTests(unittest.TestCase):
+    def test_overlays_overlap_without_replacing_existing_audio(self) -> None:
+        pcm = np.full((8000, 2), 1000, dtype="<i2")
+        settings = {"index": 237, "onset_seconds": 0.2, "playback_rate": 8000, "gain": 0.5}
+        clip = np.full((800, 1), 0.1)
+        payload, report = overlay_incidental(pcm.tobytes(), 8000, [(settings, (clip, 8000)), (settings, (clip, 8000))])
+        result = np.frombuffer(payload, dtype="<i2").reshape(-1, 2)
+        np.testing.assert_array_equal(result[:1600], pcm[:1600])
+        np.testing.assert_array_equal(result[2400:], pcm[2400:])
+        self.assertTrue(np.all(result[1600:2400] == 4276))
+        self.assertEqual(report[0]["onset_frame"], 1600)
+        self.assertEqual(overlay_incidental(pcm.tobytes(), 8000, [])[0], pcm.tobytes())
+
+    def test_bad_onsets_clocks_audio_and_clipping_are_rejected(self) -> None:
+        setting = {"index": 237, "onset_seconds": 0.2, "playback_rate": 8000, "gain": 0.5}
+        clip = np.full((800, 1), 0.1)
+        for field, value in [("onset_seconds", -1), ("onset_seconds", 1), ("onset_seconds", float("nan")),
+                             ("playback_rate", 0), ("gain", float("nan")), ("gain", 2)]:
+            with self.subTest(field=field, value=value), self.assertRaises(ValueError):
+                overlay_incidental(bytes(32000), 8000, [({**setting, field: value}, (clip, 8000))])
+        with self.assertRaisesRegex(ValueError, "clip"):
+            overlay_incidental(np.full((8000, 2), 32000, dtype="<i2").tobytes(), 8000, [(setting, (clip, 8000))])
+        with self.assertRaises(ValueError):
+            overlay_incidental(bytes(32000), 8000, [(setting, (np.full((800, 1), np.nan), 8000))])
+
+    def test_bank_rom_native_bytes_and_playable_hash_are_guarded(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            bank = Path(temp)
+            sf.write(bank / "237.wav", np.full((800, 1), 0.1), 8000, subtype="PCM_16")
+            digest = hashlib.sha1((bank / "237.wav").read_bytes()).hexdigest()
+            record = {"entry_index": 237, "file": "237.wav", "decoded_sha1": digest}
+            manifest = {"normalized_sha1": "owned-rom", "stream_bank": {"streams": [record]}}
+            (bank / "manifest.json").write_text(json.dumps(manifest))
+            setting = {"index": 237, "source_sha1": digest, "preview_sha1": digest, "note": "Measured reaction"}
+            with patch("scripts.soundtrack_full_song.standard_mp3_frames", side_effect=lambda b: b):
+                self.assertEqual(len(load_incidental(bank, [setting], "owned-rom")), 1)
+                for change in [{"source_sha1": "changed"}, {"preview_sha1": "changed"}, {"note": ""}, {"index": 999}]:
+                    with self.subTest(change=change), self.assertRaises(ValueError):
+                        load_incidental(bank, [{**setting, **change}], "owned-rom")
+                with self.assertRaises(ValueError):
+                    load_incidental(bank, [setting], "other-rom")
+                (bank / "237.wav").write_bytes(b"changed")
+                with self.assertRaises(ValueError):
+                    load_incidental(bank, [setting], "owned-rom")
+            with self.assertRaises(ValueError):
+                load_incidental(None, [setting], "owned-rom")
