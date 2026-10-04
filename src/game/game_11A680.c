@@ -123,12 +123,11 @@ void func_151254F4(void *, s32);
 void func_1517F488(s32, s32, s32, s32, s32, s32);
 extern u8 D_800BE748[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EEC84 CURRENT (356) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EEC84 CURRENT (741) */
 void func_150EEC84(u8 *arg0) {
     s32 var_a1;
     u8 *temp_s0;
     s32 temp_v0;
-    u8 *temp_v1;
 
     temp_v0 = *(s32 *)(arg0 + 0x318);
     arg0[5] = 3;
@@ -138,17 +137,17 @@ void func_150EEC84(u8 *arg0) {
     if (temp_v0 != 0) {
         var_a1 = 0;
         temp_s0 = (u8 *)temp_v0;
-        if (*(u8 *)(temp_v0 + 0x23D) == 3) {
+        if (*(u8 *)((u32)temp_v0 + 0x23DU) == 3) {
             var_a1 = 1;
         }
         func_151254F4(temp_s0, var_a1);
         (*(u8 **)(arg0 + 0x31C))[0x78] = 0x29;
         *(u16 *)(D_800BE748 + (var_a1 * 6)) &= 0xFFEF;
-        temp_v1 = (u8 *)&D_800CC2D0 + (var_a1 * 0x32C);
-        temp_v1[0x2FC] |= (u8)(1 << temp_s0[0x23D]);
-        if (temp_v1[0x10A] != 0) {
+        arg0 = (u8 *)((u32)&D_800CC2D0 + (u32)var_a1 * 0x32CU);
+        arg0[0x2FC] |= (u8)(1U << (temp_s0[0x23D] & 31));
+        if (arg0[0x10A] != 0) {
             func_1517F488(0xFF, 0, 0, 0xB4, 0x14, (s32)temp_s0[0x23D]);
-            temp_v1[0x10A] = 0;
+            arg0[0x10A] = 0;
         }
     }
 }

@@ -29120,8 +29120,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 821,
-        "reason": "CURRENT (821): typed 0x110-byte sentinel reproduces linked-list behavior; explicit key lifetime improves control flow, but adds 8-byte frame/local shift and leaves broad register allocation plus two instruction-count differences",
+        "current_score": 1037,
+        "reason": "Valid1037 after removing unsupported EC sentinel tail padding, wrapping word address shifts/additions and reusing consumed head as backwards cursor. Legacy821 invalid signed address shifts and unsupported trailing frame pad. Revision1 valid1217; revision2 valid1037; two fresh revisions exhausted. Frame50/raw138 and sentinel2C/raw28 unresolved; full-span padding/count and broad register allocation remain. Sole-use source-local partial type, no shared dependency edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45748,8 +45748,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 395,
-        "reason": "CURRENT (395): call/load ordering and signed random conversions recover exact instruction/control counts; remaining mismatch is frame 0x78 versus 0x60, local array sp6C versus sp50, and resulting saved/FPU register allocation; scalar stack form regressed to 1135",
+        "current_score": 227,
+        "reason": "Valid227 from395: reuse actual actor cursor across loops and consumed scalar arguments for real FP loads/RNG result. Raw frame60 and owner home60 recovered, full instruction/control counts unchanged. Revision1 319/frame70; revision2 227/frame60; two fresh revisions exhausted. Residual array54/raw50, saved S2/S3/S4 and FP colors/operand order. Prior scalar stack1135 not repeated; no ABI/shared dependency change.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53007,8 +53007,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 356,
-        "reason": "CURRENT (356): all constants/control and main addressing align; frame remains 0x40 vs 0x38 with spills shifted, initial field_318 value coalesces directly into s0 instead of v0 then move, and thirteen downstream registers differ; integer/pointer split was unchanged",
+        "current_score": 741,
+        "reason": "Valid741 after wrapping word addresses, unsigned low-five-bit shift, consumed owner reused as actor cursor; raw frame38 recovered. Legacy356 invalid signed address overflow, global pointer-object arithmetic and signed unbounded shift. Revision1 valid791; revision2 741; two fresh revisions exhausted. Residual early owner S0 coalescing, branch/stride scheduling, explicit shift-mask ANDI and two stack homes. Prior integer/pointer split neutral, not repeated.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78583,8 +78583,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 255,
-        "reason": "CURRENT (255): explicit 0x180 shift/sub arithmetic and aggregate work buffer reproduce instruction count/control; remaining frame is 0x98 with work at sp58 versus reference 0x90/sp4C, plus saved-register scheduling and three operand differences",
+        "current_score": 535,
+        "reason": "Valid535 wrapping word addresses/shifts, word counter explicitly narrowed to signed16 on increment, unsigned actual byte offset. Legacy255 invalid negative signed shift after counter rollover and unproved pointer bounds; revision1 valid1755; revision2 valid535 restores counter S0. Two fresh revisions exhausted. Residual frameA0/raw90, worksp60/raw4C, base-register order, offset CSE and missing separate shift.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82076,7 +82076,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 910,
-        "reason": "CURRENT (910): no-argument func_150ADA20 call reproduces the unset incoming a0 behavior and exact frame/saved-register set; remaining mismatch is D_800CC2D0 address hoisting/reassociation plus dependent register allocation. Explicit address temporaries regressed to CURRENT (1812).",
+        "reason": "Valid910 after replacing scalar-global out-of-object arithmetic and unrelated pointer subtraction with wrapping u32 actor addresses/cursor and s32 word difference before signed DIV812. One fresh correctness revision neutral; prior explicit address temporaries1812 not repeated. Raw frame40 already exact; residual global base hoisting/reassociation, 6 count differences and register allocation. No further supported manual hypothesis; no shared declaration edits. Starter context-error fallback incorrectly suggests s32 RNG despite existing u32.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

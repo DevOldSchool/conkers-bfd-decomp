@@ -110,12 +110,12 @@ void func_150548E4(u8 *arg0) {
     u8 *var_s2;
     u8 *temp_s0;
 
-    temp_s0 = (arg0[0x65] * 0x32C) - 0x32C + &D_800CC2D0;
+    temp_s0 = (u8 *)((u32)arg0[0x65] * 0x32CU - 0x32CU + (u32)&D_800CC2D0);
     var_s1 = 0;
     if (D_8008FD8C > 0) {
         var_s2 = &D_800CC2D0;
         do {
-            if ((((s32)(arg0 - &D_800CC2D0) / 812) + 1 == var_s2[0x274]) &&
+            if ((((s32)((u32)arg0 - (u32)&D_800CC2D0) / 812) + 1 == var_s2[0x274]) &&
                 (temp_s0[0x232] == 1)) {
                 *(s32 *)(temp_s0 + 0x218) = 0;
                 if (func_150ADA20() & 1) {
@@ -128,7 +128,7 @@ void func_150548E4(u8 *arg0) {
                 func_10010344(var_v0 & 0xFFFF, temp_s0, 0x7D00, 0x1F4, 0x9C4);
             }
             var_s1++;
-            var_s2 += 0x32C;
+            var_s2 = (u8 *)((u32)var_s2 + 0x32CU);
         } while (var_s1 < D_8008FD8C);
     }
 }
