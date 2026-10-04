@@ -28847,6 +28847,12 @@
       "symbol": "func_1513E6E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2230,
+        "reason": "Best CURRENT 2230 after three manual candidates; frame, buffer homes, initial sign extension and loop scheduling remain. Shared dependencies unchanged.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -29180,6 +29186,12 @@
       "symbol": "func_151403DC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 730,
+        "reason": "Best CURRENT 730 after three candidates. Vertex arithmetic/registers agree; stack homes and copy scheduling remain. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -32015,6 +32027,12 @@
       "symbol": "func_1512DD50"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4583,
+        "reason": "Best CURRENT 4583 after three manual candidates; frame, offset homes, mode branch order and FP scheduling remain. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -49046,6 +49064,12 @@
       "symbol": "func_1515858C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2965,
+        "reason": "Best CURRENT 2965 after three candidates. Frame and snapshot agree; folded addresses and FP/GPR scheduling remain. Shared dependencies unchanged.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -79227,11 +79251,15 @@
       "symbol": "func_15085430"
     },
     {
+      "blocked": {
+        "reason": "Existing active target declarations narrow arg2 to u8, conflicting with raw full-word stores in cases 0/1/9 and word arithmetic in cases 10/11; active callers also pass s32. Comparison confirms the spurious entry mask. Invalid candidate annotated and removed; source restored unchanged. Shared declaration reconciliation required.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 668,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_15085710",
           "vram": "0x15085710"
         }

@@ -156,6 +156,60 @@ s32 func_1515858C(s32 arg0, Game185560TransformArgs *arg1) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515858C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_1515858C.s")
 
+typedef struct Game185560Vec3f {
+    f32 x, y, z;
+} Game185560Vec3f;
+
+typedef struct Game185560Motion {
+    Game185560Vec3f angle;
+    f32 scale;
+    Game185560Vec3f velocity;
+    Game185560Vec3f angularVelocity;
+    f32 acceleration;
+    f32 damping;
+} Game185560Motion;
+
+typedef struct Game185560MovingActor {
+    u8 unknown0[0x48];
+    Game185560Vec3f position;
+    u8 unknown54[0xA4];
+    Game185560Motion motion;
+} Game185560MovingActor;
+
+extern f32 D_800BE9A4;
+extern f32 D_800BE9A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15158684 CURRENT (2965) */
+s32 func_15158684(void *actor) {
+    f32 acceleration;
+    Game185560Vec3f previous;
+    s32 remaining;
+    Game185560Motion *motion;
+    f32 deltaX;
+    f32 deltaZ;
+
+    previous = ((Game185560MovingActor *)actor)->motion.velocity;
+    remaining = D_800BE9E4;
+    while (remaining != 0) {
+        motion = (Game185560Motion *)((u32)actor + 0xF8U);
+        motion->velocity.x *= motion->damping;
+        remaining--;
+        motion->velocity.z *= motion->damping;
+    }
+    motion = (Game185560Motion *)((u32)actor + 0xF8U);
+    acceleration = motion->acceleration;
+    motion->velocity.y += acceleration * D_800BE9A4;
+    deltaX = (motion->velocity.x - previous.x) * D_800BE9A8;
+    deltaZ = (motion->velocity.z - previous.z) * D_800BE9A8;
+    ((Game185560MovingActor *)actor)->position.x += (previous.x + (0.5f * deltaX * D_800BE9A4)) * D_800BE9A4;
+    ((Game185560MovingActor *)actor)->position.y += (previous.y + (0.5f * acceleration * D_800BE9A4)) * D_800BE9A4;
+    ((Game185560MovingActor *)actor)->position.z += (previous.z + (0.5f * deltaZ * D_800BE9A4)) * D_800BE9A4;
+    ((Game185560MovingActor *)actor)->motion.angle.x += motion->angularVelocity.x * D_800BE9A4;
+    motion->angle.y += motion->angularVelocity.y * D_800BE9A4;
+    motion->angle.z += motion->angularVelocity.z * D_800BE9A4;
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15158684 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158684.s")
 typedef struct {
     f32 values[16];
