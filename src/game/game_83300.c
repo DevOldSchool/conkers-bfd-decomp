@@ -1572,6 +1572,97 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505D5D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D5D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D6F0.s")
+typedef struct {
+    s32 state;
+    u8 pad4[0x10];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[0x5A];
+    u16 heading;
+    u8 pad7C[0x7C];
+    s32 flags;
+    u8 padFC[8];
+    u8 priority;
+    u8 pad105[0xC5];
+    u8 active;
+    u8 pad1CB[0x12F];
+    u8 enabled;
+    u8 pad2FB[0x31];
+} Game83300AimActor;
+
+extern f32 D_80099534;
+extern f32 D_80099538;
+f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
+                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DADC CURRENT (3102) */
+s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
+                   s32 pitch, s32 excluded, s32 range) {
+    s16 angle;
+    f32 horizontalSquared;
+    f32 vertical;
+    s32 hit;
+    s16 vertices[9];
+    f32 hitX;
+    f32 hitY;
+    f32 hitZ;
+    f32 hitDistance;
+    f32 distance;
+    f32 bestDistance;
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 index;
+    s32 result;
+    s32 excludeIndex;
+    u8 priority;
+    Game83300AimActor *other;
+
+    excludeIndex = excluded & 0xFF;
+    bestDistance = D_80099534;
+    priority = 0;
+    result = 0xFF;
+    if (excludeIndex == 0xFE) {
+        bestDistance = D_80099538;
+    }
+    index = 0;
+    do {
+        other = (Game83300AimActor *)((u8 *)&D_800CC2D0 + index * 0x32C);
+        if ((other->state != 0) && (other->active != 0) &&
+            ((((s32)self - (s32)&D_800CC2D0) / 812) & 0xFF) != index &&
+            (other->flags & 0x40) && (excludeIndex != index) &&
+            (other->enabled != 0)) {
+            distance = func_1505DF10(self, index & 0xFF, &angle,
+                                      &horizontalSquared, &vertical);
+            if ((distance < bestDistance) || ((other->priority == 0) && (priority != 0))) {
+                if ((((s32)((u16)angle - self->heading) >> 8) +
+                     (u8)range & 0xFF) < (u8)range * 2) {
+                    if (((((func_1505A630(sqrtf(horizontalSquared), -vertical, 0) >> 8) &
+                           0xFF) - (u8)pitch + 0x10) & 0xFF) < 0x20) {
+                        y = self->y;
+                        z = self->z;
+                        x = self->x;
+                        if ((func_150AC9C0(x, y + 80.0f, z, other->x - x,
+                                             other->y - y, other->z - z, &hit,
+                                             vertices, &hitX, &hitY, &hitZ, &hitDistance,
+                                             0, 0, 0.0f) == 0) ||
+                            (hitDistance *= hitDistance, !(hitDistance < distance))) {
+                            priority = other->priority;
+                            result = index & 0xFF;
+                            bestDistance = distance;
+                            *angleOut = angle;
+                        }
+                    }
+                }
+            }
+        }
+        index = (index + 1) & 0xFF;
+    } while (index < 0x19);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505DADC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DADC.s")
 extern s32 D_80082FA0;
 extern s32 D_800CC2D0;

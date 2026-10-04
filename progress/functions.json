@@ -671,6 +671,12 @@
       "symbol": "func_15134908"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2481,
+        "reason": "Manual budget exhausted: best CURRENT 2481; original frame and position-copy stack span recovered, FP scheduling and loop join remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -10110,6 +10116,12 @@
       "symbol": "func_1505D6F0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3102,
+        "reason": "Manual budget exhausted: best CURRENT 3102; complete collision outputs and FP ownership recovered, frame and result spill remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -13882,6 +13894,12 @@
       "symbol": "func_15003120"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1837,
+        "reason": "Manual budget exhausted: best CURRENT 1837; native asset/header and three-input relocation contract recovered, saved-register lifetimes and stack positions remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -43800,8 +43818,13 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 716,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150636F0",
           "vram": "0x150636F0"
         }
@@ -49120,6 +49143,12 @@
       "symbol": "func_15158224"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1235,
+        "reason": "Manual budget exhausted; bestCURRENT1235 exactframe70/allstackaddresses; preset GPR ownership and final command-store schedule remain",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {

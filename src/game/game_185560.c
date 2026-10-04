@@ -115,7 +115,109 @@ void func_15158224(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15158224 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_15158224.s")
+typedef struct Game185560RenderActor {
+    u8 pad0[0x10];
+    u8 flags;
+    u8 pad11[2];
+    s8 drawCallback;
+    u8 pad14[2];
+    u8 listIndex, pad17;
+    s32 state, geometry0, geometry1, presetIndex;
+    u8 pad28[3];
+    u8 combine;
+    s32 flags2C, flags30;
+    s8 colorMode0, colorMode1;
+    u8 pad36[2];
+    u8 color0[4], color1[4];
+    void *owner;
+    u8 generation, attachmentMode;
+    u8 pad46[2];
+    f32 position[3];
+    u8 pad54[4];
+    u8 matrices[0x80];
+    u8 attachments[0x20];
+} Game185560RenderActor;
+
+typedef struct Game185560RenderColor {
+    s16 alpha, blue, green, red;
+} Game185560RenderColor;
+
+typedef struct Game185560RenderPreset {
+    s32 first, second;
+} Game185560RenderPreset;
+
+typedef struct Game185560Command {
+    u32 opcode, data;
+} Game185560Command;
+
+typedef s32 (*Game185560DrawCallback)(void *, Game185560RenderActor *);
+extern Game185560DrawCallback D_8008AE0C[];
+extern u32 D_8008AFB8[];
+extern Game185560RenderPreset D_800A4AC8[];
+extern u8 D_800BE9C0;
+s32 *func_15142B7C(s32 *, s32, s32);
+void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
+void *func_15142CF0(void *, s32, s32, s32, s32, s32, s32, u8 *);
+void *func_1513F4E4(void *, u8, u8 *);
+void *func_15142FBC(void *, s32, s32, u8 *);
+void func_151441A4(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, s32, u8, u8, u8, u8, u8, u8);
+void func_151442FC(s16 *, s16 *, s16 *, s16 *, u8, u8, u8, u8, u8, u8, u8, u8, u8, u8);
+s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151582C8 CURRENT (1235) */
+Game185560Command *func_151582C8(Game185560Command *arg0, Game185560RenderActor *arg1, s32 arg2) {
+    Game185560Command *commands;
+    Game185560RenderColor first;
+    Game185560RenderColor second;
+    u8 sync;
+    s32 callback;
+    s32 flags;
+    s32 attached;
+    Game185560RenderPreset *preset;
+
+    sync = 1;
+    callback = arg1->drawCallback;
+    if (callback != -1 && D_8008AE0C[callback]((u8 *) arg1 + (D_800BE9C0 << 6) + 0x58, arg1) == 0) {
+        return arg0;
+    }
+    arg0 = (Game185560Command *) func_15142B7C((s32 *) arg0, arg1->geometry0, arg1->geometry1);
+    func_151441A4(&first.red, &first.green, &first.blue, &first.alpha,
+        arg1->color1[0], arg1->color1[1], arg1->color1[2], arg1->color1[3],
+        arg1->color0[0], arg1->color0[1], arg1->color0[2], arg1->color0[3],
+        255, (u8) arg1->colorMode0);
+    func_151442FC(&second.red, &second.green, &second.blue, &second.alpha,
+        arg1->color1[0], arg1->color1[1], arg1->color1[2], arg1->color1[3],
+        arg1->color0[0], arg1->color0[1], arg1->color0[2], arg1->color0[3],
+        255, (u8) arg1->colorMode1);
+    arg0 = func_15142C10(arg0, second.red, second.green, second.blue, second.alpha, &sync);
+    arg0 = func_15142CF0(arg0, 0, 0, first.red, first.green, first.blue, first.alpha, &sync);
+    arg0 = func_1513F4E4(arg0, arg1->combine, &sync);
+    preset = &D_800A4AC8[arg1->presetIndex];
+    arg0 = func_15142FBC(arg0, arg1->state | 0x80000 | 0x2C00 | arg1->flags2C | arg1->flags30,
+                        preset->second | preset->first, &sync);
+    flags = arg1->flags;
+    if (flags & 2) {
+        if (flags & 4) {
+            attached = 1;
+        } else {
+            attached = 0;
+        }
+        arg0 = (Game185560Command *) func_151462C8((s32) arg0, arg1->attachments, arg1->attachmentMode,
+            (s32) arg1->owner, arg1->generation, *((s16 *) &arg2 + 1), arg1->position, attached, 0);
+    }
+    commands = (Game185560Command *) arg0;
+    commands->opcode = 0xDA380003;
+    arg0++;
+    commands->data = (u32) ((u8 *) arg1 + (D_800BE9C0 << 6) + 0x58);
+    commands = (Game185560Command *) arg0;
+    commands->opcode = 0xDE000000;
+    arg0++;
+    commands->data = D_8008AFB8[arg1->listIndex];
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151582C8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_185560/func_151582C8.s")
+
 typedef struct Game185560TransformArgs {
     u8 pad0[0x48];
     f32 field48;

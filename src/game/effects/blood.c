@@ -364,6 +364,103 @@ void func_15134908(s32 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15134908 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134908.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} BloodTrailPosition;
+
+typedef struct {
+    u8 pad0[0x10];
+    f32 *x;
+    f32 *y;
+    f32 *z;
+    f32 radius;
+    f32 rate;
+    s16 lifetime;
+    u8 flags;
+    u8 emitter;
+    u8 field28;
+    s8 callback;
+    u8 pad2A[2];
+    BloodTrailPosition previous;
+    f32 inverseDiameter;
+    f32 accumulator;
+} BloodTrail;
+
+extern s32 (*D_80089B18[])(void *);
+extern void (*D_80089AFC[])(f32, f32, f32, f32, f32, f32, void *);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+f32 func_150ADA68(void);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151349D0 CURRENT (2481) */
+void func_151349D0(BloodTrail *trail) {
+    f32 radius;
+    BloodTrailPosition position;
+    f32 deltaX;
+    f32 deltaY;
+    f32 deltaZ;
+    f32 diameter;
+    f32 fraction;
+    f32 randomX;
+    f32 randomY;
+    f32 randomZ;
+    s32 value;
+
+    position.x = *trail->x;
+    position.y = *trail->y;
+    position.z = *trail->z;
+    if (trail->flags & 4) {
+        value = trail->callback;
+        if ((value != -1) && (D_80089B18[value](trail) == 0)) {
+            func_1516972C(trail);
+            return;
+        }
+    }
+    value = trail->flags;
+    if (value & 2) {
+        trail->flags = value & ~2;
+    } else {
+        deltaX = trail->previous.x - position.x;
+        deltaY = trail->previous.y - position.y;
+        deltaZ = trail->previous.z - position.z;
+        trail->accumulator += ((trail->inverseDiameter *
+            sqrtf(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) + 1.0f) *
+            D_800BE9A4 * trail->rate;
+        if (trail->accumulator > 7.0f) {
+            trail->accumulator = 7.0f;
+        }
+        if (trail->accumulator > 1.0f) {
+            do {
+                diameter = trail->radius + trail->radius;
+                fraction = func_150ADA68();
+                if (D_80089AFC[trail->emitter] != 0) {
+                    randomX = func_150ADA68();
+                    randomY = func_150ADA68();
+                    randomZ = func_150ADA68();
+                    radius = trail->radius;
+                    D_80089AFC[trail->emitter](
+                        (position.x + deltaX * fraction + radius) - randomX * diameter,
+                        (position.y + deltaY * fraction + radius) - randomY * diameter,
+                        (position.z + deltaZ * fraction + radius) - randomZ * diameter,
+                        deltaX, deltaY, deltaZ, trail);
+                }
+                trail->accumulator -= 1.0f;
+            } while (trail->accumulator > 1.0f);
+        }
+    }
+    trail->previous = position;
+    if (trail->flags & 1) {
+        trail->lifetime -= D_800BE9E4;
+        if (trail->lifetime < 0) {
+            func_1516972C(trail);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151349D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151349D0.s")
 void func_15134C98(BloodState *arg0, s32 arg1, u8 arg2) {
     if (arg0->unk28 == 1) {
