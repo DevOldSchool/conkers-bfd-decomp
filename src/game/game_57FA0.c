@@ -64,26 +64,27 @@ void func_1502AB04(s32 arg0, s32 *arg1, s32 arg2, s32 arg3) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AC88.s")
 void func_10004514(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AF04 CURRENT (921) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AF04 CURRENT (1121) */
 s32 func_1502AF04(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 i;
+    typedef struct { u32 address; u32 flags; } Relocation;
+    u32 i;
     register u8 *temp_s2;
     u8 *temp_t0;
-    u8 **entry;
+    Relocation *entries;
 
-    temp_t0 = arg0 + (arg2 * 8);
-    temp_s2 = (u8 *)((arg1 + 8) & ~0xF);
+    temp_t0 = (u8 *)((u32)arg0 + ((u32)arg2 << 3));
+    temp_s2 = (u8 *)(((u32)arg1 + 8U) & ~0xFU);
     func_10004514((s32)temp_t0 & ~0xF, (s32)temp_s2,
-                  (((s32)temp_t0 & 0xE) + (arg3 * 8) + 0xF) & ~0xF, 1);
+                  (((u32)temp_t0 & 0xEU) + ((u32)arg3 << 3) + 0xFU) & ~0xFU, 1);
+    entries = (Relocation *)((u32)temp_s2 + ((u32)temp_t0 & 0xFU));
     i = 0;
     if (arg3 != 0) {
         do {
-            entry = (u8 **)(temp_s2 + ((s32)temp_t0 & 0xF) + (i * 8));
-            *entry = arg0 + (s32)*entry;
+            entries[i].address += (u32)arg0;
             i++;
-        } while (i != arg3);
+        } while (i != (u32)arg3);
     }
-    return (s32)(temp_s2 + ((s32)temp_t0 & 0xF));
+    return (s32)((u32)temp_s2 + ((u32)temp_t0 & 0xFU));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502AF04 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AF04.s")

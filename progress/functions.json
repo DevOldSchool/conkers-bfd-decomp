@@ -17055,8 +17055,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 921,
-        "reason": "CURRENT (921): minimal do-loop reproduces unrolling and control flow, but aligned destination spills instead of using s2 and the loop register schedule differs; integer register form regressed to 2215",
+        "current_score": 1121,
+        "reason": "Best valid CURRENT (1121): raw word address arithmetic and actual 8-byte relocation records recover strength reduction after 4221 repair. Historical 921 rejected for signed arg2*8 overflow without a proven bound. Frame 0x40 exact; S2 destination spill, shifted-argument home store and unrolled load/store scheduling remain. Two fresh revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -24416,7 +24416,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 305,
-        "reason": "Manual previous-position selector and branches recovered; best CURRENT 305 has remaining state/count registers and table-load scheduling differences.",
+        "reason": "Original valid305 retained: table local removal355 regressed negative lookup scheduling despite restored early desired LUI; state local removal neutral305. Count/mode registers already rawV0, width/reuse probes rejected before edit. State/position/desired register swap and desired LUI scheduling remain; two fresh revisions exhausted, keep signed desired count-2.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43676,7 +43676,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1885,
-        "reason": "Retained best CURRENT 1885; simplifying argument temporaries regressed to 2490 and raw-offset structure fields to 2495. Remaining early arg3 stack spill, byte-width argument moves and inner-pointer allocation differ.",
+        "reason": "Original valid CURRENT (1885) retained. Prior simplified temporaries 2490/raw fields 2495 and fresh late-key/consumed-arg1 mode 2723 regressed. u16 formal reuse forces home store/reload and mask; A3 spill and inner-pointer colors remain. Lifetime/type probes exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -60438,7 +60438,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1050,
-        "reason": "CURRENT (1050): widening loop values and hoisting element base removed signed-extension drift, but remaining register allocation and flag/loop scheduling are systematic; typed-state rewrite regressed to 2885",
+        "reason": "Original valid CURRENT (1050) retained. Prior widened loop values/hoisted base improved; typed-state 2885 and fresh u16 phase/interval 2145 regressed. Speculative subtract, flag/loop scheduling and register colors remain; width/type hypotheses exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77910,7 +77910,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1585,
-        "reason": "CURRENT (1585): pointer lifetime rewrite regressed to 1830; best candidate still has broad register, operand, and control-flow allocation differences across both branches",
+        "reason": "Original valid CURRENT (1585) retained. Prior pointer-lifetime 1830 and fresh consumed mode-word 1702/local subtype-key lifetime 1660 regressed; raw state pointer folding and branch scheduling remain. Two fresh hypotheses exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

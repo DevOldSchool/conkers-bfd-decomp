@@ -2,26 +2,26 @@
 
 Latest five candidates; manual US ASM-to-C. Shared dependencies: no.
 
-| Function | Source under src/game/ | Best valid US CURRENT | Fresh revisions |
+| Function | Source under src/game/ | Best valid CURRENT | Fresh revisions |
 | --- | --- | --- | --- |
-| 1518894C | game_1B5CC0.c | 855 → 260; cursor/node reuse, threshold snapshot | 2 |
-| 1503D660 | game_6A3D0.c | 466; unsupported four-arg ABI repaired to two | 2 |
-| 15062D10 | game_83300.c | 1926 → 385; word reuse, observed arg1 home | 2 |
-| 150D01A0 | game_FD1D0.c | 2569; wrapping byte decrement, pointer home | 2 |
-| 15015920 | game_42DD0.c | 1714; raw integer-address/unsigned-shift repair | 2 |
+| 15075938 | game_A28B0.c | 305 retained; selector registers/scheduling | 2 |
+| 150FC818 | game_128D70.c | 1585 retained; pointer/branch scheduling | 2 |
+| 15148DE0 | game_175250.c | 1050 retained; flag/loop scheduling | 1 |
+| 1502AF04 | game_57FA0.c | 1121; wrapping addresses, 8-byte records | 2 |
+| 15063E84 | game_90840.c | 1885 retained; A3 spill/pointer colors | 1 |
 
-15 target finish calls; best valid C deferred, canonical ASM retained.
-62D10 full276B opcodes/control/operands/count/stack agree; only registers differ.
-Five affected owners/caller passed focused0/layout/progress/whitespace.
-42DD0 has no matched owner; clean GAME covers its canonical ASM.
+13 target finish calls; best valid C deferred, canonical ASM retained.
+No new exact matches; eight bounded revisions. Prior budgets carried.
+Five existing owners passed full-span focused0/layout/progress/whitespace.
 Clean verify-batch: BATCH_COMPLETE; US GAME/mapped rodata equal ROM.
-1,823 tests passed (35.604s), 37 skipped; repository whitespace passed.
+1,823 tests passed (35.541s), 37 skipped; whitespace passed.
 
-Workflow issue: D01A0 stored4271 disagreed with its best3149 reason;
-older snapshot unavailable. Now valid2569 is preserved transactionally.
-Speed leads: reuse actual lifetimes; qualify observed homes, with explicit snapshots.
-Check correctness before score: invalid804 parser replaced by valid1714.
+Starter issues: FC818 word load at arg1+4 emitted as byte;
+75938 desired count-2 emitted unsigned byte without a lower-bound proof.
+Speed lead: actual 8-byte records recovered AF04 loop strength reduction
+(4221 → 1121); historical921 rejected for signed-offset overflow.
+Reject already-correct homes/types before editing; stop regressing patterns.
 Throughput gains remain unbenchmarked. Prior checkpoint matched B634 full268B.
 Pending [1500E738 mapping](game_3ba70_jump_table.md); linker unchanged.
-47B80 focused-padding,1515942C shared contract,150A6360 span/FPU blockers remain.
+47B80 padding,1515942C contract,150A6360 span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.
