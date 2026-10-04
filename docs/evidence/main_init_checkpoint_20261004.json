@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved improved disabled sound-wrapper candidates10154 CURRENT3570 and10344 CURRENT1103 with raw-proven owning halfword inputs and actual argument lifetimes. Corrected own10630 s16/u16 inputs CURRENT2124; active matching EDA0 caller retains independent full-span0 and layout after canonical defer. ExistingF9D4 full-span0/layout. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass. No new C matches or completed source units.",
+    "scope": "Preserved disabled10FFC candidate CURRENT1595 after owning narrow input contracts and actual volume argument mutation; no new C matches or completed source units. Existing same-unit10F88/1123C independent full-span0/layout/progress/whitespace. Clean canonical US ROM, repository tests, metadata, progress and whitespace pass. Candidate remains unmatched.",
     "batch_ids": [
-      "func_8000EDA0",
-      "func_8000F9D4"
+      "func_80010F88",
+      "func_8001123C"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 36.007,
+    "test_seconds": 33.73,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T14:54:08.412081+00:00",
+    "completed_utc": "2026-10-04T15:09:07.085493+00:00",
     "additional_focused_checks": {
-      "func_8000EDA0": {
+      "func_80010F88": {
         "score": 0,
-        "attempt_record": "d368e65b6bf646d78d1417c66d7409c2",
-        "layout": "preserved after canonical defer"
+        "attempt_record": "8c338b43017e499ab2b1e4ec970e4c90",
+        "layout": "preserved"
       },
-      "func_8000F9D4": {
+      "func_8001123C": {
         "score": 0,
-        "attempt_record": "02a67ed3c7624c8f8d43e8f3bf955095",
+        "attempt_record": "b656c32499f44420a5b3d13af833f20b",
         "layout": "preserved"
       }
     }
@@ -460,6 +460,12 @@
       1205,
       1287,
       1103
+    ],
+    "func_80010FFC": [
+      3769,
+      3614,
+      2024,
+      1595
     ]
   },
   "preserved_candidate_scores": {
@@ -496,7 +502,8 @@
     "func_8000480C": 2031,
     "func_80010630": 2124,
     "func_80010154": 3570,
-    "func_80010344": 1103
+    "func_80010344": 1103,
+    "func_80010FFC": 1595
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -659,33 +666,40 @@
       "inherited_forms_tested": 3,
       "targeted_revisions_remaining": 0,
       "reason": "Actual input lifetime and owning u16farDistance contract recover post-cleanup LHU/remove early word spill; register-only0. Frame48 versus58, callback rematerialization and store/return scheduling remain. Existing body-reuse3 plus two distinct new forms; no equivalent views/types/frame/pressure probes."
+    },
+    "func_80010FFC": {
+      "current_score": 1595,
+      "new_forms_used": 2,
+      "inherited_forms_tested": 1,
+      "targeted_revisions_remaining": 0,
+      "reason": "Own u16handle/volume and s16cents/u8mix contracts plus actual mutable volume recover widths and entry volume normalization. Frame40 exact; handle normalization, multiply strength reduction, temp/result scheduling remain. Three total forms exhausted; no equivalent type/mutation/frame/pressure probes."
     }
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Improved disabled PI-copy candidate2223 to2031; E7A0/D96C fresh comparisons preserve existing bodies without new forms. Existing4674/B3D4 independent full-span CURRENT0 and source-unit layouts preserved. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass; no new C matches.",
+    "scope": "Preserved improved disabled sound-wrapper candidates10154 CURRENT3570 and10344 CURRENT1103 with raw-proven owning halfword inputs and actual argument lifetimes. Corrected own10630 s16/u16 inputs CURRENT2124; active matching EDA0 caller retains independent full-span0 and layout after canonical defer. ExistingF9D4 full-span0/layout. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass. No new C matches or completed source units.",
     "batch_ids": [
-      "func_80004674",
-      "func_8000B3D4"
+      "func_8000EDA0",
+      "func_8000F9D4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 35.439,
+    "test_seconds": 36.007,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T14:33:18.622257+00:00",
+    "completed_utc": "2026-10-04T14:54:08.412081+00:00",
     "additional_focused_checks": {
-      "func_80004674": {
+      "func_8000EDA0": {
         "score": 0,
-        "attempt_record": "5ff1e167bb2a42b7ac1946b610166970",
-        "layout": "preserved"
+        "attempt_record": "d368e65b6bf646d78d1417c66d7409c2",
+        "layout": "preserved after canonical defer"
       },
-      "func_8000B3D4": {
+      "func_8000F9D4": {
         "score": 0,
-        "attempt_record": "aad61152c2c3456d9aa80df9f3d89bf3",
+        "attempt_record": "02a67ed3c7624c8f8d43e8f3bf955095",
         "layout": "preserved"
       }
     }
@@ -951,6 +965,34 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Improved disabled PI-copy candidate2223 to2031; E7A0/D96C fresh comparisons preserve existing bodies without new forms. Existing4674/B3D4 independent full-span CURRENT0 and source-unit layouts preserved. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass; no new C matches.",
+      "batch_ids": [
+        "func_80004674",
+        "func_8000B3D4"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 35.439,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T14:33:18.622257+00:00",
+      "additional_focused_checks": {
+        "func_80004674": {
+          "score": 0,
+          "attempt_record": "5ff1e167bb2a42b7ac1946b610166970",
+          "layout": "preserved"
+        },
+        "func_8000B3D4": {
+          "score": 0,
+          "attempt_record": "aad61152c2c3456d9aa80df9f3d89bf3",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -1100,6 +1142,19 @@
       "status": "candidate",
       "shared_dependency": false,
       "caller_audit": "Complete named C references: own forward/definition and disabled ECCC/10558; raw direct callers both halfword values; incomplete matched-caller index empty."
+    },
+    "func_80010FFC": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 460,
+      "fresh_baseline": 3614,
+      "focused_score": 1595,
+      "attempt_record": "a8d8842590304aff92475bbbf2420a9f",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 2,
+      "inherited_forms": 1,
+      "caller_audit": "Complete known named C/include own refs only definition/comment; no raw direct calls; incomplete matched-caller index empty, indirect calls unknown.",
+      "change": "Recover own narrow input contracts and actual mutable volume argument; fullword sound key and FP/SDK/helper contracts unchanged. Candidate disabled beside canonical assembly."
     }
   }
 }

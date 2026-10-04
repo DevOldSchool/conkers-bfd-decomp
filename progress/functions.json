@@ -94093,8 +94093,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3769,
-        "reason": "Typed delayed sound wrapper preserves active full-width contract and recovers raw 0x40 frame. Incoming normalization and argument storage remain at CURRENT 3769; no qualifying narrow signature.",
+        "current_score": 1595,
+        "reason": "Candidate CURRENT1595 full460 US; fresh3614, owning u16 handle/volume and s16 cents/u8 mix contract2024, actual mutable volume parameter1595. One inherited plus two current forms exhausted. Entry handle normalization/live a0, multiply3 ADDU versus strength-reduced shift/sub, temp roles and result join remain. Fullword sound key and FP/SDK/helper contracts preserved; complete known C/include own-reference audit and incomplete matched-caller index show no active named caller. No equivalent type/mutation/frame/register-pressure retry without new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

@@ -1261,11 +1261,10 @@ typedef struct {
 
 extern SoundOwnerScale *D_800D1C90[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010FFC CURRENT (3769) */
-s32 func_80010FFC(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
-                  s32 arg4, SoundOwnerState *owner) {
-    s32 handle = arg0 & 0xFFFF;
-    s32 volume = arg2 & 0xFFFF;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010FFC CURRENT (1595) */
+s32 func_80010FFC(u16 arg0, s32 arg1, u16 arg2, s16 arg3,
+                  u8 arg4, SoundOwnerState *owner) {
+    s32 handle = arg0;
     u16 result;
     f32 scale;
 
@@ -1273,10 +1272,10 @@ s32 func_80010FFC(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
         return 0;
     }
     if (owner->field318 != 0) {
-        result = func_80010BE8(handle, arg1, volume, 0x40,
-                              (s16)arg3, (u8)arg4, D_80041FD9);
+        result = func_80010BE8(handle, arg1, arg2, 0x40,
+                              arg3, arg4, D_80041FD9);
     } else {
-        volume = (u16)((volume * 3) >> 2);
+        arg2 = (u16)((arg2 * 3) >> 2);
         if (owner->field4 != 0xFF) {
             scale = (f32)(u32)D_800D1C90[owner->field4]->fieldE * owner->field14C;
         } else {
@@ -1289,8 +1288,8 @@ s32 func_80010FFC(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
         } else {
             scale *= 0.00390625f;
         }
-        result = func_80010E78(handle, arg1, volume, (s16)arg3,
-                              (u8)arg4, 0, (s32)owner->field14,
+        result = func_80010E78(handle, arg1, arg2, arg3,
+                              arg4, 0, (s32)owner->field14,
                               (s32)owner->field18, (s32)owner->field1C,
                               0x1F4, (s32)(2000.0f * scale) + 0x1F5);
     }
