@@ -741,6 +741,95 @@ void func_151E7EF8(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151E7EF8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7EF8.s")
+typedef struct Game20F9A0SpawnConfig {
+    f32 scale;
+    s8 yOffset;
+    u8 model, appearance, pad7;
+} Game20F9A0SpawnConfig;
+
+typedef struct Game20F9A0SpawnPosition {
+    s16 x, y, z;
+    u8 angle, pad7;
+} Game20F9A0SpawnPosition;
+
+void func_15060F28(u8 *, s32);
+s32 func_15083E0C(s32);
+void *func_10003C40(s32, s32, s32, s32);
+void func_100226F0(void *, u32);
+s32 func_15082A44(void *, s32, s32, s32, s32);
+void func_15083384(void *, s32);
+void func_1505E650(void *, s32, f32, f32, f32, f32, s32);
+extern Game20F9A0SpawnConfig D_800AB57C[];
+extern Game20F9A0SpawnPosition D_800AB940[];
+extern u8 D_800CC2C0[];
+extern u8 *D_800D20FC;
+extern s32 D_800E0BA0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E7F60 CURRENT (3521) */
+void func_151E7F60(s32 arg0, s32 arg1) {
+    s32 objectId;
+    s32 model;
+    s32 *slot;
+    Game20F9A0SpawnConfig *config;
+    register f32 scale;
+    register u8 *object;
+    register u8 *previous;
+    register s32 descriptorId;
+    register s32 positionId;
+    register Game20F9A0SpawnPosition *position;
+    register u8 *descriptor;
+    register void *buffer;
+
+    slot = &D_800E0BA0 + arg0;
+    previous = (u8 *)*slot;
+    if (previous != 0) {
+        func_15060F28(previous, 1);
+    }
+    descriptorId = func_15083E0C((arg0 + 0x10) & 0xFF);
+    config = &D_800AB57C[arg1];
+    model = config->model;
+    positionId = arg0;
+    descriptor = (u8 *)((u32)descriptorId * 0x30U + (u32)D_800D20FC);
+    if (*(s8 *)((u8 *)D_8008FDD4 + 0x2C) == 7) {
+        positionId = arg0 + 1;
+    }
+    descriptor[4] = model;
+    position = &D_800AB940[positionId];
+    *(s16 *)(descriptor + 6) = position->x;
+    *(s16 *)(descriptor + 8) = position->y;
+    *(s16 *)(descriptor + 8) += config->yOffset;
+    *(s16 *)(descriptor + 0xA) = position->z;
+    descriptor[0xC] = position->angle;
+    if (model == 0x53) {
+        descriptor[0xD] = 0x24;
+    } else {
+        descriptor[0xD] = 0xE;
+    }
+    objectId = func_15082A44(descriptor, descriptorId, 0, 0, 0);
+    if (objectId != 0) {
+        object = (u8 *)((u32)objectId * 0x32CU + (u32)D_800CC2D0);
+        previous = object - 0x32C;
+        *slot = (s32)previous;
+        scale = config->scale;
+        object[-0x327] = 7;
+        *(u16 *)(object - 0x34) |= 3;
+        *(f32 *)(object - 0x1DC) = scale;
+        *(f32 *)(object - 0x1E0) = scale;
+        if (object[-0x328] == 0 || previous[4] == 0x80) {
+            buffer = func_10003C40(0x1C0, 1, 0, 0);
+            *(void **)(D_800CC2C0 + objectId * 0x32C) = buffer;
+            func_100226F0(buffer, 0x1C0);
+        }
+        previous = (u8 *)((u32)objectId * 0x32CU - 0x32CU + (u32)D_800CC2D0);
+        if (model == 0x3B) {
+            previous[0x68] = arg0 + 1;
+        }
+        slot = (s32 *)previous;
+        func_15083384(slot, config->appearance);
+        func_1505E650(slot, 0xF, 1.0f, 0.0f, 0.0f, 0.0f, 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151E7F60 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7F60.s")
 extern s8 D_8008FD84;
 extern s32 D_800E0BA0;

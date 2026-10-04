@@ -6705,6 +6705,12 @@
       "symbol": "func_15007830"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1464,
+        "reason": "Best1464 retained after two manual candidates; structural stop. Proven variadic resource reader writes one4byte pointer, explicit24-to20byte conversion and unsignedfloat-square conversion preserved. Frame38/source34 match; count2C vs30, indexHome28 vs2C, global/index/offset GPR ownership, FP load order and initial volatile store timing remain. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -70892,6 +70898,12 @@
       "symbol": "func_150BE850"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1150,
+        "reason": "Manual budget exhausted: best CURRENT 1150, exact frame and v1/f0 lifetime recovered; FP scheduling, quarter constant reuse and six extra/missing rows remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71173,6 +71185,12 @@
       "symbol": "func_151BC370"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 974,
+        "reason": "Manual budget exhausted: best CURRENT 974; main emitter body and phase-step homes match, but frame 120 versus 128, vector F0 versus F4, timestep 114 versus 118 and tail FP reload/control scheduling remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -75716,6 +75734,12 @@
       "symbol": "func_151E7EF8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3521,
+        "reason": "Best3521 retained after three manual candidates; final4071 worsens. Typed8byte config/position and SDK bzero, proven motion float parameters, raw32C actor stride and unsigned addresses. Frame68 vs50; config30 vs2C, model60 vs3C, objectId64 vs4C, persistent base and GPR/scheduling remain. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90128,6 +90152,12 @@
       "symbol": "func_150E0870"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 775,
+        "reason": "Manual budget exhausted: best CURRENT 775, all stack homes and instruction count recovered; skip/limit/owner/sentinel GPR ownership and initialization scheduling remain. Explicit register locals expand the frame.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
