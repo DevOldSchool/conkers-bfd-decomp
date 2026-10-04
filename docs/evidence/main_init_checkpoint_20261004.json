@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved improved C530 disabled candidate with proven own u8 channel contract and real local/input byte reads; C7E8 original2005 restored after non-improving forms. Existing affected BA18/BAFC retain independent full-span CURRENT0 and source-unit layout. Clean canonical full US ROM, metadata/progress/whitespace passed. No new C matches.",
+    "scope": "Improved disabled PI-copy candidate2223 to2031; E7A0/D96C fresh comparisons preserve existing bodies without new forms. Existing4674/B3D4 independent full-span CURRENT0 and source-unit layouts preserved. Clean canonical full US ROM, repository tests, metadata/progress/whitespace pass; no new C matches.",
     "batch_ids": [
-      "func_8000BA18",
-      "func_8000BAFC"
+      "func_80004674",
+      "func_8000B3D4"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 37.676,
+    "test_seconds": 35.439,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T14:11:11.103210+00:00",
+    "completed_utc": "2026-10-04T14:33:18.622257+00:00",
     "additional_focused_checks": {
-      "func_8000BA18": {
+      "func_80004674": {
         "score": 0,
-        "attempt_record": "23b03a3ca261437191145f12262699ea",
+        "attempt_record": "5ff1e167bb2a42b7ac1946b610166970",
         "layout": "preserved"
       },
-      "func_8000BAFC": {
+      "func_8000B3D4": {
         "score": 0,
-        "attempt_record": "42cb02f9abf44b5f8beaec6db8f8ca0d",
+        "attempt_record": "aad61152c2c3456d9aa80df9f3d89bf3",
         "layout": "preserved"
       }
     }
@@ -434,6 +434,18 @@
       2005,
       2635,
       2005
+    ],
+    "func_8000E7A0": [
+      1525
+    ],
+    "func_8000D96C": [
+      5230
+    ],
+    "func_8000480C": [
+      2223,
+      2031,
+      2591,
+      2031
     ]
   },
   "preserved_candidate_scores": {
@@ -464,7 +476,10 @@
     "func_8000D758": 164,
     "func_8000D2F8": 3869,
     "func_8000C530": 2426,
-    "func_8000C7E8": 2005
+    "func_8000C7E8": 2005,
+    "func_8000E7A0": 1525,
+    "func_8000D96C": 5230,
+    "func_8000480C": 2031
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -587,39 +602,52 @@
       "targeted_revisions_remaining": 0,
       "current_score": 2005,
       "reason": "Mutable coordinate2635 repeated inherited family; entry input snapshot code-neutral2005. Original restored; raw MTC versus actual param spill and floating scheduling unresolved. No equivalent input mutation/snapshot, sqrt/clamp or frame probes."
+    },
+    "func_8000E7A0": {
+      "current_score": 1525,
+      "new_forms_used": 0,
+      "targeted_revisions_remaining": 0,
+      "reason": "Fresh full292 CURRENT1525; constant reuse/global-address/delay scheduling remain. Inherited else-if/early-return shapes exhausted; no supported new form, zero new forms."
+    },
+    "func_8000D96C": {
+      "current_score": 5230,
+      "new_forms_used": 0,
+      "targeted_revisions_remaining": 0,
+      "reason": "Fresh full1200 CURRENT5230; actual normalized word parameter homes already correct relative to frame. Proposed views rejected before edit, zero new forms. Frame/local offsets/constants/register scheduling remain; no redundant conditions or equivalent views."
+    },
+    "func_8000480C": {
+      "current_score": 2031,
+      "new_forms_used": 2,
+      "inherited_forms_tested": 1,
+      "targeted_revisions_remaining": 0,
+      "reason": "Actual same-type destination object reads recover missing loop reload. Earlier count snapshot regressed2591; best2031 restored. Frame/source saved register/count CSE and address scheduling remain. No equivalent pointer views/count timing/frame probes without new evidence."
     }
   },
   "ledger_note": "Detailed local attempt snapshots are under build/us/matching-attempts and build/us/manual-attempts/complete-init-20261004; they are ignored build artifacts. Tracked function inventory retains defer reasons. Historical scores are not current-match proof or a reset of attempt limits.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Preserved improved D2F8 disabled candidate; seven helper declaration experiments fully rolled back after CDA0/E654 regression. Existing B638/CDA0/E654 independently retain full-span CURRENT0 and source-unit layout. Clean canonical full US ROM, metadata/progress/whitespace passed. No new C matches.",
+    "scope": "Preserved improved C530 disabled candidate with proven own u8 channel contract and real local/input byte reads; C7E8 original2005 restored after non-improving forms. Existing affected BA18/BAFC retain independent full-span CURRENT0 and source-unit layout. Clean canonical full US ROM, metadata/progress/whitespace passed. No new C matches.",
     "batch_ids": [
-      "func_8000B638",
-      "func_8000CDA0",
-      "func_8000E654"
+      "func_8000BA18",
+      "func_8000BAFC"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1823,
     "skipped": 37,
-    "test_seconds": 34.183,
+    "test_seconds": 37.676,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T13:53:07.900184+00:00",
+    "completed_utc": "2026-10-04T14:11:11.103210+00:00",
     "additional_focused_checks": {
-      "func_8000B638": {
+      "func_8000BA18": {
         "score": 0,
-        "attempt_record": "c40aa380f9304c43988ef80c8dccc3a3",
+        "attempt_record": "23b03a3ca261437191145f12262699ea",
         "layout": "preserved"
       },
-      "func_8000CDA0": {
+      "func_8000BAFC": {
         "score": 0,
-        "attempt_record": "2cacd45d12e54680b0936c45fd15a6eb",
-        "layout": "preserved"
-      },
-      "func_8000E654": {
-        "score": 0,
-        "attempt_record": "1bdfce7c32c84b0499bade7289dcff45",
+        "attempt_record": "42cb02f9abf44b5f8beaec6db8f8ca0d",
         "layout": "preserved"
       }
     }
@@ -823,6 +851,40 @@
           "layout": "preserved"
         }
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved improved D2F8 disabled candidate; seven helper declaration experiments fully rolled back after CDA0/E654 regression. Existing B638/CDA0/E654 independently retain full-span CURRENT0 and source-unit layout. Clean canonical full US ROM, metadata/progress/whitespace passed. No new C matches.",
+      "batch_ids": [
+        "func_8000B638",
+        "func_8000CDA0",
+        "func_8000E654"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1823,
+      "skipped": 37,
+      "test_seconds": 34.183,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T13:53:07.900184+00:00",
+      "additional_focused_checks": {
+        "func_8000B638": {
+          "score": 0,
+          "attempt_record": "c40aa380f9304c43988ef80c8dccc3a3",
+          "layout": "preserved"
+        },
+        "func_8000CDA0": {
+          "score": 0,
+          "attempt_record": "2cacd45d12e54680b0936c45fd15a6eb",
+          "layout": "preserved"
+        },
+        "func_8000E654": {
+          "score": 0,
+          "attempt_record": "1bdfce7c32c84b0499bade7289dcff45",
+          "layout": "preserved"
+        }
+      }
     }
   ],
   "candidate_validation_note": "Preserved nonzero candidates remain disabled beside canonical GLOBAL_ASM. Clean batches cover the listed existing matched callers and reviewed source-unit layout/build/progress safety; they do not prove unmatched candidates or add C matches.",
@@ -926,6 +988,15 @@
       "forms_tested_current_group": 2,
       "equivalent_repeats": 1,
       "change": "In-place coordinate formal2635 repeats inherited family; entry coordinate snapshot is code-neutral2005. Exact original2005 restored; no retained body or ABI change."
+    },
+    "func_8000480C": {
+      "score": 2031,
+      "attempt_record": "df9bc45bf2e84d14be5601bf504d190c",
+      "source": "src/main/init_4470.c",
+      "new_forms": 2,
+      "inherited_forms": 1,
+      "status": "candidate",
+      "shared_dependency": false
     }
   }
 }

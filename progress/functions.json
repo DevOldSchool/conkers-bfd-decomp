@@ -91839,8 +91839,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2223,
-        "reason": "Direct PI copy uses actual manager-thread interlock visibility and MMIO/device reads, with a real word/halfword view and one-argument thread resume contract. First typed form scores 2223; frame, register allocation, control schedule and absolute-segment aliases remain. Preserve evidence before further independent lifetime review.",
+        "current_score": 2031,
+        "reason": "Preserve typed PI-copy candidate at independently restored full-span US CURRENT2031 (df9bc45bf2e84d14be5601bf504d190c), improved from2223 by actual same-type void-pointer parameter object reads recovering the loop destination reload. Earlier count snapshot regressed2591 and was removed. Three total forms (one inherited, two current); source saved-register/frame40 versus38, count CSE and address/register scheduling remain. No equivalent destination-view/count-timing/frame shapes without independent new evidence; SDK/interlock/MMIO contracts unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92930,7 +92930,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 5230,
-        "reason": "Preserve typed transition controller at CURRENT (5230). Existing incoming restoration, distinct mode4/mode6 ownership paths, queued-record reuse and generic transition masks retained. Early duplicate-exit branches simplify naturally; frame/spill/register differences remain. No padding, new ABI or search performed.",
+        "reason": "Preserve typed transition controller at fresh full-span US CURRENT 5230 (c6029299767f4b93b237d93d54abb2f1). Actual normalized s32 parameter word homes and reloads already agree relative to the frame; the proposed object views have no supported assembly change and were rejected before editing, zero new forms. Inherited control-flow and restoration paths retained; frame/spill offsets, global constant reuse and register scheduling remain. Do not repeat parameter views, duplicate return conditions or frame shaping without independent new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93223,7 +93223,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1525,
-        "reason": "Preserve control setter at CURRENT (1525). Fullword state/flag behavior recovered; repeated constant and global-address allocation differ. Explicit else-if structure is code-neutral. No arbitrary aliasing, volatility or permutation attempted.",
+        "reason": "Preserve control setter at CURRENT1525. Fresh full292 confirms body/state fields and word inputs correct. Raw first comparison loads constant1 into at locally; current C hoists shared constant1 into v0 for later state=1 path, altering branch likely slots and global pointer registers. Existing explicit else-if/early-return structures are code-neutral and exhausted. No independently supported input, object lifetime or control-value change identified; no new form this selection. Do not force constant rematerialization with recomputable address locals, synthetic values, dummy reads, aliasing, volatility or pressure shaping. No permutation permission; remains candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
