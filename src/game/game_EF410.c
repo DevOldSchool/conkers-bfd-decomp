@@ -243,8 +243,8 @@ void func_1514C470(f32, f32, f32, f32, f32, f32, f32, s32, s32, f32, s32, s32);
 extern f32 D_800A0268;
 extern f32 D_800A026C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2424 CURRENT (840) */
-void func_150C2424(u8 arg0) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C2424 CURRENT (130) */
+void func_150C2424(volatile u8 arg0) {
     func_1514C470(D_800A0268, -490.0f, -328.0f, D_800A0268,
                   -490.0f, 328.0f, (func_150ADA68() * 8.0f) + 8.0f,
                   1, 0, 0.0f, 0, (s32)arg0);

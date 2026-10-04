@@ -31370,8 +31370,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 840,
-        "reason": "Correct provider third-f32 contract and exact -328.0f/-580.0f literal bits improve1643to840; raw common FP constant reuse recovered, no numeric conversion. Existing matched unit code/relocations unchanged; frame and scheduling differences remain.",
+        "current_score": 130,
+        "reason": "Valid volatile actual argument home reloads840to130; frame38, homes, registers and full248B instruction count recovered. Four global/constant setup rows swapped; explicit post-RNG coordinate snapshot neutral. Prior ABI/literal fixes retained; manual budget exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -43638,8 +43638,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 261,
-        "reason": "Typed packet and actor indexing improve CURRENT to 261; remaining frame is 0x50 versus 0x40, packet/animation slots are shifted four bytes, and inner byte-pointer tail adds a move. Combining animation into packet regressed to 1180.",
+        "current_score": 250,
+        "reason": "Valid disjoint type/attachment/count scalar reuse261to250; packet28, position2C and animation3C recovered. Frame48 versus raw40 and redundant inner-pointer tail move/registers remain. Prior animation-in-packet regressed1180; manual budget exhausted. Preserve correct single812-byte actor-index division; ready starter double-divides typed pointer difference.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -47098,7 +47098,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 183,
-        "reason": "best CURRENT (183): control flow and instruction count align, but IDO uses a 0x28 frame and v0/a1 allocation instead of the reference 0x20 frame and v1/v0 allocation; scalar-local rewrite regressed to CURRENT (987)",
+        "reason": "Best valid183 retained: full256B opcodes/control/count align, frame28/raw20 and slot/resource registers differ. Fresh direct-load removal449 recoversframe20 but savedslot18/raw1C and globalA0/control regress. Prior scalar-local rewrite987; manual budget exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -62499,7 +62499,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 320,
-        "reason": "best CURRENT (320): all operands and registers match; only the boolean branch is inverted relative to reference (bnez with 1/0 assignments versus beqz with 0/1), while the initialized form introduces a branch-likely and regresses to CURRENT (475)",
+        "reason": "Best valid320 original retained: all full256B operands/registers/stack/count agree; three boolean branch/assignment rows inverted. Prior initializedform475; fresh case0/default1 and reversed switch orders both neutral320. Manual budget exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -87577,8 +87577,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 88,
-        "reason": "Best candidate CURRENT (88): explicit final float lifetime fixes instruction ordering and removes missing/extra differences, but IDO allocates it on stack, enlarging frame 0x30 to 0x38; 6 register and 8 stack-offset operand differences remain.",
+        "current_score": 30,
+        "reason": "Valid actual pointer reuse88to38 and actual-local declaration order38to30; raw frame30/result slot2C recovered. All256B opcodes/control/operands/count/stack agree; six FP-register rows use zero/final f2/f0 versusrawf0/f18. Final source-coordinate snapshot retained; manual budget exhausted, no permutation authorized.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
