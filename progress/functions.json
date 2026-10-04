@@ -9510,17 +9510,16 @@
       "symbol": "func_15058898"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 155,
-        "reason": "Manual clamp helper is semantically and control-flow aligned but the resumed candidate is CURRENT (155) across the second half's FPU temporary allocation and comparison ordering; this is not an isolated scalar expression correction, so defer pending stronger FPU lifetime evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 128,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15058EA4",
           "vram": "0x15058EA4"
         }
@@ -43553,7 +43552,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 481,
-        "reason": "CURRENT (481): pointer argument is spilled and reloaded before the inner-pointer load; this shifts temporary registers and argument-store scheduling. Register qualifier and an explicit aligned pointer load did not improve the existing candidate.",
+        "reason": "Best valid full124B CURRENT481; frame48 exact. Prior register qualifier/aligned-load probes failed; fresh actual six-field argument snapshots regressed1289 and did not recover early owner spill/reload. Simpler original restored. Pointer lifetime and argument-store/FP scheduling remain; single new supported hypothesis exhausted, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49792,8 +49791,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1235,
-        "reason": "Recovered two-word display commands, 0x40-byte matrix records, unused a1/a3 ABI slots, and the u8 output flag; remaining mismatch is display-list pointer/store scheduling (best CURRENT 1235)",
+        "current_score": 1435,
+        "reason": "Best valid full104B CURRENT1435; preserve correct8-byte commands/64-byte matrices, unused a1/a3 homes and u8 flag. Post-store cursor increments regressed1760; rebinding arg1 removed its incoming home and regressed1698. Original valid baseline restored; two targeted lifetime revisions exhausted. Regenerated starter typed-pointer stride is invalid; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55523,8 +55522,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 772,
-        "reason": "Best candidate reached CURRENT (772); remaining mismatch is argument lifetime/register allocation and branch scheduling.",
+        "current_score": 115,
+        "reason": "Correct original owner destructor argument/pointer declaration and u8 event formal retained at CURRENT (115). Full168B instruction/control/count, frame18 and stack exact; nineteen register rows remain. Three finish calls/two targeted revisions exhausted; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78669,7 +78668,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1625,
-        "reason": "Manual typed-table m2c candidate reached CURRENT (1625); substantial register allocation, operand, and control-flow differences remain.",
+        "reason": "Valid unsigned color packing retained at CURRENT (1625); actual eight-byte command snapshots/postincrement cursors canonicalize identically. Three finish calls/two revisions; folded cursor addresses, RGB expression scheduling and full-span shortening remain. No further untried hypothesis; no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

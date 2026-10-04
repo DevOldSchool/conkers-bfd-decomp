@@ -1,29 +1,26 @@
 # Deferred matching: 2026-10-04
 
-Latest five candidates; US, manual ASM-to-C. Shared dependency changes: no.
+Latest five items; manual US ASM-to-C. Shared changes: no.
 
-| Function | Source under src/game/ | Best valid full-span CURRENT | Revisions |
+| Function | Source under src/game/ | Best valid CURRENT | Revisions |
 | --- | --- | --- | --- |
-| 150C5DC0 | game_F3270.c | 265; owner argument repaired | 2 |
-| 15079F6C | game_A28B0.c | 50; original retained | 1 |
-| 150D2054 | game_FF0E0.c | 435 → 25; counter increment lifetime | 2 |
-| 15167010 | game_1944C0.c | 550; original retained | 1 |
-| 1519F168 | game_1CC440.c | 635 → 465; original owner lifetime | 2 |
+| 15157F80 | game_1844C0.c | 1435; original retained | 2 |
+| 15063628 | game_90840.c | 481; original retained | 1 |
+| 15058EA4 | game_83300.c | 55 → 0; FP bound lifetime | 1 |
+| 1510CDB8 | game_139FC0.c | 1625; unsigned color shifts repaired | 2 |
+| 151A8A78 | game_1D4E00.c | 767 → 115; owner repair/u8 event | 2 |
 
-14 candidate finish calls. C5DC0 baseline invalid: missing required owner argument.
-D2054 compile repair retains existing s32 formal/wrapper contracts.
-Best valid candidates deferred; canonical ASM retained; no new match credit.
-D2054 has only four register rows; all opcodes/control/stack/count match.
-Native u8 next-index revision regressed235; restored25.
-Explicit address/end-pointer probes were neutral; simpler candidates restored.
-Seven existing owners/callers passed CURRENT0/layout/progress/whitespace.
+13 target finish calls; one match, four best valid deferred candidates.
+CDB8 baseline signed color shifts and A8A78 zero owner argument were invalid.
+A8A78 now differs only in nineteen register rows; instructions/control/stack/count agree.
+Eight functions passed focused0/layout/progress/whitespace (seven existing owners).
 Clean verify-batch: BATCH_COMPLETE; US GAME/mapped rodata equal ROM.
 1,823 tests passed, 37 skipped; repository whitespace passed.
 
-Speed leads: separate real counter increment from next-index masking;
-check required arguments before spending effort on delay slots.
-Historical scores omit current span/context differences; remeasure before ranking.
-Prior 47B80 focused-padding issue: unchanged code; complete mixed span/ROM exact.
+Speed leads: reuse actual FP temporaries for successive bounds; type byte events
+to recover incoming homes. Check owner arguments and unsigned shifts first.
+Starter F80 typed cursor +8 scales to64 bytes: preserved candidate has correct8-byte stride.
+Prior 47B80 focused-padding issue persists; complete mixed span/ROM were exact.
 Pending [1500E738 mapping proposal](game_3ba70_jump_table.md); linker unchanged.
 1515942C shared contract and 150A6360 full-span/FPU blockers remain.
 Commit identity: DevOldSchool-AI-Agent. No personal memory used.

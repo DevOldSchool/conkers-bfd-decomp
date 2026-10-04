@@ -399,7 +399,7 @@ typedef struct Game1844C0Matrix {
 extern u8 D_80089470;
 extern Game1844C0Matrix D_800DCC10[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157F80 CURRENT (1235) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15157F80 CURRENT (1435) */
 Game1844C0DisplayCommand *func_15157F80(Game1844C0DisplayCommand *arg0, s32 arg1,
                                        s32 arg2, s32 arg3, u8 *arg4) {
     Game1844C0DisplayCommand *temp_v1;

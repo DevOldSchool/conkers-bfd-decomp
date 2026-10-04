@@ -14,7 +14,6 @@
  * - func_15056B08
  * - func_150585F0
  * - func_15058898
- * - func_15058EA4
  * - func_15058F24
  * - func_15059140
  * - func_150593C4
@@ -327,7 +326,6 @@ void func_1505841C(Game83300Actor *arg0, f32 arg1) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150585F0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058898.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15058EA4 CURRENT (155) */
 void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 temp_fv0;
     f32 temp_fv1;
@@ -338,17 +336,17 @@ void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5,
     } else if (temp_fv0 < arg3) {
         *(f32 *)((u8 *)arg0 + 0x24) = arg4;
     }
+    temp_fv0 = arg5;
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x20);
-    if (arg5 < temp_fv1) {
-        *(f32 *)((u8 *)arg0 + 0x20) = arg5;
+    if (temp_fv0 < temp_fv1) {
+        *(f32 *)((u8 *)arg0 + 0x20) = temp_fv0;
         return;
     }
-    if (temp_fv1 < arg6) {
-        *(f32 *)((u8 *)arg0 + 0x20) = arg6;
+    temp_fv0 = arg6;
+    if (temp_fv1 < temp_fv0) {
+        *(f32 *)((u8 *)arg0 + 0x20) = temp_fv0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15058EA4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058EA4.s")
 extern f32 D_800994A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15058F24 CURRENT (2480) */
