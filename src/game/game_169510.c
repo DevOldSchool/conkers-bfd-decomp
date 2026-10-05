@@ -1057,7 +1057,49 @@ s32 func_1513F6E8(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (*(f32 *)((u8 *)arg0 + 0x30) + (temp_fv0 * D_800BE9A4));
     return 1;
 }
+extern f32 D_800BE9A8;
+
+typedef struct Game169510Velocity {
+    f32 x, y, z;
+    f32 gravity;
+    f32 damping;
+    f32 rx, ry, rz;
+} Game169510Velocity;
+
+typedef struct Game169510VelocitySnapshot {
+    f32 x, y, z;
+} Game169510VelocitySnapshot;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1513F728 CURRENT (870) */
+s32 func_1513F728(void *arg0) {
+    Game169510VelocitySnapshot previous;
+    Game169510Velocity *velocity;
+    Game169510ScaledOwner *owner = arg0;
+    u32 count;
+    f32 dx, dy, dz;
+
+    velocity = (Game169510Velocity *)((u8 *)arg0 + 0x110);
+    previous = *(Game169510VelocitySnapshot *)velocity;
+    for (count = D_800BE9E4; count != 0; count--) {
+        velocity->x *= velocity->damping;
+        velocity->y *= velocity->damping;
+        velocity->z *= velocity->damping;
+    }
+    velocity->y += velocity->gravity * D_800BE9A4;
+    dx = (velocity->x - previous.x) * D_800BE9A8;
+    dy = (velocity->y - previous.y) * D_800BE9A8;
+    dz = (velocity->z - previous.z) * D_800BE9A8;
+    owner->x += (previous.x + 0.5f * dx * D_800BE9A4) * D_800BE9A4;
+    owner->y += (previous.y + 0.5f * dy * D_800BE9A4) * D_800BE9A4;
+    owner->z += (previous.z + 0.5f * dz * D_800BE9A4) * D_800BE9A4;
+    owner->rx += velocity->rx * D_800BE9A4;
+    owner->ry += velocity->ry * D_800BE9A4;
+    owner->rz += velocity->rz * D_800BE9A4;
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1513F728 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_169510/func_1513F728.s")
+
 extern void func_1513FAB4(void *arg0, s32 arg1, f32 *arg2, s16 arg3);
 
 void func_1513FA2C(void *arg0, s16 arg1) {

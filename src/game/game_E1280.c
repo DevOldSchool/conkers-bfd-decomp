@@ -231,6 +231,127 @@ void func_150B5060(void *arg0) {
     *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) & 0xFFFD);
     *(u8 *)((u8 *)temp_v0 + 0x1C) = (u8) (*(u8 *)((u8 *)temp_v0 + 0x1C) | 1);
 }
+f32 func_150ADA68(void);
+f32 func_151423D8(u8);
+void *func_15147DA0(void *, void *, s32, s32, s32, s32, s32, s32, s32,
+                   s32, s32, void *, s32, u8, s32);
+extern u8 D_8009FBF0[];
+
+typedef struct GameE1280TrailHeader {
+    GameE1280Vec3 position;
+    s16 life;
+    u16 flags;
+    s32 kind;
+    u8 unused14;
+    u8 capacity;
+    u8 unused16[6];
+} GameE1280TrailHeader;
+
+typedef struct GameE1280TrailParameters {
+    f32 width;
+    GameE1280Vec3 velocity;
+    f32 gravity;
+    u8 unused14[4];
+    u8 flags;
+    u8 texture;
+    u8 color;
+    u8 alpha;
+    u8 unused1C[4];
+} GameE1280TrailParameters;
+
+typedef struct GameE1280TrailStyle {
+    s32 mode;
+    s32 first;
+    s32 second;
+    s32 texture;
+    s32 scale;
+    s32 primary;
+    s32 secondary;
+    s8 colorMode;
+    s8 alphaMode;
+    u8 padding[2];
+} GameE1280TrailStyle;
+
+typedef struct GameE1280TrailPreset {
+    f32 radius;
+    f32 speed;
+    f32 speedRange;
+    f32 width;
+    f32 widthRange;
+    f32 gravity;
+    f32 gravityRange;
+    s16 life;
+    s16 lifeRange;
+    s16 capacity;
+    s16 capacityRange;
+} GameE1280TrailPreset;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B5088 CURRENT (3487) */
+void func_150B5088(void *arg0) {
+    GameE1280TrailStyle style;
+    GameE1280TrailHeader header;
+    GameE1280TrailParameters parameters;
+    f32 z;
+    f32 speed;
+    f32 cosine1;
+    f32 sine1;
+    f32 cosine2;
+    f32 x;
+    f32 y;
+    register f32 radius;
+    register f32 horizontal;
+    register f32 gravity;
+    register s32 angle1;
+    register s32 angle2;
+    GameE1280TrailPreset *preset;
+    u8 *state;
+
+    state = *(u8 **)((u8 *)arg0 + 0x98);
+    preset = (GameE1280TrailPreset *)(D_8009FBF0 + state[0x38] * 0x24);
+    style.mode = 0;
+    style.first = 1;
+    style.second = 0x160600;
+    style.texture = 3;
+    style.scale = 0x10;
+    style.primary = 0x80;
+    style.secondary = 0x20;
+    style.colorMode = 0;
+    style.alphaMode = 9;
+    header.flags = 1;
+    parameters.texture = 6;
+    parameters.flags = 8;
+    parameters.color = state[0x24];
+    parameters.alpha = (s8)*(s16 *)(state + 0x26);
+    header.position = *(GameE1280Vec3 *)((u8 *)arg0 + 0x10);
+    do {
+        speed = func_150ADA68() * preset->speedRange + preset->speed;
+        angle1 = func_150ADA20();
+        angle1 &= 0xFF;
+        angle2 = func_150ADA20();
+        angle2 &= 0xFF;
+        cosine1 = func_151423D8((angle1 - 0x40) & 0xFF);
+        sine1 = func_151423D8(angle1 & 0xFF);
+        cosine2 = func_151423D8((angle2 - 0x40) & 0xFF);
+        horizontal = func_151423D8(angle2 & 0xFF);
+        radius = preset->radius;
+        horizontal = radius * horizontal;
+        x = *(f32 *)(state + 0) + horizontal * cosine1;
+        y = *(f32 *)(state + 4) - radius * cosine2;
+        z = *(f32 *)(state + 8) + horizontal * sine1;
+        header.capacity = func_150ADA20() % (u32)(preset->capacityRange + 1) + preset->capacity;
+        header.life = func_150ADA20() % (u32)(preset->lifeRange + 1) + preset->life;
+        parameters.width = func_150ADA68() * preset->widthRange + preset->width;
+        gravity = func_150ADA68() * preset->gravityRange + preset->gravity;
+        parameters.velocity.x = speed * x;
+        parameters.gravity = gravity;
+        parameters.velocity.y = speed * y;
+        parameters.velocity.z = speed * z;
+        func_15147DA0(&header, &parameters, 0, 1, 7, 0, 0, 0, 0, 0, 0,
+                     &style, 0, *(u8 *)((u8 *)arg0 + 0xC), *(u8 *)((u8 *)arg0 + 1));
+        *(f32 *)(state + 0x54) -= 1.0f;
+    } while (*(f32 *)(state + 0x54) > 1.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B5088 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_E1280/func_150B5088.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B538C CURRENT (200) */
 void func_150B538C(void *arg0, s32 arg1, u8 arg2) {

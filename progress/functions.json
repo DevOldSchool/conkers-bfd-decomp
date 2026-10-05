@@ -29148,6 +29148,12 @@
       "symbol": "func_1513F6E8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 870,
+        "reason": "Best CURRENT (870), three comparisons; original simultaneous component deltas restored after scoped (1016) and inline (5137) regressions. Four-way damping loop and all FP carriers recover; snapshot 2C vs20, frame38 vs30 and boundary constant/return scheduling remain. Manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -60556,6 +60562,12 @@
       "symbol": "func_150B5060"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3487,
+        "reason": "Best CURRENT (3487), three manual comparisons; complete packets audited through ROM-selected update/render/cleanup and flag guards. Radius lifetime fixed; register annotation unchanged. Frame 130 versus 120, packet homes and RNG/trig scheduling remain; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
