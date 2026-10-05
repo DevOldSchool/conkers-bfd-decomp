@@ -93395,7 +93395,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 430,
-        "reason": "Batch19 five new manual revisions improve full-span CURRENT976 to430, independently restored7b8801d5. Real scoped insertion node/after views recover branch-likely/duplicated final store; scoped unlink element recovers exact frame58/message50; original early record/anchor fields recover recordV0/nextV1. Residual missing anchor copy MOVEv1,a0 and32 register rows cascading manager/next/frame-base roles; candidate4bytes short, all opcode/control otherwise exact. SDK8byte link-prefix and later linkAfter definition neutral; inherited prev-before-next1166 and initial node-view family remain exhausted. No artificial pressure/padding, ABI, shared dependency or ASM changes; see manual-init-20261005 ledger.",
+        "reason": "Checkpoint41 two new manual forms both neutral430: final next-field pointer1fc2ea44 and just-stored record->prev snapshot02fcc4b6. Best independently restored9dac2a24. Full368 frame58/message50/control exact; missing raw anchor-copy MOVEv1,a0 drives32 register rows and four-byte short candidate. Prior scoped unlink/insertion, original early fields, SDK link-prefix, late after-copy and store-order families exhausted. Field-lvalue and stored-prev variants now exhausted. No padding/artificial pressure/ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95002,7 +95002,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1530,
-        "reason": "Full216 CURRENT1530 after distinct low-halfword reads from actual four-byte arg3/arg4 input objects; fresh1749 7167ed8ad1cc48e4afe1fea73d4d6f4f, final1530 9fb9470339c84878918ed0ee2126f2b9. Recovers three LH/LHU loads, frame40 exact. Initial sound normalization, callback-address and outgoing-store/temp scheduling remain. One bounded current field-read form plus inherited three helper/handle/callback forms exhausted; no equivalent type, sound normalization, callback, storage or frame probes. No signature/shared/SDK/ASM changes.",
+        "reason": "Checkpoint41 explicit if/else common exit produced identical CURRENT1530 ca38ff47; original best independently restored b3f9fb80. Full216 frame40 and three LH/LHU argument loads correct. Initial sound normalization, callback-address and outgoing-store/temp scheduling remain. Inherited helper/handle/callback and actual low-halfword object-read forms exhausted; common-exit CFG now exhausted too. No new ABI evidence from regional source declarations. No signature/shared/SDK/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
