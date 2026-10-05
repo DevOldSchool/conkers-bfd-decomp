@@ -92826,7 +92826,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2001,
-        "reason": "Preserve full1032 CURRENT2001 independently restored f1113ae8. Batch24 two new hypotheses regressed: remove redundant aligned address2037 leftframe78 and movedtablehomes further; scope real alignment tables to startup2614 leftframe78 and added initialization CFG. Inherited pointer/integer arithmetic improvements retained. Remaining frame78vs70, tablehomes+4,92 register rows including size/alignment swap and uncached free-tail address, reverse-split next reload; prior15 hypotheses and both new lifetime forms exhausted. No source improvement, ABI/shared/ASM edits.",
+        "reason": "Checkpoint49 full1032 CURRENT2001 independently restored24c9ae02. Actual typed free-tail address local2193 adds frame80 without recovering RA caching; signed remainder with preserved unsigned arithmetic/comparisons neutral2001. Both new hypotheses exhausted. Best retains frame78 vs70, table homes+4, size/alignment and split registers, missing reverse next reload and uncached BC address. Prior table-index, pointer/integer, snapshot/type and table-scope families exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93029,7 +93029,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1817,
-        "reason": "Manual batch25 seven revisions improve2624 to1817: message-first homes, SDK-proven signed retrace type and actual audio-state snapshot recover constant/temporary register allocation. Restored best independently7d40e1e2. Remaining frame70vs68 with12stack rows, FP caches AC6C instead of AC50, full976 tail4NOPs and unresolved switch-rodata ownership. Alternative1855 has exact frame/homes but18temp rows. Snapshot scope/local-order, explicit graphics pointer address and explicit ignored-event/default dispatch do not improve; preserve typed best without shared/ABI/ASM changes.",
+        "reason": "Checkpoint49 full976 CURRENT1817 independently restored443b5807. Traversal-only client pointer scope and standard register storage for real non-address-taken audioBusy both neutral1817. Both new hypotheses exhausted. Retain SDK signed event type and genuine audio snapshot; raw frame68 vs70, FP caches AC50 vsAC6C, four tail NOPs remain. Prior audio scope/order, explicit graphics address and ignored-event cases exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
