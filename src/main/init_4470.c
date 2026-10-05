@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_allocator_transfer_controller_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_80004514
  * - func_800046E4
  * - func_8000480C
  *
@@ -76,12 +75,12 @@ void func_80004470(void) {
 void func_8000480C(u32, void *, u32);
 extern TransferIoMessage D_80038950[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004514 CURRENT (80) */
 void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
     TransferMessageQueue *queue;
     TransferIoMessage request;
     TransferIoMessage *message;
     s32 index;
+    u8 messageIndex;
 
     index = D_8002BE00->id - 3;
     if ((size < 0xC8U) && (index == 0)) {
@@ -95,12 +94,13 @@ void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
         if (D_8003A571 == 0x12C) {
             return;
         }
-        message = &D_80038950[D_8003A570];
+        messageIndex = D_8003A570;
+        message = &D_80038950[messageIndex];
         queue = &D_800388C8;
-        if (D_8003A570 == 0x12B) {
+        if (messageIndex == 0x12B) {
             D_8003A570 = 0;
         } else {
-            D_8003A570++;
+            D_8003A570 = messageIndex + 1;
         }
         D_8003A571++;
     } else {
@@ -113,8 +113,6 @@ void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
         func_80023440(queue, 0, 1);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80004514 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_4470/func_80004514.s")
 void func_80004674(void) {
     s32 i;
 

@@ -92951,17 +92951,16 @@
       "symbol": "func_80004470"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 80,
-        "reason": "Seven manual forms reduce 1369 to80 by signed corresponding-type read of size home at cachehelper boundary. Full352byte instruction/control/stack sequence exact;13 async pointer/index register rows differ v0/a0/a1 vsrawa0/a1/a2. CFG/snapshot/pointer lifetime variants plateaued; preserve minimal candidate and unchanged ABI.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 352,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80004514",
           "vram": "0x80004514"
         }
@@ -93833,7 +93832,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Checkpoint54 full480 CURRENT10 restored after scoped signed masked-state snapshot plus explicit unsigned comparison neutral10 (70b40f1a). FDF4 promotion mechanism does not resolve this sole BEQLv0,t2 vs rawt2,v0. Prior direct unsigned/namedstate/commutation neutral, XOR/difference15 fixes branch but shifts final T3 toT4; namedchanged70 uses globalV1; splitoutput3089 rejected. No ABI/shared/ASM changes.",
+        "reason": "Checkpoint61 full480 CURRENT10 independently restored55625b4f. Newly exact4514 byte-local mechanism tested here: u8 actual maskedState after fullwordmask, assignment condition40 and standalone scoped initialization40 both shift T1/T2/T3 to T2/T3/T4 and retain reversed BEQL. Prior byte-before-mask210, signed/unsigned snapshots10, XOR/sub15, namedchanged70 and state90 families exhausted. Best retains only commuted BEQL t2,v0 versus v0,t2. No shared/ABI/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
