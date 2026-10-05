@@ -3,6 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_1AB530.c
  * Boundary evidence: docs/evidence/game_raw_indexed_controller_view_worklist.md
+ * Semantic evidence: docs/evidence/display_list_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_1517E28C
@@ -11,6 +12,9 @@
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
+
+/* Keep address symbols for linking and registered match evidence. */
+#define display_list_setup_primitive_rgb_texel_modulated_alpha func_1517EA4C
 
 void *func_10003C40(s32, s32, s32, s32);
 extern void *D_800DDD64;
@@ -204,7 +208,7 @@ typedef union Game1AB530DisplayCommand {
     command->words.word1 = (u32)(second);                       \
 }
 
-Game1AB530DisplayCommand *func_1517EA4C(Game1AB530DisplayCommand *arg0) {
+Game1AB530DisplayCommand *display_list_setup_primitive_rgb_texel_modulated_alpha(Game1AB530DisplayCommand *arg0) {
     GAME1AB530_COMMAND(arg0++, 0xE7000000, 0);
     GAME1AB530_COMMAND(arg0++, 0xFCFFB3FF, 0xFF65FEFF);
     GAME1AB530_COMMAND(arg0++, 0xEF002C0F, 0x00504344);

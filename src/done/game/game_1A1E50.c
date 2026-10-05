@@ -3,7 +3,12 @@
 /*
  * Reviewed source unit: src/game/game_1A1E50.c
  * Boundary evidence: docs/evidence/game_raw_structural_families_continued.md
+ * Semantic evidence: docs/evidence/display_list_helper_semantics.md
  */
+
+/* Keep address symbols for linking and registered match evidence. */
+#define display_list_dispatch_first_draw_callback func_15174AA4
+#define display_list_dispatch_second_draw_callback func_15174B48
 
 extern s32 D_800BE9E4;
 extern u8 D_800DD405;
@@ -81,7 +86,7 @@ extern Game1A1E50Callback D_8008CD7C[];
     command->words.word1 = (u32)&D_80089470;                     \
 }
 
-Game1A1E50DisplayCommand *func_15174AA4(Game1A1E50DisplayCommand *arg0, s32 arg1, s32 arg2) {
+Game1A1E50DisplayCommand *display_list_dispatch_first_draw_callback(Game1A1E50DisplayCommand *arg0, s32 arg1, s32 arg2) {
     GAME1A1E50_PIPE_SYNC(arg0++);
     GAME1A1E50_MATRIX(arg0++);
     if (((Game1A1E50State *)D_800B0DF0)->first_draw_callback != 0) {
@@ -91,7 +96,7 @@ Game1A1E50DisplayCommand *func_15174AA4(Game1A1E50DisplayCommand *arg0, s32 arg1
     return arg0;
 }
 
-Game1A1E50DisplayCommand *func_15174B48(Game1A1E50DisplayCommand *arg0, s32 arg1, s32 arg2) {
+Game1A1E50DisplayCommand *display_list_dispatch_second_draw_callback(Game1A1E50DisplayCommand *arg0, s32 arg1, s32 arg2) {
     GAME1A1E50_PIPE_SYNC(arg0++);
     GAME1A1E50_MATRIX(arg0++);
     if (((Game1A1E50State *)D_800B0DF0)->second_draw_callback != 0) {
