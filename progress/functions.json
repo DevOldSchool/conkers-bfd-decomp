@@ -95167,7 +95167,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 26,
-        "reason": "Batch16 four new forms on prior26: directfield1295 and conditionalfield1290 recover all stack homes but alter stores; reuse consumed arg0 as generation50 recovers all stack/control but swaps a0/v1 in seven generation rows; explicit computed predicate neutral50. Restored best26; parameter50 alternative saved. Prior batch15 twelve forms exhausted (indexed access, promoted/mutable mix, handle/state/mask removal, pitch local, result order, next type/scope); prior input/search/return families exhausted. Residual sound/state spill30/34 vsraw34/38, exactframe50/result4E/full656span. No ABI/shared/ASM changes.",
+        "reason": "Preserve CURRENT26 independently restored89c58536, full656. Checkpoint34 actual next-generation register hint neutral26; reusing result for generation and recapturing published id1575 fixed stack homes but retained extra LHU and changed78register rows. Prior16 revisions including indexed fields, mutable mix, local removals, generation widths/scopes, direct/conditional field updates and consumed arg0 reuse exhausted. Alternative parameter reuse50 has exact stack but seven a0/v1 swaps. Best26 retains exact frame50/result4E/control/registers; sound/state spills30/34 vs raw34/38 remain. No ABI/helper/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95241,7 +95241,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 935,
-        "reason": "Preserve full460-byte CURRENT935 improved1595 by raw-supported three-term volume addition, independently restored9be40e48. Five new revisions: mutable u16formal2068 extraS1; fullword input/outputhandle1985 losesrawmask; narrow input/outputlocal1595; additiontree935; registerinputhint935 neutral removed. Entryhandle remains lateLHU vs rawearlyANDI/MOVE; resultv1 vs rawa0 and related temp numbering remain, frame40/FP/controlpaths retained. Inherited own u16handle/volume,s16cents/u8mix and mutablevolumefamilies exhausted; final owncontract unchanged. Matching-callers none (incompletecoverage), prior complete ownreferenceaudit noneactive. No helper/SDK/shared/ASM changes or permutation.",
+        "reason": "Preserve CURRENT935 independently restoredd6fba7d1, full460. Checkpoint34 direct immutable formal and delayed result-to-formal transfer both neutral935; separate immutable input snapshot with mutable outputformal1408 still forcesS1 and extra normalization. Three new revisions exhausted, no improvement. Retain proven additiontree and original owncontract. Remaining early ANDI/MOVE vs late LHU, outputregister a0 vs v1 and temporary allocation. Prior mutable narrowformal2068, widehandle1985, narrowlocal1595 and registerhint neutral exhausted. No ABI/helper/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
