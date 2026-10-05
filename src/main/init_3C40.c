@@ -366,7 +366,7 @@ void func_80004308(void) {
 }
 s32 func_80024880(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800043B4 CURRENT (160) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800043B4 CURRENT (260) */
 void func_800043B4(void *arg0, s32 arg1) {
     s32 mask;
     AllocatorBlock *block;
