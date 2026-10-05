@@ -5,10 +5,13 @@
  * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define ai_submit_buffer func_80002DB0
+
 s32 func_80023390(void);
 u32 func_800233C0(void *);
 
-s32 func_80002DB0(void *arg0, u32 arg1) {
+s32 ai_submit_buffer(void *arg0, u32 arg1) {
     static u8 D_8002AB40 = 0;
     u8 *buffer;
 

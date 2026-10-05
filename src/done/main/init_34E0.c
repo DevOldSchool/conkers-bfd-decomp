@@ -6,6 +6,10 @@
  * Storage evidence: docs/evidence/main_init_vi_layout.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define vi_timer_manager_init func_800034E0
+#define vi_timer_manager_thread_entry func_80003658
+
 typedef struct ThreadState ThreadState;
 typedef struct MessageQueue {
     ThreadState *receiveThreads;
@@ -61,7 +65,7 @@ static void *D_80037DE8[5];
 static ViMessage D_80037E00;
 static ViMessage D_80037E18;
 
-void func_800034E0(s32 priority) {
+void vi_timer_manager_init(s32 priority) {
     s32 savedMask;
     s32 oldPriority;
     s32 currentPriority;
@@ -122,7 +126,7 @@ extern u64 D_800429B0;
 extern u32 D_800429B8;
 extern u32 D_800429BC;
 
-void func_80003658(void *argument) {
+void vi_timer_manager_thread_entry(void *argument) {
     ViContext *context;
     DeviceManager *manager;
     MessageHeader *message;

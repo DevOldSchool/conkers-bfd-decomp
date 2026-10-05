@@ -5,6 +5,9 @@
  * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define pi_dma_manager_init func_800030A0
+
 typedef struct ThreadState ThreadState;
 typedef struct MessageQueue MessageQueue;
 typedef struct PiHandle PiHandle;
@@ -38,7 +41,7 @@ extern MessageQueue D_80036B40;
 extern void *D_80036B58[1];
 extern MessageQueue D_800428F8;
 
-void func_800030A0(s32 priority, MessageQueue *commandQueue,
+void pi_dma_manager_init(s32 priority, MessageQueue *commandQueue,
                    void **commandBuffer, s32 commandCount) {
     s32 savedMask;
     s32 oldPriority;
