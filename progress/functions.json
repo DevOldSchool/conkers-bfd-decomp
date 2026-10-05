@@ -95019,7 +95019,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2124,
-        "reason": "Checkpoint52 full240 CURRENT2124 independently restored cc34d085 after two neutral revisions: register storage on volume (78e37dd3) and genuine local volume snapshot (0dc9a0c0). Raw preserves actual volume S1; compiler retains incoming stack home, changing call setup/callback scheduling and body extent. Prior own s16arg3/u16arg4 retained; no additional signature/shared changes. No equivalent storage retries without new independent evidence.",
+        "reason": "Checkpoint60 full240 CURRENT2124 independently restored81e7ff79. Unsigned actual volumeBits with explicit signed restoration and explicit if/else call arms both neutral2124; prior signed snapshot/register formal also exhausted. Raw preserves volumeS1 while candidate spills incoming home48 and retains onlyS0; call scheduling and fullspan remain mismatched. No own/helper ABI, shared dependencies, artificial pressure, ASM or permutation changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96142,7 +96142,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 945,
-        "reason": "CURRENT945 full76 US independently restored025077c6, improved1140 via actual just-written-byte pointer snapshot and inclusive do-loop. Producer5B04 proves last-byte endpoint; do/store/cursor++/written!=end recovers raw BNEoldcursor with incrementdelay. Remaining extra written MOVE, initial constant/global-load order, partial-mask shift lowering/registers. Four batch30 revisions: postincrementcondition1275, writtensnapshot945, masklocal neutral945, remainderpostdecrement1150. No exclusive-endpoint regression, padding, ABI, shared dependency or ASM changes.",
+        "reason": "Checkpoint60 full76 CURRENT945 independently restored5b5ac93e. Two new revisions rejected: explicit inclusive exit1140 emits BEQ plus backedgeB, separate old/new remainder1350 adds moves. Prior postincrement1275, masklocal945 and condition-postdecrement1150 exhausted. Best written-pointer snapshot retains raw inclusive BNE/incrementdelay but extraMOVE, mask/global order and shift/register differences remain. No dummy pressure/padding/shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
