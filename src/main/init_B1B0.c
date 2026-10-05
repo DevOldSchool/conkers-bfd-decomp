@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000B548
  * - func_8000B8B8
  * - func_8000BCBC
  * - func_8000BF60
@@ -17,11 +16,7 @@
  * - func_8000D2F8
  * - func_8000D758
  * - func_8000D96C
- * - func_8000DEC4
  * - func_8000DF68
- * - func_8000E17C
- * - func_8000E2F4
- * - func_8000E7A0
  * - func_8000E934
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -217,32 +212,20 @@ void func_8000B3D4(SequenceRecordState *arg0, SequenceRecordState *arg1) {
         i++;
     } while (i != 3);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B548 CURRENT (1145) */
 s32 func_8000B548(s32 (*arg0)[]) {
-    SequenceRecordState *record;
-    s32 *output;
     s32 count;
-    s32 id;
-    s32 i;
+    s32 index;
 
-    output = *arg0;
     count = 0;
-    record = D_800419A8;
-    do {
-        for (i = 0; i < 4; i++) {
-            id = record->id;
-            if (id != -1 && record->index != -1 && count < 3) {
-                *output = id;
-                output++;
-                count++;
-            }
-            record++;
+    for (index = 0; index < 12; index++) {
+        if (D_800419A8[index].id != -1 && D_800419A8[index].index != -1 && count < 3) {
+            (*arg0)[0] = D_800419A8[index].id;
+            arg0 = (s32 (*)[])(*arg0 + 1);
+            count++;
         }
-    } while ((u8 *)record != D_80041E58);
+    }
     return count;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B548 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B548.s")
 extern s32 D_80041F04;
 extern s32 D_800BE9F0;
 void func_800085B8(s32, s32, s32);
@@ -1474,27 +1457,22 @@ s32 func_8000853C(s32);
 extern SequenceRecordState D_800419A8[];
 extern u8 D_80041E58[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 CURRENT (45) */
 void func_8000DEC4(void) {
-    SequenceRecordState *record;
+    s32 index;
 
-    record = D_800419A8;
-    do {
-        if (record->index == -1) {
-            if (record->id != -1) {
-                record->id = -1;
+    for (index = 0; index < 12; index++) {
+        if (D_800419A8[index].index == -1) {
+            if (D_800419A8[index].id != -1) {
+                D_800419A8[index].id = -1;
             }
-        } else if (func_8000853C(record->index & 0xFF) == 0) {
-            D_800417B0[record->index] = 0;
-            record->index = -1;
-            record->id = -1;
+        } else if (func_8000853C(D_800419A8[index].index & 0xFF) == 0) {
+            D_800417B0[D_800419A8[index].index] = 0;
+            D_800419A8[index].index = -1;
+            D_800419A8[index].id = -1;
         }
-        record++;
-        record[-1].state = 0;
-    } while ((u8 *)record != D_80041E58);
+        D_800419A8[index].state = 0;
+    }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000DEC4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000DEC4.s")
 void *func_8000B1FC(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000DF68 CURRENT (605) */
@@ -1583,87 +1561,71 @@ s32 func_8000E134(s32 arg0) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000E17C CURRENT (1730) */
 void func_8000E17C(void) {
-    SequenceRecordState *record;
+    s32 index;
     SequenceRecordState *related;
     s32 id;
-    s32 mode;
 
-    record = D_800419A8;
+    index = 0;
     do {
-        id = record->id;
+        id = D_800419A8[index].id;
         if (id > 0) {
-            mode = D_8002B074[id].flags & ~0xF0;
-            if ((mode == 1 || mode == 3) && record->index == -1) {
-                record->id = -1;
+            if (((D_8002B074[id].flags & ~0xF0) == 1 || (D_8002B074[id].flags & ~0xF0) == 3) && D_800419A8[index].index == -1) {
+                D_800419A8[index].id = -1;
             }
         }
-        record++;
-    } while ((u32)record < (u32)D_80041E58);
-    record = D_800419A8;
+        index++;
+    } while (index < 12);
+    index = 0;
     do {
-        if (record->id > 0) {
-            related = record->state;
+        if (D_800419A8[index].id > 0) {
+            related = D_800419A8[index].state;
             if (related != 0 && related->id == -1) {
-                record->state = 0;
+                D_800419A8[index].state = 0;
             }
-            related = record->owner;
+            related = D_800419A8[index].owner;
             if (related != 0 && related->id == -1) {
-                record->owner = 0;
+                D_800419A8[index].owner = 0;
             }
         }
-        record++;
-    } while ((u32)record < (u32)D_80041E58);
-    record = D_800419A8;
+        index++;
+    } while (index < 12);
+    index = 0;
     do {
-        id = record->id;
+        id = D_800419A8[index].id;
         if (id > 0) {
-            mode = D_8002B074[id].flags & ~0xF0;
-            if ((mode == 1 || mode == 3) && record->index != -1) {
+            if (((D_8002B074[id].flags & ~0xF0) == 1 || (D_8002B074[id].flags & ~0xF0) == 3) && D_800419A8[index].index != -1) {
                 func_8000DE1C(id, 4);
             }
         }
-        record++;
-    } while ((u8 *)record != D_80041E58);
+        index++;
+    } while ((SequenceRecordState *)D_80041E58 != &D_800419A8[index]);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000E17C */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E17C.s")
 extern s8 D_80041F00;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000E2F4 CURRENT (196) */
 void func_8000E2F4(s32 arg0) {
-    SequenceRecordState **slot;
-    SequenceRecordState *record;
     s32 i;
     u8 channel;
 
-    slot = D_800417B0;
-    i = 0;
-    do {
-        record = *slot;
-        if (record != 0 && record->id > 0 && record->pauseMode == 0) {
+    for (i = 0; i < 3; i++) {
+        if (D_800417B0[i] != 0 && D_800417B0[i]->id > 0 && D_800417B0[i]->pauseMode == 0) {
             if (arg0 != 0) {
                 channel = i;
                 func_80008EE0(channel, 0);
-                if (!(D_8002B074[(*slot)->id].flags & 0x10)) {
+                if (!(D_8002B074[D_800417B0[i]->id].flags & 0x10)) {
                     func_80008F58(channel);
                 }
             } else {
-                if (!(D_8002B074[record->id].flags & 0x10)) {
+                if (!(D_8002B074[D_800417B0[i]->id].flags & 0x10)) {
                     func_800084D8((u8)i);
                 }
-                (*slot)->current = -1;
+                D_800417B0[i]->current = -1;
                 func_8000CC54(i);
             }
         }
-        i++;
-        slot++;
-    } while (i != 3);
+    }
     D_80041F00 = arg0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000E2F4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E2F4.s")
 void func_8000E40C(s32 arg0, s32 arg1) {
     SequenceRecordState *record;
 
@@ -1801,9 +1763,8 @@ s32 func_8000E770(s32 *arg0, s32 *arg1) {
     }
     return D_80041F04;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000E7A0 CURRENT (1525) */
 void func_8000E7A0(s32 arg0, s32 arg1) {
-    if ((arg0 & 1) == 1) {
+    if (((u32)arg0 & 1U) == 1U) {
         D_80041F04 |= 1;
     } else if (arg0 & 2) {
         D_80041F08 += arg1;
@@ -1825,8 +1786,6 @@ void func_8000E7A0(s32 arg0, s32 arg1) {
         D_80041F04 |= 0x10;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000E7A0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000E7A0.s")
 void func_8000E8C4(s32 arg0) {
     if ((arg0 & 1) == 1) {
         D_80041F04 &= ~1;

@@ -93652,17 +93652,16 @@
       "symbol": "func_8000B3D4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1145,
-        "reason": "Preserve valid bounded four-record scan at CURRENT (1145). Inherited three loop forms4910/7635/1145 plus current scalar formal/direct output cursor1270 and indexed group base2005; latter two non-improving, original pointer-to-array signature/prototype/caller restored. Output/id register allocation and intermediate record increments differ. Five total forms; exhausted these loop/cursor hypotheses, no permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 240,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B548",
           "vram": "0x8000B548"
         }
@@ -94132,17 +94131,16 @@
       "symbol": "func_8000DE1C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 45,
-        "reason": "Fresh direct record-index comparison and call remove an unnecessary value snapshot, improving CURRENT 55 to 45 and restoring branch operand order. Three global-address setup rows remain reordered. Preserve the simpler best candidate; prior address-order forms remain exhausted.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000DEC4",
           "vram": "0x8000DEC4"
         }
@@ -94154,7 +94152,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 605,
-        "reason": "Improve670to605 using valid-range halfstore and shared interpolation exit, recovering return RA-load scheduling. Direct early return675 and separate positive clamp block885 regress. Remaining bound-branch direction, extra exit branch and four span rows are nonzero; no match/layout claim. Three forms plus one baseline recheck; no repeated clamp/return/field-width shaping.",
+        "reason": "Best CURRENT605 retained: valid-range halfstore and shared interpolation exit recover RA-load scheduling. Two new explicit-else topologies, with and without return, both670. Prior direct early-return675 and separate positive clamp885 exhausted. Remaining bound-branch direction, extra exit branch and four span rows; no match/layout claim.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94224,17 +94222,16 @@
       "symbol": "func_8000E134"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1730,
-        "reason": "Preserve three-pass typed pool cleanup at CURRENT (1730). Correct inactive invalidation, related-pointer cleanup and active stop calls; compiler carries pool base between passes rather than rematerializing raw bounds. Equivalent scope/address-order approaches were already exhausted in B1FC; no repeated search.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E17C",
           "vram": "0x8000E17C"
         }
@@ -94243,17 +94240,16 @@
       "symbol": "func_8000E17C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 196,
-        "reason": "Preserve full US CURRENT196 callback after established source-local u8 helper declarations recover both raw call-boundary byte masks, improving fresh596. Selected pause parameter remains fullword s32; helper own8180 contracts supported by SW homes/byte-only use. Inherited byte-local/wordmask/ID-lifetime596/906/596 exhausted; one distinct declaration form196. Remaining saved-register roles, table/pool address setup and record cursor allocation only; no equivalent loop/mask/input-narrowing retries. Existing CC54/E054 matched callers require independent rechecks, no shared headers/SDK/ASM changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 280,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E2F4",
           "vram": "0x8000E2F4"
         }
@@ -94388,17 +94384,16 @@
       "symbol": "func_8000E770"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1525,
-        "reason": "Preserve control setter at CURRENT1525. Fresh full292 confirms body/state fields and word inputs correct. Raw first comparison loads constant1 into at locally; current C hoists shared constant1 into v0 for later state=1 path, altering branch likely slots and global pointer registers. Existing explicit else-if/early-return structures are code-neutral and exhausted. No independently supported input, object lifetime or control-value change identified; no new form this selection. Do not force constant rematerialization with recomputable address locals, synthetic values, dummy reads, aliasing, volatility or pressure shaping. No permutation permission; remains candidate.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 292,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E7A0",
           "vram": "0x8000E7A0"
         }
