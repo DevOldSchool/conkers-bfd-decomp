@@ -29,7 +29,6 @@
  * - func_80010F30
  * - func_80010FFC
  * - func_80011310
- * - func_800114D0
  * - func_80011624
  * - func_80011BB8
  *
@@ -541,51 +540,44 @@ s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                  s32 *, s32 *, s32 *);
 
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (929) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F6B8 CURRENT (230) */
 s32 func_8000F6B8(s32 arg0, s16 arg1, s16 arg2, s16 arg3,
                    s32 *output, s32 nearDistance, s32 farDistance) {
     s32 result;
     SoundSpatialRecord *selected;
-    SoundSpatialRecord *record;
+    s32 index;
+    s32 dx;
+    s32 dy;
     s32 bestX;
     s32 bestY;
     s32 bestZ;
-    s32 dx;
-    s32 dy;
     s32 dz;
-    s32 x = arg1;
-    s32 y = arg2;
-    s32 z = arg3;
     u32 distance;
     u32 closest;
 
     if (D_80082FA0 != 0) {
         closest = 0xFFFFFFFF;
-        if (D_80082FA0 >= 0) {
-            record = D_80041F68;
-            do {
-            dx = x - record->xC;
-            dy = y - record->y10;
-            dz = z - record->z14;
+        for (index = 0; index <= D_80082FA0; index++) {
+            dx = arg1 - D_80041F68[index].xC;
+            dy = arg2 - D_80041F68[index].y10;
+            dz = arg3 - D_80041F68[index].z14;
             distance = dx * dx + dy * dy + dz * dz;
             if (distance < closest) {
                 closest = distance;
-                selected = record;
+                selected = &D_80041F68[index];
                 bestX = dx;
                 bestY = dy;
                 bestZ = dz;
             }
-                record++;
-            } while (record <= &D_80041F68[D_80082FA0]);
         }
     } else {
         selected = D_80041F68;
-        bestX = x - selected->xC;
-        bestY = y - selected->y10;
-        bestZ = z - selected->z14;
+        bestX = arg1 - selected->xC;
+        bestY = arg2 - selected->y10;
+        bestZ = arg3 - selected->z14;
     }
     func_8000A420(bestX, bestY, bestZ, selected->field18,
-                 x - selected->x0, y - selected->y4, z - selected->z8,
+                 arg1 - selected->x0, arg2 - selected->y4, arg3 - selected->z8,
                  (s16)farDistance, (s16)nearDistance, output, &result, 0);
     return result;
 }
@@ -1409,39 +1401,31 @@ s32 func_8001147C(u16 arg0) {
     return -1;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800114D0 CURRENT (1210) */
 s32 func_800114D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
                   s32 arg4, s32 arg5, s32 *arg6, s32 *arg7, s32 *arg8) {
     SoundSpatialRecord *best;
-    SoundSpatialRecord *record;
     s32 dx;
     s32 dy;
     s32 dz;
     u32 distance;
-    s32 output;
     s32 result;
+    s32 output;
     u32 index;
     u32 bestDistance;
-    u32 limit;
 
-    limit = D_80082FA0;
     best = D_80041F68;
-    if (limit != 0) {
+    if (D_80082FA0 != 0) {
         bestDistance = 0xFFFFFFFF;
-        record = D_80041F68;
-        index = 0;
-        do {
-            dx = arg0 - record->xC;
-            dy = arg1 - record->y10;
-            dz = arg2 - record->z14;
-            index++;
+        for (index = 0; index <= (u32)D_80082FA0; index++) {
+            dx = arg0 - D_80041F68[index].xC;
+            dy = arg1 - D_80041F68[index].y10;
+            dz = arg2 - D_80041F68[index].z14;
             distance = dx * dx + dy * dy + dz * dz;
             if (distance < bestDistance) {
                 bestDistance = distance;
-                best = record;
+                best = &D_80041F68[index];
             }
-            record++;
-        } while (limit >= index);
+        }
     }
     result = func_8000A420(arg0 - best->xC, arg1 - best->y10, arg2 - best->z14,
                  best->field18, arg0 - best->x0, arg1 - best->y4,
@@ -1449,8 +1433,6 @@ s32 func_800114D0(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
     *arg7 = (u32)(output * arg3) >> 15;
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800114D0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_800114D0.s")
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
 s32 func_8000A750(s32, s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
