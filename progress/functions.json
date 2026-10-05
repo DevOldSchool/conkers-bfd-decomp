@@ -93319,8 +93319,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1050,
-        "reason": "Best 1050 unchanged after the concrete audio-task record and SDK command declarations; regression only, no new source hypothesis or match credit.",
+        "current_score": 450,
+        "reason": "Batch19 five manual revisions improve full-span CURRENT1050 to450; independently restored49506a3c. Unsigned exit flag recovers three raw LI1 instructions instead of shared signed receive-mode MOVEs. Exact frame68 and all homes. Residual first-state S3 vs rawS4/constant4 swapped, shutdown message-address rematerialization vs candidate dead previous/cadence zero definitions; candidate8byteslong. Narrow processing scope1084, unsignedfirst neutral450, explicitgoto neutral450, liveflag drain1510 exhausted. Existing concrete task/client/helper contracts unchanged; no ABI/shared/ASM changes. See manual-init-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93357,8 +93357,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1135,
-        "reason": "Fresh full-span US CURRENT1135 dc906fb1502d44a5aacc88431ef03536 confirms the recorded baseline. Zero new revisions: actual input homes, frame30, mixed bounds and address addition/subtraction already match; differences are range-end temporary assignment, copied insertion-pointer/branch-likely schedule and late buffer/queue-address load scheduling. Prior named range-end form was neutral; no distinct supported ABI, object-lifetime, address-local or storage hypothesis.",
+        "current_score": 475,
+        "reason": "Batch19 three new manual revisions improve full-span CURRENT1135 to475, independently restoreda9237eab. Real scoped insertion node/after views recover raw branch-likely and duplicated final store without added frame or MOVEs. Exact frame30 and homes. Residual range-end A0 vs T7 shifts35 temporary rows, early queue ADDIU and late buffer LW plus branch target; candidate4bytes short. Reusing existing offset for range-end and word buffer-address representation both neutral475; inherited named range-end neutral remains exhausted. No ABI/shared/ASM changes; see manual-init-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93394,8 +93394,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 976,
-        "reason": "Best full-span US CURRENT 976 retained, independently restored at 6ef45d23cf224a34a5ed5cee1cc44abe. Raw-supported prev-before-next insertion order worsens to1166 because anchor.next load moves and does not recover pointer-copy or branch-likely tail. Inherited initial/node-view extension plus current order form exhausted. Message loop is instruction-exact apart from frame58vs48; no new ABI, SDK, global, address-local or frame-storage hypothesis.",
+        "current_score": 430,
+        "reason": "Batch19 five new manual revisions improve full-span CURRENT976 to430, independently restored7b8801d5. Real scoped insertion node/after views recover branch-likely/duplicated final store; scoped unlink element recovers exact frame58/message50; original early record/anchor fields recover recordV0/nextV1. Residual missing anchor copy MOVEv1,a0 and32 register rows cascading manager/next/frame-base roles; candidate4bytes short, all opcode/control otherwise exact. SDK8byte link-prefix and later linkAfter definition neutral; inherited prev-before-next1166 and initial node-view family remain exhausted. No artificial pressure/padding, ABI, shared dependency or ASM changes; see manual-init-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

@@ -287,9 +287,9 @@ s32 func_80023440(MessageQueue *, void **, s32);
 extern u8 D_8002AC5C;
 extern u32 D_8002AE44;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009400 CURRENT (1050) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009400 CURRENT (450) */
 void func_80009400(s32 arg0) {
-    s32 done;
+    u32 done;
     AudioTaskRecord *previous;
     void *message;
     s32 first;
@@ -443,7 +443,7 @@ s32 func_80024920(TransferIoMessage *, s32, s32, u32, void *, u32,
                  TransferMessageQueue *);
 extern TransferIoMessage D_80040F98[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (1135) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800097CC CURRENT (475) */
 s32 func_800097CC(s32 addr, s32 len, void *state) {
     u8 *buffer;
     s32 offset;
@@ -478,12 +478,15 @@ s32 func_800097CC(s32 addr, s32 len, void *state) {
         record->prev->next = record->next;
     }
     if (previous != 0) {
-        record->next = previous->next;
-        record->prev = previous;
-        if (previous->next != 0) {
-            previous->next->prev = record;
+        AudioDmaNode *linkNode = record;
+        AudioDmaNode *linkAfter = previous;
+
+        linkNode->next = linkAfter->next;
+        linkNode->prev = linkAfter;
+        if (linkAfter->next != 0) {
+            linkAfter->next->prev = linkNode;
         }
-        previous->next = record;
+        linkAfter->next = linkNode;
     } else {
         head = (AudioDmaNode *)D_80040F78.field4;
         if (head != 0) {
@@ -518,7 +521,7 @@ ALDMAproc func_80009980(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (976) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (430) */
 void func_800099BC(void) {
     u32 i;
     void *message;
@@ -544,20 +547,27 @@ void func_800099BC(void) {
                 if (record == (AudioDmaNode *)D_80040F78.field4) {
                     D_80040F78.field4 = (s32)next;
                 }
-                if (record->next != 0) {
-                    record->next->prev = record->prev;
-                }
-                if (record->prev != 0) {
-                    record->prev->next = record->next;
+                {
+                    AudioDmaNode *element = record;
+
+                    if (element->next != 0) {
+                        element->next->prev = element->prev;
+                    }
+                    if (element->prev != 0) {
+                        element->prev->next = element->next;
+                    }
                 }
                 anchor = D_80040F78.base;
                 if (anchor != 0) {
+                    AudioDmaNode *linkNode = record;
+                    AudioDmaNode *linkAfter = anchor;
+
                     record->next = anchor->next;
                     record->prev = anchor;
                     if (anchor->next != 0) {
-                        anchor->next->prev = record;
+                        anchor->next->prev = linkNode;
                     }
-                    anchor->next = record;
+                    linkAfter->next = linkNode;
                 } else {
                     D_80040F78.base = record;
                     record->next = 0;
