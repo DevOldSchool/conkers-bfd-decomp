@@ -36,7 +36,15 @@
  */
 
 /* Keep address symbols for linking and registered match evidence. */
+#define actor_script_branch_on_path_point_index func_15075A50
+#define actor_script_set_path_point_index func_15077DA0
+#define actor_script_snap_to_path_point func_15077DBC
+#define actor_script_branch_on_path_point_xz_distance func_150781F4
 #define actor_script_set_representation_override func_150791F0
+#define actor_script_branch_on_current_path_point_xz_distance func_150798F8
+#define actor_script_set_path_point_component func_1507A100
+#define actor_script_update_path_point_step func_1507A528
+#define actor_script_set_path_point_range func_1507ACB0
 
 typedef struct GameA28B0NestedState {
     u8 pad0[0x75];
@@ -304,7 +312,7 @@ void func_15075938(void) {
 extern u8 D_800D1891;
 extern u8 D_800D1892;
 
-void func_15075A50(void) {
+void actor_script_branch_on_path_point_index(void) {
     u8 temp_v0;
 
     temp_v0 = D_800D154C->field_21E;
@@ -1184,10 +1192,10 @@ block_14:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15077C38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15077C38.s")
-void func_15077DA0(void) {
+void actor_script_set_path_point_index(void) {
     D_800D154C->field_21E = D_800D1890;
 }
-void func_15077DBC(void) {
+void actor_script_snap_to_path_point(void) {
     if (D_800D1890 != 0xFA) {
         D_800D154C->field_21E = D_800D1890;
     }
@@ -1268,7 +1276,7 @@ void func_150781A4(void) {
     D_800D154C->pad23F[2] = D_800D1890;
     D_800D154C->pad23F[3] = D_800D1893;
 }
-void func_150781F4(void) {
+void actor_script_branch_on_path_point_xz_distance(void) {
     f32 x;
     f32 z;
     f32 distance;
@@ -1769,11 +1777,11 @@ void func_15079880(void) {
     D_800D1892 = (u8) var_v0;
     func_15075548();
 }
-void func_150781F4(void);
+void actor_script_branch_on_path_point_xz_distance(void);
 
-void func_150798F8(void) {
+void actor_script_branch_on_current_path_point_xz_distance(void) {
     D_800D1891 = D_800D154C->field_21E;
-    func_150781F4();
+    actor_script_branch_on_path_point_xz_distance();
 }
 void func_1507E7E4(GameA28B0State *, u8, u8, s32, s32);
 
@@ -1964,7 +1972,7 @@ void func_15079FBC(void) {
     func_15075F40();
     *(s32 *)((u8 *)D_800D154C + 0xF4) |= 0x40;
 }
-void func_1507A100(void) {
+void actor_script_set_path_point_component(void) {
     s32 value;
 
     value = ((s8)D_800D1892 << 8) | D_800D1893;
@@ -2073,7 +2081,7 @@ void func_1507A4D4(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507A4D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507A4D4.s")
-void func_1507A528(void) {
+void actor_script_update_path_point_step(void) {
     s32 var_a1;
     s8 temp_v1;
     s32 var_a0;
@@ -2260,7 +2268,7 @@ void func_1507AA48(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507AA48 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_1507AA48.s")
-void func_1507ACB0(void) {
+void actor_script_set_path_point_range(void) {
     D_800D154C->pad21F[1] = D_800D1890;
     D_800D154C->pad21F[0] = D_800D1891;
 }
