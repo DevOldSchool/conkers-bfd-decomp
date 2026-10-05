@@ -77,6 +77,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_reset_animation_state func_1505DFDC
+#define animation_state_copy_primary_to_secondary func_1505E060
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15055E50.s")
 extern f32 D_80099440;
 extern s32 D_800D2104;
@@ -1653,7 +1657,7 @@ f32 func_1505DF10(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
 void func_100226F0(void *, s32);
 extern u16 D_800C4ED0[];
 
-void func_1505DFDC(Game83300Actor *arg0) {
+void actor_reset_animation_state(Game83300Actor *arg0) {
     s32 sp1C;
     Game83300Inner *sp18;
     u16 *temp_v1;
@@ -1674,7 +1678,7 @@ void func_1505DFDC(Game83300Actor *arg0) {
 /* Call context: func_10023A10: unique active project prototype */
 void func_10023A10(void *, void *, s32);
 
-void func_1505E060(u8 *arg0) {
+void animation_state_copy_primary_to_secondary(u8 *arg0) {
     *(u16 *)((u8 *)arg0 + 6) = (u16) *(u16 *)((u8 *)arg0 + 4);
     *(f32 *)((u8 *)arg0 + 0xC) = (f32) *(f32 *)((u8 *)arg0 + 8);
     *(f32 *)((u8 *)arg0 + 0x14) = (f32) *(f32 *)((u8 *)arg0 + 0x10);
@@ -1686,7 +1690,7 @@ void func_1505E060(u8 *arg0) {
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505E0C4.s")
 s32 func_150229E4(void *);
-void func_1505DFDC(Game83300Actor *);
+void actor_reset_animation_state(Game83300Actor *);
 void func_1505E0C4(f32, Game83300Actor *, u16 *, Game83300Inner *, s32, s32, s32, s32, f32, f32, f32, f32, s32);
 extern u8 D_800C3638;
 extern u8 D_800C3654;
@@ -1731,7 +1735,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     }
     temp_v0_2 = D_800D1588[temp_a2];
     if (temp_v0_2 == 0) {
-        func_1505DFDC(arg0);
+        actor_reset_animation_state(arg0);
         return;
     }
     if ((u16)arg1 >= D_800C5A90[temp_a2]) {
@@ -1743,7 +1747,7 @@ void func_1505E650(Game83300Actor *arg0, s32 arg1, s32 arg2, s32 arg3, f32 arg4,
     }
     temp_v0_3 = *temp_a1;
     if (temp_v0_3 >= 0x7530) {
-        func_1505DFDC(arg0);
+        actor_reset_animation_state(arg0);
         return;
     }
     if (*(u8 *)((u8 *)arg0 + 0x2FF) == 0) {

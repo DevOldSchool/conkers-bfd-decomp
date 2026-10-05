@@ -30,6 +30,7 @@
  */
 
 /* Keep address symbols for linking and registered match evidence. */
+#define actor_create_animation_state func_150838EC
 #define actor_apply_character_defaults func_150839B8
 #define actor_load_representation_resources func_15084488
 #define actor_get_override_or_base_representation_model func_150849A0
@@ -438,7 +439,7 @@ void func_1505E650(u8 *, s32, s32, f32, f32, f32, s32);
 extern u16 D_800C5A90[];
 extern void *D_800D1588[];
 
-s32 func_150838EC(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
+s32 actor_create_animation_state(u8 *arg0, u16 arg1, s32 arg2, s32 arg3) {
     u8 index;
 
     index = arg0[4];
@@ -594,7 +595,7 @@ s32 func_15083AC8(s32 arg0, u8 arg1, u8 arg2, s32 arg3,
     }
     actor_apply_character_defaults(actor, arg2, 0);
     func_150837D4((s32)(actor - (u8 *)&D_800CC2D0) / 0x32C, arg2, 1);
-    func_150838EC(actor, arg7, mode, *(s32 *)&arg8);
+    actor_create_animation_state(actor, arg7, mode, *(s32 *)&arg8);
     if (restore != 0) {
         D_800C3638 = 1;
     }

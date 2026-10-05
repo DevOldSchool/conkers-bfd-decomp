@@ -23,6 +23,7 @@
 
 /* Keep address symbols for linking and registered match evidence. */
 #define asset_relocate_untagged_offset func_1503D438
+#define actor_scripts_relocate_program_offsets func_1503D45C
 #define animation_routes_relocate_event_offsets func_1503D484
 
 /* Semantic role: model_load_bank01_resources.
@@ -74,7 +75,7 @@ void asset_relocate_untagged_offset(s32 *offsetSlot, s32 baseAddress) {
         *offsetSlot = offset + baseAddress;
     }
 }
-void func_1503D45C(s32 *arg0, s32 arg1) {
+void actor_scripts_relocate_program_offsets(s32 *arg0, s32 arg1) {
     s32 var_v0;
 
     var_v0 = *arg0;
@@ -216,7 +217,7 @@ typedef struct Game6A3D0Resource {
 } Game6A3D0Resource;
 
 Game6A3D0Resource *func_1502B5C8(s32 *, s32, ...);
-void func_1503D45C(s32 *, s32);
+void actor_scripts_relocate_program_offsets(s32 *, s32);
 void animation_routes_relocate_event_offsets(u8 *, s32);
 void func_1503D510(s32);
 
@@ -249,7 +250,7 @@ s32 func_1503D660(s32 arg0, s32 arg1) {
     if (*temp_v0 != 0) {
         *temp_v0 = (u8 *)*temp_v0 + (s32)temp_v0;
         temp_v0_2 = *sp28;
-        func_1503D45C(*temp_v0_2, (u8 *)temp_v0_2 + 0x10);
+        actor_scripts_relocate_program_offsets(*temp_v0_2, (u8 *)temp_v0_2 + 0x10);
     }
     temp_v0_3 = *sp28;
     temp_a0 = temp_v0_3[1];
