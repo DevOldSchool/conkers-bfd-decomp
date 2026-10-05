@@ -94984,7 +94984,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 745,
-        "reason": "Preserve CURRENT 745 independently rechecked 89604b6f, improved from 1103 after five new manual revisions. Pointer callback within-object read restores frame58 and every stackhome44/50; enabled-before-mix restores exact LBU/SLL schedule. Remaining callback SW is early in branch delays instead of immediately before FD38, and common final SH differs from raw duplicated branch stores. Argument capture neutral745; explicit branch stores805 changes v1 to t0; u32 callback1810 loses hoist/control. Inherited farDistance/input/body-reuse hypotheses remain exhausted. Own/helper ABI unchanged, no shared dependencies or ASM changes. Do not repeat equivalent callback/store/input forms absent independent evidence.",
+        "reason": "CURRENT745 full532 independently restored8b11676f, exactframe58/allhomes44/50/mixer schedule. Remaining early callback SW in branch delays and common SH versus raw duplicated branch stores. Batch28 unsigned fullwordflags neutral745; callback lexicalscope1135 delaysSW but blocks useful LBU delay slots and regresses branches. Prior argumentcapture745, explicitstores805, wordcallback1810 and inherited farDistance/input/body-reuse forms remain exhausted. No ABI/shared dependencies/ASM changes; preserve best and do not repeat equivalent type/scope/store forms without fresh evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
