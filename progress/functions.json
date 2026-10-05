@@ -71404,6 +71404,12 @@
       "symbol": "func_150E0D90"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5142,
+        "reason": "CURRENT (5142), improved from 10412 by matching raw positive-count guard and do/while traversal. Typed padded object/actor structures, signed position outputs and unsigned alpha conversion compile. Remaining frame 0x70 vs 0x58, floating constant lifetime, register allocation and scheduling. Next: share the phase/distance FP lifetime evidenced by raw f20. One targeted revision; no shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -87455,6 +87461,12 @@
       "symbol": "func_15104620"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5352,
+        "reason": "CURRENT (5352), initial valid candidate. Corrected m2c word-height and offset pointer stride, reconstructed vertex arrays and nearest-height loop. Producer caps count at 39; selected[40] covers that domain rather than guessing original smaller local bound. Remaining frame 0x118 vs 0xE0 plus register allocation/loop scheduling. Next: prove original selected-array extent and pointer loop lifetimes. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90875,6 +90887,12 @@
       "symbol": "func_151ABE00"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6057,
+        "reason": "Useful typed foot-effect candidate CURRENT 6057 after fixing NULL compile error. Corrected starter loop to test old count before decrement, as raw C161C/C1620 requires. Raw callers 1506F0C4 and 1506F0F0 pass selector 0/1. Frame 0x158 vs 0x138, extra saved registers, hoisted constant pointer, aggregate/scalar homes and redundant byte conversions remain. Next hypothesis: simplify typed byte uses and align local lifetimes; no further first-pass revision.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91065,6 +91083,12 @@
       "symbol": "func_1518CD20"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 8,
+        "reason": "CURRENT (8), scores 776 -> 365 -> 8 across initial plus two targeted lifetime revisions. Frame, control flow and all registers now match; only active flag save/reload uses sp+0x40 instead of sp+0x3C. Next hypothesis: exchange active and mode declaration order. Budget exhausted; preserved valid typed camera implementation. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91078,11 +91102,15 @@
       "symbol": "func_15121C80"
     },
     {
+      "blocked": {
+        "reason": "Final emitter packet starts at sp54 but no instruction initializes spD8 (offset 0x84). Raw callee 15151A38 reads offset84 at 151ADC and stores it into forwarded packet+18; 15147A80 copies that 0x1C-byte packet into allocated state. Thus it is not proven padding or overwritten. Zero initialization would invent behavior; valid first-pass C blocked pending a proven initialization/liveness contract. Raw source unchanged.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 1040,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151D22B0",
           "vram": "0x151D22B0"
         }
@@ -91091,11 +91119,15 @@
       "symbol": "func_151D22B0"
     },
     {
+      "blocked": {
+        "reason": "Handwritten rendering path needs FCSR-dependent cvt.w.s at FB798/FB7CC/FB7F0/FB80C; ordinary C casts truncate and no proven rounding-mode/helper contract is available in scope. m2c starter additionally truncates 64-bit command values to s32, loses output increments FB824/FB8A4 and uses 32-bit shifts by 32. A valid C implementation requires resolving rounding semantics before candidate testing; canonical raw ASM preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 1024,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150FB4C0",
           "vram": "0x150FB4C0"
         }
