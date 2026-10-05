@@ -16051,8 +16051,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2695,
-        "reason": "Best bounded candidate CURRENT (2695); clear-loop behavior and scalar resets are represented, but the compiler unrolled/reassociated the loop instead of preserving the target's compact pointer loop.",
+        "current_score": 90,
+        "reason": "Full80B live2060 (metadata2695 stale) improved to135 then90: explicit backedge/u32 endpoint removes loop unrolling; reset-first/end-before-cursor restores all registers. Reset-last revision110 regressed, best90 restored and finished. Remaining initial SH and two ADDIU order only; loop and tail exact. Three new revisions; prior bounded detail missing, not reset. No further justified scheduling hypothesis; see deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -17422,8 +17422,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3110,
-        "reason": "Recovered two-argument ABI and four-store global table initialization; compiler rewrites the loop into an alignment fill sequence after three source-only variants",
+        "current_score": 795,
+        "reason": "Full120B CURRENT3110 to1135 to795: explicit backedge removes fill expansion; saved incoming argument restores A3 copy/call restore. Named fill and named state pointer were neutral; simpler795 restored/finished. Remaining global state address folding, cached table base versus raw rematerialization, cursor/fill/endpoint registers and copy placement. Four new revisions; three inherited source variants not reset. No justified further local hypothesis; see deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -19993,7 +19993,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 215,
-        "reason": "Manual 1700->825->215: concrete zero-argument RNG; refresh global owner after RNG; unused formal replaced with local result. Reverse FP equality neutral; per-arm helper tail merge regressed495. Best215 preserved; remaining equality operand order and missing tail branch. Four revisions; ledger deferred-manual-20260927.",
+        "reason": "Full148B CURRENT215 preserved after new actual conditional threshold snapshot230: semantic compare orientation corrected but F0/F2 allocation regressed; tail branch still missing. Original restored and finished. Prior four revisions including reverse equality and per-arm calls remain exhausted. Remaining raw CEQ F10,F0 versus reversed, missing branch at74 and resulting registered-span spillover; no new justified local hypothesis. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -30993,7 +30993,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Best full-span CURRENT (10): sole delay-slot addu is raw v0,v0,t7 versus candidate v0,t7,v0. Correct typed pointer preserved CURRENT (10); in-place pointer update worsened to CURRENT (400) with extra move and altered branch. Restored original best; these pointer-lifetime shapes did not alter operand order.",
+        "reason": "Full60B CURRENT10 retained with unsigned32 address arithmetic. Prior typed-pointer10/in-place400 exhausted. New unsigned address10; named u32 offset fixes ADDU orientation but moves LHU toV1 (10); u16 offset15 regresses orientation. Simpler unsigned10 restored and finished. Sole raw ADDU v0,v0,t7 vs candidate v0,t7,v0 remains; no further concrete lifetime hypothesis. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -38987,8 +38987,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2000,
-        "reason": "Three source-only table-loop variants remained CURRENT (2000); the best candidate preserved the table sum but did not reproduce the target register allocation and CFE unrolled the loop, expanding the mixed source unit.",
+        "current_score": 410,
+        "reason": "Full76B live1100 (metadata2000 stale) improved495,455,445,410: explicit backedge removes unrolling; promoted count and direct halfword consumption recover T7; real index/sum initialization recovers all loop registers. Header-test875 regressed; best410 restored/finished. Remaining initial zero MOVEs swapped and SLT/BNEZ reduced to BNE, shortening span. Six new revisions; three inherited variants not reset. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53751,8 +53751,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 280,
-        "reason": "bounded manual variants exhausted; FP compare operand and helper-argument scheduling remain mismatched",
+        "current_score": 270,
+        "reason": "Full168B CURRENT280 to270: named shared inactive sentinel fixes FP compare orientation. Actual second/third scalar argument snapshots regress815 with extra LWC1/MFC1; restored270. Only three reordered rows remain: raw MFC1 a3,f0 before LW a1,4 and LW a2,8, candidate after. Two new revisions; inherited bounded history details unavailable, not reset. No justified ABI change or new scheduling hypothesis; see deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53770,8 +53770,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1022,
-        "reason": "Two bounded attempts remained unchanged at CURRENT (1022); floating-register and frame-layout differences require deeper ABI/source-shape recovery, so preserve and defer.",
+        "current_score": 60,
+        "reason": "Full196B CURRENT1022 to777 to110 to60: distinct unsigned call address restores separate ADDU; direct consumed float formals restore F12/F14 and frame28; single postcall pair pointer restores A0 reload and all registers. Earlier index lifetime and index-first pointer expression both neutral60; natural best restored/finished. Sole LUI T0 and SLL V1 setup order at1C/20 reversed. Five new revisions plus restore; two inherited neutral attempts not reset. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -66257,17 +66257,16 @@
       "symbol": "func_1511A838"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 10,
-        "reason": "CURRENT (10): sole full-span mismatch is bnel operands at 0x14 (raw constant register a1 before byte v0; candidate byte v0 before constant a1); swapping source equality operands compiled identically; incoming cursor and s32 byte local are best",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 64,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1516A770",
           "vram": "0x1516A770"
         }

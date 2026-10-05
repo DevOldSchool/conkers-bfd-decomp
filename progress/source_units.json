@@ -11202,7 +11202,7 @@
         "us": {
           "end": "0x16AA70",
           "start": "0x16A770",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_197C20.c"
