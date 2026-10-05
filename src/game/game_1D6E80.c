@@ -40,13 +40,12 @@ s32 func_15045800(Game1D6E80Vec3 *, u16, f32, void *);
 void func_151ABE40(Game1D6E80Vec3 *, void *, s32, u8, s32);
 extern f32 D_800A8F74;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A99D0 CURRENT (520) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A99D0 CURRENT (430) */
 void func_151A99D0(void *arg0) {
-    Game1D6E80Vec3 position;
-    void *sp2C;
     f32 height;
     void *target;
     register u8 *object;
+    Game1D6E80Vec3 position;
 
     object = *(u8 **)((u8 *)arg0 + 0x18);
     position.x = *(f32 *)(object + 0x14);
@@ -57,11 +56,10 @@ void func_151A99D0(void *arg0) {
         position.y = *(f32 *)(object + 0x18) + 150.0f;
     }
     target = (u8 *)arg0 + 0x34;
-    sp2C = target;
     position.z = *(f32 *)(object + 0x1C);
     if (func_15045800(&position, 0, position.y - 300.0f, target) != 0) {
         position.y = *(f32 *)((u8 *)arg0 + 0x34);
-        func_151ABE40(&position, sp2C, 3, *(u8 *)((u8 *)arg0 + 0xC),
+        func_151ABE40(&position, target, 3, *(u8 *)((u8 *)arg0 + 0xC),
                        *(u8 *)((u8 *)arg0 + 1));
     }
 }

@@ -75,12 +75,12 @@ typedef struct Game1199D0SpawnParams {
     u8 padA[2];
 } Game1199D0SpawnParams;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ECA68 CURRENT (1046) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150ECA68 CURRENT (125) */
 void func_150ECA68(void *arg0, u8 arg1, u8 arg2, u8 arg3,
                    u8 arg4, u8 arg5, s16 arg6, u8 arg7, s32 arg8) {
-    Game1199D0SpawnParams params;
-    s16 var_v1;
+    s32 var_v1;
     s16 temp_t2;
+    Game1199D0SpawnParams params;
     s32 temp_v0;
     s32 var_v0;
     u8 temp_t0;

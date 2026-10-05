@@ -16,32 +16,34 @@ s32 func_1510D0EC(s32, s32 *, s32, s32);
 extern u8 D_80090324;
 extern u8 D_800DD405;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFBD0 CURRENT (911) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DFBD0 CURRENT (540) */
 void *func_150DFBD0(void *arg0) {
-    s32 workspace[2];
+    struct Command { s32 word0; s32 word1; };
+    struct Command *command;
     s32 result;
+    s32 workspace[2];
     s32 source;
     s32 index;
     s32 command_offset;
-    u8 *output;
 
-    output = arg0;
     index = 0;
     command_offset = 8;
     do {
         if (func_150DF8C0(index) != 0) {
-            source = *(s32 *)((u8 *)&D_80090324 + (D_800DD405 * 4) + 0x24);
+            result = D_800DD405;
+            source = *(s32 *)((u8 *)&D_80090324 + (result * 4) + 0x24);
         } else {
             source = *(s32 *)((u8 *)&D_80090324 + 0x20);
         }
         result = func_1510D0EC(source, workspace, 3, 0);
-        *(s32 *)output = (command_offset & 0xFFFF) | 0xDB060000;
-        *(s32 *)(output + 4) = result;
-        output += 8;
+        command = arg0;
+        command->word0 = (command_offset & 0xFFFF) | 0xDB060000;
+        command->word1 = result;
+        arg0 = command + 1;
         index++;
         command_offset += 4;
     } while (index != 3);
-    return output;
+    return arg0;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150DFBD0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_10D080/func_150DFBD0.s")

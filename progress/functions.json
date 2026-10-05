@@ -33467,7 +33467,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1544,
-        "reason": "CURRENT (1544): behavior and constants reconstructed; explicit byte temporary improved score but compiler homes narrowed parameters/stack args in an extra 0x10 frame area instead of reusing incoming slots; register-local variant was unchanged",
+        "reason": "CURRENT1544 original best restored after three manual hypotheses plus one compile-view repair: register formal without alias1746/frame38, volatile arg5 formal rejected by existing declaration, compatible volatile home reads2377, direct formal mask1893. No shared declaration changes retained. Raw entry ANDI/MOVE and incoming byte-home reloads versus promoted spills remain; needs supported ABI/storage evidence. Prior register-local failure carried. Ledger deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -33552,8 +33552,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2172,
-        "reason": "CURRENT 2172 best candidate using typed 20-byte records and contiguous three-float local; remaining 0x58 versus 0x60 frame, float scheduling, and branch argument register differences plateaued; padding test worsened to 2190.",
+        "current_score": 1578,
+        "reason": "CURRENT1578 improved from2172: proper three-float array, X-before-Y evaluation and outer product order recover vector/FPR behavior. Separate scale pointer1630 and consumed-table-pointer reuse1578 fail to preserve raw V0+48 in both branches. Frame58 vs60 and pointer-related call scheduling remain. Prior padding2190 not repeated. Four new hypotheses plus restoration; ledger deferred-exact-20261005. Needs actual storage/alias evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -40662,8 +40662,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 979,
-        "reason": "CURRENT (979): structural/register plateau after two targeted source revisions; best verified candidate restored",
+        "current_score": 969,
+        "reason": "CURRENT (969), fresh baseline 984 (saved 979): two manual hypotheses; unsigned address form neutral, actual limit-before-current fixes six FPR rows. Remaining preheader base CSE creates S1 base/S3 endpoint/S2 stride instead raw S2/S1/S3, one early float store and reversed clamp load order. Prior two structural/register revisions carried forward, detailed history unavailable. No supported new lifetime hypothesis; investigate exact symbolic-address CSE and clamp load scheduling before further revision.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -46648,17 +46648,16 @@
       "symbol": "func_150A2CA4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 618,
-        "reason": "CURRENT (618): best verified padded-structure candidate; stack/local lifetime plateau after two targeted revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 200,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150A2D84",
           "vram": "0x150A2D84"
         }
@@ -66537,8 +66536,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 520,
-        "reason": "CURRENT (520) best verified candidate restored; control flow and register allocation are exact, with only aggregate stack placement/frame size and related local offsets remaining after two manual revisions",
+        "current_score": 430,
+        "reason": "CURRENT (430), improved from520 after four hypotheses/five finishes: redundant target alias removed and actual vector declared last, fixing every local offset. Height-in-vector808 and actual query aggregate788 recover frame but alter offsets/instructions; best430 restored. Remaining frame48 versus40 and early threshold/150 constant load scheduling. Prior two layout attempts carried forward; need new allocation/alias evidence, no forced padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -67924,8 +67923,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1046,
-        "reason": "CURRENT 1046 after aggregate layout and explicit load staging; semantics and call arguments align, but staged narrow temporaries expand the frame and leave stack/register scheduling differences",
+        "current_score": 125,
+        "reason": "CURRENT (125), improved1046 after five hypotheses/six finishes. s32 selected index restores raw signed narrowing; actual packet declared after index locals fixes all packet offsets. Inline byte1127, result reuse186 neutral, removal of incoming-index snapshot158 failed. Remaining frame50 versus48/incoming homes+8 and field3B/sentinel registers. Prior two staging/layout revisions carried; next requires concrete lifetime evidence, no forced padding or shared ABI changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72246,17 +72245,16 @@
       "symbol": "func_1511EF40"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 784,
-        "reason": "CURRENT (784): best verified semantic candidate; remaining eight-byte frame/local placement and cached type-load scheduling resisted two bounded source-local layout revisions",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 204,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_1511F31C",
           "vram": "0x1511F31C"
         }
@@ -77095,8 +77093,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 911,
-        "reason": "CURRENT (911) bounded candidate; the two-word workspace fixes the 0x58 frame, but IDO swaps output/index saved registers and related address temporaries versus the reference after two manual revisions",
+        "current_score": 540,
+        "reason": "CURRENT (540), improved911 after five manual hypotheses. Incoming output-cursor reuse fixes prologue/S0/S1; typed real command snapshot restores frame58; promoted byte snapshot fixes scratch registers; workspace placement now exact48. Remaining early index/offset initialization, missing V1 command copy and early tail index increment. Advancing cursor before stores retained copy but swapped S1/S2 and moved stores; after-stores form folds copy. Prior two revisions carried; investigate source-backed command-cursor lifetime, no padding/qualifier cycling.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
