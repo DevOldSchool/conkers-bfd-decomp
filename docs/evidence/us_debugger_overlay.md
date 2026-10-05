@@ -67,6 +67,50 @@ imported: their member order, alignment, or trailing padding conflicts with
 the debugger layout. For example, `xprintf.o` padding would overlap `_Ldtob`.
 See [main formatter provenance](libultrare_us_xprintf_reconstruction.md).
 
+## Matched helper names
+
+The ten matched library helpers use source-local aliases, retaining numeric
+linked symbols, calling conventions, data layouts and operations. These are
+descriptive names, not claims of original debugger symbols or source ownership.
+
+| Symbol | C name | Behavior boundary |
+| --- | --- | --- |
+| `16001AD0` | `debugger_copy_bytes` | Forward byte copy; returns the original destination, without overlap handling |
+| `16001B00` | `debugger_string_length` | Byte count before NUL; no null-pointer handling |
+| `16001B34` | `debugger_sprintf` | Variadic formatting and termination on a nonnegative result; no capacity argument |
+| `16001B8C` | `debugger_append_bytes` | Copy callback returning destination plus count; no allocation |
+| `16001BB4` | `debugger_vformat_to_callback` | Parses format state and emits chunks through the supplied callback |
+| `160021FC` | `debugger_format_field` | Consumes the selected vararg and prepares field/padding segments, including `%n` writes |
+| `1600288C` | `debugger_format_f64` | Finite decimal conversion plus existing NaN/Inf handling |
+| `16002D2C` | `debugger_unscale_f64` | Existing exponent classification/adjustment, not general `frexp` or subnormal normalization |
+| `16002DE4` | `debugger_format_decimal_digits` | Fixed/exponent arrangement of supplied significant digits and padding |
+| `160033A8` | `debugger_format_integer_digits` | Octal/decimal/hexadecimal digits with existing signedness and precision rules |
+
+Raw calls at `16001020/16001278` use the variadic wrapper with the loaded
+`%s%s%f` format. It passes the append callback to `16001BB4` at `16001B5C`;
+field conversion is called at `16001E8C`. The field path calls string length
+at `16002818`, integer formatting at `16002418/1600256C/160027EC`, and floating
+formatting at `160026D4`. Floating conversion calls exponent adjustment at
+`16002914` and decimal arrangement at `16002CFC`. The loaded data map and
+reviewed SDK comparisons above independently support these roles. The callback
+formatter includes the terminating NUL in its final literal chunk; callback
+failure returns the accumulated count. No standard-library conformance claim
+is added by these names.
+
+`16002D2C` returns -1 for normal encodings, stores their old characteristic
+minus `0x3FE`, and changes exponent bits to `0x3FF`. It returns one for infinity,
+two for NaN, and zero for zero-exponent encodings. Its big-endian halfword
+accesses and original subnormal treatment are preserved. All registered spans
+remain complete, including the eight final padding bytes after `160033A8`'s
+return sequence.
+
+The alias parser uses a logical line-spliced view with original source offsets.
+It permits unrelated continued macros but still rejects continued, conditional,
+repeated, undefined or chained aliases and physically split alias uses. The
+existing `ATOI`, `PAD` and `PUT` macros remain byte-for-byte unchanged; complete
+preprocessing output is identical before and after naming. This does not add
+general macro expansion or claim runtime debugger execution.
+
 ## Unresolved boundaries
 
 - Mutable state and constants interleave; no original `.data`/`.rodata` split

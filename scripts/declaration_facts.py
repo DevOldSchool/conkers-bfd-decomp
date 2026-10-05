@@ -135,14 +135,34 @@ def function_alias_text(text: str, *, strip_definitions: bool = False) -> str:
     """Canonical parsing view for simple, unconditional address-symbol aliases.
 
     This is not a preprocessor: conditional, repeated, undefined, continued or
-    chained macros remain unresolved. Comments and strings stay intact; parser-only
-    contexts may remove the accepted alias definitions after expansion.
+    chained aliases remain unresolved. Unrelated continued macros are permitted.
+    Comments, strings and macro bodies stay intact; parser-only contexts may
+    remove the accepted alias definitions after expansion.
     """
-    if not re.search(r"#\s*define\b", text) or re.search(r"\\\r?\n", text):
+    if not re.search(r"#\s*define\b", text):
         return text
+    # Recognize logical directives/comments without changing physical source.
+    # Gap positions also record splices at the end of a logical directive.
+    scan = text
+    offsets = range(len(text) + 1)
+    gaps = []
+    continuations = list(re.finditer(r"\\\r?\n", text))
+    if continuations:
+        pieces = []
+        offsets = []
+        cursor = 0
+        for continuation in continuations:
+            pieces.append(text[cursor:continuation.start()])
+            offsets.extend(range(cursor, continuation.start()))
+            gaps.append(len(offsets))
+            cursor = continuation.end()
+        pieces.append(text[cursor:])
+        offsets.extend(range(cursor, len(text)))
+        offsets.append(len(text))
+        scan = "".join(pieces)
     definitions: dict[str, list[tuple[int, int, str | None]]] = {}
     depth = 0
-    for token in candidate_syntax.TOKEN.finditer(text):
+    for token in candidate_syntax.TOKEN.finditer(scan):
         directive = token.group()
         if not directive.startswith("#"):
             continue
@@ -159,26 +179,34 @@ def function_alias_text(text: str, *, strip_definitions: bool = False) -> str:
         if match is None:
             continue
         target = re.fullmatch(r"\s+(func_[0-9A-Fa-f]{8})\s*", directive[match.end():])
-        value = target.group(1) if target and not depth and match[1] == "define" else None
-        definitions.setdefault(match[2], []).append((token.start(), token.end(), value))
-    items = candidate_syntax.tokens(text)
+        line_start = scan.rfind("\n", 0, token.start()) + 1
+        continued = any(line_start <= gap <= token.end() for gap in gaps)
+        value = (target.group(1) if target and not depth and not continued
+                 and match[1] == "define" else None)
+        end = token.end() - int(scan[token.end() - 1:token.end()] == "\r")
+        definitions.setdefault(match[2], []).append((token.start(), end, value))
+    items = candidate_syntax.tokens(scan)
     aliases = {}
     for name, records in definitions.items():
         if len(records) != 1:
             continue
         start, end, target = records[0]
         if (target is not None and target not in definitions
-                and not any(item.text == name and item.start < end for item in items)):
+                and not any(item.text == name and (
+                    item.start < end or
+                    text[offsets[item.start]:offsets[item.end - 1] + 1] != name)
+                    for item in items)):
             aliases[name] = (end, target)
     replacements = []
     if strip_definitions:
-        replacements.extend((definitions[name][0][0], definitions[name][0][1], "")
+        replacements.extend((offsets[definitions[name][0][0]],
+                             offsets[definitions[name][0][1]], "")
                             for name in aliases)
     for item in items:
         if item.text in aliases:
             end, target = aliases[item.text]
             if item.start >= end:
-                replacements.append((item.start, item.end, target))
+                replacements.append((offsets[item.start], offsets[item.end - 1] + 1, target))
     for start, end, replacement in sorted(replacements, reverse=True):
         text = text[:start] + replacement + text[end:]
     return text

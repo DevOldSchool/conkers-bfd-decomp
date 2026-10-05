@@ -36,7 +36,6 @@ class FunctionAliasTests(unittest.TestCase):
             '#define find_object(x) func_151149AC(x)\n',
             '#define find_object other\n',
             's32 find_object(u8);\n' + self.directive,
-            '#define other \\\n+1\n' + self.directive,
             '#if FLAG\n// continued \\\n#endif\n' + self.directive,
             '/*\n' + self.directive + '*/\n',
         ):
@@ -44,6 +43,54 @@ class FunctionAliasTests(unittest.TestCase):
             with self.subTest(directives=directives):
                 self.assertEqual(source, facts.function_alias_text(source))
                 self.assertEqual(source, facts.function_alias_text(source, strip_definitions=True))
+
+    def test_unrelated_continuations_preserve_physical_source(self):
+        for newline in ('\n', '\r\n'):
+            directive = self.directive.replace('\n', newline)
+            definition = self.definition.replace('\n', newline)
+            macro = '#define other(v) \\\n(find_object(v) + 1) /* find_object */\n'.replace('\n', newline)
+            literals = ('// find_object \\\nfind_object\n'
+                        'char *label = "find_\\\nobject";\n').replace('\n', newline)
+            for source in (macro + directive + definition + literals,
+                           directive + definition + literals + macro):
+                expected = source.replace('s32 find_object(', 's32 func_151149AC(')
+                with self.subTest(newline=newline, source=source):
+                    self.assertEqual(expected, facts.function_alias_text(source))
+                    self.assertEqual(expected.replace(directive[:-len(newline)], ''),
+                                     facts.function_alias_text(source, strip_definitions=True))
+
+    def test_continued_aliases_and_invalidations_remain_unresolved(self):
+        cases = (
+            '#define find_object \\\nfunc_151149AC\n',
+            '#define find_object func_151149AC\\\n\n',
+            '#de\\\nfine find_object func_151149AC\n',
+            '#define find_\\\nobject func_151149AC\n',
+            '\\\n#define find_object func_151149AC\n',
+            self.directive + '#un\\\ndef find_object\n',
+            self.directive + '#undef find_\\\nobject\n',
+            self.directive + '#de\\\nfine find_object other\n',
+            self.directive + '#define func_151149AC \\\nother\n',
+            self.directive + '#undef func_1511\\\n49AC\n',
+            '#i\\\nf FLAG\n' + self.directive + '#endif\n',
+            self.directive + 's32 find_\\\nobject(u8);\n',
+        )
+        for newline in ('\n', '\r\n'):
+            for directives in cases:
+                source = (directives + self.definition).replace('\n', newline)
+                with self.subTest(source=source):
+                    self.assertEqual(source, facts.function_alias_text(source))
+                    self.assertEqual(source, facts.function_alias_text(source, strip_definitions=True))
+
+    def test_continuations_keep_address_based_evidence(self):
+        macro = '#define other \\\n+1\n'
+        before = self.definition.replace('find_object', 'func_151149AC') + macro
+        after = self.directive + self.definition + macro
+        self.assertEqual(call_signatures.source_signatures(before),
+                         call_signatures.source_signatures(after))
+        self.assertIn('func_151149AC', call_signatures.source_signatures(after))
+        self.assertEqual(matching_context.source_bodies(before, {'func_151149AC'}),
+                         matching_context.source_bodies(after, {'func_151149AC'}))
+        self.assertEqual([], matching_callers.changed_signatures(before, after))
 
     def test_signature_and_body_lookup_keep_registered_address(self):
         source = self.directive + self.definition
