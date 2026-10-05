@@ -104,4 +104,101 @@ void func_151152A8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151152A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_151152A8.s")
+f32 func_15047D60(f32);
+extern f32 D_800A2F90;
+extern f32 D_800A2F94;
+extern u8 D_800CC2D0[];
+
+typedef struct Game142560Motion {
+    f32 angle_x;
+    u8 pad04[4];
+    f32 angle_z;
+    u8 pad0C[4];
+    s16 x, y, z;
+    u8 pad16[0x26];
+    s32 packed;
+    u8 pad40[0xF];
+    u8 flags;
+    u8 pad50[0x2C];
+    s32 saved_y;
+    s32 timer;
+    s32 returning;
+} Game142560Motion;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15115368 CURRENT (5503) */
+void func_15115368(Game142560Motion *actor) {
+    f32 elapsed;
+    f32 phase;
+    f32 twice = 2.0f;
+    s32 packed;
+    s32 start;
+    s32 delay;
+    s32 end;
+    s32 timer;
+    s32 flags;
+    s32 saved_y;
+    u8 changed_flags;
+
+    packed = actor->packed;
+    delay = (s8)(packed >> 8);
+    flags = actor->flags & 4;
+    start = packed >> 24;
+    if (flags != 0) {
+        flags = actor->flags & 4;
+        actor->timer += D_800BE9E4;
+    }
+    timer = actor->timer;
+    end = start + delay;
+    if (start >= timer) {
+        if (flags == 0 && timer != 0) {
+            actor->timer = start;
+        }
+    } else if (end >= timer) {
+        if (flags == 0) {
+            actor->timer = end;
+        }
+    } else {
+        if (flags == 0) {
+            timer += D_800BE9E4;
+            actor->timer = timer;
+        }
+        elapsed = (f32)(timer - start - delay);
+        if (actor->returning == 0) {
+            phase = elapsed * D_800A2F90;
+            actor->angle_x = -3.0f * func_15047D60(phase * twice);
+            actor->angle_z = twice * func_15047D60(phase * 3.0f);
+            if (elapsed > 10.0f) {
+                saved_y = actor->saved_y;
+                if (saved_y == 0) {
+                    saved_y = actor->y;
+                    actor->saved_y = saved_y;
+                }
+                packed = actor->packed;
+                actor->y -= (s8)(packed >> 16) * D_800BE9E4;
+                if ((packed & 0xFF) * 16 < saved_y - actor->y) {
+                    actor->returning = 1;
+                    changed_flags = actor->flags & 0xFF9E;
+                    actor->flags = changed_flags;
+                    actor->flags = changed_flags | 0x20;
+                }
+            }
+        } else {
+            elapsed = *(f32 *)(D_800CC2D0 + 0x14) - (f32)actor->x;
+            phase = *(f32 *)(D_800CC2D0 + 0x1C) - (f32)actor->z;
+            elapsed *= elapsed;
+            phase *= phase;
+            if (D_800A2F94 < elapsed + phase) {
+                saved_y = actor->saved_y;
+                actor->saved_y = 0;
+                changed_flags = actor->flags & 0xFF9E;
+                actor->flags = changed_flags;
+                actor->flags = changed_flags | 1;
+                actor->returning = 0;
+                actor->timer = 0;
+                actor->y = saved_y;
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15115368 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142560/func_15115368.s")

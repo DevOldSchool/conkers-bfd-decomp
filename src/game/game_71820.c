@@ -171,7 +171,71 @@ void func_1504452C(s32 *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5
 void func_15044658(void) {
 
 }
+void func_1507C3E0(void *, s16 *, s16 *, s16 *);
+extern s8 D_8008FD8C;
+extern f32 D_800CBDD8;
+extern f32 D_800CBDDC;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044660 CURRENT (1370) */
+void func_15044660(Game71820Global *arg0, f32 arg1, f32 arg2, f32 arg3) {
+    struct {
+        volatile s32 prior_index;
+        u8 pad4[6];
+        s16 depth;
+        s16 width;
+        s16 height;
+    } work;
+    s32 index;
+    s32 kind;
+
+    func_1507C3E0(arg0, &work.height, &work.width, &work.depth);
+    kind = *(s32 *)arg0;
+    if (kind == 0x2D || kind == 0x2E || kind == 0x2C) {
+        index = work.prior_index;
+        D_800CBDDC = 0.0f;
+        D_800CBDD8 = (f32)work.height;
+    } else {
+        index = ((u8 *)arg0 - D_800CC2D0) / 0x32C;
+        work.height = (s16)(s32)((f32)work.height + fabsf(arg2 - arg0->y));
+    }
+    if (arg0->pad0[5] == 5) {
+        D_800CBDDC = 0.0f;
+        D_800CBDD8 = (f32)work.height;
+        return;
+    }
+    if (arg0->pad20[0x8D] != 0) {
+        D_800CBDD8 = (f32)work.height;
+        D_800CBDDC = (f32)(work.height >> 1);
+        return;
+    }
+    kind = arg0->pad0[4];
+    if (kind == 0x53) {
+        D_800CBDD8 = (f32)work.height;
+        D_800CBDDC = (f32)(work.height >> 1);
+        return;
+    }
+    if (kind == 0x28) {
+        D_800CBDD8 = (f32)(work.height - 20);
+        D_800CBDDC = 20.0f + D_800CBDD8 * 0.5f;
+        return;
+    }
+    if (index >= 0 && index < D_8008FD8C && *(f32 *)((u8 *)arg0 + 0x28) != 0.0f) {
+        D_800CBDD8 = (f32)work.height;
+        D_800CBDDC = (f32)(work.height >> 1);
+        return;
+    }
+    if (kind == 0x25) {
+        kind = work.height / 2;
+        D_800CBDD8 = (f32)(work.height - kind);
+        D_800CBDDC = (f32)kind + D_800CBDD8 * 0.5f;
+        return;
+    }
+    D_800CBDD8 = (f32)work.height;
+    D_800CBDDC = (f32)(work.height >> 1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15044660 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044660.s")
+
 void *func_15044964(s32, s32, s32, void *, s32, s32, s32, s32);
 
 void *func_150448D0(s32 arg0, void *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8) {
@@ -832,7 +896,84 @@ u8 func_15045880(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15045880 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045880.s")
+extern f32 D_80098D54;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15045AE4 CURRENT (1065) */
+u8 func_15045AE4(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
+    s32 count;
+    s32 best;
+    s32 scan_index;
+    s32 copy_index;
+    s32 vertex_offset;
+    Game71820Candidate *candidate;
+    f32 height;
+    s32 *sources;
+    s32 *source_cursor;
+    u8 *point_cursor;
+    s16 *vertex;
+    u32 surface_address;
+    Game71820Surface *surface;
+    s32 triangle;
+
+    arg3->height = D_80098D54;
+    best = -1;
+    func_150A44F0(*arg2, D_800D37E0, 0);
+    count = func_150A43E0((s32)arg0->x, (s32)arg0->z, *arg2, D_800D37E0);
+    scan_index = 0;
+    if (count > 0) {
+        candidate = D_800D3300;
+        do {
+            height = (f32)candidate->height * 0.00390625f;
+            if (height <= arg0->y && arg3->height < height) {
+                best = scan_index;
+                arg3->height = height;
+            }
+            scan_index++;
+            candidate++;
+        } while (scan_index < count);
+    }
+    if (best != -1) {
+        candidate = &D_800D3300[best];
+        sources = candidate->sources;
+        vertex_offset = candidate->index;
+        source_cursor = sources;
+        point_cursor = (u8 *)arg3;
+        copy_index = 0;
+        do {
+            vertex = (s16 *)((u8 *)(u32)*source_cursor + vertex_offset);
+            source_cursor++;
+            *(s16 *)(point_cursor + 4) = vertex[0];
+            *(s16 *)(point_cursor + 6) = vertex[1];
+            *(s16 *)(point_cursor + 8) = vertex[2];
+            copy_index++;
+            point_cursor += 6;
+        } while (copy_index != 3);
+        surface_address = (u32)D_800DBEF4 + candidate->padC * 0xA0;
+        arg3->field20 = surface_address;
+        surface = (Game71820Surface *)surface_address;
+        if (surface->materials != 0) {
+            triangle = (s32)((u32)sources - (u32)D_800DBE3C) / 12 - surface->first_triangle;
+            arg3->object = surface->materials[triangle];
+        } else {
+            arg3->object = surface->default_material;
+        }
+        *(volatile u8 *)&arg3->flags |= 6;
+        if ((((Game71820Surface *)((u32)D_800DBEF4 + candidate->padC * 0xA0))->flags & 0x80) == 0x80) {
+            *(volatile u8 *)&arg3->flags |= 1;
+        }
+        arg3->active = 2;
+        if (arg1 <= arg3->height) {
+            *(volatile u8 *)&arg3->flags |= 2;
+            return 1;
+        }
+        return 0;
+    }
+    *(volatile u8 *)&arg3->flags &= ~2;
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15045AE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15045AE4.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15045D48 CURRENT (335) */
 s32 func_15045D48(Game71820XZ *arg0, f32 arg1, s32 *arg2, Game71820Hit *arg3) {
     s32 count;

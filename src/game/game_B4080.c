@@ -224,7 +224,96 @@ f32 func_15086D94(f32 arg0, f32 arg1, volatile f32 arg2, volatile f32 arg3, f32 
 #endif /* CONKER_DEFERRED_CANDIDATE func_15086D94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D94.s")
 
+s32 func_15086D48(s32);
+s32 func_150888A8(volatile s32, volatile u8, s8);
+void func_15088824(void *);
+s32 func_10003C40(s32, s32, s32, s32);
+extern s32 D_800872A0, D_800D2394;
+extern s8 D_800D23A8, D_800D2398, D_800D2399, D_800D239A, D_8008FD90;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150870D0 CURRENT (4028) */
+void func_150870D0(s32 arg0, s32 arg1, register s32 arg2) {
+    u8 start, forward, backward;
+    volatile u8 current, previous, next;
+    u32 firstLink;
+    s32 priority, direction;
+    register s32 index;
+    u8 node, old, link;
+    u32 length, offset;
+    u8 chosen;
+    u8 *base, *cursor, *candidate, *object;
+
+    D_800872A0 = 0;
+    start = func_15086D48(arg0);
+    if ((start & 255) != 255) {
+        direction = D_800D23A8;
+        base = D_800D2350;
+        chosen = 255;
+        index = 0;
+        cursor = base + (start & 255) * 16;
+        priority = (direction * 255) & 255;
+        do {
+            node = cursor[9];
+            index++;
+            if (node != 255) {
+                candidate = base + node * 16;
+                if (candidate[14] == 0 &&
+                    ((direction == 0 && candidate[15] >= priority) ||
+                     (direction != 0 && priority >= candidate[15]))) {
+                    priority = candidate[15] & 255;
+                    chosen = node & 255;
+                }
+            }
+            cursor++;
+        } while (index != 5);
+        if (chosen != 255) {
+            firstLink = func_150888A8(start, chosen & 255, 0) & 255;
+            backward = func_150888A8(chosen & 255, start, 0);
+            forward = firstLink;
+        }
+        if (chosen != 255 && backward != 255 && forward != 255) {
+            index = forward & 255;
+            length = 0;
+            current = chosen;
+            do {
+                old = current;
+                link = index & 255;
+                current = link;
+                next = index;
+                previous = old;
+                index = func_150888A8(old, link, 0) & 255;
+                length++;
+            } while (start != previous);
+            D_800D2399 = arg2;
+            D_800D2398 = arg1;
+            arg1 = (s32)((u32)arg1 + (u32)arg2);
+            next = index;
+            D_800D2394 = 0;
+            D_800872A0 = func_10003C40((s32)((((u32)arg1 << 5) + (u32)arg1) << 2), 1, 0, 0);
+            index = 0;
+            if (arg1 > 0) {
+                offset = 0;
+                do {
+                    object = (u8 *)D_800872A0 + offset;
+                    func_15088824(object);
+                    object[0x2B] = backward;
+                    object[0x2D] = chosen;
+                    object[0x2E] = forward;
+                    object[0x2C] = start;
+                    if (index < D_800D2398) object[0x31] = index;
+                    object[0x26] = length;
+                    offset += 0x84;
+                    object[0x30] = index >= D_8008FD90;
+                    index++;
+                } while (index != arg1);
+            }
+            D_800D239A = 1;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150870D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_150870D0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087350.s")
 void func_150891E8(void *, void *);
 void func_150896EC(void *, void *, s32);
@@ -1147,8 +1236,173 @@ void func_1508B2A8(u8 arg0, u8 *state) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508B2A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B2A8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B3F8.s")
+s32 func_1508C5B8(s32, s32);
+void func_1508A1BC(void);
+extern f32 D_8009DA60;
+extern f32 D_8009DA64;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508B9BC CURRENT (3260) */
+s32 func_1508B9BC(void) {
+    s32 current;
+    s32 *active;
+    s32 *neighbors;
+    s32 *costs;
+    s32 mode;
+    register s32 count;
+    register s32 *targets;
+    register u8 *base;
+    register u8 *weights;
+    s32 winner;
+    s32 minimum;
+    s32 index;
+    s32 cost;
+    s32 first;
+    s32 end;
+    s32 cursor;
+    s32 neighbor;
+    f32 weight_scale;
+    f32 preferred_scale;
+    f32 value;
+    f32 dx;
+    f32 dz;
+    GameB4080SearchActor *actor;
+    GameB4080SearchActor *other;
+
+    base = (u8 *)D_800D23B0;
+    mode = 1;
+    count = *(s32 *)(base + 0x10);
+    current = *(s32 *)(base + 4);
+    active = (s32 *)(base + 0x39C);
+    neighbors = (s32 *)(base + 0x5DC);
+    costs = (s32 *)(base + 0x9DC);
+    targets = (s32 *)(base + 0x11C);
+    if (count >= 9) {
+        mode = 4;
+    }
+    func_1508C5B8(0, mode);
+    func_1508A1BC();
+    base = (u8 *)D_800D23B0;
+    weights = base + current * 16 + 0x15B4;
+    winner = -1;
+    minimum = 10000000;
+    index = 0;
+    if (count > 0) {
+        preferred_scale = D_8009DA60;
+        weight_scale = D_8009DA64;
+        do {
+            if (*active > 0) {
+                cost = -1;
+                if (index != current) {
+                    first = index * 16;
+                    end = first + 16;
+                    cursor = first;
+                    if (first < end) {
+                        if (neighbors[first] != -1) {
+                            first *= 4;
+                            neighbor = *(s32 *)((u8 *)neighbors + first);
+                            do {
+                                cursor++;
+                                if (current == neighbor) {
+                                    cost = *(s32 *)((u8 *)costs + first);
+                                    cursor = end;
+                                }
+                                if (cursor >= end) {
+                                    break;
+                                }
+                                first = cursor * 4;
+                                neighbor = *(s32 *)((u8 *)neighbors + first);
+                            } while (neighbor != -1);
+                        }
+                    }
+                    if (cost != -1) {
+                        value = (f32)(u32)weights[index] * weight_scale;
+                        if (index == targets[current]) {
+                            value *= preferred_scale;
+                        }
+                        cost = (s32)((f32)cost * value);
+                        if (cost < minimum) {
+                            minimum = cost;
+                            winner = index;
+                        }
+                    }
+                }
+            }
+            index++;
+            active++;
+        } while (index != count);
+    }
+    *(s32 *)(base + current * 4 + 0x49C) = winner;
+    if (winner != -1) {
+        actor = (GameB4080SearchActor *)((u8 *)&D_800CC2D0 + current * 0x32C);
+        other = (GameB4080SearchActor *)((u8 *)&D_800CC2D0 + winner * 0x32C);
+        dx = actor->field14 - other->field14;
+        dz = actor->field1C - other->field1C;
+        *(s32 *)((u8 *)D_800D23B0 + current * 4 + 0x45C) = (s32)sqrtf(dx * dx + dz * dz);
+    } else {
+        *(s32 *)((u8 *)D_800D23B0 + current * 4 + 0x45C) = minimum;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1508B9BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508B9BC.s")
+
+f32 func_150ADA68(void);
+extern s8 D_8008FD8C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BC20 CURRENT (3749) */
+void func_1508BC20(void) {
+    s8 used[16];
+    f32 countFloat;
+    s32 count, divisor, baseStep, row;
+    s32 index, direction, brightness, step, written;
+    s8 *output, *cursor, *mark;
+
+    count = D_8008FD8C;
+    output = (s8 *)D_800D23B0 + 0x15B4;
+    divisor = count >> 1;
+    if (divisor < 2) divisor = 2;
+    baseStep = 0xAA / divisor;
+    row = 0;
+    if (count > 0) {
+        countFloat = count;
+        do {
+            cursor = used;
+            direction = -1;
+            brightness = 0x55;
+            step = baseStep;
+            do {
+                *cursor++ = 0;
+            } while (cursor != used + 16);
+            index = (s32)(func_150ADA68() * countFloat);
+            if (func_150ADA68() > 0.5f) direction = 1;
+            mark = used + index;
+            written = 0;
+            row++;
+            while (*mark != 0) {
+                index += direction;
+                if (index < 0) index = count - 1;
+                if (index >= count) index = 0;
+                mark = used + index;
+            }
+            *mark = 1;
+            if (count > 0) {
+                do {
+                    if (brightness < 0x100) output[index] = brightness;
+                    else output[index] = 0xFF;
+                    index++;
+                    brightness += step;
+                    if (index >= count) index = 0;
+                    written++;
+                    if (brightness >= 0x100) step = -step;
+                } while (written != count);
+            }
+            output += 0x10;
+        } while (row != count);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1508BC20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508BC20.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BF14 CURRENT (4799) */
 s32 func_1508BF14(void) {
     s32 spA4;

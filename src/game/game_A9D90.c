@@ -70,6 +70,77 @@ void func_1507D158(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     func_1509BFB0(3, temp_v0 | 0x2000, arg1, arg2, arg3, arg4);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D1D8.s")
+void func_1501C730(s32, s32, s32, s32, s32);
+s32 func_150859AC(s32, s32);
+void func_1509C3A0(void);
+void func_1507D1D8(GameA9D90Object *);
+void func_15085710(s32, s32, s32);
+extern s8 D_80087260;
+extern s8 D_8008726C;
+extern s8 D_8008FD94;
+extern s8 D_8008FDA8;
+extern u16 D_8008FDBC;
+extern u8 D_800BE616;
+extern s8 D_800BE618;
+extern u16 D_800D18A0;
+extern s8 D_800D2E43;
+extern u8 *D_800D2E4C;
+extern s8 D_800E0C20;
+extern s8 D_800BE3DF;
+extern u8 D_800BE3E0;
+extern u8 D_800D18A8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 CURRENT (879) */
+void func_1507D4F8(s32 arg0) {
+    union {
+        s32 word;
+        s16 halves[2];
+    } index;
+    GameA9D90Object *actor;
+    u8 *actor2;
+
+    if (!(D_8008FDBC & 1)) {
+        func_15085710((s16)arg0, 4, 1);
+    }
+    index.word = (s16)arg0;
+    if (func_150859AC(index.word, 3) != 0) {
+        func_15085710(index.halves[1], 5, D_8008726C);
+        actor = (GameA9D90Object *)(&D_800CC2D0 + arg0 * 0x32C);
+        *(s16 *)((u8 *)actor + 0xB2) = 0;
+        if (D_800BE616 != 0) {
+            if (D_800E0C20 == 0) {
+                func_1507D1D8(actor);
+                return;
+            }
+            actor->field_31C->field_120 = 0xA;
+            return;
+        }
+        D_800D18A8 = 1;
+        if (!(D_800D2E4C[0x19] & 4) && D_8008FDA8 >= 0) {
+            func_1501C730(1, 0x22, 0, 0, 0);
+            return;
+        }
+        func_1501C730(2, D_800BE3DF, D_800BE3E0, 0, 0);
+        return;
+    }
+    if (D_800BE616 == 0) {
+        D_800D2E43 = 1;
+        func_1509C3A0();
+        D_800D18A8 = 1;
+        func_15085710(index.halves[1], 5, D_8008726C);
+        func_15085710(index.halves[1], 2, D_80087260);
+        func_1501C730(1, 0x18, 0, 0, 0);
+    } else {
+        D_800D18A0 |= 1U << arg0;
+    }
+    actor2 = &D_800CC2D0 + arg0 * 0x32C;
+    if ((*(u8 **)(actor2 + 0x31C))[0x84] == 0) {
+        D_8008FD94 -= 1;
+    }
+    (*(u8 **)(actor2 + 0x31C))[0x120] = 0xA;
+    D_800BE618 -= 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507D4F8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D4F8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507D754.s")
 void func_1503DE70(void *arg0, s32 arg1, s32 arg2);
@@ -80,6 +151,158 @@ void func_1507DB44(void *arg0, s32 arg1) {
 
 void func_1507DB64(void) {
 }
+typedef struct { u32 first, second; } GameA9D90Command;
+
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+void func_1517EE40(s32, s32, s32, s32, s8, s32);
+void func_15181DC8(s32);
+extern u8 D_80086B80[];
+extern u8 D_D0F;
+extern s32 D_800BE628;
+extern u16 D_800D18A2;
+extern u8 D_800D18A4[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507DB6C CURRENT (7590) */
+void *func_1507DB6C(register void *arg0, s32 arg1) {
+    s32 texture;
+    u8 level;
+    u8 *levelByte;
+    u8 *viewport;
+    u32 flags, bit;
+    u16 *flagWord;
+    s32 centerX, centerY;
+    register s32 radius;
+    s32 right, left, bottom, top;
+    s32 step;
+
+    {
+        GameA9D90Command *command0;
+
+        command0 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command0->first = 0xDE000000;
+        command0->second = (u32)D_80086B80;
+    }
+    texture = func_1510D0EC((s32)&D_D0F, 0, 3, 0);
+    {
+        GameA9D90Command *command1;
+
+        command1 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command1->first = 0xFD180000;
+        command1->second = texture;
+    }
+    {
+        GameA9D90Command *command2;
+
+        command2 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command2->first = 0xF5180000;
+        command2->second = 0x07080200;
+    }
+    {
+        GameA9D90Command *command3;
+
+        command3 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command3->first = 0xE6000000;
+        command3->second = 0;
+    }
+    {
+        GameA9D90Command *command4;
+
+        command4 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command4->first = 0xF3000000;
+        command4->second = 0x073FF000;
+    }
+    {
+        GameA9D90Command *command5;
+
+        command5 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command5->first = 0xE7000000;
+        command5->second = 0;
+    }
+    {
+        GameA9D90Command *command6;
+
+        command6 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command6->first = 0xF5181000;
+        command6->second = 0x00080200;
+    }
+    {
+        GameA9D90Command *command7;
+
+        command7 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command7->first = 0xF2000000;
+        command7->second = 0x0007C07C;
+    }
+    {
+        GameA9D90Command *command8;
+
+        command8 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command8->first = 0xEF002C3F;
+        command8->second = 0x0F0A4004;
+    }
+    flagWord = &D_800D18A2;
+    flags = *flagWord;
+    bit = 1U << arg1;
+    if (flags & bit) {
+        levelByte = D_800D18A4 + arg1;
+        level = *levelByte;
+        if (level >= 4) {
+            *levelByte = level - 4;
+            level = (u8)(level - 4);
+            goto draw;
+        }
+        *flagWord = flags & ~bit;
+        func_15181DC8(arg1);
+        func_1517EE40(0, 0, 0, 120, 0, arg1);
+        return arg0;
+    } else {
+        levelByte = D_800D18A4 + arg1;
+        level = (u8)(*levelByte + 4);
+        *levelByte = level;
+        if (level >= 61) {
+            *levelByte = 60;
+            level = 60;
+        }
+    }
+draw:
+    viewport = (u8 *)D_800BE628 + arg1 * 0x180;
+    centerX = (s32)(*(f32 *)(viewport + 0x2C) + *(f32 *)(viewport + 0x30)) * 2;
+    centerY = (s32)(*(f32 *)(viewport + 0x24) + *(f32 *)(viewport + 0x28)) * 2;
+    radius = level + 4;
+    {
+        GameA9D90Command *command9;
+        GameA9D90Command *command10;
+        GameA9D90Command *command11;
+
+        command9 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command10 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        left = centerX - radius;
+        right = centerX + radius;
+        top = centerY - radius;
+        bottom = centerY + radius;
+        command9->first = ((right & 0xFFF) << 12) | 0xE4000000 | (bottom & 0xFFF);
+        command9->second = ((left & 0xFFF) << 12) | (top & 0xFFF);
+        command10->first = 0xE1000000;
+        command10->second = 0;
+        step = (0x20000 / (right - left)) & 0xFFFF;
+        command11 = (GameA9D90Command *)arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command11->first = 0xF1000000;
+        command11->second = (step << 16) | step;
+    }
+    return arg0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507DB6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9D90/func_1507DB6C.s")
 void func_150836CC(void *, s32);
 

@@ -364,6 +364,103 @@ void func_15134908(s32 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15134908 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15134908.s")
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} BloodTrailPosition;
+
+typedef struct {
+    u8 pad0[0x10];
+    f32 *x;
+    f32 *y;
+    f32 *z;
+    f32 radius;
+    f32 rate;
+    s16 lifetime;
+    u8 flags;
+    u8 emitter;
+    u8 field28;
+    s8 callback;
+    u8 pad2A[2];
+    BloodTrailPosition previous;
+    f32 inverseDiameter;
+    f32 accumulator;
+} BloodTrail;
+
+extern s32 (*D_80089B18[])(void *);
+extern void (*D_80089AFC[])(f32, f32, f32, f32, f32, f32, void *);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+f32 func_150ADA68(void);
+f32 sqrtf(f32);
+#pragma intrinsic(sqrtf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151349D0 CURRENT (2481) */
+void func_151349D0(BloodTrail *trail) {
+    f32 radius;
+    BloodTrailPosition position;
+    f32 deltaX;
+    f32 deltaY;
+    f32 deltaZ;
+    f32 diameter;
+    f32 fraction;
+    f32 randomX;
+    f32 randomY;
+    f32 randomZ;
+    s32 value;
+
+    position.x = *trail->x;
+    position.y = *trail->y;
+    position.z = *trail->z;
+    if (trail->flags & 4) {
+        value = trail->callback;
+        if ((value != -1) && (D_80089B18[value](trail) == 0)) {
+            func_1516972C(trail);
+            return;
+        }
+    }
+    value = trail->flags;
+    if (value & 2) {
+        trail->flags = value & ~2;
+    } else {
+        deltaX = trail->previous.x - position.x;
+        deltaY = trail->previous.y - position.y;
+        deltaZ = trail->previous.z - position.z;
+        trail->accumulator += ((trail->inverseDiameter *
+            sqrtf(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ)) + 1.0f) *
+            D_800BE9A4 * trail->rate;
+        if (trail->accumulator > 7.0f) {
+            trail->accumulator = 7.0f;
+        }
+        if (trail->accumulator > 1.0f) {
+            do {
+                diameter = trail->radius + trail->radius;
+                fraction = func_150ADA68();
+                if (D_80089AFC[trail->emitter] != 0) {
+                    randomX = func_150ADA68();
+                    randomY = func_150ADA68();
+                    randomZ = func_150ADA68();
+                    radius = trail->radius;
+                    D_80089AFC[trail->emitter](
+                        (position.x + deltaX * fraction + radius) - randomX * diameter,
+                        (position.y + deltaY * fraction + radius) - randomY * diameter,
+                        (position.z + deltaZ * fraction + radius) - randomZ * diameter,
+                        deltaX, deltaY, deltaZ, trail);
+                }
+                trail->accumulator -= 1.0f;
+            } while (trail->accumulator > 1.0f);
+        }
+    }
+    trail->previous = position;
+    if (trail->flags & 1) {
+        trail->lifetime -= D_800BE9E4;
+        if (trail->lifetime < 0) {
+            func_1516972C(trail);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151349D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_151349D0.s")
 void func_15134C98(BloodState *arg0, s32 arg1, u8 arg2) {
     if (arg0->unk28 == 1) {
@@ -623,6 +720,82 @@ s32 func_15135BF8(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15135BF8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135BF8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15135DD0.s")
+typedef struct Blood364Position {
+    f32 x;
+    f32 y;
+    f32 z;
+} Blood364Position;
+
+typedef struct Blood364Actor {
+    u8 unknown0[0x14];
+    Blood364Position position;
+} Blood364Actor;
+
+typedef struct Blood364Hit {
+    f32 height;
+    s16 vertices[9];
+    u8 unknown16[2];
+    s32 handle;
+    u8 flags;
+    u8 type;
+    u8 unknown1E[2];
+    void *surface;
+} Blood364Hit;
+
+void func_1504715C(void *, void *);
+void func_15143874(s16, f32, f32 *, f32 *);
+void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+s32 func_15046C80(f32 *, u16, f32, void *);
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800A460C;
+extern f32 D_800A4610;
+extern f32 D_800A4614;
+extern f32 D_800A4618;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15136404 CURRENT (1329) */
+void func_15136404(Blood364Actor *actor, f32 radius, volatile s32 kind, s32 mode) {
+    Blood364Hit hit;
+    Blood364Position probe;
+    Blood364Position output;
+    register f32 scale;
+    register f32 count;
+    register f32 cutoff;
+    register u32 random;
+    register u32 spread = 201;
+    register s16 *vertices;
+    register f32 *position;
+
+    if (actor != 0) {
+        scale = D_800A460C * radius * radius;
+        count = ((func_150ADA68() * D_800A4610) + 108.0f) * D_800A4614 * scale;
+        func_1504715C(&hit, actor);
+        vertices = hit.vertices;
+        position = &output.x;
+        if (count > 1.0f) {
+            cutoff = D_800A4618;
+            do {
+                random = func_150ADA20();
+                func_15143874((s16)(random & 0xFF), func_150ADA68() * radius, &probe.x, &probe.z);
+                probe.x += actor->position.x;
+                probe.z += actor->position.z;
+                probe.y = actor->position.y + 500.0f;
+                if ((func_15046C80(&probe.x, 0, actor->position.y - cutoff, &hit) != 0) && (hit.type != 3)) {
+                    output.x = probe.x;
+                    output.y = hit.height;
+                    output.z = probe.z;
+                    scale = func_150ADA68();
+                    random = func_150ADA20();
+                    func_151D9B8C(0, (scale * 20.0f) + 10.0f, ((random % 101U) + 100) & 0xFF,
+                        (s32)vertices, position, (func_150ADA20() % spread) + 400,
+                        1, 1, 0, (u8)kind, mode);
+                }
+                count -= 1.0f;
+            } while (count > 1.0f);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15136404 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/blood/func_15136404.s")
 typedef struct BloodVec3 {
     f32 x;

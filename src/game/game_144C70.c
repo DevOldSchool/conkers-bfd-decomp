@@ -451,5 +451,118 @@ void func_151194D4(void *arg0, void *arg1, s32 arg2, u32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151194D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151194D4.s")
+typedef struct {
+    s16 x, y, z;
+    u16 group;
+    u8 pad8[8];
+} Game144C70Vertex;
+
+typedef struct {
+    u8 pad0[0x16];
+    u16 count;
+    u8 pad18[0x10];
+    Game144C70Vertex *vertices;
+    u8 pad2C[0x28];
+    u16 kind;
+    u8 pad56[0x2E];
+    s32 active;
+} Game144C70VertexState;
+
+void func_151194D4(void *, void *, s32, s32);
+f32 func_150484A0(f32, f32);
+f32 func_150489B0(u8);
+f32 func_15048A40(u8);
+extern f32 D_800A315C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151196D4 CURRENT (13134) */
+void func_151196D4(Game144C70VertexState *arg0) {
+    Game144C70Vertex *vertex;
+    Game144C70Vertex *base;
+    s32 threshold;
+    s32 group;
+    s32 index;
+    s32 count;
+    s32 sumX, sumZ;
+    s32 angle, inverse;
+    s32 x, z;
+    f32 scale, cosine, sine;
+    f32 originalX, originalZ;
+    u16 kind;
+
+    kind = arg0->kind;
+    vertex = arg0->vertices;
+    threshold = 100;
+    if (kind == 0x21 || kind == 0x22) {
+        threshold = 400;
+    }
+    count = arg0->count;
+    arg0->active = 1;
+    group = 0;
+    index = 0;
+    if (count > 0) {
+        do {
+            if (vertex->group == 0) {
+                z = vertex->z;
+                x = vertex->x;
+                if (threshold < (s32)((u32)(z * z) + (u32)(x * x))) {
+                    group++;
+                    vertex->group = group;
+                    func_151194D4(arg0, vertex, threshold, group);
+                    count = arg0->count;
+                }
+            }
+            index++;
+            vertex++;
+        } while (index < count);
+    }
+    if (group != 0) {
+        scale = D_800A315C;
+        do {
+            count = arg0->count;
+            base = arg0->vertices;
+            sumX = 0;
+            sumZ = 0;
+            index = 0;
+            vertex = base;
+            if (count > 0) {
+                do {
+                    index++;
+                    if (group == vertex->group) {
+                        sumX += vertex->x;
+                        sumZ += vertex->z;
+                    }
+                    vertex++;
+                } while (index < count);
+            }
+            if (sumX != 0 || sumZ != 0) {
+                vertex = base;
+                angle = (s32)(func_150484A0((f32)sumX, (f32)sumZ) * scale) & 0xFF;
+                index = 0;
+                if (group < angle) {
+                    inverse = -angle & 0xFF;
+                    cosine = func_15048A40(inverse & 0xFF);
+                    sine = func_150489B0(inverse & 0xFF);
+                    count = arg0->count;
+                    if (count > 0) {
+                        do {
+                            index++;
+                            if (group == vertex->group) {
+                                originalZ = (f32)vertex->z;
+                                originalX = (f32)vertex->x;
+                                vertex->group = (((group - 1) & 3) << 8) | angle;
+                                vertex->x = (s32)(originalZ * cosine + originalX * sine);
+                                vertex->z = (s32)(originalZ * sine - originalX * cosine);
+                                count = arg0->count;
+                            }
+                            vertex++;
+                        } while (index < count);
+                    }
+                }
+            }
+            group--;
+        } while (group != 0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151196D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151196D4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_15119938.s")

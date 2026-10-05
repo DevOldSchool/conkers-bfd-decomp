@@ -349,7 +349,61 @@ void func_1515E43C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4,
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515E43C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E43C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E544.s")
+void func_1515E278(s32, s32, s32, s32, u8 *, u32, s32);
+extern u8 D_800D9E21;
+extern u8 *D_800D9E28[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515E888 CURRENT (12477) */
+void func_1515E888(s32 arg0, s32 x, s32 y, s32 z, s32 mode,
+                   u8 *color, u32 flags, s32 options) {
+    f32 channels[3];
+    f32 position[3];
+    f32 dx, dy, dz, amount;
+    s32 count, index, value;
+    u8 **slot;
+    u8 *light;
+
+    func_1515E278(x, y, z, mode, color, flags, options);
+    channels[0] = (f32)(u32)color[0];
+    channels[1] = (f32)(u32)color[1];
+    channels[2] = (f32)(u32)color[2];
+    index = 0;
+    count = (D_800D9E21 & 0x7F) - 1;
+    if (count > 0) {
+        slot = D_800D9E28;
+        do {
+            light = *slot;
+            index++;
+            if (light != 0) {
+                position[0] = *(s16 *)(light + 0xE);
+                position[1] = *(s16 *)(light + 0x10);
+                position[2] = *(s16 *)(light + 0x12);
+                dz = position[2] - (f32)z;
+                dx = position[0] - (f32)x;
+                dy = position[1] - (f32)y;
+                amount = ((f32)(u32)light[0x2F] * 2048.0f) /
+                         (dz * dz + (dx * dx + dy * dy));
+                if (amount > 1.0f) amount = 1.0f;
+                channels[0] += amount * (f32)(u32)light[5];
+                channels[1] += amount * (f32)(u32)light[6];
+                channels[2] += amount * (f32)(u32)light[7];
+            }
+            slot++;
+        } while (index != count);
+    }
+    value = (s32)channels[0];
+    if (value >= 256) value = 255;
+    color[0] = value;
+    value = (s32)channels[1];
+    if (value >= 256) value = 255;
+    color[1] = value;
+    value = (s32)channels[2];
+    if (value >= 256) value = 255;
+    color[2] = value;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515E888 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515E888.s")
+
 typedef struct Game18A8F0SearchActor {
     u8 pad0[0x14];
     f32 x;
@@ -409,7 +463,102 @@ void *func_1515EB84(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1515EB84 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515EB84.s")
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+f32 sqrtf(f32);
+#pragma intrinsic (sqrtf)
+extern u8 D_800D9C10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515EC78 CURRENT (6744) */
+void func_1515EC78(u8 *light, s32 slot, u8 *output, s32 x, s32 y,
+                   s32 z, s32 flags) {
+    f32 transformed[3];
+    s32 position[3];
+    s32 normal[3];
+    u32 mask;
+
+    position[0] = *(s16 *)(light + 0xE);
+    if (position[0] != -0x8000) {
+        position[1] = *(s16 *)(light + 0x10);
+        position[2] = *(s16 *)(light + 0x12);
+    } else {
+        f32 *source;
+        source = (f32 *)(((u32)*(s16 *)(light + 0x12) & 0xFFFFU) |
+                         ((u32)*(s16 *)(light + 0x10) << 16));
+        position[0] = (s32)source[0];
+        position[1] = (s32)source[1];
+        position[2] = (s32)source[2];
+    }
+    if (flags & 2) {
+        f32 dx, dy, dz, distance, scale;
+        dx = (f32)(s32)((u32)position[0] - (u32)x);
+        dy = (f32)(s32)((u32)position[1] - (u32)y);
+        dz = (f32)(s32)((u32)position[2] - (u32)z);
+        distance = sqrtf((dx * dx + dy * dy) + dz * dz);
+        if (distance != 0.0f) {
+            scale = 127.0f / distance;
+            dx *= scale;
+            dy *= scale;
+            dz *= scale;
+        } else {
+            dz = 0.0f;
+            dx = 127.0f;
+            dy = 0.0f;
+        }
+        normal[0] = (s32)dx;
+        normal[1] = (s32)dy;
+        normal[2] = (s32)dz;
+    } else {
+        normal[0] = 0;
+        normal[1] = 0;
+        normal[2] = 127;
+    }
+    mask = 1U << slot;
+    if (light[0x30] & mask) {
+        u8 *cache;
+        cache = (u8 *)((u32)light + (u32)(slot * 6));
+        position[0] = *(s16 *)(cache + 0x14);
+        position[1] = *(s16 *)(cache + 0x16);
+        position[2] = *(s16 *)(cache + 0x18);
+    } else {
+        u8 *cache;
+        func_150A7960(D_800D9C10 + (slot << 6),
+                     (f32)position[0], (f32)position[1], (f32)position[2],
+                     transformed, transformed + 1, transformed + 2);
+        position[0] = (s32)transformed[0];
+        position[1] = (s32)transformed[1];
+        position[2] = (s32)transformed[2];
+        cache = (u8 *)((u32)light + (u32)(slot * 6));
+        *(s16 *)(cache + 0x14) = position[0];
+        *(s16 *)(cache + 0x16) = position[1];
+        *(s16 *)(cache + 0x18) = position[2];
+        light[0x30] |= mask;
+    }
+    {
+        u8 *half_output, *color, *byte_output;
+        s32 *direction, *point;
+        half_output = output;
+        color = light;
+        direction = normal;
+        point = position;
+        byte_output = output;
+        do {
+            point++;
+            byte_output++;
+            byte_output[-1] = color[5];
+            byte_output[3] = color[5];
+            color++;
+            direction++;
+            half_output += 2;
+            byte_output[7] = direction[-1];
+            *(s16 *)(half_output + 0x1E) = point[-1];
+            *(s16 *)(half_output + 0x26) = point[-1];
+        } while (point != position + 3);
+    }
+    output[0xC] = light[0x2F];
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1515EC78 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_18A8F0/func_1515EC78.s")
+
 f32 func_1515F008(s32, s32);
 void func_1515F040(f32, s32);
 void func_1515F0AC(f32, s32);

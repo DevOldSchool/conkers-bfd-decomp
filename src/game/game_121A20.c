@@ -61,7 +61,77 @@ void *func_150F48D0(u8 *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150F48D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F48D0.s")
+typedef struct GameF4A38Vector {
+    f32 x, y, z;
+} GameF4A38Vector;
+
+typedef struct GameF4A38Actor {
+    u8 pad0[0x38];
+    GameF4A38Vector position;
+    u8 pad44[0x2C];
+    u8 opacity;
+    u8 pad71[0x17];
+    u32 sound;
+    u8 pad8C[0xE4];
+    Game121A20NestedState nested;
+} GameF4A38Actor;
+
+s32 func_15144B34(s32);
+f32 func_15143E64(void *);
+void func_1000F9D4(s32, s32, s32, s32);
+s32 func_10010F88(s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+s32 func_150ADA20(void);
+extern f64 D_800A1A88, D_800A1A90;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4A38 CURRENT (1667) */
+s32 func_150F4A38(GameF4A38Actor *arg0) {
+    f32 distance;
+    GameF4A38Vector delta;
+    u8 *saved;
+    u8 *nested;
+    GameF4A38Vector *camera;
+    u32 handle;
+    s32 flags;
+
+    nested = (u8 *) &arg0->nested;
+    if ((arg0->nested.flags & 1) || ((flags = nested[0x24]) & 2)) {
+        saved = (u8 *) &arg0->nested;
+        camera = (GameF4A38Vector *) func_15144B34(0);
+        delta.x = arg0->position.x - camera->x;
+        delta.y = arg0->position.y - camera->y;
+        delta.z = arg0->position.z - camera->z;
+        distance = func_15143E64(&delta);
+        nested = saved;
+        flags = nested[0x24];
+    }
+    if (flags & 1) {
+        if (distance < 500.0f) {
+            arg0->opacity = 0;
+        } else if (distance < 1200.0f) {
+            arg0->opacity = (u32) ((f64) (distance - 500.0f) * D_800A1A88 * D_800A1A90);
+        } else {
+            arg0->opacity = 255;
+        }
+        flags = nested[0x24];
+    }
+    if ((flags & 2) && !(flags & 4)) {
+        handle = arg0->sound >> 16;
+        if (handle != 0) {
+            func_1000F9D4(handle & 0xFFFF, (s16) (s32) arg0->position.x,
+                         (s16) (s32) arg0->position.y, (s16) (s32) arg0->position.z);
+        } else if (distance < 200.0f) {
+            handle = func_10010F88(arg0->sound & 0xFFFF,
+                (u16) ((func_150ADA20() & 0x3FFF) + 0x4000), 0, 0, -1,
+                (s32) arg0->position.x, (s32) arg0->position.y, (s32) arg0->position.z,
+                10000, 20000);
+            arg0->sound |= handle << 16;
+        }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F4A38 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_121A20/func_150F4A38.s")
+
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150F4CFC CURRENT (410) */
 void func_150F4CFC(Game121A20State *arg0, s32 arg1, u8 arg2) {

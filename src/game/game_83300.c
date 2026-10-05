@@ -15,7 +15,6 @@
  * - func_150585F0
  * - func_15058898
  * - func_15058F24
- * - func_15059140
  * - func_150593C4
  * - func_15059444
  * - func_1505959C
@@ -324,7 +323,145 @@ void func_1505841C(Game83300Actor *arg0, f32 arg1) {
         }
     }
 }
+typedef struct Game83300Child585F0 {
+    u8 pad0[0x7D];
+    u8 field7D;
+} Game83300Child585F0;
+
+typedef struct Game83300State585F0 {
+    s32 kind;
+    u8 pad4[0x14];
+    f32 height18;
+    u8 pad1C[4];
+    f32 field20, field24, field28;
+    u8 pad2C[0x10];
+    f32 field3C;
+    u8 pad40[0x36];
+    u16 angle76, angle78, angle7A;
+    u8 pad7C[4];
+    u8 field80, field81, pad82, field83;
+    u8 pad84[0x29];
+    u8 modeAD;
+    u8 padAE[0xA];
+    f32 fieldB8;
+    u8 padBC[0x38];
+    s32 flagsF4, flagsF8;
+    u8 padFC[8];
+    u8 count104;
+    u8 pad105[4];
+    u8 strength109, pad10A, flags10B;
+    s16 timer10C;
+    u8 pad10E[0xA];
+    f32 ground118;
+    u8 pad11C[0xAE];
+    u8 field1CA, pad1CB;
+    f32 height1CC;
+    u8 pad1D0[0x4C];
+    s16 cooldown21C;
+    u8 pad21E[0x1A];
+    u8 owner238, pad239, backup23A;
+    u8 pad23B[0xE1];
+    Game83300Child585F0 *child31C;
+} Game83300State585F0;
+
+void func_1505A3A8(f32, void *, f32, f32, u8);
+void func_150599C8(u8 *, s32, u16);
+void func_1505E874(u8, void *);
+void func_1506B078(void);
+extern f32 D_80099478, D_8009947C, D_80099480, D_80099484;
+extern u8 D_800BE616, D_800C3E78;
+extern s16 D_800CC264;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150585F0 CURRENT (595) */
+void func_150585F0(u8 *arg0, register f32 arg1) {
+    Game83300State585F0 *actor;
+    Game83300Child585F0 *child;
+    f32 strength;
+    f32 value;
+    s32 mode;
+    s32 count;
+    s32 flags;
+    s32 copiedAngle;
+    u16 angle;
+    s32 owner;
+
+    actor = (void *)arg0;
+    strength = (f32)(u32)actor->strength109;
+    func_1505A3A8(0.0f, actor, 1.0f, strength * D_80099478, 0);
+    if (actor->height1CC < D_8009947C) {
+        actor->height1CC = actor->height18;
+    }
+    mode = actor->modeAD;
+    if (mode != 0 && mode < 10) {
+        value = actor->field20;
+        actor->field24 = 0.0f;
+        if (value < 60.0f) {
+            actor->field20 = value * D_80099480;
+        }
+        if ((actor->ground118 - 60.0f) + 40.0f < actor->height18) {
+            actor->field81 = 0;
+            actor->field83 = 0;
+            actor->modeAD = 0;
+            actor->fieldB8 = 0.0f;
+            actor->field24 = 4.0f;
+        }
+    }
+    if (D_800BE616 == 0 || actor->kind != 1) {
+        actor->cooldown21C = 0;
+    }
+    count = actor->count104;
+    if (count != 255) {
+        if (count != 254 && (actor->field1CA != 0 || actor->kind != 1)) {
+            actor->count104 = count - 1;
+        }
+        value = actor->field28;
+        actor->timer10C -= D_800CC264;
+        if (value < D_80099484 && (actor->flagsF4 & 0x100)) {
+            actor->timer10C = 0;
+        }
+        if (actor->timer10C <= 0) {
+            child = actor->child31C;
+            if (child != 0) {
+                child->field7D = 0;
+            }
+            actor->timer10C = 0;
+            func_1505E874(D_800C3E78, actor);
+        }
+        if (actor->count104 == 0) {
+            copiedAngle = actor->angle7A;
+            actor->field3C = 0.0f;
+            actor->field81 = 0;
+            actor->angle78 = copiedAngle;
+            actor->angle76 = copiedAngle;
+            if (actor->modeAD != 0) {
+                actor->field20 = 0.0f;
+                if (actor->kind == 1) {
+                    func_1506B078();
+                }
+            } else if (actor->kind == 1) {
+                actor->flagsF8 &= 0xFFFF7FFF;
+                actor->field24 = 4.0f;
+            }
+            owner = actor->owner238;
+            if (owner != 0) {
+                actor->backup23A = owner;
+            }
+        } else {
+            flags = actor->flags10B;
+            if (!(flags & 2)) {
+                angle = actor->angle76;
+                if (flags & 4) {
+                    angle = (angle ^ 0x8000) & 0xFFFF;
+                }
+                actor->field80 = 10;
+                func_150599C8(arg0, 12, angle);
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150585F0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150585F0.s")
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058898.s")
 void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 temp_fv0;
@@ -408,7 +545,106 @@ void func_15058F24(void *arg0, register f32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15058F24 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058F24.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059140.s")
+void func_150511E8(u8 *);
+void func_15055E50(u8 *, u8);
+void func_15056150(void *);
+void func_15056258(void *);
+void func_15056B08(u8 *);
+void func_15058898(u8 *, s32);
+/* Raw caller supplies an unused third float in a2. */
+void func_15058F24(void *, f32, f32);
+void func_15059444(s32);
+void func_15059C84(void *);
+void func_1505A250(f32, f32, f32, f32 *, f32 *);
+void func_1505A770(void *);
+void func_1505B5F8(u8 *, f32);
+void func_1505C7D8(s32 *, s32);
+void func_1505D6F0(u8 *, u8);
+extern s32 D_800CC268;
+extern u8 D_800C3E78;
+extern u8 D_800BE9A0;
+extern f32 D_800994A8;
+extern f32 D_800994AC;
+extern f32 D_800994B0;
+extern f32 D_800994B4;
+
+void func_15059140(u8 *arg0) {
+    f32 scale;
+    s32 flags;
+    s32 value;
+    s32 step;
+
+    scale = 0.5f;
+    D_800CC268 = 0;
+    if ((arg0[0x13D] == 0 || *(u16 *)(arg0 + 0x21C) < 16) &&
+        arg0[0x223] != 8) {
+        func_15059C84(arg0);
+        func_1505A770(arg0);
+    }
+    func_1505D6F0(arg0, D_800C3E78);
+    func_15055E50(arg0, arg0[0x1E4]);
+    if (arg0[4] == 8) {
+        func_15056150(arg0);
+    }
+    if (arg0[0x13D] < 100) {
+        func_15058898(arg0, *(s32 *)(arg0 + 0x30));
+    }
+    flags = *(s32 *)(arg0 + 0xF4);
+    if ((flags & 0x40000) && ((flags & 0x12000) || D_800CC268 != 0)) {
+        *(u16 *)(arg0 + 0x21C) = 0;
+    }
+    value = *(s8 *)(arg0 + 0xB0);
+    if (value != 0) {
+        func_15058F24(arg0, (f32)value * D_800994A8, 1.0f);
+    }
+    if (*(s32 *)(arg0 + 0xF8) & 0x20000) {
+        func_15056258(arg0);
+    }
+    if (arg0[0xAD] != 0) {
+        func_15059444((s32)arg0);
+    }
+    if (arg0[4] == 10) {
+        *(f32 *)(arg0 + 0x180) = D_800994AC;
+    }
+    if (*(s32 *)(arg0 + 0xF8) & 0x180000) {
+        func_150511E8(arg0);
+    }
+    func_1505B5F8(arg0, *(f32 *)(arg0 + 0x180));
+    if ((*(s32 *)(arg0 + 0xF4) & 0x1000) &&
+        *(f32 *)(arg0 + 0x28) < D_800994B0) {
+        func_15056B08(arg0);
+    }
+    if (*(s32 *)(arg0 + 0xF8) & 0x80000) {
+        scale = D_800994B4;
+    }
+    func_1505A250(0.0f, 0.0f, scale,
+                   (f32 *)(arg0 + 0x164), (f32 *)(arg0 + 0x168));
+    if (arg0[0xD0] != 0) {
+        func_1505C7D8((s32 *)arg0, D_800C3E78);
+    }
+    if (arg0[0x13D] == 0) {
+        value = D_800BE9A0;
+        step = arg0[0x10F];
+        if (value >= step) {
+            arg0[0x10F] = 0;
+        } else {
+            arg0[0x10F] = step - value;
+        }
+    }
+    value = arg0[0x107];
+    if (value != 0) {
+        arg0[0x107] = value - 1;
+    }
+    step = arg0[0x125];
+    if (step != 255) {
+        value = D_800BE9A0;
+        if (value >= step) {
+            arg0[0x125] = 0;
+        } else {
+            arg0[0x125] = step - value;
+        }
+    }
+}
 void func_1505A184(u16, f32, s32, f32 *, f32 *, s32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150593C4 CURRENT (309) */
@@ -479,6 +715,78 @@ void func_15059444(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15059444 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15059444.s")
+typedef struct Game83300AnimationRecord {
+    u8 pad00[0x15];
+    u8 flags;
+    u8 pad16[2];
+} Game83300AnimationRecord;
+
+extern u16 D_800860C0[];
+extern f32 D_800860CC[];
+extern u16 D_800860E4[];
+extern void *D_800D1588[];
+s32 func_1505A630(f32, f32, s32);
+u32 func_1505E7CC(s32, void *);
+void func_1505E874(u8, void *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505959C CURRENT (852) */
+void func_1505959C(void *arg0, s32 arg1, register void *arg2) {
+    Game83300Actor *other;
+    s32 selection;
+    s32 offset;
+
+    *(u32 *)((u8 *)arg0 + 0xF8) &= 0xFF7FFFFF;
+    *((u8 *)arg0 + 0x13D) = arg1 + 0x64;
+    *(u16 *)((u8 *)arg0 + 0x21C) = 0;
+    *(u32 *)((u8 *)arg0 + 0x25C) &= ~8;
+    other = (Game83300Actor *)((u8 *)&D_800CC2D0 + arg1 * 0x32C);
+    *(f32 *)((u8 *)arg0 + 0x24) = 4.0f;
+    other->pad40[0x43] = 0xFF;
+    other->pad86[3] = 0xFF;
+    arg2 = (void *)(u32)*((u8 *)arg0 + 4);
+    selection = 0;
+    if ((u32)arg2 == 0x57) selection = 1;
+    if (other->modelIndex == 0x9B) selection = 2;
+    if ((u32)arg2 == 0x5E) selection = 3;
+    if ((u32)arg2 == 0x3C) {
+        other->pad86[0xB6] = 0;
+        selection = 4;
+        *(u16 *)((u8 *)other + 0x76) = func_1505A630(
+            *(f32 *)((u8 *)arg0 + 0x14) - *(f32 *)((u8 *)other + 0x14),
+            *(f32 *)((u8 *)other + 0x1C) - *(f32 *)((u8 *)arg0 + 0x1C), 0);
+        arg2 = (void *)(u32)*((u8 *)arg0 + 4);
+    }
+    if ((u32)arg2 == 0x89) selection = 5;
+    offset = selection * 2;
+    func_1505E650(other, *(u16 *)((u8 *)D_800860C0 + offset), D_800860CC[selection],
+        0.0f, 0.0f, 0.0f, 0);
+    *((u8 *)arg0 + 0x104) = 0xFE;
+    *((u8 *)arg0 + 0x105) = 0;
+    *((u8 *)arg0 + 0x106) = func_1505E7CC(*(u16 *)((u8 *)D_800860E4 + offset), arg0);
+    *(u16 *)((u8 *)arg0 + 0x84) = 0xFFFF;
+    func_1505E874(D_800C3E78, arg0);
+    {
+        void *entry;
+        Game83300AnimationRecord *animations;
+        entry = D_800D1588[*((u8 *)arg0 + 4)];
+        if (entry != 0) {
+            animations = *(Game83300AnimationRecord **)((u8 *)entry - 8);
+            if (animations != 0 && (animations[*((u8 *)arg0 + 0x106)].flags & 2)) {
+                *(u16 *)((u8 *)arg0 + 0x7A) = *(u16 *)((u8 *)other + 0x7A);
+            }
+            if (animations == 0 || !(animations[*((u8 *)arg0 + 0x106)].flags & 1)) {
+                *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
+                    *(u16 *)((u8 *)other + 0x7A)) >> 8;
+                return;
+            }
+            *((u8 *)arg0 + 0x13E) = 0;
+            return;
+        }
+        *((u8 *)arg0 + 0x13E) = (s32)(*(u16 *)((u8 *)arg0 + 0x7A) -
+            *(u16 *)((u8 *)other + 0x7A)) >> 8;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505959C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505959C.s")
 typedef struct Game83300InteractionState {
     u8 pad0[0x18];
@@ -1189,6 +1497,97 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
 #endif /* CONKER_DEFERRED_CANDIDATE func_1505D5D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D5D0.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505D6F0.s")
+typedef struct {
+    s32 state;
+    u8 pad4[0x10];
+    f32 x;
+    f32 y;
+    f32 z;
+    u8 pad20[0x5A];
+    u16 heading;
+    u8 pad7C[0x7C];
+    s32 flags;
+    u8 padFC[8];
+    u8 priority;
+    u8 pad105[0xC5];
+    u8 active;
+    u8 pad1CB[0x12F];
+    u8 enabled;
+    u8 pad2FB[0x31];
+} Game83300AimActor;
+
+extern f32 D_80099534;
+extern f32 D_80099538;
+f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
+                   f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DADC CURRENT (3102) */
+s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
+                   s32 pitch, s32 excluded, s32 range) {
+    s16 angle;
+    f32 horizontalSquared;
+    f32 vertical;
+    s32 hit;
+    s16 vertices[9];
+    f32 hitX;
+    f32 hitY;
+    f32 hitZ;
+    f32 hitDistance;
+    f32 distance;
+    f32 bestDistance;
+    f32 x;
+    f32 y;
+    f32 z;
+    s32 index;
+    s32 result;
+    s32 excludeIndex;
+    u8 priority;
+    Game83300AimActor *other;
+
+    excludeIndex = excluded & 0xFF;
+    bestDistance = D_80099534;
+    priority = 0;
+    result = 0xFF;
+    if (excludeIndex == 0xFE) {
+        bestDistance = D_80099538;
+    }
+    index = 0;
+    do {
+        other = (Game83300AimActor *)((u8 *)&D_800CC2D0 + index * 0x32C);
+        if ((other->state != 0) && (other->active != 0) &&
+            ((((s32)self - (s32)&D_800CC2D0) / 812) & 0xFF) != index &&
+            (other->flags & 0x40) && (excludeIndex != index) &&
+            (other->enabled != 0)) {
+            distance = func_1505DF10(self, index & 0xFF, &angle,
+                                      &horizontalSquared, &vertical);
+            if ((distance < bestDistance) || ((other->priority == 0) && (priority != 0))) {
+                if ((((s32)((u16)angle - self->heading) >> 8) +
+                     (u8)range & 0xFF) < (u8)range * 2) {
+                    if (((((func_1505A630(sqrtf(horizontalSquared), -vertical, 0) >> 8) &
+                           0xFF) - (u8)pitch + 0x10) & 0xFF) < 0x20) {
+                        y = self->y;
+                        z = self->z;
+                        x = self->x;
+                        if ((func_150AC9C0(x, y + 80.0f, z, other->x - x,
+                                             other->y - y, other->z - z, &hit,
+                                             vertices, &hitX, &hitY, &hitZ, &hitDistance,
+                                             0, 0, 0.0f) == 0) ||
+                            (hitDistance *= hitDistance, !(hitDistance < distance))) {
+                            priority = other->priority;
+                            result = index & 0xFF;
+                            bestDistance = distance;
+                            *angleOut = angle;
+                        }
+                    }
+                }
+            }
+        }
+        index = (index + 1) & 0xFF;
+    } while (index < 0x19);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1505DADC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505DADC.s")
 extern s32 D_80082FA0;
 extern s32 D_800CC2D0;
@@ -1644,11 +2043,77 @@ void func_1505F188(u32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F188.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505F298.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1506045C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
 typedef struct {
     u8 pad_0[0x318];
     void *field_318;
 } Game83300DispatchState;
+
+void func_1000F85C(u16, s32, s32);
+void func_1000F91C(u16, s32, s16, s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010E78(s32, s32, u16, s32, s32, s32, s32, s32, s32, s32, s32);
+u16 func_10010BE8(s32, s32, s32, s32, s32, s32, s32);
+s32 func_1001147C(u16);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060778 CURRENT (2818) */
+void func_15060778(s32 arg0, Game83300DispatchState *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6) {
+    u32 handle;
+    s32 channel;
+    s32 mode;
+    u16 *slot;
+    u16 result;
+
+    handle = 0;
+    slot = 0;
+    if (arg6 & 8) {
+        channel = 0;
+    } else {
+        channel = (*(u32 *)&arg1->pad_0[0x184] >> 3) & 0x30;
+    }
+    mode = arg6 & 3;
+    switch (mode) {
+    case 1:
+        slot = (u16 *)&arg1->pad_0[0x8C];
+        handle = *(u16 *)&arg1->pad_0[0x8C];
+        break;
+    case 2:
+    case 3:
+        slot = (u16 *)&arg1->pad_0[0x8E];
+        handle = *(u16 *)&arg1->pad_0[0x8E];
+        if (mode == 2) {
+            break;
+        }
+        if ((func_1001147C((u16)handle) == arg0) & 0x7FFF) {
+            if (arg6 & 4) {
+                func_1000F91C((u16)handle, (u16)((u16)arg2 + channel * 50),
+                              (s16)(arg1->pad_0[0x13F] * 10 + arg3), channel & 0xFF, 0,
+                              (s32)*(f32 *)&arg1->pad_0[0x14],
+                              (s32)*(f32 *)&arg1->pad_0[0x18],
+                              (s32)*(f32 *)&arg1->pad_0[0x1C], arg4, arg5);
+            } else {
+                func_1000F85C((u16)handle, 0x10, arg3);
+                func_1000F85C((u16)handle, 8, (u16)arg2 + channel * 50);
+            }
+            return;
+        }
+        arg0 |= 0x8000;
+        break;
+    }
+    if (arg6 & 4) {
+        result = func_10010E78((u16)handle, arg0, (u16)((u16)arg2 + channel * 50),
+                              (s16)arg3, channel, 0,
+                              (s32)*(f32 *)&arg1->pad_0[0x14],
+                              (s32)*(f32 *)&arg1->pad_0[0x18],
+                              (s32)*(f32 *)&arg1->pad_0[0x1C], arg4, arg5);
+    } else {
+        result = func_10010BE8((u16)handle, arg0, (u16)((u16)arg2 + channel * 50),
+                              0x40, arg3, channel, 1);
+    }
+    if (slot != 0) {
+        *slot = result;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15060778 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060778.s")
 
 /* Call context: func_10010344: unique active project prototype */
 s32 func_10010344(s32, s32, u32, s16, s32);
@@ -1801,7 +2266,139 @@ void func_15060D54(Game83300ActorLink *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15060D54 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060D54.s")
 
+typedef struct Game83300CleanupHeader {
+    u16 flags;
+    u8 released;
+} Game83300CleanupHeader;
+typedef struct Game83300CleanupChild {
+    u8 pad0[0x11C];
+    s32 allocation;
+} Game83300CleanupChild;
+typedef struct Game83300CleanupActor {
+    u8 pad0[5], kind, pad6[0x139], slot, pad140[4];
+    Game83300CleanupHeader *header;
+    u8 pad148[0x90];
+    s32 allocation1D8;
+    u8 pad1DC[0x84];
+    s32 allocations[4];
+    u8 pad270[0x60];
+    s32 allocation2D0;
+    u8 *effect;
+    u8 pad2D8[0x2C];
+    s32 viewAllocations[4], allocation314;
+    u8 pad318[4];
+    Game83300CleanupChild *child;
+    u8 pad320[4];
+    s32 allocation324;
+} Game83300CleanupActor;
+
+s32 func_1514D310(void *);
+void func_151695F0(void *, u8);
+void func_1516972C(u8 *);
+void func_15084558(void *);
+void func_150626EC(s32, s32);
+void func_1504AF10(void *, s32, s32);
+void func_1503E260(s32);
+void func_10004074(s32);
+void func_100043B4(s32, s32);
+void func_10010AA8(u8 *);
+s32 func_150303E4(void *);
+void func_15060D54(Game83300ActorLink *);
+void func_15188AD0(s32);
+extern u8 *D_800D210C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15060F28 CURRENT (2525) */
+void func_15060F28(u8 *arg0, s32 arg1) {
+    Game83300CleanupActor *actor;
+    Game83300CleanupHeader *header;
+    Game83300CleanupChild *child;
+    u8 *entry;
+    s32 slot, flags;
+    s32 allocation;
+    u8 *effect;
+
+    actor = (Game83300CleanupActor *)arg0;
+    func_1514D310(arg0);
+    func_151695F0(arg0, 0);
+    if (actor->kind != 2 && actor->kind != 3) {
+        func_15084558(arg0);
+        func_150626EC((s32)arg0, arg1);
+    }
+    if (arg1 == 1) {
+        func_1504AF10(arg0, 1, 0);
+        func_1503E260((arg0 - (u8 *)&D_800CC2D0) / 0x32C);
+    }
+    slot = actor->slot;
+    if (slot != 0xFF) {
+        if (arg1 != 2) {
+            header = actor->header;
+            if (header != 0) {
+                flags = header->flags;
+                if (flags & 0x20) {
+                    header->released = 1;
+                    D_800D210C[actor->slot] = 0;
+                } else {
+                    if (flags & 1) {
+                        entry = D_800D210C + slot;
+                        goto clear_entry;
+                    }
+                    header->released = 1;
+                    entry = actor->slot + D_800D210C;
+                    *entry &= 0x80;
+                }
+            } else {
+                entry = slot + D_800D210C;
+                *entry &= 0x80;
+            }
+        } else {
+            entry = D_800D210C + slot;
+clear_entry:
+            *entry = 0;
+        }
+    }
+    allocation = actor->allocations[0];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocations[1];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocations[2];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocations[3];
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocation1D8;
+    if (allocation != 0) func_10004074(allocation);
+    effect = actor->effect;
+    if (effect != 0) func_1516972C(effect);
+    if (actor->viewAllocations[0] != 0) {
+        arg1 = 0;
+        if (D_80082FA0 >= 0) {
+            do {
+                func_100043B4(actor->viewAllocations[arg1], 4);
+                arg1 = (arg1 + 1) & 0xFF;
+            } while (D_80082FA0 >= arg1);
+        }
+    }
+    allocation = actor->allocation314;
+    if (allocation != 0) func_100043B4(allocation, 4);
+    allocation = actor->allocation2D0;
+    if (allocation != 0) func_10004074(allocation);
+    allocation = actor->allocation324;
+    if (allocation != 0) func_10004074(allocation);
+    child = actor->child;
+    if (child != 0) {
+        allocation = child->allocation;
+        if (allocation != 0) func_10004074(allocation);
+    }
+    func_10010AA8(arg0);
+    func_150303E4(arg0);
+    func_15060D54((Game83300ActorLink *)arg0);
+    func_15188AD0((s32)arg0);
+    child = actor->child;
+    if (child != 0) func_10004074((s32)child);
+    func_1505F188((u32)arg0);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15060F28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15060F28.s")
+
 /* Call context: func_1505A630: unique active declaration in the allowed source */
 extern f32 D_8009968C;
 extern s32 D_800D2104;
@@ -2162,6 +2759,90 @@ loop_16:
  * Do not name this entire routine or the shared actor field after Haybot.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15061B4C.s")
+s32 func_150A6360(void *, void *, f32, f32, f32, f32, f32, f32);
+extern f32 D_80099694;
+extern s32 D_800BE628;
+extern u8 D_800D9C10[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150623F4 CURRENT (1405) */
+s32 func_150623F4(u8 *actor) {
+    f32 radius;
+    f32 height;
+    f32 margin;
+    register f32 dx, dz, centerX, centerZ, radiusSquared;
+    register s32 count, owner, players;
+    s32 index, offset, clear;
+    u32 sum;
+    register u32 circleRadius;
+    register u8 *header, *cursor, *end, *circle;
+    u8 *matrix;
+
+    header = *(u8 **)(actor + 0x144);
+    if (header != 0) radius = (f32)(u32)*(u16 *)(header + 0x2A);
+    else radius = 0.0f;
+    if (radius == 0.0f) return 1;
+    if (actor[0x127] != 0xFF) return 1;
+    if (D_800C3638 != 0 && func_150229E4(actor) != 0) return 1;
+    sum = 0;
+    cursor = actor;
+    count = D_80082FA0;
+    if (count >= 0) {
+        end = count + actor;
+        do {
+            sum += cursor[0xB];
+            cursor++;
+        } while ((u32)cursor <= (u32)end);
+    }
+    if (sum == 0) return 0;
+    if ((actor[0x74] & 0xF) != 0xF) return 1;
+    owner = actor[0x13F];
+    if (*(owner + (u8 *)D_800D2108) != 0) {
+        players = D_8008FD8C;
+        clear = 1;
+        index = 0;
+        if (players > 0) {
+            circle = ((u8 **)D_800D2104)[owner];
+            cursor = (u8 *)&D_800CC2D0;
+            circleRadius = *(u16 *)(circle + 6);
+            centerX = *(s16 *)circle;
+            centerZ = *(s16 *)(circle + 4);
+            radiusSquared = (f32)(s32)(circleRadius * circleRadius);
+circle_next:
+            index++;
+            dx = centerX - *(f32 *)(cursor + 0x14);
+            dz = centerZ - *(f32 *)(cursor + 0x1C);
+            if (dx * dx + dz * dz < radiusSquared) {
+                clear = 0;
+            } else {
+                cursor += 0x32C;
+                if (index < players) goto circle_next;
+            }
+        }
+        if (clear == 0) return 1;
+    }
+    height = (f32)*(s16 *)(D_800D1C90[actor[4]] + 0x10) * *(f32 *)(actor + 0x150);
+    matrix = D_800D9C10;
+    index = 0;
+    offset = 0;
+    if (count >= 0) {
+        clear = 1;
+        margin = D_80099694;
+        do {
+            if (func_150A6360(offset + (u8 *)D_800BE628, matrix,
+                *(f32 *)(actor + 0x14), *(f32 *)(actor + 0x18) + height,
+                *(f32 *)(actor + 0x1C), radius, radius, margin) != 0) {
+                clear = 0;
+                break;
+            }
+            index++;
+            offset += 0x180;
+            matrix += 0x40;
+        } while (D_80082FA0 >= index);
+    }
+    if (clear == 0) return 1;
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150623F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150623F4.s")
 extern s32 D_800D121C;
 
@@ -2192,7 +2873,121 @@ void func_150627D4(void *arg0) {
     func_1503B840(arg0);
     func_15039CC8(arg0);
 }
+typedef struct Game83300SwapChild {
+    u8 pad0[0x197];
+    u8 field197;
+} Game83300SwapChild;
+
+typedef struct Game83300SwapView {
+    u8 pad0[0x3D4];
+    Game83300SwapChild *child;
+    u8 pad3D8[0x5C8];
+} Game83300SwapView;
+
+/* Whole actor copies and bank arithmetic prove strides 0x32C and 0x9A0. */
+typedef struct Game83300SwapActor {
+    s32 active;
+    u8 pad4[0x37];
+    u8 generation;
+    u8 pad3C[0x29];
+    u8 owner;
+    u8 pad66[0xC1];
+    s8 slot127;
+    u8 pad128[0x14];
+    u8 link;
+    u8 peer;
+    u8 pad13E;
+    s8 slot13F;
+    u8 pad140[4];
+    s32 header;
+    u8 pad148[0x18C];
+    u8 *effect;
+    u8 pad2D8[0x40];
+    Game83300SwapView *view;
+    Game83300SwapChild *child;
+    u8 pad320[0xC];
+} Game83300SwapActor;
+
+void func_15146508(void *, void *);
+void func_15033EC4(s32, s32);
+void func_150615DC(void *);
+extern Game83300SwapView *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15062800 CURRENT (4339) */
+void func_15062800(Game83300SwapActor *arg0, Game83300SwapActor *arg1) {
+    Game83300SwapActor copy;
+    s32 secondIndex;
+    s32 firstIndex;
+    s32 secondGeneration;
+    s32 firstGeneration;
+    s32 header;
+    s32 viewOffset;
+    s32 i;
+    s32 owner;
+    Game83300SwapActor *actor;
+    Game83300SwapActor *table;
+
+    func_15146508(arg0, arg1);
+    func_10023A10(arg1, &copy, 0x32C);
+    func_10023A10(arg0, arg1, 0x32C);
+    func_10023A10(&copy, arg0, 0x32C);
+    table = (Game83300SwapActor *) &D_800CC2D0;
+    secondIndex = ((s32) arg1 - (s32) table) / 0x32C;
+    firstIndex = ((s32) arg0 - (s32) table) / 0x32C;
+    secondGeneration = secondIndex + 1;
+    arg1->slot127 = secondIndex;
+    arg1->generation = secondGeneration;
+    arg1->slot13F = secondIndex;
+    viewOffset = secondIndex * 0x9A0;
+    arg1->view = (Game83300SwapView *) ((u8 *) D_800DBFF0 + viewOffset);
+    firstGeneration = firstIndex + 1;
+    arg0->slot127 = firstIndex;
+    arg0->generation = firstGeneration;
+    arg0->slot13F = firstIndex;
+    arg0->view = 0;
+    header = arg0->header;
+    arg0->header = arg1->header;
+    arg1->header = header;
+    ((Game83300SwapView *) ((u8 *) D_800DBFF0 + viewOffset))->child = arg1->child;
+    arg1->child->field197 = 0;
+    func_15033EC4(arg1->generation, arg0->generation);
+    if (arg1->effect != 0) {
+        func_1516972C(arg1->effect);
+        arg1->effect = 0;
+    }
+    if (arg0->effect != 0) {
+        func_1516972C(arg0->effect);
+        arg0->effect = 0;
+    }
+    func_150615DC(arg1);
+    i = 0;
+    do {
+        if (i != secondIndex && i != firstIndex) {
+            actor = (Game83300SwapActor *) ((u8 *) &D_800CC2D0 + i * 0x32C);
+            if (actor->active != 0) {
+                owner = actor->owner;
+                if (owner != 0) {
+                    owner--;
+                    if (owner == secondIndex) {
+                        actor->owner = firstGeneration;
+                    } else if (owner == firstIndex) {
+                        actor->owner = secondGeneration;
+                    }
+                }
+            }
+        }
+        i++;
+    } while (i != 25);
+    owner = arg1->link;
+    if (owner >= 100) {
+        actor = (Game83300SwapActor *) ((u8 *) &D_800CC2D0 + ((owner - 100) & 0xFF) * 0x32C);
+        actor->peer = secondIndex + 100;
+    }
+    func_150627D4(arg1);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15062800 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062800.s")
+
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15062AC4 CURRENT (260) */
 void func_15062AC4(void *arg0) {
     f32 temp_fv0;
