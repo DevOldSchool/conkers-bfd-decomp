@@ -94726,7 +94726,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "CURRENT230 full420 US, improved929 via exact114D0 indexed-search sibling: signed indexed for, remove redundant coordinate snapshots, order dx/dy before bestXYZ. Frame80, selected78, result7c, bestXYZ68/64/60 and all registers now exact. Remaining selected reload in B delay rather than before B; raw duplicates x0 load into delay while candidate common load leaves body four bytes short. Seven expanded manual revisions plus restore: separate default/current pointer3119, explicit final dx518, guarded indexed do neutral230, explicit fallback/apply goto930 rejected. Preserve s16 own coordinate ABI and s32 near/farDistance with casts; earlier narrowing regressed F91C. No equivalent control/temporary/ABI probes without new evidence; no shared dependencies or ASM changes.",
+        "reason": "CURRENT230 full420 US restored8299f40d. Frame80, selected78/result7C/bestXYZ68/64/60 and registers exact; selected reload occupies B delay instead of preceding it, missing duplicated x0 load leaves body4short. Batch26 three new revisions: branch x0 snapshot reusing dx720 recovers raw CFG/full420 but V1 vs T8 and11 downstream regs; duplicated branch calls4361 do not tail-merge; separate origin snapshot879 adds frame88/20stackrows. Inherited seven indexed/control/temporary forms remain exhausted. Preserve s16 own coordinates, s32 near/far with casts; no shared ABI/ASM changes. No equivalent snapshot/call/CFG attempts without new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
