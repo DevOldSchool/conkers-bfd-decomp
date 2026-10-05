@@ -5,6 +5,9 @@
  * Boundary evidence: docs/evidence/game_remaining_single_function_units_up_to_256_bytes.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_pool_initialize func_150162B0
+
 void func_100226F0(void *arg0, s32 arg1);
 
 extern s32 D_80086000;
@@ -16,7 +19,7 @@ extern u8 D_800CC2D0[];
 extern s8 D_800D18D0;
 extern s32 D_800D2138;
 
-void func_150162B0(void) {
+void actor_pool_initialize(void) {
     func_100226F0(D_800CC2D0, 0x4F4C);
     D_80086000 = 0;
 
