@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "3220 candidate evidence checkpoint. One SDK-backed private static task declaration is neutral at6183 versus freshly remeasured extern6183; historical5623 not reproduced. Original extern declaration and C body retained; only score annotation, supported defer metadata and portable evidence updated. No new C match or completed unit. Existing3330/349C independently pass full-span zero/layout; clean full US ROM, linked tables, tests, metadata/progress/whitespace pass. Nonzero3220 remains unaccepted.",
+    "scope": "FE88 consumed-formal cursor53 rejected against fresh baseline18; exact original C body restored and independent full104 recovery18 performed before supported defer. No source or shared implementation changes, new C matches or units. Existing F9D4/1001C pass independent full-span0/layout. Clean canonical US ROM, both linked tables, tests, metadata/progress/whitespace pass; nonzeroFE88 remains unaccepted.",
     "batch_ids": [
-      "func_80003330",
-      "func_8000349C"
+      "func_8000F9D4",
+      "func_8001001C"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1833,
     "skipped": 37,
-    "test_seconds": 38.354,
+    "test_seconds": 35.242,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-05T00:05:43.311118+00:00",
+    "completed_utc": "2026-10-05T00:18:00.777189+00:00",
     "additional_focused_checks": {
-      "func_80003330": {
+      "func_8000F9D4": {
         "score": 0,
-        "attempt_record": "08215ef61e32411a9045a76ef86de4de",
+        "attempt_record": "d544f6cbc50f4f3da53b6408c70bd755",
         "layout": "preserved"
       },
-      "func_8000349C": {
+      "func_8001001C": {
         "score": 0,
-        "attempt_record": "695e6a1e395741ddaf9e3959269bdeb2",
+        "attempt_record": "603ee08ed8fc4c6587406bb5d56e897f",
         "layout": "preserved"
       }
     },
@@ -103,7 +103,10 @@
       73
     ],
     "func_8000FE88": [
-      83
+      83,
+      18,
+      53,
+      18
     ],
     "func_8000EBC4": [
       60,
@@ -585,7 +588,8 @@
     "func_80010558": 1530,
     "func_80007A24": 10,
     "func_80002DB0": 20,
-    "func_80003220": 6183
+    "func_80003220": 6183,
+    "func_8000FE88": 18
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -831,9 +835,16 @@
       "new_forms_used": 1,
       "targeted_revisions_remaining": 0,
       "reason": "One independently SDK-backed private task storage form is neutral versus fresh original extern6183. Shared-base, frame20 versus18 and compressed target extent remain. Inherited layout/bcopy forms retained. No equivalent static/object-base/volatile/overlapping globals/padding retries without independent new evidence and justified budget."
+    },
+    "func_8000FE88": {
+      "status": "candidate",
+      "current_score": 18,
+      "new_forms_this_turn": 1,
+      "targeted_revisions_remaining": 0,
+      "reason": "One distinct consumed-formal cursor form53 rejected after fresh18 baseline; exact18 independently recovered. Prior handle20 and block scope83 exhausted. Residual commuted ADDU and two spill offsets18versus1C are not purely register-only. No padding/extra homes/dummy storage or equivalent retries."
     }
   },
-  "ledger_note": "3220 SDK-backed private task storage form6183 neutral against fresh original extern6183; historical5623 not reproduced. Original extern declaration/body retained; source change only candidate score annotation. One distinct form and one mandatory recovery check, no new match/unit/shared implementation changes. Existing3330/349C full-span0/layout and clean BATCH_COMPLETE1833 tests38.354s37skip exact full US ROM, both tables, metadata/progress/whitespace. Cumulative38matches/two completed units;22 init files87candidates20originalASM remain; goal active/incomplete, no memory.",
+  "ledger_note": "FE88 one distinct consumed-formal cursor53 worsens fresh18, original body restored and independent full104 recovery18 precedes supporteddefer. No source/shared implementation changes, new match or unit. ExistingF9D4/1001C full-span0/layout; cleanBATCH_COMPLETE1833 tests35.242s37skip exact fullUSROM, main/debugger tables, metadata/progress/whitespace. Attempt limits carry forward; no permutation. Cumulative38matches/two completed units,22 currentinitfiles87C20originalASM remain; goal active/incomplete, no memory.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
     "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
@@ -1956,6 +1967,35 @@
         "stack_rows": 2
       },
       "historical_score_limit": "5623 is historical, not reproduced. Fresh original extern6183 is authoritative; candidate body unchanged. Next-member rows occur within full registered span; no return-bounded match claim."
+    },
+    "func_8000FE88": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 104,
+      "fresh_baseline": 18,
+      "focused_score": 18,
+      "attempt_record": "90b442963aa541b6a8093179d8af23a1",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "new_forms_scope": "this continuation; prior handle capture20 and block-local pointer scope83 carry forward",
+      "recovery_checks": 1,
+      "body_unchanged_sha256": "3efb77767632ff13b3f942f72e17f97441a782e2e6b4e076c3fdb41241f3c433",
+      "cursor_form": {
+        "source": "Reuse records formal with records += index, then required helper input and flags store; remove separate local pointer. No storage added.",
+        "score": 53,
+        "attempt_record": "179bb38aa40f4f0094e19abf47c1ba3f",
+        "evidence": "Raw FE90 captures incoming base in a3; FEB0 produces selected pointerv1; base has no further uses. Selected cursor survives actual helper atFEC0/FEC4 and feeds flag update.",
+        "outcome": "ADDU order recovered, but pointer staysa3 and frame18 differs from raw20; formal home18 differs from required spill1C. Restored exact18 source."
+      },
+      "residual_rows": {
+        "register_only": 1,
+        "operand_or_constant": 2,
+        "opcode_or_control_flow": 0,
+        "missing_or_extra": 0,
+        "stack_rows": 2
+      },
+      "permutation_eligible": false,
+      "reason": "Stack operand differences remain; no register-only search authorized or performed. Distinct actual cursor form exhausted, no equivalent handle/scope/formal/storage/address probes without independent new evidence and justified budget."
     }
   },
   "previous_checkpoint_validation": {
@@ -2013,6 +2053,39 @@
         "section": ".main_rodata_init_2e50",
         "vma": "0x8002C080",
         "size_bytes": 32,
+        "rom_equal": true
+      }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "3220 candidate evidence checkpoint. One SDK-backed private static task declaration is neutral at6183 versus freshly remeasured extern6183; historical5623 not reproduced. Original extern declaration and C body retained; only score annotation, supported defer metadata and portable evidence updated. No new C match or completed unit. Existing3330/349C independently pass full-span zero/layout; clean full US ROM, linked tables, tests, metadata/progress/whitespace pass. Nonzero3220 remains unaccepted.",
+      "batch_ids": [
+        "func_80003330",
+        "func_8000349C"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1833,
+      "skipped": 37,
+      "test_seconds": 38.354,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-05T00:05:43.311118+00:00",
+      "additional_focused_checks": {
+        "func_80003330": {
+          "score": 0,
+          "attempt_record": "08215ef61e32411a9045a76ef86de4de",
+          "layout": "preserved"
+        },
+        "func_8000349C": {
+          "score": 0,
+          "attempt_record": "695e6a1e395741ddaf9e3959269bdeb2",
+          "layout": "preserved"
+        }
+      },
+      "linked_tables": {
+        "main_queue_bytes": 32,
+        "debugger_bytes": 208,
         "rom_equal": true
       }
     }

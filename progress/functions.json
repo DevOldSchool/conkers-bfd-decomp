@@ -93722,7 +93722,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 18,
-        "reason": "Retain best18 after scoped valid-index pointer definition regressed83 without changing pointer spill18 versus raw1C. Prior explicit handle capture20 also remains exhausted. Two spill offsets and commuted pointer addition remain; no new genuine storage evidence or padding.",
+        "reason": "Preserve original direct-return typed record candidate at independently recovered full104 US CURRENT18, 90b442963aa541b6a8093179d8af23a1. Prior actual handle capture20 and valid-block pointer scope83 exhausted. One distinct consumed records-formal cursor revision53 (179bb38aa40f4f0094e19abf47c1ba3f) recovers pointer addition order but retains a3 instead of v1, shrinks frame18 versus raw20 and uses real formal home18 rather than required1C. Exact original body restored and fresh recovery18 performed before defer. Residual one commuted ADDU plus two pointer spill offsets18versus1C; stack differences exclude register-only permutation. No padding, extra homes, dummy reads, artificial pointer pressure or equivalent handle/scope/formal/storage/address retries without independent new evidence and justified budget. No source/shared/ABI/SDK/header/ASM/compiler/matching-tool changes retained, no match/unit credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
