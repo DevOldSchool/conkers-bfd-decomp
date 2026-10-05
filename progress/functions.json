@@ -93467,7 +93467,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 95,
-        "reason": "Checkpoint56 full216 CURRENT95 independently restored4b8c47b8. Actual consumed-anchor transition and late saved-anchor copy790to610; short owner-slot lifetime610to95 recovers all operations/order/control/fullspan. Four new revisions; anchor-only scope and function-scope saved-anchor order both neutral95. Remaining14 register rows: managerV1/rawA1, anchorV0/rawV1, savedanchorV1/rawV0, childV0/rawA1. Prior manager/prefix/global-scope owner/unlink families exhausted. No ABI/shared/ASM changes, artificial pressure or permutation.",
+        "reason": "Checkpoint69 full216 CURRENT95 independently restored4be99a1e. Separate child pointer275 removes the required saved-anchor MOVE; SDK-shaped insertion prefix with scoped owner and consumed anchor is neutral95. Both new hypotheses exhausted. Best preserves all operations/order/control/frame/span;14 register rows remain managerV1/rawA1, anchorV0/rawV1, savedanchorV1/rawV0 and childV0/rawA1. Prior anchor scopes/declaration ordering, manager and unlink variants exhausted. No ABI/shared/ASM changes, artificial pressure or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
