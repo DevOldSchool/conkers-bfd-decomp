@@ -32,6 +32,7 @@
 #define viewport_fade_timer_finished func_1517F40C
 #define viewport_fade_advance_timer func_1517F448
 #define viewport_tint_draw_if_active func_1517F4D8
+#define viewport_tint_object_update_alpha func_15182748
 
 typedef struct Game1AC2F0Color {
     u8 red;
@@ -577,7 +578,7 @@ typedef struct Game1AC2F0Object {
     s16 field_2E;
 } Game1AC2F0Object;
 
-void func_15182748(Game1AC2F0Object *arg0) {
+void viewport_tint_object_update_alpha(Game1AC2F0Object *arg0) {
     arg0->field_2B = arg0->field_2E * arg0->field_E;
 }
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);  /* extern */

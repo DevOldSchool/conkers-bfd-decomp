@@ -77,3 +77,31 @@ boundary is claimed. Unmatched alpha, rectangle, tint setter and timer
 implementations retain numeric identities. The mixed all-viewport query
 `1517EFDC`, which also reads a separate float effect, remains numeric until
 that second condition is understood.
+
+## Timed tint object's alpha callback
+
+A subsequent naming batch adds `viewport_tint_object_update_alpha` for the
+existing 32-byte match `func_15182748`. This is an object callback, separate
+from the per-viewport tint state above. Original `15182670..15182744`
+requires a positive signed-halfword lifetime, creates a timer object with
+update selector 0x39 and draw selector 3, and copies an eight-byte payload
+to object+0x28. Its first four bytes are RGB and alpha; +0x2C is the view
+selector and +0x2E stores the integer quotient of initial alpha/lifetime.
+
+Checksum-validated US game data read through `rom_game_data()` in
+`scripts/verify_game_rodata.py` independently gives update table word
+`8008A5CC` (`8008A4E8 + 0x39*4`) = `15182748` and draw table word
+`8008A67C` (`8008A670 + 3*4`) = `15182768`. Original timer dispatch in
+`149130.s` decrements the signed remaining lifetime at +0xE before calling
+the selected update, and checks expiry afterward.
+
+Original `15182748..15182764` multiplies the signed halfword at +0x2E by
+remaining lifetime at +0xE and stores the low byte at +0x2B. The raw draw
+callback `15182768..151827CC` reads that byte unsigned as alpha and passes
+it with payload RGB to the same rectangle callee `1517F08C`, only for the
+selected viewport. The updater has no clamp, division or removal of its
+own. Integer quotient truncation, possible zero slope, negative-time update
+before expiry, and byte wrap remain intact. The alias does not promise a
+continuous interpolation or particular visual event. Constructor and draw
+remain unmatched and numeric; focused CURRENT (0), the existing layout and
+the same clean batch/image gates apply to the 32-byte matched update.
