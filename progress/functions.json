@@ -94983,7 +94983,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 745,
-        "reason": "CURRENT745 full532 independently restored8b11676f, exactframe58/allhomes44/50/mixer schedule. Remaining early callback SW in branch delays and common SH versus raw duplicated branch stores. Batch28 unsigned fullwordflags neutral745; callback lexicalscope1135 delaysSW but blocks useful LBU delay slots and regresses branches. Prior argumentcapture745, explicitstores805, wordcallback1810 and inherited farDistance/input/body-reuse forms remain exhausted. No ABI/shared dependencies/ASM changes; preserve best and do not repeat equivalent type/scope/store forms without fresh evidence.",
+        "reason": "Checkpoint50 full532 CURRENT745 with own soundu16 and matching local declaration c3e875c3, unchanged residual from baseline4e1227b7. Raw both sound uses exclusivelyLHU5A, raw10558 normalizedu16 and exact10720 sibling support contract. Source/alias audit finds only valid lowhalfword sounds; matched alias callers15060A30/1506BAD8/1506BC24 pending batch rechecks. No shared/game/helper declarations edited. Retain genuine callback/mixer best; remaining earlycallbackSW and mergedfinalSH families exhausted. Owning width retained for independently checked caller contract.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94999,17 +94999,16 @@
       "symbol": "func_80010344"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1530,
-        "reason": "Checkpoint41 explicit if/else common exit produced identical CURRENT1530 ca38ff47; original best independently restored b3f9fb80. Full216 frame40 and three LH/LHU argument loads correct. Initial sound normalization, callback-address and outgoing-store/temp scheduling remain. Inherited helper/handle/callback and actual low-halfword object-read forms exhausted; common-exit CFG now exhausted too. No new ABI evidence from regional source declarations. No signature/shared/SDK/ASM changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010558",
           "vram": "0x80010558"
         }
@@ -95037,17 +95036,16 @@
       "symbol": "func_80010630"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1530,
-        "reason": "Manual 3 form ceiling: fresh2202; own u16 sound1530; original word formal plus actual u16 sound snapshot1530; callback-address snapshot1530. Preserve second form1530 with original external signature. Two neutral revisions; residual early normalization vs late LHU and callback/outgoing-store scheduling. No equivalent type/snapshot/address retries.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 216,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80010720",
           "vram": "0x80010720"
         }
