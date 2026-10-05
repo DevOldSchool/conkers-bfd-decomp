@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_80003C6C
  * - func_80004074
- * - func_800043B4
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -229,14 +228,14 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80003C6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_80003C6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (1026) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (1010) */
 void func_80004074(s32 arg0) {
     AllocatorFreeBlock *block;
     AllocatorFreeBlock *neighbor;
+    AllocatorFreeBlock *cursor;
     s32 merged;
     s32 mask;
     AllocatorFreeBlock *original;
-    AllocatorFreeBlock *cursor;
 
     original = (AllocatorFreeBlock *)(arg0 - 0xC);
     if (arg0 != 0) {
@@ -366,18 +365,15 @@ void func_80004308(void) {
 }
 s32 func_80024880(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800043B4 CURRENT (260) */
 void func_800043B4(void *arg0, s32 arg1) {
     s32 mask;
     AllocatorBlock *block;
 
     mask = func_80024880(1);
-    block = (AllocatorBlock *)arg0 - 1;
+    block = (AllocatorBlock *)((u32)arg0 - sizeof(AllocatorBlock));
     block->taggedSize = (block->taggedSize & 0xFFFFFF) | ((u32)arg1 << 24);
     func_80024880(mask);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800043B4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_800043B4.s")
 void func_8000440C(void) {
     s32 maximum;
     AllocatorFreeBlock *largest;

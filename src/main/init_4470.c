@@ -76,7 +76,7 @@ void func_80004470(void) {
 void func_8000480C(u32, void *, u32);
 extern TransferIoMessage D_80038950[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004514 CURRENT (1369) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004514 CURRENT (80) */
 void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
     TransferMessageQueue *queue;
     TransferIoMessage request;
@@ -107,7 +107,7 @@ void func_80004514(u32 source, void *destination, u32 size, s32 blocking) {
         message = &request;
         queue = &D_80038908[index];
     }
-    func_80022D10(destination, size);
+    func_80022D10(destination, ((s32 *)&size)[0]);
     func_80024920(message, 0, 0, source, destination, size, queue);
     if (blocking != 0) {
         func_80023440(queue, 0, 1);
@@ -167,10 +167,11 @@ extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (2031) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (1465) */
 void func_8000480C(u32 source, void *destination, u32 size) {
     u32 count;
     TransferWord data;
+    u32 status;
     u32 offset;
     u32 readAddress;
     u8 *writeAddress;
@@ -179,10 +180,10 @@ void func_8000480C(u32 source, void *destination, u32 size) {
     size = (size + 1) & ~1U;
     while (D_8003A573 != 0) {
     }
-    while (*(volatile u32 *)0xA4600010 & 3) {
+    count = size - 2;
+    while ((status = *(volatile u32 *)0xA4600010) & 3) {
     }
     source |= D_80000308;
-    count = size - 2;
     if (source & 2) {
         size -= 2;
         data.word = *(volatile u32 *)((source - 2) | 0xA0000000);

@@ -19756,15 +19756,15 @@
       "functions": [
         "func_80003BD0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x3C40",
           "start": "0x3BD0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_3BD0.c"
+      "source": "src/done/main/init_3BD0.c"
     },
     {
       "boundary_evidence": {

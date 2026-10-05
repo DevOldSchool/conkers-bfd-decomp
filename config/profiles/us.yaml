@@ -68,7 +68,7 @@ segments:
       - [0x3930, c, done/main/init_3930]
       - [0x39B0, asm]
       - [0x39C0, asm]
-      - [0x3BD0, asm]
+      - [0x3BD0, c, done/main/init_3BD0]
       - [0x3C40, asm]
       - [0x4470, asm]
       - [0x49E0, asm]

@@ -92479,7 +92479,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 90,
-        "reason": "Valid cleaned candidate CURRENT90 after removing three legacy empty shaping conditions. Historical60 is rejected for acceptance (artifact complete-init-20261004/func_80001194-legacy60-invalid-shaping.c). Real store-in-join710 and signed byte-count285 regress; original fullword types/unsigned loop test retained. Early first-framebuffer store and five ROM-range temporary rows remain. No restored empty conditions, padding or dependency edits.",
+        "reason": "Seven manual revisions preserve baseline CURRENT90: exact frame/homes/control; first framebuffer SW one instruction early and ROM transfer source/count v1/t0 instead of v0/v1. Pointer/domain/snapshot and allocation constant/block-boundary alternatives regressed or were neutral.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92552,7 +92552,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 20,
-        "reason": "Preserve SDK-proven private static byte flag and true aligned volatile MMIO writes at full US CURRENT20. Historical external-flag forms845/1060/855 exhausted; private-storage root410/20/410 plus one SDK-backed named volatile array0 view410 exhausted. Supplemental attempt23cce4fb05a04e3cb583e8385f6ff44f retains both extra ADDIU instructions; exact literal20 restored. Structured diff score20 is four immediate-colored MMIO rows; six private .data versus named flag rows are uncolored and excluded from numeric score, though diagnostic classifies all ten as operand differences. Private data placement still requires independent full-ROM integration proof. No new match/unit, ABI/shared/SDK/ASM/compiler/matching-tool changes. No further equivalent field/address/array/storage revisions without independent new evidence and justified budget.",
+        "reason": "CURRENT20: all 160-byte instructions/registers/control/stack exact; four scored rows are numeric A4500000/A4500004 hardware constants versus raw symbolic relocations. Volatile symbolic declarations add ADDIU; nonvolatile declarations change access scheduling/registers. Preserve original volatile access sequence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92716,7 +92716,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Natural reset and explicit-return forms both remain60: store precedes rather than occupies jr delay slot; no further justified source form.",
+        "reason": "CURRENT60: single global byte clear compiles LUI/SB/JR/NOP; reference is LUI/JR/SB/NOP. Same instructions/registers, store scheduling only. Starter already identical; no supported source-level scheduling hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92787,22 +92787,21 @@
       "symbol": "func_80003ACC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1520,
-        "reason": "Coherent existing allocator-header/free-link layouts preserve heap initialization, size arithmetic and pointer copies. Scores1520,1915,1915: an opaque heap marker plus sequential copies and aligned word-store view do not recover repeated global-head reloads. Retain besttypedfirstform; no forcedvolatile or alias fabrication, integration remains blocked by nonzero diff.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 112,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80003BD0",
           "vram": "0x80003BD0"
         }
       },
-      "source": "src/main/init_3BD0.c",
+      "source": "src/done/main/init_3BD0.c",
       "symbol": "func_80003BD0"
     },
     {
@@ -92845,8 +92844,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1026,
-        "reason": "Best full-span US CURRENT1026 restored and independently rechecked3ce7fe6192d547b580d34d179120359c. One distinct owning pointer interpretation after inherited2807/1191/1026 worsens to1690: input copy recovered in a3, header remainsa2, frame grows30to38 and homes drift. Exact owning s32 declaration, same-unit caller casts and entire original source restored. No retained source/ABI changes; pointer/objectview/frame/storage families exhausted.",
+        "current_score": 1010,
+        "reason": "Six manual revisions: best CURRENT1010 fixes all stack homes; remaining original-pointer a2 versus v1, neighbor/cursor coloring, missing incoming a2 copy and global free-head address scheduling. Unsigned address, header type, merge flag order, register hint and cursor lifetime forms did not improve.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92898,17 +92897,16 @@
       "symbol": "func_80004308"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 260,
-        "reason": "Fresh restored baseline CURRENT260 replaces historical160: missing final payload-to-header adjustment shifts the store into call delay and lets the next function prologue enter the full registered span. Generic and typed argument-update forms both score879 and are exhausted. Original void* ABI/concrete header retained; no dummy pointer effects, padding, boundary or dependency changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 88,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800043B4",
           "vram": "0x800043B4"
         }
@@ -92955,8 +92953,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1369,
-        "reason": "Typed blocking/asynchronous transfer paths preserve the observed byte counters and queue contracts. Three valid forms score 1369: structured merge, shared transfer label, and full-width signed size with explicit unsigned comparison are code-neutral. Incoming size home and register cascade remain; preserve simplest first form.",
+        "current_score": 80,
+        "reason": "Seven manual forms reduce 1369 to80 by signed corresponding-type read of size home at cachehelper boundary. Full352byte instruction/control/stack sequence exact;13 async pointer/index register rows differ v0/a0/a1 vsrawa0/a1/a2. CFG/snapshot/pointer lifetime variants plateaued; preserve minimal candidate and unchanged ABI.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93011,8 +93009,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2031,
-        "reason": "Preserve typed PI-copy candidate at independently restored full-span US CURRENT2031 (df9bc45bf2e84d14be5601bf504d190c), improved from2223 by actual same-type void-pointer parameter object reads recovering the loop destination reload. Earlier count snapshot regressed2591 and was removed. Three total forms (one inherited, two current); source saved-register/frame40 versus38, count CSE and address/register scheduling remain. No equivalent destination-view/count-timing/frame shapes without independent new evidence; SDK/interlock/MMIO contracts unchanged.",
+        "current_score": 1465,
+        "reason": "Manual six revisions: best CURRENT1465 has exact frame/data home and PI polling registers; unresolved size/source saved-register coloring, unsigned count CSE, copy-loop register ordering and KSEG relocation formatting. Signedness and separate-local variants regressed.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
