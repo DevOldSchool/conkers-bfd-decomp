@@ -93870,7 +93870,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Checkpoint48 full332 CURRENT50 independently restored d2acf7e1. Scoped distance1095 and scoped clamped output895 both regress scheduling without fixing the nine FP register rows. Both lexical lifetime variants exhausted alongside prior declaration ordering, assignment chain, clamp CFG, output comparisons and sqrt staging. Best source unchanged: raw distanceF12/valueF2 versus candidate distanceF2/valueF12. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint64 full332 CURRENT50 independently restoredce36d59e. Reusing consumed coordinate arg2 for computed distance was neutral50; reusing it for clamped output regressed1135, changing entryF14/F12 and constantF18/F16 allocation plus scheduling. Prior distance/output scopes1095/895, declaration order, chains, comparison and sqrt-staging families exhausted. Best retains nine FP register rows: distanceF2/valueF12 versus rawF12/F2; literal aliases are equivalent. No ABI/shared/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95237,7 +95237,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 935,
-        "reason": "Preserve CURRENT935 independently restoredd6fba7d1, full460. Checkpoint34 direct immutable formal and delayed result-to-formal transfer both neutral935; separate immutable input snapshot with mutable outputformal1408 still forcesS1 and extra normalization. Three new revisions exhausted, no improvement. Retain proven additiontree and original owncontract. Remaining early ANDI/MOVE vs late LHU, outputregister a0 vs v1 and temporary allocation. Prior mutable narrowformal2068, widehandle1985, narrowlocal1595 and registerhint neutral exhausted. No ABI/helper/shared/ASM changes.",
+        "reason": "Checkpoint64 full460 CURRENT935 independently restored0356f81c. Actual immutable u16 input handle instead of s32 snapshot neutral935; defining it after owner guard also neutral935. Narrow-local mechanism from FEF0 doesnottransfer. Prior directformal935, delayedresulttransfer935, splitinput/outputformal1408, mutablehandle and registerhint families exhausted. Raw early A0 normalization still replaced by lateLHU; resultregister and downstreamtemporary sequence differ. No own/helper ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
