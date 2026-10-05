@@ -35,6 +35,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_script_set_representation_override func_150791F0
+
 typedef struct GameA28B0NestedState {
     u8 pad0[0x75];
     u8 field_75;
@@ -1587,7 +1590,7 @@ void func_1507911C(void) {
  * total count +2C9. Zero is stored unchanged; this handler does not apply it.
  * See docs/evidence/actor_representation_selection_semantics.md.
  */
-void func_150791F0(void) {
+void actor_script_set_representation_override(void) {
     if ((s32) *(u8 *)((u8 *)D_800D154C + 0x2C9) < (s32) D_800D1890) {
         D_800D154C->pad10F[0xBA] = 0xFF;
         return;

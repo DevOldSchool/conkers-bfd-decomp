@@ -1,6 +1,8 @@
 # Actor representation resources and asset relocation
 
-These inferred role names retain linked numeric symbols, types and ABI. See
+The matched representation loader and two relocation helpers use the descriptive
+names below through source-local aliases, preserving linked numeric symbols,
+types, ABI and operations. Other roles remain comments only. See
 [representation selection](actor_representation_selection_semantics.md) for the
 exact override-or-base getter, initializer fallback, list counts and call sites.
 [Shared provenance](model_name_confidence_review.md) records full original spans.
@@ -36,7 +38,7 @@ header, 64-byte default segment and optional expression segment independently.
 
 ## Shared offset and route relocation
 
-The comment role for `func_1503D438` is `asset_relocate_untagged_offset`.
+`func_1503D438` is named `asset_relocate_untagged_offset`.
 `offsetSlot`, `baseAddress` and `offset` describe its complete 36-byte span:
 load the slot, leave zero unchanged, test exactly `0x0F000000`, and add the
 supplied base only when that mask is clear (`1503D438..1503D450`). The name
@@ -50,7 +52,7 @@ display-list commands before its `0xDF` terminator. The fifth direct call is
 `1503D4C4` in `1503D484`. Thus an animation-only or character-only helper name
 would be inaccurate.
 
-The comment role for `func_1503D484` is
+The C name for `func_1503D484` is
 `animation_routes_relocate_event_offsets`. Its sole raw direct call is
 `1503D74C` in `1503D660`, which loads bank `0x0F` through a shared-model
 representative and passes payload `+0x10` as the route-record base. The second

@@ -358,8 +358,8 @@ explains why model bytes are mutable and separate from representation ordinals.
 `actor`, `modelIndex`, `spawnRecord`, `defaults`, `spawnOverride` and `value`.
 `value` retains its full-width reuse for the spawn override. The expression role
 and `morphDurationOverride` are documented in the [expression audit](character_expression_semantics.md).
-Numeric function IDs remain linked symbols: some tools still discover literal C
-definition names, so comment roles do not introduce macro aliases or a shared ABI.
+The defaults helper uses its descriptive C name through a source-local alias.
+Numeric function IDs remain linked symbols; types, ABI and operations are unchanged.
 
 ## Visual provenance fingerprints
 
