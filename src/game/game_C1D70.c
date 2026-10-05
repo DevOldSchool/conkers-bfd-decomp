@@ -72,57 +72,39 @@ f32 func_15047D60(f32);
 f32 func_15047C00(f32);                             /* extern */
 extern f32 D_8009DEA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15094AB8 CURRENT (19612) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15094AB8 CURRENT (9301) */
 void func_15094AB8(u8 *arg0, u8 *arg1, s32 arg2, f32 arg3, s32 arg4, s32 arg5) {
-    f32 sp34;
-    f32 sp24;
-    f32 temp_fa0;
-    f32 temp_fa0_2;
-    f32 temp_fa0_3;
-    f32 temp_fv0;
-    f32 temp_fv1;
-    f32 temp_fv1_2;
-    f32 var_ft4;
-    f32 var_ft5;
-    void *temp_a0;
-    u8 *temp_v0;
-    u8 *temp_v1;
-    u8 *var_v0;
-    u8 *var_v1;
+    struct Output {
+        s16 prefix[4];
+        s16 x;
+        s16 y;
+        s16 suffix[2];
+    };
+    struct Input {
+        s16 x;
+        s16 y;
+    };
+    struct Output *output = (struct Output *)arg0;
+    struct Input *input = (struct Input *)arg1;
+    f32 angle;
+    f32 sine;
+    f32 cosine;
+    f32 centerX;
+    f32 centerY;
+    s32 i;
 
-    temp_fa0 = arg3 * D_8009DEA0;
-    sp24 = temp_fa0;
-    sp34 = func_15047D60(temp_fa0);
-    temp_fv0 = func_15047C00(temp_fa0);
-    {
-        s32 var_a1 = 0;
-    if ((arg2 > 0) && (!(arg2 & 1) || (temp_fv1 = (f32) ((arg4 / 2) << 5), var_a1 = 1, temp_fa0_2 = (f32) ((arg5 / 2) << 5), *(s16 *)((u8 *)arg0 + 8) = (s16) (s32) (((((f32) *(s16 *)((u8 *)arg1 + 0) - temp_fv1) * temp_fv0) - (((f32) *(s16 *)((u8 *)arg1 + 2) - temp_fa0_2) * sp34)) + temp_fv1), *(s16 *)((u8 *)arg0 + 0xA) = (s16) (s32) ((((f32) *(s16 *)((u8 *)arg1 + 2) - temp_fa0_2) * temp_fv0) + (((f32) *(s16 *)((u8 *)arg1 + 0) - temp_fv1) * sp34) + temp_fa0_2), (arg2 != 1)))) {
-        temp_fv1_2 = (f32) ((arg4 / 2) << 5);
-        var_v1 = (void *)(arg0 + (var_a1 * 0x10));
-        temp_v0 = (void *)(arg1 + (var_a1 * 4));
-        temp_fa0_3 = (f32) ((arg5 / 2) << 5);
-        temp_a0 = (void *)((arg2 * 4) + arg1);
-        var_v0 = (void *)(temp_v0 + 8);
-        var_ft5 = ((f32) *(s16 *)((u8 *)temp_v0 + 0) - temp_fv1_2) * temp_fv0;
-        var_ft4 = ((f32) *(s16 *)((u8 *)temp_v0 + 2) - temp_fa0_3) * sp34;
-        if (var_v0 != temp_a0) {
-            do {
-                var_v0 += 8;
-                var_v1 += 0x20;
-                *(s16 *)((u8 *)var_v1 + -0x18) = (s16) (s32) ((var_ft5 - var_ft4) + temp_fv1_2);
-                *(s16 *)((u8 *)var_v1 + -0x16) = (s16) (s32) ((((f32) *(s16 *)((u8 *)var_v0 + -0xE) - temp_fa0_3) * temp_fv0) + (((f32) *(s16 *)((u8 *)var_v0 + -0x10) - temp_fv1_2) * sp34) + temp_fa0_3);
-                *(s16 *)((u8 *)var_v1 + -8) = (s16) (s32) (((((f32) *(s16 *)((u8 *)var_v0 + -0xC) - temp_fv1_2) * temp_fv0) - (((f32) *(s16 *)((u8 *)var_v0 + -0xA) - temp_fa0_3) * sp34)) + temp_fv1_2);
-                *(s16 *)((u8 *)var_v1 + -6) = (s16) (s32) ((((f32) *(s16 *)((u8 *)var_v0 + -0xA) - temp_fa0_3) * temp_fv0) + (((f32) *(s16 *)((u8 *)var_v0 + -0xC) - temp_fv1_2) * sp34) + temp_fa0_3);
-                var_ft5 = ((f32) *(s16 *)((u8 *)var_v0 + -8) - temp_fv1_2) * temp_fv0;
-                var_ft4 = ((f32) *(s16 *)((u8 *)var_v0 + -6) - temp_fa0_3) * sp34;
-            } while (var_v0 != temp_a0);
-        }
-        temp_v1 = (void *)(var_v1 + 0x20);
-        *(s16 *)((u8 *)temp_v1 + -0x18) = (s16) (s32) ((var_ft5 - var_ft4) + temp_fv1_2);
-        *(s16 *)((u8 *)temp_v1 + -0x16) = (s16) (s32) ((((f32) *(s16 *)((u8 *)var_v0 + -6) - temp_fa0_3) * temp_fv0) + (((f32) *(s16 *)((u8 *)var_v0 + -8) - temp_fv1_2) * sp34) + temp_fa0_3);
-        *(s16 *)((u8 *)temp_v1 + -8) = (s16) (s32) (((((f32) *(s16 *)((u8 *)var_v0 + -4) - temp_fv1_2) * temp_fv0) - (((f32) *(s16 *)((u8 *)var_v0 + -2) - temp_fa0_3) * sp34)) + temp_fv1_2);
-        *(s16 *)((u8 *)temp_v1 + -6) = (s16) (s32) ((((f32) *(s16 *)((u8 *)var_v0 + -2) - temp_fa0_3) * temp_fv0) + (((f32) *(s16 *)((u8 *)var_v0 + -4) - temp_fv1_2) * sp34) + temp_fa0_3);
-    }
+    angle = arg3 * D_8009DEA0;
+    sine = func_15047D60(angle);
+    cosine = func_15047C00(angle);
+    for (i = 0; i < arg2; i++) {
+        centerX = (f32)((arg4 / 2) << 5);
+        centerY = (f32)((arg5 / 2) << 5);
+        output[i].x = (s32)
+            ((((f32)input[i].x - centerX) * cosine -
+              ((f32)input[i].y - centerY) * sine) + centerX);
+        output[i].y = (s32)
+            ((((f32)input[i].y - centerY) * cosine +
+              ((f32)input[i].x - centerX) * sine) + centerY);
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15094AB8 */

@@ -179,7 +179,7 @@ void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s
 void func_150E2DB4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, u8);
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFE64 CURRENT (26) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFE64 CURRENT (16) */
 void func_150AFE64(s32 arg0) {
     f32 near_x;
     f32 near_y;
@@ -198,7 +198,7 @@ void func_150AFE64(s32 arg0) {
         } else {
             index = 2;
         }
-        matrix = matrices + (index << 6);
+        matrix = (void *)((u32)matrices + ((u32)index << 6));
         near_x = 0.0f;
         near_y = 0.0f;
         near_z = -20.0f;

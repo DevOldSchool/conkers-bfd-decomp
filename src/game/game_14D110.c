@@ -93,9 +93,9 @@ void func_15121490(Game14D110Actor *arg0, u16 *arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_14D110/func_15121490.s")
 extern s32 D_800BE9F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151216F8 CURRENT (400) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151216F8 CURRENT (60) */
 void func_151216F8(void *arg0) {
-    u8 temp_v0;
+    s32 temp_v0;
 
     temp_v0 = *(u8 *)((u8 *)arg0 + 0x23E);
     if (temp_v0 != 0) {

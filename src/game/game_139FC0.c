@@ -124,11 +124,11 @@ void *func_1510CDB8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
     temp_t0 = arg3 * 3;
     *(s32 *)arg0 = 0xFA00F200;
     temp_t1 = D_800D9B68 + temp_t0;
-    *(s32 *)((u8 *)arg0 + 4) = (s32)((temp_t1[2] << 8) | (temp_t1[0] << 0x18) | (temp_t1[1] << 0x10) | (arg1 & 0xFF));
+    *(s32 *)((u8 *)arg0 + 4) = (s32)(((u32)temp_t1[2] << 8) | ((u32)temp_t1[0] << 0x18) | ((u32)temp_t1[1] << 0x10) | (arg1 & 0xFF));
     temp_a0 = (u8 *)arg0 + 8;
     *(s32 *)temp_a0 = 0xFB000000;
     temp_t3 = D_800D9B78 + temp_t0;
-    *(s32 *)(temp_a0 + 4) = (s32)((temp_t3[2] << 8) | (temp_t3[0] << 0x18) | (temp_t3[1] << 0x10) | (arg2 & 0xFF));
+    *(s32 *)(temp_a0 + 4) = (s32)(((u32)temp_t3[2] << 8) | ((u32)temp_t3[0] << 0x18) | ((u32)temp_t3[1] << 0x10) | (arg2 & 0xFF));
     return temp_a0 + 8;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510CDB8 */

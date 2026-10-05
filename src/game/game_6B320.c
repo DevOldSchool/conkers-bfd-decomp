@@ -451,19 +451,14 @@ extern f32 D_80098920;
 extern f32 D_80098924;
 u32 func_150ADA20(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EB78 CURRENT (395) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EB78 CURRENT (227) */
 void func_1503EB78(void *arg0, f32 arg1, f32 arg2, s32 arg3) {
     f32 sp50[3];
     f32 *var_s1;
-    f32 temp_ft2;
-    f32 temp_ft5;
-    f32 temp_fv0;
-    s32 temp_random;
     s32 var_s2;
     s32 var_s3;
     s32 var_s4;
     u8 *var_s0;
-    u8 *var_s0_2;
 
     if (arg3 != 0) {
         var_s3 = 0x80;
@@ -472,30 +467,30 @@ void func_1503EB78(void *arg0, f32 arg1, f32 arg2, s32 arg3) {
         var_s3 = 0xFF;
         var_s4 = 0;
     }
-    temp_fv0 = arg1 * D_80098920;
+    arg1 *= D_80098920;
     var_s0 = arg0;
     var_s1 = sp50;
-    sp50[0] = temp_fv0;
-    sp50[2] = temp_fv0;
+    sp50[0] = arg1;
+    sp50[2] = arg1;
     sp50[1] = arg2 * D_80098920;
     do {
-        temp_random = func_150ADA20();
-        temp_ft2 = *var_s1;
-        temp_ft5 = *(f32 *)(var_s0 + 0x48);
+        arg3 = func_150ADA20();
+        arg1 = *var_s1;
+        arg2 = *(f32 *)(var_s0 + 0x48);
         var_s1++;
         var_s0 += 4;
         *(f32 *)(var_s0 + 0x44) =
-            temp_ft5 * (((f32)((temp_random & var_s3) + var_s4) *
-                         temp_ft2) + 2.0f);
+            arg2 * (((f32)((arg3 & var_s3) + var_s4) *
+                         arg1) + 2.0f);
     } while ((u32)var_s1 < (u32)&sp50[3]);
     var_s2 = 0;
-    var_s0_2 = arg0;
+    var_s0 = arg0;
     do {
-        temp_random = func_150ADA20();
+        arg3 = func_150ADA20();
         var_s2 += 1;
-        var_s0_2 += 4;
-        *(f32 *)(var_s0_2 + 0x50) =
-            (f32)((temp_random & 0xFF) - 0x80) * 0.03125f;
+        var_s0 += 4;
+        *(f32 *)(var_s0 + 0x50) =
+            (f32)((arg3 & 0xFF) - 0x80) * 0.03125f;
     } while (var_s2 != 3);
     *(f32 *)((u8 *)arg0 + 0x60) = D_80098924;
 }
@@ -606,7 +601,7 @@ s32 func_1503EF4C(s32 arg0, s32 arg1, s32 arg2) {
 extern u8 D_80098914[];
 extern u32 func_150ADA20(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 CURRENT (1867) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1503EFC4 CURRENT (145) */
 void func_1503EFC4(s32 arg0) {
     Game6B320Slot *temp_s2;
     s32 var_s0;
@@ -621,7 +616,7 @@ void func_1503EFC4(s32 arg0) {
     if (temp_s3 > 0) {
         do {
             *(f32 *)((u8 *)temp_s2->entity + var_s1 + 0x4C) =
-                (f32)((func_150ADA20() % 20U) - 5);
+                (f32)((s32)(func_150ADA20() % 20U) - 5);
             var_s0 += 1;
             var_s1 += 0x68;
         } while (var_s0 != temp_s3);

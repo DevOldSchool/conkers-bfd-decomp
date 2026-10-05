@@ -59,8 +59,8 @@ extern s32 D_80082FA4;
 extern f32 D_8009FE64;
 extern u8 *D_800DBFF0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BAA14 CURRENT (298) */
-void func_150BAA14(u8 *arg0, u8 arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150BAA14 CURRENT (188) */
+void func_150BAA14(u8 *volatile arg0, u8 arg1, s32 arg2) {
     f32 position[3];
     GameE7DE0Hit hit;
     s32 angle;
@@ -72,12 +72,12 @@ void func_150BAA14(u8 *arg0, u8 arg1, s32 arg2) {
         func_151D5404(position, 1307.0f, 2000.0f, 0.0005f, 0xC, 0xF, 0xFF, 0);
         func_15143E94(5, 0x4022);
         if (found != 0) {
-            angle = (s32)(*(f32 *)((u32)D_800DBFF0 + D_80082FA4 * 0x9A0 + 0x380) * D_8009FE64);
+            angle = (s32)(*(f32 *)((u32)D_800DBFF0 + (u32)D_80082FA4 * 0x9A0U + 0x380) * D_8009FE64);
             func_15165F80(-1, (s32)position[0], (s32)(position[1] + 6.0f),
                          (s32)position[2], 0x19, 0x12, 0, 0xFF, 1);
             random = func_150ADA68();
             func_1514C678(position[0], position[1], position[2], random * 50.0f + 40.0f,
-                         angle + 0x3C, angle - 0x3C, (func_150ADA20() % 11U) + 0x1E,
+                         (s32)((u32)angle + 0x3CU), (s32)((u32)angle - 0x3CU), (func_150ADA20() % 11U) + 0x1E,
                          5, 0, 0.0f, 0, 0xFF);
         }
     }

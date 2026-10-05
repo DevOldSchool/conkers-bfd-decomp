@@ -148,7 +148,7 @@ extern f32 D_800A9290;
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151AE0E4 CURRENT (1249) */
 void func_151AE0E4(void *arg0, u8 arg1) {
     u8 *record;
-    s32 point_index;
+    u32 point_index;
     f32 point[3];
     f32 dx;
     f32 dy;
@@ -168,12 +168,12 @@ void func_151AE0E4(void *arg0, u8 arg1) {
                    *(f32 *)((u8 *)arg0 + 0x14),
                    *(f32 *)((u8 *)arg0 + 0x18),
                    *(f32 *)((u8 *)arg0 + 0x1C));
-    point_index = (s32)((f32)((record[0x42] - (s32)(140.0f / *(f32 *)(record + 0x3C))) - 1) *
+    point_index = (u32)(s32)((f32)(s32)((u32)record[0x42] - (u32)(s32)(140.0f / *(f32 *)(record + 0x3C)) - 1U) *
                         *(f32 *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0xA0));
-    point_index *= 0x18;
-    point[0] = *(f32 *)(*(u8 **)(record + 0x38) + point_index);
-    point[1] = *(f32 *)(*(u8 **)(record + 0x38) + point_index + 4);
-    point[2] = *(f32 *)(*(u8 **)(record + 0x38) + point_index + 8);
+    point_index *= 0x18U;
+    point[0] = *(f32 *)((u32)*(u8 **)(record + 0x38) + point_index);
+    point[1] = *(f32 *)((u32)*(u8 **)(record + 0x38) + point_index + 4U);
+    point[2] = *(f32 *)((u32)*(u8 **)(record + 0x38) + point_index + 8U);
     dx = point[0] - *(f32 *)((u8 *)arg0 + 0x14);
     dy = point[1] - *(f32 *)((u8 *)arg0 + 0x18);
     dz = point[2] - *(f32 *)((u8 *)arg0 + 0x1C);

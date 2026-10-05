@@ -448,7 +448,7 @@ segments:
       - [0xF56B0, c, game/game_122B60]
       - [0xF63C0, c, done/game/game_123870]
       - [0xF6400, c, done/game/game_1238B0]
-      - [0xF6420, c, game/game_1238D0]
+      - [0xF6420, c, done/game/game_1238D0]
       - [0xF64B0, c, game/game_123960]
       - [0xF6890, c, game/game_123D40]
       - [0xF6B00, c, game/game_123FB0]

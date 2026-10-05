@@ -48,9 +48,12 @@ extern f32 D_800A2FA8;
 extern f32 D_800A2FAC;
 extern u16 D_800CC354;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511617C CURRENT (1575) */
+f32 fabsf(f32);
+#pragma intrinsic(fabsf)
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1511617C CURRENT (226) */
 void func_1511617C(void *arg0) {
-    s16 sp1E;
+    volatile s16 sp1E;
     f32 temp_fv0;
     s16 temp_v0;
     s32 temp_v0_2;

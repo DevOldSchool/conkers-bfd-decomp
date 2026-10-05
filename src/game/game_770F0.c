@@ -90,7 +90,7 @@ f32 func_15048360(f32);
 extern f32 D_80099094;
 extern f32 D_80099098;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049EDC CURRENT (2254) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15049EDC CURRENT (2044) */
 void func_15049EDC(void *arg0, void *arg1, f32 arg2, void *arg3) {
     f32 sp24;
     f32 sp20;
@@ -107,7 +107,9 @@ void func_15049EDC(void *arg0, void *arg1, f32 arg2, void *arg3) {
 
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0);
     temp_ft4 = *(f32 *)((u8 *)arg1 + 0);
-    temp_fa0 = (*(f32 *)((u8 *)arg1 + 0xC) * *(f32 *)((u8 *)arg0 + 0xC)) + ((temp_fv1 * temp_ft4) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4)) + (*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8)));
+    temp_fa0 = (temp_fv1 * temp_ft4) + (*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 4));
+    temp_fa0 = temp_fa0 + (*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 8));
+    temp_fa0 = (*(f32 *)((u8 *)arg1 + 0xC) * *(f32 *)((u8 *)arg0 + 0xC)) + temp_fa0;
     if (temp_fa0 < D_80099094) {
         temp_fv0 = 1.0f - arg2;
         *(f32 *)((u8 *)arg3 + 0) = (f32) ((temp_fv0 * temp_fv1) - (temp_ft4 * arg2));

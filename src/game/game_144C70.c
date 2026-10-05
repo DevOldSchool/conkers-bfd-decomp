@@ -102,7 +102,7 @@ void func_151177C0(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151177C0.s")
 f32 func_15047C00(f32);                             /* extern */
 f32 func_15047D60(f32);                             /* extern */
-s32 func_150AD9A0(s32, s32, s32, s16);              /* extern */
+s32 func_150AD9A0(s32, s32, s32);              /* extern */
 extern f32 D_800A2FDC;
 extern f32 D_800A2FE0;
 extern f32 D_800A2FE4;
@@ -111,31 +111,31 @@ extern f32 D_800A2FEC;
 extern f32 D_800A2FF0;
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151179BC CURRENT (10363) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151179BC CURRENT (10629) */
 void func_151179BC(void *arg0) {
-    s16 sp56;
-    s16 sp54;
-    s16 sp52;
-    s16 sp50;
-    s32 sp48;
-    s32 sp3C;
-    s32 sp38;
-    f32 sp34;
-    f32 sp30;
-    f32 sp2C;
-    f32 sp28;
-    f32 sp24;
+    volatile s16 sp56;
+    volatile s16 sp54;
+    volatile s16 sp52;
+    volatile s16 sp50;
+    volatile s32 sp48;
+    volatile s32 sp3C;
+    volatile s32 sp38;
+    volatile f32 sp34;
+    volatile f32 sp30;
+    volatile f32 sp2C;
+    volatile f32 sp28;
+    volatile f32 sp24;
     f32 temp_fa0;
     f32 temp_fv0;
     f32 temp_fv1;
-    s16 var_v1_2;
+    s32 var_v1_2;
     s32 temp_a0;
     s32 temp_a0_2;
-    u8 temp_t1;
-    s32 temp_t3;
+    s32 temp_t1;
+    s16 temp_t3;
     s32 temp_t6;
-    s32 temp_t7;
-    u8 temp_v0;
+    s16 temp_t7;
+    s32 temp_v0;
     s32 temp_v0_2;
     s32 temp_v0_3;
     s32 var_t0;
@@ -166,8 +166,10 @@ void func_151179BC(void *arg0) {
     sp38 = temp_t1;
     sp3C = temp_t6;
     sp50 = (s16) temp_t7;
-    temp_v0_3 = func_150AD9A0((s16) temp_v0_2 - *(s16 *)((u8 *)arg0 + 0x10), (s16) temp_t3 - *(s16 *)((u8 *)arg0 + 0x12), (s16) var_v1 - *(s16 *)((u8 *)arg0 + 0x14), (s16) temp_t7);
-    var_t0 = temp_t6;
+    temp_v0_3 = func_150AD9A0((s16) temp_v0_2 - *(s16 *)((u8 *)arg0 + 0x10), (s16) temp_t3 - *(s16 *)((u8 *)arg0 + 0x12), (s16) var_v1 - *(s16 *)((u8 *)arg0 + 0x14));
+    temp_t7 = sp50;
+    temp_t1 = sp38;
+    var_t0 = sp3C;
     if (var_t0 == 3) {
         if ((s16) temp_t7 < 0) {
             sp48 = (s32) -(s16) temp_t7;
@@ -220,6 +222,8 @@ void func_151179BC(void *arg0) {
         sp28 = func_15047D60(*(f32 *)((u8 *)arg0 + 4) * D_800A2FE8);
         sp24 = func_15047C00(*(f32 *)((u8 *)arg0 + 8) * D_800A2FEC);
         temp_fv0 = func_15047D60(*(f32 *)((u8 *)arg0 + 8) * D_800A2FF0);
+        temp_t7 = sp50;
+        var_t0 = sp3C;
         if ((s16) temp_t7 < 0) {
             sp48 = -sp48;
         }
@@ -379,23 +383,20 @@ void func_151193F4(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151193F4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_144C70/func_151193F4.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151194D4 CURRENT (2379) */
-void func_151194D4(void *arg0, void *arg1, s32 arg2, u16 arg3) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151194D4 CURRENT (1958) */
+void func_151194D4(void *arg0, void *arg1, s32 arg2, u32 arg3) {
     s8 *sp4C;
-    u32 sp44;
-    s16 temp_v0;
-    s16 temp_v1_2;
-    s32 var_s1_2;
+    volatile u32 sp44;
+    s32 temp_v0;
+    s32 temp_v1_2;
     s32 var_v0_2;
     s8 *var_t0;
     s8 var_v0;
     u32 temp_v1;
-    u32 var_s0;
-    u32 var_s0_2;
-    u32 var_s1;
+    register u32 var_s0;
+    register u32 var_s1;
     u32 var_s5;
     void *temp_a1;
-    void *temp_a1_2;
 
     var_t0 = *(s8 **)((u8 *)arg0 + 0x1C);
     var_v0 = *var_t0;
@@ -413,7 +414,7 @@ void func_151194D4(void *arg0, void *arg1, s32 arg2, u16 arg3) {
                 var_s1 = 0;
                 var_s0 = temp_v1;
                 do {
-                    temp_a1 = *(s32 *)((u8 *)arg0 + 0x28) + ((((u32) (var_s0 & 0xFF) / 10U) + var_s5) * 0x10);
+                    temp_a1 = *(u8 **)((u8 *)arg0 + 0x28) + ((((u32) (var_s0 & 0xFF) / 10U) + var_s5) * 0x10);
                     var_s1 += 1;
                     if ((*(s16 *)((u8 *)temp_a1 + 0) == *(s16 *)((u8 *)arg1 + 0)) && (*(s16 *)((u8 *)temp_a1 + 2) == *(s16 *)((u8 *)arg1 + 2)) && (*(s16 *)((u8 *)temp_a1 + 4) == *(s16 *)((u8 *)arg1 + 4))) {
                         var_v0_2 = 1;
@@ -422,22 +423,22 @@ void func_151194D4(void *arg0, void *arg1, s32 arg2, u16 arg3) {
                         var_s0 = var_s0 >> 8;
                     }
                 } while (var_s1 < 3U);
-                var_s0_2 = temp_v1;
+                var_s0 = temp_v1;
                 if (var_v0_2 != 0) {
-                    var_s1_2 = 0;
+                    var_s1 = 0;
                     do {
-                        temp_a1_2 = *(s32 *)((u8 *)arg0 + 0x28) + ((((u32) (var_s0_2 & 0xFF) / 10U) + var_s5) * 0x10);
-                        if (*(u16 *)((u8 *)temp_a1_2 + 6) == 0) {
-                            temp_v1_2 = *(s16 *)((u8 *)temp_a1_2 + 4);
-                            temp_v0 = *(s16 *)((u8 *)temp_a1_2 + 0);
+                        temp_a1 = *(u8 **)((u8 *)arg0 + 0x28) + ((((u32) (var_s0 & 0xFF) / 10U) + var_s5) * 0x10);
+                        if (*(u16 *)((u8 *)temp_a1 + 6) == 0) {
+                            temp_v1_2 = *(s16 *)((u8 *)temp_a1 + 4);
+                            temp_v0 = *(s16 *)((u8 *)temp_a1 + 0);
                             if (arg2 < ((temp_v1_2 * temp_v1_2) + (temp_v0 * temp_v0))) {
-                                *(u16 *)((u8 *)temp_a1_2 + 6) = arg3;
-                                func_151194D4(arg0, temp_a1_2, arg2, arg3);
+                                *(u16 *)((u8 *)temp_a1 + 6) = arg3;
+                                func_151194D4(arg0, temp_a1, arg2, arg3);
                             }
                         }
-                        var_s1_2 += 1;
-                        var_s0_2 = var_s0_2 >> 8;
-                    } while (var_s1_2 != 3);
+                        var_s1 += 1;
+                        var_s0 = var_s0 >> 8;
+                    } while (var_s1 != 3);
                 }
                 var_t0 = sp4C;
                 break;

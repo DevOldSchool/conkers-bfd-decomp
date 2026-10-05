@@ -28,26 +28,28 @@ u32 func_150ADA20(void);
 void func_15143794(s16, s16, f32, void *);
 void func_151DA6F8(f32 *, f32 *, f32, s16, s32, f32, s32, s32, f32, f32, s32, s32, s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B0050 CURRENT (2192) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B0050 CURRENT (2168) */
 s32 func_151B0050(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, s32 arg5, s32 arg6, s32 arg7, s16 arg8, s16 arg9, s32 arg10, s32 arg11, s32 arg12, s32 arg13, u8 arg14) {
     f32 position[3];
     f32 velocity[3];
-    volatile f32 random_float0;
-    u32 random_int0;
-    u32 random_int1;
-    f32 random_float1;
     u32 random_int2;
+    struct {
+        volatile f32 float0;
+        u32 int0;
+        u32 int1;
+        f32 float1;
+    } random;
 
     position[0] = arg2;
     position[1] = arg3;
     position[2] = arg4;
     func_15143794(arg9, arg8, (func_150ADA68() * D_800AA28C) + D_800AA290, velocity);
-    random_float0 = func_150ADA68();
-    random_int0 = func_150ADA20();
-    random_int1 = func_150ADA20();
-    random_float1 = func_150ADA68();
+    random.float0 = func_150ADA68();
+    random.int0 = func_150ADA20();
+    random.int1 = func_150ADA20();
+    random.float1 = func_150ADA68();
     random_int2 = func_150ADA20();
-    func_151DA6F8(position, velocity, (random_float0 * 0.0f) + D_800AA294, (s16) ((random_int0 % 20U) + 0x1F), (random_int1 % 101U) + 0x9B, (random_float1 * D_800AA298) + D_800AA29C, (random_int2 & 1) + 3, 1, 1.0f, 1.0f, 0, 0, 0, 0x10, 0xF, 0, arg14, 1);
+    func_151DA6F8(position, velocity, (random.float0 * 0.0f) + D_800AA294, (s16) ((random.int0 % 20U) + 0x1F), (random.int1 % 101U) + 0x9B, (random.float1 * D_800AA298) + D_800AA29C, (random_int2 & 1) + 3, 1, 1.0f, 1.0f, 0, 0, 0, 0x10, 0xF, 0, arg14, 1);
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B0050 */

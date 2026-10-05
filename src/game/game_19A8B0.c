@@ -10,7 +10,6 @@
  * - func_1516D738
  * - func_1516DB90
  * - func_1516E8CC
- * - func_1516ED68
  * - func_1516EED4
  * - func_1516F548
  * - func_1516FE1C
@@ -497,11 +496,10 @@ s32 func_1516ECAC(Game19A8B0Motion *arg0) {
 }
 extern u8 D_800CC2D4[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516ED68 CURRENT (361) */
-void func_1516ED68(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
+void func_1516ED68(volatile s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     s32 state;
 
-    state = D_800CC2D4[arg0 * 0x32C];
+    state = *(u8 *)((u32)D_800CC2D4 + (u32)arg0 * 0x32CU);
     if (state == 0x3A) {
         func_1516D99C(5, 0, 0, 4, 0, 0xFF, 0xFF, 0xFF,
             0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 8,
@@ -510,13 +508,11 @@ void func_1516ED68(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
             0, 0, 0, 5, 0, arg2, arg3);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1516ED68 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_19A8B0/func_1516ED68.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516EED4 CURRENT (2667) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1516EED4 CURRENT (2997) */
 void func_1516EED4(s32 arg0, s32 arg1, u8 arg2, s32 arg3) {
     u8 *timer;
 
-    timer = &D_800DD2A0[arg0];
+    timer = (u8 *)((u32)D_800DD2A0 + (u32)arg0);
     if (arg0 < 4 && *timer >= arg1) {
         *timer = 0;
         func_1516D99C(0, 0, 0, 4, 0, 0xFF, 0xFF, 0xFF,

@@ -110,12 +110,12 @@ void func_150548E4(u8 *arg0) {
     u8 *var_s2;
     u8 *temp_s0;
 
-    temp_s0 = (arg0[0x65] * 0x32C) - 0x32C + &D_800CC2D0;
+    temp_s0 = (u8 *)((u32)arg0[0x65] * 0x32CU - 0x32CU + (u32)&D_800CC2D0);
     var_s1 = 0;
     if (D_8008FD8C > 0) {
         var_s2 = &D_800CC2D0;
         do {
-            if ((((s32)(arg0 - &D_800CC2D0) / 812) + 1 == var_s2[0x274]) &&
+            if ((((s32)((u32)arg0 - (u32)&D_800CC2D0) / 812) + 1 == var_s2[0x274]) &&
                 (temp_s0[0x232] == 1)) {
                 *(s32 *)(temp_s0 + 0x218) = 0;
                 if (func_150ADA20() & 1) {
@@ -128,7 +128,7 @@ void func_150548E4(u8 *arg0) {
                 func_10010344(var_v0 & 0xFFFF, temp_s0, 0x7D00, 0x1F4, 0x9C4);
             }
             var_s1++;
-            var_s2 += 0x32C;
+            var_s2 = (u8 *)((u32)var_s2 + 0x32CU);
         } while (var_s1 < D_8008FD8C);
     }
 }
@@ -309,7 +309,7 @@ void func_15060A30(s32, u8 *);
 void func_1507CD64(u8 *, s32);
 extern f32 D_80099418;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15055C88 CURRENT (505) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15055C88 CURRENT (25) */
 void func_15055C88(u8 *arg0) {
     s32 sp2C;
     u8 *child;
@@ -323,8 +323,8 @@ void func_15055C88(u8 *arg0) {
     func_1506160C(arg0, 2, 0, 6, 0);
     arg0[0x89] = 0xC8;
     arg0[0x83] = 0xC8;
-    *(s32 *)arg0 = 0x29;
     *(f32 *)(arg0 + 0x1CC) = D_80099418;
+    *(s32 *)arg0 = 0x29;
     *(f32 *)(arg0 + 0x24) = 0.0f;
     *(f32 *)(arg0 + 0x20) = 0.0f;
     *(f32 *)(arg0 + 0x3C) = 0.0f;

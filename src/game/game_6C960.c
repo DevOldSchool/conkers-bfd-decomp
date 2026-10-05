@@ -93,8 +93,8 @@ s32 func_1503F62C(u8 arg0, s32 arg1, void *arg2, void *arg3,
     ((u8 *)*arg6)[0x3F4] = (u8)count;
     ((u8 *)*arg6)[0x3F5] = (u8)arg1;
     ((u8 *)*arg6)[0x3F6] = 0;
-    *(void **)((u8 *)*arg6 + 0x3E8) = func_10003C40(count << 6, 1, 2, 2);
-    *(void **)((u8 *)*arg6 + 0x3EC) = func_10003C40(count << 6, 1, 2, 2);
+    *(void **)((u8 *)*arg6 + 0x3E8) = func_10003C40((s32)((u32)count << 6), 1, 2, 2);
+    *(void **)((u8 *)*arg6 + 0x3EC) = func_10003C40((s32)((u32)count << 6), 1, 2, 2);
     actor = *arg6;
     allocation = *(void **)((u8 *)actor + 0x3E8);
     if (allocation == 0 || *(void **)((u8 *)actor + 0x3EC) == 0) {

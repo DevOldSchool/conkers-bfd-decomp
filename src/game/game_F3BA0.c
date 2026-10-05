@@ -89,8 +89,8 @@ void func_150C6870(void *arg0) {
 extern f32 D_800A0450;
 extern f32 D_800A0454;
 extern f32 D_800A0458;
-s32 func_15045800(f32 *, s32, f32, void *);
-u32 func_1513418C(void *, s32, u8, s32);
+s32 func_15045800(f32 *, u16, f32, void *);
+void *func_1513418C(s32, s32, u8, s32);
 void *func_10022EC0(void *, const void *, u32);
 
 typedef struct GameF3BA0SpawnPacket {
@@ -101,9 +101,9 @@ typedef struct GameF3BA0SpawnPacket {
     void *owner;
     u8 field_10;
     u8 pad_11[3];
-    f32 field_14;
-    f32 field_18;
-    f32 field_1C;
+    volatile f32 field_14;
+    volatile f32 field_18;
+    volatile f32 field_1C;
     f32 field_20;
     f32 field_24;
     s16 field_28;
@@ -115,18 +115,17 @@ typedef struct GameF3BA0SpawnPacket {
 
 typedef struct GameF3BA0RayPacket {
     f32 coordinates[3];
-    u8 pad_C[4];
     void *source;
     u8 flag;
-    u8 pad_15[3];
+    u8 pad_11[3];
     f32 result;
 } GameF3BA0RayPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C68C4 CURRENT (390) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C68C4 CURRENT (257) */
 s32 func_150C68C4(void *arg0, void *arg1) {
     GameF3BA0SpawnPacket packet;
     GameF3BA0RayPacket ray;
-    u32 spawned;
+    void *spawned;
 
     ray.source = arg1;
     ray.flag = 1;
@@ -154,11 +153,11 @@ s32 func_150C68C4(void *arg0, void *arg1) {
     packet.field_2B = 5;
     packet.field_2C = 2;
     packet.field_2D = 3;
-    spawned = func_1513418C(&packet, 0xC, 0xFF, 0);
+    spawned = func_1513418C((s32)&packet, 0xC, 0xFF, 0);
     if (spawned != 0) {
-        func_10022EC0((void *)(spawned + 0x58), &ray.source, 0xC);
+        func_10022EC0((u8 *)spawned + 0x58, &ray.source, 0xC);
     }
-    return spawned;
+    return (s32)spawned;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C68C4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F3BA0/func_150C68C4.s")

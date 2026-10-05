@@ -60,7 +60,7 @@ void *func_10022EC0(void *, const void *, u32);
 void *func_1515548C(f32 *, s32, s32, s32, s32, s32, s32);
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF680 CURRENT (2297) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150CF680 CURRENT (2087) */
 void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
     struct {
         u8 sp30;
@@ -85,6 +85,7 @@ void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
     locals.sp56 = 1;
     locals.sp61 = 0xFF;
     locals.sp52 = arg0;
+    locals.sp44 = 72.0f;
     locals.sp58 = 0xFF;
     locals.sp5B = 0xFF;
     locals.sp63 = 0xFF;
@@ -114,7 +115,6 @@ void func_150CF680(s16 arg0, u8 arg1, s32 arg2) {
     locals.sp88 = 1.0f;
     locals.sp94 = 0.0f;
     locals.sp90 = 0.0f;
-    locals.sp44 = 72.0f;
     locals.sp84 = D_80082FA0;
     result = func_1515548C(&locals.sp40, 0xC, 0, 0, 0x10, arg1, arg2);
     if (result != 0) {

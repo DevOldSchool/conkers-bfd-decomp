@@ -111,20 +111,18 @@ typedef struct {
     s32 field48;
 } Game1890A0Effect;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515BE50 CURRENT (88) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1515BE50 CURRENT (30) */
 void *func_1515BE50(void **arg0, s32 arg1, u8 arg2, s32 arg3) {
-    f32 final_value;
     Game1890A0Effect *result;
-    Game1890A0Effect *allocated;
+    f32 final_value;
 
     if (*arg0 == 0) {
         return 0;
     }
-    allocated = func_15167A68(0x32, arg3, arg1 + 0x50, 1, arg2, 1);
-    if (allocated == 0) {
+    result = func_15167A68(0x32, arg3, arg1 + 0x50, 1, arg2, 1);
+    if (result == 0) {
         return 0;
     }
-    result = allocated;
     func_10022EC0(result->payload18, arg0, 8);
     result->field20 = *(f32 *)((u8 *)*arg0 + 0x14);
     result->field24 = *(f32 *)((u8 *)*arg0 + 0x18);

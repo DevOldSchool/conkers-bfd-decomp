@@ -108,26 +108,27 @@ s32 func_1502AC88(u8 *arg0, s32 arg1, s32 *arg2) {
 
 void func_10004514(s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AF04 CURRENT (921) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AF04 CURRENT (1121) */
 s32 func_1502AF04(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
-    s32 i;
+    typedef struct { u32 address; u32 flags; } Relocation;
+    u32 i;
     register u8 *temp_s2;
     u8 *temp_t0;
-    u8 **entry;
+    Relocation *entries;
 
-    temp_t0 = arg0 + (arg2 * 8);
-    temp_s2 = (u8 *)((arg1 + 8) & ~0xF);
+    temp_t0 = (u8 *)((u32)arg0 + ((u32)arg2 << 3));
+    temp_s2 = (u8 *)(((u32)arg1 + 8U) & ~0xFU);
     func_10004514((s32)temp_t0 & ~0xF, (s32)temp_s2,
-                  (((s32)temp_t0 & 0xE) + (arg3 * 8) + 0xF) & ~0xF, 1);
+                  (((u32)temp_t0 & 0xEU) + ((u32)arg3 << 3) + 0xFU) & ~0xFU, 1);
+    entries = (Relocation *)((u32)temp_s2 + ((u32)temp_t0 & 0xFU));
     i = 0;
     if (arg3 != 0) {
         do {
-            entry = (u8 **)(temp_s2 + ((s32)temp_t0 & 0xF) + (i * 8));
-            *entry = arg0 + (s32)*entry;
+            entries[i].address += (u32)arg0;
             i++;
-        } while (i != arg3);
+        } while (i != (u32)arg3);
     }
-    return (s32)(temp_s2 + ((s32)temp_t0 & 0xF));
+    return (s32)((u32)temp_s2 + ((u32)temp_t0 & 0xFU));
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502AF04 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AF04.s")
@@ -237,57 +238,45 @@ s32 func_1502B224(u8 *arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return size;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (3092) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B350 CURRENT (1571) */
 s32 func_1502B350(u8 *arg0, s32 arg1, s32 *arg2) {
-    s32 sp2C;
-    s32 sp28;
-    s32 sp20;
-    s32 temp_a0;
-    s32 temp_t4;
-    s32 temp_v0;
-    s32 temp_v0_2;
-    s32 var_s0;
-    s32 var_t0;
-    s32 var_t0_2;
+    s32 size;
+    s32 transfer_size;
+    s32 input;
+    s32 expanded;
+    s32 result;
 
-    temp_a0 = ((arg1 & 0x0FFFFFFF) + 1) & ~1;
-    sp20 = temp_a0;
-    sp2C = temp_a0;
-    temp_v0 = func_10003C40(temp_a0, 1, 2, 2);
-    var_s0 = temp_v0;
-    if (temp_v0 == 0) {
+    size = ((arg1 & 0x0FFFFFFF) + 1) & ~1;
+    transfer_size = size;
+    input = func_10003C40(transfer_size, 1, 2, 2);
+    result = input;
+    if (input == 0) {
         return 0;
     }
-    sp28 = temp_v0;
-    func_10004514((s32)arg0, temp_v0, (sp20 + 0xF) & ~0xF, 1);
-    var_t0 = sp2C;
+    func_10004514((s32)arg0, input, (transfer_size + 0xF) & ~0xF, 1);
     if ((arg1 & 0x70000000) == 0x10000000) {
-        temp_t4 = *(s32 *)sp28 & 0x7FFFFFFF;
-        *arg2 = temp_t4;
-        if (temp_t4 != 0) {
-            var_s0 = 0;
-            if ((u32)temp_t4 < 0xF4240U) {
-                temp_v0_2 = func_10003C40(temp_t4, 1, 2, 2);
-                var_s0 = temp_v0_2;
-                if (temp_v0_2 != 0) {
-                    var_t0_2 = func_10006240(sp28, temp_v0_2, D_8003809C);
+        expanded = *(s32 *)input & 0x7FFFFFFF;
+        *arg2 = expanded;
+        if (expanded != 0) {
+            result = 0;
+            if ((u32)expanded < 0xF4240U) {
+                result = func_10003C40(expanded, 1, 2, 2);
+                if (result != 0) {
+                    size = func_10006240(input, result, D_8003809C);
                 } else {
-                    goto block_10;
+                    size = 0;
                 }
             } else {
-                goto block_10;
+                size = 0;
             }
         } else {
-            var_s0 = 0;
-block_10:
-            var_t0_2 = 0;
+            result = 0;
+            size = 0;
         }
-        sp2C = var_t0_2;
-        func_10004074(sp28);
-        var_t0 = var_t0_2;
+        func_10004074(input);
     }
-    *arg2 = var_t0;
-    return var_s0;
+    *arg2 = size;
+    return result;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502B350 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502B350.s")
@@ -322,7 +311,7 @@ s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
             if ((arg0[0].offset == -1) || (arg0[0].flags == 0)) {
                 arg0[0].offset = 0;
             } else {
-                arg0[0].offset += (s32)arg0;
+                arg0[0].offset = (s32)((u32)arg0[0].offset + (u32)arg0);
             }
             var_v0 = 1;
             if (arg1 == 1) {
@@ -336,13 +325,13 @@ s32 func_1502B4A8(Game57FA0Reloc *arg0, s32 arg1) {
             if ((entry[0].offset == -1) || (entry[0].flags == 0)) {
                 entry[0].offset = 0;
             } else {
-                entry[0].offset += (s32)arg0;
+                entry[0].offset = (s32)((u32)entry[0].offset + (u32)arg0);
             }
             entry[1].flags &= 0x0FFFFFFF;
             if ((entry[1].offset == -1) || (entry[1].flags == 0)) {
                 entry[1].offset = 0;
             } else {
-                entry[1].offset += (s32)arg0;
+                entry[1].offset = (s32)((u32)entry[1].offset + (u32)arg0);
             }
             entry += 2;
         } while (entry != end);
@@ -396,15 +385,15 @@ s32 func_1502B5C8(s32 *arg0, volatile s32 arg1, s32 arg2, s32 arg3) {
 s32 func_1502B350(u8 *, s32, s32 *);
 s32 func_1502B4A8(Game57FA0Reloc *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B6BC CURRENT (919) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B6BC CURRENT (566) */
 s32 func_1502B6BC(s32 *arg0, volatile s32 arg1, s32 *arg2,
-                   volatile s32 arg3, s32 arg4) {
+                   volatile s32 arg3, ...) {
     volatile struct {
         s32 component_state;
-        u8 pad3C[8];
         s32 state;
     } locals;
-    u8 *cursor;
+    va_list cursor;
+    s32 argument;
     volatile s32 *state;
     s32 count;
     s32 result;
@@ -416,19 +405,20 @@ s32 func_1502B6BC(s32 *arg0, volatile s32 arg1, s32 *arg2,
     }
     *state = 1;
     output = D_AB1950;
-    cursor = (u8 *)&arg4;
+    va_start(cursor, arg3);
     if (arg3 != 0) {
         do {
-            cursor = (u8 *)(((s32)(cursor + 3) & ~3) + 4);
+            argument = va_arg(cursor, s32);
             if (*state != 0) {
-                output += func_1502AC88(output, *(s32 *)(cursor - 4),
-                                        (s32 *)&locals.component_state);
+                output = (u8 *)((u32)output + (u32)func_1502AC88(output, argument,
+                                        (s32 *)&locals.component_state));
             }
             *state = locals.component_state & 0x0FFFFFFF;
-            count = arg3 - 1;
+            count = (s32)((u32)arg3 - 1U);
             arg3 = count;
         } while (count != 0);
     }
+    va_end(cursor);
     if (*state != 0) {
         result = func_1502B350(output, locals.component_state, (s32 *)state);
         if ((*state != 0) && (result != 0)) {
@@ -484,26 +474,29 @@ s32 func_1502AC88(u8 *, s32, s32 *);
 s32 func_1502B224(u8 *, s32, s32, s32);
 extern u8 D_AB1950[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B8E0 CURRENT (1202) */
-s32 func_1502B8E0(s32 arg0, s32 arg1, volatile s32 arg2, s32 arg3) {
-    s32 state;
-    u8 *cursor;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502B8E0 CURRENT (523) */
+s32 func_1502B8E0(s32 arg0, s32 arg1, s32 arg2, ...) {
+    va_list cursor;
     u8 *output;
     s32 result;
+    s32 state;
+    s32 argument;
 
     result = 1;
     output = D_AB1950;
-    cursor = (u8 *)&arg3;
+    va_start(cursor, arg2);
     if (arg2 != 0) {
         do {
-            cursor = (u8 *)(((s32)(cursor + 3) & ~3) + 4);
+            argument = va_arg(cursor, s32);
             if (result != 0) {
-                output += func_1502AC88(output, *(s32 *)(cursor - 4), &state);
+                output += func_1502AC88(output, argument, &state);
             }
-            arg2--;
+            argument = arg2 - 1;
+            arg2 = argument;
             result = state & 0x0FFFFFFF;
-        } while (arg2 != 0);
+        } while (argument != 0);
     }
+    va_end(cursor);
     if (result != 0) {
         result = func_1502B224(output, arg0, state, arg1);
     }

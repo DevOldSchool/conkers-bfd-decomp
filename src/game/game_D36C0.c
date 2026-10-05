@@ -62,7 +62,7 @@ void func_150A6354(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_D36C0/func_150A6354.s")
 extern f32 D_800D9B20;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6360 CURRENT (9040) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A6360 CURRENT (10115) */
 s32 func_150A6360(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7) {
     f32 temp_fa1f;
     f32 temp_ft2f;

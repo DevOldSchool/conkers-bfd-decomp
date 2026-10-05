@@ -266,28 +266,23 @@ void func_1507E73C(GameAB760State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507E73C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AB760/func_1507E73C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E7E4 CURRENT (132) */
-void func_1507E7E4(GameAB760State *arg0, u8 arg1, u8 arg2, u16 arg3, s32 arg4) {
-    u8 *temp_v0;
-    u8 *temp_v0_2;
-    u8 temp_v1;
-
-    temp_v1 = arg0->pad6E[1];
-    if (((arg1 != temp_v1) || (arg2 != arg0->expressionPriority) ||
-         (arg0->expressionTimer != arg3)) &&
-        ((arg2 == 3) || (temp_v1 == arg0->field_70) ||
-         (temp_v1 == arg1) || (arg0->expressionTimer == 0) ||
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507E7E4 CURRENT (258) */
+void func_1507E7E4(GameAB760State *arg0, u8 arg1, u8 arg2, s32 arg3, s32 arg4) {
+    if (((arg1 != arg0->pad6E[1]) || (arg2 != arg0->expressionPriority) ||
+         (arg0->expressionTimer != (u16)arg3)) &&
+        ((arg2 == 3) || (arg0->pad6E[1] == arg0->field_70) ||
+         (arg0->pad6E[1] == arg1) || (arg0->expressionTimer == 0) ||
          ((s32)arg0->expressionPriority < arg2))) {
         if ((s32)arg1 < func_1507E968(arg0)) {
-            temp_v0 = func_1507E908(arg0, (s32)arg0->pad6E[1]);
+            u8 *temp_v0 = func_1507E908(arg0, (s32)arg0->pad6E[1]);
             if (temp_v0[4] != 0) {
-                temp_v0_2 = func_1507E9F8(arg0, 0);
+                u8 *temp_v0_2 = func_1507E9F8(arg0, 0);
                 if (temp_v0_2 != 0) {
                     func_150302F0(arg0, (s32)temp_v0_2[temp_v0[4] - 1]);
                 }
             }
             arg0->pad6E[1] = arg1;
-            arg0->expressionTimer = arg3;
+            arg0->expressionTimer = (u16)arg3;
             arg0->expressionPriority = arg2;
             func_1507E5C8(arg0->pad0, arg4);
         }

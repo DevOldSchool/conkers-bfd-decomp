@@ -16,7 +16,7 @@
 
 extern s64 **D_80088544;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A81A0 CURRENT (3370) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150A81A0 CURRENT (2015) */
 void func_150A81A0(s64 *arg0, s64 *arg1) {
     s64 *temp_a3;
     s64 *var_a0;
@@ -24,11 +24,11 @@ void func_150A81A0(s64 *arg0, s64 *arg1) {
 
     var_a0 = arg0;
     var_a1 = arg1;
-    temp_a3 = (void *)(var_a1 + 0x40);
+    temp_a3 = (void *)(var_a1 + 8);
     do {
         *var_a0 = *var_a1;
-        var_a0 += 8;
-        var_a1 += 8;
+        var_a0++;
+        var_a1++;
     } while (var_a1 != temp_a3);
     *D_80088544 = var_a0;
 }

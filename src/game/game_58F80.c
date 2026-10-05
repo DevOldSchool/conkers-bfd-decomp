@@ -741,7 +741,7 @@ void func_1502CC34(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4, s32 *arg5
  * See docs/evidence/actor_model_display_list_semantics.md.
  */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502CCFC.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (335) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502D54C CURRENT (135) */
 void func_1502D54C(s32 arg0, void *arg1) {
     s32 temp_t1;
     void *temp_v0;
@@ -754,7 +754,7 @@ void func_1502D54C(s32 arg0, void *arg1) {
             (s32)(*(u8 *)((u8 *)temp_v0 + 0x1E1) + *(u8 *)((u8 *)temp_v0 + 0x1DE)) / 2;
         temp_t1 = (s32)(*(u8 *)((u8 *)temp_v0 + 0x1E2) +
                               *(u8 *)((u8 *)temp_v0 + 0x1DF)) / 2;
-        *(s32 *)((u8 *)arg1 + 8) = temp_t1;
+        *(volatile s32 *)((u8 *)arg1 + 8) = temp_t1;
         *(s32 *)((u8 *)arg1 + 0) = 0xFF - *(s32 *)((u8 *)arg1 + 0);
         *(s32 *)((u8 *)arg1 + 4) = 0xFF - *(s32 *)((u8 *)arg1 + 4);
         *(s32 *)((u8 *)arg1 + 8) = 0xFF - temp_t1;
@@ -1251,19 +1251,19 @@ void *func_1502F01C(Game58F80TileCommand *arg0, s32 arg1) {
 
 extern s32 D_80082FA0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F264 CURRENT (1275) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502F264 CURRENT (4130) */
 void func_1502F264(s32 arg0) {
-    u8 *actor = (u8 *)&D_800CC2D0 + arg0 * 0x32C;
+    u8 *actor = (u8 *)((u32)&D_800CC2D0 + (u32)arg0 * 0x32CU);
     u8 *parent;
     u8 *transform;
-    u8 *src;
-    u8 *dst;
+    u32 src;
+    u32 dst;
     u8 index;
     s32 count;
 
     index = actor[0x65];
     if (index != 0) {
-        parent = (u8 *)&D_800CC2D0 + index * 0x32C - 0x32C;
+        parent = (u8 *)((u32)&D_800CC2D0 + index * 0x32CU - 0x32CU);
         if ((actor[0x101] & 2) != 2) {
             transform = *(u8 **)(parent + 0x1D4);
             if (transform == 0) {
@@ -1271,7 +1271,7 @@ void func_1502F264(s32 arg0) {
                 *(f32 *)(actor + 0x18) = *(f32 *)(parent + 0x18);
                 *(f32 *)(actor + 0x1C) = *(f32 *)(parent + 0x1C);
             } else {
-                transform += *(s32 *)(actor + 0x5C) << 6;
+                transform = (u8 *)((u32)transform + (*(u32 *)(actor + 0x5C) << 6));
                 *(f32 *)(actor + 0x14) = *(f32 *)(transform + 0x30);
                 *(f32 *)(actor + 0x18) = *(f32 *)(transform + 0x34);
                 *(f32 *)(actor + 0x1C) = *(f32 *)(transform + 0x38);
@@ -1289,16 +1289,16 @@ void func_1502F264(s32 arg0) {
             if (!(actor[0x101] & 0x40)) {
                 actor[7] = parent[7];
                 count = 0;
-                src = parent;
+                src = (u32)parent;
                 actor[8] = parent[8];
-                dst = actor;
+                dst = (u32)actor;
                 actor[9] = parent[9];
                 actor[0xA] = parent[0xA];
                 actor[0xF] = parent[0xF];
                 if (D_80082FA0 >= 0) {
                     do {
-                        dst[0xB] = src[0xB];
-                        count++;
+                        *(u8 *)(dst + 0xBU) = *(u8 *)(src + 0xBU);
+                        count = (s32)((u32)count + 1U);
                         src++;
                         dst++;
                     } while (count <= D_80082FA0);
@@ -1309,7 +1309,6 @@ void func_1502F264(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1502F264 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502F264.s")
-
 
 void func_1502F490(Game58F80Actor *, f32 *, f32 *, f32 *, s32);
 extern u8 D_800CC2D0;
@@ -1448,7 +1447,7 @@ void func_1507EABC(void *);
 void func_1502FBE8(void *arg0) {
     u8 *actor = arg0;
     u8 current = actor[0x1C9];
-    s32 actor_index = (actor - &D_800CC2D0) / 0x32C;
+    s32 actor_index = (s32)((u32)actor - (u32)&D_800CC2D0) / 0x32C;
     void *old;
     s32 next;
     s32 selection;

@@ -496,7 +496,7 @@ s32 func_15134CEC(void *arg0) {
 /* Call context: func_15167A68: unique active declaration in the allowed source */
 void * func_15167A68(s32, s32, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15134DAC CURRENT (754) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15134DAC CURRENT (20) */
 void *func_15134DAC(u8 *arg0, s32 arg1) {
     u8 *temp_v0;
 
@@ -506,9 +506,11 @@ void *func_15134DAC(u8 *arg0, s32 arg1) {
     }
     {
         u8 * sp24 = temp_v0;
+        s16 lifetime;
     func_10022EC0(temp_v0 + 0x18, arg0, 0x3C);
+    lifetime = *(s16 *)(arg0 + 0x28);
     *(s32 *)((u8 *)sp24 + 0x10) = 1;
-    *(s16 *)((u8 *)sp24 + 0x54) = (s16) -*(s16 *)((u8 *)arg0 + 0x28);
+    *(s16 *)((u8 *)sp24 + 0x54) = (s16) -lifetime;
     *(s32 *)((u8 *)sp24 + 0x14) = 0;
     *(f32 *)((u8 *)sp24 + 0x70) = 0.0f;
     *(f32 *)((u8 *)sp24 + 0x74) = 0.0f;
@@ -1279,7 +1281,7 @@ extern u8 D_800A4058;
 extern u8 D_800A4068;
 extern u8 D_1000EBC4;
 s32 func_1000FA64(s32, s16, s16, s16, s32, s32, s32, void *, s32, s32, s32, s32);
-void func_15134DAC(u8 *, s32);
+void *func_15134DAC(u8 *, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15138120 CURRENT (969) */
 void func_15138120(Blood1380B4State *arg0, s32 arg1, s32 arg2) {

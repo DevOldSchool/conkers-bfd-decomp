@@ -125,10 +125,10 @@ s32 func_15086D48(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D48.s")
 s32 func_15085DA8(f32);                             /* extern */
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D94 CURRENT (9527) */
-f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
-    f32 sp54;
-    f32 sp50;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15086D94 CURRENT (7578) */
+f32 func_15086D94(f32 arg0, f32 arg1, volatile f32 arg2, volatile f32 arg3, f32 arg4) {
+    volatile f32 sp54;
+    volatile f32 sp50;
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa1;
@@ -172,21 +172,39 @@ f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
                         var_t0 += 1;
                         if ((temp_v1 != 0xFF) && (var_t3 < (s32) temp_v1)) {
                             temp_a1 = (void *)((temp_v1 * 0x10) + D_800D2350);
-                            if ((*(u8 *)((u8 *)temp_a1 + 0xE) == 1) && (((temp_a2 = *(s16 *)((u8 *)temp_a1 + 4), temp_v1_2 = *(s16 *)((u8 *)temp_t2 + 4), temp_a0 = *(s16 *)((u8 *)temp_t2 + 0), temp_a3 = *(s16 *)((u8 *)temp_a1 + 0), temp_fa0 = (f32) (temp_a2 - temp_v1_2), temp_fs2 = (f32) temp_a0, temp_fs3 = (f32) temp_v1_2, temp_fa1 = -(f32) (temp_a3 - temp_a0), temp_fv0 = -((temp_fs2 * temp_fa0) + (temp_fa1 * temp_fs3)), temp_ft5 = (arg0 * temp_fa0) + (arg2 * temp_fa1) + temp_fv0, var_ft4 = temp_ft5, temp_fv1 = ((arg0 + arg3) * temp_fa0) + ((arg2 + arg4) * temp_fa1) + temp_fv0, var_fs0 = temp_fv1, (temp_fv1 < 0.0f)) && (temp_ft5 >= 0.0f)) || ((temp_ft5 < 0.0f) && (temp_fv1 >= 0.0f)))) {
-                                if (temp_fv1 < 0.0f) {
-                                    var_fs0 = -temp_fv1;
-                                }
-                                if (temp_ft5 < 0.0f) {
-                                    var_ft4 = -temp_ft5;
-                                }
-                                temp_fa0_2 = -temp_fa1;
-                                temp_fv1_2 = var_ft4 / (var_ft4 + var_fs0);
-                                var_fs4 = temp_fv1_2;
-                                temp_fv0_2 = -((temp_fs2 * temp_fa0_2) + (temp_fa0 * temp_fs3));
-                                temp_ft4 = (((temp_fv1_2 * arg3) + arg0) * temp_fa0_2) + (((temp_fv1_2 * arg4) + arg2) * temp_fa0) + temp_fv0_2;
-                                temp_fs0 = ((f32) temp_a3 * temp_fa0_2) + (temp_fa0 * (f32) temp_a2) + temp_fv0_2;
-                                if ((((temp_fs0 > 0.0f) && (temp_ft4 > 0.0f) && (temp_ft4 <= temp_fs0)) || ((temp_fs0 < 0.0f) && (temp_ft4 < 0.0f) && (temp_fs0 <= temp_ft4))) && (var_fs4 < sp50)) {
-                                    sp50 = var_fs4;
+                            if (*(u8 *)(temp_a1 + 0xE) == 1) {
+                                temp_a2 = *(s16 *)(temp_a1 + 4);
+                                temp_v1_2 = *(s16 *)(temp_t2 + 4);
+                                temp_a0 = *(s16 *)(temp_t2 + 0);
+                                temp_a3 = *(s16 *)(temp_a1 + 0);
+                                temp_fa0 = (f32)(temp_a2 - temp_v1_2);
+                                temp_fs2 = (f32)temp_a0;
+                                temp_fs3 = (f32)temp_v1_2;
+                                temp_fa1 = -(f32)(temp_a3 - temp_a0);
+                                temp_fv0 = -((temp_fs2 * temp_fa0) + (temp_fa1 * temp_fs3));
+                                temp_ft5 = (arg0 * temp_fa0) + (arg2 * temp_fa1) + temp_fv0;
+                                var_ft4 = temp_ft5;
+                                temp_fv1 = ((arg0 + arg3) * temp_fa0) + ((arg2 + arg4) * temp_fa1) + temp_fv0;
+                                var_fs0 = temp_fv1;
+                                if (((temp_fv1 < 0.0f) && (temp_ft5 >= 0.0f)) ||
+                                    ((temp_ft5 < 0.0f) && (temp_fv1 >= 0.0f))) {
+                                    if (temp_fv1 < 0.0f) {
+                                        var_fs0 = -temp_fv1;
+                                    }
+                                    if (temp_ft5 < 0.0f) {
+                                        var_ft4 = -temp_ft5;
+                                    }
+                                    temp_fa0_2 = -temp_fa1;
+                                    temp_fv1_2 = var_ft4 / (var_ft4 + var_fs0);
+                                    var_fs4 = temp_fv1_2;
+                                    temp_fa1 = temp_fa0;
+                                    temp_fa0 = temp_fa0_2;
+                                    temp_fv0_2 = -((temp_fs2 * temp_fa0) + (temp_fa1 * temp_fs3));
+                                    temp_ft4 = (((temp_fv1_2 * arg3) + arg0) * temp_fa0) + (((temp_fv1_2 * arg4) + arg2) * temp_fa1) + temp_fv0_2;
+                                    temp_fs0 = ((f32) temp_a3 * temp_fa0) + (temp_fa1 * (f32) temp_a2) + temp_fv0_2;
+                                    if ((((temp_fs0 > 0.0f) && (temp_ft4 > 0.0f) && (temp_ft4 <= temp_fs0)) || ((temp_fs0 < 0.0f) && (temp_ft4 < 0.0f) && (temp_fs0 <= temp_ft4))) && (var_fs4 < sp50)) {
+                                        sp50 = var_fs4;
+                                    }
                                 }
                             }
                         }
@@ -205,8 +223,9 @@ f32 func_15086D94(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15086D94 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15086D94.s")
+
 s32 func_15086D48(s32);
-s32 func_150888A8(s32, u8, s8);
+s32 func_150888A8(volatile s32, volatile u8, s8);
 void func_15088824(void *);
 s32 func_10003C40(s32, s32, s32, s32);
 extern s32 D_800872A0, D_800D2394;
@@ -340,6 +359,8 @@ void func_15087CC0(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15087CC0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_15087CC0.s")
+s32 func_150888A8(volatile s32, volatile u8, s8);
+
 void func_15087DCC(s32 arg0, s32 arg1) {
     u8 *temp_v1;
     void *sp1C;
@@ -798,19 +819,19 @@ void func_15088824(void *arg0) {
     *(s8 *)((u8 *)arg0 + 0x49) = 0;
     *(f32 *)((u8 *)arg0 + 0x10) = 1.0f;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150888A8 CURRENT (2887) */
-s32 func_150888A8(s32 arg0, u8 arg1, s8 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150888A8 CURRENT (1432) */
+s32 func_150888A8(volatile s32 arg0, volatile u8 arg1, s8 arg2) {
     s32 temp_s0;
     s32 var_a0;
     s32 var_a3;
     s32 var_t0;
     s32 var_t4;
     s32 var_v1;
-    u8 temp_a2_2;
-    u8 temp_a2_3;
-    u8 temp_t0;
-    u8 temp_t2;
-    u8 temp_t3_2;
+    s32 temp_a2_2;
+    s32 temp_a2_3;
+    s32 temp_t0;
+    s32 temp_t2;
+    s32 temp_t3_2;
     u8 *temp_a2;
     u8 *temp_t1;
     u8 *temp_t2_2;
@@ -1382,17 +1403,16 @@ void func_1508BC20(void) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1508BC20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_B4080/func_1508BC20.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BF14 CURRENT (11632) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508BF14 CURRENT (4799) */
 s32 func_1508BF14(void) {
     s32 spA4;
-    s8 sp7C;
+    s8 counters[16];
     s32 *sp6C;
     s32 *sp68;
     u8 *sp64;
     u8 *sp60;
     s32 *var_s7;
     s32 *var_t5;
-    s32 temp_a0;
     s32 temp_a1;
     s32 temp_a2;
     s32 temp_s3;
@@ -1414,10 +1434,9 @@ s32 func_1508BF14(void) {
     s32 var_v0_3;
     s32 var_v1;
     s8 *temp_v0_3;
-    s8 *var_v0;
-    s8 *var_v0_2;
     u8 *temp_s4;
     u8 *temp_t2;
+    u8 *weights;
 
     var_t1 = 0;
     temp_s3 = *(s32 *)((u8 *)D_800D23B0 + 0x10);
@@ -1426,31 +1445,11 @@ s32 func_1508BF14(void) {
     temp_s4 = (void *)(D_800D23B0 + 0xE64);
     sp64 = (void *)(D_800D23B0 + 0x45C);
     sp60 = (void *)(D_800D23B0 + 0x49C);
-    temp_s5 = *(temp_s4 + (*(s32 *)((u8 *)D_800D23B0 + 4) * 4));
+    temp_s5 = *(s32 *)(temp_s4 + (*(s32 *)((u8 *)D_800D23B0 + 4) * 4));
     temp_t2 = (void *)(D_800D23B0 + 0x5DC);
-    if (temp_s3 > 0) {
-        temp_a0 = temp_s3 & 3;
-        if (temp_a0 != 0) {
-            var_v0 = &sp7C;
-            do {
-                var_t1 += 1;
-                *var_v0 = 0;
-                var_v0 += 1;
-            } while (temp_a0 != var_t1);
-            if (var_t1 != temp_s3) {
-                goto block_5;
-            }
-        } else {
-block_5:
-            var_v0_2 = &(&sp7C)[var_t1];
-            do {
-                var_v0_2 += 4;
-                *(s8 *)((u8 *)var_v0_2 + -4) = 0;
-                *(s8 *)((u8 *)var_v0_2 + -3) = 0;
-                *(s8 *)((u8 *)var_v0_2 + -2) = 0;
-                *(s8 *)((u8 *)var_v0_2 + -1) = 0;
-            } while (var_v0_2 != &(&sp7C)[temp_s3]);
-        }
+    weights = (u8 *)(D_800D23B0 + 0x9DC);
+    for (var_t1 = 0; var_t1 < temp_s3; var_t1++) {
+        counters[var_t1] = 0;
     }
     spA4 = 0;
     do {
@@ -1460,7 +1459,7 @@ block_5:
             var_s7 = sp6C;
             do {
                 temp_v0 = *var_s7;
-                var_s7 += 4;
+                var_s7 += 1;
                 var_a0 = 0;
                 if ((temp_v0 == 2) || (temp_v0 == 3)) {
                     var_a0 = 1;
@@ -1468,33 +1467,33 @@ block_5:
                 if (((var_a0 != 0) && (spA4 == 0)) || ((var_a0 == 0) && (spA4 != 0))) {
                     var_s1 = -1;
                     var_s0 = 0x989680;
-                    if (temp_s5 == *(temp_s4 + var_s6)) {
+                    if (temp_s5 == *(s32 *)(temp_s4 + var_s6)) {
                         var_a3 = 0;
                         if (temp_s3 > 0) {
                             var_t4 = 0;
                             var_t5 = sp68;
                             do {
                                 temp_t8 = *var_t5;
-                                var_t5 += 4;
+                                var_t5 += 1;
                                 if (temp_t8 > 0) {
                                     temp_v0_2 = var_a3 * 0x10;
                                     var_a2 = -1;
                                     temp_a1 = temp_v0_2 + 0x10;
-                                    if (temp_s5 != *(temp_s4 + var_t4)) {
+                                    if (temp_s5 != *(s32 *)(temp_s4 + var_t4)) {
                                         var_a0_2 = temp_v0_2;
                                         if (temp_v0_2 < temp_a1) {
                                             var_v0_3 = temp_v0_2 * 4;
-                                            if (*(temp_t2 + (temp_v0_2 * 4)) != -1) {
-                                                var_v1 = *(temp_t2 + var_v0_3);
+                                            if (*(s32 *)(temp_t2 + (temp_v0_2 * 4)) != -1) {
+                                                var_v1 = *(s32 *)(temp_t2 + var_v0_3);
 loop_25:
                                                 var_a0_2 += 1;
                                                 if (var_t1_2 == var_v1) {
-                                                    var_a2 = *(u8 *)(D_800D23B0 + 0x9DC + var_v0_3);
+                                                    var_a2 = *(s32 *)(weights + var_v0_3);
                                                     var_a0_2 = temp_a1;
                                                 }
                                                 var_v0_3 = var_a0_2 * 4;
                                                 if (var_a0_2 < temp_a1) {
-                                                    var_v1 = *(temp_t2 + var_v0_3);
+                                                    var_v1 = *(s32 *)(temp_t2 + var_v0_3);
                                                     if (var_v1 != -1) {
                                                         goto loop_25;
                                                     }
@@ -1502,7 +1501,7 @@ loop_25:
                                             }
                                         }
                                         if (var_a2 != -1) {
-                                            temp_a2 = var_a2 << (&sp7C)[var_a3];
+                                            temp_a2 = var_a2 << counters[var_a3];
                                             if (temp_a2 < var_s0) {
                                                 var_s0 = temp_a2;
                                                 var_s1 = var_a3;
@@ -1514,10 +1513,10 @@ loop_25:
                                 var_t4 += 4;
                             } while (var_a3 != temp_s3);
                         }
-                        temp_v0_3 = &(&sp7C)[var_s1];
+                        temp_v0_3 = &counters[var_s1];
                         *temp_v0_3 += 1;
-                        *(sp64 + var_s6) = var_s0;
-                        *(sp60 + var_s6) = var_s1;
+                        *(s32 *)(sp64 + var_s6) = var_s0;
+                        *(s32 *)(sp60 + var_s6) = var_s1;
                     }
                 }
                 var_t1_2 += 1;
@@ -1945,7 +1944,7 @@ void func_1508EDBC(u32 arg0) {
 void func_1503DDD0(s32);
 void func_15114B94(u32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508EE0C CURRENT (4678) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1508EE0C CURRENT (4543) */
 void func_1508EE0C(s32 arg0, s32 arg1) {
     u32 row;
     u32 rowOffset;
@@ -1954,6 +1953,7 @@ void func_1508EE0C(s32 arg0, s32 arg1) {
     u32 actionOffset;
     u16 count;
     u16 value;
+    s32 operand;
     u16 key;
     u16 group = arg0;
     u16 item = arg1;
@@ -1982,14 +1982,18 @@ void func_1508EE0C(s32 arg0, s32 arg1) {
                         actionOffset = 0;
                         do {
                             value = *(u16 *)(table + (((row << 2) - row) << 3) + actionOffset + 8);
-                            if ((value >> 12) == 2) {
-                                func_15114B94(value & 0xFFF);
+                            operand = value & 0xFFF;
+                            switch (value >> 12) {
+                            case 2:
+                                func_15114B94(operand);
                                 table = (u8 *)D_800D23C0;
                                 count = *(u16 *)(table + rowOffset + 2);
-                            } else if ((value >> 12) == 3) {
-                                func_1503DDD0(value & 0xFFF);
+                                break;
+                            case 3:
+                                func_1503DDD0(operand);
                                 table = (u8 *)D_800D23C0;
                                 count = *(u16 *)(table + rowOffset + 2);
+                                break;
                             }
                             actionIndex++;
                             actionOffset += 2;

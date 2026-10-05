@@ -101,12 +101,11 @@ void func_15044660(Game71820Global *, f32, f32, f32);
 s32 func_150AB1F0(f32, f32, f32, Game71820Global *, s32);
 void func_150AC3E4(f32, f32, f32, Game71820Global *, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (120) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15044380 CURRENT (146) */
 s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4, s32 arg5) {
-    s32 pad[2];
     s32 saved_mode;
     s32 index;
-    s32 total;
+    u32 total;
     u8 *active;
 
     D_800CBDF4 = -32768.0f;
@@ -121,7 +120,7 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
         if (*active == 1 && (index != 3 || !(arg3->flagsF8 & 0x200))) {
             func_1510F800(index);
             if (D_800DBE62 != 0) {
-                total += func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
+                total += (u32)func_150AB1F0(arg0, arg1, arg2, arg3, arg4);
             }
         }
         index--;
@@ -143,7 +142,7 @@ s32 func_15044380(f32 arg0, f32 arg1, f32 arg2, Game71820Global *arg3, s32 arg4,
     }
     func_1510F800(0);
     D_800CBDD3 = saved_mode;
-    return total;
+    return (s32)total;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15044380 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_71820/func_15044380.s")
@@ -1435,12 +1434,12 @@ typedef struct Game71820CollisionState {
 s32 func_15145C90(s32);
 extern s32 D_800DBEF4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504715C CURRENT (1010) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1504715C CURRENT (1740) */
 void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
-    s16 x;
-    s16 y;
-    s16 z;
-    s16 right;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 right;
     s32 index;
     s32 active;
     u16 id;
@@ -1450,12 +1449,12 @@ void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
         x = (s32)arg1->x;
         y = (s32)arg1->height;
         z = (s32)arg1->z;
-        right = x + 1000;
+        right = (s32)((u32)x + 1000U);
         arg0->points[0] = right;
-        arg0->points[3] = x - 1000;
-        arg0->points[2] = z + 1000;
+        arg0->points[3] = (u32)x - 1000U;
+        arg0->points[2] = (u32)z + 1000U;
         arg0->points[6] = right;
-        arg0->points[8] = z - 1000;
+        arg0->points[8] = (u32)z - 1000U;
         arg0->points[1] = y;
         arg0->points[4] = y;
         arg0->points[7] = y;
@@ -1469,7 +1468,7 @@ void func_1504715C(Game71820Hit *arg0, Game71820CollisionState *arg1) {
     index = id - 1;
     if (id != 0) {
         arg0->active = 2;
-        arg0->field20 = D_800DBEF4 + index * 0xA0;
+        arg0->field20 = (s32)((u32)D_800DBEF4 + (u32)index * 0xA0U);
         if (func_15145C90(index) != 0) {
             active = 1;
         } else {
@@ -1539,14 +1538,17 @@ void func_15047688(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     func_150A7790(&matrix, arg0);
 }
 /* Call context: func_150A7BC0: unique active project prototype */
-void func_150A7BC0(s32, s32);
+void func_150A7BC0(Game71820Matrix *);
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-void func_15047700(Game71820Matrix *, s32, f32, f32, f32, f32, f32, f32, f32, f32, f32);
+void func_15047700(Game71820Matrix *, s32, f32, f32, f32, f32, f32, f32, volatile f32, volatile f32, volatile f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15047700 CURRENT (16646) */
-void func_15047700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8, f32 arg9, f32 arg10) {
-    f32 sp4C;
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15047700 CURRENT (12607) */
+void func_15047700(Game71820Matrix *arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, volatile f32 arg8, volatile f32 arg9, volatile f32 arg10) {
+    volatile f32 sp4C;
+    f32 upX;
+    f32 upY;
+    f32 upZ;
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa0_3;
@@ -1568,37 +1570,32 @@ void func_15047700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     f32 temp_fv1_3;
     f32 temp_fv1_4;
     f32 temp_fv1_5;
-    f32 var_fs0;
-    f32 var_fs1;
-    f32 var_fs2;
     f32 var_fs4;
     f32 var_fs5;
     f32 var_ft5;
     f32 var_fv0;
-    f32 var_fv0_2;
-    f32 var_fv0_3;
-    f32 var_fv0_4;
-    f32 var_fv0_5;
-    f32 var_fv0_6;
 
-    func_150A7BC0(arg0, arg1);
+    func_150A7BC0(arg0);
     temp_fv0 = arg6 - arg3;
     temp_fv1 = arg7 - arg4;
-    var_fs1 = temp_fv0;
-    var_fs0 = arg5 - arg2;
-    var_fs2 = temp_fv1;
+    temp_fs1 = temp_fv0;
+    temp_fs0 = arg5 - arg2;
+    temp_fs2 = temp_fv1;
     if ((arg5 == arg2) && (temp_fv0 == 0.0f) && (temp_fv1 == 0.0f)) {
-        var_fs2 = 1.0f;
-        var_fs0 = 0.0f;
-        var_fs1 = 0.0f;
+        temp_fs2 = 1.0f;
+        temp_fs0 = 0.0f;
+        temp_fs1 = 0.0f;
     }
-    temp_fv1_2 = -1.0f / sqrtf((var_fs0 * var_fs0) + (var_fs1 * var_fs1) + (var_fs2 * var_fs2));
-    temp_fs0 = var_fs0 * temp_fv1_2;
-    temp_fs1 = var_fs1 * temp_fv1_2;
-    temp_fs2 = var_fs2 * temp_fv1_2;
-    temp_fa0 = (arg9 * temp_fs2) - (arg10 * temp_fs1);
-    temp_fa1 = (arg10 * temp_fs0) - (arg8 * temp_fs2);
-    temp_ft5 = (arg8 * temp_fs1) - (arg9 * temp_fs0);
+    temp_fv1_2 = -1.0f / sqrtf((temp_fs0 * temp_fs0) + (temp_fs1 * temp_fs1) + (temp_fs2 * temp_fs2));
+    temp_fs0 *= temp_fv1_2;
+    temp_fs1 *= temp_fv1_2;
+    temp_fs2 *= temp_fv1_2;
+    upX = arg8;
+    upY = arg9;
+    upZ = arg10;
+    temp_fa0 = (upY * temp_fs2) - (upZ * temp_fs1);
+    temp_fa1 = (upZ * temp_fs0) - (upX * temp_fs2);
+    temp_ft5 = (upX * temp_fs1) - (upY * temp_fs0);
     sp4C = temp_ft5;
     temp_fv0_2 = (temp_fa0 * temp_fa0) + (temp_fa1 * temp_fa1) + (temp_ft5 * temp_ft5);
     if (temp_fv0_2 != 0.0f) {
@@ -1638,38 +1635,38 @@ void func_15047700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     temp_fa0_4 = var_fs5 * 128.0f;
     *(s8 *)((u8 *)arg1 + 8) = (s8) (s32) var_fv0;
     if (temp_fa0_4 < 127.0f) {
-        var_fv0_2 = temp_fa0_4;
+        var_fv0 = temp_fa0_4;
     } else {
-        var_fv0_2 = 127.0f;
+        var_fv0 = 127.0f;
     }
-    *(s8 *)((u8 *)arg1 + 9) = (s8) (s32) var_fv0_2;
+    *(s8 *)((u8 *)arg1 + 9) = (s8) (s32) var_fv0;
     {
         f32 temp_fa0_5 = sp4C * 128.0f;
     if (temp_fa0_5 < 127.0f) {
-        var_fv0_3 = temp_fa0_5;
+        var_fv0 = temp_fa0_5;
     } else {
-        var_fv0_3 = 127.0f;
+        var_fv0 = 127.0f;
     }
     temp_fa0_6 = var_ft5 * 128.0f;
-    *(s8 *)((u8 *)arg1 + 0xA) = (s8) (s32) var_fv0_3;
+    *(s8 *)((u8 *)arg1 + 0xA) = (s8) (s32) var_fv0;
     if (temp_fa0_6 < 127.0f) {
-        var_fv0_4 = temp_fa0_6;
+        var_fv0 = temp_fa0_6;
     } else {
-        var_fv0_4 = 127.0f;
+        var_fv0 = 127.0f;
     }
-    *(s8 *)((u8 *)arg1 + 0x18) = (s8) (s32) var_fv0_4;
+    *(s8 *)((u8 *)arg1 + 0x18) = (s8) (s32) var_fv0;
     temp_fa0_7 = arg9 * 128.0f;
     if (temp_fa0_7 < 127.0f) {
-        var_fv0_5 = temp_fa0_7;
+        var_fv0 = temp_fa0_7;
     } else {
-        var_fv0_5 = 127.0f;
+        var_fv0 = 127.0f;
     }
     temp_fa0_8 = arg10 * 128.0f;
-    *(s8 *)((u8 *)arg1 + 0x19) = (s8) (s32) var_fv0_5;
+    *(s8 *)((u8 *)arg1 + 0x19) = (s8) (s32) var_fv0;
     if (temp_fa0_8 < 127.0f) {
-        var_fv0_6 = temp_fa0_8;
+        var_fv0 = temp_fa0_8;
     } else {
-        var_fv0_6 = 127.0f;
+        var_fv0 = 127.0f;
     }
     *(s8 *)((u8 *)arg1 + 0) = 0;
     *(s8 *)((u8 *)arg1 + 1) = 0;
@@ -1687,7 +1684,7 @@ void func_15047700(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
     *(s8 *)((u8 *)arg1 + 0x15) = 0x80;
     *(s8 *)((u8 *)arg1 + 0x16) = 0;
     *(s8 *)((u8 *)arg1 + 0x17) = 0;
-    *(s8 *)((u8 *)arg1 + 0x1A) = (s8) (s32) var_fv0_6;
+    *(s8 *)((u8 *)arg1 + 0x1A) = (s8) (s32) var_fv0;
     *(f32 *)((u8 *)arg0 + 0) = var_fs4;
     *(f32 *)((u8 *)arg0 + 0x10) = var_fs5;
     *(f32 *)((u8 *)arg0 + 4) = var_ft5;

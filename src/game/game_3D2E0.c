@@ -17,9 +17,9 @@ u32 func_150ADA20(void);
 void func_150C851C(s32);
 extern u8 *D_800BE4E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500FE30 CURRENT (1463) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500FE30 CURRENT (1370) */
 void func_1500FE30(void) {
-    s32 index;
+    s16 index;
     s32 offset;
     s32 copy_offset;
     u8 *entry;

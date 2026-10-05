@@ -23,12 +23,12 @@ extern u16 D_800CC346;
 extern u8 *D_800D154C;
 extern s32 D_800D1580;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0BE0 CURRENT (720) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150E0BE0 CURRENT (205) */
 void func_150E0BE0(u8 *actor) {
     s32 counter;
     s32 updated;
-    u8 state;
     u16 *current_frame;
+    u16 frame;
 
     actor[0xB0] = 0xF;
     actor[0x80] = 0xA;
@@ -40,13 +40,14 @@ void func_150E0BE0(u8 *actor) {
             counter = updated & 0xFF;
         }
         if (counter >= 5) {
-            state = actor[0x251];
+            counter = actor[0x251];
             current_frame = &D_800CC346;
-            if (state != 3) {
+            if (counter != 3) {
+                frame = *current_frame;
                 *(s32 *)(actor + 0x218) = 0;
                 actor[0x232] = 4;
-                *(u16 *)(actor + 0x78) = *current_frame;
-                if (state == 2) {
+                *(u16 *)(actor + 0x78) = frame;
+                if (counter == 2) {
                     actor[0x232] = 2;
                 }
             }

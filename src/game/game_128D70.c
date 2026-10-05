@@ -79,7 +79,7 @@ extern f32 D_800A1EB0, D_800A1EB4, D_800A1EB8;
 extern f32 D_800A1EBC, D_800A1EC0, D_800A1EC4;
 extern f32 D_800A1EC8, D_800A1ECC, D_800A1ED0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FC438 CURRENT (319) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FC438 CURRENT (629) */
 void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, s32 arg2, u8 arg3) {
     Game128D70Owner owner;
     u8 *object;
@@ -108,7 +108,7 @@ void func_150FC438(Game128D70Actor *arg0, Game128D70Actor *arg1, s32 arg2, u8 ar
         owner.otherType = 0xFF;
     }
     object = func_15149130(0x12C, -1, 0x27, -1, 0, 0x25, 0x20, 0xFF, 1);
-    result = (Game128D70Owner *)(object + 0x28);
+    result = (Game128D70Owner *)((u32)object + 0x28U);
     if (object != 0) {
         func_10022EC0(result, &owner, 0x20);
         if (arg1 != 0 && arg1->player != 0) {

@@ -10591,7 +10591,7 @@
         "us": {
           "end": "0x9CA10",
           "start": "0x9C440",
-          "state": "raw_asm"
+          "state": "in_progress"
         }
       },
       "source": "src/game/game_C98F0.c"
@@ -13968,15 +13968,15 @@
         "func_150F6478",
         "func_150F6484"
       ],
-      "integration": "mixed",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0xF64B0",
           "start": "0xF6420",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/game/game_1238D0.c"
+      "source": "src/done/game/game_1238D0.c"
     },
     {
       "boundary_evidence": {

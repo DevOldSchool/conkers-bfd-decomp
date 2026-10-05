@@ -6,7 +6,6 @@
  *
  * TODO: Implement these source-unit functions:
  * - func_1509C440
- * - func_1509C7C8
  * - func_1509C8FC
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -26,8 +25,8 @@ extern s8 D_800C3C9C;
 extern s32 D_800D3840;
 extern u8 D_800C35EA;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C440 CURRENT (5339) */
-void func_1509C440(s32 arg0, s32 arg1, void *arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C440 CURRENT (3026) */
+s32 func_1509C440(s32 arg0, s32 arg1, void *arg2) {
     s32 sp3C;
     s32 sp34;
     s32 sp30;
@@ -52,9 +51,9 @@ void func_1509C440(s32 arg0, s32 arg1, void *arg2) {
                 }
             }
             func_1501D348(sp3C, arg0, 0, 0U, 0);
-            return;
+            return 1;
         }
-        return;
+        return 0;
     case 4:
         if (D_800C35EA == 0) {
             if (D_800D3840 == 6) {
@@ -64,9 +63,9 @@ void func_1509C440(s32 arg0, s32 arg1, void *arg2) {
             D_800BE9F0 = 0x25;
             func_1501D348(0x25, arg0, 0, 0U, 0);
             D_800BE9F0 = temp_s0;
-            return;
+            return 1;
         }
-        return;
+        return 0;
     case 3:
         if (D_800C35EA == 0) {
             sp30 = *(s32 *)((u8 *)arg2 + 8);
@@ -79,9 +78,9 @@ void func_1509C440(s32 arg0, s32 arg1, void *arg2) {
                 sp34 = *(s32 *)((u8 *)arg2 + 0x10);
             }
             func_1501D348(sp34, arg0, 0, (u8) sp30, temp_v1);
-            return;
+            return 1;
         }
-        return;
+        return 0;
     case 2:
         D_800C35C2 = arg0 + 1;
         D_800C35C3 = (s8) D_800BE9F0;
@@ -121,42 +120,42 @@ extern u8 D_800C35E8;
 extern u8 D_800C35EA;
 extern u8 D_800C3C98;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1509C7C8 CURRENT (5950) */
-void func_1509C7C8(s32 arg0, s32 arg1, s32 arg2) {
+extern u8 D_800C3672;
+
+s32 func_1509C7C8(s32 arg0, s32 arg1, s32 arg2) {
     switch (arg1) {
     case 1:
         if (D_800C35C4 != 0) {
-            return;
+            return 0;
         }
         if (D_800C35EA == 0) {
-            return;
+            return 1;
         }
         if (arg0 == D_800C3C98) {
-            return;
+            return 0;
         }
-        return;
+        return 1;
     case 2:
         if ((D_800C35EA == 1) && (arg0 == D_800C3C98)) {
-            return;
+            return 1;
         }
-        return;
+        return 0;
     case 3:
         if ((D_800C35EA == 1) && (arg0 == D_800C35E8)) {
-            return;
+            return 1;
         }
-        return;
-        return;
-        return;
+        return 0;
+    case 4:
+        return D_800C35EA != 1;
+    case 5:
+        return D_800C3672;
     case 6:
         if ((D_800C35EA == 1) && (arg0 == D_800C35E8)) {
-            return;
+            return 1;
         }
-    default:
-        return;
+        return 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_1509C7C8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_C98F0/func_1509C7C8.s")
 /* Call context: func_15022190: unique active project prototype */
 /* Call context: func_150221E8: unique active project prototype */
 void func_15022190(s16, s16, s16, f32);

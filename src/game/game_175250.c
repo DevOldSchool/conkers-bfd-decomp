@@ -55,7 +55,7 @@ extern Game175250Callback D_8008A3E0[];
 extern Game175250Callback D_8008A3F8[];
 extern Game175250Callback D_8008A42C[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15147EB8 CURRENT (885) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15147EB8 CURRENT (2122) */
 s8 func_15147EB8(void *arg0) {
     u8 *entry = *(u8 **)((u8 *)arg0 + 0x98);
     s8 state = 0;
@@ -67,13 +67,13 @@ s8 func_15147EB8(void *arg0) {
 
     index = entry[0x20];
     if (index != 0) {
-        if (D_8008A3E0[index]() == 0) {
+        if (D_8008A3E0[index](arg0) == 0) {
             state = 1;
         }
     }
     index = entry[0x21];
     if (index != 0 && state == 0) {
-        if (D_8008A3F8[index]() == 0) {
+        if (D_8008A3F8[index](arg0) == 0) {
             state = 1;
         }
     }
@@ -89,12 +89,12 @@ s8 func_15147EB8(void *arg0) {
     if (state != 0) {
         index = entry[0x22];
         if (index != 0) {
-            D_8008A42C[index]();
+            D_8008A42C[index](arg0, (s32)(state == 0), (s32)state);
         }
     }
     list = *(u8 **)((u8 *)arg0 + 0x94);
     if (*(s8 *)((u8 *)arg0 + 0x2C) > 0) {
-        position = (Game175250Vec3 *)(list + (*(s8 *)((u8 *)arg0 + 0x2D) * 0x14));
+        position = (Game175250Vec3 *)((u32)list + (u32)(s32)*(s8 *)((u8 *)arg0 + 0x2D) * 0x14U);
         *(Game175250Vec3 *)((u8 *)arg0 + 0x54) = *position;
     } else {
         *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;

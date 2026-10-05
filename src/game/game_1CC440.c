@@ -137,22 +137,21 @@ void func_1519F108(Game1CC440State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F108 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F108.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F168 CURRENT (735) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519F168 CURRENT (465) */
 void func_1519F168(Game1CC440State *arg0) {
-    register Game1CC440Node **link = arg0->link98;
-    register Game1CC440Node *node = *link;
+    Game1CC440State *owner = arg0;
+    Game1CC440Node *node = *owner->link98;
 
     if (node != 0) {
-        Game1CC440NodeData *data = &node->data58;
-
-        if (arg0->mode == 6) {
-            data->field0 = 0;
+        arg0 = (Game1CC440State *)&node->data58;
+        if (owner->mode == 6) {
+            ((Game1CC440NodeData *)arg0)->field0 = 0;
         }
-        if (arg0->mode == 7) {
-            data->field8 = 0;
+        if (owner->mode == 7) {
+            ((Game1CC440NodeData *)arg0)->field8 = 0;
         }
     }
-    func_15147928((s32) arg0);
+    func_15147928((s32) owner);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1519F168 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1CC440/func_1519F168.s")

@@ -14,58 +14,76 @@
 
 extern u8 D_80084930[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150412C0 CURRENT (6065) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150412C0 CURRENT (7170) */
 void *func_150412C0(u8 *arg0) {
-    volatile s32 *p;
+    union Packet {
+        u64 command;
+        struct { u32 first; u32 second; } words;
+    };
+    union Packet *cursor;
 
-    p = (volatile s32 *)arg0;
-    p[1] = -1;
-    p[0] = 0xD7000002;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xE7000000;
-    p[1] = 0;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xFCFFFFFF;
-    p[1] = 0xFFFCF279;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xEF002C0F;
-    p[1] = 0x0055204C;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xFD90003F;
-    p[1] = (s32)D_80084930;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xFD900000;
-    p[1] = (s32)D_80084930;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[1] = 0x07000000;
-    p[0] = 0xF5900000;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xE6000000;
-    p[1] = 0;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xF3000000;
-    p[1] = 0x077FF200;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xE7000000;
-    p[1] = 0;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xF5800800;
-    p[1] = 0;
-    arg0 += 8;
-    p = (volatile s32 *)arg0;
-    p[0] = 0xF2000000;
-    p[1] = 0x000FC1FC;
-    return arg0 + 8;
+    cursor = (union Packet *)arg0;
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xD7000002;
+        packet->words.second = 0xFFFFFFFF;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xE7000000;
+        packet->words.second = 0;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xFCFFFFFF;
+        packet->words.second = 0xFFFCF279;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xEF002C0F;
+        packet->words.second = 0x0055204C;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xFD90003F;
+        packet->words.second = (u32)D_80084930;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xFD900000;
+        packet->words.second = (u32)D_80084930;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xF5900000;
+        packet->words.second = 0x07000000;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xE6000000;
+        packet->words.second = 0;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xF3000000;
+        packet->words.second = 0x077FF200;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xE7000000;
+        packet->words.second = 0;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xF5800800;
+        packet->words.second = 0;
+    }
+    {
+        union Packet *packet = cursor++;
+        packet->words.first = 0xF2000000;
+        packet->words.second = 0x000FC1FC;
+    }
+    return cursor;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150412C0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_6E770/func_150412C0.s")
