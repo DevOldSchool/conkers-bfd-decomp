@@ -1,7 +1,10 @@
 # HUD layout naming evidence
 
-These inferred names preserve source-local types, widths, padding, expressions
-and linked symbols. No new C match follows. [Confidence/provenance](model_name_confidence_review.md)
+The eight matched helpers below use descriptive C names through source-local
+aliases, preserving types, widths, padding, expressions and linked symbols.
+The two existing multiline macros are joined onto single physical lines with
+identical replacement tokens so alias-aware tooling can parse the source.
+No new C match follows. [Confidence/provenance](model_name_confidence_review.md)
 separates source descriptors, conditional behavior and runtime appearance.
 
 ## Queue and state roles

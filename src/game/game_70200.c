@@ -11,10 +11,19 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define hud_set_layout_flags func_15042D78
+#define hud_queue_layout_at func_15042D94
+#define hud_queue_layout_at_current_position func_15042E3C
+#define hud_parse_and_queue_layout func_15042ECC
+#define hud_set_layout_scale func_150432BC
+#define hud_attach_layout_to_object func_150432CC
+#define hud_set_layout_position func_150432FC
+#define hud_set_primary_rgba func_1504332C
+
 typedef u8 *Game70200VaList;
 #define GAME70200_VA_START(ap, last) ((ap) = (u8 *)&(last) + sizeof(last))
-#define GAME70200_VA_ARG(ap, type) \
-    (*(((type *)((ap) = (u8 *)((((s32)(ap) + 3) & ~3) + sizeof(type)))) - 1))
+#define GAME70200_VA_ARG(ap, type) (*(((type *)((ap) = (u8 *)((((s32)(ap) + 3) & ~3) + sizeof(type)))) - 1))
 #define GAME70200_VA_END(ap) ((void)0)
 
 typedef union Game70200Command {
@@ -33,14 +42,14 @@ void func_15042D50(void) {
 extern u8 D_800CBD74;
 extern s16 D_800CBD70;
 extern s16 D_800CBD72;
-void func_15042ECC();
+void hud_parse_and_queue_layout();
 
 /* hud_set_layout_flags: set raw flags for subsequently queued layout nodes. */
-void func_15042D78(u8 flagsRaw) {
+void hud_set_layout_flags(u8 flagsRaw) {
     D_800CBD74 = flagsRaw;
 }
 /* hud_queue_layout_at: set position/flags and pass sixteen argument words to the parser. */
-void func_15042D94(s32 x, s32 y, u8 flagsRaw, s32 format, ...) {
+void hud_queue_layout_at(s32 x, s32 y, u8 flagsRaw, s32 format, ...) {
     Game70200VaList args;
     s32 argumentWords[16];
     s32 argumentIndex;
@@ -53,11 +62,11 @@ void func_15042D94(s32 x, s32 y, u8 flagsRaw, s32 format, ...) {
         argumentWords[argumentIndex] = GAME70200_VA_ARG(args, s32);
     }
     GAME70200_VA_END(args);
-    func_15042ECC(format, argumentWords);
+    hud_parse_and_queue_layout(format, argumentWords);
 }
 
 /* hud_queue_layout_at_current_position: pass sixteen argument words to the parser. */
-void func_15042E3C(s32 format, ...) {
+void hud_queue_layout_at_current_position(s32 format, ...) {
     Game70200VaList args;
     s32 argumentWords[16];
     s32 argumentIndex;
@@ -67,7 +76,7 @@ void func_15042E3C(s32 format, ...) {
         argumentWords[argumentIndex] = GAME70200_VA_ARG(args, s32);
     }
     GAME70200_VA_END(args);
-    func_15042ECC(format, argumentWords);
+    hud_parse_and_queue_layout(format, argumentWords);
 }
 
 typedef struct Game70200Anchor {
@@ -119,7 +128,7 @@ extern s16 D_800CBD7C;
 extern f32 D_800CBD80;
 
 /* hud_parse_and_queue_layout: append text or 1-based HUD sprite-selector nodes. */
-void func_15042ECC(u8 *format, s32 *argumentWords) {
+void hud_parse_and_queue_layout(u8 *format, s32 *argumentWords) {
     struct {
         Game70200TextNode *node;
         s32 pad;
@@ -257,20 +266,20 @@ void func_15042ECC(u8 *format, s32 *argumentWords) {
 extern f32 D_800CBD80;
 
 /* hud_set_layout_scale: set scale for subsequently queued layout nodes. */
-void func_150432BC(f32 scale) {
+void hud_set_layout_scale(f32 scale) {
     D_800CBD80 = scale;
 }
 extern s32 D_800CBD78;
 extern s16 D_800CBD7C;
 
 /* hud_attach_layout_to_object: set the object and pre-projection vertical offset. */
-void func_150432CC(s32 attachedObject, s32 verticalOffset) {
+void hud_attach_layout_to_object(s32 attachedObject, s32 verticalOffset) {
     D_800CBD74 = (D_800CBD74 |= 1);
     D_800CBD7C = verticalOffset;
     D_800CBD78 = attachedObject;
 }
 /* hud_set_layout_position: set X/Y for subsequently queued screen layout nodes. */
-void func_150432FC(s16 x, s16 y) {
+void hud_set_layout_position(s16 x, s16 y) {
     D_800CBD70 = x;
     D_800CBD72 = y;
 }
@@ -280,7 +289,7 @@ extern u8 D_800CBD62;
 extern u8 D_800CBD63;
 
 /* hud_set_primary_rgba: set primary color bytes for subsequently queued nodes. */
-void func_1504332C(u8 red, u8 green, u8 blue, u8 alpha) {
+void hud_set_primary_rgba(u8 red, u8 green, u8 blue, u8 alpha) {
     D_800CBD60 = red;
     D_800CBD61 = green;
     D_800CBD62 = blue;
@@ -319,11 +328,7 @@ extern f32 D_80098C64;
 extern s32 D_800BE9AC;
 extern Game70200TextureInfo D_80090060;
 
-#define GAME70200_COMMAND(p, first, second) do { \
-    Game70200Command *command = (p)++; \
-    command->words.w0 = (u32)(first); \
-    command->words.w1 = (u32)(second); \
-} while (0)
+#define GAME70200_COMMAND(p, first, second) do { Game70200Command *command = (p)++; command->words.w0 = (u32)(first); command->words.w1 = (u32)(second); } while (0)
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15043384 CURRENT (3873) */
 s32 func_15043384(Game70200Command *dl) {
