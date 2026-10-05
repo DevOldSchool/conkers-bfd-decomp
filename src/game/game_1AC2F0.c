@@ -23,6 +23,16 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Semantic names retain the original numeric linker symbols.
+ * Evidence: docs/evidence/viewport_fade_helper_semantics.md
+ */
+#define viewport_fade_request func_1517EE40
+#define viewport_fade_is_opaque func_1517EFAC
+#define viewport_fade_draw func_1517F3A0
+#define viewport_fade_timer_finished func_1517F40C
+#define viewport_fade_advance_timer func_1517F448
+#define viewport_tint_draw_if_active func_1517F4D8
+
 typedef struct Game1AC2F0Color {
     u8 red;
     u8 green;
@@ -34,7 +44,7 @@ extern u8 D_800DDDC0[];
 extern s8 D_800DDDAC[];
 extern s32 D_800DDE28[];
 extern s32 D_800DDDB0[];
-void func_1517EE40(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4, s32 arg5) {
+void viewport_fade_request(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4, s32 arg5) {
     Game1AC2F0Color *temp_a0;
     s8 *temp_v0;
 
@@ -81,7 +91,7 @@ s32 func_1517EF00(s32 arg0) {
 
 s32 func_1517EF00(s32);
 
-s32 func_1517EFAC(s32 arg0) {
+s32 viewport_fade_is_opaque(s32 arg0) {
     if (func_1517EF00(arg0) == 0xFF) {
         return 1;
     }
@@ -166,7 +176,7 @@ s32 func_1517F08C(s32 cursor, s32 alpha, s32 red, s32 green, s32 blue,
 
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);
 
-s32 func_1517F3A0(s32 arg0, s32 arg1) {
+s32 viewport_fade_draw(s32 arg0, s32 arg1) {
     s32 intensity;
     Game1AC2F0Color *color;
 
@@ -180,13 +190,13 @@ s32 func_1517F3A0(s32 arg0, s32 arg1) {
 }
 extern s32 D_800BE9E4;
 
-s32 func_1517F40C(s32 arg0) {
+s32 viewport_fade_timer_finished(s32 arg0) {
     if (D_800DDDB0[arg0] >= D_800DDE28[arg0]) {
         return 1;
     }
     return 0;
 }
-void func_1517F448(s32 arg0) {
+void viewport_fade_advance_timer(s32 arg0) {
     if (D_800DDDB0[arg0] != D_800DDE28[arg0]) {
         D_800DDDB0[arg0] += D_800BE9E4;
     }
@@ -210,7 +220,7 @@ void func_1517F488(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1517F488 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AC2F0/func_1517F488.s")
-s32 func_1517F4D8(s32 arg0, s32 arg1) {
+s32 viewport_tint_draw_if_active(s32 arg0, s32 arg1) {
     s32 temp_a1;
     u8 *temp_v0;
     u8 *entry = (u8 *)&D_800DDD9C + arg1;

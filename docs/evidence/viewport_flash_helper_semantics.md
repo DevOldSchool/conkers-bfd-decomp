@@ -93,6 +93,6 @@ zero words at `150D2448/150D244C`. Original actor rendering at
 stronger meaning for that flag is inferred. Existing boundary evidence is in
 [the periodic-controller audit](game_raw_periodic_actor_resource_groups.md).
 Full-span CURRENT (0), existing layout, clean batch, tests, progress,
-whitespace, RSP and exact US main/game images gate these aliases. Raw timer,
-color and draw callees remain numeric evidence only; no new match or boundary
-is added.
+whitespace, RSP and exact US main/game images gate these aliases. Timer callees
+retain their existing matched implementations; raw color and rectangle callees
+remain evidence only. No new match or boundary is added.
