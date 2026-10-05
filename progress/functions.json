@@ -92716,7 +92716,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "CURRENT60: single global byte clear compiles LUI/SB/JR/NOP; reference is LUI/JR/SB/NOP. Same instructions/registers, store scheduling only. Starter already identical; no supported source-level scheduling hypothesis.",
+        "reason": "Checkpoint46 corrected source-local D_80038080 declaration to existing project u8 (done/init3930 and game consumers); same byte ABI, only this function references it in allowed unit. Unsigned declaration and explicit terminal return both neutral60 (088dde85,7e15034c); redundant return removed, minimal body independently rechecked2f0ba782. Full16 remains LUI/SB/JR/NOP versus raw LUI/JR/SB/NOP, no operand/register differences. No further supported scheduling hypothesis; no sharedheader/compiler/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
