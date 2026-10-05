@@ -12531,7 +12531,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT (10): sole mismatch is commuted final mul.s operands f16,f4 versus f4,f16 in case 0; source expression reversal neutral, 32-budget permutation no exact, explicit f32 local worsened to 120.",
+        "reason": "Valid corrected CURRENT10: case2 triple product now defined low32 unsigned arithmetic with signed CVT; original signed-overflow form rejected. Three new revisions95/25/10. Actual result accumulator shifts FP registers; exhausted alongside prior height-local120, source reversal and32permutation. Sole residual MUL.S F2,F4,F16 vs rawF2,F16,F4; no fresh supported lifetime hypothesis. Detailed older attempts unavailable.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -16147,8 +16147,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 7220,
-        "reason": "CURRENT (7220): compiler restructures the two byte-clear loops into alignment/unrolled paths; volatile pointer revision did not restore raw loop shape; 27 control-flow and 22 missing/extra rows remain",
+        "current_score": 535,
+        "reason": "Improved7220 to535: explicit backedges plus u32 endpoint bounds remove both expansions; ordinary byte views recover first-loop increment/store order. Three revisions800/800/535; integer cursor domain was neutral. Remaining paired-loop pointer increment/store scheduling, three global-address setup sequences and tail V0/V1/A0 allocation. No new supported local-state hypothesis; no shared/ABI changes. Earlier detailed attempts unavailable.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -31500,17 +31500,16 @@
       "symbol": "func_150AECCC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 60,
-        "reason": "Improved 245 to 60: capture updated halfword and limit as full-width comparison locals, with compound update. All opcodes/registers now agree; only the +0x34 reload moves before the +0x3A status store. Intermediate signed capture 500 and single full-width local 75. No exact match.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 80,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150AED4C",
           "vram": "0x150AED4C"
         }
@@ -39877,7 +39876,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "CURRENT (10): sole mismatch is commuted c.eq.s operands f4,f0 versus f0,f4; source comparator order neutral, split load worsened to 40, 32-budget permutation no exact.",
+        "reason": "Full432B CURRENT10 restored after one new named-global-sentinel revision170 changed27FP registers. Prior comparator swaps, field-load split40 and32variantsearch remain exhausted. Only C.EQ.S f0,f4 versus rawf4,f0 remains; needs source evidence preserving scratch-global register while changing comparator lowering. Task ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -41787,7 +41786,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 100,
-        "reason": "Improved manual candidate from 335 to 100; final flag temporaries and float load order differ.",
+        "reason": "Saved signature failed compile against later canonical nonvolatile Game71820Hit* declaration. Target-only canonical signature plus explicit existing volatile access views restores valid CURRENT100 and frame28; no other declaration changed, matching-callers has no matched direct callers and only same-source caller is deferred. Byte flag locals regressed158 with extra alias-local frame; equivalent reversed comparison neutral100. Preserve repaired valid100 after two matching hypotheses, two repair refinements, five finish calls. Eleven flag-register rows and two swapped FP loads remain. Task ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44215,7 +44214,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 70,
-        "reason": "Live1280 improved70 with goto and named u32 endpoint; exact single-loop instruction stream restored. Cursor V1 correct, but endpoint V0/loaded pointer A0/constant A1 differ from raw A1/V0/A0, and initial ADDIU order differs. Removing named endpoint100 regresses. Best70 preserved; ledger deferred-manual-20260930-continue1.",
+        "reason": "Corrected valid CURRENT70: unsigned actual cursor replaces beyond-scalar byte-pointer arithmetic. Two new revisions1435/70; explicit first-entry/conditional reload worsens control flow despite recovering entryV0. Inherited goto/u32endpoint70 and unnamed endpoint100 remain exhausted. Residual endpointV0/entryA0/constantA1 vs rawA1/V0/A0 and initial ADDIU order; no new supported lifetime hypothesis.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -47343,8 +47342,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Best manual CURRENT (40): second velocity shift uses a temporary register instead of v1, shifting subsequent product temporary registers. Fade, random remainder handling, both products, and stack layout match.",
+        "current_score": 113,
+        "reason": "Correctness-repaired CURRENT113: removed phantom RNG args and unused local; defined negative shift and wrapping fade/square sum. Three new revisions: correction593, defined shift restores both products113, promoted locals113. Saved40 rejected for unsupported helper args and undefined negative shift; historical detailed attempts unavailable. Remaining13 register rows and alpha spill24 vs raw20; needs genuine local lifetime/stack evidence, no dummy padding or ABI arguments.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -49228,8 +49227,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1168,
-        "reason": "CURRENT 1168: correct frame/calls and saved arg lifetimes; IDO still unrolls/reorders the four contiguous zero stores, shortening the body by 8 bytes; volatile pointee improved register allocation but did not retain the loop",
+        "current_score": 20,
+        "reason": "Improved1168 to20 through explicit backedge, shared actual loop cursor/count and first-live ordering. Five new revisions713/80/108/40/20. All296B instructions/registers/stack/control exact except initial MOVE S0,S4 before MOVE S1,zero versus raw opposite. Reversing both initializations restores wrong loop colors80; formal reuse108. Need new evidence preserving raw colors with count-first initialization; no padding/ABI/permutation. Older detailed attempts unavailable.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -63859,17 +63858,16 @@
       "symbol": "func_15169968"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 45,
-        "reason": "CURRENT (45): eight integer register-allocation rows around the phase accumulator; 32 permutations, merged v0 lifetimes, and split multiply/accumulate variants exhausted, with the split form regressing",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15169988",
           "vram": "0x15169988"
         }
@@ -83549,7 +83547,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Typed17-float emitter403->10->10; physical stores and staged RNG call recover every instruction except one commuted multiply operand. Swapping source operands unchanged. Best natural spelling retained; defer before timed workflow pilot, no permutation.",
+        "reason": "Valid corrected CURRENT10: timer subtraction and delayRange+1 now defined unsigned wrap before signed storage/division. Two new hypotheses759/125 plus restored10. Actual array accumulation adds stores/reloads; actual RNG-scalar product restores instructions but shifts21FPR rows. Sole residual MUL.S F8,F6,F0 vs rawF8,F0,F6; prior source reversal neutral. No new supported lifetime hypothesis; earlier detailed attempts unavailable.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

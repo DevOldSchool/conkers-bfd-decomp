@@ -38,23 +38,28 @@ extern s32 D_800D9AA0[];
 extern s32 D_800BE4F0;
 extern u8 D_80088B40;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E5C0 CURRENT (7220) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E5C0 CURRENT (535) */
 void func_1500E5C0(void) {
-    volatile u8 *first;
-    volatile u8 *second;
-    volatile u8 *third;
+    u8 *first;
+    u8 *second;
+    u8 *third;
+    u32 first_end;
+    u32 second_end;
 
     func_15012470();
     func_15008A10();
     func_15012770();
     first = D_800E0950;
-    do {
-        first += 4;
-        first[-3] = 0;
-        first[-2] = 0;
-        first[-1] = 0;
-        first[-4] = 0;
-    } while (first != D_800E0964);
+    first_end = (u32)D_800E0964;
+clear_first:
+    first += 4;
+    first[-3] = 0;
+    first[-2] = 0;
+    first[-1] = 0;
+    first[-4] = 0;
+    if ((u32)first != first_end) {
+        goto clear_first;
+    }
     D_800D9921 = 0;
     D_800D9920 = 0;
     D_800D9928 = 0;
@@ -62,19 +67,22 @@ void func_1500E5C0(void) {
     D_800D9929 = 0;
     second = D_800D993A;
     third = D_800D992A;
+    second_end = (u32)D_800D9946;
     D_800D9939 = 0;
-    do {
-        second += 4;
-        third[1] = 0;
-        second[-3] = 0;
-        third[2] = 0;
-        second[-2] = 0;
-        third[3] = 0;
-        second[-1] = 0;
-        third += 4;
-        third[-4] = 0;
-        second[-4] = 0;
-    } while (second != D_800D9946);
+clear_pair:
+    second += 4;
+    third[1] = 0;
+    second[-3] = 0;
+    third[2] = 0;
+    second[-2] = 0;
+    third[3] = 0;
+    second[-1] = 0;
+    third += 4;
+    third[-4] = 0;
+    second[-4] = 0;
+    if ((u32)second != second_end) {
+        goto clear_pair;
+    }
     D_800D9890 = 0;
     D_800D9894 = 0;
     D_800D98D0[0] = 0;

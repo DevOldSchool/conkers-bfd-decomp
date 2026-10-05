@@ -105,11 +105,11 @@ extern s8 D_800D9890;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150B6D34 CURRENT (70) */
 void func_150B6D34(void) {
-    u8 *var_v1;
+    u32 var_v1;
     void *temp_v0;
     u32 end = (u32)&D_800D98A4;
 
-    var_v1 = (u8 *) &D_800D9898;
+    var_v1 = (u32)&D_800D9898;
 loop:
         temp_v0 = *(void **)(var_v1 + 0x14);
         var_v1 += 4;

@@ -1592,7 +1592,7 @@ f32 func_1514462C(void *arg0) {
         var_fv1 = 1.0f;
         break;
     case 2:
-        var_fv1 = (f32) ((*(s16 *)((u8 *)arg0 + 8) * *(s16 *)((u8 *)arg0 + 0xA)) * *(s16 *)((u8 *)arg0 + 6));
+        var_fv1 = (f32)(s32)((u32)*(s16 *)((u8 *)arg0 + 8) * (u32)*(s16 *)((u8 *)arg0 + 0xA) * (u32)*(s16 *)((u8 *)arg0 + 6));
         break;
     case 0:
         temp_v0 = *(s16 *)((u8 *)arg0 + 6);
