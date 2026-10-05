@@ -61,10 +61,10 @@ extern f32 D_8002C43C;
 extern f32 D_8002C440;
 extern f32 D_8002C444;
 f32 func_85047D60(f32);
-void func_80008BC0(s32, f32, f32);
-void func_80008B60(s32, s32, s32, s32, s32);
+void func_80008BC0(u8, f32, f32);
+void func_80008B60(u8, u8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80012020 CURRENT (495) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80012020 CURRENT (95) */
 void func_80012020(void) {
     s32 i;
     f32 volume = 0.0f;

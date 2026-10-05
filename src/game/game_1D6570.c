@@ -109,18 +109,23 @@ f32 func_150ADA68(void);
 void *func_1513C650(s32, u8, u8, s32, f32, f32, f32, f32, f32, u8, u8, s32, s32, s32, u8, s32);
 extern Game1D6570Choices D_8008F9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A91AC CURRENT (584) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A91AC CURRENT (106) */
 void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3) {
     Game1D6570Particle particle;
     f32 size;
     Game1D6570Choices choices;
-    u32 random0;
-    u32 random1;
+    struct {
+        u32 first;
+        u32 second;
+        u32 third;
+    } random;
 
     choices = D_8008F9A4;
     size = func_150ADA68() * 50.0f + 50.0f;
     particle.field6 = choices.values[func_150ADA20() % 3U];
     particle.field7 = 0;
+    particle.field16 = 0;
+    particle.field17 = 7;
     particle.field8 = 0;
     particle.fieldC = 0;
     particle.field0 = 0x1701;
@@ -131,14 +136,13 @@ void func_151A91AC(Game1D6570ParticleOwner *arg0, f32 *arg1, s32 arg2, s32 arg3)
     particle.field13 = 0;
     particle.field14 = 0;
     particle.field15 = 0xFF;
-    particle.field16 = 0;
-    particle.field17 = 7;
     particle.field18 = 0x3B0002;
-    random0 = func_150ADA20();
-    random1 = func_150ADA20();
+    random.first = func_150ADA20();
+    random.second = func_150ADA20();
+    random.third = func_150ADA20();
     func_1513C650((s32)&particle, 1, 0, (s32)&arg0->field58,
                   arg1[0], arg1[1], arg1[2], size, size,
-                  random0 & 0xFF, (func_150ADA20() & 1) + (random1 & 1),
+                  random.first & 0xFF, (random.third & 1) + (random.second & 1),
                   3, 0xFF, 0, arg0->fieldC, arg0->field1);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A91AC */
@@ -155,7 +159,6 @@ void func_151A931C(void *arg0, u8 *arg1, u8 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A931C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A931C.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9390.s")
 typedef struct Game1D6570Emitter {
     f32 field0;
     f32 field4;
@@ -183,6 +186,99 @@ typedef struct Game1D6570Actor {
     Game1D6570Emitter emitter;
 } Game1D6570Actor;
 
+typedef struct Game1D6570Vector { f32 x, y, z; } Game1D6570Vector;
+
+typedef struct Game1D6570Preset {
+    f32 first, second;
+    u8 field8, field9, fieldA, fieldB, fieldC;
+    u8 padD[3];
+    const void *data;
+} Game1D6570Preset;
+
+typedef struct Game1D6570LightHeader {
+    u8 flags, kind;
+    s16 duration;
+    u8 channel;
+} Game1D6570LightHeader;
+
+s32 func_1516284C(u8 *, s32 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern Game1D6570Preset D_8008F9AC[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A9390 CURRENT (5219) */
+void func_151A9390(s32 arg0, u8 arg1, void *arg2, f32 *arg3,
+                   f32 arg4, f32 arg5, s32 arg6, s32 arg7, s32 arg8) {
+    Game1D6570Descriptor descriptor;
+    Game1D6570LightHeader light;
+    s32 position[3];
+    Game1D6570Preset *preset;
+    Game1D6570Emitter *emitter;
+    s32 result;
+    s32 flags;
+    s32 flag0;
+    s32 flag1;
+    s32 flag2;
+    s32 duration;
+
+    flags = arg0 & 0xFF;
+    if (arg1 < 9) {
+        flag0 = (flags & 1) ? 4 : 0;
+        flag1 = arg2 != 0 ? 2 : 0;
+        flag2 = 0;
+        if (flags & 2) {
+            flag2 = 8;
+        }
+        preset = &D_8008F9AC[arg1];
+        descriptor.field_0 = flag2 | 1 | flag1 | flag0;
+        descriptor.field_4 = (s32)arg2;
+        descriptor.field_8 = preset->first;
+        descriptor.field_C = preset->second;
+        if (arg3 != 0) {
+            Game1D6570Vector *source;
+            source = (void *)arg3;
+            *(Game1D6570Vector *)&descriptor.field_10 = *source;
+        } else {
+            descriptor.field_10 = 0.0f;
+            descriptor.field_14 = 0.0f;
+            descriptor.field_18 = 0.0f;
+        }
+        descriptor.field_24 = 2;
+        descriptor.field_25 = -1;
+        descriptor.field_26 = 1;
+        descriptor.field_1C = arg4;
+        descriptor.field_20 = arg5;
+        result = func_151A8B20(&descriptor, ((s16 *)&arg6)[1], 0x2C, ((u8 *)&arg7)[3], arg8);
+        if (result != 0) {
+            emitter = &((Game1D6570Actor *)result)->emitter;
+            func_10022EC0(emitter, preset->data, 0x2C);
+            if (flags & 8) {
+                emitter->flags28 |= 1;
+            }
+            if (flags & 0x10) {
+                emitter->flags28 |= 2;
+            }
+        }
+        if (flags & 4) {
+            duration = ((s16 *)&arg6)[1];
+            light.flags = (duration == -1 ? 0 : 1) | 2;
+            light.kind = 2;
+            light.duration = duration == -1 ? 300 : duration;
+            light.channel = preset->fieldB;
+            if (arg3 != 0) {
+                position[0] = (s32)arg3[0];
+                position[1] = (s32)arg3[1];
+                position[2] = (s32)arg3[2];
+            } else {
+                position[0] = ((s16 *)arg2)[0];
+                position[1] = ((s16 *)arg2)[1];
+                position[2] = ((s16 *)arg2)[2];
+            }
+            func_1516284C(&light.flags, position, preset->field8, preset->field9,
+                preset->fieldA, 255, 0, 0, preset->fieldC, 255, 1);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A9390 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D6570/func_151A9390.s")
 typedef struct Game1D6570Payload {
     f32 field0;
     s16 field4;

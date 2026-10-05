@@ -24,7 +24,7 @@ void func_10004514(s32, s32, s32, s32);
 void func_10004074(s32);
 void func_15015A38(void *, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015920 CURRENT (804) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015920 CURRENT (1714) */
 void func_15015920(s16 arg0) {
     u8 *buffer;
     u8 *cursor;
@@ -34,18 +34,19 @@ void func_15015920(s16 arg0) {
     buffer = func_10003C6C(0x2800, 1, 2, 1, 0);
     range = (u8 *)&D_80082F80[arg0];
     func_10004514(*(s32 *)range, (s32)buffer,
-                  *(s32 *)(range + 4) - *(s32 *)range, 1);
+                  (s32)(*(u32 *)(range + 4) - *(u32 *)range), 1);
     cursor = buffer;
     index = 0;
-    if ((u32)(buffer + 0xF) <
-        (u32)((buffer + *(s32 *)(range + 4)) - *(s32 *)range)) {
+    if (((u32)buffer + 0xF) <
+        ((u32)buffer + *(u32 *)(range + 4) - *(u32 *)range)) {
         do {
             func_15015A38(cursor, index, arg0);
-            cursor += (cursor[4] << 24) + (cursor[5] << 16) +
-                      (cursor[6] << 8) + cursor[7];
+            cursor = (u8 *)((u32)cursor + ((u32)cursor[4] << 24) +
+                            ((u32)cursor[5] << 16) +
+                            ((u32)cursor[6] << 8) + cursor[7]);
             index++;
-        } while ((u32)(cursor + 0xF) <
-                 (u32)((buffer + *(s32 *)(range + 4)) - *(s32 *)range));
+        } while (((u32)cursor + 0xF) <
+                 ((u32)buffer + *(u32 *)(range + 4) - *(u32 *)range));
     }
     func_10004074((s32)buffer);
 }

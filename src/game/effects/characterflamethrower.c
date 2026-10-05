@@ -318,6 +318,94 @@ CharacterFlamethrowerPanel *func_15195984(s32 identity, s32 dimensions, s32 posi
 s16 func_15195A84(s16 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return arg0;
 }
+s32 func_15195868(s32, s32, s32, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15195AA8 CURRENT (1786) */
+s32 func_15195AA8(s32 arg0, s32 arg1, s32 arg2, s32 arg3,
+                  volatile s32 arg4, s32 arg5, s32 arg6, s32 arg7) {
+    s32 count;
+    CharacterFlamethrowerPanel *created;
+    register CharacterFlamethrowerPanel *panel;
+    register s32 dimensions;
+    register s32 index;
+    register s32 identity;
+    register s32 occurrence;
+    register s32 status;
+    register s32 selection;
+    s32 first_slot;
+    s32 second_slot;
+    s32 position;
+
+    identity = arg1;
+    selection = arg3;
+    occurrence = selection;
+    panel = 0;
+    if (arg0 == 0) {
+        return 0;
+    }
+    status = arg4;
+    if (selection == -1) {
+        occurrence = 0;
+    }
+    do {
+        index = func_15195868(arg0, identity, occurrence, &count);
+        if (index == -1) {
+            selection = 0;
+        } else {
+            if (identity == 0) {
+                identity = D_800E08F0;
+            }
+            panel = (CharacterFlamethrowerPanel *)D_800E08E8;
+            dimensions = *(s32 *)(arg0 + index * 8 + 4);
+            position = *(s32 *)(arg0 + index * 8);
+            while (panel != 0 && panel->identity != 0) {
+                panel = (CharacterFlamethrowerPanel *)panel->links.previous;
+            }
+            if (panel == 0) {
+                created = func_15195984(identity, dimensions, position, arg2);
+                panel = created;
+                if (created == 0) {
+                    return 0;
+                }
+                status = 0;
+                created->control12 = arg6;
+                created->control13 = arg7;
+            } else {
+                status = 0;
+                index = func_15195A84((s16)index, (s32)panel, dimensions, arg2);
+            }
+            occurrence++;
+            if (panel->active < count) {
+                panel->active = count;
+            }
+            if (arg5 == 0) {
+                first_slot = 0;
+                while (first_slot < 5 && panel->first[first_slot] != -1) {
+                    first_slot++;
+                }
+                if (first_slot < 5) {
+                    panel->first[first_slot] = index;
+                    panel->pad30[first_slot] = count;
+                }
+            } else {
+                second_slot = 0;
+                while (second_slot < 5 && panel->second[second_slot] != -1) {
+                    second_slot++;
+                }
+                if (second_slot < 5) {
+                    panel->second[second_slot] = index;
+                    panel->pad30[second_slot + 5] = count;
+                }
+            }
+        }
+    } while (selection == -1);
+    arg4 = status;
+    if (identity == D_800E08F0) {
+        D_800E08F0--;
+    }
+    return (s32)panel;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15195AA8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15195AA8.s")
 typedef struct CharacterFlamethrowerBinding {
     CharacterFlamethrowerListNode links;
@@ -607,7 +695,6 @@ void func_15198054(CharacterFlamethrowerActor *actor, CharacterFlamethrowerEvent
     }
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198110.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198570.s")
 typedef struct CharacterFlamethrowerPosition {
     f32 x;
     f32 y;
@@ -639,6 +726,68 @@ typedef struct CharacterFlamethrowerCollisionActor {
 extern CharacterFlamethrowerCollisionActor D_800CC2D0[];
 extern CharacterFlamethrowerCollisionActor D_800D121C;
 
+s32 func_1505D024(void *, s32, s32, s32);
+s32 func_1518D1C0(void *, s32, s32, s32, s32, s32, void *);
+extern u8 D_800A8A84;
+extern f32 D_800CC2E4;
+extern f32 D_800CC2E8;
+extern f32 D_800CC2EC;
+extern u16 D_800CC34A;
+extern s16 D_800CC3B4;
+extern s16 D_800CC3B6;
+extern s16 D_800CC3B8;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15198570 CURRENT (9204) */
+s32 func_15198570(CharacterFlamethrowerActor *arg0) {
+    volatile CharacterFlamethrowerPosition position;
+    CharacterFlamethrowerState *state;
+    u8 *points;
+    s32 index;
+    s32 ring_index;
+    f32 radius;
+    f32 height;
+    f32 x;
+    f32 z;
+    f32 y;
+
+    points = arg0->points;
+    state = arg0->state;
+    index = arg0->point_end;
+    if (index != arg0->point_index) {
+        do {
+            index -= 1;
+            if (index < 0) index = arg0->point_capacity - 1;
+            position = *(CharacterFlamethrowerPosition *)(points + index * 0x24);
+            radius = D_800CC3B4;
+            height = D_800CC3B6;
+            x = position.x - D_800CC2E4;
+            z = position.z - D_800CC2EC;
+            y = (position.y - (D_800CC2E8 + (f32)D_800CC3B8)) *
+                ((1.0f + radius / height) * 0.5f);
+            if ((x * x + y * y + z * z) < radius * radius) {
+                func_1505D024(D_800CC2D0, 0x60006, D_800CC34A,
+                    ((u8 *)state->identity - (u8 *)D_800CC2D0) / 0x32C);
+                func_1518D1C0(D_800CC2D0, 0xB, 0, 1,
+                    ((u8 *)arg0)[0xC], ((u8 *)arg0)[1], &D_800A8A84);
+                ring_index = arg0->point_index;
+                if (index != ring_index) {
+                    do {
+                        *(volatile s8 *)&arg0->point_index = ring_index + 1;
+                        ring_index = *(volatile s8 *)&arg0->point_index;
+                        if (arg0->point_capacity == ring_index) {
+                            *(volatile s8 *)&arg0->point_index = 0;
+                            ring_index = *(volatile s8 *)&arg0->point_index;
+                        }
+                        arg0->unk2C -= 1;
+                    } while (index != ring_index);
+                }
+            }
+        } while (index != arg0->point_index);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15198570 */
+#pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198570.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_151987CC CURRENT (1088) */
 s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerPosition position;
@@ -694,6 +843,107 @@ s32 func_151987CC(CharacterFlamethrowerActor *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151987CC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151987CC.s")
 
+typedef struct CharacterFlamethrowerGroups {
+    u8 ids[3];
+} CharacterFlamethrowerGroups;
+
+extern CharacterFlamethrowerGroups D_8008F8A0;
+extern u8 D_800DCE50[];
+extern s8 D_800DD190;
+extern void *D_800DD198[];
+extern u8 D_800DDE80[];
+void func_15183ACC(s32);
+void func_15168B10(s32, s32);
+s32 func_1510F8D8(s32, s32, s32, s32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1519897C CURRENT (3849) */
+s32 func_1519897C(CharacterFlamethrowerActor *arg0) {
+    s32 points;
+    CharacterFlamethrowerGroups groups;
+    CharacterFlamethrowerPosition position;
+    u8 *group;
+    register CharacterFlamethrowerIdentity *owner;
+    register void *control;
+    register void *node;
+    register void **slot;
+    register s32 index;
+    register s32 depth;
+    register f32 x;
+    register f32 y;
+    register f32 z;
+    register f32 dx;
+    register f32 dy;
+    register f32 dz;
+    register f32 radius;
+    register u8 *point;
+
+    points = (s32)arg0->points;
+    groups = D_8008F8A0;
+    owner = arg0->state->identity;
+    control = *(void **)((u8 *)owner + 0x31C);
+    if (control == 0) {
+        return 0;
+    }
+    if (*(u8 *)((u8 *)control + 0x58) != 1) {
+        *(u16 *)((u8 *)owner + 0x2F8) &= 0xFEFF;
+        return 0;
+    }
+    group = groups.ids;
+    do {
+        control = *(void **)(D_800DCE50 + *group * 4);
+        node = control;
+        if (control != 0) {
+            index = arg0->point_end;
+            depth = D_800DD190 + 1;
+            D_800DD190 = depth;
+            if (control != 0) {
+                slot = &D_800DD198[(s8)depth];
+                do {
+                    *slot = *(void **)((u8 *)node + 8);
+                    x = *(f32 *)((u8 *)node + 0x98);
+                    y = *(f32 *)((u8 *)node + 0x9C);
+                    z = *(f32 *)((u8 *)node + 0xA0);
+                    if (index != arg0->point_index) {
+                        do {
+                            index--;
+                            if (index < 0) {
+                                index = arg0->point_capacity - 1;
+                            }
+                            point = (u8 *)(points + index * 0x24);
+                            position = *(CharacterFlamethrowerPosition *)point;
+                            dx = position.x - x;
+                            radius = *(f32 *)(point + 0x18);
+                            dy = position.y - y;
+                            dz = position.z - z;
+                            if (dx * dx + dy * dy + dz * dz < radius * radius + 900.0f) {
+                                func_15183ACC(5);
+                                func_15168B10((s32)node, 0x18);
+                                dx = *(f32 *)((u8 *)node + 0x98);
+                                dy = *(f32 *)((u8 *)node + 0x9C);
+                                dz = *(f32 *)((u8 *)node + 0xA0);
+                                *(s8 *)((u8 *)node + 0xED) = 5;
+                                *(s16 *)((u8 *)node + 0x92) = 9;
+                                *(f32 *)((u8 *)node + 0xB8) = 40.0f;
+                                *(f32 *)((u8 *)node + 0xA8) = 40.0f;
+                                *(f32 *)((u8 *)node + 0xB4) = 0.0f;
+                                *(s32 *)((u8 *)node + 0x94) = *(s32 *)(D_800DDE80 + 0x6C);
+                                depth = func_1510F8D8((s32)dx, (s32)dy, (s32)dz, 0);
+                                *(s8 *)((u8 *)node + 0x91) = 4;
+                                *(f32 *)((u8 *)node + 0xC8) = (f32)depth;
+                            }
+                        } while (index != arg0->point_index);
+                        slot = &D_800DD198[D_800DD190];
+                    }
+                    node = *slot;
+                } while (node != 0);
+            }
+            D_800DD190--;
+        }
+        group++;
+    } while (group != groups.ids + 3);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1519897C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_1519897C.s")
 void func_15198C60(void) {
     func_10010F30(0x1AA, 0x7FFF, 0x40, 0, 0);
@@ -731,6 +981,123 @@ void func_15198D7C(s32 arg0) {
 }
 
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_15198D88.s")
+typedef struct CharacterFlamethrowerEmissionPreset {
+    f32 radius;
+    f32 speed;
+    f32 speed_range;
+    s16 acceleration;
+    s16 acceleration_range;
+    s16 fade;
+    s16 fade_range;
+    s16 size;
+    s16 size_range;
+} CharacterFlamethrowerEmissionPreset;
+
+typedef struct CharacterFlamethrowerEmission {
+    void *texture;
+    char pad4[8]; /* Read only with flags 0x100 or negative size; absent here. */
+    s16 frame;
+    s16 frame_rate;
+    s16 position[3];
+    s16 velocity_x;
+    s16 velocity_z;
+    char pad1A[2];
+    u8 fraction_x;
+    u8 fraction_y;
+    u8 fraction_z;
+    s8 callback;
+    s16 velocity_y;
+    s16 acceleration;
+    s16 width;
+    s16 height;
+    s16 lifetime;
+    s8 fade;
+    char pad2B;
+    u8 red;
+    u8 green;
+    u8 blue;
+    u8 alpha;
+    u8 environment[3];
+    char pad33;
+    u16 flags;
+    char pad36[2];
+} CharacterFlamethrowerEmission;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+f32 func_151423D8(u8);
+void func_15167D84(void *, s32, s32, s32, u8, s32);
+extern u8 D_80090514[];
+extern CharacterFlamethrowerEmissionPreset D_800A8770[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151990AC CURRENT (5250) */
+void func_151990AC(CharacterFlamethrowerActor *arg0, CharacterFlamethrowerVec3 *arg1) {
+    CharacterFlamethrowerEmission packet;
+    f32 speed;
+    f32 cosine1;
+    f32 sine1;
+    f32 cosine2;
+    register f32 sine2;
+    f32 radius;
+    f32 scale;
+    register f32 x;
+    register f32 y;
+    register f32 z;
+    s16 size;
+    s32 angle1;
+    s32 angle2;
+    CharacterFlamethrowerEmissionPreset *preset;
+    CharacterFlamethrowerState *state;
+
+    state = arg0->state;
+    packet.position[0] = (s16)(s32)arg0->position[0];
+    preset = &D_800A8770[*((u8 *)state + 0x80)];
+    packet.position[1] = (s16)(s32)arg0->position[1];
+    packet.fraction_x = 0;
+    packet.fraction_z = 0;
+    packet.fraction_y = 0;
+    packet.red = 0xFF;
+    packet.green = 0xFF;
+    packet.blue = 0xFF;
+    packet.environment[0] = 0;
+    packet.environment[1] = 0;
+    packet.environment[2] = 0;
+    packet.alpha = 0xFF;
+    packet.callback = -1;
+    packet.flags = 0x12;
+    packet.frame = 0;
+    packet.frame_rate = 0;
+    packet.texture = D_80090514;
+    packet.lifetime = 300;
+    packet.position[2] = (s16)(s32)arg0->position[2];
+    do {
+        speed = func_150ADA68() * preset->speed_range + preset->speed;
+        angle1 = func_150ADA20();
+        angle1 &= 0xFF;
+        angle2 = func_150ADA20();
+        angle2 &= 0xFF;
+        cosine1 = func_151423D8((angle1 - 64) & 0xFF);
+        sine1 = func_151423D8(angle1 & 0xFF);
+        cosine2 = func_151423D8((angle2 - 64) & 0xFF);
+        sine2 = func_151423D8(angle2 & 0xFF);
+        radius = preset->radius;
+        scale = radius * sine2;
+        x = arg1->x + scale * cosine1;
+        y = arg1->y - radius * cosine2;
+        z = arg1->z + scale * sine1;
+        packet.velocity_x = (s16)(s32)((x - arg0->position[0]) * speed);
+        packet.velocity_y = (s16)(s32)((y - arg0->position[1]) * speed);
+        packet.velocity_z = (s16)(s32)((z - arg0->position[2]) * speed);
+        packet.acceleration = func_150ADA20() % (u32)(preset->acceleration_range + 1) + preset->acceleration;
+        packet.fade = func_150ADA20() % (u32)(preset->fade_range + 1) + preset->fade;
+        size = func_150ADA20() % (u32)(preset->size_range + 1) + preset->size;
+        packet.height = size;
+        packet.width = size;
+        func_15167D84(&packet, 0, 0, -1, *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+        *(f32 *)((u8 *)state + 0x88) -= 1.0f;
+    } while (*(f32 *)((u8 *)state + 0x88) > 1.0f);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151990AC */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/characterflamethrower/func_151990AC.s")
 void func_151993B4(CharacterFlamethrowerActor *arg0) {
     CharacterFlamethrowerState *state = arg0->state;

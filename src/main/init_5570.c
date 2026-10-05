@@ -66,7 +66,7 @@ s32 func_80005570(PakDevice *device) {
     return result;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800056A0 */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800056A0 CURRENT (600) */
 s32 func_800056A0(PakDevice *device) {
     u8 *ptr;
     s32 result;

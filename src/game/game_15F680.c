@@ -99,7 +99,7 @@ void func_151321D0(Game15F680TransformState *arg0) {
         }
     }
     if ((arg0->flags60 & 0x80) && dead == 0) {
-        arg0->lifetime64 -= D_800BE9E4;
+        arg0->lifetime64 = (u32)arg0->lifetime64 - (u32)D_800BE9E4;
         if (arg0->lifetime64 < 0) {
             dead = 1;
         }
@@ -304,6 +304,90 @@ void func_15132A88(Game15F680TransformState *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_15132A88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132A88.s")
 
+s32 *func_15142B7C(s32 *, s32, s32);
+void *func_15142C10(void *, s32, s32, s32, s32, u8 *);
+s32 func_151462C8(s32, void *, s32, s32, s32, s32, void *, s32, s32);
+typedef s32 *(*Game15F680Draw)(s32 *, Game15F680TransformState *, s32);
+extern Game15F680Draw D_800899A4[];
+extern u8 D_80083740;
+extern u8 D_800838C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15132B80 CURRENT (3377) */
+s32 *func_15132B80(s32 *arg0, Game15F680TransformState *arg1, s32 arg2) {
+    u8 enabled;
+    s32 *first;
+    s32 *second;
+    s32 *cursor;
+    s32 flags;
+    s32 blend;
+    s32 lighting;
+    s32 set1;
+    s32 set2;
+    s32 clear1;
+    s32 clear2;
+    s32 textured;
+    s8 callback;
+
+    flags = arg1->flags60;
+    if (!(flags & 0x200000)) {
+        return arg0;
+    }
+    if (flags & 0x20000) {
+        return arg0;
+    }
+    if (!(flags & 0x40000)) {
+        return arg0;
+    }
+    enabled = 1;
+    if ((s32)arg1->alpha70 < 0xFF) {
+        arg0[0] = 0xDB060020;
+        arg0[1] = (s32)&D_80083740;
+        cursor = arg0 + 2;
+    } else {
+        arg0[0] = 0xDB060020;
+        arg0[1] = (s32)&D_800838C0;
+        cursor = arg0 + 2;
+    }
+    if (arg1->flags60 & 0x10000) {
+        callback = *(s8 *)((u8 *)arg1 + 0x79);
+        if (callback != -1) {
+            cursor = D_800899A4[callback](cursor, arg1, (s16)arg2);
+        }
+    }
+    cursor = func_15142C10(cursor, 0, 0, 0, arg1->alpha70, &enabled);
+    flags = arg1->flags60;
+    blend = flags & 0x800;
+    lighting = flags & 0x1000;
+    if (blend != 0) set1 = 0x20000;
+    else set1 = 0;
+    set2 = 0;
+    if (lighting != 0) set2 = 0x400000;
+    if (blend != 0) clear1 = 0;
+    else clear1 = 0x20000;
+    if (lighting != 0) clear2 = 0;
+    else clear2 = 0x400000;
+    cursor = func_15142B7C(cursor, set2 | set1 | 5 | 0x200000,
+                         clear2 | clear1 | 0x600 | 0x10000 | 0x40000 | 0x80000);
+    flags = arg1->flags60;
+    if (flags & 0x800) {
+        if (flags & 0x1000) textured = 1;
+        else textured = 0;
+        cursor = (s32 *)func_151462C8((s32)cursor, (u8 *)arg1 + 0x14C,
+            *(u8 *)((u8 *)arg1 + 0x7A), *(s32 *)((u8 *)arg1 + 0x7C),
+            *(u8 *)((u8 *)arg1 + 0x80), (s16)arg2,
+            (u8 *)arg1 + 0x38, textured, *(s32 *)((u8 *)arg1 + 0x128));
+    }
+    first = cursor;
+    first[0] = 0xDA380003;
+    cursor += 2;
+    first[1] = (s32)((u8 *)arg1 + (D_800BE9C0 << 6) + 0x90);
+    second = cursor;
+    second[0] = 0xDE000000;
+    cursor += 2;
+    second[1] = ***(s32 ***)((u8 *)arg1 + 0x8C);
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15132B80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132B80.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15F680/func_15132DDC.s")
 void *func_10022EC0(void *, const void *, u32);

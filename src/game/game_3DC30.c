@@ -41,8 +41,8 @@ void func_15010880(void) {
                   0x4D, 0xF, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F, 0x7F);
     D_800E0934 = func_150DE32C;
     packet.value = 0;
-    packet.first = *(s32 *)D_800D3098 + 0xEA0;
-    packet.second = *(s32 *)D_800D3098 + 0xED4;
+    packet.first = (s32)(*(u32 *)D_800D3098 + 0xEA0U);
+    packet.second = (s32)(*(u32 *)D_800D3098 + 0xED4U);
     object = func_15149130(0x12C, -1, 0x5E, -1, 0, 0, 0xC, 0xFF, 1);
     if (object != 0) {
         func_10022EC0(object + 0x28, &packet, sizeof(packet));

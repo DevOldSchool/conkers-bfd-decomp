@@ -17,7 +17,128 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct {
+    f32 values[5];
+    s32 lifetime;
+    u8 field18;
+    u8 pad19[3];
+    s32 field1C;
+    u8 field20;
+    u8 pad21[3];
+} Game135D00Parameters;
+
+typedef struct {
+    s8 type, field1, field2, pad3;
+    s16 lifetime;
+    u8 pad6[2];
+    s32 field8, fieldC, field10, field14, field18, field1C, field20;
+    u8 field24, field25;
+    u8 pad26[0xA];
+    s32 field30, field34;
+    u8 field38;
+    u8 pad39[3];
+} Game135D00SpawnDescriptor;
+
+typedef struct {
+    Game135D00Parameters parameters;
+    Game135D00SpawnDescriptor descriptor;
+} Game135D00SpawnWork;
+
+typedef struct {
+    void *owner;
+    u8 mode, intensity;
+    s16 lifetime;
+    u8 kind;
+    u8 pad9[3];
+} Game135D00LightWork;
+
+void *func_1513B5E0(s8 *, u8, s32, u8, s32);
+void *func_1516037C(void *, s32, void *, u8, s32);
+void *func_10022EC0(void *, const void *, u32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108850 CURRENT (886) */
+void func_15108850(s32 arg0) {
+    void *saved;
+    Game135D00SpawnWork first;
+    Game135D00LightWork light;
+    Game135D00SpawnWork second;
+    void *object;
+    void *lamp;
+
+    first.parameters.lifetime = 999;
+    first.parameters.field18 = 0xFF;
+    first.parameters.field1C = -1;
+    first.parameters.field20 = 1;
+    first.descriptor.field2 = 1;
+    first.descriptor.lifetime = 300;
+    first.descriptor.field30 = 9;
+    first.parameters.values[0] = 0.0f;
+    first.parameters.values[1] = 0.0f;
+    first.parameters.values[2] = 0.0f;
+    first.parameters.values[3] = 0.0f;
+    first.descriptor.type = 0;
+    first.descriptor.field1 = 0;
+    first.descriptor.field34 = 427;
+    first.descriptor.field8 = 1;
+    first.descriptor.fieldC = 0x220205;
+    first.descriptor.field10 = 0x40600;
+    first.descriptor.field24 = 0;
+    first.descriptor.field25 = 0;
+    first.descriptor.field14 = 1;
+    first.descriptor.field18 = 0x36;
+    first.descriptor.field1C = 0x80;
+    first.descriptor.field20 = 0x20;
+    first.descriptor.field38 = 1;
+    first.parameters.values[4] = 226.0f;
+    object = func_1513B5E0(&first.descriptor.type, 1, 0x24, 0xFF, 1);
+    if (object != 0) {
+        saved = object;
+        func_10022EC0((u8 *)object + *(s32 *)((u8 *)object + 0x50) + 0xF8,
+                      &first.parameters, 0x24);
+        light.owner = saved;
+        light.mode = 2;
+        light.intensity = 8;
+        light.lifetime = 300;
+        light.kind = 0x13;
+        lamp = func_1516037C(&light.mode, arg0, (void *)4, 0xFF, 1);
+        if (lamp != 0) {
+            func_10022EC0((u8 *)lamp + 0x18, &light.owner, 4);
+        }
+    }
+    second.parameters.lifetime = 999;
+    second.parameters.field18 = 0xFF;
+    second.parameters.field1C = -1;
+    second.parameters.field20 = 1;
+    second.descriptor.field1 = 1;
+    second.descriptor.field2 = 4;
+    second.descriptor.lifetime = 300;
+    second.descriptor.field30 = 9;
+    second.parameters.values[0] = 0.0f;
+    second.parameters.values[1] = 0.0f;
+    second.parameters.values[2] = 0.0f;
+    second.parameters.values[3] = 0.0f;
+    second.descriptor.type = 0;
+    second.descriptor.field34 = 428;
+    second.descriptor.field8 = 1;
+    second.descriptor.fieldC = 0x220205;
+    second.descriptor.field10 = 0x40600;
+    second.descriptor.field24 = 0;
+    second.descriptor.field25 = 0;
+    second.descriptor.field14 = 1;
+    second.descriptor.field18 = 0x36;
+    second.descriptor.field1C = 0x80;
+    second.descriptor.field20 = 0x20;
+    second.descriptor.field38 = 1;
+    second.parameters.values[4] = 226.0f;
+    object = func_1513B5E0(&second.descriptor.type, 1, 0x24, 0xFF, 1);
+    if (object != 0) {
+        func_10022EC0((u8 *)object + *(s32 *)((u8 *)object + 0x50) + 0xF8,
+                      &second.parameters, 0x24);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15108850 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15108850.s")
+
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);
 f32 func_15144B68(f32);                             /* extern */
@@ -266,4 +387,78 @@ void func_151090DC(void) {
     sp18 = D_80088C58;
     func_15169260(&sp18, 2, 0, 0x1E);
 }
+typedef struct Game109120Vertex {
+    s16 x, y, z, flag;
+    s16 s, t;
+    u8 color[4];
+} Game109120Vertex;
+
+s32 func_15144B34(s32);
+f32 sqrtf(f32);
+f32 fabsf(f32);
+#pragma intrinsic(sqrtf)
+#pragma intrinsic(fabsf)
+extern f32 D_800A2498;
+extern f32 D_800A249C;
+extern f32 D_800A24A0;
+extern f32 D_800A24A4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109120 CURRENT (2838) */
+s32 func_15109120(u8 *arg0, register s32 arg1) {
+    f32 matrix[16];
+    f32 horizontalX, horizontalZ;
+    f32 inverse, cameraX, cameraZ;
+    f32 horizontalScale, verticalScale;
+    s32 index;
+    u8 *state;
+    f32 *camera;
+    Game109120Vertex *vertex;
+    f32 transformedY;
+    f32 textureS, textureT;
+    Game135D00Point output;
+
+    arg1 = (s16)arg1;
+    state = arg0 + *(s32 *)(arg0 + 0x50) + 0xF8;
+    func_150A8050(matrix, *(f32 *)state, 0.0f, *(f32 *)(state + 4));
+    matrix[13] = *(f32 *)(state + 0x10);
+    matrix[0] *= D_800A2498;
+    matrix[1] *= D_800A2498;
+    matrix[2] *= D_800A2498;
+    matrix[4] *= D_800A2498;
+    matrix[5] *= D_800A2498;
+    matrix[6] *= D_800A2498;
+    matrix[8] *= D_800A2498;
+    matrix[9] *= D_800A2498;
+    matrix[10] *= D_800A2498;
+    func_150A7790(matrix, (s32)(arg0 + (D_800BE9C0 << 6) + 0x78));
+    camera = (f32 *)func_15144B34(arg1);
+    cameraX = camera[0];
+    index = 0;
+    if (D_800A249C < fabsf(cameraX) || D_800A249C < fabsf(camera[1])) {
+        cameraZ = camera[2];
+        inverse = 1.0f / sqrtf(cameraX * cameraX + cameraZ * cameraZ);
+        horizontalX = cameraZ * inverse;
+        horizontalZ = -cameraX * inverse;
+    } else {
+        horizontalX = 1.0f;
+        horizontalZ = 0.0f;
+    }
+    horizontalScale = D_800A24A0;
+    inverse = 81.0f;
+    verticalScale = D_800A24A4;
+    do {
+        vertex = *(Game109120Vertex **)(arg0 + D_800BE9C0 * 0x10 + arg1 * 4 + 0x58) + index;
+        func_150A7960(matrix, vertex->x, vertex->y, vertex->z, &output.x, &output.y, &output.z);
+        index++;
+        transformedY = output.y;
+        cameraX = output.x;
+        cameraZ = output.z;
+        textureT = transformedY * verticalScale + inverse;
+        textureS = (cameraX * horizontalX + cameraZ * horizontalZ) * horizontalScale + 26.0f;
+        vertex->s = (s32)(textureS * 32.0f);
+        vertex->t = (s32)(textureT * 32.0f);
+    } while (index != 0x10);
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15109120 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_135D00/func_15109120.s")

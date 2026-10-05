@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/main/init_2E50.c
  * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_80002E50
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 typedef struct ThreadState ThreadState;
@@ -43,7 +38,6 @@ extern volatile u8 D_8003A572;
 extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80002E50 */
 void func_80002E50(void *argument) {
     IoMessage *message;
     void *event;
@@ -103,5 +97,3 @@ void func_80002E50(void *argument) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80002E50 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_2E50/func_80002E50.s")

@@ -92,11 +92,10 @@ void func_150C84F4(s32 arg0) {
 u32 func_150ADA20(void);
 void func_150CDB6C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C851C CURRENT (255) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C851C CURRENT (130) */
 void func_150C851C(s32 arg0) {
     s32 base;
     s32 range;
-    s32 value;
     s32 var_s0;
     u32 random_value;
     u8 *temp_t1;
@@ -107,12 +106,12 @@ void func_150C851C(s32 arg0) {
         range = ((s32)(arg0 * 0x32) >> 8) + 0x32;
         var_s0 = 0;
         do {
-            value = base;
+            arg0 = base;
             random_value = func_150ADA20();
             temp_t1 = (u8 *)D_800BE4E0 + var_s0;
             var_s0 += 0xA;
-            value += random_value % (u32)range;
-            *(s16 *)(temp_t1 + 8) = value;
+            arg0 += random_value % (u32)range;
+            *(s16 *)(temp_t1 + 8) = arg0;
         } while (var_s0 != 0x64);
     }
 }

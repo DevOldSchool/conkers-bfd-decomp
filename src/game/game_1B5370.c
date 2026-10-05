@@ -15,7 +15,7 @@ void func_100226F0(void *, s32);
 extern s32 D_800DF700;
 extern s32 D_800DF7B4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15187EC0 CURRENT (2270) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15187EC0 CURRENT (3075) */
 s32 func_15187EC0(s32 arg0, f32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7) {
     s32 temp_t1;
     s8 temp_t6;
@@ -25,7 +25,7 @@ s32 func_15187EC0(s32 arg0, f32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5, u8 a
     temp_t6 = arg2 & 0xFF;
     temp_t7 = arg3 & 0xFF;
     if (D_800DF7B4 < 5) {
-        temp_v0 = (void *)((D_800DF7B4 * 0x24) + &D_800DF700);
+        temp_v0 = (u8 *)&D_800DF700 + (D_800DF7B4 * 0x24);
         *(f32 *)((u8 *)temp_v0 + 0x14) = arg1;
         *(s8 *)((u8 *)temp_v0 + 6) = temp_t6;
         *(s8 *)((u8 *)temp_v0 + 0) = temp_t6;

@@ -185,29 +185,29 @@ void func_15115F68(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_142A70/func_15115F68.s")
 extern u8 D_800BE9C0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116058 CURRENT (3835) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15116058 CURRENT (1165) */
 void func_15116058(void *arg0) {
     u8 *base;
     s32 delta;
+    s32 index;
     s32 offset;
-    u16 count;
-    u16 index;
+    s16 low;
 
-    base = (u8 *)arg0;
+    base = arg0;
     delta = *(s32 *)(base + 0x3C);
-    count = *(u16 *)(base + 0x16);
     index = 0;
-    offset = 0;
-    while (index < count) {
-        s32 *destination;
-        s32 *source;
-
-        destination = *(s32 **)(base + ((D_800BE9C0 & 0xFF) * 4) + 0x20);
-        source = *(s32 **)(base + (((D_800BE9C0 == 0) & 0xFF) * 4) + 0x20);
-        *(s16 *)((u8 *)destination + offset + 8) += (s16)(delta >> 16);
-        *(s16 *)((u8 *)source + offset + 0xA) += (s16)delta;
-        index += 1;
-        offset += 0x10;
+    low = (s16)delta;
+    delta = (s16)(delta >> 16);
+    if (*(u16 *)(base + 0x16) > 0) {
+        offset = 0;
+        do {
+            index++;
+            *(s16 *)(*(u8 **)(base + D_800BE9C0 * 4 + 0x20) + offset + 8) =
+                *(s16 *)(*(u8 **)(base + (D_800BE9C0 == 0) * 4 + 0x20) + offset + 8) + delta;
+            *(s16 *)(*(u8 **)(base + D_800BE9C0 * 4 + 0x20) + offset + 0xA) =
+                *(s16 *)(*(u8 **)(base + (D_800BE9C0 == 0) * 4 + 0x20) + offset + 0xA) + low;
+            offset += 0x10;
+        } while (index < *(u16 *)(base + 0x16));
     }
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15116058 */

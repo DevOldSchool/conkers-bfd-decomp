@@ -236,7 +236,112 @@ void func_150C9BDC(GameF5D80Wave *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C9BDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C9BDC.s")
+typedef struct GameF5D80Burst {
+    f32 field0;
+    f32 field4;
+    f32 field8;
+    f32 fieldC;
+    f32 field10;
+    f32 field14;
+    f32 field18;
+    f32 field1C;
+    f32 field20;
+    f32 field24;
+    f32 field28;
+    f32 field2C;
+    f32 field30;
+    f32 field34;
+    f32 field38;
+    f32 field3C;
+    f32 field40;
+    f32 field44;
+    f32 field48;
+    f32 field4C;
+    s32 field50;
+    s16 field54;
+    s16 field56;
+    s8 field58;
+    u8 pad59[0x3];
+    s32 field5C;
+    u8 field60;
+    s8 field61;
+    s8 field62;
+    s8 field63;
+    s8 field64;
+    s8 field65;
+    s8 field66;
+    s8 field67;
+    s8 field68;
+    u8 pad69[0x1];
+    s8 field6A;
+    u8 pad6B[0x1];
+    s32 field6C;
+    s8 field70;
+    u8 pad71[0x1];
+    s16 field72;
+    s16 field74;
+    u8 unknown76[6];
+} GameF5D80Burst;
+
+void func_150CCD90(f32, f32 *, f32 *, f32 *);
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A0580, D_800A0584, D_800A0588, D_800A058C;
+extern f32 D_800A0590, D_800A0594, D_800A0598, D_800A059C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C9DC4 CURRENT (991) */
+void func_150C9DC4(GameF5D80Emitter *arg0, GameF5D80Vector *arg1,
+                   s32 arg2, s32 arg3) {
+    struct {
+        f32 third, second, first;
+        GameF5D80Burst packet;
+    } work;
+    u32 random;
+    register f32 fraction;
+
+    func_150CCD90(arg1->values[2], &work.first, &work.second, &work.third);
+    *(GameF5D80Vector *)&work.packet.field28 = *arg1;
+    work.packet.field1C = 1.0f;
+    work.packet.field20 = 1.0f;
+    work.packet.field24 = 1.0f;
+    work.packet.field50 = 0x29E8;
+    work.packet.field10 = func_150ADA68() * 360.0f;
+    work.packet.field14 = func_150ADA68() * 360.0f;
+    work.packet.field18 = func_150ADA68() * 360.0f;
+    work.packet.field56 = 0x20;
+    work.packet.field4 = D_800A0580;
+    work.packet.field44 = 0.0f;
+    work.packet.field0 = 1.0f;
+    random = func_150ADA20();
+    func_15143794(((u8 *)&arg2)[3], (s16)((random % 26U) - 0x2D),
+                 ((func_150ADA68() * 81.0f) + 60.0f) * arg0->scale * D_800A0584,
+                 &work.packet.field34);
+    work.packet.field40 = ((func_150ADA68() * 260.0f) + -130.0f) * D_800A0588;
+    work.packet.field48 = ((func_150ADA68() * 260.0f) + -130.0f) * D_800A058C;
+    work.packet.field54 = (func_150ADA20() % 41U) + 0x28;
+    work.packet.field4C = ((func_150ADA68() * D_800A0590) + D_800A0594) * D_800A0598;
+    fraction = func_150ADA68() * 400.0f;
+    work.packet.field58 = 0;
+    work.packet.field5C = 0;
+    work.packet.field8 = work.packet.fieldC = (fraction + 199.0f) * D_800A059C;
+    work.packet.field60 = (func_150ADA20() % 101U) + 0x9B;
+    work.packet.field61 = 7;
+    work.packet.field62 = 0;
+    work.packet.field63 = 0;
+    work.packet.field64 = 0;
+    work.packet.field65 = 0;
+    work.packet.field66 = 0;
+    work.packet.field67 = 0;
+    work.packet.field68 = 0;
+    work.packet.field6A = 2;
+    work.packet.field6C = 0;
+    work.packet.field70 = 0;
+    work.packet.field72 = 0x20;
+    work.packet.field74 = 7;
+    func_15132A4C(&work.packet, 3, 0xFF, 0, arg0->mode, arg0->group);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C9DC4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F5D80/func_150C9DC4.s")
+
 extern f32 D_800BE9A4;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_150CA07C CURRENT (120) */

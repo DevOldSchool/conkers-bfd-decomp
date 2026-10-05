@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_15063628
  * - func_150636A4
- * - func_150636F0
  * - func_15063B64
  * - func_15063C60
  * - func_15063E84
@@ -142,7 +141,127 @@ void func_150636A4(Game90840Actor *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150636A4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150636A4.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_90840/func_150636F0.s")
+typedef struct Game90840Requests {
+    u8 pad0[0x78];
+    u8 action;
+    u8 pad79[0x36];
+    u8 soundPending;
+    u8 padB0[0xFA];
+    s16 count;
+    u8 pad1AC[8];
+    u8 pending;
+} Game90840Requests;
+
+extern s8 D_800CC2B0;
+extern u8 D_800C3E78;
+extern Game90840Actor *D_800D154C;
+void func_15063628(Game90840Actor *, f32);
+void func_15063FA0(Game90840Actor *, s32);
+void func_151D57F8(Game90840Actor *, s32);
+s32 func_15081E78(Game90840Actor *, void *, s32);
+s32 func_10010894(void *);
+u32 func_150ADA20(void);
+void func_10010558(u16, void *, s32, s32, s32, s32);
+void func_1512D2E4(void *, s32);
+void func_150FFCC8(void *, void *, void *, void *, void *);
+void func_150FFD84(f32 *, f32 *, s32, s32);
+
+void func_150636F0(void) {
+    Game90840Actor *actor;
+    s32 index;
+    s32 action;
+    f32 position[3];
+    f32 direction[3];
+    f32 side[3];
+    f32 up[3];
+    Game90840Requests *requests;
+    void *resource;
+
+    D_800CC2B0 = 0;
+    actor = D_800CC2D0;
+    index = 0;
+    do {
+        if ((*(s32 *)actor != 0) && (actor->field_31C != 0) &&
+            (((Game90840Requests *)actor->field_31C)->pending != 0)) {
+            D_800C3E78 = index;
+            D_800D154C = actor;
+            requests = (Game90840Requests *)actor->field_31C;
+            if (requests->pending & 1) {
+                func_15063628(actor, 0.0f);
+                requests = (Game90840Requests *)actor->field_31C;
+            }
+            if (requests->pending & 4) {
+                func_151D57F8(actor, 0);
+                requests = (Game90840Requests *)actor->field_31C;
+            }
+            if (requests->pending & 8) {
+                func_151D57F8(actor, 1);
+                requests = (Game90840Requests *)actor->field_31C;
+            }
+            if (requests->pending & 2) {
+                action = requests->action & ~0x80;
+                switch (action) {
+                case 0x18:
+                case 0x41:
+                    func_15063FA0(actor, 6);
+                    requests = (Game90840Requests *)actor->field_31C;
+                    requests->count++;
+                    resource = *(void **)((u8 *)actor + 0x318);
+                    if (resource != 0) {
+                        func_1512D2E4(resource, 1);
+                    }
+                    break;
+                case 0x14:
+                case 0x3F:
+                    if (action == 0x14) {
+                        func_15063FA0(actor, 2);
+                    } else {
+                        func_15063FA0(actor, 0x12);
+                    }
+                    requests = (Game90840Requests *)actor->field_31C;
+                    requests->count++;
+                    resource = *(void **)((u8 *)actor + 0x318);
+                    if (resource != 0) {
+                        func_1512D2E4(resource, 1);
+                    }
+                    break;
+                case 0x24:
+                    if (func_15081E78(actor, (u8 *)requests + 0xB0, 7) != 2) {
+                        requests = (Game90840Requests *)actor->field_31C;
+                        if (requests->soundPending != 0) {
+                            requests->soundPending = 0;
+                            if (func_10010894(actor) == 0) {
+                                func_10010558((u16)(func_150ADA20() % 3 + 0x53B),
+                                             actor, 0x7D00, 0x320, 0xBB8, 0x1E);
+                            }
+                        }
+                    }
+                    resource = *(void **)((u8 *)actor + 0x318);
+                    if (resource != 0) {
+                        func_1512D2E4(resource, 1);
+                    }
+                    break;
+                case 0x3B:
+                    func_15081E78(actor, (u8 *)requests + 0xB0, 0x10);
+                    func_150FFCC8(actor, position, direction, side, up);
+                    func_150FFD84(position, direction, 0xFF, 1);
+                    break;
+                case 0x23:
+                    func_15081E78(actor, (u8 *)requests + 0xB0, 8);
+                    resource = *(void **)((u8 *)actor + 0x318);
+                    if (resource != 0) {
+                        func_1512D2E4(resource, 0);
+                    }
+                    break;
+                }
+                requests = (Game90840Requests *)actor->field_31C;
+            }
+            requests->pending = 0;
+        }
+        index++;
+        actor++;
+    } while (index != 0x19);
+}
 extern s16 D_800CC2B2;
 
 s16 func_150639BC(Game90840Actor *arg0) {
@@ -202,25 +321,23 @@ typedef struct Game90840ActionPacket {
     s32 actorIndex;
 } Game90840ActionPacket;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063B64 CURRENT (261) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15063B64 CURRENT (250) */
 void func_15063B64(Game90840Actor *arg0) {
-    s32 attachment;
-    u8 type;
-    u8 count;
+    s32 value;
     void *inner;
     s32 animation;
     Game90840ActionPacket packet;
 
-    type = *((u8 *)arg0 + 4);
-    if ((type == 0x75) || (type == 0xB1)) {
+    value = *((u8 *)arg0 + 4);
+    if ((value == 0x75) || (value == 0xB1)) {
         animation = 0x64;
     } else {
         animation = 0x2C;
     }
     if (func_1503195C(arg0, animation, 0) != 0) {
-        attachment = *(s32 *)((u8 *)arg0 + 0x1D4);
-        if (attachment != 0) {
-            func_15143134(0, packet.position, attachment + 0x100);
+        value = *(s32 *)((u8 *)arg0 + 0x1D4);
+        if (value != 0) {
+            func_15143134(0, packet.position, value + 0x100);
         } else {
             packet.position[0] = arg0->x;
             packet.position[1] = *(f32 *)((u8 *)arg0 + 0x18);
@@ -231,9 +348,9 @@ void func_15063B64(Game90840Actor *arg0) {
         func_1506AC8C(arg0, 0xB, &packet);
         func_150836CC(arg0, animation);
         inner = arg0->field_31C;
-        count = *(u8 *)((u8 *)inner + 0x19A);
-        if (count != 0) {
-            *(u8 *)((u8 *)inner + 0x19A) = count - 1;
+        value = *(u8 *)((u8 *)inner + 0x19A);
+        if (value != 0) {
+            *(u8 *)((u8 *)inner + 0x19A) = value - 1;
         }
         ((u8 *)arg0->field_31C)[0x11A] = 0;
     }

@@ -1,0 +1,237 @@
+{
+  "schema_version": 1,
+  "identifier": "func_80002E50",
+  "source": "src/done/main/init_2E50.c",
+  "reviewed_utc": "2026-10-04T22:49:07.311998+00:00",
+  "memory_used": false,
+  "status": "applied; independently matched and integrated with byte-identical US ROM",
+  "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "us_rom_size_bytes": 67108864,
+  "table_rom_start": "0x2C080",
+  "logical_table_bytes": 28,
+  "table_vram": "0x8002C080",
+  "code_runtime_alias": "0x10000000",
+  "code_link_vma": "0x80000000",
+  "table_words": [
+    "0x10002FF4",
+    "0x10002EEC",
+    "0x10002F40",
+    "0x10003010",
+    "0x10003010",
+    "0x10002F74",
+    "0x10002FB4"
+  ],
+  "logical_table_sha1": "7da90850f8b6e9a223da33491a1b18f6b7575d71",
+  "padded_table_rom_end": "0x2C0A0",
+  "padded_table_sha1": "30e14dd49ee0665729e3ffc5cb9a42b665be8107",
+  "all_targets_inside_registered_function": true,
+  "registered_text_rom_range": [
+    "0x2E50",
+    "0x30A0"
+  ],
+  "source_token_equivalent_to_accepted_snapshot": true,
+  "accepted_full_span_attempt": "66deba975ffd4597a9111fad9f80fb68",
+  "saved_objects": [
+    {
+      "path": "build/us/src/main/init_2E50.o",
+      "sha256": "1180a6aea9efc693e50e89643dfd19ac7ea14929913c62a86dab6087d33d6fa7",
+      "text_bytes": 592,
+      "rodata_bytes": 32,
+      "code_pointer_relocations": 7,
+      "alias_delta": "-0x70000000",
+      "relocated_table_equals_rom": true,
+      "compiler_text_unchanged": true,
+      "padding_bytes": 4,
+      "padding_zero": true,
+      "fresh_compile": false
+    },
+    {
+      "path": "build/us/src/done/main/init_2E50.o",
+      "sha256": "0502097033b03bd5e562c21969787c21e31383987c808c58d55f27ed285ca51c",
+      "text_bytes": 592,
+      "rodata_bytes": 32,
+      "code_pointer_relocations": 7,
+      "alias_delta": "-0x70000000",
+      "relocated_table_equals_rom": true,
+      "compiler_text_unchanged": true,
+      "padding_bytes": 4,
+      "padding_zero": true,
+      "fresh_compile": false
+    },
+    {
+      "path": "build/us/layout-check/src/main/init_2E50.o",
+      "sha256": "e018960c55062984a14dfb40c25410bda23cbfa317b20ba1e7e60a36373b9316",
+      "text_bytes": 592,
+      "rodata_bytes": 32,
+      "code_pointer_relocations": 7,
+      "alias_delta": "-0x70000000",
+      "relocated_table_equals_rom": true,
+      "compiler_text_unchanged": true,
+      "padding_bytes": 4,
+      "padding_zero": true,
+      "fresh_compile": false
+    }
+  ],
+  "proof_limits": "Saved-object audits and relocation model remain historical preparatory evidence. Actual acceptance is now established independently by fresh full-span CURRENT (0), source-unit layout, supported integration, exact linked table and whole US ROM equality, and clean BATCH_COMPLETE.",
+  "repair_proposal": {
+    "object_preparation": "Reuse scripts/prepare_main_library_object.py for the integrated init_2E50 object, with delta -0x70000000 and exactly seven relocations. Its preparation leaves instructions and relocation records unchanged.",
+    "placement": "Consume this object rodata as a read-only, non-allocated INFO output at 0x8002C080 before the generated ROM script. Assert exact size 0x20 and restore the location counter. Raw runtime data stays at its original mapping.",
+    "verification": "Add a verifier that requires the exact section name, non-allocated read-only flags, address, size and all 32 linked bytes to equal the checksum-validated ROM. Reject missing, unexpected, changed or incorrectly mapped tables. Verify only when this main C unit is integrated.",
+    "scope": [
+      "Makefile: narrow C-object preparation and conditional linker/verifier wiring",
+      "config/main/us-rodata.ld: reviewed table placement",
+      "scripts/verify_main_rodata.py: exact ROM-backed verification",
+      "tests: malformed section, alias, table and build wiring checks",
+      "docs/evidence: ROM and placement proof"
+    ],
+    "no_changes": [
+      "src/main/init_2E50.c function body",
+      "shared headers",
+      "SDK code/contracts",
+      "assembly",
+      "compiler flags"
+    ],
+    "acceptance": [
+      "Fresh full-span US CURRENT (0) and source-unit layout",
+      "Supported progress integrate transaction",
+      "Exact linked table and complete US ROM equality",
+      "Progress, whitespace and clean verify-batch including established matches"
+    ]
+  },
+  "scope_approval": "Original requested init completion and repository-required integration authorize this narrow ROM-backed layout repair. The earlier extra approval hold was an overbroad reading of the prohibition on forcing function matches; the C body already independently matched.",
+  "read_only_text_relocation_model": {
+    "object_path": "build/us/src/main/init_2E50.o",
+    "object_sha256": "1180a6aea9efc693e50e89643dfd19ac7ea14929913c62a86dab6087d33d6fa7",
+    "canonical_elf_path": "build/us/conker.us.elf",
+    "canonical_elf_sha256": "7c94474f8eaea9e64b1c408780a511a9b9efdb37ad36ac0dae9daa7bc100f754",
+    "method": "Resolve all object .rel.text records using current canonical ELF external symbols, text VMA 0x80002E50 and proposed rodata VMA 0x8002C080. Apply standard REL R_MIPS_26, paired HI16 and signed LO16 semantics in memory, preserving all non-relocated instruction bits. Compare every resulting byte to the checksum-validated US ROM at 0x2E50:0x30A0.",
+    "relocation_counts": {
+      "R_MIPS_26": 10,
+      "R_MIPS_HI16": 5,
+      "R_MIPS_LO16": 5
+    },
+    "unresolved_symbols": 0,
+    "unsupported_relocation_types": 0,
+    "unpaired_high_relocations": 0,
+    "compared_text_bytes": 592,
+    "modeled_correct_mapping_equals_ROM": true,
+    "modeled_text_sha1": "af1230ec9aca968871852af33c38df0436e3665a",
+    "legacy_mapping_control": {
+      "rodata_vma": "0x8002C450",
+      "differences": [
+        {
+          "rom_offset": "0x2EE2",
+          "expected": "C0",
+          "modeled": "C4"
+        },
+        {
+          "rom_offset": "0x2EE3",
+          "expected": "80",
+          "modeled": "50"
+        }
+      ],
+      "reproduces_recorded_first_difference": true
+    },
+    "proof_limits": "Read-only relocation model on saved object bytes; not a fresh compiler run, GNU linker trial, focused finish, layout or integration acceptance. Existing approval and acceptance requirements remain unchanged."
+  },
+  "reviewed_source_at_audit": "src/main/init_2E50.c",
+  "historical_draft": {
+    "commit": "6a0eb6495c7aeccd38a897348fcf7ea2bc818d41",
+    "path": "docs/evidence/main_init_2e50_integration_proposal.patch",
+    "status": "Superseded by applied implementation; retained in Git history."
+  },
+  "historical_draft_validation": {
+    "unit_tests": 9,
+    "result": "passed",
+    "git_apply_check": "passed",
+    "canonical_files_changed": false,
+    "full_link_and_ROM_acceptance": "pending scope approval and supported integration",
+    "conditional_make_wiring": "Checked with canonical active C objects and a simulated integrated 2E50 object: main table linker script/verifier enabled only for the latter, linker script precedes generated full-ROM script.",
+    "patch_apply_check": "git apply --check --unidiff-zero docs/evidence/main_init_2e50_integration_proposal.patch"
+  },
+  "historical_patch_format": "Zero-context unified diff avoids whitespace-only context lines in the tracked patch artifact; apply with --unidiff-zero only after scope approval.",
+  "acceptance": {
+    "result": "BATCH_COMPLETE",
+    "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
+    "batch_ids": [
+      "func_80002E50",
+      "func_800030A0",
+      "func_800038E0"
+    ],
+    "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "tests": 1832,
+    "skipped": 37,
+    "test_seconds": 36.923,
+    "metadata": "valid",
+    "progress": "current",
+    "whitespace": "passed",
+    "completed_utc": "2026-10-04T23:08:34.895725+00:00",
+    "additional_focused_checks": {
+      "func_80002E50": {
+        "score": 0,
+        "attempt_record": "4a5d7ca2cb0a431d9f9696a8138c9369",
+        "layout": "preserved"
+      },
+      "func_800030A0": {
+        "score": 0,
+        "attempt_record": "0f2467b477734effa1ec34d77f20bde4",
+        "layout": "preserved"
+      },
+      "func_800038E0": {
+        "score": 0,
+        "attempt_record": "13a286d0d67548c087aa94904081cc88",
+        "layout": "preserved"
+      }
+    },
+    "linked_table": {
+      "section": ".main_rodata_init_2e50",
+      "vma": "0x8002C080",
+      "size_bytes": 32,
+      "flags": 0,
+      "sha1": "30e14dd49ee0665729e3ffc5cb9a42b665be8107",
+      "rom_equal": true
+    },
+    "integrated_source": "src/done/main/init_2E50.c"
+  },
+  "object_cache_recovery": {
+    "failure": "Focused compile wrote physical-address addends into the canonical 2E50 object at a newer timestamp; ordinary Make dependencies skipped runtime-alias preparation. Exact table verifier rejected the resulting 0x8000 case pointers.",
+    "fix": "A phony prerequisite refreshes only this integrated C object on every canonical build. Compile physical addends first, then prepare exactly seven relocations once. Matching tools, compiler flags and function instructions unchanged.",
+    "regression_test": "tests/test_main_queue_object_build.py",
+    "test_result": "passed: physical object newer than sources is prepared again; repeated builds remain once-adjusted, all other ELF bytes preserved.",
+    "acceptance": {
+      "result": "BATCH_COMPLETE",
+      "scope": "Preserved disabled 2DB0 candidate improves prior845 to20 under independently SDK-backed private flag storage. No new C match or completed unit. A real focused-check overwrite of the integrated 2E50 object caused a table verification failure; canonical build now always compiles physical table addends and applies the reviewed runtime alias once. Fresh existing 2E50/30A0 full-span zero/layout checks and changed-state clean recovery batch pass.",
+      "batch_ids": [
+        "func_80002E50",
+        "func_800030A0"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1833,
+      "skipped": 37,
+      "test_seconds": 34.805,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T23:38:09.390602+00:00",
+      "additional_focused_checks": {
+        "func_80002E50": {
+          "score": 0,
+          "attempt_record": "7e82581956884d988eaf39aa8b492b24",
+          "layout": "preserved"
+        },
+        "func_800030A0": {
+          "score": 0,
+          "attempt_record": "0c13e8fc01744f1ebbb96ef6b74562e7",
+          "layout": "preserved"
+        }
+      },
+      "linked_table": {
+        "section": ".main_rodata_init_2e50",
+        "vma": "0x8002C080",
+        "size_bytes": 32,
+        "rom_equal": true
+      },
+      "cache_regression_test": "tests/test_main_queue_object_build.py: newer focused-check object overwritten, canonical build prepares it again, repeated build does not double-adjust."
+    }
+  }
+}

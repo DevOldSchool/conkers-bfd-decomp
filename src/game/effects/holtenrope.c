@@ -120,98 +120,41 @@ extern f32 D_800AA394;
 extern f32 D_800AA398;
 extern f32 D_800AA39C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3A7C CURRENT (21743) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3A7C CURRENT (3908) */
 s32 func_151B3A7C(u8 *arg0) {
-    f32 sp4C;
-    f32 sp48;
-    f32 sp44;
-    f32 *var_a2;
-    f32 temp_fa1;
-    f32 temp_ft4;
-    f32 temp_ft5;
-    s32 var_v0;
-    u8 *var_a3;
-    u8 *var_t0;
-    u8 *var_v1;
+    typedef struct { f32 x, y, z; } RopePoint;
+    RopePoint position;
+    RopePoint delta;
+    RopePoint step;
+    u8 *node;
+    s32 i;
 
-    *(f32 *)((u8 *)&sp44 + 0) = *(f32 *)((u8 *)arg0 + 0x14);
-    *(f32 *)((u8 *)&sp44 + 4) = (f32) *(f32 *)((u8 *)arg0 + 0x18);
-    var_v1 = (void *)(arg0 + 0x30);
-    *(f32 *)((u8 *)&sp44 + 8) = (f32) *(f32 *)((u8 *)arg0 + 0x1C);
-    {
-        u8 * var_a1 = (void *)(var_v1 + 0x48);
-    var_a2 = (void *)(var_v1 + 0x60);
-    *(f32 *)((u8 *)arg0 + 0x48) = (f32) *(f32 *)((u8 *)&sp44 + 0);
-    var_a3 = (void *)(var_v1 + 0x78);
-    var_t0 = (void *)(var_v1 + 0x90);
-    *(f32 *)((u8 *)arg0 + 0x4C) = (f32) *(f32 *)((u8 *)&sp44 + 4);
-    *(f32 *)((u8 *)arg0 + 0x5C) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x58) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x50) = (f32) *(f32 *)((u8 *)&sp44 + 8);
-    *(f32 *)((u8 *)arg0 + 0x54) = 0.0f;
-    temp_fa1 = (*(f32 *)((u8 *)arg0 + 0x20) - *(f32 *)((u8 *)arg0 + 0x14)) * D_800AA394;
-    temp_ft4 = (*(f32 *)((u8 *)arg0 + 0x24) - *(f32 *)((u8 *)arg0 + 0x18)) * D_800AA398;
-    var_v0 = 2;
-    sp44 += temp_fa1;
-    sp48 += temp_ft4;
-    temp_ft5 = (*(f32 *)((u8 *)arg0 + 0x28) - *(f32 *)((u8 *)arg0 + 0x1C)) * D_800AA39C;
-    sp4C += temp_ft5;
-    *(f32 *)((u8 *)arg0 + 0x60) = (f32) *(f32 *)((u8 *)&sp44 + 0);
-    *(f32 *)((u8 *)arg0 + 0x64) = (f32) *(f32 *)((u8 *)&sp44 + 4);
-    *(f32 *)((u8 *)arg0 + 0x74) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x70) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x6C) = 0.0f;
-    *(f32 *)((u8 *)arg0 + 0x68) = (f32) *(f32 *)((u8 *)&sp44 + 8);
-    sp44 += temp_fa1;
-    sp48 += temp_ft4;
-    sp4C += temp_ft5;
-    do {
-        *(f32 *)((u8 *)var_a1 + 0) = (f32) *(f32 *)((u8 *)&sp44 + 0);
-        *(f32 *)((u8 *)var_a1 + 4) = (f32) *(f32 *)((u8 *)&sp44 + 4);
-        *(f32 *)((u8 *)var_a1 + 8) = (f32) *(f32 *)((u8 *)&sp44 + 8);
-        *(f32 *)((u8 *)var_v1 + 0x54) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x58) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x5C) = 0.0f;
-        sp44 += temp_fa1;
-        sp48 += temp_ft4;
-        sp4C += temp_ft5;
-        var_v0 += 4;
-        var_v1 += 0x60;
-        *var_a2 = *(f32 *)((u8 *)&sp44 + 0);
-        var_a1 += 0x60;
-        var_a2 += 0x60;
-        *(f32 *)((u8 *)var_a2 + -0x5C) = (f32) *(f32 *)((u8 *)&sp44 + 4);
-        var_a3 += 0x60;
-        var_t0 += 0x60;
-        *(f32 *)((u8 *)var_a2 + -0x58) = (f32) *(f32 *)((u8 *)&sp44 + 8);
-        *(f32 *)((u8 *)var_v1 + 0x14) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x10) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0xC) = 0.0f;
-        sp44 += temp_fa1;
-        sp48 += temp_ft4;
-        sp4C += temp_ft5;
-        *(f32 *)((u8 *)var_a3 + -0x60) = (f32) *(f32 *)((u8 *)&sp44 + 0);
-        *(f32 *)((u8 *)var_a3 + -0x5C) = (f32) *(f32 *)((u8 *)&sp44 + 4);
-        *(f32 *)((u8 *)var_a3 + -0x58) = (f32) *(f32 *)((u8 *)&sp44 + 8);
-        *(f32 *)((u8 *)var_v1 + 0x2C) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x28) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x24) = 0.0f;
-        sp44 += temp_fa1;
-        sp48 += temp_ft4;
-        sp4C += temp_ft5;
-        *(f32 *)((u8 *)var_t0 + -0x60) = (f32) *(f32 *)((u8 *)&sp44 + 0);
-        *(f32 *)((u8 *)var_t0 + -0x5C) = (f32) *(f32 *)((u8 *)&sp44 + 4);
-        *(f32 *)((u8 *)var_t0 + -0x58) = (f32) *(f32 *)((u8 *)&sp44 + 8);
-        *(f32 *)((u8 *)var_v1 + 0x44) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x40) = 0.0f;
-        *(f32 *)((u8 *)var_v1 + 0x3C) = 0.0f;
-        sp44 += temp_fa1;
-        sp48 += temp_ft4;
-        sp4C += temp_ft5;
-    } while (var_v0 != 0xA);
-    *(u8 *)((u8 *)arg0 + 0x10) = (u8) (*(u8 *)((u8 *)arg0 + 0x10) & 0xFFFD);
-    return 1;
+    delta.x = *(f32 *)(arg0 + 0x20) - *(f32 *)(arg0 + 0x14);
+    delta.y = *(f32 *)(arg0 + 0x24) - *(f32 *)(arg0 + 0x18);
+    delta.z = *(f32 *)(arg0 + 0x28) - *(f32 *)(arg0 + 0x1C);
+    position = *(RopePoint *)(arg0 + 0x14);
+    *(RopePoint *)(arg0 + 0x48) = position;
+    *(f32 *)(arg0 + 0x5C) = 0.0f;
+    *(f32 *)(arg0 + 0x58) = 0.0f;
+    *(f32 *)(arg0 + 0x54) = 0.0f;
+    step.x = delta.x * D_800AA394;
+    step.y = delta.y * D_800AA398;
+    step.z = delta.z * D_800AA39C;
+    position.x += step.x;
+    position.y += step.y;
+    position.z += step.z;
+    for (i = 1; i < 10; i++) {
+        node = arg0 + 0x48 + i * 0x18;
+        *(RopePoint *)node = position;
+        *(f32 *)(node + 0xC) = 0.0f;
+        *(f32 *)(node + 0x10) = 0.0f;
+        *(f32 *)(node + 0x14) = 0.0f;
+        position.x += step.x;
+        position.y += step.y;
+        position.z += step.z;
     }
+    arg0[0x10] &= ~2;
+    return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B3A7C */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3A7C.s")
@@ -353,30 +296,30 @@ s32 func_151B3F28(void *arg0, f32 *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B3F28 */
 #pragma GLOBAL_ASM("asm/nonmatchings/effects/holtenrope/func_151B3F28.s")
 /* Call context: func_15047D60: unique active project prototype */
-s32 func_151B3A7C(f32, f32);                        /* extern */
+s32 func_151B3A7C(u8 *);
 extern f32 D_800AA3B0;
 extern f32 D_800AA3B4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3FDC CURRENT (13877) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B3FDC CURRENT (8437) */
 s32 func_151B3FDC(u8 *arg0) {
-    f32 sp110;
-    f32 sp108;
-    f32 sp104;
-    f32 sp100;
-    f32 spFC;
-    f32 spF8;
-    f32 spF4;
-    f32 spF0;
-    f32 spEC;
-    f32 spE8;
-    f32 spD0;
-    f32 spAC;
-    f32 spA4;
-    f32 sp98;
-    f32 sp6C;
-    f32 sp68;
-    f32 sp64;
-    f32 sp5C;
+    volatile f32 sp110;
+    volatile f32 sp108;
+    volatile f32 sp104;
+    volatile f32 sp100;
+    volatile f32 spFC;
+    volatile f32 spF8;
+    volatile f32 spF4;
+    volatile f32 spF0;
+    volatile f32 spEC;
+    volatile f32 spE8;
+    volatile f32 spD0;
+    volatile f32 spAC;
+    volatile f32 spA4;
+    volatile f32 sp98;
+    volatile f32 sp6C;
+    volatile f32 sp68;
+    volatile f32 sp64;
+    volatile f32 sp5C;
     f32 temp_fa0;
     f32 temp_fa0_2;
     f32 temp_fa1;
@@ -410,7 +353,10 @@ s32 func_151B3FDC(u8 *arg0) {
     f32 var_fs0;
     s32 var_s1;
     u8 *var_s2;
+    u8 *node;
+    f32 threshold;
 
+    threshold = D_800AA3B0;
     temp_fs4 = *(f32 *)((u8 *)arg0 + 0x20);
     temp_fv1 = *(f32 *)((u8 *)arg0 + 0x14);
     temp_fs5 = *(f32 *)((u8 *)arg0 + 0x24);
@@ -422,7 +368,7 @@ s32 func_151B3FDC(u8 *arg0) {
     temp_fa1 = *(f32 *)((u8 *)arg0 + 0x1C);
     sp5C = temp_ft4;
     temp_fs3 = temp_ft4 - temp_fa1;
-    if ((D_800AA3B0 < temp_fv0) || (D_800AA3B0 < fabsf(temp_fs3))) {
+    if ((threshold < temp_fv0) || (threshold < fabsf(temp_fs3))) {
         temp_ft4_2 = temp_fv1 + (temp_fs0 * 0.5f);
         sp100 = temp_ft4_2;
         temp_ft5 = temp_fa0 + (sp110 * 0.5f);
@@ -455,23 +401,24 @@ s32 func_151B3FDC(u8 *arg0) {
         temp_fs2 = temp_ft5_2 * temp_fv1_3;
         temp_ft1 = temp_ft0 * 0.25f;
         sp6C = temp_ft1;
-        if (temp_ft3_2 < sp6C) {
-            return func_151B3A7C(temp_fa0, temp_fa1);
+        if (sp68 < sp6C) {
+            return func_151B3A7C(arg0);
         }
         var_fs0 = 0.0f;
         var_s1 = 0;
         var_s2 = (void *)(arg0 + 0x48);
-        sp98 = sqrtf(sp68 - temp_ft1);
+        sp98 = sqrtf(sp68 - sp6C);
         do {
+            node = var_s2;
             temp_fs3_2 = func_15047D60(var_fs0);
             var_s1 += 0x18;
             temp_fv1_4 = spAC * func_15047C00(var_fs0);
+            var_s2 += 0x18;
             temp_fa0_2 = sp98 * temp_fs3_2;
             temp_fa1_2 = (temp_fv1_4 * temp_fs1_2) - (temp_fa0_2 * temp_fs2);
-            *(f32 *)((u8 *)var_s2 + 0) = (f32) ((temp_fa1_2 * temp_fs5_2) + sp100);
-            *(f32 *)((u8 *)var_s2 + 4) = (f32) (((temp_fv1_4 * temp_fs2) - (temp_fa0_2 * temp_fs1_2)) + sp104);
-            *(f32 *)((u8 *)var_s2 + 8) = (f32) ((temp_fa1_2 * temp_fs4_2) + sp108);
-            var_s2 += 0x18;
+            *(f32 *)((u8 *)node + 0) = (f32) ((temp_fa1_2 * temp_fs5_2) + sp100);
+            *(f32 *)((u8 *)node + 4) = (f32) (((temp_fv1_4 * temp_fs2) - (temp_fa0_2 * temp_fs1_2)) + sp104);
+            *(f32 *)((u8 *)node + 8) = (f32) ((temp_fa1_2 * temp_fs4_2) + sp108);
             var_fs0 += D_800AA3B4;
         } while (var_s1 != 0xF0);
         goto block_6;

@@ -13,6 +13,82 @@
  */
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149550.s")
+typedef struct Game176A00Motion {
+    f32 maxA, minA, targetA;
+    volatile s16 timerA;
+    s16 rangeA;
+    f32 factorA;
+    f32 maxB, minB, alternateB, targetB;
+    volatile s16 timerB;
+    s16 rangeB;
+    f32 factorB;
+    s32 maxC, minC, targetC;
+    volatile s16 timerC;
+    s16 rangeC;
+    f32 factorC;
+    u8 pad40[8];
+    u8 effect;
+} Game176A00Motion;
+
+u32 func_150ADA20(void);
+f32 func_150ADA68(void);
+void func_1513F680(void *, s32, s32, s32, u8);
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15149838 CURRENT (660) */
+s32 func_15149838(u8 *arg0) {
+    Game176A00Motion *motion;
+    u32 random;
+    f32 fraction;
+    f32 minimum;
+    f32 current;
+    s32 minimumC;
+    s32 currentC;
+
+    *(volatile s16 *)(arg0 + 0x11C) -= D_800BE9E4;
+    if (*(volatile s16 *)(arg0 + 0x11C) < 0) {
+        random = func_150ADA20();
+        motion = (Game176A00Motion *)(arg0 + 0x110);
+        motion->timerA = random % (u32)motion->rangeA;
+        fraction = func_150ADA68();
+        minimum = motion->minA;
+        motion->targetA = fraction * (motion->maxA - minimum) + minimum;
+    }
+    motion = (Game176A00Motion *)(arg0 + 0x110);
+    current = *(f32 *)(arg0 + 0x2C);
+    *(f32 *)(arg0 + 0x2C) = current + (motion->targetA - current) * motion->factorA;
+    motion->timerB -= D_800BE9E4;
+    if (motion->timerB < 0) {
+        motion->timerB = func_150ADA20() % (u32)motion->rangeB;
+        if (func_150ADA20() & 3) {
+            fraction = func_150ADA68();
+            minimum = motion->minB;
+            motion->targetB = fraction * (motion->maxB - minimum) + minimum;
+        } else {
+            fraction = func_150ADA68();
+            minimum = motion->maxB;
+            motion->targetB = fraction * (motion->alternateB - minimum) + minimum;
+        }
+    }
+    current = *(f32 *)(arg0 + 0x30);
+    *(f32 *)(arg0 + 0x30) = current + (motion->targetB - current) * motion->factorB;
+    motion->timerC -= D_800BE9E4;
+    if (motion->timerC < 0) {
+        motion->timerC = func_150ADA20() % (u32)motion->rangeC;
+        random = func_150ADA20();
+        minimumC = motion->minC;
+        motion->targetC = random % (u32)(motion->maxC - minimumC + 1) + minimumC;
+    }
+    currentC = *(s32 *)(arg0 + 0x24);
+    *(s32 *)(arg0 + 0x24) = currentC + (s32)(((f32)motion->targetC - (f32)currentC) * motion->factorC);
+    if (*(s16 *)(arg0 + 0x1C) < 5) {
+        func_1513F680(arg0, arg0[0x70], motion->effect, arg0[0x72], arg0[0x73]);
+        *(s16 *)(arg0 + 0x1C) = 0x12C;
+        *(s32 *)(arg0 + 0x58) &= ~1;
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15149838 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_176A00/func_15149838.s")
 void func_1513F680(void *, s32, s32, s32, u8);
 extern f32 D_800A578C;

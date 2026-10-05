@@ -36,7 +36,7 @@ extern SpTask D_80036B60;
 void func_80023A10(const void *, void *, s32);
 u32 func_800233C0(void *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003220 CURRENT (5623) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003220 CURRENT (6183) */
 SpTask *func_80003220(SpTask *arg0) {
     func_80023A10(arg0, &D_80036B60, sizeof(SpTask));
     if (D_80036B60.t.ucode != 0) {

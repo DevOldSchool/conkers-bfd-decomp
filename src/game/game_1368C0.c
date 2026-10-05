@@ -263,6 +263,80 @@ void func_15109848(Game1368C0EmitterOwner *arg0, Game1368C0EmitterVector *arg1,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15109848 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109848.s")
+typedef struct { u8 pad0[0x3B]; u8 kind; } Game1368C0BurstParent;
+typedef struct {
+    u8 pad0, color, pad2[0xA], flags, padD[6], kind;
+    u8 pad14[0x14];
+    Game1368C0BurstParent *parent;
+} Game1368C0BurstOwner;
+typedef struct {
+    f32 first, second, width, height;
+    Game1368C0EmitterVector angles, scale, position, velocity, acceleration;
+    f32 scalar4C;
+    s32 flags;
+    s16 life, kind;
+    u8 byte58, pad59[3];
+    s32 word5C;
+    u8 colors[9], pad69, variant, pad6B;
+    Game1368C0BurstParent *parent;
+    u8 parentKind, pad71;
+    s16 value72, value74;
+    u8 pad76[6];
+} Game1368C0Burst;
+void *func_15132A4C(void *, s32, s32, s32, u8, s32);
+extern f32 D_800A2650, D_800A2654, D_800A2658, D_800A265C, D_800A2660, D_800A2664;
+extern f32 D_800A2668, D_800A266C, D_800A2670, D_800A2674, D_800A2678, D_800A267C, D_800A2680;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109C20 CURRENT (1265) */
+void func_15109C20(Game1368C0BurstOwner *arg0, Game1368C0EmitterVector *arg1,
+                   s32 arg2, s32 arg3, s32 arg4, Game1368C0EmitterVector *arg5) {
+    Game1368C0BurstParent *parent;
+    f32 speed;
+    Game1368C0Burst burst;
+
+    parent = arg0->parent;
+    speed = (func_150ADA68() * D_800A2650 + D_800A2654) * D_800A2658;
+    burst.first = 1.0f;
+    burst.second = 1.0f;
+    burst.width = burst.height = (func_150ADA68() * D_800A265C + D_800A2660) * D_800A2664;
+    burst.angles.x = func_150ADA68() * 360.0f;
+    burst.angles.y = func_150ADA68() * 360.0f;
+    burst.angles.z = func_150ADA68() * 360.0f;
+    burst.scale.x = 1.0f;
+    burst.scale.y = 1.0f;
+    burst.scale.z = 1.0f;
+    burst.position = *arg1;
+    burst.velocity.x = arg5->x * speed;
+    burst.velocity.y = arg5->y * speed;
+    burst.velocity.z = arg5->z * speed;
+    burst.acceleration.x = (func_150ADA68() * D_800A2668 + D_800A266C) * D_800A2670;
+    burst.acceleration.y = 0.0f;
+    burst.acceleration.z = (func_150ADA68() * D_800A2674 + D_800A2678) * D_800A267C;
+    burst.scalar4C = (func_150ADA68() * 124.0f + -231.0f) * D_800A2680;
+    burst.flags = 0x29E8;
+    burst.life = ((u32)func_150ADA20() % 15U) + 20;
+    if (func_150ADA20() & 1) burst.kind = 0x23;
+    else burst.kind = 0x24;
+    burst.byte58 = 0;
+    burst.word5C = 0;
+    burst.colors[0] = 0xFF;
+    burst.colors[1] = 8;
+    burst.colors[2] = 0;
+    burst.colors[3] = 0;
+    burst.colors[4] = 0;
+    burst.colors[5] = 0;
+    burst.colors[6] = 0;
+    burst.colors[7] = 0;
+    burst.colors[8] = 2;
+    if (arg0->kind == 0x1A) burst.variant = 1;
+    else burst.variant = 2;
+    burst.parent = parent;
+    burst.value72 = 10;
+    burst.value74 = 25;
+    burst.parentKind = parent->kind;
+    func_15132A4C(&burst, 3, 0xFF, 0, arg0->flags, arg0->color);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15109C20 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109C20.s")
 void *func_10022EC0(void *, const void *, u32);
 s32 func_15149130(s16, s32, s32, s32, s32, s32, s32, s32, s32);

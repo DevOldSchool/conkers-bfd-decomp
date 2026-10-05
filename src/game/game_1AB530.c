@@ -233,7 +233,7 @@ extern s32 D_80082FA4;
 extern u8 *D_800DBFF0;
 extern u8 *D_800BE628;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517EAAC CURRENT (743) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517EAAC CURRENT (583) */
 s32 func_1517EAAC(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
     f32 output[4];
     u8 transform[0x40];
@@ -245,9 +245,9 @@ s32 func_1517EAAC(f32 arg0, f32 arg1, f32 arg2, f32 *arg3, f32 *arg4) {
     Game1AB530TransformRef *transform_ref;
     Game1AB530CameraInfo *camera_info;
 
-    transform_ref = (Game1AB530TransformRef *)(D_800DBFF0 + (D_80082FA4 * 0x9A0));
+    transform_ref = (Game1AB530TransformRef *)((u32)D_800DBFF0 + (u32)D_80082FA4 * 0x9A0U);
     func_15110360(D_80082FA4, transform, -transform_ref->field388, -transform_ref->field380, transform_ref->field5EC);
-    camera_info = (Game1AB530CameraInfo *)(D_800BE628 + (D_80082FA4 * 0x180));
+    camera_info = (Game1AB530CameraInfo *)((u32)D_800BE628 + (u32)D_80082FA4 * 0x180U);
     camera_x = camera_info->fieldC;
     camera_y = camera_info->field10;
     func_150A7A00(transform, arg0, arg1, arg2, &output[3], &output[2], &output[1], &output[0]);

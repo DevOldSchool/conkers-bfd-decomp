@@ -107,38 +107,38 @@ extern f32 D_800DCA24;
 extern s8 D_800DCA28;
 extern f32 D_800DCA2C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E738 CURRENT (1795) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500E738 */
 void func_1500E738(void) {
     switch (D_80082FA0) {                           /* switch 1; irregular */
     case 0:                                         /* switch 1 */
-        D_800DCA20 = 0;
+        *(u8 *)&D_800DCA20 = 0;
         D_800DCA24 = 1.0f;
         break;
     case 1:                                         /* switch 1 */
-        D_800DCA20 = 1;
+        *(u8 *)&D_800DCA20 = 1;
         D_800DCA24 = 0.5f;
         break;
     case 2:                                         /* switch 1 */
     case 3:                                         /* switch 1 */
-        D_800DCA20 = 2;
+        *(u8 *)&D_800DCA20 = 2;
         D_800DCA24 = 0.25f;
         break;
     }
     switch (D_8008FD8C) {                           /* switch 2 */
     case 2:                                         /* switch 2 */
-        D_800DCA28 = 1;
+        *(u8 *)&D_800DCA28 = 1;
         D_800DCA2C = 0.5f;
         return;
     case 3:                                         /* switch 2 */
     case 4:                                         /* switch 2 */
-        D_800DCA28 = 2;
+        *(u8 *)&D_800DCA28 = 2;
         D_800DCA2C = 0.25f;
         return;
     case 5:                                         /* switch 2 */
     case 6:                                         /* switch 2 */
     case 7:                                         /* switch 2 */
     case 8:                                         /* switch 2 */
-        D_800DCA28 = 3;
+        *(u8 *)&D_800DCA28 = 3;
         D_800DCA2C = 0.125f;
         return;
     case 9:                                         /* switch 2 */
@@ -149,11 +149,12 @@ void func_1500E738(void) {
     case 14:                                        /* switch 2 */
     case 15:                                        /* switch 2 */
     case 16:                                        /* switch 2 */
-        D_800DCA28 = 4;
+        *(u8 *)&D_800DCA28 = 4;
         D_800DCA2C = 0.0625f;
         return;
+    case 1:
     default:                                        /* switch 2 */
-        D_800DCA28 = 0;
+        *(u8 *)&D_800DCA28 = 0;
         D_800DCA2C = 1.0f;
         return;
     }

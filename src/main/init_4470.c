@@ -173,7 +173,7 @@ extern volatile u8 D_8003A573;
 extern volatile u8 D_8003A575;
 void func_80022A60(TransferThread *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (2223) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000480C CURRENT (2031) */
 void func_8000480C(u32 source, void *destination, u32 size) {
     u32 count;
     TransferWord data;
@@ -194,10 +194,10 @@ void func_8000480C(u32 source, void *destination, u32 size) {
         data.word = *(volatile u32 *)((source - 2) | 0xA0000000);
         count = size - 2;
         offset = 0;
-        *(u16 *)destination = data.half[1];
+        *(u16 *)((void **)&destination)[0] = data.half[1];
         if (count != 0) {
             readAddress = source + 2;
-            writeAddress = destination;
+            writeAddress = ((void **)&destination)[0];
             do {
                 data.word = *(volatile u32 *)(readAddress | 0xA0000000);
                 offset += 4;
@@ -209,13 +209,13 @@ void func_8000480C(u32 source, void *destination, u32 size) {
         }
         if (size & 2) {
             data.word = *(volatile u32 *)((source + offset + 2) | 0xA0000000);
-            *(u16 *)((u8 *)destination + offset + 2) = data.half[0];
+            *(u16 *)((u8 *)((void **)&destination)[0] + offset + 2) = data.half[0];
         }
     } else {
         offset = 0;
         if (count != 0) {
             readAddress = source;
-            writeAddress = destination;
+            writeAddress = ((void **)&destination)[0];
             do {
                 *(u32 *)writeAddress = *(volatile u32 *)(readAddress | 0xA0000000);
                 offset += 4;
@@ -225,7 +225,7 @@ void func_8000480C(u32 source, void *destination, u32 size) {
         }
         if (size & 2) {
             data.word = *(volatile u32 *)((source + offset) | 0xA0000000);
-            *(u16 *)((u8 *)destination + offset) = data.half[0];
+            *(u16 *)((u8 *)((void **)&destination)[0] + offset) = data.half[0];
         }
     }
     D_8003A572 = 0;

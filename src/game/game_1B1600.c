@@ -334,6 +334,108 @@ Game1B1600Record *func_15185DD4(Game1B1600Record *arg0, s32 arg1, s32 arg2,
 #endif /* CONKER_DEFERRED_CANDIDATE func_15185DD4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15185DD4.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15185F24.s")
+void func_1510F800(s32);
+void func_100226F0(void *, s32);
+s32 func_1510F720(s32, s32, s32, void **);
+s32 func_150A5B90(u32 *, s32, s32, s32);
+extern u8 *D_800D3668;
+extern u32 *D_800D3694;
+extern s8 D_800DE041;
+extern s32 D_800D3690, D_800DBE3C;
+extern s32 D_800DF0E8, D_800DF0EC, D_800DF0F0, D_800DF0F4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1518652C CURRENT (5197) */
+s32 func_1518652C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+    struct {
+        u32 bits[187];
+        s32 count;
+        void *items[16];
+    } work;
+    volatile u32 savedMaximum;
+    u32 maximum;
+    void **cursor;
+    u8 *data;
+    u32 index;
+    u32 *word;
+    u8 code;
+    u8 filter;
+    s32 end;
+
+    savedMaximum = 0;
+    func_1510F800(0);
+    work.count = func_1510F720(arg0, arg1, arg2, work.items);
+    maximum = savedMaximum;
+    if (work.count != 0) {
+        savedMaximum = maximum;
+        func_100226F0(work.bits, 0x2EC);
+        maximum = savedMaximum;
+        if (work.count != 0) {
+            cursor = work.items + work.count;
+            filter = (u8)D_800DE041;
+            do {
+                data = (u8 *)cursor[-1];
+                index = 0;
+                cursor--;
+                data += 0xE;
+                if (filter != 0) {
+                    code = *data;
+                    if (code != 0) {
+                        do {
+                            if (code & 0x80) {
+                                index = ((code << 8) | data[1]) & 0x7FFF;
+                                data += 2;
+                            } else {
+                                index += code;
+                                data++;
+                            }
+                            if (index < 0x1760U) {
+                                word = &work.bits[index >> 5];
+                                if (D_800D3668[index] == 1) {
+                                    *word |= 1U << (index & 0x1F);
+                                    if (maximum < index) {
+                                        maximum = index;
+                                    }
+                                }
+                            }
+                            code = *data;
+                        } while (code != 0);
+                    }
+                } else {
+                    code = *data;
+                    if (code != 0) {
+                        do {
+                            if (code & 0x80) {
+                                index = ((code << 8) | data[1]) & 0x7FFF;
+                                data += 2;
+                            } else {
+                                index += code;
+                                data++;
+                            }
+                            if (index < 0x1760U) {
+                                word = &work.bits[index >> 5];
+                                *word |= 1U << (index & 0x1F);
+                                if (maximum < index) {
+                                    maximum = index;
+                                }
+                            }
+                            code = *data;
+                        } while (code != 0);
+                    }
+                }
+            } while (cursor != work.items);
+        }
+        D_800D3690 = D_800DBE3C;
+        D_800D3694 = &work.bits[maximum >> 5] + 1;
+        D_800DF0E8 = (s32)((u32)arg0 - (u32)arg2);
+        D_800DF0EC = (s32)((u32)arg0 + (u32)arg2);
+        D_800DF0F0 = (s32)((u32)arg1 - (u32)arg2);
+        D_800DF0F4 = (s32)((u32)arg1 + (u32)arg2);
+        end = func_150A5B90(work.bits, arg3, arg4, arg5);
+        return (s32)((u32)end - (u32)arg3) / 20;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1518652C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_1518652C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B1600/func_15186794.s")
 extern s32 D_800DE01C;

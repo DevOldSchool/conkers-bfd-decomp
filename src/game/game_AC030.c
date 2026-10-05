@@ -309,8 +309,71 @@ void func_1507F54C(u8 *arg0) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507F54C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F54C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507F640.s")
+typedef struct GameFC2CFrame { u8 pad0[6]; u8 flags; u8 pad7; } GameFC2CFrame;
+typedef struct GameFC2CSequence { u8 pad0[4]; u8 id; u8 frame; u8 flags; u8 pad7; } GameFC2CSequence;
+extern GameFC2CFrame D_8009B8B0[];
+extern s32 D_800418B0[][16];
+extern u8 D_800419A0;
+extern s32 D_800D18C4;
+void func_1000E7A0(u32, s32);
+void func_1000E8C4(s32, s32);
+void func_1000D96C(s32, s32, s32);
+void func_1000DE1C(s32, s32);
+void func_100109D0(s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1507FC2C CURRENT (2919) */
+void func_1507FC2C(void *volatile arg0) {
+    GameFC2CSequence *sequence;
+    GameFC2CFrame *frame;
+    s32 flags;
+    s32 old;
+    s32 changed;
+    s32 enabled;
+    s32 id;
+    s32 previous_sound;
+    f32 fade;
+    u8 *intensity;
+
+    flags = 0;
+    sequence = (GameFC2CSequence *)(*(u8 **)((u8 *)arg0 + 0x31C) + 0x58);
+    id = sequence->id;
+    if (id != 0) {
+        frame = &D_8009B8B0[D_80086BA0[id & 0xFF][sequence->frame]];
+        flags = frame->flags;
+    }
+    if (flags & 0x10) {
+        fade = (f32)D_800418B0[D_800419A0][0];
+        intensity = arg0;
+        if (fade >= 0.0f) {
+            intensity = *(u8 **)(intensity + 0x2D0);
+            *(f32 *)(intensity + 8) = *(f32 *)(intensity + 0x18) * (32768.0f - fade) / 32768.0f;
+        }
+    }
+    old = sequence->flags;
+    changed = flags ^ old;
+    if (flags != old) {
+        enabled = changed & flags;
+        if ((enabled & 1) == 1) *(u16 *)((u8 *)arg0 + 0x2F8) |= 1;
+        else if ((changed & old & 1) == 1) *(u16 *)((u8 *)arg0 + 0x2F8) &= 0xFFFE;
+        if ((enabled & 2) == 2) func_1000E7A0(1, 0);
+        else if ((changed & old & 2) == 2) func_1000E8C4(1, id);
+        if ((enabled & 4) == 4) {
+            previous_sound = D_800D18C4;
+            if (previous_sound == 0) D_800D18C4 = 0x15;
+            else {
+                D_800D18C4 = (u32)previous_sound + 1;
+                if ((previous_sound ^ 0x17) == 0) D_800D18C4 = 0x15;
+            }
+            func_1000D96C(D_800D18C4, 0, 0);
+        } else if ((changed & old & 4) == 4) func_1000DE1C(D_800D18C4, 0);
+        if ((enabled & 8) != 8 && (changed & old & 8) == 8) func_100109D0((s32)arg0);
+        sequence->flags = flags;
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1507FC2C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AC030/func_1507FC2C.s")
-void func_1507FC2C(void *);
+
+void func_1507FC2C(void *volatile);
 void func_1507FF94(void *);
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;

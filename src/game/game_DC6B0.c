@@ -179,7 +179,7 @@ void func_150E1AB0(s32, f32, f32, f32, f32, f32, f32, f32, f32, f32, f32, s32, s
 void func_150E2DB4(s32, u8, s16, s32, f32, f32, f32, f32, f32, f32, s16, s16, u16, u8);
 extern void *D_800D154C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFE64 CURRENT (26) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150AFE64 CURRENT (16) */
 void func_150AFE64(s32 arg0) {
     f32 near_x;
     f32 near_y;
@@ -198,7 +198,7 @@ void func_150AFE64(s32 arg0) {
         } else {
             index = 2;
         }
-        matrix = matrices + (index << 6);
+        matrix = (void *)((u32)matrices + ((u32)index << 6));
         near_x = 0.0f;
         near_y = 0.0f;
         near_z = -20.0f;
@@ -349,7 +349,117 @@ void func_150B031C(s32 arg0) {
     func_150B02C0((void *)arg0);
     func_1513259C(arg0);
 }
+typedef struct GameDC6B0Burst {
+    s16 count, countRange;
+    u8 kind, pad5;
+    u16 field6;
+    s32 flags, fieldC;
+    s16 timer, timerRange;
+    s32 field14, field18;
+    u8 field1C, field1D, field1E, field1F, field20;
+    u8 field21, field22, field23, field24, field25;
+    s16 field26, field28, field2A;
+    f32 field2C, field30, field34;
+    GameDC6B0Vector position;
+    s16 yaw, pitch, yawRange, pitchRange;
+    f32 speed, speedRange, field54, field58;
+    u32 field5C;
+    s8 field60, field61;
+    u8 field62, field63, field64;
+    u8 pad65[3];
+    f32 field68;
+} GameDC6B0Burst;
+
+typedef struct GameDC6B0Emission {
+    s32 count, countRange;
+    GameDC6B0Vector position;
+    s16 yaw, yawRange, pitch, pitchRange;
+    f32 speed, speedRange, field24, field28;
+    s16 timer, timerRange;
+    f32 scale, scaleRange, radius;
+} GameDC6B0Emission;
+
+void func_15153634(GameDC6B0Burst *, s32, s32, s32);
+void func_15152190(void *, void *, void *, s32, f32, s32, s32, s32);
+extern s32 D_8009F790[5];
+extern f32 D_8009F7A4[5];
+extern f32 D_8009F7DC, D_8009F7E0, D_8009F7E4, D_8009F7E8;
+extern f32 D_8009F7EC, D_8009F7F0, D_8009F7F4, D_8009F7F8;
+extern f32 D_8009F7FC, D_8009F800;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B0348 CURRENT (1851) */
+void func_150B0348(void *arg0, s32 arg1, s32 arg2) {
+    GameDC6B0Vector position;
+    GameDC6B0Burst burst;
+    GameDC6B0Emission emission;
+
+    position.x = ((GameDC6B0Vector *) ((u8 *) arg0 + 0x14))->x;
+    position.y = ((GameDC6B0Vector *) ((u8 *) arg0 + 0x14))->y + 30.0f;
+    position.z = ((GameDC6B0Vector *) ((u8 *) arg0 + 0x14))->z;
+    burst.count = 10;
+    burst.countRange = 7;
+    burst.kind = 0x6C;
+    burst.field6 = 0x5103;
+    burst.flags = 0x200005;
+    burst.timer = 30;
+    burst.timerRange = 15;
+    burst.field1F = 0xFF;
+    burst.field1C = 0x7F;
+    burst.field1E = 6;
+    burst.fieldC = 0;
+    burst.field14 = 0;
+    burst.field18 = 0;
+    burst.field1D = 0x4B;
+    burst.field20 = 0x80;
+    burst.field21 = 0x53;
+    burst.field22 = 0;
+    burst.field23 = 100;
+    burst.field24 = 100;
+    burst.field25 = 0xFF;
+    burst.field26 = 32;
+    burst.field28 = 7;
+    burst.field2A = 32;
+    burst.field2C = D_8009F7DC;
+    burst.field30 = D_8009F7E0;
+    burst.field34 = 200.0f;
+    burst.position = position;
+    burst.yaw = 0;
+    burst.pitch = -25;
+    burst.yawRange = 255;
+    burst.pitchRange = 21;
+    burst.field5C = 0x40E07;
+    burst.field60 = 16;
+    burst.field61 = -1;
+    burst.field62 = 8;
+    burst.field63 = 6;
+    burst.field64 = 1;
+    burst.speed = 5.0f;
+    burst.speedRange = 25.0f;
+    burst.field54 = D_8009F7E4;
+    burst.field58 = D_8009F7E8;
+    burst.field68 = D_8009F7EC;
+    func_15153634(&burst, 255, *((u8 *) &arg1 + 3), arg2);
+    emission.count = 36;
+    emission.countRange = 10;
+    emission.position = position;
+    emission.speed = 11.0f;
+    emission.speedRange = 8.0f;
+    emission.yaw = 0;
+    emission.yawRange = 255;
+    emission.pitch = -40;
+    emission.pitchRange = 20;
+    emission.timer = 34;
+    emission.timerRange = 15;
+    emission.field24 = D_8009F7F0;
+    emission.field28 = D_8009F7F4;
+    emission.scale = D_8009F7F8;
+    emission.scaleRange = D_8009F7FC;
+    emission.radius = D_8009F800;
+    func_15152190(&emission, D_8009F790, D_8009F7A4, 5, 65.0f, 0, *((u8 *) &arg1 + 3), arg2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150B0348 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_DC6B0/func_150B0348.s")
+
 /* Call context: func_151149AC: unique active project prototype */
 s32 func_151149AC(u8);
 

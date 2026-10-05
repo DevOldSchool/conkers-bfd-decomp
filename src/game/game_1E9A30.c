@@ -125,22 +125,23 @@ s32 func_151BC64C(u8 *actor) {
     }
     return 1;
 }
-f32 func_15143E64(f32 *, void *, void *);           /* extern */
+f32 func_15143E64(void *);
 extern f32 D_800AA848;
 extern f32 D_800AA84C;
 extern f32 D_800BE9A4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC794 CURRENT (5435) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BC794 CURRENT (2670) */
 s32 func_151BC794(u8 *arg0) {
     u8 *sp9C;
     s32 sp98;
-    f32 sp90;
-    f32 sp8C;
-    f32 sp88;
-    f32 sp74;
-    f32 sp70;
-    f32 sp6C;
-    f32 sp4C;
+    typedef struct { f32 x, y, z; } Point;
+    Point delta;
+    Point position;
+    volatile f32 sp4C;
+    f32 stepX;
+    f32 stepY;
+    f32 stepZ;
+    f32 stepAngle;
     f32 temp_fs0;
     f32 temp_fv0;
     f32 temp_fv0_2;
@@ -155,6 +156,7 @@ s32 func_151BC794(u8 *arg0) {
     u8 *temp_v0_2;
 
     temp_a2 = (void *)(*(void **)((u8 *)arg0 + 0x98));
+    sp98 = *(s32 *)((u8 *)arg0 + 0x94);
     temp_v0 = (void *)(*(void **)((u8 *)temp_a2 + 0));
     if ((*(s32 *)((u8 *)temp_v0 + 0) == 0) || (*(u8 *)((u8 *)temp_a2 + 4) != *(u8 *)((u8 *)temp_v0 + 0x3B))) {
         *(u16 *)((u8 *)arg0 + 0x1E) = (u16) (*(u16 *)((u8 *)arg0 + 0x1E) | 8);
@@ -163,12 +165,11 @@ s32 func_151BC794(u8 *arg0) {
     *(f32 *)((u8 *)arg0 + 0x10) = (f32) *(f32 *)((u8 *)temp_v0 + 0x14);
     *(f32 *)((u8 *)arg0 + 0x14) = (f32) *(f32 *)((u8 *)temp_v0 + 0x18);
     *(f32 *)((u8 *)arg0 + 0x18) = (f32) *(f32 *)((u8 *)temp_v0 + 0x1C);
-    sp88 = *(f32 *)((u8 *)arg0 + 0x10) - *(f32 *)((u8 *)temp_a2 + 8);
-    sp8C = *(f32 *)((u8 *)arg0 + 0x14) - *(f32 *)((u8 *)temp_a2 + 0xC);
-    sp98 = *(s32 *)((u8 *)arg0 + 0x94);
+    delta.x = *(f32 *)((u8 *)arg0 + 0x10) - *(f32 *)((u8 *)temp_a2 + 8);
+    delta.y = *(f32 *)((u8 *)arg0 + 0x14) - *(f32 *)((u8 *)temp_a2 + 0xC);
     sp9C = temp_a2;
-    sp90 = *(f32 *)((u8 *)arg0 + 0x18) - *(f32 *)((u8 *)temp_a2 + 0x10);
-    temp_fv0 = func_15143E64(&sp88, arg0, temp_a2);
+    delta.z = *(f32 *)((u8 *)arg0 + 0x18) - *(f32 *)((u8 *)temp_a2 + 0x10);
+    temp_fv0 = func_15143E64(&delta);
     *(f32 *)((u8 *)sp9C + 0x14) = (f32) (*(f32 *)((u8 *)sp9C + 0x14) + (temp_fv0 * D_800AA848 * D_800BE9A4));
     temp_fv1 = *(f32 *)((u8 *)sp9C + 0x14);
     *(f32 *)((u8 *)sp9C + 0x1C) = (f32) (*(f32 *)((u8 *)sp9C + 0x1C) + (temp_fv0 * D_800AA84C));
@@ -176,21 +177,21 @@ s32 func_151BC794(u8 *arg0) {
     if (temp_fv1 > 1.0f) {
         temp_t3 = (void *)(sp9C + 8);
         temp_fv0_2 = 1.0f / sp4C;
-        *(f32 *)((u8 *)&sp6C + 0) = *(f32 *)((u8 *)sp9C + 8);
-        *(s32 *)((u8 *)&sp6C + 4) = (s32) *(s32 *)((u8 *)temp_t3 + 4);
+        position = *(Point *)temp_t3;
         var_ft4 = *(f32 *)((u8 *)sp9C + 0x18) + D_800BE9A4;
-        *(s32 *)((u8 *)&sp6C + 8) = (s32) *(s32 *)((u8 *)temp_t3 + 8);
         temp_fv1_2 = *(f32 *)((u8 *)sp9C + 0x20);
         var_fa1 = temp_fv1_2;
         temp_fs0 = -(var_ft4 * temp_fv0_2);
+        stepX = delta.x * temp_fv0_2;
+        stepY = delta.y * temp_fv0_2;
+        stepZ = delta.z * temp_fv0_2;
+        stepAngle = (*(f32 *)((u8 *)sp9C + 0x1C) - temp_fv1_2) * temp_fv0_2;
         do {
             temp_v0_2 = (void *)((*(s8 *)((u8 *)arg0 + 0x2E) * 0x14) + sp98);
-            *(f32 *)((u8 *)temp_v0_2 + 0) = (f32) *(f32 *)((u8 *)&sp6C + 0);
-            *(s32 *)((u8 *)temp_v0_2 + 4) = (s32) *(s32 *)((u8 *)&sp6C + 4);
+            *(Point *)temp_v0_2 = position;
             *(s16 *)((u8 *)temp_v0_2 + 0xC) = 0xC;
             *(s8 *)((u8 *)temp_v0_2 + 0xE) = 0x64;
             *(f32 *)((u8 *)temp_v0_2 + 0x10) = var_fa1;
-            *(s32 *)((u8 *)temp_v0_2 + 8) = (s32) *(s32 *)((u8 *)&sp6C + 8);
             if (var_fa1 > 16384.0f) {
                 do {
                     *(f32 *)((u8 *)temp_v0_2 + 0x10) = (f32) (*(f32 *)((u8 *)temp_v0_2 + 0x10) - 32768.0f);
@@ -209,16 +210,14 @@ s32 func_151BC794(u8 *arg0) {
                 }
                 *(s8 *)((u8 *)arg0 + 0x2C) = (s8) (*(s8 *)((u8 *)arg0 + 0x2C) - 1);
             }
-            var_fa1 += (*(f32 *)((u8 *)sp9C + 0x1C) - temp_fv1_2) * temp_fv0_2;
-            sp6C += sp88 * temp_fv0_2;
-            sp70 += sp8C * temp_fv0_2;
+            var_fa1 += stepAngle;
+            position.x += stepX;
+            position.y += stepY;
             var_ft4 += temp_fs0;
-            sp74 += sp90 * temp_fv0_2;
+            position.z += stepZ;
             *(f32 *)((u8 *)sp9C + 0x14) = (f32) (*(f32 *)((u8 *)sp9C + 0x14) - 1.0f);
         } while (*(f32 *)((u8 *)sp9C + 0x14) > 1.0f);
-        *(f32 *)((u8 *)sp9C + 8) = (f32) *(f32 *)((u8 *)&sp6C + 0);
-        *(s32 *)((u8 *)temp_t3 + 4) = (s32) *(s32 *)((u8 *)&sp6C + 4);
-        *(s32 *)((u8 *)temp_t3 + 8) = (s32) *(s32 *)((u8 *)&sp6C + 8);
+        *(Point *)temp_t3 = position;
         *(f32 *)((u8 *)sp9C + 0x20) = var_fa1;
         *(f32 *)((u8 *)sp9C + 0x18) = var_ft4;
     }
@@ -298,16 +297,15 @@ typedef struct {
 } Game1E9A30Spawn;
 
 void *func_10022EC0(void *, const void *, u32);
-s32 func_15134DAC();
+void *func_15134DAC(u8 *, s32);
 extern f32 D_800AA850;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 CURRENT (215) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151BD2F8 CURRENT (120) */
 void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
     Game1E9A30Spawn spawn;
-    s32 result;
+    void *result;
 
     if (arg0 != 0) {
-        spawn.active = 1;
         spawn.id = *(u8 *)((u8 *)arg0 + 0x3B);
         spawn.x1 = 31.0f;
         spawn.y1 = -34.0f;
@@ -317,6 +315,7 @@ void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
         spawn.z2 = -182.0f;
         spawn.scale = D_800AA850;
         spawn.object = arg0;
+        spawn.active = 1;
         spawn.field28 = 0;
         spawn.field2A = 0x32;
         spawn.field2C = 0x64;
@@ -327,7 +326,7 @@ void func_151BD2F8(void *arg0, s32 arg1, s32 arg2) {
         spawn.field3C = 5;
         spawn.field3D = -1;
         spawn.copyValue = 0;
-        result = func_15134DAC(&spawn.id, 2, arg0);
+        result = func_15134DAC(&spawn.id, 2);
         if (result != 0) {
             func_10022EC0((u8 *)result + 0x80, &spawn.copyValue, 2);
         }

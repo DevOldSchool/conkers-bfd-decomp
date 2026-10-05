@@ -40,27 +40,27 @@ extern u8 D_800D9C10[];
 extern u8 D_800D9D10[];
 extern u8 *D_800DC2A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B690 CURRENT (255) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B690 CURRENT (535) */
 void func_1510B690(void) {
     Game138B40Work sp4C;
-    s16 var_s0;
-    s32 temp_s1;
+    s32 var_s0;
+    u32 temp_s1;
     void *temp_s2;
 
     var_s0 = 0;
     if (D_80082FA0 >= 0) {
         do {
             func_151EFEB8(&sp4C,
-                          (s32)((u8 *)D_800BE628 +
-                                (((var_s0 << 2) - var_s0) << 7) +
-                                (D_800BE9C0 << 6) + 0x100));
-            temp_s1 = var_s0 << 6;
-            temp_s2 = &D_800D9C10[temp_s1];
+                          (s32)((u32)D_800BE628 +
+                                ((((u32)var_s0 << 2) - (u32)var_s0) << 7) +
+                                ((u32)D_800BE9C0 << 6) + 0x100U));
+            temp_s1 = (u32)var_s0 << 6;
+            temp_s2 = (void *)((u32)D_800D9C10 + (u32)temp_s1);
             func_151EFEB8(temp_s2,
-                          (s32)(D_800DC2A0[D_800BE9C0] + (var_s0 * 0x40)));
-            func_150A7A48(temp_s2, &sp4C, &D_800D9D10[temp_s1]);
+                          (s32)((u32)D_800DC2A0[D_800BE9C0] + ((u32)var_s0 << 6)));
+            func_150A7A48(temp_s2, &sp4C, (void *)((u32)D_800D9D10 + (u32)temp_s1));
             func_1501B22C(var_s0);
-            var_s0 += 1;
+            var_s0 = (s16)(var_s0 + 1);
         } while (D_80082FA0 >= var_s0);
     }
 }

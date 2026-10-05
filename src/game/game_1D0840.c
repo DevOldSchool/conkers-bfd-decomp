@@ -207,7 +207,7 @@ typedef struct Game1D0840TimedObject {
     Game1D0840TimedState *state98;
 } Game1D0840TimedObject;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A361C CURRENT (190) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A361C CURRENT (115) */
 s32 func_151A361C(Game1D0840TimedObject *arg0) {
     Game1D0840TimedState *state = arg0->state98;
     Game1D0840TimedEntry *entries = arg0->entries94;
@@ -218,7 +218,7 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
     if (arg0->field2C < 2 && (state->flags30 & 1)) {
         return 0;
     }
-    state->field4C += state->field2A * D_800BE9E4;
+    state->field4C = (u32)state->field4C + (u32)(s32)state->field2A * (u32)D_800BE9E4;
     index = arg0->field2E;
     if (index != arg0->field2D) {
         do {
@@ -228,25 +228,27 @@ s32 func_151A361C(Game1D0840TimedObject *arg0) {
             }
             entry = &entries[index];
             if (entry->field12 > 0) {
-                entry->field12 -= D_800BE9E4;
+                entry->field12 = (u32)(s32)entry->field12 - (u32)D_800BE9E4;
             } else {
-                entry->field10 -= D_800BE9E4 * state->field1C;
+                entry->field10 = (u32)(s32)entry->field10 - (u32)D_800BE9E4 * (u32)(s32)state->field1C;
             }
             entry->field14 = 0xFF;
             entry->fieldC += D_800BE9A4 * state->field24;
             if (entry->field10 < 0) {
                 state->flags30 &= ~2;
-                if (index != arg0->field2D) {
+                current = arg0->field2D;
+                if (index != current) {
                     do {
-                        current = arg0->field2D + 1;
-                        arg0->field2D = current;
-                        if (arg0->field25 == arg0->field2D) {
+                        arg0->field2D = current + 1;
+                        current = arg0->field2D;
+                        if (arg0->field25 == current) {
                             arg0->field2D = 0;
+                            current = arg0->field2D;
                         }
                         arg0->field2C--;
-                    } while (index != arg0->field2D);
+                    } while (index != current);
                 }
-                entries[arg0->field2D].field10 = 0;
+                entries[current].field10 = 0;
             }
         } while (index != arg0->field2D);
     }

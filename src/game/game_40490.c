@@ -243,11 +243,9 @@ extern f32 D_80096670;
 extern f32 D_80096674;
 extern f32 D_80096678;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013DE8 CURRENT (4781) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15013DE8 CURRENT (3102) */
 s32 func_15013DE8(u8 *arg0) {
     struct {
-        f32 scaledY;
-        f32 scaledX;
         f32 position[3];
         f32 offsets[5];
         s16 first;
@@ -264,6 +262,8 @@ s32 func_15013DE8(u8 *arg0) {
         f32 value70;
         f32 value74;
     } packet;
+    f32 scaledY;
+    f32 scaledX;
     s32 mode;
 
     arg0[0x16] |= 4;
@@ -280,9 +280,9 @@ s32 func_15013DE8(u8 *arg0) {
     packet.bytes5C[3] = 0;
     packet.field64 = 0;
     packet.value6C = D_8009665C;
-    packet.scaledX = (f32)*(s16 *)(arg0 + 6) * D_80096654;
+    scaledX = (f32)*(s16 *)(arg0 + 6) * D_80096654;
     packet.position[0] = (f32)*(s16 *)(arg0 + 0);
-    packet.scaledY = (f32)*(s16 *)(arg0 + 8) * D_80096658;
+    scaledY = (f32)*(s16 *)(arg0 + 8) * D_80096658;
     packet.position[1] = (f32)*(s16 *)(arg0 + 2);
     packet.angle = 300;
     packet.position[2] = (f32)*(s16 *)(arg0 + 4);
@@ -290,11 +290,11 @@ s32 func_15013DE8(u8 *arg0) {
     packet.value70 = D_80096660;
     packet.value74 = D_80096664;
     packet.bytes5C[0] = (func_150ADA20() % 56U) + 200;
-    packet.offsets[0] = D_80096668 * packet.scaledX;
-    packet.offsets[2] = D_8009666C * packet.scaledX;
-    packet.offsets[3] = D_80096674 * packet.scaledY;
-    packet.offsets[1] = D_80096670 * packet.scaledY;
-    packet.offsets[4] = D_80096678 * packet.scaledY;
+    packet.offsets[0] = D_80096668 * scaledX;
+    packet.offsets[2] = D_8009666C * scaledX;
+    packet.offsets[3] = D_80096674 * scaledY;
+    packet.offsets[1] = D_80096670 * scaledY;
+    packet.offsets[4] = D_80096678 * scaledY;
     mode = *(s32 *)(arg0 + 0x18) ? 2 : 1;
     func_15149550(packet.position, 10, 1, mode & 0xFF, 0xFF, 1);
     return 1;
@@ -487,6 +487,60 @@ s32 func_150142EC(Game40490CallbackState *arg0) {
     }
     return 1;
 }
+typedef struct Game40490144B8Packet {
+    void *owner;
+    s32 choice;
+    s32 low;
+    s32 range;
+    s16 countX, countY;
+    f32 sizeX, sizeY;
+    f32 angleX, angleY;
+    f32 arc, factor;
+    f32 steps, inverse, height;
+} Game40490144B8Packet;
+
+f32 func_150484A0(f32, f32);
+void func_15145974(void *, f32 *, f32 *);
+u32 func_150ADA20(void);
+extern f32 D_80096688;
+extern f32 D_8009668C;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150144B8 CURRENT (207) */
+s32 func_150144B8(u8 *arg0) {
+    Game40490144B8Packet packet;
+    register u32 value;
+    struct { f32 direction[3]; f32 matrix[16]; } scratch;
+
+    arg0[0x16] |= 4;
+    if (D_80082FA0 >= 2) {
+        return 1;
+    }
+    func_150A8050(scratch.matrix, *(f32 *)(arg0 + 0xC), *(f32 *)(arg0 + 0x10), 0.0f);
+    func_150A7960(scratch.matrix, 0.0f, 100.0f, 0.0f, &scratch.direction[0], &scratch.direction[1], &scratch.direction[2]);
+    func_15145974(scratch.direction, &packet.angleX, &packet.angleY);
+    packet.angleX *= D_80096688;
+    packet.angleY *= D_80096688;
+    packet.low = *(u32 *)(arg0 + 0x18) & 0xFFU;
+    packet.range = (*(u32 *)(arg0 + 0x18) >> 8) & 0xFFU;
+    value = func_150ADA20();
+    packet.owner = arg0;
+    packet.choice = value % (u32)(packet.range + 1) + packet.low;
+    packet.countX = (*(u32 *)(arg0 + 0x18) >> 16) & 0xFFU;
+    packet.countY = (*(u32 *)(arg0 + 0x18) >> 24) & 0xFFU;
+    packet.sizeX = (f32)(*(u32 *)(arg0 + 0x1C) & 0xFFU) * 0.015625f;
+    packet.sizeY = (f32)((*(u32 *)(arg0 + 0x1C) >> 8) & 0xFFU) * 0.015625f;
+    packet.steps = (f32)((*(u32 *)(arg0 + 0x1C) >> 24) & 0xFFU);
+    packet.inverse = 1.0f / packet.steps;
+    packet.height = (f32)*(s16 *)(arg0 + 8) * packet.inverse;
+    packet.arc = func_150484A0((f32)*(s16 *)(arg0 + 6), (f32)*(s16 *)(arg0 + 8));
+    packet.factor = (f32)((*(u32 *)(arg0 + 0x1C) >> 16) & 0xFFU) * 0.00390625f * D_8009668C;
+    value = func_15149130(0x12C, -1, 0x2A, -1, 0, 0, 0x38, 0xFF, 0);
+    if (value != 0) {
+        func_10022EC0((void *)((u32)value + 0x28U), &packet, 0x38);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150144B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_150144B8.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_1501474C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15014B60.s")
@@ -674,7 +728,78 @@ s32 func_15015300(Game40490State *arg0) {
     }
     return 1;
 }
+typedef struct Game15354Point { f32 x, y, z; } Game15354Point;
+typedef struct Game15354Packet {
+    void *owner;
+    s16 index;
+    f32 elapsed;
+    Game15354Point corners[4];
+    Game15354Point edges[4];
+    s32 region;
+    s32 zero;
+} Game15354Packet;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15015354 CURRENT (354) */
+void func_15015354(void *arg0) {
+    Game15354Packet packet;
+    Game15354Point origin;
+    Game15354Point corners[4];
+    f32 matrix[16];
+    register u8 index;
+    s32 result;
+
+    packet.owner = arg0;
+    packet.index = -1;
+    packet.elapsed = 0.0f;
+    *((u8 *)arg0 + 0x14) = 1;
+    origin.x = *(s16 *)arg0;
+    origin.y = *(s16 *)((u8 *)arg0 + 2);
+    origin.z = *(s16 *)((u8 *)arg0 + 4);
+    corners[0].x = *(s16 *)((u8 *)arg0 + 6);
+    corners[0].y = 0.0f;
+    corners[0].z = *(s16 *)((u8 *)arg0 + 0xA);
+    corners[1].x = *(s16 *)((u8 *)arg0 + 6);
+    corners[1].y = 0.0f;
+    corners[1].z = -*(s16 *)((u8 *)arg0 + 0xA);
+    corners[2].x = -*(s16 *)((u8 *)arg0 + 6);
+    corners[2].y = 0.0f;
+    corners[2].z = -*(s16 *)((u8 *)arg0 + 0xA);
+    corners[3].x = -*(s16 *)((u8 *)arg0 + 6);
+    corners[3].y = 0.0f;
+    corners[3].z = *(s16 *)((u8 *)arg0 + 0xA);
+    func_150A8050(matrix, *(f32 *)((u8 *)arg0 + 0xC), *(f32 *)((u8 *)arg0 + 0x10), 0.0f);
+    index = 0;
+    matrix[12] = origin.x;
+    matrix[13] = origin.y;
+    matrix[14] = origin.z;
+    do {
+        func_150A7960(matrix, corners[index].x, corners[index].y, corners[index].z,
+                     &packet.corners[index].x, &packet.corners[index].y, &packet.corners[index].z);
+        index++;
+    } while (index < 4);
+    packet.edges[0].x = packet.corners[1].x - packet.corners[0].x;
+    packet.edges[0].y = packet.corners[1].y - packet.corners[0].y;
+    packet.edges[0].z = packet.corners[1].z - packet.corners[0].z;
+    packet.edges[1].x = packet.corners[2].x - packet.corners[1].x;
+    packet.edges[1].y = packet.corners[2].y - packet.corners[1].y;
+    packet.edges[1].z = packet.corners[2].z - packet.corners[1].z;
+    packet.edges[2].x = packet.corners[3].x - packet.corners[2].x;
+    packet.edges[2].y = packet.corners[3].y - packet.corners[2].y;
+    packet.edges[2].z = packet.corners[3].z - packet.corners[2].z;
+    packet.edges[3].x = packet.corners[0].x - packet.corners[3].x;
+    packet.edges[3].y = packet.corners[0].y - packet.corners[3].y;
+    packet.edges[3].z = packet.corners[0].z - packet.corners[3].z;
+    func_1510F800(0);
+    packet.region = func_1510FD20(*(s16 *)arg0, *(s16 *)((u8 *)arg0 + 4), arg0);
+    packet.zero = 0;
+    result = func_15149130(300, -1, 0x3D, -1, 0, 0x2E, sizeof(packet), 0xFF, 0);
+    if (result != 0) {
+        func_10022EC0((void *)(result + 0x28), &packet, sizeof(packet));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15015354 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_40490/func_15015354.s")
+
 extern f32 func_15144598(void *arg0, void *arg1);
 
 s32 func_15015644(void *arg0, void *arg1) {

@@ -31,7 +31,7 @@ extern void *D_800D154C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1504ADD0 CURRENT (900) */
 void func_1504ADD0(void) {
-    s32 sp48;
+    u8 sp48[6];
     s32 var_s0;
     u8 *var_s1;
     u8 temp_v0;

@@ -46,8 +46,8 @@ typedef struct Game1355D0Packet {
     f32 field38;
 } Game1355D0Packet;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108120 CURRENT (2234) */
-void func_15108120(void *arg0, u8 arg1, s32 arg2) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15108120 CURRENT (911) */
+void func_15108120(void *arg0, u8 volatile arg1, s32 arg2) {
     Game1355D0Vec3 target;
     Game1355D0Vec3 source;
     Game1355D0Packet packet;

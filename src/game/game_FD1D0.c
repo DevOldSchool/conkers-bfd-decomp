@@ -268,8 +268,8 @@ void func_1504332C(u8, u8, u8, u8);
 void func_15042D94(s32, s32, u8, s32);
 extern s32 D_800BE9E4;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D01A0 CURRENT (4271) */
-s32 func_150D01A0(u8 *arg0) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150D01A0 CURRENT (2569) */
+s32 func_150D01A0(u8 *volatile arg0) {
     u8 *sp20;
     s32 temp_t0;
     register s32 var_s0;
@@ -280,8 +280,9 @@ s32 func_150D01A0(u8 *arg0) {
 
     var_a3 = 0xFF;
     var_s0 = 0;
-    temp_v0 = *(s8 **)(arg0 + 0x48);
-    if (arg0[0x30] & 1) {
+    temp_v0_2 = arg0;
+    temp_v0 = *(s8 **)(temp_v0_2 + 0x48);
+    if (temp_v0_2[0x30] & 1) {
         *temp_v0 = 8;
     }
     temp_v1 = *temp_v0;
@@ -289,12 +290,15 @@ s32 func_150D01A0(u8 *arg0) {
         temp_t0 = (temp_v1 * 0x1F) & 0xFF;
         var_s0 = temp_t0;
         var_a3 = (0xFF - temp_t0) & 0xFF;
-        *temp_v0 = temp_v1 - D_800BE9E4;
+        *temp_v0 = (s8)((u32)(s32)temp_v1 - (u32)D_800BE9E4);
     }
     if (var_a3 != 0) {
         func_1504332C(0xCE, 0xC4, 0x61, var_a3);
+        temp_v0_2 = arg0;
+        temp_t0 = temp_v0_2[0x3D];
+        temp_v0_2 += 0x28;
         func_15042D94(0x92, 0xBE, 0x81,
-                      *(s32 *)(arg0 + 0x28 + (arg0[0x3D] * 4) + 0x18));
+                      *(s32 *)(temp_v0_2 + (temp_t0 * 4) + 0x18));
     }
     if (var_s0 != 0) {
         temp_v0_2 = arg0 + 0x28;

@@ -731,11 +731,11 @@ void func_1500AC14(void) {
         state->size = 0;
         state->active = 0;
         if ((id != 255) && ((D_800BE478[index] != 0) || (id == 0x3B))) {
-            dimensions = (s16 *)((s32)D_800DDB80 + offset);
+            dimensions = (s16 *)((u32)D_800DDB80 + (u32)offset);
             info = &D_80095CE0[id];
             state->data = func_1502B020(&size, 2, 0, id);
             actual_size = size;
-            state->size = (actual_size + 15) & ~15;
+            state->size = (s32)(((u32)actual_size + 15U) & ~15U);
             length = info->length;
             if ((actual_size == 0) || (length == 0)) {
                 length = 0;
@@ -975,8 +975,8 @@ u32 func_1500B714(s32 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500B714 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500B714.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 CURRENT (4535) */
-void func_1500B8F4(s16 count, s32 alpha, s32 resource, s32 type, u32 first_record, s16 **points) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500B8F4 CURRENT (4848) */
+void func_1500B8F4(s32 count, s32 alpha, s32 resource, s32 type, u32 volatile first_record, s16 **points) {
     f32 (*weights)[2];
     f32 x;
     f32 y;
@@ -986,13 +986,14 @@ void func_1500B8F4(s16 count, s32 alpha, s32 resource, s32 type, u32 first_recor
     s16 x0;
     s16 y0;
     s16 z0;
-    s32 index;
+    u32 index;
     u32 result;
     u32 record;
     s16 *point0;
     s16 *point2;
     s16 *point1;
 
+    count = (s16)count;
     index = 0;
     if (count != 0) {
         weights = D_80095C64;
@@ -1017,7 +1018,7 @@ void func_1500B8F4(s16 count, s32 alpha, s32 resource, s32 type, u32 first_recor
             index++;
             weights++;
             record = result;
-        } while (index != count);
+        } while ((s32)index != count);
         first_record = result;
     }
     D_800DDBD0[resource] = 0x57;
@@ -1062,8 +1063,8 @@ void func_1500BAB8(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500BAB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BAB8.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BC7C CURRENT (1604) */
-void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BC7C CURRENT (2294) */
+void func_1500BC7C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 volatile arg4, s16 **arg5) {
     f32 (*var_s0)[2];
     s16 x0;
     s16 y0;
@@ -1071,16 +1072,16 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
     f32 temp_fv0;
     f32 temp_fv1;
     s32 count;
-    s32 var_s1;
+    u32 var_s1;
     u32 temp_v0_2;
     u32 var_s3;
     s16 *temp_t0;
     s16 *temp_v0;
     s16 *temp_v1;
 
-    count = arg0;
+    count = (s16)arg0;
     var_s1 = 0;
-    if (arg0 != 0) {
+    if (count != 0) {
         var_s0 = D_80095C64;
         var_s3 = arg4;
         do {
@@ -1092,11 +1093,11 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
             z0 = temp_t0[2];
             temp_fv0 = var_s0[0][0];
             temp_fv1 = var_s0[0][1];
-            temp_v0_2 = func_1500AF08(var_s3, arg2, arg3, (s32) (s16) (s32) ((((f32) temp_v0[0] - (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)) * temp_fv1) + (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)), (s32) ((((f32) temp_v0[1] - (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)) * temp_fv1) + (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)), (s32) ((((f32) temp_v0[2] - (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)) * temp_fv1) + (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)), 0, arg1, (s32) var_s3);
+            temp_v0_2 = func_1500AF08(var_s3, arg2, arg3, (s32) (s16) (s32) ((((f32) temp_v0[0] - (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)) * temp_fv1) + (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)), (s32) ((((f32) temp_v0[1] - (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)) * temp_fv1) + (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)), (s32) ((((f32) temp_v0[2] - (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)) * temp_fv1) + (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)), 0, arg1 & 0xFF, (s32) var_s3);
             var_s1 += 1;
             var_s0++;
             var_s3 = temp_v0_2;
-        } while (var_s1 != count);
+        } while ((s32)var_s1 != count);
         arg4 = temp_v0_2;
     }
     D_800DDBD0[arg2] = 0x21;

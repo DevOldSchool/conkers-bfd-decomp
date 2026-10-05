@@ -110,7 +110,7 @@ loop:
     goto loop;
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80001194 CURRENT (60) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80001194 CURRENT (90) */
 void func_80001194(s32 arg0) {
     u32 sp28;
     u32 block_count;
@@ -134,14 +134,10 @@ void func_80001194(s32 arg0) {
     func_80003930();
     func_80003BD0();
     func_8000709C();
-    if (!clear_size) {
-    }
     block_count = func_80003C6C(0x1ECC0, 0xFF, 3, 1, 0);
     clear_size = (s32)D_8002AAE8;
     framebuffers = (s32 *)clear_size;
     sp40 = 0x10000;
-    if (!sp40) {
-    }
     framebuffers[0] = block_count;
     goto allocate_second_framebuffer;
 allocate_second_framebuffer:
@@ -150,8 +146,6 @@ allocate_second_framebuffer:
     func_800034E0(0xFE);
     offset = (s32)&D_42450;
     func_80004514(offset, &D_80082B20, 0x10U, 1);
-    if (!offset) {
-    }
     sp44 = D_80082B20 + offset;
     sp28 = (u32)&D_19EA88 - sp44;
     sp40 = func_80003C40(sp28, 1, 2, 0);

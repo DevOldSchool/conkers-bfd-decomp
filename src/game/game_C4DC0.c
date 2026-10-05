@@ -49,21 +49,26 @@ u8 *func_1505EEF4(void);
 extern u8 D_800D2100;
 extern s32 D_800D3840;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150979CC CURRENT (1439) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150979CC CURRENT (256) */
 s32 func_150979CC(s32 arg0, void *arg1) {
-    u8 *resource;
+    void *descriptor;
 
-    resource = func_1505EEF4();
-    if (resource == 0) {
+    descriptor = arg1;
+    arg1 = func_1505EEF4();
+    if (arg1 == 0) {
         return 0;
     }
     if (arg0 < D_800D2100) {
         *(u8 *)((u8 *)D_800D20FC + arg0 * 0x30 + 2) = 1;
     }
-    if (D_800D3840 == 2 && *(s32 *)((u8 *)arg1 + 4) != 0) {
-        func_15053430(resource);
+    if (D_800D3840 == 2) {
+        if (*(s32 *)((u8 *)descriptor + 4) == 0) {
+            func_15060F28(arg1, 0);
+        } else {
+            func_15053430(arg1);
+        }
     } else {
-        func_15060F28(resource, 0);
+        func_15060F28(arg1, 0);
     }
     return 0xF423F;
 }
