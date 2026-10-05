@@ -94744,8 +94744,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 529,
-        "reason": "Manual ceiling3 forms: currentbaseline2807, event input934, actual validation handle529, indexed scalar alias519 rejected invalid C object bounds and annotated. Restore valid529 snapshot4f728..; canonical ASM. Residual frame28 vs20, pitch/handle spill offsets, arg2 store delay and following-span row. F91C/F9D4/1091C full CURRENT0/layout after canonical recovery; retained s16 event prototype independently caller-safe. No equivalent retries.",
+        "current_score": 124,
+        "reason": "Batch15 five new manual revisions: scalar pitch529, handle-before-pitch521, branch-local pitch124, register handle neutral124, u16 handle324. Restore best124 independently9299fd16; all opcodes/registers/scheduling/full192-byte span agree, frame28 vs20, handle1C vs18 and pitch20 vs1C remain. Valid within-object scalar bitread; inherited out-of-bounds alias rejected, never reused. Prior event/validation handle hypotheses remain exhausted. No ABI/shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95168,8 +95168,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1034,
-        "reason": "Manual ceiling 3 new forms across passes: typed owning word inputs6507, concrete first-slot aliases/indexed retry search1748, straightline allocation/shared result return1034. Preserve best1034; residual frame60 vs50, first-slot address CSE, mixer input/cents scheduling and real spill offsets. No equivalent loop/return/type retries, padding, extra homes, or register pressure.",
+        "current_score": 26,
+        "reason": "Batch15 twelve new manual revisions improve1034to26: directarray1010, promotedmix826, mutablearg5 445, nohandlesnapshot421, explicitpitch neutral421, firstslot memberread156, directstateaddress42, resultlast46, resultfirst164, directmask26, promotednext331, scopednext606. Best26 restored/formatted and independently rechecked aefcfdef; exactframe50/result4E/all opcodes/registers/scheduling/full656span. Residual sound/state spill30/34 vsraw34/38 (four stack rows); firstslot symbol aliases physically agree. No new ABI/shared/ASM changes, padding or fake pressure. Prior input type/search/sharedreturn families remain exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

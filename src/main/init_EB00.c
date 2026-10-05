@@ -574,18 +574,15 @@ s32 func_8000F3D0(u16);
 f32 func_80019AB0(s32);
 void func_80017714(struct sndstate *, s16, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F85C CURRENT (529) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F85C CURRENT (124) */
 void func_8000F85C(u16 arg0, s16 arg1, s32 arg2) {
-    union {
-        f32 number;
-        s32 word;
-    } pitch;
     s32 handle = arg0;
 
     if ((handle >= 0x10) && (func_8000F3D0(arg0) != 0)) {
         if (arg1 == 0x10) {
-            pitch.number = func_80019AB0(arg2);
-            arg2 = pitch.word;
+            f32 pitch;
+            pitch = func_80019AB0(arg2);
+            arg2 = *(s32 *)&pitch;
         } else if (arg1 == 0x11) {
             arg1 = 0x10;
         }
@@ -1073,35 +1070,31 @@ struct sndstate *func_80017438(void *, s16, u16, u8, f32, u8, u8,
 extern u16 D_800425E4;
 extern struct sndstate *D_800425E8;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010BE8 CURRENT (1034) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010BE8 CURRENT (26) */
 u16 func_80010BE8(u16 arg0, s32 sound, u16 volume, u8 pan,
                   s16 cents, u8 arg5, u8 bus) {
-    SoundHandleEntry *entry;
-    struct sndstate **state;
-    u32 index;
-    s32 handle = arg0;
-    s32 soundId;
     u16 result;
+    u32 index;
     u16 next;
-    u8 mix;
 
-    index = handle & 0xF;
-    entry = &D_800425E0[index];
-    if ((handle == entry->id) && (handle != 0)) {
-        if ((entry->state != 0) && (func_800173C4(&entry->state) != 0)) {
-            func_80017594(entry->state);
-            entry->state = 0;
+    index = arg0 & 0xF;
+    if ((arg0 == D_800425E0[index].id) && (arg0 != 0)) {
+        if ((D_800425E0[index].state != 0) &&
+            (func_800173C4(&D_800425E0[index].state) != 0)) {
+            func_80017594(D_800425E0[index].state);
+            D_800425E0[index].state = 0;
         }
-    } else if ((((entry->state != 0) &&
-                 (func_800173C4(&entry->state) != 0)) || (entry->value & 0x8000)) &&
-               (((index = 0, D_800425E8 != 0) &&
+    } else if ((((D_800425E0[index].state != 0) &&
+                 (func_800173C4(&D_800425E0[index].state) != 0)) ||
+                (D_800425E0[index].value & 0x8000)) &&
+               (((index = 0, D_800425E0[0].state != 0) &&
                  (func_800173C4(&D_800425E8) != 0)) || (D_800425E4 & 0x8000))) {
 search_next_slot:
         index++;
         if (index < 0x10) {
-            entry = &D_800425E0[index];
-            if (((entry->state != 0) &&
-                 (func_800173C4(&entry->state) != 0)) || (entry->value & 0x8000)) {
+            if (((D_800425E0[index].state != 0) &&
+                 (func_800173C4(&D_800425E0[index].state) != 0)) ||
+                (D_800425E0[index].value & 0x8000)) {
                 goto search_next_slot;
             }
         }
@@ -1116,31 +1109,27 @@ search_next_slot:
     if (sound == 0) {
         return 0;
     }
-    soundId = sound & 0x7FFF;
-    if (soundId >= 0x6E3) {
+    if ((sound & 0x7FFF) >= 0x6E3) {
         return 0;
     }
-    entry = &D_800425E0[index];
-    result = entry->field2;
-    state = &entry->state;
+    result = D_800425E0[index].field2;
     next = result + 0x10;
-    entry->id = result;
+    D_800425E0[index].id = result;
     if (next < 0x10) {
         next += 0x10;
     }
-    entry->field2 = next;
-    entry->value = sound;
-    if (entry->state != 0) {
-        ((u8 *)entry->state)[0x54] = 5;
+    D_800425E0[index].field2 = next;
+    D_800425E0[index].value = sound;
+    if (D_800425E0[index].state != 0) {
+        ((u8 *)D_800425E0[index].state)[0x54] = 5;
     }
-    mix = arg5;
-    if ((mix & 0x7F) + (u8)D_80041FD8 < 0x80) {
-        mix += (u8)D_80041FD8;
+    if ((arg5 & 0x7F) + (u8)D_80041FD8 < 0x80) {
+        arg5 = (u8)(arg5 + (u8)D_80041FD8);
     } else {
-        mix |= 0x7F;
+        arg5 = (u8)(arg5 | 0x7F);
     }
-    func_80017438(D_8003E368, soundId, volume, pan,
-                 func_80019AB0(cents), mix, bus, state);
+    func_80017438(D_8003E368, (sound & 0x7FFF), volume, pan,
+                 func_80019AB0(cents), arg5, bus, &D_800425E0[index].state);
 return_result:
     return result;
 }
