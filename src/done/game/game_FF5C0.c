@@ -5,6 +5,15 @@
  * Boundary evidence: docs/evidence/game_raw_periodic_actor_resource_groups.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define viewport_flash_create func_150D2110
+#define viewport_flash_update_phase func_150D21CC
+#define viewport_flash_queue_removal func_150D227C
+#define viewport_flash_unlink_and_free func_150D22A8
+#define viewport_flash_decrement_count func_150D22D4
+#define viewport_flash_draw func_150D22F4
+#define viewport_flash_spawner_update func_150D2374
+
 typedef struct GameFF5C0Packet {
     s8 field0;
     u8 pad1[3];
@@ -21,7 +30,7 @@ extern u8 D_800D9900;
 void *func_10022EC0(void *, const void *, u32);
 void *func_15149130(s16, s8, s8, s8, u8, u8, s32, u8, s32);
 
-void func_150D2110(s16 arg0, f32 arg1, f32 arg2, u8 arg3, u8 arg4,
+void viewport_flash_create(s16 arg0, f32 arg1, f32 arg2, u8 arg3, u8 arg4,
                    u8 arg5, s32 arg6) {
     GameFF5C0Packet packet;
     void *temp_v0;
@@ -42,7 +51,7 @@ void func_150D2110(s16 arg0, f32 arg1, f32 arg2, u8 arg3, u8 arg4,
 extern f32 D_800BE9A4;
 void func_1515D4D4(s32, u8, u8, s32);
 
-void func_150D21CC(void *arg0) {
+void viewport_flash_update_phase(void *arg0) {
     GameFF5C0Packet *packet;
 
     packet = (GameFF5C0Packet *)((u8 *)arg0 + 0x28);
@@ -57,18 +66,18 @@ void func_150D21CC(void *arg0) {
         packet->field0 = 0;
     }
 }
-void func_150D22D4(s32 arg0);
+void viewport_flash_decrement_count(s32 arg0);
 void func_15149368(s32 arg0);
 
-void func_150D227C(s32 arg0) {
-    func_150D22D4(arg0);
+void viewport_flash_queue_removal(s32 arg0) {
+    viewport_flash_decrement_count(arg0);
     func_1514933C(arg0);
 }
-void func_150D22A8(s32 arg0) {
-    func_150D22D4(arg0);
+void viewport_flash_unlink_and_free(s32 arg0) {
+    viewport_flash_decrement_count(arg0);
     func_15149368(arg0);
 }
-void func_150D22D4(s32 arg0) {
+void viewport_flash_decrement_count(s32 arg0) {
     D_800D9900--;
 }
 typedef struct GameFF5C0Params {
@@ -81,7 +90,7 @@ typedef struct GameFF5C0Params {
 
 s32 func_1517F08C(s32, s32, s32, s32, s32, s32);
 
-s32 func_150D22F4(s32 arg0, GameFF5C0Params *arg1, s16 arg2) {
+s32 viewport_flash_draw(s32 arg0, GameFF5C0Params *arg1, s16 arg2) {
     if (arg1->field_28 == 1) {
         arg0 = func_1517F08C(arg0, arg1->field_3C, 0xFF, 0xFF, 0xFF, arg2);
     } else {
@@ -113,7 +122,7 @@ typedef struct GameFF5C0Controller {
 u32 func_150ADA20(void);
 extern s32 D_800BE9E4;
 
-void func_150D2374(GameFF5C0Controller *arg0) {
+void viewport_flash_spawner_update(GameFF5C0Controller *arg0) {
     s16 temp_a0;
     GameFF5C0SpawnParams *temp_v1;
 
@@ -122,7 +131,7 @@ void func_150D2374(GameFF5C0Controller *arg0) {
         temp_v1 = &arg0->params;
         temp_a0 = (func_150ADA20() % (u32)(temp_v1->random_id + 1))
                 + temp_v1->base_id;
-        func_150D2110(temp_a0, temp_v1->value0, temp_v1->value1,
+        viewport_flash_create(temp_a0, temp_v1->value0, temp_v1->value1,
                        temp_v1->field18, temp_v1->field19, arg0->fieldC,
                        arg0->field1);
         temp_v1->next_delay =
