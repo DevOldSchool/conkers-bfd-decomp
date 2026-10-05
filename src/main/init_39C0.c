@@ -10,6 +10,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define video_init func_800039C0
+
 extern u16 *D_8002AAE8[2];
 extern s32 D_800BE620;
 extern s32 D_800BE624;
@@ -28,7 +31,7 @@ extern f32 D_800380A4;
 extern u8 D_800BE9C0;
 extern u16 *D_800BE9C4;
 
-void func_800039C0(void) {
+void video_init(void) {
     D_800BE620 = 0x124;
     D_800BE624 = 0xD8;
     D_800380A0 = (f32)D_800BE620 / 292.0f;
