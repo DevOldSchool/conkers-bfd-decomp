@@ -95314,7 +95314,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 3775,
-        "reason": "Full364 US CURRENT3775 retained; original independently restored dc558518. Three new manual hypotheses all neutral3775: explicit unsigned sizeof-entry stride, traversal-only lexical scope before final count publication, and consumed operation local reused for actual handleindex. Earlier nine-revision pass improved4058 using fullword operation and signed destination shift; unsigned index, integer multiply/base domains, direct count/tail, endpoint shift and separate handleindex were exhausted. Residual count-address/traversal-base caching, expanded handle multiply, scheduling and span gap remain. No shared/ABI/ASM changes or permutation.",
+        "reason": "Checkpoint42 per-iteration destination scope and branch-local handle-entry scope both neutral3775 (a4a36ff0,fbe2bfd2); newly exact11BB8 lifetime pattern does not transfer. Best3775 independently restored ef938685. Prior checkpoint37 entry-stride snapshot, whole-traversal scope and consumed-operation reuse all neutral; earlier signed operation/index/direct-array/address families exhausted. Full364 residual raw repeated count/base rematerialization and MULTU by12 versus candidate cached addresses and shift/add. No ABI/shared/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95385,17 +95385,16 @@
       "symbol": "func_80011624"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 120,
-        "reason": "Improved inherited2185 to CURRENT120 in 14 manual revisions plus baseline/restoration; full720-byte span, exact frame18 and all registers/operands. Direct indexed spatial records and listener pointer, indexed record compaction, index-before-kept initialization, commuted final comparisons recover all except listener ADDIU a0,a0,0x9a0 scheduled early instead of branch delay; final SWC1 consequently occupies delay slot. Explicit listener cursor1360, mixed final indexed listener1355, all indexed listener1010, integer address960, unsigned index1795 regressed. Signed byte address and guarded signed do neutral120; direct globals with temporary spatial pointer3530 and captured indexed loop19315 unroll rejected. Inherited copied endpoint3135 also exhausted. No shared ABI/dependency/assembly changes, no padding or volatile. Preserve120 pending new independent scheduling evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 720,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80011BB8",
           "vram": "0x80011BB8"
         }

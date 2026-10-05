@@ -22,7 +22,6 @@
  * - func_80010FFC
  * - func_80011310
  * - func_80011624
- * - func_80011BB8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
@@ -1554,16 +1553,15 @@ typedef struct {
 extern SoundListenerState *D_800DBFF0;
 void func_80011310(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011BB8 CURRENT (120) */
 void func_80011BB8(void) {
-    SoundListenerState *current;
     s32 index;
     s32 kept;
     s32 delta;
 
     if ((D_80041F60 == 0) && (D_80041F61 == 0)) {
         for (index = 0; index <= D_80082FA0; index++) {
-            current = &D_800DBFF0[index];
+            SoundListenerState *current = &D_800DBFF0[index];
+
             if ((D_80082FA0 != 0) || (current->flags & 0x80000)) {
                 D_80041F68[index].x0 = (s32)current->field2F8;
                 D_80041F68[index].y4 = (s32)current->field2FC;
@@ -1605,8 +1603,6 @@ void func_80011BB8(void) {
         D_80041F60 = D_80041F61;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80011BB8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80011BB8.s")
 void func_80011E88(s32 arg0) {
 }
 
