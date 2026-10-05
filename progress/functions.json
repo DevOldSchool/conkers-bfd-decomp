@@ -4,7 +4,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 30,
-        "reason": "Removed legacy zero-bias locals without source-state evidence. Valid pointer/count clear loop CURRENT 30: five register-only rows use v1 instead of a1; all opcodes/control flow match. Prior endpoint/OR/stride forms remain exhausted. Preserve this source-supported candidate rather than artificial register pressure.",
+        "reason": "Checkpoint47 full36 CURRENT30 independently restored5875443b. Genuine previous-word address snapshot per iteration825 adds MOVE and branch-likely; unsigned bytecount neutral30. Both new hypotheses exhausted. Original pointer/count loop retains only five register rows: cursorV1 versus rawA1, all opcodes/control/span exact. Prior endpoint/OR/stride forms exhausted; removed legacy zero-bias locals remain invalid without source-state evidence. No artificial pressure, padding, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "regions": {
