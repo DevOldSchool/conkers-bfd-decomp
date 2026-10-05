@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_segments_extended.md
  *
  * TODO: Implement these source-unit functions:
- * - func_15109410
  * - func_151094FC
  * - func_15109848
  * - func_15109C20
@@ -30,13 +29,12 @@ typedef struct Game1368C0Spawn9410 {
     u8 pad12[2];
 } Game1368C0Spawn9410;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15109410 CURRENT (85) */
 s32 func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
                    f32 arg4, s32 arg5, u8 arg6, s32 arg7) {
+    s32 result;
     Game1368C0Spawn9410 spawn;
     s16 type;
     s32 enabled;
-    s32 result;
 
     if (arg0 == 0) {
         return 0;
@@ -61,8 +59,6 @@ s32 func_15109410(void *arg0, s16 arg1, s8 arg2, s8 arg3,
     }
     return result;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_15109410 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_15109410.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1368C0/func_151094FC.s")
 typedef struct Game1368C0EmitterVector {
     f32 x;

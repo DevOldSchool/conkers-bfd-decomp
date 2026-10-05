@@ -52341,7 +52341,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 143,
-        "reason": "CURRENT (143): concrete f32 parameter removes the alias stack slot and all control flow matches; random spill remains sp24 vs sp20 with 17 register and 2 commutative operand differences after two bounded revisions",
+        "reason": "Preserved unchanged at requested verification/push boundary: full-span CURRENT143; random spill24 versus raw20, reversed RNG MUL and outer ADD operands with 17 register rows. Prior two ABI/layout revisions lack detailed recovered history and remain carried forward. No new revision this pass. Next investigate actual consumed magnitude/random workspace layout or expression order using full diff; no dummy storage or shared ABI edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77989,8 +77989,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 302,
-        "reason": "CURRENT (302): descriptor layout and all control flow match; payload packs at sp2F instead of sp28, float zero/parity registers swap, and one arg0 store schedules four bytes early after two bounded revisions",
+        "current_score": 220,
+        "reason": "CURRENT (220), improved302 after four hypotheses. Actual one-byte buffer declared after parity fixes payload28; first CEQ operand order and field0-before-field4 fix compare/store rows. Reusing consumed parity as zero is neutral280 and closed. Remaining zeroF0/parityF2 versus rawF2/F0, reversed second CEQ operands, missing later MTC1zeroF0. Prior two bounded revisions carried; need concrete floating lifetime/constant-CSE evidence, no padding or qualifier guessing.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -78986,17 +78986,16 @@
       "symbol": "func_150E8854"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 85,
-        "reason": "Best candidate CURRENT 85 after two targeted revisions; control flow and registers match, with the 0x14-byte payload uniformly at sp+0x3C instead of sp+0x38 and the automatic result spill at sp+0x30 instead of sp+0x4C. Explicit saved/individual locals regressed the frame.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 236,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15109410",
           "vram": "0x15109410"
         }
