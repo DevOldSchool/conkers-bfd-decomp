@@ -9,7 +9,6 @@
  * - func_8000EE70
  * - func_8000F6B8
  * - func_8000FA64
- * - func_8000FDF4
  * - func_8000FE88
  * - func_8000FEF0
  * - func_80010154
@@ -695,12 +694,12 @@ void func_8000FD38(void *callback, void *owner, s32 key) {
     }
 }
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FDF4 CURRENT (40) */
 void func_8000FDF4(u16 arg0) {
     s32 index;
+    s32 handleId = arg0;
 
     for (index = 0; index < D_80042760; index++) {
-        if (D_80041FE0[index].handle == arg0) {
+        if ((u32)D_80041FE0[index].handle == (u32)handleId) {
             if (D_80041FE0[index].handle != 0) {
                 func_800111C8(D_80041FE0[index].handle);
             }
@@ -708,8 +707,6 @@ void func_8000FDF4(u16 arg0) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000FDF4 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FDF4.s")
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FE88 CURRENT (18) */
 s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
     SoundArrayRecord *record;

@@ -93890,7 +93890,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 24,
-        "reason": "Preserve CURRENT24 independently restored9edbbe34. Full228 instructions/control/registers exact except final snapshot SW/LW30 vs raw shared output home3C. Batch33 scoped buffer/value lifetimes33 recovered final3C but shifted helper output38/maximum34; scalar output with early snapshot264 canonicalized to inherited extraMOVE/V0 allocation. Prior unsignedoutput269, array late snapshot94, directarrayreturn837 and scalar/default/output-view families exhausted. No artificial storage overlay, padding, redundant writes, ABI or shared changes.",
+        "reason": "Checkpoint53 full228 CURRENT24 restored after single-field four-byte output aggregate regressed264, same as scalar form. Array1 plus early value snapshot retains only final value SW/LW30 vs raw3C; all other fullspan instructions exact. Prior lexical scope33, scalar early snapshot264, unsigned269, direct buffer837 families exhausted; no fabricated overlap, padding, redundant writes or ABI changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94850,17 +94850,16 @@
       "symbol": "func_8000FD38"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 40,
-        "reason": "Preserve CURRENT 40 independently restored d161b011. Full148-byte span opcodes/control/frame/operands exact; six count-register rows V1 vs raw V0. Batch32 newly matched F568 motivated delayed branch-local u16 handle snapshot, but it regressed to445 with LHUv0/ANDIa0 and a lost likely branch. Prior explicit continue3387, equality-proven input reuse710, indexed/guarded-do, handle/count snapshots, promoted-input/comparison forms remain exhausted. One new revision, no source improvement, ABI/shared/ASM changes or permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FDF4",
           "vram": "0x8000FDF4"
         }
@@ -94891,7 +94890,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1699,
-        "reason": "Checkpoint45 refreshed original full160 CURRENT1699 (historical1969 affected by following-code/full-span context, not body improvement); restored independently27028eec. Two new revisions regress: saved key plus reused formal cursor1714, paired saved owner plus formal handle1839. CursorA2 recovered in first variant but raw saved S0 key/frame8 absent and count/index/handle roles differ. Prior indexed loop2209, promoted handle neutral, explicit count2824/unrolled and register-key hint neutral exhausted. No ABI/shared/ASM/padding changes.",
+        "reason": "Checkpoint53 full160 CURRENT1699 restored after signed input snapshot plus explicit unsigned equality neutral1699 eb3b9705. Newly exact FDF4 promotion mechanism does not alter this leaf search count/handle allocation. Prior indexed2209, count2824, register-key1969, consumed-key1714 and paired owner/handle1839 exhausted. Raw saved keyS0/frame8 still absent. No ABI/shared changes or artificial pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
