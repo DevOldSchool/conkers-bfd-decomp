@@ -12,6 +12,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define heap_alloc_from_start func_80003C40
+#define heap_process_deferred_frees func_80004250
+#define heap_free_tags_1_to_4 func_80004308
+#define heap_refresh_largest_free_block func_8000440C
+
 typedef struct AllocatorBlock {
     struct AllocatorBlock *next;
     struct AllocatorBlock *prev;
@@ -33,7 +39,7 @@ s32 func_80024880(s32);
 
 s32 func_80003C6C(s32, s32, s32, s32, s32);
 
-s32 func_80003C40(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 heap_alloc_from_start(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     return func_80003C6C(arg0, arg1, arg2, 0, arg3);
 }
 typedef struct {
@@ -50,7 +56,7 @@ extern s32 D_800380CC;
 extern s32 D_800380D0;
 extern s32 D_8003C8E0;
 void func_850AD770(void);
-void func_8000440C(void);
+void heap_refresh_largest_free_block(void);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (3959) */
 s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
@@ -222,7 +228,7 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         }
     }
     if (block == D_800380B0) {
-        func_8000440C();
+        heap_refresh_largest_free_block();
     }
     func_80024880(interruptMask);
     return (s32)((u32)allocated + 0xC);
@@ -324,7 +330,7 @@ void func_80004074(s32);
 s32 func_80024880(s32);
 void func_85042D50(void);
 
-void func_80004250(void) {
+void heap_process_deferred_frees(void) {
     u32 tag;
     AllocatorBlock *block;
     s32 mask;
@@ -345,7 +351,7 @@ void func_80004250(void) {
     }
     func_80024880(mask);
 }
-void func_80004308(void) {
+void heap_free_tags_1_to_4(void) {
     u32 tag;
     AllocatorBlock *block;
     s32 mask;
@@ -378,7 +384,7 @@ void func_800043B4(void *arg0, s32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800043B4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_800043B4.s")
-void func_8000440C(void) {
+void heap_refresh_largest_free_block(void) {
     s32 maximum;
     AllocatorFreeBlock *largest;
     s32 size;
