@@ -40,22 +40,28 @@
 #define actor_script_switch_program func_15075DE8
 #define actor_script_branch_random_percent func_15075EB4
 #define actor_script_adjust_position_y func_1507659C
+#define actor_script_advance_path_point func_150778F0
 #define actor_script_branch_on_filtered_pool_actor_xz_distance func_150779D4
 #define actor_script_reset_program_by_model func_15077BB4
 #define actor_script_set_path_point_index func_15077DA0
 #define actor_script_snap_to_path_point func_15077DBC
 #define actor_script_play_mp3_asset_spatial func_15077E9C
 #define actor_script_branch_on_any_active_pool_actor_xz_distance func_15078074
+#define actor_script_branch_on_selected_actor_inactive func_1507813C
 #define actor_script_branch_on_path_point_xz_distance func_150781F4
 #define actor_script_branch_on_selected_actor_distance func_1507839C
 #define actor_script_branch func_15078520
+#define actor_script_branch_on_selected_actor_animation_time func_1507879C
+#define actor_script_copy_selected_actor_animation_times func_15078A08
 #define actor_script_set_representation_override func_150791F0
 #define actor_script_set_default_program func_150792E0
 #define actor_script_randomize_bounded_path_point_xz func_150793D8
 #define actor_script_branch_on_current_path_point_xz_distance func_150798F8
 #define actor_script_set_path_point_component func_1507A100
 #define actor_script_update_path_point_step func_1507A528
+#define actor_script_branch_on_selected_actor_model func_1507A8EC
 #define actor_script_set_path_point_range func_1507ACB0
+#define actor_script_dispatch_callback func_1507B884
 
 typedef struct GameA28B0NestedState {
     u8 pad0[0x75];
@@ -1081,7 +1087,7 @@ void func_15077508(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15077508 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15077508.s")
-void func_150778F0(void) {
+void actor_script_advance_path_point(void) {
     u8 limit;
     u8 override;
     u8 minimum;
@@ -1274,7 +1280,7 @@ void actor_script_branch_on_any_active_pool_actor_xz_distance(void) {
         }
     }
 }
-void func_1507813C(void) {
+void actor_script_branch_on_selected_actor_inactive(void) {
     s32 index = D_800D154C->field_222;
 
     if (*(s32 *) ((u8 *) &D_800CC2D0 + index * 0x32C) == 0) {
@@ -1400,7 +1406,7 @@ void func_15078544(void) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15078544.s")
 extern u8 D_800CC5A0[];
 
-void func_1507879C(void) {
+void actor_script_branch_on_selected_actor_animation_time(void) {
     f32 value;
     f32 *state;
 
@@ -1434,7 +1440,7 @@ void func_15078900(void) {
 }
 extern u8 D_800CC5A0[];
 
-void func_15078A08(void) {
+void actor_script_copy_selected_actor_animation_times(void) {
     void *temp_a0;
     void *temp_v0;
 
@@ -2202,7 +2208,7 @@ void func_1507A8A8(void) {
 }
 extern u8 D_800CC2D4;
 
-void func_1507A8EC(void) {
+void actor_script_branch_on_selected_actor_model(void) {
     if (D_800D1891 == *(&D_800CC2D4 + (D_800D154C->field_222 * 0x32C))) {
         D_800D1892 ^= 1;
     }
@@ -2579,7 +2585,7 @@ typedef void (*GameA28B0Callback)(s32);
 
 extern GameA28B0Callback D_80086150[];
 
-void func_1507B884(void) {
+void actor_script_dispatch_callback(void) {
     GameA28B0State *saved_state;
     s32 saved_index;
     u8 selector;
