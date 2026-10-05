@@ -79,6 +79,7 @@
 
 /* Keep address symbols for linking and registered match evidence. */
 #define actor_update_animation_playback_rate func_1505841C
+#define actor_update_vertical_acceleration_and_clamp_velocity func_15058EA4
 #define actor_distance_xz func_1505A6F8
 #define actor_distance_xyz func_1505A72C
 #define actor_apply_motion_preset_and_begin_animation_sequence func_1505D2B8
@@ -87,6 +88,10 @@
 #define actor_reset_animation_state func_1505DFDC
 #define animation_state_copy_primary_to_secondary func_1505E060
 #define actor_find_animation_sequence_index func_1505E7CC
+#define actor_play_sound_store_handle_8c func_15060A30
+#define actor_play_sound_without_saved_handle func_15060A9C
+#define actor_play_sound_without_saved_handle_with_volume func_15060B04
+#define actor_play_sound_store_handle_8e func_15060B70
 #define actor_get_view_opacity func_1506196C
 #define actor_set_scale_and_refresh_bounds func_15062BDC
 
@@ -476,7 +481,7 @@ void func_150585F0(u8 *arg0, register f32 arg1) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150585F0.s")
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15058898.s")
-void func_15058EA4(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
+void actor_update_vertical_acceleration_and_clamp_velocity(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6) {
     f32 temp_fv0;
     f32 temp_fv1;
 
@@ -2133,7 +2138,7 @@ s32 func_10010344(s32, s32, u32, s16, s32);
 void func_10010630(u16, Game83300DispatchState *, s32, s32, s32);
 void func_15060778(s32, Game83300DispatchState *, s32, s32, s32, s32, s32);
 
-void func_15060A30(s32 arg0, Game83300DispatchState *arg1) {
+void actor_play_sound_store_handle_8c(s32 arg0, Game83300DispatchState *arg1) {
     if (arg1->field_318 == 0) {
         func_10010344((u16)arg0, (s32)arg1, 0x6D60U, 0x1F4, 0x9C4);
         return;
@@ -2141,14 +2146,14 @@ void func_15060A30(s32 arg0, Game83300DispatchState *arg1) {
     func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 1);
 }
 
-void func_15060A9C(s32 arg0, Game83300DispatchState *arg1) {
+void actor_play_sound_without_saved_handle(s32 arg0, Game83300DispatchState *arg1) {
     if (arg1->field_318 == 0) {
         func_10010630((u16)arg0, arg1, 0x5DC0, 0x1F4, 0x9C4);
         return;
     }
     func_15060778(arg0, arg1, 0x5DC0, 0, 0x1F4, 0x9C4, 0);
 }
-void func_15060B04(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
+void actor_play_sound_without_saved_handle_with_volume(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
     if (arg1->field_318 == 0) {
         func_10010630((u16)arg0, arg1, arg2, 0x1F4, 0x9C4);
         return;
@@ -2157,7 +2162,7 @@ void func_15060B04(s32 arg0, Game83300DispatchState *arg1, s32 arg2) {
 }
 void func_10010154(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 
-void func_15060B70(u16 arg0, s32 arg1) {
+void actor_play_sound_store_handle_8e(u16 arg0, s32 arg1) {
     func_10010154(arg0, arg1, 0x6D60, 0x1F4, 0x9C4);
 }
 s32 func_15060BA4(void *arg0, s32 arg1) {
