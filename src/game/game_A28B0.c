@@ -39,14 +39,19 @@
 #define actor_script_branch_on_path_point_index func_15075A50
 #define actor_script_switch_program func_15075DE8
 #define actor_script_branch_random_percent func_15075EB4
+#define actor_script_adjust_position_y func_1507659C
+#define actor_script_branch_on_filtered_pool_actor_xz_distance func_150779D4
 #define actor_script_reset_program_by_model func_15077BB4
 #define actor_script_set_path_point_index func_15077DA0
 #define actor_script_snap_to_path_point func_15077DBC
 #define actor_script_play_mp3_asset_spatial func_15077E9C
+#define actor_script_branch_on_any_active_pool_actor_xz_distance func_15078074
 #define actor_script_branch_on_path_point_xz_distance func_150781F4
+#define actor_script_branch_on_selected_actor_distance func_1507839C
 #define actor_script_branch func_15078520
 #define actor_script_set_representation_override func_150791F0
 #define actor_script_set_default_program func_150792E0
+#define actor_script_randomize_bounded_path_point_xz func_150793D8
 #define actor_script_branch_on_current_path_point_xz_distance func_150798F8
 #define actor_script_set_path_point_component func_1507A100
 #define actor_script_update_path_point_step func_1507A528
@@ -576,7 +581,7 @@ void func_1507652C(void) {
     }
     *(u8 *)((u8 *)D_800D154C + 0x125) = D_800D1890;
 }
-void func_1507659C(void) {
+void actor_script_adjust_position_y(void) {
     *(f32 *)((u8 *)D_800D154C + 0x18) = (f32) (*(f32 *)((u8 *)D_800D154C + 0x18) + (f32) (D_800D1890 * 0x64));
     if (D_800D1893 != 0) {
         *(f32 *)((u8 *)D_800D154C + 0x18) = 1800.0f;
@@ -1102,7 +1107,7 @@ f32 func_1505A6F8(GameA28B0State *, s32 *);
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
-void func_150779D4(void) {
+void actor_script_branch_on_filtered_pool_actor_xz_distance(void) {
     s32 *temp_a1;
     u8 var_v0;
     f32 distance;
@@ -1256,7 +1261,7 @@ f32 func_1505A6F8(GameA28B0State *, s32 *);         /* extern */
 extern u8 D_800C3E78;
 extern s32 D_800CC2D0;
 
-void func_15078074(void) {
+void actor_script_branch_on_any_active_pool_actor_xz_distance(void) {
     f32 temp_fs0;
     s32 var_s0;
     s32 *var_s1;
@@ -1321,7 +1326,7 @@ void func_15078358(void) {
 }
 extern f32 D_800CC2E8;
 
-void func_1507839C(void) {
+void actor_script_branch_on_selected_actor_distance(void) {
     f32 var_fv0;
     f32 var_fv1;
 
@@ -1672,7 +1677,7 @@ void func_15079390(void) {
 }
 void func_1505A184(u16, f32, f32, f32 *, f32 *, f32 *);
 
-void func_150793D8(void) {
+void actor_script_randomize_bounded_path_point_xz(void) {
     f32 offset_x;
     f32 offset_z;
     f32 offset_y;
