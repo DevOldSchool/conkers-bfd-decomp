@@ -10,6 +10,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define flat_asset_release_reference_list func_1510D630
+
 typedef struct {
     s16 count;
     s16 values[1];
@@ -18,7 +21,10 @@ typedef struct {
 void func_10004074(s32);
 void func_1510D694(s32);
 
-void func_1510D630(Game13AAE0ValueList *arg0) {
+/* Drop flat-resource references and free the list, not necessarily its assets.
+ * Evidence: docs/evidence/model_resource_role_names.md.
+ */
+void flat_asset_release_reference_list(Game13AAE0ValueList *arg0) {
     s16 *current;
     s16 *end;
     s16 count;

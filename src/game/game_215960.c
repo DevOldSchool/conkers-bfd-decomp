@@ -31,6 +31,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define ui_release_model_resources func_151EDB58
+
 typedef void *(*Game215960Dispatch)(void *);
 typedef struct {
     u8 pad0[0x1D0];
@@ -823,7 +826,7 @@ void func_1503F7B8(s32);
 /* Descriptive role: ui_release_model_resources.
  * Evidence: docs/evidence/model_resource_role_names.md.
  */
-void func_151EDB58(void *uiModel) {
+void ui_release_model_resources(void *uiModel) {
     s32 displayListIndex;
     void *displayListCursor;
 

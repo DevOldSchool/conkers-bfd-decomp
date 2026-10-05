@@ -208,12 +208,16 @@ are valid.
 
 ## Shared resource helpers
 
+The matched helpers below use descriptive C names through source-local aliases;
+linked address symbols, types, layouts and operations remain unchanged.
+
 | Symbol | Descriptive role | Evidence boundary |
 | --- | --- | --- |
 | `func_1500390C` | `flat_asset_find_cached_index` | Returns the first equal cached address, or -1; duplicate pointers/sentinels prevent a unique inverse |
 | `func_1510D374` | `flat_asset_rom_address` | Sums preceding compressed sizes onto ROM base `0x1A37E0`; no helper-local index validation is claimed |
 | `func_1510D608` | `flat_asset_update_nonzero_state` | Nonzero state becomes `(previousState & 0x40) | stateBits`; bit `0x40` retains no invented meaning |
 | `func_151EDB58` | `ui_release_model_resources` | Releases the resource at owner `+0x24`, then tags owner and copied display-list allocations with value four |
+| `func_1510D630` | `flat_asset_release_reference_list` | Drops each counted flat-resource reference, then frees the list; no null guard or immediate asset-free claim |
 
 Runtime flat IDs span `0..7761`, through 7,762 unsigned-halfword sizes at
 `D_80091D20`. Empty slots 1767/1768 remain part of that identity domain; physical
@@ -231,6 +235,14 @@ strides. This supports `uiModel`, `displayListIndex` and `displayListCursor`.
 Allocation tagging is not described as immediate deallocation: the helper
 continues reading the owner after tagging it. No named character or world
 placement is inferred from this UI path.
+
+`1510D630` reads a signed halfword count at list `+0` and halfword flat IDs
+from `+2`, calls `1510D694` for each, then frees the list through `10004074`.
+The callee decrements nonzero reference counts in `D_800D9F68`; transition to
+zero widens the pending range and requests state three through `1510D608` at
+`1510D708`. The loader conditionally increments the same counts, saturating at
+255 (`1510D338..1510D358`). This names reference release, not immediate asset
+deallocation or a new ownership contract.
 
 ## Attachment action 35 and 68 requests
 
