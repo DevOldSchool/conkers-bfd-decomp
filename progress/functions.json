@@ -93851,7 +93851,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Checkpoint54 full696 CURRENT48 restored. Keeping signed high snapshots but explicit unsigned equality regressed473 (34 register rows); deriving oldHigh from packed upper regressed268, retained dependent SRL and all spill/mask differences. Prior scoped channel168 and control-phase296, declaration/type/chain families exhausted. Remaining channel spill2C vs30, fade20 vs1C, oldHigh1C vs20, two initial ANDIs swapped. No padding, artificial alias/storage or shared/ABI/ASM changes.",
+        "reason": "Checkpoint62 full696 CURRENT48 independently restoredb2050ffd. Actual packed oldHigh u8 snapshot684 removes required MOVE, changes72registerrows; oldLow u8 snapshot1093 adds extractionMOVE andchanges72rows. New4514 byte-local mechanism doesnottransfer to these fields. Prior word signedness873, unsignedequality473, sharedupper268 and scope families exhausted. Best remaining7stackrefs: channel2C/30, fade20/1C, oldHigh1C/20; two initial ANDIs swapped. No ABI/shared/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94888,8 +94888,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1699,
-        "reason": "Checkpoint53 full160 CURRENT1699 restored after signed input snapshot plus explicit unsigned equality neutral1699 eb3b9705. Newly exact FDF4 promotion mechanism does not alter this leaf search count/handle allocation. Prior indexed2209, count2824, register-key1969, consumed-key1714 and paired owner/handle1839 exhausted. Raw saved keyS0/frame8 still absent. No ABI/shared changes or artificial pressure.",
+        "current_score": 500,
+        "reason": "Checkpoint62 full160 CURRENT500 independently restored6a69ea68, improved1699 via genuine u16 search-handle snapshot after zero guard. Recovers frame8, savedS0/key, ownerA3, cursorA2 and every loop temporary. Remaining handleV0/countA1 instead rawA1/V0, early handlecopy in first branchdelay, countLUI/preloop scheduling. Followups latehandle neutral500 and u32equality1429 rejected (latter losesframe/S0). Prior word snapshot/comparison/reuse families exhausted. No ABI/shared/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96510,7 +96510,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Full20 US candidate CURRENT10: only next-pointer temporary t6 versus t9 in LW/SW rows. Direct user Yes approved one bounded permute --budget32 search; it tested both available variants (baseline and real thread first-assignment scope), both score10, no exact match. Search exhausted without source/declaration/shared/SDK/ASM changes; best original body retained. No further permutation or artificial storage/register-pressure forms authorized.",
+        "reason": "Checkpoint62 full20 CURRENT10 freshly verified6b03e7e2. Raw explicitly handwritten queue-pop; exact operations/control/span, next-pointer temporary t9 versus t6 across LW/SW only. Prior authorized bounded search exhausted baseline and actual thread first-assignment scope. Fresh raw/call-site audit provides no new natural value-width/lifetime hypothesis; no new candidate revision, no artificial pressure/padding, ABI/shared/SDK/ASM edits or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

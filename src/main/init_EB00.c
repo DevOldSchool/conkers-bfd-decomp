@@ -723,19 +723,21 @@ s32 func_8000FE88(SoundArrayRecord *records, s32 index, s32 *count) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000FE88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000FE88.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (1699) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FEF0 CURRENT (500) */
 s32 func_8000FEF0(u16 arg0, void *owner, s32 key) {
     SoundArrayRecord *record;
     s32 index;
+    u16 handle;
 
     if (arg0 == 0) {
         return -1;
     }
+    handle = arg0;
     index = 0;
     if (D_80042760 > 0) {
         record = D_80041FE0;
         do {
-            if ((record->handle == arg0) && (owner == record->owner) &&
+            if ((record->handle == handle) && (owner == record->owner) &&
                 (key == record->key) && !(record->flags & 0x80)) {
                 return index;
             }
