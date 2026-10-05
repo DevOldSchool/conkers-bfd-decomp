@@ -78,6 +78,10 @@
  */
 
 /* Keep address symbols for linking and registered match evidence. */
+#define actor_distance_xz func_1505A6F8
+#define actor_distance_xyz func_1505A72C
+#define xz_offset_scale_rotate_heading_degrees func_1505D34C
+#define actor_distance_squared_to_pool_actor func_1505DF10
 #define actor_reset_animation_state func_1505DFDC
 #define animation_state_copy_primary_to_secondary func_1505E060
 #define actor_get_view_opacity func_1506196C
@@ -1157,7 +1161,7 @@ s32 func_1505A630(f32 arg0, f32 arg1, s32 arg2) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_1505A630.s")
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-f32 func_1505A6F8(void *arg0, void *arg1) {
+f32 actor_distance_xz(void *arg0, void *arg1) {
     f32 temp_fa0;
     f32 temp_fv1;
 
@@ -1167,7 +1171,7 @@ f32 func_1505A6F8(void *arg0, void *arg1) {
     temp_fa0 *= temp_fa0;
     return sqrtf(temp_fv1 + temp_fa0);
 }
-f32 func_1505A72C(void *arg0, void *arg1) {
+f32 actor_distance_xyz(void *arg0, void *arg1) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fv1;
@@ -1395,7 +1399,7 @@ f32 func_150AD780(f32);                             /* extern */
 f32 func_150AD78C(f32);                             /* extern */
 extern f32 D_80099520;
 
-f32 func_1505D34C(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4) {
+f32 xz_offset_scale_rotate_heading_degrees(f32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 *arg4) {
     struct {
         f32 output;
         f32 cosine;
@@ -1487,7 +1491,7 @@ void func_1505D5D0(void *arg0, void *arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg
     f32 temp_fv1;
     f32 temp_fv1_2;
 
-    temp_fv0 = func_1505D34C(*(f32 *)((u8 *)arg1 + 0x40), arg11, arg12, *(f32 *)((u8 *)arg1 + 0x14C), &arg12);
+    temp_fv0 = xz_offset_scale_rotate_heading_degrees(*(f32 *)((u8 *)arg1 + 0x40), arg11, arg12, *(f32 *)((u8 *)arg1 + 0x14C), &arg12);
     temp_ft2 = arg8 * *(f32 *)((u8 *)arg1 + 0x14C);
     arg8 = temp_ft2;
     temp_fv1 = *(f32 *)((u8 *)arg1 + 0x150);
@@ -1524,7 +1528,7 @@ typedef struct {
 
 extern f32 D_80099534;
 extern f32 D_80099538;
-f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+f32 actor_distance_squared_to_pool_actor(void *, u8, s16 *, f32 *, f32 *);
 s32 func_150AC9C0(f32, f32, f32, f32, f32, f32, void *, s16 *,
                    f32 *, f32 *, f32 *, f32 *, s32 *, void *, f32);
 
@@ -1565,7 +1569,7 @@ s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
             ((((s32)self - (s32)&D_800CC2D0) / 812) & 0xFF) != index &&
             (other->flags & 0x40) && (excludeIndex != index) &&
             (other->enabled != 0)) {
-            distance = func_1505DF10(self, index & 0xFF, &angle,
+            distance = actor_distance_squared_to_pool_actor(self, index & 0xFF, &angle,
                                       &horizontalSquared, &vertical);
             if ((distance < bestDistance) || ((other->priority == 0) && (priority != 0))) {
                 if ((((s32)((u16)angle - self->heading) >> 8) +
@@ -1598,7 +1602,7 @@ s32 func_1505DADC(Game83300AimActor *self, u16 *angleOut,
 extern s32 D_80082FA0;
 extern s32 D_800CC2D0;
 
-f32 func_1505DF10(void *, u8, s16 *, f32 *, f32 *);
+f32 actor_distance_squared_to_pool_actor(void *, u8, s16 *, f32 *, f32 *);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1505DDA8 CURRENT (1964) */
 s8 func_1505DDA8(void *arg0, s32 arg1, s32 arg2, f32 arg3) {
@@ -1616,7 +1620,7 @@ s8 func_1505DDA8(void *arg0, s32 arg1, s32 arg2, f32 arg3) {
 loop_2:
         if (*(s32 *)((u8 *)&D_800CC2D0 + (var_s0 * 0x32C)) != 0) {
             temp_fs0 = *(f32 *)((u8 *)arg0 + 0x3C) * arg3 * 0.5f;
-            if ((func_1505DF10(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
+            if ((actor_distance_squared_to_pool_actor(arg0, var_s0 & 0xFF, &sp6C, &sp68, &sp64) < (temp_fs0 * temp_fs0)) && ((((*(u16 *)((u8 *)arg0 + 0x76) - (u16) sp6C) + (temp_s2 / 2)) & 0xFFFF) < temp_s2)) {
                 return var_s0;
             }
             goto block_7;
@@ -1637,7 +1641,7 @@ block_8:
 /* Call context: func_1505A630: unique active project prototype */
 extern s32 D_800CC2D0;
 
-f32 func_1505DF10(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
+f32 actor_distance_squared_to_pool_actor(void *arg0, u8 arg1, s16 *arg2, f32 *arg3, f32 *arg4) {
     u8 *target;
     f32 x;
     f32 y;
