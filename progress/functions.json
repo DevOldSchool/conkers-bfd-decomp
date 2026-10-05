@@ -92826,7 +92826,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2001,
-        "reason": "Manual allocator reconstruction improved CURRENT 3959 to 2001 after 15 evidence-backed revisions. Byte-pointer end and first alignment, real block-size snapshot and unsigned header subtraction recover the forward address sequence and remove arg2 spill. Remaining frame 0x78 versus 0x70, table homes +4, size/alignment v0-v1 allocation, reverse split next-pointer reload, and free-tail address caching differ. Register/index hints, signed halfword locals, scoped snapshots, explicit payload-end pointer and aligned-field read did not improve; preserve best candidate. No shared dependency or ABI changes.",
+        "reason": "Preserve full1032 CURRENT2001 independently restored f1113ae8. Batch24 two new hypotheses regressed: remove redundant aligned address2037 leftframe78 and movedtablehomes further; scope real alignment tables to startup2614 leftframe78 and added initialization CFG. Inherited pointer/integer arithmetic improvements retained. Remaining frame78vs70, tablehomes+4,92 register rows including size/alignment swap and uncached free-tail address, reverse-split next reload; prior15 hypotheses and both new lifetime forms exhausted. No source improvement, ABI/shared/ASM edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93852,7 +93852,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Manual 17 forms reduced 2426 to 48; exact frame58 and main homes, residual channel spill2c vs30, fade snapshot20 vs1c, oldHigh snapshot1c vs20 and two initial ANDI ordering rows. Recent channel/snapshot variants plateaued; preserve best for new evidence.",
+        "reason": "Preserve full696 CURRENT48 independently restored7e2ffff0. Seven stack references remain: channel2Cvs30, fade snapshot20vs1C, oldHigh1Cvs20; two initial ANDIs swapped. Batch24 scopedchannel168 changed CFG without fixing homes; scoped original-control phase296 moved46 mainhome rows but all seven target spill references unchanged. Two new revisions exhausted scope families; inherited17 declaration/type/channel/snapshot forms remain exhausted. No source improvement, ABI/shared/ASM edits or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95370,7 +95370,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 481,
-        "reason": "Improved inherited CURRENT 1422 to 481 across 14 manual revisions plus baseline/restoration. Correct frame C8, all address-taken output homes and FP registers recovered by existing flags/handle declaration order, direct early flag reads, real pitchDelta with redundant result removed, integer callback address, and handle clear ordering. Remaining offset multiply v0 vs FP, generated handle spill74 vs7c, pitch payload LW scheduled late, merged success handle store; body4 bytes short over full registered span. Signed/unsigned offset, scalar pitch, scoped locals, callback typed commute neutral or worse; explicit success goto2171, direct parameter iterator925, bus/payload reuse2852 rejected. Prior traversal5256/2840/2935, flags snapshot2942, pitch snapshot1472 also exhausted. No shared ABI, assembly or dependency changes. Preserve481; new independent dataflow/control evidence required.",
+        "reason": "Preserve full1428 CURRENT481 independently restoredb2d3c0ec. Batch24 three new revisions: u32handle1584 eliminated required narrow-promotion MOVE/spill and resultANDI; explicitoffset shift/subtract/shift1211 changed131 register rows; actual promotedhandle snapshot in consumedbus neutral481 with same74vs7C spill. Inherited14 manual revisions retained: exact frameC8/outputhomes/FP registers, residual three entry offset registers, handle spill74vs7C, latepitch payloadLW and merged successSH/fullspan4short. No source improvement or ABI/shared/ASM changes; these new hypotheses and inherited families exhausted without fresh proof.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
