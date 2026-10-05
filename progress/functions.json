@@ -36397,7 +36397,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 35,
-        "reason": "Manual20260927 improved50 to35 with one reused integer value; only value/pointer v0/v1 swap remains across6 rows. Value-first duplicated addresses630; combined assignment neutral35. Retain simpler best after3 revisions.",
+        "reason": "Full56 US CURRENT35 preserved with defined signed-high-halfword multiplication65536; correction code-neutral. Three cumulative task revisions: multiplication35, two-stage scale/merge45, unsigned integer-address hypothesis35. Pointer/value V0/V1 six rows remain; simpler corrected35 restored. Prior five recorded halfword/lifetime/address forms remain exhausted; no permutation/shared edits. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -53789,8 +53789,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 520,
-        "reason": "CURRENT (520): control flow and call ABI exact; remaining float-compare operand order, saved-register assignment, and loop pointer scheduling plateau after two bounded revisions",
+        "current_score": 65,
+        "reason": "Full220 US improved520to65: second-float snapshot295, distinct pointer-record versus integer-call addresses70 recover separateADDU and exact span, shared sentinel65 fixes comparison order. Six current revisions plus two historical control forms; direct second load315 and branch-local scalar65 exhausted. Only twelve S2/S3 and FP register-coloring rows remain; no opcode/control/stack differences. Best valid65 restored; no ABI/shared edits. See deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -55456,7 +55456,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 65,
-        "reason": "CURRENT (65): eight register-only and two operand-order rows, including a1/a2 constant lifetime, first multu operand order, and final compare load placement. Equivalent comparison form canonicalized; explicit final threshold local worsened register allocation.",
+        "reason": "Full196 US CURRENT65 original preserved. New branch-specific value reuse105 fixes bypass threshold load but hoists owner LH before FP stores; removing single-use multiplier455 recovers A1 constant but regresses magicconstant and final LH/SH scheduling. Original65 independently restored. Two current revisions plus two historical summary-recorded forms; detailed older snapshots unavailable. Eight register/two operand rows remain. No body/ABI/shared edits retained; see deferred-exact-20261005 ledger.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

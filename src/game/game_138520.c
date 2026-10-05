@@ -166,10 +166,12 @@ void func_1510B458(s32 arg0, f32 arg1, f32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1510B458 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_138520/func_1510B458.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B51C CURRENT (520) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510B51C CURRENT (65) */
 void func_1510B51C(void) {
     f32 *entry;
     f32 value;
+    f32 second;
+    f32 inactive;
     s32 offset;
     s32 index;
     u8 *record;
@@ -177,16 +179,18 @@ void func_1510B51C(void) {
     entry = D_800D9AF8;
     index = 0;
     if (D_80082FA0 >= 0) {
+        inactive = -1.0f;
         do {
             value = entry[0];
-            if (-1.0f != value) {
+            if (inactive != value) {
+                second = entry[1];
                 offset = index * 0x180;
                 record = (u8 *)D_800BE628 + offset;
-                func_1510B5F8(index, (u8 *)D_800BE628 + offset + 0xB8,
+                func_1510B5F8(index, (void *)((u32)offset + (u32)D_800BE628 + 0xB8),
                               *(f32 *)(record + 0x78),
                               *(f32 *)(record + 0x74),
-                              value, entry[1], *(f32 *)(record + 0x84));
-                entry[0] = -1.0f;
+                              value, second, *(f32 *)(record + 0x84));
+                entry[0] = inactive;
             }
             index++;
             entry += 2;
