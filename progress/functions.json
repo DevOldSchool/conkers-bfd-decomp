@@ -93871,7 +93871,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Improved2005 to CURRENT50: exact ROM literal24000.0f recovers load/clamp scheduling and in-place arg2 update now recovers entry MTC1 and arithmetic. Remaining nine FP register rows swap distancef2/valuef12 versus rawf12/f2. Declaration order, assignment chain, output comparisons and sqrt staging neutral50; ternary clamp1580. Seven manual forms, simplest50 retained; no ABI/shared edits. Local lifetime family exhausted pending independent evidence.",
+        "reason": "Checkpoint48 full332 CURRENT50 independently restored d2acf7e1. Scoped distance1095 and scoped clamped output895 both regress scheduling without fixing the nine FP register rows. Both lexical lifetime variants exhausted alongside prior declaration ordering, assignment chain, clamp CFG, output comparisons and sqrt staging. Best source unchanged: raw distanceF12/valueF2 versus candidate distanceF2/valueF12. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95204,7 +95204,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 248,
-        "reason": "Manual ceiling 3 new forms across passes: prior all-narrow 248 rejected caller regression; current callee context baseline648, actual argument-object reads448, cents-only owning s16 contract248 with EFB4 independently CURRENT0. Residual ten early argument home/load scheduling rows; preserve legal best248, no equivalent signature/object/read retries.",
+        "reason": "Checkpoint48 full88 CURRENT248 independently restored58952298. Real pan/volume snapshots in raw LBU then LHU order neutral248: loads still occur after global and stack argument loads instead of in prologue. Snapshot family now tested. Prior all-narrow signature rejected caller regression; actual object reads and owning cents s16 contract retain independently checked EFB4. No evidence for another ABI change; ten early argument home/load scheduling rows remain. No shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95874,7 +95874,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 80,
-        "reason": "Preserve full504 CURRENT80 independently restored c6e17a97; all opcodes/control/frame40/homes exact,15 register rows remain sequenceV0 vsV1, oldbufferS0 vsV0 and buffer/length S1/S0 vsS0/S1. Batch23 two new revisions: function-scope separate u32 oldbuffer255 matches inherited blockscope failure; real old/newbuffer reuse255 neutral. Both lose free-argument MOVE and shift homes. Inherited directarray/countreuse best retained; snapshot/address/type/lifetime families exhausted without fresh proof. No ABI/shared/ASM edits.",
+        "reason": "Checkpoint48 full504 CURRENT80 independently restored eae6148c. Poll-only block plus separate real oldBuffer670 changes sequence load scheduling, loses MOVE and shifts homes. Signed reused counter/buffer word with unsigned comparisons105 adds four limit-register differences. Both new hypotheses exhausted; best80 preserves all opcodes/control/frame40/homes with15 register rows. Prior separate snapshot/address/type/old-new lifetime variants exhausted. No ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
