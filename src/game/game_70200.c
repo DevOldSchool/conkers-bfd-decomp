@@ -4,6 +4,7 @@
  * Reviewed source unit: src/game/game_70200.c
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  * HUD layout naming evidence: docs/evidence/hud_layout_semantics.md
+ * Ring helper evidence: docs/evidence/record_ring_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15043384
@@ -20,6 +21,11 @@
 #define hud_attach_layout_to_object func_150432CC
 #define hud_set_layout_position func_150432FC
 #define hud_set_primary_rgba func_1504332C
+#define record_ring_init func_15043A00
+#define record_ring_copy_in func_15043A20
+#define record_ring_copy_out func_15043AC8
+#define record_ring_advance func_15043B70
+#define record_ring_write func_15043BB8
 
 typedef u8 *Game70200VaList;
 #define GAME70200_VA_START(ap, last) ((ap) = (u8 *)&(last) + sizeof(last))
@@ -486,7 +492,7 @@ typedef struct Game70200Entry {
     s32 field_C;
 } Game70200Entry;
 
-void func_15043A00(Game70200Entry *arg0, s32 arg1, s32 arg2) {
+void record_ring_init(Game70200Entry *arg0, s32 arg1, s32 arg2) {
     if (arg0) {
         arg0->field_0 = arg1;
         arg0->field_4 = arg2;
@@ -494,7 +500,7 @@ void func_15043A00(Game70200Entry *arg0, s32 arg1, s32 arg2) {
         arg0->field_8 = 0;
     }
 }
-s32 func_15043A20(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
+s32 record_ring_copy_in(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
     s32 count;
 
     if (arg4 != 0) {
@@ -515,7 +521,7 @@ s32 func_15043A20(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
     }
     return arg2;
 }
-s32 func_15043AC8(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
+s32 record_ring_copy_out(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
     s32 count;
 
     if (arg4 != 0) {
@@ -536,7 +542,7 @@ s32 func_15043AC8(s32 arg0, s32 arg1, s32 arg2, s32 *arg3, s32 arg4) {
     }
     return arg2;
 }
-s32 func_15043B70(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 record_ring_advance(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 var_v0;
 
     if (arg3 != 0) {
@@ -555,9 +561,9 @@ s32 func_15043B70(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg2;
 }
-s32 func_15043A20(s32, s32, s32, s32 *, s32);       /* extern */
+s32 record_ring_copy_in(s32, s32, s32, s32 *, s32);       /* extern */
 
-s32 func_15043BB8(Game70200Entry *arg0, s32 *arg1, s32 arg2) {
+s32 record_ring_write(Game70200Entry *arg0, s32 *arg1, s32 arg2) {
     s32 position;
     s32 limit;
 
@@ -574,13 +580,13 @@ s32 func_15043BB8(Game70200Entry *arg0, s32 *arg1, s32 arg2) {
             return 1;
         }
         arg2 -= 4;
-        arg0->field_C = func_15043A20(arg0->field_0, arg0->field_4,
-            func_15043A20(arg0->field_0, arg0->field_4, position, &arg2, 4),
+        arg0->field_C = record_ring_copy_in(arg0->field_0, arg0->field_4,
+            record_ring_copy_in(arg0->field_0, arg0->field_4, position, &arg2, 4),
             arg1, arg2);
     }
     return 0;
 }
-s32 func_15043AC8(s32, s32, s32, s32 *, s32);       /* extern */
+s32 record_ring_copy_out(s32, s32, s32, s32 *, s32);       /* extern */
 
 s32 func_15043CA4(Game70200Entry *arg0, u8 *arg1, s32 arg2) {
     s32 count[2];
