@@ -94910,17 +94910,16 @@
       "symbol": "func_8000FEF0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 290,
-        "reason": "Preserve tuple finder CURRENT (290). Inherited1355/725/290 loop and count-snapshot forms exhausted; current distinct real owner pointer copy is code-neutral290, original source restored. Control and field accesses agree; initial owner transfer and count/base register allocation remain. One current form, no supported distinct manual revision; no equivalent type/loop/copy retries or permission for permutation. Pointer ABI unchanged, no shared dependency.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 140,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000FF90",
           "vram": "0x8000FF90"
         }
@@ -94947,17 +94946,16 @@
       "symbol": "func_8001001C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 210,
-        "reason": "Best CURRENT 210 over full 116-byte span; initial cursor/count roles restored, but separate preserved base and extra MOVE shift terminal NOP. Three evidence-backed forms exhausted; restored single-count snapshot.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 116,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800100E0",
           "vram": "0x800100E0"
         }
@@ -95245,8 +95243,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1595,
-        "reason": "Candidate CURRENT1595 full460 US; fresh3614, owning u16 handle/volume and s16 cents/u8 mix contract2024, actual mutable volume parameter1595. One inherited plus two current forms exhausted. Entry handle normalization/live a0, multiply3 ADDU versus strength-reduced shift/sub, temp roles and result join remain. Fullword sound key and FP/SDK/helper contracts preserved; complete known C/include own-reference audit and incomplete matched-caller index show no active named caller. No equivalent type/mutation/frame/register-pressure retry without new evidence.",
+        "current_score": 935,
+        "reason": "Preserve full460-byte CURRENT935 improved1595 by raw-supported three-term volume addition, independently restored9be40e48. Five new revisions: mutable u16formal2068 extraS1; fullword input/outputhandle1985 losesrawmask; narrow input/outputlocal1595; additiontree935; registerinputhint935 neutral removed. Entryhandle remains lateLHU vs rawearlyANDI/MOVE; resultv1 vs rawa0 and related temp numbering remain, frame40/FP/controlpaths retained. Inherited own u16handle/volume,s16cents/u8mix and mutablevolumefamilies exhausted; final owncontract unchanged. Matching-callers none (incompletecoverage), prior complete ownreferenceaudit noneactive. No helper/SDK/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
