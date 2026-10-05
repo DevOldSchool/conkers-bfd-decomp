@@ -90801,6 +90801,12 @@
       "symbol": "func_150AD8B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6026,
+        "reason": "CURRENT (6026), initial valid candidate. Typed 20-byte settings table, camera/target fields, intrinsic fabsf and both raw angle-folding formulas. Preserves temporary setting reset and raw early-return behavior. Remaining frame 0x48 vs 0x50, scalar homes, FP lifetimes and loop scheduling. Next: retain separate raw angle temporaries and deferred scaleA spill. No shared dependencies changed.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91044,6 +91050,12 @@
       "symbol": "func_151AECA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6720,
+        "reason": "CURRENT (6720), initial candidate. Raw E1AB0 proves 28 args: leading integer, ten floats, narrow integer/pointer fields, six floats; removed m2c phantom f12/f14 args. Preserved signed RNG and loaded camera after final cosine. Frame 0xD0 matches; remaining GPR/FP lifetime, modulo setup, scheduling and local stack differences. Next: reuse raw angle-to-position FP lifetimes and timer/strength GPR temporaries. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91057,6 +91069,12 @@
       "symbol": "func_150E5AE0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4726,
+        "reason": "CURRENT (4726), initial candidate. Fixed m2c byte-sized pointer/count table reads and arg1 stride. Cached RGB is assigned before any store: previous starts -1, group is 1..5 before assignment and cache reuse. Remaining frame 0x58 vs 0x60, saved-register allocation, unsigned conversion scheduling and scalar homes. Next: preserve distinct palette-count/vertex-count and RGB local lifetimes from raw. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91070,6 +91088,12 @@
       "symbol": "func_1501B660"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4353,
+        "reason": "CURRENT (4353), initial compiled candidate. Complete 0x70 packet, typed 12-byte vectors and corrected m2c z pointer. Raw 15130280 copies 0x70; uninitialized packet+5C and +66..6F are optional fields gated off by flags 0x80CE07 (consumer 130B58/130ABC/130C4C). Frame 0x130 vs 0x120, count/remaining register allocation, stack homes and scheduling remain. Next: remove surplus pointer/size homes and align count lifetime. No shared edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
