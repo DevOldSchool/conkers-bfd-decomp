@@ -93283,7 +93283,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2611,
-        "reason": "Manual batch18: 15 new revisions improve CURRENT 17629 to 2611, independently restored f2bf7eb8. Direct indexed command/task loops remove unrolling; known adjacent-node writes remove alias reloads; raw next-node and command-endpoint symbols; output-first sample count; real rate scalar reused for divisor; scoped cache insertion views; advance cursors before previous-node buffer writes. Cache loop body now exact. Residual frame278 vs270/effects64 vs58, effect-copy source/destination scheduling and temporary registers, driver-base rematerialization, initial anchor address CSE, DMA increments before allocator vs raw after, task base E390 vs raw E388+8 and endpoint/BNE order. Early divisor, postincrement lvalues, shared count, allocator-return snapshots and cursor ordering exhausted; last two variants worse than best. No invented ABI, extent, padding, shared dependencies or ASM changes. See manual-init-20261005 ledger and snapshots.",
+        "reason": "Checkpoint43 sample-calculation local scope2736 and first-DMA-node scoped initialization view2752 both regress; best2611 restored independently050dbb23. Full1084 residual frame278/effects64 versus raw270/58, effect-copy setup, rematerialized driver/anchor bases, DMA cursor increments before allocation versus raw after, task base/endpoint and BNE operand order. Retain batch18 indexed command/task loops, adjacent-node alias proof, explicit next symbols, unsigned DMA endpoint, scoped cache insertion views, rate reuse and advance-before-store. Earlier divisor, sharedcount, postincrement, return snapshot/order families exhausted. New phase/first-node scope forms exhausted too. No ABI/shared/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93358,7 +93358,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 475,
-        "reason": "Batch19 three new manual revisions improve full-span CURRENT1135 to475, independently restoreda9237eab. Real scoped insertion node/after views recover raw branch-likely and duplicated final store without added frame or MOVEs. Exact frame30 and homes. Residual range-end A0 vs T7 shifts35 temporary rows, early queue ADDIU and late buffer LW plus branch target; candidate4bytes short. Reusing existing offset for range-end and word buffer-address representation both neutral475; inherited named range-end neutral remains exhausted. No ABI/shared/ASM changes; see manual-init-20261005 ledger.",
+        "reason": "Checkpoint43 iteration-local start-address snapshot and branch-local insertion-head pointer both neutral475 (ba920842,38d10872), despite new11BB8 lifetime evidence. Best475 independently restored c8bbc3ea. Full436 frame30/allhomes exact. Residual range-end A0vsT7 drives35 temporary register rows; early queue ADDIU, late buffer LW and four-byte span shortage. Prior named/reused range-end, wordbuffer and scoped insertion forms remain exhausted; no further equivalent scopes without new evidence. No ABI/shared/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
