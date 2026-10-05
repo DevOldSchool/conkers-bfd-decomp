@@ -36704,8 +36704,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 234,
-        "reason": "Small-queue pass338/234/368. All instruction/control flow agrees except upper/lower FP allocation and stack/frame homes. Moving real non-address-taken locals before outputs improves234; inline viewport/output expressions plus named upper clamp worse368. Best234 restored; no padding/search.",
+        "current_score": 320,
+        "reason": "Valid best320 repairs unbounded signed selector shifts/products with unsigned actual word addresses. Old234 baseline invalid signed arithmetic. Register hints on three existing scalar locals neutral320; frame48/raw40, FP bound pair and final output scheduling remain. Two targeted revisions exhausted; prior output/local-order and inline clamp trials already recorded.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -50953,7 +50953,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 260,
-        "reason": "Typed lifecycle/callback candidate best260. Combined flag clear and actual local order recover exact first0xE8 bytes and stack; dead flag migrates a1 to v1 afterward. One-owner callback contract uses existing matched special/cleanup definitions and typed table evidence. Separate flags scratch worse; no equivalent retries.",
+        "reason": "Valid best260 repairs lifetime subtraction with unsigned word wrap before halfword store. Existing first0xE8 bytes and stack remain exact; death flag migrates a1 to v1 afterward. Actual byte register hint neutral. Two fresh non-improving revisions; prior combined flags/local order and separate scratch already tried. No equivalent retries.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -70286,7 +70286,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 796,
-        "reason": "Paired-vertex sibling pattern yields796; all geometry arithmetic and stores match, but s32 selector cast caches signed-halfword value into extra spill instead of original argument-home reloads. No existing declaration found for target; narrow-formal experiment not performed. Callback pointer observed at80089E48, interface proof still needed.",
+        "reason": "Valid best796 paired-vertex candidate retained. Aligned halfword view of actual word formal restores LH homes but regresses2437; actual saved indexed owner plus final selector snapshot recovers frame50/home30 but1483 and split branch reloads. Two fresh non-improving revisions exhausted; no unsupported narrowing or equivalent retries.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -76878,8 +76878,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 828,
-        "reason": "Typed descriptor best828 after direct random-kind store, real local order and evidence-backed initializer ordering. Word formals retained; raw byte reloads, first-flag spill and final scheduling differ. No narrowing without existing declaration evidence; no equivalent retries.",
+        "current_score": 438,
+        "reason": "Valid best 438 uses actual big-endian byte views of word parameter homes to recover incoming LBU reads without changing formal widths. Remaining early halfword load, initializer ordering and RNG flag spill differ. Real descriptor storage is 0x70 bytes, confirmed by consumer memcpy. Volatile first-flag trial regressed to 1505; restored best. Two targeted attempts exhausted.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -77869,8 +77869,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 319,
-        "reason": "Typed owner/effect packet best319; every remaining row is incoming a2 byte-formal normalization. Existing call declaration proves a3 u8 only, a2 remains s32 by AGENTS. No narrow-a2 experiment performed. Natural local order and physical packet stores recover all later instructions.",
+        "current_score": 629,
+        "reason": "Valid fresh full-span CURRENT629 replaces stale saved319. Raw u32 object-address plus28 repairs null-pointer arithmetic before allocation check. All later body rows align; incoming a2 normalization/home residual remains. Existing caller declaration proves a2s32 and a3u8; no unsupported narrowing trial. One fresh correctness revision; no eligible untried ABI-preserving hypothesis, no shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

@@ -102,7 +102,7 @@ u32 func_150ADA20(void);
 void *func_15130374(s32, u8, s32, u8, s32);
 extern s32 D_80088BD0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103254 CURRENT (828) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15103254 CURRENT (438) */
 void func_15103254(s32 arg0, s32 arg1, f32 arg2, Game130240Vector *arg3,
                    s32 arg4, s32 arg5, s32 arg6) {
     s32 second;
@@ -126,7 +126,7 @@ void func_15103254(s32 arg0, s32 arg1, f32 arg2, Game130240Vector *arg3,
     descriptor.alpha = 0xFF;
     descriptor.field2C = arg2;
     descriptor.field28 = arg2;
-    descriptor.color18[3] = (u8)arg1;
+    descriptor.color18[3] = ((u8 *)&arg1)[3];
     descriptor.position = *arg3;
     descriptor.field1E = 3;
     descriptor.field20 = 0x55;
@@ -152,8 +152,8 @@ void func_15103254(s32 arg0, s32 arg1, f32 arg2, Game130240Vector *arg3,
     descriptor.field63 = -1;
     descriptor.field64 = -1;
     descriptor.field65 = 0;
-    descriptor.field66 = (u8)arg4;
-    func_15130374((s32)&descriptor, 1, 0, (u8)arg5, arg6);
+    descriptor.field66 = ((u8 *)&arg4)[3];
+    func_15130374((s32)&descriptor, 1, 0, ((u8 *)&arg5)[3], arg6);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15103254 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_130240/func_15103254.s")

@@ -337,7 +337,7 @@ extern s32 D_800BE628;
 extern u8 D_800DDDE8[];
 extern f32 D_800A7280, D_800A7284, D_800A7288;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F814 CURRENT (234) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1517F814 CURRENT (320) */
 void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     f32 lower;
     Game1AC2F0Viewport *view;
@@ -348,11 +348,11 @@ void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     f32 w;
 
     if (arg0 == 0) {
-        func_150A7A00(D_800D9D10 + (arg4 << 6), arg1, arg2, arg3, &x, &y, &z, &w);
+        func_150A7A00((void *)((u32)D_800D9D10 + ((u32)arg4 << 6)), arg1, arg2, arg3, &x, &y, &z, &w);
         if (w == 0.0f) {
             w = 1.0f;
         }
-        view = &((Game1AC2F0Viewport *)D_800BE628)[arg4];
+        view = (Game1AC2F0Viewport *)((u32)D_800BE628 + (u32)arg4 * 0x180U);
         x = (view->halfWidth * x) / w;
         y = (view->halfHeight * y) / w;
         x += view->halfWidth;
@@ -362,7 +362,7 @@ void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     } else {
         x = arg1;
         y = arg2;
-        view = &((Game1AC2F0Viewport *)D_800BE628)[arg4];
+        view = (Game1AC2F0Viewport *)((u32)D_800BE628 + (u32)arg4 * 0x180U);
     }
     if (D_800A7280 < x) {
         lower = D_800A7284;
@@ -378,7 +378,7 @@ void func_1517F814(s32 arg0, f32 arg1, f32 arg2, f32 arg3, s32 arg4) {
     } else if (y < lower) {
         y = lower;
     }
-    output = (f32 *)(D_800DDDE8 + arg4 * 8);
+    output = (f32 *)((u32)D_800DDDE8 + (u32)arg4 * 8U);
     output[0] = x - view->halfWidth;
     output[1] = y - view->halfHeight;
 }

@@ -99,7 +99,7 @@ void func_151321D0(Game15F680TransformState *arg0) {
         }
     }
     if ((arg0->flags60 & 0x80) && dead == 0) {
-        arg0->lifetime64 -= D_800BE9E4;
+        arg0->lifetime64 = (u32)arg0->lifetime64 - (u32)D_800BE9E4;
         if (arg0->lifetime64 < 0) {
             dead = 1;
         }
