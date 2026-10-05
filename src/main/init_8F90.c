@@ -804,9 +804,11 @@ void func_80004074(s32);
 void func_8000A348(void);
 extern s32 D_8003E384;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A03C CURRENT (1761) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A03C CURRENT (685) */
 void func_8000A03C(void) {
     u32 i;
+    u32 sound;
+    s32 found;
     s32 received;
     void *message;
     AudioBufferState *record;
@@ -814,8 +816,6 @@ void func_8000A03C(void) {
     AudioBufferState *anchor;
     AudioInstrument *instrument;
     AudioWaveState *wave;
-    u32 sound;
-    s32 found;
     s32 busy;
 
     received = 0;
@@ -826,16 +826,20 @@ void func_8000A03C(void) {
             received++;
             found = 0;
             while (record != 0 && found == 0) {
-                if (((TransferIoMessage *)message)->dramAddress == record->buffer) {
+                if (record->buffer == ((TransferIoMessage *)message)->dramAddress) {
                     found = 1;
                     if (record == D_800406A0.pending) {
                         D_800406A0.pending = record->next;
                     }
-                    if (record->next != 0) {
-                        record->next->prev = record->prev;
-                    }
-                    if (record->prev != 0) {
-                        record->prev->next = record->next;
+                    {
+                        AudioBufferState *element = record;
+
+                        if (element->next != 0) {
+                            element->next->prev = element->prev;
+                        }
+                        if (element->prev != 0) {
+                            element->prev->next = element->next;
+                        }
                     }
                     record->next = 0;
                     record->prev = 0;
@@ -872,51 +876,59 @@ void func_8000A03C(void) {
     }
     D_8002AE50 -= received;
     record = D_800406A0.freeAnchor;
-    while (record != 0) {
-        busy = 0;
-        next = record->next;
-        if (record->field16 == 1) {
-            instrument = record->buffer;
-            for (sound = 0; sound < (u32)instrument->soundCount; sound++) {
-                wave = instrument->sounds[sound]->wave;
-                if (wave->fieldA != 0) {
-                    wave->fieldA = 0;
-                    busy = 1;
+    if (record != 0) {
+        do {
+            busy = 0;
+            next = record->next;
+            if (record->field16 == 1) {
+                AudioInstrument *cleanupInstrument = record->buffer;
+                for (sound = 0; sound < (u32)cleanupInstrument->soundCount; sound++) {
+                    wave = cleanupInstrument->sounds[sound]->wave;
+                    if (wave->fieldA != 0) {
+                        wave->fieldA = 0;
+                        busy = 1;
+                    }
                 }
             }
-        }
-        if (busy == 0) {
-            record->count = 0;
-            record->state = 0;
-            func_80004074((s32)record->buffer);
-            record->ownerSlot = 0;
-            if (record == D_800406A0.freeAnchor) {
-                D_800406A0.freeAnchor = next;
-            }
-            if (record->next != 0) {
-                record->next->prev = record->prev;
-            }
-            if (record->prev != 0) {
-                record->prev->next = record->next;
-            }
-            anchor = D_800406A0.base;
-            if (anchor != 0) {
-                AudioBufferState *linkNode = record;
-                AudioBufferState *linkAfter = anchor;
+            if (busy == 0) {
+                record->count = 0;
+                record->state = 0;
+                func_80004074((s32)record->buffer);
+                record->ownerSlot = 0;
+                if (record == D_800406A0.freeAnchor) {
+                    D_800406A0.freeAnchor = next;
+                }
+                {
+                    AudioBufferState *element = record;
 
-                linkNode->next = linkAfter->next;
-                linkNode->prev = linkAfter;
-                if (linkAfter->next != 0) {
-                    linkAfter->next->prev = linkNode;
+                    if (element->next != 0) {
+                        element->next->prev = element->prev;
+                    }
+                    if (element->prev != 0) {
+                        element->prev->next = element->next;
+                    }
                 }
-                linkAfter->next = linkNode;
+                anchor = D_800406A0.base;
+                if (anchor != 0) {
+                    AudioBufferState *linkNode = record;
+                    AudioBufferState *linkAfter = anchor;
+
+                    linkNode->next = linkAfter->next;
+                    linkNode->prev = linkAfter;
+                    if (linkAfter->next != 0) {
+                        linkAfter->next->prev = linkNode;
+                    }
+                    linkAfter->next = linkNode;
+                } else {
+                    D_800406A0.base = record;
+                    record->next = 0;
+                    record->prev = 0;
+                }
+                record = next;
             } else {
-                D_800406A0.base = record;
-                record->next = 0;
-                record->prev = 0;
+                record = next;
             }
-        }
-        record = next;
+        } while (next != 0);
     }
     if (D_8003E384 != 0) {
         func_8000A348();

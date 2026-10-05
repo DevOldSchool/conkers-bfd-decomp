@@ -93523,8 +93523,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1761,
-        "reason": "Raw-backed buffer+10/pending-list+C views, instrument count/sound pointer layout and neutral wave byteA. Typed completion/cache cleanup1761; second-list do/while code-neutral. Remaining copied-anchor registers, frame70 versus78 and loop scheduling lack a supported repair; no artificial storage.",
+        "current_score": 685,
+        "reason": "Best full-span CURRENT 685 independently restored in attempt 484c9072 after 13 batch20 revisions, improved from 1761. Scoped unlink elements plus real declaration ordering recover exact frame 0x78 and all homes; commuted message equality fixes temporary allocation; distinct cleanup instrument fixes inner-loop registers; guarded do with next condition and separate advance paths improves delay slots. Residual: two missing anchor copies and 13 register rows, found MOVE s3 versus LI, extra cleanup fallthrough B/MOVE. Unsigned found, original early fields, merged advance, separate anchor, and direct-global insertion variants exhausted; final snapshot refinement 885 remains inferior. No ABI, shared dependency or assembly changes; candidate only.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93543,7 +93543,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 475,
-        "reason": "Cache-list walk preserves genuine next snapshot and post-owner-store link reloads. Scores 985, 920, 475, 475; scoped SDK insertion recovered control flow, distinct prefix-type casts were code-neutral. Best simpler scoped form retained.",
+        "reason": "Best full-span CURRENT475 retained, independently restoreda139fab9 in batch20. Two new hypotheses from improved99BC were neutral: original record/anchor early accesses with scoped final insertion views, and scoped unlink element. Inherited scoped SDK insertion and distinct prefix casts also exhausted. Genuine next snapshot/post-owner-store reloads preserved. Residual missing MOVEa1,a0 anchor copy plus14 register rows and3 trailing alignment NOPs over full216byte span. No padding/ASM/ABI/shared changes; no new match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
