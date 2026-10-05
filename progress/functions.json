@@ -94742,17 +94742,16 @@
       "symbol": "func_8000F6B8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 124,
-        "reason": "Batch15 five new manual revisions: scalar pitch529, handle-before-pitch521, branch-local pitch124, register handle neutral124, u16 handle324. Restore best124 independently9299fd16; all opcodes/registers/scheduling/full192-byte span agree, frame28 vs20, handle1C vs18 and pitch20 vs1C remain. Valid within-object scalar bitread; inherited out-of-bounds alias rejected, never reused. Prior event/validation handle hypotheses remain exhausted. No ABI/shared edits.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 192,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F85C",
           "vram": "0x8000F85C"
         }
@@ -94965,8 +94964,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3570,
-        "reason": "Preserve full-span US CURRENT3570 (0ba543df01ff4dc49cdc2ec671047206), improved fresh5043 via own raw-proven u16sound/s16arg3/u16farDistance contracts4900 and actual mutable near-distance parameter3570. Exact raw entry normalization and argument SH/LH home identity recovered relative to frame48 versus50. Fullword volume preserved; no own C/raw direct caller/prototype or matched caller found by complete spelling audit and incomplete caller index. One inherited form plus two current forms; callback address recomputation, result-halfword spills/normalization, frame and scheduling remain. No equivalent type/near-distance copy/mutation/frame shaping without independent new evidence. SDK/helper/shared contracts unchanged.",
+        "current_score": 2065,
+        "reason": "Batch16 seven new manual forms: wordresult3038, callback objectread3202, integercallback2789, firstarg capture neutral2789, actual branchmix snapshot2065, disjoint callbackscope neutral2065, sharedscratch2084 (saved exactframe alternative). Restore2065 independently after final recheck. Retain s32result/u32callback and real field184 snapshot; no own/helper ABI changes. Residual frame58vs50, raw early MOVEv0zero absent with existingvoidcontract, callback V0 vsA0/earlyreload, branch scheduling. Earlier own input/near-distance hypotheses remain exhausted. No padding/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95169,7 +95168,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 26,
-        "reason": "Batch15 twelve new manual revisions improve1034to26: directarray1010, promotedmix826, mutablearg5 445, nohandlesnapshot421, explicitpitch neutral421, firstslot memberread156, directstateaddress42, resultlast46, resultfirst164, directmask26, promotednext331, scopednext606. Best26 restored/formatted and independently rechecked aefcfdef; exactframe50/result4E/all opcodes/registers/scheduling/full656span. Residual sound/state spill30/34 vsraw34/38 (four stack rows); firstslot symbol aliases physically agree. No new ABI/shared/ASM changes, padding or fake pressure. Prior input type/search/sharedreturn families remain exhausted.",
+        "reason": "Batch16 four new forms on prior26: directfield1295 and conditionalfield1290 recover all stack homes but alter stores; reuse consumed arg0 as generation50 recovers all stack/control but swaps a0/v1 in seven generation rows; explicit computed predicate neutral50. Restored best26; parameter50 alternative saved. Prior batch15 twelve forms exhausted (indexed access, promoted/mutable mix, handle/state/mask removal, pitch local, result order, next type/scope); prior input/search/return families exhausted. Residual sound/state spill30/34 vsraw34/38, exactframe50/result4E/full656span. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
