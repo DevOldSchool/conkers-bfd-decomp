@@ -92935,17 +92935,16 @@
       "symbol": "func_8000440C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 70,
-        "reason": "Concrete SDK queue layout and three-message loop preserved. Explicit invariant end pointer improves score 655 to 70 by eliminating per-iteration endpoint recomputation. Remaining address-initializer scheduling and array-end alias differ; no invented independent endpoint object.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 164,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80004470",
           "vram": "0x80004470"
         }
@@ -92993,8 +92992,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Retain original20 (frame88 vs80; request70vs68,response6Cvs64). Signed phase-state reuse fixes frame but scores528 with duplicate bound materialization and saved-register changes; consistent unsigned bound spelling is neutral528. Historical unsigned phase60 fixes frame but queue-address schedule remains. No padding, repeated phase/bound variants or changed SDK layouts.",
+        "current_score": 60,
+        "reason": "Six manual forms recover exact frame80, response64, request68 using disjoint index/chunk storage. CURRENT60 sole residual queue ADDU scheduled between max-size LUI/ORI instead of after ORI. Original CURRENT20 frame-mismatch candidate also saved in task ledger; scoped/union/ternary variants did not resolve scheduling.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93706,17 +93705,16 @@
       "symbol": "func_8000B830"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 753,
-        "reason": "Independent word-homed low-byte channel contract improves930to753. Entry SW/ANDI/MOVE normalization still absent; compiler instead reloads LBU at final call, shifting temporary roles. Actual promoted channel snapshot neutral753; retaining explicit typed normalization regresses1543. Restore simplest753 after three new forms; no current C/include caller or prototype, raw direct scan none. No shared changes or fabricated state.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 352,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000B8B8",
           "vram": "0x8000B8B8"
         }
@@ -93799,8 +93797,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 788,
-        "reason": "Full676 CURRENT788 5bbb7570d2c0460fa7c99589d2727ad8; original corrected +4 arithmetic and actual byte input body unchanged. One new three-helper contract form838 bd25c1d852544fc98ef958815e930597 regressed; 886C family restored, then8790 family fully restored after active E46C750 e8ae465444fe4b6d8f2e0f84b02c485f and +8 layout failure. Only own8A4C forward aligns with matched u8/u8 definition. Fresh788 and two recovery788 checks distinct from one new form. Frame28 versus20, conversion copy/register and stack offsets remain. Three inherited valid body forms plus current contract form exhausted; no equivalent body/volume/helper/frame retries. Recheck all five active callers; no shared/SDK/ASM changes.",
+        "current_score": 10,
+        "reason": "CURRENT10 after three manual forms: six exact ROM float literals, shared u8 volume and byte-conversion before offsets recover all169 instructions/registers/frame/control. Remaining scored rows are raw %hi(D_80000004) versus immediate0x8000 at128 and %lo(D_80000004) versus4 at150; generated raw symbol conflates unsigned conversion highbit and later offset. Main numeric-relocation verification needed; no assembly/tooling edited. Literal pool bytes independently recovered; full-span CURRENT0 still required.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93816,17 +93814,16 @@
       "symbol": "func_8000BCBC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 5485,
-        "reason": "Preserve packed spatial callback at CURRENT (5485). Three independent spatial outputs, original packed comparisons, signed countdown and mode transitions retained with established helper contracts. Fullword channel loads, stack/local lifetimes and expression scheduling differ; no narrowing or blind register search.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1008,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000BF60",
           "vram": "0x8000BF60"
         }
@@ -93856,8 +93853,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2426,
-        "reason": "Preserve packed-state controller at CURRENT2426 (fresh4254). Three new supported forms4254/3441/2426 recover source-local u8 channel input contract, actual stored local-channel byte reads and repeated actual input-byte reads. Own two forward declarations aligned; fullword packed state and three float ABI inputs/callee controls unchanged. Remaining frame60vs58, packed-state snapshot stack ordering, high-value call-mask scheduling and register allocation unresolved. Prior snapshots/redundant-mask removal4709 and current typed input/object reads exhausted; no extra homes, dummy storage/padding, shared dependency changes or permutations. Retained own declaration requires BA18/BAFC full caller rechecks before checkpoint acceptance.",
+        "current_score": 48,
+        "reason": "Manual 17 forms reduced 2426 to 48; exact frame58 and main homes, residual channel spill2c vs30, fade snapshot20 vs1c, oldHigh snapshot1c vs20 and two initial ANDI ordering rows. Recent channel/snapshot variants plateaued; preserve best for new evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94075,17 +94072,16 @@
       "symbol": "func_8000D2F8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 164,
-        "reason": "Preserve full US CURRENT164 three-float dispatcher, fresh baseline d3bbf02abdec431eba628075ffe1c683 confirms all parameter stores/reloads already match relative to frame, so proposed actual parameter-object reads have no residual support and were not edited. Inherited real ID snapshot and metadata pointer both neutral; remaining frame38 versus40 with twelve shifted stack rows and table/pool bound-address scheduling. No dummy storage, extra formal, padding, equivalent view or loop/ID/base retries. Signature and SDK contracts unchanged; no new form this selection.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 532,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000D758",
           "vram": "0x8000D758"
         }
@@ -96230,7 +96226,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 245,
-        "reason": "Natural three-argument decompression wrapper CURRENT245: compiler uses required 24-byte call frame/ra+20, raw handwritten wrapper uses16-byte frame/ra+0 and delay-slot teardown. Return and forwarding ABI verified; no padding, compiler flags or hand assembly permitted.",
+        "reason": "Raw handwritten-family wrapper uses frame0x10 with RA at SP+0 inside standard outgoing argument area; IDO C tail-return call generates frame0x18 with RA+0x14 and pre-JR restore, CURRENT245. No evidence-backed ordinary-C frame recovery; preserve semantic wrapper without modifying ASM or compiler flags.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

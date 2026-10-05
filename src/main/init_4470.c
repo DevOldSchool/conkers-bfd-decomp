@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_allocator_transfer_controller_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_80004470
  * - func_80004514
  * - func_800046E4
  * - func_8000480C
@@ -54,30 +53,26 @@ extern TransferMessageQueue D_800388B0;
 extern void *D_800380E0[];
 extern void *D_80038400[];
 extern void *D_800388F8[3];
+extern void *D_80038904[];
 extern TransferMessageQueue D_80038908[];
 extern u8 D_8003A570;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004470 CURRENT (70) */
 void func_80004470(void) {
-    void **message;
-    TransferMessageQueue *queue;
-    void **end;
+    s32 index;
 
     func_800030A0(0x96, &D_800388B0, D_800380E0, 0xC8);
-    message = D_800388F8;
-    queue = D_80038908;
-    end = D_800388F8 + 3;
-    do {
-        func_80023790(queue, message, 1);
-        message++;
-        queue++;
-    } while (message != end);
+    index = 0;
+    for (;;) {
+        func_80023790(&D_80038908[index], &D_800388F8[index], 1);
+        index++;
+        if (D_80038904 == &D_800388F8[index]) {
+            break;
+        }
+    }
     func_80023790(&D_800388C8, D_80038400, 0x12C);
     D_8003A570 = 0;
     D_8003A571 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80004470 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_4470/func_80004470.s")
 void func_8000480C(u32, void *, u32);
 extern TransferIoMessage D_80038950[];
 
@@ -128,23 +123,22 @@ void func_80004674(void) {
     }
     D_8003A571 = 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800046E4 CURRENT (20) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800046E4 CURRENT (60) */
 void func_800046E4(u32 source, void *destination, u32 size) {
     TransferIoMessage request;
     void *response;
     TransferMessageQueue *queue;
-    s32 index;
     u32 chunk;
     u32 processed;
 
     processed = 0;
-    index = D_8002BE00->id - 3;
-    if ((index >= 4) || (index < 0)) {
-        index = 0;
+    chunk = D_8002BE00->id - 3;
+    if (((s32)chunk >= 4) || ((s32)chunk < 0)) {
+        chunk = 0;
     }
     func_80022D10(destination, size);
     if (size != 0) {
-        queue = &D_80038908[index];
+        queue = &D_80038908[(s32)chunk];
         do {
             if (size - processed < 0x14000U) {
                 chunk = size - processed;

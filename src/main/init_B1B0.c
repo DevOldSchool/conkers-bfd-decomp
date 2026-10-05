@@ -5,16 +5,13 @@
  * Boundary evidence: docs/evidence/main_audio_driver_sequence_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000B8B8
  * - func_8000BCBC
- * - func_8000BF60
  * - func_8000C350
  * - func_8000C530
  * - func_8000C7E8
  * - func_8000C934
  * - func_8000CEAC
  * - func_8000D2F8
- * - func_8000D758
  * - func_8000D96C
  * - func_8000DF68
  *
@@ -300,7 +297,6 @@ s32 func_8000E46C(s32, s32, s32, s32);
 s32 func_8000E588(s32, s32, s32);
 void func_8000DF68(s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000B8B8 CURRENT (753) */
 s32 func_8000B8B8(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     s32 volume;
 
@@ -327,8 +323,6 @@ s32 func_8000B8B8(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
     }
     return func_8000C530(arg0, arg1, arg2, arg3, arg4);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000B8B8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000B8B8.s")
 s32 func_8000E588(s32, s32, s32);
 s32 func_8000C530(s32, u8, f32, f32, f32);
 s32 func_800114D0(s32, s32, s32, s32, s32, s32, s32 *, s32 *, s32 *);
@@ -413,11 +407,10 @@ s32 func_850A29C8(s32, s32);
 void func_80008790(u8, s32, u8, s32);
 void func_8000886C(u8, s32, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BCBC CURRENT (788) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BCBC CURRENT (10) */
 s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
     f32 distance;
-    s32 volume;
-    u8 extra;
+    u8 volume;
 
     if (arg0 == 0) {
         func_80008790(((u8 *)&arg1)[3], 3, 0x10, 0);
@@ -425,33 +418,33 @@ s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
         arg0 = 1;
     } else if (D_800BE9F0 == 0x13) {
         arg2 -= 24.0f;
-        arg4 -= D_8002C220;
+        arg4 -= 3015.0f;
         distance = arg2 * arg2 + arg4 * arg4;
-        if (D_8002C224 < distance) {
+        if (36000000.0f < distance) {
             volume = 4;
         } else {
-            volume = (u8)((u32)((D_8002C228 - sqrtf(distance)) * D_8002C22C) + 4);
+            volume = (u8)((6000.0f - sqrtf(distance)) * 0.041833334f) + 4;
         }
         if (arg0 != volume) {
             func_8000886C(((u8 *)&arg1)[3], 3, volume);
         }
         if (func_850A29C8(0, 0x4041) == 0) {
-            distance = D_8002C230 - arg3;
-            if (D_8002C230 < arg3) {
-                extra = 0x20;
+            distance = 1290.0f - arg3;
+            if (1290.0f < arg3) {
+                volume = 0x20;
             } else {
-                distance *= D_8002C234;
+                distance *= 0.37166667f;
                 if (distance >= 223.0f) {
-                    extra = 0xFF;
+                    volume = 0xFF;
                 } else {
-                    extra = (u32)distance + 0x20;
+                    volume = (u8)distance + 0x20;
                 }
             }
         } else {
-            extra = 0;
+            volume = 0;
         }
-        if (extra != func_80008A4C(((u8 *)&arg1)[3], 2)) {
-            func_8000886C(((u8 *)&arg1)[3], 4, extra);
+        if (volume != func_80008A4C(((u8 *)&arg1)[3], 2)) {
+            func_8000886C(((u8 *)&arg1)[3], 4, volume);
         }
     }
     return arg0;
@@ -460,27 +453,26 @@ s32 func_8000BCBC(s32 arg0, s32 arg1, f32 arg2, f32 arg3, f32 arg4) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BCBC.s")
 extern u8 D_800C35EA;
 extern s32 D_800BE9E4;
-void func_800086FC(s32, s32, s32);
-void func_80008744(s32, s32, s32);
+void func_800086FC(u8, u8, u8);
+void func_80008744(u8, u8, u8);
 void func_8000886C(u8, s32, u8);
 void func_80008F24(u8);
 void func_80011FA0(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000BF60 CURRENT (5485) */
-s32 func_8000BF60(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
+s32 func_8000BF60(u32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     s32 mode;
+    s32 countdown;
     u32 packed;
     s32 initialized;
     s32 volume;
     s32 pan;
+    u32 level;
     s32 volumeChanged;
     s32 panChanged;
-    u32 level;
-    s32 countdown;
 
     initialized = 0;
     mode = arg0 & 3;
-    packed = (u32)arg0 >> 8;
+    packed = arg0 >> 8;
     if (!(arg0 & 0x80)) {
         func_8000E40C(0x22, 0x5DC0);
         if (D_800C35EA == 1) {
@@ -490,57 +482,53 @@ s32 func_8000BF60(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
         initialized = 1;
     }
     if (D_800BE9F0 != 0x1D) {
-        func_80008F24(arg1);
+        func_80008F24(((u8 *)&arg1)[3]);
         return arg0;
     }
     volumeChanged = 0;
     panChanged = 0;
     func_800114D0(-0x15F, 0, 0x197, 0x7FFF, 0xBB8, 0x12C, &pan, &volume, 0);
     if ((u32)volume < 0x4000) {
-        level = 0x40;
+        volume = 0x40;
     } else {
-        level = (u32)volume >> 8;
+        volume = (u32)volume >> 8;
     }
-    volume = level;
-    if (level != packed >> 8) {
+    level = packed >> 8;
+    if (volume != level) {
         volumeChanged = 1;
-        func_8000886C(arg1, 6, level & 0xFF);
+        func_8000886C(((u8 *)&arg1)[3], 6, volume);
     }
     if (pan != (packed & 0xFF)) {
         panChanged = 1;
-        func_80008744(arg1, 1, pan & 0x7F);
-        func_80008744(arg1, 2, pan & 0x7F);
-        func_800086FC(arg1, 1, ((u32)pan >> 7) & 0xFF);
-        func_800086FC(arg1, 2, ((u32)pan >> 7) & 0xFF);
+        func_80008744(((u8 *)&arg1)[3], 1, pan & 0x7F);
+        func_80008744(((u8 *)&arg1)[3], 2, pan & 0x7F);
+        func_800086FC(((u8 *)&arg1)[3], 1, (u32)pan >> 7);
+        func_800086FC(((u8 *)&arg1)[3], 2, (u32)pan >> 7);
     }
     packed = (pan << 8) | (volume << 16);
     func_800114D0(-0x40, 0, 0x21F, 0x7FFF, 0xBB8, 0x12C, &pan, &volume, 0);
-    level = volume;
     if (volumeChanged != 0) {
-        if (level < 0x4000) {
-            level = 0x4000;
+        if ((u32)volume < 0x4000) {
+            volume = 0x4000;
         }
-        volume = level;
-        func_8000886C(arg1, 1, (level >> 8) & 0xFF);
+        func_8000886C(((u8 *)&arg1)[3], 1, (u8)((u32)volume >> 8));
     }
     if (panChanged != 0) {
-        func_80008744(arg1, 0, 0x40);
-        func_800086FC(arg1, 0, 0);
+        func_80008744(((u8 *)&arg1)[3], 0, 0x40);
+        func_800086FC(((u8 *)&arg1)[3], 0, 0);
     }
     func_800114D0(-0x126, 0, 0x290, 0x7FFF, 0xBB8, 0x12C, &pan, &volume, 0);
-    level = volume;
     if (volumeChanged != 0) {
-        if (level < 0x4000) {
-            level = 0x4000;
+        if ((u32)volume < 0x4000) {
+            volume = 0x4000;
         }
-        volume = level;
-        func_8000886C(arg1, 0x18, (level >> 8) & 0xFF);
+        func_8000886C(((u8 *)&arg1)[3], 0x18, (u8)((u32)volume >> 8));
     }
     if (panChanged != 0) {
-        func_80008744(arg1, 3, pan & 0x7F);
-        func_80008744(arg1, 4, pan & 0x7F);
-        func_800086FC(arg1, 3, ((u32)pan >> 7) & 0xFF);
-        func_800086FC(arg1, 4, ((u32)pan >> 7) & 0xFF);
+        func_80008744(((u8 *)&arg1)[3], 3, pan & 0x7F);
+        func_80008744(((u8 *)&arg1)[3], 4, pan & 0x7F);
+        func_800086FC(((u8 *)&arg1)[3], 3, (u32)pan >> 7);
+        func_800086FC(((u8 *)&arg1)[3], 4, (u32)pan >> 7);
     }
     if (mode != D_80041F08) {
         switch (D_80041F08) {
@@ -567,8 +555,6 @@ s32 func_8000BF60(s32 arg0, s32 arg1, s32 arg2, s32 arg3) {
     }
     return arg0 | packed;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000BF60 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000BF60.s")
 extern u8 D_800C35E8;
 extern u8 D_800C35EA;
 void func_85178EFC(s32);
@@ -617,34 +603,30 @@ s32 func_8000C350(s32 arg0, u8 arg1, s32 arg2, s32 arg3) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_8000C350 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000C350.s")
 extern s32 D_800BE9E4;
-void func_800085F8(s32, s32);
-void func_800086FC(s32, s32, s32);
-void func_80008744(s32, s32, s32);
-void func_80008824(s32, s32, s32);
+void func_800085F8(u8, s32);
+void func_800086FC(u8, u8, u8);
+void func_80008744(u8, u8, u8);
+void func_80008824(u8, u8, u8);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (2426) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000C530 CURRENT (48) */
 s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
+    s32 oldMode;
     s32 mode;
     s32 countdown;
+    u32 upper;
+    s32 oldLow;
+    u32 fade;
     s32 low;
     s32 high;
-    s32 channel;
-    s32 oldMode;
-    s32 oldLow;
     s32 oldHigh;
-    u32 upper;
-    u32 initialFade;
-    u32 fade;
-    u32 decrement;
+    u8 channel;
 
     upper = (u32)arg0 >> 8;
-    oldMode = arg0 & 3;
+    mode = oldMode = arg0 & 3;
     countdown = ((u32)arg0 >> 2) & 0x3F;
     fade = arg0 & 0xFF000000;
-    initialFade = fade;
     oldHigh = ((u32)arg0 >> 16) & 0xFF;
     oldLow = upper & 0xFF;
-    mode = oldMode;
     low = oldLow;
     high = oldHigh;
     if (D_80041F08 != 0 &&
@@ -666,33 +648,33 @@ s32 func_8000C530(s32 arg0, u8 arg1, f32 arg2, f32 arg3, f32 arg4) {
             func_800085F8(((u8 *)&arg1)[0], oldMode + 9);
         }
         if (mode != 0) {
-            channel = (mode + 9) & 0xFF;
+            channel = (u8)(mode + 9);
             func_80008824(((u8 *)&arg1)[0], channel, (u8)low);
-            func_800086FC(((u8 *)&arg1)[0], (u8)((u32 *)&channel)[0], (high >> 7) & 0xFF);
-            func_80008744(((u8 *)&arg1)[0], (u8)((u32 *)&channel)[0], high & 0x7F);
+            func_800086FC(((u8 *)&arg1)[0], channel, (u8)(high >> 7));
+            func_80008744(((u8 *)&arg1)[0], channel, high & 0x7F);
         }
     } else if (oldMode != 0 && D_80041F08 != 0 && upper != D_80041F0C) {
         if (low != oldLow) {
-            func_80008824(((u8 *)&arg1)[0], (oldMode + 9) & 0xFF, (u8)low);
+            func_80008824(((u8 *)&arg1)[0], (u8)(oldMode + 9), (u8)low);
         }
         if (high != oldHigh) {
             if ((high ^ oldHigh) & 0x80) {
-                func_800086FC(((u8 *)&arg1)[0], (mode + 9) & 0xFF, (high >> 7) & 0xFF);
+                func_800086FC(((u8 *)&arg1)[0], (u8)(mode + 9), (u8)(high >> 7));
             }
-            func_80008744(((u8 *)&arg1)[0], (mode + 9) & 0xFF, high & 0x7F);
+            func_80008744(((u8 *)&arg1)[0], (u8)(mode + 9), high & 0x7F);
         }
     }
     if (D_80041F04 & 0x10) {
         D_80041F04 &= ~0x10;
-        if (initialFade == 0) {
+        if (fade == 0) {
             func_8000886C(((u8 *)&arg1)[0], 0xC0, 0x80);
         }
         fade = 0xFF000000;
     }
     if (fade != 0) {
-        decrement = ((u32)D_800BE9E4 << 23) & 0xFF000000;
-        if (decrement < fade) {
-            fade -= decrement;
+        upper = ((u32)D_800BE9E4 << 23) & 0xFF000000;
+        if (upper < fade) {
+            fade -= upper;
         } else {
             func_80008790(((u8 *)&arg1)[0], 0xC0, 0, 0x5A);
             fade = 0;
@@ -1193,16 +1175,16 @@ s32 func_851F2CDC(void);
 void func_8000CEAC(s32);
 void func_8000D2F8(s32, f32, f32, f32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D758 CURRENT (164) */
 void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
+    SequenceVolumeEntry *entries;
     s32 mask5;
     s32 mask40;
     s32 mask34;
     s32 mask12;
     s32 i;
+    s32 id;
     s32 flags;
     s32 mode;
-    SequenceRecordState **slot;
     SequenceRecordState *record;
 
     mask5 = 0;
@@ -1210,27 +1192,27 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
     mask34 = 0;
     mask12 = 0;
     if ((u8)D_80041F00 == 0) {
-        slot = D_800417B0;
-        i = 0;
-        do {
-            record = *slot;
-            if (record != 0 && record->id > 0) {
-                flags = D_8002B074[record->id].flags;
-                mode = flags & ~0xF0;
-                if (flags & 0x40) {
-                    mask40 |= 1 << i;
-                }
-                if (mode == 5) {
-                    mask5 |= 1 << i;
-                } else if (mode == 4 || mode == 3) {
-                    mask34 |= 1 << i;
-                } else if (mode == 1 || mode == 2) {
-                    mask12 |= 1 << i;
+        entries = D_8002B074;
+        for (i = 0; i < 3; i++) {
+            record = D_800417B0[i];
+            if (record != 0) {
+                id = record->id;
+                if (id > 0) {
+                    flags = entries[id].flags;
+                    mode = flags & ~0xF0;
+                    if (flags & 0x40) {
+                        mask40 |= 1 << i;
+                    }
+                    if (mode == 5) {
+                        mask5 |= 1 << i;
+                    } else if (mode == 4 || mode == 3) {
+                        mask34 |= 1 << i;
+                    } else if (mode == 1 || mode == 2) {
+                        mask12 |= 1 << i;
+                    }
                 }
             }
-            i++;
-            slot++;
-        } while (i < 3);
+        }
         if (mask5 != 0) {
             func_8000CBF0(0x1770, 0x400, mask5 ^ 0xFF ^ mask40);
             func_8000CBF0(0x8000, 0x6400, mask5);
@@ -1257,8 +1239,6 @@ void func_8000D758(f32 arg0, f32 arg1, f32 arg2) {
         } while (i != 3);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000D758 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_B1B0/func_8000D758.s")
 void *func_8000B1FC(s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000D96C CURRENT (5230) */
