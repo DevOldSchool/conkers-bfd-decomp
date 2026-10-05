@@ -9,6 +9,13 @@
 #define timer_callback_object_create func_15149130
 #define timer_callback_object_create_without_draw_callback func_151491F4
 #define timer_callback_object_update func_15149264
+#define timer_callback_object_defer_resource_release func_15149318
+#define timer_callback_object_queue_removal func_1514933C
+#define timer_callback_object_free func_15149368
+#define timer_callback_object_dispatch_event func_15149434
+#define timer_callback_object_dispatch_draw func_15149490
+#define timer_callback_objects_broadcast_event func_151494E0
+#define timer_callback_object_handle_owner_event func_15149514
 
 typedef struct Game1765E0EffectHeader {
     u8 pad_0[0xD];
@@ -112,20 +119,20 @@ void timer_callback_object_update(Game1765E0Effect *object) {
         func_1516972C(object);
     }
 }
-void func_15149318(s32 arg0) {
+void timer_callback_object_defer_resource_release(s32 arg0) {
     func_151D5E30(arg0 + 0x14, arg0);
 }
 void func_15169804(s32);
 
-void func_1514933C(s32 arg0) {
-    func_15149318(arg0);
+void timer_callback_object_queue_removal(s32 arg0) {
+    timer_callback_object_defer_resource_release(arg0);
     func_15169804(arg0);
 }
-void func_15149318(s32 arg0);
+void timer_callback_object_defer_resource_release(s32 arg0);
 void func_15169824(s32 arg0);
 
-void func_15149368(s32 arg0) {
-    func_15149318(arg0);
+void timer_callback_object_free(s32 arg0) {
+    timer_callback_object_defer_resource_release(arg0);
     func_15169824(arg0);
 }
 typedef struct {
@@ -161,7 +168,7 @@ void func_151493E4(Game1765E0State *arg0) {
 }
 extern void (*D_8008A8D8[])(void *, void *, u8);
 
-void func_15149434(void *arg0, void *arg1, u8 arg2) {
+void timer_callback_object_dispatch_event(void *arg0, void *arg1, u8 arg2) {
     s32 var_v0;
 
     var_v0 = *(u8 *)((u8 *)arg0 + 0x13);
@@ -179,7 +186,7 @@ typedef struct {
 
 extern s32 (*D_8008A670[])(s32, Game1765E0DispatchState *, s16);
 
-s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
+s32 timer_callback_object_dispatch_draw(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
     s8 temp_v0;
 
     temp_v0 = arg1->drawCallbackIndex;
@@ -191,11 +198,11 @@ s32 func_15149490(s32 arg0, Game1765E0DispatchState *arg1, s16 arg2) {
 void func_15169260(void *, s32, s32, u8);
 extern u8 D_800A5770;
 
-void func_151494E0(s32 arg0, u8 arg1) {
+void timer_callback_objects_broadcast_event(s32 arg0, u8 arg1) {
     func_15169260(&D_800A5770, 2, arg0, arg1);
 }
 void func_15169850(s32, u8, s32, s32, s32);
 
-void func_15149514(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4) {
+void timer_callback_object_handle_owner_event(s32 arg0, u8 arg1, s32 arg2, s32 arg3, s32 arg4) {
     func_15169850(arg0, arg1, arg2, arg3, arg4);
 }

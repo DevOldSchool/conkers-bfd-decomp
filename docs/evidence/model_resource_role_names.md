@@ -154,6 +154,60 @@ role is therefore not character-exclusive or particle-only. Expiry/tick/draw
 selectors test -1 rather than performing general bounds validation; clamps in
 the separate +0x13 callback-set consumers are not constructor validation.
 
+## Timer-object lifecycle and events
+
+Seven more matched helpers use source-local aliases with unchanged numeric
+symbols and ABI. Their complete spans are in `reference/game/us/asm/149130.s`.
+
+| Symbol | C name | Span |
+| --- | --- | --- |
+| `15149318` | `timer_callback_object_defer_resource_release` | `0x24` |
+| `1514933C` | `timer_callback_object_queue_removal` | `0x2C` |
+| `15149368` | `timer_callback_object_free` | `0x2C` |
+| `15149434` | `timer_callback_object_dispatch_event` | `0x5C` |
+| `15149490` | `timer_callback_object_dispatch_draw` | `0x50` |
+| `151494E0` | `timer_callback_objects_broadcast_event` | `0x34` |
+| `15149514` | `timer_callback_object_handle_owner_event` | `0x3C` |
+
+`15149318` passes object `+0x14` to `151D5E30`, which visits four pointer slots
+and tags each nonnull allocation with three through `100043B4`. Maintenance
+`80004250` lowers tag three to two and frees tag-two allocations: resource
+release is deferred and the slots are not cleared. The existing extra argument
+to `151D5E30` is preserved. `1514933C` then calls `15169804`, which moves the
+object to kind one; its updater moves it to kind zero, whose updater unlinks
+and frees it. `15149368` instead directly invokes that unlink/free helper,
+`15169824`. Immediate freeing applies to the object body, not its resources.
+No frame-count promise is made.
+
+`15149434` dispatches a nonnull event callback from `D_8008A8D8`, using unsigned
+byte `+0x13` and entry zero for values at least 74. Both timer kinds' `+0x1C`
+records and original list walkers establish the three-argument event contract.
+`15149490` dispatches drawing through `D_8008A670` using signed byte `+0x12`;
+selector -1 returns the incoming display-list cursor. Kind-record `+0x08` and
+renderer `151674F8` establish its cursor/object/signed-halfword arguments.
+Neither helper gains any new bounds or null checks.
+
+`151494E0` passes the two ROM words `[0x23,0x5F]` at `800A5770` to `15169260`.
+That walker visits both list rows for those kinds, runs the common event
+pre-handler, then invokes kind-record `+0x1C`. The existing byte declaration
+of `D_800A5770` is unchanged; this is not a broadcast to every object kind.
+
+`15149514` forwards owner events to `15169850`: event zero requests removal
+when packet word `+0` equals the stored owner pointer or packet byte `+4`
+equals the stored owner byte. Event `0x2D` swaps a matching owner pointer
+between packet words `+0/+4` and
+copies the corresponding byte `+8/+9`. Constructor `150BA4C0` stores its actor
+pointer and actor byte `+0x3B` in payload `+0x28/+0x2C`; callback `150BA8F0`
+passes those storage addresses to the wrapper. The byte is not named an actor
+kind or generation counter. Other events do nothing. All pointer-shaped `s32`
+arguments remain unchanged, and the final three registered padding NOPs at
+`15149544/548/54C` remain in the full-span comparison.
+
+Dispatchers `15149394/151493E4` remain numeric: their tables do not universally
+mean deferred versus immediate cleanup. Slot `0x29` routes the first table to
+the free wrapper and the second to the queue wrapper; slot `0x32` has custom
+paths. The proved kind-record offsets alone do not justify broader phase names.
+
 ## Model-resource evidence
 
 The sole direct caller, `1513264C` at `15132778`, supplies template halfword
