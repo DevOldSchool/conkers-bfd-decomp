@@ -47,49 +47,69 @@
     "func_8000F9D4",
     "func_8000CDA0",
     "func_8000B3D4",
-    "func_80010E78"
+    "func_80010E78",
+    "func_800034E0",
+    "func_80003658"
   ],
   "completed_source_units": [
     "src/done/main/init_38E0.c",
-    "src/done/main/init_2E50.c"
+    "src/done/main/init_2E50.c",
+    "src/done/main/init_34E0.c"
   ],
   "remaining": {
-    "current_init_files": 22,
-    "c_candidates": 87,
+    "current_init_files": 21,
+    "c_candidates": 85,
     "original_asm": 20
   },
   "integration_blockers": {},
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "ECCC declaration/first-assignment preparation remains full212 CURRENT55; four supported forms previewed without compiler search. Explicit permission for one budget32 permutation is pending. Candidate remains disabled with canonical ASM; no new match or unit. Existing EBC4/EDA0 independently pass full-span0/layout. Clean canonical US ROM, linked tables, tests, metadata, progress and whitespace pass.",
+    "scope": "Both VI functions independently full-span CURRENT0/layout after the supported completed-source move. SDK stack/counter ownership and real queue/message allocation restored; existing raw main BSS supplies RAM backing through a strict zero-filled INFO reference mapping. Complete canonical US ROM and all784 linked VI bytes are byte-identical; original main BSS bounds and downstream SDK addresses preserved. Eleven new checker regression tests pass within the clean full suite; metadata/progress/whitespace pass. Source unit complete; overall init goal remains incomplete and user requested pause after commit preparation.",
     "batch_ids": [
-      "func_8000EBC4",
-      "func_8000EDA0"
+      "func_800034E0",
+      "func_80003658"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
-    "tests": 1833,
+    "tests": 1844,
     "skipped": 37,
-    "test_seconds": 38.095,
+    "test_seconds": 37.052,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-05T00:39:57.797541+00:00",
+    "completed_utc": "2026-10-05T01:22:23.984662+00:00",
     "additional_focused_checks": {
-      "func_8000EBC4": {
+      "func_800034E0": {
         "score": 0,
-        "attempt_record": "2b68c6e8d54940628c7cd1437cfdef33",
-        "layout": "preserved"
+        "attempt_record": "ac4f1edd838441cd8443d9286ff2fa5b",
+        "layout": "preserved",
+        "full_span_bytes": 376
       },
-      "func_8000EDA0": {
+      "func_80003658": {
         "score": 0,
-        "attempt_record": "be09acee2eeb41a4a89d9b1cd7434bf3",
-        "layout": "preserved"
+        "attempt_record": "6c26b9c2d76d41b3bc975b16d2dbb4bd",
+        "layout": "preserved",
+        "full_span_bytes": 408
       }
     },
     "linked_tables": {
       "main_queue_bytes": 32,
       "debugger_bytes": 208,
+      "rom_equal": true
+    },
+    "vi_storage": {
+      "section": ".main_vi_bss",
+      "type": "PROGBITS",
+      "flags": 1,
+      "vram": "0x80036DD0",
+      "size": "0x1070",
+      "alignment": 16,
+      "zero_initialized": true,
+      "main_bss_start": "0x8002D4B0",
+      "main_bss_end": "0x80043B40",
+      "main_bss_size": "0x16690",
+      "linked_text_bytes": 784,
+      "linked_text_sha1": "6dcbd6357a68a1997e878debaca752a1b7daf2fb",
       "rom_equal": true
     }
   },
@@ -540,6 +560,18 @@
       5623,
       6183,
       6183
+    ],
+    "func_800034E0": [
+      350,
+      0,
+      0
+    ],
+    "func_80003658": [
+      1484,
+      401,
+      200,
+      0,
+      0
     ]
   },
   "preserved_candidate_scores": {
@@ -596,7 +628,7 @@
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
     "permutation_permission": "Direct user Yes authorized one 7A24 search with budget 32; completed with both available variants at 10. This search permission is consumed; no other searches or stack-shape exploration authorized.",
-    "shared_changes": "No shared headers, SDK contracts, compiler flags or assembly changes to force matches. Narrow main 2E50 table placement/build wiring and ROM verifier added to complete required integration; matching tools and existing alias preparer unchanged."
+    "shared_changes": "No shared headers, SDK contracts, compiler flags or assembly changes to force matches. Narrow main 2E50 table placement/build wiring and ROM verifier added to complete required integration; matching tools and existing alias preparer unchanged. VI source-unit completion adds canonical private-BSS placement/verifier and Makefile wiring after focused zero, preserving the existing RAM allocation and validating every linked code/storage relocation against the US ROM."
   },
   "rejected_forms": {
     "func_80001194": "Legacy score 60 used three empty shaping conditions; removed. Valid preserved candidate scores 90.",
@@ -851,9 +883,21 @@
       "new_forms_this_preparation": 1,
       "manual_forms_total": 6,
       "reason": "Three actual supported untried declaration/order/first-assignment scope forms are prepared. Wait for explicit permission for ./conker permute func_8000ECCC --budget 32. No automatic search, stack shapes, shared changes or repeated exhausted width/read-order/chain/parameter forms."
+    },
+    "func_800034E0": {
+      "status": "matched",
+      "current_score": 0,
+      "source_unit": "complete",
+      "reason": "Independent full-span0/layout plus complete US integration and clean batch passed. No further matching work for this completed unit."
+    },
+    "func_80003658": {
+      "status": "matched",
+      "current_score": 0,
+      "source_unit": "complete",
+      "reason": "Independent full-span0/layout plus complete US integration and clean batch passed. No further matching work for this completed unit."
     }
   },
-  "ledger_note": "ECCC one prepared declaration/first-assignment root remains full212 CURRENT55, ten register-only rows. Read-only preview four supported forms including baseline; no compiler search run, explicit one-command permission pending. Existing EBC4/EDA0 full0/layout and clean BATCH_COMPLETE1833 tests38.095s37skip; exact US ROM and linked tables, metadata/progress/whitespace pass. No new match/unit or shared dependency changes. Cumulative38 matches/two completed units,22 init files87 C candidates20 original ASM remain; goal incomplete, no memory.",
+  "ledger_note": "VI unit complete through supported integration: both fullspan zero/layout, exact canonical US ROM and784linked VI bytes, original mainBSS preserved. Eleven new verifier regression tests, cleanBATCH_COMPLETE1844tests37.052s37skip plus metadata/progress/white.40newmatches/threecompletedunits;21initfiles85preservedC20originalASM remain. User requested pause after current work and commit readiness; no new selection or ECCC search. Commit preparation only; goal incomplete, no memory.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
     "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
@@ -949,6 +993,36 @@
       "new_body_forms": 0,
       "new_match": false,
       "integration": "Supported transaction passed; all 32 relocated table bytes and full US ROM match original."
+    },
+    "func_800034E0": {
+      "source": "src/done/main/init_34E0.c",
+      "full_span_bytes": 376,
+      "focused_score": 0,
+      "attempt_record": "ac4f1edd838441cd8443d9286ff2fa5b",
+      "status": "matched",
+      "shared_dependency": true,
+      "shared_dependency_scope": "Canonical Makefile wiring, reviewed VI BSS INFO placement and strict ELF/ROM verifier; no matching tool, SDK/header, ASM or compiler flag changes.",
+      "new_body_forms": 1,
+      "integration_storage_repair": "Real SDK queue24/buffer20/event records24 each; natural compiler offsets1000/1018/1030/1048/counter1060. No dummy padding or unknown thread reconstruction.",
+      "change": "Real private SDK stack and one-past endpoint recover distinct queue/stack setup.",
+      "integration": "complete",
+      "integration_evidence": "docs/evidence/main_init_vi_layout.md",
+      "source_unit_sha256": "9d9d27173905d96aec54cab6afc0f203ab7cef97409d45eaafd64b5f9a8fd552"
+    },
+    "func_80003658": {
+      "source": "src/done/main/init_34E0.c",
+      "full_span_bytes": 408,
+      "focused_score": 0,
+      "attempt_record": "6c26b9c2d76d41b3bc975b16d2dbb4bd",
+      "status": "matched",
+      "shared_dependency": true,
+      "shared_dependency_scope": "Canonical Makefile wiring, reviewed VI BSS INFO placement and strict ELF/ROM verifier; no matching tool, SDK/header, ASM or compiler flag changes.",
+      "new_body_forms": 2,
+      "integration_storage_repair": "Real SDK queue24/buffer20/event records24 each; natural compiler offsets1000/1018/1030/1048/counter1060. No dummy padding or unknown thread reconstruction.",
+      "change": "SDK function-local static u16 counter and direct updates recover live code; unchanged callback then matches all alignment NOPs with its actual matched376-byte initializer prefix.",
+      "integration": "complete",
+      "integration_evidence": "docs/evidence/main_init_vi_layout.md",
+      "source_unit_sha256": "9d9d27173905d96aec54cab6afc0f203ab7cef97409d45eaafd64b5f9a8fd552"
     }
   },
   "earlier_clean_validations": [
@@ -2175,6 +2249,40 @@
         "debugger_bytes": 208,
         "rom_equal": true
       }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "ECCC declaration/first-assignment preparation remains full212 CURRENT55; four supported forms previewed without compiler search. Explicit permission for one budget32 permutation is pending. Candidate remains disabled with canonical ASM; no new match or unit. Existing EBC4/EDA0 independently pass full-span0/layout. Clean canonical US ROM, linked tables, tests, metadata, progress and whitespace pass.",
+      "batch_ids": [
+        "func_8000EBC4",
+        "func_8000EDA0"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1833,
+      "skipped": 37,
+      "test_seconds": 38.095,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-05T00:39:57.797541+00:00",
+      "additional_focused_checks": {
+        "func_8000EBC4": {
+          "score": 0,
+          "attempt_record": "2b68c6e8d54940628c7cd1437cfdef33",
+          "layout": "preserved"
+        },
+        "func_8000EDA0": {
+          "score": 0,
+          "attempt_record": "be09acee2eeb41a4a89d9b1cd7434bf3",
+          "layout": "preserved"
+        }
+      },
+      "linked_tables": {
+        "main_queue_bytes": 32,
+        "debugger_bytes": 208,
+        "rom_equal": true
+      }
     }
-  ]
+  ],
+  "goal_status": "paused_at_user_request"
 }

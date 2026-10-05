@@ -19650,15 +19650,15 @@
         "func_800034E0",
         "func_80003658"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x37F0",
           "start": "0x34E0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_34E0.c"
+      "source": "src/done/main/init_34E0.c"
     },
     {
       "boundary_evidence": {

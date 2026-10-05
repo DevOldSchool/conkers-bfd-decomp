@@ -91484,41 +91484,39 @@
       "symbol": "func_8000349C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 350,
-        "reason": "Preserve SDK-shaped VI initializer: queue and distinct thread stack endpoint share raw address label, causing CSE differences; stack ownership not independently established",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 376,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800034E0",
           "vram": "0x800034E0"
         }
       },
-      "source": "src/main/init_34E0.c",
+      "source": "src/done/main/init_34E0.c",
       "symbol": "func_800034E0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1484,
-        "reason": "Preserve typed VI callback and observed retrace transient; external-global address lifetime and frame differ from original static-local source",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 408,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80003658",
           "vram": "0x80003658"
         }
       },
-      "source": "src/main/init_34E0.c",
+      "source": "src/done/main/init_34E0.c",
       "symbol": "func_80003658"
     },
     {
