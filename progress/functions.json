@@ -14560,6 +14560,12 @@
       "symbol": "func_150082CC"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 870,
+        "reason": "CURRENT 870 after 1377,1953,870; three finishes, two manual revisions. Frame and stack homes now match. Remaining switch setup, FP register assignment and epilogue scheduling. Next hypothesis: separate per-branch radius temporaries and switch flag lifetime. Manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -16256,6 +16262,12 @@
       "symbol": "func_1500EAA0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5702,
+        "reason": "CURRENT 5702; initial typed candidate compiles. Remaining frame 0x1E0 vs 0x1D0, FP constant lifetime/order and aggregate homes. Next hypothesis: reverse constant declaration order and retain explicit aggregate cursors. Broad first-pass coverage; no speculative revisions.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71308,6 +71320,12 @@
       "symbol": "func_150BDB70"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 640,
+        "reason": "CURRENT 640 after 975,640,640. Correct 0x38 frame and stack homes; remaining six sentinel register rows and final branch-tail scheduling/size. Two targeted revisions exhausted. Next hypothesis: a named query-result lifetime instead of sentinel constant, or nested final conditional shape.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71337,13 +71355,18 @@
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1488,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D08C0",
           "vram": "0x150D08C0"
         }
       },
-      "source": "src/game/game_FDD70.c",
+      "source": "src/done/game/game_FDD70.c",
       "symbol": "func_150D08C0"
     },
     {
