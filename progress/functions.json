@@ -71245,6 +71245,12 @@
       "symbol": "func_150A6860"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1456,
+        "reason": "Useful typed effect candidate; CURRENT 1456 after initial 1771 and one byte-angle lifetime revision. Raw callees prove fifth parameter float and descriptor copy size 0x30. Remaining frame 0xD0 vs 0xC8, descriptor/vector stack homes, state-byte mask and store scheduling. Next hypothesis: scope scalar temporaries before aggregate locals; no fabricated stack padding. Stopping targeted revisions for broad first-pass coverage.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71399,6 +71405,12 @@
       "symbol": "func_15119FC0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 3460,
+        "reason": "Useful compiled initial candidate, CURRENT 3460. Complete 0x58-byte packet copy proven by raw callee; existing collision callee proves f32 height. Remaining frame 0x118 vs 0x108, packet placement 0xC0 vs 0xA4, float register assignment, store scheduling, explicit shift-count mask. No clear high-value single revision; next hypothesis scope pre-packet mask locals and order floating temporaries without dropping required packet bytes or defined shifts.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90729,11 +90741,15 @@
       "symbol": "func_150AD960"
     },
     {
+      "blocked": {
+        "reason": "Raw path-dependent uninitialized stack flag: branches at 1512E1FC and 1512E21C skip all stores to sp+0x44, but 1512E3BC loads it and 1512E3C0 branches on it when actor flags+0x2C lack 0x100. No proven caller/state invariant rules out this path. Starter reproduces uninitialized sp44; zero initialization would invent behavior. Needs bounded runtime/caller invariant evidence before a valid C candidate; no source edits or compile attempts.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 880,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1512E140",
           "vram": "0x1512E140"
         }
@@ -90873,6 +90889,12 @@
       "symbol": "func_1518B6B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 6232,
+        "reason": "Useful compiled initial candidate CURRENT 6232. Full collision result and all position triples provided. Canonical func_151D5404 has six arguments versus raw eight outgoing slots; do not fabricate extra arguments. Other differences: frame 0xB0 vs 0x98, delayed low-byte flag caching, stack homes, register and store scheduling. Next hypothesis: byte-sized local flag lifetime; callee-family ABI reconciliation requires separately authorized scope.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
