@@ -27,6 +27,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_collect_attachments func_15033E28
+#define actor_find_first_attachment func_15033E84
+
 void func_1510CE60(s32, s32, s32, s32, void *);
 void func_15168E54(s32, s32 *);
 s32 func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
@@ -1345,7 +1349,7 @@ s32 func_15033E00(s32 arg0, void *arg1) {
 }
 extern void *D_800C3EE0;
 
-s32 func_15033E28(void *arg0, void **arg1) {
+s32 actor_collect_attachments(void *arg0, void **arg1) {
     s32 var_v1;
     void *temp_v0;
     void *var_a0;
@@ -1368,7 +1372,7 @@ s32 func_15033E28(void *arg0, void **arg1) {
     return var_v1;
 }
 
-void *func_15033E84(void *arg0) {
+void *actor_find_first_attachment(void *arg0) {
     void *temp_v0;
     void *var_v1;
 

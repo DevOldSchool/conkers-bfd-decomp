@@ -11,6 +11,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_copy_animation_time_with_end_cap func_1507C324
+
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9260/func_1507BDB0.s")
 s32 func_150229E4(void *);
 void func_1507BDB0(s32, s32, void *, s32);
@@ -42,7 +45,7 @@ void func_1507C22C(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1507C22C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A9260/func_1507C22C.s")
-void func_1507C324(void *arg0, void *arg1) {
+void actor_copy_animation_time_with_end_cap(void *arg0, void *arg1) {
     f32 temp_fv0;
     void *temp_v0;
     void *temp_v1;

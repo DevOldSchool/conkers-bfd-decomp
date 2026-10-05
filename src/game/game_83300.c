@@ -80,6 +80,8 @@
 /* Keep address symbols for linking and registered match evidence. */
 #define actor_reset_animation_state func_1505DFDC
 #define animation_state_copy_primary_to_secondary func_1505E060
+#define actor_get_view_opacity func_1506196C
+#define actor_set_scale_and_refresh_bounds func_15062BDC
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15055E50.s")
 extern f32 D_80099440;
@@ -2679,7 +2681,7 @@ block_22:
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150617BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_150617BC.s")
-s32 func_1506196C(u8 *arg0, s32 arg1) {
+s32 actor_get_view_opacity(u8 *arg0, s32 arg1) {
     s32 var_v1;
 
     var_v1 = *(u8 *)((u8 *)arg0 + 7) * *(u8 *)((u8 *)(arg0 + arg1) + 0xB);
@@ -3051,7 +3053,7 @@ void func_15062B84(void *arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_83300/func_15062B84.s")
 extern u8 *D_800D1C90[];
 
-void func_15062BDC(u8 *arg0, f32 arg1, f32 arg2) {
+void actor_set_scale_and_refresh_bounds(u8 *arg0, f32 arg1, f32 arg2) {
     f32 temp_fv0;
     f32 temp_fv1;
     u8 temp_v1;
