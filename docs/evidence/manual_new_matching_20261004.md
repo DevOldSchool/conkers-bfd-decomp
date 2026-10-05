@@ -1,27 +1,21 @@
-# Manual matching batch — 2026-10-04
+# Manual matching — 2026-10-04
 
-Five fresh functions; 14 manual candidates, no automated search or prior session memory.
-Eligibility checked against Git/inventory. Reset environment lacked private attempt history;
-lost uncommitted attempts cannot be excluded.
+209 fresh functions: five matched, 171 deferred, 33 blocked. Best deferred C,
+scores and blockers remain in source and `progress/functions.json`.
+Freshness was checked against available Git/inventory; lost private attempts
+could not be excluded after the environment reset.
 
-| Function | Source under `src/game/` | Result / US CURRENT | Attempts |
-| --- | --- | --- | ---: |
-| func_150D0E90 | game_FE340.c | Matched / 0 | 2 |
-| func_1511B7D4 | game_1483E0.c | Deferred / 3548 | 3; first invalid |
-| func_15146078 | game_16EE20.c | Deferred / 1755 | 3 |
-| func_151B9CB0 | game_1E6B40.c | Deferred / 1910 | 3 |
-| func_1502EC34 | game_58F80.c | Deferred / 1680 | 3 |
+Accepted full-span US `CURRENT (0)` matches: `func_150D0E90`, `func_15103430`,
+`func_15059140`, `func_150636F0`, `func_150F26A0`. `game_1308E0` was integrated;
+[jump-table placement evidence](game_90840_jump_table.md) is retained separately.
 
-Best deferred C retained beside original ASM; residuals recorded in inventory.
-Rotation candidate retains the raw initialization precondition `flags == 0`.
-Changes: these five sources, canonical inventory/progress outputs and this report.
-Shared dependency changes: none. Clean `verify-batch func_150D0E90`: BATCH_COMPLETE.
-US integrated overlay/layout, focused CURRENT 0, progress and whitespace passed;
-1,823 tests passed (37 skipped). Baseline full US ROM and RSP checks also passed.
+Clean verification at `2c3500328ea5ff828e1454c3eb9e06e5bf5398d3` returned
+`BATCH_COMPLETE`: 1,872 tests run, 37 skipped; US build, layout, mapped rodata,
+metadata, progress and whitespace passed. Integrated image SHA-1:
+`90d7bf2f61e5fd4e2e6b72ea4d21ce9447382fe5`.
 
 Workflow findings:
 
-- Starter countdown ignored branch-delay semantics: count 1 failed to terminate. Corrected and invalid attempt excluded.
-- Starter timer narrowed before a full-word comparison; retain `s32` until the final halfword store.
-- Explicit derived index plus established byte-parameter narrowing took the successful candidate from 710 to 0.
-- Keep a compact attempted-function index in Git and back up private evidence so resets do not erase eligibility checks.
+- Audit raw argument reads, widths and branch delays; starters inferred false RNG arguments and incorrect timer semantics.
+- Reuse established types and prove buffer extents; existing Vec3 types removed opcode/register differences in `func_151C5280`.
+- Check declaration conflicts before generating starters; bounded exact-symbol reads reduce lookup time and truncation.
