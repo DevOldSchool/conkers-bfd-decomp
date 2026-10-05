@@ -92479,7 +92479,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 90,
-        "reason": "Seven manual revisions preserve baseline CURRENT90: exact frame/homes/control; first framebuffer SW one instruction early and ROM transfer source/count v1/t0 instead of v0/v1. Pointer/domain/snapshot and allocation constant/block-boundary alternatives regressed or were neutral.",
+        "reason": "CURRENT90 full652 US independently restoreda8732159; exactframe/homes/control, firstframebuffer SW one instruction early and ROM source/count v1/t0 instead of v0/v1. Batch31 firstallocation/address-local reuse neutral90; ROMsource lexicalscope142 leaves registerpair and shiftsfourstackrows. Inherited seven pointer/domain/countsnapshot/constant-label variants remain exhausted; archived legacy empty shapingconditions remain invalid and were not restored. No ABI, shared dependencies, ASM or padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
