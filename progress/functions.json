@@ -93370,7 +93370,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "Retain original55 after proven EDA0 timer-before-output pattern and explicit u16 shared output conversion both remain55. Initial packed/output rows already exact; ten tail temporaries are one register earlier. Fullword split525, signedhalf55, parameter reuse268 also exhausted. No repeated width, chain, read-order or argument shaping; no padding or ABI changes.",
+        "reason": "Preserve full212 US CURRENT55 prepared declaration/first-assignment root b00d7ce7813e497aa2f084a7411bb800. Same actual u16 value and s32 remaining, unchanged assignment order, casts, memory effects, control/calls/ABI. Ten purely register-only tail rows; zero stack/operand/control/missing rows. Existing inline-declaration root exposes baseline only; read-only supported generator preview of this root exposes four forms: baseline, value-first-assignment scope, remaining-first-assignment scope, and declaration-order swap. These three forms have not been compiled/searched; one explicit task-permission request pending for ./conker permute func_8000ECCC --budget32, no stack shapes/shared changes. Prior width/read-order/chain/parameter reuse forms remain exhausted. No automatic search or equivalent manual variants while permission pending, no match/unit credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

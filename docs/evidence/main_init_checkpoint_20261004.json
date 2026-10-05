@@ -62,28 +62,28 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "FE88 consumed-formal cursor53 rejected against fresh baseline18; exact original C body restored and independent full104 recovery18 performed before supported defer. No source or shared implementation changes, new C matches or units. Existing F9D4/1001C pass independent full-span0/layout. Clean canonical US ROM, both linked tables, tests, metadata/progress/whitespace pass; nonzeroFE88 remains unaccepted.",
+    "scope": "ECCC declaration/first-assignment preparation remains full212 CURRENT55; four supported forms previewed without compiler search. Explicit permission for one budget32 permutation is pending. Candidate remains disabled with canonical ASM; no new match or unit. Existing EBC4/EDA0 independently pass full-span0/layout. Clean canonical US ROM, linked tables, tests, metadata, progress and whitespace pass.",
     "batch_ids": [
-      "func_8000F9D4",
-      "func_8001001C"
+      "func_8000EBC4",
+      "func_8000EDA0"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1833,
     "skipped": 37,
-    "test_seconds": 35.242,
+    "test_seconds": 38.095,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-05T00:18:00.777189+00:00",
+    "completed_utc": "2026-10-05T00:39:57.797541+00:00",
     "additional_focused_checks": {
-      "func_8000F9D4": {
+      "func_8000EBC4": {
         "score": 0,
-        "attempt_record": "d544f6cbc50f4f3da53b6408c70bd755",
+        "attempt_record": "2b68c6e8d54940628c7cd1437cfdef33",
         "layout": "preserved"
       },
-      "func_8001001C": {
+      "func_8000EDA0": {
         "score": 0,
-        "attempt_record": "603ee08ed8fc4c6587406bb5d56e897f",
+        "attempt_record": "be09acee2eeb41a4a89d9b1cd7434bf3",
         "layout": "preserved"
       }
     },
@@ -116,6 +116,7 @@
       525,
       55,
       268,
+      55,
       55,
       55
     ],
@@ -589,7 +590,8 @@
     "func_80007A24": 10,
     "func_80002DB0": 20,
     "func_80003220": 6183,
-    "func_8000FE88": 18
+    "func_8000FE88": 18,
+    "func_8000ECCC": 55
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -842,9 +844,16 @@
       "new_forms_this_turn": 1,
       "targeted_revisions_remaining": 0,
       "reason": "One distinct consumed-formal cursor form53 rejected after fresh18 baseline; exact18 independently recovered. Prior handle20 and block scope83 exhausted. Residual commuted ADDU and two spill offsets18versus1C are not purely register-only. No padding/extra homes/dummy storage or equivalent retries."
+    },
+    "func_8000ECCC": {
+      "status": "candidate",
+      "current_score": 55,
+      "new_forms_this_preparation": 1,
+      "manual_forms_total": 6,
+      "reason": "Three actual supported untried declaration/order/first-assignment scope forms are prepared. Wait for explicit permission for ./conker permute func_8000ECCC --budget 32. No automatic search, stack shapes, shared changes or repeated exhausted width/read-order/chain/parameter forms."
     }
   },
-  "ledger_note": "FE88 one distinct consumed-formal cursor53 worsens fresh18, original body restored and independent full104 recovery18 precedes supporteddefer. No source/shared implementation changes, new match or unit. ExistingF9D4/1001C full-span0/layout; cleanBATCH_COMPLETE1833 tests35.242s37skip exact fullUSROM, main/debugger tables, metadata/progress/whitespace. Attempt limits carry forward; no permutation. Cumulative38matches/two completed units,22 currentinitfiles87C20originalASM remain; goal active/incomplete, no memory.",
+  "ledger_note": "ECCC one prepared declaration/first-assignment root remains full212 CURRENT55, ten register-only rows. Read-only preview four supported forms including baseline; no compiler search run, explicit one-command permission pending. Existing EBC4/EDA0 full0/layout and clean BATCH_COMPLETE1833 tests38.095s37skip; exact US ROM and linked tables, metadata/progress/whitespace pass. No new match/unit or shared dependency changes. Cumulative38 matches/two completed units,22 init files87 C candidates20 original ASM remain; goal incomplete, no memory.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
     "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
@@ -1996,6 +2005,51 @@
       },
       "permutation_eligible": false,
       "reason": "Stack operand differences remain; no register-only search authorized or performed. Distinct actual cursor form exhausted, no equivalent handle/scope/formal/storage/address probes without independent new evidence and justified budget."
+    },
+    "func_8000ECCC": {
+      "source": "src/main/init_EB00.c",
+      "full_span_bytes": 212,
+      "focused_score": 55,
+      "attempt_record": "b00d7ce7813e497aa2f084a7411bb800",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms_this_preparation": 1,
+      "prepared_function_sha256": "a0b66c7b3050fd94094c799b820c864faa22d2152dade3b53548760288180e7e",
+      "diagnostics": {
+        "base_frame_instruction": "0:    addiu   sp,sp,-0x28",
+        "current_frame_instruction": "178 124:    addiu   sp,sp,-0x28",
+        "missing_or_extra": 0,
+        "opcode_or_control_flow": 0,
+        "operand_or_constant": 0,
+        "register_only": 10,
+        "stack_rows": 0
+      },
+      "preparation": "Separate the existing value and remaining declarations from their same first assignments. No assignment reordering, width, ABI, memory effect or control-flow change. Compiler result is unchanged.",
+      "permutation_eligible": true,
+      "permission_proposal": {
+        "identifier": "func_8000ECCC",
+        "command": "./conker permute func_8000ECCC --budget 32",
+        "hypothesis": "Untried declaration order and first-assignment scope forms of the two actual locals may recover the ten tail register roles; all existing reads, writes, calls and control flow are preserved.",
+        "fresh_score": 55,
+        "full_span_bytes": 212,
+        "attempt_record": "b00d7ce7813e497aa2f084a7411bb800",
+        "source": "src/main/init_EB00.c",
+        "prepared_function_sha256": "a0b66c7b3050fd94094c799b820c864faa22d2152dade3b53548760288180e7e",
+        "supported_forms": 4,
+        "untried_forms": 3,
+        "compiler_searches_run": 0,
+        "variant_form_sha256": [
+          "a0b66c7b3050fd94094c799b820c864faa22d2152dade3b53548760288180e7e",
+          "7630c0df5bf8f4d63be49dbc9f4149e15ade21eccbca20c3bbe178eb438cc0da",
+          "4aab802e89814489b450e24995628835aeac6071a98389db05cf6261cb0b57b4",
+          "e20c737896e89d207ba11134081b3c4a46116419cb1dc3fce4befdac6538c04c"
+        ],
+        "shared_changes": false,
+        "stack_shapes": false,
+        "status": "pending explicit human permission; UI acceptance is not approval",
+        "requested_utc": "2026-10-05T00:37:11.046851+00:00"
+      },
+      "acceptance": "Nonzero candidate; no match or unit credit. Canonical GLOBAL_ASM retained."
     }
   },
   "previous_checkpoint_validation": {
@@ -2080,6 +2134,39 @@
         "func_8000349C": {
           "score": 0,
           "attempt_record": "695e6a1e395741ddaf9e3959269bdeb2",
+          "layout": "preserved"
+        }
+      },
+      "linked_tables": {
+        "main_queue_bytes": 32,
+        "debugger_bytes": 208,
+        "rom_equal": true
+      }
+    },
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "FE88 consumed-formal cursor53 rejected against fresh baseline18; exact original C body restored and independent full104 recovery18 performed before supported defer. No source or shared implementation changes, new C matches or units. Existing F9D4/1001C pass independent full-span0/layout. Clean canonical US ROM, both linked tables, tests, metadata/progress/whitespace pass; nonzeroFE88 remains unaccepted.",
+      "batch_ids": [
+        "func_8000F9D4",
+        "func_8001001C"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1833,
+      "skipped": 37,
+      "test_seconds": 35.242,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-05T00:18:00.777189+00:00",
+      "additional_focused_checks": {
+        "func_8000F9D4": {
+          "score": 0,
+          "attempt_record": "d544f6cbc50f4f3da53b6408c70bd755",
+          "layout": "preserved"
+        },
+        "func_8001001C": {
+          "score": 0,
+          "attempt_record": "603ee08ed8fc4c6587406bb5d56e897f",
           "layout": "preserved"
         }
       },

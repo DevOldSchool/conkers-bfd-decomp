@@ -177,8 +177,11 @@ s32 func_80010344(s32, void *, u32, s16, u16);
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000ECCC CURRENT (55) */
 s32 func_8000ECCC(SoundQueuedState *state, s32 arg1, s32 arg2,
                  s32 arg3, s32 arg4, s32 arg5, u16 *output) {
-    u16 value = *output;
-    s32 remaining = (s16)state->packed;
+    u16 value;
+    s32 remaining;
+
+    value = *output;
+    remaining = (s16)state->packed;
 
     if (value != 0) {
         state->packed = ((u32)value << 16) | (state->packed & 0xFFFF);
