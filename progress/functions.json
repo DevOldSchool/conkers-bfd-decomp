@@ -93358,7 +93358,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 475,
-        "reason": "Checkpoint43 iteration-local start-address snapshot and branch-local insertion-head pointer both neutral475 (ba920842,38d10872), despite new11BB8 lifetime evidence. Best475 independently restored c8bbc3ea. Full436 frame30/allhomes exact. Residual range-end A0vsT7 drives35 temporary register rows; early queue ADDIU, late buffer LW and four-byte span shortage. Prior named/reused range-end, wordbuffer and scoped insertion forms remain exhausted; no further equivalent scopes without new evidence. No ABI/shared/ASM/padding changes.",
+        "reason": "Checkpoint57 full436 CURRENT475 independently restoredde242fa9. Signed actual start snapshot plus explicit unsigned comparison/arithmetic neutral475; raw lacks saved-anchor MOVE so new sibling pointer-advance mechanism is inapplicable. Prior scoped start/head, named/reused rangeend and bufferword families exhausted. Remaining rangeendA0 versusT7 shifts35temporaries; earlyqueueADDIU/latebufferLW and branch target differ. No ABI/shared/ASM changes or artificial pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93543,7 +93543,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 65,
-        "reason": "Checkpoint55 full216 CURRENT65 improves475: actual anchor advances to post-store reloaded next while saved anchor is captured after insertion writes. All opcodes/control/order/fullspan now exact; twelve register rows childA0 vsA2 and managerA2 vsA3 remain. Early snapshot125, typed firstfield reload neutral65, nested late-snapshot scope720 rejected. Best3f8f4a1e independently restored. No padding, artificial pressure, ABI/shared/ASM changes.",
+        "reason": "Checkpoint57 full216 CURRENT65 independently restored4086c05a. All operations/order/control/span exact,12register rows childA0/rawA2 and managerA2/rawA3. New short owner-slot scope neutral65; explicit manager pointer1395 folds cachedbase into member addresses. Prior typed firstfield read neutral65 and late savedanchor scope720 also exhausted. Preserve consumed-anchor transition and late saved-anchor copy from checkpoint55; no shared/ABI/ASM changes or artificial pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94871,7 +94871,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 18,
-        "reason": "Preserve original direct-return typed record candidate at independently recovered full104 US CURRENT18, 90b442963aa541b6a8093179d8af23a1. Prior actual handle capture20 and valid-block pointer scope83 exhausted. One distinct consumed records-formal cursor revision53 (179bb38aa40f4f0094e19abf47c1ba3f) recovers pointer addition order but retains a3 instead of v1, shrinks frame18 versus raw20 and uses real formal home18 rather than required1C. Exact original body restored and fresh recovery18 performed before defer. Residual one commuted ADDU plus two pointer spill offsets18versus1C; stack differences exclude register-only permutation. No padding, extra homes, dummy reads, artificial pointer pressure or equivalent handle/scope/formal/storage/address retries without independent new evidence and justified budget. No source/shared/ABI/SDK/header/ASM/compiler/matching-tool changes retained, no match/unit credit.",
+        "reason": "Checkpoint57 original full104 CURRENT18 independently restored424165a4. New actual result local720 and signed handle snapshot625 both growframe28; signedhandle recovers1C spill but addsANDI, loses incomingMOVE/branchlikely. Two new revisions rejected. Remaining commutedADDU plus pointer spill18/raw1C; prior narrowhandle20, blockscope83 and consumedformal53 exhausted. No padding, extra homes/reads, artificial pressure or shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
