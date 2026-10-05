@@ -44,6 +44,8 @@ matches the work you intend to do.
 
 - [Research evidence index](evidence/README.md) groups boundary, matching, library,
   asset and runtime proof records.
+- [Local soundtrack listening and naming](soundtrack-preview.md) renders game-sample
+  music previews with stable IDs, qualified album comparison leads and naming drafts.
 - [RZIP and asset extraction](rzip-assets.md) documents the ROM asset layout,
   extraction commands, proven audio, texture, interface, and model formats, and
   their evidence boundaries.
@@ -83,3 +85,5 @@ Preserve evidence paths referenced by source or metadata when editing guides.
 
 Use the supported `./conker` commands for inventory and generated-document
 changes instead of editing generated files or canonical JSON by hand.
+
+- [Retail US album correspondence review](evidence/us_album_correspondences.md): all 45 supplied album entries, qualified candidates and unresolved reasons.

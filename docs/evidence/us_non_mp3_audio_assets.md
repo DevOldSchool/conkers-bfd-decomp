@@ -73,6 +73,7 @@ sixteen active tracks.
 ./conker audio-assets extract --rom /path/to/baserom.us.z64
 ./conker audio-assets preview --input build/assets/audio/us/sequences
 ./conker audio-assets sample-preview
+./conker audio-assets soundtrack-preview
 ```
 
 Extraction emits the three sound-bank companion payloads, the complete
@@ -104,3 +105,8 @@ players also substitute generic instruments because the `B1` graph and
 wavetable previews are not assembled into a General MIDI soundfont. It therefore
 validates event decoding, notes, timing, tempo, controllers, programs, and loop
 locations, but not final Conker timbres or full looping playback.
+
+The separate [soundtrack listening desk](../soundtrack-preview.md) renders those
+events into approximate single-pass WAVs with the extracted B1 samples and
+provides a local naming workflow. This does not change the generic MIDI
+preview's contract or establish native playback fidelity or track identities.
