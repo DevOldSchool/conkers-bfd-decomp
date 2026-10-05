@@ -15846,8 +15846,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1604,
-        "reason": "New manual candidate improved from 3055 to 1604; remaining parameter normalization, register allocation and coordinate evaluation scheduling.",
+        "current_score": 2294,
+        "reason": "Best valid CURRENT2294 after wrapping loop index and explicit raw word count/byte normalization; final record home restored with actual volatile parameter. Old1604 rejected for unbounded signed loop. Frame50, zero stack rows; prologue homes, saved registers, FP operand order and coordinate load scheduling remain. Two fresh revisions exhausted; no shared edits or other declarations/callers found.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -39026,7 +39026,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 567,
-        "reason": "Independent exact proposal improved633 to567: actual numerator separate from ratio, direct slot/offset expressions preserve reload after call. Frame and real homes unchanged; derived spills24/28 and time/numerator/ratio FP identities now exact. Remaining duplicate-zero/FP interpolation scheduling; full proposal and proof in resource-slot-review.",
+        "reason": "Valid CURRENT567 retained with wrapping slot shifts/products replacing invalid signed arithmetic baseline. Early real X-difference register snapshot regressed628 with FP allocation and spill changes, discarded. Frame60; duplicate-zero transport and FP interpolation scheduling remain. Two fresh revisions exhausted, no ABI/shared changes; prior real numerator and direct reloads preserved.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -65329,8 +65329,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 298,
-        "reason": "Typed 0x24 hit record and concrete call signatures: 658 to 298 after retaining the unused helper word at full width and preserving integer address evaluation. Opaque owner plus suffix-scoped random value stayed 298. Remaining owner-load scheduling, six GPR rows and random spill offset.",
+        "current_score": 188,
+        "reason": "Valid CURRENT188 from298: actual volatile incoming owner home restores all GPR assignments. Wrapping actor-index product and angle offsets repair invalid arithmetic baseline. Frame78, raw random home38 vsC3C and first-call argument scheduling remain; two fresh revisions exhausted. No shared dependency or callee declaration changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -72963,7 +72963,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 90,
-        "reason": "Raw callee evidence removes phantom a0/a1 arguments:1514AB5C has12 ABI words with leading f12/f14 floats, and1516972C takes one pointer. Typed state first1206; direct actual fields98; separate initialization pointer232 discarded; declaration order reaches90 with exact frame/stack. Derived-state rematerialization and threshold load order remain. Existing151A73EC rechecks0.",
+        "reason": "Valid CURRENT90 baseline retained. Actual word-address spelling neutral90; real threshold snapshot regressed377 and frame50/raw48, discarded. Prior separate initialization pointer232 already discarded. Derived-state V1 rematerialization and threshold/velocity load order remain; two fresh non-improving revisions exhausted, no supported untried hypothesis or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -82982,8 +82982,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 26,
-        "reason": "Real near/far transform outputs and concrete large-call contracts246. Reusing one matrix pointer860 discarded; reloading the final owner into its actual word argument reaches26. Coherent real-field workspace1155 discarded. Best26 has one commuted integer-add row and two matrix spill-offset rows; no dummy storage or volatile additions.",
+        "current_score": 16,
+        "reason": "Valid CURRENT16 improves26 by explicit actual matrix word-address operand order. Actual volatile home assigned at first call regressed376/frameB0, discarded; prior workspace1155 and matrix reuse860 not repeated. Best frameA8, all GPR/opcode/control exact; only SW/LW matrix home80 versusraw88 remain. Two fresh revisions exhausted; no dummy padding, ABI or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",

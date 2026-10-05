@@ -1063,8 +1063,8 @@ void func_1500BAB8(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
 #endif /* CONKER_DEFERRED_CANDIDATE func_1500BAB8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_36680/func_1500BAB8.s")
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BC7C CURRENT (1604) */
-void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) {
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1500BC7C CURRENT (2294) */
+void func_1500BC7C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u32 volatile arg4, s16 **arg5) {
     f32 (*var_s0)[2];
     s16 x0;
     s16 y0;
@@ -1072,16 +1072,16 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
     f32 temp_fv0;
     f32 temp_fv1;
     s32 count;
-    s32 var_s1;
+    u32 var_s1;
     u32 temp_v0_2;
     u32 var_s3;
     s16 *temp_t0;
     s16 *temp_v0;
     s16 *temp_v1;
 
-    count = arg0;
+    count = (s16)arg0;
     var_s1 = 0;
-    if (arg0 != 0) {
+    if (count != 0) {
         var_s0 = D_80095C64;
         var_s3 = arg4;
         do {
@@ -1093,11 +1093,11 @@ void func_1500BC7C(s16 arg0, u8 arg1, s32 arg2, s32 arg3, u32 arg4, s16 **arg5) 
             z0 = temp_t0[2];
             temp_fv0 = var_s0[0][0];
             temp_fv1 = var_s0[0][1];
-            temp_v0_2 = func_1500AF08(var_s3, arg2, arg3, (s32) (s16) (s32) ((((f32) temp_v0[0] - (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)) * temp_fv1) + (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)), (s32) ((((f32) temp_v0[1] - (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)) * temp_fv1) + (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)), (s32) ((((f32) temp_v0[2] - (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)) * temp_fv1) + (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)), 0, arg1, (s32) var_s3);
+            temp_v0_2 = func_1500AF08(var_s3, arg2, arg3, (s32) (s16) (s32) ((((f32) temp_v0[0] - (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)) * temp_fv1) + (((f32)(temp_v1[0] - x0) * temp_fv0) + (f32)x0)), (s32) ((((f32) temp_v0[1] - (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)) * temp_fv1) + (((f32)(temp_v1[1] - y0) * temp_fv0) + (f32)y0)), (s32) ((((f32) temp_v0[2] - (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)) * temp_fv1) + (((f32)(temp_v1[2] - z0) * temp_fv0) + (f32)z0)), 0, arg1 & 0xFF, (s32) var_s3);
             var_s1 += 1;
             var_s0++;
             var_s3 = temp_v0_2;
-        } while (var_s1 != count);
+        } while ((s32)var_s1 != count);
         arg4 = temp_v0_2;
     }
     D_800DDBD0[arg2] = 0x21;
