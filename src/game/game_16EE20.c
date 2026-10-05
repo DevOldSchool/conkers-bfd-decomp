@@ -53,6 +53,7 @@
 #define trig_cos_turn256_lut_folded func_151423D8
 #define matrix_fixed_build_xz_y_scaled_transform func_15142838
 #define matrixf_build_xz_y_scaled_transform func_15142914
+#define color_pick_random_palette_rgb func_151429E0
 #define cubic_lagrange_weight_minus_one func_15142A80
 #define cubic_lagrange_weight_zero func_15142AC0
 #define cubic_lagrange_weight_one func_15142B04
@@ -63,6 +64,8 @@
 #define trig_scaled_sin_cos_turn256_lut func_15143874
 #define scalar_clamp_s32_in_place func_15143DA8
 #define vec3f_length func_15143E64
+#define gfx_compute_primitive_rgba_by_mode func_151441A4
+#define gfx_compute_environment_rgba_by_mode func_151442FC
 #define scalar_wrap_s32_inclusive func_151444DC
 #define scalar_wrap_f32_preserve_endpoints func_15144528
 #define angle_wrap_degrees_f32_preserve_endpoints func_15144BC8
@@ -709,7 +712,7 @@ void matrixf_build_xz_y_scaled_transform(void *arg0, f32 arg1, f32 arg2, f32 arg
 s32 func_150ADA20(); /* extern */
 extern u8 D_8008A160[];
 
-void func_151429E0(u8 arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
+void color_pick_random_palette_rgb(u8 arg0, u8 *arg1, u8 *arg2, u8 *arg3) {
     u8 *entry;
 
     entry = ((func_150ADA20() & 3) * 3) + (arg0 * 0xC) + D_8008A160;
@@ -1413,7 +1416,7 @@ s32 func_1514401C(u8 arg0, s32 *arg1, s32 *arg2, u8 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_1514401C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_1514401C.s")
-void func_151441A4(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
+void gfx_compute_primitive_rgba_by_mode(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, s32 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
     s16 temp_v0;
     s16 temp_v0_2;
 
@@ -1458,7 +1461,7 @@ void func_151441A4(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5,
         return;
     }
 }
-void func_151442FC(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
+void gfx_compute_environment_rgba_by_mode(s16 *arg0, s16 *arg1, s16 *arg2, s16 *arg3, u8 arg4, u8 arg5, u8 arg6, u8 arg7, u8 arg8, u8 arg9, u8 arg10, u8 arg11, u8 arg12, u8 arg13) {
     s16 temp_v0;
     s16 temp_v0_2;
     s16 temp_v0_3;
