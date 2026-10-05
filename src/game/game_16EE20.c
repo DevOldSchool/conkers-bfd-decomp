@@ -50,6 +50,15 @@
 /* Keep address symbols for linking and registered match evidence. */
 #define actor_get_effect_selector_callback_index func_15141C0C
 #define actor_request_timed_effect_handler func_15141DA4
+#define matrix_fixed_build_xz_y_scaled_transform func_15142838
+#define matrixf_build_xz_y_scaled_transform func_15142914
+#define cubic_lagrange_weight_minus_one func_15142A80
+#define cubic_lagrange_weight_zero func_15142AC0
+#define cubic_lagrange_weight_one func_15142B04
+#define cubic_lagrange_weight_two func_15142B44
+#define vec3f_length func_15143E64
+#define vec3f_cross func_151450B4
+#define vec3f_normalize_checked func_15145128
 
 /* Reviewed bank-01 model records; descriptive labels, not original symbols.
  * See config/model-semantic-names.json.
@@ -650,7 +659,7 @@ void func_15142600(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 void func_150A7790(void *, s32);
 void func_150A8050(void *, f32, f32, f32);
 
-void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
+void matrix_fixed_build_xz_y_scaled_transform(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
     f32 transform[4][4];
 
     func_150A8050(transform, arg3, arg4, arg5);
@@ -671,7 +680,7 @@ void func_15142838(s32 arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f
 /* Call context: func_150A8050: unique active project prototype */
 void func_150A8050(void *, f32, f32, f32);
 
-void func_15142914(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
+void matrixf_build_xz_y_scaled_transform(void *arg0, f32 arg1, f32 arg2, f32 arg3, f32 arg4, f32 arg5, f32 arg6, f32 arg7, f32 arg8) {
     func_150A8050(arg0, arg3, arg4, arg5);
     *(f32 *)((u8 *)arg0 + 0x30) = arg6;
     *(f32 *)((u8 *)arg0 + 0x34) = arg7;
@@ -707,18 +716,18 @@ s32 func_15142A5C(void *arg0) {
 }
 extern f32 D_800A5624;
 
-f32 func_15142A80(f32 arg0) {
+f32 cubic_lagrange_weight_minus_one(f32 arg0) {
     return (1.0f - arg0) * (arg0 - 2.0f) * arg0 * D_800A5624;
 }
-f32 func_15142AC0(f32 arg0) {
+f32 cubic_lagrange_weight_zero(f32 arg0) {
     return (arg0 + 1.0f) * (arg0 - 1.0f) * (arg0 - 2.0f) * 0.5f;
 }
-f32 func_15142B04(f32 arg0) {
+f32 cubic_lagrange_weight_one(f32 arg0) {
     return (2.0f - arg0) * (arg0 + 1.0f) * arg0 * 0.5f;
 }
 extern f32 D_800A5628;
 
-f32 func_15142B44(f32 arg0) {
+f32 cubic_lagrange_weight_two(f32 arg0) {
     return (arg0 + 1.0f) * (arg0 - 1.0f) * arg0 * D_800A5628;
 }
 extern s32 D_800DD1FC;
@@ -1259,7 +1268,7 @@ s16 func_15143E24(void *arg0) {
 }
 f32 sqrtf(f32);
 #pragma intrinsic(sqrtf)
-f32 func_15143E64(void *arg0) {
+f32 vec3f_length(void *arg0) {
     f32 temp_fa0;
     f32 temp_fa1;
     f32 temp_fv1;
@@ -1767,7 +1776,7 @@ typedef struct {
     f32 z;
 } Game16EE20Vector3;
 
-void func_151450B4(void *, void *, void *);
+void vec3f_cross(void *, void *, void *);
 void *memcpy(void *, const void *, u32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_15144E80 CURRENT (1615) */
@@ -1815,19 +1824,19 @@ s32 func_15144E80(void *arg0, void *arg1, void *arg2, void *arg3) {
     second_edge.x = vertices[2].x - vertices[1].x;
     second_edge.y = vertices[2].y - vertices[1].y;
     second_edge.z = vertices[2].z - vertices[1].z;
-    func_151450B4(&first_edge, &second_edge, arg3);
-    func_151450B4(&first_edge, arg3, arg1);
+    vec3f_cross(&first_edge, &second_edge, arg3);
+    vec3f_cross(&first_edge, arg3, arg1);
     memcpy(arg2, &first_edge, sizeof(first_edge));
     return 1;
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15144E80 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15144E80.s")
-void func_151450B4(void *arg0, void *arg1, void *arg2) {
+void vec3f_cross(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) ((*(f32 *)((u8 *)arg0 + 4) * *(f32 *)((u8 *)arg1 + 8)) - (*(f32 *)((u8 *)arg1 + 4) * *(f32 *)((u8 *)arg0 + 8)));
     *(f32 *)((u8 *)arg2 + 4) = (f32) ((*(f32 *)((u8 *)arg0 + 8) * *(f32 *)((u8 *)arg1 + 0)) - (*(f32 *)((u8 *)arg1 + 8) * *(f32 *)((u8 *)arg0 + 0)));
     *(f32 *)((u8 *)arg2 + 8) = (f32) ((*(f32 *)((u8 *)arg0 + 0) * *(f32 *)((u8 *)arg1 + 4)) - (*(f32 *)((u8 *)arg1 + 0) * *(f32 *)((u8 *)arg0 + 4)));
 }
-s32 func_15145128(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
+s32 vec3f_normalize_checked(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
     f32 *arg2, f32 *arg3) {
     f32 magnitude_squared;
     f32 inverse;
@@ -2171,7 +2180,7 @@ s32 func_15145AD8(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
     second.x = arg1->x;
     second.y = arg1->y * scale;
     second.z = arg1->z;
-    if (func_15145128(&second, &second,
+    if (vec3f_normalize_checked(&second, &second,
                       &sp4C, &sp38) == 0) {
         return 0;
     }
@@ -2394,10 +2403,10 @@ s32 func_15146078(f32 *direction, Game16EE20Vector3 *first,
         first->x = 1.0f;
         ((f32 *)first)[first_axis] = 1.0f;
         ((f32 *)first)[second_axis] = -direction[0] - direction[first_axis] / direction[second_axis];
-        func_151450B4(first, direction, second);
-        func_151450B4(second, direction, first);
-        func_15145128(first, first, &magnitude, &inverse);
-        func_15145128(second, second, &magnitude, &inverse);
+        vec3f_cross(first, direction, second);
+        vec3f_cross(second, direction, first);
+        vec3f_normalize_checked(first, first, &magnitude, &inverse);
+        vec3f_normalize_checked(second, second, &magnitude, &inverse);
     }
     return 1;
 }
