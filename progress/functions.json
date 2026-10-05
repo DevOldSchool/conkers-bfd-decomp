@@ -70088,6 +70088,12 @@
       "symbol": "func_150F64B0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 438,
+        "reason": "Best valid candidate CURRENT 438; initial 458, saved-pointer alias revision worsened to 668, final generation-load/RNG-order revision 438. Same 0xC8 frame; remaining pointer and aggregate stack homes, six register differences, four reordered load rows. Next hypothesis: group light/vector locals by their actual lifetimes, preserving six-byte descriptor and three-coordinate outputs. Two manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71264,6 +71270,12 @@
       "symbol": "func_150B6110"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 290,
+        "reason": "Useful complete script/camera implementation; CURRENT 290 after 845 -> 590 -> 290, initial plus two revisions exhausted. Frame 0x30 and control flow match; 27 register rows and four reordered rows remain around global script ID and final settings/float loads. Next hypothesis: explicit global ID lifetime without invented ABI or volatile fields.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90876,6 +90888,12 @@
       "symbol": "func_150C1260"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5061,
+        "reason": "Complete compilable particle/ring candidate CURRENT 5061 (initial 5517). Byte angle/channel revision improves frame 0x160 to 0x158, raw 0x148. Remaining constant-address hoisting, saved registers, packet homes and FP scheduling require broader lifetime work; stop first-pass here. Next hypothesis: packet/scalar lifetimes that avoid two hoisted constant address registers.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -91086,6 +91104,12 @@
       "symbol": "func_150FB4C0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4624,
+        "reason": "Useful typed emitter candidate CURRENT 4624 on both initial and retained-flag revision. All aggregate stack offsets and 0x140 frame match; low-byte flag caching/save set, FP scheduling and integer register assignment differ. Register keyword had no emitted effect; stop plateau. Next hypothesis: evidence-backed byte parameter contract or explicit byte local, retaining existing external ABI and complete descriptors.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
