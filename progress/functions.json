@@ -94145,7 +94145,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 605,
-        "reason": "Preserve CURRENT605 independently restored33633c69. Full236 residual remains upper-bound branch direction, extra exit branch and four span rows. Batch33 outer function exit670, conditional-expression store1286, and join label before common halfword store670 all rejected; latter two670 forms canonicalize to store in exit-branch delay instead of raw likely-store plus RA-load delay. Prior explicit else/return670, direct earlyreturn675 and separate positive clamp885 exhausted. No source improvement, ABI/shared/ASM changes or padding.",
+        "reason": "Checkpoint66 full236 CURRENT605 independently restored000c80b0. Sequential clamps1125 retain extra upper check and change six control rows; separate difference/quotient1146 adds MOVE and changes ten register rows. Both new hypotheses exhausted. Prior structured else, early returns, outer exit, ternary and shared-store labels exhausted. Best retains exact registers/frame but upper-clamp branch duplication and epilogue scheduling remain. No ABI/shared/ASM or artificial storage changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94724,7 +94724,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "CURRENT230 full420 US restored8299f40d. Frame80, selected78/result7C/bestXYZ68/64/60 and registers exact; selected reload occupies B delay instead of preceding it, missing duplicated x0 load leaves body4short. Batch26 three new revisions: branch x0 snapshot reusing dx720 recovers raw CFG/full420 but V1 vs T8 and11 downstream regs; duplicated branch calls4361 do not tail-merge; separate origin snapshot879 adds frame88/20stackrows. Inherited seven indexed/control/temporary forms remain exhausted. Preserve s16 own coordinates, s32 near/far with casts; no shared ABI/ASM changes. No equivalent snapshot/call/CFG attempts without new evidence.",
+        "reason": "Checkpoint66 full420 CURRENT230 independently restored80541ed8. Per-iteration record pointer392 expands frame88 and shifts22stackrows; iteration-local delta scope302 shifts bestXYZ homes70/6C/68 instead of68/64/60. Neither fixes selected reload and missing duplicated x0 load. Prior branch x0 reuse720, separate origin879, branch calls4361 and inherited indexed/control forms exhausted. Best body four bytes short; no full-span match credit. No ABI/shared/ASM changes, artificial pressure or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
