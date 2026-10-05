@@ -35,7 +35,12 @@ PROFILE_MAIN_RODATA_VERIFY := $(PROFILE_MAIN_RODATA_VERIFY_$(PROFILE))
 PROFILE_MAIN_VI_BSS_SCRIPT_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_34E0.o,$(C_OBJS)),config/main/us-vi-bss.ld)
 PROFILE_MAIN_VI_BSS_SCRIPT := $(PROFILE_MAIN_VI_BSS_SCRIPT_$(PROFILE))
 PROFILE_MAIN_VI_BSS_VERIFY := $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),scripts/verify_main_vi_bss.py)
-LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
+PROFILE_MAIN_PRIVATE_DATA_SCRIPT_us := build/us/main-private-data.ld
+PROFILE_MAIN_PRIVATE_DATA_SCRIPT := $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT_$(PROFILE))
+PROFILE_MAIN_PRIVATE_DATA_VERIFY_us := scripts/main_private_data.py
+PROFILE_MAIN_PRIVATE_DATA_VERIFY := $(PROFILE_MAIN_PRIVATE_DATA_VERIFY_$(PROFILE))
+MAIN_PRIVATE_DATA_SOURCES := $(foreach source,$(C_SRCS),--source $(source))
+LDFLAGS := -m elf32btsmip $(if $(PROFILE_RODATA_SCRIPT),-T $(PROFILE_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_RODATA_SCRIPT),-T $(PROFILE_MAIN_RODATA_SCRIPT)) $(if $(PROFILE_MAIN_VI_BSS_SCRIPT),-T $(PROFILE_MAIN_VI_BSS_SCRIPT)) $(if $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT),-T $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)) -T $(BUILD_DIR)/conker.$(PROFILE).ld
 NORMALIZED_ASM_DIR := $(BUILD_DIR)/normalized-asm
 BOOTSTRAP_SYMBOLS := $(BUILD_DIR)/bootstrap-symbols.ld
 ASSET_BINS_us := assets/boot.bin assets/2D4B0.bin assets/1A33E8.bin
@@ -231,7 +236,7 @@ prepare-reference:
 build: prepare
 	$(MAKE) --no-print-directory raw-build PROFILE=$(PROFILE)
 
-raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY) $(PROFILE_MAIN_RODATA_VERIFY) $(PROFILE_MAIN_VI_BSS_VERIFY)
+raw-build: $(BUILD_DIR)/$(ROM_NAME) $(PROFILE_RODATA_VERIFY) $(PROFILE_MAIN_RODATA_VERIFY) $(PROFILE_MAIN_VI_BSS_VERIFY) $(PROFILE_MAIN_PRIVATE_DATA_VERIFY)
 ifneq ($(PROFILE_RODATA_VERIFY),)
 	python3 $(PROFILE_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
 endif
@@ -240,6 +245,9 @@ ifneq ($(PROFILE_MAIN_RODATA_VERIFY),)
 endif
 ifneq ($(PROFILE_MAIN_VI_BSS_VERIFY),)
 	python3 $(PROFILE_MAIN_VI_BSS_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+endif
+ifneq ($(PROFILE_MAIN_PRIVATE_DATA_VERIFY),)
+	python3 $(PROFILE_MAIN_PRIVATE_DATA_VERIFY) verify --elf "$(BUILD_DIR)/conker.$(PROFILE).elf" $(MAIN_PRIVATE_DATA_SOURCES)
 endif
 	@cmp -s "$(BUILD_DIR)/$(ROM_NAME)" "$(ROM_PATH)" || { \
 		printf '%s\n' "build mismatch: $(BUILD_DIR)/$(ROM_NAME)" >&2; exit 1; \
@@ -252,7 +260,15 @@ $(BUILD_DIR)/$(ROM_NAME): $(BUILD_DIR)/conker.$(PROFILE).elf
 $(BOOTSTRAP_SYMBOLS): $(ASM_SRCS) $(C_SRCS) scripts/create_bootstrap_symbols.py
 	python3 scripts/create_bootstrap_symbols.py --output $@ asm/$(PROFILE) $(C_SRCS)
 
-$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT)
+# Selection can change through supported integration; regenerate cheaply and
+# preserve the file timestamp when the reviewed active mappings are unchanged.
+.PHONY: main-private-data-refresh
+main-private-data-refresh:
+
+build/us/main-private-data.ld: config/main/private-data.json scripts/main_private_data.py progress/source_units.json main-private-data-refresh
+	python3 scripts/main_private_data.py linker --output $@ $(MAIN_PRIVATE_DATA_SOURCES)
+
+$(BUILD_DIR)/conker.$(PROFILE).elf: $(BUILD_DIR)/conker.$(PROFILE).ld $(BOOTSTRAP_SYMBOLS) $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_DEPS) $(PROFILE_RODATA_SCRIPT) $(PROFILE_MAIN_RODATA_SCRIPT) $(PROFILE_MAIN_VI_BSS_SCRIPT) $(PROFILE_MAIN_PRIVATE_DATA_SCRIPT)
 	$(LD) $(LDFLAGS) -T $(BOOTSTRAP_SYMBOLS) -o $@ $(ASM_OBJS) $(C_OBJS) $(ASSET_OBJS) $(PROFILE_LIB_INPUTS)
 
 $(NORMALIZED_ASM_DIR)/%.s: asm/%.s scripts/normalize_asm.py

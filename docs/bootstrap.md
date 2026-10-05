@@ -6,6 +6,12 @@ fresh or reset cloud executors also need [cloud setup and recovery](cloud-matchi
 
 ## Local ROM setup
 
+Run `./conker host-setup` once with Python 3.12 or newer. This installs the
+pinned host helper and full-suite test dependencies into ignored
+`build/host-python`; `./conker` selects it automatically. `host-check`,
+`doctor`, matching readiness and batch verification reject missing or stale
+dependencies before Docker/build work. Setup never changes global Python.
+
 The reviewed regional revisions are pinned in `config/roms.json`:
 
 | Release | Status | SHA-1 |

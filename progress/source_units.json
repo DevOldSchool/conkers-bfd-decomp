@@ -19563,15 +19563,15 @@
       "functions": [
         "func_80002DB0"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x2E50",
           "start": "0x2DB0",
-          "state": "raw_asm"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_2DB0.c"
+      "source": "src/done/main/init_2DB0.c"
     },
     {
       "boundary_evidence": {

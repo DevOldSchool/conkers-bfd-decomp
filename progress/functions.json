@@ -92549,22 +92549,21 @@
       "symbol": "func_800014C4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Preserve SDK-proven private static byte flag and true aligned volatile MMIO writes at full US CURRENT20. Historical external-flag forms845/1060/855 exhausted; private-storage root410/20/410 plus one SDK-backed named volatile array0 view410 exhausted. Supplemental attempt23cce4fb05a04e3cb583e8385f6ff44f retains both extra ADDIU instructions; exact literal20 restored. Structured diff score20 is four immediate-colored MMIO rows; six private .data versus named flag rows are uncolored and excluded from numeric score, though diagnostic classifies all ten as operand differences. Private data placement still requires independent full-ROM integration proof. No new match/unit, ABI/shared/SDK/ASM/compiler/matching-tool changes. No further equivalent field/address/array/storage revisions without independent new evidence and justified budget.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80002DB0",
           "vram": "0x80002DB0"
         }
       },
-      "source": "src/main/init_2DB0.c",
+      "source": "src/done/main/init_2DB0.c",
       "symbol": "func_80002DB0"
     },
     {
