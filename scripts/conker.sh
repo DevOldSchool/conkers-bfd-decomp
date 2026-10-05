@@ -106,6 +106,9 @@ After the raw base split map is available
   mupen-trace --spec <path> --output <build-path> [options]
                                  Record versioned model draw-state evidence from debugger stops.
   m2c [--profile us] <work-item-id>
+                                 Generate a starter; CONKER_MIPS_TO_C may select a local m2c.py.
+  m2c-context [--profile us] <source.c>
+                                 Inspect context recovered with the pinned IDO preprocessor.
                                  Generate a C starter; auto-detects main versus game overlay.
   game-asm [--profile us]        Export decompressed game-code reference assembly.
   game-index                     List reviewable US game-function proposals.
@@ -375,10 +378,21 @@ ensure_host_mips_to_c() {
 }
 
 run_host_mips_to_c() {
-    ensure_host_mips_to_c
+    local selected_m2c="${CONKER_MIPS_TO_C:-}"
+    local selected_directory
+    if [[ -n "$selected_m2c" ]]; then
+        [[ -f "$selected_m2c" ]] || die "CONKER_MIPS_TO_C must name an existing m2c.py"
+        selected_directory="$(CDPATH= cd -- "$(dirname -- "$selected_m2c")" && pwd)"
+        selected_m2c="$selected_directory/$(basename -- "$selected_m2c")"
+        [[ -d "$selected_directory/m2c" ]] || die "CONKER_MIPS_TO_C must belong to an m2c checkout"
+    else
+        ensure_host_mips_to_c
+        selected_directory="$host_mips_to_c"
+        selected_m2c="$host_mips_to_c/m2c.py"
+    fi
     CONKER_HOST_M2C=1 \
-        CONKER_MIPS_TO_C="$host_mips_to_c/m2c.py" \
-        PYTHONPATH="$host_mips_to_c${PYTHONPATH:+:$PYTHONPATH}" \
+        CONKER_MIPS_TO_C="$selected_m2c" \
+        PYTHONPATH="$selected_directory${PYTHONPATH:+:$PYTHONPATH}" \
         python3 scripts/m2c.py "$@"
 }
 
@@ -878,6 +892,11 @@ case "$command" in
             fi
             run_in_container make "$command" PROFILE="$selected_profile"
         fi
+        ;;
+    m2c-context)
+        parse_profile_and_value "usage: ./conker m2c-context [--profile us] <source.c>" "$@"
+        ensure_warm_container >&2
+        run_in_warm_container python3 scripts/m2c_context.py "$selected_profile" "$selected_value"
         ;;
     m2c)
         parse_profile_and_value "usage: ./conker m2c [--profile us] <work-item-id>" "$@"
