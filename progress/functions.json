@@ -6852,8 +6852,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 15495,
-        "reason": "Manual candidate CURRENT (15495): output halfword pattern represented, but IDO peels/expands fixed-address loop rather than raw compact three-iteration loop, causing 68 control and 22 missing/extra rows; no evidence-backed next manual revision.",
+        "current_score": 3190,
+        "reason": "Improved15495 to3190 with explicit paired-loop backedge, safe unsigned address cursors, complete forty-halfword output view and consumed argument reuse. RightA1/leftV1 recovered; single-record structured loop regressed14525 via cleanup/fourway unroll. Remaining hoisted arg0 half-shift, threshold materialization, branch scheduling and tail GPR/MFLO order. No concrete new source-shape hypothesis; 3 revisions, deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -14133,8 +14133,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4915,
-        "reason": "single low-usage manual candidate remained CURRENT (4915); global initialization and loop scheduling differ",
+        "current_score": 30,
+        "reason": "Task deferred-exact-20261005:5 new hypotheses/5 finishes,4915->1000->3930->130->2105->30. Existing u64 table consumer and raw paired load/OR/store prove64bitmask layout. Complete69-entry view plus indexed postincrement do-loop recovers all176B instructions/registers/control/frame. Sole6diffrows are equivalent-address relocation spellings: D800C3A60 highhalf/+4/+8/+228 versus rawD800C3A64/D800C3A68/D800C3C88. No CURRENT0 or matchcredit. Unsigned-index shape3930 and pointer-end loop2105 exhausted. Further acceptance needs separately authorized canonical symbol/reference alias handling; no tool/header/ASM/compiler changes made. Preserve valid30, unitmixed.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -14178,8 +14178,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1833,
-        "reason": "Best candidate CURRENT 1833 after two manual revisions; main loop was unrolled while the pointer-lifetime alternative enlarged the frame, leaving saved-register allocation and first-loop shape mismatched.",
+        "current_score": 993,
+        "reason": "Improved fresh1702/stored1833 to993 with explicit clear backedge, actual common buffer address and shared index across loops; raw SLTI/BNEZ and S0 recovered. Register-volatile helper result regressed1133/frame48/extraSW; best993 restored. Remaining compiler-eliminated unused S1 result save, seven-vs-eight saved registers/stack slots and clear scratch GPRs. No fabricated consumers or padding; four revisions plus restore, deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -14273,8 +14273,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1859,
-        "reason": "Best candidate CURRENT 1859 after two manual revisions; pointer-induction loops remain, but local allocation and checksum expression scheduling plateaued, while the type/lifetime alternative regressed frame size and row count.",
+        "current_score": 1589,
+        "reason": "Improved1859 to1589 via safe address views, separate actual unmasked checksum assignment, V0 buffer reuse and V1 source/checksum phase reuse. Nine revisions plus restore; copy-exact1669 alternative preserved privately. Sequential sums2234, tail cursor lifetime1733/frame38, u16 temp1934/duplicateANDI and volatile result access1885/frame30 closed. Remaining byte3-first checksum reassociation, copy setup/scratch, tail A2 store/call materialization and result1Cvs18; no concrete new hypothesis, deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -16957,8 +16957,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 6192,
-        "reason": "CURRENT (6192): recovered the display-list writes and loop semantics, but the compiler collapses pointer temporaries and unrolls the fixed symbol-span loop, unlike the reference five-saved-register schedule; typed and void-pointer variants compile identically.",
+        "current_score": 2755,
+        "reason": "Improved6192 to2755: explicitbackedge removes unroll; advancing commandcursor restores raw18frame andfive savedregs. Registerhint and command-sized postincrement neutral2755; simpler best restored/reverified. Remaining five cursor snapshot MOVEs removed, 224Bvs244B, global setup/tablecursor scheduling and GPR allocation; no supported new hypothesis. Four manual revisions plus restoration; deferred-exact-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
