@@ -3,16 +3,18 @@
 /*
  * Reviewed source unit: src/main/init_34E0.c
  * Boundary evidence: docs/evidence/main_system_wrapper_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_800034E0
- * - func_80003658
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
+ * Storage evidence: docs/evidence/main_init_vi_layout.md
  */
 
 typedef struct ThreadState ThreadState;
-typedef struct MessageQueue MessageQueue;
+typedef struct MessageQueue {
+    ThreadState *receiveThreads;
+    ThreadState *sendThreads;
+    s32 validCount;
+    s32 first;
+    s32 messageCount;
+    void **messages;
+} MessageQueue;
 typedef struct PiHandle PiHandle;
 
 typedef struct DeviceManager {
@@ -32,6 +34,14 @@ typedef struct MessageHeader {
     MessageQueue *returnQueue;
 } MessageHeader;
 
+typedef struct ViMessage {
+    MessageHeader header;
+    void *dramAddress;
+    u32 deviceAddress;
+    u32 size;
+    PiHandle *handle;
+} ViMessage;
+
 void func_80023EB0(void);
 void func_800242B0(void);
 void func_80023790(MessageQueue *, void **, s32);
@@ -45,12 +55,12 @@ void func_800037F0(ThreadState *, s32, void (*)(void *), void *, void *, s32);
 void D_10003658(void *);
 extern DeviceManager D_8002AB70;
 extern ThreadState D_80036BA0;
-extern MessageQueue D_80037DD0;
-extern void *D_80037DE8[5];
-extern MessageHeader D_80037E00;
-extern MessageHeader D_80037E18;
+static u64 viThreadStack[512];
+static MessageQueue D_80037DD0;
+static void *D_80037DE8[5];
+static ViMessage D_80037E00;
+static ViMessage D_80037E18;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800034E0 CURRENT (350) */
 void func_800034E0(s32 priority) {
     s32 savedMask;
     s32 oldPriority;
@@ -61,12 +71,12 @@ void func_800034E0(s32 priority) {
     }
     func_80023EB0();
     func_80023790(&D_80037DD0, D_80037DE8, 5);
-    D_80037E00.type = 0xD;
-    D_80037E00.priority = 0;
-    D_80037E00.returnQueue = 0;
-    D_80037E18.type = 0xE;
-    D_80037E18.priority = 0;
-    D_80037E18.returnQueue = 0;
+    D_80037E00.header.type = 0xD;
+    D_80037E00.header.priority = 0;
+    D_80037E00.header.returnQueue = 0;
+    D_80037E18.header.type = 0xE;
+    D_80037E18.header.priority = 0;
+    D_80037E18.header.returnQueue = 0;
     func_800237C0(7, &D_80037DD0, &D_80037E00);
     func_800237C0(3, &D_80037DD0, &D_80037E18);
     oldPriority = -1;
@@ -84,7 +94,7 @@ void func_800034E0(s32 priority) {
     D_8002AB70.dma = 0;
     D_8002AB70.extendedDma = 0;
     func_800037F0(&D_80036BA0, 0, D_10003658, &D_8002AB70,
-                  &D_80037DD0, priority);
+                  (u8 *)viThreadStack + sizeof(viThreadStack), priority);
     func_800242B0();
     func_80022A60(&D_80036BA0);
     func_80022DE0(savedMask);
@@ -92,8 +102,6 @@ void func_800034E0(s32 priority) {
         func_80022BB0(0, oldPriority);
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_800034E0 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_34E0/func_800034E0.s")
 typedef struct ViContext {
     u16 state;
     u16 retraceCount;
@@ -110,26 +118,23 @@ void func_80023F3C(void);
 ViContext *func_80024400(void);
 void func_80024410(void);
 u32 func_80024770(void);
-extern u16 D_80037E30;
 extern u64 D_800429B0;
 extern u32 D_800429B8;
 extern u32 D_800429BC;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003658 CURRENT (1484) */
 void func_80003658(void *argument) {
     ViContext *context;
     DeviceManager *manager;
     MessageHeader *message;
+    static u16 D_80037E30;
     s32 first;
     u32 count;
-    u16 retrace;
 
     message = 0;
     first = 0;
     context = func_80024400();
-    retrace = context->retraceCount;
-    D_80037E30 = retrace;
-    if (retrace == 0) {
+    D_80037E30 = context->retraceCount;
+    if (D_80037E30 == 0) {
         D_80037E30 = 1;
     }
     manager = argument;
@@ -138,9 +143,8 @@ void func_80003658(void *argument) {
         switch (message->type) {
         case 0xD:
             func_80024410();
-            retrace = D_80037E30 - 1;
-            D_80037E30 = retrace;
-            if (retrace == 0) {
+            D_80037E30--;
+            if (D_80037E30 == 0) {
                 context = func_80024400();
                 if (context->messageQueue != 0) {
                     func_80023580(context->messageQueue, context->message, 0);
@@ -166,5 +170,3 @@ void func_80003658(void *argument) {
         }
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80003658 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_34E0/func_80003658.s")
