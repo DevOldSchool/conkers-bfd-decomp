@@ -24,6 +24,89 @@
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15175958.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_1517685C.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15176B84.s")
+void func_150A7790(void *, s32);
+void func_150A8050(void *, s32, s32, s32);
+void func_150A7A48(void *, void *, void *);
+void *func_15142FBC(void *, s32, s32, u8 *);
+extern u8 D_800BE9C0, D_800DDE80[], D_800A7170[];
+extern s32 D_800BE9E4, D_800DDF78[];
+extern u32 D_800DDE8C[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15176DF0 CURRENT (4354) */
+void *func_15176DF0(register void *arg0, void *arg1, s16 arg2) {
+    f32 second[4][4];
+    f32 first[4][4];
+    struct { s32 red, green, blue; } color;
+    f32 zero;
+    u8 loaded;
+    u8 *state;
+    u32 *commands;
+    u32 *matrixCommand, *segmentCommand, *syncCommand;
+    s32 model, brightness, target;
+
+    state = arg1;
+    model = state[0xED];
+    if (*(s32 *)(D_800DDE80 + model * 0x14) == 0 || D_800DDF78[model] == 0) {
+        return arg0;
+    }
+    zero = 0.0f;
+    func_150A8050(first, *(s32 *)&zero, *(s32 *)(state + 0xAC), *(s32 *)&zero);
+    func_150A8050(second, *(s32 *)(state + 0xA8), 0, *(s32 *)(state + 0xB0));
+    func_150A7A48(second, first, first);
+    first[3][0] = *(f32 *)(state + 0x98);
+    first[3][1] = *(f32 *)(state + 0x9C);
+    first[3][2] = *(f32 *)(state + 0xA0);
+    first[0][0] *= *(f32 *)(state + 0xC0);
+    first[0][1] *= *(f32 *)(state + 0xC0);
+    first[0][2] *= *(f32 *)(state + 0xC0);
+    first[1][0] *= *(f32 *)(state + 0xC0);
+    first[1][1] *= *(f32 *)(state + 0xC0);
+    first[1][2] *= *(f32 *)(state + 0xC0);
+    first[2][0] *= *(f32 *)(state + 0xC0);
+    first[2][1] *= *(f32 *)(state + 0xC0);
+    first[2][2] *= *(f32 *)(state + 0xC0);
+    func_150A7790(first, (s32)(state + (D_800BE9C0 << 6) + 0x10));
+    matrixCommand = arg0;
+    arg0 = (u8 *)arg0 + 8;
+    matrixCommand[0] = 0xDA380003;
+    matrixCommand[1] = (u32)(state + (D_800BE9C0 << 6) + 0x10);
+    segmentCommand = arg0;
+    arg0 = (u8 *)arg0 + 8;
+    segmentCommand[0] = 0xDB060004;
+    segmentCommand[1] = *(u32 *)(state + 0x94);
+    syncCommand = arg0;
+    arg0 = (u8 *)arg0 + 8;
+    syncCommand[0] = 0xE7000000;
+    syncCommand[1] = 0;
+    brightness = state[0xEC];
+    target = D_800A7170[(*(u32 *)(state + 0xE8) >> 5) & 3];
+    if (brightness != target) {
+        if (brightness < target) {
+            brightness += D_800BE9E4 * 4;
+            if (target < brightness) {
+                brightness = target;
+            }
+        } else {
+            brightness -= D_800BE9E4 * 4;
+            if (brightness < 0) {
+                brightness = 0;
+            }
+        }
+        state[0xEC] = brightness;
+    }
+    color.green = brightness;
+    color.red = brightness;
+    loaded = 0;
+    color.blue = brightness;
+    commands = func_15142FBC(arg0, 0x82CA0, 0x504A50, &loaded);
+    commands[0] = 0xFB000000;
+    commands[1] = ((color.blue & 0xFF) << 8) | ((u32)color.red << 24) |
+        ((color.green & 0xFF) << 16) | state[0xF0];
+    commands[2] = 0xDE000000;
+    commands[3] = D_800DDE8C[state[0xED] * 5];
+    return commands + 4;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15176DF0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1A20A0/func_15176DF0.s")
 typedef struct Game1770C8Packet {
     u8 bytes[0x30];

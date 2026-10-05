@@ -61,7 +61,51 @@ void func_1502AB04(s32 arg0, s32 *arg1, s32 arg2, s32 arg3) {
         } while (index != 0x10);
     }
 }
+void func_10004514(s32, s32, s32, s32);
+extern s32 D_800C3D60;
+extern Game2AB04Entry D_800C3E58;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AC88 CURRENT (2536) */
+s32 func_1502AC88(u8 *arg0, s32 arg1, s32 *arg2) {
+    union { u64 alignment; u8 bytes[64]; } transfer;
+    s32 result;
+    Game2AB04Entry saved;
+    s32 aligned;
+    s32 *values;
+    Game2AB04Entry *entry;
+    u32 index;
+    u32 shift;
+
+    arg0 = (u8 *)(((u32)arg0 + ((u32)arg1 << 3)) | 0x80000000U);
+    entry = D_800C3D68;
+    index = 0;
+    do {
+        if ((s32)arg0 == entry->address) {
+            saved = *entry;
+            for (shift = index; shift < 15U; shift++) {
+                D_800C3D68[shift] = D_800C3D68[shift + 1];
+            }
+            D_800C3E58 = saved;
+            D_800C3D68[15].kind = D_800C3D60;
+            *arg2 = D_800C3D68[15].values.value1;
+            return D_800C3D68[15].values.value0;
+        }
+        index++;
+        entry++;
+    } while (index != 16);
+    aligned = (s32)&transfer.bytes[8] & ~15;
+    D_800C3D60++;
+    func_10004514((s32)arg0 & 0x7FFFFFF0, aligned,
+                   (((s32)arg0 & 14) + 31) & ~15, 1);
+    values = (s32 *)(aligned + ((u32)arg0 & 15));
+    result = values[0];
+    *arg2 = values[1];
+    func_1502AB04(2, values, D_800C3D60, (s32)arg0);
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_1502AC88 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_57FA0/func_1502AC88.s")
+
 void func_10004514(s32, s32, s32, s32);
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_1502AF04 CURRENT (921) */

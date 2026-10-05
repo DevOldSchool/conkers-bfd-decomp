@@ -32,6 +32,148 @@ typedef struct Game127060Transform {
 } Game127060Transform;
 
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150F9BB0.s")
+typedef struct { f32 x, y, z; } Game127060Vector;
+typedef struct {
+    u8 pad0[0x48];
+    f32 width, height;
+    u8 pad50[8];
+    u8 flags;
+} Game127060FirstParams;
+typedef struct {
+    u8 pad0[0x34];
+    Game127060Vector position, direction;
+    u8 pad4C[0xC4];
+    Game127060FirstParams params;
+} Game127060First;
+typedef struct { u8 pad0[4]; f32 size; } Game127060SecondParams;
+typedef struct {
+    u8 pad0[0x34];
+    Game127060Vector position, direction;
+    u8 pad4C[0xC];
+    volatile u32 flags;
+    u8 pad5C[0x114];
+    Game127060SecondParams params;
+} Game127060Second;
+typedef struct {
+    s32 active;
+    u8 pad4[0x37];
+    u8 generation;
+    u8 pad3C[0x198];
+    u8 *transform;
+} Game127060Owner;
+typedef struct {
+    Game127060Owner *owner;
+    u8 generation;
+    u8 pad5[3];
+    Game127060First *first[2];
+    Game127060Second *second[2];
+} Game127060Group;
+typedef struct {
+    u8 pad0[0xE];
+    s16 age;
+    u8 pad10[0x18];
+    Game127060Group group;
+} Game127060Effect;
+
+void func_15145EA4(s32 *, s32 *, s32, s32);
+extern Game127060Vector D_800A1CCC, D_800A1CD8, D_800A1CE4, D_800A1CF0;
+extern f32 D_800A1D94;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FA1B8 CURRENT (2446) */
+void func_150FA1B8(Game127060Effect *effect) {
+    Game127060Vector first[2];
+    Game127060Vector second[2];
+    Game127060Vector *inputs[4];
+    Game127060Vector *outputs[4];
+    Game127060Group *group;
+    Game127060Owner *owner;
+    void *object;
+    s32 i;
+    u32 next;
+    Game127060Group *cursor;
+    Game127060FirstParams *firstParams;
+    Game127060SecondParams *secondParams;
+    f32 width, height, size;
+
+    owner = effect->group.owner;
+    group = &effect->group;
+    if (!owner->active || owner->generation != group->generation) {
+        effect->age = -1;
+        return;
+    }
+    if (owner->transform) {
+        inputs[0] = &D_800A1CCC;
+        inputs[1] = &D_800A1CD8;
+        inputs[2] = &D_800A1CE4;
+        inputs[3] = &D_800A1CF0;
+        outputs[0] = &first[0];
+        outputs[1] = &first[1];
+        outputs[2] = &second[0];
+        outputs[3] = &second[1];
+        func_15145EA4((s32 *)inputs, (s32 *)outputs, (s32)(owner->transform + 0x40), 4);
+        i = 0;
+        do {
+            cursor = (Game127060Group *)((u8 *)group + i * 4);
+            object = cursor->first[0];
+            if (object) {
+                ((Game127060First *)object)->params.flags |= 1;
+                ((Game127060First *)object)->position = first[i];
+                ((Game127060First *)object)->direction = second[i];
+            }
+            object = cursor->second[0];
+            if (object) {
+                next = ((Game127060Second *)object)->flags | 2;
+                ((Game127060Second *)object)->flags = next;
+                ((Game127060Second *)object)->flags = next & ~4;
+                ((Game127060Second *)object)->position = first[i];
+                ((Game127060Second *)object)->direction = second[i];
+            }
+            next = (i + 1) & 0xFF;
+            i = next;
+        } while (i < 2);
+    } else {
+        i = 0;
+        do {
+            cursor = (Game127060Group *)((u8 *)group + i * 4);
+            object = cursor->first[0];
+            if (object) {
+                firstParams = &((Game127060First *)object)->params;
+                firstParams->flags &= ~1;
+            }
+            object = cursor->second[0];
+            if (object) ((Game127060Second *)object)->flags &= ~2;
+            next = (i + 1) & 0xFF;
+            i = next;
+        } while (i < 2);
+    }
+    height = 15.0f;
+    width = 6.0f;
+    size = D_800A1D94;
+    i = 0;
+    do {
+        cursor = (Game127060Group *)((u8 *)group + i * 4);
+        object = cursor->first[0];
+        if (object) {
+            firstParams = &((Game127060First *)object)->params;
+            if (effect->age < 10) {
+                firstParams->width = 0.0f;
+                firstParams->height = 0.0f;
+            } else {
+                firstParams->width = width;
+                firstParams->height = height;
+            }
+        }
+        object = cursor->second[0];
+        if (object) {
+            secondParams = &((Game127060Second *)object)->params;
+            if (effect->age < 10) secondParams->size = 0.0f;
+            else secondParams->size = size;
+        }
+        next = (i + 1) & 0xFF;
+        i = next;
+    } while (i < 2);
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FA1B8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_127060/func_150FA1B8.s")
 void func_1515D4D4(s32, s32, s32, s32);
 

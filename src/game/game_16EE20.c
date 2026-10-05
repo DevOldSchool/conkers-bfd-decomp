@@ -2328,6 +2328,86 @@ void func_15145EA4(f32 **arg0, f32 **arg1, s32 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15145EA4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15145EA4.s")
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15146078 CURRENT (1755) */
+s32 func_15146078(f32 *direction, Game16EE20Vector3 *first,
+                   Game16EE20Vector3 *second) {
+    u8 zero_count;
+    u8 nonzero_axis;
+    u8 zero_axis;
+    s32 second_axis;
+    s32 first_axis;
+    f32 first_component;
+    f32 magnitude;
+    f32 inverse;
+
+    first_component = direction[0];
+    if (0.0f == first_component && 0.0f == direction[1] && 0.0f == direction[2]) {
+        return 0;
+    }
+    zero_count = 0;
+    if (0.0f == first_component) {
+        zero_count++;
+        zero_axis = 0;
+    } else {
+        nonzero_axis = 0;
+    }
+    first_axis = 1;
+    if (0.0f == direction[1]) {
+        zero_count++;
+        zero_axis = 1;
+    } else {
+        nonzero_axis = 1;
+    }
+    if (0.0f == direction[2]) {
+        zero_count++;
+        zero_axis = 2;
+    } else {
+        nonzero_axis = 2;
+    }
+    if (zero_count == 2) {
+        switch (nonzero_axis) {
+        case 0:
+            first->x = 0.0f;
+            first->z = 0.0f;
+            first->y = 1.0f;
+            second->x = 0.0f;
+            second->y = 0.0f;
+            second->z = 1.0f;
+            return 1;
+        case 1:
+            first->y = 0.0f;
+            first->z = 0.0f;
+            first->x = 1.0f;
+            second->x = 0.0f;
+            second->y = 0.0f;
+            second->z = 1.0f;
+            return 1;
+        case 2:
+            first->y = 0.0f;
+            first->z = 0.0f;
+            first->x = 1.0f;
+            second->x = 0.0f;
+            second->z = 0.0f;
+            second->y = 1.0f;
+            return 1;
+        }
+    } else {
+        second_axis = 2;
+        if (zero_count == 1 && zero_axis == 2) {
+            first_axis = 2;
+            second_axis = 1;
+        }
+        first->x = 1.0f;
+        ((f32 *)first)[first_axis] = 1.0f;
+        ((f32 *)first)[second_axis] = -direction[0] - direction[first_axis] / direction[second_axis];
+        func_151450B4(first, direction, second);
+        func_151450B4(second, direction, first);
+        func_15145128(first, first, &magnitude, &inverse);
+        func_15145128(second, second, &magnitude, &inverse);
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15146078 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_15146078.s")
 s32 func_1515D914(s32, s32, s32, s32, s32, s32, s32, s32,
                    s32, void *, s32, s32, s32, s32);

@@ -13,6 +13,123 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct Game108320Vec3 {
+    f32 x, y, z;
+} Game108320Vec3;
+
+typedef struct Game108320BeamPacket {
+    s8 kind;
+    u8 pad1;
+    s16 flags, life;
+    u8 pad6[2];
+    s32 field8, fieldC;
+    u8 color[4];
+    u8 pad14[8];
+    Game108320Vec3 position;
+    Game108320Vec3 direction;
+    Game108320Vec3 scale;
+    s32 mode;
+    u8 field44, field45;
+    u8 pad46[0x12];
+} Game108320BeamPacket;
+
+typedef struct Game108320BeamOwner {
+    u8 pad0[0x1D4];
+    s32 transform;
+} Game108320BeamOwner;
+
+typedef struct Game108320BeamResult {
+    u8 pad0[0x110];
+    Game108320Vec3 delta;
+    f32 field11C, field120, field124, field128;
+    f32 field12C, field130, field134;
+    u8 field138;
+} Game108320BeamResult;
+
+void func_15143134(f32 *, f32 *, s32);
+void *func_1513D524(s32, u8, u8, u8, u8, u8, s32, u8, s32);
+f32 sqrtf(f32);
+f32 fabsf(f32);
+#pragma intrinsic(sqrtf, fabsf)
+extern f32 D_80088910[][3], D_8008891C[][3];
+extern s32 D_80088928[];
+extern f32 D_8008892C[];
+extern s16 D_80088930[];
+extern f32 D_80088934[], D_80088938[], D_8008893C[];
+extern u8 D_80088940[];
+extern f32 D_80088944[], D_80088948[];
+extern f32 D_800A0BE0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150DAE70 CURRENT (4146) */
+void func_150DAE70(Game108320BeamOwner *arg0, s32 arg1, s32 arg2, s32 arg3) {
+    struct {
+        Game108320BeamPacket packet;
+        Game108320Vec3 delta;
+        Game108320Vec3 second;
+        Game108320Vec3 first;
+        s32 transform;
+    } work;
+    Game108320BeamResult *result;
+    s32 wordOffset;
+    s32 vectorOffset;
+    f32 speed;
+    f32 x;
+    f32 z;
+    f32 squared;
+
+    if (arg0 != 0) {
+        if (arg0->transform != 0) {
+            work.transform = arg0->transform + (D_80088928[arg1] << 6);
+            wordOffset = arg1 * 4;
+            vectorOffset = arg1 * 12;
+            func_15143134((f32 *)((u8 *)D_80088910 + vectorOffset), &work.first.x, work.transform);
+            func_15143134((f32 *)((u8 *)D_8008891C + vectorOffset), &work.second.x, work.transform);
+            speed = *(f32 *)((u8 *)D_8008892C + wordOffset);
+            x = speed * (work.second.x - work.first.x);
+            work.delta.y = speed * (work.second.y - work.first.y);
+            z = speed * (work.second.z - work.first.z);
+            squared = x * x + z * z;
+            if (!(fabsf(squared) < D_800A0BE0)) {
+                squared = sqrtf(squared);
+                work.packet.kind = 0x17;
+                work.packet.fieldC = 0x243A;
+                work.packet.field8 = 0;
+                work.packet.mode = 0x401;
+                work.packet.field44 = 0xFF;
+                work.packet.field45 = 0xFF;
+                work.packet.color[1] = 0xC8;
+                work.packet.color[2] = 0xC8;
+                work.packet.color[0] = 0xC8;
+                work.packet.color[3] = 0xC8;
+                work.packet.flags = 0x401;
+                work.packet.life = D_80088930[arg1];
+                work.packet.position = work.first;
+                work.delta.z = z;
+                work.delta.x = x;
+                work.packet.scale.x = 1.0f;
+                work.packet.scale.y = 1.0f;
+                speed = 1.0f / squared;
+                work.packet.scale.z = 1.0f;
+                work.packet.direction.y = 0.0f;
+                work.packet.direction.x = z * speed;
+                work.packet.direction.z = x * speed;
+                result = func_1513D524((s32)&work.packet, 9, 0, 0, 7, 0, 0x2C, ((u8 *)&arg2)[3], arg3);
+                if (result != 0) {
+                    result->delta = work.delta;
+                    result->field11C = *(f32 *)((u8 *)D_80088934 + wordOffset);
+                    result->field120 = *(f32 *)((u8 *)D_80088938 + wordOffset);
+                    result->field12C = *(f32 *)((u8 *)D_80088944 + wordOffset);
+                    result->field124 = 1.0f;
+                    result->field128 = 1.0f;
+                    result->field130 = *(f32 *)((u8 *)D_80088948 + wordOffset);
+                    result->field134 = *(f32 *)((u8 *)D_8008893C + wordOffset);
+                    result->field138 = D_80088940[arg1];
+                }
+            }
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150DAE70 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_108320/func_150DAE70.s")
 extern f32 D_800A0BE4;
 extern f32 D_800A0BE8;

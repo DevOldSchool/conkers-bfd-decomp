@@ -71,7 +71,112 @@ void func_15187978(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15187978 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B4A90/func_15187978.s")
+typedef struct Game1B4A90Command { u32 opcode, value; } Game1B4A90Command;
+typedef struct Game1B4A90Child {
+    u32 fixed[2][16];
+    f32 rotationX, rotationY, rotationZ, speed;
+    f32 translation;
+    s16 elapsed, duration;
+    u8 mode;
+    u8 pad99[7];
+} Game1B4A90Child;
+typedef struct Game1B4A90Owner {
+    u8 pad0[0x10];
+    u32 fixed[2][16];
+    f32 x, y, z;
+    f32 scaleYZ, scaleX;
+    Game1B4A90Child *children;
+    s16 timer;
+} Game1B4A90Owner;
+void func_150A7790(void *, s32);
+void func_150A7A48(void *, void *, void *);
+void func_150A7DA0(void *, f32, f32, f32);
+void func_150A8050(void *, f32, f32, f32);
+void func_15187D6C(void *, f32, f32, f32);
+void func_151EFD00(f32 *, void *);
+extern u32 D_8008D538[];
+extern u8 D_800BE9C0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15187A98 CURRENT (2728) */
+void *func_15187A98(register Game1B4A90Command *cursor, Game1B4A90Owner *arg1, s32 arg2) {
+    f32 matrix[4][4];
+    f32 rotation[4][4];
+    s32 index, offset;
+
+    if (arg1->timer >= 0) {
+        func_150A7DA0(matrix, arg1->x, arg1->y, arg1->z);
+        func_151EFD00(&matrix[0][0], arg1->fixed[D_800BE9C0]);
+        index = 0;
+        offset = 0;
+        do {
+            {
+                Game1B4A90Command *command = cursor;
+                command->opcode = 0xDA380003;
+                command->value = (u32)arg1->fixed[D_800BE9C0];
+                cursor++;
+            }
+            func_150A7DA0(matrix,
+                ((Game1B4A90Child *)((u8 *)arg1->children + offset))->translation, 0.0f, 0.0f);
+            matrix[0][0] *= arg1->scaleX;
+            matrix[1][1] *= arg1->scaleYZ;
+            matrix[2][2] *= arg1->scaleYZ;
+            {
+                Game1B4A90Child *child = (Game1B4A90Child *)((u8 *)arg1->children + offset);
+                if (child->mode == 0) {
+                    func_150A8050(rotation, child->rotationX, child->rotationY, child->rotationZ);
+                } else {
+                    func_15187D6C(rotation, child->rotationX, child->rotationY, child->rotationZ);
+                }
+            }
+            func_150A7A48(matrix, rotation, matrix);
+            func_150A7790(matrix, (s32)arg1->children[index].fixed[D_800BE9C0]);
+            {
+                Game1B4A90Child *child = (Game1B4A90Child *)((u8 *)arg1->children + offset);
+                register s32 duration = child->duration;
+                Game1B4A90Command *command = cursor;
+                command->value = (((duration - child->elapsed) * 255 / duration) & 255) | 0xFFFFFF00;
+                command->opcode = 0xFA000100;
+                cursor++;
+            }
+            {
+                Game1B4A90Command *command = cursor;
+                command->opcode = 0xDA380001;
+                command->value = (u32)arg1->children[index].fixed[D_800BE9C0];
+                cursor++;
+            }
+            {
+                Game1B4A90Command *command = cursor;
+                command->opcode = 0x01004008;
+                command->value = (u32)D_8008D538;
+                cursor++;
+            }
+            {
+                Game1B4A90Command *command = cursor;
+                command->opcode = 0x05000204;
+                command->value = 0;
+                cursor++;
+            }
+            {
+                Game1B4A90Command *command = cursor;
+                command->opcode = 0x05000206;
+                command->value = 0;
+                cursor++;
+            }
+            {
+                Game1B4A90Command *command = cursor;
+                command->opcode = 0x05000406;
+                command->value = 0;
+                cursor++;
+            }
+            index++;
+            offset += 0xA0;
+        } while (index != 12);
+    }
+    return cursor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15187A98 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1B4A90/func_15187A98.s")
+
 f32 func_15047D60(f32);
 f32 func_15047C00(f32);
 void func_151EFE00(void *);

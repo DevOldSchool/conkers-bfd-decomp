@@ -81,6 +81,113 @@ s32 func_150EB484(Game1188E0Vector *arg0, f32 *arg1, void *arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150EB484 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB484.s")
+typedef struct Game1188E0ChildB614 {
+    u8 pad0[0x57];
+    u8 enabled;
+} Game1188E0ChildB614;
+typedef struct Game1188E0OwnerB614 {
+    u8 pad0[0x14];
+    Game1188E0Vector position;
+    u8 pad20[0x2FC];
+    Game1188E0ChildB614 *child;
+} Game1188E0OwnerB614;
+typedef struct Game1188E0StateB614 {
+    f32 angle;
+    u8 pad4[0xC];
+    s16 x, y, z;
+    u8 pad16[0x26];
+    s32 packedTarget;
+    u8 pad40[0xF];
+    u8 flags;
+    u8 pad50[0x23];
+    volatile u8 mode;
+    u8 pad74[8];
+    f32 damping, acceleration, velocity;
+} Game1188E0StateB614;
+
+f32 func_15048A70(f32, f32);
+void func_15117770(f32 *);
+f32 sqrtf(f32);
+f32 fabsf(f32);
+#pragma intrinsic(sqrtf, fabsf)
+extern Game1188E0OwnerB614 D_800CC2D0;
+extern f32 D_800A14DC, D_800A14E0, D_800A14E4;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150EB614 CURRENT (466) */
+void func_150EB614(f32 *arg0) {
+    register Game1188E0StateB614 *state;
+    f32 before;
+    f32 angle;
+    f32 acceleration, damping;
+    f32 target, velocity;
+    register f32 dx, dy, dz, distance, delta, magnitude;
+    register s32 flags;
+    u8 masked;
+
+    state = (void *)arg0;
+    flags = state->mode;
+    if ((flags & 3) != 3) {
+        if ((flags & 3) != 2) {
+            if (state->flags & 4) {
+                masked = flags & 0xFFFC;
+                if (D_800CC2D0.child->enabled != 0) {
+                    state->mode = masked;
+                    state->mode = masked | 2;
+                    state->packedTarget = 0;
+                    state->damping = 0.5f;
+                    state->acceleration = D_800A14DC;
+                    state->velocity = 0.0f;
+                }
+                dz = (f32)state->z - D_800CC2D0.position.z;
+                dx = (f32)state->x - D_800CC2D0.position.x;
+                dy = (f32)state->y - D_800CC2D0.position.y;
+                distance = sqrtf(dz * dz + (dx * dx + dy * dy));
+                if (distance > 740.0f) {
+                    distance = 740.0f;
+                }
+                target = distance * D_800A14E0 + -40.0f;
+            } else {
+                target = -40.0f;
+            }
+            angle = state->angle;
+            damping = state->damping;
+            acceleration = state->acceleration;
+            velocity = state->velocity;
+            if (angle != target || velocity != 0.0f) {
+                angle += velocity * (f32)D_800BE9E4;
+                delta = func_15048A70(angle, target);
+                magnitude = fabsf(delta);
+                if (delta > 0.0f) {
+                    velocity += magnitude * acceleration;
+                } else {
+                    velocity -= magnitude * acceleration;
+                }
+                velocity *= damping;
+                if (fabsf(delta) < D_800A14E4 && fabsf(velocity) < D_800A14E4) {
+                    velocity = 0.0f;
+                    angle = target;
+                } else if (angle < 0.0f) {
+                    angle += 360.0f;
+                } else if (angle >= 360.0f) {
+                    angle -= 360.0f;
+                }
+                state->velocity = velocity;
+            }
+            state->angle = angle;
+            return;
+        }
+        before = state->angle;
+        func_15117770(arg0);
+        if (before == state->angle) {
+            masked = state->mode & 0xFFFC;
+            state->mode = masked;
+            state->mode = masked | 3;
+            state->angle = 0.0f;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150EB614 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB614.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1188E0/func_150EB8C4.s")
 typedef struct Game1188E0Event {

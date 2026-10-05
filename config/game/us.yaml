@@ -484,7 +484,7 @@ segments:
       - [0x102920, c, game/game_12FDD0]
       - [0x102D50, c, done/game/game_130200]
       - [0x102D90, c, game/game_130240]
-      - [0x103430, c, game/game_1308E0]
+      - [0x103430, c, done/game/game_1308E0]
       - [0x103690, c, done/game/game_130B40]
       - [0x103800, c, game/game_130CB0]
       - [0x103E40, c, game/game_1312F0]

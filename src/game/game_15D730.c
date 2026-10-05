@@ -492,4 +492,113 @@ s32 func_15131DEC(void *arg0, s32 arg1) {
     }
     return 1;
 }
+typedef struct Game131EE4Spawn {
+    s32 flags;
+    s32 resource;
+    s16 renderFlags;
+    s16 lifetime;
+    s32 frame;
+    s32 frameStep;
+    u8 primaryR, primaryG, primaryB, primaryA;
+    u8 secondaryR, secondaryG, secondaryB, secondaryA;
+    u8 intensity;
+    u8 effect;
+    s16 fadeStart;
+    s16 fadeRate;
+    s16 resizeStart;
+    f32 resizeRate;
+    f32 width;
+    f32 height;
+    Game15D730Args position;
+    Game15D730Args offset;
+    Game15D730Args velocity;
+    f32 acceleration;
+    s32 behavior;
+    s32 attachment;
+    u8 colorMode;
+    u8 alternateColorMode;
+    s8 update;
+    s8 death;
+    s8 render;
+    u8 callback;
+    u8 visibility;
+    s16 minimumSize;
+    s16 reserved6A;
+    f32 maximumSize;
+} Game131EE4Spawn;
+
+typedef struct Game131EE4Fade {
+    f32 elapsed;
+    f32 duration;
+    f32 scale;
+    f32 brightness;
+    f32 decay;
+} Game131EE4Fade;
+
+s32 func_150ADA20(void);
+f32 func_150ADA68(void);
+extern f32 D_800A3850;
+extern Game15D730Args D_800A5480;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15131EE4 CURRENT (1463) */
+void *func_15131EE4(void *arg0, f32 arg1, s32 arg2, s32 arg3) {
+    Game131EE4Spawn spawn;
+    Game131EE4Fade fade;
+    void *result;
+    register s32 firstFlag;
+    s32 secondFlag;
+
+    fade.elapsed = 0.0f;
+    fade.scale = D_800A3850 * arg1;
+    fade.duration = 2.0f * func_150ADA68() + 5.0f;
+    fade.brightness = func_150ADA68() * 15.0f + 240.0f;
+    fade.decay = fade.brightness / (fade.duration * fade.duration);
+    spawn.resource = 1;
+    spawn.secondaryA = (u8)(u32)fade.brightness;
+    spawn.effect = 0x69;
+    spawn.renderFlags = 0x4417;
+    spawn.flags = 0x200004;
+    spawn.frame = 0;
+    spawn.frameStep = 0;
+    spawn.secondaryR = 0xFF;
+    spawn.secondaryG = 0xFF;
+    spawn.secondaryB = 0xFF;
+    spawn.primaryA = 0xFF;
+    spawn.primaryR = 0xFF;
+    spawn.primaryG = 0xFF;
+    spawn.primaryB = 0xFF;
+    spawn.intensity = 0xFF;
+    spawn.position = *(Game15D730Args *)arg0;
+    spawn.offset = D_800A5480;
+    spawn.fadeStart = 1;
+    spawn.fadeRate = 0xFF;
+    spawn.resizeStart = 1;
+    spawn.resizeRate = 1.0f;
+    firstFlag = (func_150ADA20() & 1) ? 0x40 : 0;
+    if (func_150ADA20() & 1) {
+        secondFlag = 0x80;
+    } else {
+        secondFlag = 0;
+    }
+    spawn.behavior = secondFlag | 0x4C000 | firstFlag;
+    spawn.colorMode = 6;
+    spawn.alternateColorMode = 6;
+    spawn.update = 0x27;
+    spawn.death = -1;
+    spawn.render = -1;
+    spawn.callback = 0;
+    spawn.attachment = 0;
+    spawn.visibility = 0xFF;
+    spawn.velocity = D_800A5480;
+    spawn.lifetime = 300;
+    spawn.width = 0.0f;
+    spawn.height = 0.0f;
+    spawn.acceleration = 0.0f;
+    result = func_15130280(&spawn, 1, 0, sizeof(fade), (u8)arg2, arg3);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0xA8, &fade, sizeof(fade));
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15131EE4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_15D730/func_15131EE4.s")

@@ -241,6 +241,89 @@ void *func_151B09BC(Game1DD500Owner *arg0, u8 *arg1, s16 arg2, u8 arg3, s32 arg4
 #endif /* CONKER_DEFERRED_CANDIDATE func_151B09BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B09BC.s")
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B0B88.s")
+s32 func_15046C80(f32 *, u16, f32, void *);
+void func_151D9B8C(u8, f32, s32, s32, f32 *, s32, s32, s32, s32, s32, s32);
+void func_151DAB58(u8, f32, u8, f32 *, s32, u8, s32);
+extern f32 D_800AA2F0;
+extern f32 D_800AA2F4;
+extern f32 D_800AA2F8;
+extern f32 D_800BE9A4;
+
+typedef struct Game1B118CHorizontal { f32 x, z; } Game1B118CHorizontal;
+typedef struct Game1B118CVertical { f32 delta, speed; } Game1B118CVertical;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151B118C CURRENT (5955) */
+s32 func_151B118C(void *arg0) {
+    f32 displacementZ;
+    f32 oldY;
+    Game1B118CHorizontal previous;
+    f32 collisionPosition[3];
+    f32 effectPosition[3];
+    f32 effectSize;
+    u8 *motion;
+    Game1B118CVertical vertical;
+    register f32 displacementX;
+    register f32 displacementY;
+    register f32 x;
+    register f32 y;
+    register f32 z;
+    f32 blend;
+    s8 alive;
+
+    oldY = *(f32 *)((u8 *)arg0 + 0x38);
+    motion = (u8 *)arg0 + 0x110;
+    previous.x = *(f32 *)motion;
+    previous.z = *(f32 *)(motion + 8);
+    alive = 1;
+    *(f32 *)motion = previous.x * (0.25f * D_800BE9A4);
+    *(f32 *)(motion + 8) = previous.z * (0.25f * D_800BE9A4);
+    vertical.speed = *(f32 *)(motion + 4);
+    displacementX = (*(f32 *)motion + previous.x) * 0.5f * D_800BE9A4;
+    vertical.delta = *(f32 *)(motion + 0xC) * D_800BE9A4;
+    displacementY = vertical.speed * D_800BE9A4 + vertical.delta * D_800BE9A4 * 0.5f;
+    displacementZ = (*(f32 *)(motion + 8) + previous.z) * 0.5f * D_800BE9A4;
+    *(f32 *)(motion + 4) = vertical.speed + vertical.delta;
+    *(f32 *)((u8 *)arg0 + 0x38) = oldY + displacementY;
+    y = *(f32 *)((u8 *)arg0 + 0x38);
+    *(f32 *)((u8 *)arg0 + 0x34) += displacementX;
+    x = *(f32 *)((u8 *)arg0 + 0x34);
+    *(f32 *)((u8 *)arg0 + 0x3C) += displacementZ;
+    *(f32 *)((u8 *)arg0 + 0x40) += displacementX;
+    z = *(f32 *)((u8 *)arg0 + 0x3C);
+    *(f32 *)((u8 *)arg0 + 0x44) += displacementY;
+    *(f32 *)((u8 *)arg0 + 0x48) += displacementZ;
+    blend = D_800AA2F0;
+    *(f32 *)((u8 *)arg0 + 0x40) = x + (*(f32 *)((u8 *)arg0 + 0x40) - x) * blend;
+    *(f32 *)((u8 *)arg0 + 0x44) = y + (*(f32 *)((u8 *)arg0 + 0x44) - y) * blend;
+    *(f32 *)((u8 *)arg0 + 0x48) = z + (*(f32 *)((u8 *)arg0 + 0x48) - z) * blend;
+    if (motion[0x24] != 0) {
+        collisionPosition[0] = x;
+        collisionPosition[1] = oldY - *(f32 *)((u8 *)arg0 + 0x30);
+        collisionPosition[2] = *(f32 *)((u8 *)arg0 + 0x3C);
+        if (func_15046C80(collisionPosition, 0,
+                         *(f32 *)((u8 *)arg0 + 0x38) - *(f32 *)((u8 *)arg0 + 0x30),
+                         (u8 *)arg0 + 0x78) != 0) {
+            effectPosition[0] = collisionPosition[0];
+            effectPosition[2] = collisionPosition[2];
+            effectPosition[1] = *(f32 *)((u8 *)arg0 + 0x78) + 5.0f;
+            effectSize = (*(f32 *)(motion + 0x14) + *(f32 *)(motion + 0x1C) * 0.5f +
+                          (*(f32 *)(motion + 0x18) + *(f32 *)(motion + 0x20) * 0.5f)) * 0.5f;
+            if (func_150ADA20() & 1) {
+                func_151D9B8C(motion[0x25], effectSize * D_800AA2F4,
+                             *((u8 *)arg0 + 0x5C), (s32)((u8 *)arg0 + 0x7C),
+                             effectPosition, 0x64, 0, 1, 0,
+                             *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+            } else {
+                func_151DAB58(motion[0x25], effectSize * D_800AA2F8,
+                             *((u8 *)arg0 + 0x5C), effectPosition, 1,
+                             *((u8 *)arg0 + 0xC), *((u8 *)arg0 + 1));
+            }
+            alive = 0;
+        }
+    }
+    return alive;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151B118C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1DD500/func_151B118C.s")
 s32 func_151B1478(void *arg0) {
     s16 temp_v0;

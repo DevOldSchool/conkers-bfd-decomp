@@ -35,7 +35,127 @@ s32 func_150969A0(s32 arg0) {
     }
     return 0;
 }
+typedef struct GameC3E20Command {
+    u8 state, actor, pose, unknown3;
+    s16 timer;
+    u8 unknown6[6];
+    s32 flags;
+    f32 duration;
+    u8 unknown14[0xC];
+    f32 finalSpeed;
+} GameC3E20Command;
+
+typedef struct GameC3E20Pose {
+    s16 x, y, z;
+    u8 unknown6[6];
+    f32 valueC, value10, value14;
+} GameC3E20Pose;
+
+typedef struct GameC3E20Child {
+    u8 unknown0[7];
+    u8 mode;
+    u8 unknown8[0x1C2];
+    u8 active;
+    u8 unknown1CB[0x91];
+    s32 flags;
+} GameC3E20Child;
+
+typedef struct GameC3E20Actor {
+    u8 unknown0[0x2C0];
+    f32 value;
+    u8 unknown2C4[0xE0];
+    f32 speed;
+    u8 unknown3A8[0x28];
+    GameC3E20Child *child;
+} GameC3E20Actor;
+
+typedef struct GameC3E20Packet {
+    s32 enabled, state;
+    f32 time;
+    u8 unknownC[8];
+    f32 x, y, z;
+    f32 value20, value24, value28;
+} GameC3E20Packet;
+
+void func_1512D560(void *, s32, s32);
+extern u8 *D_800DBFF0;
+extern s32 D_800DC020;
+extern s32 D_800D2E30[];
+extern u8 D_800BE9A0;
+extern u8 D_800DBFF4[];
+extern f32 D_800D2DB8;
+extern GameC3E20Packet D_800C3600;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15096A68 CURRENT (4205) */
+s32 func_15096A68(s32 arg0) {
+    GameC3E20Command *entry;
+    GameC3E20Pose *pose;
+    s32 actorIndex;
+    s32 flags;
+
+    entry = (GameC3E20Command *)(&D_800D2DC0 + arg0 * 0x24);
+    switch (entry->state) {
+    case 1: {
+        GameC3E20Actor *actor;
+        s32 poseIndex;
+        actorIndex = entry->actor;
+        poseIndex = entry->pose;
+        actor = (GameC3E20Actor *)(D_800DBFF0 + actorIndex * 0x9A0);
+        D_800D2DB8 = actor->value;
+        D_800D2DB4 = 1;
+        D_800DBFF4[actorIndex] = 3;
+        D_800C3600.enabled = 1;
+        D_800C3600.state = 0;
+        pose = (GameC3E20Pose *)(D_800DC020 + poseIndex * 0x18);
+        D_800C3600.x = (f32)pose->x;
+        D_800C3600.y = (f32)pose->y;
+        D_800C3600.z = (f32)pose->z;
+        D_800C3600.value20 = pose->value14;
+        D_800C3600.value24 = pose->valueC;
+        D_800C3600.time = 0.0f;
+        D_800C3600.value28 = pose->value10;
+        func_1512D560(actor, 5, 0);
+        func_1512D560(actor, 7, (s32)&D_800C3600);
+        if (!(entry->flags & 1)) {
+            actor->child->mode = 0;
+            actor->child->flags |= 0x200;
+        }
+        D_800D2E30[arg0] = (s32)entry->duration;
+        entry->state = 2;
+        return 1;
+    }
+    case 2: {
+        GameC3E20Actor *actor;
+        entry->timer -= D_800BE9A0;
+        actor = (GameC3E20Actor *)(D_800DBFF0 + entry->actor * 0x9A0);
+        if (actor->child->active == 0) {
+            entry->timer = 0;
+        }
+        if (entry->timer <= 0) {
+            actor->speed = entry->finalSpeed;
+            flags = entry->flags;
+            if (!(flags & 2)) {
+                func_1512D560(actor, 6, 0);
+                flags = entry->flags;
+            }
+            D_800D2DB4 = 0;
+            if (!(flags & 1)) {
+                actor->child->flags &= ~0x200;
+                actor->child->mode = 0xFF;
+            }
+            entry->timer = 0;
+            entry->state = 0;
+            actor->value = D_800D2DB8;
+            return 0;
+        }
+        break;
+    }
+    }
+    return 1;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15096A68 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_C3E20/func_15096A68.s")
+
 s32 func_15096A68(s32);                             /* extern */
 extern u8 D_800C35EA;
 extern u8 D_800D2DC0;

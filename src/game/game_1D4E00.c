@@ -51,12 +51,87 @@ void *func_151A7950(u8 *arg0, s32 arg1, u8 arg2, s32 arg3) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A7950 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7950.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7A90.s")
-#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7D6C.s")
 typedef struct {
     u8 pad0[0x64];
     f32 (*points)[6];
 } Game1D4E00Curve;
+typedef struct { f32 x, y, z; } Game1D4E00Vector;
+
+f32 func_150ADA68(void);
+void func_151A8340(Game1D4E00Curve *, s16, s16, f32, s32);
+void func_151450B4(void *, void *, void *);
+void func_1516972C(s32);
+extern s32 (*D_8008F940[])(Game1D4E00Curve *);
+extern s32 (*D_8008F948[])(Game1D4E00Curve *);
+extern f32 D_800BE9A4;
+extern s32 D_800BE9E4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151A7A90 CURRENT (1970) */
+void func_151A7A90(Game1D4E00Curve *arg0) {
+    Game1D4E00Curve *countOwner;
+    struct { u8 expired; } state;
+    Game1D4E00Vector cross;
+    Game1D4E00Vector axis;
+    Game1D4E00Vector delta;
+    f32 (*point)[6];
+    f32 x, y, z;
+    s32 callbackIndex;
+
+    countOwner = arg0;
+    state.expired = 0;
+    if (arg0->pad0[0x1C] & 1) {
+        *(s16 *)((u8 *)arg0 + 0x10) -= D_800BE9E4;
+        if (*(s16 *)((u8 *)arg0 + 0x10) < 0) {
+            state.expired = 1;
+        }
+    }
+    callbackIndex = *(s8 *)((u8 *)arg0 + 0x2C);
+    if (callbackIndex != -1 && state.expired == 0) {
+        state.expired = D_8008F940[callbackIndex](arg0) == 0;
+    }
+    callbackIndex = *(s8 *)((u8 *)arg0 + 0x2D);
+    if (callbackIndex != -1 && state.expired == 0) {
+        state.expired = D_8008F948[callbackIndex](arg0) == 0;
+    }
+    if (state.expired == 0) {
+        *(f32 *)((u8 *)arg0 + 0x68) -= D_800BE9A4;
+        if (*(f32 *)((u8 *)arg0 + 0x68) < 0.0f) {
+            func_151A8340(arg0, 0, (s16)(*(s16 *)((u8 *)arg0 + 0x12) - 1),
+                          *(f32 *)((u8 *)arg0 + 0x20), 100);
+            *(f32 *)((u8 *)arg0 + 0x68) = func_150ADA68() * *(f32 *)((u8 *)arg0 + 0x18) + *(f32 *)((u8 *)arg0 + 0x14);
+        }
+        if (arg0->pad0[0x1C] & 2) {
+            delta.x = *(f32 *)((u8 *)arg0 + 0x3C) - *(f32 *)((u8 *)arg0 + 0x30);
+            delta.y = *(f32 *)((u8 *)arg0 + 0x40) - *(f32 *)((u8 *)arg0 + 0x34);
+            delta.z = *(f32 *)((u8 *)arg0 + 0x44) - *(f32 *)((u8 *)arg0 + 0x38);
+            axis = *(Game1D4E00Vector *)((u8 *)arg0 + 0x48);
+            func_151450B4(&delta, &axis, &cross);
+            cross.x *= *(f32 *)((u8 *)arg0 + 0x58);
+            cross.y *= *(f32 *)((u8 *)arg0 + 0x58);
+            cross.z *= *(f32 *)((u8 *)arg0 + 0x58);
+            callbackIndex = 0;
+            point = arg0->points;
+            if (*(s16 *)((u8 *)arg0 + 0x12) > 0) {
+                do {
+                    x = (*point)[0];
+                    y = (*point)[1];
+                    z = (*point)[2];
+                    callbackIndex++;
+                    point++;
+                    point[-1][3] = *(f32 *)((u8 *)arg0 + 0x30) + x * cross.x + y * axis.x + z * delta.x;
+                    point[-1][4] = *(f32 *)((u8 *)arg0 + 0x34) + x * cross.y + y * axis.y + z * delta.y;
+                    point[-1][5] = *(f32 *)((u8 *)arg0 + 0x38) + x * cross.z + y * axis.z + z * delta.z;
+                } while (callbackIndex < *(s16 *)((u8 *)countOwner + 0x12));
+            }
+        }
+    }
+    if (state.expired != 0) {
+        func_1516972C((s32)arg0);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151A7A90 */
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7A90.s")
+#pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A7D6C.s")
 
 f32 func_150ADA68(void);
 
@@ -149,7 +224,6 @@ void func_151A85D4(s32 arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151A85D4 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1D4E00/func_151A85D4.s")
-typedef struct { f32 x, y, z; } Game1D4E00Vector;
 typedef struct { u8 bytes[4]; } Game1D4E00Colour;
 typedef struct {
     s16 lifetime;
