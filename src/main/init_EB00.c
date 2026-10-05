@@ -1640,65 +1640,41 @@ typedef struct {
 extern SoundListenerState *D_800DBFF0;
 void func_80011310(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011BB8 CURRENT (2185) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011BB8 CURRENT (120) */
 void func_80011BB8(void) {
-    SoundSpatialRecord *spatial;
-    SoundSpatialRecord *spatialEnd;
-    SoundListenerState *listener;
     SoundListenerState *current;
-    SoundArrayRecord *source;
-    SoundArrayRecord *destination;
-    SoundArrayRecord *end;
-    s32 limit;
-    s32 count;
+    s32 index;
     s32 kept;
     s32 delta;
 
     if ((D_80041F60 == 0) && (D_80041F61 == 0)) {
-        spatial = D_80041F68;
-        limit = D_80082FA0;
-        if (limit >= 0) {
-            spatialEnd = &D_80041F68[limit];
-            listener = D_800DBFF0;
-            do {
-                current = listener;
-                if ((limit != 0) || (current->flags & 0x80000)) {
-                    spatial->x0 = (s32)current->field2F8;
-                    spatial->y4 = (s32)current->field2FC;
-                    spatial->z8 = (s32)current->field300;
-                } else {
-                    spatial->x0 = (s32)current->field2A4;
-                    spatial->y4 = (s32)current->field2A8;
-                    spatial->z8 = (s32)current->field2AC;
-                }
-                spatial->xC = (s32)current->field2F8;
-                spatial->y10 = (s32)current->field2FC;
-                spatial->z14 = (s32)current->field300;
-                spatial->field18 = current->field380;
-                spatial++;
-                listener++;
-            } while (spatial <= spatialEnd);
+        for (index = 0; index <= D_80082FA0; index++) {
+            current = &D_800DBFF0[index];
+            if ((D_80082FA0 != 0) || (current->flags & 0x80000)) {
+                D_80041F68[index].x0 = (s32)current->field2F8;
+                D_80041F68[index].y4 = (s32)current->field2FC;
+                D_80041F68[index].z8 = (s32)current->field300;
+            } else {
+                D_80041F68[index].x0 = (s32)current->field2A4;
+                D_80041F68[index].y4 = (s32)current->field2A8;
+                D_80041F68[index].z8 = (s32)current->field2AC;
+            }
+            D_80041F68[index].xC = (s32)current->field2F8;
+            D_80041F68[index].y10 = (s32)current->field2FC;
+            D_80041F68[index].z14 = (s32)current->field300;
+            D_80041F68[index].field18 = current->field380;
         }
         func_80011310();
         func_80011624(D_80041FE0, &D_80042760, 0, D_80042760);
-        count = D_80042760;
-        source = D_80041FE0;
-        kept = 0;
-        if (count > 0) {
-            destination = D_80041FE0;
-            end = &D_80041FE0[count];
-            do {
-                *destination = *source;
-                source++;
-                if (!(destination->flags & 0x80)) {
-                    kept++;
-                    destination++;
-                }
-            } while (source < end);
+        for (index = 0, kept = 0; index < D_80042760; index++) {
+            D_80041FE0[kept] = D_80041FE0[index];
+            if (!(D_80041FE0[kept].flags & 0x80)) {
+                kept++;
+            }
         }
         D_80042760 = kept;
     }
-    if ((D_80041FDC != D_80041F54) || (D_80041F61 != D_80041F60)) {
+    if ((D_80041F54 != D_80041FDC) || (D_80041F60 != D_80041F61)) {
         if (D_80041F61 == 1) {
             func_80017780(0, 0);
             func_80017780(1, 0);
