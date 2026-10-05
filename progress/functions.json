@@ -92479,7 +92479,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 90,
-        "reason": "CURRENT90 full652 US independently restoreda8732159; exactframe/homes/control, firstframebuffer SW one instruction early and ROM source/count v1/t0 instead of v0/v1. Batch31 firstallocation/address-local reuse neutral90; ROMsource lexicalscope142 leaves registerpair and shiftsfourstackrows. Inherited seven pointer/domain/countsnapshot/constant-label variants remain exhausted; archived legacy empty shapingconditions remain invalid and were not restored. No ABI, shared dependencies, ASM or padding changes.",
+        "reason": "Checkpoint67 full652 CURRENT90 independently restored4c6c224a. Unsigned ROM address local neutral90 with byte-identical full diff; direct framebuffer pointer670 keeps allocation constant in S0 instead of array base. Both new forms exhausted. Prior pointer arithmetic, signed count/snapshots, allocation/address reuse, ROMsource scope and constant/block-boundary forms exhausted. Best has one early framebuffer store and five ROM address/count register rows. Historical legacy empty shaping conditions remain rejected; no padding, artificial pressure, ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
