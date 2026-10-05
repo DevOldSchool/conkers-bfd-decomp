@@ -95376,8 +95376,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1422,
-        "reason": "Preserve full-span US CURRENT1422 quotient/clamp snapshot. Historical traversal5256/2840/2935 exhausted; fresh1624 reflects retained own callee contracts. Three new supported snapshot forms2942/1422/1472: flags snapshot adds unobserved spill, quotient/clamp improves202, pitch argument snapshot grows frameD0. Exact best1422 restored; frameC8, parameter homes/reloads and ABI unchanged. Remaining stack offsets, flags/FP allocation and pitch/handle tail; no equivalent traversal, snapshot, storage shaping or permutation without new evidence and permission. No shared changes.",
+        "current_score": 481,
+        "reason": "Improved inherited CURRENT 1422 to 481 across 14 manual revisions plus baseline/restoration. Correct frame C8, all address-taken output homes and FP registers recovered by existing flags/handle declaration order, direct early flag reads, real pitchDelta with redundant result removed, integer callback address, and handle clear ordering. Remaining offset multiply v0 vs FP, generated handle spill74 vs7c, pitch payload LW scheduled late, merged success handle store; body4 bytes short over full registered span. Signed/unsigned offset, scalar pitch, scoped locals, callback typed commute neutral or worse; explicit success goto2171, direct parameter iterator925, bus/payload reuse2852 rejected. Prior traversal5256/2840/2935, flags snapshot2942, pitch snapshot1472 also exhausted. No shared ABI, assembly or dependency changes. Preserve481; new independent dataflow/control evidence required.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

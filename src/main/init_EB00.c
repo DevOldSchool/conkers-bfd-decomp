@@ -1444,10 +1444,12 @@ extern u8 D_800BE615;
 typedef s32 (*SoundRecordCallback)(void *, s32 *, u32 *, s32 *, s32 *,
                                     s32 *, u16 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (1422) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011624 CURRENT (481) */
 void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     SoundArrayRecord *record;
+    u32 flags;
     s32 pan;
+    u16 handle;
     u32 volume;
     s32 active;
     s32 distance;
@@ -1458,8 +1460,6 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
         f32 value;
         s32 bits;
     } pitch;
-    u32 flags;
-    u16 handle;
     s32 index;
     s32 offset;
     s32 *panOut;
@@ -1467,8 +1467,8 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
     s32 velocity;
     f32 ratio;
     f32 unclampedRatio;
+    f32 pitchDelta;
     s32 bus;
-    s32 result;
 
     index = start;
     if ((index < *count) && (index < end)) {
@@ -1476,17 +1476,17 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
         record = (SoundArrayRecord *)((u8 *)records + offset);
         do {
         flags = record->flags;
-        if (flags & 0x80) {
+        if (record->flags & 0x80) {
             goto next_record;
         }
-        if (flags & 0x1000) {
-            record->flags = flags & ~0x1000;
+        if (record->flags & 0x1000) {
+            record->flags &= ~0x1000;
             goto next_record;
         }
         handle = record->handle;
         if ((flags & 1) && (handle != 0) && (func_8000F3D0(handle) == 0)) {
-            flags &= ~1;
             handle = 0;
+            flags &= ~1;
             if (!(flags & 8)) {
                 flags |= 0x80;
                 record->field0 = 0;
@@ -1525,7 +1525,7 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
             sound = record->field0;
             if ((flags & 0x10) && (record->callback != 0)) {
                 record->flags = flags;
-                if (((SoundRecordCallback)record->callback)((u8 *)records + offset,
+                if (((SoundRecordCallback)record->callback)((void *)(offset + (u32)records),
                         &active, &volume, &pan, &cents, &mix, &sound) != 0) {
                     func_8000FE88(records, index, count);
                     goto next_record;
@@ -1555,10 +1555,9 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                         } else {
                             bus = D_80041FD9;
                         }
-                        result = func_80010BE8(0, sound, (u16)volume,
+                        handle = func_80010BE8(0, sound, (u16)volume,
                                              (u8)pan, cents, fxmix, bus);
-                        handle = result;
-                        if (result != 0) {
+                        if (handle != 0) {
                             flags |= 1;
                             record->field0 = sound;
                         }
@@ -1586,8 +1585,8 @@ void func_80011624(SoundArrayRecord *records, s32 *count, s32 start, s32 end) {
                                 }
                             }
                             pitch.value *= ratio;
-                            pitch.value = record->pitch +
-                                (pitch.value - record->pitch) * D_8002C404;
+                            pitchDelta = pitch.value - record->pitch;
+                            pitch.value = record->pitch + pitchDelta * D_8002C404;
                         }
                         if (pitch.value != record->pitch) {
                             func_8000F85C(handle, 0x11, pitch.bits);
