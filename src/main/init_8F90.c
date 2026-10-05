@@ -162,22 +162,21 @@ extern u8 D_80040F84;
 extern s32 D_80040F88;
 extern s32 D_80040F8C;
 extern u8 D_800406B8[];
+extern u8 D_800406CC[];
 extern u8 D_80040AC8[];
+extern u8 D_80040AE0[];
 extern MessageQueue D_80041298;
 extern MessageQueue D_800416F0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (17629) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008F90 CURRENT (2611) */
 void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *device) {
+    u32 rounded;
     AudioEffectParameters effects;
     AudioDmaNode *dma;
     AudioDmaNode *dmaNext;
     AudioBufferState *buffer;
     AudioBufferState *bufferNext;
-    Acmd **commands;
-    AudioTaskRecord **task;
     f32 samples;
-    u32 rounded;
-    u32 frameSamples;
     s32 rate;
     u32 i;
 
@@ -190,13 +189,14 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
     config->retain = D_10009B90;
     config->releaseNow = D_10009B4C;
     samples = ((f32)device->frames * (f32)rate) / 30.0f;
-    rounded = (s32)samples;
-    D_80040F8C = rounded;
+    D_80040F8C = (s32)samples;
+    rounded = D_80040F8C;
     if ((f32)rounded < samples) {
-        D_80040F8C = ++rounded;
+        D_80040F8C = rounded + 1;
+        rounded = D_80040F8C;
     }
-    frameSamples = 184;
-    D_80040F8C = ((rounded / frameSamples) * frameSamples) + frameSamples;
+    rate = 184;
+    D_80040F8C = ((rounded / rate) * rate) + rate;
     D_80040F88 = D_80040F8C - 184;
     D_80040F90 = D_80040F8C + 0x54;
     D_80040F84 = 0;
@@ -208,47 +208,52 @@ void func_80008F90(AudioDriverConfig *config, s32 priority, AudioDeviceConfig *d
     dma = (AudioDmaNode *)D_800406B8;
     dma->prev = 0;
     dma->next = 0;
-    dmaNext = dma + 1;
+    dmaNext = (AudioDmaNode *)D_800406CC;
     do {
-        dmaNext->next = dma->next;
-        dmaNext->prev = dma;
+        dma[1].next = dma->next;
+        dma[1].prev = dma;
         if (dma->next != 0) {
             dma->next->prev = dmaNext;
         }
         dma->next = dmaNext;
-        dma->buffer = func_80012844(0, 0, config->heap, 1, 0x800);
         dma++;
         dmaNext++;
-    } while ((u8 *)dmaNext < D_80040AC8);
+        dma[-1].buffer = func_80012844(0, 0, config->heap, 1, 0x800);
+    } while ((u32)dmaNext < (u32)D_80040AC8);
     dma->buffer = func_80012844(0, 0, config->heap, 1, 0x800);
     func_800226F0(D_80040AC8, 0x4B0);
     buffer = (AudioBufferState *)D_80040AC8;
     buffer->prev = 0;
     buffer->next = 0;
-    bufferNext = buffer + 1;
+    bufferNext = (AudioBufferState *)D_80040AE0;
     for (i = 0; i < 49; i++) {
-        bufferNext->next = buffer->next;
-        bufferNext->prev = buffer;
-        if (buffer->next != 0) {
-            buffer->next->prev = bufferNext;
+        {
+            AudioBufferState *linkNode = bufferNext;
+            AudioBufferState *linkAfter = buffer;
+
+            buffer[1].next = linkAfter->next;
+            buffer[1].prev = linkAfter;
+            if (linkAfter->next != 0) {
+                linkAfter->next->prev = linkNode;
+            }
+            linkAfter->next = linkNode;
         }
-        buffer->next = bufferNext;
-        buffer->buffer = 0;
         buffer++;
         bufferNext++;
+        buffer[-1].buffer = 0;
     }
     buffer->buffer = 0;
-    commands = D_8003E388;
+    i = 0;
     do {
-        *commands = func_80012844(0, 0, config->heap, 1, device->maxCommands * 8);
-        commands++;
-    } while (commands < &D_8003E388[2]);
+        D_8003E388[i] = func_80012844(0, 0, config->heap, 1, device->maxCommands * 8);
+        i++;
+    } while (&D_8003E388[i] < (Acmd **)D_8003E390);
     D_80040F94 = device->maxCommands;
-    for (task = D_8003E390; task != &D_8003E390[3]; task++) {
-        *task = func_80012844(0, 0, config->heap, 1, 0x90);
-        (*task)->completion.type = 2;
-        (*task)->completion.record = *task;
-        (*task)->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
+    for (i = 0; &D_8003E390[i] != &D_8003E390[3]; i++) {
+        D_8003E390[i] = func_80012844(0, 0, config->heap, 1, 0x90);
+        D_8003E390[i]->completion.type = 2;
+        D_8003E390[i]->completion.record = D_8003E390[i];
+        D_8003E390[i]->buffer = func_80012844(0, 0, config->heap, 1, D_80040F90 * 4);
     }
     func_80023790(&D_8003E608, D_8003E620, 8);
     func_80023790(&D_8003E5D0, D_8003E5E8, 8);

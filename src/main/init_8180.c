@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_sequence_api_mp3_adapter_boundaries.md
  *
  * TODO: Implement these source-unit functions:
- * - func_80008180
  * - func_80008CE8
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
@@ -98,29 +97,25 @@ extern u8 D_80044B20[];
 s32 func_80003C40(s32, s32, s32, s32);
 void func_80004074(s32);
 extern SequencePlayer *D_8003C900[];
+extern u8 D_8003C90C[];
 extern u16 D_8003C910[];
 extern u16 D_8003CA3C[];
 extern s32 D_8003CA48[];
 extern SequenceFile *D_8003CD40;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80008180 CURRENT (1235) */
 void func_80008180(void) {
     AudioSoundConfig soundConfig;
+    s32 bankSize;
+    u32 bankAddress;
     AudioDriverConfig driverConfig;
+    s32 sequenceSize;
     SequencePlayerConfig playerConfig;
     AudioDeviceConfig deviceConfig;
-    u8 *waveBase;
     AudioBankFile *bankFile;
     SequenceFile *header;
-    s32 bankSize;
-    s32 sequenceSize;
-    u32 bankAddress;
     u32 sequenceAddress;
+    u8 *waveBase;
     s32 i;
-    SequencePlayer **player;
-    SequencePlayer **end;
-    u16 *current;
-    s32 *buffer;
 
     func_80012820(&D_8003E370, D_80044B20, 0x3E000);
     driverConfig.maxVoices = 0x2C;
@@ -164,18 +159,15 @@ void func_80008180(void) {
     playerConfig.maxChannels = 0x10;
     playerConfig.heap = &D_8003E370;
     func_800131FC(&playerConfig, 0x58);
-    end = &D_8003C900[3];
-    current = D_8003CA3C;
-    buffer = D_8003CA48;
-    for (player = D_8003C900; player != end; player++) {
-        *current = 0xFFFF;
-        *buffer = 0;
-        *player = func_80012844(0, 0, &D_8003E370, 1, 0x90);
-        func_80013320(*player, &playerConfig);
-        func_80015550(*player, bankFile->banks[0]);
-        current++;
-        buffer++;
-    }
+    i = 0;
+    do {
+        D_8003CA3C[i] = 0xFFFF;
+        D_8003CA48[i] = 0;
+        D_8003C900[i] = func_80012844(0, 0, &D_8003E370, 1, 0x90);
+        func_80013320(D_8003C900[i], &playerConfig);
+        func_80015550(D_8003C900[i], bankFile->banks[0]);
+        i++;
+    } while ((SequencePlayer **)D_8003C90C != &D_8003C900[i]);
     soundConfig.maxEvents = 0x40;
     soundConfig.maxStates = 0x40;
     soundConfig.maxSounds = 0x14;
@@ -187,8 +179,6 @@ void func_80008180(void) {
     func_80017944(0, 2);
     func_80017944(1, 2);
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80008180 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008180.s")
 
 s32 func_80017A80(SequencePlayer *player);
 void func_80017AA0(SequencePlayer *);

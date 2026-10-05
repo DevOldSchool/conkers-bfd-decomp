@@ -93282,8 +93282,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 17629,
-        "reason": "Recovered driver config/callbacks, exact528-byte effect table, DMA/cache ring and task layouts with SDK helper contracts. Conservative17629; SDK-prefix scoped list insertion17690; counted do-loop neutral17629. Remaining unrolled cache loop, lifetime/scheduling, aliases and frame278 versus270; no shared flags, false globals or padding.",
+        "current_score": 2611,
+        "reason": "Manual batch18: 15 new revisions improve CURRENT 17629 to 2611, independently restored f2bf7eb8. Direct indexed command/task loops remove unrolling; known adjacent-node writes remove alias reloads; raw next-node and command-endpoint symbols; output-first sample count; real rate scalar reused for divisor; scoped cache insertion views; advance cursors before previous-node buffer writes. Cache loop body now exact. Residual frame278 vs270/effects64 vs58, effect-copy source/destination scheduling and temporary registers, driver-base rematerialization, initial anchor address CSE, DMA increments before allocator vs raw after, task base E390 vs raw E388+8 and endpoint/BNE order. Early divisor, postincrement lvalues, shared count, allocator-return snapshots and cursor ordering exhausted; last two variants worse than best. No invented ABI, extent, padding, shared dependencies or ASM changes. See manual-init-20261005 ledger and snapshots.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95459,17 +95459,16 @@
       "symbol": "func_80011EB8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 1235,
-        "reason": "Preserve full US CURRENT1235 original initializer. Inherited1667/1235 endpoint and config contracts retained; current distinct typed descriptor cursor and signed byte counter regressed1970, exact1235 restored. Three total forms exhausted. Actual frame100 versusF0 and config offsets, descriptor induction and endpoint symbol alias remain; no equivalent cursor/counter/endpoint, padding, storage shaping, ABI or shared changes without new evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 856,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80008180",
           "vram": "0x80008180"
         }
