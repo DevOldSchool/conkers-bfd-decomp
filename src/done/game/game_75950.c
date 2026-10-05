@@ -3,7 +3,11 @@
 /*
  * Reviewed source unit: src/game/game_75950.c
  * Boundary evidence: docs/evidence/game_medium_single_function_units.md
+ * Semantic evidence: docs/evidence/trig_angle_helper_semantics.md
  */
+
+/* Keep address symbols for linking and registered match evidence. */
+#define trig_atan2_positive_radians_lut func_150484A0
 
 f32 func_10026530(f32);
 f32 func_15048360(f32);
@@ -15,7 +19,7 @@ extern f32 D_80098DF0;
 extern f32 D_80098DF4;
 extern f32 D_80098DF8;
 
-f32 func_150484A0(f32 arg0, f32 arg1) {
+f32 trig_atan2_positive_radians_lut(f32 arg0, f32 arg1) {
     f32 temp_fa0;
     f32 temp_fv0;
     f32 temp_fv0_2;
