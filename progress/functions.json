@@ -96630,7 +96630,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Improved full816 US CURRENT1115 to230 in manual-init-20261005. Four manual forms: staged angle cast1115, compound float rotation plus signed8 update230, explicit register range246, unsigned numerator subtraction230. All angle/pan instruction and temporary differences fixed by compound update; only distance t1 versus raw t2 and shared denominator t2 versus raw t1 plus associated eight spill rows remain. Kept defined unsigned numerator expression at230. Prior ordinary range snapshot, local-order and frame/storage trials remain exhausted; no shared or ABI changes and no permutation.",
+        "reason": "Full 816-byte US CURRENT 230: distance T1/raw T2 and denominator T2/raw T1 plus eight spill rows; angle/pan exact. Prior range snapshot, local order/storage, unsigned numerator and register range forms exhausted. New unsigned distance local is neutral230; signed best independently restored92ce48fd. No shared/ABI/ASM changes; preserve compound-angle candidate.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96648,8 +96648,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 23980,
-        "reason": "Typed 8-byte point records and verified vector/13-argument contracts give a coherent nearest-segment candidate. First form 23980 is better than the explicit byte-offset lifetime form 30441. Compiler unroll and allocation differ; stop without manual unrolling or layout enumeration.",
+        "current_score": 31655,
+        "reason": "Full 2320-byte current-span baseline32097 improved to31655 with direct squared-distance expressions and promoted s32 count, restoring raw D0 frame. Five new manual revisions: early cursor40414, direct expression32012, promoted count31655, direct indexed loop34128, guarded do loop31655. Prior23980 historical score is not comparable to current full-span check. Still compiler unroll2 versus raw4, neighbor-distance promotion/spills, segment addressing and FP output allocation. Best independently restored; no manual unroll, ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

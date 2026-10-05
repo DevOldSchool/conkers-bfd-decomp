@@ -108,7 +108,7 @@ void func_85049148(f32 *, f32, f32 *);
 s32 func_8000A420(s32, s32, s32, f32, s32, s32, s32, s32, s32,
                   s32 *, s32 *, s32 *);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (23980) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000A750 CURRENT (31655) */
 s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
                   s32 distanceX, s32 distanceY, s32 distanceZ,
                   s32 nearLimit, s32 farLimit, s32 *panOut,
@@ -130,13 +130,12 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
     s32 closest;
     s32 bestDistance;
     s32 previousDistance;
-    s32 currentDistance;
     s32 dx;
     s32 dy;
     s32 dz;
     s32 segment;
     s32 i;
-    u8 count;
+    s32 count;
 
     outside = 0;
     count = D_800D2108[index];
@@ -153,15 +152,14 @@ s32 func_8000A750(s32 index, s32 panX, s32 panY, s32 panZ, f32 rotation,
         dx = distanceX - point->x;
         dy = distanceY - point->y;
         dz = distanceZ - point->z;
-        currentDistance = dx * dx + dy * dy + dz * dz;
-        if (currentDistance < bestDistance) {
+        if (dx * dx + dy * dy + dz * dz < bestDistance) {
             closest = i;
             leftDistance = previousDistance;
             bestDistance = dx * dx + dy * dy + dz * dz;
         } else if (i == closest + 1) {
             rightDistance = dx * dx + dy * dy + dz * dz;
         }
-        previousDistance = currentDistance;
+        previousDistance = dx * dx + dy * dy + dz * dz;
     }
     segment = closest;
     point = base + closest;
