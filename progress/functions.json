@@ -93010,7 +93010,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1465,
-        "reason": "Manual six revisions: best CURRENT1465 has exact frame/data home and PI polling registers; unresolved size/source saved-register coloring, unsigned count CSE, copy-loop register ordering and KSEG relocation formatting. Signedness and separate-local variants regressed.",
+        "reason": "CURRENT1465 full468 US independently restored e13c9b91, exact frame40/datahome38 and polling registers. Remaining size/source S0/S1 allocation, count CSE, copy-loop ordering and KSEG relocation spelling. Batch27 existing linker-proven D_A0000000 extern OR2370 adds address materialization; separate actual mappedSource2019 loses source saved register. Both rejected; inherited six signedness/remaining-local revisions remain exhausted. No shared dependencies, ABI, volatile-access or ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
