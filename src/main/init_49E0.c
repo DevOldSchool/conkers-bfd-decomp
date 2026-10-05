@@ -10,6 +10,12 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define scheduler_update_gfx_task func_80004DB0
+#define scheduler_start_gfx_task func_80004F00
+#define scheduler_try_complete_gfx_task func_80004FE0
+#define scheduler_complete_gfx_task func_80005020
+
 typedef struct SchedulerMessageQueue SchedulerMessageQueue;
 
 typedef struct {
@@ -28,7 +34,7 @@ void func_8515FDA0(s32);
 void func_80024830(void *);
 s32 func_80023580(SchedulerMessageQueue *, void *, s32);
 
-void func_80005020(void);
+void scheduler_complete_gfx_task(void);
 extern u8 D_8003A582;
 extern u8 D_8003B238;
 
@@ -38,8 +44,8 @@ typedef struct SchedulerClient {
     u32 flags;
 } SchedulerClient;
 
-void func_80004DB0(void);
-void func_80004FE0(void);
+void scheduler_update_gfx_task(void);
+void scheduler_try_complete_gfx_task(void);
 void func_80003330(u8 *);
 void func_8000349C(u8 *);
 s32 func_80023440(SchedulerMessageQueue *, void **, s32);
@@ -104,7 +110,7 @@ void func_800049E0(void *unused) {
                 }
             }
             if (D_8003A581 == 0) {
-                func_80004DB0();
+                scheduler_update_gfx_task();
             }
             break;
         case 2:
@@ -133,14 +139,14 @@ void func_800049E0(void *unused) {
             } else {
                 D_8003A583 = 0;
                 if (D_8003A584 == 1) {
-                    func_80004FE0();
+                    scheduler_try_complete_gfx_task();
                 }
             }
             break;
         case 1:
             D_8003A584 = 1;
             if (D_8003A583 == 0) {
-                func_80004FE0();
+                scheduler_try_complete_gfx_task();
             }
             break;
         case 3:
@@ -164,8 +170,8 @@ void func_800049E0(void *unused) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_800049E0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_49E0/func_800049E0.s")
-void func_80004F00(void);
-void func_80004FE0(void);
+void scheduler_start_gfx_task(void);
+void scheduler_try_complete_gfx_task(void);
 s32 func_80023440(SchedulerMessageQueue *, void **, s32);
 void *func_80024E20(void);
 void *func_80024E60(void);
@@ -173,7 +179,7 @@ extern SchedulerMessageQueue D_8003B1E8;
 extern u8 D_8003B239;
 extern u8 D_8003B23A;
 
-void func_80004DB0(void) {
+void scheduler_update_gfx_task(void) {
     if (D_8003A582 == 0) {
         if (func_80023440(&D_8003B1E8, (void **)&D_8002AC50, 0) == 0) {
             if ((func_80024E20() != D_8002AC50->framebuffer) &&
@@ -183,17 +189,17 @@ void func_80004DB0(void) {
                     ((D_8003B238 >= D_8003B239) || (D_8003B23A == 0))) {
                     D_8003B239 = D_8003B238;
                 }
-                func_80004F00();
+                scheduler_start_gfx_task();
                 return;
             }
             D_8003A582 = 2;
         }
     } else if (D_8003A582 == 2) {
         if ((D_8003B23A == 0) || (D_8003B238 >= D_8003B239)) {
-            func_80004F00();
+            scheduler_start_gfx_task();
         }
     } else if (D_8003A582 == 6) {
-        func_80004FE0();
+        scheduler_try_complete_gfx_task();
     }
 }
 void func_80003330(u8 *);
@@ -207,7 +213,7 @@ extern u8 D_8003B240[];
 extern s32 D_800BE9E4;
 extern u8 D_800C35EA;
 
-void func_80004F00(void) {
+void scheduler_start_gfx_task(void) {
     if (D_8002AC5C == 0) {
         func_80003330(D_8002AC50->task);
         func_8000349C(D_8002AC50->task);
@@ -224,14 +230,14 @@ void func_80004F00(void) {
         func_80023580(D_8003B230, D_8003B240, 0);
     }
 }
-void func_80004FE0(void) {
+void scheduler_try_complete_gfx_task(void) {
     if ((s32)D_8003B238 <= 0) {
         D_8003A582 = 6;
         return;
     }
-    func_80005020();
+    scheduler_complete_gfx_task();
 }
-void func_80005020(void) {
+void scheduler_complete_gfx_task(void) {
     void *framebuffer;
 
     D_8003A582 = 0;

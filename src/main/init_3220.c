@@ -10,6 +10,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define sp_task_load func_80003330
+#define sp_task_start_go func_8000349C
+
 typedef union {
     struct {
         u32 type;
@@ -71,7 +75,7 @@ s32 func_80023DB0(u32);
 s32 func_80023DF0(s32, u32, void *, u32);
 s32 func_80023E80(void);
 
-void func_80003330(SpTask *arg0) {
+void sp_task_load(SpTask *arg0) {
     SpTask *task;
 
     task = func_80003220(arg0);
@@ -97,7 +101,7 @@ void func_80003330(SpTask *arg0) {
 void func_80023DA0(u32);
 s32 func_80023E80(void);
 
-void func_8000349C(u8 *arg0) {
+void sp_task_start_go(u8 *arg0) {
     while (func_80023E80() != 0) {
     }
     func_80023DA0(0x125);
