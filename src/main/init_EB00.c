@@ -905,12 +905,15 @@ void func_80010558(u16 sound, SoundOwnerState *owner, s32 volume,
 }
 extern u8 D_1000EE70[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (2124) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010630 CURRENT (1984) */
 void func_80010630(u16 sound, SoundOwnerState *owner, s32 volume,
                   s16 arg3, u16 arg4) {
+    u16 localVolume;
+
     if (owner->field0 != 0) {
         if (owner->field318 != 0) {
-            func_80010F30(sound, volume & 0xFFFF, 0x40, 0,
+            localVolume = volume;
+            func_80010F30(sound, localVolume, 0x40, 0,
                           ((owner->field184 >> 3) & 0x30) * 2);
             return;
         }

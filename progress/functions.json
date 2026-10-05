@@ -94889,7 +94889,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 500,
-        "reason": "Checkpoint62 full160 CURRENT500 independently restored6a69ea68, improved1699 via genuine u16 search-handle snapshot after zero guard. Recovers frame8, savedS0/key, ownerA3, cursorA2 and every loop temporary. Remaining handleV0/countA1 instead rawA1/V0, early handlecopy in first branchdelay, countLUI/preloop scheduling. Followups latehandle neutral500 and u32equality1429 rejected (latter losesframe/S0). Prior word snapshot/comparison/reuse families exhausted. No ABI/shared/ASM/artificial pressure changes.",
+        "reason": "Checkpoint63 full160 CURRENT500 independently restored726e6c1a. Narrow u16 handle retains frame8/S0/key/cursor and loop registers. New real count scalar1640 triggers four-way unrolling; count-object pointer2260 adds ADDIU and changes loop/register roles. Prior latehandle500 and u32equality1429 exhausted. Residual handleV0/countA1 versus rawA1/V0 and preloop scheduling remain; no further count-family retries without independent evidence. No ABI/shared/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95017,8 +95017,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2124,
-        "reason": "Checkpoint60 full240 CURRENT2124 independently restored81e7ff79. Unsigned actual volumeBits with explicit signed restoration and explicit if/else call arms both neutral2124; prior signed snapshot/register formal also exhausted. Raw preserves volumeS1 while candidate spills incoming home48 and retains onlyS0; call scheduling and fullspan remain mismatched. No own/helper ABI, shared dependencies, artificial pressure, ASM or permutation changes.",
+        "current_score": 1984,
+        "reason": "Checkpoint63 full240 CURRENT1984 independently restored264c37a1, improved2124 by actual u16 localVolume in first call arm. Still omits savedS1 and uses incoming volume home48/lowhalf4A, with call setup/order and temporary mismatches. FullVolume signed copy plus narrowlocal neutral1984; narrowing before innerbranch neutral1984. Prior word snapshots/register formal/explicitelse2124 exhausted. Second call retains all32volume bits and every own/helper ABI unchanged. No shared/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
