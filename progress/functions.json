@@ -65163,11 +65163,15 @@
       "symbol": "func_1511F990"
     },
     {
+      "blocked": {
+        "reason": "Raw US entry consumes s32 index in a0 (1501B328 and 0x9A0 indexing), but already-matched sibling func_1501B640(void) calls func_1501B320() without an argument. Typed target definition exposes missing caller argument; meaningful caller ABI recovery requires edits outside allowed target. No C candidate tested; canonical ASM preserved.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 800,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_1501B320",
           "vram": "0x1501B320"
         }
@@ -71267,6 +71271,12 @@
       "symbol": "func_150B67E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1520,
+        "reason": "Valid typed first-pass candidate CURRENT 1520 after two finish attempts (initial 1842). Redundant-temporary elimination reduced frame 0x80 to 0x68; raw frame 0x60. Remaining differences: stack homes, conditional global-base hoisting, register allocation, and explicit MIPS shift-count mask. One-pointer func_15052590 ABI follows matched definition. No permutations. Next hypothesis: scope heading/state/index temporaries to disjoint phases; do not invent dummy arguments or remove shift mask without invariant evidence.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -71338,6 +71348,12 @@
       "symbol": "func_150D1530"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 4678,
+        "reason": "Typed rendering candidate CURRENT 4678; initial 4755. Two finish attempts, one manual revision. Separate packet snapshots reduce score slightly but frame 0x108 differs from raw 0x100; stack layout, cursor increments, store scheduling and register allocation remain. Full matrix buffers, texture descriptor and vertex extents retained. No padding or dummy locals. Next hypothesis: original macro block scopes and descriptor lifetime, with each packet snapshot tied to actual cursor state.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -90758,6 +90774,12 @@
       "symbol": "func_151287E0"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2996,
+        "reason": "Valid first-pass effect candidate CURRENT 2996, one finish attempt. Full 0x24 hit result is proven by raw func_1504715C writes through offset 0x20. Remaining frame 0xA0 vs 0x98, stack homes and cached low-byte arguments. Accepted func_151D5404 has six parameters while raw caller writes eight slots: candidate follows canonical six-argument contract; exact ABI reconciliation requires separately reviewed callee-family scope. Existing caller prototype retains s32 arg3/arg5; do not narrow solely for matching.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
