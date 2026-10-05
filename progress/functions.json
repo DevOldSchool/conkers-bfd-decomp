@@ -93028,8 +93028,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2624,
-        "reason": "Manual scheduler switch from ROM-validated table improves2845 to2690 to2624. Explicit AI FIFO-full bit restores shift; genuine message/delay storage recovers68-byte frame and raw local homes. Global address allocation, constant reuse and control schedule remain; unresolved main switch-rodata ownership also prevents integration. Best typed source retained.",
+        "current_score": 1817,
+        "reason": "Manual batch25 seven revisions improve2624 to1817: message-first homes, SDK-proven signed retrace type and actual audio-state snapshot recover constant/temporary register allocation. Restored best independently7d40e1e2. Remaining frame70vs68 with12stack rows, FP caches AC6C instead of AC50, full976 tail4NOPs and unresolved switch-rodata ownership. Alternative1855 has exact frame/homes but18temp rows. Snapshot scope/local-order, explicit graphics pointer address and explicit ignored-event/default dispatch do not improve; preserve typed best without shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
