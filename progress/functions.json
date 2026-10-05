@@ -93833,7 +93833,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 10,
-        "reason": "Full480 US CURRENT10 retained after five additional manual revisions. XOR truth-test15 fixes BEQL operand order but final ORI/SW uses T4 instead of raw T3; named XOR70 restores T3 but shifts global state V0 to V1; named state plus XOR90; unsigned difference15 identical to XOR; split packed output3089 forces S1 and home changes. Original10 independently restored e863cff4. Prior ten-form ABI/comparison pass remains exhausted. Alternate XOR body and complete ledger saved manual-init-20261005. No shared/ABI/ASM changes or permutation.",
+        "reason": "Checkpoint54 full480 CURRENT10 restored after scoped signed masked-state snapshot plus explicit unsigned comparison neutral10 (70b40f1a). FDF4 promotion mechanism does not resolve this sole BEQLv0,t2 vs rawt2,v0. Prior direct unsigned/namedstate/commutation neutral, XOR/difference15 fixes branch but shifts final T3 toT4; namedchanged70 uses globalV1; splitoutput3089 rejected. No ABI/shared/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93852,7 +93852,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 48,
-        "reason": "Preserve full696 CURRENT48 independently restored7e2ffff0. Seven stack references remain: channel2Cvs30, fade snapshot20vs1C, oldHigh1Cvs20; two initial ANDIs swapped. Batch24 scopedchannel168 changed CFG without fixing homes; scoped original-control phase296 moved46 mainhome rows but all seven target spill references unchanged. Two new revisions exhausted scope families; inherited17 declaration/type/channel/snapshot forms remain exhausted. No source improvement, ABI/shared/ASM edits or permutation.",
+        "reason": "Checkpoint54 full696 CURRENT48 restored. Keeping signed high snapshots but explicit unsigned equality regressed473 (34 register rows); deriving oldHigh from packed upper regressed268, retained dependent SRL and all spill/mask differences. Prior scoped channel168 and control-phase296, declaration/type/chain families exhausted. Remaining channel spill2C vs30, fade20 vs1C, oldHigh1C vs20, two initial ANDIs swapped. No padding, artificial alias/storage or shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
