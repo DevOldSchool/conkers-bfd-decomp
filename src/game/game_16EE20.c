@@ -73,6 +73,10 @@
 #define angle_distance_radians_f32 func_15144C8C
 #define vec3f_cross func_151450B4
 #define vec3f_normalize_checked func_15145128
+#define segment_sphere_test_unit_direction func_151451F0
+#define vec3f_closest_point_on_segment func_15145548
+#define vec3f_to_yaw_pitch_degrees_lut func_15145974
+#define semicircle_profile_scaled_lut func_15145A0C
 
 /* Reviewed bank-01 model records; descriptive labels, not original symbols.
  * See config/model-semantic-names.json.
@@ -1876,7 +1880,7 @@ s32 vec3f_normalize_checked(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
 }
 s32 func_151452C4(void *, void *, s32, f32, s32, s32, f32 *, f32 *);
 
-s32 func_151451F0(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
+s32 segment_sphere_test_unit_direction(void *arg0, void *arg1, s32 arg2, f32 arg3, f32 arg4,
                   s32 arg5, s32 arg6, f32 *arg7, f32 *arg8) {
     f32 value;
 
@@ -1966,7 +1970,7 @@ s32 func_151454BC(u8 arg0, f32 arg1, void *arg2) {
 }
 s32 func_1514563C(f32 *, f32 *, f32 *, f32 *, f32 *);
 
-void func_15145548(void *arg0, void *arg1, void *arg2, void *arg3, f32 *arg4) {
+void vec3f_closest_point_on_segment(void *arg0, void *arg1, void *arg2, void *arg3, f32 *arg4) {
     typedef struct { f32 values[3]; } Copy3;
     f32 sp24;
     f32 temp_fv0;
@@ -2101,7 +2105,7 @@ f32 func_150484A0(f32, f32);
 extern f32 D_800A56BC;
 extern f32 D_800A56C0;
 
-void func_15145974(void *arg0, f32 *arg1, f32 *arg2) {
+void vec3f_to_yaw_pitch_degrees_lut(void *arg0, f32 *arg1, f32 *arg2) {
     f32 temp_ft4;
     f32 temp_fv1;
 
@@ -2114,7 +2118,7 @@ void func_15145974(void *arg0, f32 *arg1, f32 *arg2) {
 }
 extern f32 D_800A548C[];
 
-f32 func_15145A0C(f32 arg0, f32 arg1, f32 arg2) {
+f32 semicircle_profile_scaled_lut(f32 arg0, f32 arg1, f32 arg2) {
     return D_800A548C[(s32) (arg0 * arg2 * 100.0f)] * arg1;
 }
 /* Call context: func_15053694: unique active project prototype */
@@ -2201,7 +2205,7 @@ s32 func_15145AD8(Game16EE20Vector3 *arg0, Game16EE20Vector3 *arg1,
     thirdVector.x = arg7->x;
     thirdVector.y = arg7->y * scale;
     thirdVector.z = arg7->z;
-    if (func_151451F0(&first, &second, (s32)&thirdVector,
+    if (segment_sphere_test_unit_direction(&first, &second, (s32)&thirdVector,
                       *arg5, sp4C, (s32)arg3, (s32)arg4,
                       &sp48, &sp44) == 0) {
         return 0;
