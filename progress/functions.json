@@ -42648,6 +42648,12 @@
       "symbol": "func_15084000"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1934,
+        "reason": "Best CURRENT1934; three comparisons zero repairs, bounded manual revisions exhausted. Correct u16 sizes and cleanup; frame/register/reload-join differences remain.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -43157,11 +43163,15 @@
       "symbol": "func_15173D00"
     },
     {
+      "blocked": {
+        "reason": "Indirect-call ABI unresolved: raw D_8008A080[index] receives entry pointer plus RGB, but checksum-validated ROM entries +4..+2C resolve to existing two-argument s32 lookup functions (e.g. 15146970/150B2480); signed entry34 index domain/runtime table initialization is unproven. Projection helper outputs fully initialized; do not invent callback signature.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 772,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_151742EC",
           "vram": "0x151742EC"
         }
@@ -54661,6 +54671,12 @@
       "symbol": "func_15179600"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 1054,
+        "reason": "Best CURRENT1054; three comparisons zero repairs. Native distance/angle and lower-bound SUBU recovered; stack/register/first wrap join remain; bounded manual revisions exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -78853,11 +78869,15 @@
       "symbol": "func_150E76D0"
     },
     {
+      "blocked": {
+        "reason": "Return-contract conflict: raw caller stores/tests allocator object in V0 after151491F4, while its matched shared definition game_1765E0 is void; project declarations disagree (void/s32/pointer). Need separately scoped shared ABI audit/repair; do not invent local return type or copy M2C_ERROR.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
           "size_bytes": 776,
-          "state": "raw_asm",
+          "state": "blocked",
           "symbol": "func_150E7994",
           "vram": "0x150E7994"
         }
@@ -87529,6 +87549,12 @@
       "symbol": "func_151A6AB8"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 2784,
+        "reason": "Best CURRENT (2784), three comparisons; exact 3-byte color copy and four raw callers all pass color index zero. Existing 31-slot helper retained, unsigned RNG conversion recovered. Real height snapshot improves frame 130 to138 vs native140; color FC vsF4 and argument scheduling/narrowing remain. Final phase reuse unchanged; manual budget exhausted.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
