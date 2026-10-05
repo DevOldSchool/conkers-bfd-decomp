@@ -37,10 +37,16 @@
 
 /* Keep address symbols for linking and registered match evidence. */
 #define actor_script_branch_on_path_point_index func_15075A50
+#define actor_script_switch_program func_15075DE8
+#define actor_script_branch_random_percent func_15075EB4
+#define actor_script_reset_program_by_model func_15077BB4
 #define actor_script_set_path_point_index func_15077DA0
 #define actor_script_snap_to_path_point func_15077DBC
+#define actor_script_play_mp3_asset_spatial func_15077E9C
 #define actor_script_branch_on_path_point_xz_distance func_150781F4
+#define actor_script_branch func_15078520
 #define actor_script_set_representation_override func_150791F0
+#define actor_script_set_default_program func_150792E0
 #define actor_script_branch_on_current_path_point_xz_distance func_150798F8
 #define actor_script_set_path_point_component func_1507A100
 #define actor_script_update_path_point_step func_1507A528
@@ -399,7 +405,7 @@ void func_15075DC8(void) {
 }
 s32 func_1507BB28(s32, s32);
 
-void func_15075DE8(void) {
+void actor_script_switch_program(void) {
     if (D_800D1891 == 0) {
         D_800D1891 = D_800D154C->field_232;
     }
@@ -421,7 +427,7 @@ void func_15075E98(void) {
 u32 func_150ADA20();                                /* extern */
 extern u8 D_800D1892;
 
-void func_15075EB4(void) {
+void actor_script_branch_random_percent(void) {
     if ((u32) (func_150ADA20() % 100U) < (u8) D_800D1892) {
         func_15075400((s32) D_800D1890);
     }
@@ -1135,7 +1141,7 @@ void func_15077B80(void) {
 }
 void *func_1505F0AC(u8);                            /* extern */
 
-void func_15077BB4(void) {
+void actor_script_reset_program_by_model(void) {
     void *temp_v0;
 
     temp_v0 = func_1505F0AC(D_800D1891);
@@ -1206,7 +1212,7 @@ void actor_script_snap_to_path_point(void) {
 /* Call context: func_10012718: unique active project prototype */
 void func_10012718(u16, u8 *, s32, s16, s32);
 
-void func_15077E9C(void) {
+void actor_script_play_mp3_asset_spatial(void) {
     s32 id = (D_800D1890 << 8) + D_800D1891;
 
     func_10012718(id, (u8 *) D_800D154C, 0x5DC0, 0x1F4, 0x9C4);
@@ -1334,7 +1340,7 @@ void func_1507839C(void) {
         func_15075400((s32) D_800D1890);
     }
 }
-void func_15078520(void) {
+void actor_script_branch(void) {
     func_15075400((s32) D_800D1890);
 }
 f32 func_15047D60(f32);
@@ -1633,7 +1639,7 @@ void func_15079228(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15079228 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_A28B0/func_15079228.s")
-void func_150792E0(void) {
+void actor_script_set_default_program(void) {
     D_800D154C->field_232 = D_800D1890;
 }
 void func_150792FC(void) {
