@@ -12,6 +12,15 @@
  */
 
 /* Keep address symbols for linking and registered match evidence. */
+#define debugger_draw_main_menu func_16000058
+#define debugger_handle_main_menu_input func_16000224
+#define debugger_draw_register_page func_16000314
+#define debugger_handle_register_page_input func_16000384
+#define debugger_draw_exception_summary func_16000424
+#define debugger_draw_float_register_page func_16000590
+#define debugger_draw_general_registers func_160006CC
+#define debugger_draw_stack_view func_1600078C
+#define debugger_handle_stack_view_input func_16000A5C
 #define debugger_draw_text func_160012B0
 #define debugger_set_draw_color func_16001338
 #define debugger_draw_glyph func_160014F0
@@ -56,7 +65,7 @@ extern u8 D_1600471C[];
 void debugger_set_draw_color(u8 red, u8 green, u8 blue);
 void func_16001044(s32 position, s32 mode, u32 value);
 
-void func_16000058(void) {
+void debugger_draw_main_menu(void) {
     s32 i;
     s32 position;
 
@@ -95,7 +104,7 @@ void func_16000058(void) {
 }
 extern s8 D_16003B1C;
 
-s32 func_16000224(void) {
+s32 debugger_handle_main_menu_input(void) {
     s32 result = 0;
 
     if (D_16003890 & 0x40000) {
@@ -137,25 +146,25 @@ void func_16000304(void) {
 void func_1600030C(void) {
 }
 struct OSThread_s;
-void func_16000424(struct OSThread_s *thread);
-void func_16000590(struct OSThread_s *thread);
-void func_160006CC(struct OSThread_s *thread);
+void debugger_draw_exception_summary(struct OSThread_s *thread);
+void debugger_draw_float_register_page(struct OSThread_s *thread);
+void debugger_draw_general_registers(struct OSThread_s *thread);
 extern struct OSThread_s *D_1600389C;
 extern s8 D_16003B28;
 
-void func_16000314(void) {
+void debugger_draw_register_page(void) {
     switch (D_16003B28) {
     case 0:
-        func_16000424(D_1600389C);
-        func_160006CC(D_1600389C);
+        debugger_draw_exception_summary(D_1600389C);
+        debugger_draw_general_registers(D_1600389C);
         return;
     case 1:
     case 2:
-        func_16000590(D_1600389C);
+        debugger_draw_float_register_page(D_1600389C);
         return;
     }
 }
-s32 func_16000384(void) {
+s32 debugger_handle_register_page_input(void) {
     s32 result = 0;
 
     if (D_16003890 & 5) {
@@ -189,7 +198,7 @@ extern u8 D_16004748[];
 void debugger_set_draw_color(u8 red, u8 green, u8 blue);
 void func_16001044(s32 position, s32 mode, u32 value);
 
-void func_16000424(struct OSThread_s *thread) {
+void debugger_draw_exception_summary(struct OSThread_s *thread) {
     u32 cause;
     s32 unused;
     s32 exception;
@@ -222,7 +231,7 @@ extern u8 D_160047A4[];
 extern u8 D_160047AC[];
 void func_16001044(s32 position, s32 mode, u32 value);
 
-void func_16000590(struct OSThread_s *thread) {
+void debugger_draw_float_register_page(struct OSThread_s *thread) {
     s32 position;
     s32 i;
     s32 base;
@@ -267,7 +276,7 @@ extern DebuggerLabel D_16003B48;
 void debugger_set_draw_color(u8 red, u8 green, u8 blue);
 void func_16001044(s32 position, s32 mode, u32 value);
 
-void func_160006CC(struct OSThread_s *thread) {
+void debugger_draw_general_registers(struct OSThread_s *thread) {
     DebuggerLabel label = D_16003B48;
     s32 position = 0x123;
     u8 *descriptor = D_160037F0;
@@ -292,7 +301,7 @@ extern u8 D_160047C0[];
 extern u8 D_8002D4B0[];
 extern u8 D_8002D8B0[];
 
-void func_1600078C(void) {
+void debugger_draw_stack_view(void) {
     register u32 *stack;
     register s32 decimal_position;
     register u32 tag;
@@ -359,7 +368,7 @@ void func_1600078C(void) {
 extern s8 D_160036F3;
 extern s32 D_16003B4C;
 
-s32 func_16000A5C(void) {
+s32 debugger_handle_stack_view_input(void) {
     s32 result = 0;
 
     if ((D_160036F3 >= 0x29) || (D_16003890 & 8)) {
