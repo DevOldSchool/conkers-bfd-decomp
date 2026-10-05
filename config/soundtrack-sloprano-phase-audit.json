@@ -1,0 +1,530 @@
+{
+  "schema_version": 1,
+  "normalized_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "notice": "Local bounded AI-DMA measurements, not human ear confirmation, full-song identity or exact decoder parameters. Initial request values may be retained.",
+  "inventory": {
+    "copied_saves": 8,
+    "numbered_labels_present": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      8
+    ],
+    "additional_label": "first hit",
+    "missing_exact_numbered_labels": [
+      6
+    ],
+    "numbering_verified": false,
+    "core": "OpenEmu Mupen64Plus 2.5.9",
+    "save_version": "M64+SAVE 1.0",
+    "compatibility": "All eight matched owned US ROM MD5, copied verbatim and loaded with existing Mupen64Plus 2.6.0.",
+    "source_saves_modified": false
+  },
+  "capture_method": "Isolated existing software graphics/CXD4 core; read-only owned ROM, copied states, capture cheats disabled, short frame-bounded runs. AI DMA PCM before host resampling. Capture observer makes no RAM writes.",
+  "runs": [
+    {
+      "key": "first-hit",
+      "duration_seconds": 38.66690889272414,
+      "sample_rate": 22018,
+      "wav_sha1": "51efb8d0a2a00a137f8a9bc9d9ef2075b5265c90",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Later vocal requests 0240 and 0241.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "239"
+        },
+        {
+          "audio_seconds": "3.933236443",
+          "last_requested_id": "240"
+        },
+        {
+          "audio_seconds": "13.903260968",
+          "last_requested_id": "241"
+        },
+        {
+          "audio_seconds": "23.783449905",
+          "last_requested_id": "237"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        }
+      ]
+    },
+    {
+      "key": "hit-01",
+      "duration_seconds": 39.05967844490871,
+      "sample_rate": 22018,
+      "wav_sha1": "3be23eaf8cb3d87a1710a834e7fd25f017da0441",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Retained 0242 is not a new onset; later requests 0240 and 0241.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "242"
+        },
+        {
+          "audio_seconds": "4.564628940",
+          "last_requested_id": "240"
+        },
+        {
+          "audio_seconds": "14.532473431",
+          "last_requested_id": "241"
+        },
+        {
+          "audio_seconds": "24.341357071",
+          "last_requested_id": "237"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        }
+      ]
+    },
+    {
+      "key": "hit-02",
+      "duration_seconds": 38.499772913071126,
+      "sample_rate": 22018,
+      "wav_sha1": "724d7a3b59bf8854ffdc23fc0df0b78e4423bb37",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Paper-roll gameplay view; retained 0237 only.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "237"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        },
+        {
+          "audio_seconds": "6.643655191",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "14.239440458",
+          "health_byte": "4"
+        },
+        {
+          "audio_seconds": "25.421382505",
+          "health_byte": "3"
+        }
+      ]
+    },
+    {
+      "key": "hit-03",
+      "duration_seconds": 41.173948587519305,
+      "sample_rate": 22018,
+      "wav_sha1": "7307b669feaefad9550b10833a2e0058f8241ad9",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Boss close-up and new vocal request 0242.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "237"
+        },
+        {
+          "audio_seconds": "5.798346807",
+          "last_requested_id": "242"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        }
+      ]
+    },
+    {
+      "key": "hit-04",
+      "duration_seconds": 36.535925152148245,
+      "sample_rate": 22018,
+      "wav_sha1": "f7e1d312745039e7f880165d6725d2387ab55a3d",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Paper-roll gameplay view; retained 0237 only.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "237"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        },
+        {
+          "audio_seconds": "15.777545644",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "25.086383868",
+          "health_byte": "4"
+        }
+      ]
+    },
+    {
+      "key": "hit-05",
+      "duration_seconds": 39.80343355436461,
+      "sample_rate": 22018,
+      "wav_sha1": "bba425b0c2c8ec6400c59550c50efacd37d3ef18",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Boss rear/cutscene view; retained 0237 only.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "237"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        },
+        {
+          "audio_seconds": "5.131074575",
+          "health_byte": "5"
+        },
+        {
+          "audio_seconds": "20.649650286",
+          "health_byte": "4"
+        }
+      ]
+    },
+    {
+      "key": "hit-07",
+      "duration_seconds": 42.20183486238532,
+      "sample_rate": 22018,
+      "wav_sha1": "b1062f6584c5659831650e87b97fc404be82b88a",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Boss vocal scene and new request 0238.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "237"
+        },
+        {
+          "audio_seconds": "3.358615678",
+          "last_requested_id": "238"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        },
+        {
+          "audio_seconds": "24.642928513",
+          "health_byte": "5"
+        }
+      ]
+    },
+    {
+      "key": "hit-08",
+      "duration_seconds": 38.733763284585336,
+      "sample_rate": 22018,
+      "wav_sha1": "09f5fd07ee3fce4096ff27ce07459dd289f82c3b",
+      "capture_cheats_enabled": false,
+      "source_save_history": "unknown",
+      "scene_qualification": "Pause menu resolved with one ordinary Start-button pulse; collapse/ending scene, new requests 0271 and 0272.",
+      "request_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "last_requested_id": "432"
+        },
+        {
+          "audio_seconds": "4.437460260",
+          "last_requested_id": "271"
+        },
+        {
+          "audio_seconds": "29.457716414",
+          "last_requested_id": "272"
+        }
+      ],
+      "health_observations": [
+        {
+          "audio_seconds": "0.000000000",
+          "health_byte": "6"
+        }
+      ]
+    }
+  ],
+  "paused_save": {
+    "key": "hit-08",
+    "initial_result": "Paused menu; private diagnostic capture excluded from preview",
+    "ordinary_start_press": {
+      "polls_on": 120,
+      "polls_off": 126,
+      "button_mask": "0x10",
+      "source_sha1": "4359ed84e32b5222465bec252ecbfdb5e198868e",
+      "controller_log_sha1": "2efdab87cf6df2446d25c6aab2852ce05a7f26ba"
+    },
+    "verified_result": "Menu resumes; screenshot shows boss collapse/ending scene; 0271 and 0272 observed and waveform-aligned."
+  },
+  "clock_comparisons": [
+    {
+      "index": 240,
+      "capture": "first-hit",
+      "preview_sha1": "268a54105fd65f6ef865f0d2be3628ba5c053d13",
+      "source_sha1": "aae97988753cf7869a12897871e68cbd24d24d2e",
+      "nominal_clock_correlation": 0.16214193487772038,
+      "observed_clock_correlation": 0.8254731645492414,
+      "excerpt_seconds": 6.0,
+      "logged_request_seconds": 3.933236443,
+      "aligned_onset_seconds": 4.026938775510204,
+      "onset_delay_seconds": 0.09370233251020377,
+      "projection_gain": 0.4732107874897484
+    },
+    {
+      "index": 241,
+      "capture": "first-hit",
+      "preview_sha1": "046ed246da954bdc7c6a8e0d483e34458f7dd425",
+      "source_sha1": "c4d3c72c83005ed51c6a4948b77fb26992d845cc",
+      "nominal_clock_correlation": 0.13735458646517318,
+      "observed_clock_correlation": 0.7230741183439344,
+      "excerpt_seconds": 6.0,
+      "logged_request_seconds": 13.903260968,
+      "aligned_onset_seconds": 14.004897959183673,
+      "onset_delay_seconds": 0.10163699118367298,
+      "projection_gain": 0.4457800293811052
+    },
+    {
+      "index": 242,
+      "capture": "hit-03",
+      "preview_sha1": "e361d621b708834fbc9eafae7beedd2cd87b4400",
+      "source_sha1": "26f53f204db24dcb39651684dd692e8c0ef6909a",
+      "nominal_clock_correlation": 0.11679900994578754,
+      "observed_clock_correlation": 0.8860626486275485,
+      "excerpt_seconds": 6.0,
+      "logged_request_seconds": 5.798346807,
+      "aligned_onset_seconds": 5.898866213151927,
+      "onset_delay_seconds": 0.10051940615192745,
+      "projection_gain": 0.4681845823698849
+    },
+    {
+      "index": 238,
+      "capture": "hit-07",
+      "preview_sha1": "70f756ea75f865aeb4ca4cc767c454246adbc936",
+      "source_sha1": "299021ae5782c771f81ae291b9b44ecf364968e5",
+      "nominal_clock_correlation": 0.05712362856721358,
+      "observed_clock_correlation": 0.9797196035684768,
+      "excerpt_seconds": 6.0,
+      "logged_request_seconds": 3.358615678,
+      "aligned_onset_seconds": 3.458684807256236,
+      "onset_delay_seconds": 0.1000691292562359,
+      "projection_gain": 0.46956554293420133
+    },
+    {
+      "index": 271,
+      "capture": "hit-08",
+      "preview_sha1": "fbb269cb37e65a0faf050e61c8e29436d484ee51",
+      "source_sha1": "4c4efb08afd88823c1abc07034de6e4ecd5ec2e6",
+      "nominal_clock_correlation": 0.09611116140319867,
+      "observed_clock_correlation": 0.7634238500494883,
+      "excerpt_seconds": 6.0,
+      "logged_request_seconds": 4.43746026,
+      "aligned_onset_seconds": 4.56172335600907,
+      "onset_delay_seconds": 0.12426309600907004,
+      "projection_gain": 0.46041828407237156
+    },
+    {
+      "index": 272,
+      "capture": "hit-08",
+      "preview_sha1": "e2b14fda37a55102da1e368c57e683ab19d3439c",
+      "source_sha1": "3059e7139de0c41be39fa0c88430b5dacd719fcb",
+      "nominal_clock_correlation": 0.15605488642777746,
+      "observed_clock_correlation": 0.9394291033693968,
+      "excerpt_seconds": 3.3224489795918366,
+      "logged_request_seconds": 29.457716414,
+      "aligned_onset_seconds": 29.58204081632653,
+      "onset_delay_seconds": 0.12432440232652908,
+      "projection_gain": 0.4702500202520271
+    }
+  ],
+  "projection_stability": {
+    "240": {
+      "first-hit": [
+        {
+          "seconds": 2.0,
+          "gain": 0.46537375414639215,
+          "correlation": 0.8231153758940813
+        },
+        {
+          "seconds": 4.0,
+          "gain": 0.470940459165183,
+          "correlation": 0.8373717172117069
+        },
+        {
+          "seconds": 6.0,
+          "gain": 0.4732107874897484,
+          "correlation": 0.8254731645492414
+        }
+      ],
+      "hit-01": [
+        {
+          "seconds": 2.0,
+          "gain": 0.47261741335454255,
+          "correlation": 0.8333441753711401
+        },
+        {
+          "seconds": 4.0,
+          "gain": 0.47506174976306353,
+          "correlation": 0.8475788562583597
+        },
+        {
+          "seconds": 6.0,
+          "gain": 0.4746097065130483,
+          "correlation": 0.8329000992093534
+        }
+      ]
+    },
+    "241": {
+      "first-hit": [
+        {
+          "seconds": 2.0,
+          "gain": 0.44669732636014936,
+          "correlation": 0.7822746997143308
+        },
+        {
+          "seconds": 4.0,
+          "gain": 0.440786309785695,
+          "correlation": 0.734637419456563
+        },
+        {
+          "seconds": 6.0,
+          "gain": 0.4457800293811052,
+          "correlation": 0.7230741183439344
+        }
+      ],
+      "hit-01": [
+        {
+          "seconds": 2.0,
+          "gain": 0.4451474940507232,
+          "correlation": 0.7793893271247939
+        },
+        {
+          "seconds": 4.0,
+          "gain": 0.44023491044232627,
+          "correlation": 0.73233220085499
+        },
+        {
+          "seconds": 6.0,
+          "gain": 0.44440502401746246,
+          "correlation": 0.7198964164273084
+        }
+      ]
+    },
+    "242": {
+      "hit-03": [
+        {
+          "seconds": 2.0,
+          "gain": 0.46387536700753035,
+          "correlation": 0.8869599747320265
+        },
+        {
+          "seconds": 4.0,
+          "gain": 0.46809138668933176,
+          "correlation": 0.8939125761791968
+        },
+        {
+          "seconds": 6.0,
+          "gain": 0.4681845823698849,
+          "correlation": 0.8860626486275485
+        }
+      ]
+    },
+    "238": {
+      "hit-07": [
+        {
+          "seconds": 2.0,
+          "gain": 0.47135195162430776,
+          "correlation": 0.9828585750777358
+        },
+        {
+          "seconds": 4.0,
+          "gain": 0.47040321924455414,
+          "correlation": 0.9812058087201372
+        },
+        {
+          "seconds": 6.0,
+          "gain": 0.46956554293420133,
+          "correlation": 0.9797196035684768
+        }
+      ]
+    }
+  },
+  "coverage": {
+    "newly_observed_and_waveform_aligned_ids": [
+      238,
+      240,
+      241,
+      242,
+      271,
+      272
+    ],
+    "previously_observed_and_waveform_aligned_ids": [
+      239
+    ],
+    "unique_combined_ids": 7,
+    "unclassified_observed_ids": [
+      237,
+      432
+    ],
+    "full_successful_continuous_boss_mix_verified": false
+  },
+  "experiment": {
+    "profile": "config/soundtrack-sloprano-stream-experiment.json",
+    "wav_sha1": "759bf97c55bbb7dcc2c3f0fb47e81cec4af762f0",
+    "gain": 0.47,
+    "playback_rate": 22018,
+    "delay_seconds": 0.1,
+    "peak_before_attenuation": 0.89996337890625,
+    "attenuation": 1.0,
+    "reason": "Four later CSeq-cued excerpts confirm the previously observed 0239 clock and approximate level/delay. Common gain avoids interpreting background-biased per-excerpt differences as real decoder-volume changes. CSeq trigger implementation requests the same 0x7fff volume / 0x40 pan. Ending 0271/0272 show ~124 ms onset delay and are not CSeq 0066 cues; kept in native capture only.",
+    "unchanged": "Instrumental timeline, 149 default renders, prior experiments, canonical gamerip names and label confidence."
+  },
+  "limitations": [
+    "No exact hit-6 save; first-hit is not assumed to substitute for it.",
+    "Save label numbering and initial request values do not establish phase chronology or playback.",
+    "237 and 432 remain unclassified; no forced music/effect identification.",
+    "Mixed-audio waveform projections include background music/effects; gain and delay are excerpt estimates.",
+    "0272 source is only about 3.32 seconds; requested six-second comparison is capped at available source duration.",
+    "Full channel/marker arrangement, background synthesis, reverb and callback behavior remain unverified.",
+    "No new cheats; prior health-enabled captures remain explicitly labelled."
+  ],
+  "tests": {
+    "python": 73
+  },
+  "preview_validation": {
+    "asset_links_checked": 2744,
+    "capture_or_cue_players": 15,
+    "new_player_count": 9,
+    "new_player_ready_state": 4,
+    "new_players_advanced": true,
+    "mutual_pause": true,
+    "console_errors": [],
+    "horizontal_overflow": false,
+    "prepare_export_dialog": false,
+    "original_rom_and_saves_unchanged": true,
+    "temporary_server_stopped": true,
+    "browser_file_playback": "unverified: protocol policy; direct-file asset integrity checked",
+    "temporary_loopback_route": "/us-phase-review/index.html"
+  }
+}

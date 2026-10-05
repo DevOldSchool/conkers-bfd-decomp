@@ -139,7 +139,7 @@ After the raw base split map is available
                                  Extract, rebuild, preview, or byte-verify the RLE font table.
   mp3-assets <extract|pack|verify|cue-extract|cue-verify> [options]
                                  Extract or verify US MP3 streams, tables, and embedded cues.
-  audio-assets <survey|extract|preview|sample-preview|verify> [options]
+  audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]
                                  Survey, extract, preview, or byte-verify US non-MP3 audio assets.
   texture-assets <extract|pack|verify|survey> [options]
                                  Survey, extract, rebuild, or verify proven US textures.
@@ -1062,7 +1062,7 @@ case "$command" in
         python3 scripts/mp3_assets.py "$@"
         ;;
     audio-assets)
-        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <survey|extract|preview|sample-preview|verify> [options]"
+        [[ $# -ge 1 ]] || die "usage: ./conker audio-assets <survey|extract|preview|sample-preview|soundtrack-preview|verify> [options]"
         python3 scripts/audio_assets.py "$@"
         ;;
     texture-assets)

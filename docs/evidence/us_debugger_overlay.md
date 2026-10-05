@@ -37,9 +37,9 @@ individual debugger registration and explicitly reviewed debugger source units;
 see the [workflow](../decompilation-workflow.md#source-unit-boundaries-and-integration).
 The two provisional collections have not been registered or marked reviewed
 as source units, so neither receives completed source-unit credit. Individual
-function matches are counted separately: 24 of the 28 debugger/UI spans and
+function matches are counted separately: all 28 debugger/UI spans and
 all 10 library-helper spans have full-span US `CURRENT (0)` and clean batch
-verification. The four remaining candidates retain their original assembly.
+verification. Both C collections contain no remaining `GLOBAL_ASM` bodies.
 The 14,064-byte code interval is included as a separate US progress area;
 no EU/PAL interval is inferred.
 
