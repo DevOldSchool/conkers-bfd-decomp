@@ -94797,7 +94797,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 1483,
-        "reason": "Preserve full436 CURRENT1483 independently restored2d5d6761, improved1491 by scoping actual height temporary to its branch; count spill/reload now raw24, frame28 exact. Batch23 three new revisions: scopedheight1483, unsigned fullword index neutral1483, positive capacity/sharedfailure CFG3570 rejected. Residual indexS1 save vs raw A2 callerhome20, S0 savehome14vs18, heightguard/epilogue differences. Inherited directknownarray/no field snapshots retained; prior pointer/indexobject/yview families exhausted. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint70 full436 CURRENT1483 independently restored11c95598. Index lifetime ending at update call is neutral1483. Stable record pointer for all bulk fields3308 recovers raw indexA2, caller spills and savedS0 only, but frame30 and generic-pointer alias ordering regress. Short-lived typed input snapshots4325 fail to repair ordering. Three new forms exhausted; best keeps frame28 and count24 but extra indexS1, missing index20 spills and height/epilogue scheduling remain. Prior pointer/index-object/type/positive-failure variants exhausted. No ABI/shared/ASM changes, fake storage or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
