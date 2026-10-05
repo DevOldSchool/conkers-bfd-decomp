@@ -94964,7 +94964,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2065,
-        "reason": "Batch16 seven new manual forms: wordresult3038, callback objectread3202, integercallback2789, firstarg capture neutral2789, actual branchmix snapshot2065, disjoint callbackscope neutral2065, sharedscratch2084 (saved exactframe alternative). Restore2065 independently after final recheck. Retain s32result/u32callback and real field184 snapshot; no own/helper ABI changes. Residual frame58vs50, raw early MOVEv0zero absent with existingvoidcontract, callback V0 vsA0/earlyreload, branch scheduling. Earlier own input/near-distance hypotheses remain exhausted. No padding/shared/ASM changes.",
+        "reason": "Checkpoint40 two additional manual forms: branch-exclusive mixer/pointer union2656; union pointer-object reload2989 (frame50 but callback44, extra mixer spill and36register rows). Best2065 restored independently b49e371c. Prior batch16 wordresult3038, pointerobject3202, wordcallback2789, firstargcapture neutral, branchmixsnapshot2065, disjointscope neutral, sharedscratch2084 remain exhausted. Retain actual mixer snapshot, s32result and u32callback. Residual frame58vs50, raw early V0zero absent under existing void contract, callback V0vsA0/earlyreload and control scheduling. Regional source declarations remain void with ignored results; no new ABI evidence. No shared/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
