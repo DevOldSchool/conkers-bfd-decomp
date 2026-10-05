@@ -95870,7 +95870,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 80,
-        "reason": "Checkpoint48 full504 CURRENT80 independently restored eae6148c. Poll-only block plus separate real oldBuffer670 changes sequence load scheduling, loses MOVE and shifts homes. Signed reused counter/buffer word with unsigned comparisons105 adds four limit-register differences. Both new hypotheses exhausted; best80 preserves all opcodes/control/frame40/homes with15 register rows. Prior separate snapshot/address/type/old-new lifetime variants exhausted. No ABI/shared/ASM changes or permutation.",
+        "reason": "Checkpoint68 full504 CURRENT80 independently restored69ff40a0. Full-width unsigned sequenceIndex100 leaves all15register differences and shifts five stack homes. Shared scratch union with unsigned polling/signed buffer phases neutral80. Both new hypotheses exhausted. Best operations/control/frame/homes exact; sequenceV0 versus rawV1, oldBufferS0 versus rawV0 and buffer/length S1/S0 swap remain. Prior separate buffer scopes/types, old/new reuse, poll scope and signed wholeword exhausted. No artificial pressure, padding, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
