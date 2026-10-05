@@ -93207,7 +93207,7 @@
           "vram": "0x80011FA0"
         }
       },
-      "source": "src/main/init_11FA0.c",
+      "source": "src/done/main/init_11FA0.c",
       "symbol": "func_80011FA0"
     },
     {
@@ -93225,7 +93225,7 @@
           "vram": "0x80011FB0"
         }
       },
-      "source": "src/main/init_11FA0.c",
+      "source": "src/done/main/init_11FA0.c",
       "symbol": "func_80011FB0"
     },
     {
@@ -93243,7 +93243,7 @@
           "vram": "0x80011FDC"
         }
       },
-      "source": "src/main/init_11FA0.c",
+      "source": "src/done/main/init_11FA0.c",
       "symbol": "func_80011FDC"
     },
     {
@@ -93261,26 +93261,25 @@
           "vram": "0x80011FEC"
         }
       },
-      "source": "src/main/init_11FA0.c",
+      "source": "src/done/main/init_11FA0.c",
       "symbol": "func_80011FEC"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 95,
-        "reason": "Candidate CURRENT95 full1344 US, fresh495. Corrected own 11FA0 forwards to independently matched 8BC0 u8-first and8B60 four-u8/s32-value contracts; unchanged target body now recovers both raw ANDI a1,a0,FF instead of MOVE. Complete known C/include audit only owning definitions/own forwards/three selected calls; incomplete matched-caller index empty. Remaining FP f14/f2 roles and commutative operand order, plus main jump-table/data symbol ownership remain; no new C match/integration proof. Inherited blend/loop forms remain exhausted; one distinct declaration form, no shared SDK/header/tooling/ASM changes, no equivalent blend/storage/loop retries or unauthorized permutation.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 1344,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_80012020",
           "vram": "0x80012020"
         }
       },
-      "source": "src/main/init_11FA0.c",
+      "source": "src/done/main/init_11FA0.c",
       "symbol": "func_80012020"
     },
     {
@@ -93566,7 +93565,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 290,
-        "reason": "Typed pointer-table lookup improves1655 to290 with explicit sentinel exit. Base-pointer cast is code-neutral; initial input move and register allocation remain. No padding or permutation.",
+        "reason": "Preserve original typed pointer-table lookup CURRENT290. New manual endpoint snapshot290, consumed-formal input-ID snapshot450, declaration-order450, shared-return890 tested in manual-init-20261005 under expanded user budget. Formal reuse recovers a0 record/v1 cursor but reverses ID/end v0/a1 and reorders setup; none improves original. Prior sentinel exit/base-cast retained; no shared/ABI changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94543,7 +94542,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "Preserve full212 US CURRENT55 prepared declaration/first-assignment root b00d7ce7813e497aa2f084a7411bb800. Same actual u16 value and s32 remaining, unchanged assignment order, casts, memory effects, control/calls/ABI. Ten purely register-only tail rows; zero stack/operand/control/missing rows. Existing inline-declaration root exposes baseline only; read-only supported generator preview of this root exposes four forms: baseline, value-first-assignment scope, remaining-first-assignment scope, and declaration-order swap. These three forms have not been compiled/searched; one explicit task-permission request pending for ./conker permute func_8000ECCC --budget32, no stack shapes/shared changes. Prior width/read-order/chain/parameter reuse forms remain exhausted. No automatic search or equivalent manual variants while permission pending, no match/unit credit.",
+        "reason": "Preserve original full-span CURRENT55. Ten manual forms tested in manual-init-20261005 under expanded user budget: value scope55, remaining scope175, unsigned high extraction435, signed mask55, post-write packed snapshot725, compound packed update250, low-u16 pack445, explicit signed-high cast55, assignment-in-condition55, pre-write full packed snapshot715. Same ten register rows in best; masks/scopes/conversions/snapshots tested without improvement. Prior width/read-order/chain/parameter forms exhausted. No permutation/shared/ABI changes, no match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

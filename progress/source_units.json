@@ -19882,15 +19882,15 @@
         "func_80011FEC",
         "func_80012020"
       ],
-      "integration": "raw_asm",
+      "integration": "c",
       "regions": {
         "us": {
           "end": "0x12560",
           "start": "0x11FA0",
-          "state": "in_progress"
+          "state": "complete"
         }
       },
-      "source": "src/main/init_11FA0.c"
+      "source": "src/done/main/init_11FA0.c"
     },
     {
       "boundary_evidence": {

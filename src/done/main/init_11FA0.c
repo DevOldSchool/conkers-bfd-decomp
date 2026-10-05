@@ -3,11 +3,6 @@
 /*
  * Reviewed source unit: src/main/init_11FA0.c
  * Boundary evidence: docs/evidence/main_allocator_transfer_controller_boundaries.md
- *
- * TODO: Implement these source-unit functions:
- * - func_80012020
- *
- * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
 extern s32 D_80042770;
@@ -51,21 +46,12 @@ extern f32 D_80042788[2];
 extern f32 D_80042790;
 extern f32 D_80042794;
 extern f32 D_80042798;
-extern f32 D_8002C424;
-extern f32 D_8002C428;
-extern f32 D_8002C42C;
-extern f32 D_8002C430;
-extern f32 D_8002C434;
-extern f32 D_8002C438;
-extern f32 D_8002C43C;
-extern f32 D_8002C440;
-extern f32 D_8002C444;
 f32 func_85047D60(f32);
 void func_80008BC0(u8, f32, f32);
 void func_80008B60(u8, u8, u8, u8, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80012020 CURRENT (95) */
 void func_80012020(void) {
+    extern f32 D_80042784;
     s32 i;
     f32 volume = 0.0f;
     s32 selector;
@@ -90,19 +76,19 @@ void func_80012020(void) {
             volume = (13.0f - D_80042790) + D_80042790;
             D_8004277C = 0;
             gains.values[0] = 127.0f;
-            frequencies.values[0] = ((D_8002C428 + func_85047D60(D_80042798 * D_8002C424) * 200.0f) - D_80042780[0]) + D_80042780[0];
+            frequencies.values[0] = D_80042780[0] + ((519.0f + func_85047D60(D_80042798 * 0.052359879f) * 200.0f) - D_80042780[0]);
             break;
         case 2:
             D_8004277C = 0;
             volume = 70.0f;
             gains.values[0] = 127.0f;
-            frequencies.values[0] = func_85047D60(D_80042798 * D_8002C42C) * 200.0f + 450.0f;
+            frequencies.values[0] = func_85047D60(D_80042798 * 0.34906584f) * 200.0f + 450.0f;
             break;
         case 3:
-            volume = (52.0f - D_80042790) * D_8002C430 + D_80042790;
+            volume = (52.0f - D_80042790) * 0.08f + D_80042790;
             D_8004277C = 0;
-            gains.values[0] = (127.0f - D_80042788[0]) * D_8002C430 + D_80042788[0];
-            frequencies.values[0] = ((436.0f + func_85047D60(D_80042798 * D_8002C434) * 282.0f) - D_80042780[0]) * D_8002C438 + D_80042780[0];
+            gains.values[0] = D_80042788[0] + (127.0f - D_80042788[0]) * 0.08f;
+            frequencies.values[0] = D_80042780[0] + ((436.0f + func_85047D60(D_80042798 * 0.122173049f) * 282.0f) - D_80042780[0]) * 0.08f;
             D_80041FD9 = 0;
             break;
         case 4:
@@ -111,7 +97,7 @@ void func_80012020(void) {
             if (D_800BE9B4 != 0) {
                 frequencies.values[1] = 400.0f;
             } else {
-                frequencies.values[1] = (400.0f - D_80042780[1]) + D_80042780[1];
+                frequencies.values[1] = D_80042784 + (400.0f - D_80042784);
             }
             D_80041FD9 = 0;
             break;
@@ -122,8 +108,8 @@ void func_80012020(void) {
             break;
         default:
             if (D_8004277C == 4) {
-                frequencies.values[1] = (D_8002C43C - D_80042780[1]) * D_8002C440 + D_80042780[1];
-                if (frequencies.values[1] < D_8002C444) {
+                frequencies.values[1] = D_80042784 + (11000.0f - D_80042784) * 0.05f;
+                if (frequencies.values[1] < 9000.0f) {
                     D_8004277C = 4;
                 } else {
                     D_8004277C = 0;
@@ -153,5 +139,3 @@ void func_80012020(void) {
     }
     D_80042770 = 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_80012020 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_11FA0/func_80012020.s")

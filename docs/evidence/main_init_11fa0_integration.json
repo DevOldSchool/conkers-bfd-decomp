@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "source": "src/done/main/init_11FA0.c",
+  "identifier": "func_80012020",
+  "reviewed_utc": "2026-10-05T05:01:18.991750+00:00",
+  "memory_used": false,
+  "status": "integrated; full US span CURRENT (0), linked pool exact, byte-identical ROM, clean BATCH_COMPLETE",
+  "focused_attempt": "7575363f2a76438ca54abb6d7a4fb81d",
+  "focused_current": 0,
+  "text_rom_range": [
+    "0x11FA0",
+    "0x12560"
+  ],
+  "target_rom_range": [
+    "0x12020",
+    "0x12560"
+  ],
+  "us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "us_rom_size_bytes": 67108864,
+  "pool_rom_range": [
+    "0x2C410",
+    "0x2C450"
+  ],
+  "pool_vram": "0x8002C410",
+  "pool_size_bytes": 64,
+  "pool_sha256": "d1c44b07af3af6c5d1653775d1dcbf7c444e17e5b13eea7abe03dcc076839adc",
+  "switch_entries": 5,
+  "literal_count": 9,
+  "padding_bytes": 8,
+  "padding_zero": true,
+  "compiler_object": "build/us/src/main/init_11FA0.o",
+  "compiler_object_sha256": "d56b42039d951c06da8a332917e6266eaae2320ef07de18385b72536879177c8",
+  "object_pool_size_bytes": 64,
+  "object_literal_and_padding_bytes_equal_rom": true,
+  "modeled_runtime_table_equals_rom": true,
+  "literal_evidence": "All source float spellings round to the exact words at ROM 0x2C424 through 0x2C444. The five R_MIPS_32 table addends plus runtime source base 0x10011FA0 equal the ROM case pointers. This read-only model is preparatory evidence; final linked verification remains required.",
+  "scalar_alias_evidence": "Raw func_80012020 names D_80042784 at its two fixed second-channel frequency loads. The source uses that existing external label there and preserves D_80042780 as the two-element loop base; no object definition or storage is introduced.",
+  "repair": "Reuse prepare_main_library_object.py with exactly five code-pointer relocations and delta -0x70000000. Map the complete compiler table/literal pool as non-allocated read-only INFO at 0x8002C410. Require its exact linked extent and every byte, including padding, against the checksum-validated ROM. Refresh this C object before each canonical build to prevent focused-check cache poisoning and double rebasing.",
+  "initial_integration_failure": "Original main BSS allocation changed while selector rodata lacked its reviewed external placement; supported transaction restored project files.",
+  "unchanged": [
+    "assembly",
+    "compiler flags",
+    "shared headers",
+    "SDK contracts",
+    "source-unit text boundary"
+  ],
+  "focused_tests": {
+    "main_rodata": 14,
+    "object_cache": 2,
+    "object_preparation": 5
+  },
+  "acceptance": {
+    "full_rom": "byte-identical",
+    "clean_batch": "BATCH_COMPLETE",
+    "full_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+    "tests_run": 1899,
+    "tests_skipped": 37,
+    "metadata": "valid",
+    "progress": "current",
+    "whitespace": "passed",
+    "batch_members": [
+      "func_80011FA0",
+      "func_80011FB0",
+      "func_80011FDC",
+      "func_80011FEC",
+      "func_80012020",
+      "func_80002E50"
+    ]
+  },
+  "linked_section_sha256": "d1c44b07af3af6c5d1653775d1dcbf7c444e17e5b13eea7abe03dcc076839adc",
+  "verified_utc": "2026-10-05T05:11:20.926326+00:00"
+}

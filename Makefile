@@ -27,8 +27,10 @@ ASM_OBJS := $(patsubst asm/%.s,$(BUILD_DIR)/asm/%.o,$(ASM_SRCS))
 C_SRCS := $(shell python3 scripts/list_integrated_sources.py --overlay main --profile $(PROFILE) 2>/dev/null) \
 	$(shell python3 scripts/list_integrated_sources.py --profile-segment debugger --profile $(PROFILE) 2>/dev/null)
 C_OBJS := $(patsubst src/%.c,$(BUILD_DIR)/src/%.o,$(C_SRCS))
-# The queue-thread table is external to its reviewed text unit.
-PROFILE_MAIN_RODATA_SCRIPT_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_2E50.o,$(C_OBJS)),config/main/us-rodata.ld)
+# Reviewed main tables and literal pools are external to their text units.
+PROFILE_MAIN_RODATA_SECTIONS_us := $(if $(filter $(BUILD_DIR)/src/done/main/init_2E50.o,$(C_OBJS)),.main_rodata_init_2e50) $(if $(filter $(BUILD_DIR)/src/done/main/init_11FA0.o,$(C_OBJS)),.main_rodata_init_11fa0)
+PROFILE_MAIN_RODATA_SECTIONS := $(strip $(PROFILE_MAIN_RODATA_SECTIONS_$(PROFILE)))
+PROFILE_MAIN_RODATA_SCRIPT_us := $(if $(PROFILE_MAIN_RODATA_SECTIONS),config/main/us-rodata.ld)
 PROFILE_MAIN_RODATA_SCRIPT := $(PROFILE_MAIN_RODATA_SCRIPT_$(PROFILE))
 PROFILE_MAIN_RODATA_VERIFY_us := $(if $(PROFILE_MAIN_RODATA_SCRIPT),scripts/verify_main_rodata.py)
 PROFILE_MAIN_RODATA_VERIFY := $(PROFILE_MAIN_RODATA_VERIFY_$(PROFILE))
@@ -236,7 +238,7 @@ ifneq ($(PROFILE_RODATA_VERIFY),)
 	python3 $(PROFILE_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
 endif
 ifneq ($(PROFILE_MAIN_RODATA_VERIFY),)
-	python3 $(PROFILE_MAIN_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
+	python3 $(PROFILE_MAIN_RODATA_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf" $(foreach section,$(PROFILE_MAIN_RODATA_SECTIONS),--require $(section))
 endif
 ifneq ($(PROFILE_MAIN_VI_BSS_VERIFY),)
 	python3 $(PROFILE_MAIN_VI_BSS_VERIFY) "$(BUILD_DIR)/conker.$(PROFILE).elf"
@@ -275,6 +277,15 @@ build/us/src/done/main/init_2E50.o: src/done/main/init_2E50.c scripts/compile_c.
 	@mkdir -p "$(@D)"
 	python3 scripts/compile_c.py --profile us --output $@.unprepared $<
 	python3 scripts/prepare_main_library_object.py $@.unprepared $@ --delta=-0x70000000 --expected-relocations 7
+
+# This source owns five runtime-aliased switch targets followed by float literals.
+.PHONY: main-selector-object-refresh
+main-selector-object-refresh:
+
+build/us/src/done/main/init_11FA0.o: src/done/main/init_11FA0.c scripts/compile_c.py scripts/prepare_main_library_object.py Makefile main-selector-object-refresh
+	@mkdir -p "$(@D)"
+	python3 scripts/compile_c.py --profile us --output $@.unprepared $<
+	python3 scripts/prepare_main_library_object.py $@.unprepared $@ --delta=-0x70000000 --expected-relocations 5
 
 $(BUILD_DIR)/src/%.o: src/%.c
 	@mkdir -p "$(@D)"
