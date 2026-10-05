@@ -13,6 +13,98 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+typedef struct { f32 x, y, z; } Game1F2730Vector;
+
+typedef struct Game1F2730PointPair {
+    void *points[2];
+} Game1F2730PointPair;
+
+void func_15145740(void *, void *, void *, void *, f32);
+s32 func_1514654C(void *, s32, s32, void **, void **, s32);
+void *func_1503195C(void *, s32, s32);
+void func_151C56A4(void *, u8, s32);
+void func_151C5588(s32, s32, s16, u8, s32);
+s32 func_151C229C(f32 *, f32 *, s32, s32, s32, s32,
+                  f32, f32, f32, f32, f32, s32, void *, s32, s32, s32,
+                  s32, s32, s32, s32, s32, f32, s32, s32, s32, s32, s32);
+u32 func_150ADA20();
+f32 func_150ADA68(void);
+extern s32 D_800AAA90;
+extern u8 D_800AAAA8[];
+extern f32 D_800AAAB4;
+extern f32 D_800AAAB8;
+extern u8 D_800BE616;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_151C5280 CURRENT (441) */
+void func_151C5280(void *arg0, u8 arg1, s32 arg2) {
+    Game1F2730Vector position;
+    Game1F2730Vector endpoint;
+    Game1F2730Vector direction;
+    Game1F2730Vector side;
+    Game1F2730PointPair inputs;
+    Game1F2730PointPair outputs;
+    f32 random2;
+    f32 random1;
+    f32 direction_x;
+    void *model;
+    s32 mode;
+    s32 alpha;
+    u32 random;
+
+    if (arg0 != 0) {
+        func_15145740(arg0, &direction, &side, 0, 0.0f);
+        direction.x *= D_800AAAB4;
+        direction.y *= D_800AAAB4;
+        direction.z *= D_800AAAB4;
+        if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+            inputs.points[0] = &D_800AAA90;
+            inputs.points[1] = D_800AAAA8;
+            outputs.points[0] = &position;
+            outputs.points[1] = &endpoint;
+            model = func_1503195C(arg0, 0x46, 0);
+            if (model == 0) {
+                return;
+            }
+            if (func_1514654C(arg0, (s32)model, 0, inputs.points, outputs.points, 2) == 0) {
+                return;
+            }
+            func_151C56A4(&position, arg1, arg2);
+            if (func_150ADA20() & 1) {
+                func_151C5588((s32)arg0, (s32)&position, 0x46, arg1, arg2);
+            }
+        } else {
+            position.x = *(f32 *)((u8 *)arg0 + 0x14);
+            position.y = *(f32 *)((u8 *)arg0 + 0x18) + 106.0f;
+            direction_x = direction.x;
+            position.z = *(f32 *)((u8 *)arg0 + 0x1C);
+            endpoint.x = direction.x * -82.0f + position.x;
+            endpoint.y = direction.y * -82.0f + position.y;
+            endpoint.z = direction.z * -82.0f + position.z;
+            position.x -= direction_x * -120.0f;
+            position.y -= direction.y * -120.0f;
+            position.z -= direction.z * -120.0f;
+        }
+        random1 = func_150ADA68();
+        random2 = func_150ADA68();
+        random = func_150ADA20();
+        if (*(s32 *)((u8 *)arg0 + 0x1D4) != 0) {
+            alpha = 0xFF;
+        } else {
+            alpha = 0x80;
+        }
+        if (D_800BE616 != 0) {
+            mode = -1;
+        } else {
+            mode = 2;
+        }
+        func_151C229C((f32 *)&position, 0, (s32)&endpoint, (s32)&direction, 1, 0,
+                      300.0f, D_800AAAB8, random1 * 10.0f + 25.0f,
+                      random2 * 150.0f + 400.0f, 80.0f, random % 56U + 0xC8,
+                      arg0, 1, 1, 0, alpha, 0, 1, 0, 0x1A, 0.0f,
+                      0xFF, mode, 0, arg1, arg2);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_151C5280 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1F2730/func_151C5280.s")
 void func_15102B38(s32, u8, s32, s32, f32 *, s32, s32, f32, s32,
                    s32, s32, s32, s32, s32);
@@ -91,7 +183,6 @@ void func_151C5E74(void *arg0, void *arg1, void *arg2, void *arg3, f32 arg4,
     func_151D9014(position, vector, 1, value, count, (u8)alpha, scale, 0,
                   1.0f, 1.0f, 1, 0, 1, 0, arg5[0xC], arg5[1]);
 }
-typedef struct { f32 x, y, z; } Game1F2730Vector;
 
 typedef struct {
     s32 field00, field04;

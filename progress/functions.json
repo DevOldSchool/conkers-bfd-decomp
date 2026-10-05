@@ -3616,6 +3616,12 @@
       "symbol": "func_15198D88"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 5250,
+        "reason": "Best CURRENT 5250 retained after three manual comparisons; native FP calculations and save homes match, packet/frame placement and integer scheduling remain. No shared changes.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
@@ -85976,6 +85982,12 @@
       "symbol": "func_150B9D8C"
     },
     {
+      "deferred": {
+        "candidate_preserved": true,
+        "current_score": 441,
+        "reason": "Best CURRENT 441 restored after three comparisons; complete vector/pointer buffers and successful-output audit, all instruction and register assignments match, fifty stack-only differences remain. No shared ABI edits.",
+        "recorded_revision": "working-tree"
+      },
       "overlay": "game",
       "regions": {
         "us": {
