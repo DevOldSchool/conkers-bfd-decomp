@@ -93394,8 +93394,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 430,
-        "reason": "Checkpoint41 two new manual forms both neutral430: final next-field pointer1fc2ea44 and just-stored record->prev snapshot02fcc4b6. Best independently restored9dac2a24. Full368 frame58/message50/control exact; missing raw anchor-copy MOVEv1,a0 drives32 register rows and four-byte short candidate. Prior scoped unlink/insertion, original early fields, SDK link-prefix, late after-copy and store-order families exhausted. Field-lvalue and stored-prev variants now exhausted. No padding/artificial pressure/ABI/shared/ASM changes.",
+        "current_score": 395,
+        "reason": "Checkpoint56 full368 CURRENT395 improves430: delayed saved-anchor snapshot plus actual anchor advance recovers missing MOVE and exact full instruction span/order/control. All47 remaining rows are registers. Whole list-phase pointer scope and direct cursor while loop both neutral395; restored 01521fbb body independently. Prior static prefix/field-lvalue/store-forwarding attempts430 remain exhausted. No shared/ABI/ASM changes or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93467,8 +93467,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 790,
-        "reason": "Best full-span CURRENT790 verified8f96b73a after3 batch21 revisions across two selections, improved810 by concrete function-local extern references to existing raw/linker D_800406A4 and D_800406B0 stores. No new storage or symbol definitions. Scoped unlink and original early fields neutral; inherited owner snapshot900, manager1210 and SDK prefix810 exhausted. Residual owner-pointer load order, manager-base hoist/allocation and missing anchor copy over216bytes; frame18 exact. No shared ABI/header/assembly changes; candidate only.",
+        "current_score": 95,
+        "reason": "Checkpoint56 full216 CURRENT95 independently restored4b8c47b8. Actual consumed-anchor transition and late saved-anchor copy790to610; short owner-slot lifetime610to95 recovers all operations/order/control/fullspan. Four new revisions; anchor-only scope and function-scope saved-anchor order both neutral95. Remaining14 register rows: managerV1/rawA1, anchorV0/rawV1, savedanchorV1/rawV0, childV0/rawA1. Prior manager/prefix/global-scope owner/unlink families exhausted. No ABI/shared/ASM changes, artificial pressure or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93486,8 +93486,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 630,
-        "reason": "Best full-span CURRENT630 independently restoreda832db7d after6 batch21 revisions, improved1394. Scoped actual unlink elements recover frame58 and branch-delay NOP; reordered existing locals recover every raw home; function-local extern for existing raw/linker D_800406A4 recovers named-symbol head store without adding storage or definitions. Residual: missing insertion anchor copy,6 register rows, early A1 FF, late size ADDIU and state SB scheduling,4 bytes short over832span. Original early fields and embedded SDK link view neutral; reused size advance1160 rejected. No shared ABI/header/assembly/tool changes; candidate only.",
+        "current_score": 450,
+        "reason": "Checkpoint56 full832 CURRENT450 attempt87da203b. One new manual revision: actual consumed-anchor transition and delayed oldanchor copy recovers missingMOVE,630to450. Exactframe58/allhomes/firstphase retained. Remaining10register rows in insertion plus earlyFF load, sizeADDIU/stateSB/zeroA3 scheduling; rawanchorA0/savedV0/childA1 versus candidateV0/A0/V0. Prior embeddedprefix/earlyfields/reusedsizeadvance exhausted. No new distinct supported followup; no shared/ABI/ASM changes or artificial pressure/permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

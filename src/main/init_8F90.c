@@ -523,7 +523,7 @@ ALDMAproc func_80009980(void *state) {
     *(void **)state = 0;
     return D_100097CC;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (430) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_800099BC CURRENT (395) */
 void func_800099BC(void) {
     u32 i;
     void *message;
@@ -562,12 +562,14 @@ void func_800099BC(void) {
                 anchor = D_80040F78.base;
                 if (anchor != 0) {
                     AudioDmaNode *linkNode = record;
-                    AudioDmaNode *linkAfter = anchor;
+                    AudioDmaNode *linkAfter;
 
                     record->next = anchor->next;
                     record->prev = anchor;
-                    if (anchor->next != 0) {
-                        anchor->next->prev = linkNode;
+                    linkAfter = anchor;
+                    anchor = linkAfter->next;
+                    if (anchor != 0) {
+                        anchor->prev = linkNode;
                     }
                     linkAfter->next = linkNode;
                 } else {
@@ -614,7 +616,7 @@ void func_80009B90(void *arg0) {
 void func_850AD770(void);
 extern s32 D_8003C8E0;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (790) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009BE4 CURRENT (95) */
 void func_80009BE4(void *arg0) {
     AudioBufferState *record = arg0;
     AudioBufferState *anchor;
@@ -626,7 +628,11 @@ void func_80009BE4(void *arg0) {
         func_850AD770();
         return;
     }
-    *record->ownerSlot = record->savedValue;
+    {
+        s32 *ownerSlot = record->ownerSlot;
+
+        *ownerSlot = record->savedValue;
+    }
     if (record == D_800406A0.active) {
         D_800406A4 = record->next;
     }
@@ -640,12 +646,14 @@ void func_80009BE4(void *arg0) {
     if (anchor != 0) {
         {
             AudioBufferState *linkNode = record;
-            AudioBufferState *linkAfter = anchor;
+            AudioBufferState *linkAfter;
 
-            linkNode->next = linkAfter->next;
-            linkNode->prev = linkAfter;
-            if (linkAfter->next != 0) {
-                linkAfter->next->prev = linkNode;
+            linkNode->next = anchor->next;
+            linkNode->prev = anchor;
+            linkAfter = anchor;
+            anchor = linkAfter->next;
+            if (anchor != 0) {
+                anchor->prev = linkNode;
             }
             linkAfter->next = linkNode;
         }
@@ -664,7 +672,7 @@ void func_80023D20(void *, s32);
 extern u32 D_8002AE50;
 extern TransferIoMessage D_80041330[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (630) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80009CBC CURRENT (450) */
 void *func_80009CBC(void *arg0, s32 mode) {
     AudioBufferState *record;
     AudioBufferState *reuse;
@@ -732,12 +740,14 @@ void *func_80009CBC(void *arg0, s32 mode) {
             anchor = D_800406A0.pending;
             if (anchor != 0) {
                 AudioBufferState *linkNode = record;
-                AudioBufferState *linkAfter = anchor;
+                AudioBufferState *linkAfter;
 
-                linkNode->next = linkAfter->next;
-                linkNode->prev = linkAfter;
-                if (linkAfter->next != 0) {
-                    linkAfter->next->prev = linkNode;
+                linkNode->next = anchor->next;
+                linkNode->prev = anchor;
+                linkAfter = anchor;
+                anchor = linkAfter->next;
+                if (anchor != 0) {
+                    anchor->prev = linkNode;
                 }
                 linkAfter->next = linkNode;
             } else {
