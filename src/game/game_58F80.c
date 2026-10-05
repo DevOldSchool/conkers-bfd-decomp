@@ -36,6 +36,11 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_matrix_buffer_reset_for_frame func_1502C380
+#define model_get_adjusted_matrix_count func_1502DB20
+#define actor_matrix_buffer_pack_fixed func_1502E474
+
 typedef struct { u32 first, second; } Game58F80Command;
 typedef struct {
     s32 active;
@@ -387,7 +392,7 @@ typedef struct {
 extern Game58F80Word D_800C3E88;
 extern s32 D_800C3E8C;
 
-void func_1502C380(void) {
+void actor_matrix_buffer_reset_for_frame(void) {
     Game58F80Word *destination;
 
     destination = &D_800C3E88;
@@ -917,7 +922,7 @@ void func_1502D824(void *model, s32 actorAddress, s32 output) {
 
 extern u16 D_800C4ED0[];
 
-s32 func_1502DB20(s32 arg0) {
+s32 model_get_adjusted_matrix_count(s32 arg0) {
     switch (arg0) {
         case 0x3B:
         case 0x75:
@@ -942,7 +947,7 @@ s32 func_1502DB20(s32 arg0) {
 #pragma GLOBAL_ASM("asm/nonmatchings/game_58F80/func_1502DF38.s")
 extern s8 D_800C3E90;
 
-void func_1502E474(void) {
+void actor_matrix_buffer_pack_fixed(void) {
     if ((u16)D_800C3E7A != 0) {
         func_150A9984(D_800C3E80[D_800BE9C0], (u16)D_800C3E7A);
     }
