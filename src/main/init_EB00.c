@@ -7,7 +7,6 @@
  * TODO: Implement these source-unit functions:
  * - func_8000ECCC
  * - func_8000EE70
- * - func_8000F4D8
  * - func_8000F568
  * - func_8000F6B8
  * - func_8000F85C
@@ -446,26 +445,23 @@ s32 func_8000F44C(u16 arg0) {
 }
 extern u8 D_800426A0[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F4D8 CURRENT (30) */
 s32 func_8000F4D8(u16 arg0) {
-    SoundHandleEntry *entry;
+    s32 index;
 
     arg0 &= 0x7FFF;
-    entry = D_800425E0;
+    index = 0;
     do {
-        if (entry->state != 0) {
-            if ((entry->value & 0x7FFF) == arg0) {
-                if (func_800173C4(&entry->state) != 0) {
+        if (D_800425E0[index].state != 0) {
+            if ((D_800425E0[index].value & 0x7FFF) == arg0) {
+                if (func_800173C4(&D_800425E0[index].state) != 0) {
                     return 1;
                 }
             }
         }
-        entry++;
-    } while (entry != (SoundHandleEntry *)D_800426A0);
+        index++;
+    } while ((SoundHandleEntry *)D_800426A0 != &D_800425E0[index]);
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000F4D8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000F4D8.s")
 extern u8 *D_80041F5C;
 
 #if 0 /* CONKER_DEFERRED_CANDIDATE func_8000F568 CURRENT (245) */
@@ -626,24 +622,13 @@ extern SoundArrayRecord D_80041FE0[];
 void func_80011624(SoundArrayRecord *, s32 *, s32, s32);
 s32 func_85083E0C(s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (4811) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000FA64 CURRENT (1491) */
 u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
                   u16 farDistance, s16 nearDistance, void *callback,
                   s32 owner, s32 key, s32 flags, s32 cents) {
     s16 height;
-    u16 recordSound;
-    s16 recordX;
-    s16 recordY;
-    s16 recordZ;
-    u16 recordFar;
-    s16 recordNear;
-    s32 recordVolume;
-    void *recordCallback;
-    s32 recordOwner;
-    s32 recordKey;
     s32 count;
     s32 index;
-    SoundArrayRecord *record;
 
     index = D_80042760;
     if (D_80042760 < 0x20) {
@@ -652,11 +637,9 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
         return 0;
     }
     if (callback != 0) {
-        record = &D_80041FE0[index];
-        record->flags = flags | 0x12;
+        D_80041FE0[index].flags = flags | 0x12;
     } else {
-        record = &D_80041FE0[index];
-        record->flags = (flags & 0x108) | 2;
+        D_80041FE0[index].flags = (flags & 0x108) | 2;
     }
     if (flags & 0x40) {
         height = (s16)func_85083E0C((u8)x);
@@ -665,38 +648,28 @@ u16 func_8000FA64(u16 sound, s16 x, s16 y, s16 z, s32 volume,
             return 0;
         }
     }
-    recordSound = sound;
-    recordX = x;
-    recordY = ((s16 *)&y)[0];
-    recordZ = z;
-    recordFar = farDistance;
-    recordNear = nearDistance;
-    recordVolume = volume;
-    recordCallback = callback;
-    recordOwner = owner;
-    recordKey = key;
-    record->handle = 0;
-    record->field23 = 0;
-    record->field22 = 0;
-    record->field0 = recordSound;
-    record->positionX = recordX;
-    record->positionY = recordY;
-    record->positionZ = recordZ;
-    record->field8 = recordFar;
-    record->fieldA = recordNear;
-    record->valueC = recordVolume;
-    record->callback = recordCallback;
-    record->owner = (void *)recordOwner;
-    record->key = recordKey;
-    record->pitch = func_80019AB0(cents);
-    record->field26 = 0;
-    record->field28 = 0;
-    record->cents = cents;
+    D_80041FE0[index].handle = 0;
+    D_80041FE0[index].field23 = 0;
+    D_80041FE0[index].field22 = 0;
+    D_80041FE0[index].field0 = sound;
+    D_80041FE0[index].positionX = x;
+    D_80041FE0[index].positionY = ((s16 *)&y)[0];
+    D_80041FE0[index].positionZ = z;
+    D_80041FE0[index].field8 = farDistance;
+    D_80041FE0[index].fieldA = nearDistance;
+    D_80041FE0[index].valueC = volume;
+    D_80041FE0[index].callback = callback;
+    D_80041FE0[index].owner = (void *)owner;
+    D_80041FE0[index].key = key;
+    D_80041FE0[index].pitch = func_80019AB0(cents);
+    D_80041FE0[index].field26 = 0;
+    D_80041FE0[index].field28 = 0;
+    D_80041FE0[index].cents = cents;
     count = D_80042760;
     func_80011624(D_80041FE0, &D_80042760, index, index + 1);
     if (count == D_80042760) {
-        record->flags |= 0x1000;
-        return record->handle;
+        D_80041FE0[index].flags |= 0x1000;
+        return D_80041FE0[index].handle;
     }
     return 0;
 }

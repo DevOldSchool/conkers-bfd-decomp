@@ -94686,17 +94686,16 @@
       "symbol": "func_8000F44C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 30,
-        "reason": "Nested positive guards with field-left comparison improve40 to30 and recover all saved registers and comparison operands. Only two low-address initialization instructions remain swapped. Explicit failing guard83 and real endpoint-first snapshot73 regress; preserve simpler30, no repeated endpoint/order shaping or artificial storage.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 144,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000F4D8",
           "vram": "0x8000F4D8"
         }
@@ -94800,8 +94799,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4811,
-        "reason": "Preserve typed positional constructor at CURRENT (4811). Inherited two cast forms6057, current six proved narrow SW-home inputs6005, real height/index views6271, and ten actual field snapshots4811. SDK height SH home and caller-save index now agree; frame48 versus28, interleaved field scheduling, cents/return tails remain. Three current forms plus two inherited, ceiling exhausted; do not repeat input types/object views/index or snapshot shaping. Six own narrow prototypes retain five known disabled C callers/raw positives; fullword controls/cents and SDK contracts unchanged. No shared dependency or permutation.",
+        "current_score": 1491,
+        "reason": "Preserve full436-byte CURRENT1491 improved4811: directknownarray fields and removed ten redundant field snapshots recover frame28 and bulkload/store scheduling. Seven new hypotheses: indexed2679; no snapshots1491; late finalpointer1491; earlyrecord/postpitchpointer1491; actual indexobjectread5764; indexobject+stablepointer4264; ordinary y parameter2828. Restored minimal1491 independently8948accd. Residual indexS1 save vs raw a2 callerhome20, count home20vs24 and related guard/epilogue scheduling. Retain prior raw-proven narrowowncontracts/yview; inherited typed/object/snapshot families noted. No final ABI, shared or ASM changes, no permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
