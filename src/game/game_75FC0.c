@@ -3,6 +3,7 @@
 /*
  * Reviewed source unit: src/game/game_75FC0.c
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
+ * Semantic evidence: docs/evidence/vector_transform_helper_semantics.md
  *
  * TODO: Implement these source-unit functions:
  * - func_15048C30
@@ -12,12 +13,21 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define matrixf_build_inverse_translation_rotation func_15048B10
+#define vec3f_add func_15048F20
+#define vec3f_subtract func_15048F58
+#define vec3f_displacement func_15048F90
+#define vec3f_scale func_15049148
+#define vec3f_normalize_or_zero func_1504917C
+#define vec3f_direction_between_points_or_zero func_150491EC
+
 s32 func_1503E5F8(u8 *, s32, s32, s32, s32, s32, s32, s32, s32, s32);
 void func_150A7A48(void *, void *, void *);
 void func_150A7BC0(void *);
 void func_150A8050(void *, f32, f32, f32);
 
-void func_15048B10(u8 *arg0, void *arg1) {
+void matrixf_build_inverse_translation_rotation(u8 *arg0, void *arg1) {
     struct {
         u8 sp34[0x40];
         u8 sp74[0x40];
@@ -160,17 +170,17 @@ f32 func_15048C30(f32 arg0, f32 arg1) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15048C30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_15048C30.s")
-void func_15048F20(void *arg0, void *arg1, void *arg2) {
+void vec3f_add(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg1 + 0) + *(f32 *)((u8 *)arg0 + 0));
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg1 + 4) + *(f32 *)((u8 *)arg0 + 4));
     *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg1 + 8) + *(f32 *)((u8 *)arg0 + 8));
 }
-void func_15048F58(void *arg0, void *arg1, void *arg2) {
+void vec3f_subtract(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) - *(f32 *)((u8 *)arg1 + 0));
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) - *(f32 *)((u8 *)arg1 + 4));
     *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) - *(f32 *)((u8 *)arg1 + 8));
 }
-void func_15048F90(void *arg0, void *arg1, void *arg2) {
+void vec3f_displacement(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg1 + 0) - *(f32 *)((u8 *)arg0 + 0));
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg1 + 4) - *(f32 *)((u8 *)arg0 + 4));
     *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)arg0 + 8));
@@ -239,14 +249,14 @@ s32 func_150490A8(void *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150490A8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_75FC0/func_150490A8.s")
-void func_15049148(void *arg0, f32 arg1, void *arg2) {
+void vec3f_scale(void *arg0, f32 arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg0 + 0) * arg1);
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) * arg1);
     *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) * arg1);
 }
 f32 func_150AD930();                                /* extern */
 
-void func_1504917C(void *arg0, void *arg1) {
+void vec3f_normalize_or_zero(void *arg0, void *arg1) {
     f32 temp_fv0;
     f32 var_fv1;
 
@@ -259,9 +269,9 @@ void func_1504917C(void *arg0, void *arg1) {
     *(f32 *)((u8 *)arg1 + 4) = (f32) (*(f32 *)((u8 *)arg0 + 4) * var_fv1);
     *(f32 *)((u8 *)arg1 + 8) = (f32) (*(f32 *)((u8 *)arg0 + 8) * var_fv1);
 }
-void func_150491EC(void *arg0, void *arg1, void *arg2) {
+void vec3f_direction_between_points_or_zero(void *arg0, void *arg1, void *arg2) {
     *(f32 *)((u8 *)arg2 + 0) = (f32) (*(f32 *)((u8 *)arg1 + 0) - *(f32 *)((u8 *)arg0 + 0));
     *(f32 *)((u8 *)arg2 + 4) = (f32) (*(f32 *)((u8 *)arg1 + 4) - *(f32 *)((u8 *)arg0 + 4));
     *(f32 *)((u8 *)arg2 + 8) = (f32) (*(f32 *)((u8 *)arg1 + 8) - *(f32 *)((u8 *)arg0 + 8));
-    func_1504917C(arg2, arg2);
+    vec3f_normalize_or_zero(arg2, arg2);
 }
