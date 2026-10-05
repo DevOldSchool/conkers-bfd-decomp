@@ -51,12 +51,13 @@ extern s32 D_8003C8E0;
 void func_850AD770(void);
 void func_8000440C(void);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (3959) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80003C6C CURRENT (2001) */
 s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
     AllocatorBlock *allocated;
     u8 *end;
-    u32 aligned;
+    s32 aligned;
     u32 remainder;
+    u32 blockSize;
     AllocatorBlock *previous;
     AllocatorBlock *following;
     AllocatorBlock *oldNext;
@@ -103,8 +104,9 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
             }
             return 0;
         }
-        aligned = ((u32)block + offset + 0xC) & mask;
-        end = (u8 *)((u32)block + block->header.taggedSize + 0xC);
+        blockSize = block->header.taggedSize;
+        aligned = (s32)((u8 *)block + offset + 0xC) & mask;
+        end = (u8 *)block + blockSize + 0xC;
         if ((u32)end >= aligned + (u32)arg0) {
             break;
         }
@@ -115,12 +117,12 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         }
     }
     if (arg3 == 0) {
-        allocated = (AllocatorBlock *)(aligned - 0xC);
+        allocated = (AllocatorBlock *)((u32)aligned - 0xC);
         following = (AllocatorBlock *)((u32)allocated + (u32)arg0 + 0xC);
-        remainder = (u32)block + block->header.taggedSize -
+        remainder = (u32)block + blockSize -
                     ((u32)allocated + (u32)arg0);
     } else {
-        allocated = (AllocatorBlock *)((((u32)block + block->header.taggedSize -
+        allocated = (AllocatorBlock *)((((u32)block + blockSize -
                                         (u32)arg0 + 0xC) & mask) - 0xC);
         following = block->header.next;
         remainder = (u32)allocated - (u32)block;
@@ -189,7 +191,7 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
         block->header.taggedSize = remainder - 0xC;
     } else {
         aligned = ((u32)block + offset + 0xC) & mask;
-        allocated = (AllocatorBlock *)(aligned - 0xC);
+        allocated = (AllocatorBlock *)aligned - 1;
         allocated->next = following;
         allocated->prev = previous;
         allocated->taggedSize = ((u32)arg1 << 24) |

@@ -92770,8 +92770,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1390,
-        "reason": "Real second-buffer pointer snapshot and explicit first-cursor update improve3880 to1390. Signed arithmetic form is code-neutral1390; retain unsigned intermediates, fullword RGB parameters, no manual unrolling or allocation tricks. Remaining count/color lifetimes and terminal alignment unresolved.",
+        "current_score": 760,
+        "reason": "Ten manual revisions improve current1305/inherited1390 to760 via real byteCount and pixelcount snapshots; MFLOv0, firstcursorv1, countt0/bounda3 andcolorv0 recovered. Remaining SRA/MOVE delay scheduling, secondbase/index registers andchannel scheduling. Typedcolor, signedviews, guardedloop, countinsideguard andsecondaddress/cursor alternatives exhausted; no manual unroll or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -92825,8 +92825,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3959,
-        "reason": "Bounded manual allocator reconstruction: exact ten-byte table copies and observed byte arithmetic/list ordering; best CURRENT3959 retained after neutral initializer and worse address-lifetime revision. Frame and register/control differences remain; no synthetic storage.",
+        "current_score": 2001,
+        "reason": "Manual allocator reconstruction improved CURRENT 3959 to 2001 after 15 evidence-backed revisions. Byte-pointer end and first alignment, real block-size snapshot and unsigned header subtraction recover the forward address sequence and remove arg2 spill. Remaining frame 0x78 versus 0x70, table homes +4, size/alignment v0-v1 allocation, reverse split next-pointer reload, and free-tail address caching differ. Register/index hints, signed halfword locals, scoped snapshots, explicit payload-end pointer and aligned-field read did not improve; preserve best candidate. No shared dependency or ABI changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93468,7 +93468,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 810,
-        "reason": "Typed cache cleanup improved from 1470 to 810 with evidence-backed scoped SDK insertion. Owner-slot capture fixes load role but scores 900, so retain 810. Manager hoist, symbolic aliases and copied-anchor allocation remain; no volatile or overlapping-global workaround.",
+        "reason": "Preserve typed cleanup CURRENT810. Inherited owner-slot snapshot900 remains rejected. Three new revisions: manager pointer reads with direct writes1210, consistent manager pointer1210, SDK-supported two-pointer list-link view810 neutral. Manager-base hoist, pointer load order, symbolic field aliases and copied-anchor MOVE remain. No overlapping globals, volatile, artificial pressure, ABI or shared changes. Original810 restored and independently rechecked.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94708,8 +94708,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 495,
-        "reason": "Fresh full336 baseline495 preserved after two non-improving new forms: u8 available1085, signed bounded shifts plus unsigned choice880. Frames/control agree; baseline39 register rows plus two copy/reset rows and one commuted operand remain. No equivalent availability/promotion/choice retries or artificial register pressure.",
+        "current_score": 245,
+        "reason": "Improved full336 CURRENT495 to245 after eight manual revisions. Fullword current byte snapshot and signed bounded availability arithmetic recover nearly all registers and two operand orders. Remaining missing raw LI a0,255 and three commuted bitwise operands prevent exact fullspan. Explicit carried reset315, bytecurrent730, byteavailable370, bothbytes880, commutedsource245 neutral, directbyte load595 rejected; no artificial reset or padding. Best245 restored and independently rechecked. No ABI or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
