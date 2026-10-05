@@ -93890,7 +93890,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 24,
-        "reason": "Improved264 to CURRENT24 via actual one-word output buffer plus scalar adjustment snapshot. All228bytes instructions/control/registers align except final value sw/lw at30 instead of raw output home3c. Unsigned whole-output269; array+late snapshot94; direct arrayreturn837; early real scalar snapshot24. Prior scalar/default/output-view families exhausted. Four new forms+baseline; preserve24 without redundant writes, artificial aliasing or padding.",
+        "reason": "Preserve CURRENT24 independently restored9edbbe34. Full228 instructions/control/registers exact except final snapshot SW/LW30 vs raw shared output home3C. Batch33 scoped buffer/value lifetimes33 recovered final3C but shifted helper output38/maximum34; scalar output with early snapshot264 canonicalized to inherited extraMOVE/V0 allocation. Prior unsignedoutput269, array late snapshot94, directarrayreturn837 and scalar/default/output-view families exhausted. No artificial storage overlay, padding, redundant writes, ABI or shared changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94146,7 +94146,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 605,
-        "reason": "Best CURRENT605 retained: valid-range halfstore and shared interpolation exit recover RA-load scheduling. Two new explicit-else topologies, with and without return, both670. Prior direct early-return675 and separate positive clamp885 exhausted. Remaining bound-branch direction, extra exit branch and four span rows; no match/layout claim.",
+        "reason": "Preserve CURRENT605 independently restored33633c69. Full236 residual remains upper-bound branch direction, extra exit branch and four span rows. Batch33 outer function exit670, conditional-expression store1286, and join label before common halfword store670 all rejected; latter two670 forms canonicalize to store in exit-branch delay instead of raw likely-store plus RA-load delay. Prior explicit else/return670, direct earlyreturn675 and separate positive clamp885 exhausted. No source improvement, ABI/shared/ASM changes or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
