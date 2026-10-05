@@ -93486,7 +93486,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 450,
-        "reason": "Checkpoint56 full832 CURRENT450 attempt87da203b. One new manual revision: actual consumed-anchor transition and delayed oldanchor copy recovers missingMOVE,630to450. Exactframe58/allhomes/firstphase retained. Remaining10register rows in insertion plus earlyFF load, sizeADDIU/stateSB/zeroA3 scheduling; rawanchorA0/savedV0/childA1 versus candidateV0/A0/V0. Prior embeddedprefix/earlyfields/reusedsizeadvance exhausted. No new distinct supported followup; no shared/ABI/ASM changes or artificial pressure/permutation.",
+        "reason": "Checkpoint71 full832 CURRENT450 independently restored5f76b923. Scoped actual ownerSlot515 regresses first-phase A1 load/spill and leaves insertion registers. Early rounded size in existing alignedSize2002 shrinks frame58 to40, adds premature spill, loses alignment MOVE and creates33 stack rows. Both rejected; original best450 retained with exact frame58/all homes/first phase. Remaining10 insertion register rows plus earlyFF, sizeADDIU/stateSB/zeroA3 scheduling. Prior consumed-size advance, prefix and insertion forms exhausted. No artificial pressure/padding, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
