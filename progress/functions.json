@@ -92771,7 +92771,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 760,
-        "reason": "Ten manual revisions improve current1305/inherited1390 to760 via real byteCount and pixelcount snapshots; MFLOv0, firstcursorv1, countt0/bounda3 andcolorv0 recovered. Remaining SRA/MOVE delay scheduling, secondbase/index registers andchannel scheduling. Typedcolor, signedviews, guardedloop, countinsideguard andsecondaddress/cursor alternatives exhausted; no manual unroll or padding.",
+        "reason": "CURRENT760 full260 US independently restored576d9ac8. Actual byteCount/pixelcount snapshots retain productV0/cursorV1/countT0/boundA3/colorV0. Residual count SRA/MOVE delay scheduling, second-base/index registers and packed-channel scheduling. Batch29 direct second framebuffer global indexing3100 regresses loop/unroll; secondpointer lexicalscope neutral760. Inherited ten typedcolor/signedviews/guardedloop/countscope/integerbase/explicitcursor forms exhausted. No manual unroll, padding, ABI, shared dependencies or ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
