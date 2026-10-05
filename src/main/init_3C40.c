@@ -230,7 +230,7 @@ s32 func_80003C6C(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80003C6C */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_3C40/func_80003C6C.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (1010) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80004074 CURRENT (862) */
 void func_80004074(s32 arg0) {
     AllocatorFreeBlock *block;
     AllocatorFreeBlock *neighbor;
@@ -238,6 +238,7 @@ void func_80004074(s32 arg0) {
     s32 merged;
     s32 mask;
     AllocatorFreeBlock *original;
+    AllocatorFreeBlock *nextFree;
 
     original = (AllocatorFreeBlock *)(arg0 - 0xC);
     if (arg0 != 0) {
@@ -291,21 +292,21 @@ void func_80004074(s32 arg0) {
                 D_800380B8 = block;
             } else {
                 for (;;) {
-                    neighbor = cursor->nextFree;
-                    if (neighbor == 0) {
+                    nextFree = cursor->nextFree;
+                    if (nextFree == 0) {
                         block->nextFree = 0;
                         block->prevFree = cursor;
                         cursor->nextFree = block;
                         break;
                     }
-                    if ((u32)block < (u32)neighbor) {
-                        block->nextFree = neighbor;
+                    if ((u32)block < (u32)nextFree) {
+                        block->nextFree = nextFree;
                         block->prevFree = cursor;
-                        neighbor->prevFree = block;
+                        nextFree->prevFree = block;
                         cursor->nextFree = block;
                         break;
                     }
-                    cursor = neighbor;
+                    cursor = nextFree;
                 }
             }
         }

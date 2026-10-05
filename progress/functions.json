@@ -92844,8 +92844,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1010,
-        "reason": "Six manual revisions: best CURRENT1010 fixes all stack homes; remaining original-pointer a2 versus v1, neighbor/cursor coloring, missing incoming a2 copy and global free-head address scheduling. Unsigned address, header type, merge flag order, register hint and cursor lifetime forms did not improve.",
+        "current_score": 862,
+        "reason": "Preserved CURRENT 862 after five manual revisions, improved from 1010. A distinct actual free-search next pointer at function scope recovers physical/list pointer registers, global-head schedule and search backedge; exact frame 0x30 and all homes. Remaining missing incoming MOVE a2,a0, merged flag a2 vs a3, interrupt mask retained a3 rather than spill 0x1c, terminal temporary rows; full 476-byte span four bytes short. Incoming-word snapshot and unsigned mask/flag neutral, inherited declaration/type/register-hint families exhausted. No artificial pressure, padding, shared ABI or assembly changes. Independent restoration 959100b6 verified 862.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94854,7 +94854,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 40,
-        "reason": "Preserve manual direct-indexed scan CURRENT (40), improved775. Full148-byte span opcodes/frame/control/operands exact; six register-only rows use count v1 vs rawv0. Seven new hypotheses: indexedfor40, s32handle snapshot500, guardeddo40, directindexed count snapshot877 savedS3, u16handle snapshot280 setup regression, promoted input40 and promoted input-left comparison40 from newlyexactFC18. Restored minimal40 independently7fd241b1. Inherited word-homed u16 contract/field-left comparison retained; pointer-count snapshot1207 exhausted. No shared/ASM changes or permutation.",
+        "reason": "Preserve CURRENT 40 independently restored c33a68a3. Full148-byte span opcodes/control/frame/operands exact; six count-register rows V1 vs raw V0. Batch22 two new manual hypotheses both regressed: explicit mismatch-continue3387 changed frame/induction; equality-proven input reuse710 added saved S3 and argument-home differences. Inherited indexed/guardeddo, handle/count snapshots, promotedinput/comparison families remain exhausted. No new source improvement, ABI/shared/ASM edits or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
