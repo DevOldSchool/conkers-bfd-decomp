@@ -12,6 +12,8 @@
  */
 
 /* Keep address symbols for linking and registered match evidence. */
+#define debugger_draw_button_prompt func_16000000
+#define debugger_handle_button_prompt_input func_16000028
 #define debugger_draw_main_menu func_16000058
 #define debugger_handle_main_menu_input func_16000224
 #define debugger_draw_register_page func_16000314
@@ -21,8 +23,12 @@
 #define debugger_draw_general_registers func_160006CC
 #define debugger_draw_stack_view func_1600078C
 #define debugger_handle_stack_view_input func_16000A5C
+#define debugger_run_session func_16000B14
+#define debugger_draw_f32 func_16000F8C
+#define debugger_draw_numeric_value func_16001044
 #define debugger_draw_text func_160012B0
 #define debugger_set_draw_color func_16001338
+#define debugger_fill_rect func_16001390
 #define debugger_draw_glyph func_160014F0
 #define debugger_text_cell_address func_1600160C
 #define debugger_clear_framebuffer func_16001678
@@ -31,17 +37,18 @@
 #define debugger_pack_controller_read func_160018BC
 #define debugger_si_is_busy func_16001984
 #define debugger_start_si_dma func_160019A8
+#define debugger_f32_is_subnormal_or_nonfinite func_16001A6C
 
 void debugger_draw_text(s32 position, const u8 *text);
 extern u8 D_160046AC[];
 
-void func_16000000(void) {
+void debugger_draw_button_prompt(void) {
     debugger_draw_text(0x116, D_160046AC);
 }
 extern s32 D_16003890;
 extern u8 D_16003AF4;
 
-s32 func_16000028(void) {
+s32 debugger_handle_button_prompt_input(void) {
     if (D_16003890 & 0xC000) {
         D_16003AF4 = 1;
         return 3;
@@ -63,7 +70,7 @@ extern u8 D_16004708[];
 extern u8 D_16004710[];
 extern u8 D_1600471C[];
 void debugger_set_draw_color(u8 red, u8 green, u8 blue);
-void func_16001044(s32 position, s32 mode, u32 value);
+void debugger_draw_numeric_value(s32 position, s32 mode, u32 value);
 
 void debugger_draw_main_menu(void) {
     s32 i;
@@ -97,7 +104,7 @@ void debugger_draw_main_menu(void) {
     }
     debugger_set_draw_color(0xFF, 0xFF, 0xFF);
     debugger_draw_text(0x263, D_16004700);
-    func_16001044(0x26B, 1, 0xA3);
+    debugger_draw_numeric_value(0x26B, 1, 0xA3);
     debugger_draw_text(0x283, D_16004708);
     debugger_draw_text(0x28B, D_16004710);
     debugger_draw_text(0x297, D_1600471C);
@@ -196,7 +203,7 @@ extern u8 D_16004738[];
 extern u8 D_16004740[];
 extern u8 D_16004748[];
 void debugger_set_draw_color(u8 red, u8 green, u8 blue);
-void func_16001044(s32 position, s32 mode, u32 value);
+void debugger_draw_numeric_value(s32 position, s32 mode, u32 value);
 
 void debugger_draw_exception_summary(struct OSThread_s *thread) {
     u32 cause;
@@ -205,23 +212,23 @@ void debugger_draw_exception_summary(struct OSThread_s *thread) {
 
     debugger_set_draw_color(0xFF, 0xFF, 0xFF);
     debugger_draw_text(0x23, D_16004728);
-    func_16001044(0x2B, 0, ((u32 *)thread)[0x11C / 4]);
+    debugger_draw_numeric_value(0x2B, 0, ((u32 *)thread)[0x11C / 4]);
     debugger_draw_text(0x43, D_1600472C);
-    func_16001044(0x4B, 0, ((u32 *)thread)[0x120 / 4]);
+    debugger_draw_numeric_value(0x4B, 0, ((u32 *)thread)[0x120 / 4]);
     debugger_set_draw_color(0x80, 0x80, 0xFF);
     cause = ((u32 *)thread)[0x120 / 4];
     exception = (cause >> 2) & 0xF;
     debugger_draw_text(0x6B, D_16003848[exception]);
     if (exception == 0xB) {
-        func_16001044(0x6F, 1, (cause >> 28) & 3);
+        debugger_draw_numeric_value(0x6F, 1, (cause >> 28) & 3);
     }
     debugger_set_draw_color(0xFF, 0xFF, 0xFF);
     debugger_draw_text(0x83, D_16004734);
-    func_16001044(0x8B, 0, ((u32 *)thread)[0x118 / 4]);
+    debugger_draw_numeric_value(0x8B, 0, ((u32 *)thread)[0x118 / 4]);
     debugger_draw_text(0xA3, D_16004738);
-    func_16001044(0xAB, 0, ((u32 *)thread)[0x124 / 4]);
+    debugger_draw_numeric_value(0xAB, 0, ((u32 *)thread)[0x124 / 4]);
     debugger_draw_text(0xC3, D_16004740);
-    func_16001044(0xCB, 1, ((u32 *)thread)[0x14 / 4]);
+    debugger_draw_numeric_value(0xCB, 1, ((u32 *)thread)[0x14 / 4]);
     if (D_160038A4 != 0) {
         debugger_draw_text(0x34, D_16004748);
     }
@@ -229,7 +236,7 @@ void debugger_draw_exception_summary(struct OSThread_s *thread) {
 extern const u8 *D_16003B30[6];
 extern u8 D_160047A4[];
 extern u8 D_160047AC[];
-void func_16001044(s32 position, s32 mode, u32 value);
+void debugger_draw_numeric_value(s32 position, s32 mode, u32 value);
 
 void debugger_draw_float_register_page(struct OSThread_s *thread) {
     s32 position;
@@ -241,7 +248,7 @@ void debugger_draw_float_register_page(struct OSThread_s *thread) {
 
     bits = words[0x12C / 4];
     debugger_draw_text(3, D_160047A4);
-    func_16001044(0xA, 0, bits);
+    debugger_draw_numeric_value(0xA, 0, bits);
     bits >>= 12;
     position = 0x2C;
     for (i = 0; i < 6; i++, bits >>= 1) {
@@ -260,8 +267,8 @@ void debugger_draw_float_register_page(struct OSThread_s *thread) {
     }
     do {
         debugger_draw_text(position, D_160047AC);
-        func_16001044(position + 2, 1, i + page);
-        func_16001044(position + 5, 2, words[base + 1]);
+        debugger_draw_numeric_value(position + 2, 1, i + page);
+        debugger_draw_numeric_value(position + 5, 2, words[base + 1]);
         base += 2;
         position += 0x20;
         i++;
@@ -274,7 +281,7 @@ typedef struct {
 extern u8 D_160037F0[];
 extern DebuggerLabel D_16003B48;
 void debugger_set_draw_color(u8 red, u8 green, u8 blue);
-void func_16001044(s32 position, s32 mode, u32 value);
+void debugger_draw_numeric_value(s32 position, s32 mode, u32 value);
 
 void debugger_draw_general_registers(struct OSThread_s *thread) {
     DebuggerLabel label = D_16003B48;
@@ -289,7 +296,7 @@ void debugger_draw_general_registers(struct OSThread_s *thread) {
         debugger_draw_text(position, label.bytes);
         position += 3;
         index = descriptor[2];
-        func_16001044(position, 0, ((u32 *)thread)[index + 1]);
+        debugger_draw_numeric_value(position, 0, ((u32 *)thread)[index + 1]);
         position += 13;
         descriptor += 3;
     } while (descriptor[0] != 0);
@@ -330,7 +337,7 @@ void debugger_draw_stack_view(void) {
         position = 0x61;
         row = 0;
         do {
-            func_16001044(position, 0, (u32)address);
+            debugger_draw_numeric_value(position, 0, (u32)address);
             debugger_draw_text(position + 8, D_160047BC);
             value = *address;
             tag = (value >> 24) & 0xFF;
@@ -345,11 +352,11 @@ void debugger_draw_stack_view(void) {
             } else {
                 debugger_set_draw_color(0xFF, 0xFF, 0xFF);
             }
-            func_16001044(position + 0xC, 0, value);
+            debugger_draw_numeric_value(position + 0xC, 0, value);
             decimal_position = position + 0x16;
             debugger_draw_text(decimal_position, D_160047C0);
             debugger_set_draw_color(0xFF, 0xFF, 0xFF);
-            func_16001044(decimal_position, 1, value);
+            debugger_draw_numeric_value(decimal_position, 1, value);
             if (((u32)address >= (u32)D_8002D4B0) &&
                 ((u32)address < ((u32)D_8002D4B0 + 0x400))) {
                 debugger_set_draw_color(0x80, 0x80, 0xFF);
@@ -437,7 +444,7 @@ void func_10024F10(void);
 s32 debugger_read_controller_pif(void);
 void debugger_unpack_controller_pads(DebuggerControllerPad *data);
 
-s32 func_16000B14(struct OSThread_s *thread) {
+s32 debugger_run_session(struct OSThread_s *thread) {
     s32 unused[3];
     s32 first;
     register s32 state;
@@ -556,7 +563,7 @@ extern u8 D_160047DC[];
 extern u8 D_160047E0[];
 s32 func_16001B34(u8 *buffer, const u8 *format, ...);
 
-void func_16000F8C(s32 position, f32 value) {
+void debugger_draw_f32(s32 position, f32 value) {
     f32 copy;
     u8 buffer[44];
     u32 exponent;
@@ -586,7 +593,7 @@ extern u8 D_160047E8[];
 extern u8 D_160047F0[];
 extern u8 D_160047F4[];
 
-void func_16001044(s32 position, s32 mode, u32 value) {
+void debugger_draw_numeric_value(s32 position, s32 mode, u32 value) {
     s32 index;
     s32 started;
     s32 decimal_index;
@@ -673,7 +680,7 @@ void debugger_set_draw_color(u8 red, u8 green, u8 blue) {
 }
 extern s32 D_160038A8;
 
-void func_16001390(s16 left, s16 top, s16 right, s16 bottom) {
+void debugger_fill_rect(s16 left, s16 top, s16 right, s16 bottom) {
     u16 *pixel;
     s32 count;
 
@@ -906,7 +913,7 @@ s32 debugger_start_si_dma(s32 direction, void *buffer) {
 void func_16001A64(void) {
 }
 
-s32 func_16001A6C(f32 value) {
+s32 debugger_f32_is_subnormal_or_nonfinite(f32 value) {
     s32 bits = *(s32 *)&value;
     s32 exponent;
 
