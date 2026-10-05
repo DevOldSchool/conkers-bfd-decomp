@@ -5,6 +5,11 @@
  * Boundary evidence: docs/evidence/game_remaining_upstream_c_groups.md
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define timer_callback_object_create func_15149130
+#define timer_callback_object_create_without_draw_callback func_151491F4
+#define timer_callback_object_update func_15149264
+
 typedef struct Game1765E0EffectHeader {
     u8 pad_0[0xD];
     u8 flags;
@@ -26,7 +31,7 @@ void func_100226F0(void *, s32);
  * clears only bytes +0x14..+0x23. Both kinds share the timer/draw dispatch.
  * arg7 and arg8 retain their unresolved forwarding roles.
  */
-Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
+Game1765E0EffectHeader *timer_callback_object_create(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, s8 drawCallbackIndex,
                                       u8 flags, u8 callbackSetIndex, s32 extraBytes, u8 arg7,
                                       s32 arg8) {
     volatile struct {
@@ -60,9 +65,9 @@ Game1765E0EffectHeader *func_15149130(s16 initialTimer, s8 expiryCallbackIndex, 
  * Uses draw-callback selector -1; the existing void wrapper discards the
  * constructor result. arg6 and arg7 remain unresolved forwarding arguments.
  */
-void func_151491F4(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
+void timer_callback_object_create_without_draw_callback(s16 initialTimer, s8 expiryCallbackIndex, s8 tickCallbackIndex, u8 flags, u8 callbackSetIndex,
                    s32 extraBytes, u8 arg6, s32 arg7) {
-    func_15149130(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
+    timer_callback_object_create(initialTimer, expiryCallbackIndex, tickCallbackIndex, -1, flags, callbackSetIndex, extraBytes, arg6, arg7);
 }
 typedef struct Game1765E0Effect {
     u8 pad_0[0xD];
@@ -83,7 +88,7 @@ void func_1516972C(Game1765E0Effect *);
  * selected tick callback. If negative, the timer permits the expiry callback.
  * Removal requires a negative timer even after any expiry callback and reload.
  */
-void func_15149264(Game1765E0Effect *object) {
+void timer_callback_object_update(Game1765E0Effect *object) {
     s16 timerValue;
     s8 tickCallbackIndex;
     s8 expiryCallbackIndex;

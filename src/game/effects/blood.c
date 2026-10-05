@@ -49,6 +49,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_transform_effect_profile_offset func_151380B4
+
 typedef struct BloodState {
     u8 pad0[0x1C];
     s16 unk1C;
@@ -1264,7 +1267,7 @@ extern Blood1380B4Vector D_800A3FD8[];
  * (+0x74 & 0xF) is 0xF; otherwise returns one. The descriptor's fourth word
  * contains packed selector/variant data, not another offset component.
  */
-s32 func_151380B4(Blood1380B4State *actor, s32 effectProfileIndex, f32 *outPosition) {
+s32 actor_transform_effect_profile_offset(Blood1380B4State *actor, s32 effectProfileIndex, f32 *outPosition) {
     u8 *actorMatrices;
 
     actorMatrices = actor->field_1D4;
@@ -1538,7 +1541,7 @@ void func_15138BC0(Blood1380B4State *arg0, u8 arg1, s32 arg2) {
 
     temp_v0 = func_15134070(arg0);
     if (temp_v0 != 0x63) {
-        locals.sp4F = func_151380B4(arg0, temp_v0, &locals.sp50);
+        locals.sp4F = actor_transform_effect_profile_offset(arg0, temp_v0, &locals.sp50);
         func_15138120(arg0, temp_v0, 1);
         if (locals.sp4F != 0) {
             func_1504715C(locals.pad, arg0);
@@ -1575,7 +1578,7 @@ void func_15138C80(Blood1380B4State *arg0, s32 arg1, s32 arg2) {
     arg1 = arg1 & 0xFF;
     kind = func_15134070(arg0);
     if (kind != 0x63) {
-        valid = func_151380B4(arg0, kind, &position.x);
+        valid = actor_transform_effect_profile_offset(arg0, kind, &position.x);
         func_15138120(arg0, kind, 1);
         if (valid != 0) {
             func_1504715C(&hit, arg0);

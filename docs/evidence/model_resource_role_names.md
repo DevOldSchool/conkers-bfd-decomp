@@ -9,16 +9,17 @@ exclusive ownership, live creation or runtime appearance.
 
 | Existing symbol | Naming-only change |
 | --- | --- |
-| `func_15141C0C` | Role comment `actor_get_effect_selector_callback_index`; existing `arg0` becomes `actor` |
-| `func_15141DA4` | Role comment `actor_request_timed_effect_handler`; existing `arg0/arg1/arg2/temp_v0` become `actorAddress/selectorCallbackIndex/effectHandlerIndex/handlerRecord` |
+| `func_15141C0C` | C alias `actor_get_effect_selector_callback_index`; existing `arg0` becomes `actor` |
+| `func_15141DA4` | C alias `actor_request_timed_effect_handler`; existing `arg0/arg1/arg2/temp_v0` become `actorAddress/selectorCallbackIndex/effectHandlerIndex/handlerRecord` |
 | `func_15134070` | Role comment `actor_get_fragment_effect_profile_index` before the existing disabled guard; deferred C is unchanged |
 | `func_151B01B8` | Local `kind` becomes `effectProfileIndex`; comment distinguishes optional profile-source actor `arg1` from position/transform actor `arg0` |
 | `func_15194B1C` | Local `type` becomes `effectProfileIndex`; comment only describes its guarded first call |
 
 The last two functions retain numeric whole-function identities. No inferred
 particle purpose is assigned. All argument types, declaration order, casts,
-control flow, checks, layouts, struct fields, shared headers, aliases, enums,
-source-unit boundaries and function states remain unchanged. `func_151B4CD0`
+control flow, checks, layouts, struct fields, shared headers, enums, source-unit
+boundaries and function states remain unchanged. The descriptive C aliases
+retain numeric linked symbols. `func_151B4CD0`
 retains its numeric role.
 
 ## Evidence and index domains
@@ -82,7 +83,8 @@ purpose, anatomy, scene activation or native visual appearance.
 | `15149264` | `timer_callback_object_update` |
 | `151336A8` | `model_resource_load_by_lookup_selector` |
 
-The first four retain their matched definitions. Their scoped names are:
+The first four use source-local aliases for their matched definitions,
+preserving numeric linked symbols. Their scoped parameter/local names are:
 
 - `151380B4`: `arg0/arg1/arg2` become `actor/effectProfileIndex/outPosition`;
   `temp_v0` becomes `actorMatrices`
@@ -247,7 +249,8 @@ deallocation or a new ownership contract.
 ## Attachment action 35 and 68 requests
 
 `func_1514DCAC` has the bounded role
-`actor_request_attachment_actions_35_and_68`; its pointer parameter is `parentActor`.
+`actor_request_attachment_actions_35_and_68` through a source-local C alias;
+its pointer parameter is `parentActor`.
 It first stores numeric `0x6000` at parent `+0x9C`, whose meaning is left unnamed,
 then unconditionally requests action 35 followed by action 68 on the same
 saved pointer. Its existing raw `s32` argument words, including `0x3F800000`,
@@ -269,6 +272,8 @@ not guaranteed attachments or exclusive character ownership.
 
 ## Digital timer
 
+These two matched helpers use source-local aliases with unchanged linked symbols.
+
 | Symbol | Descriptive role | Boundary |
 | --- | --- | --- |
 | `func_15093818` | `timer_display_set_enabled` | Nonzero request initializes only on a disabled-to-enabled transition; zero clears the enable byte |
@@ -289,9 +294,10 @@ The two calls in `func_1514DCAC` now spell their reviewed selectors as
 `ACTION_SELECTOR_35 = 35` and `ACTION_SELECTOR_68 = 68`. These anonymous enum
 constants are declared after the reviewed source-unit comment and before use.
 They describe action-table selectors, not model IDs or guaranteed creation.
-Only the two unsuffixed integer call operands change spelling. Signatures,
-parameter types, numeric function definitions, other literals and linked symbols
-remain intact; no shared header or enum-typed ABI is introduced.
+The constants replace only the two unsuffixed integer call operands. The
+function separately uses its descriptive C alias. Signatures, parameter types,
+other literals and numeric linked symbols remain intact; no shared header or
+enum-typed ABI is introduced.
 
 Whole-source m2c context remains available and all recovered signatures are
 unchanged. Running the pinned m2c parser on the same raw function with the full

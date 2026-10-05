@@ -15,6 +15,9 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_request_attachment_actions_35_and_68 func_1514DCAC
+
 /* Reviewed attachment action selectors, distinct from bank-09 model IDs.
  * See docs/evidence/model_resource_role_names.md.
  */
@@ -548,14 +551,14 @@ void func_1514DC84(u8 *arg0) {
 void func_1514DC98(u8 *arg0) {
     *(u32 *)(arg0 + 0x94) |= 0x710;
 }
-void func_1514DCAC(void *arg0);
+void actor_request_attachment_actions_35_and_68(void *arg0);
 
 void *func_15083568(void *, s32, s32, s32);
 
 /* Descriptive role: actor_request_attachment_actions_35_and_68.
  * Evidence: docs/evidence/model_resource_role_names.md.
  */
-void func_1514DCAC(void *parentActor) {
+void actor_request_attachment_actions_35_and_68(void *parentActor) {
     *(s32 *)((u8 *)parentActor + 0x9C) = 0x6000;
     func_15083568(parentActor, ACTION_SELECTOR_35, 0x3F800000, 0);
     func_15083568(parentActor, ACTION_SELECTOR_68, 0x3F800000, 0);
@@ -572,28 +575,28 @@ void func_1514DCF4(void *arg0) {
     func_15083568(arg0, 0x17, 0x3F800000, 0);
 }
 void func_1514DD2C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DD4C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DD6C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DD8C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DDAC(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DDCC(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DDEC(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DE0C(void *arg0) {
-    func_1514DCAC(arg0);
+    actor_request_attachment_actions_35_and_68(arg0);
 }
 void func_1514DE2C(s32 arg0) {
 
@@ -608,7 +611,7 @@ extern void *D_800D2E4C;
 
 void func_1514DE50(void *arg0) {
     if (*(u8 *)((u8 *)D_800D2E4C + 0x11) & 8) {
-        func_1514DCAC(arg0);
+        actor_request_attachment_actions_35_and_68(arg0);
     }
 }
 void func_1514DE88(s32 arg0) {

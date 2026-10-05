@@ -47,6 +47,10 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+/* Keep address symbols for linking and registered match evidence. */
+#define actor_get_effect_selector_callback_index func_15141C0C
+#define actor_request_timed_effect_handler func_15141DA4
+
 /* Reviewed bank-01 model records; descriptive labels, not original symbols.
  * See config/model-semantic-names.json.
  */
@@ -120,7 +124,7 @@ void func_151419D0(s32 arg0, void *arg1, u8 arg2) {
 #endif /* CONKER_DEFERRED_CANDIDATE func_151419D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_16EE20/func_151419D0.s")
 s32 func_1510F8CC(s32);
-s32 func_15141C0C(void *);
+s32 actor_get_effect_selector_callback_index(void *);
 s32 func_15141CC0(u32);
 void func_15141E38(void *, s32);
 s32 func_1514ECE0(void *, s32, void **);
@@ -141,7 +145,7 @@ void func_15141A7C(void *arg0, s32 arg1) {
     if (D_800BE616 != 0) {
         return;
     }
-    index = func_15141C0C(arg0);
+    index = actor_get_effect_selector_callback_index(arg0);
     if (D_8008A084[index] != 0) {
         result = ((s32 (*)(s32, void *))D_8008A084[index])(
             func_15141CC0(func_1510F8CC(*(s32 *)(actor + 0x184))), arg0);
@@ -179,7 +183,7 @@ void func_15141A7C(void *arg0, s32 arg1) {
  * default 11 is the null slot. A selected callback returns a separate
  * D_8008A0B4 effect-handler index, or -1 when no handler is selected.
  */
-s32 func_15141C0C(void *actor) {
+s32 actor_get_effect_selector_callback_index(void *actor) {
     switch (*(u8 *)((u8 *)actor + 4)) {
     case MODEL_COW:
         return 0xA;
@@ -268,7 +272,7 @@ extern u8 D_800BE616;
  * slots and the global gate; requests a handler only for a positive duration.
  * actorAddress retains the existing integer ABI.
  */
-void func_15141DA4(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandlerIndex) {
+void actor_request_timed_effect_handler(s32 actorAddress, s32 selectorCallbackIndex, s32 effectHandlerIndex) {
     s32 *handlerRecord;
 
     if ((selectorCallbackIndex < 0xC) && (selectorCallbackIndex >= 0) && (effectHandlerIndex < 0x14) && (effectHandlerIndex >= 0) &&
