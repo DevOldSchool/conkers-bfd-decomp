@@ -264,23 +264,25 @@ void func_150B709C(void *arg0) {
     *(f32 *)((u8 *)arg0 + 0x2C) = (f32) (((s32) (var_v0 * -0x54) / 30) + 0xE6);
     *(f32 *)((u8 *)arg0 + 0x30) = (f32) (((s32) (var_v0 * -0x32) / 30) + 0xAA);
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B71A8 CURRENT (20) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150B71A8 CURRENT (10) */
 void func_150B71A8(void *arg0) {
-    s16 temp_v0;
-    s16 temp_v0_2;
+    s32 temp_v0;
+    s32 temp_v0_2;
+    s32 limit;
 
+    limit = 0x1000;
     temp_v0 = *(s16 *)((u8 *)arg0 + 0x38);
-    if (temp_v0 != 0x1000) {
-        *(s16 *)((u8 *)arg0 + 0x38) = (s16) (temp_v0 + (D_800BE9E4 << 8));
+    if (limit != temp_v0) {
+        *(s16 *)((u8 *)arg0 + 0x38) = (s16) (temp_v0 + ((u32)D_800BE9E4 << 8));
         if (*(s16 *)((u8 *)arg0 + 0x38) >= 0x1001) {
-            *(s16 *)((u8 *)arg0 + 0x38) = 0x1000;
+            *(s16 *)((u8 *)arg0 + 0x38) = limit;
         }
     } else {
         temp_v0_2 = *(s16 *)((u8 *)arg0 + 0x3A);
-        if (temp_v0_2 != 0x1000) {
-            *(s16 *)((u8 *)arg0 + 0x3A) = (s16) (temp_v0_2 + (D_800BE9E4 << 8));
+        if (limit != temp_v0_2) {
+            *(s16 *)((u8 *)arg0 + 0x3A) = (s16) (temp_v0_2 + ((u32)D_800BE9E4 << 8));
             if (*(s16 *)((u8 *)arg0 + 0x3A) >= 0x1001) {
-                *(s16 *)((u8 *)arg0 + 0x3A) = 0x1000;
+                *(s16 *)((u8 *)arg0 + 0x3A) = limit;
             }
         }
     }

@@ -5475,8 +5475,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3835,
-        "reason": "Recovered byte-range and 16-byte record clear layouts; CURRENT 3835 after three C variants because IDO adds pointer-alignment peeling and loop unrolling absent from target",
+        "current_score": 975,
+        "reason": "CURRENT975 from independently refreshed2715 (old3835 stale): explicit final clear-loop backedge and unsigned endpoint remove unrolling; reset ordering improves setup. Five new revisions plus restoration, three inherited variants not reset (details missing). Unsigned byte cursor, explicit first-loop backedge and cursor initialization order neutral. Remaining first-loop DDF60 base/bound CSE, cursor registers and increment/store ordering; second-loop ADDIU order; final reset/address scheduling. Needs new compiler lifetime/CSE evidence; no shared changes or forced volatile. Ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -6263,8 +6263,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1945,
-        "reason": "Recovered two three-entry arrays of 4-byte records plus six scalar flags; best CURRENT 1945 after three source-only variants, with compiler loop alignment transformation preventing the original simple induction loop.",
+        "current_score": 330,
+        "reason": "Full128B improved1945to330: explicit backedge plus unsigned endpoint removes remainder/unroll expansion and retains raw finalNOP. Three new revisions: reset/cursor initialization340 fixes register roles but worsens setup schedule; unsigned four-byte cursor340 neutral. Best330 restored; five register and ten offset/setup operand rows plus two moved instructions remain from preincrement/store normalization. Prior three summarized variants not reset; detailed history unavailable. See build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -9169,17 +9169,16 @@
       "symbol": "func_151CB918"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 70,
-        "reason": "Manual baseline plus two revisions exhausted, one compile-only repair. Invalid starter omitted required object argument; valid best CURRENT 70 restores arg0 call, frame and byte mask. Neutral tail volatile/order revision reverted; one early float load and one ADD operand swap remain.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 508,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_151CB970",
           "vram": "0x151CB970"
         }
@@ -30353,17 +30352,16 @@
       "symbol": "func_15048FC8"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 35,
-        "reason": "Scoped register qualifier on sqrt result left full-span CURRENT (35) unchanged with six FP register-only rows; restored prior best. Further attempt needs new FP lifetime/source-order evidence.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 160,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150490A8",
           "vram": "0x150490A8"
         }
@@ -36616,7 +36614,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 154,
-        "reason": "Manual baseline plus two revisions; corrected local one-float ABI and unsigned color load. Best valid CURRENT154; complete instruction/control/register sequence matches, frame28 vs30 and actual color/float stack homes differ. Exhausted; actual contiguous aggregate stack-layout hypothesis untried.",
+        "reason": "Best CURRENT154 restored: full800B operation/register sequence exact, frame28 vs30; color24 vs1C and RGB float homes20/1C/18 vs28/24/20. One new real-state aggregate hypothesis scored2660: frame still28, early stores and reloads introduced; no evidence supports extra live storage. Inherited baseline plus two ABI/load revisions retained, detailed old ledger missing. No padding/forced storage/shared changes. Ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44308,8 +44306,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "CURRENT (20): both comparisons with 0x1000 commute branch operands versus raw; reversing C operands is neutral and 32-variant permutation finds no exact match.",
+        "current_score": 10,
+        "reason": "CURRENT10 from20: named shared saturation limit plus promoted s32 halfword snapshots fixes second BEQ; unsigned tick shift/addition defines raw wrapping arithmetic. Three new manual revisions plus restore; inherited comparison reversal and32 permutation retained, detailed old history unavailable. First BEQL at0xC still V0,V1 vs rawV1,V0; changing limit initialization neutral. No fresh canonicalization evidence. Ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -45837,17 +45835,16 @@
       "symbol": "func_15131B3C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 295,
-        "reason": "CURRENT (295) full-span US: source-local fabsf declaration/intrinsic replaces external call with abs.s and frameless leaf; early field captures plus reversed first add improve 575->295. Remaining 14 FP register rows and two schedule rows: arg0+0x5C load hoisted before raw 0x28 rather than after add. Splitting first expression into named local regressed 315. Best source preserved.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 176,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_15131B7C",
           "vram": "0x15131B7C"
         }
@@ -55219,7 +55216,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 50,
-        "reason": "Improved250 to50 via concrete local float helper ABI. Initial sourceoffset/base ADDU and tail matrix registers remain; typed matrix index55 and typed field neutral55. Best50 preserved.",
+        "reason": "CURRENT50 restored. One new unsigned source-address sum was neutral, seven register rows unchanged. Prior float ABI250to50, typed matrix index55 and typed header55 remain exhausted. Initial LW t7/rawt8 and commuted initial ADDU propagate to five tail matrix-address registers. No new supported address lifetime hypothesis; ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -59445,17 +59442,16 @@
       "symbol": "func_150D4C2C"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 20,
-        "reason": "Manual concrete zeroarg RNG prototype/call repaired; CURRENT20 same best, three FP rows product F2/F10 and final sum F0/F16. Prior delta/product/sum lifetime variants exhausted; no useful new hypothesis. Ledger deferred-manual-20260927.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 148,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150D4CC4",
           "vram": "0x150D4CC4"
         }
@@ -71936,7 +71932,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 70,
-        "reason": "Manual2425->100->70: replace unrecognized __builtin_fabsf with supportedfabsf intrinsic and firstXupdate beforevelocitysnapshot restoresleaf/ABS andF0/F2. Explicitdt250/reversevelocityADD70 exhausted. Best70 onlyaccelerationload/MTC1ordering pluscommutativeADDorder;unitnotcomplete. Ledger deferred-manual-20260927.",
+        "reason": "CURRENT70 restored after two new manual revisions: compound velocity field225 fixes ADD orientation but reallocates F2/F12 to F12/F14; compound scalar velocity345 changes tail registers/schedule. Prior four revisions including explicit timestep250 and ADD reversal neutral remain exhausted. Best valid candidate retains one ADD.S operand swap and MTC1/LWC1 scheduling pair; needs evidence for scratch-result lifetime without changing snapshot allocation. Task ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -74505,17 +74501,16 @@
       "symbol": "func_150EA904"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 105,
-        "reason": "Manual best valid CURRENT (105), 2 revisions exhausted: raw early byte lifetime and direct accumulator field recover entire integer tail/address/control/length; remaining16 FP allocation/commutative ADD rows only. Future explicit real angle/product temporaries untried; no permutation or shared changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "game",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 460,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_150EA944",
           "vram": "0x150EA944"
         }
@@ -79301,8 +79296,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 70,
-        "reason": "Manual baseline plus two revisions exhausted; valid best CURRENT 70. All register allocation, length, control, stack and constant operands match; four MUL and three ADD commutative source operand orders remain reversed. Candidate retained; no permutation or extra revision.",
+        "current_score": 40,
+        "reason": "CURRENT40 from70: actual compound interpolation fields remove all three ADD operand swaps. Explicit actual RNG result in consumed local neutral40; simpler compound-field candidate restored. Four RNG MUL operand pairs remain reversed. Two new revisions plus restoration; inherited baseline/two revisions retained with missing detail. No new supported source hypothesis or shared changes. Ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -84232,7 +84227,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 200,
-        "reason": "CURRENT (200): 13 FPR/register-only differences and 2 scheduling differences, including D_800BE9A4 addiu versus gravity load; manual float-lifetime and expression-order revisions plateaued",
+        "reason": "CURRENT200 restored. Two new compound-field revisions450/450: velocity orientation corrected but velocity CSE lifetime delays Y load and shifts scratch FP chain; original position expression did not recover it. Thirteen original FP rows and global ADDIU/LUI schedule remain. Earlier float-lifetime/expression experiments recorded but detailed history unavailable; do not repeat without recovered evidence. Task ledger build/us/manual-attempts/deferred-exact-20261005/ledger.md.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
