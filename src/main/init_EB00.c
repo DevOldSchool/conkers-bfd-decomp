@@ -5,7 +5,6 @@
  * Boundary evidence: docs/evidence/main_sound_record_family_boundary.md
  *
  * TODO: Implement these source-unit functions:
- * - func_8000EC24
  * - func_8000ECCC
  * - func_8000EE70
  * - func_8000F4D8
@@ -108,15 +107,13 @@ typedef struct {
 
 s32 func_80010F30(s32, s32, s32, s16, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_8000EC24 CURRENT (888) */
 s32 func_8000EC24(SoundDelayedState *state, s32 arg1, s32 *active,
                  u8 *arg3, s16 *arg4, s32 *arg5, u16 *arg6) {
-    u16 value = *arg6;
     s16 remaining = state->timer.halves.low;
     s32 handle;
 
-    if (value != 0) {
-        state->value = value;
+    if (*arg6 != 0) {
+        state->value = *arg6;
         state->field0 = 0;
         *arg6 = 0;
     }
@@ -132,8 +129,6 @@ s32 func_8000EC24(SoundDelayedState *state, s32 arg1, s32 *active,
     state->timer.word = remaining;
     return 0;
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_8000EC24 */
-#pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_8000EC24.s")
 typedef struct {
     u32 field0;
     u8 field4;
@@ -1333,7 +1328,7 @@ s32 func_800112BC(s32 arg0, s32 arg1) {
     }
     return 0;
 }
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (4058) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80011310 CURRENT (3775) */
 void func_80011310(void) {
     SoundHandleEntry *entry;
     SoundQueueEntry *cursor;
@@ -1344,7 +1339,7 @@ void func_80011310(void) {
     s32 flag;
     s32 remaining;
     struct sndstate *state;
-    u8 operation;
+    s32 operation;
 
     count = D_80041F50;
     flag = 0;
@@ -1354,7 +1349,7 @@ void func_80011310(void) {
         cursor = D_80041F10;
         do {
             operation = (u8)cursor->operation;
-            destination = &D_80041F10[index];
+            destination = (SoundQueueEntry *)((index << 2) + (s32)D_80041F10);
             if (operation > 0) {
                 end = &D_80041F10[count];
                 cursor->operation = operation - 1;

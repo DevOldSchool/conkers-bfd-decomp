@@ -94504,17 +94504,16 @@
       "symbol": "func_8000EBC4"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 888,
-        "reason": "Retain original888. Fullwidth real timer with explicit s16 update and proven sibling timer-before-output order both remain888. Raw promotes seventh output pointer to a1; compiler uses two separate temporary-pointer loads and shifts following temporary registers. Earlier named output snapshot was neutral. No repeated timer width, read-order or pointer naming; ABI unchanged.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 168,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000EC24",
           "vram": "0x8000EC24"
         }
@@ -94526,7 +94525,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "Preserve original full-span CURRENT55. Ten manual forms tested in manual-init-20261005 under expanded user budget: value scope55, remaining scope175, unsigned high extraction435, signed mask55, post-write packed snapshot725, compound packed update250, low-u16 pack445, explicit signed-high cast55, assignment-in-condition55, pre-write full packed snapshot715. Same ten register rows in best; masks/scopes/conversions/snapshots tested without improvement. Prior width/read-order/chain/parameter forms exhausted. No permutation/shared/ABI changes, no match credit.",
+        "reason": "Preserve original full-span CURRENT55. Batch11 newly proven siblingEC24 direct output check/store without value snapshot tested neutral55; exact original restored. Prior ten manual forms under expanded budget: value scope55, remaining scope175, unsigned high extraction435, signed mask55, post-write packed snapshot725, compound packed update250, low-u16 pack445, explicit signed-high cast55, assignment-in-condition55, pre-write full packed snapshot715. Same ten register rows in best; masks/scopes/conversions/snapshots tested without improvement. Prior width/read-order/chain/parameter forms exhausted. No permutation/shared/ABI changes, no match credit.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95321,8 +95320,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4058,
-        "reason": "Preserve manual best 4058: exact raw flag and callback count lifecycle, but index strength reduction, address reuse, and register scheduling remain after three bounded forms.",
+        "current_score": 3775,
+        "reason": "Improved inherited4058 to CURRENT3775 after nine manual revisions plus baseline/restoration. Fullword signed operation and explicit signed index shift in destination address recover retained integer s2/index+1, s3 destination and s4 flag, preserving raw callback count lifecycle and frame40. Unsigned index neutral4058; integer multiply address4475 and direct global count4594 regress; signed endpoint shift and real handle-index local neutral3775; direct tail bound3960 and consistent integer traversal3800 regress. Remaining global count address and traversal base caching, handle multiply expanded to shifts, register scheduling and full-span body-length gap. No equivalent pointer/index/storage shaping without independent new evidence. No shared ABI/dependency/assembly changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
