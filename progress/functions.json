@@ -94983,8 +94983,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1103,
-        "reason": "Preserve full-span US CURRENT1103 (00c7eb21e9c14617a87ebbeedf0d9985), improved fresh1205 after actual far-distance object reads1287 and own raw-proven u16farDistance contract1103. Exact same-type u16 object reads remove unobserved early far-distance word spill and recover post-FD38 LHU; register-only differences zero. Fullword sound/volume, existing nearDistance s16, return and SDK/helper contracts unchanged. Own local forward aligned; both raw callers supply halfwords, complete C spelling audit shows only disabled ECCC/10558 and incomplete matched-caller index empty. Two new distinct input-lifetime/contract forms plus inherited1930/1828/1590 body-shape forms; frame48 versus58, callback constant reuse and store/return scheduling remain. No equivalent views/types/storage/frame or prior body-reuse retries without independent new evidence.",
+        "current_score": 745,
+        "reason": "Preserve CURRENT 745 independently rechecked 89604b6f, improved from 1103 after five new manual revisions. Pointer callback within-object read restores frame58 and every stackhome44/50; enabled-before-mix restores exact LBU/SLL schedule. Remaining callback SW is early in branch delays instead of immediately before FD38, and common final SH differs from raw duplicated branch stores. Argument capture neutral745; explicit branch stores805 changes v1 to t0; u32 callback1810 loses hoist/control. Inherited farDistance/input/body-reuse hypotheses remain exhausted. Own/helper ABI unchanged, no shared dependencies or ASM changes. Do not repeat equivalent callback/store/input forms absent independent evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95478,17 +95478,16 @@
       "symbol": "func_80008180"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 12,
-        "reason": "Raw word-homed low-byte player contract improves277to12. All instructions/control/registers exact apart from three pointer spill offsets18versus1C. Genuine index snapshot s32 and u8 recover pointer1C but enlargeframe28versus20, score18; two nonimproving revisions, three new forms exhausted. Preserve simple12; no padding, duplicate pointer pressure or ABI inventions. Narrowformal only disabled candidate after defer; no active prototype changes.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 100,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_800084D8",
           "vram": "0x800084D8"
         }
@@ -95877,8 +95876,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 417,
-        "reason": "Best valid candidate CURRENT (417): full 504-byte span has frame 0x50 versus 0x40, current/offset/address slots 0x28/0x30/0x38 versus 0x2C/0x34/0x3C, sequence/free-input temporary roles and missing MOVE a0,v0. Actual buffer snapshot (469) and scoped phase lifetimes (828) regressed; initial plus two revisions exhausted. Keep sequence full word; no padding, dummy reads, or extra argument homes.",
+        "current_score": 80,
+        "reason": "Preserve full504 CURRENT80 independently rechecked 077cc776, improved baseline417 through eleven new manual revisions. Directknownarray access removes five redundant addresslocals, address-first declaration recovers exactframe40 and allhomes2C/34/3C; reuse consumed u32 polling scalar as actual oldbuffer value recovers raw MOVE beforefree. Fifteen register-only rows remain: sequenceV0 versusV1, oldbufferS0 versusV0, buffer/length bases S1/S0 versusS0/S1. Separate s32 snapshot263, shared address1547, separate u32/pointer snapshots255 regress; inherited all-pointer snapshot/scoped-phase forms exhausted. No equivalent address/snapshot/type/lifetime retry absent independent evidence. Own/helper ABI and shared dependencies unchanged.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",

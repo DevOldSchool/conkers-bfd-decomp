@@ -845,7 +845,7 @@ void func_80010154(u16 sound, SoundOwnerState *owner, s32 volume,
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_80010154 */
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_EB00/func_80010154.s")
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010344 CURRENT (1103) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_80010344 CURRENT (745) */
 s32 func_80010344(s32 sound, void *arg1, u32 volume,
                   s16 nearDistance, u16 farDistance) {
     SoundOwnerState *owner = arg1;
@@ -862,8 +862,8 @@ s32 func_80010344(s32 sound, void *arg1, u32 volume,
         flags = 0x100;
     }
     if (owner->field318 != 0) {
-        mix = ((owner->field184 >> 3) & 0x30) * 2;
         enabled = D_80041FD9;
+        mix = ((owner->field184 >> 3) & 0x30) * 2;
         if ((owner->field31C != 0) && (owner->field31C[0x94] == 1)) {
             enabled = 1;
             volume = 0x7FFF;
@@ -887,7 +887,7 @@ s32 func_80010344(s32 sound, void *arg1, u32 volume,
                               (s16)(s32)owner->field18,
                               (s16)(s32)owner->field1C, volume,
                               ((u16 *)&farDistance)[0], nearDistance,
-                              callback, (s32)owner,
+                              *(void **)&callback, (s32)owner,
                               owner->field3B | 0x20000, flags, 0);
     }
     owner->handle8C = flags;
