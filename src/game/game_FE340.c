@@ -5,13 +5,53 @@
  * Boundary evidence: docs/evidence/game_raw_pointer_selected_segments_continued.md
  *
  * TODO: Implement these source-unit functions:
- * - func_150D0E90
  * - func_150D1204
  *
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
-#pragma GLOBAL_ASM("asm/nonmatchings/game_FE340/func_150D0E90.s")
+s32 func_151149AC(u8);
+void func_15136C3C(void *, s32, s32, s32, s32, s32, s32, s32);
+void func_15145A50(u8 *);
+void func_10010154(s32, void *, s32, s32, s32);
+void func_1507CD64(void *, s32);
+void func_151951E0(u8 *);
+extern s32 D_80088890;
+extern s32 D_80088894;
+extern s32 D_80088898;
+extern s32 D_8008889C;
+extern s32 D_800BE9E4;
+extern u8 D_800CC2D0[];
+extern s32 D_800DBEF4;
+extern u32 *D_800DBF94;
+
+void func_150D0E90(s32 arg0) {
+    s32 i;
+    s32 index;
+
+    D_80088890 += D_800BE9E4 * 0x28;
+    D_80088894 += D_800BE9E4 * -0x42;
+    D_80088898 += D_800BE9E4 * -8;
+    D_8008889C += D_800BE9E4 * 0x5C;
+    i = 0;
+    if ((*(u8 **)(D_800CC2D0 + 0x31C))[0x120] == 0) {
+        do {
+            index = (func_151149AC(0xFA - i) - D_800DBEF4) / 160;
+            if (D_800DBF94[index] & 1) {
+                func_151951E0(D_800CC2D0);
+                func_10010154(0x627, D_800CC2D0, 0x7FFF, 0xC8, 0x2BC);
+            }
+            i++;
+        } while (i != 3);
+        index = (func_151149AC(0xFB) - D_800DBEF4) / 160;
+        if (D_800DBF94[index] & 1) {
+            func_10010154(0x627, D_800CC2D0, 0x7FFF, 0xC8, 0x2BC);
+            func_15136C3C(D_800CC2D0, 1, 1, 1, 1, 0, 0xFF, 1);
+            func_15145A50(D_800CC2D0);
+            func_1507CD64(D_800CC2D0, 6);
+        }
+    }
+}
 typedef struct GameFE340Packet {
     u8 id;
     u8 pad1[3];

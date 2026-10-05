@@ -244,6 +244,120 @@ void func_150F0A24(void *arg0) {
     packet.field_73 = -1;
     func_15152B38(&packet, 0xFF, 1, arg0);
 }
+typedef struct Game11D830EffectInitPacket {
+    s32 config;
+    s32 mode;
+    s16 kind;
+    s16 lifetime;
+    s32 field_C;
+    s32 field_10;
+    u8 colors[10];
+    s16 field_1E;
+    s16 field_20;
+    s16 field_22;
+    f32 scale;
+    f32 width;
+    f32 height;
+    Game11D830Position position;
+    Game11D830Position vector1;
+    Game11D830Position vector2;
+    f32 field_54;
+    s32 flags;
+    s32 field_5C;
+    s8 bytes[7];
+    u8 pad67;
+    s16 field_68;
+    u8 pad6A[2];
+    f32 field_6C;
+} Game11D830EffectInitPacket;
+
+typedef struct Game11D830SpawnTail {
+    void *actor;
+    u8 mode;
+    u8 pad5[3];
+    f32 x;
+    f32 y;
+    f32 z;
+} Game11D830SpawnTail;
+
+s32 func_150ADA20(void *);
+f32 func_150ADA68(void);
+s32 func_15130280(void *, s32, s32, s32, s32, s32);
+extern f32 D_800A1860;
+extern f32 D_800A1864;
+extern f32 D_800A1868;
+extern f32 D_800A186C;
+extern Game11D830Position D_800A5480;
+void func_10022EC0(void *, void *, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150F0BEC CURRENT (135) */
+void func_150F0BEC(u8 *arg0) {
+    Game11D830EffectInitPacket packet;
+    Game11D830SpawnTail tail;
+    s32 result;
+    s32 flags2;
+    s32 flags1;
+
+    packet.colors[9] = 0x2B;
+    packet.kind = 0x4403;
+    packet.config = 0x200005;
+    packet.mode = 0x70600;
+    packet.lifetime = 0x12C;
+    packet.field_C = 0;
+    packet.field_10 = 0;
+    packet.colors[0] = 0xFF;
+    packet.colors[1] = 0xFF;
+    packet.colors[2] = 0xFF;
+    packet.colors[3] = 0xFF;
+    packet.colors[4] = 0xFF;
+    packet.colors[5] = 0xD9;
+    packet.colors[6] = 0xA0;
+    packet.colors[7] = 0xFF;
+    packet.colors[8] = 0xFF;
+    packet.height = 250.0f;
+    packet.width = 250.0f;
+    packet.position.x = *(f32 *)(arg0 + 0x14);
+    packet.position.y = *(f32 *)(arg0 + 0x18);
+    packet.position.z = *(f32 *)(arg0 + 0x1C);
+    packet.vector1 = D_800A5480;
+    packet.vector2 = D_800A5480;
+    packet.field_1E = 1;
+    packet.field_20 = 0xFF;
+    packet.field_22 = 1;
+    packet.field_54 = 0.0f;
+    packet.scale = 1.0f;
+    if (func_150ADA20(arg0) & 1) {
+        flags1 = 0x40;
+    } else {
+        flags1 = 0;
+    }
+    if (func_150ADA20(arg0) & 1) {
+        flags2 = 0x80;
+    } else {
+        flags2 = 0;
+    }
+    packet.flags = flags2 | flags1 | 0xC000 | 0x40000;
+    packet.bytes[0] = 6;
+    packet.bytes[1] = 6;
+    packet.bytes[2] = 0x25;
+    packet.bytes[3] = -1;
+    packet.bytes[4] = -1;
+    packet.bytes[5] = 0xA;
+    packet.field_5C = 0;
+    packet.bytes[6] = 0xFF;
+    packet.field_68 = 0;
+    tail.actor = arg0;
+    packet.field_6C = D_800A1860;
+    tail.mode = arg0[0x3B];
+    tail.x = 2.0f * func_150ADA68() * D_800A1864;
+    tail.y = 2.0f * func_150ADA68() * D_800A1868;
+    tail.z = 2.0f * func_150ADA68() * D_800A186C;
+    result = func_15130280(&packet, 1, 0, 0x14, 0xFF, 1);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0xA8, &tail, 0x14);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150F0BEC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_11D830/func_150F0BEC.s")
 /* Call context: func_15047D60: unique active project prototype */
 f32 func_15047D60(f32);

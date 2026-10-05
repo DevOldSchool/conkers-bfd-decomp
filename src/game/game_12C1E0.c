@@ -14,6 +14,95 @@
  * Unmatched members use generated GLOBAL_ASM placeholders below.
  */
 
+s32 func_150ADA20(void);
+f32 func_150ADA68(void);
+s32 func_150FF288(void *);
+void func_150FF2AC(void *, void *, void *, void *);
+void func_150FF2D4(u8 *, void *, f32 *, void *, void *, f32 *, s32, s32,
+                  s32, s32, s32, s32, f32 *, f32 *, s32);
+void func_150FF474(void *, void *, u8, s32);
+void func_151D3F14(void *, u8, s32);
+void func_151D4408(void *, void *, s32, void *, f32, s32, s32);
+void func_151D5148(void *);
+void func_151C229C(f32 *, f32 *, s32, s32, s32, s32, f32, f32, f32,
+                  f32, f32, s32, f32 *, s32, s32, s32, s32, s32, s32,
+                  s32, s32, f32, s32, s32, s32, s32, s32);
+extern f32 D_800A2110;
+extern u8 D_800BE616;
+
+typedef struct Game12C1E0EmissionOwner {
+    u8 pad0[4];
+    u8 kind;
+    u8 pad5[0x6F];
+    u8 flags74;
+    u8 pad75[0x15F];
+    s32 resource1D4;
+} Game12C1E0EmissionOwner;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150FED30 CURRENT (3188) */
+void func_150FED30(f32 *arg0, s32 arg1, s32 arg2) {
+    f32 position[3];
+    f32 endpoint[3];
+    f32 direction[3];
+    f32 axis0[3];
+    f32 axis1[3];
+    f32 hit[3];
+    f32 normal[3];
+    f32 output0[3];
+    f32 output1[3];
+    f32 points[6][3];
+    s32 value0;
+    s32 value1;
+    s32 lookup;
+    u8 valid;
+    register s32 randomWord;
+    register s32 kind;
+    register s32 directionSign;
+    f32 random1;
+    f32 random0;
+
+    lookup = func_150FF288(arg0);
+    if (lookup != 0) {
+        func_151D5148(arg0);
+        func_150FF2AC(arg0, direction, axis0, axis1);
+        if (((Game12C1E0EmissionOwner *)arg0)->resource1D4 != 0 &&
+            (((Game12C1E0EmissionOwner *)arg0)->flags74 & 0xF) != 0xF) {
+            valid = 1;
+        } else {
+            valid = 0;
+        }
+        func_150FF2D4(&valid, points, position, hit, normal, direction,
+                     (s32)axis0, (s32)axis1, (s32)output0, (s32)output1,
+                     (s32)&value0, (s32)&value1, endpoint, arg0, lookup);
+        random0 = func_150ADA68();
+        random1 = func_150ADA68();
+        randomWord = func_150ADA20();
+        if (D_800BE616 != 0) {
+            kind = 0x35;
+        } else {
+            kind = 0x1A;
+        }
+        if (((Game12C1E0EmissionOwner *)arg0)->kind == 0x98) {
+            directionSign = 1;
+        } else {
+            directionSign = -1;
+        }
+        func_151C229C(endpoint, direction, value0, value1, 1, 0,
+                     300.0f, D_800A2110, random0 * 10.0f + 25.0f,
+                     random1 * 200.0f + 600.0f, 50.0f,
+                     ((u32)randomWord % 156U) + 0x64, arg0,
+                     0x63, 1, 1, 1, 0, 1, 0, kind, 0.0f, 0xFF,
+                     directionSign, 0, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+        if (valid != 0) {
+            func_151D3F14(position, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+            func_151D4408(hit, normal,
+                ((Game12C1E0EmissionOwner *)arg0)->resource1D4 +
+                (*(u8 *)(lookup + 2) << 6), arg0, 1.0f, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+            func_150FF474(position, points, *(volatile u8 *)((u8 *)&arg1 + 3), arg2);
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150FED30 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_12C1E0/func_150FED30.s")
 extern s32 func_1503195C(void *arg0, s32 arg1, s32 arg2);
 s32 func_1514654C(void *, s32, s32, void **, void **, s32);

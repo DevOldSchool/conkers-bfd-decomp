@@ -3,10 +3,10 @@
     "us"
   ],
   "code_bytes": {
-    "fully_matched_source_unit_bytes": 187984,
-    "fully_matched_source_unit_percentage": 8.349441,
+    "fully_matched_source_unit_bytes": 188592,
+    "fully_matched_source_unit_percentage": 8.376446,
     "library_text_bytes": 147232,
-    "matched_bytes": 482528,
+    "matched_bytes": 485848,
     "overlays": {
       "debugger": {
         "fully_matched_source_unit_bytes": 0,
@@ -27,11 +27,11 @@
         "total_bytes": 14064
       },
       "game": {
-        "fully_matched_source_unit_bytes": 86608,
-        "fully_matched_source_unit_percentage": 4.178148,
+        "fully_matched_source_unit_bytes": 87216,
+        "fully_matched_source_unit_percentage": 4.207479,
         "library_text_bytes": 48720,
-        "matched_bytes": 352024,
-        "percentage": 16.982363,
+        "matched_bytes": 355344,
+        "percentage": 17.142526,
         "regions": {
           "eu": {
             "fully_matched_source_unit_bytes": 0,
@@ -42,11 +42,11 @@
             "total_bytes": 2074912
           },
           "us": {
-            "fully_matched_source_unit_bytes": 86608,
-            "fully_matched_source_unit_percentage": 4.178148,
+            "fully_matched_source_unit_bytes": 87216,
+            "fully_matched_source_unit_percentage": 4.207479,
             "library_text_bytes": 48720,
-            "matched_bytes": 352024,
-            "percentage": 16.982363,
+            "matched_bytes": 355344,
+            "percentage": 17.142526,
             "total_bytes": 2072880
           }
         },
@@ -79,7 +79,7 @@
         "total_bytes": 164512
       }
     },
-    "percentage": 21.43182,
+    "percentage": 21.57928,
     "regions": {
       "eu": {
         "fully_matched_source_unit_bytes": 0,
@@ -90,22 +90,22 @@
         "total_bytes": 2240240
       },
       "us": {
-        "fully_matched_source_unit_bytes": 187984,
-        "fully_matched_source_unit_percentage": 8.349441,
+        "fully_matched_source_unit_bytes": 188592,
+        "fully_matched_source_unit_percentage": 8.376446,
         "library_text_bytes": 147232,
-        "matched_bytes": 482528,
-        "percentage": 21.43182,
+        "matched_bytes": 485848,
+        "percentage": 21.57928,
         "total_bytes": 2251456
       }
     },
     "total_bytes": 2251456
   },
-  "complete_source_units": 165,
+  "complete_source_units": 166,
   "future_regions": [
     "eu"
   ],
   "known_functions": 5491,
-  "mixed_source_units": 556,
+  "mixed_source_units": 555,
   "overlays": {
     "debugger": {
       "known_functions": 38,
@@ -113,7 +113,7 @@
     },
     "game": {
       "known_functions": 5224,
-      "target_matched": 2669
+      "target_matched": 2674
     },
     "main": {
       "known_functions": 229,
@@ -122,18 +122,18 @@
   },
   "regions": {
     "us": {
-      "blocked": 9,
+      "blocked": 42,
       "candidate": 0,
       "in_progress": 0,
-      "matched": 2831,
+      "matched": 2836,
       "original_asm": 22,
-      "raw_asm": 2629
+      "raw_asm": 2591
     }
   },
   "schema_version": 1,
   "source_units": 742,
-  "target_matched": 2831,
+  "target_matched": 2836,
   "target_original_asm": 22,
-  "target_remaining": 2660,
+  "target_remaining": 2655,
   "unassigned_functions": 38
 }

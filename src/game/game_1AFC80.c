@@ -144,7 +144,65 @@ void func_151827D0(void) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_151827D0 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_151827D0.s")
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+f32 func_15182F58(s32, s32);
+extern u8 D_8008D060[];
+extern u8 D_8008D062[];
+extern u8 D_800BE9C0;
+extern s32 D_800DBEF4;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182C5C CURRENT (7594) */
+void func_15182C5C(u8 *object) {
+    f32 matrix[16];
+    struct { f32 z, y, x; } output;
+    struct { f32 left, right; } weighted;
+    f32 position, fraction;
+    s32 index, offset, count, sample, next;
+    u8 *bank;
+    u8 *destination;
+    u8 *cursor;
+    u8 *vertex;
+    Game362B0Sample **samples;
+    Game362B0Sample *table;
+
+    index = *(s32 *)(object + 0x3C);
+    bank = D_800DDE54 + index;
+    destination = *(u8 **)(object + D_800BE9C0 * 4 + 0x20);
+    func_150A8050(matrix, 0.0f,
+                 (f32)-*(s16 *)(D_8008D060 + *bank * 0x18), 0.0f);
+    count = 0;
+    offset = 0;
+    if (*(u16 *)((u32)D_800DBEF4 +
+        *(s16 *)(D_8008D062 + *bank * 0x18) * 0xA0 + 0x16) > 0) {
+        cursor = destination;
+        samples = D_800DDE60 + index;
+        do {
+            position = func_15182F58(*(s16 *)(*(u8 **)(object + 0x28) + offset + 4), index);
+            sample = (s32)position;
+            next = sample + 1;
+            if (next >= 40) next = 39;
+            table = *samples;
+            fraction = position - (f32)sample;
+            weighted.left = table[sample].component2 * (1.0f - fraction);
+            weighted.right = table[next].component2 * fraction;
+            vertex = *(u8 **)(object + 0x28) + offset;
+            func_150A7960(matrix, (f32)*(s16 *)vertex,
+                         (f32)(*(s16 *)(vertex + 2) + ((s32)(weighted.right + weighted.left) >> 4)),
+                         (f32)*(s16 *)(vertex + 4), &output.x, &output.y, &output.z);
+            count++;
+            offset += 0x10;
+            cursor += 0x10;
+            *(s16 *)(cursor - 0x10) = (s32)((f32)*(s16 *)(object + 0x10) + output.x);
+            *(s16 *)(cursor - 0xE) = (s32)((f32)*(s16 *)(object + 0x12) + output.y);
+            *(s16 *)(cursor - 0xC) = (s32)((f32)*(s16 *)(object + 0x14) + output.z);
+        } while (count < *(u16 *)((u32)D_800DBEF4 +
+                 *(s16 *)(D_8008D062 + *bank * 0x18) * 0xA0 + 0x16));
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15182C5C */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_15182C5C.s")
+
 f32 func_15182F58(s32 arg0, s32 arg1) {
     f32 var_fv1;
 
@@ -156,4 +214,69 @@ f32 func_15182F58(s32 arg0, s32 arg1) {
     }
     return var_fv1;
 }
+typedef struct {
+    u8 pad00[0x10];
+    s16 x, y, z;
+    u8 pad16[0x8A];
+} Game1AFC80Placement;
+
+typedef struct {
+    s8 value;
+    u8 pad01[0x17];
+} Game1AFC80Contribution;
+
+extern Game1AFC80Contribution D_8008D066[];
+extern s32 D_800DBEF4;
+void func_150A8050(void *, f32, f32, f32);
+void func_150A7960(void *, f32, f32, f32, f32 *, f32 *, f32 *);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15182FDC CURRENT (4870) */
+s32 func_15182FDC(void *arg0, s32 arg1, s32 arg2) {
+    f32 deltaX, deltaZ;
+    f32 localX, localY, localZ;
+    f32 matrix[4][4];
+    f32 mappedZ, mappedX;
+    u8 *bank;
+    Game362B0Preset *preset;
+    Game1AFC80Placement *placement;
+    f32 originX, originY, originZ;
+    f32 actorY;
+    s32 sample;
+    s32 contribution;
+
+    bank = &D_800DDE54[arg2];
+    if (*(f32 *)((u8 *)arg0 + 0x28) > 3.0f) {
+        return 0;
+    }
+    preset = &D_8008D050[*bank];
+    placement = (Game1AFC80Placement *)(D_800DBEF4 +
+                 ((s16 *)preset->unknown0C)[3] * 0xA0);
+    originX = (f32)placement->x;
+    originY = D_800DDE60[arg2][arg1].component2 * 0.0625f + (f32)placement->y;
+    originZ = (f32)placement->z;
+    actorY = ((Game1AFC80Actor *)arg0)->y18;
+    if (actorY < originY - 300.0f || originY + 300.0f < actorY) {
+        return 0;
+    }
+    deltaX = ((Game1AFC80Actor *)arg0)->x14 - originX;
+    deltaZ = ((Game1AFC80Actor *)arg0)->z1C - originZ;
+    func_150A8050(matrix, 0.0f, (f32)((s16 *)preset->unknown0C)[2], 0.0f);
+    func_150A7960(matrix, deltaX, 0.0f, deltaZ, &localX, &localY, &localZ);
+    mappedZ = localZ;
+    if (mappedZ > 0.0f ||
+        (preset = &D_8008D050[*bank], mappedX = localX, mappedZ < (f32)((s16 *)preset->unknown0C)[0]) ||
+        mappedX < 0.0f || (f32)((s16 *)preset->unknown0C)[1] < mappedX) {
+        return 0;
+    }
+    sample = (s32)func_15182F58((s32)mappedZ, arg2);
+    contribution = D_8008D066[*bank].value;
+    if (arg1 == sample) {
+        return contribution;
+    }
+    if (arg1 == sample + 1 || arg1 + 1 == sample) {
+        return contribution * 4 / 7;
+    }
+    return 0;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15182FDC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_1AFC80/func_15182FDC.s")

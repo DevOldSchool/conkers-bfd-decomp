@@ -61,6 +61,128 @@ void func_15003120(s32 arg0, s32 arg1, s32 arg2) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15003120 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_15003120.s")
+typedef struct {
+    u32 commands;
+    u8 pad4[4];
+    u32 field8;
+    u8 padC[4];
+    u32 resource;
+    u8 pad14[0xC];
+    s32 field20;
+    u8 pad24[4];
+} Game305D0Asset;
+
+typedef struct {
+    Game305D0Asset *asset;
+    s32 present;
+} Game305D0AssetEntry;
+
+typedef struct {
+    u8 pad0[0x4B];
+    u8 assetList;
+} Game305D0Scene;
+
+extern s32 D_800B0E10[4];
+extern s32 D_800B0E20[4];
+extern u32 D_800B0E40[4];
+extern s8 D_800B0E38;
+extern Game305D0AssetEntry *D_800B0E50;
+extern Game305D0Scene *D_800B0DF0;
+extern s32 *D_80082B20[];
+void *func_10003C40(s32, s32, s32, s32);
+void func_100226F0(void *, s32);
+void func_15003120(s32, s32, s32);
+void func_150034B4(void);
+void func_150039BC(s32);
+void func_150049A4(void *, s32, s32);
+void *func_1502B6BC(s32 *, s32, s32 *, s32, s32, s32);
+s32 func_1510CE60(s32, s32, s32, s32, void *);
+s32 func_1510D0EC(s32, s32 *, s32, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150031EC CURRENT (1837) */
+void func_150031EC(s32 level) {
+    Game305D0AssetEntry *entries;
+    Game305D0AssetEntry *entry;
+    s32 count;
+    s32 success;
+    Game305D0Asset *asset;
+    s32 index;
+    s32 value;
+    s32 ignored;
+    s32 offset;
+    s32 *commandSlot;
+    s32 *vertexSlot;
+    void *vertices;
+
+    if (level >= 0x45) {
+        level = 0;
+    }
+    entries = func_1502B6BC(&success, 0, &count, 2, 4, level);
+    D_800B0E50 = entries;
+    for (index = 1; index != 4; index++) {
+        D_800B0E00[index] = 0;
+        D_800B0E10[index] = 0;
+        D_800B0E40[index] = 0;
+    }
+    func_150034B4();
+    if (success != 0) {
+        D_800B0E30 = (s32)func_10003C40(count * 4, 1, 0, 0);
+        D_800B0E34 = (s32)func_10003C40(count, 1, 0, 0);
+        func_100226F0((void *)D_800B0E34, count);
+        func_100226F0((void *)D_800B0E30, count);
+        D_800B0E38 = count;
+        index = 0;
+        if (count != 0) {
+            entry = entries;
+            do {
+                asset = entry->asset;
+                if ((asset != 0) && (entry->present != 0)) {
+                    if (asset->commands != 0) {
+                        asset->commands += (u32)asset;
+                    }
+                    if (asset->field8 != 0) {
+                        asset->field8 += (u32)asset;
+                    }
+                    if (asset->resource != 0) {
+                        asset->resource += (u32)asset;
+                    }
+                    func_15003120(index, (s32)asset, asset->field20);
+                    if ((u32)index < 4) {
+                        value = asset->commands;
+                        commandSlot = &D_800B0E00[index];
+                        vertexSlot = &D_800B0E10[index];
+                        vertices = (u8 *)asset + 0x28;
+                        *vertexSlot = (s32)vertices;
+                        *commandSlot = value;
+                        D_800B0E40[index] = ((u32)value - (u32)vertices) >> 4;
+                        D_800B0E20[index] = asset->field8;
+                        if (index == 0) {
+                            func_150039BC(asset->resource);
+                            value = *commandSlot;
+                        }
+                        func_150049A4((void *)value,
+                                       *vertexSlot + 0xFF000000U, (s32)asset);
+                        func_1510CE60(*commandSlot, 0, 1, 0x3F, 0);
+                    } else {
+                        func_150049A4((void *)asset->commands, 0, (s32)asset);
+                    }
+                }
+                index++;
+                entry++;
+            } while ((u32)index < (u32)count);
+        }
+    }
+    if (D_800B0DF0->assetList != 0) {
+        value = D_80082B20[D_800B0DF0->assetList][0];
+        offset = 4;
+        while (value != 0) {
+            func_1510D0EC(value, &ignored, 0x3E, 0);
+            value = *(s32 *)((u8 *)D_80082B20[D_800B0DF0->assetList] + offset);
+            offset += 4;
+        }
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150031EC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_305D0/func_150031EC.s")
 extern s32 D_800B0E58;
 extern s8 D_800BC448;

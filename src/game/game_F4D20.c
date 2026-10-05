@@ -89,6 +89,57 @@ void func_150C7968(GameF4D20State *arg0) {
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_150C7968 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C7968.s")
+void func_1000D96C(s32, s32, s32);
+void func_1000DE1C(s32, s32);
+f32 func_150489B0(u8);
+f32 func_15048A40(u8);
+u32 func_150ADA20(void);
+void func_15179FE0(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32);
+extern s32 D_800887F4;
+extern f32 D_800A04D0, D_800A04D4;
+extern u8 *D_800DBFF0;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_150C79BC CURRENT (983) */
+void func_150C79BC(s32 arg0) {
+    s32 offset;
+    u8 angle;
+    f32 radius;
+    u8 *view;
+    s32 height, x, z;
+    register f32 sine;
+
+    offset = arg0 * 0x9A0;
+    view = D_800DBFF0 + offset;
+    x = (s32)*(f32 *)(view + 0x2F8) + 0x972;
+    height = (s32)*(f32 *)(view + 0x2FC);
+    z = (s32)*(f32 *)(view + 0x300) - 0x6EF;
+    if (height - 0x9C4 >= -0xC7 && x * x + z * z < 0x15F900) {
+        if (D_800887F4 == 0) {
+            func_1000D96C(0x5F, 0xF, 6);
+            func_1000DE1C(0x10, 4);
+            D_800887F4 = 1;
+            height = (s32)*(f32 *)(D_800DBFF0 + offset + 0x2FC);
+        }
+    } else if (D_800887F4 != 0) {
+        func_1000D96C(0xF, 0x5F, 4);
+        func_1000D96C(0x10, 0, 3);
+        D_800887F4 = 0;
+        height = (s32)*(f32 *)(D_800DBFF0 + offset + 0x2FC);
+    }
+    if (height - 0x62F < 0 && x * x + z * z < 0xC5C10 &&
+        (func_150ADA20() & 0xFFFF) < 0x2000U) {
+        z = func_150ADA20() % 900U;
+        angle = func_150ADA20();
+        sine = func_150489B0(angle);
+        radius = (f32)z;
+        x = (s32)(sine * radius + D_800A04D0);
+        z = (s32)(func_15048A40(angle) * radius + D_800A04D4);
+        func_15179FE0((s32)((f32)((func_150ADA20() & 0xFFFF) * 2) *
+                      0.0000152587890625f) & 0xFF,
+                      (s16)x, 0x62F, (s16)z, 7, 0x4B0, 0x25, 0xA, 0x1E, 3, 8);
+    }
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_150C79BC */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_F4D20/func_150C79BC.s")
 typedef struct GameF4D20Entry7C90 {
     s8 marker;

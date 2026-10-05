@@ -64,6 +64,101 @@ void func_15164EE4(void) {
     func_100226F0(&D_800DCDE0, 0x60);
 }
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15164F0C.s")
+typedef struct {
+    f32 x, y, z;
+} Game191C30Vector;
+
+typedef struct {
+    Game191C30Vector points[4];
+    f32 firstDuration, holdDuration, secondDuration;
+} Game191C30Motion;
+
+typedef struct {
+    u8 kind, flags;
+    s8 mode;
+    u8 pad03;
+    s16 duration;
+    u8 owner, pad07;
+    Game191C30Vector vectors[4];
+} Game191C30Header;
+
+typedef struct {
+    Game191C30Vector firstVelocity[4], secondVelocity[4], points[4];
+    f32 firstDuration, holdDuration, secondDuration, elapsed;
+} Game191C30Payload;
+
+void *func_15164780(u8 *, s32, u8, s32);
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15165628 CURRENT (2709) */
+void *func_15165628(Game191C30Motion *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5) {
+    Game191C30Header header;
+    Game191C30Payload payload;
+    f32 firstInverse, secondInverse;
+    void *result;
+
+    arg1 = (u8)arg1;
+    arg2 = (s8)arg2;
+    if (arg0->firstDuration == 0.0f || arg0->secondDuration == 0.0f) {
+        return 0;
+    }
+    firstInverse = 1.0f / arg0->firstDuration;
+    header.kind = 4;
+    header.flags = 0;
+    header.duration = 300;
+    header.owner = arg1;
+    header.mode = arg2;
+    header.vectors[0].x = 0.0f;
+    header.vectors[0].y = 0.0f;
+    header.vectors[0].z = 0.0f;
+    header.vectors[1].x = 0.0f;
+    header.vectors[1].y = 0.0f;
+    header.vectors[1].z = 0.0f;
+    header.vectors[2].x = 0.0f;
+    header.vectors[2].y = 0.0f;
+    header.vectors[2].z = 0.0f;
+    header.vectors[3].x = 0.0f;
+    header.vectors[3].y = 0.0f;
+    header.vectors[3].z = 0.0f;
+    secondInverse = 1.0f / arg0->secondDuration;
+    payload.firstVelocity[0].x = arg0->points[0].x * firstInverse;
+    payload.firstVelocity[0].y = arg0->points[0].y * firstInverse;
+    payload.firstVelocity[0].z = arg0->points[0].z * firstInverse;
+    payload.firstVelocity[1].x = arg0->points[1].x * firstInverse;
+    payload.firstVelocity[1].y = arg0->points[1].y * firstInverse;
+    payload.firstVelocity[1].z = arg0->points[1].z * firstInverse;
+    payload.firstVelocity[2].x = arg0->points[2].x * firstInverse;
+    payload.firstVelocity[2].y = arg0->points[2].y * firstInverse;
+    payload.firstVelocity[2].z = arg0->points[2].z * firstInverse;
+    payload.firstVelocity[3].x = arg0->points[3].x * firstInverse;
+    payload.firstVelocity[3].y = arg0->points[3].y * firstInverse;
+    payload.firstVelocity[3].z = arg0->points[3].z * firstInverse;
+    payload.secondVelocity[1].x = arg0->points[0].x * secondInverse;
+    payload.secondVelocity[1].y = arg0->points[0].y * secondInverse;
+    payload.secondVelocity[1].z = arg0->points[0].z * secondInverse;
+    payload.secondVelocity[0].x = arg0->points[1].x * secondInverse;
+    payload.secondVelocity[0].y = arg0->points[1].y * secondInverse;
+    payload.secondVelocity[0].z = arg0->points[1].z * secondInverse;
+    payload.secondVelocity[3].x = arg0->points[2].x * secondInverse;
+    payload.secondVelocity[3].y = arg0->points[2].y * secondInverse;
+    payload.secondVelocity[3].z = arg0->points[2].z * secondInverse;
+    payload.secondVelocity[2].x = arg0->points[3].x * secondInverse;
+    payload.secondVelocity[2].y = arg0->points[3].y * secondInverse;
+    payload.secondVelocity[2].z = arg0->points[3].z * secondInverse;
+    payload.points[0] = arg0->points[0];
+    payload.points[1] = arg0->points[1];
+    payload.points[2] = arg0->points[2];
+    payload.points[3] = arg0->points[3];
+    payload.firstDuration = arg0->firstDuration;
+    payload.holdDuration = arg0->holdDuration;
+    payload.elapsed = 0.0f;
+    payload.secondDuration = arg0->secondDuration;
+    result = func_15164780((u8 *)&header, arg3 + 0xA0, (u8)arg4, arg5);
+    if (result != 0) {
+        func_10022EC0((u8 *)result + 0x68, &payload, 0xA0);
+    }
+    return result;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15165628 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_191C30/func_15165628.s")
 extern f32 D_800BE9A4;
 

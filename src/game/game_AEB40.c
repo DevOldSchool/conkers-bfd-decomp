@@ -500,6 +500,102 @@ void func_150839B8(void *actor, s32 modelIndex, void *spawnRecord) {
         }
     }
 }
+void func_1503D660(s32, s32);
+void func_1503D774(s32, s32);
+u8 *func_1505ED34(void);
+void func_150615DC(void *);
+void func_150837D4(s32, s32, s32);
+extern u8 D_800C35EA;
+extern s8 D_800C3638;
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15083AC8 CURRENT (3475) */
+s32 func_15083AC8(s32 arg0, u8 arg1, u8 arg2, s32 arg3,
+    s32 arg4, s32 arg5, s32 arg6, s32 arg7, f32 arg8) {
+    s32 mode;
+    s32 index;
+    s32 restore;
+    u8 *actor;
+    u8 *cursor;
+    u8 *parent;
+    u32 radius;
+
+    parent = (u8 *)arg0;
+    func_1503D774(arg2, 0);
+    func_1503D660(arg2, 0);
+    actor = func_1505ED34();
+    actor[0x3B] = 0xFF - (s32)(actor - (u8 *)&D_800CC2D0) / 0x32C;
+    actor[0xAB] = arg3;
+    *(s32 *)(actor + 0) = arg4;
+    func_150615DC(actor);
+    actor[0x232] = 1;
+    actor[0x1CA] = 1;
+    actor[0x125] = 0xFF;
+    actor[0x65] = (s32)(parent - (u8 *)&D_800CC2D0) / 0x32C + 1;
+    *(s32 *)(actor + 0x5C) = arg1;
+    actor[0x123] = 1;
+    actor[4] = arg2;
+    actor[0x66] = parent[0x66];
+    actor[0x66] &= ~0x10;
+    actor[0x66] = actor[0x66];
+    actor[0x1DD] = parent[0x1DD];
+    actor[0x1DE] = parent[0x1DE];
+    actor[0x1DF] = parent[0x1DE];
+    actor[0x1E0] = parent[0x1E0];
+    actor[0x1E1] = parent[0x1E1];
+    actor[0x1E2] = parent[0x1E2];
+    if (arg6 == 0) {
+        *(f32 *)(actor + 0x14C) = 1.0f;
+        *(f32 *)(actor + 0x150) = 1.0f;
+        *(f32 *)(actor + 0x154) = 1.0f;
+        *(f32 *)(actor + 0x158) = 1.0f;
+    } else {
+        *(f32 *)(actor + 0x14C) = *(f32 *)(parent + 0x14C);
+        *(f32 *)(actor + 0x150) = *(f32 *)(parent + 0x150);
+        *(f32 *)(actor + 0x154) = *(f32 *)(parent + 0x154);
+        *(f32 *)(actor + 0x158) = *(f32 *)(parent + 0x158);
+    }
+    actor[0x101] = arg6;
+    actor[0xAC] = arg5;
+    func_1503D774(arg2, 0);
+    if (arg5 & 1) {
+        *(u32 *)(actor + 0xF8) |= 0x4000;
+        radius = *(u16 *)(D_800D1C90[arg2] + 0xE);
+        *(f32 *)(actor + 0x270) = (f32)radius * *(f32 *)(actor + 0x14C);
+    }
+    mode = 0;
+    if (arg5 & 2) {
+        mode = 1;
+    }
+    index = 0;
+    cursor = actor;
+    if (D_80082FA0 >= 0) {
+        do {
+            *(void **)(cursor + 0x304) = func_1515D480(1);
+            index++;
+            cursor += 4;
+        } while (D_80082FA0 >= index);
+    }
+    if (*(s32 *)(actor + index * 4 + 0x300) != 0) {
+        actor[0x301] = 1;
+    }
+    *(s32 *)(actor + 0x314) = func_1515D440();
+    if (D_800C35EA == 1) {
+        restore = 1;
+    } else {
+        restore = 0;
+    }
+    if (restore != 0) {
+        D_800C3638 = 0;
+    }
+    func_150839B8(actor, arg2, 0);
+    func_150837D4((s32)(actor - (u8 *)&D_800CC2D0) / 0x32C, arg2, 1);
+    func_150838EC(actor, arg7, mode, *(s32 *)&arg8);
+    if (restore != 0) {
+        D_800C3638 = 1;
+    }
+    return (s32)actor;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15083AC8 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15083AC8.s")
 extern u8 *D_800D20FC;
 extern u8 D_800D2100;
@@ -609,6 +705,133 @@ s32 func_15084000(s32 arg0) {
     }
     return -1;
 }
+void func_10004074(s32);
+void func_10023A10(void *, void *, s32);
+extern u8 D_800C57A0[];
+extern u8 D_800CC0E8[];
+extern void *D_800D19A0[];
+extern u8 D_800D1F80[];
+
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15084044 CURRENT (1934) */
+s32 func_15084044(void *arg0, s32 arg1) {
+    s32 failed;
+    u8 *count;
+    s32 size;
+    s32 offset;
+    s32 model;
+    register s32 mode;
+    register s32 parent;
+    u8 *pair;
+    u8 *current;
+    void **shared;
+    register void *resource;
+    void *allocated;
+    register u8 *config;
+
+    parent = ((u8 *)arg0)[0x65];
+    pair = (u8 *)arg0 + arg1 * 8;
+    if (parent != 0) {
+        config = *(u8 **)(D_800CC0E8 + parent * 0x32C);
+    } else {
+        config = *(u8 **)((u8 *)arg0 + 0x144);
+    }
+    mode = 0;
+    model = ((GameAEB40State *)arg0)->field_2C4[arg1];
+    if (config != 0) {
+        mode = config[0x10] & 3;
+    }
+    if (model == 0) {
+        mode = 2;
+    }
+    resource = *(void **)(pair + 0x28C);
+    shared = &D_800D19A0[model];
+    if ((resource != 0) && (*(void **)(pair + 0x290) != 0)) {
+        return 0;
+    }
+    allocated = *shared;
+    if (allocated == 0) {
+        return 0;
+    }
+    failed = 0;
+    if (mode == 0) {
+        *(void **)(pair + 0x290) = allocated;
+        *(void **)(pair + 0x28C) = allocated;
+        count = &D_800D1F80[model];
+        *count += 2;
+    } else if (mode == 1) {
+        if ((resource == 0) || (resource == allocated)) {
+            count = &D_800D1F80[model];
+            if (*count != 0) {
+                size = *(u16 *)(D_800C57A0 + model * 2) * 0x10;
+                allocated = func_10003C40(size, 1, 2, 2);
+                *(void **)(pair + 0x28C) = allocated;
+                if (allocated == 0) {
+                    failed = 1;
+                } else {
+                    resource = *(void **)(pair + 0x28C);
+                    if (resource != 0) {
+                        func_10023A10(*shared, resource, size);
+                    } else {
+                        *(void **)(pair + 0x28C) = *shared;
+                    }
+                }
+            } else {
+                *(void **)(pair + 0x290) = allocated;
+                *(void **)(pair + 0x28C) = allocated;
+                *count += 2;
+            }
+            resource = *(void **)(pair + 0x28C);
+        }
+        *(void **)(pair + 0x290) = resource;
+    } else {
+        offset = 0;
+        if (mode == 2) {
+            current = (u8 *)arg0 + arg1 * 8;
+loop:
+            allocated = *(void **)(current + 0x28C);
+            count = &D_800D1F80[model];
+            if ((allocated == 0) || (allocated == *shared) ||
+                ((offset == 4) && (*(void **)(pair + 0x28C) ==
+                                  *(void **)(pair + 0x290)))) {
+                if (*count != 0) {
+                    size = *(u16 *)(D_800C57A0 + model * 2) * 0x10;
+                    allocated = func_10003C40(size, 1, 2, 2);
+                    *(void **)(current + 0x28C) = allocated;
+                    if (allocated == 0) {
+                        failed = 1;
+                        if (offset == 4) {
+                            resource = *(void **)(pair + 0x28C);
+                            if (resource != *shared) {
+                                func_10004074((s32)resource);
+                            } else {
+                                *count -= 1;
+                            }
+                            *(void **)(pair + 0x28C) = 0;
+                        }
+                        goto done;
+                    }
+                    allocated = *(void **)(current + 0x28C);
+                    if (allocated != 0) {
+                        func_10023A10(*shared, allocated, size);
+                    } else {
+                        *(void **)(current + 0x28C) = *shared;
+                    }
+                } else {
+                    *(void **)(current + 0x28C) = *shared;
+                    *count += 1;
+                }
+            }
+            offset += 4;
+            current += 4;
+            if (offset != 8) {
+                goto loop;
+            }
+        }
+    }
+done:
+    return failed;
+}
+#endif /* CONKER_DEFERRED_CANDIDATE func_15084044 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_AEB40/func_15084044.s")
 void func_150843AC(GameAEB40State *, s32);
 
