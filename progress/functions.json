@@ -93542,7 +93542,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 65,
-        "reason": "Checkpoint57 full216 CURRENT65 independently restored4086c05a. All operations/order/control/span exact,12register rows childA0/rawA2 and managerA2/rawA3. New short owner-slot scope neutral65; explicit manager pointer1395 folds cachedbase into member addresses. Prior typed firstfield read neutral65 and late savedanchor scope720 also exhausted. Preserve consumed-anchor transition and late saved-anchor copy from checkpoint55; no shared/ABI/ASM changes or artificial pressure.",
+        "reason": "Checkpoint65 full216 CURRENT65 independently restored5c8a2461. SDK-shaped two-pointer insertion view with recovered anchor transition neutral65; single preserve-and-advance expression also neutral65. Prior owner scope65, manager pointer1395, typed first-field65 and late-copy scope720 exhausted. Exact operations/control/order/span retained, only childA0 versus rawA2 and managerA2 versus rawA3 across12rows. No shared/ABI/ASM/artificial pressure changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -96625,7 +96625,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 230,
-        "reason": "Full 816-byte US CURRENT 230: distance T1/raw T2 and denominator T2/raw T1 plus eight spill rows; angle/pan exact. Prior range snapshot, local order/storage, unsigned numerator and register range forms exhausted. New unsigned distance local is neutral230; signed best independently restored92ce48fd. No shared/ABI/ASM changes; preserve compound-angle candidate.",
+        "reason": "Checkpoint65 full816 CURRENT230 independently restored949683c3. Phase-scoped denominator561 changes division scheduling and spills range18; consumed limit parameter3581 shrinks frame30 versus raw38 and changes53registerrows. Both new hypotheses exhausted. Best preserves every opcode/control/order/span; only distanceT1 versus rawT2, rangeT2 versus rawT1 and associated1C/30 homes remain. Prior range/local-order/storage/unsigned-distance families exhausted. Full32 raw subtraction rejects narrow range. No padding, artificial pressure, ABI/shared/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
