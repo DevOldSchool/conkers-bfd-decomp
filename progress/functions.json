@@ -94525,7 +94525,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 55,
-        "reason": "Preserve original full-span CURRENT55. Batch11 newly proven siblingEC24 direct output check/store without value snapshot tested neutral55; exact original restored. Prior ten manual forms under expanded budget: value scope55, remaining scope175, unsigned high extraction435, signed mask55, post-write packed snapshot725, compound packed update250, low-u16 pack445, explicit signed-high cast55, assignment-in-condition55, pre-write full packed snapshot715. Same ten register rows in best; masks/scopes/conversions/snapshots tested without improvement. Prior width/read-order/chain/parameter forms exhausted. No permutation/shared/ABI changes, no match credit.",
+        "reason": "Checkpoint58 full212 CURRENT55 independently restoredfb311be8. Two new expression forms rejected: low-field XOR cancellation435 keepsANDI/XOR insteadLUI/AND; logical high-half extraction plus s16 decode250 keepsSRL insteadrawSRA. Best still ten register-only rows with exact operations/control/span. Prior scopes/masks/casts/packed snapshots/timer-condition/directoutput families exhausted. No added storage, padding, artificial pressure, shared/ABI/ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95164,7 +95164,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 26,
-        "reason": "Preserve CURRENT26 independently restored89c58536, full656. Checkpoint34 actual next-generation register hint neutral26; reusing result for generation and recapturing published id1575 fixed stack homes but retained extra LHU and changed78register rows. Prior16 revisions including indexed fields, mutable mix, local removals, generation widths/scopes, direct/conditional field updates and consumed arg0 reuse exhausted. Alternative parameter reuse50 has exact stack but seven a0/v1 swaps. Best26 retains exact frame50/result4E/control/registers; sound/state spills30/34 vs raw34/38 remain. No ABI/helper/shared/ASM changes.",
+        "reason": "Checkpoint58 full656 CURRENT26 independently restored6ba25c1f. Two new narrow masked-sound snapshot forms rejected: s16 snapshot1809 inserts sign extension before guard, u16 snapshot591 adds normalization and changes25registerrows. Best keeps exact instructions/registers/frame50/result4E, two spills sound30/state34 versusraw34/38. Prior next generation promotion/scope/removal/formal reuse, register hint, result reuse and fullword mask families exhausted. No shared/ABI/ASM changes or artificial pressure.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
