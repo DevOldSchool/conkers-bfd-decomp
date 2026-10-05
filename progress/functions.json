@@ -96146,8 +96146,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1140,
-        "reason": "Preserve inclusive bitmap initializer at CURRENT (1140), improved from1275 by explicit exit. Producer proves last-byte endpoint; generated starter was incorrectly exclusive. Captured bounds and partial-byte mask retain raw behavior. Branch structure, shift lowering and register differences remain; no padding or assembly substitution.",
+        "current_score": 945,
+        "reason": "CURRENT945 full76 US independently restored025077c6, improved1140 via actual just-written-byte pointer snapshot and inclusive do-loop. Producer5B04 proves last-byte endpoint; do/store/cursor++/written!=end recovers raw BNEoldcursor with incrementdelay. Remaining extra written MOVE, initial constant/global-load order, partial-mask shift lowering/registers. Four batch30 revisions: postincrementcondition1275, writtensnapshot945, masklocal neutral945, remainderpostdecrement1150. No exclusive-endpoint regression, padding, ABI, shared dependency or ASM changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
