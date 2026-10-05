@@ -93320,7 +93320,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 450,
-        "reason": "Batch19 five manual revisions improve full-span CURRENT1050 to450; independently restored49506a3c. Unsigned exit flag recovers three raw LI1 instructions instead of shared signed receive-mode MOVEs. Exact frame68 and all homes. Residual first-state S3 vs rawS4/constant4 swapped, shutdown message-address rematerialization vs candidate dead previous/cadence zero definitions; candidate8byteslong. Narrow processing scope1084, unsignedfirst neutral450, explicitgoto neutral450, liveflag drain1510 exhausted. Existing concrete task/client/helper contracts unchanged; no ABI/shared/ASM changes. See manual-init-20261005 ledger.",
+        "reason": "Checkpoint44 per-dispatch message-type scope and s32 snapshot of unchanged signed-halfword load both neutral450 (b204aeca,b4dde6d6). Best450 independently restored05e7d379. Full416 frame68/homes exact; first flag and constant4 swap S3/S4, shutdown reuses message address instead of rematerializing it and emits dead previous/cadence resets, eight bytes long. Prior processing-phase previous/cadence scope, unsigned first, explicit drain backedge and live done drain exhausted; retained u32done fixes raw LI1. New dispatch-type scope/word forms exhausted too. No ABI/shared/ASM/padding changes.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
