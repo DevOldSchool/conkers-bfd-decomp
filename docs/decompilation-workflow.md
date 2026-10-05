@@ -114,8 +114,6 @@ Without an override it retains the pinned cached tool. The call-evidence JSON
 records the selected generator path, requested options, Python-source hash,
 Git revision when available, and source-context hash. The content hash captures
 uncommitted generator changes as well as committed versions.
-See the [bounded context pilot](evidence/m2c_context_pilot_20261005.md) for the
-measured gains and the rejected grouped-generation experiment.
 
 Call context prefers active declarations in the allowed source, then reviewed
 SDK aliases. When those are absent, a unique active definition in the registered
