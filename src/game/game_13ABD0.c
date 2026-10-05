@@ -48,10 +48,8 @@ void func_1510D720(s32 arg0) {
 void func_10004074(s32);
 extern u32 D_800B0E58[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D7AC CURRENT (158) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_1510D7AC CURRENT (142) */
 void func_1510D7AC(s32 arg0) {
-    s8 *sp20;
-    s32 *sp1C;
     s32 *temp_v0_2;
     s8 *temp_a2;
     s8 temp_v1;
@@ -69,12 +67,9 @@ void func_1510D7AC(s32 arg0) {
             *temp_v0 = temp_t8;
             if (!(temp_t8 & 0xFF)) {
                 if (temp_v1 & 0x40) {
-                    sp20 = temp_a2;
                     func_10004074(*(s32 *)D_800B0E58[arg0]);
                 }
                 temp_v0_2 = (s32 *)&D_800B0E58[arg0];
-                sp1C = temp_v0_2;
-                sp20 = temp_a2;
                 func_10004074(*temp_v0_2);
                 *temp_v0_2 = -1;
                 *temp_a2 = 0;

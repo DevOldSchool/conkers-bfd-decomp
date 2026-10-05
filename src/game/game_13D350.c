@@ -88,25 +88,34 @@ void *func_151103C8(void *arg0, s32 arg1, s32 arg2, s32 arg3) {
 void *func_1501A680(void *);
 void *func_1501A6CC(void *, s32, s32, s32, s32);
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15110544 CURRENT (1980) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15110544 CURRENT (278) */
 void *func_15110544(void *arg0, s32 arg1, s32 arg2, s32 arg3,
                     s32 arg4, s32 arg5, s32 arg6, u8 arg7) {
-    void *temp_a0;
-    void *temp_v0;
-    s32 packed;
+    struct Command {
+        u32 high;
+        u32 low;
+    };
+    u32 packed;
 
-    *(s32 *)arg0 = 0xE7000000;
-    *(s32 *)((u8 *)arg0 + 4) = 0;
-    temp_a0 = (u8 *)arg0 + 8;
-    *(s32 *)((u8 *)temp_a0 + 4) = 4;
-    *(s32 *)temp_a0 = 0xEF302C0F;
-    temp_v0 = func_1501A680((u8 *)temp_a0 + 8);
-    *(s32 *)temp_v0 = 0xF7000000;
+    {
+        struct Command *command = arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command->high = 0xE7000000;
+        command->low = 0;
+    }
+    {
+        struct Command *command = arg0;
+        arg0 = (u8 *)arg0 + 8;
+        command->high = 0xEF302C0F;
+        command->low = 4;
+    }
+    arg0 = func_1501A680(arg0);
+    *(s32 *)arg0 = 0xF7000000;
     packed = (((u8)arg5 << 8) & 0xF800) |
              (((u8)arg6 * 8) & 0x7C0) |
              ((((s32)arg7 >> 2) & 0x3E) | 1);
-    *(s32 *)((u8 *)temp_v0 + 4) = (packed << 16) | packed;
-    return func_1501A6CC((u8 *)temp_v0 + 8, arg1, arg2, arg3, arg4);
+    *(s32 *)((u8 *)arg0 + 4) = (packed << 16) | packed;
+    return func_1501A6CC((u8 *)arg0 + 8, arg1, arg2, arg3, arg4);
 }
 #endif /* CONKER_DEFERRED_CANDIDATE func_15110544 */
 #pragma GLOBAL_ASM("asm/nonmatchings/game_13D350/func_15110544.s")
