@@ -20,7 +20,6 @@
  * - func_151E6964
  * - func_151E6C1C
  * - func_151E7DC0
- * - func_151E7EF8
  * - func_151E7F60
  * - func_151E81EC
  *
@@ -839,28 +838,25 @@ extern s32 D_10003330[];
 extern s32 func_151DDC20[];
 extern s32 func_151DE7D4[];
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_151E7EF8 CURRENT (280) */
 void func_151E7EF8(void) {
-    s32 *var_v0;
-    s32 temp_t6;
-    s32 var_v1;
+    u32 cursor;
+    u32 checksum;
+    u32 end;
 
     func_151E7E9C();
-    var_v0 = func_151DDC20;
-    var_v1 = 0;
-    if ((u32)var_v0 < (u32)func_151DE7D4) {
+    cursor = (u32)func_151DDC20;
+    end = (u32)func_151DE7D4;
+    checksum = 0;
+    if (cursor < end) {
         do {
-            temp_t6 = *var_v0;
-            var_v0++;
-            var_v1 += temp_t6;
-        } while ((u32)var_v0 < (u32)func_151DE7D4);
+            checksum += *(u32 *)cursor;
+            cursor += 4;
+        } while (cursor < end);
     }
-    if (var_v1 != 0xBFC924E3) {
-        D_10003330[0] = 0;
+    if (checksum != 0xBFC924E3U) {
+        *(volatile s32 *)D_10003330 = 0;
     }
 }
-#endif /* CONKER_DEFERRED_CANDIDATE func_151E7EF8 */
-#pragma GLOBAL_ASM("asm/nonmatchings/game_20F9A0/func_151E7EF8.s")
 typedef struct Game20F9A0SpawnConfig {
     f32 scale;
     s8 yOffset;
