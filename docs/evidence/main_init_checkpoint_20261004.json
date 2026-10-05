@@ -62,23 +62,34 @@
   "pending_batch": [],
   "validation": {
     "result": "BATCH_COMPLETE",
-    "scope": "Evidence checkpoint only: one SDK-backed volatile named-array MMIO form410 rejected, exact source20 restored; no source implementation/shared dependency changes, new matches or units. Existing 2E50/30A0 context revalidated by clean full US ROM/table/test/metadata/progress/whitespace batch. Nonzero2DB0 remains unaccepted. Prior independent full-span zero/layout receipts retained in previous_checkpoint_validation; not new focused checks this turn.",
+    "scope": "3220 candidate evidence checkpoint. One SDK-backed private static task declaration is neutral at6183 versus freshly remeasured extern6183; historical5623 not reproduced. Original extern declaration and C body retained; only score annotation, supported defer metadata and portable evidence updated. No new C match or completed unit. Existing3330/349C independently pass full-span zero/layout; clean full US ROM, linked tables, tests, metadata/progress/whitespace pass. Nonzero3220 remains unaccepted.",
     "batch_ids": [
-      "func_80002E50",
-      "func_800030A0"
+      "func_80003330",
+      "func_8000349C"
     ],
     "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
     "tests": 1833,
     "skipped": 37,
-    "test_seconds": 35.681,
+    "test_seconds": 38.354,
     "metadata": "valid",
     "progress": "current",
     "whitespace": "passed",
-    "completed_utc": "2026-10-04T23:54:24.521426+00:00",
-    "linked_table": {
-      "section": ".main_rodata_init_2e50",
-      "vma": "0x8002C080",
-      "size_bytes": 32,
+    "completed_utc": "2026-10-05T00:05:43.311118+00:00",
+    "additional_focused_checks": {
+      "func_80003330": {
+        "score": 0,
+        "attempt_record": "08215ef61e32411a9045a76ef86de4de",
+        "layout": "preserved"
+      },
+      "func_8000349C": {
+        "score": 0,
+        "attempt_record": "695e6a1e395741ddaf9e3959269bdeb2",
+        "layout": "preserved"
+      }
+    },
+    "linked_tables": {
+      "main_queue_bytes": 32,
+      "debugger_bytes": 208,
       "rom_equal": true
     }
   },
@@ -520,6 +531,11 @@
       20,
       410,
       410
+    ],
+    "func_80003220": [
+      5623,
+      6183,
+      6183
     ]
   },
   "preserved_candidate_scores": {
@@ -568,7 +584,8 @@
     "func_80004074": 1026,
     "func_80010558": 1530,
     "func_80007A24": 10,
-    "func_80002DB0": 20
+    "func_80002DB0": 20,
+    "func_80003220": 6183
   },
   "manual_limits": {
     "rule": "Carry attempts across continuations. Initial candidate plus at most two targeted revisions; stop after two non-improving revisions. Do not repeat exhausted equivalent hypotheses.",
@@ -807,9 +824,16 @@
       "targeted_revisions_remaining": 0,
       "inherited_forms": 3,
       "reason": "Private-storage root410/20/410 plus independently SDK-backed supplemental volatile array0 view410 exhausted; same two address ADDIU remain. Exact literal20 restored. Numeric score driven four MMIO immediate-colored rows, six private.data symbol rows uncolored; placement remains unaccepted. No further equivalent scalar/array/qualifier/address/storage retries without independent evidence and justified budget."
+    },
+    "func_80003220": {
+      "status": "candidate",
+      "current_score": 6183,
+      "new_forms_used": 1,
+      "targeted_revisions_remaining": 0,
+      "reason": "One independently SDK-backed private task storage form is neutral versus fresh original extern6183. Shared-base, frame20 versus18 and compressed target extent remain. Inherited layout/bcopy forms retained. No equivalent static/object-base/volatile/overlapping globals/padding retries without independent new evidence and justified budget."
     }
   },
-  "ledger_note": "2DB0 private-storage root410/20/410 plus one independently SDK-backed volatile named-array view410 exhausted; exact literal20 source restored byte-for-byte and supported defer independently20. Numeric score is four MMIO immediate-colored rows; six private.data symbolic rows uncolored, though full data placement still requires independent integration proof. No source/shared implementation changes, new match or completed unit this turn. Clean BATCH_COMPLETE1833 tests35.681s37skip exact full US ROM, main/debugger tables, metadata/progress/whitespace. Prior focused zero/layout and cache repair receipts retained. Cumulative38 matches/two completed units;22 current init files87 candidates20 originalASM remain; full goal active, no memory.",
+  "ledger_note": "3220 SDK-backed private task storage form6183 neutral against fresh original extern6183; historical5623 not reproduced. Original extern declaration/body retained; source change only candidate score annotation. One distinct form and one mandatory recovery check, no new match/unit/shared implementation changes. Existing3330/349C full-span0/layout and clean BATCH_COMPLETE1833 tests38.354s37skip exact full US ROM, both tables, metadata/progress/whitespace. Cumulative38matches/two completed units;22 init files87candidates20originalASM remain; goal active/incomplete, no memory.",
   "previous_clean_validation": {
     "result": "BATCH_COMPLETE",
     "scope": "2E50 source unit completed through supported integration after the independently matched C body was preserved and the external switch table was placed and verified against the original ROM. Neighboring 30A0 and established 38E0 matches independently rechecked; no new function match.",
@@ -1889,6 +1913,49 @@
         "uncolored_private_data_reference_rows": 6,
         "note": "Diagnostic operand10 counts differing symbol text; uncolored six private.data rows do not contribute numeric CURRENT score. Private data mapping still requires independent integration proof."
       }
+    },
+    "func_80003220": {
+      "source": "src/main/init_3220.c",
+      "full_span_bytes": 272,
+      "historical_preserved_score": 5623,
+      "focused_score": 6183,
+      "attempt_record": "f2444d8fd60d44098c75baf846d0bd84",
+      "status": "candidate",
+      "shared_dependency": false,
+      "new_forms": 1,
+      "recovery_checks": 1,
+      "body_unchanged_sha256": "8eb5e28d0b1b1b3249e9c993ebc08d0f922171a65bf04cd0a70d249fdf28eab7",
+      "storage_form": {
+        "declaration": "static SpTask D_80036B60;",
+        "score": 6183,
+        "attempt_record": "a24a829983e945338bdcd31763242b40",
+        "outcome": "Same s0 common base retained; private declaration restores no missing independent field address materializations. Neutral under fresh scoring; original extern declaration retained."
+      },
+      "proof": {
+        "sdk_source": "lib/ultralib/src/io/sptask.c:15",
+        "sdk_private_object": "static OSTask tmp_task;",
+        "raw_reference": "reference/us/asm/3220.s",
+        "copy_bytes": 64,
+        "converted_field_offsets": [
+          16,
+          24,
+          32,
+          40,
+          44,
+          48,
+          56
+        ],
+        "named_reference_audit": "Complete src/include/raw-main lookup finds named36B60/70/78/80/88/8C/90/98 only in owning source/raw3220. No exhaustive indirect alias claim.",
+        "ownership_limit": "SDK correspondence and named references do not establish exact BSS ownership/placement; private data was not integrated."
+      },
+      "residual_rows": {
+        "register_only": 2,
+        "operand_or_constant": 18,
+        "opcode_or_control_flow": 16,
+        "missing_or_extra": 28,
+        "stack_rows": 2
+      },
+      "historical_score_limit": "5623 is historical, not reproduced. Fresh original extern6183 is authoritative; candidate body unchanged. Next-member rows occur within full registered span; no return-bounded match claim."
     }
   },
   "previous_checkpoint_validation": {
@@ -1925,5 +1992,29 @@
       "rom_equal": true
     },
     "cache_regression_test": "tests/test_main_queue_object_build.py: newer focused-check object overwritten, canonical build prepares it again, repeated build does not double-adjust."
-  }
+  },
+  "checkpoint_validation_history": [
+    {
+      "result": "BATCH_COMPLETE",
+      "scope": "Evidence checkpoint only: one SDK-backed volatile named-array MMIO form410 rejected, exact source20 restored; no source implementation/shared dependency changes, new matches or units. Existing 2E50/30A0 context revalidated by clean full US ROM/table/test/metadata/progress/whitespace batch. Nonzero2DB0 remains unaccepted. Prior independent full-span zero/layout receipts retained in previous_checkpoint_validation; not new focused checks this turn.",
+      "batch_ids": [
+        "func_80002E50",
+        "func_800030A0"
+      ],
+      "full_us_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+      "tests": 1833,
+      "skipped": 37,
+      "test_seconds": 35.681,
+      "metadata": "valid",
+      "progress": "current",
+      "whitespace": "passed",
+      "completed_utc": "2026-10-04T23:54:24.521426+00:00",
+      "linked_table": {
+        "section": ".main_rodata_init_2e50",
+        "vma": "0x8002C080",
+        "size_bytes": 32,
+        "rom_equal": true
+      }
+    }
+  ]
 }

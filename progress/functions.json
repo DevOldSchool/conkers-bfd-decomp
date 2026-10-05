@@ -91431,8 +91431,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 5623,
-        "reason": "SDK task-copy layout and actual bcopy input forwarding preserved, including seven physical-address fields in one coherent object. Score 5623: compiler retains shared base in s0 instead of raw independent address materialization. No overlapping globals, volatile RAM or compiler-flag workaround.",
+        "current_score": 6183,
+        "reason": "Preserve original coherent extern SpTask layout and actual bcopy input forwarding with seven physical-address fields. Historical score5623 was not reproduced: fresh full272 extern recovery CURRENT6183 f2444d8fd60d44098c75baf846d0bd84; SDK-backed private file-static declaration also CURRENT6183 a24a829983e945338bdcd31763242b40, so storage form is code-neutral under current full-span scoring, not an established regression from a fresh5623 baseline. Both retain s0 common base, frame20 versus raw18 and next-member rows in target span. Original extern declaration/body restored; only candidate score annotation changes. Pinned sptask.c static tmp_task plus complete named-reference audit support correspondence, not BSS placement/object boundary; no private data integrated. One distinct storage-root form tested, recovery is not another body attempt. No match/unit or ABI/shared/SDK/header/ASM/compiler/matching-tool changes. No equivalent static/object-base/volatile/overlapping globals/padding retries without independent evidence and justified budget.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
