@@ -93837,8 +93837,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 3573,
-        "reason": "Preserve level callback at CURRENT (3573). Fullword formals and channel byte local recover behavior; parameter normalization worsens4482 and fullword channel local worsens4298. Raw preserves initial channel register and repeated byte masks differently. Stop after two non-improving source revisions.",
+        "current_score": 10,
+        "reason": "Manual ten-form pass improved 3573 to CURRENT10 using evidenced u8 helper/channel contracts and first-arm return. Sole residual beql v0,t2 instead of raw t2,v0 at 0x12c. Commutation, unsigned domain, named snapshot, equal-state return and byte extraction did not fix it. Best restored and rechecked; ledger manual-init-20261005.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93875,8 +93875,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2005,
-        "reason": "Preserve fullword/float callback at CURRENT2005. Inherited3100/2635/2005 sqrt-intrinsic and separate-relative-local forms exhausted. Fresh2005; current in-place coordinate formal regresses2635 and repeats inherited family; entry-time actual coordinate snapshot is code-neutral2005. Two non-improving forms stopped, exact original2005 restored. Raw MTCa2f14 before a2 reuse remains SWa2home20/LWC in compiled C; floating allocation/load/clamp scheduling unresolved. Do not repeat parameter mutation, entry snapshots, sqrt/clamp or frame shaping without independent new evidence. No ABI, shared dependency or compiler flag changes; no permutations.",
+        "current_score": 50,
+        "reason": "Improved2005 to CURRENT50: exact ROM literal24000.0f recovers load/clamp scheduling and in-place arg2 update now recovers entry MTC1 and arithmetic. Remaining nine FP register rows swap distancef2/valuef12 versus rawf12/f2. Declaration order, assignment chain, output comparisons and sqrt staging neutral50; ternary clamp1580. Seven manual forms, simplest50 retained; no ABI/shared edits. Local lifetime family exhausted pending independent evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -93894,8 +93894,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 264,
-        "reason": "Preserve valid packed callback CURRENT (264). Inherited scalar-return/default/by-value output shaping exhausted; current actual output-object corresponding-u32 read305 removes separate30spill but changes output allocation to v1 and loses raw spill-before-call. Exact264 snapshot restored, all contracts unchanged. One distinct new form; no eligible evidence-backed remaining revision without redundant writes or blind register search. Do not repeat output-object/lifetime shapes; no permutation.",
+        "current_score": 24,
+        "reason": "Improved264 to CURRENT24 via actual one-word output buffer plus scalar adjustment snapshot. All228bytes instructions/control/registers align except final value sw/lw at30 instead of raw output home3c. Unsigned whole-output269; array+late snapshot94; direct arrayreturn837; early real scalar snapshot24. Prior scalar/default/output-view families exhausted. Four new forms+baseline; preserve24 without redundant writes, artificial aliasing or padding.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -94438,17 +94438,16 @@
       "symbol": "func_8000E8F0"
     },
     {
-      "deferred": {
-        "candidate_preserved": true,
-        "current_score": 840,
-        "reason": "Preserve controller reset at CURRENT (840), improved from2926 by raw-supported four-record cleanup groups. Typed endpoint comparison was neutral. Exact frame and outer table initialization now agree; final pool-address reuse and outer loop termination differ. Three bounded attempts; no artificial padding.",
-        "recorded_revision": "working-tree"
-      },
       "overlay": "main",
       "regions": {
         "us": {
+          "evidence": {
+            "current_differences": 0,
+            "rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+            "verified_revision": "working-tree"
+          },
           "size_bytes": 352,
-          "state": "raw_asm",
+          "state": "matched",
           "symbol": "func_8000E934",
           "vram": "0x8000E934"
         }
