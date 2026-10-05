@@ -3,6 +3,8 @@
 
 from __future__ import annotations
 
+from collections import Counter
+
 import argparse
 import copy
 import hashlib
@@ -111,6 +113,9 @@ class CompactSequencePreview:
     notes: int
     loop_markers: int
     end_tick: int
+    loop_repeats: int = 0
+    loop_jumps: int = 0
+    loop_cutoffs: int = 0
 
 
 @dataclass(frozen=True)
@@ -235,8 +240,15 @@ def _midi_track(
     return b"MTrk" + struct.pack(">I", len(body)) + body
 
 
-def compact_sequence_to_midi(data: bytes) -> CompactSequencePreview:
-    """Convert a CSeq to a deterministic, single-pass Standard MIDI preview."""
+def compact_sequence_to_midi(data: bytes, loop_repeats: int = 0) -> CompactSequencePreview:
+    """Convert CSeq to MIDI with an explicit per-loop jump cap (zero: one pass).
+
+    Positive caps honour the native current-count byte and physical backwards
+    offset, bounded for offline use. They do not reproduce game marker selection.
+    Source bytes stay immutable; runtime count mutations are tracked separately.
+    """
+    if not isinstance(loop_repeats, int) or not 0 <= loop_repeats <= 8:
+        raise ValueError("CSeq loop repeat cap must be an integer from 0 through 8")
 
     if len(data) < COMPACT_SEQUENCE_HEADER_SIZE:
         raise ValueError("compact sequence is shorter than its 68-byte header")
@@ -261,6 +273,8 @@ def compact_sequence_to_midi(data: bytes) -> CompactSequencePreview:
     source_event_count = 0
     note_count = 0
     loop_marker_count = 0
+    loop_jumps = 0
+    loop_cutoffs = 0
     sequence_end_tick = 0
 
     for track, start in enumerate(track_offsets):
@@ -272,6 +286,8 @@ def compact_sequence_to_midi(data: bytes) -> CompactSequencePreview:
         order = 0
         running_status = 0
         track_events: list[tuple[int, int, int, bytes]] = []
+        loop_counts: dict[int, int] = {}
+        loop_visits: Counter[int] = Counter()
         delta = reader.read_varlen()
 
         while True:
@@ -305,6 +321,7 @@ def compact_sequence_to_midi(data: bytes) -> CompactSequencePreview:
                     loop_marker_count += 1
                     running_status = 0
                 elif meta_type == 0x2D:
+                    loop_position = reader.cursor
                     payload = reader.read_physical(6)
                     distance = int.from_bytes(payload[2:], "big")
                     marker = (
@@ -320,6 +337,23 @@ def compact_sequence_to_midi(data: bytes) -> CompactSequencePreview:
                     )
                     loop_marker_count += 1
                     running_status = 0
+                    if loop_repeats:
+                        current = loop_counts.get(loop_position, payload[1])
+                        if current and loop_visits[loop_position] < loop_repeats:
+                            target = reader.cursor - distance
+                            if not start <= target < loop_position or reader.backup_remaining:
+                                raise reader._error(f"invalid or compressed loop jump target {target:#x} (start={start:#x}, end={loop_position:#x}, backup={reader.backup_remaining})")
+                            loop_counts[loop_position] = current if current == 255 else current - 1
+                            loop_visits[loop_position] += 1
+                            loop_jumps += 1
+                            reader.cursor = target
+                        elif current:
+                            # A bounded capture stops here; native playback never
+                            # falls through a forever loop to later marker sections.
+                            loop_cutoffs += 1
+                            break
+                        else:
+                            loop_counts[loop_position] = payload[0]
                 else:
                     raise ValueError(
                         f"compact sequence track {track}: unsupported meta event "
@@ -392,6 +426,9 @@ def compact_sequence_to_midi(data: bytes) -> CompactSequencePreview:
         notes=note_count,
         loop_markers=loop_marker_count,
         end_tick=sequence_end_tick,
+        loop_repeats=loop_repeats,
+        loop_jumps=loop_jumps,
+        loop_cutoffs=loop_cutoffs,
     )
 
 
@@ -1536,6 +1573,28 @@ def parse_args() -> argparse.Namespace:
     )
     sample_preview_parser.add_argument("--output", type=Path)
     sample_preview_parser.add_argument("--force", action="store_true")
+    soundtrack_parser = subparsers.add_parser("soundtrack-preview")
+    soundtrack_parser.add_argument(
+        "--input", type=Path, default=Path("build/assets/audio/us")
+    )
+    soundtrack_parser.add_argument(
+        "--output", type=Path, default=Path("build/assets/soundtracks/us")
+    )
+    soundtrack_parser.add_argument(
+        "--labels", type=Path, default=Path("config/audio-sequences.json")
+    )
+    soundtrack_parser.add_argument(
+        "--mp3-input", type=Path,
+        help="Include nominated music-stream candidates from a matching MP3 extraction",
+    )
+    soundtrack_parser.add_argument("--reuse-preview", type=Path,
+                                   help="Share checked samples/MIDI/CSeq/MP3 files from an existing same-ROM preview")
+    soundtrack_parser.add_argument("--loop-repeats", type=int, default=0,
+                                   help="Per-loop backwards jump cap 0..8; zero keeps the original one-pass arrangement")
+    soundtrack_parser.add_argument("--loop-variant", type=int, action="append", default=[],
+                                   help="Add a separate two-pass bounded loop experiment for this numeric sequence ID")
+    soundtrack_parser.add_argument("--stream-cues", action="store_true",
+                                   help="Add separately labelled cue-timed MP3 experiments (requires soundfile)")
     return parser.parse_args()
 
 
@@ -1571,6 +1630,21 @@ def main() -> int:
                 f"looped samples and {duration:.1f} seconds of source audio, at "
                 f"{display_path(output)}"
             )
+        elif args.command == "soundtrack-preview":
+            # The renderer imports this module; import it only after CLI parsing.
+            sys.path.insert(0, str(ROOT))
+            from scripts.soundtrack_preview import build_soundtrack_preview
+
+            def rooted(path: Path) -> Path:
+                return path if path.is_absolute() else ROOT / path
+
+            manifest = build_soundtrack_preview(
+                rooted(args.input), rooted(args.output), rooted(args.labels),
+                rooted(args.mp3_input) if args.mp3_input else None,
+                reuse_preview=rooted(args.reuse_preview) if args.reuse_preview else None,
+                loop_repeats=args.loop_repeats, stream_cues=args.stream_cues, loop_variants=args.loop_variant,
+            )
+            print(f"Prepared soundtrack preview: {manifest['coverage']}")
         else:
             family, size, loop_validation = verify_audio_assets(args.profile, args.rom)
             verb = "Surveyed" if args.command == "survey" else "Verified"

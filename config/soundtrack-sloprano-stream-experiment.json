@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "normalized_rom_sha1": "4cbadd3c4e0729dec46af64ad018050eada4f47a",
+  "sequence_index": 66,
+  "sequence_sha1": "4145b1727542fca694731a9617b168ba58eae95d",
+  "instrumental_wav_sha1": "4f6cd6f318f4cef70dc54ec34b3b5becd726e713",
+  "notice": "Separate experiment: MP3 clock 22018 Hz, common projection gain 0.47 and 100 ms onset delay from bounded native excerpts. Instrumental timing and level remain approximate; game arrangement, channels, callbacks, full song and album identity remain unverified. Mixed-audio projections do not establish exact decoder parameters.",
+  "streams": [
+    {
+      "index": 238,
+      "source_sha1": "299021ae5782c771f81ae291b9b44ecf364968e5",
+      "preview_sha1": "70f756ea75f865aeb4ca4cc767c454246adbc936",
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.1
+    },
+    {
+      "index": 239,
+      "source_sha1": "52ffe0b404b08fbd55e993f7f87a72ad107588c3",
+      "preview_sha1": "24e2db033ce9e668848e0ecf91fa1b92c07c37a6",
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.1
+    },
+    {
+      "index": 240,
+      "source_sha1": "aae97988753cf7869a12897871e68cbd24d24d2e",
+      "preview_sha1": "268a54105fd65f6ef865f0d2be3628ba5c053d13",
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.1
+    },
+    {
+      "index": 241,
+      "source_sha1": "c4d3c72c83005ed51c6a4948b77fb26992d845cc",
+      "preview_sha1": "046ed246da954bdc7c6a8e0d483e34458f7dd425",
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.1
+    },
+    {
+      "index": 242,
+      "source_sha1": "26f53f204db24dcb39651684dd692e8c0ef6909a",
+      "preview_sha1": "e361d621b708834fbc9eafae7beedd2cd87b4400",
+      "playback_rate": 22018,
+      "gain": 0.47,
+      "delay_seconds": 0.1
+    }
+  ],
+  "stream_triggers": [
+    {
+      "index": 239,
+      "seconds": 29.250000000000007,
+      "tick": 23400,
+      "channel": 12
+    },
+    {
+      "index": 240,
+      "seconds": 95.88749999999892,
+      "tick": 76710,
+      "channel": 12
+    },
+    {
+      "index": 241,
+      "seconds": 105.86249999999846,
+      "tick": 84690,
+      "channel": 12
+    },
+    {
+      "index": 242,
+      "seconds": 167.18792943749585,
+      "tick": 136050,
+      "channel": 12
+    },
+    {
+      "index": 238,
+      "seconds": 220.38619199999383,
+      "tick": 197760,
+      "channel": 12
+    }
+  ]
+}

@@ -24,7 +24,8 @@ ROOT = Path(__file__).resolve().parents[1]
 CATEGORIES = {
     'characters': ('Characters', 'Characters, creatures and living objects.'),
     'collectables': ('Collectables', 'Cash, keys, food and multiplayer objectives.'),
-    'scene-items': ('Scene items', 'Scenery, props, vehicles, weapons and equipment.'),
+    'weapons': ('Weapons', 'Guns, crossbows, melee weapons, explosives and projectiles.'),
+    'scene-items': ('Scene items', 'Scenery, props, vehicles and equipment.'),
     'parts-effects': ('Parts & effects', 'Detached parts, attachments, debris and effects.'),
     'extracted-review': ('Extracted review', 'Remaining ROM exports for review. Includes unfinished materials, fragments, variants and records with no drawable faces. Assembled components and identical exported presentations are shown on their corresponding gallery cards.'),
 }
@@ -117,8 +118,9 @@ def gallery_page(records: list[dict], output: Path) -> str:
                     f'{html.escape(label)} <span class="tab-count">{count}</span></button>')
     template = Path(__file__).with_name('model_inspection.html').read_text()
     # Substitute only template tokens, never tokens inside user-facing metadata.
-    values = {'TABS': ''.join(tabs), 'CARDS': ''.join(cards), 'COUNT': str(len(records))}
-    return re.sub(r'\{\{(TABS|CARDS|COUNT)\}\}', lambda match: values[match[1]], template)
+    values = {'TABS': ''.join(tabs), 'CARDS': ''.join(cards), 'COUNT': str(len(records)),
+              'PREVIEW_STYLES': Path(__file__).with_name('preview-common.css').read_text()}
+    return re.sub(r'\{\{(TABS|CARDS|COUNT|PREVIEW_STYLES)\}\}', lambda match: values[match[1]], template)
 
 
 def digest(data: bytes) -> str:
