@@ -87,6 +87,7 @@ mkdir -m 700 "$runtime"
 cp -R toolchain/cloud-bootstrap/. "$runtime/"
 python3 "$runtime/bootstrap.py" --rebuild-armips "$repo"
 export PATH="$runtime/bin:$PATH"
+./conker host-setup
 ./conker doctor
 ```
 

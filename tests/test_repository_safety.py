@@ -69,6 +69,22 @@ class RepositorySafetyTests(unittest.TestCase):
         self.assertEqual(set(required["needs"]), set(workflow["jobs"]) - {"required"})
         self.assertIn("job['result'] == 'success'", required["steps"][0]["run"])
 
+    def test_public_tests_and_doctor_use_pinned_host_environment(self) -> None:
+        jobs = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())["jobs"]
+        for name in ("tooling", "toolchain"):
+            steps = jobs[name]["steps"]
+            commands = [step["run"] for step in steps if "run" in step]
+            setup = commands.index("./conker host-setup")
+            consumer = next(i for i, command in enumerate(commands)
+                            if "unittest discover" in command or "./conker doctor" in command)
+            self.assertLess(setup, consumer)
+            python = next(step for step in steps if step.get("uses", "").startswith("actions/setup-python@"))
+            self.assertEqual(python["with"]["python-version"], "3.12")
+            self.assertEqual(python["with"]["cache-dependency-path"], "toolchain/host-requirements.txt")
+        tests = next(step["run"] for step in jobs["tooling"]["steps"]
+                     if "unittest discover" in step.get("run", ""))
+        self.assertTrue(tests.startswith("build/host-python/bin/python3 "))
+
     def test_public_compile_fetches_pinned_sdk_and_mounts_only_its_headers(self) -> None:
         workflow = yaml.safe_load((ROOT / ".github/workflows/ci.yml").read_text())
         steps = workflow["jobs"]["compile"]["steps"]

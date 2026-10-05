@@ -37,6 +37,8 @@ usage() {
 Usage: ./conker <command> [options]
 
 Getting started
+  host-setup                     Install pinned host/test dependencies in build/host-python.
+  host-check                     Check host Python package pins and imports.
   doctor                         Check Docker and local prerequisites.
   rom-info <path>                Print a ROM's SHA-1 and file size.
   setup --us <path> [--eu <path>]
@@ -541,6 +543,10 @@ command="${1:-help}"
 shift || true
 
 case "$command" in
+    host-setup|host-check)
+        [[ $# -eq 0 ]] || die "usage: ./conker $command"
+        python3 "$repo_root/scripts/host_environment.py" "${command#host-}"
+        ;;
     help|-h|--help)
         usage
         ;;
@@ -554,6 +560,7 @@ case "$command" in
         python3 scripts/matching_callers.py "$@"
         ;;
     doctor)
+        python3 "$repo_root/scripts/host_environment.py" check
         ensure_image
         if ! image_is_healthy; then
             printf 'Toolchain image failed its smoke tests; rebuilding it locally...\n'
@@ -753,6 +760,10 @@ case "$command" in
         printf 'AGENT_ACTION: STOP_MATCHED\n'
         ;;
     verify-batch)
+        if ! python3 "$repo_root/scripts/host_environment.py" check; then
+            printf 'AGENT_ACTION: BLOCKED_TOOLING\n'
+            exit 2
+        fi
         batch_mode="clean"
         if [[ "${1:-}" == "--incremental" ]]; then
             batch_mode="incremental"
