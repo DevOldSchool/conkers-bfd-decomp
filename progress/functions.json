@@ -95020,7 +95020,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 2124,
-        "reason": "Preserve full-span US CURRENT2124 owner-mode dispatch (68453e4f0fc642fa97f874113785ae65), improved fresh2319 by raw-proven own s16arg3/u16arg4 contracts and one local forward declaration. Both raw callers supply LH/LHU values; active EDA0 matching caller still CURRENT0 (0f85e5b9a6274b8aa3e3e0144f6b1017), but active candidate adds8 bytes to later unit layout; restore canonical assembly before final caller layout check. Fullword volume/owner and SDK/helper contracts unchanged. One current form plus inherited2124/2195; actual saved-volume versus parameter home, callback address and register scheduling unresolved. No equivalent type/flag/saved-register shaping without independent new evidence.",
+        "reason": "Checkpoint52 full240 CURRENT2124 independently restored cc34d085 after two neutral revisions: register storage on volume (78e37dd3) and genuine local volume snapshot (0dc9a0c0). Raw preserves actual volume S1; compiler retains incoming stack home, changing call setup/callback scheduling and body extent. Prior own s16arg3/u16arg4 retained; no additional signature/shared changes. No equivalent storage retries without new independent evidence.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
@@ -95201,8 +95201,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 248,
-        "reason": "Checkpoint48 full88 CURRENT248 independently restored58952298. Real pan/volume snapshots in raw LBU then LHU order neutral248: loads still occur after global and stack argument loads instead of in prologue. Snapshot family now tested. Prior all-narrow signature rejected caller regression; actual object reads and owning cents s16 contract retain independently checked EFB4. No evidence for another ABI change; ten early argument home/load scheduling rows remain. No shared/ASM changes.",
+        "current_score": 60,
+        "reason": "Checkpoint52 full88 CURRENT60 f8b2c1ad improves248 by owning u8 pan contract. EC24/EFB4 independently CURRENT0. Only remaining mismatch LHUa2 at2E occurs in call setup instead of prologue. Joint narrow volume was focused0 but invalid due EC24835 and layout+28; preserve word volume. Consumed-formal normalization500; direct halfword lvalue neutral60. No shared changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
