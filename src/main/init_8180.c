@@ -23,6 +23,18 @@
 #define sequence_channels_fade func_80008790
 #define sequence_channel_set_fade_volume func_80008824
 #define sequence_channels_set_fade_volume func_8000886C
+#define sequence_channels_set_enabled func_800088F0
+#define sequence_channel_mask_set_enabled func_80008988
+#define sequence_channel_get_fade_volume func_80008A4C
+#define sequence_channels_set_fx_bus func_80008A94
+#define sequence_player_get_tempo func_80008B2C
+#define sequence_player_set_fx_param func_80008B60
+#define sequence_player_set_fx_mix func_80008BC0
+#define sequence_collect_loop_markers func_80008C04
+#define sequence_restore_marker func_80008C6C
+#define sequence_player_set_volume func_80008EE0
+#define sequence_player_stop func_80008F24
+#define sequence_player_pause func_80008F58
 
 typedef struct SequencePlayer SequencePlayer;
 typedef struct {
@@ -304,7 +316,7 @@ void sequence_channels_set_fade_volume(u8 arg0, s32 channels, u8 arg2) {
 void sequence_channel_off(u8, s32);
 void sequence_channel_on(u8, s32);
 
-void func_800088F0(u8 arg0, s32 channels, s32 enabled) {
+void sequence_channels_set_enabled(u8 arg0, s32 channels, s32 enabled) {
     s32 player;
     s32 channel;
 
@@ -332,7 +344,7 @@ struct SequencePlayer {
     SequenceChannel *channels;
 };
 
-void func_80008988(u8 arg0, s32 channels, s32 enabled) {
+void sequence_channel_mask_set_enabled(u8 arg0, s32 channels, s32 enabled) {
     s32 channel;
     s32 player;
 
@@ -347,12 +359,12 @@ void func_80008988(u8 arg0, s32 channels, s32 enabled) {
         }
     }
 }
-u8 func_80008A4C(u8 arg0, u8 channel) {
+u8 sequence_channel_get_fade_volume(u8 arg0, u8 channel) {
     return D_8003C900[arg0]->channels[channel].fadeVolume;
 }
 void func_80017E4C(SequencePlayer *, u8, u8);
 
-void func_80008A94(u8 arg0, s32 channels, s32 value) {
+void sequence_channels_set_fx_bus(u8 arg0, s32 channels, s32 value) {
     s32 channel;
 
     for (channel = 0; channel != 0x10; channel++) {
@@ -363,17 +375,17 @@ void func_80008A94(u8 arg0, s32 channels, s32 value) {
 }
 s32 func_80017EC0(SequencePlayer *);
 
-s32 func_80008B2C(u8 arg0) {
+s32 sequence_player_get_tempo(u8 arg0) {
     return func_80017EC0(D_8003C900[arg0]);
 }
 void func_80017F10(SequencePlayer *, u8, u8, u8, s32);
 
-void func_80008B60(u8 arg0, u8 bus, u8 param, u8 section, s32 value) {
+void sequence_player_set_fx_param(u8 arg0, u8 bus, u8 param, u8 section, s32 value) {
     func_80017F10(D_8003C900[arg0], bus, param, section, value);
 }
 void func_80017DF0(SequencePlayer *, f32, f32);
 
-void func_80008BC0(u8 arg0, f32 arg1, f32 arg2) {
+void sequence_player_set_fx_mix(u8 arg0, f32 arg1, f32 arg2) {
     func_80017DF0(D_8003C900[arg0], arg1, arg2);
 }
 /* ALCSeq and ALCSeqMarker prefixes and sizes from the compact-sequence API. */
@@ -392,13 +404,13 @@ extern SequenceData D_8003CA58[];
 extern SequenceMarker D_8003CD48[][8];
 void func_80018790(SequenceData *, SequenceMarker *, u32, u32);
 
-void func_80008C04(u8 arg0, u8 count, s32 first) {
+void sequence_collect_loop_markers(u8 arg0, u8 count, s32 first) {
     func_80018790(&D_8003CA58[arg0], D_8003CD48[arg0],
                   count, first);
 }
 void func_800186DC(SequenceData *, SequenceMarker *);
 
-void func_80008C6C(u8 arg0, u8 marker) {
+void sequence_restore_marker(u8 arg0, u8 marker) {
     func_800186DC(&D_8003CA58[arg0],
                   &D_8003CD48[arg0][marker]);
 }
@@ -457,15 +469,15 @@ s32 func_80008CE8(u8 arg0, s32 sequence) {
 #pragma GLOBAL_ASM("asm/nonmatchings/main/init_8180/func_80008CE8.s")
 void func_80018D00(SequencePlayer *, s16);
 
-void func_80008EE0(u8 arg0, s32 volume) {
+void sequence_player_set_volume(u8 arg0, s32 volume) {
     func_80018D00(D_8003C900[arg0], (s16)volume);
 }
 
-void func_80008F24(u8 arg0) {
+void sequence_player_stop(u8 arg0) {
     func_80018C60(D_8003C900[arg0]);
 }
 void func_80018D50(SequencePlayer *);
 
-void func_80008F58(u8 arg0) {
+void sequence_player_pause(u8 arg0) {
     func_80018D50(D_8003C900[arg0]);
 }
