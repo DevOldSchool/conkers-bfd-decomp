@@ -92991,7 +92991,7 @@
       "deferred": {
         "candidate_preserved": true,
         "current_score": 60,
-        "reason": "Six manual forms recover exact frame80, response64, request68 using disjoint index/chunk storage. CURRENT60 sole residual queue ADDU scheduled between max-size LUI/ORI instead of after ORI. Original CURRENT20 frame-mismatch candidate also saved in task ledger; scoped/union/ternary variants did not resolve scheduling.",
+        "reason": "Full296 US CURRENT60: exact frame80/response64/request68 and all registers; sole residual queue ADDU between limit LUI/ORI rather than after ORI. Two new tests: named real limit before queue neutral60, in-place chunk clamp961 changes frame/registers; best60 independently restored469a53cb. Prior six-form index/chunk shared storage, signed view, separate scopes, union and ternary trials remain exhausted. Original20 frame-mismatch alternative retained in task ledger. No shared/ABI/ASM changes or permutation.",
         "recorded_revision": "working-tree"
       },
       "overlay": "main",
