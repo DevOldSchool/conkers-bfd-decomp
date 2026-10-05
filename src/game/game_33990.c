@@ -335,9 +335,11 @@ extern u8 D_800D2E60[];
 extern u8 D_800D2E69[];
 extern u8 *D_800D2E4C;
 
-#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007778 CURRENT (4795) */
+#if 0 /* CONKER_DEFERRED_CANDIDATE func_15007778 CURRENT (1090) */
 void func_15007778(void) {
-    u8 *dst;
+    u32 dst;
+    u32 end;
+    u8 *entry;
     s8 *flags;
     s32 i;
 
@@ -350,14 +352,22 @@ void func_15007778(void) {
     D_800BE3DC = -1;
     D_800BE3DE = 0;
     D_80082BC0 = 1;
-    for (i = 0; i < 0x1B; i++) {
-        D_800D2E4C[i] = 0;
+    i = 0;
+clear_data:
+    entry = D_800D2E4C + i;
+    i++;
+    *entry = 0;
+    if (i < 0x1B) {
+        goto clear_data;
     }
-    dst = D_800D2E60;
-    do {
-        ++dst;
-        dst[-1] = 0;
-    } while (dst < D_800D2E69);
+    end = (u32)D_800D2E69;
+    dst = (u32)D_800D2E60;
+clear_flags:
+    dst++;
+    *(u8 *)(dst - 1) = 0;
+    if (dst < end) {
+        goto clear_flags;
+    }
     flags = (s8 *)D_800BE3D8;
     flags[0] = -1;
     flags[1] = -1;

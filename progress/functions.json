@@ -5748,8 +5748,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1740,
-        "reason": "No improvement: natural indexed25-record loop3295; pointer25-record loop4805; concrete array declaration neutral4805. Original manually unrolled candidate restored. Compiler unroll/induction shape unresolved; see deferred-manual-20260927 ledger.",
+        "current_score": 90,
+        "reason": "Task deferred-exact-20261005:2 manual revisions/2 finishes,1740->1050->90. Explicitbackedge suppresses unroll; aligned field views remove4extra subrecord ADDIU. Complete128B loop/control/registers exact; only initial SB666F and cursor/end ADDIU order remains, identical to15012F90 closed schedulingfamily. Prior indexed3295/pointer4805/array4805 not repeated. Validunsignedaddresses avoid beyondscalarpointer extent; no shared edits, unitincomplete. Need concrete setup scheduling evidence, no equivalent initialization cycling.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -14436,8 +14436,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 4795,
-        "reason": "Concrete correction: D800D2E4C is pointer loaded each iteration, not byte array; second loop must write9 bytes, old pretest wrote8. Corrected valid candidate4795 replaces invalid4215. Signed byte stores reuse -1. Explicit do/integer compare4955 and volatile stores4955 still unroll;3 manual revisions, no fresh loop hypothesis.",
+        "current_score": 1090,
+        "reason": "Task deferred-exact-20261005:3 hypotheses+restoration,4 finishes,4795->1090; chained unsigned tail1100 and comparison snapshot1100 did not improve. Earlier invalid4215 pointer-array/8byte errors remain corrected: reload actual pointer each27iterations and clear9bytes. Remaining firstloop SLTI/BNEZ vs equality BNE, globalptr/entry registers, secondcursor/end ADDIU swap, four tail constants/commonLUI/store order; full184B diff retained. Restore simpler valid1090 with safe unsigned second-loop address comparison. Prior do/volatile4955 carried; no new justified control/storage hypothesis, no shared edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -44194,8 +44194,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 2125,
-        "reason": "Manual two neutral2125 probes: simple word loop still emits remainder/unroll analysis; integer address comparison on original four-word body identical. Original candidate restored. Global endpoint/alias scheduling unresolved; ledger deferred-manual-20260927.",
+        "current_score": 670,
+        "reason": "Task deferred-exact-20261005:2 hypotheses+restoration,3 finishes,2125->670. Explicitbackedge/unsignedcursor repairs scalar-pointer extent and removes remainder/unroll. Actual allocator-result scalar reuse neutral670; simpler best restored. Full164B remaining extra LUI for D800D989C instead shared highhalf with D800D9898, setupstore schedule, cursorV1/endA0 versusrawV0/V1 and resulting shiftedtail. Prior simpleword and integercomparison loops neutral2125 carried. Need canonical globalstorage/common-address evidence, no speculative ABI or shared edits; unit remains mixed.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -73723,8 +73723,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 13134,
-        "reason": "Manual budget exhausted; preserved initial CURRENT13134. Sum loop unrolled four ways, scale spilled, frame70 versus40; group volatility and halfword local count did not recover raw loop.",
+        "current_score": 970,
+        "reason": "Manual task deferred-exact-20261005: 7 new hypotheses, 7 finish calls, 13134->970. Explicit backedge recovers raw 0x40 frame; reuse kind/X/squared-distance/sum/rotation-X scalar recovers first loop and count V1. Comparison snapshot restores SLT/BNEZ but boolean T3 differs from AT. Remaining short-circuit MTC1 branch-likely scheduling, index reset before rather than after atan call, inverse NEG/AND/MOVE shape, rotation F2/F12 and scratch registers; full diff retained. Unsigned induction increment and split/byte inverse forms did not improve; prior group volatility/count-halfword failures remain exhausted. No ABI/shared edits. Need new control-flow or real FP-lifetime evidence before further edits.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
@@ -91530,8 +91530,8 @@
     {
       "deferred": {
         "candidate_preserved": true,
-        "current_score": 1675,
-        "reason": "Current baseline1675; volatilefourstores2660 and single-bytecursor2275 both retain extra cleanup/unrolling absentraw. Original preserved; needs concrete bound/type evidence before another retry.",
+        "current_score": 90,
+        "reason": "Task deferred-exact-20261005: 2 new manual revisions/2 finishes improve1675->110->90; older volatile2660 and singlebyte2275 exhausted. All80B loop, registers and tail padding now exact. Only setup order remains: raw end ADDIU,cursor ADDIU,thirdglobal SB versus C thirdglobal SB,cursor ADDIU,end ADDIU at1C..24. Shared initialization-order plateau already investigated in other compact-loop candidates; do not cycle equivalent initializations. Preserved valid unsigned-address loop (repairs scalar-pointer extent), no shared changes. Need concrete compiler scheduling evidence; source unit remains incomplete.",
         "recorded_revision": "working-tree"
       },
       "overlay": "game",
